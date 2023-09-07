@@ -1,0 +1,72 @@
+{
+  "id": 144,
+  "name": "Ruben Somsen",
+  "username": "RubenSomsen",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/r/35a633/{size}.png",
+  "created_at": "2023-08-30T09:19:39.045Z",
+  "cooked": "<p>Thanks for reading.</p>\n<p>Yeah, in principle timelocking coins with another party would suffice for proving to them (not to others) that you made a sacrifice. I agree that doing this over LN has issues, liquidity wise.</p>\n<p>The nice thing about burning is that nothing has to resolve. I personally think it\u2019s the cleanest and simplest way, but you can equally make this scheme work by letting the aggregating third party provably lock up coins for some period of time and allowing them to take the coins back in e.g. a year so no coins are lost.</p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2023-08-30T09:19:39.045Z",
+  "reply_count": 0,
+  "reply_to_post_number": 2,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.0,
+  "yours": false,
+  "topic_id": 21,
+  "topic_slug": "proof-of-micro-burn-burning-btc-while-minimizing-on-chain-block-space-usage",
+  "topic_title": "Proof-of-micro-burn \u2013 Burning BTC while minimizing on-chain block space usage",
+  "topic_html_title": "Proof-of-micro-burn \u2013 Burning BTC while minimizing on-chain block space usage",
+  "category_id": 7,
+  "display_username": "Ruben Somsen",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "naumenkogs",
+    "name": "Gleb N",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/naumenkogs/{size}/9_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Thanks for reading.\n\nYeah, in principle timelocking coins with another party would suffice for proving to them (not to others) that you made a sacrifice. I agree that doing this over LN has issues, liquidity wise.\n\nThe nice thing about burning is that nothing has to resolve. I personally think it's the cleanest and simplest way, but you can equally make this scheme work by letting the aggregating third party provably lock up coins for some period of time and allowing them to take the coins back in e.g. a year so no coins are lost.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": true,
+  "admin": true,
+  "staff": true,
+  "user_id": 2,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}
