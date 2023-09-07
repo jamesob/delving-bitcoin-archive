@@ -6,7 +6,7 @@ This repository contains the archived contents of https://delvingbitcoin.org. It
 
 ## Contents
 
-Rendered topic threads are in [`archive/rendered-topics/`](./archive/rendered-topics).
+Rendered topic threads are in [`archive/rendered-topics`](./archive/rendered-topics).
 Raw post JSON, which might be useful for search indexing, can be found in
 [`archive/posts`](archive/posts).
 
