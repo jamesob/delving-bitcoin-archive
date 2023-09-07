@@ -12,11 +12,7 @@ Raw post JSON, which might be useful for search indexing, can be found in
 
 ## Running it yourself
 
-To run this yourself, do the following
-
 ```
-$ git clone --recurse-submodules https://github.com/jamesob/delving-bitcoin-archive
-$ python discourse-archive/archive.py
+$ pip install discourse-archive
+$ discourse-archive -u https://delvingbitcoin.org -t archive
 ```
-
-and then commit the results.

@@ -1,3 +1,0 @@
-[submodule "discourse-archive"]
-	path = discourse-archive
-	url = git@github.com:jamesob/discourse-archive
