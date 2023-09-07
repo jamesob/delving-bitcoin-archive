@@ -82,3 +82,22 @@ Further, now that I'm thinking about it, I would like to point out that for thos
 
 -------------------------
 
+jamesob | 2023-09-07 15:53:41 UTC | #6
+
+Okay! I've come up with a minimum viable script for doing this.
+
+Here's the archive repository: https://github.com/jamesob/delving-bitcoin-archive. 
+- The most interesting contents are probably the rendered markdown listing of topic threads: https://github.com/jamesob/delving-bitcoin-archive/tree/master/archive/rendered-topics. 
+- But I've also included a raw archive of the post JSON, which should be useful for search indexers: https://github.com/jamesob/delving-bitcoin-archive/tree/master/archive/posts.
+
+The script for doing the actual archiving is here (and should be easily pip-installable by anyone wanting to reproduce this process for themselves): https://github.com/jamesob/discourse-archive
+
+```
+pip install discourse-archive
+discourse-archive -u https://delvingbitcoin.org
+```
+
+The only caveat with this script is if someone updates an old post (older than a day), the update won't be detected. I'm not sure if there's a good solution for this, but maybe some other part of the API could clue us in to updated posts.
+
+-------------------------
+
