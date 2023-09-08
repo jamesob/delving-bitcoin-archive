@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 2,
+  "readers_count": 1,
+  "score": 45.4,
   "yours": false,
   "topic_id": 87,
   "topic_slug": "public-archive-for-delving-bitcoin",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Okay! I've come up with a minimum viable script for doing this.\n\nHere's the archive repository: https://github.com/jamesob/delving-bitcoin-archive. \n- The most interesting contents are probably the rendered markdown listing of topic threads: https://github.com/jamesob/delving-bitcoin-archive/tree/master/archive/rendered-topics. \n- But I've also included a raw archive of the post JSON, which should be useful for search indexers: https://github.com/jamesob/delving-bitcoin-archive/tree/master/archive/posts.\n\nThe script for doing the actual archiving is here (and should be easily pip-installable by anyone wanting to reproduce this process for themselves): https://github.com/jamesob/discourse-archive\n\n```\npip install discourse-archive\ndiscourse-archive -u https://delvingbitcoin.org\n```\n\nThe only caveat with this script is if someone updates an old post (older than a day), the update won't be detected. I'm not sure if there's a good solution for this, but maybe some other part of the API could clue us in to updated posts.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
