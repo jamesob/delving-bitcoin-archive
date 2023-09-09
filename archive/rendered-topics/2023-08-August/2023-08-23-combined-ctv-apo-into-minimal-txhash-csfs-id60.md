@@ -213,7 +213,7 @@ can be represented by an opcode. Even modes do not hash `annex`, odd do.
 
 -------------------------
 
-reardencode | 2023-09-08 16:44:56 UTC | #8
+reardencode | 2023-09-09 13:04:38 UTC | #8
 
 Continuing to explore these ideas, and discussing with many folks (thanks everyone), it is seeming more and more like for hash-based transaction validation there is at least some disjunction between the types of hashes that we would want to verify with a signature vs. those that we would want to check a simple comparison. In light of this, I'm working on an updated proposal that attempts to unify this style of (loosely) ANYPREVOUT/NOINPUT hash that can be used to form covenants, and (for similar reasons) allow for dynamic binding.
 
@@ -221,8 +221,8 @@ Some folks have been talking about soft forking both APO and CTV as written, whi
 
 If we design a separate hashing mode for our new Tapscript key version, then we can also mirror that mode (with appropriate modification for use in equality vs. signature check) to CTV with 33-byte hash, and avoid the temptation for folks to use pre-signed output covenants in awkward ways. Further, in designing the hashing mode, we can have a separate default mode from the existing SIGHASH_DEFAULT which is better suited to these V1 keys and would save a byte in whatever that common signing case is (I propose that this default be the signature-appropriate equivalent of CTV so that Tapscript v1 key and CTV hashes closely mirror each other).
 
-Here's my VERY incomplete draft of this line of thinking:
-https://gist.github.com/reardencode/2aa98700b720174598d21989dd46e781#file-proposal2-mediawiki
+Here's my (updated link) draft of this line of thinking:
+https://github.com/reardencode/bips/blob/bip-template-key/bip-template-key.mediawiki
 
 -------------------------
 
