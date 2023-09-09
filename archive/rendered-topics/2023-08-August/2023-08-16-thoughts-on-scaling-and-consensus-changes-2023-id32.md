@@ -160,7 +160,7 @@ I wrote a post to discuss the 'coinpool' concept and the usage of APO and CTV. B
 
 -------------------------
 
-melvincarvalho | 2023-09-09 19:00:33 UTC | #4
+melvincarvalho | 2023-09-09 19:10:03 UTC | #4
 
 What we know already:
 
@@ -174,9 +174,9 @@ Bitcoin's issuance is at about 93% now.  Which is an amazing achievement if you 
 
 Too many points in the post to address in one go, but could be broken into multiple posts.
 
-Given that fair coin distribution is almost complete, the project can start to build on its initial success by looking to scale with usage, though cautiously keeping an eye on the vandalism threat, and assuming and related attacks.
+Given that fair coin distribution is almost complete, the project can start to build on its initial success by looking to scale with usage, though cautiously keeping an eye on the vandalism threat, and related attacks.
 
-The plan for the medium term was 8MB blocks.  But increasing the block size should be a careful endeavour, since we only get one shot at it.  Perhaps over the next epoch modeling tools and AI will make an impact.  Firstly it may be able to impartially model the best path for an increase based on the information we have.  Furthermore, miners and users will increasing use AI to both increase their fees and decrease their fees to create an equilibrium.  It seems sensible that very large tx can pay a priority fee for a faster transaction.  The AIs will end up negotiating this.  Unless we build trust into the system the AIs will likely shut down game theory sub-optimal solutions such as drive chains.  It depends on what social conventions we can build into the AIs.  Could we build a social convention that says intention deep reorgs are bad?  Yes.  Could be build an AI that says you should lose net revenue to support, or not tax, a side chain?  No.  Nor should we.  L1 should work on game theory and reasonable assumptions of self-interest.
+The plan for the medium term was 8MB blocks.  But increasing the block size should be a careful endeavour, since we only get one shot at it.  Perhaps over the next epoch modeling tools and AI will make an impact.  Firstly it may be able to impartially model the best path for an increase based on the information we have.  Furthermore, miners and users will increasing use AI to both increase their fees and decrease their fees to create an equilibrium.  It seems sensible that very large tx can pay a priority fee for a faster transaction.  The AIs will end up negotiating this.  Unless we build trust into the system the AIs will likely shut down game theory sub-optimal solutions such as drive chains.  It depends on what social conventions we can build into the AIs.  Could we build a social convention that says intentional deep reorgs are bad?  Yes.  Could be build a social convention that says you should lose net revenue to support, or not tax, a side chain?  No.  Nor should we.  L1 should work on game theory and reasonable assumptions of self-interest.
 
 Increasing L1 then becomes more feasible while maintaining a lucrative fee market with a long tail for developers and the poorest in the world.  This is disrupted by the vandalism but not fatally, and as Satoshi said, there are things we can do about that.  
 
