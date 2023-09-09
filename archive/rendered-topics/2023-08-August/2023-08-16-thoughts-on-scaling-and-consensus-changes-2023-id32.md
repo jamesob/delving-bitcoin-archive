@@ -160,3 +160,36 @@ I wrote a post to discuss the 'coinpool' concept and the usage of APO and CTV. B
 
 -------------------------
 
+melvincarvalho | 2023-09-09 19:00:33 UTC | #4
+
+What we know already:
+
+L1 is finite, which is the fundamental reason that it's valuable.
+
+L2 involves trade-offs and scale better, but each cohort of users can use a trust profile to suit their needs.  Just as not every person interacts with the central bank.  The current banking system may not be perfect, but it scales to billions of people.  Bitcoin just has to be better than that, and offer the magical property that it's method of allocation was both fairer than anything else that went before, and also big enough to have a shot of challenging historical incumbents.
+
+Bitcoin's issuance is at about 93% now.  Which is an amazing achievement if you stop and think about it.  Especially if you believe, as I do, that satoshi gifted about 7% (c $30 Billion) to the community.  That one aspect of mining and the node network has got us through the initial early phase of bitcoin.  Now it looks to find its place in the world.
+
+ The large node network, with conservative block size, has also arguably protected bitcoin against possibly its biggest threats.  Unwanted forks, vandalism and regulatory overhang.  These three remain our biggest threats, though there is somewhere lurking a threat of miner centralization and reorgs or other similar attacks.  Forks and vandalism are a bigger threat because we face them today.  The conservative decisions to optimize for decentralization during phase 1 has been a brilliant one.  The block size war is unfortunately misnamed.  It wasnt about size, it was about whether we would have 1 bitcoin or 2 bitcoins.  IMHO the difference in choices did not justify the cost of having 2 bitcoins, which was disruptive.
+
+Too many points in the post to address in one go, but could be broken into multiple posts.
+
+Given that fair coin distribution is almost complete, the project can start to build on its initial success by looking to scale with usage, though cautiously keeping an eye on the vandalism threat, and assuming and related attacks.
+
+The plan for the medium term was 8MB blocks.  But increasing the block size should be a careful endeavour, since we only get one shot at it.  Perhaps over the next epoch modeling tools and AI will make an impact.  Firstly it may be able to impartially model the best path for an increase based on the information we have.  Furthermore, miners and users will increasing use AI to both increase their fees and decrease their fees to create an equilibrium.  It seems sensible that very large tx can pay a priority fee for a faster transaction.  The AIs will end up negotiating this.  Unless we build trust into the system the AIs will likely shut down game theory sub-optimal solutions such as drive chains.  It depends on what social conventions we can build into the AIs.  Could we build a social convention that says intention deep reorgs are bad?  Yes.  Could be build an AI that says you should lose net revenue to support, or not tax, a side chain?  No.  Nor should we.  L1 should work on game theory and reasonable assumptions of self-interest.
+
+Increasing L1 then becomes more feasible while maintaining a lucrative fee market with a long tail for developers and the poorest in the world.  This is disrupted by the vandalism but not fatally, and as Satoshi said, there are things we can do about that.  
+
+I see a scaling solution for bitcoin with L1 increasing block size, utreexto, stratum vnext, reorg alerts, defensive bips for cryptographic or consensus emergencies and possibly checkpointing.
+
+L2 scales with:
+- Liquid/Elements (can service a billion people)
+- RGB (privacy and smart contracts)
+- Other single-use-seals solutions, such as autonomous agents, which can go N layers deep
+- Regular CEX as banks like paypal and revolut start to provide bitcoin services for casual users
+- Other solutions including hybrid solutions such as (chaumian) emints
+
+That was mainly a brain dump of my initial thoughts.  Not very well organized, but I hope there's bits in there that are useful.
+
+-------------------------
+
