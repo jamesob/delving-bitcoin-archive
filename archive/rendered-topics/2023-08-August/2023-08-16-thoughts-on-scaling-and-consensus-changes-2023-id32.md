@@ -160,7 +160,7 @@ I wrote a post to discuss the 'coinpool' concept and the usage of APO and CTV. B
 
 -------------------------
 
-melvincarvalho | 2023-09-09 19:10:03 UTC | #4
+melvincarvalho | 2023-09-10 00:34:18 UTC | #4
 
 What we know already:
 
@@ -180,7 +180,7 @@ The plan for the medium term was 8MB blocks.  But increasing the block size shou
 
 Increasing L1 then becomes more feasible while maintaining a lucrative fee market with a long tail for developers and the poorest in the world.  This is disrupted by the vandalism but not fatally, and as Satoshi said, there are things we can do about that.  
 
-I see a scaling solution for bitcoin with L1 increasing block size, utreexto, stratum vnext, reorg alerts, defensive bips for cryptographic or consensus emergencies and possibly checkpointing.
+I see a scaling solution for bitcoin with L1 increasing block size, utreexo, stratum vnext, reorg alerts, defensive bips for cryptographic or consensus emergencies and possibly checkpointing.
 
 L2 scales with:
 - Liquid/Elements (can service a billion people)
