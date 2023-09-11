@@ -69,3 +69,9 @@ Cons:
 
 -------------------------
 
+ursuscamp | 2023-09-11 12:59:56 UTC | #2
+
+I assume some versions of these ideas have existed in the past. I'm curious about what algorithm could be used to take the random data (Bitcoin blockhashes in this case) and deterministically reveal some portion of a block? Any input in this regard would be a big help.
+
+-------------------------
+
