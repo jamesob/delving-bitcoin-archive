@@ -1,6 +1,6 @@
 # Bitcoin developer tools suck, <possibly> Devimint fixes this
 
-EthnTuttle | 2023-09-17 02:31:15 UTC | #1
+EthnTuttle | 2023-09-17 02:57:07 UTC | #1
 
 https://bitcointv.com/w/gXuKzcErKxWDv3KKBHZSbA 
 (Click bait title is click bait, but *possibly* correct)
@@ -14,7 +14,7 @@ I'll go first.
 
 There is a Rust library/binary (it can be used as both) that has automated the standing up of local regtest bitcoin infrastructure for developer environments or CI/CD tests.
 
-Let's look at `dev_fed()` because it is more elaborate that other commands I've documented and Fedimint uses it a lot in the tests. (The comment is from my local branch during exploration)
+Let's look at a `match` arm of [`handle_command()`](https://github.com/fedimint/fedimint/blob/master/devimint/src/main.rs) because it is more elaborate that other commands I've documented and Fedimint uses it a lot in the tests. (The comment is from my local branch during exploration)
 ```
 async fn handle_command() -> Result<()> {
     let args = Args::parse();
@@ -37,9 +37,11 @@ async fn handle_command() -> Result<()> {
             cleanup_on_exit(main, task_group).await?;
         }
         ...
+    Ok(())
+}
 ```
 
-Not only does it connect very commonly used bitcoin daemons, it then opens LN channels and generates blocks so it can pegin to a fully established and setup Fedimint. I've heard of but have not used a tool called Polar that seemingly does similar things, but with Docker. 
+Not only does it connect very commonly used bitcoin daemons/services, it then opens LN channels and generates blocks so it can pegin to a fully setup Fedimint. I've heard of but have not used a tool called Polar that seemingly does similar things, but with Docker. Fedimint couples this tool well with nix and mprocs.
 
 Do please watch the click bait video. There is more nuanced ideas and discussion that I did not cover here. NixOS and nix-bitcoin is also mentioned.
 
