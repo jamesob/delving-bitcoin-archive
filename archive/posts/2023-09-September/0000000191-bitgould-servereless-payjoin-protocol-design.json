@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 27,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 135.2,
+  "incoming_link_count": 40,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 215.6,
   "yours": false,
   "topic_id": 96,
   "topic_slug": "servereless-payjoin-protocol-design",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "A draft BIP has been submitted for the design of a payjoin protocol that stands a better chance at adoption: https://github.com/bitcoin/bips/pull/1483. \n\n> This document proposes a backwards-compatible second version of the payjoin protocol described in BIP 78, allowing complete payjoin receiver functionality including payment output substitution without requiring them to host a secure public endpoint. This requirement is replaced with an untrusted third-party relay and streaming clients which communicate using an asynchronous protocol and authenticated, encrypted payloads.\n\nThe proceeding discussion has given rise to a number of considerations and changes that I'm keeping track of on Delving Bitcoin. \n\n## Proposed Design\n\n### Metadata Security\n\nData security is paramount to achieving effective privacy through a widespread implementation. However, Tor and optional VPN support may undermine adoption and privacy respectively.\n\nI have recently discovered Oblivious HTTP (OHTTP), i.e. one-hop onion routing, to separate IP addresses from requests. I have recruited independent server operators to run OHTTP proxies to support serverless payjoin. The network protocol needs to be carefully considered to prevent an OHTTP proxy from conducting timing attacks of its own. \n\n### Authenticated Encryption\n\nPayjoin version 1 depends on third party public key infrastructure (TLS Certificate Authorities or Tor) to secure interactions. I propose payjoin v2 clients share ephemeral public keys to authenticate and encrypt payloads associated with particular payjoin requests peer-to-peer instead. OHTTP uses a simple Hybrid Public Key Encryption (HPKE) standard to this end which we can make use of inside the payjoin application as well.\n\nHowever, standard HPKE does not support secp256k1. Since all bitcoin software must support this curve we ought to support secp256k1 HPKE. Since secp256k1 is secure for our purposes and all parties relying on HPKE agree on a cryptosystem without conferring with third parties, this should be feasible.\n\n### Network Transport\n\nWe should use common network transport to be supported by as many clients as possible. By removing a TLS requirement such a protocol could even be supported by Bitcoin Core, since it would not introduce new upstream dependencies.\n\nI have explored a number of transport mechanisms for serverless payjoin, going as far as PoC implementations for a number of the following:\n\n- HTTP long polling\n- STUN/TURN/ICE p2p NAT traversal\n- WebRTC\n- WebSockets / Nostr\n- WebTransport\n- Custom application transport on QUIC\n\nPointing at widespread support and ease of implementation leads me back to simple HTTP polling. Additionally, HTTP support allows IP metadata to be secured using Oblivious HTTP. Using plain HTTP has the additional benefit of seamless backwards compatibility.\n\n### Backwards Compatibility\n\nVersion 2 payjoin relays may operate version 1 HTTPS ingress alongside v2 OHTTP to allow version 1 senders to attempt payjoin. Receiving version 1 payjoin over version 2 relay would require receivers to remain online, which may pose a UX challenge. Version 1 payloads are unencrypted and unauthenticated, so their senders would need to disable payjoin output substitution.\n\n### PSBT Version 2\n\nPSBT version 2 allows for simple multiparty transaction construction and mutation. New PSBT fields can also be introduced to carry payjoin parameters to forgo a dependency on an additional serialization format like JSON.\n\n\n### BIP 21 Public Key Encoding\n\nSince the latest proposed design shares two keys (OHTTP, Payjoin PK) in the BIP21 URI it is critical to be efficient in the way these are represented in text. base64 URL encoding and blockchain commons UR encoding are both viable, with UR encoding behaving a bit better when displayed in QR codes.\n\n## What do you think?\n\nI'm posting this to Delving Bitcoin to hear what you think of this design and its applicability to software you use and maintain. Let me know what you think.\n\nFollow the community links found on https://payjoindevkit.org to get involved.\n\n_New users can only post two links in a post, so I'll have to follow up with links to protocols referenced in this doc. Thanks for understanding._",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
