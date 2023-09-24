@@ -70,3 +70,17 @@ Hybrid Public Key Encryption ([HPKE](https://www.rfc-editor.org/rfc/rfc9180))
 
 -------------------------
 
+bitgould | 2023-09-24 17:21:14 UTC | #3
+
+## Mitigating Oblivious HTTP Relay Timing Attacks
+
+Although sender and receiver IP addresses are hidden from the payjoin relay and require OHTTP proxy and payjoin relay to collude in order to correlate a particular pair of payjoin peers, If both sender and receiver are using the same OHTTP proxy the timing of their traffic may sufficient for that proxy to correlate their IPs together.
+
+Long-polling in particular, where the payjoin relay responds once relevant data is available may make these timing attacks problematic. Without sufficient traffic or dispersion of OHTTP proxy, timing attacks will always be feasible. Therefore **the first order of business is to build up sufficient payjoin v2 adoption**.
+
+In order to mitigate the timing problem while advancing adoption, I propose that payjoin-enabled services which already know client IP addresses, (e.g. BitMask, BullBitcoin, Boltz) Operate their own OHTTP proxies and delegate a third party to operate their payjoin relay. If two of a service's users payjoin together under this design, the service may already be able to identify a correlation, but the payjoin relay would not.
+
+Assuming **sufficient relay traffic** i.e. overlapping payjoin protocol interactions parties, I think the ability to correlate sender and receiver sharing an OHTTP proxy can be mitigated with 1. regular HTTP polling rather than long-polling and 2. random delays and 3. A shift to larger third-party OHTTP proxies which transport relatively more traffic.  Delays would only work if they were sufficient enough so that an attacker would be unable to collect enough data to unwind the randomness and obtain clarity about the behavior of a specific set of peers.
+
+-------------------------
+
