@@ -63,3 +63,75 @@ The latter approach does raise the question as to how much unactivated potential
 
 -------------------------
 
+jamesob | 2023-09-29 13:41:37 UTC | #4
+
+@ariard writes on GitHub:
+
+> If we can have an end-to-end proof-of-concept implementation of each use-case brought as a justification to the proposed soft-forked opcodes. Otherwise it’s quite impossible to provide a sound technical review of the primitives robustness and trade-offs and state what they enable exactly. And it sounds we’re good to repeat the loop of the last 3 or 4 years of covenants discussions.
+> 
+> As a reminder, just to take the last example of channel factories, most of the folks who have done *real* research on the subject still disagree on the security model and fundamental trade-off of the proposed design of channel factories.
+> 
+> As one of my technical peer challenged on the [mailing list](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-September/020921.html) few months ago:
+> 
+> "So I think that means that part of the "evaluation phase" should involve
+> implementing real systems on top of the proposed change, so that you
+> can demonstrate real value from the change. It's easy to say that
+> "CTV can enable vaults" or "CTV can make opening a lightning channel
+> non-interactive" -- but it's harder to go from saying something
+> is possible to actually making it happen, so, at least to me, it
+> seems reasonable to be skeptical of people claiming benefits without
+> demonstrating they're achievable in practice.”
+> 
+> I’m fully sharing this opinion.
+
+It's worth noting that two of the major use-cases I mention in the original post have test implementations:
+
+- Vaults
+  -  `opvault-demo`: https://github.com/jamesob/opvault-demo/
+  - `simple-ctv-vault`: https://github.com/jamesob/simple-ctv-vault
+- LN-symmetry
+  - @instagibbs' CLN implementation: https://github.com/instagibbs/lightning/tree/eltoo_support
+  - Richard Meyers' test implementation: https://yakshaver.org/2021/07/26/first.html
+
+In my opinion, if all this fork did was enable these two use-cases (especially vaults), it would probably be worthwhile. But we know that indeed isn't the case, and some of the applications e.g. DLC efficiency improvements ([spec](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-January/019808.html)), are  so straightforward that a demo implementation doesn't seem prerequisite to seeing the value of CTV as a primitive.
+
+Another more speculative use that has a demo implementation is spacechains (https://github.com/nbd-wtf/simple-ctv-spacechain).
+
+-------------------------
+
+fiatjaf | 2023-09-29 13:44:59 UTC | #5
+
+There is also this fully working (with rough edges) Spacechain (with the actual parallel blockchain code too and not only the Bitcoin-BMM part) that works on signet: [https://github.com/fiatjaf/soma](https://github.com/fiatjaf/soma) (although there are no nodes online anymore anyone can always start a new chain).
+
+-------------------------
+
+jamesob | 2023-09-29 14:44:58 UTC | #6
+
+> I would rather be in a situation where only one of these proposals makes it through the review filter and gets activated, then having them all stuck.
+
+This is a point worth consideration.
+
+My goal here is not to have an omnibus softfork - I hope it's clear the contents here seem much more limited in scope and depth than either segwit or taproot. But I think we can't ignore the practical realities of the fixed overhead that comes with the activation process, both social and technical. If I've learned anything from the assumeutxo development cycle, it's that slicing changes too granularly, even when in some abstract software-engineering sense seeming like the "clean" thing to do, actually hampers the overall process because extensive review cannot be consolidated on a single package. I think there is an analogue here.
+
+At our current clip, it's looking like we navigate the softfork process about once every four years. That means if we did these efforts independently, we might have many years go by before having usable vaults in Bitcoin and/or either CTV or APO. I don't think this is a good outcome.
+
+Yes, in the abstract miners may be able to elect to signal independently for each proposal, but will they really show that level of involvement while simultaneously having neglected the review process up until the point of deployment? I think they'll likely just continue to default to whatever Core ships with (short of an egregious change).
+
+I was originally going to propose APO and CTV together without vault, but after speaking with a number of involved contributors it became clear that people felt
+1. OP_VAULT is a major "realization" of the use of CTV. The criticism among involved contributors a few years ago was that CTV doesn't go "far enough" to fully realize any one use-case, which OP_VAULT solves.
+2. Vaults are essential enough to fundamental bitcoin use that the "dead weight loss" of not having them available for another few years is significant.
+
+When I saw the relatively modest size of the patch for all three together (7,000 lines added including tests, of which there probably need to be more), I became convinced that it's worth, as a community, amortizing the painful effort of consensus review and deployment over the three of them.
+
+On a lighter note, there are uses that involve both CTV and APO - @instagibbs notes that his version of ln-symmetry makes use of CTV, or could be made to very easily.
+
+---
+
+It is my hope that people will agree
+1. CTV and APO have been extant long enough that there is broad consensus among most that both are safe changes, and they're both easy to review and reason about, and
+2. Vaults are a vital enough use-case that taking the effort to focus review for a few months is a good priority for those interested in matters of consensus.
+
+I think having all three together in the same package attracts many with varying interests and motivations. This seems important in summoning the "activation energy" necessary to perform a thorough review process and navigate the hazards of a consensus change.
+
+-------------------------
+
