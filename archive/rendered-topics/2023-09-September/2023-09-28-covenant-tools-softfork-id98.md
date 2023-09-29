@@ -141,3 +141,76 @@ What if omnibus soft forks are the only thing has any hope of running the gauntl
 
 -------------------------
 
+sjors | 2023-09-29 18:08:28 UTC | #8
+
+> Yes, in the abstract miners may be able to elect to signal independently for each proposal
+
+I think we should strongly suggest one set of proposals (bits) to signal for. There would be a Bitcoin Core point release with certain bits turned on, which miners (or some advocating an alternative binary) should only tweak if they have a good reason. What I'm arguing for is that we decide that set when the proposals are merged and ready to go, rather than upfront.
+
+
+The technical case for combining `CTV` with `OP_VAULT` seems stronger than the argument for combining `APO` with `CTV`. The narrow use case of `OP_VAULT` gives direction to `CTV`, in a similar way ln-symmetry gives direction to `APO`.
+
+Lines of code is one metric, and easy to measure, but with a soft-fork it's important to think through all the ways it can be used, its worst case resource consumption, etc. For that you probably want to look at a lot more stuff than just the code.
+
+In order to review APO well, I'd probably want to do a deep dive into ln-symmetry, which means brushing up on my lightning knowledge.
+
+For CTV I might instead choose to _only_ consider the OP_VAULT use case, since that's the only one I'm currently interested in. But I'd still want to feel comfortable that enough other people reviewed the plethora of other use cases you mentioned.
+
+That creates a dilemma if I had to choose between them: `CTV` + `OP_VAULT` is probably easier to grok than ANY_PREVOUT + ln-symmetry, but I'm not super comfortable ignoring all the other CTV use cases during review. Now, having to review _both_ just seems too daunting. In practice I would just end up approving some subset of the proposal. Hard to predict if review coverage over the whole proposal would end up equally distributed.
+
+Both proposals require thinking through the dilemma of whether we want to restrict them to an enumerated set of use cases, make them potentially flexible but without any guarantee they'll be useful (we're not running out of new op codes anytime soon), or thoroughly work out a broad set of conceivable use cases. Or some other way out of the dilemma. It's just hard to quantify how much thinking work that is (for starters, going though piles of mailinglist archives).
+
+
+Regarding the 4 year soft fork cycle: it used to be much quicker. And if you only consider the time between when a soft-fork proposal was reasonably fleshed out and it's time of activation, it's more like 1 or 2 years. Taproot was simpler than SegWit, but both were orders of magnitude more complicated than earlier proposals. I don't know how much we should attribute the recent slow deployments to drama, lack of energy or their complexity.
+
+
+
+> CTV and APO have been extant long enough that there is broad consensus among most that both are safe changes
+
+I never looked at CTV code and only know APO at a high level (despite having done two technical podcast episodes on it). I'm skeptical that "enough" people have looked at these proposals in enough nitty-gritty detail and actually tried to build things on top of it. At the same time I also don't really know how many people is "enough".
+
+Are the opvault-demo and CLN implementation enough? I guess I'd want to see two more. But then, Bitcoin Core didn't even have a SegWit wallet before that was deployed and activated. And how far along were lightning prototypes back then? So in that sense these two proposals may indeed be relatively mature.
+
+In other words, maybe one clearly useful demo project per proposed softfork _is_ enough. Personally I'd just have to more thoroughly review the proposals to determine if these demo's really exercise them well.
+
+-------------------------
+
+ajtowns | 2023-09-29 19:51:55 UTC | #9
+
+Couple of comments:
+
+[quote="jamesob, post:1, topic:98"]
+I’d like to propose a softfork deployment that activates the consensus changes outlined in
+[/quote]
+
+Personally, I think the "activation" part is probably the least interesting/useful thing to talk about.
+
+[quote="jamesob, post:1, topic:98"]
+The patches for BIP-118 and BIP-119 have long been stable and well scrutinized;
+[/quote]
+
+I don't really think that's quite true: there's a couple of outstanding changes to BIP 118 that seem pretty likely to be desirable ([inq#19](https://github.com/bitcoin-inquisition/bitcoin/issues/19)); and I don't really think either 118 or 119 have really been super well scrutinized. Meanwhile, 345 hasn't had been officially published yet.
+
+[quote="jamesob, post:1, topic:98"]
+Vaults with BIP-345, on the other hand, would be delayed only by the speed of wallet implementers. [Example wallet implementations](https://github.com/jamesob/opvault-demo/) already exist,
+[/quote]
+
+The link there goes to a project whose first commit was two weeks ago. To me, that's an exciting first step -- I'd rather read about how that works, see demo transactions, and think about if either it's broken, or if it could be improved, either with better use of the proposed features, or with alternative proposals. But using a two week old demo as an argument for activating a consensus change just seems way over-eager.
+
+[quote="jamesob, post:1, topic:98"]
+The implementation for these consensus changes is only about [7,000 lines ](https://github.com/bitcoin/bitcoin/compare/master...jamesob:bitcoin:2023-09-covtools-softfork?), and that includes comprehensive testing.
+[/quote]
+
+I wouldn't call the bip 118 code "comprehensively tested" -- implementing the proposed change mentioned above doesn't cause any breakage in the unit tests, and there aren't test vectors included with the BIP, eg.
+
+For me, I'd rate the next steps as:
+1. make it easy for people to try out demos and see what value they have (the vault stuff, ln-symmetry, spacechains?), ideally being able to run a live demo in public, in a way that allows people to attempt to attack it
+2. improve tooling for all this stuff -- we still don't really have all the tooling for *taproot*, after all (eg musig2, adaptor signatures, descriptors to specify specific tapscripts...)
+3. once we've demonstrated that these really are good idea, get more thorough review of everything, including:
+   * more tests
+   * check if there's any tangible improvements to be had from tweaking the API (`op_txhash` etc)
+   * do our best to make sure that people can understand the proposed changes and judge them on their merits
+4. only then see about activating them
+
+-------------------------
+
