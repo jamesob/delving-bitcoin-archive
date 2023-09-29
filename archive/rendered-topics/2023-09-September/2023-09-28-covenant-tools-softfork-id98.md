@@ -214,3 +214,9 @@ For me, I'd rate the next steps as:
 
 -------------------------
 
+ajtowns | 2023-09-29 20:22:41 UTC | #10
+
+Oh, also: ln-symmetry likely needs work on package relay and fees paid via ephemeral transactions and ways to avoid pinning (which may also need consensus changes, if done via an assertion "this signature is invalid if the tx is larger than X vbytes")
+
+-------------------------
+
