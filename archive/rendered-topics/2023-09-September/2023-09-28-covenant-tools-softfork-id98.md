@@ -47,3 +47,19 @@ The related Bitcoin Core pull request is here: https://github.com/bitcoin/bitcoi
 
 -------------------------
 
+sjors | 2023-09-29 09:46:38 UTC | #3
+
+One of the things I remember from the Taproot days is that it was impossible for most mortals, including myself, to review the entirety of the proposal. But it made sense to combine all its ingredients in a single fork. E.g. adding Schnorr signatures and/or MAST to regular SegWit script would have added complexity, which Taproot neatly avoided.
+
+These three proposal however are much more suitable for independent deployment. In particular I see no reason to make `ANYPREVOUT` dependent on the less mature `OP_VAULT`, but I also don't see why `CTV & OP_VAULT` should be held back by `ANYPREVOUT`.
+
+BIP9 introduced the ability to activate multiple forks in parallel, so I suggest using one bit for each. This doesn't preclude the possibility to _bundle them in the activation phase_ (and of course BIP-345 can't activate if BIP-119 doesn't). Bundling activation can make sense because it takes a lot of effort to convince miners to signal.
+
+I would rather be in a situation where only one of these proposals makes it through the review filter and gets activated, then having them all stuck.
+
+As each of these proposals gets added to Bitcoin Core, we may at some point feel great about all of them. In that case we recommend miners to set flags `ANYPREVOUT & CTV & OP_VAULT`. But maybe for some reason `CTV` isn't getting enough review, but  `ANYPREVOUT ` has been merged, tested and fuzzed to death in the master branch for years. In that case we could wait even longer, or recommend just the `ANYPREVOUT` flag and keep the rest for later (presumably leaving activation params for these entirely unset).
+
+The latter approach does raise the question as to how much unactivated potential softfork code we want in the main codebase. Since even unactivated code can lead to bugs. That bar should be high imo, but I can see some grey area between mosty-done and ready-to-activate.
+
+-------------------------
+
