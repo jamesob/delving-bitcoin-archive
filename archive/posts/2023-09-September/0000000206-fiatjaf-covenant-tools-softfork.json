@@ -12,8 +12,8 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
+  "reads": 6,
+  "readers_count": 5,
   "score": 1.0,
   "yours": false,
   "topic_id": 98,
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "There is also this fully working (with rough edges) Spacechain (with the actual parallel blockchain code too and not only the Bitcoin-BMM part) that works on signet: [https://github.com/fiatjaf/soma](https://github.com/fiatjaf/soma) (although there are no nodes online anymore anyone can always start a new chain).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
