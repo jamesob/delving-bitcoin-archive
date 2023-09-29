@@ -220,3 +220,46 @@ Oh, also: ln-symmetry likely needs work on package relay and fees paid via ephem
 
 -------------------------
 
+harding | 2023-09-29 20:31:57 UTC | #11
+
+I don't oppose any of these proposals, individually or together, and I'll be happy to see any or all of them included in Bitcoin (as long as no major problems are found during review).  However, I continue to feel like adding specific features to Bitcoin for unproven usecases is a suboptimal approach.  Looking at @jamesob's list:
+
+[quote="jamesob, post:1, topic:98"]
+* [vaults ](https://bitcoinops.org/en/topics/vaults/) (reactive custodial security),
+* [LN-Symmetry ](https://bitcoinops.org/en/topics/eltoo/),
+* efficient implementations of [DLCs ](https://bitcoinops.org/en/topics/discreet-log-contracts/),
+* [non-interactive channel openings ](https://utxos.org/uses/non-interactive-channels/),
+* [congestion control ](https://utxos.org/uses/scaling/),
+* decentralized mining pools (via [CTV compression in coinbase payouts ](https://utxos.org/uses/miningpools/)),
+* various [Lightning efficiency improvements ](https://twitter.com/roasbeef/status/1692589689939579259),
+* using [covenant based timeout-trees ](https://bitcoinops.org/en/newsletters/2023/09/27/) to scale Lightning, and more generally enabling [channel factories](https://bitcoinops.org/en/topics/channel-factories/).
+[/quote]
+
+- **Vaults** can be done today with presigned transactions.  The presigned versions are a lot harder to implement correctly than with `OP_CTV` + `OP_VAULT`, they can't receive payments without interaction with the payer, and the vault user needs to store more data.  However, it seems to me that if there were high demand for the general ability to have hot spends announced onchain with a cancellation window, a significant number of people would be using presigned vaults---but I'm not aware of that happening.
+
+- **LN-Symmetry:** has not received a significant amount of work from people who usually work on LN and discussions about it often indicate that some LN developers think a different protocol is needed, such as one that continue to provide penalties.  It also seems to me personally that John Law's tunable penalties protocol provides the primary advantage of LN-Symmetry (proper assignment of penalties when >2 parties are involved) without requiring any consensus change.
+
+- **More efficient DLCs:** if this is referring to [what I think](https://bitcoinops.org/en/newsletters/2022/02/02/#improving-dlc-efficiency-by-changing-script), this efficiency boost is just in the amount of offchain operations DLC users need to generate and store; it doesn't significantly change the onchain footprint of DLCs.  DLCs have been operational for several years but have not seen any major use that I'm aware of; I believe this is partly due to their poor scalability characteristics.  Every DLC-based trade needs to be anchored onchain; it's possible to use the same anchor for multiple trades, but only if you use the same trading partner(s) for all of them.  By comparison, a centralized trading clearinghouse (e.g. an exchange) requires trust but can pair any seller with any buyer.  AFAIK, there are no proposed solutions for the scalability problem of DLCs.
+
+- **Non-interactive channel openings:** I haven't looked into this in detail, but this looks to me like a version of [swap in potentiam](https://bitcoinops.org/en/newsletters/2023/01/11/#non-interactive-ln-channel-open-commitments), which is possible today and with (I'd guess) about the same onchain cost as using CTV.
+
+- **Congestion control:** to do congestion control, you need to be able to do payment batching, but payment batching remains underused by popular custodians (although, happily it is used more than when Jeremy Rubin first posted CTV).
+
+- **Decentralized mining pools:** I haven't looked at this in detail, but we already have a mechanism (Stratum v2) that allows individual hashers to get pretty close to decentralized pooling, but very few hashers seem to be using those features of Stratum v2.
+
+- **Various LN efficiency improvements:** it's hard to tell what's being proposed from a tweet-level of text here, but simplification of existing highly used code is something I'd find to be an effective argument for CTV.
+
+- **Using covenant based timeout trees:** Law's previous proposals, e.g. hierarchical channels and the Fully Factory Optimized Watchtower Free (FFO-WF) protocols provide channel factories that are more capital efficient and more compatible with casual user behavior than previous factory designs, and they don't require any consensus changes to implement.  The timeout tree design can use those previous protocols to obtain much greater efficiency, so the first step would be implementing hierarchical channels and FFO-WF in LN nodes.
+
+I feel like (with the possible exception of Osuntokun's tweet), if these were really great ideas that people really wanted and that application developers were eager about, wouldn't we see more work on, and adoption of, the versions of those protocols which can be deployed now without consensus changes?
+
+Another way to look at it, using vaults as an example, if `OP_VAULT` will give thousands of custodians and potentially millions of casual users a 10x better experience keeping their funds safe, why is it that so few developers are working on the 2x-5x improvement that presigned vaults provides and few users seem excited about presigned vaults?
+
+One reason I can think of for this incongruity between the enthusiasm for CTV/APO/VAULT and the lack of development or use of immediately-deployable versions is that most developers are waiting for CTV/etc. to become available before building the their version of vaults, improved channels, and other features.  But, if that's the case, how many other great ideas are being held up waiting for the entire Bitcoin userbase to agree on a very specific set of consensus changes?
+
+I feel like a better approach would be to enable a really general set of features that would allow anyone to create and deploy scripts that work like CTV/APO/VAULT and more, even if not in the most efficient way, without having to wait for permission.  If we see a lot of onchain use (or otherwise demonstrated offchain use) of a generalized feature for something that would be more efficient if it was specialized, we can soft fork in that specialized feature and everyone who previously used the generalized version can immediately switch to the specialized version---an instant win with hopefully no controversy.
+
+The stub proposal I've used for this in the past is `OP_CSFS` + `OP_CAT`, or some variation on it (such as the SHA-based version used in Elements).  That's a really small consensus change and yet it allows implementation of any sort of transaction introspection we might want.  Of course, maybe Simplicity, BTC Lisp, TXHASH, MATT, or something else would be better.  The risks of this approach are recursive covenants and the creation of MEV scenarios, but it seems to me that there's also a risk of stifling development if we won't build anything until a new limited opcode is added for it in an event that might only happen once every four years, plus the risk of adding specialized opcodes or sighashes to Bitcoin that we will need to support forever but which might never see any significant use.
+
+-------------------------
+
