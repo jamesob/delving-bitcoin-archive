@@ -135,3 +135,9 @@ I think having all three together in the same package attracts many with varying
 
 -------------------------
 
+ursuscamp | 2023-09-29 15:37:15 UTC | #7
+
+What if omnibus soft forks are the only thing has any hope of running the gauntlet anymore? Changing Bitcoin is becoming more political as the tent gets larger. It is only natural. In order to get enough people on board for a change, you have to give something to everyone.
+
+-------------------------
+
