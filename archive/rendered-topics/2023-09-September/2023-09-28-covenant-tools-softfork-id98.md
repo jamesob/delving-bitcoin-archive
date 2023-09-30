@@ -263,3 +263,132 @@ The stub proposal I've used for this in the past is `OP_CSFS` + `OP_CAT`, or som
 
 -------------------------
 
+jamesob | 2023-09-30 11:36:45 UTC | #12
+
+Thanks for your thoughtful reply, @harding.
+
+There is a lot to respond to here, and I will do so in this thread for the most part, but I wanted to make specific note of your point on vaults:
+
+> **Vaults** can be done today with presigned transactions. The presigned versions are a lot harder to implement correctly than with `OP_CTV` + `OP_VAULT`, they can’t receive payments without interaction with the payer, and the vault user needs to store more data. However, it seems to me that if there were high demand for the general ability to have hot spends announced onchain with a cancellation window, a significant number of people would be using presigned vaults—but I’m not aware of that happening.
+
+Because this is a rich subject and, unsurprisingly, I've got a bit to say, I have spun out my response into a separate thread:
+
+https://delvingbitcoin.org/t/the-unsuitability-of-presigned-transactions-for-vaults/113
+
+-------------------------
+
+jamesob | 2023-09-30 12:15:35 UTC | #13
+
+[quote="ajtowns, post:9, topic:98"]
+Personally, I think the “activation” part is probably the least interesting/useful thing to talk about.
+[/quote]
+
+I heartily agree. I meant less to talk about particular activation method and more put a stake in the ground on what I think a desirable target feature-set would be for the next soft fork.
+
+I also didn't mean to suggest that the literal HEAD of the draft PR is what I think we should merge - again, it was to give people a tangible reference point for what the shape of the change would look like.
+
+[quote="ajtowns, post:9, topic:98"]
+I don’t really think that’s quite true: there’s a couple of outstanding changes to BIP 118 that seem pretty likely to be desirable ([inq#19 ](https://github.com/bitcoin-inquisition/bitcoin/issues/19)); and I don’t really think either 118 or 119 have really been super well scrutinized. Meanwhile, 345 hasn’t had been officially published yet.
+[/quote] 
+
+I should maybe walk back some of my initial exuberance. In suggesting this fork, my goal was to focus the community on a particular feature set. It wasn't to say that all the details have been ironed out and we're ready to ship next week.
+
+But consider how long both APO and CTV have been publicized. The refrain seems to always be "we just need `x` more years of thought experiments and testing." If, as Jeremy said at some point, progress is a memoryless process, what are we really doing here?
+
+At some point we need to decide on a direction and start getting serious about activating things that are widely regarded as desirable and safe in concept. Otherwise, in the immortal words of Jim Morrison, we're just wallowing in the mire. Saying "we need more demos and tooling" hasn't delivered a lot over the last few years, maybe in part because Bitcoin's human capital is apparently out of proportion with our expectations on hurdles to clear.
+
+[quote="ajtowns, post:9, topic:98"]
+But using a two week old demo as an argument for activating a consensus change just seems way over-eager.
+[/quote]
+
+That's a reasonable objection, my bad.
+
+[quote="ajtowns, post:10, topic:98"]
+Oh, also: ln-symmetry likely needs work on package relay and fees paid via ephemeral transactions and ways to avoid pinning
+[/quote]
+
+Just because something has multiple dependencies doesn't mean we need to hold up progress on all the dependencies until they can proceed lockstep together. I think solving the package relay problem is pretty orthogonal to signatures that can bind to different outpoints, although no doubt that ln-symmetry certainly informs package relay's design.
+
+---
+
+I want to be clear that my proposal isn't "let's merge this code now." It's "I think this would be a great feature set for the next update to script; can we agree on it and start to work towards particulars?"
+
+I completely agree with you that more scrutiny, and testing is needed. But can you see the benefits of determining a shared goal to work towards? Right now the design space is so open and amorphous that paralysis seems pretty much assured.
+
+-------------------------
+
+jamesob | 2023-09-30 13:04:10 UTC | #14
+
+[quote="harding, post:11, topic:98"]
+I feel like a better approach would be to enable a really general set of features that would allow anyone to create and deploy scripts that work like CTV/APO/VAULT and more, even if not in the most efficient way, without having to wait for permission. If we see a lot of onchain use (or otherwise demonstrated offchain use) of a generalized feature for something that would be more efficient if it was specialized, we can soft fork in that specialized feature and everyone who previously used the generalized version can immediately switch to the specialized version—an instant win with hopefully no controversy.
+
+The stub proposal I’ve used for this in the past is `OP_CSFS` + `OP_CAT`, or some variation on it (such as the SHA-based version used in Elements). That’s a really small consensus change and yet it allows implementation of any sort of transaction introspection we might want. Of course, maybe Simplicity, BTC Lisp, TXHASH, MATT, or something else would be better. The risks of this approach are recursive covenants and the creation of MEV scenarios, but it seems to me that there’s also a risk of stifling development if we won’t build anything until a new limited opcode is added for it in an event that might only happen once every four years, plus the risk of adding specialized opcodes or sighashes to Bitcoin that we will need to support forever but which might never see any significant use.
+[/quote]
+
+This is a nice sentiment, and the "CISC vs. RISC" debate is a great target for its own thread, but in general I think even when you set aside large script sizes and the difficulty of working with bitcoin script, CAT and CSFS are non-starters.
+
+The amount preservation and batching features of the `OP_VAULT` design would require 64 bit arithmetic in script, as well as opcodes that facilitate taptweak checks (merkle operations), and pushing various parts of the transaction to the stack. The "deferred checks" aspect of VAULT, which enables batching (and would be required for signature aggregation), requires fundamental modifications to the validation code outside of script.
+
+The "open sandbox in script" approach, again enviable for its permissionlessness, just doesn't seem realistically workable to me given all these prerequisites. Or we'd be talking about a script overhaul that entails a much larger fork. There's also probably a camp of people who would argue that it'd rather be worth focusing on Simplicity to get to that level of complexity in script.
+
+And once we get there, if we got there, we'd have to contend with the brittle nature of writing these scripts and the ensuing on-chain footprint. And the eventual "jetting" of opcodes that emerge from the on-chain experimentation.
+
+These criticisms apply to proposals like MATT and OP_TX.
+
+---
+
+I really see where you're coming from on this one, and at a low level I agree with you, I just don't think it's the most expeditious path to making bitcoin much more useful on the scale of a few years.
+
+-------------------------
+
+ajtowns | 2023-09-30 13:05:27 UTC | #15
+
+[quote="harding, post:11, topic:98"]
+The presigned versions are a lot harder to implement correctly than with `OP_CTV` + `OP_VAULT`, they can’t receive payments without interaction with the payer, [...] However, it seems to me that if there were high demand for the general ability to have hot spends announced onchain with a cancellation window, a significant number of people would be using presigned vaults—but I’m not aware of that happening.
+[/quote]
+
+Ease of (correct) use is a big deal though -- otherwise you could say "Linux is a lot harder to use than Windows NT, however if there were high demand for an OS that didn't [suck], a significant number of people would be using Linux--but everyone's running Windows NT" and conclude Linux is worthless.
+
+[quote="harding, post:11, topic:98"]
+why is it that so few developers are working on the 2x-5x improvement that presigned vaults provides and few users seem excited about presigned vaults?
+[/quote]
+
+I don't think pre-signed vaults really get the right security properties? As described in [2019](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-August/017231.html):
+
+> One of the biggest problems with the vault scheme [..] is an attacker that
+> silently steals the hot wallet private key and waits for the vault's
+> owner to make a delayed-spend transaction to initiate a withdrawal
+> from the vault. If the user was unaware of the theft of the key, then
+> the attacker could steal the funds after the delay period.
+
+I think you **could** simulate everything about OP_VAULT if you have access to an HSM that you trust -- then you just have a "vault key" that only the HSM has the privkey for, and have the HSM enforce the rules that OP_VAULT would when signing for that key. However if you have an HSM that you trust already, I think you don't really have a need for the "withdraw everything to an offline wallet in the case of attempted theft" behaviour that OP_VAULT is all about providing.
+
+I think the answer to the same question but for CTV/OP_VAULT vaults (vs presigned ones) is that many people estimate the chance of a successful consensus change to Bitcoin -- especially one advocated for by Bitcoin businesses -- at something like 0.01%, so a 5x improvement reduces down to something like 1.0004x when you calculate the expected value. And of course, new consensus features are immediately part of the commons, so you're not getting an obvious competitive advantage by having them available.
+
+Personally, I'd say: improve the demo, make it easier to try yourself, and to understand what's going on (eg, run an optech workshop about it) -- if there's interest in that (people go to the workshop, people are interested in podcasts/videos about the demo, people run the demo themselves), then that starts becoming a good reason to think about activation/etc. IMHO, etc.
+
+[quote="harding, post:11, topic:98"]
+It also seems to me personally that John Law’s tunable penalties protocol provides the primary advantage of LN-Symmetry (proper assignment of penalties when >2 parties are involved) without requiring any consensus change.
+[/quote]
+
+I think n-party channels are a bit futuristic, really -- we still have enough problems getting 2-party channels to work, and there's currently enough room on-chain for spam floods so the efficiency gains aren't yet necessary. For me, for now, the main benefits of eltoo/ln-symmetry/tunable penalties is rather that:
+
+1. if your node has a problem, you're no longer necessarily risking 100% of your channel balance if you try to close the channel; and
+2. you only need to keep a constant amount of state in order to close the channel and claim all your funds, rather than having to remember an ever increasing amount of data potentially forever.
+
+Without APO (or equivalent), though, you don't quite achieve the first of those in a sufficiently hostile scenario even with Law's tunable penalties ([ref](https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-April/003899.html)).
+
+-------------------------
+
+ajtowns | 2023-09-30 13:14:28 UTC | #16
+
+[quote="jamesob, post:13, topic:98"]
+I completely agree with you that more scrutiny, and testing is needed. But can you see the benefits of determining a shared goal to work towards? Right now the design space is so open and amorphous that paralysis seems pretty much assured.
+[/quote]
+
+I think tooling (eg your [verystable](https://github.com/jamesob/verystable) repo, or similar for rust/go/etc, or base library work like libsecp or the core wallet or libwally) and demos (your vault demo, ln-symmetry, spacechains, [etc?]) are better things to focus on. If the demos end up with us saying "this killer app seems ready now, and only needs this feature, not that one, and none of the other wannabe killer apps seem to have panned out yet", then that's fine. If we have working demos of useful things, that also seems like it would make it easier to say "oh, this alternative approach to implementing the feature makes things slightly easier/more efficient/more flexible" vs just having to go on aesthetics.
+
+I think the advantage of APO/CTV/OP_VAULT vs the more amorphous collection of ideas is that it's easy to decide/implement their functionality and then build applications on top of that functionality. If that's true, then doing demos should be relatively easy; if it's not true, then I'm not sure that paralysis in the meantime actually causes much problem.
+
+-------------------------
+
