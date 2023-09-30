@@ -8,13 +8,13 @@
   "post_number": 2,
   "post_type": 1,
   "updated_at": "2023-09-29T19:18:42.400Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 20.6,
   "yours": false,
   "topic_id": 103,
   "topic_slug": "new-user-link-limitation",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Okay, that's three complaints about this and the [stackoverflow thing](https://meta.stackexchange.com/questions/122893/does-restricting-the-number-of-links-for-new-users-do-any-good) about the similar constraint there doesn't indicate it's very useful, so I've bumped this from 2 to 100. You're also bumped from new user to regular; [in theory](https://blog.discourse.org/2018/06/understanding-discourse-trust-levels/) discourse automatically adjusts trust levels as you read/post/comment/etc.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
