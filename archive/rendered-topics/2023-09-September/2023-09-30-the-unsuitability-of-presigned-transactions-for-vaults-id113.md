@@ -123,3 +123,61 @@ I don’t think pre-signed vaults really get the right security properties? As d
 
 -------------------------
 
+AntoineP | 2023-10-01 18:56:45 UTC | #4
+
+I'd like to comment on a few things:
+- Liana is not an emulation of a vault;
+- I think you don't address the right point with regard to covenant emulation;
+- I believe Revault actually needs some sort of covenant to be practical.
+
+
+[quote="jamesob, post:1, topic:113"]
+It’s worth noting that there are open efforts to implement (or emulate) vaults using the existing scripting capabilities we have today, namely [Revault](https://wizardsardine.com/revault/), [Liana](https://wizardsardine.com/liana/), and Bryan Bishop’s [prototype code ](https://github.com/kanzure/python-vaults).
+[/quote]
+Liana is neither aiming to emulate a vault nor using a vault-like construction. I think of vaults as protecting against theft, and of Liana as protecting against loss. Technically it's simply a wallet where you've got an additional, timelocked, spending path (similarly to Green).
+
+That said it could make good use of a covenant in the spirit of `TLUV` to avoid requiring users rotate their coins to prevent timelock expiration! I think `OP_VAULT` could be enough actually.
+
+[quote="jamesob, post:1, topic:113"]
+During recent discussions about [Covenant tools softfork ](https://delvingbitcoin.org/t/covenant-tools-softfork/98), a few people have raised the ideas that
+
+1. Vaults can be implemented today using transactions which are presigned with ephemeral keys, and
+[/quote]
+
+In your post you are mixing up the Revault and ephemeral-key approaches with emulating a covenant using a trusted oracle. You address the former but not the latter. Also Revault isn't aiming to emulate a covenant. It's a vault design in itself, a covenant could improve it but not replace it entirely.
+
+On the other hand the idea you mention (also present in one of your quotes) is about how you can always in a Script require the signature from a cosigning server enforcing the rules of the covenant. This way any form of covenant can be emulated with a trusted oracle.
+
+There is probably good reasons why this hasn't been done (especially for vaults, where the SPOF is particularly problematic). But it's also a fair point to raise: we don't know of anybody allegedly interested in using vaults who reached the point in development where they have an MVP which emulates the covenant they need using a simple cosigning server.
+
+[quote="jamesob, post:1, topic:113"]
+### Quotes
+[...]
+> Vaults can be done today with pre-signed transactions, even if the trade-offs are different it’s a practical construction.
+>
+>
+>
+> * @ariard ([Covenant tools softfork by jamesob · Pull Request #28550 · bitcoin/bitcoin · GitHub](https://github.com/bitcoin/bitcoin/pull/28550#issuecomment-1741554330))
+[/quote]
+
+I [agree with you](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-April/020337.html) "vaults" with a pre-committed transaction chain aren't very interesting. I would argue the closest design to an actual vault which doesn't need a covenant is Revault. But i actually believe it does need one, in practice. (This is [one of the reasons](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-January/021368.html) we've paused development there, along with a lack of *serious* interest.)
+
+In Revault, one must never give away a signature for an Unvault transaction if (all) their watchtowers haven't received all the signatures for the Cancel transaction. Not only should they never sign the Unvault before the Cancel but also they must *somehow* verify all their watchtowers received all Cancel transaction signatures. I don't think this verification can be done reasonably securely for the kind of amounts you'd have on a vault.
+
+A covenant (as simple as `CTV` for instance) would solve this by making the process "atomic". Since the Cancel transaction is (one way or another) committed to in the Unvault output, it always exists whenever an Unvault transaction is signed. And this would presumably be enforced by the signing device itself.
+
+I guess this is one more point in favour of "it doesn't follow from the lack of usage of Revault that people don't want vaults at all". I'm not convinced they do though, just figured it was worth sharing.
+
+
+---
+
+Besides, small point on @harding's post:
+
+[quote="harding, post:2, topic:113"]
+I’m not sure CPFP needs to be used (can sighash flags be used?),
+[/quote]
+
+Probably not. Without APO one malleated txid and all the funds are gone.
+
+-------------------------
+

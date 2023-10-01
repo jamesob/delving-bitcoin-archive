@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 36.4,
   "yours": false,
   "topic_id": 113,
   "topic_slug": "the-unsuitability-of-presigned-transactions-for-vaults",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I wanted to add this point from @ajtowns in the other thread, which is an argument I do find compelling about the advantage of OP_VAULT over presigned transaction vaults.\n\n[quote=\"ajtowns, post:15, topic:98\"]\nI don\u2019t think pre-signed vaults really get the right security properties? As described in [2019](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2019-August/017231.html):\n\n> One of the biggest problems with the vault scheme [\u2026] is an attacker that\n> silently steals the hot wallet private key and waits for the vault\u2019s\n> owner to make a delayed-spend transaction to initiate a withdrawal\n> from the vault. If the user was unaware of the theft of the key, then\n> the attacker could steal the funds after the delay period.\n[/quote]",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

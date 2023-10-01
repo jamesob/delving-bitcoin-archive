@@ -8,13 +8,13 @@
   "post_number": 2,
   "post_type": 1,
   "updated_at": "2023-09-30T17:39:14.427Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 36.6,
   "yours": false,
   "topic_id": 113,
   "topic_slug": "the-unsuitability-of-presigned-transactions-for-vaults",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "As noted in the quote from me from the other thread, I think @jamesob's vault design is superior from a user's perspective than presigned vaults.  However, it seems to me that users ought to be able to get most of the key benefits using presigned transactions.  As such, I'll play devil's advocate here.\n\n[quote=\"jamesob, post:1, topic:113\"]\nthere are large custodial operations that are both emulating vaults with automated multisig signing *and* implementing vaults with presigned transactions, however this isn\u2019t widely publicized. These are institutions that manage a lot of bitcoin. I have firsthand knowledge of one (presigned)\n[/quote]\n\nThis is very useful for me to hear and is the type of information that would help change my mind on the desirability of adding vault-specific (or vault-motivated) opcodes.\n\n[quote=\"jamesob, post:1, topic:113\"]\n**Use of ephemeral keys**: to emulate vaults today (without multisig/autosigning), users must generate temporary private keys that must be destroyed after use to lock funds into a pretermined spend path using \u201cbearer asset\u201d transactions. None but the most sophisticated and well-funded operations can generate ephemeral keys in a way that is convincingly secure, and even then there are questions. Proving non-existence of attack is impossible.\n[/quote]\n\nWhat is the fundamental difference between an ephemeral key and an ephemeral nonce (the private form of a signature nonce)?  If Alice accidentally leaks the private form of a signature nonce for one of her signed transactions, any funds she received to the corresponding key or a related key using public BIP32 derivation can be stolen (as long as those funds haven't already been spent in a confirmed transaction).\n\nIt feels to me like ephemeral keys and ephemeral nonces are really closely related, so any argument that states ephemeral keys aren't secure enough is an argument that neither ECDSA nor schnorr is secure enough, especially in the presence of address reuse.\n\n[quote=\"jamesob, post:1, topic:113\"]\n**Address reuse => burnt coins**: because transaction graphs are pregenerated, if coins are accidentally sent to an \u201calready sealed\u201d presigned txn vault, the coins are burnt. This means end users cannot be given vault addresses publicly, and even sophisticated users must be very careful.\n[/quote]\n\nI mention this is a clear advantage of consensus-enabled vaults, but now I'm not so sure.  IIRC, in the OP_VAULT design, the most-secure-key can spend at any time without any time constraint, so why can't all of the paths in a presigned transaction vault have a tapleaf that allows spending by the most-secure-key?  That way, if something goes wrong, the most-secure-key can be used to recover and coins never become permanently burnt.\n\nThat said, I agree it's still the case that address reuse breaks the vault workflow, so external users can't be given vault address publicly, requiring an extra hop for any deposits.  However, address reuse is also something that's not generally guaranteed to work---people lose access to old keys from time to time---so the fact that it always doesn't work for presigned transaction vaults just means we need to work harder on deploying system-wide solutions, such as wallet-enforced address expiry times.\n\n[quote=\"jamesob, post:1, topic:113\"]\n**Difficult UTXO management**: vault creation is very onerous since it requires generating ephemeral keys securely, and this setup process must be performed every time the user deposits. This makes coin consolidation difficult.\n[/quote]\n\nI maintain my previous argument about secure ephemeral key generation being something we have extensive near-experience with.  I don't see a fundamental difference between the difficulty of securely handling ephemeral nonces each time a user spends to securely handling ephemeral keys each time a user needs to receive.  I think this is basically a repeat of your first point.\n\n[quote=\"jamesob, post:1, topic:113\"]\n**Static/difficult fee management**: because transactions are pregenerated, the fee management strategy must be decided up front and locked in. This means that inefficient CPFP must be used with a statically defined fee wallet. If that fee wallet is lost, the vault\u2019s operation is hampered.\n[/quote]\n\nI'm not sure CPFP needs to be used (can sighash flags be used?), but even if it does, presigned vault transactions may be able to have an efficiency advantage over OP_VAULT transactions by the presigned versions being able to use all keypath spends (with BIP68 sequence bits set), whereas OP_VAULT must use scriptpath spends (unless the most-secure-key is used).  I think the vbytes difference probably favors the OP_VAULT version there (unless a deep taproot path is used), but I think it makes the comparison less clear cut.\n\nAdditionally, I think ephemeral anchors, if deployed, will eliminate the need to use a statically-defined wallet.  Instead, any onchain funds will be able to fee bump the vault transaction without introducing pinning risks.\n\n[quote=\"jamesob, post:1, topic:113\"]\n**\u201cToxic\u201d vault data must be persisted indefinitely**: the nature of using presigned transaction means that vaulted funds become \u201cbearer assets\u201d within these transactions, and they must be persisted indefinitely by the user.\n[/quote]\n\nI think this is largely the same problem faced by tens of thousands of LN nodes at present---they must store revoked states robustly but also securely, as any loss and release of that data can cost them money.  This is certainly less than ideal, but it hasn't stopped widespread use of LN.\n\n[quote=\"jamesob, post:1, topic:113\"]\n**Inefficient chain use**: since no batched withdrawals or recoveries are possible, each deposit must have its own on-chain lifecycle, resulting in much more chain use (and fee spend) than is strictly necessary.\n[/quote]\n\nI'm agreed here, but I think this actually works towards my overall point: if vaults were a highly desired feature, people would be willing to pay more for them and then we could figure out how to optimize them for everyone's benefit.  But if very few people are willing to pay even a marginal increase in fees for vaults, I think that's an argument that optimizing them is premature.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
