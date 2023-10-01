@@ -392,3 +392,27 @@ I think the advantage of APO/CTV/OP_VAULT vs the more amorphous collection of id
 
 -------------------------
 
+matthewjablack | 2023-10-01 20:25:48 UTC | #17
+
+> it doesn’t significantly change the onchain footprint of DLCs
+
+That's correct, but it dramatically improves the UI/UX related to DLCs. There's at minimum a 30x improvement in computation (with an even larger improvement for multi-oracle), plus you don't need to pass signatures back & forth (so you don't run into bandwidth constraints).
+
+In practice, bandwidth constraints significantly affect current DLC implementations, since users not only need to create a large number of signatures but also share those signatures with their counterparty, receive those signatures from their counterparty, and back up the signatures of both parties. 5k CETs ends up being around 5mb (10mb total for offeror and acceptor), takes around 5-10 seconds on mobile to create, and 60-90 seconds (or more) to pass back and forth and back up. 
+
+In practice, this is the difference between taking ~2 minutes to enter a DLC on a mobile app, to ~10 seconds or less, since you don't have to pass all these signatures back and forth and back them up. 
+
+> DLCs have been operational for several years but have not seen any major use that I’m aware of
+
+This is historically true, but it has changed quite a bit lately. [AtomicFinance](https://twitter.com/AtomicFinance), [10101 Finance](https://twitter.com/get10101) and [Lava](https://twitter.com/lava_xyz) have been gaining quite a bit of traction over the past year. See: [Atomic Finance Stats last 6 months](https://twitter.com/TonyCai_/status/1707502200186888590)
+
+> it’s possible to use the same anchor for multiple trades, but only if you use the same trading partner(s)
+
+> AFAIK, there are no proposed solutions for the scalability problem of DLCs.
+
+One way to solve this, is to have a counterparty or DSP (DLC Service Provider) that commits to a small PnL gain for the user within the DLC (i.e. 0.1%). In the case that the user gained more than 0.1% PnL for the position, the DSP pays outside of the DLC, at the time of settlement. This allows any seller to be paired with any buyer with limited capital lockup from the DSP. It does however take away the "no counterparty" risk feature of DLCs, and change the nature to "some counterparty risk".
+
+However, if you apply this to LN DLCs, it would allow someone to open up a channel to one DSP, and get access to an array of financial contract types.
+
+-------------------------
+
