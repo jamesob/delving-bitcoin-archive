@@ -1,0 +1,34 @@
+# CATT: thoughts about an alternative covenant softfork proposal
+
+stevenroose | 2023-10-02 00:09:48 UTC | #1
+
+Since I just discovered this forum and some interesting conversations are going on here. I definitely saw James' proposal [here](https://delvingbitcoin.org/t/covenant-tools-softfork/98/5), not trying to undermine that, just trying to give an alternative perspective.
+
+I've been thinking about this idea, which I dub "covenant all the things", which I guess could go a few ways. The idea is to not focus on specific use-cases (APO, VAULT), but provide more general tools that 
+
+A very minimal version would be a combination of 
+
+- OP_TXHASH
+  - and OP_CHECKTXHASHVERIFY for templating
+- OP_CHECKSIGFROMSTACK
+  - together with TXHASH this is very powerful
+  - easily emulates APO to build eltoo-style protocols
+
+These two are already very powerful together. It basically introduces a "sighash on steroids" that allows signing off on anything you want. Plus a very flexible templating mechanism that supports bring-your-own-fee constructions.
+
+So, on top of that, to allow real introspection, there are some possibilities:
+
+- the full version would be
+  - OP_CAT
+    - who doesn't like CATs?
+  - OP_TX
+    - for full introspection, this works quite well with OP_TXHASH's TxFieldSelector
+  - OP_TWEAKADD
+    - for doing taproot stuff
+
+- a lesser version
+  - OP_HASHMULTI (aka OP_CATSHA256) or something
+  - OP_TWEAKADD (this seems kinda needed in any case)
+
+-------------------------
+
