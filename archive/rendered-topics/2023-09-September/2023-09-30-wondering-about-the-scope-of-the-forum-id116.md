@@ -10,3 +10,13 @@ A post clarifying the general scope for the forum would be great! No hard feelin
 
 -------------------------
 
+ajtowns | 2023-10-02 07:21:24 UTC | #2
+
+I think protocols for transferring BTC off-chain are on-topic (otherwise lightning wouldn't be okay to talk about?) -- even if it were about purely custodial wallets, things like proof of liabilities/reserves would be useful and interesting to discuss, I think.
+
+I would have expected "high-level explanation of signature scheme" to go naturally in "Protocol design" fwiw.
+
+There's the option for adding a `#cashu` tag, or sub-categories (Implementation/cashu) which might help people either find discussions or easily skip over discussions that aren't widely relevant. So that should make it easier to allow a broader scope without being too annoying.
+
+-------------------------
+

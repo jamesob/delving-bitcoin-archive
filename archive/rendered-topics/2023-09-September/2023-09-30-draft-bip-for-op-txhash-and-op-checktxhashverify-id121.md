@@ -92,3 +92,33 @@ Steven
 
 -------------------------
 
+ajtowns | 2023-10-02 09:31:12 UTC | #2
+
+[quote="stevenroose, post:1, topic:121"]
+Does the proposal sufficiently address concerns around resource usage and quadratic hashing?
+[/quote]
+
+There's two good, general ways of addressing quadratic hashing with this sort of opcode that come to my mind:
+1. (a) break it up into two phases, the first where you do a constant number of hashes over each byte of the tx and cache the result which adds O(txsize) computation and either O(1) or O(txsize) storage for the cache; then (b) combine a constant number of those cached hashes at runtime to implement the new opcode, so that it's both O(1) time and quite fast. That's what CTV does, and there was a bit of concern about how costly the first step was, and, if doing it on-demand, how complicated it is to share the just-in-time cached data across different threads (when the cache needs to be shared across different inputs without being recalculated, and those inputs may or may not be be being handled by different threads).
+2. Allow the tx to waste time hashing things, but add that as additional "virtual weight" via the taproot annex as [envisaged in bip 342](https://github.com/bitcoin/bips/blob/e918b50731397872ad2922a1b08a5a4cd1d6d546/bip-0342.mediawiki#cite_note-13).
+
+I think either of those could be made to work fine.
+
+I think what you actually propose is more along the lines of "ensure that OP_TXHASH only ever hashes a constant data size", but I don't think that quite works here -- you're allowing a hash of random combinations of inputs' scriptSigs, which can be as large as a block, and I don't think (as specced) there's a decent way to cache and reuse those results.
+
+[quote="stevenroose, post:1, topic:121"]
+The flexibility of selecting transaction fields and in/output (ranges), makes this construction way more useful
+[/quote]
+
+Do you have specific/concrete examples of uses that this extra flexibility enables? Would you be up for doing a rough demo of what they'd look like in action something like https://github.com/jamesob/opvault-demo/ ?
+
+[quote="stevenroose, post:1, topic:121"]
+the other one could be left free (OP_SUCCESS) to potentially revisit later-on
+[/quote]
+
+I thought someone had made a post about this sort of thing being somewhat annoying as far as analysing miniscript goes, if this feature were to be included in miniscript, but I can't find the reference now. In any event, it seems pretty risky to have a potentially user-provided stack element be able to turn a script into "always succeed" behaviour. I think it would be better for the upgrade path to just be "if we want more txhash-y things, we'll introduce OP_TXHASH2".
+
+Note that this differs from the checksig upgradability behaviour -- there we have `<sig> <unknownpubkey> CHECKSIG` be equivalent to `<sig> "" OP_NOTEQUAL`, and soft-fork in immediate script failure on invalid sig once we decide what "invalid" means for `<unknownpubkey>`.
+
+-------------------------
+

@@ -36,3 +36,9 @@ One of the nice properties of all of this is that almost all of these opcodes al
 
 -------------------------
 
+ajtowns | 2023-10-02 09:32:28 UTC | #2
+
+You're certainly welcome to cross-port OP_CAT and OP_CHECKSIGFROMSTACK to [inquisition](https://github.com/bitcoin-inquisition/bitcoin/pulls); I'm skeptical that it'll be reasonably feasible to do anything useful with them in script (as opposed to handwaving on a blog / mailing list), but I'd love to be proved wrong. Could specify the behaviour on the wiki (eg https://github.com/bitcoin-inquisition/bitcoin/wiki/Relay-Policies) if you didn't want to write up a proper BIP yet.
+
+-------------------------
+
