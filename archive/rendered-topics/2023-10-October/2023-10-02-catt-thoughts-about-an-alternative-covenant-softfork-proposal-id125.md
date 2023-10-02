@@ -1,6 +1,6 @@
 # CATT: thoughts about an alternative covenant softfork proposal
 
-stevenroose | 2023-10-02 00:09:48 UTC | #1
+stevenroose | 2023-10-02 00:12:58 UTC | #1
 
 Since I just discovered this forum and some interesting conversations are going on here. I definitely saw James' proposal [here](https://delvingbitcoin.org/t/covenant-tools-softfork/98/5), not trying to undermine that, just trying to give an alternative perspective.
 
@@ -29,6 +29,8 @@ So, on top of that, to allow real introspection, there are some possibilities:
 - a lesser version
   - OP_HASHMULTI (aka OP_CATSHA256) or something
   - OP_TWEAKADD (this seems kinda needed in any case)
+
+One of the nice properties of all of this is that almost all of these opcodes already have production implementations in Elements (Liquid), except for the OP_TXHASH and OP_TX which are closely related. I formalized a potential OP_TXHASH BIP [here](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-September/021975.html), and OP_TX could be implemented by re-using the TxFieldSelector specified in that BIP.
 
 -------------------------
 
