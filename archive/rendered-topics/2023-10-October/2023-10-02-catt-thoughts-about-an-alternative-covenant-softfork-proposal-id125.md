@@ -42,3 +42,13 @@ You're certainly welcome to cross-port OP_CAT and OP_CHECKSIGFROMSTACK to [inqui
 
 -------------------------
 
+stevenroose | 2023-10-02 10:33:05 UTC | #3
+
+[quote="ajtowns, post:2, topic:125, full:true"]
+You're certainly welcome to cross-port OP_CAT and OP_CHECKSIGFROMSTACK to [inquisition](https://github.com/bitcoin-inquisition/bitcoin/pulls); I'm skeptical that it'll be reasonably feasible to do anything useful with them in script (as opposed to handwaving on a blog / mailing list), but I'd love to be proved wrong. Could specify the behaviour on the wiki (eg https://github.com/bitcoin-inquisition/bitcoin/wiki/Relay-Policies) if you didn't want to write up a proper BIP yet.
+[/quote]
+
+CHECKSIGFROMSTACK only really makes sense with something like TXHASH so that you have something to sign, I guess. Building a covenant with just CAT+CSFS is indeed not reasonably feasible, I agree with that. Though look at [what the BitMatrix guys have built](https://beta.bitmatrix.app/), it's pretty impressive, though obv it requires arithmetic too.
+
+-------------------------
+
