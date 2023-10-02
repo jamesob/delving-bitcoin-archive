@@ -122,3 +122,29 @@ Note that this differs from the checksig upgradability behaviour -- there we hav
 
 -------------------------
 
+stevenroose | 2023-10-02 10:30:09 UTC | #3
+
+[quote="ajtowns, post:2, topic:121, full:true"]
+I think what you actually propose is more along the lines of "ensure that OP_TXHASH only ever hashes a constant data size", but I don't think that quite works here -- you're allowing a hash of random combinations of inputs' scriptSigs, which can be as large as a block, and I don't think (as spec'ed) there's a decent way to cache and reuse those results.
+[/quote]
+
+I'm trying to do both, actually. I'm also charging a fixed validation weight.
+
+For the prefix mode, the cache strategy would be to define some constant interval N (say 10) so that every N in/outputs the hash context for each field can be kept, making storage requirement O(#in/out) for the cache, while making the amount of data needed to hash on each occurrence be maximally N items.
+
+I didn't think about the scriptSigs specifically. They can indeed be of arbitrary size and that can be a problem. Are there any other fields that can realistically be set at arbitrary size within policy limits? For those, we could have a field-specific cache. For scriptSigs, this would mean we'd have to store an extra 32-byte hash for each input, which isn't too bad. As most of scriptSigs are empty nowadays, the hash of the empty string can be cached so this would be free for anything segwitv0 and taproot.
+
+[quote="ajtowns, post:2, topic:121, full:true"]
+I thought someone had made a post about this sort of thing being somewhat annoying as far as analysing miniscript goes, if this feature were to be included in miniscript, but I can't find the reference now. In any event, it seems pretty risky to have a potentially user-provided stack element be able to turn a script into "always succeed" behaviour. I think it would be better for the upgrade path to just be "if we want more txhash-y things, we'll introduce OP_TXHASH2".
+[/quote]
+
+Yeah I also read this shortly after sending my e-mail. That would probably not be a good idea. But like Russell also replied in that thread, it could be remedied by just thinking long enough about what fields to expose so we don't need to redo them. This means that we might have one bit left in the current design to cover (or break up) something.
+
+[quote="ajtowns, post:2, topic:121, full:true"]
+Do you have specific/concrete examples of uses that this extra flexibility enables? Would you be up for doing a rough demo of what they'd look like in action something like https://github.com/jamesob/opvault-demo/ ?
+[/quote]
+
+I could do that, yeah. I'm thinking mostly of Ark atm, but almost anything CTV does, TXHASH can do with added flexibility to add fees. I can also do a version of [doubletake](https://github.com/stevenroose/doubletake) using OP_CHECKTXHASHVERIFY (that use case could be moved entirely to Bitcoin if we had CAT+CSFS).
+
+-------------------------
+
