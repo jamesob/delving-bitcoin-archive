@@ -1,6 +1,6 @@
 # CATT: thoughts about an alternative covenant softfork proposal
 
-stevenroose | 2023-10-02 00:13:37 UTC | #1
+stevenroose | 2023-10-02 00:40:20 UTC | #1
 
 Since I just discovered this forum and some interesting conversations are going on here. I definitely saw James' proposal [here](https://delvingbitcoin.org/t/covenant-tools-softfork/98/5), not trying to undermine that, just trying to give an alternative perspective.
 
@@ -23,6 +23,8 @@ So, on top of that, to allow real introspection, there are some possibilities:
     - who doesn't like CATs?
   - OP_TX
     - for full introspection, this works quite well with OP_TXHASH's TxFieldSelector
+  - 64-bit arithmetic
+    - for anything with amounts
   - OP_TWEAKADD
     - for doing taproot stuff
 
