@@ -52,3 +52,37 @@ CHECKSIGFROMSTACK only really makes sense with something like TXHASH so that you
 
 -------------------------
 
+reardencode | 2023-10-02 16:47:30 UTC | #4
+
+> CHECKSIGFROMSTACK only really makes sense with something like TXHASH so that you have something to sign, I guess. Building a covenant with just CAT+CSFS is indeed not reasonably feasible, I agree with that. Though look at [what the BitMatrix guys have built ](https://beta.bitmatrix.app/), it’s pretty impressive, though obv it requires arithmetic too.
+
+I mentioned this over on Telegram, but think it's worth saying here as well: I think it makes more sense to take something like TXHASH or [Template Key](https://github.com/reardencode/bips/blob/ccda3646d82fe589103c472d5c2e4e0627c85cd7/bip-template-key.mediawiki) and make an APO-ish new Tapscript key version with a variant that works well with signatures rather than adding CSFS. _If_ we get to the point that we're adding full introspection then that changes, but until then there are differences in how we should hash things between equality/script usage and signature usage.
+
+-------------------------
+
+stevenroose | 2023-10-02 17:02:27 UTC | #5
+
+Why exactly do you think that?
+
+I see the benefits of introducing a key version (simple keyspends mostly), but I don't see the drawbacks of CSFS as an alternative. A few more bytes in the witness?
+
+What I personally like about TXHASH is that it gives both templating and a sighash with just CSFS extra. Defining a key version seems more work than adding the opcode.
+
+There might actually be semantic differences. With TXHASH+CSFS you can specify exactly what message each key has to sign. With sighashtypes (AFAIU), the sighashtype is added to the signature, so it can't be enforced by the script but is provided at sign-time by the signer.
+
+I have to confess I didn't do much thinking about these differences and which semantics are more desirable.
+
+-------------------------
+
+reardencode | 2023-10-02 17:21:19 UTC | #6
+
+> I see the benefits of introducing a key version (simple keyspends mostly)
+
+Sadly, APO (and other such ideas for new Tapscript key versions) don't enable key path spends because that would split the anonymity set of Taproot outputs :cry:
+
+> There might actually be semantic differences. With TXHASH+CSFS you can specify exactly what message each key has to sign. With sighashtypes (AFAIU), the sighashtype is added to the signature, so it can’t be enforced by the script but is provided at sign-time by the signer.
+
+Exactly, it is semantically different. Which is more likely when a hash is going to be used with a signature: The signer may specify at signing time what parts of the transaction they want to hash and is the party best suited to make the decision on what hashing modes to use; or the creator of the output script knows exactly the single hashing mode appropriate for the signer to use at script creation time. Until we are enabling ~full introspection, I would argue that the former is much more useful and matches the expected semantics of bitcoin script better.
+
+-------------------------
+

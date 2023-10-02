@@ -422,3 +422,13 @@ Note: This forum isn't a place for voting on changes to Bitcoin; if you want to 
 
 -------------------------
 
+instagibbs | 2023-10-02 16:38:28 UTC | #21
+
+[quote="harding, post:11, topic:98"]
+It also seems to me personally that John Law’s tunable penalties protocol provides the primary advantage of LN-Symmetry (proper assignment of penalties when >2 parties are involved) without requiring any consensus change.
+[/quote]
+
+The dizzying complexity of it means it'll never be implemented in my estimation, unlike ln-sym. It would be interesting to see if APO-like changes, or other covenant changes, could make something not much more complicated than Daric but allow for multiparty penalties.  I think the obsession with penalties is ridiculous, but unfortunately the first thing implemented has them and has costs to change :slight_smile:
+
+-------------------------
+
