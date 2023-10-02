@@ -110,3 +110,11 @@ Yeah, in the current monetary system governments basically eliminate the risk of
 
 -------------------------
 
+stevenroose | 2023-10-02 14:01:27 UTC | #5
+
+I would have to spend time looking up examples I read before, and I'm on the phone right now. But I do recall that in times of hard money usage, mostly government-minted gold and silver coins, it wasn't uncommon for the government to set a list of prices of common goods. This was mostly so that people that didn't have money (hard money was, uh, hard to get for most people) could pay either fines or their debtors using things they could get their hands on or so that thefts could be valued.
+
+In any way, these price lists obviously became a reference for people to value things at. Such a system isn't much different from what you're describing where the government basically maintains a unit of account without anything else. It's a very interesting idea. I have long been interested in "social money" or "pure p2p debt money" a la hawalla, such as the original RipplePay. Such systems usually have the problem that they rely on an external unit of account the role of which usually gets fulfilled by an actual hard currency that exists in parallel with this money system. But a centralized "unit of account" publishing entity, however much as it comes with its own obvious problems, is an interesting potential solution for this problem.
+
+-------------------------
+

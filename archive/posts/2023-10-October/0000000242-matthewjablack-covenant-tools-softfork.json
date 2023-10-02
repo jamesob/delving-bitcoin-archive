@@ -12,9 +12,9 @@
   "reply_to_post_number": 11,
   "quote_count": 0,
   "incoming_link_count": 20,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 146.8,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 162.4,
   "yours": false,
   "topic_id": 98,
   "topic_slug": "covenant-tools-softfork",
@@ -45,7 +45,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

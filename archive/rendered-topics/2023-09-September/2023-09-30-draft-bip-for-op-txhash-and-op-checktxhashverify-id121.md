@@ -160,3 +160,19 @@ If you're not prehashing outputs, I think the caching doesn't work well if input
 
 -------------------------
 
+stevenroose | 2023-10-02 12:59:17 UTC | #5
+
+Prefixes are prefixes, like leading in/outputs. So only like "first N". Which can always share a cache as outlined in the draft BIP. Individual mode would be the problem, where you can pick any in/outs up to 64 currently, but maybe up to 32 in the alternative scheme.
+
+I think consensus is less of an issue because you pay the validation weight in that case. The issue is that invalid txs don't pay the weight and they could exhaust resources. For free.
+
+I think having a cached hash value for any field that can be over 32-bytes would be reasonable.
+
+-------------------------
+
+ajtowns | 2023-10-02 14:12:53 UTC | #6
+
+I don't think there's much concern about invalid txs -- you can trivially replace an individual invalid tx consuming X^2 units of CPU with X invalid txs each consuming X units of CPU, for the same total consumption?
+
+-------------------------
+

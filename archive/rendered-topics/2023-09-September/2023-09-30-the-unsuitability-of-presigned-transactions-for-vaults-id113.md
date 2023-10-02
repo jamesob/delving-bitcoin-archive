@@ -181,3 +181,70 @@ Probably not. Without APO one malleated txid and all the funds are gone.
 
 -------------------------
 
+jamesob | 2023-10-02 14:14:20 UTC | #5
+
+[quote="harding, post:2, topic:113"]
+What is the fundamental difference between an ephemeral key and an ephemeral nonce (the private form of a signature nonce)? [...]
+
+It feels to me like ephemeral keys and ephemeral nonces are really closely related, so any argument that states ephemeral keys aren’t secure enough is an argument that neither ECDSA nor schnorr is secure enough, especially in the presence of address reuse.
+[/quote]
+
+I think these might only be analogous in a strictly theoretical sense, at least today. If I understand correctly, nonces are confined to the signing device e.g. a hardware wallet. On the other hand, constructing a presigned tree of vault transactions must almost certainly be done on a general purpose computer because of lack of hardware wallet support for fully general PSBTs. Not to mention the fact that no wallet I'm aware of makes it easy to quickly generate a throwaway keypair. From a practical standpoint I don't think this analogy holds until HWW manufacturers support some kind of more general signature mechanism.
+
+And even then, I think it would be fairly time-consumptive to refresh and sign with ephemeral keys each time you want to deposit, even assuming HWW support, vs. having an xpub on your computer that can just generate fresh addresses.
+
+[quote="harding, post:2, topic:113"]
+why can’t all of the paths in a presigned transaction vault have a tapleaf that allows spending by the most-secure-key? That way, if something goes wrong, the most-secure-key can be used to recover and coins never become permanently burnt.
+[/quote]
+
+That's a good point - I'm pretty sure that's possible, even though it hasn't been implemented in any existing OSS presigned vault scheme to my knowledge.
+
+[quote="harding, post:2, topic:113"]
+presigned vault transactions may be able to have an efficiency advantage over OP_VAULT transactions by the presigned versions being able to use all keypath spends (with BIP68 sequence bits set), whereas OP_VAULT must use scriptpath spends (unless the most-secure-key is used). I think the vbytes difference probably favors the OP_VAULT version there (unless a deep taproot path is used), but I think it makes the comparison less clear cut.
+[/quote]
+
+This is the point I disagree on most, I think. I believe you're overlooking the significant overhead that comes with presigned vaults requiring separate transactional flows for each vaulted deposit. 
+
+Consider this figure from BIP-345:
+![image|690x240](upload://zi3qSIdDYIwYhP55EWB9RAUJY0w.png)
+
+Not only do presigned schemes have an extra UTXO/transaction created for each separate vault coin during withdrawal (the "unvault" -> "warm wallet" step that exists in presigned but not OP_VAULT), but there are `n-1` extra unvault (or "trigger") outputs created when initiating the unvault (where `n` is the number of deposits being unvaulted).
+
+This makes e.g., dollar-cost averaging into a presigned txn vault unreasonably burdensome, since you'd be talking about potentially hundreds of extra UTXOs and transactions created.
+
+I can run a simulation of specific sizes if you'd like, but I hope the diagram at least gives some indication of the scale of the difference.
+
+It is possible that for an input vault coin or two, the space consumed may be comparable. But consider that presigned vaults have [non-trivial scripts as well](https://github.com/JSwambo/bitcoin-vault/blob/12a00b1a0d041e84864cf2b62547dcb0c63f0e23/generate_addresses.py#L68-L70), so the witness sizes may not be all that different.
+
+[quote="harding, post:2, topic:113"]
+Additionally, I think ephemeral anchors, if deployed, will eliminate the need to use a statically-defined wallet. Instead, any onchain funds will be able to fee bump the vault transaction without introducing pinning risks.
+[/quote]
+
+Currently, V3 transactions (including ephemeral anchors) [don't support packages](https://github.com/bitcoin/bitcoin/pull/26403/commits/0ee425f6f7eeba4da1dcbb07251446e3f62031c0#diff-97c3a52bc5fad452d82670a7fd291800bae20c7bc35bb82686c2c0a4ea7b5b98R929) that would be compatible with using a single anchor to bump multiple "parent" vault transactions. EAs are only planned, at least as of now, to support single-child-single-parent topologies. Based on how expectations of V3 functionality have been scaled back, it is unclear whether there will ever be a policy that supports bumping multiple parent transactions with EAs, which exacerbates the separate-txn limitation I described above.
+
+-------------------------
+
+jamesob | 2023-10-02 14:22:18 UTC | #6
+
+[quote="AntoineP, post:4, topic:113"]
+Liana is not an emulation of a vault;
+[/quote]
+
+Liana may not explicitly be a vault, but if `OP_VAULT` were available, Liana would almost certainly be a user of it. There would be no need to dig up keys and roll timelocks with `OP_VAULT`; the opcode is general enough to cover the Liana case. See [this twitter thread](https://twitter.com/jamesob/status/1708045705502163389) for details. Reproduced here in case Twitter goes away:
+
+![image|199x500](upload://ozPgBJb2v7cHKCidBeoFgBGV4Cu.png)
+
+[quote="AntoineP, post:4, topic:113"]
+In your post you are mixing up the Revault and ephemeral-key approaches with emulating a covenant using a trusted oracle.
+[/quote]
+
+I'm not sure where you think I did that mixup, but I'm aware of the difference in approaches. The reason I didn't dwell much on using an oracle to enforce covenants is because if you're relying to rely on an oracle to enforce transaction validity, you basically don't need any script upgrades ever. Of course I think this is not a great security model in general, and especially for people without the resources to run live HSMs.
+
+[quote="AntoineP, post:4, topic:113"]
+But it’s also a fair point to raise: we don’t know of anybody allegedly interested in using vaults who reached the point in development where they have an MVP which emulates the covenant they need using a simple cosigning server.
+[/quote]
+
+Maybe no one's done it because it's basically a bad trade-off? But again I'm confused, because isn't this what you guys tried with Revault -- presumably because the conceptual notion of vaults is very appealing?
+
+-------------------------
+
