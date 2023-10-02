@@ -416,22 +416,6 @@ However, if you apply this to LN DLCs, it would allow someone to open up a chann
 
 -------------------------
 
-MrRGnome | 2023-10-02 09:33:21 UTC | #18
-
-Hard no. I object to so many aspects of how this is moving forward.
-
-Another MASF BIP 9 is a non-starter. You want to talk upgrade proposals lets not assume an activation method. I personally won't support another MASF and delegate activation of any code to miners.
-
-Why all these competing BIPs at once? Why not APO or CTV instead of both?  Or just CTV? We just rejected CTV by itself why not slow your roll and try a smaller scope? Maybe if you allow these primitives to grow in production they will find less "niche" use cases as you describe. There are quite a few use cases for CTV described by Rubin that seem quite useful and their niche-ness is only a function of no ability to currently engage those use cases. Examples include on-chain mining pools, deferred on-chain payments in high fee environments, payment pools, and others many of which were outlined in Rubin's original attempt to activate. https://rubin.io/advent21/
-
-The entire sum of this forum has at most a few hundred views outside a singular post and 75 users. The total sum of posts here excluding this one in the last 30 days - the last 30 days being the busiest this place has ever been - is still half the participation on the dev list. That's not an appropriate process, and just because a few devs are in a stink about the mailing list and think this forum is how these discussions are to be had now doesn't make it so. The mailing list continues to dwarf this venue in traffic and participation. We've been driving awareness and eyeballs there for a decade and now you're destroying all that good work and growing awareness because you don't like dealing with antagonism. The way participation is gatekept here is not appropriate for consensus related discussion. I've been trying to post this comment for four days now it's already completely vanished once.
-
-Top to bottom I disagree with how this proposal is moving forward. If you think CTV has value, lets add CTV. If you think APO has value because of a single LN related use case that's fine add it separately considering we can't even get consensus support for the much simpler CTV proposal yet. Vault is putting the cart before the horse, start with the primitives and allow the ecosystem to develop.
-
-I would actively organize nodes against this proposal as it stands. I supported CTV the last time, I'd support APO alone without CTV. I don't yet support Vault. I'll never support this activation methodology again.
-
--------------------------
-
 ajtowns | 2023-10-02 09:42:24 UTC | #19
 
 Note: This forum isn't a place for voting on changes to Bitcoin; if you want to say "I support this" or "I oppose this", you'll need to find somewhere else to do it (or limit yourself to a thumbs up / thumbs down). Also, be sure to keep discussion constructive.
