@@ -438,13 +438,3 @@ Note: This forum isn't a place for voting on changes to Bitcoin; if you want to 
 
 -------------------------
 
-MrRGnome | 2023-10-02 09:57:18 UTC | #20
-
-This is literally the conceptual discussion for a soft fork proposal. It is directly linked as the relevant discussion for a draft consensus patch in Bitcoin Core. Where do you want objection to this concept to exist if not here? This kind of moderation is harmful to consensus discussion.
-
-No one votes on changes to Bitcoin and you know that, that's not how changes are made and that's not what is being expressed. There's nothing honest about your removal.
-
-Antagonism is constructive.
-
--------------------------
-
