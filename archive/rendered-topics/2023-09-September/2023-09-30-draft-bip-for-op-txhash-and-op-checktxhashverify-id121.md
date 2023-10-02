@@ -148,3 +148,15 @@ I could do that, yeah. I'm thinking mostly of Ark atm, but almost anything CTV d
 
 -------------------------
 
+ajtowns | 2023-10-02 10:55:27 UTC | #4
+
+[quote="stevenroose, post:3, topic:121"]
+Are there any other fields that can realistically be set at arbitrary size within policy limits?
+[/quote]
+
+Policy limits don't help here: quadratic hashing in a block is still a problem. In a block, the output scriptPubKey can also be arbitrarily large.
+
+If you're not prehashing outputs, I think the caching doesn't work well if input ranges can overlap: a hash of inputs (1-3) and a hash of inputs (2-4) can't share a prefix-cache for any of their inputs. That's why [SIGHASH_GROUP](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-July/019243.html) avoided allowing overlapping ranges. That's much worse if you allow selecting arbitrary sets of inputs via a bitfield, rather than just a range; but even ranges give you $n(n+1)/2$ possible prefixes across the $n$ inputs?
+
+-------------------------
+
