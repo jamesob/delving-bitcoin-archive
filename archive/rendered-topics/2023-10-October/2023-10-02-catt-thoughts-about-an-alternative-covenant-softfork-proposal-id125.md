@@ -116,3 +116,17 @@ We do have one special case value we can assign: the 0x00 byte, because "not inc
 
 -------------------------
 
+jamesob | 2023-10-03 11:56:43 UTC | #10
+
+I think the common bottleneck on both of your proposals is fleshing out use-cases.
+
+In principle, I'm for maximum sighash flexibility: anyone should be able to elect to include any component in their sigmsg. But the reality is that there will be some limitation on that interface - bitmask/template parameters can only be so long, and different approaches merit different caching strategies.
+
+To resolve this, we need to have a clear idea of what the proposed uses are - that is, what are the use-cases are not met by the standard 119 template hash? Ideally, you'd both be able to present some kind of code sketch of how these use-cases are satisfied by your proposals.
+
+The details that you're discussing above are worth discussing, but I think they are dwarfed in comparison to the thing that's blocking the evaluation of both of your proposals, which is: what exactly do we need different sighash/template modes for?
+
+Emphasis on **exactly**! :slight_smile:
+
+-------------------------
+
