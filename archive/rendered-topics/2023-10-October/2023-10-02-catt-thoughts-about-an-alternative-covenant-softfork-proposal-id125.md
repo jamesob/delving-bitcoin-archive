@@ -94,3 +94,9 @@ One could actually argue that this is a more pure implementation of OP_CHECKSIG 
 
 -------------------------
 
+reardencode | 2023-10-03 04:08:50 UTC | #8
+
+Sure, you can get the same result with TXHASH + CSFS, but now you have hash modes (tagging with the selected mode, annex hashing) that are _only_ used with CSFS where those could be omitted if the same general hash structure was available separately in the separate contexts. (If you haven't already, reading [Template Key](https://github.com/reardencode/bips/blob/ccda3646d82fe589103c472d5c2e4e0627c85cd7/bip-template-key.mediawiki) might make this more clear)
+
+-------------------------
+
