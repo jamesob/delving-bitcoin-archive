@@ -8,13 +8,13 @@
   "post_number": 10,
   "post_type": 1,
   "updated_at": "2023-10-03T11:56:43.402Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 6.0,
   "yours": false,
   "topic_id": 125,
   "topic_slug": "catt-thoughts-about-an-alternative-covenant-softfork-proposal",
@@ -54,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

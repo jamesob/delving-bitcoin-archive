@@ -130,3 +130,13 @@ Emphasis on **exactly**! :slight_smile:
 
 -------------------------
 
+reardencode | 2023-10-03 16:21:03 UTC | #11
+
+This is a tricky proposition in both cases, and is a bar not met by APO. APO introduces 6 new sighash modes, of which exactly 1 appears to have a detailed use case with code. 1 other has a potential use case once certain policy/relay changes are made, and 1 more has a vague description of how it can be used with PTLCs. More importantly, APO _excludes_ certain modes which have potential uses (added by  [my PR#1472](https://github.com/bitcoin/bips/pull/1472)).
+
+For Template Key, I did show which modes match with the known useful APO modes, and agree that a description of how several other modes can be used would be helpful.
+
+Both Template Key and TXHASH are intended to open up a new design space for hash equality and signature verification, so I think the right bar should be to have an example of a concrete protocol which uses each _feature_ of the new hash specifier, not "what exactly do we need [each mode for]?"
+
+-------------------------
+
