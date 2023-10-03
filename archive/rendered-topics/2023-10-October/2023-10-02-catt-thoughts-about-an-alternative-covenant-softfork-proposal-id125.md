@@ -86,3 +86,11 @@ Exactly, it is semantically different. Which is more likely when a hash is going
 
 -------------------------
 
+stevenroose | 2023-10-02 23:57:02 UTC | #7
+
+But with TXHASH and CSFS, both options are possible, while with a sighashtype only the at-sign-time option.. To emulate a sighashtype, the user would pass a TxFieldSelector (or whatever you call the input to TXHASH) and a signature and then the script would generate the hash value using the user's input and then validate the signature.
+
+One could actually argue that this is a more pure implementation of OP_CHECKSIG in Bitcoin Script..
+
+-------------------------
+

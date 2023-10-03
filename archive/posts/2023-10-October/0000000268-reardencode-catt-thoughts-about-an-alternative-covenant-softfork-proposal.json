@@ -8,13 +8,13 @@
   "post_number": 6,
   "post_type": 1,
   "updated_at": "2023-10-02T17:21:19.512Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 125,
   "topic_slug": "catt-thoughts-about-an-alternative-covenant-softfork-proposal",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "> I see the benefits of introducing a key version (simple keyspends mostly)\n\nSadly, APO (and other such ideas for new Tapscript key versions) don't enable key path spends because that would split the anonymity set of Taproot outputs :cry:\n\n> There might actually be semantic differences. With TXHASH+CSFS you can specify exactly what message each key has to sign. With sighashtypes (AFAIU), the sighashtype is added to the signature, so it can\u2019t be enforced by the script but is provided at sign-time by the signer.\n\nExactly, it is semantically different. Which is more likely when a hash is going to be used with a signature: The signer may specify at signing time what parts of the transaction they want to hash and is the party best suited to make the decision on what hashing modes to use; or the creator of the output script knows exactly the single hashing mode appropriate for the signer to use at script creation time. Until we are enabling ~full introspection, I would argue that the former is much more useful and matches the expected semantics of bitcoin script better.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
