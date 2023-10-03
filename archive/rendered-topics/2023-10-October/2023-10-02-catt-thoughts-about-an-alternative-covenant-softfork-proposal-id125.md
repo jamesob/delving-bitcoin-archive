@@ -100,3 +100,19 @@ Sure, you can get the same result with TXHASH + CSFS, but now you have hash mode
 
 -------------------------
 
+stevenroose | 2023-10-03 09:49:04 UTC | #9
+
+Hmm, yeah so I think I read the part where you specify the template hashtypes for CTV. So this document adds them as sighash types basically.
+
+In theory we could do the exact same thing with TXHASH: specify a key type and use the TxFieldSelector construction as a "sighash flags on steroids" where you can use that to select parts of the tx to hash.
+
+Your proposal a huge difference in flexibility with TXHASH, though. For example the special treatment of only the first input is very limiting in many ways.
+
+I think I'm at the point where all resource usage concerns can be elevated from TXHASH so I don't see why we would need a system that pre-sets different modes of operation instead of allowing users to set their own. Of course the result is very likely that only a handful of TxFieldSelector values will take up 99% of usage, but it does allow protocol developers to construct more complicated systems.
+
+Actually this makes me think twice about the default for TXHASH. Currently the default is "all that's non-recursive", so CTV-style. But in fact for a sighash, the regular "ALL" makes more sense.
+
+We do have one special case value we can assign: the 0x00 byte, because "not including anything" is currently not allowed. So we could play with two different "shortcut values": `0x` and `0x00`.
+
+-------------------------
+
