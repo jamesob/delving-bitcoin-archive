@@ -1,6 +1,6 @@
 # B'SST plugins for covenant opcodes
 
-dgpv | 2023-10-04 09:23:01 UTC | #1
+dgpv | 2023-10-04 12:01:36 UTC | #1
 
 Hello forum,
 
@@ -10,7 +10,7 @@ I don't have any preference for this or that opcode, but I have chosen `CHECKCON
 
 Writing the plugin helped to uncover some wrinkles with B'SST, which can be ironed out in the future, so I think writing plugins for other opcodes might help uncover more wrinkles.
 
-You can find B'SST plugin for `CHECKCONTRACTVERIFY` at https://gist.github.com/dgpv/8e8e8f5fe12a9fae3133da9bd172c925 -- note that it is not fully tested, I will wait for mattlab repo to update their opcode implementation to match reference implementation, to test on their scripts.
+You can find B'SST plugin for `CHECKCONTRACTVERIFY` at https://gist.github.com/dgpv/8e8e8f5fe12a9fae3133da9bd172c925
 
 To run `bsst-cli` with this plugin: `/bsst-cli --op-plugins=examples/checkcontractverify_op_plugin.py` (assuming the file is placed in the `examples` dir). For now, to also have access to `CAT` you need to enable Elements mode with `--is-elements=true`. In the future, I may add a setting to selectively enable opcodes.
 
