@@ -432,3 +432,24 @@ The dizzying complexity of it means it'll never be implemented in my estimation,
 
 -------------------------
 
+LLFourn | 2023-10-05 01:05:56 UTC | #22
+
+
+[quote="harding, post:11, topic:98"]
+**More efficient DLCs:** if this is referring to [what I think ](https://bitcoinops.org/en/newsletters/2022/02/02/#improving-dlc-efficiency-by-changing-script), this efficiency boost is just in the amount of offchain operations DLC users need to generate and store; it doesn’t significantly change the onchain footprint of DLCs. DLCs have been operational for several years but have not seen any major use that I’m aware of; I believe this is partly due to their poor scalability characteristics. Every DLC-based trade needs to be anchored onchain; it’s possible to use the same anchor for multiple trades, but only if you use the same trading partner(s) for all of them. By comparison, a centralized trading clearinghouse (e.g. an exchange) requires trust but can pair any seller with any buyer. AFAIK, there are no proposed solutions for the scalability problem of DLCs.
+[/quote]
+
+Your main point is well made. There are other reasons that DLCs haven't "taken off" yet than performance issues. My opinions are well known to the people doing DLC development so I'll leave them out here. The performance issues are significant and it's difficult for the developers to judge what to solve next while performance haggars the UX so much. There are other solutions to that as well though. For example the amount of computation/bandwidth required can be exponentially reduced by using more than one output for the DLC. i.e. instead of doing 2^10 signatures for transactions spending from one DLC funding output you can instead have 10 outputs on the funding tx each with two signatures spending from it each. This trades bandwidth and computation for on-chain data.
+
+[quote="harding, post:11, topic:98"]
+* **Non-interactive channel openings:** I haven’t looked into this in detail, but this looks to me like a version of [swap in potentiam ](https://bitcoinops.org/en/newsletters/2023/01/11/#non-interactive-ln-channel-open-commitments), which is possible today and with (I’d guess) about the same onchain cost as using CTV.
+[/quote]
+
+I think the right way to characterize the relationship between the two is that "non-interactive channel openings" and "swap in potentiam" are both suboptimal proposals making different trade offs because the ideal solution is not available. Non-interactive channel openings with CTV means you have to know the value that is going to go into the channel before you fund the script pubkey. This means you shouldn't give this address out to others (e.g. withdraw from an exchange to it) in case something weird happens and you don't get the amount you expected (which could mean you've lost the funds forever).
+
+With swap in potentiam you can give out the address without committing to the value up front but the channel opening will take two transactions instead of one. This is pretty much a deal breaker for using this kind of address as your main wallet address type.
+
+Why can't making a payment channel with counterparty X be as simple as sending funds to an address? It turns out despite being simple to describe the tx inspection powers you need are a bit more powerful than is being proposed here. Still I feel that these "channel addresses" are the main "pants on fire" problem that needs to be solved by covenants. I am mostly saying this as a user rather than developer -- every Bitcoin service I use suffers from the interactivity requirements of setting up a lightning channel.
+
+-------------------------
+
