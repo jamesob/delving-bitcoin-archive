@@ -63,3 +63,9 @@ This concept is mostly due to discussions with Rusty Russell, and is obviously s
 
 -------------------------
 
+stevenroose | 2023-10-05 15:03:29 UTC | #2
+
+Isn't this what BitMatrix is on Liquid?
+
+-------------------------
+
