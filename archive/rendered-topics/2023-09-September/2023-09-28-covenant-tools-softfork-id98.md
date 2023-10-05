@@ -453,3 +453,9 @@ Why can't making a payment channel with counterparty X be as simple as sending f
 
 -------------------------
 
+stevenroose | 2023-10-05 12:42:48 UTC | #23
+
+Don't want to derail, but would TXHASH be sufficient for that? Or would you need to sign over it as well?
+
+-------------------------
+
