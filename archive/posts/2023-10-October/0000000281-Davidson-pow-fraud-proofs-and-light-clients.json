@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
+  "reads": 4,
+  "readers_count": 3,
   "score": 0.6,
   "yours": false,
   "topic_id": 139,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'm writing a small [blog post](https://blog.dlsouza.lol/2023/09/28/pow-fraud-proof.html) about the applicability of PoW fraud proofs towards improving light client security, while retaining the low resource usage of such clients. The post summarizes my experiments with a lightweight node implementation that I'm working on, [Floresta](https://github.com/Davidson-Souza/floresta), and how we would ship this idea into clients that work on contained devices, like smartphones.\n\nThe idea is still very early on, and I would love to see some feedbacks on the idea and general design. There are some open problems, specially related to DoS, any solution to this would also be much appreciated.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
