@@ -459,3 +459,11 @@ Don't want to derail, but would TXHASH be sufficient for that? Or would you need
 
 -------------------------
 
+LLFourn | 2023-10-06 00:56:09 UTC | #24
+
+TBH I haven't gone deeply into figuring this out. I guess you'd need to be able to check that the tx spending the current output has an output of equal (or some function) of the current output being spent which I guess TXHASH can't do? This is for committing to the first commit tx of the channel in the address itself.
+
+What are the requirements for this probably belongs elsewhere. I started some discussion some time ago here: https://github.com/ariard/bitcoin-contracting-primitives-wg/issues/19. Might be time to re-start it on this lovely new platform with latest thinking.
+
+-------------------------
+
