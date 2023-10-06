@@ -69,3 +69,9 @@ Isn't this what BitMatrix is on Liquid?
 
 -------------------------
 
+ajtowns | 2023-10-06 02:22:38 UTC | #3
+
+BitMatrix is an automated market maker -- so given two assets, it'll let you swap one for the other. But you have to have the assets in the first place for this to work -- so you need a "USDTrent" token that's backed by USD in Trent's bank account, eg. An algorithmic stablecoin lets you establish a USDX token that's backed by BTC instead; with the obvious caveat that if the real value of BTC plummets the token can't maintain par value.
+
+-------------------------
+
