@@ -176,3 +176,13 @@ I don't think there's much concern about invalid txs -- you can trivially replac
 
 -------------------------
 
+stevenroose | 2023-10-06 17:26:25 UTC | #7
+
+I added a reference implementation to the BIP and also added an example implementation of a caching strategy in rust-bitcoin:
+
+https://github.com/stevenroose/rust-bitcoin/blob/c54a09cb2dd334d6cdeec23dda55c6b6e7154d03/bitcoin/src/blockdata/script/txhash.rs
+
+All large fields are cached individually and there are caches for the leading caches at intervals and caches for "all". So, like you said, this means that after every large piece of information in the tx has been hashed once, the number of hashed bytes per invocation of TXHASH has clear bounds.
+
+-------------------------
+

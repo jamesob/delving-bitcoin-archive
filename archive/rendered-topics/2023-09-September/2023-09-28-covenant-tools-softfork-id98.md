@@ -467,3 +467,9 @@ What are the requirements for this probably belongs elsewhere. I started some di
 
 -------------------------
 
+stevenroose | 2023-10-06 17:23:40 UTC | #25
+
+You can assert equality but not do math. You can request the hash of input N's prevout amount and the hash of output N's amount and check equality.
+
+-------------------------
+
