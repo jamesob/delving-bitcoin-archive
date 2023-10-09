@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 1,
   "readers_count": 0,
-  "score": 0,
+  "score": 0.2,
   "yours": false,
   "topic_id": 121,
   "topic_slug": "draft-bip-for-op-txhash-and-op-checktxhashverify",
