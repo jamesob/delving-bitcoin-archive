@@ -186,3 +186,17 @@ All large fields are cached individually and there are caches for the leading ca
 
 -------------------------
 
+reardencode | 2023-10-09 20:14:58 UTC | #8
+
+This is super cool @stevenroose! It's nice to see a concrete full TXHASH proposal as something to think about.
+
+A few comments (some of which we've already discussed offline, but I wanted to put into a public forum as well):
+
+1. Given that BIP119 has working code and is already ready already, why not make OP_CHECKTXHASHVERIFY an upgrade path for non-32-byte hashes on OP_CHECKTEMPLATEVERIFY?
+2. I wonder whether this OP_TXHASH + OP_CHECKSIGFROMSTACKVERIFY is more likely to get merged (and/or more useful) than adding these same OP_TXHASH modes as the sighash for a new Tapscript key type/version (a la APO).
+3. With the above in mind, it seems like these modes are _mostly_ useful with at least 2 bytes of flags, so perhaps it would be worthwhile to reserve 1-byte flags for some pre-determined modes (possibly similar to Template Key). Then we would have an OP_TXHASH with 1-byte modes or multi-byte flags, OP_CHECKTEMPLATEVERIFY with 32, 33, or > 33-byte hashes, and Tapscript 33-byte keys with 64, 65 or > 66-byte signatures all sharing the same basic set of hash modes and flags.
+
+Thanks!
+
+-------------------------
+
