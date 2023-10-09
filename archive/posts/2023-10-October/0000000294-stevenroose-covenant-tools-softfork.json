@@ -12,8 +12,8 @@
   "reply_to_post_number": 24,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
+  "reads": 10,
+  "readers_count": 9,
   "score": 1.4,
   "yours": false,
   "topic_id": 98,
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "You can assert equality but not do math. You can request the hash of input N's prevout amount and the hash of output N's amount and check equality.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
