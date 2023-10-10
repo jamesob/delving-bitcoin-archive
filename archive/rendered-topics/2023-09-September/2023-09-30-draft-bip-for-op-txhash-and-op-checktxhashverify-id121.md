@@ -200,3 +200,15 @@ Thanks!
 
 -------------------------
 
+stevenroose | 2023-10-10 06:31:52 UTC | #9
+
+I can re-hash my thoughts in those points here, yeah.
+
+About 1., that seems like a reasonable idea, in the scenario where CTV gets activated.
+
+About 2., the semantics of TXHASH+CSFS and a sighash are different. The latter _only_ allows the sighash to be specified at sign time by the signer. The former also supports that, but also supports an alternative mode where the sighash properties are set by the policy beforehand. This could be useful, I really have to start listing use cases for these somewhere because I keep forgetting 😅
+
+About 3., hmm, it might make sense. Though I'm always a bit weary about pre-defined modes. It might turn out that the most useful modes aren't included because we can't sufficiently foresee what people will want to do with this. I'm thinking of adding one extra special case "0x00" that is ALL, which is useful for a sighash while the default "empty" is a CTV (non-recursive ALL) mode.
+
+-------------------------
+
