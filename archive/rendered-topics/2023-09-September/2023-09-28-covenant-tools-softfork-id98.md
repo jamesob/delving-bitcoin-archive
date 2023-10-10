@@ -473,3 +473,11 @@ You can assert equality but not do math. You can request the hash of input N's p
 
 -------------------------
 
+instagibbs | 2023-10-10 15:18:02 UTC | #26
+
+I doubt the pinning stuff needs consensus changes, or that ln-symmetry itself needs consensus-level checks any more than ln-penalty. Policy changes as I've described in BOLT/BIP form should get us there. Consensus changes to BIP118 could make it easier though, if you f.e. commit to number of inputs or similar.
+
+Meanwhile, back to making sure package relay becomes a thing...
+
+-------------------------
+
