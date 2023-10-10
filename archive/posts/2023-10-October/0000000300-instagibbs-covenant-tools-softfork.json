@@ -12,9 +12,9 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 98,
   "topic_slug": "covenant-tools-softfork",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I doubt the pinning stuff needs consensus changes, or that ln-symmetry itself needs consensus-level checks any more than ln-penalty. Policy changes as I've described in BOLT/BIP form should get us there. Consensus changes to BIP118 could make it easier though, if you f.e. commit to number of inputs or similar.\n\nMeanwhile, back to making sure package relay becomes a thing...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
