@@ -140,3 +140,11 @@ Both Template Key and TXHASH are intended to open up a new design space for hash
 
 -------------------------
 
+instagibbs | 2023-10-10 15:25:13 UTC | #12
+
+> which exactly 1 appears to have a detailed use case with code. 1 other has a potential use case once certain policy/relay changes are made, and 1 more has a vague description of how it can be used with PTLCs
+
+Can you be more specific which uses-cases you're referring to? I have guesses, but making references without citations makes it hard to judge your judgment of the maturity of the ideas. Thanks!
+
+-------------------------
+
