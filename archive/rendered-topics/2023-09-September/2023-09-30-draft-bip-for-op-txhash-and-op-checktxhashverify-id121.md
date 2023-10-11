@@ -212,3 +212,11 @@ About 3., hmm, it might make sense. Though I'm always a bit weary about pre-defi
 
 -------------------------
 
+reardencode | 2023-10-11 16:28:01 UTC | #10
+
+Re. 2., absolutely. They are different. Part of what is provided by TXHASH+CSFS is provided by TxhashKey, and it may be more likely to reach consensus due to not adding _other_ uses of hashes for which all technical objections may not have been addressed. I admit that I'm not well versed in the objections to CSFS, but I'm confident that the technical objections to TxhashKey can be addressed.
+
+Re. 3., I definitely understand your hesitation around pre-defined modes (we can see the challenges with such in my own objections to APO/APOAS). That said, I struggle to see the downside to providing some best effort pre-defined modes along with the complete flag set.
+
+-------------------------
+
