@@ -20,3 +20,25 @@ I need a link to the reference implementation because figuring out the constrain
 
 -------------------------
 
+ajtowns | 2023-10-13 11:00:24 UTC | #2
+
+This is neat. I did run into `<n> OP_ROLL` giving an error when `<n>` wasn't static, which I guess is understanable, but also disappointing. :)
+
+-------------------------
+
+dgpv | 2023-10-13 13:15:11 UTC | #3
+
+In principle, it is possible to analyze non-static `<n>` for `ROLL` or `PICK` to some degree.
+
+I'm not sure how practical it is, though, and if it is worth it putting the effort to allow this.
+
+Each value of `<n>` for `ROLL` will require its own execution path. `bsst` could put some upper limit on `<n>`, generate that many execution paths, analyze them one by one, and then show them in the report as 'branches' with conditions like `<n> = 1`, `<n> = 2`, etc.
+
+But if `<n>` could happen to be above this limit, the analysis will be incomplete. The report can show a warning, something like "argument for PICK can be above the limit, analysis is incomplete". This warning will be shown in each execution path generated for each value of `<n>`.
+
+If there are more than one such place in the script with non-static arg for `PICK` or `ROLL`, you will get a *lot* of execution paths in the report :-). I guess there needs to be an upper limit for the number of exec paths, too.
+
+Can you give some examples of the *practical* scripts with non-static arg for `PICK` or `ROLL` ?
+
+-------------------------
+

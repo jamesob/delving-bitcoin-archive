@@ -187,3 +187,19 @@ How about the spouse and the kid both paying the notary to keep resetting becaus
 
 -------------------------
 
+ajtowns | 2023-10-13 10:58:30 UTC | #3
+
+[quote="stevenroose, post:2, topic:150"]
+How about the spouse and the kid both paying the notary to keep resetting because they want all the money?
+[/quote]
+
+You could make those scripts a bit smaller my making them something like:
+
+ * `<spouse key> <child key> DUP TOALTSTACK OVER SWAP CHECKSIGVERIFY DUP TOALTSTACK OVER SWAP CHECKSIGVERIFY FROMALTSTACK FROMALTSTACK 2 "OVER SWAP CHECKSIGVERIFY CHECKSIG <355*144> CSV" VAULT`
+
+ie, DUP the keys and use VAULT to put them into the next script, rather than writing them out explicitly.
+
+Anyway, note that the notary can't keep charging in this scenario -- in the first case, the notary enables spouse+notary+455days, then the notary enables child+notary+455days, but that doesn't disable the spouse+notary+455days path, though it does reset the 455 day counter. On the 455th day, the spouse/child may have to race to get their spend confirmed if they both have notarised signatures, but that's the extent of it. You could setup the spouse to have 405 days instead, to avoid a race entirely.
+
+-------------------------
+
