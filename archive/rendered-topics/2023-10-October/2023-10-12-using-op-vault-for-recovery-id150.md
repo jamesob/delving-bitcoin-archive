@@ -177,3 +177,13 @@ in any the recovery script in every OP_VAULT leaf.
 
 -------------------------
 
+stevenroose | 2023-10-13 10:47:37 UTC | #2
+
+(Dude this post looks like it's been formatted with rustfmt. One word per line, really?)
+
+> In this specific example it’s probably fine to use the nicer version with multiple `OP_VAULT` leaves because there is no reason for any two parties to shoot themselves in the foot. It’s not always the case however.
+
+How about the spouse and the kid both paying the notary to keep resetting because they want all the money? :D Inheritance is a game theory nightmare. Jokes aside, I agree with the equivalence :) I thought at some point that the semantics were different in another way, that if spouse and kid trigger the unvault and then spouse dies that the money would be locked, but OP_VAULT retains a re-vault, I suppose.
+
+-------------------------
+
