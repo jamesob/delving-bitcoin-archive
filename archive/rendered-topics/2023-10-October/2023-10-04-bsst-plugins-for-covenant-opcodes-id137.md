@@ -42,3 +42,17 @@ Can you give some examples of the *practical* scripts with non-static arg for `P
 
 -------------------------
 
+ajtowns | 2023-10-14 04:13:53 UTC | #4
+
+[quote="dgpv, post:3, topic:137"]
+Can you give some examples of the *practical* scripts with non-static arg for `PICK` or `ROLL` ?
+[/quote]
+
+I was looking at [`OP_VAULT`](https://github.com/bitcoin/bips/pull/1421) which pops `n+5` elements off the stack, one of which is `n`. (In particular: I wanted to DUP one of the items deepest in the stack, and do so automatically by DUP'ing `n` first)
+
+Without an opcode like that, `n` is effectively static, since you need to consume all but one element from the stack, and each opcode consumes a constant number of elements. Perhaps `CHECKMULTISIG` could do it, but that's not available in tapscript, of course.
+
+Being able to specify `$n in [1,2,3,4,5]` as a constraint in the file (ie pretending there was `DUP 3 NUMEQUALVERIFY` just prior to the `ROLL` or `PICK` for each value in the range) and just rerunning the analysis multiple times would work fine (and put the burden of the combinatorial explosion onto the user). I ended up just reframing my question to avoid the problem though, and that worked fine too.
+
+-------------------------
+
