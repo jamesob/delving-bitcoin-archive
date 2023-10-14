@@ -56,3 +56,9 @@ Being able to specify `$n in [1,2,3,4,5]` as a constraint in the file (ie preten
 
 -------------------------
 
+dgpv | 2023-10-14 05:56:55 UTC | #5
+
+Thanks for the example. I created an issue on `bsst` github to describe this proposed improvement of analysis: https://github.com/dgpv/bsst/issues/14
+
+-------------------------
+
