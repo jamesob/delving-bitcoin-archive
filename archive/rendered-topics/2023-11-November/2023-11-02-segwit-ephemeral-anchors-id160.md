@@ -24,11 +24,11 @@ The branch will actually get smaller since I'm not messing with OP_TRUE outputs 
 
 -------------------------
 
-ajtowns | 2023-11-02 19:44:42 UTC | #2
+ajtowns | 2023-11-02 21:44:47 UTC | #2
 
 If you made the two digit code be `0x4e73` instead of `0xffff` that would give it the bech32m address `bc1pfeessrawgf` (ie "bc1p", "fees", checksum).
 
-You can choose any three letters in the bech32 charset followed by either `q` or `s`, followed by the 6 char checksum. (0xffff is `bc1plllsqd8ech`; 0x0100 (1) gives `bc1pqyqqgs7ult`; 0x0001 (256) gives `bc1pqqqs4em24r` and 0x0000 gives `bc1pqqqqqcnjqs`)
+You can choose any three letters in the bech32 charset followed by either `q` or `s`, followed by the 6 char checksum. (0xffff is `bc1plllsqd8ech`; 0x0100 (1) gives `bc1pqyqqgs7ult`; 0x0001 (256) gives `bc1pqqqs4em24r` ~~and 0x0000 gives `bc1pqqqqqcnjqs`~~)
 
 EDIT: testnet/signet has 4e73 look like `tb1pfees9rn5nz` or with regtest `bcrt1pfeesnyr2tx`. `bitcoin-cli decodescript 51024e73` if you want to try other combinations for something fun.
 
@@ -45,6 +45,12 @@ bc1zfeesuqhy82 (zfees)
 I'm glad we're discussing the real questions left.
 
 good point we'll probably want it obvious in with any checksum due to network/address differences.
+
+-------------------------
+
+ajtowns | 2023-11-02 21:45:36 UTC | #4
+
+Sticking with witness version 1 (taproot-adjacent) and `bc1p` seems like it would be wise, at least.
 
 -------------------------
 
