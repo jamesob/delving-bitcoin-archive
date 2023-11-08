@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'm considering supporting both `OP_TRUE` and `OP_TRUE 0x4e73` at this point. It's a tiny difference, and users can opt into non-segwit versions if they simply don't care about the child transactions' txid stability.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
