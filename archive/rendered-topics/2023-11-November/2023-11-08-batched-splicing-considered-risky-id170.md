@@ -242,3 +242,9 @@ I think if you have a splice transaction that spends utxo X, but utxo X was alre
 
 -------------------------
 
+ajtowns | 2023-11-08 20:34:28 UTC | #6
+
+(removed [lightning] from the subject, and added a #lightning tag)
+
+-------------------------
+
