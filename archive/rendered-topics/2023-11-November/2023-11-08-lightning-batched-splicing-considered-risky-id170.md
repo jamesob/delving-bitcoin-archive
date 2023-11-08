@@ -1,6 +1,6 @@
 # [Lightning] Batched Splicing Considered Risky
 
-ZmnSCPxj | 2023-11-08 14:45:57 UTC | #1
+ZmnSCPxj | 2023-11-08 20:33:13 UTC | #1
 
 Good morning delvingbitcoin,
 
