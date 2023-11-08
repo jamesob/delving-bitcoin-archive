@@ -54,3 +54,9 @@ Sticking with witness version 1 (taproot-adjacent) and `bc1p` seems like it woul
 
 -------------------------
 
+instagibbs | 2023-11-08 17:25:23 UTC | #5
+
+I'm considering supporting both `OP_TRUE` and `OP_TRUE 0x4e73` at this point. It's a tiny difference, and users can opt into non-segwit versions if they simply don't care about the child transactions' txid stability.
+
+-------------------------
+

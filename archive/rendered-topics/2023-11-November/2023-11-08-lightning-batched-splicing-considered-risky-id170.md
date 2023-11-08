@@ -200,3 +200,45 @@ before I read the whole thing, is this centered around 0-conf? :slight_smile:
 
 -------------------------
 
+ZmnSCPxj | 2023-11-08 17:53:00 UTC | #3
+
+The assumption of splicing design has always been that the splicing transaction is offchain and therefore technically 0-conf.
+
+A key difference between offchain and 0-conf is: an offchain mechanism *generally* has a transaction with a single input that happens to be signed by a n-of-n consensus.
+While on the other hand, something is generally considered "0-conf" if its input(s) is/are potentially signed by just one signatory.
+The reason why "offchain" is safe compared to "0-conf" (by the above definitions) is that an "offchain" double-spend requires cooperation of the entire group of signatories which means that a possible receiver can always just refuse to sign a double-spend that would lose them funds, while a "0-conf" receiver is at the whim of the signer since the transaction can be re-signed to not include their funds.
+
+The problem is that existing splice-in designs involve one input that is n-of-n consensus (the pre-splce funding tx out) and a number of other txins that are *potentially* single-signed by one participant, thus potentially allowing that single participant to double-spend the splice tx.  What I am pointing out is that splice is an unholy mix of 0-conf and offchain.
+
+-------------------------
+
+ZmnSCPxj | 2023-11-08 17:58:01 UTC | #4
+
+Now existing splice design has two sets of commitment txes, one for pre-splice and one for post-splice.  This is fine if we consider splicing of a single channel in isolation.  But it is ***not*** fine if we consider splicing of multiple channels in a single batched transaction (for example, if some node wants to splice-out funds from one channel and splice-in to another).  In that case, a theft attempt of one channel (i.e. publishing a revoked commitment tx) may prevent the splice transaction from ever confirming for the other channel.  A theft attempt may be costless if e.g. there is no reserve or the channel happens to have been single-funded opened and the attacker never received funds via that channel (which is a good reason for the victim to splice-out their funds from that channel).
+
+-------------------------
+
+ajtowns | 2023-11-08 19:35:16 UTC | #5
+
+[quote="ZmnSCPxj, post:1, topic:170"]
+B can actually double-spend channel-with-B (pre-splice) using a revoked commitment transaction.
+[/quote]
+
+Why wouldn't they just do a normal unilateral close, using the current non-splice commitment transaction?
+
+In either case, you now have access to your funds with B's channel, and can redo the splice/open with C/D, so what's the problem?
+
+[quote="ZmnSCPxj, post:1, topic:170"]
+D, having seen me broadcast the batched transaction that includes the open of the channel-with-D, has now, naively, sent the preimage to the HTLC for the JIT channel payment.
+[/quote]
+
+The sensible thing to do would be for you to reject the HTLC when it reached you, refusing to forward it to D, because your channel isn't suitable for zeroconf use, because you don't control all the inputs. Maybe you could have a super-advanced version of zeroconf channels where the channel can survive being given an entirely new funding tx (in which case you just updated the funding tx for the channel when B closes that channel), but I don't think we have that currently?
+
+[quote="ZmnSCPxj, post:1, topic:170"]
+I need to be able to tell C “forget about the splice, let us go back to our original channel funding output”, without having to close the channel-with-C, in order to try again with a different batched splice that no longer involves the peer B, or to splice in to C with my onchain funds instead of from the channel-with-B.
+[/quote]
+
+I think if you have a splice transaction that spends utxo X, but utxo X was already spent by transaction T that's had 6 confirmations, dropping the splice transaction should be fine?
+
+-------------------------
+
