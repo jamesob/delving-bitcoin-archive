@@ -194,3 +194,9 @@ ZmnSCPxj
 
 -------------------------
 
+instagibbs | 2023-11-08 15:21:03 UTC | #2
+
+before I read the whole thing, is this centered around 0-conf? :slight_smile:
+
+-------------------------
+
