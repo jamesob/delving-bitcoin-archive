@@ -248,7 +248,7 @@ ajtowns | 2023-11-08 20:34:28 UTC | #6
 
 -------------------------
 
-ZmnSCPxj | 2023-11-09 00:26:50 UTC | #7
+ZmnSCPxj | 2023-11-09 00:27:50 UTC | #7
 
 > The sensible thing to do would be for you to reject the HTLC when it reached you, refusing to forward it to D, because your channel isn’t suitable for zeroconf use, because you don’t control all the inputs.
 
@@ -264,7 +264,7 @@ I guess ultimately my point is:
 
 1. Do **NOT** batch splices with 0-conf / JIT channel opens.
 2. We need a `splice_cancelled` message in the protocol.
-3. There may be incentive to disrupt a splice you agreed to, to punish someone for trying to move funds away from you without paying you, because in existing LN without splice, in order to move funds away from you somebody has to pay routing fees to you (i.e. circular rebalance).  So splicing might require that you compensate someone for splicing out the funds from them.
+3. There may be incentive to disrupt a splice you agreed to, to punish someone for trying to move funds away from you without paying you, because in existing LN without splice, in order to move funds away from you somebody has to pay routing fees to you (i.e. circular rebalance).  So splicing might require that you compensate someone for splicing out the funds from them.  A better way for this is to be able to reject incoming splice-out requests **and** to add some facility to negotiate an in-LN fee for splicing out
 
 -------------------------
 
