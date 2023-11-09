@@ -280,3 +280,18 @@ In a trusted, KYC environment, you could work around this by having the HTLC pay
 
 -------------------------
 
+ZmnSCPxj | 2023-11-09 08:14:33 UTC | #9
+
+I have not seen any actual splice protocol documentation either (if there is, can anyone link to it?).
+
+In particular, we do need some kind of `splice_cancelled` which allows backing out of a splice where the splice transaction is definitely not going to confirm anymore.  If our only possible reaction to a splice transaction definitely not getting confirmed is to close unilaterally, then a batched splice is still risky (whether or not you are batching with 0-conf / JIT channel opens) because if I batch-splice with N participants, any one of them can cause all the N-1 other participant channels to unilaterally close.
+
+-------------------------
+
+ajtowns | 2023-11-09 08:25:56 UTC | #10
+
+ * https://lightningsplice.com/splicing_spec.html 
+ * https://github.com/lightning/bolts/pull/863/
+
+-------------------------
+
