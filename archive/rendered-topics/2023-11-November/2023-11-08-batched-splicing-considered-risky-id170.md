@@ -248,7 +248,7 @@ ajtowns | 2023-11-08 20:34:28 UTC | #6
 
 -------------------------
 
-ZmnSCPxj | 2023-11-09 00:21:17 UTC | #7
+ZmnSCPxj | 2023-11-09 00:23:16 UTC | #7
 
 > The sensible thing to do would be for you to reject the HTLC when it reached you, refusing to forward it to D, because your channel isn’t suitable for zeroconf use, because you don’t control all the inputs.
 
@@ -257,6 +257,13 @@ ZmnSCPxj | 2023-11-09 00:21:17 UTC | #7
 >I think if you have a splice transaction that spends utxo X, but utxo X was already spent by transaction T that’s had 6 confirmations, dropping the splice transaction should be fine?
 
 Yes, but implementations need to be aware that they have to implement this, and you need some kind of coordination with the peer similar to how we do `channel_ready` except this time `splice_cancelled` or `splice_ready`.  In particular, it means implementations have to actively monitor the blockchain for this use-case, not use timeouts: a splice transaction can remain valid but unconfirmed for several thousand blocks due to mempool congestion and then it confirms, at the same time the peer could double-spend the other splice-in input.
+
+----
+
+I guess ultimately my point is:
+
+1. Do **NOT** batch splices with 0-conf / JIT channel opens.
+2. We need a `splice_cancelled` message in the protocol.
 
 -------------------------
 
