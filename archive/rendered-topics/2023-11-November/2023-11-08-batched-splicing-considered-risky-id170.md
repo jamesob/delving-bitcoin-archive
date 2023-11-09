@@ -268,3 +268,15 @@ I guess ultimately my point is:
 
 -------------------------
 
+ajtowns | 2023-11-09 01:07:07 UTC | #8
+
+[quote="ZmnSCPxj, post:7, topic:170"]
+…which basically means it is not possible to batch a splice with a JIT channel open, as a JIT channel open basically opens the channel in response to an HTLC to be forwarded.
+[/quote]
+
+Yes: I think it makes sense to not ever fund a zeroconf-channel unless all the inputs are under your control. (That includes spending unconfirmed inputs other than your own change)
+
+In a trusted, KYC environment, you could work around this by having the HTLC payment come into a custodial account, and the channel get opened from the custodial account. Then if the splice fails, the channel open aborts and the funds just reappear in the custodial account rather than in the channel.
+
+-------------------------
+
