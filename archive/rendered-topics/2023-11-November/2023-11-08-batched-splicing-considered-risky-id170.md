@@ -295,3 +295,9 @@ ajtowns | 2023-11-09 08:25:56 UTC | #10
 
 -------------------------
 
+ZmnSCPxj | 2023-11-10 00:43:16 UTC | #11
+
+Thanks.  It looks like it is possible to have multiple splice txes in-flight, so it should be possible to just remove the offending channel from the batch, if you are willing to increase the feerate.  But a batched splicing implementation does still need to monitor for this case.
+
+-------------------------
+
