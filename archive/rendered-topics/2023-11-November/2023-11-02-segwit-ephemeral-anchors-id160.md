@@ -72,3 +72,18 @@ I don't understand "otherwise undefined witness program". You mean v1 programs t
 
 -------------------------
 
+instagibbs | 2023-11-13 14:25:54 UTC | #7
+
+[quote="stevenroose, post:6, topic:160"]
+I don’t understand what you’re doing here. The BIP you link seems to only talk about plain OP_TRUE, right? So the malleable version?
+[/quote]
+
+That's the malleable version yes.
+
+[quote="stevenroose, post:6, topic:160"]
+Can’t you simply standardize a v1 program that is 1-byte in size and make it standard if thar 1 byte has a fixed value?
+[/quote]
+Because that's not a witness program, meaning it's allowed to have non-empty scriptSig data, making it malleable.
+
+-------------------------
+
