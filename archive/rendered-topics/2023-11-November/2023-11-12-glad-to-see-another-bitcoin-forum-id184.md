@@ -10,9 +10,9 @@ I like the forum software.  What kind of software runs it?  In other words, how 
 
 -------------------------
 
-ajtowns | 2023-11-13 00:53:42 UTC | #2
+ajtowns | 2023-11-13 00:58:44 UTC | #2
 
-It's a discourse site, see https://discourse.org/ and https://github.com/discourse/discourse/blob/main/docs/INSTALL.md perhaps.
+It's a discourse site, see https://discourse.org/ and https://github.com/discourse/discourse/blob/1e1bb45b969093731cb6c252af3c66147ecbb286/docs/INSTALL.md perhaps.
 
 -------------------------
 
