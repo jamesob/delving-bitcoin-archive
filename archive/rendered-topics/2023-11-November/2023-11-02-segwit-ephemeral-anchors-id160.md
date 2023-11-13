@@ -87,3 +87,13 @@ Because that's not a witness program, meaning it's allowed to have non-empty scr
 
 -------------------------
 
+stevenroose | 2023-11-13 15:38:31 UTC | #8
+
+[quote="instagibbs, post:7, topic:160"]
+Because that’s not a witness program, meaning it’s allowed to have non-empty scriptSig data, making it malleable.
+[/quote]
+
+Heh? Can you re-read my original message? And explain what you are proposing/describing? What I said was to standardize a v1 (taproot-version) witness program of a single byte. So like scriptPubkey of  `OP_1 OP_PUSHBYTES_1 0x42`. I think for consensus any non-32-byte v1 program is anyone-can-spend, no?
+
+-------------------------
+
