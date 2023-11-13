@@ -60,3 +60,15 @@ I'm considering supporting both `OP_TRUE` and `OP_TRUE 0x4e73` at this point. It
 
 -------------------------
 
+stevenroose | 2023-11-13 05:25:40 UTC | #6
+
+[quote="instagibbs, post:1, topic:160"]
+Instead, why not just utilize bip141’s softfork for witness programs, and use an otherwise undefined witness program? For example, replace the script “OP_TRUE” with “OP_TRUE 0xffff” which triggers the scriptSig rule in bip141:
+[/quote]
+
+I don't understand what you're doing here. The BIP you link seems to only talk about plain OP_TRUE, right? So the malleable version? What part of the BIP141 are you using to do this?
+
+I don't understand "otherwise undefined witness program". You mean v1 programs that are not 32 bytes and redefine those? But then why would you need OP_TRUE? Can't you simply standardize a v1 program that is 1-byte in size and make it standard if thar 1 byte has a fixed value? Which is anyone can spend anyway, so it's the same as OP_TRUE?
+
+-------------------------
+
