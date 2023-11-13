@@ -97,3 +97,14 @@ Heh? Can you re-read my original message? And explain what you are proposing/des
 
 -------------------------
 
+instagibbs | 2023-11-13 15:57:43 UTC | #9
+
+couple of confusions:
+
+1) bip141 requires two byte push to 40.
+2) OP_TRUE==OP_1
+
+I'll cleanup my branch to refer to OP_1 since it's more clear what we're going for.
+
+-------------------------
+
