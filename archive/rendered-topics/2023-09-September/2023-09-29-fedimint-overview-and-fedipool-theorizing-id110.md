@@ -75,3 +75,11 @@ I look forward to your comments and questions.
 
 -------------------------
 
+MattCorallo | 2023-11-14 00:45:48 UTC | #2
+
+Federating the hot wallet of a mining pool isn't really an interesting problem to solve - pools could just pay out over lightning today every second and the float would be ~zero. The fact that we don't see this used broadly today is probably a great indication there isn't much demand for this :p.
+
+More generally, there are lots of difficult issues with mining centralization, but the float the pool owes the user isn't really generally high on that list. I spent some time discussing this at https://github.com/fedimint/fedimint/discussions/1504#discussioncomment-5020472 and elsewhere in that thread.
+
+-------------------------
+
