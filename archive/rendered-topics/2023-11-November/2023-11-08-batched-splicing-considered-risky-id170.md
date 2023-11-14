@@ -301,3 +301,11 @@ Thanks.  It looks like it is possible to have multiple splice txes in-flight, so
 
 -------------------------
 
+t-bast | 2023-11-14 08:23:01 UTC | #12
+
+Current implementations (cln, eclair) already do, you cannot avoid watching for double-spends anyway since your peer may add inputs that are outside of your control.
+
+Once an unconfirmed splice transaction has been double-spent by an unrelated transaction (which isn't another splice for that channel), there currently isn't any mechanism to remove it from the splice list. But that's unnecessary and would add complexity for no good reason: we can keep that splice tx in the list of pending splice txs and send `commit_sig` for it whenever we use the channel (it's only a small overhead), and it will be automatically cleaned up once another splice transaction confirms.
+
+-------------------------
+

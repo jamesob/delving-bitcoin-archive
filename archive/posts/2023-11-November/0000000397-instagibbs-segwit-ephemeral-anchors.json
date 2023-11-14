@@ -12,9 +12,9 @@
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 15.6,
   "yours": false,
   "topic_id": 160,
   "topic_slug": "segwit-ephemeral-anchors",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "couple of confusions:\n\n1) bip141 requires two byte push to 40.\n2) OP_TRUE==OP_1\n\nI'll cleanup my branch to refer to OP_1 since it's more clear what we're going for.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
