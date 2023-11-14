@@ -16,3 +16,9 @@ Maybe just add something like 'tools and libraries' category ?
 
 -------------------------
 
+dgpv | 2023-11-14 10:20:47 UTC | #3
+
+Although with your example, bitcoin-inquisition, this might not work, as it is neither exactly a "tool" nor a "library". But maybe you could classify it as a "tool" for a "deep investigation of the value of proposed consensus changes"
+
+-------------------------
+
