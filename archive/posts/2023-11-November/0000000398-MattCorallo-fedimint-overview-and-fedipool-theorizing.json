@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 110,
   "topic_slug": "fedimint-overview-and-fedipool-theorizing",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Federating the hot wallet of a mining pool isn't really an interesting problem to solve - pools could just pay out over lightning today every second and the float would be ~zero. The fact that we don't see this used broadly today is probably a great indication there isn't much demand for this :p.\n\nMore generally, there are lots of difficult issues with mining centralization, but the float the pool owes the user isn't really generally high on that list. I spent some time discussing this at https://github.com/fedimint/fedimint/discussions/1504#discussioncomment-5020472 and elsewhere in that thread.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
