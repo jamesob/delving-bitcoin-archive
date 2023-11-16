@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 15.6,
   "yours": false,
   "topic_id": 196,
   "topic_slug": "cpu-usage-of-peers",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This is a thread to discuss the CPU usage of peers.\n\n## Interesting things:\n* average case / expected CPU usage per peer\n-> what are some broad strokes of where CPU time is spent? \n* worst case CPU usage for a single peer -> this can help us understand if increasing the total number of incoming slots is okay, or could be problematic\n* worst & average case CPU usage for a block-relay-only peer vs full-relay peer -> for more granularity around evaluating the above \n* how different network conditions impact the expected CPU usage per peer",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": false,
   "staff": true,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
