@@ -22,3 +22,15 @@ Although with your example, bitcoin-inquisition, this might not work, as it is n
 
 -------------------------
 
+ajtowns | 2023-11-17 04:48:42 UTC | #4
+
+I like the term "working group" for a group that's focussed on a topic, particularly if it's probably not going to go on indefinitely, and in that vein there's now a #implementation:wg-blockrelay group/category for discussing expanding the number of block-relay-only connections bitcoin core peers make/accept cf [#28462](https://github.com/bitcoin/bitcoin/issues/28462).
+
+Combining a category with a group makes it possible to:
+ * make a private category, with posts only members of the group can see
+ * make a read-only category, where only group members can post, but anyone can read the posts
+ * make a public category, but allow group members to moderate it, rather than restricting that to the global moderators
+ * make it so group members automatically watch the category, so they automatically get emails notifying them about new topics/comments in the category, but not get spammed with everything else going on on the site
+
+-------------------------
+
