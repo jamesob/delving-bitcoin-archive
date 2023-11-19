@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 208,
   "topic_slug": "differential-fuzzing-of-bitcoin-implementations",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi, all! \n\nI'm working on differential fuzzing of Bitcoin implementations/libraries (https://github.com/brunoerg/bitcoinfuzz). I'm starting it with miniscript, so at this moment it's fuzzing Core's and rust-miniscript. \n\nI'm openning this topic to raise ideas and get feedbacks about it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
