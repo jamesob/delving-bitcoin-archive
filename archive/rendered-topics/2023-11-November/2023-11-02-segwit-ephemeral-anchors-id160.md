@@ -108,3 +108,15 @@ I'll cleanup my branch to refer to OP_1 since it's more clear what we're going f
 
 -------------------------
 
+sjors | 2023-11-22 10:25:57 UTC | #10
+
+[quote="instagibbs, post:9, topic:160"]
+1. bip141 requires two byte push to 40
+[/quote]
+
+Did you mean: bip141 requires a push of between 2 and 40 bytes?
+
+What was wrong with a 1 byte push again?
+
+-------------------------
+
