@@ -120,3 +120,23 @@ What was wrong with a 1 byte push again?
 
 -------------------------
 
+ajtowns | 2023-11-22 12:27:47 UTC | #11
+
+[quote="sjors, post:10, topic:160"]
+What was wrong with a 1 byte push again?
+[/quote]
+
+Seems like a good question for https://bitcoin.stackexchange.com/  -- I think segwit was originally a single push, where the first byte was the version, and the rest was the program; with that push being between 2 and 41 bytes; now the version and program are separate pushes, but rather than having the program be 1-40, it's 2-40...
+
+EDIT: https://bitcoin.stackexchange.com/questions/110660/how-could-a-2-byte-witness-program-make-sense suggests it's to avoid ambiguity on how to push one-byte (OP_1 vs 0101 etc)
+
+-------------------------
+
+instagibbs | 2023-11-22 13:48:35 UTC | #12
+
+> I don't have any concrete cases which could benefit from such short witness programs. 
+
+Glad to find a counter-example
+
+-------------------------
+
