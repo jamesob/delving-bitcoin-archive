@@ -1,8 +1,8 @@
 # How many nonce reuse before exposing your Musig2 private key?
 
-t-bast | 2023-11-23 15:02:56 UTC | #1
+t-bast | 2023-11-23 15:08:03 UTC | #1
 
-The [Musig2 BIP](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki) says that signing two distinct messages with the same `secnonce` exposes your private key. While I know we must absolutely not reuse `secnonces`, I wanted to check how the private key extraction worked and the difference with a standard schnorr sig.
+The [Musig2 BIP](https://github.com/bitcoin/bips/blob/e918b50731397872ad2922a1b08a5a4cd1d6d546/bip-0327.mediawiki) says that signing two distinct messages with the same `secnonce` exposes your private key. While I know we must absolutely not reuse `secnonces`, I wanted to check how the private key extraction worked and the difference with a standard schnorr sig.
 
 And I couldn't figure it out! It seems to me that an attacker would need **three** partial sigs for distinct messages using the same `secnonce`, **two** doesn't seem to be enough?
 
