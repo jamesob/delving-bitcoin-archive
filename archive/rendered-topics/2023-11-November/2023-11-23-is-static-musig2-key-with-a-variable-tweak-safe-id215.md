@@ -26,3 +26,13 @@ Not at all, I do think this is safe as well, but I wanted to have wizard confirm
 
 -------------------------
 
+sipa | 2023-11-23 15:42:49 UTC | #4
+
+So your proposal is to effectively use (abusing notation slightly):
+
+    tr(musig2(user,server),[and(pk(user_refund),older(delay))])
+
+The only potential concern I see with only rotating `user_refund` is that if you have two distinct outputs which both get spent through the script path, they can be recognized as being from the same partie(s), as the key path will be identical.
+
+-------------------------
+
