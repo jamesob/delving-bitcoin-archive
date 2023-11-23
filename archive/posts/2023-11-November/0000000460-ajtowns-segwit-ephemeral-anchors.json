@@ -12,9 +12,9 @@
   "reply_to_post_number": 10,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 15.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 31.2,
   "yours": false,
   "topic_id": 160,
   "topic_slug": "segwit-ephemeral-anchors",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -58,10 +58,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
