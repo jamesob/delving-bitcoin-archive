@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 11,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 56.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 71.6,
   "yours": false,
   "topic_id": 215,
   "topic_slug": "is-static-musig2-key-with-a-variable-tweak-safe",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'd like to create taproot addresses where the key path is using musig2 with a script path that contains a refund script, that can be spent with a single key after a delay:\n\n- key path: `user_key` + `server_key`\n- script path: `user_refund_key` + `refund_delay`\n\nI'd like to avoid address reuse, so I want to rotate the user keys.\nWhat I'm wondering is if it's safe to only rotate the `user_refund_key`?\n\nThat would keep the `user_key` and `server_key` static, which makes it easier to express in a descriptor used for refunds and easier to manage on the server side.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

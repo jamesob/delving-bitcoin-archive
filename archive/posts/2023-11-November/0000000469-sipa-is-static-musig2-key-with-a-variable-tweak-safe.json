@@ -8,13 +8,13 @@
   "post_number": 4,
   "post_type": 1,
   "updated_at": "2023-11-23T15:42:49.935Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "incoming_link_count": 3,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 50.8,
   "yours": false,
   "topic_id": 215,
   "topic_slug": "is-static-musig2-key-with-a-variable-tweak-safe",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "So your proposal is to effectively use (abusing notation slightly):\n\n    tr(musig2(user,server),[and(pk(user_refund),older(delay))])\n\nThe only potential concern I see with only rotating `user_refund` is that if you have two distinct outputs which both get spent through the script path, they can be recognized as being from the same partie(s), as the key path will be identical.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

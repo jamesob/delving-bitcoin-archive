@@ -36,3 +36,11 @@ The only potential concern I see with only rotating `user_refund` is that if you
 
 -------------------------
 
+t-bast | 2023-11-23 16:16:09 UTC | #5
+
+Thanks, that's a very good point! That rotation only really protects inputs spent through the key path.
+
+I think that could be acceptable in our case, as the script path is only there in case the server disappears or is unable to cooperate and should hopefully never be used (but is a fail-safe to guarantee that user cannot lose access to their funds).
+
+-------------------------
+
