@@ -29,3 +29,25 @@ I'm creating this thread for two reasons:
 
 -------------------------
 
+harding | 2023-11-23 02:35:32 UTC | #2
+
+I think the major efficiency gains that this depends on requires that each participant be a member of the multisig (so the contract is trustless) and then also be available after all tickets have been settled in order to sign a non-contracted payment back to the market maker.  The more signers that are required, and the more time that passes between setup and teardown, the less likely it is that all signers will be available, requiring all of the individual outcome transactions to go on chain.
+
+To support the above claim, here's how I understand your proposal:
+
+- A maker agrees to work with Alice and Bob.  The maker proposes (but does not sign) a transaction paying the n-of-n multisig {A, B, M}.  Alice and Bob sign a timelocked refund from that transaction back to the maker, ensuring the maker can reclaim their funds even if Alice or Bob later become unavailable.  The maker signs and broadcasts the funding transaction.
+
+- The maker then sells tickets to Alice and Bob over LN.  I think this likely requires PTLCs given that DLCs are working with signatures.  If you have more details on how that would work, I'd appreciate them.
+
+- Alice wins.  Her winning ticket is an output that can be spent by her unilaterally after a certain delay, or which can be spent by the maker at any time if they learn a preimage from Alice (or PTLC scalar).  Alice uses LN or ecash to sell the preimage to the maker.
+
+- In the meantime, Alice and Bob have bought and settled 99 other tickets with the maker in the same way.
+
+- The maker now has enough information to claim all 100 outputs onchain, but that would be just as inefficient as Alice and Bob claiming them individually.  If Alice and Bob cooperate, they and the maker can sign an alternative transaction with a single output paying back to the maker---but this requires Alice and Bob to be available.  As the number of participants increases, the likelihood of everyone being available decreases.
+
+- The maker needs to settle all of the claims before the timelocks on the unilateral spends expires, or the participants can take back the funds they've swapped over LN or ecash.  This deadline for the participants also needs to be earlier than the timelocked refund to the maker (or the maker would've been able to steal from the participants), so the maker won't be able to just wait and sweep all unclaimed funds.
+
+I'm not sure I fully understood your idea, so please let me know if I missed something.
+
+-------------------------
+
