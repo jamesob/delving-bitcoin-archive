@@ -51,7 +51,7 @@ I'm not sure I fully understood your idea, so please let me know if I missed som
 
 -------------------------
 
-conduition | 2023-11-23 20:32:47 UTC | #3
+conduition | 2023-11-23 20:35:12 UTC | #3
 
 Thanks for the questions @harding. If you'd like to understand the protocol in more detail, i think you'd find my original email to the dlc-dev mailing list helpful: https://mailmanlists.org/pipermail/dlc-dev/2023-November/000182.html
 
@@ -78,6 +78,9 @@ I think a diagram might be helpful to visualize the TX flow. This diagram shows 
 - The big solid-lined boxes are transactions.
 - The small boxes inside them labeled with $v$ are transaction outputs.
 - The arrows indicate transactions which spend those outputs. 
+- Locking conditions are written above and below the spending path arrows.
+- $\Delta$ is a relative block delay timelock.
+
 
 This diagram uses adaptor signatures and PTLCs, but you could easily swap that logic for hashlocks instead. 
 
