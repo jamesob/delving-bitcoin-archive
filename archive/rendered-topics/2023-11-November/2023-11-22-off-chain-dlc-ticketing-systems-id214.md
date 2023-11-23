@@ -51,7 +51,7 @@ I'm not sure I fully understood your idea, so please let me know if I missed som
 
 -------------------------
 
-conduition | 2023-11-23 20:31:51 UTC | #3
+conduition | 2023-11-23 20:32:47 UTC | #3
 
 Thanks for the questions @harding. If you'd like to understand the protocol in more detail, i think you'd find my original email to the dlc-dev mailing list helpful: https://mailmanlists.org/pipermail/dlc-dev/2023-November/000182.html
 
@@ -61,7 +61,7 @@ I think that should clear up most of your confusion, but let me try to answer a 
 
 Only the DLC winners would need to be online and available to sell the on-chain contract TXO back to the market maker. 
 
-Once the DLC oracle publishes the outcome signature, the winners of the DLC can prove they have sole custody of the contract output. If they cooperate during that time, they can sell the whole contract back to the market maker, in exchange for off-chain payments therefrom. 
+Once the DLC oracle publishes the outcome signature, the winners of the DLC can prove they have sole custody of the contract output. If they cooperate during that time, the winners can sell the whole contract back to the market maker, in exchange for off-chain payments therefrom. 
 
 The trick is in using multiple stages of transactions, not just a single n-of-n multisig address. 
 - The first stage TXO (of $\text{TX}_{\text{init}}$) is owned by all players and the market maker. 
