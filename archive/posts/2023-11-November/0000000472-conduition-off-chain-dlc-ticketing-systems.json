@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 214,
   "topic_slug": "off-chain-dlc-ticketing-systems",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks for the questions @harding. If you'd like to understand the protocol in more detail, i think you'd find my original email to the dlc-dev mailing list helpful: https://mailmanlists.org/pipermail/dlc-dev/2023-November/000182.html\n\nI think that should clear up most of your confusion, but let me try to answer a few things directly:\n\n> I think the major efficiency gains that this depends on requires that each participant be a member of the multisig (so the contract is trustless) and then also be available after all tickets have been settled in order to sign a non-contracted payment back to the market maker. \n\nOnly the DLC winners would need to be online and available to sell the on-chain contract TXO back to the market maker. \n\nOnce the DLC oracle publishes the outcome signature, the winners of the DLC can prove they have sole custody of the contract output. If they cooperate during that time, the winners can sell the whole contract back to the market maker, in exchange for off-chain payments therefrom. \n\nThe trick is in using multiple stages of transactions, not just a single n-of-n multisig address. \n- The first stage TXO (of $\\text{TX}_{\\text{init}}$) is owned by all players and the market maker. \n- The second stage TXO (of $\\text{TX}_{\\text{outcome } i}$) is owned by ticketholding winners, or the market maker as a fallback. \n- Adding a separate third stage ($\\text{TX}_{\\text{split }i}$) which splits the winnings would enable an 'all winners cooperate' path, where the DLC contract output doesn't need to be split into separate per-winner outputs. This would be useful for DLCs which have lots of winners.\n\nI think a diagram might be helpful to visualize the TX flow. This diagram shows a contract with 3 players, Alice, Bob and Carol, plus a market maker. I added 'split' transactions (not described in my original email) to enable the 'all winners cooperate' path. \n\n\n<img src=\"upload://xq35HbL1frk44gngSHJJPOhIYgX.png\">\n\n[Mathcha diagram link](https://www.mathcha.io/editor/dxr6ncP8twWsGkYVZxHP52E1PhdgEoQMiwZlDV0)\n\n- The big solid-lined boxes are transactions.\n- The small boxes inside them labeled with $v$ are transaction outputs.\n- The arrows indicate transactions which spend those outputs. \n- Locking conditions are written above and below the spending path arrows.\n- $\\Delta$ is a relative block delay timelock.\n\n\nThis diagram uses adaptor signatures and PTLCs, but you could easily swap that logic for hashlocks instead. \n\n> The maker then sells tickets to Alice and Bob over LN. I think this likely requires PTLCs given that DLCs are working with signatures. If you have more details on how that would work, I\u2019d appreciate them.\n>\n> Alice wins. Her winning ticket is an output that can be spent by her unilaterally after a certain delay, \n\nTickets are actually just preimages - or scalars depending on the implementation. In the above diagram, i represent them as locking conditions with $T_A$, $T_B$, and $T_C$. The ticket locking conditions are one stage _after_ the DLC oracle signature is needed, and i'm assuming the players all learn the outcome signature directly from the oracle for free (no PTLC needed).\n\nYou're correct about the winner being able to unilaterally spend her winnings output after a delay. But to spend this output, the winner needs her ticket secret/preimage. Without it, after a longer timelock, the output returns to the control of the market maker, via $\\text{TX}_{\\text{reclaim}}$.\n\n> In the meantime, Alice and Bob have bought and settled 99 other tickets with the maker in the same way.\n\nI think the protocol you're picturing diverged from mine beyond this point. Each player can only buy one ticket per DLC. The purchase of the ticket secret grants the player access to a specific set of payouts, contingent on the outcome signed by the oracle.\n\nAlso the protocol as i've described is only for a single DLC contract; i haven't yet considered how this might be applied to multiple DLCs.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

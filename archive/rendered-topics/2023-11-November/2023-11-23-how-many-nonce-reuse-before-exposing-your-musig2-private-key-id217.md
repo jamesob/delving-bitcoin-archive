@@ -38,3 +38,9 @@ The attacker ends up with one equation but two unknowns (`ra2` and `ka`), so it'
 
 -------------------------
 
+ajtowns | 2023-11-24 01:33:32 UTC | #2
+
+I don't think you're missing anything; though perhaps some wagner-ish approach could also cause you to reveal your secret key if you sign many times while only using any single nonce pair twice. With musig2 you effectively have two nonces ($ra_1, ra_2$), so giving you three unknowns ($ra_1, ra_2, ka$) so needing three equations (signatures) to solve for three unknowns seems sensible.
+
+-------------------------
+
