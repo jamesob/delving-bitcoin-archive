@@ -44,3 +44,26 @@ I don't think you're missing anything; though perhaps some wagner-ish approach c
 
 -------------------------
 
+conduition | 2023-11-24 07:12:11 UTC | #3
+
+Neat point, i hadn't thought of this till now. 
+
+I believe you are correct _for musig2._ But the older MuSig1 has no nonce coefficient $b$, and so reusing a nonce even once will expose your signing key the same way that reusing a Schnorr signing nonce will.
+
+If you have three partial signatures under the same nonce, it is possible to extract the secret key, although the algebra involved is a bit overzealous. 
+
+Given:
+- $s_1 = r_1 + r_2 b_1 + e_1 k a$
+- $s_2 = r_1 + r_2 b_2 + e_2 k a$
+- $s_3 = r_1 + r_2 b_3 + e_3 k a$
+
+You can solve for $k$ as:
+
+$k = \frac{(s_3-s_1)(b_2-b_1) - (s_2-s_1)(b_3-b_1)}{a \left( (e_3-e_1)(b_2-b_1) + (e_1-e_2)(b_3-b_1) \right)} $
+
+I wrote a test to sanity check my math and indeed it does work: https://github.com/conduition/musig2/commit/778cc61d466d9cb418414bd2ff7692d2d6dba34d
+
+Also worth noting: Reusing nonces in musig is bad even if you are signing _the same message,_ because other signers can change their nonces and thus change the aggregated nonce, which changes $e$ the same way that changing the message would.
+
+-------------------------
+

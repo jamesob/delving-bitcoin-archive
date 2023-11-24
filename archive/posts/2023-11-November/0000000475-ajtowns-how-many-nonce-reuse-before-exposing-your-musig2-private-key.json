@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 217,
   "topic_slug": "how-many-nonce-reuse-before-exposing-your-musig2-private-key",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I don't think you're missing anything; though perhaps some wagner-ish approach could also cause you to reveal your secret key if you sign many times while only using any single nonce pair twice. With musig2 you effectively have two nonces ($ra_1, ra_2$), so giving you three unknowns ($ra_1, ra_2, ka$) so needing three equations (signatures) to solve for three unknowns seems sensible.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
