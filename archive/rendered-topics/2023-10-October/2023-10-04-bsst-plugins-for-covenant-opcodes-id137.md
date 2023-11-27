@@ -62,3 +62,13 @@ Thanks for the example. I created an issue on `bsst` github to describe this pro
 
 -------------------------
 
+dgpv | 2023-11-27 14:32:30 UTC | #6
+
+In the development version of bsst (and upcoming version 0.1.2) plugin system was reworked, and the way to run the referenced plugin slightly changed. Now it has to be run with `./bsst-cli --plugins=plugins/op_checkcontractverify_bsst_plugin.py`. The `CAT` opcode can now be enabled also via `--explicitly-enabled-opcodes=CAT`
+
+The github gist with the plugin was also updated to work with new version.
+
+(I would prefer to edit the first post to update the info, but it seems that I cannot)
+
+-------------------------
+
