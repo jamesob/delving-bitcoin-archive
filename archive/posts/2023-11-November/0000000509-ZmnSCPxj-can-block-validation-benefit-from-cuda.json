@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 15.6,
   "yours": false,
   "topic_id": 224,
   "topic_slug": "can-block-validation-benefit-from-cuda",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "My naive understanding is largely no.\n\nAt least part of the validation involves looking up unspent transaction outputs in a database. This is cached in memory (IIRC) but I think random access to general memory would not fit most GPUs, which are generally targeted more for vector computations (i.e. some kind of uniform memory access).\n\nMany CPUs have SHA256 hardware implementations and I imagine using that would be faster than pushing bytes into the GPU and then pushing the hashes back. Not to mention that the most consensus-important SHA256-use would be `SIGHASH` calculation, which would involve branching (i.e. the differences between `SIGHASH_ALL`, `SIGHASH_NONE`, and `SIGHASH_SINGLE`, as well as the absence/presence of `SIGHASH_ANYONECANPAY` changes the sequence of bytes that are fed into the SHA256 machine).\n\nMaybe the best bet would be to focus on the \"pure math\" SECP256K1 signature validations (i.e. have the `SIGHASH`es come from the CPU and then push them into the GPU for validation).  However, again, GPUs like consistent single-instruction-multiple-data vectorized calculations. And I believe SECP256K1 Schnorr signatures as used in Taproot can be batch validated, meaning you only do a single calculation to validate multiple transactions that use the keyspend path. Since only a single calculation is needed, there seems to be no advantage to using a GPU in that case.\n\nNote: I have not read recent bitcoin core code, so my knowledge may be out-of-date.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
