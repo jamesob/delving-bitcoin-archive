@@ -34,3 +34,9 @@ Combining a category with a group makes it possible to:
 
 -------------------------
 
+ajtowns | 2023-11-30 08:22:42 UTC | #5
+
+We've also had #implementation:wg-cluster-mempool going for a little while now; previously it was private to the group members; it's now public, but read-only if you're not a group member. Happy to setup variations of this for other groups, if there's interest.
+
+-------------------------
+

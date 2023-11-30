@@ -136,3 +136,21 @@ Zooming out: this kind of Cantillon effect that can be imposed by economic power
 
 -------------------------
 
+ajtowns | 2023-11-30 08:16:15 UTC | #8
+
+[quote="ZmnSCPxj, post:6, topic:22"]
+The problem with any kind of “intelligent” use of inflationary minting is, again, a repeat of the principal vs agent problem.
+[/quote]
+
+The key word there is "minting" -- you get a conflict because you're both assigning value to something, and creating that something out of nothing, so why not create lots of the something, give it to yourself, and voila you're rich. The problem is that eventually doesn't work: the market will eventually assign a different value to that something.
+
+The trick in the approach above is not to have the minting at all: the only "something" is btc, and you can't magically create more of it. Setting an exchange rate vs dollars, and pricing things in dollars doesn't make anyone richer or poorer, it just turns price updating into a service by default.
+
+For example, if your salary is $90,000 and your grocery bill is $200 and your rent is $2000, then an economy-wide event that changes the savings rate just changes the value of all those things in BTC; if the savings rate increases and everyone wants more BTC, maybe you only get 80% as much BTC for your dollar, but that's true in all those interactions, which gives the central bank a way of addressing systemic shocks, without causing inflation.
+
+Not every transaction will be denominated in dollars, of course; eg your salary might be denominated in dollars, while your mortgage payments are denominated in BTC. That then acts similarly to an interest rate rise: you'll need to pay $1250/month instead of $1000/month given an 80% change in exchange rate. Note that compared to interest rate rises today, this is making it harder to pay off both the principal and the interest; whereas today, interest rate rises only make it harder to pay off the interest.
+
+If you have someone picking the exchange rate, then they could ignore the inflation data they're meant to be using, and instead manipulate the results so their interest payments go up or down (depending on whether they're lending or borrowing). Worst case, that just means the "dollar" is a useless idea, and everyone should do everything in BTC. But I think you could design a market-based system to set the exchange rate at present based on future CPI data results, to avoid that being a direct problem. I think some of the macroeconomists in favour of an NGDP-target rather than an inflation target have done some market design work on that sort of thing.
+
+-------------------------
+
