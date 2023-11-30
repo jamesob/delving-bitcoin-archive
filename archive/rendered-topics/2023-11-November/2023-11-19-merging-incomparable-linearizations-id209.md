@@ -661,7 +661,7 @@ EDIT: I see, you're talking about average feerate for the entire set up to that 
 
 -------------------------
 
-ajtowns | 2023-11-30 20:12:40 UTC | #34
+ajtowns | 2023-11-30 20:16:51 UTC | #34
 
 [quote="sipa, post:33, topic:209, full:true"]
 [quote="ajtowns, post:32, topic:209"]
@@ -679,7 +679,7 @@ EDIT: I see, you’re talking about average feerate for the entire set up to tha
 
 Yes, precisely -- it is another way of saying the same thing, I think it's just easier to reason about (horizontal line segments that decrease when you've found the optimal solution).
 
-Translating the $N$ is better than $L$ proof becomes: look at the feerate at $\gamma_i$; now consider the feerate for $\gamma_i + \zeta_i$ -- it's higher, because $zeta_i \ge f$ and the size of that set is greater, and an optimal chunking will extend that feerate leftwards, so $N$ chunks better up to $i$, for each $i$, done. You don't have to deal with line intersections.
+Translating the $N$ is better than $L$ proof becomes: look at the feerate at $\gamma_i$; now consider the feerate for $\gamma_i + \zeta_i$ -- it's higher, because $\zeta_i \ge f$ and the size of that set is greater, and an optimal chunking will extend that feerate leftwards, so $N$ chunks better up to $i$, for each $i$, done. You don't have to deal with line intersections.
 
 -------------------------
 
