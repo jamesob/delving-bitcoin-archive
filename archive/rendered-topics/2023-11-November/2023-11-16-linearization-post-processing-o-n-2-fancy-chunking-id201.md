@@ -146,9 +146,9 @@ So if there are reasons to keep cluster in linearization format (rather than chu
 
 -------------------------
 
-sipa | 2023-11-29 22:17:48 UTC | #7
+sipa | 2023-11-30 04:25:45 UTC | #7
 
-FWIW, ancestor sort will optimally sort every cluster up to 4 transactions, and post-processing according to the algorithm above does not change that.
+FWIW, experimentally it seems that ancestor sort will optimally sort every cluster up to 4 transactions, and post-processing according to the algorithm above does not change that.
 
 The simplest cluster that I've been able to find which does *not* sort optimally under ancestor sort (with or without post-processing) is this:
 

@@ -118,3 +118,21 @@ In any way, these price lists obviously became a reference for people to value t
 
 -------------------------
 
+ZmnSCPxj | 2023-11-30 02:13:05 UTC | #6
+
+The problem with any kind of "intelligent" use of inflationary minting is, again, a repeat of the principal vs agent problem.  Supposedly the central bank, the "agent", is targeting stability of prices and wages, but the principal has little to no control over the agent and the agent is likely to prefer enriching itself rather than ensuring their target.  If we had a perfectly good perfectly moral perfectly aligned model that would focus only on the target, maybe.  But as currently implementable with existing tech, hell no.
+
+Further, I argue that most arguments for inflationary minting neglect the Cantillon effect. As a concrete example, I know that a number of third-world citizens have their salaries denominated in first-world fiat, such as USD.  During the COVID pandemic, the USA printed additional USD in order to fund its subsidies to USA citizens. Of course, this reduced the price of USD relative to pretty much all currencies.  However, those third-world citizens were obviously not one of those who got those subsidies, not being USA citizens, even though they effectively got a real salary decrease due to the reduction in USD prices due to the increased USD printing to give subsidies to ONLY USA citizens.  In short --- the USA effectively stole from the third world by extracting a tax.
+
+Yes, maybe the third-world citizens could have instead gotten jobs that were not denominated in USD.  But it is not just employee salaries --- this affects all economic transactions between economic powerhouses like USA and pretty much everyone else.  The USA can, with impunity, insist on purchasing goods denominated in USD, and then make those goods effectively cheaper by printing more USD.
+
+Inflationary money is a moral hazard, and must not be accepted, for any reason.  Stable prices are not a sufficient reason to accept moral hazards.  Cantillon effects have far more pernicious --- and, more importantly, far more ***invisible*** --- theft than any benefit inflationary money might have.
+
+-------------------------
+
+ZmnSCPxj | 2023-11-30 02:20:16 UTC | #7
+
+Zooming out: this kind of Cantillon effect that can be imposed by economic powerhouses on less-powerful economies is a safety hazard in an AI age.  Presumably any AI-powered economy would be much stronger than one merely human-powered.  If the AI-powered economy uses inflationary currency which it imposes on trade with the human-powered economy, the AI-powered economy will simply dominate and kill off the human-powered economy (and, because money buys everything including basic needs like food, water, shelter, air, will probably kill off many actual humans).  There is a reason why consensus N-of-N is so important: it makes even those of great economic power (and we can likely assume that any AI-powered economy ***WILL*** be great economically) of equal weight to someone who only has one key in that N-of-N, even if the great economic power can buy out the rest of the keys (whereas a mere k-of-n, a powerful AI needs only buy out k keys).  All of us or none of us, sort of thing.
+
+-------------------------
+
