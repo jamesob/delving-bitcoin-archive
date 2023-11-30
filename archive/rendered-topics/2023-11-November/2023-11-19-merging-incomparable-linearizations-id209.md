@@ -643,3 +643,19 @@ Spreadsheet to play around: https://docs.google.com/spreadsheets/d/1blG8NBjcjidV
 
 -------------------------
 
+sipa | 2023-11-30 19:58:36 UTC | #33
+
+[quote="ajtowns, post:32, topic:209"]
+FWIW, I think you don’t need case $\gamma_0 + \zeta_0$ in your proof, just the ones after each chunk suffice.
+[/quote]
+
+I think that's a question of formality. It's of course obvious that if all points after each chunk lie above the old diagram, then the line from the origin to the first point does too. Yet, we actually do require the property that that line in its entirety lies above the old diagram too. Depending on how "obvious" something needs to be before you choose not to mention it, it could be considered necessary or not.
+
+[quote="ajtowns, post:30, topic:209"]
+Then (I think) you still compare two diagrams by seeing if all the points on one are below all the points on the other
+[/quote]
+
+I don't think this works. It is very much possible to construct a (fee) graph N that lies above graph D everywhere, but whose derivatives (feerates) aren't.
+
+-------------------------
+
