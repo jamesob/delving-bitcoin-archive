@@ -57,3 +57,16 @@ The maximums in that graph counts just the `Peer` memory usage; the current coun
 
 -------------------------
 
+mzumsande | 2023-11-30 20:19:30 UTC | #4
+
+Looks great! Even though the analysis isn't complete yet (some field not yet accounted for as you mention), I'm just trying to come up with a few high-level takeaways so far.
+
+- Dynamic memory usage per tx-relaying peers is `~600kb - 1.4MB` per tx-relaying peer, a large part of it is probably the rolling bloom filter `m_tx_inventory_known_filter`. 
+- Block-Relay-Only peers only take up a very small fraction of that memory (<10kb)
+- CNode average memory is small in comparison with Peer on average - however, I'd expect hat there would be large spikes when we send / receive a large message that we haven't processed yet - these likely wouldn't be seen in this data.
+- CNode memory considerations are mostly independent on whether the connection is block-relay-only or not.
+
+Does this make sense? Any important takeaways so far that I am missing?
+
+-------------------------
+

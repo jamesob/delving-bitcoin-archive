@@ -512,7 +512,7 @@ Sadly, the proof breaks entirely when chunks with feerate $> f$ are permitted. I
 
 -------------------------
 
-sipa | 2023-11-30 19:52:34 UTC | #28
+sipa | 2023-11-30 20:19:42 UTC | #28
 
 New attempt, with a fully "geometric" approach to show the new diagram is above the old one, but largely using insights about sets from @ajtowns's [proof sketch](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/16) above.
 
@@ -547,7 +547,8 @@ Let's call this the **gathering theorem** (it matches what the `VGATHER*` AVX2 x
 
 In the drawing below, the blue diagram formed using the $\gamma_i+\zeta_i$ points (plus initial green $\zeta_0$ segment) is an underestimate for $N$, the diagram of $L_G+L_B$. The red diagram shows $D$, the diagram for $L$. Intuitively, the blue diagram lies above the red diagram because the slope of all the green lines is never less than that of any red line:
 
-![gather_theorem|665x500](upload://qpcRFiUyr7Caywxpier6iUqDIdk.png)
+![gather_theorem|670x500](upload://nFMHQUqN1RSMtucmIn3egOJigPl.png)
+
 
 In what follows, we will show that every point on $N$ lies on or above a line making up $D$. If that holds, it follows that $N$ in its entirety lies on or above $D$:
 * The first diagram segment of $N$, from $(0,0)$ to $P(\gamma_0 \cup \zeta_0)$, is easy: it corresponds to $L_G$ itself, which has feerate (slope) $\geq f$. All of these points lie on or above the first line of $D$, from $P(\gamma_0)$ ($= (0,0)$) to $P(\gamma_1)$, which has feerate (slope) $f$.
