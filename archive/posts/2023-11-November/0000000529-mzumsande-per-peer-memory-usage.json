@@ -2,7 +2,7 @@
   "id": 529,
   "name": "mzumsande",
   "username": "mzumsande",
-  "avatar_template": "/letter_avatar_proxy/v4/letter/m/85f322/{size}.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/mzumsande/{size}/145_2.png",
   "created_at": "2023-11-30T20:19:30.029Z",
   "cooked": "<p>Looks great! Even though the analysis isn\u2019t complete yet (some field not yet accounted for as you mention), I\u2019m just trying to come up with a few high-level takeaways so far.</p>\n<ul>\n<li>Dynamic memory usage per tx-relaying peers is <code>~600kb - 1.4MB</code> per tx-relaying peer, a large part of it is probably the rolling bloom filter <code>m_tx_inventory_known_filter</code>.</li>\n<li>Block-Relay-Only peers only take up a very small fraction of that memory (&lt;10kb)</li>\n<li>CNode average memory is small in comparison with Peer on average - however, I\u2019d expect hat there would be large spikes when we send / receive a large message that we haven\u2019t processed yet - these likely wouldn\u2019t be seen in this data.</li>\n<li>CNode memory considerations are mostly independent on whether the connection is block-relay-only or not.</li>\n</ul>\n<p>Does this make sense? Any important takeaways so far that I am missing?</p>",
   "post_number": 4,
