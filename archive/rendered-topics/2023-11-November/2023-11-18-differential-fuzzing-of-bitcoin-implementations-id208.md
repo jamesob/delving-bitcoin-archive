@@ -10,3 +10,9 @@ I'm openning this topic to raise ideas and get feedbacks about it.
 
 -------------------------
 
+sipa | 2023-11-29 23:01:43 UTC | #2
+
+Nice, and it seems you've discovered something too (https://github.com/sipa/miniscript/issues/140)!
+
+-------------------------
+

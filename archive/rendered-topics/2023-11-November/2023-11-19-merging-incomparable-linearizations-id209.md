@@ -512,9 +512,9 @@ Sadly, the proof breaks entirely when chunks with feerate $> f$ are permitted. I
 
 -------------------------
 
-sipa | 2023-11-29 16:49:41 UTC | #28
+sipa | 2023-11-29 22:39:50 UTC | #28
 
-New attempt, with a fully "geometric" approach to show the new diagram is above the old one, but largely using insights about sets from @ajtowns's proof sketch above.
+New attempt, with a fully "geometric" approach to show the new diagram is above the old one, but largely using insights about sets from @ajtowns's [proof sketch](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/16) above.
 
 ### Theorem
 
@@ -557,6 +557,29 @@ Thus, all points on an *underestimate* of the diagram of $L_G + L_B$ lie on or a
 ### Generalization
 
 It is easy to relax the requirement that $L_G$ forms a single chunk. We can instead require that only the *lowest* chunk feerate of $L_G$ is $\geq f$. This would add additional points to $N$ corresponding to the chunks of $L_G$, but they would all lie above the existing first line segment of $N$, which cannot break the property that $N$ lies on or above $D$.
+
+-------------------------
+
+sipa | 2023-11-29 22:15:13 UTC | #29
+
+Merging individually [post-processed](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201) linearizations (thus, ones with connected chunks) may result in a linearization whose chunks are disconnected. This means post-processing the merged result can still be useful.
+
+For example:
+
+```mermaid height=147,auto
+graph BT
+   T0["B: 5"];
+   T1["C: 10"] --> T4;
+   T2["D: 2"] --> T4;
+   T3["E: 2"] --> T0;
+   T3 --> T4;
+   T4["A: 1"];
+```
+
+* L1 = [B,A,E,C,D] (chunked as [B,AEC,D])
+* L2 = [B,A,D,C,E] (chunked as [B,ADC,E])
+* Prefix-intersection merge yields [B,A,C,D,E] (chunked as [BAC,D,E])
+* Post-processing the merge gives [A,C,B,D,E] (chunked as [AC,B,D,E])
 
 -------------------------
 
