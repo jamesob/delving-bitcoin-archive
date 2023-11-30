@@ -661,3 +661,25 @@ EDIT: I see, you're talking about average feerate for the entire set up to that 
 
 -------------------------
 
+ajtowns | 2023-11-30 20:12:40 UTC | #34
+
+[quote="sipa, post:33, topic:209, full:true"]
+[quote="ajtowns, post:32, topic:209"]
+FWIW, I think you don’t need case $\gamma_0 + \zeta_0$ in your proof, just the ones after each chunk suffice.
+[/quote]
+
+I think that's a question of formality.
+[/quote]
+
+No, I mean that you can just choose the origin for your first point and go straight to $\gamma_1 \cup \zeta_1$ when constructing $N$, and run the same logic.
+
+[quote="sipa, post:33, topic:209"]
+EDIT: I see, you’re talking about average feerate for the entire set up to that point, not the feerate of the chunk/section itself. Hmm. Isn’t that just another way of saying the fee diagram is higher?
+[/quote]
+
+Yes, precisely -- it is another way of saying the same thing, I think it's just easier to reason about (horizontal line segments that decrease when you've found the optimal solution).
+
+Translating the $N$ is better than $L$ proof becomes: look at the feerate at $\gamma_i$; now consider the feerate for $\gamma_i + \zeta_i$ -- it's higher, because $zeta_i \ge f$ and the size of that set is greater, and an optimal chunking will extend that feerate leftwards, so $N$ chunks better up to $i$, for each $i$, done. You don't have to deal with line intersections.
+
+-------------------------
+
