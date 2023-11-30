@@ -512,7 +512,7 @@ Sadly, the proof breaks entirely when chunks with feerate $> f$ are permitted. I
 
 -------------------------
 
-sipa | 2023-11-29 22:39:50 UTC | #28
+sipa | 2023-11-30 19:52:34 UTC | #28
 
 New attempt, with a fully "geometric" approach to show the new diagram is above the old one, but largely using insights about sets from @ajtowns's [proof sketch](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/16) above.
 
@@ -544,6 +544,10 @@ Let's call this the **gathering theorem** (it matches what the `VGATHER*` AVX2 x
 * Let $N$ be the diagram connecting the points $(0,0)$ followed by $(P(\gamma_j \cup \zeta_j))_{j=0}^n$, corresponding to the prefixes of $L_G + L_B$ consisting of all good transactions and the bad transactions up to chunk $j$.
 * $N$ is *not* the diagram of $L_G + L_B$ because that requires rechunking that linearization. However, rechunking can only improve the diagram, so $N$ *is* an underestimate for the diagram of $L_G + L_B$.
 * $D$ is a concave function. A point lies strictly under a concave function iff it lies under every line segment that makes up $D$, extended to infinity. Thus, a point lies on or above $D$ iff it lies on or above at least a single line that makes up $D$.
+
+In the drawing below, the blue diagram formed using the $\gamma_i+\zeta_i$ points (plus initial green $\zeta_0$ segment) is an underestimate for $N$, the diagram of $L_G+L_B$. The red diagram shows $D$, the diagram for $L$. Intuitively, the blue diagram lies above the red diagram because the slope of all the green lines is never less than that of any red line:
+
+![gather_theorem|665x500](upload://qpcRFiUyr7Caywxpier6iUqDIdk.png)
 
 In what follows, we will show that every point on $N$ lies on or above a line making up $D$. If that holds, it follows that $N$ in its entirety lies on or above $D$:
 * The first diagram segment of $N$, from $(0,0)$ to $P(\gamma_0 \cup \zeta_0)$, is easy: it corresponds to $L_G$ itself, which has feerate (slope) $\geq f$. All of these points lie on or above the first line of $D$, from $P(\gamma_0)$ ($= (0,0)$) to $P(\gamma_1)$, which has feerate (slope) $f$.
@@ -580,6 +584,62 @@ graph BT
 * L2 = [B,A,D,C,E] (chunked as [B,ADC,E])
 * Prefix-intersection merge yields [B,A,C,D,E] (chunked as [BAC,D,E])
 * Post-processing the merge gives [A,C,B,D,E] (chunked as [AC,B,D,E])
+
+-------------------------
+
+ajtowns | 2023-11-30 19:01:40 UTC | #30
+
+[quote="sipa, post:28, topic:209"]
+In what follows, we will show that every point on $N$ lies on or above a line making up $D$. If that holds, it follows that $N$ in its entirety lies on or above $D$:
+[/quote]
+
+I think the intuition for this is that you're constructing a (possibly non-optimal) feerate diagram for $L_G+L_B$ by taking the subsets $L_G + \sum_{i=1}^j d_i$ and showing this is a better diagram than that of $L$. Because you can't say anything about $d_i$ (the bad parts of each chunk), you're instead taking the first $j$ chunks as a whole, which have a feerate of $f$ or lower, and then the suffix of $L_G$ that was missed, which has a feerate of $f$ or high, which kinks the diagram up. Kinking the diagram up means this subset has a better diagram than the chunks up to and including $c_j$.
+
+FWIW, I think this was the argument I was trying to make in [my earlier comment](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/9) but couldn't quite get a hold of.
+
+I think the general point is just: $L^* \ge L$ if (and only if?) for each $\gamma_i$ (prefixes matching the optimal chunking of $L$) there exists a set of txs $\zeta_i$ where $\gamma_i \cup \zeta_i$ is a prefix of $L^*$ and $R(\zeta_i) \ge R(\gamma_i)$.
+
+Ah! Actually, isn't a better "diagram" to consider the ray from the origin to these $P(\gamma_i)$ points in general, ie, for $x=0...c_1$ plot the y value as $R(\gamma_1)$, for $x=c_1..c_2$ plot $R(\gamma_2)$ etc. Then (I think) you still compare two diagrams by seeing if all the points on one are below all the points on the other; but have the result that for an optimal chunking, the line is monotonic decreasing, rather than concave.
+
+Also, with that approach, to figure out the diagram for the optimal chunking, you just do the diagram for every tx chunked individually, it's just $f_{opt}(x) = \max(f(x^\prime), x^\prime \ge x)$.
+
+-------------------------
+
+sipa | 2023-11-30 19:30:00 UTC | #31
+
+[quote="ajtowns, post:30, topic:209"]
+I think the intuition for this is that you’re constructing a (possibly non-optimal) feerate diagram for $L_G+L_B$ by taking the subsets $L_G + \sum_{i=1}^j d_i$ and showing this is a better diagram than that of $L$. Because you can’t say anything about $d_i$ (the bad parts of each chunk), you’re instead taking the first $j$ chunks as a whole, which have a feerate of $f$ or lower, and then the suffix of $L_G$ that was missed, which has a feerate of $f$ or high, which kinks the diagram up. Kinking the diagram up means this subset has a better diagram than the chunks up to and including $c_j$.
+[/quote]
+
+Exactly. I've added a drawing to illustrate this, I think.
+
+[quote="ajtowns, post:30, topic:209"]
+Ah! Actually, isn’t a better “diagram” to consider the ray from the origin to these $P(\gamma_i)$ points in general, ie, for $x=0...c_1$ plot the y value as $R(\gamma_1)$, for $x=c_1..c_2$ plot $R(\gamma_2)$ etc. Then (I think) you still compare two diagrams by seeing if all the points on one are below all the points on the other; but have the result that for an optimal chunking, the line is monotonic decreasing, rather than concave.
+[/quote]
+
+Do you perhaps mean plotting $F(\gamma_i)$ (fee) instead of $R(\gamma_i)$ (feerate)?
+
+If so, that's always monotonically increasing (just because fees are never negative).
+
+-------------------------
+
+ajtowns | 2023-11-30 19:51:14 UTC | #32
+
+FWIW, I think you don't need case $\gamma_0 + \zeta_0$ in your proof, just the ones after each chunk suffice.
+
+[quote="sipa, post:31, topic:209"]
+Do you perhaps mean plotting $F(\gamma_i)$ (fee) ...
+[/quote]
+
+No, I meant fee rate -- plotting fee gives you the current diagram, eg:
+
+![A, B, C, D and E|600x371](upload://aJRnd9vVT8Kp531jmDgZ4682Ehj.png)
+
+Plotting fee rate looks like:
+
+![A, B, C, D and E(1)|600x371](upload://bGEwu2qIMk8dPkUhk8MyXYOOdHR.png)
+
+Spreadsheet to play around: https://docs.google.com/spreadsheets/d/1blG8NBjcjidVJhsmXGoEaJljlmeFFUJccYrWfTUVcjU/edit?usp=sharing
 
 -------------------------
 
