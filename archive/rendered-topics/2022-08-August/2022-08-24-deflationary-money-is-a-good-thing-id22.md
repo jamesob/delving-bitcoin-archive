@@ -178,3 +178,13 @@ There's no supply of dollars in this scenario; $x$ dollars is just another way o
 
 -------------------------
 
+ZmnSCPxj | 2023-12-01 15:03:58 UTC | #11
+
+It does not make sense to me economically.  Like, who is obligated to follow the government-mandated rate, and how is that exchange rate enforced within the economy?  Note that mere thugs with guns cannot enforce the exchange rate --- xref. Venezuela where the government attempts to impose an exchange rate between bolivars and USD, but there is a massive undersupply of available USD and oversupply of bolivars, forcing the real exchange rates underground into black markets that hide from the thugs with guns.  The invisible hand is more powerful than the physical hand with the gun.
+
+Like: yesterday, the exchange rate was 1000 USD / BTC, and I bought BTC with 1000 USD.  Now today the government announces a change to 1250 USD / BTC.  I show up with my BTC. Where do I get my USDs now?  If the amount of USD is fixed, then I might have enough BTC to buy out all the USD in circulation and that now breaks the government-mandated 1250 USD / BTC, forcing a black market that has a lower than 1250 USD / BTC and thus the government mandate is broken.  There has to be *some* entity that is able to construct new USD (and destroy USD if the government lowers the USD / BTC rate) in this system otherwise a black market will appear that has the REAL exchange rate.  And if I am close to that entity and can get to the new exchange rate faster than others, then the Cantillon effect appears, since I am more easily able to use the changed rate faster than others in the same economy.
+
+It is not inflationary money that is evil, it is being close to the source of newly minted money that is evil.  If you squint, you can argue that BTC already has all its coins minted since genesis, it just has to be "freed up" into actual circulation by miners, so this is fine --- though note that in general, miners get cheaper coins than most people, but then miners also have risks in that they have to locate to places with very cheap or stranded energy (and it is likely those are places that are far from whatever comforst of civilization might exist, because again, supply and demand --- if nobody is demanding much energy in some location it probably means nobody who wants to use energy wants to live there), and building a mine does have some capex.
+
+-------------------------
+
