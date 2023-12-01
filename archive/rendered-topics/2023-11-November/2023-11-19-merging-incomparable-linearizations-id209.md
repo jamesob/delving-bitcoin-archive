@@ -705,3 +705,19 @@ Consider the following:
 
 -------------------------
 
+ajtowns | 2023-12-01 00:29:13 UTC | #36
+
+[quote="sipa, post:35, topic:209"]
+I don’t think it actually simplifies the proof though
+[/quote]
+
+Yeah, agreed; was more just thinking from the general case where $\zeta_i$ might not have the same nice pattern.
+
+[quote="sipa, post:35, topic:209"]
+Consider the following:
+[/quote]
+
+Hmm, you're right, my simplification to a flat graph doesn't seem to do anything useful. :sob:
+
+-------------------------
+
