@@ -684,3 +684,24 @@ Translating the $N$ is better than $L$ proof becomes: look at the feerate at $\g
 
 -------------------------
 
+sipa | 2023-11-30 23:17:01 UTC | #35
+
+[quote="ajtowns, post:34, topic:209"]
+No, I mean that you can just choose the origin for your first point and go straight to $\gamma_1 \cup \zeta_1$when constructing $N$, and run the same logic.
+[/quote]
+
+Right, that works, we could just drop $\gamma_0 \cup \zeta_0$ from $N$. I don't think it actually simplifies the proof though, because the reasoning for the first segment (now from $(0,0)$ to $P(\gamma_1 \cup \zeta_1)$), would still be distinct from that for the other segments.
+
+[quote="ajtowns, post:34, topic:209"]
+Yes, precisely – it is another way of saying the same thing, I think it’s just easier to reason about (horizontal line segments that decrease when you’ve found the optimal solution).
+[/quote]
+
+Consider the following:
+* 3 transactions A (fee 0), B (fee 3), C (fee 1), all the same size.
+* $L_1$ = [A,B,C], chunked as [AB=3/2, C=1/1]
+* $L_2$ = [B,A,C], chunked as [B=3/1, AC=1/2]
+* $L_2$ is a strictly better linearization, the fee-size diagram is higher everywhere.
+* The feerate (using the $R(\gamma_i)$ method) for the middle byte is 3/2 for $L_1$, but 4/3 for $L_2$. Would they be considered incomparable by the feerate-size diagram?
+
+-------------------------
+
