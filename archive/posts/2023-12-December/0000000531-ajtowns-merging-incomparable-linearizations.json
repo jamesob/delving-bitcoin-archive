@@ -12,9 +12,9 @@
   "reply_to_post_number": 35,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 15.6,
   "yours": false,
   "topic_id": 209,
   "topic_slug": "merging-incomparable-linearizations",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:35, topic:209\"]\nI don\u2019t think it actually simplifies the proof though\n[/quote]\n\nYeah, agreed; was more just thinking from the general case where $\\zeta_i$ might not have the same nice pattern.\n\n[quote=\"sipa, post:35, topic:209\"]\nConsider the following:\n[/quote]\n\nHmm, you're right, my simplification to a flat graph doesn't seem to do anything useful. :sob:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

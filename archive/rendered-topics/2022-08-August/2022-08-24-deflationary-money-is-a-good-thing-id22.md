@@ -154,3 +154,17 @@ If you have someone picking the exchange rate, then they could ignore the inflat
 
 -------------------------
 
+ZmnSCPxj | 2023-12-01 01:14:23 UTC | #9
+
+[quote="ajtowns, post:8, topic:22"]
+Setting an exchange rate vs dollars
+[/quote]
+
+Why would the free market follow the government-mandated exchange rate, if there is an oversupply or undersupply of dollars?  If you never mint new dollars, eventually the actual circulating supply depletes, and there will be a black market that prices dollars higher than the government-mandated exchange rate.  If you change the exchange rate from 1000 USD per BTC to 1250 USD per BTC, you need to inject additional dollars SOMEWHERE or else arbitrageurs between your formal government-compliant exchanges and the black market will arise and take advantage of the exchange rate, until the formal government-compliant exchanges run out of dollars.
+
+Now if you make the government-compliant exchanges the actual mints, people who can immediately get more USD per BTC can get actual real advantages by trading BTC and then buying real things with the additional dollars, while prices are "kept stable".  The Cantillon effect then arises among those who can get to the exchanges first, assuming everyone holds BTC to some extent.  Again, loop back on my example with the third-world workers whose salaries are denominated in USD.  Obviously those third-world workers will have a much harder time getting access to the government-compliant USD-minting exchanges of the frist-worlder USD economy.  And their work gets stolen.
+
+So to make such a system work, it has to allow universal (as in everyone including aliens, not just citizens) access to the minting exchanges that the government uses to impose the exchange rate.  This is doable, but I suspect there will be nationalists ("patriots") who would object politically and may prevent such a thing from happening.
+
+-------------------------
+
