@@ -16,3 +16,9 @@ Nice, and it seems you've discovered something too (https://github.com/sipa/mini
 
 -------------------------
 
+bruno | 2023-12-01 19:30:21 UTC | #3
+
+Yes, I got more crashes but I'm analyzing them before publishing them.
+
+-------------------------
+
