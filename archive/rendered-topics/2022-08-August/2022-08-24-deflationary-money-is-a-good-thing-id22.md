@@ -168,3 +168,13 @@ So to make such a system work, it has to allow universal (as in everyone includi
 
 -------------------------
 
+ajtowns | 2023-12-01 09:22:43 UTC | #10
+
+[quote="ZmnSCPxj, post:9, topic:22"]
+Why would the free market follow the government-mandated exchange rate, if there is an oversupply or undersupply of dollars?
+[/quote]
+
+There's no supply of dollars in this scenario; $x$ dollars is just another way of saying $r*x$ BTC.
+
+-------------------------
+
