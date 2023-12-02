@@ -192,3 +192,41 @@ It is not inflationary money that is evil, it is being close to the source of ne
 
 -------------------------
 
+ajtowns | 2023-12-02 09:22:53 UTC | #12
+
+[quote="ZmnSCPxj, post:11, topic:22"]
+It does not make sense to me economically. Like, who is obligated to follow the government-mandated rate, and how is that exchange rate enforced within the economy?
+[/quote]
+
+Depends how transactions are made. If you're paying via lightning; you see an offer to sell for $5, your wallet translates that to 125 bits, you send a payment for that amount, and you receive a receipt acknowledging your purchase. If the merchant wants to use a different exchange rate, trying to pretend $5 actually means 180 bits, the only thing they can do is reject your payment.
+
+If you're paying via visa/etc that's based in dollars and hides all the BTC conversions from you, then it's enforced by the bank, and both merchant and purchaser trust the bank to not cheat them too badly, pretty much same as they do today, with enforcement after the fact by the courts for breach of contract.
+
+But if you don't want to price things in dollars, you don't have to. And your lightning wallet can always translate prices in BTC (or euros, etc) to the equivalent in dollars just as a UI feature.
+
+[quote="ZmnSCPxj, post:11, topic:22"]
+Now today the government announces a change to 1250 USD / BTC. I show up with my BTC. Where do I get my USDs now? I
+[/quote]
+
+There are no USDs, your BTC is just now worth 25% more than it was yesterday, and buys 25% more goods than it did yesterday, assuming those goods were priced in dollars, and their prices haven't been increased overnight.
+
+[quote="ZmnSCPxj, post:11, topic:22"]
+There has to be *some* entity that is able to construct new USD (and destroy USD
+[/quote]
+
+[quote="ZmnSCPxj, post:11, topic:22"]
+I can still get economic advantage ... by buying whichever one is going to become more valued,
+[/quote]
+
+Again, in this model there is no physical (or digital) USD to be constructed or bought or sold; it's just a different way of looking at BTC. Changing the exchange rate doesn't create or destroy anything, it just changes the default pricing for future transactions.
+
+It's certainly fair to criticise trying to set [a fixed exchange rate](https://en.wikipedia.org/wiki/Fixed_exchange_rate_system#Disadvantages) on a currency that you mint, and I agree with those criticisms; but it's not what I'm talking about here.
+
+There are a bunch of completely fair criticisms of what I am talking about that could be made, eg:
+ * It's entirely possible that such a scheme can't be implemented (you need to know today's exchange rate today, but will only have the CPI data you want to base that figure on after collating surveys in a few months' time).
+ * It might be that even if it were implemented it would be subject to capture (eg, lenders corrupt the CPI data and manipulate it so that they make more income from BTC-denominated loans while their dollar-denominated expenses stay constant; or net-borrowers do the same in the other direction).
+ * It might be that nobody outside of macroeconmic theorists actually care that much about the problem this is solving, and post-hyperbitcoinization, people just price things in BTC directly and aren't bothered by updating salaries/prices directly as the real value of BTC spikes or plummets.
+ * It might be that whether or not this is a real problem, the real motivation for a central bank managing inflation is the Cantillon effect, so anything that does away with that isn't interesting anyway, no matter how well it solves other problems.
+
+-------------------------
+
