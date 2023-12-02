@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 45.8,
   "yours": false,
   "topic_id": 231,
   "topic_slug": "mixer-discussions-banned-on-bitcointalk",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Per https://delvingbitcoin.org/t/welcome-to-delving-bitcoin/7\n\n> This site is for technical discussions with the goal of understanding Bitcoin and helping it last for the long term.\n\nI think advertising products and services (\"linking to mixers\", \"advertising mixers\") would already be off-topic, while discussing research and open source software that covers mixing technology would be fine (\"OK to discuss mixers in a general sort of way\").",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
