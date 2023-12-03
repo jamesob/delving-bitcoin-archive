@@ -1577,3 +1577,11 @@ Is there a way to force script only and retain compatibility with the current ad
 
 -------------------------
 
+sipa | 2023-12-03 15:06:34 UTC | #6
+
+Key path spends don't reveal the tweak at all. They're just BIP340 signatures for the key in the output (which is typically the tweaked key), nothing more.
+
+If you want to retain security if DL is no longer assumed to be hard, you need to disable key path spends, no way around it. As long as SHA256 remains preimage resistant, script path spends remain security (obviously only under the assumption the script itself isn't vulnerable to a DL break).
+
+-------------------------
+
