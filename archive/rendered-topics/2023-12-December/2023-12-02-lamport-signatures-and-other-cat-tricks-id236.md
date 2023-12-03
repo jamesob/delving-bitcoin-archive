@@ -1561,3 +1561,19 @@ What do you think about soft-fork restricting G from being used as internal pubk
 
 -------------------------
 
+ajtowns | 2023-12-03 12:14:11 UTC | #4
+
+That doesn't work -- if you can solve the discrete log, you just spend via the key path without ever revealing that the internal pubkey was G.
+
+-------------------------
+
+moonsettler | 2023-12-03 14:55:34 UTC | #5
+
+Yes, that's what I would like to disable (opt-in).
+
+My thinking was that for keyspend revealing the preimage `t` of the tweak is required. So then the clients could check if `Q = point_add(G, point_mul(G, t))` and then say NOPE! *But i guess an adversary could just calculate a different* `(a+b)G = (t+1)G` *, is what you meant.*
+
+Is there a way to force script only and retain compatibility with the current address format?
+
+-------------------------
+
