@@ -1585,3 +1585,11 @@ If you want to retain security if DL is no longer assumed to be hard, you need t
 
 -------------------------
 
+moonsettler | 2023-12-03 15:24:03 UTC | #7
+
+Yes, thank you!
+
+We were discussing this with @reardencode and figured you could force revealing additional information in the annex maybe, like the script hash and enforcing the tweak and it's commitment to the pubkey in validation. In general there might be no point in allowing keyspends then. My thinking was, at first it might be prohibitively expensive to go after everyone. Large treasuries and old P2PK coinbase outputs would be the first targets. Of those, treasuries are the one that might prepare a quantum proof 'exit hatch' in advance especially if it costs them next to nothing.
+
+-------------------------
+
