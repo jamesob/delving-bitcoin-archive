@@ -733,7 +733,7 @@ This holds even when the inputs, intermediary results, or outputs (or any combin
 
 -------------------------
 
-sipa | 2023-12-03 19:44:53 UTC | #38
+sipa | 2023-12-03 20:17:32 UTC | #38
 
 Prefix-intersection merging can be simplified to the following:
 
@@ -746,7 +746,7 @@ Prefix-intersection merging can be simplified to the following:
 
 So we only need to find the best prefix of the intersection of the highest-feerate prefix with the other linearization, and not the other direction.
 
-This does not break the "as good as both inputs" proof, and from fuzzing it appears it that this doesn't worsen the result even (it could be that this results in worse results while still being at least as good as both inputs, but that is not the case).
+This does not break the "as good as both inputs" proof, and from fuzzing it appears it that this doesn't worsen the result even (it could be that this results in worse results while still being at least as good as both inputs, but that seems not to be the case).
 
 I don't have a proof (yet) that the algorithms are equivalent, but given that it's certainly correct still, it's probably fine to just use this simpler version?
 
