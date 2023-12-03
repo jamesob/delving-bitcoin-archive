@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Key path spends don't reveal the tweak at all. They're just BIP340 signatures for the key in the output (which is typically the tweaked key), nothing more.\n\nIf you want to retain security if DL is no longer assumed to be hard, you need to disable key path spends, no way around it. As long as SHA256 remains preimage resistant, script path spends remain secure (obviously only under the assumption the script itself isn't vulnerable to a DL break).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
