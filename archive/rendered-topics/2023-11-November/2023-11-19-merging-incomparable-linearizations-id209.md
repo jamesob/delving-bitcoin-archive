@@ -227,7 +227,7 @@ Now consider $\epsilon_j + \delta_j + \zeta_j$ -- for which the feerate diagram 
 
 -------------------------
 
-sipa | 2023-11-24 15:05:23 UTC | #10
+sipa | 2023-12-02 22:12:48 UTC | #10
 
 (Only digested part of the above so far)
 
@@ -241,7 +241,7 @@ What is PI?
 
 FWIW, my (incomplete) proof sketch is as follows:
 
-* Assume that the following holds: moving transactions to the front of a linearization such that they form a new chunk, while leaving the internal ordering within moved and non-moved transactions the same, is a non-worsening of the diagram if the new chunk's feerate is >= the original first chunk's feerate. (no proof)
+* Assume that the following holds: moving transactions to the front of a linearization such that they form a new chunk, while leaving the internal ordering within moved and non-moved transactions the same, is a non-worsening of the diagram if the new chunk's feerate is >= the original first chunk's feerate. (~~no proof~~ EDIT: see proof [here](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/28))
 * Also assume that reordering the transaction *within* one chunk can never worsen the diagram (worst case the chunk set remains the same, best case it splits in multiple parts).
 * The prefix-intersection merging algorithm can be seen as starting with two linearizations $L_1$ and $L_2$, and in each step moves some transactions to the front of both. Each step is a non-worsening of the diagram of both, and in the end, both linearizations are identical. That resulting linearization is thus better or equal than each of the inputs. To see why each step is a non-worsening:
   * WLOG, assume the intersection found is a subset of $L_1$'s first chunk, in the order of transactions of $L_2$. (swap the linearizations if not)
@@ -717,6 +717,38 @@ Consider the following:
 [/quote]
 
 Hmm, you're right, my simplification to a flat graph doesn't seem to do anything useful. :sob:
+
+-------------------------
+
+sipa | 2023-12-03 18:44:47 UTC | #37
+
+Interesting, it appears that prefix-intersection merging is not associative.
+
+That is, given 3 linearizations A, B, C of a given cluster it is possible that not all three of these are equally good:
+* merge(merge(A, B), C)
+* merge(merge(A, C), B)
+* merge(merge(B, C), A)
+
+This holds even when the inputs, intermediary results, or outputs (or any combination thereof) are [post-processed](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201).
+
+-------------------------
+
+sipa | 2023-12-03 19:44:53 UTC | #38
+
+Prefix-intersection merging can be simplified to the following:
+
+* Given two linearizations $L_1$ and $L_2$
+* (Optionally) Output any prefix of both that's identical.
+* Let $P_i$ be the highest-feerate prefix of $L_i$, for $i \in {1,2}$.
+* Assume without loss of generality that $R(P_1) \geq R(P_2)$ (swap the inputs if not).
+* Let $C$ be the highest-feerate prefix of $L_2 \cap P_1$.
+* Output $C$, remove it from $L_1$ and $L_2$, and start over.
+
+So we only need to find the best prefix of the intersection of the highest-feerate prefix with the other linearization, and not the other direction.
+
+This does not break the "as good as both inputs" proof, and from fuzzing it appears it that this doesn't worsen the result even (it could be that this results in worse results while still being at least as good as both inputs, but that is not the case).
+
+I don't have a proof (yet) that the algorithms are equivalent, but given that it's certainly correct still, it's probably fine to just use this simpler version?
 
 -------------------------
 
