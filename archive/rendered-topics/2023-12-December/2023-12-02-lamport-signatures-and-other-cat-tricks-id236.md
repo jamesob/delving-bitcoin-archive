@@ -1593,3 +1593,9 @@ We were discussing this with @reardencode and figured you could force revealing 
 
 -------------------------
 
+moonsettler | 2023-12-03 15:52:18 UTC | #8
+
+So basically this script is not implementable on bitcoin in any meaningful way, even if CAT was soft-forked in...  :smiling_face_with_tear:
+
+-------------------------
+
