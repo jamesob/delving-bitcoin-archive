@@ -1528,3 +1528,28 @@ UX notes: The user would have a "private key" (256 bit) which can be generated w
 
 -------------------------
 
+ajtowns | 2023-12-03 07:39:02 UTC | #2
+
+This requires separate pushes of `0` or `1` for each level of each merkle tree to decide what branch you want. I don't think you can do better than that with just CAT, but if you had `DIVMOD` (takes `s1, s2` from the stack, pushes `int(s1/s2)` then `s1%s2` onto the stack; cf elements' `OP_DIV64`) you could provide a leaf number, and execute something like:
+
+  `ROT ROT 2 DIVMOD 2SWAP ROT IF SWAP ENDIF CAT HASH160`
+
+to combine a path towards the root (starting stack is: `[path, n, hash]`). It's 6B more script per level, vs 2 bytes less witness data per level, so unlikely to be interesting unless you're running into stack size limits, or also adding a looping construct
+
+You could also consider an `OP_STR_LESSTHAN` that compares two byte vectors, and code it as `STR_LESSTHAN NOTIF SWAP ENDIF CAT HASH160`, and construct the merkle tree with an implicit order.
+
+I think your script's idea is:
+ * to create a single-use pubkey, you generate 20 byte commitments.
+ * for each byte commitment, you create a merkle tree where the leaves are "nonce ++ byte"
+ * the single-use pubkey is then the hash of the concatenation of its commitment roots
+
+To verify a signature, you then:
+ * for each byte of the message hash, you reveal the path to the nth commitment for the pubkey
+ * you combine the commitment roots to produce the single use pubkey
+ * you check the pubkey is what you expect
+ * you're left with the msg hash on the stack, which you might then verify by constructing a signature verification with R=P=G, or could compare directly with the result of `<x> TXHASH HASH160` or similar.
+
+There's a couple of stack optimisations you could do (you've got a TOALT immediately followed by a FROMALT, eg), but I don't think there's much else to be done, without some sort of looping construct.
+
+-------------------------
+
