@@ -1553,3 +1553,11 @@ There's a couple of stack optimisations you could do (you've got a TOALT immedia
 
 -------------------------
 
+moonsettler | 2023-12-03 10:33:10 UTC | #3
+
+Thank you for the feedback @ajtowns!
+
+What do you think about soft-fork restricting G from being used as internal pubkey for taproot (it's an obvious anyone can spend), to have a quantum resistant script-only P2TR output? Could also be a specific NUMS point used by convention in the meantime, with the promise that it gets protected as needed, if that makes more sense?
+
+-------------------------
+
