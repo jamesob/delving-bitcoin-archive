@@ -704,7 +704,7 @@ Consider the following:
 
 -------------------------
 
-ajtowns | 2023-12-01 00:29:13 UTC | #36
+ajtowns | 2023-12-04 06:42:52 UTC | #36
 
 [quote="sipa, post:35, topic:209"]
 I don’t think it actually simplifies the proof though
@@ -717,6 +717,8 @@ Consider the following:
 [/quote]
 
 Hmm, you're right, my simplification to a flat graph doesn't seem to do anything useful. :sob:
+
+[EDIT: added the :sob: emoji as a possible post reaction]
 
 -------------------------
 
@@ -749,6 +751,49 @@ So we only need to find the best prefix of the intersection of the highest-feera
 This does not break the "as good as both inputs" proof, and from fuzzing it appears it that this doesn't worsen the result even (it could be that this results in worse results while still being at least as good as both inputs, but that seems not to be the case).
 
 I don't have a proof (yet) that the algorithms are equivalent, but given that it's certainly correct still, it's probably fine to just use this simpler version?
+
+-------------------------
+
+ajtowns | 2023-12-04 06:45:08 UTC | #39
+
+If you have L1=[5,3,1,8,0] (chunk feerates: 5, 4, 0)  and L2=[0,8,1,3,5] (chunk feerates: 4, 3) then [bestPi](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/38) chooses $C=L2 \cap [5]$ to start with, ending up as [5,8,3,1,0]. Whereas calculating and comparing $C_1$ and $C_2$ would produce [8,5,3,1,0].
+
+But [post-processing](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201) probably fixes that for most simple examples at least?
+
+(Even if post-processing didn't fix it; I think so long as merging produces something at least as good as both, that's fine; quicker/cheaper is more important)
+
+-------------------------
+
+ajtowns | 2023-12-04 08:44:31 UTC | #40
+
+I think you can make post-processing fail to help for this example just by adding a small, low-fee parent transaction P that is a parent to both the 8-fee and 5-fee txs.
+
+I think if you have five transactions, A,B,C,D,E, of 10kvB each at 50,30,10,80,0 sat/vb, and one transaction, P, at 100vB and 0 sat/vb that each of A,D spends an output of, with the same arrangement as above, then post-processing doesn't fix it either?
+
+ * L1 = [P,A,B,C,D,E]; chunks as PA: 49.5, BCD: 40, E: 0
+ * L2 = [P,E,D,C,B,A]; chunks as PED: 39.8, CBA: 30
+ * P1 > P2; $L_2 \cap P_1$ = PA, C=PA
+ * repeat: P1=BCD, P2=ED, equal feerates; $L_1 \cap P_2=DE$ and $L_2 \cap P_1 = DCB$, so C=D in either case.
+ * repeating gives B then C then E
+ * result is L=PADBCE
+
+Post-processing (work marked with *):
+ * [*P]
+ * [P,*A], [*PA]
+ * [PA,*D], [*PAD]
+ * [PAD,*B]
+ * [PAD,B,*C]
+ * [PAD,B,C,*E]
+
+-------------------------
+
+ajtowns | 2023-12-04 08:56:10 UTC | #41
+
+[quote="sipa, post:37, topic:209"]
+Interesting, it appears that prefix-intersection merging is not associative.
+[/quote]
+
+Merging isn't necessarily commutative either, I think, in the case where both linearisations have different (eg, non-overlapping) first chunks at equal feerates.
 
 -------------------------
 

@@ -8,13 +8,13 @@
   "post_number": 38,
   "post_type": 1,
   "updated_at": "2023-12-03T20:17:32.034Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 50.8,
   "yours": false,
   "topic_id": 209,
   "topic_slug": "merging-incomparable-linearizations",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Prefix-intersection merging can be simplified to the following:\n\n* Given two linearizations $L_1$ and $L_2$\n* (Optionally) Output any prefix of both that's identical.\n* Let $P_i$ be the highest-feerate prefix of $L_i$, for $i \\in {1,2}$.\n* Assume without loss of generality that $R(P_1) \\geq R(P_2)$ (swap the inputs if not).\n* Let $C$ be the highest-feerate prefix of $L_2 \\cap P_1$.\n* Output $C$, remove it from $L_1$ and $L_2$, and start over.\n\nSo we only need to find the best prefix of the intersection of the highest-feerate prefix with the other linearization, and not the other direction.\n\nThis does not break the \"as good as both inputs\" proof, and from fuzzing it appears it that this doesn't worsen the result even (it could be that this results in worse results while still being at least as good as both inputs, but that seems not to be the case).\n\nI don't have a proof (yet) that the algorithms are equivalent, but given that it's certainly correct still, it's probably fine to just use this simpler version?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
