@@ -797,3 +797,19 @@ Merging isn't necessarily commutative either, I think, in the case where both li
 
 -------------------------
 
+sipa | 2023-12-04 13:45:54 UTC | #42
+
+[quote="ajtowns, post:39, topic:209"]
+f you have L1=[5,3,1,8,0] (chunk feerates: 5, 4, 0) and L2=[0,8,1,3,5] (chunk feerates: 4, 3) then [bestPi](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/38) chooses C=$L2 \cap [5]$ to start with, ending up as [5,8,3,1,0]. Whereas calculating and comparing $C_1$ and $C_2$ would produce [8,5,3,1,0].
+[/quote]
+
+What are the chunks here? I have a hard time imagining how [5,3,1,8,0] turns into [5, 4, 0].
+
+-------------------------
+
+ajtowns | 2023-12-04 13:51:48 UTC | #43
+
+[5] [3,1,8] (feerate 4) [0]
+
+-------------------------
+
