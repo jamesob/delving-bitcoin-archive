@@ -1,0 +1,72 @@
+{
+  "id": 624,
+  "name": "Gregory Sanders",
+  "username": "instagibbs",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png",
+  "created_at": "2023-12-05T16:01:36.663Z",
+  "cooked": "<p>Assuming these sizes are problematic, the two levers I see are cluster size, and number of allowed clusters to touch.</p>\n<p>I think it\u2019s less disruptive to just lower the latter to N &lt;&lt; 100?</p>\n<p>A transaction could still conflict with up to 100 transactions per cluster, up to N clusters.</p>",
+  "post_number": 11,
+  "post_type": 1,
+  "updated_at": "2023-12-05T16:01:36.663Z",
+  "reply_count": 2,
+  "reply_to_post_number": 9,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 71.4,
+  "yours": false,
+  "topic_id": 156,
+  "topic_slug": "cluster-mempool-rbf-thoughts",
+  "topic_title": "Cluster Mempool RBF Thoughts",
+  "topic_html_title": "Cluster Mempool RBF Thoughts",
+  "category_id": 9,
+  "display_username": "Gregory Sanders",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "sdaftuar",
+    "name": "Suhas Daftuar",
+    "avatar_template": "/letter_avatar_proxy/v4/letter/s/0ea827/{size}.png"
+  },
+  "bookmarked": false,
+  "raw": "Assuming these sizes are problematic, the two levers I see are cluster size, and number of allowed clusters to touch.\n\nI think it's less disruptive to just lower the latter to N << 100?\n\nA transaction could still conflict with up to 100 transactions per cluster, up to N clusters.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 31,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

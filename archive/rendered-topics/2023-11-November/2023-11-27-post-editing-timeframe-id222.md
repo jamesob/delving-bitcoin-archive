@@ -21,3 +21,9 @@ Giving such updates at the end of the thread and leaving outdated info in the fi
 
 -------------------------
 
+ajtowns | 2023-12-04 21:46:24 UTC | #3
+
+I've bumped this from 30 days to 90 days; if you want to keep updating something for longer than 3 months, we could see how "make this post a wiki" works?
+
+-------------------------
+

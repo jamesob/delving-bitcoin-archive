@@ -230,3 +230,39 @@ There are a bunch of completely fair criticisms of what I am talking about that 
 
 -------------------------
 
+ZmnSCPxj | 2023-12-05 12:23:17 UTC | #13
+
+If so, it looks like the USD is a third-party-adjustable view of the underlying Bitcoin if I and a second party ever enter a contract that is denominated in USD.
+
+It would be better for us to avoid the possibility of third parties messing with the intent of our contract by just denominating in BTC.
+
+So... I do not get the point? It smells more like a scam to use USD in such a regime, as my counterparty in any contract might be in cahoots with the third-party, the government that defines the exchange rate of USD to BTC, to change the effective value of amounts in my contract with them.
+
+Again, this seems to me to stink of rule of man over rule of law.  Unless the USD to BTC is fixed (and USD would be just a different unit of BTC, like millibitcoins, satoshis, millisatoshis), this allows external actors to mess with the exchange rate, and for lobbyists to those actors to incentivize, via open legalized bribery, the movement of the exchange rate towards some direction that makes no sense.
+
+Alternately, there could be some metric or key input that can be used to adjust this, but this moves the issue to an oracle problem: you now have to trust some entity to give you accurate information of some metric.  It may be possible that measurement of this metric (or inputs to this metric) are corruptible and lobbyists will focus on those to the detriment of less-powerful beings who cannot afford lobbyists.
+
+"Keep it simple, stupid" seems like the best reaction to this.  Just denominate in BTC?
+
+-------------------------
+
+ajtowns | 2023-12-05 15:36:26 UTC | #14
+
+[quote="ZmnSCPxj, post:13, topic:22"]
+If so, it looks like the USD is a third-party-adjustable view of the underlying Bitcoin if I and a second party ever enter a contract that is denominated in USD.
+
+It would be better for us to avoid the possibility of third parties messing with the intent of our contract by just denominating in BTC.
+
+So… I do not get the point?
+[/quote]
+
+The standard argument from mainstream academic microeconomics why money should be inflationary is precisely that this causes existing contracts to automatically get repriced in real terms, and that this helps avoid the real impact of financial shocks on the economy, see https://en.wikipedia.org/wiki/Nominal_rigidity or https://en.wikipedia.org/wiki/Paradox_of_thrift 
+
+In practical terms, it's just a coordination measure. If your central bank is boring, predictable, not compromised, and gives a regular, accurate report that tells you that "x BTC" is enough to feed a family of four for a week on average in your country, you might as well say "x BTC = $200", and set your hourly consulting rate in dollar terms. Then you can spend your time actually working, not having to worry about halving your rates when BTC goes from $20k to $40k.
+
+Just denominating in BTC is certainly another option; whether it's simpler depends a lot on how stable the real value of BTC is.
+
+The advantage of the approach is that it's opt-in: if you think dollars are simpler, you use them; if you think BTC is simpler, use that; if you want to do one-off transactions with someone who thinks differently, it's trivial. Of course if you want to commit to a long term contract with someone who thinks differently, you might have to do financing, which is no longer trivial, but also no worse than long-term international contracts today. And unlike today, in this model your actual savings aren't being put at risk by bad central bank policies.
+
+-------------------------
+

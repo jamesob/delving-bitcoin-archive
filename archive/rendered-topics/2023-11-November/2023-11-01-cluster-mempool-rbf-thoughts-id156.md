@@ -117,3 +117,163 @@ Discussion continued in https://delvingbitcoin.org/t/defunct-cluster-mempool-pac
 
 -------------------------
 
+sdaftuar | 2023-12-05 14:05:54 UTC | #7
+
+I'm working on a feerate diagram comparison implementation for (single transaction) RBF and thinking through the constant factors:
+
+The number of different clusters that a single transaction can conflict with will govern how many chunks we have to consider in the feerate diagram comparison.
+
+In theory, the number of such chunks is bounded by # of clusters * # of transactions in each cluster, and the feerate diagram comparison test is linear in the number of chunks that form the two diagrams.
+
+So if we permit a transaction to conflict with 100 in-mempool transactions, and if we permit each cluster to have up to 100 transactions, then we're looking at 10000 potential chunks to iterate.  That seems like it could be slow.
+
+We've also previously discussed getting rid of this limit on number of conflicts, and replacing it with the number of clusters that would need to be relinearized.  I'm no longer sure we'll be able to do that, given this new proposed validation logic.
+
+Are there any tricks we can perform to bring these numbers down?
+
+-------------------------
+
+instagibbs | 2023-12-05 14:34:58 UTC | #8
+
+[quote="sdaftuar, post:7, topic:156"]
+We’ve also previously discussed getting rid of this limit on number of conflicts, and replacing it with the number of clusters that would need to be relinearized. I’m no longer sure we’ll be able to do that, given this new proposed validation logic.
+[/quote]
+
+Do you mean to say we can do that but 100 clusters would result in up to 10k elements in a diagram check? Or do you mean there's some other issue?
+
+-------------------------
+
+sdaftuar | 2023-12-05 15:42:46 UTC | #9
+
+[quote="instagibbs, post:8, topic:156"]
+Do you mean to say we can do that but 100 clusters would result in up to 10k elements in a diagram check? Or do you mean there’s some other issue?
+[/quote]
+
+Yeah my only point is that if we get rid of the bound on the number of conflicted transactions altogether, then we are effectively removing the bound on the number of elements in a diagram check (or limiting it to whatever the max number of inputs you could fit into a standard transaction multiplied by the cluster count limit).  
+
+So in this case, we might have to bring down the maximum number of transactions in a cluster as our only lever to cap the amount of work we might have to do...?
+
+-------------------------
+
+ajtowns | 2023-12-05 15:56:26 UTC | #10
+
+[quote="sdaftuar, post:7, topic:156"]
+So if we permit a transaction to conflict with 100 in-mempool transactions, and if we permit each cluster to have up to 100 transactions, then we’re looking at 10000 potential chunks to iterate. That seems like it could be slow.
+[/quote]
+
+An $O(n)$ operation on two sets of 10k pairs of `int64_t` seems pretty fine? (Maybe add a log(n) factor to combine the clusters) You might need to be clever about generating the set of new clusters efficiently, based on the original set and the conflicted/new transactions, rather than doing it from scratch though?
+
+-------------------------
+
+instagibbs | 2023-12-05 16:01:36 UTC | #11
+
+Assuming these sizes are problematic, the two levers I see are cluster size, and number of allowed clusters to touch.
+
+I think it's less disruptive to just lower the latter to N << 100?
+
+A transaction could still conflict with up to 100 transactions per cluster, up to N clusters.
+
+-------------------------
+
+ajtowns | 2023-12-05 16:06:40 UTC | #12
+
+The $O(n^2)$ step to re-optimise the new chunks has to be performed per cluster (ie, it's $O(bc^2)$ where $b$ is number of clusters, and $c$ is chunks per cluster), so limiting the number of clusters that can be conflicted with would make sense. Affecting many clusters without actually combining those clusters as a result of the RBF seems like it would be unusual behaviour, too?
+
+-------------------------
+
+sdaftuar | 2023-12-05 16:18:06 UTC | #13
+
+[quote="ajtowns, post:12, topic:156"]
+Affecting many clusters without actually combining those clusters as a result of the RBF seems like it would be unusual behaviour, too?
+[/quote]
+
+Well I have no idea whether this would be unusual or not, but if you generated a bunch of small transaction chains, and then did a single RBF to batch them into one transaction, then you might exactly get this behavior where you are eliminating a bunch of existing clusters in favor of a single new one.
+
+In practice, I think the fees grow so large when conflicting with lots of transactions that this is probably not something that comes up very often, but people have brought up esoteric rbf pinning vectors in the past, so I just want to not preclude something from happening unless we have a specific CPU concern we're dealing with.
+
+-------------------------
+
+ajtowns | 2023-12-05 17:44:23 UTC | #14
+
+[quote="instagibbs, post:11, topic:156"]
+Assuming these sizes are problematic, the two levers I see are cluster size, and number of allowed clusters to touch.
+[/quote]
+
+If you limit the number of allowed clusters to touch but dropped the ancestor count limit (leaving it implied by the chunk limit), you could get a weird scenario:
+
+Suppose you have a CPFP arrangement to pay for a bunch of txs:
+
+```mermaid height=147,auto
+graph TD
+   P1 --> C
+   P2 --> C
+   Pn[P3..P10] --> C
+```
+
+But then you realise there's another 20 txs you want to CPFP, so you RBF C as:
+
+```mermaid height=147,auto
+graph TD
+   P1 --> C
+   P2 --> C
+   P3 --> C
+   P4 --> C
+   P5 --> C
+   Pn[P6..P30] --> C[C2]
+```
+
+You repeat this until you hat max chunk size:   
+
+```mermaid height=147,auto
+graph TD
+   P1 --> C
+   P2 --> C
+   Pn[P3..P99] --> C[C6]
+```
+
+And that all works fine: you're merging 21 clusters with C2, another 21 clusters with C3, C4 and C5 and a final 10 clusters with C6.
+
+But what if you didn't see C2, C3, C4 or C5, but had seen P11..P99? C6 alone would look like it was merging 90 clusters, which would presumably be more than the allowed cluster limit. So the rbf from C1 to C6 becomes path dependent: doing it directly fails, but doing it indirectly works.
+
+-------------------------
+
+instagibbs | 2023-12-05 19:00:58 UTC | #15
+
+[quote="ajtowns, post:14, topic:156"]
+But what if you didn’t see C2, C3, C4 or C5, but had seen P11…P99? C6 alone would look like it was merging 90 clusters, which would presumably be more than the allowed cluster limit. So the rbf from C1 to C6 becomes path dependent: doing it directly fails, but doing it indirectly works.
+[/quote]
+
+Yeah that's kind of annoying in how order-dependent it is, without any external actions by griefing parties.
+
+Another metric could be number of total txs in effected clusters.
+
+f.e. We continue to evaluate an RBF if the ~~number of effected clusters is <= 100 AND~~ number of total effected transactions in effected clusters is <= 2,500.
+
+Would allow "simple" CPFP patterns like @ajtowns writes above up to cluster limits, and still bound the diagram checks? In adversarial case, someone could still package RBF/CPFP ~25 separate clusters, assuming each thing being bumped was part of a max size cluster.
+
+-------------------------
+
+ajtowns | 2023-12-05 18:47:28 UTC | #16
+
+Maintaining the ancestor limit and having it equal the affected clusters limit would let you do simple CPFPs without worrying about RBFs -- anything after C2 paying for P1..P24 would just be non-standard due to the ancestor limit that way, no matter the order.
+
+-------------------------
+
+sdaftuar | 2023-12-05 19:11:17 UTC | #17
+
+[quote="ajtowns, post:14, topic:156"]
+But what if you didn’t see C2, C3, C4 or C5, but had seen P11…P99? C6 alone would look like it was merging 90 clusters, which would presumably be more than the allowed cluster limit. So the rbf from C1 to C6 becomes path dependent: doing it directly fails, but doing it indirectly works.
+[/quote]
+
+I don't think this scenario poses a problem (but maybe there's another that does).  Originally there were two different limits that I had been thinking about:
+
+1) A limit on the size of the cluster that a new transaction would be part of (eg 100 transactions).  For both RBF and non-RBF situations where a transactions is added to the mempool, we test that the size of the resulting cluster is not too big.  I think that in this example C6 is fine no matter what path of transactions is followed to get there.
+
+2) Some kind of limit on the number of clusters that a new transaction could conflict with. This could be a few different things: (a) just a cap on the number of direct conflicts; (b) a cap on the number of transactions that would have to be evicted (ie both direct conflicts and their descendants); (c) a cap on the number of linearizations we'd have to perform in order to accept a transaction (ie counting the number of clusters that need to be linearized after all conflicts are removed and the replacement transaction is added).
+
+In this example, I don't see how any of these proposed limits (2a, 2b, or 2c) would pose a path-dependence where seeing more RBFs makes C6 easier to get in.
+
+Edit: Forgot to add -- in practice I think we can treat 2c as being limited by 2a, in that if we have at most N direct conflicts, then we have at most N+1 linearizations to perform when adding the replacement.  This is because descendants of direct conflicts are always in the same cluster as the direct conflict, so we clearly have at most N clusters containing transactions that would be evicted.  Also, even if an eviction causes a cluster to split, I think it's fair to say that the polynomial/exponential run-time of the linearization algorithm means that the cost of linearizing a cluster split into k parts is less than k times the cost of linearizing the unsplit cluster, so we can ignore that effect.
+
+-------------------------
+

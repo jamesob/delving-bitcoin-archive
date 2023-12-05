@@ -1,8 +1,8 @@
 # Merging incomparable linearizations
 
-sipa | 2023-11-29 18:56:22 UTC | #1
+sipa | 2023-12-04 21:36:19 UTC | #1
 
-### Introduction
+# Introduction
 
 While we have several ways for computing good linearizations for a cluster from scratch, sometimes we don't start from scratch. We may have our own linearization already, but receive (through so far unspecified means) another linearization from a peer. If it's strictly better, we could just switch to it. But what if our linearization is better in some places, and theirs is better in other places? Can we somehow combine the "smarts" that they're based on, to construct an even better linearization?
 
@@ -10,7 +10,9 @@ As a reminder, we compare linearizations by computing all cumulative (size, fee)
 
 Due to the (so far unproven, but accepted) property that every cluster has a well-defined non-empty set of optimal linearizations (which are all equal to each other, and all strictly better than all other linearizations), it must be the case that if two incomparable linearizations exist, there *must* exist at least one linearization that's strictly better than both. This topic is about finding such combined linearizations.
 
-### Best-chunk merging
+# Algorithms
+
+## Best-chunk merging
 
 We've known a simple merging algorithm for a while:
 
@@ -45,7 +47,7 @@ graph BT
 
 What we observe is that there is actually a common subset (BADE) of the two initial chunks that can be moved to the front, but the merging algorithm does not consider this.
 
-### Intersection merging
+## Intersection merging
 
 In an attempt to address that, let's add a step to the merging algorithm to consider intersections:
 
@@ -82,7 +84,7 @@ graph BT
 
 Again the crux is discovering an intersection (BACE), but this time between the BACFE chunk and not one but two chunks of the other input (B and AEDGC).
 
-### Prefix-intersection merging
+## Prefix-intersection merging
 
 The solution is to attempt more intersections. Observe that a linearization is really a way of constraining the search for subsets to just prefixes of the linearization. Given the intuition gained above that incomparabilities always seem to be due to a non-considered intersection between the two linearizations, it seems worthwhile try all intersections between prefixes of the first with prefixes of the second linearization. There can be a quadratic number of such intersections however, but maybe we can limit ourselves to just intersections that involve the best chunk of one of both linearizations at least:
 
@@ -810,6 +812,40 @@ What are the chunks here? I have a hard time imagining how [5,3,1,8,0] turns int
 ajtowns | 2023-12-04 13:51:48 UTC | #43
 
 [5] [3,1,8] (feerate 4) [0]
+
+-------------------------
+
+sipa | 2023-12-05 19:47:48 UTC | #44
+
+[quote="ajtowns, post:43, topic:209, full:true"]
+[5] [3,1,8] (feerate 4) [0]
+[/quote]
+
+Hmm, indeed. This example shows that bestPi isn't always as good as the original PiMerge description.
+
+Given that, I lean towards sticking with the original, as I don't think that the performance difference between the two is significant. If there was no observable difference at all, it'd make sense to pick the faster one, but that doesn't seem to be the case now?
+
+[quote="ajtowns, post:41, topic:209"]
+Merging isn’t necessarily commutative either, I think, in the case where both linearisations have different (eg, non-overlapping) first chunks at equal feerates.
+[/quote]
+
+The linearizations that come out can differ depending on whether the transactions from $L_1$ or $L_2$ is chosen when the found subsets have the same feerate, ~~but I believe this cannot affect the fee-size diagram. Generally I use "smaller size is better" as tie-breaker when comparing equal-feerate chunks, as inside linearization algorithms this sometimes avoids accidentally merging equal-feerate subsets, but I don't believe it matters here what tie-breaker is chosen. Do you have a counter-example?~~
+
+EDIT: here is a counterexample:
+
+* Transactions: A=1, B=2, C=3, D=2, E=1 (all same size)
+* L1: [B,E,C,A,D], chunked as [B:2, EC:2, AD:1.5]
+* L2: [D,B,A,C,E], chunked as [D:2, B:2, AC:2, E:1]
+* Merge(L1,L2): [B,C,D,E,A], chunked as [BC:2.5, D:2, E:1, A:1]
+* Merge(L2,L1): [D,B,C,A,E], chunked as [DBC:2.33, A:1, E:1]
+
+-------------------------
+
+sipa | 2023-12-05 16:33:31 UTC | #45
+
+Ok, with that counterexample in place I'm now again leaning the other direction: that the right approach is using the simplest algorithm that works.
+
+My impression is that the non-commutativity and non-associativity of merging are effectively randomly stumbled upon through accidentally having/putting transactions in the right order. And these accidents can't be prevented, and moreover trying more subsets will inevitably mean there is a small chance of finding something better still.  However, that doesn't mean it's worth spending time on even if it's a small cost. That time could be better spent on directly trying more things in the linearization algorithm.
 
 -------------------------
 

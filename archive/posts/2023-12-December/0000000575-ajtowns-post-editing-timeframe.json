@@ -1,26 +1,26 @@
 {
-  "id": 561,
+  "id": 575,
   "name": "Anthony Towns",
   "username": "ajtowns",
   "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
-  "created_at": "2023-12-04T13:51:48.334Z",
-  "cooked": "<p>[5] [3,1,8] (feerate 4) [0]</p>",
-  "post_number": 43,
+  "created_at": "2023-12-04T21:46:24.066Z",
+  "cooked": "<p>I\u2019ve bumped this from 30 days to 90 days; if you want to keep updating something for longer than 3 months, we could see how \u201cmake this post a wiki\u201d works?</p>",
+  "post_number": 3,
   "post_type": 1,
-  "updated_at": "2023-12-04T13:51:48.334Z",
-  "reply_count": 1,
-  "reply_to_post_number": 42,
+  "updated_at": "2023-12-04T21:46:24.066Z",
+  "reply_count": 0,
+  "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 22.0,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 0.8,
   "yours": false,
-  "topic_id": 209,
-  "topic_slug": "merging-incomparable-linearizations",
-  "topic_title": "Merging incomparable linearizations",
-  "topic_html_title": "Merging incomparable linearizations",
-  "category_id": 9,
+  "topic_id": 222,
+  "topic_slug": "post-editing-timeframe",
+  "topic_title": "Post editing timeframe",
+  "topic_html_title": "Post editing timeframe",
+  "category_id": 2,
   "display_username": "Anthony Towns",
   "primary_group_name": null,
   "flair_name": null,
@@ -35,19 +35,9 @@
   "can_see_hidden_post": false,
   "can_wiki": false,
   "user_title": null,
-  "reply_to_user": {
-    "username": "sipa",
-    "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
-  },
   "bookmarked": false,
-  "raw": "[5] [3,1,8] (feerate 4) [0]",
-  "actions_summary": [
-    {
-      "id": 2,
-      "count": 1
-    }
-  ],
+  "raw": "I've bumped this from 30 days to 90 days; if you want to keep updating something for longer than 3 months, we could see how \"make this post a wiki\" works?",
+  "actions_summary": [],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -59,14 +49,8 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [
-    {
-      "id": "+1",
-      "type": "emoji",
-      "count": 1
-    }
-  ],
+  "reactions": [],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 0,
   "current_user_used_main_reaction": false
 }

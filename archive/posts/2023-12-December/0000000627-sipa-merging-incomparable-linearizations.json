@@ -1,0 +1,72 @@
+{
+  "id": 627,
+  "name": "Pieter Wuille",
+  "username": "sipa",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "created_at": "2023-12-05T16:33:19.024Z",
+  "cooked": "<p>Ok, with that counterexample in place I\u2019m now again leaning the other direction: that the right approach is using the simplest algorithm that works.</p>\n<p>My impression is that the non-commutativity and non-associativity of merging are effectively randomly stumbled upon through accidentally having/putting transactions in the right order. And these accidents can\u2019t be prevented, and moreover trying more subsets will inevitably mean there is a small chance of finding something better still.  However, that doesn\u2019t mean it\u2019s worth spending time on even if it\u2019s a small cost. That time could be better spent on directly trying more things in the linearization algorithm.</p>",
+  "post_number": 45,
+  "post_type": 1,
+  "updated_at": "2023-12-05T16:33:31.586Z",
+  "reply_count": 0,
+  "reply_to_post_number": 44,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 60.8,
+  "yours": false,
+  "topic_id": 209,
+  "topic_slug": "merging-incomparable-linearizations",
+  "topic_title": "Merging incomparable linearizations",
+  "topic_html_title": "Merging incomparable linearizations",
+  "category_id": 9,
+  "display_username": "Pieter Wuille",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "sipa",
+    "name": "Pieter Wuille",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Ok, with that counterexample in place I'm now again leaning the other direction: that the right approach is using the simplest algorithm that works.\n\nMy impression is that the non-commutativity and non-associativity of merging are effectively randomly stumbled upon through accidentally having/putting transactions in the right order. And these accidents can't be prevented, and moreover trying more subsets will inevitably mean there is a small chance of finding something better still.  However, that doesn't mean it's worth spending time on even if it's a small cost. That time could be better spent on directly trying more things in the linearization algorithm.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 96,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

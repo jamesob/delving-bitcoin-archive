@@ -1599,3 +1599,17 @@ So basically this script is not implementable on bitcoin in any meaningful way, 
 
 -------------------------
 
+ZmnSCPxj | 2023-12-05 12:33:44 UTC | #9
+
+If we are willing to softfork something in that allows Lamport and other ttricks and re-enabling of `OP_CAT` (and converting all `OP_NOP` to `OP_SUCCESS`), then maybe we can use a different P2SH-like encoding?  i.e. instead of `OP_HASH160 <hash> OP_EQUAL` as in P2SH, create a new P2XSH with template `OP_HASH256 <hash> OP_EQUAL`.  If this template is recognized, then the softfork version expects the script top to be equivalent to a `0xC0`-version script as in tapleaf, including `OP_SUCCESS`.  Then you can execute any extensions supported inside `0xC0`-version tapleaves in the P2XSH script, including `OP_CAT` if that is enabled inside tapscript version `0xC0`.  This lets you avoid any quantum-non-resistant paths on the way to the script.
+
+(Or maybe just make it into a tapleaf so include the version to the front of the script. sort of thing)
+
+-------------------------
+
+moonsettler | 2023-12-05 15:06:11 UTC | #10
+
+It would be nice to have something like P2SH/P2WSH where the script is like tapscript in upgradeability and relaxed limitations.
+
+-------------------------
+
