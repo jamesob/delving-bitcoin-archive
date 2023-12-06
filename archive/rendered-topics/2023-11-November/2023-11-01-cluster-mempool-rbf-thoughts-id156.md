@@ -347,7 +347,7 @@ Relinearising before comparing the diagrams would make RBFing slightly cheaper/e
 
 -------------------------
 
-sdaftuar | 2023-12-06 15:15:05 UTC | #21
+sdaftuar | 2023-12-06 15:16:34 UTC | #21
 
 I think that if we don't re-linearize what is left of the old clusters, that we might open the door to some RBF pinning scenarios that otherwise wouldn't exist.
 
@@ -400,6 +400,8 @@ Changing P2's feerate, fixing P2 at size 1:
 | 4| 1 | 2 |
 | 6| 1 | 3 |
 | 8| 1 | 4 |
+
+My conclusion from this is that we ought to relinearize the old clusters, to avoid artificially increasing the fee bump needed due to unrelated transactions like P2 (and X, which is the only reason that P2 is relevant in the graph).
 
 -------------------------
 
