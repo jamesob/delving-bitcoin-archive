@@ -12,9 +12,9 @@
   "reply_to_post_number": 17,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 156,
   "topic_slug": "cluster-mempool-rbf-thoughts",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sdaftuar, post:17, topic:156\"]\nIn this example, I don\u2019t see how any of these proposed limits (2a, 2b, or 2c) would pose a path-dependence where seeing more RBFs makes C6 easier to get in.\n[/quote]\n\nI think 2a makes most sense, and is what I was leaning towards in https://github.com/bitcoin/bitcoin/issues/27677#issuecomment-1554708843  \n\nI always thought it likely fine if we had to drop that number from 100.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
