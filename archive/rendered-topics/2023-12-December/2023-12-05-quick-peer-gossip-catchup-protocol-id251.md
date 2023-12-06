@@ -52,3 +52,23 @@ This allows us to avoid per-peer storage: on startup we load the timestamp when 
 
 -------------------------
 
+rustyrussell | 2023-12-06 20:01:08 UTC | #5
+
+This is, in fact, what gossip_timestamp_filter does:
+
+```
+1. type: 265 (`gossip_timestamp_filter`) (`gossip_queries`)
+2. data:
+    * [`chain_hash`:`chain_hash`]
+    * [`u32`:`first_timestamp`]
+    * [`u32`:`timestamp_range`]
+```
+
+The "timestamp" for channel_announcement is defined as " the `timestamp` of a corresponding `channel_update`." (rather than "all corresponding channel_update" which is what you specified).
+
+It turns out, however, that everyone uses "none", "all" or "recent", where recent is 10 minutes ago (CLN), now (LND and Eclair), 1 hour ago (LDK).  To avoid scanning the entire gossip_store (or keeping more metadata), we now keep a single "first record with timestamp > 2 hours ago" offset and scan from there, unless they set first_update to 0.  This basically turns the field into a trinary.
+
+But this is *still* not what a single-peer-gossiper wants!  The timestamp of the record is a very rough guide to "have you seen this before".  A better guide is when the *peer* received the gossip: presumably it started streaming it within 60 seconds.  It's also much easier for us to implement: for speed we can keep the received timestamps at every ~1MB of gossip store, since they will be monotonic.
+
+-------------------------
+
