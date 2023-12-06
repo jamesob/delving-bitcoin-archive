@@ -20,3 +20,19 @@ Of course that assumes nodes keep track of when they received all gossip message
 
 -------------------------
 
+rustyrussell | 2023-12-06 05:06:18 UTC | #3
+
+> TBH I’d really rather we Just Do Minisketch and move on rather than trying to keep applying bandaids to the current gossip.
+
+Sure, but you need gossip v1.5 for minisketch.  And you still might want this for catchup, if you only have a few peers (i.e. one peer!).
+
+Meanwhile, I thought "no, your proposal is just like gossip_timestamp_filter which we're moving away from", but actually, /it's different/, being based on the gossip time, not the timestamps.
+
+If you record the timestamp when you commit the gossip, assuming 60 second relay, you're pretty close.  If the peer reports when they last received gossip you can subtract 120 seconds and probably do a pretty good job.
+
+It turns out, we even have a field in our gossip_store header "timestamp", which is redundant (it used to be a copy of the update timestamp, used for easy timestamp filter when we supported that).  We use that without a format change.
+
+We'd still need to keep some offset markers to avoid having to sweep the entire file when asked for a specific time, but that's actually extremely implementable...
+
+-------------------------
+

@@ -8,7 +8,7 @@
   "post_number": 2,
   "post_type": 1,
   "updated_at": "2023-12-05T05:49:50.566Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
@@ -59,9 +59,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
