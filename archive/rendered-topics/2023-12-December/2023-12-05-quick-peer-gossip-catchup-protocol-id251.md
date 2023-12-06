@@ -36,3 +36,19 @@ We'd still need to keep some offset markers to avoid having to sweep the entire 
 
 -------------------------
 
+cdecker | 2023-12-06 13:23:54 UTC | #4
+
+Fwiw this sounds very close to what `lnsync` does. It assigns an arbitatry ordering to the messages and allows clients to seek through that ordering. Since the ordering only has to make sense to the serving node, and any misordering can only result in a bit too much being sent across this seems like a trivial and backwards compatible solution to quickly sync up.
+
+While the idea of canonical ordering by the serving node works quite nicely, we can notice that we also have a partial order among messages, with the `channel_announcement` being the outlier, since it cannot be uniquely ordered among the other messages that may pertain to the channel or the endpoints.
+
+ - `channel_update` sort by timestamp, and allow querying a range based on these timestamps
+ - `node_announcement` sort by timestamp, and allow querying a range based on these timestamps
+ - `channel_announcement` does not have a timestamp, and ought to be included if the querying node is asking for a timestamp range that include ANY update to the channel
+
+As you can see the only potential over-sharing is in the form of the `channel_announcement` but I don't think that is solvable, since there is no unique position in the ordering that'd guarantee inclusion iff a matching `channel_update` is included. 
+
+This allows us to avoid per-peer storage: on startup we load the timestamp when we were last online, we then subtract a buffer from that (1/2h?) and we tell our peers that timestamp when reconnecting. This means we don't store anything per-peer, rather we only store a timestamp up to which we believe we are up to date, and then ask for incremental diffs from that point onwards.
+
+-------------------------
+

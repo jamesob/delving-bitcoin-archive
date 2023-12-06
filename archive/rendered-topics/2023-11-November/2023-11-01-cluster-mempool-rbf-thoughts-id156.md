@@ -347,3 +347,35 @@ Relinearising before comparing the diagrams would make RBFing slightly cheaper/e
 
 -------------------------
 
+sdaftuar | 2023-12-06 14:29:34 UTC | #21
+
+I think that if we don't re-linearize what is left of the old clusters, that we might open the door to some RBF pinning scenarios that otherwise wouldn't exist.
+
+Imagine you are doing an RBF where you are replacing one low fee parent with another (perhaps one lightning commitment tx + child vs another?).  Old tx graph (feerates in parens, all txs same size):
+
+```mermaid height=146,auto
+graph TD
+   P1("P1(1)") --> A("A (19)")
+   P2("P2(9)") --> X("X(1)")
+   P1 --> X
+   P3("P3(1)")
+```
+
+This 2-cluster tx graph would have mempool chunks with feerates [10, 9, 1, 1].
+
+And then you want to consider replacing A with B:
+
+```mermaid height=146,auto
+graph TD
+   P1("P1(1)")
+   P2("P2(9)") --> X("X(1)")
+   P1 --> X
+   P3("P3(1)")--> B("B(?)")
+```
+
+Assuming B's feerate is going up, then if we didn't relinearize the cluster containing A, the mempool chunks we'd get from this graph would have feerates: [(R(B)+1)/2, 5, 1]. If you were to relinearize, you'd instead get [(R(B)+1)/2, 9, 1, 1].
+
+Using the feerate diagram test as our RBF metric, if we don't relinearize, then I think you could just increase the size of P2 (and leave it at the same feerate) in order to increase the feerate required for B to be accepted.  Not sure exactly what the mathematical relationship is, but this strikes me as a bad outcome?
+
+-------------------------
+
