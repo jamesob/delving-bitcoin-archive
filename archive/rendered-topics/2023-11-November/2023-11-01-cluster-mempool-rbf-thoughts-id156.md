@@ -347,11 +347,11 @@ Relinearising before comparing the diagrams would make RBFing slightly cheaper/e
 
 -------------------------
 
-sdaftuar | 2023-12-06 15:16:34 UTC | #21
+sdaftuar | 2023-12-06 15:32:29 UTC | #21
 
 I think that if we don't re-linearize what is left of the old clusters, that we might open the door to some RBF pinning scenarios that otherwise wouldn't exist.
 
-Imagine you are doing an RBF where you are replacing one low fee parent with another (perhaps one lightning commitment tx + child vs another?).  Old tx graph (feerates in parens, all txs same size):
+Imagine you are doing an RBF where you are swapping out one low fee parent with another.  Old tx graph (feerates in parens, all txs same size):
 
 ```mermaid height=146,auto
 graph TD
