@@ -347,7 +347,7 @@ Relinearising before comparing the diagrams would make RBFing slightly cheaper/e
 
 -------------------------
 
-sdaftuar | 2023-12-06 14:29:34 UTC | #21
+sdaftuar | 2023-12-06 15:15:05 UTC | #21
 
 I think that if we don't re-linearize what is left of the old clusters, that we might open the door to some RBF pinning scenarios that otherwise wouldn't exist.
 
@@ -376,6 +376,30 @@ graph TD
 Assuming B's feerate is going up, then if we didn't relinearize the cluster containing A, the mempool chunks we'd get from this graph would have feerates: [(R(B)+1)/2, 5, 1]. If you were to relinearize, you'd instead get [(R(B)+1)/2, 9, 1, 1].
 
 Using the feerate diagram test as our RBF metric, if we don't relinearize, then I think you could just increase the size of P2 (and leave it at the same feerate) in order to increase the feerate required for B to be accepted.  Not sure exactly what the mathematical relationship is, but this strikes me as a bad outcome?
+
+Update:
+
+I did a quick check to see how high I could get the required feerate of B based on the (a) size of P2 (holding feerate constant), and (b) the feerate of P2 (in the range of 1-9), assuming we do/do not relinearize the old cluster when processing an RBF.
+
+Changing P2's size, fixing P2 at feerate 9:
+
+| P2's size| Min fee bump with relinearization | Min fee bump without relinearization|
+|--|--|--
+| 1| 1 | 4 |
+| 2| 1 | 6 |
+| 3| 1 | 6 |
+| 4| 1 | 7 |
+| 8| 1 | 8 |
+|9 & higher| 1 | 8|
+
+
+Changing P2's feerate, fixing P2 at size 1:
+| P2's feerate| Min fee bump with relinearization | Min fee bump without relinearization|
+|--|--|--
+| 1| 1 | 1 |
+| 4| 1 | 2 |
+| 6| 1 | 3 |
+| 8| 1 | 4 |
 
 -------------------------
 
