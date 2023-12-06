@@ -405,3 +405,15 @@ My conclusion from this is that we ought to relinearize the old clusters, to avo
 
 -------------------------
 
+instagibbs | 2023-12-06 15:45:35 UTC | #22
+
+[quote="sdaftuar, post:17, topic:156"]
+In this example, I don’t see how any of these proposed limits (2a, 2b, or 2c) would pose a path-dependence where seeing more RBFs makes C6 easier to get in.
+[/quote]
+
+I think 2a makes most sense, and is what I was leaning towards in https://github.com/bitcoin/bitcoin/issues/27677#issuecomment-1554708843  
+
+I always thought it likely fine if we had to drop that number from 100.
+
+-------------------------
+
