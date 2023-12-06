@@ -277,3 +277,73 @@ Edit: Forgot to add -- in practice I think we can treat 2c as being limited by 2
 
 -------------------------
 
+ajtowns | 2023-12-05 22:34:37 UTC | #18
+
+You get the same thing if Pn had previously been CPFPed for by different transactions Xn (C2 conflicts with each Xn due to spending the same output of Pn):
+
+```mermaid height=147,auto
+graph TD
+    P1[P1..P10] --> C1
+    P11 --> X11
+    P12 --> X12
+    Pn[P13..P99] -.-> Xn[X13..X99]
+```
+
+replaced by
+
+```mermaid height=147,auto
+graph TD
+    Pa[P1..P30] --> C2
+    P31 --> X31
+    P32 --> X32
+    Pn[P33..P99]-.-> Xn[X33..X99]
+```
+
+then have C2 and X31..X50 replaced by C3:
+
+```mermaid height=147,auto
+graph TD
+    Pa[P1..P50] --> C3
+    P51 --> X51
+    P52 --> X52
+    Pn[P53..P99]-.-> Xn[X53..X99]
+```
+
+where C2 conflicts with C1, X11..X30; C3 conflicts with C1, C2, X11..X50. Then you hit 2a and 2b if they're below 40 when you go C1 to C3, but not if you got C1 then C2 then C3 (assuming you have C1, P1..99, X1..99 in your mempool initially).
+
+I think as far as linearisation goes, the issue is you need to:
+
+ 1. create a diagram for the relevant clusters from original mempool: easy, $O(n\cdot \log(c))$ where $c$ is number of clusters, $n$ is number of txs in the clusters
+ 2. create a diagram for the post RBF mempool:
+     * keep all the old clusters; removing any conflicts. don't worry if they'll end up splitting
+     * create a new cluster for the new tx(s); move all related txs from all clusters
+     * linearise this new cluster
+     * combine what's left from the old clusters and the new cluster into a single diagram
+     * compare it
+
+So I'd only count that as "1" linearisation, though you'd probably want to re-linearise all the old clusters you touched after you've decided to accept the RBF before you update the mempool?
+
+-------------------------
+
+sdaftuar | 2023-12-05 22:51:05 UTC | #19
+
+[quote="ajtowns, post:18, topic:156"]
+So I’d only count that as “1” linearisation, though you’d probably want to re-linearise all the old clusters you touched after you’ve decided to accept the RBF before you update the mempool?
+[/quote]
+
+The algorithm you describe is exactly what I'm trying to do (so that's good!). But when calculating the feerate diagram for the post-RBF mempool, you omitted the re-linearization of all the old clusters that are affected by evictions -- I don't think we can do that?
+
+-------------------------
+
+ajtowns | 2023-12-05 23:02:55 UTC | #20
+
+I was thinking in three steps:
+
+ * just remove the conflicts and related txs and rechunk what's left of the old clusters, without relinearising $O(n)$
+ * combine those chunkings to produce a new diagram and compare it with the current diagram $O(n\log(c))$. if the diagram's not better, throw it away, reject the RBF, all done
+ * if it is better; split and re-linearise the old clusters, and update the mempool $O(\frac{n^2}{c})$
+
+Relinearising before comparing the diagrams would make RBFing slightly cheaper/easier in complicated cases, but I don't think we need to do that, and deferring the $O(n^2)$ steps until we know we're doing something to improve the mempool seems worthwhile?
+
+-------------------------
+

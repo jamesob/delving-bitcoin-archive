@@ -8,13 +8,13 @@
   "post_number": 17,
   "post_type": 1,
   "updated_at": "2023-12-05T19:11:17.122Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 14,
   "quote_count": 1,
   "incoming_link_count": 0,
   "reads": 4,
   "readers_count": 3,
-  "score": 0.8,
+  "score": 50.8,
   "yours": false,
   "topic_id": 156,
   "topic_slug": "cluster-mempool-rbf-thoughts",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:14, topic:156\"]\nBut what if you didn\u2019t see C2, C3, C4 or C5, but had seen P11\u2026P99? C6 alone would look like it was merging 90 clusters, which would presumably be more than the allowed cluster limit. So the rbf from C1 to C6 becomes path dependent: doing it directly fails, but doing it indirectly works.\n[/quote]\n\nI don't think this scenario poses a problem (but maybe there's another that does).  Originally there were two different limits that I had been thinking about:\n\n1) A limit on the size of the cluster that a new transaction would be part of (eg 100 transactions).  For both RBF and non-RBF situations where a transactions is added to the mempool, we test that the size of the resulting cluster is not too big.  I think that in this example C6 is fine no matter what path of transactions is followed to get there.\n\n2) Some kind of limit on the number of clusters that a new transaction could conflict with. This could be a few different things: (a) just a cap on the number of direct conflicts; (b) a cap on the number of transactions that would have to be evicted (ie both direct conflicts and their descendants); (c) a cap on the number of linearizations we'd have to perform in order to accept a transaction (ie counting the number of clusters that need to be linearized after all conflicts are removed and the replacement transaction is added).\n\nIn this example, I don't see how any of these proposed limits (2a, 2b, or 2c) would pose a path-dependence where seeing more RBFs makes C6 easier to get in.\n\nEdit: Forgot to add -- in practice I think we can treat 2c as being limited by 2a, in that if we have at most N direct conflicts, then we have at most N+1 linearizations to perform when adding the replacement.  This is because descendants of direct conflicts are always in the same cluster as the direct conflict, so we clearly have at most N clusters containing transactions that would be evicted.  Also, even if an eviction causes a cluster to split, I think it's fair to say that the polynomial/exponential run-time of the linearization algorithm means that the cost of linearizing a cluster split into k parts is less than k times the cost of linearizing the unsplit cluster, so we can ignore that effect.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
