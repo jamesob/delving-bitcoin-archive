@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 66.6,
   "yours": false,
   "topic_id": 264,
   "topic_slug": "liquidity-griefing-in-multi-party-transaction-protocols",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "\n[quote=\"morehouse, post:1, topic:264\"]\n## v3 transactions\n...\n### Downsides\n\nEven with v3 transactions, double spending can incur a limited RBF penalty fee. If Mallory engages in repeated witness inflation attacks against Bob, she can force him to consistently pay higher-than-normal fees to double-spend his griefed UTXOs.\n[/quote]\n\nFrom a [GitHub discusssion](https://github.com/lightning/bolts/pull/851#issuecomment-1845650132) about liquidity griefing against v3 transactions:\n\n[quote=\"morehouse\"]\nI did a little math to see what a typical griefing might cost an LSP.\n\nSome recent mempool feerates:\n\n- Minimum relay: 10 sat/vB\n- 1 week confirmation: 20 sat/vB\n- 6 hour confirmation: 80 sat/vB\n\nLet's say we use 80 sat/vB for a funding transaction and the LSP's portion of the transaction is 250 vB, so they allocate `80 * 250 = 20,000 sat` for the transaction fee.  Let's say the total transaction is 500 vB, so the total fee for the transaction is 40,000 sat.\n\nThe attacker inflates their witnesses to reduce the feerate to 10 sat/vB and also chains a 1,000 vB descendant transaction (the max allowed by v3 policy) with a fee of 10,000 sat (10 sat/vB).  This package is unlikely to confirm for a very long time.\n\nIf the LSP wishes to double-spend their griefed UTXOs, they must now spend `40,000 + 10,000 = 50,000 sat`.  If they use another 500 vB dual-funded transaction to double spend, the required feerate for that transaction would be `50,000 sat / 500 vB = 100 sat/vB`  This is 25% more than the expected current feerate.\n\nSuppose further that the attacker is doing repeated griefing and this new dual-funded transaction is actually with another node controlled by the attacker.  The attacker can grief this transaction as well, causing the double-spend fee to increase to `50,000 + 10,000 = 60,000 sat` (120 sat/vB).  And so on.\n[/quote]\n\n[quote=\"t-bast\"]\nNice work! But this pinning attack does not reliably work though, so I believe it's not the end of the world. To be able to effectively lower the feerate of the funding transaction, the attacker needs to have low-feerate ancestors. But since those ancestors are low-feerate, they will be dropped from a fraction of the network's mempools, which will allow an honest transaction at the normal feerate to go through (because in those mempools, that honest transaction isn't a double-spend, the conflicting transactions have been evicted). That's what [@TheBlueMatt](https://github.com/TheBlueMatt) mentioned a few times, that in practice today, based on his experiments, even low-ish feerate transactions are still able to propagate and confirm.\n[/quote]",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

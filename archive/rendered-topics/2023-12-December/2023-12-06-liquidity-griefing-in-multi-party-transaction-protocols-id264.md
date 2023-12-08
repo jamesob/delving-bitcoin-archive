@@ -271,3 +271,13 @@ v3 does prevent pinning, but witness inflation can still be used with a single 1
 
 -------------------------
 
+t-bast | 2023-12-08 08:11:22 UTC | #6
+
+> Witness inflation is done on the joint transaction itself. Unconfirmed ancestors are not needed for this attack vector.
+
+It has the same effect though: the inflated transaction is thus paying a lower feerate than expected, which makes it easy to replace with a transaction that pays the expected feerate (when not coupled with descendant pinning).
+
+It is also hard to reliably pull out: if you also pin with descendants, that means the descendants will be even lower feerate and will thus be evicted from some nodes' mempool, allowing a replacement to propagate. It's impossible to quantify that though, since it really depends on the topology of the whole network's mempools...
+
+-------------------------
+
