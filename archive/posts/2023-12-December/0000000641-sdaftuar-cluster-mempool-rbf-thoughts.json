@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 5,
   "readers_count": 4,
-  "score": 61.0,
+  "score": 76.0,
   "yours": false,
   "topic_id": 156,
   "topic_slug": "cluster-mempool-rbf-thoughts",
@@ -45,7 +45,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,10 +63,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }

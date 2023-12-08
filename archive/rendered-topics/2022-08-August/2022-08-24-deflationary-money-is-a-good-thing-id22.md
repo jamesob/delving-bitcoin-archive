@@ -266,3 +266,15 @@ The advantage of the approach is that it's opt-in: if you think dollars are simp
 
 -------------------------
 
+ZmnSCPxj | 2023-12-06 22:47:27 UTC | #15
+
+Thanks, I understand now.
+
+However if the impetus is to ensure that long-term contracts (like your aforementioned contractor), how about having the USD be defined as a basket of real goods typically consumed to support an individual? e.g. it could be set to some constant amount of rice, noodles, pork, chicken (or whatever is usual for your culture).
+
+This is superior I think as the authority can afford to change this definition much more rarely than if USD were defined in terms of BTC.  If we assume that existing BTC volatility will remain post-hyperbitcoinization, then a USD per BTC metric would need to happen daily or even hourly, which makes it much more difficult for a democratic (?) populace to keep watch over the authority and be able to counter-check that it has not been compromised.  If USD were instead described in terms of a basket of real consumables like my counterproposal, then I suspect the authority can change this on a yearly basis and the actual democractic population might even be able to vote directly on proposed changes of the exchange rate, as the expected number of updates would be low.
+
+On the other hand, the real goods would probably not be fungible, in the sense that various quality grades may exist which cannot be exchanged directly.
+
+-------------------------
+

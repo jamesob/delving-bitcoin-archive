@@ -125,3 +125,15 @@ An issue is that LN OM are currently targeted only for BOLT12 invoice requests, 
 
 -------------------------
 
+ZmnSCPxj | 2023-12-06 22:58:59 UTC | #2
+
+## Idempotency
+
+Network is unreliable, thus, it is possible for a client to hand over a credential to pay for some operation, for the server to receive it, for the server to internally mark the credential as spent, and then to reissue a new credential with lower value to the same client in the reply, only for the reply to fail to reach the client due to a network connectivity issue, thus losing the credential completely.
+
+This holds even if we were to use TCP (which we know is utterly trash for privacy); either end can crash at any time (i.e. the server can crash just after it constructs the reply in memory and has it in a buffer in the OS, but before it can be sent out as an IP packet, or the client can crash just before it updates the local storage with the new credential).  But it holds even more when using multi-hop techniques (like LN OMs).
+
+What the server does is to ensure idempotency of credential replacement.  When marking a credential as spent, the server also includes the blinded new credential that replaces the old credential in its database, together with how much was deducted and what operation did the deduction.  Then, when the client attempts to reuse a credential, the server reports back the next credential it stored for the marked credential, on the assumption that the client is reusing credentials due to a human-foot-pulled-a-cable event rather than through malice.  Obviously, the server must not actually perform the requested operation, only return the fact about the credential being spent.  If the client is operating honestly, it is likely attempting to repeat an operation that was already completed (and it simply failed to know that the operation did complete in a previous request).  A malicious client would still not get free service, as the server will still not perform the operation.
+
+-------------------------
+
