@@ -281,3 +281,21 @@ It is also hard to reliably pull out: if you also pin with descendants, that mea
 
 -------------------------
 
+instagibbs | 2023-12-08 15:05:34 UTC | #7
+
+[quote="t-bast, post:6, topic:264"]
+It has the same effect though: the inflated transaction is thus paying a lower feerate than expected, which makes it easy to replace with a transaction that pays the expected feerate (when not coupled with descendant pinning).
+[/quote]
+
+anti-DoS rule#3 is the pain point here. If it gets evicted from the mempool, then you're in the clear(future bytes will have to pay higher minfee, protecting the node), otherwise you have to overcome the total value.
+
+[quote="morehouse, post:5, topic:264"]
+v3 does prevent pinning, but witness inflation can still be used with a single 1000 vB descendant to inflate the RBF cost for the victim. Doing this repeatedly can burn the victim’s funds to fees, with no cost to the attacker. Whether this can be done reliably, I’m not sure – the only way to find out is to try such an attack.
+[/quote]
+
+The future post-cluster mempool scheme I have in mind is pretty simple: v3 would be relaxed to "must be in top block to enter mempool". This makes pinning essentially impossible unless the attacker somehow knows the top-rate backlog is going to get bad shortly in the future, and should protect against witness inflation and the like. Would allow for pin-resistant batch CPFP, would mean you don't necessarily need no unconfirmed ancestors, etc.
+
+Just a sketch at this point, but something to consider if you're already thinking about pins and mitigations.
+
+-------------------------
+
