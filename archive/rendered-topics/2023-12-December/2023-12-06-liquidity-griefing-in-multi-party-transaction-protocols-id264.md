@@ -281,7 +281,13 @@ It is also hard to reliably pull out: if you also pin with descendants, that mea
 
 -------------------------
 
-instagibbs | 2023-12-08 15:06:22 UTC | #7
+instagibbs | 2023-12-08 15:11:17 UTC | #7
+
+[quote="morehouse, post:4, topic:264"]
+This is 25% more than the expected current feerate.
+[/quote]
+
+Honestly, that doesn't seem very bad, considering the variability of "going feerates" and the practical realities of block confirmations. 
 
 [quote="t-bast, post:6, topic:264"]
 It has the same effect though: the inflated transaction is thus paying a lower feerate than expected, which makes it easy to replace with a transaction that pays the expected feerate (when not coupled with descendant pinning).
