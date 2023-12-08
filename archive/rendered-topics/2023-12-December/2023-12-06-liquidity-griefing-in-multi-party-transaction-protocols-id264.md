@@ -281,13 +281,13 @@ It is also hard to reliably pull out: if you also pin with descendants, that mea
 
 -------------------------
 
-instagibbs | 2023-12-08 15:11:17 UTC | #7
+instagibbs | 2023-12-08 15:13:07 UTC | #7
 
 [quote="morehouse, post:4, topic:264"]
 This is 25% more than the expected current feerate.
 [/quote]
 
-Honestly, that doesn't seem very bad, considering the variability of "going feerates" and the practical realities of block confirmations. 
+Honestly, that doesn't seem very bad, considering the variability of "going feerates" and the practical realities of block confirmations. The "core" pinning problem is a 500x mismatch in pacakge sizes, not 25%.
 
 [quote="t-bast, post:6, topic:264"]
 It has the same effect though: the inflated transaction is thus paying a lower feerate than expected, which makes it easy to replace with a transaction that pays the expected feerate (when not coupled with descendant pinning).
@@ -299,7 +299,7 @@ anti-DoS rule#3 is the pain point here. If it gets evicted from the mempool, the
 v3 does prevent pinning, but witness inflation can still be used with a single 1000 vB descendant to inflate the RBF cost for the victim. Doing this repeatedly can burn the victim’s funds to fees, with no cost to the attacker. Whether this can be done reliably, I’m not sure – the only way to find out is to try such an attack.
 [/quote]
 
-The future post-cluster mempool scheme I have in mind is pretty simple: v3 would be relaxed to "must be in top block to enter mempool". This makes pinning essentially impossible unless the attacker somehow knows the top-rate backlog is going to get bad shortly in the future, and should protect against witness inflation and the like. Would allow for pin-resistant batch CPFP, would mean you don't necessarily need no unconfirmed ancestors, should make ANYONECANPAY usage more safe(like HTLC second stage txns) etc.
+The future post-cluster mempool scheme I have in mind is pretty simple: v3 would be relaxed to on the order of "must be in top block to enter mempool". This makes pinning essentially impossible unless the attacker somehow knows the top-rate backlog is going to get bad shortly in the future, and should protect against witness inflation and the like. Would allow for pin-resistant batch CPFP, would mean you don't necessarily need no unconfirmed ancestors, should make ANYONECANPAY usage more safe(like HTLC second stage txns) etc.
 
 Just a sketch at this point, but something to consider if you're already thinking about pins and mitigations.
 
