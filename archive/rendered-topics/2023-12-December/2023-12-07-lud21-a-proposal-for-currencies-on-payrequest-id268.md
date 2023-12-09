@@ -20,3 +20,11 @@ We're working on a implementation at Bipa (see bipa.app/.well-known/lnurlp/loren
 
 -------------------------
 
+cdecker | 2023-12-09 14:39:41 UTC | #2
+
+Notice that BOLT 12 already has support for non-native currencies and the exchange rate negotiation logic between sender and recipient to determine how many `msat` the foreign currency should map to.
+
+Please ensure that the semantics of LNURL and BOLT12 match up, otherwise we end up with partially overlapping semantics and confusion for users.
+
+-------------------------
+
