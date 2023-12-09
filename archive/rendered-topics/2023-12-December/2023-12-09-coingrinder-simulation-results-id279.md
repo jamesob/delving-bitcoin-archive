@@ -203,3 +203,19 @@ Scenario: bustabit-tiny-hot-wallet_6h-YTD-2023
 
 -------------------------
 
+murch | 2023-12-09 16:27:54 UTC | #3
+
+Here are Scatter Plots for 
+
+BHWt 2023-6h CoinGrinder:
+
+![BHWt 2023-6h CoinGrinder|600x371](upload://dgt9FYkRgQqCmmInAwWuNU2UkgN.png)
+
+Also see [Interactive site](https://docs.google.com/spreadsheets/d/e/2PACX-1vSE5nVRzAO1w3uN0hRjeZzNpqE-MxwIIuZo9pu7yUbdokWGni0ie1mQeilW7GRjvy2FlfgKH2noW_I6/pubchart?oid=878438197&format=interactive)
+
+![image|600x371](upload://9TxliLzUUobVjNUaP69uH27KvJU.png)
+
+[Interactive Sheet](https://docs.google.com/spreadsheets/d/e/2PACX-1vSE5nVRzAO1w3uN0hRjeZzNpqE-MxwIIuZo9pu7yUbdokWGni0ie1mQeilW7GRjvy2FlfgKH2noW_I6/pubchart?oid=1320697158&format=interactive)
+
+-------------------------
+
