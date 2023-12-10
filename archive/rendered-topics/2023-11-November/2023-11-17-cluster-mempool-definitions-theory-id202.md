@@ -168,7 +168,7 @@ All together, we found a single linearization that is $\gtrsim$ every linearizat
 
 -------------------------
 
-murch | 2023-12-10 15:22:28 UTC | #2
+murch | 2023-12-10 15:26:45 UTC | #2
 
 [quote="sipa, post:1, topic:202"]
 ***Definition***. A **chunking** C = (c_1, c_2, \ldots, c_n)C=(c1,c2,…,cn)C = (c_1, c_2, \ldots, c_n) for a given graph *G* is a list of sets of transactions (called **chunks**) of *G* such that:
@@ -179,7 +179,7 @@ murch | 2023-12-10 15:22:28 UTC | #2
 [/quote]
 
  I assume you are defining it on a graph so that you can have a chunking across multiple clusters, but 
-it seems to me that this definition would only require that the topology is valid at the chunk borders and would not require the transactions to be topological _within the chunks_. I think it would be correct if you said "every prefix of the chunking" instead of "every prefix of chunks".
+it seems to me that this definition would only require that the topology is valid at the chunk borders and would not require the transactions to be topological _within the chunks_. I think it would be correct if you said "every prefix of the chunking is topological" instead of "every prefix of chunks is topological".
 
 [quote="sipa, post:1, topic:202"]
 ***Theorem***. The **corresponding chunking is a valid chunking, and is [unique](https://en.wikipedia.org/wiki/Uniqueness_theorem)**. The same chunking is obtained regardless of what order of merge operations is used. Thus, we can talk about *the* corresponding chunking \operatorname{chunks}(L)chunks(L)\operatorname{chunks}(L) of a linearization LLL. [no proof yet]
