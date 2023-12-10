@@ -1,6 +1,6 @@
 # Cluster mempool definitions & theory
 
-sipa | 2023-12-09 04:02:45 UTC | #1
+sipa | 2023-12-10 19:20:34 UTC | #1
 
 # Cluster mempool theory
 
@@ -48,6 +48,8 @@ In the example above:
 * Every prefix of chunks is topological ($\cup_{i=1}^{k} c_i$ for $k=1 \ldots n$ are topological subsets of $G$). Thus, a transaction's parent can appear in the same chunk as the transaction itself or in an earlier chunk, but not in a later chunk.
 * The feerates of the sets are monotonically decreasing. Thus, the consecutive prefices of chunks form the highest, second-highest, ... feerate topological prefices.
 
+Note that in practice, we will only works with chunkings of individual clusters, rather than possibly-disconnected graphs. The reasoning for that will come later, so for now, we define chunkings for graphs in general.
+
 ***Definition***. A **corresponding chunking** of a linearization is a chunking obtained by converting the linearization into a list of singletons (one for each transaction, in order), and then repeatedly merging adjacent sets where the second set has a higher feerate than the first, until no such sets remain.
 
 ***Theorem***. The **corresponding chunking is a valid chunking, and is [unique](https://en.wikipedia.org/wiki/Uniqueness_theorem)**. The same chunking is obtained regardless of what order of merge operations is used. Thus, we can talk about *the* corresponding chunking $\operatorname{chunks}(L)$ of a linearization $L$. [no proof yet]
@@ -81,7 +83,7 @@ In the example above:
 
 ## Transformations on linearizations
 
-***Theorem***. The **chunk reordering theorem**: reordering a linearization with changes restricted to a single chunk results leaves it at least as good. 
+***Theorem***. The **chunk reordering theorem**: reordering a linearization with changes restricted to a single chunk results leaves it at least as good, provided the result is still a valid linearization (i.e., its prefices are topological).
 
 ***Proof***. Every prefix of chunks in the original linearization remains a prefix of transactions in the new linearization. Because the new feerate diagram is the minimal concave function not below these points, and these points form the old feerate diagram, the new feerate diagram cannot be below the old one.
 
@@ -102,9 +104,9 @@ In this case, $\operatorname{feerate}(d_m) \geq \operatorname{feerate}(c_1) \imp
 ***Proof***.
 
 * Let $f = \operatorname{feerate}(c_1)$, the feerate of the highest-feerate prefix of $L$.
-* Let $e_j = c_j \cap S$ for $j=1 \ldots n$, the $S$ transactions in chunk $i$ of $L$. Note that this is distinct from $d_j$ because $e_j$ follows the chunk boundaries of $L$, while $d_j$ follows the boundaries of $L[S]$.
+* Let $e_j = c_j \cap S$ for $j=1 \ldots n$, the $S$ transactions in chunk $j$ of $L$. Note that this is distinct from $d_j$ because $e_j$ follows the chunk boundaries of $L$, while $d_j$ follows the boundaries of $L[S]$.
 * Let $\gamma_j = \cup_{i=1}^{j} c_i$ for $j=1 \ldots n$, the transactions in the first $j$ chunks of $L$.
-* Let $\zeta_j = \cup_{i=j+1}^{n} e_i$ for $j = 1 \ldots n$, the $S$ transactions *after* the first $j$ chunks of $L$.
+* Let $\zeta_j = \cup_{i=j+1}^{n} e_i$ for $j = 1 \ldots n$, all remaining transactions of $S$ *after* the first $j$ chunks of $L$.
 * Let $P(x) = (\operatorname{size}(x), \operatorname{fee}(x))$, the point in 2D space corresponding to the size and fee of set $x$.
 * We know $\operatorname{feerate}(c_j) \leq f$ for $j=1 \ldots n$, because chunk feerate decrease monotonically.
 * We know $\operatorname{feerate}(\zeta_j) \geq f$ for $j=0 \ldots n-1$, because feerates of the suffix of a linearization ($L[S]$ in this case) are never below the last chunk's feerate.
@@ -144,25 +146,45 @@ Thus, $\operatorname{ndiag}$, an underestimate for the feerate diagram of $L'$, 
 
 ***Proof***.
 
-Define the function $\operatorname{opt}(G, L)$, for a given graph $G$ and linearization of that graph $L$ as:
-* Let $S$ be the highest-feerate subset of $G$. If there are multiple, choose an arbitrary but consistent to order them.
-* Let $L_S$ be the best topologically valid linearization of $S$, according to an arbitrary but consistent ordering on linearizations.
-* $\operatorname{opt}(G, L) = L_S + \operatorname{opt}(G \setminus S, L[G \setminus S])$.
+* Choose a consistent but otherwise arbitrary total ordering $R_1$ on the set of sets of transactions.
+* Choose a consistent but otherwise arbitrary total ordering $R_2$ on the set of sequences of transactions.
+* Define the function $\operatorname{opt}(G, L)$, for a given graph $G$ and linearization of that graph $L$ as:
+  * If $G$ (and thus $L$) are empty, return the empty sequence: $\operatorname{opt}(\{\}, ()) = ()$.
+  * Otherwise:
+    * Let $S$ be the highest-feerate subset of $G$. If there are multiple, pick the first one according to $R_1$.
+    * Let $L_S$ be the first valid linearization of $S$ according to $R_2$.
+    * $\operatorname{opt}(G, L) = L_S + \operatorname{opt}(G \setminus S, L[G \setminus S])$.
 
-The output of $\operatorname{opt}(G, L)$ does not depend on $L$, so there is a unique result for every $G$. Yet, it can be shown that $\operatorname{opt}(G, L) \gtrsim L$ by induction. It is clearly true for empty $G$. For non-empty $G$, we reason:
+The definition of $\operatorname{opt}(G, L)$ does not actually depend on $L$, so there is a unique result for every $G$. Yet, it can be shown that $\operatorname{opt}(G, L) \gtrsim L$ by induction. This is clearly true for empty $G$. For non-empty $G$, we reason:
 * Let $L_1 = L[S] + L[G \setminus S]$. By the gathering theorem, $L_1 \gtrsim L$, because the highest-feerate subset $S$ necessarily forms a chunk on its own, with a feerate at least as high as the highest chunk feerate of $L$.
 * Let $L_2 = L_S + L[G \setminus S]$. By the chunk reordering theorem, $L_2 \gtrsim L_1$, as only one chunk's transactions were affected.
-* Let $L_3 = L_s + \operatorname{opt}(G \setminus S, L[G \setminus S])$. By the induction hypothesis, $\operatorname{opt}(G \setminus S, L[G \setminus S]) $ $\gtrsim$ $ L[G \setminus S]$, and thus by the stripping theorem, $L_3 \gtrsim L_2$.
+* Let $L_3 = L_S + \operatorname{opt}(G \setminus S, L[G \setminus S])$. By the induction hypothesis, $\operatorname{opt}(G \setminus S, L[G \setminus S]) $ $\gtrsim$ $ L[G \setminus S]$, and thus by the stripping theorem, $L_3 \gtrsim L_2$.
 * Thus, $\operatorname{opt}(G, L) = L_3 \gtrsim L_2 \gtrsim L_1 \gtrsim L$.
 
 All together, we found a single linearization that is $\gtrsim$ every linearization, so $\operatorname{opt}(G, L)$ is an optimal linearization of $G$.
 
+## Merging linearizations
+
+***Definition***. Let $\operatorname{merge}(G, L_1, L_2)$ be the function on graphs $G$ with valid linearizations $L_1$ and $L_2$, defined as follows:
+* If $G$ (and thus $L_1$ and $L_2$) are empty, $\operatorname{merge}(\{\}, (), ()) = ()$.
+* Otherwise:
+  * Let $(c_1, \ldots) = \operatorname{chunks}(L_1)$.
+  * Let $(c_2, \ldots) = \operatorname{chunks}(L_2)$.
+  * If $\operatorname{feerate}(c_1) > \operatorname{feerate}(c_2)$, swap $L_1$ with $L_2$ (and $c_1$ with $c_2$).
+  * Let $L_3 = L_1[c_2]$, the first chunk of $L_2$, using the order these transactions have in $L_1$.
+  * Let $(c_3, \ldots) = \operatorname{chunks}(L_3)$.
+  * Let $L_4 = L_3[c_3]$, the linearization of the first chunk of $L_3$.
+  * $\operatorname{merge}(G, L_1, L_2) = L_4 + \operatorname{merge}(G \setminus c_3, L_1[G \setminus c_3], L_2[G \setminus c_3])$.
+
+***Theorem***. $\operatorname{merge}(G, L_1, L_2) \geq L_1$ and $\operatorname{merge}(G, L_1, L_2) \geq L_2$.
 
 ## Connected chunks
 
 ***Definition***. A **connected chunking** is a chunking for which each chunk is connected ignoring direction (i.e., given any transaction in a chunk, every other transaction in the same chunk can be reached when ignoring direction of the edges).
 
-***Theorem***. **In an optimal linearization/chunking, the corresponding chunks have connected components whose feerate is all the same**. This is trivially true if the chunks are all connected. ***Proof*** If not, the chunks could be split in two, which would improve the diagram.
+***Theorem***. **In an optimal linearization/chunking, the corresponding chunks have connected components whose feerate is all the same**. This is trivially true if the chunks are all connected.
+
+***Proof*** If not, the chunks could be split in two, which would improve the diagram.
 
 ***Theorem***. **Every graph has at least one optimal linearization/chunking whose chunks are connected.**
 
@@ -222,6 +244,77 @@ Let SSS be the highest-feerate subset of GGG. If there are multiple, choose an a
 Linebreak missing before the Proof.
 
 I find that phrasing a bit confusing. What do you mean with "have connected components whose feerate is all the same"? I assume you are referring to the optimal linearization consisting only of chunks that cannot be split further by reordering, i.e. that any valid reordering would not lead to a different chunking, but the "have connected components whose feerate is all the same" makes me think that you are postulating that there are two chunks with the same feerate.
+
+-------------------------
+
+sipa | 2023-12-10 18:20:05 UTC | #3
+
+[quote="murch, post:2, topic:202"]
+I assume you are defining it on a graph so that you can have a chunking across multiple clusters
+[/quote]
+
+Right. I've added a paragraph to elaborate on why that is.
+
+[quote="murch, post:2, topic:202"]
+it seems to me that this definition would only require that the topology is valid at the chunk borders and would not require the transactions to be topological *within the chunks*.
+[/quote]
+
+Chunks, as defined here, are sets; they don't have an internal ordering. I've gone back and forth in my thinking whether sets or sequences are better. The advantage of sets is that at the chunking level, you don't need to care about distinct intra-chunk linearization orderings. The disadvantage is that converting back from chunkings to linearizations isn't as natural.
+
+[quote="murch, post:2, topic:202"]
+Would it perhaps be sufficient that a feerate diagram has exactly one “convex hull” for a geometric proof? E.g. if we draw all transactions separately in the feerate diagram instead of their chunks, could we use the approach you use in the *gathering theorem* to show that all possible subgroupings will always be below the convex hull?
+[/quote]
+
+Let me think a bit more about that.
+
+[quote="murch, post:2, topic:202"]
+Should this perhaps be restricted to topologically valid reorderings?
+[/quote]
+
+Done.
+
+[quote="murch, post:2, topic:202"]
+This should be “in chunk *j* of *L*”.
+[/quote]
+
+Fixed.
+
+[quote="murch, post:2, topic:202"]
+Maybe “all remaining transactions of *S* *after* the first *j* chunks of *L*” would be clearer.
+[/quote]
+
+Agreed, done.
+
+[quote="murch, post:2, topic:202"]
+“choose an arbitrary but consistent **way/approach/method/criteria/something** to order them”?
+[/quote]
+
+I've formalized this a bit more, selecting the ordering before the function definition.
+
+[quote="murch, post:2, topic:202"]
+What do you mean with “have connected components whose feerate is all the same”? I assume you are referring to the optimal linearization consisting only of chunks that cannot be split further by reordering, i.e. that any valid reordering would not lead to a different chunking, but the “have connected components whose feerate is all the same” makes me think that you are postulating that there are two chunks with the same feerate.
+[/quote]
+
+Consider the following cluster:
+
+```mermaid height=234,auto
+graph BT
+   T0["B: 7"] --> T1;
+   T1["A: 1"];
+   T2["D: 5"] --> T3;
+   T3["C: 3"];
+   T4["E: 1"] --> T0;
+   T4 --> T2;
+```
+
+* The linearization [ACDBE] has chunking [ACDB,E]
+* The linearization [ABCDE] has chunking [AB,CD,E]
+
+As defined so far, both linearizations are equivalent (because their diagram coincides), and optimal. Yet still, chunk ACDB contains two disconnected components. The point of this theorem is showing that in an optimal linearization, chunks are still not necessarily connected, but this is only possible if the connected components all have the same feerate (4 in this example).
+
+What I want to get to here, but haven't really fleshed out, is a stronger notion of optimality than defined so far, which also requires all chunks to be connected - and that every graph has such a very-optimal linearization too.
+
+Actually, now that you bring it up, I realize that's not as strong as we'd want yet. Even with requiring connected chunks, it's still possible that optimal chunkings contain chunks with equal-feerate subsets, so I guess very-optimality should instead be "optimal diagram, and chunks cannot contain topologically-valid strict subsets with equal feerate as the chunk itself" or so?
 
 -------------------------
 
