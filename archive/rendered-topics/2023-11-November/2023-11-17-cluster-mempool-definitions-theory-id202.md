@@ -355,3 +355,52 @@ An alternative is leaving the preorder on linearizations alone, and instead only
 
 -------------------------
 
+ajtowns | 2023-12-11 01:16:32 UTC | #6
+
+[quote="sipa, post:5, topic:202"]
+I don’t think there is an objective reason to want the smallest ones first.
+[/quote]
+
+Oh, actually, I think you want the smallest ones last, if anything? (Or is my guess for getting mildly better performance out of greedy knapsack selection off the mark?)
+
+Is this about optimising for the last few transactions in a block, or choosing a canonical ordering so there's less uncertainty/ambiguity, or something else?
+
+You can't get a strictly unique "perfect" linearisation, since if you have txs A, B, C, C spending A and B, and A,B having equal fee and size, but lower feerate than C, then [ABC] and [BAC] are equally good linearisations. You could break the tie by resorting to your arbitrary order $R_2$, of course, but that's still picking a winner arbitrarily...
+
+Your definition of $opt$ seems weird? Shouldn't that just be $\operatorname{opt}(G) = L_G + \operatorname{opt}(G \setminus S_G)$ where $S_G$ is the highest-feerate subset of $G$ and $L_G$ is the first valid linearisation of $S_G$?
+
+I would have proven the uniqueness claim non-constructively: set  $f(L) = |\{L_2 | L \ge L2\}|$. Pick a linearisation $L_x$ where $f(L_x) \ge f(L)$ for all $L$. If this value equals the count of all linearisations, then $L_x \ge L$ for all $L$, so $L_x$ is an optimal linearisation. If it's not the case, then there is some $L_y$ where $L_x \not\ge L_y$, so calculate $L_z = \operatorname{merge}(L_x, L_y)$ which gives us $L_z \ge L_x$ but also $L_z \ge L_y$. But for any $L$ where $L_x \ge L$, $L_z \ge L$ by transitivity,  so $f(L_z) \gt f(L_x)$ which contradicts our choice of $L_x$.
+
+-------------------------
+
+sipa | 2023-12-11 04:57:05 UTC | #7
+
+[quote="ajtowns, post:6, topic:202"]
+Oh, actually, I think you want the smallest ones last, if anything? (Or is my guess for getting mildly better performance out of greedy knapsack selection off the mark?)
+
+Is this about optimising for the last few transactions in a block, or choosing a canonical ordering so there’s less uncertainty/ambiguity, or something else?
+[/quote]
+
+It's about optimizing for the last few transactions in a block; the more chunks clusters are broken up in, the more puzzle pieces there are to use. I don't think you can - without whole-mempool context - say whether the beginning or the end of a cluster is better to have small pieces, as you don't know ahead of time where they'll end up in a block. And I think the splitting itself is more important than the ordering.
+
+[quote="ajtowns, post:6, topic:202"]
+You can’t get a strictly unique “perfect” linearisation, since if you have txs A, B, C, C spending A and B, and A,B having equal fee and size, but lower feerate than C, then [ABC] and [BAC] are equally good linearisations. You could break the tie by resorting to your arbitrary order R_2R2R_2, of course, but that’s still picking a winner arbitrarily…
+[/quote]
+
+Yeah. I don't think we need to pick a well-defined unique optimal.
+
+[quote="ajtowns, post:6, topic:202"]
+Your definition of optoptopt seems weird? Shouldn’t that just be \operatorname{opt}(G) = L_G + \operatorname{opt}(G \setminus S_G)opt(G)=LG+opt(G∖SG)\operatorname{opt}(G) = L_G + \operatorname{opt}(G \setminus S_G) where S_GSGS_G is the highest-feerate subset of GGG and L_GLGL_G is the first valid linearisation of S_GSGS_G?
+
+I would have proven the uniqueness claim non-constructively: set f(L) = |\{L_2 | L \ge L2\}|f(L)=|{L2|L≥L2}|f(L) = |\{L_2 | L \ge L2\}|. Pick a linearisation L_xLxL_x where f(L_x) \ge f(L)f(Lx)≥f(L)f(L_x) \ge f(L) for all LLL. If this value equals the count of all linearisations, then L_x \ge LLx≥LL_x \ge L for all LLL, so L_xLxL_x is an optimal linearisation. If it’s not the case, then there is some L_yLyL_y where L_x \not\ge L_yLx≱LyL_x \not\ge L_y, so calculate L_z = \operatorname{merge}(L_x, L_y)Lz=merge(Lx,Ly)L_z = \operatorname{merge}(L_x, L_y) which gives us L_z \ge L_xLz≥LxL_z \ge L_x but also L_z \ge L_yLz≥LyL_z \ge L_y. But for any LLL where L_x \ge LLx≥LL_x \ge L, L_z \ge LLz≥LL_z \ge L by transitivity, so f(L_z) \gt f(L_x)f(Lz)>f(Lx)f(L_z) \gt f(L_x) which contradicts our choice of L_xLxL_x.
+[/quote]
+
+Yeah, that's proving the existence of optimality through $\operatorname{merge}$. My thinking was to prove existence of optimality before introducing merging (because proving that "move best subset to the front, continue" is optimal seems more intuitive than through merging), but perhaps that's an unnecessary detour.
+
+An alternative way to prove that, I think, is as follows. Let $M$ be the set of maximal elements of the set of valid linearizations for a given graph (maxima have no elements that compare strictly higher than them, but may have elements incomparable to them). 
+* If $M = \{\}$: impossible in a finite set (start with any element and keep picking a strictly larger element, eventually you end up in a cycle, which is impossible as it implies elements strictly larger than themselves).
+* If $M = \{m\}$, then $m$ is optimal. Again start with any element, and keep picking strictly larger elements. Each of these chains must end with $m$ as it's the only element with no larger ones. Thus, $m >$ everything else.
+* Otherwise $M$ consists of two or more elements: merge them, and end up with something better than both. This is in contradiction with them being maximal elements.
+
+-------------------------
+
