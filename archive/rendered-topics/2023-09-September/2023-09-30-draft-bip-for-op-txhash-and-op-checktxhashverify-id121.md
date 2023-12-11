@@ -220,3 +220,10 @@ Re. 3., I definitely understand your hesitation around pre-defined modes (we can
 
 -------------------------
 
+stevenroose | 2023-12-11 09:06:51 UTC | #11
+
+The BIP is now no longer in draft state and there is a Bitcoin Core implementation as well:
+https://github.com/bitcoin/bitcoin/pull/29050
+
+-------------------------
+
