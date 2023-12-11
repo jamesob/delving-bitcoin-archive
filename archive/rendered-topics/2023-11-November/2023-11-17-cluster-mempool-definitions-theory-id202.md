@@ -1,6 +1,6 @@
 # Cluster mempool definitions & theory
 
-sipa | 2023-12-10 19:20:34 UTC | #1
+sipa | 2023-12-10 22:29:08 UTC | #1
 
 # Cluster mempool theory
 
@@ -46,13 +46,26 @@ In the example above:
 ***Definition***. A **chunking** $C = (c_1, c_2, \ldots, c_n)$ for a given graph *G* is a list of sets of transactions (called **chunks**) of *G* such that:
 * The chunks $c_i$ form a partition of *G* (no overlap, and their union contains all elements).
 * Every prefix of chunks is topological ($\cup_{i=1}^{k} c_i$ for $k=1 \ldots n$ are topological subsets of $G$). Thus, a transaction's parent can appear in the same chunk as the transaction itself or in an earlier chunk, but not in a later chunk.
-* The feerates of the sets are monotonically decreasing. Thus, the consecutive prefices of chunks form the highest, second-highest, ... feerate topological prefices.
+* The feerates of the sets are monotonically decreasing.
 
-Note that in practice, we will only works with chunkings of individual clusters, rather than possibly-disconnected graphs. The reasoning for that will come later, so for now, we define chunkings for graphs in general.
+Note that in practice, we will only work with chunkings of individual clusters, rather than possibly-disconnected graphs. The reasoning for that will come later, so for now, we define chunkings for graphs in general.
 
-***Definition***. A **corresponding chunking** of a linearization is a chunking obtained by converting the linearization into a list of singletons (one for each transaction, in order), and then repeatedly merging adjacent sets where the second set has a higher feerate than the first, until no such sets remain.
+***Definition***. The function $\operatorname{chunks}(L)$ for a linearization $L = (t_1, t_2, \ldots, t_n)$ of a graph $G$ returns the **corresponding chunking** of that linearization, defined as:
+* If $L$ (and thus $G$) is empty, $\operatorname{chunks}(L) = ()$.
+* Otherwise:
+  * Let $f_j = \operatorname{feerate}(\{t_1, t_2, \ldots, t_j)$ for $j = 1 \ldots n$.
+  * Let $k$ be the smallest integer $\geq 1$ such that no $f_j > f_k$ exists.
+  * Let $c = \{t_1, t_2, \ldots, t_k\}$.
+  * $\operatorname{chunks}(L) = (c) + \operatorname{chunks}(L[\{t_{k+1}, \ldots n\}])$.
 
-***Theorem***. The **corresponding chunking is a valid chunking, and is [unique](https://en.wikipedia.org/wiki/Uniqueness_theorem)**. The same chunking is obtained regardless of what order of merge operations is used. Thus, we can talk about *the* corresponding chunking $\operatorname{chunks}(L)$ of a linearization $L$. [no proof yet]
+In other words, $\operatorname{chunks}$ constructs the chunking of a linearization consisting of successively best remaining prefices of that linearization.
+
+***Theorem***. The corresponding chunking $\operatorname{chunks}(L)$ is a valid chunking for $G$.
+
+***Proof***. All criteria for a valid chunking are fullfilled:
+* All transactions that occurred in $L$ (which are all transactions in $G$) will appear in $\operatorname{chunks}(L)$ once.
+* Every prefix of chunks is topological, because each corresponds to a prefix of $L$ (which are topological for any valid linearization).
+* The feerates are monotonically decreasing. If that wasn't the case, the chosen $k$ would violate the "no $f_j > f_k$" rule.
 
 ***Theorem***. The **feerate of a prefix of a linearization never exceeds its first chunk feerate**. If it did, the first chunk would clearly not be the highest-feerate prefix of the linearization.
 
@@ -68,9 +81,7 @@ Note that in practice, we will only works with chunkings of individual clusters,
 * In other words, $\operatorname{diag}_C$ is a function from cumulative fees to cumulative sizes. When evaluated in the size of a prefix of chunks in $C$, it gives the fee in that prefix. For other values it linearly interpolates between those points.
 * The feerate diagram of a linearization is that of its corresponding chunking.
 
-***Theorem***. The **feerate diagram of a cluster is non-decreasing and [concave](https://en.wikipedia.org/wiki/Concave_function)**. [no proof]
-
-***Theorem***. The **feerate diagram gives an overestimate for the fees in a linearization**. Given a linearization $L = (t_1, t_2, \ldots, t_n)$, $\operatorname{diag}_L(\operatorname{size}(\{t_1, t_2, \ldots, t_k\})) \geq \operatorname{fee}(\{t_1, t_2, \ldots, t_k\})$, and the feerate diagram of $L$ is the minimal concave function with this property. In other words, the $\operatorname{chunks}$ operation exactly groups transactions together such that connecting the lines between resulting cumulative (size, fee) points results in a concave function.
+***Theorem***. The feerate diagram $\operatorname{diag}_L$ of a linearization $L = (t_1, t_2, \ldots, t_n)$ is the minimal concave function for which for every $k = 0 \ldots n$ it holds that $\operatorname{diag}_L(\operatorname{size}(\{t_1, t_2, \ldots, t_k\}) \geq \operatorname{fee}(\{t_1, t_2, \ldots, t_k\})$. As such, it gives an overestimate for the fees in all prefices of a linearization. [no proof]
 
 ***Definition***. We define a **[preorder](https://en.wikipedia.org/wiki/Preorder)** on linearizations/chunkings for the same graph $G$ by comparing their feerate diagrams:
 * Two linearizations are equivalent if their feerate diagrams coincide: $L_1 \sim L_2 \iff \forall x \in [0, \operatorname{size}(G)]: \operatorname{diag}_{L_1}(x) = \operatorname{diag}_{L_2}(x)$.
@@ -315,6 +326,32 @@ As defined so far, both linearizations are equivalent (because their diagram coi
 What I want to get to here, but haven't really fleshed out, is a stronger notion of optimality than defined so far, which also requires all chunks to be connected - and that every graph has such a very-optimal linearization too.
 
 Actually, now that you bring it up, I realize that's not as strong as we'd want yet. Even with requiring connected chunks, it's still possible that optimal chunkings contain chunks with equal-feerate subsets, so I guess very-optimality should instead be "optimal diagram, and chunks cannot contain topologically-valid strict subsets with equal feerate as the chunk itself" or so?
+
+-------------------------
+
+ajtowns | 2023-12-10 22:11:26 UTC | #4
+
+[quote="sipa, post:3, topic:202"]
+What I want to get to here, but haven’t really fleshed out, is a stronger notion of optimality
+[/quote]
+
+Isn't this just about preferring (a) multiple smaller chunks to a single larger chunk, and (b) smaller chunks to be linearised before larger chunks, given the chunks have equal fee rates?
+
+Is it possible to have two chunkings "A,B,C" and "D,E,F" where all have the same feerate, A is smaller than D, and DE is smaller than AB, and there is no alternative chunking "G,H,I" where G is smaller or equal to A and GH is smaller or equal to DE?
+
+-------------------------
+
+sipa | 2023-12-10 23:42:27 UTC | #5
+
+[quote="ajtowns, post:4, topic:202"]
+Isn’t this just about preferring (a) multiple smaller chunks to a single larger chunk, and (b) smaller chunks to be linearised before larger chunks, given the chunks have equal fee rates?
+[/quote]
+
+I believe that is too strong - while we do want to consider breaking up chunks into multiple equal-feerate ones an improvement, I don't think there is an objective reason to want the smallest ones first. (in my implementation, I do prefer smaller size when comparing equal-feerate transaction sets, but that's an arbitrary choice that happens to prevent merging of such equal-feerate chunks).
+
+One possibility, which I think is sufficient, is in the $\gtrsim$ (& co) definitions is to use the total number of chunks as a tie-breaker when the fee-size diagram coincides exactly (more chunks = better). This has the advantage that "optimal linearization" automatically implies chunks which have no non-trivial subsets of the same feerate, and it doesn't introduce a new source of incomparability. The disadvantage is that (as stated) it breaks the gathering theorem, and I suspect fixing that would complicate matters somewhat. That may also have implications for the prefix-merging algorithm's proof (I believe the algorithm itself actually keeps its properties under this stronger ordering definition).
+
+An alternative is leaving the preorder on linearizations alone, and instead only incorporate into the "optimal linearization" definition that chunks cannot have non-trivial subsets of higher or equal feerate. Alternatively, it could be a notion of "perfect linearization" which is stronger than optimal (and leave optimal to only be about the feerate diagram). This may be nicer in terms of presentation as the properties can be introduced and proven incrementally.
 
 -------------------------
 
