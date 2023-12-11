@@ -1,6 +1,6 @@
 # Cluster mempool definitions & theory
 
-sipa | 2023-12-10 22:29:08 UTC | #1
+sipa | 2023-12-11 16:39:01 UTC | #1
 
 # Cluster mempool theory
 
@@ -43,7 +43,7 @@ In the example above:
 
 ***Definition***. Given a linearization $L$ for a graph $G$, and a subset $S$ of $G$, the **sublinearization** $L[S]$ is the linearization of $S$ which keeps the same internal ordering as those transactions have in $L$.
 
-***Definition***. A **chunking** $C = (c_1, c_2, \ldots, c_n)$ for a given graph *G* is a list of sets of transactions (called **chunks**) of *G* such that:
+***Definition***. A **chunking** $C = (c_1, c_2, \ldots, c_n)$ for a given graph *G* is a sequence of sets of transactions (called **chunks**) of *G* such that:
 * The chunks $c_i$ form a partition of *G* (no overlap, and their union contains all elements).
 * Every prefix of chunks is topological ($\cup_{i=1}^{k} c_i$ for $k=1 \ldots n$ are topological subsets of $G$). Thus, a transaction's parent can appear in the same chunk as the transaction itself or in an earlier chunk, but not in a later chunk.
 * The feerates of the sets are monotonically decreasing.
@@ -81,7 +81,7 @@ In other words, $\operatorname{chunks}$ constructs the chunking of a linearizati
 * In other words, $\operatorname{diag}_C$ is a function from cumulative fees to cumulative sizes. When evaluated in the size of a prefix of chunks in $C$, it gives the fee in that prefix. For other values it linearly interpolates between those points.
 * The feerate diagram of a linearization is that of its corresponding chunking.
 
-***Theorem***. The feerate diagram $\operatorname{diag}_L$ of a linearization $L = (t_1, t_2, \ldots, t_n)$ is the minimal concave function for which for every $k = 0 \ldots n$ it holds that $\operatorname{diag}_L(\operatorname{size}(\{t_1, t_2, \ldots, t_k\}) \geq \operatorname{fee}(\{t_1, t_2, \ldots, t_k\})$. As such, it gives an overestimate for the fees in all prefices of a linearization. [no proof]
+***Theorem***. The feerate diagram $\operatorname{diag}_L$ of a linearization $L = (t_1, t_2, \ldots, t_n)$ is the minimal concave function for which for every $k = 0 \ldots n$ it holds that $\operatorname{diag}_L(\operatorname{size}(\{t_1, t_2, \ldots, t_k\}) \geq \operatorname{fee}(\{t_1, t_2, \ldots, t_k\})$. As such, it gives an overestimate for the fees in all prefices of a linearization. In other words, the grouping of transactions performed by $\operatorname{chunks} exactly corresponds to the straight line segments resulting from requiring the feerate diagram to be concave. [no proof]
 
 ***Definition***. We define a **[preorder](https://en.wikipedia.org/wiki/Preorder)** on linearizations/chunkings for the same graph $G$ by comparing their feerate diagrams:
 * Two linearizations are equivalent if their feerate diagrams coincide: $L_1 \sim L_2 \iff \forall x \in [0, \operatorname{size}(G)]: \operatorname{diag}_{L_1}(x) = \operatorname{diag}_{L_2}(x)$.
@@ -159,20 +159,27 @@ Thus, $\operatorname{ndiag}$, an underestimate for the feerate diagram of $L'$, 
 
 * Choose a consistent but otherwise arbitrary total ordering $R_1$ on the set of sets of transactions.
 * Choose a consistent but otherwise arbitrary total ordering $R_2$ on the set of sequences of transactions.
-* Define the function $\operatorname{opt}(G, L)$, for a given graph $G$ and linearization of that graph $L$ as:
-  * If $G$ (and thus $L$) are empty, return the empty sequence: $\operatorname{opt}(\{\}, ()) = ()$.
+* Define the function $\operatorname{opt}(G)$, for a given graph $G$ as follows:
+  * If $G$ is empty, return the empty sequence: $\operatorname{opt}(G) = ()$.
   * Otherwise:
     * Let $S$ be the highest-feerate subset of $G$. If there are multiple, pick the first one according to $R_1$.
     * Let $L_S$ be the first valid linearization of $S$ according to $R_2$.
-    * $\operatorname{opt}(G, L) = L_S + \operatorname{opt}(G \setminus S, L[G \setminus S])$.
+    * $\operatorname{opt}(G) = L_S + \operatorname{opt}(G \setminus S)$.
 
-The definition of $\operatorname{opt}(G, L)$ does not actually depend on $L$, so there is a unique result for every $G$. Yet, it can be shown that $\operatorname{opt}(G, L) \gtrsim L$ by induction. This is clearly true for empty $G$. For non-empty $G$, we reason:
-* Let $L_1 = L[S] + L[G \setminus S]$. By the gathering theorem, $L_1 \gtrsim L$, because the highest-feerate subset $S$ necessarily forms a chunk on its own, with a feerate at least as high as the highest chunk feerate of $L$.
-* Let $L_2 = L_S + L[G \setminus S]$. By the chunk reordering theorem, $L_2 \gtrsim L_1$, as only one chunk's transactions were affected.
-* Let $L_3 = L_S + \operatorname{opt}(G \setminus S, L[G \setminus S])$. By the induction hypothesis, $\operatorname{opt}(G \setminus S, L[G \setminus S]) $ $\gtrsim$ $ L[G \setminus S]$, and thus by the stripping theorem, $L_3 \gtrsim L_2$.
-* Thus, $\operatorname{opt}(G, L) = L_3 \gtrsim L_2 \gtrsim L_1 \gtrsim L$.
+We prove that $\operatorname{opt}(G) \gtrsim L$ for any valid linearization $L$ of $G$, and is thus an optimal linearization of $G$. First we introduce an equivalent function that takes an existing linearization as input:
+* Define the function $\operatorname{optlin}(G, L)$ for a given graph $G$ and corresponding linearization $L$ as follows:
+  * If $G$ (and thus $L$) is empty, $\operatorname{optlin}(G, L) = ()$.
+  * Otherwise:
+    * Let $L_1 = L[S] + L[G \setminus S]$.
+    * Let $L_2 = L_S + L[G \setminus S]$.
+    * Let $L_3 = L_S + \operatorname{optlin}(G \setminus S, L[G \setminus S])$. 
+    * $\operatorname{optlin}(G, L) = L_3$.
 
-All together, we found a single linearization that is $\gtrsim$ every linearization, so $\operatorname{opt}(G, L)$ is an optimal linearization of $G$.
+Only the intermediary variables $L_1$ and $L_2$ actually depend on the input $L$, so $\operatorname{optlin}(G, L) = \operatorname{opt}(G)$ for any $L$.
+
+By induction we can however also prove that $\operatorname{optlin}(G, L) \gtrsim L$ for any $L$. By the gathering theorem, $L_1 \gtrsim L$, because the highest-feerate subset $S$ clearly has no chunk with lower feerate than the highest chunk feerate in $L$. By the chunk reordering theorem, $L_2 \gtrsim L_1$, as only one chunk's transactions were affected. By the induction hypothesis, $\operatorname{optlin}(G \setminus S, L[G \setminus S])$ $\gtrsim$ $ L[G \setminus S]$, and thus by the stripping theorem, $L_3 \gtrsim L_2$. Thus, $\operatorname{optlin}(G, L) = L_3 \gtrsim L_2 \gtrsim L_1 \gtrsim L$.
+
+All together, we found a single linearization that is $\gtrsim$ every linearization, so $\operatorname{opt}(G)$ is an optimal linearization of $G$.
 
 ## Merging linearizations
 
