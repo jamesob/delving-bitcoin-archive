@@ -274,9 +274,12 @@ This is ugly, but only 1 vByte more than OP_CHECKSIGADD per key.
 
 -------------------------
 
-reardencode | 2023-12-11 22:48:04 UTC | #13
+reardencode | 2023-12-12 05:22:07 UTC | #13
 
-(post deleted by author)
+Some additional comments:
+
+* It seems like it might be worthwhile to pick a default mode for TXFS_INPUTS and TXFS_OUTPUTS (TXFS_INOUT_NUMBER|TXFS_INOUT_SELECTION_ALL?) where bytes 3 and 4 are not required. This makes the logic a tiny bit fiddly: if both inputs and outputs are selected either both or neither can use the default mode.
+* It might be worth adding to the BIP some discussion of why committing to the control block is chosen over committing to the tapleaf_hash. At first I thought we might need both, but upon reflection the control block commitment implicitly commits to the leaf hash via BIP341's script validation rules.
 
 -------------------------
 
