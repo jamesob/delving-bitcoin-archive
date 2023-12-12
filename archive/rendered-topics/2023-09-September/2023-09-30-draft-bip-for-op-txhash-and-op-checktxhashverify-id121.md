@@ -227,3 +227,56 @@ https://github.com/bitcoin/bitcoin/pull/29050
 
 -------------------------
 
+reardencode | 2023-12-11 22:48:20 UTC | #12
+
+Copying some bits of our chat on Telegram to this more accessible place:
+
+### Does non-verify TXHASH make sense without CSFS or CAT too?
+
+Yes, it can be used to validate equality between specific fields of the transaction (e.g. two input amounts are equal, or input and output scriptpubkey are equal).
+
+Also, CSFS (obviously?) composes beautifully with TXHASH, and CAT plus TXHASH opens up an extremely broad design space.
+
+### Why are input values in TXFS_SPECIAL_TEMPLATE (not in CTV)?
+
+With CTV, the lack of input values allows protocol designers to awkwardly add fees via a specifically sized UTXO at spend time. With TXHASH, a more customized TxFieldSelector can be chosen to enable adding fees.
+
+Including the values in this template mode helps remove the footgun of a specific hash being only usable with a specific UTXO size, and more clearly sets this template mode to hash everything possible that doesn't lead to a hash cycle.
+
+### On the difference between adding CSFS and adding APO-style keys
+
+There really isn't much difference. APO keys end up being 1-byte larger than taproot x-only keys, which is the same as the 1 extra opcode for TXHASH+CSFS. One benefit of APO-style keys is they would work with CHECKSIGADD as well.
+
+In either case, we should consider whether adding "magic" keys for the Taproot internal key and/or external key makes sense (APO proposes <1> to represent the internal key); or whether opcodes to put those keys on the stack makes more sense (i.e. OP_INTERNAL_KEY and/or OP_EXTERNAL_KEY).
+
+**edit**: Thinking more about this:
+
+OP_TXHASH + OP_CHECKSIGFROMSTACK does open up some interesting possibilities in scripts compared to adding APO-style keys.
+
+For example, a script requiring signatures from 2 keys on the same hash:
+
+```
+<sig> <sig> <txfieldselector>
+OP_TXHASH OP_TUCK <pubkey> OP_CSFSV <pubkey> OP_CSFS
+```
+
+Also, I think OP_CHECKSIGADD can be emulated without undue pain. For 2-of-3, one of these `<sig> <txfieldselector>` pairs should be a pair of empties:
+```
+<sig> <txfieldselector> <sig> <txfieldselector> <sig> <txfieldselector>
+OP_TXHASH <pubkey> OP_CSFS OP_TOALTSTACK OP_TXHASH <pubkey> OP_CSFS OP_FROMALTSTACK OP_ADD OP_TOALTSTACK <pubkey> OP_CSFS OP_FROMALTSTACK OP_ADD 2 OP_EQUAL
+```
+This is ugly, but only 1 vByte more than OP_CHECKSIGADD per key.
+
+## Additional comments
+
+* It seems like it might be worthwhile to pick a default mode for TXFS_INPUTS and TXFS_OUTPUTS (TXFS_INOUT_NUMBER|TXFS_INOUT_SELECTION_ALL?) where bytes 3 and 4 are not required. This makes the logic a tiny bit fiddly: if both inputs and outputs are selected either both or neither can use the default mode.
+* It might be worth adding to the BIP some discussion of why committing to the control block is chosen over committing to the tapleaf_hash. At first I thought we might need both, but upon reflection the control block commitment implicitly commits to the leaf hash via BIP341’s script validation rules.
+
+-------------------------
+
+reardencode | 2023-12-11 22:48:04 UTC | #13
+
+(post deleted by author)
+
+-------------------------
+
