@@ -411,13 +411,13 @@ An alternative way to prove that, I think, is as follows. Let $M$ be the set of 
 
 -------------------------
 
-sipa | 2023-12-12 04:30:57 UTC | #8
+sipa | 2023-12-12 13:52:13 UTC | #8
 
 TIL about [directed sets](https://en.wikipedia.org/wiki/Directed_set): sets with a preorder $\geq$ and the additional property that for any pair of elements $(a, b)$ an element $c$ exists such that $c \geq a$ and $c \geq b$.
 
 In a directed set, every maximal element ($m$ is maximal if no $x > m$ exists) is a greatest element ($m$ is greatest if for every $x$ it holds that $m \geq x$).
 
-Linearizations (and chunkings) of graphs/clusters are directed sets (with $\gtrsim$ as the direction).
+Linearizations (and chunkings) of graphs/clusters are directed sets (with $\gtrsim$ as the direction). The merge-intersection algorithm computes the $c$ mentioned above given $a$ and $b$. The "move highest feerate subset to front, continue with remainder" algorithm by construction computes a maximal element, which is thus a greatest element. "Optimal linearization" is the name we have for greatest element.
 
 -------------------------
 

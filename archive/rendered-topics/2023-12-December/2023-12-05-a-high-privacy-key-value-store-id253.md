@@ -137,3 +137,13 @@ What the server does is to ensure idempotency of credential replacement.  When m
 
 -------------------------
 
+RubenSomsen | 2023-12-12 11:04:29 UTC | #3
+
+[quote="ZmnSCPxj, post:1, topic:253"]
+This is some *shit* I have been thinking about that is probably too insane to implement. Tagging lightning here also since I started thinking about this *crap*
+[/quote]
+
+Not a big deal at all, but let's try to encourage a bit less colorful language, especially while we're still setting the tone for this forum.
+
+-------------------------
+
