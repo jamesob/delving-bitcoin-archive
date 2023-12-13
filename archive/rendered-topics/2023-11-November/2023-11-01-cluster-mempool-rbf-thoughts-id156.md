@@ -484,7 +484,7 @@ However, if tx C were to relay on its own (it has no conflicts, so this is plaus
 
 -------------------------
 
-instagibbs | 2023-12-13 14:43:21 UTC | #24
+instagibbs | 2023-12-13 19:30:39 UTC | #24
 
 Noting up front that these scenarios are what I'm calling "cross-sponsor" RBF, where the funding tx is sponsoring on package, then switches over to sponsor another parent. Typical example for a wallet would be they're CPFPing something with a nice sized utxo, then another package becomes higher priority and they want to switch.
 
@@ -506,6 +506,12 @@ Example test case for this using this "old" heuristic:
 https://github.com/bitcoin/bitcoin/pull/26403/files#diff-d18bbdec91d0f4825b512a31f34666b000c7b7e2e05a3d43570c4b971532616fR366
 
 [quote="sdaftuar, post:23, topic:156"]
+Imagine specifically that D conflicts with B.
+[/quote]
+
+Or C with B, I believe that's equivalent in this case.
+
+[quote="sdaftuar, post:23, topic:156"]
 Issue 2: The rules proposed in #28984 might be satisfied when validating a package (A, B), but might fail to successfully relay if A is valid in a peer’s mempool and then B is evaluated using legacy RBF rules (as a singleton RBF).
 [/quote]
 
@@ -514,6 +520,16 @@ Gloria and I had this exact discussion prior: https://github.com/bitcoin/bitcoin
 Wallet authors can avoid this in a fairly simple manner, by not "cross-sponsoring". If they do, make it a 0-fee parent package via v3/ephemeral anchors, but note that if a counter-party has already sponsored the package, cross-sponsoring will still be disallowed since parent will still be in the mempool. Post-cluster mempool this issue goes away (except the mild pinning as you note in issue 3?)
 
 Don't have anything intelligible to say about issue 3 yet other than it's interesting!
+
+-------------------------
+
+instagibbs | 2023-12-13 16:10:42 UTC | #25
+
+[quote="sdaftuar, post:23, topic:156"]
+Issue 3: In the new cluster mempool world, the feerate diagram might be satisfied for a transaction package (A, B), but fail to relay successfully if A is valid in a peer’s mempool and then B’s RBF attempt is validated using feerate diagram rules (which can fail because the starting diagram for a peer might include tx A).
+[/quote]
+
+Seems like per-chunk processing allows for a mild "parent pays for child RBF". The "cost" of doing per-chunk evaluation: people may be making cpfp chains one by one, and this will not be in lock-step with a whole package being gossiped at once.  #26711-like solutions mean you get less of this asymmetry, at increased cost of complexity, and not always dealing with chunks.
 
 -------------------------
 
