@@ -484,3 +484,36 @@ However, if tx C were to relay on its own (it has no conflicts, so this is plaus
 
 -------------------------
 
+instagibbs | 2023-12-13 14:43:21 UTC | #24
+
+Noting up front that these scenarios are what I'm calling "cross-sponsor" RBF, where the funding tx is sponsoring on package, then switches over to sponsor another parent. Typical example for a wallet would be they're CPFPing something with a nice sized utxo, then another package becomes higher priority and they want to switch.
+
+[quote="sdaftuar, post:23, topic:156"]
+Issue 1: The feerate diagram might not improve using the rules described in #28984.
+[/quote]
+
+I don't think it should be shocking miner scores isn't strictly improving the mempool. I'm also unconvinced it's worth stalling out limited package rbf given the current state of the art, which is substantially worse. 
+
+At the risk of re-adding a pin, changing the heuristic to:
+1) for all direct conflicts, package feerate must exceed direct conflict's feerate
+2) for all conflicts(direct or indirect), package feerate must exceed ancestor feerate of conflict
+
+may be something to double-check.
+
+This is what https://github.com/bitcoin/bitcoin/pull/25038 had essentially implemented, which means the specific cross-sponsor RBF becomes relatively impractical.
+
+Example test case for this using this "old" heuristic:
+https://github.com/bitcoin/bitcoin/pull/26403/files#diff-d18bbdec91d0f4825b512a31f34666b000c7b7e2e05a3d43570c4b971532616fR366
+
+[quote="sdaftuar, post:23, topic:156"]
+Issue 2: The rules proposed in #28984 might be satisfied when validating a package (A, B), but might fail to successfully relay if A is valid in a peer’s mempool and then B is evaluated using legacy RBF rules (as a singleton RBF).
+[/quote]
+
+Gloria and I had this exact discussion prior: https://github.com/bitcoin/bitcoin/pull/25038/files#r1038334153
+
+Wallet authors can avoid this in a fairly simple manner, by not "cross-sponsoring". If they do, make it a 0-fee parent package via v3/ephemeral anchors, but note that if a counter-party has already sponsored the package, cross-sponsoring will still be disallowed since parent will still be in the mempool. Post-cluster mempool this issue goes away (except the mild pinning as you note in issue 3?)
+
+Don't have anything intelligible to say about issue 3 yet other than it's interesting!
+
+-------------------------
+
