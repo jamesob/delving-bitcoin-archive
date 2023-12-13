@@ -417,3 +417,70 @@ I always thought it likely fine if we had to drop that number from 100.
 
 -------------------------
 
+sdaftuar | 2023-12-12 21:56:07 UTC | #23
+
+(Not sure where else to put this, but wanted to log this somewhere)
+
+I was thinking about https://github.com/bitcoin/bitcoin/pull/28984, and realized just now that the RBF rules there for the cluster-size-2 case has the same sort of problem that I brought up here, with regard to the RBF heuristic not quite lining up with the feerate diagram test that we'd like to use in the future.
+
+**Issue 1: The feerate diagram might not improve using the rules described in #28984.**
+
+This is similar to the example posted above. Imagine the starting mempool is:
+```mermaid height=146,auto
+graph TD;
+    A[Tx A: sz 2, fee 4.5]-->B[Tx B: sz 1, fee 5];
+```
+And we want to process a package (C, D) that would make the mempool look like this:
+
+```mermaid height=146,auto
+graph TD;
+    A[Tx A: sz 2, fee 4.5]
+    C[Tx C: 1]-->D[Tx D: 6];
+```
+Imagine specifically that D conflicts with B.
+
+Using the heuristic in the PR, we'd say the package feerate of (C, D) is 3.5, which is greater than the ancestor feerate of B (9.5/3), and the total fee of (C, D) is 7, which is more than 5.
+
+However the feerate diagram does not strictly improve:
+
+![Figure_1|640x480](upload://nenMvioTTKmlkFRJ7LEYUDDiJC6.png)
+
+**Issue 2: The rules proposed in #28984 might be satisfied when validating a package (A, B), but might fail to successfully relay if A is valid in a peer's mempool and then B is evaluated using legacy RBF rules (as a singleton RBF).**
+
+Consider the same situation as above, but with feerates such that the package would pass validation rules (this could be accomplished by raising the fee for tx D sufficiently high).  
+
+Now suppose that tx C would relay to our peers, because it has a high enough feerate that it passes the mempool min fee and minrelayfee.  Then using submitpackage (or package relay) to get (C, D) to our own node might still result in tx D failing to propagate, because once tx C propagates, then attempts to relay D will trigger the old RBF rules, which (in particular) prohibit an RBF that introduces a new unconfirmed parent.
+
+So it would seem that to make package RBF of (C, D) useful, users would need to ensure that C would not relay on its own (eg by making its feerate below the minrelayfee).
+
+**Issue 3: In the new cluster mempool world, the feerate diagram might be satisfied for a transaction package (A, B), but fail to relay successfully if A is valid in a peer's mempool and then B's RBF attempt is validated using feerate diagram rules (which can fail because the starting diagram for a peer might include tx A).**
+
+It turns out that the feerate diagram test might not be strictly improved if we are able to break up a transaction package into its parts.
+
+Consider this starting mempool, all transactions are the same size:
+
+```mermaid height=146,auto
+graph TD;
+    A[Tx A: fee 1]-->B[Tx B: fee 5]
+```
+
+And we are considering a new package (C, D) where D conflicts with B, which would bring the mempool to this:
+
+```mermaid height=146,auto
+graph TD;
+    A[Tx A: fee 1]
+    C[Tx C: fee 3]-->D[Tx D: fee 4]
+```
+
+This would pass the feerate diagram check if (C, D) is evaluated as a package against the starting mempool:
+
+![Figure_2|640x480](upload://82wWMpFJD6mZpkh0coQ0TnZMBb2.png)
+
+However, if tx C were to relay on its own (it has no conflicts, so this is plausible), then the feerate diagram check for tx D versus a starting mempool of (A, B, C) would fail:
+
+[EDIT: just realized the total fee didn't go up, which is perhaps not a great example.]
+
+![Figure_3|640x480](upload://kro8aVIGTnPqLnqTEPnS6UXB3P3.png)
+
+-------------------------
+
