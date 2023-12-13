@@ -276,9 +276,3 @@ This is ugly, but only 1 vByte more than `OP_CHECKSIGADD` per key.
 
 -------------------------
 
-reardencode | 2023-12-12 05:22:09 UTC | #13
-
-(post deleted by author)
-
--------------------------
-
