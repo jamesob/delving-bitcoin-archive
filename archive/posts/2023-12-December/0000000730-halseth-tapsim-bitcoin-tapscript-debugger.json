@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
+  "reads": 4,
+  "readers_count": 3,
   "score": 0.6,
   "yours": false,
   "topic_id": 292,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi, I want to announce a tool I've been working on, that has been tremendously helpful in testing out new script primitives and debug bitcoin scripts: [Tapsim](https://github.com/halseth/tapsim)\n\n> # Tapsim: Bitcoin Tapscript Debugger\n> Tapsim is a simple tool built in Go for debugging Bitcoin Tapscript transactions. It's aimed at developers wanting play with Bitcoin script primitives, aid in script debugging, and visualize the VM state as scripts are executed.\n\nIt is useful for visualizing the execution environment during script execution, and stepping forwards and backwards through the script.\n\n```bash\n$ ./tapsim execute --script \"OP_HASH160 79510b993bd0c642db233e2c9f3d9ef0d653f229 OP_EQUAL\" --witness \"54\"\nScript: OP_HASH160 79510b993bd0c642db233e2c9f3d9ef0d653f229 OP_EQUAL\nWitness: 54\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n script                                  | stack                                   | alt stack                               | witness\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n OP_HASH160                              | 01                                      |                                         |\n OP_DATA_20 0x79510b993bd0c642db23...f229|                                         |                                         |\n OP_EQUAL                                |                                         |                                         |\n>                                        |                                         |                                         |\n------------------------------------------------------------------------------------------------------------------------------------------------------------------------\n\n\nscript execution verified\n```\n\nIt is based on the `btcd` script interpreter, which makes it easy (IMO, as a Go developer) to add additional opcodes to play around with. Currently I've added support OP_CAT and OP_CHECKCONTRACTVERIFY.\n\nHopefully more people working with Bitcoin script can find it helpful!\n\nAll feedback or contributions welcome of course :smile:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
