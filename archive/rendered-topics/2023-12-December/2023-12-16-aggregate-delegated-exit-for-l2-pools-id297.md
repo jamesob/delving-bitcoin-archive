@@ -1,6 +1,6 @@
 # Aggregate delegated exit for L2 pools
 
-salvatoshi | 2023-12-16 08:08:35 UTC | #1
+salvatoshi | 2023-12-16 14:11:01 UTC | #1
 
 It's often been claimed that "covenants don't solve the L2 exit problem" because it's always not economical to exit a layer 2 system for a user whose balance is too low to cover for the fees.
 
@@ -22,7 +22,7 @@ The trade-off of using protocols based on fraud proofs (optimistic protocols) in
 - fraud proofs require a challenge period, in comparison to direct computations that are confirmed in a single transaction; moreover, some capital lockup is generally needed during the challenge period;
 - fraud proof protocols rely on the assumption that miners are not actively censoring the transactions of the challenger.
 
-The most commonly used optimistic protocol in bitcoin today is in fact a Lightning channel: the "justice transaction" can is a fraud proof. 
+The most commonly used optimistic protocol in bitcoin today is in fact a Lightning channel: the "justice transaction" is a fraud proof. 
 
 **Remark**. While [MATT](merkle.fun) admits a generic fraud proof protocol for arbitrary computations (that scales logarithmically on its computational cost), there are many special cases for which the fraud proof protocol is a lot simpler. Fraud proofs on statements about the leaves of a Merkle tree (for example "if I change the $i$-th leaf of the Merkle tree with root $R$, the root of the new Merkle tree is $R'$" have fairly straightforward fraud proof protocols).
 
