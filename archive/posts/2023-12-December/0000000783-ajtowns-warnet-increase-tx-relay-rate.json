@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 294,
   "topic_slug": "warnet-increase-tx-relay-rate",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"amiti, post:1, topic:294\"]\n* we would want to observe the impact of introducing txs into the network at different rates, as well as being confirmed into blocks at different rates\n* transactions and blocks should come from varied nodes on the network\n* bonus would be observing impact of RBF transactions, esp with current mainnet patterns\n[/quote]\n\nI was thinking something like this.\n\n 1. have three parameters:\n    * size of the network (100 nodes total, 90 listening, 10 non-listening)\n    * tx creation rate (5tx/s to 70tx/s)\n    * tx confirmation rate (3.75tx/s, 7.5tx/s, 15tx/s)\n 2. start the nodes\n    * run 26.0 out of the box consistently everywhere\n    * start each node with its own wallet\n    * maybe reduce `MAX_OUTBOUND_FULL_RELAY_CONNECTIONS` from 8 to 5 (to simulate the greater distance between nodes in a network of 10k-100k nodes, despite only having 100 nodes)\n    * set `-blockmaxweight` to 999000, 1998000 or 3996000 depending on the target tx confirmation rate\n 3. start mining blocks\n    * every 10 minutes, select a random peer, mine a block\n    * once a block reward matures, create a tx splitting the reward into 0.1 BTC outputs at a 500sat/vb feerate\n 4. generate small txs at the nominated rate:\n    * 1-in, 1-out taproot tx is 111 vbytes. if signatures are annoyingly slow, make it p2wsh where the script is \"<61B push> OP_DROP OP_TRUE\", which should also be 111 vbytes\n    * 1-in, 0-out tx to burn funds: ie, just an 0-value 32 byte OP_RETURN output when the input amount is below 0.05 BTC perhaps?\n    * output should just be a new change address\n    * fee rate should `estimatesmartfee 5` multiplied by `exp(random()*0.2-0.1)`\n    * do this randomly amongst all peers, eg get 5tx/s overall by having 100 nodes generate 1tx every 20s\n\nThe easiest thing to report is the performance of compact block relay, so run with `debug=cmpctblock` look at the \"Successfully reconstructed block\" lines, eg:\n\n```text\n2023-12-18T02:01:46.628563Z [cmpctblock] Successfully reconstructed block\n   00000000000000000001083bc8296739b4a65f1264f69104a52f16962a24af5b\n   with 1 txn prefilled, 3513 txn from mempool (incl at least 9 from extra pool)\n   and 7 txn requested\n```\n\nIn particular, my expectation is that if you increase the sustained tx creation rate above 18 tx/s you'll start to get inconsistent mempools and the \"txn requested\" number may rise. Having those inconsistencies appear at the top of the mempool probably requires you to be doing RBF or to have chains of unconfirmed transactions, particularly involving CPFP.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
