@@ -22,3 +22,11 @@ Yes, I got more crashes but I'm analyzing them before publishing them.
 
 -------------------------
 
+bruno | 2023-12-18 18:03:14 UTC | #4
+
+Another crash has been discussed in rust-miniscript repo: https://github.com/rust-bitcoin/rust-miniscript/issues/633#issuecomment-1856401701
+
+cc: @sipa
+
+-------------------------
+

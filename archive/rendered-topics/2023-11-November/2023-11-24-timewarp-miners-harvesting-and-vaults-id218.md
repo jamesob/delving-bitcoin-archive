@@ -62,3 +62,17 @@ From a defender perspective, this is uncertain what is the design of vaults pres
 
 -------------------------
 
+jamesob | 2023-12-18 19:57:52 UTC | #2
+
+[quote="ariard, post:1, topic:218"]
+Once the initialization transaction has been deanonymized, miners know there are odds of a recovery path which might be automatically swept by a watchtower, with a spending transaction with a high-feerate. This spending transaction is played out as soon as some chain tip height is reached.
+[/quote]
+
+No vault schemes that I'm aware of - and certainly none of the concrete examples I've done with `OP_VAULT` - automatically transfer coins after some height, relative or otherwise.
+
+As far as I can tell, the summary of this post is "using timewarp, miners are incentivized to speed up block issuance to claim high fee transactions associated with automatic vault recoveries." But I haven't actually ever seen a vault scheme that is vulnerable to this, because the recovery path (in every scheme I've seen) consists of both a relative timelock _and_ a recovery key.
+
+Miners might be able to speed up the chain, but they can't sign with keys they don't have, so I don't think the timewarp attack represents some kind of new problem for vaults.
+
+-------------------------
+
