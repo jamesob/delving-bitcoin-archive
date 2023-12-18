@@ -38,3 +38,45 @@ I'm interested in hearing people's thoughts on:
 
 -------------------------
 
+ajtowns | 2023-12-18 02:43:32 UTC | #2
+
+[quote="amiti, post:1, topic:294"]
+* we would want to observe the impact of introducing txs into the network at different rates, as well as being confirmed into blocks at different rates
+* transactions and blocks should come from varied nodes on the network
+* bonus would be observing impact of RBF transactions, esp with current mainnet patterns
+[/quote]
+
+I was thinking something like this.
+
+ 1. have three parameters:
+    * size of the network (100 nodes total, 90 listening, 10 non-listening)
+    * tx creation rate (5tx/s to 70tx/s)
+    * tx confirmation rate (3.75tx/s, 7.5tx/s, 15tx/s)
+ 2. start the nodes
+    * run 26.0 out of the box consistently everywhere
+    * start each node with its own wallet
+    * maybe reduce `MAX_OUTBOUND_FULL_RELAY_CONNECTIONS` from 8 to 5 (to simulate the greater distance between nodes in a network of 10k-100k nodes, despite only having 100 nodes)
+    * set `-blockmaxweight` to 999000, 1998000 or 3996000 depending on the target tx confirmation rate
+ 3. start mining blocks
+    * every 10 minutes, select a random peer, mine a block
+    * once a block reward matures, create a tx splitting the reward into 0.1 BTC outputs at a 500sat/vb feerate
+ 4. generate small txs at the nominated rate:
+    * 1-in, 1-out taproot tx is 111 vbytes. if signatures are annoyingly slow, make it p2wsh where the script is "<61B push> OP_DROP OP_TRUE", which should also be 111 vbytes
+    * 1-in, 0-out tx to burn funds: ie, just an 0-value 32 byte OP_RETURN output when the input amount is below 0.05 BTC perhaps?
+    * output should just be a new change address
+    * fee rate should `estimatesmartfee 5` multiplied by `exp(random()*0.2-0.1)`
+    * do this randomly amongst all peers, eg get 5tx/s overall by having 100 nodes generate 1tx every 20s
+
+The easiest thing to report is the performance of compact block relay, so run with `debug=cmpctblock` look at the "Successfully reconstructed block" lines, eg:
+
+```text
+2023-12-18T02:01:46.628563Z [cmpctblock] Successfully reconstructed block
+   00000000000000000001083bc8296739b4a65f1264f69104a52f16962a24af5b
+   with 1 txn prefilled, 3513 txn from mempool (incl at least 9 from extra pool)
+   and 7 txn requested
+```
+
+In particular, my expectation is that if you increase the sustained tx creation rate above 18 tx/s you'll start to get inconsistent mempools and the "txn requested" number may rise. Having those inconsistencies appear at the top of the mempool probably requires you to be doing RBF or to have chains of unconfirmed transactions, particularly involving CPFP.
+
+-------------------------
+
