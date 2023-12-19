@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 00:55:47 UTC | #1
+sipa | 2023-12-19 03:07:14 UTC | #1
 
 # How to linearize your cluster
 
@@ -119,7 +119,7 @@ Incorporating this into the search algorithm we get:
   * For each $u$ not in $pot$ or $exc$, in decreasing individual feerate order:
     * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$: set $pot = pot \cup \{u\}$.
     * Otherwise, stop iterating.
-  * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+  * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$ or $best = \emptyset$:
     * Find a transaction $t$ not in $inc$ and not in $exc$ to split on.
     * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
     * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
@@ -181,7 +181,7 @@ Thus it's reasonable to stick to a simple choice: treating $W$ like a (LIFO) sta
 
 If introducing randomness is desired (which may be the case if the algorithm is only given a bounded runtime), it's possible to instead treat $W$ like a small (say, $k=4$) fixed-size array of $k$ LIFO stacks, and picking from $W$ and/or additions to it are appending to/popping from a random one. This retains DFS-ish behavior with (in almost all cases) only a small constant factor larger memory usage.
 
-### 2.6 Caching feerates and the potential set
+### 2.6 Caching feerates and potential sets
 
 To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$, specifically), the fees and sizes can be precomputed and storing them alongside the sets themselves (including inside the work items). When sets are updated, e.g. in $inc = inc \cup \operatorname{anc}(t)$, only the fees and sizes of $(\operatorname{anc}(t) \setminus inc)$ need to be looked up and added to the cached value.
 
@@ -193,7 +193,7 @@ Finally, this also lets us move the check that $pot$ has higher feerate than $be
 * Set $best = \emptyset$.
 * While $W$ is non-empty and computation limit is not reached:
   * Take some work item $(inc, exc, pot)$ out of $W$.
-  * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+  * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$ or $best = \emptyset$:
     * Find a transaction $t$ not in $inc$ or $exc$ to split on; this must exist.
     * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc, pot \cup \operatorname{anc}(t))$.
     * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t), pot \setminus \operatorname{desc}(t))$.
@@ -209,15 +209,15 @@ Finally, this also lets us move the check that $pot$ has higher feerate than $be
 
 ### 2.7 Seeding with best ancestor sets
 
-Under no circumstances do we want to end up with a $best$ whose feerate is worse than the highest-feerate ancestor set, as that'd mean we're worse off than just ancestor set based linearization. It is possible to run ancestor set based linearization and a bounded version of the search algorithm developed so far and then [merge](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) the two, but it is less work to instead pre-seed the search algorithm with the best ancestor set.
+Under no circumstances do we want to end up with a $best$ whose feerate is worse than the highest-feerate ancestor set, as that'd mean we're worse off than just ancestor set based linearization. If the algorithm runs to completion (until $W = \emptyset$), it will always find the optimal. But when running with a bound on computation, it is possible that the result is worse than ancestor-set based.
 
-All we need to do is pre-split the initial $W$ item:
+To prevent that, it is possible to run ancestor set based linearization and a bounded version of the search algorithm developed so far and then [merge](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) the two, but a better and more efficient approach is to instead tweak the search algorithm to pre-split the initial work based on the best ancestor set:
 * Find $a$, the transaction whose ancestor set feerate is highest.
 * Let $W = \{(\operatorname{anc}(a), \emptyset, \operatorname{anc}(a)), (\emptyset, \operatorname{desc}(a), \emptyset)\}$.
 * Let $best = \operatorname{anc}(a)$.
 * While $W$ is non-empty ...
 
-Alternatively, the entire body of the "For each $(inc_{new}, exc_{new}, pot_{new})$" loop can be abstracted out to a helper that potentially updates $best$ and potentially adds an element to $W$, and this helper can then be invoked for the initial populating of $W$ too. This makes the jump ahead optimization available to even that first step.
+An even better option is abstracting out the entire body of the "For each $(inc_{new}, exc_{new}, pot_{new})$" loop to a helper that potentially updates $best$ and potentially adds an element to $W$. This helper can then be invoked for the initial populating of $W$ too; this makes the jump ahead optimization available to even that first step.
 
 Overall, this leaves us with:
 * Let $W = \emptyset$.
