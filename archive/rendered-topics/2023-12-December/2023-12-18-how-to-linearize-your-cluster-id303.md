@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 00:49:05 UTC | #1
+sipa | 2023-12-19 00:55:47 UTC | #1
 
 # How to linearize your cluster
 
@@ -218,6 +218,28 @@ All we need to do is pre-split the initial $W$ item:
 * While $W$ is non-empty ...
 
 Alternatively, the entire body of the "For each $(inc_{new}, exc_{new}, pot_{new})$" loop can be abstracted out to a helper that potentially updates $best$ and potentially adds an element to $W$, and this helper can then be invoked for the initial populating of $W$ too. This makes the jump ahead optimization available to even that first step.
+
+Overall, this leaves us with:
+* Let $W = \emptyset$.
+* Let $best = \emptyset$.
+* Define helper operation $\operatorname{add}(inc_{new}, exc_{new}, pot_{new})$ as:
+  * For each $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
+    * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$: set $pot_{new} = pot_{new} \cup \{u\}$.
+    * Otherwise, stop iterating.
+  * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
+    * If $\operatorname{anc}(p) \subset pot_{new}$: set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
+  * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ or $best = \emptyset$: set $best = inc_{new}$.
+  * If $pot_{new} \neq inc_{new}$: add $(inc_{new}, exc_{new}, pot_{new})$ to $W$.
+* Find $a$, the transaction whose ancestor set feerate is highest.
+* Invoke $\operatorname{add}(\operatorname{anc}(a), \emptyset, \operatorname{anc}(a))$.
+* Invoke $\operatorname{add}(\emptyset, \operatorname{desc}(a), \emptyset)$.
+* While $W$ is non-empty and computation limit is not reached:
+  * Take some work item $(inc, exc, pot)$ out of $W$.
+  * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+    * Find a transaction $t$ not in $inc$ or $exc$ to split on; this must exist.
+    * Invoke $\operatorname{add}(inc \cup \operatorname{anc}(t), exc, pot \cup \operatorname{anc}(t))$.
+    * Invoke $\operatorname{add}(inc, exc \cup \operatorname{desc}(t), pot \setminus \operatorname{desc}(t))$.
+* Return $best$.
 
 ## 3. Current implementation
 
