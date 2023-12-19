@@ -147,3 +147,13 @@ What Pieter said. Plus not revealing it to the whole world by default doesn't ma
 
 -------------------------
 
+josibake | 2023-12-19 15:09:50 UTC | #7
+
+[quote="sipa, post:5, topic:304"]
+would instantly reveal to the world that this was a script-only taproot output
+[/quote]
+
+This part I understand; I'm asking for an example of _why_ revealing this to the world is bad. It certainly _feels_ safer to not reveal it, but when discussing this with @RubenSomsen in the context of BIP352 where it would be beneficial to reveal to the world that this was a script-only spend, I struggled to come up with examples of why it would be bad to reveal this.
+
+-------------------------
+
