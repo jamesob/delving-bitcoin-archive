@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 00:45:56 UTC | #1
+sipa | 2023-12-19 00:46:48 UTC | #1
 
 # How to linearize your cluster
 
@@ -129,7 +129,7 @@ Incorporating this into the search algorithm we get:
       * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
-This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement, which very much improve the worst case.
+This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement, which very much does improve the worst case.
 
 ### 2.3 Jumping ahead
 
