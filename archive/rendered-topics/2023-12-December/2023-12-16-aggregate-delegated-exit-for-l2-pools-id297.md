@@ -109,3 +109,11 @@ There are many details to figure out, but the approach seems sound to me. I look
 
 -------------------------
 
+ErikDeSmedt | 2023-12-19 15:45:30 UTC | #2
+
+You mention (1+X)/2 BTC as half of Bill's money. Shouldn't you use 1/2 instead.
+
+We already know there is fraud. So the X probably doesn't belong to bill.
+
+-------------------------
+
