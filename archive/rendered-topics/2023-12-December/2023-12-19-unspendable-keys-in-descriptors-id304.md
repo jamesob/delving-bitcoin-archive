@@ -157,3 +157,9 @@ This part I understand; I'm asking for an example of _why_ revealing this to the
 
 -------------------------
 
+salvatoshi | 2023-12-19 15:12:37 UTC | #8
+
+It is a form of fingerprinting. You can always reveal this information yourself if you want/need it, but it's great if the standards don't force you to do so.
+
+-------------------------
+
