@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 00:46:48 UTC | #1
+sipa | 2023-12-19 00:49:05 UTC | #1
 
 # How to linearize your cluster
 
@@ -183,9 +183,9 @@ If introducing randomness is desired (which may be the case if the algorithm is 
 
 ### 2.6 Caching feerates and the potential set
 
-To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$, specifically), the fees and sizes can be precomputed and passed along wherever the sets themselves are passed (including inside the work items). When sets are updated, e.g. in $inc = inc \cup \operatorname{anc}(t)$, only the fees and sizes of $(\operatorname{anc}(t) \setminus inc)$ need to be looked up and added to the cached value.
+To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$, specifically), the fees and sizes can be precomputed and storing them alongside the sets themselves (including inside the work items). When sets are updated, e.g. in $inc = inc \cup \operatorname{anc}(t)$, only the fees and sizes of $(\operatorname{anc}(t) \setminus inc)$ need to be looked up and added to the cached value.
 
-By extending our definition of work item to $(inc, exc, pot)$, carrying the potential set $pot$ along between its computation and the item it is for, more duplicate work can be avoided. A $pot_{new}$ entry is added to the $work_{add}$ and $work_{del}$ variables, containing conservative subsets for $pot_{new}$ in these branches.
+By extending our definition of work item to $(inc, exc, pot)$, which stores the potential set $pot$ between its computation and the item being processed, more duplicate work can be avoided. A $pot_{new}$ entry is added to the $work_{add}$ and $work_{del}$ variables, containing conservative subsets for $pot_{new}$ in these branches.
 
 Finally, this also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, which can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$, which is sufficient to make sure undecided transactions remain, and faster than a feerate comparison.
 
