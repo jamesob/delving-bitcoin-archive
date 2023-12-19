@@ -117,11 +117,11 @@ We already know there is fraud. So the X probably doesn't belong to bill.
 
 -------------------------
 
-salvatoshi | 2023-12-19 15:51:23 UTC | #3
+salvatoshi | 2023-12-19 15:52:31 UTC | #3
 
 You are correct, X should just stay in the pool, 1/2 goes to the challenger, 1/2 is burned.
 
-As additional context: the reason for burning some of the bond is to make sure that prevent attacks sybil attacks where the claimant and the challenger are the same entity, which otherwise would only incur the fee cost. That's standard in fraud proofs.
+As additional context: the reason for burning some of the bond is to make sure that prevent sybil attacks where the claimant and the challenger are the same entity, which otherwise would only incur the fee cost. That's standard in fraud proofs.
 
 -------------------------
 
