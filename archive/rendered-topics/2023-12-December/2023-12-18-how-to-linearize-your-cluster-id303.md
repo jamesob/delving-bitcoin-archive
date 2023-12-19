@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 20:43:28 UTC | #1
+sipa | 2023-12-19 20:50:08 UTC | #1
 
 # How to linearize your cluster
 
@@ -201,7 +201,7 @@ To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$
 We can go further. By extending our definition of work item to $(inc, exc, pot)$, which stores the potential set $pot$ between its computation and the item being processed, more duplicate work can be avoided. A $pot_{new}$ entry is added to the $work_{add}$ and $work_{del}$ variables, containing a preliminary conservative subset for the actual potential set in these branches. Specifically:
 * For the inclusion branch, the new potential set $\subset (pot \cup \operatorname{anc}(t))$. It must certainly contain $\operatorname{anc}(t)$ because that's part of the new $inc$, but it must also contain $pot$. This is because the newly added transactions fall into two categories:
   * Ones that were already part of $pot$; adding these to $inc$ doesn't affect the potential set.
-  * Ones that were not part of $pot$, and thus had a feerate below any undecided $pot$ transactions. The algorithm for finding undecided potential transactions will consider the same transactions, but may at bestcontinue for longer (as at every point its accumulated feerate is lower now) and at worst stop at the same point.
+  * Ones that were not part of $pot$, and thus had a feerate below any undecided $pot$ transactions. The algorithm for finding undecided potential transactions will consider the same transactions, but may at best continue for longer (as at every point its accumulated feerate is lower now) and at worst stop at the same point.
 * For the exclusion branch, the new potential set $\subset (pot \setminus \operatorname{desc}(t))$. This is because the newly excluded transactions fall again into two categories:
   * Ones that were not part of $pot$; adding these to $exc$ doesn't affect the potential set.
   * Ones that were part of $pot$, and thus has a feerate above that of $pot$. Adding these to $exc$ means the algorithm for undecided potential transactions will consider the same transactions (except these removed ones), but otherwise at best again continue for longer, and at worst stop at the same point.
