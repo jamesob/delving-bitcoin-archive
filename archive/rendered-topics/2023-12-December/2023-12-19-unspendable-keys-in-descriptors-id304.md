@@ -163,3 +163,9 @@ It is a form of fingerprinting. You can always reveal this information yourself 
 
 -------------------------
 
+josibake | 2023-12-19 15:19:15 UTC | #9
+
+More of a fingerprint than the script itself? My thinking here is that in these protocols that require a provably unspendable keypath, the scripts themselves are likely sufficiently complex to be a fingerprint and must be revealed with every spend, anyways.
+
+-------------------------
+
