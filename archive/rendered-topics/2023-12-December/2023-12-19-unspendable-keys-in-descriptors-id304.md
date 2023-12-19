@@ -203,3 +203,11 @@ I believe that's why we preferred an option where the entropy was just in the de
 
 -------------------------
 
+AntoineP | 2023-12-19 15:33:53 UTC | #13
+
+Maybe we want different properties for descriptors and wallet policies. We could both have the entropy be explicitly described in a descriptor (`unspend()`), and omitted for wallet policies since this standard would mandate the content of `unspend()` be deterministically derivable from the rest of the descriptor.
+
+So properties (1), (2), (3) for output descriptors. And property (4) in addition for wallet policies.
+
+-------------------------
+
