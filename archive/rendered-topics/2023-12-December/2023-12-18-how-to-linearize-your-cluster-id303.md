@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 13:59:22 UTC | #1
+sipa | 2023-12-19 15:46:56 UTC | #1
 
 # How to linearize your cluster
 
@@ -42,10 +42,10 @@ Whenever the remainder of the cluster consists of multiple components, it is pos
 
 ### 1.2 Bottleneck splitting
 
-Given a cluster $G$, define the set of its bottlenecks as
+Define the set of bottleneck transactions for a cluster $G$ as:
 
 $$
-B = \bigcap_{x \in S} \operatorname{anc}_G(x) \cup \operatorname{desc}_G(x) 
+B = \bigcap_{x \in G} \operatorname{anc}(x) \cup \operatorname{desc}(x) 
 $$
 
 These are the transactions that are either a descendant or an ancestor of every other transaction in the cluster. These transactions must be included in a fixed order, and by doing so, they partition the set into separate groups that can be linearized separately. For example
