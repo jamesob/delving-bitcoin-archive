@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-18 23:38:03 UTC | #1
+sipa | 2023-12-19 00:45:56 UTC | #1
 
 # How to linearize your cluster
 
@@ -13,13 +13,15 @@ Here I build up an algorithm that eventually finds the optimal linearization. It
 ## 1. Linearization overall
 
 The most high-level description for pretty much any cluster linearization algorithm is:
-* While there are unincluded transactions:
+* While there are remaining transactions:
   * Find a high-feerate subset of the remaining transactions in the cluster (or ideally, the highest-feerate)
-  * Sort that subset according to some topologically valid order (doesn't matter which one, so e.g. sorting by number of unconfirmed ancestors suffices), append those transactions to the output, and mark them as included.
+  * Sort that subset according to some topologically valid order (doesn't matter which one, so e.g. sorting by number of unconfirmed ancestors suffices), append those transactions to the output, and remove them from the cluster.
   * Continue with the remainder of the cluster.
 * Optionally run a post-processing algorithm on the output, like [this one](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201/8).
 
 Almost all the complexity (both in the computational sense and the implementation complexity sense) is in the "find high-feerate subset" algorithm. If we instantiate that with "pick highest-feerate ancestor set", we get ancestor-set based linearization. The next section will go into finding better subsets, but first there are a few high-level improvements possible to the overall algorithm.
+
+In practice of course transactions aren't removed from the cluster, but instead of set of remaining transactions is kept, and all operations (connectivity checks, ancestor sets, descendant sets, ...) only care about the part of the cluster that remains. For readability we drop the $_G$ index to $\operatorname{anc}()$ and $\operatorname{desc}()$; it is always implicitly the part of the cluster that remains.
 
 ### 1.1 Splitting in connected components
 
@@ -40,35 +42,37 @@ Whenever the remainder of the cluster consists of multiple components, it is pos
 
 ### 1.2 Bottleneck splitting
 
-Given a cluster $G$, define the set of bottlenecks as
+Given a cluster $G$, define the set of its bottlenecks as
 
 $$
-B = \bigcap_{x \in S} \left(\operatorname{anc}(x) \cup \operatorname{desc}(x) \right)
+B = \bigcap_{x \in S} \operatorname{anc}_G(x) \cup \operatorname{desc}_G(x) 
 $$
 
 These are the transactions that are either a descendant or an ancestor of every other transaction in the cluster. These transactions must be included in a fixed order, and by doing so, they partition the set into separate groups that can be linearized separately. For example
 
-```mermaid height=147,auto
+```mermaid height=167,auto
 graph RL
   A;
   B --> A;
-  C --> B;
+  C --> B; C --> D;
   D --> A;
-  E --> C; E --> D;
-  F --> E;
-  G --> E;
-  H --> F; H --> G;
+  E --> D;
+ 
+  F --> C; F --> E;
+  G --> F;
+  H --> F;
+  I --> G; I --> H;
 ```
 
-In this example, A, E, and H are bottleneck transactions. If there is a single root which everything descends from, or a single leaf that descends from everything, these will necessarily be bottlenecks, but the concept is more general and can include inner transactions too, like E above.
+In this example, A, F, and I are bottleneck transactions. If there is a single root which everything descends from, or a single leaf that descends from everything, these will necessarily be bottlenecks, but the concept is more general and can include inner transactions too, like F above.
 
-Bottleneck splitting consists of computing bottlenecks, and then linearizing the parts between them separately, and then combining them by concatenation. In a way, bottleneck splitting is the serial analogue of the parallel connected-component splitting. Here it would amount to invoking linearization recursively for BCD and EF, and then outputting A + lin(BCD) + E + lin(FG) + H.
+Bottleneck splitting consists of computing bottlenecks, and then linearizing the parts between them separately, and then combining them by concatenation. In a way, bottleneck splitting is the serial analogue of the parallel connected-component splitting. Here it would amount to invoking linearization recursively for BCDE and GH, and then outputting [A] + lin(BCDE) + [F] + lin(GH) + [I].
 
 I'm not convinced bottleneck splitting is worth it as an optimization, as it only seems to help with clusters that are already relatively easy to linearize by what follows.
 
 ## 2. Finding high-feerate subsets
 
-The bulk of the work is in the internal algorithm to find high-feerate subsets (or ideally, the highest-feerate subset). I conjecture that finding the highest-feerate subset is an NP-hard problem, so we're very likely limited to small (remainders of) clusters, or approximations.
+The bulk of the work is in the internal algorithm to find high-feerate subsets (or ideally, *the* highest-feerate subset). I conjecture that finding the highest-feerate subset is an NP-hard problem, so we're very likely limited to small (remainders of) clusters, or approximations.
 
 ### 2.1 Searching
 
@@ -125,7 +129,7 @@ Incorporating this into the search algorithm we get:
       * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
-This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement:
+This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement, which very much improve the worst case.
 
 ### 2.3 Jumping ahead
 
@@ -171,11 +175,11 @@ In particular the last two options appear to be good choices, with no clear winn
 
 ### 2.5 Choosing which work item to process
 
-Lots of heuristics for the choice of $(inc,exc) \in W$ are possible which can greatly affect the runtime in specific cases, but the worst case is effectively unaffected by this choice.
+Lots of heuristics for the choice of $(inc,exc) \in W$ are possible which can greatly affect the runtime in specific cases, but the worst case is unaffected by this choice.
 
-Thus it's reasonable to stick to a simple choice: is treating $W$ like a (LIFO) stack which work items get appended tot, and popped from. This effectively results in a depth first traversal of the search tree, with a stack size that cannot exceed the total number of transactions in the cluster. This is probably the best choice from a memory usage (and locality) perspective.
+Thus it's reasonable to stick to a simple choice: treating $W$ like a (LIFO) stack which work items get appended tot, and popped from. This effectively results in a depth first traversal of the search tree, with a stack size that cannot exceed the total number of transactions in the cluster. This is probably the best choice from a memory usage (and locality) perspective.
 
-If introducing randomness is desired (which may be the case if the algorithm is given a bounded runtime), it's possible to instead treat $W$ like a small fixed-size array of $k$ (say, $k=4$) LIFO stacks, and picking from $W$ and/or additions to it are appending to/popping from a random one. This retains DFS-ish behavior with (in almost all cases) only a small constant factor larger memory usage.
+If introducing randomness is desired (which may be the case if the algorithm is only given a bounded runtime), it's possible to instead treat $W$ like a small (say, $k=4$) fixed-size array of $k$ LIFO stacks, and picking from $W$ and/or additions to it are appending to/popping from a random one. This retains DFS-ish behavior with (in almost all cases) only a small constant factor larger memory usage.
 
 ### 2.6 Caching feerates and the potential set
 
@@ -183,7 +187,7 @@ To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$
 
 By extending our definition of work item to $(inc, exc, pot)$, carrying the potential set $pot$ along between its computation and the item it is for, more duplicate work can be avoided. A $pot_{new}$ entry is added to the $work_{add}$ and $work_{del}$ variables, containing conservative subsets for $pot_{new}$ in these branches.
 
-Finally, this also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, which can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$, which is sufficient to make sure undecided transactions remain.
+Finally, this also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, which can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$, which is sufficient to make sure undecided transactions remain, and faster than a feerate comparison.
 
 * Let $W = \{(\emptyset,\emptyset, \emptyset)\}$.
 * Set $best = \emptyset$.
