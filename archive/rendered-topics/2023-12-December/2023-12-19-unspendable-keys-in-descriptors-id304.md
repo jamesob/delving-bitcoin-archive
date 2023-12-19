@@ -211,3 +211,13 @@ So properties (1), (2), (3) for output descriptors. And property (4) in addition
 
 -------------------------
 
+salvatoshi | 2023-12-19 15:39:53 UTC | #14
+
+That's a good point, I think you're right!
+
+The only issue is that people today backup descriptors and not wallet policies, so the discrepancy is a UX problem at registration time.
+
+I think people should backup wallet policies to represent *accounts* in software wallets, except for the exotic use cases where wallet policies don't work.
+
+-------------------------
+
