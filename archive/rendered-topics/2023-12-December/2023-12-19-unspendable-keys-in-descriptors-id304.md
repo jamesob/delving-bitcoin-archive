@@ -179,3 +179,15 @@ It seems satisfying all those properties would prevent the possibility of creati
 
 -------------------------
 
+sipa | 2023-12-19 15:24:44 UTC | #11
+
+[quote="josibake, post:9, topic:304"]
+More of a fingerprint than the script itself? My thinking here is that in these protocols that require a provably unspendable keypath, the scripts themselves are likely sufficiently complex to be a fingerprint and must be revealed with every spend, anyways.
+[/quote]
+
+I can certainly imagine certain use cases where this will be the case, and revealing that the key path was unspendable isn't an additional privacy loss over revealing the script itself.
+
+But I also don't think this is universally true. Maybe the script is just covering some combination of participants unable to MuSig sign a key path. Maybe there are very distinguishable scripts in the script tree, but there are others which aren't. And I hope you'd agree that we shouldn't adopt a standard that *forces* participants to reveal their key path was unspendable is, everything else being actual, a bad step.
+
+-------------------------
+
