@@ -1,25 +1,25 @@
 # How to linearize your cluster
 
-sipa | 2023-12-18 20:55:14 UTC | #1
+sipa | 2023-12-18 23:38:03 UTC | #1
 
 # How to linearize your cluster
 
-Most transaction clusters are small. At least today, the majority are just a single transaction, and those which aren't usually are just a few transactions.  We plan to set the cluster size limit so that even at the limit, the ancestor-set based linearization algorithm completes in a reasonable time. Yet, most clusters will be smaller, and better algorithms can be used.
+Most transaction clusters are small. At least today, the majority consist of just a single transaction, and those which aren't usually have no more than a few transactions.  We plan to set the cluster size limit so that even at the limit, the ancestor-set based linearization algorithm completes in a reasonable time. Yet, most clusters will be smaller, and better algorithms can be used.
 
-Here I build up an incremental algorithm that eventually finds the optimal linearization. It can be run with a computation limit, in which case it'll find something at least as good as ancestor-set based.
+Here I build up an algorithm that eventually finds the optimal linearization. It can be run with a computation limit, in which case it'll find something at least as good as ancestor-set based linearization.
 
 <div data-theme-toc="true"> </div>
 
 ## 1. Linearization overall
 
-The most high-level description for pretty much any linearization cluster algorithm is:
+The most high-level description for pretty much any cluster linearization algorithm is:
 * While there are unincluded transactions:
-  * Find the highest-feerate subset of the remaining transactions in the cluster (or an approximation thereof)
-  * Sort that subset according to some topologically valid order (doesn't matter which one, so e.g. sorting by number of unconfirmed ancestors suffices), output it, and mark the transactions as included.
+  * Find a high-feerate subset of the remaining transactions in the cluster (or ideally, the highest-feerate)
+  * Sort that subset according to some topologically valid order (doesn't matter which one, so e.g. sorting by number of unconfirmed ancestors suffices), append those transactions to the output, and mark them as included.
   * Continue with the remainder of the cluster.
 * Optionally run a post-processing algorithm on the output, like [this one](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201/8).
 
-Almost all the complexity (both in the computation sense and the implementation work sense) is in the "find high-feerate subset" algorithm. If we instantiate that with "pick highest-feerate ancestor set", we get ancestor-set based linearization. The next section will go into finding better subsets, but first there are a few high-level improvements possible to the overall algorithm.
+Almost all the complexity (both in the computational sense and the implementation complexity sense) is in the "find high-feerate subset" algorithm. If we instantiate that with "pick highest-feerate ancestor set", we get ancestor-set based linearization. The next section will go into finding better subsets, but first there are a few high-level improvements possible to the overall algorithm.
 
 ### 1.1 Splitting in connected components
 
@@ -34,34 +34,35 @@ graph BT
   E["E: 3"] --> D;
 ```
 
-The highest-feerate subset is [A], but once that's included the cluster breaks apart into two components.
+The highest-feerate subset is [A], but once that is included the cluster breaks apart into two components.
 
-Whenever the remainder of the cluster consists of multiple components, it is possible to run the linearization algorithm recursively on those components, and then merging them (by chunking them, and the merge-sorting the chunks).
+Whenever the remainder of the cluster consists of multiple components, it is possible to run the linearization algorithm recursively on those components separately, and then merge them (by chunking  and merge-sorting the chunks).
 
 ### 1.2 Bottleneck splitting
 
-Given a subset of transactions $S$ in a graph $G$, define the set of bottlenecks as
+Given a cluster $G$, define the set of bottlenecks as
 
 $$
-B = S \cap \bigcap_{x \in S} \left(\operatorname{anc}_G(x) \cup \operatorname{desc}_G(x) \right)
+B = \bigcap_{x \in S} \left(\operatorname{anc}(x) \cup \operatorname{desc}(x) \right)
 $$
 
-These are the transactions in $S$ that are either a descendant or an ancestor of every other transaction in the set. These transactions must be included in a fixed order, and by doing so, split the set up into separate groups that can be linearized separately. For example
+These are the transactions that are either a descendant or an ancestor of every other transaction in the cluster. These transactions must be included in a fixed order, and by doing so, they partition the set into separate groups that can be linearized separately. For example
 
 ```mermaid height=147,auto
 graph RL
   A;
-  C --> A; C --> B;
   B --> A;
-  D --> C; D --> B;
-  E --> D;
-  F --> D;
-  G --> E; G --> F;
+  C --> B;
+  D --> A;
+  E --> C; E --> D;
+  F --> E;
+  G --> E;
+  H --> F; H --> G;
 ```
 
-In this example, A, D, and G are bottleneck transactions. If there is a single root which everything descends from, or a single leaf that descends from everything, these will necessarily be bottlenecks, but the concept is more general and can include inner transactions too, like D above.
+In this example, A, E, and H are bottleneck transactions. If there is a single root which everything descends from, or a single leaf that descends from everything, these will necessarily be bottlenecks, but the concept is more general and can include inner transactions too, like E above.
 
-Bottleneck splitting is detecting bottlenecks, and then linearizing the parts between them separately, and then combining them by concatenation. In a way, bottleneck splitting is the serial analogue of the parallel connected-component splitting. Here it would amount to recursively invoking linearization for BC and EF, and then outputting A + lin(BC) + D + lin(EF) + G.
+Bottleneck splitting consists of computing bottlenecks, and then linearizing the parts between them separately, and then combining them by concatenation. In a way, bottleneck splitting is the serial analogue of the parallel connected-component splitting. Here it would amount to invoking linearization recursively for BCD and EF, and then outputting A + lin(BCD) + E + lin(FG) + H.
 
 I'm not convinced bottleneck splitting is worth it as an optimization, as it only seems to help with clusters that are already relatively easy to linearize by what follows.
 
@@ -71,62 +72,60 @@ The bulk of the work is in the internal algorithm to find high-feerate subsets (
 
 ### 2.1 Searching
 
-Overall, the search for high-feerate subsets of a given (remainder of a) cluster $G$ follows an approach where a set of work items in maintained, each of corresponds to some definitely-included transactions, some definitely-excluded transactions, and some undecided transactions. Then a processing loop follows which "splits" a work item in two, by taking some transaction and making it included once, and making it excluded once.
+Overall, the search for high-feerate subsets of a given (remainder of a) cluster $G$ follows an approach where a set of work items is maintained, each of which corresponds to some definitely-included transactions, some definitely-excluded transactions, and some undecided transactions. Then a processing loop follows which in every iteration "splits" one work item in two: one where the transaction becomes included, and one where the transaction becomes excluded.
 
 * Let $W = \{(\emptyset,\emptyset)\}$, the set of work items, initialized with a single element $(\emptyset,\emptyset)$.
-  * Each work item $(inc,exc)$ consists of two non-overlapping sets; $inc$ represents transactions that have to be included, and $exc$ represents transactions that cannot be included. Transactions that are not in either are undecided. $inc$ always includes its own ancestors ($\operatorname{anc}(inc)=inc$), while $exc$ always includes its own descendants ($\operatorname{desc}(exc)=exc$).
-  * The single initial item $(\emptyset,\emptyset)$ represents "everything undecided".
+  * Each work item $(inc,exc)$ consists of two non-overlapping sets; $inc$ represents transactions that have to be included, and $exc$ represents transactions that cannot be included. Transactions that are not in either are undecided. $inc$ always includes its own ancestors $(\operatorname{anc}(inc)=inc)$, while $exc$ always includes its own descendants $(\operatorname{desc}(exc)=exc).$
+  * The initial item $(\emptyset,\emptyset)$ represents "everything undecided".
 * Set $best = \emptyset$, the best subset seen so far.
-* While $W$ is non-empty (and computation limit is not reached):
-  * Take some element $(inc, exc)$ out of $W$.
+* While $W$ is non-empty and computation limit is not reached:
+  * Take some work item $(inc, exc)$ out of $W$.
   * Find a transaction $t$ not in $inc$ and not in $exc$ (an undecided one).
-  * Let $inc_{add} = inc \cup \operatorname{anc}(t)$.
-  * Let $exc_{del} = exc \cup \operatorname{desc}(t)$.
-  * If $\operatorname{feerate}(inc_{add}) > \operatorname{feerate}(best)$ (or $best = \emptyset$):
-    * Set $best = inc_{add}$.
-  * For each $(inc_{new}, exc_{new}) \in \{(inc_{add}, exc), (inc, exc_{del})\}$:
+  * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$, the work item for $t$ being included.
+  * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$, the work item for $t$ being excluded.
+  * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
+    * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ (or $best = \emptyset$): set $best = inc_{new}$.
     * If there are undecided transactions left corresponding to $(inc_{new}, exc_{new})$:
       * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
-Regardless of the choice of element to take out of $W$, or the choice of undecided transaction within it, this will iterate all valid topological subsets of $G$, and thus put in $best$ the actual best subset.
+Regardless of the choice of element to take out of $W$, or the choice of undecided transaction $t$ within it, this will iterate over all valid topological subsets of $G$, and thus put in $best$ the actual best subset.
 
 It would be possible to restrict the choice of undecided transaction to only consider ones that share ancestry with $inc$ (if non-empty). Doing so will make the algorithm only consider *connected* subsets, and we know at least one connected highest-feerate subset always exists. This would result in a moderate speedup as it reduces the search space, but interferes with a much more important improvement later.
 
 ### 2.2 Bounding through potential sets
 
-To avoid iterating literally every topological subset, we can compute a conservative upper bound on how good each work item can get. If that is not better than $best$, the item can be discarded.
+To avoid iterating over literally every topological subset, we can compute a conservative upper bound on how good (the evolution of) each work item can get. If that is not better than $best$, the item can be discarded.
 
-This conservative upper bound is the *potential set* $pot$, which we will compute for every work item. For a given work item $(inc, exc)$, $pot$ is the highest-feerate set among *all* sets (not just topologically valid ones) for which $inc \subset pot$ and $exc \cap pot = \emptyset$. This is easy to compute:
+This conservative upper bound is the *potential set* $pot$, which we will compute for every work item. For a given work item $(inc, exc)$, $pot$ is the highest-feerate set among *all* sets (not just topologically valid ones) that are compatible with $inc$ and $exc$: $inc \subset pot$ and $exc \cap pot = \emptyset$. This is easy to compute:
 * Initialize $pot = inc$.
 * For each $u$ not in $pot$ or $exc$, in decreasing individual feerate order:
   * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$: set $pot = pot \cup \{u\}$.
   * Otherwise, stop iterating.
 
-Observe that all elements of $(pot \setminus inc)$ have a strictly higher feerate than $pot$ (it's true for the last one added, and all previously-added ones have an even higher feerate), and all undecided elements not in $pot$ have a feerate not exceeding $pot$ (if they did, they'd have been included). Thus, adding any other undecided transactions to pot, or removing any non-$inc$ transactions from it, or any combination thereof, decreases its feerate. Therefore, it must be a maximum.
+Observe that all elements of $(pot \setminus inc)$ have a strictly higher feerate than $pot$ itself (it's true for the last one added, and all previously-added ones have an even higher feerate), and all undecided elements not in $pot$ have a feerate not exceeding $pot$ (if they did, they'd have been included). Thus, adding any other undecided transactions to $pot$, or removing any non-$inc$ transactions from it, or any combination thereof, decreases its feerate. Therefore, it must be a maximum.
 
-Thus the algorithm becomes:
+Incorporating this into the search algorithm we get:
 
 * Let $W = \{(\emptyset,\emptyset)\}$.
 * Set $best = \emptyset$.
-* While $W$ is non-empty (and computation limit is not reached):
-  * Take some element $(inc, exc)$ out of $W$.
+* While $W$ is non-empty and computation limit is not reached:
+  * Take some work item $(inc, exc)$ out of $W$.
   * Set $pot = inc$.
   * For each $u$ not in $pot$ or $exc$, in decreasing individual feerate order:
     * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$: set $pot = pot \cup \{u\}$.
     * Otherwise, stop iterating.
   * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
-    * Find a transaction $t$ not in $inc$ and not in $exc$ (an undecided one).
-    * Let $inc_{add} = inc \cup \operatorname{anc}(t)$.
-    * Let $exc_{del} = exc \cup \operatorname{desc}(t)$.
-    * If $\operatorname{feerate}(inc_{add}) > \operatorname{feerate}(best)$ (or $best = \emptyset$):
-      * Set $best = inc_{add}$.
-  * For each $(inc_{new}, exc_{new}) \in \{(inc_{add}, exc), (inc, exc_{del})\}$:
-    * If there are undecided transactions left corresponding to $(inc_{new}, exc_{new})$:
+    * Find a transaction $t$ not in $inc$ and not in $exc$ to split on.
+    * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
+    * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
+  * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
+    * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ or $best = \emptyset$: set $best = inc_{new}$.
+    * If there are undecided transactions left (not in $inc_{new}$ or $exc_{new}$):
       * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
-This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement.
+This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement:
 
 ### 2.3 Jumping ahead
 
@@ -138,23 +137,20 @@ We also move the computation of $pot$ and updating of $best$ inside the addition
 
 * Let $W = \{(\emptyset,\emptyset)\}$.
 * Set $best = \emptyset$.
-* While $W$ is non-empty (and computation limit is not reached):
-  * Take some element $(inc, exc)$ out of $W$.
-  * Find a transaction $t$ not in $inc$ or $exc$ (an undecided one); this must exist.
-  * Let $inc_{add} = inc \cup \operatorname{anc}(t)$.
-  * Let $exc_{del} = exc \cup \operatorname{desc}(t)$.
-  * For each $(inc_{new}, exc_{new}) \in \{(inc_{add}, exc), (inc, exc_{del})\}$:
+* While $W$ is non-empty and computation limit is not reached:
+  * Take some work item $(inc, exc)$ out of $W$.
+  * Find a transaction $t$ not in $inc$ or $exc$ to split on; this must exist.
+  * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
+  * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
+  * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
     * Set $pot_{new} = inc_{new}$.
     * For each $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
       * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$: set $pot_{new} = pot_{new} \cup \{u\}$.
       * Otherwise, stop iterating.
     * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
-      * If $\operatorname{anc}(p) \subset pot_{new}$:
-        * Set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
-    * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ (or $best = \emptyset$):
-      * Set $best = inc_{new}$.
-    * If $\operatorname{feerate}(pot_{new}) > \operatorname{feerate}(best)$:
-      * Add $(inc_{new}, exc_{new})$ to $W$.
+      * If $\operatorname{anc}(p) \subset pot_{new}$: set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
+    * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ or $best = \emptyset$: set $best = inc_{new}$.
+    * If $\operatorname{feerate}(pot_{new}) > \operatorname{feerate}(best)$: add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
 ### 2.4 Choosing the transaction to split on
@@ -163,60 +159,68 @@ One thing that is unspecified so far is how to pick $t$, the transaction being a
 
 The choice matters; there appear to be a number of "good" choices which combined with the jump ahead optimization above result in an ~$\mathcal{O}(1.6^n)$ algorithm (purely empirical number, no proof), while others yield $\mathcal{O}(2^n)$.
 
-These all appear to be good choices, with only constant-factor differences in the worst case between them:
+These all appear to be good choices, with no meaningful differences for the worst case between them:
 * Use as $t$ the highest-individual-feerate undecided transaction.
-* Use as $t$ the transaction which maximizes $\operatorname{min}(|exc|+|inc \cup \operatorname{anc}(t)|,|exc \cup \operatorname{desc}(t)|+|inc|)$ (i.e., reduces the search space the most) among:
+* Use as $t$ the transaction for which splitting on its minimizes the search space the most (first maximize 
+$\operatorname{min}(|exc|+|inc \cup \operatorname{anc}(t)|,|exc \cup \operatorname{desc}(t)|+|inc|)$, then maximize the $\operatorname{max}$ of those values). This can be done over:
   * All undecided transactions.
-  * All (undecided) transactions in $pot \setminus inc$.
+  * All undecided transactions in $pot$.
   * All undecided transactions that are ancestors or descendants of the highest-individual-feerate undecided transaction.
 
-In particular the last two options appear to be good choices, with no clear winner among them. Specific clusters exist for which either of the algorithms performs very significantly better than the other, but this works both ways.
+In particular the last two options appear to be good choices, with no clear winner among them. Specific clusters exist for which either of the algorithms performs significantly better than the other, but this works both ways.
 
 ### 2.5 Choosing which work item to process
 
-Lots of heuristics for the choice of $(inc,exc) \in W$ are possible which can great affect the runtime in specific cases, but the worst case is effectively unaffected by this choice.
+Lots of heuristics for the choice of $(inc,exc) \in W$ are possible which can greatly affect the runtime in specific cases, but the worst case is effectively unaffected by this choice.
 
-A very simple choice is treating $W$ like a (LIFO) stack which new work items get appended tot, and popped from. This effectively results in a depth first traversal of the search tree, with a stack size that cannot exceed the total number of transactions in the cluster. This is probably the best choice from a memory usage (and locality) perspective.
+Thus it's reasonable to stick to a simple choice: is treating $W$ like a (LIFO) stack which work items get appended tot, and popped from. This effectively results in a depth first traversal of the search tree, with a stack size that cannot exceed the total number of transactions in the cluster. This is probably the best choice from a memory usage (and locality) perspective.
 
-If introducing randomness is desired (which may be the case if the algorithm is given a bounded runtime), it's possible to instead treat $W$ like an small fixed-size array of $k$ (say, 4) LIFO stacks, and picking from $W$ and/or additions to it are appending to/popping from a random one. This retains DFS-ish behavior with (in almost all cases) only a small constant factor larger memory usage.
+If introducing randomness is desired (which may be the case if the algorithm is given a bounded runtime), it's possible to instead treat $W$ like a small fixed-size array of $k$ (say, $k=4$) LIFO stacks, and picking from $W$ and/or additions to it are appending to/popping from a random one. This retains DFS-ish behavior with (in almost all cases) only a small constant factor larger memory usage.
 
 ### 2.6 Caching feerates and the potential set
 
 To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$, specifically), the fees and sizes can be precomputed and passed along wherever the sets themselves are passed (including inside the work items). When sets are updated, e.g. in $inc = inc \cup \operatorname{anc}(t)$, only the fees and sizes of $(\operatorname{anc}(t) \setminus inc)$ need to be looked up and added to the cached value.
 
-By extending our definition of work item to $(inc, exc, pot)$, carrying the potential set $pot$ along between its computation and the item it is for, more duplicate work can be avoided. The new variables $pot_{add}$ and $pot_{del}$ are underestimates for the eventual $pot_{new}$, in the inclusion resp. exclusion case.
+By extending our definition of work item to $(inc, exc, pot)$, carrying the potential set $pot$ along between its computation and the item it is for, more duplicate work can be avoided. A $pot_{new}$ entry is added to the $work_{add}$ and $work_{del}$ variables, containing conservative subsets for $pot_{new}$ in these branches.
+
+Finally, this also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, which can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$, which is sufficient to make sure undecided transactions remain.
 
 * Let $W = \{(\emptyset,\emptyset, \emptyset)\}$.
 * Set $best = \emptyset$.
-* While $W$ is non-empty (and computation limit is not reached):
-  * Take some element $(inc, exc, pot)$ out of $W$.
-  * Find a transaction $t$ not in $inc$ or $exc$ (an undecided one); this must exist.
-  * Let $inc_{add} = inc \cup \operatorname{anc}(t)$.
-  * Let $pot_{add} = pot \cup \operatorname{anc}(t)$.
-  * Let $exc_{del} = exc \cup \operatorname{desc}(t)$.
-  * Let $pot_{del} = pot \setminus \operatorname{desc}(t)$.
-  * For each $(inc_{new}, exc_{new}, pot_{new}) \in \{(inc_{add}, exc, pot_{add}), (inc, exc_{del}, pot_{del})\}$:
-    * For eack $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
-      * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$: set $pot_{new} = pot_{new} \cup \{u\}$.
-      * Otherwise, stop iterating.
-    * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
-      * If $\operatorname{anc}(p) \subset pot_{new}$:
-        * Set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
-    * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ (or $best = \emptyset$):
-      * Set $best = inc_{new}$.
-    * If $\operatorname{feerate}(pot_{new}) > \operatorname{feerate}(best)$:
-      * Add $(inc_{new}, exc_{new}, pot_{new})$ to $W$.
+* While $W$ is non-empty and computation limit is not reached:
+  * Take some work item $(inc, exc, pot)$ out of $W$.
+  * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+    * Find a transaction $t$ not in $inc$ or $exc$ to split on; this must exist.
+    * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc, pot \cup \operatorname{anc}(t))$.
+    * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t), pot \setminus \operatorname{desc}(t))$.
+    * For each $(inc_{new}, exc_{new}, pot_{new}) \in \{work_{add}, work_{del}\}$:
+      * For each $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
+        * If $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$: set $pot_{new} = pot_{new} \cup \{u\}$.
+        * Otherwise, stop iterating.
+      * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
+        * If $\operatorname{anc}(p) \subset pot_{new}$: set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
+      * If $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$ or $best = \emptyset$: set $best = inc_{new}$.
+      * If $pot_{new} \neq inc_{new}$: add $(inc_{new}, exc_{new}, pot_{new})$ to $W$.
 * Return $best$
 
 ### 2.7 Seeding with best ancestor sets
 
-Under no circumstances do we want to end up with a $best$ whose feerate is worse than the highest-feerate ancestor set, as that'd mean we're worse off than just ancestor set based linearization. It is possible to run ancestor set based linearization and a bounded version of the search algorithm developed so far and then [merge](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) them, but it is less work to instead pre-seed the search algorithm with the best ancestor set.
+Under no circumstances do we want to end up with a $best$ whose feerate is worse than the highest-feerate ancestor set, as that'd mean we're worse off than just ancestor set based linearization. It is possible to run ancestor set based linearization and a bounded version of the search algorithm developed so far and then [merge](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) the two, but it is less work to instead pre-seed the search algorithm with the best ancestor set.
 
 All we need to do is pre-split the initial $W$ item:
 * Find $a$, the transaction whose ancestor set feerate is highest.
 * Let $W = \{(\operatorname{anc}(a), \emptyset, \operatorname{anc}(a)), (\emptyset, \operatorname{desc}(a), \emptyset)\}$.
 * Let $best = \operatorname{anc}(a)$.
 * While $W$ is non-empty ...
+
+Alternatively, the entire body of the "For each $(inc_{new}, exc_{new}, pot_{new})$" loop can be abstracted out to a helper that potentially updates $best$ and potentially adds an element to $W$, and this helper can then be invoked for the initial populating of $W$ too. This makes the jump ahead optimization available to even that first step.
+
+## 3. Current implementation
+
+My current [implementation](https://github.com/sipa/bitcoin/blob/wip_memepool_fuzz/src/cluster_linearize.h) incorporates most of the ideas listed above, with a few deviations:
+* The connected-component splitting isn't implemented for linearization in general, but done inside the find-high-feerate-subset algorithm. It's combined with the ancestor pre-seeding there ($W$ is initialized with 2 elements per connected component: each excludes every other component, but one includes the component's best ancestor set, and one excludes the best ancestor set's transaction's descendants). This is somewhat suboptimal, as the find-high-feerate-subset algorithm only finds one subset, so in case there are multiple components, work for the later ones is duplicated. However, it was a lot simpler to implement than having the linearize code perform merging of multiple sublinearizations, and still beneficial.
+* Newly added work items are added to one of $k=4$ LIFO stacks, in a round-robin fashion. A uniformly random stack is chosen to pop work items to process from.
+* The transaction to split on is, among the set of ancestors and descendants of the highest-individual-feerate undecided transaction, the one that minimizes the search space the most.
 
 -------------------------
 
