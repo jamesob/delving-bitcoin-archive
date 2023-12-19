@@ -173,3 +173,9 @@ More of a fingerprint than the script itself? My thinking here is that in these 
 
 -------------------------
 
+AntoineP | 2023-12-19 15:23:41 UTC | #10
+
+It seems satisfying all those properties would prevent the possibility of creating addresses using [partial descriptors](https://github.com/bitcoin/bitcoin/issues/24114). Since you necessarily need additional information which isn't onchain.
+
+-------------------------
+
