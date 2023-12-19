@@ -191,3 +191,13 @@ But I also don't think this is universally true. Maybe the script is just coveri
 
 -------------------------
 
+sipa | 2023-12-19 15:26:33 UTC | #12
+
+[quote="AntoineP, post:10, topic:304, full:true"]
+It seems satisfying all those properties would prevent the possibility of creating addresses using [partial descriptors](https://github.com/bitcoin/bitcoin/issues/24114). Since you necessarily need additional information which isn’t onchain.
+[/quote]
+
+I believe that's why we preferred an option where the entropy was just in the descriptor itself.
+
+-------------------------
+
