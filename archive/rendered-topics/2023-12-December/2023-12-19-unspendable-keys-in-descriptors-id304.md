@@ -111,11 +111,11 @@ I just wanted to post it here as background; I'll comment on your ideas here whe
 
 -------------------------
 
-salvatoshi | 2023-12-19 13:45:50 UTC | #3
+salvatoshi | 2023-12-19 15:00:06 UTC | #3
 
 Thanks @sipa for the additional context!
 
-One observation is that `unspend(HEXCHAINCODE)` from your gist is actually compatible with the approach (s4) if the `HEXCODE` is deterministically computed according to the specs above, or any similar ones.
+One observation is that `unspend(HEXCHAINCODE)` from your gist is actually compatible with the approach (s4) if the `HEXCHAINCODE` is deterministically computed according to the specs above, or any similar ones.
 
 So the TL:DR is: you do need *some* good entropy for the unspendable key, but you don't need *new* entropy.
 
