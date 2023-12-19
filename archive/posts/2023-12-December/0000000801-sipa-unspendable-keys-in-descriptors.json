@@ -12,9 +12,9 @@
   "reply_to_post_number": 10,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"AntoineP, post:10, topic:304, full:true\"]\nIt seems satisfying all those properties would prevent the possibility of creating addresses using [partial descriptors](https://github.com/bitcoin/bitcoin/issues/24114). Since you necessarily need additional information which isn\u2019t onchain.\n[/quote]\n\nI believe that's why we preferred an option where the entropy was just in the descriptor itself.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

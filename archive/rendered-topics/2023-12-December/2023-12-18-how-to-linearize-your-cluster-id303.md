@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 15:46:56 UTC | #1
+sipa | 2023-12-19 17:32:20 UTC | #1
 
 # How to linearize your cluster
 
@@ -21,7 +21,7 @@ The most high-level description for pretty much any cluster linearization algori
 
 Almost all the complexity (both in the computational sense and the implementation complexity sense) is in the "find high-feerate subset" algorithm. If we instantiate that with "pick highest-feerate ancestor set", we get ancestor-set based linearization. The next section will go into finding better subsets, but first there are a few high-level improvements possible to the overall algorithm.
 
-In practice of course transactions aren't removed from the cluster, but instead of set of remaining transactions is kept, and all operations (connectivity checks, ancestor sets, descendant sets, ...) only care about the part of the cluster that remains. For readability we drop the $_G$ index to $\operatorname{anc}()$ and $\operatorname{desc}()$; it is always implicitly the part of the cluster that remains.
+In practice, transactions aren't actually removed from the cluster data structure, but instead a set of remaining transactions is kept, and all operations (connectivity checks, ancestor sets, descendant sets, ...) only care about the part of the cluster that remains. For readability we drop the $_G$ index to $\operatorname{anc}()$ and $\operatorname{desc}()$; it is always implicitly the part of the cluster that remains.
 
 ### 1.1 Splitting in connected components
 
@@ -133,7 +133,7 @@ This change helps the average case, but not the worst case, as it's always possi
 
 ### 2.3 Jumping ahead
 
-The potential set, as introduced in the previous section, has an important property: its non-$inc$ transactions each have a higher feerate than the highest-feerate set possible (compatible with the work item's $inc$ and $exc$), even when ignoring topology. Thus, if one is given a compatible set which lacks one or more transactions in $(pot \setminus inc)$, then adding those transactions will *always* be an improvement to the feerate.
+The potential set, as introduced in the previous section, has an important property: the transactions in $pot$ that do not belong to $inc$ must have a strictly higher feerate than can be achieved by *any* set that includes $inc$ and excludes $exc$ (even ones that are not topologically valid). Thus, if one is given such a set which lacks one or more transactions in $(pot \setminus inc)$, then adding those transactions will *always* be an improvement to its feerate.
 
 This implies that if $pot$ contains any topologically-valid subset, that entire subset can be added to $inc$ as well. This works because regardless of what this work item evolves into (through addition and deletion branches), adding a subset of $pot$ will always be an improvement. This effectively lets us jump ahead, by (possibly) including multiple transactions automatically without needing to split on each individually.
 

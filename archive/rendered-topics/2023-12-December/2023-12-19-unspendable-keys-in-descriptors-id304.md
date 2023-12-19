@@ -227,3 +227,35 @@ I think people should backup wallet policies to represent *accounts* in software
 
 -------------------------
 
+josibake | 2023-12-19 16:59:33 UTC | #16
+
+[quote="sipa, post:11, topic:304"]
+And I hope you’d agree that we shouldn’t adopt a standard that *forces* participants to reveal their key path was unspendable.
+[/quote]
+
+Certainly agree on this point, but also don't want to leave wallet users with the impression that this is chosen as a standard because revealing that only the script path was usable is _always_ bad for privacy.
+
+[quote="sipa, post:11, topic:304"]
+(with secret rrr) you can prove to contract participants that the key is unspendable
+[/quote]
+
+Good to know! For BIP352, the scenario I had in mind for revealing that the keypath was unusable is a coinjoin, where Alice wants to coinjoin her provably unspendable keypath UTXO and Bob wants to make a payment to a SP address. It sounds like in this scenario Alice could provide a signature for $P - H$ to a coordinator, instead of the coordinator requiring that her script path spend show that $H$ was the internal key.
+
+EDIT: nevermind, this doesn't work. It's about the *receiver* knowing that the taproot spend was a script-only spend, and AFAICT there is no way to do this in a non-interactive way outside of making it public that only the script path was usable.
+
+-------------------------
+
+RandyMcMillan | 2023-12-19 18:56:24 UTC | #17
+
+Maybe the simple solution is to rot13 the xpub
+
+xpub\<rot13\>
+
+-------------------------
+
+RandyMcMillan | 2023-12-19 19:56:34 UTC | #18
+
+add an additional xor with the original xpub (and/or something else) and the operation quickly becomes untenable for analysis. All easily recognizable by wallets etc?
+
+-------------------------
+
