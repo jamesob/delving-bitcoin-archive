@@ -253,9 +253,11 @@ xpub\<rot13\>
 
 -------------------------
 
-RandyMcMillan | 2023-12-19 19:56:34 UTC | #18
+RandyMcMillan | 2023-12-19 20:05:49 UTC | #18
 
-add an additional xor with the original xpub (and/or something else) and the operation quickly becomes untenable for analysis. All easily recognizable by wallets etc?
+add an additional xor with the original xpub (*and/or something else) and the operation quickly becomes untenable for analysis. All easily recognizable by wallets etc?
+
+*xor it with a bip85 xpub - user selects the index :)
 
 -------------------------
 
