@@ -125,3 +125,42 @@ As additional context: the reason for burning some of the bond is to make sure t
 
 -------------------------
 
+salvatoshi | 2023-12-20 13:25:42 UTC | #4
+
+A little postscript to detail how the fraud proofs needed in the protocol might look like, as I had time to brainstorm it a bit more.
+
+The only fraud-sensitive statement that is more complicated is Ingrid's statement:
+
+"I'm withdrawing for users $S = \left\{s_0, s_1, \dots, s_{k - 1}\right\}$, whose total balance is $T$", where each $s_i$ is the index of a user within the vector commitment of all the `user:balance` pairs. That's because this is a statement about multiple leaves of the Merkle tree simultaneously, as it is a statement about their sum.
+
+Script itself can compute $root_S$, the root of the Merkle tree of the vector $S$, so that this $root_S$ can be passed around in the next UTXOs.
+
+Using MATT generic fraud proof protocols as a blackbox, we could use a fraud proof on the following computation:
+
+$$
+\sum_{i=1}^k  \operatorname{balance}(s_i)
+$$
+
+This is a computation with `k` steps, so it would require about $2\log k$ transactions to resolve.
+
+However, we can make an ad-hoc fraud proof protocol that requires less rounds:
+
+1) Ingrid claims "I'm withdrawing for users $S = \left\{s_0, s_1, \dots, s_{k - 1}\right\}$, whose total balance is $T$".
+2) Anyone who spots that $T$ is wrong challenges Ingrid. "No, $T is wrong".
+3) Ingrid now has to reveal on-chain the individual balances of $S$: "Here is the list of user:balance in $S$: $[(s_0, b_0), \dots, (s_k, b_k)]$". The Script is only valid if the provided indices are the same (recomputing $root_S$, which must match), and the sum of the balances is $T$. The new $root_S'$ of the user:balance pairs is computed, and it is verified if indeed $T = \sum_{i=0}^k b_i)$.
+4) If Ingrid lied, at least 1 of the balances (say $b_t$ was wrong, and it can be exposed with two Merkle proofs (one to show the balance Ingrid claimed for $s_t$, and the other to show the real balance of user $s_t$).
+
+Therefore, in case Ingrid lies, just 3 transactions are enough to expose the fraud.
+
+As usual, only (1) is expected to happen in practice, and (2-4) only happens in case of fraud (or claims of fraud). That's why (1) and (3) are separated; publishing the list of users and balances is significantly more expensive than only the user indices (a few bytes for each user).
+
+In this version, step (3) would benefit from 64-bit arithmetic (although it is not too hard to simulate it with OP_CAT).
+
+---
+
+Note that if the size of $S$ is large (which might make sense in practice, since all the users want to get out anyway), then representing $S$ as an $n$-bit bitmap is way more efficient for very large $S$, and the $O(\log n)$-size fraud proof protocol is probably much more efficient in terms of bytes (as it does not require to post on-chain all the user balances).
+
+Of course, multiple version of the protocol might co-exist in different tapleaves.
+
+-------------------------
+
