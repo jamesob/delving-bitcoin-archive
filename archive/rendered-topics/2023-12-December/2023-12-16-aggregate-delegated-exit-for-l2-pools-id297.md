@@ -125,7 +125,7 @@ As additional context: the reason for burning some of the bond is to make sure t
 
 -------------------------
 
-salvatoshi | 2023-12-20 13:25:42 UTC | #4
+salvatoshi | 2023-12-20 15:06:16 UTC | #4
 
 A little postscript to detail how the fraud proofs needed in the protocol might look like, as I had time to brainstorm it a bit more.
 
@@ -160,7 +160,7 @@ In this version, step (3) would benefit from 64-bit arithmetic (although it is n
 
 Note that if the size of $S$ is large (which might make sense in practice, since all the users want to get out anyway), then representing $S$ as an $n$-bit bitmap is way more efficient for very large $S$, and the $O(\log n)$-size fraud proof protocol is probably much more efficient in terms of bytes (as it does not require to post on-chain all the user balances).
 
-Of course, multiple version of the protocol might co-exist in different tapleaves.
+Of course, multiple versions of the fraud proof protocol might co-exist in different tapleaves.
 
 -------------------------
 
