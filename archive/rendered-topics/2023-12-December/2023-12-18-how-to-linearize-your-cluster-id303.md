@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-19 20:50:08 UTC | #1
+sipa | 2023-12-20 03:59:33 UTC | #1
 
 # How to linearize your cluster
 
@@ -126,11 +126,11 @@ Incorporating this into the search algorithm we get:
     * Find a transaction $t$ not in $inc$ and not in $exc$ to split on.
     * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
     * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
-  * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
-    * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
-      * Set $best = inc_{new}$.
-    * If there are undecided transactions left (not in $inc_{new}$ or $exc_{new}$):
-      * Add $(inc_{new}, exc_{new})$ to $W$.
+    * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
+      * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+        * Set $best = inc_{new}$.
+      * If there are undecided transactions left (not in $inc_{new}$ or $exc_{new}$):
+        * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
 This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement, which very much does improve the worst case.
@@ -177,14 +177,15 @@ One thing that is unspecified so far is how to pick $t$, the transaction being a
 The choice matters; there appear to be a number of "good" choices which combined with the jump ahead optimization above result in an ~$\mathcal{O}(1.6^n)$ algorithm (purely empirical number, no proof), while others yield $\mathcal{O}(2^n)$.
 
 These all appear to be good choices, with no meaningful differences for the worst case between them:
-* Use as $t$ the highest-individual-feerate undecided transaction.
-* Use as $t$ the transaction for which splitting on its minimizes the search space the most (first maximize 
-$\operatorname{min}(|exc|+|inc \cup \operatorname{anc}(t)|,|exc \cup \operatorname{desc}(t)|+|inc|)$, then maximize the $\operatorname{max}$ of those values). This can be done over:
-  * All undecided transactions.
-  * All undecided transactions in $pot$.
-  * All undecided transactions that are ancestors or descendants of the highest-individual-feerate undecided transaction.
+1. Use as $t$ the highest-individual-feerate undecided transaction.
+2. Use as $t$ the transaction for which splitting on it minimizes the search space the most, among:
+    1. All undecided transactions.
+    2. All undecided transactions in $pot$.
+    3. All undecided transactions that are ancestors or descendants of the highest-individual-feerate undecided transaction.
 
-In particular the last two options appear to be good choices, with no clear winner among them. Specific clusters exist for which either of the algorithms performs significantly better than the other, but this works both ways.
+We measure the size of the search space simply as $2^{|undecided|}$, which is proportional to $2^{-|inc|-|exc|}$. The search space after a split on transaction $t$ therefore has a size proportional to $2^{-|inc\,\cup\,\operatorname{anc}(t)|-|exc|}+2^{-|inc|-|exc\,\cup\,\operatorname{desc}(t)|}$. Thus, to find the $t$ that results in the smallest search space, we maximize $\operatorname{min}(|inc\,\cup\,\operatorname{anc}(t)|+|exc|, |inc|+|exc\,\cup\,\operatorname{desc}(t)|)$, and as a tie-breaker use the maximum of those arguments.
+
+In particular options 2.2 and 2.3 appear to be good choices, with no clear winner among them. Specific clusters exist for which either of the algorithms performs significantly better than the other, but this works both ways.
 
 ### 2.5 Choosing work items
 
@@ -206,7 +207,7 @@ We can go further. By extending our definition of work item to $(inc, exc, pot)$
   * Ones that were not part of $pot$; adding these to $exc$ doesn't affect the potential set.
   * Ones that were part of $pot$, and thus has a feerate above that of $pot$. Adding these to $exc$ means the algorithm for undecided potential transactions will consider the same transactions (except these removed ones), but otherwise at best again continue for longer, and at worst stop at the same point.
 
-Finally, this change also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, where it can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$, which is sufficient to make sure undecided transactions remain, and faster than a feerate comparison (assuming set operations are implemented using bitsets).
+Finally, this change also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, where it can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$. This is sufficient to make sure undecided transactions remain, and is faster than a feerate comparison (assuming set operations are implemented using bitsets). If the check fails (so when $pot = inc$), then no improvement is possible, and adding a work item is useless. If it succeeds then it *is* possible that $\operatorname{feerate}(pot) \not> \operatorname{feerate}(best)$, but that will be detected once the item gets processed.
 
 * Let $W = \{(\emptyset,\emptyset, \emptyset)\}$.
 * Set $best = \emptyset$.
