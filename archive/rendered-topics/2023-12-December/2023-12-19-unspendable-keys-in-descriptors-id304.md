@@ -211,12 +211,6 @@ So properties (1), (2), (3) for output descriptors. And property (4) in addition
 
 -------------------------
 
-salvatoshi | 2023-12-19 15:40:16 UTC | #14
-
-(post deleted by author)
-
--------------------------
-
 salvatoshi | 2023-12-19 15:40:22 UTC | #15
 
 That’s a good point, I think you’re right!
