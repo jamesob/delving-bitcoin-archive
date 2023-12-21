@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 1.0,
   "yours": false,
   "topic_id": 312,
   "topic_slug": "package-aware-fee-estimator-post-cluster-mempool",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "CBlockPolicyEstimator assumes a transaction\u2019s confirmation status is always due to its actual fee rate. Due to the possibility that a transaction may be fee-bumping its parent, CBlockPolicyEstimator currently ignores all transactions with parents in the mempool upon addition.\n\nThis is to avoid mistakenly concluding that a transaction was mined due to its high fee rate when it has unconfirmed ancestors and was confirmed as a package relative to its ancestor score.\n\nCBlockPolicyEstimator ignoring all transactions with a parent in the mempool is better than making wrong assumptions.\n\nSome transactions tracked by the CBlockPolicyEstimator may have descendants and get confirmed through CPPF by a descendant\u2019s ancestor score, not the transaction\u2019s low fee rate. In such cases, CBlockPolicyEstimator incorrectly assumes that the transaction confirmation is due to the actual low fee rate, which is incorrect.\n\nThe CBlockPolicyEstimator has two issues:\n\n* Ignoring some data points (all transactions that have unconfirmed parents).\n* Having some incorrect data points (assuming transactions are always confirmed because of their fee rate when sometimes they are not).\n\nThis issue can potentially be solved post-cluster mempool.\n\nThe proposed solution involves tracking transactions in CBlockPolicyEstimator by their chunk mining score.\n\nCBlockPolicyEstimator should also additionally track the block height transaction mining score is improved, and also the updated mining score.\n\nWhen a transaction is added to the mempool.\n\n* CBlockPolicyEstimator should add a new entry with its mining score\n\nWhen a chunk mining score is updated CBlockPolicyEstimator should update the improved mining score of all the chunk transactions, and update all chunk transactions\u2019 last blockHeight mining score was improved with the current block height.\n\nIf a transaction is removed from the mempool for reasons other than BLOCK.\n\nCBlockPolicyEstimator should remove it as a failure.\n\nUpon receiving a new block\n\n* Categorize block transactions into clusters, linearize the clusters and get a series of chunks.\n* For all chunks in the new block.\n* If the fee estimator did not track any transactions in the chunk, remove the chunk transactions from the CBlockPolicyEstimator stats as failures.\n  * Rationale: The fee estimator should only track what it has seen in its mempool which was broadcasted to the network to avoid gameability by miners.\n  * If all the transactions in the chunk are in the CBlockPolicyEstimator mempool, and the block\u2019s chunk mining score matches the tracked CBlockPolicyEstimator\u2019s transactions improved mining score, remove all the chunk transactions from CBlockPolicyEstimator as successful. the blocks it takes to mine that chunk is the current block height - the block height the chunk mining score was last improved.\n* If all the chunk transactions are present in the CBlockPolicyEstimator mempool but the mining score differs,\n* ( I think this is only possible if a subset of the package is mined, for example, if an ancestor\u2019s fee rate has incentivized miners enough.)\n* Hence the chunk mining score should match the CBlockPolicyEstimator chunk sponsor transaction entry mining score.\n  * Remove the chunks transactions from CBlockPolicyEstimator tracking stats as success, the fee rate bucket that will be marked as success is the chunk sponsor entry mining score, and the number of blocks it takes takes to mine that chunk is the current block height - the block height the chunk sponsor was added to the mempool.\n\nQuestion:\n\n1. Linearization of the new block, what if it\u2019s different from how the miner built the block template?\n2. Why will the CBlockPolicyEstimator chunk mining score differ from the blocks chunk mining score? I can think of a scenario:  Only some subset of the chunk was mined, e.g an ancestor is mined alone, or some subset of a package\n3. Is it just better to track chunks?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
