@@ -115,3 +115,15 @@ Can you help me understand how does the block production rate affects the test?
 
 -------------------------
 
+amiti | 2023-12-21 18:03:33 UTC | #5
+
+>> every 10 minutes, select a random peer, mine a block
+
+> Is there any merit in mining blocks quicker to get faster feedback, perhaps while “testing the test”? [...] Can you help me understand how does the block production rate affects the test?
+
+the rate of block production is essentially the rate at which transactions are being removed from the mempool. so in theory, we can mining block faster - eg, every 5 minutes - and scale the tx creation rate results by a factor of 2. however, bitcoin core has some tx relay values that wouldn't automatically scale, and thus skew results - [some examples](https://github.com/bitcoin/bitcoin/blob/44d8b13c81e5276eb610c99f227a4d090cc532f6/src/net_processing.cpp#L96-L103). 
+
+but maybe mocktime fixes this?
+
+-------------------------
+
