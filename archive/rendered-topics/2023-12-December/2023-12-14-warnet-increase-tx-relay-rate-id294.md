@@ -101,3 +101,17 @@ one aspect I’m still trying to grok is the asymmetry of rates between inbound 
 
 -------------------------
 
+m3dwards | 2023-12-21 11:23:16 UTC | #4
+
+I'm putting this test together with warnet but I have a question regarding:
+
+[quote="ajtowns, post:2, topic:294"]
+every 10 minutes, select a random peer, mine a block
+[/quote]
+
+Is there any merit in mining blocks quicker to get faster feedback, perhaps while "testing the test"?
+
+Can you help me understand how does the block production rate affects the test?
+
+-------------------------
+

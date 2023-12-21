@@ -51,3 +51,17 @@ Question:
 
 -------------------------
 
+glozow | 2023-12-21 11:11:07 UTC | #2
+
+> is it just better to track chunks?
+
+My mental model for package aware fee estimation is that the fee estimator essentially tracks "bids" consisting of block height + feerate, and block processing sees which bids succeeded in how many blocks. A CPFP is a new bid that overrides the original one, though the original tx could theoretically be mined by itself, so I guess the hard part is checking which bids were "accepted."
+
+Theoretically, a chunk can represent a bid, i.e. count as 1 data point. In the case of, say, an ephemeral anchors commitment transaction + sponsor, the idea is the transactions are inseparable and the package can be treated as a single transaction. All CPFPs, including batched ones, are like new bid for 1 big transaction at the chunk feerate.
+
+And in practice, most clusters are probably 1 transaction, and most chunks will probably be mined in tact (?).
+
+So yes, maybe just track chunks? Or I guess you could track chunks + the individual transactions, and only use exact matches after you linearize the block?
+
+-------------------------
+
