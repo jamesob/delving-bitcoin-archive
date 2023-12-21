@@ -80,3 +80,24 @@ In particular, my expectation is that if you increase the sustained tx creation 
 
 -------------------------
 
+amiti | 2023-12-20 21:54:22 UTC | #3
+
+overall this proposal makes a lot of sense to me. thanks @ajtowns :) 
+
+a couple thoughts & questions: 
+> maybe reduce `MAX_OUTBOUND_FULL_RELAY_CONNECTIONS` from 8 to 5 (to simulate the greater distance between nodes in a network of 10k-100k nodes, despite only having 100 nodes)
+
+we can test out more than 100 nodes, but reducing this number still make senses to me. I'd be curious to see both 4 and 8 to see if the patterns match our expectations. so, I'm proposing adding this as one of the initial parameters. 
+
+> once a block reward matures, create a tx splitting the reward into 0.1 BTC outputs at a 500sat/vb feerate
+
+is the point of this suggestion to have an arbitrary but deterministic technique for creating plenty of UTXOs to support whatever general transaction patterns we are interested in?
+
+> In particular, my expectation is that if you increase the sustained tx creation rate above 18 tx/s you’ll start to get inconsistent mempools and the “txn requested” number may rise.
+
+this sounds like a good way to test-the-test: with whatever initial setups are chosen, keep increasing the tx creation rate until we see the tx requested number rise, to identify when functionality is starting to deteriorate. 
+
+one aspect I’m still trying to grok is the asymmetry of rates between inbound & outbound peers. the current patch proposes 14tx/s for inbound, and we have the 2.5x multiplier for outbound peers. how do we compare these node level values with whatever we find to be reasonable at the network level?
+
+-------------------------
+
