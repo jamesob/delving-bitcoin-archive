@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 10,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 51.6,
+  "incoming_link_count": 14,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 86.8,
   "yours": false,
   "topic_id": 314,
   "topic_slug": "denial-of-service-bugs-in-lnds-channel-update-gossip-handling",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This is a write-up of two denial-of-service bugs I found in [LND](https://github.com/lightningnetwork/lnd) at the end of 2021. Users do not need to take any action at this time, as the initial fixed versions are themselves superseded due to other [exploited](https://github.com/lightningnetwork/lnd/security/advisories/GHSA-hc82-w9v8-83pr) and [disclosed](https://morehouse.github.io/lightning/fake-channel-dos/) vulnerabilities.\n\n# (1) Premature `channel_update` denial-of-service\n\nLND prior to [v0.14.0](https://github.com/lightningnetwork/lnd/releases/tag/v0.14.0-beta) was vulnerable to denial-of-service by running out of memory from unconditionally storing premature channel updates.\n\n## Details\n\nWhen a channel is first established between two parties, three gossip messages will be broadcast to the network: a `channel_announcement` and two `channel_update`s (one for each channel direction). During the propagation of these messages, a race may occur in which the channel updates are received prior to the channel announcement. The receiving node can not validate these premature channel updates, as the channel announcement contains the public keys that correspond to the signatures in the updates.\n\nTo address this race, LND used a buffer for temporarily storing premature channel updates until the channel announcement is received. Unfortunately the size of this buffer was unbounded and an attacker could fill it with entirely invalid updates, leading the victim to run out of memory. As with any crash bug in lightning node software, this comes with a **risk of loosing funds**.\n\nThe issue was fixed in [PR #5902](https://github.com/lightningnetwork/lnd/pull/5902) by replacing the unbounded buffer with a limited cache that can hold up to 100 premature updates.\n\nFun fact: The issue was [fixed](https://github.com/lightningnetwork/lnd/pull/4895) earlier in Jan. 2021 by removing the buffer entirely but it is unclear whether or not that was intentional, as the fix was later [rolled back](https://github.com/lightningnetwork/lnd/pull/5003) due to flaky tests.\n\n# (2) `channel_update` signature validation after rate limiting\n\nLND prior to [v0.15.0](https://github.com/lightningnetwork/lnd/releases/tag/v0.15.0-beta) was vulnerable to channel update gossip censorship.\n\n## Details\n\nIn the lightning protocol, there is no inherent cost to creating and broadcasting `channel_update` messages besides having to sign them. To address this, all lightning implementations rate limit how many channel updates they will relay within a given time frame (to prevent gossip spam on the network).\n\nLND used to check signatures of channel updates after applying its relay rate limits. As consequence, an attacker could censor channel updates for any channel from propagating by creating invalid channel updates and spamming them to LND nodes (causing any new valid updates from the victim to be ignored).\n\nThe issue was fixed in [PR #6278](https://github.com/lightningnetwork/lnd/pull/6278) by ensuring that signature validation of channel updates happens prior to applying the rate limits.\n\n# Timeline\n\nDisclosure timeline for both bugs:\n\n- 19-10-2021: Initial disclosure to Lightning Labs\n- 05-11-2021: (1) fixed: [https://github.com/lightningnetwork/lnd/pull/5902](https://github.com/lightningnetwork/lnd/pull/5902)\n- 17-11-2021: v0.14.0 released\n- 16-03-2022: (2) fixed: [https://github.com/lightningnetwork/lnd/pull/6278](https://github.com/lightningnetwork/lnd/pull/6278)\n- 24-06-2022: v0.15.0 released\n- 21-12-2023: Public disclosure\n\n---\n\nSupport security focused Bitcoin research and development by [donating to Brink](https://brink.dev/donate).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
