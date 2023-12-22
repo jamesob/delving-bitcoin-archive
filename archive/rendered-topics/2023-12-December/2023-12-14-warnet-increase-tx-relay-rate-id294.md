@@ -127,3 +127,9 @@ but maybe mocktime fixes this?
 
 -------------------------
 
+ajtowns | 2023-12-22 03:04:11 UTC | #6
+
+I think it would be possible to get accurate results faster with mocktime, but I think it'd require a lot of care to get that right, and it would probably be easier to have a real-time baseline to compare against.
+
+-------------------------
+
