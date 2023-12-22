@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 15,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 92.2,
+  "incoming_link_count": 22,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 143.0,
   "yours": false,
   "topic_id": 314,
   "topic_slug": "denial-of-service-bugs-in-lnds-channel-update-gossip-handling",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -58,10 +58,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
