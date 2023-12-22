@@ -59,9 +59,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "clap",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
