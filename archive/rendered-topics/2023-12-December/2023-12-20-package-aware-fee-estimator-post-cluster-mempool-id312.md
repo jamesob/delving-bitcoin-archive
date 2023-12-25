@@ -148,3 +148,18 @@ I the case you mentioned the block height  P entered the mempool - block height 
 
 -------------------------
 
+ajtowns | 2023-12-25 10:42:32 UTC | #8
+
+I think you could have an arrangement:
+
+ * T=0600 chunk: A, feerate 20 sat/vb
+ * T=0800 chunk: A B, feerate 50 sat/vb
+ * T=1000 chunk: A B C, feerate 80 sat/vb
+ * T=1500 chunks: [A D] feerate 100 sat/vb, [B] feerate 90 sat/vb, [C] feerate 85 sat/vb
+
+That is, B C and D all CPFP A, but D does so at a much higher feerate than B or C.
+
+In that case B and C have been in the mempool since 0800 and 1000 respectively, but should perhaps only be considered to have been in the mempool at 90sat/vb and 85sat/vb since T=1500.
+
+-------------------------
+
