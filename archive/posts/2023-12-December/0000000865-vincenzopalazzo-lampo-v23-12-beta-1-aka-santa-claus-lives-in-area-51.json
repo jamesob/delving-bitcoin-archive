@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 6.2,
   "yours": false,
   "topic_id": 321,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "First of all, Merry Christmas!\n\nIn my free time, I have been working on a lightning node using LDK, which I've named [Lampo](https://github.com/vincenzopalazzo/lampo.rs) (Italian for lightning), for more than 1.5 years.\n\nThe initial draft was developed as a toy lightning node to support lnprototest [1] for LDK. During its development, I realized I was nearing the completion of a small, self-contained SDK for building a lightning node with LDK. So, in March, I decided to take a shot at implementing a full node using the Lampo SDK.\n\nI have currently supported the first basic commands listed in the following part of the code [2] (admittedly, it's not ideal, but a help command is on the way), and things seem to be working. I am also close to having integration tests between c-lightning (cln) and Lampo, in addition to including lnprototest protocol tests.\n\nHoping to attract users and contributors, I am excited to release the first public beta version v23.12 today and begin receiving initial feedback on features most desired by the community. However, I cannot promise that I will implement them all\u2014though patches are certainly welcome, of course.\n\n[1] https://github.com/rustyrussell/lnprototest\n\n[2] https://github.com/vincenzopalazzo/lampo.rs/blob/0b17902058329f5cd723411c582067da2b32c65f/lampod-cli/src/main.rs#L175-L181\n\n[3] https://twitter.com/i/communities/1736414802849706087",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
