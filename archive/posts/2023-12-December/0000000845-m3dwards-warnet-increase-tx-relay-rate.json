@@ -12,8 +12,8 @@
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
+  "reads": 13,
+  "readers_count": 12,
   "score": 7.2,
   "yours": false,
   "topic_id": 294,
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I'm putting this test together with warnet but I have a question regarding:\n\n[quote=\"ajtowns, post:2, topic:294\"]\nevery 10 minutes, select a random peer, mine a block\n[/quote]\n\nIs there any merit in mining blocks quicker to get faster feedback, perhaps while \"testing the test\"?\n\nCan you help me understand how does the block production rate affects the test?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

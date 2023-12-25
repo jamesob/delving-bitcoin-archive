@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 18.6,
   "yours": false,
   "topic_id": 312,
   "topic_slug": "package-aware-fee-estimator-post-cluster-mempool",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "> is it just better to track chunks?\n\nMy mental model for package aware fee estimation is that the fee estimator essentially tracks \"bids\" consisting of block height + feerate, and block processing sees which bids succeeded in how many blocks. A CPFP is a new bid that overrides the original one, though the original tx could theoretically be mined by itself, so I guess the hard part is checking which bids were \"accepted.\"\n\nTheoretically, a chunk can represent a bid, i.e. count as 1 data point. In the case of, say, an ephemeral anchors commitment transaction + sponsor, the idea is the transactions are inseparable and the package can be treated as a single transaction. All CPFPs, including batched ones, are like new bid for 1 big transaction at the chunk feerate.\n\nAnd in practice, most clusters are probably 1 transaction, and most chunks will probably be mined in tact (?).\n\nSo yes, maybe just track chunks? Or I guess you could track chunks + the individual transactions, and only use exact matches after you linearize the block?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

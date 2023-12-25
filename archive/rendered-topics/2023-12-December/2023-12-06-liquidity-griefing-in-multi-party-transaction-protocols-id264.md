@@ -305,3 +305,19 @@ Just a sketch at this point, but something to consider if you're already thinkin
 
 -------------------------
 
+morehouse | 2023-12-22 21:52:24 UTC | #8
+
+[quote="instagibbs, post:7, topic:264"]
+The future post-cluster mempool scheme I have in mind is pretty simple: v3 would be relaxed to on the order of “must be in top block to enter mempool”. This makes pinning essentially impossible unless the attacker somehow knows the top-rate backlog is going to get bad shortly in the future, and should protect against witness inflation and the like. Would allow for pin-resistant batch CPFP, would mean you don’t necessarily need no unconfirmed ancestors, should make ANYONECANPAY usage more safe(like HTLC second stage txns) etc.
+[/quote]
+
+Indeed, an opt-in top block policy seems to prevent witness inflation (and other pinning attacks).
+
+But even with such a policy, there still remains the issue of conflicting transactions, which don't have to follow any opt-in rules.  At the end of the joint transaction negotiation, an attacker can broadcast a low feerate conflicting transaction that opts out of the top block policy and pin it with low feerate descendants up to the cluster limit.  With good timing and connectivity, the attacker can partition mempools such that the victim is unaware of the conflicting transaction, yet the honest joint transaction cannot propagate.
+
+In the worst case, the victim's liquidity is locked up until the conflicting transaction confirms.  In the better case, the victim can reduce the severity of the griefing by unlocking UTXOs if confirmation is taking much longer than expected.  Unfortunately, the victim still has their liquidity locked up until the timeout occurs, and they will need to pay a small RBF penalty fee to get any double-spend transaction accepted into their own mempool if the conflicting transaction hasn't confirmed.
+
+We already have this problem with opt-in RBF, with the eventual solution being mandatory RBF (full RBF).  I'm not sure we want do the same with the top block policy, though.
+
+-------------------------
+

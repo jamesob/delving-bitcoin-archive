@@ -12,9 +12,9 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 6.6,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 6.8,
   "yours": false,
   "topic_id": 294,
   "topic_slug": "warnet-increase-tx-relay-rate",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": ">> every 10 minutes, select a random peer, mine a block\n\n> Is there any merit in mining blocks quicker to get faster feedback, perhaps while \u201ctesting the test\u201d? [...] Can you help me understand how does the block production rate affects the test?\n\nthe rate of block production is essentially the rate at which transactions are being removed from the mempool. so in theory, we can mining block faster - eg, every 5 minutes - and scale the tx creation rate results by a factor of 2. however, bitcoin core has some tx relay values that wouldn't automatically scale, and thus skew results - [some examples](https://github.com/bitcoin/bitcoin/blob/44d8b13c81e5276eb610c99f227a4d090cc532f6/src/net_processing.cpp#L96-L103). \n\nbut maybe mocktime fixes this?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": false,
   "staff": true,
@@ -54,8 +59,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

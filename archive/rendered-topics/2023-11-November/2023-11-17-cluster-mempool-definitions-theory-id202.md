@@ -1,16 +1,18 @@
 # Cluster mempool definitions & theory
 
-sipa | 2023-12-11 16:39:01 UTC | #1
+sipa | 2023-12-24 14:49:17 UTC | #1
 
 # Cluster mempool theory
+
+<div data-theme-toc="true"> </div>
 
 ## Transaction graphs and clusters
 
 ***Definition***. A **transaction graph**, or in cluster mempool context, just **graph**, is a [directed acyclic graph](https://en.wikipedia.org/wiki/Directed_acyclic_graph) (DAG), with *n* vertices (also called **transactions**), where each vertex is labelled with a **fee** (an integer) and a **size** (a strictly positive integer). If an edge from node *c* to node *p* exists, *p* is called a **parent** or **dependency** of *c*, and *c* a **child** of *p*. In other words, transaction graphs are dependency graph whose vertices point to their dependencies.
 
-***Definition***. Given a graph *G* and a transaction *x* in it, the **ancestor set** $\operatorname{anc}(x)$ of *x* is the set of all transactions which can be [reached](https://en.wikipedia.org/wiki/Reachability) from *x* (this always includes *x* itself).
+***Definition***. Given a graph *G* and a transaction *x* in it, the **ancestor set** $\operatorname{anc}_G(x)$ of *x* is the set of all transactions which can be [reached](https://en.wikipedia.org/wiki/Reachability) from *x* (this always includes *x* itself). For sets $S$, we define $\operatorname{anc}_G(S) = \cup_{x \in S} \operatorname{anc}_G(x)$, the union of the ancestor sets of all the transactions in the set.
 
-***Definition***. Given a graph *G* and a transaction *x* in it, the **descendant set** $\operatorname{des}(x)$ of *x* is the set of all transactions from which *x* can be reached.
+***Definition***. Given a graph *G* and a transaction *x* in it, the **descendant set** $\operatorname{desc}_G(x)$ of *x* is the set of all transactions from which *x* can be reached. For sets $S$, we define $\operatorname{desc}_G(S) = \cup_{x \in S} \operatorname{desc}_G(x)$, the union of the descendant sets of all the transactions in the set.
 
 ***Definition***. A **cluster** is a [connected component](https://en.wikipedia.org/wiki/Component_(graph_theory)) of a graph *ignoring direction*. In other words, for any two transactions in a cluster it is possible to go from one to the other by making a sequence of steps, each traveling along an edge in either forward or backward direction. The clusters of a graph form a [partition](https://en.wikipedia.org/wiki/Partition_of_a_set) of its vertices, and the **cluster of a transaction** is the connected component which that transaction is part of. It can be found as the [transitive closure](https://en.wikipedia.org/wiki/Transitive_closure) of the "is parent or child of" relation on the singleton of the given transaction.
 
@@ -32,7 +34,7 @@ In this example there are two clusters: $\{t_1, t_2, t_3, t_5, t_6\}$ and $\{t_4
 
 ## Linearizations and chunks
 
-***Definition***. A **topological subset** $S$ of a graph is a subset of its transactions that includes all ancestors of all its elements. In other words, $S$ is topological subset iff $\forall t \in S: \operatorname{anc}(t) \subset S$.
+***Definition***. A **topological subset** $S$ of a graph $G$ is a subset of its transactions that includes all ancestors of all its elements. In other words, $S$ is topological subset of $G$ iff $\operatorname{anc}_G(S) = S$.
 
 ***Definition***. A **linearization** $L$ for a given graph $G$ is a permutation of its transactions in which parents appear before children. In other words, $L = (t_1, t_2, \ldots, t_n)$ is a linearization of $G$ if $\{t_1, t_2, \ldots, t_k\}$ is a topological subset of $G$ for all $k = 1 \ldots n$. A linearization is thus a [topological sort](https://en.wikipedia.org/wiki/Topological_sorting) of the graph vertices.
 
@@ -58,11 +60,11 @@ Note that in practice, we will only work with chunkings of individual clusters, 
   * Let $c = \{t_1, t_2, \ldots, t_k\}$.
   * $\operatorname{chunks}(L) = (c) + \operatorname{chunks}(L[\{t_{k+1}, \ldots n\}])$.
 
-In other words, $\operatorname{chunks}$ constructs the chunking of a linearization consisting of successively best remaining prefices of that linearization.
+In other words, $\operatorname{chunks}$ constructs the chunking of a linearization consisting of successively best remaining prefixes of that linearization.
 
 ***Theorem***. The corresponding chunking $\operatorname{chunks}(L)$ is a valid chunking for $G$.
 
-***Proof***. All criteria for a valid chunking are fullfilled:
+***Proof***. All criteria for a valid chunking are fulfilled:
 * All transactions that occurred in $L$ (which are all transactions in $G$) will appear in $\operatorname{chunks}(L)$ once.
 * Every prefix of chunks is topological, because each corresponds to a prefix of $L$ (which are topological for any valid linearization).
 * The feerates are monotonically decreasing. If that wasn't the case, the chosen $k$ would violate the "no $f_j > f_k$" rule.
@@ -81,7 +83,7 @@ In other words, $\operatorname{chunks}$ constructs the chunking of a linearizati
 * In other words, $\operatorname{diag}_C$ is a function from cumulative fees to cumulative sizes. When evaluated in the size of a prefix of chunks in $C$, it gives the fee in that prefix. For other values it linearly interpolates between those points.
 * The feerate diagram of a linearization is that of its corresponding chunking.
 
-***Theorem***. The feerate diagram $\operatorname{diag}_L$ of a linearization $L = (t_1, t_2, \ldots, t_n)$ is the minimal concave function for which for every $k = 0 \ldots n$ it holds that $\operatorname{diag}_L(\operatorname{size}(\{t_1, t_2, \ldots, t_k\}) \geq \operatorname{fee}(\{t_1, t_2, \ldots, t_k\})$. As such, it gives an overestimate for the fees in all prefices of a linearization. In other words, the grouping of transactions performed by $\operatorname{chunks} exactly corresponds to the straight line segments resulting from requiring the feerate diagram to be concave. [no proof]
+***Theorem***. The feerate diagram $\operatorname{diag}_L$ of a linearization $L = (t_1, t_2, \ldots, t_n)$ is the minimal concave function for which for every $k = 0 \ldots n$ it holds that $\operatorname{diag}_L(\operatorname{size}(\{t_1, t_2, \ldots, t_k\}) \geq \operatorname{fee}(\{t_1, t_2, \ldots, t_k\})$. As such, it gives an overestimate for the fees in all prefixes of a linearization. In other words, the grouping of transactions performed by $\operatorname{chunks}$ exactly corresponds to the straight line segments resulting from requiring the feerate diagram to be concave. [no proof]
 
 ***Definition***. We define a **[preorder](https://en.wikipedia.org/wiki/Preorder)** on linearizations/chunkings for the same graph $G$ by comparing their feerate diagrams:
 * Two linearizations are equivalent if their feerate diagrams coincide: $L_1 \sim L_2 \iff \forall x \in [0, \operatorname{size}(G)]: \operatorname{diag}_{L_1}(x) = \operatorname{diag}_{L_2}(x)$.
@@ -94,7 +96,7 @@ In other words, $\operatorname{chunks}$ constructs the chunking of a linearizati
 
 ## Transformations on linearizations
 
-***Theorem***. The **chunk reordering theorem**: reordering a linearization with changes restricted to a single chunk results leaves it at least as good, provided the result is still a valid linearization (i.e., its prefices are topological).
+***Theorem***. The **chunk reordering theorem**: reordering a linearization with changes restricted to a single chunk results leaves it at least as good, provided the result is still a valid linearization (i.e., its prefixes are topological).
 
 ***Proof***. Every prefix of chunks in the original linearization remains a prefix of transactions in the new linearization. Because the new feerate diagram is the minimal concave function not below these points, and these points form the old feerate diagram, the new feerate diagram cannot be below the old one.
 
@@ -148,39 +150,6 @@ The slope of the line from $(0,0)$ to $\alpha P(\zeta_0)$ is $\operatorname{feer
 
 Thus, $\operatorname{ndiag}$, an underestimate for the feerate diagram of $L'$, is always at least as high as $\operatorname{diag_L}$, the feerate diagram of $L$. We conclude that $L' \gtrsim L$.
 
-
-## Optimal linearizations
-
-***Definition***. An **optimal linearization/chunking** for a graph is one which sorts higher or equal than every other linearization/chunking for the same graph. Note that this implies that optimal linearizations/chunkings are comparable with every other linearization/chunking. An optimal linearization/chunking is a [greatest element](https://en.wikipedia.org/wiki/Greatest_element_and_least_element) of the set of all linearizations/chunkings of a graph.
-
-***Theorem***. **Every graph has at least one optimal linearization/chunking**. An equivalent theorem is that if one has two incomparable linearizations/chunkings for a graph, then another linearization/chunking must exist which is strictly better than both. Optimal linearizations/chunkings are all equivalent to one another (if there are multiple), and all are strictly better than every non-optimal linearization/chunking.
-
-***Proof***.
-
-* Choose a consistent but otherwise arbitrary total ordering $R_1$ on the set of sets of transactions.
-* Choose a consistent but otherwise arbitrary total ordering $R_2$ on the set of sequences of transactions.
-* Define the function $\operatorname{opt}(G)$, for a given graph $G$ as follows:
-  * If $G$ is empty, return the empty sequence: $\operatorname{opt}(G) = ()$.
-  * Otherwise:
-    * Let $S$ be the highest-feerate subset of $G$. If there are multiple, pick the first one according to $R_1$.
-    * Let $L_S$ be the first valid linearization of $S$ according to $R_2$.
-    * $\operatorname{opt}(G) = L_S + \operatorname{opt}(G \setminus S)$.
-
-We prove that $\operatorname{opt}(G) \gtrsim L$ for any valid linearization $L$ of $G$, and is thus an optimal linearization of $G$. First we introduce an equivalent function that takes an existing linearization as input:
-* Define the function $\operatorname{optlin}(G, L)$ for a given graph $G$ and corresponding linearization $L$ as follows:
-  * If $G$ (and thus $L$) is empty, $\operatorname{optlin}(G, L) = ()$.
-  * Otherwise:
-    * Let $L_1 = L[S] + L[G \setminus S]$.
-    * Let $L_2 = L_S + L[G \setminus S]$.
-    * Let $L_3 = L_S + \operatorname{optlin}(G \setminus S, L[G \setminus S])$. 
-    * $\operatorname{optlin}(G, L) = L_3$.
-
-Only the intermediary variables $L_1$ and $L_2$ actually depend on the input $L$, so $\operatorname{optlin}(G, L) = \operatorname{opt}(G)$ for any $L$.
-
-By induction we can however also prove that $\operatorname{optlin}(G, L) \gtrsim L$ for any $L$. By the gathering theorem, $L_1 \gtrsim L$, because the highest-feerate subset $S$ clearly has no chunk with lower feerate than the highest chunk feerate in $L$. By the chunk reordering theorem, $L_2 \gtrsim L_1$, as only one chunk's transactions were affected. By the induction hypothesis, $\operatorname{optlin}(G \setminus S, L[G \setminus S])$ $\gtrsim$ $ L[G \setminus S]$, and thus by the stripping theorem, $L_3 \gtrsim L_2$. Thus, $\operatorname{optlin}(G, L) = L_3 \gtrsim L_2 \gtrsim L_1 \gtrsim L$.
-
-All together, we found a single linearization that is $\gtrsim$ every linearization, so $\operatorname{opt}(G)$ is an optimal linearization of $G$.
-
 ## Merging linearizations
 
 ***Definition***. Let $\operatorname{merge}(G, L_1, L_2)$ be the function on graphs $G$ with valid linearizations $L_1$ and $L_2$, defined as follows:
@@ -191,10 +160,54 @@ All together, we found a single linearization that is $\gtrsim$ every linearizat
   * If $\operatorname{feerate}(c_1) > \operatorname{feerate}(c_2)$, swap $L_1$ with $L_2$ (and $c_1$ with $c_2$).
   * Let $L_3 = L_1[c_2]$, the first chunk of $L_2$, using the order these transactions have in $L_1$.
   * Let $(c_3, \ldots) = \operatorname{chunks}(L_3)$.
-  * Let $L_4 = L_3[c_3]$, the linearization of the first chunk of $L_3$.
+  * Let $L_4 = L_3[c_3] = L_1[c_3]$, the linearization of the first chunk of $L_3$.
   * $\operatorname{merge}(G, L_1, L_2) = L_4 + \operatorname{merge}(G \setminus c_3, L_1[G \setminus c_3], L_2[G \setminus c_3])$.
 
-***Theorem***. $\operatorname{merge}(G, L_1, L_2) \geq L_1$ and $\operatorname{merge}(G, L_1, L_2) \geq L_2$.
+***Theorem***. $\operatorname{merge}(G, L_1, L_2) \gtrsim L_1$ and $\operatorname{merge}(G, L_1, L_2) \gtrsim L_2$.
+
+***Proof***.
+
+The theorem is trivially true for empty $G$. For others, we use induction:
+* First note that $\operatorname{feerate}(c_3) \geq \operatorname{feerate}(c_1)$:
+  * After the optional swapping step it must be the case that $\operatorname{feerate}(c_2) \geq \operatorname{feerate}(c_1)$.
+  * Further, $\operatorname{feerate}(c_3) \geq \operatorname{feerate}(c_2)$, because $L_3$ contains the same transactions as $c_2$. If the $\operatorname{chunks}$ operation on $L_3$ finds nothing better, it will pick the entirety of $L_3$ as $c_3$, which has the same feerate as $c_2$.
+* Now define the following:
+  * Let $L_1' = L_4 + L_1[G \setminus c_3]$. By the gathering theorem, $L_1' \gtrsim L_1$, as it is bringing a topologically valid sublinearization ($L_4 = L_1[c_3]$) to the front, and it has just a single chunk ($c_3$), whose feerate is $\geq \operatorname{feerate}(c_1)$, the highest feerate in $L_1$.
+  * Let $L_2' = L_4 + L_2[G \setminus c_3]$. By the chunk reordering them, $L_2' \gtrsim L_2$, as $L_2'$ equals $L_2$ apart from its first chunk ($c_3 \subset c_2$).
+* By the induction hypothesis, $\operatorname{merge}(G \setminus c_3, L_1[G \setminus c_3], L_2[G \setminus c_3]) \gtrsim L_1[G \setminus c_3]$, and thus by the stripping theorem, $L_4 + \operatorname{merge}(G \setminus c_3, L_1[G \setminus c_3], L_2[G \setminus c_3]) \gtrsim L_4 + L_1[G \setminus c_3] = L_1'$. The same reasoning applies to $L_2'$.
+* Put together, $\operatorname{merge}(G, L_1, L_2) \gtrsim L_1' \gtrsim L_1$ and $\operatorname{merge}(G, L_1, L_2) \gtrsim L_2' \gtrsim L_2$.
+
+***Variations***. A number of variations on this algorithm are possible which do not break the proof above:
+* Whenever a non-empty prefix $P$ is shared by $L_1$ and $L_2$, it can be skipped (this follows directly from the stripping theorem), so if $L_1 = P + A$ and $L_2 = P + B$, then one can define $\operatorname{merge}(G, L_1, L_2) = P + \operatorname{merge}(G \setminus P, A, B)$.
+* Instead of only considering the first chunk of $L_2$ in the order of $L_1$, it's possible to also consider the first chunk of $L_1$ in the order of $L_2$, and then pick the first chunk of the one of those two which has the higher feerate.
+
+
+## Optimal linearizations
+
+***Definition***. An **optimal linearization/chunking** for a graph is one which sorts higher or equal than every other linearization/chunking for the same graph. Note that this implies that optimal linearizations/chunkings are comparable with every other linearization/chunking. An optimal linearization/chunking is a [greatest element](https://en.wikipedia.org/wiki/Greatest_element_and_least_element) of the set of all linearizations/chunkings of a graph.
+
+***Theorem***. The set of linearizations/chunkings of a graph, with the preorder relation defined above, forms an  (upward) **[directed set](https://en.wikipedia.org/wiki/Directed_set)**.
+
+***Proof***. From the properties of the $\operatorname{merge}$ algorithm it follows that for any two linearizations $L_1$ and $L_2$ there exists a $L_3 = \operatorname{merge}(G, L_1, L_2)$ such that $L_3 \gtrsim L_1$ and $L_3 \gtrsim L_2$.
+
+***Theorem***. **Every graph has at least one optimal linearization/chunking**. 
+
+***Proof***. In a directed set, every [maximal element](https://en.wikipedia.org/wiki/Maximal_and_minimal_elements) is a greatest element. Every finite preordered set has at least one maximal element. In a directed set, that element is a greatest element too.
+
+***Definition***. For a given total ordering $R_1$ on the set of sets of transactions, and a total ordering $R_2$ on the set of sequences of transactions, define the function $\operatorname{opt}_{R_1,R_2}(G)$, for a given graph $G$ as follows:
+* If $G$ is empty, return the empty sequence: $\operatorname{opt}_{R_1,R_2}(G) = ()$.
+* Otherwise:
+  * Let $S$ be the highest-feerate subset of $G$. If there are multiple, pick the first one according to $R_1$.
+  * Let $L_S$ be the first valid linearization of $S$ according to $R_2$.
+  * $\operatorname{opt}_{R_1,R_2}(G) = L_S + \operatorname{opt}_{R_1,R_2}(G \setminus S)$.
+
+***Theorem***. $\operatorname{opt}_{R_1,R_2}(G)$ is an optimal linearization of $G$.
+
+***Proof***. Assume $L = \operatorname{opt}_{R_1,R_2}(G)$ is not an optimal linearization of $G$. We already know an actual optimal linearization $L_{opt}$ must exist though, so $L_{opt} > L$.
+
+There must be a first chunk in the chunking of $L$ where the fee-size diagram differs with $L_{opt}$. Let $p$ be the set of all transactions in $L$ in chunks before that point. Let $L_{opt}' = L[p] + L_{opt}[G \setminus p]$, i.e. the linearization obtained by moving the diagram-equal $L$ chunks to the front in $L_{opt}$. By repeatedly applying the gathering and stripping theorem, $L_{opt}' \gtrsim L_{opt}$. Because $L_{opt}$ is optimal this implies $L_{opt}' \sim L_{opt} > L$. $L_{opt}'$ and $L$ both start with the same chunks, so by removing them we get $L_{opt}[G \setminus p] > L[G \setminus p]$. $L[G \setminus p] = \operatorname{opt}_{R_1,R_2}(G \setminus p)$ however, and it starts by picking the highest-feerate subset of $(G \setminus p)$, and yet $L_{opt}[G \setminus p]$ starts with a better chunk. This is a contradiction.
+
+For how to compute $\operatorname{opt}(G)$ efficiently, see [How to linearize your cluster](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303).
 
 ## Connected chunks
 
@@ -418,6 +431,12 @@ TIL about [directed sets](https://en.wikipedia.org/wiki/Directed_set): sets with
 In a directed set, every maximal element ($m$ is maximal if no $x > m$ exists) is a greatest element ($m$ is greatest if for every $x$ it holds that $m \geq x$).
 
 Linearizations (and chunkings) of graphs/clusters are directed sets (with $\gtrsim$ as the direction). The merge-intersection algorithm computes the $c$ mentioned above given $a$ and $b$. The "move highest feerate subset to front, continue with remainder" algorithm by construction computes a maximal element, which is thus a greatest element. "Optimal linearization" is the name we have for greatest element.
+
+-------------------------
+
+sipa | 2023-12-24 01:51:21 UTC | #9
+
+I've incorporated this "directed set" idea. Existence of an optimal linearization now follows from the merging algorithm, and with that knowledge, a simpler proof is possible that $\operatorname{opt}(G)$ is optimal.
 
 -------------------------
 

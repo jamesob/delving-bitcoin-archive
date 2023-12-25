@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "incoming_link_count": 2,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 12.4,
   "yours": false,
   "topic_id": 313,
   "topic_slug": "verification-of-risc-v-execution-using-op-ccv",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi, I just posted a proof of concept tool that can trace the execution of RISCV-32 binaries (ELFs), and generate Bitcoin script that can be used to verify this execution on-chain: [Bitcoin Elftrace](https://github.com/halseth/elftrace)\n\nIt relies on the OP_CHECKCONTRACTVERIFY covenant opcode from [MATT](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021182.html).\n\nThe way it uses is OP_CCV is by committing to a single 32-bit hash (a merkle root) in the output, then the spender of this transaction will modify this root according to the rules and commit the new root in the new output. \n\nSo essentially is just needs a covenant opcode that lets you enforce the embedding of a dynamic piece of data in the output and a (static) taptree. This is exaclty what OP_CCV enables, but perhaps some of the other covenant proposals could be used for the same purpose.\n\nFeedback appreciated!\n\nTLDR: https://twitter.com/johanth/status/1737778712987287990",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -53,10 +58,15 @@
     {
       "id": "heart",
       "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
