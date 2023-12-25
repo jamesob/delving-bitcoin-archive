@@ -163,3 +163,13 @@ In that case B and C have been in the mempool since 0800 and 1000 respectively, 
 
 -------------------------
 
+ismaelsadeeq | 2023-12-25 12:25:27 UTC | #9
+
+Interesting, this will happen when the cluster is linearized after the entry of D, which will lead to the creating of chunks [B] and [C].
+
+So instead tracking the entry time of the sponsor of the chunk, I could just use the time the chunk fee rate was last updated, 
+* Which will represent 1500 for both chunk [B] and [C]. Since 1500 is the time the chunk was created/it represent to the time it was last updated.
+* For [A, D] also 1500 is the time the chunk fee rate was last updated.
+
+-------------------------
+
