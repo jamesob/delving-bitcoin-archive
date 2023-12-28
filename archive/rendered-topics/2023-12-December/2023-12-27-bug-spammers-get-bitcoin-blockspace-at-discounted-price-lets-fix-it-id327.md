@@ -21,3 +21,9 @@ Do you agree?
 
 -------------------------
 
+murch | 2023-12-28 13:55:39 UTC | #2
+
+Your analysis disregards that various parts of transactions do not have the same resource footprint in our system. I would suggest that you further explore the reasoning that led to the current state of affairs if you wish to convincingly motivate an intervention.
+
+-------------------------
+
