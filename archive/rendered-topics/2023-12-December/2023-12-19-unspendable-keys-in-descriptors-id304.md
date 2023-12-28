@@ -261,3 +261,13 @@ Approach s2, corresponding to the descriptor changes document linked by @sipa ab
 
 -------------------------
 
+salvatoshi | 2023-12-28 16:38:10 UTC | #20
+
+sipa's linked approach is similar but not identical to `s2`, as in his version the argument of `unspend()` alters the *chaincode*, while in the version described in my notes above I was instead generating a different pubkey.
+
+They are identical in terms of security properties, but I think sipa's approach is better as it's more straightforward to verify that one such xpub is unspendable (just look at the pubkey), while in the approach in `s2` one has to explicitly redo the computation to verify how the xpub is generated.
+
+ Anyway, my current thinking is that sipa's approach is probably the cleanest for descriptors, while wallet policies (now in the process of being finalized as [BIP-0388](https://github.com/bitcoin/bips/pull/1389)) could add a deterministic way of computing the `HEXCHAINCODE` from the remaining keys, as suggested above by @AntoineP.
+
+-------------------------
+
