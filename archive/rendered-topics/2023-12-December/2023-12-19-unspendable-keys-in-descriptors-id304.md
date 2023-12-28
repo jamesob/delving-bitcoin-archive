@@ -255,3 +255,9 @@ add an additional xor with the original xpub (*and/or something else) and the op
 
 -------------------------
 
+wydengyre | 2023-12-28 02:34:27 UTC | #19
+
+Approach s2, corresponding to the descriptor changes document linked by @sipa above, seems straightforward to implement and very simple to explain. Yes, it comes at the expense of having to include some extra information in the descriptor. This seems like a worthwhile tradeoff given its simplicity.
+
+-------------------------
+
