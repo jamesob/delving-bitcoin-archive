@@ -27,3 +27,13 @@ Your analysis disregards that various parts of transactions do not have the same
 
 -------------------------
 
+moonsettler | 2023-12-30 17:47:32 UTC | #3
+
+if you want to do it without screwing over the normal users of bitcoin, and only make disproportionate use of witness space less competitive:
+
+`WUtx = 4·size(tx_data|segwit_data) - 3·min(3·size(tx_data), size(segwit_data))`
+
+however most of the spam is brc-20 and that already would not be significantly affected. in the future alternative assets likely will be either using runes or rgb. they can get a lot more efficient with block space. you won't likely achieve anything with this approach.
+
+-------------------------
+

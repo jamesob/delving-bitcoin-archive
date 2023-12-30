@@ -481,3 +481,13 @@ Meanwhile, back to making sure package relay becomes a thing...
 
 -------------------------
 
+moonsettler | 2023-12-30 18:02:58 UTC | #27
+
+[quote="ursuscamp, post:7, topic:98, full:true"]
+What if omnibus soft forks are the only thing has any hope of running the gauntlet anymore? Changing Bitcoin is becoming more political as the tent gets larger. It is only natural. In order to get enough people on board for a change, you have to give something to everyone.
+[/quote]
+
+so it turns out size doesn't really matter. everything is just increasingly more political. especially forks.
+
+-------------------------
+
