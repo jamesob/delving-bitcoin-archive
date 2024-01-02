@@ -27,7 +27,7 @@ Thanks, I've linked this in the PR description
 
 -------------------------
 
-instagibbs | 2024-01-02 19:20:02 UTC | #4
+instagibbs | 2024-01-02 20:46:40 UTC | #4
 
 moving discussion here...
 
@@ -39,7 +39,7 @@ If an adversary splits the view of which commitment transaction is broadcasted, 
 
 I don't think that's correct. As a simplified motivating example, if we set reserve amounts to 0, if you want to send "all" your funds, your top feerate will be zero, even if the total funds recoverable in timeout would be all your remaining liquidity.
 
-I'm sure there are ways to mitigate this, like capping total HTLC exposure as a % of liquidity, but it's pretty clearly a reduction in functionality?
+I'm sure there are ways to mitigate this, like capping total HTLC exposure as a % of liquidity, but it's pretty clearly a reduction in functionality? Possibly completely broken as it implies that you can never drain your liquidity completely to reserve levels?
 
 -------------------------
 
