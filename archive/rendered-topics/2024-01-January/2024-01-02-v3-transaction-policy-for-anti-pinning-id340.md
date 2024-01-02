@@ -21,3 +21,9 @@ Discussion about it [is happening on the Bitcoin Core PR](https://github.com/bit
 
 -------------------------
 
+glozow | 2024-01-02 11:44:31 UTC | #3
+
+Thanks, I've linked this in the PR description
+
+-------------------------
+
