@@ -61,3 +61,11 @@ My proposal is that the bitcoin core project themselves begin publishing a clien
 
 -------------------------
 
+ursuscamp | 2024-01-01 22:15:43 UTC | #2
+
+This is an important discussion. Thanks for opening it up. There is a severe lack of clarity these days. It is well that Bitcoin doesn’t have a Leader, but we could definitely use a Process. Arguing forever on Twitter is not a great way to do anything. 
+
+Since we seem to be in a new era, I would like the Core maintainers to weigh in on what their criteria is for inclusion of consensus changes in Core. I have heard second hand rumors that Jeremy Rubin was told that they want new consensus features activated outside of Core first. Is this true? Have there been any public statements about this?
+
+-------------------------
+
