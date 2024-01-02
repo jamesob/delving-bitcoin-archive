@@ -321,3 +321,9 @@ We already have this problem with opt-in RBF, with the eventual solution being m
 
 -------------------------
 
+instagibbs | 2024-01-02 20:39:53 UTC | #9
+
+@morehouse agreed on all counts
+
+-------------------------
+
