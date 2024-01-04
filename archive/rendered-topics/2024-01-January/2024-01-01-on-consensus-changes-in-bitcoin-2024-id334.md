@@ -91,3 +91,25 @@ What do you think?
 
 -------------------------
 
+roasbeef | 2024-01-04 00:04:39 UTC | #5
+
+[quote="urza, post:4, topic:334"]
+“Devs propose. Miners activate. Users override.”
+[/quote]
+
+That's personally been my favorite conceptualization so far. 
+
+I think where things are getting caught up is: devs propose + miners activate.
+
+These days there isn't a sort of agreed upon process or mechanisms for the actual proposal portion. The `bitcoind` organization (imo) doesn't have the same level of agency in this area as it once did (there is no longer a unified voice for the org). In the face of that structural change, it isn't clear what "proposal" actually looks like, nor what it actually takes for something to be "ready". It's all an emergent process at the end of the day, mechanisms that worked in the past aren't guaranteed to work again, we're all still tryna figure this thing out. 
+
+Maybe we end up tending to a future where `bitcoind` never merges any soft-fork activation + validation logic until it's well activated. At face value, one could perceive that as being more chaotic, as most ppl's definition of "rough consensus" is that something is merged into `bitcoind` with devs proposing as a unified voice. Without that unified voice, there's more uncertainty in the marketplace for the set of relevant economic actors. Ultimately, BIP 9/8 still allow for multiple soft-forks to be proposed in parallel, but the socio-economic system we have today hasn't really embraced that for various reasons (coordination costs, review, etc). 
+
+Maybe the in the future alternative implementations will actually be properly viable, which would give us another platform for proposals, but we aren't quite there yet today. Other implementations are still years behind, and don't even have 1% of the funding or dev power that `bitcoind` has, so they're far too risky from the PoV of the most conservative market participants. 
+
+On the "miners activate" front, depending on who you talk to, that statement is tantamount to blasphemy. Not everyone took home the same lessons after the segwit+block size drama. If you sample what seems to be the popular Twitter anon/pleb/taking-head sentiment, people actually seems to want hard forks in spirit, as they reject the notion of optional softforks that don't require "everyone" to update. 
+
+From my PoV [soft-forks we originally engineered](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2015-December/012014.html) to get around the impossibility of global coordination, as they enable optional upgrades, based on an agreement between developers and miners. However maybe the soft-fork window has now closed, somewhat more prematurely that most would have envisionsed.
+
+-------------------------
+
