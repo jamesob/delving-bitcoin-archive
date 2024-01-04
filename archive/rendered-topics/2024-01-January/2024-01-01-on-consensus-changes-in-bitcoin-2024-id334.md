@@ -113,7 +113,7 @@ From my PoV [soft-forks we originally engineered](https://lists.linuxfoundation.
 
 -------------------------
 
-ProofOfKeags | 2024-01-04 00:48:53 UTC | #6
+ProofOfKeags | 2024-01-04 18:38:49 UTC | #6
 
 ### On Activation
 I think the reason that it's considered blasphemy for miners to activate is a misunderstanding of the asymmetry of soft vs. hard forks. If we take all three components of Rusty's maxim, the third (users override) allows users to intervene, should any miner impropriety take place.
@@ -144,9 +144,9 @@ As far as utility goes, making utility arguments is a good way to get people int
 ### On Process
 I want to offer one final idea with regards to the process of changing consensus. It is perhaps a good idea to work backwards from the activation rather than forwards from the proposal.
 
-I think there is a pretty strong consensus that we should do *some* kind of soft-fork in the future. I think also that there is strong consensus that we probably want it sooner than 4 more years. I think even further that there is pretty overwhelming technical consensus that *some* form of covenants are desirable. Where there seems to be substantial disagreement is precisely which covenant proposal is best or whether we just want to wait an indeterminate period of time for yet another covenant proposal to emerge.
+I think there is a pretty strong consensus that we should do *some* kind of soft-fork in the future. I think also that there is strong consensus that we probably want it sooner than 4 years after the last one. I think even further that there is pretty overwhelming technical consensus that *some* form of covenants are desirable. Where there seems to be substantial disagreement is precisely which covenant proposal is best or whether we just want to wait an indeterminate period of time for yet another covenant proposal to emerge.
 
-I think it's possible to improve both the speed of development as well as promote cooperation among developers and reviewers by saying "We want a 2028 soft-fork, it will happen, what's in that soft-fork is TBD but whatever is going needs to have sufficient review and we roughly agree on the north star of what we want to accomplish with it."
+I think it's possible to improve both the speed of development as well as promote cooperation among developers and reviewers by saying "We want a 2025 soft-fork, it will happen, what's in that soft-fork is TBD but whatever is going needs to have sufficient review and we roughly agree on the north star of what we want to accomplish with it."
 
 Make no mistake, this is a brinksmanship tactic. But if we can collectively agree to engage in that brinksmanship then maybe it may actually force us to get out of the stands and into the arena to make sure that we can come to an agreement on something that will actually improve Bitcoin, rather than slowly letting it atrophy and brain drain as we lose more brilliant devs to technology projects (cryptocurrency or otherwise) that actually have a possibility of impact.
 
