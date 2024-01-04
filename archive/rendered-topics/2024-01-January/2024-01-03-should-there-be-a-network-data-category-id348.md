@@ -18,3 +18,11 @@ That sounds reasonable to me. I know a few other people have an interest in data
 
 -------------------------
 
+cdecker | 2024-01-04 12:31:59 UTC | #3
+
+Definitely a good idea, though we could just get started with a single post, and if there is enough traffic we can give it a dedicated category.
+
+Fwiw I have 11 years of network propagation data (TX and Block hashes and which IP saw them at which timestamp). Ping me if anybody is interested in either historical orphan rates and/or historical mempool reconstruction, and I'll provide access to it :-)
+
+-------------------------
+
