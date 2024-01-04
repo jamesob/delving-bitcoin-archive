@@ -43,3 +43,15 @@ I'm sure there are ways to mitigate this, like capping total HTLC exposure as a 
 
 -------------------------
 
+harding | 2024-01-03 21:10:57 UTC | #5
+
+In his [post](https://petertodd.org/2023/v3-transactions-review), Peter Todd says:
+
+> For example, if you wanted to cover 10satvB to 1000satvB, with 10% increments, you’d only need 50 fee variants, for a total size of 3200 bytes, taking just 5ms to sign (single core). Given the very good scalability of Lightning, this overhead is reasonable.
+
+I think this ignores a possible effect of [stuckless payments](https://bitcoinops.org/en/topics/redundant-overpayments/) on the LN network.  If Alice wants to pay Zed 100,000 sats using a refundable overpayment of 20 parts each at 10,000 sats, Zed is likely to claim the first 10 parts that arrive and decline the remaining 10 parts.  The nodes that forwarded the claimed parts will receive forwarding fees; the other nodes will not be compensated.
+
+Nodes that forward payments faster will, when all other things are equal, be more likely to receive payment than nodes that forward payments slower.  In a regime with stuckless payments, I think 5 ms (plus the extra time to transmit several KB of musig2 partial signatures) is large enough that it may result in a significant reduction in forwarding node revenue compared to forwarding nodes that can send just a single partial signature.  That would push forwarding nodes towards a lower-latency single commitment scheme, such as those based on CPFP.
+
+-------------------------
+
