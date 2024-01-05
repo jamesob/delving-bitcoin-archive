@@ -126,3 +126,13 @@ If we expect people to continue to build protocols based on CPFP fee bumping, an
 
 -------------------------
 
+orangesurf | 2024-01-05 20:40:59 UTC | #7
+
+[quote="harding, post:6, topic:340"]
+it’s easy to turn those rules into consensus rules: a block may only include a parent ephemeral anchor if it also includes the child spend. We could also add an extra rule in the soft fork: the child spend must include at least two inputs. That would mean the amount of block space used by someone paying miners out-of-band would be equal to the (best and expected normal case) of someone paying any miner in a decentralized fashion. In other words, the incentive for paying out of band would be eliminated.
+[/quote]
+
+Is it a given that there would be widespread consensus for such a soft fork?
+
+-------------------------
+
