@@ -136,3 +136,13 @@ Is it a given that there would be widespread consensus for such a soft fork?
 
 -------------------------
 
+harding | 2024-01-05 20:49:20 UTC | #8
+
+[quote="orangesurf, post:7, topic:340"]
+Is it a given that there would be widespread consensus for such a soft fork?
+[/quote]
+
+If enough people are paying fees out-of-band for ephemeral anchors that we believe it's threatening mining decentralization, our choice would be to either activate an easy and laser-focused soft fork or to lose mining decentralization.  Given that choice, I think there would be widespread consensus.
+
+-------------------------
+
