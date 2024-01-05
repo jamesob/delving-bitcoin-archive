@@ -2,7 +2,7 @@
   "id": 938,
   "name": "orangesurf",
   "username": "orangesurf",
-  "avatar_template": "/letter_avatar_proxy/v4/letter/o/ecccb3/{size}.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/orangesurf/{size}/247_2.png",
   "created_at": "2024-01-05T20:40:59.118Z",
   "cooked": "<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"6\" data-topic=\"340\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/6_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>it\u2019s easy to turn those rules into consensus rules: a block may only include a parent ephemeral anchor if it also includes the child spend. We could also add an extra rule in the soft fork: the child spend must include at least two inputs. That would mean the amount of block space used by someone paying miners out-of-band would be equal to the (best and expected normal case) of someone paying any miner in a decentralized fashion. In other words, the incentive for paying out of band would be eliminated.</p>\n</blockquote>\n</aside>\n<p>Is it a given that there would be widespread consensus for such a soft fork?</p>",
   "post_number": 7,
