@@ -146,3 +146,13 @@ If enough people are paying fees out-of-band for ephemeral anchors that we belie
 
 -------------------------
 
+instagibbs | 2024-01-05 20:50:02 UTC | #9
+
+[quote="harding, post:6, topic:340"]
+the child spend must include at least two inputs. That would mean the amount of block space used by someone paying miners out-of-band would be equal to the (best and expected normal case) of someone paying any miner in a decentralized fashion.
+[/quote]
+
+hmmm not sure about this extension, sometimes the best thing to do is just burn the ephemeral anchor value by itself, which results in a 65 vbyte txn. I think in the end it's the same risk as people paying transaction accelerators so they can use fewer inputs in an RBF?
+
+-------------------------
+
