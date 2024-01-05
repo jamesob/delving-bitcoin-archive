@@ -55,3 +55,74 @@ Nodes that forward payments faster will, when all other things are equal, be mor
 
 -------------------------
 
+harding | 2024-01-05 20:23:25 UTC | #6
+
+In this post, I will attempt to show that Peter Todd's recent [post][pt post] significantly underestimates the time to sign multiple commitment transaction fee variants.  I then directly address the concern about "the danger to decentralization" of building protocols on top of CPFP; I note that a simple as-need soft fork and small change to ephemeral anchor rules makes them into a powerful tool for _protecting_ decentralization in the face of CPFP-based protocols.
+
+## Different parents have different children
+
+To fully spend an HTLC in LN-Penalty, you need to publish three transactions:
+
+1. The commitment transaction.  Money is allocated to an output of the commitment transaction using an HTLC script.
+
+2. An HTLC-Success or HTLC-Timeout transaction.  These implement the classic logic of HTLCs: Alice can claim money at any time with a preimage (HTLC-Success) or Bob can receive a refund after a timeout (HTLC-timeout).
+
+3. HTLC-Penalty or delayed spend.  If either the HTLC-Success or HTLC-Timeout transaction were created in a revoked commitment transaction, these allow the party who didn't publish the revoked state to claim the full amount of the HTLC.  If the current commitment transaction was used, this is delayed by a timelock (to allow an HTLC-Penalty to be broadcast) but can otherwise be a normal spend (although with a large witness).
+
+Bitcoin currently lacks [covenants][], so the only way to ensure an HTLC-Success or HTLC-Timeout transaction pays an output with the HTLC-Penalty conditions is for the HTLC-Success and HTLC-Timeout transactions to require signatures from both parties, allowing each party to only sign payments to the HTLC-Penalty conditions.  To ensure each party can act unilaterally (a requirement for trustlessness), each party must presign their half of the spend and send it to the other party before that party accepts (relies upon) an HTLC in the commitment transaction.
+
+This means that updating an LN-Penalty commitment transaction requires sending 1 signature for the commitment transaction and 1 signature for every HTLC output of that commitment transaction.  Each party can add a maximum of 483 outputs (source: BOLT2) to a commitment transaction, for a total of `2*483=966` outputs, which is also 966 signatures.
+
+In the above-linked post, Peter Todd suggests presigning multiple versions of the commitment transaction at different feerates.  He also notes that HTLC-Success and HTLC-Timeout transactions would need to be signed at different feerates if the same technique was applied to them, resulting in N^2 signatures, although he suggests mitigations.
+
+Not mentioned in that post is the effect of the HTLC-Success and HTLC-Timeout transactions being children of the commitment transaction.  Each different version of the commitment transaction at a different feerate has a different txid.  An HTLC-Success or HTLC-Timeout transaction will only be valid if a particular txid gets confirmed, so for every different version of the commitment transaction, a different version of the HTLC-Success and HTLC-Timeout transaction is needed.  This requires N+N*M signatures, where N is the number of commitment transaction variants and M is the number of HTLCs.
+
+The post suggests N=50 and a points to a Jonas Nick benchmark of 100us per signature (with non-controversial LN upgrades applied). BOLT2 suggests a maximum M=966, for a worst-case of 48,350 signatures that take a bit under 5 seconds to generate.  Even a single hop adding a five second delay would be a significant degradation from the performance we hope for in the _Lightning_ Network.
+
+Using a more likely average M=200 and assuming 10 hops would give a minimum payment forwarding time of 12.5 seconds.
+
+This does not consider other negative consequences of massively increasing signature operations, such as the increase in bandwidth and receiver-side verification operations.
+
+If I haven't messed up my analysis, I think this implies presigned incremental fee bumping does not provide an acceptable substitute to CPFP fee bumping of LN commitment transactions in all reasonable cases.  If CPFP of commitment transactions is to continue to be used, we should encourage P2P protocol developers to improve support for it, e.g.  through package relay, package RBF, v3 relay, and ephemeral anchors.
+
+## Ephemeral anchors can protect decentralization from CPFP-based protocols
+
+In the post, Peter Todd argues:
+
+> if you have an anchor-using transaction that you need to get mined, it
+> costs twice as much blockspace to get the transaction mined via the
+> intended mechanism — the anchor output — as it does by getting a miner
+> to include the transaction without the anchor output spend. [...] a
+> large miner could easily offer out-of-band fee payments at, say, a 25%
+> discount, giving them a substantial 25% premium over their smaller
+> competitors.
+
+I find this to be a compelling argument about the dangers of building protocols that depend on CPFP fee bumping.  However, ephemeral anchors are different than other forms of CPFP fee bumping in that we can easily turn their policy rules into consensus rules, plus make one small change to eliminates the advantage of out-of-band payments.
+
+The _policy_ rules for ephemeral anchors are basically:
+
+- If a transaction pays a certain specified scriptPubKey (the parent's ephemeral anchor)
+
+- It will only be considered policy-valid if it is packaged with a spend of that output (the child)
+
+Miners following that policy will only include transactions with ephemeral anchor outputs if the same block includes the spend of that output.  As described in the post, that's just a policy rule and any miner can choose not to include the spend.
+
+However, it's easy to turn those rules into consensus rules: a block may only include a parent ephemeral anchor if it also includes the child spend.  We could also add an extra rule in the soft fork: the child spend must include at least two inputs.  That would mean the amount of block space used by someone paying miners out-of-band would be equal to the (best and expected normal case) of someone paying any miner in a decentralized fashion.  In other words, the incentive for paying out of band would be eliminated.
+
+Whether as policy or consensus, ephemeral anchors are totally opt-in, don't affect any other part of the Bitcoin protocol, don't add significant resource costs, and don't complex code or new primitives.  Implementing them as a soft fork is almost as easy a soft fork as could be.  (Forbiding 64 byte transactions is easier, but we have no excuse for not having done that yet IMO.)
+
+If we start with policy-only ephemeral anchors, then any protocol that depended on the policy version of them would continue working without changes if a soft fork activated.  Only people who expected to pay fees out of band would be affected, and they would simply have to use the CPFP method already implemented in stock software.
+
+This leads me personally to the opposite conclusion of that section of the original post.  The post says,
+
+> We must not build protocols that put decentralized mining at a
+> disadvantage. On this basis alone, there is a good argument that V3
+> transactions and ephemeral anchor outputs should not be implemented.
+
+If we expect people to continue to build protocols based on CPFP fee bumping, and I think there's a compelling case for that in the previous section, then ephemeral anchors is the **best** way I know of to prevent a CPFP-based reduction in mining decentralization.  We should start with policy-only ephemeral anchors and, if it gains traction and we don't discover anything better, eventually switch to consensus-enforced ephemeral anchors.
+
+[pt post]: https://petertodd.org/2023/v3-transactions-review
+[covenants]: https://bitcoinops.org/en/topics/covenants/
+
+-------------------------
+
