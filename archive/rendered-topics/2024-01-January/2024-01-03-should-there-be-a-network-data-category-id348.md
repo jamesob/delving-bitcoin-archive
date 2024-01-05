@@ -26,3 +26,13 @@ Fwiw I have 11 years of network propagation data (TX and Block hashes and which 
 
 -------------------------
 
+ajtowns | 2024-01-05 07:38:57 UTC | #4
+
+Maybe "Measurements" or "Observations" would be more general?
+
+Or could just put it in "Protocol Design" on the basis that knowing more about how the network behaves will help us improve the design of protocols?
+
+If we have detailed benchmarks/performance analysis of IBD sync or secp256k1 signing or similar, would that be better in "Implementation" (in that it would help improve particular implementations) or would it be better to have it nearby other data analysis work?
+
+-------------------------
+
