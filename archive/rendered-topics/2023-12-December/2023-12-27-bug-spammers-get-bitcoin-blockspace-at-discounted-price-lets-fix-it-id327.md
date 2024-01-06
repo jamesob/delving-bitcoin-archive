@@ -37,3 +37,16 @@ however most of the spam is brc-20 and that already would not be significantly a
 
 -------------------------
 
+GregTonoski | 2024-01-06 19:49:07 UTC | #4
+
+I haven't found evidence of validity of the "reasoning that led to the current state of affairs". To the contrary:
+1. the ongoing (and a year long already) spam mania showed that people were led "to use the witness space to store general purpose data on the block chain, or adversarial miners may fill excess space with random junk to defeat fast relay schemes that rely on similar mempools" (SegWit Resources, "[Why a discount factor of 4? Why not 2 or 8?](https://medium.com/segwit-co/why-a-discount-factor-of-4-why-not-2-or-8-bbcebe91721e)").
+2. Allegedly, another reason was to increase capacity (to 4MB "in a pathological case when you have a single transaction"  - [Pieter Wuille](https://www.youtube.com/live/NOYNZB5BCHM?feature=shared&t=2105)) and so increase the number of transactions which isn't achieved. The transactions are outcrowded by spam. 
+3. "[-50% discount in transaction fee due to the use of the cheaper space for witness data](https://youtu.be/T1fqOEhFP40?feature=shared&t=2577)" is not achieved. As a matter of fact, fees are at all time high.
+4. UTXO set grows despite fewer simple (not spam) transactions,
+5. Consolidation incentive is not effective as many small UTXOs are stuck due to high fees (so-called "[unspedendable dust](https://bitcoin.stackexchange.com/a/108336/135945)" caused by SegWit mispricing).
+
+Does the analysis address your concern, perhaps?
+
+-------------------------
+
