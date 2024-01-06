@@ -36,3 +36,13 @@ If we have detailed benchmarks/performance analysis of IBD sync or secp256k1 sig
 
 -------------------------
 
+AntoineP | 2024-01-05 23:47:44 UTC | #5
+
+Having benchmarks in "implementation" sounds reasonable as it's how it happens for instance on Github. But it seems plausible some performance analysis could be contributed that are not directly related to an implementation.
+
+If the criterion for "Protocol Design" is anything which helps making decision about how to design the protocol, the whole forum would fall under this category. :p
+
+A "Measurements" category (no opinion on the name) seems more appropriate to me. For benchmarks best judgement can be used between posting it next to an implementation discussion or contributing it in the broader "Measurements" category.
+
+-------------------------
+

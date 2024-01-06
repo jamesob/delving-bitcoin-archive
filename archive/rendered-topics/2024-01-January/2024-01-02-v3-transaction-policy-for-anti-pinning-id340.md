@@ -55,7 +55,7 @@ Nodes that forward payments faster will, when all other things are equal, be mor
 
 -------------------------
 
-harding | 2024-01-05 20:23:25 UTC | #6
+harding | 2024-01-05 23:17:45 UTC | #6
 
 In this post, I will attempt to show that Peter Todd's recent [post][pt post] significantly underestimates the time to sign multiple commitment transaction fee variants.  I then directly address the concern about "the danger to decentralization" of building protocols on top of CPFP; I note that a simple as-need soft fork and small change to ephemeral anchor rules makes them into a powerful tool for _protecting_ decentralization in the face of CPFP-based protocols.
 
@@ -75,7 +75,7 @@ This means that updating an LN-Penalty commitment transaction requires sending 1
 
 In the above-linked post, Peter Todd suggests presigning multiple versions of the commitment transaction at different feerates.  He also notes that HTLC-Success and HTLC-Timeout transactions would need to be signed at different feerates if the same technique was applied to them, resulting in N^2 signatures, although he suggests mitigations.
 
-Not mentioned in that post is the effect of the HTLC-Success and HTLC-Timeout transactions being children of the commitment transaction.  Each different version of the commitment transaction at a different feerate has a different txid.  An HTLC-Success or HTLC-Timeout transaction will only be valid if a particular txid gets confirmed, so for every different version of the commitment transaction, a different version of the HTLC-Success and HTLC-Timeout transaction is needed.  This requires N+N*M signatures, where N is the number of commitment transaction variants and M is the number of HTLCs.
+Not ~~mentioned~~ detailed in that post is the effect of the HTLC-Success and HTLC-Timeout transactions being children of the commitment transaction.  Each different version of the commitment transaction at a different feerate has a different txid.  An HTLC-Success or HTLC-Timeout transaction will only be valid if a particular txid gets confirmed, so for every different version of the commitment transaction, a different version of the HTLC-Success and HTLC-Timeout transaction is needed.  This requires N+N*M signatures, where N is the number of commitment transaction variants and M is the number of HTLCs.
 
 The post suggests N=50 and a points to a Jonas Nick benchmark of 100us per signature (with non-controversial LN upgrades applied). BOLT2 suggests a maximum M=966, for a worst-case of 48,350 signatures that take a bit under 5 seconds to generate.  Even a single hop adding a five second delay would be a significant degradation from the performance we hope for in the _Lightning_ Network.
 
@@ -86,6 +86,8 @@ This does not consider other negative consequences of massively increasing signa
 If I haven't messed up my analysis, I think this implies presigned incremental fee bumping does not provide an acceptable substitute to CPFP fee bumping of LN commitment transactions in all reasonable cases.  If CPFP of commitment transactions is to continue to be used, we should encourage P2P protocol developers to improve support for it, e.g.  through package relay, package RBF, v3 relay, and ephemeral anchors.
 
 ## Ephemeral anchors can protect decentralization from CPFP-based protocols
+
+**Edit: the points in this section are undermined by later replies in the thread.  I still think there's something conceptually useful here, but this solution is broken for now.  You probably want to skip reading this.**
 
 In the post, Peter Todd argues:
 
@@ -121,6 +123,10 @@ This leads me personally to the opposite conclusion of that section of the origi
 
 If we expect people to continue to build protocols based on CPFP fee bumping, and I think there's a compelling case for that in the previous section, then ephemeral anchors is the **best** way I know of to prevent a CPFP-based reduction in mining decentralization.  We should start with policy-only ephemeral anchors and, if it gains traction and we don't discover anything better, eventually switch to consensus-enforced ephemeral anchors.
 
+Edits:
+
+- 2023-01-05 13:17 HST.  Added note about soft fork ephemeral anchors not being a satisfactory solution after additional feedback.  Struck out comment that PT hadn't mentioned needing to sign N variants per HTLC; his post says, "we will have to sign N HTLC variants rather than a single variant".
+
 [pt post]: https://petertodd.org/2023/v3-transactions-review
 [covenants]: https://bitcoinops.org/en/topics/covenants/
 
@@ -153,6 +159,109 @@ the child spend must include at least two inputs. That would mean the amount of 
 [/quote]
 
 hmmm not sure about this extension, sometimes the best thing to do is just burn the ephemeral anchor value by itself, which results in a 65 vbyte txn. I think in the end it's the same risk as people paying transaction accelerators so they can use fewer inputs in an RBF?
+
+-------------------------
+
+harding | 2024-01-05 20:59:48 UTC | #10
+
+[quote="instagibbs, post:9, topic:340"]
+sometimes the best thing to do is just burn the ephemeral anchor value by itself, which results in a 65 vbyte txn. I think in the end it’s the same risk as people paying transaction accelerators so they can use fewer inputs in an RBF?
+[/quote]
+
+I think the expected use of an ephemeral anchor would be:
+
+- Parent: 1 input, x+1 outputs.  The +1 is the ephemeral anchor.
+- Child: >=2 inputs, >=1 outputs.  One input is the anchor spend; the other contributes fees.
+
+In the pathological case, the parent is the same but the child is never created.  So we need a requirement that spending the parent can only be done at a cost equal to at least 2-inputs and 1 output.
+
+That requirement doesn't need to be an input requirement; it could also be treating a childless parent as if it had the additional weight of a 2-input, 1-output child.
+
+-------------------------
+
+nettimel | 2024-01-05 21:20:21 UTC | #11
+
+[quote="harding, post:6, topic:340"]
+However, it’s easy to turn those rules into consensus rules: a block may only include a parent ephemeral anchor if it also includes the child spend. We could also add an extra rule in the soft fork: the child spend must include at least two inputs. That would mean the amount of block space used by someone paying miners out-of-band would be equal to the (best and expected normal case) of someone paying any miner in a decentralized fashion. In other words, the incentive for paying out of band would be eliminated.
+[/quote]
+
+But as per [Peter Todd's tweet](https://twitter.com/peterktodd/status/1743376014154121374) miners can just efficiently spend all the anchor channel outputs together in a block. More efficient than any normal CPFP. It's still more efficient to pay out of band too because UTXOs for the ephemeral txs need to be created and spent. Vast majority of channels will be stuff like Phoenix in the future, which want one UTXO per user. Can't anchor that.
+
+-------------------------
+
+instagibbs | 2024-01-05 21:22:26 UTC | #12
+
+Backing up a bit:
+
+How is this decentralization argument not generalizable to any BringYourOwnFunds(BYOF) scheme?
+
+For example, presigned HTLC-X transactions?
+
+These are batchable. They are cheaper to be paid out of band.
+
+Are we really arguing against all exogenous fees in smart contracts? I reject the premise entirely.
+
+-------------------------
+
+nettimel | 2024-01-05 21:32:42 UTC | #13
+
+[quote="instagibbs, post:12, topic:340"]
+For example, presigned HTLC-X transactions?
+[/quote]
+
+Link to what a HTLC-X transaction is?
+
+-------------------------
+
+harding | 2024-01-05 21:59:28 UTC | #14
+
+[quote="nettimel, post:13, topic:340"]
+Link to what a HTLC-X transaction is?
+[/quote]
+
+@instagibbs is talking about HTLC-Success and HTLC-Timeout transactions as defined in [BOLT3](https://github.com/lightning/bolts/blob/8a64c6a1cef979b3f0cecb00ba7a48c2d28b3588/03-transactions.md)
+
+These are presigned spends of HTLCs made with `SIGHASH_SINGLE|SIGHASH_ANYPREVOUT` that allow multiple of them to be combined into a single transaction.  The don't contribute any fee (or any meaningful fee), so we would normally expect them to be combined with an extra contributed input that adds fees (and likely an extra output for change).  However, the threat-to-decentralization argument, you could pay a miner out-of-band fees to mine them without adding an extra input or output, saving block space.
+
+I made this same argument to PT last night (last paragraph): https://twitter.com/hrdng/status/1743293516992876561
+
+-------------------------
+
+instagibbs | 2024-01-05 22:00:07 UTC | #15
+
+[quote="harding, post:14, topic:340"]
+I made this same argument to PT last night (last paragraph): https://twitter.com/hrdng/status/1743293516992876561
+[/quote]
+
+He almost doesn't even address it.
+
+"As for SIGHASH_ANYONECANPAY, obviously, it is still a problem, which is why I mentioned, among other mitigations, that in the future SIGHASH_ANYPREVOUT would help the situation."
+
+Again, does he believe that all future smart contracts should have endogenous fees, otherwise we're risking decentralization? Is that really a tenable reason to stop any proposal(aside from the ~50vb that ephemeral anchors costs)?
+
+-------------------------
+
+nettimel | 2024-01-05 22:42:16 UTC | #16
+
+[quote="instagibbs, post:15, topic:340"]
+Again, does he believe that all future smart contracts should have endogenous fees, otherwise we’re risking decentralization?
+[/quote]
+
+["Obviously scale matters. We can't prevent every single circumstance where someone might want to pay a transaction out of band. But we can and should design protocols to minimize it."](https://twitter.com/peterktodd/status/1743397111268274600)
+
+That seems to cover it. His article that started all this proposes a few solutions for HTLC-X problem too: https://petertodd.org/2023/v3-transactions-review#htlcs-and-replace-by-fee
+
+-------------------------
+
+harding | 2024-01-05 23:11:33 UTC | #17
+
+[quote="nettimel, post:11, topic:340"]
+miners can just efficiently spend all the anchor channel outputs together in a block. More efficient than any normal CPFP.
+[/quote]
+
+That's a fair point; it does undermine my claimed advantage of a soft-fork version of ephemeral anchors.
+
+I haven't thought of an alternative way to obtain the property of in-band CPFP fee bumping pay the same weight cost as out-of-band transaction acceleration, at least not without preventing batching that would be beneficial to users.
 
 -------------------------
 

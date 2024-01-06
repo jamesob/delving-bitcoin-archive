@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 52,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 267.0,
+  "incoming_link_count": 57,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 287.4,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -53,10 +53,10 @@
     {
       "id": "rocket",
       "type": "emoji",
-      "count": 3
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
