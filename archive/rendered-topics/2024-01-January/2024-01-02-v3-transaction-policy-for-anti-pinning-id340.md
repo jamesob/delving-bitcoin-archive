@@ -265,3 +265,31 @@ I haven't thought of an alternative way to obtain the property of in-band CPFP f
 
 -------------------------
 
+instagibbs | 2024-01-06 13:53:10 UTC | #18
+
+[quote="nettimel, post:16, topic:340"]
+That seems to cover it.
+[/quote]
+
+That's an argument for *specs*  to avoid exogenous fees when possible, not how to make sensible mempool designs. *if* your smart contract can have endogenous fees, you should consider it. That's appropriate! But this is not the case in *many*(most?) protocols outside of ln-penalty, and it's completely inappropriate to gatekeep good mempool design to a specific instantiation of a specific idea.
+
+Please see motivation/use-cases sections for more details on what kind of smart contracts V3 and ephemeral anchors is useful for: 
+
+https://github.com/instagibbs/bips/blob/527b007dbf5b9a89895017030183370e05468ae6/bip-ephemeralanchors.mediawiki#motivation
+
+Lastly, if "scale matters", then we should be doing everything in our power to make fee bidding useful. No one has put forward an alternative proposal that makes sense for many RBF like V3. This has been years of discussions, and based on Peter's writeup I don't think he bothered to read my BIP draft.
+
+[quote="nettimel, post:16, topic:340"]
+His article that started all this proposes a few solutions for HTLC-X problem too:
+[/quote]
+
+This stuff IIUC is only talking about signature complexity and providing fees? As a humerous aside, HTLCs are endogenous fees(decentralization hit!), and would be more pin resistant using ephemeral anchors,  but I'm not pushing for that in my proposal spec because of relative spec diff(HTLC-Success paths on both commit txs would have to be pre-signed, really hairy given the duplex updates it has now) :slight_smile: 
+
+[quote="harding, post:17, topic:340"]
+That’s a fair point; it does undermine my claimed advantage of a soft-fork version of ephemeral anchors.
+[/quote]
+
+Note that similar OOB benefits are obtained by batching and `SIGHASH_SINGLE|ACP`-based smart contracts today, and would be similar if we had any good introspection opcodes.
+
+-------------------------
+
