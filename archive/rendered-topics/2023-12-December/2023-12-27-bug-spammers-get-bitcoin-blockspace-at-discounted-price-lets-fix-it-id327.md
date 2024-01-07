@@ -50,3 +50,19 @@ Does the analysis address your concern, perhaps?
 
 -------------------------
 
+GregTonoski | 2024-01-06 21:12:21 UTC | #5
+
+(post deleted by author)
+
+-------------------------
+
+GregTonoski | 2024-01-06 21:15:19 UTC | #6
+
+[quote="moonsettler, post:3, topic:327"]
+you won’t likely achieve anything with this approach.
+[/quote]
+
+Can I ask you to clarify your stance on whether “Blockspace price shouldn’t be higher for a simple transaction (price discrimination against simple txs)”, please?
+
+-------------------------
+
