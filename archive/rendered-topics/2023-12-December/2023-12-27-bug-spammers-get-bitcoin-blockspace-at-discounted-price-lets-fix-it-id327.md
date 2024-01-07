@@ -74,3 +74,15 @@ high fees will make users of bitcoin generally miserable, but also hardly can be
 
 -------------------------
 
+GregTonoski | 2024-01-07 20:24:49 UTC | #8
+
+[quote="moonsettler, post:7, topic:327"]
+that’s why i said it likely won’t achieve anything positive for the native economic users of bitcoin. they would just be worse off then they are rn.
+[/quote]
+
+I think we may not be on the same page. Can I ask you to verify if there isn't misunderstanding, please? I proposed that the blockspace price was equalized for any type of transaction. As a result, the simple type of transactions ("native economic") wouldn't be put at disadvantage. Doesn't it sound like a positive change?
+
+There is the breakdown and cost comparison of the two actual transactions: [https://gregtonoski.github.io/bitcoin/segwit-mispricing/comparison-of-costs.html](https://gregtonoski.github.io/bitcoin/segwit-mispricing/comparison-of-costs.html).
+
+-------------------------
+
