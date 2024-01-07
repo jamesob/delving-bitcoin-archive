@@ -66,3 +66,11 @@ Can I ask you to clarify your stance on whether “Blockspace price shouldn’t 
 
 -------------------------
 
+moonsettler | 2024-01-07 18:13:04 UTC | #7
+
+i was talking about messing with the witness discount not achieving anything when most of the truly fee competitive spam is brc-20 like s***coin protocols. they already have a fairly dense on-chain footprint and they certainly can get more compressed. which means they can get even more competitive in bidding for block space in their own hype cycle.
+
+high fees will make users of bitcoin generally miserable, but also hardly can be avoided if such a bullish external demand for the same blockspace is present. or in general long term at some significant level of adoption. that's why i said it likely won't achieve anything positive for the native economic users of bitcoin. they would just be worse off then they are rn.
+
+-------------------------
+

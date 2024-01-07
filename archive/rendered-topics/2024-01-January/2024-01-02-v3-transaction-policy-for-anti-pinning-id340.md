@@ -293,3 +293,11 @@ Note that similar OOB benefits are obtained by batching and `SIGHASH_SINGLE|ACP`
 
 -------------------------
 
+moonsettler | 2024-01-07 18:16:21 UTC | #19
+
+is there a reason to necessarily allow more than 1 unconfirmed ancestor for an ephemeral anchor type fee bump transaction?
+
+if only the anchor itself is unconfirmed, what mempool pinning tactics are possible?
+
+-------------------------
+
