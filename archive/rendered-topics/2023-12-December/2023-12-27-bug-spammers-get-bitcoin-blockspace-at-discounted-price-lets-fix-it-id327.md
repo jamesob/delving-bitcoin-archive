@@ -86,3 +86,18 @@ There is the breakdown and cost comparison of the two actual transactions: [http
 
 -------------------------
 
+DoctorBuzz1 | 2024-01-07 20:55:01 UTC | #9
+
+I believe that changing IsDust (or GetDustThreshold, rather) to reflect the intent of the code comments 
+
+(if Tx < TxFee) {IsDust = True;}
+
+... would solve a lot of the BRC-20 style b.s.
+
+Murch mentioned to me elsewhere that Child - Parent Txs are perhaps the biggest issue with this idea (outside of Lightning, but LN should easily be able to adapt).
+
+
+![1000000600|446x500](upload://1fR1n6dTIKkaIX0r2EmD6YOIcSA.png)
+
+-------------------------
+
