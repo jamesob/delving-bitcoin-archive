@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 2,
   "incoming_link_count": 4,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 21.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 36.6,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"nettimel, post:16, topic:340\"]\nThat seems to cover it.\n[/quote]\n\nThat's an argument for *specs*  to avoid exogenous fees when possible, not how to make sensible mempool designs. *if* your smart contract can have endogenous fees, you should consider it. That's appropriate! But this is not the case in *many*(most?) protocols outside of ln-penalty, and it's completely inappropriate to gatekeep good mempool design to a specific instantiation of a specific idea.\n\nPlease see motivation/use-cases sections for more details on what kind of smart contracts V3 and ephemeral anchors is useful for: \n\nhttps://github.com/instagibbs/bips/blob/527b007dbf5b9a89895017030183370e05468ae6/bip-ephemeralanchors.mediawiki#motivation\n\nLastly, if \"scale matters\", then we should be doing everything in our power to make fee bidding useful. No one has put forward an alternative proposal that makes sense for many RBF like V3. This has been years of discussions, and based on Peter's writeup I don't think he bothered to read my BIP draft.\n\n[quote=\"nettimel, post:16, topic:340\"]\nHis article that started all this proposes a few solutions for HTLC-X problem too:\n[/quote]\n\nThis stuff IIUC is only talking about signature complexity and providing fees? As a humerous aside, HTLCs are endogenous fees(decentralization hit!), and would be more pin resistant using ephemeral anchors,  but I'm not pushing for that in my proposal spec because of relative spec diff(HTLC-Success paths on both commit txs would have to be pre-signed, really hairy given the duplex updates it has now) :slight_smile: \n\n[quote=\"harding, post:17, topic:340\"]\nThat\u2019s a fair point; it does undermine my claimed advantage of a soft-fork version of ephemeral anchors.\n[/quote]\n\nNote that similar OOB benefits are obtained by batching and `SIGHASH_SINGLE|ACP`-based smart contracts today, and would be similar if we had any good introspection opcodes.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

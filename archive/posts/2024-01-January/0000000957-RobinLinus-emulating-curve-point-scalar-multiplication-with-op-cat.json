@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 21.4,
   "yours": false,
   "topic_id": 370,
   "topic_slug": "emulating-curve-point-scalar-multiplication-with-op-cat",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[Here's a short writeup](https://gist.github.com/RobinLinus/8890ded496c9c12796dc6a65c196a147) of how to emulate curve point scalar multiplication with OP_CAT. This brings us quite close to computing TapTweaks, enabling recursive covenants.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
