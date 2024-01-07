@@ -301,3 +301,18 @@ if only the anchor itself is unconfirmed, what mempool pinning tactics are possi
 
 -------------------------
 
+instagibbs | 2024-01-07 20:27:40 UTC | #20
+
+[quote="moonsettler, post:19, topic:340"]
+is there a reason to necessarily allow more than 1 unconfirmed ancestor for an ephemeral anchor type fee bump transaction?
+[/quote]
+
+I mean, it'd be nice for batched CPFP! There are no known designs to do that that are pin-resistant though. 
+
+[quote="moonsettler, post:19, topic:340"]
+if only the anchor itself is unconfirmed, what mempool pinning tactics are possible?
+[/quote]
+not entirely sure what the question is, mind rewording?
+
+-------------------------
+
