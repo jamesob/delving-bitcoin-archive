@@ -58,3 +58,11 @@ Thanks, I wasn't aware of this [BIP PR](https://github.com/bitcoin/bips/pull/147
 
 -------------------------
 
+instagibbs | 2024-01-07 20:31:47 UTC | #5
+
+Hi! Do you have a short list of the well-understood constructs that can be built using these, along with their relative idea maturity(your estimate is fine :) )?
+
+I think it'd be useful to make it clear what you're getting. E.g.,, PTLCs are definitely possible today, but APO-like construction is certainly leaps nicer!
+
+-------------------------
+
