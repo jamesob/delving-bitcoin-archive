@@ -12,8 +12,8 @@
   "reply_to_post_number": 19,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0.4,
   "yours": false,
   "topic_id": 340,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"moonsettler, post:19, topic:340\"]\nis there a reason to necessarily allow more than 1 unconfirmed ancestor for an ephemeral anchor type fee bump transaction?\n[/quote]\n\nI mean, it'd be nice for batched CPFP! There are no known designs to do that that are pin-resistant though. \n\n[quote=\"moonsettler, post:19, topic:340\"]\nif only the anchor itself is unconfirmed, what mempool pinning tactics are possible?\n[/quote]\nnot entirely sure what the question is, mind rewording?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
