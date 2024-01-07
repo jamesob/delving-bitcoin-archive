@@ -66,3 +66,25 @@ I think it'd be useful to make it clear what you're getting. E.g.,, PTLCs are de
 
 -------------------------
 
+moonsettler | 2024-01-07 20:46:56 UTC | #6
+
+Simple unidirectional NIC (non-interactive channel) that that is immune to TXID malleability and can be natural part of pool vTXOs (virtual UTXOs) from user `Alice` where you have a coordinator `Bob` that acts as an LSP:
+```
+<sigBob>
+<sigAlice>
+<template>
+---
+CHECKTEMPLATEVERIFY
+<pubAlice>
+OP_CHECKSIGFROMSTACKVERIFY
+<pubBob>
+OP_CHECKSIGVERIFY
+```
+You would have an alternative spending branch with a 24h timelock and `Alice` single sig. also have a 2-of-2 musig keyspend naturally.
+
+`Alice` can keep giving `Bob` newer more favorable distributions. `Bob` gates them with his single sig.
+
+What `Alice`would do is give `Bob` a new `<sigAlice> <template>` pairs and the new outputs that hash to the template to move funds to `Alice`. outputs can include HTLCs and then their updated settlement.
+
+-------------------------
+
