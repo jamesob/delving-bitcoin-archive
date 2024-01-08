@@ -326,3 +326,19 @@ that's what i thought. so first we could just allow for a more restricted and le
 
 -------------------------
 
+harding | 2024-01-08 00:46:00 UTC | #22
+
+I'm trying to better understand the claimed [v3 pinning vulnerability](https://petertodd.org/2023/v3-txs-pinning-vulnerability).  Do I understand correctly that:
+
+1. The worst case, which is what PT analyzed, is a commitment transaction with no pending HTLCs.
+2. The attacker reduces the feerate of the package/cluster containing the commitment transaction by the attacker using their own money to pay the fees.
+3. A commitment transaction with no pending HTLCs has no special urgency (i.e., no timelocks that will expire to the detriment of the broadcasting party).
+
+In other words, the worst case form of this attack would be that Bob will have to wait a bit longer to respend his channel funds but Mallory will pay his fees?
+
+Obviously, the attack also works against commitment transactions with pending HTLCs, but for each additional HTLC output, the attack quickly becomes less effective due to the decrease in relative size difference.  Perhaps more interestingly, if Bob pays out of band to fee bump both the commitment transaction and Mallory's pin (ephemeral anchor spend), Bob will possibly pay less fees than he would've without the pinning attack and Mallory will end up losing the funds she spent on the attack.
+
+Of course, paying to defeat an attack out of band is still bad for mining decentralization, but I think all of the above points to this pinning attack being possibly ineffective.
+
+-------------------------
+
