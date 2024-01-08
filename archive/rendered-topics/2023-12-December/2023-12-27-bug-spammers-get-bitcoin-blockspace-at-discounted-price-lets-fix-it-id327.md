@@ -135,3 +135,18 @@ but like i said, if you only want to remove the unproportional advantage from se
 
 -------------------------
 
+GregTonoski | 2024-01-08 10:49:03 UTC | #13
+
+[quote="moonsettler, post:12, topic:327"]
+6000 transactions creating ~12000 new outputs should be more expensive than a large script transaction creating 1 or 2 outputs.
+[/quote]
+
+What makes you think so?
+[quote="moonsettler, post:12, topic:327"]
+throw things like BitVM under the bus
+[/quote]
+
+I just want not to throw simple transactions under the bus.
+
+-------------------------
+
