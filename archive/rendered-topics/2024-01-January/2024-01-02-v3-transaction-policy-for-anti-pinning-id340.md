@@ -350,3 +350,23 @@ not gonna pretend i fully understand the various pinning attacks, i expect the m
 
 -------------------------
 
+ajtowns | 2024-01-08 10:53:07 UTC | #24
+
+[quote="harding, post:6, topic:340"]
+However, it’s easy to turn those rules into consensus rules: a block may only include a parent ephemeral anchor if it also includes the child spend.
+[/quote]
+
+I don't think that works: if you get to the point where miners offer an API for out of band fee payments that's trustworthy enough and discounted enough that it sees wide adoption, leading to a centralisation risk, then if you did have a soft fork to require ephemeral anchors be spent, then those miners could work around your soft fork as follows:
+
+ * create a "nouveau ephemeral anchors" BIP, with the same behaviour as before the soft-fork, but with a different `scriptPubKey` pattern
+ * flood the network with nodes that relay according to the new BIP, have those nodes preferentially peer with each other to ensure there aren't disconnected subgraphs
+ * get this implemented by the devs that had already integrated with their API
+ * push the patch to core noting that it's in wide use on the network
+ * profit
+
+I think the sort of soft-fork you be okay if it was in line with economic incentives (ie, the only time an ephemeral anchor is in a block but not immediately spent is people testing things on regtest/signet/testnet, or due to bugs), but if the economic incentives are strongly pushing the other way (miners, wallet devs and users all collaborating to save a buck despite the centralisation risk), I don't think a soft fork here would actually help.
+
+(The other soft-fork approach would be: "an ephemeral anchor output can only be spent in the same block that it was created; it's removed from the utxo set once the block is completely processed". That resolves the "bugs lead to dust in the utxo set" issue, but doesn't touch out-of-band-payment incentives, and introduces the potential for the child tx to become invalid in a reorg, if for some reason it isn't included in the same block as its parent)
+
+-------------------------
+
