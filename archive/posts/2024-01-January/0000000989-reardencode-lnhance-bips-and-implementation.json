@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 111,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 562.6,
+  "incoming_link_count": 153,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 813.2,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -58,7 +58,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     },
     {
       "id": "tada",
@@ -67,6 +67,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }

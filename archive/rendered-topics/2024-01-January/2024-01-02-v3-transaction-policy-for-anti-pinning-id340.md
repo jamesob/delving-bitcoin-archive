@@ -316,3 +316,13 @@ not entirely sure what the question is, mind rewording?
 
 -------------------------
 
+moonsettler | 2024-01-07 21:00:40 UTC | #21
+
+[quote="instagibbs, post:20, topic:340"]
+I mean, it’d be nice for batched CPFP! There are no known designs to do that that are pin-resistant though.
+[/quote]
+
+that's what i thought. so first we could just allow for a more restricted and less efficient way of doing ephemeral anchors. but at least we would have something usable that is easy to implement and reason about. then expand later to more useful and more optimal ways of doing it?
+
+-------------------------
+

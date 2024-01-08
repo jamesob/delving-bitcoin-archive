@@ -50,12 +50,6 @@ Does the analysis address your concern, perhaps?
 
 -------------------------
 
-GregTonoski | 2024-01-06 21:12:21 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
 GregTonoski | 2024-01-06 21:15:19 UTC | #6
 
 [quote="moonsettler, post:3, topic:327"]
@@ -98,6 +92,20 @@ Murch mentioned to me elsewhere that Child - Parent Txs are perhaps the biggest 
 
 
 ![1000000600|446x500](upload://1fR1n6dTIKkaIX0r2EmD6YOIcSA.png)
+
+-------------------------
+
+moonsettler | 2024-01-07 22:15:10 UTC | #10
+
+[quote="GregTonoski, post:8, topic:327"]
+As a result, the simple type of transactions (“native economic”) wouldn’t be put at disadvantage.
+[/quote]
+
+imo it's a huge mistake to think native economic transactions can't involve complex script. a multisig typically would involve a sizeable witness. for example a simple typical 2-of-3 with change could be 125 bytes main block data with 254 bytes witness.
+
+but even if you only make native asset transactions marginally more expensive, while forcing alternative assets to be more economic than they are (say via taptweak and client side validation), the users would still need to bid a higher fee rate for the same relative demand.
+
+it really doesn't sound positive to me.
 
 -------------------------
 
