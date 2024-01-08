@@ -160,3 +160,23 @@ Ideally we would price chain resources in proportion to the costs actually born 
 
 -------------------------
 
+GregTonoski | 2024-01-08 20:30:47 UTC | #15
+
+[quote="ProofOfKeags, post:14, topic:327"]
+If by “simple transactions” N-inputs 2-outputs all using a single signature to sign each input, then I’m not completely sure why those transactions are the correct ones to prioritize.
+[/quote]
+
+Not to prioritize but make equal to other transactions. Why would such a transaction remain at disadvantage?
+
+[quote="ProofOfKeags, post:14, topic:327"]
+(...) not to preferentially treat any particular use case.
+[/quote]
+Actually, the simple transactions are treated worse than others as a result of the price discrimination.
+
+[quote="ProofOfKeags, post:14, topic:327"]
+If “simple transactions” are not a good use of network resources, then quite frankly they should be thrown under the bus.
+[/quote]
+Are you trolling, perhaps?
+
+-------------------------
+
