@@ -342,3 +342,11 @@ Of course, paying to defeat an attack out of band is still bad for mining decent
 
 -------------------------
 
+moonsettler | 2024-01-08 10:39:32 UTC | #23
+
+yeah, protocol and wallet devs should be reluctant to rely on oob payments to resolve mempool conflicts or timeout situations. such an api is a single point of failure and a huge centralization vector.
+
+not gonna pretend i fully understand the various pinning attacks, i expect the major pain would be when you try to settle some contract by adding fees through the anchor, and someone else outbids your tx with higher fees (which is not a problem for you in itself) but with dependence on other unconfirmed ancestors, which ancestors they can double spend, resulting in the eviction of both fee bumps and the anchored tx from the mempools.
+
+-------------------------
+
