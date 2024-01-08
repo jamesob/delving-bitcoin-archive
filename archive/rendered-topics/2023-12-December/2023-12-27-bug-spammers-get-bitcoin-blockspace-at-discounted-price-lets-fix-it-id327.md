@@ -180,3 +180,29 @@ Are you trolling, perhaps?
 
 -------------------------
 
+ProofOfKeags | 2024-01-08 20:55:19 UTC | #16
+
+[quote="GregTonoski, post:15, topic:327"]
+Are you trolling, perhaps?
+[/quote]
+
+No. I'm legitimately making this claim.
+
+[quote="GregTonoski, post:15, topic:327"]
+Actually, the simple transactions are treated worse than others as a result of the price discrimination.
+[/quote]
+
+That very well may be. I'm open to the idea that the structure or the size of the witness discount doesn't reflect the relative difference in resource costs that the network has to bear. However, the path to that argument doesn't involve making any claim about the *use case*.
+
+[quote="GregTonoski, post:15, topic:327"]
+Not to prioritize but make equal to other transactions. Why would such a transaction remain at disadvantage?
+[/quote]
+
+Equal in what sense? I have highlighted a reason that the witness data is *fundamentally less expensive* to the network than the state transition data (inputs + outputs). If you want to contest that claim, I'm open to hearing it. However, the fact that "simple transactions" are a less efficient use of network resources than the "spam" transactions is just how the chips fall given the current constructions.
+
+Again. I think there may be an argument to say that the witness discount is misguided, but the argument should be about why witness data is more expensive to *node-runners* (not transactors) than 25% of the state-transition data.
+
+It isn't hard to demonstrate that it should have a discount > 0%. When syncing the blockchain we cannot arrive at a correct UTXO set without processing 100% of the state-transition data. However, the longer Bitcoin is in existence, the lower % of witness data is actually needed to have a reliable and secure sync as PoW serves as an effective scheme of compressing historical witness data into something that is efficiently verifiable. This is the entire reason behind the default `assumevalid` setting in Bitcoin Core.
+
+-------------------------
+
