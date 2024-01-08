@@ -150,3 +150,13 @@ I just want simple transactions not to be thrown under the bus.
 
 -------------------------
 
+ProofOfKeags | 2024-01-08 19:49:36 UTC | #14
+
+If by "simple transactions" N-inputs 2-outputs all using a single signature to sign each input, then I'm not completely sure why those transactions are the correct ones to prioritize.
+
+The reason witness data is discounted is because there are situations during sync where we can prune witness data relatively safely in ways that we cannot do to data that actually effects the transaction graph.
+
+Ideally we would price chain resources in proportion to the costs actually born by the nodes doing the verification, not to preferentially treat any particular use case. The notion of "spam" is incoherent in a decentralized system. If the resource costs are higher than the price paid for them, that is a bug. If "simple transactions" are not a good use of network resources, then quite frankly they should be thrown under the bus.
+
+-------------------------
+

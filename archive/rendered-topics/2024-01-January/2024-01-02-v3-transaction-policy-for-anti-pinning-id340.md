@@ -370,3 +370,21 @@ I think the sort of soft-fork you be okay if it was in line with economic incent
 
 -------------------------
 
+instagibbs | 2024-01-08 16:26:01 UTC | #25
+
+[quote="moonsettler, post:23, topic:340"]
+resulting in the eviction of both fee bumps and the anchored tx from the mempools.
+[/quote]
+
+I think you're mostly describing the "cycle attack", where the child is RBF'd out of the mempool, and the new child no longer spends the ephemeral anchor, causing the parent transaction to be evicted.
+
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/021999.html
+
+Mitigation is, in general, to aggressively re-broadcast, since each cycle costs the attacker fees(unlike pins).
+
+You can think of it in another, imo more principled way: Someone is paying toe censor you, but they have to continuously bid block on block(and inbetween blocks if you're doing it right + mempool synchrony assumptions), where you only pay once at the end of the game at most, and at your expected rate.
+
+I don't want to get too deep into cycle discussion though; it's been done to death.
+
+-------------------------
+
