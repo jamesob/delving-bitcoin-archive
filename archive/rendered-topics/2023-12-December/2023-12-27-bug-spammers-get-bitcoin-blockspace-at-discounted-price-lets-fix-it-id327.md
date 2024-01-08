@@ -121,3 +121,17 @@ For example, 6000 simple transactions in a 2 MB block should not cost more sats 
 
 -------------------------
 
+moonsettler | 2024-01-08 10:19:13 UTC | #12
+
+[quote="GregTonoski, post:11, topic:327"]
+Indeed, we were not on the same page. I don’t suggest making “native asset transactions marginally more expensive”. On the contrary, I suggest that they should be less expensive.
+
+For example, 6000 simple transactions in a 2 MB block should not cost more sats than 1 complex transaction of the same (2 MB) size.
+[/quote]
+
+that's not how it works imo. the subsidy is a consequence of the space available for various parts. if you reduce the subsidy it means there is less block space. it gets more expensive with the same demand present. the witness bytes become more expensive so native economic transactions get marginally more expensive as a direct consequence. also the cost is highly related to creating new outputs. 6000 transactions creating ~12000 new outputs should be more expensive than a large script transaction creating 1 or 2 outputs.
+
+but like i said, if you only want to remove the unproportional advantage from segwit discount and willing to throw things like BitVM under the bus, you can use the formula i posted above. that likely won't harm 'normal' users of bitcoin.
+
+-------------------------
+
