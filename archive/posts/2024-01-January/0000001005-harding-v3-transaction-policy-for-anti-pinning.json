@@ -12,9 +12,9 @@
   "reply_to_post_number": 21,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 6.6,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 21.8,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I'm trying to better understand the claimed [v3 pinning vulnerability](https://petertodd.org/2023/v3-txs-pinning-vulnerability).  Do I understand correctly that:\n\n1. The worst case, which is what PT analyzed, is a commitment transaction with no pending HTLCs.\n2. The attacker reduces the feerate of the package/cluster containing the commitment transaction by the attacker using their own money to pay the fees.\n3. A commitment transaction with no pending HTLCs has no special urgency (i.e., no timelocks that will expire to the detriment of the broadcasting party).\n\nIn other words, the worst case form of this attack would be that Bob will have to wait a bit longer to respend his channel funds but Mallory will pay his fees?\n\nObviously, the attack also works against commitment transactions with pending HTLCs, but for each additional HTLC output, the attack quickly becomes less effective due to the decrease in relative size difference.  Perhaps more interestingly, if Bob pays out of band to fee bump both the commitment transaction and Mallory's pin (ephemeral anchor spend), Bob will possibly pay less fees than he would've without the pinning attack and Mallory will end up losing the funds she spent on the attack.\n\nOf course, paying to defeat an attack out of band is still bad for mining decentralization, but I think all of the above points to this pinning attack being possibly ineffective.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
