@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 23.6,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Simple unidirectional NIC (non-interactive channel) that that is immune to TXID malleability and can be natural part of pool vTXOs (virtual UTXOs) from user `Alice` where you have a coordinator `Bob` that acts as an LSP:\n```\n<sigBob>\n<sigAlice>\n<template>\n---\nCHECKTEMPLATEVERIFY\n<pubAlice>\nOP_CHECKSIGFROMSTACKVERIFY\n<pubBob>\nOP_CHECKSIGVERIFY\n```\nYou would have an alternative spending branch with a 24h timelock and `Alice` single sig. also have a 2-of-2 musig keyspend naturally.\n\n`Alice` can keep giving `Bob` newer more favorable distributions. `Bob` gates them with his single sig.\n\nWhat `Alice` would do is give `Bob` a new `<sigAlice> <template>` pairs and the new outputs that hash to the template to move funds to `Alice`. outputs can include HTLCs and then their updated settlement.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

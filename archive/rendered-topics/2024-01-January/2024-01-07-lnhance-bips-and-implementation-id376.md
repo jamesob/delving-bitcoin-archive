@@ -88,3 +88,11 @@ What `Alice` would do is give `Bob` a new `<sigAlice> <template>` pairs and the 
 
 -------------------------
 
+urza | 2024-01-08 06:31:45 UTC | #7
+
+Would this also allow construction of other things that APO would? Namely channel factories and Spacechains?
+
+Ping @RubenSomsen
+
+-------------------------
+

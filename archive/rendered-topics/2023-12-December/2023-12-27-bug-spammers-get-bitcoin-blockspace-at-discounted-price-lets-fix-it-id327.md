@@ -109,3 +109,15 @@ it really doesn't sound positive to me.
 
 -------------------------
 
+GregTonoski | 2024-01-08 08:20:24 UTC | #11
+
+[quote="moonsettler, post:10, topic:327"]
+even if you only make native asset transactions marginally more expensive, while forcing alternative assets to be more economic than they are (say via taptweak and client side validation)
+[/quote]
+
+Indeed, we were not on the same page. I don't suggest making "native asset transactions marginally more expensive". On the contrary, I suggest that they should be less expensive. 
+
+For example, 6000 simple transactions in a 2 MB block should not cost more sats than 1 complex transaction of the same (2 MB) size.
+
+-------------------------
+
