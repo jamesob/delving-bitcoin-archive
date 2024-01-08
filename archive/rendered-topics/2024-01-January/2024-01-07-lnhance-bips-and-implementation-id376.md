@@ -96,3 +96,9 @@ Ping @RubenSomsen
 
 -------------------------
 
+moonsettler | 2024-01-08 10:21:44 UTC | #8
+
+indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won't do everything APO can, and that's on purpose. just the most important things that are highly desired.
+
+-------------------------
+
