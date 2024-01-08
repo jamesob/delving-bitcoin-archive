@@ -91,3 +91,13 @@ The goal was rather to explore what's possible with CAT.
 
 -------------------------
 
+ajtowns | 2024-01-08 04:58:48 UTC | #6
+
+[quote="RobinLinus, post:5, topic:370"]
+The goal was rather to explore what’s possible with CAT.
+[/quote]
+
+Sure. Just feels like asking a handyman "If you could only have one tool to do your job, what would it be? A knife, a hammer, a screwdriver or a handsaw?" Fun thing to debate over beers or whatever, but seems a crazy limitation to apply in reality?
+
+-------------------------
+
