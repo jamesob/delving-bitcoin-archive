@@ -96,7 +96,7 @@ Ping @RubenSomsen
 
 -------------------------
 
-moonsettler | 2024-01-09 20:49:19 UTC | #8
+moonsettler | 2024-01-09 20:56:18 UTC | #8
 
 indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won't do everything APO can, and that's on purpose. just the most important things that are highly desired.
 
@@ -114,7 +114,7 @@ before funding sign first state template:
 
 # contract
 IF
-  <sig> <state-n-hash> | CTV IK CSFS <S+n> CLTV
+  <sig> <state-n-hash> | CTV IK CSFS <S+n+1> CLTV
 ELSE
   <settlement-hash> CTV
 ENDIF
