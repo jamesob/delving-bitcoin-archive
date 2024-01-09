@@ -62,3 +62,27 @@ Why would anyone make a non-trivial-value ephemeral anchor? Is it really necessa
 
 -------------------------
 
+t-bast | 2024-01-09 09:03:40 UTC | #3
+
+> Why would anyone make a non-trivial-value ephemeral anchor? Is it really necessary to put code in place to fix this?
+
+In the context of lightning, this is necessary to handle dust HTLCs. When Alice sends a dust HTLC to Bob, the following steps happen:
+
+1. Sign a commitment transaction where we subtract the HTLC amount from Alice's main output: since the HTLC is dust, we **don't** create a corresponding HTLC output in that commitment transaction
+2. When Bob fulfills the HTLC, sign a commitment transaction where the HTLC amount is added to Bob's main output
+
+In the first step, since we subtracted the HTLC amount from Alice's output but didn't add this amount anywhere else, *we temporarily increased the on-chain fees of the commitment transaction*. In the second step, we decrease the on-chain fees of the commitment transaction back to its previous value. If the commitment transaction of the first step is broadcast, *the dust HTLC amount goes directly to the miners*.
+
+I believe any L2 contract that allows transferring amounts that cannot be claimed on-chain will have a similar issue.
+
+Once we introduce ephemeral anchors, we can either:
+
+1. Not change anything to the current protocol and keep increasing the commitment transaction fees by the dust HTLC amount
+2. Add the dust HTLC amount to the ephemeral anchor output to keep the commitment transaction fees constant
+
+The issue with the first option is that the commitment transaction can end up paying a lot of on-chain fees on its own, which means it would make sense to include it in a block without claiming the tiny (most likely 0 sat) ephemeral anchor output (which will then pollute the utxo set).
+
+That's why we're currently advocating for the second option, which ensures that the feerate of the commitment transaction is always 0 sat/byte (which then simplifies the lightning protocol greatly). However, from the miner's point of view, they'll always want to claim the whole value of the ephemeral anchor output for themselves if it's larger than the current feerate (MEV)! In that scenario it is a bit wasteful that we need a follow-up transaction to spend the ephemeral anchor to the miner (without adding any new input since it pays enough fees on its own), but I don't see how to do it better.
+
+-------------------------
+

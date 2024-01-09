@@ -212,3 +212,22 @@ Why have the discount if utreexo is going to make UTXO set size unimportant?
 
 -------------------------
 
+GregTonoski | 2024-01-09 09:52:09 UTC | #18
+
+[quote="ProofOfKeags, post:16, topic:327"]
+[quote="GregTonoski, post:15, topic:327"]
+Not to prioritize but make equal to other transactions. Why would such a transaction remain at disadvantage?
+[/quote]
+
+Equal in what sense?
+[/quote]
+
+Equal in the sense that a byte of a simple transaction and a byte of other types of transactions are not discriminated. 
+
+[quote="ProofOfKeags, post:16, topic:327"]
+(...) a reason that the witness data is *fundamentally less expensive* to the network than the state transition data (inputs + outputs). If you want to contest that claim, I’m open to hearing it.
+[/quote]
+Yes, I do contest that claim. I haven't found evidence that would support it. To the contrary, the network sees 1 byte as 1 byte (indiscriminately) and the deviation (so-called "witness discount") is being exploited apparently (to the detriment of simple transactions, decentralization and value of sats).
+
+-------------------------
+

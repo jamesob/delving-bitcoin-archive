@@ -12,8 +12,8 @@
   "reply_to_post_number": 5,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
+  "reads": 13,
+  "readers_count": 12,
   "score": 2.2,
   "yours": false,
   "topic_id": 370,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"RobinLinus, post:5, topic:370\"]\nThe goal was rather to explore what\u2019s possible with CAT.\n[/quote]\n\nSure. Just feels like asking a handyman \"If you could only have one tool to do your job, what would it be? A knife, a hammer, a screwdriver or a handsaw?\" Fun thing to debate over beers or whatever, but seems a crazy limitation to apply in reality?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
