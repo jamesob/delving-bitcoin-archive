@@ -102,3 +102,23 @@ indeed. LN-symmetry is an other big thing it enables. (will try to dig up the co
 
 -------------------------
 
+reardencode | 2024-01-09 18:34:23 UTC | #9
+
+Here's a new one, [Oracle slashing](https://twitter.com/jxpcsnmz/status/1744780287136137276) (just proposed).
+
+That relates closely to [simplified DLCs with CTV](https://mailmanlists.org/pipermail/dlc-dev/2022-January/000102.html).
+
+[Timeout Trees](https://github.com/JohnLaw2/ln-scaling-covenants/blob/386736fa15cdda3c0f24f17a31b6ad608d338b08/scalingcovenants_v1.3.pdf), pretty well specified.
+
+LN-Symmetry, as written by @instagibbs, ports directly to LNHANCE (probably all of uses for `SIGHASH_ANYPREVOUTANYSCRIPT|SIGHASH_ALL`).
+
+[Ark](https://arkdev.info), as originally proposed by Burak, and depending on ephemeral anchors.
+
+[Simple coin pools](https://rubin.io/bitcoin/2021/12/10/advent-13/) (with n-n signing required to advance the state of the pool) simple to implement, only useful for small (e.g. family) groups.
+
+[Simple CTV Vaults](https://github.com/jamesob/simple-ctv-vault) implemented, but somewhat hard to use.
+
+And many many many more that I don't have immediate links to.
+
+-------------------------
+

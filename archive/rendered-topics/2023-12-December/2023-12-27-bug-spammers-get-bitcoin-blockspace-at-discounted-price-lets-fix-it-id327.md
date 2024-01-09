@@ -288,3 +288,33 @@ So I think it's better to say that Utreexo moves the concern of UTXO set size el
 
 -------------------------
 
+GregTonoski | 2024-01-09 18:03:47 UTC | #21
+
+[quote="sipa, post:20, topic:327"]
+[quote="GregTonoski, post:18, topic:327"]
+To the contrary, the network sees 1 byte as 1 byte (indiscriminately)
+[/quote]
+
+The byte size of transactions(...) would then not correspond to anything physical at all. Would you then still say 1 byte = 1 byte?
+[/quote]
+
+Yes, I would still say 1 byte = 1 byte.
+
+Can I ask you to rephrase the rest of the comment, please? I aim to find out an argument being made against "blockspace price shouldn’t be higher for a simple transaction".
+
+-------------------------
+
+ProofOfKeags | 2024-01-09 18:12:37 UTC | #22
+
+[quote="GregTonoski, post:21, topic:327"]
+I aim to find out an argument being made against “blockspace price shouldn’t be higher for a simple transaction”.
+[/quote]
+
+Greg, the problem with your question is the question itself. You are making the claim that there is price "discrimination", as if the simple transactions are being targeted and as if their use case is more "virtuous" than others. The problem here is that witness bytes bear a different cost to the network than the main transaction bytes.
+
+What @sipa is saying is that fixing this would require reducing the witness discount. However, by reducing the witness discount you are also forcing more weight units to be consumed when those non-"simple" transactions are made. If you double the cost of those transactions, you would need the demand to reduce by >50% to actually allow for more "simple" transactions to be accepted in a block.
+
+There is no bug here. This is just a natural consequence of the fact that we price witness bytes more cheaply and we do that because validators spend more to work with main transaction bytes than witness bytes. Your suggestion is punitive at best and outright destructive at worst.
+
+-------------------------
+

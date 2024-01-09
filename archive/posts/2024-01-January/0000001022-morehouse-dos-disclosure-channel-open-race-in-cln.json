@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 6,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 62.8,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 78.4,
   "yours": false,
   "topic_id": 385,
   "topic_slug": "dos-disclosure-channel-open-race-in-cln",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -58,10 +58,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "clap",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }

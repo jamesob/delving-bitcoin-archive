@@ -102,3 +102,9 @@ Another point: If we don't do the anti-MEV check, due to anti-DoS rules like bip
 
 -------------------------
 
+MattCorallo | 2024-01-09 18:30:13 UTC | #5
+
+In general, my thinking on these things has always been "it doesn't matter as long as one person runs a bot which creates these transactions for miners". MEVil comes about when miners have to run some sidecar daemon in order to maximize their mined value. Transactions which are trivial to build and can freely enter the mempool (eg ones which burn funds entirely to fees) can meet that criteria, but only if no one is doing so as a public service. Thus, systems which do generate such ephemeral anchors (eg lightning) really need to build these kinds of bots into existing software (shame on me). Alternatively, some single "someone needs to run this" software project which tries to gather all the known such value and put it in the mempool would also suffice.
+
+-------------------------
+

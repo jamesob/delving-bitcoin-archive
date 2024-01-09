@@ -428,3 +428,49 @@ Spec for HTLCs are identical to today, pretty much. Making those non-pinnable is
 
 -------------------------
 
+rustynail | 2024-01-09 17:13:30 UTC | #30
+
+[quote="instagibbs, post:28, topic:340"]
+The exact pin will indeed rely on exact mempool conditions, which is why I mostly just said “5x max” in my BIP text
+[/quote]
+
+But then why would you use an ephemeral anchor which can be maliciously pinned by **anyone** instead of a normal anchor with a checksig? Why make the attackers able to attack more stuff?
+
+-------------------------
+
+rustynail | 2024-01-09 17:14:59 UTC | #31
+
+[quote="instagibbs, post:29, topic:340"]
+Spec for HTLCs are identical to today, pretty much. Making those non-pinnable is out of scope for now as it would be a significantly larger spec change, with clear drawbacks. I think we can do better later without bothering spec people too much
+[/quote]
+
+@glozow Is this true? Why aren't we figuring out this stuff now while the spec is developing? I thought V3 was supposed to fix all these pinning issues.
+
+-------------------------
+
+instagibbs | 2024-01-09 19:42:52 UTC | #32
+
+[quote="rustynail, post:30, topic:340"]
+But then why would you use an ephemeral anchor which can be maliciously pinned by **anyone** instead of a normal anchor with a checksig? Why make the attackers able to attack more stuff?
+[/quote]
+
+Assuming we're talking specifically about LN, every choice has tradeoffs. From what I can see we have these shorter term choices:  
+1) 2 Keyed anchors: Relies on CPFP carveout([which is going away eventually due to incoherence in cluster mempool world](https://delvingbitcoin.org/t/an-overview-of-the-cluster-mempool-proposal/393#the-cpfp-carveout-rule-can-no-longer-be-supported-12)). Not really viable.  
+2) 1 Keyed Anchor(with no sharing): Relies V3 + package RBF which means you have to pay for absolute fee of counter-party's package + incremental bytes (slightly worse than replacing just child with adversarial counterparty).  
+3) 1 Shared Keyed Anchor: Relies on V3 + package RBF. Both parties can independently spend the same anchor. Pinning bounded by the child tx size rule. Requires all other outputs be relative timelocked for at least one block, and costs the additional vbytes for a keyspend. Output must be above dust value. Allows for package RBF or direct RBF against anchor spends. Allows for "theft" of base anchor value.
+4) Keyless anchor: In benign cases, strictly cheaper to spend, and results in smaller commitment transactions. Allows using any outputs previously encumbered by `1 CSV` to be unlocked for potential CPFP. Downside is it allows general adversaries to try and pin in the same reduced way as the highly motivated counter-party could in (3).
+
+For more general smart contracting, it has plenty of benefits over CPFP-carveout based solutions: https://github.com/instagibbs/bips/blob/527b007dbf5b9a89895017030183370e05468ae6/bip-ephemeralanchors.mediawiki#motivation
+
+[quote="rustynail, post:31, topic:340"]
+@glozow Is this true? Why aren’t we figuring out this stuff now while the spec is developing? I thought V3 was supposed to fix all these pinning issues.
+[/quote]
+
+It was previously investigated by me, presented to LN spec group last year in NYC in person, and shelved because all HTLC-Success paths must be pre-signed to commit to some sort of opt-in policy, and either:
+1) If using V3+ephemeral anchors, additional overhead bytes for HLTCs and protocol changes (icy reception to additional bytes)
+2) Some sort of "V4" transaction which helps directly with 1-input-1-output case (Investigated this twice; not many people seemed to like this either).
+
+In summation, we're trying to offer something people can use to safely replace CPFP carveout, whatever that is, while also improving the situation for wallets who would prefer some anti-pin features.
+
+-------------------------
+
