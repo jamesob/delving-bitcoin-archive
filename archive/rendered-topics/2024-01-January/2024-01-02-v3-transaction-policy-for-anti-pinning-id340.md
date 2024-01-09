@@ -408,3 +408,23 @@ Hmm, so Peter's thing made assumptions about the attackers fee margin of error t
 
 -------------------------
 
+instagibbs | 2024-01-09 14:57:31 UTC | #28
+
+The exact pin will indeed rely on exact mempool conditions, which is why I mostly just said "5x max" in my BIP text: https://github.com/instagibbs/bips/blob/527b007dbf5b9a89895017030183370e05468ae6/bip-ephemeralanchors.mediawiki#motivation
+
+If a 5x theoretical pin, down from 500x, with practical limits depending on factors generally considered out of the attacker and defenders power. The only direct way to further lower this is to lower the CPFP max size, without effecting "honest" CPFPs. Originally the child size was something like 4kvB, we already bikeshedded it once!
+
+@0xB10C made some nice charts which may inform better as well: https://twitter.com/0xB10C/status/1743626031070630038
+
+-------------------------
+
+instagibbs | 2024-01-09 14:46:24 UTC | #29
+
+[quote="rustynail, post:26, topic:340"]
+@glozow How are V3 transactions supposed to work with HTLCs anyway? Going to have V3 HTLC-success/failure transactions too?
+[/quote]
+
+Spec for HTLCs are identical to today, pretty much. Making those non-pinnable is out of scope for now as it would be a significantly larger spec change, with clear drawbacks. I think we can do better later without bothering spec people too much :slight_smile:
+
+-------------------------
+

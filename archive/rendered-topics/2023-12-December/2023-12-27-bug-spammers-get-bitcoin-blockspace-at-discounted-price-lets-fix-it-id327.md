@@ -231,3 +231,60 @@ Yes, I do contest that claim. I haven't found evidence that would support it. To
 
 -------------------------
 
+GregTonoski | 2024-01-09 11:53:26 UTC | #19
+
+[quote="rustynail, post:17, topic:327, full:true"]
+Why have the discount if utreexo is going to make UTXO set size unimportant?
+[/quote]
+
+
+The Bitcoin fee is charged per a transaction (and from a transaction signer). Miners prioritize transactions by fee rate (sats per (v)byte) and collect the fees.
+
+The Bitcoin fee is not charged per UTXO set size. It is not charged from a node operator. Nodes are up and running independently of Bitcoin fees.
+
+Any relation betwen UTXO set size and discount would be artificial and inefficient, wouldn't it?
+
+-------------------------
+
+sipa | 2024-01-09 13:55:01 UTC | #20
+
+[quote="GregTonoski, post:18, topic:327"]
+To the contrary, the network sees 1 byte as 1 byte (indiscriminately)
+[/quote]
+
+The byte size of transactions in the P2P protocol is an artifact of the encoding scheme used. It does matter, because it directly correlates with bandwidth and disk usage for non-pruned nodes, but if we really cared about the impact these had we could easily adopt more efficient encodings for transactions on the network or on disk that encodes some parts of transactions more compactly. If we would do that, the consensus rules (ignoring witness discount) would still count transaction sizes by their old encoding, which would then not correspond to anything physical at all. Would you then still say 1 byte = 1 byte?
+
+So no, in my opinion weighing every byte in the current serialization equally is no less arbitrary than choosing to discount some part of that. A discussion can be had about what the proper way to weigh things is, but it is in my view misguided to treat "bytes in the existing protocol" as inherently more fair than something else.
+
+[quote="GregTonoski, post:15, topic:327"]
+Not to prioritize but make equal to other transactions. Why would such a transaction remain at disadvantage?
+[/quote]
+
+Ignoring the question of what the proper way to weigh transactions is, I think you're missing something else here too: the witness discount (or any alternative weighing we'd want) doesn't just apply to fees, it also reduces the ability for transactions to push out others. This is because the discount literally shrinks transactions from the perspective of the weight limit (which is all that matters for consensus).
+
+As an example, imagine we implement some kind of different weighing scheme that doubles the weight of some subset of transactions. These transactions would now need to pay twice as much, relatively speaking. But they would also take twice as much "space", meaning they push out twice as much other transaction bytes from the block.
+
+Put otherwise, if you double the weight of some transactions, raising their cost, and thereby say halve the demand for them, their impact on the fee pressure (and your ability to get transactions confirmed) is unaffected. If your goal is getting relief from competition with your own transactions, you need a superlinear impact of fee on demand, which is far from a given.
+
+[quote="GregTonoski, post:19, topic:327"]
+The Bitcoin fee is not charged per UTXO set size. It is not charged from a node operator. Nodes are up and running independently of Bitcoin fees.
+[/quote]
+
+This asymmetry is exactly the reason why weighing bytes properly (whatever that may mean) is important. Fees are paid to miners, and not to validation nodes. Yet not every byte is equally resource-intensive for validation nodes. Nodes are not powerless however, as they can collectively enforce consensus rules, and the witness discount is an attempt at discouraging bytes that are more impactful to them through consensus rules.
+
+---
+
+[quote="rustynail, post:17, topic:327, full:true"]
+Why have the discount if utreexo is going to make UTXO set size unimportant?
+[/quote]
+
+It may eventually have an impact, but I think the reality is a lot more nuanced. Utreexo, as I understand it, introduces effectively a new node type that fully validates but needs proofs to do so. Transactions and blocks cannot be relayed from normal nodes to utreexo nodes directly, but must go through a bridge node that can add the proofs. The resource costs for a bridge node are significantly higher than running a normal full node today, and still scale with the UTXO set size.
+
+Unless the entire ecosystem migrates to a Utreexo model, these bridge nodes and their scalability remains important to the network. Lightweight wallets (as in ones that don't see full blocks) cannot produce their own proofs, so they'll inherently need some kind of service to do it for them. Further, presigned transactions cannot have proofs, as the proofs would grow outdated anyway as new blocks are added to the chain.
+
+Miners can adopt Utreexo, but unless nearly all of them do so, the ones who do will be at a disadvantage because they'll need a bridge service to construct proofs for blocks received from non-Utreexo nodes, which would incur a higher latency than just running an old nodes.
+
+So I think it's better to say that Utreexo moves the concern of UTXO set size elsewhere, to a place where it may become less relevant for the critical validation path, but doing so has costs too.
+
+-------------------------
+

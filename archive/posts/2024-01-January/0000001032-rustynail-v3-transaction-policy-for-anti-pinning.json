@@ -8,13 +8,13 @@
   "post_number": 27,
   "post_type": 1,
   "updated_at": "2024-01-09T02:31:45.414Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 7.4,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hmm, so Peter's thing made assumptions about the attackers fee margin of error that aren't valid right now. His analysis assumed the attacker paid 1/2.5th of the victim fees, which would be less than minrelayfee. You could probably get away with just 25% less right now, which would force the victim to pay 2.8x more fees. Big difference!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

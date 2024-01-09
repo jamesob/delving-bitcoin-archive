@@ -86,3 +86,19 @@ That's why we're currently advocating for the second option, which ensures that 
 
 -------------------------
 
+instagibbs | 2024-01-09 14:30:36 UTC | #4
+
+Even today, I think dumping trimmed HTLC value is a bit odd incentive-wise in general, in that a counter-party could fund their unilateral close by circular routing games, then go to chain instead of trying to resolve the HTLCs. With the fees being forwarded to a CPFP, this would get even weirder of course since there are free-form fields, like potential payments, so it's better if it's at least no worse than status quo LN spec.
+
+[quote="t-bast, post:3, topic:383"]
+I believe any L2 contract that allows transferring amounts that cannot be claimed on-chain will have a similar issue.
+[/quote]
+
+A LN spec alternative could be to directly donate trimmed value to the community via OP_RETURN burn, at the expense of 10 more vbytes. Incentives for this seem better, but it is also more wasteful in the average case, which is why I haven't seriously proposed it?
+
+----
+
+Another point: If we don't do the anti-MEV check, due to anti-DoS rules like bip125 rule#3, whoever spends the ephemeral anchor first can inflate the required size without risking their funds, even in the case where a "pure burn" would have been high enough to get into the next block.
+
+-------------------------
+
