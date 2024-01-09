@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 327,
   "topic_slug": "bug-spammers-get-bitcoin-blockspace-at-discounted-price-lets-fix-it",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"GregTonoski, post:15, topic:327\"]\nAre you trolling, perhaps?\n[/quote]\n\nNo. I'm legitimately making this claim.\n\n[quote=\"GregTonoski, post:15, topic:327\"]\nActually, the simple transactions are treated worse than others as a result of the price discrimination.\n[/quote]\n\nThat very well may be. I'm open to the idea that the structure or the size of the witness discount doesn't reflect the relative difference in resource costs that the network has to bear. However, the path to that argument doesn't involve making any claim about the *use case*.\n\n[quote=\"GregTonoski, post:15, topic:327\"]\nNot to prioritize but make equal to other transactions. Why would such a transaction remain at disadvantage?\n[/quote]\n\nEqual in what sense? I have highlighted a reason that the witness data is *fundamentally less expensive* to the network than the state transition data (inputs + outputs). If you want to contest that claim, I'm open to hearing it. However, the fact that \"simple transactions\" are a less efficient use of network resources than the \"spam\" transactions is just how the chips fall given the current constructions.\n\nAgain. I think there may be an argument to say that the witness discount is misguided, but the argument should be about why witness data is more expensive to *node-runners* (not transactors) than 25% of the state-transition data.\n\nIt isn't hard to demonstrate that it should have a discount > 0%. When syncing the blockchain we cannot arrive at a correct UTXO set without processing 100% of the state-transition data. However, the longer Bitcoin is in existence, the lower % of witness data is actually needed to have a reliable and secure sync as PoW serves as an effective scheme of compressing historical witness data into something that is efficiently verifiable. This is the entire reason behind the default `assumevalid` setting in Bitcoin Core.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
