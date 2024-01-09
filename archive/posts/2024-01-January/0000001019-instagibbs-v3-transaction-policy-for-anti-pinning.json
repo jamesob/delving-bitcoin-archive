@@ -12,9 +12,9 @@
   "reply_to_post_number": 23,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"moonsettler, post:23, topic:340\"]\nresulting in the eviction of both fee bumps and the anchored tx from the mempools.\n[/quote]\n\nI think you're mostly describing the \"cycle attack\", where the child is RBF'd out of the mempool, and the new child no longer spends the ephemeral anchor, causing the parent transaction to be evicted.\n\nhttps://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/021999.html\n\nMitigation is, in general, to aggressively re-broadcast, since each cycle costs the attacker fees(unlike pins).\n\nYou can think of it in another, imo more principled way: Someone is paying toe censor you, but they have to continuously bid block on block(and inbetween blocks if you're doing it right + mempool synchrony assumptions), where you only pay once at the end of the game at most, and at your expected rate.\n\nI don't want to get too deep into cycle discussion though; it's been done to death.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

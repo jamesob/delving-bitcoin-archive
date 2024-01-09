@@ -388,3 +388,23 @@ I don't want to get too deep into cycle discussion though; it's been done to dea
 
 -------------------------
 
+rustynail | 2024-01-09 01:41:58 UTC | #26
+
+[quote="harding, post:22, topic:340"]
+In other words, the worst case form of this attack would be that Bob will have to wait a bit longer to respend his channel funds but Mallory will pay his fees?
+[/quote]
+
+Just checked. At the moment the fees required to get into the next block are 30sat/VB while the min relay fee is 22.2sat/VB. The mempool feerate is super flat. So an attacker could easily force you to wait basically forever becuase those min fee txs aren't gonna get mined, unless you pay the 50% extra. Not good. And the attacker's txs will get pushed out of the mempool as fees go up so Mallory isn't paying anything to attack.
+
+HTLC outputs aren't much more space. I don't think Peter's numbers would change that much if you did the computation for that case too. You could do the same attack on the HTLC as well I think?
+
+@glozow How are V3 transactions supposed to work with HTLCs anyway? Going to have V3 HTLC-success/failure transactions too?
+
+-------------------------
+
+rustynail | 2024-01-09 02:31:45 UTC | #27
+
+Hmm, so Peter's thing made assumptions about the attackers fee margin of error that aren't valid right now. His analysis assumed the attacker paid 1/2.5th of the victim fees, which would be less than minrelayfee. You could probably get away with just 25% less right now, which would force the victim to pay 2.8x more fees. Big difference!
+
+-------------------------
+

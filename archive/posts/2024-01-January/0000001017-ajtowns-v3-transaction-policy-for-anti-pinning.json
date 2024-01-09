@@ -12,9 +12,9 @@
   "reply_to_post_number": 6,
   "quote_count": 1,
   "incoming_link_count": 3,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 33.0,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"harding, post:6, topic:340\"]\nHowever, it\u2019s easy to turn those rules into consensus rules: a block may only include a parent ephemeral anchor if it also includes the child spend.\n[/quote]\n\nI don't think that works: if you get to the point where miners offer an API for out of band fee payments that's trustworthy enough and discounted enough that it sees wide adoption, leading to a centralisation risk, then if you did have a soft fork to require ephemeral anchors be spent, then those miners could work around your soft fork as follows:\n\n * create a \"nouveau ephemeral anchors\" BIP, with the same behaviour as before the soft-fork, but with a different `scriptPubKey` pattern\n * flood the network with nodes that relay according to the new BIP, have those nodes preferentially peer with each other to ensure there aren't disconnected subgraphs\n * get this implemented by the devs that had already integrated with their API\n * push the patch to core noting that it's in wide use on the network\n * profit\n\nI think the sort of soft-fork you be okay if it was in line with economic incentives (ie, the only time an ephemeral anchor is in a block but not immediately spent is people testing things on regtest/signet/testnet, or due to bugs), but if the economic incentives are strongly pushing the other way (miners, wallet devs and users all collaborating to save a buck despite the centralisation risk), I don't think a soft fork here would actually help.\n\n(The other soft-fork approach would be: \"an ephemeral anchor output can only be spent in the same block that it was created; it's removed from the utxo set once the block is completely processed\". That resolves the \"bugs lead to dust in the utxo set\" issue, but doesn't touch out-of-band-payment incentives, and introduces the potential for the child tx to become invalid in a reorg, if for some reason it isn't included in the same block as its parent)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -52,3 +52,13 @@ With this check, it should blunt any incentives for smart contract counter-parti
 
 -------------------------
 
+rustynail | 2024-01-09 01:58:02 UTC | #2
+
+[quote="instagibbs, post:1, topic:383"]
+if an ephemeral anchor has non-0 value
+[/quote]
+
+Why would anyone make a non-trivial-value ephemeral anchor? Is it really necessary to put code in place to fix this?
+
+-------------------------
+

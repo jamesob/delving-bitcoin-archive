@@ -206,3 +206,9 @@ It isn't hard to demonstrate that it should have a discount > 0%. When syncing t
 
 -------------------------
 
+rustynail | 2024-01-09 02:04:43 UTC | #17
+
+Why have the discount if utreexo is going to make UTXO set size unimportant?
+
+-------------------------
+
