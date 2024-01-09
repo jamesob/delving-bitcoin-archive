@@ -102,7 +102,7 @@ indeed. LN-symmetry is an other big thing it enables. (will try to dig up the co
 
 -------------------------
 
-reardencode | 2024-01-09 18:34:23 UTC | #9
+reardencode | 2024-01-09 20:34:43 UTC | #9
 
 Here's a new one, [Oracle slashing](https://twitter.com/jxpcsnmz/status/1744780287136137276) (just proposed).
 
@@ -117,6 +117,8 @@ LN-Symmetry, as written by @instagibbs, ports directly to LNHANCE (probably all 
 [Simple coin pools](https://rubin.io/bitcoin/2021/12/10/advent-13/) (with n-n signing required to advance the state of the pool) simple to implement, only useful for small (e.g. family) groups.
 
 [Simple CTV Vaults](https://github.com/jamesob/simple-ctv-vault) implemented, but somewhat hard to use.
+
+edit to add: Didn't mention the basic ability of CSFS to be used in delegation. This is often not the best method, but can be useful. Script like `<pubkey> SWAP IF 2DUP CSFSV DROP ENDIF CHECKSIG`.
 
 And many many many more that I don't have immediate links to.
 
