@@ -96,9 +96,30 @@ Ping @RubenSomsen
 
 -------------------------
 
-moonsettler | 2024-01-08 10:21:44 UTC | #8
+moonsettler | 2024-01-09 20:49:19 UTC | #8
 
 indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won't do everything APO can, and that's on purpose. just the most important things that are highly desired.
+
+edit:
+
+```text
+# S = 500000000
+# IK = A+B
+<sig> <state-n-hash> | CTV IK CSFS <S> CLTV
+```
+before funding sign first state template:
+```text
+# state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }
+# settlement-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }
+
+# contract
+IF
+  <sig> <state-n-hash> | CTV IK CSFS <S+n> CLTV
+ELSE
+  <settlement-hash> CTV
+ENDIF
+```
+`CLTV` ensures only a larger `nLockTime` transaction can spend the current on-chain state, the relative timelock for the last co-signed state's `CTV` distribution is committed to in the `settlement-hash`
 
 -------------------------
 
