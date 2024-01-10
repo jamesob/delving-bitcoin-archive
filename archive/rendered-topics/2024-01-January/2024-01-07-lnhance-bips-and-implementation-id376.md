@@ -145,3 +145,13 @@ And many many many more that I don't have immediate links to.
 
 -------------------------
 
+RubenSomsen | 2024-01-10 15:30:30 UTC | #10
+
+[quote="urza, post:7, topic:376"]
+Would this also allow construction of other things that APO would? Namely channel factories and Spacechains?
+[/quote]
+
+Spacechains are already possible without covenants, but yes, just about any covenant proposal that lets you pre-commit the next tx would be useful for spacechains.
+
+-------------------------
+
