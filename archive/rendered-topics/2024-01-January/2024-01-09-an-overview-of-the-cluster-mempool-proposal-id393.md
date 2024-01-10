@@ -1,6 +1,6 @@
 # An overview of the cluster mempool proposal
 
-sdaftuar | 2024-01-09 18:42:59 UTC | #1
+sdaftuar | 2024-01-09 22:52:52 UTC | #1
 
 Last spring, @sipa and I first floated a concept for a new mempool design to a group of Bitcoin Core contributors, which I later wrote up as a github issue (https://github.com/bitcoin/bitcoin/issues/27677).  Over the course of the past year, the ideas have been refined, and I will use this post to provide an updated high level summary of the overall proposal -- including the motivations and implications -- for anyone looking to catch up on this topic.
 
@@ -97,7 +97,7 @@ Many other examples exist as well.
 
 To fix the problem with eviction and mining, we start with the realization that those should be opposite operations on the mempool -- when we need to evict, we should always evict the transactions that are least desirable to be mined.  The difficulty in achieving this with today's mempool design is that we can't easily calculate the last transaction that would be mined -- the mining algorithm runs in time $O(dn \log n)$, where $n$ is the number of transactions in the mempool, and $d$ is the descendant limit, so it is not currently feasible to run the algorithm on the entire mempool in order to calculate the transactions to evict first.
 
-However, that is exactly what we'd like to do -- so a natural question to ask is, what bound could we add to the mempool in order to make it feasible to have a total ordering?  One way to see the answer to this question is to consider how many mempool transaction's mining scores might be changed when a single new transaction is added -- if we always maintained a full sort on the mempool, then this gives an idea of how much work might need to be done to update the mempool as transactions are added.
+However, that is exactly what we'd like to do -- so a natural question to ask is, what bound could we add to the mempool in order to make it feasible to have a total ordering?  One way to see the answer to this question is to consider how many mempool transactions' mining scores might be changed when a single new transaction is added -- if we always maintained a full sort on the mempool, then this gives an idea of how much work might need to be done to update the mempool as transactions are added.
 
 The answer to this is that every transaction that is connected to a new transaction, via either parent or child relationships, might have its mining score changed. Consider this example (credit to @sipa):
 
@@ -175,21 +175,21 @@ graph TD;
     D[Tx D: 1 sat/vB];
 ```
 
-And consider a potential replacement transaction E, which conflicts with tx C, and would produce the following mempool:
+And consider a potential replacement transaction C', which conflicts with tx C, and would produce the following mempool:
 
 ```mermaid height=146,auto
 graph TD;
     A[Tx A: 1 sat/vB]-->B[Tx B: 3.5 sat/vB];
-    D[Tx D: 1 sat/vB]-->E[Tx E: 6 sat/vB];
+    D[Tx D: 1 sat/vB]-->C'[Tx C': 6 sat/vB];
 ```
 
-How can we tell whether transaction E should be accepted?  Using the BIP 125 rules, we might say that E should be rejected because it brings in a new unconfirmed parent; or we might say that the unconfirmed parent rule is silly since we're just replacing a parent with another parent of the exact same fee/size, and transaction E pays a strictly higher fee and feerate than C, so we should obviously take it.
+How can we tell whether transaction C' should be accepted?  Using the BIP 125 rules, we might say that C' should be rejected because it brings in a new unconfirmed parent; or we might say that the unconfirmed parent rule is silly since we're just replacing a parent with another parent of the exact same fee/size, and transaction C' pays a strictly higher fee and feerate than C, so we should obviously take it.
 
-It turns out that neither of these explanations is wholly satisfactory.  Consider the total mempool sort order for the "old" mempool that contains tx C, and the "new" mempool that contains E instead.  
+It turns out that neither of these explanations is wholly satisfactory.  Consider the total mempool sort order for the "old" mempool that contains tx C, and the "new" mempool that contains C' instead.  
 
 The optimal sort order for the "old" mempool is [A, B, C], [D] (brackets indicate chunks).  A miner who mined just the first chunk of that old mempool would collect 950 sats and have included 300 vB of size; a miner who mined the whole mempool would collect 1050 sats and included 400 vB of size.
 
-Meanwhile, the optimal sort of the new mempool would be: [D, E], [A, B]. A miner that included the first chunk would collect 700 sats in 200 vB of size; a miner including both chunks would collect 1150 sats in 400 vB of size.
+Meanwhile, the optimal sort of the new mempool would be: [D, C'], [A, B]. A miner that included the first chunk would collect 700 sats in 200 vB of size; a miner including both chunks would collect 1150 sats in 400 vB of size.
 
 We can graph this data in what we have termed the "feerate diagram" of each mempool option, where on the x-axis we plot the size of the transactions included by a miner, and on the y-axis we plot the maximum fees that the miner can achieve at that size.  If we look at the feerate diagrams for this "old" and "new" mempool, we get the following:
 
@@ -228,7 +228,7 @@ So my belief is that there's nothing fundamentally worse about cluster size limi
 
 ## Why is there a bound on cluster size in vbytes?
 
-This is for exactly the same reason that we have a bound on the ancestor and descendant sizes -- it provides a bound on how poorly transaction selection can work when we use a greedy algorithm, in situations where the knapsack problem is what we need to solve.  Specifically, by limiting ancestor sizes to approximately 10% of the size of a block, our greedy transaction selection algorithm will always be within 90% of the maximum fee that we'd achieve if we had a knapsack solver instead.  
+This is for exactly the same reason that we have a bound on the ancestor and descendant sizes -- it provides a bound on how poorly transaction selection can work when we use a greedy algorithm, in situations where the knapsack problem is what we need to solve.  Specifically, by limiting ancestor sizes to approximately 10% of the size of a block, our greedy transaction selection algorithm will always be at least 90% of the maximum fee that we'd achieve if we had a knapsack solver instead.  
 
 Similarly, by bounding descendant sizes we also bound the small amount of free relay that can occur when mempool eviction happens.
 
