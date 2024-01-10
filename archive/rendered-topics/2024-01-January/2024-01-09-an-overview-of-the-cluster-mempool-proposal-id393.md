@@ -1,6 +1,6 @@
 # An overview of the cluster mempool proposal
 
-sdaftuar | 2024-01-09 22:52:52 UTC | #1
+sdaftuar | 2024-01-10 14:18:22 UTC | #1
 
 Last spring, @sipa and I first floated a concept for a new mempool design to a group of Bitcoin Core contributors, which I later wrote up as a github issue (https://github.com/bitcoin/bitcoin/issues/27677).  Over the course of the past year, the ideas have been refined, and I will use this post to provide an updated high level summary of the overall proposal -- including the motivations and implications -- for anyone looking to catch up on this topic.
 
@@ -242,6 +242,8 @@ One benefit of the cluster mempool approach is that we no longer need to maintai
 # Next steps
 
 A draft implementation against a recent version of the Bitcoin Core master branch is available [here](https://github.com/bitcoin/bitcoin/pull/28676).  The implementation details are still being improved upon, and the particular choices of parameters for cluster size limits and RBF will be determined after further benchmarking of the code and analysis of the effects of this logic on historical transaction data.
+
+Looking ahead, the framework introduced here for reasoning about the mempool (and RBF specifically) seems helpful for [reasoning about package validation and package RBF](https://delvingbitcoin.org/t/post-clustermempool-package-rbf-per-chunk-processing/190), though that work is still in progress.
 
 -------------------------
 

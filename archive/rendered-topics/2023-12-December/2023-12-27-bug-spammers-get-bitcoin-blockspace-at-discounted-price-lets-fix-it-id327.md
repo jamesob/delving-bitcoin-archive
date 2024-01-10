@@ -318,3 +318,28 @@ There is no bug here. This is just a natural consequence of the fact that we pri
 
 -------------------------
 
+GregTonoski | 2024-01-10 11:15:41 UTC | #23
+
+[quote="ProofOfKeags, post:22, topic:327"]
+You are making the claim that there is price “discrimination” (...).
+[/quote]
+
+Yes. Furthermore, the price discrimination is the fact proven in Bitcoin Core source code.
+
+[quote="ProofOfKeags, post:22, topic:327"]
+(...) fixing this would require reducing the witness discount.
+[/quote]
+I agree and wonder if there might be other solutions.
+
+[quote="ProofOfKeags, post:22, topic:327"]
+This is just a natural consequence of the fact that we price witness bytes more cheaply
+[/quote]
+I agree and think that the fact that Bitcoin Core prices witness bytes more cheaply is not optimal (to put it mildly).
+
+[quote="ProofOfKeags, post:22, topic:327"]
+Your suggestion is punitive at best and outright destructive at worst.
+[/quote]
+Can I ask you to point to any (scientific) evidence, please?
+
+-------------------------
+
