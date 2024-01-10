@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "incoming_link_count": 1,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -37,7 +37,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"urza, post:7, topic:376\"]\nWould this also allow construction of other things that APO would? Namely channel factories and Spacechains?\n[/quote]\n\nSpacechains are already possible without covenants, but yes, just about any covenant proposal that lets you pre-commit the next tx would be useful for spacechains.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

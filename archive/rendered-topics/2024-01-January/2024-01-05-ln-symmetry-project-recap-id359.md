@@ -108,3 +108,21 @@ I never implemented the optimistic sending of updates, but didn't ban it outrigh
 
 -------------------------
 
+rustyrussell | 2024-01-10 17:01:16 UTC | #5
+
+Is there a description for exactly how you used CTV to avoid a round-trip? I'm clearly missing something here...
+
+-------------------------
+
+instagibbs | 2024-01-10 19:56:47 UTC | #6
+
+[quote="rustyrussell, post:5, topic:359, full:true"]
+Is there a description for exactly how you used CTV to avoid a round-trip? I’m clearly missing something here…
+[/quote]
+
+An attempt was made to explain, along with the definition of `CovSig`, here: https://github.com/instagibbs/bolts/blob/a17b60f42077a785c625430e8f6e8e2828d4d898/XX-eltoo-transactions.md#rationale-1
+
+proposed method to remove round-trips without CTV-like application, or the annex usage: https://github.com/instagibbs/bolts/issues/5
+
+-------------------------
+
