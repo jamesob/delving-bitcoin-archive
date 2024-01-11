@@ -87,7 +87,7 @@ I understand that OP_SUCCESSx was intended to allow state modification of the st
 
 -------------------------
 
-sipa | 2024-01-11 15:21:11 UTC | #8
+sipa | 2024-01-11 15:23:39 UTC | #8
 
 [quote="Chris_Stewart_5, post:7, topic:397"]
 You are skeptical of a new encoding - strict 64 bit little endian requirements that would increase witness sizes rather than requiring minimal encoding (I believe `fRequireMinimal` is the flag in `interpreter.cpp`). You also don’t want to create more confusion by switching from BE → LE.
@@ -108,6 +108,8 @@ How would this be deployed with existing v1 tapscripts if we redefine the semant
 [/quote]
 
 One possibility is having an `OP_ENABLE64BIT`, which has no effect on the stack when executed, but its presence in a script makes all arithmetic opcodes accept up to 8-byte inputs for example. This will not affect any existing scripts because existing scripts don't have `OP_ENABLE64BIT` in them. It has the advantage of, even if `OP_ENABLE64BIT` is present, not changing semantics of *valid* existing scripts. And it is softfork-safe because the mere presence (not even execution) of `OP_ENABLE64BIT` makes a script anyone-can-spend according to the existing consensus rules.
+
+Alternatively, a new taproot leaf version could be used too. That's even more compact.
 
 -------------------------
 
