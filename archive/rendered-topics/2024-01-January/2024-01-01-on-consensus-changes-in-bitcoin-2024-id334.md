@@ -208,3 +208,15 @@ That's insane.  If miners signaled that they were only going to include OFAC-com
 
 -------------------------
 
+moonsettler | 2024-01-11 09:46:02 UTC | #10
+
+[quote="reardencode, post:8, topic:334"]
+If it does concern you then you can lobby for an activation client that uses LOT=false
+[/quote]
+
+i second this. just leave the BIP out of it! stand on a soap box and preach about the evils of LOT=true! that should go well.
+
+miners dicking around with false signaling and ending up losing money on that, is acceptable.
+
+-------------------------
+
