@@ -262,3 +262,9 @@ It's certainly an increase; I don't think it is dramatic at all. But fair enough
 
 -------------------------
 
+moonsettler | 2024-01-11 20:54:01 UTC | #16
+
+an upgraded OP_SUCCESS that changes how the opcodes execute after it?  :smirk:
+
+-------------------------
+
