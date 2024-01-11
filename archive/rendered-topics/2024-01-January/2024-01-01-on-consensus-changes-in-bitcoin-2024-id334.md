@@ -154,3 +154,57 @@ Bitcoin's success is not pre-ordained. We need to figure this out.
 
 -------------------------
 
+harding | 2024-01-11 02:28:17 UTC | #7
+
+> I think we must accept that right now we do not have the ability to reach consensus.
+
+I strongly disagree with this viewpoint.  Technical consensus has been found on many subjects since taproot's activation.  Examples: for many years, one developer vociferously opposed encrypted peer connections---now we have those in Bitcoin Core; other developers opposed even adding full RBF as an option---we have that too in Bitcoin Core; devs for a major LN implementation didn't like onion messages and certain things built on them, yet support for onion messages and blinded paths are being added there as I write; miniscript seemed for a while like some weird Bitcoin Core science project, yet now hardware wallets are adding support; years of debate about how to solve channel jamming attacks are finally seeing experimentation with solutions; and (with a few current dissenters) there's widespread agreement after 18+ months of work that v3 relay, ephemeral anchors, and cluster mempool are solid building blocks for future upgrades.  Heck, even with millions of dollars seeming to ride on continued controversy, there's rough consensus among developers to avoid witness filtering.
+
+Technical consensus has also been found on many bad ideas, or ideas that were not compelling.  Mainly that happens by an idea simply not gaining traction.  Examples from Optech newsletters since taproot activation: two-digest BOLT11 invoices (#256), relay of annexes before a defined need (#255), LN QoS bit (#239), global LN reputation tokens (#228), (at least some versions of) LN capacity-dependent feerates (#219), perpetual subsidy (#209), and fee accounts (#182).
+
+If we don't have technical consensus for what soft fork to perform yet, then I think the reason must be something besides our ability to form consensus.  One reason I would suggest for consideration is that none of the proposals so far has been compelling.  If a better proposal comes along, or if some of the existing proposals are made more compelling, then it's possible that will attract reviewers and lead to eventual technical consensus.
+
+> My proposal is that the bitcoin core project themselves begin publishing a client which supports validation of a variety of changes with separate signaling and let the signals fall where they may. 
+
+Please, no.  A soft fork that not everyone agrees is active can create a chain split.  If a chain split is eventually healed, some miners are guaranteed to lose money.  If it's not healed, Bitcoin's economy fractures, harming users.  In either case, many poorly informed users, or users who wrongly predicted the outcome of the chain split, are likely to lose money.  Those who take precautions not to lose money will likely lose the ability to transact for part or all of the chain split.  It's an all-around bad mechanism for making upgrades to the system.
+
+We can do better.  Or, if we can't do better and putting Bitcoin at significant risk of a chain split is the only way to change the consensus rules, then sign me up for team Immediate Ossification.
+
+-------------------------
+
+reardencode | 2024-01-11 03:07:06 UTC | #8
+
+[quote="harding, post:7, topic:334"]
+I strongly disagree with this viewpoint. Technical consensus has been found on many subjects since taproot’s activation.
+[/quote]
+
+Reaching consensus on changes to bits of software around bitcoin, even bitcoin core, is in almost no way similar to reaching consensus on changes to the consensus rules. Say consensus one more time, Rearden.
+
+[quote="harding, post:7, topic:334"]
+Please, no. A soft fork that not everyone agrees is active can create a chain split. If a chain split is eventually healed, some miners are guaranteed to lose money.
+[/quote]
+
+This does not concern me in the slightest. If it does concern you then you can lobby for an activation client that uses LOT=false, which has approximately no risk of a chain split.
+
+I have almost no opinion on the details of activation, but I believe it fairly likely that the only way for bitcoin to reach consensus on consensus rule changes is to publish activation clients and let users lobby miners on which bits they want set.
+
+-------------------------
+
+harding | 2024-01-11 03:04:16 UTC | #9
+
+> Reaching consensus on changes to bits of software around bitcoin, even bitcoin core, is in almost no way similar to reaching consensus on changes to the consensus rules.
+
+I disagree.  The people and the process are largely the same.  The only significant difference is that the stakes are higher.
+
+> an activation client that uses LOT=false, which has approximately no risk of a chain split.
+
+This is wildly wrong.  Miners have false signaled in the past leading to chain splits, e.g. the 4 July 2015 chain splits: https://en.bitcoin.it/wiki/July_2015_chain_forks 
+
+That was an accident, but in a situation where many people aren't running a particular client, miners could false signal to steal money from people.
+
+> I believe it fairly likely that the only way for bitcoin tor each consensus on consensus rule changes is be to publish activation clients and let users lobby miners on which bits they want set.
+
+That's insane.  If miners signaled that they were only going to include OFAC-compliant transactions, would you have us all accept that as a new part of Bitcoin's consensus rules?
+
+-------------------------
+
