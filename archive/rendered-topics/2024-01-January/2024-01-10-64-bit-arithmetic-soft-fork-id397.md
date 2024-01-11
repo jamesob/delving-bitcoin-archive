@@ -113,3 +113,99 @@ Alternatively, a new taproot leaf version could be used too. That's even more co
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-11 17:19:48 UTC | #9
+
+> One possibility is having an `OP_ENABLE64BIT`...
+
+Ok I understand what you are proposing but honestly seems like introducing even more complexity into Script.
+
+>Alternatively, a new taproot leaf version could be used too. That’s even more compact.
+
+This seems like a better idea IMO. This hasn't been done before, so implementing this would mean having access to `leaf_version` in `EvalScript()` and then building conditional logic inside of these arithmetic opcodes based on `leaf_version`?
+
+>Sorry, that’s just baffling to me. You want to push the entire ecosystem to switch to a different number encoding because you think the existing one is a little strange?
+
+Coming back to this, yes. **I say this with the utmost respect**, I understand why the numbering system isn't confusing to you or other long time bitcoin developers. You've been working with it for a very long time. For newer developers, it is much easier to reason about things they have learned elsewhere in their software development career. Simple rules like things like inputs are always 8 bytes in length (not variable) make it much easier to reason about. If you would prefer big endian to be used rather than little endian I can see the value if that - although little endian is used elsewhere in the protocol.
+
+My understanding is the alternative implementation you are suggesting means modifying `CScriptNum` to support 64 bits. This introduces a ton of consensus risk for prior Scripts deployed. I was specifically recommended **not to touch CScriptNum** as it is hard to reason about.
+
+Perhaps I am not understanding what this alternative implementation looks like, so please correct me if I am wrong.
+
+IIUC - you do not have malleability concerns with this 8 byte proposal as 8 byte sizes would be required.
+
+>it’s minimal-length big endian, which for literals inside the script has the advantage of being more compact than forcing a full length constant.
+
+Just to make sure we are talking about the same thing, by literals you mean `OP_1,OP_2..` etc right? I think this is a fair critique as -- IIUC -- now you would have to have `OP_1` and `OP_1_64` or something like that I believe? Or else you would have to have special interpretation logic for pushing 8 byte values or 1 byte values onto the stack based on what the witness/leaf version is?
+
+-------------------------
+
+ProofOfKeags | 2024-01-11 16:46:12 UTC | #10
+
+[quote="sipa, post:8, topic:397"]
+One possibility is having an `OP_ENABLE64BIT`, which has no effect on the stack when executed, but its presence in a script makes all arithmetic opcodes accept up to 8-byte inputs for example
+[/quote]
+
+I'm generally skeptical of increasing the surface area of the state variable of the script VM. I'll admit I don't know script backwards and forwards but all of my experience with it so far points me to the fact that the only thing opcodes operate over is the main and alt stacks as well as halting execution of the VM. As such it *seems* that the existing VM *can* be modeled by a state transition function:
+
+```
+exec_op : (MainStack, AltStack) -> (MainStack, AltStack)
+```
+
+Doing something like `OP_ENABLE64BIT` would introduce some third `VMInterpreterState` and I think that will dramatically increase the surface area of potential consensus issues. Correct me if I'm wrong but this would be a fundamentally new structural change to the VM formalism.
+
+-------------------------
+
+Chris_Stewart_5 | 2024-01-11 17:19:08 UTC | #11
+
+[quote="ProofOfKeags, post:10, topic:397"]
+Doing something like `OP_ENABLE64BIT` would introduce some third `VMInterpreterState` and I think that will dramatically increase the surface area of potential consensus issues. Correct me if I’m wrong but this would be a fundamentally new structural change to the VM formalism.
+[/quote]
+
+I think Scripts like this would be confusing imo
+
+```
+OP_ADD OP_SUB OP_ENABLE64BIT OP_ADD OP_SUB ...
+```
+
+So `ENABLE64BIT` would essentially be changing interpretation of "local" op codes (rather than setting how they should be interpreted at a global level).
+
+In my example we would be combining these numbering systems within the same Script. If the `leaf_version` path is taken, we can reason at a global level in the interpreter that all arithmetic ops should be interpreted as 64 bit ops.
+
+-------------------------
+
+ajtowns | 2024-01-11 17:39:55 UTC | #12
+
+[quote="Chris_Stewart_5, post:11, topic:397"]
+I think Scripts like this would be confusing imo
+
+```
+OP_ADD OP_SUB OP_ENABLE64BIT OP_ADD OP_SUB ...
+```
+[/quote]
+
+You could define `ENABLE64BIT` to result in script failure unless it is the first opcode (apart from any other `OP_SUCCESSx` ops -- that way future upgrades that introduced `ENABLExyz` opcodes could then relax that restriction to allow ENABLE* opcodes to be in any order at the start of the script). You could have that requirement enforced even if `ENABLE64BIT` occurred in an unexecuted `IF/ELSE` branch.
+
+-------------------------
+
+ajtowns | 2024-01-11 17:42:51 UTC | #13
+
+[quote="sipa, post:8, topic:397"]
+One possibility is having an `OP_ENABLE64BIT`, which has no effect on the stack when executed, but its presence in a script makes all arithmetic opcodes accept up to 8-byte inputs for example.
+[/quote]
+
+The semantics proposed here copy those from liquid/elements -- that is maths opcodes like ADD and SUB tend to leave two two values to the stack, on the top, a boolean TRUE/FALSE indicating whether the operands were in range, and if they were, underneath that, the actual result of the operation. That's pretty different to the way bitcoin's existing operations work, so I'm not sure modifying the existing opcodes to such a different new behaviour makes sense.
+
+-------------------------
+
+ProofOfKeags | 2024-01-11 17:55:35 UTC | #14
+
+[quote="Chris_Stewart_5, post:11, topic:397"]
+I think Scripts like this would be confusing imo
+[/quote]
+
+It's not just the scripts themselves. Writing a correct Script interpreter in this regime becomes more complicated too. Script interpreters have to match each other *exactly* if we don't want consensus splits.
+
+We should be moving towards formally specifying the Script VM and things like a hypothetical `OP_ENABLE64BIT` make that harder than just putting new 64bit opcodes into the VM. I do recognize there is a desire to not eat up extra opcode space, but I feel the need to state that introducing this new invisible interpreter altering semantic is probably a pandoras box we don't want to open.
+
+-------------------------
+
