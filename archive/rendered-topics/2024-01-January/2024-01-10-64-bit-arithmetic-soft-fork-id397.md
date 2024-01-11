@@ -209,3 +209,56 @@ We should be moving towards formally specifying the Script VM and things like a 
 
 -------------------------
 
+sipa | 2024-01-11 20:40:26 UTC | #15
+
+[quote="ajtowns, post:13, topic:397"]
+The semantics proposed here copy those from liquid/elements – that is maths opcodes like ADD and SUB tend to leave two two values to the stack, on the top, a boolean TRUE/FALSE indicating whether the operands were in range, and if they were, underneath that, the actual result of the operation. That’s pretty different to the way bitcoin’s existing operations work, so I’m not sure modifying the existing opcodes to such a different new behaviour makes sense.
+[/quote]
+
+I was suggesting not changing any semantics at all; only changing the acceptable range of inputs to existing opcodes. If `OP_MUL` or a variant thereof is added, I can see why detecting/dealing with overflows becomes an issue that the existing interface doesn't deal well with.
+
+If the different semantics are actually desirable, then I agree it shouldn't reuse the existing opcodes. Even if so, I don't see the benefit of introducing a different encoding.
+
+[quote="Chris_Stewart_5, post:9, topic:397"]
+Simple rules like things like inputs are always 8 bytes in length (not variable) make it much easier to reason about. If you would prefer big endian to be used rather than little endian I can see the value if that - although little endian is used elsewhere in the protocol.
+[/quote]
+
+Ok, I'll accept that the variable-length approach complicates things a bit, but I also think having two different encodings is even worse. All things being equal, I prefer little-endian over big-endian, but again, two encodings is worse than one.
+
+[quote="Chris_Stewart_5, post:9, topic:397"]
+My understanding is the alternative implementation you are suggesting means modifying `CScriptNum` to support 64 bits.
+[/quote]
+
+It's a wrapper around `int64_t` with serialization, deserialization, and arithmetic operations that assert on overflow. I think you'd want to add overflow-detecting versions for your use, but otherwise it already does everything. I don't think there would be a need to touch any of the existing functions/operators on `CScriptNum`.
+
+There is a restriction on the input length when converting a Script stack element to a `CScriptNum`; my suggesting was to just relax that restriction from 4 bytes to 8 bytes when in 64-bit mode (whether that's through an `OP_SUCCESSx`, through a leaf version, or through a separate opcode). Note that `OP_CHECKLOCKTIMEVERIFY` also uses `CScriptNum`, but permits arguments up to 5 bytes rather than 4.
+
+[quote="Chris_Stewart_5, post:9, topic:397"]
+IIUC - you do not have malleability concerns with this 8 byte proposal as 8 byte sizes would be required.
+[/quote]
+
+Fair point. So far, I have seen few use cases for integer values that are script *inputs*, but if you envision that changing, that would be a point in favor of a strict encoding (that could still be minimally-encoded integers in a variable-length regine, which is effectively already a policy rule).
+
+[quote="Chris_Stewart_5, post:9, topic:397"]
+Just to make sure we are talking about the same thing, by literals you mean `OP_1,OP_2..` etc right? I think this is a fair critique as – IIUC – now you would have to have `OP_1` and `OP_1_64` or something like that I believe?
+[/quote]
+
+Yeah, the `OP_n` opcodes, plus direct pushes of integer encodings (e.g. the stack element for encoding the number 20 has no `OP_n`, but you can push the 0x14 byte using a direct push instruction). Duplicating all the `OP_n` opcodes seems like a pain, so a conversion opcode after the literal would make more sense. Alternatively, don't introduce a separate encoding, so the semantics of `OP_n` remains the same in both worlds.
+
+[quote="ProofOfKeags, post:10, topic:397"]
+As such it *seems* that the existing VM *can* be modeled by a state transition function:
+[/quote]
+
+It cannot. There are at least also:
+* The position of the last executed `OP_CODESEPARATOR`, as it affects the sighashes.
+* The if/then/else conditional stack (which branches are we in)
+* In tapscript, the remaining checksig budget
+
+[quote="ProofOfKeags, post:10, topic:397"]
+Doing something like `OP_ENABLE64BIT` would introduce some third `VMInterpreterState` and I think that will dramatically increase the surface area of potential consensus issues. Correct me if I’m wrong but this would be a fundamentally new structural change to the VM formalism.
+[/quote]
+
+It's certainly an increase; I don't think it is dramatic at all. But fair enough, I'm convinced that a separate leaf version is cleaner than an `OP_ENABLE64BIT` here.
+
+-------------------------
+
