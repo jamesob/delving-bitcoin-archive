@@ -72,3 +72,18 @@ Sorry, that's just baffling to me. You want to push the entire ecosystem to swit
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-11 15:08:42 UTC | #7
+
+ok just to make sure I understand your concerns
+
+1. You are skeptical of a new encoding - strict 64 bit little endian requirements that would increase witness sizes rather than requiring minimal encoding (I believe `fRequireMinimal` is the flag in `interpreter.cpp`). You also don't want to create more confusion by switching from BE -> LE.
+2. IIUC - you are NOT skeptical about expanding arithmetic support from 51 bit support to 64 bit support.
+
+> `OP_SUCCESSx` may also redefine the behavior of existing opcodes so they could work together with the new opcode. For example, if an `OP_SUCCESSx`-derived opcode works with 64-bit integers, it may also allow the existing arithmetic opcodes in the *same script* to do the same.
+
+How would this be deployed with existing v1 tapscripts if we redefine the semantics of the arithmetic op codes? Wouldn't this run into issues of potentially breaking Scripts already deployed with v1? 
+
+I understand that OP_SUCCESSx was intended to allow state modification of the stack, I just don't get the compatibility story with existing v1 Scripts.
+
+-------------------------
+
