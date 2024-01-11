@@ -14,3 +14,11 @@ I figured I would try posting here to see if there is any early feedback before 
 
 -------------------------
 
+moonsettler | 2024-01-10 23:10:38 UTC | #2
+
+ACK 64 bit arithmetics in general.
+
+aside from TLUV, it would also be useful for any more detailed introspection, like TXHASH, CAT, elements opcodes, MATT.
+
+-------------------------
+
