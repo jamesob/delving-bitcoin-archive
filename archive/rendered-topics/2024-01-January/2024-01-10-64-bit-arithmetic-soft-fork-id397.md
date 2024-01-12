@@ -312,3 +312,15 @@ If we want to re-enable these opcodes, it would be nice indeed to have them be b
 
 -------------------------
 
+rustyrussell | 2024-01-12 16:22:29 UTC | #19
+
+I think the modal hack is awkward, and mildly prefer a new set of opcodes, but I prefer them to be general rather than require conversion codes. This can be done most simply by having new opcodes only deal with unsigned numbers.
+
+I also have a preference for larger precision: 64 bits can be limiting (though not as limiting as 31 in a protocol with larger amounts!).
+
+Finally, it's worth considering carefully what interactions would occur with reenabling MUL, LSHIFT, SUBSTR and the like.
+
+In case you missed it, please consider: https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html
+
+-------------------------
+

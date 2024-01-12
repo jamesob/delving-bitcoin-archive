@@ -353,3 +353,62 @@ As Suhas notes, this can get pretty weird with pinning/anti-DoS. I don't think i
 
 -------------------------
 
+harding | 2024-01-12 18:04:39 UTC | #5
+
+The idea described below in this post doesn't work.  I tried to find a way to make carveout compatible with cluster mempool and failed.  Normally I wouldn't advertise my failures, but I think it could be useful to future discussions to show several people tried working this problem and couldn't find a solution.
+
+[quote="sdaftuar, post:3, topic:393"]
+the current carveout rule (which just checks that the incoming transaction have exactly 1 ancestor and be below some size limit).
+[/quote]
+
+Your description and diagram match how carveout works (AIUI) but I think it's worth noting that LN anchor channels only have exactly 2 outputs that can be spent in the same block as the parent transaction (see BOLT3).  This is necessary to prevent a malicious counterparty who controls >1 output from using the carveout themselves and preventing its use by the honest counterparty, so I think we can safely assume that any other thoughtful users of carveouts are doing something similar.  An implication of this is that your diagram's P2 to P5 could not have a carveout attached because both immediately-spendable outputs have already been spent.
+
+I think we can reformulate carveout's rules as used by LN:
+
+1. A carveout is 1,000 vbytes or less
+2. A carveout has exactly one unconfirmed ancestor (it's parent)
+3. A carveout's parent has no unconfirmed ancestors
+4. A carveout is either the first or second spent output of a transaction that has fewer than three of its outputs spent so far
+
+Checking whether a newly received transaction obeys rule #1 is obviously easy. Checking that it obeys rule #2 is also easy because we have to look up each of a transaction's inputs anyway.  When we find the carveout's exactly one unconfirmed ancestor, we can check that it obeys rule #3 using the same mechanism (no special traits or caching required).  Now to check rule #4 we need only determine how many spends of the parent transaction's outputs are currently in the mempool; if it's currently 0 or 1, and all the previous rules were satisfied, we tag this transaction as a carveout and allow it to exceed the cluster size limit.
+
+Using free CPU cycles, we can periodically check every transaction tagged as a carveout to see if its parent now has three or more spends, in which case we can clear the carveout flag.
+
+When writing the above, I thought my proposed scheme meant a cluster could never have more than two carveouts.  However, here's a case where there can be many more:
+
+```mermaid height=200
+graph TD;
+  P1 --> CO1;
+  P2 --> CO2;
+  P3 --> CO3;
+  P1 & P2 & P3 --> C1[Regular child];
+
+```
+
+-------------------------
+
+instagibbs | 2024-01-12 18:21:48 UTC | #6
+
+[quote="harding, post:5, topic:393"]
+A carveout is 1,000 vbytes or less
+[/quote]
+
+doesn't actually matter for the example, but I believe it's 10kvB
+
+-------------------------
+
+sdaftuar | 2024-01-12 19:27:17 UTC | #7
+
+[quote="harding, post:5, topic:393"]
+I think we can reformulate carveout’s rules as used by LN:
+
+1. A carveout is 1,000 vbytes or less
+2. A carveout has exactly one unconfirmed ancestor (it’s parent)
+3. A carveout’s parent has no unconfirmed ancestors
+4. A carveout is either the first or second spent output of a transaction that has fewer than three of its outputs spent so far
+[/quote]
+
+Just thought it is worth noting here that in trying to think about what the LN carveout rule should match for, rules 2, 3 and 4 are all about the transaction graph topology -- and yet currently, the LN anchors have no enforced topology restrictions (beyond their construction of having 2 spendable outputs -- but those outputs can be spent arbitrarily).  If we had a way to enforce that spends of an anchor output were not permitted to have additional children or pull in additional parents, then this problem again becomes easy -- which is exactly what v3 contemplates.
+
+-------------------------
+
