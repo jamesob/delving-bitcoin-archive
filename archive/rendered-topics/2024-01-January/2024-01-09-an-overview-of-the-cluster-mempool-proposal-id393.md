@@ -247,3 +247,25 @@ Looking ahead, the framework introduced here for reasoning about the mempool (an
 
 -------------------------
 
+harding | 2024-01-12 01:26:13 UTC | #2
+
+[quote="sdaftuar, post:1, topic:393"]
+we propose making the RBF validation rule be that the mempool must get “strictly better” using this feerate diagram check in order to be accepted.
+[/quote]
+
+How is that comparison made when two feerate diagrams terminate at different points?  For example, OLD terminates at 123,456 vbytes and NEW terminates at 78,901 vbytes?  If the accumulated fees of all the transactions in NEW is above the accumulated fees at the 78,901th byte in OLD, do we choose NEW even if OLD accumulates more fees by the end of its final transaction?
+
+What I'm really asking is what is the chance that RBF pinning will still be an issue because replacing a ~100,000 vbyte transaction at 1 sat/vbyte with a ~100 vbyte transaction will still cost more than 1,000x what the user wanted to pay because the terminal end of the new mempool with the replacement is ~100,000 sats lower than the old mempool.
+
+[quote="sdaftuar, post:1, topic:393"]
+### The CPFP carveout rule can no longer be supported.
+
+[...] because cluster limits are not a property of a particular transaction (the way that the descendant limit is), there is no straightforward way to introduce a new carveout that would apply to allow bypassing this limit in a bounded way.
+[/quote]
+
+There's really no easy way around this?  For example, when a transaction comes in that matches the carve-out rules, it gets a simple flag set on it that prevents it from being counted against its max cluster size, or that prevents it from getting evicted from that cluster if the cluster size exceeds the maximum?
+
+(I'm all for removing special case rules like carve-out; it's just surprising to me that there's no easy workaround here.)
+
+-------------------------
+
