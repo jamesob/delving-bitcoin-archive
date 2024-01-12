@@ -278,3 +278,37 @@ ACK. Fair enough. Thanks for the clarification.
 
 -------------------------
 
+halseth | 2024-01-12 13:20:15 UTC | #18
+
+[quote="sipa, post:6, topic:397"]
+Moreover, it has the enormous benefit of being already implemented, tested, deployed, and in use.
+[/quote]
+
+I find the arguments pretty convincing; if we can enable 64-bit arithmetics using _the existing_ `CSScriptNum` implementation, that sounds desirable. 
+
+
+I do see the benefits of having a more approachable number format available for new developers, but `CScriptNum` is already there so they kinda have to deal with it in some form anyway.
+
+[quote="sipa, post:6, topic:397"]
+it’s minimal-length big endian, which for literals inside the script has the advantage of being more compact than forcing a full length constant.
+[/quote]
+
+If we introduce fixed-size LE version in addition to the existing minimal-length BE, this could possibly give developers incentives to convert between them and only use the fixed-length types when needed to save on space. Not saying this is a dealbreaker, but it could slow the clean transition to a 64 bit number version.  
+
+[quote="Chris_Stewart_5, post:9, topic:397"]
+Perhaps I am not understanding what this alternative implementation looks like, so please correct me if I am wrong.
+[/quote]
+
+There might be some edge cases in using the existing `CScriptNum` type for 8 byte values, but if I understand @sipa correctly, it could be as easy as this: https://github.com/halseth/bitcoin/pull/1/commits/13c1848edf66410517b3cb6d47d80874438abb1f
+
+(This includes 64-bit support for all the numeric opcodes, including OP_WITHIN, OP_1ADD etc)
+
+We already have `leaf_version` available from the interpreter, so it's just about defining a new one.
+
+[quote="sipa, post:15, topic:397"]
+If `OP_MUL` or a variant thereof is added, I can see why detecting/dealing with overflows becomes an issue that the existing interface doesn’t deal well with.
+[/quote]
+If we want to re-enable these opcodes, it would be nice indeed to have them be backwards compatible with the existing number format (still with a `leaf_version` bump of course).
+
+-------------------------
+
