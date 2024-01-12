@@ -269,3 +269,87 @@ There's really no easy way around this?  For example, when a transaction comes i
 
 -------------------------
 
+sdaftuar | 2024-01-12 15:04:58 UTC | #3
+
+@harding Thanks for giving this a thorough read!
+
+[quote="harding, post:2, topic:393"]
+How is that comparison made when two feerate diagrams terminate at different points? For example, OLD terminates at 123,456 vbytes and NEW terminates at 78,901 vbytes? If the accumulated fees of all the transactions in NEW is above the accumulated fees at the 78,901th byte in OLD, do we choose NEW even if OLD accumulates more fees by the end of its final transaction?
+[/quote]
+
+Great question, as this is something that I have discussed at length with others.
+
+I take the view that the feerate diagram should represent the amount of fees that a miner would receive by mining a given number of vbytes from the mempool, and if the mempool runs out of vbytes when you're trying to look up the corresponding total fees for that size, then the natural thing to do is to assume you have 0-fee paying transactions that take up the additional space.
+
+So in your example, I would pad the diagram for NEW to be of the same size as OLD, and the amount of fees in NEW's diagram at 123,456 vbytes would be the same as the amount of fees in NEW's diagram at 78,901 vbytes.  And so if NEW is greater than OLD at 78,901 vbytes, but less than old at 123,456 vbytes, I would say that the two mempools are incomparable, and not accept a transaction that would move us from one of those states to the other.
+
+Another point of view one could have is that there's some "tail feerate", possibly greater than 0, at which there is essentially an infinite supply of transactions that could be included by miners in blocks.  If this is your view, then you could imagine picking some tail feerate value (presumably, this is a value that has an upper bound given by the lowest chunk feerate in the mempool), and then extrapolating the feerate diagram of NEW at that feerate so that it has the same size as OLD, and then doing a comparison on the resulting diagrams which will then be the same size.
+
+However, if you take this view that the tail feerate is greater than 0, then this should also change the way you view a NEW mempool that has *more* vbytes than the OLD mempool, such that you ought to extrapolate the feerate diagram of OLD in that situation so that you are imputing more fees in the OLD mempool than are actually there.  This in turn would then prevent some replacements that would be successful if we used a tail feerate of 0 instead, and frankly it seems surprising to me that we'd assume the existence of fees that a miner running our software can't actually realize.
+
+So my overall view is that a tail feerate of 0 is the most justifiable idea right now.  Moreover, even if we had an interpretation of mempool incentive compatibility that permitted some non-zero tail feerate, we'd still be limited by the anti-DoS rule that requires total fees to go up (to prevent free relay), making the point moot -- so for now at least, I think this is more of a theoretical issue than a practical one.
+
+I could imagine in the future that research could be done regarding incentive-compatibility to take into account the idea that feerates near the top of the mempool are more significant for miners than feerates near the bottom of the mempool, and therefore an optimal diagram comparison would apply some kind of discounting to things at the bottom versus things at the top. And should someone develop a robust model for how to do this, I think we could update our software in the future to implement a different test.
+
+[quote="harding, post:2, topic:393"]
+There’s really no easy way around this? For example, when a transaction comes in that matches the carve-out rules, it gets a simple flag set on it that prevents it from being counted against its max cluster size, or that prevents it from getting evicted from that cluster if the cluster size exceeds the maximum?
+[/quote]
+
+I don't have a proof, but my intuition is that there is no solution here. 
+
+The problem is that literally any non-child transaction in the mempool today might be a candidate for having a child that satisfies the criteria of the carveout rule.  For the sake of my illustrative capabilities, assume that we'd like to enforce a cluster size limit of 10, and we had a mempool cluster that looked like this:
+
+```mermaid height=146,auto
+graph TD;
+    P1-->C1
+    P2-->C2
+    P2-->C1
+    P3-->C3;
+    P3-->C2;
+    P4-->C3;
+    P4-->C4;
+    P5-->C4;
+    P5-->C5;
+```
+This cluster is full, but any any one of those transactions P1, P2, .., P5 might have another spendable output allowing creation of children that would match the requirements of the current carveout rule (which just checks that the incoming transaction have exactly 1 ancestor and be below some size limit).  So to implement carveout in its current form, we'd have to be either willing to (a) evict an existing transaction from this cluster to make room, or (b) allow all 5 new transactions to be added, blowing through our cluster size limit of 10 and creating a cluster of size 15.
+
+Neither of these options is good.  For (a), there are two issues with evicting an existing transaction.  The first is that any of the in-mempool parent transactions might be a shared transaction in some multiparty contracting protocol, and the other participant might be relying on *their* spend of their output to be the one that gets the parent confirmed.  Now, we could mitigate that by trying to use our RBF rules to find another transaction in the cluster to evict, to make room for the new transaction; but this is problematic for two reasons.  One is that you could easily be pinned by transactions that are larger but pay a lower feerate, and be forced into a choice of supporting carveout at the expense of opening up free relay attacks; the other is that this introduces a great deal of complexity into our validation code if we have to find a transaction to evict, given that there may be many choices for which one to evict, creating a lot of processing overhead to determine which is the most incentive compatible outcome (and I imagine there could easily be incomparable options to sort amongst).
+
+For (b), my philosophy on this work is that we should strive for cluster size limits that we are allowed to meet and never exceed -- for instance, if we thought that it was safe to have clusters with 100 transactions, maybe you could design a policy regime where the default limit is much lower (say 50), and then we permit carveout exceptions and try to reason that this could never take us above 100.  I think this would be bad design, though, as it means that we're significantly restricting the permitted cluster size for the vast majority of network users in order to try to reason about what I view as a very edge case situation.  My engineering opinion is also that this is just bad software design, of having a limit in mind that you can't actually enforce without some analysis of emergent properties at a higher layer. 
+
+Anyway, it's possible that I'm wrong about there being no simple workarounds here, so if you have other ideas of things to consider please suggest away...
+
+However it strikes me that there's a more obvious solution available to us: if we have an idea for what *topology* the carveout rule is intended to match, then we should instead just offer a policy regime that allows transactions to opt into that topology, and then we can enforce cluster size limits as we'd like to.  The v3 transaction proposal is designed with this in mind, so if it proves to be workable for the use cases that currently rely on carveout, I think this would be vastly superior.
+
+-------------------------
+
+instagibbs | 2024-01-12 15:31:36 UTC | #4
+
+[quote="sdaftuar, post:3, topic:393"]
+I could imagine in the future that research could be done regarding incentive-compatibility to take into account the idea that feerates near the top of the mempool are more significant for miners than feerates near the bottom of the mempool, and therefore an optimal diagram comparison would apply some kind of discounting to things at the bottom versus things at the top. And should someone develop a robust model for how to do this, I think we could update our software in the future to implement a different test.
+[/quote]
+
+Yes, it's completely natural to apply some sort of future discounting, as something far away from "top blocks" are likely to:
+1) be trimmed
+2) be RBF'd
+3) timeout
+
+so reflecting that uncertainty directly is something someone can explore further. I did some initial number analysis to see if it could help anti-pin(it can't :) )
+
+[quote="sdaftuar, post:3, topic:393"]
+(a) evict an existing transaction from this cluster to make room
+[/quote]
+
+A minor note, but this also necessarily opens up to "mempoolfullrbf" style RBFs, good or bad.
+
+One idea I'd had, which Suhas has essentially responded to above, is that we could:  
+
+1) receive new chunk somehow that exceeds cluster limits
+2) allow temporary exceeding of limits  
+3) re-linearize cluster with exceeded limits
+4) "chop off" the excess at the end
+
+As Suhas notes, this can get pretty weird with pinning/anti-DoS. I don't think it's a dead-end, but more of a whiteboarding project at this point.
+
+-------------------------
+
