@@ -262,12 +262,6 @@ It's certainly an increase; I don't think it is dramatic at all. But fair enough
 
 -------------------------
 
-moonsettler | 2024-01-11 20:57:27 UTC | #16
-
-(post deleted by author)
-
--------------------------
-
 ProofOfKeags | 2024-01-11 21:01:22 UTC | #17
 
 [quote="sipa, post:15, topic:397"]
