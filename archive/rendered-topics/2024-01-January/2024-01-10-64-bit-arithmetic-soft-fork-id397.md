@@ -360,3 +360,13 @@ This would maintain our invariant that numeric values are always 8 bytes when th
 
 -------------------------
 
+dgpv | 2024-01-13 15:00:18 UTC | #24
+
+[quote="Chris_Stewart_5, post:22, topic:397"]
+Perhaps this could also include removing the `SCRIPT_VERIFY_MINIMALIF` as well.
+[/quote]
+
+MINIMALIF is already consensus-enforced for tapscript
+
+-------------------------
+
