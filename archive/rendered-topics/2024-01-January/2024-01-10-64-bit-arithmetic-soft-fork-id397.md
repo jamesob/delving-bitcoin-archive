@@ -370,3 +370,11 @@ MINIMALIF is already consensus-enforced for tapscript
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-13 15:03:10 UTC | #25
+
+Could this check be modified to take into account leaf versions or would that be a hard fork? I'm still learning about what consensus rules are possible to modify with tapscript leaf versions
+
+https://github.com/bitcoin/bitcoin/blob/3ba8de1b704d590fa4e1975620bd21d830d11666/src/script/interpreter.cpp#L613
+
+-------------------------
+
