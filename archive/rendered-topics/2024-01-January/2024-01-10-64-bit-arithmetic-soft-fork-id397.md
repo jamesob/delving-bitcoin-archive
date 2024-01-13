@@ -328,11 +328,11 @@ In my experience designing covenant scripts on Elements, it definitely feels tha
 
 -------------------------
 
-dgpv | 2024-01-13 15:05:44 UTC | #21
+dgpv | 2024-01-13 15:07:24 UTC | #21
 
 On the second thought, maybe checking for overflows after each 64-bit arithmetic opcode is not that great, if we can have computations in (practically) arbitrary width integers and then only detect overflows on conversion to LE64/LE32.
 
-(but really, adding VERIFY after each 64-bit arith does not add any mental load - it just increases script size a bit)
+(but really, adding VERIFY after each 64-bit arith op does not add any mental load - it just increases script size a bit)
 
 -------------------------
 
