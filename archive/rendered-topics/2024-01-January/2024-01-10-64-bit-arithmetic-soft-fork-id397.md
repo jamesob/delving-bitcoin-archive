@@ -348,3 +348,15 @@ Perhaps this could also include removing the `SCRIPT_VERIFY_MINIMALIF` as well.
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-13 14:59:37 UTC | #23
+
+[quote="Chris_Stewart_5, post:9, topic:397"]
+Just to make sure we are talking about the same thing, by literals you mean `OP_1,OP_2..` etc right? I think this is a fair critique as – IIUC – now you would have to have `OP_1` and `OP_1_64` or something like that I believe? Or else you would have to have special interpretation logic for pushing 8 byte values or 1 byte values onto the stack based on what the witness/leaf version is?
+[/quote]
+
+[I've added another post to talk about altering interpretation of op codes based on leaf version](https://delvingbitcoin.org/t/deploying-new-taproot-leaf-versions/406). My suggestion would be to alter the interpretation of `OP_0,OP_1` etc to push 8 byte values onto the stack (instead of minimal encodings) if a specific leaf version is found. 
+
+This would maintain our invariant that numeric values are always 8 bytes when they are pushed onto the stack, but not necessarily 8 bytes (the exception is our literals, `OP_0,OP_1..`) when in the script.
+
+-------------------------
+
