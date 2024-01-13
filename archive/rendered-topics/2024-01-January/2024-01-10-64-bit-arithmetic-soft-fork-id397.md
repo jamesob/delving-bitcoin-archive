@@ -318,3 +318,33 @@ In case you missed it, please consider: https://rusty.ozlabs.org/2023/12/30/arit
 
 -------------------------
 
+dgpv | 2024-01-13 14:26:46 UTC | #20
+
+I'd like to note on 'adding extra encoding for numbers'. While extra encoding might add some burden in one place, it might lessen the burden in another place.
+
+In complex covenants the computed values are often used to compare/combine with introspected values taken from the transaction, and the encoding of that values are usually LE64 or LE32.
+
+In my experience designing covenant scripts on Elements, it definitely feels that there is value in being able to do computations using the same format as the numbers that are stored within the transaction, and with clearly defined ways to detect overflows etc.
+
+-------------------------
+
+dgpv | 2024-01-13 14:37:46 UTC | #21
+
+On the second thought, maybe checking for overflows after each 64-bit arithmetic opcode is not that great, if we can have computations in (practically) arbitrary width integers and then only detect overflows on conversion to LE64/LE32.
+
+-------------------------
+
+Chris_Stewart_5 | 2024-01-13 14:53:41 UTC | #22
+
+[quote="dgpv, post:20, topic:397"]
+I’d like to note on ‘adding extra encoding for numbers’. While extra encoding might add some burden in one place, it might lessen the burden in another place.
+[/quote]
+
+Dovetailing this, if a new developer comes to the project and wants to do some simple numerical computations in Script they currently have to learn about policy (`SCRIPT_VERIFY_MINIMALDATA`). How great would it be to be able to remove policies (reduce complexity, imo) with this change. 
+
+Perhaps this could also include removing the `SCRIPT_VERIFY_MINIMALIF` as well.
+
+'Removing' is probably a strong word, but no longer having to take these policy flags into account for future soft forks.
+
+-------------------------
+
