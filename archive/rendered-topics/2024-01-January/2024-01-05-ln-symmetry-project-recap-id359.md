@@ -1,6 +1,6 @@
 # LN-Symmetry Project Recap
 
-instagibbs | 2024-01-05 18:03:45 UTC | #1
+instagibbs | 2024-01-12 19:23:26 UTC | #1
 
 # LN-Symmetry Project
 
@@ -8,12 +8,13 @@ ln-symmetry started with a simple idea: Someone should take the [eltoo](https://
 idea and take it as far as possible to prove out the concept, without requiring community consensus required
 actions like softforks before proving it out.
 
-The end result is research-level quality software, with basic functional tests of the common cases:
-1) channel opens
-2) payments (revamped + simplified channel state machine)
-3) payments with hops 
-4) unilateral closes
-5) Reconnection logic (with tests!)
+The end result is research-level quality software, with basic functional tests of the common cases:  
+1) Ephemeral anchors + v3 usage for anti-pin  
+2) channel opens
+3) payments (revamped + simplified channel state machine)
+4) payments with hops (fast-forwards, aka 0.5 RTT forwards!)
+5) unilateral closes
+6) Reconnection logic at different stages of channel updates
 
 It did not implement:
 1) cooperative closes: There's a lot of spec work to make this better for today's channels, and it would nearly be copy-paste, so I didn't bother
@@ -46,7 +47,7 @@ I also got these opens/closes [broadcasted on signet via bitcoin-inquisition](ht
 5) BOLT draft for ln-symmetry(with segwit ephemeral anchors): https://github.com/instagibbs/bolts/tree/eltoo_draft
 6) libwally work to support taprooty CLN changes(chunks of this was upstreamed but not all): https://github.com/instagibbs/libwally-core/tree/taproot
 7) Notes on PTLCs, where eltoo-style channels get trivial fast-forwards still(aka APO-style fork fixes this): https://gist.github.com/instagibbs/1d02d0251640c250ceea1c66665ec163#single-sig-adaptor-ln-symmetry
-8) Backporting anti-pin tech to today's BOLTs with proposed Bitcoin Core policy changes only: https://github.com/instagibbs/bolts/commits/zero_fee_commitment
+8) Backporting anti-pin tech to today's BOLTs with proposed Bitcoin Core policy changes only: https://github.com/instagibbs/bolts/commits/zero_fee_commitment, with [implementation in CLN](https://github.com/instagibbs/lightning/commits/commit_zero_fees/)
 
 # Current Status
 On hold while I focus on the mempool side of things. I hope this work helps derisk conversations about future softforks and channel designs.
@@ -123,6 +124,26 @@ Is there a description for exactly how you used CTV to avoid a round-trip? I’m
 An attempt was made to explain, along with the definition of `CovSig`, here: https://github.com/instagibbs/bolts/blob/a17b60f42077a785c625430e8f6e8e2828d4d898/XX-eltoo-transactions.md#rationale-1
 
 proposed method to remove round-trips without CTV-like application, or the annex usage: https://github.com/instagibbs/bolts/issues/5
+
+-------------------------
+
+ajtowns | 2024-01-14 05:52:08 UTC | #7
+
+[quote="rustyrussell, post:5, topic:359, full:true"]
+Is there a description for exactly how you used CTV to avoid a round-trip? I’m clearly missing something here…
+[/quote]
+
+The idea is:
+ * I want to propose a new state; but I can't just give you signed transactions for the new state, unless I'm sure I can claim my funds from that state. Normally that would mean I give you the signature for the update tx after I've received your signature for the settlement tx. But that's an extra round.
+ * So instead have the update tx use CTV (or APO-simulating-CTV) to allow spending via a settlement tx without the settlement tx needing a signature.
+ * But then that means that spending the update tx is only possible if you know the CTV commitment to the settlement tx, which would normally mean O(n) storage, since you need to be able to spend every historical update tx to the current one, and each update tx can have a different settlement tx.
+ * So instead we have the update tx store that information in the annex field, so that it can be recovered if an old update tx is broadcast, without needing to be stored.
+
+The alternative approach is:
+
+ * Give a partial adaptor signature for the update tx, where Bob completing the signature allows Alice to reconstruct a valid signature to broadcast the settlement tx
+
+But that means doing adaptor signatures, and (I think) requires the spend of the update output in the settlement tx to have two CHECKSIGs (Alice with a normal sig, Bob via the adaptor recovery), so got put in the "too hard" basket for now.
 
 -------------------------
 
