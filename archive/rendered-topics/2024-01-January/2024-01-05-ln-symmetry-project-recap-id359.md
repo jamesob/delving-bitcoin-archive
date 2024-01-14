@@ -165,3 +165,19 @@ I then got stuck trying to figure out the private keys in order to actually recl
 
 -------------------------
 
+instagibbs | 2024-01-14 12:44:16 UTC | #9
+
+[quote="ajtowns, post:8, topic:359"]
+paying an invoice doesn’t seem to work: it couldn’t find a path to its peer somehow
+[/quote]
+
+This [should work](https://github.com/instagibbs/lightning/blob/be3919d9814579e6c8fb42c49c2efc9fcb5cb91f/tests/test_eltoo.py#L135), if you're doing hops you'll need to provide a route hint since these channels are private
+
+[quote="ajtowns, post:8, topic:359"]
+I then got stuck trying to figure out the private keys in order to actually reclaim those funds, and that’s where I’m at for now.
+[/quote]
+
+Everything not [under test](https://github.com/instagibbs/lightning/blob/be3919d9814579e6c8fb42c49c2efc9fcb5cb91f/tests/test_eltoo.py) was probably not implemented and certainly not tested.
+
+-------------------------
+
