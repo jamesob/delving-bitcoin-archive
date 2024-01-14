@@ -147,3 +147,21 @@ But that means doing adaptor signatures, and (I think) requires the spend of the
 
 -------------------------
 
+ajtowns | 2024-01-14 06:13:17 UTC | #8
+
+I had a go at trying this out and failed pretty miserably. Some problems:
+
+ * the feature bit used for eltoo was 50 which overlaps with zeroconf channels. should perhaps be 0xcc32? (ie the two byte ascii string 'L2', plus 32768 to put it into the experimental feature bits range) of course, if you do that, cln listpeers decides to put 13000 "0" characters in the "features" field, which gets pretty annoying
+ * trying to create non-eltoo channels is just broken anyway, so connecting to normal peers isn't useful
+ * creating a channel between two nodes does seem to work
+ * paying an invoice doesn't seem to work: it couldn't find a path to its peer somehow
+ * cooperative shutdown doesn't seem to work; the closing node thinks its closing, the other node doesn't (`eltoo_channeld-chan#1: billboard perm: Bad shutdown` maybe?).
+ * unilateral shutdown also doesn't seem to work; segfault/nullptr deref? after sending the unilateral shutdown when trying to resolve txid
+ * restarting nodes after stopping/crashing doesn't work -- the `per_commit_remote` value stored in the db isn't a valid secp point, so loading it fails
+
+I did manage to broadcast my [update](https://mempool.space/signet/tx/babe14326bf9ca2a180247e0e46970095403451c0b3b2b4c684aa353b419e9b7) and [settlement](https://mempool.space/signet/tx/21f854714debb0db46adc9d446a242e9a1d502dfe9761ac490ae8862fc0254b1#vin=0) txs and pay for them with ephemeral anchors manually (the update tx was in the logs, and the settlement tx was able to be reconstructed just by dropping in the update tx's txid).
+
+I then got stuck trying to figure out the private keys in order to actually reclaim those funds, and that's where I'm at for now.
+
+-------------------------
+
