@@ -181,3 +181,13 @@ Everything not [under test](https://github.com/instagibbs/lightning/blob/be3919d
 
 -------------------------
 
+ajtowns | 2024-01-15 06:56:27 UTC | #10
+
+[quote="instagibbs, post:9, topic:359"]
+This [should work](https://github.com/instagibbs/lightning/blob/be3919d9814579e6c8fb42c49c2efc9fcb5cb91f/tests/test_eltoo.py#L135), if you’re doing hops you’ll need to provide a route hint since these channels are private
+[/quote]
+
+Yeah, I'm not sure what was going on there, might just be that the amounts I was trying were too large (I think I tried 25 sBTC on a 50 sBTC channel?) and splitting into smaller amounts was what confused things or something. When I tried debugging I got lost in the maze of other failures  :slight_smile:
+
+-------------------------
+
