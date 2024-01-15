@@ -12,9 +12,9 @@
   "reply_to_post_number": 9,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 1.8,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -49,8 +49,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "sob",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
