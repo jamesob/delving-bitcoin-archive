@@ -382,3 +382,15 @@ https://github.com/bitcoin/bitcoin/blob/3ba8de1b704d590fa4e1975620bd21d830d11666
 
 -------------------------
 
+ajtowns | 2024-01-15 04:22:58 UTC | #26
+
+[quote="sipa, post:6, topic:397"]
+But I don’t think there is anything weird with the existing encoding though, it’s minimal-length big endian, which for literals inside the script has the advantage of being more compact than forcing a full length constant.
+[/quote]
+
+I don't understand this comment -- `CScriptNum` is little endian in the first place, isn't it? Both my understanding of [the code](https://github.com/bitcoin/bitcoin/blob/3ba8de1b704d590fa4e1975620bd21d830d11666/src/script/script.h#L357-L361) and [definition](https://en.wikipedia.org/wiki/Endianness) suggests it is, and the [wiki](https://en.bitcoin.it/wiki/Script) seems to agree, at least.
+
+The differences between `CScriptNum` and this proposal aiui are fixed vs variable length encoding, and using twos-complement vs a sign bit to handle negative numbers.
+
+-------------------------
+
