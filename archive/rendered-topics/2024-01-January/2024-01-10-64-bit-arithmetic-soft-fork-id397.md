@@ -394,3 +394,10 @@ The differences between `CScriptNum` and this proposal aiui are fixed vs variabl
 
 -------------------------
 
+jamesob | 2024-01-16 17:43:34 UTC | #27
+
+1. I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers. Minimal encodings may be somewhat cumbersome to deal with, but they're there for a reason!
+2. The only thing worse than dealing with one weird encoding is having to implement another one alongside it. `CScriptNum` parsing will probably always be a part of wallet software, if not just to validate legacy scripts.
+
+-------------------------
+

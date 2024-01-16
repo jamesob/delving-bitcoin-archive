@@ -12,9 +12,9 @@
   "reply_to_post_number": 23,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "The `_` placeholder would be a wallet policy feature, so expecting to have the wallet policy seems a natural assumption, and I don't think the standard should be optimized for \"not having it\".\n\nOther orders push code complexity to the hardware signer, that will now have to add more code to parse the \"descriptor template\" just to find the right order of keys.\n\nFinally, a wallet policy might have the same `@i` multiple times (especially on taproot); in your version you'd either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

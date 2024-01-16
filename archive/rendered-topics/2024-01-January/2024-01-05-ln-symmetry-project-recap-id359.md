@@ -191,3 +191,13 @@ Yeah, I'm not sure what was going on there, might just be that the amounts I was
 
 -------------------------
 
+cguida | 2024-01-16 16:35:24 UTC | #11
+
+Thanks @instagibbs for the detailed explainer! I'm working on rebasing the 283 commits in your CLN impl so it can be ready for APO / LNHANCE / TXHASH.
+
+Lots of new stuff for me to learn, so it'll probably be somewhat slow :grimacing: 
+
+If anyone wants to collaborate, please feel free to reach out! :slight_smile:
+
+-------------------------
+
