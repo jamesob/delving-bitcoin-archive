@@ -247,14 +247,6 @@ xpub\<rot13\>
 
 -------------------------
 
-RandyMcMillan | 2023-12-19 20:05:49 UTC | #18
-
-add an additional xor with the original xpub (*and/or something else) and the operation quickly becomes untenable for analysis. All easily recognizable by wallets etc?
-
-*xor it with a bip85 xpub - user selects the index :)
-
--------------------------
-
 wydengyre | 2023-12-28 02:34:27 UTC | #19
 
 Approach s2, corresponding to the descriptor changes document linked by @sipa above, seems straightforward to implement and very simple to explain. Yes, it comes at the expense of having to include some extra information in the descriptor. This seems like a worthwhile tradeoff given its simplicity.
@@ -268,6 +260,37 @@ sipa's linked approach is similar but not identical to `s2`, as in his version t
 They are identical in terms of security properties, but I think sipa's approach is better as it's more straightforward to verify that one such xpub is unspendable (just look at the pubkey), while in the approach in `s2` one has to explicitly redo the computation to verify how the xpub is generated.
 
  Anyway, my current thinking is that sipa's approach is probably the cleanest for descriptors, while wallet policies (now in the process of being finalized as [BIP-0388](https://github.com/bitcoin/bips/pull/1389)) could add a deterministic way of computing the `HEXCHAINCODE` from the remaining keys, as suggested above by @AntoineP.
+
+-------------------------
+
+AntoineP | 2024-01-16 11:03:51 UTC | #21
+
+I'm now implementing [Taproot support in Liana](https://github.com/wizardsardine/liana/issues/55). Ideally i'd like to derive unspendable internal keys in a way which would be forward compatible with an eventual standard used in wallet policies. This way, once support is implemented in signing devices, our users won't have to "verify" a meaningless internal key on their device's screen. A friendlier "no keypath spend" UX could be presented.
+
+It seems the less ugly way of getting all 4 properties is what Salvatore [suggests in s4](https://delvingbitcoin.org/t/unspendable-keys-in-descriptors/304#s4-recycle-the-entropy-of-the-descriptor-6) (in the simpler version). From a wallet policy, the unspendable internal key is an `xpub/<0;1>/*` such as:
+- The `xpub`'s key is the NUMS suggested in BIP341: `H = lift_x(0x50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0)`.
+- The `xpub`'s chaincode is the `sha256` of the concatenation of the key part (as a compressed pubkey) of all the xpubs in the wallet policy. (In the wallet policy standard all key expressions must be xpubs with derivation path of the form `/<m;n>/*`.) "Left to right" order as they appear in the string representation, which is just a depth-first search.
+
+Of course, this can also be expressed in descriptors using `unspend(computed chaincode)/<0;1>/*` as the internal key.
+
+-------------------------
+
+salvatoshi | 2024-01-16 14:20:19 UTC | #22
+
+An issue with using left-to-write is that since wallet policies have a separate list of xpubs (that are explicitly referenced by `@index` in the descriptor template), the natural order of the keys would be the one in the list, which is not guaranteed to match the left-to-right order in the descriptor template.
+
+E.g.:\
+descriptor_template: `"tr(_,{pk(@1/**),pk(@0/**)})"`\
+keys: `["xpubA", "xpubB"]`
+
+Here the left-to-right order doesn't match with the natural order `pubkeyA||pubkeyB`.
+If the `_` (or whichever other expression) to represent the deterministic NUMS key is only defined for wallet policies, I'd favor the wallet_policy-native approach.
+
+-------------------------
+
+AntoineP | 2024-01-16 14:34:11 UTC | #23
+
+Your approach requires to have the wallet policy at hand, whereas mine can be used on any wallet-policy-compatible descriptor.  I think it's a nice property to have.
 
 -------------------------
 
