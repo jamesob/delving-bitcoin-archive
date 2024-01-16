@@ -294,3 +294,13 @@ Your approach requires to have the wallet policy at hand, whereas mine can be us
 
 -------------------------
 
+salvatoshi | 2024-01-16 15:02:53 UTC | #24
+
+The `_` placeholder would be a wallet policy feature, so expecting to have the wallet policy seems a natural assumption, and I don't think the standard should be optimized for "not having it".
+
+Other orders push code complexity to the hardware signer, that will now have to add more code to parse the "descriptor template" just to find the right order of keys.
+
+Finally, a wallet policy might have the same `@i` multiple times (especially on taproot); in your version you'd either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.
+
+-------------------------
+
