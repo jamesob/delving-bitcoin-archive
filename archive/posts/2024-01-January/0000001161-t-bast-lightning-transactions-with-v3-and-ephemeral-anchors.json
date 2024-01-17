@@ -1,0 +1,77 @@
+{
+  "id": 1161,
+  "name": "Bastien Teinturier",
+  "username": "t-bast",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png",
+  "created_at": "2024-01-17T14:11:04.663Z",
+  "cooked": "<p>Thanks, then it all makes sense! From my point of view it\u2019s an ACK as eclair\u2019s usage of the anchor outputs would be compatible with this, but we\u2019d need feedback from the other implementations to check whether they\u2019re ok with the additional restrictions it creates compared to today\u2019s usage of anchor CPFP:</p>\n<ul>\n<li>cannot use batching to spend multiple anchor outputs at once anymore</li>\n<li>cannot use the change output of an unconfirmed anchor tx to fund another transaction</li>\n<li>cannot use unconfirmed inputs for the anchor tx</li>\n<li>am I missing something else?</li>\n</ul>",
+  "post_number": 10,
+  "post_type": 1,
+  "updated_at": "2024-01-17T14:11:04.951Z",
+  "reply_count": 0,
+  "reply_to_post_number": 9,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
+  "yours": false,
+  "topic_id": 418,
+  "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
+  "topic_title": "Lightning transactions with v3 and ephemeral anchors",
+  "topic_html_title": "Lightning transactions with v3 and ephemeral anchors",
+  "category_id": 7,
+  "display_username": "Bastien Teinturier",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 2,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "glozow",
+    "name": "Gloria Zhao",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/glozow/{size}/261_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Thanks, then it all makes sense! From my point of view it's an ACK as eclair's usage of the anchor outputs would be compatible with this, but we'd need feedback from the other implementations to check whether they're ok with the additional restrictions it creates compared to today's usage of anchor CPFP:\n\n- cannot use batching to spend multiple anchor outputs at once anymore\n- cannot use the change output of an unconfirmed anchor tx to fund another transaction\n- cannot use unconfirmed inputs for the anchor tx\n- am I missing something else?",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 101,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": "Automatically removed quote of whole previous post.",
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

@@ -8,13 +8,13 @@
   "post_number": 2,
   "post_type": 1,
   "updated_at": "2024-01-16T18:06:54.151Z",
-  "reply_count": 2,
+  "reply_count": 4,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 6,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 44.0,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 69.6,
   "yours": false,
   "topic_id": 418,
   "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"t-bast, post:1, topic:418\"]\nwe remove the 1-block relative delay on the main outputs and HTLC outputs\n[/quote]\n\nNote that this is easily done by having the feature not be `option_anchors`, since that's the prior format for all the output scripts.\n\nThe other discussion that came up is that of deployment strategy. There's a bit of a timeline problem:\n1) We need to roll out updates to mempool/relay to make the transition to v3 style transactions safe, so LN implementations can adopt it\n2) We need LN implementations to update before we can deploy cluster mempool upgrade, since CPFP carveout as it stands is inapplicable to cluster mempool. \n\nA suggestion on the call was essentially \"what if Bitcoin Core implicitly opts commitment transactions that rely on CPFP carveout into a new regime that doesn't rely on the carveout per se\"?\n\nThis could lead to a revised project roadmap:\n\n1) V3, 2-cluster package rbf, 1p1c relay + mild orphanage churn protection\n2) Imbue LN commit txs with two anchors with \u201cimplicit signaling\u201d of V3  \n  a)  Anything with *two 330-sat outputs*?  \n      i) Or get more specific, e.g., one input only, nversion==2, a couple of bytes here or there...  \n  b) Allow 1p2c \u201ccpfp carveout\u201d  \n    i) \u201cOne more\u201d child, same size limitations as normal v3 child tx limit  \n    ii) This, along with 2-cluster package RBF, means if you stop spending the remote anchor, you can now efficiently do package rbf against remote tx, and the counter-party cannot pin local commit tx. Child will have to be \u201csmall\u201d following V3 rules. Exact implementation TBD  \n3) Further rollouts, with no inherent inter-dependencies\n  a) Cluster mempool\n  b) Further make orphan handling robust\n  c) Ephemeral anchors\n  d) LN spec update to do 0-fee commit txns\n4) ... Remove the 1p2c CPFP carveout\n\nIt doesn't interfere with the current work, and removes critical paths from deployment, so I think it's worth considering.\n\nWith the revised timeline, we may be able to swap out CPFP carveout without doing any harm, allow implementations to improve their security via limited package rbf, and allow spec updates to happen on their own time for further improvements.\n\n---\n\n# V3 Child tx size\n\nWe would also like feedback on what the maximal V3 child size should be. It's an inherent tradeoff between practical CPFP tx sizes and potential pin vectors, so it'd be nice to know what expectations are around that from any wallet project.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

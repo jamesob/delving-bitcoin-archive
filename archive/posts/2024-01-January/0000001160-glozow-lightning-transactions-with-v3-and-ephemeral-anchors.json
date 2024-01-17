@@ -1,0 +1,72 @@
+{
+  "id": 1160,
+  "name": "Gloria Zhao",
+  "username": "glozow",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/glozow/{size}/261_2.png",
+  "created_at": "2024-01-17T13:54:52.395Z",
+  "cooked": "<p>No you understood correctly! That\u2019s my poor choice of words, apologies. What I meant by \u201ccontinue supporting CPFP carve out\u201d was exactly what you said, implicitly enroll the CPFP carve out users to this v3 + extra child (1 parent 2 children) policy.</p>",
+  "post_number": 9,
+  "post_type": 1,
+  "updated_at": "2024-01-17T13:54:52.395Z",
+  "reply_count": 1,
+  "reply_to_post_number": 8,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 21.0,
+  "yours": false,
+  "topic_id": 418,
+  "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
+  "topic_title": "Lightning transactions with v3 and ephemeral anchors",
+  "topic_html_title": "Lightning transactions with v3 and ephemeral anchors",
+  "category_id": 7,
+  "display_username": "Gloria Zhao",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": "",
+  "reply_to_user": {
+    "username": "t-bast",
+    "name": "Bastien Teinturier",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png"
+  },
+  "bookmarked": false,
+  "raw": "No you understood correctly! That's my poor choice of words, apologies. What I meant by \"continue supporting CPFP carve out\" was exactly what you said, implicitly enroll the CPFP carve out users to this v3 + extra child (1 parent 2 children) policy.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 7,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

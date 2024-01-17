@@ -155,3 +155,9 @@ Spacechains are already possible without covenants, but yes, just about any cove
 
 -------------------------
 
+alex | 2024-01-17 14:51:04 UTC | #11
+
+Jeremy Rubin's [uxos.org](https://utxos.org/uses/) is still a great resource for CTV-related applications
+
+-------------------------
+

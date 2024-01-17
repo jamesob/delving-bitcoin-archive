@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 74,
-  "reads": 27,
-  "readers_count": 26,
-  "score": 390.2,
+  "incoming_link_count": 84,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 446.4,
   "yours": false,
   "topic_id": 418,
   "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
@@ -59,9 +59,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

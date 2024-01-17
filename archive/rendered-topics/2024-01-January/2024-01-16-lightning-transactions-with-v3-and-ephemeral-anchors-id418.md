@@ -250,3 +250,74 @@ Lightning nodes need to maintain a "healthy" utxo pool anyway to minimize their 
 
 -------------------------
 
+glozow | 2024-01-17 11:20:38 UTC | #5
+
+(post deleted by author)
+
+-------------------------
+
+glozow | 2024-01-17 11:23:16 UTC | #6
+
+(Sorry, I posted this earlier but had clicked reply to the wrong post)
+
+[quote="instagibbs, post:2, topic:418"]
+Imbue LN commit txs with two anchors with “implicit signaling” of V3 a) Anything with *two 330-sat outputs*?
+[/quote]
+
+[quote="t-bast, post:4, topic:418"]
+Why can’t you pattern match to apply the v3 rules *when an anchor output is spent* instead of trying to pattern match when seeing the commit tx alone?
+[/quote]
+
+I suppose both are doable, though the question for me is less "how can we identify a (LN) anchor spend?" and more "how can we identify users of CPFP carve out?"  At the end of the day we're trying to continue supporting CPFP carve out as long as possible, for applications that don't explicitly set nVersion=3 right?
+
+My view is that have 2 anchors => need CPFP carve out, so I think checking 2x330 might be cleaner. If there is a non-negligible false positive rate though, we'd probably want to template-match something stricter.
+
+-------------------------
+
+instagibbs | 2024-01-17 12:44:11 UTC | #7
+
+[quote="glozow, post:6, topic:418"]
+I suppose both are doable, though the question for me is less “how can we identify a (LN) anchor spend?”
+[/quote]
+
+having to do multiple types of script introspection(segwitv0 and tapscript) is also something I'd like to avoid if possible
+
+-------------------------
+
+t-bast | 2024-01-17 13:33:00 UTC | #8
+
+[quote="glozow, post:6, topic:418"]
+I suppose both are doable, though the question for me is less “how can we identify a (LN) anchor spend?” and more “how can we identify users of CPFP carve out?” At the end of the day we’re trying to continue supporting CPFP carve out as long as possible, for applications that don’t explicitly set nVersion=3 right?
+[/quote]
+
+I misunderstood then, I thought it wouldn't be possible to keep supporting the CPFP carve-out logic alongside cluster mempool code. That's why I thought the only option was to implicitly enroll the only users of CPFP carve-out (lightning commitment txs containing two anchor outputs) to the v3 policies to replace CPFP carve-out entirely.
+
+-------------------------
+
+glozow | 2024-01-17 13:54:52 UTC | #9
+
+No you understood correctly! That's my poor choice of words, apologies. What I meant by "continue supporting CPFP carve out" was exactly what you said, implicitly enroll the CPFP carve out users to this v3 + extra child (1 parent 2 children) policy.
+
+-------------------------
+
+t-bast | 2024-01-17 14:11:04 UTC | #10
+
+Thanks, then it all makes sense! From my point of view it's an ACK as eclair's usage of the anchor outputs would be compatible with this, but we'd need feedback from the other implementations to check whether they're ok with the additional restrictions it creates compared to today's usage of anchor CPFP:
+
+- cannot use batching to spend multiple anchor outputs at once anymore
+- cannot use the change output of an unconfirmed anchor tx to fund another transaction
+- cannot use unconfirmed inputs for the anchor tx
+- am I missing something else?
+
+-------------------------
+
+murch | 2024-01-17 14:34:16 UTC | #11
+
+> What we *will* want from Bitcoin Core (and other wallet libraries) is the ability to restrict coin selection to, at max, some total input weight.
+
+We are basically 90% there. Our coin selection algorithms already take a `max_weight` parameter for us to be able to avoid exceeding the standardness limit for weight. Passing something through the transaction building RPCs should be fairly easy. CoinGrinder would be a big help though, since SRD only greedily searches for a solution below the weight limit by removing the lowest effective value input when it is overweight. BnB and CG should always find a solution if it exists.
+
+Of course, CoinGrinder has been open since July and has seen only a modicum of review so far, so a few more people would have to take a look at it.
+
+-------------------------
+
