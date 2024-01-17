@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 17.8,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "1. I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers. Minimal encodings may be somewhat cumbersome to deal with, but they're there for a reason!\n2. The only thing worse than dealing with one weird encoding is having to implement another one alongside it. `CScriptNum` parsing will probably always be a part of wallet software, if not just to validate legacy scripts.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

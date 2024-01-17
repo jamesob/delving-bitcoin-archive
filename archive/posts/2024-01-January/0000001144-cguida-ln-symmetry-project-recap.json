@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 14,
-  "readers_count": 13,
+  "reads": 16,
+  "readers_count": 15,
   "score": 12.8,
   "yours": false,
   "topic_id": 359,
@@ -51,14 +51,14 @@
   "wiki": false,
   "reactions": [
     {
-      "id": "rocket",
+      "id": "clap",
       "type": "emoji",
       "count": 2
     },
     {
-      "id": "clap",
+      "id": "rocket",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "hugs",
@@ -67,6 +67,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
+  "reaction_users_count": 5,
   "current_user_used_main_reaction": false
 }
