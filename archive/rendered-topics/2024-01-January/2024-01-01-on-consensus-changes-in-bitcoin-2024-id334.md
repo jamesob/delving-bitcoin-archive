@@ -244,3 +244,13 @@ Not quite - "seeing what shakes out" implies that we're not confident that users
 
 -------------------------
 
+michaelfolkson | 2024-01-17 20:20:44 UTC | #14
+
+The signaling is signaling readiness not signaling (or voting) to support the activation attempt. There should be no signaling until there is consensus on the soft fork. Embarking on an activation process should only be done once there's consensus to activate the soft fork in the first place. 
+
+This is all assuming you want to avoid a chain split and essentially avoid another "war" on what the consensus rules for Bitcoin are. If you want another 1-2 years of headaches and unproductivity with everyone having to divert from what they are currently focusing on and instead working out on which side of the chain split they need to be and attempt to preserve that side then you'll do whatever you can to cause as much chaos as possible. 
+
+If you weren't around for it then perhaps you can read about it [here](https://www.amazon.com/Blocksize-War-Control-Bitcoins-Protocol/dp/B096CLR1SS/) but the block size war was not an enjoyable, productive time to work on software projects. Perhaps the Twitterati and the journalists enjoyed it but to everyone here it was just a massive seemingly never ending headache.
+
+-------------------------
+
