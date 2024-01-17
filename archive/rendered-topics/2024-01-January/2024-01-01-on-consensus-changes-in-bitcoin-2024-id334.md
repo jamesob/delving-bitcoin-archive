@@ -238,3 +238,9 @@ I'm not entirely sure how this applies to not publishing LOT=FALSE clients and s
 
 -------------------------
 
+MattCorallo | 2024-01-17 01:30:45 UTC | #13
+
+Not quite - "seeing what shakes out" implies that we're not confident that users will be running the modified consensus rules by the time any possible activation happens. In such a case, we're putting the network at risk of splitting if miners decide to signal while no such large-scale upgrade has completed.
+
+-------------------------
+
