@@ -220,3 +220,21 @@ miners dicking around with false signaling and ending up losing money on that, i
 
 -------------------------
 
+MattCorallo | 2024-01-16 23:05:10 UTC | #11
+
+I think what I wrote in 2020 is just as true today as it was then: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-January/017547.html. There's a set of goals we must define, and I think the 5 listed there basically summarize what the goals for the Bitcoin system should be (it doesn't mention how this implicates Bitcoin Core at all). One of the key themes here is that we should avoid, in all the ways we can, chain splits and losing hashpower onto one fork or another. Its impossible to avoid in a general sense, but all the technical design decisions that go into the fork should attempt to ensure we do not lose hash power or users onto a fork where a decision can be made to do so.
+
+This also implies that ideas like "just ship code that lets users make uninformed decisions resulting in a fork" are right out. This also implies we must rely on users having upgraded by the time any activation happens, and have very high confidence that a vast majority of users will be using the new consensus logic by the time any activation happens. Miner signaling is useful, but as @harding points out, it is very, very far from sufficient.
+
+There's a ton of ideas on philosophy out there on what roles different parties can or should take, but we shouldn't lose sight of the fact that this is a production network protecting billions of dollars of other peoples' money in a naive attempt to achieve some philosophically perfect outcome.
+
+-------------------------
+
+reardencode | 2024-01-16 23:10:55 UTC | #12
+
+Thanks for your thoughts Matt! I think I had read that post back in 2020, but forgotten it. I agree entirely with your email.
+
+I'm not entirely sure how this applies to not publishing LOT=FALSE clients and seeing what shakes out? With LOT=FALSE, 95% threshold, either it activates safely with minimal loss of users or hash, or it doesn't. Seems completely consistent with what you wrote.
+
+-------------------------
+

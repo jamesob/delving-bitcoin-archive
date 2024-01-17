@@ -212,3 +212,13 @@ We would also like feedback on what the maximal V3 child size should be. It's an
 
 -------------------------
 
+MattCorallo | 2024-01-16 22:55:57 UTC | #3
+
+[quote="instagibbs, post:2, topic:418"]
+We would also like feedback on what the maximal V3 child size should be. It’s an inherent tradeoff between practical CPFP tx sizes and potential pin vectors, so it’d be nice to know what expectations are around that from any wallet project.
+[/quote]
+
+Honestly, this doesn't really seem lightning-specific at all. In fact, for many nodes this is entirely a function of Bitcoin Core's wallet. What we *will* want from Bitcoin Core (and other wallet libraries) is the ability to restrict coin selection to, at max, some total input weight.
+
+-------------------------
+
