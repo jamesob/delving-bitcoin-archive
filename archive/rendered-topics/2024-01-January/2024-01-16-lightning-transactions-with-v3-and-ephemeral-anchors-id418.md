@@ -222,3 +222,31 @@ Honestly, this doesn't really seem lightning-specific at all. In fact, for many 
 
 -------------------------
 
+t-bast | 2024-01-17 09:58:32 UTC | #4
+
+[quote="instagibbs, post:2, topic:418"]
+2. Imbue LN commit txs with two anchors with “implicit signaling” of V3
+a) Anything with *two 330-sat outputs*?
+[/quote]
+
+Why can't you pattern match to apply the v3 rules *when an anchor output is spent* instead of trying to pattern match when seeing the commit tx alone?
+This way you can explicitly match on the very specific anchor output script when it spends a 330 sat output:
+
+`<some_public_key> OP_CHECKSIG OP_IFDUP OP_NOTIF OP_16 OP_CSV OP_ENDIF`
+
+Since every other output has a CSV-1, the commit tx can only be spent through one of the anchors, so that should work easily, unless I'm missing something?
+
+The only drawback I'm seeing with that pattern-matching option is that LN implementations that currently do batching (spend multiple anchor outputs of unrelated channels in a single transaction) would have their anchor spend rejected by upgraded nodes, right? So LN implementations should first disable that batching code to avoid being negatively impacted, but apart from that I'm not seeing any drawback to this implicit v3 rules application.
+
+One thing to note is that this kind of batching is inherently dangerous, so I don't mind that restriction (and haven't implemented it in eclair because of those security drawbacks), but I believe lnd does it so maybe @roasbeef would be opposed to that?
+
+[quote="instagibbs, post:2, topic:418"]
+We would also like feedback on what the maximal V3 child size should be. It’s an inherent tradeoff between practical CPFP tx sizes and potential pin vectors, so it’d be nice to know what expectations are around that from any wallet project.
+[/quote]
+
+This is really hard to say, because it is very tightly correlated with the maximum size of the commitment transactions we allow. When allowing 483 HTLCs in both direction, we may need to pay a very large fee even at low feerate, thus requiring big-ish wallet inputs or multiple wallet inputs. However, with more restrictions on the commit tx size (such as eclair only allowing 30 HTLCs in both directions), the amounts are much lower and easier to satisfy with few inputs.
+
+Lightning nodes need to maintain a "healthy" utxo pool anyway to minimize their operational costs, so I guess this is just another parameter to take into account in the utxo pool management, so we should rather just pick "reasonable" values to the maximum v3 child size (and the current bikeshed values seem "reasonable" to me) and it's the job of the lightning implementation to make sure they have a wallet state that fits with that.
+
+-------------------------
+
