@@ -321,3 +321,48 @@ Of course, CoinGrinder has been open since July and has seen only a modicum of r
 
 -------------------------
 
+morehouse | 2024-01-17 22:45:18 UTC | #12
+
+[quote="t-bast, post:1, topic:418"]
+## HTLC transactions
+
+When using `option_anchors_zero_fee_htlc_tx`, HTLC transactions don’t pay any mining fees: they are signed with `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` to allow the broadcaster to add inputs. We don’t need to change this behavior, it will keep working exactly the same after changing the format of the commitment transaction. I don’t think we should change anything for HTLC transactions, but maybe I’m missing an interesting opportunity here?
+[/quote]
+
+At a minimum, we probably want to make HTLC transactions v3.  If we really want to fix pinning, we may also need to make *all* HTLC spending paths use presigned v3 transactions.
+
+#### Why make HTLC transactions v3?
+- v3 allows them to be relayed as part of the commitment package.
+- I think v3 also prevents MitM pinning attacks where someone extracts the `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` signature and uses it to construct and pin a low feerate conflicting transaction.
+
+#### Fixing HTLC pinning
+
+With no other changes, HTLC transactions are still vulnerable to pinning attacks since the remote path can be spent by non-v3 transactions.  For example:
+
+1. Alice offers HTLC1 to Mallory, which times out at block T.  Alice also offers HTLC2 to Mallory, which times out at block T+5.
+1. Mallory has preimages for both HTLCs, but she withholds them.
+1. At block T-1, Alice broadcasts her commitment with a single child transaction that spends the ephemeral anchor, Alice's local balance, and HTLC1 via the presigned HTLC-timeout transaction.
+    - Mallory is unable to pin any competing transaction in this case, due to v3 policy.
+1. The commitment and child transaction confirm in block T.
+1. At block T+4, Alice broadcasts her HTLC-timeout transaction claiming HTLC2.  At the same time, Mallory broadcasts a low feerate preimage spend of HTLC2 and pins it in mempools.  With good connectivity and timing, Mallory can partition mempools such that Alice's mempool contains the HTLC-timeout and all other mempools contain the pinned preimage spend.
+
+Because Mallory's preimage spend can opt out of v3 policy, she is able to pin her transaction in mempools while preventing Alice from learning the preimage or confirming her HTLC-timeout transaction.
+
+One way to fix this pinning vector is to start requiring presigned v3 transactions for HTLC remote spends.
+
+-------------------------
+
+instagibbs | 2024-01-17 23:13:02 UTC | #13
+
+[quote="morehouse, post:12, topic:418"]
+At a minimum, we probably want to make HTLC transactions v3. If we really want to fix pinning, we may also need to make *all* HTLC spending paths use presigned v3 transactions.
+[/quote]
+
+Huh! I hadn't considered the fact that *revoked* states would allow *HLTC-Timeout paths* to create pins. Another symptom of layered transactions if I'm thinking about this right. So I think you're right, not only would you need to lock down HTLC-Success paths, as I'd thought and previously proposed, but you'll also need to pre-sign HTLC-Timeout paths.
+
+v3 alone probably isn't enough, as adversary can use the ANYONECANPAY-nature of owned-by-remote HTLC-Success paths to inflate their data to generate a pin. Switching to v3+epehemeral anchor would mitigate the pin, at the cost of extra vb in benign cases :frowning:  
+
+Aside: If LN commit txns weren't layered, this becomes slightly easier, as we only have to lock down the HLTC-Success paths since the contesting period wouldn't be exposing HTLC outputs directly.
+
+-------------------------
+

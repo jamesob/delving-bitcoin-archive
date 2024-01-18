@@ -401,3 +401,11 @@ jamesob | 2024-01-16 17:43:34 UTC | #27
 
 -------------------------
 
+Davidson | 2024-01-17 22:31:06 UTC | #28
+
+I wonder how unfeasible is it to bring back the 256 bits arithmetic. Now that we have taproot, we can have some fancy crypto inside script, but that wouldn't go onchain most of the time due to the happy-path aspect of taproot.
+
+Imagine if we could make some convoluted sigma protocol onchain, but it's only there in case of disputes. We can make those cost some extra sigops to discourage abusing that.
+
+-------------------------
+
