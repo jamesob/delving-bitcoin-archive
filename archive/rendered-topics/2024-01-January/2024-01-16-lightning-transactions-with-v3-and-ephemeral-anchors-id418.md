@@ -510,3 +510,17 @@ You could also use any non-pre-signed HTLC paths for fees as well. e.g., Bob cou
 
 -------------------------
 
+t-bast | 2024-01-18 15:06:13 UTC | #19
+
+[quote="instagibbs, post:18, topic:418"]
+Hm right, I guess this would only matter if the revoked commit tx *gets confirmed*. In that case you may have to compete with the HTLC output spend, which is why @ajtowns is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged.
+[/quote]
+
+I still don't get where the issue is in that scenario. Let's say that Bob broadcasts a revoked commitment which then confirms. Bob is the attacker here, we don't care about him getting his transactions pinned.
+
+Alice tries spending the HTLC outputs using the revocation path on the commitment transaction. Alice can use a low feerate here (at that point, Bob cannot immediately sweep those funds). 
+
+Bob may use its HTLC-x transactions to create a pinning vector for Alice's transactions. But it's ok, Alice isn't in any rush to see them confirm! If Bob's HTLC-x transaction confirms, Bob will have a `to_self_delay` CSV to sweep the output of that HTLC-x transaction. Also, Bob will have paid fees to get that transaction mined. Meanwhile, Alice will be able to sweep the output of that HTLC-x transaction through its revocation path, so all is well?
+
+-------------------------
+
