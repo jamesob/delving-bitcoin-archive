@@ -366,3 +366,79 @@ Aside: If LN commit txns weren't layered, this becomes slightly easier, as we on
 
 -------------------------
 
+ajtowns | 2024-01-18 05:02:14 UTC | #14
+
+Mermaid diagram with miniscript for @t-bast's proposed commitment transaction format for whatever it's worth:
+
+```mermaid height=570,auto
+classDiagram
+   class FundingTx {
+      [inputs...]
+      out: and(pk(A), pk(B))
+   }
+   class CommitmentTxB {
+       FundingTx
+       Anchor: true()
+       ABal: pk(A)
+       BBal: or(pk(ARevoke), and(pk(B), older(Delay)))
+       HTLCtoA: or(and(pk(A), pk(B)), and(pk(A), hash160(S)), pk(ARevoke))
+       HTLCtoB: or(and(pk(A), pk(B)), and(pk(A), after(timeout)), pk(ARevoke))
+   }
+
+   class HTLCClaimB {
+      HTLCtoA / HTLCtoB -- presigned by A with ACP|SINGLE
+      out: or(and(pk(B), older(Delay)), pk(ARevoke))
+   }
+   FundingTx --|> CommitmentTxB
+   CommitmentTxB --|> HTLCClaimB
+```
+
+If `CommitmentTxB` is v3, then the fact that it has an ephemeral anchor output would mean that that output has to be spent concurrently for the tx to be relayed, so Bob might broadcast `Tx1` just to get `CommitmentTxB` funded, or might post `Tx2` to also lock in some of the HTLCs that have either expired or that he knows the preimage for.
+
+```mermaid height=380,auto
+classDiagram
+   class TxB1 {
+       CommitmentTxB Anchor
+       ConfirmedUTXO
+       change: pk(B)
+   }
+   class TxB2 {
+       CommitmentTxB Anchor
+       CommitmentTxB HTLCtoA
+       CommitmentTxB HTLCtoB
+       ConfirmedUTXO
+       change: pk(B)
+       HTLCtoA.out: or(and(pk(B), older(delay)), pk(ARevoke))
+       HTLCtoB.out: or(and(pk(B), older(delay)), pk(ARevoke))
+   }
+   CommitmentTxB --|>TxB1
+   CommitmentTxB --|>TxB2
+```
+
+Alternatively, A might decide B's txs don't pay enough fees and decide to get things confirmed earlier, either by posting her own `CommitmentTxA` (conflicting with `CommitmentTxB`) in much the same way, or by creating her own spends of `CommitmentTxB` (conflicting with `TxB1` or `TxB2`):
+
+```mermaid height=353,auto
+classDiagram
+   class TxA0 {
+       CommitmentTxB Anchor
+       CommitmentTxB ABal -- all signed with ARevoke
+       CommitmentTxB BBal
+       CommitmentTxB HTLCtoA
+       CommitmentTxB HTLCtoB
+       change: pk(A)
+   }
+   class TxA1 {
+       CommitmentTxB Anchor
+       CommitmentTxB ABal
+       CommitmentTxB HTLCtoA
+       CommitmentTxB HTLCtoB
+       change: pk(A)
+   }
+   CommitmentTxB --|>TxA0
+   CommitmentTxB --|>TxA1
+```
+
+In either case, she probably doesn't need to use any confirmed funds, as she can pay the on-chain fees directly from her channel balance immediately.
+
+-------------------------
+
