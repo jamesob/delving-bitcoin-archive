@@ -46,13 +46,13 @@ IMO, on the next witness version we should remove OP_ADD/OP_SUB/comparison ops a
 
 -------------------------
 
-sipa | 2024-01-11 14:54:55 UTC | #6
+sipa | 2024-01-18 13:09:39 UTC | #6
 
 [quote="Chris_Stewart_5, post:5, topic:397"]
 I don’t understand this. Little endian is a pretty conventional encoding system no? I think the goal should be to remove weirdness when possible in favor of conventional number systems.
 [/quote]
 
-Sure, little endian is very conventional, and it'd be a reasonable choice if you're building something from scratch. But I don't think there is anything weird with the existing encoding though, it's minimal-length big endian, which for literals inside the script has the advantage of being more compact than forcing a full length constant. Moreover, it has the enormous benefit of being already implemented, tested, deployed, and in use.
+Sure, little endian is very conventional, and it'd be a reasonable choice if you're building something from scratch. But I don't think there is anything weird with the existing encoding though, it's minimal-length ~~big endian~~ (EDIT: little-endian with sign-magnitude encoding rather than two's complement), which for literals inside the script has the advantage of being more compact than forcing a full length constant. Moreover, it has the enormous benefit of being already implemented, tested, deployed, and in use.
 
 [quote="Chris_Stewart_5, post:5, topic:397"]
 Could you link me to more information on this so I can read about it?
@@ -209,7 +209,7 @@ We should be moving towards formally specifying the Script VM and things like a 
 
 -------------------------
 
-sipa | 2024-01-11 20:40:26 UTC | #15
+sipa | 2024-01-18 13:11:02 UTC | #15
 
 [quote="ajtowns, post:13, topic:397"]
 The semantics proposed here copy those from liquid/elements – that is maths opcodes like ADD and SUB tend to leave two two values to the stack, on the top, a boolean TRUE/FALSE indicating whether the operands were in range, and if they were, underneath that, the actual result of the operation. That’s pretty different to the way bitcoin’s existing operations work, so I’m not sure modifying the existing opcodes to such a different new behaviour makes sense.
@@ -223,7 +223,7 @@ If the different semantics are actually desirable, then I agree it shouldn't reu
 Simple rules like things like inputs are always 8 bytes in length (not variable) make it much easier to reason about. If you would prefer big endian to be used rather than little endian I can see the value if that - although little endian is used elsewhere in the protocol.
 [/quote]
 
-Ok, I'll accept that the variable-length approach complicates things a bit, but I also think having two different encodings is even worse. All things being equal, I prefer little-endian over big-endian, but again, two encodings is worse than one.
+Ok, I'll accept that the variable-length approach complicates things a bit, but I also think having two different encodings is even worse. All things being equal, I prefer ~~little-endian over big-endian~~ (EDIT: two's complement over sign-magnitude), but again, two encodings is worse than one.
 
 [quote="Chris_Stewart_5, post:9, topic:397"]
 My understanding is the alternative implementation you are suggesting means modifying `CScriptNum` to support 64 bits.

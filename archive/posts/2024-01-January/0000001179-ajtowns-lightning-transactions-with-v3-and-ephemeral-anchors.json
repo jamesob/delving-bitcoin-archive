@@ -8,13 +8,13 @@
   "post_number": 14,
   "post_type": 1,
   "updated_at": "2024-01-18T05:02:14.398Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "incoming_link_count": 1,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 32.0,
   "yours": false,
   "topic_id": 418,
   "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Mermaid diagram with miniscript for @t-bast's proposed commitment transaction format for whatever it's worth:\n\n```mermaid height=570,auto\nclassDiagram\n   class FundingTx {\n      [inputs...]\n      out: and(pk(A), pk(B))\n   }\n   class CommitmentTxB {\n       FundingTx\n       Anchor: true()\n       ABal: pk(A)\n       BBal: or(pk(ARevoke), and(pk(B), older(Delay)))\n       HTLCtoA: or(and(pk(A), pk(B)), and(pk(A), hash160(S)), pk(ARevoke))\n       HTLCtoB: or(and(pk(A), pk(B)), and(pk(A), after(timeout)), pk(ARevoke))\n   }\n\n   class HTLCClaimB {\n      HTLCtoA / HTLCtoB -- presigned by A with ACP|SINGLE\n      out: or(and(pk(B), older(Delay)), pk(ARevoke))\n   }\n   FundingTx --|> CommitmentTxB\n   CommitmentTxB --|> HTLCClaimB\n```\n\nIf `CommitmentTxB` is v3, then the fact that it has an ephemeral anchor output would mean that that output has to be spent concurrently for the tx to be relayed, so Bob might broadcast `Tx1` just to get `CommitmentTxB` funded, or might post `Tx2` to also lock in some of the HTLCs that have either expired or that he knows the preimage for.\n\n```mermaid height=380,auto\nclassDiagram\n   class TxB1 {\n       CommitmentTxB Anchor\n       ConfirmedUTXO\n       change: pk(B)\n   }\n   class TxB2 {\n       CommitmentTxB Anchor\n       CommitmentTxB HTLCtoA\n       CommitmentTxB HTLCtoB\n       ConfirmedUTXO\n       change: pk(B)\n       HTLCtoA.out: or(and(pk(B), older(delay)), pk(ARevoke))\n       HTLCtoB.out: or(and(pk(B), older(delay)), pk(ARevoke))\n   }\n   CommitmentTxB --|>TxB1\n   CommitmentTxB --|>TxB2\n```\n\nAlternatively, A might decide B's txs don't pay enough fees and decide to get things confirmed earlier, either by posting her own `CommitmentTxA` (conflicting with `CommitmentTxB`) in much the same way, or by creating her own spends of `CommitmentTxB` (conflicting with `TxB1` or `TxB2`):\n\n```mermaid height=353,auto\nclassDiagram\n   class TxA0 {\n       CommitmentTxB Anchor\n       CommitmentTxB ABal -- all signed with ARevoke\n       CommitmentTxB BBal\n       CommitmentTxB HTLCtoA\n       CommitmentTxB HTLCtoB\n       change: pk(A)\n   }\n   class TxA1 {\n       CommitmentTxB Anchor\n       CommitmentTxB ABal\n       CommitmentTxB HTLCtoA\n       CommitmentTxB HTLCtoB\n       change: pk(A)\n   }\n   CommitmentTxB --|>TxA0\n   CommitmentTxB --|>TxA1\n```\n\nIn either case, she probably doesn't need to use any confirmed funds, as she can pay the on-chain fees directly from her channel balance immediately.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,19 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

@@ -250,12 +250,6 @@ Lightning nodes need to maintain a "healthy" utxo pool anyway to minimize their 
 
 -------------------------
 
-glozow | 2024-01-17 11:20:38 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
 glozow | 2024-01-17 11:23:16 UTC | #6
 
 (Sorry, I posted this earlier but had clicked reply to the wrong post)
@@ -454,6 +448,65 @@ One option might be to have two versions of the `HTLCClaimB` txs:
  * one signed with SIGHASH_ALL and no delay, which creates an ephemeral anchor output and prevents pinning
 
 Doubles the number of HTLC signatures you need to do, though, which sucks.
+
+-------------------------
+
+instagibbs | 2024-01-18 13:39:01 UTC | #16
+
+This matches my [spec draft](https://github.com/instagibbs/bolts/commits/zero_fee_commitment), I think. HTLC-X pre-signed transactions will need to be v3 as well for them to be spent concurrently ala `TxB2`, since v3 has inheritance rules.
+
+-------------------------
+
+t-bast | 2024-01-18 14:31:34 UTC | #17
+
+[quote="morehouse, post:12, topic:418"]
+I think v3 also prevents MitM pinning attacks where someone extracts the `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` signature and uses it to construct and pin a low feerate conflicting transaction.
+[/quote]
+
+Can you explain that? I don't see how someone can do anything with the `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` signature extracted from the witness, as it's not sufficient to spend the output, they also need a second signature from the owner of the HTLC tx, which will be using `SIGHASH_ALL`?
+
+[quote="morehouse, post:12, topic:418"]
+Because Mallory’s preimage spend can opt out of v3 policy, she is able to pin her transaction in mempools while preventing Alice from learning the preimage or confirming her HTLC-timeout transaction.
+[/quote]
+
+True, that's another pinning attack (that ariard described a while ago if I remember correctly). I'm not sure this one needs to be fixed by v3 though. When we discussed it a long time ago, we realized that:
+
+- the attacked node doesn't necessarily need their HTLC-timeout tx to confirm: if they learn the preimage, they don't need to claim the output at all
+- the attacker is taking some risk, because the attacked node can potentially still learn the preimage **and** get their HTLC-timeout confirmed, in which case the attacker is losing money
+- a simple preimage gossip mechanism over lightning would fix that
+- a mechanism in bitcoind that would let us inspect conflicting peer transactions to potentially extract the preimage would also fix that
+
+I don't think we should go down the rabbit hole of trying to exchange signatures to require a 2nd-stage HTLC transaction when spending from the remote commit: we simply cannot do this with the current `commit_sig` / `revoke_and_ack` protocol, as there's a chicken-and-egg issue where you don't know beforehand what you should be signing (we had the same issue when investigating that change for liquidity ads: https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-November/004219.html)
+
+[quote="instagibbs, post:13, topic:418"]
+Huh! I hadn’t considered the fact that *revoked* states would allow *HLTC-Timeout paths* to create pins.
+[/quote]
+
+Can you describe that in more details? I don't see what issue you're referring to. If Bob broadcasts a revoked commitment, it cannot pin it while it's unconfirmed because that revoked commitment is using v3. Once the revoked commitment is confirmed, Bob can only spend the HTLC outputs via a pre-signed HTLC tx, whose output also contains a revocation path that Alice will be able to claim? So in the end Alice will get all the funds?
+
+[quote="ajtowns, post:14, topic:418"]
+In either case, she probably doesn’t need to use any confirmed funds, as she can pay the on-chain fees directly from her channel balance immediately.
+[/quote]
+
+Yes, that is a very nice benefit of the v3 change! Being able to pay the on-chain fees directly from the channel balance is a very important but often overlooked improvement in my opinion.
+
+-------------------------
+
+instagibbs | 2024-01-18 14:44:43 UTC | #18
+
+[quote="t-bast, post:17, topic:418"]
+Can you describe that in more details?
+[/quote]
+
+Hm right, I guess this would only matter if the revoked commit tx *gets confirmed*. In that case you may have to compete with the HTLC output spend, which is why @ajtowns is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged.
+
+[quote="t-bast, post:17, topic:418"]
+Yes, that is a very nice benefit of the v3 change! Being able to pay the on-chain fees directly from the channel balance is a very important but often overlooked improvement in my opinion.
+[/quote]
+
+[Remove all the `1 OP_CHECKSEQUENCEVERIFY OP_DROP` please!](https://github.com/instagibbs/bips/blob/d33cdbd0777700f4fc488d54b90a8795d2c33639/bip-ephemeralanchors.mediawiki#expected-use-cases)
+
+You could also use any non-pre-signed HTLC paths for fees as well. e.g., Bob could sweep Alice's offered HLTCs with preimage and use those towards fees.
 
 -------------------------
 
