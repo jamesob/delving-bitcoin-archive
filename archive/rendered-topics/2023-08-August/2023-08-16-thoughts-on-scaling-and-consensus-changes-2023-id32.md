@@ -193,3 +193,15 @@ That was mainly a brain dump of my initial thoughts.  Not very well organized, b
 
 -------------------------
 
+CubicEarth | 2024-01-18 16:34:20 UTC | #5
+
+[quote="melvincarvalho, post:4, topic:32"]
+L1 is finite, which is the fundamental reason that it’s valuable.
+[/quote]
+
+What do you mean by this?
+
+I would strongly disagree with any suggestion that Bitcoin's value as a monetary system has anything to do blocks being of a limited size, or that there is a limited ability to make L1 transactions. The limited quantity of total coins and the ability to audit the supply, as well as the ability to permissionlessly transact and hold are what gives the coins value. The limited block size, and even the structure of mining are just means to that end. If we had the technical means to process and audit 1 TB blocks, and if we had a magic mining oracle the we knew operated honestly, we could port the utxo set over to that system and we should, and Bitcoin would be even more useful and therefore valuable than it would be with the old system.
+
+-------------------------
+

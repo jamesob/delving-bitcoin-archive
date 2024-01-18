@@ -492,13 +492,15 @@ Yes, that is a very nice benefit of the v3 change! Being able to pay the on-chai
 
 -------------------------
 
-instagibbs | 2024-01-18 14:44:43 UTC | #18
+instagibbs | 2024-01-18 17:24:12 UTC | #18
 
 [quote="t-bast, post:17, topic:418"]
 Can you describe that in more details?
 [/quote]
 
 Hm right, I guess this would only matter if the revoked commit tx *gets confirmed*. In that case you may have to compete with the HTLC output spend, which is why @ajtowns is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged.
+
+edit: I'm wrong and tbast is right, look at reply
 
 [quote="t-bast, post:17, topic:418"]
 Yes, that is a very nice benefit of the v3 change! Being able to pay the on-chain fees directly from the channel balance is a very important but often overlooked improvement in my opinion.
@@ -521,6 +523,63 @@ I still don't get where the issue is in that scenario. Let's say that Bob broadc
 Alice tries spending the HTLC outputs using the revocation path on the commitment transaction. Alice can use a low feerate here (at that point, Bob cannot immediately sweep those funds). 
 
 Bob may use its HTLC-x transactions to create a pinning vector for Alice's transactions. But it's ok, Alice isn't in any rush to see them confirm! If Bob's HTLC-x transaction confirms, Bob will have a `to_self_delay` CSV to sweep the output of that HTLC-x transaction. Also, Bob will have paid fees to get that transaction mined. Meanwhile, Alice will be able to sweep the output of that HTLC-x transaction through its revocation path, so all is well?
+
+-------------------------
+
+morehouse | 2024-01-18 18:06:19 UTC | #20
+
+[quote="t-bast, post:17, topic:418"]
+[quote="morehouse, post:12, topic:418"]
+I think v3 also prevents MitM pinning attacks where someone extracts the `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` signature and uses it to construct and pin a low feerate conflicting transaction.
+[/quote]
+
+Can you explain that? I don’t see how someone can do anything with the `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` signature extracted from the witness, as it’s not sufficient to spend the output, they also need a second signature from the owner of the HTLC tx, which will be using `SIGHASH_ALL`?
+[/quote]
+
+You're right, I forgot about the second signature with `SIGHASH_ALL`.
+
+Of course, v3 on HTLC transactions is still useful for package relay and saving space on chain.
+
+[quote="instagibbs, post:13, topic:418"]
+v3 alone probably isn’t enough, as adversary can use the ANYONECANPAY-nature of owned-by-remote HTLC-Success paths to inflate their data to generate a pin. Switching to v3+epehemeral anchor would mitigate the pin, at the cost of extra vb in benign cases :frowning:
+[/quote]
+
+IIUC this isn't needed, for the reason @t-bast pointed out above?
+
+[quote="instagibbs, post:13, topic:418"]
+[quote="morehouse, post:12, topic:418"]
+At a minimum, we probably want to make HTLC transactions v3. If we really want to fix pinning, we may also need to make *all* HTLC spending paths use presigned v3 transactions.
+[/quote]
+
+Huh! I hadn’t considered the fact that *revoked* states would allow *HLTC-Timeout paths* to create pins. Another symptom of layered transactions if I’m thinking about this right. So I think you’re right, not only would you need to lock down HTLC-Success paths, as I’d thought and previously proposed, but you’ll also need to pre-sign HTLC-Timeout paths.
+[/quote]
+
+Upon more reflection, I think your original intuition was correct -- we need to presign remote v3 preimage spends but not remote timeout spends.
+
+The edge case I had in mind was where Alice tries to get an HTLC-Success confirmed at the same time that the timeout path becomes spendable.  But really Alice is screwed in that case even if we prevent Mallory from pinning her timeout path spend, since Mallory can just outbid Alice on fees for the timeout transaction while claiming the preimage spend path upstream.  Really Alice needs to avoid getting so close to the timeout in the first place.
+
+
+[quote="t-bast, post:17, topic:418"]
+[quote="morehouse, post:12, topic:418"]
+Because Mallory’s preimage spend can opt out of v3 policy, she is able to pin her transaction in mempools while preventing Alice from learning the preimage or confirming her HTLC-timeout transaction.
+[/quote]
+
+True, that’s another pinning attack (that ariard described a while ago if I remember correctly). I’m not sure this one needs to be fixed by v3 though. When we discussed it a long time ago, we realized that:
+
+* the attacked node doesn’t necessarily need their HTLC-timeout tx to confirm: if they learn the preimage, they don’t need to claim the output at all
+* the attacker is taking some risk, because the attacked node can potentially still learn the preimage **and** get their HTLC-timeout confirmed, in which case the attacker is losing money
+[/quote]
+
+Yes, there's some risk to the attacker.  But as long as the attacker achieves a greater than 50% success rate, the pin pays off.  Do we have strong evidence that an attacker cannot achieve that today?
+
+[quote]
+* a simple preimage gossip mechanism over lightning would fix that
+* a mechanism in bitcoind that would let us inspect conflicting peer transactions to potentially extract the preimage would also fix that
+
+I don’t think we should go down the rabbit hole of trying to exchange signatures to require a 2nd-stage HTLC transaction when spending from the remote commit: we simply cannot do this with the current `commit_sig` / `revoke_and_ack` protocol, as there’s a chicken-and-egg issue where you don’t know beforehand what you should be signing (we had the same issue when investigating that change for liquidity ads: [[Lightning-dev] Liquidity Ads: Updated Spec Posted, please review](https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-November/004219.html))
+[/quote]
+
+Yeah, we'd need a new message to transmit HTLC signatures prior to the commitment signature.  Naively, this doesn't seem more complicated than adding new features to bitcoind or creating a preimage relay network.  And it has the benefit that it actually fixes pinning, while the other solutions are only probabilistic ways to learn the preimage.
 
 -------------------------
 
