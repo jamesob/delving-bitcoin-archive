@@ -161,3 +161,18 @@ Jeremy Rubin's [uxos.org](https://utxos.org/uses/) is still a great resource for
 
 -------------------------
 
+reardencode | 2024-01-18 06:22:10 UTC | #12
+
+Tonight, I created a PR against @ajtowns 's binana to create numbers for CSFS and INTERNALKEY.
+
+https://github.com/bitcoin-inquisition/binana/pull/1
+
+I also created draft PRs for internalkey and csfs alone against core.
+
+https://github.com/bitcoin/bitcoin/pull/29269
+https://github.com/bitcoin/bitcoin/pull/29270
+
+If this splitting out seems helpful, I'll do the same for CTV - it would be split into 2 additional PRs, one without functional tests and no deployment parameters at all (not even regtest), and another with functional tests and regtest deployment.
+
+-------------------------
+

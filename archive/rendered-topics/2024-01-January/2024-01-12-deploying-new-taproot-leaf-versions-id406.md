@@ -22,3 +22,11 @@ https://github.com/Christewart/bitcoin/tree/2024-01-12-new-tapleaf-ver-example
 
 -------------------------
 
+halseth | 2024-01-18 07:56:00 UTC | #2
+
+Take a look at the commit I linked from my reply in the 64-bit discussion: https://delvingbitcoin.org/t/64-bit-arithmetic-soft-fork/397/18?u=halseth
+
+I basically comes down do defining a new `SigVersion`. This value the interpreter already has access to, hence can choose to behave differently for certain opcodes based on the version.
+
+-------------------------
+
