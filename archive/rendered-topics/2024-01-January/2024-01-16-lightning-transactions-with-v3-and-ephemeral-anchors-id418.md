@@ -442,3 +442,18 @@ In either case, she probably doesn't need to use any confirmed funds, as she can
 
 -------------------------
 
+ajtowns | 2024-01-18 05:12:05 UTC | #15
+
+[quote="instagibbs, post:13, topic:418"]
+Huh! I hadn’t considered the fact that *revoked* states would allow *HLTC-Timeout paths* to create pins.
+[/quote]
+
+One option might be to have two versions of the `HTLCClaimB` txs:
+
+ * one signed with ACP|SINGLE, but with nSequence = delay so that the honest party can claim revoked outputs
+ * one signed with SIGHASH_ALL and no delay, which creates an ephemeral anchor output and prevents pinning
+
+Doubles the number of HTLC signatures you need to do, though, which sucks.
+
+-------------------------
+
