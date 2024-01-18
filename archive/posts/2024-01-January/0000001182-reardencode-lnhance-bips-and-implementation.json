@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 37,
-  "reads": 14,
-  "readers_count": 13,
+  "reads": 15,
+  "readers_count": 14,
   "score": 187.6,
   "yours": false,
   "topic_id": 376,
@@ -54,9 +54,14 @@
       "id": "heart",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
