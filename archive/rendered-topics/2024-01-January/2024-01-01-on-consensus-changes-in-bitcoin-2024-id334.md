@@ -254,3 +254,9 @@ If you weren't around for it then perhaps you can read about it [here](https://w
 
 -------------------------
 
+moonsettler | 2024-01-18 20:39:44 UTC | #15
+
+avoiding headaches is not the goal tho. the goal is to scale and improve bitcoin for future generations.
+
+-------------------------
+
