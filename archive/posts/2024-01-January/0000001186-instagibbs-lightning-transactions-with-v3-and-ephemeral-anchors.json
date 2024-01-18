@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"t-bast, post:17, topic:418\"]\nCan you describe that in more details?\n[/quote]\n\nHm right, I guess this would only matter if the revoked commit tx *gets confirmed*. In that case you may have to compete with the HTLC output spend, which is why @ajtowns is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged.\n\n[quote=\"t-bast, post:17, topic:418\"]\nYes, that is a very nice benefit of the v3 change! Being able to pay the on-chain fees directly from the channel balance is a very important but often overlooked improvement in my opinion.\n[/quote]\n\n[Remove all the `1 OP_CHECKSEQUENCEVERIFY OP_DROP` please!](https://github.com/instagibbs/bips/blob/d33cdbd0777700f4fc488d54b90a8795d2c33639/bip-ephemeralanchors.mediawiki#expected-use-cases)\n\nYou could also use any non-pre-signed HTLC paths for fees as well. e.g., Bob could sweep Alice's offered HLTCs with preimage and use those towards fees.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
