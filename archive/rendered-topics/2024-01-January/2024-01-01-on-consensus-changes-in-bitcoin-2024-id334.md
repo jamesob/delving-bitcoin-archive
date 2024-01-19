@@ -308,3 +308,9 @@ If you truly think this I'm just staggered by your stupidity. (I'm trying, reall
 
 -------------------------
 
+michaelfolkson | 2024-01-19 20:32:01 UTC | #19
+
+The sad thing is this kind of shortsightedness and idiocy drives people into becoming supporters of premature ossification and you see it just by reading this thread. An ossified Bitcoin is so much better than a Bitcoin which waves through consensus changes without caring about what they contain. A Bitcoin which makes occasional consensus changes when absolutely necessary and with community consensus would be better than an ossified Bitcoin but if that is impossible to obtain an ossified Bitcoin is better than the alternative of an eventually crippled Bitcoin.
+
+-------------------------
+
