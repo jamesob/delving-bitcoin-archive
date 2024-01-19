@@ -314,3 +314,13 @@ The sad thing is this kind of shortsightedness and idiocy drives people into bec
 
 -------------------------
 
+reardencode | 2024-01-19 20:40:21 UTC | #20
+
+[quote="michaelfolkson, post:18, topic:334"]
+If you truly think this I’m just staggered by your stupidity. (I’m trying, really trying… to stay respectful)
+[/quote]
+
+Wow man, you seem really stressed about this. I'm sorry to see that.
+
+-------------------------
+
