@@ -409,7 +409,7 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
-Chris_Stewart_5 | 2024-01-19 19:59:40 UTC | #29
+Chris_Stewart_5 | 2024-01-19 20:00:29 UTC | #29
 
 > I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
 
@@ -423,7 +423,7 @@ We can speculate what future blockchain usage patterns will look like, but lets 
 
 Yes! They are. But not for the reason you mentioned. 
 
-Lets examine the ill fated [BIP62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#user-content-Number). BIP62 was _intended to solve transaction malleability_, not optimizing for disk space (which gain, this proposal doesn't not increase disk space usage of the bitcoin protocol looking at historical usage patterns).
+Lets examine the ill fated [BIP62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#user-content-Number). BIP62 was _intended to solve transaction malleability_, not optimizing for disk space.
 
 Wrt to script numbers:
 
