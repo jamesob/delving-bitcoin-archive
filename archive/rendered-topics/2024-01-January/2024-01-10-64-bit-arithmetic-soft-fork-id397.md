@@ -409,7 +409,7 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
-Chris_Stewart_5 | 2024-01-19 20:04:37 UTC | #29
+Chris_Stewart_5 | 2024-01-19 20:09:44 UTC | #29
 
 > I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
 
@@ -423,11 +423,11 @@ We can speculate what future blockchain usage patterns will look like, but lets 
 
 Yes! They are. But not for the reason you mentioned. 
 
-Lets examine the ill fated [BIP62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#user-content-Number). BIP62 was _intended to solve transaction malleability_, not optimizing for disk space.
+Lets examine the ill fated [BIP62](https://github.com/bitcoin/bips/blob/deae64bfd31f6938253c05392aa355bf6d7e7605/bip-0062.mediawiki#user-content-Number). BIP62 was _intended to solve transaction malleability_, not optimizing for disk space.
 
 Wrt to script numbers:
 
-> **Zero-padded number pushes** Any time a script opcode consumes a stack value that is interpreted as a number, it must be encoded in its shortest possible form. 'Negative zero' is not allowed. See reference: [Numbers](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#numbers).
+> **Zero-padded number pushes** Any time a script opcode consumes a stack value that is interpreted as a number, it must be encoded in its shortest possible form. 'Negative zero' is not allowed. See reference: [Numbers](https://github.com/bitcoin/bips/blob/deae64bfd31f6938253c05392aa355bf6d7e7605/bip-0062.mediawiki#numbers).
 
 This is meant to solve malleability that was occurring on the network that would cause bitcoin businesses to lose track of withdrawals from their business (IIUC - MtGox suffered from this, again why i'm suspicious of my results).
 
