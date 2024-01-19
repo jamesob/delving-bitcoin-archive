@@ -409,7 +409,7 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
-Chris_Stewart_5 | 2024-01-19 20:00:29 UTC | #29
+Chris_Stewart_5 | 2024-01-19 20:03:04 UTC | #29
 
 > I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
 
@@ -441,7 +441,7 @@ I'm also suspicious that the only reason we have `CScriptNum` is because it wrap
 
 Yes, so why are you advocating for keeping the 2nd (arguably 3rd, if you count `CompactSize` ints) format? I'm advocating for consolidating to a single format. As it exists today, we have two number encodings in the bitcoin protocol. The traditional int64_t one (which satoshi values are encoded in, and is of interest for a lot of BIP proposals) and our exotic one.
 
-It is my understanding we were given the 2nd format by satoshi (I haven't done the github digging myself to confirm this) and have had to modify it multiple times to remove malleability.
+It is my understanding we were given the 2nd format by satoshi (I haven't got to the bottom of this myself to confirm this) and have had to modify it multiple times to remove malleability.
 
 >`CScriptNum` parsing will probably always be a part of wallet software, if not just to validate legacy scripts.
 
