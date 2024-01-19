@@ -583,3 +583,15 @@ Yeah, we'd need a new message to transmit HTLC signatures prior to the commitmen
 
 -------------------------
 
+ajtowns | 2024-01-19 00:59:40 UTC | #21
+
+[quote="t-bast, post:19, topic:418"]
+Bob may use its HTLC-x transactions to create a pinning vector for Alice’s transactions. But it’s ok, Alice isn’t in any rush to see them confirm!
+[/quote]
+
+I'm not sure it's true that Alice will never be in a rush to see them confirm? Bob might have engineered a state where he'd sent a HTLC to Alice with a significant value of the channel funds and allowed it to timeout without the payment secret ever being revealed.At that point the channel funds may be difficult for Alice to access indefinitely, as far as I can see.
+
+This doesn't give Bob a direct chance to profit at Alice's expense -- she gets the funds eventually; but it does let Bob inconvenience Alice, potentially at near-0 cost (if his balance in the channel was ~0 and he eventually lets the pinning tx expire from the mempool before it confirms).
+
+-------------------------
+
