@@ -12,3 +12,25 @@ If it should support ECDSA signing, should it do so on legacy/witnessv0 scripts 
 
 -------------------------
 
+moonsettler | 2024-01-19 13:45:27 UTC | #2
+
+one reason would be to support it for any organization that relies on ECDSA MPC as a vetted established practice. if you have an audited process, libraries and tools that work, for an entity like Coinbase or other large custodians, you won't just switch to a "brand new" cryptography and libraries and tools.
+
+even tho Schnorr has cryptographic proof of being secure construction, and generally makes sense to switch to it long term, the MPC stuff like MuSig and FROST are still barely out of development. i can see how certain entities would be in no rush to switch.
+
+as i remember it was even hard and excruciatingly slow to get exchanges to properly support P2TR outputs for withdrawals. and that's basically nothing in comparison.
+
+-------------------------
+
+reardencode | 2024-01-19 14:30:14 UTC | #3
+
+Thanks @moonsettler ! So far that's the only argument I've actually heard for ECDSA, and it does only apply to legacy scripts (as such entrenched systems would need to be upgraded for any signing operation on Tapscript). So this would be an argument for ECDSA in legacy/witnessv0 only.
+
+Keeping my ears out for any other reasons we may be missing for ECDSA in new sigops, but not expecting much :slight_smile: 
+
+So, the strongest form of this argument would be that there may be existing custody operations that have a ECDSA TSS implementation they trust and want to take advantage of some protocol like a post-signed vaults or delegation that use CSFSV. They have the resources to implement the new protocol, but not to audit FROST (or MuSig2 depending on their specifics) and move to Tapscript for that application.
+
+I think this remains weak. Leaning toward making CSFS(V) BIP340 Schnorr only (but upgradeable with non-32-byte keys at a later time if I'm wrong).
+
+-------------------------
+
