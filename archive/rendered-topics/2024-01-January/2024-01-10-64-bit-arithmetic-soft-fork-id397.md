@@ -409,3 +409,47 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-19 19:59:40 UTC | #29
+
+> I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
+
+I don't think this is the case. First off - literals (`OP_0`,`OP_1`,`OP_2`..) can just be re-interpreted based on sig version. That means the space they consume will remain at 1 byte, however when they are pushed onto the stack they will no longer be 1 byte - rather 8 bytes. This increases _memory consumption_, not disk space.
+
+I've scanned the blockchain for instances of `CScriptNum` that are not a literal, and I have found zero instances of them on testnet or mainnet. [Here is a link to my code that did this](https://github.com/Christewart/bitcoin-s-core/tree/2024-01-19-count-scriptnums). This a surprising result for me (and makes me suspicious I have a bug in my script). I thought there would be some instances of weird Scripts on testnet or mainnet that would not be using literals. I'm going to work to confirm these results - take them with a grain of salt for now.
+
+We can speculate what future blockchain usage patterns will look like, but lets be honest that is just speculation.
+
+>but they’re there for a reason!
+
+Yes! They are. But not for the reason you mentioned. 
+
+Lets examine the ill fated [BIP62](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#user-content-Number). BIP62 was _intended to solve transaction malleability_, not optimizing for disk space (which gain, this proposal doesn't not increase disk space usage of the bitcoin protocol looking at historical usage patterns).
+
+Wrt to script numbers:
+
+> **Zero-padded number pushes** Any time a script opcode consumes a stack value that is interpreted as a number, it must be encoded in its shortest possible form. 'Negative zero' is not allowed. See reference: [Numbers](https://github.com/bitcoin/bips/blob/master/bip-0062.mediawiki#numbers).
+
+This is meant to solve malleability that was occurring on the network that would cause bitcoin businesses to lose track of withdrawals from their business (IIUC - MtGox suffered from this, again why i'm suspicious of my results).
+
+If we [examine the commit](https://github.com/bitcoin/bitcoin/commit/698c6abb25c1fbbc7fa4ba46b60e9f17d97332ef) that introduced the `fRequireMinimal` flag in the interpreter, it specifically cites BIP62 rule #3 and #4 as for the reasoning for introducing it. It does not cite disk space usage.
+
+As a by product of this proposed change, I actually believe we could potentially simplify `interpreter.cpp` for future soft forks by removing the need for `SCRIPT_VERIFY_MINIMALDATA` - how great is that?! Admittedly, this proposal does not cover encoding for push operations. I'm going to research expanding this proposal to cover these to see what effects it would have.
+
+I'm also suspicious that the only reason we have `CScriptNum` is because it wrapped the openSSL number implementation. I've tried to track this down on github history to verify, but i'm unable to. Perhaps an OG can comment on this to see if this is correct. [Here is as far as I got in github archaeology](https://github.com/bitcoin/bitcoin/commits/7cd0af7cc222d0694ce72e71458aef460698ee2c/src/bignum.h?browsing_rename_history=true&new_path=src/test/bignum.h&original_branch=2b2ddc558e1cddb5ff54fd2d9e375793021a908e)
+
+> The only thing worse than dealing with one weird encoding is having to implement another one alongside it.
+
+Yes, so why are you advocating for keeping the 2nd (arguably 3rd, if you count `CompactSize` ints) format? I'm advocating for consolidating to a single format. As it exists today, we have two number encodings in the bitcoin protocol. The traditional int64_t one (which satoshi values are encoded in, and is of interest for a lot of BIP proposals) and our exotic one.
+
+It is my understanding we were given the 2nd format by satoshi (I haven't done the github digging myself to confirm this) and have had to modify it multiple times to remove malleability.
+
+>`CScriptNum` parsing will probably always be a part of wallet software, if not just to validate legacy scripts.
+
+I think 'validate' is a bit of a strong word as I'm not aware of a lot of external implementations of `interpreter.cpp` (although there are a few!), but they definitely need to be able to build Scripts for their wallet software to receive/withdraw funds. 
+
+I don't think this proposal would affect wallets that do standard signing logic (`p2pkh`, `p2wpkh`, `p2trkp`). I believe if your Script does not use `OP_PUSHDATAx` this holds true for `p2sh`,`p2wsh`, `p2trsp`, although I would like others to think about this make sure my mental model is correct. `OP_PUSHDATAx` is a relatively infrequent opcode, so I suspect that there isn't wide usage of these (although I haven't looked too much into the NFT world, where it might make sense to use `OP_PUSHDATAx`)
+
+My view is that we should move away from exotic things like this in the bitcoin protocol in favor of standard encodings in the rest of the software ecosystem. While there will be an adjustment period, in 10 years people would look back on these changes say 'remember when you had a numbering system in bitcoin's programming language that was _different_ than other protocol number representations? What a nightmare! Glad someone decided to consolidate that. Lets relegate this numbering system to a fun historical fact best talked about over a :beer: to establish your OG cred :slightly_smiling_face:.
+
+-------------------------
+
