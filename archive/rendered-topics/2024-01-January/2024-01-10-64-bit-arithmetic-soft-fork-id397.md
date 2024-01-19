@@ -409,7 +409,7 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
-Chris_Stewart_5 | 2024-01-19 20:03:04 UTC | #29
+Chris_Stewart_5 | 2024-01-19 20:04:37 UTC | #29
 
 > I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
 
@@ -449,7 +449,9 @@ I think 'validate' is a bit of a strong word as I'm not aware of a lot of extern
 
 I don't think this proposal would affect wallets that do standard signing logic (`p2pkh`, `p2wpkh`, `p2trkp`). I believe if your Script does not use `OP_PUSHDATAx` this holds true for `p2sh`,`p2wsh`, `p2trsp`, although I would like others to think about this make sure my mental model is correct. `OP_PUSHDATAx` is a relatively infrequent opcode, so I suspect that there isn't wide usage of these (although I haven't looked too much into the NFT world, where it might make sense to use `OP_PUSHDATAx`)
 
-My view is that we should move away from exotic things like this in the bitcoin protocol in favor of standard encodings in the rest of the software ecosystem. While there will be an adjustment period, in 10 years people would look back on these changes say 'remember when you had a numbering system in bitcoin's programming language that was _different_ than other protocol number representations? What a nightmare! Glad someone decided to consolidate that. Lets relegate this numbering system to a fun historical fact best talked about over a :beer: to establish your OG cred :slightly_smiling_face:.
+My view is that we should move away from exotic things like this in the bitcoin protocol in favor of standard encodings in the rest of the software ecosystem. While there will be an adjustment period, in 10 years people would look back on these changes say 'remember when you had a numbering system in bitcoin's programming language that was _different_ than other protocol number representations? What a nightmare! Glad someone decided to consolidate that.' 
+
+Lets relegate this numbering system to a fun historical fact best talked about over a :beer: to establish your OG cred :slightly_smiling_face:.
 
 -------------------------
 
