@@ -409,7 +409,7 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
-Chris_Stewart_5 | 2024-01-19 20:09:44 UTC | #29
+Chris_Stewart_5 | 2024-01-19 20:18:02 UTC | #29
 
 > I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
 
@@ -445,7 +445,7 @@ It is my understanding we were given the 2nd format by satoshi (I haven't got to
 
 >`CScriptNum` parsing will probably always be a part of wallet software, if not just to validate legacy scripts.
 
-I think 'validate' is a bit of a strong word as I'm not aware of a lot of external implementations of `interpreter.cpp` (although there are a few!), but they definitely need to be able to build Scripts for their wallet software to receive/withdraw funds. 
+I think 'validate' is a bit of a strong word as I'm not aware of a lot of external implementations of `interpreter.cpp` (although there are a few! [bitcoin-s has one](https://github.com/bitcoin-s/bitcoin-s/blob/master/core/src/main/scala/org/bitcoins/core/script/interpreter/ScriptInterpreter.scala)), but they definitely need to be able to build Scripts for their wallet software to receive/withdraw funds. 
 
 I don't think this proposal would affect wallets that do standard signing logic (`p2pkh`, `p2wpkh`, `p2trkp`). I believe if your Script does not use `OP_PUSHDATAx` this holds true for `p2sh`,`p2wsh`, `p2trsp`, although I would like others to think about this make sure my mental model is correct. `OP_PUSHDATAx` is a relatively infrequent opcode, so I suspect that there isn't wide usage of these (although I haven't looked too much into the NFT world, where it might make sense to use `OP_PUSHDATAx`)
 
