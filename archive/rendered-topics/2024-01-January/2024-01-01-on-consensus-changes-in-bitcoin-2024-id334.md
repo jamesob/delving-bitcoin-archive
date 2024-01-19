@@ -288,3 +288,13 @@ I, for one, am not worried about the risks of minority soft forks. Bitcoin is a 
 
 -------------------------
 
+michaelfolkson | 2024-01-19 19:38:31 UTC | #17
+
+[quote="moonsettler, post:15, topic:334, full:true"]
+avoiding headaches is not the goal tho. the goal is to scale and improve bitcoin for future generations.
+[/quote]
+
+You are assuming everyone who is working on things other than consensus rule proposals (including some of the people here) are wasting their time and not improving Bitcoin. It is such a laughable view. Demanding people divert their attention from their current priorities to a consensus rule "war" is just breathtakingly arrogant and shortsighted. Activating a soft fork with community consensus is a relatively minor headache in comparison to the headache of dealing with another consensus rule "war".
+
+-------------------------
+

@@ -34,3 +34,10 @@ I think this remains weak. Leaning toward making CSFS(V) BIP340 Schnorr only (bu
 
 -------------------------
 
+reardencode | 2024-01-19 17:36:46 UTC | #4
+
+Super Testnet on X mentioned DER encoded ECDSA signature length as a form of proof of work as a reason to include ECDSA signing in all script types:
+https://twitter.com/super_testnet/status/1748370856814715015
+
+-------------------------
+
