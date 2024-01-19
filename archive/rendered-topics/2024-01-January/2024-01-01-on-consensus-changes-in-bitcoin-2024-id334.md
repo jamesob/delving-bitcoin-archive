@@ -298,3 +298,13 @@ You are assuming everyone who is working on things other than consensus rule pro
 
 -------------------------
 
+michaelfolkson | 2024-01-19 20:07:13 UTC | #18
+
+[quote="reardencode, post:16, topic:334"]
+These are acceptable risks and not something that some defenders of bitcoin need to guard the network against.
+[/quote]
+
+If you truly think this I'm just staggered by your stupidity. (I'm trying, really trying... to stay respectful) If the community just repeatedly waves through changes to the consensus rules without ensuring they are acceptable and not bothering to resist changes that are suboptimal, useless and/or harmful then it is just a matter of time before Bitcoin is co-opted by the many people who would like to destroy it. I think gmax said something to the effect of Bitcoin being nothing without community vigilance. If nobody can convince you of that I just hope for Bitcoin's sake that you are never successful in changing the consensus rules because it will be the beginning of the end for Bitcoin.
+
+-------------------------
+
