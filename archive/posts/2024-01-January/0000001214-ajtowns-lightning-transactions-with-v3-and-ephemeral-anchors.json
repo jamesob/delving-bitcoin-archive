@@ -8,13 +8,13 @@
   "post_number": 21,
   "post_type": 1,
   "updated_at": "2024-01-19T00:59:40.333Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 19,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 418,
   "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"t-bast, post:19, topic:418\"]\nBob may use its HTLC-x transactions to create a pinning vector for Alice\u2019s transactions. But it\u2019s ok, Alice isn\u2019t in any rush to see them confirm!\n[/quote]\n\nI'm not sure it's true that Alice will never be in a rush to see them confirm? Bob might have engineered a state where he'd sent a HTLC to Alice with a significant value of the channel funds and allowed it to timeout without the payment secret ever being revealed.At that point the channel funds may be difficult for Alice to access indefinitely, as far as I can see.\n\nThis doesn't give Bob a direct chance to profit at Alice's expense -- she gets the funds eventually; but it does let Bob inconvenience Alice, potentially at near-0 cost (if his balance in the channel was ~0 and he eventually lets the pinning tx expire from the mempool before it confirms).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

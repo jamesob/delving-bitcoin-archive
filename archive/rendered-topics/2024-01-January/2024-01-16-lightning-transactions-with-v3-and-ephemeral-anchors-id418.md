@@ -595,3 +595,29 @@ This doesn't give Bob a direct chance to profit at Alice's expense -- she gets t
 
 -------------------------
 
+t-bast | 2024-01-19 09:05:05 UTC | #22
+
+[quote="morehouse, post:20, topic:418"]
+Yes, there’s some risk to the attacker. But as long as the attacker achieves a greater than 50% success rate, the pin pays off. Do we have strong evidence that an attacker cannot achieve that today?
+[/quote]
+
+No, I don't have any evidence of that, and I think it's really hard to evaluate! I honestly don't know how feasible such an eclipse attack is. In this specific case it _feels_ very hard to pull off, because lightning nodes should be running multiple independent bitcoin nodes that would let them easily monitor conflicting transactions (and thus learn preimages in that specific case). But I have no idea how to quantify the difficulty.
+
+[quote="morehouse, post:20, topic:418"]
+Yeah, we’d need a new message to transmit HTLC signatures prior to the commitment signature.
+[/quote]
+
+My gut feeling is that we should wait for PTLCs to do this work, because we most likely need something similar for PTLC to exchange partial signatures (as detailed in [my old writeup](https://github.com/t-bast/lightning-docs/blob/398a1b78250f564f7c86a414810f7e87e5af23ba/taproot-updates.md#point-time-locked-contracts) with the `commitment_proposed` message).
+
+Meanwhile, I think we can live with the simple mitigation of discovering the preimage in the mempool of our "backup" bitcoin nodes.
+
+[quote="ajtowns, post:21, topic:418"]
+At that point the channel funds may be difficult for Alice to access indefinitely, as far as I can see.
+[/quote]
+
+True, there is a potential for a griefing attack here. This is annoying, but not as terrible as an attack where Bob steals from Alice! Lightning node operators should configure their `max_htlc_value_in_flight_msat` to bound their exposure to that kind of attack: it's not very satisfying, but is probably good enough in practice?
+
+Long term we'll eventually fix that, but we can probably live with it until then.
+
+-------------------------
+
