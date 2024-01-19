@@ -260,3 +260,31 @@ avoiding headaches is not the goal tho. the goal is to scale and improve bitcoin
 
 -------------------------
 
+reardencode | 2024-01-18 22:46:22 UTC | #16
+
+[quote="michaelfolkson, post:14, topic:334"]
+If you weren’t around for it then perhaps you can read about it [here ](https://www.amazon.com/Blocksize-War-Control-Bitcoins-Protocol/dp/B096CLR1SS/) but the block size war was not an enjoyable, productive time to work on software projects.
+[/quote]
+
+I believe we've both been around bitcoin for around the same length of time (the first concrete evidence that I was running bitcoin is from May, 2011). My involvement was less direct during the blocksize war, but I remember it well.
+
+You seem to have a very specific view of how changes to bitcoin should proceed (community consensus, code merge, activation signaling). I understand that perspective, especially in the light of what happened with the NYA and such; but that doesn't mean it is the only acceptable path or that your personal view is the only acceptable one to hold.
+
+Are you willing to consider that nearly a decade later things may be different in bitcoin today than they were during the blocksize war? There are not currently moneyed interests trying to push change on bitcoin; instead there are moneyed players whose interests are exactly in preventing any further evolution of the protocol because they earn their revenue through custodial services and regulatory capture.
+
+If the threats to bitcoin today are somewhat different than the threats during the blocksize war then the response of bitcoin's immune system may also need to be different.
+
+That's the conversation I think we should be having and the one which I attempted to open with this post.
+
+---------------------------------
+
+I hear from you and @harding and @MattCorallo that publishing signaling and activation clients as a way of measuring user consensus (via the resulting miner signals that are IMO driven by the users) has risks that you are not comfortable with.
+
+For now, I stand by my original claim that we do not currently have another mechanism for establishing consensus in the absence of anointed leaders or trusted chairs. @harding disagrees with this claim and I'm open to being proven wrong on it. I've certainly learned a lot as I've moved from a primarily passive observer of the core / protocol development process to a participant over the past year.
+
+--------------------
+
+I, for one, am not worried about the risks of minority soft forks. Bitcoin is a network of risk management and participants can (and should) make their own risk assessments of the software they run, the flags they set, and the signals they advocate for. If a soft fork client is published and many people run it, and 95% of miners signal to activate that fork, the runners of the fork client can still make their own educated decision on whether to trust the forked in features at any given point. They can still switch clients if they observe a transaction that contradicts their fork propagating or being mined. These are acceptable risks and not something that some defenders of bitcoin need to guard the network against.
+
+-------------------------
+
