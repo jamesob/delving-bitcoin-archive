@@ -288,7 +288,7 @@ I, for one, am not worried about the risks of minority soft forks. Bitcoin is a 
 
 -------------------------
 
-michaelfolkson | 2024-01-19 19:38:31 UTC | #17
+michaelfolkson | 2024-01-20 03:52:54 UTC | #17
 
 [quote="moonsettler, post:15, topic:334, full:true"]
 avoiding headaches is not the goal tho. the goal is to scale and improve bitcoin for future generations.

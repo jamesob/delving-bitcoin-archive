@@ -127,3 +127,13 @@ This oddity only exists due to anti-DoS rules, otherwise there'd be no (addition
 
 -------------------------
 
+ajtowns | 2024-01-20 04:52:15 UTC | #7
+
+That diagram doesn't make sense to me: all the txs pay a non-zero fee, so presumably none of them have ephemeral anchor outputs?
+
+I think in your scenario Alice wants to see `TxA + TxB + TxD` and Bob is creating `TxC` which conflicts with both `TxB` and `TxD` (the conflict with `TxD` being via some already confirmed utxo).
+
+But I think in that case, the ephemeral anchor from `TxA` has to be less than 5 in value; otherwise a miner would prefer to just claim it directly via a 65byte OP_RETURN tx, rather than mine either `TxB` or `TxC`. Which means Bob's TxC is already contributing 101 units of fees from elsewhere, and can just generate a conflict with `TxD` directly that will have both higher fee and higher feerate without interacting with `TxA` at all?
+
+-------------------------
+

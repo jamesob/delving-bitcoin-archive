@@ -165,3 +165,19 @@ Simulation with PR applied (Delving would only allow me to post one image per re
 
 -------------------------
 
+ajtowns | 2024-01-20 03:46:40 UTC | #9
+
+[quote="m3dwards, post:7, topic:294"]
+[
+Screenshot 2024-01-19 at 17.18.141920×1131 167 KB
+](https://delvingbitcoin.org/uploads/default/original/1X/e6e6ecd21c06f1b103f1ca6934c3fd2317023a15.jpeg)
+
+Both simulations were with a 3.75 tx/s confirmation rate and a 7 tx/s creation rate. On a single box with higher transaction rates I have been struggling to keep the simulation stable.
+[/quote]
+
+At a 7 tx/s creation rate, I think there should be no problem with mempools staying in sync prior to this PR, so your results make sense to me, for what it's worth.
+
+Do you know what's causing the simulation to be unstable? Too much CPU signing/verifying txs? Or do the wallets get too large/slow, so tracking which utxos to spend is slow? Or is performance okay, and you just start getting inconsistent results between runs?
+
+-------------------------
+
