@@ -1,6 +1,6 @@
 # Games in the head (and fraud proofs for the plebs)
 
-salvatoshi | 2024-01-20 12:42:31 UTC | #1
+salvatoshi | 2024-01-20 17:00:20 UTC | #1
 
 While thinking about how to optimize fraud proofs implemented using MATT contracts, I came up with a quite neat approach that applies more generally to any multiple-round, 2-party game. The idea is very simple, so I wouldn't be surprised if it's not really novel, and would appreciate any literature reference.
 
@@ -71,7 +71,7 @@ Note that this cost is independent from *what* computation is performed, so it c
 
 ## Bisection in the head
 
-Applying the game-in-the-head approach to the bisection protocol, some napkin maths make me estimate a total worst case cost for $2^{32}$ around 14000 vbytes. 
+Applying the game-in-the-head approach to the bisection protocol, some napkin math makes me estimate a total worst case cost, for $2^{32}$ operations, around 14000 vbytes. 
 
 A modest saving. That's because the saving does not affect the fixed per-transaction costs, that were already the dominant cost.
 
