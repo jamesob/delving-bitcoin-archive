@@ -455,3 +455,13 @@ Lets relegate this numbering system to a fun historical fact best talked about o
 
 -------------------------
 
+dgpv | 2024-01-20 05:01:16 UTC | #30
+
+[quote="Chris_Stewart_5, post:29, topic:397"]
+we could potentially simplify `interpreter.cpp` for future soft forks by removing the need for `SCRIPT_VERIFY_MINIMALDATA`
+[/quote]
+
+The interpreter needs to support all the historical scripts, so I doubt very much it will be possible removing such code parts. At most this flag will be consensus-enforced.
+
+-------------------------
+
