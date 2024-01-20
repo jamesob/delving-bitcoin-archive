@@ -133,3 +133,35 @@ I think it would be possible to get accurate results faster with mocktime, but I
 
 -------------------------
 
+m3dwards | 2024-01-19 23:56:02 UTC | #7
+
+I have put together most of this described test into a [Warnet scenario](https://github.com/bitcoin-dev-project/warnet/blob/957aec9e0a286893afe72cf0dfc6780ac35f1da2/src/scenarios/double_tx_relay.py) and have run a few simulations of 100 nodes on one large vm for a few hours each.
+
+The first thing the simulation does is mine a block every few seconds to give each node a starting balance of 50 BTC which is split up into 499 x 0.1 BTC taproot outputs. The following charts do not show that setup and instead start from when each block is produced at a normal rate and the transactions start being sent at a set rate. I implemented a simple block timing function that assumes an exponential distribution of block times with an average of 600 seconds to try and make the test more realistic.
+
+Simulation without PR applied (using tag 26.0)
+![Screenshot 2024-01-19 at 17.18.14|690x406](upload://wWEzwfUPoTHuSpuXXS7GYC5WGb3.jpeg)
+
+Both simulations were with a 3.75 tx/s confirmation rate and a 7 tx/s creation rate. On a single box with higher transaction rates I have been struggling to keep the simulation stable.
+
+The top box on both screenshots shows how many transactions are being requested to reconstruct the block. The middle chart is the size of the mempool and bottom chart isn't very useful for this test but just shows number of outbound connections.
+
+I can't see any improvement (or much of a difference) with the PR enabled vs not but perhaps this would become apparent at much higher transaction rates? This simulation also does not RBF or CPFP or construct any chains of unconfirmed transactions. Perhaps this is needed?
+
+Some things I'm a bit hazy on:
+
+1) What is the relationship between relay rate and number of transactions requested? Is it that a higher relay rate should cause more churn in the mempool? As the fees are not all the same I would expect the mempool to keep the best transactions and be fairly similar between all nodes?
+
+2) How would RBF / CPFP / chains of unconfirmed transactions impact this test?
+
+I would like to move these simulations over to Warnet running with a kubernetes backend as I think it should be a lot more stable with 100+ nodes and higher transaction rates. On one box things tend to get a bit network / IO bound.
+
+-------------------------
+
+m3dwards | 2024-01-19 23:48:45 UTC | #8
+
+Simulation with PR applied (Delving would only allow me to post one image per reply)
+![Screenshot 2024-01-19 at 19.59.02|690x405](upload://f1Cb2uHFNKq4dPCQfmYxdXpjXJ5.jpeg)
+
+-------------------------
+

@@ -324,3 +324,27 @@ Wow man, you seem really stressed about this. I'm sorry to see that.
 
 -------------------------
 
+michaelfolkson | 2024-01-19 21:13:36 UTC | #21
+
+[quote="reardencode, post:20, topic:334"]
+Wow man, you seem really stressed about this. I’m sorry to see that.
+[/quote]
+
+Not stressed, perplexed with a large sprinkle of cognitive dissonance. I haven't looked at much of your stuff but you seem like a relatively smart software engineer. Similar to Jeremy. How you both can have such a massive blind spot on this subject (assuming good faith) is beyond me. I don't what it is, echo chambers, stubbornness or inabiilty to see the entire system because you're blinded by what is good for you personally or what. I just don't get it. Untangling what is incompetence and what is nefarious is always extremely difficult. But yeah that's it from me on this thread. I'll leave you to it.
+
+-------------------------
+
+reardencode | 2024-01-19 21:45:17 UTC | #22
+
+[quote="michaelfolkson, post:21, topic:334"]
+How you both can have such a massive blind spot on this subject (assuming good faith) is beyond me.
+[/quote]
+
+Just curious, could you be wrong on this topic? Have the conditions under which you formed a certain perspective possibly changed such that your perspective needs an update?
+
+If you read what I'm saying, you'll see that I have a flexible view about the best way to facilitate bitcoin's continued survival and growth. You seem to have a very rigid view of what bitcoin needs and I wonder if that view has failed to adapt as bitcoin and the world around it have changed.
+
+I remember the blocksize war and agreeing vehemently with your perspective at the time. I've also seen software projects die and be reborn because they failed to adapt to the world around them (xfree86->xorg, vim->neovim). Could it be that I have a broad and potentially useful perspective and that you personally attacking me for having a different viewpoint from you is maybe not helping bitcoin or anyone?
+
+-------------------------
+

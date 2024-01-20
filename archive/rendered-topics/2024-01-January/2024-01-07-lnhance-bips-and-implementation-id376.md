@@ -177,3 +177,16 @@ These 3 PRs include everything from #29198 except activation and functional test
 
 -------------------------
 
+hampus | 2024-01-19 21:44:31 UTC | #13
+
+[quote="urza, post:7, topic:376"]
+Would this also allow construction of other things that APO would? Namely channel factories and Spacechains?
+[/quote]
+
+According to rearden, this would allow for an APO spacechain-like construction.
+https://twitter.com/reardencode/status/1748452392046334366
+
+Presumably helpful for statechains too.
+
+-------------------------
+

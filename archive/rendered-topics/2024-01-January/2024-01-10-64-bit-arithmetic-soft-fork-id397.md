@@ -409,13 +409,13 @@ Imagine if we could make some convoluted sigma protocol onchain, but it's only t
 
 -------------------------
 
-Chris_Stewart_5 | 2024-01-19 20:23:07 UTC | #29
+Chris_Stewart_5 | 2024-01-19 21:27:03 UTC | #29
 
 > I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers
 
 I don't think this is the case. First off - literals (`OP_0`,`OP_1`,`OP_2`..) can just be re-interpreted based on sig version. That means the space they consume will remain at 1 byte, however when they are pushed onto the stack they will no longer be 1 byte - rather 8 bytes. This increases _memory consumption_, not disk space.
 
-I've scanned the blockchain for instances of `CScriptNum` that are not a literal, and I have found zero instances of them on testnet or mainnet. [Here is a link to my code that did this](https://github.com/Christewart/bitcoin-s-core/tree/2024-01-19-count-scriptnums). This a surprising result for me (and makes me suspicious I have a bug in my script). I thought there would be some instances of weird Scripts on testnet or mainnet that would not be using literals. I'm going to work to confirm these results - take them with a grain of salt for now.
+EDIT: Found a bug in my results of historical scanning of the blockchain, will come back and update this section after my bug is fixed and my results are accurate.
 
 We can speculate what future blockchain usage patterns will look like, but lets be honest that is just speculation.
 
