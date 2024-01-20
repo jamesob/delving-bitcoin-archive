@@ -465,3 +465,51 @@ The interpreter needs to support all the historical scripts, so I doubt very muc
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-20 12:57:31 UTC | #31
+
+Yes, which is why I said future soft forks. A better way to state this would be: 
+
+Future Script programmers would no longer need to consider `SCRIPT_VERIFY_MINIMAL_DATA` when writing their Scripts. "Legacy" Script programmers will always need to consider them for policy reasons - unless for some reason policy changes (and I don't see why it would).
+
+Perhaps that was worded a bit clunky, apologies.
+
+-------------------------
+
+Chris_Stewart_5 | 2024-01-20 13:16:16 UTC | #32
+
+[quote="Chris_Stewart_5, post:29, topic:397"]
+I believe if your Script does not use `OP_PUSHDATAx` this holds true for `p2sh`,`p2wsh`, `p2trsp`
+[/quote]
+
+I'm still exploring what the scope of this proposal _could include_ while trying to adhere to [my rule about soft forks](https://twitter.com/Chris_Stewart_5/status/1748361651651289305) :-). @jamesob got me thinking about the 2 paths forward via a DM.
+
+I'm trying to decide where to draw the line between requiring all existing op codes to take 8 byte inputs (in a backwards compatible way via a `SigVersion`), or just adding these arithmetic op codes and allowing people to use the conversion op codes to 'cast' stack tops to the appropriate input size (`OP_LE64TOSCRIPTNUM`, `OP_SCRIPTNUMTOLE64`, `OP_LE32TOLE64`) for op codes that pre-date this soft fork proposal. 
+
+This proposal currently does the latter, would like to hear others input on this to see if the juice is worth the squeeze with requiring all inputs to be 8 bytes to existing op codes (i.e. `OP_CLTV`, `OP_CSV`, `OP_WITHIN`, `OP_DEPTH`...)
+
+This comment also is a bit confusing as of course legacy Scripts will not need to be rewritten (`p2sh`, `p2wsh`, `p2trsp`). 
+
+If you want to upgrade to use this new proposed soft fork that require 8 byte inputs for operations such as `OP_CLTV`, this would require Script programmers to upgrade their Scripts to use the soft fork. 
+
+If we don't require 8 byte inputs for anything besides the new numeric op codes (`OP_ADD64`, `OP_SUB64`, ...) the upgrade story is pretty easy, but we retain the 2nd encoding.
+
+-------------------------
+
+dgpv | 2024-01-20 14:36:06 UTC | #33
+
+[quote="rustyrussell, post:19, topic:397"]
+In case you missed it, please consider: [Arithmetic Opcodes: What Could They Look Like? | Rusty Russell’s Quiet Corner of The Internet ](https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html)
+[/quote]
+
+I liked the ideas in that article. Dealing only with non-negative numbers might simplify some things.
+
+Also removing "normalization" from LSHIFT and RSHIFT is the right thing - Elements implementations remove leading zeroes, and coupled with sign bit that is not actually considered after the shift, it makes modelling these opcodes with Z3 needlessly complex, and also normalization can introduce malleability: `5 LSHIFT` can take 0x01, 0x0100, 0x010000 with the same result.
+
+Relying on `__uint128_t` support in GCC and clang is a bit iffy... Would that mean that other compilers will be somehow discouraged ?
+
+I think there's still need for a way to easily convert to fixed-with numbers. Maybe a generic opcode that would take number of bytes, and zero-pads or truncates if necessary ? Pobably truncation should success only if zeroes are removed.
+
+For example, `4 FIXNUM` would make LE32 from the argument, `8 FIXNUM` will make LE64, `32 FIXNUM` will make a 256-bit number
+
+-------------------------
+
