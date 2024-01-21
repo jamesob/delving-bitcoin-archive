@@ -1,6 +1,6 @@
 # Games in the head (and fraud proofs for the plebs)
 
-salvatoshi | 2024-01-20 17:00:20 UTC | #1
+salvatoshi | 2024-01-21 08:16:35 UTC | #1
 
 While thinking about how to optimize fraud proofs implemented using MATT contracts, I came up with a quite neat approach that applies more generally to any multiple-round, 2-party game. The idea is very simple, so I wouldn't be surprised if it's not really novel, and would appreciate any literature reference.
 
@@ -67,7 +67,7 @@ I implemented the raw version of the bisection protocol in [pymatt](https://gith
 The size of each bisection step (Alice + Bob transactions) is around 500 vbytes.
 Taking $2^{32}$ steps as a plausible upper bound for the number of computational steps one could ever need, that would lead to around 32*500 = 16000 vbytes over 65 transactions.
 
-Note that this cost is independent from *what* computation is performed, so it could for example be composed with the work that Johan's work on [elftrace](https://delvingbitcoin.org/t/verification-of-risc-v-execution-using-op-ccv/313) towards fraud proofs for a a Risc-V VM without any substantial impact on the cost estimates (as only the Script in the leaves is different for different computations).
+Note that this cost is independent from *what* computation is performed, so it could for example be composed with Johan's work on [elftrace](https://delvingbitcoin.org/t/verification-of-risc-v-execution-using-op-ccv/313) towards fraud proofs for a a Risc-V VM without any substantial impact on the cost estimates (as only the Script in the leaves is different for different computations).
 
 ## Bisection in the head
 
