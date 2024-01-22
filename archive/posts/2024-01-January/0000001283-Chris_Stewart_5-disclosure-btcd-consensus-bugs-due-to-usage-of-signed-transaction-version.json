@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 5,
   "readers_count": 4,
-  "score": 0.4,
+  "score": 1.0,
   "yours": false,
   "topic_id": 455,
   "topic_slug": "disclosure-btcd-consensus-bugs-due-to-usage-of-signed-transaction-version",
