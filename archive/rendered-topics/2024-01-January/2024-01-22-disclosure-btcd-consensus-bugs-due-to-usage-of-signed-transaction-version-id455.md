@@ -37,3 +37,15 @@ Support security-focused Bitcoin research and development by [donating to Brink]
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-22 14:59:12 UTC | #2
+
+Here is a PR to add a static test vector that tests this logic in bitcoin core:
+
+https://github.com/bitcoin/bitcoin/pull/29291
+
+Here is what the patch looks like to fix this in bitcoin-s:
+
+https://github.com/bitcoin-s/bitcoin-s/pull/5346
+
+-------------------------
+
