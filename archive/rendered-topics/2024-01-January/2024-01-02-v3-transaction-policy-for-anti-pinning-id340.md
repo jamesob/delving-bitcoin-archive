@@ -500,3 +500,15 @@ When you add the ephemeral anchor rule, in particular that the EA output must be
 
 -------------------------
 
+instagibbs | 2024-01-22 13:34:33 UTC | #34
+
+[quote="ajtowns, post:33, topic:340"]
+With just the v3 constraints, I think you’d want to design your protocol such that either parent transactions only have a single output that’s spendable immediately – that way any CPFP spends will naturally conflict with each other and RBF rules will apply,
+[/quote]
+
+If you are expected to be able to conflict the parent this isn't necessarily required.
+
+e.g., exchange doing a batched payout can sign multiple versions of withdrawals at different feerates and confidently replace them with up to 1kvB overhead if customers attempt sweeps. Locking customerss addresses with `1 CSV` isn't a think you can really do.
+
+-------------------------
+
