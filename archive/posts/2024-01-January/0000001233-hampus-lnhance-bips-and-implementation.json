@@ -8,13 +8,13 @@
   "post_number": 13,
   "post_type": 1,
   "updated_at": "2024-01-19T21:44:31.109Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.0,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 23.0,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"urza, post:7, topic:376\"]\nWould this also allow construction of other things that APO would? Namely channel factories and Spacechains?\n[/quote]\n\nAccording to rearden, this would allow for an APO spacechain-like construction.\nhttps://twitter.com/reardencode/status/1748452392046334366\n\nPresumably helpful for statechains too.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

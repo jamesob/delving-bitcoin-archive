@@ -96,7 +96,7 @@ Ping @RubenSomsen
 
 -------------------------
 
-moonsettler | 2024-01-09 21:51:05 UTC | #8
+moonsettler | 2024-01-21 23:24:01 UTC | #8
 
 indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won't do everything APO can, and that's on purpose. just the most important things that are highly desired.
 
@@ -112,9 +112,9 @@ before funding sign first state template:
 # state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }
 # settlement-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }
 
-# contract
+# contract for state n < m
 IF
-  <sig> <state-n-hash> | CTV IK CSFSV <S+n+1> CLTV
+  <sig> <state-m-hash> | CTV IK CSFSV <S+n+1> CLTV
 ELSE
   <settlement-hash> CTV
 ENDIF
@@ -187,6 +187,16 @@ According to rearden, this would allow for an APO spacechain-like construction.
 https://twitter.com/reardencode/status/1748452392046334366
 
 Presumably helpful for statechains too.
+
+-------------------------
+
+moonsettler | 2024-01-21 23:17:19 UTC | #14
+
+a similar contract to LN-symmetry can be used for 'immortal' statecoins.
+
+you can potentially do something even cooler, by stacking such constructs and thus transfer one end of an LN-symmetry channel, you can in theory reuse a single channel funding for any number of users.
+
+in this case the final 'distribution' of the first channel opens the second (latest) one on-chain, then that has it's own timeout for latest state.
 
 -------------------------
 
