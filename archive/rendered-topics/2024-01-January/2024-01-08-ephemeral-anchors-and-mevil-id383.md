@@ -137,3 +137,45 @@ But I think in that case, the ephemeral anchor from `TxA` has to be less than 5 
 
 -------------------------
 
+instagibbs | 2024-01-23 17:15:37 UTC | #8
+
+Thinking more about how precisely this would be implemented as I think this can be made simpler, but posting my draft to give the idea:
+
+
+[quote="ajtowns, post:7, topic:383"]
+That diagram doesn’t make sense to me: all the txs pay a non-zero fee, so presumably none of them have ephemeral anchor outputs?
+[/quote]
+
+Ok everything I said was wrong in last post; I think it all works. Let me try again with diagrams which I should have been making earlier:
+
+When an ephemeral anchor spend is evaluated against `TxA`:
+```mermaid height=237,auto
+flowchart TD
+    A[TxA: fee 0\nsize 300\n1000 sats in anchor] --> B[TxB: fee 1100\nsize 200]
+```
+
+We simulate/induce an RBF against a  65byte OP_RETURN tx:
+```mermaid height=237,auto
+flowchart TD
+    A[TxA: fee 0\nsize 300\n1000 sats in anchor] --> C[TxC: fee 1000\nsize 65\npure burn]
+```
+which results in a diagram check:
+
+![image|567x500](upload://ghFtxMfe4Hus4lrm7NdHrqUFtNJ.png)
+
+As you can see, even though the total fees are higher, it doesn't dominate the pure burn, so it would be rejected. The "pure burn" case would of course be accepted, since we would not be doing an incremental relay check.
+
+If instead the proposed spend looked like:
+
+```mermaid height=214,auto
+flowchart TD
+    A[TxA: fee 0\nsize 300\n1000 sats in anchor] --> B[TxB: fee 1400\nsize 200]
+```
+
+we get:  
+![image|567x500](upload://8eY0eejmLcGuLDAguZHj9DAQ1xv.png)
+
+and this would be accepted.
+
+-------------------------
+

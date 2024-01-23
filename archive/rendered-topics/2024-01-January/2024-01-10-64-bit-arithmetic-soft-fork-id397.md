@@ -513,3 +513,32 @@ For example, `4 FIXNUM` would make LE32 from the argument, `8 FIXNUM` will make 
 
 -------------------------
 
+Chris_Stewart_5 | 2024-01-23 16:23:25 UTC | #34
+
+>I think it would be a (potentially big) waste of chainspace...
+
+Ok finally have some results from this. 
+
+The proposal to shift from minimal encodings to 8 byte encodings for ScriptNums would result in roughly `1,176,417,034` (~1GB) larger blockchain. My current local blockchain size is
+
+```
+du -sh ~/.bitcoin/blocks
+576G    /home/chris/.bitcoin/blocks
+```
+
+This means this proposal would increase the blockchain size by is `0.17%` since the genesis block.
+
+I can share my json file used to calculate these, its large (13GB). Here is an example of a few txs, along with [a link to my source code for calculating these json values](https://github.com/Christewart/bitcoin-s-core/tree/2024-01-19-count-scriptnums)
+
+```
+{"txIdBE":"3ef4fe026fbea7160f6bc55288db14df2889f088f5a5654d21acaff3e1bb7197","scriptConstants":["04ec091a","18","05","1d"],"sizeIncrease":25,"comment":"ASM"},
+{"txIdBE":"91d7d2c1cae734481e621f33c226f23bad257ea28f47cfb45f076f44c732887e","scriptConstants":["04ec091a","17","05"],"sizeIncrease":18,"comment":"ASM"},
+{"txIdBE":"cfc7b512ec29507ea5f576ff6185f580047f72e3edfef30f783a6d3fec236d03","scriptConstants":["456c6967697573","74657374","b630"],"sizeIncrease":11,"comment":"ASM"},
+{"txIdBE":"fc61cbe788267b631448d001c98bdb45ac70bf8bfd0a1df2b634e4255fcd6664","scriptConstants":["456c6967697573","74657374","d6fd00"],"sizeIncrease":10,"comment":"ASM"},
+{"txIdBE":"e3853d6faa369b20c31369526af6c6c2d25686260805185d2b5afa8dbd98602a","scriptConstants":["456c6967697573","fe","bea800"],"sizeIncrease":13,"comment":"ASM"},
+``` 
+
+I'm working on testnet3 results, i'll edit those in when I'm done with them.
+
+-------------------------
+
