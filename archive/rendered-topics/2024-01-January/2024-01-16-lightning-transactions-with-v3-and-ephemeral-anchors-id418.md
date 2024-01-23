@@ -621,3 +621,19 @@ Long term we'll eventually fix that, but we can probably live with it until then
 
 -------------------------
 
+morehouse | 2024-01-23 20:21:47 UTC | #23
+
+[quote="t-bast, post:22, topic:418"]
+[quote="morehouse, post:20, topic:418"]
+Yeah, we’d need a new message to transmit HTLC signatures prior to the commitment signature.
+[/quote]
+
+My gut feeling is that we should wait for PTLCs to do this work, because we most likely need something similar for PTLC to exchange partial signatures (as detailed in [my old writeup](https://github.com/t-bast/lightning-docs/blob/398a1b78250f564f7c86a414810f7e87e5af23ba/taproot-updates.md#point-time-locked-contracts) with the `commitment_proposed` message).
+[/quote]
+
+Cool!  With the approach in your writeup, it looks like we can simply make the `Claim-PTLC-Success` transactions v3, with no other changes required.
+
+Seems like a great way to kill two birds with one stone.
+
+-------------------------
+
