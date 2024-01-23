@@ -49,3 +49,25 @@ https://github.com/bitcoin-s/bitcoin-s/pull/5346
 
 -------------------------
 
+Davidson | 2024-01-22 22:26:32 UTC | #3
+
+Congratulations on this finding! Very interesting work.
+
+[quote="dergoegge, post:1, topic:455"]
+Thanks to the btcd project for awarding me with a bug bounty reward of 0.023 BTC and thanks to [Guido Vranken ](https://twitter.com/GuidoVranken) for suggesting differential fuzzing of btcd’s and Bitcoin Core’s script interpreter to me.
+[/quote]
+
+It is my understanding is that you got this bug by using this fuzzing. Is this OSS?
+
+-------------------------
+
+dergoegge | 2024-01-22 23:04:10 UTC | #4
+
+[quote="Davidson, post:3, topic:455"]
+It is my understanding is that you got this bug by using this fuzzing. Is this OSS?
+[/quote]
+
+Yes, this was found through differential fuzzing. The harness isn't public yet but I'm planning on publishing a write up on the discovery (including the code) soon.
+
+-------------------------
+
