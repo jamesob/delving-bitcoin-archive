@@ -12,9 +12,9 @@
   "reply_to_post_number": 33,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 47.6,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:33, topic:340\"]\nWith just the v3 constraints, I think you\u2019d want to design your protocol such that either parent transactions only have a single output that\u2019s spendable immediately \u2013 that way any CPFP spends will naturally conflict with each other and RBF rules will apply,\n[/quote]\n\nIf you are expected to be able to conflict the parent this isn't necessarily required.\n\ne.g., exchange doing a batched payout can sign multiple versions of withdrawals at different feerates and confidently replace them with up to 1kvB overhead if customers attempt sweeps. Locking customerss addresses with `1 CSV` isn't a think you can really do.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
