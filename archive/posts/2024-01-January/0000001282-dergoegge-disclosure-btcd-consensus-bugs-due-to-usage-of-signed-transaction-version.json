@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 462,
-  "reads": 50,
-  "readers_count": 49,
-  "score": 2405.0,
+  "incoming_link_count": 564,
+  "reads": 53,
+  "readers_count": 52,
+  "score": 2910.6,
   "yours": false,
   "topic_id": 455,
   "topic_slug": "disclosure-btcd-consensus-bugs-due-to-usage-of-signed-transaction-version",
@@ -63,7 +63,7 @@
     {
       "id": "clap",
       "type": "emoji",
-      "count": 4
+      "count": 5
     },
     {
       "id": "rocket",
@@ -72,6 +72,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 11,
+  "reaction_users_count": 12,
   "current_user_used_main_reaction": false
 }
