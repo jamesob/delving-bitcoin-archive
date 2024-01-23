@@ -542,3 +542,31 @@ I'm working on testnet3 results, i'll edit those in when I'm done with them.
 
 -------------------------
 
+halseth | 2024-01-23 20:36:15 UTC | #35
+
+[quote="Chris_Stewart_5, post:29, topic:397"]
+I don’t think this is the case. First off - literals (`OP_0`,`OP_1`,`OP_2`…) can just be re-interpreted based on sig version. That means the space they consume will remain at 1 byte, however when they are pushed onto the stack they will no longer be 1 byte - rather 8 bytes. This increases *memory consumption*, not disk space.
+[/quote]
+
+I think this is only true for the 0-16 numbers. The moment you want to push > 16 onto the stack, you have to add the full 8-byte representation to your script.
+
+This leads me towards thinking we should keep variable length encoding the default, as we could move to the new format without incurring extra cost.
+
+That being said, having worked with RISC-V emulation in Bitcoin Script lately (see [Eltrace](https://github.com/halseth/elftrace)), I see a real need for the ability to get the 32/64 bit LE representation of a number during script execution. That we could easily add independently of the underlying number format (`OP_SCRIPTNUM[TO/FROM]LE64`), and perhaps give us all what we need without introducing full arithmetic support for another format.
+
+[quote="dgpv, post:20, topic:397"]
+In complex covenants the computed values are often used to compare/combine with introspected values taken from the transaction, and the encoding of that values are usually LE64 or LE32.
+[/quote]
+I think this is an important point. The reason we want 64-bit arithmetics in the first place is to enforce values on the next transaction, and the interesting values are indeed (AFAIK) encoded using fixed-length LE (notable exception is number of inputs/outputs).
+
+How to handle this comes down to the introspection opcodes themselves, as they can be made to put `ScriptNum` on the stack if that's what we want. 
+
+[quote="rustyrussell, post:19, topic:397"]
+In case you missed it, please consider: [Arithmetic Opcodes: What Could They Look Like? | Rusty Russell’s Quiet Corner of The Internet ](https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html)
+[/quote]
+Thanks for this writeup, Rusty! I agree moving to unsigned-only values could simplify a lot of things, especially if the format is backwards compatible with the existing `ScriptNum` representation for positive numbers.
+
+By bumping the leaf version you could also re-use all existing opcodes (no `OP_ADDV` etc)?
+
+-------------------------
+
