@@ -193,3 +193,23 @@ If the miner can just add the eph anchor as an additional input to an existing t
 
 -------------------------
 
+instagibbs | 2024-01-24 12:19:55 UTC | #10
+
+[quote="ajtowns, post:9, topic:383"]
+I think the “diagram check” is just saying “TxA+TxB’s feerate is 2.2, but TxA plus a 65B burn of the eph anchor would be ~2.74 (1000/(300+65)), so no”. ie:
+
+```
+
+```
+[/quote]
+
+This was what I was thinking, I wasn't sure of this, since the proposed spend could also be replacing other in-mempool transactions. Could conflicting with other transactions somehow cause this check to be insufficient from incentives perspective? 
+
+[quote="ajtowns, post:9, topic:383"]
+If the miner can just add the eph anchor as an additional input to an existing transaction then 65 should be reduced to 41
+[/quote]
+
+I don't think ruling out a pure burn a peer can make is what we want. A miner won't be effected by this check anyways.
+
+-------------------------
+
