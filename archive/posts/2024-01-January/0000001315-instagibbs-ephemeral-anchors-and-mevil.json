@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thinking more about how precisely this would be implemented as I think this can be made simpler, but posting my draft to give the idea:\n\n\n[quote=\"ajtowns, post:7, topic:383\"]\nThat diagram doesn\u2019t make sense to me: all the txs pay a non-zero fee, so presumably none of them have ephemeral anchor outputs?\n[/quote]\n\nOk everything I said was wrong in last post; I think it all works. Let me try again with diagrams which I should have been making earlier:\n\nWhen an ephemeral anchor spend is evaluated against `TxA`:\n```mermaid height=237,auto\nflowchart TD\n    A[TxA: fee 0\\nsize 300\\n1000 sats in anchor] --> B[TxB: fee 1100\\nsize 200]\n```\n\nWe simulate/induce an RBF against a  65byte OP_RETURN tx:\n```mermaid height=237,auto\nflowchart TD\n    A[TxA: fee 0\\nsize 300\\n1000 sats in anchor] --> C[TxC: fee 1000\\nsize 65\\npure burn]\n```\nwhich results in a diagram check:\n\n![image|567x500](upload://ghFtxMfe4Hus4lrm7NdHrqUFtNJ.png)\n\nAs you can see, even though the total fees are higher, it doesn't dominate the pure burn, so it would be rejected. The \"pure burn\" case would of course be accepted, since we would not be doing an incremental relay check.\n\nIf instead the proposed spend looked like:\n\n```mermaid height=214,auto\nflowchart TD\n    A[TxA: fee 0\\nsize 300\\n1000 sats in anchor] --> B[TxB: fee 1400\\nsize 200]\n```\n\nwe get:  \n![image|567x500](upload://8eY0eejmLcGuLDAguZHj9DAQ1xv.png)\n\nand this would be accepted.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
