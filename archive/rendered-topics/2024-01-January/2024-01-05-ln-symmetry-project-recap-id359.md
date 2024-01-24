@@ -201,3 +201,13 @@ If anyone wants to collaborate, please feel free to reach out! :slight_smile:
 
 -------------------------
 
+cguida | 2024-01-24 17:05:16 UTC | #12
+
+If anyone wants to try out instagibbs' CLN implementation, I was able successfully force close a channel on inquisition signet using this method:
+
+https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a
+
+Let me know if it works/breaks for you!
+
+-------------------------
+

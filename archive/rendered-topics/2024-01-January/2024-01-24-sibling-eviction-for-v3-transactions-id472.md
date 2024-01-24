@@ -35,3 +35,11 @@ With sibling eviction, local and remote's CPFPs (each no more than 1000vB) can e
 
 -------------------------
 
+morehouse | 2024-01-24 17:07:42 UTC | #2
+
+Doesn't 1p1c package relay and package RBF also give us sibling eviction (i.e. a 1p1c package can replace another that has the same parent transaction in the package)?
+
+To fix pinning in LN we still need package RBF, and to make 0-fee commitments we still need package relay.  So I'm not sure sibling eviction alone gives us much besides a temporary alternative to CPFP carve-out.
+
+-------------------------
+
