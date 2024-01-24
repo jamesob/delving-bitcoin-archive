@@ -637,7 +637,7 @@ Seems like a great way to kill two birds with one stone.
 
 -------------------------
 
-instagibbs | 2024-01-24 15:38:58 UTC | #24
+instagibbs | 2024-01-24 15:46:48 UTC | #24
 
 https://delvingbitcoin.org/t/sibling-eviction-for-v3-transactions/472
 
@@ -648,7 +648,7 @@ If we do sibling eviction more generally in v3:
 1) "imbued" commitment transactions prior to any spec update would be RBF'ing other anchor spends, rather than using a carveout
 2) you could go with a 330 sat (shared)keyed anchor, and still remove `1 CSV` from all other scripts. Or have `N` anchors :person_shrugging: 
 
-in other words, ephemeral anchors would be about make anchors cheaper, rather than the side benefit of sibling eviction.
+in other words, ephemeral anchors would be about make anchors cheaper and potential separation of funds/fees, rather than the side benefit of sibling eviction.
 
 You could also drop the ephemeral/keyed anchor in a commit tx in certain cases, like a commit tx with only the remote balance output left, and probably other cases.
 
