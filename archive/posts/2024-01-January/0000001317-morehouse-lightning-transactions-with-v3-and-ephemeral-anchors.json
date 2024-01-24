@@ -12,8 +12,8 @@
   "reply_to_post_number": 22,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
+  "reads": 11,
+  "readers_count": 10,
   "score": 2.0,
   "yours": false,
   "topic_id": 418,
@@ -49,8 +49,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
