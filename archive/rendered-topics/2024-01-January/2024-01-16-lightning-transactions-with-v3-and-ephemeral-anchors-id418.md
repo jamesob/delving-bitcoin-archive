@@ -637,7 +637,7 @@ Seems like a great way to kill two birds with one stone.
 
 -------------------------
 
-instagibbs | 2024-01-24 15:37:18 UTC | #24
+instagibbs | 2024-01-24 15:38:58 UTC | #24
 
 https://delvingbitcoin.org/t/sibling-eviction-for-v3-transactions/472
 
@@ -650,7 +650,7 @@ If we do sibling eviction more generally in v3:
 
 in other words, ephemeral anchors would be about make anchors cheaper, rather than the side benefit of sibling eviction.
 
-You could also drop the ephemeral anchor in a commit tx in certain cases, like a commit tx with only the remote balance output left, and probably other cases.
+You could also drop the ephemeral/keyed anchor in a commit tx in certain cases, like a commit tx with only the remote balance output left, and probably other cases.
 
 -------------------------
 
