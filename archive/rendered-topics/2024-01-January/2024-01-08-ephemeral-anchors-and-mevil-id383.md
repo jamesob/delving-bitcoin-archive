@@ -179,3 +179,17 @@ and this would be accepted.
 
 -------------------------
 
+ajtowns | 2024-01-24 05:20:08 UTC | #9
+
+I think the "diagram check" is just saying "TxA+TxB's feerate is 2.2, but TxA plus a 65B burn of the eph anchor would be ~2.74 (1000/(300+65)), so no". ie:
+
+```c++
+if (spender.fee * (to_spend.size + 65) < anchor_value * (to_spend.size + spender.size)) {
+    fail(insufficient_fee_by_eph_anchor_spend);
+}
+```
+
+If the miner can just add the eph anchor as an additional input to an existing transaction then 65 should be reduced to 41, to account for adding an additional input without the overhead of the tx header or any additional outputs.
+
+-------------------------
+
