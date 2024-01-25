@@ -1,0 +1,72 @@
+{
+  "id": 1339,
+  "name": "Gregory Sanders",
+  "username": "instagibbs",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png",
+  "created_at": "2024-01-25T17:02:29.659Z",
+  "cooked": "<p>I have no plans on dropping ephemeral anchor work. 0-satoshi outputs have a number of important use cases outside of LN.</p>\n<blockquote>\n<p>I don\u2019t think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them?</p>\n</blockquote>\n<p>You could use a single shared-key(slightly larger) at 330 sats.</p>\n<p>General sibling eviction would also allow an anchor to be completely removed, in certain scenarios where balance outputs are completely unencumbered(and no HTLCs exist?).</p>\n<p>You\u2019d need an anchor in many situations however.</p>",
+  "post_number": 8,
+  "post_type": 1,
+  "updated_at": "2024-01-25T17:03:34.088Z",
+  "reply_count": 1,
+  "reply_to_post_number": 7,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
+  "yours": false,
+  "topic_id": 472,
+  "topic_slug": "sibling-eviction-for-v3-transactions",
+  "topic_title": "Sibling Eviction for v3 transactions",
+  "topic_html_title": "Sibling Eviction for v3 transactions",
+  "category_id": 8,
+  "display_username": "Gregory Sanders",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "t-bast",
+    "name": "Bastien Teinturier",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I have no plans on dropping ephemeral anchor work. 0-satoshi outputs have a number of important use cases outside of LN.\n\n> I don\u2019t think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them?\n\nYou could use a single shared-key(slightly larger) at 330 sats.\n\nGeneral sibling eviction would also allow an anchor to be completely removed, in certain scenarios where balance outputs are completely unencumbered(and no HTLCs exist?).\n\nYou'd need an anchor in many situations however.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 31,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

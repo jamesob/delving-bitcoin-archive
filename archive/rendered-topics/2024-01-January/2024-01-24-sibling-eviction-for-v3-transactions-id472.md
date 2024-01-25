@@ -88,3 +88,98 @@ And mempools will keep the 1-parent-1-child topology instead of needing to deal 
 
 -------------------------
 
+morehouse | 2024-01-25 16:05:57 UTC | #5
+
+[quote="glozow, post:4, topic:472"]
+So regardless of what happens, you are always able to bump:
+
+* (1l) can replace (1r) via package RBF
+* (1l) can replace the (2r) child via sibling eviction
+* (2l) can replace (1r) child via sibling eviction.
+[/quote]
+
+Let's see if I understand correctly...  With only 1p1c package relay and package RBF, the following v3 package replacement works:
+
+```mermaid height=147,auto
+    flowchart
+         A[A: 0 sat/vB]
+         B[B: 50 sat/vB]
+         A'[A': 0 sat/vB]
+         B'[B': 100 sat/vB]
+         A --> B
+         A' --> B'
+```
+
+And this v3 package replacement works:
+
+
+```mermaid height=147,auto
+    flowchart
+         A[A: 0 sat/vB]
+         B[B: 50 sat/vB]
+         A'[A: 0 sat/vB]
+         B'[B': 100 sat/vB]
+         A --> B
+         A' --> B'
+```
+
+But this v3 package replacement doesn't?:
+
+```mermaid height=147,auto
+    flowchart
+         A[A: 0 sat/vB]
+         B[B: 50 sat/vB]
+         A'[A: 0 sat/vB]
+         C[C: 100 sat/vB]
+         A --> B
+         A' --> C
+```
+
+In that case, I say yes we definitely want sibling eviction, since that's the most intuitive behavior.  Package RBF should mean that the `A-C` package can replace the `A-B` package if `A-C` has better fees.  Intuitively, it shouldn't matter whether `A` is already in the mempool or not; the entire v3 package should be considered for RBF.
+
+-------------------------
+
+instagibbs | 2024-01-25 16:18:52 UTC | #6
+
+[quote="morehouse, post:5, topic:472"]
+In that case, I say yes we definitely want sibling eviction, since that’s the most intuitive behavior.
+[/quote]
+
+Yes, your understanding is correct. This was part of my original intent behind ephemeral anchors, as the requirement to spend it means implicit sibling eviction. This is splitting up the feature basically.
+
+-------------------------
+
+t-bast | 2024-01-25 16:47:34 UTC | #7
+
+If I'm understanding this correctly, I'd say that yes, this is very desirable and should be simple enough to add for v3 transactions, since the v3 rules make it easy to evaluate which sibling is the best one to keep.
+
+I don't think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them? 
+
+Or is the goal to get rid entirely of the ephemeral anchor (and rely on other outputs of the commitment transaction to do CPFP)? That could be interesting, but I'd need to make sure that this works safely in all cases...
+
+-------------------------
+
+instagibbs | 2024-01-25 17:03:34 UTC | #8
+
+I have no plans on dropping ephemeral anchor work. 0-satoshi outputs have a number of important use cases outside of LN.
+
+> I don’t think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them?
+
+You could use a single shared-key(slightly larger) at 330 sats.
+
+General sibling eviction would also allow an anchor to be completely removed, in certain scenarios where balance outputs are completely unencumbered(and no HTLCs exist?).
+
+You'd need an anchor in many situations however.
+
+-------------------------
+
+morehouse | 2024-01-25 18:02:11 UTC | #9
+
+[quote="instagibbs, post:8, topic:472"]
+You could use a single shared-key(slightly larger) at 330 sats.
+[/quote]
+
+This, along with package relay/RBF and sibling eviction, would be enough for LN to greatly simplify commitment transactions.  If ephemeral anchors existed we would probably use them for fee efficiency, but they wouldn't be required anymore.
+
+-------------------------
+
