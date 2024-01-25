@@ -213,3 +213,25 @@ I don't think ruling out a pure burn a peer can make is what we want. A miner wo
 
 -------------------------
 
+Crypt-iQ | 2024-01-24 22:04:54 UTC | #11
+
+Hopefully I'm following the conversation correctly so far, but is the point of the diagram check to avoid the case where a 3rd party requires the channel parties to pay more? If so, how do you handle the case where the pure burn is not enough to make it into the mempool so fees have to be added? In this case, I think a 3rd party could make a spend of the ephemeral anchor + attach some fees where the pure burn diagram check succeeds but the package sits in the mempool. Since presumably the parties to the channel want the package confirmed at the going block feerate, they'll need to RBF the ephemeral anchor spend and end up paying more than if the 3rd party didn't exist.
+
+-------------------------
+
+instagibbs | 2024-01-24 22:44:23 UTC | #12
+
+[quote="Crypt-iQ, post:11, topic:383"]
+to avoid the case where a 3rd party requires the channel parties to pay more?
+[/quote]
+
+A diagram check, or similar, gives you a more accurate estimation of what's incentive compatible. In this instance we're discussing, it's attempting to avoid the case where a counterparty increases the ephemeral anchor value to either pay itself directly or pay for another transaction beyond the pure burn.
+
+[quote="Crypt-iQ, post:11, topic:383"]
+In this case, I think a 3rd party could make a spend of the ephemeral anchor + attach some fees where the pure burn diagram check succeeds but the package sits in the mempool. Since presumably the parties to the channel want the package confirmed at the going block feerate, they’ll need to RBF the ephemeral anchor spend and end up paying more than if the 3rd party didn’t exist.
+[/quote]
+
+The responding("you") party would have had to increase the package feerate to make it more incentive compatible to mine, so bip125 rule3 concerns(which v3 intends to mitigate), and incremental feerate aside, I'm not sure what is problematic. Maybe if you have a concrete example?
+
+-------------------------
+
