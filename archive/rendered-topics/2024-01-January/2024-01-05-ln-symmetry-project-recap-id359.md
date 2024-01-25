@@ -201,13 +201,133 @@ If anyone wants to collaborate, please feel free to reach out! :slight_smile:
 
 -------------------------
 
-cguida | 2024-01-24 17:05:16 UTC | #12
+cguida | 2024-01-25 14:42:33 UTC | #12
 
 If anyone wants to try out instagibbs' CLN implementation, I was able successfully force close a channel on inquisition signet using this method:
 
 https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a
 
 Let me know if it works/breaks for you!
+
+Edit: here's the entire thing in markdown!
+
+The following is one way to broadcast an LN-symmetry (formerly `eltoo`) settlement tx on inquisition signet, using instagibbs' original APO eltoo implementation on CLN.
+
+1) build and install inquisition signet, you will need this fork of bitcoind for support of APO, ephemeral anchors, and taproot annex blobs
+```
+git clone https://github.com/bitcoin-inquisition/bitcoin
+cd bitcoin
+./autogen.sh
+./configure
+make -j$(( $(nproc) - 1))
+sudo make install
+```
+
+2) build and install instagibbs' `eltoo_support` branch of CLN
+```
+cd ..
+git clone https://github.com/instagibbs/lightning -b eltoo_support
+cd lightning
+./configure --enable-developer --enable-experimental-features
+make -j$(( $(nproc) - 1))
+sudo make install
+```
+
+3) launch bitcoind on signet and make sure it connects to ajtowns' inquisition node
+```
+bitcoind -signet -daemon -server -txindex=1 -addnode=inquisition.bitcoin-signet.net
+```
+4) get some signet coins
+```
+bitcoin-cli -signet createwallet default
+bitcoin-cli -signet loadwallet default
+bitcoin-cli -signet getnewaddress
+```
+
+- Go to https://signetfaucet.com/ for up to 0.01 sbtc at a time
+- You can also try `contrib/signet/getcoins.py`
+- If nothing else works you can ask for signet coins on IRC in #bitcoin-signet
+
+5) wait for IBD to complete, then launch 2 inquisition nodes using `startup_regtest.sh`
+```
+sed -i 's/regtest/signet/g' contrib/startup_regtest.sh
+source contrib/startup_regtest.sh
+start_ln
+```
+
+Note: this branch of CLN does not support restarting the node, so you will have to nuke your node and start over if your node stops for any reason. So make sure you send all signet coins out of the node before stopping it, or your coins will be lost.
+
+6) Send some coins to Node 1
+```
+l1-cli newaddr
+bt-cli sendtoaddress <addr>
+```
+
+7) Wait for the deposit to confirm, then open a 100k-sat channel from Node 1 to Node 2
+```
+l2-cli getinfo
+l1-cli connect <node-2-id@127.0.0.1:7272>
+l1-cli fundchannel <node-2-id> 100000sat
+```
+
+8) Wait a few confirmations for the channel to become active, then optionally pay a 10k-sat invoice from Node 1 to Node 2:
+```
+l2-cli invoice 10000000 test test
+l1-cli pay <bolt11>
+```
+
+Now let's force close the channel! (This implementation doesn't support mutual closes, so don't try or your funds will get stuck) 
+
+9) Get the raw last_update_tx from the `listpeers` call:
+```
+l1-cli listpeers
+```
+
+10) Broadcast it:
+```
+bt-cli sendrawtransaction <last_update_tx>
+```
+
+The tx will get stuck in your node's mempool because it has an ephemeral anchor, which must be spent in order for the tx to be relayed.
+
+11) CPFP using the ephemeral anchor. Take note of the txid of both the ephemeral anchor and one of our bitcoind wallet's UTXOs. We'll also need a new address to receive our CPFP:
+```
+bt-cli decoderawtransaction <last_update_tx>
+bt-cli listunpsent
+bt-cli getnewaddress
+```
+
+12) Construct a new tx that spends both outputs back to our bitcoind wallet. I used 1,000 sats for the fee, probably a bit overkill, but this is fake money anyway:
+```
+bt-cli createrawtransaction '[{"txid":"<update-tx-txid>", "vout": <ephemeral-anchor-vout>}, {"txid":"<bitcoind-wallet-UTXO-txid>", "vout":<bitcoind-wallet-UTXO-vout>}]' '{"<bitcoind-wallet-address>":"<UTXO-BTC-amount-minus-0.00001000>"}'
+```
+
+13) Sign and broadcast it
+```
+bt-cli signrawtransactionwithwallet <new-cpfp-unsigned-tx>
+bt-cli sendrawtransaction <new-cpfp-signed-tx>
+```
+
+14) Check to make sure the update tx has been relayed:
+```
+bt-cli getmempoolentry <update-txid>
+```
+
+If it says `"unbroadcast": false`, you're good to go.
+
+Once it gets confirmed in a block, you should be able to see the update tx at https://mempool.space/signet/tx/update-txid. If both txs say doesn't show up in the next block, reach out to #bitcoin-signet and see if there's anything wrong with inquisition relay.
+
+15) Wait a few blocks for the challenge period to end, then grab the settlement tx and broadcast it too:
+```
+l1-cli listpeers
+bt-cli sendrawtransaction <last_settlement_tx>
+```
+
+16) Make sure you CPFP this tx as well, as above, as it also has an ephemeral anchor.
+17) Wait for the settlement tx to confirm. Find it on mempool.space as before.
+18) To save your coins, wait 100 blocks for the channel to be forgotten, then sweep all funds from CLN back into bitcoind. Now you can safely stop your CLN nodes.
+
+Congratulations, you've just force closed your first LN-symmetry channel on inqusition signet!
 
 -------------------------
 
