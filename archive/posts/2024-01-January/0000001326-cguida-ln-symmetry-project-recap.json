@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 52.2,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "If anyone wants to try out instagibbs' CLN implementation, I was able successfully force close a channel on inquisition signet using this method:\n\nhttps://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a\n\nLet me know if it works/breaks for you!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
