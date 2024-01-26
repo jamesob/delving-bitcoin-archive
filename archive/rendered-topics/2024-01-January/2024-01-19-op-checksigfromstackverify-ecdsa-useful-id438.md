@@ -41,3 +41,31 @@ https://twitter.com/super_testnet/status/1748370856814715015
 
 -------------------------
 
+harding | 2024-01-25 22:41:35 UTC | #5
+
+Re: ECDSA for allowing a type of proof of work via DER encoding.  I think a naive implementation of that could suffer from several gotchas, e.g. see:
+
+- [Half a puzzle](https://web.archive.org/web/20161101112330/https://www.blockstream.com/half-a-puzzle/)
+- https://bitcointalk.org/index.php?topic=1118704
+
+I think it could be made safe, but you'd probably want a serious cryptographer to spend a significant amount of time thinking about it before any serious money was committed to any contract depending on that feature.
+
+If there's significant demand for PoW-based contracts in tapscript, I think it'd be better in almost every way to enable opcodes that allow verifying SHA2-based PoW.
+
+-------------------------
+
+reardencode | 2024-01-25 23:40:42 UTC | #6
+
+That makes sense to me. For example, if we do reactivate CAT similar PoW proofs could be done with plain hashes.
+
+```
+stack: <nonce> <hash_prefix>
+script: <required_hash_suffix> CAT SWAP <preimage_suffix> CAT SHA256 EQUALVERIFY
+```
+
+(probably missing some details in ^ by allowing any length nonce, but it's the general idea)
+
+In short there are better ways to achieve this than ECDSA (which matches my gut reaction).
+
+-------------------------
+

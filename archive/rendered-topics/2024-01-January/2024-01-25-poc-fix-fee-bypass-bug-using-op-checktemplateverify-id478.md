@@ -184,3 +184,21 @@ Using OP_CHECKTEMPLATEVERIFY ensures HodlHodl gets the fee in every trade. This 
 
 -------------------------
 
+moonsettler | 2024-01-25 23:04:19 UTC | #2
+
+like i mentioned HH could use a 3-of-4 FROST on the taproot keyspend where HH has 2 keys, and have 4 alternative script spends:
+
+```text
+<hhPub> CHECKSIGVERIFY <completeTemplate> CHECKTEMPLATEVERIFY
+
+<hhPub> CHECKSIGVERIFY <refundTemplate> CHECKTEMPLATEVERIFY
+
+<sellerPub+buyerPub> CHECKSIGVERIFY <t+2w> CLTV
+
+<1> <sellerPub> <buyerPub> <2> CHECKMULTISIGVERIFY <t+2m> CLTV
+```
+
+so HH could settle one way or the other with a single sig, after 2 weeks the buyer and seller can cooperate to settle any dispute, after 2 months the buyer and seller can compete for he funds if they can't agree.
+
+-------------------------
+
