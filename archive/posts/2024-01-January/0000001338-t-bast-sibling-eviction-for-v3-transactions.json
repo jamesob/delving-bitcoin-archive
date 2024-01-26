@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 22.8,
   "yours": false,
   "topic_id": 472,
   "topic_slug": "sibling-eviction-for-v3-transactions",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "If I'm understanding this correctly, I'd say that yes, this is very desirable and should be simple enough to add for v3 transactions, since the v3 rules make it easy to evaluate which sibling is the best one to keep.\n\nI don't think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them? \n\nOr is the goal to get rid entirely of the ephemeral anchor (and rely on other outputs of the commitment transaction to do CPFP)? That could be interesting, but I'd need to make sure that this works safely in all cases...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

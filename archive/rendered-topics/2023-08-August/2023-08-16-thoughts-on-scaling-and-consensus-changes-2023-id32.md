@@ -205,3 +205,23 @@ I would strongly disagree with any suggestion that Bitcoin's value as a monetary
 
 -------------------------
 
+jungly | 2024-01-26 08:15:10 UTC | #6
+
+[quote="jamesob, post:1, topic:32"]
+some design that allows subsets of participants to generate off-chain activity without requiring everyone to sign. Though whether the latter is even possible is an area of ongoing research.
+[/quote]
+
+If we can deliver a solution here without requiring a covenant, it'll be really fantastic.
+
+I wonder if a p2p network running frost participants can make this happen.
+
+Basically replace fedimint with a P2P network. How do you assure the p2p participants are honest becomes the next question.
+
+I am of the opinion that if miners also act as the p2p-mint participants then we have some exciting possibilities.
+
+Why miners? Because they earn the right to be p2p-mint participants by publishing PoW shares and their good behaviour guarantees them their payouts. Good behaviour is anything that the majority decides is good - just like bitcoin.
+
+Just some early houghts at the moment that need a fair bit of further work. I am thinking of all this in the context of a P2P mining pool.
+
+-------------------------
+

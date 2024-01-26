@@ -164,3 +164,25 @@ Of course, multiple versions of the fraud proof protocol might co-exist in diffe
 
 -------------------------
 
+jungly | 2024-01-26 08:54:51 UTC | #5
+
+[quote="salvatoshi, post:1, topic:297"]
+Script requirements
+[/quote]
+
+I really like this line of thinking, and I have a question.
+
+Do you think it's possible to get rid of the script requirements in the interactive case just like Ark is trying to do? That is, build a v1 without the covenant requirements and instead require interactivity.
+
+-------------------------
+
+salvatoshi | 2024-01-26 09:29:26 UTC | #6
+
+No, I don't think that's possible.
+
+Interactivity "before the fact" can only replace covenants when the possible futures can be enumerated in advance. That's not the case for fraud proofs, except for very simple ones.
+
+Note that Ark can't avoid the unilateral exit costs, with or without covenants. As far as I understand, the protocols sketched in this post could also be used in Ark for the case where the operator stops responding.
+
+-------------------------
+

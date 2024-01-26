@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 15,
   "readers_count": 14,
-  "score": 8.0,
+  "score": 23.0,
   "yours": false,
   "topic_id": 472,
   "topic_slug": "sibling-eviction-for-v3-transactions",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"glozow, post:4, topic:472\"]\nSo regardless of what happens, you are always able to bump:\n\n* (1l) can replace (1r) via package RBF\n* (1l) can replace the (2r) child via sibling eviction\n* (2l) can replace (1r) child via sibling eviction.\n[/quote]\n\nLet's see if I understand correctly...  With only 1p1c package relay and package RBF, the following v3 package replacement works:\n\n```mermaid height=147,auto\n    flowchart\n         A[A: 0 sat/vB]\n         B[B: 50 sat/vB]\n         A'[A': 0 sat/vB]\n         B'[B': 100 sat/vB]\n         A --> B\n         A' --> B'\n```\n\nAnd this v3 package replacement works:\n\n\n```mermaid height=147,auto\n    flowchart\n         A[A: 0 sat/vB]\n         B[B: 50 sat/vB]\n         A'[A: 0 sat/vB]\n         B'[B': 100 sat/vB]\n         A --> B\n         A' --> B'\n```\n\nBut this v3 package replacement doesn't?:\n\n```mermaid height=147,auto\n    flowchart\n         A[A: 0 sat/vB]\n         B[B: 50 sat/vB]\n         A'[A: 0 sat/vB]\n         C[C: 100 sat/vB]\n         A --> B\n         A' --> C\n```\n\nIn that case, I say yes we definitely want sibling eviction, since that's the most intuitive behavior.  Package RBF should mean that the `A-C` package can replace the `A-B` package if `A-C` has better fees.  Intuitively, it shouldn't matter whether `A` is already in the mempool or not; the entire v3 package should be considered for RBF.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
