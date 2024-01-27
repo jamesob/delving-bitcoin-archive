@@ -117,3 +117,31 @@ print("Serialized transaction: \n{}".format(b2x(tx.serialize())))
 
 -------------------------
 
+ursuscamp | 2024-01-26 21:25:44 UTC | #2
+
+Thanks for this proposal. I've read it several times and I have some questions (maybe more to come):
+
+1. What problem is this proposal intending to solve? Scaling, privacy, or something else?
+2. Who are all of these parties in the exchange? Alice seems to be paying Eve, so that makes some sense, but are the other the equivalent of money brokers/Hawaladars? Is their reputation backing up the ecash in some way for this protocol?
+3. In step 1 and 2 you mention the "redeemer's" pubkey, but there are four redeemers: Bob, Carol, Dave and Eve. Is this some kind of MPC-type pubkey construction, or is it a pubkey for which they all know the private key?
+
+-------------------------
+
+1440000bytes | 2024-01-26 22:27:20 UTC | #3
+
+1. At no point in this protocol issuers or redeemers have custody of users funds. This is the main problem with other eCash implementations which its trying to solve and still provide privacy.
+
+[quote="1440000bytes, post:1, topic:466"]
+Chaumian eCash used in cashu and fedimint is custodial.
+[/quote]
+
+2. Yes, others involved in this process could be compared to hawaldars but they are just coordinators that do not have the custody of users funds. No, their reputation or identity is not required in the protocol.
+
+3. There are 3 redeemers: Bob, Carol and Dave. Public key for any of the redeemer could be used because you need more than just signature to spend i.e. `preimage_secret`. In this example it was Bob's key.
+
+---
+
+HTLCs are moving from a group of coordinators to another. On-chain transactions cannot be used to trace sender and recipient of eCash payment. Alice could also pay Eve using multiple eCash tokens minted from different issuers, it will just require parallel coordination with others which can be automated and abstracted away from users.
+
+-------------------------
+

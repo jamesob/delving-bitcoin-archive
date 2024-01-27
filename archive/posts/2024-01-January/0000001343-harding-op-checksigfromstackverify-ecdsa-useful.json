@@ -12,9 +12,9 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 8.0,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 23.4,
   "yours": false,
   "topic_id": 438,
   "topic_slug": "op-checksigfromstackverify-ecdsa-useful",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Re: ECDSA for allowing a type of proof of work via DER encoding.  I think a naive implementation of that could suffer from several gotchas, e.g. see:\n\n- [Half a puzzle](https://web.archive.org/web/20161101112330/https://www.blockstream.com/half-a-puzzle/)\n- https://bitcointalk.org/index.php?topic=1118704\n\nI think it could be made safe, but you'd probably want a serious cryptographer to spend a significant amount of time thinking about it before any serious money was committed to any contract depending on that feature.\n\nIf there's significant demand for PoW-based contracts in tapscript, I think it'd be better in almost every way to enable opcodes that allow verifying SHA2-based PoW.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -56,12 +61,17 @@
   "wiki": false,
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
