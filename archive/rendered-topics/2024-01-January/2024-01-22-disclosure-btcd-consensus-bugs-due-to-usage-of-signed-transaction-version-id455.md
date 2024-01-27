@@ -71,3 +71,14 @@ Yes, this was found through differential fuzzing. The harness isn't public yet b
 
 -------------------------
 
+0xB10C | 2024-01-27 00:12:32 UTC | #5
+
+It seems like this was exploited on testnet (a day after being published here) in block 000000002f4830471b6b346578546615c031b99da5e7fabeac119b63f1843f82 with [5839f20446d7b9446e82c00117ee3699fa84154e970d57f09add60deef2eaa18](https://5839f20446d7b9446e82c00117ee3699fa84154e970d57f09add60deef2eaa18). I tried to sync a btcd v0.23.4 node on testnet, which seems stuck on 2575398. A btcd v0.24.0 node is fine.
+
+
+![image|690x272](upload://aHjsVhhMvbQqgBh5lTT9YgmXAHF.png)
+
+According to https://forkmonitor.info/nodes/btc, their mainnet btcd v0.23.3 node is still fine. I also haven't seen a non-standard transaction exploiting this on mainnet in the past days.
+
+-------------------------
+
