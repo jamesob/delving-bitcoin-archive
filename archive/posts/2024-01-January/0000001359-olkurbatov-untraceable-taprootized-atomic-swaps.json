@@ -1,0 +1,72 @@
+{
+  "id": 1359,
+  "name": "Alex",
+  "username": "olkurbatov",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/olkurbatov/{size}/299_2.png",
+  "created_at": "2024-01-27T19:48:39.383Z",
+  "cooked": "<p>I\u2019m now thinking about how to use signature adapters (and PTLC) on the second side to make the protocol even more private:</p>\n<ol>\n<li>Basic signature adapters do not protect from the situation where one party can take money from both outputs (with the knowledge of t). Hence, you need to add a multisignature to the adapters. In the TAS case, the escrow key is formed in such a way that only Bob can take it after Alice publishes the secret.</li>\n<li>This should work seamlessly with both Schnorr signatures and classic ECDSA. Atomic swaps like <a href=\"https://github.com/BlockstreamResearch/scriptless-scripts/tree/master\" rel=\"noopener nofollow ugc\">here</a>  require musig</li>\n<li>Just today, we made such a swap between Bitcoin and Ethereum:</li>\n</ol>\n<p>Parameters used for the swap\nk: b550385a62c0eba5a837ee11962e380818a50611caa1113e33a411528ebb193d; K: 03d39da41952d4ae038a49b693b313ec956ad80d9fc940dc5afedf86351e9fa930</p>\n<p>Transactions:</p>\n<ol>\n<li>Alice locks BTC: 850e9258bf8b3bb280d32a647198d8024aece543dc283f7bfa526f4c0ceb1ab8</li>\n<li>Bob locks ETH: 723919c0e8ec57d38792ec29b2cb82ee885b9fbbc886b34ff40fb5d3f7cc9b43</li>\n<li>Alice withdraws ETH from the contract: 47546191a7c99ec4a7ddc243d6ea75d345ab3aff0762e09dd2f537731bd484f3</li>\n<li>Bob spends BTC: 859dbfaa901d7106aecc8cb29966ede0c9d7a17c2cae31f4d420c1d770e9706d</li>\n</ol>\n<p>The demo code: <a href=\"https://github.com/distributed-lab/taprootized-atomic-swaps\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - distributed-lab/taprootized-atomic-swaps: Taprootized Atomic Swaps (TAS) is an extension for Atomic Swaps that presumes the untraceability of transactions related to a particular swap.</a></p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2024-01-27T19:54:07.697Z",
+  "reply_count": 0,
+  "reply_to_post_number": 2,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 2,
+  "readers_count": 1,
+  "score": 15.4,
+  "yours": false,
+  "topic_id": 458,
+  "topic_slug": "untraceable-taprootized-atomic-swaps",
+  "topic_title": "Untraceable Taprootized Atomic Swaps",
+  "topic_html_title": "Untraceable Taprootized Atomic Swaps",
+  "category_id": 7,
+  "display_username": "Alex",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 2,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "harding",
+    "name": "David A. Harding",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I'm now thinking about how to use signature adapters (and PTLC) on the second side to make the protocol even more private:\n1. Basic signature adapters do not protect from the situation where one party can take money from both outputs (with the knowledge of t). Hence, you need to add a multisignature to the adapters. In the TAS case, the escrow key is formed in such a way that only Bob can take it after Alice publishes the secret.\n2. This should work seamlessly with both Schnorr signatures and classic ECDSA. Atomic swaps like [here](https://github.com/BlockstreamResearch/scriptless-scripts/tree/master)  require musig\n3. Just today, we made such a swap between Bitcoin and Ethereum:\n\nParameters used for the swap\nk: b550385a62c0eba5a837ee11962e380818a50611caa1113e33a411528ebb193d; K: 03d39da41952d4ae038a49b693b313ec956ad80d9fc940dc5afedf86351e9fa930\n\nTransactions:\n1. Alice locks BTC: 850e9258bf8b3bb280d32a647198d8024aece543dc283f7bfa526f4c0ceb1ab8\n2. Bob locks ETH: 723919c0e8ec57d38792ec29b2cb82ee885b9fbbc886b34ff40fb5d3f7cc9b43\n3. Alice withdraws ETH from the contract: 47546191a7c99ec4a7ddc243d6ea75d345ab3aff0762e09dd2f537731bd484f3\n4. Bob spends BTC: 859dbfaa901d7106aecc8cb29966ede0c9d7a17c2cae31f4d420c1d770e9706d\n\nThe demo code: https://github.com/distributed-lab/taprootized-atomic-swaps",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 246,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

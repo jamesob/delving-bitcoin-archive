@@ -74,3 +74,31 @@ P.S. The original doc is here https://docs.google.com/document/d/1mVMElv5smDalqD
 
 -------------------------
 
+harding | 2024-01-27 17:22:35 UTC | #2
+
+Hi @olkurbatov,
+
+How does this compare to a [PTLC](https://bitcoinops.org/en/topics/ptlc/)?
+
+-------------------------
+
+olkurbatov | 2024-01-27 19:54:07 UTC | #3
+
+I'm now thinking about how to use signature adapters (and PTLC) on the second side to make the protocol even more private:
+1. Basic signature adapters do not protect from the situation where one party can take money from both outputs (with the knowledge of t). Hence, you need to add a multisignature to the adapters. In the TAS case, the escrow key is formed in such a way that only Bob can take it after Alice publishes the secret.
+2. This should work seamlessly with both Schnorr signatures and classic ECDSA. Atomic swaps like [here](https://github.com/BlockstreamResearch/scriptless-scripts/tree/master)  require musig
+3. Just today, we made such a swap between Bitcoin and Ethereum:
+
+Parameters used for the swap
+k: b550385a62c0eba5a837ee11962e380818a50611caa1113e33a411528ebb193d; K: 03d39da41952d4ae038a49b693b313ec956ad80d9fc940dc5afedf86351e9fa930
+
+Transactions:
+1. Alice locks BTC: 850e9258bf8b3bb280d32a647198d8024aece543dc283f7bfa526f4c0ceb1ab8
+2. Bob locks ETH: 723919c0e8ec57d38792ec29b2cb82ee885b9fbbc886b34ff40fb5d3f7cc9b43
+3. Alice withdraws ETH from the contract: 47546191a7c99ec4a7ddc243d6ea75d345ab3aff0762e09dd2f537731bd484f3
+4. Bob spends BTC: 859dbfaa901d7106aecc8cb29966ede0c9d7a17c2cae31f4d420c1d770e9706d
+
+The demo code: https://github.com/distributed-lab/taprootized-atomic-swaps
+
+-------------------------
+
