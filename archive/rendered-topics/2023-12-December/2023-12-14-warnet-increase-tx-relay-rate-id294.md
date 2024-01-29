@@ -181,3 +181,22 @@ Do you know what's causing the simulation to be unstable? Too much CPU signing/v
 
 -------------------------
 
+m3dwards | 2024-01-29 13:01:26 UTC | #10
+
+Good to hear the results so far make sense.
+
+Re the instability, I was finding that nodes were dropping peers until they became disconnected. CPU utilisation seemed ok, so I don't think it was too much time signing. I believe that it's more related to volume of network connections.
+
+We are working on improving the scalability and stability of the simulations in Warnet. I will report back when we can push the tx rate higher.
+
+In the meantime, could you help me understand the following a bit better?
+
+[quote="m3dwards, post:7, topic:294"]
+Some things I’m a bit hazy on:
+
+1. What is the relationship between relay rate and number of transactions requested? Is it that a higher relay rate should cause more churn in the mempool? As the fees are not all the same I would expect the mempool to keep the best transactions and be fairly similar between all nodes?
+2. How would RBF / CPFP / chains of unconfirmed transactions impact this test?
+[/quote]
+
+-------------------------
+
