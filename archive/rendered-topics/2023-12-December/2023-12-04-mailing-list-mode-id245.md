@@ -26,3 +26,17 @@ I personally exclusively use the mailing list mode to keep up with everything on
 
 -------------------------
 
+cguida | 2024-01-30 01:03:09 UTC | #4
+
+Are you saying you are able to reply to forum posts in a reply-to email, directly from your email client, without logging into the delvingbitcoin site? If so, how?
+
+-------------------------
+
+roasbeef | 2024-01-30 01:40:41 UTC | #5
+
+No I can't reply. No one can until AJ turns on the feature. 
+
+By "keep up", I meant using email to _read_ new replies/threads. Until the write mode is turned on, no one can use the full mailing list mode.
+
+-------------------------
+
