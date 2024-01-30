@@ -200,3 +200,28 @@ Some things I’m a bit hazy on:
 
 -------------------------
 
+amiti | 2024-01-29 22:41:00 UTC | #11
+
+@maxedwards here are my thoughts from trying to wrap my head around these questions. Thanks to AJ for helping steer me in the right direction. Let me know if this generally makes sense, or if you have any additional questions. 
+
+The crux of our question is - “what should the tx relay rate be“. To answer this question we want to know- what is safe & what is efficient. 
+
+For each transaction that a user submits to the network, asymmetric bandwidth usage is required for the transaction to propagate to the entire network. Without mitigations, network bandwidth could be intentionally abused or accidentally overused. The minimum fee rate helps mitigate these problems by preventing “free relay” attacks and ensuring that bandwidth usage has a minimum cost in satoshis. The tx relay rate is also important, because it essentially limits the multiplier of each node on incoming traffic to outgoing traffic. Currently, every transaction we see will INV every other node (which would change if we adopt erlay). 
+
+One one side: if the tx relay rate didn’t exist or was too high, an attacker can pay the minimum fee rate to use greater than [num nodes on network] x [size of txn] amount of bandwidth on the whole network. 
+
+On the other side: if the tx relay is too low, transaction propagation is laggy, and there will be dramatic differences in the mempools of different nodes. The rate being “too low” is in relationship to the (tx creation - block creation) rate, aka how many txs are hanging out in the mempool over time. 
+
+We care the most about the top 1MB of the mempool being synchronized, so miners can have the information to confirm transactions paying the highest fee rate. The relay rate is effective because it is implemented with topological fee rate sorting, prioritizing which transactions are worthy of using the network bandwidth based on what is most likely to make it into a block. 
+
+When trying to test & evaluate if we should increase the tx relay rate, it seems very challenging to observe what “too high” looks like. However, it seems more tangible to observe “too low”, by seeing the top-of-mempools be significantly out of sync. One way to do this would be to have each mempool calculate a block and compare the contents, but this would be resource intensive. So a simpler heuristic is looking at the compact block logging because this indicates how many transactions need to be requested to complete the block aka indicators of top of mempool synchronization. 
+
+Since the PR is proposing increasing the relay rate, the strongest support this strategy can offer is evidence that the current tx relay rate is too low for certain network conditions - especially since we have seen more mempool activity in recent months. So, I believe this is what we should be aiming for.
+
+Two additional notes on warnet implementation strategy: 
+
+- if transactions are being created with a random fee rate distribution, that is probably a bit different than what we naturally see out in the wild. on mainnet we usually see tx fee rate rising as the mempool getting more full. this is relevant because we’ve identified *synchronization of the top of mempool* as a key metric. txs with random fee rates will organically lead to a stronger synchronization of top-of-mempool in a short amount of time, while increasing fee rates will see stronger divergences in short time intervals.
+- RE RBF: I believe this is a strategy to create many transactions with a limited set of UTXOs. I don’t think we need RBF transactions if that’s not an issue.
+
+-------------------------
+

@@ -8,3 +8,9 @@ Anyway, if you want to try it out, go to your preferences (favicon in the top ri
 
 -------------------------
 
+cguida | 2024-01-29 22:33:31 UTC | #2
+
+Is it possible to enable replies to emails received from mailing list mode? I'm noticing the emails I receive come from `noreply@delvingbtc.erisian.com.au`. I feel like being able to reply to the emails would allow users who prefer the old-style ML experience to continue interacting with the bitcoin dev community they way they're used to.
+
+-------------------------
+
