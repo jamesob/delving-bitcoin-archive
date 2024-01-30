@@ -28,16 +28,19 @@ My plan was to have a change output on the funding/splice transaction on B's sid
 
 -------------------------
 
-MattCorallo | 2024-01-30 20:06:23 UTC | #3
+MattCorallo | 2024-01-30 20:07:52 UTC | #3
 
 [quote="t-bast, post:2, topic:494"]
 I’m not sure that’s sufficient, because you usually want to allow having a chain of unconfirmed splices.
 [/quote]
 
+Mmm, that's a good point, though that is still a relatively simpler chain that we could still analyze assuming no additional unconfirmed inputs, no?
+
+[quote="t-bast, post:2, topic:494"]
 The topologies that v3 would then need to support would probably be too complex to analyze before cluster mempool…
 [/quote]
 
-Mmm, that's a good point, though
+All of the v3 discussion assumes cluster mempool :)
 
 -------------------------
 
