@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "incoming_link_count": 11,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 72.2,
   "yours": false,
   "topic_id": 494,
   "topic_slug": "0conf-ln-channels-and-v3-anchors",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "It was mentioned on the previous LN spec call that one concern with v3 transactions is that we need to support 0conf channels in some way. Specifically, imagine a lightning channel between two parties A and B. A trusts B to not double-spend themselves (ie trusts them for a 0conf transaction), but may not trust B to not go offline and never come back. B does not trust A at all.\n\nIn such a channel, let's assume that it opens, a payment or two happens, and then A or B go offline and the other wants their funds back. Now you have a unconstrained transaction, a v3 commitment transaction spending it, and a CPFP anchor spend hanging off of the commitment transaction. In the current v3 transaction proposal, as far as I understand it, this package would not be broadcastable - the v3 transaction is required to have no unconfirmed ancestors.\n\nIf the funding transaction confirms on its own (or via CPFP if B has a change output on it, though that's certainly not a requirement we'd like to require) then we're fine, the v3 commitment and any CPFP fee-bumps will broadcast just fine, but if fees start to rise right after the channel closes (or the funding transaction is generated with a deliberately low fee, which is common as there's generally no rush on them), we'd be totally stuck.\n\nI'm not sure what the correct fix is for tweaking v3 to allow this, maybe the funding transaction could be restricted to no unconfirmed inputs and then we simply allow an A -> B -> {C, D, CPFP bump} topology.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
