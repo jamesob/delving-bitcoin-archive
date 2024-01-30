@@ -14,3 +14,15 @@ Is it possible to enable replies to emails received from mailing list mode? I'm 
 
 -------------------------
 
+roasbeef | 2024-01-30 00:39:25 UTC | #3
+
+> subscribing to tags or categories seems like a better bet in general, and most of the comments I’ve seen about it seem negative,
+
+You can use traditional email filters to have posts from diff sections/tags go into diff labels, then manage it from there. 
+
+![Screenshot 2024-01-29 at 4.39.04 PM|550x134](upload://tVLNQkfcsnnKvlccTKjQC9v9i0q.png)
+
+I personally exclusively use the mailing list mode to keep up with everything on the forum.
+
+-------------------------
+
