@@ -12,3 +12,19 @@ I'm not sure what the correct fix is for tweaking v3 to allow this, maybe the fu
 
 -------------------------
 
+t-bast | 2024-01-30 10:24:58 UTC | #2
+
+[quote="MattCorallo, post:1, topic:494"]
+I’m not sure what the correct fix is for tweaking v3 to allow this, maybe the funding transaction could be restricted to no unconfirmed inputs and then we simply allow an A → B → {C, D, CPFP bump} topology.
+[/quote]
+
+I'm not sure that's sufficient, because you usually want to allow having a chain of unconfirmed splices. The topologies that v3 would then need to support would probably be too complex to analyze before cluster mempool...
+
+[quote="MattCorallo, post:1, topic:494"]
+If the funding transaction confirms on its own (or via CPFP if B has a change output on it, though that’s certainly not a requirement we’d like to require) then we’re fine
+[/quote]
+
+My plan was to have a change output on the funding/splice transaction on B's side to ensure that it could be CPFP-ed. This is indeed far from ideal, but that's something we already need today if we want to protect against pinning, so v3 doesn't make it worse?
+
+-------------------------
+
