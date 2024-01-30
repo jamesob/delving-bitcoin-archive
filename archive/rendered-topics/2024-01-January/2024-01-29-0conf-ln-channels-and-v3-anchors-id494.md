@@ -28,7 +28,7 @@ My plan was to have a change output on the funding/splice transaction on B's sid
 
 -------------------------
 
-MattCorallo | 2024-01-30 20:07:52 UTC | #3
+MattCorallo | 2024-01-30 20:10:14 UTC | #3
 
 [quote="t-bast, post:2, topic:494"]
 I’m not sure that’s sufficient, because you usually want to allow having a chain of unconfirmed splices.
@@ -41,6 +41,18 @@ The topologies that v3 would then need to support would probably be too complex 
 [/quote]
 
 All of the v3 discussion assumes cluster mempool :)
+
+[quote="t-bast, post:2, topic:494"]
+My plan was to have a change output on the funding/splice transaction on B’s side to ensure that it could be CPFP-ed.
+[/quote]
+
+I think we should strive, if at all possible, to have splice bumps be RBF, not CPFP. Seems nuts to prefer CPFP, no?
+
+[quote="t-bast, post:2, topic:494"]
+This is indeed far from ideal, but that’s something we already need today if we want to protect against pinning, so v3 doesn’t make it worse?
+[/quote]
+
+Sure, but if we're rethinking how we do mempool policy, we should probably think through these things so that we try to get as close as possible and don't end up with a v4 :)
 
 -------------------------
 
