@@ -56,3 +56,13 @@ Sure, but if we're rethinking how we do mempool policy, we should probably think
 
 -------------------------
 
+morehouse | 2024-01-30 20:48:10 UTC | #4
+
+[quote="MattCorallo, post:1, topic:494"]
+I’m not sure what the correct fix is for tweaking v3 to allow this, maybe the funding transaction could be restricted to no unconfirmed inputs and then we simply allow an A → B → {C, D, CPFP bump} topology.
+[/quote]
+
+Without complicating the current v3 proposal, we could achieve similar results by making 0-conf funding transactions v3 and adding a shared anchor to them.  Then either party can CPFP in an emergency.
+
+-------------------------
+
