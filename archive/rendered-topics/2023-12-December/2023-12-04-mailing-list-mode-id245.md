@@ -40,3 +40,9 @@ By "keep up", I meant using email to _read_ new replies/threads. Until the write
 
 -------------------------
 
+cguida | 2024-01-30 15:39:51 UTC | #6
+
+Ah cool, but you're saying replies to emails is a feature that could be enabled? Because I think we should do that :)
+
+-------------------------
+
