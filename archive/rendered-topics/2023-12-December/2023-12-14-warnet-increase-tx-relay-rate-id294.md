@@ -225,3 +225,11 @@ Two additional notes on warnet implementation strategy:
 
 -------------------------
 
+m3dwards | 2024-01-31 12:43:52 UTC | #12
+
+Thanks @amiti for the detailed answer.
+
+Regarding the random fee, I have implemented the fee calculation as suggested by AJ: `estimatesmartfee 5` multiplied by `exp(random()*0.2-0.1)` so it will not be completely random but will be estimatesmartfee +- 10% for a small amount of variability.
+
+-------------------------
+
