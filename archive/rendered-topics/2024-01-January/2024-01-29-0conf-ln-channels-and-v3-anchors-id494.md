@@ -66,3 +66,13 @@ Without complicating the current v3 proposal, we could achieve similar results b
 
 -------------------------
 
+instagibbs | 2024-01-30 21:13:29 UTC | #5
+
+[quote="MattCorallo, post:3, topic:494"]
+All of the v3 discussion assumes cluster mempool :slight_smile:
+[/quote]
+
+V3 pre-dates cluster mempool, we can likely do significantly better afterwards.
+
+-------------------------
+

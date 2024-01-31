@@ -82,3 +82,9 @@ This was fixed with two PR's that landed in 22.0:
 
 -------------------------
 
+instagibbs | 2024-01-30 21:10:59 UTC | #2
+
+To be extra conservative running a non-listening node makes this, and other of these kinds of attacks, much more difficult.
+
+-------------------------
+
