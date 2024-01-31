@@ -76,3 +76,37 @@ V3 pre-dates cluster mempool, we can likely do significantly better afterwards.
 
 -------------------------
 
+t-bast | 2024-01-31 07:30:44 UTC | #6
+
+[quote="MattCorallo, post:3, topic:494"]
+Mmm, that’s a good point, though that is still a relatively simpler chain that we could still analyze assuming no additional unconfirmed inputs, no?
+[/quote]
+
+I'm not sure it is, because each splice may have a change output, so you end up with arbitrary trees of transactions...
+
+[quote="MattCorallo, post:3, topic:494"]
+All of the v3 discussion assumes cluster mempool :slight_smile:
+[/quote]
+
+That's not the way I understood it, the plan is currently to deploy v3 before cluster mempool to have a good enough solution to mitigate most pinning vectors. And then v3 can become more powerful once cluster mempool happens.
+
+[quote="MattCorallo, post:3, topic:494"]
+I think we should strive, if at all possible, to have splice bumps be RBF, not CPFP. Seems nuts to prefer CPFP, no?
+[/quote]
+
+But we don't have a choice, if we use 0-conf, we just can't use RBF safely, we have to use CPFP unfortunately. Otherwise there are trivial attacks that lets the other peer steal funds.
+
+[quote="MattCorallo, post:3, topic:494"]
+Sure, but if we’re rethinking how we do mempool policy, we should probably think through these things so that we try to get as close as possible and don’t end up with a v4 :slight_smile:
+[/quote]
+
+That's true! But I don't think we'd need any kind of v4, if v3 starts with a restrictive package topology and later relaxes it (while still using v3), that's ok? That's why I'd lean towards a first deployment of v3 for very simple packages that makes our lives easier sooner rather than later, and gets even better over time.
+
+[quote="morehouse, post:4, topic:494"]
+Without complicating the current v3 proposal, we could achieve similar results by making 0-conf funding transactions v3 and adding a shared anchor to them. Then either party can CPFP in an emergency.
+[/quote]
+
+The issue with this is that we cannot create chains of unconfirmed splices anymore (because v3 can have only one unconfirmed child right now), which in practice is quite limiting.
+
+-------------------------
+
