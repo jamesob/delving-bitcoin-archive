@@ -235,3 +235,29 @@ The responding("you") party would have had to increase the package feerate to ma
 
 -------------------------
 
+instagibbs | 2024-01-31 19:13:07 UTC | #13
+
+[quote="instagibbs, post:10, topic:383"]
+This was what I was thinking, I wasn’t sure of this, since the proposed spend could also be replacing other in-mempool transactions. Could conflicting with other transactions somehow cause this check to be insufficient from incentives perspective?
+[/quote]
+
+I think not doing a full diagram check means it would be insufficient to stop incentives to inflate the value.
+
+For math simplicity, assume an additional input to doublepend `TxC` is 65 vbytes:
+
+```mermaid height=214,auto
+flowchart TD
+    A[TxA: fee 0\nsize 300\n10000 sats in anchor] --> B[TxB: fee 11780\nsize 130]
+    C[TxC: fee 10000\nsize 384\n conf with TxB]
+```
+
+`TxA+PureBurn(10k sats)` package rate is 27 sat/vbyte  
+`TxA+TxB` package rate is the same  
+But it also pays for eviction of `TxC`. In other words, a channel counterparty has additional incentives to drive it up.
+
+If we actually require a diagram check, it may be that we "simulate" the conflict more directly in an actual implementation and let RBF logic handle it post-cluster mempool.
+
+Pre-cluster mempool, it may be simpler to just start with 0-value outputs.
+
+-------------------------
+
