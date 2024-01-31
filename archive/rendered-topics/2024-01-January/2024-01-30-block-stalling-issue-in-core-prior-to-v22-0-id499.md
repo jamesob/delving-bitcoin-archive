@@ -88,3 +88,9 @@ To be extra conservative running a non-listening node makes this, and other of t
 
 -------------------------
 
+Crypt-iQ | 2024-01-31 15:01:19 UTC | #3
+
+We don't have native support for it yet in LND, but the other thing people could potentially do is run multiple listening nodes.
+
+-------------------------
+
