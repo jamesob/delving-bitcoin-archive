@@ -94,3 +94,13 @@ Not sure I understand your argument there.
 
 -------------------------
 
+oohrah | 2024-02-01 05:12:42 UTC | #5
+
+[quote="instagibbs, post:2, topic:488"]
+I think energy would be better focused on getting RBF incentives right, before giving up the idea of free relay protection entirely.
+[/quote]
+
+Is it correct to say the fee-rate replacement is "free" relay though if the infinite cycle is fixed? If I understand Peter's argument right he argued that low fee-rate txs are less valuable because the revenue they might generate is less certain and far in the future. So high fee-rate is more valuable and the relay isn't free because it increased value to the miner.
+
+-------------------------
+
