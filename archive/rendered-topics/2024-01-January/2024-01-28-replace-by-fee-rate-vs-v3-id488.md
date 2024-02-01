@@ -76,3 +76,21 @@ In summary, I don't think the One-Shot Replace by Feerate proposal works (i.e. d
 
 -------------------------
 
+oohrah | 2024-02-01 05:08:19 UTC | #4
+
+[quote="glozow, post:3, topic:488"]
+Free relay is usually still present. See [this](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2024-January/022302.html) or [this](https://gist.github.com/glozow/797bb412868ce959dcd0a2981322fd2a#free-relay-problem) on infinite replacements. Intuitively, having 2 sets of rules designed to bypass each other can easily result in this kind of loop. I’m not saying it’s impossible to design 2 that don’t do this, but just some intuition if you don’t want to go through the math.
+[/quote]
+
+What do you think of Peter's fix that he published to bitcoin-dev?
+
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2024-January/022326.html
+
+I don't do deep protocol design so maybe I'm missing something. But the fee-rate/depth argument looks pretty solid to me and I guess it must be actually deployed in Libre Relay nodes.
+
+In [your](https://gist.github.com/glozow/797bb412868ce959dcd0a2981322fd2a#free-relay-problem) writeup, I don't understand how step #3 is following one-shot rbfr rules. Isn't that just a normal replacement with a tx of a higher fee? 16,500 > 5000
+
+Not sure I understand your argument there.
+
+-------------------------
+
