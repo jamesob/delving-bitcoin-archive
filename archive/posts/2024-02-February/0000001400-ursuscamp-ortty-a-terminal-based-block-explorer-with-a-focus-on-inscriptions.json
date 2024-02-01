@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "incoming_link_count": 2,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 27.8,
   "yours": false,
   "topic_id": 508,
   "topic_slug": "ortty-a-terminal-based-block-explorer-with-a-focus-on-inscriptions",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'm just announcing a little project I've been working on called ortty, which as the title says, is a Blockchain explorer for terminal junkies like myself, focused on allowing you to dig through the Ordinals Inscriptions stored in your node.\n\nIt has multiple pieces:\n\n* An explorer that allows you to dig into the blockchain to look for inscriptions interactively. It can even show images if your terminal supports it!\n* A scriptable CLI that can be used to view and also extract inscriptions en masse.\n\nYou can find ortty [here](https://github.com/ursuscamp/ortty) with binary released for major platforms.\n\nHere are some screenshots of the explorer at work. These images were made with the terminal emulator kitty, which has the best image support, IMO:\n\n![Screenshot 2024-01-31 at 10.52.09 PM|690x395](upload://7UnOobIclX4xVWwVjapsxciaRWi.jpeg)\n![Screenshot 2024-01-31 at 10.52.20 PM|690x395](upload://gEWlngBIfWAEAeWG4lIuNoPF9Qj.jpeg)\n![Screenshot 2024-01-31 at 10.52.33 PM|690x395](upload://kXB5pNkqg3lys2JHAzjtHDDO31u.png)\n![Screenshot 2024-01-31 at 10.52.53 PM|690x488](upload://4MAMvmmB5zQSgzLiV1QelhjutD4.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
