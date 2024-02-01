@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 9,
   "readers_count": 8,
-  "score": 1.8,
+  "score": 46.8,
   "yours": false,
   "topic_id": 294,
   "topic_slug": "warnet-increase-tx-relay-rate",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks @amiti for the detailed answer.\n\nRegarding the random fee, I have implemented the fee calculation as suggested by AJ: `estimatesmartfee 5` multiplied by `exp(random()*0.2-0.1)` so it will not be completely random but will be estimatesmartfee +- 10% for a small amount of variability.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
