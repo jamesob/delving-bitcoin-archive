@@ -110,3 +110,38 @@ The issue with this is that we cannot create chains of unconfirmed splices anymo
 
 -------------------------
 
+morehouse | 2024-02-01 22:58:04 UTC | #7
+
+## Current situation
+
+In an emergency, the funding transaction can be confirmed using the commitment + anchor spend to CPFP.  Alternatively, if either party has a change output on the funding transaction, they can use it to CPFP directly.
+
+However, any of these CPFP methods can be defeated by pinning the funding transaction.
+
+
+## Future solution
+
+Piecing together some ideas I've heard from @instagibbs.
+
+If we have:
+
+- cluster mempool
+- package relay
+- v3 policy becomes a "[priority opt-in](https://delvingbitcoin.org/t/opt-in-transaction-policies-for-anti-pinning/159#transaction-priority-opt-in-5)", with no ancestor restrictions and no 1-child limit
+
+then we can make funding transactions v3, and I think this problem is largely solved.
+
+The funding transaction can be CPFP'd by either party using the commitment + anchor spend package.  Pinning is largely mitigated, since the priority fee rate must be used for all descendants of the funding transaction.
+
+The only scenario where the funding transaction couldn't be confirmed in a timely manner is when (1) the cluster limit is reached and then (2) mempool fee rates spike.  An attacker would need to cause (1) preemptively, costing them considerable fees (cluster limit * priority fee rate), and only benefiting them on the rare chance that (2) occurs.  Therefore, such an attack is probably not a realistic concern.
+
+## v3-only solution
+
+During the v3 transition period (before cluster mempool et al.), maybe the best we can do is to keep the status quo.
+
+To allow either party to CPFP the funding transaction in an emergency, we can add a shared anchor to the funding transaction and keep it non-v3.  This would also allow arbitrary ancestor topologies (e.g., splice trees) for the funding transaction.
+
+Pinning can still defeat the shared anchor, but that is no worse than our current situation.
+
+-------------------------
+

@@ -570,3 +570,33 @@ By bumping the leaf version you could also re-use all existing opcodes (no `OP_A
 
 -------------------------
 
+EthanHeilman | 2024-02-01 22:23:40 UTC | #36
+
+@Chris_Stewart_5 
+
+Continuing my question from BIP. 
+
+The BIP states: "If the operation results in an overflow, push false onto the stack".
+
+I would propose altering this to so that the result and the overflow amount are pushed onto the stack.
+
+**Case 1, no overflow:**
+
+1, 1, OP_ADD64 -->  2, 0 
+
+where 2 is the result and 0 is the overflow amount.
+
+**Case 2, overflow:**
+
+2^64 - 1, 5, OP_ADD64 --> 4, 1 
+
+where 4 is the result (mod 2^64), and 1 is the overflow amount. You can think of these two stack values as representing the 128 bit number 2^64+4 broken into two 64 bit chunks.
+
+Push values on the stack in this fashion makes it esimple use these 64 opcodes to do math on numbers larger than 64 bits by chunking them into 64-bit stack elements. The overflow amount tells you how much to carry into the next chunk.
+
+You'd still get the benefit of having a flag to check, if overflow amount is not 0, overflow occurred. 
+
+I think the BIP as written lets you add numbers larger than 64-bits using a similar chunking approach, but it is less straight forward and requires IF statements and substructions operations.
+
+-------------------------
+

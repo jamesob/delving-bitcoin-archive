@@ -194,3 +194,13 @@ RBF if sibling eviction becomes required or any ancestor input in the chain was 
 
 -------------------------
 
+rustyrussell | 2024-02-01 21:06:42 UTC | #2
+
+ As fees rise, compactness will override all other concerns. (Including security!)
+
+This implies that we'll will use endogenous fees where possible, and single transaction which stacks as many otherwise-unrelated operations, with a single exogenous fee in/out.
+
+We should be designing for this reality, when considering covenant constructions.
+
+-------------------------
+
