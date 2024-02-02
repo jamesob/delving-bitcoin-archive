@@ -485,13 +485,19 @@ Edit: Maybe the broader observation is, if this narrow idea for sibling eviction
 
 -------------------------
 
-instagibbs | 2024-02-02 15:02:39 UTC | #11
+instagibbs | 2024-02-02 15:04:43 UTC | #11
 
 [quote="sdaftuar, post:10, topic:393"]
 one is that we somehow require a peer sending us this transaction to do the work of calculating which transaction we should evict to make room for a new transaction
 [/quote]
 
 Doesn't work when the peer cannot "see" the other transactions. You can't really give hints that will work consistently.
+
+[quote="sdaftuar, post:10, topic:393"]
+and it only applies in a very limited topology to begin with
+[/quote]
+
+I don't buy that premise though either, I was deferring for sake of argument.
 
 -------------------------
 
