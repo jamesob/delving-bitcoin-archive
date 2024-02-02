@@ -262,7 +262,7 @@ It just made the example simpler. In both cases it's centralisation: if it's the
 
 -------------------------
 
-ajtowns | 2024-02-02 08:48:56 UTC | #6
+ajtowns | 2024-02-02 14:09:47 UTC | #6
 
 [quote="instagibbs, post:1, topic:512"]
 In the below diagrams, green arrows indicate where fees are “coming from”.
@@ -278,7 +278,7 @@ I found these diagrams a little confusing. Here's how I think I would draw them;
 
 ## Endogenous fees, single transaction RBF
 
-```mermaid height=450,auto
+```mermaid
 flowchart TD
     Pc([contract]) --> P4:::rbf
     Pc --> Pi4
@@ -292,7 +292,7 @@ flowchart TD
 
 # Exogenous fees, single transaction RBF
 
-```mermaid height=450,auto
+```mermaid
 flowchart TD
     Pc([contract]) --> P5:::rbf
     Pc --> Pi5
@@ -310,7 +310,7 @@ flowchart TD
 
 *This is the same as "endogenous fees, package rbf", if you note that "Pay to state x" conflicts with some other tx "Pay to state y", both spending "contract"*
 
-```mermaid height=450,auto
+```mermaid height=519,auto
 flowchart TD
     Pi3([contract]) --> P3[Pay to state x]:::rbf
     Pi3 --> Pc[Pay to state y] <-.->|conflicts| P3
@@ -342,6 +342,44 @@ flowchart TD
     linkStyle 5 stroke-width:4px,stroke:green
     linkStyle 6 stroke-width:4px,stroke:green
 ```
+
+-------------------------
+
+jamesob | 2024-02-02 13:35:01 UTC | #7
+
+Just starting to read the original post; it's not clear to me what "conflicted" with a dashed arrow means here.
+
+-------------------------
+
+instagibbs | 2024-02-02 14:51:51 UTC | #8
+
+[quote="ajtowns, post:6, topic:512"]
+Here’s how I think I would draw them; what do you think?
+[/quote]
+
+I find these more confusing, but I might be alone here.
+
+[quote="jamesob, post:7, topic:512, full:true"]
+Just starting to read the original post; it’s not clear to me what “conflicted” with a dashed arrow means here.
+[/quote]
+
+An input is detected as conflicting with something in mempool, making it an RBF
+
+-------------------------
+
+glozow | 2024-02-02 14:57:16 UTC | #9
+
+fwiw I found these diagrams easier to understand
+
+-------------------------
+
+sipa | 2024-02-02 14:57:24 UTC | #10
+
+[quote="ajtowns, post:6, topic:512"]
+I found these diagrams a little confusing. Here’s how I think I would draw them; what do you think?
+[/quote]
+
+Haha, I suggested the same approach when @instagibbs drew these on the whiteboard here yesterday...
 
 -------------------------
 

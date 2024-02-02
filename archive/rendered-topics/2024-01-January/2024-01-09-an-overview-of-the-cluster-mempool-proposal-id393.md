@@ -412,3 +412,74 @@ Just thought it is worth noting here that in trying to think about what the LN c
 
 -------------------------
 
+sdaftuar | 2024-02-02 14:30:38 UTC | #8
+
+I was wondering if a form of sibling eviction might work as a topological (if not economic) substitute for the carveout rule going away.  That is, is there a sibling eviction policy that we could adopt which would give current users of the CPFP carveout rule an economic way to get a transaction into the mempool when the cluster it would be joining is full? If so, then this might be an alternative we could consider to the suggestion of using v3 policy rules as a carveout replacement.
+
+Specifically, I was wondering if we could implement the following sibling eviction policy, as part of the cluster mempool approach:
+
+If a new transaction is rejected from the mempool due to a cluster size limit, and it has a single unconfirmed parent, and that parent has exactly 1 other unconfirmed child, then consider that child as a candidate for eviction in order to accept the new transaction.  Specifically, we'd use our RBF rules (feerate diagram check) to determine if the mempool + new transaction - replacement candidate is strictly better than the existing mempool, and process the replacement if so.
+
+I should point out immediately that with no other constraints on the sibling described in that rule, that RBF pinning with a high fee transaction would be possible.  Still, I wondered if having *some* way to evict a transaction to make room for another might still be valuable, in a general setting, as that gives users more options than rules which have no economic mechanism to bypass.
+
+However, I don't think we can easily achieve this behavior while maintaining an additional intuitive property:
+
+ * Any transactions we evict under this policy should not succeed in re-entering the mempool if immediately resubmitted.
+
+The proposed rule fails this test.  Consider this picture:
+
+```mermaid height=233,auto
+    flowchart 
+         A --> B
+         A-.-> C
+         B--> D
+        E["E: some tx connected to a big cluster"] --> B
+```
+
+Imagine tx C arrives, and we consider eviction of tx B to make room for it. Even if "accept tx C and evict tx B (along with B's descendants)" is a valid replacement under the feerate diagram check, it's possible that immediately re-accepting tx B would be successful, because without tx D it might be under the cluster size limits.
+
+To resolve this, we could (say) require for our rule that tx B only be evaluated for eviction if it has no unconfirmed children.  However, then we immediately lose the benefits for something like this as a carveout alternative, because it's trivially pinnable by a counterparty where if the other sibling has multiple children, no sibling eviction would be considered.
+
+Alternatively, we could find some child transaction to consider evicting; however if there is more than one candidate, then we might be in a difficult situation of trying to pick which one to evaluate, and there's no obvious way to make that choice. 
+
+By contrast, the v3 rules resolve this problem, by requiring that v3 children have no children of their own.
+
+(Just sharing this in the spirit of @harding's comment about the potential value in looking at failed ideas!)
+
+-------------------------
+
+instagibbs | 2024-02-02 14:46:32 UTC | #9
+
+[quote="sdaftuar, post:8, topic:393"]
+However, I don’t think we can easily achieve this behavior while maintaining an additional intuitive property:
+
+* Any transactions we evict under this policy should not succeed in re-entering the mempool if immediately resubmitted.
+[/quote]
+
+Can you motivate this as a principled objection? Mempool quality increases, just not in the most optimal way possible. The alternative is to not improve the mempool at all?
+
+[quote="sdaftuar, post:8, topic:393"]
+Alternatively, we could find some child transaction to consider evicting; however if there is more than one candidate, then we might be in a difficult situation of trying to pick which one to evaluate, and there’s no obvious way to make that choice.
+[/quote]
+
+Again, if our constraint is "we can only pick the optimal evictions", sure this is intractable, but I am not convinced of that. For now I'd rather focus on the premise of the objection on the simple non-v3 case.
+
+---
+Also while we're here, the other strategy previously discussed to allow cluster limits to be breached, temporarily and in some limited size/count way, linearize, then "prune" until you get back to cluster limits. Accept/reject said linearization based on normal diagram checks. I know you've already dismissed this, but good to have alternatives all in one place.
+
+With other objections you've had aside, I think this strategy is more limited because you may not be able to practically make the sibling eviction candidates small.
+
+-------------------------
+
+sdaftuar | 2024-02-02 14:51:20 UTC | #10
+
+[quote="instagibbs, post:9, topic:393"]
+Can you motivate this as a principled objection? Mempool quality increases, just not in the most optimal way possible. The alternative is to not improve the mempool at all?
+[/quote]
+
+Hmm, I'm not sure that I can -- it just seems like this is a messy behavior, and so I think we're missing something in the design if we can't come up with a cleaner way of achieving the goal.  It's wasteful to have to rebroadcast/revalidate transactions that never should have been evicted in the first place.
+
+Also I suppose there are other solutions we could consider; one is that we somehow require a peer sending us this transaction to do the work of calculating which transaction we should evict to make room for a new transaction, which we then just verify will satisfy our requirements? Seems like that could be a "clean" approach from an engineering aesthetics point of view, though it begs the question of how that determination might be made by a wallet in the first place.
+
+-------------------------
+
