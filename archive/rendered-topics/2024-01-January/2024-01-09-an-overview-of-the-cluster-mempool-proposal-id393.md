@@ -471,7 +471,7 @@ With other objections you've had aside, I think this strategy is more limited be
 
 -------------------------
 
-sdaftuar | 2024-02-02 14:51:20 UTC | #10
+sdaftuar | 2024-02-02 15:00:33 UTC | #10
 
 [quote="instagibbs, post:9, topic:393"]
 Can you motivate this as a principled objection? Mempool quality increases, just not in the most optimal way possible. The alternative is to not improve the mempool at all?
@@ -480,6 +480,8 @@ Can you motivate this as a principled objection? Mempool quality increases, just
 Hmm, I'm not sure that I can -- it just seems like this is a messy behavior, and so I think we're missing something in the design if we can't come up with a cleaner way of achieving the goal.  It's wasteful to have to rebroadcast/revalidate transactions that never should have been evicted in the first place.
 
 Also I suppose there are other solutions we could consider; one is that we somehow require a peer sending us this transaction to do the work of calculating which transaction we should evict to make room for a new transaction, which we then just verify will satisfy our requirements? Seems like that could be a "clean" approach from an engineering aesthetics point of view, though it begs the question of how that determination might be made by a wallet in the first place.
+
+Edit: Maybe the broader observation is, if this narrow idea for sibling eviction is still this messy, and it has obvious pinning vectors anyway due to how RBF works, and it only applies in a very limited topology to begin with, is it worth adding the complexity to the implementation?
 
 -------------------------
 
