@@ -485,7 +485,7 @@ Edit: Maybe the broader observation is, if this narrow idea for sibling eviction
 
 -------------------------
 
-instagibbs | 2024-02-02 15:05:50 UTC | #11
+instagibbs | 2024-02-02 15:36:24 UTC | #11
 
 [quote="sdaftuar, post:10, topic:393"]
 one is that we somehow require a peer sending us this transaction to do the work of calculating which transaction we should evict to make room for a new transaction
@@ -504,6 +504,13 @@ though it begs the question of how that determination might be made by a wallet 
 [/quote]
 
 It would certainly have to be well motivated. In a future package relay world there's a few, less so in the near future where 1p1c makes most sense.
+
+---
+
+edit: last thoughts for now
+
+1) something I had thought of and forgot later, but [sibling eviction is less important in a "top block" world](https://delvingbitcoin.org/t/0conf-ln-channels-and-v3-anchors/494/7#future-solution-2)
+2) We could decide that later, with "top block"-like solutions that allow relaxed topologies, sibling eviction could be an add-on measure where we do something simple like only consider all non-ancestors-and-descendants for sibling eviction simultaneously.
 
 -------------------------
 
