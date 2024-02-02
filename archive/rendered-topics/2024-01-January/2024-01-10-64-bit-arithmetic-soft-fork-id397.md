@@ -495,7 +495,7 @@ If we don't require 8 byte inputs for anything besides the new numeric op codes 
 
 -------------------------
 
-dgpv | 2024-01-20 14:36:06 UTC | #33
+dgpv | 2024-02-02 16:37:03 UTC | #33
 
 [quote="rustyrussell, post:19, topic:397"]
 In case you missed it, please consider: [Arithmetic Opcodes: What Could They Look Like? | Rusty Russell’s Quiet Corner of The Internet ](https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html)
@@ -507,7 +507,7 @@ Also removing "normalization" from LSHIFT and RSHIFT is the right thing - Elemen
 
 Relying on `__uint128_t` support in GCC and clang is a bit iffy... Would that mean that other compilers will be somehow discouraged ?
 
-I think there's still need for a way to easily convert to fixed-with numbers. Maybe a generic opcode that would take number of bytes, and zero-pads or truncates if necessary ? Pobably truncation should success only if zeroes are removed.
+I think there's still need for a way to easily convert to fixed-with numbers. Maybe a generic opcode that would take number of bytes, and zero-pads or truncates if necessary ? Pobably truncation should succeed only if removed bytes are all zero, and script should fail otherwise
 
 For example, `4 FIXNUM` would make LE32 from the argument, `8 FIXNUM` will make LE64, `32 FIXNUM` will make a 256-bit number
 
@@ -607,6 +607,24 @@ I would propose altering this to so that the result and the overflow amount are 
 [/quote]
 
 The overflow amount would be LE64,  but then the zero in case of 'no overflow' would also need to be LE64 (otherwise more-than-64bit calculations would still require branching), and that would complicate the common case of checking for 'no overflow', because you cannot just do `NOT VERIFY` - `NOT` expects a scriptnum
+
+-------------------------
+
+dgpv | 2024-02-02 16:50:27 UTC | #38
+
+If more-than-64bit arithmetic is desired, then I would say rustyrussell's idea of using only-positive variable-length integers where larger lengths are allowed is more elegant, and coupled with `FIXNUM` (or maybe `TOFIXNUM`/`FROMFIXNUM`) opcode to convert between variable and fixed encodings, and `BYTEREV` to convert between low/big endian, that would cover a large range of practical needs
+
+-------------------------
+
+EthanHeilman | 2024-02-02 18:46:32 UTC | #39
+
+> If more-than-64bit arithmetic is desired, then I would say rustyrussell’s idea of using only-positive variable-length integers where larger lengths are allowed is more elegant,
+
+I agree variable length would be more elegant. My worry was about fee pricing since, depending on the math operations allowed, really big nums require more computation than small numbers. You can put big numbers on the stack with single byte opcodes like HASH256. 64-bit chucks provides a very nice way to capture that increase in cost since need more opcodes to perform operations on bigger numbers. 
+
+The more I think about my fee cost argument here, the more convinced I am that it doesn't matter and I am wrong. It seems perfectly fine to have operations on very large numbers in Bitcoin because if one wanted to maximize computational resources spent and minimize fee code that are much better opcodes than arithmetic. 
+
+The computational cost of performing arithmetic on even very large numbers, say 520 byte numbers, is probably much smaller than many single opcode instructions like HASH160 or CHECKSIG. I don't have actual performance numbers on this though.
 
 -------------------------
 
