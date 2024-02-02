@@ -252,3 +252,96 @@ Why would they need a mining operation rather than use an accelerator like mempo
 
 -------------------------
 
+ajtowns | 2024-02-02 07:59:32 UTC | #5
+
+[quote="oohrah, post:4, topic:512"]
+Why would they need a mining operation rather than use an accelerator like mempool.space/ViaBTC/Binance/etc?
+[/quote]
+
+It just made the example simpler. In both cases it's centralisation: if it's the LSP doing the mining, then that LSP can use the bitcoin more cheaply than a smaller LSP; if it's a trusted accelerator paying miners/pools out of band, then that accelerator can require the LSPs or miners/pools to comply with their T&C before they'll do business with them. Doesn't matter in either case if it's rare and for small amounts. Does matter if it's common and a non-trivial fraction of block reward.
+
+-------------------------
+
+ajtowns | 2024-02-02 08:48:56 UTC | #6
+
+[quote="instagibbs, post:1, topic:512"]
+In the below diagrams, green arrows indicate where fees are “coming from”.
+[/quote]
+
+I found these diagrams a little confusing. Here's how I think I would draw them; what do you think?
+
+ * Rounded boxes are utxos
+ * Square boxes are transactions
+ * Green lines emphasise where fee/change amounts come from/go
+ * Dashed lines just indicate conflicting txs (due to attempting to spend the same utxo) and are also labelled.
+ * If RBFing a previous state, the minimal set of txs that justify the RBF are highlighted in orange. If only one tx is highlighted, it probably works today; if two txs are highlighted, you need to wait for package RBF to be able to do state conflicts.
+
+## Endogenous fees, single transaction RBF
+
+```mermaid height=450,auto
+flowchart TD
+    Pc([contract]) --> P4:::rbf
+    Pc --> Pi4
+    Pi4[Pay to state y] <-.->|conflicts| P4[Pay to state x\nEndo fees, Single RBF]
+    P4 --> Po4([state x balance minus fees])
+    
+    classDef rbf fill:#f96
+    linkStyle 0 stroke-width:4px,stroke:green
+    linkStyle 1 stroke-width:4px,stroke:green
+```
+
+# Exogenous fees, single transaction RBF
+
+```mermaid height=450,auto
+flowchart TD
+    Pc([contract]) --> P5:::rbf
+    Pc --> Pi5
+    Pi5[Pay to state y] <-.->|conflicts| P5[Pay to state x\nExo fees, Single RBF]
+    Pi5_2([fee input])--> P5
+    P5 --> Po5([state x balance])
+    P5 --> Co5([change])
+    
+    classDef rbf fill:#f96
+    linkStyle 3 stroke-width:4px,stroke:green
+    linkStyle 5 stroke-width:4px,stroke:green
+```
+
+# Endogenous fees, CPFP
+
+*This is the same as "endogenous fees, package rbf", if you note that "Pay to state x" conflicts with some other tx "Pay to state y", both spending "contract"*
+
+```mermaid height=450,auto
+flowchart TD
+    Pi3([contract]) --> P3[Pay to state x]:::rbf
+    Pi3 --> Pc[Pay to state y] <-.->|conflicts| P3
+    P3 --> Po3([contract state x])
+    Po3 --> C3[Endo fees, CPFP]:::rbf
+    C3 --> Co3([state x balance minus fees])
+    
+    classDef rbf fill:#f96
+    linkStyle 0 stroke-width:4px,stroke:green
+    linkStyle 3 stroke-width:4px,stroke:green
+    linkStyle 4 stroke-width:4px,stroke:green
+    linkStyle 5 stroke-width:4px,stroke:green
+```
+
+# Exogenous fees, CPFP
+
+*Likewise*
+
+```mermaid height=519,auto
+flowchart TD
+    Pi([contract]) --> P[Pay to state x]:::rbf
+    Pi --> Pc[Pay to state y] <-.->|conflicts| P
+    P --> Po([state x])
+    Po --> C[Exo fees, CPFP]:::rbf
+    fee([fee input]) --> C
+    C --> Co([change plus state x balance])
+    
+    classDef rbf fill:#f96
+    linkStyle 5 stroke-width:4px,stroke:green
+    linkStyle 6 stroke-width:4px,stroke:green
+```
+
+-------------------------
+
