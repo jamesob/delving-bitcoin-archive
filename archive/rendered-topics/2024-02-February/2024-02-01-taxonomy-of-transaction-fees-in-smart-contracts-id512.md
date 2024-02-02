@@ -204,3 +204,51 @@ We should be designing for this reality, when considering covenant constructions
 
 -------------------------
 
+ajtowns | 2024-02-02 04:23:23 UTC | #3
+
+[quote="rustyrussell, post:2, topic:512"]
+As fees rise, compactness will override all other concerns. (Including security!)
+[/quote]
+
+That seems unsound? "I want to save money, therefore I'll make it easy for someone to steal all my money" If you really want to save on fees, and don't mind security risks, you don't go on-chain at all, you use a centralised database, or a more-centralised blockchain than bitcoin.
+
+The risk that makes sense to me here is the one to decentralisation: you're still going onchain, you're still keeping your funds secured, but you're paying fees out of band to the largest miners via a trusted relationship, ignoring the downside that, at scale, this makes smaller miners less profitable, and perhaps unsustainable.
+
+(We've got evidence that people will abandon security when trying to claim BRC20 mints and the like, but that's a lottery in the first place: if your tx isn't amongst the first N to claim, you're throwing your money away anyway)
+
+I don't think the decentralisation risk is avoidable though.
+
+Consider the case where an LSP wants to unilaterally close a channel: then they will need to get a commitment tx on chain, but in a high/variable fee environment cannot rely on the commitment tx to have precommitted sufficient fee payment (for ln-symmetry/eltoo channels, they may not be able to precommit to any fee payment), and because it's a unilateral close, can't immediately claim any of their own channel balance to use that for fees.
+
+One approach is to do what we do now: pull in fees from an existing utxo, and add a change address. That can be done via an anchor output and CPFP, or by the commitment tx only being signed with SINGLE|ANYONECANPAY, or by pre-preparing a utxo with the exact fee and an ALL|ANYONECANPAY signature.
+
+But a large LSP that has their own mining operation has another option: they can just prioritise the tx directly, even if it has 0 fee. When that is mined, as a miner they'll be forgoing fees so it's not free, but that's still cheaper: they're only forgoing X vbytes worth of fees from the bottom of the block, where X is the size of the commitment without any additional fee inputs/change outputs, rather than paying X+Y bytes worth of fees at the top/middle of the block, where Y is the size of the additional fee inputs and change outputs (and any overhead).
+
+[quote="rustyrussell, post:2, topic:512"]
+This implies that we’ll will use endogenous fees where possible, and single transaction which stacks as many otherwise-unrelated operations, with a single exogenous fee in/out.
+[/quote]
+
+In this scenario, the "single exogenous fee" doesn't make it onchain at all (it's an internal transfer from the LSP part of the business to the mining part of the business), but presumably all the LSP's txs are still combined together into a single 0-fee tx at the start of the block.
+
+Adding introspection logic isn't needed for that setup, and would itself be unnecessary overhead.
+
+-------------------------
+
+oohrah | 2024-02-02 04:49:06 UTC | #4
+
+[quote="ajtowns, post:3, topic:512"]
+That seems unsound? “I want to save money, therefore I’ll make it easy for someone to steal all my money” If you really want to save on fees, and don’t mind security risks, you don’t go on-chain at all, you use a centralised database, or a more-centralised blockchain than bitcoin.
+
+The risk that makes sense to me here is the one to decentralisation: you’re still going onchain, you’re still keeping your funds secured, but you’re paying fees out of band to the largest miners via a trusted relationship, ignoring the downside that, at scale, this makes smaller miners less profitable, and perhaps unsustainable.
+[/quote]
+
+With V3 txns and things like it wouldn't LSPs and others just pay miners out-of-band to mine the tx and let the anchor output just go unspent? Doesn't seem like a trusted relationship to me because you can fall back to the expensive V3 mechanism. I wouldn't expect them to care about the UTXO set being polluted with anchors.
+
+[quote="ajtowns, post:3, topic:512"]
+But a large LSP that has their own mining operation has another option
+[/quote]
+
+Why would they need a mining operation rather than use an accelerator like mempool.space/ViaBTC/Binance/etc?
+
+-------------------------
+
