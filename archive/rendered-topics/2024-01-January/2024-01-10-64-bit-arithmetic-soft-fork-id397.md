@@ -600,3 +600,13 @@ I think the BIP as written lets you add numbers larger than 64-bits using a simi
 
 -------------------------
 
+dgpv | 2024-02-02 05:25:46 UTC | #37
+
+[quote="EthanHeilman, post:36, topic:397"]
+I would propose altering this to so that the result and the overflow amount are pushed onto the stack.
+[/quote]
+
+The overflow amount would be LE64,  but then the zero in case of 'no overflow' would also need to be LE64 (otherwise more-than-64bit calculations would still require branching), and that would complicate the common case of checking for 'no overflow', because you cannot just do `NOT VERIFY` - `NOT` expects a scriptnum
+
+-------------------------
+
