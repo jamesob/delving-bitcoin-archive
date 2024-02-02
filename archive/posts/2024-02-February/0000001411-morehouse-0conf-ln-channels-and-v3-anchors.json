@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 11,
   "readers_count": 10,
-  "score": 2.0,
+  "score": 17.2,
   "yours": false,
   "topic_id": 494,
   "topic_slug": "0conf-ln-channels-and-v3-anchors",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "## Current situation\n\nIn an emergency, the funding transaction can be confirmed using the commitment + anchor spend to CPFP.  Alternatively, if either party has a change output on the funding transaction, they can use it to CPFP directly.\n\nHowever, any of these CPFP methods can be defeated by pinning the funding transaction.\n\n\n## Future solution\n\nPiecing together some ideas I've heard from @instagibbs.\n\nIf we have:\n\n- cluster mempool\n- package relay\n- v3 policy becomes a \"[priority opt-in](https://delvingbitcoin.org/t/opt-in-transaction-policies-for-anti-pinning/159#transaction-priority-opt-in-5)\", with no ancestor restrictions and no 1-child limit\n\nthen we can make funding transactions v3, and I think this problem is largely solved.\n\nThe funding transaction can be CPFP'd by either party using the commitment + anchor spend package.  Pinning is largely mitigated, since the priority fee rate must be used for all descendants of the funding transaction.\n\nThe only scenario where the funding transaction couldn't be confirmed in a timely manner is when (1) the cluster limit is reached and then (2) mempool fee rates spike.  An attacker would need to cause (1) preemptively, costing them considerable fees (cluster limit * priority fee rate), and only benefiting them on the rare chance that (2) occurs.  Therefore, such an attack is probably not a realistic concern.\n\n## v3-only solution\n\nDuring the v3 transition period (before cluster mempool et al.), maybe the best we can do is to keep the status quo.\n\nTo allow either party to CPFP the funding transaction in an emergency, we can add a shared anchor to the funding transaction and keep it non-v3.  This would also allow arbitrary ancestor topologies (e.g., splice trees) for the funding transaction.\n\nPinning can still defeat the shared anchor, but that is no worse than our current situation.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,12 +56,17 @@
   "wiki": false,
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "thinking",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
