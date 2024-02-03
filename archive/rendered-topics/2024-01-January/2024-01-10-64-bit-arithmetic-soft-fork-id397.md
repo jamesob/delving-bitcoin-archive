@@ -628,3 +628,33 @@ The computational cost of performing arithmetic on even very large numbers, say 
 
 -------------------------
 
+ajtowns | 2024-02-03 12:02:57 UTC | #40
+
+[quote="EthanHeilman, post:39, topic:397"]
+The computational cost of performing arithmetic on even very large numbers, say 520 byte numbers, is probably much smaller than many single opcode instructions
+[/quote]
+
+I think there's a few choices here:
+
+ * what happens with "overflows" ?
+    * they're not possible, everything happens modulo $2^n$
+    * if the inputs are "too large", the script aborts
+    * you get an overflow indicator in every result
+ * what is $2^n$ or what constitutes "too large" ?
+     * BTC's max supply is about $2^{51}$ satoshis, so 64bit is a fine minimum
+     * $2^{256}$ would let you manipulate scalars for secp256k1 which might be useful
+     * $2^{4160}$ would let you do numbers of to 520 bytes which matches current stack entry limits
+ * unsigned only, or signed
+    * if we're doing modular arithmetic, unsigned seems easier
+    * signed maths probably makes some contracts a bunch easier though
+ * what serialization format?
+    * if signed, use a sign-bit or 2's complement?
+    * fixed length or variable length -- if fixed length, that constrains the precision we could use
+    * if variable length, does every integer have a unique serialization, or can you have "0000" and "0" and "-0" all as different representations of 0?
+
+I guess 64-bit unsigned modular arithmetic would be easiest (`uint64_t` already works), but 4160-bit signed numbers (or some similarly large value that benchmarks fast enough) with abort-on-overflow behaviour and stored/serialized like CScriptNum format might be more appropriate?
+
+Abort-on-overflow seems kind of appealing as far as writing contracts goes: we've already had an "overflow allows printing money" bug in bitcoin proper, so immediately aborting if that happens in script seems like a wise protection. If people want to do modular arithmetic, they could perhaps manually calculate `((x % k) * (y % k)) % k` provided they pick $k \le \sqrt{2^{n}}$ or similar.
+
+-------------------------
+

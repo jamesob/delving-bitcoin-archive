@@ -514,3 +514,25 @@ edit: last thoughts for now
 
 -------------------------
 
+ajtowns | 2024-02-03 11:29:09 UTC | #12
+
+[quote="sdaftuar, post:8, topic:393"]
+Imagine tx C arrives, and we consider eviction of tx B to make room for it. Even if “accept tx C and evict tx B (along with B’s descendants)” is a valid replacement under the feerate diagram check, it’s possible that immediately re-accepting tx B would be successful, because without tx D it might be under the cluster size limits.
+[/quote]
+
+I'm not sure I see this as bad? The mempool would be going from:
+
+ * [E] [A]  (separate clusters)
+ * [E, B] [A]
+ * [E, B, D] [A]
+ * [E, A, C]
+ * [E, A, C, B]
+
+Those are all fairly different states, and each one is strictly improving the feerate diagram. That seems like a good thing!
+
+The only drawback I can see is that "B" would be potentially be being relayed and validated twice (which is wasteful, and you might be able to convert that into a DoS attack of some sort if you can cheaply construct lots of C's and D's?).
+
+If there was some reasonable way of jumping directly from "[EBD] [A]" to "[EACB]" without the intervening step where B is evicted from the mempool, that would seem perfect. If we already have a linearisation of the stuff we're evicting (ie "[...BD]") could we just try adding those txs back in in order immediately?
+
+-------------------------
+
