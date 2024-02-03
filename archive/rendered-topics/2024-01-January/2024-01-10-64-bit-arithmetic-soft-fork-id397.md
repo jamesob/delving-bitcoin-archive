@@ -658,3 +658,13 @@ Abort-on-overflow seems kind of appealing as far as writing contracts goes: we'v
 
 -------------------------
 
+dgpv | 2024-02-03 16:04:35 UTC | #41
+
+[quote="ajtowns, post:40, topic:397"]
+if variable length, does every integer have a unique serialization, or can you have “0000” and “0” and “-0” all as different representations of 0?
+[/quote]
+
+I thought that this is not an option, since it introduces malleability that MINIMALDATA was added to eliminate
+
+-------------------------
+
