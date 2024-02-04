@@ -104,3 +104,94 @@ If we go the annex way, then the annex says "this input contributes fees within 
 
 -------------------------
 
+ZmnSCPxj | 2024-02-04 12:21:02 UTC | #2
+
+Intuitively, we can consider that the entire point of this scheme is to specify that one output pays the fees, thus we do not commit to that particular output having a particular amount. Optionally, we can impose a maximum amount that the output can pay, in case the output is (still) a shared output.  Protocols using this require a separate signature, coming from an owner of the output, which allows that owner to fix the fee paid. This also requires only one participant to be online at that time (i.e. other participants need not be online), allowing that participant to arbitrarily sign unilaterally and decide how much fees to deduct from their owned output, while still imposing that the other outputs are untouched.
+
+Just as `SIGHASH_NOINPUT` is implementable via `OP_CHECKTEMPLATEVERIFY` and `OP_CHECKSIGFROMSTACK`, we can also consider how to implement this scheme using `OP_CHECKTEMPLATEVERIFY`.
+
+For example, suppose we extend `OP_CHECKTEMPLATEVERIFY` in the following manner:
+
+* If the stack top is 32 bytes, follow BIP-119.
+* If the stack top is 33 bytes or more:
+  * Take the first byte as the `CTVHASH` type.
+  * If the first byte is:
+    * `0x00`, this is an "output pays fee" `CTVHASH` type.
+    * anything else, `OP_CHECKTEMPLATEVERIFY` acts as an `OP_NOP` (this allows for future extensions).
+
+When verifying an "output pays fee" `CTVHASH` type, we extract the following pieces of data:
+
+* An output index.
+* An optional amount to be deducted.
+* A 32-byte hash commitment.
+
+The length of the stack top determines how the data is interpreted.  The last 32 bytes is always the 32-byte hash commitment.  Then if the stack top length is:
+
+* 34 bytes: byte 1 is the output index, there is no amount to deduct.
+* 35 bytes: bytes 1-2 is the output index in little-endian, there is no amount to deduct.
+* 36 bytes: bytes 1-3 is the output index in little-endian, there is no amount to deduct.
+* 37 bytes: bytes 1-4 is the output index in little-endian, there is no amount to deduct.
+* 38 bytes: byte 1 is the output index, bytes 2 to 5 is the amount to deduct in little-endian.
+* 39 bytes: bytes 1-2 is the output index, bytes 3 to 6 is the amount to deduct in little-endian.
+* 40 bytes: bytes 1-3 is the output index, bytes 4 to 7 is the amount to deduct in little-endian.
+* 41 bytes: bytes 1-4 is the output index, bytes 5 to 8 is the amount to deduct in little-endian.
+* 42 bytes: byte 1 is the output index, bytes 2 to 9 is the amount to deduct in little-endian.
+* 43 bytes: bytes 1-2 is the output index in little-endian, bytes 3 to 10 is the amount to deduct in little-endian.
+* 44 bytes: bytes 1-3 is the output index in little-endian, bytes 4 to 11 is the amount to deduct in little-endian.
+* 45 bytes: bytes 1-4 is the output index in little-endian, bytes 5 to 12 is the amount to deduct in little-endian.
+* otherwise: fail validation
+
+> **Rationale** The above encoding does not require spending extra bytes as for `CVarSize`; instead, the push opcode that gets the above onto the stack effectively encodes how many bytes to use for the output index and (optional) amount to deduct.
+>
+> The expectation is that most transactions will be small and the output index will correspondingly be small as well. In contrast, amounts are expected to be large. Nevertheless, it is also expected that amounts involved will rarely exceed 42.94967295 BTC, thus the amount to deduct may also be encoded in 4 bytes instead of 8. The expectation is that every byte matters.
+
+In addition, the "output pays fee" `CTVHASH` type requires the following validation:
+
+* The script interpreter maintains a "heavy CTV hashes" variable that is initialized to 0 on starting script execution. On encountering an "output pays fee" `CTVHASH`, increment this variable. If the variable is now 2 or higher, fail validation.
+* The transaction must have exactly 1 input. Otherwise, fail validation.
+* `nSequence` of the sole input must be `0x00000000`.
+* If the "amount to deduct" is specified, then perform the following additional validation:
+  * Get the amount of this input, then subtract the amount to deduct.
+  * The amount of the output at the given output index must be **greater than or equal to** the above difference.
+
+> **Rationale** The above prevents quadratic hashing via this new "output pays fee" `CTVHASH` extension. As this changes the hashing of the outputs, the output hashes cannot be cached as in the original BIP-119. Instead, the above rules prevent quadratic hashing by only allowing a single heavyweight hash operation per transaction.
+>
+> We specify that the script interpreter maintains a "heavy CTV hashes" variable so that future `CTVHASH` types may also use the same variable, preventing quadratic hashing by using different heavyweight `CTVHASH` types.
+>
+> The transaction can feasibly be limited to exactly 1 input since this mechanism is intended to replace other mechanisms where fees are paid by other inputs. Instead, the fees are paid from the given single input, which serves as a shared fund, with one of the outputs being reduced in order to fund the mining fee.
+>
+> An `nSequence` of `0` forces the transaction to opt-in to RBF (which is a desired feature of this mechanism, which allows one participant to RBF freely by deducting the output it owns, which is specified in the stack argument here), and enables `nLockTime` if that is needed.
+>
+> The amount to deduct, if specified, prevents the output from being entirely used up to pay for fees. This may be used if the output is still shared among multiple participants, as in Decker-Russell-Osuntokun or intermediate outputs in CTV-trees. The amount is subtracted from the input, and the input is **not** committed to in the hash, to allow intermediate `OP_CHECKTEMPLATEVERIFY` transactions to have variable fees that can adapt to changing onchain conditions, with having the total fees of all intermediate transactions debited from a final output.
+
+The template hash is then computed by hashing the below:
+
+* All but the last 32 bytes of the stack top argument (i.e. `CTVHASH` type, the formatted output index that pays fees, plus the optional amont to deduct, in the formatted order).
+* `nVersion`
+* `nLockTime`
+* output count
+* output hash, modified as follows:
+  * For the output at the index specified in the stack top argument, set the amount as 0.
+
+> **Rationale** As this `CTVHASH` type is intended to support an "internal fees" mechanism, as noted above, it already restricts the number of inputs to just 1. There is thus no need to commit to the number of inputs or the `nSequence` (which is fixed above, as well), or the input index this is executing on.
+
+---------
+
+The uses of this new `CTVHASH` mode are congruent to the original posting up top, and the equivalence is left to the reader.
+
+We can create a CTV-tree where fees are dynamically decided at publish time, with all fees paid internally instead of externally (i.e. there is no need to own another UTXO that pays for fees) by using this mechanism. For example, suppose we want to commit to outputs A, B, C, D with particular amounts. We construct a root address that spends to 4 possible tapleaves to create a 1-input, 2-output top node:
+
+* "output pays fee" `CTVHASH` that points to `A,B` output paying up to some max fee plus fixes the `C,D`output, plus a `OP_CHECKSIG` from `A`.
+* "output pays fee" `CTVHASH` that points to `A,B` output paying up to some max  fee plus fixes the `C,D` output, plus a `OP_CHECKSIG` from `B`.
+* "output pays fee" `CTVHASH` that points to `C,D` output paying up to some max  fee plus fixes the `A,B` output, plus a `OP_CHECKSIG` from `C`.
+* "output pays fee" `CTVHASH` that points to `C,D` output paying up to some max  fee plus fixes the `A,B` output, plus a `OP_CHECKSIG` from `D`.
+
+Then, the `A,B` (corresponding `C,D`) output of the top node would have 2 possible tapleaves to create a 1-input, 2-output final node:
+
+* "output pays fee" `CTVHASH` that points to `A` output paying the fee plus fixes the `B` output, plus a `OP_CHECKSIG` from `A`.
+* "output pays fee" `CTVHASH` that points to `B` output paying the fee plus fixes the `A` output, plus a `OP_CHECKSIG` from `B`.
+
+Then, if a participants wants to publish their output, they can instantiate the path to their node, paying all fees for intermediate nodes and the final node in the CTV-tree.
+
+-------------------------
+

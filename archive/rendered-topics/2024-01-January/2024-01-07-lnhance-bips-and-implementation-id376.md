@@ -200,3 +200,9 @@ in this case the final 'distribution' of the first channel opens the second (lat
 
 -------------------------
 
+ZmnSCPxj | 2024-02-04 12:27:13 UTC | #15
+
+I have been thinking as well about mechanisms with internal fees, i.e. the funds that will be used to pay onchain fees in case of unilateral exit are inside the mechanism, instead of requiring an additional UTXO to be kept onchain to pay for unilateral exits.  This allows for reduced blockspace use by not requiring anchor outputs and a CPFP-ing transaction, at the cost of requiring funds to be reserved per mechanism for the onchain fee in case of unilateral exit. Here is an attempt to design an extension for `OP_CHECKTEMPLATEVERIFY` for this: https://delvingbitcoin.org/t/sighash-outputdeltabounds/504/2?u=zmnscpxj
+
+-------------------------
+
