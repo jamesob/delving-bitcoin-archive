@@ -12,8 +12,8 @@
   "reply_to_post_number": 42,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
+  "reads": 8,
+  "readers_count": 7,
   "score": 1.4,
   "yours": false,
   "topic_id": 397,
@@ -37,7 +37,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:42, topic:397\"]\nyou have to strip those zeroes before you can do any maths on that hash\n[/quote]\n\nif there is `FROMFIXNUM` opcode that takes the size of fixed-size integer as one argument and byte blob of that size as another argument and turns it into a variable-size integer it will be easy (and also `BYTEREV` to deal with endianness)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
