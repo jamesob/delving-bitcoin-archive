@@ -668,3 +668,21 @@ I thought that this is not an option, since it introduces malleability that MINI
 
 -------------------------
 
+ajtowns | 2024-02-04 07:30:50 UTC | #42
+
+If your goal is to allow varying size big nums so that you can do maths in the secp scalar field, you don't want to enforce minimaldata -- otherwise if you take the hash of a blockheader to generate a scalar, and naturally end up with leading zeroes, you have to strip those zeroes before you can do any maths on that hash. Stripping an arbitrary number of zeroes is then also awkward with minimaldata rules, though not impossible.
+
+(I think a minimaldata variant that only applies to values pulled directly from the witness stack, but not from program pushes or the results of operations) would be interesting)
+
+-------------------------
+
+dgpv | 2024-02-04 07:44:12 UTC | #43
+
+[quote="ajtowns, post:42, topic:397"]
+you have to strip those zeroes before you can do any maths on that hash
+[/quote]
+
+if there is `FROMFIXNUM` opcode that takes the size of fixed-size integer as one argument and byte blob of that size as another argument and turns it into a variable-size integer it will be easy (and also `BYTEREV` to deal with endianness)
+
+-------------------------
+
