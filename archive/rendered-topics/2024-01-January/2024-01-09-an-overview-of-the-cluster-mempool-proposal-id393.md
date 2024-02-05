@@ -485,7 +485,7 @@ Edit: Maybe the broader observation is, if this narrow idea for sibling eviction
 
 -------------------------
 
-instagibbs | 2024-02-02 15:36:24 UTC | #11
+instagibbs | 2024-02-05 14:59:31 UTC | #11
 
 [quote="sdaftuar, post:10, topic:393"]
 one is that we somehow require a peer sending us this transaction to do the work of calculating which transaction we should evict to make room for a new transaction
@@ -510,7 +510,7 @@ It would certainly have to be well motivated. In a future package relay world th
 edit: last thoughts for now
 
 1) something I had thought of and forgot later, but [sibling eviction is less important in a "top block" world](https://delvingbitcoin.org/t/0conf-ln-channels-and-v3-anchors/494/7#future-solution-2)
-2) We could decide that later, with "top block"-like solutions that allow relaxed topologies, sibling eviction could be an add-on measure where we do something simple like only consider all non-ancestors-and-descendants for sibling eviction simultaneously.
+2) We could decide that later, with "top block"-like solutions that allow relaxed topologies, sibling eviction could be an add-on measure where we do something simple to avoid DoS but perhaps not remove all pins
 
 -------------------------
 
@@ -533,6 +533,18 @@ Those are all fairly different states, and each one is strictly improving the fe
 The only drawback I can see is that "B" would be potentially be being relayed and validated twice (which is wasteful, and you might be able to convert that into a DoS attack of some sort if you can cheaply construct lots of C's and D's?).
 
 If there was some reasonable way of jumping directly from "[EBD] [A]" to "[EACB]" without the intervening step where B is evicted from the mempool, that would seem perfect. If we already have a linearisation of the stuff we're evicting (ie "[...BD]") could we just try adding those txs back in in order immediately?
+
+-------------------------
+
+instagibbs | 2024-02-05 15:08:32 UTC | #13
+
+[quote="ajtowns, post:12, topic:393"]
+could we just try adding those txs back in in order immediately?
+[/quote]
+
+As a post-processing kind of step, the replacing chunk would have had to pay total/incremental for evicting the things being re-added, so this seems relatively conservative.
+
+Even better is if we could cheaply compute a small subset of items(ordered by increasing CFR?) that we could remove to make the new chunk fit. This would allow the evict-er to pay less in fees, but also might stray into computationally dubious territory.
 
 -------------------------
 
