@@ -512,3 +512,15 @@ e.g., exchange doing a batched payout can sign multiple versions of withdrawals 
 
 -------------------------
 
+Chris_Stewart_5 | 2024-02-05 14:49:55 UTC | #35
+
+Hi all, 
+
+Adding to the use case pile for packages, DLCs would use packaging to guarantee [broadcast of refund transactions](https://github.com/discreetlogcontracts/dlcspecs/blob/9cd9148938c616690c79d99ec6f330e213c246c5/Transactions.md#refund-transaction).  
+
+Refund transactions are signed at contract funding time. They become valid after a negotiated `refund_locktime` in the offer message. As the fees are calculated at contract funding, when it comes time to refund the funds because the oracle didn't do their job, fees on the network could be drastically different.
+
+With packages, you can now submit a package of `(refund_tx, CPFP_refund_tx)` to get your refund tx confirmed. Either Alice or Bob could submit this package as both would have valid outputs on `refund_tx`
+
+-------------------------
+
