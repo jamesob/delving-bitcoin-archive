@@ -104,7 +104,7 @@ If we go the annex way, then the annex says "this input contributes fees within 
 
 -------------------------
 
-ZmnSCPxj | 2024-02-04 12:21:02 UTC | #2
+ZmnSCPxj | 2024-02-04 23:47:42 UTC | #2
 
 Intuitively, we can consider that the entire point of this scheme is to specify that one output pays the fees, thus we do not commit to that particular output having a particular amount. Optionally, we can impose a maximum amount that the output can pay, in case the output is (still) a shared output.  Protocols using this require a separate signature, coming from an owner of the output, which allows that owner to fix the fee paid. This also requires only one participant to be online at that time (i.e. other participants need not be online), allowing that participant to arbitrarily sign unilaterally and decide how much fees to deduct from their owned output, while still imposing that the other outputs are untouched.
 
@@ -177,7 +177,7 @@ The template hash is then computed by hashing the below:
 
 ---------
 
-The uses of this new `CTVHASH` mode are congruent to the original posting up top, and the equivalence is left to the reader.
+The uses of this new `CTVHASH` mode are, *in combination with `OP_CHECKSIGFROMSTACK`*, congruent to the original posting up top, and the equivalence is left to the reader.
 
 We can create a CTV-tree where fees are dynamically decided at publish time, with all fees paid internally instead of externally (i.e. there is no need to own another UTXO that pays for fees) by using this mechanism. For example, suppose we want to commit to outputs A, B, C, D with particular amounts. We construct a root address that spends to 4 possible tapleaves to create a 1-input, 2-output top node:
 
