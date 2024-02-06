@@ -26,3 +26,35 @@ In the absence of a relative block delay, I'm not sure vaults below 0.3 BTC shou
 
 -------------------------
 
+ajtowns | 2024-02-06 03:29:59 UTC | #2
+
+[quote="harding, post:1, topic:521"]
+Example 1: Bob has a vault that’s guarded by a watchtower than only looks for confirmed transactions (no mempool monitoring). Mallory obtains his trigger authorization key and creates a relatively low feerate transaction that steals a relatively small amount of Bob’s funds, revaulting the remaining amount. For Bob to ensure he recovers the funds, he’ll have to create a fairly large recovery transaction that pays a relatively high feerate to get confirmed in time. That may cost him more sats than the amount Mallory stole is worth, so it might be rational for him to write off the lost amount and allow Mallory to claim it.
+[/quote]
+
+I think that's trivially true if you take an extreme enough case: a miner could discover the trigger key, and create a tx spending 1 sat to themselves via the delayed CTV path, with the rest being revaulted. It wouldn't be worth trying to recover that sat, though you would likely still want the watchtower to apply the recovery operation to all the other funds that are spendable via your compromised trigger key.
+
+I don't think the recovery transaction needs to be particularly large though; it would have multiple inputs for each utxo that comprise your vault, with the witness data being:
+
+ * 65B control block (tapleaf version, ipk, one step merkle path for the trigger leaf)
+ * 34B script (`<scriptPubKeyHash> VAULT_RECOVER`)
+ * 1B output index
+
+If you added a recover authorisation key, that would be an extra 33B to the script and 65B for the additional witness item for the signature. It would also need an additional input to cover fees. Because of the ability to specify the same output index for each input, you'd only need one output, which could also include the change.
+
+So including the extra input for the funds Mallory is trying to steal would be an extra 66-91 vbytes by my count.
+
+[quote="harding, post:1, topic:521"]
+Then Mallory creates another offchain spend from the revaulted output in another zero-fee transaction that steals a relatively small additional amount of Bob’s funds. Mallory repeats this process until she has roughly a block full of small-value spends from Bob’s vault.
+[/quote]
+
+Seems like a fair attack, though more in the realm of vandalism than theft: Mallory will be losing more income by not not mining txs from the normal mempool than they'll be gaining in the dust they're stealing from Bob.
+
+[quote="harding, post:1, topic:521"]
+if the trigger authorization script included a `1 OP_CSV` delay, Mallory could only practically create one uneconomic withdrawal before Bob had a chance to sweep the rest of his funds into recovery. This would, of course, reduce the flexibility of vaults for frequent spending and make them harder to compose with scripts for contract protocols.
+[/quote]
+
+Yeah, I think this fixes that attack and is good advice. I don't think it's a big constraint on potential contracting things -- if you're scheduling multiple payments from a vault in the same block, you might as well just include them all in a single CTV, since CTV can commit to multiple outputs. Your contracting tool already needs to be able to decompose the taproot scriptPubKey to get to the CTV, going a step further and decomposing the CTV to get to just one desired output seems fine. And given there's a potential recovery step, any contracting things like that can't really rely on the payment until the CTV script path spend is confirmed anyway.
+
+-------------------------
+
