@@ -58,3 +58,9 @@ Yeah, I think this fixes that attack and is good advice. I don't think it's a bi
 
 -------------------------
 
+instagibbs | 2024-02-06 14:10:20 UTC | #3
+
+haven't thought about the problem space for a long time, but collateral might also mitigate this?
+
+-------------------------
+
