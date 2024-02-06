@@ -1,6 +1,6 @@
 # An overview of the cluster mempool proposal
 
-sdaftuar | 2024-01-10 14:18:22 UTC | #1
+sdaftuar | 2024-02-05 22:30:23 UTC | #1
 
 Last spring, @sipa and I first floated a concept for a new mempool design to a group of Bitcoin Core contributors, which I later wrote up as a github issue (https://github.com/bitcoin/bitcoin/issues/27677).  Over the course of the past year, the ideas have been refined, and I will use this post to provide an updated high level summary of the overall proposal -- including the motivations and implications -- for anyone looking to catch up on this topic.
 
@@ -73,7 +73,7 @@ graph TD;
     A'["A': 3 sat/vB, size 10000"]
 ```
 
-Here, transaction B has an ancestor feerate of 50 sat/vB, while tx B is only paying 3 sat/vB.  Yet under BIP 125 rules we would evaluate A' as a successful replacement of [A, B], because it pays a higher feerate than A (3 sat/vB vs 1 sat/vB) and pays a higher total fee than A+B (30,000 sats vs. 10,000 sats).
+Here, transaction B has an ancestor feerate of 50 sat/vB, while tx A' is only paying 3 sat/vB.  Yet under BIP 125 rules we would evaluate A' as a successful replacement of [A, B], because it pays a higher feerate than A (3 sat/vB vs 1 sat/vB) and pays a higher total fee than A+B (30,000 sats vs. 10,000 sats).
 
 Failure to accept incentive compatible replacements can also occur; consider this example, where A and B are already in the mempool, and B' is a potential replacement of B:
 
