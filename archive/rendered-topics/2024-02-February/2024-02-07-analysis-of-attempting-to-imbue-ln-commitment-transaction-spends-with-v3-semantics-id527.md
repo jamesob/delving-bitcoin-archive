@@ -1,6 +1,6 @@
 # Analysis of attempting to imbue LN commitment transaction spends with v3 semantics
 
-sdaftuar | 2024-02-07 15:43:36 UTC | #1
+sdaftuar | 2024-02-07 15:48:46 UTC | #1
 
 ## Overview
 There has been some discussion about taking the v3 policy proposal, which is an opt-in policy for transaction setting `nVersion=3`, and trying to directly apply it to transactions that appear to be LN commitment transaction spends, based on matching characteristics of such transactions.  This would allow the LN project to adopt v3 without making any explicit changes to their software.  
@@ -84,7 +84,7 @@ d08995dfd33104c153c6f57573dd5d4e66287870641404457eab0e3516b84f0a
 
 Here is a histogram I generated of all 14124 transactions (each bin is a range of 25 vbytes). Almost all transactions are small, so this is on a log scale:
 
-![histogram](https://gist.github.com/assets/7463573/778b2c2a-687f-4d44-80e9-e4f9c53ea873)
+![histogram](upload://9gnW5FbIRkwMxz5MbkZXJrhn8ad.png)
 
 
 
