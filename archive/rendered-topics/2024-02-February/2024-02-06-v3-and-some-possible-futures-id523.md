@@ -191,3 +191,11 @@ flowchart TD
 
 -------------------------
 
+glozow | 2024-02-07 17:16:12 UTC | #2
+
+I like the style of v3.1 and v4.1c, i.e. "you have restricted topology unless you're creating something that's 'top block.'" I think it's a good example of what relaxations can happen: from "you want to be in the fast lane so you can't be too complex/big because then we don't know if you're still fast" to "you want to be in the fast lane so you can only be complex/big if you're still fast".
+
+I am concerned about the (in)ability to support sibling eviction in 3.1, though. From previous discussion, it seems pretty intractable trying to support it for >2 clusters.
+
+-------------------------
+

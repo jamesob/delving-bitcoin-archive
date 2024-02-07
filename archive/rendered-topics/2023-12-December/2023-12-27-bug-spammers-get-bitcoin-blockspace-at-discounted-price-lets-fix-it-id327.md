@@ -343,3 +343,14 @@ Can I ask you to point to any (scientific) evidence, please?
 
 -------------------------
 
+GregTonoski | 2024-02-07 19:35:30 UTC | #24
+
+[quote="sipa, post:20, topic:327"]
+witness discount is an attempt at discouraging bytes that are more impactful to them through consensus rules.
+[/quote]
+
+Apparently, the "witness discount" attempt failed to discourage "bytes that are more impactful to" nodes. There is the soaring size of UTXO set shown in the chart by Jameson Lopp:
+![UTXO set size by jamson lopp|578x500](upload://sxqUNJ1z7aEVlXUGCLcZiOpPFOa.png).
+
+-------------------------
+
