@@ -94,3 +94,13 @@ Here is a histogram I generated of all 14124 transactions (each bin is a range o
 
 -------------------------
 
+t-bast | 2024-02-08 08:16:12 UTC | #2
+
+[quote="sdaftuar, post:1, topic:527"]
+The remaining 19 transactions had only 1 anchor spend; these transactions appear to have been spending an anchor output as well as the output of some other unconfirmed transaction, though I haven’t exhaustively analyzed these. Here are the txids of the 19 transactions in question:
+[/quote]
+
+This could be eclair's behavior: when spending an anchor, we currently allow using a safe unconfirmed wallet input. But we can easily change that behavior, and even without changing anything, if the transaction is rejected from our mempool, we automatically retry funding it at the next block, so we would very likely eventually fund with a confirmed input (unless none are available of course).
+
+-------------------------
+
