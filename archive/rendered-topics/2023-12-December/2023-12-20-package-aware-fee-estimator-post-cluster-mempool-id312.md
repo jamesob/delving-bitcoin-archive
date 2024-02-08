@@ -173,3 +173,18 @@ So instead tracking the entry time of the sponsor of the chunk, I could just use
 
 -------------------------
 
+sdaftuar | 2024-02-08 15:24:07 UTC | #10
+
+[quote="ismaelsadeeq, post:1, topic:312"]
+* Ignoring some data points (all transactions that have unconfirmed parents).
+* Having some incorrect data points (assuming transactions are always confirmed because of their fee rate when sometimes they are not).
+[/quote]
+
+I think it's worth noting that only the second bullet here is clearly important to fix -- if we have enough data points to the fee estimator from transactions that have no parents and no children in the mempool, then those transactions should be plenty for the fee estimator to give reasonable estimates.  It's not important that we catch every transaction and understand what feerate caused it to be mined.
+
+My understanding is that it is still the case that the vast majority of confirmed transactions are in a cluster of size 1 while in the mempool, so I'd assume that if we just figured out how to avoid tracking transactions that have in-mempool descendants, that's probably good enough for now? (Worth double-checking whether my claim is correct)
+
+However, if we think that the number of transactions appearing in a package is going to grow significantly (which is possible given all the work we're doing on making package relay/validation work!) then I'd agree we ought to have a theoretical understanding of how fee estimation should work in that world.
+
+-------------------------
+
