@@ -596,3 +596,30 @@ So A, B, C are in the mempool and D arrives.  ABC is at the cluster size limit, 
 
 -------------------------
 
+instagibbs | 2024-02-08 15:23:54 UTC | #16
+
+[quote="sdaftuar, post:15, topic:393"]
+So A, B, C are in the mempool and D arrives. ABC is at the cluster size limit, and the cluster should chunk as [AB, C]. Running your algorithm, we mark C for eviction, and then mark B for eviction – at which point we’ve freed enough space. We compare [AD] to [AB, C] and assuming I made D’s feerate high enough, it gets in. But now there is room for C to be re-added as well.
+[/quote]
+
+You're of course right, since we're not optimally pruning these effects can still happen. So you might want to have the evicting party pay for it, but then let it back in via re-submission. Or just be more optimal.
+
+[quote="sdaftuar, post:15, topic:393"]
+it would be a shame if we were held up in deploying it due to reliance that has developed on existing behavior.
+[/quote]
+
+Shower-thought level quality aside, the goal is to give wallets, who maybe don't even see the cluster limit being hit, a way to improve the mempool and get their transactions confirmed. If we find an even better way later, we should take it.
+
+[quote="sdaftuar, post:15, topic:393"]
+then I think it would make sense to motivate the logic with a use case that would need it.
+[/quote]
+
+A couple use-cases for motivation in the future, all relying on cluster sizes of [above 2](https://delvingbitcoin.org/t/v3-and-some-possible-futures/523):
+
+1) 0-conf funding transactions in LN. Funding transaction may have descendants added on, so the anchor spend(or slightly larger replacement) is unable to enter the cluster.
+2) Ark/Timeout trees. You may want log(n) nodes in the tree published with a single anchor at the end of the chain, but once enough branches are put into the mempool, you're unable to make attempts at inclusion.
+
+Adding anchors at each step "fixes" these, but significant marginal bytes to protect against scenarios no one has seen in the wild is a hard sell.
+
+-------------------------
+
