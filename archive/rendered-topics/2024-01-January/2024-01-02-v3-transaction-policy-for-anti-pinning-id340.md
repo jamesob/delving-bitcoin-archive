@@ -524,3 +524,17 @@ With packages, you can now submit a package of `(refund_tx, CPFP_refund_tx)` to 
 
 -------------------------
 
+sdaftuar | 2024-02-08 13:51:30 UTC | #36
+
+Hi all,
+
+I just wanted to update this topic with a link to some research I did on the effect of the v3 rules on transactions that my datalogging node saw on the network last year.  
+
+See https://delvingbitcoin.org/t/analysis-of-attempting-to-imbue-ln-commitment-transaction-spends-with-v3-semantics/527/1.
+
+One interesting element of the data is that very few anchor spends are large -- see the histogram at the end of the post. I think this raises the question of whether a smaller value than 1000vbytes should be chosen as the max v3 child size, which reduces the amount of additional tx size that might need to be paid for when doing an RBF of another v3 child.  
+
+Any thoughts @t-bast @MattCorallo ?  Ultimately I think the choice of that parameter is driven by the LN wallet use case (for other use cases involving v3, I think that having no children is even better, so it's just a tradeoff between utility of being able to create larger cpfp transactions and pinning costs that come from that).
+
+-------------------------
+

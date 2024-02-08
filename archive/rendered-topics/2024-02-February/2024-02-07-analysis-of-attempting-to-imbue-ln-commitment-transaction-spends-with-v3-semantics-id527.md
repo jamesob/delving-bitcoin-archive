@@ -104,3 +104,13 @@ This could be eclair's behavior: when spending an anchor, we currently allow usi
 
 -------------------------
 
+instagibbs | 2024-02-08 13:52:19 UTC | #3
+
+[quote="t-bast, post:2, topic:527"]
+and even without changing anything, if the transaction is rejected from our mempool, we automatically retry funding it at the next block, so we would very likely eventually fund with a confirmed input (unless none are available of course).
+[/quote]
+
+This is my hope, that every LN implementation will just keep trying with different input sets, and also stop trying to do batched operations if things aren't confirming.
+
+-------------------------
+

@@ -548,3 +548,51 @@ Even better is if we could cheaply compute a small subset of items(ordered by in
 
 -------------------------
 
+instagibbs | 2024-02-08 14:15:36 UTC | #14
+
+Something like this might be general enough to be useful(Uncle eviction?):
+
+If proposed chunk is too large for cluster by (remaining_size, remaining_count):
+1) add all existing chunks to minheap by CFR
+2) While heap not empty, pop chunk:
+   For each transaction in chunk(in reverse topo order):  
+   if in proposed chunks' ancestor set: skip  
+   else mark for eviction and reduce remaining_size by tx size and remaining_count by 1
+   If remaining_size <= 0 and remaining_count <= 0: break
+3) If anything was marked for eviction: Do diagram check (don't check remaining_*, maybe we split clusters accidentally?)
+   
+   
+You could also restrict the space of transactions to evict to something more "local"
+like the descendants of the proposed chunk's ancestors'(not including the ancestor set itself).
+This should allow eviction in every case still if the new chunk's fees are high enough, while acting a bit more "locally".
+
+These should allow improvements to the mempool with O(nlogn) processing, and no resubmission of transactions? Doesn't solve incremental relay pins of course.
+
+-------------------------
+
+sdaftuar | 2024-02-08 14:56:43 UTC | #15
+
+Nothing strikes me as particularly problematic with the algorithm you describe -- I think there are a bunch of bounded search algorithms we could consider which look for a subset that is strictly better than what we started with -- but I think if we accept that (a) we don't currently have a framework for deciding what an optimal subset of transactions from a too-big-cluster is, and (b) that therefore any approach that tries to find something better than what we have is going to be guesswork for now, then I think it would make sense to motivate the logic with a use case that would need it.
+
+I'd hope that with more research, at some point in the future we are able to come up with a rigorous notion of what an optimal subset of transactions from a too-big-cluster is, and at that point it would be a shame if we were held up in deploying it due to reliance that has developed on existing behavior.  (Of course, if there are use cases that would concretely benefit today from our guesswork solutions, then that would be a reason in favor of trying something like this.)
+
+EDIT: regarding this:
+
+[quote="instagibbs, post:14, topic:393"]
+These should allow improvements to the mempool with O(nlogn) processing, and no resubmission of transactions? Doesn’t solve incremental relay pins of course.
+[/quote]
+
+You could have a resubmission of transactions that works, if I understand the algorithm right. Consider this picture:
+
+
+```mermaid height=146,auto
+    flowchart
+         A["A: 10kvb, 1 sat/vb"] --> B:["B: 90 kvb, 50 sat/vb"]
+         A-->C:["C: 1kvb, 5 sat/vb"]
+         A-.->D:["D: 5kb, 1M sat/vb"]
+```
+
+So A, B, C are in the mempool and D arrives.  ABC is at the cluster size limit, and the cluster should chunk as [AB, C]. Running your algorithm, we mark C for eviction, and then mark B for eviction -- at which point we've freed enough space.  We compare [AD] to [AB, C] and assuming I made D's feerate high enough, it gets in.  But now there is room for C to be re-added as well.
+
+-------------------------
+

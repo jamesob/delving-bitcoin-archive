@@ -199,3 +199,13 @@ I am concerned about the (in)ability to support sibling eviction in 3.1, though.
 
 -------------------------
 
+instagibbs | 2024-02-08 14:18:46 UTC | #3
+
+[quote="glozow, post:2, topic:523"]
+I am concerned about the (in)ability to support sibling eviction in 3.1, though. From previous discussion, it seems pretty intractable trying to support it for >2 clusters.
+[/quote]
+
+[I don't think it's hopeless](https://delvingbitcoin.org/t/an-overview-of-the-cluster-mempool-proposal/393/14?u=instagibbs) even if we can't be optimal.
+
+-------------------------
+
