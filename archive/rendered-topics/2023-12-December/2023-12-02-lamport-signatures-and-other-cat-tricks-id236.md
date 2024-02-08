@@ -1613,3 +1613,39 @@ It would be nice to have something like P2SH/P2WSH where the script is like taps
 
 -------------------------
 
+moonsettler | 2024-02-08 16:02:00 UTC | #11
+
+CAT can be used to solve the data availability problem for LN-symmetry
+
+```text
+# S = 500000000
+# IK -> A+B
+<sig> <state-n-recovery-data> <state-n-hash> | CTV CAT IK CSFSV <S+1> CLTV
+```
+before funding sign first state template:
+```text
+# state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }
+# settlement-n-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }
+# state-n-recovery-data { settlement-n-hash or state-n-balance }
+
+# contract for state n < m
+IF
+  <sig> <state-m-recovery-data> <state-m-hash> | CTV CAT IK CSFSV <S+n+1> CLTV
+ELSE
+  <settlement-n-hash> CTV
+ENDIF
+```
+`CLTV` ensures only a larger `nLockTime` transaction can spend the current on-chain state, the relative timelock for the last co-signed state's `CTV` distribution is committed to in the `settlement-hash`
+
+to recover the script for state n in case it's not the final state, `settlement-n-hash` can be abbreviated to 7 bytes `state-n-balance` in cases where the state can be represented as a simple balance (no HTLCs)
+
+signing a concatenated string ensures critical data availability, and therefore only the latest state needs to be kept.
+
+**sidenote:**
+
+*a 'neutered' version of `OP_CAT` could be limited to producing only 80 byte long strings maximum, which allows for a number of harmless use cases like lamport signatures, 0-conf bonds and other nonce point manipulation schemes, and also for a more vbyte efficient channel closure, without enabling detailed introspection and finite state machines and other possibly undesired or highly contentious MEVil related behaviors without explicit future authorization.*
+
+*said restriction can even be temporary (up to a specific block height), and reinforced with a future soft fork if still desired, or left to expire if the concerns become moot.*
+
+-------------------------
+
