@@ -570,7 +570,7 @@ These should allow improvements to the mempool with O(nlogn) processing, and no 
 
 -------------------------
 
-sdaftuar | 2024-02-08 14:56:43 UTC | #15
+sdaftuar | 2024-02-08 15:00:36 UTC | #15
 
 Nothing strikes me as particularly problematic with the algorithm you describe -- I think there are a bunch of bounded search algorithms we could consider which look for a subset that is strictly better than what we started with -- but I think if we accept that (a) we don't currently have a framework for deciding what an optimal subset of transactions from a too-big-cluster is, and (b) that therefore any approach that tries to find something better than what we have is going to be guesswork for now, then I think it would make sense to motivate the logic with a use case that would need it.
 
@@ -589,7 +589,7 @@ You could have a resubmission of transactions that works, if I understand the al
     flowchart
          A["A: 10kvb, 1 sat/vb"] --> B:["B: 90 kvb, 50 sat/vb"]
          A-->C:["C: 1kvb, 5 sat/vb"]
-         A-.->D:["D: 5kb, 1M sat/vb"]
+         A-.->D:["D: 5kvb, 1M sat/vb"]
 ```
 
 So A, B, C are in the mempool and D arrives.  ABC is at the cluster size limit, and the cluster should chunk as [AB, C]. Running your algorithm, we mark C for eviction, and then mark B for eviction -- at which point we've freed enough space.  We compare [AD] to [AB, C] and assuming I made D's feerate high enough, it gets in.  But now there is room for C to be re-added as well.
