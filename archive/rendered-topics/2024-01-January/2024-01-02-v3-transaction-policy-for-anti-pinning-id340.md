@@ -550,3 +550,31 @@ I honestly don't know what value would make sense here, as any value will be too
 
 -------------------------
 
+morehouse | 2024-02-09 16:59:23 UTC | #38
+
+How crazy would it be to implement a variety of options for the descendant size?  For example:
+
+- v3 == 200 vB (value [suggested](https://petertodd.org/2023/v3-txs-pinning-vulnerability#restrict-v3-children-even-further) by Peter Todd)
+- v4 == 400 vB
+- v5 == 600 vB
+- ...
+- v10 == 1600 vB (max LN historical size [observed](https://delvingbitcoin.org/t/analysis-of-attempting-to-imbue-ln-commitment-transaction-spends-with-v3-semantics/527#question-2-what-are-the-reasons-that-these-transactions-are-rejected-by-the-v3-validation-rules-3) by @sdaftuar)
+
+Then each use case could decide for themselves.
+
+-------------------------
+
+instagibbs | 2024-02-09 18:28:27 UTC | #39
+
+[quote="morehouse, post:38, topic:340"]
+Then each use case could decide for themselves.
+[/quote]
+
+Primarily I think:
+
+1. It still leaves the problem of deciding how many utxos your future self may need for fees for presigned contracts, though it does let you possibly scale this value along with sats-at-risk for the smart contract in question.
+2. More bits used, more fingerprinting
+3. We'll likely learn(even more!) from working on and deploying V3 that we might want to apply forward. We might require expanded topologies which may make interaction between many bits weird. We might to upgrade V3 directly. We might decide we want a new bit to mean a policy for securing `SIGHASH_SINGLE|ACP` like constructs instead to cover more cases.
+
+-------------------------
+
