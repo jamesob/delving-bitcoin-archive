@@ -1664,3 +1664,26 @@ What is the data availability problem for LN-symmetry?  (Sorry if it's something
 
 -------------------------
 
+moonsettler | 2024-02-09 11:24:28 UTC | #13
+
+no, perfectly fair question! my bad for not explaining.
+
+so the issue is, when the channel coins are moved by your peer to a new address, and that is not the final state that you recognize, you need to have all the non-deterministic pieces of the script to reconstruct it and be able to spend with the latest state you kept.
+
+a lot can be reconstructed from the nLockTime to which CTV commits to so it's not alterable. that gives you precisely which state are you looking at. but the final settlement hash depends on the balance between the peers and the HTLCs if there are any.
+
+so you can boil it down, to having to know the time locked settlement CTV template hash.
+
+one goal of LN-symmetry is to have leaner channel state and better backup and recovery assumptions. therefore the critical data for recovery needs to be retrievable from the transaction that spends to an intermediate state.
+
+OP_RETURN output can be used for this, but that is 4x more expensive than SegWit space.
+
+**other possible options are:**
+
+- CTV committing to the taproot annex, and annex being enabled in relay policy (APO approach)
+- VECTORCOMMIT opcode, hash(hash(m1)|hash(m2)|...|hash(m16)), where hash is taggedSha256 purposfully made to be incompatible with SIGHASHING to avoid 'sneaky CAT'
+- nCSFS/V where you can optionally commit to multiple messages (integrated VECTORCOMMIT into CSFS/V)
+...
+
+-------------------------
+

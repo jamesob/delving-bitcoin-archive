@@ -8,13 +8,13 @@
   "post_number": 12,
   "post_type": 1,
   "updated_at": "2024-02-09T03:13:23.990Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 11,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 7.0,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -49,8 +49,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
