@@ -1654,3 +1654,13 @@ as @JeremyRubin pointed out, the naive implementation is malleable and insecure,
 
 -------------------------
 
+harding | 2024-02-09 03:13:23 UTC | #12
+
+[quote="moonsettler, post:11, topic:236"]
+CAT can be used to solve the data availability problem for LN-symmetry
+[/quote]
+
+What is the data availability problem for LN-symmetry?  (Sorry if it's something obvious and I'm just blanking on it.)
+
+-------------------------
+
