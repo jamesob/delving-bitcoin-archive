@@ -12,8 +12,8 @@
   "reply_to_post_number": 20,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 9,
-  "readers_count": 8,
+  "reads": 10,
+  "readers_count": 9,
   "score": 1.6,
   "yours": false,
   "topic_id": 327,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:20, topic:327\"]\nwitness discount is an attempt at discouraging bytes that are more impactful to them through consensus rules.\n[/quote]\n\nApparently, the \"witness discount\" attempt failed to discourage \"bytes that are more impactful to\" nodes. There is the soaring size of UTXO set shown in the chart by Jameson Lopp:\n![UTXO set size by jamson lopp|578x500](upload://sxqUNJ1z7aEVlXUGCLcZiOpPFOa.png).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

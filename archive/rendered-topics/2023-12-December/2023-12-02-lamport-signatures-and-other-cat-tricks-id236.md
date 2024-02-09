@@ -1613,14 +1613,14 @@ It would be nice to have something like P2SH/P2WSH where the script is like taps
 
 -------------------------
 
-moonsettler | 2024-02-08 16:02:00 UTC | #11
+moonsettler | 2024-02-08 22:19:48 UTC | #11
 
 CAT can be used to solve the data availability problem for LN-symmetry
 
 ```text
 # S = 500000000
 # IK -> A+B
-<sig> <state-n-recovery-data> <state-n-hash> | CTV CAT IK CSFSV <S+1> CLTV
+<sig> <state-n-recovery-data> <state-n-hash> | CTV SHA256 CAT IK CSFSV <S+1> CLTV
 ```
 before funding sign first state template:
 ```text
@@ -1630,7 +1630,7 @@ before funding sign first state template:
 
 # contract for state n < m
 IF
-  <sig> <state-m-recovery-data> <state-m-hash> | CTV CAT IK CSFSV <S+n+1> CLTV
+  <sig> <state-m-recovery-data> <state-m-hash> | CTV SHA256 CAT IK CSFSV <S+n+1> CLTV
 ELSE
   <settlement-n-hash> CTV
 ENDIF
@@ -1640,6 +1640,11 @@ ENDIF
 to recover the script for state n in case it's not the final state, `settlement-n-hash` can be abbreviated to 7 bytes `state-n-balance` in cases where the state can be represented as a simple balance (no HTLCs)
 
 signing a concatenated string ensures critical data availability, and therefore only the latest state needs to be kept.
+
+**edit:**
+as @JeremyRubin pointed out, the naive implementation is malleable and insecure, because the CTV operation is only defined for 32 byte parameters. by adding an extra SHA256 over the CTV template hash, and then concatenating it for signature check we make the template and the composite message immutable. (alternatively we could use several opcodes for a precise size check)
+
+`message = state-m-recovery-data|hash(state-m-hash)`
 
 **sidenote:**
 
