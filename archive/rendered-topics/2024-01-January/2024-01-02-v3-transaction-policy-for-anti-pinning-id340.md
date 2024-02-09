@@ -538,3 +538,15 @@ Any thoughts @t-bast @MattCorallo ?  Ultimately I think the choice of that param
 
 -------------------------
 
+t-bast | 2024-02-09 09:59:39 UTC | #37
+
+It's very tempting to reduce the 1000 vbytes value, but past data only shows honest attempts (with very few pending HTLCs) as we haven't seen any widespread attacks on the network yet, so it's hard to figure out what value would be "better".
+
+The issue is that commitment transaction may be very large when filled with pending HTLCs. I believe that lnd for example allows up to 483 HTLCs in each direction in the commitment. When filled with 2 * 483 HTLCs, it already costs a bit more than 800 000 sats in fees to reach 20 sat/byte! I would expect such a fee bump to require multiple wallet inputs (even though we have no idea what the utxo set of node operators looks like).
+
+It probably doesn't make sense to pay that much fees though: node operators who don't have a large utxo set should limit the maximum value of pending HTLCs and the maximum number of pending HTLCs to something that matches the on-chain fees they're ready to pay. But we've seen that default values are sticky, so people may be at risk if we don't allow some leeway here.
+
+I honestly don't know what value would make sense here, as any value will be too risky for some, and too safe for others.
+
+-------------------------
+
