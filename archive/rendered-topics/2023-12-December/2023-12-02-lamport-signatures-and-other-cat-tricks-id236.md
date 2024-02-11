@@ -1687,3 +1687,17 @@ OP_RETURN output can be used for this, but that is 4x more expensive than SegWit
 
 -------------------------
 
+harding | 2024-02-11 19:03:26 UTC | #14
+
+Sorry, I'm still confused.
+
+[quote="moonsettler, post:13, topic:236"]
+when the channel coins are moved by your peer to a new address, and that is not the final state that you recognize, you need to have all the non-deterministic pieces of the script to reconstruct it and be able to spend with the latest state you kept.
+[/quote]
+
+Is this about your peer having a later state than you have, so you need to be able to put the settlement transaction onchain in order to be able to spend your outputs?  Or is it about you having a later state than your peer has published, so you need to be able to spend their onchain state to your state (i.e., rebinding your state to the state they published)?
+
+For settlement tranactions where you've lost state, don't we just assume that the remote peer will put the transaction onchain and that you'll be able to identify your outputs?  For rebinding, isn't that what APO provides?
+
+-------------------------
+
