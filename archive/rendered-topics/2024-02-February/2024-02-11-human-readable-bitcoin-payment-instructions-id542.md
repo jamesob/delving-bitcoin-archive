@@ -14,3 +14,9 @@ Did you consider an approach like having `matt@mattcorallo.com` first resolve `_
 
 -------------------------
 
+MattCorallo | 2024-02-11 05:54:25 UTC | #3
+
+The BIP doesn't specify that, but that's supported for the LN usecase! Because the various parts of the overall flow are relevant to different groups the total spec is somewhat confusingly split across three places, but most of the lightning-specific stuff is at https://github.com/lightning/blips/pull/32 and indeed includes a flow like that (but we make the payer only do a single DNS lookup by requiring such deployments use a wildcard to return the "ask node X for the offer" result).
+
+-------------------------
+
