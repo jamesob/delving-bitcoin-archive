@@ -1701,3 +1701,19 @@ For settlement tranactions where you've lost state, don't we just assume that th
 
 -------------------------
 
+moonsettler | 2024-02-11 22:04:22 UTC | #15
+
+[quote="harding, post:14, topic:236"]
+is it about you having a later state than your peer has published, so you need to be able to spend their onchain state to your state (i.e., rebinding your state to the state they published)?
+[/quote]
+
+yes. it's about spending an earlier state to the latest you know. presumably you have the settlement transaction details for that.
+
+-------------------------
+
+cguida | 2024-02-11 22:49:38 UTC | #16
+
+@harding See the part of the draft spec [here](https://github.com/instagibbs/bolts/blob/a17b60f42077a785c625430e8f6e8e2828d4d898/XX-eltoo-transactions.md#rationale-1) where instagibbs uses the annex to store the tapleaf for the previous settlement transaction, inside the witness for the invalidated update transaction. Without the tapleaf for the old settlement transaction, there's no way to spend the old update transaction into the new update transaction, without storing every old settlement transaction's output amounts and htlcs (or, tapleaves) in the database, which Symmetry tries to avoid.
+
+-------------------------
+

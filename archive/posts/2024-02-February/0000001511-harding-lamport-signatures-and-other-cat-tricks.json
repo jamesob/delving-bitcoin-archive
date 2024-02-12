@@ -8,13 +8,13 @@
   "post_number": 14,
   "post_type": 1,
   "updated_at": "2024-02-11T19:03:26.496Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": 13,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.4,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 26.4,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Sorry, I'm still confused.\n\n[quote=\"moonsettler, post:13, topic:236\"]\nwhen the channel coins are moved by your peer to a new address, and that is not the final state that you recognize, you need to have all the non-deterministic pieces of the script to reconstruct it and be able to spend with the latest state you kept.\n[/quote]\n\nIs this about your peer having a later state than you have, so you need to be able to put the settlement transaction onchain in order to be able to spend your outputs?  Or is it about you having a later state than your peer has published, so you need to be able to spend their onchain state to your state (i.e., rebinding your state to the state they published)?\n\nFor settlement tranactions where you've lost state, don't we just assume that the remote peer will put the transaction onchain and that you'll be able to identify your outputs?  For rebinding, isn't that what APO provides?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
