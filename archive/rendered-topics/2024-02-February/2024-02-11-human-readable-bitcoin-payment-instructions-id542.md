@@ -24,3 +24,11 @@ The current bLIP spec there may change in that currently it adds two round trips
 
 -------------------------
 
+t-bast | 2024-02-12 10:12:40 UTC | #4
+
+That was exactly one of the flows I proposed in https://gist.github.com/t-bast/78fd797a7da570d293a8663908d3339b#option-1-use-dns-records-to-link-domains-to-nodes
+
+I think it is useful and simple indeed, especially for lightning providers who want minimal DNS operational burden.
+
+-------------------------
+
