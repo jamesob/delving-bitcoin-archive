@@ -686,3 +686,15 @@ if there is `FROMFIXNUM` opcode that takes the size of fixed-size integer as one
 
 -------------------------
 
+Chris_Stewart_5 | 2024-02-12 15:02:02 UTC | #44
+
+If anyone is interested to see how this set of proposals could be used by other op codes please see my new post about `OP_INOUT_AMOUNT`
+
+https://delvingbitcoin.org/t/op-inout-amount/549
+
+Here is a direct link to a few test scripts in the python test framework
+
+https://github.com/Christewart/bitcoin/commit/c617c5c3b0d21499b196184b5279b45627060cb5#diff-2e2556d1d2e3a75b547bbb86bd68567f275ba6d17b9bf4541facef9f2b1cfb30R124
+
+-------------------------
+
