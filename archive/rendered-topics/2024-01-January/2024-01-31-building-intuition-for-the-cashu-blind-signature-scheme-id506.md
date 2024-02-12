@@ -138,3 +138,21 @@ Because this token is valid and has good privacy propeties, it might be accepted
 
 -------------------------
 
+moonsettler | 2024-02-12 16:47:19 UTC | #2
+
+[quote="thunderbiscuit, post:1, topic:506"]
+Because this token is valid and has good privacy propeties, it might be accepted as payment by others. Alice can pay Bob with the token `(C, message)` and Bob can redeem the token with Mike, who has no idea an exchange was made between the two.
+[/quote]
+
+in the basic scheme there is no way to verify the signature is correct by anyone but the mint. there is also no one else that can tell if it's a double spend.
+
+since the mint is the only one that can tell if a signature is his or that it's not a double spend, this also means he has the ability to commit fraud and claim that a token has already been spent and was known to him.
+
+fraud proofs are possible to be carried out in front of an arbitration body or the public, in a challenge response manner, that requires a different multi-step sequence of issuance and redemption.
+
+the DLEQ proof given by the cashu mint (to avoid any potential secret tagging, ie the mint using different keys for each token) can be used to prove the mint's private key was used to create the token, which is a valid token, BUT to prove that you have to reveal your blinding factor undoing the unlikability of issuance and redemption.
+
+it is theoretically possible to transfer ecash tokens offline between parties or similarly to how the hawala network works, that requires the secret to be a hash of additional spend conditions enforced by the mint. therefore implementing pubkey spend, time locked redeem 'scripts'. this ofc hurts fungibility pretty bad.
+
+-------------------------
+
