@@ -24,11 +24,15 @@ The current bLIP spec there may change in that currently it adds two round trips
 
 -------------------------
 
-t-bast | 2024-02-12 10:12:40 UTC | #4
+t-bast | 2024-02-12 12:41:49 UTC | #4
 
 That was exactly one of the flows I proposed in https://gist.github.com/t-bast/78fd797a7da570d293a8663908d3339b#option-1-use-dns-records-to-link-domains-to-nodes
 
 I think it is useful and simple indeed, especially for lightning providers who want minimal DNS operational burden.
+
+EDIT: this is covered in the bLIP that Matt created: https://github.com/lightning/blips/pull/32
+
+This is the `omlookup` path: a domain that has many users would create a single DNS record `*.user._bitcoin-payment.domain.` containing a blinded path to themselves (which may actually be a 0-hop blinded path directly exposing their `node_id`). Clients then use that blinded path to request an offer for a specific user via an onion message.
 
 -------------------------
 
