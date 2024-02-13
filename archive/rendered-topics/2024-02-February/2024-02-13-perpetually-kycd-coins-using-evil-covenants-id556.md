@@ -154,3 +154,13 @@ If those assumptions are correct, I think I prefer covenant KYC pools than multi
 
 -------------------------
 
+recent798 | 2024-02-13 20:35:41 UTC | #9
+
+[quote="RobinLinus, post:7, topic:556"]
+If you create a new financial institution it’s not an issue to wait for two weeks to get registered
+[/quote]
+
+Why would financial institutions be required to use covenants (or multisig) on-chain? This seems easier to achieve by having them do the checks in their backed server code that creates transactions. The government could release the (signed) backend server code every two weeks, without having to go through the hassle of implementing it as a convenant (or even multisig).
+
+-------------------------
+
