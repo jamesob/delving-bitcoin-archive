@@ -144,3 +144,13 @@ Also note that in this model the government can add new addresses instantly if t
 
 -------------------------
 
+juangalt | 2024-02-13 20:15:48 UTC | #8
+
+Seems like such a covenant simply makes a KYC'd coins more efficient for such a government institution, but this evil construct is already possible anyway with standard enterprise Bitcoin software, hardware and best practices. 
+
+On the other hand, can the terms of this covenant be publicly verifiable by the public? If so, such a covenant would be restrained by it's own structure and rules. In other words, changes to it's terms would be public when implemented, where as the terms and rules of a multisig KYC'd coin pool are entirely arbitrary to the key holders. 
+
+If those assumptions are correct, I think I prefer covenant KYC pools than multisig ones.
+
+-------------------------
+
