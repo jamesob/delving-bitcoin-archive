@@ -1,6 +1,6 @@
 # Mempool Incentive Compatibility
 
-sdaftuar | 2024-02-13 11:07:01 UTC | #1
+sdaftuar | 2024-02-13 19:19:39 UTC | #1
 
 In this post, I'll attempt to summarize my current understanding of how to think about incentive compatibility, which has evolved over the past year while working on the cluster mempool project[^0].
 
@@ -146,6 +146,23 @@ flowchart TD
 Imagine that C would be a replacement of some other mempool transaction, and we want to know what C's mining score is. C's own feerate is 100 sats/vbyte; its ancestor feerate is clearly much higher, but its actual feerate when mined will be very low, because tx B would get mined by itself.
 
 It seems instead that any RBF policy would need to take the actual topology into account, which is something that statistics like the ancestor feerate gloss over.
+
+#### Using actual mining scores for an RBF heuristic
+
+In my initial cluster mempool proposal, I suggested that if we are given a total ordering on the mempool, in which we know the feerate at which every transaction would be mined ("mining score"), then we ought to be able to come up with a [simple RBF rule](https://github.com/bitcoin/bitcoin/issues/27677#RBF), which would just be to check that the mining score of a new transaction should exceed the mining scores of any transaction that would be evicted and that the total fee of the new transaction should also be greater than the total fee of what is evicted.
+
+However, it turns out that this simple rule is insufficient to guarantee that the mempool is clearly better for a miner after a replacement.  Consider this example, where all transactions are 100 vbytes, and a new transaction C' arrives which would conflict with C:
+
+```mermaid height=146,auto
+graph TD;
+    A[Tx A: 1]-->B[Tx B: 3.5];
+    A-->C[Tx C: 5];
+    D[Tx D: 1]-.->C'[Tx C': 6];
+```
+
+The mining score of C' is 3.5, which is better than the mining score of C (~3.2).  And C' pays more fee than C.  However, a miner working on the original transaction set {A, B, C, D} can collect 9.5 in fees in 300 vbytes by selecting transactions [ABC], while a miner working on the new transaction set {A, B, C', D} can only collect at most 8 in fees in 300 vbytes (by selecting [DC'A].
+
+I was pretty surprised by this result -- the original transaction set is better than expected when compared to the conflicting set, for topological reasons that are somehow missed when looking just at the mining scores of the specific transactions being added and removed.
 
 ### Using feerate diagrams as an RBF policy tool
 

@@ -36,3 +36,12 @@ That means that for lightning, we should only drop the `prevtx` field if:
 
 -------------------------
 
+instagibbs | 2024-02-13 16:04:47 UTC | #2
+
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-April/017801.html
+https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-August/014843.html
+
+two related emails on the subject for historical background
+
+-------------------------
+

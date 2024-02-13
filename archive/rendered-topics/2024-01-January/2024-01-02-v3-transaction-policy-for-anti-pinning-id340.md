@@ -578,3 +578,27 @@ Primarily I think:
 
 -------------------------
 
+sdaftuar | 2024-02-13 16:12:15 UTC | #40
+
+[quote="t-bast, post:37, topic:340"]
+The issue is that commitment transaction may be very large when filled with pending HTLCs. I believe that lnd for example allows up to 483 HTLCs in each direction in the commitment. When filled with 2 * 483 HTLCs, it already costs a bit more than 800 000 sats in fees to reach 20 sat/byte! I would expect such a fee bump to require multiple wallet inputs (even though we have no idea what the utxo set of node operators looks like).
+[/quote]
+
+If the concern is really that you might have a very large commitment transaction (say 30k-40k vbytes) that may require a lot of UTXOs in order to CPFP, then it would seem that the downside from having to first consolidate your UTXOs down to 1 in a separate transaction, get that confirmed, and then use that to CPFP is not so large, in percentage terms?
+
+The additional number of vbytes consumed to consolidate first would be something like 110 vbytes, if I'm calculating right (1 extra transaction's overhead, plus one extra output created and one extra input spent).
+
+Not ideal for a long run solution, but in thinking about tradeoffs, maybe minimizing pinning potential by going with a smaller child size is more valuable?
+
+-------------------------
+
+t-bast | 2024-02-13 16:34:15 UTC | #41
+
+[quote="sdaftuar, post:40, topic:340"]
+then it would seem that the downside from having to first consolidate your UTXOs down to 1 in a separate transaction, get that confirmed, and then use that to CPFP is not so large, in percentage terms?
+[/quote]
+
+I agree, this is somewhat simple logic that can be easily implemented to handle those rare cases. We must make sure we don't forget to implement this though!
+
+-------------------------
+
