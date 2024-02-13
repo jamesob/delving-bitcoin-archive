@@ -1,6 +1,6 @@
 # Mempool Incentive Compatibility
 
-sdaftuar | 2024-02-13 02:13:31 UTC | #1
+sdaftuar | 2024-02-13 11:07:01 UTC | #1
 
 In this post, I'll attempt to summarize my current understanding of how to think about incentive compatibility, which has evolved over the past year while working on the cluster mempool project[^0].
 
@@ -241,7 +241,7 @@ Understanding those scenarios may also be helpful to us as we try to design ince
 [^5]: Note that the other BIP 125 rules (eg against not introducing new unconfirmed parents, or the maximum number of conflicts allowed) don't help the situation at all.  The examples in this section wouldn't have triggered violations of those rules either.
 [^26451]: I started to propose an approach like this [here](https://github.com/bitcoin/bitcoin/pull/26451), before realizing it was pretty broken (and not just because it would making RBF pinning far worse than it is today!).
 [^merging]: In fact, Pieter came up with a polynomial-time [merging algorithm](https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202#merging-linearizations-5) that can take two incomparable linearizations as input, and produce a linearization that is strictly better than either.
-[^worse]: I imagine there are ways to make network usage go up by more than what I just described here -- this is not a very sophisticated scenario! I can think of one modification to raise the effect from being a 1000x decreaes to 50,000x decrease, but the details are boring and possibly there are more clever scenarios that exist anyway.
+[^worse]: I imagine there are ways to make network usage go up by more than what I just described here -- this is not a very sophisticated scenario! I can think of one modification to raise the effect from being a 1000x decrease to 50,000x decrease, but the details are boring and possibly there are more clever scenarios that exist anyway.
 [^centralization]: An interesting side note to this example is that while offering a feerate-only RBF policy may be in the best interests of a user and a small miner, because large miners benefit from maximizing total fees, it seems plausible that that users attempting to do feerate-only RBF might create incentives for miners to form coalitions and cooperate to prevent this from happening, since they all benefit when total fees are maximized. I have no idea if the game theory would actually play out this way, however; perhaps this is a question worthy of further study.
 
 -------------------------

@@ -52,3 +52,17 @@ I’m also aware that paying « large amounts » on lightning today can also be 
 
 -------------------------
 
+t-bast | 2024-02-13 12:49:23 UTC | #2
+
+We've thought about this a few times, and even prototyped integration between Phoenix and Ledger for the on-chain operations (funding and splicing). But this is different from what you want to achieve because we still let the channel keys be hot, instead of letting the Ledger device manage them.
+
+There is a lot of complexity with the approach you want to take. The first one is that the wallet won't be able to run in the background while the user isn't monitoring their phone. That's an important drawback, because most payments are received while the app is not open and is instead woken up on-the-fly by the LSP (and runs in the background).
+
+The second one is that you will still need the hardware device to be stateful and implement non-trivial policies, similar to what VLS does, because once the user authorizes a payment, there are a lot of different signing operations that may happen for that payment to complete, and you want the hardware device to make sure that a malicious app isn't trying to exfiltrate funds through those updates.
+
+There are also a lot of "background" operations happening all the time that require signatures (on-the-fly splicing, commitment fee updates, etc). You'll need to implement a lot of the lightning channel state machine logic *inside* the hardware device to properly analyze and authorize those without user input. You may end up re-writing a whole lightning implementation inside the hardware wallet, which is a tedious and complex task.
+
+I'm not trying to scare you, it can still be worthwhile to spend time prototyping that approach, but you shouldn't underestimate how big of a rabbit hole this will be :slight_smile:
+
+-------------------------
+
