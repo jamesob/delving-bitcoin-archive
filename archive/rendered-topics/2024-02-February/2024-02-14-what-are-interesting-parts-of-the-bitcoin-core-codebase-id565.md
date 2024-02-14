@@ -26,3 +26,31 @@ Moreover, privacy and DoS resistance in general are areas with open research que
 
 -------------------------
 
+jb55 | 2024-02-14 18:48:28 UTC | #4
+
+I like the EvalScript code in script/interpreter.cpp, it's a simple stack based language that you can build your own interpreter for to learn how it works. Fun exercise!
+
+-------------------------
+
+rodarmor | 2024-02-14 19:39:38 UTC | #5
+
+[quote="1440000bytes, post:2, topic:565"]
+P2P is the most interesting part of bitcoin core
+[/quote]
+
+What's your favorite file or function?
+
+[quote="jb55, post:4, topic:565, full:true"]
+I like the EvalScript code in script/interpreter.cpp, it’s a simple stack based language that you can build your own interpreter for to learn how it works. Fun exercise!
+[/quote]
+
+Nice, great suggestion!
+
+[quote="recent798, post:3, topic:565"]
+Mempool design is an interesting theoretical problem. For instance, [Mempool Incentive Compatibility](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553#summary-18)
+[/quote]
+
+That's a great discussion! I'll definitely link him there. Anything in the existing codebase, like a file or function, which is particularly interesting?
+
+-------------------------
+
