@@ -18,3 +18,11 @@ P2P is the most interesting part of bitcoin core
 
 -------------------------
 
+recent798 | 2024-02-14 11:17:16 UTC | #3
+
+Mempool design is an interesting theoretical problem. For instance, https://delvingbitcoin.org/t/mempool-incentive-compatibility/553#summary-18
+
+Moreover, privacy and DoS resistance in general are areas with open research questions. For instance, https://bitcoincore.academy/p2p-attacks.html
+
+-------------------------
+

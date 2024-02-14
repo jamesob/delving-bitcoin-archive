@@ -92,3 +92,35 @@ Thank you for the kind warning. Coming from you, it's a confirmation to be humbl
 
 -------------------------
 
+t-bast | 2024-02-14 14:57:01 UTC | #4
+
+[quote="pgrange, post:3, topic:555"]
+don’t worry, I’m scared just the appropriate amount
+[/quote]
+
+:sweat_smile: 
+
+[quote="pgrange, post:3, topic:555"]
+For the payment technical process, I’m not sure how different this would be from the situation where the user’s phone is off when they receive a payment. How does the LSP deal with off phone now? Can we get inspiration from that to handle this hardware device complications?
+[/quote]
+
+What currently happens is that the LSP tries to wake the user's device, and after a timeout (usually 30 seconds or 1 minute), gives up and fails the HTLC. In your case, you will want to hold the HTLC for much longer than that otherwise it will always fail. The issue with holding HTLCs longer is that it keeps the HTLC pending across the whole route, for all nodes in the payment path, which is bad. You'll also be limited by the HTLC expiry delta anyway, which is usually between 24 and 144 blocks.
+
+You may however in the future rely on asynchronous payments, which should help solves this kind of flow, and would be compatible with your use-case: https://lists.linuxfoundation.org/pipermail/lightning-dev/2021-October/003307.html
+
+[quote="pgrange, post:3, topic:555"]
+Also, I have the idea that the user is already often involved today when receiving a Lightning payment.
+[/quote]
+
+It's true that in a lot of cases, the payer and the recipient are active at the same time to share an invoice and pay it immediately: in those cases, it would work fine.
+
+[quote="pgrange, post:3, topic:555"]
+Will it be really more secure if the user validates transactions on their hardware device that just look gibberish? Will the user have to spend their time validating meaningless transactions on their device for any protocol update?
+[/quote]
+
+You will need the ledger app to "translate" what is being signed into something that is understandable by the user. However, the issue is that what is being signed is a commitment transaction and htlc transactions, so the ledger app needs to parse that, compare it to the previous commitment, and tell the user something like "this new state is sending X sats for payment_hash=H1 and receiving Y sats for payment_hash=H2". This isn't rocket science, but there are a few cases to handle!
+
+You will also need the user to come online whenever a force-close happens, they will need to authorize all the transactions that are created. It can be complex to translate what's happening at that level to something that the user can understand...
+
+-------------------------
+
