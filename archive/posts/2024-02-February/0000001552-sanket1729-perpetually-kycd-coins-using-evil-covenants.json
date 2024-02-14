@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 31.4,
   "yours": false,
   "topic_id": 556,
   "topic_slug": "perpetually-kycd-coins-using-evil-covenants",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Before delving further into this topic, I'd like to address the concern about the potential risks associated with evil covenants. Here are a few points to consider:\n\n1. Evil covenant functionality already exists in altcoins with significant market capitalization. Despite this, we haven't observed any notable issues arising from such features in these coins.\n2. The capability for evil covenants exists within current Bitcoin scripting. Therefore, implementing them doesn't introduce new risks per se. Concerns regarding high interactivity requirements can be mitigated by incentivizing compliance with the covenants. For instance, implementing a one-time transition into a script controlled by an internal key held by the government, coupled with a script path featuring a CSV of `n` blocks. Users than must send to addresses that recursively enforce this covenant or risk losing funds. In case of policy violations, the government can freeze the funds associated with the address.\n\nNow, returning to the topic at hand, I think we can improve it:\n\nGiven the government's ability to freeze addresses, a simpler approach might involve incorporating a designated freeze internal key. This approach would separate the freezing policy from the Bitcoin script. Utilizing `CAT` and `CSFS`), it's possible (albeit challenging) to restrict the merkle root in such a way that all outputs spending from the covenant input require the same freeze key for spending. \n\nHere's how this could work:\n\n* Each coin would have a freeze key that directs funds to a predetermined government-controlled address, enforced through a recursive covenant by leveraging `CAT` and `CSFS`.\n* The government can maintain and update a list of permitted addresses dynamically as needed.\n* Before transacting users check if the transaction satisfies the requirement and goes on with the transaction.\n\nOne approach to implementing this involves restricting the internal key to function as the freeze key. Alternatively, in the context of SegWit scripting, it might be simpler to ensure that every script begins with an `IF <freeze_key> CHECKSIG ELSE <unchecked input provided by user>` structure. I've successfully employed a similar approach utilizing `CAT` and `CSFS` for a different script, which I can delve into in a subsequent post if there's interest.\n\nOn a practical note, it's important to acknowledge that the applications of `CAT` often encounter limitations, particularly with the 520-byte constraint. While workarounds like `CODESEPARATOR` exist, they can become cumbersome over time.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

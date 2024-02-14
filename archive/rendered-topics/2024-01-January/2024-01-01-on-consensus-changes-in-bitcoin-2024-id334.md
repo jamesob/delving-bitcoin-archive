@@ -288,53 +288,28 @@ I, for one, am not worried about the risks of minority soft forks. Bitcoin is a 
 
 -------------------------
 
-michaelfolkson | 2024-01-19 20:07:13 UTC | #18
+ariard | 2024-02-14 02:56:12 UTC | #23
 
-[quote="reardencode, post:16, topic:334"]
-These are acceptable risks and not something that some defenders of bitcoin need to guard the network against.
-[/quote]
+> First, I think we must accept that right now we do not have the ability to reach consensus. We lack Trusted Leaders and we lack Chairs. Without these we are afloat in our various pods of bias, preconception, personal history, etc. Not only can we not reach consensus, we don’t even have the ability to bring the various factions of bitcoin developer mindshare together to find out if there are technical objections to any particular change. Consensus changing code is rarely proposed, rarely reviewed, etc.
 
-If you truly think this I'm just staggered by your stupidity. (I'm trying, really trying... to stay respectful) If the community just repeatedly waves through changes to the consensus rules without ensuring they are acceptable and not bothering to resist changes that are suboptimal, useless and/or harmful then it is just a matter of time before Bitcoin is co-opted by the many people who would like to destroy it. I think gmax said something to the effect of Bitcoin being nothing without community vigilance. If nobody can convince you of that I just hope for Bitcoin's sake that you are never successful in changing the consensus rules because it will be the beginning of the end for Bitcoin.
+On one hand Trusted Leaders and Chairs can certainly be helpful processing consensus changes. 
+On the other hand, with time they become single-point-of-coercion, cf. future risks like https://www.greenpeace.org/usa/greenpeace-bitcoin-climate-change-crisis-clean-up/
+On this “coercion” risk concern, I think Jeremy Rubin had some interesting thoughts in the past.
 
--------------------------
+Getting “chaired” consensus change was my attempt with the Bitcoin Contracting Primitives WG:
+https://github.com/ariard/bitcoin-contracting-primitives-wg
+If someone wants to keep it further, I don’t have time to maintain it anymore.
+(I must say it was maybe a bit too much ambitious in scope).
 
-michaelfolkson | 2024-01-19 20:32:01 UTC | #19
+> Technical consensus has also been found on many bad ideas, or ideas that were not compelling. Mainly that happens by an idea simply not gaining traction. Examples from Optech newsletters since taproot activation: two-digest BOLT11 invoices (#256), relay of annexes before a defined need (#255), LN QoS bit (#239), global LN reputation tokens (#228), (at least some versions of) LN > capacity-dependent feerates (#219), perpetual subsidy (#209), and fee accounts (#182).
 
-The sad thing is this kind of shortsightedness and idiocy drives people into becoming supporters of premature ossification and you see it just by reading this thread. An ossified Bitcoin is so much better than a Bitcoin which waves through consensus changes without caring about what they contain. A Bitcoin which makes occasional consensus changes when absolutely necessary and with community consensus would be better than an ossified Bitcoin but if that is impossible to obtain an ossified Bitcoin is better than the alternative of an eventually crippled Bitcoin.
+You have weak and strong technical consensus. Let’s all remember OP_EVAL: https://github.com/bitcoin/bitcoin/issues/729
 
--------------------------
+For now, I think it’s good to let the organic evolution of consensus changes moving out of Core / BIPs.
+Things we’re seeing with bitcoin-inquisition / bananas.
 
-reardencode | 2024-01-19 20:40:21 UTC | #20
-
-[quote="michaelfolkson, post:18, topic:334"]
-If you truly think this I’m just staggered by your stupidity. (I’m trying, really trying… to stay respectful)
-[/quote]
-
-Wow man, you seem really stressed about this. I'm sorry to see that.
-
--------------------------
-
-michaelfolkson | 2024-01-19 21:13:36 UTC | #21
-
-[quote="reardencode, post:20, topic:334"]
-Wow man, you seem really stressed about this. I’m sorry to see that.
-[/quote]
-
-Not stressed, perplexed with a large sprinkle of cognitive dissonance. I haven't looked at much of your stuff but you seem like a relatively smart software engineer. Similar to Jeremy. How you both can have such a massive blind spot on this subject (assuming good faith) is beyond me. I don't what it is, echo chambers, stubbornness or inabiilty to see the entire system because you're blinded by what is good for you personally or what. I just don't get it. Untangling what is incompetence and what is nefarious is always extremely difficult. But yeah that's it from me on this thread. I'll leave you to it.
-
--------------------------
-
-reardencode | 2024-01-19 21:45:17 UTC | #22
-
-[quote="michaelfolkson, post:21, topic:334"]
-How you both can have such a massive blind spot on this subject (assuming good faith) is beyond me.
-[/quote]
-
-Just curious, could you be wrong on this topic? Have the conditions under which you formed a certain perspective possibly changed such that your perspective needs an update?
-
-If you read what I'm saying, you'll see that I have a flexible view about the best way to facilitate bitcoin's continued survival and growth. You seem to have a very rigid view of what bitcoin needs and I wonder if that view has failed to adapt as bitcoin and the world around it have changed.
-
-I remember the blocksize war and agreeing vehemently with your perspective at the time. I've also seen software projects die and be reborn because they failed to adapt to the world around them (xfree86->xorg, vim->neovim). Could it be that I have a broad and potentially useful perspective and that you personally attacking me for having a different viewpoint from you is maybe not helping bitcoin or anyone?
+On review of proposal when they’re mature, the 2019 taproot review sessions was good practice.
+Note best reviewers in this space have always hands full with maintaining current stuff alive.
 
 -------------------------
 

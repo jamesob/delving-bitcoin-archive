@@ -12,9 +12,9 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 556,
   "topic_slug": "perpetually-kycd-coins-using-evil-covenants",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Yep, there're around half a dozen different ways we know how to introduce maximally expressive transaction introspection.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": "Automatically removed quote of whole previous post.",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

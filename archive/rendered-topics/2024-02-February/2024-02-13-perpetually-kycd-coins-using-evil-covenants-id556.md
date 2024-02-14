@@ -199,3 +199,15 @@ On a practical note, it's important to acknowledge that the applications of `CAT
 
 -------------------------
 
+1440000bytes | 2024-02-14 03:13:44 UTC | #13
+
+Most of the things described in https://eur-lex.europa.eu/legal-content/EN/TXT/PDF/?uri=CELEX:32023R1114 will affect custodians.
+
+ > "Hardware or software providers of non-custodial wallets should not fall within the scope of this Regulation."
+
+I like the attempt to think about different ways in which covenants can be used for evil things. However, do not agree with this specific example. Governments do not need covenants to enforce KYC and could already use multisig.
+
+In fact, no covenants or scaling would increase the number of custodians which makes it easier to KYC everyone.
+
+-------------------------
+

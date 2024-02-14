@@ -263,3 +263,15 @@ Understanding those scenarios may also be helpful to us as we try to design ince
 
 -------------------------
 
+sanket1729 | 2024-02-14 01:25:53 UTC | #2
+
+Excellent post. Thanks for writing down formally and elaborating how this is not an easy problem to solve. 
+
+[quote="sdaftuar, post:1, topic:553"]
+This gives an approximate solution to the block construction problem, and the deviation from the optimal block that could be found is bounded by the ratio between the maximum chunk size and the block size.
+[/quote]
+
+Curious to know if there is data on how optimal the current mined blocks are? I presume this is hard to do exactly because out of band transactions and inconsistent mempools.
+
+-------------------------
+
