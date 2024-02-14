@@ -66,3 +66,29 @@ I'm not trying to scare you, it can still be worthwhile to spend time prototypin
 
 -------------------------
 
+pgrange | 2024-02-14 09:23:43 UTC | #3
+
+
+Thank you so much for your feedback @t-bast and don’t worry, I’m scared just the appropriate amount ;) Your answer doesn’t make it worst yet. On the contrary, it really helps me thinking so it’s really appreciated :)
+
+> The first one is that the wallet won’t be able to run in the background while the user isn’t monitoring their phone. That’s an important drawback, because most payments are received while the app is not open and is instead woken up on-the-fly by the LSP (and runs in the background).
+
+Indeed, that is a strong difference with the current phoenix operation and probably any non-custodial mobile wallet in fact. Today, as you mention, the app runs in the background, is woken up by the LSP and the payment is received transparently for the user, except a notification to share the good news with them. With my approach, for a payment to be received, we will have to, first, notify the user that a payment is on the way and ask them to connect their ledger to accept it and, then, ask them to validate some transactions on it. I can see how this can make receiving a payment very slow and, maybe even painful for the user. They will have to have their hardware device at hand to be able to receive the payment.
+
+So there’s at least two impacts on receiving payment: payment technical process itself and user experience.
+
+For the payment technical process, I’m not sure how different this would be from the situation where the user’s phone is off when they receive a payment. How does the LSP deal with off phone now? Can we get inspiration from that to handle this hardware device complications?
+
+For the user experience it can well be that it’s just super painful but maybe acceptable in some cases where the stakes are high enough for them to make the extra effort. Also, I have the idea that the user is already often involved today when receiving a Lightning payment. It’s the case when I’m creating an invoice, sharing the invoice with some payer and, the payment being fast with lightning, I just see it arrive on my phone. For that use case, « synchronous payment » I can imagine that the impact will be way smaller. The user already has their phone in their hand and they « just » need to plug their secure device to validate payment reception.
+
+> The second one is that you will still need the hardware device to be stateful and implement non-trivial policies, similar to what VLS does […]
+> There are also a lot of “background” operations happening all the time that require signatures (on-the-fly splicing, commitment fee updates, etc) […]
+
+That’s a very good point. I believe VLS has strong value for such a wallet I want to create and that, at some point, there needs to be non trivial logic embedded in the hardware. As you noticed, I do not even plan to develop any code embedded in the hardware device for this iteration of the project but only rely on capabilities already exposed by the device. So I would expect quite some drawbacks with this first iteration. Will it be really more secure if the user validates transactions on their hardware device that just look gibberish? Will the user have to spend their time validating meaningless transactions on their device for any protocol update?
+
+> you shouldn’t underestimate how big of a rabbit hole this will be 
+
+Thank you for the kind warning. Coming from you, it's a confirmation to be humble, and have the smallest possible scope for the very first iteration of this project. In particular, focusing on integrating with a ledger as it is and see what happens. I can imagine this first application as a testbed upon which we can reflect, learn and build further. Maybe some advanced and motivated users will find some value in trying it already. At least, we’ll be able to observe it, play with it and realize where efforts should be put in priority. Is usability in practice as painful as we might fear now or are there some use cases that are ok-ish? Could we think of an ad-hoc LSP that would be more suited for this use case and ease some of the process? Would we be able to design and propose some BLIP to make this approach more practical?
+
+-------------------------
+
