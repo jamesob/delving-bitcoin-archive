@@ -16,3 +16,13 @@ The minimum version encountered from `seed.bitcoin.jonasschnelli.ch`, `seed.bitc
 
 -------------------------
 
+1440000bytes | 2024-02-14 15:39:37 UTC | #2
+
+[quote="virtu, post:1, topic:570"]
+The data clearly show that although `dnsseed.bitcoin.dashjr.org` is the most strict in terms of filtering out old versions, `dnsseed.bluematt.me` and `seed.bitcoin.wiz.biz` also employ version-based filtering.
+[/quote]
+
+Thanks for sharing this although I do not agree that I was 'deliberately' misconstruing DNS seed policy rules.
+
+-------------------------
+
