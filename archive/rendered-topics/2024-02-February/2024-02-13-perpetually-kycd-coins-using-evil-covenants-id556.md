@@ -164,3 +164,38 @@ Why would financial institutions be required to use covenants (or multisig) on-c
 
 -------------------------
 
+QcMrHyde | 2024-02-13 22:17:35 UTC | #10
+
+Could you do the same type of recursive covenants without OP_CAT?
+
+-------------------------
+
+roasbeef | 2024-02-13 23:13:17 UTC | #11
+
+Yep, there're around half a dozen different ways we know how to introduce maximally expressive transaction introspection.
+
+-------------------------
+
+sanket1729 | 2024-02-13 23:50:36 UTC | #12
+
+Before delving further into this topic, I'd like to address the concern about the potential risks associated with evil covenants. Here are a few points to consider:
+
+1. Evil covenant functionality already exists in altcoins with significant market capitalization. Despite this, we haven't observed any notable issues arising from such features in these coins.
+2. The capability for evil covenants exists within current Bitcoin scripting. Therefore, implementing them doesn't introduce new risks per se. Concerns regarding high interactivity requirements can be mitigated by incentivizing compliance with the covenants. For instance, implementing a one-time transition into a script controlled by an internal key held by the government, coupled with a script path featuring a CSV of `n` blocks. Users than must send to addresses that recursively enforce this covenant or risk losing funds. In case of policy violations, the government can freeze the funds associated with the address.
+
+Now, returning to the topic at hand, I think we can improve it:
+
+Given the government's ability to freeze addresses, a simpler approach might involve incorporating a designated freeze internal key. This approach would separate the freezing policy from the Bitcoin script. Utilizing `CAT` and `CSFS`), it's possible (albeit challenging) to restrict the merkle root in such a way that all outputs spending from the covenant input require the same freeze key for spending. 
+
+Here's how this could work:
+
+* Each coin would have a freeze key that directs funds to a predetermined government-controlled address, enforced through a recursive covenant by leveraging `CAT` and `CSFS`.
+* The government can maintain and update a list of permitted addresses dynamically as needed.
+* Before transacting users check if the transaction satisfies the requirement and goes on with the transaction.
+
+One approach to implementing this involves restricting the internal key to function as the freeze key. Alternatively, in the context of SegWit scripting, it might be simpler to ensure that every script begins with an `IF <freeze_key> CHECKSIG ELSE <unchecked input provided by user>` structure. I've successfully employed a similar approach utilizing `CAT` and `CSFS` for a different script, which I can delve into in a subsequent post if there's interest.
+
+On a practical note, it's important to acknowledge that the applications of `CAT` often encounter limitations, particularly with the 520-byte constraint. While workarounds like `CODESEPARATOR` exist, they can become cumbersome over time.
+
+-------------------------
+
