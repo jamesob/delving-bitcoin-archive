@@ -275,3 +275,21 @@ Curious to know if there is data on how optimal the current mined blocks are? I 
 
 -------------------------
 
+sdaftuar | 2024-02-14 15:13:07 UTC | #3
+
+[quote="sanket1729, post:2, topic:553"]
+Curious to know if there is data on how optimal the current mined blocks are? I presume this is hard to do exactly because out of band transactions and inconsistent mempools.
+[/quote]
+
+I haven't tried to measure this in a while, but I can try to include some analysis of this as I continue with the cluster mempool proposal.  I think there are probably a few different ideas to separate out when thinking about this question.
+
+First, we have two different mining algorithms to consider: the existing ancestor-feerate transaction selection mechanism (which has been in Bitcoin Core for many years now), and a new transaction selection algorithm that arises from the cluster mempool strategy (which should be more optimal, for a number of reasons). So one thing we can try to do is measure how much better the cluster-mempool algorithm ends up being versus the legacy algorithm (I believe it should be strictly better, when given the same set of mempool transactions to operate on).
+
+Second, in thinking about deviations from optimal, even with the cluster mempool proposal I expect there will be situations where we will not optimally sort a cluster.  This is simply because we want to support reasonably large clusters, and our belief is that [optimal sorting is an exponential-run-time operation](https://cs.stackexchange.com/questions/163467/finding-highest-value-weight-ratio-in-dependency-graph-np-hard) -- though we don't have a proof of this. So the implementation we're working on falls back to simpler, polynomial-time strategies for big clusters (such as the ancestor-feerate algorithm).  Getting a handle on how far below optimal a polynomial-time algorithm ends up being may be difficult for me to manage, because running the exponential-time algorithm will take too long!
+
+And finally, there is the knapsack problem -- even if we optimally sorted clusters based on the feerate diagram metric, actually optimal blocks can deviate from our approximation, because at the end of the block we might not have space for our next highest feerate-sorted transaction chunk.  Getting a bound on this in practice is pretty easy; we can just look at how full the block is at the first point that we'd select a chunk of transactions that don't fit, and that gives an idea of how close we must be to optimal.  In the worst case, since ancestor packages (and cluster sizes, in the current cluster mempool proposal) are bounded at 101kvb, we're only in theory guaranteed to be ~90% of optimal, but I believe in practice most transactions are small enough that we do much better.
+
+At any rate, I should be able to produce some data on the first and last items here as I do more research (but it will likely be several months before I get to this).
+
+-------------------------
+
