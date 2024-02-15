@@ -64,3 +64,28 @@ Second, interpreter.cpp and scripting engine. miniscript.cpp is also is an inter
 
 -------------------------
 
+1440000bytes | 2024-02-15 03:25:59 UTC | #7
+
+[quote="rodarmor, post:5, topic:565"]
+What’s your favorite file or function?
+[/quote]
+
+
+P2P messages sent by bitcoin nodes and service flags: https://github.com/bitcoin/bitcoin/blob/baed5edeb611d949982c849461949c645f8998a7/src/protocol.cpp
+
+Interesting functions:
+
+`HasAllDesirableServiceFlags()`  
+`Misbehaving()`  
+`MaybePunishNodeForBlock()`  
+`MaybePunishNodeForTx()`  
+`ProcessCompactBlockTxns()`  
+`ProcessMessage()`  
+`MaybeDiscourageAndDisconnect()`  
+`AttemptToEvictConnection()`  
+`ReattemptInitialBroadcast()`
+
+Process used to relay transactions for better privacy in section [Message: inventory](https://github.com/bitcoin/bitcoin/blob/baed5edeb611d949982c849461949c645f8998a7/src/net_processing.cpp#L5755) is interesting as well.
+
+-------------------------
+
