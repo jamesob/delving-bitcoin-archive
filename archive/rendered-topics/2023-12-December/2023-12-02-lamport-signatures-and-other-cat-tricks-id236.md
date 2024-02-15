@@ -1717,3 +1717,21 @@ cguida | 2024-02-11 22:49:38 UTC | #16
 
 -------------------------
 
+moonsettler | 2024-02-15 10:44:20 UTC | #17
+
+*copy pasta from the CAT github PR for those that don't follow:*
+
+Some of us have been playing with the idea of neutered CAT: instead of the MAX_SCRIPT_ELEMENT_SIZE (520 bytes) the maximum output size would be 80 bytes.
+
+**Rationale:**
+It explicitly disables open ended second order effects by removing the ability to assemble a SIGHASH or CTV template on the stack for more detailed introspection than intended. If such introspection behavior is desired in the future it can be explicitly enabled by specialized and more efficient opcodes.
+
+Combined with CSFS it can be used as a signed datacarrier, for which the 'standard' limit is 80 bytes, it also has to be smaller than 84 bytes which is required for building CTV templates on the stack, and larger than 64/65/72 bytes which are respectively needed for:
+- Merkle inclusion: 2x 20/32 byte hashes
+- LN-symmetry (LNhance): 2x 32 byte hashes
+- Separate sig: 64/72 bytes (0-conf bonds, staking contracts)
+
+Could be a livable compromise between the conservatives that want to preserve certain characteristics of bitcoin and the prometheans who want to give the developers more practical and useful tools to build with.
+
+-------------------------
+
