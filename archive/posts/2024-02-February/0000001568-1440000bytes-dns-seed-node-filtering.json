@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 3.0,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.2,
   "yours": false,
   "topic_id": 570,
   "topic_slug": "dns-seed-node-filtering",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"virtu, post:1, topic:570\"]\nThe data clearly show that although `dnsseed.bitcoin.dashjr.org` is the most strict in terms of filtering out old versions, `dnsseed.bluematt.me` and `seed.bitcoin.wiz.biz` also employ version-based filtering.\n[/quote]\n\nThanks for sharing this although I do not agree that I was 'deliberately' misconstruing DNS seed policy rules.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

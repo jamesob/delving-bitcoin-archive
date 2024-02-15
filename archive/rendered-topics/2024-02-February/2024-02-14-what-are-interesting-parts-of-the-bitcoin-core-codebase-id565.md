@@ -89,3 +89,13 @@ Process used to relay transactions for better privacy in section [Message: inven
 
 -------------------------
 
+recent798 | 2024-02-15 08:16:19 UTC | #8
+
+[quote="rodarmor, post:5, topic:565"]
+Anything in the existing codebase
+[/quote]
+
+Yes, the function would be `BlockAssembler::addPackageTxs`, which is the transaction selection algorithm for the next block in the chain, taking the presumed best transactions from the mempool.
+
+-------------------------
+
