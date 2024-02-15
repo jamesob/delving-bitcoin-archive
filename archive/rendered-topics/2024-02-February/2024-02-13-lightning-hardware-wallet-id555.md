@@ -124,3 +124,38 @@ You will also need the user to come online whenever a force-close happens, they 
 
 -------------------------
 
+edouard | 2024-02-15 11:23:59 UTC | #5
+
+Hello, 
+
+Thank you for bringing the subject, I am also interested in hardware wallet development and usage for the new bitcoin layers.
+
+I am jumping on this thread to talk to you about our lord and savior [Vanadium](https://github.com/LedgerHQ/vanadium). Joke aside, this is again one very smart idea from Salvatore Ingala and Ledger engineers.
+
+States, policies, every information can be stored client side and verified by commitment of Merkle Tree roots and hardware wallet signatures. Actually with the current bitcoin ledger app, miniscript descriptors are not stored in device memory but uploaded by the client on request with a hmac. Vanadium (previously app-streaming) concept goes way further by abstracting the whole computing part into a RISC VM that could run any application by making usage of the client memory.
+
+> There are also a lot of “background” operations happening all the time that require signatures (on-the-fly splicing, commitment fee updates, etc). You’ll need to implement a lot of the lightning channel state machine logic *inside* the hardware device to properly analyze and authorize those without user input. You may end up re-writing a whole lightning implementation inside the hardware wallet, which is a tedious and complex task.
+
+Rust-Lightning SDK could be a good help here, and rust tooling is better every day.
+Once compiled in RISC-V, your application could be use by any hardware wallet running the vanadium VM. (It also allows you to use rust std lib, memory being not a limit anymore).
+
+-------------------------
+
+salvatoshi | 2024-02-15 13:36:35 UTC | #6
+
+Thanks @edouard for the unpaid advertisement – will refer with a good recommendation if you apply to Ledger :stuck_out_tongue:
+
+Vanadium is still at a highly prototypal/experimental stage, and it's a long road to bring it to production. I'm hoping for something reasonably developer-ready by Q4.
+
+The promise is to mostly abstract away the limitations of embedded programming (including the platform quirks that different embedded toolchains/hardware inevitably have).
+
+I presented the project at Baltic Honeybadger 2023, but unfortunately it's not recorded. For anyone who's interested:
+- [Here](https://docs.google.com/presentation/d/1bMGbM6aHFVk0b03BWd8nmvoWJw1UxhAfbdOUBtoP9iE/edit?usp=drive_link) are the slides of the BH23 presentation 
+- And [here](https://www.ledger.com/blog/app-streaming) is an earlier blog post from the developer of the initial prototype.
+
+Running a project like VLS for a low-volume lightning node is definitely within the realm of feasibility; more broadly, so are all applications that sound like "build your own cheap HSM for personal security".
+
+Of course, running a high-volume routing lightning node is not going to be feasible at scale, for limitations of the hardware, rather than of the VM.
+
+-------------------------
+
