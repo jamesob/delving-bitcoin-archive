@@ -54,3 +54,13 @@ That's a great discussion! I'll definitely link him there. Anything in the exist
 
 -------------------------
 
+sanket1729 | 2024-02-14 21:48:42 UTC | #6
+
+I find the most interesting parts are in `validation.cpp`. In particular, the re-org logic and rolling back `ConectBlock/DisconnectBlock`, `AcceptBlock`, `AcceptBlockHeader`. 
+
+There are several interesting cases around DoS preventions in mempool related functions. Basically, what happens when there is new block in `validation.cpp`. There is also an integration test in python `feature_block.py` that tests lots of interesting scenarios hitting codepaths in validation.cpp. 
+
+Second, interpreter.cpp and scripting engine. miniscript.cpp is also is an interesting dive in itself.
+
+-------------------------
+

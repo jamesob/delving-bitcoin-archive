@@ -313,3 +313,17 @@ Note best reviewers in this space have always hands full with maintaining curren
 
 -------------------------
 
+arshbot | 2024-02-14 22:52:05 UTC | #24
+
+> I disagree. The people and the process are largely the same. The only significant difference is that the stakes are higher.
+
+That difference is why we're having this conversation. I would like to point out that ephemeral anchors or cluster mempool proposals never escaped the dev conversation circle because, frankly, their impact to the every day user is inconsequential. This conversation is about Bitcoin's inability of making a change with intent that affects every day users.
+
+Updates with minimal impact fly under the radar, and thus don't get lost in the void of "rough consensus".
+
+> That’s insane. If miners signaled that they were only going to include OFAC-compliant transactions, would you have us all accept that as a new part of Bitcoin’s consensus rules?
+
+The lack of activation clients do not prevent this outcome in the slightest. It does, however, maintain the status quo by stifling user input.
+
+-------------------------
+
