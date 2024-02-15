@@ -12,9 +12,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 18.0,
   "yours": false,
   "topic_id": 334,
   "topic_slug": "on-consensus-changes-in-bitcoin-2024",
@@ -53,7 +53,7 @@
   "staff": false,
   "user_id": 235,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -64,9 +64,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
