@@ -1735,3 +1735,9 @@ Could be a livable compromise between the conservatives that want to preserve ce
 
 -------------------------
 
+salvatoshi | 2024-02-16 10:27:36 UTC | #18
+
+I [commented](https://github.com/bitcoin/bitcoin/pull/29247#issuecomment-1948016168) on github on why that does not prevent the CAT tricks.
+
+-------------------------
+
