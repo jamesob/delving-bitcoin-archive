@@ -12,9 +12,9 @@
   "reply_to_post_number": 5,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 2.4,
   "yours": false,
   "topic_id": 565,
   "topic_slug": "what-are-interesting-parts-of-the-bitcoin-core-codebase",
@@ -49,8 +49,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
