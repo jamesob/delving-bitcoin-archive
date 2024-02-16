@@ -54,3 +54,61 @@ Check out the README and code for gory details.
 
 -------------------------
 
+dgpv | 2024-02-16 13:27:33 UTC | #2
+
+Since I like to try B'SST on any not-entirely-trivial script I stumble upon, I've tried it with `vault_trigger_withdrawal` script from your demo. (B'sst is one of the names of Bastet, the ancient egyptian cat-goddess, so cannot ignore the CAT demo :-))
+
+I think it might be interesting to look at the report, as it shows what this script does quite concisely, in my opinion.
+
+The annotated script can be found here: https://gist.github.com/dgpv/f875e021905eb113070a23eb7fa981f6, you need to call `bsst-cli` with `--explicitly-enabled-opcodes=cat`
+
+The report:
+
+```
+==============================
+Enforced constraints per path:
+==============================
+
+All valid paths:
+----------------
+
+        EQUAL(&script_computed_sig, precomputed_sig_sans_last_byte<wit0>.x('00')) @ 77:L104
+        CHECKSIG(precomputed_sig_sans_last_byte<wit0>.x('01'), $G_X) @ END
+
+=================================
+Witness usage and stack contents:
+=================================
+
+All valid paths:
+----------------
+Witnesses used: 17
+
+Stack values:
+        <result> = CHECKSIG(precomputed_sig_sans_last_byte<wit0>.x('01'), $G_X) : one_of(0, 1)
+
+================
+Data references:
+================
+
+        outputs_single_hash = SHA256(amount_buffer<wit4>.script_pubkey_buffer<wit3>.$DUST_AMOUNT.target_script_pubkey_buffer<wit5>)
+        spent_scripts_single_hash = SHA256(script_pubkey_buffer<wit3>.fee_script_pubkey_buffer<wit1>)
+        spent_amounts_single_hash = SHA256(amount_buffer<wit4>.fee_amount_buffer<wit2>)
+        sig_hash = epoch<wit16>.control<wit15>.tx_version<wit14>.lock_time<wit13>.prevouts_single_hash<wit12>.&spent_amounts_single_hash.&spent_scripts_single_hash.prev_sequences_single_hash<wit11>.&outputs_single_hash.spend_type<wit10>.input_idx<wit9>.leaf_hash<wit8>.key_version_0<wit7>.code_separator_pos<wit6>
+        tagged_sig_hash = SHA256(SHA256($TAPSIGHASH_TAG).SHA256($TAPSIGHASH_TAG).&sig_hash)
+        s_value = SHA256(SHA256($BIP0340_CHALLENGE_TAG).SHA256($BIP0340_CHALLENGE_TAG).$G_X.$G_X.&tagged_sig_hash)
+        script_computed_sig = $G_X.&s_value
+```
+(edit: I wonder if it is possible to make the codeblock to have the text to wrap, it would look better I think)
+
+There's one obvious witness size optimization that comes to mind when looking at the report: 
+
+`epoch<wit16>.control<wit15>.tx_version<wit14>.lock_time<wit13>.prevouts_single_hash<wit12>`
+
+and 
+
+`spend_type<wit10>.input_idx<wit9>.leaf_hash<wit8>.key_version_0<wit7>.code_separator_pos<wit6>`
+
+can be given as just two witness values, not as 10 witnesses - this will save a few bytes used to encode witness sizes.
+
+-------------------------
+

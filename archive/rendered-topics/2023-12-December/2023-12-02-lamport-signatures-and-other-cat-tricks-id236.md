@@ -1741,3 +1741,25 @@ I [commented](https://github.com/bitcoin/bitcoin/pull/29247#issuecomment-1948016
 
 -------------------------
 
+moonsettler | 2024-02-16 12:18:37 UTC | #19
+
+interesting! do we have an example script (even just a partial like a single cycle), how this could look like? we are talking abut calculating any 32 bit portion of a SHA256 hash correct?
+
+afaik the naive implementation relies on a lot of binary operations not available in bitcoin script. bitwise XOR, ROTR, SHIFTR, NOT, AND...
+
+-------------------------
+
+salvatoshi | 2024-02-16 12:50:10 UTC | #20
+
+It's definitely going to be _painful_ to implement, but still it seems _feasible_.
+
+Binary operations are going to be the annoying part, but it should be fairly straightforward to obtain them with arithmetic operations working bit-by-bit, and possibly more efficiently with smarter tricks like [lookup tables](https://github.com/coins/bitcoin-scripts/blob/405f3b0dbf64115eab7035482397b322822c6d19/op_lookup.md).
+
+-------------------------
+
+moonsettler | 2024-02-16 13:18:10 UTC | #21
+
+yeah i also realized checking out Robin's work that CAT makes it a hell of a lot easier to do the binary bitwise arithmetic stuff.
+
+-------------------------
+

@@ -1,20 +1,20 @@
 {
-  "id": 1585,
+  "id": 1587,
   "name": "salvatoshi",
   "username": "salvatoshi",
   "avatar_template": "/user_avatar/delvingbitcoin.org/salvatoshi/{size}/72_2.png",
-  "created_at": "2024-02-16T10:27:36.498Z",
-  "cooked": "<p>I <a href=\"https://github.com/bitcoin/bitcoin/pull/29247#issuecomment-1948016168\" rel=\"noopener nofollow ugc\">commented</a> on github on why that does not prevent the CAT tricks.</p>",
-  "post_number": 18,
+  "created_at": "2024-02-16T12:45:06.350Z",
+  "cooked": "<p>It\u2019s definitely going to be <em>painful</em> to implement, but still it seems <em>feasible</em>.</p>\n<p>Binary operations are going to be the annoying part, but it should be fairly straightforward to obtain them with arithmetic operations working bit-by-bit, and possibly more efficiently with smarter tricks like <a href=\"https://github.com/coins/bitcoin-scripts/blob/405f3b0dbf64115eab7035482397b322822c6d19/op_lookup.md\" rel=\"noopener nofollow ugc\">lookup tables</a>.</p>",
+  "post_number": 20,
   "post_type": 1,
-  "updated_at": "2024-02-16T10:27:36.498Z",
+  "updated_at": "2024-02-16T12:50:10.556Z",
   "reply_count": 1,
-  "reply_to_post_number": 17,
+  "reply_to_post_number": 19,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 21.0,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 5.8,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -28,7 +28,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -41,13 +41,8 @@
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
   },
   "bookmarked": false,
-  "raw": "I [commented](https://github.com/bitcoin/bitcoin/pull/29247#issuecomment-1948016168) on github on why that does not prevent the CAT tricks.",
-  "actions_summary": [
-    {
-      "id": 2,
-      "count": 1
-    }
-  ],
+  "raw": "It's definitely going to be _painful_ to implement, but still it seems _feasible_.\n\nBinary operations are going to be the annoying part, but it should be fairly straightforward to obtain them with arithmetic operations working bit-by-bit, and possibly more efficiently with smarter tricks like [lookup tables](https://github.com/coins/bitcoin-scripts/blob/405f3b0dbf64115eab7035482397b322822c6d19/op_lookup.md).",
+  "actions_summary": [],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -56,12 +51,12 @@
   "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
-  "edit_reason": null,
+  "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
   "reactions": [
     {
-      "id": "+1",
+      "id": "heart",
       "type": "emoji",
       "count": 1
     }
