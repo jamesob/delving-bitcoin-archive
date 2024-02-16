@@ -212,3 +212,13 @@ In fact, with no covenants or scaling improvements, use of custodians will incre
 
 -------------------------
 
+harding | 2024-02-16 16:27:39 UTC | #14
+
+Some previous discussion about this issue:
+
+- https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-July/019200.html (covered in [Optech Newsletter #157](https://bitcoinops.org/en/newsletters/2021/07/14/#request-for-op-checksigfromstack-design-suggestions))
+
+- https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-February/019891.html (covered in [Optech Newsletter #190](/en/newsletters/2022/03/09/#gradual-loss-of-censorship-resistance) along with a list of other arguments against recursive covenants)
+
+-------------------------
+
