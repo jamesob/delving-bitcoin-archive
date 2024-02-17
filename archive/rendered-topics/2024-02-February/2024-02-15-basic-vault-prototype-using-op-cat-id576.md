@@ -54,7 +54,7 @@ Check out the README and code for gory details.
 
 -------------------------
 
-dgpv | 2024-02-16 13:27:33 UTC | #2
+dgpv | 2024-02-17 05:26:02 UTC | #2
 
 Since I like to try B'SST on any not-entirely-trivial script I stumble upon, I've tried it with `vault_trigger_withdrawal` script from your demo. (B'sst is one of the names of Bastet, the ancient egyptian cat-goddess, so cannot ignore the CAT demo :-))
 
@@ -98,7 +98,8 @@ Data references:
         s_value = SHA256(SHA256($BIP0340_CHALLENGE_TAG).SHA256($BIP0340_CHALLENGE_TAG).$G_X.$G_X.&tagged_sig_hash)
         script_computed_sig = $G_X.&s_value
 ```
-(edit: I wonder if it is possible to make the codeblock to have the text to wrap, it would look better I think)
+(edit: I wonder if it is possible to make the codeblock to have the text to wrap, it would look better I think
+edit2: that is not the wrap I had in mind... it seems it only wraps on spaces, but not as terminal would wrap on any char)
 
 There's one obvious witness size optimization that comes to mind when looking at the report: 
 
