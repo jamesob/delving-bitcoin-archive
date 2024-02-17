@@ -327,3 +327,71 @@ The lack of activation clients do not prevent this outcome in the slightest. It 
 
 -------------------------
 
+arshbot | 2024-02-16 21:12:50 UTC | #25
+
+Thinking through this, I think I can propose a few ways forward. Before that, let me shed a bit of context.
+
+> Devs propose → Miners Activate → Users override
+ 
+Sounds nice in theory, but to @roasbeef's point, it doesn’t work anymore. Let's explore why.
+
+Let’s break down the relationship Devs propose → Miners Activate for a moment. As it stands, this relationship doesn't highlight the decision maker. It implies Miners are decision makers, but I don't know if that's true. From my conversations and research into how the taproot softfork was activated, it seems like miners had opinions (overwhelmingly positive for some reason), but still waited for a push. That push came in the form of Alejandro De La Torre which led to public signaling, which led to devs conversing and debating instead of "if we should taproot", then "how we should taproot". An important distinction.
+
+Okay, so it's not so much Devs propose → Miners Activate, it's more like (assuming only happy paths):
+
+```mermaid height
+sequenceDiagram
+    Devs ->>+ Devs: Concensus on Final Proposal
+    Devs->>+Miners: Final Proposal for Consideration
+    Miners->>+Devs: Signal Agreement
+    Devs->>+Miners: Proposal for Activation
+    Miners->>+Devs: Activation
+  ```
+
+We have not reached the step where we communicate a proposal to miners. We haven't done it in the traditional sense (merging the thing into bitcoind), we haven't done it in the non traditional sense (everyone screaming on every bitcoin media, including this one).
+
+That is because we, developers lack the ability the come to a consensus. Frankly, Miners aren't to blame on this one. As much as I'd like to blame the user community for their fiery commentary and politicking and divisiveness, it isn't them either. In fact, they're a symptom of the cause just like our indecisiveness is.
+
+## Potential Solutions
+
+The cause is right in the post that started this, and we need to talk about it plainly. We lack trusted figures to champion causes or judge iterations until they are sound, and because of this, us developers are frozen on any issues of significance. We could explore a replacement for them at the user layer, but I'll hold off on that for now.
+
+I don't love the concept myself, but let's explore the alternatives for governance.
+
+Fundamentally there are two buckets of solutions here. Direct democracy or representative democracy. Bitcoiners do not necessarily believe in democracy for Bitcoin. It is a tool with ideals and those ideals must be maintained at all costs, regardless of public opinion.
+
+That last caveat more or less kills any form of direct democracy. In any form of unimpeded voting it is possible for a majority (honest or not) to lobby for the changing of core ideals easily, and that is unacceptable.
+
+There are many forms of representative democracies, many of which have been adopted by alternative coins. They represent based on investment in the project, number of nodes run, etc. These options are representative democracies where the barrier to entry is technical or financial and the enforcement is code. There are also foundations that can be constructed to provide extracode enforcement in a formal manner so the second things break down (like now), they are promptly fixed.
+
+## Trusted Figures... what are they?
+
+All of the above actions have pros and cons worth discussing, but I will leave that to others in this thread. An informal representative democracies by trusted figures, which we've had so far is particularly interesting. In the past, our trusted figures were more or less early cypherpunks who worked on bitcoin. They garnered the trust because for most others, they were _available_ and _knowledgable_ about this mysterious new tech, and stayed involved. We have people like that now, but why haven't those chairs been filled?
+
+This system in particular is well suited for the only caveat I've added here: we must maintain our ideals at all costs. Trusted figures have always held and enforced those rules with ruthless consistency. This system is also incredibly fragile. Because of informality, it's immediately unclear when a trusted chair's post has been vacated let alone how to fill it again. We're at a point where we're not even sure if there any more left.
+
+## How Do We Fill the Chairs?
+
+The informality of chairs filled by trusted figures has lost it's shine. If we must maintain that informality, it must be with intent at least. If we are to choose new chairs, they should have at least the following attributes among the obvious.
+
+- Moral opinions in line with our chosen ethos
+- Track record of care for Bitcoin
+- Incredible proficiency in game theory. Among the trusted chair's chief roles is to identify abuse vectors
+
+Please extend/modify this list.
+
+If we are to choose new chairs, it must be an election of some kind, informal or otherwise. Hoping for the chairs to be filled naturally hasn't worked. There are too many of us with differing values for any group to see the field well. The election should likely appoint the winner to a post of consequence like the following:
+
+- Head maintainer of a repo of value; bitcoind, bips, etc
+- Chair of some nonprofit org aiming to represent bitcoin developers
+
+Please extend/modify this list.
+
+## Conclusion
+
+It is clear we're paralyzed on anything of substance. We need trusted people who say "No, here's what's wrong" so iterations can be made so they can finally say "Yes, this can be merged". We have plenty of people ACKing, but those who should be saying "No" are silent.
+
+Above I list a few alternative paths we could take and make a stab at defining trusted figured better and how we might go about removing the vagueness around the role and how we might fill the position ourselves.
+
+-------------------------
+
