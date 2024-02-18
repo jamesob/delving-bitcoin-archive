@@ -12,9 +12,9 @@
   "reply_to_post_number": 17,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 393,
   "topic_slug": "an-overview-of-the-cluster-mempool-proposal",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"hebasto, post:17, topic:393\"]\nConsidering a transaction with no ancestors, which has the number of outputs that exceeds the cluster size limit, only first `max_cluster_size - 1` participants will be able to spend their outputs, no?\n[/quote]\n\nJust to be clear, only the first `max_cluster_size - 1` participants will be able to spend their outputs in separate transactions *before the parent transaction is confirmed*, but yes that is correct.\n\nNote that today, the descendant count limit (25 transactions by default) already imposes a restriction on unconfirmed spends of outputs from a single transaction.  While we haven't finalized a proposed cluster size limit yet, my hope is that we'll be able to support a number that is bigger than 25 (in my draft PR, this number is set to 100 for now).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -314,3 +314,27 @@ periods.
 
 -------------------------
 
+harding | 2024-02-18 18:08:44 UTC | #2
+
+Most onchain contracts are motivated by eliminating the counterparty risk that comes from relying on a trusted third party.  In this case, we get that benefit like usual, but I find it notable that we also (theoretically) get the benefit of not having to worry about principle actor corruption.  It's like being able to bet for your favorite sports team without creating a temptation for the athletes on that team to bet against themselves.
+
+For example, a trusted third party arbitrating futures contracts for a centralized exchange or an oracle providing data for DLC users can only fully reproducibly use fee data from confirmed transactions---but miners can manipulate the fees in their blocks to a certain degree.  The trusted third party could use transactions from their local mempool to derive an estimated feerate range for a particular block, but miners could make that third party look unreliable by including a different set of transactions in their blocks (and this could happen accidentally if the miner received significant fees out-of-band).  With this onchain contract, miners are (in theory) incentivized to make decisions based on the candidate blocks they're actually producing, aligning their incentive to maximize fee revenue with their incentive to maximize future contracts revenue.
+
+That said, I think a [contemporary post](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553#a-simple-analysis-of-a-toy-problem-14) on this forum points to a weakness in this theoretical model: a miner with a large percentage of total network hashrate can forgo mining a transaction in a particular block and still have a realistic chance of being able to mine that transaction in one of their later blocks.  In the case of this contract, the large miner may be willing to settle this contract in their favor even if it means being unable to mine some higher feerate transactions in the current block because the large miner knows that they'll have a chance of mining some of the excluded transactions in the next block.  A miner with a small percentage of total network hashrate doesn't have that option: they'll have to let the contract settle against them because their probability of getting a second chance at mining any transactions is tiny.
+
+Given the above, I suspect that widespread use of this contract might make large miners even more profitable than smaller miners, increasing centralization of mining.  I haven't analyzed how significant of an effect that would be and I don't have a good enough intuition to hazard a guess.
+
+-------------------------
+
+1440000bytes | 2024-02-18 19:42:28 UTC | #3
+
+Interesting approach which could solve lot of problems.
+
+[quote="harding, post:2, topic:547"]
+That said, I think a [contemporary post](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553#a-simple-analysis-of-a-toy-problem-14) on this forum points to a weakness in this theoretical model: a miner with a large percentage of total network hashrate can forgo mining a transaction in a particular block and still have a realistic chance of being able to mine that transaction in one of their later blocks. In the case of this contract, the large miner may be willing to settle this contract in their favor even if it means being unable to mine some higher feerate transactions in the current block because the large miner knows that they’ll have a chance of mining some of the excluded transactions in the next block. A miner with a small percentage of total network hashrate doesn’t have that option: they’ll have to let the contract settle against them because their probability of getting a second chance at mining any transactions is tiny.
+[/quote]
+
+This can be avoided by using average fee rates over N blocks and settle discreet log contracts using multi oracles.
+
+-------------------------
+
