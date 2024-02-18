@@ -629,7 +629,11 @@ Do I understand correctly that the cluster size limit might affect the experienc
 
 -------------------------
 
-sdaftuar | 2024-02-18 15:40:04 UTC | #18
+sdaftuar | 2024-02-18 15:43:27 UTC | #18
+
+[quote="hebasto, post:17, topic:393"]
+Considering a transaction with no ancestors, which has the number of outputs that exceeds the cluster size limit, only first `max_cluster_size - 1` participants will be able to spend their outputs, no?
+[/quote]
 
 Just to be clear, only the first `max_cluster_size - 1` participants will be able to spend their outputs in separate transactions *before the parent transaction is confirmed*, but yes that is correct.
 
