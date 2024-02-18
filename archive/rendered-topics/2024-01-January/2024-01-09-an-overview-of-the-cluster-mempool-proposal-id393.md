@@ -629,3 +629,11 @@ Do I understand correctly that the cluster size limit might affect the experienc
 
 -------------------------
 
+sdaftuar | 2024-02-18 15:40:04 UTC | #18
+
+Just to be clear, only the first `max_cluster_size - 1` participants will be able to spend their outputs in separate transactions *before the parent transaction is confirmed*, but yes that is correct.
+
+Note that today, the descendant count limit (25 transactions by default) already imposes a restriction on unconfirmed spends of outputs from a single transaction.  While we haven't finalized a proposed cluster size limit yet, my hope is that we'll be able to support a number that is bigger than 25 (in my draft PR, this number is set to 100 for now).
+
+-------------------------
+
