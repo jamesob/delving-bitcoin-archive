@@ -623,3 +623,9 @@ Adding anchors at each step "fixes" these, but significant marginal bytes to pro
 
 -------------------------
 
+hebasto | 2024-02-18 15:28:06 UTC | #17
+
+Do I understand correctly that the cluster size limit might affect the experience of the CoinJoin transaction participants? Considering a transaction with no ancestors, which has the number of outputs that exceeds the cluster size limit, only first `max_cluster_size - 1` participants will be able to spend their outputs, no?
+
+-------------------------
+
