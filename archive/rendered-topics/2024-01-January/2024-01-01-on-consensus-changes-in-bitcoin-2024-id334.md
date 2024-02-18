@@ -395,3 +395,23 @@ Above I list a few alternative paths we could take and make a stab at defining t
 
 -------------------------
 
+rgrant | 2024-02-18 01:33:26 UTC | #26
+
+Matt said: 
+> “seeing what shakes out” implies that we’re not confident that users will be running the modified consensus rules by the time any possible activation happens. In such a case, we’re putting the network at risk of splitting if miners decide to signal while no such large-scale upgrade has completed.
+
+I am certain that you are not discussing the case where some users have not upgraded their validating nodes because the entire point of a soft fork is that not everyone has to upgrade their nodes.
+
+You are describing a scenario where miners _who are lying about readiness_ take their own risks and either reap their own rewards or cause more general chaos by later attempting a 51% attack that rolls back the feature.
+
+This worry has multiple problems:
+
+- it is extremely unlikely because it ignores current social conditions and the economic incentives that Bitcoin is ultimately stabilized by;
+- it ignores that the prior evidence for miners playing loose is balanced by the prior lesson those miners received - ie.  that miners can learn;
+- lying about consensus while planning a 51% attack to roll back a feature is available whether or not non-mining nodes of economic relevance have skin in the upgrade, so it cannot be prevented by any amont of preparation or consensus-checking - only by LOT=true; and
+- planning a 51% attack to cause double-spend chaos is available without needing the confusion of a feature rollout at all.
+ 
+The soft fork feature bits were vetted and rolled out under the assumption that there would be multiple in effect at once.  It is an extraordinary claim to say that they are unsafe for the goal they were developed to achieve, which is literally "seeing what shakes out" (except for LOT=true).  I would expect that were I to see a successful claim of this nature, it would result in the removal of the code from Bitcoin Core.
+
+-------------------------
+
