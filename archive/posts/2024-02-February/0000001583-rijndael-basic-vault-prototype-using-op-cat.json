@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 28.2,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 43.8,
   "yours": false,
   "topic_id": 576,
   "topic_slug": "basic-vault-prototype-using-op-cat",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -58,7 +58,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "tada",
@@ -67,6 +67,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
