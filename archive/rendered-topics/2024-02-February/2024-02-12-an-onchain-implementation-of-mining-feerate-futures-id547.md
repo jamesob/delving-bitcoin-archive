@@ -370,3 +370,26 @@ That is: yes, there is an incentive for large miners to behave **differently** t
 
 -------------------------
 
+ajtowns | 2024-02-19 10:06:34 UTC | #6
+
+[quote="ajtowns, post:5, topic:547"]
+That is: yes, there is an incentive for large miners to behave **differently** to small miners, but that difference benefits whoever finds future blocks equally, whether they participated in the strategy or not, whether they’rea small miner or a large one.
+[/quote]
+
+In particular, suppose if you mined normally, you'd extract fees $a, b$ from the blocks, but if you add the tx, you instead extract fees $a_1, b_1$ where $a_1 < a$ and $a_1 + b_1 > a+b$. In that case, call hashrate mining $a_1$ "strategic" and say their hashrate is is $0 < h < 1$, then the payoff matrix is:
+
+| probability | who mines block a, b | block a value | block b value | payoff (strategic, normal) |
+| -- | -- | -- | -- | -- |
+| $h^2$ | strategic, strategic | $a_1$ | $b_1$ | $(a_1+b_1, 0)$
+| $(1-h)h$ | normal, strategic | $a$ | $b$ | $(b, a)$
+| $h(1-h)$ | strategic, normal | $a_1$| $b_1$ | $(a_1, b_1)$
+| $(1-h)^2$ | normal, normal | $a$ | $b$ | $(0, a+b)$
+
+Expected payoff for strategic miners is $h ( a_1 + h\cdot b_1 + (1-h)b )$
+
+Expected payoff for normal miners is $(1-h) ( a + h\cdot b_1 + (1-h) b )$
+
+But once you divide that by their respective hashpower, the proportional payoff for normal miners is higher, as $a > a_1$.
+
+-------------------------
+
