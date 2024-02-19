@@ -261,3 +261,19 @@ Pre-cluster mempool, it may be simpler to just start with 0-value outputs.
 
 -------------------------
 
+Crypt-iQ | 2024-02-19 18:46:49 UTC | #14
+
+[quote="instagibbs, post:13, topic:383"]
+But it also pays for eviction of `TxC`. In other words, a channel counterparty has additional incentives to drive it up.
+[/quote]
+
+Is this issue here that the party in control of `TxB` is paying 1,780 sats over the "pure burn" ephemeral anchor spend to evict `TxC` rather than a separate transaction paying > 10,000 sats per rule #3 (thereby saving money and incentivizing inflating the anchor)?
+
+[quote="instagibbs, post:13, topic:383"]
+Pre-cluster mempool, it may be simpler to just start with 0-value outputs.
+[/quote]
+
+If we start with 0-value outputs but still want to keep the commitment transaction 0-fee, couldn't we add an anyone-can-spend output that's timelocked far in the future (and hence won't interfere with anything in the mempool)?
+
+-------------------------
+

@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.8,
   "yours": false,
   "topic_id": 586,
   "topic_slug": "ecash-and-lightning-via-zkcp",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Nice writeup, I especially like the \"Issuing new ecash\" part. We had thought of implementing something similar in Cashu in the issuing process but decided against implementing it for now because it would require more interaction with the user's lightning wallet (they need to obtain the preimage in their Lightning wallet, then use it in their ecash wallet).\n\nHowever, good news: we already have a ZKP implemented as a proof of knowledge of `m` as a DLEQ proof, which you can find here: https://github.com/cashubtc/nuts/blob/94a621d1014a8687269f58ecadc5ef167dce546f/12.md\n\nAs far as I can see, your construction is missing a crucial part though: the transferrability of these tokens from user to user without the mint being able to link the transfer to the Lightning invoice (i.e., keeping the ecash privacy intact). Since the mint does not know the `K` the user requests a signature on, it's hard to make sure that the claim of a token remains intact when passed form user to user (and all sorts of other issues arise, such as Alice being able to re-mint a token committing to the same invoice again using a different `r` after having sent it to another user Carol).\n\nThis has been the main challenge for my research in the past months. Good news though, I think I've found a way to do it and will write it up once I have the code to show it's viable. The rest is almost exactly as you propose it here.\n\nI really enjoyed reading this, cheers!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

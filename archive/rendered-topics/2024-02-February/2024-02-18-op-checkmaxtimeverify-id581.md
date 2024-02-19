@@ -12,3 +12,9 @@ Before I invest time in a draft implementation, I wanted to first wanted to turn
 
 -------------------------
 
+ProofOfKeags | 2024-02-19 19:39:00 UTC | #2
+
+You may be interested in looking at the [OP_EXPIRE](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/022042.html) post as it outlines something like this. I haven't read the draft bip you linked yet but if you're interested in prior art and discussion on whether or not this is a good idea and why, I'd start there.
+
+-------------------------
+
