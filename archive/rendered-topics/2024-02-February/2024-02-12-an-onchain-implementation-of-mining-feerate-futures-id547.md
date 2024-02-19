@@ -356,3 +356,17 @@ This should be useful in the case where it is obvious that there is a situation 
 
 -------------------------
 
+ajtowns | 2024-02-19 09:40:13 UTC | #5
+
+[quote="harding, post:2, topic:547"]
+a miner with a large percentage of total network hashrate can forgo mining a transaction in a particular block and still have a realistic chance of being able to mine that transaction in one of their later blocks.
+...
+I suspect that widespread use of this contract might make large miners even more profitable than smaller miners, increasing centralization of mining
+[/quote]
+
+I don't think that's true? If a miner mines the low feerate "miner tx" before it expires, leaving some random higher feerate txs in the mempool, that raises the fees available in the next block for *everyone* including low hashrate miners. So I think that actually gives an advantage to low-hashrate miners: they get the benefit of an occassional bonus high feerate tx, without having to pay the cost of having mined a low feerate tx first.
+
+That is: yes, there is an incentive for large miners to behave **differently** to small miners, but that difference benefits whoever finds future blocks equally, whether they participated in the strategy or not, whether they'rea small miner or a large one.
+
+-------------------------
+
