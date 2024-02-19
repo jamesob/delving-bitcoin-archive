@@ -338,3 +338,21 @@ This can be avoided by using average fee rates over N blocks and settle discreet
 
 -------------------------
 
+ZmnSCPxj | 2024-02-19 00:34:09 UTC | #4
+
+[quote="harding, post:2, topic:547"]
+That said, I think a [contemporary post](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553#a-simple-analysis-of-a-toy-problem-14) on this forum points to a weakness in this theoretical model: a miner with a large percentage of total network hashrate can forgo mining a transaction in a particular block and still have a realistic chance of being able to mine that transaction in one of their later blocks. In the case of this contract, the large miner may be willing to settle this contract in their favor even if it means being unable to mine some higher feerate transactions in the current block because the large miner knows that they’ll have a chance of mining some of the excluded transactions in the next block. A miner with a small percentage of total network hashrate doesn’t have that option: they’ll have to let the contract settle against them because their probability of getting a second chance at mining any transactions is tiny.
+[/quote]
+
+My intuition here is that if the congestion is large enough, then even a large miner is forced to leave off its execution branch of this contract.
+
+Consider the case where each block can contain only one transaction each.  Suppose there are two other transactions (let us assume it is an ordinal transaction so they are as large as the miner-unilteral tx branch here) whose feerates are strictly higher than the feerate of the fixed miner-unilateral tx branch.  Now further suppose the miner is in possession of a perfect oracle that tells it that it WILL mine the next 2 blocks (i.e. it is so large it has 100% of the hashrate).
+
+Since there is congestion (i.e. there are more high-fee-paying transactions than a single block can fit), the miner, of whatever size, is better off putting the two other transactions in both of the blocks it will get, than the miner-unilateral branch of this contract.
+
+Thus, in terms of the `N` in this contract, if at time `T` the high-fee-paying transactions are many enough that they would fill more than `N` blocks, the miner is still incentivized to pack those transactions into its blocks.  This is because it has to decide between high-paying transaction for N blocks now, or a low-paying one now and high-paying transactions for N-(1transaction) blocks.  Note in particular that the post you linked has the miner deciding between a low-paying tx now or a high-paying tx replacement later.
+
+This should be useful in the case where it is obvious that there is a situation where the blockchain is congested for `N` blocks at time `T`.  In boundary cases where the blockchain is congested for less than `N` blocks I think the user would be fine with the miner exercising its branch, as `N` is pre-agreed-to anyway.
+
+-------------------------
+
