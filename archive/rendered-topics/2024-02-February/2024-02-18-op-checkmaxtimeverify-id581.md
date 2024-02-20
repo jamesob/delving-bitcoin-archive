@@ -18,3 +18,19 @@ You may be interested in looking at the [OP_EXPIRE](https://lists.linuxfoundatio
 
 -------------------------
 
+EvanWinget | 2024-02-20 02:12:32 UTC | #3
+
+Thanks for the suggestion! rearden_code pointed me there from Twitter as well, I had missed this mailing list post last fall and it's a good read.  Peter's proposal for how this could be implemented is preferable to the proposal that I had in mind. Very different motivation behind his proposal, and ultimately I think this strengthens the case for adding an op code that enables transaction expiration.
+
+One note on the OP_EXPIRE conversation is that Peter shared: "Time-based anything is sketchy, as it could give miners incentives to lie about
+the current time in the nTime field. If anything, the fact that nLockTime can
+in fact be time-based was a design mistake."
+
+I agree with him that block height is strongly preferable to block time for the reason that miners can't misrepresent the block height.
+
+Interestingly though, if we *are* going to keep around timestamp based time locks (and I've not seen any indication anyone is going to really push to remove them), then I think that having timestamp based transaction expiration helps to balance economic incentives for miners.
+
+In the current world we only have timestamp-based time locks and a miner wants to include the highest fee rate tx in their block. They may be incentivized to put a lower-than-accurate nTime in the block header such that they can include transactions that should only become valid at a future time. If we had an op code that could declare a max block time in which the transaction is valid and the mempool had a mixture of high fee rate transactions with expiration times and lock times, the miner would want to pull nTime forward for the time locks but push nTime backwards to include soon-to-expire transactions.
+
+-------------------------
+

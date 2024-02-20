@@ -63,3 +63,28 @@ I really enjoyed reading this, cheers!
 
 -------------------------
 
+ajtowns | 2024-02-20 01:47:06 UTC | #3
+
+[quote="calle, post:2, topic:586"]
+As far as I can see, your construction is missing a crucial part though: the transferrability of these tokens from user to user without the mint being able to link the transfer to the Lightning invoice (i.e., keeping the ecash privacy intact).
+[/quote]
+
+If you want to transfer the tokens, you just do a regular ecash transfer (generate a new blinded value and pay the mint to sign it by spending your existing coin) -- the "issuing new ecash" part only reveals blinded values (A and B) to the mint, then the unblinded value (C, K) is what's used later to authorise transfers.
+
+[quote="calle, post:2, topic:586"]
+Since the mint does not know the `K` the user requests a signature on, it’s hard to make sure that the claim of a token remains intact when passed form user to user (and all sorts of other issues arise, such as Alice being able to re-mint a token committing to the same invoice again using a different `r` after having sent it to another user Carol).
+[/quote]
+
+Maybe I'm misunderstanding something; but:
+
+ * transfering a token to a new user means telling the mint "here's $C_1,K_1$ please mark that as spent, and issue me a new blind signature for $A_2$"
+ * re-minting the same token with a different $r$ means you'll end up with the same signature pair $C, K$; but because the mint tracks spent coins, you'll only be able to spend it once, despite having paid twice to have it minted, meaning the mint will end up with more bitcoin backing its issued coins than there are coins to be redeemed
+
+[quote="calle, post:2, topic:586"]
+However, good news: we already have a ZKP implemented as a proof of knowledge of `m` as a DLEQ proof,
+[/quote]
+
+Nice!
+
+-------------------------
+
