@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 17.4,
   "yours": false,
   "topic_id": 586,
   "topic_slug": "ecash-and-lightning-via-zkcp",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"calle, post:2, topic:586\"]\nAs far as I can see, your construction is missing a crucial part though: the transferrability of these tokens from user to user without the mint being able to link the transfer to the Lightning invoice (i.e., keeping the ecash privacy intact).\n[/quote]\n\nIf you want to transfer the tokens, you just do a regular ecash transfer (generate a new blinded value and pay the mint to sign it by spending your existing coin) -- the \"issuing new ecash\" part only reveals blinded values (A and B) to the mint, then the unblinded value (C, K) is what's used later to authorise transfers.\n\n[quote=\"calle, post:2, topic:586\"]\nSince the mint does not know the `K` the user requests a signature on, it\u2019s hard to make sure that the claim of a token remains intact when passed form user to user (and all sorts of other issues arise, such as Alice being able to re-mint a token committing to the same invoice again using a different `r` after having sent it to another user Carol).\n[/quote]\n\nMaybe I'm misunderstanding something; but:\n\n * transfering a token to a new user means telling the mint \"here's $C_1,K_1$ please mark that as spent, and issue me a new blind signature for $A_2$\"\n * re-minting the same token with a different $r$ means you'll end up with the same signature pair $C, K$; but because the mint tracks spent coins, you'll only be able to spend it once, despite having paid twice to have it minted, meaning the mint will end up with more bitcoin backing its issued coins than there are coins to be redeemed\n\n[quote=\"calle, post:2, topic:586\"]\nHowever, good news: we already have a ZKP implemented as a proof of knowledge of `m` as a DLEQ proof,\n[/quote]\n\nNice!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

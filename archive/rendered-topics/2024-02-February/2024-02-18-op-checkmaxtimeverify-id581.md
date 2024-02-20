@@ -34,3 +34,11 @@ In the current world we only have timestamp-based time locks and a miner wants t
 
 -------------------------
 
+orkunkilic | 2024-02-20 12:12:48 UTC | #4
+
+I don't have a concrete idea, but I wonder about the MEV implications of this potential change. Right now, PSBTs are off-chain, so MEV is solved off-chain, but moving this on-chain may introduce it.
+
+I need to think about the implications of CSV versus CMTV. If scripts unlock at some point, you can spend whenever you want. However, if scripts become unspendable at some point, there might be incentives for miners to censor.
+
+-------------------------
+

@@ -277,3 +277,19 @@ If we start with 0-value outputs but still want to keep the commitment transacti
 
 -------------------------
 
+instagibbs | 2024-02-20 13:16:12 UTC | #15
+
+[quote="Crypt-iQ, post:14, topic:383"]
+Is this issue here that the party in control of `TxB` is paying 1,780 sats over the “pure burn” ephemeral anchor spend to evict `TxC` rather than a separate transaction paying > 10,000 sats per rule #3 (thereby saving money and incentivizing inflating the anchor)?
+[/quote]
+
+Basically yes. You can make it further obvious by driving up the ephemeral value.
+
+[quote="Crypt-iQ, post:14, topic:383"]
+If we start with 0-value outputs but still want to keep the commitment transaction 0-fee, couldn’t we add an anyone-can-spend output that’s timelocked far in the future (and hence won’t interfere with anything in the mempool)?
+[/quote]
+
+Yes
+
+-------------------------
+
