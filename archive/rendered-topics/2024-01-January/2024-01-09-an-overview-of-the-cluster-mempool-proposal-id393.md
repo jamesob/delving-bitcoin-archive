@@ -641,3 +641,42 @@ Note that today, the descendant count limit (25 transactions by default) already
 
 -------------------------
 
+hebasto | 2024-02-21 12:31:28 UTC | #19
+
+[quote="sdaftuar, post:1, topic:393"]
+This graph shows why various heuristics for whether a replacement should be taken are unsatisfactory. Instead, to ensure that a replacement is always better for miners, we propose making the RBF validation rule be that the mempool must get “strictly better” using this feerate diagram check in order to be accepted.
+[/quote]
+
+1. Without knowing a mempool ordering, is it possible for a wallet to construct an RBF transaction candidate that will be guaranteed to be accepted?
+
+if not,
+
+2. What kind of a mempool ordering data would be sufficient for a wallet to achieve such a goal?
+
+-------------------------
+
+sdaftuar | 2024-02-21 13:59:55 UTC | #20
+
+[quote="hebasto, post:19, topic:393"]
+1. Without knowing a mempool ordering, is it possible for a wallet to construct an RBF transaction candidate that will be guaranteed to be accepted?
+[/quote]
+
+I think the short answer is "no" -- philosophically at least, what I'm proposing is that our RBF rules become even more of a black box than they are today.  
+
+When we first implemented RBF in Bitcoin Core (back in 2015), I had suggested that we write up our replacement rules in a BIP (BIP 125) so that wallets would be able to know what the rules are and be able to comply with them.  However, because those rules depend on the feerates and total fees of all conflicting transactions (including descendants of direct conflicts), wallets already need access to a full node's mempool in order to know how to replace a given transaction. 
+
+Because of this existing complexity, my understanding is that most (all?) wallets today, in practice, just try to keep bumping the fee on a transaction until it is accepted by a full node's mempool (if access to one is available) or until it confirms.  I'd be curious to know if there are wallets in use that attempt to calculate the BIP 125 requirements for themselves though, and if so, how they achieve it.
+
+[quote="hebasto, post:19, topic:393"]
+2. What kind of a mempool ordering data would be sufficient for a wallet to achieve such a goal?
+[/quote]
+
+Let's say we're constructing a new transaction $T$, which would directly conflict with some existing transactions ${E_1, ..., E_N}$. Then in theory, in order to calculate exactly whether T would be a successful replacement, we'd need to know:
+- the existing orderings of the clusters that each $E_i$ is currently in.
+- the orderings of the clusters that would be affected by adding $T$ and removing each $E_i$ from the mempool
+- the total fees of $T$, and the total fees of the transactions being removed from the mempool.
+
+In practice, though, the rules line up largely with what I think users expect.  You can take a look at my draft PR (https://github.com/bitcoin/bitcoin/pull/28676) and look at the changes that needed to be made to the functional tests -- basically no substantive changes were made to the tests in `feature_rbf.py`.  So I think that is indicative that the rules aren't really changing in ways that are unexpected for real-world use cases.
+
+-------------------------
+
