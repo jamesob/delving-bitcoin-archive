@@ -42,3 +42,11 @@ I need to think about the implications of CSV versus CMTV. If scripts unlock at 
 
 -------------------------
 
+EvanWinget | 2024-02-21 04:47:51 UTC | #5
+
+I have similar concerns about incentives to censor a UTXO such that it becomes unspendable due to expiration (“Lost coins only make everyone else’s coins worth slightly more. Think of it as a donation to everyone.”), and I have concerns that users would accidentally end up constraining confirmed outputs with an expiration and they would become unspendable due to lack of movement prior to expiration based on user error.
+
+Luckily in the context of creating a PSBT for an asset swap you don't need to worry about either of these scenarios because even if the transaction expires prior to confirmation, the PSBT creator's output can be spent in a new transaction.
+
+-------------------------
+

@@ -8,13 +8,13 @@
   "post_number": 4,
   "post_type": 1,
   "updated_at": "2024-02-20T12:12:48.309Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 17.2,
   "yours": false,
   "topic_id": 581,
   "topic_slug": "op-checkmaxtimeverify",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I don't have a concrete idea, but I wonder about the MEV implications of this potential change. Right now, PSBTs are off-chain, so MEV is solved off-chain, but moving this on-chain may introduce it.\n\nI need to think about the implications of CSV versus CMTV. If scripts unlock at some point, you can spend whenever you want. However, if scripts become unspendable at some point, there might be incentives for miners to censor.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
