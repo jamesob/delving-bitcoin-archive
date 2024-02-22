@@ -680,3 +680,9 @@ In practice, though, the rules line up largely with what I think users expect.  
 
 -------------------------
 
+hebasto | 2024-02-22 10:04:15 UTC | #21
+
+The amount of work required to reject an RBF replacement might be substantial. Does this create a new potential attack vector?
+
+-------------------------
+
