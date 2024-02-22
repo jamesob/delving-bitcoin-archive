@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Yes, I agree that we need to be mindful of the validation costs of RBF and impose RBF limits to prevent those costs from being too high.\n\nThere are two differences between validation of RBF transactions and non-RBF transactions:\n\n1) RBF transactions require re-clustering and relinearizing all the clusters which have seen evictions.  (Re-clustering is an $O(n)$ operation in the number of transactions, and roughly speaking we can bound re-linearization cost to $O(n^2)$ in the number of transactions in a single cluster.)\n\n2) Doing a feerate diagram comparison of the old vs the new clusters.  This is linear in the number of chunks of the two diagrams (which is bounded by the number of transactions in the clusters that the diagrams come from).\n\nToday's RBF rules (BIP 125) impose a limit on the number of total transactions that would be evicted by a single replacement at 100. For cluster mempool, if we limited the number of direct conflicts a single transaction could have at 100, and if clusters end up being limited to at most 100 transactions, then this might be good enough -- effectively bounding the number of extra linearizations at 100 and the size of a feerate diagram comparison to 10,000 entries.  But we'll get a better sense of this as we do more benchmarking -- if this is too many, we could do some kind of more precise calculation of how many clusters are being relinearized and how many entries the feerate diagram has, and bound things based on the exact numbers we care about limiting so that validating a single transaction is not too expensive.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
