@@ -330,3 +330,11 @@ Given the complexity of the linearization algorithm, has an alternative approach
 
 -------------------------
 
+sipa | 2024-02-22 10:29:02 UTC | #3
+
+@hebasto The problem of finding the (optimal) chunks is reducible to the problem of finding the optimal linearization actually, and the other way around. So if you can do one, you can do the other. The meat of the algorithm described here is effectively iterating all topologically-valid subsets, and then moving the highest-feerate one to the front, where it becomes a chunk.
+
+So either I'm misunderstanding your suggestion, or it's effectively what we're doing already. Happy to hear if you have more ideas to try, though. We don't have a proof that finding the optimal linearization (or finding the highest-feerate topologically-valid subset) is NP-hard, so it's possible a polynomial algorithm exist.
+
+-------------------------
+
