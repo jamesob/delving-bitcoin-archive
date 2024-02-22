@@ -8,13 +8,13 @@
   "post_number": 5,
   "post_type": 1,
   "updated_at": "2024-02-22T14:57:46.792Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 66.6,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"rustyrussell, post:4, topic:553\"]\nFortunately, the actual divergence from miner incentives here is fairly narrow in practice, as these extreme examples do not regularly occur. Bitcoin software also doesn\u2019t mine backwards even in the case of a large fee double-spend, and I haven\u2019t seen anyone complaining about that. Similarly, I suggest leaving this door firmly closed.\n[/quote]\n\nI imagine you're right, and I certainly am not proposing that anyone write software that would do anything differently in this regard. However I think it's important to understand that if protocols are implicitly creating mechanisms where miners would get paid more overall if they censor a transaction in order to wait for a later one, that we know under what assumptions this is incentive compatible, so that we don't stray into territory where the system falls apart (either because miners independently decide its in their interest to wait, or because it creates incentives for miners to cooperate because they collect more total fee this way).\n\nSo I view this as an area for theoretical research to be done to figure out how the incentives work out and what the game theoretic implications are.\n\n[quote=\"rustyrussell, post:4, topic:553\"]\nIf it were a simple collection of potentially incompatible but all possibly-valid transactions, and selection were made at block creation time, we would be able to trade some problems for others. We would need, however, some other mechanism for DoS protection.\n[/quote]\n\nAgreed -- though my intuition is that this is an insurmountable DoS problem to solve.\n\n[quote=\"rustyrussell, post:4, topic:553\"]\nI wanted to mention what is still my current favorite solution in the replacement wars: that RBF rules be bypassed in favor of a simpler \u201chigher feerate\u201d iff all the replaced txs would not have been in the successive block, and all new ones are. This addresses both the sharp end of RBF complaints in a multi-party scenario (blocking progress) and the sharp end of miner incentive (getting those juicy fees). [Aside: ISTR someone had a critique of this approach, but I can\u2019t find the link? Help?!]\n[/quote]\n\nSo I had hoped that the reasoning from my post shows why this is an insufficient criteria by itself, even putting aside potential DoS issues and only considering miner incentive compatibility, but I can try to come up with a more concrete example to make my point clearer.\n\nSuppose in our mempool we have the following:\n* 1000 transactions, $A_1, ... A_{1000}$, each of which pays 10k sats in fees, and is 1k vbytes in size (so 10 sats/vbyte feerate).\n* 500 transactions, $B_1, ..., B_{500}$, each of which pays 9k sats in fees, and also 1k vbytes in size (9 sats/vbyte feerate)\n* 500 transactions, $C_1, ..., C_{500}$, each of which pays 1k sats in fees, and also 1k vbytes in size (1 sat/vbyte feerate)\n* 1 transaction, $D$, which pays 900k sats in fees, and is 100k vbytes in size (9 sat/vbyte feerate).\n\nAt this point, the next block would consist of all the $A_i$ transactions and pay 10M sats in fees, while the second block would consist of $[B_1, ..., B_{500}, D, C_1, ..., C_{400}]$ and pay 5.8M sats in fees.\n\nImagine we have a replacement transaction, $D'$, which conflicts with $D$, pays a feerate of 10.001 sats/vbyte, and is 1000 kvbytes in size.  Under your proposed rule, $D'$ would be in the top block and accepted as a replacement -- indeed, it would be the highest feerate transaction in the whole mempool -- but it only increases the fees in the top block by 1 satoshi.\n\nMeanwhile, the result of taking $D'$ and evicting $D$ would be that the second block in the mempool will now consist of: $[A_{1000}, B_1, ..., B_{500}, C_1, ..., C_{499}]$, which has a total fee of 5.009M sats, a reduction of 791k sats.\n\nI think this raises two immediate questions:\n1) Are there any miners that would find it incentive compatible to work on a block that pays 1 sat more, if it means giving up 791k sats in the next block?  (Note that in the future when fees are the only thing rewarding miners, that this would seem to create an additional incentive to reorg out such blocks.) I believe that in today's network, the answer is no.\n2) Even if there are, is it bad for the network to promote policies that try to exploit this kind of behavior, because it might create an incentive for miners to centralize to try to maximize total fees collected?  I don't know how strong this effect might be, but I think we should notice that this would seem to rely on (extreme) decentralization of mining in order to work, and we should determine if we might be undermining that important property with a usage pattern that incentives subverting it.\n\nMy overall takeaway from this is that (a) at the least, the distribution of fees in the mempool seems to matter for what is incentive compatible, even when looking at \"top block\" replacement rules, and (b) even taking into account such distributions, more research is needed to figure out what is incentive compatible for miners, particularly in situations where total fees are going down.\n\nGoing further: even in situations where total fees are not going down, I think there is more room for research.  I think there's a rough intuition that when evaluating an RBF and looking at feerate diagrams, that probably what is happening in the top few blocks matters a lot more than what is happening further down in the mempool.  But we lack any specifics on how we might characterize this -- you could imagine an RBF that would increase the top block by 1 sat, decrease the second block by 100k sats, but increase the third block by 101k sats.  Is that an RBF that we should accept?  etc.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

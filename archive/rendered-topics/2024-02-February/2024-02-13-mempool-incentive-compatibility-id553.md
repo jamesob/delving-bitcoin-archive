@@ -371,3 +371,13 @@ Going further: even in situations where total fees are not going down, I think t
 
 -------------------------
 
+instagibbs | 2024-02-22 19:14:14 UTC | #6
+
+[quote="sdaftuar, post:5, topic:553"]
+But we lack any specifics on how we might characterize this – you could imagine an RBF that would increase the top block by 1 sat, decrease the second block by 100k sats, but increase the third block by 101k sats. Is that an RBF that we should accept? etc.
+[/quote]
+
+I've mentioned this elsewhere, but I imagine a way to primarily considering this is weighing the reward with some kind of exponential discounting which reflects the inherent uncertainty of the mempool and of the future itself. [Things further down can be replaced, buried further, trimmed, etc](https://sci-hub.se/https://dl.acm.org/doi/abs/10.1145/3466826.3466833). This would be a fairly large departure from the current methodology of comparing diagrams, involves consequential judgment calls about weighing, and doesn't answer anti-DoS questions, naturally.
+
+-------------------------
+
