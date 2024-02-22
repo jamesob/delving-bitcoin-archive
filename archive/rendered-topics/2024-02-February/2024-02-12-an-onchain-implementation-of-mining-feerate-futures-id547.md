@@ -393,3 +393,11 @@ But once you divide that by their respective hashpower, the proportional payoff 
 
 -------------------------
 
+quantobasta | 2024-02-21 22:19:02 UTC | #7
+
+Very clever implementation - seems to strike a balance between the ethos of Bitcoin (incentivized yet voluntary participation, limited middle-persons, onchain) and the need for Bitcoin-native projects to have known costs and miner's to hedge against low feerate periods. 
+
+You may have seen the deal done by Block Green to seed a miner with capital in exchange for the total revenue of their next 50 blocks. This seems to suggest that some miners would also like upfront disposable capital. I wonder how this implementation might allow for something similar - perhaps some adjunct service that offers up the collateral for miners with some accompanying stipulations for handling defaults?
+
+-------------------------
+
