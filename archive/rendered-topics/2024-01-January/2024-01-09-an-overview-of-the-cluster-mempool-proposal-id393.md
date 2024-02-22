@@ -686,3 +686,17 @@ The amount of work required to reject an RBF replacement might be substantial. D
 
 -------------------------
 
+sdaftuar | 2024-02-22 10:31:53 UTC | #22
+
+Yes, I agree that we need to be mindful of the validation costs of RBF and impose RBF limits to prevent those costs from being too high.
+
+There are two differences between validation of RBF transactions and non-RBF transactions:
+
+1) RBF transactions require re-clustering and relinearizing all the clusters which have seen evictions.  (Re-clustering is an $O(n)$ operation in the number of transactions, and roughly speaking we can bound re-linearization cost to $O(n^2)$ in the number of transactions in a single cluster.)
+
+2) Doing a feerate diagram comparison of the old vs the new clusters.  This is linear in the number of chunks of the two diagrams (which is bounded by the number of transactions in the clusters that the diagrams come from).
+
+Today's RBF rules (BIP 125) impose a limit on the number of total transactions that would be evicted by a single replacement at 100. For cluster mempool, if we limited the number of direct conflicts a single transaction could have at 100, and if clusters end up being limited to at most 100 transactions, then this might be good enough -- effectively bounding the number of extra linearizations at 100 and the size of a feerate diagram comparison to 10,000 entries.  But we'll get a better sense of this as we do more benchmarking -- if this is too many, we could do some kind of more precise calculation of how many clusters are being relinearized and how many entries the feerate diagram has, and bound things based on the exact numbers we care about limiting so that validating a single transaction is not too expensive.
+
+-------------------------
+
