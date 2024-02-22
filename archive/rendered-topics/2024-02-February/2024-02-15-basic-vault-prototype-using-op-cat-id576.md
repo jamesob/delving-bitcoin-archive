@@ -114,3 +114,23 @@ can be given as just two witness values, not as 10 witnesses - this will save a 
 
 -------------------------
 
+rijndael | 2024-02-22 13:42:54 UTC | #3
+
+This is super cool. 
+
+The way I have been experimenting with using CAT to make covenants is I have a function to build up the elements of the BIP341 SigMsg and then spit them out as a vector of elements, and then I pre-commit to the ones that I want to be fixed in the script, and push the rest of them in the transaction witness. In the script, it CATs all of these items together (assembling the SigMsg), and then use that to construct a tagged hash, then CAT on some more tag values and copies of the secp generator point and hash all of that to get the `s` value of a schnorr signature that is valid for the transaction. I knew that if I pre-concatenated the "free" values of the SigMsg outside the script instead of on the stack, I could save some bytes, but I hadn't done it yet to keep my code more flexible for experimenting. It's **very** cool to have BSST tell me exactly how much overhead that's costing me.
+
+I need to spend some time playing with BSST!
+
+-------------------------
+
+dgpv | 2024-02-22 14:16:26 UTC | #4
+
+I think that in addition to the number of witnesses, there's also overhead in extra opcodes that are used to CAT the parts that can be pre-concatenated
+
+This demo excellently showcases the use of CAT for tx introspection, even with the scripts that are not max-optimized.
+
+But with less witness inputs these scripts can be easier to understand for those who want to look at this demo in detail
+
+-------------------------
+

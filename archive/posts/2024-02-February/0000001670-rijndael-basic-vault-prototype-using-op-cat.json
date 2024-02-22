@@ -1,0 +1,72 @@
+{
+  "id": 1670,
+  "name": "",
+  "username": "rijndael",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/r/8797f3/{size}.png",
+  "created_at": "2024-02-22T13:42:54.895Z",
+  "cooked": "<p>This is super cool.</p>\n<p>The way I have been experimenting with using CAT to make covenants is I have a function to build up the elements of the BIP341 SigMsg and then spit them out as a vector of elements, and then I pre-commit to the ones that I want to be fixed in the script, and push the rest of them in the transaction witness. In the script, it CATs all of these items together (assembling the SigMsg), and then use that to construct a tagged hash, then CAT on some more tag values and copies of the secp generator point and hash all of that to get the <code>s</code> value of a schnorr signature that is valid for the transaction. I knew that if I pre-concatenated the \u201cfree\u201d values of the SigMsg outside the script instead of on the stack, I could save some bytes, but I hadn\u2019t done it yet to keep my code more flexible for experimenting. It\u2019s <strong>very</strong> cool to have BSST tell me exactly how much overhead that\u2019s costing me.</p>\n<p>I need to spend some time playing with BSST!</p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2024-02-22T13:42:54.895Z",
+  "reply_count": 1,
+  "reply_to_post_number": 2,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 20.8,
+  "yours": false,
+  "topic_id": 576,
+  "topic_slug": "basic-vault-prototype-using-op-cat",
+  "topic_title": "Basic vault prototype using OP_CAT",
+  "topic_html_title": "Basic vault prototype using OP_CAT",
+  "category_id": 7,
+  "display_username": "",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "dgpv",
+    "name": "",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/dgpv/{size}/75_2.png"
+  },
+  "bookmarked": false,
+  "raw": "This is super cool. \n\nThe way I have been experimenting with using CAT to make covenants is I have a function to build up the elements of the BIP341 SigMsg and then spit them out as a vector of elements, and then I pre-commit to the ones that I want to be fixed in the script, and push the rest of them in the transaction witness. In the script, it CATs all of these items together (assembling the SigMsg), and then use that to construct a tagged hash, then CAT on some more tag values and copies of the secp generator point and hash all of that to get the `s` value of a schnorr signature that is valid for the transaction. I knew that if I pre-concatenated the \"free\" values of the SigMsg outside the script instead of on the stack, I could save some bytes, but I hadn't done it yet to keep my code more flexible for experimenting. It's **very** cool to have BSST tell me exactly how much overhead that's costing me.\n\nI need to spend some time playing with BSST!",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 288,
+  "hidden": false,
+  "trust_level": 0,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}
