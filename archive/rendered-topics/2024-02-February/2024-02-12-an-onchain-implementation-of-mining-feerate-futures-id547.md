@@ -401,3 +401,13 @@ You may have seen the deal done by Block Green to seed a miner with capital in e
 
 -------------------------
 
+ZmnSCPxj | 2024-02-22 10:47:04 UTC | #8
+
+Ultimately you can boil down the innovation in this post to the single idea: it is possible to create a proof-of-low-fees by forcing a miner to include an artificially-enlarged transaction in its block in order to recover its bonded funds.
+
+Your target as stated seems to not fit the above --- what you seem to want is someone is able to loan out to funds to some business, which then promises to pay back from its earnings. This probably requires real-world force and some kind of legal system.
+
+Less generally, once a miner has established itself, it can smoothen out its incoming cashflow using this mechanism to offer high-fee insurance to users.  In case of low fees, it earns more, and in case of high fees, it earns less.  If there is enough competition and the miner is able to track well with its competitors, I expect that MC=MR is reached and none of the miners will actually earn more total from this mechanism, but ***will*** get smoothened continuous cashflow, which helps reduce its uncertainties (e.g. grid balancing) which would still be beneficial to actual miner implementations.
+
+-------------------------
+
