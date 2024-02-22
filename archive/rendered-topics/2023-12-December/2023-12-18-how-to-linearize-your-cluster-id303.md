@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2023-12-20 03:59:33 UTC | #1
+sipa | 2024-02-22 03:31:16 UTC | #1
 
 # How to linearize your cluster
 
@@ -78,17 +78,17 @@ The bulk of the work is in the internal algorithm to find high-feerate subsets (
 
 Overall, the search for high-feerate subsets of a given (remainder of a) cluster $G$ follows an approach where a set of work items is maintained, each of which corresponds to some definitely-included transactions, some definitely-excluded transactions, and some undecided transactions. Then a processing loop follows which in every iteration "splits" one work item in two: one where the transaction becomes included (called the addition branch), and one where the transaction becomes excluded (called the deletion branch).
 
-* Let $W = \{(\emptyset,\emptyset)\}$, the set of work items, initialized with a single element $(\emptyset,\emptyset)$.
+* Set $W = \{(\varnothing,\varnothing)\}$, the set of work items, initialized with a single element $(\varnothing,\varnothing)$.
   * Each work item $(inc,exc)$ consists of two non-overlapping sets; $inc$ represents transactions that have to be included, and $exc$ represents transactions that cannot be included. Transactions that are not in either are undecided. $inc$ always includes its own ancestors $(\operatorname{anc}(inc)=inc)$, while $exc$ always includes its own descendants $(\operatorname{desc}(exc)=exc).$
-  * The initial item $(\emptyset,\emptyset)$ represents "everything undecided".
-* Set $best = \emptyset$, the best subset seen so far.
+  * The initial item $(\varnothing,\varnothing)$ represents "everything undecided".
+* Set $best = \varnothing$, the best subset seen so far.
 * While $W$ is non-empty and computation limit is not reached:
   * Take some work item $(inc, exc)$ out of $W$.
   * Find a transaction $t$ not in $inc$ and not in $exc$ (an undecided one).
-  * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$; work item for the addition branch.
-  * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$; work item for the deletion branch.
+  * Set $work_{add} = (inc \cup \operatorname{anc}(t), exc)$; work item for the addition branch.
+  * Set $work_{del} = (inc, exc \cup \operatorname{desc}(t))$; work item for the deletion branch.
   * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
-    * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+    * If $inc_{new} \neq \varnothing$ and ($best = \varnothing$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
       * Set $best = inc_{new}$.
     * If there are undecided transactions left corresponding to $(inc_{new}, exc_{new})$:
       * Add $(inc_{new}, exc_{new})$ to $W$.
@@ -100,44 +100,74 @@ It would be possible to restrict the choice of undecided transactions to only co
 
 ### 2.2 Potential-set bounding
 
-To avoid iterating over literally every topological subset, we can compute a conservative upper bound on how good (the evolution of) each work item can get. If that is not better than $best$, the item can be discarded.
+To avoid iterating over literally every topological subset of the cluster (there may be up to $2^{n-2}$), we can compute a conservative upper bound on how good (the evolution of) each work item can get. If that is not better than $best$, the item can be discarded.
 
-This conservative upper bound is the *potential set* $pot$, which we will compute for every work item. For a given work item $(inc, exc)$, $pot$ is the highest-feerate set among *all* sets (not just topologically valid ones) that are compatible with $inc$ and $exc$: $inc \subset pot$ and $exc \cap pot = \emptyset$. This is easy to compute:
+This conservative upper bound is the *potential set* $pot$, which we will compute for every work item. For a given work item $(inc, exc)$, $pot$ is the highest-feerate set among *all* sets (not just topologically valid ones) that include $inc$ and exclude $exc$: $inc \subset pot$ and $exc \cap pot = \varnothing$. This is easy to compute:
 * Initialize $pot = inc$.
 * For each $u$ not in $pot$ or $exc$, in decreasing individual feerate order:
-  * If $pot = \emptyset$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$:
+  * If $pot = \varnothing$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$:
     * Set $pot = pot \cup \{u\}$.
   * Otherwise, stop iterating.
 
-Observe that all elements of $(pot \setminus inc)$ have a feerate at least as high as $pot$ itself (this is clearly true for the last one added, and the transactions before that one have an even higher feerate), and all undecided elements not in $pot$ have a feerate not exceeding $pot$'s (if they did, they would have been included). Thus, adding any other undecided transactions to $pot$, or removing any non-$inc$ transactions from it, or any combination thereof, cannot decrease its feerate. Therefore, it must be a maximum.
+Observe that all elements of $(pot \setminus inc)$ have a feerate at least as high as $pot$ itself (this is clearly true for the last one added, and the transactions before that one cannot have lower feerate), and all undecided elements not in $pot$ have a feerate not exceeding $pot$'s (if they did, they would have been included). Thus, adding any other undecided transactions to $pot$, or removing any non-$inc$ transactions from it, or any combination thereof, cannot increase its feerate. Therefore, it must be a maximum.
 
 Incorporating this into the search algorithm we get:
 
-* Let $W = \{(\emptyset,\emptyset)\}$.
-* Set $best = \emptyset$.
+* Set $W = \{(\varnothing,\varnothing)\}$.
+* Set $best = \varnothing$.
 * While $W$ is non-empty and computation limit is not reached:
   * Take some work item $(inc, exc)$ out of $W$.
   * Set $pot = inc$.
   * For each $u$ not in $pot$ or $exc$, in decreasing individual feerate order:
-    * If $pot = \emptyset$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$:
+    * If $pot = \varnothing$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$:
       * Set $pot = pot \cup \{u\}$.
     * Otherwise, stop iterating.
-  * If $best = \emptyset$ or $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+  * If $best = \varnothing$ or $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
     * Find a transaction $t$ not in $inc$ and not in $exc$ to split on.
-    * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
-    * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
+    * Set $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
+    * Set $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
     * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
-      * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+      * If $inc_{new} \neq \varnothing$ and ($best = \varnothing$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
         * Set $best = inc_{new}$.
       * If there are undecided transactions left (not in $inc_{new}$ or $exc_{new}$):
         * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
-This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the next improvement, which very much does improve the worst case.
+This change helps the average case, but not the worst case, as it's always possible that the optimal subset is only found in the last iteration. However, it's a necessary preparation for the Jumping Ahead optimization, which very much does improve the worst case.
 
-### 2.3 Jumping ahead
+### 2.3 Best-bounding of potentials
 
-The potential set, as introduced in the previous section, has an important property: the transactions in $pot$ that do not belong to $inc$ must have a feerate at least as high as can be achieved by *any* set that includes $inc$ and excludes $exc$ (even ones that are not topologically valid). In fact, this relation is strict except for the case where $inc = \emptyset$ and $pot$ only contains a single transaction.
+A small optimization is possible to the above description, which seems to result in a ~25% reduction in feerate comparisons in the worst case.
+
+The goal of the $pot$ set is to ultimately decide if a work item is worth working on, namely when $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$. Additions to $pot$ which themselves have a feerate below that of $best$ cannot contribute to that. Therefore, we can break out of the addition loop early whenever the next transaction being added no longer meets the $\operatorname{feerate}(u) > \operatorname{feerate}(best)$ condition.
+
+In fact, this can be precomputed any time $best$ changes. We introduce an $imp$ (improvements) set, which starts off being equal to the cluster, but when $best$ is updated, we remove from $imp$ transactions which have a feerate lower than $best$.
+
+* Set $W = \{(\varnothing,\varnothing)\}$.
+* Set $best = \varnothing$.
+* Set $imp = G$.
+* While $W$ is non-empty and computation limit is not reached:
+  * Take some work item $(inc, exc)$ out of $W$.
+  * Set $pot = inc$.
+  * For each $u \in imp \setminus (pot \cup exc)$, in decreasing individual feerate order:
+    * If $pot = \varnothing$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot)$:
+      * Set $pot = pot \cup \{u\}$.
+    * Otherwise, stop iterating.
+  * If $best = \varnothing$ or $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+    * Find a transaction $t$ not in $inc$ and not in $exc$ to split on.
+    * Set $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
+    * Set $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
+    * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
+      * If $inc_{new} \neq \varnothing$ and ($best = \varnothing$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+        * Set $best = inc_{new}$.
+        * Set $imp = \{x \in imp : \operatorname{feerate}(x) > \operatorname{feerate}(best)\}$.
+      * If there are undecided transactions left (not in $inc_{new}$ or $exc_{new}$):
+        * Add $(inc_{new}, exc_{new})$ to $W$.
+* Return $best$
+
+### 2.4 Jumping ahead
+
+The potential set, as introduced in the previous section, has an important property: the transactions in $pot$ that do not belong to $inc$ must have a feerate at least as high as can be achieved by *any* set that includes $inc$ and excludes $exc$ (even ones that are not topologically valid). In fact, this relation is strict except for the case where $inc = \varnothing$ and $pot$ only contains a single transaction.
 Thus, if one is given such a set that is non-empty but which lacks one or more transactions in $pot$, then adding those transactions will *always* increase its feerate.
 
 This implies that every highest-feerate topologically-valid set among those that include $inc$ and exclude $exc$ *must* contain every topologically valid subset of $pot$. If not, then a topologically valid highest-feerate set $best$ that includes $inc$ and excludes $exc$ must exist, with a topologically-valid subset $subpot \subset pot$ such that $subpot \not\subset best$. In this case, $best \cup subpot$ will also be topologically valid, include $inc$, exclude $exc$, and have higher feerate than $best$ (because adding $pot$ transactions always improves feerate) which was assumed to be the highest-feerate such subset - a contradiction.
@@ -148,29 +178,31 @@ Note that this change makes the $work_{add}$ and $work_{del}$ variables only con
 
 We also move the computation of $pot$ and updating of $best$ inside the addition loop, as we want to perform the jumping as soon as possible and update $best$ accordingly. This can replace the "if there are undecided transactions left" test, as a lack of undecided transactions implies $pot = inc$:
 
-* Let $W = \{(\emptyset,\emptyset)\}$.
-* Set $best = \emptyset$.
+* Set $W = \{(\varnothing,\varnothing)\}$.
+* Set $best = \varnothing$.
+* Set $imp = G$.
 * While $W$ is non-empty and computation limit is not reached:
   * Take some work item $(inc, exc)$ out of $W$.
   * Find a transaction $t$ not in $inc$ or $exc$ to split on; this must exist.
-  * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
-  * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
+  * Set $work_{add} = (inc \cup \operatorname{anc}(t), exc)$.
+  * Set $work_{del} = (inc, exc \cup \operatorname{desc}(t))$.
   * For each $(inc_{new}, exc_{new}) \in \{work_{add}, work_{del}\}$:
     * Set $pot_{new} = inc_{new}$.
-    * For each $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
-      * If $pot_{new} = \emptyset$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$: 
+    * For each $u \in imp \setminus (pot_{new} \cup exc_{new})$, in decreasing individual feerate order:
+      * If $pot_{new} = \varnothing$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$: 
         * Set $pot_{new} = pot_{new} \cup \{u\}$.
       * Otherwise, stop iterating.
     * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
       * If $\operatorname{anc}(p) \subset pot_{new}$:
         * Set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
-    * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+    * If $inc_{new} \neq \varnothing$ and ($best = \varnothing$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
       * Set $best = inc_{new}$.
+      * Set $imp = \{x \in imp : \operatorname{feerate}(x) > \operatorname{feerate}(best)\}$.
     * If $\operatorname{feerate}(pot_{new}) > \operatorname{feerate}(best)$:
       * Add $(inc_{new}, exc_{new})$ to $W$.
 * Return $best$
 
-### 2.4 Choosing transactions
+### 2.5 Choosing transactions
 
 One thing that is unspecified so far is how to pick $t$, the transaction being added to $inc$ or $exc$ in every iteration.
 
@@ -181,13 +213,27 @@ These all appear to be good choices, with no meaningful differences for the wors
 2. Use as $t$ the transaction for which splitting on it minimizes the search space the most, among:
     1. All undecided transactions.
     2. All undecided transactions in $pot$.
-    3. All undecided transactions that are ancestors or descendants of the highest-individual-feerate undecided transaction.
+    3. All undecided transactions that are ancestors of the highest-individual-feerate undecided transaction.
 
-We measure the size of the search space simply as $2^{|undecided|}$, which is proportional to $2^{-|inc|-|exc|}$. The search space after a split on transaction $t$ therefore has a size proportional to $2^{-|inc\,\cup\,\operatorname{anc}(t)|-|exc|}+2^{-|inc|-|exc\,\cup\,\operatorname{desc}(t)|}$. Thus, to find the $t$ that results in the smallest search space, we maximize $\operatorname{min}(|inc\,\cup\,\operatorname{anc}(t)|+|exc|, |inc|+|exc\,\cup\,\operatorname{desc}(t)|)$, and as a tie-breaker use the maximum of those arguments.
+We measure the size of the search space simply as $2^{|undecided|}$, which is proportional to $2^{-|inc|-|exc|}$. The search space after a split on transaction $t$ therefore has a size proportional to $2^{-|inc\,\cup\,\operatorname{anc}(t)|-|exc|}+2^{-|inc|-|exc\,\cup\,\operatorname{desc}(t)|}$.
 
-In particular options 2.2 and 2.3 appear to be good choices, with no clear winner among them. Specific clusters exist for which either of the algorithms performs significantly better than the other, but this works both ways.
+It turns out that we do not need to compute the exponentiation here, and can compare the (maximum and minimum of) exponents instead, because
 
-### 2.5 Choosing work items
+$$
+(2^{a_1} + 2^{b_1} \geq 2^{a_2} + 2^{b_2}) \iff (\operatorname{max}(a_1, b_1), \operatorname{min}(a_1, b_1)) \geq (\operatorname{max}(a_2, b_2), \operatorname{min}(a_2, b_2))
+$$
+
+Thus, to find the $t$ that results in the smallest search space, we maximize the minimum:
+
+$$
+\operatorname{min}(|inc\,\cup\,\operatorname{anc}(t)|+|exc|, |inc|+|exc\,\cup\,\operatorname{desc}(t)|)
+$$
+
+and as a tie-breaker maximize the maximum of those same arguments.
+
+In particular option 2.3 above appears to be a good choice, though the numbers do not differ much.
+
+### 2.6 Choosing work items
 
 Lots of heuristics for the choice of $(inc,exc) \in W$ are possible which can greatly affect the runtime in specific cases, but the worst case is unaffected by this choice.
 
@@ -195,7 +241,7 @@ Thus it's reasonable to stick to a simple choice: treating $W$ like a (LIFO) sta
 
 If introducing randomness is desired (which may be the case if the algorithm is only given a bounded runtime), it's possible to instead treat $W$ like a small (say, $k=4$) fixed-size array of $k$ LIFO stacks, and make picking from $W$ and/or adding apply to a random stack in it. This retains DFS-ish behavior with (in almost all cases) only a small constant factor larger memory usage.
 
-### 2.6 Caching feerates and potential sets
+### 2.7 Caching feerates and potential sets
 
 To avoid recomputing the feerates of the involved sets ($inc$, $pot$, and $best$, specifically), the fees and sizes can be precomputed and stored alongside the sets themselves (including inside the work items). When sets are updated, e.g. in $inc = inc \cup \operatorname{anc}(t)$, only the fees and sizes of $(\operatorname{anc}(t) \setminus inc)$ need to be looked up and added to the cached value.
 
@@ -209,54 +255,58 @@ We can go further. By extending our definition of work item to $(inc, exc, pot)$
 
 Finally, this change also lets us move the check that $pot$ has higher feerate than $best$ to the beginning of the processing loop, where it can catch cases where $best$ improved between adding a work item and it being processed. The check inside the addition loop can be weakened to $pot \neq inc$. This is sufficient to make sure undecided transactions remain, and is faster than a feerate comparison (assuming set operations are implemented using bitsets). If the check fails (so when $pot = inc$), then no improvement is possible, and adding a work item is useless. If it succeeds then it *is* possible that $\operatorname{feerate}(pot) \not> \operatorname{feerate}(best)$, but that will be detected once the item gets processed.
 
-* Let $W = \{(\emptyset,\emptyset, \emptyset)\}$.
-* Set $best = \emptyset$.
+* Set $W = \{(\varnothing,\varnothing, \varnothing)\}$.
+* Set $best = \varnothing$.
+* Set $imp = G$.
 * While $W$ is non-empty and computation limit is not reached:
   * Take some work item $(inc, exc, pot)$ out of $W$.
-  * If $best = \emptyset$ or $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
+  * If $best = \varnothing$ or $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
     * Find a transaction $t$ not in $inc$ or $exc$ to split on; this must exist.
-    * Let $work_{add} = (inc \cup \operatorname{anc}(t), exc, pot \cup \operatorname{anc}(t))$.
-    * Let $work_{del} = (inc, exc \cup \operatorname{desc}(t), pot \setminus \operatorname{desc}(t))$.
+    * Set $work_{add} = (inc \cup \operatorname{anc}(t), exc, pot \cup \operatorname{anc}(t))$.
+    * Set $work_{del} = (inc, exc \cup \operatorname{desc}(t), pot \setminus \operatorname{desc}(t))$.
     * For each $(inc_{new}, exc_{new}, pot_{new}) \in \{work_{add}, work_{del}\}$:
-      * For each $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
-        * If $pot_{new} = \emptyset$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$:
+      * For each $u \in imp \setminus (pot_{new} \cup exc_{new})$, in decreasing individual feerate order:
+        * If $pot_{new} = \varnothing$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$:
           * Set $pot_{new} = pot_{new} \cup \{u\}$.
         * Otherwise, stop iterating.
       * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
         * If $\operatorname{anc}(p) \subset pot_{new}$:
           * Set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
-      * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+      * If $inc_{new} \neq \varnothing$ and ($best = \varnothing$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
         * Set $best = inc_{new}$.
+        * Set $imp = \{x \in imp : \operatorname{feerate}(x) > \operatorname{feerate}(best)\}$.
       * If $pot_{new} \neq inc_{new}$:
         * Add $(inc_{new}, exc_{new}, pot_{new})$ to $W$.
 * Return $best$
 
-### 2.7 Seeding with best ancestor sets
+### 2.8 Seeding with best ancestor sets
 
-Under no circumstances do we want to end up with a $best$ whose feerate is worse than the highest-feerate ancestor set, as that would mean we are worse off than just ancestor set based linearization. If the algorithm runs to completion (until $W = \emptyset$), it will always find the optimal. But when running with a bound on computation, it is possible that the result is worse than ancestor-set based.
+Under no circumstances do we want to end up with a $best$ whose feerate is worse than the highest-feerate ancestor set, as that would mean we are worse off than just ancestor set based linearization. If the algorithm runs to completion (until $W = \varnothing$), it will always find the optimal. But when running with a bound on computation, it is possible that the result is worse than ancestor-set based.
 
 To prevent that, it is possible to run both ancestor set based linearization and a bounded version of the search algorithm developed so far, and then [merge](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) the two. It's better however to run the search algorithm, but pre-split the initial state on the transaction with the best ancestor set. This too guarantees that stopping at any point will result in a $best$ at least as good as the best ancestor set, but in addition also makes this information available for search.
 
 To accomplish that, we abstract out the entire body of the "For each $(inc_{new}, exc_{new}, pot_{new})$" loop to a helper that potentially updates $best$ and potentially adds an element to $W$. This helper is then used in the normal processing loop, but also for the initialization of $W$.
 
 Overall, this leaves us with:
-* Let $W = \emptyset$.
-* Let $best = \emptyset$.
+* Set $W = \varnothing$.
+* Set $best = \varnothing$.
+* Set $imp = G$.
 * Define helper operation $\operatorname{add}(inc_{new}, exc_{new}, pot_{new})$ as:
-  * For each $u$ not in $pot_{new}$ or $exc_{new}$, in decreasing individual feerate order:
-    * If  $pot_{new} = \emptyset$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$:
+  * For each $u \in imp \setminus (pot_{new} \cup exc_{new})$, in decreasing individual feerate order:
+    * If  $pot_{new} = \varnothing$ or $\operatorname{feerate}(u) > \operatorname{feerate}(pot_{new})$:
       * Set $pot_{new} = pot_{new} \cup \{u\}$.
     * Otherwise, stop iterating.
   * For every transaction $p \in (pot_{new} \setminus inc_{new})$:
     * If $\operatorname{anc}(p) \subset pot_{new}$:
       * Set $inc_{new} = inc_{new} \cup \operatorname{anc}(p)$.
-  * If $inc_{new} \neq \emptyset$ and ($best = \emptyset$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
+  * If $inc_{new} \neq \varnothing$ and ($best = \varnothing$ or $\operatorname{feerate}(inc_{new}) > \operatorname{feerate}(best)$):
     * Set $best = inc_{new}$.
+    * Set $imp = \{x \in imp : \operatorname{feerate}(x) > \operatorname{feerate}(best)\}$.
   * If $pot_{new} \neq inc_{new}$:
     * Add $(inc_{new}, exc_{new}, pot_{new})$ to $W$.
 * Find $a$, the transaction whose ancestor set feerate is highest.
-* Invoke $\operatorname{add}(\operatorname{anc}(a), \emptyset, \operatorname{anc}(a))$.
-* Invoke $\operatorname{add}(\emptyset, \operatorname{desc}(a), \emptyset)$.
+* Invoke $\operatorname{add}(\operatorname{anc}(a), \varnothing, \operatorname{anc}(a))$.
+* Invoke $\operatorname{add}(\varnothing, \operatorname{desc}(a), \varnothing)$.
 * While $W$ is non-empty and computation limit is not reached:
   * Take some work item $(inc, exc, pot)$ out of $W$.
   * If $\operatorname{feerate}(pot) > \operatorname{feerate}(best)$:
@@ -271,6 +321,12 @@ My current [implementation](https://github.com/sipa/bitcoin/blob/wip_memepool_fu
 * The connected-component splitting isn't implemented for linearization in general, but done inside the find-high-feerate-subset algorithm. It's combined with the ancestor pre-seeding there ($W$ is initialized with 2 elements per connected component: each excludes every other component, but one includes the component's best ancestor set, and one excludes the best ancestor set's transaction's descendants). This is somewhat suboptimal, as the find-high-feerate-subset algorithm only finds one subset, so in case there are multiple components, work for the later ones is duplicated. However, it was a lot simpler to implement than having the linearize code perform merging of multiple sublinearizations, and still beneficial.
 * Newly added work items are added to one of $k=4$ LIFO stacks, in a round-robin fashion. A uniformly random stack is chosen to pop work items to process from.
 * The transaction to split on is, among the set of ancestors and descendants of the highest-individual-feerate undecided transaction, the one that minimizes the search space the most.
+
+-------------------------
+
+hebasto | 2024-02-22 10:22:58 UTC | #2
+
+Given the complexity of the linearization algorithm, has an alternative approach ever been considered, such as transforming the transaction graph into a graph of valid chunks first?
 
 -------------------------
 
