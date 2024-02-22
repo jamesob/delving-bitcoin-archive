@@ -1,6 +1,6 @@
 # Mempool Incentive Compatibility
 
-sdaftuar | 2024-02-13 19:19:39 UTC | #1
+sdaftuar | 2024-02-20 19:05:46 UTC | #1
 
 In this post, I'll attempt to summarize my current understanding of how to think about incentive compatibility, which has evolved over the past year while working on the cluster mempool project[^0].
 
@@ -254,7 +254,7 @@ Understanding those scenarios may also be helpful to us as we try to design ince
 [^2]: In this post, I'm focused on the narrow question of how to order transactions in the mempool to maximize fees.  I'm ignoring the game theoretic effects of miners potentially leaving high-fee paying transactions out of a block as an incentive for other miners to extend the chain, rather than reorg it.
 [^3]: By "topology", I mean the consensus rules that govern valid orderings of transactions in a block, namely that parent transactions must appear before child transactions.
 [^direct]: By "direct" conflicts, we refer to transactions which are spending 1 or more of the same inputs. By "indirect" conflicts, we mean transactions that do not directly spend the same inputs as a given transaction, but are descendant transactions of a direct conflict.
-[^4]: TODO: find references to prior work and update this footnote, as this has been covered at length in various forums. But for instance: see Gloria's [mailing list post on RBF](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-January/019817.html), and also some discussion in [#26451](https://github.com/bitcoin/bitcoin/pull/26451).
+[^4]: See for instance: Gloria's [mailing list post on RBF](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-January/019817.html), this comment from [PR #23121](https://github.com/bitcoin/bitcoin/pull/23121#issuecomment-929475999), and also some discussion in [#26451](https://github.com/bitcoin/bitcoin/pull/26451).
 [^5]: Note that the other BIP 125 rules (eg against not introducing new unconfirmed parents, or the maximum number of conflicts allowed) don't help the situation at all.  The examples in this section wouldn't have triggered violations of those rules either.
 [^26451]: I started to propose an approach like this [here](https://github.com/bitcoin/bitcoin/pull/26451), before realizing it was pretty broken (and not just because it would making RBF pinning far worse than it is today!).
 [^merging]: In fact, Pieter came up with a polynomial-time [merging algorithm](https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202#merging-linearizations-5) that can take two incomparable linearizations as input, and produce a linearization that is strictly better than either.
@@ -290,6 +290,40 @@ Second, in thinking about deviations from optimal, even with the cluster mempool
 And finally, there is the knapsack problem -- even if we optimally sorted clusters based on the feerate diagram metric, actually optimal blocks can deviate from our approximation, because at the end of the block we might not have space for our next highest feerate-sorted transaction chunk.  Getting a bound on this in practice is pretty easy; we can just look at how full the block is at the first point that we'd select a chunk of transactions that don't fit, and that gives an idea of how close we must be to optimal.  In the worst case, since ancestor packages (and cluster sizes, in the current cluster mempool proposal) are bounded at 101kvb, we're only in theory guaranteed to be ~90% of optimal, but I believe in practice most transactions are small enough that we do much better.
 
 At any rate, I should be able to produce some data on the first and last items here as I do more research (but it will likely be several months before I get to this).
+
+-------------------------
+
+rustyrussell | 2024-02-22 02:45:53 UTC | #4
+
+Thanks for this excellent summary:  I learned a lot!
+
+# On greedy vs wait for Miners
+
+If we step back for a moment, we realize that all timeout-based protocols assume (and require!) miners take a greedy approach, as it is a subset of the "no censorship" assumption.
+
+If a miner considers waiting for a future larger reward, timeouts get broken.  Moreover, it's a trivial step for miners to consider *potential* future rewards even if they don't see them yet: knowing a deadline approaches and deferring a tx will usually cause it to bid upwards, and then after the deadline a bidding war will begin between the parties.
+
+Fortunately, the actual divergence from miner incentives here is fairly narrow in practice, as these extreme examples do not regularly occur.  Bitcoin software also doesn't mine backwards even in the case of a large fee double-spend, and I haven't seen anyone complaining about that.  Similarly, I suggest leaving this door firmly closed.
+
+# On Mempool As a Linearization Fantasy
+
+A subset of these problems (though definitely not all of them!) seems to come from the requirement that the mempool be consistent.  If it were a simple collection of potentially incompatible but all possibly-valid transactions, and selection were made at block creation time, we would be able to trade some problems for others.  We would need, however, some other mechanism for DoS protection.
+
+# The Hysteresis Approach to RBF Bypass
+
+I wanted to mention what is still my current favorite solution in the replacement wars: that RBF rules be bypassed in favor of a simpler "higher feerate" iff all the replaced txs would not have been in the successive block, and all new ones are.  This addresses both the sharp end of RBF complaints in a multi-party scenario (blocking progress) and the sharp end of miner incentive (getting those juicy fees).  [Aside: ISTR someone had a critique of this approach, but I can't find the link? Help?!]
+
+There are some potential replay games to be played on the low end of the current block, but this is difficult to do in practice (other txs must push you out), and the game is terminated when a new block is made.  If necessary, hysteresis can be added (e.g. replaced txs must be more than 1.5 blocks back, new txs must be in first 1.0 blocks of mempool), but I'm not sure that's required.
+
+# Unrelated Transaction Propagation DoS Principles
+
+It's possible to consider a different approach to tx propagation, with a more direct correlation with miner incentives: In theory, high-fee txs should propagate faster than low-fee txs.
+
+This, of course, reintroduces many of the issues you discussed here, and is still not sufficient:
+1. You still don't want 1,000 (clashing) txs even if they are all offering top-dollar: you need *some* rbf-style limits.
+2. You actually want to defer *evaluating* txs if they're low-enough fee, but you can't actually figure out feerates without UTXO lookup which is much of the expense.  This seems to require that the feerate be sent with the tx, included in the WTXID.
+
+Some of these points are probably too-radical a departure from existing practice to be worth serious consideration, but maybe someone smarter than me will feel inspired to explore them further :orange_heart:
 
 -------------------------
 
