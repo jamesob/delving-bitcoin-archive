@@ -36,3 +36,17 @@ This is the `omlookup` path: a domain that has many users would create a single 
 
 -------------------------
 
+sjors | 2024-02-22 09:48:16 UTC | #5
+
+How do you want to handle testnet and signet(s)? Perhaps `._bitcoin-testnet-payment` and `._bitcoin-signet-payment`?
+
+I have this itchy feeling of wanting to avoid the word "bitcoin" in both the subdomain and the record, to make both filtering and creating a map of all domains "involving" bitcoin require at least a few more seconds of effort.
+
+Why use BIP21 style URI's inside the text record? And why have a single big record for all payment types? For example instead of `matt.user._bitcoin-payment.mattcorallo.com. 3600 IN TXT "bitcoin:?b12=lno1q...` you could have `matt.user.b12._bitcoin-payment.mattcorallo.com. 3600 IN TXT "lno1q...`.
+
+I guess one argument could be that using a single big record makes it hide what the payer is looking for. But you can just query all of them. Or is a single query easier to implement?
+
+One record per address type potentially avoids having to deal with the 255 character limit for TXT records.
+
+-------------------------
+
