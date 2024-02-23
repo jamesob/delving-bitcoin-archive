@@ -381,3 +381,23 @@ I've mentioned this elsewhere, but I imagine a way to primarily considering this
 
 -------------------------
 
+ajtowns | 2024-02-23 06:06:54 UTC | #7
+
+[quote="instagibbs, post:6, topic:553"]
+I imagine a way to primarily considering this is weighing the reward with some kind of exponential discounting which reflects the inherent uncertainty of the mempool and of the future itself.
+[/quote]
+
+I wonder how true that is: I think the worst case scenario for this is: (a) stratumv2 is a huge success, decoupling transaction selection from reward pooling, so we end up with a single pool with ~100% of hashpower, and every miner expects to have a fair proportion of all future fees; and (b) bitcoin is stable and deflationary, so the discount rate is low (eg, 1.02 BTC in a year is worth 1.0 BTC now).
+
+In that case, if you have a 50kB tx that's expected to confirm in the next month at 20sat/vb (1M sat fee), and want to cancel it with a 200B tx, then bumping it to 100sat/vb (20k sat fee) would cost miners 980ksat discounted by 30 days; if the bottom fee rate for the next block was 21sat/vb, they're making 16ksat now, so the implied discount rate is 6125% per month, rather than on the order of 2% per year.
+
+Looked at the other way, if you want to bring a 1M sat fee paying tx forward by a month, at a 2% discount rate, that would only justify ~1650sat reduction in fees, ie, less than 0.17%. Though, by freeing up space in the block, you're also pulling the rest of the mempool forward, but only by a block. Supposing there's something like 1000 BTC in fees expected over the next month (23sat/vb for a month's worth of blocks), then that would be worth about 38ksat reduction in fees, bringing it up to 3.8%. But those are a long way from the 98% reduction we'd like to justify by replacing it with a tiny high-fee tx.
+
+If pools are competing with each other in a cut-throat manner, this is much easier: if your pool has 2% hashrate, your odds of receiving any reward from a future block that includes the conflicting tx is only 2%, and 20ksat now is going to be worth more than 2% chance of 1Msat in the future with any discount rate.
+
+There's certainly practical reasons to introduce uncertainty: you don't want to track TBs of transactions when the bottom most ones won't be mined for years just for practical reasons, and there's always a chance that someone building a block will lose track of their mempool and accept a lower-fee replacement by accident, or a transactor might be a miner themselves and prioritise their own transaction replacements when building their own candidate blocks.
+
+But aside from pools competing with each other, those all seem like they only justify very small reductions in absolute fee value to me, and in particular that retaining pinning txs is economically rational for large mining pools. Not really the conclusion I was hoping for...
+
+-------------------------
+
