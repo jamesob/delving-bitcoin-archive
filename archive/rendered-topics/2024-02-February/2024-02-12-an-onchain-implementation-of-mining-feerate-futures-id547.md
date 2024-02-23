@@ -411,3 +411,15 @@ Less generally, once a miner has established itself, it can smoothen out its inc
 
 -------------------------
 
+harding | 2024-02-22 23:25:13 UTC | #9
+
+[quote="ajtowns, post:6, topic:547"]
+But once you divide that by their respective hashpower, the proportional payoff for normal miners is higher, as $a > a_1$.
+[/quote]
+
+Quick note for the record that I [checked](https://gist.github.com/harding/3af02613d233554837f7921d7fd44e68) this math and it seemed correct to me.
+
+Sorry for adding confusion; thanks for the corrections!
+
+-------------------------
+
