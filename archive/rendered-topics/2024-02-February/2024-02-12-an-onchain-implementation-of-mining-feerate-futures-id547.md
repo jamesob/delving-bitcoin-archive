@@ -423,3 +423,15 @@ Sorry for adding confusion; thanks for the corrections!
 
 -------------------------
 
+ajtowns | 2024-02-23 03:58:00 UTC | #10
+
+[quote="harding, post:9, topic:547"]
+Quick note for the record that I [checked ](https://gist.github.com/harding/3af02613d233554837f7921d7fd44e68) this math and it seemed correct to me.
+
+Sorry for adding confusion; thanks for the corrections!
+[/quote]
+
+No worries; in between those posts I had a couple of goes at simulating it in python trying to come up with something less handwavy, so I don't think it was obvious, and in any event "large miners can increase their own profits by delaying transactions in ways that would not be rational for small miners" sounds pretty bad and adding on "but if they do, this will increase profits for those small miners by an equal or larger amount" sounds more like wishful thinking than reality.
+
+-------------------------
+
