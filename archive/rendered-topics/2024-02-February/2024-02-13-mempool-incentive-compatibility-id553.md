@@ -401,3 +401,15 @@ But aside from pools competing with each other, those all seem like they only ju
 
 -------------------------
 
+instagibbs | 2024-02-23 12:13:17 UTC | #8
+
+
+
+[quote="ajtowns, post:7, topic:553"]
+But aside from pools competing with each other, those all seem like they only justify very small reductions in absolute fee value to me, and in particular that retaining pinning txs is economically rational for large mining pools. Not really the conclusion I was hoping for…
+[/quote]
+
+My guess is my estimates of miner uncertainty is higher but to be clear, I don't think it's necessarily an incentives answer to *pinning*, just describing what I think is another reasonable direction to look for re:incentives. I gamed out some potential curves months ago, and it only really works for "solving pinning" if it's incredibly aggressive.
+
+-------------------------
+
