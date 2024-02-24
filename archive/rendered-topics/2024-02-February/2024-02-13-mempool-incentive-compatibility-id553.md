@@ -445,3 +445,15 @@ The max transaction size is 101kvB (`-limitancestorsize` and `-limitdescendantsi
 
 -------------------------
 
+rustyrussell | 2024-02-24 06:25:07 UTC | #12
+
+I thought D' was 1000 kvb?
+
+-------------------------
+
+ajtowns | 2024-02-24 06:33:02 UTC | #13
+
+It should be 1000 vb or 1 kvb; it's only evicting $A_{1000}$ from the top block which is also 1k vb.
+
+-------------------------
+
