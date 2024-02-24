@@ -331,3 +331,21 @@ Congratulations, you've just force closed your first LN-symmetry channel on inqu
 
 -------------------------
 
+rustyrussell | 2024-02-24 04:13:31 UTC | #13
+
+[quote="ajtowns, post:7, topic:359"]
+I want to propose a new state; but I can’t just give you signed transactions for the new state, unless I’m sure I can claim my funds from that state. Normally that would mean I give you the signature for the update tx after I’ve received your signature for the settlement tx. But that’s an extra round.
+[/quote]
+
+For my own clarification here, BTW: we do this in the current protocol without any issues, but for LN-symmetry we split the tx into two parts (update and settlement), so now the peer could spend the new update and withhold the new settlement.
+
+> But then that means that spending the update tx is only possible if you know the CTV commitment to the settlement tx, which would normally mean O(n) storage, since you need to be able to spend every historical update tx to the current one, and each update tx can have a different settlement tx.
+
+AFAICT you only need two, assuming you wait for a reply before sending another update?  You would always fast-forward to the latest update tx.
+
+> So instead have the update tx use CTV (or APO-simulating-CTV) 
+
+Adapter signatures is nicer, BUT note that CTV is more optimal than adapter signatures here!  However, neither is actually ideal (requiring another tx for fees): what we *want* is a commitment scheme which lets the spender extract fee from its own output, and/or bring their own fee input.
+
+-------------------------
+

@@ -413,3 +413,35 @@ My guess is my estimates of miner uncertainty is higher but to be clear, I don't
 
 -------------------------
 
+rustyrussell | 2024-02-24 03:42:41 UTC | #9
+
+[quote="sdaftuar, post:5, topic:553"]
+My overall takeaway from this is that (a) at the least, the distribution of fees in the mempool seems to matter for what is incentive compatible, even when looking at “top block” replacement rules, and (b) even taking into account such distributions, more research is needed to figure out what is incentive compatible for miners, particularly in situations where total fees are going down.
+[/quote]
+
+While further research is certainly a good idea, I push back pretty hard on this example!
+
+You have already violated a major assumption here, by accepting a non-standard-size transaction.  Yet we've already hand-waved over the bin-packing problem, accepting that it can be suboptimal in theory while Good Enough in practice.  If this is untrue, we have other problems.
+
+Simplicity *and predictability* itself is a virtue, as long as the result is congruent in practice: miners will almost certainly agree with this, as we've seen them lose real rewards by trying to be tricky with block construction in the past!  (I posit, far more than more optimal packing strategies will gain them in their lives).  
+
+I think if we were to analyze the difference *in practice* we will end up so far below the engineering salary required to implement and vet the more complex scheme :slight_smile:
+
+-------------------------
+
+rustyrussell | 2024-02-24 03:47:35 UTC | #10
+
+Yes, the stratum2-gives-100% case was exactly why I suggested leaving this door firmly closed, and only considering the immediate next block in bitcoin.  If some other implementation wants to implement a more complex system, they can do the work, and we can assess the damage at that time.
+
+-------------------------
+
+ajtowns | 2024-02-24 04:29:01 UTC | #11
+
+[quote="rustyrussell, post:9, topic:553"]
+You have already violated a major assumption here, by accepting a non-standard-size transaction.
+[/quote]
+
+The max transaction size is 101kvB (`-limitancestorsize` and `-limitdescendantsize`); all of those transactions meet standardness requirements...
+
+-------------------------
+
