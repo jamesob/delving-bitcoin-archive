@@ -327,7 +327,7 @@ Some of these points are probably too-radical a departure from existing practice
 
 -------------------------
 
-sdaftuar | 2024-02-22 14:57:46 UTC | #5
+sdaftuar | 2024-02-24 10:19:09 UTC | #5
 
 [quote="rustyrussell, post:4, topic:553"]
 Fortunately, the actual divergence from miner incentives here is fairly narrow in practice, as these extreme examples do not regularly occur. Bitcoin software also doesn’t mine backwards even in the case of a large fee double-spend, and I haven’t seen anyone complaining about that. Similarly, I suggest leaving this door firmly closed.
@@ -357,7 +357,7 @@ Suppose in our mempool we have the following:
 
 At this point, the next block would consist of all the $A_i$ transactions and pay 10M sats in fees, while the second block would consist of $[B_1, ..., B_{500}, D, C_1, ..., C_{400}]$ and pay 5.8M sats in fees.
 
-Imagine we have a replacement transaction, $D'$, which conflicts with $D$, pays a feerate of 10.001 sats/vbyte, and is 1000 kvbytes in size.  Under your proposed rule, $D'$ would be in the top block and accepted as a replacement -- indeed, it would be the highest feerate transaction in the whole mempool -- but it only increases the fees in the top block by 1 satoshi.
+Imagine we have a replacement transaction, $D'$, which conflicts with $D$, pays a feerate of 10.001 sats/vbyte, and is 1000 vbytes[^typo] in size.  Under your proposed rule, $D'$ would be in the top block and accepted as a replacement -- indeed, it would be the highest feerate transaction in the whole mempool -- but it only increases the fees in the top block by 1 satoshi.
 
 Meanwhile, the result of taking $D'$ and evicting $D$ would be that the second block in the mempool will now consist of: $[A_{1000}, B_1, ..., B_{500}, C_1, ..., C_{499}]$, which has a total fee of 5.009M sats, a reduction of 791k sats.
 
@@ -367,7 +367,9 @@ I think this raises two immediate questions:
 
 My overall takeaway from this is that (a) at the least, the distribution of fees in the mempool seems to matter for what is incentive compatible, even when looking at "top block" replacement rules, and (b) even taking into account such distributions, more research is needed to figure out what is incentive compatible for miners, particularly in situations where total fees are going down.
 
-Going further: even in situations where total fees are not going down, I think there is more room for research.  I think there's a rough intuition that when evaluating an RBF and looking at feerate diagrams, that probably what is happening in the top few blocks matters a lot more than what is happening further down in the mempool.  But we lack any specifics on how we might characterize this -- you could imagine an RBF that would increase the top block by 1 sat, decrease the second block by 100k sats, but increase the third block by 101k sats.  Is that an RBF that we should accept?  etc.
+Going further: even in situations where total fees are not going down, I think there is more room for research.  I think there's a rough intuition that when evaluating an RBF and looking at feerate diagrams, that probably what is happening in the top few blocks matters a lot more than what is happening further down in the mempool.  But we lack any specifics on how we might characterize this -- you could imagine an RBF that would increase the top block by 1 sat, decrease the second block by 100k sats, but increase the third block by 101k sats.  Is that an RBF that we should accept?  etc
+
+[^typo]: In the initial post, I mistyped this as 1000 *kvbytes* -- sorry for the error!
 
 -------------------------
 
