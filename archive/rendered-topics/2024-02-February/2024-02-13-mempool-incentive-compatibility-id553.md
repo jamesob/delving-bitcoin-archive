@@ -459,3 +459,41 @@ It should be 1000 vb or 1 kvb; it's only evicting $A_{1000}$ from the top block 
 
 -------------------------
 
+sdaftuar | 2024-02-24 11:18:37 UTC | #14
+
+@rustyrussell 
+Sorry for the transaction size typo; I corrected my earlier post and added a footnote mentioning the error. With that correction made, do you still find the example objectionable?
+
+My RBF policy suggestion is that we should allow a replacement transaction to evict some set of conflicts if:
+* the feerate diagram of the resulting mempool is strictly better, and 
+* the total fees in the mempool go up by at least the min relay fee times the size of the new transaction
+
+I'll call this the "Feerate Diagram Policy".
+
+I think you've suggested an alternate RBF policy that would allow a replacement transaction to evict some set of conflicts if:
+* the new transactions would all appear in the next block, and
+* none of the conflicting transactions would have appeared in the next block
+
+Let's call this the "Next Block Policy". 
+
+Here's how I'd summarize these two policies:
+
+|Policy | Prevents incentive incompatible replacements? | Rejects some incentive compatible replacements? | Is DoS resistant?|
+|--- | --- | --- | ---|
+|Feerate Diagram Policy | Yes | Probably | Yes|
+|Next Block Policy | No | Yes/Probably[^rejects] | No|
+
+Is there any entry in this table that you'd disagree with?  
+
+The Next Block Policy seems to land in a region that we should avoid, namely of failing to guarantee incentive compatibility while also opening up the network to DoS (the example I gave in the OP shows a DoS vector that is possible when total fees are allowed to drop, which is relevant here).
+
+My immediate proposal -- part of the cluster mempool design -- is that we switch our RBF acceptance rules to follow the Feerate Diagram Policy I described above (the rationale for which is laid out in the OP).  This by itself doesn't "solve" the pinning issues that occur when low-feerate children are attached to transactions, but for all the reasons I've laid out we don't currently have even an incentive compatibility framework that allows us to know under what circumstances allowing total fees to drop might be okay, let alone a DoS-resistant mechanism for doing so.
+
+Instead, I think relay rules like the v3 relay policy (https://delvingbitcoin.org/t/v3-transaction-policy-for-anti-pinning/340) are our best bet to mitigate pinning vectors for the foreseeable future.
+
+And in the long-run, maybe someone can come up with an anti-DoS design that works better on an open network than what we've come up with so far, and if that is coupled with a better understanding of what is incentive compatible, then maybe there will be room for alternate pinning solutions...?  (I don't think anyone should count on this being invented anytime soon!)
+
+[^rejects]: I don't know if the Next Block Policy proposal would also layer on the Feerate Diagram Policy when considering replacements that wouldn't touch the top block; if so then the answer here should be "maybe".  But if the Next Block Policy always rejected replacements that would be further down in the mempool because the new transaction is not in the top block, then I'd argue that it would definitely miss replacements that are incentive compatible, and hence the entry should be "Yes".
+
+-------------------------
+
