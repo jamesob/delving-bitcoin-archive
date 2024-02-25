@@ -497,3 +497,40 @@ And in the long-run, maybe someone can come up with an anti-DoS design that work
 
 -------------------------
 
+rustyrussell | 2024-02-25 03:56:28 UTC | #15
+
+[quote="sdaftuar, post:14, topic:553"]
+@rustyrussell Sorry for the transaction size typo; I corrected my earlier post and added a footnote mentioning the error. With that correction made, do you still find the example objectionable?
+[/quote]
+
+Sorry, I should have filtered that myself!  All good, thanks!
+
+[quote="sdaftuar, post:14, topic:553"]
+Is there any entry in this table that you’d disagree with?
+[/quote]
+
+I'm still kind of nerd crushing on the clarity of your post, TBH.  It's really nice! :orange_heart: 
+
+FDP  "probably rejects some incentive compatible" is trivially Yes, I think?  In a flat mempool a miner should accept a 64 byte tx which pays a greater feerate than a larger tx it replaces.  It's not immediately clear to how we would *quantify* it, but I suspect that the total fee rule makes FDP less incentive compatible in realistic scenarios than NBP.
+
+Secondly, DoS resistance is not a binary.  I'm not sure we'd be happy with the traffic increase if every tx RBF-stomped its way through the mempool in currently-allowed minimal increments?  (To be fair, I haven't calculated this in detail!).  On the other hand, if we allowed a possible violation of the "must pay your way" rule which was difficult to execute in practice (such as filling the second block and hoping it doesn't get mined before you replace it with the first block) we might be able to convince ourselves it's not too bad statistically.  Especially since we can adjust this, somewhat, by using greater hysteresis (e.g. you get an exception if you're going from > 2 blocks in to < 0.5 block in the mempool, etc).
+
+My main issue with this table, though, is the missing column is the one I care about!  That's the adversarial case.
+
+And while v3 is a useful hack for CPFP, we *don't want* CPFP as fees rise: we want inline fees and we want to stack multiple txs as much as possible to share the fee in/out (presumably using future covenant tech), but this means v3 doesn't help us :(
+
+[quote="sdaftuar, post:14, topic:553"]
+I don’t know if the Next Block Policy proposal would also layer on the Feerate Diagram Policy when considering replacements that wouldn’t touch the top block; if so then the answer here should be “maybe”.
+[/quote]
+
+Yes, I was initially assuming a carveout for the sharpest case where we currently clash with miner incentives, which is things going in the top block (also enables clients to have a Grug-like RBF model of "not in block yet, Grug pay more!" which suits my abilities).  I think this would also apply to FDP, which has the same issue.  
+
+But I think to evaluate it we need to know:
+1) how much of a DoS we are opening,
+2) how incentive compatible it really is (given an non-infinite discount on future blocks, sigh), and 
+3) how much does it really help against the adversarial case.  
+
+(1) and (3) seem to require some mempool model and maybe a propagation model and a major thesis or three...
+
+-------------------------
+
