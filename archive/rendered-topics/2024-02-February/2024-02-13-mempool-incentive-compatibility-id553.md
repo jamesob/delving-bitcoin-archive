@@ -534,3 +534,26 @@ But I think to evaluate it we need to know:
 
 -------------------------
 
+rustyrussell | 2024-02-26 05:19:43 UTC | #16
+
+Actually, thinking about this overnight, I realized the DoS caused by carving out the "total fees" rule for block 1 entry is less than the one we already have.
+
+You can already play the "free relay" game at the bottom of the mempool.  In this case, there are three outcomes:
+
+1. Fees go up, you get evicted, you win a Free Relay.
+2. Fees go don't go up, you don't get to play this round.
+3. Fees go down for long enough, your tx gets mined, you lose.
+
+The same game played on the 1-block boundary (with the Next Block Carvout) is worse:
+
+1. Fees go up, you get evicted, you win.
+2. Fees don't go up, you get mined, you lose.
+
+In addition, this game is *more expensive* than the tail-of-mempool game.
+
+Unfortunately, you can play both games, so strictly speaking it does make the DoS opportunity greater.  But it's a fairly strong argument that this does not make it significantly worse, either.
+
+This is a fair way out of my expertise, though: have I missed anything?
+
+-------------------------
+
