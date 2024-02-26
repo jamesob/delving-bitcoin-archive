@@ -349,3 +349,19 @@ Adapter signatures is nicer, BUT note that CTV is more optimal than adapter sign
 
 -------------------------
 
+instagibbs | 2024-02-26 14:57:10 UTC | #14
+
+[quote="rustyrussell, post:13, topic:359"]
+AFAICT you only need two, assuming you wait for a reply before sending another update? You would always fast-forward to the latest update tx.
+[/quote]
+
+Might be talking past each other, but the counter-party may play an old update state to which you've forgotten the opening of the taproot commitment to your update. You could remember O(n) fields rather than use the annex, of course.
+
+[quote="rustyrussell, post:13, topic:359"]
+Adapter signatures is nicer, BUT note that CTV is more optimal than adapter signatures here! However, neither is actually ideal (requiring another tx for fees): what we *want* is a commitment scheme which lets the spender extract fee from its own output, and/or bring their own fee input.
+[/quote]
+
+I like CTV-like approach for another reason: it trivially generalized to multi-party channels. That said, yeah optimally we'd have some sort of TXHASH-like construct for settlement that would allow single tx endo/exo fees depending on how much is locked up in HTLCs and the like.
+
+-------------------------
+
