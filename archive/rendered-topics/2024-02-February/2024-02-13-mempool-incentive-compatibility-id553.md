@@ -573,7 +573,7 @@ I might be reading this game wrong, but if it's evicted, we attempt to make subs
 
 -------------------------
 
-sdaftuar | 2024-02-26 20:00:07 UTC | #18
+sdaftuar | 2024-02-26 20:04:01 UTC | #18
 
 [quote="rustyrussell, post:15, topic:553"]
 FDP “probably rejects some incentive compatible” is trivially Yes, I think? In a flat mempool a miner should accept a 64 byte tx which pays a greater feerate than a larger tx it replaces. It’s not immediately clear to how we would *quantify* it, but I suspect that the total fee rule makes FDP less incentive compatible in realistic scenarios than NBP.
@@ -611,7 +611,7 @@ And while v3 is a useful hack for CPFP, we *don’t want* CPFP as fees rise: we 
 
 I'm surprised by this take on v3: if you think CPFP is bad, then when designing your own protocol you could disallow it, simply by not having any immediately spendable outputs?  Or, for general transaction spends that are not tied to any particular protocol/where you can't control how the outputs might be spent, we could propose other ideas, such as allowing users to opt-in to a policy where children are either not allowed at all[^mailing-list], or are allowed only under very limited circumstances.
 
-So the way I'd look at v3 is exactly from the opposite perspective: we all agree that transaction chains are generally *bad*, and v3 gives us a way (for the first time) to actually limit them, and thereby make RBF more useful.  
+So the way I'd look at v3 is exactly from the opposite perspective: we all agree that unconfirmed transaction chains are generally *bad*, and v3 gives us a way (for the first time) to actually limit them, and thereby make RBF more useful.  
 
 One thought experiment that I think is helpful: suppose in Bitcoin's history, relay of transactions with unconfirmed parents was non-standard by default.  Under what circumstances would we have relaxed that policy to allow for unconfirmed transaction chains?  My guess is that we would only have permitted it for cases that make sense and meet particular use cases, like a single CPFP transaction bumping a single parent (much like v3!), which is easy for users to understand and for mining code to optimize for.  
 
