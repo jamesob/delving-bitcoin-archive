@@ -557,3 +557,19 @@ This is a fair way out of my expertise, though: have I missed anything?
 
 -------------------------
 
+instagibbs | 2024-02-26 15:09:35 UTC | #17
+
+[quote="rustyrussell, post:15, topic:553"]
+And while v3 is a useful hack for CPFP,
+[/quote]
+
+Without derailing this excellent conversation happening too much, V3 in its current form I'd argue is useful for a number of the fee tropes, just not for single tx exogenous fees specifically, which of course is a bit of a shame, but it's not just for CPFP! 
+
+[quote="rustyrussell, post:16, topic:553"]
+Fees go up, you get evicted, you win a Free Relay.
+[/quote]
+
+I might be reading this game wrong, but if it's evicted, we attempt to make subsequent txs "pay for it" by increasing minfee by incremental rate. So it's limited in scope and by time(similar to how we allow free relay for transactions that sat in mempool for 2 weeks and time out). Strictly weaker than harvesting the fees directly of course.
+
+-------------------------
+
