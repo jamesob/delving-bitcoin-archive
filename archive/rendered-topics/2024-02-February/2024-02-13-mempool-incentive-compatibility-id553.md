@@ -573,3 +573,93 @@ I might be reading this game wrong, but if it's evicted, we attempt to make subs
 
 -------------------------
 
+sdaftuar | 2024-02-26 19:48:17 UTC | #18
+
+[quote="rustyrussell, post:15, topic:553"]
+FDP “probably rejects some incentive compatible” is trivially Yes, I think? In a flat mempool a miner should accept a 64 byte tx which pays a greater feerate than a larger tx it replaces. It’s not immediately clear to how we would *quantify* it, but I suspect that the total fee rule makes FDP less incentive compatible in realistic scenarios than NBP.
+[/quote]
+
+I'm going with "Probably" rather than "Yes" exactly because we haven't yet done the work to quantify or characterize the circumstances under which such a replacement would be incentive compatible.  My guess is that in a situation like what you're describing, the reason our intuition is that the replacement should be taken is because maybe we're assuming there's some infinite demand for blockspace at whatever the feerate is you're talking about, and so miners are literally giving up nothing to accept a higher feerate (but smaller fee) transaction.
+
+However, I don't presently have a precise argument about what is needed to justify this conclusion, and I don't think anyone else does either -- so until someone carefully writes up the assumptions under which this behavior is incentive compatible, I'll assume there's some chance our intuition may yet be wrong.  In particular, as I mentioned in the OP, in a world where there is just one miner/mining pool on the network (like @ajtowns described, in a stratumv2 world where everyone expects to gets their hashrate-proportion of all tx fees), it seems reasonable that the natural RBF policy is one that requires total fees to always increase, so there's some reason to think that the incentives and game theory are more complex than we're accounting for?
+
+[quote="rustyrussell, post:15, topic:553"]
+Secondly, DoS resistance is not a binary. 
+[/quote]
+
+Yes you're absolutely right that this isn't a binary thing -- what I had in my head when I typed the "Is DoS resistant?" phrase is a much narrower statement about free relay, which I think I could better phrase as: "Does the minimum relay feerate bound the ratio between (fees-in-mempool + fees-mined-in-blocks) and vbytes-relayed-on-the-network?" 
+
+With that narrower statement, I think my table would hold.  That raises the question about whether this bound on costs to relay bytes is a *useful* characterization of relay policies.  I think it is, because (a) it makes it very easy to calculate the costs for generating a given amount of traffic, and (b) it makes it so that all usages of tx relay bandwidth are treated equally.
+
+[quote="rustyrussell, post:15, topic:553"]
+My main issue with this table, though, is the missing column is the one I care about! That’s the adversarial case.
+[/quote]
+
+Can you elaborate on what you mean by this?  My guess would be that you are referring to RBF pinning, and maybe you mean: how can a 3rd party increase the costs of me replacing a transaction I created, in such a way that it does not increase the likelihood of the transaction getting confirmed that is somehow commensurate with the adversary's costs?  
+
+Defining what a pin really is seems somewhat difficult to me (curious if anyone has a precise definition we can use?), at least in part because if we are just looking at RBF policies like the Feerate Diagram Policy I have proposed here, there is always *some* fee you can put on a replacement transaction to get it into the mempool. So it's just a question of whether, in a given situation, you think that is a "fair" number.  But defining fairness here is pretty hard, and I think it exactly comes back to incentive compatibility questions for miners.... To see why, consider that we might need to answer this same question in a different context:
+
+Imagine that Alice creates a transaction (tx A) that pays Bob, and she's thinking about relaying a double-spend (tx A') to send the funds back to herself.  Under what circumstances should the network accept A' as a replacement for A? In particular, if Bob has issued his own transaction B that spends A, under what circumstances should the network prefer the tx package A+B rather than A'?
+
+This CPFP vs. RBF choice is fundamental to the question of what our RBF policies should be.  It's unfair to Bob (and to miners!) if Alice can replace tx A at such a cheap price that miners would have been better off with the A+B package, and similarly it seems unfair to Alice (and to miners!) if the costs of her replacing A+B are far beyond what the incentive compatible amount would be for miners to take tx A' instead.  
+
+I think, today, we don't really have a good framework to answer this question. If someone thinks they have assumptions under which we can do better in particular examples, then that would be a great place for us to start working from, and we can decide whether the assumptions are reasonable and what use cases would open up as a result.
+
+[quote="rustyrussell, post:15, topic:553"]
+And while v3 is a useful hack for CPFP, we *don’t want* CPFP as fees rise: we want inline fees and we want to stack multiple txs as much as possible to share the fee in/out (presumably using future covenant tech), but this means v3 doesn’t help us :frowning:
+[/quote]
+
+I'm surprised by this take on v3: if you think CPFP is bad, then when designing your own protocol you could disallow it, simply by not having any immediately spendable outputs?  Or, for general transaction spends that are not tied to any particular protocol/where you can't control how the outputs might be spent, we could propose other ideas, such as allowing users to opt-in to a policy where children are either not allowed at all[^mailing-list], or are allowed only under very limited circumstances.
+
+So the way I'd look at v3 is exactly from the opposite perspective: we all agree that transaction chains are generally *bad*, and v3 gives us a way (for the first time) to actually limit them, and thereby make RBF more useful.  
+
+One thought experiment that I think is helpful: suppose in Bitcoin's history, relay of transactions with unconfirmed parents was non-standard by default.  Under what circumstances would we have relaxed that policy to allow for unconfirmed transaction chains?  My guess is that we would only have permitted it for cases that make sense and meet particular use cases, like a single CPFP transaction bumping a single parent (much like v3!), which is easy for users to understand and for mining code to optimize for.  
+
+However, since we started with allowing arbitrary topologies and chains of transactions, we are left going in the other direction, of finding ways to cut back on what topologies are permitted instead.  Our mempool issues would be far, far simpler in a world where clusters were limited to size 1!
+
+[quote="rustyrussell, post:16, topic:553"]
+You can already play the “free relay” game at the bottom of the mempool. In this case, there are three outcomes:
+
+1. Fees go up, you get evicted, you win a Free Relay.
+2. Fees go don’t go up, you don’t get to play this round.
+3. Fees go down for long enough, your tx gets mined, you lose.
+
+The same game played on the 1-block boundary (with the Next Block Carvout) is worse:
+
+1. Fees go up, you get evicted, you win.
+2. Fees don’t go up, you get mined, you lose.
+[/quote]
+
+You're right that mempool eviction can give rise to free relay, but at any given moment, the number of additional bytes that have been relayed beyond what should have been allowed due to the minimum relay feerate is bounded at most by 101kvb, the maximum size of a descendant package.  This is because (as Greg also pointed out above) the mempool minimum fee rises to ensure that new transactions being relayed will pay sufficient fee so that the last eviction is paid for before the next one takes place.
+
+However, with the Next Block Policy, you can play the free relay game over and over again.  Exactly how much depends on the distribution of fees in the mempool.  I'll try to redo the calculation I [wrote about above](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553) in the specific context of a Next Block Policy RBF rule.
+
+For concreteness: let's say we're allowing any transaction into the mempool as long as it would go into the next block, and as long as any conflicts are not already in the 1st or 2nd block which would be mined (so this captures one of your suggestions above of requiring some gap in the mempool order between what is accepted and what would be evicted).
+
+What should we assume the distribution of feerates in the mempool is?  I just grabbed this screen shot from mempool.space to see what the feerate ranges are for the past few and next few blocks:
+
+![Screen Shot 2024-02-26 at 1.27.38 PM|690x148](upload://870yFpMBuu1upxEDufhbjUFahUr.png)
+
+I haven't checked if this data is correct, but it looks like the feerate to get into the next block may not be that much higher than for blocks 3, 4, 5, etc.  So for the sake of argument, let's assume a hypothetical where a feerate of 20s/vbyte puts you out of the top 2 blocks, and a feerate of 40s/vbyte or higher would put you in the next block, and we'll see what an attacker could do:
+
+Let's say an attacker filled up the mempool from blocks 3 and higher with transactions at 20 sats/vbyte.  I think with my default mempool settings, due to various overhead my node has roughly 80 blocks worth of transactions in it right now (with a basically full mempool), so let's say the attacker relays 78MvB of transaction data in 780 transactions of size 100kvb[^time] to accomplish this.
+
+According to this [transaction size calculator](https://bitcoinops.org/en/tools/calc-size/), an attacker can then relay about 45k vbytes of transaction data (using p2tr) that conflict with one input of each of these 780 transactions. Under our assumption, this transaction would evict all 780 transactions as long as the feerate on this new transaction is 40 sats/vbyte, or about 1.8Msats in total[^rbf_limits].
+
+* Total vbytes relayed: about 78.5MvB.  
+* Total fees collected: 1.8M sats.
+
+This is far below what the minimum relay feerate would imply miners should collect in order for this much data to be relayed.  Or, another way to  look at it is that the attacker was able to drain all but the top 2 blocks in the mempool for just 1.8M sats spent, in the process removing 78MvB * 20 sats/vbyte = 15.6 BTC from the mempool. (Please correct me if I made any numerical errors here.)
+
+Moreover, the attacker could then repeat this attack, over and over again, tying up CPU and relay bandwidth of 78 blocks worth of data, for just 1.8M sats in cost each time (about 900USD at today's prices?).  Also note that in the process, the attacker has likely driven up the cost to enter the mempool up to 20 sats/vbyte by filling it up in the first place, but without an actual corresponding increase of fees collected by the miners.
+
+We could discuss whether this is an attack anyone would have an economic incentive to perform (perhaps one miner attacking another, by draining their mempool?), but regardless I would maintain that this is not something that we should permit to happen, for both anti-DoS and incentive compatibility reasons.
+
+[^mailing-list]: This was actually something that was brought up a long time ago on the bitcoin-dev mailing list; see for instance https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-July/014678.html.  The main issue with that particular proposal was that it would have applied to all opt-in-rbf transactions and prevented the ability to CPFP.  However, we could imagine a few variations: (a) the v3 proposal itself, which allows a single small child; (b) only allowing a child if the resulting parent+child package would be included in the next block, but otherwise disallowing children; (c) some variant of v3 where the child transaction size is limited even further, say to 200 vbytes, so that CPFP is still permitted but the number of extra bytes that a replacement might have to pay for is as small as reasonably possible.  See also Greg's writeup, https://delvingbitcoin.org/t/v3-and-some-possible-futures/523/1, which covers some more general ideas that may be possible in a post-cluster-mempool world.
+
+[^time]: My guess is that it would take at most 2-3 minutes to get these transactions to relay across the network using Bitcoin Core, but I haven't modeled it carefully.  I believe we currently relay transactions at 7 tx/second to inbound peers and about 17.5 tx/second to outbound peers.
+
+[^rbf_limits]: If you object to the number of transactions being evicted at once, since BIP 125 caps the number of conflicts from a single replacement at 100, then just imagine the attacker does this in 8 transactions that are all approximately 1/8th the size -- I don't think a conflict limit has a meaningful effect on these numbers.
+
+-------------------------
+

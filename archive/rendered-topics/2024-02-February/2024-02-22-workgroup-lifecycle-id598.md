@@ -70,3 +70,52 @@ What we **should** do isn't discourage private discussions, but rather **encoura
 
 -------------------------
 
+ariard | 2024-02-26 18:32:45 UTC | #4
+
+> Yes, discourse keeps lots of logs.
+
+So can you publish them ?
+
+> The goal of this forum is to allow people working on bitcoin projects to discuss their ideas and work towards implementing them in a constructive environment. If you want to use this forum for discussing your own projects that’s great, please do so. If you want to use this forum for harassing other people, your posts doing so will be removed, and if it’s repeated, your account disabled.
+
+In the consideration that ideas and works discussed on this forum are now leveraged to justify changes in Bitcoin Core, there is certainly the financial interests of the end-users to consider over any laziness or incompetency arising among us, Bitcoin Core contributors (in a large fashion, whatever one level of involvement).
+
+If we cannot discuss improvement in the development process itself, including pointing out when some reviewers are doing less than a great job, I do think we’re aiming towards stagnations or technical disasters. Personally, I don’t have any issue about the “intellectual honest”y of my works and actions being questioned, as long as everyone can defend itself it’s fair game.
+
+>  If you want to use this forum for harassing other people, your posts doing so will be removed, and if it’s repeated, your account disabled.
+
+If I estimate myself victim of being harassed by your behavior or you’re overriding your janitorial role in the maintenance of this communication plateform, please be known there is always the ability to pursue remediation in front of the Australian authority or any other competent one.
+
+I don’t like this eventuality. Yet I don’t think some developers weaponing the Bitcoin public communication space to outlaw opinions questioning their actions, like you’re currently threatening to do so is either great, or sane on the long-term.
+
+You’re more convincing me, we shall move usual Bitcoin development conversations to Nostr, on a native “distrust-the-admin” plateform. 
+
+All that said if the burden of maintaining this communication plateform is too high for you, my pleasure if I can contribute in a constructive fashion, either paying servers costs if any or whatever. You’re free to reach out in private.
+
+> Neither the MIT nor Apache licenses discourage private communications, and, obviously, private communications on this site are supported and will continue to be. (However, this site does not do end-to-end encryption of messages, so it’s should not be used for discussion of zero-day vulnerabilities whether via restricted groups or private messages)
+
+Here I would recall you this great quote of Pieter Hintjens (Zero MQ) in one of its book on FOSS.
+https://hintjens.gitbooks.io/social-architecture/content/chapter1.html
+
+" Transparency is very important to get rapid criticism of ideas and work in progress. If a few people in a team go off and work on something together for some time -- a few days seems harmless, a few weeks is not -- then what they make can be presented to the group as a *fait accompli*. When one person does that, the group can just shrug it off. When two or more people do that, it becomes much harder to back off from bad ideas. Secrecy and incompetence seem bound together. Groups that work in secret do not achieve wisdom.
+
+*TIP:* When one person does something in a dark corner, that's an experiment. When two or more people do something in a dark corner, that's a conspiracy.”
+
+On the MIT and Apache licenses and especially public domain considerations, it can have an impact w.r.t IP, better to have everything related to deep areas of Bitcoin Core put in public as early as we can. 
+
+> What we **should** do isn’t discourage private discussions, but rather **encourage** public > discussion. Making legal threats and declaring results you dislike a “process failure” is the opposite > of that, and you really should stop it. Be constructive: spend your time building something better.
+
+On one hand, we cannot discourage private discussions, that’s the nature of electronic communications, and somehow it’s a spontaneous and healthy process to nurture new ideas (cf. Hannah Arendt, “The Crisis of Culture”, her essay on education).
+
+On the other hand, the underpinning idea of FOSS is working under the spotlight and I’m really worried about a trend where major technical discussions are happening substantially in the dark (unless for the exceptions you are yourself pointing out). I agree on encouraging public discussions is the more positive social habits.
+
+On the legal threats, where I did give you the understanding I made some ? If you have been confused I made some, my pleasure to dismiss them.
+
+On the “process failure” I dislike, well it’s technical appreciation which is better to be discussed on the Bitcoin Core repository, where I give many code and wordly explanations of the limits or weakeness of v3 policy. It’s not like I pointed out years ago the limit of the “bitcoin-core-only-dev” discussions approach with the tx-relay workshops aiming to cross cognitive dissonance due to layers communication silos.
+
+On the spending time building something better - If we all focus on shipping stuff rather than methodically demolishing bad ideas, we become a “Care Bears” ecosystem and few years from now we’re like other cryptocurrencies.
+
+Realistically, if we wish a sane competition of sounds ideas and code, we have to admit the critical questioning, even if it hurts the ego of some. Feel free to propose a “lady’s and gentleman’s norms of discussions” (like done by public parliamentary assembly where opposite group of ideas are confronting each other), at least that make a clear boundary between “saying an idea is weak” and “saying this author idea is dumb”.
+
+-------------------------
+
