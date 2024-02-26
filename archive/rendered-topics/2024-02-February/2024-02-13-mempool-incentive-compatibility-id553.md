@@ -573,7 +573,7 @@ I might be reading this game wrong, but if it's evicted, we attempt to make subs
 
 -------------------------
 
-sdaftuar | 2024-02-26 19:48:17 UTC | #18
+sdaftuar | 2024-02-26 20:00:07 UTC | #18
 
 [quote="rustyrussell, post:15, topic:553"]
 FDP “probably rejects some incentive compatible” is trivially Yes, I think? In a flat mempool a miner should accept a 64 byte tx which pays a greater feerate than a larger tx it replaces. It’s not immediately clear to how we would *quantify* it, but I suspect that the total fee rule makes FDP less incentive compatible in realistic scenarios than NBP.
@@ -657,7 +657,7 @@ We could discuss whether this is an attack anyone would have an economic incenti
 
 [^mailing-list]: This was actually something that was brought up a long time ago on the bitcoin-dev mailing list; see for instance https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2017-July/014678.html.  The main issue with that particular proposal was that it would have applied to all opt-in-rbf transactions and prevented the ability to CPFP.  However, we could imagine a few variations: (a) the v3 proposal itself, which allows a single small child; (b) only allowing a child if the resulting parent+child package would be included in the next block, but otherwise disallowing children; (c) some variant of v3 where the child transaction size is limited even further, say to 200 vbytes, so that CPFP is still permitted but the number of extra bytes that a replacement might have to pay for is as small as reasonably possible.  See also Greg's writeup, https://delvingbitcoin.org/t/v3-and-some-possible-futures/523/1, which covers some more general ideas that may be possible in a post-cluster-mempool world.
 
-[^time]: My guess is that it would take at most 2-3 minutes to get these transactions to relay across the network using Bitcoin Core, but I haven't modeled it carefully.  I believe we currently relay transactions at 7 tx/second to inbound peers and about 17.5 tx/second to outbound peers.
+[^time]: My guess is that it would take on the order of several minutes to get these transactions to relay across the network using Bitcoin Core, but I haven't modeled it carefully.  I believe we currently relay transactions at 7 tx/second to inbound peers and about 17.5 tx/second to outbound peers.  Not sure what the network's overall bandwidth looks like for this much data though.
 
 [^rbf_limits]: If you object to the number of transactions being evicted at once, since BIP 125 caps the number of conflicts from a single replacement at 100, then just imagine the attacker does this in 8 transactions that are all approximately 1/8th the size -- I don't think a conflict limit has a meaningful effect on these numbers.
 
