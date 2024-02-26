@@ -27,3 +27,20 @@ Anyway, just documenting that as it seems like it's a process that may be useful
 
 -------------------------
 
+ariard | 2024-02-26 02:38:31 UTC | #2
+
+> * created a wg-cluster-mempool category for posting ideas within the group, so that thoughts didn’t get lost when instant messages expired, and were easier to search than random gists
+> * setup the private group by the same name, and made the category private to that group
+> * seeded the category by [copying ](https://delvingbitcoin.org/t/cluster-mempool-rbf-thoughts/156) > over a gist
+> * (This was around 2023-11-01)
+
+Do you have logs and list of members of such private wg-cluster-mempool ?
+
+Because if one outcome of such working group is this https://github.com/bitcoin/bitcoin/issues/29319, this is a complete design process failure, given some of the mechanisms are either weak (v3 policy) or apparently useless (sibling evictions to remove CPFP carveout). 
+
+While we cannot prevent private communications among members belonging to and funded by the same development entity, I think we should socially discourage private communication channels about FOSS software among members of different development entities. Lack of publicity might be jeopardizing the MIT / Apache 2 license and the de facto entrance in the domain public of Bitcoin design ideas.
+
+At the very least, people engaging in such private communication channels should consult lawyers in the main major juridictions, if such communication practice is not specially tainting their responsibilities in case of future FOSS software defect in some way.
+
+-------------------------
+

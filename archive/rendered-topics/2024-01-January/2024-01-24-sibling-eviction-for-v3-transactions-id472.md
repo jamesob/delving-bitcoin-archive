@@ -183,3 +183,11 @@ This, along with package relay/RBF and sibling eviction, would be enough for LN 
 
 -------------------------
 
+ariard | 2024-02-26 02:25:21 UTC | #10
+
+see my comment in https://github.com/bitcoin/bitcoin/pull/29306, especially the linked test.
+no need for sibling eviction.
+occam’s razor.
+
+-------------------------
+
