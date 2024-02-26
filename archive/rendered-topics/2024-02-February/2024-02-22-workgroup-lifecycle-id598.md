@@ -44,3 +44,29 @@ At the very least, people engaging in such private communication channels should
 
 -------------------------
 
+ajtowns | 2024-02-26 05:33:28 UTC | #3
+
+[quote="ariard, post:2, topic:598"]
+Do you have logs and list of members of such private wg-cluster-mempool ?
+[/quote]
+
+Yes, discourse keeps lots of logs.
+
+[quote="ariard, post:2, topic:598"]
+Because if one outcome of such working group is this [Cluster mempool, CPFP carveout, and V3 transaction policy · Issue #29319 · bitcoin/bitcoin · GitHub](https://github.com/bitcoin/bitcoin/issues/29319), this is a complete design process failure, given some of the mechanisms are either weak (v3 policy) or apparently useless (sibling evictions to remove CPFP carveout).
+[/quote]
+
+The goal of this forum is to allow people working on bitcoin projects to discuss their ideas and work towards implementing them in a constructive environment. If you want to use this forum for discussing your own projects that's great, please do so. If you want to use this forum for harassing other people, your posts doing so will be removed, and if it's repeated, your account disabled.
+
+[quote="ariard, post:2, topic:598"]
+While we cannot prevent private communications among members belonging to and funded by the same development entity, I think we should socially discourage private communication channels about FOSS software among members of different development entities. Lack of publicity might be jeopardizing the MIT / Apache 2 license and the de facto entrance in the domain public of Bitcoin design ideas.
+
+At the very least, people engaging in such private communication channels should consult lawyers in the main major juridictions, if such communication practice is not specially tainting their responsibilities in case of future FOSS software defect in some way.
+[/quote]
+
+Neither the MIT nor Apache licenses discourage private communications, and, obviously, private communications on this site are supported and will continue to be. (However, this site does not do end-to-end encryption of messages, so it's should not be used for discussion of zero-day vulnerabilities whether via restricted groups or private messages)
+
+What we **should** do isn't discourage private discussions, but rather **encourage** public discussion. Making legal threats and declaring results you dislike a "process failure" is the opposite of that, and you really should stop it. Be constructive: spend your time building something better.
+
+-------------------------
+
