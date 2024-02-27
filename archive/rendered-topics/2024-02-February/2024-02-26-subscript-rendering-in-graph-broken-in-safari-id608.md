@@ -18,3 +18,19 @@ Bringing this up in a meta topic to not distract the conversation there.
 
 -------------------------
 
+ajtowns | 2024-02-27 05:56:12 UTC | #2
+
+Do you get the same behaviour on a gist or in the [live editor](https://mermaid.live/)? Here's the source for easy cutting and pasting:
+
+```
+graph BT
+   t5["t<sub>5</sub>"] --> t2["t<sub>2</sub>"];
+   t6["t<sub>6</sub>"] --> t2;
+   t6 --> t3["t<sub>3</sub>"] --> t1["t<sub>1</sub>"];
+   t7["t<sub>7</sub>"] --> t4["t<sub>4</sub>"];
+```
+
+If it's buggy there, probably file [an issue](https://github.com/mermaid-js/mermaid/issues) upstream? If it's fixed upstream, could probably manually update the component until discourse gets around to an official update.
+
+-------------------------
+
