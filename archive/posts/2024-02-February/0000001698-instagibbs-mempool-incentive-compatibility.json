@@ -8,13 +8,13 @@
   "post_number": 17,
   "post_type": 1,
   "updated_at": "2024-02-26T15:09:35.021Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 15,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 22.6,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"rustyrussell, post:15, topic:553\"]\nAnd while v3 is a useful hack for CPFP,\n[/quote]\n\nWithout derailing this excellent conversation happening too much, V3 in its current form I'd argue is useful for a number of the fee tropes, just not for single tx exogenous fees specifically, which of course is a bit of a shame, but it's not just for CPFP! \n\n[quote=\"rustyrussell, post:16, topic:553\"]\nFees go up, you get evicted, you win a Free Relay.\n[/quote]\n\nI might be reading this game wrong, but if it's evicted, we attempt to make subsequent txs \"pay for it\" by increasing minfee by incremental rate. So it's limited in scope and by time(similar to how we allow free relay for transactions that sat in mempool for 2 weeks and time out). Strictly weaker than harvesting the fees directly of course.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,12 +56,17 @@
   "wiki": false,
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "clap",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

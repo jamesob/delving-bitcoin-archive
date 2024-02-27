@@ -8,13 +8,13 @@
   "post_number": 14,
   "post_type": 1,
   "updated_at": "2024-02-26T14:57:10.543Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 13,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 22.4,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"rustyrussell, post:13, topic:359\"]\nAFAICT you only need two, assuming you wait for a reply before sending another update? You would always fast-forward to the latest update tx.\n[/quote]\n\nMight be talking past each other, but the counter-party may play an old update state to which you've forgotten the opening of the taproot commitment to your update. You could remember O(n) fields rather than use the annex, of course.\n\n[quote=\"rustyrussell, post:13, topic:359\"]\nAdapter signatures is nicer, BUT note that CTV is more optimal than adapter signatures here! However, neither is actually ideal (requiring another tx for fees): what we *want* is a commitment scheme which lets the spender extract fee from its own output, and/or bring their own fee input.\n[/quote]\n\nI like CTV-like approach for another reason: it trivially generalized to multi-party channels. That said, yeah optimally we'd have some sort of TXHASH-like construct for settlement that would allow single tx endo/exo fees depending on how much is locked up in HTLCs and the like.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

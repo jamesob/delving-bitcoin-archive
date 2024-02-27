@@ -718,3 +718,53 @@ flowchart LR
 
 -------------------------
 
+rustyrussell | 2024-02-27 06:32:35 UTC | #20
+
+[quote="instagibbs, post:17, topic:553"]
+[quote="rustyrussell, post:16, topic:553"]
+Fees go up, you get evicted, you win a Free Relay.
+[/quote]
+
+I might be reading this game wrong, but if it’s evicted, we attempt to make subsequent txs “pay for it” by increasing minfee by incremental rate. So it’s limited in scope and by time(similar to how we allow free relay for transactions that sat in mempool for 2 weeks and time out). Strictly weaker than harvesting the fees directly of course.
+[/quote]
+
+If you're dropped from the mempool, it's like you never existed. There's no "minimum increase" other than what gets you in the (now more expensive) mempool?
+
+(Edit: Apparently this is wrong, because minfee increases? For how long does that happen?)
+
+-------------------------
+
+ajtowns | 2024-02-27 06:48:42 UTC | #21
+
+There's a halflife of 12 hours specified, which decreases to 6 hours if the mempool is less than half full, or 3 hours if the mempool is less than a quarter full; provided there's been a block since the last time the minfee was bumped due to tx eviction, the minfee will decay towards 0 at that rate. So at 20sat/vb, when the minfee is raised by 1sat/vb it'll take ~53min to decay back; at 50sat/vb, about 21 minutes; at 100sat/vb about 10 minutes; at 5sat/vb about 4 hours.
+
+https://github.com/bitcoin/bitcoin/blob/4d7d7fd123113342f09871b1a383cda1bb53d0ea/src/txmempool.cpp#L1091-L1121
+
+-------------------------
+
+rustyrussell | 2024-02-27 09:43:17 UTC | #22
+
+[quote="sdaftuar, post:18, topic:553"]
+[quote="rustyrussell, post:15, topic:553"]
+And while v3 is a useful hack for CPFP, we *don’t want* CPFP as fees rise: we want inline fees and we want to stack multiple txs as much as possible to share the fee in/out (presumably using future covenant tech), but this means v3 doesn’t help us :frowning:
+[/quote]
+
+I’m surprised by this take on v3: if you think CPFP is bad, then when designing your own protocol you could disallow it, simply by not having any immediately spendable outputs? Or, for general transaction spends that are not tied to any particular protocol/where you can’t control how the outputs might be spent, we could propose other ideas, such as allowing users to opt-in to a policy where children are either not allowed at all[[1]](#footnote-1702-1), or are allowed only under very limited circumstances.
+[/quote]
+
+Predicting fees is Too Hard, and over-paying increasingly Too Expensive. So you really need to BYO fees at spend time (rather than construction/signature exchange time), and if you can do that you can ride out fee spikes without needing to renegotiate with the other party, too, making your protocol more robust.
+
+With current tech, we can only do this for SIGHASH-SINGLE/ANYONE_CAN_PAY (limiting your protocol to single in and out, which doesn't usually work for multi-party stuff), OR using CPFP which requires one output which is spendable immediately.
+
+i.e. CPFP is the only game in town today. v3 helps here *today*!
+
+But I think the end game of Bitcoin is high fees (which will justify a great deal of engineering and effort to mitigate), and introspection which allows us more room to optimize. The medium case is bringing your own fee input/output at spend time, but really optimal is paying someone (over lightning or anything but onchain Bitcoin) to gather multiple unrelated txs together from everyone, with one fee input and output covering the entire thing.
+
+Perhaps we would end up using introspection to limit the tx size anyway, so we just need the no-unconfirmed-children rule. Or perhaps the diminishing returns from bundling mean the tx size doesn't have to be very large.
+
+Now I write this out, I think I understand @instagibbs point about the generality of the v3 proposal, which would still serve here?
+
+(End of a long day here, I will digest the rest of your post before the weekend, I hope!)
+
+-------------------------
+

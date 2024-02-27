@@ -365,3 +365,23 @@ I like CTV-like approach for another reason: it trivially generalized to multi-p
 
 -------------------------
 
+rustyrussell | 2024-02-27 06:21:18 UTC | #15
+
+[quote="instagibbs, post:14, topic:359"]
+Might be talking past each other, but the counter-party may play an old update state to which you’ve forgotten the opening of the taproot commitment to your update. You could remember O(n) fields rather than use the annex, of course.
+[/quote]
+
+If they play an old update, you spend it with the new update? Wasn't that the entire trick? Obviously I'm missing something (I'm guessing some Taproot detail?)
+
+-------------------------
+
+ajtowns | 2024-02-27 06:27:47 UTC | #16
+
+[quote="rustyrussell, post:15, topic:359"]
+If they play an old update, you spend it with the new update? Wasn’t that the entire trick? Obviously I’m missing something (I’m guessing some Taproot detail?)
+[/quote]
+
+The update tx commits to the settlement tx in the tapscript path, but that means that spending the update tx means you have to know the settlement tx even if you want to do some other spend than the settlement tx, either in order to reconstruct the tapscript that includes the settlement commitment, or to reconstruct the merklepath to some other tapscript (since the merkleroot commits to the script that commits to the settlement tx) or to do a key path signature (since you need to tweak the internal key signature via the merkle root which commits to the script that commits to the settlement tx).
+
+-------------------------
+
