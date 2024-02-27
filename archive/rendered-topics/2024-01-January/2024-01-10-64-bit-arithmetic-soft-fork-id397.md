@@ -698,3 +698,18 @@ https://github.com/Christewart/bitcoin/commit/c617c5c3b0d21499b196184b5279b45627
 
 -------------------------
 
+halseth | 2024-02-27 14:12:41 UTC | #45
+
+Nice!
+
+How would the IN_OUT opcode change if one decided to go with 64-bit ScriptNum type encoding instead of the LE variant? 
+
+I guess not a large change since you would just pushed a ScriptNum encoded integer on the stack instead?
+
+```c++
+  CScriptNum bn(fundingAmount);
+  stack.push_back(bn.getvch());
+```
+
+-------------------------
+

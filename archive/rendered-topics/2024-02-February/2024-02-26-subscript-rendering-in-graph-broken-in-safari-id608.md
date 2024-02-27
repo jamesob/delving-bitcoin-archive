@@ -34,3 +34,12 @@ If it's buggy there, probably file [an issue](https://github.com/mermaid-js/merm
 
 -------------------------
 
+sjors | 2024-02-27 12:02:48 UTC | #3
+
+I get the same in the live editor.
+![t|507x500](upload://t0XGChc9cDmCHK4t7I8vvFMZb7J.png)
+
+I'm not familiar enough with Graphviz (?) and how the Delving forum (and Mermaid?) works to file a bug report.
+
+-------------------------
+

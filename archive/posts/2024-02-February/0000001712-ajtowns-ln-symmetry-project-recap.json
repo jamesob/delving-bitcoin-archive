@@ -12,9 +12,9 @@
   "reply_to_post_number": 15,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"rustyrussell, post:15, topic:359\"]\nIf they play an old update, you spend it with the new update? Wasn\u2019t that the entire trick? Obviously I\u2019m missing something (I\u2019m guessing some Taproot detail?)\n[/quote]\n\nThe update tx commits to the settlement tx in the tapscript path, but that means that spending the update tx means you have to know the settlement tx even if you want to do some other spend than the settlement tx, either in order to reconstruct the tapscript that includes the settlement commitment, or to reconstruct the merklepath to some other tapscript (since the merkleroot commits to the script that commits to the settlement tx) or to do a key path signature (since you need to tweak the internal key signature via the merkle root which commits to the script that commits to the settlement tx).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

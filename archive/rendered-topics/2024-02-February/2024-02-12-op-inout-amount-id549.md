@@ -33,3 +33,13 @@ My end goal is to use all this stuff in conjunction for [OP_TLUV](https://lists.
 
 -------------------------
 
+halseth | 2024-02-27 14:02:08 UTC | #2
+
+Thanks for moving this along! 
+
+I think it would be a missed opportunity to have this be available only for the current input/output pair. 
+
+Having it be possible to specify indexes would be very helpful in creating more sophisticated merges/splits of UTXOS. And I think the implementation complexity would not drastically increase?
+
+-------------------------
+

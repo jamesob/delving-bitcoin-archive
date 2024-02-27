@@ -12,9 +12,9 @@
   "reply_to_post_number": 18,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 32.0,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sdaftuar, post:18, topic:553\"]\n[quote=\"rustyrussell, post:15, topic:553\"]\nAnd while v3 is a useful hack for CPFP, we *don\u2019t want* CPFP as fees rise: we want inline fees and we want to stack multiple txs as much as possible to share the fee in/out (presumably using future covenant tech), but this means v3 doesn\u2019t help us :frowning:\n[/quote]\n\nI\u2019m surprised by this take on v3: if you think CPFP is bad, then when designing your own protocol you could disallow it, simply by not having any immediately spendable outputs? Or, for general transaction spends that are not tied to any particular protocol/where you can\u2019t control how the outputs might be spent, we could propose other ideas, such as allowing users to opt-in to a policy where children are either not allowed at all[[1]](#footnote-1702-1), or are allowed only under very limited circumstances.\n[/quote]\n\nPredicting fees is Too Hard, and over-paying increasingly Too Expensive. So you really need to BYO fees at spend time (rather than construction/signature exchange time), and if you can do that you can ride out fee spikes without needing to renegotiate with the other party, too, making your protocol more robust.\n\nWith current tech, we can only do this for SIGHASH-SINGLE/ANYONE_CAN_PAY (limiting your protocol to single in and out, which doesn't usually work for multi-party stuff), OR using CPFP which requires one output which is spendable immediately.\n\ni.e. CPFP is the only game in town today. v3 helps here *today*!\n\nBut I think the end game of Bitcoin is high fees (which will justify a great deal of engineering and effort to mitigate), and introspection which allows us more room to optimize. The medium case is bringing your own fee input/output at spend time, but really optimal is paying someone (over lightning or anything but onchain Bitcoin) to gather multiple unrelated txs together from everyone, with one fee input and output covering the entire thing.\n\nPerhaps we would end up using introspection to limit the tx size anyway, so we just need the no-unconfirmed-children rule. Or perhaps the diminishing returns from bundling mean the tx size doesn't have to be very large.\n\nNow I write this out, I think I understand @instagibbs point about the generality of the v3 proposal, which would still serve here?\n\n(End of a long day here, I will digest the rest of your post before the weekend, I hope!)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

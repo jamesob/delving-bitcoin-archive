@@ -12,9 +12,9 @@
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "There's a halflife of 12 hours specified, which decreases to 6 hours if the mempool is less than half full, or 3 hours if the mempool is less than a quarter full; provided there's been a block since the last time the minfee was bumped due to tx eviction, the minfee will decay towards 0 at that rate. So at 20sat/vb, when the minfee is raised by 1sat/vb it'll take ~53min to decay back; at 50sat/vb, about 21 minutes; at 100sat/vb about 10 minutes; at 5sat/vb about 4 hours.\n\nhttps://github.com/bitcoin/bitcoin/blob/4d7d7fd123113342f09871b1a383cda1bb53d0ea/src/txmempool.cpp#L1091-L1121",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
