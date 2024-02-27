@@ -1,6 +1,6 @@
 # Cluster mempool definitions & theory
 
-sipa | 2023-12-24 14:49:17 UTC | #1
+sipa | 2024-02-22 03:32:13 UTC | #1
 
 # Cluster mempool theory
 
@@ -437,6 +437,16 @@ Linearizations (and chunkings) of graphs/clusters are directed sets (with $\gtrs
 sipa | 2023-12-24 01:51:21 UTC | #9
 
 I've incorporated this "directed set" idea. Existence of an optimal linearization now follows from the merging algorithm, and with that knowledge, a simpler proof is possible that $\operatorname{opt}(G)$ is optimal.
+
+-------------------------
+
+Crypt-iQ | 2024-02-26 23:36:49 UTC | #10
+
+[quote="sipa, post:1, topic:202"]
+By repeatedly applying the gathering and stripping theorem, $L_{opt}' \gtrsim L_{opt}$.
+[/quote]
+
+I'm a bit confused here; could you elaborate on how the gathering and stripping theorems are used here? Since the gathering theorem applies when a sublinearization is moved to the front, it alone doesn't prove that $L_{opt}' \gtrsim L_{opt}$ since $L[p]$ is the ordering from $L$ rather than from $L_{opt}$. I'm not sure where the prefix stripping theorem comes in, so I must be missing something.
 
 -------------------------
 
