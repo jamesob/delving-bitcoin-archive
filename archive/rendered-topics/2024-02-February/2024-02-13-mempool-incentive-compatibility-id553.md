@@ -663,3 +663,58 @@ We could discuss whether this is an attack anyone would have an economic incenti
 
 -------------------------
 
+ajtowns | 2024-02-27 05:39:39 UTC | #19
+
+[quote="sdaftuar, post:18, topic:553"]
+Defining what a pin really is seems somewhat difficult to me (curious if anyone has a precise definition we can use?),
+[/quote]
+
+Here's my shot: a pinning tx P, is one that:
+
+ * is accepted into the mempool at a low feerate (so will not be mined in the near future)
+ * conflicts with a high feerate tx, V, but is not RBF-replacable by V
+ * the fee cost to fix this is excessive, whether by:
+    * bringing P's feerate up to a level where it will be mined soon (by CPFP or out of band accelerator payments to miners); or
+     * bumping V's fee such that it becomes a valid RBF-replacement; or
+     * constructing an alternative tx U that has a high feerate and does RBF-replace P
+
+"Excessive" is always a judgement call. I think if you retain the requirement that total fees always increase, then the only way to prevent fees becoming excessive is to require that the total size of txs evicted by replacing P with U is at most only a small multiple of the size of V. That multiple then tells you exactly how much U needs to overpay compared to V, so ideally you choose it based on your own definition of "excessive".
+
+----
+
+An alternative highly speculative design, that would at minimum require magic new opcodes and might not be possible at all in bitcoin's model, would be to allow deconstructing the pinning transaction: that is, if you start off with P spending inputs $C, I_1, .., I_n$ and creating outputs $X, P_O$ versus the simpler tx that spends $C, V_I$ and creates outputs $X, V_O$, you could imagine constructing a new tx U that spends $C, V_I$ and creates outputs $X, V_O, M$, and another transaction W that spends $M, I_1, .., I_n$ to create the single output $P_O$, reusing the same signatures for $I_1, .., I_n$ from P. That way miners aren't losing any total fees, pinning is easily worked around as long as you observe the pin, and everyone's happy.
+
+However specifying a constraint for spending C such that all the sibling inputs have signatures that allow C to be replaced by M (but not some other output with the same scriptPubKey and value) and only commit to the output $P_O$ is probably quite tricky, if it's even possible at all.
+
+Some pictures. The transaction we'd like, with small size, modest fee, high feerate:
+
+```mermaid height=147,auto
+flowchart LR
+  Contract ---> V ---> Results
+  VI ---> V ---> VO
+```
+
+The pinning transaction, with large size, possible high fee, but low/modest feerate:
+
+```mermaid height=322,auto
+flowchart LR
+  Contract ---> P ---> Results
+  P1 ---> P ---> PO
+  P2 ---> P
+  Pn ---> P
+```
+
+The magic solution; U has small size, modest fee, high feerate, and gets the contract results, while any additional fees from P are still available by mining M, even if its feerate is low/modest.
+
+```mermaid height=409,auto
+flowchart LR
+  Contract ---> U ---> Results
+  VI ---> U ---> VO
+  U ---> M
+  P1 ---> M<---> PO
+  P2 ---> M
+  Pn ---> M
+```
+
+-------------------------
+
