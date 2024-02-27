@@ -472,3 +472,11 @@ This is the part I'm having trouble with. Can the gathering theorem be used here
 
 -------------------------
 
+sipa | 2024-02-27 20:25:17 UTC | #13
+
+Oh, you need to use the chunk reordering theorem too, I forgot that was a separate thing in my writeup.
+
+So you move (a chunk of) $p$ to the front of $L_{opt}$, and then reorder it according the order those transaction have in $L$ (which is allowed as they form a chunk).
+
+-------------------------
+
