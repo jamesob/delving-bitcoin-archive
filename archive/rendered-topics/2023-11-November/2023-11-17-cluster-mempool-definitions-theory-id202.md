@@ -450,11 +450,11 @@ I'm a bit confused here; could you elaborate on how the gathering and stripping 
 
 -------------------------
 
-sipa | 2024-02-27 09:32:38 UTC | #11
+sipa | 2024-02-27 16:07:46 UTC | #11
 
 You're right, I'm skipping over a few steps here.
 
-What is happening is that we're starting from $L_{opt}$, and moving the prefix of $L$ that feerate-diagram-coincides with it to its front, so that we can skip over that, and just compare the part where the diagram actually differs. If it were any more obvious than it is, the proof could just have said "without loss of generality, assume $L$ and $L_{opt}$ have a distinct first chunk feerate". This part of the argument is just to show that it indeed is without loss of generality, because if there is a coinciding prefix, then applying the theorem to just the transactions not in that prefix still leads to a contradiction.
+What is happening is that we're starting from $L_{opt}$, and moving the prefix of $L$ that feerate-diagram-coincides with it to the front of $L_{opt}$ so that we can skip over that, and just compare the part where the diagram actually differs. If it were any more obvious than it is, it would suffice to say "without loss of generality, assume $L$ and $L_{opt}$ have a distinct first chunk feerate". This part of the argument is just to show that it indeed is without loss of generality, because if there is a coinciding prefix, then applying the theorem to just the transactions not in that prefix still leads to a contradiction.
 
 This prefix $p$ may consists of multiple chunks of $L$. If it consisted of 0 chunks, there is nothing to do, as $L'_{opt} = L_{opt}$ in that case. If $p$ consists of a single $L$-chunk, then just applying the gathering theorem gives our desired result (because in that case $p$ has a feerate at least as much (and in fact, exactly equal to) the first chunk of $L_{opt}$).
 

@@ -43,3 +43,9 @@ I'm not familiar enough with Graphviz (?) and how the Delving forum (and Mermaid
 
 -------------------------
 
+ajtowns | 2024-02-27 19:05:03 UTC | #4
+
+These diagrams are based on https://mermaid.js.org/ (unrelated to graphviz) so just filing an issue on [their github](https://github.com/mermaid-js/mermaid/issues) giving the demo of what doesn't work and saying it doesn't work on safari should be fine? If it occurs on the live editor, it's not related to discourse forums, so you don't need to be familiar with that. Might just be a safari rendering bug too, I guess?
+
+-------------------------
+
