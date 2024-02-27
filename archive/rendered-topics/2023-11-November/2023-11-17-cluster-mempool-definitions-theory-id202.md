@@ -462,3 +462,13 @@ The difficulty is only when $p$ consists of multiple chunks. But in this case, r
 
 -------------------------
 
+Crypt-iQ | 2024-02-27 20:12:35 UTC | #12
+
+[quote="sipa, post:11, topic:202"]
+If $p$ consists of a single $L$-chunk, then just applying the gathering theorem gives our desired result (because in that case $p$ has a feerate at least as much (and in fact, exactly equal to) the first chunk of $L_{opt}$).
+[/quote]
+
+This is the part I'm having trouble with. Can the gathering theorem be used here even though $L_{opt}'$ is moving a sublinearization of $L$ to the front of $L_{opt}$ rather than moving a sublinearization of $L_{opt}$ to the front of $L_{opt}$?
+
+-------------------------
+
