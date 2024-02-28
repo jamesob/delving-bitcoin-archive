@@ -723,3 +723,23 @@ Another metric to look at is who's paying for those extra bytes. So for a set of
 
 -------------------------
 
+Chris_Stewart_5 | 2024-02-28 14:12:36 UTC | #47
+
+I'm going to code this up to confirm ergonomics - so mistakes are likely in this post. Call them out if you see them. Here is my understanding without actually writing the code yet
+
+If we were to continue with `CScriptNum`, as [my `OP_INOUT_AMOUNT` implementation](https://github.com/Christewart/bitcoin/tree/op-inout-amount) works currently
+
+1. Read `int64_t` representing satoshis from `BaseTransactionSignatureChecker.GetTransactionData()`
+2. Convert the `int64_t` into a minimally encoded `CScriptNum`. I don't think this necessarily has to be done by an op code, could be done in the impl of `OP_INOUT_AMOUNT` itself
+3. Call `CScriptNum` constructor, [modifying the `nMaxNumSize` parameter](https://github.com/Christewart/bitcoin/blob/c617c5c3b0d21499b196184b5279b45627060cb5/src/script/script.h#L265) to support 8 bytes.
+4. Push `CScriptNum` onto stack
+5. Wherever the satoshi value on the stack top is consumed by another op code, we need to figure out how to allow for `nMaxNumSize` to be 8 bytes.
+
+As an example for step `5`, lets assume we are using _THE OLD_ (pre-64bit) numeric op codes
+
+You see we interpret the stack top as `CScriptNum`, however that `CScriptNum` has a `nMaxNumSize=4` rather than 8 bytes. This leads to an [overflow exception](https://github.com/Christewart/bitcoin/blob/c617c5c3b0d21499b196184b5279b45627060cb5/src/script/script.h#L268) being thrown by `CScriptNum`. This same problem applies to any opcode (another example is `OP_WITHIN`) that uses `CScriptNum` to interpret the stack top.
+
+https://github.com/Christewart/bitcoin/blob/c617c5c3b0d21499b196184b5279b45627060cb5/src/script/interpreter.cpp#L983
+
+-------------------------
+

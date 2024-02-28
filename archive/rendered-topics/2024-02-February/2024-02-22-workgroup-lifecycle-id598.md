@@ -70,7 +70,7 @@ What we **should** do isn't discourage private discussions, but rather **encoura
 
 -------------------------
 
-ariard | 2024-02-26 18:32:45 UTC | #4
+ariard | 2024-02-27 05:57:39 UTC | #4
 
 > Yes, discourse keeps lots of logs.
 
@@ -116,6 +116,16 @@ On the “process failure” I dislike, well it’s technical appreciation which
 On the spending time building something better - If we all focus on shipping stuff rather than methodically demolishing bad ideas, we become a “Care Bears” ecosystem and few years from now we’re like other cryptocurrencies.
 
 Realistically, if we wish a sane competition of sounds ideas and code, we have to admit the critical questioning, even if it hurts the ego of some. Feel free to propose a “lady’s and gentleman’s norms of discussions” (like done by public parliamentary assembly where opposite group of ideas are confronting each other), at least that make a clear boundary between “saying an idea is weak” and “saying this author idea is dumb”.
+
+-------------------------
+
+ajtowns | 2024-02-28 11:14:56 UTC | #6
+
+[quote="ajtowns, post:1, topic:598"]
+to make it easier for future historians to still find those discussions, there’s now a #wg-cluster-mempool::tag tag that’s retroactively applied to all them, and that is locked to admins, so it can’t be added to future discussions
+[/quote]
+
+Apparently the #wg-cluster-mempool::tag link was broken for everyone but moderators; should be working now.
 
 -------------------------
 
