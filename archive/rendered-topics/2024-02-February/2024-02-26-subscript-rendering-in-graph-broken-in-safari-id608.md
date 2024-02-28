@@ -49,3 +49,9 @@ These diagrams are based on https://mermaid.js.org/ (unrelated to graphviz) so j
 
 -------------------------
 
+sjors | 2024-02-28 10:02:52 UTC | #5
+
+Done (also checked that it's not fixed in the dev branch): https://github.com/mermaid-js/mermaid/issues/5339
+
+-------------------------
+
