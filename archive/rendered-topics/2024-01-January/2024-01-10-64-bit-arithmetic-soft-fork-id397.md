@@ -713,3 +713,13 @@ I guess not a large change since you would just pushed a ScriptNum encoded integ
 
 -------------------------
 
+sjors | 2024-02-28 10:22:38 UTC | #46
+
+[quote="Chris_Stewart_5, post:34, topic:397"]
+This means this proposal would increase the blockchain size by is `0.17%` since the genesis block.
+[/quote]
+
+Another metric to look at is who's paying for those extra bytes. So for a set of typical transactions (in existence now and expected in the future), how much do those increase?
+
+-------------------------
+
