@@ -50,3 +50,13 @@ Luckily in the context of creating a PSBT for an asset swap you don't need to wo
 
 -------------------------
 
+murch | 2024-02-29 19:29:30 UTC | #6
+
+The biggest issue that comes to mind is that such an expiration mechanism would introduce another source of confusion about the finality of a transaction. Especially if a transaction were included in the ultimate permitted block, this could incentivize reorging out that block instead of working on the next block.
+
+Another issue would be that it would enable attacks to waste bandwidth, e.g. you could publish a transaction that may only be included in the next block, but give it a feerate that is short of the transaction being attractive for the next block.
+
+One way of expiring a transaction in an incentive-compatible manner would be to create a conflicting transaction that is timelocked to the expiration time but pays a higher fee and feerate. When the conflicting transaction becomes valid for block inclusion, it would be more attractive for miners to include the conflict than the original transaction which then makes the original invalid.
+
+-------------------------
+
