@@ -26,3 +26,13 @@ Thanks for sharing this although I do not agree that I was 'deliberately' miscon
 
 -------------------------
 
+cdecker | 2024-03-01 10:38:03 UTC | #3
+
+bitcoinstats.com will return nodes in the same order the crawler scans them, as that's the most recently seen working peer giving me the highest confidence that the requester will actually be able to connect to it. From there I expect `bitcoind` to use the `getaddr`/`addr` mechanism to fill their address manager further, obviating future DNS bootstrapping.
+
+Remember that DNS seeds are not intended for day-to-day peer lookups, but rather are a bootstrapping solution for completely new nodes. As long as there is any working node among the 25 seeds usually return you will be able to join the network, independently of the version they return.
+
+Honestly reading your post I was wondering if I should implement a bit of sanity filtering too, and what the negative impact of that might be (old versions getting fewer incoming connections).
+
+-------------------------
+
