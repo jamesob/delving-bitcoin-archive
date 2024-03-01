@@ -1,6 +1,6 @@
 # State minimization in MuSig2 signing sessions
 
-salvatoshi | 2024-03-01 14:02:24 UTC | #1
+salvatoshi | 2024-03-01 15:24:01 UTC | #1
 
 [BIP-0327](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0327.mediawiki) discusses at length the necessity to keep some state during a signing session. However, a "signing session" in BIP-0327 only refers to the production of a single signature.
 
@@ -66,7 +66,7 @@ However, that does not constitute a security risk, as those parameters are only 
 
 The approach described above assumes that no attempt to sign a PSBT containing for a wallet policy containing `musig()` keys is initiated while a session is already in progress.
 
-It is possible to generalize this to an arbitrary number of parallel signing sessions. Each session could be identified by a `psbt_id` computed by hashing enough information to (practically) uniquely identify the transaction being signed (making sure that the updated psbt presented in Phase 2 is unchanged); for example, it could be the `txid` of the unsigned transaction contained in the PSBT.
+It is possible to generalize this to an arbitrary number of parallel signing sessions. Each session could be identified by a `session_id` computed by hashing enough information to (practically) uniquely identify the transaction being signed (making sure that the updated psbt presented in Phase 2 is unchanged); for example, it could be a commitment to the `txid` of the unsigned transaction contained in the PSBT, and the wallet policy used for signing.
 
 ## Acknowledgments
 
