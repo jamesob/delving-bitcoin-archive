@@ -99,3 +99,9 @@ Yes, the function would be `BlockAssembler::addPackageTxs`, which is the transac
 
 -------------------------
 
+bruno | 2024-03-01 14:48:24 UTC | #9
+
+`ProcessMessage` is cool to study. You can see how P2P messages are processed, etc. From this function, you can find many other interesting functions.
+
+-------------------------
+

@@ -1,6 +1,6 @@
 # State minimization in MuSig2 signing sessions
 
-salvatoshi | 2024-03-01 09:12:51 UTC | #1
+salvatoshi | 2024-03-01 14:02:24 UTC | #1
 
 [BIP-0327](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0327.mediawiki) discusses at length the necessity to keep some state during a signing session. However, a "signing session" in BIP-0327 only refers to the production of a single signature.
 
