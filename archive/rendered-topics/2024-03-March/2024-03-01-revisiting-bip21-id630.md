@@ -80,3 +80,13 @@ Moved from protocol design to implementation
 
 -------------------------
 
+RubenSomsen | 2024-03-01 15:29:08 UTC | #5
+
+If we were to go with `bitcoin:[address1]?option2=[address2]&option3=[address3]` then there's an argument to be made that the order of preference should be `address2`, `address3`, `address1` (i.e. `address1` is always last) because `address1` is necessarily going to be the least modern and most backwards compatible address format, and thus likely least desirable.
+
+Similarly, an updated BIP21 should address the question of which address has priority when off-chain addresses have their own custom parameters. E.g. if we take `bitcoin:[address1]?option2=[address2]&b12=[b12_address]` how do you signify that `b12_address` takes precedence? You could put it before `address2` but now you've introduced order dependence at the URI level.
+
+Perhaps this is an argument for not making the distinction between on-chain and off-chain addresses, but we'd still need to support the old parameters for backwards compatibility reasons so we'd probably still need to come up with some kind of deterministic order of preference.
+
+-------------------------
+
