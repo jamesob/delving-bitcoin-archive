@@ -102,3 +102,96 @@ But forgetting the new keys concern for a second, we could define a new generic 
 
 -------------------------
 
+josibake | 2024-03-01 16:03:29 UTC | #7
+
+[quote="josibake, post:6, topic:630"]
+only usable with addresses that have an HRP (bech32, bech32m)
+[/quote]
+
+The more I think about it, this seems like a nice middle ground: update BIP21 to allow anything that already self identifies with an HRP to be included as a parameter. If it doesn't have an HRP or if the HRP doesn't indicate the protocol being used (payjoin, for example), it needs an extension key. This would allow URIs of the form:
+
+* `bitcoin:sp1q..?lno...`
+* `bitcoin:bc1p..?lnbc..`
+* `bitcoin:sp1q..?bc1p..`
+* `bitcoin:bc1p..?pj=<>`
+
+The really nice thing here is we don't need to define a new `addr` key and wallets that support address type X already know how to check for an HRP.
+
+-------------------------
+
+MattCorallo | 2024-03-01 17:16:26 UTC | #8
+
+[quote="RubenSomsen, post:5, topic:630, full:true"]
+Similarly, an updated BIP21 should address the question of which address has priority when off-chain addresses have their own custom parameters. E.g. if we take `bitcoin:[address1]?option2=[address2]&b12=[b12_address]` how do you signify that `b12_address` takes precedence? You could put it before `address2` but now you’ve introduced order dependence at the URI level.
+
+Perhaps this is an argument for not making the distinction between on-chain and off-chain addresses, but we’d still need to support the old parameters for backwards compatibility reasons so we’d probably still need to come up with some kind of deterministic order of preference.
+[/quote]
+
+I don't believe the recipient should decide the payment instructions they wish to use. The URI should simply list all the payment instructions the recipient is willing to accept and the sender (who nearly always shoulders the fees) should pick the one they prefer. I don't se why there should be any distinction between on-chain and off-chain payment instructions.
+
+> This doesn’t address the concern of needing to retroactively define keys for the known address types and still requiring new BIPs to define a key to be usable with BIP21.
+
+This is a fair point, however I think we can simply mark them as "existing ones" and leave them in the URI body rather than in query parameters. There are already many implementations that assume they're there/place them there, and the ship has kinda sailed on changing that. You could make an argument that we should add an option to put taproot/bech32m instructions in the query parameters to let folks offer both Segwit/bech32 and taproot/bech32m instructions in the same URI, but I don't really see a super compelling use for that, and I think its just too late.
+
+> But forgetting the new keys concern for a second, we could define a new generic `addr` key for BIP21 which is only usable with self-identifying address types (legacy, p2sh, segwit, taproot, any new address with an HRP), or only usable with addresses that have an HRP (bech32, bech32m) since the HRP is functionally equivalent to an extension key. This means existing address types just work and any new address type with an HRP would also just work. We would still need new payment protocols (`b12` for example) to define their own extension keys, but this seems strictly better than needing to define keys for `legacy`, `p2sh`, `bech32`, `bech32m/tr`, `bech32m/sp`, etc. Sure, the sending client would still need to check each `addr` option, but this seems trivial. If we defined `addr` as only allowing addresses with an HRP, its functionally the same since checking for an HRP is the same as checking for an extension key.
+
+I'm not sure what the advantage of `addr` is over simply reusing the HRP - it just seems less descriptive for no reason. I went ahead and wrote up the concrete set of changes I think make sense at https://github.com/bitcoin/bips/pull/1555
+
+> The more I think about it, this seems like a nice middle ground: update BIP21 to allow anything that already self identifies with an HRP to be included as a parameter. If it doesn’t have an HRP or if the HRP doesn’t indicate the protocol being used (payjoin, for example), it needs an extension key. This would allow URIs of the form:
+
+This doesn't allow, for example, offering both Silent Payment instructions as well as Lightning.
+
+-------------------------
+
+josibake | 2024-03-01 17:22:07 UTC | #9
+
+(post deleted by author)
+
+-------------------------
+
+josibake | 2024-03-01 17:30:12 UTC | #10
+
+[quote="MattCorallo, post:8, topic:630"]
+This doesn’t allow, for example, offering both Silent Payment instructions as well as Lightning.
+[/quote]
+
+Yes it does. Silent payment addresses, lightning invoices, and lightning offers all have an HRP (`sp1`, `lnbc1`, `lno1`). I included this in my examples.
+
+-------------------------
+
+MattCorallo | 2024-03-01 17:41:34 UTC | #11
+
+> Yes it does. Silent payment addresses, lightning invoices, and lightning offers all have an HRP (`sp1`, `lnbc1`, `lno1`). I included this in my examples.
+
+Ah, apologies, I misunderstood the point here to have one parameter. Indeed, we could, however that may break existing implementations. BIP 21 as written would allow this, but not sure if any existing implementations try to parse parameters as K/V and fail if there's no =. Its nice to avoid a few extra characters in QR codes, but not sure its worth that risk.
+
+-------------------------
+
+josibake | 2024-03-01 18:05:00 UTC | #12
+
+[quote="MattCorallo, post:11, topic:630"]
+but not sure if any existing implementations try to parse parameters as K/V and fail if there’s no =
+[/quote]
+
+If they are requiring an `=` they aren't spec compliant? :) But agree, we don't want to break anything. This is pretty easy to verify, though, since we have a good list of implementations listed at https://bitcoinqr.dev/ which can be used to verify, and this is a somewhat trivial fix if they are requiring an `=`.
+
+This seems less risky then specifying `bitcoin:?key=val`, which seems *more* likely to break existing implementations since a spec compliant implementation *would* expect an address in the root of the URI.
+
+Furthermore, this can be used along side existing `key=val` parameter pairs, so you can even start using the new technique along with the old way in a backwards compatible way. Seems like a no brainer to me.
+
+-------------------------
+
+MattCorallo | 2024-03-01 18:35:38 UTC | #13
+
+> If they are requiring an `=` they aren’t spec compliant? :slight_smile: But agree, we don’t want to break anything. This is pretty easy to verify, though, since we have a good list of implementations listed at https://bitcoinqr.dev/ which can be used to verify, and this is a somewhat trivial fix if they are requiring an `=`.
+
+Yea, I mean if someone wants to do the legwork I'd be happy to see the no-KV version, just not sure its worth someone's time to do that :).
+
+> This seems less risky then specifying `bitcoin:?key=val`, which seems *more* likely to break existing implementations since a spec compliant implementation *would* expect an address in the root of the URI.
+
+The point of this is that it is *only* done for new key types which are already, today, unsupported. So the options are bitcoin:newaddressformat or bitcoin:?k=newaddressformat. The same set of wallets is broken by both, at least as long as those adding support for newaddressformat support the empty-body version as a part of rolling out the upgrade. Luckily this is a bit easier to test - simply provide test cases for both in the BIP defining newaddressformat.
+
+Further, it seems marginally less likely to break for us to go from bitcoin:oldaddressformat?k=newaddressformat to bitcoin:?k=newaddressformat rather than bitcoin:newaddressformat, not to mention its just nice to only have one format/place to look for newaddressformat. Though, the same "people should test this as a part of the rollout" argument applies, of course.
+
+-------------------------
+

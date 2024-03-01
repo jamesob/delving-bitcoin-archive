@@ -36,3 +36,11 @@ Honestly reading your post I was wondering if I should implement a bit of sanity
 
 -------------------------
 
+mzumsande | 2024-03-01 18:12:35 UTC | #4
+
+I also don't think there is anything wrong with filtering extremely old nodes at the discretion of the operators - but it's weird and probably a bug if a DNS seed wouldn't ever return nodes with a current and widely used version, which was the case in the linked issue (and quickly fixed).
+
+In my opinion, the most important benefit of gathering this kind of statistics isn't so much evaluating / comparing the quality of individual seeds, but to hopefully make it visible if something abruptly changed in one or more of those - that could be a sign that this seed got compromised.
+
+-------------------------
+
