@@ -12,9 +12,9 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 5.4,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 51.4,
   "yours": false,
   "topic_id": 581,
   "topic_slug": "op-checkmaxtimeverify",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "The biggest issue that comes to mind is that such an expiration mechanism would introduce another source of confusion about the finality of a transaction. Especially if a transaction were included in the ultimate permitted block, this could incentivize reorging out that block instead of working on the next block.\n\nAnother issue would be that it would enable attacks to waste bandwidth, e.g. you could publish a transaction that may only be included in the next block, but give it a feerate that is short of the transaction being attractive for the next block.\n\nOne way of expiring a transaction in an incentive-compatible manner would be to create a conflicting transaction that is timelocked to the expiration time but pays a higher fee and feerate. When the conflicting transaction becomes valid for block inclusion, it would be more attractive for miners to include the conflict than the original transaction which then makes the original invalid.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
