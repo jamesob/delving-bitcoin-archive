@@ -90,7 +90,7 @@ Perhaps this is an argument for not making the distinction between on-chain and 
 
 -------------------------
 
-josibake | 2024-03-01 15:32:57 UTC | #6
+josibake | 2024-03-01 15:48:10 UTC | #6
 
 [quote="MattCorallo, post:3, topic:630"]
 we should simply require the type of the address as the key - ie if its a taproot address the key should be ta or tp, silent payment sp, BOLT12 b12, etc. Those names are shorter but also allow wallets to know where to go look for things they know how to pay, and also know what kind of thing they’re dealing with (if, for example, someone came up with an address type that doesn’t identify itself in a bech32 HRP to keep QR code sizes small, not that anyone should).
@@ -98,7 +98,7 @@ we should simply require the type of the address as the key - ie if its a taproo
 
 This doesn't address the concern of needing to retroactively define keys for the known address types and still requiring new BIPs to define a key to be usable with BIP21.
 
-But forgetting the new keys concern for a second, we could define a new generic `addr` key for BIP21 which is only usable with known address types (legacy, p2sh, segwit, taproot), or only usable with addresses that have an HRP (bech32, bech32m) since the HRP is functionally equivalent to an extension key. This means existing address types just work and any new address type with an HRP would also just work. We would still need new payment protocols (`b12` for example) to define their own extension keys, but this seems strictly better than needing to define keys for `legacy`, `p2sh`, `bech32`, `bech32m/tr`, `bech32m/sp`, etc. Sure, the sending client would still need to check each `addr` option, but this seems trivial. If we defined `addr` as only allowing addresses with an HRP, its functionally the same since checking for an HRP is the same as checking for an extension key.
+But forgetting the new keys concern for a second, we could define a new generic `addr` key for BIP21 which is only usable with self-identifying address types (legacy, p2sh, segwit, taproot, any new address with an HRP), or only usable with addresses that have an HRP (bech32, bech32m) since the HRP is functionally equivalent to an extension key. This means existing address types just work and any new address type with an HRP would also just work. We would still need new payment protocols (`b12` for example) to define their own extension keys, but this seems strictly better than needing to define keys for `legacy`, `p2sh`, `bech32`, `bech32m/tr`, `bech32m/sp`, etc. Sure, the sending client would still need to check each `addr` option, but this seems trivial. If we defined `addr` as only allowing addresses with an HRP, its functionally the same since checking for an HRP is the same as checking for an extension key.
 
 -------------------------
 
