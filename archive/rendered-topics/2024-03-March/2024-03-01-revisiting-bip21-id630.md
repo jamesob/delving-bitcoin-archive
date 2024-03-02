@@ -143,12 +143,6 @@ This doesn't allow, for example, offering both Silent Payment instructions as we
 
 -------------------------
 
-josibake | 2024-03-01 17:22:07 UTC | #9
-
-(post deleted by author)
-
--------------------------
-
 josibake | 2024-03-01 17:30:12 UTC | #10
 
 [quote="MattCorallo, post:8, topic:630"]
