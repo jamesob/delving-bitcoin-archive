@@ -55,3 +55,126 @@ My initial results using the above changes appear to yield a 15% reduction in on
 
 -------------------------
 
+remyers | 2024-03-02 13:03:49 UTC | #2
+
+Perhaps it would help people understand this proposal faster if I translated it to pseudo code.
+
+## Inputs:
+
+* `Spend_Amount`: the amount from a set of liquidity amounts (eg. 10,000 sat, 50,000 sat, 200,000 sat, 1,000,000 sat)
+* `Effective_Feerate`: the feerate we want to pay for the transaction
+
+## Outputs:
+* `Liquidity_Transaction`: a transaction funded by `Funding_Inputs` and with optional `Change_Outputs` added
+  * `Funding_Inputs`: a subset of `Available_Coins` with a total amount greater than `Spend_Amount` 
+  * `Change_Outputs`: a set of outputs that will be added to `Available_Coins` when the `Liquidity_Transaction` confirms
+
+## Configuration Data:
+
+```c
+Target_Bucket {
+  start_satoshis     // defined by the user
+  end_satoshis       // defined by the user
+  target_utxo_count  // defined by the user
+  current_utxo_count // computed from available coins and pending txs
+
+  Capacity() = current_utxo_count / target_utxo_count 
+  Target_Amount() = random(start_satoshis, end_satoshis)
+}
+```
+
+* `Target_Buckets` = array of `Target_Bucket`, one element per possible `Spend_Amount`
+* `Available_Coins`: set of confirmed and unspent UTXOs in the wallet
+* `Unconfirmed_Liquidity_Txs`: set of unconfirmed `Liquidity_Transactions` previously created with `Fund_Liquidity()`
+* `Bucket_Refill_Feerate`: the feerate below which we should create more change outputs than we consume as inputs from the `Target_Buckets`.
+
+## Goals:
+* Find the set of `Funding_Inputs` and `Change_Outputs` with the least `Cost` for the the current `Spend_Amount` and `Effective_Feerate`
+* `Cost`: is the amount of all `Funding_Inputs` minus the `Spend_Amount` and minus the `Change_Outputs`
+* Minimize the overall `Cost` over many transactions with different `Spend_Amount` and `Effective_Feerate`
+* The set of `Available_Coins` should always have enough value to find a solution
+
+## Algorithm:
+
+```c
+Fund_Liquidity(Spend_Amount, Effective_Feerate)
+  Funding_Inputs = []
+  Change_Outputs = []
+  
+  // Compute the `current_utxo_count` for each target bucket from the available coins and  
+  // the change outputs of pending liquidity txs.
+  Target_Buckets = Compute_Capacity(Target_Buckets, Available_Coins, Unconfirmed_Liquidity_Txs)
+  
+  // Find the target bucket with least capacity().
+  Min_Target_Bucket = Target_Buckets.Min_Capacity()
+  
+  if Min_Target_Bucket.Capacity() < 0.7:
+    // Check if the capacity of our least full bucket is very low, or fees are low.
+    if Min_Target_Bucket.Capacity() < 0.3 or Current_Feerate < Bucket_Refill_Feerate:
+      // Ensure we create change to refill buckets by adding the largest coin we can spend as an input.
+      Largest_Coin = Available_Coins.Max()
+      Preset_Inputs = [Largest_Coin]
+  
+  // Add sufficient new inputs to fund the transaction with an optional change output.
+  Change_Target_Amount = Min_Target_Bucket.Target_Amount()
+  CS_Result = SelectCoins(Available_Coins, Funding_Inputs, Change_Target_Amount)
+  
+  if CS_Result.Change_Output_Amount > 0:
+    // If a change output is added, split the change output into multiple outputs (see below)
+    Split_Change_Outputs = Split_Change(CS_Result.Change_Output_Amount, Change_Target_Amount, Target_Buckets)
+    Tx = CreateTransaction(CS_Result.Inputs, Split_Change_Outputs)
+    
+  else:
+    // Otherwise, create a changeless tx.
+    Tx = Change_Outputs(CS_Result.Inputs, CS_Result.Change_Output_Amount)
+```
+
+## Splitting Change
+
+We split the single change output added by coin selection into multiple change outputs that opportunistically refill target buckets with random amounts within the range of the most depleted buckets first.
+
+```c
+Split_Change(Change_Output_Amount, Change_Target_Amount, Target_Buckets):
+  // Add the initial change target used by coin selection to the array of output amounts.
+  Change_Outputs = [Change_Target_Amount]
+
+  // Deduct the initial output amount from our total change amount.
+  Change_Amount = Change_Output_Amount - Change_Target_Amount
+  
+  // Increment the count of the utxo target bucket that matches our initial output.
+  Target_Bucket = Target_Buckets.Find(Change_Target_Amount)
+  Target_Bucket.current_utxo_count += 1
+
+  do {
+    // Find the target bucket with least capacity().
+    min_target_bucket = Target_Buckets.Min_Capacity()
+    
+    if min_target_bucket.current_utxo_count >= min_target_bucket.target_utxo_count:
+      // If no target buckets at less than full capacity; exit the loop.
+      break
+      
+    // Compute a random target amount in the range of the least full bucket.
+    target_amount = min_target_bucket.target_amount()
+
+    if change_amount < (change_fee + target_amount):
+      // If there is not enough change available for a new output; exit the loop.
+      break
+    
+    // Deduct the change amount AND the fee cost of adding a new output from the change amount.
+    change_amount -= change_fee + target_amount
+    
+    // Increment the current count of the least full target bucket.
+    min_target_bucket.current_utxo_count += 1
+    
+    // Add the new change output to the end of the array of output amounts.
+    change_outputs = change_outputs + target_amount
+  }
+
+  // any remaining change goes into the last change output
+  change_outputs.last() += change_amount
+
+  return change_outputs
+```
+
+-------------------------
+
