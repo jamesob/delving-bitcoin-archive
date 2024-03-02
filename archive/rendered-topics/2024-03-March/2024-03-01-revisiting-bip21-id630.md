@@ -195,3 +195,21 @@ Further, it seems marginally less likely to break for us to go from bitcoin:olda
 
 -------------------------
 
+josibake | 2024-03-02 10:49:42 UTC | #14
+
+[quote="MattCorallo, post:13, topic:630"]
+Yea, I mean if someone wants to do the legwork I’d be happy to see the no-KV version, just not sure its worth someone’s time to do that :).
+[/quote]
+
+You can also do this in a way that ensures you won't break existing implementations: just include an optional `=v` dummy value at the end. Still smaller than the kv approach and after a long enough period has passed where we are sure clients are using the new logic, receivers can drop the dummy values to save even more space in the QR code.
+
+So for a new client, something like "MAY include the dummy value `=v` at the end of the address. This is to ensure backwards compatibility with older clients" and for the sender, "MUST check for the value `=v` at the end of the address and remove it. This value is used to ensure backwards compatibility with older clients."
+
+[quote="MattCorallo, post:13, topic:630"]
+not to mention its just nice to only have one format/place to look for newaddressformat
+[/quote]
+
+This is another reason to prefer the no-KV approach: there is no more ambiguity around putting a new address in the root vs putting it in a kv pair. Senders just need to split the URI on `?` and look for their preferred HRP/`extensionkey`. This is also nice for new clients supporting the new address type: all they need to do is be able to recognize and parse the new address type, so no extra test cases needed for checking the root for the new address vs checking the `kv` pairs for the new address.
+
+-------------------------
+
