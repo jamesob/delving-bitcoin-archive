@@ -176,3 +176,13 @@ Proof-of-reserves can also be worked around by the above technique of overprinti
 
 -------------------------
 
+moonsettler | 2024-03-02 03:01:54 UTC | #4
+
+[quote="ZmnSCPxj, post:3, topic:506"]
+ALL ecash mints have rugpull capability.
+[/quote]
+
+it's a complete non-issue for credit ecash.
+
+-------------------------
+
