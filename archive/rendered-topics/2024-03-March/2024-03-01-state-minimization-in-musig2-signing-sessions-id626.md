@@ -76,3 +76,13 @@ Mistakes are my own.
 
 -------------------------
 
+cmd | 2024-03-02 22:11:50 UTC | #2
+
+FYI BitEscrow already does this for parallel musig2 signing sessions. We even use the terms "root_nonce" and "session_id".
+
+https://github.com/BitEscrow/escrow-core
+
+You can even compute branching paths of the initial nonce values in order to run a VM using DLCs. Though it's not as sexy as it sounds in practice.
+
+-------------------------
+

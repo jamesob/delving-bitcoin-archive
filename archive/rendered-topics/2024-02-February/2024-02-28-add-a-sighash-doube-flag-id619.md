@@ -60,3 +60,13 @@ https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-April/015862.html
 
 -------------------------
 
+cmd | 2024-03-02 22:07:08 UTC | #3
+
+Thank you for posting the link, I have not heard of this proposal!
+
+Yeah the more I think about it, it seems that for any soft-fork change to SIGHASH is going to require stuffing data somewhere else in a tx, so might as well add some index information for composing PSBTs.
+
+Maybe this is the better way to do it? What would it take to make this a more formal proposal that could be included in a soft fork change?
+
+-------------------------
+
