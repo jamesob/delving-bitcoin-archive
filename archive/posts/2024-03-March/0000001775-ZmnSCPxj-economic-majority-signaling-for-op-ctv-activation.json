@@ -1,0 +1,72 @@
+{
+  "id": 1775,
+  "name": "ZmnSCPxj jxPCSnmZ",
+  "username": "ZmnSCPxj",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/z/ee7513/{size}.png",
+  "created_at": "2024-03-03T11:55:20.499Z",
+  "cooked": "<p>Unfortunately the chainsplit where <code>OP_CTV</code> does not activate requires that the script interpreter actually go through the <code>OP_NOP4</code>. The inverse is not possible \u2014 you can only detect whether <code>OP_NOP4</code> is still an no-op or not, thus it requires an earlier timelock.</p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2024-03-03T11:55:20.499Z",
+  "reply_count": 1,
+  "reply_to_post_number": 2,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 21.8,
+  "yours": false,
+  "topic_id": 635,
+  "topic_slug": "economic-majority-signaling-for-op-ctv-activation",
+  "topic_title": "Economic-Majority Signaling for OP_CTV Activation",
+  "topic_html_title": "Economic-Majority Signaling for OP_CTV Activation",
+  "category_id": 7,
+  "display_username": "ZmnSCPxj jxPCSnmZ",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "moonsettler",
+    "name": "moonsettler",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Unfortunately the chainsplit where `OP_CTV` does not activate requires that the script interpreter actually go through the `OP_NOP4`. The inverse is not possible --- you can only detect whether `OP_NOP4` is still an no-op or not, thus it requires an earlier timelock.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 104,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

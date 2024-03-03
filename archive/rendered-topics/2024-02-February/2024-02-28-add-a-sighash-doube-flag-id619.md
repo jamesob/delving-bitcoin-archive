@@ -70,3 +70,11 @@ Maybe this is the better way to do it? What would it take to make this a more fo
 
 -------------------------
 
+moonsettler | 2024-03-03 11:48:36 UTC | #4
+
+i think the main issue is the lack of flexibility and expressiveness compared to something like TXHASH, the other is you need a new script version to define new flags.
+
+in case the consensus emerges that we can't do TXHASH, it would be worthwhile to reexamine SIGHASH_BUNDLE and APO/AS. especially if we say do a tarpoot 2.0 where we fix the biggest blunders of taproot, then including new sighash modes in that script version might be worthwhile.
+
+-------------------------
+
