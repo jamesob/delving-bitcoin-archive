@@ -60,3 +60,26 @@ One way of expiring a transaction in an incentive-compatible manner would be to 
 
 -------------------------
 
+EvanWinget | 2024-03-03 02:22:15 UTC | #7
+
+Thanks for the thoughtful response and all of the work you have been doing for so many years to help educate Bitcoiners and improve Bitcoin.
+
+> The biggest issue that comes to mind is that such an expiration mechanism would introduce another source of confusion about the finality of a transaction. Especially if a transaction were included in the ultimate permitted block, this could incentivize reorging out that block instead of working on the next block.
+
+I considered this and don't find it to be super concerning, but I probably need to think about it more. 0x10BC has provided historical reorg data [in the stale-blocks repo](https://github.com/bitcoin-data/stale-blocks) and I converted block heights to block times and [plotted the data](https://github.com/EvanWinget/bips/blob/7d70761da8fe43ae5d4fdd0c18b14765652ccfec/bip-checkmaxtimeverify/Monthly_stale_block_chart.png). I know this is just one node's view of the network, but based on this data we have only a few stale blocks per month and it would take extremely high fees for expiring transactions to create incentives to reorg compared to working on the next block. If it is possible that fees for expiring transactions would be high enough to create this incentive, it would demonstrate that there may be strong demand for transaction expiration and ironically increases my interest in considering such a feature.
+
+> Another issue would be that it would enable attacks to waste bandwidth, e.g. you could publish a transaction that may only be included in the next block, but give it a feerate that is short of the transaction being attractive for the next block.
+
+In the OP_EXPIRE mailing list thread that Peter Todd started, he suggested a solution to this: "One notable consideration is that
+nodes should require higher minimum relay fees for transactions close to their
+expiration height to ensure we don't waste bandwidth on transactions that have
+no potential to be mined. Considering the primary use-case, it is probably
+acceptable to always require a fee rate high enough to be mined in the next
+block." [[source](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/022042.html)]
+
+> One way of expiring a transaction in an incentive-compatible manner would be to create a conflicting transaction that is timelocked to the expiration time but pays a higher fee and feerate. When the conflicting transaction becomes valid for block inclusion, it would be more attractive for miners to include the conflict than the original transaction which then makes the original invalid.
+
+While I see no flaw with this logic, it doesn't enable to the outcome that I find compelling about an op code that allows for transaction expiration (which is reducing on-chain footprint and optimizing economic efficiency of atomic asset swaps).
+
+-------------------------
+
