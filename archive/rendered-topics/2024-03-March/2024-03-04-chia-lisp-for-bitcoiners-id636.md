@@ -298,3 +298,20 @@ Note that I'm not an expert in lisp/clvm/chialisp, and have more focused on the 
 
 -------------------------
 
+josibake | 2024-03-04 12:51:37 UTC | #2
+
+This is a really cool idea, thanks for the detailed writeup! From the linked discussions, this point resonated with me:
+
+> A particular advantage of lisp-like approaches is that they treat code
+and data exactly the same -- so if we're trying to leave the option open
+for a transaction to supply some unexpected code on the witness stack,
+then lisp handles that really naturally: you were going to include data
+on the stack anyway, and code and data are the same, so you don't have
+to do anything special at all
+
+Its also really nice to already have real-world usage, devtooling, known bugs, etc with chialisp.
+
+Would we be able to take advantage of Formal Verification tooling that exists for LISP? You mention "lisp-variant," which makes me feel like the answer is no, but figured I'd mention it.
+
+-------------------------
+
