@@ -315,3 +315,13 @@ Would we be able to take advantage of Formal Verification tooling that exists fo
 
 -------------------------
 
+ajtowns | 2024-03-04 20:37:46 UTC | #3
+
+[quote="josibake, post:2, topic:636"]
+Would we be able to take advantage of Formal Verification tooling that exists for LISP? You mention “lisp-variant,” which makes me feel like the answer is no, but figured I’d mention it.
+[/quote]
+
+I think the most applicable formal verification work out there is probably the work that's been put into Simplicity. I think there's probably not too much work to match chia lisp against coq/lean/isabelle and the like: byte vectors and pairs are pretty basic building blocks. But when you add cryptographic security assumptions ("the odds of coming up with a valid signature without knowing the private key should be less than $2^{128}$") proving things gets pretty hard.
+
+-------------------------
+
