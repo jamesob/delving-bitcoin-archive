@@ -237,3 +237,34 @@ This seems like a pretty separate conversation, and also one that is going to br
 
 -------------------------
 
+john | 2024-03-05 07:46:30 UTC | #17
+
+> This seems like a pretty separate conversation, and also one that is going to break compatibility with all existing wallets :/. Not sure how to go about such a large-scale change.
+
+Understood. Yes, it’s definitely a much larger conversation.
+
+-------------------------
+
+josibake | 2024-03-05 08:27:58 UTC | #18
+
+[quote="MattCorallo, post:16, topic:630"]
+Mmm, fair point, though now we’re saving two chars to avoid a K/V pair? I’m not really sure its worth it, and if at some point we move on from bech32m-based addresses or something that has a less-visible HRP it avoids needing to parse the whole blob
+[/quote]
+
+I'm not sure where you're getting two chars from? My point was that bech32(m) addresses _already_ are a key-value pair, i.e. `HRP (key) 1 (=) <data> (value)`, so requiring a key for them is redundant and creates more work for wallets since they now need two ways of recognizing the address: one for normal use, and one for identifying the BIP21 specific key. It's a nice side effect that we can reduce the QR code size, but that's not the main benefit.
+
+
+[quote="MattCorallo, post:16, topic:630"]
+Hmm? You still have to split on &s to separate the various addresses, as well as parse K-V pairs for other parameters (like comments, amounts, lightning, etc), so you can’t avoid any of that complexity no matter what.
+[/quote]
+
+My point was about removing the ambiguity about what goes in the root vs what goes in the keys. Parsing the URI simplifies to "look for your preferred HRP or KV protocol," with all the other parsing remaining the same.
+
+[quote="MattCorallo, post:16, topic:630"]
+I also want to highlight here that we *really* shouldn’t be assuming that we’ll always and forever use bech32(m) for any new address type, so we don’t want to bake that in as a super deep assumption (though doing something special for bech32(m) is kinda maybe reasonable?).
+[/quote]
+
+I'm not. My assumption is that it is the best option for the foreseeable future (and already standard across bitcoin and lightning). It also allows us to address the current problem of existing address types that *are* bech32(m) encoded and *don't* have a BIP21 extension key in a simple and efficient manner. We also automatically support any new address type that is bech32(m) encoded and for everything else we can use key-value pairs.
+
+-------------------------
+
