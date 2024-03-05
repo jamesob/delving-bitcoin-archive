@@ -1,6 +1,6 @@
 # Chia Lisp For Bitcoiners
 
-ajtowns | 2024-03-04 02:46:38 UTC | #1
+ajtowns | 2024-03-05 18:44:12 UTC | #1
 
 I want to talk [some](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-March/020036.html) [more](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/022099.html) about doing a Lisp variant for script on Bitcoin, but before I do that in detail, I figure it's probably helpful to do a summary of what [Lisp looks like on the Chia blockchain](https://chialisp.com/), since that already has good answers for many of the questions that come up. If that sounds interesting, read on; if not, maybe remember this post exists so you can refer back to it later when I treat it as assumed knowledge in posts that do sound interesting!
 
@@ -14,7 +14,7 @@ For those who are familiar with Chialisp, note that I'm mostly talking about the
 
 Why is this worth thinking about at all? After all, Bitcoin script is a great little language, essentially a tiny stack based RPN calculator, that's robust enough to be ready to replace central bank clearing houses, with enough programmability to do a bunch of neat things. But from a programmer's perspective, there are two things that as a language it can't do well: looping and structured data.
 
-Not being able to do a loop natively means that scripts that do the same thing repeatedly quickly become cumbersome, for example the [Lamport Sigs and CAT tricks](https://delvingbitcoin.org/t/lamport-signatures-and-other-cat-tricks/236) design has 20 steps each involving an 8 level merkle tree that need to be spelt out separately, rather than just having two loops -- so 160 steps that should just be one in a loop. There's been thoughts about adding constructs that could enable looping to bitcoin script in the past, eg [BIP 12 OP_EVAL](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0012.mediawiki) and [BIP 117 Tail Call Semandtics](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0117.mediawiki), both of which are explicitly limited to disable looping, or [OP_FOLD](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-February/020021.html).
+Not being able to do a loop natively means that scripts that do the same thing repeatedly quickly become cumbersome, for example the [Lamport Sigs and CAT tricks](https://delvingbitcoin.org/t/lamport-signatures-and-other-cat-tricks/236) design has 20 steps each involving an 8 level merkle tree that need to be spelt out separately, rather than just having two loops -- so 160 steps that should just be one in a loop. There's been thoughts about adding constructs that could enable looping to bitcoin script in the past, eg [BIP 12 OP_EVAL](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0012.mediawiki) and [BIP 117 Tail Call Semantics](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0117.mediawiki), both of which are explicitly limited to disable looping, or [OP_FOLD](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-February/020021.html).
 
 Not being able to natively deal with structured data isn't as big a problem: you can work around it by using the various stack rotation opcodes and moving things on and off the alt stack, however that becomes annoying to actually do in practice. For example, a few of the recent script proposals suggest modest changes to imply a little more structure: eg,
  * [OP_VAULT](https://github.com/bitcoin/bips/pull/1421) allows you to specify a number of items that will be encoded as minimal pushes and prefixed to the provided `leaf-update-script-body`,
@@ -161,6 +161,7 @@ In addition, these opcodes are added by [CHIP-11](https://github.com/Chia-Networ
 | `bls_pairing_identity` | *G1_1 *G2_1 *G1_2 *G2_2 ... | 0x3a | Return nil if the pairing of all given pairs is the identity, otherwise fail
 | `bls_verify` | *G2 *G1_1 *M1 *G1_2 *M2 ... | 0x3b | Return nil if the signature (G2) is valid for the combination of the messages (Mn) and public keys (G1_n)
 | `modpow` | *B *E *M | 0x3c | Returns B raised to the power E, modulo M
+| `%` | *N *D | 0x3d | Return N % D
 | `SOFTFORK` | *C [unspecified] | 0x5a | For allowing future upgrades to the classes of conditions a Chialisp program can return
 | `secp256k1_verify` | *P *M *S | 0x13d61f00 | ECDSA signature check (pubkey P, message digest M, signature S) via secp256k1
 | `secp256r1_verify` | *P *M *S | 0x1c3a8f00 | ECDSA signature check (pubkey P, message digest M, signature S) via secp256r1
