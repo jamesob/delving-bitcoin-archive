@@ -207,3 +207,15 @@ This is another reason to prefer the no-KV approach: there is no more ambiguity 
 
 -------------------------
 
+john | 2024-03-04 22:09:34 UTC | #15
+
+I'm not sure if this is the right place to bring this up, but I have been hoping to see BIP21 expanded to allow split payments, for example:
+
+`bitcoin:address=3FfBeGA1brVESSUeA6RBZYeiNHJmFWnWQu&amount=0.123&label=Payment_A&address=3BA3YuxeY8bsaK14DUY1f4X7WhqmJesUda&amount=0.000123&label=Fee_A`
+
+Granted, this involves wallets upgrading to offer such payments. But I thought I would bring it up here while param structure/nomenclature for BIP21 is being discussed.
+
+For reference: https://x.com/john_zaprite/status/1506112407990677507?s=20
+
+-------------------------
+

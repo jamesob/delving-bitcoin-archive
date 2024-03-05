@@ -325,3 +325,15 @@ I think the most applicable formal verification work out there is probably the w
 
 -------------------------
 
+bramcohen | 2024-03-04 22:45:13 UTC | #4
+
+Thanks for doing this writeup. It's interesting context seeing how someone views Chialisp from the outside.
+
+The purpose of templates is a cost one: Even mildly complex scripts can become cost prohibitive if they have to be repeated over and over again, and being able to reuse code helps massively with that. There's also a hook for being able to pull code out of earlier blocks for further cost savings.
+
+The conditions language and coin format in Chia should be thought of as comparable to Bitcoin's transaction format, which sits outside of Bitcoin Script but is made reference to from it and has its own set of rules. The particular details of how those are done in Chia have the huge benefit that they allow for implementation of not just covenants but also capabilities which is something you don't touch on here. Similar benefits could be had in Bitcoin with the addition of opcodes for handling transactions but it may be possible to get away with some extremely aggressive use of OP_CAT.
+
+I think costs are set so that the string growing attack you mention can't overflow the capacities of a reasonable machine validating blocks with Chia's block size, although that may depend on your definition of 'reasonable'. There is a cost for string creation which is linear on its length.
+
+-------------------------
+
