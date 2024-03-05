@@ -71,3 +71,9 @@ TSTL is able to create scenarios with more than 1000 actions from this simple sc
 
 -------------------------
 
+ProofOfKeags | 2024-03-05 20:43:56 UTC | #2
+
+Thank you for being another voice evangelizing property testing. We need more of it across the entire software industry and especially on projects that need to be very well understood. I don't work on Bitcoin Core specifically, but I wholeheartedly encourage you to keep pushing on this frontier 🫡.
+
+-------------------------
+
