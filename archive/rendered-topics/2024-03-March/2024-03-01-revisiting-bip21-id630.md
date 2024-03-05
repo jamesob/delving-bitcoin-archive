@@ -219,3 +219,21 @@ For reference: https://x.com/john_zaprite/status/1506112407990677507?s=20
 
 -------------------------
 
+MattCorallo | 2024-03-05 02:47:02 UTC | #16
+
+[quote="josibake, post:14, topic:630"]
+You can also do this in a way that ensures you won’t break existing implementations: just include an optional `=v` dummy value at the end. Still smaller than the kv approach and after a long enough period has passed where we are sure clients are using the new logic, receivers can drop the dummy values to save even more space in the QR code.
+[/quote]
+
+Mmm, fair point, though now we're saving two chars to avoid a K/V pair? I'm not really sure its worth it, and if at some point we move on from bech32m-based addresses or something that has a less-visible HRP it avoids needing to parse the whole blob. Not like any of this matters all that much, though, really, might as well flip a coin at this point.
+
+> This is another reason to prefer the no-KV approach: there is no more ambiguity around putting a new address in the root vs putting it in a kv pair. Senders just need to split the URI on `?` and look for their preferred HRP/`extensionkey`. This is also nice for new clients supporting the new address type: all they need to do is be able to recognize and parse the new address type, so no extra test cases needed for checking the root for the new address vs checking the `kv` pairs for the new address.
+
+Hmm? You still have to split on &s to separate the various addresses, as well as parse K-V pairs for other parameters (like comments, amounts, lightning, etc), so you can't avoid any of that complexity no matter what. I also want to highlight here that we *really* shouldn't be assuming that we'll always and forever use bech32(m) for any new address type, so we don't want to bake that in as a super deep assumption (though doing something special for bech32(m) is kinda maybe reasonable?).
+
+> I’m not sure if this is the right place to bring this up, but I have been hoping to see BIP21 expanded to allow split payments, for example:
+
+This seems like a pretty separate conversation, and also one that is going to break compatibility with all existing wallets :/. Not sure how to go about such a large-scale change.
+
+-------------------------
+
