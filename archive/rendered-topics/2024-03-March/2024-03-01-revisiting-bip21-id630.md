@@ -245,7 +245,7 @@ Understood. Yes, it’s definitely a much larger conversation.
 
 -------------------------
 
-josibake | 2024-03-05 08:27:58 UTC | #18
+josibake | 2024-03-05 13:17:49 UTC | #18
 
 [quote="MattCorallo, post:16, topic:630"]
 Mmm, fair point, though now we’re saving two chars to avoid a K/V pair? I’m not really sure its worth it, and if at some point we move on from bech32m-based addresses or something that has a less-visible HRP it avoids needing to parse the whole blob
@@ -264,7 +264,7 @@ My point was about removing the ambiguity about what goes in the root vs what go
 I also want to highlight here that we *really* shouldn’t be assuming that we’ll always and forever use bech32(m) for any new address type, so we don’t want to bake that in as a super deep assumption (though doing something special for bech32(m) is kinda maybe reasonable?).
 [/quote]
 
-I'm not. My assumption is that it is the best option for the foreseeable future (and already standard across bitcoin and lightning). It also allows us to address the current problem of existing address types that *are* bech32(m) encoded and *don't* have a BIP21 extension key in a simple and efficient manner. We also automatically support any new address type that is bech32(m) encoded and for everything else we can use key-value pairs.
+I'm not. My assumption is that it is the best option for the foreseeable future (and already standard across bitcoin and lightning). It also allows us to address the current problem of existing address types that *are* bech32(m) encoded and *don't* have a BIP21 extension key in a simple and efficient manner. We also automatically support any new address type that is bech32(m) encoded. For everything else we can keep using key-value pairs.
 
 -------------------------
 
