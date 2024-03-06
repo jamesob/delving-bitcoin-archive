@@ -16,3 +16,29 @@ Last but not least, of course, GitLab can also be used to back up other reposito
 
 -------------------------
 
+0xB10C | 2024-03-06 14:36:26 UTC | #2
+
+Thanks for looking into this and sharing what you've found. Sad to hear that a continues import between GitLab and GitHub isn't possible.
+
+Would it be possible to run two instances where one is importing while the other is displaying and then switch them over once the other is done importing and so on? Could also do this on a 48h timer (you mentioned the import takes 36h).
+
+---
+
+I've also set up some GitHub backup and mirroring of Bitcoin related repositories last year. I think putting some links here makes sense in case someone is looking for backups or a mirror. Sorry for hijacking your post.
+
+I have the backups and a mirror on https://mirror.b10c.me. For example, [https://mirror.b10c.me/bitcoin-bitcoin](https://mirror.b10c.me/bitcoin-bitcoin) shows a GitHub like read-only bitcoin/bitcoin repository mirror. I'm also rewriting issue/PR links to not link back to GitHub. There's also a Tor hidden service for the mirror if anyone happens to need it: e3y5vky4v7snefqyhbn6kcmyl5fo4cnk3a2irh2ttvwua46ww5ubl6qd.onion.
+
+I also push the backups to GitHub (duh) and GitLab:
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-bitcoin
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-core-secp256k1
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-core-gui
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-bips
+- https://gitlab.com/0xb10c/github-metadata-backup-bitcoin-core-gui
+- https://gitlab.com/0xb10c/github-metadata-backup-bitcoin-core-secp256k1
+- https://gitlab.com/0xb10c/github-metadata-backup-bitcoin-bips
+- https://gitlab.com/0xb10c/github-metadata-backup-bitcoin-bitcoin
+
+Code for the backups can be found in https://github.com/0xB10C/github-metadata-backup and for the mirroring in https://github.com/0xB10C/github-metadata-mirror. I've also written a few words on it here: https://b10c.me/projects/021-github-backups-mirror/
+
+-------------------------
+
