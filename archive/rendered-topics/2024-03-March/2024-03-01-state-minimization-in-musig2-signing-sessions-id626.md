@@ -86,3 +86,21 @@ You can even compute branching paths of the initial nonce values in order to run
 
 -------------------------
 
+real-or-random | 2024-03-06 17:23:09 UTC | #3
+
+Have you considered CounterNonceGen from the BIP? Is the problem that it needs the secret key, but you may not want to access it at nonce generation time?
+
+-------------------------
+
+salvatoshi | 2024-03-06 18:17:29 UTC | #4
+
+Yes, @LLFourn suggested the same on Twitter.
+Since I'm working towards an implementation on Ledger devices, I already have access to the TRNG from the Secure Element, while I would have to implement a secure atomic counter myself if I wanted to use CounterNonceGen.
+
+Either way, I think the same approach above could be used with CounterNonceGen, just replacing *rand_root* with the atomic counter.
+
+Perhaps there are simpler approaches to handle the psbt-level sessions with CounterNonceGen, instead of using the *(i,j)* hierarchy above; but I think that in order to handle psbt-level signing sessions securely you'd still want to commit to the initial counter and the number of signatures you'll produce for that psbt as part of the session state indexed by `session_id`, particularly if you allow multiple psbt signing flows in parallel.
+Overall, I suspect this might be harder to audit in terms of no-nonce-reuse.
+
+-------------------------
+
