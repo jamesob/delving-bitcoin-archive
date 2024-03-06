@@ -12,9 +12,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 636,
   "topic_slug": "chia-lisp-for-bitcoiners",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Seconding some of what you're saying here. It shouldn't be hard to match Simplicity up with the SOTA proof assistants which are also very related to things like Idris/Agda. Idris/Idris2 have Chez Scheme code-generators (Scheme being a slimmer, cleaner LISP variant).\n\nAt the end of the day, we may not care as much about formally verifying the output, although such a property would be nice. We make a fundamental tradeoff when we erase structural information during the compiling procedure. The advantage of formally verifying the compiler target language (the interpreted language from the perspective of the consensus VM) is that we can derive the properties we want regardless of the source language. The downside is that preserving this extra structural information can be costly, both in space, as well as if we choose to check those structural invariants at transaction validation time (particularly costly).\n\nThe other option is to not do the formal verification on the target language but rather do the verification of the program semantics in the source language, and just ensure that certain properties are preserved by the transformation from source to target. The benefit of this is alleviating the network cost of validation, but you end up making the source language for which you do this the de-facto standard, which has its own downsides.\n\nI think ultimately a LISP like target language would be a good line of research as it gives us a lot of the same flexibility as Simplicity, albeit without having to verify computation all the way down to the formalism of ~~Cartesian Closed~~ Distributive Categories.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
