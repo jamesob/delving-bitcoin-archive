@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 73.0,
+  "incoming_link_count": 3,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 78.8,
   "yours": false,
   "topic_id": 636,
   "topic_slug": "chia-lisp-for-bitcoiners",
@@ -59,9 +59,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }

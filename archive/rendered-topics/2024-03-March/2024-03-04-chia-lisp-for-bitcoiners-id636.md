@@ -338,3 +338,15 @@ I think costs are set so that the string growing attack you mention can't overfl
 
 -------------------------
 
+ProofOfKeags | 2024-03-05 21:08:41 UTC | #5
+
+Seconding some of what you're saying here. It shouldn't be hard to match Simplicity up with the SOTA proof assistants which are also very related to things like Idris/Agda. Idris/Idris2 have Chez Scheme code-generators (Scheme being a slimmer, cleaner LISP variant).
+
+At the end of the day, we may not care as much about formally verifying the output, although such a property would be nice. We make a fundamental tradeoff when we erase structural information during the compiling procedure. The advantage of formally verifying the compiler target language (the interpreted language from the perspective of the consensus VM) is that we can derive the properties we want regardless of the source language. The downside is that preserving this extra structural information can be costly, both in space, as well as if we choose to check those structural invariants at transaction validation time (particularly costly).
+
+The other option is to not do the formal verification on the target language but rather do the verification of the program semantics in the source language, and just ensure that certain properties are preserved by the transformation from source to target. The benefit of this is alleviating the network cost of validation, but you end up making the source language for which you do this the de-facto standard, which has its own downsides.
+
+I think ultimately a LISP like target language would be a good line of research as it gives us a lot of the same flexibility as Simplicity, albeit without having to verify computation all the way down to the formalism of ~~Cartesian Closed~~ Distributive Categories.
+
+-------------------------
+
