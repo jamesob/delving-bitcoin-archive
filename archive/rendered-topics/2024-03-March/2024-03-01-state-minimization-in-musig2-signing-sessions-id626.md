@@ -153,3 +153,36 @@ This is precisely what should not happen. Or why would this attack be prevented?
 
 -------------------------
 
+salvatoshi | 2024-03-07 11:09:06 UTC | #8
+
+When you complete a signature (Phase 2 above), that `session_id` has already been destroyed (beginning of Phase 2). A new PSBT with the same `session_id` would have to start again from Phase 1, and a new session with fresh randomness (`rand_root` in my post above) would be created (even if it has the same `session_id`).
+
+The only malleability in the PSBT while a session is "active" is after the session is created in Phase 1, and before signatures are produced in Phase 2, which is what I was commenting about in the last post.
+
+Perhaps I should make it more explicit in the description that Phase 2 fails immediately if a corresponding active `session_id` is not found.
+
+-------------------------
+
+real-or-random | 2024-03-07 12:26:19 UTC | #9
+
+[quote="salvatoshi, post:8, topic:626"]
+and a new session with fresh randomness (`rand_root` in my post above) would be created (even if it has the same `session_id`).
+[/quote]
+
+Oh, sure. If you draw a fresh `rand_root`, everything is alright. Sorry, I got confused over `session_id` vs `rand_root`. I was under the assumption that `session_id` from `rand_root` (or set it to the same value).
+
+I think my confusion partly stems from the fact that we use the term `session_id` in the C implementation of MuSig2 (instead of `rand'`). This has also confused others in the past. (I've just commented on the PR: https://github.com/bitcoin-core/secp256k1/pull/1479/files#r1516062204)
+
+-------------------------
+
+salvatoshi | 2024-03-07 12:52:25 UTC | #10
+
+Indeed, I will rename it to `psbt_session_id` to be more explicit. Sorry for being too handwavy on the 'Generalization' section - I added it for completeness as I think it's practically useful, but it wasn't the main focus, nor the part that worried me.
+
+Thanks a lot for the comments, that's very helpful!
+
+<br>
+EDIT: oh well, it looks like I'm out of time to edit the original post. But I will take into account the comments on the naming when I write the code!
+
+-------------------------
+

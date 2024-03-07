@@ -77,3 +77,40 @@ Thank you for being another voice evangelizing property testing. We need more of
 
 -------------------------
 
+Chris_Stewart_5 | 2024-03-07 14:12:50 UTC | #3
+
+If you feel like reviving this old PR from of mine from back in the day it might be useful: https://github.com/bitcoin/bitcoin/pull/8469
+
+However IIRC this ended up being viewed as redundant with our fuzzing infrastructure.
+
+-------------------------
+
+bruno | 2024-03-07 14:37:26 UTC | #4
+
+(post deleted by author)
+
+-------------------------
+
+bruno | 2024-03-07 14:37:55 UTC | #5
+
+Thanks for it. I did not take look in depth yet but it doesn’t seem to be property based testing for black-box stuff (functional), right?. I agree that a white-box approach for it would be redundant with fuzzing.
+
+-------------------------
+
+Chris_Stewart_5 | 2024-03-07 14:50:32 UTC | #6
+
+>I did not take look in depth yet but it doesn’t seem to be property based testing for black-box stuff (functional), right?
+
+This is correct.
+
+I guess I haven't heard of property based testing being used via networking layers, usually I've heard it used (and what we do in [bitcoin-s](https://github.com/bitcoin-s/bitcoin-s)) is accessing data structures directly for a couple of reasons
+
+1. Do we want to property based test the entire networking stack? That seems very inefficient and will probably lead to very flaky tests
+2. Higher maintenance burden (although since we already have test suites in c++ and python maybe this doesn't apply as much to bitcoin core).
+
+As a general note, I find the python test framework lacking in completeness compared to c++ implementation. For instance, when working on my [64 bit arithmetic PR](https://delvingbitcoin.org/t/64-bit-arithmetic-soft-fork/397) it seems we just [assume correctness of values](https://github.com/bitcoin/bitcoin/blob/c2c6a7d1dc162945fa56deb6eaf2bdd7f84999e8/test/functional/test_framework/script.py#L410) given to the Python test framework. I'm suspicious that this occurs more often that we would like. 
+
+Of course you can take this to mean we _need_ to do this work to find these bugs, but I think this will result in a secondary consensus implementation in Python :-). Reasonable minds can differ of course, but that is my two sats of input.
+
+-------------------------
+

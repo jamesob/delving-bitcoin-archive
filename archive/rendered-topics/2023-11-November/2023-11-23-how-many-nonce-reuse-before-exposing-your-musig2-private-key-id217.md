@@ -67,7 +67,7 @@ Also worth noting: Reusing nonces in musig is bad even if you are signing _the s
 
 -------------------------
 
-real-or-random | 2024-03-07 10:22:37 UTC | #4
+real-or-random | 2024-03-07 12:29:08 UTC | #4
 
 Indeed, you can't extract the signing key from just two signatures with the same nonce. You'll get two equations from the two signatures, but you have three unknowns.
 
@@ -115,6 +115,8 @@ exactly as in the paper.
 The attack then proceeds as described in the paper.
 
 
+*edit: If you see rendering errors in the equations, try to reload the page. I think Discourse here uses some optimizations where it loads the equations in the wrong order, and then they won't work.*
+
 ---
 
 
@@ -126,6 +128,12 @@ Are you referring to the following statement from BIP327?
 > The *Sign* algorithm must **not** be executed twice with the same *secnonce*. Otherwise, it is possible to extract the secret signing key from the two partial signatures output by the two executions of *Sign*.'
 
 Hm, yes, we should probably change the wording here.
+
+-------------------------
+
+t-bast | 2024-03-07 12:24:52 UTC | #5
+
+Thanks for this detailed analysis @real-or-random, this is very instructive!
 
 -------------------------
 

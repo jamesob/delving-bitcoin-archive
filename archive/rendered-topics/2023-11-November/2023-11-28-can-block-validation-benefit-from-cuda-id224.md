@@ -23,7 +23,7 @@ Note: I have not read recent bitcoin core code, so my knowledge may be out-of-da
 
 -------------------------
 
-real-or-random | 2024-03-07 10:55:38 UTC | #3
+real-or-random | 2024-03-07 11:00:44 UTC | #3
 
 [quote="ZmnSCPxj, post:2, topic:224"]
 Maybe the best bet would be to focus on the “pure math” SECP256K1 signature validations (i.e. have the `SIGHASH`es come from the CPU and then push them into the GPU for validation).
@@ -40,7 +40,7 @@ But I'm not aware that anyone is seriously looking into it, at least not current
 I believe SECP256K1 Schnorr signatures as used in Taproot can be batch validated, meaning you only do a single calculation to validate multiple transactions that use the keyspend path. Since only a single calculation is needed, there seems to be no advantage to using a GPU in that case.
 [/quote]
 
-Yes, but batch verification does not mean that the work of verifying $n$ Schnorr signatures is the same (or similar) to the work of verifying a single Schnorr signature. Batch verification of $n$ signatures will yield nice speed-ups as compared to verifying the $n$ signatures individually, but it's [at most a factor of ~2 in practice](https://github.com/jonasnick/secp256k1/blob/schnorrsig-batch-verify/doc/speedup-batch.md).
+Yes, but batch verification does not mean that the work of verifying $n$ Schnorr signatures is the same (or similar) to the work of verifying a single Schnorr signature. Batch verification of $n$ signatures will yield nice speed-ups as compared to verifying the $n$ signatures individually, but it's [at most a factor of ~2 in practice](https://github.com/jonasnick/secp256k1/blob/869e7097d9835945a1663a321239418ad2f93ca4/doc/speedup-batch.md).
 
 -------------------------
 
