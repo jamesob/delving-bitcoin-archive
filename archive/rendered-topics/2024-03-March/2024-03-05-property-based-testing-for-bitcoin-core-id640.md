@@ -114,3 +114,19 @@ Of course you can take this to mean we _need_ to do this work to find these bugs
 
 -------------------------
 
+Chris_Stewart_5 | 2024-03-07 15:59:47 UTC | #7
+
+That said, shameless plug i think the 64bit arithmetic work would be a great place to start with property based testing. Its "simple" in the sense that we are just doing arithmetic. You could even test the existing opcodes (`OP_ADD`, `OP_SUB`..) if you don't want to speculate on this soft fork getting activated, but want to test something straightforward.
+
+-------------------------
+
+ProofOfKeags | 2024-03-07 18:58:56 UTC | #8
+
+In my view, property testing is more of a strategy/philosophy than anything else. It can be conducted at all layers. The point is that the values are randomized (ideally intelligently to try and detect boundary conditions), and the invariants are expressed at the API level without punching through the vail of the APIs privacy boundary. In the case of Core I'd say the total API surface area is the peer network layer and the RPC layer. We may want to synthesize random messages, of these types and sequence them in random orders. Ideally we should have a long list of conditions we expect to hold without exception. The less concise those conditions are, the worse the design is overall. Due to the consensus nature of Bitcoin many of the uglier conditions we will have to live with til The End Of Time but on a go forward basis it'd be nice to have a set of concise properties we expect to hold.
+
+The strategy is extremely powerful no matter where you apply it, provided you can land on these *true invariants*. I think the observation you make about applying it to inner layers is really an observation of the fact that the smaller the component/system, the better we understand it, which shouldn't be surprising. However, regardless of the scope we apply it to, any tests we can create using a property construction give us *far better assurances* than a corresponding single-point unit test.
+
+So I think applying this strategy to any layer that they are interested in applying it to ought to be enthusiastically supported 😁
+
+-------------------------
+
