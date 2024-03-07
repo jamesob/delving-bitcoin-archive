@@ -768,3 +768,17 @@ Now I write this out, I think I understand @instagibbs point about the generalit
 
 -------------------------
 
+rustyrussell | 2024-03-07 00:58:22 UTC | #23
+
+[quote="instagibbs, post:17, topic:553"]
+[quote="rustyrussell, post:16, topic:553"]
+Fees go up, you get evicted, you win a Free Relay.
+[/quote]
+
+I might be reading this game wrong, but if it’s evicted, we attempt to make subsequent txs “pay for it” by increasing minfee by incremental rate. So it’s limited in scope and by time(similar to how we allow free relay for transactions that sat in mempool for 2 weeks and time out). Strictly weaker than harvesting the fees directly of course.
+[/quote]
+
+Thanks, indeed, this makes the "free relay at bottom of the mempool" game less easy to play, depending on how fast that decays.  From AJ's answer, I'd guesstimate 10-100 blocks might be typical, but it's not a far cry from 2 weeks...
+
+-------------------------
+
