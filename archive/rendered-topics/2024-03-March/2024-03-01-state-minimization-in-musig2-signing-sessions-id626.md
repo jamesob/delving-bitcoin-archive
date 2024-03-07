@@ -104,3 +104,35 @@ Overall, I suspect this might be harder to audit in terms of no-nonce-reuse.
 
 -------------------------
 
+real-or-random | 2024-03-07 07:04:09 UTC | #5
+
+Oh, I think what I had in mind is to pass the $(i,j)$ pair as `extra_in` to NonceGen, and use `rand' := rand_root`. But yeah, that's i) not exactly CounterNonceGen, and ii) not clearly better.
+
+Note that the most natural cryptographic tool to generate $rand_{i,j}$ from `rand_root` and $(i,j)$, at least from a theory point of view, is an RNG (e.g., ChaCha20) instead of a full-blown hash function. But a hash function is totally fine, it serves as a good RNG, it's just computationally more expensive. In some sense, the same applies to the internals of nonce generation in BIP327 and even BIP340. We simply picked SHA256 since implementations need it anyway for the challenge hash of the signature, and it's a bit perhaps a bit more conservative (or overkill, in other words). 
+
+nit: I'd call it `seed` or `psbt_seed` or `rand_seed` instead of `rand_root`. I think that's the most common word for such a thing.
+
+[quote="salvatoshi, post:1, topic:626"]
+It is possible to generalize this to an arbitrary number of parallel signing sessions. Each session could be identified by a `session_id` computed by hashing enough information to (practically) uniquely identify the transaction being signed (making sure that the updated psbt presented in Phase 2 is unchanged); for example, it could be a commitment to the `txid` of the unsigned transaction contained in the PSBT, and the wallet policy used for signing.
+[/quote]
+
+Hashing the commitment to the `txid` and the wallet policy sounds dangerous to me. What if you get a second PSBT for the same transaction? (It may very well be the case that I'm misunderstanding ...)
+
+-------------------------
+
+salvatoshi | 2024-03-07 09:26:58 UTC | #6
+
+
+[quote="real-or-random, post:5, topic:626"]
+Hashing the commitment to the `txid` and the wallet policy sounds dangerous to me. What if you get a second PSBT for the same transaction? (It may very well be the case that I’m misunderstanding …)
+[/quote]
+
+The idea with the `session_id` is that it should make `id` collisions unlikely in practice, but a collision should not pose a security risk, and at most cause a signing failure.
+
+If the second time a colliding psbt is presented with mutated parameters that affect NonceGen (any of the extra args), then for at least one $(i, j)$ pair the recomputed secnonce/pubnonce would be different, signing is aborted and the session destroyed.
+If the colliding psbt is presented with mutated members that do *not* affect the output of NonceGen, then the changes in the second PSBT vs the first are irrelevant, as NonceGen would have been executed in with the same exact parameters if there was no mutation.
+
+So unless I missed something, that should still be safe.
+
+-------------------------
+
