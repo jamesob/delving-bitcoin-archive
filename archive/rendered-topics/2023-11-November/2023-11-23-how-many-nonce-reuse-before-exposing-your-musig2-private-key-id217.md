@@ -67,20 +67,18 @@ Also worth noting: Reusing nonces in musig is bad even if you are signing _the s
 
 -------------------------
 
-real-or-random | 2024-03-07 10:21:47 UTC | #4
-
-$$
-\newcommand{\si}{k}
-\newcommand{\smax}{k_{\mathrm{max}}}
-\newcommand{\Hsig}{\mathsf{H}_{\mathrm{sig}}}
-\newcommand{\tX}{\widetilde{X}}
-$$
+real-or-random | 2024-03-07 10:22:37 UTC | #4
 
 Indeed, you can't extract the signing key from just two signatures with the same nonce. You'll get two equations from the two signatures, but you have three unknowns.
 
 But what's also true is that security under concurrent sessions breaks down again. Assume the attacker can ask the honest signer for many concurrent signing sessions with limited reuse of nonces, i.e., each nonce (pair) may be used at most in two signing sessions. Then a forgery is possible.
 
-The attack is very similar to the attack on "InsecureMuSig" descriped in the [MuSig2 paper](https://eprint.iacr.org/2020/1261.pdf) (pages 5 and 6). It just gets more hairy because we need to correct for $b$ factors everywhere. Following the notation in the paper, the attacker opens $\smax$ session *pairs*, where the user reuses the same nonce pair in the two sessions belonging to a session pair. That is, the user (signer index $1$), responds with $\smax$ nonce pairs $(R_{1,1}^{(\si)}, R_{1,2}^{(\si)})$. The adversary (signer index $2$) chooses a targer message $m^*$, computes
+The attack is very similar to the attack on "InsecureMuSig" descriped in the [MuSig2 paper](https://eprint.iacr.org/2020/1261.pdf) (pages 5 and 6). It just gets more hairy because we need to correct for $b$ factors everywhere. Following the notation in the paper, the attacker opens $
+\newcommand{\si}{k}
+\newcommand{\smax}{k_{\mathrm{max}}}
+\newcommand{\Hsig}{\mathsf{H}_{\mathrm{sig}}}
+\newcommand{\tX}{\widetilde{X}}
+\smax$ session *pairs*, where the user reuses the same nonce pair in the two sessions belonging to a session pair. That is, the user (signer index $1$), responds with $\smax$ nonce pairs $(R_{1,1}^{(\si)}, R_{1,2}^{(\si)})$. The adversary (signer index $2$) chooses a targer message $m^*$, computes
 $
 R^* = \prod_{k=1}^{\smax} R_{1,1}^{(\si)}
 $
