@@ -268,3 +268,27 @@ I'm not. My assumption is that it is the best option for the foreseeable future 
 
 -------------------------
 
+MattCorallo | 2024-03-07 15:02:09 UTC | #19
+
+[quote="josibake, post:18, topic:630"]
+I’m not sure where you’re getting two chars from?
+[/quote]
+
+I was comparing hrp=... to ...=, which saves only a few chars, depending on the length of the hrp (two in the case of silent payments).
+
+[quote="josibake, post:18, topic:630"]
+My point was about removing the ambiguity about what goes in the root vs what goes in the keys. Parsing the URI simplifies to “look for your preferred HRP or KV protocol,” with all the other parsing remaining the same.
+[/quote]
+
+I don't see how "what goes in the root vs what goes in the keys/values" is relevant? That is addressed with the new (suggested) wording in the BIP 21 change PR: "Future address formats SHOULD instead be placed in query keys as optional payment instructions to provide backwards compatibility during upgrade cycles. After new addres types are near-universally supported, or for recipients wishing to avoid a standard on-chain fallback, the bitcoinaddress part of the URI MAY be left empty."
+
+There's explicitly only one place to look for any given address type given that wording, never two. Whether its a K/V location or just a URI parameter with no K/V doesn't impact that.
+
+[quote="josibake, post:18, topic:630"]
+I’m not. My assumption is that it is the best option for the foreseeable future (and already standard across bitcoin and lightning). It also allows us to address the current problem of existing address types that *are* bech32(m) encoded and *don’t* have a BIP21 extension key in a simple and efficient manner. We also automatically support any new address type that is bech32(m) encoded. For everything else we can keep using key-value pairs.
+[/quote]
+
+I don't believe there are any address types which are not "either a base64 P2SH or P2PKH address, bech32 Segwit version 0 address, bech32m Segwit address" *and* don't have an existing BIP21 extension key. The ship has sailed for BOLT 11 lightning payments, those will always be K/V (with the "lightning" key), we can't practically ever change that. The only question is what to do for Silent Payments and BOLT12. We could do K/V or not K/V, it doesn't matter *that* much, but K/V fits a bit nicer into existing code that parses all the URI parameters into K/V pairs (cause there is currently nothing that uses BIP 21 without all parameters being K/V pairs, AFAIK), but wastes a few bytes for it.
+
+-------------------------
+
