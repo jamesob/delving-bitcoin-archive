@@ -67,3 +67,67 @@ Also worth noting: Reusing nonces in musig is bad even if you are signing _the s
 
 -------------------------
 
+real-or-random | 2024-03-07 10:21:47 UTC | #4
+
+$$
+\newcommand{\si}{k}
+\newcommand{\smax}{k_{\mathrm{max}}}
+\newcommand{\Hsig}{\mathsf{H}_{\mathrm{sig}}}
+\newcommand{\tX}{\widetilde{X}}
+$$
+
+Indeed, you can't extract the signing key from just two signatures with the same nonce. You'll get two equations from the two signatures, but you have three unknowns.
+
+But what's also true is that security under concurrent sessions breaks down again. Assume the attacker can ask the honest signer for many concurrent signing sessions with limited reuse of nonces, i.e., each nonce (pair) may be used at most in two signing sessions. Then a forgery is possible.
+
+The attack is very similar to the attack on "InsecureMuSig" descriped in the [MuSig2 paper](https://eprint.iacr.org/2020/1261.pdf) (pages 5 and 6). It just gets more hairy because we need to correct for $b$ factors everywhere. Following the notation in the paper, the attacker opens $\smax$ session *pairs*, where the user reuses the same nonce pair in the two sessions belonging to a session pair. That is, the user (signer index $1$), responds with $\smax$ nonce pairs $(R_{1,1}^{(\si)}, R_{1,2}^{(\si)})$. The adversary (signer index $2$) chooses a targer message $m^*$, computes
+$
+R^* = \prod_{k=1}^{\smax} R_{1,1}^{(\si)}
+$
+and uses [Wagner's algorithm](https://web.archive.org/web/20230507110001/https://people.eecs.berkeley.edu/~daw/papers/genbday-long.ps) or the recently discovered and much faster [BLLOR algorithm](https://eprint.iacr.org/2020/945.pdf) to find their nonce pairs $(R_{2,1}^{(k)}, R_{2,2}^{(k)})$ for each session pair such that
+$$
+  \sum_{\si=1}^{\smax}
+  \underbrace{ 
+ \frac{b^{(\si,2)}  c^{(\si,1)} - b^{(\si,1)} c^{(\si,1)}}{b^{(\si,2)} - b^{(\si,1)}} 
+  }_{=:\,c^{(\si)}}
+  = \underbrace{\Hsig(\tX, R^*, m^*)}_{=:\,c^*},
+$$
+where $b^{(\si,1)}$, $b^{(\si,2)}$ are the two $b$ values in the two sessions belonging to session pair $k$, and
+$$
+c^{(\si,i)} := \Hsig\left(\tX, R_{1,1}^{(\si)}\left(R_{1,2}^{(\si)}\right)^{b^{(\si,i)}} R_{2,1}^{(\si)} \left(R_{2,2}^{(\si)}\right)^{b^{(\si,i)}}, m^{(\si)}\right), \qquad i \in \{1,2\}.
+$$
+Having received $(R_{2,1}^{(k)}, R_{2,2}^{(k)})$ in the two sessions, the honest signer will reply with partial signatures
+$$
+s_1^{(\si,1)} = r_{1,1}^{(\si)} + b^{(\si,1)} r_{1,2}  + c^{(\si,1)} \cdot a_1x_1, \\
+s_1^{(\si,2)} = r_{1,1}^{(\si)} + b^{(\si,2)} r_{1,2}  + c^{(\si,2)} \cdot a_1x_1.
+$$
+Multiplying the first equation with $b^{(\si,2)}$, and the second with $-b^{(\si,1)}$, and adding the two resulting equations yields
+$$
+b^{(\si,2)} s_1^{(\si,1)} -  b^{(\si,1)} s_1^{(\si,2)}  = (b^{(\si,2)} - b^{(\si,1)}) r_{1,1} ^{(\si)} + (b^{(\si,2)}  c^{(\si,1)} - b^{(\si,1)} c^{(\si,1)}) \cdot a_1x_1.
+$$
+By further dividing by $b^{(\si,2)} - b^{(\si,1)}$ (which is non-zero with overwhelming probability), defining
+$$
+s_1^{(\si)} := \frac{ b^{(\si,2)} s_1^{(\si,1)} -  b^{(\si,1)} s_1^{(\si,2)}}{b^{(\si,2)} - b^{(\si,1)}},
+$$
+and substituting $r_1 := r_{1,1}$, we obtain
+$$
+s_1^{(\si)}  =  r_1 ^{(\si)} + c^{(k)} \cdot a_1x_1
+$$
+exactly as in the paper.
+The attack then proceeds as described in the paper.
+
+
+---
+
+
+[quote="t-bast, post:1, topic:217"]
+The [Musig2 BIP ](https://github.com/bitcoin/bips/blob/e918b50731397872ad2922a1b08a5a4cd1d6d546/bip-0327.mediawiki) says that signing two distinct messages with the same `secnonce` exposes your private key.
+[/quote]
+
+Are you referring to the following statement from BIP327?
+> The *Sign* algorithm must **not** be executed twice with the same *secnonce*. Otherwise, it is possible to extract the secret signing key from the two partial signatures output by the two executions of *Sign*.'
+
+Hm, yes, we should probably change the wording here.
+
+-------------------------
+
