@@ -136,3 +136,20 @@ So unless I missed something, that should still be safe.
 
 -------------------------
 
+real-or-random | 2024-03-07 10:44:57 UTC | #7
+
+[quote="salvatoshi, post:6, topic:626"]
+If the colliding psbt is presented with mutated members that do *not* affect the output of NonceGen, then the changes in the second PSBT vs the first are irrelevant, as NonceGen would have been executed in with the same exact parameters if there was no mutation.
+[/quote]
+
+It seems to me that this is the unsafe case.
+
+ - The attacker sends you a PSBT
+ - You generate a `secnonce` and sign with it 
+ - The attacker tells you that something went wrong, and sends you the same PSBT again with the same `session_id`
+ - So you generate the exact same `secnonce` and sign again with it
+
+This is precisely what should not happen. Or why would this attack be prevented?
+
+-------------------------
+
