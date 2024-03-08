@@ -85,12 +85,6 @@ However IIRC this ended up being viewed as redundant with our fuzzing infrastruc
 
 -------------------------
 
-bruno | 2024-03-07 14:37:26 UTC | #4
-
-(post deleted by author)
-
--------------------------
-
 bruno | 2024-03-07 14:37:55 UTC | #5
 
 Thanks for it. I did not take look in depth yet but it doesn’t seem to be property based testing for black-box stuff (functional), right?. I agree that a white-box approach for it would be redundant with fuzzing.
