@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sdaftuar, post:18, topic:553\"]\nAccording to this [transaction size calculator ](https://bitcoinops.org/en/tools/calc-size/), an attacker can then relay about 45k vbytes of transaction data (using p2tr) that conflict with one input of each of these 780 transactions. Under our assumption, this transaction would evict all 780 transactions as long as the feerate on this new transaction is 40 sats/vbyte, or about 1.8Msats in total[[3]](#footnote-1702-3).\n[/quote]\n\nAh yes, unconfirmed children strike again :frowning: \n\n> (Please correct me if I made any numerical errors here.)\n\nEven if you did, the order of magnitude is correct.  \n\n> this is not something that we should permit to happen, for both anti-DoS and incentive compatibility reasons.\n\nI agree with anti-DoS, but it's not even clear that it's not incentive compatible.  If you expect other miners to do the replacement, it depends on your discount rate.  Which is annoyingly circular reasoning, but I think we can do better.\n\nLet's assume v3 rules, so children need not apply.  All the pre-signed transactions I know of can trivially enforce this condition, so it seems fair, and cuts the problem down a fair way.\n\nWhat does it fundamentally cost to drop a random transaction from the mempool?  If we assume the Mempool Is Always Full, then it seems reasonable that it will be eventually replaced by a transaction at feerate minfee - epsilon.  And if we assume a tx of < 101k, and some continuous looking feerate distribution around and below the bottom of the mempool, I'm happy to ignore epsilon.\n\nIn this model, a miner would consider an RBF tx fundamentally incentive compatible be comparing the total fees above the minfee rate. To give some numbers:\n\nMy node's mempool is oversized, but a quick grep/cut/awk hack gives me the threshold for block 78 as 7.7432 sat/vb (and block 1 as 14.0673 sat/vb).  Under this model, a 100k tx paying 774,320 sats is worth epsilon (~0), so a miner would want to accept a replacement 1k tx paying any higher feerate, say 7744 sats.\n\nNow, does this actually help our pinning attack?  Not as much as the previous proposal, at least on these numbers.  Halfway up the mempool (block 39) is 12.0378 sat/vb (higher in the mempool means it's more likely to get mined and just fail, so this is a reasonable worst-case sketch).  Mallory puts a 100k tx there, be paying 1,203,780 sats, thus a fee-above-minimum of 429,460 sats.  Alice's 1k tx would have to beat that fee-above-minimum, so 437 sat/vb feerate (it could otherwise get in the top block for 14 sat/vb, so this does feel like extortion).\n\nBut I think it does imply that there's a significant conflict between miner incentives and the current RBF DoS rules (under which Alice's 1k tx would have to pay a feerate of 1204 sats/vb).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
