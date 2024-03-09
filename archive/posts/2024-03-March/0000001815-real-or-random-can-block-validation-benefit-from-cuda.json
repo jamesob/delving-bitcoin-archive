@@ -12,8 +12,8 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
+  "reads": 11,
+  "readers_count": 10,
   "score": 1.8,
   "yours": false,
   "topic_id": 224,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ZmnSCPxj, post:2, topic:224\"]\nMaybe the best bet would be to focus on the \u201cpure math\u201d SECP256K1 signature validations (i.e. have the `SIGHASH`es come from the CPU and then push them into the GPU for validation).\n[/quote]\n\nThis may indeed work, and it has been discussed before:\n\nhttps://bitcointalk.org/index.php?topic=3238.20\nhttps://github.com/bitcoin-core/secp256k1/issues/1214\n\nBut I'm not aware that anyone is seriously looking into it, at least not currently.\n\n[quote=\"ZmnSCPxj, post:2, topic:224\"]\nI believe SECP256K1 Schnorr signatures as used in Taproot can be batch validated, meaning you only do a single calculation to validate multiple transactions that use the keyspend path. Since only a single calculation is needed, there seems to be no advantage to using a GPU in that case.\n[/quote]\n\nYes, but batch verification does not mean that the work of verifying $n$ Schnorr signatures is the same (or similar) to the work of verifying a single Schnorr signature. Batch verification of $n$ signatures will yield nice speed-ups as compared to verifying the $n$ signatures individually, but it's [at most a factor of ~2 in practice](https://github.com/jonasnick/secp256k1/blob/869e7097d9835945a1663a321239418ad2f93ca4/doc/speedup-batch.md).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
