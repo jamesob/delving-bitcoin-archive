@@ -98,3 +98,13 @@ right, NOP4 upgrading to CTV has to block the against bet.
 
 -------------------------
 
+martinschwarz | 2024-03-09 16:27:28 UTC | #5
+
+Bets are not equivalent to selling BTC. The price is not necessarily impacted by either outcome of the bet, thus the miner's reward doesn't necessarily change in fiat value either way. 
+
+During the fork wars, it was said that the introduction of BTC futures at Bitfinex at that time decisively predicted the economic future of each fork and decisively influenced the miner's choice. 
+
+I think directly bribing the miners with batches of juicy fees in signed transactions only valid on either side of the fork would be a more direct on-chain signal.
+
+-------------------------
+
