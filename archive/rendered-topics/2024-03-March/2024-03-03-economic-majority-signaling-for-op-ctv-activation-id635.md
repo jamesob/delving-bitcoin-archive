@@ -108,11 +108,13 @@ I think directly bribing the miners with batches of juicy fees in signed transac
 
 -------------------------
 
-ZmnSCPxj | 2024-03-10 05:26:28 UTC | #6
+ZmnSCPxj | 2024-03-10 05:27:52 UTC | #6
 
 The same scheme can be adapted such that the bet offered by your counterparty is paid as fee to the miner while you retain your own funds.
 
 You forgo the value of what your counterparty sells if you win, and instead just retain your own funds in the chainsplit you desire, but also directly encourage miners to mine transactions for your desired chainsplit.
+
+i.e. ultimately what is needed is a mechanism to differentiate based on the chainsplit you are in, and that is what this scheme provides.
 
 -------------------------
 
