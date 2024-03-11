@@ -86,3 +86,27 @@ Indeed, the observation that the Taproot script alternatives are simply a use of
 
 -------------------------
 
+ursuscamp | 2024-03-11 11:18:29 UTC | #2
+
+An idle thought: I wonder if sacrificing flexibility by standardizing the accumulator value for all participants could allow for a more efficient accumulator construction?
+
+Instead of someone having 1 accumulator UTXO with 1.5 BTC, she might have 1 BTC in an accumulator where everyone has 1 BTC and 0.5 in a second, similar accumulator.
+
+-------------------------
+
+ZmnSCPxj | 2024-03-11 13:06:35 UTC | #3
+
+You need to somehow identify the user, and the most general way of pseudonymously identifying users is for the user to give a public key, which is a ***lot*** of entropy you need to pack into the accumulator. i.e. the amount is a tiny amount of entropy compared to the identifier.
+
+-------------------------
+
+ursuscamp | 2024-03-11 14:57:53 UTC | #4
+
+I think you are saying what I meant!
+
+If everyone in the accumulator had the same amount, then you only need to accumulate the public key and could make any potential proof scheme simpler or more efficient.
+
+edit: Or not! Either way, a cool idea. Thanks for showing.
+
+-------------------------
+
