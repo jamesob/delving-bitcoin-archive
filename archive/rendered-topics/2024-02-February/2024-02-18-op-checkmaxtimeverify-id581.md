@@ -83,13 +83,13 @@ While I see no flaw with this logic, it doesn't enable to the outcome that I fin
 
 -------------------------
 
-murch | 2024-03-12 20:05:54 UTC | #8
+murch | 2024-03-12 20:07:47 UTC | #8
 
 [quote="EvanWinget, post:7, topic:581"]
 it would take extremely high fees for expiring transactions to create incentives to reorg compared to working on the next block
 [/quote]
 
-Fees of expiring transactions creating an incentive for reorging the previous block to include them sounds implausible to me: if their fees had been high enough to warrant that, they should have been included in the block in the first place. Rather, I meant the opposite: a transaction for a substantial amount is confirmed in the ultimate block in which it is permitted, and a party collaborating with the sender reorganizes that block out to unconfirm the transaction. In that case, rather than just the fees providing an incentive, the attack’s reward would be the sent amount of the transaction.
+Fees of expiring transactions creating an incentive for reorging the previous block to include them sounds implausible to me: if their fees had been high enough to warrant that, they should have been included in the block in the first place. Rather, I meant the opposite: a transaction for a substantial amount is confirmed in the ultimate block in which it is permitted, and a miner collaborating with the sender reorganizes that block out to cancel the payment. In that case, rather than just the transaction fees providing an incentive, the attack’s reward could be up to the payment amount.
 
 [quote="EvanWinget, post:7, topic:581"]
 nodes should require higher minimum relay fees for transactions close to their expiration height to ensure we don’t waste bandwidth on transactions that have no potential to be mined
