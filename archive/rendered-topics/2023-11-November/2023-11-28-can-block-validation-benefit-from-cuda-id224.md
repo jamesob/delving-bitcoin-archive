@@ -44,3 +44,9 @@ Yes, but batch verification does not mean that the work of verifying $n$ Schnorr
 
 -------------------------
 
+CubicEarth | 2024-03-12 00:08:45 UTC | #4
+
+I wonder if there could be an expanded set of data that accompanied each block that could make processing faster. The extra data would be preprocessed in some way. It would be large in size, perhaps 10% or even 150% of the size of the blockchain, but it would be much faster to verify. For users who had very fast and unlimited internet, they could prefer to download this extra data so that syncing could happen faster.
+
+-------------------------
+
