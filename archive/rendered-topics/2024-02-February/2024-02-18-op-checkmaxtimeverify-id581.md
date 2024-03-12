@@ -83,7 +83,12 @@ While I see no flaw with this logic, it doesn't enable to the outcome that I fin
 
 -------------------------
 
-murch | 2024-03-12 20:07:47 UTC | #8
+murch | 2024-03-12 20:08:25 UTC | #8
+
+[quote="EvanWinget, post:7, topic:581"]
+Thanks for the thoughtful response and all of the work you have been doing for so many years to help educate Bitcoiners and improve Bitcoin.
+[/quote]
+Cheers, thanks!
 
 [quote="EvanWinget, post:7, topic:581"]
 it would take extremely high fees for expiring transactions to create incentives to reorg compared to working on the next block
