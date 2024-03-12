@@ -91,3 +91,11 @@ We can view miniscript as a best effort attempt at being able to run type infere
 
 -------------------------
 
+Chris_Stewart_5 | 2024-03-12 19:51:17 UTC | #2
+
+So to be a bit pedantic - to have type erasure you have to have types in the first place. Script is _interpreted_ not _compiled_. It seems like this work would be similar to what miniscript is trying to achieve (IIUC miniscript correctly).
+
+Compiled languages translate a higher level language (Java, C++, rust etc) to machine code. Script is similar to "machine code" IMO, which don't have a type system. I don't think the machine code level is the best place to be introducing a type system. x86 and arm64 don't have them - why should Script?
+
+-------------------------
+

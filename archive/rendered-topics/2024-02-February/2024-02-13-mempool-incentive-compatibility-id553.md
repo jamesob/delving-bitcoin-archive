@@ -812,3 +812,15 @@ But I think it does imply that there's a significant conflict between miner ince
 
 -------------------------
 
+murch | 2024-03-12 18:28:58 UTC | #25
+
+[quote="rustyrussell, post:24, topic:553"]
+I agree with anti-DoS, but it’s not even clear that it’s not incentive compatible. If you expect other miners to do the replacement, it depends on your discount rate. Which is annoyingly circular reasoning, but I think we can do better.
+[/quote]
+
+While I think that Suhas’s example above is somewhat similar, I recently elaborated an example how introducing a replace-by-feerate scheme in addition to our current RBF rules would cause new substantial DOS vectors. While my example is based on a concrete proposal, I believe that it illustrates a general issue afflicting all schemes that do away with the absolute fee increase in replacements: https://bitcoin.stackexchange.com/q/121541/5406
+
+My example entails a negligible cost to the attacker while permitting continuous resubmission of essentially the same transaction cycle. The collection of transaction has a substantially larger total weight than the data that is ever up for inclusion in the blocks and hence severely underpays for relay to the detriment of the entire network’s bandwith-usage. I hope studying my write-up would help substantiate why transaction replacements must increase the total fees in the mempool.
+
+-------------------------
+

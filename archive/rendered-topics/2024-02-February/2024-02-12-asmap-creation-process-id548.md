@@ -20,3 +20,13 @@ I would be happy to receive further feedback on the process itself and the tooli
 
 -------------------------
 
+fjahr | 2024-03-12 18:47:04 UTC | #2
+
+I have suggested another scheduled launch for this Thursday 2PM GMT: https://github.com/fjahr/asmap-data/issues/11
+
+If anyone new wants to join and has trouble setting up/testing everything works, please ping me!
+
+Generally, I plan to schedule a new creation process at the same date/time as the first bitcoin core IRC meeting of the month. I think monthly is a reasonable rhythm and that time was specifically chosen to maximize the number of people that can be in front of their screen at that time (although that is not even necessary for kartograf to launch). Please let me know if that rationale doesn't make sense to anyone!
+
+-------------------------
+
