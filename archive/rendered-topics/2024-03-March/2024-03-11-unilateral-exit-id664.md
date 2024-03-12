@@ -110,3 +110,45 @@ edit: Or not! Either way, a cool idea. Thanks for showing.
 
 -------------------------
 
+ProofOfKeags | 2024-03-11 22:02:04 UTC | #5
+
+Depending on how much pre-computation you want to do. You can embed all the different possibilities of which participant unilaterally exits as sibling tapleaves where the transaction creates utxos, one where the individual's share is ejected entirely, and another where the remaining participants share the utxo:
+
+Let's say you have a set of N parties, P, indexed from [0, N). You would construct N presigned transactions, with two outputs each, one that pays the ejected party their share, the other pays the remaining set their combined share. From there you have a recursively smaller problem, and you can do this all the way to 0. At first this looks like it has factorial complexity since every sequence of unilateral exits would create a different sequence of shared utxo outpoints. With APO or CTV you can cut it down to $ \sum_{i=2}^{N} nCi  = O(N^3) $ in offchain computation by sharing common scriptPubKeys since ejections commute. On chain, you get $ O(N) $ I think.
+
+Regarding accumulators, it seems like the key requirement is that the consensus rules are capable of either computing or verifying the removal operation. Having an operation that could do this is probably a really useful general opcode.
+
+> but those frikkin mathists like 1-character variable names too much, often with characters being in a different font being different things, which is crazy, like this is the first thing programmers get taught, do not use single-character variable names, what is wrong with mathists???
+
+It can be useful to do this because sometimes the shape is more important than the name when trying to grapple with the idea. By using single letter variable names it forces you to contend with the structure of the idea directly. Sometimes any name you give it necessarily forces you to look at it through an overly reductive lens. They could also just be dicks and be doing it unnecessarily, though 🤷🏻‍♂️
+
+-------------------------
+
+ZmnSCPxj | 2024-03-11 22:05:05 UTC | #6
+
+Any putative commitment scheme that can only commit to `point`s for efficiency, can be modified to commit to `(point, value)` by the standard pay-to-contract scheme where `committed_point = point + hash(point || value) * G`, i.e. the same scheme used in Taproot, which commits to a point onchain.
+
+-------------------------
+
+stevenroose | 2024-03-11 22:42:46 UTC | #7
+
+Using MAST for this scheme is pretty broken though. It requires all possible exit orders to be pre-calculated which is factorial. It doesn't work with more than maybe 10 or with specialized hardware 15 participants, if I remember my math from some months ago correctly.
+
+When trying to do large sizes, like for Ark, we need an actual accumulator so that the calculation of the remainder is inside the opcode, not pre-calculated. I've had discussions with Salvatore about such accumulators.
+
+Some kind of append-only merke forest would work in a fraud-proof (interactive) setting. In such a scheme, every exit would take the leaf index as input and the resulting new accumulator would be the same tree with an "exit leaf" appended. If it is malicious, it can be disputed by proving either (1) the exit is not located at the given leaf index, (2) the exit was already performed and there is an exit leaf for it or (3) the resulting new accumulator is not equal the old one plus the exit leaf.
+
+Something like this would work and can be implemented using MATT or CATT.
+
+-------------------------
+
+ZmnSCPxj | 2024-03-11 23:20:34 UTC | #8
+
+[quote="ProofOfKeags, post:5, topic:664"]
+It can be useful to do this because sometimes the shape is more important than the name when trying to grapple with the idea. By using single letter variable names it forces you to contend with the structure of the idea directly.
+[/quote]
+
+which is my problem precisely, it **looks like** some existing idea I know of, but then the mathist turns around and says "you were expecting this existing idea, but it was me, Dio!!!!"
+
+-------------------------
+
