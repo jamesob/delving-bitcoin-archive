@@ -50,3 +50,9 @@ I wonder if there could be an expanded set of data that accompanied each block t
 
 -------------------------
 
+vostrnad | 2024-03-12 04:08:49 UTC | #5
+
+You should take a look at utreexo, which works exactly how you're describing. Its main goal is different, reducing the size of the stored chainstate (to ~1 kB), but a direct consequence of that is fewer (~none) disk operations so it could also speed up block validation.
+
+-------------------------
+
