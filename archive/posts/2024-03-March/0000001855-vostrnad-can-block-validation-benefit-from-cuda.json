@@ -12,8 +12,8 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 1.2,
   "yours": false,
   "topic_id": 224,
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "You should take a look at utreexo, which works exactly how you're describing. Its main goal is different, reducing the size of the stored chainstate (to ~1 kB), but a direct consequence of that is fewer (~none) disk operations so it could also speed up block validation.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
