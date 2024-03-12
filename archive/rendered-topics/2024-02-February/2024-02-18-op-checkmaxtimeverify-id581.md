@@ -83,3 +83,19 @@ While I see no flaw with this logic, it doesn't enable to the outcome that I fin
 
 -------------------------
 
+murch | 2024-03-12 20:05:54 UTC | #8
+
+[quote="EvanWinget, post:7, topic:581"]
+it would take extremely high fees for expiring transactions to create incentives to reorg compared to working on the next block
+[/quote]
+
+Fees of expiring transactions creating an incentive for reorging the previous block to include them sounds implausible to me: if their fees had been high enough to warrant that, they should have been included in the block in the first place. Rather, I meant the opposite: a transaction for a substantial amount is confirmed in the ultimate block in which it is permitted, and a party collaborating with the sender reorganizes that block out to unconfirm the transaction. In that case, rather than just the fees providing an incentive, the attack’s reward would be the sent amount of the transaction.
+
+[quote="EvanWinget, post:7, topic:581"]
+nodes should require higher minimum relay fees for transactions close to their expiration height to ensure we don’t waste bandwidth on transactions that have no potential to be mined
+[/quote]
+
+This seems insufficient to solve the problem, unless the premium is so high that it virtually guarantees that the transaction will be mined before it expires. However, if the feerate were that high, wouldn’t OP_EXPIRE simply waste blockspace? If however the feerate of the transaction is merely competitive, the presence of OP_EXPIRE creates a bandwidth-wasting vector: an attacker would submit e.g. OP_EXPIRE transactions at the bottom of the top block and push them out of the top block with further OP_EXPIRE transactions. This way the attacker could issue a constant stream of transactions, but never pay for more than a couple barely sliding in at the bottom of the block.
+
+-------------------------
+
