@@ -116,3 +116,13 @@ eg, if you have a closed lightning channel with 50 HTLCs with varying timeouts o
 
 -------------------------
 
+murch | 2024-03-13 13:55:05 UTC | #10
+
+[quote="ajtowns, post:9, topic:581"]
+But if the “reveal preimage” path were encumbered by an `OP_EXPIRE`, you could wait until they had all timed out
+[/quote]
+
+Thanks, that’s an interesting application to consider. I would agree that it undermines my point about OP_EXPIRE being a waste of blockspace in conjunction with requiring a sufficiently high feerate
+
+-------------------------
+

@@ -350,3 +350,40 @@ I think ultimately a LISP like target language would be a good line of research 
 
 -------------------------
 
+roconnor-blockstream | 2024-03-13 14:44:09 UTC | #6
+
+Based on your description, I can make some high-level comparisons with Simplicity design choices.
+
+One feature of Simplicity is "pruning".  Simplicity programs are committed via a Merkle Tree structure and unexecuted branches are required to be trimmed when the program is revealed.  This is kinda the opposite of the if statement that evaluates both branches that is described in Chia Lisp.  Simplicity's pruning has potential privacy benefits as well as potential for reducing on chain data.
+
+Chia Lisp and Simplicity both appear to support "delegation", which lets you attach new code in controlled ways at redemption time. In Chia Lisp you would add quoted code as an input, and in Simplicity there is a special combinator for attaching code at a particular location at redemption time.  In Simplicity the hash of this attached code would typically require to be signed.  I'm not sure how it works in Chia Lisp.
+
+Unfortunately, as I have found out, delegation generally wreaks havoc on softforking in new opcodes (by opcode I just mean some primitive, or intrinsic or jet-like thing).  If unallocated opcodes are treated as op-success and users can attach new code at redemption time, then that new code could contain an unallocated opcode, whose op-successedness will just succeed and bypass all other checks that are supposed to run.
+
+Chia Lisp solutions seems to take a NOP approach where softforked opcodes must return nil and the computational content is all in whether the opcode fails or not.  I suppose this approach could also be done in Simplicity by only allowing softforks of jets that return Simplicity's equivalent of nil.
+
+There are also several other more minor design differences.  Simplicity's implementation has no "run-time" allocation.  The maximum memory use is computed upfront from the structure of the program and allocated before evaluation begins.  An alternative implementation could just reuse a pool of maximum sized allocations which is currently arbitrarily defined to be 5 Megabits or about 650 Kilobytes.
+
+And, of course, this upfront computation of costs and maximum memory use is only possible because Simplicity has no general recursion (though you can somewhat fake it using the delegation mechanism).  Another consequence is types in Simplicity programs are always of statically bounded size.
+
+-------------------------
+
+ajtowns | 2024-03-13 14:58:33 UTC | #7
+
+[quote="roconnor-blockstream, post:6, topic:636"]
+Chia Lisp solutions seems to take a NOP approach where softforked opcodes must return nil and the computational content is all in whether the opcode fails or not. I suppose this approach could also be done in Simplicity by only allowing softforks of jets that return Simplicity’s equivalent of nil.
+[/quote]
+
+Ah, it's different to that: it takes the approach where soft forked opcodes must be run in a **subprogram** that returns nil (or aborts); within that subprogram the soft forked opcodes can do whatever they please. So the new `(coinid P H A)` operation can calculate and return a hash value, but (prior to a hardfork) you can only use that within a program that has "verify" behaviour, eg something like:
+
+```
+(softfork COST 0 
+    (q a (i (= (coinid P H A) X) (q q nil) (q x))) 
+    1
+)
+```
+
+With a structure like that, you could have `P H A X` pulled from the environment (`1`), the code within `softfork` checks that `X` is calculated correctly (manually aborting if it's not via the `(a (i COND (q q nil) (q x)))` pattern), then additional code outside the `softfork` can make use of an otherwise untrusted `X`, having now established it correctly matches `P H A`.
+
+-------------------------
+
