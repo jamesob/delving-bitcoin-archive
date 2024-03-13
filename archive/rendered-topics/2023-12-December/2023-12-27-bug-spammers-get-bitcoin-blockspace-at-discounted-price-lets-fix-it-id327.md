@@ -354,3 +354,10 @@ Apparently, the "witness discount" attempt failed to discourage "bytes that are 
 
 -------------------------
 
+GregTonoski | 2024-03-13 07:56:36 UTC | #25
+
+![UTXO set summary - Murch|654x500](upload://56Jw9cu5Dz9ZbD0KrYqaGGdI3BI.png)
+@murch , 2024-03-12.
+
+-------------------------
+
