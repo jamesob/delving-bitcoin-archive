@@ -387,3 +387,11 @@ With a structure like that, you could have `P H A X` pulled from the environment
 
 -------------------------
 
+roconnor-blockstream | 2024-03-13 20:07:16 UTC | #8
+
+Ah, that is very clever.  Yes, something like that likely could be adapted to Simplicity since Simplicity does have a notion of subexpressions that return nil (in Simplicity terms it would return the value of unit type).  I'd have to think about it some more to make sure there are no issues with pruning, or delegation or type inference, but I don't foresee any problems.
+
+This is very good because finding a soft-fork solution was a problem that I hadn't yet found a good solution for.  The first version deployed on Liquid will probably have no upgrade mechanism, and instead a subsequent version of Simplicity (perhaps one with this soft forking mechanism) would simply be deployed under another tapleaf version (of which there are currently plenty).
+
+-------------------------
+
