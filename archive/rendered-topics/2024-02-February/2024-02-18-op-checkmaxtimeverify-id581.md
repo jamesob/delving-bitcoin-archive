@@ -104,3 +104,15 @@ This seems insufficient to solve the problem, unless the premium is so high that
 
 -------------------------
 
+ajtowns | 2024-03-12 23:45:54 UTC | #9
+
+[quote="murch, post:8, topic:581"]
+However, if the feerate were that high, wouldn’t OP_EXPIRE simply waste blockspace?
+[/quote]
+
+I think the ideal use case is more so that if you have a conditional path and a timeout path, if you encumber the conditional path with an `OP_EXPIRE`, then you can defer collecting via the timeout occurs.
+
+eg, if you have a closed lightning channel with 50 HTLCs with varying timeouts over the next 7 days, currently you should probably be claiming each of them as soon as they timeout. But if the "reveal preimage" path were encumbered by an `OP_EXPIRE`, you could wait until they had all timed out, and claim them all in a single tx, paying to a single new output, and avoiding ending up with various dust-y utxos in your wallet.
+
+-------------------------
+

@@ -152,3 +152,19 @@ which is my problem precisely, it **looks like** some existing idea I know of, b
 
 -------------------------
 
+ZmnSCPxj | 2024-03-12 23:42:13 UTC | #9
+
+[quote="ZmnSCPxj, post:1, topic:664"]
+Of note is that an entire Merkle tree with N leaves has a total data size O(N log N).
+[/quote]
+
+***OOOPS THIS IS WRONG***.
+
+Turns out that any tree structure with N leaves is total data size O(N), not O(N log N).  However, there is a constant multiplier on N relative to an array of N entries.
+
+For a binary tree, the multiplier is 2.0.  For a tree where nodes have 4 children, the multiplier is 4/3, which honestly is pretty dang close to 1 (this is the same as mipmaps for 2d textures, they *only* add 33.33% more vram use; every 4 pixels in the original texture is 1 pixel in the next-smaller mipmap, which is equivalent to grouping 4 leaves in a single parent node, have I ever mentioned that I am an indie game dev wannabe who got suckered into buying Bitcoin).
+
+So yes a `CTV` tree is more expensive in data size due to the above constant multiplier, plus the necessary overhead of using P2SH/P2WSH/P2TR, but is O(N) on the number of leaves, and increasing the fanout gets it closer to the case of "publish all the outputs".  Hmmm.
+
+-------------------------
+

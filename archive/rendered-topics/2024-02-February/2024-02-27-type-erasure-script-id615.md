@@ -99,3 +99,17 @@ Compiled languages translate a higher level language (Java, C++, rust etc) to ma
 
 -------------------------
 
+ProofOfKeags | 2024-03-12 22:42:56 UTC | #3
+
+[quote="Chris_Stewart_5, post:2, topic:615"]
+I don’t think the machine code level is the best place to be introducing a type system. x86 and arm64 don’t have them - why should Script?
+[/quote]
+
+While I haven't yet formed an opinion on whether it would be good for type information to be preserved all the way down to consensus, I would strongly argue that having a Script interpretation operational semantics that is 100% well defined/understood is a Good Thing. Preserving type information all the way to consensus can make script vm implementations more consistent, but it is not the only way.
+
+For instance, are all opcodes defined for all possible arguments? If they are not defined, are failure semantics well-understood? Of all the places to have a high degree of specificity, the consensus-enforced Script VM *is the place*.
+
+I would generally caution against appealing by analogy to silicon ISAs since we are solving a different class of problem here.
+
+-------------------------
+
