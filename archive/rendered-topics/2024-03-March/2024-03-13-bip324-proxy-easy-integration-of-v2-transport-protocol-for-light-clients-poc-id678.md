@@ -97,3 +97,17 @@ Yeah, I also thought that putting some parts of BIP324 to a library might be a g
 
 -------------------------
 
+0xB10C | 2024-03-14 10:52:52 UTC | #4
+
+[quote="theStack, post:3, topic:678"]
+Do you know of any concrete P2P clients that follow this practice (or is it more like connections with obscure user agents that can’t be tied to a concrete implementation)? I might add a prerequisites section to README.md mentioning the reliance on `addr_recv` being set correctly, together with a list of clients that are already known to be incompatible with BIP324 proxy.
+[/quote]
+
+I briefly looked into it and it seems like all **inbound** [LinkingLion](https://b10c.me/observations/06-linkinglion/) connections set `127.0.0.1` and **inbound** i2p and tor (presumably) Bitcoin Core connections set `0.0.0.0`.
+
+Based on the "BIP324 proxy scenario" graphic and the slides you linked, I noticed that the proxy is only for outbound connections for now, correct? You mention "Investigate inbound connections support via reverse proxy" as TODO. I incorrectly assumed you're implementing in and outbound. For outbound only, it should be fine. 
+
+However, only version 1 address serialization is possible in (inbound/outbound) version messages. [BIP-155](https://github.com/bitcoin/bips/blob/master/bip-0155.mediawiki) address serialization of e.g. TorV3, I2P, CJDNS isn't possible. These will always be `0.0.0.0` (https://github.com/bitcoin/bitcoin/blob/e1ce5b8ae9124717c00dca71a5c5b43a7f5ad177/src/net_processing.cpp#L1547).
+
+-------------------------
+
