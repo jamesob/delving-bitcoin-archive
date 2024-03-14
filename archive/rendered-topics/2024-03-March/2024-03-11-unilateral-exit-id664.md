@@ -168,3 +168,19 @@ So yes a `CTV` tree is more expensive in data size due to the above constant mul
 
 -------------------------
 
+ZmnSCPxj | 2024-03-14 06:07:31 UTC | #10
+
+Looking into this more --- it seems that practical accumulators with O(1) witness sizes tend to require trapdoors.  In other words, you have some party that knows of the trapdoor and is able to forge commitments.  I am unaware of any cryptographic accumulator with O(1) witness size that is trapdoorless, they seem to require O(log N) witness size (which in a all-N-unilaterally-exit case leads to O(N log N) exit).
+
+In particular, as noted, it turns out trees, including `CTV`-trees, have O(N) total data, and an all-N-unilaterally-exit using `CTV` trees is actually O(N), because mipmaps are awesome.
+
+Note that just because there is a trapdoor does ***not*** mean that the party-with-trapdoor must absolutely be some ***single*** trusted party.  With the magic of multiparty computation it may be possible to create a party-with-trapdoor that is actually the N-of-N of all participants, such that no one participant actually knows the trapdoor.  See `OP_EVICT` for an example.
+
+(ROLL-YOUR-OWN-CRYPTO-WARNING) For the case of unilateral exit rather than eviction as with `OP_EVICT`, the trapdoor may be a simple sum of N pubkeys from all participants (as in `OP_EVICT`) --- you need to protect against key cancellation attacks as well, such as requiring proof of knowledge of private key of each pubkey share.  Suppose there are public keys `point[0]` to `point[n-1]`, the trapdoor being the corresponding sum of private keys (shards of which are known by the participants, but no one participant knows the entire trapdoor).  To commit to a particular `(point[i], value[i])`, then the signers `point[0]..point[i-1]` and `point[i+1]..point[n-1]` --- i.e. all the signers ***except*** `point[i]` --- construct a MuSig2 signature committing to `(point[i], value[i])`.  More specifically, the owner of `(point[i], value[i])` gets MuSig2 partial signatures and stores each partial signature with the corresponding `point[all except i]` from that participant.  Then the accumulator is the sum of `point[0]` to `point[n-1]`.
+
+To delete from the accumulator, you show `(point[i], value[i])` you commit to, then subtract `point[i]` from the accumulator amount.  The owner of `(point[i], value[i])` then sums up all the partial signatures to generate a full MuSig2 signature, which it presents as witness that `(point[i], value[i])` was committed in the accumulator.  The next accumulator is then the current accumulator minus `point[i]`.  The other owners of `(point[j[, value[j])` where `i != j` then remove the partial signature from `point[i]` from their storage, so that when they exit later, their own witness sums up to the correct value.(we would need a variant of Schnorr signing which does not commit to the signing public key --- ROLL-YOUR-OWN-CRYPTO-WARNING).  Note that the last exiter cannot present a witness though --- maybe every such construct could use a publicized shared private key and amount to be used as the "last exiter" (so that the last *real* exiter is technically always the second-to-the-last exiter), which miners can then MEVil to get as fee.
+
+But basically yes, the drawback of trapdoored O(1) accumulators can possibly be worked around with multiparty computation.  ***The problem is that the setup of a trapdoored-but-non-custodial/trust-minimized requires everyone to be online simultaneously to generate an N-of-N "trusted" party which is really the consensus of every participant***.  The advantage of `CTV`-trees and non-trapdoored accumulators is that they can be set up without requiring trust and thus without requiring building a consensus N-of-N.
+
+-------------------------
+
