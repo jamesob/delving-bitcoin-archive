@@ -126,3 +126,13 @@ Thanks, that’s an interesting application to consider. I would agree that it u
 
 -------------------------
 
+ajtowns | 2024-03-14 13:00:12 UTC | #11
+
+For what it's worth, Chia recently enabled these sorts of reverse timelocks; see [CHIP 14](https://github.com/Chia-Network/chips/blob/ace05086365fd9b5d9c9cb18e93bd2025aae6887/CHIPs/chip-0014.md) (or the [proposal PR](https://github.com/Chia-Network/chips/pull/59) or the [activation PR](https://github.com/Chia-Network/chia-blockchain/pull/14733)). The [announcement](https://www.chia.net/2023/02/22/2023-investing-in-what-sets-us-apart/) mostly describes it as being useful for decentralised exchanges rather than payment channels per se:
+
+> Expanding the Offers primitive, we’re proposing a [CHIP](https://github.com/Chia-Network/chips/pull/59), “[Assert Before](https://roadmap.chia.net/c/67-assert-before-condition-code),” a soft fork to add new Chialisp conditions that enable Offers to expire. We expect this to dramatically improve the liquidity and depth of digital asset trading on Chia DEXs; while providing a superior model to centralized exchanges (CEX) and automated market makers.
+
+I couldn't find much in the way of background technical discussion; mostly I think they decided that the complexity around reorgs (small/accidental reorgs likely won't hit a transaction block anyway?) and mempool management (mostly empty anyway?) just wasn't that big of a deal. So not sure there's anything much to be learnt from there...
+
+-------------------------
+

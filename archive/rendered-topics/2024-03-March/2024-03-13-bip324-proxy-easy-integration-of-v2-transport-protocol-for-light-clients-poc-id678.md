@@ -111,3 +111,28 @@ However, only version 1 address serialization is possible in (inbound/outbound) 
 
 -------------------------
 
+theStack | 2024-03-14 12:55:53 UTC | #5
+
+[quote="0xB10C, post:4, topic:678"]
+I briefly looked into it and it seems like all **inbound** [LinkingLion ](https://b10c.me/observations/06-linkinglion/) connections set `127.0.0.1` and **inbound** i2p and tor (presumably) Bitcoin Core connections set `0.0.0.0`.
+[/quote]
+
+Thanks for taking a deeper look! :ok_hand: 
+
+[quote="0xB10C, post:4, topic:678"]
+Based on the “BIP324 proxy scenario” graphic and the slides you linked, I noticed that the proxy is only for outbound connections for now, correct? You mention “Investigate inbound connections support via reverse proxy” as TODO.
+[/quote]
+Yes, it only works for outbound connections for now. The reverse proxy idea seemed interesting to me from a technical perspective, but thinking more about it, it's probably not that useful in practice. There is already the possibility to run a listening node with BIP324 now (by running Bitcoin Core v26.0+), and I'd assume that relevant alternative node implementations implement it soon (at least significantly earlier than most light clients).
+
+[quote="0xB10C, post:4, topic:678"]
+I incorrectly assumed you’re implementing in and outbound. For outbound only, it should be fine.
+[/quote]
+Ok, that's good news.
+
+[quote="0xB10C, post:4, topic:678"]
+However, only version 1 address serialization is possible in (inbound/outbound) version messages. [BIP-155](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0155.mediawiki) address serialization of e.g. TorV3, I2P, CJDNS isn’t possible. These will always be `0.0.0.0` ([bitcoin/src/net_processing.cpp at e1ce5b8ae9124717c00dca71a5c5b43a7f5ad177 · bitcoin/bitcoin · GitHub ](https://github.com/bitcoin/bitcoin/blob/e1ce5b8ae9124717c00dca71a5c5b43a7f5ad177/src/net_processing.cpp#L1547)).
+[/quote]
+Good point. I haven't really checked how the proxy idea would work together with any of these protocols. I guess it just doesn't, but intuitively I would say it's fine if that's not supported, as these protocols already offer encryption on another layer anyways.
+
+-------------------------
+
