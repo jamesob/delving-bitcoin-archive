@@ -54,3 +54,9 @@ Yes, that would be possible, we wouldn't even need to switch, we could have one 
 
 -------------------------
 
+fjahr | 2024-03-14 20:00:11 UTC | #4
+
+Noting here as well that I talked about this at the Optech podcast and there were some good questions from the audience that are interesting considerations for next steps, so definitely worth a listen: https://bitcoinops.org/en/podcast/2024/03/07/
+
+-------------------------
+
