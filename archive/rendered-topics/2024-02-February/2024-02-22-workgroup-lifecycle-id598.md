@@ -129,3 +129,27 @@ Apparently the #wg-cluster-mempool::tag link was broken for everyone but moderat
 
 -------------------------
 
+MentalNomad | 2024-03-14 19:03:52 UTC | #7
+
+[quote="ariard, post:2, topic:598"]
+Do you have logs and list of members of such private wg-cluster-mempool ?
+[/quote]
+
+You didn't seem to comprehend @ajtowns 's post nor how Discourse works.
+
+He said the posts and comments made within the group's private Category are now public. They retain their original timestamps, edit histories, and commenter attributions.
+
+Discourse makes it trivially easy to move a conversation from private to public while retaining the full audit history. No one need review logs to find what some secret cabal did... It was just a working group that got to focus on something without public interruption and distraction until they had developed things to a suitable level to present to others for further review and comment.
+
+-------------------------
+
+MentalNomad | 2024-03-14 19:10:59 UTC | #8
+
+[quote="ajtowns, post:3, topic:598"]
+(However, this site does not do end-to-end encryption of messages, so it’s should not be used for discussion of zero-day vulnerabilities whether via restricted groups or private messages)
+[/quote]
+
+Note: the [Discourse Encrypt](https://meta.discourse.org/t/discourse-encrypt-for-private-messages/107918) plugin is an option. It is an imperfect encryption approach which doesn't hide all metadata and has imperfect privacy, but it effectively encrypts contents of messages for the parties in a discussion.
+
+-------------------------
+

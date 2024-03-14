@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 678,
   "topic_slug": "bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:4, topic:678\"]\nI briefly looked into it and it seems like all **inbound** [LinkingLion ](https://b10c.me/observations/06-linkinglion/) connections set `127.0.0.1` and **inbound** i2p and tor (presumably) Bitcoin Core connections set `0.0.0.0`.\n[/quote]\n\nThanks for taking a deeper look! :ok_hand: \n\n[quote=\"0xB10C, post:4, topic:678\"]\nBased on the \u201cBIP324 proxy scenario\u201d graphic and the slides you linked, I noticed that the proxy is only for outbound connections for now, correct? You mention \u201cInvestigate inbound connections support via reverse proxy\u201d as TODO.\n[/quote]\nYes, it only works for outbound connections for now. The reverse proxy idea seemed interesting to me from a technical perspective, but thinking more about it, it's probably not that useful in practice. There is already the possibility to run a listening node with BIP324 now (by running Bitcoin Core v26.0+), and I'd assume that relevant alternative node implementations implement it soon (at least significantly earlier than most light clients).\n\n[quote=\"0xB10C, post:4, topic:678\"]\nI incorrectly assumed you\u2019re implementing in and outbound. For outbound only, it should be fine.\n[/quote]\nOk, that's good news.\n\n[quote=\"0xB10C, post:4, topic:678\"]\nHowever, only version 1 address serialization is possible in (inbound/outbound) version messages. [BIP-155](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0155.mediawiki) address serialization of e.g. TorV3, I2P, CJDNS isn\u2019t possible. These will always be `0.0.0.0` ([bitcoin/src/net_processing.cpp at e1ce5b8ae9124717c00dca71a5c5b43a7f5ad177 \u00b7 bitcoin/bitcoin \u00b7 GitHub ](https://github.com/bitcoin/bitcoin/blob/e1ce5b8ae9124717c00dca71a5c5b43a7f5ad177/src/net_processing.cpp#L1547)).\n[/quote]\nGood point. I haven't really checked how the proxy idea would work together with any of these protocols. I guess it just doesn't, but intuitively I would say it's fine if that's not supported, as these protocols already offer encryption on another layer anyways.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

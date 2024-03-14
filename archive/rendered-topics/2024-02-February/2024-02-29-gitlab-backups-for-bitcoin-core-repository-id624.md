@@ -42,3 +42,15 @@ Code for the backups can be found in https://github.com/0xB10C/github-metadata-b
 
 -------------------------
 
+fjahr | 2024-03-14 19:55:23 UTC | #3
+
+Thanks for the comments!
+
+[quote="0xB10C, post:2, topic:624"]
+Would it be possible to run two instances where one is importing while the other is displaying and then switch them over once the other is done importing and so on? Could also do this on a 48h timer (you mentioned the import takes 36h).
+[/quote]
+
+Yes, that would be possible, we wouldn't even need to switch, we could have one that constantly clones from Github and then every time it is done the second one can get a GitLab to GitLab clone which is a lot faster because it's just dumping the databases and not using any APIs. This should be more comfortable for viewers because they would only have one go-to url. Though I am not sure if it's worth the effort honestly. I don't expect a lot of people to want to look at the data before we actually need it. Did you have specific use cases in mind for making the data viewable? I guess we should somehow be checking that the backup still works and there is no garbage data coming in but I think that should also be doable via a script.
+
+-------------------------
+
