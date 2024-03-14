@@ -53,3 +53,47 @@ it's still a nice, somewhat easy-to-remember choice.
 
 -------------------------
 
+0xB10C | 2024-03-14 01:28:33 UTC | #2
+
+Cool project!
+
+[quote="theStack, post:1, topic:678"]
+The remote peer address is determined from the incoming first VERSION message which conveniently contains this information in the `addr_recv` field.
+[/quote]
+
+There are P2P clients that don't put their address in `addr_recv`. They put, e.g. `127.0.0.1`, `0.0.0.0`, or whatever in there. Would this be a problem?
+
+[quote="theStack, post:1, topic:678"]
+The plan is to do an efficient rewrite in Rust.
+[/quote]
+
+I haven't seen anyone working on a BIP324 implementation in Rust. Might fit well in the excellent [rust-bitcoin](https://github.com/rust-bitcoin/rust-bitcoin) library or some other place in their ecosystem (e.g. rust-bitcoin/bip324).
+
+-------------------------
+
+theStack | 2024-03-14 02:20:39 UTC | #3
+
+[quote="0xB10C, post:2, topic:678"]
+[quote="theStack, post:1, topic:678"]
+The remote peer address is determined from the incoming first VERSION message which conveniently contains this information in the `addr_recv` field.
+[/quote]
+
+There are P2P clients that don’t put their address in `addr_recv`. They put, e.g. `127.0.0.1`, `0.0.0.0`, or whatever in there. Would this be a problem?
+[/quote]
+
+Oh, that's good to know, I wasn't aware. If the VERSION's `addr_recv` field doesn't contain the real address of the remote node, that would indeed be a problem, as this is the only way for the proxy to know where to initiate the v2 connection to. If set to an arbitrary value, the connection would then very likely fail (or connect to a different peer than intended, which is probably even worse).
+
+Do you know of any concrete P2P clients that follow this practice (or is it more like connections with obscure user agents that can't be tied to a concrete implementation)? I might add a prerequisites section to README.md mentioning the reliance on `addr_recv` being set correctly, together with a list of clients that are already known to be incompatible with BIP324 proxy.
+
+[quote="0xB10C, post:2, topic:678"]
+[quote="theStack, post:1, topic:678"]
+The plan is to do an efficient rewrite in Rust.
+[/quote]
+
+I haven’t seen anyone working on a BIP324 implementation in Rust. Might fit well in the excellent [rust-bitcoin ](https://github.com/rust-bitcoin/rust-bitcoin) library or some other place in their ecosystem (e.g. rust-bitcoin/bip324).
+[/quote]
+
+Yeah, I also thought that putting some parts of BIP324 to a library might be a good idea. Will for sure take a deeper look at rust-bitcoin at some point in the course of my upcoming Rust journey.
+
+-------------------------
+
