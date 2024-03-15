@@ -60,3 +60,17 @@ Noting here as well that I talked about this at the Optech podcast and there wer
 
 -------------------------
 
+0xB10C | 2024-03-15 08:07:32 UTC | #5
+
+> I don’t expect a lot of people to want to look at the data before we actually need it.
+
+The mirroring and using that mirror is part of my process to make sure the backups work. My [bitcoin-bitcoin mirror](https://mirror.b10c.me/bitcoin-bitcoin) is my go to place on mobile to check when wanting to stay up to date with new PRs and issues. A script should also work, yes.
+
+-------------------------
+
+0xB10C | 2024-03-15 09:54:03 UTC | #6
+
+It might make sense to add a section on existing backups in https://github.com/bitcoin-core/bitcoin-devwiki/wiki/GitHub-alternatives-for-Bitcoin-Core. What do you think?
+
+-------------------------
+
