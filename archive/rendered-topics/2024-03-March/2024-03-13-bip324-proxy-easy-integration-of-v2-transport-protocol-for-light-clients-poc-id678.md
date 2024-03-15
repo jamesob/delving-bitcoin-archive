@@ -136,3 +136,16 @@ Good point. I haven't really checked how the proxy idea would work together with
 
 -------------------------
 
+josibake | 2024-03-15 15:20:27 UTC | #6
+
+Really cool! 
+[quote="theStack, post:1, topic:678"]
+The plan is to do an efficient rewrite in Rust. As I’m not fluent in this language, this could take a while.
+[/quote]
+
+I haven't looked into how you have the tool designed, but any interest in making this a rust library? For example, https://github.com/cloudhead/nakamoto has it on their roadmap to add BIP324, and I'm sure there are others. Seems like having a library would be generally useful and something that your proxy could be built around.
+
+I'm also not fluent in Rust but learning and looking for small-ish projects to work on, so I'd be more than happy to help work on a BIP324 rust library if you're interested in collaborating.
+
+-------------------------
+
