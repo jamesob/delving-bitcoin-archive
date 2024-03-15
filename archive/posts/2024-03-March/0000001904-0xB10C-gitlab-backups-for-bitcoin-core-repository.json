@@ -12,9 +12,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 21.4,
   "yours": false,
   "topic_id": 624,
   "topic_slug": "gitlab-backups-for-bitcoin-core-repository",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "> I don\u2019t expect a lot of people to want to look at the data before we actually need it.\n\nThe mirroring and using that mirror is part of my process to make sure the backups work. My [bitcoin-bitcoin mirror](https://mirror.b10c.me/bitcoin-bitcoin) is my go to place on mobile to check when wanting to stay up to date with new PRs and issues. A script should also work, yes.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

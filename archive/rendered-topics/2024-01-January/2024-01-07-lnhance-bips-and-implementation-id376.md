@@ -206,3 +206,17 @@ I have been thinking as well about mechanisms with internal fees, i.e. the funds
 
 -------------------------
 
+cryptoquick | 2024-03-15 19:19:59 UTC | #16
+
+Hi, I've made a modified version of rust-bitcoin-script that can do an implementation of LN symmetry script, so anything that needs the bytes for script somewhere can easily get the right format.
+
+https://github.com/cryptoquick/rust-bitcoin-script/blob/1a7e1742b3a699fa5a021a73211e36d92a2c3bd5/tests/test.rs#L26-L44
+
+Forgive me if my byte counts are off in the example, I wasn't sure of the exact inputs.
+
+I don't yet have support for IK, but I think that's a Taproot thing anyway, so not the same as script.
+
+Thanks to @cguida for nudging me towards doing this. He'll be using this or something like it in trying to make an LNHANCE CLN plugin.
+
+-------------------------
+
