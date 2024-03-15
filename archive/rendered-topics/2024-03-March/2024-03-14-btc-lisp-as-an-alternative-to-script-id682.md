@@ -311,3 +311,64 @@ I think there's a few ways this could be taken further:
 
 -------------------------
 
+prozacchiwawa | 2024-03-14 22:23:35 UTC | #2
+
+Hello, I'm the person at chia working on the chialisp compiler.  I'm mainly replying to make an introduction.  
+
+There may be some more ideas you can take from our effort to modernize the chialisp language (overview [here](https://chialisp.com/modern-chialisp/).  Ongoing development is taking place in [this rust code](https://github.com/Chia-Network/clvm_tools_rs/tree/base/src/compiler).
+
+If interested, we've been collecting feedback on a gradual type system for chialisp ([intro doc](https://github.com/Chia-Network/clvm_tools_rs/blob/7aa40d44fb3310c6dde14af181d40f9dd4029fef/types.md)) and there may be some helpful work or observations in there if you decide to do something similar.
+
+If I had one piece of advice, it's to nail down a great system for mapping high level lisp to low level code for debuggers and interpreters early.  Chia is behind in this (hoping to catch up) and it's probably the biggest negative feedback about chialisp development.
+
+-------------------------
+
+ZmnSCPxj | 2024-03-14 22:19:45 UTC | #3
+
+First and foremost: NACK ON THE ONE-CHARACTER NAMES (the `=` `+` etc get a pass, but not crap like `q`, `a`, `x`...).  Just give the proper names `quote`, `apply`, etc.  Good call on `'foo` though.  Lisp also has quasiquotation [code]`(foo ,(cons '1 'nil))[/code] syntax, maybe could use it as a shorthand for some combination of `apply` and `bintree` with automatic quotation?  Sure this is a compilation target but making it more readable so you can more easily debug a compiler without losing too much hair is always better.
+
+[quote="ajtowns, post:1, topic:682"]
+However the second challenge can’t be resolved by leaving it up to the interpreter – working out when to interleave calculations might be possible to automate, but certainly seems to complex to add as a consensus feature.
+[/quote]
+
+Alternatively, go the Haskell route and mandate everything be lazily evaluated all the time.  The interpreter can evaluate strictly but only if it does not diverge from the lazy-evaluation order.
+
+-------------------------
+
+ZmnSCPxj | 2024-03-14 22:25:27 UTC | #4
+
+[quote="ajtowns, post:1, topic:682"]
+Adding a `strrev` function would allow easily swapping a positive number to it’s big-endian representation, which would then make it possible to calculate scalars for use with `secp256k1_muladd`, which may be useful.
+[/quote]
+
+Or just use big-endian order for numbers.
+
+[quote="prozacchiwawa, post:2, topic:682"]
+If I had one piece of advice, it’s to nail down a great system for mapping high level lisp to low level code for debuggers and interpreters early. Chia is behind in this (hoping to catch up) and it’s probably the biggest negative feedback about chialisp development.
+[/quote]
+
+Over in JavaScript-land there is a concept of "source maps" where you indicate the source location of the "high-level" non-mangled code, based on the equivalent location of the "low-level" mangled code.  Source maps are not included in the mangled code that is delivered to browsers, for obvious reasons. Would a similar concept help?
+
+-------------------------
+
+prozacchiwawa | 2024-03-14 23:03:34 UTC | #5
+
+Source maps can be a good start, but there are a few things about clvm and similar compilation targets that may need at least one more step.  In javascript, the vast majority of code the vm executes comes from a source file, is read once and ultimately referenced by address.  Doing that, it's easy to centralize the information needed to map a specific statement (however the vm stores that internally) to a souce map reference.  You wouldn't have source map info for the function that results from calling the Function constructor.  At least in chialisp, there is a lot of code that passes on or modifies the environment as a normal clvm value (a lot like calling a function that results from the Function constructor in javascript).  
+
+If care is not taken, it can be difficult or expensive to determine whether some clvm value passed to apply matches a function from the original clvm code.  Really the difficulty boils down to these specifics:
+
+- Determine as well as possible the heritage of values passed to apply to recover their relationship to specific parts of the input clvm expression.
+- No statements means no high level sequencing outside of either functions or individual forms.
+- Very compact structure means that individual subexpression can have the same clvm representation, which means that a simple 1-1 mapping of literal values in apply isn't sufficient.
+- Javascript environments are mutable hashes with names that have inferrable mappings.  clvm only has numeric environment references, and they only take place after a full apply.  A system with as much power as dwarf is likely needed to fully recover variable assignments in every context.
+
+-------------------------
+
+bramcohen | 2024-03-14 23:44:37 UTC | #6
+
+Bitcoin scripts already have a mechanism for communication, which is the transaction they're a part of. You could have multiple smart UTXOs all expect to have their spends be aggregated into a single bigger transaction and use free-form statements made there as a place of common understanding. They can also use the list of inputs to enforce capabilities. Likely you'd want to have special opcodes for talking about these things, but they're entirely doable.
+
+A significant different in approach between Chia and Bitcoin is that in Chia the running of a script literally can't make reference to anything external whatsoever and can only return things so they return conditions while Bitcoin can make some limited direct references to the outside world in the form of assertions, basically covering the same things as Chia conditions do. The two approaches have their pluses and minuses, but it may be that continuing the tradition of Bitcoin scripts making direct assertions about their transaction and birthday is the best way to go for BTC Lisp
+
+-------------------------
+
