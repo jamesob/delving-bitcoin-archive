@@ -149,3 +149,18 @@ I'm also not fluent in Rust but learning and looking for small-ish projects to w
 
 -------------------------
 
+theStack | 2024-03-16 08:46:33 UTC | #7
+
+[quote="josibake, post:6, topic:678"]
+I haven’t looked into how you have the tool designed, but any interest in making this a rust library? For example, [GitHub - cloudhead/nakamoto: Privacy-preserving Bitcoin light-client implementation in Rust ](https://github.com/cloudhead/nakamoto) has it on their roadmap to add BIP324, and I’m sure there are others. Seems like having a library would be generally useful and something that your proxy could be built around.
+[/quote]
+Yup, I agree that creating a BIP324 library makes a lot of sense (see also [0xb10c's post above](https://delvingbitcoin.org/t/bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc/678/2?u=thestack) where one idea is to add it to rust-bitcoin).
+
+[quote="josibake, post:6, topic:678"]
+I’m also not fluent in Rust but learning and looking for small-ish projects to work on, so I’d be more than happy to help work on a BIP324 rust library if you’re interested in collaborating.
+[/quote]
+
+Sure, that would be great! I forgot to mention this explicitly in the OP, but of course everyone is more than welcome to contribute. For starters, it should be pretty straight-forward to create a module for the BIP324 cipher suite. I think we can use the same interface as `BIP324Cipher` in Bitcoin Core (see `src/bip324.{h,cpp}`). Given that there are (hopefully) already Rust crates available for efficient implementations of the cryptographic primitives (`secp256k1-ellswift` bindings, ChaCha20(Poly1305), HKDF-SHA256 etc.), this shouldn't even be too much code.
+
+-------------------------
+
