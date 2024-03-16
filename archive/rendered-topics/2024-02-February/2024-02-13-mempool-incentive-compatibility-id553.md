@@ -824,3 +824,15 @@ My example entails a negligible cost to the attacker while permitting continuous
 
 -------------------------
 
+rustyrussell | 2024-03-16 00:27:19 UTC | #26
+
+I think this technical definition is overspecialized (or perhaps implied by the question?).
+
+The problem is: you want to spend some shared input in a timely manner, and are prepared to pay competitive rates to do so vs other transactions.  Another transaction is preventing this.  You don't really care why, or *which* tx gets mined, but you have some deadline.
+
+I think we've demonstrated that there are cases where the miners are incentivized to fix this, and cases they are not.  In the latter case, there's a Schelling point where, even if it's not directly incentive compatible for a miner to replace, it becomes so if the *other* miners do.  Such a Schelling point might come into existence if (1) miners agree it's generally better for the network, (2) the gains of not doing so are minor anyway, and (3) it's the default.
+
+We still have to deal with the DoS problem, but perhaps that's as simple as "if a tx has been in the mempool for over 12 blocks and you're offered feerate to get the replacement into the top of mempool, and they've both v3, allow RBF ignoring the total fee rule".
+
+-------------------------
+
