@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "incoming_link_count": 1,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 6.2,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -51,12 +51,17 @@
   "wiki": false,
   "reactions": [
     {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "rocket",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
