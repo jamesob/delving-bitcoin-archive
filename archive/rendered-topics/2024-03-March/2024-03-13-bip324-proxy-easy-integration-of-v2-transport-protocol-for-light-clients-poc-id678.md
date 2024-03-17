@@ -164,3 +164,22 @@ Sure, that would be great! I forgot to mention this explicitly in the OP, but of
 
 -------------------------
 
+rustaceanrob | 2024-03-17 18:40:09 UTC | #8
+
+Hey, super cool project. I am happy to see other people excited about BIP324 and building tools to drive p2p towards v2. A friend and I have been working on a Rust implementation that will act as an API for clients to place into their pre-existing TCP logic, and we would appreciate some further guidance/contribution. Our main priority has been removing dependencies, and we are now down to just a few from `rust-bitcoin`. My main concern now is building the top level API around the Floresta Rust client, and I will be working on that this week. Our code is [here](https://github.com/rustaceanrob/bip324).
+
+-------------------------
+
+theStack | 2024-03-17 19:48:10 UTC | #9
+
+[quote="rustaceanrob, post:8, topic:678, full:true"]
+Hey, super cool project. I am happy to see other people excited about BIP324 and building tools to drive p2p towards v2. A friend and I have been working on a Rust implementation that will act as an API for clients to place into their pre-existing TCP logic, and we would appreciate some further guidance/contribution. Our main priority has been removing dependencies, and we are now down to just a few from `rust-bitcoin`. My main concern now is building the top level API around the Floresta Rust client, and I will be working on that this week. Our code is [here ](https://github.com/rustaceanrob/bip324).
+[/quote]
+
+Nice, that's great to hear and comes at the perfect point of time! I'm sure there will be some further questions / suggestions when it comes to the details of the API, but at a first glance this seems like exactly what we need for BIP324 Proxy. Just being curious, what was the motivation to reduce the cryptography dependencies and reimplement them? Do the available Rust crates have any significant drawbacks, or is that more a generic philosophical decision of the library? I'm not saying it's a bad idea (we actually do the same in Bitcoin Core), I just assumed that in Rust the package management works well enough, and I think I wouldn't have a problem depending on a well-maintained cryptographic library, which ideally has the resources to investigate optimizations etc.
+
+As a small update, I've started the Rust rewrite branch yesterday: https://github.com/theStack/bip324-proxy/tree/rust_rewrite
+It's still tiny, so far it only creates the local server socket and displays a mesage for an incoming client connection, without spinning up a new thread yet. The plan would be to implement a dummy proxy (v1<->v1) first and only then plug in all the BIP324 related stuff. Let's see how that goes. As always, contributions in any form are welcome (even if it's recommended book material / common pitfalls for network programming in Rust or whatever).
+
+-------------------------
+
