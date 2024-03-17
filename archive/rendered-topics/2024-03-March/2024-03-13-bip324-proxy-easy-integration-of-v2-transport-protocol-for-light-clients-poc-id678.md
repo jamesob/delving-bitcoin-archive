@@ -183,3 +183,9 @@ It's still tiny, so far it only creates the local server socket and displays a m
 
 -------------------------
 
+rustaceanrob | 2024-03-17 20:37:32 UTC | #10
+
+Perfect, will keep a pulse on your `src`. My favorite Rust book is [Effective Rust](https://www.lurklurk.org/effective-rust/), and the `tokio` docs have good async TCP examples. On cryptography, the `RustCrypto` collection of crates contain `unsafe` code blocks and are not particularly auditable. I have been in touch with the `rust-bitcoin` maintainers, and they recommended the dependency reduction as a step towards being merged to their community, presumably so the crypto is concise and readable. I am also working on this project as part of a Chaincode program, and I think any additional "proof of work" I can put out will hopefully put my name out as a FOSS dev! If you would like to join forces, you can create a `main` in our `src` and implement the proxy logic there as well. I might also fork yours and see if I can build up a proxy with my crate. Cheers
+
+-------------------------
+
