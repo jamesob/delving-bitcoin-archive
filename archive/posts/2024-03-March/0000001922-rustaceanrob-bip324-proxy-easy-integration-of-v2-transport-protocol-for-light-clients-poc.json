@@ -12,8 +12,8 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
+  "reads": 2,
+  "readers_count": 1,
   "score": 0.2,
   "yours": false,
   "topic_id": 678,
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Perfect, will keep a pulse on your `src`. My favorite Rust book is [Effective Rust](https://www.lurklurk.org/effective-rust/), and the `tokio` docs have good async TCP examples. On cryptography, the `RustCrypto` collection of crates contain `unsafe` code blocks and are not particularly auditable. I have been in touch with the `rust-bitcoin` maintainers, and they recommended the dependency reduction as a step towards being merged to their community, presumably so the crypto is concise and readable. I am also working on this project as part of a Chaincode program, and I think any additional \"proof of work\" I can put out will hopefully put my name out as a FOSS dev! If you would like to join forces, you can create a `main` in our `src` and implement the proxy logic there as well. I might also fork yours and see if I can build up a proxy with my crate. Cheers",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
