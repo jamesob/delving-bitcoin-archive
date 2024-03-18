@@ -836,3 +836,27 @@ We still have to deal with the DoS problem, but perhaps that's as simple as "if 
 
 -------------------------
 
+rustyrussell | 2024-03-17 23:28:43 UTC | #27
+
+This was the link I was looking for earlier, thanks!!
+
+We need to consider three things here:
+* Bandwidth consumption
+* Higher layer protocol efficacy
+* Miner incentives
+
+I think we've demonstrated a conflict between them (i.e. we need to compromise, and we implicitly are already).
+
+I don't think your example works for lightning today, where the first transaction is of fixed size, so games can only be played with the children, and v3 restricts those. 
+
+But it does effect a general stackable-txs case, which is where we're headed eventually, so must be considered.  Sigh, ok 
+
+The real problem in your example seems to be step 7: by RBF not considering the package feerate, but a single tx feerate, it discards an imminent tx! This is not incentive compatible if you assume any reasonable discount rate for future blocks?
+
+
+
+
+"tx must be 12 blocks old to be replaced by RBF bypass"
+
+-------------------------
+
