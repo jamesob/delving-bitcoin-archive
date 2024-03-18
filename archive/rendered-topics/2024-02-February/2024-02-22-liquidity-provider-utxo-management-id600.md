@@ -178,3 +178,45 @@ Split_Change(Change_Output_Amount, Change_Target_Amount, Target_Buckets):
 
 -------------------------
 
+murch | 2024-03-18 19:48:30 UTC | #3
+
+This seems like a reasonable approach.
+
+[quote="remyers, post:1, topic:600"]
+When fee rates are low, or a bucket is extremely depleted, we should proactively create change outputs to refill buckets. Initially I propose adding the largest utxo that is not in a bucket as an additional input to the transaction.
+[/quote]
+
+I’m confused here by the phrasing of an *additional* input? If the feerate is higher and you still need to refill, why not just pick a single large non-bucketed UTXO and create a several change outputs for the bucket you want to refill? If the feerate is low enough that you are proactively refilling buckets, why not sum up the amounts of several or all of the UTXOs you want to create and create all of those UTXOs alongside the liquidity transaction output by picking as many of the large non-bucketed UTXOs as necessary to create them?
+
+[quote="remyers, post:1, topic:600"]
+That change output should opportunistically refill one (or more) of our target buckets. This can be done in different ways. Initially I propose setting the minimum change output size to an amount that refills the most depleted target bucket. This may add utxos from existing buckets.
+[/quote]
+
+Perhaps you could make a few attempts at trying to find a "changeless solution" to creating the liquidity transaction output plus one, two, or three amounts that your buckets are missing. You could perhaps generate a dozen or so different target amounts by combining various missing amounts and try to build transactions for each of them independently, and then use whatever gets a hit. I’m surprised that you consider using bucketed UTXOs for this—I expect that bucketed UTXOs would only be a fallback if you cannot fulfill the amount from non-bucketed UTXOs?
+
+[quote="remyers, post:1, topic:600"]
+* Does the concept of performing pre/post processing on the parameters of coin selection make sense or is there some way to optimize coin selection itself for this scenario?
+[/quote]
+
+I am not sure I understand which coin selection parameters you consider pre- and post-processing here. If you mean the `min_change`, I think that you might get limited leverage out of that. I expect that the feerate is foreign determined by the general mempool situation. You may consider creating P2WPKH and P2TR outputs depending on the current feerate and what sort of change outputs you are creating. If you are creating bucketed change outputs at low feerates, you may want to make P2TR outputs, while you might want to opt for P2WPKH non-bucketed change outputs when building transactions at high feerates. Are there other parameters that you were considering?
+
+[quote="remyers, post:1, topic:600"]
+* Would it make sense to only use branch-and-bound and [CoinGrinder](https://github.com/bitcoin/bitcoin/pull/27877) as coin selection algorithms for this problem to reduce fees?
+[/quote]
+
+I would agree that CoinGrinder and BnB would be more useful in your scenario than Knapsack and SRD. It might make sense to modify the `sendmany` RPC to allow restricting the coin selection to a subset of the coin selection algorithms or to patch out the calls to Knapsack and SRD from your node. Given that the post-processing of input set candidates is currently only based on the waste metric, It seems to me that you might want one call with the target consisting only of the liquidity transaction output, and if it doesn’t return a changeless solution, several calls with targets composed from the liquidity transaction output plus one or multiple of the amounts missing from buckets. Given the intent to refill the buckets, perhaps the latter calls should be restricted to the non-bucketed UTXOs. Which brings me to the question, how would you distinguish non-bucketed and bucketed UTXOs? Would they be kept in separate wallets, separate amount ranges, marked in some manner?
+
+[quote="remyers, post:1, topic:600"]
+* Any ideas for a better algorithm for adding inputs and splitting change to converge on our target utxo set with the least on-chain fees?
+[/quote]
+
+The approach seems reasonable to me. The only thing that comes to mind right now is that I have seen cases of oversplitting before: perhaps one thing to look out for in your simulations would be how often UTXOs split up later get recombined when a larger denomination would have been required and was unavailable. I suspect that being too proactive in refilling buckets may actually reduce the savings.
+
+[quote="remyers, post:1, topic:600"]
+* Are there other use cases that could use this functionality? coin join users perhaps?
+[/quote]
+
+Your usage pattern reminds me of send-only exchange wallets, but there the possibility to batch many withdrawals into one transaction shifts the concerns to only needing a sufficient minimum of large-amount UTXOs rather than numerous specific values.
+
+-------------------------
+

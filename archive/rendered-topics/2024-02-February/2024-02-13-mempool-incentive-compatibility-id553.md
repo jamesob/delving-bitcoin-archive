@@ -860,3 +860,25 @@ The real problem in your example seems to be step 7: by RBF not considering the 
 
 -------------------------
 
+instagibbs | 2024-03-18 18:16:36 UTC | #28
+
+[quote="rustyrussell, post:27, topic:553"]
+But it does effect a general stackable-txs case, which is where we’re headed eventually, so must be considered. Sigh, ok
+[/quote]
+
+The stackable case is interesting in that an attacker can easily coordinate with itself to pin 100 channels, but collective action to outbid it might be prohibitive in terms of interactivity. So even if a miner "knows" it would pairwise not take the pin-evicting txs, it might err on the side of taking it anyways, excluding DoS concerns.
+
+My ideal is if we had some future discounting, and we applied it to diagram checks, we could make all diagrams comparable during these checks. With that in hand, incentives and DoS checks would be two completely separate concerns. From there we can think about alternative anti-DoS measures with a bit more clarity.
+
+-------------------------
+
+murch | 2024-03-18 18:25:02 UTC | #29
+
+[quote="rustyrussell, post:27, topic:553"]
+I don’t think your example works for lightning today, where the first transaction is of fixed size, so games can only be played with the children, and v3 restricts those.
+[/quote]
+
+Yeah, I am not concerned with benign users of a "RBF bypass" but with a malicious adversary using such a new rule creatively beyond the intended application.
+
+-------------------------
+

@@ -124,3 +124,13 @@ So I think applying this strategy to any layer that they are interested in apply
 
 -------------------------
 
+bruno | 2024-03-18 17:53:44 UTC | #9
+
+[quote="Chris_Stewart_5, post:7, topic:640, full:true"]
+That said, shameless plug i think the 64bit arithmetic work would be a great place to start with property based testing. Its “simple” in the sense that we are just doing arithmetic. You could even test the existing opcodes (`OP_ADD`, `OP_SUB`…) if you don’t want to speculate on this soft fork getting activated, but want to test something straightforward.
+[/quote]
+
+Yes, it sounds a good place for property-based testing
+
+-------------------------
+
