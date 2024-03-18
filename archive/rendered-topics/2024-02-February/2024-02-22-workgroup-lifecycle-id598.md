@@ -153,3 +153,11 @@ Note: the [Discourse Encrypt](https://meta.discourse.org/t/discourse-encrypt-for
 
 -------------------------
 
+justingoldberg | 2024-03-18 15:30:10 UTC | #9
+
+This is not good. For future changes that get ramrodded through (with potential vulnerabilities as @theariard  has suggested), consider making them public and read only for the non members. 
+
+https://stacker.news/items/440692/
+
+-------------------------
+
