@@ -12,9 +12,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 16.4,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 31.8,
   "yours": false,
   "topic_id": 678,
   "topic_slug": "bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc",
@@ -45,7 +45,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
