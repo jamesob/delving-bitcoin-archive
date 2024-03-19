@@ -12,9 +12,9 @@
   "reply_to_post_number": 27,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"rustyrussell, post:27, topic:553\"]\nBut it does effect a general stackable-txs case, which is where we\u2019re headed eventually, so must be considered. Sigh, ok\n[/quote]\n\nThe stackable case is interesting in that an attacker can easily coordinate with itself to pin 100 channels, but collective action to outbid it might be prohibitive in terms of interactivity. So even if a miner \"knows\" it would pairwise not take the pin-evicting txs, it might err on the side of taking it anyways, excluding DoS concerns.\n\nMy ideal is if we had some future discounting, and we applied it to diagram checks, we could make all diagrams comparable during these checks. With that in hand, incentives and DoS checks would be two completely separate concerns. From there we can think about alternative anti-DoS measures with a bit more clarity.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
