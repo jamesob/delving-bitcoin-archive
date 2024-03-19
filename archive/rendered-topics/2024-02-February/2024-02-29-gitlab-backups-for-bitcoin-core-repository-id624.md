@@ -80,3 +80,9 @@ Yeah, definitely. I had forgotten about that page honestly :D Let me know if you
 
 -------------------------
 
+0xB10C | 2024-03-19 13:17:31 UTC | #8
+
+I've added a section on backups and tooling to the wiki: https://github.com/bitcoin-core/bitcoin-devwiki/wiki/GitHub-alternatives-for-Bitcoin-Core#repository-backups-and-tooling. Feel free to add your's too.
+
+-------------------------
+

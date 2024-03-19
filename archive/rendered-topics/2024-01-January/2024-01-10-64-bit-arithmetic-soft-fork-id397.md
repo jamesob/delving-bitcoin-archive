@@ -743,3 +743,13 @@ https://github.com/Christewart/bitcoin/blob/c617c5c3b0d21499b196184b5279b4562706
 
 -------------------------
 
+Chris_Stewart_5 | 2024-03-19 14:17:49 UTC | #48
+
+Hi everyone, we have a bitcoin core pr review club tomorrow (3/20/2024) at 17:00 UTC for this implementation.
+
+https://bitcoincore.reviews/29221
+
+Happy to answer any questions about the PR, and talk through the 'Design Questions' section that I think still have open questions. Hope to see some of yall tomorrow at 17:00 UTC.
+
+-------------------------
+
