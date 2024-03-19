@@ -877,3 +877,59 @@ Yeah, I am not concerned with benign users of a "RBF bypass" but with a maliciou
 
 -------------------------
 
+ajtowns | 2024-03-19 01:10:26 UTC | #30
+
+[quote="rustyrussell, post:26, topic:553"]
+I think we’ve demonstrated that there are cases where the miners are incentivized to fix this, and cases they are not. In the latter case, there’s a Schelling point where, even if it’s not directly incentive compatible for a miner to replace, it becomes so if the *other* miners do. Such a Schelling point might come into existence if (1) miners agree it’s generally better for the network, (2) the gains of not doing so are minor anyway, and (3) it’s the default.
+[/quote]
+
+Hmm, poking at this some more, I think my [previous post](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553/7) went too far into the miners-all-cooperate edge case.
+
+If you consider some pinning tx that won't be worth mining for 100 blocks, and a stratumv2 mining pool with only 98% hashrate that keeps the pinning tx hoping for its high fees, that's still leaves an 86% chance that the remaining 2% hashrate mines a block a block in the meantime with the high feerate tx, invalidating the pinning tx. In that case, the pinning tx needs to pay $h^{1-n}$ times as much as the pinned tx, or the pool would have had a higher expected value for just trying to mine the higher feerate/lower fee pinned tx instead. For a pool with 100% hashrate, that devolves to always requiring a higher fee independent of $n$; but for a pool with 90% hashrate, it's already 100x fee at about 45 blocks; at 50% hashrate, it's 500x fee at 10 blocks. For the 98% pool at 100 blocks, it's a factor of about 7.4.
+
+That model may give a strong incentive to defect, if you get some direct benefit from fees, other than just "the pool has more funds to distribute". For example, if a sv2 pool finds that some percent of hashpower is just building working on empty blocks, perhaps it will decide to issue rewards rated not just by number of shares found, but also by the potential reward that those blocks would return to the pool. In that case, defecting and attempting to mine the replacement transaction would increase your share of rewards in the short term, and, provided the pool doesn't check for that sort of defection and punish it, and without having done the maths, I think that would end up being attractive, at least, for small miners within the pool.
+
+I think that still adds up to "the replacement tx needs to pay a fee proportional to the total fee of the tx being replaced" though -- along with having a threshold along the lines of "don't replace txs you expect will confirm in the next 50 blocks" -- but at least it allows that proportion to be substantially less than 1. 
+
+I think in this view, you can conclude that as long as you don't have a mining pool/cartel with over 95% hashrate, than replacing a tx that won't be mined for 135 or more blocks with one that would be mined immediately is fine unless the total fee of the existing tx is more than 1000x that of the new one (pretty implausible as it would mean even a 100vb tx replacement would be paying a lower feerate than a max size 100kvb tx), as is replacing a tx whose total fee is under 10x and won't be mined for 50 or more blocks.
+
+Those numbers seem much more reasonable, though I'm not sure how you'd make any of this practical to implement -- both the "this tx won't be mined for $n$ blocks" and "$h$ percent of hashpower will wait to try to collect fees from the pinning tx" aren't really things you can measure very accurately... Dealing with a 50 or 135 block delay might not be very practical for many applications either.
+
+-------------------------
+
+rustyrussell | 2024-03-19 02:18:21 UTC | #31
+
+Indeed, and restricting the carve-out to some reduced size would work for lightning, but not general protocols.
+
+But to revisit your example, RBF rule 2 (no other unconfirmed inputs) seems to want to prevent the requirement to consider entire packages, but by playing *on top* of an unconfirmed tx you work around this?  If the RBF bypass rule were only to apply to v3 transactions, I think this could not be done.  Otherwise, we could consider replacing Rule 2 with a more sophisticated requirement that the new package outbid the one being replaced.
+
+-------------------------
+
+rustyrussell | 2024-03-19 02:33:30 UTC | #32
+
+[quote="ajtowns, post:30, topic:553"]
+Those numbers seem much more reasonable, though I’m not sure how you’d make any of this practical to implement – both the “this tx won’t be mined for nnn blocks” and “hhh percent of hashpower will wait to try to collect fees from the pinning tx” aren’t really things you can measure very accurately… Dealing with a 50 or 135 block delay might not be very practical for many applications either.
+[/quote]
+
+Thanks for the numbers, they definitely shed light!  You're assuming the ~100% cartel is too polite to reorg out for dominance, of course.
+
+Given the widespread awareness of a 51% attack, I think it's *uncontroversial* to write software optimized for miners who control less than that.
+
+(Complete disclosure: I'm with Peter Todd (IIRC) that small miners are more valuable than large miners, so I'm biased to optimize the system for them with my volunteer efforts!).
+
+But even without this bias, 50% discount degrades so fast, it's not far from 100% really, which is **far easier to implement**.  After 7 blocks the error for a 50% miner is < 1%.  A 50% miner has resources to change this if they wish, but the expected return would be minimal.
+
+-------------------------
+
+rustyrussell | 2024-03-19 02:38:56 UTC | #33
+
+[quote="instagibbs, post:28, topic:553"]
+My ideal is if we had some future discounting, and we applied it to diagram checks, we could make all diagrams comparable during these checks. With that in hand, incentives and DoS checks would be two completely separate concerns. From there we can think about alternative anti-DoS measures with a bit more clarity.
+[/quote]
+
+Agreed!  Despite discussing both here (partially in the hope of producing some magic solution which addresses both!) they are best considered separately.
+
+While stackable txs are vulnerable to this problem, that's actually OK I think?  Because if we have the introspection tech required to stack txs, I assume we can also use that to restrict total tx size.  If there's a healthy marketplace of people making stacked txs with reasonable fees with some frequency, you don't need this of course.
+
+-------------------------
+
