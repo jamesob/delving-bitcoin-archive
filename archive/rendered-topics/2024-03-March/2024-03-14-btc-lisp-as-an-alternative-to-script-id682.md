@@ -412,3 +412,103 @@ Oh one last thing I forgot to add is that since we want this low-level / high-le
 
 -------------------------
 
+ajtowns | 2024-03-19 00:48:28 UTC | #9
+
+[quote="roconnor-blockstream, post:7, topic:682"]
+I understand you are somewhat cool to the idea of using Simplicity, and I’d like to try to get you a little bit more excited about Simplicity.
+[/quote]
+
+I think Simplicity is plenty cool; it's more that I'm not convinced that it's hitting the sweet spot for a consensus language. If that's true, in the worst case it's because Simplicity has some fundamental feature that's a bad fit, so trying other approaches is definitely a good idea; but in the best case, exploring the problem space with other approaches seems like it should reveal solutions that Simplicity could adapt and adopt and end up as a better language. And maybe I'm wrong entirely, in which case working on a lisp alternative will just end up with me saying "look, I can do `X` with lisp, how awesome is that?" and you replying "ha, you think that's cool, here's `++X` in simplicity" and it being much better for objectively verifiable reasons `Y`, `Z` and `W`. All of which seem like good outcomes to me.
+
+I'm not super well-informed about Simplicity; if you're in the mood to educate me, then maybe a good starting point would be:
+
+[quote="roconnor-blockstream, post:7, topic:682"]
+(There is a forth fundamental composition for computation which is looping, something that Chia Lisp can do, but neither Simplicity nor Bitcoin Script can do (though it can be kinda-faked with Simplicity)).
+[/quote]
+
+That doesn't really make sense to me. For example, when calculating a bip342-style signature hash of a transaction, you naturally loop over each input and each output, applying the same computation to each part. I believe you already have jets for those sorts of things in the form of `sighash-all` etc. How do you specify something like that in simplicity more directly when you don't know what value the `num-outputs` jet will return, but want to define a custom sighash (like BIP 118, eg) that doesn't already exist as a jet? I would have guessed that what you'd do is define a recursive calculation that could recurse up to $2^{32}-1$ times as far as the type system is concerned, but will actually only recurse `num-outputs` times; but if so, that sure sounds like regular looping to me, so I don't really understand what the distinction you're getting at is.
+
+Maybe you just mean a function can't ever call itself per se, but you end up having to define `sighash[<2^32]` which can call `sighash[<2^31]` etc, and maybe you end up with a program whose size is logarithmic in the size of the data it can deal with?
+
+(Feel free to start a separate topic discussing this if you like, rather than leaving it hidden as a response here)
+
+For what it's worth, I don't really think of Lisp/Simplicity as being in competition per se -- I think you could probably describe all the "lisp" opcodes in Simplicity terms by parameterising the opcodes with the length of their operands, and perhaps by adding a "virtual" parameter to "apply" to forcibly bound any potential recursion, for instance.
+
+Actually, let me draw a little picture of how I think about this:
+
+```mermaid height=327,auto
+flowchart LR
+   d-->h-->c-->f
+
+   subgraph d[Development Environment]
+   direction LR
+   mod[Packages]
+   tst[Testing]
+   dbg[Debugger]
+   end
+
+   subgraph h[High Level Language]
+   direction LR
+   sym[Symbolic names]
+   fun[Functions]
+   fam[Familiarity]
+   con[Consistency with Consensus Language]
+   end
+
+   subgraph c[Consensus Language]
+   direction LR
+   rev[Reviewability]
+   pred[Predictability]
+   cap[Capability]
+   ser[Serialisation]
+   per[Performance]
+   end
+
+   subgraph f[Formalisation]
+   direction LR
+   spec[Specification]
+   conc[Useful conclusions]
+   link[Link to higher levels]
+   end
+```
+
+(arrows could be read as "builds on")
+
+For Bitcoin script as it stands, we don't have much in the way of formalisation; the consensus language is well known and pretty well understood, thanks to it not being very novel in the first place and more than a decade of experience with it on top of that; though in many ways it's not incredibly capable. As a higher level language, miniscript and miniscript policy are one approach, sapio is another -- miniscript being by design very consistent with script, and miniscript policy a little less so; while sapio is very different to script. For the dev environment there are things like [btcdeb](https://github.com/bitcoin-core/btcdeb), [bsst](https://github.com/dgpv/bsst) and [tapsim](https://delvingbitcoin.org/t/tapsim-bitcoin-tapscript-debugger/292). I suppose you could argue that miniscript introduces something of a formalism for the subset of a script that it covers, and bsst perhaps implies a formalisation in the way it analyses scripts.
+
+AIUI, Simplicity is building up from the right, with an excellent formalism, a mostly complete consensus language that directly builds on that formalism, with the high level tooling still being very much a work in progress (at least, googling for "Simphony" didn't seem to find much). Being able to say "as long as this typechecks, all operations will be within bounds" is the sort of thing I mean by "useful conclusions". (I would probably describe "Simplicity" as the formalism, "the bit machine" as the consensus language, then presumably "Symphony" will fill out some of the higher levels)
+
+Chia on the other hand doesn't have much of a formalism, but has a fine consensus language and a fine high level language built on top of it, and based on some of the comments here is mostly looking to improve things in the dev env and high level areas. I think it's fair to say that more formalism could have helped avoid things like the [negative division bug](https://www.chia.net/2022/03/04/divided-we-fork/), but there's a cost/benefit tradeoff there, of course.
+
+I guess my main issue with Simplicity is as a "Consensus Language", particularly the reviewability aspect -- implementing Simplicity is a sizable amount of code ([Elements#1219](https://github.com/ElementsProject/elements/pull/1219) is currently +41238-18 eg), and even if the path of least resistance to understanding that code is to treat much of it as generated (ie better to spend your time understanding the formal specification and the code generation tools than looking at C/C++ code directly) that's also a lot of complexity and requires a pretty high baseline of expertise.
+
+I guess it feels like while the formalism fundamentals certainly live up to the "Simplicity" name, everything beyond that ends up being uncomfortably complex, and, maybe I'm dreaming, but I'd like it better if it things were simple at each layer even looking at them in isolation?
+
+I don't mean that as criticism per se, more as an explanation of why I'm looking at alternatives. Maybe it will turn out all the alternatives are terrible for other reasons; but even so, learning why/how they suck is still a valuable outcome.
+
+[quote="roconnor-blockstream, post:7, topic:682"]
+Probably the most significant lowish level difference between Chia Lisp and Simplicity is that Chia Lisp is dynamically typed and Simplicity is statically typed.
+[/quote]
+
+I guess I don't really see that as a fundamental difference for a consensus language: the first time you see the program in consensus is when you're evaluating the program against a particular piece of input data, at which point you can examine both of them and infer everything's exact type.
+
+That obviously sucks in some sense: if you've got to essentially run the program to figure out its types, you're not really getting much benefit from knowing the types; but it's not clear to me how much benefit that types can actually bring to a consensus language. Certainly they bring lots of benefits to a high level language, where they can prevent bugs before you even make them; but at the consensus level, it's already too late for detecting bugs to do anyone much good ("would have be nice to know I was burning my funds before I burnt them..."), and even if the type checking is cheaper than evaluating the program, an attacker can always come up with something that type checks but fails during evaluation if they're trying to make you waste CPU by sending invalid transactions.
+
+[quote="roconnor-blockstream, post:7, topic:682"]
+Theoretically, some sort of JIT Simplicity compiler implementation could potentially operate quite fast without safety concerns.
+[/quote]
+
+That seems a bit unappealing to me -- better to have something that's simple (and reviewable) than something that pushes the edges of being optimally fast? I understand that there's the possibility of proving the JIT code will always be equivalent to the non-JIT code which in theory allows offloading the review to an automated proof verification tool, but that again adds a lot of complexity, just in different ways.
+
+(If you had a blockchain with a very high transaction rate, and correspondingly few fully validating nodes, then also having a level of complexity that's hard to verify is probably worth the tradeoff of having better performance. So it's at least a potentially interesting feature for language design in general, it just doesn't feel like it's a win here)
+
+[quote="roconnor-blockstream, post:8, topic:682"]
+Oh one last thing I forgot to add is that since we want this low-level / high-level consensus / non-consensus language split regardless, the details of the low-level language become somewhat less important.
+[/quote]
+
+I think there's also value in being able to go from the consensus language to a formalism, if that allows you to analyse your scripts for high-level issues, eg analysing what possible witnesses will allow for valid transactions. It would be nice if that also turns out to be somewhat language independent, so that a similar framework could be used in different contexts.
+
+(Treating current bitcoin script as the "high level language" and compiling/translating it to lisp/simplicity, then analysing that via the corresponding formalisation might also be interesting)
+
+-------------------------
+
