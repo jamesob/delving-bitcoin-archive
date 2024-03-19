@@ -1,6 +1,6 @@
 # Improving transaction sponsor blockspace efficiency
 
-harding | 2024-03-19 18:58:52 UTC | #1
+harding | 2024-03-19 20:19:34 UTC | #1
 
 Jeremy Rubin previously proposed [transaction fee sponsors][sponsors], a
 soft fork that would allow a _sponsor transaction_ to only be valid if
@@ -116,7 +116,7 @@ must also be aware of any mempool policies that could affect her, but
 otherwise this seems a straightforward service to provide, so there
 could develop a robust and reliable market for it.
 
-[sponsors]: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-September/018195.html
+[sponsors]: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-September/018168.html
 [topic sponsors]: https://bitcoinops.org/en/topics/fee-sponsorship/
 [ephemeral anchors]: https://bitcoinops.org/en/topics/ephemeral-anchors/
 
