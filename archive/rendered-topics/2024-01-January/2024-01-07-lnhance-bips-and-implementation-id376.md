@@ -220,3 +220,11 @@ Thanks to @cguida for nudging me towards doing this. He'll be using this or some
 
 -------------------------
 
+reardencode | 2024-03-19 20:38:03 UTC | #17
+
+Nice, thank you!
+
+IKEY is Tapscript only indeed, as it reads the BIP341 internal key from the control block and writes it to the stack.
+
+-------------------------
+
