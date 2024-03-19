@@ -395,3 +395,13 @@ This is very good because finding a soft-fork solution was a problem that I hadn
 
 -------------------------
 
+ajtowns | 2024-03-19 00:58:42 UTC | #9
+
+[quote="roconnor-blockstream, post:6, topic:636"]
+One feature of Simplicity is “pruning”. Simplicity programs are committed via a Merkle Tree structure and unexecuted branches are required to be trimmed when the program is revealed. This is kinda the opposite of the if statement that evaluates both branches that is described in Chia Lisp. Simplicity’s pruning has potential privacy benefits as well as potential for reducing on chain data.
+[/quote]
+
+This is something you can kind-of do in chia lisp, you just have to do it manually if you want to. The [standard transaction format](https://chialisp.com/standard-transactions/#code) implements the base taproot idea of being able to switch from providing just a signature to involving some more complicated script, calling it a "hidden puzzle". To do that, it generates a hash of the hidden script via the custom `sha256tree1` function. I don't think it would be much more hassle to add taproot-style MAST (where you just have a top level merkle tree of scripts, choosing one to evaluate), though you'd need some cleverness to resolved a deeper AST (replacing `(i COND CODE hash)` with `(a (i COND (q . CODE) (q x)))` at the same time as building up the overall hash of the expression, perhaps).
+
+-------------------------
+
