@@ -933,3 +933,43 @@ While stackable txs are vulnerable to this problem, that's actually OK I think? 
 
 -------------------------
 
+ajtowns | 2024-03-19 05:01:50 UTC | #34
+
+[quote="rustyrussell, post:32, topic:553"]
+Thanks for the numbers, they definitely shed light! You’re assuming the ~100% cartel is too polite to reorg out for dominance, of course.
+[/quote]
+
+I'm assuming that it's a stratumv2 (or similar) pool, that's only about sharing profits, and that the pool has no control over the actual block itself, both in selecting the parent block and the transactions included in the block, but that members are choosing txs to maximise the pool's income and hence their own. That might not be plausible (a pool might not want members who are competing with its other members, or who are selecting transactions "badly" and then whatever they do to prevent that might be used for more nefarious means?), but it seems like the steelman model of the worst case scenario here -- ie, if there's a solution for that scenario, the same solution should also work for any more realistic scenario.
+
+[quote="rustyrussell, post:32, topic:553"]
+(Complete disclosure: I’m with Peter Todd (IIRC) that small miners are more valuable than large miners, so I’m biased to optimize the system for them with my volunteer efforts!).
+[/quote]
+
+The whole point of a mining pool is that it's in the interests of small miners to band together to form a pool, because having big variance between your revenue and your expenses is hard to deal with, and reducing that is a huge win: so large pools are what you expect even when you are optimising for small miners...
+
+I think the other aspect is whether you're designing for miners who are making a short term investment ("I'm here for a week, I want to make as much money as I can, then cash out"), or a long term investment ("I'm here for years, I'm willing to make decisions that will only pay out over the long term, I'm going to establish a good reputation, and built up trusted relationships with other people over the long term"). Over the long term, with suitably skilled players and assuming the entire industry doesn't collapse, the second approach generates more profit, so thinking through what happens when a majority of the remaining players in the space have adopted that approach seems like it makes sense. I think there's a fair argument that having too many miners with a short term view becomes a security risk (eg, they may be willing to rent out their hashpower to attackers trying to do reorgs).
+
+[quote="rustyrussell, post:32, topic:553"]
+But even without this bias, 50% discount degrades so fast, it’s not far from 100% really, which is **far easier to implement**.
+[/quote]
+
+If you have 50% of miners say "anything that won't confirm in the next 7 blocks can be instantly replaced by a higher feerate tx that will go in the next block", then the remaining 50% of hashrate adopting a policy of "ditto, provided it pays at least 0.8% as much in total fees" will make more profit over the (very?) long term. But if the pool makes more profit, it'll also get more hashrate as miners switch pools (or other pools will adopt the same approach giving a similar but more complicated result), and once it gets to 60% the constraint becomes 2.8% as much, 70% gives 8%, 80% gives 21%, 90% gives 48% and 95% gives a requirement of paying 70% as much in fees. I think that generalises like so:
+
+|pool hashrate | 7 blocks | 10 | 20 | 50 | 100 | 135 |
+|--- | --- | --- | --- | --- | --- | ---|
+| 50% | 0.78% | 0.10% | 0.00% | 0.00% | 0.00% | 0.00%
+| 60% | 2.80% | 0.60% | 0.00% | 0.00% | 0.00% | 0.00%
+| 70% | 8.24% | 2.82% | 0.08% | 0.00% | 0.00% | 0.00%
+| 80% | 20.97% | 10.74% | 1.15% | 0.00% | 0.00% | 0.00%
+| 90% | 47.83% | 34.87% | 12.16% | 0.52% | 0.00% | 0.00%
+| 95% | 69.83% | 59.87% | 35.85% | 7.69% | 0.59% | 0.10%
+| 100% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00%
+
+(Formula is just $x \ge h^n$ which satisfies $f \cdot h^n \cdot h \le x f \cdot  h$ where the left hand side gives you the expected value of eventually trying to mine the high-fee tx which you can only do if you avoid the alternative being mined by someone else first, and the right hand side gives you the expected value of mining the high feerate tx immediately, same as everyone else is attempting to do. That essentially assumes the mempool will be otherwise empty at the time you would mine the existing tx, which might be an unfair bias against the replacement)
+
+Having to pay 1.15% as much in total fees means that if you're replacing a 100kvB tx (max standard size) with a 100vB tx (smallest you get without just giving your money to miners), you'd need to pay 11.5 times the *feerate* for the smaller tx to make sense, so the 0.1% figure is appealing for making total-fee pinning largely irrelevant. However, if the original tx is expected to be confirmed in 20 blocks anyway in this scenario, maybe you're just happy to wait that long anyway.
+
+(Note that this a block count, not a mempool depth -- a tx that is 5MvB deep in the mempool may not be mined for 20 blocks or 100 blocks or even longer, depending on how many new txs get proposed in the meantime)
+
+-------------------------
+
