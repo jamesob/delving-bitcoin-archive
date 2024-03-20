@@ -237,7 +237,7 @@ When the current feerate is low and buckets are depleted, that is a good suggest
 
 -------------------------
 
-remyers | 2024-03-20 09:43:24 UTC | #5
+remyers | 2024-03-20 14:40:41 UTC | #5
 
 [quote="murch, post:3, topic:600"]
 Perhaps you could make a few attempts at trying to find a “changeless solution” to creating the liquidity transaction output plus one, two, or three amounts that your buckets are missing. You could perhaps generate a dozen or so different target amounts by combining various missing amounts and try to build transactions for each of them independently, and then use whatever gets a hit. I’m surprised that you consider using bucketed UTXOs for this—I expect that bucketed UTXOs would only be a fallback if you cannot fulfill the amount from non-bucketed UTXOs?
@@ -248,7 +248,7 @@ The reason I considered spending bucketed UTXOs is that I assumed that all of th
 ### suggestion 2
 I think what you're suggesting here is that when we cannot create a change-less funding transaction we should try to target change that can exactly refill a set of depleted buckets without creating any additional change output.
 
-In my simulations refilling seems to usually come from one of the large initial funding UTXOs. These UTXOs can initially refill all depleted buckets, but eventually either generates a change output that is in a bucket or between buckets. 
+In my simulations refilling always comes from the largest non-bucketed UTXO. These UTXOs can initially refill all depleted buckets, but eventually either generates a change output that is in a bucket or between buckets. 
 
 Outputs that are between buckets are similar to what can be created when we close channels. Perhaps these UTXOs can be consolidated when fees are low? See also **suggestion 1**.
 
@@ -271,6 +271,26 @@ I was only looking at `min_change` as a parameter for coin selection.
 ### suggestion 3
 
 Good idea to adjust which type of outputs we create based on the fee environment. This seems like an additional optimization we can adopt in addition to any other changes.
+
+-------------------------
+
+remyers | 2024-03-20 14:39:32 UTC | #7
+
+[quote="murch, post:3, topic:600"]
+I would agree that CoinGrinder and BnB would be more useful in your scenario than Knapsack and SRD. It might make sense to modify the `sendmany` RPC to allow restricting the coin selection to a subset of the coin selection algorithms or to patch out the calls to Knapsack and SRD from your node. Given that the post-processing of input set candidates is currently only based on the waste metric, It seems to me that you might want one call with the target consisting only of the liquidity transaction output, and if it doesn’t return a changeless solution, several calls with targets composed from the liquidity transaction output plus one or multiple of the amounts missing from buckets. Given the intent to refill the buckets, perhaps the latter calls should be restricted to the non-bucketed UTXOs.
+[/quote]
+
+I created a branch where I can set which algos are enabled. I have been running some simulations to compare using bnb+cg vs all algos. I'm using the same funding scenario file from my other tests, but none of the other changes related to targeting buckets. 
+
+Counter intuitively my initial tests showed all algos having slightly lower total fees and fewer median inputs than using only bnb+cg. I'm running more tests to try to figure out why.
+
+[quote="murch, post:3, topic:600"]
+Which brings me to the question, how would you distinguish non-bucketed and bucketed UTXOs? Would they be kept in separate wallets, separate amount ranges, marked in some manner?
+[/quote]
+
+I do not restrict which UTXOs coin selection can pick, except when refilling buckets I pre-select as an input the single "maximum value UTXO that is not in a bucket." I use the bucket ranges preloaded from a json file to pre-filter the available coins based on if they are in a bucket or not.
+
+That makes sense to initially try to select from UTXOs that are in a bucket to create a changeless transaction, but when that fails try to select from only non-bucketed UTXOs. This is related to **suggestion 1**.
 
 -------------------------
 
