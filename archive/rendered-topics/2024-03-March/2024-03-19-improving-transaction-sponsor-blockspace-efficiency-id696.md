@@ -164,3 +164,26 @@ Essentially what we're saying is that things like OP_EXPIRE or OP_SPONSOR that c
 
 -------------------------
 
+ajtowns | 2024-03-20 02:18:55 UTC | #5
+
+Some thoughts:
+
+ * If you require the commitmed txids were sorted by txid before being committed to, you could index the txs in the block slightly more efficiently: for your example, `[2, 3, 0, 1]` could instead be expressed as `[2, 0, 0, 1]` which would indicate that you have three txs (2), one of which is immediately prior (skip 0 txs, txid1), another is immediately prior to that (skip 0 txs, txid2) and the final one is two txs prior to that (skip 1, txid0). Since you're getting smaller numbers (perhaps mostly 0), you should be able to do a pretty efficient bit-oriented encoding. Once you know you're commiting to [txid1, txid2, txid0], you just sort them, then hash the result to validate the commitment. OTOH, perhaps a larger tx that has constant size is better than a smaller one with variable size.
+
+ * I was going to say that I figure this would warrant a new mempool structure for a set of dependent txs that need to be mined together, but I think perhaps cluster mempool's chunking might be sufficient for that? If you have `tx1` and `tx2`, then a sponsor `s2` of `tx2`, followed by a sponsor `s12` of both, followed by a much higher feerate sponsor `s1` of just `tx1`, then that would perhaps cluster as `[tx1 s1], [tx2 s2 s12]`, and the only special processing you would need to do is to evict `s12` from the mempool if `tx1` is mined first. Note that in this case `tx1` might be much earlier in the block than `s12`, so the commitment index might be large. Obviously you need to track the relationship between `s12` and `tx1, tx2` etc, so that you can update the indexes in `s12` when including it in a block, and remove it from the mempool if either `tx1, tx2` were included in a block or if either of them are removed from the mempool for any other reason.
+
+ * Having sponsors and the tx they sponsor in the same chunk means the commitment index won't change depending on where in the block the tx goes; having it in a different chunk means it will change. Having the commitment index be unpredictable means the wtxid changes, which makes it difficult to cache the tx's validity (did the wtxid just change because of the commitment, or does it also have a different signature?), which presumably slows down block validation somewhat, which kind-of sucks. I guess we could introduce another txid type that skips committing to the sponsored txs' indexes, and cache validity based on that txid type.
+
+ * For a miner who isn't aware of sponsoring behaviour; they would consider any sponsoring tx non-standard in the first place and not accept them into their mempool at all, which would mean this mostly isn't a big deal for reorg safety as far as miners are concerned. This is different from coinbase outputs in that you'd expect most reorgs to pick up the same sponsored tx, so spends of the sponsored tx would remain valid -- contrast this to coinbase outputs, where ~100% of reorgs will involve the reward/fees going to a different miner/pool, ensuring spends of the original output would become invalid ~100% of the time.
+
+ * I think the incremental costs of different options of paying for a tx look like:
+    * adding an input and change: 100vb
+    * rbf'ing a tx that already has a change output: 0vb
+    * cpfp'ing a tx via its change output: 110vb
+    * adding an input and change via an ephemeral anchor: 160vb
+    * off-chain payment to a sponsor who has to create a new sponsoring tx: 112vb
+    * off-chain payment to a sponsor who can rbf an existing sponsoring tx with an additional 2B index: 0.5vb
+    * off-chain payment to a miner: 0vb
+
+-------------------------
+

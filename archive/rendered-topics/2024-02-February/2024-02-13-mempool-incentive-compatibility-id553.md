@@ -985,3 +985,43 @@ So I think you've convinced me that it will come down to whatever's simplest to 
 
 -------------------------
 
+ajtowns | 2024-03-20 01:08:26 UTC | #36
+
+[quote="rustyrussell, post:35, topic:553"]
+I’m pretty sure we’re now measuring 0.8% of “Never Happens” though. This doesn’t seem to be the kind of thing that happens much by accident, but only as a result of deliberate attack. And that won’t happen in the scenario where 50% of miners are doing this?
+[/quote]
+
+Ah, but we don't have 50% of miners doing this now; we have ~100% of miners requiring a 100% increased absolute fee. Those miners are in different pools though, which is a different constraint. For the first pool to defect from requiring 100% absolute fee, I think the numbers look like:
+
+|pool hash rate | 7 blocks | 10 | 20 | 50 | 100 | 135 |
+|--- | --- | --- | --- | --- | --- | ---|
+| 0.1% | 12.54% | 9.14% | 4.81% | 2.01% | 1.04% | 0.79%
+|  1% | 12.94% | 9.55% | 5.26% | 2.49% | 1.57% | 1.34%
+|  5% | 14.86% | 11.60% | 7.58% | 5.39% | 5.03% | 5.00%
+| 10% | 17.56% | 14.57% | 11.23% | 10.05% | 10.00% | 10.00%
+| 20% | 24.03% | 21.88% | 20.19% | 20.00% | 20.00% | 20.00%
+| 30% | 31.84% | 30.61% | 30.02% | 30.00% | 30.00% | 30.00%
+| 50% | 50.20% | 50.02% | 50.00% | 50.00% | 50.00% | 50.00%
+| 70% | 70.00% | 70.00% | 70.00% | 70.00% | 70.00% | 70.00%
+| 100% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00% | 100.00%
+
+(Formula here is $x \ge \frac{h}{1-(1-h)^{n+1}}$ -- if you keep doing what everyone else is doing, you're expected revenue is $h \cdot f$ where $f$ is the original fee, if you accept a replacement then either you'll mine it if you get a block, or the original will be mined by someone else at block $n+1$, so your expected revenue is $(1-(1-h)^{n+1}) \cdot xf$ where the replacement is paying a total fee of $xf$. Accepting the replacement has higher expected value when $x$ satisfies the formula above. I think that table keeps working for the second defector and so on, provided all the defectors stick to their own optimal settings)
+
+The question is "I'm writing an app that wants to urgently replace some transaction, and I have to choose a fee for that. Obviously I'm going to choose a high feerate because otherwise it definitely won't get mined soon, but do I have to boost that feerate even higher than the bottom-of-the-top-block feerate, and if so, by how much?"
+
+At the moment, the answer is very much yes -- you need to make sure your total fee is strictly greater than what you're replacing.
+
+If we change that rule, we need to figure out a new answer to the conflict between what miners would like (more fees better!) and what users want (less fees better!). But miners are getting the final choice as to whether to use the replacement or not, so it's likely that their decision matters most.
+
+[quote="rustyrussell, post:35, topic:553"]
+So I think you’ve convinced me that it will come down to whatever’s simplest to implement?
+[/quote]
+
+Simpler is always better, but the simplest solution is always to stick with what we've already got.
+
+The good thing is that, going by the tables above and previously, what we've already got **isn't** optimal for either miners (they'd be better off to accept some replacements paying a lower absolute fee both today with competing pools, and even in a stratum v2 world with a ~100% pool) or users (less fees good!), so there's some concrete justification for change.
+
+I think the above table implies that for any tx that's 5MvB deep in the mempool or more, and is being replaced by a tx with a mining score that will put it in the next block, then we could reduce the total fee requirement to only need to pay 40% of the total fees of the replaced txs, and that would be a win for any pool with less than 40% hashrate. Probably still requires cluster mempool first in order to efficiently estimate mempool depth and next block feerate, but otherwise might be reasonably simple.
+
+-------------------------
+
