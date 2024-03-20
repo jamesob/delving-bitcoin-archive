@@ -294,3 +294,19 @@ That makes sense to initially try to select from UTXOs that are in a bucket to c
 
 -------------------------
 
+remyers | 2024-03-20 15:37:05 UTC | #8
+
+[quote="murch, post:3, topic:600"]
+This seems like a reasonable approach.
+[/quote]
+
+Thanks for sharing your thoughts and suggestions Murch! I've noted three concrete things I can try from your reply. I will work to produce some simulation results that can test these ideas.
+
+One additional idea I'm exploring is to take advantage of an addition degree of freedom unique to Lightning funding transactions: we do not need to hit the exact amount requested. Any value over (or under) the target funding amount will do when funding a channel. The funder still controls the funding amount in the Lightning channel and can charge for the exact amount added.
+
+When doing coin selection for BnB the `excess` amount is considered waste, but we can add it to the target amount instead of letting it go to fees. If one of your bucketed UTXOs is a little to big or small (eg. within 5%) it should be possible to use it for a changeless funding tx without any waste.
+
+I'm testing out this idea now in simulations to see what impact it has on total fees.
+
+-------------------------
+
