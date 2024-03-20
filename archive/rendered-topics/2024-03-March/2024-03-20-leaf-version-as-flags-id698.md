@@ -10,3 +10,9 @@ Curious on people's thoughts on using it as flags vs just an incremental version
 
 -------------------------
 
+vostrnad | 2024-03-20 05:26:58 UTC | #2
+
+The leaf version must be even which reduces the number of flags to 7, and it cannot be 0x50 (01010000) because that's the starting byte for the annex. Further restrictions are desirable if we want to support some forms of static analysis, see [footnote in BIP341](https://github.com/bitcoin/bips/blob/master/bip-0341.mediawiki#cite_note-7). Given all this, if we ever really need a flag it's probably better to implement it using OP_SUCCESSx.
+
+-------------------------
+
