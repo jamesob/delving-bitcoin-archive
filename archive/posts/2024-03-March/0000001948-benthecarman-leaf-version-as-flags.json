@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 6,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 33.2,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 48.4,
   "yours": false,
   "topic_id": 698,
   "topic_slug": "leaf-version-as-flags",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "After reading through https://delvingbitcoin.org/t/64-bit-arithmetic-soft-fork/397?u=benthecarman and having some discussion about OP_CAT it seems like it may be better to treat the leaf version as a set a flags rather than a version number. \n\nOne potential problem is that the current leaf version is 0xc0 which has a binary representation of 11000000, so we'd have 2 flags that default on. \n\nCurious on people's thoughts on using it as flags vs just an incremental version number",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
