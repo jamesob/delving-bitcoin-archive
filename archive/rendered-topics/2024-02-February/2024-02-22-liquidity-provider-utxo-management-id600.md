@@ -220,3 +220,57 @@ Your usage pattern reminds me of send-only exchange wallets, but there the possi
 
 -------------------------
 
+remyers | 2024-03-20 09:12:04 UTC | #4
+
+[quote="murch, post:3, topic:600"]
+[quote="remyers, post:1, topic:600"]
+When fee rates are low, or a bucket is extremely depleted, we should proactively create change outputs to refill buckets. Initially I propose adding the largest utxo that is not in a bucket as an additional input to the transaction.
+[/quote]
+
+I’m confused here by the phrasing of an *additional* input? If the feerate is higher and you still need to refill, why not just pick a single large non-bucketed UTXO and create a several change outputs for the bucket you want to refill? If the feerate is low enough that you are proactively refilling buckets, why not sum up the amounts of several or all of the UTXOs you want to create and create all of those UTXOs alongside the liquidity transaction output by picking as many of the large non-bucketed UTXOs as necessary to create them?
+[/quote]
+
+By *additional* input I do just mean I select a large non-bucketed UTXO as an input - just as you suggest.
+
+### Improvement 1
+When the current feerate is low and buckets are depleted, that is a good suggestion to target the spend for what we need to refill our buckets . I'll add code to select only the non-bucketed UTXOs as inputs and also avoid trying to refill more buckets than we have available to spend from non-bucketed UTXOs.  I'll add it to my list of improvements to try.
+
+-------------------------
+
+remyers | 2024-03-20 09:43:24 UTC | #5
+
+[quote="murch, post:3, topic:600"]
+Perhaps you could make a few attempts at trying to find a “changeless solution” to creating the liquidity transaction output plus one, two, or three amounts that your buckets are missing. You could perhaps generate a dozen or so different target amounts by combining various missing amounts and try to build transactions for each of them independently, and then use whatever gets a hit. I’m surprised that you consider using bucketed UTXOs for this—I expect that bucketed UTXOs would only be a fallback if you cannot fulfill the amount from non-bucketed UTXOs?
+[/quote]
+
+The reason I considered spending bucketed UTXOs is that I assumed that all of the wallet value would be in bucketed UTXOs except for a few original funding UTXOs larger than the largest bucket. But that mental model may not be correct because when channels are closed they create UTXOs with random amounts that may fall outside of our buckets.
+
+### suggestion 2
+I think what you're suggesting here is that when we cannot create a change-less funding transaction we should try to target change that can exactly refill a set of depleted buckets without creating any additional change output.
+
+In my simulations refilling seems to usually come from one of the large initial funding UTXOs. These UTXOs can initially refill all depleted buckets, but eventually either generates a change output that is in a bucket or between buckets. 
+
+Outputs that are between buckets are similar to what can be created when we close channels. Perhaps these UTXOs can be consolidated when fees are low? See also **suggestion 1**.
+
+-------------------------
+
+remyers | 2024-03-20 09:50:16 UTC | #6
+
+[quote="murch, post:3, topic:600"]
+[quote="remyers, post:1, topic:600"]
+* Does the concept of performing pre/post processing on the parameters of coin selection make sense or is there some way to optimize coin selection itself for this scenario?
+[/quote]
+
+I am not sure I understand which coin selection parameters you consider pre- and post-processing here. If you mean the `min_change`, I think that you might get limited leverage out of that. I expect that the feerate is foreign determined by the general mempool situation. You may consider creating P2WPKH and P2TR outputs depending on the current feerate and what sort of change outputs you are creating. If you are creating bucketed change outputs at low feerates, you may want to make P2TR outputs, while you might want to opt for P2WPKH non-bucketed change outputs when building transactions at high feerates. Are there other parameters that you were considering?
+[/quote]
+
+I only mean by pre/post processing that we are not monkeying with the internals of coin selection, but just the parameters passed in and adjusting the transaction returned.
+
+I was only looking at `min_change` as a parameter for coin selection.
+
+### suggestion 3
+
+Good idea to adjust which type of outputs we create based on the fee environment. This seems like an additional optimization we can adopt in addition to any other changes.
+
+-------------------------
+
