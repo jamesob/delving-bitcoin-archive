@@ -130,3 +130,37 @@ That said, sponsors (or other transactions that are provably re-bindable to eith
 
 -------------------------
 
+harding | 2024-03-19 21:13:07 UTC | #3
+
+[quote="reardencode, post:2, topic:696"]
+As I [posted](https://twitter.com/reardencode/status/1770094336434430157) on X, the biggest complication with sponsors is that the sponsor transaction can become invalid depending on innocent block reorderings, which would require it to be treated as a coinbase output and mature before it can be used in a normal transaction.
+[/quote]
+
+Right, that was a [concern](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-September/018195.html) of @sdaftuar's in the original thread.  I agree that reorg safety has been a useful property these past 15 years, but I wonder if it will continue to be as useful in the future:
+
+- Several of the soft fork proposals people are currently advocating for will allow scripts to verify SPV proofs, at which point it'll be possible for scripts to implement the functionality of transaction sponsorship, `OP_EXPIRE`, and several other features that are not reorg safe.
+- No one can safely rely upon an input in a contract protocol unless it's been highly confirmed or comes from a chain of transactions they controlled that is rooted entirely in one or more highly confirmed transactions.  Reorg safety is a convenience feature; contract protocols must not rely on it for security.
+- Frequent use of RBF fee bumping on the network can also lead to completely accidental invalidation during reorgs.
+
+If we expect the near future to include more expressive scripting, more use of contract protocols, and more use of RBF, then I don't think we need to be as careful about protecting transaction chains against  reorgs as we have been in the past.
+
+[quote="reardencode, post:2, topic:696"]
+That said, sponsors (or other transactions that are provably re-bindable to either a current txo or one of its ancestors) could be allowed to spend before maturation
+[/quote]
+
+I think that works fine with the scheme described in my OP.  If we set a coinbase-like maturity limit on the output of any sponsor transaction, then any one of those outputs could be spent as the input to another sponsor transaction prior to maturity.
+
+-------------------------
+
+reardencode | 2024-03-19 21:31:38 UTC | #4
+
+[quote="harding, post:3, topic:696"]
+If we expect the near future to include more expressive scripting, more use of contract protocols, and more use of RBF, then I don’t think we need to be as careful about protecting transaction chains against reorgs as we have been in the past.
+[/quote]
+
+I love this perspective, and apparently have been delinquent in staying up to date on the topic!
+
+Essentially what we're saying is that things like OP_EXPIRE or OP_SPONSOR that can make a confirmed outpoint invalid may have special treatment, or not, in terms of what users do with them depending on the protocols involved. For example, an OP_SPONSOR chain is a safe input to anything that uses TXO-rebindable locking, but not to an ATLC. Outputs from an spend restricted with OP_EXPIRE might require greater POW confirmation (just as historically transactions signaling RBF have).
+
+-------------------------
+

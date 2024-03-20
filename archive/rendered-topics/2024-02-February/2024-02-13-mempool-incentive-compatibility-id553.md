@@ -973,3 +973,15 @@ Having to pay 1.15% as much in total fees means that if you're replacing a 100kv
 
 -------------------------
 
+rustyrussell | 2024-03-19 23:19:18 UTC | #35
+
+[quote="ajtowns, post:34, topic:553"]
+If you have 50% of miners say “anything that won’t confirm in the next 7 blocks can be instantly replaced by a higher feerate tx that will go in the next block”, then the remaining 50% of hashrate adopting a policy of “ditto, provided it pays at least 0.8% as much in total fees” will make more profit over the (very?) long term.
+[/quote]
+
+I'm pretty sure we're now measuring 0.8% of "Never Happens" though.  This doesn't seem to be the kind of thing that happens much by accident, but only as a result of deliberate attack.  And that won't happen in the scenario where 50% of miners are doing this?
+
+So I think you've convinced me that it will come down to whatever's simplest to implement?
+
+-------------------------
+
