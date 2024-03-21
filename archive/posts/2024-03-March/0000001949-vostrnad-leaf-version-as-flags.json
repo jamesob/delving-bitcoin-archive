@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 3.2,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 18.4,
   "yours": false,
   "topic_id": 698,
   "topic_slug": "leaf-version-as-flags",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The leaf version must be even which reduces the number of flags to 7, and it cannot be 0x50 (01010000) because that's the starting byte for the annex. Further restrictions are desirable if we want to support some forms of static analysis, see [footnote in BIP341](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0341.mediawiki#cite_note-7). Given all this, if we ever really need a flag it's probably better to implement it using OP_SUCCESSx.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
