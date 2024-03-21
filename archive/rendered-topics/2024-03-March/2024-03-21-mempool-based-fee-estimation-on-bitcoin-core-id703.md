@@ -1,6 +1,6 @@
 # Mempool Based Fee Estimation on Bitcoin Core
 
-ismaelsadeeq | 2024-03-21 15:17:11 UTC | #1
+ismaelsadeeq | 2024-03-21 15:18:13 UTC | #1
 
 #### Mempool-Based Fee Estimation in Bitcoin Core
 
@@ -90,7 +90,7 @@ You can make a copy of the [sheet](https://docs.google.com/spreadsheets/d/1leEM-
 
 - You can also build the [branch](https://github.com/ismaelsadeeq/bitcoin/tree/02-2024-fee-estimation-with-mempool) and call `estimatefeewithmempool`  and make a comparison with mempool.space and the target block median fee rate that will be logged.
 
-This is a joint work with WillCl-ark, I appreciate Glozow's input on some of the ideas above.
+This is a joint work with @willcl-ark , I appreciate @glozow 's input on some of the ideas above.
 
 Thank you for reading.
 
