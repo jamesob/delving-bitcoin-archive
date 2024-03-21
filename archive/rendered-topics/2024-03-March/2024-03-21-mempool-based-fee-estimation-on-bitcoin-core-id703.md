@@ -1,6 +1,6 @@
 # Mempool Based Fee Estimation on Bitcoin Core
 
-ismaelsadeeq | 2024-03-21 15:18:13 UTC | #1
+ismaelsadeeq | 2024-03-21 16:27:09 UTC | #1
 
 #### Mempool-Based Fee Estimation in Bitcoin Core
 
@@ -88,7 +88,7 @@ From the data above fee estimation with mempool is closely following the block m
 
 You can make a copy of the [sheet](https://docs.google.com/spreadsheets/d/1leEM-uA8EZ-MQLlIh5I9KfGnNPaDnPRem8mrhPW8bVo/edit?usp=sharing) and mess around with the chart data range to see the difference.
 
-- You can also build the [branch](https://github.com/ismaelsadeeq/bitcoin/tree/02-2024-fee-estimation-with-mempool) and call `estimatefeewithmempool`  and make a comparison with mempool.space and the target block median fee rate that will be logged.
+- You can also build the [branch](https://github.com/ismaelsadeeq/bitcoin/tree/02-2024-fee-estimation-with-mempool-without-s-check) and call `estimatefeewithmempool`  and make a comparison with mempool.space and the target block median fee rate that will be logged.
 
 This is a joint work with @willcl-ark , I appreciate @glozow 's input on some of the ideas above.
 
@@ -107,6 +107,20 @@ Thank you for reading.
 [4] https://johnnewbery.com/an-intro-to-bitcoin-core-fee-estimation/
 
 [5] [Challengies with estimating transactions fee rates](https://hackmd.io/@kEyqkad6QderjWKtcBF5Hg/cChallengies-with-estimating-transaction-fees)
+
+-------------------------
+
+harding | 2024-03-21 17:33:00 UTC | #2
+
+If you haven't seen it before, you may want to check out Kalle Alm's previous research on this subject, e.g. as presented at Scaling Bitcoin 2017:
+
+- [Slides](https://scalingbitcoin.org/stanford2017/Day2/Scaling-2017-Optimizing-fee-estimation-via-the-mempool-state.pdf)
+- [Transcript](https://btctranscripts.com/scalingbitcoin/stanford-2017/optimizing-fee-estimation-via-mempool-state/)
+- [Video](https://www.youtube.com/watch?v=QkYXPJMqBNk&t=2052s)
+
+One of his points I recall finding particularly insightful was that, for anyone in a position to RBF, we can simply choose a feerate that is `min(confirmed_estimate,mempool_estimate)` where `confirmed_estimate` is based on non-gameable data (like the existing Bitcoin Core estimatesmartfee) and `mempool_estimate` is based on mempool stats like you describe (which has the risk of potentially being gameable and might also break accidentally, such as after a soft fork).
+
+Using the minimum of the two returned values allows the feerate to adapt downwards very quickly without introducing any new risk that feerates could be manipulated upwards by miners or other third parties.  If people only use the enhanced estimation for cases where they can RBF, then they can always fee bump if they end up underpaying.  (Though it's worth noting that RBFing has non-financial costs: it typically leaks which output is the change output and it requires the fee bumper either be online to bump or create presigned incremental fee bumps.)
 
 -------------------------
 
