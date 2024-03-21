@@ -1,6 +1,6 @@
 # Mempool Based Fee Estimation on Bitcoin Core
 
-ismaelsadeeq | 2024-03-21 15:10:34 UTC | #1
+ismaelsadeeq | 2024-03-21 15:17:11 UTC | #1
 
 #### Mempool-Based Fee Estimation in Bitcoin Core
 
@@ -81,7 +81,7 @@ My node runs from <b>832330</b> to <b>832453</b>, after that using a simple Pyth
 
 The chart below represents fee estimates with mempool in blue and `estimatesmartfee` in yellow, and the block median fee rate in red consecutively every one minute from Block <b>832330</b> to <b>832453</b>
 
-<iframe width="1179" height="729" seamless frameborder="0" scrolling="no" src="https://docs.google.com/spreadsheets/d/e/2PACX-1vSPv65Fl-XgKK3ZP4ktziY2Prd_LdQnldZEfIOuLrLLKEaNwOjsjiNh_aLbc6roU_U7XT3e-JzPOv8z/pubchart?oid=2052758099&amp;format=interactive"></iframe>
+![Mempool fee estimate vs estimatesmartfee vs Actual block median fee|690x426](upload://mBg1PvRprzITiGStE7Kltdh4sWA.png)
 
 
 From the data above fee estimation with mempool is closely following the block median fee rate, more accurate than `CBlockPolicyEstimator`[4] `estimatesmartfee`.
