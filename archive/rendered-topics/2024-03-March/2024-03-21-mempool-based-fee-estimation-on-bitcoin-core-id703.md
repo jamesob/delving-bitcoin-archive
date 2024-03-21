@@ -124,3 +124,27 @@ Using the minimum of the two returned values allows the feerate to adapt downwar
 
 -------------------------
 
+ClaraShk | 2024-03-21 20:55:55 UTC | #3
+
+Nice work and very interesting direction. I think that an approach combining the state of the mempool with information gathered from the blocks themselves could work significantly better than the current fee estimation.
+
+[quote="ismaelsadeeq, post:1, topic:703"]
+A Node can get a fee estimate by generating a block template from mempool transactions
+[/quote]
+
+As the block will be mined in ~10 minutes, the block template can change significantly. Do you have some estimate on the number of transactions that wouldn't make it in to the block eventually? Some fee rate estimates in the graph look low.
+
+[quote="ismaelsadeeq, post:1, topic:703"]
+50th percentile
+[/quote]
+
+Do things change significantly if you choose the bottom 25th percentile?
+
+[quote="ismaelsadeeq, post:1, topic:703"]
+If miners are accepting most of the transactions they mine via other means than the P2P network, users’ mempool will not be roughly the same as miners.
+[/quote]
+
+What do you suggest to do in this case? I think that involving information from the blockchain itself to make the estimation better can help.
+
+-------------------------
+
