@@ -86,3 +86,13 @@ I've added a section on backups and tooling to the wiki: https://github.com/bitc
 
 -------------------------
 
+laanwj | 2024-03-21 08:57:52 UTC | #9
+
+I still have my mirror/backup of some of the bitcoin repositories up as well: http://nxshomzlgqmwfwhcnyvbznyrybh3gotlfgis7wkv7iur2yj2rarlhiad.onion
+
+It doesn't provide a nice user interface like gitlab, though. I'm hesitant to run anything that requires dynamic server functionality.
+
+I should probably add the new metadata mirroring, as I'm still using the ancient `bitcoin-gh-meta` script.
+
+-------------------------
+
