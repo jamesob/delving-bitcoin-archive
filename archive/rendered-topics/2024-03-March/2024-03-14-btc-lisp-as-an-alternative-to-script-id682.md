@@ -552,3 +552,13 @@ The advantage of `OP_EVALINSOFTFORK` is that it replaces `OP_NOP` and can be use
 
 -------------------------
 
+ajtowns | 2024-03-21 01:33:51 UTC | #11
+
+[quote="roconnor-blockstream, post:7, topic:682"]
+This take, drop, iden, idiom is so prevalent in Simplicity for “looking up values in the environment”, that I typically use a short hand where O means drop and I means take and H means iden. I can write these examples as OIH
+[/quote]
+
+I think that turns out remarkably similar to the chia environment lookups if you express them in binary: rather than writing `13`, if you write `0b1101` then I think that's the same as OIOOH -- ie, it's kind of exactly reversed, so reads from right to left rather than left to right, O maps to 1, I maps to 0, and the most-significant 1 maps to H. Writing CLVM environment numbers in binary seems like it makes things much easier.
+
+-------------------------
+
