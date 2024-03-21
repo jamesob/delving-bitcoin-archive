@@ -512,3 +512,43 @@ I think there's also value in being able to go from the consensus language to a 
 
 -------------------------
 
+ZmnSCPxj | 2024-03-21 00:19:14 UTC | #10
+
+Environment Objects
+===============
+
+A thing I should note from my days as a programming language theory nerd is that a Scheme (a kind of Lisp) can be implemented such that a Scheme interpreter is really a Scheme compiler that targets a stack virtual machine, and in fact toy implementations of Scheme often do this.
+
+Now in Scheme a function may capture variables that are not defined in its arguments or in its `let` forms, but outside of the function.  This gets compiled down to an array of values, the values being the captured variables.  These arrays are often called "closures" or "environments" --- it is likely that chialisp actually got the "environment" from this concept, and an actual chialisp virtual machine can probably optimize by putting the binary tree into an array and using array indexes to look up environments.
+
+Note that stack-based Scheme toy implementations will in fact allow you to create such closure/environment structures by popping of some number of items off the stack, and usually have a concept of "the current environment" which is often loaded when a function is entered.  Then there are convenient stack operations that just push corresponding items from the environment on the stack.
+
+As we know, when experimenting with more complex SCRPT utilizing more complex covenants stuff like `OP_CAT`, a fair amount of code is futzing around the stack.  We could instead have a "load stack items into current environment" and "push an item from a specific index of the current environment onto the stack" as part of the stack-based actual underlying language, in order to assist this.
+
+In particular, a Lisp expression `(f (g 2 3) (h 4 (i 6)))` can be compiled to a stack-based language like `<6> OP_I <4> OP_H <3> <2> OP_G OP_F`, i.e. reverse polish notation.  The problem with current Bitcoin SCRIPT is that accessing variables --- "captured" variables that are part of the SCRIPT commited to in the `scriptPubKey`, such as public keys, as well as "argument" variables that are part of the `witness` --- requires stack gymnastics.  Having operations to load a "current environment" from the stack (which then contains the witness i.e. arguments, as well as some of the captured variables such as public keys or hashes) and accessing that environment by index would drastically reduce stack gymnastics while still retaining SCRIPT.
+
+Softfork Semantics
+===========
+
+A really cute part of chialisp is how they handle new opcodes.
+
+Before Taproot our only way to create new opcodes was by replacing `OP_NOP`.  This was restrictive because `OP_NOP` cannot change the stack, so it seemed that new opcodes that manipulate the stack were impossible to add.
+
+However, we can imagine an `OP_EVALINSOFTFORK` operation that can replace `OP_NOP` while allowing new opcodes that pop and push items onto the stack, congruent to the chialisp `softfork` form.
+
+The arguments to `OP_EVALINSOFTFORK` would be, from stack top:
+
+* A softfork identifier
+* A script to run with the softfork identified above.
+* A number, specifying additional stack items to load into the initial stack of the given script (or alternatively, to load into the "current environment" of the given script).
+
+`OP_EVALINSOFTFORK` then evaluates the given script under the rules of the identified softfork with  a fresh separate stack from the outer script. If the softfork identifier is not recognized, then no validation is done --- to allow softforks.  The script simply needs to succeed --- it does not affect the stack of the outer script. This allows `OP_EVALINSOFTFORK` to replace `OP_NOP`, but the inner script can have new opcodes that change the stack because the inner stack is separate from the outer stack, and the only thing the inner script can signal is "pass / fail".
+
+Of course as we all know, any `OP_EVAL` allows arbitrary looping, and `OP_EVALINSOFTFORK` allows this as well.  We can quine a script by loading itself into the "copy these items" part of `OP_EVALINSOFTFORK`, which is sufficient to allow arbitrary looping.
+
+To prevent looping, we can turn to our inherent assumptions.  In Bitcoin, we assume that the cost of validating a transaction is proportional to its weight, i.e. the number of bytes, which is why feerates are based on weight.  To limit looping, we can require that if an `OP_EVALINSOFTFORK` evaluates its script, it keeps track of the number of actual operations executed, and continually compares it to the size of the input script.  All operations are counted as 1, except sub-`OP_EVALINSOFTFORK`, which is the actual number of operations executed inside it.  When an `OP_EVALINSOFTFORK` is executed inside another `OP_EVALINSOFTFORK`, the limit of the outer `OP_EVALINSOFTFORK`, as well as its accumulated number-of-operations, is passed to the inner `OP_EVALINSOFTFORK` (or stated differently, the outermost `OP_EVALINSOFTFORK` sets the limit and initializes number-of-operations to 0 for all inner `OP_EVALINSOFTFORK`, and inner `OP_EVALINSOFTFORK` just continue the same limit and number-of-operations variable).  Thus, quining must eventually terminate.  For non-looping uses, the size of the script must be greater than or equal to the number of `OP_` codes.
+
+The advantage of `OP_EVALINSOFTFORK` is that it replaces `OP_NOP` and can be used in pre-Taproot P2SH and P2WSH.  Another advantage of `OP_NOP` replacement is that we can use the scheme in https://delvingbitcoin.org/t/economic-majority-signaling-for-op-ctv-activation/635/6 as well, even for activation of opcodes that manipulate stack (because such opcodes are inside an `OP_NOP`-replacing `OP_EVALINSOFTFORK`).
+
+-------------------------
+
