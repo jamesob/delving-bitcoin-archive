@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 11,
   "readers_count": 10,
-  "score": 17.0,
+  "score": 32.2,
   "yours": false,
   "topic_id": 624,
   "topic_slug": "gitlab-backups-for-bitcoin-core-repository",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -58,10 +58,10 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
