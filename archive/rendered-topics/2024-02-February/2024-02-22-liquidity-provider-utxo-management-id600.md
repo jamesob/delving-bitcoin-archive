@@ -326,3 +326,29 @@ That’s an interesting idea. Perhaps at that point, BnB is actually not useful 
 
 -------------------------
 
+remyers | 2024-03-22 09:23:39 UTC | #10
+
+[quote="murch, post:9, topic:600, full:true"]
+[quote="remyers, post:7, topic:600"]
+Counter intuitively my initial tests showed all algos having slightly lower total fees and fewer median inputs than using only bnb+cg. I’m running more tests to try to figure out why.
+[/quote]
+
+I expect that you did, but I assume that you set the `consolidationfeerate` to 1000 or 0, which would make CoinGrinder work at every feerate? One downside might be that CoinGrinder prefers the lower input amount all other things equal, and therefore you might create useful change less often. Do you already set custom minimum change amounts in this experiment or is the `min_change` behavior the default one?
+[/quote]
+
+We are setting `consolidationfeerate` to 0, so CoinGrinder should always be preferred when there is no BnB solution with fewer inputs in the `all algo` tests. These tests were not using `min_change` to adjust the change target - just the default change behavior. The scenario file was one that mostly sends bucketed amounts, and rarely gets a payment. 
+
+[quote="murch, post:9, topic:600, full:true"]
+[quote="remyers, post:8, topic:600"]
+One additional idea I’m exploring is to take advantage of an addition degree of freedom unique to Lightning funding transactions: we do not need to hit the exact amount requested. Any value over (or under) the target funding amount will do when funding a channel. The funder still controls the funding amount in the Lightning channel and can charge for the exact amount added.
+[/quote]
+
+That’s an interesting idea. Perhaps at that point, BnB is actually not useful at all, but you could try using just several calls to CoinGrinder with various `min_change` values from minimal plus different bucket minimums.
+[/quote]
+
+My hope was to make it so that BnB succeeds more often by finding a bucketed UTXO that may have too much (or too little) effective value at the current fee rate. Currently any `excess` increases the waste (or disqualifies) such choices but for funding liquidity it is not actually wasted (or a reason to exclude the UTXO) if the value is "close" to what we want for funding.
+
+Not having change is still a big advantage for liquidity management so single-input changeless BnB solutions should be preferred. Second best is a single input with enough extra value to create change outputs that refill our buckets. Adding multiple inputs to consolidate small non-bucketed UTXOs should be a last resort, or occur when fees are low (as you suggested earlier).
+
+-------------------------
+
