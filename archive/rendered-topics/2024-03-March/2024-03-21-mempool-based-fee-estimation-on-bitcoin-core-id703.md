@@ -148,3 +148,54 @@ What do you suggest to do in this case? I think that involving information from 
 
 -------------------------
 
+ismaelsadeeq | 2024-03-22 11:40:39 UTC | #4
+
+Thank you for the link I find the ideas very insightful
+
+> we can simply choose a feerate that is `min(confirmed_estimate,mempool_estimate)`
+
+The issue with the approach you mentioned is that we will be adapting downwards towards lower estimates, especially in cases where previously mined blocks have lower fee rate. Instead of adapting to the current mempool state, we will be providing a low fee rate estimate.
+
+I try modifying the current data to give provide `min(confirmed_estimate,mempool_estimate)`.
+
+It is underestimating as expected, this will prevent the current overestimating of `CBlockPolicyEstimator` but the problem of underestimation will still be relevant.
+
+
+![Mempool fee estimate vs estimatesmartfee vs Actual block median fee(1)|690x426](upload://ig7fKuNyoXvMAH7W8lY7gbOB0FU.png)
+
+ https://docs.google.com/spreadsheets/d/1CMIS3miHLwEc8hmT5ZdZy0TVAxVi61folaoZgJBPQpg/edit?usp=sharing
+
+> `mempool_estimate` is based on mempool stats like you describe (which has the risk of potentially being gameable and might also break accidentally, such as after a soft fork).
+
+I believe the checks we will have in place could prevent a node from using this estimation mode in the case of soft forks. 
+One scenario where miners could manipulate the mempool and cause congestion is by mining empty blocks or deliberately refraining from mining for some time to congest the mempool and make fee estimate spike up. However, assuming mining is decentralized, this scenario will not hold? Are their other instances ?
+
+-------------------------
+
+ismaelsadeeq | 2024-03-22 11:38:27 UTC | #5
+
+[quote="ClaraShk, post:3, topic:703"]
+As the block will be mined in ~10 minutes, the block template can change significantly. Do you have some estimate on the number of transactions that wouldn’t make it in to the block eventually? Some fee rate estimates in the graph look low.
+[/quote] 
+
+Yes, indeed, they are low because in ~10 minutes after a fee rate estimate, if there is a high inflow of transactions, there is a likelihood of transactions getting bumped out by other transactions with higher mining scores. If you estimated the fee rate with the 50th percentile of the block weight, and the weight of new transactions in the mempool with higher mining scores is >  4000000/2, then it's most likely that your transaction will be bumped out and will not be mined in the next block.
+
+You would have to make a new fee rate estimate and RBF bump the transaction in this case.
+
+We could also use the top 25th percentile to reduce the likelihood of getting bumped out; and also reduce the low estimates.
+
+[quote="ClaraShk, post:3, topic:703"]
+Do things change significantly if you choose the bottom 25th percentile?
+[/quote] 
+
+Yes I think it will lower the fee rate estimate! and the potential of getting bumped out is higher in this case.
+
+[quote="ClaraShk, post:3, topic:703"]
+What do you suggest to do in this case? I think that involving information from the blockchain itself to make the estimation better can help.
+[/quote] 
+
+
+In this case, the sanity checks will indicate that we are not in sync with miners and we will not use this estimation mode, we could just fall back to `CBlockPolicyEstimator`?
+
+-------------------------
+
