@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0,
+  "incoming_link_count": 1,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 36.4,
   "yours": false,
   "topic_id": 703,
   "topic_slug": "mempool-based-fee-estimation-on-bitcoin-core",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Nice work and very interesting direction. I think that an approach combining the state of the mempool with information gathered from the blocks themselves could work significantly better than the current fee estimation.\n\n[quote=\"ismaelsadeeq, post:1, topic:703\"]\nA Node can get a fee estimate by generating a block template from mempool transactions\n[/quote]\n\nAs the block will be mined in ~10 minutes, the block template can change significantly. Do you have some estimate on the number of transactions that wouldn't make it in to the block eventually? Some fee rate estimates in the graph look low.\n\n[quote=\"ismaelsadeeq, post:1, topic:703\"]\n50th percentile\n[/quote]\n\nDo things change significantly if you choose the bottom 25th percentile?\n\n[quote=\"ismaelsadeeq, post:1, topic:703\"]\nIf miners are accepting most of the transactions they mine via other means than the P2P network, users\u2019 mempool will not be roughly the same as miners.\n[/quote]\n\nWhat do you suggest to do in this case? I think that involving information from the blockchain itself to make the estimation better can help.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
