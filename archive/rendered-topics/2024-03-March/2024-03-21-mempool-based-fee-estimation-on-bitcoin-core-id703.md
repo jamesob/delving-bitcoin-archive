@@ -199,3 +199,19 @@ In this case, the sanity checks will indicate that we are not in sync with miner
 
 -------------------------
 
+harding | 2024-03-22 23:41:14 UTC | #6
+
+[quote="ismaelsadeeq, post:4, topic:703"]
+One scenario where miners could manipulate the mempool and cause congestion is by mining empty blocks or deliberately refraining from mining for some time to congest the mempool and make fee estimate spike up. However, assuming mining is decentralized, this scenario will not hold? Are their other instances ?
+[/quote]
+
+Miner Mallory creates (but does not immediately broadcast) several large and high-feerate transactions, {_A_, _B_, _C_, ...}.  She also creates (but does not broadcast) a minimal-size, zero-fee transaction that conflicts with all her previous transactions.  She includes the conflicting transaction in her block templates.  She eventually mines a block containing it but does not immediately broadcast that block.  Instead, she immediately broadcasts her large original transactions, waits a few seconds, and then broadcasts her block.  Users receive the transactions first, increase their feerate estimates, and some of those users in those few seconds broadcast high-feerate transactions that remain valid even after Mallory's block propagates.  The entry of those user's high feerate transactions into the other node mempools potentially results in later users choosing high feerates, magnifying the effect.
+
+This is a variant on a _Finney attack_.  It's a contrived example at present as it requires Mallory risk losing an entire block reward, of which the subsidy currently dominates.  But in the future when fees dominate, it may be worth it for moderately large (but non-majority) miners to risk a small chance of losing a block reward for the opportunity to increase fees by a significant percentage.  A longer-range version of this attack would use selfish mining.
+
+More generally, I think we need to be aware of the feedback loop between current fees, fee estimates, and future fees.  An algorithm that lowers feerates too aggressively will receive negative feedback from the transactions it produces not getting mined.  For anyone who can fee bump their transactions without too much inconvenience, that's probably ok.  An algorithm that raises feerates too aggressively may receive positive feedback from seeing its high feerate transactions getting mined, resulting in it returning even higher and higher feerate estimates until it hits the external limit of many people being unwilling to send transactions with such high feerates.  That's less ok, both because people can't practically lower their feerates if it becomes apparent that the market is overbid and because any miner who can trigger overbidding may be able to profit.
+
+I'm not saying that we should never use mempool information to raise feerate estimates, just that I think it's lot easier to make the case that lowering feerate estimates based on mempool information is safe for people who can easily and cheaply fee bump.
+
+-------------------------
+
