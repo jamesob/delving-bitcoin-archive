@@ -562,3 +562,9 @@ I think that turns out remarkably similar to the chia environment lookups if you
 
 -------------------------
 
+ZmnSCPxj | 2024-03-24 01:10:48 UTC | #12
+
+Re: surface syntax, you might also want to consider [SRFI-105](https://srfi.schemers.org/srfi-105/srfi-105.html) i.e. `#!curly-infix`.  Briefly, this converts `{a = b}` to `(= a b)`, `{{a} < {b} < {c}}` to `(< a b c)`, etc.
+
+-------------------------
+
