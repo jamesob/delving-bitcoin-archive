@@ -415,3 +415,19 @@ The soft fork feature bits were vetted and rolled out under the assumption that 
 
 -------------------------
 
+Bayman11771 | 2024-03-23 22:50:11 UTC | #27
+
+I am not a developer, and most certainly have less time invested in Bitcoin than most of you. I enjoy and appreciate this forum as it teaches me more about what is happening in the community than any other outlets, save those opportunities I get to interact with developers in person. I do have other professional experience, however, that causes me to believe this topic is more important now than at any time in the recent past. Please take my impressions as just that, and I offer them as food for your collective thought.
+
+Until now, Bitcoin has enjoyed the support of a community of developers driven by principled belief in the protocol. Many of you persevered through the times when Bitcoin’s continued existence was not a certainty, and whatever battles you fought were ultimately in defense of a principled vision for what Bitcoin should be. Those battles were also fought among people who knew each other, often for years. As we stand at the precipice of accelerating adoption, the mechanism for arriving at consensus for changes in the protocol will be tested by new entrants to the ecosystem.
+
+Regardless of your thoughts about ETFs and the financialization of Bitcoin, the reality is new, powerful actors are entering the space, actors whose commitments to the principles of the protocol are tempered by the allure of profits. As the invested wealth of these actors grows, it is only a matter of time until they view the developer community as a mechanism for influencing the protocol to their benefit. Young, promising developers who perhaps today have no interest in Bitcoin will soon find lucrative employment opportunities with tradfi firms that today want to better understand and, perhaps tomorrow, influence the development path of Bitcoin.
+
+Additionally, financialization will also bring increased government scrutiny of Bitcoin, markets, and even the developers maintaining and building the protocol. With soon to be trillions of dollars of wealth tied up in Bitcoin, it would be naïve to think that global regulators will not show interest in how Bitcoin is maintained and developed.
+
+I couldn’t tell you what I think is the best mechanism for arriving at consensus changes. I leave that to all you developers whose talent, time, and emotional capital is imprinted on the protocol. I do believe the proverbial clock is ticking towards a wave of efforts by financial institutions and perhaps even regulators to “tame” Bitcoin and have it serve the interests of the establishment. Without your hard work and vigilance, the 0s and 1s grateful plebs such as myself guard so preciously could easily become worthless bits of data. While I’ve written a lot to end up with no useful suggestions, I do hope I’ve highlighted what I see is a coming pressing need for some kind of agreed upon framework for consensus changes that will both allow for smart evolution while still respecting a set of core principles.
+
+Thanks for all you do.
+
+-------------------------
+
