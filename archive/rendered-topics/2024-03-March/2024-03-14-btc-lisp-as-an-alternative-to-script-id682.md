@@ -578,3 +578,13 @@ I'd like to see an apples/apples comparison to code diff but I suspect 80%+ of t
 
 -------------------------
 
+ajtowns | 2024-03-25 17:46:17 UTC | #14
+
+[quote="instagibbs, post:13, topic:682"]
+I’d like to see an apples/apples comparison to code diff but I suspect 80%+ of that diff is things like COQ proofs and other supporting infrastructure, not something that is required in the consensus code itself.
+[/quote]
+
+To see the consensus code changes, you'd look at things like [jets.c](https://github.com/ElementsProject/elements/blob/174c46baecd7b180cda977827886833840ac49e3/src/simplicity/jets.c) or [primitives/elements/jets.c](https://github.com/ElementsProject/elements/blob/174c46baecd7b180cda977827886833840ac49e3/src/simplicity/primitive/elements/jets.c) or [eval.c](https://github.com/ElementsProject/elements/blob/174c46baecd7b180cda977827886833840ac49e3/src/simplicity/eval.c) or [exec.c](https://github.com/ElementsProject/elements/blob/174c46baecd7b180cda977827886833840ac49e3/src/simplicity/primitive/elements/exec.c). There's also a tweaked implementation of [secp256k1](https://github.com/BlockstreamResearch/simplicity/blob/adb7be91acd1e91415b93a5b29c634c4447f7a50/C/secp256k1/README.md) (~26k lines) included. I don't think any of the [haskell](https://github.com/BlockstreamResearch/simplicity/tree/master/Haskell) (~29k lines) or [coq](https://github.com/BlockstreamResearch/simplicity/tree/master/Coq/Simplicity) (~6k lines) code is included in the elements PR (and hence not in that +41k figure either).
+
+-------------------------
+
