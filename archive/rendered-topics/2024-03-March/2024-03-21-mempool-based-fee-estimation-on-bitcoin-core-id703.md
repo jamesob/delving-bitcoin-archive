@@ -215,3 +215,16 @@ I'm not saying that we should never use mempool information to raise feerate est
 
 -------------------------
 
+ismaelsadeeq | 2024-03-25 08:36:40 UTC | #7
+
+Thank you, @harding, for guiding me through the scenario. I contemplated only considering a transaction for fee estimation after a certain period of broadcasting t that will make the attacker risk loosing money to other miners, but it seems that even this approach could be susceptible to the selfish mining variant.
+
+Implementing a mempool-based estimate with the threshold of `CBlockPolicyEstimator` would mitigate this risk of the attack you mentioned, and reduce overestimation a lot, and I rightly believe is an improvement to current status quo. 
+However, in cases of underestimation, fee bumping may not offer the best user experience. But, the tradeoff seems justified by the threat posed of this attack vector.
+
+When a transaction has been unconfirmed for a while and it seems fee bumping is necessary, with the proposed design if you estimate fees it might still be underestimated because of the threshold. Presently, users often rely on external services to assess the state of the mempool which is more risky in terms of being artificially manipulated to inflate fee rate estimates.
+
+Could we introduce a verbose option to this that allows users to view the mempool state of their node?  Users can use this data for decisions when fee bumping  and then integrate the mempool-based fee estimate with the `CBlockPolicyEstimator` threshold into wallet operations?
+
+-------------------------
+
