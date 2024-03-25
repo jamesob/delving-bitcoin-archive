@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 149,
-  "reads": 37,
-  "readers_count": 36,
-  "score": 952.4,
+  "incoming_link_count": 185,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 1163.2,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 13
+      "count": 15
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "rocket",
       "type": "emoji",
-      "count": 2
+      "count": 4
     },
     {
       "id": "heart",
@@ -77,6 +77,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 13,
+  "reaction_users_count": 15,
   "current_user_used_main_reaction": false
 }

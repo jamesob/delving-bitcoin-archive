@@ -8,13 +8,13 @@
   "post_number": 37,
   "post_type": 1,
   "updated_at": "2024-03-24T21:47:33.510Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 22,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 27.8,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "[quote=\"rustyrussell, post:26, topic:553\"]\nWe still have to deal with the DoS problem, but perhaps that\u2019s as simple as \u201cif a tx has been in the mempool for over 12 blocks and you\u2019re offered feerate to get the replacement into the top of mempool, and they\u2019ve both v3, allow RBF ignoring the total fee rule\u201d.\n[/quote]\n\nI think an adversary can game this by just replacing their \"pinning\" transaction right before the 12 block deadline passes with a minimal fee bump, to maintain the pin for another 12 blocks?  (Not sure if you have some other implementation detail in mind to deal with such a case.)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

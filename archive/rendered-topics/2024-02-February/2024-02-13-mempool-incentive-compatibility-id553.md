@@ -1035,3 +1035,13 @@ I think an adversary can game this by just replacing their "pinning" transaction
 
 -------------------------
 
+instagibbs | 2024-03-25 12:45:14 UTC | #38
+
+[quote="sdaftuar, post:37, topic:553"]
+I think an adversary can game this by just replacing their “pinning” transaction right before the 12 block deadline passes with a minimal fee bump, to maintain the pin for another 12 blocks? (Not sure if you have some other implementation detail in mind to deal with such a case.)
+[/quote]
+
+In my unfinished "V4-pool"(a very small mempool of txns that must enter top block) thinking, forcing the replacement to always top block fixes this corner case. After a tx "times out" we consider the tx to already be free relay, and allow a replacement, provided it's not another bottom of mempool.
+
+-------------------------
+

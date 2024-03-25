@@ -568,3 +568,13 @@ Re: surface syntax, you might also want to consider [SRFI-105](https://srfi.sche
 
 -------------------------
 
+instagibbs | 2024-03-25 13:30:21 UTC | #13
+
+[quote="ajtowns, post:9, topic:682"]
+I guess my main issue with Simplicity is as a “Consensus Language”, particularly the reviewability aspect – implementing Simplicity is a sizable amount of code ([Elements#1219](https://github.com/ElementsProject/elements/pull/1219) is currently +41238-18 eg), and even if the path of least resistance to understanding that code is to treat much of it as generated (ie better to spend your time understanding the formal specification and the code generation tools than looking at C/C++ code directly) that’s also a lot of complexity and requires a pretty high baseline of expertise.
+[/quote]
+
+I'd like to see an apples/apples comparison to code diff but I suspect 80%+ of that diff is things like COQ proofs and other supporting infrastructure, not something that is required in the consensus code itself. Goes without saying but deleting mechanical proofs makes "reviewing easier" in the way that cutting brake lines means you care about speed.
+
+-------------------------
+

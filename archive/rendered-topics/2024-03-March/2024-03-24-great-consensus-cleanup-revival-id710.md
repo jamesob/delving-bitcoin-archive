@@ -124,3 +124,21 @@ I think SIGHASH_SINGLE bug reported in 2012 should also be fixed with other bugs
 
 -------------------------
 
+sjors | 2024-03-25 14:35:18 UTC | #3
+
+Thanks for the write-up! Parts of the BIP itself could also benefit from a more clear description, to better describe what the consensus changes are.
+
+I agree that the changes here should be kept both simple and as uncontroversial as possible, because otherwise it slows down the process exponentially.
+
+One potential way to mitigate the harm of slow validation, without / before a soft fork, is for nodes to validate competing tips in parallel. The node keeps an eye on alternative headers while block validation is in progress. If a second header arrives at the same height, it would validate it in parallel. Whichever candidate is validated first is announced to the network. The slower side would be fully validated (`valid-fork` in the `getchaintips` RPC of Bitcoin Core), so it can be switched to very quickly if needed.
+
+This is only a small deviation from the current logic of preferring the first _seen_ header. But implementation wise it may not be easy.
+
+If regular node runners and pools run that, it strongly increases the probability for the attacker block to go stale. But only if other pools actually _try_ to produce a competing block. That happens automatically if they _don't_ SPV mine.
+
+Pools that _do_ SPV mine (in the period between seeing a header and validating the full block) could use some heuristic to decide the most profitable strategy here, taking into account how much time _other_ pools likely need to validate the block.
+
+But without a soft fork I'm worried that if an attack takes places, especially if people see it coming, there's an incentive for pool operators to hop on a phone call and coordinate what to do about it. Such phone calls are not healthy in the long run.
+
+-------------------------
+
