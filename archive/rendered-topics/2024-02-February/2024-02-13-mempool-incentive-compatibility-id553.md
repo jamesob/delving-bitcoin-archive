@@ -1025,3 +1025,13 @@ I think the above table implies that for any tx that's 5MvB deep in the mempool 
 
 -------------------------
 
+sdaftuar | 2024-03-24 21:47:33 UTC | #37
+
+[quote="rustyrussell, post:26, topic:553"]
+We still have to deal with the DoS problem, but perhaps that’s as simple as “if a tx has been in the mempool for over 12 blocks and you’re offered feerate to get the replacement into the top of mempool, and they’ve both v3, allow RBF ignoring the total fee rule”.
+[/quote]
+
+I think an adversary can game this by just replacing their "pinning" transaction right before the 12 block deadline passes with a minimal fee bump, to maintain the pin for another 12 blocks?  (Not sure if you have some other implementation detail in mind to deal with such a case.)
+
+-------------------------
+

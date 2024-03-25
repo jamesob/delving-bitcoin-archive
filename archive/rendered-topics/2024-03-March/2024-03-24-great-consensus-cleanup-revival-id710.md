@@ -100,3 +100,27 @@ For instance here is a couple things i wasn't convinced were worth proposing:
 
 -------------------------
 
+1440000bytes | 2024-03-24 23:52:07 UTC | #2
+
+[quote="AntoineP, post:1, topic:710"]
+It’s bad. The worst block i could come up with takes around 3 minutes to validate with all 16 cores of my modern laptop’s CPU and a hour and a half of a RPi4. For obvious reasons i’ve redacted here the details of such block, as well as the various approaches to create similarly expensive-to-validate blocks. I’ll share them in a semi-private companion post to other protocol developers using the private working group feature of Delving. If you think you should be in this working group and i forgot to add you, let me know.
+[/quote]
+
+- It is the worst of all the attacks described in this post and I am surprised no state sponsored miners have tried to solo mine such blocks.
+
+- Example for one such blocks and approach is already public.
+
+[quote="AntoineP, post:1, topic:710"]
+Some confiscation concerns were raised about the proposed mitigations. I believe those concerns are reasonable and could be addressed by only applying the new rules when checking the script for an output created after a certain block height.
+[/quote]
+
+This makes sense. 
+
+[quote="AntoineP, post:1, topic:710"]
+At this stage i’m interested in gathering as many suggestions for cleanups as i can, to make sure that if such a soft fork were to be proposed, we would have carefully analyzed all the fixes we’d like to include.
+[/quote]
+
+I think SIGHASH_SINGLE bug reported in 2012 should also be fixed with other bugs: https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg01408.html
+
+-------------------------
+
