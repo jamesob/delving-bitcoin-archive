@@ -187,3 +187,19 @@ Some thoughts:
 
 -------------------------
 
+sdaftuar | 2024-03-26 18:46:13 UTC | #6
+
+[quote="harding, post:3, topic:696"]
+* Several of the soft fork proposals people are currently advocating for will allow scripts to verify SPV proofs, at which point it’ll be possible for scripts to implement the functionality of transaction sponsorship, `OP_EXPIRE`, and several other features that are not reorg safe.
+[/quote]
+
+Could you elaborate on what the soft fork proposals are that would allow scripts to verify SPV proofs, which you mention here?
+
+Regarding OP_EXPIRE, I think a significant drawback besides the reorg safety issue is the need to come up with a mempool design that allows for relaying of transactions which might become invalid at some point in the future.  I think there are obvious DoS issues which come up, which while may be solvable, would require significant engineering effort.
+
+Relatedly, I think that transaction sponsorship also opens up a lot of engineering effort to get mempool policy to work properly, and that many of the underlying issues that it tries to solve require work at the policy layer that could just as readily be done without transaction sponsorship.  I tried to describe this perspective in my mailing list post that you already linked, so I won't repeat those points here.  However, one additional point I'll make is that I think if we ever were to go down this sponsorship road, the right way to do this would be for transactions to opt-into being sponsorable and thus affected by the consensus change.  If we were to let an arbitrary 3rd party on the network attach to the transaction graph of any relayed transaction, I think we'd open up all sorts of DoS concerns with mempool policy.
+
+A simple example in the context of cluster mempool -- if a 3rd party can attach to any transaction, then that could be used to form large clusters out of the mempool that would prevent other parties from being able to chain their own children (due to cluster size limits being hit). Workarounds to this sort of thing may be possible, but it's a lot of work to think through all these issues, and conceptually, I think the right design for any proposed consensus change is to avoid negatively impacting existing use cases/usage patterns.
+
+-------------------------
+
