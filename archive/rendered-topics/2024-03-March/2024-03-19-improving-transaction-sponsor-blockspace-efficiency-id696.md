@@ -369,7 +369,7 @@ The "normal" use of that annex entry would be either as a per-input timelock (0-
 
 -------------------------
 
-instagibbs | 2024-03-27 15:20:27 UTC | #11
+instagibbs | 2024-03-27 15:32:38 UTC | #11
 
 [quote="harding, post:9, topic:696"]
 we’ll have a scaling improvement ready to go.
@@ -378,6 +378,8 @@ we’ll have a scaling improvement ready to go.
 A little push-back here: this precludes batched CPFP, which is somewhere in-between single-tx exo fees and single CPFP exo fees, depending on how many "well I was just making txs already" cases are in play.
 
 I suspect if we really wanted to squeeze every byte(I'm unconvinced, but this thread is for people who are interested in doing so :) ), you'd want to support both this type of sponsor and the more general original one, with the associated complexities involved.
+
+(or we figure out a softfork for robust single tx exo fees, with stacking ala @rustyrussell dream world!)
 
 -------------------------
 
