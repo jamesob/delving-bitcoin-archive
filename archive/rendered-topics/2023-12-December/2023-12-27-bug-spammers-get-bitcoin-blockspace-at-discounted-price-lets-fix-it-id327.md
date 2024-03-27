@@ -370,3 +370,11 @@ GregTonoski | 2024-03-16 13:56:48 UTC | #26
 
 -------------------------
 
+GregTonoski | 2024-03-27 18:42:14 UTC | #27
+
+![image|690x175](upload://lF6mvrvG7SpcjwlSaOrbpF5oFq7.png)
+[Mar 27, 2024](https://twitter.com/DavidFBailey/status/1772979116364468243)
+Explanatory note: the author - David Bailey - has been promoting the spam commercially for a year or more.
+
+-------------------------
+

@@ -383,3 +383,25 @@ I suspect if we really wanted to squeeze every byte(I'm unconvinced, but this th
 
 -------------------------
 
+JeremyRubin | 2024-03-27 16:36:12 UTC | #12
+
+Any protocol that is ever to be at all secure on Bitcoin has to be "progress friendly", that is, if there is a set of currently minable transactions $S$, the protocol works as expected if any $s \in S$ is mined, and any such $s$ being mined is a good outcome.
+
+The idea that protocols could be "unhappy" if $s_0$ is mined instead of $s_1$ is weak.
+
+Suhas' point about pinning is rendered more or less moot if you, as a point of policy, only allow sponsors if they put a cluster into the next block (or maybe a few blocks out). All users will be happy in that case because -- irrespective of if they were pinned for one block -- their protocol has made progress as some tx has been mined. This isn't really a problem for sponsors, because theres no point in sponsoring far ahead of when it is likely to be included.
+
+For example, LN-Symmetry can be progress friendly because if the ratchet state is at 12321, and the miner chooses to mine state 112 instead of 12321 because of a sponsor, then 12321 can still be broadcast later at no additional cost to the participant wishing to finalize that state. Each update also expands the timeout before final claim, so there is always enough time even with a long sequence of bad updates.
+
+Should there be any protocol which is attaching any value to preferring $s_1$ to $s_0$, and expecting to be able to have broadcast both to the network and have $s_1$ be guaranteed to be mined, is not secure and there is no reason to even attempt to support it beyond miner rationality. Sponsors to the rescure -- $s_1$ or $s_0$ are only preferred if they pay more directly or via a sponsor package.
+
+To make this even more abundantly clear, a malicious 3rd party is only willing to sponsor $s_0$ over $s_1$ when there is some profit extractable by including $s_0$ instead of $s_1$. If there _is_ such a profit to be extracted, then we should expect (with or without sponsors) a miner to either figure out how to extract that profit themselves, or to accept an out-of-band bribe to include $s_0$ over $s_1$. Worse still, if out-of-band bribes are popular, you'd only do it to "trustworthy" miners, leading to a profit edge for centralization.
+
+To really take it home, even with a normal use case of RBF, the preferences are backwards. Suppose a set $S$ where all $s$ make the same payments, less fees taken from a change output, and fees are strictly increasing. In general, a user prefers if $s_0$ is mined, as it pays lower fee, but only issues $s_1$ because $s_0$ didn't get mined. If $s_0$ were to be instead bumped by an out-of-band payment, or by a sponsor, then that user would be happier than $s_1$ was mined. Even if you do rolling batches from an exchange, where every $s_{i+1}$ pays more people than in $s_i$ (ignoring the minrelayfee increments meaning that $s_i$ is better, a reason this technique isn't popular) the batcher would be perfectly happy with having someone else pay for inclusion of an earlier state, since ultimately it means a fee savings to them, even if they have to reissue another transaction later (e.g., out of the change to guarantee common input).
+
+The only case where you're unhappy with $s_0$ over $s_1$ is when you are making bad assumptions about how Bitcoin works.
+
+(N.B. $S$ is the available transactions, so excluding future timelocked txs. Protocols like Lightning rely on an assumptions of execution speed)
+
+-------------------------
+
