@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.2,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "To expand on the coinbase uniqueness fix. Technically, only coinbase transactions before height 227,931 may be duplicated. Among these, only those whose first element is a minimal `CScriptNum` push of a height > 227,931 can effectively be [0]. Therefore an argument can be made in favour of reducing the risk of for miners to a minimum by only requiring a witness commitment at the heights which were committed to in these early coinbase transactions.\n\nI don't think it is worth the complexity. This would need a mechanism to keep track of those heights. And i think the risk of implementing this mechanism outweights the risk of a miner mining an invalid block 21 years from now because he didn't update his software. (21 years because this is not needed before after block height 1,983,702.)\n\nStill, it's interesting to see what future blocks could have a duplicate coinbase. To this end i've scanned the 227,931 first blocks of the chain. I'm counting 189,023 coinbase transactions which *could* (this disregards [0]) be duplicated without violating BIP34. I count 10 before block 5,000,000 (about 100 years from now), 24 before block 10,000,000 and 80 before block 100,000,000.\n\nHere is the 24 ones before block 10,000,000:\n\n| Original block height | duplicable block height |\n| ----------------------------| ------------------------------ |\n| 147,396 | 8,624,845 |\n| 149,732 | 8,631,390 |\n| 149,813 | 8,631,629 |\n| 149,838 | 8,631,693 |\n| 150,283 | 8,632,995 |\n| 151,491 | 8,636,474 |\n| 152,374 | 8,638,716 |\n| 152,599 | 8,639,231 |\n| 153,662 | 8,641,929 |\n| 164,384 | 1,983,702 |\n| 169,895 | 3,708,179 |\n| 170,307 | 3,709,183 |\n| 171,896 | 3,712,990 |\n| 172,069 | 3,713,413 |\n| 172,357 | 3,714,082 |\n| 172,428 | 3,714,265 |\n| 174,151 | 5,208,854 |\n| 176,684 | 490,897 |\n| 177,628 | 9,558,101 |\n| 183,669 | 3,761,471 |\n| 196,988 | 4,275,806 |\n| 201,577 | 5,327,833 |\n| 206,039 | 7,299,941 |\n| 206,354 | 7,299,941 |\n\nFor the curious, [here](https://gist.github.com/darosior/3a5ac0a8d935fa9d3e90310590ca6699) is the full list of all the potential future violations.\n\n---\n\n[0] And even then only those which weren't spent in a transaction which also indirectly spends a non-duplicable coinbase can in practice lead to a BIP30 violation.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

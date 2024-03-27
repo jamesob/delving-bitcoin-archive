@@ -209,3 +209,13 @@ I am concerned about the (in)ability to support sibling eviction in 3.1, though.
 
 -------------------------
 
+instagibbs | 2024-03-27 14:47:40 UTC | #4
+
+Just noting publicly here:
+
+For "top block" style systems we would have to ensure that *all resulting clusters* remain "top block", otherwise pinning can trivially happen by creating a top block cluster, then "cycling" away the CPFP on a large low-fee parent transaction. Ensuring each state transition results in "top block" is essential.
+
+These kinds of checks can likely be achieved, and state transitions simply rejected on failure, but it's a bit more complicated than I was hoping!
+
+-------------------------
+
