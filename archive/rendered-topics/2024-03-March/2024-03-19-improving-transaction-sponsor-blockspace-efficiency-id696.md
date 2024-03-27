@@ -203,3 +203,131 @@ A simple example in the context of cluster mempool -- if a 3rd party can attach 
 
 -------------------------
 
+harding | 2024-03-26 21:43:43 UTC | #7
+
+(Replying out of order)
+
+[quote="sdaftuar, post:6, topic:696"]
+Could you elaborate on what the soft fork proposals are that would allow scripts to verify SPV proofs, which you mention here?
+[/quote]
+
+I made the assumption (perhaps incorrectly?) that anything that enables `OP_CAT` or an equivalent allows verifying a merkle proof in conjunction with existing opcodes (namely `OP_SHA256`/`OP_HASH256`).  Similarly, those functions also allow verifying proof of work and header chains.  With OP_IF, I think you could be accommodate any consensus-compatible shape of the partial merkle branch.
+
+If you want to implement something like "my transaction expires at height 1,234,567", you require a partial merkle branch that commits to both your transaction and a coinbase transaction with a BIP34 commitment of less than 1,234,567.
+
+Proposals that enable `OP_CAT` or an equivalent include:
+
+- [BIN24-1](https://github.com/bitcoin-inquisition/binana/blob/a1d1daab524007819aca70132e0dd97e0e8caf51/2024/BIN-2024-0001.md)
+- [Simplicity](https://github.com/BlockstreamResearch/simplicity)
+- [BTC Lisp](https://delvingbitcoin.org/t/btc-lisp-as-an-alternative-to-script/682)
+- Elements-style [streaming SHA](https://github.com/ElementsProject/elements/blob/2d298f7e3f76bc6c19d9550af4fd1ef48cf0b2a6/doc/tapscript_opcodes.md#new-opcodes-for-additional-functionality) opcodes
+- [MATT](https://merkle.fun/)
+
+[quote="sdaftuar, post:6, topic:696"]
+If we were to let an arbitrary 3rd party on the network attach to the transaction graph of any relayed transaction, I think we’d open up all sorts of DoS concerns with mempool policy.
+[/quote]
+
+Any time I create an output paying someone I don't trust, doesn't that have the same problem?  Similarly, any time I receive an output in a batched transaction that also pays other people---people I didn't choose to be in a relationship with---doesn't that also create the same problem?  I think it's already the case that typical users can be significantly affected by transaction graph dependencies that they have no control over.
+
+I'm not opposed to an opt-in flag, but that has the downside of making blockchain analysis easier, so I'd love to avoid it if possible.  If it's possible to make cluster mempool safe for always-allowed sponsorship, I think that would also address the existing problems described above.
+
+[quote="sdaftuar, post:6, topic:696"]
+many of the underlying issues that [fee sponsors] tries to solve require work at the policy layer that could just as readily be done without transaction sponsorship
+[/quote]
+
+I don't understand this point.  Let me quickly quote what I believe is the entire text you previously wrote about this:
+
+> the fee bumping improvement that this proposal aims at is
+really coming from the policy change, rather than the consensus change. But
+if policy changes are the direction we're going to solve these problems, we
+could instead just propose new policy rules for the existing types of
+transaction chaining that we have, rather than couple them to a new
+transaction type.
+
+It seems to me like the problem you're attempting to solve here is transaction pinning.  That's a problem created by policy, so it makes sense to me that we can solve it by policy alone.
+
+But there's another problem which has come to my attention more recently, which is the high cost of exogenous fee bumping compared to paying miners out of band.  When the cost difference is too high, users might be incentivized to work with large miners directly, undermining Bitcoin's decentralization.
+
+Peter Todd has wielded that argument as a weapon against v3 policy and ephemeral anchors, which I think is unfair: those policies improve the current state of using Bitcoin for a large number of users, so I think we should pursue them (and thank you for all of your work on them!).  But I find his fundamental argument worth thinking about.
+
+That's where I think sponsors are interesting.  Whereas ephemeral anchors cost ~11 vbytes for the anchor output and ~41 vbytes for the spend, this improved sponsor proposal is only ~0.5 vbytes.  It's almost the same as the 0 vbytes used when paying a miner out of band or when using RBF under ideal circumstances.  It gives us all of the advantages of exogenous fees (for contract protocols and also for regular fee bumping) without it's major long-term downside of potentially worsening decentralization.
+
+I don't think it's possible to achieve that efficiency benefit using policy only, at least not if we stick with a UTXO model.  Any policy we create that boosts the priority of transaction A using funds from transaction B must be rooted in the consensus rules, otherwise miners will claim the value from B without mining A.  But, if I'm missing something, I would love to learn more!
+
+-------------------------
+
+sdaftuar | 2024-03-26 23:36:27 UTC | #8
+
+[quote="harding, post:7, topic:696"]
+I made the assumption (perhaps incorrectly?) that anything that enables `OP_CAT` or an equivalent allows verifying a merkle proof in conjunction with existing opcodes (namely `OP_SHA256`/`OP_HASH256`). Similarly, those functions also allow verifying proof of work and header chains. With OP_IF, I think you could be accommodate any consensus-compatible shape of the partial merkle branch.
+[/quote]
+
+Unless I'm missing something, I think any scripts that could be deployed using just tools like this would in fact be reorg safe -- you'd need a way for a script to pull in data from the active headers chain itself in order to become invalid on a reorg.
+
+(Thanks for linking to those examples -- from a quick look, I don't believe any of them propose op codes that would allow for inspecting anything outside of the transaction that is being validated, so as far as I can tell each of those proposals would be reorg safe.  Please let me know if I'm mistaken!)
+
+[quote="harding, post:7, topic:696"]
+Any time I create an output paying someone I don’t trust, doesn’t that have the same problem?
+[/quote]
+
+I believe there's a substantial difference between a single transaction being able to be griefed by someone else, and anyone on the network always being able to grief anyone else on the network at any time.
+
+[quote="harding, post:7, topic:696"]
+But there’s another problem which has come to my attention more recently, which is the high cost of exogenous fee bumping compared to paying miners out of band.
+[/quote]
+
+I think it may be helpful to adopt the terminology that @instagibbs has described in https://delvingbitcoin.org/t/taxonomy-of-transaction-fees-in-smart-contracts/512.
+
+As @instagibbs points out there, exogenous fees can (in theory) be used to pay for a transaction with or without CPFP; similarly, endogenous fees can also in theory arise with or without CPFP.
+
+If we wanted to be true blockchain-space-minimalists, we would be arguing that all protocols move towards an endogenous-single-tx model only.  I don't work on layer 2 protocols myself and so don't consider myself well-versed in what is possible and what is not, but my inclination is to think that this is probably overly restrictive.  Of course, if people come up with protocols that work within that guideline, then that's of course great.
+
+I think what the transaction sponsor model is trying to do is make CPFP cheaper/more efficient in situations where a protocol is unable to bring endogenous fees to a transaction, compared with using anyone-can-spend outputs.  However, in order to be workable, Jeremy had proposed a number of policy rules on top of the consensus change, which were needed in order to make sponsors useful as a CPFP/RBF alternative. From his [mailing list post](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-September/018179.html):
+
+> In this BIP, we only care to ensure a subset of behavior sufficient to replace CPFP and RBF for fee
+> bumping.
+> 
+> Thus we restrict the mempool policy such that:
+> 
+> 1. No Transaction with a Sponsor Vector may have any child spends; and
+> 1. No Transaction with a Sponsor Vector may have any unconfirmed parents; and
+> 1. The Sponsor Vector must have exactly 1 entry; and
+> 1. The Sponsor Vector's entry must be present in the mempool; and
+> 1. Every Transaction may have exactly 1 sponsor in the mempool; except
+> 1. Transactions with a Sponsor Vector may not be sponsored.
+> 
+> 
+> The mempool treats ancestors and descendants limits as follows:
+> 
+> 1. Sponsors are counted as children transactions for descendants; but
+> 1. Sponsoring transactions are exempted from any limits saturated at the time of submission.
+> 
+> This ensures that within a given package, every child transaction may have a sponsor, but that the
+> mempool prefers to not accept new true children while there are parents that can be cleared.
+> 
+> To prevent garbage sponsors, we also require that:
+> 
+> 1. The Sponsor's feerate must be greater than the Sponsored's ancestor fee rate
+> 
+> We allow one Sponsor to replace another subject to normal replacement policies, they are treated as
+> conflicts.
+
+Looking at this now, this seems extremely similar to the rule set for v3 (TRUC!) children[^size] -- an opt-in policy to make RBF work better, while still allowing for CPFP.  In Jeremy's original post, he suggested that:
+
+[^size]: If I'm not mistaken, Jeremy's original proposal didn't seem to include a bound on the size of a sponsor transaction, something which is part of the TRUC/v3 proposal -- without that, RBF pinning is still possible in a situation where someone creates a large sponsor transaction that is low feerate (but still above the feerate of the parent), making it difficult to replace with another higher feerate sponsor transaction.
+
+> What is wanted is a minimal mechanism that allows arbitrary unconnected third parties to attach
+fees to an arbitrary transaction. The set of rules given tightly bounds how much extra work the
+mempool might have to do to account for the new sponsors in the worst case, while providing a "it
+always works" API for end users that is not subject to traditional issues around pinning.
+
+What I argue instead is that the *policy changes*, not the *consensus changes* are what allow us to avoid the "traditional issues around pinning" -- and the v3/TRUC proposal is an example of this.
+
+So given that the policy changes are what is helpful here, the question becomes: is it worth changing the consensus model in order to save ~52 vbytes for protocols that rely on exogenous-fee-CPFP in order to fund transaction fees?
+
+Exogenous-fee-CPFP is already still less efficient than paying a miner out of band to mine a given transaction, so if the concern is the miner-centralization-issue, then we should really abandon such protocols in favor of endogenous-fee-single-tx schemes.  Given that we're willing to tolerate some level of blockchain-inefficiency to make such protocols work, my personal view is that tradeoff to save those ~52vbytes is not worth it, and at a minimum, I'd suggest that the community first deploy exogenous-fee-CPFP protocols using existing methodologies (like anyone-can-spend outputs) to demonstrate utility and adoption before we seriously consider changing the consensus model.  
+
+And even if somehow such protocols gained enough adoption that shaving a few bytes to make them more efficient catches on, I'd still argue that we should not opt existing transactions into this behavior, because I believe there will always be unintended policy side effects from allowing arbitrary third parties to attach to the transaction graph, and I think good soft-fork design should compel us to avoid causing any potential harm to existing use cases/users when rolling out new features.
+
+-------------------------
+
