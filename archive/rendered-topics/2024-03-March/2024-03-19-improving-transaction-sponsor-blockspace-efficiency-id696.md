@@ -331,3 +331,41 @@ And even if somehow such protocols gained enough adoption that shaving a few byt
 
 -------------------------
 
+harding | 2024-03-27 01:13:31 UTC | #9
+
+[quote="sdaftuar, post:8, topic:696"]
+you’d need a way for a script to pull in data from the active headers chain itself in order to become invalid on a reorg.
+[/quote]
+
+Yeah, I guess there is a cyclic dependency issue in my previous example given the need for a coinbase transaction to commit to the block's wtxid merkle root, but you need to known the txid of the coinbase transaction before you can construct the witness for a transaction that verifies a merkle proof for a block containing itself.
+
+I think you could implement sponsors themselves with just `OP_CAT` as long as both the sponsor transaction and the transaction it sponsors are in a merkle sub-tree that doesn't include the coinbase transaction.
+
+> I believe there’s a substantial difference between a single transaction being able to be griefed by someone else, and anyone on the network always being able to grief anyone else on the network at any time.
+
+I agree, and I don't claim a false equivalency.  However, I think it's an existing problem that would be nice to solve, especially if the solution also makes very low cost sponsorship more appealing.  I'll try to spend some time better understanding how cluster mempool works so that I can better understand your concerns.
+
+[quote="sdaftuar, post:8, topic:696"]
+Exogenous-fee-CPFP is already still less efficient than paying a miner out of band to mine a given transaction, so if the concern is the miner-centralization-issue, then we should really abandon such protocols in favor of endogenous-fee-single-tx schemes.
+[/quote]
+
+I think this is my point: single-transaction sponsors can now be exactly as efficient as paying a miner OOB (zero overhead).  For a sponsor transaction with multiple dependencies, it's 0.5 vbytes per dependency.  That's less than 0.5% overhead to sponsor a 1-input, 1-output P2TR.
+
+We now have an exogenous fee-paying mechanism that uses almost the same amount of space as the best endogenous mechanisms.  (And, in many cases, sponsors effectively uses less space!)  I don't think that's something we should rush to soft fork in, but it brings me a lot of comfort when thinking about increased use of exogenous fees.  If we as users ever do become concerned about excessive OOB fee paying, we have a drop-in solution.  Additionally, if more and more of the network shifts to the use of protocols that depend on exogenous fee paying, we'll have a scaling improvement ready to go.
+
+I think the efficient multiple-use form of sponsors described earlier in this thread really requires a new witness version, which will automatically provide some level of opt-in given how few wallets/services seem to have implemented automatic bech32(m) forward compatibility.  I have some other ideas for things we could do for (nearly) free at the same time, which I plan to open a separate thread about after I've spent at least a week collecting some data about use of reorg safe transaction chains on the existing network.  But, in general, I currently think allowing sponsorship is something we should probably add the next time we plan to create a new witness version for general use---not something I think we should rush to add next week.
+
+-------------------------
+
+ajtowns | 2024-03-27 02:08:03 UTC | #10
+
+[quote="sdaftuar, post:8, topic:696"]
+Unless I’m missing something, I think any scripts that could be deployed using just tools like this would in fact be reorg safe – you’d need a way for a script to pull in data from the active headers chain itself in order to become invalid on a reorg.
+[/quote]
+
+I have a concept for per-input timelocks and reorg safety that would trigger that, for what it's worth: namely "any input can present an annex entry that commits to `height || bytes`; if there is not a prior block at height `height` whose hash ends with `bytes`, the tx is invalid". Presuming the script could access that annex entry, it could check that `bytes` is 32B long, then check for a 48B+32B value that hashes to it, then use the 32B value as the tx merkle root.
+
+The "normal" use of that annex entry would be either as a per-input timelock (0-length bytes), so that presigned spends that use variable timelocks could be combined into a single tx (HTLC spends?), to prevent signet/testnet signatures being replayed on mainnet (commit to the last byte of block 1), to fork coins in a hardfork scenario (BCH's block 478559 ends in `ec`, BTC's ends in `48`), or (perhaps) to invalidate a tx should a reorg occur (you refund 0.5 BTC due to a mistaken payment, but the refund doesn't actually spend the payment txo, perhaps because that was already spent for some other reason, so you commit to the last 4 bytes of a subsequent block's hash effectively increasing the PoW required to replace it by 4B times). I say "perhaps" in the last case, because I could at least imagine this having an "implies a timelock of height+100 blocks" restriction which would make that usecase not very useful.
+
+-------------------------
+
