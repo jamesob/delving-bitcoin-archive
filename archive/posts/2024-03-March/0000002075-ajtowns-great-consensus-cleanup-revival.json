@@ -4,17 +4,17 @@
   "username": "ajtowns",
   "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-03-28T04:10:29.681Z",
-  "cooked": "<aside class=\"quote no-group\" data-username=\"benthecarman\" data-post=\"5\" data-topic=\"710\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/benthecarman/48/222_2.png\" class=\"avatar\"> benthecarman:</div>\n<blockquote>\n<p>Wouldn\u2019t this not work for the occasional empty block?</p>\n</blockquote>\n</aside>\n<p>An empty block can only claim the subsidy as the reward, which won\u2019t equal the ~25 or ~50  BTC reward that all the potential duplicates claimed, so it wouldn\u2019t be a duplicate in any event, even if they were given an exemption.</p>\n<p>But an exemption isn\u2019t necessary: empty blocks can include a witness commitment, it\u2019ll just be constant (as the coinbase tx\u2019s wtxid is replaced by <code>uint256{0}</code>, eg <a href=\"https://mempool.space/signet/tx/d62676348ef1dfa05f8c5380bcccb1dc8c1bea4877e50495d577fd4f4c2f09e5\">https://mempool.space/signet/tx/d62676348ef1dfa05f8c5380bcccb1dc8c1bea4877e50495d577fd4f4c2f09e5</a> (a block with only the coinbase, the coinbase has the usual <code>uint256{0}</code> \u201cwitness reserved value\u201d as its witness data, it has the witness commitment of <code>aa21a9ed e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9</code> followed by the signet block signature. You can see other empty blocks have the same witness commitment, eg <a href=\"https://mempool.space/signet/tx/cdf494066c05d46aa0ba0b9c2eab872d3a343f22f8b7a011c24a05e0ebc2d84b\">https://mempool.space/signet/tx/cdf494066c05d46aa0ba0b9c2eab872d3a343f22f8b7a011c24a05e0ebc2d84b</a></p>",
+  "cooked": "<aside class=\"quote no-group\" data-username=\"benthecarman\" data-post=\"5\" data-topic=\"710\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/benthecarman/48/222_2.png\" class=\"avatar\"> benthecarman:</div>\n<blockquote>\n<p>Wouldn\u2019t this not work for the occasional empty block?</p>\n</blockquote>\n</aside>\n<p>An empty block can only claim the subsidy as the reward, which won\u2019t equal the ~25 or ~50  BTC reward that all the potential duplicates claimed, so it wouldn\u2019t be a duplicate in any event, even if they were given an exemption.</p>\n<p>But an exemption isn\u2019t necessary: empty blocks can include a witness commitment, it\u2019ll just be constant (as the coinbase tx\u2019s wtxid is replaced by <code>uint256{0}</code>, eg <a href=\"https://mempool.space/signet/tx/d62676348ef1dfa05f8c5380bcccb1dc8c1bea4877e50495d577fd4f4c2f09e5\" class=\"inline-onebox\">mempool - Bitcoin Explorer</a> (a block with only the coinbase, the coinbase has the usual <code>uint256{0}</code> \u201cwitness reserved value\u201d as its witness data, it has the witness commitment of <code>aa21a9ed e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9</code> followed by the signet block signature. You can see other empty blocks have the same witness commitment, eg <a href=\"https://mempool.space/signet/tx/cdf494066c05d46aa0ba0b9c2eab872d3a343f22f8b7a011c24a05e0ebc2d84b\" class=\"inline-onebox\">mempool - Bitcoin Explorer</a></p>\n<p>EDIT to add: all the coinbases from the list in comment 4 have an nLocktime of 0 and an nVersion of 1, so requiring future blocks to have some different value for one or the other would also result in uniqueness.</p>",
   "post_number": 6,
   "post_type": 1,
-  "updated_at": "2024-03-28T04:10:29.681Z",
+  "updated_at": "2024-03-28T06:04:45.944Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 15.6,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -28,7 +28,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -36,8 +36,13 @@
   "can_wiki": false,
   "user_title": null,
   "bookmarked": false,
-  "raw": "[quote=\"benthecarman, post:5, topic:710, full:true\"]\nWouldn't this not work for the occasional empty block?\n[/quote]\n\nAn empty block can only claim the subsidy as the reward, which won't equal the ~25 or ~50  BTC reward that all the potential duplicates claimed, so it wouldn't be a duplicate in any event, even if they were given an exemption.\n\nBut an exemption isn't necessary: empty blocks can include a witness commitment, it'll just be constant (as the coinbase tx's wtxid is replaced by `uint256{0}`, eg https://mempool.space/signet/tx/d62676348ef1dfa05f8c5380bcccb1dc8c1bea4877e50495d577fd4f4c2f09e5 (a block with only the coinbase, the coinbase has the usual `uint256{0}` \"witness reserved value\" as its witness data, it has the witness commitment of `aa21a9ed e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9` followed by the signet block signature. You can see other empty blocks have the same witness commitment, eg https://mempool.space/signet/tx/cdf494066c05d46aa0ba0b9c2eab872d3a343f22f8b7a011c24a05e0ebc2d84b",
-  "actions_summary": [],
+  "raw": "[quote=\"benthecarman, post:5, topic:710, full:true\"]\nWouldn't this not work for the occasional empty block?\n[/quote]\n\nAn empty block can only claim the subsidy as the reward, which won't equal the ~25 or ~50  BTC reward that all the potential duplicates claimed, so it wouldn't be a duplicate in any event, even if they were given an exemption.\n\nBut an exemption isn't necessary: empty blocks can include a witness commitment, it'll just be constant (as the coinbase tx's wtxid is replaced by `uint256{0}`, eg https://mempool.space/signet/tx/d62676348ef1dfa05f8c5380bcccb1dc8c1bea4877e50495d577fd4f4c2f09e5 (a block with only the coinbase, the coinbase has the usual `uint256{0}` \"witness reserved value\" as its witness data, it has the witness commitment of `aa21a9ed e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9` followed by the signet block signature. You can see other empty blocks have the same witness commitment, eg https://mempool.space/signet/tx/cdf494066c05d46aa0ba0b9c2eab872d3a343f22f8b7a011c24a05e0ebc2d84b\n\nEDIT to add: all the coinbases from the list in comment 4 have an nLocktime of 0 and an nVersion of 1, so requiring future blocks to have some different value for one or the other would also result in uniqueness.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
