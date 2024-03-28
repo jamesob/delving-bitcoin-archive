@@ -187,3 +187,23 @@ For the curious, [here](https://gist.github.com/darosior/3a5ac0a8d935fa9d3e90310
 
 -------------------------
 
+benthecarman | 2024-03-28 03:21:12 UTC | #5
+
+> make the witness commitment mandatory in all coinbase transactions
+
+Wouldn't this not work for the occasional empty block?
+
+-------------------------
+
+ajtowns | 2024-03-28 04:10:29 UTC | #6
+
+[quote="benthecarman, post:5, topic:710, full:true"]
+Wouldn't this not work for the occasional empty block?
+[/quote]
+
+An empty block can only claim the subsidy as the reward, which won't equal the ~25 or ~50  BTC reward that all the potential duplicates claimed, so it wouldn't be a duplicate in any event, even if they were given an exemption.
+
+But an exemption isn't necessary: empty blocks can include a witness commitment, it'll just be constant (as the coinbase tx's wtxid is replaced by `uint256{0}`, eg https://mempool.space/signet/tx/d62676348ef1dfa05f8c5380bcccb1dc8c1bea4877e50495d577fd4f4c2f09e5 (a block with only the coinbase, the coinbase has the usual `uint256{0}` "witness reserved value" as its witness data, it has the witness commitment of `aa21a9ed e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9` followed by the signet block signature. You can see other empty blocks have the same witness commitment, eg https://mempool.space/signet/tx/cdf494066c05d46aa0ba0b9c2eab872d3a343f22f8b7a011c24a05e0ebc2d84b
+
+-------------------------
+
