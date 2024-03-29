@@ -136,3 +136,29 @@ I couldn't find much in the way of background technical discussion; mostly I thi
 
 -------------------------
 
+ganava | 2024-03-28 22:32:29 UTC | #12
+
+[quote="murch, post:8, topic:581"]
+This seems insufficient to solve the problem, unless the premium is so high that it virtually guarantees that the transaction will be mined before it expires. However, if the feerate were that high, wouldn’t OP_EXPIRE simply waste blockspace? If however the feerate of the transaction is merely competitive, the presence of OP_EXPIRE creates a bandwidth-wasting vector: an attacker would submit e.g. OP_EXPIRE transactions at the bottom of the top block and push them out of the top block with further OP_EXPIRE transactions. This way the attacker could issue a constant stream of transactions, but never pay for more than a couple barely sliding in at the bottom of the block.
+[/quote]
+
+I see you got a reply to this:
+
+[quote]
+This "bandwidth-wasting vector" requires the attacker to create actual
+fee-paying transactions, with a fee-rate sufficiently high to get mined in the
+next block or so. This of course is very expensive by itself.
+
+If you already have a need to make such transactions, you can argue that the
+marginal cost to also use up that bandwidth is low. But that's already the case
+with RBF: we allow any transaction to be replaced with RBF for a (by default)
+1sat/vB additional cost to "pay for" the bandwidth of that replacement.
+OP_EXPIRE does not change this situation: you're still paying for an additional
+1sat/vB cost over the replaced transaction, as eventually one of your
+replacements will get mined.
+[/quote]
+
+https://groups.google.com/g/bitcoindev/c/qEx4K8lGnLk
+
+-------------------------
+

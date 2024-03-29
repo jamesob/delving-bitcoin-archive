@@ -405,3 +405,43 @@ The only case where you're unhappy with $s_0$ over $s_1$ is when you are making 
 
 -------------------------
 
+sdaftuar | 2024-03-28 23:45:26 UTC | #13
+
+[quote="harding, post:9, topic:696"]
+I think you could implement sponsors themselves with just `OP_CAT` as long as both the sponsor transaction and the transaction it sponsors are in a merkle sub-tree that doesn’t include the coinbase transaction.
+[/quote]
+
+Not sure if we're talking past each other, but I just want to emphasize that there is a difference between implementing Jeremy's transaction sponsors proposal as he originally described, and implementing a script-verification-form of sponsors using OP_CAT to prove inclusion of transactions in some merkle root. Doing it in script, without a way to pull in the merkle root or headers chain from the actual active blockchain, will always be different from Jeremy's original proposal, because in the event of a reorg **the script will still be valid**, even if the merkle root that is referenced in a script is not in the active chain.
+
+Another way of putting it is that the script-verification form of sponsors is equivalent to saying that a transaction must appear in some merkle root that has some high proof of work on it, not that the transaction must appear in the same actual block in the active chain.
+
+Because the script form of this is just an approximation of transaction sponsors, it is incorrect to say (as far as I can tell at least) that these proposed script extensions would already give us a change to the reorg-safety consensus model that sponsors would introduce. 
+
+[quote="harding, post:9, topic:696"]
+I think this is my point: single-transaction sponsors can now be exactly as efficient as paying a miner OOB (zero overhead). For a sponsor transaction with multiple dependencies, it’s 0.5 vbytes per dependency. That’s less than 0.5% overhead to sponsor a 1-input, 1-output P2TR.
+[/quote]
+
+I don't think this is true?  Paying a miner out of band can be ~zero overhead, eg if a miner is paid using a lightning payment.  But using CPFP introduces an on-chain cost corresponding to the size of the CPFP transaction.  An average transaction right now is, say, 300 - 500 vbytes?  That means that we're talking about saving 10-15% of the cost of a CPFP by using an efficient sponsors implementation, versus something like Ephemeral Anchors.  
+
+[quote="JeremyRubin, post:12, topic:696"]
+The idea that protocols could be “unhappy” if $s_0$ is mined instead of $s_1$ is weak.
+[/quote]
+
+It took me a while to understand that you were responding to my post here!  Eventually I realized that you may have interpreted my comments about griefing as being a narrower statement about a 3rd party interfering in the network's choice over which one of a pair of spends is eventually confirmed.
+
+Overall, I agree that it'd be great for protocols to be robust to any version of their transactions confirming, like lightning tries to be as I understand it.  (This obviously doesn't hold for some very basic "protocols", like a user double-spending some recipient, and there is a competition between the original spend and the replacement, but I don't think this is interesting enough to debate.)
+
+However, there are other side effects to allowing 3rd parties to attach to your transaction than just pinning-type issues, or determining which version of various conflicting transactions gets mined.  One example is that you could use up all the mempool policy limits reserved for transaction chains via the sponsoring transaction, preventing a user from (say) spending their own unconfirmed outputs until the parent confirms.
+
+I imagine this can also interfere with their own attempts to fee bump via CPFP? I'm imagining a situation where a transaction with its sponsor might confirm in the second block, but with some other high feerate child could confirm in the first block without the sponsor.  A miner might choose to hold on to the parent for the second block rather than confirm it without the sponsor in the first, to avoid invalidating the sponsor and having that drop out of the mempool?  Maybe there will end up being good answers to incentives questions like this, but I think we clearly haven't done the work yet to sort out all these incentive questions yet, and so forcing all transactions into a regime where they can be bumped by third parties seems like a stretch.
+
+[quote="JeremyRubin, post:12, topic:696"]
+Suhas’ point about pinning is rendered more or less moot if you, as a point of policy, only allow sponsors if they put a cluster into the next block (or maybe a few blocks out).
+[/quote]
+
+I agree that this is a potential mitigation, but just wanted to flag that as some of us have been thinking this through in related contexts (https://delvingbitcoin.org/t/v3-and-some-possible-futures/523/4), there can be issues that still come up if (say) a transaction package moves to near the top block, and then the child is replaced away and the parent is left without the high feerate child/sponsor.  If a large, low-feerate variant of the parent is what is left, then this might be pinning a higher feerate variant of the transaction.  
+
+Again, while there ultimately may be good answers to these questions as we do more work, I think for now it would be too soon to say that we're sure we have a policy framework that is so robust and beneficial that everyone should be opted in to it.
+
+-------------------------
+

@@ -1045,3 +1045,25 @@ In my unfinished "V4-pool"(a very small mempool of txns that must enter top bloc
 
 -------------------------
 
+ganava | 2024-03-28 22:13:55 UTC | #39
+
+[quote="murch, post:25, topic:553"]
+My example entails a negligible cost to the attacker while permitting continuous resubmission of essentially the same transaction cycle. The collection of transaction has a substantially larger total weight than the data that is ever up for inclusion in the blocks and hence severely underpays for relay to the detriment of the entire network’s bandwith-usage. I hope studying my write-up would help substantiate why transaction replacements must increase the total fees in the mempool.
+[/quote]
+
+Didn't Todd fix that infinite cycle issue? I'm trying out Libre Relay and my node doesn't seem to be getting attacked. The fix seems pretty simple: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2024-January/022326.html
+
+-------------------------
+
+ganava | 2024-03-28 22:49:04 UTC | #40
+
+[quote="ajtowns, post:34, topic:553"]
+I think the other aspect is whether you’re designing for miners who are making a short term investment (“I’m here for a week, I want to make as much money as I can, then cash out”), or a long term investment (“I’m here for years, I’m willing to make decisions that will only pay out over the long term, I’m going to establish a good reputation, and built up trusted relationships with other people over the long term”).
+[/quote]
+
+How do you reconcile that with pools like Mara and F2Pool making lots of money and staying in business? Why shouldn't I just mine the high feerate tx now?
+
+(I'm involved in mining)
+
+-------------------------
+
