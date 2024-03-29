@@ -1,6 +1,6 @@
 # Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction
 
-bitgould | 2024-03-29 20:54:21 UTC | #1
+bitgould | 2024-03-29 20:57:53 UTC | #1
 
 # Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction
 
@@ -13,7 +13,7 @@ Swap-in-potentiam execution requiries two transactions:
 1. Funds a swap address
 2. Opens the lightning channel from funds in that address
 
-Payjoin interaction and enables the external funds to directly fund a channel opening from the LSP without a swap output address ever being posted on chain. Instead, the first transaction funding a swap address is replaced using payjoin output substitution so only the combined result is ever posted to the blockchain.
+Payjoin interaction enables the external funds to directly fund a channel opening from the LSP without a swap output address ever being posted on chain. Instead, the first transaction funding a swap address is replaced using payjoin output substitution so only the combined result is ever posted to the blockchain.
 
 ## Payjoin in Potentiam
 
