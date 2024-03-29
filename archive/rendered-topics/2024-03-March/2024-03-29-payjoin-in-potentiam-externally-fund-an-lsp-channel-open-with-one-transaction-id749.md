@@ -1,6 +1,6 @@
 # Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction
 
-bitgould | 2024-03-29 20:49:14 UTC | #1
+bitgould | 2024-03-29 20:54:21 UTC | #1
 
 # Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction
 
@@ -17,7 +17,7 @@ Payjoin interaction and enables the external funds to directly fund a channel op
 
 ## Payjoin in Potentiam
 
-The swap-in-potentiam proposal requires a commitment transaction to the swap-in-potentiam LSP address, after which the LSP has unilateral ability to open the channel or the funder can claw back after a timeout. If instead of broadcasting a transaction to such an address a funder first sends the transaction as a PSBT to the LSP, the LSP replaces the swap-in-potentiam address in the original PSBT for a channel opening address in a payjoin PSBT via [payment output substitution](https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki#user-content-span_idoutputsubstitutionspanPayment_output_substitution)* to actualize the swap-in in a single transaction. The payjoin PSBT containing the funder input and the channel open output is returned to the funder, who then signs and broadcasts the transaction.
+The swap-in-potentiam proposal requires a commitment transaction to the swap-in-potentiam LSP address, after which the LSP has unilateral ability to open the channel or the funder can claw back after a timeout. If instead of broadcasting a transaction to such an address a funder first sends the transaction as a PSBT to the LSP, the LSP replaces the swap-in-potentiam address in the original PSBT for a channel opening address in a payjoin PSBT via [payment output substitution](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0078.mediawiki#user-content-span_idoutputsubstitutionspanPayment_output_substitution)* to actualize the swap-in in a single transaction. The payjoin PSBT containing the funder input and the channel open output is returned to the funder, who then signs and broadcasts the transaction.
 
 In the case the transaction is not sign and broadcast, the LSP can still broadcast the original PSBT's transaction with the swap-in-potentiam address output and proceed in that protocol to open a channel, or otherwise Alice could claw back funds after a timeout. This shares approximately the same flow with an earlier [Lightning payjoin idea](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021180.html) but has an LSP open the channel rather than an edge node itself.
 
