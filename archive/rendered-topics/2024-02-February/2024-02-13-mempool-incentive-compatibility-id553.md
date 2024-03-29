@@ -1067,3 +1067,19 @@ How do you reconcile that with pools like Mara and F2Pool making lots of money a
 
 -------------------------
 
+murch | 2024-03-29 18:36:34 UTC | #41
+
+[quote="ganava, post:39, topic:553"]
+Didn’t Todd fix that infinite cycle issue?
+[/quote]
+
+The proposal is based on a flawed approach. I demonstrated this general issue per an example. The author responded by addressing the specific mechanism used in the example instead of addressing the general flaw. I concluded that it is not a constructive use of my time to engage further.
+
+[quote="ganava, post:39, topic:553"]
+I’m trying out Libre Relay and my node doesn’t seem to be getting attacked.
+[/quote]
+
+The absence of an attack does not prove security, especially in presence of obvious simpler explanations.
+
+-------------------------
+

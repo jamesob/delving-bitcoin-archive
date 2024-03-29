@@ -162,3 +162,9 @@ https://groups.google.com/g/bitcoindev/c/qEx4K8lGnLk
 
 -------------------------
 
+murch | 2024-03-29 18:19:18 UTC | #13
+
+I said `OP_EXPIRE` transactions would need to be almost guaranteed to get mined for it not to be a problem. He says, `OP_EXPIRE` txs would need to have a feerate high enough to be mined in the next block. So his response agrees with my concerns. Does that help?
+
+-------------------------
+
