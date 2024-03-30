@@ -37,3 +37,26 @@ Jungly
 
 -------------------------
 
+ajtowns | 2024-03-30 18:44:58 UTC | #2
+
+Looking at the lightning examples, it seems like it would be helpful to have a `reorg_chain` command along the lines of "extend_chain" that combines `invalidateblock` and `generate` and potentially replaces some previously confirmed transactions.
+
+You might consider differentiating keys and addresses -- eg
+
+```raw
+@alice_key = key :new 
+@alice_addr = address :wpkh(alice)
+@alice_to_self = transaction inputs: [
+                              { tx: @alice_coinbase_tx, vout: 0, script_sig: '@alice_addr' }
+                            ],
+                            outputs: [
+                              { to: '@alice_addr', amount: 49.99.sats }
+                            ]
+```
+
+Seeing if you can rewrite [feature_block.py](https://github.com/bitcoin/bitcoin/blob/61de64df6790077857faba84796bb874b59c5d15/test/functional/feature_block.py) might be worth doing -- then the test case could perhaps easily be run on other node implementations, and perhaps it might be easier to add other tests, or easier to understand what the existing tests do if your DSL is actually a better way to describe these things?
+
+Just some ideas, feel free to ignore!
+
+-------------------------
+

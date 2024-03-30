@@ -1,6 +1,6 @@
 # Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction
 
-bitgould | 2024-03-29 20:57:53 UTC | #1
+bitgould | 2024-03-30 17:16:39 UTC | #1
 
 # Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction
 
@@ -8,7 +8,7 @@ As stated by Jesse Posner and ZmnSCPxj, "moving funds from an onchain-only addre
 
 That proposal involves a contract between two parties, Alice (the funds owner) and Bob (a potential swap partner), with the contract having two branches: one for onchain/channel transactions and another with a time lock for Alice. The protocol requires cooperation from a Lightning Service Provider (LSP) and is particularly useful for mobile wallet users who want to efficiently transfer funds from the blockchain layer to the Lightning layer without waiting for additional confirmations. For a detailed explanation and sequence, please refer to the original discussion on the Lightning-dev mailing list​​.
 
-Swap-in-potentiam execution requiries two transactions: 
+Swap-in-potentiam execution requires two transactions: 
 
 1. Funds a swap address
 2. Opens the lightning channel from funds in that address
@@ -23,68 +23,74 @@ In the case the transaction is not sign and broadcast, the LSP can still broadca
 
 \* BIP 78 payjoin output substitution recommends a match between input and output script types, but I see this as an undesirable fingerprint that should be avoided and have campaigned for this change in the spec.
 
-## Swap in Potentiam Sequence Diagram
+## Swap-in-Potentiam Sequence Diagram
 
+![image|690x375](upload://bbkAqu3S4NTCVCiwvi0tYWjCRN0.png)
+
+[details="Swap-in-Potentiam Diagram ASCII"]
 <pre>
-Alice (Funds Owner)          Bob (Swap Partner/LSP)             Blockchain
-       |                              |                              |
-       | --- 1. Address Request ----> |                              |
-       |                              |                              |
-       | <--- 2. Swap Address ------- |                              |
-       |                              |                              |
-       |                              |                              |
-       | --- 3. Tx to swap Address----+--- 4. Confirm Transaction -> |
-       |                              |                              |
-       |                              | <----------- 5. Confirmation |
-       |                              |                              |
-       | --- 6. Request Swap -------> |                              |
-       |                              |                              |
-       | <--- 7. Validate & Accept -- |                              |
-       |                              |                              |
-       |                              | --- 8. Create & Sign Tx ---- |
-       |                              |                              |
-       |                              | <----------- 9. Confirmation |
-       |                              |                              |
-</pre>
+Source of Funds           Alice (Node)              Bob (LSP)      Blockchain
+|                             |                         |                   |
+|                        (Swap Address derived from Bob's Pubkey)           |
+|                             |                         |                   |
+| <-- 1. Swap Address ------- |                         |                   |
+|                             |                         |                   |
+| --- 2. Tx to Swap Address-----------------------------------------------> |
+|                             |                         |                   |
+|                             |                         |  3. Confirmation  |
+|                             |                         |                   |
+|                             | <- 4. Negotiate Open -> |                   |
+|                             |                         |                   |
+|                             |                 5. Sign and Broadcast Tx -> |
+|                             |                         |                   |
+|                             |                         |  6. Confirmation  |
+|                             |                         |                   |</pre>
+[/details]
 
-1. Alice requests a unique swap-in-poetentiam address from Bob to send her funds to.
-2. Bob provides a specially constructed address that commits to a contract between Alice and Bob.
-3. Alice sends the funds to the provided address on the blockchain.
-4. Bob confirms the transaction is broadcast to the blockchain.
-5. The blockchain confirms the transaction.
-6. Once the transaction is confirmed, Alice requests a swap to move the funds to the Lightning Network.
-7. Bob validates the request and agrees to the swap if the funds are confirmed.
-8. Bob creates and signs a transaction according to the swap-in-potentiam contract.
-9. The transaction is confirmed by the blockchain, completing the swap.
 
-## Payjoin in Potentiam Sequence Diagram
+1. Alice sends a swap-in-potentiam address derived from Alice and Bob keys to source of funds.
+2. Bob funds the Swap Address.
+3. The transaction funding the Swap Address is confirmed.
+4. Alice and Bob derive a lightning channel open address.
+5. Bob signs and broadcast the channel opening tx spending the swap address.
+6. The transaction is confirmed by the blockchain, completing the channel open between Alice and Bob
 
+## Payjoin-in-Potentiam Sequence Diagram
+
+![image|690x334](upload://pbpjE83zOrvufWgDzFkw6TCgFIb.png)
+
+
+[details="Payjoin-in-Potentiam Diagram ASCII"]
 <pre>
-Alice (Sender)          Bob (Receiver/LSP)          Blockchain
-     |                          |                       |
-     | -- 1. Request Address -->|                       |
-     |                          |                       |
-     |<-- 2. Swap Address ------|                       |
-     |                          |                       |
-     | -- 3. Original PSBT ---->|                       |
-     |                          |                       |
-     |<--- 4. Output Substitution payjoin PSBT          |
-     |  (Swap Address to Lightning Channel Address)     |
-     |                          |                       |
-     | -- 5. Signed payjoin to channel ---------------->|
-     |                          |                       |
-     |                          |<- 6. Confirm Channel -|
-     |                          |                       |
+Source of Funds         Alice (Node)                         Bob (LSP)             Blockchain
+|                               |                                |                          |
+|                             (Swap Address derived from Bob's Pubkey)                      |
+|                               |                                |                          |
+| <-- 1. Swap Address URI------ |                                |                          |
+|                               |                                |                          |
+| --- 2. Original PSBT ----------------------------------------> |                          |
+|                               |                                |                          |
+|                               | <---- 3. Negotiate Open -----> |                          |
+|                               |                                |                          |
+| <------------------------------------ 4. Output Substitution payjoin PSBT                 |
+|                                         (Swap Address to Lightning Channel Address)       |
+|                               |                                |                          |
+| --- 5. Signed payjoin to channel -------------------------------------------------------> |
+|                               |                                |                          |
+|                               |                                |      6. Confirmation     |
+|                               |                                |                          |
 </pre>
+[/details]
 
-1. Alice requests a swap-in-potentiam address from Bob.
-2. Bob provides a swap-in-potentiam address to Alice.
-3. Alice constructs a Partially Signed Bitcoin Transaction (PSBT) paying to the provided address and sends the PSBT to Bob.
-4. Bob performs output substitution, replacing the swap-in-potentiam address with a Lightning channel address in the payjoin PSBT.
-5. Alice checks the substituted output to ensure it's acceptable signs and broadcasts the payjoin.
-6. The blockchain confirms the transaction, effectively opening the Lightning channel between Alice and Bob.
 
-In the optimistic case that both participants are able to communicate in a timely fashion, only one transaction is broadcast to the same effect as swap-in-potentiam. If not, there is a safe fallback.
+1. Alice sends a swap-in-potentiam address derived from Alice and Bob keys to source of funds in a bip21 payjoin URI.
+2. The Source funds the swap-in-potentiam address in a finalized original PSBT which he sends to Bob.
+3. Alice and Bob derive a lightning channel open address.
+4. Bob performs output substitution, replacing the swap-in-potentiam address with a Lightning channel address in the PSBT and sending the result to the Source.
+5. The Source of Funds checks that the payjoin PSBT doesn't overspend its inputs, signs, and broadcasts the payjoin.
+6. The transaction is confirmed by the blockchain, completing the channel open between Alice and Bob.
+
+In the optimistic case that both nodes are able to communicate in a timely fashion, only one transaction is broadcast to the same effect as swap-in-potentiam. If not, there is a safe fallback.
 
 Swap-in-potentiam already assumes a cooperating LSP. In the case they're not cooperative, funds are locked for some time. If the sender goes offline or otherwise does not broadcast the payjoin the original PSBT can be broadcast to open a channel via swap-in-potentiam.
 
@@ -111,6 +117,36 @@ Some clarifications:
   * i.e. ***somebody else*** (*NOT* Alice!) funds the swap-in-potentiam address.  That somebody else might not even know who the Bob is.
 
 The secret sauce of swap-in-potentiam addresses  is that sending an ordinary onchain transaction to it is actually a (non-Lightning!) channel open, specifically a modified `OP_CLTV`/`OP_CSV` Spilman channel (`OP_CSV` in this case).  This is unlike LN channel opens where the participants MUST participate during setup to exchange initial signatures --- the channel open can be initiated by either party without participation of the other party, or even by a third party making what it thinks is an ordinary onchain-to-onchain transaction.  Onchain confirmation is still required --- but it is between the third-party and Alice, no **additional** waiting is needed between Alice and Bob.
+
+-------------------------
+
+bitgould | 2024-03-30 17:02:46 UTC | #4
+
+Thanks very much for the prompt response and corrections. I understand this nuance and see how the steps I've described failed to describe it accurately. It is confusing to have combined Alice's node and the Source of Funds in the flows. I've edited the original post to make a distinction.
+
+## The problem payjoin-in-potentiam solves
+
+> The whole point of swap-in-potentiam is that it is an onchain address, with onchain address rules (including miniimum confirmation depth), that can be magically spent in Lightning (after minimum confirmation depth). The inputs to the transaction should be swap-in-potentiam addresses, not outputs.
+
+> i.e. somebody else (NOT Alice!) funds the swap-in-potentiam address. That somebody else might not even know who the Bob is.
+
+Swap-in-potentiam always posts two transactions. Funds are be confirmed into a swap address before a channel is opened. Payjoin-in-potentiam adds an optimistic case to the protocol. Alice generates a payjoin bip21 URI containing a swap-in-potentiam address, tells the source of funds about it and the source of funds starts a payjoin sending to the swap address with Bob. *If alice is found NOT to be asleep* before the payjoin protocol expires, Bob takes advantage of that and combines a channel open with proposed external input from the source of funds in a single transaction rather than confirming funds into a swap-in contract first and then following that confirmation with a channel opening transaction. If alice is asleep for the payjoin protocol (e.g. after 1 minute payjoin expiration), Bob broadcasts the original PSBT transaction funding the swap-in-potentiam address and can open a channel with the swap address funding after the fact. This cuts the on-chain footprint of swap-in-potentiam channel opens by about half in the best case and maintains the magic of swap-in-potentiam.
+
+## Fetching the public key from the LSP
+
+> There is no need for steps 1 and 2. Alice knows a public key controlled by Bob, namely, the node ID of Bob. Alice can generate its own keypair. The Alice pubkey is expected to be made by some form of BIP32 (HD derivation). The reason for not asking for a swap address is that it allows Alice to implement a watch-only onchain wallet using only BIP32 HD derivation.
+
+At some point Alice does need to fetch Bob's public key after which it can be derived. Neat. I've changed the post to reflect.
+
+## MuSig2
+
+> all inputs to the funding transaction MUST be those with the same LSP-as-Bob. The Alice keys can differ. For this reason, PSBT is specifically not used, instead this sub-protocol sends the inputs and the order of the outputs in a bespoke format. This also allows this sub-protocol to use MuSig2 path as current PSBT has no MuSig2 support yet.
+
+Payjoin-in-potentiam removes this hard input requirement in the case that both Alice comes online before the payjoin window expires by using interaction. If Alice comes online before the payjoin expires, Alice can MuSig2 with Bob to create the channel output and create a transaction with external funds as input in a single transaction before funds land in a swap address. If the payjoin fails, funds still end up in the swap address and the swap-in-potentiam protocol is executed.
+
+If I were designing a bespoke MuSig2 protocol, I'd still consider PSBT instead of something totally bespoke so that once the MuSig2 support is added to PSBT, software supporting PSBT already can quickly support swap-in-potentiam. Have you considered using the [MuSig2 PSBT extension draft by Sanket](https://gist.github.com/sanket1729/4b525c6049f4d9e034d27368c49f28a6) and [deployed by BitGo](https://bitcoinops.org/en/bitgo-musig2/) in your bespoke protocol?
+
+I'm sure you've already thought deeply about how the bespoke sub-protocol operates, so please excuse my suggestions as naive if you've already given them thought. I know how hard protocol design can be and have only recently explored swap-in-potentiam as an avenue to make lightning onboarding cheaper and easier.
 
 -------------------------
 
