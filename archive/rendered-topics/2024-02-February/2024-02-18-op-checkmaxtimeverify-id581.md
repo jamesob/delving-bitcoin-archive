@@ -168,3 +168,9 @@ I said `OP_EXPIRE` transactions would need to be almost guaranteed to get mined 
 
 -------------------------
 
+ganava | 2024-03-30 05:23:11 UTC | #14
+
+Murch, I'm just pointing to a reply you got. Thought it might be helpful to you.
+
+-------------------------
+
