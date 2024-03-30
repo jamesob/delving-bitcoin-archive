@@ -567,3 +567,19 @@ and algorithms.  I'm investigating those now.
 
 -------------------------
 
+ganava | 2024-03-30 05:32:36 UTC | #15
+
+[quote="JeremyRubin, post:12, topic:696"]
+Even if you do rolling batches from an exchange, where every s_{i+1}si+1s_{i+1} pays more people than in s_isis_i (ignoring the minrelayfee increments meaning that s_isis_i is better, a reason this technique isn’t popular) the batcher would be perfectly happy with having someone else pay for inclusion of an earlier state, since ultimately it means a fee savings to them, even if they have to reissue another transaction later (e.g., out of the change to guarantee common input).
+[/quote]
+
+Example where this is not true: batch version #1 paid Bob 1BTC, and then batch version #2 increased that payment to 2BTC. While its acceptable if the payment happens in two different txouts it is cheaper if batch version #2 gets mined instead, with just one txout.
+
+[quote="JeremyRubin, post:12, topic:696"]
+The only case where you’re unhappy with s_0s0s_0 over s_1s1s_1 is when you are making bad assumptions about how Bitcoin works.
+[/quote]
+
+This seems to be untrue because of my example.
+
+-------------------------
+
