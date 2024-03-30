@@ -98,7 +98,7 @@ You could consider introducing a trustless intermediary to facilitate the output
 
 -------------------------
 
-ZmnSCPxj | 2024-03-29 23:56:24 UTC | #3
+ZmnSCPxj | 2024-03-30 00:02:22 UTC | #3
 
 Some clarifications:
 
@@ -108,6 +108,7 @@ Some clarifications:
   * For general onchain-to-onchain spends, PSBT is used.  This allows swap-in-potentiam wallets to implement PayJoin, which uses PSBT.  The hope is that at some point in the future we can get MuSig2 support on PSBT, but the explicit 2-of-2 tapleaf path still exists so that we can uses no-MuSig2 PSBTs as they exist today.
 * The whole point of swap-in-potentiam is that it is an onchain address, with onchain address rules (including miniimum confirmation depth), that can be magically spent in Lightning (*after* minimum confirmation depth).  The inputs to the transaction should be swap-in-potentiam addresses, not outputs.
   * The use-case is that the client generates its swap-in-potentiam address, then sends the address to somebody else (e.g. post it in the footer of their website, or in their platform-formerly-known-as-Twitter bio, or in an email with somebody, or in their forum sig), then the client goes to sleep.  Then somebody else funds the swap-in-potentiam.  When the client wakes up, hopefully the received funds are already confirmed to minimum confirmation depth. then the client can spend the funds to Lightning immediately, ***without*** incurring an additional wait to move from their onchain to offchain.
+  * i.e. ***somebody else*** (*NOT* Alice!) funds the swap-in-potentiam address.  That somebody else might not even know who the Bob is.
 
 -------------------------
 
