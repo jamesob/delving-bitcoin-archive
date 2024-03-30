@@ -98,7 +98,7 @@ You could consider introducing a trustless intermediary to facilitate the output
 
 -------------------------
 
-ZmnSCPxj | 2024-03-30 00:02:22 UTC | #3
+ZmnSCPxj | 2024-03-30 00:05:02 UTC | #3
 
 Some clarifications:
 
@@ -109,6 +109,8 @@ Some clarifications:
 * The whole point of swap-in-potentiam is that it is an onchain address, with onchain address rules (including miniimum confirmation depth), that can be magically spent in Lightning (*after* minimum confirmation depth).  The inputs to the transaction should be swap-in-potentiam addresses, not outputs.
   * The use-case is that the client generates its swap-in-potentiam address, then sends the address to somebody else (e.g. post it in the footer of their website, or in their platform-formerly-known-as-Twitter bio, or in an email with somebody, or in their forum sig), then the client goes to sleep.  Then somebody else funds the swap-in-potentiam.  When the client wakes up, hopefully the received funds are already confirmed to minimum confirmation depth. then the client can spend the funds to Lightning immediately, ***without*** incurring an additional wait to move from their onchain to offchain.
   * i.e. ***somebody else*** (*NOT* Alice!) funds the swap-in-potentiam address.  That somebody else might not even know who the Bob is.
+
+The secret sauce of swap-in-potentiam addresses  is that sending an ordinary onchain transaction to it is actually a (non-Lightning!) channel open, specifically a modified `OP_CLTV`/`OP_CSV` Spilman channel (`OP_CSV` in this case).  This is unlike LN channel opens where the participants MUST participate during setup to exchange initial signatures --- the channel open can be initiated by either party without participation of the other party, or even by a third party making what it thinks is an ordinary onchain-to-onchain transaction.
 
 -------------------------
 
