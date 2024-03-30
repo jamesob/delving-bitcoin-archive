@@ -1083,3 +1083,25 @@ The absence of an attack does not prove security, especially in presence of obvi
 
 -------------------------
 
+ganava | 2024-03-30 05:09:07 UTC | #42
+
+[quote="murch, post:41, topic:553"]
+The proposal is based on a flawed approach. I demonstrated this general issue per an example. The author responded by addressing the specific mechanism used in the example instead of addressing the general flaw. I concluded that it is not a constructive use of my time to engage further.
+[/quote]
+
+Murch, you linked to your *infinite* cycle attack that would use infinite resources. Are you saying there is a general flaw with replace-by-fee-rate that has infinite cycle attacks? Peter's proof that Libre Relay's implementation does not seemed solid.
+
+[quote="murch, post:41, topic:553"]
+[quote="ganava, post:39, topic:553"]
+I’m trying out Libre Relay and my node doesn’t seem to be getting attacked.
+[/quote]
+
+The absence of an attack does not prove security, especially in presence of obvious simpler explanations.
+[/quote]
+
+:person_shrugging:
+
+No-one can prove SHA256 isn't broken either. Bitcoin continuing to exist is still evidence it's ok.
+
+-------------------------
+
