@@ -445,3 +445,125 @@ Again, while there ultimately may be good answers to these questions as we do mo
 
 -------------------------
 
+harding | 2024-03-29 22:33:16 UTC | #14
+
+[quote="sdaftuar, post:13, topic:696"]
+in the event of a reorg **the script will still be valid**, even if the
+merkle root that is referenced in a script is not in the active chain.
+[/quote]
+
+Argh, yes, you're correct, of course.  I really didn't think that one
+through.  Thank you for putting up with me!
+
+[quote="sdaftuar, post:13, topic:696"]
+That means that we’re talking about saving 10-15% of the cost of a CPFP
+by using an efficient sponsors implementation, versus something like
+Ephemeral Anchors.
+[/quote]
+
+It was pointed out to me elsewhere that I'm not being as clear as I
+should be about absolute costs versus marginal costs.
+
+I agree with you about the absolute cost.
+
+However, let's imagine any regular transaction could sponsor at least
+one other transaction with no prior setup.  Let's also assume there will
+continue to be people and organizations who broadcast at least one
+transaction every hour or so, including someone named Alice.  This
+allows Bob to pay Alice to make her next transaction a sponsor
+transaction and the marginal increase in her transaction size over the
+transaction she was planning to create anyway is ~0.5 vbytes.
+
+By comparison, Bob could include an ephemeral anchor output in his
+transaction, which would also allow Bob to pay third-party Alice (via an
+off chain mechanism) to CPFP his transaction.  Alice would need to
+include an extra ~40 vbytes in her transaction and would need pay for
+Bob's transaction containing an extra ~11 vbytes (51 vbytes total).
+
+Whether using anchors or sponsors, I'm not aware of any way for Bob to
+pay Alice trustlessly offchain (without prior setup that adds
+significant additional costs and complexity).  Bob will be paying Alice
+with no guarantee of result; she could take his money and not sponsor
+his transaction.  I'm pretty sure that's also the case with paying a
+large miner OOB, so the individual user risks of all approaches for
+paying for third party fee bumping seem roughly equivalent to me.
+
+With both anchors and sponsors, Bob can of course trustlessly fee bump
+his own transaction.  However, Bob can only fee bump his own transaction
+if he has an unencumbered UTXO to spend.  If we start to see adoption of
+pooling technologies (e.g. joinpools, channel factories, and timeout
+trees), delayed spending protocols (like vaults), and a general increase
+in typical feerates, it seems likely to me that there will be many users
+who use trustless or trust-minimized offchain protocols but don't have
+convenient access to an unencumbered UTXO.  For those users, obtaining
+an unencumbered UTXO on short notice might require an additional
+transaction onchain (or even more than one to do trustlessly, as things
+like submarine swaps require two onchain transactions to settle).
+
+To compare between Bob's different options at some point in the
+future, let's assume that he knows he will later have a transaction
+whose base size is 500 vbytes, that the typical fee for a transaction that
+size is $1,000 USD (in circa 2024 dollars), and that he also has a
+reliable offchain mechanism for paying third parties.
+
+- $1,000 (500 vbytes) is his overall cost using endogenous fees and
+  transmitting on the P2P protocol.
+
+- $1,000 (500 vbytes) is his overall cost using OOB payment to miners.
+  There may be a delay to confirmation and there's a risk a miner will
+  take his money without mining his transaction.  He'll probably have to
+  pay a slight premium over this so that the miner profits.
+
+- $1,001 (500 + 0.5 vbytes) is his overall cost using sponsors via the
+  P2P protocol with a third party who was already going to create a
+  transaction.  There's a risk the third party will take his money
+  without sponsoring his transaction.  He'll probably have to pay a
+  slight premium over this so the sponsor profits.
+
+- $1,022 (511 + 0 vbytes) is his overall cost of adding an anchor output but
+  later deciding to OOB pay miners.  There may be a confirmation delay,
+  he risks miners taking his money without providing confirmation, and
+  there will likely be a slight premium.  This also leaves an output in
+  the UTXO set indefinitely.
+
+- $1,102 (511 + 40 vbytes) is his overall cost using ephemeral anchors
+  via the P2P protocol with a third party who was already going to
+  create a transaction.  There's a risk the third party will take his
+  money without sponsoring his transaction and he'll probably have to
+  pay a slight premium so that they profit.
+
+- $1,322 (511 + 150 vbytes) is his overall cost using an ephemeral
+  anchor via the P2P and fee bumping it himself, assuming he already
+  had a UTXO ready to spend.
+
+- $1,722 (511 + 200 + 150 vbytes) is a rough estimate of his overall
+  cost using an ephemeral anchor via the P2P protocol plus trustlessly
+  obtaining a UTXO to fee bump the anchor himself.
+
+I don't think we can rule out a future where feerates are the equivalent
+of $2/vbyte, and I think there would be quite a few people in that
+potential future who would be willing to save $100 or more per
+transaction by paying miners OOB.  Even if fees were $0.2/vbyte, a level
+we've seen, I think there are a significant number of people who would
+be willing to pay miners OOB to save $10 per transaction, especially if
+there is a service (as has been proposed) to make paying OOB easy.
+
+It adds significant overhead and complexity to contract protocols to use
+incremental presigned RBF fee bumps for a wide range of potential fees,
+so they're probably always going to depend at least partly on some sort
+of exogenous fee mechanism.  Paying OOB may look unexciting given
+that it only saves 10% over ephemeral anchors in the best case, but the
+frequency at which I receive store coupons that offer around 10%
+indicates that many people find that amount of savings to be highly
+motivating.  Sponsors gives us the chance to offer that same 10%
+discount that large miners can offer without the risk to mining
+decentralization.  I think that makes it worth pursuing.
+
+Thanks to the discussion on this thread, I realize there are several
+challenges to sponsors that I need to do a better job of addressing,
+particularly reorg safety, avoiding the creation of new pinning vectors,
+and ensuring sponsors otherwise interact well with mempool structures
+and algorithms.  I'm investigating those now.
+
+-------------------------
+

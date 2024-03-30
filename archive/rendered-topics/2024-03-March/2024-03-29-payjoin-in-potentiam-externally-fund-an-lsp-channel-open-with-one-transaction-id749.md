@@ -90,3 +90,24 @@ Swap-in-potentiam already assumes a cooperating LSP. In the case they're not coo
 
 -------------------------
 
+doglegs | 2024-03-29 22:53:14 UTC | #2
+
+This is a good solution to move funds from the blockchain layer to the Lightning Network layer while maintaining trust-minimization.
+
+You could consider introducing a trustless intermediary to facilitate the output substitution process and mediate disputes between the sender and the Lightning Service Provider, reducing the reliance on a single trusted party.
+
+-------------------------
+
+ZmnSCPxj | 2024-03-29 23:56:24 UTC | #3
+
+Some clarifications:
+
+* There is no need for steps 1 and 2.  Alice knows a public key controlled by Bob, namely, the node ID of Bob.  Alice can generate its own keypair.  The Alice pubkey is expected to be made by some form of BIP32 (HD derivation).  The reason for not asking for a swap address is that it allows Alice to implement a watch-only onchain wallet using only BIP32 HD derivation.
+* Not announced yet, but the current swap-in-pointentiam detailed draft spec already uses channel opening flow instead of an onchain-to-offchain swap: https://github.com/ZmnSCPxj-jr/swap-in-potentiam/blob/cf7b11476ee5ad7a85edb5482d05f17ff625feb4/doc/swap-in-potentiam.md#opening-0-conf-lightning-channels-backed-by-swap-in-potentiam This spec is based on [LSPS0](https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/68e498ebc278dcd4ab6188d12e93ea2e91c5d882/LSPS0/README.md), but is an extension that is not yet in discussion with the LSPS standards group.
+  * IMPORTANT: all inputs to the funding transaction MUST be those with the same LSP-as-Bob.  The Alice keys can differ.  For this reason, PSBT is specifically not used, instead this sub-protocol sends the inputs and the order of the outputs in a bespoke format.  This also allows this sub-protocol to use MuSig2 path as current PSBT has no MuSig2 support yet.
+  * For general onchain-to-onchain spends, PSBT is used.  This allows swap-in-potentiam wallets to implement PayJoin, which uses PSBT.  The hope is that at some point in the future we can get MuSig2 support on PSBT, but the explicit 2-of-2 tapleaf path still exists so that we can uses no-MuSig2 PSBTs as they exist today.
+* The whole point of swap-in-potentiam is that it is an onchain address, with onchain address rules (including miniimum confirmation depth), that can be magically spent in Lightning (*after* minimum confirmation depth).  The inputs to the transaction should be swap-in-potentiam addresses, not outputs.
+  * The use-case is that the client generates its swap-in-potentiam address, then sends the address to somebody else (e.g. post it in the footer of their website, or in their platform-formerly-known-as-Twitter bio, or in an email with somebody, or in their forum sig), then the client goes to sleep.  Then somebody else funds the swap-in-potentiam.  When the client wakes up, hopefully the received funds are already confirmed to minimum confirmation depth. then the client can spend the funds to Lightning immediately, ***without*** incurring an additional wait to move from their onchain to offchain.
+
+-------------------------
+
