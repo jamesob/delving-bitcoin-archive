@@ -150,3 +150,15 @@ I'm sure you've already thought deeply about how the bespoke sub-protocol operat
 
 -------------------------
 
+ZmnSCPxj | 2024-03-30 23:42:18 UTC | #5
+
+The bespoke protocol for channel opening is less about MuSig2 and more about the fact that Alice needs to show that ALL inputs are swap-in-potentiam and that the output is to a specific 2-of-2, specifically the channel outpoint.  Rather than define a vendor-specific extension to PSBT to show that all inputs are actively swap-in-potentiam, which would require external code anyway to support beyond PSBT library, just put a bespoke protoccol that is focused on this specific need.  The risk here is that the specification might underspecify the PSBT-based extension, and implementations may neglect to perform specific checks on the PSBT that would allow an attacker to insert additional fields that inadvertently remove the security of Bob --- keep it simple, sir.
+
+For the onchain spend protocol, PSBT use is fairly standard and Bob is doing nothing more complicated than what a hardware wallet does, so PSBT here is safer.  It is the trust-minimized 0-conf Lightning funding that is novel and thus potentially risky when combined with new PSBT fields.  **More specifically**: for the onchain spend, Bob has no stake in the funds, and thus has no risk here, and Alice is using Bob as nothing more than an extra hardware wallet that it contacts remotely over the Internet, which while risky for Alice, is a risk Alice is already taking with a hot wallet model implied by Lightning anyway.
+
+The reason Bob can accept 0-conf offchain operation is precisely that ***all inputs are from swap-in-potentiam***.  If the Source Of Funds is not spending  swap-in-potentiam funds with the same Bob, then Bob cannot accept 0-conf channel funding, but must wait for confirmation.
+
+In particular, the advantage of swap-in-potentiam is precisely that Alice can go offline.  In this model, Alice is very rarely online (e.g. mobile wallet).  An edge case that can only trigger when Alice is also online is useful, but not very valuable compared to ensuring correct behavior in the common case.
+
+-------------------------
+
