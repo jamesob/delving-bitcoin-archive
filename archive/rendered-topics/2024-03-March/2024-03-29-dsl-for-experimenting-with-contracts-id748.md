@@ -81,3 +81,35 @@ https://bitvm.org/treeplusplus
 
 -------------------------
 
+jungly | 2024-03-31 16:42:27 UTC | #5
+
+Makes a lot of sense to join forces. The DSL has to eventually incorporate advances in contract definitions you guys are pushing forward.
+
+As I see it, the DSL can definitely help with some of the goals mentioned in the "advanced scripting" and "graph of transactions" parts. The only thing I am not sure of and need to figure out is state-fullness.
+
+On the tooling part, I am close to shipping a jupyter notebook to build, share and run DSL scripts. That might be useful to BitVM too. Attached is a sneak peak :wink: 
+
+What's the best place to connect with people working on BitVM? Have you started work on defining constant expressions, templates and opcode composition?
+
+![image|690x318](upload://nYm6o1wqrgpRM5OSXR5KpSjEZGz.png)
+
+-------------------------
+
+ajtowns | 2024-03-31 17:31:14 UTC | #6
+
+[quote="jungly, post:3, topic:748"]
+`reorg_chain` is interesting idea too. I’ll definitely incorporate it. I have taken a slightly different approach until now and that is to [reset the system state to run a different set of transitions](https://opdup.com/bitcoin-dsl/overview/contract_branch_executions.html), but I can see some situations and developers will benefit from a `reorg_chain` approach.
+[/quote]
+
+For me, the main difference I had in mind would be that if you reset the chain, you have to mine the funding transaction a second time, whereas if you do a reorg you can keep the block that included the funding tx, and be a little bit more sure that you don't accidentally change the funding tx as part of the reset. If you accidently change the coinbase txs when reorging you'll also change the funding tx (which presumably spends some coinbase), and the spends of that funding tx, all of which make for poor test cases if (as in lightning) your contract is meant to be able to be spent in multiple ways.
+
+-------------------------
+
+jungly | 2024-03-31 19:04:06 UTC | #7
+
+That's a very good point, and I agree, we need the `reorg_chain` command.
+
+I'll ping here once I have it shipped.
+
+-------------------------
+
