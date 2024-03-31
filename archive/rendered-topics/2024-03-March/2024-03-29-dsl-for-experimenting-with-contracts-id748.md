@@ -72,3 +72,12 @@ Writing features.py with this DSL will be a neat way to validate the expressiven
 
 -------------------------
 
+RobinLinus | 2024-03-31 10:20:06 UTC | #4
+
+Great work! 
+
+We are planning to build something very similar for BitVM. Want to join forces? 
+https://bitvm.org/treeplusplus
+
+-------------------------
+
