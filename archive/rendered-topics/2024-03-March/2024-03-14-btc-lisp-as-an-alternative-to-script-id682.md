@@ -588,3 +588,11 @@ To see the consensus code changes, you'd look at things like [jets.c](https://gi
 
 -------------------------
 
+cryptoquick | 2024-04-01 06:02:32 UTC | #15
+
+Might I suggest simply calling it Thcript? It's Script with a Lisp.
+
+EDIT: If not, for consistency's sake, perhaps we can just retcon Script as being BTC Forth.
+
+-------------------------
+
