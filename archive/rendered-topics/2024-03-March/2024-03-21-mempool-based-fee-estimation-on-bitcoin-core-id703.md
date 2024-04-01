@@ -228,3 +228,47 @@ Could we introduce a verbose option to this that allows users to view the mempoo
 
 -------------------------
 
+ismaelsadeeq | 2024-04-01 20:35:50 UTC | #8
+
+I’ve updated to a format that is more interesting to look at. 
+Thanks to additional data from @ClaraShk , I’ve filled between the 5th percentile fee rate to the 75th percentile fee rate.
+
+![fee_estimates|484x500](upload://mcf2BvvrcCRVBYyrgJEDRdmias3.png)
+
+
+Overall, based on my observations, using the threshold is not as much of an underestimation as I thought it would be. For most cases, estimates fall within the target block fee rate 5th percentile to 75th percentile range.
+
+And I also calculated the summary of my observation:
+
+Total of `19,154` estimates were made from `2024-02-28 01:57:56` to `2024-03-12 13:23:05` (Block `832330` to Block `834362`)
+
+---------------------------------------------------------
+`CBlockPolicyEstimator::estimatesmartfee` (`economic` mode) with confirmation target 1
+
+- `5,643` estimates overpaid, accounting for `29.46%` of the total estimates
+- `2,114` estimates underpaid, accounting for `11.04%` of the total estimates
+- `11,397` estimates fall within the range, accounting for `59.50%` of the total estimates
+---------------------------------------------------------
+
+Mempool based estimate for next block (Without Threshold)
+
+- `10` estimates overpaid, constituting `0.05%` of the total estimates
+- `3,637` estimates underpaid, constituting `18.99%` of the total estimates
+- `15,507` estimates fall within the range, constituting `80.96%` of the total estimates
+
+Mempool estimate for next block (With threshold of `CBlockPolicyEstimator::estimatesmartfee` (`economic` mode) confirmation target 1)
+
+- `6` estimates overpaid, constituting `0.03%` of the total estimates
+- `5,070` estimates underpaid, constituting `26.47%` of the total estimates
+- `14,078` estimates fall within the range, constituting `73.50%` of the total estimates
+
+Using `5th` percentile as the low end and `75th` Percentile as the high end.
+
+
+You can view it on Collab and edit the block ranges; it has a range threshold of `200` blocks: 
+https://colab.research.google.com/drive/1lhMzWa-AUkJne6ErM_HWuqGniHtDZndA?usp=sharing
+
+Or run the notebook from the repository https://github.com/ismaelsadeeq/fee-estimates-analysis and run the notebook.
+
+-------------------------
+
