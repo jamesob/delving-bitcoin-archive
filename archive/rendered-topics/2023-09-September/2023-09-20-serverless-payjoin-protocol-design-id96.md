@@ -84,3 +84,40 @@ Assuming **sufficient relay traffic** i.e. overlapping payjoin protocol interact
 
 -------------------------
 
+bitgould | 2024-04-01 19:17:18 UTC | #4
+
+## Choosing a proper URI encoding for payjoin params `pj` pubkey and subdirectory and `ohttp` Key Configuration
+
+Both the session public key and ohttp Key Configuration are included in the payjoin version 2 bitcoin URI. An early version of this protocol used base64url encoding since that's a dense binary to text encoding that's already available used in another payjoin dependency to encode PSBTs.
+
+A payjoin-enabled bitcoin URI looks like this. I seek to find the decide on the most suitable way to encode `$SUBDIRECTORY_PUBKEY` and `$OHTTP_KEY_CONFIG`.
+```
+bitcoin:tb1pnsvdr8842r9cnf0yyqvexz4nee8244wyr9pq6nrxw9de0uk8rckq3s9g4a?amount=21&pj=https://payjo.in/$SUBDIRECTORY_PUBKEY&ohttp=$OHTTP_KEY_CONFIG
+```
+
+Bitcoin URIs are often QR encoded, and base64Url breaks [QR Alphanumeric Encoding](https://github.com/BlockchainCommons/Research/blob/01094ff9c34464edd54df3eacc0aedee89e528b5/papers/bcr-2020-003-uri-binary-compatibility.md#qr-code-alphanumeric-encoding) and leads to QR codes with a much higher density that are more difficult to scan. Some other options have been proposed.
+
+## UR Encoding
+
+[UR Encoding was suggested on the bitcoin-dev mailing list](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-August/021882.html) since it encodes tagged fields and includes a checksum without breaking QR alphanumeric encoding. However, the payjoin subdirectory has no tagged fields since it's just a single key, and the [OHTTP RFC Key Configuration media type encoding](https://www.ietf.org/rfc/rfc9458.html#name-key-configuration-encoding) already has a specified binary representation, making tags unnecessary.
+
+## bytewords
+
+[Bytewords](https://github.com/BlockchainCommons/Research/blob/01094ff9c34464edd54df3eacc0aedee89e528b5/papers/bcr-2020-003-uri-binary-compatibility.md#bytewords) is basically UR minus the tagged fields. However it's less dense than some of the following suggestions. Setting aside the checksum, it is as dense as base16 or hexadecimal encoding. It adds a new dependency too.
+
+## Bech32m
+
+[Bech32](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0173.mediawiki#bech32) includes a human readable prefix and a checksum over a base32 encoding scheme. It's relatively dense and the checksum and prefix help it not be mistaken for other data. This encoding is used for segwit address types. [Bech32m](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0350.mediawiki#user-content-Bech32m) is a later version used for segwit v1+ addresses that fixed an issue with checksum malleability.
+
+## base45
+
+[Base45 RFC 9285](https://datatracker.ietf.org/doc/html/rfc9285) is the character set used for QR Alphanumeric Encoding, so that's about as dense as can be for this application but does not include a checksum. The checksum is critical for the address where funds end up but less critical for public key exchange to facilitate secure transport. This might be the way to go, but it adds a dependency.
+
+---
+
+## My favorites
+
+I tend to favor bech32m with `pk` for public key and `oh` for ohttp Key Configuration prefixes. It's already included in every piece of bitcoin software that supports segwit addresses. The prefix and checksum are nice to have without being too costly. base45 seems nice too, but it's adds an extra dependency only to save a few bytes.
+
+-------------------------
+
