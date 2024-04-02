@@ -141,3 +141,21 @@ let script = script! {
 
 -------------------------
 
+jungly | 2024-04-02 10:56:33 UTC | #9
+
+That's really cool.
+
+I wonder if we can make such template using a declarative syntax. It depends on what the above example really wants to do, but maybe something like:
+
+```
+"ADD 3.times('ADD ADD (counter from: 0, step: 42) (counter from: 42, step: 1)' ADD"
+```
+
+In the above, the `times` generator tracks `i` and `j` and allows the developer to focus on what they want to do, without having to write imperative code.
+
+Could such a declarative syntax make it easier to write scripts for BitVM?
+
+I need to look at the constructs used in BitVM to be able to make a meaningful suggestion. Posting the above just to show an alternative example.
+
+-------------------------
+
