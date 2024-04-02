@@ -113,3 +113,31 @@ I'll ping here once I have it shipped.
 
 -------------------------
 
+Luckylee | 2024-04-02 08:42:43 UTC | #8
+
+We currently use Rust macros at https://github.com/BitVM/rust-bitcoin-script/tree/script_macro to work with Rust Bitcoin's Script.
+New scripts and opcodes can be composed and there is some syntactic sugar like loops. Looks like this:
+```
+fn script_from_func() -> ScriptBuf {
+    return script! { OP_ADD };
+}
+
+let script = script! {
+    for i in 0..3 {
+        for k in 0..(3 as u32) {
+        OP_ADD
+        if k == i {
+            OP_SUB
+        } else {
+            script_from_func
+        }
+        { i * 42 }
+        { k + 42}
+        }
+    }
+    OP_ADD
+};
+```
+
+-------------------------
+
