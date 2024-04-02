@@ -272,3 +272,9 @@ Or run the notebook from the repository https://github.com/ismaelsadeeq/fee-esti
 
 -------------------------
 
+murch | 2024-04-01 21:19:31 UTC | #9
+
+This sounds like potential great savings for an active user that is willing to RBF should the initial estimate be short, but underestimating in over a quarter of the cases would sounds a bit painful for a user that wants to only submit an initial attempt.
+
+-------------------------
+

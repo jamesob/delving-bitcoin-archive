@@ -8,13 +8,13 @@
   "post_number": 8,
   "post_type": 1,
   "updated_at": "2024-04-01T20:35:50.495Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 703,
   "topic_slug": "mempool-based-fee-estimation-on-bitcoin-core",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I\u2019ve updated to a format that is more interesting to look at. \nThanks to additional data from @ClaraShk , I\u2019ve filled between the 5th percentile fee rate to the 75th percentile fee rate.\n\n![fee_estimates|484x500](upload://mcf2BvvrcCRVBYyrgJEDRdmias3.png)\n\n\nOverall, based on my observations, using the threshold is not as much of an underestimation as I thought it would be. For most cases, estimates fall within the target block fee rate 5th percentile to 75th percentile range.\n\nAnd I also calculated the summary of my observation:\n\nTotal of `19,154` estimates were made from `2024-02-28 01:57:56` to `2024-03-12 13:23:05` (Block `832330` to Block `834362`)\n\n---------------------------------------------------------\n`CBlockPolicyEstimator::estimatesmartfee` (`economic` mode) with confirmation target 1\n\n- `5,643` estimates overpaid, accounting for `29.46%` of the total estimates\n- `2,114` estimates underpaid, accounting for `11.04%` of the total estimates\n- `11,397` estimates fall within the range, accounting for `59.50%` of the total estimates\n---------------------------------------------------------\n\nMempool based estimate for next block (Without Threshold)\n\n- `10` estimates overpaid, constituting `0.05%` of the total estimates\n- `3,637` estimates underpaid, constituting `18.99%` of the total estimates\n- `15,507` estimates fall within the range, constituting `80.96%` of the total estimates\n\nMempool estimate for next block (With threshold of `CBlockPolicyEstimator::estimatesmartfee` (`economic` mode) confirmation target 1)\n\n- `6` estimates overpaid, constituting `0.03%` of the total estimates\n- `5,070` estimates underpaid, constituting `26.47%` of the total estimates\n- `14,078` estimates fall within the range, constituting `73.50%` of the total estimates\n\nUsing `5th` percentile as the low end and `75th` Percentile as the high end.\n\n\nYou can view it on Collab and edit the block ranges; it has a range threshold of `200` blocks: \nhttps://colab.research.google.com/drive/1lhMzWa-AUkJne6ErM_HWuqGniHtDZndA?usp=sharing\n\nOr run the notebook from the repository https://github.com/ismaelsadeeq/fee-estimates-analysis and run the notebook.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
