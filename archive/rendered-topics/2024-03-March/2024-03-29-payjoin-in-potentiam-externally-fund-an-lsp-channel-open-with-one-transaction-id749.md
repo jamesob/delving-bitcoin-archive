@@ -162,3 +162,27 @@ In particular, the advantage of swap-in-potentiam is precisely that Alice can go
 
 -------------------------
 
+bitgould | 2024-04-02 14:52:25 UTC | #6
+
+[quote="ZmnSCPxj, post:5, topic:749"]
+The reason Bob can accept 0-conf offchain operation is precisely that ***all inputs are from swap-in-potentiam***. If the Source Of Funds is not spending swap-in-potentiam funds with the same Bob, then Bob cannot accept 0-conf channel funding, but must wait for confirmation.
+[/quote]
+
+I understand that this protocol doesn't speed up the need for confirmation. If Alice has already waited for confirmation to the swap address, Bob can trust 0-conf. If Bob opens a channel from payjoin-in-potentiam external funds, Bob wants to wait for confirmation.
+
+Either way a single confirmation, either to the swap or in a payjoin, is still required from the source of funds.
+
+SIP is clearly a simpler protocol that should be deployed correctly before being optimized for batched fee saving.
+
+[quote="ZmnSCPxj, post:5, topic:749"]
+In particular, the advantage of swap-in-potentiam is precisely that Alice can go offline. In this model, Alice is very rarely online (e.g. mobile wallet). An edge case that can only trigger when Alice is also online is useful, but not very valuable compared to ensuring correct behavior in the common case.
+[/quote]
+
+Correctness is absolutely more important than an optimization. However I don't think that's the trade-off PIP makes.
+
+I see why SIP is awesome and want to build more on the idea. PIP is just an optimization to save fees with an SIP failsafe. It also provides the LSP with an opportunity for those outside funds to pay for an LSP consolidation or transaction cut-through and preserve privacy via a transaction topology including indistinguishable sender and receiver input.
+
+I know when I'm expecting incoming funds I often keep refreshing the page waiting for it to land in my wallet. In that case, both Alice and Bob can save blockspace fees and create less congestion in mempool. A comparison of payjoin-in-potentiam to the correct swap-in-potentiam common case does not make much sense to me  because PIP subsumes the common case SIP entirely. Do you foresee some way that it would break that common case assuming a correct implementation? I see that ensuring correct implementation is also an important and valid concern on your mind.
+
+-------------------------
+

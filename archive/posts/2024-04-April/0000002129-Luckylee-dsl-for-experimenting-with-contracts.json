@@ -12,9 +12,9 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 748,
   "topic_slug": "dsl-for-experimenting-with-contracts",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "We currently use Rust macros at https://github.com/BitVM/rust-bitcoin-script/tree/script_macro to work with Rust Bitcoin's Script.\nNew scripts and opcodes can be composed and there is some syntactic sugar like loops. Looks like this:\n```\nfn script_from_func() -> ScriptBuf {\n    return script! { OP_ADD };\n}\n\nlet script = script! {\n    for i in 0..3 {\n        for k in 0..(3 as u32) {\n        OP_ADD\n        if k == i {\n            OP_SUB\n        } else {\n            script_from_func\n        }\n        { i * 42 }\n        { k + 42}\n        }\n    }\n    OP_ADD\n};\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
