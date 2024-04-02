@@ -278,3 +278,13 @@ This sounds like potential great savings for an active user that is willing to R
 
 -------------------------
 
+ajtowns | 2024-04-02 00:43:13 UTC | #10
+
+[quote="ismaelsadeeq, post:8, topic:703"]
+I’ve updated to a format that is more interesting to look at. Thanks to additional data from @ClaraShk , I’ve filled between the 5th percentile fee rate to the 75th percentile fee rate.
+[/quote]
+
+Should probably be a log scale for the y-axis -- you probably want to know when you're paying twice as much as you should, rather than 25sats more. In particular an estimate of 150 sat/vb vs 75 sat/vb (the blue spike at the end) is probably about equally bad as a 50 sat/vb vs 25 sat/vb (the yellow overestimate for a while at the beginning).
+
+-------------------------
+
