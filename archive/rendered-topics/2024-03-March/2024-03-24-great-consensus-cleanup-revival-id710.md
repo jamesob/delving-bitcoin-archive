@@ -265,7 +265,7 @@ The code comment in the reference also mentions that a soft-fork may be preferre
 
 -------------------------
 
-AntoineP | 2024-04-05 15:32:17 UTC | #12
+AntoineP | 2024-04-05 15:37:24 UTC | #12
 
 [quote="ajtowns, post:7, topic:710"]
 I don’t think that does reduce the worst case UTXO set growth?
@@ -288,7 +288,7 @@ If we are worried about the last point we could, as you suggested to me elsewher
 This insecure use of SIGHASH_SINGLE is useful
 [/quote]
 
-Yes, it also seems worthless to fix on its own. The author didn't take the time to suggest a "fix", but changing this behaviour (besides just disabling it) would be a hard fork. The obvious backward compatible alternative is to have a new script version application developers can opt in to use. Good news: it exists, it's Taproot. Furthermore i don't think anybody reported having an issue with this since it was first discussed more than a decade ago. In fact it is so much not worth fixing that even Segwit v0 [explicitly did not](https://github.com/bitcoin/bips/blob/master/bip-0143.mediawiki#cite_note-7).
+Yes, it also seems worthless to fix on its own. The author didn't take the time to suggest a "fix", but changing this behaviour (besides just disabling it) would be a hard fork. The obvious backward compatible alternative is to have a new script version application developers can opt in to use. Good news: it exists, it's Taproot. Furthermore i don't think anybody reported having an issue with this since it was first discussed more than a decade ago. In fact it is so much not worth fixing that even Segwit v0 [explicitly did not](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0143.mediawiki#cite_note-7).
 
 [quote="recent798, post:11, topic:710"]
 How many of those coinbase outputs are spent along with another coinbase output that stems from a coinbase transaction that can not be duplicated? If all are spent in this fashion, then a future soft fork may not be needed?
