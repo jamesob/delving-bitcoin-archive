@@ -308,3 +308,59 @@ A check that the coinbase transaction at block 490,897 can never be `bec6606bb10
 
 -------------------------
 
+recent798 | 2024-04-05 16:17:19 UTC | #13
+
+[quote="AntoineP, post:12, topic:710"]
+A check that the coinbase transaction at block 490,897 can never be `bec6606bb10f77f5f0395cc86d0489fbef70c0615b177a326612d8bd7b84f84d` could be hardcoded in the client, but i think if there is a reorg this deep we have bigger problems anyways.
+[/quote]
+
+Fair enough. Though, a reorg at an early height doesn't have to be problematic. It could normally happen, intentionally or accidentally. For example, if you yourself, or someone else fed blocks via `submitblock` or directly without announcement over P2P. I know that the new PoW DoS protection in headers-first download likely protects against a low-work reorg during IBD over P2P, but I don't think it does over RPC.
+
+-------------------------
+
+sjors | 2024-04-05 17:34:57 UTC | #14
+
+[quote="AntoineP, post:12, topic:710"]
+Making absolutely sure txids are unique seems like a good property to have in Bitcoin. And making it so comes at very little cost as this rule would only take effect in 21 years (much more than the current lifetime of Bitcoin).
+[/quote]
+
+Ah, so I guess the rule could be: blocks (with more than one transaction) at or above 1,983,702 MUST have a witness commitment. That's plenty of time to make sure all mining software does that by default.
+
+This is probably the only new soft-fork rule that miners could violate by accident. Not requiring a witness commitment for "empty" (only a coinbase) blocks makes it safer, because who knows what custom code is out there to SPV/spy-mine in the brief interval between when a new block is seen and when it's fully validated and the new template is ready. 
+
+[quote="AntoineP, post:1, topic:710"]
+I have yet to check if there is any violation of this but i’d be surprised if there is a pre-Segwit coinbase transaction with an output pushing exactly the witness commitment header followed by 32 `0x00` bytes.
+[/quote]
+
+There isn't, unless I missed it: https://bitcoin.stackexchange.com/questions/121069/when-was-the-first-op-return-output-in-a-coinbase
+
+(actually that's not exactly what you asked, but at least there's no OP_RETURN use in the coinbase before BIP30 and BIP34 kicked in)
+
+[quote="AntoineP, post:12, topic:710"]
+A check that the coinbase transaction at block 490,897 can never be `bec6606bb10f77f5f0395cc86d0489fbef70c0615b177a326612d8bd7b84f84d` could be hardcoded in the client, but i think if there is a reorg this deep we have bigger problems anyways.
+[/quote]
+
+This is not necessary. As explained in `validation.cpp`:
+
+```cpp
+// Block 490,897 was, in fact, mined with a different coinbase than
+// block 176,684, but it is important to note that even if it hadn't been or
+// is remined on an alternate fork with a duplicate coinbase, we would still
+// not run into a BIP30 violation.  This is because the coinbase for 176,684
+// is spent in block 185,956 in transaction
+```
+
+So a re-org would have to go all the way back to `185,956`. That's buried below multiple checkpoints. And although we might [get rid of checkpoints](https://github.com/bitcoin/bitcoin/pull/25725) completely, many nodes would consider a reorg that deep a hard fork.
+
+-------------------------
+
+AntoineP | 2024-04-05 18:21:08 UTC | #15
+
+[quote="sjors, post:14, topic:710"]
+So a re-org would have to go all the way back to `185,956`.
+[/quote]
+
+Sure but what @recent798 was asking about is actually the latter part of this precise comment you pasted, which states we should consider adding a rule to retroactively prevent the two historical candidates (209,921 and 490,897) from having a duplicate coinbase at all.
+
+-------------------------
+
