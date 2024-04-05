@@ -12,9 +12,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "It would be, but that's a hard-fork - that'll have to wait for 2106 :slight_smile:\n\n[BIP 320](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0320.mediawiki) makes some more header bits available for nonce-like grinding. I'm not sure how widely used it is, and IIUC Stratum v2 takes advantage of it. In any case that doesn't require a (soft) fork.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
