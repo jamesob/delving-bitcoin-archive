@@ -243,3 +243,11 @@ I'm not quite sure how painful it's for miners now since I've not been keeping u
 
 -------------------------
 
+sjors | 2024-04-05 09:18:36 UTC | #10
+
+It would be, but that's a hard-fork - that'll have to wait for 2106 :slight_smile:
+
+[BIP 320](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0320.mediawiki) makes some more header bits available for nonce-like grinding. I'm not sure how widely used it is, and IIUC Stratum v2 takes advantage of it. In any case that doesn't require a (soft) fork.
+
+-------------------------
+
