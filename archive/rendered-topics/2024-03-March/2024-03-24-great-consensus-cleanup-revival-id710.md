@@ -251,3 +251,17 @@ It would be, but that's a hard-fork - that'll have to wait for 2106 :slight_smil
 
 -------------------------
 
+recent798 | 2024-04-05 10:23:22 UTC | #11
+
+[quote="AntoineP, post:4, topic:710"]
+For the curious, [here ](https://gist.github.com/darosior/3a5ac0a8d935fa9d3e90310590ca6699) is the full list of all the potential future violations.
+[/quote]
+
+How many of those coinbase outputs are spent along with another coinbase output that stems from a coinbase transaction that can not be duplicated? If all are spent in this fashion, then a future soft fork may not be needed? The expensive check could be skipped, if on a known-good headers chain, and otherwise enabled.
+
+For reference: https://github.com/bitcoin/bitcoin/pull/12204/files
+
+The code comment in the reference also mentions that a soft-fork may be preferred, which "*retroactively* prevents block [...] from creating a duplicate coinbase". So requiring a witness commitment does not seem appropriate, because it can not be enforced on past blocks. My understanding is that a soft-fork that can not be applied from genesis won't help to skip the expensive check in case of a massive (theoretical) reorg, so fallback code will be needed for this case. If fallback code is needed anyway, then it seems better to do it without a consensus deployment.
+
+-------------------------
+
