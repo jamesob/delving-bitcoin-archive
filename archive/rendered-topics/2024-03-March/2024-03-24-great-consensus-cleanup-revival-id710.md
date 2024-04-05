@@ -209,3 +209,37 @@ EDIT to add: all the coinbases from the list in comment 4 have an nLocktime of 0
 
 -------------------------
 
+ajtowns | 2024-04-05 02:30:30 UTC | #7
+
+[quote="AntoineP, post:1, topic:710"]
+Limiting the maximum size of scriptPubKey’s to reduce the worst case UTxO set growth.
+[/quote]
+
+I don't think that does reduce the worst case UTXO set growth? Creating a utxo costs 8 bytes for the value, and X+1 or X+3 bytes for the script; but storing a utxo costs an additional 4 bytes beyond that to record the coinbase flag and block height. So given a choice between spending 64 vbytes creating two p2sh outputs or spending 64 vbytes to create one output with a 55 byte scriptPubKey, then the two outputs uses up more space in the utxo set. Then there's also whatever indexes the database uses to make lookups by txid fast.
+
+If anything, the better reason to limit scriptPubKey sizes seems to be that (a) with p2sh-style approaches large scriptPubKeys are unnecessary, and (b) it moves validation cost to where validation actually occurs. That is, if you have a large/complex spending constraint, if you put that in a large scriptPubKey, you can then redeem many utxos that use that constraint in a single block: in that case the cost you pay is spread out over many blocks (where the scriptPubKey contributes to sigop counts and weight limit), but the cost incurred by validating nodes is localised to the spending block (when hashing and signature checking actually occurs).
+
+I think limiting scriptPubKeys to 105 bytes would cover all the existing standard cases (105 bytes for k-of-3 bare multisig, ~80 bytes for op_return), and provide plenty of room for larger p2sh-style hashes (eg ~50 bytes for taproot-style commitments with a bls12-381 curve or ~66 bytes for a sha512 hash).
+
+-------------------------
+
+ajtowns | 2024-04-05 03:26:53 UTC | #8
+
+[quote="1440000bytes, post:2, topic:710"]
+I think SIGHASH_SINGLE bug reported in 2012 should also be fixed with other bugs: [[Bitcoin-development] Warning to rawtx creators: bug in SIGHASH_SINGLE ](https://www.mail-archive.com/bitcoin-development@lists.sourceforge.net/msg01408.html)
+[/quote]
+
+This insecure use of SIGHASH_SINGLE is useful for cheaply spending insecure low-value/dust utxos to miner fees -- the [idea](https://bitcointalk.org/index.php?topic=1118704.msg11864913#msg11864913) is that you combine many inputs with only one output, use SIGHASH_SINGLE for inputs after the first so that you get cheap hashing, and for the signature R-value you use G/2 which has a short encoding, allowing you to clean up more dust in the same number of bytes. Because the utxos are already insecure, revealing the utxo's private key by spending with a known R-value is fine, and because you don't care about revealing the private key, having a signature that can be reused for other utxos with the same pubkey is also fine.
+
+To some extent this can also be used as a "release" key; if you script is `<Pn> CHECKSIGVERIFY <T> CHECKSIG` then the `T` can publish a single signature that can be reused by `P0`, `P1`, etc who have locked different utxos against similar scripts (the `Pn` signature would be an ordinary `SIGHASH_ALL` here). That's potentially more convenient than `NONE|ANYONECANPAY` as it doesn't commit to the utxo being spent; provided you don't mind having extra inputs so that there's no output corresponding to this utxo's input.
+
+So personally I think it's fine to leave this as-is, and just recommend people use p2wpkh, p2wsh or p2tr instead to avoid this weird behaviour unless they actually want it.
+
+-------------------------
+
+kcalvinalvin | 2024-04-05 04:38:11 UTC | #9
+
+I'm not quite sure how painful it's for miners now since I've not been keeping up but the nonce field could be bigger than 4 bytes. That'd ease up things for miners. 8 bytes should be enough right? Maybe someone's done the math for this.
+
+-------------------------
+
