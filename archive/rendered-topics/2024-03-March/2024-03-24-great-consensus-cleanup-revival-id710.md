@@ -265,3 +265,46 @@ The code comment in the reference also mentions that a soft-fork may be preferre
 
 -------------------------
 
+AntoineP | 2024-04-05 15:32:17 UTC | #12
+
+[quote="ajtowns, post:7, topic:710"]
+I don’t think that does reduce the worst case UTXO set growth?
+[/quote]
+
+Indeed. It was a late (and not though-through) addition to the examples of things i don't think meet the bar to be "fixed" as part of this effort. Thanks for the correction, this all makes sense.
+
+[quote="ajtowns, post:7, topic:710"]
+moves validation cost to where validation actually occurs
+[/quote]
+
+Yes. With regard to validation costs i think we should instead make sigops of prevouts with bare scripts count toward the budget of the block it's spent in. It'd make them be counted twice but:
+- we can't "uncount" the ones at creation time without a hard fork;
+- better to double count them than to not count them at all where it matters;
+- it should not affect any real world usage.
+
+If we are worried about the last point we could, as you suggested to me elsewhere, discount 3 sigops per prevout to account for the current standard usage. But i don't think it's necessary, the size limit is hit before the sigop limit for any non-pathological use of legacy (or any) script. (From some napkin maths the less pathological legacy transaction which would hit the sigop limit is a (>773 kB) transaction which spends at least 6667 1-of-3 bare multisigs to a p2sh output.)
+
+[quote="ajtowns, post:8, topic:710"]
+This insecure use of SIGHASH_SINGLE is useful
+[/quote]
+
+Yes, it also seems worthless to fix on its own. The author didn't take the time to suggest a "fix", but changing this behaviour (besides just disabling it) would be a hard fork. The obvious backward compatible alternative is to have a new script version application developers can opt in to use. Good news: it exists, it's Taproot. Furthermore i don't think anybody reported having an issue with this since it was first discussed more than a decade ago. In fact it is so much not worth fixing that even Segwit v0 [explicitly did not](https://github.com/bitcoin/bips/blob/master/bip-0143.mediawiki#cite_note-7).
+
+[quote="recent798, post:11, topic:710"]
+How many of those coinbase outputs are spent along with another coinbase output that stems from a coinbase transaction that can not be duplicated? If all are spent in this fashion, then a future soft fork may not be needed?
+[/quote]
+
+I did not check how each of these 189,023 transactions were spent. Indeed if we are really sure all of the BIP34 exceptions have been spent in this fashion, and buried under an amount of work deemed sufficient, then we could get rid of the BIP30 validation without mandating the block height in `nLockTime` (or the witness commitment).
+
+Still i would argue:
+1. This analysis is tedious, error-prone and difficult to peer-review;
+2. Making absolutely sure txids are unique seems like a good property to have in Bitcoin. And making it so comes at very little cost as this rule would only take effect in 21 years (much more than the current lifetime of Bitcoin).
+
+[quote="recent798, post:11, topic:710"]
+The code comment in the reference also mentions that a soft-fork may be preferred, which “*retroactively* prevents block […] from creating a duplicate coinbase”.
+[/quote]
+
+A check that the coinbase transaction at block 490,897 can never be `bec6606bb10f77f5f0395cc86d0489fbef70c0615b177a326612d8bd7b84f84d` could be hardcoded in the client, but i think if there is a reorg this deep we have bigger problems anyways.
+
+-------------------------
+
