@@ -1,10 +1,9 @@
 # Constellation - a high performance Lightning-based L3. Feedback wanted
 
-azz | 2024-04-06 14:41:27 UTC | #1
+azz | 2024-04-06 16:31:23 UTC | #1
 
 -----BEGIN PGP SIGNED MESSAGE-----
 Hash: SHA256
-
 
 <div data-theme-toc="true"> </div>
 
@@ -38,12 +37,12 @@ While complex, this model allows for extremely high transactional throughput. 2^
 
 ### deposits/withdrawals
 Both are handled via eCash:
-- - - minted via depositing funds over L2 or L1 to somewhere (LN channel or P2TR output) controlled by the ROAST threshold signature. 
-- - - The notes are then redeemed into the L3 ledgers to a L3 address controlled by the depositor. 
+- - minted via depositing funds over L2 or L1 to somewhere (LN channel or P2TR output) controlled by the ROAST threshold signature. 
+- - The notes are then redeemed into the L3 ledgers to a L3 address controlled by the depositor. 
   - This breaks the link between a user's depositing funds and the coins created on L3. 
-- - - These funds are then spliced into the L2 channels that back each operator. 
-- - - The L3 ledger will always have a total UTXO set valuing <= amount held on chain by the threshold multisig. eCash total amount + L3 ledger total amount = amount held in L2 channel local balances. Similar onchain mechanism to how phoenix does their magic stuff
-- - - withdrawals are also handled by eCash, in mostly the same way but in reverse
+- - These funds are then spliced into the L2 channels that back each operator. 
+- - The L3 ledger will always have a total UTXO set valuing <= amount held on chain by the threshold multisig. eCash total amount + L3 ledger total amount = amount held in L2 channel local balances. Similar onchain mechanism to how phoenix does their magic stuff
+- - withdrawals are also handled by eCash, in mostly the same way but in reverse
 
 "Withdrawals" can also be used for complete backwards compatibility, meaning a L3-based wallet can pay a L3 address, a L2 invoice or an L1 address from a single QR scan. UX is good. 
 
@@ -53,7 +52,7 @@ Both are handled via eCash:
 
 complicated but not really
 
-each input and output will be identified by the operator that looks after it. all L3 funds are held in L2 local balances of channels with other operators. constellation is just a wrapper on top of lightning. except when you're dealing with billions of $s of bitcoin, liquidity issues don't exist anymore. your $100k soyboy EV payment won't have to completely ruin your channel balance. any big liquidity balance issues will be autonomously resolved by splicing in and out, because if a channel manages billions, the few thousand dollars of onchain fees to pay for the splice are pocket change.
+each input and output will be identified by the operator that looks after it. all L3 funds are held in L2 local balances of channels with other operators. constellation is just a wrapper on top of lightning. except when you're dealing with billions of $s of bitcoin, liquidity issues don't exist anymore. your $100k soyboy EV payment won't have to completely ruin your channel balancing. any big liquidity balance issues will be autonomously resolved by splicing in and out, because if a channel manages billions, the few thousand dollars of onchain fees to pay for the splice are pocket change.
 
 when a transaction is made between operators (it doesn't matter if they're in the same guild or not), the funds are settled over LN. the funds will instantly show up as unavailable for each receiver, and these transactions can be queued. when the sending operator settles their differences (batching used, probably every second), the receiver works out how many of those queued transactions have now been paid off and can then make those funds available. 
 
@@ -82,10 +81,10 @@ no it's not, but Constellation makes reasonable tradeoffs that give humanity an 
 thank you for reading, i'm working on a blog post that will talk in more detail but i might just start writing the code instead. please let me know any technical feedback or thoughts or questions you may have. i appreciate all of y'all.
 -----BEGIN PGP SIGNATURE-----
 
-iHUEARYIAB0WIQTZqB4RHv8az8qZrF37Dus/ZKINRAUCZhFfFAAKCRD7Dus/ZKIN
-RARKAQCdrP0E6m2S5Z/LYdgnJ7GR6YwELeBz0014IR5uoIVX8AD+NUX9Dop5z4pW
-wkcwYfTHR3o2hUWwpWQhQhgSOowiQQ0=
-=kEA5
+iHUEARYIAB0WIQTZqB4RHv8az8qZrF37Dus/ZKINRAUCZhF41AAKCRD7Dus/ZKIN
+RLebAP4kpmWAsFLocxFsojErWBuSZJXA7j+47ohT7r17HYS/1wEAoHxW6aLh4soA
+IWAVBMqhsZH7yxFK5fGOWAjpAbk59Qo=
+=kvMw
 -----END PGP SIGNATURE-----
 
 -------------------------
