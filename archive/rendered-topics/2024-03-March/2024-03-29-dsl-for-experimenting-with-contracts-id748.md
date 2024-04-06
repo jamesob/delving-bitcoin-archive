@@ -169,11 +169,11 @@ This is very cool, thank you for working on it!  I noticed on your personal webs
 
 -------------------------
 
-dgpv | 2024-04-06 20:42:51 UTC | #11
+dgpv | 2024-04-06 20:43:12 UTC | #11
 
 > PLA+
 
-It's TLA+ ("Temporal Logic of Actions")
+It's TLA+ (for "Temporal Logic of Actions")
 
 -------------------------
 
