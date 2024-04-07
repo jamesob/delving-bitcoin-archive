@@ -159,13 +159,15 @@ I need to look at the constructs used in BitVM to be able to make a meaningful s
 
 -------------------------
 
-harding | 2024-04-06 20:25:08 UTC | #10
+harding | 2024-04-07 04:26:02 UTC | #10
 
 [quote="jungly, post:1, topic:748"]
 I want to share a DSL I am building for describing and running bitcoin contracts
 [/quote]
 
-This is very cool, thank you for working on it!  I noticed on your personal website that you've also worked on using PLA+ to verify the completeness of Bitcoin contract protocols (hat tip to @dgpv who has also done [similar work](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-May/017866.html)).   I'm wondering if there's any planned overlap, for example an automated way to extract information from a comprehensive DSL to use with PLA+?
+This is very cool, thank you for working on it!  I noticed on your personal website that you've also worked on using TLA+ ~~PLA+~~ to verify the completeness of Bitcoin contract protocols (hat tip to @dgpv who has also done [similar work](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-May/017866.html)).   I'm wondering if there's any planned overlap, for example an automated way to extract information from a comprehensive DSL to use with TLA+ ~~PLA+~~?
+
+[Edited to correct name based on @dgpv reply.]
 
 -------------------------
 
