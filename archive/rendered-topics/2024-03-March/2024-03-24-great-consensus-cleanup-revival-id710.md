@@ -364,3 +364,19 @@ Sure but what @recent798 was asking about is actually the latter part of this pr
 
 -------------------------
 
+ajtowns | 2024-04-08 13:27:39 UTC | #16
+
+[quote="sjors, post:10, topic:710, full:true"]
+It would be, but that's a hard-fork - that'll have to wait for 2106 :slight_smile:
+
+[BIP 320](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0320.mediawiki) makes some more header bits available for nonce-like grinding. I'm not sure how widely used it is, and IIUC Stratum v2 takes advantage of it. In any case that doesn't require a (soft) fork.
+[/quote]
+
+Over the last 10k blocks (828299 to 838299), 9404 blocks have bip320 bits set (matching `/[23]...[02468ace]00[04]/` while 597 blocks don't (matching `/2000000[04]/`), so at least ~94% of hashrate has adopted BIP320 (as compared to reserving all bits for signalling per BIP9). That percentage could be an underestimate if ASICs are grinding through the all-zeroes case as well.
+
+The 4 at the end in both cases is to catch the ~216 blocks that are still signalling for taproot for whatever reason, which I think are all [SBI Crypto](https://twitter.com/ajtowns/status/1777324742149554295).
+
+Reproducer if anyone cares: `$ for a in $(seq 828299 838299); do bitcoin-cli getblockheader $(bitcoin-cli getblockhash $a) | jq -j '.height, " ", .versionHex, "\n"'; done | sed 's/ 2000000[04]/ bip9/;s/ [23]...[02468ace]00[04]/ bip320/' | cut -d\  -f2 | sort | uniq -c`
+
+-------------------------
+
