@@ -362,3 +362,30 @@ Changing the fee estimator in bitcoin core might work well for a single node but
 
 -------------------------
 
+ClaraShk | 2024-04-09 15:00:56 UTC | #13
+
+Thanks for sharing this work!
+
+Could you share a few more details about the suggested fee estimation?
+Is it the latest median $\times$ 0.9 or 1.1, depending on whether the fees are expected to decrease or increase?
+How often does it miss the next block or overpays?
+
+[quote="renepickhardt, post:12, topic:703"]
+Median or average Fee as a feature?
+[/quote]
+The downside of both is that it might be too high of a goal, leading to overpaying. In an ideal world, you want to be the last transaction in the block.
+Have you considered the average of the lower half, or something like that?
+
+
+[quote="renepickhardt, post:12, topic:703"]
+Assuming no sudden demand change this means that the fees would be declining.
+[/quote]
+Were you able to quantify the decline/increase?
+
+[quote="renepickhardt, post:12, topic:703"]
+What about using option pricing via Black Scholes
+[/quote]
+Black-Scholes is a very interesting idea, but doesn't it need the stock to have a fixed expiration time? If we are willing to assume 10 minutes, we could also use it in a simpler model of time from the previous block.
+
+-------------------------
+
