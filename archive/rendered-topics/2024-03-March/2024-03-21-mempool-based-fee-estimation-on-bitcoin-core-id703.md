@@ -330,3 +330,35 @@ Here is the graph with the threshold when y axis is in log scale:
 
 -------------------------
 
+renepickhardt | 2024-04-09 13:11:52 UTC | #12
+
+Sorry for jumping in a bit late! Until February I have supervised and interacted quite a bit with [a student to study fee estimation via mempool](https://github.com/oscars181/Jugend-Forscht-Fee-Estimator/) (unfortunately in German language). I wanted to open an issue on github with a summary of our findings but didn't have the time. Yet I have the feeling this thread may be the right place to add a few thoughts. Apologies if this is not a 100% direct reply to the discussion. If too off-topic, I could move the post to a new thread. 
+
+Before I start I want to emphasize that I really like the direction of this work as I believed that using statistics on the mempool would be good. However the way I interpret Oscar's results I tend to believe that the problem is much more complicated. 
+
+## Bitcoin core tends to overestimate fees after spikes
+
+First I wanted to share a diagram that show that bitcoin core's fee estimater tends to overestimate fees for quite some time especially after a spike in fees occured:
+![photo_2024-04-09 14.43.14|690x338](upload://72zMrNsjhcPrYlZ1LkXcmf8h6AZ.jpeg)
+
+## Median or average Fee as a feature?
+
+With respect to @ismaelsadeeq choosing the median fee as a feature: We had been discussing this quite a bit. Initially we also thought that the median would be a great and obvious statistic to use. However as we have CPFP we could technically have more than 50% of tx and blockspace with really cheap transactions and one child paying for all of them. (Think of a Lightning Network node that force closes all its channels and the txs are bumped via anchors). At the same time miners tend to maximize the total fees in the block. Thus we came to the conclusion that against our own intuition the average fee per byte seems more indicative as a feature to use as it correlates with the total fees of the block.
+
+## Mempool resting times of tx before confirmation as a feature
+
+We identified the distribution of mempool resting times of tx that made it to the current block an useful feature to predict weather we are in a rising or falling fee market. The philosophy is that transactions in the latest block that are longer in the mempool than the block time indicate that not much demand has been happening and older TX are being confirmed. Assuming no sudden demand change this means that the fees would be declining. 
+
+## Best predictive feature not applicable :confused: 
+
+The best feature that we were able to extract on historic mempool data was the block time. This makes sense. If a block is found very quickly it is very likely that it includes a large amount of tx that have been resting in the Mempool longer than the blocktime which indicates that fees should decline. On the other hand if a block is not found quickly it is rather likely that users start to push fees up. Obviously we don't know the next blocktime and cannot use that feature.
+
+
+## What about using option pricing via Black Scholes
+
+Oscar's work was handed in for a student competition. While the Jury acknowledged the technical depth and awarded a second price they had the criticism that the problem of fee estimation cannot and should not be studied without looking at the behavior of the other participants in the network. 
+
+Changing the fee estimator in bitcoin core might work well for a single node but if all nodes upgrade this may not be reasonable anymore. While we haven't done so yet the Jury suggest to understand the problem of fee estimation as an option pricing model where one pays fees to have the option to be included in the next block. Consequently the suggested that we should have used [Black-Scholes Equation](https://en.m.wikipedia.org/wiki/Black%E2%80%93Scholes_equation) to derive a price for such an option instead of just looking at statistics in the current mempool.
+
+-------------------------
+
