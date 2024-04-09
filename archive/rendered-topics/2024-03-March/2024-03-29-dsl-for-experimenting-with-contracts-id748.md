@@ -179,3 +179,36 @@ It's TLA+ (for "Temporal Logic of Actions")
 
 -------------------------
 
+jungly | 2024-04-09 09:08:16 UTC | #12
+
+Hi David,
+
+Thanks for looking into my other work.
+
+TLA+ is a different beast from this DSL. The goals of the two systems are pretty different with TLA+ being just so much more powerful - but slightly harder to pick up.
+
+### TLA+
+
+With TLA+ you define a system state and possible transitions. TLA+ can then run a "model checker" that goes off and explores all possible reachable states. Once all the possible states have been generated, it asserts that certain properties that we define remain valid in all reachable states. If in any state, our properties are not satisfied, it can produce a trace showing which state transitions lead to that bad state. As you can see, this really helps debug concurrent protocols - just like Bitcoin and LN. I really think specing LN network communication protocols in TLA+ will help a lot. Anyway, I digress.
+
+### Bitcoin DSL 
+In contrast, the DSL requires developers to write all state transitions themselves and script their execution - this is similar to writing unit/functional tests for any code. The plus side of the DSL is that it runs your code on regtest, so you really know your scripts will result in real world system transitions. Which I find really helpful personally. I also found it very helpful to learn about various contract constructions - the DSL could be a nice teaching aid.
+
+### Status of my TLA+ work
+
+I am currently [using TLA+ to specify the protocols used in Braidpool](https://blog.opdup.com/specification.html). It really helps capture error in our thinking before we write code. I am hoping this will help Braidpool be more robust to human error :slight_smile: 
+
+I used [TLA+ to capture commitment and breach transactions protocol for LN](https://github.com/pool2win/bitcoin-contracts-tlaplus/blob/794ccf6e9dd9bdd323aa18d3a09648849a066411/LNContractsUsingBitcoinTransactions.tla) last year. I kind of lost focus as I was still working part time on all of this. My goal there was to first define a [model for Bitcoin using TLA+](https://github.com/pool2win/bitcoin-contracts-tlaplus/blob/794ccf6e9dd9bdd323aa18d3a09648849a066411/BitcoinTransactions.tla) and then use that for defining the state transitions resulting from LN contract executions.
+
+I took a quick look at @dgpv's atomic swap contract. It is pretty serious effort. It will be nice to decompose such contracts into multiple modules.
+
+1. Bitcoin blockchain - this captures the chain state and state transitions possible. It is kind of on the back burner atm. I'll get back to it soon.
+2. A module of functions to help build contracts - this kind of explodes in complexity, but we can start small and write functions for the most common use cases.
+3. Communication between parties - I believe this should be left to vanilla TLA+ or pluscal.
+
+@dgpv - as you can see, I dream of a TLA+ modules library like the [TLA+ Community Modules](https://github.com/tlaplus/CommunityModules).
+
+-kp
+
+-------------------------
+
