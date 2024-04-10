@@ -1,0 +1,72 @@
+{
+  "id": 2195,
+  "name": "",
+  "username": "rijndael",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/r/8797f3/{size}.png",
+  "created_at": "2024-04-10T17:23:10.037Z",
+  "cooked": "<p>Good call-out. I\u2019ll add length checks on the next iteration <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
+  "post_number": 6,
+  "post_type": 1,
+  "updated_at": "2024-04-10T17:23:10.037Z",
+  "reply_count": 0,
+  "reply_to_post_number": 5,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
+  "yours": false,
+  "topic_id": 576,
+  "topic_slug": "basic-vault-prototype-using-op-cat",
+  "topic_title": "Basic vault prototype using OP_CAT",
+  "topic_html_title": "Basic vault prototype using OP_CAT",
+  "category_id": 7,
+  "display_username": "",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "dgpv",
+    "name": "",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/dgpv/{size}/75_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Good call-out. I'll add length checks on the next iteration :)",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 288,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

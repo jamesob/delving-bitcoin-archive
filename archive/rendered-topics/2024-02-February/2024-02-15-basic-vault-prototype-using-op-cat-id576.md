@@ -134,3 +134,29 @@ But with less witness inputs these scripts can be easier to understand for those
 
 -------------------------
 
+dgpv | 2024-04-10 17:09:27 UTC | #5
+
+[quote="rijndael, post:1, topic:576"]
+We use the CAT-checksig technique to validate that the amount and scriptpubkey of the first input and first output are the same. We enforce that the second output is amount is exactly 546 sats, but we do not place any restrictions on the scriptpubkey. We also enforce that there are two inputs and two outputs.
+[/quote]
+
+I think that the covenant script does not actually enforces all that.
+
+It enforces that the amount of first input is the same as the amount of the first output.
+
+But It does not validate the sizes of the buffers - that means that `target_scriptpubkey_buffer` can contain extra data, for extra outputs.
+
+The `fee_scriptpubkey_buffer` and `fee_amount_buffer` can contain extra data, too, for extra inputs.
+
+If the `script_pubkey_buffer` contains extra data, it will interfere with calculation of `spent_scripts_single_hash` as that extra data will be taken as scriptpubkey data, while it will need to contain the amounts. But IIRC, non-standard taproot outputs are treated as anyone-can-spend by miners, so maybe some manipulation is possible here, too. 
+
+I think the script should have size checks added for the sizes of all the buffers, just in case.
+
+-------------------------
+
+rijndael | 2024-04-10 17:23:10 UTC | #6
+
+Good call-out. I'll add length checks on the next iteration :)
+
+-------------------------
+
