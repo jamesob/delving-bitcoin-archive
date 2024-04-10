@@ -212,3 +212,40 @@ I took a quick look at @dgpv's atomic swap contract. It is pretty serious effort
 
 -------------------------
 
+shesek | 2024-04-09 22:47:42 UTC | #13
+
+[quote="jungly, post:9, topic:748"]
+I wonder if we can make such template using a declarative syntax
+[/quote]
+
+Minsc has some functional constructs for looping that might be interesting to check out.
+
+You can use `repeat($n, $script)` for cases where you need to repeat a script fragment exactly N times. For example to create a `rollFromAltStack` function (for statically known N):
+
+```
+fn rollFromAltStack($n) = `
+  repeat($n, OP_FROMALTSTACK)
+  repeat($n - 1, `OP_SWAP OP_TOALTSTACK`)
+`;
+script = `100 rollFromAltStack(5) OP_ADD`;
+``` 
+([playground](https://min.sc/next/#c=fn%20rollFromAltStack%28%24n%29%20%3D%20%60%0A%20%20repeat%28%24n%2C%20OP_FROMALTSTACK%29%0A%20%20repeat%28%24n%20-%201%2C%20%60OP_SWAP%20OP_TOALTSTACK%60%29%0A%60%3B%0A%0Ascript%20%3D%20%60100%20rollFromAltStack%285%29%20OP_ADD%60%3B%0A%0Ascript))
+
+The fragment can also be constructed with a function if the index is needed, for example ``` `0 repeat(3, |$i| repeat(5, |$k| `$i OP_ADD {$k+10} OP_SUB`))` ```
+
+There's also `unrollLoop($max, $condition, $body)` that runs a script fragment as long as a condition is met, up to `$max` times. For example, a simple countdown from a number on the stack (up to 50) down to 0:
+```
+unrollLoop(50, `OP_DUP 0 OP_GREATERTHANOREQUAL`, OP_1SUB)
+```
+([playground](https://min.sc/next/#c=unrollLoop%2850%2C%20%60OP_DUP%200%20OP_GREATERTHANOREQUAL%60%2C%20OP_1SUB%29), [more advanced example with liquid](https://min.sc/next/#gist=758c25489869d77d4ef624ea43f18c49). `unrollLoop` is itself [implemented](https://github.com/shesek/minsc/blob/a28412f2da02c9952881c36f01b1b5027c7520bd/src/stdlib/stdlib.minsc#L55) in Minsc as part of its stdlib.)
+
+--
+
+Minsc focuses entirely on defining the (Mini)Script-level spending conditions and doesn't deal with higher-level abstracts like Bitcoin DSL does, so perhaps they could somehow work together.
+
+Note that the main https://min.sc website is outdated, the docs are lacking the (non-Miniscript) Script features and the playground runs an old version. A playground that matches the code on [github](https://github.com/shesek/minsc) is available at [https://min.sc/next/](https://min.sc/next/). I don't have updated docs but I did publish some [more advanced examples](https://twitter.com/shesek/status/1508586871819059202) using CTV and Liquid's introspection opcodes.
+
+I should really get this cleaned up and released properly 😅  I haven't been working on this for some time but picking this back up has been on my mind.
+
+-------------------------
+
