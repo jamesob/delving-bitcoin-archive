@@ -134,13 +134,13 @@ But with less witness inputs these scripts can be easier to understand for those
 
 -------------------------
 
-dgpv | 2024-04-10 17:09:27 UTC | #5
+dgpv | 2024-04-10 20:17:58 UTC | #5
 
 [quote="rijndael, post:1, topic:576"]
 We use the CAT-checksig technique to validate that the amount and scriptpubkey of the first input and first output are the same. We enforce that the second output is amount is exactly 546 sats, but we do not place any restrictions on the scriptpubkey. We also enforce that there are two inputs and two outputs.
 [/quote]
 
-I think that the covenant script does not actually enforces all that.
+I think that the covenant script does not actually enforce all that.
 
 It enforces that the amount of first input is the same as the amount of the first output.
 
