@@ -89,3 +89,9 @@ IWAVBMqhsZH7yxFK5fGOWAjpAbk59Qo=
 
 -------------------------
 
+ion_minus | 2024-04-11 09:54:59 UTC | #2
+
+I find this to be a very interesting and inspiring concept. I will keep my comment here to a very high level and note that an L3 system like Constellation would be nice to be able to abstract and handle all L2 solutions like Lightning and Ark. What is more, it shall be able to seamlessly integrate anything else the L2 future brings as it is being fielded. This way, it will take out any requirement from L2 systems to interoperate at a peer level. While I personally dislike any kind of trusted mints it is a sound design option to include them as well for those who use them.
+
+-------------------------
+
