@@ -160,3 +160,56 @@ Good call-out. I'll add length checks on the next iteration :)
 
 -------------------------
 
+dgpv | 2024-04-11 21:52:09 UTC | #7
+
+The miner can drain this vault at 'trigger withdrawal' transaction by putting their input as first input, and the covenant-locked input as the second input. The output_0 will just be their input_0 amount going back to them (so `input_0=output_0` condition will be satisfied) , while the covenant input_1 amount will be split between 546-sat dust amount at output_1 and the fee. Since the fee goes to the miner, they will be taking everything from the vault. Non-miner can just sabotage the vault by draining it to a random miner.
+
+I currently don't know the way how this can be fixed.
+
+By the way, 546 sat is the dust for non-segwit, AFAIR. For segwit, the amount calculated by `IsDust()` will be lower
+
+-------------------------
+
+dgpv | 2024-04-11 21:59:38 UTC | #8
+
+I guess you can avoid draining by miner by enforcing zero fee: require the non-covenant input to be dust amount (the same amount as output_1), and then the transaction will need to be paid for by CPFP using the dust-paying output.
+
+There could also be other complications on the 'complete withdrawal' phase, but I did not analyze it yet
+
+-------------------------
+
+rijndael | 2024-04-11 22:23:13 UTC | #9
+
+Excellent find! You're right: if we are using input/output ordering to implicitly check for where the covenant input/output is, but can't enforce it, we're gonna have a bad time. 
+
+for this vault case specifically, one easy mitigation would be to require a signature check in addition to the rest of the script. OP_VAULT has the idea of a "trigger key". I think that's a feature that makes a lot of sense. There's not a great reason it's not included in this implementation, I just didn't do it. I'll add that to my todo list as well :slight_smile: 
+
+Thinking more generally, we do cover the [index of the input](https://github.com/taproot-wizards/purrfect_vault/blob/ee7ee57ba9b5ed8fee7382334625bacbe27f8c36/src/vault/signature_building.rs#L266) in our signature message ([full spec in bip341](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0341.mediawiki#common-signature-message)) so I think we could enforce that the covenant input is at index 0 (or whatever). 
+
+
+On the dust, you are also right. I was seeing a lot of 546-value'd outputs and just picked that as reasonable-dust.
+
+-------------------------
+
+dgpv | 2024-04-11 22:26:20 UTC | #10
+
+[quote="rijndael, post:9, topic:576"]
+Thinking more generally, we do cover the [index of the input](https://github.com/taproot-wizards/purrfect_vault/blob/ee7ee57ba9b5ed8fee7382334625bacbe27f8c36/src/vault/signature_building.rs#L266) in our signature message ([full spec in bip341](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0341.mediawiki#common-signature-message)) so I think we could enforce that the covenant input is at index 0 (or whatever).
+[/quote]
+
+Yes, I think enforcing that the current input index is 0 should fix this.
+
+-------------------------
+
+dgpv | 2024-04-11 23:01:25 UTC | #11
+
+What is the purpose of fixing `output_1` to dust amount ?
+
+It seems to me that if you fix the covenant input index to 0 you can allow second output to be any amount.
+
+`input_0 = output_0` and covenant_input_index is 0, and there is only two inputs and two outputs.
+
+Therefore, the `output_1` amount can only be equal to `input_1` amount minus the fee.
+
+-------------------------
+

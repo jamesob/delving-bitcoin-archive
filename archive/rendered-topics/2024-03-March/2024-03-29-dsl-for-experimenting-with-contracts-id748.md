@@ -249,3 +249,61 @@ I should really get this cleaned up and released properly 😅  I haven't been w
 
 -------------------------
 
+sCrypt | 2024-04-11 22:14:30 UTC | #14
+
+We developed [a TypeScript eDSL](https://medium.com/@scryptplatform/introduce-scrypt-a-layer-1-smart-contract-framework-for-btc-b8b39c125c1a) called sCrypt that compiles down to Bitcoin Script. This examples shows NAND gate commitment in BitVM.
+
+
+```
+import {
+    assert, ByteString, hash160, method, prop, Ripemd160, SmartContract,
+} from 'scrypt-ts-btc'
+
+type HashPair = {
+    hash0: Ripemd160
+    hash1: Ripemd160
+}
+
+export class BitVM extends SmartContract {
+    @prop()
+    hashPairA: HashPair
+    @prop()
+    hashPairB: HashPair
+    @prop()
+    hashPairE: HashPair
+    
+    constructor(hashPairA: HashPair, hashPairB: HashPair, hashPairE: HashPair) {
+        super(...arguments)
+        this.hashPairA = hashPairA
+        this.hashPairB = hashPairB
+        this.hashPairE = hashPairE
+    }
+    
+    @method()
+    public openGateCommit(
+        preimageA: ByteString,
+        preimageB: ByteString,
+        preimageE: ByteString
+    ) {
+        const bitA = DemoBitVM.bitCommit(this.hashPairA, preimageA)
+        const bitB = DemoBitVM.bitCommit(this.hashPairB, preimageB)
+        const bitE = DemoBitVM.bitCommit(this.hashPairE, preimageE)
+        assert(DemoBitVM.nand(bitA, bitB) == bitE)
+    }
+    
+    @method()
+    static bitCommit(hashPair: HashPair, preimage: ByteString): boolean {
+        const h = hash160(preimage)
+        assert(h == hashPair.hash0 || h == hashPair.hash1)
+        return h == hashPair.hash1
+    }
+    
+    @method()
+    static nand(A: boolean, B: boolean): boolean {
+        return !(A && B)
+    }
+}
+```
+
+-------------------------
+
