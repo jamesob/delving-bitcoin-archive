@@ -1,6 +1,6 @@
 # Research into the effects of a cluster size limited mempool in 2023
 
-sdaftuar | 2024-04-12 20:24:58 UTC | #1
+sdaftuar | 2024-04-12 20:25:45 UTC | #1
 
 In https://delvingbitcoin.org/t/an-overview-of-the-cluster-mempool-proposal/393, I wrote up a description of a new mempool design.  As that proposal would change which transactions make it into the mempool under certain circumstances, it raises questions around what effects those changes to relay policy might have on the network, should the proposal be widely adopted.
 
@@ -147,7 +147,7 @@ Fewer than 60 replacement attempts (out of the ~150M accepted transactions last 
 
 1. **Merging parents** – a transaction conflicted with two or more other transactions which had low fee parents, and the replacement transaction spent all those low fee parents, resulting in a worse mining score than a conflict.
 
-2. **Higher feerate child** – a transaction conflicted with a tx that had a higher feerate child than the replacement transaction.**
+2. **Higher feerate child** – a transaction conflicted with a tx that had a higher feerate child than the replacement transaction.
 
 I'll explain each in turn, with an actual example from last year.
 
@@ -155,7 +155,7 @@ I'll explain each in turn, with an actual example from last year.
 
 ![Merging parents example|690x343](upload://zo7chOQC9XuhJXfK28LwN3vNIgR.jpeg)
 
-Here, the blue transaction is a replacement that would conflict with the two red transactions.  We can see that its parents are the union of the parents of the two transactions already in the mempool, and that as a result is mining score (57.3 sat/vb) is actually less than that of one of the conflicts (61.4 sat/vb), despite the replacement having a higher feerate and higher fee than the transactions it would replace.
+Here, the blue transaction is a replacement that would conflict with the two red transactions.  We can see that its parents are the union of the parents of the two transactions already in the mempool, and that as a result its mining score (57.3 sat/vb) is actually less than that of one of the conflicts (61.4 sat/vb), despite the replacement having a higher feerate and higher fee than the transactions it would replace.
 
 In this example, the BIP 125 rules are permitting a replacement that may be making the mempool worse off, by replacing a transaction with a higher mining score with one that has a lower mining score.
 
