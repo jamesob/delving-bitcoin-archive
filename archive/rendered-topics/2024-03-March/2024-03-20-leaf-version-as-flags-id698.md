@@ -16,3 +16,18 @@ The leaf version must be even which reduces the number of flags to 7, and it can
 
 -------------------------
 
+Chris_Stewart_5 | 2024-04-12 15:40:48 UTC | #3
+
+Hi Ben! 
+
+I don't believe this can be changed anymore in v1 taproot. We serialize the entire byte representation of the leaf version into the tap leaf hash.
+
+In other words, we commit to the full byte rather than an individual bit in the leaf version.
+
+https://github.com/bitcoin/bitcoin/blob/0de63b8b46eff5cda85b4950062703324ba65a80/src/script/interpreter.cpp#L1828
+
+
+[Whenever we roll out witness version 2, i believe we could change semantics around this](https://github.com/bitcoin/bitcoin/blob/0de63b8b46eff5cda85b4950062703324ba65a80/src/script/interpreter.cpp#L1929). However, we we do roll out version 2 we could totally redefine semantics for leaf versions any way. We the pace we deploy things currently, 256 leaf versions more than adequate imo.
+
+-------------------------
+
