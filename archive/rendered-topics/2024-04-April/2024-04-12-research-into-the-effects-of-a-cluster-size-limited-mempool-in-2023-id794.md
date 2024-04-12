@@ -1,6 +1,6 @@
 # Research into the effects of a cluster size limited mempool in 2023
 
-sdaftuar | 2024-04-12 17:51:25 UTC | #1
+sdaftuar | 2024-04-12 20:24:58 UTC | #1
 
 In https://delvingbitcoin.org/t/an-overview-of-the-cluster-mempool-proposal/393, I wrote up a description of a new mempool design.  As that proposal would change which transactions make it into the mempool under certain circumstances, it raises questions around what effects those changes to relay policy might have on the network, should the proposal be widely adopted.
 
@@ -25,7 +25,7 @@ I patched my cluster mempool prototype implementation with the simulation code d
 
 1. I ran both simulations with `-debug=mempool` and `-debug=mempoolrej`, so that I had logging for every transaction's acceptance or rejection from the mempool.
 2. I also ran both simulations with `-maxmempool=20000`, to effectively unlimit the mempool size so that mempool trimming would not be triggered. This reduced the noice in comparing differences between the simulations, as otherwise we'd have small differences from slightly different mempool minimum fee values that occur because the memory layout/usage of the two implementations differ.
-3. The cluster mempool implementation was run with cluster mempool limits of **100 transactions/101 kvb** transaction size.  (Note also that the cluster mempool implementation has no limits on ancestor or descendant counts or sizes.)
+3. The cluster mempool implementation was run with cluster mempool limits of 100 transactions/101 kvb** transaction size.  (Note also that the cluster mempool implementation has no limits on ancestor or descendant counts or sizes.)
 
 Both simulations were run on all the data I recorded in 2023, from Jan 1 to  December 31.
 
