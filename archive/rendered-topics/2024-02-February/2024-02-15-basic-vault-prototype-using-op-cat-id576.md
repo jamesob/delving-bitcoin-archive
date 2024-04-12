@@ -160,11 +160,11 @@ Good call-out. I'll add length checks on the next iteration :)
 
 -------------------------
 
-dgpv | 2024-04-11 21:52:09 UTC | #7
+dgpv | 2024-04-12 08:54:41 UTC | #7
 
 The miner can drain this vault at 'trigger withdrawal' transaction by putting their input as first input, and the covenant-locked input as the second input. The output_0 will just be their input_0 amount going back to them (so `input_0=output_0` condition will be satisfied) , while the covenant input_1 amount will be split between 546-sat dust amount at output_1 and the fee. Since the fee goes to the miner, they will be taking everything from the vault. Non-miner can just sabotage the vault by draining it to a random miner.
 
-I currently don't know the way how this can be fixed.
+I currently don't know the way how this can be fixed (edit: there are ways, see below).
 
 By the way, 546 sat is the dust for non-segwit, AFAIR. For segwit, the amount calculated by `IsDust()` will be lower
 
