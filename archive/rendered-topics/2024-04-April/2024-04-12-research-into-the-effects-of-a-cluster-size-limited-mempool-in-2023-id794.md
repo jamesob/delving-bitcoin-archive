@@ -1,6 +1,6 @@
 # Research into the effects of a cluster size limited mempool in 2023
 
-sdaftuar | 2024-04-12 20:25:45 UTC | #1
+sdaftuar | 2024-04-12 20:28:55 UTC | #1
 
 In https://delvingbitcoin.org/t/an-overview-of-the-cluster-mempool-proposal/393, I wrote up a description of a new mempool design.  As that proposal would change which transactions make it into the mempool under certain circumstances, it raises questions around what effects those changes to relay policy might have on the network, should the proposal be widely adopted.
 
@@ -82,7 +82,7 @@ This graph shows the absolute difference in fees (same data as shown above, but 
 
 ### Histogram of fee differences
 
-Just to give a sense of how often one implementation outperformed the other, I produced a histogram of the fee differences. I discarded the 0 values to avoid skewing the histogram with values where the implementations tied.
+Just to give a sense of how often one implementation outperformed the other, I produced a histogram of the fee differences, ie cluster mempool block fees minus baseline block fees. I discarded the 0 values to avoid skewing the histogram with values where the implementations tied.
 
 **![|702px;x508px;](upload://1AUUcIoRXf4tBowW7cgs9sEqHPK.png)**
 
