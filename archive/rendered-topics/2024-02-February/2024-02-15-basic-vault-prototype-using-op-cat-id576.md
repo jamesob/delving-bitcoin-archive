@@ -213,3 +213,19 @@ Therefore, the `output_1` amount can only be equal to `input_1` amount minus the
 
 -------------------------
 
+dgpv | 2024-04-12 17:47:47 UTC | #12
+
+[quote="dgpv, post:8, topic:576"]
+There could also be other complications on the ‘complete withdrawal’ phase, but I did not analyze it yet
+[/quote]
+
+the 'complete withdrawal' case must enforce `input index = 0`, too -- otherwise you can take two input utxo that are in 'trigger withdrawal' state and use one as 'contract input' and second one as 'fee-paying input', and they can be from different vaults. The second utxo can then be drained to the miner as the fee.
+
+-------------------------
+
+rijndael | 2024-04-12 18:01:01 UTC | #13
+
+yep, anywhere we check input.spk == output.spk, we should also be doing an input index assertion.
+
+-------------------------
+
