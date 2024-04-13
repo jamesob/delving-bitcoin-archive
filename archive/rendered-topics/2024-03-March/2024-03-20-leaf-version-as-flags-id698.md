@@ -31,3 +31,9 @@ https://github.com/bitcoin/bitcoin/blob/0de63b8b46eff5cda85b4950062703324ba65a80
 
 -------------------------
 
+vostrnad | 2024-04-13 13:47:08 UTC | #4
+
+Committing to the leaf version byte (i.e. the full set of flags) is exactly what we want. I don't see how that would be a problem.
+
+-------------------------
+
