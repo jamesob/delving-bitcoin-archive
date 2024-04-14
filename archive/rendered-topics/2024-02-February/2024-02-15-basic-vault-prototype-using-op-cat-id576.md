@@ -229,3 +229,15 @@ yep, anywhere we check input.spk == output.spk, we should also be doing an input
 
 -------------------------
 
+dgpv | 2024-04-14 19:43:53 UTC | #14
+
+The structure of the transaction that sends funds to the vault for the first time is also important
+
+Conventional wallets might shuffle outputs.
+
+If conventional wallet is used to send to such vault, it can put vault output at index 1 and change output at index 0
+
+In this situation, the 'complete withdrawal' covenant case can be abused: vault address will be used as destination for withdrawal, but the amount of "change" from "envault" transaction will be used as withdrawal amount, and the rest will go to the change or the fee
+
+-------------------------
+
