@@ -30,3 +30,11 @@ cc: @sipa
 
 -------------------------
 
+bruno | 2024-04-15 09:37:33 UTC | #5
+
+One more bug found by it!
+
+https://github.com/rust-bitcoin/rust-bitcoin/issues/2681
+
+-------------------------
+
