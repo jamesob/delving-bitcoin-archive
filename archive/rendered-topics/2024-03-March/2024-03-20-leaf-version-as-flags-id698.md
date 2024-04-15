@@ -37,3 +37,9 @@ Committing to the leaf version byte (i.e. the full set of flags) is exactly what
 
 -------------------------
 
+ProofOfKeags | 2024-04-15 19:16:34 UTC | #5
+
+Committing to it would be fine. I think it just means that we have different interpretations of when we have "the next version". Rather than an enumerated mutually exclusive type we have conjunctions of features. AFAICT that's still compatible with committing to the whole thing.
+
+-------------------------
+

@@ -37,3 +37,15 @@ If they will run their full nodes with those new features, then it would be suff
 
 -------------------------
 
+ProofOfKeags | 2024-04-15 19:58:05 UTC | #3
+
+I think it's worth noting that there are two main reasons that running lightning and similar off-chain deferred settlement protocols. First is the issue where you need to monitor the chain for breaches of contract and respond in kind. Secondly it requires interactivity in order for a transfer to complete. Both of these things require the persistent liveness of an agent operating on your behalf. This is what makes running these off-chain protocols harder, not the signing itself.
+
+Doing *more* deferral as in your proposal (I admit I've only skimmed it so feel free to correct me if I misunderstand) doesn't do anything to alleviate this problem and in fact exacerbates it to a (modest) degree.
+
+If you are interested in removing the need for custodial lightning, you need one of two things. Either an extremely simple way to spin up an agent that works on your behalf in this way (this is what products like [Start9](https://marketplace.start9.com/lnd) offer), OR you need protocols that eliminate the liveness requirement for receiving money and responding to potential breaches.
+
+Indeed it is already the case that the game theory of lightning that dishonesty is disadvantageous. Broadcasting a prior state opens you up to a complete loss of all channel funds. However, to guarantee this in practice, you must be able to respond to breaches. Extending this assumption to the funding transaction doesn't do anything to actually alleviate the pressures that nudge people towards custodianship.
+
+-------------------------
+

@@ -197,3 +197,23 @@ I am also going to be working on a threaded implementation since this has been a
 
 -------------------------
 
+theStack | 2024-04-15 17:12:42 UTC | #12
+
+@yonson: That's very cool, thanks for working on that! I'm looking forward to try it out later and do some manual testing with clients that I've tried bip324-proxy with before (i.e. primarily nakamoto, neutrino, bcoin in SPV mode, and last but not least, Bitcoin Core). Also happy to hear that the project helps shaping the interface for the bip324 library.
+
+> I am also going to be working on a threaded implementation since this has been a pretty useful exercise to help inform what type of interface we want our bip324 protocol library to expose. We have a bit more to clean up and iterate on there, but have generally adopted a “sans I/O” approach to keep it runtime agnostic.
+
+Can you elaborate in what aspects the threaded implementation will differ from the current one? To my understanding, a thread is already spawned for each incoming v1 connection (otherwise, only one connection would be supported).
+
+-------------------------
+
+yonson | 2024-04-15 17:35:23 UTC | #13
+
+> Can you elaborate in what aspects the threaded implementation will differ from the current one? To my understanding, a thread is already spawned for each incoming v1 connection (otherwise, only one connection would be supported).
+
+Sure! The async implementation is ["spawning"](https://tokio.rs/tokio/tutorial/spawning) new threads of work, but these are "green threads" not tied 1:1 with operating system threads.
+
+My use of "threaded implementation" is a bit vague with all this concurrency talk, but I specifically mean an operating system thread implementation. The big benefit of this is that we could then code up standard library based wrappers which work against the std::io::Read/Write traits (these generally don't play nice in async-land). The cost of the OS thread impl simplicity is the standard heavy resource usage per connection.
+
+-------------------------
+
