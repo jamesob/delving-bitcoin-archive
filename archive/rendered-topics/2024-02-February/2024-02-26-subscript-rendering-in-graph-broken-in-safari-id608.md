@@ -55,3 +55,9 @@ Done (also checked that it's not fixed in the dev branch): https://github.com/me
 
 -------------------------
 
+sjors | 2024-04-15 15:20:13 UTC | #6
+
+Looks like this has been fixed upstream: https://github.com/mermaid-js/mermaid-live-editor/pull/1424
+
+-------------------------
+
