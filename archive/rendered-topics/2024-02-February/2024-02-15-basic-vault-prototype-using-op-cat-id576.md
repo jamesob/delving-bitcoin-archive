@@ -241,3 +241,9 @@ In this situation, the 'complete withdrawal' covenant case can be abused: vault 
 
 -------------------------
 
+dgpv | 2024-04-14 21:54:52 UTC | #15
+
+Given that 'complete withdrawal' is not expected to be available without 'trigger withdrawal', I guess the "envault" transaction must have only one output
+
+-------------------------
+

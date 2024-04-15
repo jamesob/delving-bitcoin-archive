@@ -189,3 +189,11 @@ Perfect, will keep a pulse on your `src`. My favorite Rust book is [Effective Ru
 
 -------------------------
 
+yonson | 2024-04-14 22:05:16 UTC | #11
+
+Hey @theStack , @rustaceanrob and I have been hacking along in our BIP324 repo and have a working rust-based v2 proxy (heavily influenced by your Python version) I thought you might find interesting! It is async, using the Tokio runtime: https://github.com/rustaceanrob/bip324/blob/fae064c22f77c62e3541cceea33690ef3efad52b/proxy/src/bin/async.rs
+
+I am also going to be working on a threaded implementation since this has been a pretty useful exercise to help inform what type of interface we want our bip324 protocol library to expose. We have a bit more to clean up and iterate on there, but have generally adopted a "sans I/O" approach to keep it runtime agnostic.
+
+-------------------------
+
