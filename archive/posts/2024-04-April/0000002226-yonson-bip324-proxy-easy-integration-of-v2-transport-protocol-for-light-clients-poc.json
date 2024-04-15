@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.6,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.8,
   "yours": false,
   "topic_id": 678,
   "topic_slug": "bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hey @theStack , @rustaceanrob and I have been hacking along in our BIP324 repo and have a working rust-based v2 proxy (heavily influenced by your Python version) I thought you might find interesting! It is async, using the Tokio runtime: https://github.com/rustaceanrob/bip324/blob/fae064c22f77c62e3541cceea33690ef3efad52b/proxy/src/bin/async.rs\n\nI am also going to be working on a threaded implementation since this has been a pretty useful exercise to help inform what type of interface we want our bip324 protocol library to expose. We have a bit more to clean up and iterate on there, but have generally adopted a \"sans I/O\" approach to keep it runtime agnostic.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

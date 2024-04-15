@@ -56,3 +56,24 @@ You should take a look at utreexo, which works exactly how you're describing. It
 
 -------------------------
 
+real-or-random | 2024-04-15 13:46:13 UTC | #6
+
+[quote="real-or-random, post:3, topic:224"]
+But I’m not aware that anyone is seriously looking into it, at least not currently.
+[/quote]
+
+Something to watch out for is the ZPrice competition:
+https://www.zprize.io/
+
+They're currently running a competition seeking for implementation improvements of ZK proofs and related tech, also using GPUs. See for example https://github.com/td-kwj-zp2023/webgpu-msm-bls12-377 for a submission to the competition that uses WebGPU to speed up multi-scalar multiplication (also known as multi-exponentiation), which is the most important building block in batch verification of ZK proofs, but also in batch verification of signatures. Though they work on a different elliptic curve, their work shows what's possible:
+https://docs.google.com/spreadsheets/d/1JR8Rzern0DkXc8oHZWcGlPjxSCfP4n4-ZDrpYihgo8M
+
+If I read this correctly, that's a multi-scalar multiplication of size 2^20 in 1277 milliseconds...
+
+The winners of the competition should be announced soon.
+
+
+edit: Okay, maybe this example is not all that impressive. That's 1.2 usec / scalar, and libsecp256k1 can do 4.3 usec / scalar on my laptop CPU (on size 2^15, I haven't tried 2^20). Anyway, it will be interesting to see the results of the competition...
+
+-------------------------
+
