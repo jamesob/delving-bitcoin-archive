@@ -49,3 +49,31 @@ Indeed it is already the case that the game theory of lightning that dishonesty 
 
 -------------------------
 
+hynek | 2024-04-16 19:50:43 UTC | #4
+
+[quote="garlonicon, post:2, topic:797"]
+Alice knows all conditions behind a given UTXO, then she can always move them on-chain, no matter what was signed previously
+[/quote]
+
+Sure, she can. But it's not beneficial to her.
+
+[quote="garlonicon, post:2, topic:797"]
+However, if you note that you can hide N-of-N multisig, behind a single public key, then you can see some potential in this idea.
+[/quote]
+
+Could be interesting.. but here the initial idea is that you don't need any on-chain preparation.
+
+[quote="garlonicon, post:2, topic:797"]
+And then, those nodes could act as a global watchtower.
+[/quote]
+
+It would be cool.. but the idea here is to keep this information for peers only because I don't know how to prevent unwanted broadcasting.
+
+[quote="ProofOfKeags, post:3, topic:797"]
+If you are interested in removing the need for custodial lightning, you need one of two things. Either an extremely simple way to spin up an agent that works on your behalf in this way (this is what products like [Start9](https://marketplace.start9.com/lnd) offer), OR you need protocols that eliminate the liveness requirement for receiving money and responding to potential breaches.
+[/quote]
+
+I admit that these two params are slightly worse at Last mile compared to LN. However that isn't what I'm trying to improve primary. My main ambition is to extend the number of sovereign users without polluting the time-chain. Making it accessible to more people.
+
+-------------------------
+

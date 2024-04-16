@@ -8,13 +8,13 @@
   "post_number": 3,
   "post_type": 1,
   "updated_at": "2024-04-15T19:58:05.995Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 1.8,
   "yours": false,
   "topic_id": 797,
   "topic_slug": "can-game-theory-secure-scaling",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I think it's worth noting that there are two main reasons that running lightning and similar off-chain deferred settlement protocols. First is the issue where you need to monitor the chain for breaches of contract and respond in kind. Secondly it requires interactivity in order for a transfer to complete. Both of these things require the persistent liveness of an agent operating on your behalf. This is what makes running these off-chain protocols harder, not the signing itself.\n\nDoing *more* deferral as in your proposal (I admit I've only skimmed it so feel free to correct me if I misunderstand) doesn't do anything to alleviate this problem and in fact exacerbates it to a (modest) degree.\n\nIf you are interested in removing the need for custodial lightning, you need one of two things. Either an extremely simple way to spin up an agent that works on your behalf in this way (this is what products like [Start9](https://marketplace.start9.com/lnd) offer), OR you need protocols that eliminate the liveness requirement for receiving money and responding to potential breaches.\n\nIndeed it is already the case that the game theory of lightning that dishonesty is disadvantageous. Broadcasting a prior state opens you up to a complete loss of all channel funds. However, to guarantee this in practice, you must be able to respond to breaches. Extending this assumption to the funding transaction doesn't do anything to actually alleviate the pressures that nudge people towards custodianship.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

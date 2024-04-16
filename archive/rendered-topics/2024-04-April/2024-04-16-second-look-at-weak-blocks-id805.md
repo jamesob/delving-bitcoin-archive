@@ -1,0 +1,60 @@
+# Second Look at Weak Blocks
+
+instagibbs | 2024-04-16 17:45:35 UTC | #1
+
+[Weak blocks](https://bitcoinsearch.xyz/?search=weak+blocks), or "near blocks" are not a new idea.
+
+In short, have miners propagate what amounts to mining shares over the p2p network, which allows PoW-backed sharing of data.
+
+[Historical discussions](https://gnusha.org/bitcoin-wizards/2015-12-02.log) of weak blocks centered around the [blocksize and scaling debate](https://btctranscripts.com/scalingbitcoin/hong-kong-2015/invertible-bloom-lookup-tables-and-weak-block-propagation-performance/), which means there was intense focus on reducing the marginal bytes sent per weak block to aid "gigameg blocks". There was seemingly a lot of focus on creating DAGs, extra-consensus chains, and similar mechanisms for increasing the blocksize safely.
+
+Almost 10 years have passed, communities have split, basically everyone is a small blocker of some kind. Ignoring blocksize increases as a motivation, *is there value in reconsidering this type of proposal?*
+
+Some considerations jumped out to me:
+1. We have compact blocks deployed for an off-the-shelf toolset to reduce the amount of bandwidth necessary to transmit these weak blocks.
+2. We are seeing diverging mempool policies for a number of reasons, which along with mempool churn, results in additional round-trips and delays for final block propagation, which hurts mining fairness and thus decentralization.
+
+ **What if we can use compact blocks-derived infrastructure to enable weak blocks, which in turn makes compact block relay perform better by reducing round trips?**
+
+"Specification" 
+===
+Re-use a variant of [compact blocks messages](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0152.mediawiki) to support propagation of "weak compact blocks". Don't make a DAG or require consensus over these messages, just use them as a DoS-resistant messaging layer for things miners appear to be working on.
+
+It's ok for these messages to be slower or fail, as long as the PoW is validated carefully. They are not as speed-critical as regular compact blocks.
+
+Open questions:
+
+1. What level of validation of weak blocks is required to share the weak block transactions?
+2. Since we don't want to require persistence of weak blocks to disk, we need to allow for a full weak block to be "forgotten" even after being advertised via a weak compact block. Add a `notfound` type response?
+
+Implementation
+===
+
+Basic [PoC here](https://github.com/instagibbs/bitcoin/commits/2024-03-weakblocks_poc/) with light tests only to demonstrate the high level idea.
+
+When a weak block comes in, we fetch the missing transactions from our peer using `getwblocktxns`, then once the weak block is validated as structurally sound, attempt to insert any transactions we don't have yet into our mempool, and relay the weak block via weak compact blocks in turn.
+
+Everything is held in a "holding cell", even if rejected from the mempool(possibly for standardness reasons).
+
+The implementation is only doing a "best effort" last seen weak block, but clearly this will be insufficient for a full implementation.
+
+Open questions:
+
+1. What PoW "multiplier"(factor decrease from consensus-required) should we set? For the PoC branch I set this to 2 simply for testing. Increasing this value increases the expected number of weak blocks per block interval.
+1. How many blocks should we buffer?
+1. Do we have to buffer the transactions even if they're in the mempool already? If we're asked for them via `getwblocktxns`, we need to respond somehow even if they've been cycled out of your mempool.
+1. Should we support the "low bandwidth" path, with an additional round-trip via `weak headers` message? Should we even support the "high bandwidth" path?
+
+Bonus use-cases
+===
+["Forcible insertion"](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-October/019578.html) of transactions that are incentive-compatible but violate anti-DoS rules? (e.g., "pinning replacement")
+
+Next-block fee estimation?
+
+Next Steps
+===
+1. Gather higher-level feedback on a proposed specification/implementation
+2. If there's general enthusiasm for such a proposal among developers, figure out if/how miners would actually use this. Do miners use RPCs to submit blocks? Should we support a (whitelisted peer only) protocol to submit non-compact versions of weak blocks to nodes for initial propagation? Would miners actually want to run this? Market research is required, although small miners can run these on their own and benefit from the increased network convergence.
+
+-------------------------
+
