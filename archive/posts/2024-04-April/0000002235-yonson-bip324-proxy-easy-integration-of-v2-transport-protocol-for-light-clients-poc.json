@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 8,
   "readers_count": 7,
-  "score": 1.6,
+  "score": 16.6,
   "yours": false,
   "topic_id": 678,
   "topic_slug": "bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "> Can you elaborate in what aspects the threaded implementation will differ from the current one? To my understanding, a thread is already spawned for each incoming v1 connection (otherwise, only one connection would be supported).\n\nSure! The async implementation is [\"spawning\"](https://tokio.rs/tokio/tutorial/spawning) new threads of work, but these are \"green threads\" not tied 1:1 with operating system threads.\n\nMy use of \"threaded implementation\" is a bit vague with all this concurrency talk, but I specifically mean an operating system thread implementation. The big benefit of this is that we could then code up standard library based wrappers which work against the std::io::Read/Write traits (these generally don't play nice in async-land). The cost of the OS thread impl simplicity is the standard heavy resource usage per connection.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
