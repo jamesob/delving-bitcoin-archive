@@ -77,3 +77,17 @@ I admit that these two params are slightly worse at Last mile compared to LN. Ho
 
 -------------------------
 
+ProofOfKeags | 2024-04-16 20:15:20 UTC | #5
+
+[quote="hynek, post:1, topic:797"]
+I’m a bit frustrated with the trend of using custodial lightning wallets. It’s simply cheaper to use custodians these days… and I believe that it isn’t necessary.
+[/quote]
+
+[quote="hynek, post:4, topic:797"]
+However that isn’t what I’m trying to improve primary. My main ambition is to extend the number of sovereign users without polluting the time-chain. Making it accessible to more people.
+[/quote]
+
+I'm not sure how to square these two seemingly different motivations.
+
+-------------------------
+
