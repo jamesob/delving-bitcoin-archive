@@ -11,7 +11,7 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 55,
+  "incoming_link_count": 56,
   "reads": 16,
   "readers_count": 15,
   "score": 288.0,
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,9 +59,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
