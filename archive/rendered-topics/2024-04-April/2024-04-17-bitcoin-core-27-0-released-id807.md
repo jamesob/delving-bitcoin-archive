@@ -1,6 +1,6 @@
 # Bitcoin Core 27.0 released
 
-fanquake | 2024-04-17 09:38:50 UTC | #1
+fanquake | 2024-04-17 16:33:39 UTC | #1
 
 Bitcoin Core version v27.0 is now available from:
 
@@ -8,7 +8,7 @@ https://bitcoincore.org/bin/bitcoin-core-27.0/
 
 Or through BitTorrent:
 
-magnet:?xt=urn:btih:2b2d123e5e831b245fb1dc5b8b71f89de4a90d00&dn=bitcoin-core-27.0&tr=udp%3A%2F%[2Ftracker.openbittorrent.com](http://2Ftracker.openbittorrent.com)%3A80&tr=udp%3A%2F%[2Ftracker.opentrackr.org](http://2Ftracker.opentrackr.org)%3A1337%2Fannounce&tr=udp%3A%2F%[2Ftracker.coppersurfer.tk](http://2Ftracker.coppersurfer.tk)%3A6969%2Fannounce&tr=udp%3A%2F%[2Ftracker.leechers-paradise.org](http://2Ftracker.leechers-paradise.org)%3A6969%2Fannounce&tr=udp%3A%2F%2Fexplodie.org%3A6969%2Fannounce&tr=udp%3A%2F%[2Ftracker.torrent.eu.org](http://2Ftracker.torrent.eu.org)%3A451%2Fannounce&tr=udp%3A%2F%[2Ftracker.bitcoin.sprovoost.nl](http://2Ftracker.bitcoin.sprovoost.nl)%3A6969&ws=http%3A%2F%2Fbitcoincore.org%2Fbin%2F
+[magnet:?xt=urn....](magnet:?xt=urn:btih:2b2d123e5e831b245fb1dc5b8b71f89de4a90d00&dn=bitcoin-core-27.0&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexplodie.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bitcoin.sprovoost.nl%3A6969&ws=http%3A%2F%2Fbitcoincore.org%2Fbin%2F)
 
 This release includes new features, various bug fixes and performance
 improvements, as well as updated translations.

@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 32.2,
   "yours": false,
   "topic_id": 808,
   "topic_slug": "lrc-20-scalable-and-fast-tokenization-on-lightning",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Abstract. The LRC-20 standard embeds additional information into Bitcoin transactions by tweaking public keys in Bitcoin outputs, enabling a novel, compact, and efficient approach for tokenized assets to be issued and transferred on Bitcoin and Lightning. LRC-20 nodes communicate on a peer-to-peer layer in order to recognize and validate LRC-20 trans- actions. Due to the simplicity and standardization of the key-tweaking mechanism, LRC-20 tokens can be seamlessly ported onto the Lightning Network, delivering faster and cheaper LRC-20 transactions. LRC-20 transaction amounts can be blinded for additional privacy, and issuers can implement freezing capabilities if they choose to.\n\nhttps://github.com/akitamiabtc/lrc-20",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
