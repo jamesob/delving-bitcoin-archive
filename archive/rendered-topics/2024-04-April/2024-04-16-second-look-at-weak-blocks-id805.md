@@ -68,3 +68,19 @@ This would probably be interesting to run on signet: both because it's easy to g
 
 -------------------------
 
+instagibbs | 2024-04-17 15:56:26 UTC | #3
+
+[quote="ajtowns, post:2, topic:805"]
+The downside to that approach is that given the poisson intervals you’d “often” have 50 or 100 weak blocks between each real block
+[/quote]
+
+I guess there is a large design space to explore here where *not all weak blocks have to be fetched or sent* in a given period. Nodes can decide to not fetch subsequent weak block transactions, and maybe use `weakheaders` first to further reduce extra bandwidth usage at the cost of a bit more latency.
+
+[quote="ajtowns, post:2, topic:805"]
+and you’d “often” get weak blocks being found only a few seconds after the previous weak block.
+[/quote]
+
+Seems fine to me, unless we commit/transmit more data than top block we probably haven't seen a lot of these transactions in a prior weak block.
+
+-------------------------
+
