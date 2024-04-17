@@ -247,3 +247,17 @@ Given that 'complete withdrawal' is not expected to be available without 'trigge
 
 -------------------------
 
+dgpv | 2024-04-17 12:40:19 UTC | #16
+
+I've done some modelling and analysis using [Alloy](https://alloytools.org/), and it looks like you don't actually need to enforce the number of inputs and outputs of the current transaction - only the number of outputs of the previous transaction in 'complete withdrawal' case
+
+If there's no enforcement on number of outputs, it turns out that you also don't need 'cancel' as a separate covenant case - it can be handled by the same covenant as the 'trigger' case - simply any 'trigger' transaction that does not have 2 outputs is effectively 'cancel' transaction
+
+You need to enforce the input indexes, though.
+
+I'm still tinkering with the model, so the above is not final conclusions.
+
+I will publish the details a bit later in a separate post.
+
+-------------------------
+

@@ -91,3 +91,9 @@ I'm not sure how to square these two seemingly different motivations.
 
 -------------------------
 
+hynek | 2024-04-17 13:01:37 UTC | #6
+
+What do you see as the inconsistency?
+
+-------------------------
+
