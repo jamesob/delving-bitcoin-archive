@@ -97,3 +97,25 @@ What do you see as the inconsistency?
 
 -------------------------
 
+harding | 2024-04-17 15:13:15 UTC | #7
+
+This item seems unaddressed in your document:
+
+> Risk that the counterparty is also a huge individual miner and can steal some funds (in case of receiver) or even all the funds (in case of UTXO owner/initial sender)
+
+In general, I think it's worth comparing this to LN-Symmetry (eltoo).  In that protocol, the worst case for an honest party is that they'll lose transaction fees putting the latest state onchain,[^1] which can be a very small percentage of a high-value channel.
+
+In your proposal, an honest party will lose a significant fraction of their funds in order to penalize a dishonest party.
+
+- For the receiver Bob, that means he may only accept such a UTXO from Alice under a discount compared to cheaper-to-enforce mechanisms, e.g. Alice_BTC will be worth less than regular onchain BTC.
+
+- For the spender Alice, that means she may only be interested in offering such a UTXO if she can earn a risk premium on it above the market rate for other less-risky investments.
+
+If either or both of those values significantly diverge from 0%, it's unlikely that there will be a market match.
+
+LN works well because the expected loss to an honest party is small, so neither side is requesting a premium or a discount.  I'm not sure a system with a high risk of loss can work as well, unless everyone can be absolutely sure that the game theory nearly perfectly predicts that no one will defect from the cooperative strategy.
+
+[^1]: Assuming mining remains uncensored.  If there's enough collusion between miners to censor transactions, then a miner colluding with an malicious counterparty can confirm an old state.
+
+-------------------------
+
