@@ -134,3 +134,13 @@ I already told you, how. Just encrypt the penalty transaction with AES, and use 
 
 -------------------------
 
+hynek | 2024-04-18 10:56:53 UTC | #10
+
+[quote="garlonicon, post:9, topic:797"]
+then that node can use this transaction data to calculate the decryption key, decrypt the encrypted penalty transaction, and share it with everyone else.
+[/quote]
+
+Yes, and that is the reason I would like to introduce Transaction Expiration (inverse Locktime)
+
+-------------------------
+
