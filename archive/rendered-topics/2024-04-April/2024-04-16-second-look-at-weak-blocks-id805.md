@@ -178,3 +178,28 @@ Cheers,
 
 -------------------------
 
+instagibbs | 2024-04-18 15:47:09 UTC | #8
+
+Hi Bob!
+
+[quote="mcelrath, post:7, topic:805"]
+As a means to synchronize the mempool in a fragmented mempool world, this does not (and cannot) accomplish that goal. When miners are taking fees out of band, they will not relay the txs they’ve been paid for out of band, nor will they advertise them in weak blocks, as this allows other miners to snipe the fees they’ve been paid out of band.
+[/quote]
+
+Mempool synchronization was not the goal here, it's for improved relay. It's also (obviously) not a replacement for something that could incentivize the publishing of "hidden" transactions.
+
+[quote="mcelrath, post:7, topic:805"]
+This what Braidpool intends to accomplish.
+[/quote]
+I'd be interested in a discussion of braidpool in a different thread of course. I just am not making any claims to solve what braidpool is claiming to solve.
+
+[quote="mcelrath, post:7, topic:805"]
+Another problem with this proposal is that it interferes with the “first seen” rule of the mempool. When constructing a block in the face of conflicting transactions, the mempool accepts the “first seen” of conflicting transactions. This is not censorship resistant broadcast, and weak blocks (alone) is also not censorship resistant. Putting a weak PoW on a blob of transactions alone does not give me any consensus on which txs came first, and timestamps can be manipulated. Seeing a weak block and retrieving txs in it does not give me a solution to resolve conflicting txs between two weak blocks.
+[/quote]
+
+I'm not sure what this is addressing. I suspect based on your linked writing you have additional requirements I'm not attempting to include here, which is again, just a discussion about using PoW as a DoS-resistant cache to speed up propagation of blocks. I'm not suggesting these be directly used to construct block templates or even necessarily effect a node's local mempool.
+
+Thanks for the links regardless, obviously braidpool is the more ambitious idea here with wider implications!
+
+-------------------------
+
