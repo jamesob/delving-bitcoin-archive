@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 93.6,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 93.8,
   "yours": false,
   "topic_id": 807,
   "topic_slug": "bitcoin-core-27-0-released",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 6
+      "count": 8
     }
   ],
   "moderator": false,
@@ -58,7 +58,12 @@
     {
       "id": "rocket",
       "type": "emoji",
-      "count": 5
+      "count": 6
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
     },
     {
       "id": "clap",
@@ -67,6 +72,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 6,
+  "reaction_users_count": 8,
   "current_user_used_main_reaction": false
 }
