@@ -119,3 +119,10 @@ LN works well because the expected loss to an honest party is small, so neither 
 
 -------------------------
 
+hynek | 2024-04-18 04:33:26 UTC | #8
+
+Great point.
+I think that biggest motivation to use this protocal is to save on fees. There is a risk but if users act rational they will not hurt themself and both will save significantly on fees. UTXO owner can even earn.
+
+-------------------------
+
