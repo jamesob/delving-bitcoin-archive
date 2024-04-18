@@ -120,3 +120,61 @@ Best regards
 
 -------------------------
 
+garlonicon | 2024-04-18 11:16:26 UTC | #5
+
+> What level of validation of weak blocks is required to share the weak block transactions?
+
+Well, it is possible to introduce "delayed validation". For example: validating the block hashes would be the first step, then validating only the coinbase transaction (because it contains the basic block reward), and later, validating a single high-fee-paying transaction (and when we will run out of the basic block reward, people will focus on those). Because I guess you don't have to validate 100% of the block, if it does not meet all consensus rules. It is "purely informational", and can be used for example to distribute the coinbase reward, by handling "weak blocks" as "shares". Also, when it comes to header-only validation, it may be useful to trace all valid block headers, to properly calculate the global difficulty.
+
+> What PoW “multiplier”(factor decrease from consensus-required) should we set?
+
+It could be "difficulty per X seconds, based on valid received blocks". Which means, that if your node receives more block headers, it will raise the locally accepted difficulty, and if there is nothing for a longer time, then weaker blocks are accepted. So, it could be locally adjusted, based on the traffic. And of course, not every node needs every block, because they are "outside consensus rules" anyway.
+
+> How many blocks should we buffer?
+
+This is similar question to "how many blocks should we prune?". And I guess, that the proper answer is similar, and could be expressed by the stored bytes, instead of the number of blocks (or could be both, like in pruning, for example 550 MB, and 288 blocks).
+
+-------------------------
+
+AntoineP | 2024-04-18 12:46:56 UTC | #6
+
+Nice! It would address concerns regarding slower block propagations in the presence of diverging relay policies on the network, and it's neat we can just reuse compact blocks instead of rolling out an IBLT or something.
+
+[quote="instagibbs, post:1, topic:805"]
+[“Forcible insertion”](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2021-October/019578.html) of transactions that are incentive-compatible but violate anti-DoS rules? (e.g., “pinning replacement”)
+[/quote]
+
+Assuming you refer to this excerpt from the linked email:
+
+[quote]
+
+> and naturally resolve all current issues inherent in package relay and rbf rules. It also resolves the recent minimum relay questions, as relay is no longer a concern for unmined transactions.
+
+There are other solutions to this, like weak blocks (miners get to relay partial PoW solutuon of say 10% of the difficulty to the network; and nodes which receive such a weak block can "forcibly" insert its transaction to their mempool, as there is evidence it's actually being worked on, while still being DoS resistant because partial PoW is still PoW).
+[/quote]
+
+I don't think this addresses pinning concerns. If a miner is already working on a template which includes your transaction, you're not getting pinned anymore.
+
+However, and this also relates to the other bonus use-case, it can be used as pinning detection. You can detect your transaction is not getting included in any of the miners' templates whereas you attached a next-block fee.
+
+-------------------------
+
+mcelrath | 2024-04-18 13:36:59 UTC | #7
+
+As a means to synchronize the mempool in a fragmented mempool world, this does not (and cannot) accomplish that goal. When miners are taking fees out of band, they will not relay the txs they've been paid for out of band, nor will they advertise them in weak blocks, as this allows other miners to snipe the fees they've been paid out of band. This causes block validation times to go up for everyone else as they retrieve the missing transactions. Weak block relay is too little, too late, and cannot solve the problem.
+
+The only viable path is to incentivize these miners so that it's not in their best interest to mine txs out of band but instead should participate in a decentralized mining pool for the other benefits it offers (lower variance, hashrate derivatives, outsourced tx selection to individual miners). This what Braidpool intends to accomplish.
+
+Another problem with this proposal is that it interferes with the "first seen" rule of the mempool. When constructing a block in the face of conflicting transactions, the mempool accepts the "first seen" of conflicting transactions. This is not censorship resistant broadcast, and weak blocks (alone) is also not censorship resistant. Putting a weak PoW on a blob of transactions alone does not give me any consensus on which txs came first, and timestamps can be manipulated. Seeing a weak block and retrieving txs in it does not give me a solution to resolve conflicting txs between two weak blocks.
+
+This leads to putting a consensus mechanism on the weak blocks, which provides a time ordering and conflict resolution mechanism on the contained txs. The simplest way to do this is just to extend Nakamoto consensus to a DAG and follow the "most PoW" rule. [DAGKnight](https://eprint.iacr.org/2022/1494.pdf) is a reasonable solution and I believe [my Braid proposal is equivalent](https://rawgit.com/mcelrath/braidcoin/master/Braid%2BExamples.html). It's very simple to add a committed header field pointing to the most recently seen "tip" weak blocks, which forms a DAG structure. The DAG can be partial ordered in linear time using known algorithms ("Most Recent Common Ancestor") that are only ~100 lines of code. Once a DAG consensus protocol is present, a decentralized mining pool can enforce that a block must contain only transactions already broadcast in its ancestor weak-blocks.
+
+Note that the existence of a decentralized mining pool cannot stop centralized pools from accepting txs out of band. There is no protocol way to do that. The only way to do that is to make it economically nonviable to do so.
+
+For further reading, you might be interested in my [discussion of weak blocks](https://github.com/braidpool/braidpool/blob/cd5c7d4b610c3894794766d83ee1991cf2a753b4/docs/general_considerations.md) or the [Overview to get an idea how a decentralized mining pool could be attractive enough to overtake centralized pools (and tx withholding/OOB)](https://github.com/braidpool/braidpool/blob/cd5c7d4b610c3894794766d83ee1991cf2a753b4/docs/overview.md) and there's the [WIP Spec which we'd be happy to receive further feedback on](https://github.com/braidpool/braidpool/blob/cd5c7d4b610c3894794766d83ee1991cf2a753b4/docs/braidpool_spec.md).
+
+Cheers,
+-- Bob
+
+-------------------------
+
