@@ -126,3 +126,11 @@ I think that biggest motivation to use this protocal is to save on fees. There i
 
 -------------------------
 
+garlonicon | 2024-04-18 09:22:33 UTC | #9
+
+> It would be cool… but the idea here is to keep this information for peers only because I don’t know how to prevent unwanted broadcasting.
+
+I already told you, how. Just encrypt the penalty transaction with AES, and use the previous transaction data as the key. Then, as long as the previous transaction is hidden, no node will know the key, so no node will broadcast the whole chain of transactions. But: if any node will see the old transaction, then that node can use this transaction data to calculate the decryption key, decrypt the encrypted penalty transaction, and share it with everyone else.
+
+-------------------------
+

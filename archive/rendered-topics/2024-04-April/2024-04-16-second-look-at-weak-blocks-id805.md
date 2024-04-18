@@ -84,3 +84,39 @@ Seems fine to me, unless we commit/transmit more data than top block we probably
 
 -------------------------
 
+jungly | 2024-04-18 07:16:55 UTC | #4
+
+Hi instagibbs,
+
+[quote="instagibbs, post:1, topic:805"]
+Re-use a variant of [compact blocks messages ](https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0152.mediawiki) to support propagation of “weak compact blocks”. Don’t make a DAG or require consensus over these messages, just use them as a DoS-resistant messaging layer for things miners appear to be working on.
+[/quote]
+
+Not requiring consensus on these is a good move here.
+
+As I understand your proposal, the idea is that we use weak blocks, propagated using compact block specs to make sure all nodes pull in any missing transactions. Is that right? If so, the proposal could be called a proposal to check-point transaction propagation across the network.
+
+## Validation
+
+When we validate a chain of weak blocks, we need to enable support for propagating weak blocks. You raise this point as your second question. It also slows down validation of weak blocks while waiting for filling holes in the past.
+
+Instead, if each weak block directly refers to the last confirmed bitcoin block, then we don't need to validate a chain of weak blocks and we can eliminate questions about retaining weak blocks. We also know for sure we don't need to fill any holes before validating weak blocks as everyone has the last strong block.
+
+In the diagram below, if some node receives `Weak-Block3`, they don't need to ask for `Weak-Block2` before they can validate `Weak-Block3`. We are taking just this approach in Braidpool as described in an [early proposal](https://github.com/pool2win/braidpool/blob/8d0724f9fb191ddbd5e02afa20f847fc0249f128/proposal/proposal.pdf).
+                  
+```mermaid height=322,auto
+    flowchart LR
+          BTC-Block  --> wb1{{Weak-Block1}}
+          BTC-Block  --> wb2{{Weak-Block2}}
+          BTC-Block  --> wb3{{Weak-Block3}}
+          BTC-Block  --> BTC-Block2
+```
+
+With the above approach, all nodes are synching their state every time they receive a weak block. Also the delta between weak blocks will be smaller than the delta between strong blocks, so that when a strong block arrives, there is much less history to fill.
+
+I hope I am not missing a subtle point in your proposal that is making me miss the bigger picture.
+
+Best regards
+
+-------------------------
+
