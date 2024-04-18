@@ -203,3 +203,13 @@ Thanks for the links regardless, obviously braidpool is the more ambitious idea 
 
 -------------------------
 
+mcelrath | 2024-04-18 17:14:04 UTC | #9
+
+[quote="instagibbs, post:8, topic:805"]
+Mempool synchronization was not the goal here, it’s for improved relay. It’s also (obviously) not a replacement for something that could incentivize the publishing of “hidden” transactions.
+[/quote]
+
+In that case I'm really confused about what weak block propagation is supposed to accomplish. Adding a PoW header doesn't improve block relay in any way that I can see. Can you elaborate on that?
+
+-------------------------
+
