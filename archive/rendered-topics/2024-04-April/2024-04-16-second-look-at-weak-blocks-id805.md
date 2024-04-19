@@ -285,3 +285,9 @@ That's not true: there are a variety of different mempool policies in use today,
 
 -------------------------
 
+mcelrath | 2024-04-19 15:14:20 UTC | #13
+
+In that case adding a weak block header proof to INV seems to be a more efficient idea. What do you think?
+
+-------------------------
+
