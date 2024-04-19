@@ -213,13 +213,13 @@ In that case I'm really confused about what weak block propagation is supposed t
 
 -------------------------
 
-ajtowns | 2024-04-19 04:47:18 UTC | #10
+ajtowns | 2024-04-19 12:39:23 UTC | #10
 
 The idea is that it improves block relay when nodes' mempool policies differ from miners, by reducing round-trips. 
 
 Ideally you'd like the time between hearing about a block (the `cmpctblock` message) and having successfully reconstructed the block locally to be as short as possible. One way that's slow is if you have to do round-trips, and the main reason you have to do round-trips is if you didn't have all the txs in the block in your mempool. But for txs that don't meet your mempool policy, it's tricky. What we do now is just request the missing txs (ones that never made it into our mempool or that expired from the mempool long enough ago that they also aren't in our extra txns cache), adding a round trip:
 
-```mermaid height=278,auto
+```mermaid height=auto,auto
 sequenceDiagram
     participant A as HB Peer
     participant B as Self
@@ -233,7 +233,7 @@ sequenceDiagram
 
 What this proposal does is let miners send weak blocks that they find as well, with the idea that it's very likely that any transactions from a block that weren't recently in the mempool will have been in a recent weak block, making the p2p interaction look more like:
 
-```mermaid height=513,auto
+```mermaid height=auto,auto
 sequenceDiagram
     participant A as HB Peer
     participant B as Self
@@ -249,6 +249,29 @@ sequenceDiagram
 ```
 
 which removes the round trip from the critical section, and speeds up block relay (both for us directly, and for the network as a whole, since we can then pass that block on to our peers more quickly).
+
+-------------------------
+
+mcelrath | 2024-04-19 14:51:19 UTC | #11
+
+[quote="ajtowns, post:10, topic:805"]
+The idea is that it improves block relay when nodes’ mempool policies differ from miners, by reducing round-trips.
+[/quote]
+
+There's only one reason that miner policies would differ from nodes' mempool policies: when they're mining transactions OOB, which they (probably) won't want to broadcast anyway.
+
+If there's another reason that miners want to mine a transaction that is not currently relayed, then they need to participate in the development process and get it added to core. There are good reasons some txs are not relayed, and giving miners an end-run around peer-reviewing their tx idea I think is not a good idea, and we shouldn't encourage that behavior by working around it.
+
+There is potentially a good reason to do PoW proofs on txs anyway: a lot of the relay policies have to do with DDoS protection. If a miner wants to mine a zero fee or dust transaction, putting a PoW on it is a good way to make relay of that transaction safe and not a DDoS risk. But I think there are other ways to do this that are lighter-weight than sending around entire blocks. In such a case, the low fee is going to discourage other miners from sniping it and the miner can still be paid OOB while advertising the tx ahead of time for fast block relay.  But even this idea may have problems: adversarial miners could then snipe these low-fee/dust txs in order to deprive their competitor of revenue. (But I can see a way around that in that the miner still gets paid OOB regardless of who mines it) There's a lot more game theory around this than at first glance...
+
+Consider for instance a modification of INV that is a PoW proof: weak block header (referencing a known recent parent block) plus Merkle proof that this tx was included. This way just the TX plus some metadata could be propagated in INV instead of entire weak blocks. (Sending around a blob of 2000 txs in a weak block is a very heavy-handed way to get one missing tx, INV is far more efficient if their goal is something other than withholding -- can you think of other non-withholding use cases?) I think e.g. Mara mining an entire graffiti block are going to be the exception rather than the rule long term, though in that specific case compact blocks would be more efficient.
+
+One other point: if part of the motivation is just not having a tx for latency/packet loss/bandwidth reasons, adding another message *worsens* that problem. And a compact block is a very heavyweight message compared to INV, despite the round trip.
+
+Finally, I'm happy to see people thinking about this. Weak blocks *are* mining shares and are fundamental to all mining pools, whether decentralized or not. :smiley:
+
+Cheers,
+-- Bob
 
 -------------------------
 

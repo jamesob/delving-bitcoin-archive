@@ -4,17 +4,17 @@
   "username": "ajtowns",
   "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-04-19T04:47:18.128Z",
-  "cooked": "<p>The idea is that it improves block relay when nodes\u2019 mempool policies differ from miners, by reducing round-trips.</p>\n<p>Ideally you\u2019d like the time between hearing about a block (the <code>cmpctblock</code> message) and having successfully reconstructed the block locally to be as short as possible. One way that\u2019s slow is if you have to do round-trips, and the main reason you have to do round-trips is if you didn\u2019t have all the txs in the block in your mempool. But for txs that don\u2019t meet your mempool policy, it\u2019s tricky. What we do now is just request the missing txs (ones that never made it into our mempool or that expired from the mempool long enough ago that they also aren\u2019t in our extra txns cache), adding a round trip:</p>\n<pre data-code-height=\"278\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">sequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    critical New best tip found!\n    A -&gt;&gt; B: cmpctblock\n    B -&gt;&gt; A: getblocktxn (for txs rejected due to mempool policy)\n    A -&gt;&gt; B: blocktxn\n    B --&gt;&gt; B: block reconstructed!\n    end\n</code></pre>\n<p>What this proposal does is let miners send weak blocks that they find as well, with the idea that it\u2019s very likely that any transactions from a block that weren\u2019t recently in the mempool will have been in a recent weak block, making the p2p interaction look more like:</p>\n<pre data-code-height=\"513\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">sequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    A -&gt;&gt; B: weakblock\n    B -&gt;&gt; A: getweaktxn (for txs rejected due to mempool policy)\n    A -&gt;&gt; B: weaktxn\n    B --&gt;&gt; weakcache: txns\n    critical New best tip found!\n    A-&gt;&gt; B: cmpctblock\n    weakcache --&gt;&gt; B: txns \n    B --&gt;&gt; B: block reconstructed!\n    end\n</code></pre>\n<p>which removes the round trip from the critical section, and speeds up block relay (both for us directly, and for the network as a whole, since we can then pass that block on to our peers more quickly).</p>",
+  "cooked": "<p>The idea is that it improves block relay when nodes\u2019 mempool policies differ from miners, by reducing round-trips.</p>\n<p>Ideally you\u2019d like the time between hearing about a block (the <code>cmpctblock</code> message) and having successfully reconstructed the block locally to be as short as possible. One way that\u2019s slow is if you have to do round-trips, and the main reason you have to do round-trips is if you didn\u2019t have all the txs in the block in your mempool. But for txs that don\u2019t meet your mempool policy, it\u2019s tricky. What we do now is just request the missing txs (ones that never made it into our mempool or that expired from the mempool long enough ago that they also aren\u2019t in our extra txns cache), adding a round trip:</p>\n<pre data-code-height=\"auto\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">sequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    critical New best tip found!\n    A -&gt;&gt; B: cmpctblock\n    B -&gt;&gt; A: getblocktxn (for txs rejected due to mempool policy)\n    A -&gt;&gt; B: blocktxn\n    B --&gt;&gt; B: block reconstructed!\n    end\n</code></pre>\n<p>What this proposal does is let miners send weak blocks that they find as well, with the idea that it\u2019s very likely that any transactions from a block that weren\u2019t recently in the mempool will have been in a recent weak block, making the p2p interaction look more like:</p>\n<pre data-code-height=\"auto\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">sequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    A -&gt;&gt; B: weakblock\n    B -&gt;&gt; A: getweaktxn (for txs rejected due to mempool policy)\n    A -&gt;&gt; B: weaktxn\n    B --&gt;&gt; weakcache: txns\n    critical New best tip found!\n    A-&gt;&gt; B: cmpctblock\n    weakcache --&gt;&gt; B: txns \n    B --&gt;&gt; B: block reconstructed!\n    end\n</code></pre>\n<p>which removes the round trip from the critical section, and speeds up block relay (both for us directly, and for the network as a whole, since we can then pass that block on to our peers more quickly).</p>",
   "post_number": 10,
   "post_type": 1,
-  "updated_at": "2024-04-19T04:47:18.128Z",
-  "reply_count": 0,
+  "updated_at": "2024-04-19T12:39:23.818Z",
+  "reply_count": 1,
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 47.2,
   "yours": false,
   "topic_id": 805,
   "topic_slug": "second-look-at-weak-blocks",
@@ -28,7 +28,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -41,8 +41,13 @@
     "avatar_template": "/user_avatar/delvingbitcoin.org/mcelrath/{size}/521_2.png"
   },
   "bookmarked": false,
-  "raw": "The idea is that it improves block relay when nodes' mempool policies differ from miners, by reducing round-trips. \n\nIdeally you'd like the time between hearing about a block (the `cmpctblock` message) and having successfully reconstructed the block locally to be as short as possible. One way that's slow is if you have to do round-trips, and the main reason you have to do round-trips is if you didn't have all the txs in the block in your mempool. But for txs that don't meet your mempool policy, it's tricky. What we do now is just request the missing txs (ones that never made it into our mempool or that expired from the mempool long enough ago that they also aren't in our extra txns cache), adding a round trip:\n\n```mermaid height=278,auto\nsequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    critical New best tip found!\n    A ->> B: cmpctblock\n    B ->> A: getblocktxn (for txs rejected due to mempool policy)\n    A ->> B: blocktxn\n    B -->> B: block reconstructed!\n    end\n```\n\nWhat this proposal does is let miners send weak blocks that they find as well, with the idea that it's very likely that any transactions from a block that weren't recently in the mempool will have been in a recent weak block, making the p2p interaction look more like:\n\n```mermaid height=513,auto\nsequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    A ->> B: weakblock\n    B ->> A: getweaktxn (for txs rejected due to mempool policy)\n    A ->> B: weaktxn\n    B -->> weakcache: txns\n    critical New best tip found!\n    A->> B: cmpctblock\n    weakcache -->> B: txns \n    B -->> B: block reconstructed!\n    end\n```\n\nwhich removes the round trip from the critical section, and speeds up block relay (both for us directly, and for the network as a whole, since we can then pass that block on to our peers more quickly).",
-  "actions_summary": [],
+  "raw": "The idea is that it improves block relay when nodes' mempool policies differ from miners, by reducing round-trips. \n\nIdeally you'd like the time between hearing about a block (the `cmpctblock` message) and having successfully reconstructed the block locally to be as short as possible. One way that's slow is if you have to do round-trips, and the main reason you have to do round-trips is if you didn't have all the txs in the block in your mempool. But for txs that don't meet your mempool policy, it's tricky. What we do now is just request the missing txs (ones that never made it into our mempool or that expired from the mempool long enough ago that they also aren't in our extra txns cache), adding a round trip:\n\n```mermaid height=auto,auto\nsequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    critical New best tip found!\n    A ->> B: cmpctblock\n    B ->> A: getblocktxn (for txs rejected due to mempool policy)\n    A ->> B: blocktxn\n    B -->> B: block reconstructed!\n    end\n```\n\nWhat this proposal does is let miners send weak blocks that they find as well, with the idea that it's very likely that any transactions from a block that weren't recently in the mempool will have been in a recent weak block, making the p2p interaction look more like:\n\n```mermaid height=auto,auto\nsequenceDiagram\n    participant A as HB Peer\n    participant B as Self\n    A ->> B: weakblock\n    B ->> A: getweaktxn (for txs rejected due to mempool policy)\n    A ->> B: weaktxn\n    B -->> weakcache: txns\n    critical New best tip found!\n    A->> B: cmpctblock\n    weakcache -->> B: txns \n    B -->> B: block reconstructed!\n    end\n```\n\nwhich removes the round trip from the critical section, and speeds up block relay (both for us directly, and for the network as a whole, since we can then pass that block on to our peers more quickly).",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +59,19 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
