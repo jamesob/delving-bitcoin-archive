@@ -301,3 +301,48 @@ Adding merkle paths to INV messages is probably a bunch more code/review than ju
 
 -------------------------
 
+mcelrath | 2024-04-19 16:01:40 UTC | #15
+
+Keep in mind that compact weak-blocks need to be rate limited by a difficulty requirement. If this difficulty was say 1/10 or 1/100 of bitcoin, you'd be talking about potentially 10x or 100x more weak-compact-blocks than actual blocks. That's a huge overhead for (most) txs you already have. This difficulty needs to be, at a minimum 1/F*(bitcoin's difficulty) where F is the fraction of the network being mined by the pool accepting odd transactions. If we take Mara as an example, they have 2.9% of the hashrate as of today, so this rate parameter needs to be 1/35 bitcoin's difficulty to be useful (or, on average, said pool won't mine a weak block between actual blocks). Meaning up to 35x more weak-compact-blocks than bitcoin blocks. Using 32kb per compact block that's 1.1MB additional bandwidth between blocks for these messages, plus the missing transactions.
+
+If you send a weak-block Merkle proof in an INV, you can allow the difficulty requirement to be (much) lower. Even the worst case of a block of entirely of missing txs is then more efficient than the overhead of 35 weak-compact-blocks.
+
+BTW I'm saying INV+weak-merkle-proof *instead* of weak-compact-blocks. Not both.
+
+There's clearly a trade-off here in how many txs are missing from other people's mempools, which the sending miner doesn't know, so would default to sending weak-compact-blocks for every one that matches the weak-target.
+
+Cheers,
+-- Bob
+
+-------------------------
+
+mcelrath | 2024-04-19 16:13:47 UTC | #16
+
+P.S. If anyone is wondering how this applies to Braidpool, we HAVE to do this, because weak blocks are shares, and the valid share requirement includes a valid block requirement, so we HAVE to send weak-compact blocks for every share, and validate an entire block with every share, which might occur as fast as once per second. (Kaspa is achieving sub-second block times)
+
+However the overhead of this could be substantial, and ideas for optimizations are welcome. BIP152 is already pretty efficient, but we have the advantage that previous weak-blocks (beads) named as parents can be expected to already be known to the receiver, and all txs must have already been mined in an ancestor weak-block.
+
+I don't want to put this overhead on bitcoin though, and only miners/centralized pools should do it with beefier hardware and networking. Therefore we're planning on a completely separate p2p network for this. If some variant of weak blocks ends up on Bitcoin though, we will use it.
+
+Cheers, -- Bob
+
+-------------------------
+
+instagibbs | 2024-04-19 18:18:24 UTC | #17
+
+[quote="mcelrath, post:11, topic:805"]
+. This way just the TX plus some metadata could be propagated in INV instead of entire weak blocks.
+[/quote]
+I think this begs the question a bit: We don't know which transactions we need to forward to peers that ostensibly have different policies. Deciding what to forward seems hard. If we can predict it, just relay it in prefilled txn with the real compact block?
+
+edit: I could see it where subsequent weak blocks may carry less info per link, at least. Further bandwidth optimization perhaps.
+
+[quote="mcelrath, post:15, topic:805"]
+Meaning up to 35x more weak-compact-blocks than bitcoin blocks. Using 32kb per compact block that’s 1.1MB additional bandwidth between blocks for these messages, plus the missing transactions.
+[/quote]
+
+Seems pretty reasonable for an opt-in measure assuming the problem is real and 
+ solution effective.
+
+-------------------------
+
