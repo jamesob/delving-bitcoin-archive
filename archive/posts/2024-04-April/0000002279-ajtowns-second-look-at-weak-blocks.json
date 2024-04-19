@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"mcelrath, post:11, topic:805\"]\nThere\u2019s only one reason that miner policies would differ from nodes\u2019 mempool policies: when they\u2019re mining transactions OOB, which they (probably) won\u2019t want to broadcast anyway.\n[/quote]\n\nThat's not true: there are a variety of different mempool policies in use today, including mempoolfullrbf, different datacarriersize values, ordinal filtering, and baremultisig rejection. Cluster mempool and v3 transactions will likewise introduce new mempool polices, if/when deployed, where upgraded nodes accept different transactions to non-upgraded nodes. Finally, if we add new transaction features via soft fork, and those features see early adoption before everyone's upgraded to the new software, that will also result in different mempool policies.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
