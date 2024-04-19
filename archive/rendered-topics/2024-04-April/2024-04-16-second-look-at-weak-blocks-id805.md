@@ -291,3 +291,13 @@ In that case adding a weak block header proof to INV seems to be a more efficien
 
 -------------------------
 
+ajtowns | 2024-04-19 15:29:15 UTC | #14
+
+Hmm. If a block has 4000 txs, then the compact block is something like 32kB, plus the missing transactions. A merkle proof would be 400 bytes I think (48 bytes for the header, and 11 32-byte hashes), so you'd break even at 80 txs per block, which is probably high, so it's worth thinking about.
+
+But I think if you wanted to do this with INVs you'd need to repeat the INV after a weak block comes in -- ie the tx is initially relayed, gets added to some miner's mempool but not yours, then is included in a weak block, and then your peer sends you an INV again. Sending an INV for every tx in the weak block would be much more wasteful than a compact block, even before you add on the proofs (36 bytes per tx rather than 8 bytes per tx). I'm not seeing a reasonable way to target just the most desirable txs to rebroadcast.
+
+Adding merkle paths to INV messages is probably a bunch more code/review than just reusing compact block relay, as well, and saving 480kB per real-block on average (32kB times 15 if the weak blocks are 1/16th of a real block's difficulty) for an optional feature probably isn't worth the hassle?
+
+-------------------------
+
