@@ -213,3 +213,42 @@ In that case I'm really confused about what weak block propagation is supposed t
 
 -------------------------
 
+ajtowns | 2024-04-19 04:47:18 UTC | #10
+
+The idea is that it improves block relay when nodes' mempool policies differ from miners, by reducing round-trips. 
+
+Ideally you'd like the time between hearing about a block (the `cmpctblock` message) and having successfully reconstructed the block locally to be as short as possible. One way that's slow is if you have to do round-trips, and the main reason you have to do round-trips is if you didn't have all the txs in the block in your mempool. But for txs that don't meet your mempool policy, it's tricky. What we do now is just request the missing txs (ones that never made it into our mempool or that expired from the mempool long enough ago that they also aren't in our extra txns cache), adding a round trip:
+
+```mermaid height=278,auto
+sequenceDiagram
+    participant A as HB Peer
+    participant B as Self
+    critical New best tip found!
+    A ->> B: cmpctblock
+    B ->> A: getblocktxn (for txs rejected due to mempool policy)
+    A ->> B: blocktxn
+    B -->> B: block reconstructed!
+    end
+```
+
+What this proposal does is let miners send weak blocks that they find as well, with the idea that it's very likely that any transactions from a block that weren't recently in the mempool will have been in a recent weak block, making the p2p interaction look more like:
+
+```mermaid height=513,auto
+sequenceDiagram
+    participant A as HB Peer
+    participant B as Self
+    A ->> B: weakblock
+    B ->> A: getweaktxn (for txs rejected due to mempool policy)
+    A ->> B: weaktxn
+    B -->> weakcache: txns
+    critical New best tip found!
+    A->> B: cmpctblock
+    weakcache -->> B: txns 
+    B -->> B: block reconstructed!
+    end
+```
+
+which removes the round trip from the critical section, and speeds up block relay (both for us directly, and for the network as a whole, since we can then pass that block on to our peers more quickly).
+
+-------------------------
+
