@@ -261,3 +261,9 @@ I will publish the details a bit later in a separate post.
 
 -------------------------
 
+dgpv | 2024-04-19 21:49:44 UTC | #17
+
+Here's the details of my analysis using Alloy model checker: https://delvingbitcoin.org/t/analysing-simple-vault-covenant-with-alloy/819
+
+-------------------------
+
