@@ -1,6 +1,6 @@
 # Analyzing simple vault covenant with Alloy
 
-dgpv | 2024-04-19 22:13:26 UTC | #1
+dgpv | 2024-04-20 08:16:21 UTC | #1
 
 After I had a closer look at the [Basic vault prototype using OP_CAT](https://delvingbitcoin.org/t/basic-vault-prototype-using-op-cat/576/16) and discovered some problems with the implementation, I was wondering if modelling this covenant using some model checker would have helped to uncover these problems.
 
@@ -14,7 +14,11 @@ If you find a problem in the spec, or have questions, please do not hesitate to 
 
 `simple_vault.als` is the spec, and `simple_vault.thm` is the "theme" for the Alloy visualizer to make the results easy to examine.
 
-The specified model clearly demonstrates the need for the covenant script to explicitly check input index, and also for the software handling the covenant to never lock the funds at the output with index other than 0
+The specified model demonstrates the need for the covenant script to explicitly check input index, and also for the software handling the covenant to never lock the funds at the output with index other than 0.
+
+The model also demonstrates that there is no need to enforce the number of inputs and outputs of the current transaction, only number of outputs in the previous transaction in the 'complete_withdrawal' case.
+
+When the covenant does not enforce the number of inputs and outputs, the 'cancel' case does not need its own covenant. The 'trigger' and 'cancel' cases can be handled by the same covenant. If the transaction that spends the covenant via 'trigger_or_cancel' case does not have exactly two outputs, it is effectively a 'cancel' transaction: withdrawal cannot be done with it, because the 'complete_withdrawal' case expects previous transaction to have exactly two outputs.
 
 What became apparent is the importance for the model to reflect the underlying mechanics of the covenant. For the covenant implemented using Elements introspection opcodes, and for the covenant implemented using just `OP_CAT`, the required checks are different for the 'trigger withdrawal' covenant case - for the 'rich introspection' covenant, the 'trigger withdrawal' does not strictly need to enforce the current input index to be fixed. For `OP_CAT` covenant, it must be fixed. 
 
