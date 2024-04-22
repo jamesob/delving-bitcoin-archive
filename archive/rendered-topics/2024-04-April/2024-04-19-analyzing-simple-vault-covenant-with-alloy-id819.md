@@ -1,6 +1,6 @@
 # Analyzing simple vault covenant with Alloy
 
-dgpv | 2024-04-21 09:30:13 UTC | #1
+dgpv | 2024-04-21 22:29:25 UTC | #1
 
 After I had a closer look at the [Basic vault prototype using OP_CAT](https://delvingbitcoin.org/t/basic-vault-prototype-using-op-cat/576/16) and discovered some problems with the implementation, I was wondering if modelling this covenant using some model checker would have helped to uncover these problems.
 
@@ -30,7 +30,7 @@ Because the temporal structure of the contract is very simple, I decided to igno
 
 In my opinion, Alloy syntax is more intuitive and makes the spec easier to comprehend on a basic level to wider audience, in comparison with syntax of TLA+. But to actually check the correctness of the spec, you still need a thorough understanding of the mechanisms employed by Alloy behind this syntax, so in that aspect it is not that different from TLA+.  
 
-The visualization features for Alloy are neat, and with the right settings for the visualizer theme, the transaction structure becomes visible and demonstrative.
+The visualization features of Alloy are neat, and with the right settings for the visualizer theme, the transaction structure becomes visible and demonstrative.
 
 As an example, here is a counterexample for the `contract_holds` predicate that happens if you remove the `i.index = 0` condition in `trigger_or_cancel_cov` predicate and run the `vault` check in Alloy: 
 

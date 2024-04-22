@@ -267,3 +267,9 @@ Here's the details of my analysis using Alloy model checker: https://delvingbitc
 
 -------------------------
 
+rijndael | 2024-04-21 21:02:51 UTC | #18
+
+Oh cool! I've done a fair amount of modeling in TLA+ in a past life, checking out Alloy has always been on my todo list. I'll check out your analysis on the other thread. Thanks for sharing this!
+
+-------------------------
+
