@@ -307,3 +307,62 @@ export class BitVM extends SmartContract {
 
 -------------------------
 
+jungly | 2024-04-23 13:53:27 UTC | #15
+
+Progress update, the DSL now supports taproot outputs - both to create outputs and spending them.
+
+Other updates
+1. New [release](https://github.com/pool2win/bitcoin-dsl/pkgs/container/bitcoin-dsl) is out with smaller docker image size and number of notebooks related bug fixes.
+3. Support for [reorganising chain](https://opdup.com/bitcoin-dsl/dev/reference.html#reorganise-chain) to a given height, block hash or back up to a block to unconfirm a given transaction.
+```
+reorg_chain height: 95
+
+reorg_chain blockhash: @blockhash
+
+reorg_chain unconfirm_tx: @reorg_to_tx
+```
+
+2. Fixed broken links in the [documentation](https://opdup.com/bitcoin-dsl/index.html) pages.
+
+# Taproot example
+
+New [documentation section on taproot](https://opdup.com/bitcoin-dsl/examples/taproot.html) transaction discusses the choice of using object notation for specifying taproot outputs and script sigs.
+
+Here's a quick example to show how to generate and spend taproot outputs on regtest.
+
+## Create a Taproot Output
+```ruby 
+transaction inputs: [
+              { tx: @coinbase_tx,
+                    vout: 0,
+                    script_sig: 'sig:wpkh(@alice)' }
+                ],
+             outputs: [
+                  {
+                    taproot: { internal_key: @bob,
+                               leaves: ['pk(@carol)', 'pk(@alice)'] },
+                    amount: 49.999.sats
+                  }
+                ]
+broadcast @taproot_output_tx
+```
+
+## Spending Using a Script Path
+
+```ruby 
+transaction inputs: [
+                  { tx: @taproot_output_tx,
+                    vout: 0,
+                    script_sig: { leaf_index: 0,
+                                  sig: 'sig:@carol' },
+                    sighash: :all }
+                ],
+             outputs: [
+                  { descriptor: 'wpkh(@carol)',
+                    amount: 49.998.sats }
+                ]
+broadcast @spend_taproot_output_tx
+```
+
+-------------------------
+
