@@ -1,6 +1,6 @@
 # LIMO: combining the best parts of linearization search and merging
 
-sipa | 2024-04-23 20:43:32 UTC | #1
+sipa | 2024-04-23 20:51:38 UTC | #1
 
 # LIMO: Linearization through Incremental Merging of Optimizations
 
@@ -67,7 +67,7 @@ To address that, observe that the merging algorithm itself works by incrementall
     * Find a high-feerate topologically-valid subset $S$ of the transactions in $L$ (search).
     * Let $s$ be the highest-feerate prefix of $L[S]$.
     * Let $b$ be the highest-feerate set among all prefixes of $L[l \cap s] + L[l \setminus s]$, and $s$.
-    * Output $L[b]$
+    * Append $L[b]$ to output linearization.
     * Remove $b$ from $L$ and repeat.
 
 As long as the consecutive $S$ sets do not degrade in quality, the resulting linearization will be as good as all its combined prefixes.
@@ -90,7 +90,7 @@ It gets significantly more complicated to have two sets if we want to guarantee 
       * Let $s$ be the highest-feerate prefix of $L[S \cap b] + L[S \setminus b]$.
       * Let $t$ be the highest-feerate prefix of $L[b \cap s] + L[b \setminus s]$.
       * Update $b$ to be the higher-feerate set in $\{s, t\}$.
-    * Output $L[b]$
+    * Append $L[b]$ to output linearization.
     * Remove $b$ from $L$ and repeat.
 
 This can now be used in cluster update situations:
