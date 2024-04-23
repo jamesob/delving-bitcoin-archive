@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 6,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 30.8,
+  "incoming_link_count": 11,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 56.4,
   "yours": false,
   "topic_id": 824,
   "topic_slug": "cisa-and-privacy",
@@ -49,8 +49,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
