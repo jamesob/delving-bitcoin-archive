@@ -1,6 +1,6 @@
 # LIMO: combining the best parts of linearization search and merging
 
-sipa | 2024-04-23 18:38:04 UTC | #1
+sipa | 2024-04-23 20:43:32 UTC | #1
 
 # LIMO: Linearization through Incremental Merging of Optimizations
 
@@ -84,18 +84,14 @@ It gets significantly more complicated to have two sets if we want to guarantee 
 
 * Given an initial linearization $L$
   * While there are transactions left in $L$:
-    * Let $b_0$ be the highest-feerate prefix of $L$.
-    * Find a high-feerate topologically-valid subset $S_1$ of the transactions in $L$ (e.g., best ancestor set), possibly using $b_0$ as initial best.
-    * Let $s_1$ be the highest-feerate prefix of $L[S_1]$.
-    * Let $b_1$ be the highest-feerate set among all prefixes of $L[b_0 \cap s_1] + L[b_0 \setminus s_1]$, and $s_1$.
-    * Find a high-feerate topologically-valid subset $S_2$ of the transactions in $L$ (e.g., bounded search), possibly using $b_1$ as initial best.
-    * Let $s_2$ be the highest-feerate prefix of $L[S_2 \cap b_1] + L[S_2 \setminus b_1]$.
-    * Let $b_2$ be the highest-feerate set among all prefixes of $L[b_1 \cap s_2] + L[b_1 \setminus s_2]$, and $s_2$.
-    * Let $S_3 = S_1 \cap S_2$.
-    * Let $s_3$ be the highest-feerate prefix of $L[S_3 \cap b_2] + L[S_3 \setminus b_2]$.
-    * Let $b_3$ be the highest-feerate set among all prefixes of $L[b_2 \cap s_3] + L[b_2 \setminus s_3]$, and $s_3$.
-    * Output $L[b_3]$
-    * Remove $b_3$ from $L$ and repeat.
+    * Let $b$ be the highest-feerate prefix of $L$.
+    * Find a high-feerate topologically-valid subsets $S_1$ and $S_2$ of the transactions in $L$.
+    * For $S \in \{S_1, S_2, S_1 \cap S_2\}$:
+      * Let $s$ be the highest-feerate prefix of $L[S \cap b] + L[S \setminus b]$.
+      * Let $t$ be the highest-feerate prefix of $L[b \cap s] + L[b \setminus s]$.
+      * Update $b$ to be the higher-feerate set in $\{s, t\}$.
+    * Output $L[b]$
+    * Remove $b$ from $L$ and repeat.
 
 This can now be used in cluster update situations:
 * Start with an existing linearzation $L$ for a cluster.
