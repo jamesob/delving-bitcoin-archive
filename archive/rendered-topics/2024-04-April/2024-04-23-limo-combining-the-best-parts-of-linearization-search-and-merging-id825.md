@@ -1,6 +1,6 @@
 # LIMO: combining the best parts of linearization search and merging
 
-sipa | 2024-04-23 20:51:38 UTC | #1
+sipa | 2024-04-23 23:40:05 UTC | #1
 
 # LIMO: Linearization through Incremental Merging of Optimizations
 
@@ -51,9 +51,9 @@ Overall, it feels like using merging to address this comes "too late". Ideally, 
   * Perform an optimization step that reorders $L$ without worsening it, and such that the initial part of its diagram is at least as good as the diagram of $L[S]$.
   * Output the highest-feerate prefix of $L$ and continue with what remains.
 
-The optimization step can be implemented as $\operatorname{merge}(L, L[S] + L[G \setminus S])$, i.e., a merge of $L$ with a version of itself that has $S$ moved to its front.
+**Definition.** Let us introduce the notation $L \triangleleft S$, for a linearization $L$ of graph $G$ and set $S \subset G$, to mean $L[S] + L[G \setminus S]$, i.e. $L$ but with the subset $S$ moved to the front.
 
-This is a strict improvement over the existing linearization algorithm: in addition to guaranteeing a result that is as good as the combinations of prefixes of found subsets, it also guarantees a result that is as good as the initial linearization. And contrary to the merge-at-the-end strategy, the subset searches get to take advantage of the quality of the initial linearization too, as it affects what remains in $L$ (and more, see below).
+The optimization step can then be written as $\operatorname{merge}(L, L \triangleleft S)$. This is a strict improvement over the existing linearization algorithm: in addition to guaranteeing a result that is as good as the combinations of prefixes of found subsets, it also guarantees a result that is as good as the initial linearization. And contrary to the merge-at-the-end strategy, the subset searches get to take advantage of the quality of the initial linearization too, as it affects what remains in $L$ (and more, see below).
 
 ## 3. Single-set improvement steps
 
@@ -66,13 +66,15 @@ To address that, observe that the merging algorithm itself works by incrementall
     * Let $l$ be the highest-feerate prefix of $L$.
     * Find a high-feerate topologically-valid subset $S$ of the transactions in $L$ (search).
     * Let $s$ be the highest-feerate prefix of $L[S]$.
-    * Let $b$ be the highest-feerate set among all prefixes of $L[l \cap s] + L[l \setminus s]$, and $s$.
+    * Depending on whether $\operatorname{feerate}(s) > \operatorname{feerate}(l)$:
+      * If yes, let $b = s$.
+      * If no, let $b$ be the highest-feerate prefix of $L[l] \triangleleft s$.
     * Append $L[b]$ to output linearization.
     * Remove $b$ from $L$ and repeat.
 
 As long as the consecutive $S$ sets do not degrade in quality, the resulting linearization will be as good as all its combined prefixes.
 
-For every search step an initial guess $l_1$ is known, the highest-feerate prefix of what remains of the initial linearization. This $l_1$ can be used as the initial $\operatorname{best}$ inside the [search algorithm](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303) (instead of $\varnothing$), which allows earlier pruning of work queue items whose $\operatorname{pot}$ isn't better, and can reduce the initial size of $\operatorname{imp}$.
+For every search step an initial guess $l$ is known, the highest-feerate prefix of what remains of the initial linearization. This $l$ can be used as the initial $\operatorname{best}$ inside the [search algorithm](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303) (instead of $\varnothing$), which allows earlier pruning of work queue items whose $\operatorname{pot}$ isn't better, and can reduce the initial size of $\operatorname{imp}$.
 
 ## 4. Improving existing linearizations
 
@@ -85,15 +87,20 @@ It gets significantly more complicated to have two sets if we want to guarantee 
 * Given an initial linearization $L$
   * While there are transactions left in $L$:
     * Let $b$ be the highest-feerate prefix of $L$.
-    * Find a high-feerate topologically-valid subsets $S_1$ and $S_2$ of the transactions in $L$.
+    * Find high-feerate topologically-valid subsets $S_1$ and $S_2$ of the transactions in $L$:
+      * $S_1$ could be the best ancestor set in what remains of $L$.
+      * $S_2$ could be the result of a computationally bounded search in $L$, using $b$ as a starting point. This search can be delayed until after the $S = S_1$ iteration below, which may provide a better $b$.
     * For $S \in \{S_1, S_2, S_1 \cap S_2\}$:
-      * Let $s$ be the highest-feerate prefix of $L[S \cap b] + L[S \setminus b]$.
-      * Let $t$ be the highest-feerate prefix of $L[b \cap s] + L[b \setminus s]$.
-      * Update $b$ to be the higher-feerate set in $\{s, t\}$.
+      * Let $s$ be the highest-feerate prefix of $L[S] \triangleleft b$ (during the first iteration $L[S] \triangleleft b = L[S]$).
+      * Depending on whether $\operatorname{feerate}(s) > \operatorname{feerate}(b)$:
+         * If yes, set $b = s$.
+         * If no, update $b$ to be the highest-feerate prefix of $L[b] \triangleleft s$.
     * Append $L[b]$ to output linearization.
     * Remove $b$ from $L$ and repeat.
 
-This can now be used in cluster update situations:
+It appears this algorithm even generalizes to higher numbers. E.g. Triple LIMO would involve three subsets $S_1$, $S_2$, and $S_3$, and $S$ would loop over $\{S_1, S_2, S_1 \cap S_2, S_3, S_1 \cap S_3, S_2 \cap S_3, S_1 \cap S_2 \cap S_3\}$.
+
+Double LIMO be used in cluster update situations:
 * Start with an existing linearzation $L$ for a cluster.
 * With a new transaction/package coming it, remove from $L$ the conflicts and append (at the end) the replacements, leaving the order otherwise the same.
 * [Post-process](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201) $L$.
