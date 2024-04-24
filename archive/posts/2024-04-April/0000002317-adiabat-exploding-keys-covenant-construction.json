@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 46,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 338.8,
+  "incoming_link_count": 48,
+  "reads": 26,
+  "readers_count": 25,
+  "score": 350.2,
   "yours": false,
   "topic_id": 832,
   "topic_slug": "exploding-keys-covenant-construction",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 6
     }
   ],
   "moderator": false,
@@ -58,10 +58,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 5
+      "count": 6
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
+  "reaction_users_count": 6,
   "current_user_used_main_reaction": false
 }

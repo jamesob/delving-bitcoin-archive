@@ -46,3 +46,53 @@ This post is not related to recent research [fellowship announced by HRF](https:
 
 -------------------------
 
+harding | 2024-04-24 19:27:03 UTC | #2
+
+I think you're ignoring the existing effect of [payment batching](https://bitcoinops.org/en/topics/payment-batching/).  Let's use and extend your examples, providing numbers.  All examples below assume P2TR keypath inputs and P2TR outputs with  sizes from [Optech's tx calc](https://bitcoinops.org/en/tools/calc-size/).
+
+**No batching or CISA:**
+
+```mermaid height=147,auto
+    graph TD;
+    A1-->B[B,A<sub>change</sub>];
+    A2-->C[C,A<sub>change</sub>];
+    A3-->D[D,A<sub>change</sub>];
+```
+
+Each tx has 1 input and 2 outputs (payment & change), making it 154 vbytes.  Three transactions is thus 462 vbytes.
+
+**Batching without CISA:**
+
+In the worst case, this is:
+
+```mermaid height=147,auto
+    flowchart
+         A1,A2,A3 --> B[B,C,D,A<sub>change</sub>]
+```
+
+The size is 355 vbytes, a 23% savings over the base case.
+
+In the best case, this is:
+
+```mermaid height=147,auto
+    flowchart
+         A1 --> B[B,C,D,A<sub>change</sub>]
+```
+
+That best-case size is 240 vbytes, a 48% savings over the base case.
+
+**With batching and CISA:**
+
+The best-case from above remains exactly the same (assuming CISA doesn't add any overhead).  In the multi-input case:
+
+- Half-agg reduces the size of the second and third inputs by 8 vbytes each, bringing the transaction size down from 355 vbytes to 339 vbytes.  This is an extra 3.6% savings.
+- Full-agg reduces the size of the second and third inputs by 16 vbytes each, brining the transaction size down from 355 vbytes to 323.  This is an extra 7.1% savings.
+
+The existing Bitcoin protocol heavily incentivizes batching.  CISA makes batching only slightly more efficient, so I don't think there's any reason to consider it a privacy problem on that basis.
+
+I'm not aware of CISA necessarily requiring a new address format, and even if it does, I assume that it can be an address format that encompasses most expected output uses (like taproot), so it will eventually become the default address format.  I don't think we should avoid adding useful new features to Bitcoin because there will be a transitional period where it's easier to distinguish between upgraded and non-upgraded wallets.
+
+Additionally, CISA reduces the cost of creating coinjoins and payjoins, two deployed protocols that improve privacy.  It may also reduce the cost of other protocols that enhance privacy, including both current protocols (like LN channels closes with multiple in-flight HTLCs) and proposed protocols.  The cost reduction is modest, but I think anything that gives privacy an advantage is worth considering.
+
+-------------------------
+

@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
+  "reads": 12,
+  "readers_count": 11,
   "score": 2.2,
   "yours": false,
   "topic_id": 748,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Progress update, the DSL now supports taproot outputs - both to create outputs and spending them.\n\nOther updates\n1. New [release](https://github.com/pool2win/bitcoin-dsl/pkgs/container/bitcoin-dsl) is out with smaller docker image size and number of notebooks related bug fixes.\n3. Support for [reorganising chain](https://opdup.com/bitcoin-dsl/dev/reference.html#reorganise-chain) to a given height, block hash or back up to a block to unconfirm a given transaction.\n```\nreorg_chain height: 95\n\nreorg_chain blockhash: @blockhash\n\nreorg_chain unconfirm_tx: @reorg_to_tx\n```\n\n2. Fixed broken links in the [documentation](https://opdup.com/bitcoin-dsl/index.html) pages.\n\n# Taproot example\n\nNew [documentation section on taproot](https://opdup.com/bitcoin-dsl/examples/taproot.html) transaction discusses the choice of using object notation for specifying taproot outputs and script sigs.\n\nHere's a quick example to show how to generate and spend taproot outputs on regtest.\n\n## Create a Taproot Output\n```ruby \ntransaction inputs: [\n              { tx: @coinbase_tx,\n                    vout: 0,\n                    script_sig: 'sig:wpkh(@alice)' }\n                ],\n             outputs: [\n                  {\n                    taproot: { internal_key: @bob,\n                               leaves: ['pk(@carol)', 'pk(@alice)'] },\n                    amount: 49.999.sats\n                  }\n                ]\nbroadcast @taproot_output_tx\n```\n\n## Spending Using a Script Path\n\n```ruby \ntransaction inputs: [\n                  { tx: @taproot_output_tx,\n                    vout: 0,\n                    script_sig: { leaf_index: 0,\n                                  sig: 'sig:@carol' },\n                    sighash: :all }\n                ],\n             outputs: [\n                  { descriptor: 'wpkh(@carol)',\n                    amount: 49.998.sats }\n                ]\nbroadcast @spend_taproot_output_tx\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
