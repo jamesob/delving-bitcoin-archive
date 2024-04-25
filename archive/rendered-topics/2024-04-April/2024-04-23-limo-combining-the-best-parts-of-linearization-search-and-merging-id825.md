@@ -134,3 +134,9 @@ If I drop any of the $2^n-1$ intersections, the test finds failures in the last 
 
 -------------------------
 
+ajtowns | 2024-04-25 01:11:42 UTC | #4
+
+I wonder if doing the intersections first would be an optimisation? ie $S_1, S_1 \cap S_2, S_2, S_1 \cap S_2 \cap S_3, S_1 \cap S_3, S_2 \cap S_3, S_3$
+
+-------------------------
+
