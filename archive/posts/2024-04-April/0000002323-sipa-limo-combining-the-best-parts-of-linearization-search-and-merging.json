@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.8,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 22.8,
   "yours": false,
   "topic_id": 825,
   "topic_slug": "limo-combining-the-best-parts-of-linearization-search-and-merging",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "It appears to be necessary to process these intersections too, though I don't exactly understand why.\n\nI have a fuzz test that implements Double and Triple LIMO, with the $S_i$ sets calculated as \"whatever remains of $n$ static fuzz-derived topologically-valid sets\", on a fuzz-derived initial linearization for a fuzz-derived cluster, and then verifies:\n* The resulting linearization is topological\n* The resulting linearization's diagram is at least as good as the initial one.\n* The resulting feerate diagram at size $\\operatorname{size}(S_i)$ is at least $\\operatorname{fee}(S_i)$, for each $i$.\n\nIf I drop any of the $2^n-1$ intersections, the test finds failures in the last condition.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

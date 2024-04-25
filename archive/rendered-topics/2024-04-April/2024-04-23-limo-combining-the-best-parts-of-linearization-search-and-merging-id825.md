@@ -147,3 +147,19 @@ Interestingly not all orderings work. These do not (will update if I find more):
 
 -------------------------
 
+sipa | 2024-04-25 12:14:15 UTC | #6
+
+Huh, much simpler construction that also seems to work:
+
+* Given an initial linearization $L$
+  * While there are transactions left in L:
+     * Compute high-feerate topologically-valid sets $S_1$ and $S_2$.
+     * Let $b$ be the highest-feerate set in:
+       * $\Pi(Q)$ for $Q \in \{L, L[S_1], L[S_2], L[S_1 \cap S_2]\}$
+    * Append $L[b]$ to output linearization.
+    * Remove $b$ from $L$ and repeat.
+
+(also generalizes to triple variant)
+
+-------------------------
+
