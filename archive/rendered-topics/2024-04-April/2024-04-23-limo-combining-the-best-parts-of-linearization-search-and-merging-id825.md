@@ -140,3 +140,10 @@ I wonder if doing the intersections first would be an optimisation? ie $S_1, S_1
 
 -------------------------
 
+sipa | 2024-04-25 10:34:41 UTC | #5
+
+Interestingly not all orderings work. These do not (will update if I find more):
+* $S_1 \cap S_2, S_1 \cap S_3, S_2 \cap S_3, S_2, S_3, S_1 \cap S_2 \cap S_3, S_1$
+
+-------------------------
+
