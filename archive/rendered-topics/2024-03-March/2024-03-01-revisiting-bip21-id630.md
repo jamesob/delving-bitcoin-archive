@@ -292,3 +292,11 @@ I don't believe there are any address types which are not "either a base64 P2SH 
 
 -------------------------
 
+juscamarena | 2024-04-26 20:36:49 UTC | #20
+
+I agree with Ruben here that address1 should be whatever the receiver is comfortable will be compatible and cheaper for them to accept.  I previously worked at Bitrefill building a bit part of the payment experience, we moved to using segwit bec32 addresses and have not seen any issues and wouldn't necessarily want to default to a more expensive but more backward compatible address.
+
+One thing we would have liked would be to to be able to set a taproot address so wallets that do support it can opt in to send to that instead.
+
+-------------------------
+
