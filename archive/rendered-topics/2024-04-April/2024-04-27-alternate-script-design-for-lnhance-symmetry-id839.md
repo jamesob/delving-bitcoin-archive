@@ -1,6 +1,6 @@
 # Alternate script design for LNHANCE-Symmetry
 
-reardencode | 2024-04-27 04:46:19 UTC | #1
+reardencode | 2024-04-27 05:28:32 UTC | #1
 
 I blame Lisa.
 
@@ -68,9 +68,9 @@ In LNHANCE-Symmetry, the settlement transaction's CTV hash can be ground to a va
 #### Subsequent update
 
 * 65-byte control block
-* 3-byte script
+* 35-byte script
 * 64-byte signature
-* Total: 3+65+3+64=135WU
+* Total: 3+65+35+64=167WU
 
 #### Settlement
 
