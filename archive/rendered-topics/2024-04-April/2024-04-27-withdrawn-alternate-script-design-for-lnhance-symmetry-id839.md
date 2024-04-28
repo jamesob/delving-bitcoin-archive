@@ -244,3 +244,25 @@ A stray annex in this line
 
 -------------------------
 
+ajtowns | 2024-04-28 01:02:42 UTC | #4
+
+[quote="reardencode, post:3, topic:839"]
+Goddamnit, this doesn’t work at all. My cleverness defeated.
+[/quote]
+
+If it's any consolation, pretty sure I said the same thing to insta when trying to improve ln-symmetry, for pretty much the same reason. My irc logs confirm: `<_aj_> meh, that probably doesn't work`, 2022-10-22 :headstone: 
+
+[quote="reardencode, post:3, topic:839"]
+[quote="ajtowns, post:2, topic:839"]
+* * lnhance: 33B annex, 33B control block, 48B script, 64B signature, 32B ctv hash (210B)
+[/quote]
+
+A stray annex in this line
+[/quote]
+
+If you're revealing the settlement tx hash via the annex, then that has to be included in the annex of any update tx, whether it spends the funding tx or a previous update tx. Otherwise, you wouldn't be able to be sure you can spend that update tx to the latest update tx.
+
+(If you restrict your protocol to 2-party channels, you can change the protocol to only be "A spends funding tx to update N; B spends update N to update N+K; A **cannot** spend update N+K to N+K+L", in which case you could skip the annex in B's spend)
+
+-------------------------
+
