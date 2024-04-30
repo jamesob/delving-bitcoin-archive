@@ -58,3 +58,24 @@ Thanks to sipa & real-or-random who I discussed this with a while ago and helped
 
 -------------------------
 
+ajtowns | 2024-04-30 02:28:23 UTC | #2
+
+[quote="adiabat, post:1, topic:832"]
+What’s nice is that private key holders A, B, and C can still interact to sign with the explodable key to send it somewhere else.
+[/quote]
+
+Without being able to enforce a timeout on the exploding path, I don't think having a key path is very interesting? In adversarial scenarios you can't use it, because your adversary can just broadcast the exploding version; in non-adversarial scenarios you wait until feerates are load and use the key path to spend directly to wherever you want and don't need an exploding tx in the middle?
+
+I think you could extend this design to fix that, though, by making the commitment something like:
+
+```raw
+keyZ = H(nLockTime, nSequence, annex)*G
+keyW = KeyAgg(keyA', keyB', keyC', keyZ)
+```
+
+with `nLockTime`, `nSequence` and `annex` pulled from the exploding spend. At that point, A,B,C have until the locktime/nseq expires to agree on and broadcast a key path spend, or after that time, they all just get their money back via the exploding tx. That would allow a one-shot payment pool, I think?
+
+I don't see a way to tweak the maths to allow you to have both an exploding spend path and a script spend path -- I think in that case the exploding path would still need to reveal the script (hash), and at that point you might as well just use a script path in first place?
+
+-------------------------
+
