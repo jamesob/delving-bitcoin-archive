@@ -79,3 +79,19 @@ I don't see a way to tweak the maths to allow you to have both an exploding spen
 
 -------------------------
 
+ZmnSCPxj | 2024-05-02 15:14:10 UTC | #3
+
+Ah, I think I remember you mentioning this as similar to my `OP_EVICT` proposal before.
+
+A way to allow both for a 'splody-path spend and a tapleaf path spend would be to require `MuSig(outputs)` to be the internal pubkey of the spent input, rather than the direct output.  Then you only reveal the topmost `TapRoot` hash without revealing any scripts in the 'splody-path spend.  You can even have an option of:
+
+* Only 'splody-path spend: the actual pubkey is the MuSig(outputs), on 'splody-path spend, you have an empty witness.
+  * 'splody-path spend: empty witness
+  * consensual everyone-signs: a witness, 64 bytes signature
+* 'splody-path spend OR taproot spend: the actual pubkey is `P + hash(P | tagged_hash("TapRoot", whatever))` and the internal pubkey `P` is the `MuSig(output)`
+  * 'splody-path spend: a witness, 32 bytes tagged hash output
+  * consensual everyone-signs: a witness, 64 bytes signature
+  * tapleaf: witnesses: control block with path to tapleaf, tapleaf script, tapleaf script witness stack
+
+-------------------------
+
