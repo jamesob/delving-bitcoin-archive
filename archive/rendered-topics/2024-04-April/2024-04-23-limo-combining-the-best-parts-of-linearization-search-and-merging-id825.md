@@ -173,3 +173,148 @@ A few updates:
 
 -------------------------
 
+sipa | 2024-05-02 03:22:34 UTC | #8
+
+### Set linearizations
+
+***Definition.*** A **set-linearization** is a list of non-overlapping sets of transactions, such that no transaction has ancestors in later sets than the set where it occurs in. A chunking is a special case of a set-linearization. Set-linearizations do not require monotonically decreasing feerate. A normal linearization with every list element replaced by a singleton containing it always yields a valid set-linearization.
+
+***Definition.*** Every set-linearization $C$ has a **set-feerate diagram** $\operatorname{setdiag}(C)$, which is the real function through the cumulative $(\operatorname{size}, \operatorname{fee})$ points of its prefixes. Note that unlike for normal linearizations, we do not implicitly "chunkify" for the diagram. So a set-feerate diagram is not necessarily a concave function.
+
+***Definition.*** Let $\operatorname{chunksets}(C)$ be a function from set-linearizations to set-linearizations, which repeatedly merges pairs of consecutive sets where the latter has a strictly higher feerate than the former, until no such pairs remain.
+
+***Definition.*** The $\sim$, $\gtrsim$, and $\lesssim$ operators are defined for set-linearizations as comparing their (unchunked) diagrams.
+
+***Theorem.*** For any set-linearization $C$, $\operatorname{chunksets}(C) \gtrsim C$.
+
+***Theorem.*** The diagram for $\operatorname{chunksets}(C)$ is the minimal concave function through the $(\operatorname{size}, \operatorname{fee})$ points of every prefix of $C$.
+
+***Definition.*** Given a linearization $L$, a set-linearization $C$ is **compatible** with $L$ if every prefix of $C$ (union of all the first $k$ sets in $C$) contains a prefix of $L$.
+
+***Theorem.*** Given a linearization $L$ and a compatible set-linearization $C$, then $\operatorname{chunksets}(C)$ is also compatible with $L$.
+
+***Theorem.*** Given a linearization $L$ and a compatible set-linearization $C$, then the diagram of $C$ is nowhere better than the (post-chunking) diagram of $L$.
+
+### Slope algebra
+
+To simplify reasoning about points in the diagram and the feerates they correspond to:
+* Define the function $\operatorname{V}(S)$ for set $S$ as the real vector $(\operatorname{size}(S), \operatorname{fee}(S))$.
+* Define $\operatorname{possize}(V)$ where $V = (s, f)$ as $s > 0$.
+* Define $(s_1, f_1) \succeq (s_2, f_2)$ as $f_1 s_2 \geq f_2 s_1$, the "slope comparison".
+
+If $\operatorname{possize}(V_1)$ and $\operatorname{possize}(V_2)$, for $V_1 = (s_1, f_1)$ and $V_2 = (s_2, f_2)$, then $V_1 \succeq V_2 \iff f_1 / s_1 \geq f_2 / s_2$. Thus, $\operatorname{V}(S_1) \succeq \operatorname{V}(S_2) \iff \operatorname{feerate}(S_1) \geq \operatorname{feerate}(S_2)$, and $\succeq$ can be thought of as a generalization of the feerate comparisons on $(\operatorname{size}, \operatorname{fee})$ pairs, to situations where these coefficients do not necessarily correspond to a specific set of transactions, and sizes may even be negative or zero.
+
+The following rules apply:
+* **Negation rule**: $V_1 \succeq V_2 \iff V_1 \preceq -V_2$.
+* **Offset rule**: $V_1 \succeq V_2 \iff V_1 \succeq V_1 + \alpha V_2$ for real $\alpha$.
+* **Transitivity**: $V_1 \succeq V_2 \, \land \, V_2 \succeq V_3 \implies V_1 \succeq V_3$, if $\operatorname{possize}(V_i)$ for $i = 1 \ldots 3$.
+
+Now geometrically, the point corresponding to $V$ lies to the left of the (infinite extension of) the line from $V_1$ to $V_2$ iff $V - V_1 \succeq V_2 - V_1$. If $\operatorname{pos}(V - V_1)$ and $\operatorname{possize}(V_2 - V_1)$, then $V - V_1 \succeq V_2 - V_1$ iff $V$ lies above the line from $V_1$ to $V_2$.
+
+### The set gathering theorem
+
+This is a variation on [the gathering theorem](https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202#transformations-on-linearizations-4), with the difference that it operates on set-linearizations rather than linearizations.
+ 
+Informally: moving a subset $S$ of transactions to the front of a set-linearization $C$, and then chunking the result, will not worsen the diagram if the feerate of $S$ is as good as every prefix of $C$, and as good as every prefix of $C$ intersected with $S$.
+
+***Theorem.*** Given:
+* A set-linearization $C = (c_1, c_2, \ldots, c_n)$
+* A topologically-valid subset $S$ of its transactions ($S \subset (\cup_{j=1}^n c_j)$) for which, ignoring conditions that involve the feerate of an empty set, it holds that:
+  * (1) $\operatorname{feerate}(S) \geq \operatorname{feerate}(\cup_{i=1}^k c_i)$ for all $k = 1 \ldots n$
+  * (2) $\operatorname{feerate}(S) \geq \operatorname{feerate}(S \cap (\cup_{i=1}^k c_i))$ for all $k = 1 \ldots n$.
+
+Then $\operatorname{chunksets}(C') \gtrsim C$ where $C' = (S, c_1 \setminus S, c_2 \setminus S, \ldots, c_n \setminus S)$.
+
+***Proof.***
+
+Define:
+* $P_k$ as $\operatorname{V}(\cup_{i=1}^k c_i)$, the points making up the diagram of $C$.
+* $Q_k$ as $\operatorname{V}(S \cup (\cup_{i=1}^k c_i))$, the points making up the diagram of $C'$, excluding $(0,0)$.
+
+Our input conditions can now be stated using vectors and slope comparisons as
+* (1) $Q_0 \succeq P_k$ for $k=1 \ldots n$
+* (2) $Q_0 \succeq Q_0 + P_k - Q_k$ for $k=1 \ldots n$.
+
+To prove that the diagram of $\operatorname{chunksets}(C')$ is nowhere below the diagram of $C$, we will for every point of $C$ show that a line between two points on $C'$ exists that it lies on or below, as these lines form a lower bound for the concave function that is $\operatorname{setdiag}(\operatorname{chunksets}(C'))$.
+
+* For $k = 1 \ldots n$:
+  * If $\operatorname{possize}(P_k - Q_0)$:
+    * (3) $Q_0 \succeq P_k - Q_k$ [offset rule with $\alpha=-1$ on (2)]
+    * (4) $Q_k - P_k \succeq Q_0$ [negation rule on (3)]
+    * (5) $Q_0 \succeq P_k - Q_0$ [offset rule with $\alpha=-1$ on (1)]
+    * (6) $Q_k - P_k \succeq P_k - Q_0$ [transitivity on (4) and (5)]
+    * (7) $Q_k - Q_0 \succeq P_k - Q_0$ [offset rule with $\alpha=1$ on l.h.s. of (6)]
+    * (8) $P_k$ lies on or below the line from $Q_0$ to $Q_k$ [line rule on (7)]
+  * Otherwise (not $\operatorname{possize}(P_k - Q_0)$):
+    * (9) $Q_0 - P_0 \succeq P_k - P_0$ [subtracting $P_0 = (0, 0)$ from both sides of (1)]
+    * (10) $P_k$ lies on or below the line from $P_0$ to $Q_0$ [line rule on (9)]
+
+Thus, every point $P_k$ of the diagram of $C$ lies on or below either the line from $P_0$ to $Q_0$ (10) or the line from $Q_0$ to $Q_k$ (8). Since $P_0$, $Q_0$, and $Q_k$ are all on $\operatorname{setdiag}(C')$, this implies that $\operatorname{chunksets}(C') \gtrsim C$.
+
+***Corollary.*** The normal gathering theorem, under the condition that $L[S]$ chunks to a single set, follows from the set gathering theorem, by applying it to $C = \operatorname{chunking}(L)$, since the conditions follow from:
+* (1) $S$ having a higher feerate than $L$'s first chunk, which has a higher feerate than any other prefix of chunks
+* (2) $L[S]$ being a single chunk implies it has no higher-feerate prefix itself.
+
+***Corollary.*** The chunk reordering theorem follows from the set gathering theorem, by applying it to $C = \operatorname{chunking}(L)$, since the conditions follow from:
+* (1) Like above
+* (2) $S \subset c_1$ implying all intersections between $S$ and prefixes of $C$ are identical.
+
+### Double LIMO
+
+Define $\operatorname{DoubleLIMO}_{f_1,f_2}(G, L)$ for a graph $G$ with existing linearization $L$, and two functions $f_1$ and $f_2$ that find high-feerate topologically-valid subsets of a given set of transactions as:
+* If $L = ()$, return $()$.
+* Otherwise:
+  * Let $C = (c_1, c_2, \ldots, c_n) = \operatorname{chunking}(L)$.
+  * Let $S_1 = f_1(G)$.
+  * Let $S_2 = f_2(G)$.
+  * Let $S$ be the highest-feerate among:
+    * $(\cup_{i=1}^k c_i)_{k=1}^n$, the prefixes of $C$
+    * $(S_1 \cap (\cup_{i=1}^k c_i))_{k=1}^n$, the prefixes of $C$ intersected with $S_1$
+    * $(S_2 \cap (\cup_{i=1}^k c_i))_{k=1}^n$, the prefixes of $C$ intersected with $S_2$
+    * $(S_1 \cap S_2 \cap (\cup_{i=1}^k c_i))_{k=1}^n$, the prefixes of $C$ intersected with $S_1 \cap S_2$
+  * Return $L[S] + \operatorname{DoubleLIMO}_{f_1,f_2}(G \setminus S, L[G \setminus S])$.
+
+This is equivalent to the description [earlier in this thread](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825/6), except it only considers intersections with linearization prefixes that are aligned to the chunk boundaries of $L$. In every step, $\operatorname{DoubleLIMO}$ moves transactions to the front of the linearization, and then continues with what remains.
+
+***Theorem.*** The set of transactions $S$ moved to the front by every step of $\operatorname{DoubleLIMO}$ is such that *some* linearization $L^\ast$ exists such that:
+* (a) $L^\ast$ starts with $L[S]$
+* (b) $L^\ast \gtrsim L$
+* (c) $\operatorname{diag}(L^\ast)(\operatorname{size}(f_1(G))) \geq \operatorname{fee}(f_1(G))$
+* (d) $\operatorname{diag}(L^\ast)(\operatorname{size}(f_2(G))) \geq \operatorname{fee}(f_2(G))$
+
+Note that there is no guarantee that $\operatorname{DoubleLIMO}$ overall actually finds this $L^\ast$, because it depends on which $S_1$ and $S_2$ are returned by $f_1$ and $f_2$ in future iterations. However, in every iteration progress is made towards some $L^\ast$ satisfying these properties that exists during that individual iteration. In further iterations $L^\ast$ may be different, and progress will be made towards that one instead then (for better or worse).
+
+***Proof.*** To prove this, we will construct this $L^\ast$ for this one iteration explicitlly:
+* Let $L_1 = L \triangleleft S_1$.
+* Let $L_2 = L \triangleleft S_2$.
+* Let $L^\ast = \operatorname{merge}(G, \operatorname{merge}(G, L_1 \triangleleft S, L_2 \triangleleft S), L \triangleleft S)$
+
+This $L^\ast$ satisfies condition (a), starting with $L[S]$, as it is the merging of 3 linearizations which all start with $L[S]$.
+
+$L^\ast$ also satisfies condition (b), $L^\ast \gtrsim L$, because:
+* Let $L' = L \triangleleft S$
+* Let $C' = (S, c_1 \setminus S, c_2 \setminus S, \ldots, c_n \setminus S)$.
+* The set gathering theorem holds for set-linearization $C$ and subset $S$, showing $\operatorname{chunksets}(C') \gtrsim C$, because:
+  * Condition (1) follows from $\operatorname{feerate}(S) \geq \operatorname{feerate}(c_1)$, and $c_1$ has the highest feerate of any prefix of chunks.
+  * Condition (2) follows from the fact that for every candidate for $S$ tried, its restriction $S \cap (\cup_{i=1}^k c_i)$ for every $k$ is tried as well. Thus, no $S \cap (\cup_{i=1}^k c_i)$ can exist with feerate higher than $S$, as it would have been picked instead of $S$.
+* $C$ is the chunking for $L$, and $\operatorname{chunksets}(C')$ is compatible with $L'$, thus from $\operatorname{chunksets}(C') \gtrsim C$ it follows that $L' \gtrsim L$.
+* $L^\ast$ is a merging with $L'$, and thus $L^\ast \gtrsim L' \gtrsim L$.
+
+To show it satisfies condition (c), $\operatorname{diag}(L^\ast)(\operatorname{size}(S_1)) \geq \operatorname{fee}(S_1)$ (and analogously, condition (d)):
+* Let $C_1 = (S_1, L[G \setminus S_1])$, a set-linearization whose diagram satisfies the relation in (c).
+* Let $L'_1 = L_1 \triangleleft S$.
+* Let $C'_1 = (S, S_1 \setminus S, G \setminus (S \cup S_1))$.
+* The set gathering theorem holds for set-linearization $C_1$ and subset $S$, showing $\operatorname{chunksets}(C'_1) \gtrsim C_1$, because:
+  * Condition (1) follows from the fact that both prefixes of $C_1$, namely $S_1$ and $G$ in its entirety, are both candidates for $S$, thus the feerate of $S$ must be at least as high as the better of those.
+  * Condition (2) follows from the fact that for every candidate for $S$ tried, its intersection with all prefixes of $C_1$ were tried too (effectively, its intersection with $S_1$ as intersecting with $G$ is the identity). Thus it cannot be that $(S_1 \cap S)$ has a higher feerate than $S$, as it would have been chosen instead of $S$.
+* $\operatorname{chunksets}(C'_1)$ is compatible with $L'_1$, and thus from $\operatorname{chunksets}(C'_1) \gtrsim C_1$ it follows that the diagram of $L'_1$ also satisfies the relation in (c).
+* $L^\ast$ is a merging with $L'$, and thus $L^\ast$ also satisfies this property.
+
+It does not hurt to use the earlier form of Double LIMO, which considers all prefixes of $L[S_1]$, $L[S_2]$ and $L[S_1 \cap S_2]$ rather than just the ones that align with chunks of $L$, as all the necessary properties are still held. More combinations can be tried too, as long as these include:
+* The entire graph $G$.
+* For every combination tried, also its intersection with the prefixes of the chunking of $L$.
+* For every combination tried, also its intersection with $S_1$.
+* For every combination tried, also its intersection with $S_2$.
+
+-------------------------
+
