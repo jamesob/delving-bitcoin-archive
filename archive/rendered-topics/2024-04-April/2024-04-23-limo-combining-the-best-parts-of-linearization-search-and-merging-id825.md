@@ -173,11 +173,17 @@ A few updates:
 
 -------------------------
 
-sipa | 2024-05-02 03:22:34 UTC | #8
+sipa | 2024-05-02 12:45:36 UTC | #8
+
+In this follows a proof for Double LIMO. More concretely, it shows that in each iteration of the algorithm progress is made towards a linearization which is as good as the input, and as good as the $S_1$ and $S_2$ found in that same iteration.
+
+## New concepts
+
+First two new concepts (set-linearizations, slope comparison), with associated definitions and theorems, are introduced that will help with analyzing Double LIMO. Then a variant of the gathering theorem is introduced and proven
 
 ### Set linearizations
 
-***Definition.*** A **set-linearization** is a list of non-overlapping sets of transactions, such that no transaction has ancestors in later sets than the set where it occurs in. A chunking is a special case of a set-linearization. Set-linearizations do not require monotonically decreasing feerate. A normal linearization with every list element replaced by a singleton containing it always yields a valid set-linearization.
+***Definition.*** A **set-linearization** is a list of non-overlapping sets of transactions whose prefixes are topological. The **prefixes** of a set-linearization $C = (c_1, c_2, \ldots, c_n)$ are the sets $(\cup_{i=1}^k c_i)_{k=0}^n$. A chunking is a special case of a set-linearization. Set-linearizations do not require monotonically decreasing feerate. A normal linearization with every list element replaced by a singleton containing it always yields a valid set-linearization.
 
 ***Definition.*** Every set-linearization $C$ has a **set-feerate diagram** $\operatorname{setdiag}(C)$, which is the real function through the cumulative $(\operatorname{size}, \operatorname{fee})$ points of its prefixes. Note that unlike for normal linearizations, we do not implicitly "chunkify" for the diagram. So a set-feerate diagram is not necessarily a concave function.
 
@@ -189,7 +195,7 @@ sipa | 2024-05-02 03:22:34 UTC | #8
 
 ***Theorem.*** The diagram for $\operatorname{chunksets}(C)$ is the minimal concave function through the $(\operatorname{size}, \operatorname{fee})$ points of every prefix of $C$.
 
-***Definition.*** Given a linearization $L$, a set-linearization $C$ is **compatible** with $L$ if every prefix of $C$ (union of all the first $k$ sets in $C$) contains a prefix of $L$.
+***Definition.*** Given a linearization $L$, a set-linearization $C$ is **compatible** with $L$ if every prefix of $C$ is also a prefix of $L$.
 
 ***Theorem.*** Given a linearization $L$ and a compatible set-linearization $C$, then $\operatorname{chunksets}(C)$ is also compatible with $L$.
 
@@ -198,18 +204,17 @@ sipa | 2024-05-02 03:22:34 UTC | #8
 ### Slope algebra
 
 To simplify reasoning about points in the diagram and the feerates they correspond to:
-* Define the function $\operatorname{V}(S)$ for set $S$ as the real vector $(\operatorname{size}(S), \operatorname{fee}(S))$.
-* Define $\operatorname{possize}(V)$ where $V = (s, f)$ as $s > 0$.
+* Define the function $\operatorname{sfpair}(S)$ for set $S$ as the real vector $(\operatorname{size}(S), \operatorname{fee}(S))$.
+* Define $\operatorname{possize}(P)$ where $P = (s, f)$ as $s > 0$.
 * Define $(s_1, f_1) \succeq (s_2, f_2)$ as $f_1 s_2 \geq f_2 s_1$, the "slope comparison".
 
-If $\operatorname{possize}(V_1)$ and $\operatorname{possize}(V_2)$, for $V_1 = (s_1, f_1)$ and $V_2 = (s_2, f_2)$, then $V_1 \succeq V_2 \iff f_1 / s_1 \geq f_2 / s_2$. Thus, $\operatorname{V}(S_1) \succeq \operatorname{V}(S_2) \iff \operatorname{feerate}(S_1) \geq \operatorname{feerate}(S_2)$, and $\succeq$ can be thought of as a generalization of the feerate comparisons on $(\operatorname{size}, \operatorname{fee})$ pairs, to situations where these coefficients do not necessarily correspond to a specific set of transactions, and sizes may even be negative or zero.
+If $\operatorname{possize}(P_1)$ and $\operatorname{possize}(P_2)$, for $P_1 = (s_1, f_1)$ and $P_2 = (s_2, f_2)$, then $P_1 \succeq P_2 \iff f_1 / s_1 \geq f_2 / s_2$. Thus, $\operatorname{sfpair}(S_1) \succeq \operatorname{sfpair}(S_2) \iff \operatorname{feerate}(S_1) \geq \operatorname{feerate}(S_2)$, and $\succeq$ can be thought of as a generalization of the feerate comparisons on $(\operatorname{size}, \operatorname{fee})$ pairs, to situations where these coefficients do not necessarily correspond to a specific set of transactions, and sizes may even be negative or zero.
 
 The following rules apply:
-* **Negation rule**: $V_1 \succeq V_2 \iff V_1 \preceq -V_2$.
-* **Offset rule**: $V_1 \succeq V_2 \iff V_1 \succeq V_1 + \alpha V_2$ for real $\alpha$.
-* **Transitivity**: $V_1 \succeq V_2 \, \land \, V_2 \succeq V_3 \implies V_1 \succeq V_3$, if $\operatorname{possize}(V_i)$ for $i = 1 \ldots 3$.
-
-Now geometrically, the point corresponding to $V$ lies to the left of the (infinite extension of) the line from $V_1$ to $V_2$ iff $V - V_1 \succeq V_2 - V_1$. If $\operatorname{pos}(V - V_1)$ and $\operatorname{possize}(V_2 - V_1)$, then $V - V_1 \succeq V_2 - V_1$ iff $V$ lies above the line from $V_1$ to $V_2$.
+* **Negation rule**: $P_1 \succeq P_2 \iff P_2 \succeq -P_1$.
+* **Offset rule**: $P_1 \succeq P_2 \iff P_1 + \alpha P_2 \succeq P_2 \iff P_1 \succeq P_2 + \beta P_1$ for real $\alpha, \beta$.
+* **Transitivity**: $P_1 \succeq P_2 \, \land \, P_2 \succeq P_3 \implies P_1 \succeq P_3$, if $\operatorname{possize}(P_i)$ for $i = 1 \ldots 3$.
+* **Line rule**: Geometrically, the point $P$ lies to the left of the (infinite extension of) the line from $P_1$ to $P_2$ iff $P - P_1 \succeq P_2 - P_1$. If $\operatorname{possize}(P - P_1)$ and $\operatorname{possize}(P_2 - P_1)$, then $P - P_1 \succeq P_2 - P_1$ iff $P$ lies above the line from $P_1$ to $P_2$.
 
 ### The set gathering theorem
 
@@ -228,8 +233,8 @@ Then $\operatorname{chunksets}(C') \gtrsim C$ where $C' = (S, c_1 \setminus S, c
 ***Proof.***
 
 Define:
-* $P_k$ as $\operatorname{V}(\cup_{i=1}^k c_i)$, the points making up the diagram of $C$.
-* $Q_k$ as $\operatorname{V}(S \cup (\cup_{i=1}^k c_i))$, the points making up the diagram of $C'$, excluding $(0,0)$.
+* $P_k$ as $\operatorname{sfpair}(\cup_{i=1}^k c_i)$, the points making up the diagram of $C$.
+* $Q_k$ as $\operatorname{sfpair}(S \cup (\cup_{i=1}^k c_i))$, the points making up the diagram of $C'$, excluding $(0,0)$.
 
 Our input conditions can now be stated using vectors and slope comparisons as
 * (1) $Q_0 \succeq P_k$ for $k=1 \ldots n$
@@ -239,11 +244,11 @@ To prove that the diagram of $\operatorname{chunksets}(C')$ is nowhere below the
 
 * For $k = 1 \ldots n$:
   * If $\operatorname{possize}(P_k - Q_0)$:
-    * (3) $Q_0 \succeq P_k - Q_k$ [offset rule with $\alpha=-1$ on (2)]
+    * (3) $Q_0 \succeq P_k - Q_k$ [offset rule with $\beta=-1$ on (2)]
     * (4) $Q_k - P_k \succeq Q_0$ [negation rule on (3)]
-    * (5) $Q_0 \succeq P_k - Q_0$ [offset rule with $\alpha=-1$ on (1)]
+    * (5) $Q_0 \succeq P_k - Q_0$ [offset rule with $\beta=-1$ on (1)]
     * (6) $Q_k - P_k \succeq P_k - Q_0$ [transitivity on (4) and (5)]
-    * (7) $Q_k - Q_0 \succeq P_k - Q_0$ [offset rule with $\alpha=1$ on l.h.s. of (6)]
+    * (7) $Q_k - Q_0 \succeq P_k - Q_0$ [offset rule with $\alpha=1$ on (6)]
     * (8) $P_k$ lies on or below the line from $Q_0$ to $Q_k$ [line rule on (7)]
   * Otherwise (not $\operatorname{possize}(P_k - Q_0)$):
     * (9) $Q_0 - P_0 \succeq P_k - P_0$ [subtracting $P_0 = (0, 0)$ from both sides of (1)]
@@ -259,7 +264,7 @@ Thus, every point $P_k$ of the diagram of $C$ lies on or below either the line f
 * (1) Like above
 * (2) $S \subset c_1$ implying all intersections between $S$ and prefixes of $C$ are identical.
 
-### Double LIMO
+## Double LIMO
 
 Define $\operatorname{DoubleLIMO}_{f_1,f_2}(G, L)$ for a graph $G$ with existing linearization $L$, and two functions $f_1$ and $f_2$ that find high-feerate topologically-valid subsets of a given set of transactions as:
 * If $L = ()$, return $()$.
@@ -308,7 +313,7 @@ To show it satisfies condition (c), $\operatorname{diag}(L^\ast)(\operatorname{s
   * Condition (1) follows from the fact that both prefixes of $C_1$, namely $S_1$ and $G$ in its entirety, are both candidates for $S$, thus the feerate of $S$ must be at least as high as the better of those.
   * Condition (2) follows from the fact that for every candidate for $S$ tried, its intersection with all prefixes of $C_1$ were tried too (effectively, its intersection with $S_1$ as intersecting with $G$ is the identity). Thus it cannot be that $(S_1 \cap S)$ has a higher feerate than $S$, as it would have been chosen instead of $S$.
 * $\operatorname{chunksets}(C'_1)$ is compatible with $L'_1$, and thus from $\operatorname{chunksets}(C'_1) \gtrsim C_1$ it follows that the diagram of $L'_1$ also satisfies the relation in (c).
-* $L^\ast$ is a merging with $L'$, and thus $L^\ast$ also satisfies this property.
+* $L^\ast$ is a merging with $L'_1$, and thus $L^\ast$ also satisfies this property.
 
 It does not hurt to use the earlier form of Double LIMO, which considers all prefixes of $L[S_1]$, $L[S_2]$ and $L[S_1 \cap S_2]$ rather than just the ones that align with chunks of $L$, as all the necessary properties are still held. More combinations can be tried too, as long as these include:
 * The entire graph $G$.
