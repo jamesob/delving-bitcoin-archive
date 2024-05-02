@@ -163,12 +163,12 @@ Huh, much simpler construction that also seems to work:
 
 -------------------------
 
-sipa | 2024-04-25 22:37:19 UTC | #7
+sipa | 2024-05-02 17:06:23 UTC | #7
 
 A few updates:
 
 * **The bad news.** @sdaftuar convinced me that the Double-LIMO workflow does not actually address the issue in the introduction: if you start with an arbitrary linearization, and then Double-LIMO it (with $S_1 =$ best remaining ancestor set, $S_2 =$ bounded search), the result may still be incomparable or even strictly worse than a pure ancestor set based linearization. If the *input* is at least as good as a pure ancestor set based linearization, the output will be too. This could also be accomplished by merging a fresh ancestor set sort with the input, but LIMO lets us linearize and merge at the same time.
-* **The somewhat redeeming insight.** We probably do not actually care about guaranteeing that all our linearization are strictly as good as the **diagram** of pure ancestor sort, because that is not what is required for CPFP, nor is it what the network currently implements. The current (as of 27.0) Bitcoin Core block builder implementation guarantees a quality of ancestor-based sort *without* chunking, and LIMO achieves that too (but, so does bounded search with ancestor set-based presplitting).
+* **The somewhat redeeming insight.** We probably do not actually care about guaranteeing that all our linearization are strictly as good as the **diagram** of pure ancestor sort, because that is not what is required for CPFP, nor is it what the network currently implements. The current (as of 27.0) Bitcoin Core block builder implementation guarantees a quality of ancestor-based sort *without* chunking, and LIMO achieves that too (~~but, so does bounded search with ancestor set-based presplitting~~ EDIT: that's not true; LIMO with best remaining ancestor set as one of the function, or merging with a pure ancestor set are the only options left to guarantee that).
 * **The good news.** I believe I have a proof that the new simplified Double (and Triple) LIMO "works" (where "works" doesn't imply "as good as directly linearizing using each individual subset finding algorithm", but means "at least as good as the input, and transactions included in each step are not incompatible with reaching the fee/size point of the $S_1$ and $S_2$ found within that same step"). Bigger post coming up for that.
 
 -------------------------
