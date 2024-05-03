@@ -173,15 +173,15 @@ A few updates:
 
 -------------------------
 
-sipa | 2024-05-02 12:45:36 UTC | #8
+sipa | 2024-05-02 21:17:55 UTC | #8
 
 In this follows a proof for Double LIMO. More concretely, it shows that in each iteration of the algorithm progress is made towards a linearization which is as good as the input, and as good as the $S_1$ and $S_2$ found in that same iteration.
 
-## New concepts
+## 1. New concepts
 
 First two new concepts (set-linearizations, slope comparison), with associated definitions and theorems, are introduced that will help with analyzing Double LIMO. Then a variant of the gathering theorem is introduced and proven
 
-### Set linearizations
+### 1.1. Set linearizations
 
 ***Definition.*** A **set-linearization** is a list of non-overlapping sets of transactions whose prefixes are topological. The **prefixes** of a set-linearization $C = (c_1, c_2, \ldots, c_n)$ are the sets $(\cup_{i=1}^k c_i)_{k=0}^n$. A chunking is a special case of a set-linearization. Set-linearizations do not require monotonically decreasing feerate. A normal linearization with every list element replaced by a singleton containing it always yields a valid set-linearization.
 
@@ -201,7 +201,7 @@ First two new concepts (set-linearizations, slope comparison), with associated d
 
 ***Theorem.*** Given a linearization $L$ and a compatible set-linearization $C$, then the diagram of $C$ is nowhere better than the (post-chunking) diagram of $L$.
 
-### Slope algebra
+### 1.2. Slope algebra
 
 To simplify reasoning about points in the diagram and the feerates they correspond to:
 * Define the function $\operatorname{sfpair}(S)$ for set $S$ as the real vector $(\operatorname{size}(S), \operatorname{fee}(S))$.
@@ -216,7 +216,7 @@ The following rules apply:
 * **Transitivity**: $P_1 \succeq P_2 \, \land \, P_2 \succeq P_3 \implies P_1 \succeq P_3$, if $\operatorname{possize}(P_i)$ for $i = 1 \ldots 3$.
 * **Line rule**: Geometrically, the point $P$ lies to the left of the (infinite extension of) the line from $P_1$ to $P_2$ iff $P - P_1 \succeq P_2 - P_1$. If $\operatorname{possize}(P - P_1)$ and $\operatorname{possize}(P_2 - P_1)$, then $P - P_1 \succeq P_2 - P_1$ iff $P$ lies above the line from $P_1$ to $P_2$.
 
-### The set gathering theorem
+### 1.3 The set gathering theorem
 
 This is a variation on [the gathering theorem](https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202#transformations-on-linearizations-4), with the difference that it operates on set-linearizations rather than linearizations.
  
@@ -264,7 +264,7 @@ Thus, every point $P_k$ of the diagram of $C$ lies on or below either the line f
 * (1) Like above
 * (2) $S \subset c_1$ implying all intersections between $S$ and prefixes of $C$ are identical.
 
-## Double LIMO
+## 2. Double LIMO
 
 Define $\operatorname{DoubleLIMO}_{f_1,f_2}(G, L)$ for a graph $G$ with existing linearization $L$, and two functions $f_1$ and $f_2$ that find high-feerate topologically-valid subsets of a given set of transactions as:
 * If $L = ()$, return $()$.
@@ -315,11 +315,21 @@ To show it satisfies condition (c), $\operatorname{diag}(L^\ast)(\operatorname{s
 * $\operatorname{chunksets}(C'_1)$ is compatible with $L'_1$, and thus from $\operatorname{chunksets}(C'_1) \gtrsim C_1$ it follows that the diagram of $L'_1$ also satisfies the relation in (c).
 * $L^\ast$ is a merging with $L'_1$, and thus $L^\ast$ also satisfies this property.
 
+### 2.1. Variations
+
 It does not hurt to use the earlier form of Double LIMO, which considers all prefixes of $L[S_1]$, $L[S_2]$ and $L[S_1 \cap S_2]$ rather than just the ones that align with chunks of $L$, as all the necessary properties are still held. More combinations can be tried too, as long as these include:
-* The entire graph $G$.
+* $S_1$, $S_2$, and the first chunk of $L$ (which is necessarily no worse than $G$ itself)
 * For every combination tried, also its intersection with the prefixes of the chunking of $L$.
 * For every combination tried, also its intersection with $S_1$.
 * For every combination tried, also its intersection with $S_2$.
+
+In fact, this can be done dynamically, which may be desirable for larger numbers of $S_i$ sets:
+* Set $S$ to be the highest-feerate among $S_1$, $S_2$, and $c_1$ (the first chunk of $L$).
+* While $S$ keeps changing:
+   * Replace $S$ with the highest-feerate among:
+     * The intersections between the current $S$ and the chunk prefixes of $L$.
+     * The intersection between the current $S$ and $S_1$.
+     * The intersection between the current $S$ and $S_2$.
 
 -------------------------
 
