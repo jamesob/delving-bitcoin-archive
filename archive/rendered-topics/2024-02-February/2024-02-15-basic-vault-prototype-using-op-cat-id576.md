@@ -273,3 +273,10 @@ Oh cool! I've done a fair amount of modeling in TLA+ in a past life, checking ou
 
 -------------------------
 
+wade-liwei | 2024-05-04 10:57:30 UTC | #19
+
+Could you please provide the demo with golang?
+Rust is too diffcult forme.
+
+-------------------------
+
