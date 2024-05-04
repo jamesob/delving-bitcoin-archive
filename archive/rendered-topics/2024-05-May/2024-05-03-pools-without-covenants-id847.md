@@ -93,3 +93,9 @@ There was some [discussion](https://github.com/stevenroose/covenants.info/pull/1
 
 -------------------------
 
+jb55 | 2024-05-04 17:14:13 UTC | #2
+
+(post deleted by author)
+
+-------------------------
+
