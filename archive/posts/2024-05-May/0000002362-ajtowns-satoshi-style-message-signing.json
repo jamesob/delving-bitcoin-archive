@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "incoming_link_count": 1,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 21.2,
   "yours": false,
   "topic_id": 850,
   "topic_slug": "satoshi-style-message-signing",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I've also been confused at the lack of docs. Might be good to at least update the wiki with the extra detail? sipa's PR is:\n\nhttps://github.com/bitcoin/bitcoin/pull/524\n\nForum discussion linked from there at https://bitcointalk.org/index.php?topic=6428.0;all is probably also interesting.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

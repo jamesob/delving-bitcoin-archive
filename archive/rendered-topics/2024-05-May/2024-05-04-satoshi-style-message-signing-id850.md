@@ -57,3 +57,13 @@ Forum discussion linked from there at https://bitcointalk.org/index.php?topic=64
 
 -------------------------
 
+satsie | 2024-05-04 11:53:20 UTC | #4
+
+Wow!! Thank you for such a fast and detailed reply @sipa! That list of steps is exactly the clarification I was trying to find. But there goes the idea of calling it “Satoshi format” (I swear I didn’t make that up!)
+
+Thanks for digging up those resources @ajtowns! I will assign myself the task of updating the wiki. This is really great information that should be shared. 
+
+Mystery solved 😊
+
+-------------------------
+

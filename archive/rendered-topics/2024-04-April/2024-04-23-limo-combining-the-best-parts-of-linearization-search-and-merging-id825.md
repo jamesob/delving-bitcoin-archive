@@ -173,7 +173,7 @@ A few updates:
 
 -------------------------
 
-sipa | 2024-05-02 21:17:55 UTC | #8
+sipa | 2024-05-04 04:28:20 UTC | #8
 
 In this follows a proof for Double LIMO. More concretely, it shows that in each iteration of the algorithm progress is made towards a linearization which is as good as the input, and as good as the $S_1$ and $S_2$ found in that same iteration.
 
@@ -306,7 +306,7 @@ $L^\ast$ also satisfies condition (b), $L^\ast \gtrsim L$, because:
 * $L^\ast$ is a merging with $L'$, and thus $L^\ast \gtrsim L' \gtrsim L$.
 
 To show it satisfies condition (c), $\operatorname{diag}(L^\ast)(\operatorname{size}(S_1)) \geq \operatorname{fee}(S_1)$ (and analogously, condition (d)):
-* Let $C_1 = (S_1, L[G \setminus S_1])$, a set-linearization whose diagram satisfies the relation in (c).
+* Let $C_1 = (S_1, G \setminus S_1)$, a set-linearization whose diagram satisfies the relation in (c).
 * Let $L'_1 = L_1 \triangleleft S$.
 * Let $C'_1 = (S, S_1 \setminus S, G \setminus (S \cup S_1))$.
 * The set gathering theorem holds for set-linearization $C_1$ and subset $S$, showing $\operatorname{chunksets}(C'_1) \gtrsim C_1$, because:
@@ -330,6 +330,26 @@ In fact, this can be done dynamically, which may be desirable for larger numbers
      * The intersections between the current $S$ and the chunk prefixes of $L$.
      * The intersection between the current $S$ and $S_1$.
      * The intersection between the current $S$ and $S_2$.
+
+-------------------------
+
+sipa | 2024-05-04 14:55:55 UTC | #9
+
+Actually, there is an even simpler formulation of this. If you want to find a subset $S$ that, which when moved to the front is not incompatible with reaching the cumulative size/fee point corresponding to each set of transactions $P = \{p_1, p_2, \ldots, p_n\}$, then $S$ needs to have a feerate at least as high as every $p_i$, and no intersection $S \cap p_i$ can have a higher feerate.
+
+In the case of Double LIMO, $P$ consists of all prefixes of chunks of $L$, plus $S_1$ and $S_2$.
+
+The LIMO theorem:
+
+Given a set $P = \{p_1, p_2, \ldots, p_n\}$ of topological subsets of transactions of a graph $G$, a topological subset $S$ of transactions of $G$, and a linearization $L_S$ for $S$ such that:
+* For all $i$, $\operatorname{feerate}(S) \geq \operatorname{feerate}(p_i)$
+* For all $i$, $\operatorname{feerate}(S) \geq \operatorname{feerate}(S \cap p_i)$ or $S \cap p_i = \varnothing$
+
+Then there always exists a linearization $L$ of $G$ for which:
+* $L_S$ is a prefix of $L$
+* For all $i$, $\operatorname{diag}_L(\operatorname{size}(p_i)) \geq \operatorname{fee}(p_i)$
+
+Such an $S$ necessarily exists, e.g. the highest-feerate subset of all combinations of intersections between the $p_i$ sets, though more efficient approaches exist.
 
 -------------------------
 
