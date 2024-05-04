@@ -1,6 +1,6 @@
 # Pools without covenants
 
-1440000bytes | 2024-05-03 21:19:30 UTC | #1
+1440000bytes | 2024-05-04 03:09:40 UTC | #1
 
 <h1>Problem</h1>
 
@@ -14,7 +14,7 @@ Coinjoin process requires lot of interaction between peers
 
 <h1>Solution</h1>
 
-Using `SIGHASH_ALL | SIGHASH_ANYONECANPAY` and nostr encrypted channels we can create pools in which users can enter any time and exit together. Unilateral exits are also possible which requires lot of pre-signed transactions, maybe multisig and some interaction.
+Using `SIGHASH_ALL | SIGHASH_ANYONECANPAY` and nostr encrypted channels we can create pools in which users can enter any time and exit together. Unilateral exits are also possible which requires lot of pre-signed transactions, multisig and some interaction.
 
 I have used this approach in [electrum plugin for joinstr](https://gitlab.com/1440000bytes/joinstr/-/tree/main/plugin) which is still a work in progress. There are different ways to create nostr channels and I have used basic method using NIP 4. See other NIPs in [nostr repository](https://github.com/nostr-protocol/nips) that can be used to implement better encrypted channels.
 
