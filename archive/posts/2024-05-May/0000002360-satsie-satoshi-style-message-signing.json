@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 6.0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 51.6,
   "yours": false,
   "topic_id": 850,
   "topic_slug": "satoshi-style-message-signing",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Right now the most common way to sign general messages is still with a private key that corresponds to a legacy P2PKH address. Many hardware and software projects have implemented this including Ledger, Trezor, Coldcard, and Sparrow, as well as a few multisig companies. One reason why they are so useful is they help users test that the hardware controlling their keys has not succumbed to bit rot.\n\nThis technique for message signing comes from Bitcoin Core code that Satoshi wrote (see `src/util/message.cpp` [[link](https://github.com/bitcoin/bitcoin/blob/v27.0/src/util/message.cpp)]). This was created before the BIP process, so the best technical documentation I have found, aside from the actual implementation, is [this page](https://en.bitcoin.it/wiki/Message_signing) on the Bitcoin Wiki.\n\nWhile comprehensive, the Bitcoin Wiki page doesn\u2019t make some very important technical details as obvious as they should be. Examples include:\n\n* The \u201cBitcoin Signed Message:\\n\u201d magic bytes. I think this is alluded to in the [Displaying signed messages](https://en.bitcoin.it/wiki/Message_signing#Displaying_signed_messages) section. But the actual magic bytes are never stated on the page.\n* The double hashing that is performed on each message. See https://github.com/bitcoin/bitcoin/blob/v27.0/src/hash.h#L111 \n\n![|624x148](upload://dnTMJ1B6hT9wQ0m41eU8ToHCyEi.png)\n\nThis wiki page also covers the rules for the signature header byte (see `src/key.cpp::SignCompact()`) but I found [this post](https://bitcoin.stackexchange.com/questions/83035/how-to-determine-first-byte-recovery-id-for-signatures-message-signing) on Bitcoin Stack Exchange did a much better job explaining this tricky part.\n\n## Related work & message signing in the wild\n\nThere has been lots of good work to address message signing for other address types, including BIP-137, [BIP-notatether-messageverify](https://notatether.com/notabips/bip-notatether-messageverify/), and BIP-322, but I have yet to find a single reliable source of documentation on the \u201cSatoshi format\u201d of message signing described above.\n\nThis baffles me because there are plenty of projects that have implemented this. Apart from the examples listed earlier, we also have things like:\n\n* [Bitcoin Message Tool](https://github.com/shadowy-pycoder/bitcoin_message_tool) [January 2023, likely built on [this project](https://github.com/stequald/bitcoin-sign-message/blob/b5e8b478713fdbb8d65e6cd1aeff8b2d5545ff91/signmessage.py#L271) and [this one](https://github.com/nanotube/supybot-bitcoin-marketmonitor/blob/master/GPG/local/bitcoinsig.py)]\n* https://checkmsg.org/ [another verification tool, this time from CoinKite]\n\nIt seems like plenty of people know how to do this, so either I\u2019m bad at reading the material we have today, or those that have come before me have spent a substantial amount of time and effort figuring it out. Can someone help me tease apart the information I have been able to gather here? Is the \"Satoshi format\" of message signing fully documented anywhere other than the code?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "downloaded local copies of images",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 46.2,
   "yours": false,
   "topic_id": 850,
   "topic_slug": "satoshi-style-message-signing",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The message signing feature and encoding wasn't designed by Satoshi, but by me, so you can direct all blame for quirks and lack of documentation here. You're right that it predates the BIP process, so the code is really the specification I'm afraid, though with many reimplementations there are probably several languages to choose from.\n\nIt is roughly:\n* Serialize the string \"Bitcoin Signed Message:\\n\" plus the message being signed in the P2P protocol serialization format (which means: prepending each with a [CompactSize](https://en.bitcoin.it/wiki/Protocol_documentation#Variable_length_integer)-encoding of the number of bytes that follow)\n* Double-SHA256 hash that serialization.\n* Construct an ECDSA signature with that double-SHA256 as hashed message $z$, and the address' key as private key $d$ (with corresponding public key $Q$), resulting in two integers $(r, s)$.\n* That signature is encoded as a \"recoverable signature\", which consists of a header byte plus 32-byte big-endian encodings of $r$ and $s$. This header bytes is there to assist the verifier in recovering the public key from the signature. It can be computed by running the verification algorithm:\n  * Let $u_1 = s^{-1}z\\, (\\operatorname{mod}\\, n)$\n  * Let $u_2 = r^{-1}z\\, (\\operatorname{mod}\\, n)$\n  * Let $R = u_1G + u_2Q$\n  * From the result the \"recid\" can be derived:\n    * The X coordinate of $R$ must now either be $r$ (recid=0 or 1) or $r + n$ (recid=2 or 3).\n    * The Y coordinate of $R$ must be even (recid=0 or 2) or odd (recid=1 or 3)\n  * The header byte equals the recid + 27 for uncompressed $Q$ and recid + 31 for compressed $Q$.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

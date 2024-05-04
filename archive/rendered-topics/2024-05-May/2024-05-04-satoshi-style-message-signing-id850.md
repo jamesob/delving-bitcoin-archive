@@ -47,3 +47,13 @@ It is roughly:
 
 -------------------------
 
+ajtowns | 2024-05-04 07:45:10 UTC | #3
+
+I've also been confused at the lack of docs. Might be good to at least update the wiki with the extra detail? sipa's PR is:
+
+https://github.com/bitcoin/bitcoin/pull/524
+
+Forum discussion linked from there at https://bitcointalk.org/index.php?topic=6428.0;all is probably also interesting.
+
+-------------------------
+
