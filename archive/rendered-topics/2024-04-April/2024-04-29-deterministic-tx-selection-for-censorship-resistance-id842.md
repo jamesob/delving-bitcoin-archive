@@ -29,3 +29,13 @@ I don’t know if tx pool consistency can solve the problem, but small scale min
 
 -------------------------
 
+harding | 2024-05-04 21:22:17 UTC | #3
+
+I don't understand the point of this.  Your concern is that _most_ miners will choose centralized transaction selection, so you want to force _all_ miners in a decentralized pool to use the transactions selected by other miners?  How does that not make the problem worse?
+
+Here's an example: assume today that 99% of all transaction selection is performed by X.  That means there will still be about one block a day that includes indepedently selected transactions---and anyone paying a high enough feerate can almost guarantee that their transaction will be included in that block (provided the tx is valid and policy acceptable).  Fees are a good solution to weak censorship: it allows the people being censored to take direct action and buy their way out of their problem.
+
+But if 100% of miners use your described pool, they'll have to mine any transaction that was previously included in a share before they can mine any transactions of their own choosing.  So whoever can include a tx in a share first gets to decide the transaction selection for every other miner in a pool.  That creates a strong incentive to be the person who can first include a tx in a share: they can collect out-of-band fees that nobody else can collect and they can perfectly censor unwanted transactions by including junk transactions instead.
+
+-------------------------
+
