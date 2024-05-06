@@ -12,9 +12,9 @@
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.4,
   "yours": false,
   "topic_id": 824,
   "topic_slug": "cisa-and-privacy",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"murch, post:3, topic:824, full:true\"]\nFrom what I understand, CISA does require a new output script type as adding it to P2TR would imply a hardfork. The new output script type could definitely use the same address format (bech32m).\n[/quote]\n\nTechnically, you could do a limited CISA that requires you to use a taproot script path, but only needs one signature for each of the revealed paths. Compared to a non-CISA key path spend, that'd reduce the savings from 64B per input to ~29B per input, which is probably not really worthwhile. (Hardforking CISA and applying it to old scriptPubKey formats in general is interesting as it would make it cheaper to clean up old p2pkh utxos, etc)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
