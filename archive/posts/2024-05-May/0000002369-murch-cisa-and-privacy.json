@@ -1,0 +1,72 @@
+{
+  "id": 2369,
+  "name": "Murch",
+  "username": "murch",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/murch/{size}/139_2.png",
+  "created_at": "2024-05-05T12:14:30.846Z",
+  "cooked": "<p>From what I understand, CISA does require a new output script type as adding it to P2TR would imply a hardfork. The new output script type could definitely use the same address format (bech32m).</p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2024-05-05T12:14:30.846Z",
+  "reply_count": 1,
+  "reply_to_post_number": 2,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 23.0,
+  "yours": false,
+  "topic_id": 824,
+  "topic_slug": "cisa-and-privacy",
+  "topic_title": "CISA and Privacy",
+  "topic_html_title": "CISA and Privacy",
+  "category_id": 7,
+  "display_username": "Murch",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": "",
+  "reply_to_user": {
+    "username": "harding",
+    "name": "David A. Harding",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+  },
+  "bookmarked": false,
+  "raw": "From what I understand, CISA does require a new output script type as adding it to P2TR would imply a hardfork. The new output script type could definitely use the same address format (bech32m).",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 58,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

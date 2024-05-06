@@ -96,3 +96,45 @@ Additionally, CISA reduces the cost of creating coinjoins and payjoins, two depl
 
 -------------------------
 
+murch | 2024-05-05 12:14:30 UTC | #3
+
+From what I understand, CISA does require a new output script type as adding it to P2TR would imply a hardfork. The new output script type could definitely use the same address format (bech32m).
+
+-------------------------
+
+1440000bytes | 2024-05-05 13:13:25 UTC | #4
+
+[quote="harding, post:2, topic:824"]
+The size is 355 vbytes, a 23% savings over the base case.
+[/quote]
+
+This will be below 5% if there is no change or more inputs are used.
+
+[quote="harding, post:2, topic:824"]
+The existing Bitcoin protocol heavily incentivizes batching. CISA makes batching only slightly more efficient, so I don’t think there’s any reason to consider it a privacy problem on that basis.
+[/quote]
+
+Batching is mainly done to pay multiple people in the same transaction irrespective of inputs used. The problem here is mostly related to inputs and not outputs. Multiple inputs in the same transaction that belong to us affect privacy in 90% of the cases.
+
+Examples: Unnecessary input, Mixed types of inputs, Toxic change as input etc.
+
+CISA demotivates coin control and incentivizes more inputs to be used in the same transaction. Coinjoin is less than 10% of bitcoin transactions.
+
+[quote="harding, post:2, topic:824"]
+Additionally, CISA reduces the cost of creating coinjoins and payjoins, two deployed protocols that improve privacy. It may also reduce the cost of other protocols that enhance privacy, including both current protocols (like LN channels closes with multiple in-flight HTLCs) and proposed protocols. The cost reduction is modest, but I think anything that gives privacy an advantage is worth considering.
+[/quote]
+
+Are you saying that users will do more coinjoin because of 5% discount but they wont do normal transactions in which all inputs belong to them?
+
+-------------------------
+
+ajtowns | 2024-05-06 04:15:02 UTC | #5
+
+[quote="murch, post:3, topic:824, full:true"]
+From what I understand, CISA does require a new output script type as adding it to P2TR would imply a hardfork. The new output script type could definitely use the same address format (bech32m).
+[/quote]
+
+Technically, you could do a limited CISA that requires you to use a taproot script path, but only needs one signature for each of the revealed paths. Compared to a non-CISA key path spend, that'd reduce the savings from 64B per input to ~29B per input, which is probably not really worthwhile. (Hardforking CISA and applying it to old scriptPubKey formats in general is interesting as it would make it cheaper to clean up old p2pkh utxos, etc)
+
+-------------------------
+

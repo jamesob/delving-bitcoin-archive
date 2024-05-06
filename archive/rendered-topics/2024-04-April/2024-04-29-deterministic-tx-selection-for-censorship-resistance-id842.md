@@ -39,3 +39,9 @@ But if 100% of miners use your described pool, they'll have to mine any transact
 
 -------------------------
 
+Fi3 | 2024-05-06 10:00:29 UTC | #4
+
+I don't see how this can solve the issue, if you don't enforce it a bitcoin consensus level (not sure if even possible). A government can always say every miner in my country must use a pool that do transaction selection as I want. (this is true also with sv2)
+
+-------------------------
+
