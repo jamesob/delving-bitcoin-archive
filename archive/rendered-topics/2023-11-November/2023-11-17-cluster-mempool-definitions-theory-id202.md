@@ -480,7 +480,7 @@ So you move (a chunk of) $p$ to the front of $L_{opt}$, and then reorder it acco
 
 -------------------------
 
-sipa | 2024-05-07 14:03:15 UTC | #14
+sipa | 2024-05-07 16:33:50 UTC | #14
 
 Given some of the insights from the [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825/9) thread, I think there is a simpler way to formalize things. Here is an attempt with just sketches. If people are interested I can expand on it.
 
@@ -499,7 +499,7 @@ The biggest changes are:
 ### Guides
 
 * A **guide** of a graph $G$ is defined differently: it is a set of topological subsets of $G$, where each is either a subset or superset of every other, and which includes $\varnothing$ and $G$ itself as elements.
-* A guide is said to be **full** if it contains a subset for each size from $0$ to the size of the graph, inclusive. If not, a guide is said to be **partial**. Full guides are isomorphic with linearizations.
+* A guide is said to be **full** if it contains a subset for each size from $0$ to the size of the graph inclusive (i.e., has $n+1$ elements for a graph with $n$ transactions). If not, a guide is said to be **partial**. Guides are isomorphic with set-linearizations, and full guides are isomorphic with linearizations.
 * A guide $a$ is said to be a **weakening** of guide $b$ if $a \subseteq b$, and said to be a **strengthening** of $b$ if $a \supseteq b$.
 * **Full strengthening theorem**: every guide has a full strengthening. For any two $c_1 \subset c_2 \in L$, topologically sort $c_2 \setminus c_1$ and for each include a new subset, in order.
 
@@ -595,6 +595,16 @@ sipa | 2024-05-07 13:18:42 UTC | #18
 * Linearization -> guide
 * Generalization -> weakening
 * Specialization -> strengthening
+
+-------------------------
+
+instagibbs | 2024-05-07 16:09:46 UTC | #19
+
+[quote="sipa, post:14, topic:202"]
+A guide is said to be **full** if it contains a subset for each size from 000 to the size of the graph, inclusive.
+[/quote]
+
+I got caught up on this too long without realizing size here means count of nodes in the graph, not the transaction sizes of the selected nodes. i.e. a full guide contains n+1 elements.
 
 -------------------------
 
