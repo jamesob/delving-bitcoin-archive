@@ -480,14 +480,14 @@ So you move (a chunk of) $p$ to the front of $L_{opt}$, and then reorder it acco
 
 -------------------------
 
-sipa | 2024-05-06 19:01:03 UTC | #14
+sipa | 2024-05-07 14:03:15 UTC | #14
 
 Given some of the insights from the [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825/9) thread, I think there is a simpler way to formalize things. Here is an attempt with just sketches. If people are interested I can expand on it.
 
 The biggest changes are:
-* Linearizations are generalized to include set-linearizations (now known as partial linearizations).
-* Linearizations are represented differently, namely as a set of topological subsets, each one being a subset of the next one.
-* The gathering theorem is replaced with a much simpler variant, and then used to prove a new "composition" theorem, which describes how given a set of topologically valid subsets one can produce a linearization that is as good as all of them. Merging and LIMO can be seen as variants of composition.
+* A new concept "guide" of a cluster is introduced, which covers both linearizations and set-linearizations.
+* Guides use a different representation: they're not lists, but a set of topological subsets, each one being a subset of the next one.
+* The gathering theorem is replaced with a much simpler variant, and then used to prove a new "composition" theorem, which describes how given a set of topologically valid subsets one can produce a guide that is as good as all of them. Merging and LIMO can be seen as instances/variants of composition.
 
 ### Graphs (unchanged):
 
@@ -496,23 +496,23 @@ The biggest changes are:
 * The ancestors and descendants of a set are defined as before: $\operatorname{anc}_G(S)$ is the transitive closure of $S$ under the parent relation. Similarly, $\operatorname{desc}_G(S)$ is the transitive closure of $S$ under the child relation.
 * A subset $S$ of the nodes of a graph $G$ is said to be **topological** if $\operatorname{anc}_G(S) = S$.
 
-### Linearizations
+### Guides
 
-* A **linearization** of a graph $G$ is defined differently: it is a set of topological subsets of $G$, where each is either a subset or superset of every other, and which includes $\varnothing$ and $G$ itself as elements.
-* A linearization is said to be **full** (formerly: a linearization) if it contains a subset for each size from $0$ to the size of the graph, inclusive. If not, a linearization is said to be **partial** (formerly: a set-linearization).
-* A linearization $a$ is said to be a **generalization** of linearization $b$ if $a \subseteq b$, and said to be a **specialization** of $b$ if $a \supseteq b$.
-* **Full specialization theorem**: every linearization has a full specialization. For any two $c_1 \subset c_2 \in L$, topologically sort $c_2 \setminus c_1$ and for each inlude a new subset, in order.
+* A **guide** of a graph $G$ is defined differently: it is a set of topological subsets of $G$, where each is either a subset or superset of every other, and which includes $\varnothing$ and $G$ itself as elements.
+* A guide is said to be **full** if it contains a subset for each size from $0$ to the size of the graph, inclusive. If not, a guide is said to be **partial**. Full guides are isomorphic with linearizations.
+* A guide $a$ is said to be a **weakening** of guide $b$ if $a \subseteq b$, and said to be a **strengthening** of $b$ if $a \supseteq b$.
+* **Full strengthening theorem**: every guide has a full strengthening. For any two $c_1 \subset c_2 \in L$, topologically sort $c_2 \setminus c_1$ and for each include a new subset, in order.
 
-### Preordering of linearizations
+### Preordering of guides
 
-* The diagram $\operatorname{diag}_L$ of a linearization $L$ of graph $G$ is the real function defined for all inputs $x \in [0,\operatorname{size}(G)]$: $\operatorname{diag}_L(x)$ is the maximum value of $\operatorname{fee}(a) + (x - \operatorname{size}(a))\operatorname{feerate}(b \setminus a)$ over all $a$ and $b$ in $L$ such that $\operatorname{size}(a) \leq x$ and $\operatorname{size}(b) \geq x$. It is the minimal concave function through all the $(\operatorname{size}(p), \operatorname{fee}(p))_{p \in L}$ points.
-* The **chunking** $\operatorname{chunk}(L)$ of a linearization $L$ is the smallest generalization (subset) of $L$ with the same diagram. It consists of those graph subsets whose size/fee pairs make up the vertices of the convex hull shape that the diagram has.
-* A preorder $\gtrsim$ is defined between linearizations of the same graph $G$ as: $L_1 \gtrsim L_2$ iff for all $x \in [0,\operatorname{size}(G)]$ it holds that $\operatorname{diag}_{L_1}(x) \geq \operatorname{diag}_{L_2}(x)$. As chunking does not change diagrams, $L_1 \gtrsim L_2 \iff \operatorname{chunk}(L_1) \gtrsim L_2 \iff L_1 \gtrsim \operatorname{chunk}(L_2)$.
-* **Specialization improvement theorem**: if $L_1$ is a specialization of $L_2$, then $L_1 \gtrsim L_2$.
+* The diagram $\operatorname{diag}_L$ of a guide $L$ of graph $G$ is the real function defined for all inputs $x \in [0,\operatorname{size}(G)]$: $\operatorname{diag}_L(x)$ is the maximum value of $\operatorname{fee}(a) + (x - \operatorname{size}(a))\operatorname{feerate}(b \setminus a)$ over all $a$ and $b$ in $L$ such that $\operatorname{size}(a) \leq x$ and $\operatorname{size}(b) \geq x$. It is the minimal concave function through all the $(\operatorname{size}(p), \operatorname{fee}(p))_{p \in L}$ points.
+* The **chunking** $\operatorname{chunk}(L)$ of a guide $L$ is the weakening (subset) of $L$ containing those $x$ for which $\operatorname{diag}_L(\operatorname{size}(x)) = \operatorname{fee}(x)$. It consists of those graph subsets whose size/fee pairs make up the vertices of the convex hull shape that the diagram has, and is the minimal weakening with the same diagram as $L$.
+* A preorder $\gtrsim$ is defined between guides of the same graph $G$ as: $L_1 \gtrsim L_2$ iff for all $x \in [0,\operatorname{size}(G)]$ it holds that $\operatorname{diag}_{L_1}(x) \geq \operatorname{diag}_{L_2}(x)$. As chunking does not change diagrams, $L_1 \gtrsim L_2 \iff \operatorname{chunk}(L_1) \gtrsim L_2 \iff L_1 \gtrsim \operatorname{chunk}(L_2)$.
+* **Strengthening improvement theorem**: if $L_1$ is a strengthening of $L_2$, then $L_1 \gtrsim L_2$.
 
-### Improving linearizations
+### Improving guides
 
-* **Stripping theorem**: given two linearizations $L_1$ and $L_2$ for a graph $G$, both of which have the same smallest non-empty element $s$. Let $L_1'$ and $L_2'$ be linearizations of $G \setminus s$ obtained by removing $s$ from all elements of $L_1$ resp. $L_2$. Then $L_1' \gtrsim L_2' \implies L_1 \gtrsim L_2$.
+* **Common subset theorem**: given two guides $L_1$ and $L_2$ for a graph $G$, both of which have the same smallest non-empty element $s$. Let $L_1'$ and $L_2'$ be guides of $G \setminus s$ obtained by removing $s$ from all elements of $L_1$ resp. $L_2$. Then $L_1' \gtrsim L_2' \implies L_1 \gtrsim L_2$.
   * Proof: Going from the diagrams of $L_1'$ and $L_2'$ to those of $L_1$ and $L_2$ is just shifting the convex hulls by $s$, and then adding a point $(0,0)$ to both hulls.
 * **Simple gathering theorem**: given topological subsets $s \subseteq G$ and $c \subseteq G$ such that $\operatorname{feerate}(s) \geq \operatorname{feerate}(c)$ (or $s = \varnothing$ or $c = \varnothing$) and $\operatorname{feerate}(s) \geq \operatorname{feerate}(s \cap c)$ (or $s \cap c = \varnothing)$, it holds that $\{\varnothing, s, c \cup s, G\} \gtrsim \{\varnothing, c, G\}$.
   * Proof: this is a simplification to 2 sets of the earlier [set gathering theorem](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825/8#h-13-the-set-gathering-theorem-4), plus covering the case where $\operatorname{feerate}(c) < \operatorname{feerate}(G)$ which is trivial.
@@ -520,11 +520,11 @@ The biggest changes are:
   * Proof: pick $s$ to be the highest feerate non-empty intersection between any combination of $c_i$'s, plus $G$, and apply the simple gathering theorem (no intersection between $s$ and $c_i$ can have higher feerate than $s$, because that intersection would have been picked as $s$ instead).
   * Note that this is not necessarily the only set which satisfies the $\{\varnothing, s, c_i \cup s, G\} \gtrsim \{\varnothing, c_i, G\}$ conditions, and others may be computationally cheaper to find.
 * **Composition algorithm**: Define $\operatorname{compose}(G, C)$ for a graph $G$ and a set of topologically valid subsets $C = \{c_1, c_2, \ldots, c_n\}$ for it as follows:
-  * If $G = \varnothing$, return $\{\varnothing\}$, the only valid linearization for $G$.
-  * Otherwise, find a non-empty $s$ such that $\{\varnothing, s, c_i \cup s, G\} \gtrsim \{\varnothing, c_i, G\}$ for all $i$, which by the supreme subset theorem always exists. Let $C' = \{c_1 \setminus s, c_2 \setminus s, \ldots, c_n \setminus s\}$. Let $L' = \operatorname{compose}(G \setminus s, C')$. Return $L = \{\varnothing\} \cup \{\forall x \in L' : x \cup s\}$.
+  * If $G = \varnothing$, return $\{\varnothing\}$, the only valid guide for $G$.
+  * Otherwise, find a non-empty topological $s$ such that $\{\varnothing, s, c_i \cup s, G\} \gtrsim \{\varnothing, c_i, G\}$ for all $i$, which by the supreme subset theorem always exists. Let $C' = \{c_1 \setminus s, c_2 \setminus s, \ldots, c_n \setminus s\}$. Let $L' = \operatorname{compose}(G \setminus s, C')$. Return $L = \{\varnothing\} \cup \{\forall x \in L' : x \cup s\}$.
 * **Composition theorem**: Given $C = \{c_1, c_2, \ldots, c_n\}$ of topological subsets of a graph $G$, $\operatorname{compose}(G, C) \gtrsim \{\varnothing, c_i, G\}$ for all $i = 1 \ldots n$. In other words, $\operatorname{diag}_{\operatorname{compose}(G, C)}(\operatorname{size}(c_i)) \geq \operatorname{fee}(c_i)$ for all $i$.
-  * Proof: we know by induction that $L' \gtrsim \{\varnothing, c_i \setminus s, G \setminus s\}$ for all $i$. From the stripping theorem it follows that $L \gtrsim \{\varnothing, s, c_i \cup s, G\}$. Because of the properties of $s$ we know that $\{\varnothing, s, c_i \cup s, G\} \gtrsim \{\varnothing, c_i, G\}$. Together it follows that $L \gtrsim \{\varnothing, c_i, G\}$.
-  * Merging of two linearizations $L_1$ and $L_2$ is now effectively applying composition to $C = L_1 \cup L_2$, with a specialized $\mathcal{O}(n)$ complexity $s$-finding algorithm.
+  * Proof: we know by induction that $L' \gtrsim \{\varnothing, c_i \setminus s, G \setminus s\}$ for all $i$. From the common subset theorem it follows that $L \gtrsim \{\varnothing, s, c_i \cup s, G\}$. Because of the properties of $s$ we know that $\{\varnothing, s, c_i \cup s, G\} \gtrsim \{\varnothing, c_i, G\}$. Together it follows that $L \gtrsim \{\varnothing, c_i, G\}$.
+  * Merging of two guides $L_1$ and $L_2$ is now effectively applying composition to $C = L_1 \cup L_2$, with a specialized $\mathcal{O}(n)$ complexity $s$-finding algorithm.
   * LIMO can be seen as a variant of composition, with $C = L \cup \{S_1, S_2, \ldots\}$, but where the recursion doesn't operate on exactly $C'$, but the $S_i$ get replaced with (hopefully better) subsets every iteration.
 
 -------------------------
@@ -544,6 +544,57 @@ The new formulation looks like it makes sense, whatever it's called though!
 Having diag() auto chunk feels like cheating :face_holding_back_tears:
 
 Shouldn't compose return $\{ \emptyset, s \} \cup \{\forall x \in L^\prime : x \cup s\}$ ? (Shouldn't $s$ be specified as topologically valid here as well?)
+
+-------------------------
+
+sipa | 2024-05-07 11:56:13 UTC | #16
+
+[quote="ajtowns, post:15, topic:202"]
+I don’t think this terminology is really helping any more? Everything other than a full linearisation doesn’t really sound very linear anymore.
+[/quote]
+
+Fair enough. My thinking when merging the two concepts was that the distinction doesn't matter for any of the theory really. We don't need to reason about "all possible linearizations whose diagram is at least as good as one gets when grouping these transactions together", we can reason about the groupings directly.
+
+And from an implementation perspective, specializing a grouping to a full linearization is trivial, and does not worsen the diagram, so any procedure that yields a grouping whose diagram is desirable can be trivially turned into one that produces a full linearization with an equal or better diagram.
+
+That said, I agree it's probably better to just have a different term altogether, because $\{\varnothing, G\}$ indeed doesn't convey any actual order. "escalating grouping" is a bit long though, and more an "implementation detail" than functional describing what it accomplishes. How about calling it a **guide** for a cluster? A linearization would then be a full guide, or if we keep thinking of linearizations as lists, they'd be isomorphic with full guides.
+
+[quote="ajtowns, post:15, topic:202"]
+(I’m surprised you’d go with “partial linearisation”, when, given it’s a smaller set than a full linearisation
+[/quote]
+
+Well the result is still only a partial ordering on the elements (which needs to be combined with the partial ordering imposed by the graph structure).
+
+[quote="ajtowns, post:15, topic:202"]
+, you could call it a minilinearisation)
+[/quote]
+:rage: 
+
+[quote="ajtowns, post:15, topic:202"]
+Shouldn’t compose return $\{ \emptyset, s \} \cup \{\forall x \in L^\prime : x \cup s\}$ ?
+[/quote]
+
+That's unnecessary because $L'$ necessarily includes $\varnothing$ as element.
+
+[quote="ajtowns, post:15, topic:202"]
+(Shouldn’t $s$ be specified as topologically valid here as well?)
+[/quote]
+
+Indeed.
+
+-------------------------
+
+ajtowns | 2024-05-07 13:07:29 UTC | #17
+
+Guide sounds fine. "How do I order my transactions? Please, give me some guidance!"
+
+-------------------------
+
+sipa | 2024-05-07 13:18:42 UTC | #18
+
+* Linearization -> guide
+* Generalization -> weakening
+* Specialization -> strengthening
 
 -------------------------
 
