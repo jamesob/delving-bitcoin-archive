@@ -529,3 +529,21 @@ The biggest changes are:
 
 -------------------------
 
+ajtowns | 2024-05-07 07:17:36 UTC | #15
+
+[quote="sipa, post:14, topic:202"]
+A linearization is said to be **full** (formerly: a linearization) 
+[/quote]
+
+I don't think this terminology is really helping any more? Everything other than a full linearisation doesn't really sound very linear anymore. As it stands, ${\emptyset, ABC}$ would be called a linearisation even though it does nothing to put the elements A,B,C in a line or an order, eg. Something like "escalating grouping" seems clearer: that is you select some groups of transactions, such that you can order them so that every group earlier than $g$ is a proper subset of $g$ and every group later than $g$ is a proper superset of $g$, with $\emptyset$ being the trivial first group and $G$ being the trivial final group.
+
+You could still distinguish "fully escalating groupings" from "partially escalating groupings". Calling a fully escalating grouping a linearisation might be okay, but adding an extra term might not be helpful. (I'm surprised you'd go with "partial linearisation", when, given it's a smaller set than a full linearisation, you could call it a minilinearisation)
+
+The new formulation looks like it makes sense, whatever it's called though!
+
+Having diag() auto chunk feels like cheating :face_holding_back_tears:
+
+Shouldn't compose return $\{ \emptyset, s \} \cup \{\forall x \in L^\prime : x \cup s\}$ ? (Shouldn't $s$ be specified as topologically valid here as well?)
+
+-------------------------
+

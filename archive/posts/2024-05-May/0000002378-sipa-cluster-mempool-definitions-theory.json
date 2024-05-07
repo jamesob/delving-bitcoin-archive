@@ -8,13 +8,13 @@
   "post_number": 14,
   "post_type": 1,
   "updated_at": "2024-05-06T19:01:03.399Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 52.4,
   "yours": false,
   "topic_id": 202,
   "topic_slug": "cluster-mempool-definitions-theory",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Given some of the insights from the [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825/9) thread, I think there is a simpler way to formalize things. Here is an attempt with just sketches. If people are interested I can expand on it.\n\nThe biggest changes are:\n* Linearizations are generalized to include set-linearizations (now known as partial linearizations).\n* Linearizations are represented differently, namely as a set of topological subsets, each one being a subset of the next one.\n* The gathering theorem is replaced with a much simpler variant, and then used to prove a new \"composition\" theorem, which describes how given a set of topologically valid subsets one can produce a linearization that is as good as all of them. Merging and LIMO can be seen as variants of composition.\n\n### Graphs (unchanged):\n\n* Transactions graphs are defined as before: nodes that have a integer $\\operatorname{fee}$ and a strictly positive $\\operatorname{size}$, and directed edges representing dependencies pointing from child to parent.\n* The functions $\\operatorname{fee}$, $\\operatorname{size}$, and $\\operatorname{feerate}$ are defined for sets of nodes as respectively the sum of the fees, the sum of the sizes, and the sum of the fees divided by the sum of the sizes.\n* The ancestors and descendants of a set are defined as before: $\\operatorname{anc}_G(S)$ is the transitive closure of $S$ under the parent relation. Similarly, $\\operatorname{desc}_G(S)$ is the transitive closure of $S$ under the child relation.\n* A subset $S$ of the nodes of a graph $G$ is said to be **topological** if $\\operatorname{anc}_G(S) = S$.\n\n### Linearizations\n\n* A **linearization** of a graph $G$ is defined differently: it is a set of topological subsets of $G$, where each is either a subset or superset of every other, and which includes $\\varnothing$ and $G$ itself as elements.\n* A linearization is said to be **full** (formerly: a linearization) if it contains a subset for each size from $0$ to the size of the graph, inclusive. If not, a linearization is said to be **partial** (formerly: a set-linearization).\n* A linearization $a$ is said to be a **generalization** of linearization $b$ if $a \\subseteq b$, and said to be a **specialization** of $b$ if $a \\supseteq b$.\n* **Full specialization theorem**: every linearization has a full specialization. For any two $c_1 \\subset c_2 \\in L$, topologically sort $c_2 \\setminus c_1$ and for each inlude a new subset, in order.\n\n### Preordering of linearizations\n\n* The diagram $\\operatorname{diag}_L$ of a linearization $L$ of graph $G$ is the real function defined for all inputs $x \\in [0,\\operatorname{size}(G)]$: $\\operatorname{diag}_L(x)$ is the maximum value of $\\operatorname{fee}(a) + (x - \\operatorname{size}(a))\\operatorname{feerate}(b \\setminus a)$ over all $a$ and $b$ in $L$ such that $\\operatorname{size}(a) \\leq x$ and $\\operatorname{size}(b) \\geq x$. It is the minimal concave function through all the $(\\operatorname{size}(p), \\operatorname{fee}(p))_{p \\in L}$ points.\n* The **chunking** $\\operatorname{chunk}(L)$ of a linearization $L$ is the smallest generalization (subset) of $L$ with the same diagram. It consists of those graph subsets whose size/fee pairs make up the vertices of the convex hull shape that the diagram has.\n* A preorder $\\gtrsim$ is defined between linearizations of the same graph $G$ as: $L_1 \\gtrsim L_2$ iff for all $x \\in [0,\\operatorname{size}(G)]$ it holds that $\\operatorname{diag}_{L_1}(x) \\geq \\operatorname{diag}_{L_2}(x)$. As chunking does not change diagrams, $L_1 \\gtrsim L_2 \\iff \\operatorname{chunk}(L_1) \\gtrsim L_2 \\iff L_1 \\gtrsim \\operatorname{chunk}(L_2)$.\n* **Specialization improvement theorem**: if $L_1$ is a specialization of $L_2$, then $L_1 \\gtrsim L_2$.\n\n### Improving linearizations\n\n* **Stripping theorem**: given two linearizations $L_1$ and $L_2$ for a graph $G$, both of which have the same smallest non-empty element $s$. Let $L_1'$ and $L_2'$ be linearizations of $G \\setminus s$ obtained by removing $s$ from all elements of $L_1$ resp. $L_2$. Then $L_1' \\gtrsim L_2' \\implies L_1 \\gtrsim L_2$.\n  * Proof: Going from the diagrams of $L_1'$ and $L_2'$ to those of $L_1$ and $L_2$ is just shifting the convex hulls by $s$, and then adding a point $(0,0)$ to both hulls.\n* **Simple gathering theorem**: given topological subsets $s \\subseteq G$ and $c \\subseteq G$ such that $\\operatorname{feerate}(s) \\geq \\operatorname{feerate}(c)$ (or $s = \\varnothing$ or $c = \\varnothing$) and $\\operatorname{feerate}(s) \\geq \\operatorname{feerate}(s \\cap c)$ (or $s \\cap c = \\varnothing)$, it holds that $\\{\\varnothing, s, c \\cup s, G\\} \\gtrsim \\{\\varnothing, c, G\\}$.\n  * Proof: this is a simplification to 2 sets of the earlier [set gathering theorem](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825/8#h-13-the-set-gathering-theorem-4), plus covering the case where $\\operatorname{feerate}(c) < \\operatorname{feerate}(G)$ which is trivial.\n* **Supreme subset theorem**: given a set $C = \\{c_1, c_2, \\ldots, c_n\\}$ of $c_i$ that are all topological subsets of a non-empty graph $G$, there always exists a non-empty topological subset $s$ of $G$ such that $\\{\\varnothing, s, c_i \\cup s, G\\} \\gtrsim \\{\\varnothing, c_i, G\\}$ for all $i = 1 \\ldots n$.\n  * Proof: pick $s$ to be the highest feerate non-empty intersection between any combination of $c_i$'s, plus $G$, and apply the simple gathering theorem (no intersection between $s$ and $c_i$ can have higher feerate than $s$, because that intersection would have been picked as $s$ instead).\n  * Note that this is not necessarily the only set which satisfies the $\\{\\varnothing, s, c_i \\cup s, G\\} \\gtrsim \\{\\varnothing, c_i, G\\}$ conditions, and others may be computationally cheaper to find.\n* **Composition algorithm**: Define $\\operatorname{compose}(G, C)$ for a graph $G$ and a set of topologically valid subsets $C = \\{c_1, c_2, \\ldots, c_n\\}$ for it as follows:\n  * If $G = \\varnothing$, return $\\{\\varnothing\\}$, the only valid linearization for $G$.\n  * Otherwise, find a non-empty $s$ such that $\\{\\varnothing, s, c_i \\cup s, G\\} \\gtrsim \\{\\varnothing, c_i, G\\}$ for all $i$, which by the supreme subset theorem always exists. Let $C' = \\{c_1 \\setminus s, c_2 \\setminus s, \\ldots, c_n \\setminus s\\}$. Let $L' = \\operatorname{compose}(G \\setminus s, C')$. Return $L = \\{\\varnothing\\} \\cup \\{\\forall x \\in L' : x \\cup s\\}$.\n* **Composition theorem**: Given $C = \\{c_1, c_2, \\ldots, c_n\\}$ of topological subsets of a graph $G$, $\\operatorname{compose}(G, C) \\gtrsim \\{\\varnothing, c_i, G\\}$ for all $i = 1 \\ldots n$. In other words, $\\operatorname{diag}_{\\operatorname{compose}(G, C)}(\\operatorname{size}(c_i)) \\geq \\operatorname{fee}(c_i)$ for all $i$.\n  * Proof: we know by induction that $L' \\gtrsim \\{\\varnothing, c_i \\setminus s, G \\setminus s\\}$ for all $i$. From the stripping theorem it follows that $L \\gtrsim \\{\\varnothing, s, c_i \\cup s, G\\}$. Because of the properties of $s$ we know that $\\{\\varnothing, s, c_i \\cup s, G\\} \\gtrsim \\{\\varnothing, c_i, G\\}$. Together it follows that $L \\gtrsim \\{\\varnothing, c_i, G\\}$.\n  * Merging of two linearizations $L_1$ and $L_2$ is now effectively applying composition to $C = L_1 \\cup L_2$, with a specialized $\\mathcal{O}(n)$ complexity $s$-finding algorithm.\n  * LIMO can be seen as a variant of composition, with $C = L \\cup \\{S_1, S_2, \\ldots\\}$, but where the recursion doesn't operate on exactly $C'$, but the $S_i$ get replaced with (hopefully better) subsets every iteration.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
