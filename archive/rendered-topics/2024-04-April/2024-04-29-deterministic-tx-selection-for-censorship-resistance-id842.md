@@ -56,3 +56,26 @@ Cheers,
 
 -------------------------
 
+mcelrath | 2024-05-09 15:43:20 UTC | #6
+
+> I don’t understand the point of this. Your concern is that *most* miners will choose centralized transaction selection, so you want to force *all* miners in a decentralized pool to use the transactions selected by other miners? How does that not make the problem worse?
+
+By forcing miners to do tx selection, we increase the number of parties that would need to be attacked by the state in order to control what is mined. Whether or not we have deterministic tx selection, both SV2 and Braidpool are attempting to move tx selection to the individual miners instead of (a smaller number of) pools. If we succeed in getting miners to do tx selection, then this deterministic tx selection idea probably isn't necessary.
+
+> Here’s an example: assume today that 99% of all transaction selection is performed by X. That means there will still be about one block a day that includes indepedently selected transactions
+
+A miner with < 1% hashrate performing independent tx selection has to take a huge risk in variance - about 18% monthly on his revenue, and it gets worse for even smaller miners. In a decentralized pool that same miner would win around 1000 shares per day, with a monthly revenue variance of about 0.58%. We want independent miners to not have to take this financial risk, it's the whole point of pools in the first place.
+
+> But if 100% of miners use your described pool, they’ll have to mine any transaction that was previously included in a share before they can mine any transactions of their own choosing.
+
+With deterministic tx selection they would be unable to mine transactions of their own choosing at all. They must first be mined into a share in order to have consensus that they're known to all miners. (This is true with or without deterministic tx selection) Also note that Braidpool will use "full proportional" payouts, so any fees are shared with the pool. A miner can't claim high fee transactions for himself. (Note that this isn't fully decided - if you have good arguments that the miner should earn fees for himself or get an extra reward for mining a block I'd be interested in hearing it - there's a wide design space and game theory here)
+
+>  So whoever can include a tx in a share first gets to decide the transaction selection for every other miner in a pool. That creates a strong incentive to be the person who can first include a tx in a share: they can collect out-of-band fees that nobody else can collect and they can perfectly censor unwanted transactions by including junk transactions instead.
+
+Yes, miners can mine never-before-seen transactions into shares instead of broadcasting them to the mempool, and collect OOB fees for them if they wish. I don't really see a problem with that. As far as censoring by including junk transactions, a large enough miner can do that today anyway and it's a 51% attack. It's still a 51% attack on the share-chain. This might be an argument to limit the size of the sharechain-mempool though, it doesn't make sense to allow this sharechain-mempool to grow without bound, which would enable the attack you describe.
+
+Cheers,
+-- Bob
+
+-------------------------
+
