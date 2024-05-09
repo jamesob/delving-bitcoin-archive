@@ -45,3 +45,14 @@ I don't see how this can solve the issue, if you don't enforce it a bitcoin cons
 
 -------------------------
 
+mcelrath | 2024-05-09 15:16:43 UTC | #5
+
+> I don’t see how this can solve the issue, if you don’t enforce it a bitcoin consensus level (not sure if even possible). A government can always say every miner in my country must use a pool that do transaction selection as I want. (this is true also with sv2)
+
+I don't think there is any technical solution to this criticism. But miners in different jurisdictions will have different legal responsibilities, and hopefully someone will mine every transaction.
+
+Cheers,
+-- Bob
+
+-------------------------
+
