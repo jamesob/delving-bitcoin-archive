@@ -300,3 +300,14 @@ One thing we would have liked would be to to be able to set a taproot address so
 
 -------------------------
 
+urza | 2024-05-09 09:18:52 UTC | #21
+
+Hi, just want to add my 2 sats to this.
+As and app developer I would prefer to work with Key/Value syntax because 
+1. it is readily supported in almost every language and framework having parsing/binding for it, and
+2. it gives me more explicit info what kind of payment that is supposed to be instead of trying to guess it from the value only.
+
+These are just minor details, but I think makes the k/v preferable for the target audience which are app developers :)
+
+-------------------------
+
