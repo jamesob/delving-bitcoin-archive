@@ -352,3 +352,25 @@ Not having change is still a big advantage for liquidity management so single-in
 
 -------------------------
 
+remyers | 2024-05-10 14:29:04 UTC | #11
+
+I've replaced draft  [PR 29442](https://github.com/bitcoin/bitcoin/pull/29442) with a  simpler draft [PR 30080](https://github.com/bitcoin/bitcoin/pull/30080) that only adds new coin selection parameters, primarily `add_excess_to_recipient_position`.
+
+A changeless transaction may select inputs with excess value over what is needed to reach the desired fee rate and output targets. Currently that excess value is considered waste and burned as fees. You may prefer any excess value to be added to an output you control. When fees are high the cost of adding a change output increases and so does the amount of potential excess value spent as fees.
+
+Anytime you retain the value from an over payment then it makes sense to not lose the excess to fees. 
+
+When splicing on-chain value into a Lightning channel it would be better to get credit for the excess value off-chain.  Lightning Service Providers (LSPs) that use [liquidity ads](https://github.com/lightning/bolts/pull/878) will prefer to add any excess as extra inbound liquidity for clients instead of paying the excess as fees.
+
+LSPs that sell inbound liquidity will prefer to maintain a set of UTXOs that are sized to fund a changeless transactions of pre-defined funding amounts *plus* the fee to spend each amount at various feerates without additional inputs or an added change output.
+
+The best case for an LSP is to always have a confirmed UTXO of the requested funding amount plus the fee to spend it at the current feerate. A transaction with one taproot input and two taproot outputs (both a funding and a change output) is approximately 37% more expensive than not having a change output.
+
+If the excess value from a changeless UTXO can be retained by the LSP as extra inbound liquidity then the LSP can cover the range of likely fee rates with fewer UTXOs. Each UTXO can be used at a specific feerate and also any lower feerates up to the point that the excess is greater than the cost of adding a change output.  The potential space of funding amounts and feerates can be "tiled" so that UTXOs exists at non-overlapping intervals smaller than the threshold for adding a change output. This approach can minimize the fee cost of providing liquidity to near the ideal case of always having a UTXO of the amount needed for a changeless funding transaction.
+
+There are likely other use cases where a user may want excess fees applied to their target output because the extra value would be credited to them by a custodian or retailer.
+
+This new proposal assumes the LSP proactively selects a larger UTXO than is needed when fees are low to create change outputs that refill the cache of tiled UTXOs.
+
+-------------------------
+
