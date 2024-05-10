@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The $\\operatorname{compose}$ operator as defined above actually captures a ton of things:\n* Chunking is the composition of a single linearization.\n* Pure ancestor sort is the composition of all ancestor sets in a cluster, because the intersection of two ancestor sets is again an ancestor set.\n  * The current sorting algorithm (which includes the highest-feerate ancestor set among those for which the bottom transaction has a higher feerate than its ancestry) isn't exactly a composition, because the intersection of two such sets may have a bottom with low feerate.\n* Merging is the composition of two linearizations (with a specialized supreme subset finding algorithm).\n* LIMO is a variant of composition of the input linearization plus the $S_i$ set(s), though these sets get recomputed every iteration.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
