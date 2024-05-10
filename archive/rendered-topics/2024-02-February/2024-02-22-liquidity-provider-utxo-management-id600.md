@@ -374,3 +374,13 @@ This new proposal assumes the LSP proactively selects a larger UTXO than is need
 
 -------------------------
 
+remyers | 2024-05-10 15:13:30 UTC | #12
+
+I also created a new python only simulation [`simulate-funding-v2.py`](https://github.com/remyers/coin-selection-simulation/blob/targets/scripts/simulate-funding-v2.py) that is similar to the bitcoind based [`simulation.py`](https://github.com/remyers/coin-selection-simulation/blob/targets/scripts/simulation.py) which I forked from achow101's coin-selection-simulation project. 
+
+Running `simulate-funding-v2.py` is much faster because it doesn't test bitcoind's complex coin selection algorithms. It simply picks the best single input for each simulated funding attempt. My goals is to find a heuristic that pays the least total fees for each simulation given estimates of the feerate probability distribution and funding request probability distribution. 
+
+I'll post my results from the simplified simulations once I've validated them using the full bitcoind simulation.
+
+-------------------------
+
