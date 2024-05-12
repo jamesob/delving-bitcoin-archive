@@ -608,11 +608,11 @@ I got caught up on this too long without realizing size here means count of node
 
 -------------------------
 
-sipa | 2024-05-10 13:02:41 UTC | #20
+sipa | 2024-05-11 21:47:53 UTC | #20
 
 The $\operatorname{compose}$ operator as defined above actually captures a ton of things:
 * Chunking is the composition of a single linearization.
-* Pure ancestor sort is the composition of all ancestor sets in a cluster, because the intersection of two ancestor sets is again an ancestor set.
+* ~~Pure ancestor sort is the composition of all ancestor sets in a cluster, because the intersection of two ancestor sets is again an ancestor set.~~ EDIT: this is not true, the intersection of two ancestor sets may be the union of more than one ancestor set.
   * The current sorting algorithm (which includes the highest-feerate ancestor set among those for which the bottom transaction has a higher feerate than its ancestry) isn't exactly a composition, because the intersection of two such sets may have a bottom with low feerate.
 * Merging is the composition of two linearizations (with a specialized supreme subset finding algorithm).
 * LIMO is a variant of composition of the input linearization plus the $S_i$ set(s), though these sets get recomputed every iteration.
