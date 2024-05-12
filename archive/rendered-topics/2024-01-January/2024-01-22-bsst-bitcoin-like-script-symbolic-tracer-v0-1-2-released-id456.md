@@ -36,3 +36,37 @@ A note on features to help with malleability analysis:
 
 -------------------------
 
+dgpv | 2024-05-12 19:16:01 UTC | #2
+
+I plan to change how execution paths are shown in the B'SST report.
+
+I think that I came up with better format for that.
+
+But I want to have other opinions on this change, if possible, before merging this
+
+In short, before it was:
+
+```x
+IF wit0 @ 0:L1 : True
+NOTIF wit1 @ 1:L1 : False
+IFDUP wit2 @ 2:L1 : True
+-------------------------
+```
+
+After the change, it will be:
+
+```x
+When wit0 = 1 :: [IF @ 0:L1]
+ And wit1 = 0 :: [NOTIF @ 1:L1]
+ And BOOL(wit2) is True :: [IFDUP @ 2:L1]
+-----------------------------------------
+```
+
+More details in https://github.com/dgpv/bsst/pull/33
+
+you can also get that branch from that PR and try yourself on your scripts to see if the change improves the readability / ease of comprehension for the report
+
+Please give your opinion here or in the github PR
+
+-------------------------
+
