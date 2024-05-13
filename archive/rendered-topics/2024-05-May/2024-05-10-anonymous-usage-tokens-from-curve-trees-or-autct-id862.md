@@ -60,3 +60,15 @@ Extensions of this idea? From what I understand, we may be able to combine this 
 
 -------------------------
 
+1440000bytes | 2024-05-13 12:04:04 UTC | #2
+
+Thanks for writing this post.
+
+This will make joinstr pools sybil resistant and we [discussed the idea](https://t.me/Joinstr/521) a few days back. It would work exactly like the hodlboard proof of concept where some peers in a round will be required to prove ownership of a UTXO greater than some amount of sats. This requirement can either be added by pool creator or nostr relay used for the pool.
+
+If some nostr relays start adding this requirement apart from one time payment, it can make them DoS and sybil resistant for any use case.
+
+I hope autct can also be used in [pathcoin](https://github.com/AdamISZ/pathcoin-poc) instead of fidelity bonds which simplifies the idea of self custodial eCash if covenants ever get implemented on bitcoin.
+
+-------------------------
+
