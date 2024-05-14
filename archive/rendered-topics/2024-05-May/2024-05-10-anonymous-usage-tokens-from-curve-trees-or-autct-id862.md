@@ -100,3 +100,13 @@ Basically, when you do the DLEQ proof, you need an independent NUMS basepoint $J
 
 -------------------------
 
+1440000bytes | 2024-05-14 17:39:45 UTC | #4
+
+[quote="AdamISZ, post:3, topic:862"]
+The costs imposed by a timelocked utxo can be calculated explicitly in terms of [time value of money](https://gist.github.com/chris-belcher/87ebbcbb639686057a389acb9ab3e25b), but the costs imposed by simple utxo ownership at the time of a *recent* snapshot are clearly much less; principally just a utxo creation cost (arguably ameliorated, even).
+[/quote]
+
+Is it possible that users can prove ownership of one of the timelocked UTXO?
+
+-------------------------
+
