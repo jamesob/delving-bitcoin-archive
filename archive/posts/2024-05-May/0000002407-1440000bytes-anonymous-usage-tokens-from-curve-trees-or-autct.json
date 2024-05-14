@@ -8,13 +8,13 @@
   "post_number": 2,
   "post_type": 1,
   "updated_at": "2024-05-13T12:04:04.974Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 3,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 18.4,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 38.6,
   "yours": false,
   "topic_id": 862,
   "topic_slug": "anonymous-usage-tokens-from-curve-trees-or-autct",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for writing this post.\n\nThis will make joinstr pools sybil resistant and we [discussed the idea](https://t.me/Joinstr/521) a few days back. It would work exactly like the hodlboard proof of concept where some peers in a round will be required to prove ownership of a UTXO greater than some amount of sats. This requirement can either be added by pool creator or nostr relay used for the pool.\n\nIf some nostr relays start adding this requirement apart from one time payment, it can make them DoS and sybil resistant for any use case.\n\nI hope autct can also be used in [pathcoin](https://github.com/AdamISZ/pathcoin-poc) instead of fidelity bonds which simplifies the idea of self custodial eCash if covenants ever get implemented on bitcoin.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

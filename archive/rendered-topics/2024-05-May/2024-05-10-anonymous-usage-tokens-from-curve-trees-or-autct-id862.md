@@ -72,3 +72,31 @@ I hope autct can also be used in [pathcoin](https://github.com/AdamISZ/pathcoin-
 
 -------------------------
 
+AdamISZ | 2024-05-14 13:13:42 UTC | #3
+
+Yes it's one of the *potential* use cases, i.e. a drop-in replacement for fidelity bonds in a coinjoin protocol without a single central coordinator. However, I do remember back when I proposed [RIDDLE](https://reyify.com/blog/riddle) that it *might* not be as great for that particular use case. So, "delving" into that ;) :
+
+First, let's be clear on the threat being addressed: Sybil attacks that allow deanonymisation of the coinjoin by being ~ all the other participants in the round. A technique that imposes a cost on taking part can never make this impossible, so our chosen threat is an attacker bounded in their costs, and our defence is contingent/limited (you could try to quantify it for a particular case, but it's going to be very handwavy). The costs imposed by a timelocked utxo can be calculated explicitly in terms of [time value of money](https://gist.github.com/chris-belcher/87ebbcbb639686057a389acb9ab3e25b), but the costs imposed by simple utxo ownership at the time of a *recent* snapshot are clearly much less; principally just a utxo creation cost (arguably ameliorated, even). This leads one to think along the lines I did in the above blog, that: 
+
+> By using age and BTC value requirements, a cost - in the form of BTC network fees - is imposed that is almost zero for slow, occasional use but becomes (nonlinearly) much larger for anyone attempting to use the service very frequently (and due to block arrival rate, *no* amount of money may be enough to achieve very high Sybilling rates).
+
+Notice I say *age* and value requirements; "before the snapshot" can enforce that, or, I think a better idea, one can set the filter as $Q = a^x v^y$ where $a$ is age and $v$ is sats value. This can really bump up the cost to *burst attack* a system.
+
+But with a decentralized coinjoin protocol rather than e.g. a website or a nostr relay or maybe a Lightning node, our main concern isn't *burst attack* as much as very slow Sybilling. I'm going to guess that, if we want to replace fidelity bonds direct money locking with this style of utxo proof, we need to set $x$ in the above formula much higher, so that a proof of the necessary value will require quite an old utxo (thus enforcing a similar timelocking but in the past, not pushed into the future). This doesn't sound very practical (locking way before using the service?), and will also reduce the anon set (though I think that won't be as big of a deal, most likely).
+
+Finally, as well as these concerns (which can be summed up as "you can use this for coinjoins but it might end up being a weak defence unless you make it too impractical"), there's one last one that bothers me:
+
+Structurally this aut-ct could be simplified to:
+
+    Prover -> Verifier: [ZKP] [keyimage]
+
+And that keyimage can't change unless you change the utxo (pubkey) (taproot). This means that every user of the decentralized protocol sees the same one, and if it's a token that lets them use the system for some considerable time (as it must be, as fidelity bonds are today), it by its nature allows linkage of different coinjoins.
+
+The problem here is very deep: we want purely private participation in a protocol, *and* we want defence against Sybilling behaviour.
+
+Probably the answer lies in token multi-issuance, which can be done [as described in this Issue](https://github.com/AdamISZ/aut-ct/issues/8) : 
+
+Basically, when you do the DLEQ proof, you need an independent NUMS basepoint $J$ (and the "key image" is your private key * $J$), and you create that $J$ using a hash-to-curve operation acting on a string. Currently that string is "J,application-domain-label" (e.g. "J,hodlboardmainnet") but we could instead imagine it being "J,application-domain-label,1" and then 2,3 etc. This way you get multiple independent tokens per utxo. This is basically exactly what we do in PoDLE (which is *not* the same as fidelity bonds). I think this is probably the right way to go for a fully symmetric decentralized coinjoin protocol.
+
+-------------------------
+
