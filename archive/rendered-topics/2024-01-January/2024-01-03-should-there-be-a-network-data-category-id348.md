@@ -46,3 +46,9 @@ A "Measurements" category (no opinion on the name) seems more appropriate to me.
 
 -------------------------
 
+ajtowns | 2024-05-15 12:32:35 UTC | #6
+
+How about something like "Empirical Analysis"? The idea being you start from scientific/repeatable observations (empiricism!) but also include a focus on using that to draw some sort of useful conclusions (analysis!), or that you're doing a detailed investigation of how things actually work, vs how you might have thought they would when you didn't have any data?
+
+-------------------------
+
