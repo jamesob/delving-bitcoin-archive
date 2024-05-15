@@ -110,3 +110,13 @@ Is it possible that users can prove ownership of one of the timelocked UTXO?
 
 -------------------------
 
+AdamISZ | 2024-05-15 01:25:28 UTC | #5
+
+Yep that's another possibility but it's a much more limited anon set and it's kind of a different model to the usual taproot one; with taproot the idea is that a utxo has (better, might have) a locking script that you don't see on chain.
+
+That's in the category like "anon set of all the users of *this* protocol"; for that you might want to do things very differently. E.g. "all lightning network nodes that are choosing to engage in this protocol publish a key (somewhere, somehow) and a locking script for their utxo and then all the other members can accept a request to participate that attaches a ring sig or ZKP that proves that they own one of the keys+timelocked scripts that "registered".
+
+The aut-ct thing is geared around the other extreme of "anon set of all taproot utxo pubkeys that satisfy a public filter" so much larger anon set but much more limited on the conditionality. Hope that makes sense.
+
+-------------------------
+
