@@ -37,3 +37,25 @@ I look forward to feedback and considerations I may have missed. This post was a
 
 -------------------------
 
+davidcaseria | 2024-05-15 22:25:05 UTC | #2
+
+In TIDES, shares are paid multiple times. I'm unsure if I follow how an eHash can be redeemed multiple times. Can you clarify that?
+
+This would also enable shares to be exchanged by sending eHash tokens with an atomic swap spending condition (i.e., [NUT-11](https://github.com/cashubtc/nuts/blob/6024402ff8bcbe511e3e689f6d85f5464ecc3982/11.md)).I think this is a huge benefit and something Ocean has said they would like to enable.
+
+This is an exciting proposal. Thanks for putting it together!
+
+-------------------------
+
+EthnTuttle | 2024-05-15 22:54:49 UTC | #3
+
+> In TIDES, shares are paid multiple times. I’m unsure if I follow how an eHash can be redeemed multiple times. Can you clarify that?
+
+This is the trickiest part of the proposal and it *might* be solved as follows. I do hope others will ponder this aspect for other ways to 'reuse' ecash.
+
+When a `share_log_window` is created, it becomes a snapshot shot of valid signatures that can be redeemed. At this time, the new `share_log_window` is known. When the HP redeems `eHash` that still falls within the window, that can be swapped for another `eHash` token AND other redemption methods. The new blinded signature would replace the old in the share log.
+
+I did consider a scenario where each blinded signature could be redeemed more than once but I think that's not a practical solution since after the first redemption, the pool/mint knows secrets (`x` and `C`).
+
+-------------------------
+
