@@ -117,9 +117,9 @@ I believe this idea is worth discussing on its own merit, even though implementi
 
 -------------------------
 
-calle | 2024-05-16 10:18:22 UTC | #8
+calle | 2024-05-16 10:20:39 UTC | #8
 
-Thank you, every interesting post and very thoughtful use of blind signatures. I have a question on the value field for keysets that correspond to difficulty targets. These normally represent a satoshi amount in Cashu, but it's totally fine to replace them with anything else. Is it correct to assume that you're measuring the value of a blind signature by the target of the submitted PoW share and get that signed by the mint? 
+Thank you, interesting post and very thoughtful use of blind signatures. I have a question on the value field for keysets that correspond to difficulty targets. These normally represent a satoshi amount in Cashu, but it's totally fine to replace them with anything else. Is it correct to assume that you're measuring the value of a blind signature by the target of the submitted PoW share and get that signed by the mint? 
 
 Am I right to assume that when the user wants to convert the `eShares` to satoshis, the mint would look take the target values of the eShares and convert them to satoshis? I understand that the accounting of which target gets what amount is not part of the protocol here but I'm trying to understand why the values aren't just directly Satoshis. I'm sure there is a good reason for that.
 
