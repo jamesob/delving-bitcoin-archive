@@ -107,3 +107,13 @@ Mining rewards are essentially an IOU in this case until they are redeemed for b
 
 -------------------------
 
+davidcaseria | 2024-05-16 10:07:06 UTC | #7
+
+I understand your point about Ocean’s current KYC policy, but I still believe that your argument is weak. Not all of Ocean’s payouts are in the coinbase transaction, and with a minimum payment threshold, shares in the share log already act as IOUs.
+
+I don't think it's an accurate characterization to say there are no benefits and it introduces new trade-offs, because in reality, these legal considerations already exist for a pool using TIDES and are not as clear as you suggest.
+
+I believe this idea is worth discussing on its own merit, even though implementing it seems like a long shot due to the need for custom stratum protocol implementation regardless of potential legal issues.
+
+-------------------------
+
