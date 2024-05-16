@@ -8,13 +8,13 @@
   "post_number": 1,
   "post_type": 1,
   "updated_at": "2024-05-15T16:58:18.975Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 135,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 673.6,
+  "incoming_link_count": 150,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 758.8,
   "yours": false,
   "topic_id": 870,
   "topic_slug": "ecash-tides-using-cashu-and-stratum-v2",
@@ -49,8 +49,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

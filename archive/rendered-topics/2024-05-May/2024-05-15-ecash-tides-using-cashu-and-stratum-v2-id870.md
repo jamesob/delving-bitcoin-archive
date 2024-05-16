@@ -59,3 +59,51 @@ I did consider a scenario where each blinded signature could be redeemed more th
 
 -------------------------
 
+1440000bytes | 2024-05-16 01:04:54 UTC | #4
+
+I don't see any benefits of using Cashu for mining payouts.
+
+[quote="EthnTuttle, post:1, topic:870"]
+Goals:
+
+* Auditability
+* Small payouts
+* Privacy
+[/quote]
+
+Auditability and small payouts are achieved with [bolt12](https://ocean.xyz/docs/lightning). LN privacy is debatable however use of Cashu to achieve privacy comes with the below trade-offs:
+
+- Custodial
+- Makes the mining pool vulnerable to regulatory actions or use of KYC/AML
+
+-------------------------
+
+davidcaseria | 2024-05-16 01:25:28 UTC | #5
+
+[quote="1440000bytes, post:4, topic:870"]
+LN privacy is debatable however use of Cashu to achieve privacy comes with the below trade-offs:
+
+* Custodial
+* Makes the mining pool vulnerable to regulatory actions or use of KYC/AML
+[/quote]
+
+Mining pools are already custodial and vulnerable to state action, such as enforcing KYC requirements (which some do).
+
+The possibility of immediate liquidity of mining rewards is self-evidently beneficial.
+
+-------------------------
+
+1440000bytes | 2024-05-16 01:41:35 UTC | #6
+
+[quote="davidcaseria, post:5, topic:870"]
+Mining pools are already custodial and vulnerable to state action, such as enforcing KYC requirements (which some do).
+
+The possibility of immediate liquidity of mining rewards is self-evidently beneficial.
+[/quote]
+
+[TIDES](https://bitcoin.stackexchange.com/questions/120719/how-does-ocean-s-tides-payout-scheme-work) is only used by Ocean mining pool. Based on a private conversation with CTO of Ocean (cannot share), they plan to stay non-KYC hence doing payouts in the coinbase transaction.
+
+Mining rewards are essentially an IOU in this case until they are redeemed for bitcoin.
+
+-------------------------
+
