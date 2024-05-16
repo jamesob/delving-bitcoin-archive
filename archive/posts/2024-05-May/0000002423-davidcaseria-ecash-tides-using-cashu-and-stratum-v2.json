@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"1440000bytes, post:4, topic:870\"]\nLN privacy is debatable however use of Cashu to achieve privacy comes with the below trade-offs:\n\n* Custodial\n* Makes the mining pool vulnerable to regulatory actions or use of KYC/AML\n[/quote]\n\nMining pools are already custodial and vulnerable to state action, such as enforcing KYC requirements (which some do).\n\nThe possibility of immediate liquidity of mining rewards is self-evidently beneficial.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
