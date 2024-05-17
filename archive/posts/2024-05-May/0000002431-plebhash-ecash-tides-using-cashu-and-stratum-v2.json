@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 2,
   "incoming_link_count": 1,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 6.0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 870,
   "topic_slug": "ecash-tides-using-cashu-and-stratum-v2",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Great to see this discussion moving forward here! I see there's some differences from what we discussed on the [plebpool repo discussion](https://github.com/plebemineira/plebpool/discussions/7), so I still need to find time to catch up on many details, especially TIDES.\n\nFor now, my contribution is limited to this:\n\n[quote=\"EthnTuttle, post:1, topic:870\"]\nthe blinded message secret uses `hash_to_curve(x)` computation which could be offloaded to an ASIC, maybe.\n[/quote]\n\nUnfortunately, that is not possible. Bitcoin Mining ASICs never really output the actual hash they computed, that is a common misconception.\nCheck this [thread by @skot9000](https://x.com/skot9000/status/1770083820361875818) for more details.\n\n[quote=\"1440000bytes, post:4, topic:870\"]\nAuditability and small payouts are achieved with [bolt12 ](https://ocean.xyz/docs/lightning).\n[/quote]\n\nWhile BOLT12 payouts definitely lower the threshold on how small the HP can get paid, there's still a barrier on LN fees. Depending on how small the HP's hashrate is, it could take a while before they can withdraw. Until then, all they can do is watch their dashboard and cross their fingers.\n\nThe proposal here improves things a little bit, because now, the HP has cryptographic proof of the submission and acceptance of their PoW.\n\nSure, one could argue there's still risk of a rugpull by the pool, but is inherent to the nature of any centralized pool. Even OCEAN is custodial for small hashrates. There's no simple solution for this that doesn't imply a fully decentralized pool architecture, and that dramatically increases the complexity of the solution, because now we are dealing with a consensus system on its own. \n\nWhile some projects (e.g.: [braidpool](github.com/braidpool/braidpool)) are making significant progress in this direction, Bitcoin mining is still going to have centralized pools for a while.\n\nSo IMHO this is a substantial improvement to the current mining landscape. Cashu takes tradeoffs on custody and centralization, and incentives are very aligned with centralized pools.\n\nFinally, as my nym loudly states, I'm very excited about pleb mining. While some see it as a silly effort (since the long-tail of hashpower on pleb miners is somewhat insignificant compared to industrial mining), I believe that any efforts that make pleb mining more accessible are worthwhile to decentralize Bitcoin mining.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

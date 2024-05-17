@@ -158,3 +158,41 @@ Finally, as my nym loudly states, I'm very excited about pleb mining. While some
 
 -------------------------
 
+EthnTuttle | 2024-05-17 01:45:46 UTC | #10
+
+1. How does Bolt12 enable auditability?
+2. bolt12 presumes a LN channel which requires liquidity. Perhaps I should rephrase away from "small payouts" to something more fitting for the trade offs. micro payouts with zero prior liquidity requirements and no operational complexity for the pool user.
+
+RE: Custodial, it seems others have alluded to the same but custodial pools are not a new concept. Every custodial wallet should be an ecash wallet so the user at least gains privacy as a trade off. A pool "wallet" should be no different. This proposal does not aim to solve self-custody. Ocean seemingly has that covered.
+
+-------------------------
+
+EthnTuttle | 2024-05-17 02:14:39 UTC | #11
+
+> Is it correct to assume that you’re measuring the value of a blind signature by the target of the submitted PoW share and get that signed by the mint?
+
+Yes. A valid target difficulty for a share to be accepted is generally a threshold below the network difficulty. With various machines of different hash rates, a pool uses a variety of target PoW difficulties to prevent DoSing itself. Giving the same target to a S9 and a S21 would either result in the S9 never finding that target in the given timeframe or the S21 inundating the pool with shares. Given the possibility of small payouts, it seemed appropriate to include hash providers with less robust machines.
+
+> Am I right to assume that when the user wants to convert the `eShares` to satoshis, the mint would look take the target values of the eShares and convert them to satoshis?
+
+Yes. I believe the TIDES documentation cover the weighting of shares as it relates to the `share_log_window` but accounting specifics would be left to the implementation.
+Since a blinded signature corresponds to a target difficulty, and TIDES uses the target difficulty as a weighting for valuation within a share_log_window, a `eShare` would not be a 1:1 for satoshis.
+
+-------------------------
+
+1440000bytes | 2024-05-17 02:30:14 UTC | #12
+
+> Using BOLT12 also allows us to prove to the world that a payment was made, the size of the payment, the node to which it was paid, and that it was paid by us.
+
+> This means we can continue to offer fully transparent and verifiable pooled mining while no longer being restricted by the base layer!
+
+ https://njump.me/nevent1qqs8sz359u7ysd8hw39v99hlxl5zs7mzsrrw5rwpsctm0ufart2g0ngpp4mhxue69uhkummn9ekx7mqppamhxue69uhkummnw3ezumt0d5q3gamnwvaz7tmwdaehgu3wdau8gu3wv3jhvq3qqtvl2em0llpnnllffhat8zltugwwz97x79gfmxfz4qk52n6zpk3qn2uecg
+
+I understand that a key objective of this proposal is to get more users for Cashu. Whereas I believe there are very less non-kyc mining pools and we should not **maximize** the probability of them being forced to comply or get shutdown. Mining pools that are already custodial and follow KYC/AML will have to use [NUT 16](https://github.com/cashubtc/nuts/pull/106) if they want to enable micro payouts with zero liquidity. I doubt there is any demand for such micro-payouts and looks pointless to use KYC with eCash. Use of NUT 16 by some mints is a slippery slope that would make it easier for government agencies to take action against other mints.
+
+In simple terms, you could compare this to mining pool using a custodial mixer that provides a token on deposit and do payouts with the withdrawal. 
+
+Hence, I see no real benefits for any mining pools to use this.
+
+-------------------------
+

@@ -12,9 +12,9 @@
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 8.0,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 23.2,
   "yours": false,
   "topic_id": 870,
   "topic_slug": "ecash-tides-using-cashu-and-stratum-v2",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I understand your point about Ocean\u2019s current KYC policy, but I still believe that your argument is weak. Not all of Ocean\u2019s payouts are in the coinbase transaction, and with a minimum payment threshold, shares in the share log already act as IOUs.\n\nI don't think it's an accurate characterization to say there are no benefits and it introduces new trade-offs, because in reality, these legal considerations already exist for a pool using TIDES and are not as clear as you suggest.\n\nI believe this idea is worth discussing on its own merit, even though implementing it seems like a long shot due to the need for custom stratum protocol implementation regardless of potential legal issues.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
