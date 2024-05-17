@@ -40,3 +40,15 @@ We've also had #implementation:wg-cluster-mempool going for a little while now; 
 
 -------------------------
 
+josibake | 2024-05-17 10:32:15 UTC | #6
+
+Was thinking `wg-silent-payments` might make sense? Currently having discussions in several different places about:
+
+1. How to standardize indexes for light clients
+2. PSBT support for sending/spending silent payment outputs
+3. A silent payments descriptor
+
+A lot of these discussions feel too early for draft BIPs/mailing list posts, hence a working group feels like a good fit?
+
+-------------------------
+
