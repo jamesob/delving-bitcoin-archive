@@ -50,3 +50,39 @@ One record per address type potentially avoids having to deal with the 255 chara
 
 -------------------------
 
+MattCorallo | 2024-05-17 17:39:17 UTC | #6
+
+Sorry, I don't generally check delving so usually miss replies, feel free to reply on the BIP PR.
+
+[quote="sjors, post:5, topic:542"]
+How do you want to handle testnet and signet(s)? Perhaps `._bitcoin-testnet-payment` and `._bitcoin-signet-payment`?
+[/quote]
+
+I have not given it any thought, honestly. 
+
+[quote="sjors, post:5, topic:542"]
+I have this itchy feeling of wanting to avoid the word “bitcoin” in both the subdomain and the record, to make both filtering and creating a map of all domains “involving” bitcoin require at least a few more seconds of effort.
+[/quote]
+
+Maybe? The protocol will always be fairly identifiable, including addresses which are going to be fairly easy to google and figure out, I think.
+
+[quote="sjors, post:5, topic:542"]
+Why use BIP21 style URI’s inside the text record?
+[/quote]
+
+Because its already a well-defined format for communicating multiple payment instructions in a way that most wallets support. Why reinvent the wheel?
+
+[quote="sjors, post:5, topic:542"]
+And why have a single big record for all payment types? For example instead of `matt.user._bitcoin-payment.mattcorallo.com. 3600 IN TXT "bitcoin:?b12=lno1q...` you could have `matt.user.b12._bitcoin-payment.mattcorallo.com. 3600 IN TXT "lno1q...`.
+[/quote]
+
+Because then a sender has to add extra logic to enumerate the set of supported formats and send multiple queries. Most senders already have logic to handle dealing with a single BIP 21 with multiple payment instructions, so we should just capitalize on that by giving them a simple API to fetch a BIP 21 to feed into their existing logic.
+
+[quote="sjors, post:5, topic:542"]
+One record per address type potentially avoids having to deal with the 255 character limit for TXT records.
+[/quote]
+
+No such limit exists.
+
+-------------------------
+

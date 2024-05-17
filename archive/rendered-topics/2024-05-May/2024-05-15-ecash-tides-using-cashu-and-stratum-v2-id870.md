@@ -206,3 +206,25 @@ Alright, I get it now. An alternative would have been to let the mint decide the
 
 -------------------------
 
+MattCorallo | 2024-05-17 17:32:19 UTC | #14
+
+[quote="davidcaseria, post:5, topic:870"]
+The possibility of immediate liquidity of mining rewards is self-evidently beneficial.
+[/quote]
+
+I honestly entirely fail to see the value of these kinds of systems. To be clear, giving miners their reward quickly such that they can migrate off a pool quickly if the pool is not paying them for their work is certainly valuable, however the difficult part of this is not the "pay out quickly" part, its the "if the pool is not paying out sufficiently, migrate" part.
+
+A key part of Stratum V2's custom work selection proposal is the behavior of client software automatically switching to a fallback pool or solo mining in the case that their pool declines to pay for their work. Indeed, in current implementations this is only accomplished through a message the pool can optionally send to the client informing them that they will be ceasing payouts. Having this be automated on the basis of the actual payout would be awesome! But we certainly don't have to revert to anything complicated to do so - any off-chain payout scheme suffices here, whether lightning (as a handful of pools already support) or ecash via the normal ecash payment negotiation flows.
+
+Client behavior to switch to a fallback pool or solo mine based on comparing expected and actual payout value, is, however, the hard part here - no pool payout scheme today is capable of paying out faster than every few blocks (PPLNS), and the ones used in practice (PPS) can only pay out once a day.
+
+If you're using a PPLNS pool (like TIDES, IIUC), the best you can do is check your payout once the pool finds a block, but this is actually impossible to do in an automated fashion because you cannot reliably detect if/when your pool mined a block. The best you can do is detect that you found a block for the pool, which is generally not all that useful in general.
+
+If you're using a PPS pool, you can at least do a daily check, however this is somewhat complicated by the fact that PPS calculations differ by pool and are changed over time. AFAIU most pools average (with some outlier removal) the fees found over the previous day's blocks and do payouts on that basis, implying they can only do payouts once a day after they can calculate this average.
+
+Thus, no matter how quickly or automatically we can do payouts the software can't really do what we want for us, instead users have to be involved. Given this, we can't really do all that much interesting here, aside from just making sure payouts go out in a timely manner, but heaping on complexity to accomplish that is...just heaping on complexity.
+
+Certainly transparency is important, and we can do things like share log transparency (eg https://github.com/stratum-mining/sv2-spec/discussions/76#discussioncomment-9472619) to aide users in deciding if they've been paid out appropriately and let them decide to switch pools on that basis.
+
+-------------------------
+
