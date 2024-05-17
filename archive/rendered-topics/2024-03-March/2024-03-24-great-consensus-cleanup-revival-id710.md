@@ -451,3 +451,19 @@ for (h, ts) in blocks:
 
 -------------------------
 
+AntoineP | 2024-05-17 12:09:42 UTC | #18
+
+[quote="recent798, post:11, topic:710"]
+My understanding is that a soft-fork that can not be applied from genesis won’t help to skip the expensive check in case of a massive (theoretical) reorg, so fallback code will be needed for this case. If fallback code is needed anyway, then it seems better to do it without a consensus deployment.
+[/quote]
+
+Thinking back about this. I was under the impression, probably influenced by this comment, that we could somehow get rid entirely of BIP30 validation with 1) a soft fork to make coinbase transactions unique in the future and 2) a retroactive soft fork to prevent block 490,897 to have txid `bec6606bb10f77f5f0395cc86d0489fbef70c0615b177a326612d8bd7b84f84d`.
+
+But as @recent798 points out, you still need to have BIP30 validation for older forks, as nothing prevents *in theory* the pre-BIP34-activation committed heights to be changed. Except maybe a convoluted retroactive soft fork under which the pre-BIP34-activation coinbase transactions currently in the main chain are all valid but hypothetical duplicable ones woud not be (i can't think of anything short of a checkpoint which would fulfill both requirements). This does not seem worth the complexity, at all.
+
+So i don't think we'll be able to entirely strip the BIP30 logic. That's fine. I think we should just make coinbase txids after block 1'983'702 unique (either through `nLockTime` or another mechanism). And we keep BIP30 validation for old blocks and forks. 
+
+Note: of course all this disregards checkpoints.
+
+-------------------------
+

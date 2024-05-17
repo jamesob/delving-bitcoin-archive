@@ -127,7 +127,7 @@ Thanks!
 
 -------------------------
 
-plebhash | 2024-05-16 21:38:15 UTC | #9
+plebhash | 2024-05-17 14:53:33 UTC | #9
 
 Great to see this discussion moving forward here! I see there's some differences from what we discussed on the [plebpool repo discussion](https://github.com/plebemineira/plebpool/discussions/7), so I still need to find time to catch up on many details, especially TIDES.
 
@@ -148,7 +148,7 @@ While BOLT12 payouts definitely lower the threshold on how small the HP can get 
 
 The proposal here improves things a little bit, because now, the HP has cryptographic proof of the submission and acceptance of their PoW.
 
-Sure, one could argue there's still risk of a rugpull by the pool, but is inherent to the nature of any centralized pool. Even OCEAN is custodial for small hashrates. There's no simple solution for this that doesn't imply a fully decentralized pool architecture, and that dramatically increases the complexity of the solution, because now we are dealing with a consensus system on its own. 
+Sure, one could argue there's still risk of a rugpull by the pool, but this problem is inherent to the nature of any centralized pool. Even OCEAN is custodial for small hashrates. There's no simple solution for this that doesn't imply a fully decentralized pool architecture, which dramatically increases the complexity of the solution, because now we are dealing with a consensus system on its own. 
 
 While some projects (e.g.: [braidpool](github.com/braidpool/braidpool)) are making significant progress in this direction, Bitcoin mining is still going to have centralized pools for a while.
 

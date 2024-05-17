@@ -52,3 +52,9 @@ A lot of these discussions feel too early for draft BIPs/mailing list posts, hen
 
 -------------------------
 
+ajtowns | 2024-05-17 10:59:05 UTC | #7
+
+(Created #protocol-design:wg-silent-payments after discussing offline)
+
+-------------------------
+

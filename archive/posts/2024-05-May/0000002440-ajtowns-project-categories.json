@@ -1,0 +1,72 @@
+{
+  "id": 2440,
+  "name": "Anthony Towns",
+  "username": "ajtowns",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
+  "created_at": "2024-05-17T10:59:05.049Z",
+  "cooked": "<p>(Created <a class=\"hashtag-cooked\" href=\"/c/protocol-design/wg-silent-payments/12\" data-type=\"category\" data-slug=\"wg-silent-payments\" data-id=\"12\" data-ref=\"protocol-design:wg-silent-payments\"><span class=\"hashtag-icon-placeholder\"><svg class=\"fa d-icon d-icon-square-full svg-icon svg-node\"><use href=\"#square-full\"></use></svg></span><span>wg-silent-payments</span></a> after discussing offline)</p>",
+  "post_number": 7,
+  "post_type": 1,
+  "updated_at": "2024-05-17T10:59:05.049Z",
+  "reply_count": 0,
+  "reply_to_post_number": 6,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
+  "yours": false,
+  "topic_id": 162,
+  "topic_slug": "project-categories",
+  "topic_title": "Project categories?",
+  "topic_html_title": "Project categories?",
+  "category_id": 2,
+  "display_username": "Anthony Towns",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "josibake",
+    "name": "josie",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/josibake/{size}/83_2.png"
+  },
+  "bookmarked": false,
+  "raw": "(Created #protocol-design:wg-silent-payments after discussing offline)",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": true,
+  "admin": true,
+  "staff": true,
+  "user_id": 3,
+  "hidden": false,
+  "trust_level": 4,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}
