@@ -196,3 +196,13 @@ Hence, I see no real benefits for any mining pools to use this.
 
 -------------------------
 
+calle | 2024-05-17 10:29:01 UTC | #13
+
+[quote="EthnTuttle, post:11, topic:870"]
+Yes. I believe the TIDES documentation cover the weighting of shares as it relates to the `share_log_window` but accounting specifics would be left to the implementation. Since a blinded signature corresponds to a target difficulty, and TIDES uses the target difficulty as a weighting for valuation within a share_log_window, a `eShare` would not be a 1:1 for satoshis.
+[/quote]
+
+Alright, I get it now. An alternative would have been to let the mint decide the values of blind signatures after the fact (the user doesn't have to decide on the value when sending the blind message). But I think your approach is more simple and doesn't require the mint operator to store all outstanding blind messages and imprint them with value after doing all the account. It's much better than my original idea I had discussed with you on GitHub!
+
+-------------------------
+
