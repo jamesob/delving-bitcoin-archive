@@ -1,6 +1,6 @@
 # Great Consensus Cleanup Revival
 
-AntoineP | 2024-03-24 19:53:27 UTC | #1
+AntoineP | 2024-05-16 11:05:57 UTC | #1
 
 I've been working on revisiting Matt Corallo's [Great Consensus Cleanup proposal](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki). I was interested in figuring:
 1. How bad the bugs actually are;
@@ -18,7 +18,7 @@ The timewarp vulnerability exploits how difficulty adjustment periods don't over
 
 ### How bad is it?
 
-It's interesting to consider both how it worsens the situation and what it enables concretely. After all, miners can always hold back the timestamps even without exploiting the timewarp vulnerability.  But without setting the timestamp of the first block of a period before the timestamp of the last block of the preceding period, taking advantage of this necessarily involves bumping the difficulty back up. Therefore such an attack wouldn't achieve much: at best it could allow to mine 3 retarget intervals in 5 weeks instead of 6. On the other hand by setting the timestamp of the first block of a period below the one of the preceding period's last block an attacker can continuously take advantage of the low difficulty while continuing to reduce it.
+It's interesting to consider both how it worsens the situation and what it enables concretely. After all, miners can always hold back the timestamps even without exploiting the timewarp vulnerability.  But without setting the timestamp of the first block of a period before the timestamp of the last block of the preceding period, taking advantage of this necessarily involves bumping the difficulty back up. On the other hand by setting the timestamp of the first block of a period below the one of the preceding period's last block an attacker can continuously take advantage of the low difficulty while continuing to reduce it.
 
 In practice an attacker could fatally hurt the network within a bit over a month of starting the attack. By starting at time `t` and period `N`, the attacker can already halve the difficulty at the end of period `N+1`. Which allows him to mine period `N+2` in a single week, further reducing the difficulty by a 2.5x factor. Etc.. Within less than 40 days the attacker would bring the difficulty down to 1, letting him mine millions of blocks. Besides claiming all the remaining subsidy, this would destroy the security of any L2 protocol relying on timelocks as well as exacerbate DoS vectors (for instance if this is combined with a spam of the UTxO set).
 
@@ -377,6 +377,77 @@ Over the last 10k blocks (828299 to 838299), 9404 blocks have bip320 bits set (m
 The 4 at the end in both cases is to catch the ~216 blocks that are still signalling for taproot for whatever reason, which I think are all [SBI Crypto](https://twitter.com/ajtowns/status/1777324742149554295).
 
 Reproducer if anyone cares: `$ for a in $(seq 828299 838299); do bitcoin-cli getblockheader $(bitcoin-cli getblockhash $a) | jq -j '.height, " ", .versionHex, "\n"'; done | sed 's/ 2000000[04]/ bip9/;s/ [23]...[02468ace]00[04]/ bip320/' | cut -d\  -f2 | sort | uniq -c`
+
+-------------------------
+
+AntoineP | 2024-05-17 09:38:42 UTC | #17
+
+[quote="AntoineP, post:1, topic:710"]
+Within less than 40 days the attacker would bring the difficulty down to 1
+[/quote]
+
+To back up this claim i've run a bit more rigorous simulation than my previous estimate. If the attack were to start at [block `842688`](https://blockstream.info/block/000000000000000000026b90d09b5e4fba615eadfc4ce2a19f6a68c9c18d4a2e) (timestamp `1715252414`, difficulty `83148355189239`) it'd take about 39 days to bring down the difficulty down to 1 by exploiting the timewarp vulnerability.
+
+Here is the Python script i've used. The resulting table of every block and its timestamp in this window is available in [this gist](https://gist.github.com/darosior/5a755ebdaefa7ae73be5507d2920914c).
+
+```python
+from datetime import datetime
+
+# A real block on mainnet.
+START_HEIGHT = 842688
+START_TIMESTAMP = 1715252414
+START_DIFF = 83148355189239
+
+# The list of (height, timestamp) of each block. Will contain all the blocks during
+# the attack, plus the blocks for the period preceding the attack.
+blocks = []
+
+# Push the honest period of blocks before the starting height.
+for i in range(START_HEIGHT - 2016, START_HEIGHT):
+    blocks.append((i, START_TIMESTAMP - (START_HEIGHT - i) * 10 * 60))
+
+# Now the attack starts.
+difficulty = START_DIFF
+height = START_HEIGHT
+periods = 0
+while difficulty > 1:
+    # Always set the timestamp of each block to the minimum allowed by the MTP rule.
+    # We'll override it below for the last block in a period.
+    median = sorted(ts for (h, ts) in blocks[-11:])[5]
+    blocks.append((height, median + 1))
+
+    # New period. First override the last block of the previous period (ie not the block
+    # at the tail of the list which is the first of the new period, but the one before).
+    # Then update the difficulty.
+    if height > START_HEIGHT and height % 2016 == 0:
+        # Estimate how long it took to mine the past 2016 blocks given the current diff.
+        diff_reduction = START_DIFF / difficulty
+        time_spent = 2016 * 10 * 60 / diff_reduction
+        # For the first period we set the 2h in the future. For the next ones, we
+        # just offset from the previous period's last block's timestamp.
+        prev_last_ts = blocks[-2 - 2016][1]
+        max_timestamp = prev_last_ts + time_spent
+        if periods == 0:
+            max_timestamp += 3_600 * 2
+        blocks[-2] = (height, max_timestamp)
+
+        # Adjust the difficulty
+        red = (blocks[-2][1] - blocks[-2 - 2015][1]) / (2016 * 10 * 60)
+        assert red <= 4
+        difficulty /= red
+        periods += 1
+        print(f"End of period {periods}, reducing the diff by {red}.")
+
+    height += 1
+
+attack_duration = datetime.fromtimestamp(blocks[-2][1] - 3_600 * 2) - datetime.fromtimestamp(START_TIMESTAMP)
+print(f"Took the difficulty down to 1 in {attack_duration} after {periods} periods.")
+
+print(f"| height | timestamp |")
+print(f"| ------ | --------- |")
+for (h, ts) in blocks:
+    print(f"| {h} | {datetime.fromtimestamp(ts)} |")
+```
 
 -------------------------
 
