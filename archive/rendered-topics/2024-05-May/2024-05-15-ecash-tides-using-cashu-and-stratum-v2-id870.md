@@ -93,7 +93,7 @@ The possibility of immediate liquidity of mining rewards is self-evidently benef
 
 -------------------------
 
-1440000bytes | 2024-05-16 01:41:35 UTC | #6
+1440000bytes | 2024-05-16 22:18:12 UTC | #6
 
 [quote="davidcaseria, post:5, topic:870"]
 Mining pools are already custodial and vulnerable to state action, such as enforcing KYC requirements (which some do).
@@ -101,7 +101,7 @@ Mining pools are already custodial and vulnerable to state action, such as enfor
 The possibility of immediate liquidity of mining rewards is self-evidently beneficial.
 [/quote]
 
-[TIDES](https://bitcoin.stackexchange.com/questions/120719/how-does-ocean-s-tides-payout-scheme-work) is only used by Ocean mining pool. Based on a private conversation with CTO of Ocean (cannot share), they plan to stay non-KYC hence doing payouts in the coinbase transaction.
+[TIDES](https://bitcoin.stackexchange.com/questions/120719/how-does-ocean-s-tides-payout-scheme-work) is only used by Ocean mining pool. Based on a private conversation with CTO of Ocean, they plan to stay non-KYC hence doing payouts in the coinbase transaction.
 
 Mining rewards are essentially an IOU in this case until they are redeemed for bitcoin.
 
@@ -124,6 +124,37 @@ Thank you, interesting post and very thoughtful use of blind signatures. I have 
 Am I right to assume that when the user wants to convert the `eShares` to satoshis, the mint would look take the target values of the eShares and convert them to satoshis? I understand that the accounting of which target gets what amount is not part of the protocol here but I'm trying to understand why the values aren't just directly Satoshis. I'm sure there is a good reason for that.
 
 Thanks!
+
+-------------------------
+
+plebhash | 2024-05-16 21:38:15 UTC | #9
+
+Great to see this discussion moving forward here! I see there's some differences from what we discussed on the [plebpool repo discussion](https://github.com/plebemineira/plebpool/discussions/7), so I still need to find time to catch up on many details, especially TIDES.
+
+For now, my contribution is limited to this:
+
+[quote="EthnTuttle, post:1, topic:870"]
+the blinded message secret uses `hash_to_curve(x)` computation which could be offloaded to an ASIC, maybe.
+[/quote]
+
+Unfortunately, that is not possible. Bitcoin Mining ASICs never really output the actual hash they computed, that is a common misconception.
+Check this [thread by @skot9000](https://x.com/skot9000/status/1770083820361875818) for more details.
+
+[quote="1440000bytes, post:4, topic:870"]
+Auditability and small payouts are achieved with [bolt12 ](https://ocean.xyz/docs/lightning).
+[/quote]
+
+While BOLT12 payouts definitely lower the threshold on how small the HP can get paid, there's still a barrier on LN fees. Depending on how small the HP's hashrate is, it could take a while before they can withdraw. Until then, all they can do is watch their dashboard and cross their fingers.
+
+The proposal here improves things a little bit, because now, the HP has cryptographic proof of the submission and acceptance of their PoW.
+
+Sure, one could argue there's still risk of a rugpull by the pool, but is inherent to the nature of any centralized pool. Even OCEAN is custodial for small hashrates. There's no simple solution for this that doesn't imply a fully decentralized pool architecture, and that dramatically increases the complexity of the solution, because now we are dealing with a consensus system on its own. 
+
+While some projects (e.g.: [braidpool](github.com/braidpool/braidpool)) are making significant progress in this direction, Bitcoin mining is still going to have centralized pools for a while.
+
+So IMHO this is a substantial improvement to the current mining landscape. Cashu takes tradeoffs on custody and centralization, and incentives are very aligned with centralized pools.
+
+Finally, as my nym loudly states, I'm very excited about pleb mining. While some see it as a silly effort (since the long-tail of hashpower on pleb miners is somewhat insignificant compared to industrial mining), I believe that any efforts that make pleb mining more accessible are worthwhile to decentralize Bitcoin mining.
 
 -------------------------
 

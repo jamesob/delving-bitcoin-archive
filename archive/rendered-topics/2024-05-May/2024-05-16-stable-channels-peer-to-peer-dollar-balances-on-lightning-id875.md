@@ -95,3 +95,28 @@ This will be a challenge to build out. In my experience, however, the software w
 
 -------------------------
 
+1440000bytes | 2024-05-16 22:29:28 UTC | #2
+
+[quote]
+One other interesting integration we have done is with use of the Chaumian eCash system Cashu. Developer Star Builder, others, and I helped build an eCash stable dollar token whose value is secured by a Stable Channel. You can check out a nice UI for this on [Boardwalk Cash](https://boardwalkcash.com/wallet) and check out the eCash mint with data from the Stable Channel on the [Umint mint website](https://umint.cash).
+[/quote]
+
+![image|690x133](upload://uiIUPVjmLjmQwKXFhaihg5rhjND.png)
+
+This warning text on Boardwalk Cash website is misleading as eCash is not self custodial.
+
+[quote]
+With eCash, a version of [proofs of liabilities](https://gist.github.com/callebtc/ed5228d1d8cbaade0104db5d1cf63939) can be provided, and a type of proof of reserves can be shown by identifying the on-chain channel funding transaction for the Stable Channel and providing signed attestations to the channel state from both the Stable Provider and Stable Receiver. Check out early versions of this on the Umint website linked above.
+[/quote]
+
+- Users still need to trust the mint and stats shared by them publicly
+- Not good for privacy
+
+[quote]
+An eCash system provides many advantages over the all-Lightning approach. Users don’t need to run a Lightning node or be online all the time like with Stable Channels. There are scalability and UX advantages, and we can get up and running quickly. However, eCash systems are custodial and at risk of a rugpull or regulatory action. Fedimints could help with the custodial challenges. Finally and obviously, eCash tokens, like Stable Channels, still need to get market buy-in.
+[/quote]
+
+The drawbacks you mentioned outweigh any benefits custodial eCash offers.
+
+-------------------------
+
