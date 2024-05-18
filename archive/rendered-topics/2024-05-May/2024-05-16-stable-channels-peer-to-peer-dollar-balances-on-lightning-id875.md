@@ -120,3 +120,13 @@ The drawbacks you mentioned outweigh any benefits custodial eCash offers.
 
 -------------------------
 
+tony | 2024-05-18 16:38:35 UTC | #3
+
+That's good feedback, thank you. 
+
+It will be an ongoing challenge to communicate engineering trade-offs to users. Careful language is important for that. 
+
+The hope is that well-informed users can choose between self-custodial Lightning and custodial systems like ecash in an open market with lots of varieties and competition.
+
+-------------------------
+
