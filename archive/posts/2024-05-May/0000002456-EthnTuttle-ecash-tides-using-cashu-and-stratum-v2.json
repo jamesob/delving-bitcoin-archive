@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I understand this makes complexity and trade off decisions that vary from other ways to do similar things, but please be explicit if you see any technical reason the protocol/implementation/cryptography/etc is unsound or does not work?\n\nWhile I do understand and consider the trade offs, I am interested in understanding applied cryptography and this is one of my first documented attempts. How can this protocol be gamed or broken? Where does it break? Why does it break? technically speaking.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
