@@ -238,3 +238,13 @@ Understood. Thank you for sharing.
 
 -------------------------
 
+EthnTuttle | 2024-05-19 00:44:40 UTC | #16
+
+[quote="MattCorallo, post:14, topic:870"]
+Certainly transparency is important, and we can do things like share log transparency (eg [Share Accounting + Accouintability Protocol Extension · stratum-mining/sv2-spec · Discussion #76 · GitHub](https://github.com/stratum-mining/sv2-spec/discussions/76#discussioncomment-9472619)) to aide users in deciding if they’ve been paid out appropriately and let them decide to switch pools on that basis.
+[/quote]
+
+You don't see cryptographic attestation as a benefit to share log transparency? This proposal has a transparent share log, it just adds an additional attestation from the pool side that miners can verify.
+
+-------------------------
+
