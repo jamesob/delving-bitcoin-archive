@@ -248,3 +248,11 @@ You don't see cryptographic attestation as a benefit to share log transparency? 
 
 -------------------------
 
+EthnTuttle | 2024-05-19 00:53:41 UTC | #17
+
+I understand this makes complexity and trade off decisions that vary from other ways to do similar things, but please be explicit if you see any technical reason the protocol/implementation/cryptography/etc is unsound or does not work?
+
+While I do understand and consider the trade offs, I am interested in understanding applied cryptography and this is one of my first documented attempts. How can this protocol be gamed or broken? Where does it break? Why does it break? technically speaking.
+
+-------------------------
+
