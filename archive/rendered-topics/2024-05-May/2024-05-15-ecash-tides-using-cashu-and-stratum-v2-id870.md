@@ -228,3 +228,13 @@ Certainly transparency is important, and we can do things like share log transpa
 
 -------------------------
 
+EthnTuttle | 2024-05-19 00:41:14 UTC | #15
+
+[quote="1440000bytes, post:12, topic:870"]
+Hence, I see no real benefits for any mining pools to use this.
+[/quote]
+
+Understood. Thank you for sharing.
+
+-------------------------
+
