@@ -256,3 +256,15 @@ While I do understand and consider the trade offs, I am interested in understand
 
 -------------------------
 
+davidcaseria | 2024-05-19 15:43:33 UTC | #18
+
+[quote="EthnTuttle, post:3, topic:870"]
+This is the trickiest part of the proposal and it *might* be solved as follows. I do hope others will ponder this aspect for other ways to ‘reuse’ ecash.
+[/quote]
+
+I don't fully understand your statement here because I believe that ecash can't be reused by its nature.
+
+I think I understand your idea at a high level: redeem the ehash for the reward and also receive another ehash to be redeemed later. How do you track how often an ehash has been issued for the original share? Is there a way to link an ehash to a share? How would this work if an ehash is split into representations of less difficult shares?
+
+-------------------------
+
