@@ -41,3 +41,26 @@ So a signing device could return the ECDH share for a private key, instead of th
 
 -------------------------
 
+Sosthene | 2024-05-19 17:32:48 UTC | #2
+
+FWIW we already wrote with cygnet some basic psbt workflow for donation wallet (I'm also using it in my wasm experiments). That's hacky and has limitations, but it already works so it can serve as a basis for further improvements.
+
+For spending from sp outputs, I'm not quite sure what you mean with 
+[quote="josibake, post:1, topic:877"]
+The spend public key is used to get the spend private key and the spend private key is tweaked with the `shared_secret_tweak` when signing.
+[/quote]
+
+but basically we use the proprietary field of inputs that are spending a sp prevout to keep the tweak to the spend private key, and I think that's what you mean. 
+
+When signing we pass along the spend private key and simply add the tweak to get the signing key, see https://github.com/cygnet3/sp-client/blob/0a81059e2959b87798432fc10c9447ba276dc1a1/src/spclient.rs#L684
+
+As for spending to sp address, it's indeed a bit more complicated but as long as you only bother about simple use cases I didn't think it was that bad. We use the output proprietary field to keep the recipient sp address and put a placeholder scriptpubkey (basically the pubkey computed from a NUMS) in the actual unsigned transaction, to allow for accurate fee calculation. The psbt can be modified, inputs added or whatever, up to the point you want to cement things down and compute the actual output keys for whatever is the current state of the transaction https://github.com/cygnet3/sp-client/blob/0a81059e2959b87798432fc10c9447ba276dc1a1/src/spclient.rs#L267
+
+This part could certainly be improved and made more efficient, but it worked quite well so far, we had a lot of issues but not with that.
+
+It's simpler in our use case though because we're making pure silent payments wallets, so we just assume that prevouts are silent payment taproot scripts and don't bother about ineligible inputs. We also assume that we own all prevouts for now. 
+
+I think that since psbt already saves basically all relevant information about the prevout, discriminating between eligible or non eligible prevout will be easy. The 2nd problem is harder, as we could do something like the ECDH share you mentioned but I have no idea if that would be safe either. Probably something we should talk about with the secp256k1 guys, because I would be very disappointed not to be able to build a coinjoin wallet around silent payment.
+
+-------------------------
+
