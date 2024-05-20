@@ -268,3 +268,18 @@ I think I understand your idea at a high level: redeem the ehash for the reward 
 
 -------------------------
 
+EthnTuttle | 2024-05-19 21:26:33 UTC | #19
+
+> How do you track how often an ehash has been issued for the original share?
+I don't think this is the correct way to think about it. If ehash is to be "used twice", you just have a [/swap](https://github.com/cashubtc/nuts/blob/6024402ff8bcbe511e3e689f6d85f5464ecc3982/03.md) that outputs two different units. One is the actual reward (on chain/ln/ecash) and the other is another ehash.
+
+ > Is there a way to link an ehash to a share? 
+
+By whom? A mint knows which share to which ehash after redemption since the mint has. But the redeemer need not be the originator, as with other ecash. 
+
+> How would this work if an ehash is split into representations of less difficult shares?
+
+This is already covered and uses the [keyset](https://github.com/cashubtc/nuts/blob/6024402ff8bcbe511e3e689f6d85f5464ecc3982/02.md)
+
+-------------------------
+
