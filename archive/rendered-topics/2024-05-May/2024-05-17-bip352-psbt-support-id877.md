@@ -80,3 +80,33 @@ This is one I need to double-check: does the PSBT provide enough information abo
 
 -------------------------
 
+andrewtoth | 2024-05-20 17:56:49 UTC | #4
+
+[quote="josibake, post:1, topic:877"]
+delvingless-andrewtoth
+[/quote]
+
+Delvingless no longer :smiley:. 
+
+[quote="Sosthene, post:2, topic:877"]
+and put a placeholder scriptpubkey (basically the pubkey computed from a NUMS) in the actual unsigned transaction, to allow for accurate fee calculation.
+[/quote]
+
+I think we shouldn't do this because if PSBT_OUT_SCRIPT is in the PSBT then older version implementations would still sign it and ignore the actual silent payment field. That is why PSBT_OUT_SCRIPT must now be optional for outputs when the constructor adds them. Once the outputs are generated, the Inputs Modifiable Flag is set to False so no input changes can invalidate the computed silent payment addresses. The new Silent Payments Modifiable Flag is set to False as well so no new silent payment outputs can be added. This makes it so the outputs only need to be generated once.
+As for fee calculation, anything computing the weight can just use the taproot output size for any silent payment output.
+
+[quote="josibake, post:3, topic:877"]
+[quote="Sosthene, post:2, topic:877"]
+I think that since psbt already saves basically all relevant information about the prevout, discriminating between eligible or non eligible prevout will be easy
+[/quote]
+
+This is one I need to double-check: does the PSBT provide enough information about the prevout for us to ensure the output being spent is not a segwit witness version > 1, for example?
+[/quote]
+
+We can get the information we need to determine if an output being spent is not a segwit witness version > 1, but it will require us to merge the Constructor and Updater roles.
+In my draft, the Constructor and Updater are responsible for maintaining mutual exclusion between silent payment outputs, and inputs that are either ANYONECANSPEND or Segwit version > 1. A PSBT can't have both, and this is maintained with the new flags Silent Payments Modifiable and Has Silent Payments.
+The Constructor can set Has Silent Payments if it adds a silent payment output, and the Updater can check this flag and refuse to add ANYONECANSPEND sighash flags to any inputs if set. Vice-versa with Updater setting Silent Payments Modifiable to False if it adds ANYONECANSPEND, and then the Constructor can't add any Silent Payment Outputs.
+This won't work for Segwit version > 1 inputs though, since the Constructor can only add the outpoint as an input, and the Updater is responsible for adding the input's scriptPubkey. If the scriptPubkey is a Segwit version > 1, it's too late because the input is already added. This would result in a malformed PSBT. Not sure how to proceed with this.
+
+-------------------------
+
