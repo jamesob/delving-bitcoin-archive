@@ -64,3 +64,19 @@ I think that since psbt already saves basically all relevant information about t
 
 -------------------------
 
+josibake | 2024-05-20 12:01:29 UTC | #3
+
+[quote="Sosthene, post:2, topic:877"]
+For spending from sp outputs, I’m not quite sure what you mean with
+[/quote]
+
+In the PSBT you need the `shared_secret_tweak` and also a way to specify *which* spend private key to tweak. For example, I am spending outputs sent to two entirely separate silent payment addresses in the same PSBT: I need a way to say "the `shared_secret_tweak` for this input is used to tweak spend key A and the `shared_secret_tweak` for that input is used to tweak spend key B."
+
+[quote="Sosthene, post:2, topic:877"]
+I think that since psbt already saves basically all relevant information about the prevout, discriminating between eligible or non eligible prevout will be easy
+[/quote]
+
+This is one I need to double-check: does the PSBT provide enough information about the prevout for us to ensure the output being spent is not a segwit witness version > 1, for example?
+
+-------------------------
+
