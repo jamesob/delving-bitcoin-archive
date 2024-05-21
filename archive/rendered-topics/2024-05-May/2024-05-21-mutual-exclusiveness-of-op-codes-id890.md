@@ -30,3 +30,41 @@ Also, that last case partially answers your question about activation politics: 
 
 -------------------------
 
+ajtowns | 2024-05-21 17:29:13 UTC | #3
+
+[quote="PierreRochard, post:1, topic:890"]
+Limited number of op_code “slots” available to take.
+[/quote]
+
+That one mostly probably doesn't matter: for tapscript we've got 87 free opcodes via OP_SUCCESS, and any of those could be used to create multibyte opcodes if desired. The upgradable OP_NOPs form a much more limited set, restricting how we could upgrade p2sh or segwit v0 scripts, but that's probably not that interesting. Providing new bare outputs by using a new opcode directly in a scriptPubKey is similarly restricted, but probably even less interesting, since that would require creating a new address format and a bunch of upgrade hassles.
+
+[quote="PierreRochard, post:1, topic:890"]
+Ecosystem complexity, multiple similar options to accomplish the same outcome.
+[/quote]
+
+Script already has a variety of ways of doing the same thing: `EQUALVERIFY` is equivalent to `EQUAL VERIFY` (and similarly for all the other `FOOVERIFY` ops), `HASH256` is equivalent to `SHA256 SHA256`, and `HASH160` is the same as `SHA256 RIPEMD160`, `GREATERTHAN` is the same as `SWAP LESSTHAN`, `LESSTHANOREQUAL` is the same as `GREATERTHAN NOT`, before they were disabled `SUBSTR`, `LEFT` and `RIGHT` had moderately overlapping featuresets too. tapscript continues this trend, with `CHECKSIGADD` being the equivalent of `ROT SWAP CHECKSIG ADD`.
+
+The thing we probably don't want is subtly different ways of doing the same thing, where choosing the wrong one is likely to result in bugs that lose people money. eg, satoshi removed `OP_NOTEQUAL`, [writing](https://github.com/bitcoin/bitcoin/commit/e071a3f6c06f41068ad17134189a4ac3073ef76b#diff-27496895958ca30c47bbb873299a2ad7a7ea1003a9faa96b317250e3b7aa1fefR494-R498):
+
+```c++
+    //case OP_NOTEQUAL: // use OP_NUMNOTEQUAL
+    ...
+    // OP_NOTEQUAL is disabled because it would be too easy to say
+    // something like n != 1 and have some wiseguy pass in 1 with extra
+    // zero bytes after it (numerically, 0x01 == 0x0001 == 0x000001)
+    //if (opcode == OP_NOTEQUAL)
+    //    fEqual = !fEqual;
+```
+
+Personally, I think a bigger issue is figuring out what we can do with the various features in practice, rather than just on a whiteboard. There are lots of essentially equivalent ways of doing things (eg compare CTV with similar approaches based on TXHASH, APO, or CAT/CHECKSIG, or with [CTV-v2](https://github.com/bitcoin/bips/pull/1587)) where the difference is pretty trivial when you're just talking about what you could do with it, but when you're actually trying to put things into production, you might end up with a strong preference to one or the other.
+
+If we deployed all those different features in mainnet, and then discovered everyone ends up just using (eg) TXHASH, that's a lot of wasted code in consensus, review effort, and makes for a confusing setup when people want to just develop on bitcoin ("oh, you should just ignore these parts"). Likewise if we were to implement everything then decide we actually want some other way to do essentially the same thing that's just slightly different.
+
+I think the best way of overcoming those problems is actually going all the way to having fairly realistic wallet/lightning/etc software demoing the new features we want, before trying to add them to mainnet, so that we can see how they work in practice, and perhaps even have an easy way to compare how well/badly real software would work if we had one primitive versus a different one. Would be a way of getting concrete/objective answers to questions like: do the scripts end up being expensive on-chain, do they create new pinning vectors, is it hard to use them without introducing bugs/exploits, is it hard to debug contracts that use these features, etc.
+
+Another big question is "is this feature enough on its own" -- eg CTV can do limited "vault" constructs on its own, but if you add some other features, you can make much more useful constructs; likewise eltoo was originally written up assuming that just a `NOINPUT` signature type would be enough, but when trying to actually make that work in ln-symmetry, it becomes pretty apparent that some way of attaching fees is also needed (`ANYONECANPAY` introduces pinning attacks, so ephemeral anchors was invented, but that then requires more work on package relay, which then really needs cluster mempool to work well), and some way of attaching data at signing time is also desirable (in this case it removes a round trip when forwarding HTLCs, and can be achieved via using the taproot annex or perhaps `CHECKSIGFROMSTACK`; or could perhaps be avoided by clever use of adaptor signatures).
+
+(Doing all the things via inquisition and signet, building demos on top of it, then choosing the features that turn out best and pulling them into mainnet is my best answer for how to turn the above into a practical todo list. YMMV obviously!)
+
+-------------------------
+
