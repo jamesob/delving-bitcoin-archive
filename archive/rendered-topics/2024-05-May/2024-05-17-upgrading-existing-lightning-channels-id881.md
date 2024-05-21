@@ -81,3 +81,9 @@ Assumptions and notes for comparison table:
 
 -------------------------
 
+t-bast | 2024-05-21 08:46:22 UTC | #2
+
+Thanks for summarizing those, that looks good to me! I agree with your conclusion as well, and look forward to start working on an upgrade to v3 transactions :slight_smile:
+
+-------------------------
+
