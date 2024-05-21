@@ -293,3 +293,10 @@ Maybe explain what you mean by "cryptographic attestation". The protocol I descr
 
 -------------------------
 
+EthnTuttle | 2024-05-21 11:16:50 UTC | #21
+
+By "cryptographic attestation", I mean that the pool/mint is signing the individual shares and those signatures can be checked and cannot be modified after that fact.
+Since this signature happens at time of share validation, the hash provider knows that anything modified after the fact is malicious behavior.
+
+-------------------------
+
