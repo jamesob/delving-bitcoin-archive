@@ -283,3 +283,13 @@ This is already covered and uses the [keyset](https://github.com/cashubtc/nuts/b
 
 -------------------------
 
+MattCorallo | 2024-05-20 23:51:47 UTC | #20
+
+[quote="EthnTuttle, post:16, topic:870"]
+You don’t see cryptographic attestation as a benefit to share log transparency? This proposal has a transparent share log, it just adds an additional attestation from the pool side that miners can verify.
+[/quote]
+
+Maybe explain what you mean by "cryptographic attestation". The protocol I describe there allows any user of a pool to fully audit the payouts the pool is making and, if the pool cheats, publish a concise proof of the issue. It is also incredibly simple and doesn't have much overhead. The only disadvantage I see compared to this or some of the other protocols described in that thread is that it has some time lag, but as I described above, pools in practice have quite a bit of time lag before they can do payouts anyway, so I believe this point is moot.
+
+-------------------------
+
