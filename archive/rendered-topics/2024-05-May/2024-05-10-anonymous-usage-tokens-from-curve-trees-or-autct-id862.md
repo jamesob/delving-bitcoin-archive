@@ -120,3 +120,59 @@ The aut-ct thing is geared around the other extreme of "anon set of all taproot 
 
 -------------------------
 
+kayabaNerve | 2024-05-22 03:33:43 UTC | #6
+
+[quote="AdamISZ, post:1, topic:862"]
+all the ring signature based stuff fails on sublinear verification
+[/quote]
+
+Correct. You need a succinct proof (which would then have linear proving) or to move the problem statement to one with sublinear complexity (a merkle tree).
+
+[quote="AdamISZ, post:1, topic:862"]
+But the [Curve Trees ](https://eprint.iacr.org/2022/756.pdf) approach solves this
+[/quote]
+
+Curve Trees is one approach, and great for a trustless setup discussion.
+
+[quote="AdamISZ, post:1, topic:862"]
+keyset sizes from 50K up to 2.5M and seen verification time mostly sitting between 40 and 70ms
+[/quote]
+
+This isn't optimal. My work has been applying Curve Trees to Monero and we're at 35ms for verifying one proof (using two curves without tailored field implementations yet crypto-bigint's Residue type) of 219b. With batch verification (n=10), it quickly gets down to 11ms.
+
+[quote="AdamISZ, post:1, topic:862"]
+The reason for this processing is to allow the xxx-coordinate to curve point transformation to be unambiguous (the well known “yyy-coordinate tiebreaker” issue), but using an algorithm that is actually efficient inside the arithmetic circuit . Since this only has to be done once for each new key, this time cost can be ameliorated in every case but a pure trustless bootstrap to do a proof from scratch. Discussed [here](https://github.com/AdamISZ/aut-ct/issues/10)
+[/quote]
+
+This isn't necessary if you define the linking tags as x coordinates. Then proving for a negative leaf may produce a negative linking tag, except the sign data is lost when you drop the tag's y coordinate.
+
+You could still trivially produce a collision on the layers by hashing negative words. That's solved by using an initialization generator as a term with a constant coefficient of 1. Since that term can't be negated, you'd need to solve the DLP for the initialization generator and other generators.
+
+[quote="AdamISZ, post:1, topic:862"]
+Curve Trees being based on bulletproof ZKPs
+[/quote]
+
+Technically Generalized Bulletproofs (not Bulletproofs as published several years ago).
+
+[quote="AdamISZ, post:1, topic:862"]
+There is another idea, see Microsoft’s SPARTAN as applied [here](https://github.com/personaelabs/spartan-ecdsa) which also does not require pairings nor any assumption beyond ECDL.
+[/quote]
+
+The benefit of using Generalized Bulletproofs is the 'native' operations re: Pedersen Vector Commitments. Using Spartan would require manually building them on the towering curve (historically hundreds of multiplication constraints per word).
+
+[quote="1440000bytes, post:4, topic:862"]
+Is it possible that users can prove ownership
+[/quote]
+
+They'd just need to open the re-randomized output key. The existing DLEq proof does so (while additionally providing linkability).
+
+-------------------------
+
+kayabaNerve | 2024-05-22 03:32:17 UTC | #7
+
+https://github.com/kayabaNerve/fcmp-plus-plus/tree/develop/crypto/fcmps for my own works for reference. If you redid the first layer (our first layer handles the key, a key image generator, and an amount commitment), it'd be applicable here.
+
+Speaking of the key image generator, the above falls victim tor related-key attacks assuming the generator J is constant. This means people who create two outputs under a stealth address protocol (presumably such as Silent Payments) can then detect if those outputs are used in a protocol which requires publishing a linking tag. That's why Monero uses a per-output key image generator (which the linked work handles).
+
+-------------------------
+
