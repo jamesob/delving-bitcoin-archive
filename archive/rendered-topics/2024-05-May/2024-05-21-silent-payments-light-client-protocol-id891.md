@@ -131,3 +131,18 @@ This is probably an artefact from testnet, as there are a lot of blocks were no 
 
 -------------------------
 
+cygnet3 | 2024-05-22 15:28:27 UTC | #6
+
+[quote="setavenger, post:4, topic:891"]
+blindbitd uses all taproot outputs of a block as an input for the scan function.
+[/quote]
+
+I see, I agree that also works.
+
+[quote="setavenger, post:4, topic:891"]
+Tweaks are not labeled with their corresponding txid. So we have to scan over all outputs of a block.
+[/quote]
+In Donation wallet, we keep a mapping between `ScriptPubKey -> tweak` that we calculated during Step 2. Even though that is not a direct mapping from `txid -> tweak`, you can still indirectly look up the `tweak` of a transaction by looking at the outputs. I think this avoids having to scan all outputs of a block for every tweak, without needing to tag the tweaks with their `txid`. However, it does require a grouping of the outputs.
+
+-------------------------
+
