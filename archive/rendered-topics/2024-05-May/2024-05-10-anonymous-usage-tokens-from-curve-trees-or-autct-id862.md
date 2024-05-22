@@ -120,7 +120,7 @@ The aut-ct thing is geared around the other extreme of "anon set of all taproot 
 
 -------------------------
 
-kayabaNerve | 2024-05-22 03:33:43 UTC | #6
+kayabaNerve | 2024-05-22 09:44:21 UTC | #6
 
 [quote="AdamISZ, post:1, topic:862"]
 all the ring signature based stuff fails on sublinear verification
@@ -138,7 +138,7 @@ Curve Trees is one approach, and great for a trustless setup discussion.
 keyset sizes from 50K up to 2.5M and seen verification time mostly sitting between 40 and 70ms
 [/quote]
 
-This isn't optimal. My work has been applying Curve Trees to Monero and we're at 35ms for verifying one proof (using two curves without tailored field implementations yet crypto-bigint's Residue type) of 219b. With batch verification (n=10), it quickly gets down to 11ms.
+You can do quite a bit better. My work has been applying Curve Trees to Monero and we're at 35ms for verifying one proof (using two curves without tailored field implementations yet crypto-bigint's Residue type) of 219b. With batch verification (n=10), it quickly gets down to 11ms.
 
 [quote="AdamISZ, post:1, topic:862"]
 The reason for this processing is to allow the xxx-coordinate to curve point transformation to be unambiguous (the well known “yyy-coordinate tiebreaker” issue), but using an algorithm that is actually efficient inside the arithmetic circuit . Since this only has to be done once for each new key, this time cost can be ameliorated in every case but a pure trustless bootstrap to do a proof from scratch. Discussed [here](https://github.com/AdamISZ/aut-ct/issues/10)
