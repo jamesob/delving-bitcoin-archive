@@ -211,3 +211,43 @@ If so, that is a nice practical win to ditch that preprocessing.
 
 -------------------------
 
+kayabaNerve | 2024-05-22 17:51:39 UTC | #9
+
+[quote="AdamISZ, post:8, topic:862"]
+Indeed, your numbers match up more closely with the benchmarking results quoted in the paper.
+[/quote]
+
+It should do significantly better with proper arithmetic. It's a fraction of the size.
+
+[quote="AdamISZ, post:8, topic:862"]
+And for batch verify, yes, I did note that in the OP,
+[/quote]
+
+Just wanted to provide the actual number :) 
+
+[quote="AdamISZ, post:8, topic:862"]
+Are your proving times also similar to what’s claimed in the paper?
+[/quote]
+
+I haven't looked. They haven't been an issue and it isn't a priority of mine.
+
+[quote="AdamISZ, post:8, topic:862"]
+proof size is 219 bytes
+[/quote]
+
+Oh, no, 219 billion for the set size.
+
+[quote="AdamISZ, post:8, topic:862"]
+SPARTAN doesn’t use a cycle of curves does it?
+[/quote]
+
+Neither does Bulletproofs. The premise of Curve Trees is two proofs, one on each curve, each towering a child curve, as you've noted. Curve Trees with Spartan would require doing the Pedersen hash on the towering curve and lose a lot of the performance (though it'd still beat out Poseidon by a significant margin if I recall my estimates correctly). To be clear, secp256k1 towers secq256k1, secq256k1 towers secp256k1. They accordingly form a cycle, yet if secq256k1 didn't tower secp256k1, secp256k1 would still tower secq256k1.
+
+[quote="AdamISZ, post:8, topic:862"]
+as long as the linking tag is defined as x-coord only
+[/quote]
+
+Correct re: leafs. Re: branches, see initialization generator commentary.
+
+-------------------------
+

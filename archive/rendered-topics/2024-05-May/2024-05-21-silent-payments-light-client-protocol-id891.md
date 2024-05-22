@@ -146,3 +146,65 @@ In Donation wallet, we keep a mapping between `ScriptPubKey -> tweak` that we ca
 
 -------------------------
 
+setavenger | 2024-05-22 17:24:46 UTC | #7
+
+[quote="cygnet3, post:6, topic:891"]
+In Donation wallet, we keep a mapping between `ScriptPubKey -> tweak` that we calculated during Step 2. Even though that is not a direct mapping from `txid -> tweak`, you can still indirectly look up the `tweak` of a transaction by looking at the outputs. I think this avoids having to scan all outputs of a block for every tweak, without needing to tag the tweaks with their `txid`. However, it does require a grouping of the outputs.
+[/quote]
+
+The UTXOs already contain the txids so grouping is already possible on the client side if necessary. The question is whether this should happen on the indexing or client side. I would not agree that grouping avoids scanning all the outputs. It only avoids doing it a second -> nth time if you've found an output on `k=0`. 
+
+But if we were to offload grouping to the indexer, how would it look? How is the grouping done for donation wallet, is there any additional overhead for doing so? Especially on a per request basis. Which structure do you currently use? Something like this:
+```json
+{
+    "txid1.." : [
+        {
+            "txid": "txid1...",
+            "vout": 1,
+            "value": 1000000,
+            "scriptpubkey": "...",
+            "block_height": 0,
+            "block_hash": "...",
+            "timestamp": 1715205985,
+            "spent": false
+         },
+         {
+            "txid": "txid1...",
+            "vout": 2,
+            "value": 1000000,
+            "scriptpubkey": "...",
+            "block_height": 0,
+            "block_hash": "...",
+            "timestamp": 1715205985,
+            "spent": false
+        },
+        ...
+    ],
+    "txid2": [
+        {
+            "txid": "txid2...",
+            "vout": 2,
+            "value": 1000000,
+            "scriptpubkey": "...",
+            "block_height": 0,
+            "block_hash": "...",
+            "timestamp": 1715205985,
+            "spent": false
+          },
+    ]
+}
+```
+
+-------------------------
+
+cygnet3 | 2024-05-22 19:17:29 UTC | #8
+
+[quote="setavenger, post:7, topic:891"]
+Which structure do you currently use? Something like this:
+[/quote]
+When testing out Blindbit oracle as a backend, we just [convert the utxo array into a map](https://github.com/cygnet3/donationwallet/blob/f07f4e13013c168049e9d595d9bdffd24991f777/rust/src/blindbit/logic.rs#L144) and then loop over the values. That has the same structure as the json you posted. It could be simplified by removing `txid` from the output struct.
+
+If not using blindbit, we use a BIP158 client and request the full block, so that has the complete transaction structure.
+
+-------------------------
+
