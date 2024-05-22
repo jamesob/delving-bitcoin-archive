@@ -8,13 +8,13 @@
   "post_number": 6,
   "post_type": 1,
   "updated_at": "2024-05-22T09:44:21.287Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 26.6,
   "yours": false,
   "topic_id": 862,
   "topic_slug": "anonymous-usage-tokens-from-curve-trees-or-autct",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"AdamISZ, post:1, topic:862\"]\nall the ring signature based stuff fails on sublinear verification\n[/quote]\n\nCorrect. You need a succinct proof (which would then have linear proving) or to move the problem statement to one with sublinear complexity (a merkle tree).\n\n[quote=\"AdamISZ, post:1, topic:862\"]\nBut the [Curve Trees ](https://eprint.iacr.org/2022/756.pdf) approach solves this\n[/quote]\n\nCurve Trees is one approach, and great for a trustless setup discussion.\n\n[quote=\"AdamISZ, post:1, topic:862\"]\nkeyset sizes from 50K up to 2.5M and seen verification time mostly sitting between 40 and 70ms\n[/quote]\n\nYou can do quite a bit better. My work has been applying Curve Trees to Monero and we're at 35ms for verifying one proof (using two curves without tailored field implementations yet crypto-bigint's Residue type) of 219b. With batch verification (n=10), it quickly gets down to 11ms.\n\n[quote=\"AdamISZ, post:1, topic:862\"]\nThe reason for this processing is to allow the xxx-coordinate to curve point transformation to be unambiguous (the well known \u201cyyy-coordinate tiebreaker\u201d issue), but using an algorithm that is actually efficient inside the arithmetic circuit . Since this only has to be done once for each new key, this time cost can be ameliorated in every case but a pure trustless bootstrap to do a proof from scratch. Discussed [here](https://github.com/AdamISZ/aut-ct/issues/10)\n[/quote]\n\nThis isn't necessary if you define the linking tags as x coordinates. Then proving for a negative leaf may produce a negative linking tag, except the sign data is lost when you drop the tag's y coordinate.\n\nYou could still trivially produce a collision on the layers by hashing negative words. That's solved by using an initialization generator as a term with a constant coefficient of 1. Since that term can't be negated, you'd need to solve the DLP for the initialization generator and other generators.\n\n[quote=\"AdamISZ, post:1, topic:862\"]\nCurve Trees being based on bulletproof ZKPs\n[/quote]\n\nTechnically Generalized Bulletproofs (not Bulletproofs as published several years ago).\n\n[quote=\"AdamISZ, post:1, topic:862\"]\nThere is another idea, see Microsoft\u2019s SPARTAN as applied [here](https://github.com/personaelabs/spartan-ecdsa) which also does not require pairings nor any assumption beyond ECDL.\n[/quote]\n\nThe benefit of using Generalized Bulletproofs is the 'native' operations re: Pedersen Vector Commitments. Using Spartan would require manually building them on the towering curve (historically hundreds of multiplication constraints per word).\n\n[quote=\"1440000bytes, post:4, topic:862\"]\nIs it possible that users can prove ownership\n[/quote]\n\nThey'd just need to open the re-randomized output key. The existing DLEq proof does so (while additionally providing linkability).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

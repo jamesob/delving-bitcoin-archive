@@ -176,3 +176,38 @@ Speaking of the key image generator, the above falls victim tor related-key atta
 
 -------------------------
 
+AdamISZ | 2024-05-22 12:09:33 UTC | #8
+
+@kayabaNerve thanks for the feedback! I was only made aware of your work around the same time I wrote this post, but of course it's extremely useful to know that others are working on this same type of thing.
+
+[quote="kayabaNerve, post:6, topic:862"]
+You can do quite a bit better. My work has been applying Curve Trees to Monero and we’re at 35ms for verifying one proof (using two curves without tailored field implementations yet crypto-bigint’s Residue type) of 219b. With batch verification (n=10), it quickly gets down to 11ms.
+[/quote]
+
+Indeed, your numbers match up more closely with the benchmarking results quoted in the paper. I was trying to give indicative numbers that I actually achieved with my (crappy) code; the difference isn't too big anyway. And for batch verify, yes, I did note that in the OP, but thanks, it's useful to see what people have actually achieved.
+
+Are your proving times also similar to what's claimed in the paper?
+
+[quote]
+one proof (using two curves without tailored field implementations yet crypto-bigint’s Residue type) of 219b. 
+[/quote]
+
+But on this part specifically, it's very interesting and very distinct from the CurveTrees paper - are you saying your proof size is 219 bytes? I believe
+you're using Liam Eagan's work, and I also know you're working with different base structures because you don't have a 2-cycle with monero's curve (hence "towering" etc.), but in brief, would you say that a proof that much smaller than what is quoted in the orig. paper (like 2-3kB) is feasible here? That would be super useful in some use cases I think.
+
+[quote]
+The benefit of using Generalized Bulletproofs is the ‘native’ operations re: Pedersen Vector Commitments. Using Spartan would require manually building them on the towering curve (historically hundreds of multiplication constraints per word).
+[/quote]
+
+Probably I just misunderstood something, but I don't get what you're saying here; SPARTAN doesn't use a cycle of curves does it? Why are you referring to towering curve here? (my ignorance is duplicate here: I neither understand more about "towering curves" as you refer to in fcmp++ than "it's something you need because ed25519 doesn't have a 2-cycle", nor do I understand much at all about SPARTAN except that it uses sum-check protocols).
+
+[quote="kayabaNerve, post:6, topic:862"]
+This isn’t necessary if you define the linking tags as x coordinates. Then proving for a negative leaf may produce a negative linking tag, except the sign data is lost when you drop the tag’s y coordinate.
+[/quote]
+
+Oh, this is a tricky point but I think I *might* understand .. so, the algorithm for the ZKP needs each curve point to be represented as x-only for efficiency, but the process to go from point to x-coord needs a tiebreaker mechanism that can be calculated efficiently *in* the arithmetic circuit, and their "permissible points from a universal hash" does this. But is your point here that, for the *leaves* of the tree specifically, you could just not do that, as long as the linking tag is defined as x-coord only (i.e. ignoring sign)? I believe the algos. in their benchmarking code always required permissible points as inputs but that may just be a trivial detail that can be changed (hmm indeed come to think of it, I see no reason why the leaf points need this; it's only needed for the transition from one curve to the next...).
+
+If so, that is a nice practical win to ditch that preprocessing.
+
+-------------------------
+
