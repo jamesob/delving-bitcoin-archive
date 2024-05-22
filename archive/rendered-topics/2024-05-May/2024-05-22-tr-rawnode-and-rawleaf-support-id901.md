@@ -85,3 +85,9 @@ I have created a PoC here [wip-tr-raw-nodes](https://github.com/Eunovo/bitcoin/t
 
 -------------------------
 
+josibake | 2024-05-22 15:28:00 UTC | #2
+
+cc @ajtowns @sipa @AntoineP , since this work is based off your prior discussions.
+
+-------------------------
+
