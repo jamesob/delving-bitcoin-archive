@@ -211,7 +211,7 @@ If so, that is a nice practical win to ditch that preprocessing.
 
 -------------------------
 
-kayabaNerve | 2024-05-22 17:51:39 UTC | #9
+kayabaNerve | 2024-05-22 22:33:57 UTC | #9
 
 [quote="AdamISZ, post:8, topic:862"]
 Indeed, your numbers match up more closely with the benchmarking results quoted in the paper.
@@ -223,7 +223,7 @@ It should do significantly better with proper arithmetic. It's a fraction of the
 And for batch verify, yes, I did note that in the OP,
 [/quote]
 
-Just wanted to provide the actual number :) 
+Just wanted to provide a literal number :) 
 
 [quote="AdamISZ, post:8, topic:862"]
 Are your proving times also similar to what’s claimed in the paper?
@@ -235,7 +235,7 @@ I haven't looked. They haven't been an issue and it isn't a priority of mine.
 proof size is 219 bytes
 [/quote]
 
-Oh, no, 219 billion for the set size.
+Oh, no, 219 billion for the set size. The proof size is as expected.
 
 [quote="AdamISZ, post:8, topic:862"]
 SPARTAN doesn’t use a cycle of curves does it?

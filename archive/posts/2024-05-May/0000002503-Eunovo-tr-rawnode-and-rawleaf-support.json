@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 4,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 67.8,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 83.0,
   "yours": false,
   "topic_id": 901,
   "topic_slug": "tr-rawnode-and-rawleaf-support",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -58,10 +58,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
