@@ -88,7 +88,7 @@ More of a general comment: is there every a reason a client would want the tweak
 
 -------------------------
 
-setavenger | 2024-05-23 10:03:48 UTC | #4
+setavenger | 2024-05-23 10:05:13 UTC | #4
 
 [quote="cygnet3, post:2, topic:891"]
 Since Step 2 only calculates the `ScriptPubKey` for `k=0`, we still need to discover the `ScriptPubkey`s where `k>0` in Step 6. The only way to do that is to group all the outputs of a transaction first, and then scan them at once.
