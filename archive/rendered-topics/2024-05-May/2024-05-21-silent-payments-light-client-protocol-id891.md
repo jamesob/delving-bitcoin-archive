@@ -1,6 +1,6 @@
 # Silent Payments: Light Client Protocol
 
-setavenger | 2024-05-21 09:15:50 UTC | #1
+setavenger | 2024-05-23 10:03:48 UTC | #1
 
 During the development of a couple light clients I jotted down some notes and created a very early draft for a [Light Client Specification](https://github.com/setavenger/BIP0352-light-client-specification). The appendix of the SP BIP was used as a basis for this. The specification was designed with two goals in mind. (1) Reduce the computational burden for light clients, and (2) Minimise the bandwidth requirements. Both goals have to be achieved without compromising privacy for the user. The protocol is designed such that a light client can connect to any public indexing server without giving out more information than "I'm interested in this block".
 
@@ -88,7 +88,7 @@ More of a general comment: is there every a reason a client would want the tweak
 
 -------------------------
 
-setavenger | 2024-05-22 12:27:25 UTC | #4
+setavenger | 2024-05-23 10:03:48 UTC | #4
 
 [quote="cygnet3, post:2, topic:891"]
 Since Step 2 only calculates the `ScriptPubKey` for `k=0`, we still need to discover the `ScriptPubkey`s where `k>0` in Step 6. The only way to do that is to group all the outputs of a transaction first, and then scan them at once.
