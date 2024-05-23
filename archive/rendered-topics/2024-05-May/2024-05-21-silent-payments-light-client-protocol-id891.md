@@ -1,6 +1,6 @@
 # Silent Payments: Light Client Protocol
 
-setavenger | 2024-05-23 10:03:48 UTC | #1
+setavenger | 2024-05-23 10:04:49 UTC | #1
 
 During the development of a couple light clients I jotted down some notes and created a very early draft for a [Light Client Specification](https://github.com/setavenger/BIP0352-light-client-specification). The appendix of the SP BIP was used as a basis for this. The specification was designed with two goals in mind. (1) Reduce the computational burden for light clients, and (2) Minimise the bandwidth requirements. Both goals have to be achieved without compromising privacy for the user. The protocol is designed such that a light client can connect to any public indexing server without giving out more information than "I'm interested in this block".
 
@@ -205,6 +205,31 @@ Which structure do you currently use? Something like this:
 When testing out Blindbit oracle as a backend, we just [convert the utxo array into a map](https://github.com/cygnet3/donationwallet/blob/f07f4e13013c168049e9d595d9bdffd24991f777/rust/src/blindbit/logic.rs#L144) and then loop over the values. That has the same structure as the json you posted. It could be simplified by removing `txid` from the output struct.
 
 If not using blindbit, we use a BIP158 client and request the full block, so that has the complete transaction structure.
+
+-------------------------
+
+setavenger | 2024-05-23 10:04:41 UTC | #9
+
+[quote="cygnet3, post:8, topic:891"]
+When testing out Blindbit oracle as a backend, we just convert the utxo array into a map and then loop over the values. That has the same structure as the json you posted. It could be simplified by removing `txid` from the output struct.
+[/quote]
+
+Is there any noticeable overhead created by converting on the client side? I think we should benchmark these approaches to see how they compare. Then we can better say whether grouping should be a hard requirement on the indexing side.
+
+[quote="cygnet3, post:8, topic:891"]
+If not using blindbit, we use a BIP158 client and request the full block, so that has the complete transaction structure.
+[/quote]
+
+How does that approach work in general? Something like this?
+1. Fetch tweaks + Filters
+2. Create ScriptPubKeys (with mapping)
+3. Find match
+4. Download entire block
+5. Scan transactions and find outputs
+
+Where step 5 is optimised due to mapping and grouping. Did I get this right?
+
+You mentioned that you've tried BlindBit Oracle as well, are there any noticeable differences in required bandwidth? With BlindBit the goal was to avoid downloading entire blocks to reduce bandwidth, but I never made an actual comparison.
 
 -------------------------
 
