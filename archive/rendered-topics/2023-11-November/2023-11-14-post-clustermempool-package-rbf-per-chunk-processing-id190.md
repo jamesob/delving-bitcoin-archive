@@ -286,13 +286,9 @@ Also, this problem exists with how I envisioned single-transaction RBF to work a
 
 -------------------------
 
-instagibbs | 2024-05-23 14:57:34 UTC | #15
+instagibbs | 2024-05-23 15:02:20 UTC | #15
 
-[quote="sdaftuar, post:14, topic:190"]
-by requiring the chunk feerate of the new transaction to be better than its conflicts
-[/quote]
-
-I am supposing you mean *direct* conflicts?
+(post deleted by author)
 
 -------------------------
 
