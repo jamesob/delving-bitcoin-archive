@@ -95,3 +95,9 @@ Upgrading channels to a new type e.g with support for a more network-level restr
 
 -------------------------
 
+t-bast | 2024-05-23 08:45:23 UTC | #4
+
+Why is that an elephant in the room? It's just an implementation detail and is not at all hard to handle? The upgrade to v3 will simply have additional constraints around the `max_accepted_htlcs` parameter.
+
+-------------------------
+

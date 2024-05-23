@@ -300,3 +300,13 @@ Since this signature happens at time of share validation, the hash provider know
 
 -------------------------
 
+calle | 2024-05-23 07:29:56 UTC | #22
+
+[quote="MattCorallo, post:14, topic:870"]
+the difficult part of this is not the “pay out quickly” part, its the “if the pool is not paying out sufficiently, migrate” part
+[/quote]
+
+IIUC, the point of this proposal is to introduce privacy for payouts. That's it. So far, I see mostly discussions about unrelated or at best mildly related issues here.
+
+-------------------------
+
