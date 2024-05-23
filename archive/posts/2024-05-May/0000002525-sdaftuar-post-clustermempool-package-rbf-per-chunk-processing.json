@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "There's a potential pinning issue introduced by using feerate diagram comparisons alone as our RBF tool, which I wanted to describe so we don't forget this when we get to doing general package RBF.\n\nImagine a transaction $V$ with high feerate that's already in the mempool.  An adversary is looking to replace $V$ with some low-feerate, high fee transaction that will be expensive to replace (due to the total fee test).\n\nUsing the package RBF scheme described here, one possible way for the attacker to do this would be to prepare some big cluster that has  more transactions in it than we can optimally linearize.  Within it, imagine that we have some part of the transaction graph that (say) looks like this:\n\n```mermaid height=233,auto\n   graph TD\n   A[some big cluster of transactions]--> P[\"P (low fee)\"]\n   P-->B[\"B (high fee)\"]\n   P-->C[\"C (high fee)\"]\n```\n\nThis might go undiscovered as a good single chunk in our linearization, because our heuristics might have a hard time picking this up (eg it's overlooked in ancestor feerate sorting).  However, a single transaction that spends $B$ and $C$, even at a very low feerate, will cause the set to be considered and possibly improve the overall linearization quite a lot.  So imagine an attacker constructs two transactions, $D$ and $E$, where $D$ spends $B$ and $C$, while $E$ conflicts with $V$:\n\n```mermaid height=408,auto\n   graph TD\n   V[\"V (high feerate)\"]\n   A[some big cluster of transactions]--> P[\"P (low fee)\"]\n   P-->B[\"B (high fee)\"]\n   P-->C[\"C (high fee)\"]\n   B-->D[\"D (low fee)\"]\n   C-->D\n   D-->E[\"E (slightly higher feerate than D, but very big and conflicts with V)\"]\n```\n\nWe could imagine that merely *looking at* $D$ being added to the cluster causes the cluster's feerate diagram to improve (because we discover the chunk $[P, B, C]$), so that the RBF that considers adding $D$+$E$ vs $V$ succeeds -- even though the good transactions which lead to the improvement *were already in the mempool that contains $V$ as well*.\n\nAnd then once $E$ is in the mempool, it's expensive for $V$ to replace it... Pinning complete. :frowning: \n\nReally, the attacker is able to exploit two things in this scenario:\n1) Being able to run the linearization algorithm one extra time compared with the existing mempool.  If we do a bounded search, say, getting more search time can randomly cause a better linearization to be found, which benefits the new transaction when compared with the old.\n2) Being able to exploit limitations of our linearization algorithm. An attacker can intentionally construct a cluster that will linearize poorly using our various heuristics, but when a new leaf transaction is added suddenly sorts better.\n\nAlso, this problem exists with how I envisioned single-transaction RBF to work as well (imagine $D$ and $E$ were a single transaction, rather than two, which conflicts with $V$).  We're exploring whether it might be possible to fix the single-RBF case by requiring the chunk feerate of the new transaction to be better than its conflicts, but I am not sure any such heuristic would work in the package RBF case without being too draconian.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,12 +56,17 @@
   "wiki": false,
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "sob",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
