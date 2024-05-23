@@ -87,3 +87,11 @@ Thanks for summarizing those, that looks good to me! I agree with your conclusio
 
 -------------------------
 
+williamsthe59th | 2024-05-23 04:49:35 UTC | #3
+
+I think there is still an elephant in the room.
+
+Upgrading channels to a new type e.g with support for a more network-level restrictive policy like v3 could provoke non-propagating transactions if deployed channels parameters (e.g each per-channel's max_accepted_htlcs) are too wide.
+
+-------------------------
+
