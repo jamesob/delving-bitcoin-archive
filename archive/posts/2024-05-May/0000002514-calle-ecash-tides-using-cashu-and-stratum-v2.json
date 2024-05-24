@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"MattCorallo, post:14, topic:870\"]\nthe difficult part of this is not the \u201cpay out quickly\u201d part, its the \u201cif the pool is not paying out sufficiently, migrate\u201d part\n[/quote]\n\nIIUC, the point of this proposal is to introduce privacy for payouts. That's it. So far, I see mostly discussions about unrelated or at best mildly related issues here.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
