@@ -133,3 +133,13 @@ Assuming we upgrade our funding output _somehow_ (via splicing or dyn commits), 
 
 -------------------------
 
+ProofOfKeags | 2024-05-24 20:33:44 UTC | #7
+
+I guess the question I have is whether or not people want to see DynComms broken up into two proposals: the part with the funding output conversion, and the part without. I think we are amenable to breaking up the text into separate documents or per your suggestion maybe just different PRs into the same document if they are sharing a negotiation process.
+
+If breaking it up means we can get better prioritization from Eclair/CLN/LDK for the ability to change the state-space constraints and the commitment rendering function, we are happy to do so. Being able to reuse DynComms for TRUC commitments seems like a very natural evolution to me.
+
+CC @t-bast @rustyrussell @MattCorallo
+
+-------------------------
+
