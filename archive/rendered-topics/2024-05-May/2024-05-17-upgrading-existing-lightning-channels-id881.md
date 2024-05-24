@@ -115,3 +115,21 @@ Finally, the question of whether we need STCs to get to PTLCs is definitely a di
 
 -------------------------
 
+carla | 2024-05-24 15:10:07 UTC | #6
+
+>  implementation complexity of anything that doesn’t involve funding output conversion is very manageable
+
+:+1: 
+
+> First, the Dynamic Commitments proposal, as specified today, permits channel upgrades without a funding output spend if the channel types share the same funding output script. If you believe it doesn’t read that way, I encourage you to leave commentary on the proposal about what part of that is confusing so I can clarify it.
+
+Not at all, the spec is nice and clear! Just in the specific case of STC/that comparison table, it doesn't upgrade without funding output changes.
+
+> Finally, the question of whether we need STCs to get to PTLCs is definitely a discussion we should have but it comes down to the appetite for maintaining another hybrid channel type
+
+Def. Given that most implementations have splicing almost done (:tm:) and PTLCs are a ways out, I would imagine that they'd pursue splice-to-upgrade (with a fee-cognizant heuristic or manual upgrade to decide when to go to chain) after taproot gossip is out. Likewise interested to hear how everyone is going to approach this. 
+
+Assuming we upgrade our funding output _somehow_ (via splicing or dyn commits), we can then just upgrade to PTLCs/V3 using dyn commitments to change our commitment format.
+
+-------------------------
+
