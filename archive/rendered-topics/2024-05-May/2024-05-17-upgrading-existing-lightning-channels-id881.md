@@ -101,3 +101,17 @@ Why is that an elephant in the room? It's just an implementation detail and is n
 
 -------------------------
 
+ProofOfKeags | 2024-05-24 01:41:22 UTC | #5
+
+Excellent analysis. I think that the uncontroversial common ground between the differing perspectives here is that the implementation complexity of anything that doesn't involve funding output conversion is very manageable. This is already reasonably well-specified in the Dynamic Commitments proposal, although I suspect there is room for improvement on the Commitment Transaction Re-Render process and as I finish the implementation for LND I'll likely add some details to that section.
+
+A couple of things I'd like to note.
+
+First, the Dynamic Commitments proposal, as specified today, permits channel upgrades without a funding output spend if the channel types share the same funding output script. If you believe it doesn't read that way, I encourage you to leave commentary on the proposal about what part of that is confusing so I can clarify it.
+
+Second, there are reasons to upgrade to STCs from existing channel types, but lifetime fee cost savings, and privacy are probably not the reasons to do so, as you said. The main reason to do it would be if you wanted to preserve channel identity while also adding Taproot Assets to the channel state. This is admittedly a use case that is niche at the moment and I do not expect there to be a large appetite for this specific use case right now.
+
+Finally, the question of whether we need STCs to get to PTLCs is definitely a discussion we should have but it comes down to the appetite for maintaining another hybrid channel type whose inputs are p2wsh and whose htlc outputs are p2tr *in addition to* the channel type where both inputs and outputs are p2tr. Given that a full implementation of PTLCs requires implementing the lion's share of STCs anyway do we really want to have Anchors, Anchors+PTLCs, STCs, *AND* STCs+PTLCs? I imagine the answer here is no, but I could be wrong and other implementations should weigh in here.
+
+-------------------------
+
