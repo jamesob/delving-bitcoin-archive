@@ -322,3 +322,18 @@ I think I understand how this would work now for an ehash to be paid multiple ti
 
 -------------------------
 
+EthnTuttle | 2024-05-24 13:07:52 UTC | #24
+
+> ehash is sent to another person before redemption would the pool/mint need to update the share log to keep track of the swap?
+
+No. But the receiver of the ehash would want to redeem what is received ASAP to avoid a sender double spend. This is true of ecash as well. When you send ecash to an other user, you're sharing the root secret used in the blinded signature and so the receiver is incentivized to redeem that sooner than later, although the transfer may be done offline.
+
+> when an ehash is redeemed the share is looked up in the share log, if the share is still in the share window then a new ehash is provided. If the ehash falls out of the share window, then it can no longer be redeemed. 
+
+Correct. There is something to be considered with the share window that the TIDES doc calls out:
+> If the network difficulty goes up, the size of the window increases. Older shares end up being in the window again, despite having “slid out” before the difficulty change.
+
+So there is a perpetually rolling list of ehash that the pool should be tracking.
+
+-------------------------
+
