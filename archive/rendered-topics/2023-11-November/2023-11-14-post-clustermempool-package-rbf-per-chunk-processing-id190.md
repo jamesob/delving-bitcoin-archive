@@ -304,3 +304,21 @@ I think there's a few ways to address this case:
 
 -------------------------
 
+instagibbs | 2024-05-24 18:13:42 UTC | #17
+
+[quote="ajtowns, post:16, topic:190"]
+(2) a “new” issue where you **would** replace high-feerate V with low-feerate E, despite that being something RBF rules are designed to prevent.
+[/quote]
+
+Trying to spell out a bit why we want to prevent this kind of replacement:
+1) It breaks user expectations where what appears to be a non-incentive compatible RBF occurs resulting in a ANYONECANPAY-style RBF legacy mempool issue.
+2) Even if we handwave away anti-DoS rules, it would require the defender to rebroadcast `V`, resulting in it being evicted then immediately re-admitted. We should have just kept `V` to begin with.
+
+Another few ideas in ascending non-credibleness:
+- TRUC, but where the topology is simply restricted to some size/shape where we can always do optimal linearization
+- "top block"(v4): `E` was in a top-block chunk anyways
+- When an RBF is being executed by a chunk connecting to a cluster, if the cluster is not optimally linearized, *add maybe onerous RBF constraint here*.
+- Somehow allow old diagram to "learn" about chunk $[P,B,C]$ when new diagram does, letting existing mempool take advantage of the additional work being done
+
+-------------------------
+
