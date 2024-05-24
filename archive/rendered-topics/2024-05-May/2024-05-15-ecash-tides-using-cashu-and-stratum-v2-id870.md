@@ -310,3 +310,15 @@ IIUC, the point of this proposal is to introduce privacy for payouts. That's it.
 
 -------------------------
 
+davidcaseria | 2024-05-23 21:57:57 UTC | #23
+
+[quote="EthnTuttle, post:19, topic:870"]
+By whom? A mint knows which share to which ehash after redemption since the mint has. But the redeemer need not be the originator, as with other ehash.
+[/quote]
+
+Ok so if an ehash is sent to another person before redemption would the pool/mint need to update the share log to keep track of the swap?
+
+I think I understand how this would work now for an ehash to be paid multiple times: when an ehash is redeemed the share is looked up in the share log, if the share is still in the share window then a new ehash is provided. If the ehash falls out of the share window, then it can no longer be redeemed. Is my understanding correct?
+
+-------------------------
+

@@ -292,3 +292,21 @@ instagibbs | 2024-05-23 15:02:20 UTC | #15
 
 -------------------------
 
+ajtowns | 2024-05-23 22:40:30 UTC | #16
+
+[quote="sdaftuar, post:14, topic:190"]
+There’s a potential pinning issue introduced by using feerate diagram comparisons alone as our RBF tool, which I wanted to describe so we don’t forget this when we get to doing general package RBF.
+[/quote]
+
+I think this is really two things: (1) it's a pre-existing pinning issue, where you wouldn't replace low-feerate E with high-feerate V, and (2) a "new" issue where you **would**  replace high-feerate V with low-feerate E, despite that being something RBF rules are designed to prevent. I don't think we should be concerned about the pinning part of this (ie, (1)) -- if D and E made it into the mempool first in this case, it's a deliberate decision to reject V.
+
+I'm a bit inclined to suspect that while we accept pinning at all, we'll always end up with edge cases where some complicated behaviour can cause us to evict a high-feerate tx, then accept a low-feerate conflict, and end up pinned.
+
+I think there's a few ways to address this case:
+ * smarter RBF behaviour, where we go to more effort to realise that some better linearisation of `V+blah+D` isn't strictly worse than `blah+D+E`
+ * smarter linearisation by miners, where block template creators devote more effort to linearisation in general, so they're likely to discover the better linearisation of blah before they even see D
+ * distributed linearisation -- better linearisations get propagated over p2p, so that one node randomly trying to improve complicated clusters improves everyones linearisation, and that happens fast enough that propagating D+E is too late
+ * small TRUCs so that E's fee is constrained (size is small, so low feerate times small size gives a relatively low overall fee), and V doesn't have to be bumped by very much in order to have higher feerate and higher fee
+
+-------------------------
+
