@@ -286,12 +286,6 @@ Also, this problem exists with how I envisioned single-transaction RBF to work a
 
 -------------------------
 
-instagibbs | 2024-05-23 15:02:20 UTC | #15
-
-(post deleted by author)
-
--------------------------
-
 ajtowns | 2024-05-23 22:40:30 UTC | #16
 
 [quote="sdaftuar, post:14, topic:190"]
