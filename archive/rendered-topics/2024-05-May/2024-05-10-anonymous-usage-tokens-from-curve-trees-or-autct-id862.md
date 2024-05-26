@@ -251,3 +251,31 @@ Correct re: leafs. Re: branches, see initialization generator commentary.
 
 -------------------------
 
+AdamISZ | 2024-05-26 16:10:44 UTC | #10
+
+Sorry for long delay been on the road, but then also took a while to grok all this :slight_smile: 
+
+> Speaking of the key image generator, the above falls victim tor related-key attacks assuming the generator J is constant. This means people who create two outputs under a stealth address protocol (presumably such as Silent Payments) can then detect if those outputs are used in a protocol which requires publishing a linking tag. That’s why Monero uses a per-output key image generator (which the linked work handles).
+
+Oh, that is interesting indeed. I didn't consider possible collaborative creation of keys in my protocol definition, and it doesn't surprise me that it could leak something, but let me write out what I think you mean, let me know if there's something else. Here I'm going to crib from Silent Payments BIP though I know this is used elsewhere!
+
+$O_1 = b_e G + H(m_1, b_a A)G$ 
+
+$O_2 = b_e G + H(m_2, b_a A)G$
+
+where of course $b_a A = a B_a$ and I mean "scanning key" for $b_a$ and $A$ for Alice (spender) input key (or equivalent) and I mean "whatever else you agree to dump in there" for $m_1, m_2 \ldots$ . So the difference between linking tags in the first and the second case is: $\left(H(m_1, a B_a) - H(m_2, a B_a)\right) J$ which of course the *sender* can find just as easily as the receiver, though not others.
+
+(btw after writing this I realised it was explained in the original Cryptonote paper, doh!)
+
+Per-output key image generator: I didn't originally get it, but after reading your paper, in particular Section 3.2, I believe I understand roughly how it works. Let me write it out and tell me if I get something wrong:
+
+So to start with, in your situation (Monero), you can start with $(O, I, C)$ where $O$ is output key, $I$ is 'per output key image generator' and $C$ is amount commitment, except $I$ can be implicit since you use $I = \textrm{HashToPoint}(O)$, i.e. that'd be public from the blockchain.
+
+The membership proof part takes these tuples $(O,I,C)$ as the leaves (rather than just a single key), so that:
+
+... for the spend authorization proof (I do like this "membership vs spend auth proof" separation concept a lot), you can work with blinded versions of a particular tuple (so $\tilde{O},\tilde{I},\tilde{C}$), and, just focusing on the key image, you can prove using a simple Sigma protocol approach that "I give you $L, \tilde{I}$ and prove that $L=xI$ and $\tilde{I}$ is a reblinding of $I$".
+
+So I guess you'd say, just remove the amount commitment part; one could use $(P, I)$ tuples instead? (to be clear, *this* is specifically to remove related-key attacks on anonymity that apply in a collaborative key construction scenario ... but there's a lot more to your work and how it differs from bare bones Curve Trees, than that!).
+
+-------------------------
+
