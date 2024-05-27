@@ -58,3 +58,29 @@ ajtowns | 2024-05-17 10:59:05 UTC | #7
 
 -------------------------
 
+harding | 2024-05-27 17:01:33 UTC | #8
+
+Is the goal for all `wg-` tags to indicate that a topic only accepts replies from allowlisted group members?
+
+I just spent a bunch of time trying to understand a proposal tagged with a `wg-` and am frustrated that I can't reply unless I beg someone for permission.  I want to avoid wasting my time in the future, so I want to know if I should just read `wg-` tagged stuff as "Ignore this for now".
+
+To be clear, I appreciate the idea of small group discussions being publicly archived for posterity.  Thank you to @ajtowns for setting that up and to everyone who is using that feature.   I just don't want to read stuff until I can do something with it.
+
+-------------------------
+
+ajtowns | 2024-05-27 19:28:18 UTC | #9
+
+[quote="harding, post:8, topic:162"]
+Is the goal for all `wg-` tags to indicate that a topic only accepts replies from allowlisted group members?
+[/quote]
+
+It varies per group.
+
+[quote="harding, post:8, topic:162"]
+I just spent a bunch of time trying to understand a proposal tagged with a `wg-` and am frustrated that I can’t reply unless I beg someone for permission.
+[/quote]
+
+The only group that currently has public read but not public comment/post is the silent payments working group, but as mentioned in its ["about" post](https://delvingbitcoin.org/t/about-the-wg-silent-payments-category/876), all you have to do is go to the [wg page](https://delvingbitcoin.org/g/wg-silent-payments) and click join, no begging for permission needed.
+
+-------------------------
+
