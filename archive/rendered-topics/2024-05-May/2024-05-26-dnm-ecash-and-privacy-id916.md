@@ -40,3 +40,13 @@ Coinjoin can be used before minting eCash by users and during redeem process by 
 
 -------------------------
 
+ajtowns | 2024-05-27 03:16:05 UTC | #2
+
+[quote="1440000bytes, post:1, topic:916"]
+I think there are some risks involved in running such mints and the **only use case for eCash** that makes sense is [Dark Net Markets].
+[/quote]
+
+This seems backwards to me: ecash (in the digicash style) generally requires a centralised mint that's a single point-of-failure for everyone using ecash. If most uses of ecash are dark (illegal/black market), then once law enforcement decides to crack down on them, the mint becomes an easy and attractive target. That's very high risk for the operators of the mint, even if they attempt to protect themselves via a federation or anonymity tools, and it's also high risk for users of the system: if the mint is forced to shut down by a hostile actor, none of the funds stored as ecash are recoverable. If the mint's operators are anonymous to law enforcement, then they're also anonymous to the majority of its users, and that probably elevates the risk of the operators doing a rug pull as well: a rug pull has the benefit of both getting a chunk of funds immediately, and also bounds the risk that law enforcement are going to come after you because you've been enabling crime or terrorism or whatever.
+
+-------------------------
+
