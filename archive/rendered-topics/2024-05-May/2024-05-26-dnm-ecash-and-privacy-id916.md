@@ -50,13 +50,13 @@ This seems backwards to me: ecash (in the digicash style) generally requires a c
 
 -------------------------
 
-1440000bytes | 2024-05-27 07:05:15 UTC | #3
+1440000bytes | 2024-05-27 13:03:36 UTC | #3
 
 [quote="ajtowns, post:2, topic:916"]
 That’s very high risk for the operators of the mint, even if they attempt to protect themselves via a federation or anonymity tools, and it’s also high risk for users of the system: if the mint is forced to shut down by a hostile actor, none of the funds stored as ecash are recoverable.
 [/quote]
 
-These mints will be operated by users who already take the risk of using darknet markets. As mentioned in the post, users of custodial darknet markets assume the market could shutdown one day and funds won't be recoverable.
+These mints will be operated by users who already take the risk of running or using darknet markets. As mentioned in the post, users of custodial darknet markets assume the market could shutdown one day and funds won't be recoverable.
 
 [quote="ajtowns, post:2, topic:916"]
 If the mint’s operators are anonymous to law enforcement, then they’re also anonymous to the majority of its users, and that probably elevates the risk of the operators doing a rug pull as well: a rug pull has the benefit of both getting a chunk of funds immediately, and also bounds the risk that law enforcement are going to come after you because you’ve been enabling crime or terrorism or whatever.
