@@ -161,3 +161,13 @@ Could represent that with just three feature bits: does your node support taproo
 
 -------------------------
 
+t-bast | 2024-05-27 08:15:40 UTC | #9
+
+> I guess the question I have is whether or not people want to see DynComms broken up into two proposals: the part with the funding output conversion, and the part without.
+
+Yes, I'd love to see that. As I stated in other posts, I believe we should use splicing for upgrades that require spending the current funding output (since splicing exists and does spend the funding output, it would be adding unnecessary complexity to have yet another protocol that achieves almost the same thing).
+
+But for all other upgrades that don't spend the funding output, we definitely need a different protocol, and dynamic commitments seem to be a good fit :+1:
+
+-------------------------
+
