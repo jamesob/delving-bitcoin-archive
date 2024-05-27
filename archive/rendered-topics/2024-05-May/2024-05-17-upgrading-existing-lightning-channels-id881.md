@@ -143,3 +143,21 @@ CC @t-bast @rustyrussell @MattCorallo
 
 -------------------------
 
+ajtowns | 2024-05-27 00:44:35 UTC | #8
+
+[quote="ProofOfKeags, post:5, topic:881"]
+Finally, the question of whether we need STCs to get to PTLCs is definitely a discussion we should have but it comes down to the appetite for maintaining another hybrid channel type
+[/quote]
+
+Isn't the straightforward answer to imagine three upgrade options:
+
+ 1. p2wsh + HTLC -> taproot + PTLC (bump funding tx)
+ 2. taproot + HTLC -> taproot + PTLC
+ 3. p2wsh + HTLC -> p2wsh + PTLC
+
+Everyone might support (1), while (2) might only be something only LND supports if PTLCs get standardised before taproot channels are more widely implemented, and (3) might only get implemented much later, if it turns out there's huge demand for PTLCs and fees are high that people would prefer to fund dev effort to avoid bumping funding txs?
+
+Could represent that with just three feature bits: does your node support taproot+HTLC channels, taproot+PTLC channels, and/or p2wsh+PTLC channels?
+
+-------------------------
+
