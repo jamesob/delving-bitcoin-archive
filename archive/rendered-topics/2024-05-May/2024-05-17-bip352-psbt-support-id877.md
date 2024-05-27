@@ -110,3 +110,9 @@ This won't work for Segwit version > 1 inputs though, since the Constructor can 
 
 -------------------------
 
+andrewtoth | 2024-05-27 00:34:44 UTC | #5
+
+Updated the draft BIP, added the DLEQ proof based on https://gist.github.com/RubenSomsen/be7a4760dd4596d06963d67baf140406.
+
+-------------------------
+
