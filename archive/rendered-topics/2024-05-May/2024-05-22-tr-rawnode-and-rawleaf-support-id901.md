@@ -103,3 +103,17 @@ It provides strictly more information: the internal key. Philosophically, I thin
 
 -------------------------
 
+Eunovo | 2024-05-28 17:37:26 UTC | #4
+
+Makes sense. I didn't see it that way. Thanks! @sipa
+
+-------------------------
+
+Eunovo | 2024-05-28 17:41:55 UTC | #5
+
+@sipa I wonder if you have any ideas about how N2KBs are supposed to be used. I imagine that other parties of the transaction will fear hidden spend paths.
+
+Would be cool to get @JeremyRubin take as well
+
+-------------------------
+
