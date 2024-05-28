@@ -104,3 +104,15 @@ If discussion of silent payments is meant to be open, why do I need to join rath
 
 -------------------------
 
+josibake | 2024-05-28 12:25:42 UTC | #11
+
+[quote="harding, post:10, topic:162"]
+If discussion of silent payments is meant to be open, why do I need to join rather than just reply like in #implementation:wg-blockrelay
+[/quote]
+
+Creating an open group was my intention. Still figuring out how delving works, so I think this is a classic "never attribute to malice what can easily be explained by stupidity" :sweat_smile:
+
+I was under the impression for any wg you needed to join before being able to post, but if its possible to have the group where anyone can reply without joining I'd prefer that. My main reason for wanting a working group is to group different topics under the same category.
+
+-------------------------
+

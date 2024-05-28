@@ -135,3 +135,13 @@ But, how does each signer know that the other signers have added their correct s
 
 -------------------------
 
+josibake | 2024-05-28 12:16:55 UTC | #7
+
+[quote="andrewtoth, post:6, topic:877"]
+Can we have a running DLEQ proof sum as well? Otherwise we would need to store a proof for each input for each output and can’t just have a running sum for each output.
+[/quote]
+
+Not sure, but a running proof sum would be ideal. Also seems fine to include a proof with each input. Planning to take a look at the Musig2 PSBT BIP draft this week to see if we can learn anything from their approach, because this feels conceptually very similar.
+
+-------------------------
+

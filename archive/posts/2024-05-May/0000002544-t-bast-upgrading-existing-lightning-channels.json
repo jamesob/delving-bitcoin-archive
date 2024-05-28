@@ -12,9 +12,9 @@
   "reply_to_post_number": 7,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 3.0,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 33.6,
   "yours": false,
   "topic_id": 881,
   "topic_slug": "upgrading-existing-lightning-channels",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "> I guess the question I have is whether or not people want to see DynComms broken up into two proposals: the part with the funding output conversion, and the part without.\n\nYes, I'd love to see that. As I stated in other posts, I believe we should use splicing for upgrades that require spending the current funding output (since splicing exists and does spend the funding output, it would be adding unnecessary complexity to have yet another protocol that achieves almost the same thing).\n\nBut for all other upgrades that don't spend the funding output, we definitely need a different protocol, and dynamic commitments seem to be a good fit :+1:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
