@@ -91,3 +91,15 @@ cc @ajtowns @sipa @AntoineP , since this work is based off your prior discussion
 
 -------------------------
 
+sipa | 2024-05-28 15:49:08 UTC | #3
+
+Thank you for working on this!
+
+[quote="Eunovo, post:1, topic:901"]
+What advantage does inferring `tr(internal_key,rawnode(merkle_root))` have over inferring `rawtr(tr_public_key)`?
+[/quote]
+
+It provides strictly more information: the internal key. Philosophically, I think, the idea of partial descriptors is that any subset of relevant information should be conveyable, so that would be sufficient justification for having it. But practically, imagine a signer that recognizes the internal key, but does not recognize the tweaked output key; having the `internal_key` and `merkle_root` would enable them to locate the correct key.
+
+-------------------------
+
