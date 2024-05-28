@@ -84,3 +84,23 @@ The only group that currently has public read but not public comment/post is the
 
 -------------------------
 
+harding | 2024-05-28 02:53:33 UTC | #10
+
+[quote="ajtowns, post:9, topic:162"]
+It varies per group
+[/quote]
+
+Is there any way groups with different posting policies could be distinguished from each other?  Maybe `cwg-` for closed working groups ?  Alternatively a label like `closed` on any non-open discussions
+
+I understand the benefits of closed working groups for developing ideas that aren't ready for public criticism yet, especially unthoughtful criticism from entrenched opposition---but I think it's important to label any closed discussion as such.  I don't want to see a discussion among experts and come to a mistaken belief that it represents a consensus opinion when critics didn't have an opportunity to reply.
+
+Additionally, I think it's advantageous to members of a closed group to see that their posts are still protected from inline criticism from outside the group.  Otherwise I worry they too may come to a mistaken belief that they have discussed an idea sufficiently enough that it represents a consensus opinion.
+
+[quote="ajtowns, post:9, topic:162"]
+all you have to do is go to the [wg page](https://delvingbitcoin.org/g/wg-silent-payments) and click join,
+[/quote]
+
+If discussion of silent payments is meant to be open, why do I need to join rather than just reply like in #implementation:wg-blockrelay or have it just be a tag like for #wg-cluster-mempool::tag ?
+
+-------------------------
+
