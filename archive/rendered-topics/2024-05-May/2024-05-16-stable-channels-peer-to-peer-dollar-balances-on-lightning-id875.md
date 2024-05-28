@@ -130,3 +130,13 @@ The hope is that well-informed users can choose between self-custodial Lightning
 
 -------------------------
 
+cryptorevue | 2024-05-27 21:20:32 UTC | #4
+
+Hello. In essence, this is Fiat Channels' proposal. Thank you.
+
+https://devpost.com/software/standard-sats
+https://medium.com/coinmonks/liquidity-abstraction-in-lightning-network-3d7a1d76ac82
+https://notgeld.medium.com/when-sats-become-the-standart-83585494f3af
+
+-------------------------
+

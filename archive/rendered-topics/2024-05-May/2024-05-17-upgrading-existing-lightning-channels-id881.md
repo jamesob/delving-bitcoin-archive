@@ -171,3 +171,13 @@ But for all other upgrades that don't spend the funding output, we definitely ne
 
 -------------------------
 
+williamsthe59th | 2024-05-27 22:46:47 UTC | #10
+
+[quote="t-bast, post:4, topic:881, full:true"]
+Why is that an elephant in the room? It’s just an implementation detail and is not at all hard to handle? The upgrade to v3 will simply have additional constraints around the `max_accepted_htlcs` parameter.
+[/quote]
+
+I believe the conservative order of deployment to be: (a) deploy the dyn comm thing (b) restrict `max_accepted_htlcs` on all channels to fit V3 via the dyn comm thing (c) update to limited V3 package size all channels txn. And other specs shenanigans like max number of anchor outputs or scriptpubkey types changing commitment size.
+
+-------------------------
+

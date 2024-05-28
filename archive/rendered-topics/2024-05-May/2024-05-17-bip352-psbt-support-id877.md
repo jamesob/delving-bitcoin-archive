@@ -116,3 +116,22 @@ Updated the draft BIP, added the DLEQ proof based on https://gist.github.com/Rub
 
 -------------------------
 
+andrewtoth | 2024-05-27 22:13:47 UTC | #6
+
+[quote="josibake, post:1, topic:877"]
+### Access to the private keys
+
+It’s also worth mentioning that the `OutputGenerator` *might* not need access to the private keys, but can accept something like an “ECDH share”:
+
+a_{sum} = a_1 + a_2 + ... + a_n \\ a_{sum} \cdot B_{scan} = a_1 \cdot B_{scan} + a_2 \cdot B_{scan} + ... + a_n \cdot B_{scan}
+
+asum=a1+a2+...+anasum⋅Bscan=a1⋅Bscan+a2⋅Bscan+...+an⋅Bscana_{sum} = a_1 + a_2 + ... + a_n \\ a_{sum} \cdot B_{scan} = a_1 \cdot B_{scan} + a_2 \cdot B_{scan} + ... + a_n \cdot B_{scan}
+
+So a signing device could return the ECDH share for a private key, instead of the full private key. Mentioning this as theoretically possible because this is not something that is provably secure and there are definite reasons to *not* have a signing device respond to Diffie-Hellman requests.
+[/quote]
+
+This could work and could eliminate the need for the OutputGenerator role altogether- each output has a new field for the sum of ECDH shares. Each signer adds their share to the sum. The last signer to add their share can then also generate all the output scripts and add their signature, and then the PSBT can be given to all other signers again to add their signatures.
+But, how does each signer know that the other signers have added their correct share to the sum for each output? Can we have a running DLEQ proof sum as well? Otherwise we would need to store a proof for each input for each output and can't just have a running sum for each output.
+
+-------------------------
+
