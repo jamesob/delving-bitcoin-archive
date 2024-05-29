@@ -117,3 +117,15 @@ Would be cool to get @JeremyRubin take as well
 
 -------------------------
 
+ajtowns | 2024-05-28 21:20:57 UTC | #6
+
+[quote="Eunovo, post:5, topic:901"]
+@sipa I wonder if you have any ideas about how N2KBs are supposed to be used. I imagine that other parties of the transaction will fear hidden spend paths.
+[/quote]
+
+Could be useful for inheritance/escrow type services: "this isn't my money, so I don't care about other spend paths, but in an emergency, the spend path I do know about can be used to help that person recover their money even if they've lost all their keys".
+
+Could be useful for places where you're using multiple wallets for some funds -- maybe your main wallet understands some super clever contracts that you want to put in a tapscript, but your backup (hardware? cold?) wallet doesn't and can only spend via the key path; in that case all the backup wallet needs to know is the ipk and a rawnode leaf.
+
+-------------------------
+

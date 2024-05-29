@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 11.4,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 56.8,
   "yours": false,
   "topic_id": 901,
   "topic_slug": "tr-rawnode-and-rawleaf-support",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thank you for working on this!\n\n[quote=\"Eunovo, post:1, topic:901\"]\nWhat advantage does inferring `tr(internal_key,rawnode(merkle_root))` have over inferring `rawtr(tr_public_key)`?\n[/quote]\n\nIt provides strictly more information: the internal key. Philosophically, I think, the idea of partial descriptors is that any subset of relevant information should be conveyable, so that would be sufficient justification for having it. But practically, imagine a signer that recognizes the internal key, but does not recognize the tweaked output key; having the `internal_key` and `merkle_root` would enable them to locate the correct key.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
