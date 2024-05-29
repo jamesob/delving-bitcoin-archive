@@ -1,20 +1,20 @@
 {
-  "id": 2556,
+  "id": 2561,
   "name": "Oghenovo Usiwoma",
   "username": "Eunovo",
   "avatar_template": "/user_avatar/delvingbitcoin.org/eunovo/{size}/375_2.png",
-  "created_at": "2024-05-28T17:34:35.721Z",
-  "cooked": "<p>Makes sense. I didn\u2019t see it that way. Thanks! <a class=\"mention\" href=\"/u/sipa\">@sipa</a></p>",
-  "post_number": 4,
+  "created_at": "2024-05-29T08:00:27.448Z",
+  "cooked": "<p>Thanks for the clarification <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> !</p>",
+  "post_number": 7,
   "post_type": 1,
-  "updated_at": "2024-05-28T17:37:26.121Z",
+  "updated_at": "2024-05-29T08:00:27.448Z",
   "reply_count": 0,
-  "reply_to_post_number": 3,
+  "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 61.8,
+  "reads": 2,
+  "readers_count": 1,
+  "score": 0.4,
   "yours": false,
   "topic_id": 901,
   "topic_slug": "tr-rawnode-and-rawleaf-support",
@@ -36,18 +36,13 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
-    "username": "sipa",
-    "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "username": "ajtowns",
+    "name": "Anthony Towns",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
   },
   "bookmarked": false,
-  "raw": "Makes sense. I didn't see it that way. Thanks! @sipa",
-  "actions_summary": [
-    {
-      "id": 2,
-      "count": 2
-    }
-  ],
+  "raw": "Thanks for the clarification @ajtowns !",
+  "actions_summary": [],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -59,14 +54,8 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [
-    {
-      "id": "+1",
-      "type": "emoji",
-      "count": 2
-    }
-  ],
+  "reactions": [],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 0,
   "current_user_used_main_reaction": false
 }
