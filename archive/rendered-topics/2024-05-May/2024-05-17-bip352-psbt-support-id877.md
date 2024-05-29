@@ -145,3 +145,23 @@ Not sure, but a running proof sum would be ideal. Also seems fine to include a p
 
 -------------------------
 
+andrewtoth | 2024-05-29 13:51:12 UTC | #8
+
+I took a look at Musig2 PSBT BIP draft, and unless I'm mistaken it only has fields for inputs, i.e. spending support. So I don't think it would be useful for sending support.
+
+If we can't have a running proof sum, the PSBT will have worst case inputs * outputs number of proofs. This could be too much data for coinjoins, but should be fine for regular transactions.
+
+A workflow could look like this:
+
+Signer gets a PSBT with no output scripts generated yet.
+
+Case 1: Signer has private keys to all inputs and wallet trusts the signer. The signer generates the outputs itself and signs.
+
+Case 2: Signer has private keys to all silent payment eligible inputs, but other inputs that are ignored by silent payment outputs are present or the wallet does not trust the signer. The signer generates the outputs, but also the ECDH sum and proof for all eligible inputs for each output and attaches one ECDH sum/proof to each output. The other signers that can sign for the non-silent payment eligible inputs use the proofs to verify the silent payment outputs before signing their inputs, or the wallet verifies the proof before broadcasting.
+
+Case 3: Signer has some private keys to silent payment eligible inputs. It creates a ECDH share of the sum of all inputs it knows for each output, and attaches that along with the proof to each output, with the set of indexes that the proof corresponds to as the key data and the proofs as the value data. If all other shares and proofs for unknown inputs are already attached to the outputs, it can verify the proofs and generate the outputs using the other shares and sign. If some shares and proofs from other inputs are missing, it cannot sign yet and must receive the PSBT back after they are added by other signers, making this a 2-round step for this signer.
+
+Edit - reading this again, all cases can be encompassed by case #3, and if the wallet trusts the signer then the proofs can just be omitted.
+
+-------------------------
+
