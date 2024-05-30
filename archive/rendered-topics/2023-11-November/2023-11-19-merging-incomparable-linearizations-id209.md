@@ -1,6 +1,6 @@
 # Merging incomparable linearizations
 
-sipa | 2023-12-04 21:36:19 UTC | #1
+sipa | 2024-04-25 20:26:03 UTC | #1
 
 # Introduction
 
@@ -8,7 +8,7 @@ While we have several ways for computing good linearizations for a cluster from 
 
 As a reminder, we compare linearizations by computing all cumulative (size, fee) points after every chunk, and connecting them by straight lines. Each linearization has such a segmented line, which we call the fee-size diagram. If a linearization A has a diagram that is nowhere below that of linearization B, and at least in some places above it, we say A is strictly better than B. If the diagrams coincide everywhere, they're equal. If one diagram is on top in some place(s) and the other is on top in others, we call them incomparable.
 
-Due to the (so far unproven, but accepted) property that every cluster has a well-defined non-empty set of optimal linearizations (which are all equal to each other, and all strictly better than all other linearizations), it must be the case that if two incomparable linearizations exist, there *must* exist at least one linearization that's strictly better than both. This topic is about finding such combined linearizations.
+Due to the (~~so far unproven, but accepted~~ EDIT: now proven, thanks to this thread) property that every cluster has a well-defined non-empty set of optimal linearizations (which are all equal to each other, and all strictly better than all other linearizations), it must be the case that if two incomparable linearizations exist, there *must* exist at least one linearization that's strictly better than both. This topic is about finding such combined linearizations.
 
 # Algorithms
 
@@ -101,6 +101,25 @@ The solution is to attempt more intersections. Observe that a linearization is r
 The various intersections between *P<sub>1</sub>* and prefixes of *L<sub>2</sub>* can be computed incrementally (keep adding transactions from *L<sub>2</sub>* if they're in *P<sub>1</sub>*, and remember the best one), and similarly for *P<sub>2</sub>* with prefixes of *L<sub>1</sub>*. This, like finding the *P<sub>i</sub>* in the first place, can be done in $\mathcal{O}(n)$ time. The result is still an $\mathcal{O}(n^2)$ algorithm.
 
 Surprisingly, this algorithm seems powerful enough to always find a linearization that's strictly better than both inputs if they're incomparable (and at least as good as the best of the two if they are comparable). This works regardless of the quality of the input linearizations (e.g. they don't need to be ancestor sort or better), and does not require connected chunks (see [linearization post-processing](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201/6)). No proof, though.
+
+## Update: simpler and proven merging
+
+See the discussion further in this thread (thanks, @ajtowns).
+
+It appears that it suffices to only consider the intersections between the higher-feerate out of $P_1$ and $P_2$, with all prefixes of the linearization of the other input:
+
+* Given two linearizations $L_1$ and $L_2$:
+  * While not all transactions have been processed:
+    * Find highest-feerate prefix *P<sub>1</sub>* among all unprocessed transactions in *L<sub>1</sub>*.
+    * Find highest-feerate prefix *P<sub>2</sub>* among all unprocessed transactions in *L<sub>2</sub>*.
+    * If $P_1$ has lower feerate than $P_2$, swap $P_1$ with $P_2$ and $L_1$ with $L_2$.
+    * Find the highest-feerate set among all intersections between $P_1$ and the prefixes of $L_1$.
+    * Include the transactions from that set in the output linearization.
+    * Mark the included transactions as processed
+
+Instead of describing the resulting set as an intersection, it can also be seen as the highest-feerate prefix of $P_2$, reordered according to the order these transactions have in $L_1$.
+
+A proof for this scheme can be found in [this thread](https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202).
 
 -------------------------
 
@@ -846,6 +865,14 @@ sipa | 2023-12-05 16:33:31 UTC | #45
 Ok, with that counterexample in place I'm now again leaning the other direction: that the right approach is using the simplest algorithm that works.
 
 My impression is that the non-commutativity and non-associativity of merging are effectively randomly stumbled upon through accidentally having/putting transactions in the right order. And these accidents can't be prevented, and moreover trying more subsets will inevitably mean there is a small chance of finding something better still.  However, that doesn't mean it's worth spending time on even if it's a small cost. That time could be better spent on directly trying more things in the linearization algorithm.
+
+-------------------------
+
+sipa | 2024-05-30 14:44:23 UTC | #46
+
+Just a quick note, using insights from the [composition algorithm](https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202/14), it appears possible to further simplify merging:
+* Instead of finding the input linearization with the best remaining prefix, it is possible to only consider prefixes of what remains of the *original* chunks the input linearizations had.
+* Instead of trying the intersection of that best prefix with every prefix of what remains of the other linearization, it suffices to only consider prefixes aligning with the chunk boundaries of the remainder, or even of just the original chunk boundaries.
 
 -------------------------
 
