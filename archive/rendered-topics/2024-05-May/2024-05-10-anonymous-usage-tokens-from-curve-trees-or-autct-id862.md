@@ -279,3 +279,15 @@ So I guess you'd say, just remove the amount commitment part; one could use $(P,
 
 -------------------------
 
+kayabaNerve | 2024-05-30 05:09:35 UTC | #11
+
+Sorry. I sent the following in an email reply a few days ago but it appears this forum instance isn't configured for that.
+
+---
+
+Yep :slight_smile: 
+
+All sounds like a correct summary to me.
+
+-------------------------
+
