@@ -150,3 +150,11 @@ With Stable Channels, users remain self-custodial, the exchange rate is independ
 
 -------------------------
 
+cryptorevue | 2024-05-30 16:40:43 UTC | #6
+
+Yes. Hosted channels are custodial.
+But if this is black and white for you, you've probably spent not enough time thinking about stabilizing the purchasing power of sats. 
+Not to say about technical problems. Because Fiat channels use independent oracles and have to agree on price. And this is source of so much issues that my easily lead to Force closes of real channels.
+
+-------------------------
+
