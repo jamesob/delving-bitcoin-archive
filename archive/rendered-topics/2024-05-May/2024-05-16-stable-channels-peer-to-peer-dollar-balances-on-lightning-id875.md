@@ -140,3 +140,13 @@ https://notgeld.medium.com/when-sats-become-the-standart-83585494f3af
 
 -------------------------
 
+tony | 2024-05-30 15:49:44 UTC | #5
+
+Yes, looks similar, although to the best of my understanding there are some differences. 
+
+Is the "hosted channel" concept with Standard Sats custodial? Where does the exchange rate come from? Do you propose frequent settlement to ensure the peg with Standard Sats, and who initiates that settlement?
+
+With Stable Channels, users remain self-custodial, the exchange rate is independently queried from exchange price feeds by both nodes, and each party is partially responsible to ensure the peg via frequent settlement.
+
+-------------------------
+
