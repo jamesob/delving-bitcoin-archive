@@ -337,3 +337,19 @@ So there is a perpetually rolling list of ehash that the pool should be tracking
 
 -------------------------
 
+MattCorallo | 2024-05-31 20:13:43 UTC | #25
+
+[quote="EthnTuttle, post:21, topic:870, full:true"]
+By “cryptographic attestation”, I mean that the pool/mint is signing the individual shares and those signatures can be checked and cannot be modified after that fact. Since this signature happens at time of share validation, the hash provider knows that anything modified after the fact is malicious behavior.
+[/quote]
+
+Sure, but they could just sign the shares as they're submitted (a trivial extention to Sv2 to have the pool sign all SubmitShares.Success messages would suffice)? There's no need to tie that directly to ecash in any way.
+
+[quote="calle, post:22, topic:870"]
+IIUC, the point of this proposal is to introduce privacy for payouts. That’s it. So far, I see mostly discussions about unrelated or at best mildly related issues here.
+[/quote]
+
+This proposal is very substantially overcomplicated if that is the only goal. If this is the goal, the pool simply needs to make payouts using lightning/ecash, it doesn't require tying shares to ecash or anything fancy like this.
+
+-------------------------
+
