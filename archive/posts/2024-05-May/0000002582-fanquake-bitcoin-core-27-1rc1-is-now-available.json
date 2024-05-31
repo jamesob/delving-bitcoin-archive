@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 930,
   "topic_slug": "bitcoin-core-27-1rc1-is-now-available",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Binaries for Bitcoin Core version v27.1rc1 are available from:\n\n    https://bitcoincore.org/bin/bitcoin-core-27.1/test.rc1/\n\nSource code can be found in git under the signed tag\n\n    https://github.com/bitcoin/bitcoin/tree/v27.1rc1\n\nThis is a release candidate for a new minor version release.\n\nPreliminary release notes for the release can be found here:\n\n    https://github.com/bitcoin/bitcoin/blob/fccd32efe6e2950b2c74fdec2ade54040ca32a2c/doc/release-notes.md\n\nRelease candidates are test versions for releases. When no critical problems are found, this release candidate will be tagged as v27.1.\n\nPlease test! If you run into issues, please report them to https://github.com/bitcoin/bitcoin/issues.\n\nI'll keep this thread updated with further release candidates (if any).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
