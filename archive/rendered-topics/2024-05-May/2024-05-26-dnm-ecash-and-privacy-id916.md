@@ -71,17 +71,27 @@ This post just tries to find the right use case for eCash mints in which users h
 
 -------------------------
 
-aspargus | 2024-05-30 08:23:46 UTC | #4
-
-(post deleted by author)
-
--------------------------
-
 aspargus | 2024-05-30 08:24:12 UTC | #5
 
 To be fair, if you're trying to do illegal things or create a framing for technology to be associated with illegal activities (which obviously seems to be the goal of this post since there is zero technical merit to this post), I think things like [Joinstr](https://joinstr.xyz/) is a much better solution for money laundering, terrorist financing, child trafficking, and drug markets since it's non-custodial and can't be stopped (no central coordinator).
 
 Ecash is just a custodial accounting layer which is rather going to be adopted by regulated banks or private individuals, not dark net markets (the risks are way too high).
+
+-------------------------
+
+1440000bytes | 2024-05-31 09:42:41 UTC | #6
+
+[quote="aspargus, post:5, topic:916"]
+I think things like [Joinstr ](https://joinstr.xyz/) is a much better solution for money laundering, terrorist financing, child trafficking, and drug markets since it’s non-custodial and can’t be stopped (no central coordinator).
+[/quote]
+
+Coinjoin and custodial mixers are already used since years for different use cases. I have shared how coinjoin can be used with eCash in the post. However, this post is not about coinjoin or a particular implementation.
+
+[quote="aspargus, post:5, topic:916"]
+Ecash is just a custodial accounting layer which is rather going to be adopted by regulated banks or private individuals, not dark net markets (the risks are way too high).
+[/quote]
+
+eCash can be used by anyone. Risks as already shared above multiple times, remain same for a custodial DNM user.
 
 -------------------------
 
