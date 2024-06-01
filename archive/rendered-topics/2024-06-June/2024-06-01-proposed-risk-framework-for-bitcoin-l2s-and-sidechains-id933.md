@@ -1,6 +1,6 @@
 # Proposed risk framework for Bitcoin L2s and Sidechains
 
-janusz | 2024-06-01 09:20:06 UTC | #1
+janusz | 2024-06-01 14:27:22 UTC | #1
 
 Hi everyone,
 
@@ -80,7 +80,7 @@ Let’s review how protocols can potentially be assessed.
 - No custody with unilateral exit enforced by an L1 transaction - **low risk**
 - No custody with optimistic settlement - **low risk**
 - One of the BTC bridges is secured by a federated two-way peg, but anyone can participate as a watchtower/challenger and stop malicious withdrawals - **low risk**
-- The two-way peg is managed by a federated two-way peg where 1-N operators is required to be honest - **medium risk**
+- The two-way peg is federated where 1-N operators is required to be honest - **medium risk**
 - The two-way peg is governed by an alternative, consensus mechanism - **medium risk**
     - If there is no slashing mechanism then **high risk**
 - The protocol has an honest-majority federation securing its two way peg - **high risk**
