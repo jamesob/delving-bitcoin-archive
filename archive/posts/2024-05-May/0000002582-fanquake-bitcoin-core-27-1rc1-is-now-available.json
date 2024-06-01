@@ -7,14 +7,14 @@
   "cooked": "<p>Binaries for Bitcoin Core version v27.1rc1 are available from:</p>\n<pre><code>https://bitcoincore.org/bin/bitcoin-core-27.1/test.rc1/\n</code></pre>\n<p>Source code can be found in git under the signed tag</p>\n<pre><code>https://github.com/bitcoin/bitcoin/tree/v27.1rc1\n</code></pre>\n<p>This is a release candidate for a new minor version release.</p>\n<p>Preliminary release notes for the release can be found here:</p>\n<pre><code>https://github.com/bitcoin/bitcoin/blob/fccd32efe6e2950b2c74fdec2ade54040ca32a2c/doc/release-notes.md\n</code></pre>\n<p>Release candidates are test versions for releases. When no critical problems are found, this release candidate will be tagged as v27.1.</p>\n<p>Please test! If you run into issues, please report them to <a href=\"https://github.com/bitcoin/bitcoin/issues\" class=\"inline-onebox\">Issues \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>.</p>\n<p>I\u2019ll keep this thread updated with further release candidates (if any).</p>",
   "post_number": 1,
   "post_type": 1,
-  "updated_at": "2024-05-31T14:48:25.616Z",
+  "updated_at": "2024-06-01T01:11:11.655Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 17.0,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 62.2,
   "yours": false,
   "topic_id": 930,
   "topic_slug": "bitcoin-core-27-1rc1-is-now-available",
@@ -28,7 +28,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 2,
+  "version": 3,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -51,17 +51,17 @@
   "trust_level": 3,
   "deleted_at": null,
   "user_deleted": false,
-  "edit_reason": "Github link was replaced with a permanent link",
+  "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

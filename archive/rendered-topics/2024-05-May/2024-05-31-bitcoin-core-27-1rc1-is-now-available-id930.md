@@ -1,6 +1,6 @@
 # Bitcoin Core 27.1rc1 is now available
 
-fanquake | 2024-05-31 14:48:25 UTC | #1
+fanquake | 2024-06-01 01:11:11 UTC | #1
 
 Binaries for Bitcoin Core version v27.1rc1 are available from:
 
