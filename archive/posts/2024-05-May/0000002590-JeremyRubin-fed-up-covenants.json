@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 929,
   "topic_slug": "fed-up-covenants",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@AdamISZ the deleting/editing is kind of confusing. But I think one other point to consider is normal signing federations have to actively sign this stuff, ongoing trust concern.\n\nWhereas with FE'd Up Covenants, it's a one-time compiler build for all eternity (until quantum computers tell us we can't have fun ever again?).\n\n\nMy spookchains writeup is... spookily similar to this kind of setup, so maybe worth reading for a more thorough discussion (end section \" Commentary on Trust and Covenantiness\") https://rubin.io/bitcoin/2022/09/14/drivechain-apo/",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
