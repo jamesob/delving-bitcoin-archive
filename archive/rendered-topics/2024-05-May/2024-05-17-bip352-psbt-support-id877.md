@@ -165,3 +165,30 @@ Edit - reading this again, all cases can be encompassed by case #3, and if the w
 
 -------------------------
 
+josibake | 2024-06-01 18:04:52 UTC | #9
+
+[quote="andrewtoth, post:8, topic:877"]
+If we can’t have a running proof sum, the PSBT will have worst case inputs * outputs number of proofs. This could be too much data for coinjoins, but should be fine for regular transactions.
+[/quote]
+
+Thinking about this more, we only need a proof for each input, i.e. a proof that the secret key used to create the ECDH share $a\cdot B_{scan}$ is the same key for $a\cdot G=A$.
+
+We don't need a proof for each output because the software wallet simply needs to check the proof for each input and then sum up the ECDH shares and verify the outputs, i.e. 
+
+$$
+SS = a_1\cdot B_{scan} + .. + a_n\cdot B_scan \\
+P = B_{spend} + hash_{BIP0352/SharedSecret}(SS || k)\cdot G \\
+P \in \texttt{txoutputs}
+$$
+
+If a single signer has access to all of the silent payment private keys and is able to generate the outputs and sign the transaction, the signer can omit the per input proofs and instead provide a transaction level proof that $a_{sum}\cdot B_{scan}$ is the same key as $a_{sum}\cdot G = A_{sum}$, along with the shared secret $SS$, allowing the software wallet to verify the proof and calculate
+
+$$
+P = B_{spend} + hash_{BIP0352/SharedSecret}(SS || k)\cdot G \\
+P \in \texttt{txoutputs}
+$$
+
+same as above.
+
+-------------------------
+
