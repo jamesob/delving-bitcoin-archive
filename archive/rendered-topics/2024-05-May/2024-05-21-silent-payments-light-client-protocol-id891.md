@@ -259,3 +259,26 @@ Whereas if the list is grouped by $txid$ (either by the client or the server), t
 
 -------------------------
 
+setavenger | 2024-06-02 13:07:30 UTC | #11
+
+[quote="josibake, post:10, topic:891"]
+The two benefits I see for providing outputs grouped by txidtxidtxid are reduced bandwidth and less computation for the client in the event an output is found
+[/quote]
+
+No doubt there.
+
+[quote="josibake, post:10, topic:891"]
+if every client will end up grouping it seems better to do the work one time on the server
+[/quote]
+
+This is a valid statement. I was coming from a perspective of doing these transformations on-the-fly per request. As of now the BB Oracle architecture would require on-the-fly mapping. The reason being that UTXOs need to be updated individually to change the spent state. Grouping UTXOs in storage would probably generate some overhead for sync times. Might be negligible though.
+
+[quote="josibake, post:10, topic:891"]
+It’s not immediately clear to what the additional fields are for, i.e. block hash, block number, timestamp. In the case of block info, seems like we could use block hash or block number, depending on what the wallet needs it for?
+[/quote]
+
+It's just an optional metadata field. `block_height` or `block_hash` should suffice if the wallet does extra requests to get block meta data. `timestamp` seemed like an obvious use case. The optional fields are not very refined yet and just ideas I threw out there. None of these fields are technically required to spend the outputs which is why I put them in optional to begin with.
+If included it does make sense to not have them repeated in every output and rather aggregate on a higher level.
+
+-------------------------
+
