@@ -753,3 +753,34 @@ Happy to answer any questions about the PR, and talk through the 'Design Questio
 
 -------------------------
 
+Chris_Stewart_5 | 2024-06-02 17:07:11 UTC | #49
+
+Hi everyone, a new update:
+
+https://github.com/Christewart/bitcoin/tree/64bit-arith-implicit
+
+This version of 64bit arithmetic
+
+* Removes 64bit specific opcodes in favor repurposing existing opcodes (`OP_ADD64` -> `OP_ADD`, `OP_SUB64` -> `OP_SUB`, `OP_MUL64` -> `OP_MUL`, `OP_DIV64` -> `OP_DIV` etc).
+* Every opcode in `interpreter.cpp` that use to accept a `CScriptNum` input now accepts a `int64_t` stack parameter. For instance, `OP_1ADD` accepts a `int64_t` stack top argument, and pushes a `int64_t` back onto the stack along with a bool indicating if the `OP_1ADD` execution was successful.
+* Removes casting opcodes (`OP_SCRIPTNUMTOLE64`, `OP_LE64TOSCRIPTNUM`, `OP_LE32TOLE64`)
+
+I think this PR provides for a better developer experience as Script developers 
+
+1. No longer have to think about which opcode to use (`OP_ADD` or `OP_ADD64`, `OP_LESSTHAN` or `OP_LESSTHAN64`, etc)
+2. No longer have to worry about casting the stack top with previous casting op codes (`OP_SCRIPTNUMTOLE64`, `OP_LE64TOSCRIPTNUM`, `OP_LE32TOLE64`)
+
+This 64bit implementation would mean existing Scripts that typically use _constant_ numeric arguments -- such as `OP_CHECKLOCKTIMEVERIFY`/`OP_CHECKSEQUENCEVERIFY` would need to be rewritten to pass in 8 byte parameters rather than 5 byte parameters.
+
+This PR heavily relies on pattern matching on `SigVersion` to determine what the implementation of the opcode should do.
+
+For instance, here is the implementation of `OP_DEPTH`
+
+https://github.com/Christewart/bitcoin/blob/019907039c7d342f3c1fe3c7f3dd9db879661c9e/src/script/interpreter.cpp#L1185
+
+In the future, if we want to redefine semantics of `OP_DEPTH` we can now pattern match on the `SigVersion` and substitute the new implementation.
+
+I think this provides us a nice framework for upgrading the interpreter in the future. We will have the compiler give errors in places where we aren't handling a new `SigVersion` introduced in the codebase (exhaustiveness checks), and force us to handle that case.
+
+-------------------------
+
