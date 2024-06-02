@@ -192,3 +192,16 @@ same as above.
 
 -------------------------
 
+andrewtoth | 2024-06-02 01:44:13 UTC | #10
+
+[quote="josibake, post:9, topic:877"]
+Thinking about this more, we only need a proof for each input, i.e. a proof that the secret key used to create the ECDH share a\cdot B_{scan}a⋅Bscana\cdot B_{scan} is the same key for a\cdot G=Aa⋅G=Aa\cdot G=A.
+
+We don’t need a proof for each output
+[/quote]
+
+
+But doesn't the ECDH share a⋅Bscan differ for each output with a silent payment code, i.e. a different  Bscan? What I meant was this proof needs to be computed and attached for each silent payment code, i.e. each output, so there would be input * output many proofs in worst case where each input has a unique signer and each output has a unique Bscan.
+
+-------------------------
+
