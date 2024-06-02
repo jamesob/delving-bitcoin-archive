@@ -205,3 +205,9 @@ But doesn't the ECDH share a⋅Bscan differ for each output with a silent paymen
 
 -------------------------
 
+josibake | 2024-06-02 08:44:37 UTC | #11
+
+Ah, correct. I was thinking in the context of a single $B_{scan}$, but indeed if each output was to a separate silent payment output and each signer signs for only one input, then it becomes $inputs \cdot outputs$. Perhaps a better way to think of it would be $n_{proofs} = recipients \cdot signers$, since each signer can provide a proof which covers multiple inputs and each recipient can have more than one output?
+
+-------------------------
+

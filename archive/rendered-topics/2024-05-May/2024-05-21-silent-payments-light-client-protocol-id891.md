@@ -233,3 +233,29 @@ You mentioned that you've tried BlindBit Oracle as well, are there any noticeabl
 
 -------------------------
 
+josibake | 2024-06-02 09:25:01 UTC | #10
+
+[quote="setavenger, post:9, topic:891"]
+Is there any noticeable overhead created by converting on the client side?
+[/quote]
+
+The two benefits I see for providing outputs grouped by $txid$ are reduced bandwidth and less computation for the client in the event an output is found
+
+## Bandwidth
+
+Outputs coming from the same transaction will all have the same $txid$, so we can reduce the data sent to the client by $(n_{outputs} -1)\cdot n_{transactions} \cdot 32$ bytes. Similarly, it looks like there are a few more repeated fields for each UTXO, namely blockhash and block number[^1]. So the final result would be something like `block_hash: { txid1: [output1, output2..], txid2: [output3, output4..] }`
+
+## Computation
+
+Once an output is found and the simplified UTXOs have been fetched, assuming outputs are not grouped by $txid$, a client would need to do the following:
+
+1. Verify $SPK_{k=0}$ is not a false positive by finding it in the list and removing it
+2. Create $SPK_{k=1}$ and check the entire list
+3. Repeat with $k++$ every time an output is found
+
+Whereas if the list is grouped by $txid$ (either by the client or the server), the client finds the $txid$ in step one and iterates over the outputs corresponding to $txid$ vs outputs for the entire block. This is arguably only a small improvement, but server side grouping means we can save bandwidth for the client and, as @cygnet3 points out, if every client will end up grouping it seems better to do the work one time on the server.
+
+[^1]: It's not immediately clear to what the additional fields are for, i.e. block hash, block number, timestamp. In the case of block info, seems like we could use block hash or block number, depending on what the wallet needs it for?
+
+-------------------------
+
