@@ -16,3 +16,19 @@ I'm curious to what solutions the bitcoin privacy community will come, will we s
 
 -------------------------
 
+1440000bytes | 2024-06-02 15:23:09 UTC | #2
+
+[quote="kravens, post:1, topic:934"]
+Now there is still the alternative [JoinMarket with Jam](https://jamdocs.org/philosophy/03-joinmarket/) as an improved user-interface that works without a central coordinator, but has a more complex setup process than the previously mentioned wallets.
+[/quote]
+
+Alternative that does not require complex setup: [joinstr.xyz](https://joinstr.xyz)
+
+> Who will run the Coinjoin coordinators?
+
+Nobody needs to run a coordinator for joinstr as exsiting nostr relays are used to communicate between peers. Relays don't really "coordinate" coinjoin in the same way as they do in wabisabi and whirlpool. They are just used to read/write pool information publicly and PSBT in encrypted channels.
+
+NIP: [https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md](https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md)
+
+-------------------------
+
