@@ -12,9 +12,9 @@
   "reply_to_post_number": 10,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 891,
   "topic_slug": "silent-payments-light-client-protocol",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"josibake, post:10, topic:891\"]\nThe two benefits I see for providing outputs grouped by txidtxidtxid are reduced bandwidth and less computation for the client in the event an output is found\n[/quote]\n\nNo doubt there.\n\n[quote=\"josibake, post:10, topic:891\"]\nif every client will end up grouping it seems better to do the work one time on the server\n[/quote]\n\nThis is a valid statement. I was coming from a perspective of doing these transformations on-the-fly per request. As of now the BB Oracle architecture would require on-the-fly mapping. The reason being that UTXOs need to be updated individually to change the spent state. Grouping UTXOs in storage would probably generate some overhead for sync times. Might be negligible though.\n\n[quote=\"josibake, post:10, topic:891\"]\nIt\u2019s not immediately clear to what the additional fields are for, i.e. block hash, block number, timestamp. In the case of block info, seems like we could use block hash or block number, depending on what the wallet needs it for?\n[/quote]\n\nIt's just an optional metadata field. `block_height` or `block_hash` should suffice if the wallet does extra requests to get block meta data. `timestamp` seemed like an obvious use case. The optional fields are not very refined yet and just ideas I threw out there. None of these fields are technically required to spend the outputs which is why I put them in optional to begin with.\nIf included it does make sense to not have them repeated in every output and rather aggregate on a higher level.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

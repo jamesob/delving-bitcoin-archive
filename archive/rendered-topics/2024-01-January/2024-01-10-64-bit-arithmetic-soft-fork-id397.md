@@ -808,3 +808,15 @@ where you change ADD to work with 64bit numbers (in whatever format), and add a 
 
 -------------------------
 
+Chris_Stewart_5 | 2024-06-03 12:50:28 UTC | #51
+
+[quote="ajtowns, post:50, topic:397"]
+Worries me a bit when the obvious way of doing something (“this won’t ever overflow, so just drop it”) is risky.
+[/quote]
+
+Unfortunately as language designers we can only give people tools to build safe programs, we can't force them to _always_ use those tools correctly. There will always be developers that figure out innovative ways to unsafely use your PL.
+
+For those that _want_ to be writing safe programs, we now have the tools available to them do so. Those don't exist at the moment.
+
+-------------------------
+
