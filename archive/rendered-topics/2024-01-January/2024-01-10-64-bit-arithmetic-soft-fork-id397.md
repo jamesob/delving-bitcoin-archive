@@ -784,3 +784,27 @@ I think this provides us a nice framework for upgrading the interpreter in the f
 
 -------------------------
 
+ajtowns | 2024-06-02 23:30:11 UTC | #50
+
+[quote="ajtowns, post:40, topic:397"]
+you get an overflow indicator in every result
+[/quote]
+
+FWIW, the big concern I have with this is people writing scripts where they don't think an overflow is possible, so they just do an OP_DROP for the overflow indicator, and then someone thinks a bit harder, and figures out how to steal money via an overflow, and then they do exactly that. That's arguably easily mitigated: just use `OP_VERIFY` to guarantee there wasn't an overflow, but I noticed that an example script in [review club](https://bitcoincore.reviews/29221#l-86) used the more obvious DROP:
+
+```
+<Chris_Stewart_5> Script: 0x000e876481700000 0x000e876481700000 OP_ADD64 OP_DROP OP_LE64TOSCRIPTNUM OP_SIZE OP_8 OP_EQUALVERIFY OP_SCRIPTNUMTOLE64 0x001d0ed902e00000 OP_EQUAL
+```
+
+Worries me a bit when the obvious way of doing something ("this won't ever overflow, so just drop it") is risky.
+
+You could imagine introducing two opcodes: "OP_ADD64" and "OP_ADD64VERIFY" the latter of which does an implicit VERIFY, and hence fails the script if there was overflow; but that would effectively be the existing behaviour of OP_ADD. So I guess what I'm saying is: maybe consider an approach along the lines that sipa suggested:
+
+[quote="sipa, post:15, topic:397"]
+I was suggesting not changing any semantics at all; only changing the acceptable range of inputs to existing opcodes.
+[/quote]
+
+where you change ADD to work with 64bit numbers (in whatever format), and add a new `ADD_OF`, `MUL_OF` (here OF implies "flag on stack" instead of "link in bio")
+
+-------------------------
+

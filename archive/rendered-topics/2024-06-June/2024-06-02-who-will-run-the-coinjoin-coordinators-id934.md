@@ -32,3 +32,23 @@ NIP: [https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md](https://gitlab
 
 -------------------------
 
+conduition | 2024-06-02 22:18:52 UTC | #3
+
+@1440000bytes I'm as excited as the next guy to see joinstr take flight, but seems like that protocol is still too early to fully replace centralized coordinators. From the website you linked:
+
+> **Can i use joinstr on mainnet rigth now?**
+> 
+> No. Please don't use it on mainnet as there are still bugs that need to be fixed for everything to work properly.
+
+I tried Joinmarket recently but had trouble getting its automatic mixing system to work. The UX is garbage and setup is tedious. Haven't tried Jam yet.
+
+Ecash might provide a dark horse candidate for smaller scale off-chain coin mixing. A hypothetical ecash implementation could route LN payments through multiple mints to avoid correlation by common payment hash/preimages. If the wallet uses TOR when making requests, and spaces out the transfers in time, they can avoid network level correlation. I don't think this will be effective yet, as right now the pool of money in any ecash mint is just too small and the pattern would be too obvious. 
+
+Also remember that PTLCs will someday be a thing on Lightning. This would vastly improve privacy of payment routing by breaking the payment-hash correlation attack vector[^1]. Perhaps one of the best ways to mix coins will someday be to use PTLC-driven submarine swaps to convert one larger pre-swap UTXO into a series of smaller post-swap UTXOs. Then your money is hidden among the set of all UTXOs performing submarine swaps with that service, which could be very large in the case of popular services like LN-Labs' Loop.
+
+
+
+[^1]: Imagine an LN node paying another node 4 hops away, using a private channel (A -> B -> C -> D -> E). If the payment is an HTLC, and nodes B and E are colluding, they can prove it was node A who paid node E, because each hop uses a common hash/preimage pair in their contracts. With PTLCs, each hop uses a unique key (point) for the contract. Nodes B and E would not be able to conclusively prove A was the sender, although they could guess based on timing and amount correlation. For hard proof, they'd need nodes C and D to also cooperate.
+
+-------------------------
+

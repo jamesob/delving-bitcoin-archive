@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 23.2,
   "yours": false,
   "topic_id": 934,
   "topic_slug": "who-will-run-the-coinjoin-coordinators",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"kravens, post:1, topic:934\"]\nNow there is still the alternative [JoinMarket with Jam](https://jamdocs.org/philosophy/03-joinmarket/) as an improved user-interface that works without a central coordinator, but has a more complex setup process than the previously mentioned wallets.\n[/quote]\n\nAlternative that does not require complex setup: [joinstr.xyz](https://joinstr.xyz)\n\n> Who will run the Coinjoin coordinators?\n\nNobody needs to run a coordinator for joinstr as exsiting nostr relays are used to communicate between peers. Relays don't really \"coordinate\" coinjoin in the same way as they do in wabisabi and whirlpool. They are just used to read/write pool information publicly and PSBT in encrypted channels.\n\nNIP: [https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md](https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

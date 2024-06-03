@@ -353,3 +353,13 @@ This proposal is very substantially overcomplicated if that is the only goal. If
 
 -------------------------
 
+davidcaseria | 2024-06-02 21:08:52 UTC | #26
+
+[quote="MattCorallo, post:25, topic:870"]
+This proposal is very substantially overcomplicated if that is the only goal. If this is the goal, the pool simply needs to make payouts using lightning/ecash, it doesn’t require tying shares to ecash or anything fancy like this.
+[/quote]
+
+If the goal was expanded to include making pool shares into a tradable asset, would you see benefits in using e-cash?
+
+-------------------------
+
