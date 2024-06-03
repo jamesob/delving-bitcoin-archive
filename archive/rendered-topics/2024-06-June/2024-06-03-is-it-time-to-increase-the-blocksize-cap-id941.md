@@ -67,3 +67,17 @@ If there were a way to be incredibly confident in this, then this kind of conver
 
 -------------------------
 
+myles | 2024-06-03 20:02:00 UTC | #4
+
+Well there are 2 scenarios:
+
+1 - More people join Bitcoin as time goes on and more people begin to transact on it
+
+2 - Bitcoin fails
+
+If the goal of Bitcoin is to become the world currency, then there exists a state in the future in which billions of people are using it for transactions every day. Let's be EXTREMELY conservative and say there are 10 million transactions worldwide every day. If BTC can handle only 700,000 per day, then that means every day, an additional ~9 million transactions are unable to be confirmed. It's very likely in this scenario, big banks would bid up their own transactions to hundreds, if not thousands, of dollars in order to continue normal operations. This would then mean all UTXOs under $1000 of BTC would become dust.
+
+As to the 2nd scenario, if Bitcoin is not the world currency, it has, by definition (and by vision) failed or has yet to reach its potential.
+
+-------------------------
+
