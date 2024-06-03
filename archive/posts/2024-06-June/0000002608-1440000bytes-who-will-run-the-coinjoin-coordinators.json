@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 18.0,
   "yours": false,
   "topic_id": 934,
   "topic_slug": "who-will-run-the-coinjoin-coordinators",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "[quote=\"conduition, post:3, topic:934\"]\nI\u2019m as excited as the next guy to see joinstr take flight, but seems like that protocol is still too early to fully replace centralized coordinators. From the website you linked:\n[/quote]\n\nElectrum plugin can be used on mainnet when a [threading issue](https://gitlab.com/1440000bytes/joinstr/-/issues/7) is fixed.\n\n[quote=\"conduition, post:3, topic:934\"]\nEcash might provide a dark horse candidate for smaller scale off-chain coin mixing. A hypothetical ecash implementation could route LN payments through multiple mints to avoid correlation by common payment hash/preimages. If the wallet uses TOR when making requests, and spaces out the transfers in time, they can avoid network level correlation. I don\u2019t think this will be effective yet, as right now the pool of money in any ecash mint is just too small and the pattern would be too obvious.\n[/quote]\n\nI had shared a relevant use case in [other thread](https://delvingbitcoin.org/t/dnm-ecash-and-privacy/916) although it works **with coinjoin** and does not replace it. Most of the privacy tools that I have used in bitcoin complement each other however users are often misguided by developers.\n\nExample: Coinjoin a UTXO, open LN channel with toxic change and use mercury layer with post-mix UTXO or payjoin",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

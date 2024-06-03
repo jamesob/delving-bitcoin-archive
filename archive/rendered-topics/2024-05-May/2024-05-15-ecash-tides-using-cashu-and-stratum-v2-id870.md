@@ -363,3 +363,13 @@ If the goal was expanded to include making pool shares into a tradable asset, wo
 
 -------------------------
 
+MattCorallo | 2024-06-03 17:16:36 UTC | #27
+
+[quote="davidcaseria, post:26, topic:870"]
+If the goal was expanded to include making pool shares into a tradable asset, would you see benefits in using e-cash?
+[/quote]
+
+For a centralized pool, I'm not quite sure why you'd want that (at best they'd trade at roughly par?), unless the pool didn't support withdraws via echas/lightning natively (but they should just do that instead!). That said, tradable shares is one of the two key insights to braidpool, but the reason they make the shares tradable is because they can only do payouts for the top N (probably, like, 10) miners owed the most in any given block, so you need to let users with lower hashpower sell their shares to larger miners for lightning/ecash.
+
+-------------------------
+

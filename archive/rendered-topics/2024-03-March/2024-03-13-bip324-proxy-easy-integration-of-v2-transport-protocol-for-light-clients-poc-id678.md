@@ -236,3 +236,20 @@ Maybe that makes it more usable? What do you think?
 
 -------------------------
 
+theStack | 2024-06-03 18:01:35 UTC | #15
+
+@Liz.Lightning 
+> @theStack thank you for sharing your bip324 proxy work, looks very interesting. I started coding a Golang version and your repo has been very helpful, I hope to share the first version soon and also make available the bip324 implementation as a library.
+
+Nice, glad to hear that the idea is picked up and looking forward to see an implementation of bip324-proxy in another language soon! I'm curious how advanced the golang ecosystem is w.r.t. the needed cryptographic primitives (e.g., are there even proper secp256k1 bindings available for doing the EllSwift pubkey encoding? I'm aware that btcd uses a custom secp256k1 library from the [decred project](https://github.com/btcsuite/btcd/blob/de4182589bfe0d1e2a6b45348ce283e7035b5d3d/btcec/btcec.go#L22-L24), as I just stumbled upon that recently, but I don't know if it is up-to-date and how performant and well-written it is).
+
+> One question: your approach relies on patching the existing clients which could be hurdle to usage. I had one idea to let the user configure proxy with peer1, peer2, peer3, etc and then listen on port 1 which proxies msgs to peer1, port 2 which proxies to peer 2 and so on. In that way the bitcoin software (for example btcd or anything really) can configure localhost:port1 and localhost:port2 as peers and then proxy will send bip324 msgs to peer1 and peer2. No patching of software. One downside is that peer discovery would need to move to proxy or peer config is static but it could work with dns-seed to discover peers on the fly.
+
+Interesting idea, haven't thought about doing static configuration yet. Not needing to patch the light client is a plus of course, but I imagine this approach also could have some problems:
+* do light clients allow to add multiple peers with the same IP address (even if the port is different)? Note that the proposed light client patches change the destination address at a low socket level, so the higher-layer logic of the client doesn't even notice that there is a proxy in-between. If there are checks in the code that e.g. don't allow to add local addresses or multiple addresses with the same IP, that could be a problem.
+* how would a user know which remote peers to configure? Every light client might have slightly different requirements for peers in terms of required services, so discovering peers that fit the used client could be non-trivial.
+
+That said, I think it's worth it to try it out and experiment with that idea.
+
+-------------------------
+
