@@ -217,3 +217,22 @@ My use of "threaded implementation" is a bit vague with all this concurrency tal
 
 -------------------------
 
+Liz.Lightning | 2024-06-03 04:55:43 UTC | #14
+
+@theStack thank you for sharing your bip324 proxy work, looks very interesting. I started coding a Golang version and your repo has been very helpful, I hope to share the first version soon and also make available the bip324 implementation as a library.
+
+One question: your approach relies on patching the existing clients which could be hurdle to usage. I had one idea to let the user configure proxy with peer1, peer2, peer3, etc and then listen on port 1 which proxies msgs to peer1, port 2 which proxies to peer 2 and so on.
+In that way the bitcoin software (for example btcd or anything really) can configure localhost:port1 and localhost:port2 as peers and then proxy will send bip324 msgs to peer1 and peer2. No patching of software. One downside is that peer discovery would need to move to proxy or peer config is static but it could work with dns-seed to discover peers on the fly.
+
+Proxy would work like this:
+```
+./bip324-proxy --peers=a.b.c.d:8333,e.f.g.h:8333,m.n.o.p:8333
+proxy to a.b.c.d:8333 listening on 127.0.0.1:38401
+proxy to e.f.g.h:8333 listening on 127.0.0.1:38402
+...
+Proxy server listening on 127.0.0.1:38400
+```
+Maybe that makes it more usable? What do you think?
+
+-------------------------
+
