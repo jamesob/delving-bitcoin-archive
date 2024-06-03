@@ -52,3 +52,21 @@ Also remember that PTLCs will someday be a thing on Lightning. This would vastly
 
 -------------------------
 
+1440000bytes | 2024-06-03 06:20:10 UTC | #4
+
+[quote="conduition, post:3, topic:934"]
+I’m as excited as the next guy to see joinstr take flight, but seems like that protocol is still too early to fully replace centralized coordinators. From the website you linked:
+[/quote]
+
+Electrum plugin can be used on mainnet when a [threading issue](https://gitlab.com/1440000bytes/joinstr/-/issues/7) is fixed.
+
+[quote="conduition, post:3, topic:934"]
+Ecash might provide a dark horse candidate for smaller scale off-chain coin mixing. A hypothetical ecash implementation could route LN payments through multiple mints to avoid correlation by common payment hash/preimages. If the wallet uses TOR when making requests, and spaces out the transfers in time, they can avoid network level correlation. I don’t think this will be effective yet, as right now the pool of money in any ecash mint is just too small and the pattern would be too obvious.
+[/quote]
+
+I had shared a relevant use case in [other thread](https://delvingbitcoin.org/t/dnm-ecash-and-privacy/916) although it works **with coinjoin** and does not replace it. Most of the privacy tools that I have used in bitcoin complement each other however users are often misguided by developers.
+
+Example: Coinjoin a UTXO, open LN channel with toxic change and use mercury layer with post-mix UTXO or payjoin
+
+-------------------------
+
