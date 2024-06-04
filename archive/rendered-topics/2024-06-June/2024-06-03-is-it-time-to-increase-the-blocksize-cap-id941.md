@@ -127,7 +127,7 @@ Fourth. It is worthwhile to reason the other way around as well. What would be a
 
 -------------------------
 
-shocknet_justin | 2024-06-04 15:33:21 UTC | #8
+shocknet_justin | 2024-06-04 15:35:40 UTC | #8
 
 Never.
 
@@ -148,6 +148,10 @@ Seems you have no idea how any of this works, good luck changing the network wit
 > Bitcoin as a tool for human rights
 
 Sound money is a human right, everything else is downstream of that.
+
+> a $5 per week family
+
+Bitcoin being better money doesn't help people that **don't have money**, it does however help them earn it permissionlessly.
 
 -------------------------
 
