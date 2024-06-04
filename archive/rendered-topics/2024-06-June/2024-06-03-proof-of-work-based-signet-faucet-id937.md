@@ -111,3 +111,14 @@ Thanks to @theStack for [collaborating](https://github.com/theStack/bitcoin-inqu
 
 -------------------------
 
+garlonicon | 2024-06-04 14:02:59 UTC | #2
+
+[quote]Just as you don’t want other people to reuse your proof of work, you don’t want the same person to be able to use a single proof of work twice[/quote]
+All of those problems could be solved, if instead of using Proof of Work from the Script, you check your Proof of Work from your [url=https://mempool.space/tx/000000000fdf0c619cd8e0d512c7e2c0da5a5808e60f12f1e0d01522d2986a51]transaction hash[/url]. Then:
+1. It cannot be stolen, because modifying the transaction in any way (when it comes to legacy parts) will lead to a different transaction hash.
+2. It can be used once, or thrown away. If you include transaction with one hash, you cannot include it again (there are some quirks, when you reuse the same coinbase transaction in some future block numbers, but most of the time, the system is resistant to duplicated future transaction hashes: if you can duplicate transactions, then there are more serious issues ongoing, like "history flood attack").
+3. If the size of the whole transaction will take 80 bytes, it will be compatible with ASICs. That part can be achieved for example by using different sighashes, like `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY`, and then require for example z-value of the transaction (hash of the signed message) to contain some leading zeroes.
+4. Also note, that it may be possible to claim N coins at once, by producing a sufficiently huge Proof of Work. Then, you share for example [url=https://mempool.space/tx/00000000c0747ece95852c2b7d37b09770873ed8b50fb7be2ba3d400defab06c]transaction like this one[/url], and then you claim 10 coins instantly, without providing separate proofs for each and every input. You just claim them all by providing sufficiently low hash in the whole transaction.
+
+-------------------------
+

@@ -373,3 +373,18 @@ For a centralized pool, I'm not quite sure why you'd want that (at best they'd t
 
 -------------------------
 
+mcelrath | 2024-06-04 13:47:41 UTC | #28
+
+[quote="MattCorallo, post:27, topic:870"]
+That said, tradable shares is one of the two key insights to braidpool, but the reason they make the shares tradable is because they can only do payouts for the top N (probably, like, 10) miners owed the most in any given block, so you need to let users with lower hashpower sell their shares to larger miners for lightning/ecash.
+[/quote]
+
+Braidpool chooses to pay every difficulty adjustment epoch (2016 blocks) because in this window the hash price is constant, and tradable shares are a natural forward contract. We could just as easily do PPLNS and pay in every block. It's a trade-off (as you indicate) between wasting block space with miner payouts (OCEAN/PPLNS pays up to 8x in multiple blocks for the same share) and paying smaller miners as you indicate. Tradable shares will be a V2 feature for Braidpool, we won't launch with it. Anyway we have a new idea here that I think is worth trying. It's always possible to fork Braidpool using a different payout mechanism if our current proposal turns out to be undesirable for some reason. And criticism is welcome.
+
+Forward/futures contracts are a fundamental risk management tool for commodities producers. This is one way we want to make Braidpool **more** profitable/desirable than other pools, and other design considerations like the 2016 block window are chosen to enable this. While I encourage the development of other ideas, we're going to end up fragmenting the market with different kinds of forward/futures contracts (braidpool shares, eCash, Luxor futures, indexed futures, etc) that are not the same and not tradable amongst each other. This is the difference between a futures contract and a forward contract. Any private bespoke contract which pays in the future is a forward, whereas futures contracts are standardized to make them tradable and increase market liquidity. Anyway I look forward to further development on the topic and I'd like to see what eCash can come up with. Centralized pools running on top of Braidpool can provide unique payout mechanisms including eCash and Lightning.
+
+Cheers,
+-- Bob
+
+-------------------------
+
