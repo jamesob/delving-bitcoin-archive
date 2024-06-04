@@ -81,3 +81,31 @@ As to the 2nd scenario, if Bitcoin is not the world currency, it has, by definit
 
 -------------------------
 
+cguida | 2024-06-03 21:33:46 UTC | #5
+
+NACK.
+
+Anyone advocating for raising the block size is either ignoring the existence of Lightning or has never run a Lightning node on low-resource hardware.
+
+We need to lower the block size instead.
+
+See https://www.youtube.com/watch?v=CqNEQS80-h4 for a strong argument as to why lowering the block size would be beneficial.
+
+-------------------------
+
+ProofOfKeags | 2024-06-03 22:30:05 UTC | #6
+
+I tend to agree with @MattCorallo here in that while we are working hard to increase demand for block space across a variety of efforts, we don't really have reason to believe that block space demand is a foregone conclusion. Changing the block size limit has very non-linear effects on fees too so it's very *very* hard to predict how a change to the block size would impact the fee market.
+
+That said, I do think we should begin to normalize the discussion of expanding block size capacity. I think that in the '15-'17 era it was good for us to take a hard line stance on the issue but I think the wider community has a very reactionary response to even suggesting it and I think we can unwind some of that by talking very openly and honestly about what it might solve and at what expense.
+
+The main uncertainty I'd like to make everyone aware of is that doubling the block size won't necessarily cut fees in half. All market prices develop as a clearing some supply against some demand. Bitcoin's block space supply schedule is *perfectly inelastic*... no amount of increased prices will invite any sustainable increased supply (modulo consensus forks that... raise the block size 🙃). On the other side of it, the user demand elasticity is fairly immeasurable. Especially in the presence of more sophisticated RBF procedures (like the one we shipped in LND 0.18), the visible fee market isn't necessarily representative of the overall willingness to pay fees.
+
+You can imagine a situation where there is *exactly* 4MWu of transactions every ten minutes that has a willingness to pay 1ksat/vb for their transaction, but has the sophistication to start with 1sat/vb and RBF their way up to ensure they are in the next block. If you had a block space budget of 4MWu + $e$ per block, then the fees would be 1sat/vb, and if you had a budget of 4MWu -- $e$ you would end up with fees at 1000sat/vb as the participants RBF their way into winning that bidding war. This example is admittedly contrived, but the point I'm trying to convey here is that a miniscule increase to the block size can wipe out the entire fee market in certain conditions.
+
+As such, using observed fee levels to try and decide on a new block size limit parameter is likely not a good approach overall. If we were to try and fuck with the block space supply schedule I'd like to see something that changes the *elasticity* of the block supply as opposed to something that kept *perfect inelasticity* and just changed the available supply.
+
+I think this is an important conversation to normalize, though. I don't think that in 2024 we should mindlessly reject conversations on the subject like it's still 2017.
+
+-------------------------
+
