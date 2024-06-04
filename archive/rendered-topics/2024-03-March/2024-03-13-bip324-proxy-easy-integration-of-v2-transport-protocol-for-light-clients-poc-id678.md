@@ -253,3 +253,25 @@ That said, I think it's worth it to try it out and experiment with that idea.
 
 -------------------------
 
+Liz.Lightning | 2024-06-04 05:19:44 UTC | #16
+
+[quote="theStack, post:15, topic:678"]
+are there even proper secp256k1 bindings available
+[/quote]
+
+I looked for libraries (including the decred library you linked) and did not see something well working so I went with the basic approach and translated the reference.py implementation to Golang. It's ugly but works :slight_smile: I'll look at the decred library again to see if I can utilize it.
+
+[quote="theStack, post:15, topic:678"]
+do light clients allow to add multiple peers with the same IP address
+[/quote]
+I don't think this will be a grave problem, the client should use "ip:port" to identify clients, not just
+ip address but to be honest I don't know for sure. I mostly just tested with btcd as I had trouble getting a simple neutrino client running - do you have a minimal example please so I could test?
+
+[quote="theStack, post:15, topic:678"]
+how would a user know which remote peers to configure? Every light client might have slightly different requirements
+[/quote]
+
+You are right, I don't have good answers for that. You could just use the dns seed peers and pick at random but it's not guaranteed to be a good choice.
+
+-------------------------
+
