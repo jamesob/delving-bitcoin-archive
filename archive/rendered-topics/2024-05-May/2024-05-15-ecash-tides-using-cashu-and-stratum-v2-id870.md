@@ -388,3 +388,17 @@ Cheers,
 
 -------------------------
 
+davidcaseria | 2024-06-04 20:21:55 UTC | #29
+
+[quote="MattCorallo, post:27, topic:870"]
+For a centralized pool, I’m not quite sure why you’d want that (at best they’d trade at roughly par?), unless the pool didn’t support withdraws via echas/lightning natively (but they should just do that instead!).
+[/quote]
+
+I think maybe this is where confusion is being generated. As I understand the proposal, a share represented by an e-cash token is not equivalent to a payout, so I'm not sure what you mean by your comment.
+
+IIUC, hypothetically, a miner would receive a share for proof of work in the form of an e-cash token. In a TIDES payout scheme, shares represented by an e-cash token must be redeemed multiple times (i.e., 8 in the average case) to collect the appropriate payouts when the pool finds a block. Thus, the withdrawal mechanism of the pool doesn't matter because the e-cash shares aren't payouts.
+
+When I read the proposal, I saw this distinction and immediately realized the possibility of a market (which I think will be crucial because miners want FPPS, but the pools will have trouble supporting that as TX fees outpay the block subsidy). Apologies if I distracted us from the technical aspects of the proposal with the economics of it.
+
+-------------------------
+
