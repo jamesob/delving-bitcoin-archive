@@ -109,3 +109,21 @@ I think this is an important conversation to normalize, though. I don't think th
 
 -------------------------
 
+CubicEarth | 2024-06-04 03:23:58 UTC | #7
+
+I agree with the premise of [myles](/u/myles)'s reply. We need to plan for Bitcoin's success. Planning for its failure, especially if that means limiting its reach, isn't the way to go here.
+
+**Editing** (posted early by mistake)
+
+With regards to total fees and block space:
+
+First of all we need to acknowledge that no one has any idea what the appropriate security budget of Bitcoin ought to be, and there certainly is no consensus on the answer even if someone knew. So I believe it is inappropriate to try to engineer other variables with the aim of attaining some specific yet unstated and un-agreed-to security budget.
+
+Second, even if we had a number in mind (or even a budget as a percentage of an economic metric), no one can make the claim that a marginal increase in the size of blocks would lead to less total revenue for miners because that is unknown. Personally I would be happy to wager that a marginal increase in block size would yield more revenue for miners.
+
+Third. Relating to "planning for success" - there is the concept of "induced demand". If we provide the capacity, people will find use cases for it that they are willing to pay something for. Aside from positive or negative impacts to fee revenue for miners, there are real-world costs to storing, transmitting, and analyzing chain data. It would be worthwhile to have analysis on how much larger blocks would cost the nodes, collectively, in extra resource consumption.
+
+Fourth. It is worthwhile to reason the other way around as well. What would be an amount that a person at the median income of the world (or top 10% or bottom 90%th) would likely to be happy to pay to make a LN tx, or other "settlement size" TX on Bitcoin? Maybe $1, or $5. Using the naïve and old school 7-tx/s with 1 MB blocks, that would be 4,200 txs/ block. If we had 32 MB blocks, with 134,000 txs @ ~$1.50 / tx, that would be $200,000 per block in fees. Is that enough security budget?
+
+-------------------------
+
