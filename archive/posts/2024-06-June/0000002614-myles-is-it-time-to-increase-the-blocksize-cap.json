@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Bitcoin needs to scale in order to achieve the vision of freedom money. Here are some thoughts that just don't make sense on the current trajectory we are on right now:\n\n- Lightning channels require at least 2 on-chain transactions to set up. If fees even stay at their CURRENT prices (which, I predict they will increase as the demand for block space increases), then that is widely unaffordable for most people in the world. Sure, you could interact with the network through a third party, but that defeats the purpose of Bitcoin. How can a $5 per week family in Ethiopia self-custody Bitcoin in its current state?\n\n- Many people make the argument that the base layer should be reserved for governments, banks, and major companies and that regular people will be exposed to Bitcoin through these entities. What ever happened to not your keys not your coins?\n\n- When did this notion that everyone needs to run their own full node become sensible? Did SPV nodes disappear? If our storage and bandwidth technology has been upgraded massively since 2009, why are we still at 1MB blocks?\n\n- Why are a handful of developers allowed to decide what's right and wrong for Bitcoin? Shouldn't block size be determined by the free market like everything else in Bitcoin? When did we move away from our Austrian ideals and into autocracy of Bitcoin Core developers?\n\nI may be wrong about some, or all, of what I just said but from my 12+ years of experience in Bitcoin, these are just some of the things that have not made sense to me personally. I understand the appeal of molding Bitcoin to look favorable to banks and governments, but I really believe in Bitcoin as a tool for human rights and individual freedom and see it more than just a way to \"get rich quick\". I hope that we can, as peers, move it back on the right track.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
