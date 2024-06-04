@@ -155,3 +155,125 @@ Bitcoin being better money doesn't help people that **don't have money**, it doe
 
 -------------------------
 
+CubicEarth | 2024-06-04 16:38:28 UTC | #9
+
+[quote="shocknet_justin, post:8, topic:941, full:true"]
+Nodes willing to wait days for a channel batch may get them **nearly free** as they're subsidized by larger and high time preference ones
+[/quote]
+
+The same can be said of user who want a very cheap node. Syncing will eventually happen, if they are patient and wait (true now, and also with somewhat larger blocks).
+
+-------------------------
+
+myles | 2024-06-04 17:00:31 UTC | #10
+
+[quote="cguida, post:5, topic:941"]
+er the block size instead.
+[/quote]
+
+So let's just assume that every person on earth will only ever open ONE channel and never will close it. That means it will take 7 YEARS to onboard everyone onto lightning?
+
+-------------------------
+
+myles | 2024-06-04 17:03:50 UTC | #11
+
+[quote="shocknet_justin, post:8, topic:941"]
+Bitcoin being better money doesn’t help people that **don’t have money**, it does however help them earn it permissionlessly.
+[/quote]
+
+$5 a week IS money. Many people around the world live off of much less than we do in the United States and it's ignorant to kick them off the network because they are "too poor".
+
+-------------------------
+
+shocknet_justin | 2024-06-04 17:25:46 UTC | #12
+
+[quote="myles, post:11, topic:941"]
+$5 a week IS money. Many people around the world live off of much less than we do in the United States and it’s ignorant to kick them off the network because they are “too poor”.
+[/quote]
+
+No, it isn't, that's simply your fiat unit bias and nothing more. Is .005 US cents money too? Just make up any integer, right? It's a product of a nonsensical contrived example.
+
+It's no coincidence that appeals to the security and sovereignty of the chain for arbitrarily insignificant amounts is the only talking point big blockers have left, a dishonest one. 
+
+Your hypothetical user would receive something no more sovereign or secure than a database entry had you your way regardless, for if Bitcoin were to be so fragile as to shift with the winds of virtue stroking fantasies it would be worthless.
+
+Regardless, I already showed the math above, lightning channels can be near free in perpetuity
+
+-------------------------
+
+myles | 2024-06-04 17:34:28 UTC | #13
+
+[quote="shocknet_justin, post:12, topic:941"]
+Your hypothetical user would receive something no more sovereign or secure than a database entry had you your way regardless, for if Bitcoin were to be so fragile as to shift with the winds of virtue stroking fantasies it would be worthless.
+[/quote]
+
+What are you actually even talking about? It doesn't matter what the unit of currency is... if you are unable to afford a lightning channel, you are basically kicked off the network because on chain transactions fees are too high. It doesn't matter if I say they can't afford it in Yen, BTC, BSV, slices of bread - lightning is vastly unaffordable for MOST of the world. Seems like you dodged the entire premise of my argument.
+
+-------------------------
+
+shocknet_justin | 2024-06-04 17:36:52 UTC | #14
+
+> Seems like you dodged the entire premise of my argument.
+
+You made no argument... you're using subjective terms 
+
+How much is too much? What is it now? What should we get it to?
+
+I've already showed you channels are effectively free.
+
+-------------------------
+
+cguida | 2024-06-04 17:38:17 UTC | #15
+
+> So let’s just assume that every person on earth will only ever open ONE channel and never will close it. That means it will take 7 YEARS to onboard everyone onto lightning?
+
+Yes. If we double the block size it will still take 3.5 years according to your numbers. Meanwhile the utxoset has [exploded from 5GB to 11GB](https://statoshi.info/d/000000009/unspent-transaction-output-set?orgId=1&refresh=5s&from=now-5y&to=now&viewPanel=8) in just the past year. Utxoset growth is dramatically outpacing Moore's Law, with affordable low-resource hardware becoming more and more difficult to sync. The 1MB non-witness block size limit is the only thing keeping this from expanding even faster.
+
+We need small merchants to be able to run their own nodes, otherwise the notion of "economic nodes" being a check on mining pool power is a complete LARP.
+
+Raising the block size is an unserious solution to scaling. We don't need incremental improvements; we need *fundamental* improvements, such as the new tech covenants enable. Let's focus on real solutions, not these "screw our future selves for a momentary reprieve" ideas.
+
+-------------------------
+
+myles | 2024-06-04 17:42:57 UTC | #16
+
+[quote="shocknet_justin, post:14, topic:941"]
+I’ve already showed you channels are effectively free.
+[/quote]
+
+No you haven't. You showed a hypothetical, massively unrealistic, situation in which only 3 million edges are added to the Lightning network per day. We have 7 billion people on this planet. If you really want each and every one of them to be able to reap the benefits of ultra sound money, they all need to be able to open and close multiple channels. Assuming they all open just ONE channel (for argument's sake, although one channel for a lifetime is unrealistic), it would take 7 years to onboard the planet.
+
+-------------------------
+
+myles | 2024-06-04 17:44:53 UTC | #17
+
+[quote="cguida, post:15, topic:941"]
+The 1MB non-witness block size limit is the only thing keeping this from expanding even faster.
+
+We need small merchants to be able to run their own nodes, otherwise the notion of “economic nodes” being a check on mining pool power is a complete LARP.
+[/quote]
+
+How do you know this? Why have developers assumed they know what's right and wrong for Bitcoin? The free market is the best decider of what works for the free market.
+
+-------------------------
+
+MattCorallo | 2024-06-04 17:58:57 UTC | #18
+
+[quote="ProofOfKeags, post:6, topic:941"]
+I think that in the '15-'17 era it was good for us to take a hard line stance on the issue
+[/quote]
+
+What hard-line stance? There was almost no "keep the block size the same" camp, and ultimately the blocksize was increased.
+
+-------------------------
+
+shocknet_justin | 2024-06-04 18:05:14 UTC | #19
+
+You can't speak about unrealistic hypotheticals when your case is 7B on-chain users
+
+There's about 300M businesses and 1B households... channels scale infinitely more so than cars, housing, or any other fixed appliance
+
+Every economic entity could have a channel in the next year
+
+-------------------------
+
