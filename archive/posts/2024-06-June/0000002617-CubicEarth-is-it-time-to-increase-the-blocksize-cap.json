@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Yes, it is.\n\nThe problem is Bitcoin's philosophy today is heavily influenced by the fact that there was a \"blocksize war\", and many of the advocates for increasing on-chain capacity left bitcoin development or were driven out. It's a form of political polarization that we are left with.\n\nThe tiny-block arguments are full of contradictions.\n\n\u2022 That the cost of running a node is all that matters, while ignoring the cost to transact\n\n\u2022 That small blocks are critical for decentralization (which only matters here for purposes of censorship resistance), while acknowledging high fees mean Bitcoin will primarily be used by large institutions and governments (who ARE the censors)\n\n\u2022 Thinking that IBD time must be quick (even though regular users are priced out of transacting). Institutions aren't going to not run node because syncing takes 4 days instead of 1 day.\n\n\u2022  Arguing that smaller blocks maximize fee revenue for miners. That is just wrong. There is an optimum block size that would maximize fee revenue, which would be neither too big nor too small.\n\n\u2022 Arguing that smaller blocks are more inclusive, because they make it easy for people with bad internet to run a node. The fact is tiny blocks put an absolute cap on access to the base chain, excluding 98% of humans, whereas making running a node only feasible for people who have better than circa-year-2000  3.0 Mbps internet only excludes the 20% of people on the planet who aren't well connected.\n\nAnd bad-faith arguments too:\n\n\u2022 Acting like anyone not in favor of tiny-blocks is a \"big-blocker\" and should use BSV or some garbage.\n\n\u2022 Arguing that there isn't a point to increasing block sizes because for any reasonable increase, there will still be unmet demand. (Which BTW, is why fee revenue would go up with marginally larger blocks (to a point)).\n\n\nAnd this misguided ones:\n\n\u2022 Somehow pretending that because other layers are and will be needed, that there is no benefit to increasing layer-1 capacity.\n\n\n\nI think to have a more concrete discussion around this topic, it would help to pick a couple of few block sizes and analyze their potential real-world impacts. What would they actually do to IBD time? And bandwidth and storage requirements? How many new Lightning users could be accommodated? What kind of fee-modeling can be done?\n\nIMO 8 MB, 16 MB and 32 MB block weights would be the reasonable numbers to study. Assuming that we are at ~4MB right now.\n\nEdit: \n\nBlocks should be as large as they can safely be.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
