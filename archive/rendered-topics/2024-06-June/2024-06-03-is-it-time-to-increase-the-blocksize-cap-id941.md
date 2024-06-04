@@ -127,3 +127,27 @@ Fourth. It is worthwhile to reason the other way around as well. What would be a
 
 -------------------------
 
+shocknet_justin | 2024-06-04 15:33:21 UTC | #8
+
+Never.
+
+A batch open of 50 channels takes ~2k vbytes
+
+A day has 144k vbytes
+
+Thus we could open 3M channels a day, or 1BN channels **per year**
+
+Nodes willing to wait days for a channel batch may get them **nearly free** as they're subsidized by larger and high time preference ones
+
+Undoubtedly closures will cost more than opens, but that's also optimal from an incentives perspective
+
+> are a handful of developers
+
+Seems you have no idea how any of this works, good luck changing the network with a handful of developers
+
+> Bitcoin as a tool for human rights
+
+Sound money is a human right, everything else is downstream of that.
+
+-------------------------
+
