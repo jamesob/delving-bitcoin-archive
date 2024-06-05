@@ -277,3 +277,25 @@ Every economic entity could have a channel in the next year
 
 -------------------------
 
+ariard | 2024-06-05 00:38:14 UTC | #20
+
+Whatever one's philosophical belief about bitcoin can be, i.e as a freedom money or as a human rights and individual freedom tools or as means to be free to transact with who you wish, and whatever the strength of your belief this won't make you free from hard constraints such as physics, economics, mathematics and world geography.
+
+We can certainly hold the goal that allowing a $5 per week family in Ethiopa to self-custody bitcoins as a laudable goal, however zooming out this naively miss that getting scalable bitcoin blockchain _access_ to verify said self-custodied bitcoins isn't a solved problem. There is still no SPV-like Chain-state Delivery Network (see [“On the scalability issues of onboarding millions of LN mobile clients”](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-May/017818.html)) on top of the current network of full-nodes.
+
+While there is a wide range of existent self-custody solutions to allow you to keep your keys and your coins, as soon as you start to have sophisticate spending policy in place, you're running in a conundrum of auxiliary problems (just-in-time fees reserves, 24 / 7 monitoring hosts, backups). Those problems exist independently of the coins holders being a government, a bank, a major company or an individual, and they are quite orthogonals w.r.t block size.
+
+While there is indeed a wide range of considerations in running one or more full-node or not, and those considerations have to be evaluated more carefully if you're running a second-layer node on top of your full-node, in a world where there is a already well-known DoS surface about current block size (a.k.a "The Great Consensus Cleanup"), it sounds more wise to address first those concerns to preserve the robustness of the base-layer network.
+
+Abstraction made of all security issues for once, lightning has a merit has a scaling technology to exist and being deployed. It's very clunky and buggy, and one could say it's worth a [Trabant](https://en.wikipedia.org/wiki/Trabant) as a bitcoin scaling solution. For now, lightning is the best Trabant we have. In the future, if one consider a decades-long timeline, there are known N > 2 counterparties "cypherpunk" scaling solutions like [CoinPool](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-February/019968.html), coming with its own mountain of consensus changes to make it a reality.
+
+As of today, it sounds still realistic to get 50 to 70 millions of channels over the next ~5 years on lightning, this is far from being at capacity and the bottleneck sounds more to be smarter automated liquidity management to keep the average on-chain fees cost predictable by the end-user. True, the $5 per week family in Ethiopa might have to wait a bit longer to get access for "cypherpunk" scalable payments and lightning might have been over-sold by its marketing department.
+
+Lastly, it is a bit easy to blame Bitcoin process decision-making to have degenerated in an autocracy of Bitcoin Core developers. This is certainly true there is an inertia towards entitlement among developers once in place. For some, this entitlement comes to argue whatever technical opinions of the day without consistency claiming some decade-old "domain experts” privilege. Often, it can give the appearance to an external observer it's more justified by complacency or laziness than a thorough first-principles reasoning.
+
+On the other hand, most of Bitcoin Core developers have put the years of work to get the experience and skillset which gives them the "street cred" to see their technical opinions getting echoed among the community. This is correct than asking for people to get scars and wounds for their code and design contributions before to see their technical opinions getting real impact could render the Bitcoin upgrade process utterly conservative. It’s more a matter of equilibrium to maintain a reasonable risk-adverse upgrade process.
+
+To finish on a philosophical note, if one sees Bitcoin as an atemporal store of value, under an aristotelian perspective, network consensus stability is a very valuable property in itself.
+
+-------------------------
+
