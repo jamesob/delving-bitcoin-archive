@@ -366,3 +366,26 @@ In all these cases, acting like a BIP158 client (ideally using ephemeral Tor ide
 
 -------------------------
 
+josibake | 2024-06-05 12:02:10 UTC | #15
+
+[quote="harding, post:14, topic:891"]
+If Mallory created one of the taproot-paying transactions in the block (e.g. Mallory pays Mallory’), then she can create a filter for an alternative transaction (not included in the block) where she used the same input(s) to pay the victim’s SP address *x*. That means she only needs control over the filter server.
+[/quote]
+
+Ah, got it! So in this case Mallory is getting the tweak data included in the index through an honest payment and then reusing that same tweak to create fake outputs in the filter. This also defeats the auditing mechanism in that anyone auditing the tweak data would see a tweak corresponding to Mallory's honest payment. The only way to detect suspicious behavior would be to recreate the filter based on taproot data in the block and compare it to Mallory's filter: if they don't match, something funny is going on. So this pretty much invalidates everything I said in the previous post :sweat_smile: 
+
+
+[quote="harding, post:14, topic:891"]
+Strongly disagree here. Audits only tell you that the server was honest in the past. The victims of a recently compromised server probably won’t find much solace in knowing that their loss of privacy was detected by auditors who will discourage others from using that server in the future.
+[/quote]
+
+Fair point; this can only identify that a server *has* misbehaved, but if the attack is targeted the damage is already done.
+
+[quote="harding, post:14, topic:891"]
+In all these cases, acting like a BIP158 client (ideally using ephemeral Tor identities like Wasabi) significantly boosts the client’s chance of remaining private. Of course, operating a full node provides even stronger privacy because it performs exactly the same network operations whether transactions belong to the wallet or not (i.e., it has information theoretic perfect privacy).
+[/quote]
+
+You've convinced me that always using the full block is best, especially taking into consideration the savings from not downloading the full block is minor optimization w.r.t expected light client payment activity. Another advantage that occurred to me is it simplifies an SP light client protocol to "provide tweak data and a taproot filter," and leaves sourcing block data up to the client. It is worth mentioning parsing the full block is more work for a mobile client (vs "simplified UTXOs"), but again this extra work only happens when an output is found;t he overall goal of this protocol is to avoid having the client do lots of work for transactions that are *not* payments.
+
+-------------------------
+
