@@ -12,9 +12,9 @@
   "reply_to_post_number": 14,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 891,
   "topic_slug": "silent-payments-light-client-protocol",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"harding, post:14, topic:891\"]\nIf Mallory created one of the taproot-paying transactions in the block (e.g. Mallory pays Mallory\u2019), then she can create a filter for an alternative transaction (not included in the block) where she used the same input(s) to pay the victim\u2019s SP address *x*. That means she only needs control over the filter server.\n[/quote]\n\nAh, got it! So in this case Mallory is getting the tweak data included in the index through an honest payment and then reusing that same tweak to create fake outputs in the filter. This also defeats the auditing mechanism in that anyone auditing the tweak data would see a tweak corresponding to Mallory's honest payment. The only way to detect suspicious behavior would be to recreate the filter based on taproot data in the block and compare it to Mallory's filter: if they don't match, something funny is going on. So this pretty much invalidates everything I said in the previous post :sweat_smile: \n\n\n[quote=\"harding, post:14, topic:891\"]\nStrongly disagree here. Audits only tell you that the server was honest in the past. The victims of a recently compromised server probably won\u2019t find much solace in knowing that their loss of privacy was detected by auditors who will discourage others from using that server in the future.\n[/quote]\n\nFair point; this can only identify that a server *has* misbehaved, but if the attack is targeted the damage is already done.\n\n[quote=\"harding, post:14, topic:891\"]\nIn all these cases, acting like a BIP158 client (ideally using ephemeral Tor identities like Wasabi) significantly boosts the client\u2019s chance of remaining private. Of course, operating a full node provides even stronger privacy because it performs exactly the same network operations whether transactions belong to the wallet or not (i.e., it has information theoretic perfect privacy).\n[/quote]\n\nYou've convinced me that always using the full block is best, especially taking into consideration the savings from not downloading the full block is minor optimization w.r.t expected light client payment activity. Another advantage that occurred to me is it simplifies an SP light client protocol to \"provide tweak data and a taproot filter,\" and leaves sourcing block data up to the client. It is worth mentioning parsing the full block is more work for a mobile client (vs \"simplified UTXOs\"), but again this extra work only happens when an output is found;t he overall goal of this protocol is to avoid having the client do lots of work for transactions that are *not* payments.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
