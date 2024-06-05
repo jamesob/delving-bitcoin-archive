@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "> So let\u2019s just assume that every person on earth will only ever open ONE channel and never will close it. That means it will take 7 YEARS to onboard everyone onto lightning?\n\nYes. If we double the block size it will still take 3.5 years according to your numbers. Meanwhile the utxoset has [exploded from 5GB to 11GB](https://statoshi.info/d/000000009/unspent-transaction-output-set?orgId=1&refresh=5s&from=now-5y&to=now&viewPanel=8) in just the past year. Utxoset growth is dramatically outpacing Moore's Law, with affordable low-resource hardware becoming more and more difficult to sync. The 1MB non-witness block size limit is the only thing keeping this from expanding even faster.\n\nWe need small merchants to be able to run their own nodes, otherwise the notion of \"economic nodes\" being a check on mining pool power is a complete LARP.\n\nRaising the block size is an unserious solution to scaling. We don't need incremental improvements; we need *fundamental* improvements, such as the new tech covenants enable. Let's focus on real solutions, not these \"screw our future selves for a momentary reprieve\" ideas.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
