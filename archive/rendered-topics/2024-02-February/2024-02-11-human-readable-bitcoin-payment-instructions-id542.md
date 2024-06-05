@@ -86,3 +86,13 @@ No such limit exists.
 
 -------------------------
 
+urza | 2024-06-05 15:40:15 UTC | #7
+
+@MattCorallo Hi Matt, I am trying to query your dns example (matt.user._bitcoin-payment.mattcorallo.com) and there are two strings in the response:
+
+"bitcoin:?lno=lno1qsgqmqvgm96frzdg8m0gc6nzeqffvzsqzrxqy32afmr3jn9ggkwg3egfwch2hy0l6jut6vfd8vpsc3h89l6u3dm4q2d6nuamav3w27xvdmv3lpgklhg7l5teypqz9l53hj7zvuaenh34xqsz2sa967yzqkylfu9xtcd5ymcmfp32h083e805y7jfd236w9afhavqqvl8uyma7x77yun4ehe9pnhu2gekjguexmxpqjcr2j" "822xr7q34p078gzslf9wpwz5y57alxu99s0z2ql0kfqvwhzycqq45ehh58xnfpuek80hw6spvwrvttjrrq9pphh0dpydh06qqspp5uq4gpyt6n9mwexde44qv7lstzzq60nr40ff38u27un6y53aypmx0p4qruk2tf9mjwqlhxak4znvna5y"
+
+What is the second string starting with "822xr7q3...?
+
+-------------------------
+
