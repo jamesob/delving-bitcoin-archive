@@ -338,3 +338,31 @@ In summary, it seems to me the tradeoff is regular audits vs. more bandwidth: a 
 
 -------------------------
 
+harding | 2024-06-05 10:07:31 UTC | #14
+
+[quote="josibake, post:13, topic:891"]
+So for this attack to work, Mallory must control both the tweak server and the filter server to force a match,
+[/quote]
+
+If Mallory created one of the taproot-paying transactions in the block (e.g. Mallory pays Mallory'), then she can create a filter for an alternative transaction (not included in the block) where she used the same input(s) to pay the victim's SP address _x_.  That means she only needs control over the filter server.
+
+[quote="josibake, post:13, topic:891"]
+a single server returning tweak data, filters and simplified UTXOs with regular audits gives the same level of privacy as getting full block data from the p2p network
+[/quote]
+
+Strongly disagree here.  Audits only tell you that the server was honest in the past.  The victims of a recently compromised server probably won't find much solace in knowing that their loss of privacy was detected by auditors who will discourage others from using that server in the future.
+
+[quote="josibake, post:13, topic:891"]
+tweak data and simplified UTXOs are both public data sets, making it easy for anyone with access to the full blockchain to audit the data Mallory is returning and detect fake payments
+[/quote]
+
+They're only public datasets if everyone has the same block, but reorgs are possible, so auditing can be somewhat challenging.
+
+There's an expensive version of the attack I describe where a completely legitimate block is created with only a transaction that matches the target wallet.  In that case, the tweaks and filters can be 100% legit and yet the server will still learn the network identity of the victim.
+
+Between the free and expensive versions of the attack is a variant of the well-known dust-spamming attack where the server operator spends small amounts of bitcoin to the target _x_ SP address and keeps track of which network identities download the blocks of "simplified UTXOs" containing those transactions.  If network identity _X_ is the only one that downloaded all of the corresponding blocks, there's a high probability that they control the _x_ SP address.
+
+In all these cases, acting like a BIP158 client (ideally using ephemeral Tor identities like Wasabi) significantly boosts the client's chance of remaining private.  Of course, operating a full node provides even stronger privacy because it performs exactly the same network operations whether transactions belong to the wallet or not (i.e., it has information theoretic perfect privacy).
+
+-------------------------
+
