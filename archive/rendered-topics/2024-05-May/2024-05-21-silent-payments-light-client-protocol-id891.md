@@ -282,3 +282,35 @@ If included it does make sense to not have them repeated in every output and rat
 
 -------------------------
 
+harding | 2024-06-05 02:13:35 UTC | #12
+
+[quote="setavenger, post:1, topic:891"]
+1. Fetch the tweaks (possibly filtered for dust limit)
+2. Compute the possible pubKeys for n = 0
+3. Fetch taproot-only filter (BIP 158)
+4. Compare the pubKeys against a taproot-only filter
+    - If no match: go to 1. with block_height + 1
+    - Else: continue with 5.
+5. Fetch simplified UTXOs
+6. Scan according to the BIP (one could reuse pubKeys from 2. here)
+7. Collect all matched UTXOs and add to wallet
+8. Go to 1. with block_height + 1
+[/quote]
+
+I'm concerned clients only performing step 5 (fetching transaction data) in response to untrusted data from step 1 (tweaks) and step 3 (pubkeys).  If a client fetches all three pieces of data from the same server (or from different servers that are colluding), the server can potentially unmask users in step five by lying in steps 1 and 3.
+
+For example: Server operator Mallory wants to discover the IP address of a user with SP address _x_.  Mallory creates a fake payment to _x_, giving her a tweak and an output that indicate a payment to _x_.  Instead of creating the tweaks and filters for the next block honestly, Mallory creates them using only the fake payment, distributing them to all of her users.  The only user who matches on that fake data is the owner of _x_, so that person is the only person who performs step 5 (downloading transaction data); this reveals their network ID to Mallory (e.g., their IP address if they use a direct connection).
+
+Downloading tweaks and filters from different servers doesn't help.  Even if we can be sure the servers aren't colluding, whoever controls the filter distribution server can always force a match by lying.  I think whoever controls the tweak distribution server can also force a match, but I'm not 100% sure on the EC math to do that.
+
+What I think is best is similar to what Wasabi does with its custom BIP158 implementation:
+
+1. Client downloads untrusted tweaks and filter from the server (ideally using something like an ephemeral Tor connection)
+2. On match, client downloads the corresponding full block from a random full node (ideally using a different network identity, such as a different ephemeral Tor connection)
+
+Given the large number of block-serving full nodes, this reduces the chance that the client connects to a full node controlled by the server.  Additionally, given the modestly large number of existing BIP158 clients that are already occasionally downloading arbitrary blocks from full nodes, even if the client did connect to a full node controlled by the server, the server couldn't be sure that the peer requesting a particular block was the peer it was targeting.  This is true on regular IP, with increased privacy guarantees available to users of Tor ephemeral addresses or similar protocols.
+
+Thus I think there's a lot of advantage to using full blocks and connections to regular full nodes in step 5 of this protocol.  The downside of full blocks over minimized blocks is increased bandwidth, but my guess is that most SP users will receive less than one SP payment per day, so the bandwidth cost of a full block is less than 4 MB per day. Those receiving more payments can probably easily afford the increased bandwidth costs (about 600 MB/day in the worst case).
+
+-------------------------
+
