@@ -314,3 +314,27 @@ Thus I think there's a lot of advantage to using full blocks and connections to 
 
 -------------------------
 
+josibake | 2024-06-05 09:12:48 UTC | #13
+
+Thanks for the concrete example, @harding !
+
+[quote="harding, post:12, topic:891"]
+Downloading tweaks and filters from different servers doesn’t help. Even if we can be sure the servers aren’t colluding, whoever controls the filter distribution server can always force a match by lying. I think whoever controls the tweak distribution server can also force a match, but I’m not 100% sure on the EC math to do that.
+[/quote]
+
+I'm not convinced it's sufficient to only control filter distribution. A sender creates a silent payment output as $P = B_{spend} + hash(a\cdot B_{scan} | k)\cdot G$, and the light client recipient finds the output by calculating $P = B_{spend} + hash(A_{server}\cdot b_{scan} | k)\cdot G$ and checking if $P \in taprootfilter$. The key is the ECDH step inside the hash which creates a shared secret between sender and recipient. So for this attack to work, Mallory must control both the tweak server and the filter server to force a match, i.e. Mallory needs to give the client a specific $A_{fake}$ that when multiplied by $b_{scan}$ will match a $P_{fake}$ output in the filter. Additionally, Mallory would need to collude with (but not control) the server providing the "simplified UTXOs" / block data.
+
+All that being said, I think it's very likely that Mallory will control all three endpoints, or at least control the tweak and filter endpoints and be able to collude with whoever is providing the block data. In the case where Mallory controls tweaks and filters and can collude, they can link IPs to BIP352 addresses without detection (assuming nobody audits the data Mallory is returning from the tweak end point[^1]) by blaming the the "fake hits" on the filter false positive rate.
+
+[^1]: Interestingly, the only one Mallory can get away with lying about is the filter: tweak data and simplified UTXOs are both public data sets, making it easy for anyone with access to the full blockchain to audit the data Mallory is returning and detect fake payments. But for this attack to be successful, Mallory must return fake tweaks to more than one client, making it very likely that Mallory will be caught.
+
+[quote="harding, post:12, topic:891"]
+Given the large number of block-serving full nodes, this reduces the chance that the client connects to a full node controlled by the server. Additionally, given the modestly large number of existing BIP158 clients that are already occasionally downloading arbitrary blocks from full nodes, even if the client did connect to a full node controlled by the server, the server couldn’t be sure that the peer requesting a particular block was the peer it was targeting. This is true on regular IP, with increased privacy guarantees available to users of Tor ephemeral addresses or similar protocols.
+[/quote]
+
+I think this is the strongest argument for using full blocks vs "simplified utxos": reusing the Bitcoin p2p network makes it much harder for Mallory to collude and is also indistinguishable from BIP158 client traffic. I also think you make a very good point regarding the bandwidth usage: If $B$ is using a lot of bandwidth due to receiving many payments, its very likely $B$ can afford to run a full node. In fact, if $B$ is receiving a high volume of payments ( > 1 per day), its even more important they run their own node as this is the only way to trustlessly verify that these payments are in fact legitimate payments.
+
+In summary, it seems to me the tradeoff is regular audits vs. more bandwidth: a single server returning tweak data, filters and simplified UTXOs with regular audits gives the same level of privacy as getting full block data from the p2p network at the cost of more bandwidth usage as a function of payment frequency.
+
+-------------------------
+
