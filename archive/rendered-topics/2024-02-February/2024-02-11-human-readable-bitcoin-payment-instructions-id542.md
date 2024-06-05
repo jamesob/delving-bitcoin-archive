@@ -96,3 +96,13 @@ What is the second string starting with "822xr7q3...?
 
 -------------------------
 
+urza | 2024-06-05 15:47:48 UTC | #8
+
+[quote="urza, post:7, topic:542"]
+822xr7q34p078gzslf9wpwz5y57alxu99s0z2ql0kfqvwhzycqq45ehh58xnfpuek80hw6spvwrvttjrrq9pphh0dpydh06qqspp5uq4gpyt6n9mwexde44qv7lstzzq60nr40ff38u27un6y53aypmx0p4qruk2tf9mjwqlhxak4znvna5y
+[/quote]
+
+Oh I see, they are just split into two parts. The first part has exactly 255 characters, so there must be some limit and the result is split in two by something along the way..
+
+-------------------------
+
