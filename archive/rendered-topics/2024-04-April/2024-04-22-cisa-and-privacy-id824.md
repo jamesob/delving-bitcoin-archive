@@ -138,3 +138,39 @@ Technically, you could do a limited CISA that requires you to use a taproot scri
 
 -------------------------
 
+AdamISZ | 2024-06-06 16:16:11 UTC | #6
+
+@1440000bytes 
+
+> Consider an example in which Alice has 3 UTXOs (A1, A2 and A3) in her wallet that could be used separately to pay Bob, Carol and Dave in different transactions. Normally, she would pay them separately and some of these transactions could have change although inputs remain different.
+
+I think you're oversimplifying how consolidation works here; you have to look at long term steady state behaviour across time.
+
+Suppose a person starts with $N$ utxos and never co-spends inputs. In this case, they will create a new change output $\simeq$ always, meaning each payment has no effect on $N$. Meanwhile, every time they receive a payment they increment $N$. So this is $N \rightarrow \infty$, a conclusion not affected by usage pattern. Even worse, you will tend to accumulate dust utxos at the end of long peeling chains - such chains being ideal for the adversary blockchain analyst because interpreting them is often the simplest, least ambiguous kind of tracing. The possibility of a perfect match between available utxo sizes and the payment size obviously limits this blow up to infinity, but doesn't change the general conclusion - this is not workable.
+
+While crude, I think that model is crucial to bear in mind - consolidation is not optional.
+
+In the other extreme, suppose a person's utxo selection policy is "max greed". Always spend *all* currently owned utxos. In this case the average value of $N$ over time will depend on the person's usage pattern. If they are a "merchant" usecase type, where they receive much more frequently than they spend, they will do a lot of consolidations, and often have a large value of $N$. If they are a consumer usage type, with very rare large deposits and lots of small spends, they will have $N=1$ almost always.
+
+CISA would mean a small incentive pushing in the direction of the max greed algo for any given current situation with $N>1$. Call it 15% say. It isn't clear that that's *worse* than a policy that's closer to the first ("never co-spend") policy, albeit we've dismissed that first one in its exact form, as impossible. It'll just depend on the usage pattern.
+
+"CISA means more co-spends" might not be valid if you take into account that more co-spending now might lead to less co-spending later (but it depends, blah blah), and this cannot be dismissed with "never co-spend" because that's not possible. And more co-spends over time isn't unambiguously worse, either.
+
+(in all of this I'm deliberately ignoring the effects on global utxoset size, because users will never be motivated by that)
+
+@harding 
+
+>Additionally, CISA reduces the cost of creating coinjoins and payjoins, two deployed protocols that improve privacy. It may also reduce the cost of other protocols that enhance privacy, including both current protocols (like LN channels closes with multiple in-flight HTLCs) and proposed protocols. The cost reduction is modest, but I think anything that gives privacy an advantage is worth considering.
+
+I think one should be careful to tease out what is incentivized here. In my opinion, privacy is *mostly* not incentivized by CISA, it kind of is true as a "second order" effect but not directly. Consider 3 parties wanting to spend 1 input from each of $A, B, C$ ; CISA incentivizes them to create their transaction together, but does not incentivize them to make any obfuscation effect in the pattern of their input and output values (consider that the solution of the subset sum problem is very trivial for randomly chosen 3 party batches). It *does* make it slightly cheaper to create a privacy-enhancing transaction pattern, but it equally incentivizes them to create any other pattern, and the latter *will require less effort*.
+
+To give a very obvious contrast, consider Lightning (or really any functional L2): the cost savings and the privacy effect are intrinsically linked; they're both a direct effect of the non-presence on-chain and you can't have one without the other.
+
+You could argue that, since CISA gives greater benefits the larger the group who are collaborating to form a single transaction, it incentivizes privacy in this way, but this delta in cost (as you approach the asymptotic best) is really very small; if it were not very small, then I would be more optimistic on this point - because, as vague as it is, the subset sum problem *is* more and more intractable with a $ \simeq O(n!)$ scaling. I agree that e.g. payjoin (or maybe things like batched channel opens) are incentivized somewhat by this.
+
+> The size is 355 vbytes, a 23% savings over the base case.
+
+Interesting point to consider. Though "sendtomany" functions exist in many wallets, we have no "join a payment batch with other users by pressing this button" outside of coinjoin, and the obvious reason is, it's "bloody hard" to do and inconvenient. Even without the hassle of forcing equal sized outputs, coordinating users to do transactions together is way too much hassle and not worth 23% (or whatever) savings in fees.
+
+-------------------------
+
