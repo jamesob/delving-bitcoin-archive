@@ -174,3 +174,13 @@ Interesting point to consider. Though "sendtomany" functions exist in many walle
 
 -------------------------
 
+1440000bytes | 2024-06-06 20:01:17 UTC | #7
+
+Maybe I could not express myself properly in this thread but I will try one more time with no cryptography involved:
+
+CISA incentivizes more inputs in one transaction and they belong to same person in most transactions no matter what privacy benefits, layer 2 etc. exists for collaborative transactions.
+
+This affects just not privacy but existing coin selection algorithms.
+
+-------------------------
+
