@@ -121,3 +121,15 @@ We define permissionless as meaning anyone with sufficient capital and resources
 
 -------------------------
 
+optimalbrew | 2024-06-07 17:35:52 UTC | #2
+
+On Bridge Custody: What's the baseline expectation you want to set for your audience? Handling peg-outs from the L2 back to bitcoin is hard. Honest-majority multi-sig federations are frowned upon, and have been the target of exploits. But they are still pervasive. This is why Robin Linus' BitVM "1-of-n honest" approach is so appealing as a way to build trust-minimized bridges. The "low-risk" alternatives for 2-way pegs are perhaps not practical yet on bitcoin (if they exist, please include references).
+
+Settlement assurance: This is the only category where you provide examples (Citrea, LN, BitVM2, SnarkNado). Would be great to add examples for other categories. If we can't find any examples, then perhaps the characterization is not as clear/practical as we think.
+
+Bitcoin security. Unilateral exit is of course a fantastic thing to have. So is unilateral entry. Not sure if that is addressed here.
+
+Thanks!
+
+-------------------------
+

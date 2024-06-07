@@ -141,3 +141,9 @@ josibake | 2024-05-31 14:36:20 UTC | #8
 
 -------------------------
 
+Eunovo | 2024-06-07 18:04:51 UTC | #9
+
+Cleaned up the commits and opened [Tr partial descriptors by Eunovo · Pull Request #30243 · bitcoin/bitcoin (github.com)](https://github.com/bitcoin/bitcoin/pull/30243) @josibake @ajtowns
+
+-------------------------
+
