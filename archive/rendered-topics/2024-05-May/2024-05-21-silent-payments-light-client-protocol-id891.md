@@ -389,3 +389,29 @@ You've convinced me that always using the full block is best, especially taking 
 
 -------------------------
 
+setavenger | 2024-06-08 19:50:22 UTC | #16
+
+[quote="harding, post:12, topic:891"]
+I’m concerned clients only performing step 5 (fetching transaction data) in response to untrusted data from step 1 (tweaks) and step 3 (pubkeys). If a client fetches all three pieces of data from the same server (or from different servers that are colluding), the server can potentially unmask users in step five by lying in steps 1 and 3.
+[/quote]
+
+Thanks for raising this issue!
+
+[quote="harding, post:12, topic:891"]
+What I think is best is similar to what Wasabi does with its custom BIP158 implementation:
+
+1. Client downloads untrusted tweaks and filter from the server (ideally using something like an ephemeral Tor connection)
+2. On match, client downloads the corresponding full block from a random full node (ideally using a different network identity, such as a different ephemeral Tor connection)
+[/quote]
+
+While I do agree with the general approach, I'm not sure downloading tweak data via tor will be feasible for everyone. I think an always/often-on scanning server with no hard time constraints can do that. Using mobile this might be a bit tricky. 
+
+[quote="josibake, post:15, topic:891"]
+You’ve convinced me that always using the full block is best, especially taking into consideration the savings from not downloading the full block is minor optimization w.r.t expected light client payment activity.
+[/quote]
+
+Would like to run a benchmark to see what the actual difference is w.r.t bandwidth. I can imagine cases where a wallet for donations might receive frequent payments leading to several blocks needing to be downloaded. 
+If the actual bandwidth savings are low, going with blocks is a good way to go.
+
+-------------------------
+
