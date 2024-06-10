@@ -198,3 +198,21 @@ It can be considered an external way to do user activated soft fork without prep
 
 -------------------------
 
+ProofOfKeags | 2024-06-10 18:01:45 UTC | #4
+
+[quote="1440000bytes, post:3, topic:958"]
+[Enforcer ](https://github.com/LayerTwo-Labs/enforcer) uses `invalidateblock` RPC to reject blocks
+[/quote]
+
+Programmatically rejecting blocks via `invalidateblock` *is* a soft fork...
+
+-------------------------
+
+salvatoshi | 2024-06-10 19:02:35 UTC | #5
+
+It's only a soft fork if there is economic consensus of the nodes to run it. In that case, it seems quite pointless: a UASF would be equivalent and cleaner.
+
+If the goal is to get miners to adopt it without nodes consensus, it's just marketing for a 51% attack.
+
+-------------------------
+
