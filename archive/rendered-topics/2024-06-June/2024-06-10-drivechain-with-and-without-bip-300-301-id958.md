@@ -1,6 +1,6 @@
 # Drivechain with and without BIP 300/301
 
-1440000bytes | 2024-06-10 00:27:35 UTC | #1
+1440000bytes | 2024-06-10 13:17:57 UTC | #1
 
 ## What is Drivechain?
 
@@ -140,7 +140,7 @@ These can be emulated with `OP_CAT`, `OP_CHECKSIGFROMSTACK` and a few other basi
 
 Sidechains are first proposed (with M1), and later acked (with M2) for creation. This process resembles Bip9 soft fork activation.
 
-[BIP 301](https://github.com/bitcoin/bips/blob/bc520fade5cc838d5c6e9b72d2fc12b691c80125/bip-0301.mediawiki) describes bind merged mining and introduces 2 messages:
+[BIP 301](https://github.com/bitcoin/bips/blob/bc520fade5cc838d5c6e9b72d2fc12b691c80125/bip-0301.mediawiki) describes blind merged mining and introduces 2 messages:
 
 1. BMM Accept -- How h* enters a main:coinbase. When Mary "accepts" a BMM Request, Mary is *endorsing a side:block*.
 2. BMM Request -- Simon offering money to Mary, if (and only if) she will Endorse a specific h*. When Simon broadcasts a BMM Request, Simon is *attempting a side:block*.
@@ -176,6 +176,25 @@ I got some coins for the main chain using the [faucet](https://drivechain.live).
 ## Conclusion
 
 Drivechain will be possible on bitcoin with or without BIP 300/301 in a few years. We need to do more research and avoid trusting other opinions to decide if they should be activated with BIP 300/301 for evaluating their scaling, privacy etc. benefits.
+
+-------------------------
+
+ursuscamp | 2024-06-10 11:37:27 UTC | #2
+
+Paul has mentioned that he is working on a system to enable drivechains without a soft fork in Core. Can you describe that protocol at all?
+
+-------------------------
+
+1440000bytes | 2024-06-10 12:22:21 UTC | #3
+
+Paul has described the process in this podcast: https://podcasters.spotify.com/pod/show/stewart-mackenzie-indaba/episodes/The-Stewart-Mackenzie-Indaba-39-Paul-Sztorc-e2dtf88
+
+It uses 2 tools:
+
+1. [Monitor](https://github.com/LayerTwo-Labs/bip300_monitor) scans blocks and see if any block breaks BIP 300 rules
+2. [Enforcer](https://github.com/LayerTwo-Labs/enforcer) uses `invalidateblock` RPC to reject blocks
+
+It can be considered an external way to do user activated soft fork without preparing a UASF client by forking bitcoin core.
 
 -------------------------
 
