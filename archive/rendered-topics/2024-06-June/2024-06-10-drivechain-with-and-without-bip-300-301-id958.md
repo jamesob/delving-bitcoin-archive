@@ -1,6 +1,6 @@
 # Drivechain with and without BIP 300/301
 
-1440000bytes | 2024-06-10 00:22:53 UTC | #1
+1440000bytes | 2024-06-10 00:27:35 UTC | #1
 
 ## What is Drivechain?
 
@@ -175,7 +175,7 @@ I got some coins for the main chain using the [faucet](https://drivechain.live).
 
 ## Conclusion
 
-Drivechain will be possible on bitcoin with or without BIP 300/301 in a few years. We need to do more research and avoid trusting other opinions to decide if they should be activated with BIP 300/301 for evaluating their scaling. privacy etc. benefits.
+Drivechain will be possible on bitcoin with or without BIP 300/301 in a few years. We need to do more research and avoid trusting other opinions to decide if they should be activated with BIP 300/301 for evaluating their scaling, privacy etc. benefits.
 
 -------------------------
 
