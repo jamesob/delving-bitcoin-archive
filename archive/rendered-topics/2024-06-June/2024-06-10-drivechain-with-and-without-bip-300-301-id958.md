@@ -1,6 +1,6 @@
 # Drivechain with and without BIP 300/301
 
-1440000bytes | 2024-06-10 00:15:20 UTC | #1
+1440000bytes | 2024-06-10 00:20:25 UTC | #1
 
 ## What is Drivechain?
 
@@ -127,7 +127,7 @@ These can be emulated with `OP_CAT`, `OP_CHECKSIGFROMSTACK` and a few other basi
 
 ## Drivechain using BIP 300 and 301
 
-[BIP 300](https://github.com/bitcoin/bips/blob/master/bip-0300.mediawiki) implmentation introduces an opcode `OP_DRIVECHAIN` and six new blockchain messages:
+[BIP 300](https://github.com/bitcoin/bips/blob/bc520fade5cc838d5c6e9b72d2fc12b691c80125/bip-0300.mediawiki) implmentation introduces an opcode `OP_DRIVECHAIN` and six new blockchain messages:
 
 * M1. Propose New Sidechain
 * M2. ACK Proposal
@@ -138,7 +138,7 @@ These can be emulated with `OP_CAT`, `OP_CHECKSIGFROMSTACK` and a few other basi
 
 Sidechains are first proposed (with M1), and later acked (with M2) for creation. This process resembles Bip9 soft fork activation.
 
-[BIP 301](https://github.com/bitcoin/bips/blob/master/bip-0301.mediawiki) describes bind merged mining and introduces 2 messages:
+[BIP 301](https://github.com/bitcoin/bips/blob/bc520fade5cc838d5c6e9b72d2fc12b691c80125/bip-0301.mediawiki) describes bind merged mining and introduces 2 messages:
 
 1. BMM Accept -- How h* enters a main:coinbase. When Mary "accepts" a BMM Request, Mary is *endorsing a side:block*.
 2. BMM Request -- Simon offering money to Mary, if (and only if) she will Endorse a specific h*. When Simon broadcasts a BMM Request, Simon is *attempting a side:block*.
