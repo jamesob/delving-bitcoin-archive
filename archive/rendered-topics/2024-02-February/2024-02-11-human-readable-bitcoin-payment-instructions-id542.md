@@ -106,3 +106,9 @@ Oh I see, they are just split into two parts. The first part has exactly 255 cha
 
 -------------------------
 
+MattCorallo | 2024-06-11 13:54:07 UTC | #9
+
+Indeed, that's a DNS-level quirk on how it encodes long strings on the wire. Your DNS software really shouldn't be displaying that quirk to you but indeed you can always just combine the strings.
+
+-------------------------
+
