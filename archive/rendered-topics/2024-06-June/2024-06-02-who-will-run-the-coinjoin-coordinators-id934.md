@@ -76,3 +76,13 @@ This is light years ahead of what's possible
 
 -------------------------
 
+real-or-random | 2024-06-11 06:59:48 UTC | #6
+
+[quote="kravens, post:1, topic:934"]
+Now there is still the alternative [JoinMarket with Jam ](https://jamdocs.org/philosophy/03-joinmarket/) as an improved user-interface that works without a central coordinator, but has a more complex setup process than the previously mentioned wallets.
+[/quote]
+
+Do you happen to know what it uses instead? I can't find any technical details. All the docs just say that it doesn't use a central coordinator.
+
+-------------------------
+
