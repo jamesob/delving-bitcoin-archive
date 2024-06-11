@@ -211,3 +211,9 @@ Ah, correct. I was thinking in the context of a single $B_{scan}$, but indeed if
 
 -------------------------
 
+andrewtoth | 2024-06-11 03:41:52 UTC | #12
+
+I updated the draft BIP at https://gist.github.com/andrewtoth/dc26f683010cd53aca8e477504c49260. It removes the OutputGenerator role and instead uses the ECDH share technique described by @josibake here.
+
+-------------------------
+
