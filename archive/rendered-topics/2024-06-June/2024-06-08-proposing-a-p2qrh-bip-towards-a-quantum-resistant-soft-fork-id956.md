@@ -16,10 +16,13 @@ https://github.com/cryptoquick/bips/blob/61aac1a91a596cdeed75ed7f5c5c19b0b4b923e
 
 -------------------------
 
-cryptoquick | 2024-06-13 02:40:40 UTC | #2
+cryptoquick | 2024-06-13 12:56:10 UTC | #2
 
 This document has gone through several additional iterations since it was first posted. I'm not sure I can edit my original post, but I'll link to the latest version:
 https://github.com/cryptoquick/bips/blob/e1fa27cb25deee8d58bdb9a64c112dfdf09e216d/bip-p2qrh.mediawiki
+
+Here is a diff for those who read it before:
+https://github.com/cryptoquick/bips/compare/61aac1a91a596cdeed75ed7f5c5c19b0b4b923ef...e1fa27cb25deee8d58bdb9a64c112dfdf09e216d
 
 -------------------------
 
