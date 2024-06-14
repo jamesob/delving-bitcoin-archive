@@ -248,3 +248,39 @@ I'm probably forgetting a few things, but @josibake has notes so hopefully those
 
 -------------------------
 
+andrewtoth | 2024-06-14 18:10:10 UTC | #14
+
+Thanks for this! It is not far off from what I have.
+
+In your approach though, each input will have a share and proof. In mine, all inputs that a signer has the private key for are combined into one share and proof. Can we combine these into having one proof for each scan key and set of inputs? Perhaps a global field where key data is 33 bytes scan followed by set of indexes?
+
+Constructors also need to check if there are any ANYONECANPAY sighashes on any inputs before adding a silent payment, and updaters need to check as well, but I suppose that can be done without modifying `PSBT_GLOBAL_TX_MODIFIABLE`. The reason I added a Has Silent Payments flag to it is for the same reason there is a Has Sighash Single flag.
+
+-------------------------
+
+achow101 | 2024-06-14 18:38:31 UTC | #15
+
+[quote="andrewtoth, post:14, topic:877"]
+Can we combine these into having one proof for each scan key and set of inputs? Perhaps a global field where key data is 33 bytes scan followed by set of indexes?
+[/quote]
+Inputs can be added and removed if Inputs Modifiable is set, so I don't think it's a good idea to have anything that relies on the ordering of inputs to be consistent. Having any field that includes a list of indexes could become messed up by an unaware constructor that adds an input in the wrong place.
+
+[quote="andrewtoth, post:14, topic:877"]
+Constructors also need to check if there are any ANYONECANPAY sighashes on any inputs before adding a silent payment, and updaters need to check as well, but I suppose that can be done without modifying `PSBT_GLOBAL_TX_MODIFIABLE`. The reason I added a Has Silent Payments flag to it is for the same reason there is a Has Sighash Single flag.
+[/quote]
+I remember discussing this with @josibake on the call, but don't fully remember the conclusion. I think it was something like it wasn't necessary to make any special consideration for ANYONECANPAY if we require that silent payments outputs can only be added if there are no inputs yet, or inputs with no signatures, or Inputs Modifiable is not set.
+
+As long as an input uses SIGHASH_ALL, I don't think an input with ANYONECANPAY is actually an issue.
+
+-------------------------
+
+andrewtoth | 2024-06-14 19:24:15 UTC | #16
+
+[quote="achow101, post:15, topic:877"]
+As long as an input uses SIGHASH_ALL, I don’t think an input with ANYONECANPAY is actually an issue.
+[/quote]
+
+Hmmm.... but if signing with ANYONECANPAY, even with SIGHASH_ALL, then Inputs Modifiable will not be set to False. So another SP unaware constructor can add a new input that modifies the shared secret and invalidates the already signed outputs.
+
+-------------------------
+
