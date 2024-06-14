@@ -217,3 +217,34 @@ I updated the draft BIP at https://gist.github.com/andrewtoth/dc26f683010cd53aca
 
 -------------------------
 
+achow101 | 2024-06-13 23:11:18 UTC | #13
+
+I had a call with @josibake last week discussing this, and I have a different proposal that I think is more efficient and also covers all of the edge cases.
+
+There would be the following new input fields:
+
+| Field name | `<keydata>` | key description | `<valuedata>` | value description |
+|---|---|---|---|---|
+| `PSBT_IN_SP_ECDH_SHARE` | `<33 byte scan key>` | The scan key this ECDH share is for | `<32 byte share>`| ECDH share for a scan key, computed with `a * B_scan` where `a` is this input's private key and `B_scan` is the scan key of a recipient |
+| `PSBT_IN_SP_DLEQ` | `<33 byte scan key>` | The scan key this proof covers | `<64 byte dleq proof>` | The DLEQ proof computed with this input's private key and the scan key of the recipient |
+
+and the following new output field:
+
+| Field name | `<keydata>` | key description | `<valuedata>` | value description |
+|---|---|---|---|---|
+| `PSBT_OUT_SP_V0_INFO` | None | No key data | `<33 byte scan key> <33 byte spend key>` | The silent payments scan and spend pubkeys from the silent payments address |
+
+With these fields, I believe it is okay to use PSBTv2 instead of defining a PSBTv3, with one modification to PSBTv2's invariats: at least one of `PSBT_OUT_SCRIPT` or `PSBT_OUT_SP_V0_INFO` must be present; both can also be included. For silent payment's aware parsers, the `PSBT_OUT_SP_V0_INFO` lets them compute the output script once all of the inputs are set and the ECDH shares are computed. For unaware parsers, the lack of `PSBT_OUT_SCRIPT` means that the PSBT will be seen as invalid and therefore abort and not do anything that could be problematic. Once all information is available, both could be set, in which case both silent payment's aware and unaware parsers will be able to handle the PSBT correctly.
+
+The silent payments signers must check that the `PSBT_OUT_SCRIPT` is as expected if both `PSBT_OUT_SCRIPT` and `PSBT_OUT_SP_V0_INFO` are present. I suppose there is some risk of being tricked if you have an unaware signer, but that seems unlikely as they should be validating that the output script is as expected, and what would an unaware parser be expecting for this kind of output?
+
+I also don't think there is a need for any changes to `PSBT_GLOBAL_TX_MODIFIABLE`.
+
+In particular, constructors adding silent payments outputs need there to be either no inputs in the transaction, or that no inputs use a segwit version greater than 1. Signers will also need to validate that if there are any silent payments v0 outputs, there are no segwit v2+ inputs.
+
+***
+
+I'm probably forgetting a few things, but @josibake has notes so hopefully those can cover whatever it is I've forgotten.
+
+-------------------------
+
