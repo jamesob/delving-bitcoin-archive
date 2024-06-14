@@ -122,3 +122,21 @@ All of those problems could be solved, if instead of using Proof of Work from th
 
 -------------------------
 
+levantah | 2024-06-14 10:15:05 UTC | #3
+
+Thanks! This still works for me:
+
+```
+$ ~/src/bitcoin/contrib/signet/powcoins setup-wallet
+$ ~/src/bitcoin/contrib/signet/powcoins claim --max-diff=25 mfqXWKj6cmRq18yH9pyrLMGY7L5QxAMHWR
+INFO:root:sendrawtransaction result ce82bca0bfd81cacac0f7b108b20de5b888957ba516745f6acdea26244138817
+$ ~/src/bitcoin/contrib/signet/powcoins claim --max-diff=16 mfqXWKj6cmRq18yH9pyrLMGY7L5QxAMHWR
+ERROR:root:Faucet is too difficult (min difficulty 24)
+$ ~/src/bitcoin/contrib/signet/powcoins claim --max-diff=24 mfqXWKj6cmRq18yH9pyrLMGY7L5QxAMHWR
+INFO:root:sendrawtransaction result 9d3a5fd2f885b490ce60447321ecd9a379f7ac980e5b9ef218ac3f16e7d5a766
+```
+
+May those txids serve as timestamps here.
+
+-------------------------
+
