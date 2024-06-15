@@ -284,3 +284,25 @@ Hmmm.... but if signing with ANYONECANPAY, even with SIGHASH_ALL, then Inputs Mo
 
 -------------------------
 
+andrewtoth | 2024-06-14 23:48:23 UTC | #17
+
+[quote="achow101, post:15, topic:877"]
+Inputs can be added and removed if Inputs Modifiable is set, so I don’t think it’s a good idea to have anything that relies on the ordering of inputs to be consistent. Having any field that includes a list of indexes could become messed up by an unaware constructor that adds an input in the wrong place.
+[/quote]
+
+If we can only add silent payment outputs if Inputs Modifiable is not set, then this point is moot, no?
+
+I don't think we should dismiss this optimization. Consider the common case of a wallet with 10 small utxos, and it wants to make a single payment with all of them to a silent payment address. Without consolidating all shares and proofs, the hardware wallet signer will need to compute 10 times more shares and proofs.
+
+-------------------------
+
+andrewtoth | 2024-06-14 23:45:29 UTC | #18
+
+[quote="achow101, post:15, topic:877"]
+As long as an input uses SIGHASH_ALL, I don’t think an input with ANYONECANPAY is actually an issue.
+[/quote]
+
+Thinking about this more, if any fully signed transaction spending silent payments that contains an ANYONECANPAY input that spends at least the amount of the inputs it signs (could be SIGHASH_ALL), couldn't any outside observer simply strip the other inputs and rebroadcast, which would still be a valid tx but all silent payment outputs would be invalid?
+
+-------------------------
+
