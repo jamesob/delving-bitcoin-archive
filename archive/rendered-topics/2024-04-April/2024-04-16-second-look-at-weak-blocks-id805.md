@@ -346,3 +346,11 @@ Seems pretty reasonable for an opt-in measure assuming the problem is real and
 
 -------------------------
 
+garlonicon | 2024-06-16 12:32:46 UTC | #18
+
+What about using rules similar to testnet, to implement weak blocks? For example: you have a mainnet node, that can observe the current chain. There is no new block for N seconds (to be decided by the node operator, could be 20 minutes, but could be one minute; it depends, how much traffic is someone willing to take). And then, those blocks can be weaker, and would always be reorged, and thrown away, after a new valid block will appear. They could have any difficulty, decided by the miner, or declared by the nodes as "accepted weak block difficulty" (in the same way, as nodes declare their "accepted fee per vbyte").
+
+Also, I wonder, how good that kind of test network would be. Because then, coins could really be worthless, and not doomed to gain value, like in testnet3 and testnet4. Another thing is there would be no question "when the network would be resetted", because it would happen constantly. Also, if someone would need some persistence, then historical weak blocks could be kept by nodes, willing to do so.
+
+-------------------------
+
