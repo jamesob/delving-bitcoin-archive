@@ -275,3 +275,12 @@ You are right, I don't have good answers for that. You could just use the dns se
 
 -------------------------
 
+Liz.Lightning | 2024-06-17 05:35:05 UTC | #17
+
+It took a while longer than thought but I finally got around to make public the initial version of the proxy:
+https://github.com/lnliz/bitcoin-bip324-proxy
+
+It is usable and works but there's a lot of room for improvement. Please share feedback or ideas for improvements or other comments.
+
+-------------------------
+
