@@ -88,3 +88,9 @@ with kind regards Rene Pickhardt
 
 -------------------------
 
+Antonio-Perez00 | 2024-06-17 20:00:06 UTC | #2
+
+Hola trato se comprender pero me es muy complixado ya que todo lo hago desde el movil
+
+-------------------------
+
