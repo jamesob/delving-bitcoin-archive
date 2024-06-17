@@ -86,3 +86,103 @@ Do you happen to know what it uses instead? I can't find any technical details. 
 
 -------------------------
 
+1440000bytes | 2024-06-17 19:27:30 UTC | #7
+
+It uses directory nodes for peer (maker and taker) discovery. IRC and Onion service for communication between peers.
+
+[https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/35e6f286fb9be0dc90c2c5c7648d380c103a3870/src/jmclient/configure.py#L143](https://github.com/JoinMarket-Org/joinmarket-clientserver/blob/35e6f286fb9be0dc90c2c5c7648d380c103a3870/src/jmclient/configure.py#L143)
+
+```
+[MESSAGING:onion]
+# onion based message channels must have the exact type 'onion'
+# (while the section name above can be MESSAGING:whatever), and there must
+# be only ONE such message channel configured (note the directory servers
+# can be multiple, below):
+type = onion
+
+socks5_host = localhost
+socks5_port = 9050
+
+# the tor control configuration.
+# for most people running the tor daemon
+# on Linux, no changes are required here:
+tor_control_host = localhost
+# or, to use a UNIX socket
+# tor_control_host = unix:/var/run/tor/control
+# note: port needs to be provided (but is ignored for UNIX socket)
+tor_control_port = 9051
+
+# the host/port actually serving the hidden service
+# (note the *virtual port*, that the client uses,
+# is hardcoded to as per below 'directory node configuration'.
+onion_serving_host = 127.0.0.1
+onion_serving_port = 8080
+
+# directory node configuration
+#
+# This is mandatory for directory nodes (who must also set their
+# own *.onion:port as the only directory in directory_nodes, below),
+# but NOT TO BE USED by non-directory nodes (which is you, unless
+# you know otherwise!), as it will greatly degrade your privacy.
+# (note the default is no value, don't replace it with "").
+hidden_service_dir =
+#
+# This is a comma separated list (comma can be omitted if only one item).
+# Each item has format host:port ; both are required, though port will
+# be 5222 if created in this code.
+# for MAINNET:
+directory_nodes = g3hv4uynnmynqqq2mchf3fcm3yd46kfzmcdogejuckgwknwyq5ya6iad.onion:5222,3kxw6lf5vf6y26emzwgibzhrzhmhqiw6ekrek3nqfjjmhwznb2moonad.onion:5222,bqlpq6ak24mwvuixixitift4yu42nxchlilrcqwk2ugn45tdclg42qid.onion:5222
+
+# for SIGNET (testing network):
+# directory_nodes = rr6f6qtleiiwic45bby4zwmiwjrj3jsbmcvutwpqxjziaydjydkk5iad.onion:5222,k74oyetjqgcamsyhlym2vgbjtvhcrbxr4iowd4nv4zk5sehw4v665jad.onion:5222,y2ruswmdbsfl4hhwwiqz4m3sx6si5fr6l3pf62d4pms2b53wmagq3eqd.onion:5222
+
+# This setting is ONLY for developer regtest setups,
+# running multiple bots at once. Don't alter it otherwise
+regtest_count = 0,0
+
+## IRC SERVER 1: Darkscience IRC (Tor, IP)
+################################################################################
+[MESSAGING:darkscience]
+# by default the legacy format without a `type` field is
+# understood to be IRC, but you can, optionally, add it:
+# type = irc
+channel = joinmarket-pit
+port = 6697
+usessl = true
+
+# For traditional IP:
+#host = irc.darkscience.net
+#socks5 = false
+
+# For Tor (recommended as clearnet alternative):
+host = darkirc6tqgpnwd3blln3yfv5ckl47eg7llfxkmtovrv7c7iwohhb6ad.onion
+socks5 = true
+socks5_host = localhost
+socks5_port = 9050
+
+# IRC SERVER 2: (backup) hackint IRC (Tor, IP)
+###############################################################################
+[MESSAGING:hackint]
+channel = joinmarket-pit
+# For traditional IP:
+# host = irc.hackint.org
+# port = 6697
+# usessl = true
+# socks5 = false
+# For Tor (default):
+host = ncwkrwxpq2ikcngxq3dy2xctuheniggtqeibvgofixpzvrwpa77tozqd.onion
+port = 6667
+usessl = false
+socks5 = true
+socks5_host = localhost
+socks5_port = 9050
+```
+
+-------------------------
+
+1440000bytes | 2024-06-17 19:32:55 UTC | #8
+
+Messaging protocol: https://github.com/JoinMarket-Org/JoinMarket-Docs/blob/d098c022b2fa4d148337aa45e995083e3416a3c2/Joinmarket-messaging-protocol.md
+
+-------------------------
+

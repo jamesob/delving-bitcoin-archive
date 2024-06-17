@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 0.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 972,
   "topic_slug": "bitcoin-core-27-1-released",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Bitcoin Core version v27.1 is now available from:\n\n[https://bitcoincore.org/bin/bitcoin-core-27.1/](https://bitcoincore.org/bin/bitcoin-core-27.1/)\n\nOr through BitTorrent:\n\n[magnet:?xt=...](`magnet:?xt=urn:btih:39554dd8aae5688f462538a821d2227ea1b8cbb6&dn=bitcoin-core-27.1&tr=udp%3A%2F%[2Ftracker.openbittorrent.com](http://2Ftracker.openbittorrent.com)%3A80&tr=udp%3A%2F%[2Ftracker.opentrackr.org](http://2Ftracker.opentrackr.org)%3A1337%2Fannounce&tr=udp%3A%2F%[2Ftracker.coppersurfer.tk](http://2Ftracker.coppersurfer.tk)%3A6969%2Fannounce&tr=udp%3A%2F%[2Ftracker.leechers-paradise.org](http://2Ftracker.leechers-paradise.org)%3A6969%2Fannounce&tr=udp%3A%2F%2Fexplodie.org%3A6969%2Fannounce&tr=udp%3A%2F%[2Ftracker.torrent.eu.org](http://2Ftracker.torrent.eu.org)%3A451%2Fannounce&tr=udp%3A%2F%[2Ftracker.bitcoin.sprovoost.nl](http://2Ftracker.bitcoin.sprovoost.nl)%3A6969&ws=http%3A%2F%2Fbitcoincore.org%2Fbin%2F)\n\nThis release includes various bug fixes and performance\nimprovements, as well as updated translations.\n\nPlease report bugs using the issue tracker at GitHub:\n\n<https://github.com/bitcoin/bitcoin/issues>\n\nTo receive security and update notifications, please subscribe to:\n\n<https://bitcoincore.org/en/list/announcements/join/>\n\nHow to Upgrade\n==============\n\nIf you are running an older version, shut it down. Wait until it has completely\nshut down (which might take a few minutes in some cases), then run the\ninstaller (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on macOS)\nor `bitcoind`/`bitcoin-qt` (on Linux).\n\nUpgrading directly from a version of Bitcoin Core that has reached its EOL is\npossible, but it might take some time if the data directory needs to\nbe migrated. Old\nwallet versions of Bitcoin Core are generally supported.\n\nCompatibility\n==============\n\nBitcoin Core is supported and extensively tested on operating systems\nusing the Linux Kernel `3.17+`, macOS `11.0+`, and Windows `7` and newer. Bitcoin\nCore should also work on most other Unix-like systems but is not as\nfrequently tested on them. It is not recommended to use Bitcoin Core on\nunsupported systems.\n\nNotable changes\n===============\n\n### Miniscript\n\n- [#29853](https://github.com/bitcoin/bitcoin/pull/29776) sign: don't assume we are parsing a sane TapMiniscript\n\n### RPC\n\n- [#29869](https://github.com/bitcoin/bitcoin/pull/29869) rpc, bugfix: Enforce maximum value for setmocktime\n- [#29870](https://github.com/bitcoin/bitcoin/pull/29870) rpc: Reword SighashFromStr error message\n- [#30094](https://github.com/bitcoin/bitcoin/pull/30094) rpc: move UniValue in blockToJSON\n\n### Index\n\n- [#29776](https://github.com/bitcoin/bitcoin/pull/29776) Fix #29767, set m_synced = true after Commit()\n\n### Gui\n\n- [#gui812](https://github.com/bitcoin-core/gui/pull/812) Fix create unsigned transaction fee bump\n- [#gui813](https://github.com/bitcoin-core/gui/pull/813) Don't permit port in proxy IP option\n\n### Test\n\n- [#29892](https://github.com/bitcoin/bitcoin/pull/29892) test: Fix failing univalue float test\n\n### P2P\n\n- [#30085](https://github.com/bitcoin/bitcoin/pull/30085) p2p: detect addnode cjdns peers in GetAddedNodeInfo()\n\n### Build\n\n- [#29747](https://github.com/bitcoin/bitcoin/pull/29747) depends: fix mingw-w64 Qt DEBUG=1 build\n- [#29859](https://github.com/bitcoin/bitcoin/pull/29859) build: Fix false positive CHECK_ATOMIC test\n- [#29985](https://github.com/bitcoin/bitcoin/pull/29985) depends: Fix build of Qt for 32-bit platforms with recent glibc\n- [#30097](https://github.com/bitcoin/bitcoin/pull/30097) crypto: disable asan for sha256_sse4 with clang and -O0\n- [#30151](https://github.com/bitcoin/bitcoin/pull/30151) depends: Fetch miniupnpc sources from an alternative website\n- [#30216](https://github.com/bitcoin/bitcoin/pull/30216) build: Fix building fuzz binary on on SunOS / illumos\n- [#30217](https://github.com/bitcoin/bitcoin/pull/30217) depends: Update Boost download link\n\n### Doc\n\n- [#29934](https://github.com/bitcoin/bitcoin/pull/29934) doc: add LLVM instruction for macOS < 13\n\n### CI\n\n- [#29856](https://github.com/bitcoin/bitcoin/pull/29856) ci: Bump s390x to ubuntu:24.04\n\n### Misc\n\n- [#29691](https://github.com/bitcoin/bitcoin/pull/29691) Change Luke Dashjr seed to [dashjr-list-of-p2p-nodes.us](http://dashjr-list-of-p2p-nodes.us)\n- [#30149](https://github.com/bitcoin/bitcoin/pull/30149) contrib: Renew Windows code signing certificate\n\nCredits\n=======\n\nThanks to everyone who directly contributed to this release:\n\n- Antoine Poinsot\n- Ava Chow\n- Cory Fields\n- dergoegge\n- fanquake\n- furszy\n- Hennadii Stepanov\n- Jon Atack\n- laanwj\n- Luke Dashjr\n- MarcoFalke\n- nanlour\n- Sjors Provoost\n- willcl-ark\n\nAs well as to everyone that helped with translations on\n[Transifex](https://www.transifex.com/bitcoin/bitcoin/).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
