@@ -377,7 +377,7 @@ EDIT: delving was yelling at me for posting too many small replies, so I deleted
 
 -------------------------
 
-andrewtoth | 2024-06-18 15:28:41 UTC | #22
+andrewtoth | 2024-06-18 15:43:59 UTC | #22
 
 [quote="josibake, post:21, topic:877"]
 I don’t see how this situation would be possible, so long as we require silent payments aware signers to never use `ALL | ACP`, right?
@@ -386,7 +386,7 @@ I don’t see how this situation would be possible, so long as we require silent
 Right, we need to require silent payments aware signers to never use `ACP` at all if there are any silent payment outputs present. If there are no silent payment outputs they can sign with whatever sighash they wish. I suppose we don't need to track that state for Constructor and Updater, since in BIP174 the Signer has the check:
 > * If a sighash type is provided, the signer must check that the sighash is acceptable. If unacceptable, they must fail.
 
-which for silent payment aware signers they would check for any `ACP` on any eligible inputs and fail if there are any silent payment outputs.
+which for silent payment aware signers they would check for any `ACP` on any eligible inputs and fail if there are any silent payment outputs. I'm not sure why there is a Has Sighash Single flag though and we shouldn't extend the `PSBT_GLOBAL_TX_MODIFIABLE` to have a Has Silent Payments flag to track this state in the same way. That way Constructors won't add silent payment outputs if there have been any ACP sigs and Updaters won't add any ACP sighashes to inputs if there are any silent payments. It should be backwards compatible too to add a flag to that field.
 
 However, the next rule for Signer needs to be modified for silent payment aware signers:
 > * If a sighash type is not provided, the signer should sign using SIGHASH_ALL, but may use any sighash type they wish.
