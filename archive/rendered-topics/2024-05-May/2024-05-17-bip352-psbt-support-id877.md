@@ -377,3 +377,35 @@ EDIT: delving was yelling at me for posting too many small replies, so I deleted
 
 -------------------------
 
+andrewtoth | 2024-06-18 15:28:41 UTC | #22
+
+[quote="josibake, post:21, topic:877"]
+I don’t see how this situation would be possible, so long as we require silent payments aware signers to never use `ALL | ACP`, right?
+[/quote]
+
+Right, we need to require silent payments aware signers to never use `ACP` at all if there are any silent payment outputs present. If there are no silent payment outputs they can sign with whatever sighash they wish. I suppose we don't need to track that state for Constructor and Updater, since in BIP174 the Signer has the check:
+> * If a sighash type is provided, the signer must check that the sighash is acceptable. If unacceptable, they must fail.
+
+which for silent payment aware signers they would check for any `ACP` on any eligible inputs and fail if there are any silent payment outputs.
+
+However, the next rule for Signer needs to be modified for silent payment aware signers:
+> * If a sighash type is not provided, the signer should sign using SIGHASH_ALL, but may use any sighash type they wish.
+
+should be:
+
+> * If a sighash type is not provided and there are silent payment outputs present, the signer must sign using SIGHASH_ALL. If a sighash type is not provided and there are no silent payment outputs present, the signer should sign using SIGHASH_ALL, but may use any sighash type they wish.
+
+[quote="josibake, post:21, topic:877"]
+One alternative is to allow the proof to be duplicated for inputs belong to the same signer.
+[/quote]
+
+How about adding the shares and proofs as globals, and the key data would be the scan key followed by the set of input outpoints instead of input indexes? That would let the psbt change input order and would not duplicate the shares and proofs for each input.
+
+[quote="josibake, post:21, topic:877"]
+and more work for the verifier.
+[/quote]
+
+This would be less work for the verifier too, right? Less proofs to verify.
+
+-------------------------
+
