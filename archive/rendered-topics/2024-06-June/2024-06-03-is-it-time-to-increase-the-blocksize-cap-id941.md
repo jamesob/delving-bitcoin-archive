@@ -299,3 +299,19 @@ To finish on a philosophical note, if one sees Bitcoin as an atemporal store of 
 
 -------------------------
 
+azz | 2024-06-18 06:44:43 UTC | #21
+
+NACK
+
+[quote="shocknet_justin, post:19, topic:941"]
+Every economic entity could have a channel in the next year
+[/quote]
+
+They certainly could, however increasing the L1 block limit probably isn't the way to do this. When Lightning's original paper came out, it was already known that it wouldn't scale to 7 billion occupants. Instead of modifying L1 further, it might be better to design a layer either between the timechain and lightning or on top of lightning. 
+
+Does anyone pushing big blocks run a node themselves? The main issue with, say, 32MB blocks is just that. It's not that most consumer hardware couldn't handle this (though it makes decentralisation over low power, non-traditional IP networks and low bandwidth ones more difficult), but the storage requirements would change enormously. 32MB a block, 144 blocks a day is a **4.608GB per day storage requirement**. My node currently is storing ~658GB (ignoring electrum indexes too). With 32 byte blocks, my hardware could totally handle it, but you'd rival the entire chain size in less than half a year. I can't handle buying 1TB drives every 7.12 months, and I doubt many other operators would be fond of this either. 
+
+Maybe investigate opcodes that don't cause issues to build additional layers, or layers without new opcodes (best, really), but I don't think this is viable. Not on the base layer.
+
+-------------------------
+
