@@ -354,3 +354,17 @@ Also, I wonder, how good that kind of test network would be. Because then, coins
 
 -------------------------
 
+Chris_Stewart_5 | 2024-06-18 17:55:11 UTC | #19
+
+So if I understand this proposal, the problem is:
+
+>Divergent mempools due to local mempool policy across the network increase latency for block relay.
+
+To solve this problem, this proposal introduces _another_ data structure (could you say `PoW Mempool`?) that holds a set of transactions that miner is attempting to _actively_ construct a block from?
+
+If I understand correctly, this would increase resource requirements for running a node (`-maxmempool` would be circumvented?), for the benefit of reducing block relay latency.
+
+Maybe to end with a controversial question, could this just replace the gossip based mempool (in favor of the `PoW Mempool`) in the future? What ramifications would that have for the network?
+
+-------------------------
+
