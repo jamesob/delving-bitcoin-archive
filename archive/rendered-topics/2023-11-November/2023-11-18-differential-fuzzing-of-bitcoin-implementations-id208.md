@@ -63,3 +63,9 @@ https://github.com/rust-bitcoin/rust-miniscript/issues/696
 
 -------------------------
 
+bruno | 2024-06-18 12:37:11 UTC | #7
+
+https://github.com/brunoerg/bitcoinfuzz/issues/39
+
+-------------------------
+

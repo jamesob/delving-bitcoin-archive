@@ -820,3 +820,52 @@ For those that _want_ to be writing safe programs, we now have the tools availab
 
 -------------------------
 
+Chris_Stewart_5 | 2024-06-18 12:30:26 UTC | #52
+
+Here is the `CScriptNum` extension prototype ([PR against master](https://github.com/Christewart/bitcoin/pull/3)): 
+
+https://github.com/Christewart/bitcoin/tree/64bit-arith-cscriptnum
+
+## Highlights
+
+- Re-enables the `OP_MUL` and `OP_DIV` opcodes
+- Support 8 byte computation w/ arithmetic and comparison op codes.
+- Doesn't add any new opcodes, rather repurposes existing opcodes based on `SigVersion`.
+- Changes the underlying impl type in `CScriptNum` from `int64_t` -> `__int128_t`
+- Preserves behavior of the old `CScriptNum` (variable length encoding, allows overflow results, but no computation on overflowed results).
+
+For those that may not be familiar with the existing behavior of `CScriptNum`, I would suggest reading [this comment in `script.h`](https://github.com/Christewart/bitcoin/blob/3ec4552f572ec1eff56534c2034293bb7c053c25/src/script/script.h#L219)
+
+```
+/**
+ * Numeric opcodes (OP_1ADD, etc) are restricted to operating on 4-byte integers.
+ * The semantics are subtle, though: operands must be in the range [-2^31 +1...2^31 -1],
+ * but results may overflow (and are valid as long as they are not used in a subsequent
+ * numeric operation). CScriptNum enforces those semantics by storing results as
+ * an int64 and allowing out-of-range values to be returned as a vector of bytes but
+ * throwing an exception if arithmetic is done or the result is interpreted as an integer.
+ */
+```
+
+The intention of this branch is to retain this behavior, only extending the supported range of values to `[-2^63 +1...2^63 -1]`.
+
+## Consensus risk
+
+This PR changes the behavior of `CScriptNum`. For instance, [the constructor for `CScriptNum`](https://github.com/Christewart/bitcoin/blob/3ec4552f572ec1eff56534c2034293bb7c053c25/src/script/script.h#L229) now takes a `__int128_t` as a parameter rather than `int64_t`. This constructor is called for _all_ `SigVersion` (not just `SigVersion::TAPSCRIPT_64BIT`). This seems like it could lead to some consensus risk with old nodes if someone crafts a specific transaction using segwit v0 or tapscript that exceeds `std::numeric_limits<int64_t>::max()` but is less than `std::numeric_limits<__int128_t>::max()`.
+
+### More problems with `__int128_t`
+
+I chose to use `__in128_t` as it seemed like the logical thing to do to extend the existing behavior for support for overflow values.
+
+I'm not an expert on c++, but it appears that `__int128_t` is not supported properly on windows. I'm seeing [CI failures](https://github.com/Christewart/bitcoin/actions/runs/9553273776/job/26331741590?pr=3#step:20:6261) on windows that look like this
+
+```
+D:\a\bitcoin\bitcoin\src\script\script.h(229,25): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:\a\bitcoin\bitcoin\build_msvc\libbitcoin_qt\libbitcoin_qt.vcxproj]
+D:\a\bitcoin\bitcoin\src\script\script.h(229,41): error C2143: syntax error: missing ',' before '&' [D:\a\bitcoin\bitcoin\build_msvc\libbitcoin_qt\libbitcoin_qt.vcxproj]
+D:\a\bitcoin\bitcoin\src\script\script.h(290,33): error C4430: missing type specifier - int assumed. Note: C++ does not support default-int [D:
+```
+
+Perhaps there is a better way to implement this while avoiding using `__int128_t`. I'm open to ideas.
+
+-------------------------
+

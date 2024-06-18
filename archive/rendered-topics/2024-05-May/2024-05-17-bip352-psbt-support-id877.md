@@ -306,3 +306,74 @@ Thinking about this more, if any fully signed transaction spending silent paymen
 
 -------------------------
 
+josibake | 2024-06-18 13:09:51 UTC | #19
+
+(post deleted by author)
+
+-------------------------
+
+josibake | 2024-06-18 13:09:40 UTC | #20
+
+(post deleted by author)
+
+-------------------------
+
+josibake | 2024-06-18 13:10:57 UTC | #21
+
+[quote="achow101, post:13, topic:877"]
+I’m probably forgetting a few things, but @josibake has notes so hopefully those can cover whatever it is I’ve forgotten.
+[/quote]
+
+Checking over my (not so great :sweat_smile:) notes, I think the only thing missing is the ordering of the silent payment addresses in cases where two or more `PSBT_OUT_SP_V0_INFO` fields contain the same scan key. In order to ensure any one of the SP aware signers can arrive at the same set of generated output scripts, each signer will need to sort the silent payment address by scan public key and spend public key, in lexicographic order. This guarantees that everyone gets the same values for `k` when creating multiple outputs for the same scan public key. As a reminder, this has nothing to with the final ordering in the transaction.
+
+---
+
+@andrewtoth - regarding `ANYONECANPAY`:
+
+[quote="andrewtoth, post:16, topic:877"]
+Hmmm… but if signing with ANYONECANPAY, even with SIGHASH_ALL, then Inputs Modifiable will not be set to False. So another SP unaware constructor can add a new input that modifies the shared secret and invalidates the already signed outputs.
+[/quote]
+
+These are the possible scenarios I see:
+
+1. PSBT does not contain any `PSBT_OUT_SP_V0_INFO` fields and someone signs with `ALL | ACP`. At this point, the outputs have been committed to, making it impossible to add a silent payment recipient
+
+2. PSBT contains only `PSBT_OUT_SP_V0_INFO` fields. SP unaware signers can't sign since there are no `PSBT_OUT_SCRIPT` fields, and SP aware signers will either add their shares/proofs or generate the SP outputs and sign after checking that all shares / proofs are present
+
+3. PSBT contains a mix of `PSBT_OUT_SP_V0_INFO` and `PSBT_OUT_SCRIPT` fields. If the SP aware signers have not finished adding their SP input data outputs with `PSBT_OUT_SP_V0_INFO` set will not have a `PSBT_OUT_SCRIPT` field, which means any non-SP aware signer will fail if trying to sign with `ALL | ACP` due to seeing the PSBT as malformed. This means the last SP signer to add their share / proof MUST sign with `ALL`. Said differently, this is only a problem if an SP aware signer were to validate the shares / proofs, generate the SP output scripts and then sign with `ALL | ACP`
+
+I think this ends up being fine with the understanding that a non-SP aware signer cannot sign the transaction until each output has a `PSBT_OUT_SCRIPT` field. The `PSBT_OUT_SCRIPT` fields can only be set once all of the SP fields have been set, which always gives the last SP signer a chance to lock the inputs with `ALL`.
+
+[quote="andrewtoth, post:18, topic:877"]
+Thinking about this more, if any fully signed transaction spending silent payments that contains an ANYONECANPAY input that spends at least the amount of the inputs it signs (could be SIGHASH_ALL), couldn’t any outside observer simply strip the other inputs and rebroadcast, which would still be a valid tx but all silent payment outputs would be invalid?
+[/quote]
+
+I don't see how this situation would be possible, so long as we require silent payments aware signers to never use `ALL | ACP`, right? A non-SP signer cannot sign until the `PSBT_OUT_SCRIPTS` exist and these fields cannot exist until all of the SP aware signers have added their data, which means the last SP aware signer to add will always have a chance to sign the transaction.
+
+---
+@achow101 , @andrewtoth regarding requiring a proof per input:
+
+[quote="andrewtoth, post:17, topic:877"]
+I don’t think we should dismiss this optimization. Consider the common case of a wallet with 10 small utxos, and it wants to make a single payment with all of them to a silent payment address. Without consolidating all shares and proofs, the hardware wallet signer will need to compute 10 times more shares and proofs.
+[/quote]
+
+This is a good point considering this would require the signer to do 3x the work (~30 ECC mults): signature, ECDH share, DLEQ (signature) for each input. If we allow the signer to consolidate the shares / proofs, this would be one ECDH, one proof, and 10 signatures. One alternative is to allow the proof to be duplicated for inputs belong to the same signer. This removes any order dependence, but requires the verifier of the proofs / shares to be able to group them and add up the public keys for grouped inputs, i.e.,
+
+```
+input_0:proofA:shareA
+input_1:proofB:shareB
+input_2:proofA:shareA
+
+// Verifier
+
+sum(input_0_pubkey, input_3_pubkey); verify with proofA:shareA
+input_1; verify with proofB:shareB
+```
+
+Seems like we can save the signers extra computation at the expense of more data in the PSBT (not really a concern imo) and more work for the verifier.
+
+---
+EDIT: delving was yelling at me for posting too many small replies, so I deleted the inline replies and consolidated them into this post
+
+-------------------------
+

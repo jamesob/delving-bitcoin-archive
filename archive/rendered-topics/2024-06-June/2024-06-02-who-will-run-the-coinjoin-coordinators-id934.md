@@ -186,3 +186,13 @@ Messaging protocol: https://github.com/JoinMarket-Org/JoinMarket-Docs/blob/d098c
 
 -------------------------
 
+real-or-random | 2024-06-18 12:45:46 UTC | #9
+
+[quote="1440000bytes, post:7, topic:934"]
+It uses directory nodes for peer (maker and taker) discovery.
+[/quote]
+
+But then this mostly shifts the problem: Who will run those?
+
+-------------------------
+
