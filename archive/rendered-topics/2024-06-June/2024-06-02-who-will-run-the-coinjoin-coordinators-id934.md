@@ -196,3 +196,9 @@ But then this mostly shifts the problem: Who will run those?
 
 -------------------------
 
+1440000bytes | 2024-06-19 02:09:07 UTC | #10
+
+Volunteers do it at this moment and it keeps changing if you look at the commits. I have tried to build something that does not rely on hardcoded directory nodes, me or any coordinators. Need some time to share benefits of this on mainnet.
+
+-------------------------
+
