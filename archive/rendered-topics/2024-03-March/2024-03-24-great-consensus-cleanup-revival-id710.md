@@ -467,3 +467,9 @@ Note: of course all this disregards checkpoints.
 
 -------------------------
 
+AntoineP | 2024-06-19 08:51:54 UTC | #19
+
+As an additional motivation for making txids unique post BIP34, @kcalvinalvin mentioned to me Utreexo nodes would not be able to perform BIP30 validation.
+
+-------------------------
+
