@@ -306,18 +306,6 @@ Thinking about this more, if any fully signed transaction spending silent paymen
 
 -------------------------
 
-josibake | 2024-06-18 13:09:51 UTC | #19
-
-(post deleted by author)
-
--------------------------
-
-josibake | 2024-06-18 13:09:40 UTC | #20
-
-(post deleted by author)
-
--------------------------
-
 josibake | 2024-06-18 13:10:57 UTC | #21
 
 [quote="achow101, post:13, topic:877"]

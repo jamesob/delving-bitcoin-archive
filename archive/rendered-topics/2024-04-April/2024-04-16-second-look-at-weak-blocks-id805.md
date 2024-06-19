@@ -368,3 +368,35 @@ Maybe to end with a controversial question, could this just replace the gossip b
 
 -------------------------
 
+ajtowns | 2024-06-19 11:28:23 UTC | #20
+
+It doesn't replace regular mempool/relay -- you still need some way to relay txs so that miners can apply PoW to them, and will usually want somewhere to store a backlog of txs, eg for cpfp/rbf purposes, for fee estimation, to see if someone's paying you, etc.
+
+It would only increase memory requirements for nodes by perhaps a few megabytes in the worst case -- the idea is you only keep one or two weak blocks, and in the normal case most/all of the txs in the weak block will be in your mempool anyway. It might make sense to count the actual memory usage of the weak block store towards the maxmempool limit, though.
+
+-------------------------
+
+Chris_Stewart_5 | 2024-06-19 14:54:33 UTC | #21
+
+>for fee estimation
+
+It seems to me if you have a latency sensitive transaction weak blocks could provide better fee estimation as it gives you a guarantee of transactions that are actively being hashed on by miners. 
+
+I concede your point for non latency sensitive transactions though. 
+
+>the idea is you only keep one or two weak blocks,
+
+
+(From @instagibbs in the OP)
+>How many blocks should we buffer?
+
+How could you keep more than one weak block? Would these blocks be competing chain tips or blocks built on top of one another? 
+
+I think i conceptually understand how this would work if each weak block were competing chain tips. 
+
+I don't understand how weak blocks could be built on top of each other - especially when receiving various weak blocks from a divergent set of miners across the p2p network? 
+
+Thanks in advance for clarification :raised_hands:
+
+-------------------------
+
