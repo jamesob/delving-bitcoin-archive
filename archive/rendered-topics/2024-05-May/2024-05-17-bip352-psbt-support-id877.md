@@ -435,3 +435,24 @@ I don't have a strong opinion here. If we have $n$ inputs covered by the same pr
 
 -------------------------
 
+andrewtoth | 2024-06-20 18:38:44 UTC | #24
+
+[quote="josibake, post:23, topic:877"]
+`SINGLE | ACP`
+
+* Signers exchange shares and A generates the correct script from A and B shares, signs with `SINGLE | ACP` where `SINGLE` commits to the output of the generated script
+* B verifies the output is correct and signs with `ALL`
+[/quote]
+
+Here A has signed their input, which can then be broadcast by itself or with another output attached by an outside observer to meet the correct amount, and the output will go to an invalid destination. Regardless of whether B signs with ALL or not, the outside observer can strip B and add their own input or not. Therefore it is insecure for A to sign at all with ACP. Am I missing something?
+
+[quote="josibake, post:23, topic:877"]
+I think it’s sufficient to say a silent payments signer must:
+
+1. Never use `ACP` without fully trusting the other signers
+[/quote]
+
+Even with trusting the other signers, an outside observer can strip out your ACP inputs and add their own to them right?
+
+-------------------------
+

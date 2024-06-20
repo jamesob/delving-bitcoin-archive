@@ -869,3 +869,15 @@ Perhaps there is a better way to implement this while avoiding using `__int128_t
 
 -------------------------
 
+ajtowns | 2024-06-20 16:25:30 UTC | #53
+
+[quote="Chris_Stewart_5, post:52, topic:397"]
+Perhaps there is a better way to implement this while avoiding using `__int128_t`. I’m open to ideas.
+[/quote]
+
+For comparison, crypto/muhash.h uses `__int128_t` conditionally.
+
+Could maybe use `uint64_t absval; bool negated;` instead, with various manual checks to see if things end up out of bounds? Otherwise, just doing a bignum class might make sense (like arith_uint256).
+
+-------------------------
+
