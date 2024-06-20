@@ -435,7 +435,7 @@ I don't have a strong opinion here. If we have $n$ inputs covered by the same pr
 
 -------------------------
 
-andrewtoth | 2024-06-20 18:38:44 UTC | #24
+andrewtoth | 2024-06-20 20:29:14 UTC | #24
 
 [quote="josibake, post:23, topic:877"]
 `SINGLE | ACP`
@@ -444,7 +444,7 @@ andrewtoth | 2024-06-20 18:38:44 UTC | #24
 * B verifies the output is correct and signs with `ALL`
 [/quote]
 
-Here A has signed their input, which can then be broadcast by itself or with another output attached by an outside observer to meet the correct amount, and the output will go to an invalid destination. Regardless of whether B signs with ALL or not, the outside observer can strip B and add their own input or not. Therefore it is insecure for A to sign at all with ACP. Am I missing something?
+Here A has signed their input, which can then be broadcast by itself or with another input attached by an outside observer to meet the correct amount, and the output will go to an invalid destination. Regardless of whether B signs with ALL or not, the outside observer can strip B and add their own input or not. Therefore it is insecure for A to sign at all with ACP. Am I missing something?
 
 [quote="josibake, post:23, topic:877"]
 I think it’s sufficient to say a silent payments signer must:
