@@ -12,8 +12,8 @@
   "reply_to_post_number": 52,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 1.2,
   "yours": false,
   "topic_id": 397,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"Chris_Stewart_5, post:52, topic:397\"]\nPerhaps there is a better way to implement this while avoiding using `__int128_t`. I\u2019m open to ideas.\n[/quote]\n\nFor comparison, crypto/muhash.h uses `__int128_t` conditionally.\n\nCould maybe use `uint64_t absval; bool negated;` instead, with various manual checks to see if things end up out of bounds? Otherwise, just doing a bignum class might make sense (like arith_uint256).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
