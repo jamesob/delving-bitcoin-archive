@@ -397,3 +397,41 @@ This would be less work for the verifier too, right? Less proofs to verify.
 
 -------------------------
 
+josibake | 2024-06-20 09:21:52 UTC | #23
+
+[quote="andrewtoth, post:22, topic:877"]
+which for silent payment aware signers they would check for any `ACP` on any inputs and fail if there are any silent payment outputs.
+[/quote]
+
+I don't think a silent payment signer cares if anyone else has used `ACP`. Rather, I think each silent payments aware signer needs to verify the proofs, generate the `PSBT_OUT_SCRIPT` for each silent payments output from the provided shares and check that it matches what the other signers have committed to. Consider the following scenarios for two silent payment aware signers, $A$ and $B$:
+
+* `NONE | ACP`
+  * $A$ adds input, proof, share to the transaction and signs with `NONE | ACP`
+  * $B$ adds input, proof, share, generates the `PSBT_OUT_SCRIPT` and signs with `ALL`
+
+* `SINGLE | ACP`
+  * Signers exchange shares and $A$ generates the correct script from $A$ and $B$ shares, signs with `SINGLE | ACP` where `SINGLE` commits to the output of the generated script
+  * $B$ verifies the output is correct and signs with `ALL`
+  * Alternatively, $B$ determines $A$ did not generate the correct script and refuses to sign
+  * $A$ signs with `SINGLE | ACP` where `SINGLE` commits to a non-silent payments output (e.g. a change output for $A$)
+  * $B$ adds their inputs, generates the scripts and signs with `ALL`
+
+* `ALL | ACP`
+  * Signers exchange shares, $A$ generates the scripts and signs with `ALL | ACP`
+  * $B$ verifies the generated scripts are correct and signs with `ALL`
+  * Alternatively, $B$ determines the generated scripts are not correct and refuses to sign
+
+In all of these scenarios, $B$ can determine whether or not $A$ has committed to the correct output scripts and sign the transaction with `ALL`. Alternatively, $B$ could add inputs to the transaction which burn the money, which means $A$ is trusting $B$ to finish the transaction honestly. Hence, I think it's sufficient to say a silent payments signer must:
+
+1. Never use `ACP` without fully trusting the other signers
+2. Independently generate the `PSBT_OUT_SCRIPT` and verify the match what the other signers have committed to before signing
+
+
+[quote="andrewtoth, post:22, topic:877"]
+How about adding the shares and proofs as globals, and the key data would be the scan key followed by the set of input outpoints instead of input indexes? That would let the psbt change input order and would not duplicate the shares and proofs for each input.
+[/quote]
+
+I don't have a strong opinion here. If we have $n$ inputs covered by the same proof, this would be $n\cdot 36 + (33 + 64)$ bytes vs $n\cdot (33 + 64)$ bytes. So better in some cases, worse in others?
+
+-------------------------
+

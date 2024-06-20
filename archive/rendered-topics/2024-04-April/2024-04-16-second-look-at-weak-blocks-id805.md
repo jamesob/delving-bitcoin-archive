@@ -400,3 +400,17 @@ Thanks in advance for clarification :raised_hands:
 
 -------------------------
 
+ajtowns | 2024-06-20 03:18:30 UTC | #22
+
+[quote="Chris_Stewart_5, post:21, topic:805"]
+How could you keep more than one weak block? Would these blocks be competing chain tips or blocks built on top of one another?
+[/quote]
+
+If your current tip is height X, you'd accept up to k weak blocks for height X+1. Maybe you'd require them not only to be on the right height, but also to have your current tip as their parent. You might only accept the first k weak blocks and ignore subsequent ones, or you might rotate out older weak blocks for newer ones, perhaps preferring later timestamps (to avoid cycling back to older weak blocks of the same height if they're re-announced).
+
+The idea behind keeping more than one would be if there are divergent mining policies on the network -- eg, just mining by feerate, filtering txs, heavily prioritising transactions via out of band fees, including txs that were enabled via some new soft fork rule that your node doesn't support.
+
+However the odds of multiple weak blocks actually being mined using independent policies is low (consider the runs of real blocks all found sequentially by Foundry, eg), so until you've seen k weak blocks at height X+1, it could be worth keeping weak blocks of height X or X-1 etc around if they contain still-consensus-valid txs that aren't mempool compatible and haven't been seen in newer weak blocks. OTOH, tracking that might be more complex than it's worth too.
+
+-------------------------
+
