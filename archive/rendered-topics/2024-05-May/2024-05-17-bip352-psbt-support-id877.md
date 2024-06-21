@@ -456,3 +456,65 @@ Even with trusting the other signers, an outside observer can strip out your ACP
 
 -------------------------
 
+josibake | 2024-06-21 13:15:06 UTC | #25
+
+[quote="andrewtoth, post:24, topic:877"]
+Therefore it is insecure for A to sign at all with ACP. Am I missing something?
+[/quote]
+
+Nope, we completely agree on this point! What I was trying to illustrate was $B$ does not need to care whether or not $A$ signed with `ACP`: in all cases, a 3rd party observer would need to strip $B$'s inputs from the transaction before adding their own. More specifically, if $A$ insecurely signs with `ACP`, $B$ can still safely sign the transaction with `ALL`. Either the transaction will go through, or $B$'s inputs will be removed from the transaction. $A$ should _never_ sign with `ACP` because doing so puts $A$'s funds at risk of being stolen or burned.
+
+-------------------------
+
+andrewtoth | 2024-06-21 13:41:15 UTC | #26
+
+[quote="josibake, post:23, topic:877"]
+[quote="andrewtoth, post:22, topic:877"]
+which for silent payment aware signers they would check for any `ACP` on any inputs and fail if there are any silent payment outputs.
+[/quote]
+
+I don’t think a silent payment signer cares if anyone else has used `ACP`.
+[/quote]
+
+I think I see the confusion. What I meant was the silent payment aware signers must check for any `ACP` on any inputs *they will sign for* and fail if there are any silent payment outputs. If all signers are following the BIP spec, then there should not be any inputs signed with `ACP` anyways. Actually, the signer should probably fail if there is any sighash flag other than `ALL` if there are any silent payment outputs.
+
+[quote="josibake, post:23, topic:877"]
+[quote="andrewtoth, post:22, topic:877"]
+How about adding the shares and proofs as globals, and the key data would be the scan key followed by the set of input outpoints instead of input indexes? That would let the psbt change input order and would not duplicate the shares and proofs for each input.
+[/quote]
+
+I don’t have a strong opinion here. If we have nnn inputs covered by the same proof, this would be n\cdot 36 + (33 + 64)n⋅36+(33+64)n\cdot 36 + (33 + 64) bytes vs n\cdot (33 + 64)n⋅(33+64)n\cdot (33 + 64) bytes. So better in some cases, worse in others?
+[/quote]
+
+One other possibility that could simplify things. If a signer is able to sign for all inputs, they could add a global share and proof covering all inputs with the key data being the scan key. If a signer is unable to sign for all inputs, then they add a per input share and proof covering only that input as described by @achow101 above.
+This keeps the key data clean and optimizes for the common scenario of a single signer wallet using a hardware signing device.
+
+-------------------------
+
+josibake | 2024-06-21 14:07:17 UTC | #27
+
+[quote="andrewtoth, post:26, topic:877"]
+I think I see the confusion. What I meant was the silent payment aware signers must check for any `ACP` on any inputs *they will sign for* and fail if there are any silent payment outputs
+[/quote]
+
+Gotcha! I had read this as "fail if `ACP` was used on outputs that are not your own."
+
+[quote="andrewtoth, post:26, topic:877"]
+Actually, the signer should probably fail if there is any sighash flag other than `ALL` if there are any silent payment outputs
+[/quote]
+
+I think "If a sighash type is provided, the signer must check that the sighash is acceptable. If unacceptable, they must fail" is sufficient, perhaps with a footnote that explains what unacceptable is for a silent payments transaction?
+
+[quote="andrewtoth, post:26, topic:877"]
+One other possibility that could simplify things. If a signer is able to sign for all inputs, they could add a global share and proof covering all inputs with the key data being the scan key. If a signer is unable to sign for all inputs, then they add a per input share and proof covering only that input
+[/quote]
+
+In the case of multiple signers where each signer has multiple inputs, this would require the signer to compute the ECDH shares individually (vs summing up the private keys and then doing the ECDH step. If we imagine something like a coinjoin, this could recreate the problem of "I have 10 inputs, so now I need to do ~30 ECC mults." Another alternative would be:
+
+* Global proof is the signer owns all inputs
+* Proof per group of inputs (proof is duplicated on each input)
+
+In the case where each signer owns their own input, this would be the same as @achow101 's proposal. This does add more data to the PSBT in the form of duplicate proofs in the case of multiple signers signing for multiple inputs, but that seems better to me than requiring the signers to do more CPU intensive work. That being said, I'm not sure which is better. If a signer has low compute power, doing 30 ECC mults can be annoying. On the flipside, if the signer has low memory and we want to require a signer to verify proofs on each input before signing, the inline proofs for each input seems better.
+
+-------------------------
+
