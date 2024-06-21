@@ -315,3 +315,17 @@ Maybe investigate opcodes that don't cause issues to build additional layers, or
 
 -------------------------
 
+CubicEarth | 2024-06-21 01:39:46 UTC | #22
+
+I have multiple full nodes, some pruned, some unpruned, and I have been running one them since 2013. I don't think we should go straight to 32MB blocks, but we can examine the consequences of them as a worst case scenario.
+
+4 TB SSDs, even with the recent run up in prices, can be had for $200, which is $0.05 / GB. So *if* you feel the need to run an archival node, and *if* you feel the need to serve it from and SSD, you storage costs would be $0.25 / day or $90 / year. If you prune then storage costs don't matter, and if your application allows for a spinning disk hard drive, storage costs would be 1/3 of the SSD, for about $30 a year.
+
+We should keep in mind that while some people do need to run archival nodes, most do not. It is also worth considering that there is every reason to believe that SSD prices will eventually continue the steep downward trend in price they have been on for the past 10 years.
+
+I'll admit that I would not be a fan of 32 MB blocks today, especially since at first they would just be filled with low fee junk.  Considering what we have seen with ordinals it would probably be better to start small, with just a doubling to 8 MB. Then a 4 TB SS would be sufficient for the next 15 years.
+
+Who is the person who would prefer to pay $50 each time they transact on chain rather than a once per year $22 in storage costs?
+
+-------------------------
+
