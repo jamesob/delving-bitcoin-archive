@@ -518,3 +518,14 @@ In the case where each signer owns their own input, this would be the same as @a
 
 -------------------------
 
+andrewtoth | 2024-06-22 14:51:45 UTC | #28
+
+[quote="josibake, post:27, topic:877"]
+Proof per group of inputs (proof is duplicated on each input)
+[/quote]
+
+One thing about duplicating a group proof on each input is that it doesn't protect against a constructor removing an input. It protects against reordering, but if a constructor decides to swap an input with a more desirable one, then the proof is invalidated and won't be detectable. It will just fail when verifying.
+This would require setting Inputs Modifiable to false if any shares and proofs were added before signing, which I don't think we want.
+
+-------------------------
+
