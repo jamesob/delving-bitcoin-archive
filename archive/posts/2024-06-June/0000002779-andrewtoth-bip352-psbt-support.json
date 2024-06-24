@@ -12,9 +12,9 @@
   "reply_to_post_number": 27,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 16.6,
   "yours": false,
   "topic_id": 877,
   "topic_slug": "bip352-psbt-support",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"josibake, post:27, topic:877\"]\nProof per group of inputs (proof is duplicated on each input)\n[/quote]\n\nOne thing about duplicating a group proof on each input is that it doesn't protect against a constructor removing an input. It protects against reordering, but if a constructor decides to swap an input with a more desirable one, then the proof is invalidated and won't be detectable. It will just fail when verifying.\nThis would require setting Inputs Modifiable to false if any shares and proofs were added before signing, which I don't think we want.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
