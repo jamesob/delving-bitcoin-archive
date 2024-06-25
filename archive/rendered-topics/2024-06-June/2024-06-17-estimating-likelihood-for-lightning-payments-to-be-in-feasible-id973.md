@@ -88,3 +88,13 @@ with kind regards Rene Pickhardt
 
 -------------------------
 
+harding | 2024-06-25 19:29:50 UTC | #3
+
+Thanks for this research, Rene!  I was wondering if this is something you imagine being incorporated into user and business software.  For example:
+
+- Businessperson Bob typically receives payments up to 0.05 BTC.  His node management software occasionally runs a background job that calculates the average likelihood of feasibility of a 0.05 BTC payment from every node on the network to his node.  The node management software also looks at current liquidity advertisements and simulates what would happen if Bob had a channel with the advertiser, calculating a hypothetical alternative average likelihood of feasibility.  If the hypothetical alternative with a new channel has a significantly higher average likelihood of feasibility, Bob's node management software automatically accepts the liquidity advertisement and opens the new channel.
+
+- User Alice makes a regular monthly bill payment set up through BOLT12 offers.  She's configures her wallet to start to try paying 5 business days before the due date.  The first try and first few automatic retries don't succeed.  Before her wallet marks the payment attempt as a failure or takes other steps, it checks the likelihood of feasibility.  If it's low but still practical, it will keep retrying at lengthening intervals for another few hours or days before finally marking the payment attempt as a failure.
+
+-------------------------
+

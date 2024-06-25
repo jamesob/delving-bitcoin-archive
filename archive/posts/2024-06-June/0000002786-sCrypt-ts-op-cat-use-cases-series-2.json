@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 5,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 26.0,
+  "incoming_link_count": 89,
+  "reads": 21,
+  "readers_count": 20,
+  "score": 449.2,
   "yours": false,
   "topic_id": 988,
   "topic_slug": "op-cat-use-cases-series-2",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "# Bitcoin OP_CAT Use Cases Series #2: Merkle Trees\n\nFollowing our [series #1](https://scryptplatform.medium.com/trustless-ordinal-sales-using-op-cat-enabled-covenants-on-bitcoin-0318052f02b2), we demonstrate how to construct and verify Merkle trees using OP_CAT.\n\n![|700x400](upload://rxcgOJLu6Q7xijDjZsjxrBhnAJ.jpeg)\n\nIn Bitcoin, Merkle trees are utilized as the data structure for verifying data, synchronization, and effectively linking the blockchain\u2019s transactions and blocks together. The OP_CAT opcode, which allows for the concatenation of two stack variables, can be used with SHA256 hashes of public keys to streamline the Merkle tree verification process within Bitcoin Script. OP_CAT uniquely allows for the creation and opening of entries in Merkle trees, as the fundamental operation for building and verifying Merkle trees involves concatenating two values and then hashing them.\n\nThere are numerous applications for Merkle trees. We list a few prominent examples below.\n\n## Merkle proof\n\nA Merkle proof is a cryptographic method used to verify that a specific transaction is included in a Merkle tree without needing to download the entire blockchain. This is particularly useful for lightweight clients and enhancing the efficiency of data verification.\n\n## Tree signature\n\nA [tree signature](https://scryptplatform.medium.com/tree-signatures-8d03a8dd3077) is a cryptographic method that enhances the security and efficiency of digital signatures using tree structures, particularly Merkle trees. Compared to regular Multisig, this approach is used to generate a more compact and private proof that a message or a set of messages has been signed by a specific key.\n\n## Zero-Knowledge Proof\n\nSTARK (Succinct Transparent Arguments of Knowledge) is a type of zero-knowledge proof system. STARKs are designed to allow a prover to demonstrate the validity of a computation to a verifier without revealing any sensitive information about the computation itself. If OP_CAT were to be added to Bitcoin, it could potentially enable the implementation of a [STARK verifier](https://starkware.co/scaling-bitcoin-for-mass-use) in Bitcoin Script, with [work already ongoing](https://github.com/Bitcoin-Wildlife-Sanctuary/bitcoin-circle-stark/). This would allow for secure and private transactions on the Bitcoin network. Compared to pairing-based proof systems such as SNARK, STARK is considered to be [more Bitcoin-friendly](https://hackmd.io/@l2iterative/bitcoin-polyhedra).\n\n# Implementation\n\nThe implementation of the merkle tree using sCrypt is trivial. The following code calculates the root hash of a merkle tree, given a leaf and its merkle path, commonly used in verifying a merkle proof.\n\n```\n/**\n * According to the given leaf node and merkle path, calculate the hash of the root node of the merkle tree.\n*/\n@method()\nstatic calcMerkleRoot(\n    leaf: Sha256,\n    merkleProof: MerkleProof\n): Sha256 {\n    let root = leaf\n\n    for (let i = 0; i < MERKLE_PROOF_MAX_DEPTH; i++) {\n        const node = merkleProof[i]\n        if (node.pos != NodePos.Invalid) {\n            // s is valid\n            root =\n                node.pos == NodePos.Left\n                    ? Sha256(hash256(node.hash + root))\n                    : Sha256(hash256(root + node.hash))\n        }\n    }\n\n    return root\n}\n```\n\nFull code is at https://github.com/sCrypt-Inc/scrypt-btc-merkle.\n\nA single run results in the following transactions:\n\n* **Deploying Transaction ID**:\n\n[\n## Bitcoin Signet Transaction: c9c421b556458e0be9ec4043e1804d951011047b4cc75c991842b91b11bae006\n### Explore the full Bitcoin ecosystem with The Mempool Open Source Project\u00ae. See the real-time status of your\u2026\nmempool.space\n](https://mempool.space/signet/tx/c9c421b556458e0be9ec4043e1804d951011047b4cc75c991842b91b11bae006?source=post_page-----8e7c3f7afe8d--------------------------------)\n\n* **Spending Transaction ID**\n\n[\n## Bitcoin Signet Transaction: e9ac5444d7d20a20011f6dcac04419e2c5581e79bf0692ccd2dc4bbb9bd74e28\n### Explore the full Bitcoin ecosystem with The Mempool Open Source Project\u00ae. See the real-time status of your\u2026\nmempool.space\n](https://mempool.space/signet/tx/e9ac5444d7d20a20011f6dcac04419e2c5581e79bf0692ccd2dc4bbb9bd74e28?source=post_page-----8e7c3f7afe8d--------------------------------)\n\n[Many OP_CATs](https://mempool.space/signet/tx/e9ac5444d7d20a20011f6dcac04419e2c5581e79bf0692ccd2dc4bbb9bd74e28#vin=0)\n\n## Script versions\n\nThere are alternative implementations in bare scripts, like the one below. One significant advantage of using sCrypt for implementing merkle trees is its readability and maintainability. Scripts are often extremely hard to read and work on.\n\n```\nOP_TOALTSTACK\nOP_CAT\nOP_CAT\nOP_TOALTSTACK\nOP_CAT\nOP_TOALTSTACK\n\n<0x8743daaedb34ef07d3296d279003603c45af71018431fd26e4957e772df122cb>\nOP_CAT\nOP_CAT\nOP_HASH256\n\nOP_DEPTH\nOP_1SUB\nOP_NOT\nOP_NOTIF\nOP_SWAP\nOP_CAT\nOP_CAT\nOP_HASH256\n\nOP_DEPTH\nOP_1SUB\nOP_NOT\nOP_NOTIF\nOP_SWAP\nOP_CAT\nOP_CAT\nOP_HASH256\n\nOP_DEPTH\nOP_1SUB\nOP_NOT\nOP_NOTIF\nOP_SWAP\nOP_CAT\nOP_CAT\nOP_HASH256\n\nOP_DEPTH\nOP_1SUB\nOP_NOT\nOP_NOTIF\nOP_SWAP\nOP_CAT\nOP_CAT\nOP_HASH256\n\nOP_DEPTH\nOP_1SUB\nOP_NOT\nOP_NOTIF\nOP_SWAP\nOP_CAT\nOP_CAT\nOP_HASH256\n\n...\n```\n\nStay tuned for more OP_CAT use cases.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "downloaded local copies of images",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
