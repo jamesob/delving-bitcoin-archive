@@ -286,3 +286,10 @@ This ensures that people who want to leverage this intermediate step only add co
 
 -------------------------
 
+ellemouton | 2024-06-26 19:27:03 UTC | #3
+
+I think one advantage to adding this to bolt 11 rather than going straight to a completely new invoice format is that currently bolt 11 is pretty wide spread and so even users who are not aware of the new addition will get a useful error message from the parser saying "the invoice uses unknown required feature bit x"  which will then give the user an idea of what has gone wrong. As opposed to a completely new format that just wont be parseable. 
+Thoughts?
+
+-------------------------
+
