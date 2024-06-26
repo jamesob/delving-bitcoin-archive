@@ -278,3 +278,11 @@ a blinded path should not contain any `r` (route hint) fields.
 
 -------------------------
 
+t-bast | 2024-06-26 11:28:27 UTC | #2
+
+Since both the payer and recipient would need to add code to support this extension, why not simply allow paying a Bolt 12 invoice (without going through the offer / invoice_request flow)?
+
+This ensures that people who want to leverage this intermediate step only add code that is useful to later support the full Bolt 12 flow instead of changing Bolt 11?
+
+-------------------------
+

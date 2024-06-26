@@ -122,3 +122,25 @@ Yes absolutely. Knowing the likelihood of feasibility for a payment and being ab
 
 -------------------------
 
+stefanwouldgo | 2024-06-26 14:33:24 UTC | #5
+
+First of all, I want to congratulate @renepickhardt for pioneering this promising approach.
+
+If I am allowed a little nitpicking that doesn't in any way detract from the achievement, I believe that comparing the min cost flow probability (over the probability space of independently uniform channel balances) and the probability of feasibility calculated here (over the probability space of uniformly chosing a feasible wealth distribution) doesn't make much sense, because these are two different models that give incomparable results. 
+
+In particular, if I am not mistaken, this observation here is not true in general:
+
+[quote="renepickhardt, post:1, topic:973"]
+Of course the min cost flow probability has to be lower as the payment could still be feasible while the min cost flow fails:
+[/quote]
+
+To see this, consider the example network that Rene gave, but make it a little easier to compute by setting the capacity of channels 01 and 02 to 1, and 12 to 2. Then there are only 12 possible overall channel states. Of these, there are 3 states that lead to the wealth distribution 121 (0 has 1, 1 has 2, 2 has 1 coin), and 3 states that lead to 112, so overall there are 8 feasible wealth distributions. 
+
+Now let's ask ourselves how probable is it that node 1 can pay 1 coin to node 0 as well as 1 coin to node 2. This is feasible whenever node 1 has at least 2 coins, node 0 has at most 1 and node 2 has at most 2. There are exactly 3 wealth distributions that apply: 121,022, and 031. So this is feasible with probability 3/8.
+
+Now observe that there is only one flow that can achieve these two payments at the same time: 1 coin each directly from 1 to 0 as well as from 1 to 2. This is the min cost (=most probable) flow, and there are 5 network states where it will succeed (the same as the ones coming from the feasible wealth distributions above, but 121 is counted 3 times), So its success probability is 5/12, which is strictly greater than 3/8.
+
+So the min cost flow in this example is more probable than the feasibility of these two payments, which makes no sense but is an artefact of the different probability spaces that are compared.
+
+-------------------------
+
