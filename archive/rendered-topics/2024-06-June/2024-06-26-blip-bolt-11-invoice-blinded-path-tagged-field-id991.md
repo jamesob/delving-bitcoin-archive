@@ -1,6 +1,6 @@
 # bLIP: BOLT 11 Invoice Blinded Path Tagged Field
 
-ellemouton | 2024-06-26 00:05:52 UTC | #1
+ellemouton | 2024-06-26 00:10:57 UTC | #1
 
 Hey y'all! 
 
@@ -265,9 +265,9 @@ a blinded path should not contain any `r` (route hint) fields.
    the bLIP2 spec or would this be over-kill since BOLT 11 is in any-case being 
    phased out?
 
-[tagged-fields]: https://github.com/lightning/bolts/blob/master/11-payment-encoding.md#tagged-fields
-[bolt11]: https://github.com/lightning/bolts/blob/master/11-payment-encoding.md
-[blinded-paths]: https://github.com/lightning/bolts/blob/master/04-onion-routing.md#route-blinding
+[tagged-fields]: https://github.com/lightning/bolts/blob/c562d91ace0e95bec3c6f8758969eaf3627f23c8/11-payment-encoding.md#tagged-fields
+[bolt11]: https://github.com/lightning/bolts/blob/c562d91ace0e95bec3c6f8758969eaf3627f23c8/11-payment-encoding.md
+[blinded-paths]: https://github.com/lightning/bolts/blob/c562d91ace0e95bec3c6f8758969eaf3627f23c8/04-onion-routing.md#route-blinding
 [offers]: https://github.com/lightning/bolts/pull/798
 [impl]: https://github.com/lightningnetwork/lnd/pull/8752
 [qr]: https://en.wikipedia.org/wiki/QR_code#Information_capacity
