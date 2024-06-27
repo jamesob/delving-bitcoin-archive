@@ -293,3 +293,21 @@ Thoughts?
 
 -------------------------
 
+roasbeef | 2024-06-26 22:49:49 UTC | #4
+
+[quote="t-bast, post:2, topic:991"]
+Since both the payer and recipient would need to add code to support this extension, why not simply allow paying a Bolt 12 invoice (without going through the offer / invoice_request flow)?
+[/quote]
+
+In the past I brought up the idea of decoupling the Bolt 12 _invoice_ format from Offers itself. Rationale back then is that it would allow us to introduce this new encoding format, then also get the LN Address/LN-URL crowd using the new format. The idea received some pushback, as devs were apprehensive to introduce yet another format into the mix (BOLT 11, BOLT 12 Offers, and BOLT 11 Invoices), so I dropped it all together. 
+
+Since then, based on [comments like this](https://github.com/ACINQ/eclair/pull/2843#discussion_r1544662941), it appears there's a sort of gentleman's agreement to _not_ expose an encoding format for BOLT12 invoices. Has your thinking here evolved since May? 
+
+Either way, I think we can do _both_. Though checking out the latest invoice format, it appears there're many fields that link an offer to an invoice that clients decoding would reject if not present. So if we go in this direction, perhaps we should extract the BOLT12 _invoice_ format from the greater spec, then the BOLT 12 _offers_ section specifies the additional fields (since it's all TLV now) that need to be present for an invoice. 
+
+Ultimately, extracting the BOLT 12 invoice format does add yet another item to the Offers development priorities. Do the other implementations consider it worthy enough to divert away resources from finalizing the last 20% of Offers? My assumption is/was that they'd prefer just to focus on that last 20%. If that's the case, then we'd continue with our BOLT 11 experiment outlined here, leaving open a possibility of the BOLT 12 invoice format being extracted in the future. 
+
+Ignoring any user-facing wallet uptake (implications re QR code encoding and multi-formats), there exist fully programmatic flows like the L402 protocol (or sub-swap services like Loop) that can use the BOLT 11 extensions to leverage blinded paths and all their benefits. I think blinded paths are super interesting in the context of sub-swap services as they'd allow a receiver to curate the route to them, potentially picking certain routes they know to be lower fee or more reliable.
+
+-------------------------
+
