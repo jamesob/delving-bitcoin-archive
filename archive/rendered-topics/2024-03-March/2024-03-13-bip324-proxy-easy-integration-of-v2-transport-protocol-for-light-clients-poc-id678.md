@@ -284,3 +284,25 @@ It is usable and works but there's a lot of room for improvement. Please share f
 
 -------------------------
 
+theStack | 2024-06-28 20:31:43 UTC | #18
+
+@Liz.Lightning: Very nice. I did a quick test starting the proxy via `./bitcoin-bip324-proxy -network signet -v2-only` and using Bitcoin Core to do a signet IBD (with a patch initiating connections to the proxy, similar to the slides). Worked without any problems. :ok_hand: 
+
+Will take a deeper look soon, also curious about the code, so far I have only one point for feedback: I think the port 38333 as default for the proxy is not a good choice, as it's also the default listening port for signet. I'd go for something that is distinct and doesn't collide with anything existing (e.g. I chose 1324 for the Python bip324-proxy).
+
+-------------------------
+
+Liz.Lightning | 2024-06-29 05:42:42 UTC | #19
+
+[quote="theStack, post:18, topic:678"]
+feedback: I think the port 38333 as default for the proxy is not a good choice
+[/quote]
+
+Good point about the port, I changed it to 8324
+
+Good to hear your first test worked, looking forward to more feedback.
+
+My next step is to refactor the code and use the btcd packages to send and receive v1 messages. I also want to see if I can hack btcd to make v2 connections using the code I already have.
+
+-------------------------
+

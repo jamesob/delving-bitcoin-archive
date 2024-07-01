@@ -529,3 +529,13 @@ This would require setting Inputs Modifiable to false if any shares and proofs w
 
 -------------------------
 
+andrewtoth | 2024-06-29 21:00:11 UTC | #29
+
+Got some feedback on the PSBT draft I wrote that we should move the DLEQ stuff out into its own BIP.
+
+I wrote up a draft based on @RubenSomsen's gist here https://gist.github.com/andrewtoth/df97c3260cc8d12f09d3855ee61322ea.
+
+Not sure if anyone has started working on this yet. Any thoughts appreciated.
+
+-------------------------
+

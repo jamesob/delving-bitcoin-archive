@@ -329,3 +329,19 @@ Who is the person who would prefer to pay $50 each time they transact on chain r
 
 -------------------------
 
+ZmnSCPxj | 2024-06-29 08:50:16 UTC | #23
+
+As I understand it, persistent storage is not the issue with block size.  The main issue is rather the time it takes to propagate a new block from a miner.
+
+A large miner would strongly prefer to withhold blocks from the smaller miners of the network, only releasing blocks when the smaller miners have found one, in order to orphan the blocks of the smaller miners and effectively remove their hashrate from the network.
+
+The above can be done deliberately, but a well-connected set of mining nodes with low latency with each other can do this accidentally to less-well-connected sets of mining nodes.  And the larger the block size, the more likely such an accident would occur, and the greater the pressure to centralize mining arises.  It all starts with well-connected mining nodes, then colocated mining nodes, then co-owned mining nodes.
+
+Another objection is that every block must be transmitted to every other validator.  This is in fact the first objection in the first ever reply to the bitcoin.pdf paper on the cypherpunks mailinglist: each block needs to be sent to each other participant in the fullnode network.  Yes, you can argue that not everyone has to directly participate in the fullnode network.  Nevertheless, the argument "we should increase block size by N times" implies "we expect N more fullnodes on the network sending N times more data to each other for an N^2 times total global bandwidth consumption" which seems the opposite of "efficiency", and ultimately all costs incurred by the network must by necessity be paid for, including bandwidth, and paid for they shall.  Increasing block size is a massive decrease in efficiency and is the opposite of what you ultimately want.
+
+On the other hand: can we at least ***first*** try to discover ways to scale Bitcoin ***without*** ever increasing block size?  It has worked well enough so far (it has been 8 years since SegWit increased block size) and I can comfortably use Lightning Network today.  I admit I am a nerd and can use Electrum on desktop comfortably for LN (pointing to my electrumx instance on my basement tower server with the fullnode), but with enough effort and iteration I believe this can be made a lot more comfortable to most people, including most people living in my country where 5 USD a week would be an onerous burden.  I am also working on figuring out how to get the last mile more comfortably onboarded without as much onchain footprint, which translates to less resource use and therefore savings that ultimately get passed on to end-users.
+
+Ultimately, we should focus on reducing resource use of non-mining-related resources; the consumption of energy by mining ***is*** the security provided by mining, but this does not apply to the rest of the system, including resources spent on sending mined blocks.  Increasing the block size increases total resource use.  We should be ***restricting*** who can see transactions (the way Lightning Network does, which is why it is a scaling solution, unlike block size increase), not increasing how many publicly-visible transactions can be seen by everybody.
+
+-------------------------
+

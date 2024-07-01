@@ -311,3 +311,93 @@ Ignoring any user-facing wallet uptake (implications re QR code encoding and mul
 
 -------------------------
 
+t-bast | 2024-06-27 07:06:39 UTC | #5
+
+[quote="roasbeef, post:4, topic:991"]
+Since then, based on [comments like this](https://github.com/ACINQ/eclair/pull/2843#discussion_r1544662941), it appears there’s a sort of gentleman’s agreement to *not* expose an encoding format for BOLT12 invoices. Has your thinking here evolved since May?
+[/quote]
+
+I'd rather not expose Bolt 12 invoices and use the full offer flow every time, but if I had to choose between adding blinded paths to Bolt 11 invoices or exposing Bolt 12 invoice, I'd rather expose Bolt 12 invoices. This requires less code and less additional spec work.
+
+To be honest, I don't think we should waste time with such intermediate steps (that will need to be maintained for a long time, create technical debt and confusion for users). I find it more useful to focus that time on shipping Bolt 12 code, but that's just my opinion.
+
+[quote="ellemouton, post:3, topic:991"]
+users who are not aware of the new addition will get a useful error message from the parser saying “the invoice uses unknown required feature bit x” which will then give the user an idea of what has gone wrong.
+[/quote]
+
+I don't think this is very useful...I don't believe this will prompt users to ask wallet developers to implement stuff, and the only result of that is a bad UX where users scan a QR code and they're told it doesn't work.
+
+[quote="roasbeef, post:4, topic:991"]
+Ignoring any user-facing wallet uptake (implications re QR code encoding and multi-formats), there exist fully programmatic flows like the L402 protocol (or sub-swap services like Loop) that can use the BOLT 11 extensions to leverage blinded paths and all their benefits. I think blinded paths are super interesting in the context of sub-swap services as they’d allow a receiver to curate the route to them, potentially picking certain routes they know to be lower fee or more reliable.
+[/quote]
+
+I haven't looked at the details in a while, but at a high-level it seems to me that L402 would benefit a lot from using offers rather than hacking blinded paths on top of Bolt 11 invoices? That requires more work to upgrade L402, but I'm a strong believer that doing short-term intermediate "hacks" is always a waste of time in the long term because of the maintenance cost.
+
+-------------------------
+
+roasbeef | 2024-06-27 20:53:27 UTC | #6
+
+[quote="t-bast, post:5, topic:991"]
+but if I had to choose between adding blinded paths to Bolt 11 invoices or exposing Bolt 12 invoice, I’d rather expose Bolt 12 invoices. This requires less code and less additional spec work.
+[/quote]
+
+IIUC, we would still need spec modifications, in order to allow fields that are currently considered mandatory (fields referencing the offer ID, etc) to now be optional. Most of the text above is also an Appendix re how to estimate the size of the BOLT11 invoice with blinded paths, which would still be needed for BOLT 12 invoice. 
+
+[quote="t-bast, post:5, topic:991"]
+To be honest, I don’t think we should waste time with such intermediate steps (that will need to be maintained for a long time, create technical debt and confusion for users). I find it more useful to focus that time on shipping Bolt 12 code, but that’s just my opinion.
+[/quote]
+
+As it's just a bLIP, so implementations are free to take it or leave it. IMO long term, this helps to make the whole Offers flow more robust, as we're able to get more experience with blinded paths, find edge cases, implement the new path finding from the receiver, etc, etc. Personally, I prefer to work a small component, and refine that as much as possible before moving onto the next. Otherwise you have all these components which are only partially refined, which may actually _extend_ the full deployment timeline. 
+
+[quote="t-bast, post:5, topic:991"]
+I don’t think this is very useful…I don’t believe this will prompt users to ask wallet developers to implement stuff, and the only result of that is a bad UX where users scan a QR code and they’re told it doesn’t work.
+[/quote]
+
+When presented with an encoded Offer, what does Phoenix/Eclair do today? Does it let the user know that it's about to try to fetch the offer (retries, fallback, etc) and ask for confirmation, or does it just go ahead in the background with some loading UI? Or is it _always_ direct connect? 
+
+Also in terms of the ultimate switch over to Offers for everything, won't wallet developers still need to gracefully handle being presented with _either_ a BOLT11 invoice or an Offer? What's the latest thinking here re UX?
+
+FWIW, AMP invoice also exist in the wild, and wallets seem to be able to handle detecting if they can or cannot pay it. 
+
+[quote="t-bast, post:5, topic:991"]
+I haven’t looked at the details in a while, but at a high-level it seems to me that L402 would benefit a lot from using offers rather than hacking blinded paths on top of Bolt 11 invoices? That requires more work to upgrade L402, but I’m a strong believer that doing short-term intermediate “hacks” is always a waste of time in the long term because of the maintenance cost.
+[/quote]
+
+So L402 is itself an invoice negotiation protocol, the client hits the endpoint, gets the L402 along with the invoice, then pays it. Therefore, Offers doesn't have much of a role here, as we get an invoice in the HTTP response from the server. This invoice can ofc use blinded paths. 
+
+---
+
+With all that said, I don't consider this a hack, as it's using an existing extension vector in an existing invoice format. This can also be applied to the new invoice format as well. The bulk of the logic and code comes after/before (path finding, blinded hop construction and processing, etc) the invoice is encoded in the first place. Blinded paths itself is also primarily the concern of the onion/routing layer, the encoding/presentation layer is independent of the core component. The fact that people tend to bundle it in their minds with Offers is primarily due to opinionated protocol packaging.
+
+-------------------------
+
+t-bast | 2024-06-28 08:03:21 UTC | #7
+
+[quote="roasbeef, post:6, topic:991"]
+As it’s just a bLIP, so implementations are free to take it or leave it.
+[/quote]
+
+Sure, as a bLIP it's completely acceptable, I'm just saying that I don't think we would implement this bLIP in eclair or lightning-kmp.
+
+[quote="roasbeef, post:6, topic:991"]
+When presented with an encoded Offer, what does Phoenix/Eclair do today?
+[/quote]
+
+It's exactly the same as being presented with an encoded invoice: once you scan it, you then go through the same payment UI where you may enter an amount, and additionally a small note for the recipient, and then the payment simply happens (with invoice fetching before going through path-finding). I think users don't need to know that an invoice is being fetched as the first step of the protocol.
+
+[quote="roasbeef, post:6, topic:991"]
+Also in terms of the ultimate switch over to Offers for everything, won’t wallet developers still need to gracefully handle being presented with *either* a BOLT11 invoice or an Offer? What’s the latest thinking here re UX?
+[/quote]
+
+In the long term where all senders support Bolt 12, as a wallet you would only use offers to receive payments, and would use the DNS address format: no QR codes shown anymore, just the "identifier" of the recipient. This is a much better UX than the current QR code flow.
+
+We would keep support though for paying Bolt 11 invoices, as there may be online merchant use-cases that require it, and it wouldn't need any code change.
+
+[quote="roasbeef, post:6, topic:991"]
+Blinded paths itself is also primarily the concern of the onion/routing layer, the encoding/presentation layer is independent of the core component. The fact that people tend to bundle it in their minds with Offers is primarily due to opinionated protocol packaging.
+[/quote]
+
+That's true :+1:
+
+-------------------------
+
