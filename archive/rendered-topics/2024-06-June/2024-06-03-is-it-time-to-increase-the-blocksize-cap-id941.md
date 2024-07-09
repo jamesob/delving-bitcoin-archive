@@ -345,3 +345,42 @@ Ultimately, we should focus on reducing resource use of non-mining-related resou
 
 -------------------------
 
+CubicEarth | 2024-07-09 16:20:30 UTC | #24
+
+[quote="ZmnSCPxj, post:23, topic:941, full:true"]
+As I understand it, persistent storage is not the issue with block size.  The main issue is rather the time it takes to propagate a new block from a miner.
+
+A large miner would strongly prefer to withhold blocks from the smaller miners of the network, only releasing blocks when the smaller miners have found one, in order to orphan the blocks of the smaller miners and effectively remove their hashrate from the network.
+
+The above can be done deliberately, but a well-connected set of mining nodes with low latency with each other can do this accidentally to less-well-connected sets of mining nodes.  And the larger the block size, the more likely such an accident would occur, and the greater the pressure to centralize mining arises.  It all starts with well-connected mining nodes, then colocated mining nodes, then co-owned mining nodes.
+[/quote]
+
+It is true that larger blocks are a centralizing pressure upon miners. But there are several questions at play that must be answered before we could decide if a centralizing force was to be avoided or not. One such question relates to the goals of decentralization itself, and whether slightly more or less centralization of miners has any practical effect on Bitcoin's censorship resistant qualities. All else being equal, less centralization would be better, but we must consider the question a matter of cost-benefit.
+
+
+ Another question relates to the balance and magnitude of other centralizing-decentralizing forces that operate on miners, and how propagation delays would affect the result. For instance, it is a fact that stranded and excess electricity are geographically distributed around the globe and across different political regimes. And more generally, cheap electricity is also well distributed. Losses to small miners from propagation delays would need to be large enough to offset higher electricity costs incurred by co-locating to where propagation losses would be smaller. Aren't the size of costs currently an order of magnitude or two apart from each other, with electricity costs dwarfing propagation delay losses in miner's location considerations? And to be clear up an earlier point - there is only a finite quantity of free or low costs electricity in each location where it is present. This is a very strong force keeping miners geographically distributed.
+
+[quote="ZmnSCPxj, post:23, topic:941, full:true"]
+Another objection is that every block must be transmitted to every other validator.  This is in fact the first objection in the first ever reply to the bitcoin.pdf paper on the cypherpunks mailinglist: each block needs to be sent to each other participant in the fullnode network.  Yes, you can argue that not everyone has to directly participate in the fullnode network.  Nevertheless, the argument "we should increase block size by N times" implies "we expect N more fullnodes on the network sending N times more data to each other for an N^2 times total global bandwidth consumption" which seems the opposite of "efficiency", and ultimately all costs incurred by the network must by necessity be paid for, including bandwidth, and paid for they shall.  Increasing block size is a massive decrease in efficiency and is the opposite of what you ultimately want.
+[/quote]
+
+Indeed there are N^2 dynamics at play, which can quickly cause problems if we aren't careful. So we need to be careful. 
+
+I disagree that we need to consider the 'efficiency of the network as whole' in the way you are advocating. Instead, we primarily ought to consider current and potential end users, and if the costs and benefits weigh out for them to indeed become or remain a user. And generally, we ought to want Bitcoin to a viable choice for transacting for as many people possible, for both practical and philosophical reasons. It is not a thing that individuals worry about their impact on "total global bandwidth consumption". Not at all. And for the professionals involved in keeping the internet up and running, the push is for more fiber, faster switches and overall better connectivity. Not the rationing of bandwidth. There are parallels to your point of blocksize N^2 scaling with advances in the Megapixel counts for smartphone cameras. Higher pixel counts lead to better photos (taking up more storage), but encourage people to take more photos because of the better results. Indeed, on my smartphone today I have *checks phone* 236 GB of photos and videos. Which is almost embarrassing, but no one argued against better phone cameras for fear of this outcome.
+
+Perhaps it is a reason why phone cameras aren't 200 MP already, because storage does matter and diminishing returns exist. But N^2 consumption of a resource doesn't mean an approach is flawed, or that it increasing N has no benefit - it just means that over some relatively small range of N consumption of available resources goes from trivial to manageable to unworkable.
+
+In terms of viability of the network as a whole we should keep in mind that not all nodes serve blocks, and so the burdens of the N^2 network traffic can be concentrated. However, for this type of question, we ought to use the measure of the cheapest bandwidth available, since there is no reason nodes that block serving nodes couldn't locate in those places. For instance in Switzerland there are 10 Gbit/s fiber to the home plans for $100 usd / month, which could serve 2,500 Terabytes per month of data at a rate of 1 GB / second. Which works out $0.04 / TB transmitted. Bitcoin's chain is currently just under 600GB of data, or ¢2.4 in server transmission costs to do an IBD. It would cost $480 total to provide data to all of the 20,000 currently existent nodes for their IBD. The 17GB / month to keep a node in sync with 4MB blocks @ 20k nodes would total 332 TB, at a cost of $13. $13 to feed to the entire trillion dollar-plus network with data for a month. Multiply this by 10 and _then_ square it and it would still be a completely trivial cost.
+
+I don't disagree on the importance of Lighting, or other scaling layers. And I do agree that the base chain will never have the capacity to settle even a meaningful fraction of global demand for transactions. But neither do either of those truths somehow suggest we shouldn't increase the on chain capacity to its largest practical and safe amount that current conditions allow for. We should. And today that amount is larger than the current blocksize.
+
+[quote="ZmnSCPxj, post:23, topic:941, full:true"]
+On the other hand: can we at least ***first*** try to discover ways to scale Bitcoin ***without*** ever increasing block size?  It has worked well enough so far (it has been 8 years since SegWit increased block size) and I can comfortably use Lightning Network today.  I admit I am a nerd and can use Electrum on desktop comfortably for LN (pointing to my electrumx instance on my basement tower server with the fullnode), but with enough effort and iteration I believe this can be made a lot more comfortable to most people, including most people living in my country where 5 USD a week would be an onerous burden.  I am also working on figuring out how to get the last mile more comfortably onboarded without as much onchain footprint, which translates to less resource use and therefore savings that ultimately get passed on to end-users.
+
+Ultimately, we should focus on reducing resource use of non-mining-related resources; the consumption of energy by mining ***is*** the security provided by mining, but this does not apply to the rest of the system, including resources spent on sending mined blocks.  Increasing the block size increases total resource use.  We should be ***restricting*** who can see transactions (the way Lightning Network does, which is why it is a scaling solution, unlike block size increase), not increasing how many publicly-visible transactions can be seen by everybody.
+[/quote]
+
+There is not a dichotomy here. It is not one or the other. We can strive to reduce demand for on chain transactions by creating other options that are superior, while at the same time increasing on chain capacity to its safe and viable limits. Bitcoin is an inherently inefficient design, and it has been enormously popular despite that.
+
+-------------------------
+
