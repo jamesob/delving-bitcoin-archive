@@ -158,3 +158,15 @@ Not to say about technical problems. Because Fiat channels use independent oracl
 
 -------------------------
 
+cdecker | 2024-07-12 11:16:37 UTC | #7
+
+I don't think that the similarity between the Fiat channels proposal and Tony's construction are similar at all:
+
+ - The former uses hosted channels, making it purely custodial. There is a proof of misbehavior, i.e., a hosted channel user can point to the host and show they misbehaved, but that's strictly weaker than the unilateral enforcement in LN itself.
+ - The latter is still a normal LN node, with channels denominated in BTC, and the worst that can happen is that the peer does not cooperate to update the exchange rate and adjust holdings, so worst case you have BTC, but the exchange rate is outdated. With hosted channels you don't get anything.
+ - Hosted channel clients are not normal LN nodes, whereas Tony's construction allows you to mix BTC and USD channels in the same node (even allowing you to offer swap services out of the box).
+
+I think it's unfair to claim the two constructions are the same, even slightly misleading. There is a whole spectrum of solutions, and many things get reinvented, but let's be fair about how we cluster solutions, not to lose some interesting tradeoffs.
+
+-------------------------
+
