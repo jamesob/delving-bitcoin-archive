@@ -293,3 +293,16 @@ Yes
 
 -------------------------
 
+instagibbs | 2024-07-15 12:24:02 UTC | #16
+
+After reflection, I think in practice this is too weird of a corner case to be adding any complexity to policy. Honestly, LN spec should ideally move away from the ability of counterparties to inflate tx fees paid for by the other user. The incentives are already very weird.
+
+I'm moving forward with a version of Pay To Anchors(P2A) that doesn't involve this extra logic: https://github.com/bitcoin/bitcoin/pull/30352
+
+If an LN implementation wished to use it, with trimmed output value going to anchor value I could see it going this way in a hybrid approach:
+
+1) when no trimmed outputs(or very low value), put value into P2A output, commit tx 0-fee to allow the output to be created
+2) when trimmed value is high, just do a normal TRUC transaction that has fees(and have min-value P2A output)
+
+-------------------------
+
