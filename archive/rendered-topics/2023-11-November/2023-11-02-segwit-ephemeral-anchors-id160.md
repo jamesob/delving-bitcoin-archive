@@ -140,3 +140,11 @@ Glad to find a counter-example
 
 -------------------------
 
+instagibbs | 2024-07-15 20:00:25 UTC | #13
+
+update here, I've broken off this specific feature into the new output type only, separate from what I'm now calling "ephemeral dust", calling it Pay To Anchor(P2A): https://github.com/bitcoin/bitcoin/pull/30352
+
+concept (n)ACKs/review would be welcome
+
+-------------------------
+
