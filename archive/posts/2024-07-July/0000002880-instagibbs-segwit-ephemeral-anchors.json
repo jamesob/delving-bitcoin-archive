@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0.4,
   "yours": false,
   "topic_id": 160,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "update here, I've broken off this specific feature into the new output type only, separate from what I'm now calling \"ephemeral dust\", calling it Pay To Anchor(P2A): https://github.com/bitcoin/bitcoin/pull/30352\n\nconcept (n)ACKs/review would be welcome",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
