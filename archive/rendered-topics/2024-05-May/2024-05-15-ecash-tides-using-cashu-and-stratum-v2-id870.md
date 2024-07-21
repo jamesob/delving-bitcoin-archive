@@ -402,3 +402,9 @@ When I read the proposal, I saw this distinction and immediately realized the po
 
 -------------------------
 
+EthnTuttle | 2024-07-21 19:48:40 UTC | #30
+
+https://github.com/stratum-mining/stratum/discussions/1052
+
+-------------------------
+
