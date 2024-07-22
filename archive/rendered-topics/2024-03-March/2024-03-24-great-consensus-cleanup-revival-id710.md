@@ -483,3 +483,9 @@ This makes the witness commitment useless for its intended purpose - a flexible 
 
 -------------------------
 
+AntoineP | 2024-07-22 12:38:35 UTC | #21
+
+I agree, i think we should just use `nLockTime` and make the rule kick in at height 1,983,702 (in about 21 years).
+
+-------------------------
+
