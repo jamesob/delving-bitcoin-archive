@@ -473,13 +473,13 @@ As an additional motivation for making txids unique post BIP34, @kcalvinalvin me
 
 -------------------------
 
-MattCorallo | 2024-07-22 00:31:37 UTC | #20
+MattCorallo | 2024-07-22 00:33:57 UTC | #20
 
 [quote="AntoineP, post:1, topic:710"]
 However there is a more roundabout fix which is potentially easier for miners to deploy: make the witness commitment mandatory in all coinbase transactions (h/t Greg Sanders). I have yet to check if there is any violation of this but i’d be surprised if there is a pre-Segwit coinbase transaction with an output pushing exactly the witness commitment header followed by 32 `0x00` bytes.
 [/quote]
 
-This makes the witness commitment useless for its intended purpose - a flexible (future) merkle root committing to additional commitments. The nLockTime field is a *much* neater way of doing this, and I don't really see why "miners have to slightly tweak their software" is a huge deal as long as they get six months of lead time to do it.
+This makes the witness commitment useless for its intended purpose - a flexible (future) merkle root committing to additional commitments. The nLockTime field is a *much* neater way of doing this, and I don't really see why "miners have to slightly tweak their software" is a huge deal as long as they get a year or two of lead time to do it. We could even set this part of the fork to activate on some substantial delay - after the GCCR fork activates, the nLockTime requirement only turns on two years later or whatever.
 
 -------------------------
 
