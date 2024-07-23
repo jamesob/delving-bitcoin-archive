@@ -489,3 +489,41 @@ I agree, i think we should just use `nLockTime` and make the rule kick in at hei
 
 -------------------------
 
+ajtowns | 2024-07-23 09:01:14 UTC | #22
+
+[quote="AntoineP, post:1, topic:710"]
+i’d be surprised if there is a pre-Segwit coinbase transaction with an output pushing exactly the witness commitment header followed by 32 `0x00` bytes.
+[/quote]
+
+As mentioned [earlier](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710/6?u=ajtowns), the witness commitment that appears in the coinbase for an empty block where the coinbase witness is all zeroes is `aa21a9ed` (commitment marker) followed by `e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9` (commitment).
+
+[quote="MattCorallo, post:20, topic:710"]
+This makes the witness commitment useless for its intended purpose
+[/quote]
+
+Requiring the presence of a commitment doesn't prevent it from taking any particular value; so it should remain equally useful. Changing the coinbase witness from all zeroes would also change the witness commitment for empty blocks from the constant above, of course.
+
+[quote="MattCorallo, post:20, topic:710"]
+a flexible (future) merkle root committing to additional commitments.
+[/quote]
+
+I don't think that's actually possible in a soft-fork friendly way: once you add one commitment widely deployed, adding a second commitment will either prevent those nodes from validating the commitment they could validate (making the second commitment a hard fork, or allowing miners to disable validation of the first commitment on a per-block basis by inventing their own additional commitments), or will require providing a full merkle-path to all but the most recent commitment, which effectively just means publishing all the leaf commitments in each block directly.
+
+[quote="MattCorallo, post:20, topic:710"]
+The nLockTime field is a *much* neater way of doing this,
+[/quote]
+
+I don't really think it's much different either way for bitcoind; but I expect many empty blocks are generated via manual scripts in a KISS-manner, in which case bumping the `nLockTime` to match the BIP34 height commitment is likely a lot easier than adding support for even an all-zero coinbase witness, plus its commitment. So, :+1:
+
+[quote="MattCorallo, post:20, topic:710"]
+after the GCCR fork activates, the nLockTime requirement only turns on two years later or whatever.
+[/quote]
+
+[quote="AntoineP, post:21, topic:710, full:true"]
+I agree, i think we should just use `nLockTime` and make the rule kick in at height 1,983,702 (in about 21 years).
+[/quote]
+
+Having a new rule not have any effect until decades in the future seems like a good way to have people not implement it (at all, let alone correctly), and leave it to being a potentially big problem for a future generation, a la Y2K. For a simple change like this, a couple of years' notice seems much better than ~20 years to me. (For a larger change, perhaps up to five years could be reasonable, or perhaps some similar timespan that matched mining equipment's expected lifecycle).
+
+-------------------------
+
