@@ -1,6 +1,6 @@
 # Hyperion: A discrete time network event simulator for Bitcoin (Core)
 
-sr-gi | 2024-07-23 19:56:21 UTC | #1
+sr-gi | 2024-07-23 20:13:51 UTC | #1
 
 A few months ago I started working on reviving [Erlay](https://github.com/bitcoin/bitcoin/pull/30116) mainly motivated by the apparent bandwidth improvements it will bring to Bitcoin nodes and seeing how the project seemed to have been put on hold, potentially after it hasn't gotten the sufficient reviewers attention to make it trough.
 
@@ -52,7 +52,7 @@ Features, requests, comments, and suggestions are more than welcome. Feel free t
 
 [^1]: Q: Why not use the existing simulator that was used for previous Erlay simulations? 
 A: Because it is a general-purpose simulator adapted to work with Bitcoin and written in Java, which may be overkill for the goal, and I'm not willing to keep modifying and maintaining
-[^2]: Also [RIIR](https://github.com/ansuz/RIIR)
+[^2]: Also [RIIR](https://transitiontech.ca/random/RIIR)
 
 -------------------------
 
