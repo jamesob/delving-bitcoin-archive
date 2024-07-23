@@ -8,13 +8,13 @@
   "post_number": 22,
   "post_type": 1,
   "updated_at": "2024-07-23T09:01:14.255Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 20,
   "quote_count": 3,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 23.6,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"AntoineP, post:1, topic:710\"]\ni\u2019d be surprised if there is a pre-Segwit coinbase transaction with an output pushing exactly the witness commitment header followed by 32 `0x00` bytes.\n[/quote]\n\nAs mentioned [earlier](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710/6?u=ajtowns), the witness commitment that appears in the coinbase for an empty block where the coinbase witness is all zeroes is `aa21a9ed` (commitment marker) followed by `e2f61c3f71d1defd3fa999dfa36953755c690689799962b48bebd836974e8cf9` (commitment).\n\n[quote=\"MattCorallo, post:20, topic:710\"]\nThis makes the witness commitment useless for its intended purpose\n[/quote]\n\nRequiring the presence of a commitment doesn't prevent it from taking any particular value; so it should remain equally useful. Changing the coinbase witness from all zeroes would also change the witness commitment for empty blocks from the constant above, of course.\n\n[quote=\"MattCorallo, post:20, topic:710\"]\na flexible (future) merkle root committing to additional commitments.\n[/quote]\n\nI don't think that's actually possible in a soft-fork friendly way: once you add one commitment widely deployed, adding a second commitment will either prevent those nodes from validating the commitment they could validate (making the second commitment a hard fork, or allowing miners to disable validation of the first commitment on a per-block basis by inventing their own additional commitments), or will require providing a full merkle-path to all but the most recent commitment, which effectively just means publishing all the leaf commitments in each block directly.\n\n[quote=\"MattCorallo, post:20, topic:710\"]\nThe nLockTime field is a *much* neater way of doing this,\n[/quote]\n\nI don't really think it's much different either way for bitcoind; but I expect many empty blocks are generated via manual scripts in a KISS-manner, in which case bumping the `nLockTime` to match the BIP34 height commitment is likely a lot easier than adding support for even an all-zero coinbase witness, plus its commitment. So, :+1:\n\n[quote=\"MattCorallo, post:20, topic:710\"]\nafter the GCCR fork activates, the nLockTime requirement only turns on two years later or whatever.\n[/quote]\n\n[quote=\"AntoineP, post:21, topic:710, full:true\"]\nI agree, i think we should just use `nLockTime` and make the rule kick in at height 1,983,702 (in about 21 years).\n[/quote]\n\nHaving a new rule not have any effect until decades in the future seems like a good way to have people not implement it (at all, let alone correctly), and leave it to being a potentially big problem for a future generation, a la Y2K. For a simple change like this, a couple of years' notice seems much better than ~20 years to me. (For a larger change, perhaps up to five years could be reasonable, or perhaps some similar timespan that matched mining equipment's expected lifecycle).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

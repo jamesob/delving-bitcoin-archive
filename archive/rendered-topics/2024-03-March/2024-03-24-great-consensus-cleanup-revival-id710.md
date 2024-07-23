@@ -527,3 +527,31 @@ Having a new rule not have any effect until decades in the future seems like a g
 
 -------------------------
 
+MattCorallo | 2024-07-23 16:04:18 UTC | #23
+
+[quote="ajtowns, post:22, topic:710"]
+Requiring the presence of a commitment doesn’t prevent it from taking any particular value; so it should remain equally useful.
+[/quote]
+
+Huh? If we fix the coinbase witness value to 00000000height, then you cannot start shoving further commitments in it? We could go ahead and make it a merkle tree of commitments where the left-most commitment is required to be 000000height, of course, but that isn't what I saw proposed here.
+
+[quote="ajtowns, post:22, topic:710"]
+Changing the coinbase witness from all zeroes would also change the witness commitment for empty blocks from the constant above, of course.
+[/quote]
+
+Sure, I was referring specifically to the coinbase witness value, which AFAIU currently has no consensus rules (and is only 0s by default behavior of Bitcoin Core).
+
+[quote="ajtowns, post:22, topic:710"]
+I don’t think that’s actually possible in a soft-fork friendly way: once you add one commitment widely deployed, adding a second commitment will either prevent those nodes from validating the commitment they could validate (making the second commitment a hard fork, or allowing miners to disable validation of the first commitment on a per-block basis by inventing their own additional commitments), or will require providing a full merkle-path to all but the most recent commitment, which effectively just means publishing all the leaf commitments in each block directly.
+[/quote]
+
+Indeed, any time you add a new commitment you'll have to have new nodes give old nodes the contents of the commitments/merkle paths, but that isn't a soft-fork-incompatible change, rather requires only a P2P extension.
+
+[quote="ajtowns, post:22, topic:710"]
+Having a new rule not have any effect until decades in the future seems like a good way to have people not implement it (at all, let alone correctly), and leave it to being a potentially big problem for a future generation, a la Y2K. For a simple change like this, a couple of years’ notice seems much better than ~20 years to me. (For a larger change, perhaps up to five years could be reasonable, or perhaps some similar timespan that matched mining equipment’s expected lifecycle).
+[/quote]
+
+Strongly agree. Also because I'd like to actually write software that is able to more easily look at block heights without looking at stupid scripts in my lifetime :)
+
+-------------------------
+
