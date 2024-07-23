@@ -170,3 +170,15 @@ I think it's unfair to claim the two constructions are the same, even slightly m
 
 -------------------------
 
+mcelrath | 2024-07-23 13:08:44 UTC | #8
+
+You can't have stability, nor a peg, as many many governments have found out the hard way. In the event of a market crash, the liquidity in the channel is exhausted in one direction, causing a deviation from the peg exactly when you want it most.
+
+I know a lot of projects and governments have tried this, and it works...until it doesn't. It trades short term stability for long term volatility. It narrows the price movement probability (graph in the attached blog post - aka one point correlation function) while fattening the tails: the consequence of large price movements is *even larger*.
+
+Furthermore I really don't want to see these kinds of projects on Bitcoin. It's a conflict of interest as desire for a stable dollar coin is so high that people willfully ignore these arguments and do it anyway, and they will pay the price when markets crash. For bitcoin the consequence is that the volume in fiat-coins can easily outstrip the volume in Bitcoin, resulting in a "tail wags the dog" scenario where shorting the "stable" instrument relative to BTC can be more profitable for miners than extending the chain as they're supposed to. Parasitic assets are not incentive compatible with bitcoin, and "stablecoins" are the most dangerous kind, as it's clear that their volume could easily outstrip bitcoin.
+
+https://medium.com/@bob.mcelrath/on-the-in-stability-of-stablecoins-517b7d17c3ee
+
+-------------------------
+
