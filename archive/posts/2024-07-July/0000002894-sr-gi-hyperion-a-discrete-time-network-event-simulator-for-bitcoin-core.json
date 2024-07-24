@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "incoming_link_count": 1,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 21.0,
   "yours": false,
   "topic_id": 1042,
   "topic_slug": "hyperion-a-discrete-time-network-event-simulator-for-bitcoin-core",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "A few months ago I started working on reviving [Erlay](https://github.com/bitcoin/bitcoin/pull/30116) mainly motivated by the apparent bandwidth improvements it will bring to Bitcoin nodes and seeing how the project seemed to have been put on hold, potentially after it hasn't gotten the sufficient reviewers attention to make it trough.\n\nRevisiting the proposed PR led to some changes in the design, mainly regarding how fanout peers should be picked:\n- On a transaction basis or on a connection basis\n- Based on whether the peer is inbound or outbound\n- Proportional to or independent of the number of peers\n- ...\n\nGiven some of the changes introduced (or considered) more simulations needed to be run to understand the tradeoffs and fine-tune the parameters. This led to building a network simulator that could compare the traditional inv->getdata->tx flow with the transaction reconciliation flow introduced by Erlay.[^1][^2] \n\n## Hyperion\n\nhttps://github.com/sr-gi/hyperion\n\nHyperion is an event-based simulator using discrete time. A network of nodes is built, deterministically at random, given a number of reachable and unreachable nodes. Once nodes are connected to each other, a transaction is created from a random node and broadcast to its peers. This triggers a series of events that will spread the transaction across the network until every single node is reached (assuming the network is not partitioned).\n\nNodes in the network are well-behaved, meaning they stick to the `inv->getdata->tx` flow, do not announce transactions to peers more than once (nor to a peer that has announced it to them), do not send out a transaction more than once, do always reply to `GETDATA` messages is requested, but won't request multiple `GETDATA` for the same transactions, etc.\n\nThe transaction relaying logic follows Bitcoin Core's design (w.r.t privacy/DoS protection):\n\n* `INVs` are sent to peers on random intervals based on whether a peer is inbound or outbound:\n  * For inbounds, the delay follows a Poisson process with an expected value of `INBOUND_INVENTORY_BROADCAST_INTERVAL(5s)`. All inbounds are on the same timer\n  * For outbounds, the delay follows a Poisson process with an expected value of `OUTBOUND_INVENTORY_BROADCAST_INTERVAL(2s)`. Every outbound has a unique timer\n* `GETDATA`s are prioritized to outbound peers, hence if an inbound peer announces a transaction, the request will be delayed by `NONPREF_PEER_TX_DELAY(2s)`, and superseded by any other request by an outbound peer.\n\n## Simulations\n\nHere's an example of a (non verbose) simulation in a network with 10K reachable nodes and 100K unreachable, sending a single transaction from a random node:\n\n```cmd\n> hyperion --reachable 10000 --unreachable 100000\n\n2024-07-23T19:31:02.327Z INFO  [hyper_lib::simulator] Using fresh rng seed: 16441876165305951121\n2024-07-23T19:31:02.341Z INFO  [hyper_lib::network] Creating nodes (110000: 10000 reachable, 100000 unreachable)\n2024-07-23T19:31:02.341Z INFO  [hyper_lib::network] Connecting unreachable nodes to reachable (800000 connections)\n2024-07-23T19:31:02.549Z INFO  [hyper_lib::network] Connecting reachable nodes to reachable (80000 connections)\n2024-07-23T19:31:02.588Z INFO  [hyperion] Starting simulation: broadcasting transaction (txid: 1c832fdc) from node 82519\n2024-07-23T19:31:04.787Z INFO  [hyperion] Reachable nodes sent/received 48.4265/70.5934 messages (4926.208/4483.7017 bytes) (avg)\n2024-07-23T19:31:04.787Z INFO  [hyperion] Unreachable nodes sent/received 6.15997/3.94328 messages (384.23712/428.48776 bytes) (avg)\n2024-07-23T19:31:04.787Z INFO  [hyperion] Transaction (txid: 1c832fdc) reached 90% of nodes in the network in 10.027488s\n```\n\n## State of the project\n\nThe project currently supports the traditional transaction workflow, and I'm working on implementing the Erlay-related functionality\n\nFeatures, requests, comments, and suggestions are more than welcome. Feel free to try it out and let me know if you find it helpful or what is missing and/or wrong.\n\n[^1]: Q: Why not use the existing simulator that was used for previous Erlay simulations? \nA: Because it is a general-purpose simulator adapted to work with Bitcoin and written in Java, which may be overkill for the goal, and I'm not willing to keep modifying and maintaining\n[^2]: Also [RIIR](https://transitiontech.ca/random/RIIR)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
