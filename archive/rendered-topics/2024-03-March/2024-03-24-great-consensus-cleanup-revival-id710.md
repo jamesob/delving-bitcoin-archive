@@ -555,3 +555,13 @@ Strongly agree. Also because I'd like to actually write software that is able to
 
 -------------------------
 
+ajtowns | 2024-07-24 06:18:44 UTC | #24
+
+[quote="MattCorallo, post:23, topic:710"]
+Huh? If we fix the coinbase witness value to 00000000height, then you cannot start shoving further commitments in it? We could go ahead and make it a merkle tree of commitments where the left-most commitment is required to be 000000height, of course, but that isn’t what I saw proposed here.
+[/quote]
+
+The idea isn't to encode the height in the coinbase witness, just to require that the coinbase have some witness. That ensures there's an OP_RETURN output in every future coinbase that isn't present in any of the potentially duplicatable existing coinbases.
+
+-------------------------
+
