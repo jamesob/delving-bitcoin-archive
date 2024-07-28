@@ -219,3 +219,20 @@ These kinds of checks can likely be achieved, and state transitions simply rejec
 
 -------------------------
 
+harding | 2024-07-28 19:04:17 UTC | #5
+
+[quote="instagibbs, post:1, topic:523"]
+V3.0.5 [...] Require “top block” for V3 *child* (parent can still just hit minfee)
+[...]
+* Allows wallets to not always shoot for top block, unless they need a CPFP
+[/quote]
+
+This sounds backwards incompatible with how I expect v3 to often be used.  In an LN channel, there's two things you might need to do:
+
+1. Fast confirmation of a commitment transaction because there are pending  HTLCs that need to be settled promptly.
+2. Eventual confirmation of a commitment transaction with no pending HTLCs because your counterparty has been offline for a long time and you want to do something else with your funds.
+
+In the second case, you don't know what the future mempool minimum fee will be when the commitment transaction is signed, so it would nice to be able to use package relay and CPFP to set an appropriate eventual-confirmation rate at broadcast time.  But, if I'm reading the above correctly, v3 users would be forced to use a fast-confirmation rate even if they only wanted eventual confirmation.
+
+-------------------------
+
