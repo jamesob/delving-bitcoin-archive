@@ -196,9 +196,10 @@ But then this mostly shifts the problem: Who will run those?
 
 -------------------------
 
-1440000bytes | 2024-06-20 13:36:12 UTC | #10
+kravens | 2024-07-29 18:46:11 UTC | #11
 
-(post deleted by author)
+We've found a way to make Trezor Suite allow CoinJoin again with alternative coordinators, a guide how to set it up has been written here: [Change Coordinator (kravens.nl)](https://wasabi.kravens.nl/#trezor)
+Basically starting the Trezor Suite app with a debug argument setting a custom coordinator server, with an example given for connecting to the Noderunners Coordinator.
 
 -------------------------
 
