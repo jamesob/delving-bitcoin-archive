@@ -236,3 +236,15 @@ In the second case, you don't know what the future mempool minimum fee will be w
 
 -------------------------
 
+instagibbs | 2024-07-29 11:05:44 UTC | #6
+
+[quote="harding, post:5, topic:523"]
+But, if I’m reading the above correctly, v3 users would be forced to use a fast-confirmation rate even if they only wanted eventual confirmation.
+[/quote]
+
+Correct, the use-case would be where wallets are online enough to re-sign/rebroadcast as required, which to me doesn't appear very incompatible with LN type use-cases but is certainly troublesome for colder wallets.
+
+I'm also unconvinced it's a compelling option vs having TRUC and "v4".
+
+-------------------------
+
