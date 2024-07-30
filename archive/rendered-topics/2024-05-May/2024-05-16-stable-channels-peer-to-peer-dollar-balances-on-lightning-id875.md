@@ -182,3 +182,23 @@ https://medium.com/@bob.mcelrath/on-the-in-stability-of-stablecoins-517b7d17c3ee
 
 -------------------------
 
+tony | 2024-07-30 02:07:35 UTC | #9
+
+Good day Bob, perhaps there is a misunderstanding here, because your concerns seem to be aimed at pegged fiat currencies and centralized stablecoins. Stable Channels is neither of these, so let's clear up some of the language. 
+
+Stable Channels is not a “stablecoin” nor an “asset” nor a “fiat-coin." It is not a “stable instrument” that can be shorted. Stable Channels is just bitcoin on a Lightning Channel, no tokens. There is no “external” value entering the equation, so it's not possible that it could "out-strip the value of bitcoin." Yes, developers can issue tokens against bitcoin collateral in a Stable Channel. But that is explicitly ***not*** the motivation for the project. 
+
+Unlike centralized stablecoin tokens, each Stable Channel exists on its own terms in its own segregated UTXO. Ideally, these channels would have varying levels of entry price (and liquidation price), collateral amounts, and channel partners. This makes a "run on the bank" a lot less plausible. That, and the fact that there is no bank. Users are self-custodial. 
+
+You are correct that in the event of a market crash, the peg will break for some users in some channels … perhaps even many users in many channels. However, that wouldn't permanently affect the operational integrity of the system as a whole. 
+
+Consider this: If the price drops too much and the peg breaks and you were expecting stability, then you are left with your bitcoin in self-custody, and probably a lot more bitcoin than you started out with. You bought the dip, kinda. (Check out the table below.) 
+
+At that time—and at anytime before and after—you can do anything with that Lightning bitcoin that you want. You can move it to an exchange, swap it for a centralized stablecoin, close the channel cooperatively or uncooperatively, or just leave it there undisturbed. Those are all better options than the catastrophic failure modes that can befall pegged tokens, a category Stable Channels definitely doesn't belong in. 
+
+Happy to address more questions and comments here, or to connect offline. 
+
+![Screenshot 2024-07-29 at 9.29.40 PM|690x399](upload://ao1nT9IngtJSR8fdCTecjgExc1i.jpeg)
+
+-------------------------
+
