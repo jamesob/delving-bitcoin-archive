@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 3,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 16.0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 31.6,
   "yours": false,
   "topic_id": 1050,
   "topic_slug": "optimistic-zk-verification-using-matt",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Earlier I posted about [Elftrace](https://github.com/halseth/elftrace), a tool for creating Bitcoin Scripts to verify RISC-V execution: https://delvingbitcoin.org/t/verification-of-risc-v-execution-using-op-ccv/313 \n\nSince then it has had some updates, and I wanted to share that the toolchain has had some additions making it easier to compile Rust without having to write custom assembly for every new program. It now also support doing input/output to the program using standard IO.\n\nWith this in place we are able to compile the **Winterfell STARK library** as a dependency, making it possible to _verify-the-verification_ of  ZK proofs in Bitcoin Script (this still requires CAT and a covenant).\n\nA more detailed writeup is here, with example code: https://github.com/halseth/elftrace/blob/831f537bc1509bd45c350e103f7fc73aa818f7dd/docs/zk_verifier.md",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
