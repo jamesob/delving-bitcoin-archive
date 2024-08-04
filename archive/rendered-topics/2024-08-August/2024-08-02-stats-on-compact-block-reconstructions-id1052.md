@@ -51,3 +51,21 @@ How do different extra pool sizes affect block reconstruction? How was the block
 
 -------------------------
 
+0xB10C | 2024-08-04 13:39:48 UTC | #2
+
+[quote="0xB10C, post:1, topic:1052"]
+I had the impression that low-bandwidth block reconstructions more often needed to request extra transactions compared to high-bandwidth reconstructions. I’m not sure if that would be expected. I think I have the data to look into it. Additionally, the share of low- vs high-bandwidth reconstructions over time would be interesting.
+[/quote]
+
+About 75% of compact blocks are delivered in high-bandwidth mode (peer sends us a `cmpctblock` message before they have validated the block). The remaining ~25% are delivered in low-bandwidth mode (peer sends us a `inv`/`headers` and we request with a `getdata(compactblock)`).
+
+![image|690x438](upload://u5Hgl8wvzSTOrQ4xNb3Lv0PhFE9.png)
+
+Compact blocks received via high-bandwidth mode request transactions less often than (which is better) than compact blocks received in low-bandwidth mode.
+
+I've noticed that nearly all compact blocks received have only a single transaction (the coinbase) pre-filled. As far as I understand, compact blocks delivered in low-bandwidth mode are fully validated before being announced (via `inv`/`headers`) and sender could pre-fill the transactions it didn't know about itself. This might reduce the number of low-bandwidth compact blocks that require a transaction request. I've yet to check the Bitcoin Core source code on this and if there's a reason why isn't currently being done. 
+
+![image|690x438](upload://v6pNHEVIrM8dWrjRdyp50G01DvK.jpeg)
+
+-------------------------
+
