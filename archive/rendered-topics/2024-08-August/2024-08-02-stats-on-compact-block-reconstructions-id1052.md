@@ -51,7 +51,7 @@ How do different extra pool sizes affect block reconstruction? How was the block
 
 -------------------------
 
-0xB10C | 2024-08-04 15:45:01 UTC | #2
+0xB10C | 2024-08-04 15:45:21 UTC | #2
 
 [quote="0xB10C, post:1, topic:1052"]
 I had the impression that low-bandwidth block reconstructions more often needed to request extra transactions compared to high-bandwidth reconstructions. I’m not sure if that would be expected. I think I have the data to look into it. Additionally, the share of low- vs high-bandwidth reconstructions over time would be interesting.
@@ -65,13 +65,13 @@ Compact blocks received via high-bandwidth mode request transactions less often 
 
 I've noticed that nearly all compact blocks received have only a single transaction (the coinbase) pre-filled. As far as I understand, compact blocks delivered in low-bandwidth mode are fully validated before being announced (via `inv`/`headers`) and sender could pre-fill the transactions it didn't know about itself. This might reduce the number of low-bandwidth compact blocks that require a transaction request. I've yet to check the Bitcoin Core implementation and see if there's a reason why isn't currently being done. 
 
+![image|690x438](upload://v6pNHEVIrM8dWrjRdyp50G01DvK.jpeg)
+
 Edit: 
 
 It's still a TODO. https://github.com/bitcoin/bitcoin/blob/2aff9a36c352640a263e8b5de469710f7e80eb54/src/blockencodings.cpp#L24-L25
 
 It might be good to recheck these numbers once Bitcoin Core v28.0 (with full-RBF by default, if merged) is being adopted by the network. If by then, the low-bandwidth mode still has similarly performance, it might make sense to spend some time on implementing this.
-
-![image|690x438](upload://v6pNHEVIrM8dWrjRdyp50G01DvK.jpeg)
 
 -------------------------
 
