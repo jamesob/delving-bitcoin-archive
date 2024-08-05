@@ -126,3 +126,15 @@ Once we have rough consensus, I'll update [bLIP 42](https://github.com/lightning
 
 -------------------------
 
+harding | 2024-08-05 20:53:19 UTC | #2
+
+[quote="t-bast, post:1, topic:1046"]
+However, when sending money to their friends and family, users expect some form of mutual authentication: when Alice sends money to Bob, she wants Bob to know it came from her.
+[/quote]
+
+Sorry if this is a foolish question, but is this something that requires cryptography to solve?  If Alice wants Bob to know that a payment came from her, why not simply add a text `from` field to the onion that gets encrypted to the recipient that can say: `from: Alice`?
+
+That would allow someone else to pay Bob while claiming to be Alice, but is that a risk?  (That's an honest question.)  It seems like it might actually be a feature: I occasionally make payments on behalf of other people, e.g. when I order a pizza but my partner will be picking it up; it'd be nice if I could simply set the `from` field to the name of the intended payer.
+
+-------------------------
+
