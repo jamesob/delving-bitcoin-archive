@@ -539,3 +539,9 @@ Not sure if anyone has started working on this yet. Any thoughts appreciated.
 
 -------------------------
 
+vazertuche | 2024-08-05 21:35:18 UTC | #30
+
+Have you considered also implementing the Anti-exfil protocol in secp256k1 library given that we are gonna require DLEQ proofs anyways in v3 of PSBT? It would make sense given that some of the top hardware wallets don't come with any particular software wallet and will only implement things inherent in core, in the secp library and in a well tested and accepted psbt spec. The new darkskippy.com attack only re-iterates the need for things like this and I can't help but think this new spec is an excellent opportunity to kill two birds with one stone?
+
+-------------------------
+
