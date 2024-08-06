@@ -75,3 +75,13 @@ It might be good to recheck these numbers once Bitcoin Core v28.0 (with full-RBF
 
 -------------------------
 
+Crypt-iQ | 2024-08-06 13:41:52 UTC | #3
+
+[quote="0xB10C, post:1, topic:1052"]
+How do different extra pool sizes affect block reconstruction?
+[/quote]
+
+By this do you mean the extra transactions we keep around for compact block reconstruction or do you mean differing mempool sizes? If it's the latter, it might be worth it to track your peers' `feefilter` as that can give some indication of how large their pool size is. Note that it's not precise because of the way the filter is calculated with a half-life, and because certain mempool maps might differ in memory usage. There is also some rounding in the result as well for privacy reasons.
+
+-------------------------
+
