@@ -138,3 +138,17 @@ That would allow someone else to pay Bob while claiming to be Alice, but is that
 
 -------------------------
 
+t-bast | 2024-08-07 10:28:25 UTC | #3
+
+[quote="harding, post:2, topic:1046"]
+It seems like it might actually be a feature: I occasionally make payments on behalf of other people, e.g. when I order a pizza but my partner will be picking it up; it’d be nice if I could simply set the `from` field to the name of the intended payer.
+[/quote]
+
+I think this isn't mutually exclusive with what I'm proposing (this can be done with the `payer_note` field already), but I think we do need the mutual authentication option.
+
+As you note, the issue with a payment note that isn't mutually authenticated is that it cannot be trusted. When sharing (some) offers publicly, this creates a serious risk of phishing because anyone sending a payment to you can include whatever message they'd like. Even if you don't share your offer publicly, someone else to whom you sent it may leak it. I think that by default wallets should show payment notes as "untrusted", and somehow explain to the user that whoever wrote that message may not be who they claim to be, unless mutual authentication was successfully performed.
+
+Attackers can be very creative with phishing, so I'd like an easy way for users to know whether they can trust payment notes or not. If the payment really comes from one of your trusted contacts, you know you can trust it. Otherwise, you should be cautious with whatever message is included (but you can of course still trust it if it seems to make sense, for example in your pizza scenario).
+
+-------------------------
+
