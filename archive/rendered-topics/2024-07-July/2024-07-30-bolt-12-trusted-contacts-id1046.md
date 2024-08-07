@@ -152,3 +152,34 @@ Attackers can be very creative with phishing, so I'd like an easy way for users 
 
 -------------------------
 
+harding | 2024-08-07 14:12:45 UTC | #4
+
+[quote="t-bast, post:3, topic:1046"]
+Attackers can be very creative with phishing, so I’d like an easy way for users to know whether they can trust payment notes or not. If the payment really comes from one of your trusted contacts, you know you can trust it.
+[/quote]
+
+The creativity of attackers is part of my concern. I assume the expected UI works like this:
+
+1. Alice clicks/scans an offer created by Bob that contains his contact key.
+2. Alice's wallet says "Do you want to add the recipient to your contacts list?"  Alice clicks Yes and the wallet prompts her to enter Bob's name.
+3. The wallet completes the payment flow.
+4. At some later point when Bob sends a payment to Alice, it shows up as _From Bob_.
+
+Can Mallory abuse that flow to get her key associated with Bob's name?  Maybe she offers a giveway using the merchant-pays-user flow:
+
+1. Mallory creates a page promising that the first 100 responders will receive 100,000 sats for them plus 100,000 sats for their best friend.
+2. The instructions on the page say: "click this link and then, in your wallet, enter the name of your best friend who you also want to receive 100,000 sats.  Hurry up, only the first 100 responders will receive 100,000 sats"
+3. Alice quickly follows the instructions, associating Mallory's key with Bob's name.
+4. Mallory performs whatever evil it's possible to perform with access to forge payments from Bob.
+
+Admittedly, that's a lot more work for Mallory than just lying in the `payer_note` field.  But I think it's a lot easier to accustom users to the expectation that the `payer_note` is arbitrary text that can contain lies than it is to prevent creative phishers from being able to associate their keys with the names of other people and organizations.  If phishers are able to obtain access to a trusted field, that may magnify the damage they can do over only having access to fields that are known to be untrustworthy.
+
+Some additional problems:
+
+- What happens when a contact key gets compromised?  For example, an organization contact key used with thousands or millions of customers.
+- What happens when Bob uses multiple wallets?  For example, he sometimes sends payments to Alice from his mobile wallet; other times, he pays from his desktop wallet with a different seed.  Will Alice's wallet allow associating the same name with multiple contact keys?  Will there be significant user consternation and support issues if some of Bob's payments show up as untrusted?
+
+I'm sorry to be producing [stop energy](http://radio-weblogs.com/0107584/stories/2002/05/05/stopEnergyByDaveWiner.html).  My thinking is that it might be both easier and safer to simply train users that nothing about a payment should be trusted except the amount.
+
+-------------------------
+
