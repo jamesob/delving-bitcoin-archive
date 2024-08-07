@@ -575,17 +575,19 @@ Ah, fair enough. I'd still very much love to see the nLockTime set to the block 
 
 -------------------------
 
-harding | 2024-08-07 02:52:29 UTC | #26
+harding | 2024-08-07 05:42:57 UTC | #26
 
 [quote="MattCorallo, post:25, topic:710"]
 I’d still very much love to see the nLockTime set to the block height, it makes pulling the block height out of the coinbase transaction simpler, though its not a super critical difference.
 [/quote]
 
-I'm not sure if Matt is talking about deserialization being simpler or that compact extraction using a SHA256 midstate would be simpler.  The former is pretty obvious---there's no need to deal with CScript (yay!)---but the later might not be clear, so I'll briefly describe it: with a consensus-enforced commitment to height in the locktime field, which is the last field in a serialized transaction, I can prove to you that a particular 80-byte header is for block 999999 by giving you the sha256 midstate of the coinbase transaction up to the final 1 or 2 chunks, the missing chunks (32 bytes each), and a partial merkle tree for the coinbase transaction (448 bytes or less).  You take the midstate and SHA256 iterate over the remaining chunks that commit to the locktime to get the coinbase transaction's txid.  You insert that in the partial merkle tree and verify the tree connects to the merkle root in the block header.
+I'm not sure if Matt is talking about deserialization being simpler or that compact extraction using a SHA256 midstate would be simpler.  The former is pretty obvious---there's no need to deal with CScript (yay!)---but the later might not be clear, so I'll briefly describe it: with a consensus-enforced commitment to height in the locktime field, which is the last field in a serialized transaction, I can prove to you that a particular 80-byte header is for block 999999 by giving you the sha256 midstate of the coinbase transaction up to the final 1 or 2 chunks, the missing chunks (64 bytes each), and a partial merkle tree for the coinbase transaction (448 bytes or less).  You take the midstate and SHA256 iterate over the remaining chunks that commit to the locktime to get the coinbase transaction's txid.  You insert that in the partial merkle tree and verify the tree connects to the merkle root in the block header.
 
-By comparison, to prove that to you now with the BIP30 height commitment, I need to give you the entire coinbase transaction plus the partial merkle tree (or I need to use a fancier proof system).  A coinbase transaction can be up to almost 1 MB, so the worst case proof of header height now is ~1 MB compared to ~600 bytes with a consensus-enforced commitment in locktime.
+By comparison, to prove that to you now with the BIP30 height commitment, I need to give you the entire coinbase transaction plus the partial merkle tree (or I need to use a fancier proof system).  A coinbase transaction can be up to almost 1 MB, so the worst case proof of header height now is ~1 MB compared to ~700 bytes with a consensus-enforced commitment in locktime.
 
 I can't think of how that would be useful offhand, but it seems like a nice advantage of the locktime approach.
+
+(Edited: @ajtowns reminded me that SHA256 chunks are 64 bytes, not 32 bytes.)
 
 -------------------------
 
