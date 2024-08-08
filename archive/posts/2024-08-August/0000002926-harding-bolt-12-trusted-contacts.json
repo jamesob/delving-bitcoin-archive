@@ -12,9 +12,9 @@
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 1.4,
   "yours": false,
   "topic_id": 1046,
   "topic_slug": "bolt-12-trusted-contacts",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"t-bast, post:3, topic:1046\"]\nAttackers can be very creative with phishing, so I\u2019d like an easy way for users to know whether they can trust payment notes or not. If the payment really comes from one of your trusted contacts, you know you can trust it.\n[/quote]\n\nThe creativity of attackers is part of my concern. I assume the expected UI works like this:\n\n1. Alice clicks/scans an offer created by Bob that contains his contact key.\n2. Alice's wallet says \"Do you want to add the recipient to your contacts list?\"  Alice clicks Yes and the wallet prompts her to enter Bob's name.\n3. The wallet completes the payment flow.\n4. At some later point when Bob sends a payment to Alice, it shows up as _From Bob_.\n\nCan Mallory abuse that flow to get her key associated with Bob's name?  Maybe she offers a giveway using the merchant-pays-user flow:\n\n1. Mallory creates a page promising that the first 100 responders will receive 100,000 sats for them plus 100,000 sats for their best friend.\n2. The instructions on the page say: \"click this link and then, in your wallet, enter the name of your best friend who you also want to receive 100,000 sats.  Hurry up, only the first 100 responders will receive 100,000 sats\"\n3. Alice quickly follows the instructions, associating Mallory's key with Bob's name.\n4. Mallory performs whatever evil it's possible to perform with access to forge payments from Bob.\n\nAdmittedly, that's a lot more work for Mallory than just lying in the `payer_note` field.  But I think it's a lot easier to accustom users to the expectation that the `payer_note` is arbitrary text that can contain lies than it is to prevent creative phishers from being able to associate their keys with the names of other people and organizations.  If phishers are able to obtain access to a trusted field, that may magnify the damage they can do over only having access to fields that are known to be untrustworthy.\n\nSome additional problems:\n\n- What happens when a contact key gets compromised?  For example, an organization contact key used with thousands or millions of customers.\n- What happens when Bob uses multiple wallets?  For example, he sometimes sends payments to Alice from his mobile wallet; other times, he pays from his desktop wallet with a different seed.  Will Alice's wallet allow associating the same name with multiple contact keys?  Will there be significant user consternation and support issues if some of Bob's payments show up as untrusted?\n\nI'm sorry to be producing [stop energy](http://radio-weblogs.com/0107584/stories/2002/05/05/stopEnergyByDaveWiner.html).  My thinking is that it might be both easier and safer to simply train users that nothing about a payment should be trusted except the amount.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
