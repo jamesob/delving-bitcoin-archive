@@ -85,3 +85,19 @@ By this do you mean the extra transactions we keep around for compact block reco
 
 -------------------------
 
+0xB10C | 2024-08-08 10:17:20 UTC | #4
+
+[quote="Crypt-iQ, post:3, topic:1052"]
+By this do you mean the extra transactions we keep around for compact block reconstruction or do you mean differing mempool sizes?
+[/quote]
+
+I specifically mean the extra pool Bitcoin Core keeps for compact block reconstruction. Different node mempool sizes and different peer mempool sizes might have an effect too, but I feel this is better simulated with e.g. Warnet than measured on mainnet.
+
+```console
+$ man bitcoind | grep blockreconstructionextratxn -A 2
+-blockreconstructionextratxn=<n>
+  Extra transactions to keep in memory for compact block reconstructions (default: 100)
+```
+
+-------------------------
+
