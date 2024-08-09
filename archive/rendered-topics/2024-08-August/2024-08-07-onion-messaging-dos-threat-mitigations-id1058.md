@@ -54,3 +54,9 @@ It is good to see LN security being taken seriously in academic literature and I
 
 -------------------------
 
+MattCorallo | 2024-08-09 15:23:02 UTC | #2
+
+Yea, that paper is cool, sadly it doesn't actually make an argument for there being a "DoS threat" from onion messages, it just assumes there is one and then addresses mitigations. It is the case that we should probably reduce the ability for OMs to route-loop, which is the main focus of the paper, however. Still, more formal analysis of what the actual DoS risk is is needed, as well as analysis of the "backpressure" mitigation that lightning developers had agreed to implement if/when this becomes an issue.
+
+-------------------------
+
