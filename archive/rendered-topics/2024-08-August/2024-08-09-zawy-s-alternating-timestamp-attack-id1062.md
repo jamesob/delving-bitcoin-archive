@@ -159,7 +159,7 @@ I don’t anticipate that honest mining would ever run afoul of a requirement to
 
 -------------------------
 
-zawy | 2024-08-10 14:07:49 UTC | #2
+zawy | 2024-08-10 15:33:34 UTC | #2
 
 Thanks for investigating this so well and discovering how to greatly amplify it. I just realized my version allows only 2.8x instead of 5x more blocks because in a 50% hashrate private mine the attacker's difficulty would drop to match his hashrate after the 1st period (which would take 4 weeks) so he can get 2016 + 6 * 2016 = 14,112 blocks in 16 weeks instead of 8,064.
 
@@ -171,7 +171,7 @@ Making the past time limit equal to the future time limit as a justification for
 
 But I haven't found a vulnerability with 2 hr past time limit and restricting nActualtimespan to being positive as you've described.
 
-I did a search of the main chain and saw many blocks in the past that would violate a 2 hr rule if it was applied to all blocks but none at the 2016 transition, so doing it only at the transition wouldn't require "if height > 850,000 ..." so it has some sort of backwards compatibility.
+The chain may have many blocks in the past that would violate a 2 hr rule if it was applied to all blocks but maybe none at the 2016 transition, so doing it only at the transition may not require "if height > 850,000 ..." to have some sort of backwards compatibility.
 
 -------------------------
 
