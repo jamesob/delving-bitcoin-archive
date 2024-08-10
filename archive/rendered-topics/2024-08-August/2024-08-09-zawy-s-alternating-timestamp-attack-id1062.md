@@ -159,3 +159,19 @@ I don’t anticipate that honest mining would ever run afoul of a requirement to
 
 -------------------------
 
+zawy | 2024-08-10 14:07:49 UTC | #2
+
+Thanks for investigating this so well and discovering how to greatly amplify it. I just realized my version allows only 2.8x instead of 5x more blocks because in a 50% hashrate private mine the attacker's difficulty would drop to match his hashrate after the 1st period (which would take 4 weeks) so he can get 2016 + 6 * 2016 = 14,112 blocks in 16 weeks instead of 8,064.
+
+I prefer the distributed consensus requirement of monotonic timestamps as a simpler way to prevent attacks with less code. It would allow removing MTP and the 4x to 1/4 limits on nActualtimespan.
+
+If monotonic timestamps aren't possible, the 2nd best option in my mind is doing a past-time limit on every block, not just the 2016 transition. This would be slightly simpler code and "more attractive" logic. If it's good and safe for the 2016 transition then its better to do it on all blocks. It would prevent the need to restrict nActualtimespan and removes the main reason MTP exists. It's a weak form of enforcing monotonicity. MTP and these new fixes are just patches to the [proven](https://amturing.acm.org/p558-lamport.pdf) distributed consensus mistake of allowing non-monotonic timestamps.
+
+Making the past time limit equal to the future time limit as a justification for its value may not be good because they're very different limits. The 7200 future time only applies to active miners while a 7200 past time is forever for all nodes. A block with a timestamp beyond the future time limit can potentially be accepted in the future. But I can't deduce a specific problem. In fact, there's a benefit if the past time limit is applied to every block: the future time limit can be removed. It's automatically enforced if honest miners follow the consensus rule "Don't mine on top of a block if an honest timestamp based on your clock will be more than 7200 seconds before its timestamp." With this rule in place, I would make the 2hr past time limit 10 minutes. If the old distributed consensus rules were followed perfectly, the rule would be "ignore a new block for 600 seconds if its timestamp is +/- 10 seconds from my local time when I first saw the block". This stops 1 and 2-block selfish mining attacks because they have to assign a timestamp before they know when they'll need to release it and it reverts to PoW if there's a real network partition. The monotonic timestamp rule would still apply, so a miner would use 1+ the parent block's timestamp instead of his local time if the parent timestamp is in the future. 
+
+But I haven't found a vulnerability with 2 hr past time limit and restricting nActualtimespan to being positive as you've described.
+
+I did a search of the main chain and saw many blocks in the past that would violate a 2 hr rule if it was applied to all blocks but none at the 2016 transition, so doing it only at the transition wouldn't require "if height > 850,000 ..." so it has some sort of backwards compatibility.
+
+-------------------------
+
