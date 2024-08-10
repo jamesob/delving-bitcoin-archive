@@ -202,3 +202,15 @@ Happy to address more questions and comments here, or to connect offline.
 
 -------------------------
 
+cryptorevue | 2024-08-10 18:30:41 UTC | #10
+
+[quote="cdecker, post:7, topic:875"]
+Hosted channel clients are not normal LN nodes
+[/quote]
+
+No. It depends on implementation. Valet supports both and does have a feature "Drain fiat channel" into real LN channel.
+
+Moreover, the Fiat channels protocol may be extended into "Credit channels," meaning that the host lends fiat-denominated liquidity while having some real channel of the user as a hostage.
+
+-------------------------
+
