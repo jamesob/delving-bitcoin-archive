@@ -189,3 +189,17 @@ The fix could be included as part of the consensus cleanup revival.
 
 -------------------------
 
+MentalNomad | 2024-08-11 15:43:44 UTC | #4
+
+[quote="murch, post:1, topic:1062"]
+The attack looks theoretically sound, although the necessity to perform 16 weeks of selfish mining (and hopefully also the necessity to control 50% of the hashrate) should make it impractical.
+[/quote]
+
+We don't need to postulate an attacker controlling 50% of the hash rate for this. 
+
+The net result of this attack delivers blocks and therefore rewards at a faster rate. There's a financial incentive for existing miners, or at least a pool of miners totalling >50%, to potentially use this exploit. 
+
+Best to foreclose the exploit.
+
+-------------------------
+
