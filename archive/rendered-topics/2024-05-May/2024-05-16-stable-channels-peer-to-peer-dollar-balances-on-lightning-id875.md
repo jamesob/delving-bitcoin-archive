@@ -214,3 +214,11 @@ Moreover, the Fiat channels protocol may be extended into "Credit channels," mea
 
 -------------------------
 
+cdecker | 2024-08-11 10:26:23 UTC | #11
+
+I think this is a logical fallacy: A is not B, but product P does A & B, so A = B?
+
+Just because you have classical LN channels, as well as hosted channels, does not make the hosted channels normal channels. That's what I wanted to point our in my comment. Tony's channels _are_ LN channels, we just assign a different interpretation to the numeric values in the channel. Hosted channels _are not_ classical LN channels, since they cannot be settled on-chain (the best you can hope for in hosted channels is a proof of misbehavior, but unlike LN there is no automatic dispute mechanism via the blockchain).
+
+-------------------------
+
