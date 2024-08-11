@@ -175,3 +175,17 @@ The chain may have many blocks in the past that would violate a 2 hr rule if it 
 
 -------------------------
 
+AntoineP | 2024-08-11 09:44:37 UTC | #3
+
+Your suggested fix makes sense. Coupled with the consensus cleanup's timewarp fix this would effectively make retarget periods monotonic.
+
+I [think there is](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710#should-we-really-fix-it-3) essentially two concerns with the timewarp attack:
+1. it significantly empowers a 51% attacker;
+2. it incentivizes short-sighted miners and users to act contrary to the long-term health of the system ("let's double the block rate").
+
+The Murch-Zawy attack does not permit the arguably more concerning 2) as it requires not publishing blocks for 16 weeks. It does however enable 1) as it shares this property with the timewarp attack that the adversary can benefit from the lowered difficulty *as they keep lowering it further*. It allows bringing the difficulty down to 1 within a timespan comparable to that of the timewarp.
+
+The fix could be included as part of the consensus cleanup revival.
+
+-------------------------
+
