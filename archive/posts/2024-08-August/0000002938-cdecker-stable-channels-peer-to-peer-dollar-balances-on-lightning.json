@@ -12,9 +12,9 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 875,
   "topic_slug": "stable-channels-peer-to-peer-dollar-balances-on-lightning",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I think this is a logical fallacy: A is not B, but product P does A & B, so A = B?\n\nJust because you have classical LN channels, as well as hosted channels, does not make the hosted channels normal channels. That's what I wanted to point our in my comment. Tony's channels _are_ LN channels, we just assign a different interpretation to the numeric values in the channel. Hosted channels _are not_ classical LN channels, since they cannot be settled on-chain (the best you can hope for in hosted channels is a proof of misbehavior, but unlike LN there is no automatic dispute mechanism via the blockchain).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
