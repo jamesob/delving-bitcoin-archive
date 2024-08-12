@@ -246,3 +246,21 @@ It seems to me that requiring blocks to be monotonic could be a pain if a miner 
 
 -------------------------
 
+sipa | 2024-08-12 17:23:15 UTC | #7
+
+I'd like to understand what exactly the criterion is for whether an attack of this nature is possible.
+
+My gut feeling is that really anything where the 4x upwards difficulty adjustment limit is triggered is exploitable in a way. If so, any solution will involve directly or indirectly requiring that the last timestamp within a window is at least 3.5 days (1/4 of 2 weeks) after the first timestamp (effectively outlawing the 4x limit from having an effect).
+
+-------------------------
+
+murch | 2024-08-12 17:35:27 UTC | #8
+
+[quote="sipa, post:7, topic:1062"]
+If so, any solution will involve directly or indirectly requiring that the last timestamp within a window is at least 3.5 days (1/4 of 2 weeks) after the first timestamp (effectively outlawing the 4x limit from having an effect).
+[/quote]
+
+Both Zawy’s attack and my variant require the negative elapsed time to make up for the pushing blocks into the future. I have been pondering what you could do if the elapsed time were just underestimated, but non-negative, and so far I’m coming empty.
+
+-------------------------
+
