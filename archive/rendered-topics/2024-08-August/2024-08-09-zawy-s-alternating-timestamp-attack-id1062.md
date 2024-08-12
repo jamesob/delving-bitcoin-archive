@@ -222,3 +222,27 @@ So if the goal is to prevent a >50% attack for many many excess blocks on mainne
 
 -------------------------
 
+murch | 2024-08-12 15:26:36 UTC | #6
+
+[quote="zawy, post:2, topic:1062"]
+difficulty would drop to match his hashrate
+[/quote]
+
+Right, I forgot to account for the difficulty drop for the honest miners as well.
+
+[quote="zawy, post:2, topic:1062"]
+the 2nd best option in my mind is doing a past-time limit on every block, not just the 2016 transition. This would be slightly simpler code and “more attractive” logic. If it’s good and safe for the 2016 transition then its better to do it on all blocks. It would prevent the need to restrict nActualtimespan and removes the main reason MTP exists.
+[/quote]
+
+I don’t see how this would remove the need for MTP. As far as I can tell, the MTP requirement leads to a stronger monotonicity than requiring that every block cannot be more than 2h in the past from its predecessor. If an attacker can move the date back by two hours with each block, they can achieve a negative elapsed time of 24 weeks.
+
+[quote="zawy, post:2, topic:1062"]
+In fact, there’s a benefit if the past time limit is applied to every block: the future time limit can be removed.
+[/quote]
+
+I don’t see why the future limit on timestamps could be removed. If nodes did not enforce that limit, the attacker could push the chaintip 40 minutes further into the future with each block and reduce the difficulty by a factor 4 every difficulty period.
+
+Overall it seems to me that requiring blocks to be monotonic could be a pain if a miner ever put future timestamps on blocks, and I don’t think I can agree with your conclusions about it being easier or better to make a bunch of sweeping consensus rule changes. If anything, the changes should be as minimal as possible, and just requiring that the first block has a lower timestamp than the last block of the same difficulty period seems to better restrict the attack you discovered and is a much smaller change.
+
+-------------------------
+
