@@ -222,7 +222,7 @@ So if the goal is to prevent a >50% attack for many many excess blocks on mainne
 
 -------------------------
 
-murch | 2024-08-12 15:32:40 UTC | #6
+murch | 2024-08-12 15:36:23 UTC | #6
 
 [quote="zawy, post:2, topic:1062"]
 difficulty would drop to match his hashrate
@@ -242,7 +242,7 @@ In fact, there’s a benefit if the past time limit is applied to every block: t
 
 I also don’t see why the rule against moving time back would allow for the future limit on timestamps to be removed. If nodes would not enforce the future limit, an attacker could increase the timestamp by an average of 40 minutes with each block and reduce the difficulty by a factor 4 every difficulty period without doing anything else than pushing the chaintip off into the future.
 
-It seems to me that requiring blocks to be monotonic could be a pain if a miner ever put future timestamps on blocks, and I don’t think I follow how you got to the conclusions about it being easier or better to make a bunch of sweeping consensus rule changes. If anything, the consensus changes should be as small as possible, and just requiring that in a difficulty period the first block has a lower timestamp than the last block seems to mitigate the attack you discovered and is a much smaller change. It’s not clear to me what benefit you see in introducing a 2h-past limit for the other blocks.
+It seems to me that requiring blocks to be monotonic could be a pain if a miner ever put future timestamps on blocks, and I don’t think I follow how you got to the conclusions about it being easier or better to make a bunch of sweeping consensus rule changes. If anything, the consensus changes should be as small as possible, and just requiring that in a difficulty period the first block has a lower timestamp than the last block seems to mitigate the attack you discovered and is a much smaller change. It’s not clear to me what benefit you see in introducing a 2h-past limit for the other blocks, or trying to impose monotonicity on all blocks. Clearly, only the timestamps of the first and the last block in each difficulty period matter for the difficulty rule.
 
 -------------------------
 
