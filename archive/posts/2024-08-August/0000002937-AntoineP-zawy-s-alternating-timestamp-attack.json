@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Your suggested fix makes sense. Coupled with the consensus cleanup's timewarp fix this would effectively make retarget periods monotonic.\n\nI [think there is](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710#should-we-really-fix-it-3) essentially two concerns with the timewarp attack:\n1. it significantly empowers a 51% attacker;\n2. it incentivizes short-sighted miners and users to act contrary to the long-term health of the system (\"let's double the block rate\").\n\nThe Murch-Zawy attack does not permit the arguably more concerning 2) as it requires not publishing blocks for 16 weeks. It does however enable 1) as it shares this property with the timewarp attack that the adversary can benefit from the lowered difficulty *as they keep lowering it further*. It allows bringing the difficulty down to 1 within a timespan comparable to that of the timewarp.\n\nThe fix could be included as part of the consensus cleanup revival.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
