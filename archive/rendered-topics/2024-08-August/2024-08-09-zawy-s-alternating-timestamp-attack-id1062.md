@@ -203,9 +203,9 @@ Best to foreclose the exploit.
 
 -------------------------
 
-zawy | 2024-08-11 17:44:12 UTC | #5
+zawy | 2024-08-12 12:46:20 UTC | #5
 
-For a >50% public mine to work, they would need to ignore many blocks made by the other miners to maintain control of the MTP. But then they could just ignore other miners' blocks now to double their profits. It's a lot fewer blocks, but the damage to the coin's image is a lot less and the ease of getting away with it is a lot easier, especially if done by the occasion sniping of non-cartel miner blocks in a way that's hard to detect (like a 1 or 2 block selfish mining attack with > 50%).  It's getting back to the idea "if >50% collude to attack, there's nothing you can do." They don't because it devalues the net present value of their equipment by devaluing the public's valuation of the coin. Testnet is different because of the absence of the profit motive. Someone might do it for fun. It needs it more than mainnet. 
+For a >50% public mine to work, they only need to ignore blocks by miners with honest timestamps when it threatens their control of the control of the MTP.  If miner's don't believe the cheating chain will be reverted, they could end up joining it instead of losing all their blocks. They don't do it because it devalues the net present value of their equipment by devaluing the public's valuation of the coin. Testnet is different because of the absence of the profit motive. Someone might do it for fun. Or there might be a reason to get a lot of blocks. It needs it more than mainnet. 
 
 I threw out a lot of scenarios, so let me summarize how I *wish* things could be done from a theoretical perfection point of view as opposed to actually implementing something without causing a disaster in the ecosystem by trying to be perfect.  This is from the most perfect (and most dangerous) to the least perfect, safe, easily acceptable. 
 
@@ -216,7 +216,7 @@ I threw out a lot of scenarios, so let me summarize how I *wish* things could be
 
 If a past time limit is meant only to protect testnet (like the difficulty reduction rule), then the last option is best because it keeps testnet more like mainnet.
 
-FWIW [Johnson Lau argued for](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-August/016320.html) a 1-day past time limit as a soft fork instead of 2 hours which require a hard forks. In a soft fork, a smallish miner could cause a chain split due to miners who didn't upgrade. He would just need to get the 2 blocks at the transition, setting the first timestamp (2016n -1) to the FTL, then the 2nd timestamp (2016n) back to the MTP. 
+FWIW [Johnson Lau argued for](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-August/016320.html) a 1-day past time limit as a soft fork instead of 2 hours which require a hard forks. In a soft fork, a smallish miner could cause a chain split due to miners who didn't upgrade. He would just need to get the 2 blocks at the transition, setting the first timestamp (2016n -1) to the FTL, then the 2nd timestamp (2016n) back to the MTP.  If I'm doing the Poisson calculation correctly, 2% of the transitions will see only 5 blocks in the past 2 hours which means on those instances anyone getting the 2016n block can set its timestamp in the past >2 hr to permanently split off those node that didn't upgrade.
 
 So if the goal is to prevent a >50% attack for many many excess blocks on mainnet with a **soft fork** (which is more likely to occur sooner) then a 1 day past time limit on every block or on the 2016 transition block with Murch's additional requirement timestamp_{2016×n} < timestamp_{2016×n+2015}.
 
