@@ -12,9 +12,9 @@
   "reply_to_post_number": 7,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 33.4,
   "yours": false,
   "topic_id": 1062,
   "topic_slug": "zawy-s-alternating-timestamp-attack",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -58,10 +58,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

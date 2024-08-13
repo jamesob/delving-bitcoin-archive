@@ -264,7 +264,7 @@ Both Zawy’s attack and my variant require the negative elapsed time to make up
 
 -------------------------
 
-sipa | 2024-08-12 22:05:10 UTC | #9
+sipa | 2024-08-13 14:43:39 UTC | #9
 
 @murch I believe you're right. I cannot find a way to exploit the 4x limit rule when each window is required to have a positive duration.
 
@@ -273,9 +273,11 @@ Interestingly, if the limit were less than $e$ (so say, it were a 2x or even 2.5
 * Second window takes $\sqrt{2}$ times two weeks
 * Third window takes minimum legal time (i.e. 2016/6 seconds).
 
-Overall the operation takes $2\sqrt{2} + \epsilon \approx 2.82$ windows' worth of time, but produced $3$ windows' worth of blocks, without ever raising the difficulty above the starting one.
+Overall the operation takes $2\sqrt{2} + \epsilon \approx 2.83$ windows' worth of time, but produced $3$ windows' worth of blocks, without ever raising the difficulty above the starting one.
 
 More elaborate (and increasingly less impactful) variations of this are possible with strictly monotonic timestamps even, as the max upward adjustment factor approaches $e$, but above that it no longer works.
+
+EDIT: more generally, if $m$ is the minimum duration of a window (expressed as a multiple of two weeks) then the upward difficulty adjustment factor needs to be at least $e^{1-m}$.
 
 -------------------------
 
