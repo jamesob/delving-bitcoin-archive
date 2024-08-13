@@ -281,3 +281,77 @@ EDIT: more generally, if $m$ is the minimum duration of a window (expressed as a
 
 -------------------------
 
+murch | 2024-08-13 18:29:05 UTC | #10
+
+[quote="sipa, post:9, topic:1062"]
+Overall the operation takes 2\sqrt{2} + \epsilon \approx 2.832√2+ϵ≈2.832\sqrt{2} + \epsilon \approx 2.83 windows’ worth of time, but produced 333 windows’ worth of blocks, without ever raising the difficulty above the starting one.
+[/quote]
+
+I’m not sure I understand your scenario. The first difficulty period takes 4 weeks (if they are fudging timestamps with half the hashrate), or 2 weeks (if they only fudge the timestamp of the last block) and the timestamp on the last block is $\sqrt{2}×2$ weeks from the start of the attack, i.e. pushed 0.82 weeks into the future. The difficulty is reduced to $d_{new} =\frac{1}{\sqrt{2}}×d_{old}$.  The attacker then needs to start mining by themselves since nobody else will accept their post-dated last block. The second period takes $\frac{2 weeks}{0.5 × hashrate}×\frac{d_{new}}{d_{old}} = \frac{2×2}{\sqrt{2}}$ weeks because the difficulty went down but they have only half the hashrate which is another $\sqrt{2}×2 \approx 2.82$ weeks. 
+
+If that’s exactly the timestamp increase they use in the second difficulty period, the difficulty remains constant. So, now the attacker uses minimal timestamp increases to mine a third difficulty period which takes them another 2.82 weeks. The final timestamp is now about 4.82 weeks from the start of the attack, but the elapsed time is either 7.64 weeks or 9.64 weeks from the start of the attack. The difficulty now increases maximally, which is either 2× or 2.5×, which leads to a new difficulty of $2×\sqrt(2)$ or $2.5×\sqrt(2)$. This is bigger than the original difficulty, and the elapsed time is bigger than 6 weeks.
+
+[quote="sipa, post:9, topic:1062"]
+* First window takes \sqrt{2}√2\sqrt{2} times two weeks
+* Second window takes \sqrt{2}√2\sqrt{2} times two weeks
+* Third window takes minimum legal time (i.e. 2016/6 seconds).
+[/quote]
+
+So, I guess it’s not clear to me whether you meant elapsed time, or timestamp progress here, and how much hashrate you assumed the attacker had.
+
+-------------------------
+
+sipa | 2024-08-13 18:47:55 UTC | #11
+
+@murch They're all block timestamps; i don't care how or when they get mined - someone shouldn't be able to construct a valid chain with a higher blockrate (in terms of stated timestamps) on average than 1 per 10 minutes unless they increase the difficulty.
+
+The first period takes ~2.83 weeks, so difficulty goes to $D/\sqrt{2}$ in the second period. The second period takes the same amount of time, so the difficulty drops to D/2 in the third period. After the third period the difficulty doubles again (due to the maximum difficulty adjustment of 2x upwards in this scenario), so back to D.
+
+-------------------------
+
+murch | 2024-08-13 18:48:22 UTC | #12
+
+[quote="sipa, post:9, topic:1062"]
+Interestingly, if the limit were less than eee (so say, it were a 2x or even 2.5x max upward difficulty adjustment), then I think it would be exploitable still. Say it is 2x:
+
+* First window takes \sqrt{2}√2\sqrt{2} times two weeks
+* Second window takes \sqrt{2}√2\sqrt{2} times two weeks
+* Third window takes minimum legal time (i.e. 2016/6 seconds).
+
+Overall the operation takes 2\sqrt{2} + \epsilon \approx 2.832√2+ϵ≈2.832\sqrt{2} + \epsilon \approx 2.83 windows’ worth of time, but produced 333 windows’ worth of blocks, without ever raising the difficulty above the starting one.
+[/quote]
+
+Oh okay, I think I grokked it. You meant that the attacker has 100% of the hashrate? I.e.:
+
+- Take 2 weeks to mine the first difficulty period and post-date it to $2×\sqrt{2}$ weeks. New difficulty is $d_2 = \frac{1}{\sqrt{2}}×d_1$.
+- Take $\frac{2}{\sqrt{2}} = \sqrt{2}$ weeks to mine the difficulty period, post-date it to $4×\sqrt{2}$ weeks. $d_3 = \frac{1}{\sqrt{2}}×d_2 = \frac{d_1}{2}$
+- Take 1 week to mine third difficulty period while minimally increasing the timestamp. The difficulty increases maximally to $d_4 = 2×d_3 = d_1$.
+
+The total elapsed time is $2 + \sqrt(2) + 1 \approx 4.41$ weeks, three difficulty periods of blocks have been mined, and the difficulty is back to the original, but the timestamp has progressed by $(2×2×\sqrt{2}+\frac{1}{1800}) \approx 5.66$ weeks. So, the timestamp is still stuck in the future and we cannot broadcast our blocks?
+
+-------------------------
+
+zawy | 2024-08-13 19:15:56 UTC | #13
+
+[quote="murch, post:6, topic:1062"]
+I don’t see how [past time limit on every block] would remove the need for MTP.
+[/quote]
+
+Sorry about that. That was dumb of me. I realized it later but was past the edit limit.
+
+[quote="murch, post:6, topic:1062"]
+I also don’t see why the rule against moving time back would allow for the future limit on timestamps to be removed.  If nodes would not enforce the future limit, an attacker could increase the timestamp by an average of 40 minutes ...
+[/quote]
+
+I think that would require the >50% attacker to be >50% forever.  But let me concede it may have a problem. I want to turn it around and say "a proper FTL enforces a PTL on every block".  A miner who refuses to mine on top of a timestamp 7200 into the future of his own timestamp is just enforcing the FTL. If all nodes not only enforce the FTL but require every miner to have also enforced it, it would indirectly implement a PTL.
+
+[quote="murch, post:6, topic:1062"]
+I don’t think I follow how you got to the conclusions about it being easier or better to make a bunch of sweeping consensus rule changes.
+[/quote]
+
+I called the sweeping consensus changes "better" only in a theoretical sense and said they were the most dangerous (due to being sweeping changes) and thereby hardest to implement. I wanted to discuss the tangents because that's what's interesting to me. Thinking about it is why I suspected there was a hack. It's similar to wanting a PTL on every block. I wasn't able give a reason to push it except it's "prettier". It was annoying that I couldn't find a justification.  Seeing a "properly-enforced FTL" = PTL is like pulling out a thorn.  I've always felt there was something unsatisfyingly "open-ended" about the way miners enforce the FTL. "His timestamp is wrong" isn't as satisfying as "His timestamp won't let me be honest."
+
+All future nodes would know someone had been dishonest if any ancestor timestamps were > 2 hr in the future of any descendants, which would be a stricter and more logical form of the FTL that could remove the need for the MTP.  But I'm not saying that as a recommendation.
+
+-------------------------
+
