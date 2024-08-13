@@ -331,7 +331,7 @@ The total elapsed time is $2 + \sqrt(2) + 1 \approx 4.41$ weeks, three difficult
 
 -------------------------
 
-zawy | 2024-08-13 19:15:56 UTC | #13
+zawy | 2024-08-13 20:07:57 UTC | #13
 
 [quote="murch, post:6, topic:1062"]
 I don’t see how [past time limit on every block] would remove the need for MTP.
@@ -343,7 +343,7 @@ Sorry about that. That was dumb of me. I realized it later but was past the edit
 I also don’t see why the rule against moving time back would allow for the future limit on timestamps to be removed.  If nodes would not enforce the future limit, an attacker could increase the timestamp by an average of 40 minutes ...
 [/quote]
 
-I think that would require the >50% attacker to be >50% forever.  But let me concede it may have a problem. I want to turn it around and say "a proper FTL enforces a PTL on every block".  A miner who refuses to mine on top of a timestamp 7200 into the future of his own timestamp is just enforcing the FTL. If all nodes not only enforce the FTL but require every miner to have also enforced it, it would indirectly implement a PTL.
+I think that would require the >50% attacker to be >50% forever.  But let me concede it may have a problem. I want to turn it around and say "a proper FTL enforces a PTL on every block".  A miner who refuses to mine on top of a timestamp 7200 into the future of his own timestamp is just enforcing the FTL. If all nodes not only enforce the FTL but require every miner to have also enforced it, it would indirectly implement a PTL. Not enforcing it like this means nodes are knowingly allowing a dishonest block.
 
 [quote="murch, post:6, topic:1062"]
 I don’t think I follow how you got to the conclusions about it being easier or better to make a bunch of sweeping consensus rule changes.
