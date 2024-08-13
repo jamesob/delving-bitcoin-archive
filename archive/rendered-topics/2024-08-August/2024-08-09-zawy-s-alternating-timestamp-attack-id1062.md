@@ -355,3 +355,21 @@ All future nodes would know someone had been dishonest if any ancestor timestamp
 
 -------------------------
 
+murch | 2024-08-13 20:40:52 UTC | #14
+
+[quote="zawy, post:13, topic:1062"]
+If all nodes not only enforce the FTL but require every miner to have also enforced it, it would indirectly implement a PTL.
+[/quote]
+
+I’m still not following. I see how other nodes would start trying to reorganize or stop mining, but I don’t see how you infer a PTL from the FTL. Let me try to phrase this more formally. I think you are suggesting that we do not allow the timestamp to progress more than two hours between blocks, i.e. we require for each block B with height n
+
+$∀n∈N: nTime_{B_n} + 3600 s \geq nTime_{B_{n+1}}$.
+
+I’m afraid that I don’t see how this would allow us to infer
+
+$∀n∈N:time_{B_n}\leq time_{B_{n+1}} - 3600 s$. 
+
+We can move the seconds over, but the inequality doesn’t change direction.
+
+-------------------------
+
