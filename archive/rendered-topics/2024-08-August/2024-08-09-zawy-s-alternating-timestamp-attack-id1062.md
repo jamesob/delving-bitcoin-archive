@@ -373,3 +373,21 @@ We can move the seconds over, but the inequality doesn’t change direction.
 
 -------------------------
 
+zawy | 2024-08-13 23:18:08 UTC | #15
+
+No. Here goes the wordy version, but I think you can figure out from my previous post. 
+
+I imagine this is how things are currently done, even if rule 1 is the only one that's required of an honest miner:
+
+1. A miner doesn't mine on a block if its timestamp is >7200 in the future of his local time.  He mines on that block's parent until the miner's clock advances far enough to be less than 7200 behind the the block's timestamp, then he can mine on it.
+2. Miners use their local time for their timestamps. 
+3. As a result of 1 & 2, an honest miner never assigns a timestamp that's less than 7200 before his parent block, so an honest miner who merely obeys 1 & 2 is already enforcing a 2hr PTL on himself.  
+
+The current rules don't enforce 2 and 3. Rule 2 could be checked by enforcing timestamp accuracy with PoW override as I previously described, but let's assume we can't check 2.  We could still check 3. By "we" I mean all nodes for all future time.  By "check" (validate) I mean we can see if he potentially obeyed rules 1 and 2.
+
+Rule 3 is just a PTL on every block, but the reasoning isn't that we're enforcing a PTL, but that we're restricting valid blocks to be those who didn't clearly violate 1 and 2. I'm trying to show a 2 hr PTL on every block isn't an additional rule (that I've made up out of nowhere for no good reason) if we require honest miners to use their local time as the timestamp in their templates, and if reject blocks that we know were not honest according to 1 and 2.
+
+If the details of implementation aren't clear: all miners know a block with a timestamp more than 7200 seconds before its parent block didn't follow the rules 1 and 2, so they consider it an invalid block. They find the oldest invalid block (as long as it is newer than when the check on rule 3 went into effect) and start mining on that block's parent. The chain after that parent is invalid because his child block didn't follow the rules and every honest miner would not have mined on the child or any descendants. If there is more than 1 tip, the valid parent with the most work is the one to work on.
+
+-------------------------
+
