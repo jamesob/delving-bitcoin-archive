@@ -406,3 +406,9 @@ I see how that would prevent both the timewarp attack and your attack, and would
 
 -------------------------
 
+zawy | 2024-08-14 20:11:24 UTC | #17
+
+I'm not recommending or saying this is what should be done. There may be reasons what you recommend in the OP is simpler, more acceptable, or easier to consider the consequences. I wanted to show how a "properly enforced FTL" is equivalent to PTL on every block and could have served as an MTP because I want to know why patches and various constants are needed.  FTL exists to prevent producing coins ahead of schedule. It's easy to understand why it's there. Showing that doing it "properly" could replace the need for MTP and PTL shows the patches have a simple reason and aren't just made up to prevent only the attacks we know of. (Although MTP has the additional purpose of pushing time forward.)
+
+-------------------------
+
