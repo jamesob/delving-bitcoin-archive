@@ -1,0 +1,72 @@
+{
+  "id": 2955,
+  "name": "Murch",
+  "username": "murch",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/murch/{size}/139_2.png",
+  "created_at": "2024-08-14T18:32:35.728Z",
+  "cooked": "<p>Okay, I had understood you to mean that enforcing an FTL was already sufficient to enforce a PTL, but as you write, it would just cause honest miners to adhere to a PTL in effect.</p>\n<p>I gather now that your suggestion would be to</p>\n<ul>\n<li>Enforce a 2h FTL</li>\n<li>Enforce that no block may be dated older than 2h before <em>any</em> of its predecessors\u2019 timestamps</li>\n</ul>\n<p>I see how that would prevent both the timewarp attack and your attack, and would be simpler than the MTP rule, and would lead to a similar outcome as the current rules for honest participants.</p>",
+  "post_number": 16,
+  "post_type": 1,
+  "updated_at": "2024-08-14T18:32:35.728Z",
+  "reply_count": 0,
+  "reply_to_post_number": 15,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
+  "yours": false,
+  "topic_id": 1062,
+  "topic_slug": "zawy-s-alternating-timestamp-attack",
+  "topic_title": "Zawy\u2019s Alternating Timestamp Attack",
+  "topic_html_title": "Zawy\u2019s Alternating Timestamp Attack",
+  "category_id": 7,
+  "display_username": "Murch",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": "",
+  "reply_to_user": {
+    "username": "zawy",
+    "name": "Zawy",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Okay, I had understood you to mean that enforcing an FTL was already sufficient to enforce a PTL, but as you write, it would just cause honest miners to adhere to a PTL in effect.\n\nI gather now that your suggestion would be to\n\n- Enforce a 2h FTL\n- Enforce that no block may be dated older than 2h before _any_ of its predecessors\u2019 timestamps\n\nI see how that would prevent both the timewarp attack and your attack, and would be simpler than the MTP rule, and would lead to a similar outcome as the current rules for honest participants.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 58,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

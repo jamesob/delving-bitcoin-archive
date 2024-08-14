@@ -393,3 +393,16 @@ Taking it a a step further, a "properly enforced FTL" means no past timestamp is
 
 -------------------------
 
+murch | 2024-08-14 18:32:35 UTC | #16
+
+Okay, I had understood you to mean that enforcing an FTL was already sufficient to enforce a PTL, but as you write, it would just cause honest miners to adhere to a PTL in effect.
+
+I gather now that your suggestion would be to
+
+- Enforce a 2h FTL
+- Enforce that no block may be dated older than 2h before _any_ of its predecessors’ timestamps
+
+I see how that would prevent both the timewarp attack and your attack, and would be simpler than the MTP rule, and would lead to a similar outcome as the current rules for honest participants.
+
+-------------------------
+
