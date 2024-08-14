@@ -373,7 +373,7 @@ We can move the seconds over, but the inequality doesn’t change direction.
 
 -------------------------
 
-zawy | 2024-08-14 04:05:51 UTC | #15
+zawy | 2024-08-14 10:44:08 UTC | #15
 
 No. Here goes the wordy version, but I think you can figure out from my previous post. 
 
@@ -389,7 +389,7 @@ Rule 3 is just a PTL on every block, but the reasoning isn't that we're enforcin
 
 If the details of implementation aren't clear: all miners know a block with a timestamp more than 7200 seconds before its parent block didn't follow the rules 1 and 2, so they consider it an invalid block. They find the oldest invalid block (as long as it is newer than when the check on rule 3 went into effect) and start mining on that block's parent. The chain after that parent is invalid because his child block didn't follow the rules and every honest miner would not have mined on the child or any descendants. If there is more than 1 tip, the valid parent with the most work is the one to work on.
 
-Taking it a a step further, a "properly enforced FTL" means no past timestamp is more than the FTL, not just the parent timestamp.  This means every honest node would keep a "max valid timestamp seen" variable for each block in his DB like chain work and invalidates any block who's timestamp is more than 2 hrs before its parent's "max timestamp seen". I think this would remove the need for an MTP.  This isn't a recommended code change, but trying to reduce Nakamoto consensus to the simplest implementation to understand it better.
+Taking it a a step further, a "properly enforced FTL" means no past timestamp is more than the FTL, not just the parent timestamp.  This means every honest node would keep a "max valid timestamp seen" variable for each block in his DB like chain work and invalidates any block who's timestamp is more than 2 hrs before its parent's "max timestamp seen". I think this would remove the need for an MTP.  So a "properly enforced FTL" would have always prevented the large timewarp attacks. This isn't a recommended code change, but trying to simplify Nakamoto consensus to understand it better.
 
 -------------------------
 
