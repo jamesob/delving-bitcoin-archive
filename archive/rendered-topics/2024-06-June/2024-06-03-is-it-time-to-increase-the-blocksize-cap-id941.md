@@ -384,3 +384,20 @@ There is not a dichotomy here. It is not one or the other. We can strive to redu
 
 -------------------------
 
+Roy | 2024-08-15 09:09:47 UTC | #25
+
+[quote="CubicEarth, post:2, topic:941"]
+Arguing that smaller blocks maximize fee revenue for miners. That is just wrong. There is an optimum block size that would maximize fee revenue, which would be neither too big nor too small.
+[/quote]
+
+In a network where demand for on-chain volume is fluctuating, then only a dynamical block size limit can be optimal. 
+
+To me the block size debate is all about who pays for the sustainability of the network when the block subsidy becomes negligible.
+
+1. With small block size limit, you have a network with more competition; therefore, transactions paying more. I wouldn't argue that only big institutions could use it. People would just be more encouraged by using a good L2, than L1.  
+2. With big block size limit, you don't have as much competition over the long term. (I'd be glad to be proven wrong, if you could give me an optimal block size function.) If you don't have enough competition, people won't pay enough. You'll have to inevitably add tail emission.
+
+As I said, it's all about who pays the price of securing the network. With small blocks, it's people who make on-chain transactions that pay for everyone's coins. With big blocks, you have tail emission, which means everyone pays for the security, even those who don't transact.
+
+-------------------------
+
