@@ -412,3 +412,9 @@ I'm not recommending or saying this is what should be done. There may be reasons
 
 -------------------------
 
+sipa | 2024-08-15 00:13:58 UTC | #18
+
+What do FTL and PTL mean?
+
+-------------------------
+
