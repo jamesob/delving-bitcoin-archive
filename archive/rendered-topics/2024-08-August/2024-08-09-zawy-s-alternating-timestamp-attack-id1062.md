@@ -424,3 +424,15 @@ Future Time Limit and Past Time Limit.
 
 -------------------------
 
+murch | 2024-08-15 19:45:06 UTC | #20
+
+[quote="zawy, post:15, topic:1062"]
+“properly enforced FTL”
+[/quote]
+
+I still don’t see how it’s a useful shorthand to refer to enforcing both an FTL _and_ a PTL as a "properly enforced FTL", when both are explicitly necessary in their own right. Other than that, I think we understood each other a few posts ago.
+
+My main reason for recommending the solution in the OP is that it is the smallest possible change to the consensus rules that should prevent this entire class of issues. The timestamps of first and last block in a difficulty period are the only ones that are relevant for the difficulty readjustment as it is calculated, so adding more rules to further restrict other timestamps seems unnecessarily invasive, and I don’t see any significant benefits.
+
+-------------------------
+
