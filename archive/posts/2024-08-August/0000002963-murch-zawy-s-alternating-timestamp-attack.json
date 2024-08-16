@@ -12,9 +12,9 @@
   "reply_to_post_number": 15,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 22.6,
   "yours": false,
   "topic_id": 1062,
   "topic_slug": "zawy-s-alternating-timestamp-attack",
@@ -37,7 +37,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"zawy, post:15, topic:1062\"]\n\u201cproperly enforced FTL\u201d\n[/quote]\n\nI still don\u2019t see how it\u2019s a useful shorthand to refer to enforcing both an FTL _and_ a PTL as a \"properly enforced FTL\", when both are explicitly necessary in their own right. Other than that, I think we understood each other a few posts ago.\n\nMy main reason for recommending the solution in the OP is that it is the smallest possible change to the consensus rules that should prevent this entire class of issues. The timestamps of first and last block in a difficulty period are the only ones that are relevant for the difficulty readjustment as it is calculated, so adding more rules to further restrict other timestamps seems unnecessarily invasive, and I don\u2019t see any significant benefits.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
