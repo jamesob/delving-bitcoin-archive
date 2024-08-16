@@ -436,3 +436,9 @@ My main reason for recommending the solution in the OP is that it is the smalles
 
 -------------------------
 
+zawy | 2024-08-15 22:40:15 UTC | #21
+
+I thought it was very interesting that a PTL is equal to invalidating blocks that didn't enforce FTL and/or obviously lied about their timestamp. I'm not disagreeing with anything you've said or advocating for anything other than your OP.  I'm delving.
+
+-------------------------
+
