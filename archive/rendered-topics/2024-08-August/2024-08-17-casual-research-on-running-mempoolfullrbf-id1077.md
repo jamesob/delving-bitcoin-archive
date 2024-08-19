@@ -8,3 +8,9 @@ _scatterplot of ~2000 data points between heights 827650 and 856176_
 
 -------------------------
 
+0xB10C | 2024-08-19 08:21:15 UTC | #2
+
+Hey @valuedmammal, it's not clear to me what your chart shows.
+
+-------------------------
+
