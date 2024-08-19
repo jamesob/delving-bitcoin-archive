@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 37,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 186.0,
+  "incoming_link_count": 48,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 257.2,
   "yours": false,
   "topic_id": 1078,
   "topic_slug": "bip-8-5-flag-day-activation-based-on-nlocktime-signaling",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "![image|660x500](upload://qWeXTVRJExP7x9TYrAVDRc3OFav.jpeg)\n\n    BIP: XXX  \n    Layer: Consensus (soft fork)  \n    Title: nLockTime signaling and flag day activation\n    Author: /dev/fd0 <alicexbt@protonmail.com>  \n    Status: Draft  \n    Type: Standards Track  \n    Created: 2024-08-19  \n    License: Public Domain\n\n## Abstract\n\nThis document describes a process to activate soft forks using flag day after `nLockTime` signaling and discussion.\n\n## Motivation\n\nBIP 8 and BIP 9 are controversial. This BIP is an alternative which addresses the problems with other activation methods.\n\n## Specification\n\n- Assign numbers to different soft fork proposals or use their BIP numbers\n- Users can broadcast their transactions with one of these numbers used as `nLockTime` to show support\n- Miners inlcuding a transaction in block would signal readiness for a soft fork\n- Community can analyze these transactions after 3 months and prepare for a flag day activation of soft fork\n\nExample:\n\nUse 119 to signal support for OP_CHECKTEMPLATEVERIFY in `nLockTime`\n\n## Reference implementation\n\nActivation: https://github.com/bitcoin/bitcoin/commit/ab91bf39b7c11e9c86bb2043c24f0f377f1cf514.diff\n\nExclusion in relay or mining: https://github.com/bitcoinknots/bitcoin/commit/18cd7b0ef6eaeacd06678c6d192b6cacc9d7eee5.diff\n\n---\n\nIf a transaction does not get included in block for a long time, users can replace it with another transaction spending same inputs and use a different `nLockTime`.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

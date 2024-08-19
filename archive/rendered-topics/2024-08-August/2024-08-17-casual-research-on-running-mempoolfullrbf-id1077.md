@@ -14,3 +14,9 @@ Hey @valuedmammal, it's not clear to me what your chart shows.
 
 -------------------------
 
+valuedmammal | 2024-08-19 11:09:32 UTC | #3
+
+Right, the reason is that I tried to write a post and being a new user I couldn't include more than one piece of media, so this is a work in progress for now while the writeup currently lives at https://valuedmammal.github.io/. In short, this "score" is the fraction of block tx data in a newly confirmed block that was expected by the node's recent block template.
+
+-------------------------
+
