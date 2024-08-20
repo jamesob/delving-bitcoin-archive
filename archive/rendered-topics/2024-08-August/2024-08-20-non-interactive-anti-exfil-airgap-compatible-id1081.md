@@ -57,3 +57,12 @@ s⁻¹·m·G + s⁻¹·r·X ?= R
 
 -------------------------
 
+reardencode | 2024-08-20 15:26:52 UTC | #2
+
+Some clarifications for readers:
+* `n` is a uniformly random value provided by the host wallet app
+* `vector_commit` is a cryptographically strong hash of the concatenation of the values - this can be either standard across both bip340 and ecdsa with moon's proposal or match other hashes commonly used in each signing variant (e.g. tagged hash for bip340 and double sha256 for ecdsa)
+* this scheme has echoes of the double nonce scheme used in MuSig2 and FROST but because the host has no need to hide its secret value, the secret can be directly sent to the hardware signer. This simplifies the nonce commitment and combination process and allows this nonce combination to be used directly in ECDSA (because the signer knows the combined secret nonce) where in MuSig2-style nonce aggregation the full secret nonce is never known by either party
+
+-------------------------
+
