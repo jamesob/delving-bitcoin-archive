@@ -226,3 +226,11 @@ Paul named it CUSF (which is a pretty horrible name), but basically means SF wit
 
 -------------------------
 
+1440000bytes | 2024-08-20 20:18:48 UTC | #7
+
+No. This will need some drama and number in "official" bip repo.
+
+Do you think bitcoin can work without people who assign numbers in  bitcoin/bitcoin/bips?
+
+-------------------------
+
