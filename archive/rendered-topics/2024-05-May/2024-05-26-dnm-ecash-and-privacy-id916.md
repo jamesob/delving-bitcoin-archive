@@ -117,3 +117,9 @@ I don't understand this. If LN is better at privacy it wont need these threads.
 
 -------------------------
 
+moonsettler | 2024-08-20 20:33:00 UTC | #9
+
+Well LN can't really do proper escrows. Which is needed despite what you think, for actual anon markets to manage risk of fraudulent sellers; who just take the irreversible payments and run. That's the main value the DNM operator adds.
+
+-------------------------
+
