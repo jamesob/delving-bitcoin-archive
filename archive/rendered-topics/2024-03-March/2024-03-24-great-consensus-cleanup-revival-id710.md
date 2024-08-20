@@ -591,7 +591,7 @@ I can't think of how that would be useful offhand, but it seems like a nice adva
 
 -------------------------
 
-sjors | 2024-08-20 15:45:52 UTC | #27
+sjors | 2024-08-20 15:47:06 UTC | #27
 
 [quote="MattCorallo, post:25, topic:710"]
 I’d still very much love to see the nLockTime set to the block height, it makes pulling the block height out of the coinbase transaction simpler
@@ -605,8 +605,8 @@ This does imply that we should enforce this rule as soon as the soft fork activa
 
 Perhaps it should activate a (few) year(s) later, if it turns out miners have to do more than just upgrade their node. At first glance I would think `getblocktemplate` can just take this new rule into account and everything should be fine. But who knows what custom software miners run to process the coinbase transaction.
 
-Here's a branch that adds `-coinbaselocktime` and has our mining code set it:
-https://github.com/Sjors/bitcoin/commits/2024/08/coinbase/
+Here's a branch (PR to self) that adds `-coinbaselocktime` and has our mining code set it:
+https://github.com/Sjors/bitcoin/pull/60
 
 If we end up going for this solution, we could encourage miners to run this well before any activation parameters are set, to figure out if there is a problem we're not aware of.
 
