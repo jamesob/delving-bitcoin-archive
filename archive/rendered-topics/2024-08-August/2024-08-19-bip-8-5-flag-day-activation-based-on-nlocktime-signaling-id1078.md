@@ -44,3 +44,9 @@ If a transaction does not get included in block for a long time, users can repla
 
 -------------------------
 
+1440000bytes | 2024-08-20 01:12:44 UTC | #2
+
+Mailing list thread: https://groups.google.com/g/bitcoindev/c/-NbdxKkaMQU
+
+-------------------------
+
