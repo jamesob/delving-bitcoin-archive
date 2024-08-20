@@ -216,3 +216,13 @@ If the goal is to get miners to adopt it without nodes consensus, it's just mark
 
 -------------------------
 
+moonsettler | 2024-08-20 20:07:31 UTC | #6
+
+[quote="ProofOfKeags, post:4, topic:958"]
+Programmatically rejecting blocks via `invalidateblock` *is* a soft fork…
+[/quote]
+
+Paul named it CUSF (which is a pretty horrible name), but basically means SF without merging to core repo. You can run a vanilla core node and still enforce a soft fork by running an out-process validator.
+
+-------------------------
+
