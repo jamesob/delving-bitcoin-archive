@@ -1,0 +1,72 @@
+{
+  "id": 3006,
+  "name": "Pieter Wuille",
+  "username": "sipa",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "created_at": "2024-08-20T16:35:43.941Z",
+  "cooked": "<p>Calling it a vector commitment is perhaps a bit confusing, as that term exists in cryptography with a very different <a href=\"https://eprint.iacr.org/2011/495.pdf\">meaning</a>.</p>\n<p>I believe this is roughly Scheme 2 from <a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-March/017667.html\" class=\"inline-onebox\">[bitcoin-dev] Overview of anti-covert-channel signing techniques</a>, for ECDSA instead of Schnorr (which is based on an idea <a href=\"https://bitcointalk.org/index.php?topic=893898.msg9861102#msg9861102\">posted</a> by Greg Maxwell in 2014).</p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2024-08-20T17:02:38.827Z",
+  "reply_count": 1,
+  "reply_to_post_number": null,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 35.8,
+  "yours": false,
+  "topic_id": 1081,
+  "topic_slug": "non-interactive-anti-exfil-airgap-compatible",
+  "topic_title": "Non interactive anti-exfil (airgap compatible)",
+  "topic_html_title": "Non interactive anti-exfil (airgap compatible)",
+  "category_id": 7,
+  "display_username": "Pieter Wuille",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 3,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "bookmarked": false,
+  "raw": "Calling it a vector commitment is perhaps a bit confusing, as that term exists in cryptography with a very different [meaning](https://eprint.iacr.org/2011/495.pdf).\n\nI believe this is roughly Scheme 2 from https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-March/017667.html, for ECDSA instead of Schnorr (which is based on an idea [posted](https://bitcointalk.org/index.php?topic=893898.msg9861102#msg9861102) by Greg Maxwell in 2014).",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 96,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

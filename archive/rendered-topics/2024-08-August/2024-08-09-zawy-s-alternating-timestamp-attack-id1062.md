@@ -442,3 +442,53 @@ I thought it was very interesting that a PTL is equal to invalidating blocks tha
 
 -------------------------
 
+sjors | 2024-08-20 18:55:31 UTC | #22
+
+[quote="AntoineP, post:3, topic:1062"]
+Your suggested fix makes sense.
+[/quote]
+
+Are you referring to @murch solution?
+
+[quote="murch, post:1, topic:1062"]
+requires that the last block in a difficulty period N has a higher timestamp than the first block in the same difficulty period
+[/quote]
+
+
+Or to @zawy's comment after that?
+
+
+Can someone explain why the attack needs to alternate and can't just use a constant low difficulty?
+
+[quote="zawy, post:5, topic:1062"]
+1. monotonic, +/- 10 sec “arrival” rule,
+[/quote]
+
+I suspect that would cause a mess. It could potentially introduce new attack vectors by messing with (node connections to) NTP servers. The current two hour margin is so wide you could set your computer clock with a sundial. 
+
+Block propagation throughout the whole network is probably in the order of seconds, but sometimes it seems take half minute: https://b10c.me/blog/014-mining-pool-behavior-during-forks/
+
+Slowly validating blocks, poor internet connections and having to use Tor can all add many seconds to when you receive a block.
+
+Later on:
+
+[quote="murch, post:16, topic:1062"]
+I gather now that your suggestion would be to
+
+* Enforce a 2h FTL
+* Enforce that no block may be dated older than 2h before *any* of its predecessors’ timestamps
+[/quote]
+
+With FTL meaning "Future Time Limit". So do you mean just the existing rule that when we see a block it can't be more than 2 hours in the future? Or do you mean the timestamp can't be more than 2 hours ahead of that in the previous block?
+
+[quote="zawy, post:5, topic:1062"]
+Testnet is different because of the absence of the profit motive. Someone might do it for fun. Or there might be a reason to get a lot of blocks. It needs it more than mainnet.
+[/quote]
+
+It's probably impossible to make testnet safe against all abuse, without making it permissioned. Otherwise we would have invented an actual alternative to proof-of-work. So in practice we should probably only:
+
+1. Fix attacks that actually happened and caused, or continue to cause, significant problems. E.g. the loppocapse blockstorms.
+2. Deployment things we want to see on mainnet, to see if they have bugs and to see if anyone comes up with an attack that wasn't foreseen and could_be used on mainnet.
+
+-------------------------
+

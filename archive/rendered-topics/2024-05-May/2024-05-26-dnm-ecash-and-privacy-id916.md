@@ -95,3 +95,11 @@ eCash can be used by anyone. Risks as already shared above multiple times, remai
 
 -------------------------
 
+moonsettler | 2024-08-20 19:56:44 UTC | #7
+
+DNMs need escrow first and foremost. All (pseudo)anonymous seller markets need it as it makes payments reversible in case of fraud by the seller. This means the DNM operator is a de facto potential custodian even if you do the trades on-chain, because they can be on either side of a trade and have 2 keys out of 3. eCash can do escrows via trusted mint.
+
+However the biggest issue is how you get funds in and out of a DNM. And that makes me think they would prefer to operate in a larger anon set. A "gray market" mint would be more ideal for DNM users to hide in and still be able to cash out if that is legally possible. If LN can become private enough for DNM operators to create unsurveilled channels for moving funds in and out, then this idea can actually work. I just don't think LN is there, or likely to be there any time soon.
+
+-------------------------
+

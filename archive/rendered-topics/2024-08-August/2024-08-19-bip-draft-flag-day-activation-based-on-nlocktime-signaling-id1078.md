@@ -56,3 +56,43 @@ Removed self-assigned BIP number from title
 
 -------------------------
 
+sjors | 2024-08-20 16:21:45 UTC | #4
+
+For some reason only a fraction of bitcoin-dev mailinglist posts make it into my mailbox. So although there's already discussion there, I'll reply here. One argument I didn't see in @fjahr's list there is this:
+
+Transactions with `nLockTime` values in the past (or a lower height) are mined and relayed by default. A miner opposed to a change would now have an incentive to censor the transaction. And users who don't like the change may try to censor relay (as some are trying with inscriptions).
+
+We should not creative incentives for better censorship tooling.
+
+> * Miners including a transaction in block would signal readiness for a soft fork
+
+I'm not sure who you're referring to with "readiness".
+
+If you mean that miners are signalling readiness, then I don't think we should encourage the idea that including a transaction is an endorsement of it.
+
+If on the other hand users are signalling readiness, then inclusion in a block is an unreliable metric since miners could be manipulating that in either direction.
+
+-------------------------
+
+1440000bytes | 2024-08-20 18:49:54 UTC | #5
+
+[quote="sjors, post:4, topic:1078"]
+I’m not sure who you’re referring to with “readiness”.
+[/quote]
+
+Who is doing this in BIP 9 or BIP 8 for drama?
+
+-------------------------
+
+sjors | 2024-08-20 18:57:04 UTC | #6
+
+I don't understand your question.
+
+-------------------------
+
+1440000bytes | 2024-08-20 19:00:22 UTC | #7
+
+When you don't understand things, its possible to stay out of it.
+
+-------------------------
+
