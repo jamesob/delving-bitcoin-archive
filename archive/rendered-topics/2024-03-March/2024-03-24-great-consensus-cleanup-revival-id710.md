@@ -591,3 +591,19 @@ I can't think of how that would be useful offhand, but it seems like a nice adva
 
 -------------------------
 
+sjors | 2024-08-20 14:51:56 UTC | #27
+
+[quote="MattCorallo, post:25, topic:710"]
+I’d still very much love to see the nLockTime set to the block height, it makes pulling the block height out of the coinbase transaction simpler
+[/quote]
+
+Do you have a use case in mind where you need the block height but can't just count the headers? I suppose an air-gapped embedded hardware device could enforce a rule like: "this transaction must exist above a certain height, and I'll believe it if you give me X cumulative difficulty of surrounding headers".
+
+IIUC @harding explains how such a proof would be more compact.
+
+This does imply that we should enforce this rule as soon as the soft fork activates and not wait for block 1,983,702.
+
+Perhaps it should activate a (few) year(s) later, if it turns out miners have to do more than just upgrade their node. At first glance I would think `getblocktemplate` can just take this new rule into account and everything should be fine. But who knows what custom software miners run to process the coinbase transaction.
+
+-------------------------
+
