@@ -518,3 +518,56 @@ The latter: we would not accept a block with a timestamp more than two hours in 
 
 -------------------------
 
+zawy | 2024-08-21 19:03:50 UTC | #25
+
+[quote="sjors, post:22, topic:1062"]
+[quote="zawy, post:5, topic:1062"]
+1. monotonic, +/- 10 sec “arrival” rule,
+[/quote]
+
+I suspect that would cause a mess. It could potentially introduce new attack vectors by messing with (node connections to) NTP servers. The current two hour margin is so wide you could set your computer clock with a sundial.
+
+Block propagation throughout the whole network is probably in the order of seconds, but sometimes it seems take half minute:
+[/quote]
+Miners aren't supposed to agree on a source of time like NTP. The current FTL could be used in an attack if they did (for example to split the network hashrate).
+
+I get 380 ms as a delay that's between the median and mean of the propagation delay.  I used the data from [this paper](https://sites.cs.ucsb.edu/~rich/class/cs293b-cloud/papers/bitcoin-delay) to see the exponential CDF might serve as the estimate from the orphan rate.   [This page](https://forkmonitor.info/feeds/stale_candidates/btc.rss) shows about 1 orphan per 1575 blocks in the past year.
+
+orphan rate = 1/1575 =~ 1-e^(-delay/600) 
+
+delay = - 600 * ln(1 - 1/1575)
+
+Detecting selfish mining: If there's a > 33% miner doing a minor selfish mining attack by withholding his found blocks for 1 or 2 seconds, it artificially increases the orphan rate which increases the estimate of the delays. You would have to know the propagation delay from some other method to see if it agrees with the orphan rate to detect the presence of a selfish miner. My +/- 10 s rule wouldn't help if they're holding blocks only 1 or 2 seconds.  Another rule to help stop an attacker who's causing tip races is for miners to choose the tip who's arrival time is the closest to the timestamp, and change tips if he discovers the majority hashrate chose the other tip. 
+
+The newsletter mentioned monotonic timestamps might cause a problem if a timestamp targets the FTL. That would require finding a block less than 1 second after the "FTL block" and would be ignored for less than 1 second so I'm not sure what they have in mind. Does a block beyond the FTL have a penalty box where miners don't work on it for some period of time?
+
+-------------------------
+
+sjors | 2024-08-21 19:20:24 UTC | #26
+
+[quote="harding, post:23, topic:1062"]
+to bring difficulty down to a level at which they can produce six blocks per second (the maximum rate that can be sustained without increasing MTP faster than wall time).
+[/quote]
+
+I hadn't thought about the fact that for someone with 50% hash power there is such a thing as too _low_ a difficulty. This is because the MTP rule creates an effective maximum block rate, beyond which difficulty is pushed up. So if before the attack they produce a block every 1200 seconds (10 minutes / 50%), to reach that maximum rate of 6 blocks per second, requires a difficulty decrease of 6 * 1200 = 7200 = 2 * 16 * 16 * 16.
+
+And so I guess you want to either oscillate above that, or keep it constant at some low value.
+
+ [quote="murch, post:24, topic:1062"]
+The latter: we would not accept a block with a timestamp more than two hours in the future.
+[/quote]
+
+Now I'm confused. When you say "the future" I think of wall clock time, but "the latter" refers to block timestamps. I assume you meant block timestamps?
+
+Keep in mind that (at least in Stratum v2) an ASIC may have a job queued up for the next block. They would then receive a `NewPrevHash` message. So ideally you should be able to decide the timestamp of block N + 1 before you know the timestamp of block N. Alternatively we'd have to modify the message to send both the prevhash and the last block timestamp.
+
+So I would prefer a constraint on timestamps that don't refer to the exact previous block. Though the current timewarp mitigation has the same issue...
+
+[quote="zawy, post:25, topic:1062"]
+I get 380 ms as a delay that’s between the median and mean of the propagation delay. I used the data from [this paper](https://sites.cs.ucsb.edu/~rich/class/cs293b-cloud/papers/bitcoin-delay) to see the exponential CDF might serve as the estimate from the orphan rate. [This page](https://forkmonitor.info/feeds/stale_candidates/btc.rss) shows about 1 orphan per 1575 blocks in the past year.
+[/quote]
+
+But the current network is probably not under any kind of major attack. Any proposed mechanism has to work under much worse circumstances than today.
+
+-------------------------
+

@@ -185,3 +185,25 @@ Does this assume he knows / can guess which signatures are derived from the same
 
 -------------------------
 
+sipa | 2024-08-21 17:30:10 UTC | #12
+
+[quote="moonsettler, post:11, topic:1081"]
+Does this assume he knows / can guess which signatures are derived from the same seed? Doesn’t this have a combinatoric blowup if the attacker does not have that knowledge (I know the transaction graph is working against us here)?
+[/quote]
+
+Yes, you need a guess for a subset of transactions carrying the gring signal. I think it's possible to design schemes that permit a smallish subset of incorrect values at the cost of more correct values and more complex decoding algorithm, but if you're talking a huge set of signatures, this won't help you find ones carrying the signal efficiently.
+
+But yes, it's dangerous to assume the attacker cannot infer or at least make good guesses about which transactions might carry the relevant signatures.
+
+-------------------------
+
+moonsettler | 2024-08-21 19:35:39 UTC | #13
+
+*Can we turn this into a quadratic hashing problem for the attacker, by introducing a 4 bit checksum of our own that needs to be ground out?*
+
+Ofc it's not quadratic if it's a constant. I guess that's just hardening with c iterations. Something like 2 seconds target for a single signature should work well, because then attempting to leak more than 1 bit at a time would start to be really noticeable.
+
+Any problems with this approach?
+
+-------------------------
+
