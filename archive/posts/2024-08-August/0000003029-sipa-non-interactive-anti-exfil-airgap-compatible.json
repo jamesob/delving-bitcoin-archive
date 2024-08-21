@@ -12,9 +12,9 @@
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 0.6,
   "yours": false,
   "topic_id": 1081,
   "topic_slug": "non-interactive-anti-exfil-airgap-compatible",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"moonsettler, post:8, topic:1081\"]\nCan we have a good estimate on how many signatures it would take to leak a 128 or 256 bit seed respectively firth the FEC codes?\n[/quote]\n\nThey're essentially perfect, information-theoretically speaking. If you can do $2^b$ grinding steps per signature, you can leak $b$ bits per signature. If so, with $128 / b$ signatures you can leak a 128-bit seed.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
