@@ -155,3 +155,13 @@ Can we have a good estimate on how many signatures it would take to leak a 128 o
 
 -------------------------
 
+sipa | 2024-08-21 15:06:55 UTC | #9
+
+[quote="moonsettler, post:8, topic:1081"]
+Can we have a good estimate on how many signatures it would take to leak a 128 or 256 bit seed respectively firth the FEC codes?
+[/quote]
+
+They're essentially perfect, information-theoretically speaking. If you can do $2^b$ grinding steps per signature, you can leak $b$ bits per signature. If so, with $128 / b$ signatures you can leak a 128-bit seed.
+
+-------------------------
+
