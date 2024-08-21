@@ -74,7 +74,7 @@ If on the other hand users are signalling readiness, then inclusion in a block i
 
 -------------------------
 
-1440000bytes | 2024-08-20 18:49:54 UTC | #5
+1440000bytes | 2024-08-21 09:30:29 UTC | #5
 
 [quote="sjors, post:4, topic:1078"]
 I’m not sure who you’re referring to with “readiness”.
@@ -90,7 +90,7 @@ I don't understand your question.
 
 -------------------------
 
-1440000bytes | 2024-08-20 19:00:22 UTC | #7
+1440000bytes | 2024-08-21 09:30:45 UTC | #7
 
 When you don't understand things, its possible to stay out of it.
 
