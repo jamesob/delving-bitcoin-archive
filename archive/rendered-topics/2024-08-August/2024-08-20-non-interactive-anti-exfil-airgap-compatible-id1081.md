@@ -175,3 +175,13 @@ Yes. That's a different threat level from just malicious software/firmware, whic
 
 -------------------------
 
+moonsettler | 2024-08-21 15:33:51 UTC | #11
+
+[quote="sipa, post:7, topic:1081"]
+Using that, one can take the secret-to-be-leaked, expand with a several GiB “checksum”, and then in every signature leak a few deterministically-selected (e.g. based on the message and device key that’s only known to the hacker and/or malicious manufacturer) bits of that checksum. Given the size of the checksum, it’s unlikely that any two signatures collide in the position, and as soon as enough bits of the checksum are leaked (regardless of where they are), the attacker can reconstruct the original secret.
+[/quote]
+
+Does this assume he knows / can guess which signatures are derived from the same seed? Doesn't this have a combinatoric blowup if the attacker does not have that knowledge (I know the transaction graph is working against us here)?
+
+-------------------------
+
