@@ -165,3 +165,13 @@ They're essentially perfect, information-theoretically speaking. If you can do $
 
 -------------------------
 
+moonsettler | 2024-08-21 15:08:10 UTC | #10
+
+[quote="sipa, post:7, topic:1081"]
+Well the device could have been constructed maliciously in the first place?
+[/quote]
+
+Yes. That's a different threat level from just malicious software/firmware, which also opens up the possibility of various other forms of side channel or radio leaks. I'm afraid anti-exfil can't fully cover that scenario.
+
+-------------------------
+
