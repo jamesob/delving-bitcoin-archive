@@ -571,3 +571,13 @@ But the current network is probably not under any kind of major attack. Any prop
 
 -------------------------
 
+zawy | 2024-08-21 20:23:51 UTC | #27
+
+[quote="sjors, post:26, topic:1062"]
+But the current network is probably not under any kind of major attack. Any proposed mechanism has to work under much worse circumstances than today.
+[/quote]
+
+Ok, yeah, if sustained median delay is > 5 s, the -10 s rule would be a big problem.  So I would drop that and keep + 10 s and "mine on the tip that has the most accurate timestamp". For example if a miner sees an attacker's block first and it has an old timestamp, the - 10 s rule isn't there to prevent the miner from working on the attacker's blocks. But if another block comes in close behind it (a sign of one of them being a selfish mining attack) but has a more accurate timestamp, then the miner should switch.  This may also be what you would want if the 1st miner was a network delay instead of an attack because it shows the miner wasn't well connected to your part of the mining network.
+
+-------------------------
+
