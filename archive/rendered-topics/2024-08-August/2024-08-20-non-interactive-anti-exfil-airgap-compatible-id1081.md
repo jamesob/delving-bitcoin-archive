@@ -141,3 +141,17 @@ If there are scenarios where interactive anti-exfil is just not possible, then n
 
 -------------------------
 
+moonsettler | 2024-08-21 15:02:28 UTC | #8
+
+[quote="sipa, post:7, topic:1081"]
+If there are scenarios where interactive anti-exfil is just not possible, then none of the above are reasons not to proceed with a scheme like this, as it’s probably the best possible. But if people are seriously trying to address the exfiltration scenario, then I wouldn’t just dismiss the possibility that exfiltration is still possible through grinding.
+[/quote]
+
+It is certainly possible theoretically. I'm not sure practically it is likely to succeed with QR signers mainly used for cold storage funds. But I can't fully dismiss it either. This algo at least raises the bar significantly.
+
+Can we have a good estimate on how many signatures it would take to leak a 128 or 256 bit seed respectively firth the FEC codes?
+
+(About the proof of work thing, I imagine the SD could have a physically wired led indicator showing that the power draw is max/high (like when generating a signature) and also would advise the user, that if a signature takes more than n seconds, then don't proceed with the transaction. Then it would take some benchmarking to make sure 99.999% of the times normal signature generation falls within, but churning nonce points blows it up. It's not perfect, but fairly simple. PoW difficulty would have to change by device and signature type sadly which the companion SW can in theory pass along with the nonce extra.)
+
+-------------------------
+
