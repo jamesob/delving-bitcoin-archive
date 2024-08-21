@@ -74,13 +74,9 @@ If on the other hand users are signalling readiness, then inclusion in a block i
 
 -------------------------
 
-1440000bytes | 2024-08-21 09:30:29 UTC | #5
+1440000bytes | 2024-08-21 12:13:03 UTC | #5
 
-[quote="sjors, post:4, topic:1078"]
-I’m not sure who you’re referring to with “readiness”.
-[/quote]
-
-Who is doing this in BIP 9 or BIP 8 for drama?
+(post deleted by author)
 
 -------------------------
 
@@ -90,9 +86,9 @@ I don't understand your question.
 
 -------------------------
 
-1440000bytes | 2024-08-21 09:30:45 UTC | #7
+1440000bytes | 2024-08-21 12:12:41 UTC | #7
 
-When you don't understand things, its possible to stay out of it.
+(post deleted by author)
 
 -------------------------
 

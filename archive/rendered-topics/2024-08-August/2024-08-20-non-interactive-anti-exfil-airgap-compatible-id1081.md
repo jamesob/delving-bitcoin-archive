@@ -89,3 +89,55 @@ this is indeed essentially the same! in this case my main question is answered. 
 
 -------------------------
 
+harding | 2024-08-21 13:08:17 UTC | #5
+
+I note that Maxwell's original description of this protocol says:
+
+> This leaves open a side-channel that has exponential cost per additional bit, via grinding the resulting R' mod order.  Using the FEC schemes that I've discussed before it's possible to leak a message of any size using even a single bit channel and enough signatures...  But it eliminates the obvious and very powerful attacks where everything is leaked in a single signature.
+>
+> This is clearly less good, but it's only a two-move protocol, so many places which wouldn't consider using a countermeasure could pick this up for free just as an element of a protocol spec.
+
+-------------------------
+
+moonsettler | 2024-08-21 14:06:59 UTC | #6
+
+This protocol leaves very low bandwith attacks open via churning the final nonce point. It's pretty expensive for a low power device to keep churning double point multiplications along with hashes; the device also needs to remember which parts of the seed it had leaked, which might not even be possible with only a firmware modification; or do some message based pseudo random indexing scheme which further increases the difficulty.
+
+And a single factory or user validation test that checks the generation of Q is up to spec would catch it immediately (similar to RFC6979). With low bandwith leaks the low probability random attack is not likely to be viable, and the risk of getting caught on a routine test is very high if the attack is "always on".
+
+(there is ongoing discussion about adding additional proof of work to further decrease the bandwith or make it impractical and/or the time to generate a signature along with the power draw could be used to detect nonce churning where the hw capabilities are known like firmware attacks)
+
+-------------------------
+
+sipa | 2024-08-21 14:32:38 UTC | #7
+
+[quote="moonsettler, post:6, topic:1081"]
+It’s pretty expensive for a low power device to keep churning double point multiplications along with hashes
+[/quote]
+
+It's certainly expensive, and the cost grows exponentially with the number of bits, but I don't think say a 4-bit grind is beyond the power of small devices, which would suffice to leak a secret with 64 signatures.
+
+[quote="moonsettler, post:6, topic:1081"]
+which might not even be possible with only a firmware modification
+[/quote]
+
+Well the device could have been constructed maliciously in the first place?
+
+[quote="moonsettler, post:6, topic:1081"]
+the device also needs to remember which parts of the seed it had leaked
+[/quote]
+
+Using FEC codes that's not necessary. Using that, one can take the secret-to-be-leaked, expand with a several GiB "checksum", and then in every signature leak a few deterministically-selected (e.g. based on the message and device key that's only known to the hacker and/or malicious manufacturer) bits of that checksum. Given the size of the checksum, it's unlikely that any two signatures collide in the position, and as soon as enough bits of the checksum are leaked (regardless of where they are), the attacker can reconstruct the original secret.
+
+(Note that this several GiB checksum isn't actually ever materialized; arbitrary bits of it can be computed on-the-fly).
+
+[quote="moonsettler, post:6, topic:1081"]
+And a single factory or user validation test that checks the generation of Q is up to spec would catch it immediately (similar to RFC6979). With low bandwith leaks the low probability random attack is not likely to be viable, and the risk of getting caught on a routine test is very high if the attack is “always on”.
+[/quote]
+
+The device could choose to only behave maliciously in certain situations, such as when interacting with large amounts.
+
+If there are scenarios where interactive anti-exfil is just not possible, then none of the above are reasons not to proceed with a scheme like this, as it's probably the best possible. But if people are seriously trying to address the exfiltration scenario, then I wouldn't just dismiss the possibility that exfiltration is still possible through grinding.
+
+-------------------------
+

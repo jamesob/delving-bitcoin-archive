@@ -103,17 +103,9 @@ However the biggest issue is how you get funds in and out of a DNM. And that mak
 
 -------------------------
 
-1440000bytes | 2024-08-20 20:23:52 UTC | #8
+1440000bytes | 2024-08-21 12:11:55 UTC | #8
 
-[quote="moonsettler, post:7, topic:916"]
-DNMs need escrow first and foremost.
-[/quote]
-
-Not true
-
-> If LN can become private enough for DNM operators to create unsurveilled channels for moving funds in and out, then this idea can actually work.
-
-I don't understand this. If LN is better at privacy it wont need these threads.
+(post deleted by author)
 
 -------------------------
 

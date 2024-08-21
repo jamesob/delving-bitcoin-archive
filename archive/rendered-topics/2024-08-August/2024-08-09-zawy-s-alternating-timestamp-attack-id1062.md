@@ -492,3 +492,29 @@ It's probably impossible to make testnet safe against all abuse, without making 
 
 -------------------------
 
+harding | 2024-08-21 14:52:39 UTC | #23
+
+[quote="sjors, post:22, topic:1062"]
+Can someone explain why the attack needs to alternate and can’t just use a constant low difficulty?
+[/quote]
+
+Let's assume an attacker has already alternated one period of 4x difficulty increases with two periods of cumulative 1/16x difficulty decreases multiple times to bring difficulty down to a level at which they can produce six blocks per second (the maximum rate that can be sustained without increasing MTP faster than wall time).
+
+To keep difficulty the same, the attacker must set the last block in a period to two weeks later than the first block in the period.  The cleanup/BIP94 anti-time-warp rule says the first block in the subsequent period must be about the same time (or later).  That means, to keep difficulty the same in that subsequent period, the attacker must set the last block in that subsequent period to two weeks later than its first block (four weeks later than the first block of the first period).  Eventually, a succession of these time increases will push the time used at retarget boundaries into the wall-time future (assuming the actual rate of block production exceeds 2,016 blocks/two weeks).
+
+If an attacker instead uses minimal timestamps for all but the first block in one period (allowing difficulty to rise 4x) and then sets the final block in the subsequent period to 8 weeks later than the first block (lowering difficulty 4x), they can alternative this pattern indefinitely to produce up to 6 blocks per second without increasing the relative difference between any block time and wall time.  
+
+In other words, using alternation, if the two blocks that are set to 8 weeks later than their predecessor blocks still have a block time less than wall time + two hours, they'll be accepted by full nodes. Not using alternation with the same 6 blocks/per second rate and the same starting time will quickly produce a chain that includes some block times far in the future, which will not be accepted until wall time catches up.
+
+-------------------------
+
+murch | 2024-08-21 14:51:12 UTC | #24
+
+[quote="sjors, post:22, topic:1062"]
+With FTL meaning “Future Time Limit”. So do you mean just the existing rule that when we see a block it can’t be more than 2 hours in the future? Or do you mean the timestamp can’t be more than 2 hours ahead of that in the previous block?
+[/quote]
+
+The latter: we would not accept a block with a timestamp more than two hours in the future. (We have had "benign" gaps of more than two hours between blocks before.)
+
+-------------------------
+
