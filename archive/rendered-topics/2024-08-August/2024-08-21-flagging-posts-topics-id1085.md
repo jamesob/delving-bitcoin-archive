@@ -14,3 +14,9 @@ I've also heard some concern that some people might be posting about techniques 
 
 -------------------------
 
+1440000bytes | 2024-08-22 00:02:48 UTC | #2
+
+It should be possible to delete flagged posts. Hiding multiple posts in a thread just makes the whole thread look ugly and annoying.
+
+-------------------------
+
