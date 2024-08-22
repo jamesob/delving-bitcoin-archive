@@ -581,3 +581,13 @@ Ok, yeah, if sustained median delay is > 5 s, the -10 s rule would be a big prob
 
 -------------------------
 
+murch | 2024-08-22 20:55:19 UTC | #28
+
+[quote="sjors, post:26, topic:1062"]
+Now I’m confused. When you say “the future” I think of wall clock time, but “the latter” refers to block timestamps. I assume you meant block timestamps?
+[/quote]
+
+I meant that we should not accept a block whose timestamp exceeds our node’s wall clock time by more than 2h.
+
+-------------------------
+
