@@ -1,8 +1,14 @@
 # Non interactive anti-exfil (airgap compatible)
 
-moonsettler | 2024-08-20 18:40:40 UTC | #1
+moonsettler | 2024-08-22 12:18:28 UTC | #1
 
-An anti-exfil variant for airgaped signing devices using PSBTs that works with the QR code based traditional signing workflow.
+An anti-exfil variant for airgaped signing devices using PSBTs that works with the QR code based traditional signing workflow. This proposal is anti-exfil protection level 2.
+
+## Anti-exfil protection levels (proposed):
+* Level 0: No protection, chosen nonce can immediately leak private key or seed
+* Level 1: Deterministic nonce (RFC6979), enables FAT, UAT, no protection from "evil maid" and low probability leaks
+* Level 2: Verifiable nonce tweak with external entropy, bandwidth restricted exfil channel, enables FAT, UAT, limited protection from "evil maid" firmware attacks
+* Level 3: Negotiated nonce, exfil channel fully plugged, requires multiple rounds of communication
 
 ## Signing protocol:
 ```text
