@@ -92,7 +92,7 @@ I don't understand your question.
 
 -------------------------
 
-1440000bytes | 2024-08-22 00:34:23 UTC | #8
+1440000bytes | 2024-08-22 00:35:17 UTC | #8
 
 [quote="sjors, post:4, topic:1078"]
 I’m not sure who you’re referring to with “readiness”.
@@ -112,7 +112,7 @@ Users are signaling support as mentioned in the BIP draft. All transactions will
 We should not creative incentives for better censorship tooling.
 [/quote]
 
-Ocean pool (default template) already excludes transactions with nLockTime 21. This BIP does not create incentives for censorship. All transaction will eventually get mined except if all miners decide to exclude it. In case, all miners ignore a transaction, users can use a normal nLockTime to replace the original transaction or increase fees.
+Ocean pool (default template) already excludes transactions with nLockTime 21. This BIP does not create incentives for censorship. All transactions will eventually get mined except if all miners decide to exclude it. In case, all miners ignore a transaction, users can use a normal nLockTime to replace the original transaction or increase fees.
 
 -------------------------
 
