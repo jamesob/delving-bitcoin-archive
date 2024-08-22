@@ -80,9 +80,9 @@ If on the other hand users are signalling readiness, then inclusion in a block i
 
 -------------------------
 
-sjors | 2024-08-20 18:57:04 UTC | #6
+sjors | 2024-08-22 08:09:36 UTC | #6
 
-I don't understand your question.
+(post deleted by author)
 
 -------------------------
 

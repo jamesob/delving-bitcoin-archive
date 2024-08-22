@@ -197,13 +197,31 @@ But yes, it's dangerous to assume the attacker cannot infer or at least make goo
 
 -------------------------
 
-moonsettler | 2024-08-21 19:35:39 UTC | #13
+moonsettler | 2024-08-22 07:58:37 UTC | #13
 
 *Can we turn this into a quadratic hashing problem for the attacker, by introducing a 4 bit checksum of our own that needs to be ground out?*
 
 Ofc it's not quadratic if it's a constant. I guess that's just hardening with c iterations. Something like 2 seconds target for a single signature should work well, because then attempting to leak more than 1 bit at a time would start to be really noticeable.
 
 Any problems with this approach?
+
+
+#### Added the following to Q&A section:
+Q: Are low bandwidth attacks still possible?
+
+Yes, theoretically the SD with malicious firmware could churn the final R point to leak information using for example FEC codes (Pieter Wuille on delving) with 2<sup>n</sup> rounds of churning SD can leak the seed phrase by creating `bits(seed)/n` signatures. For example if the attacker chooses to leak 4 bits each time it takes 32 signatures to leak a 128 bit (12 word) seed phrase. Due to the public transaction graph and plainly observable wallet characteristics the attacker can make good guesses at which signatures could belong to the same seed.
+
+* The attacker can just generate a random `q`, normally this can not be detected
+* The verifier needs to know the private key to verify generation of `q` (same as RFC6979)
+* The attacker can encrypt and obfuscate his own channel
+* The attacker decides his channel bandwidth making it impossible to estimate "seed health"
+* Transactions may have multiple inputs making signing them not deterministic in time
+* Said attack is likely to be "always on" and would be caught by verifying generation of `q`
+* Evil maid scenario is still problematic, factory and user acceptance tests are already passed
+* Tamper evident storage of signing devices is still heavily recommended
+* This is not a huge concern for cold storage scenarios with very infrequent signing
+* This protocol offers protection from immediate catastrophic leaks via chosen nonce
+* 24 words are better in this scheme than 12 words
 
 -------------------------
 
