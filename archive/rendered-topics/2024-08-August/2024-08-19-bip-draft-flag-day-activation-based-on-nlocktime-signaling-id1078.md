@@ -92,7 +92,7 @@ I don't understand your question.
 
 -------------------------
 
-1440000bytes | 2024-08-22 00:30:36 UTC | #8
+1440000bytes | 2024-08-22 00:34:23 UTC | #8
 
 [quote="sjors, post:4, topic:1078"]
 I’m not sure who you’re referring to with “readiness”.
@@ -106,7 +106,7 @@ Miners do not endorse any soft forks with signaling. Neither this BIP nor BIP 8/
 If on the other hand users are signalling readiness, then inclusion in a block is an unreliable metric since miners could be manipulating that in either direction.
 [/quote]
 
-Users are signaling support as mentioned in the BIP draft. All transaction will mined sooner or later if there is at least one pool which can include it in the block.
+Users are signaling support as mentioned in the BIP draft. All transactions will be mined sooner or later if there is at least one pool which can include it in the block.
 
 [quote="sjors, post:4, topic:1078"]
 We should not creative incentives for better censorship tooling.
