@@ -92,3 +92,27 @@ I don't understand your question.
 
 -------------------------
 
+1440000bytes | 2024-08-22 00:30:36 UTC | #8
+
+[quote="sjors, post:4, topic:1078"]
+I’m not sure who you’re referring to with “readiness”.
+
+If you mean that miners are signalling readiness, then I don’t think we should encourage the idea that including a transaction is an endorsement of it.
+[/quote]
+
+Miners do not endorse any soft forks with signaling. Neither this BIP nor BIP 8/9 signaling is meant for endorsements.
+
+[quote="sjors, post:4, topic:1078"]
+If on the other hand users are signalling readiness, then inclusion in a block is an unreliable metric since miners could be manipulating that in either direction.
+[/quote]
+
+Users are signaling support as mentioned in the BIP draft. All transaction will mined sooner or later if there is at least one pool which can include it in the block.
+
+[quote="sjors, post:4, topic:1078"]
+We should not creative incentives for better censorship tooling.
+[/quote]
+
+Ocean pool (default template) already excludes transactions with nLockTime 21. This BIP does not create incentives for censorship. All transaction will eventually get mined except if all miners decide to exclude it. In case, all miners ignore a transaction, users can use a normal nLockTime to replace the original transaction or increase fees.
+
+-------------------------
+
