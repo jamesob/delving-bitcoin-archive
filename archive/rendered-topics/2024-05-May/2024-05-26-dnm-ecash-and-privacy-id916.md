@@ -127,3 +127,17 @@ This could be solved through some sort of hold fee, e.g. _x_ sats per minute tha
 
 -------------------------
 
+moonsettler | 2024-08-22 20:42:44 UTC | #12
+
+[quote="ProofOfKeags, post:10, topic:916"]
+LN (in principle) can absolutely do proper escrows.
+[/quote]
+
+By proper I meant something like a 2-of-3. The other thing is afaik it's not possible to verify hashes without the preimage so it's also not possible to distribute "custody". PTLCs could help with that part, but where are they? Long lived HTLCs are also a problem for LN.
+
+Using predicated ecash escrows is much less technically challenging. You can do something like MAST where you don't reveal all spend conditions to the mint. On the happy path it's a simple pubkey auth with MuSig 2-of-2 (seller and buyer).
+
+The mint can naturally be federated. Arbitration can naturally be federated with FROST on those paths.
+
+-------------------------
+
