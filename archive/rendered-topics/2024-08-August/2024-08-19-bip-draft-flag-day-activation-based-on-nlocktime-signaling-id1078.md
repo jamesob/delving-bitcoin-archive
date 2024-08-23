@@ -80,12 +80,6 @@ If on the other hand users are signalling readiness, then inclusion in a block i
 
 -------------------------
 
-sjors | 2024-08-22 08:09:36 UTC | #6
-
-(post deleted by author)
-
--------------------------
-
 1440000bytes | 2024-08-21 12:12:41 UTC | #7
 
 (post deleted by author)
