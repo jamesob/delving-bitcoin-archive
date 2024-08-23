@@ -278,3 +278,32 @@ On the other hand, the real goods would probably not be fungible, in the sense t
 
 -------------------------
 
+HubertusVIE | 2024-08-23 13:48:46 UTC | #16
+
+Guys, the title of this really triggered me especially in a Bitcoin context. 
+
+So please: **A deflationary currency is impossible**
+
+This is also be the reason why bitcoin still is not catching on as a proper money, as is excessive volatility without a trend.
+
+A deflationary currency is even worse than an inflationary one. Inflation “only” steals from producing participants over time, deflation directly causes production and supply chains to break down fast and réliably. This has been seen often enough in history. It is called deflationary spiral. 
+
+Falling prices lead to reduced consumer spending and business investment. Weak demand, in turn, causes businesses to lower prices further, leading to more economic contraction. As the cycle continues, it results in severe economic depression, with widespread job losses, decreased demand, and further price declines, misery and hardship for all but a few lucky speculators.
+
+**Central Banking is a problem, not a solution**
+
+“Central banks can recognise this behaviour, and tweak the money supply and interest rates”:
+That is their claim, pure theory. Practically they do things with insufficient knowledge about circumstances, like any central planner, with a long lag in data, a long delay in action, often based on faulty economics, and a further time gap till they see policy effects. Worst of all, they have a statist gusto for interventionism and get appointed by politicians.
+
+“Central banks economists and financial engineers have a meaningful future, even in an all Bitcoin future”:
+That’s about the worst future imaginable. We must design and develop everything in the Bitcoin system permissionless and non-custodial precisely because the state, princes and kings, politicians verifiably always usurp and abuse the monetary system. With today's tech, a free market money with a stable objective exchange value is perfectly doable.
+
+“The central bank could issue an inflationary currency backed by deflationary one”
+In truth, a central bank monopoly does not need any “backing” as their banknotes are not redeemable. They need some foreign currency reserves for international trade balancing, otherwise they “buy” government bonds to give cash to politicians which debase their currency. While it is more involved nowadays, in essence it is the same as emperor Nero reducing the metal content of Roman coin. Needless to say that government's repayment at maturity is just rollover by “buying” more government bonds., i.e. not repayment at all. Proof is the gold backing of the Euro. ECB started off at 80% gold backing, now it is 8%, the rest is mostly European government debt. 
+
+I leave it there. My message is: 
+
+Government has no business in the money business. No more central banks. We must liberalise, privatise. With the right kind of method and issue policy based on proof of work (or real value), the private sector can supply the economy with the right amount of good money just fine.
+
+-------------------------
+
