@@ -612,3 +612,9 @@ If we end up going for this solution, we could encourage miners to run this well
 
 -------------------------
 
+evoskuil | 2024-08-25 15:19:46 UTC | #28
+
+I don't see any reflection here of the [discussion on bitcoin-dev regarding block hash malleability](https://groups.google.com/g/bitcoindev/c/CAfm7D5ppjo/m/MsOdTqYyCwAJ). As that discussion presently stands I see no justification for the proposed invalidation of 64 byte transactions. As discussed, there is a much simpler, more efficient, and equally effective resolution that requires no new consensus rule.
+
+-------------------------
+
