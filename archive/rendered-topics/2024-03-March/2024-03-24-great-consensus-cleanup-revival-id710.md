@@ -640,3 +640,17 @@ This minor wallet optimization was not even mentioned in the above rationale for
 
 -------------------------
 
+harding | 2024-08-26 15:00:54 UTC | #31
+
+[quote="evoskuil, post:30, topic:710"]
+This minor wallet optimization was not even mentioned in the above rationale for the new rule. If the sole objective of the proposed rule was to save a small amount of bandwidth for SPV proofs, we would not be having this discussion.
+[/quote]
+
+The rationale for the new rule starts by describing the vulnerability that affects almost all deployed SPV software.  I myself had forgotten the mention in Daftuar's paper that checking the depth of the coinbase transaction could provide a trustless way for SPV clients to avoid the attack.  I'm not sure how many authors of SPV software are aware of that.
+
+My point was that, as a solution, it still leaves something to be desired.  It increases the amount of code that needs to be written to verify an SPV proof (the client now needs a way to request a coinbase transaction even if it doesn't know its txid, and it needs verify the coinbase tx appears in the correct location in the merkle tree and that its initial bytes have the correct structure for a coinbase transaction).  I previously mentioned that it inflates proof sizes by about 70%, but I now think it's greater than that (I think verification of the initial bytes of the coinbase transaction are required, which means the entire coinbase transaction needs to be downloaded to calculate its txid, which can inflate proof size by up to almost 1 MB).
+
+Fixing a vulnerability that affects widely used software, that simplifies the design of future software, and that reduces network (and potentially consensus) bandwidth seems useful to me.
+
+-------------------------
+
