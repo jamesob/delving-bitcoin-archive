@@ -618,3 +618,25 @@ I don't see any reflection here of the [discussion on bitcoin-dev regarding bloc
 
 -------------------------
 
+harding | 2024-08-26 14:06:49 UTC | #29
+
+[quote="evoskuil, post:28, topic:710"]
+I see no justification for the proposed invalidation of 64 byte transactions. As discussed, there is a much simpler, more efficient, and equally effective resolution that requires no new consensus rule.
+[/quote]
+
+In the referenced thread, you [wrote](https://mailing-list.bitcoindevs.xyz/bitcoindev/be78e733-6e9f-4f4e-8dc2-67b79ddbf677n@googlegroups.com/):
+
+> The only possible benefit that I can see here is the possible very small bandwidth savings pertaining to SPV proofs. I would have a very hard time justifying adding any consensus rule to achieve only that result.
+
+It's true that the attack against simplified verification can be prevented through proofs that are a maximum of about 400 bytes larger per block in the worse case, which is about a 70% increase in proof size[1].  That doesn't seem significant in network traffic when many lightweight clients might be using something like BIP157/158 compact block filters that send extra _megabytes_ of data even in the best case.  However, that extra 400 bytes per proof could be significant if merkle proofs are being validated in consensus protocols (e.g. after a script upgrade to Bitcoin).
+
+[1] Base proof: 80 byte header + 448 byte partial merkle tree = 528 bytes.  Proof with coinbase tx, assuming the coinbase tx is in the left half of the tree and the tx to prove is in the right half of the tree: 80 byte header + 416 bytes partial merkle tree for coinbase tx + 416 bytes partial merkle tree for tx = 912 bytes.
+
+-------------------------
+
+evoskuil | 2024-08-26 14:30:57 UTC | #30
+
+This minor wallet optimization was not even mentioned in the above rationale for the new rule. If the sole objective of the proposed rule was to save a small amount of bandwidth for SPV proofs, we would not be having this discussion. The bandwidth savings was a modest side effect benefit of fixing a perceived consensus-related security issue, which has been shown to be a suboptimal and unnecessary fix. It is not a trivial thing to add a new consensus rule, even with the assuption of a roll-up soft fork. This should not even be under consideration at this point.
+
+-------------------------
+
