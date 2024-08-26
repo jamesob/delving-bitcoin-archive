@@ -654,3 +654,45 @@ Fixing a vulnerability that affects widely used software, that simplifies the de
 
 -------------------------
 
+evoskuil | 2024-08-26 17:33:29 UTC | #32
+
+Let's be absolutely clear about this. The proposed invalidation of 64 byte transactions does not in any way represent a fix to a vulnerability. Valid blocks do not have malleable block hashes.
+
+Nor does it simplify the design of mitigating the invalid block hash caching weakness. Just the opposite, as a mitigation it is far more complex and costly than the existing solution. And note that caching of invalid messages as a DoS optimization is itself counterproductive, as discussed in detail.
+
+In terms of consensus, it adds a pointless and counterproductive rule. It will require validation checks that are not necessary. If you want to argue it as an SPV bandwidth optimization, have at it. But please do not perpetuate this error that it fixes something.
+
+-------------------------
+
+harding | 2024-08-26 18:38:50 UTC | #33
+
+[quote="evoskuil, post:32, topic:710"]
+do not perpetuate this error that it fixes something.
+[/quote]
+
+I recall you making similar proclamations during the  [milk sad](https://milksad.info/disclosure.html#libbitcoin-team-response-and-context) disclosure.  The intuitive way of using your API was not the secure way to use it.  Rather than change your API, you put a single piece of documentation about the insecurity on a page that many API users may never have read.  Many other pages of your documentation gave examples that used the API in an insecure way.  You believed this was acceptable.  Others disagreed.
+
+We have a similar situation with Bitcoin's merkle trees.  They were intended to allow the generation of cryptographically secure transaction inclusion proofs with a single partial merkle branch.  Now Bitcoin protocol developers know that is insecure.  There's some limited propagation of that knowledge to downstream developers, but it remains an obscure problem with an abstruse solution.  We could content ourselves with the limited documentation we've written about it and claim anyone who later loses money due to this problem is the victim of incompetence---or we could carefully weigh the consensus change required to restore the security of the simple, intuitive, and efficient way of generating and verifying transaction inclusion proofs.
+
+Restoring a simple protocol to its originally intended security is a fix, in my opinion.
+
+-------------------------
+
+evoskuil | 2024-08-26 18:49:58 UTC | #34
+
+[quote="harding, post:33, topic:710"]
+I recall you making similar proclamations during the [milk sad](https://milksad.info/disclosure.html#libbitcoin-team-response-and-context) disclosure.
+[/quote]
+
+If you think that making this reference improves your argument, it does not. But it does reflect on you.
+
+[CVE-2023-39910](https://github.com/libbitcoin/libbitcoin-explorer/wiki/CVE-2023-39910)
+
+[quote="harding, post:33, topic:710"]
+We have a similar situation with Bitcoin’s merkle trees.
+[/quote]
+
+No, we do not. You are quite literally arguing in favor of a new and unnecessary CONSENSUS RULE because of "limited propagation of knowledge."
+
+-------------------------
+
