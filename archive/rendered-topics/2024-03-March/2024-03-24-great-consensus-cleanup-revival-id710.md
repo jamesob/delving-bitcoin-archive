@@ -763,3 +763,19 @@ In my view, making a consensus change to optimize SPV verification (e.g such as 
 
 -------------------------
 
+harding | 2024-08-27 20:50:48 UTC | #39
+
+[quote="ariard, post:38, topic:710"]
+Come on Dave… this is borderline sheer intellectual dishonesty. I think you’re worth better than that.
+[/quote]
+
+Fuck you, Antoine.  Everything I said was true.
+
+Here's why I made that comparison: I thought @evoskuil's claim that "the proposed invalidation of 64 byte transactions does not in any way represent a fix to a vulnerability" was obviously wrong.  But, instead of saying that, I tried to imagine a counterfactual where it was true.  I succeeded under the assumption that the availability of a theoretical workaround known to experts means a vulnerability doesn't exist, even if it might be the case that non-experts don't know about the problem or don't have access to the workaround.  In other words, it's not a vulnerability if we can blame victims for being ignorant or lacking resources.  From my perspective, that was exactly the approach @evoskuil took in the response to the milk sad disclosure, and understanding that previous approach of his helps me make sense of his current claim.
+
+You seem to be arguing that we shouldn't blame libbitcoin for having a confusing API and insufficient documentation since other security software has similar problems.  But then who do we blame when something goes wrong?  Do we blame the victims for not using our misshapen tools the "correct" way?  Or do we accept that we can do better and improve our tools?
+
+To me, that's part of the argument being had here: SPV is currently a bad API that requires poorly documented workarounds to make safe.  Do we leave it as-is and (perhaps) later blame anyone who falls victim to CVE-2017-12842 for not having learned about that edge case?  Or is it worth a small consensus change to make SPV secure against CVE-2017-12842?
+
+-------------------------
+
