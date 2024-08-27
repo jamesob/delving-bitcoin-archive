@@ -706,3 +706,60 @@ One thing to note here is that partially verifying merkle trees can have subtle 
 
 -------------------------
 
+evoskuil | 2024-08-27 16:05:12 UTC | #36
+
+[quote="evoskuil, post:32, topic:710"]
+It will require validation checks that are not necessary. If you want to argue it as an SPV bandwidth optimization, have at it.
+[/quote]
+
+The previously-cited discussion on bitcoin-dev centered on the detection of a malleated block message, for the purpose of caching block invalidity. As justification for the proposal it was argued that the fork allows for (1) earlier and therefore more efficient detection/prevention of block hash malleation, (2) that this is important because of the supposed DoS benefit of caching invalid block hashes, (3) that this would allow a block hash to uniquely identify a block (presumably the block message payload), valid or otherwise.
+
+It was shown in the discussion, and I believe agreed, that these arguments aren't valid. (1) Detection is presently possible without even parsing beyond the input point of the coinbase tx, whereas prevention via size constraint requires parsing every transaction in the block to determine sizes, (2) caching the hashes of block headers that are determined to represent invalid blocks serves no effective DoS protection purpose, instead opening the node to a disk fill attack (similar to the recent banning vulnerability) that must be mitigated, and (3) this objective is not achieved as duplicated tx hash malleation remains.
+
+These are the aspects that pertain to a node/consensus. As I stated above, one can certainly argue that this fork can simplify/optimize SPV implementation. My point is to exclude the invalid arguments from consideration.
+
+[quote="evoskuil, post:30, topic:710"]
+This should not even be under consideration at this point.
+[/quote]
+
+I'll withdraw this statement, I got a little carried away. It's worthy of consideration as long as we are clear about the meaningful objectives. Once invalid objectives are discarded it may (or may not) be that other SPV optimizations become more attractive.
+
+-------------------------
+
+evoskuil | 2024-08-27 17:57:10 UTC | #37
+
+[quote="harding, post:31, topic:710"]
+I previously mentioned that it inflates proof sizes by about 70%, but I now think it’s greater than that (I think verification of the initial bytes of the coinbase transaction are required, which means the entire coinbase transaction needs to be downloaded to calculate its txid, which can inflate proof size by up to almost 1 MB).
+[/quote]
+
+According to my quick computations, the average coinbase size for all blocks up to the most recent halving is 256 bytes and starting from segwit activation is 260 bytes. The average Merkle tree depth is 8 and 11 respectively. This implies an average segwit-era download cost of `11*32 + 260 = 612` bytes to validate the Merkle proofs for *all txs* of a given block (.34 seconds on a 14,400 baud modem).
+
+Given the speeds involved and these averages, basing such a decision on worst case seems unreasonable to me. The [largest coinbase in the above BTC history](https://blockstream.info/tx/f36222943ad100899acbd8300f943ee2c127babef879d8a3c0696c0d914e04ca) is 31,353 bytes, while the [largest in the segwit era](https://blockstream.info/tx/296fd33e4cb75e6746d3f80f31bef8cb19bf1952690b72b1cec9198e3967a937) is just 6,825 bytes.
+
+[quote="harding, post:31, topic:710"]
+the client now needs a way to request a coinbase transaction even if it doesn’t know its txid
+[/quote]
+
+Its block hash is a sufficient coinbase identifier.
+
+> Another way to fix SPV wallets is to require, along with a Merkle-proof of the inclusion of a transaction E, a Merkle proof for the coinbase transaction. Because building a dual transaction-node for the coinbase transaction requires brute-forcing 225 bits, showing a valid coinbase and its corresponding Merkle inclusion proof is enough to discover the tree height. Both the E branch and the coinbase branch should have equal tree depths. -
+[Leaf-Node weakness in Bitcoin Merkle Tree Design](https://bitslog.com/2018/06/09/leaf-node-weakness-in-bitcoin-merkle-tree-design/)
+
+-------------------------
+
+ariard | 2024-08-27 18:45:52 UTC | #38
+
+> I recall you making similar proclamations during the milk sad disclosure. The intuitive way of using your API was not the secure way to use it. Rather than change your API, you put a single piece of documentation about the insecurit> y on a page that many API users may never have read. Many other pages of your documentation gave examples that used the API in an insecure way. You believed this was acceptable. Others disagreed.
+
+Come on Dave... this is borderline sheer intellectual dishonesty. I think you’re worth better than that.
+
+I had a [look](https://github.com/libbitcoin/libbitcoin-explorer/issues/728#issuecomment-2068392998) few months on the libibtcoin full report about the milk sad disclosure (and I read previously the milk.sad report from their original authors when it was made available). I could easily point out many places of the Bitcoin Core API, which are weak in terms of usage documentation, and I'm polite. Designing a secure API, both in terms of code and conveying reasonable information on usage to downstream users ain’t an easy task…
+
+> We have a similar situation with Bitcoin’s merkle trees. They were intended to allow the generation of cryptographically secure transaction inclusion proofs with a single partial merkle branch. Now Bitcoin protocol developers know that is insecure. There’s some limited propagation of that knowledge to downstream developers, but it remains an obscure problem with an abstruse solution. We could content ourselves with the limited documentation we’ve written about it and claim anyone who later loses money due to this problem is the victim of incompetence—or we could carefully weigh the consensus change required to restore the security of the simple, intuitive, and efficient way of generating and verifying transaction inclusion proofs.
+
+If the crux of the conversation is reestablishing simplified payment verification in a robust fashion as it is described in the whitepaper section 8, I think there is one aspect which is missed in the section by Satoshi, and that has been corroborated by deploying things like bip37. Namely increasing the DoS surface of full-nodes delivering such transaction inclusion proofs, as generating and indexing can be a non-null computing cost for a full-node, already made that observation in the past e.g [on the scalability issues of lightweight clients](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-May/017818.html).
+
+In my view, making a consensus change to optimize SPV verification (e.g such as requesting coinbase transaction to be invalid) is still running short of coming first with a paradigm finding an equilibrium for the network economics (what is already the number of available Electrum / BIP157 public servers ? like a x1000 order of magnitude less than IP-distinct full-nodes ?). It can be still be deemed a valuable goal, though I believe we’re missing the wider picture.
+
+-------------------------
+
