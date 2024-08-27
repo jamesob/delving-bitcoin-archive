@@ -696,3 +696,13 @@ No, we do not. You are quite literally arguing in favor of a new and unnecessary
 
 -------------------------
 
+ajtowns | 2024-08-27 09:50:19 UTC | #35
+
+[quote="harding, post:26, topic:710"]
+with a consensus-enforced commitment to height in the locktime field, which is the last field in a serialized transaction, I can prove to you that a particular 80-byte header is for block 999999 by giving you the 32-byte sha256 midstate of the coinbase transaction up to the final 1 or 2 chunks, the missing chunks (64 bytes each), and a partial merkle tree for the coinbase transaction (448 bytes or less). You take the midstate and SHA256 iterate over the remaining chunks that commit to the locktime to get the coinbase transaction’s txid.
+[/quote]
+
+One thing to note here is that partially verifying merkle trees can have subtle risks; for example if your actual coinbase tx is 400 bytes serialized with an nLockTime of 900,000; it could be that the last four bytes of the txid of the second tx in the block has the value 0x88bf0d00 (901,000 in little endian), at which point the concatenation of the two txids looks something like a 64-byte transaction with an nLockTime of 901,000, and you could give a "valid" merkle proof that the height of the block is 1000 blocks higher than its true height. That problem goes away if the verifier is able to assume that the coinbase tx for a valid block is always greater than 64 bytes (true provided either five or more bytes of extranonce is used, a segwit commitment is included, or the block reward is not burnt) and verifies the provided midstate is not the sha256 initial state.
+
+-------------------------
+
