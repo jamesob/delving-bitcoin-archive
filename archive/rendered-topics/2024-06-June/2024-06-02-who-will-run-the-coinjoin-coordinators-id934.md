@@ -203,3 +203,9 @@ Basically starting the Trezor Suite app with a debug argument setting a custom c
 
 -------------------------
 
+kravens | 2024-08-28 17:15:28 UTC | #12
+
+With JoinMarket there are people that make their bitcoin available as a Maker and then people who want to do a coinjoin (named Taker) select from several Makers and pay them a certain percentage or flat fee for their liquidity. Makers are ideally online all the time, where takers only interact with them when they coordinate their own coinjoin.
+
+-------------------------
+
