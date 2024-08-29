@@ -140,3 +140,11 @@ May those txids serve as timestamps here.
 
 -------------------------
 
+ajtowns | 2024-08-29 20:06:12 UTC | #4
+
+Standalone repo for mining PoW-faucet coins, that you can use with a core node (rather than needing to run an inquisition node locally) is here:
+
+https://github.com/ajtowns/powcoins
+
+-------------------------
+
