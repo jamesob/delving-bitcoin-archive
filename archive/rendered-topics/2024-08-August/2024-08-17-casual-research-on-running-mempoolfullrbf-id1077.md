@@ -47,3 +47,12 @@ In terms of policy I don't take a stance on whether nodes should conform to mine
 
 -------------------------
 
+murch | 2024-08-29 16:44:21 UTC | #6
+
+I would guess that the five minute snapshot interval could introduce a lot of noise especially for full-rbf replacements. My suspicion would be that transactions that have been full-rbf replaced are much more likely to be replaced another time within the next few minutes than transactions that were not get replaced. In that case they would show up as missing in both configurations.
+I guess what you really would want is to measure how many transactions had to be retrieved from peers after a block announcement.
+
+@0xB10C, was it you that published some numbers in that regard recently?
+
+-------------------------
+
