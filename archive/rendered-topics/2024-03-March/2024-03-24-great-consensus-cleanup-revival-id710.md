@@ -763,12 +763,6 @@ In my view, making a consensus change to optimize SPV verification (e.g such as 
 
 -------------------------
 
-harding | 2024-08-27 21:46:27 UTC | #39
-
-(post deleted by author)
-
--------------------------
-
 evoskuil | 2024-08-27 23:22:45 UTC | #40
 
 [quote="evoskuil, post:37, topic:710"]
