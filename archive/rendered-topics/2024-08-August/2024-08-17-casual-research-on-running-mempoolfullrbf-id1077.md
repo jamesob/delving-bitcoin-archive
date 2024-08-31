@@ -56,3 +56,11 @@ I guess what you really would want is to measure how many transactions had to be
 
 -------------------------
 
+valuedmammal | 2024-08-31 13:28:00 UTC | #7
+
+Murch might be referring to the research on block reconstruction which I agree is pretty remarkable
+
+https://github.com/bitcoin/bitcoin/pull/30493#issuecomment-2263336312
+
+-------------------------
+
