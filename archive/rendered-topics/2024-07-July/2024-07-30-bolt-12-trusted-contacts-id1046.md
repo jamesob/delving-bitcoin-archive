@@ -215,3 +215,29 @@ Unfortunately, I don't think we can do that: businesses and protocols will likel
 
 -------------------------
 
+vincenzopalazzo | 2024-09-02 15:06:10 UTC | #6
+
+Thanks, t-bast, for working on this. I had been thinking about implementing something similar in CLN a while back.
+
+[quote="harding, post:2, topic:1046"]
+Sorry if this is a foolish question, but is this something that requires cryptography to solve? If Alice wants Bob to know that a payment came from her, why not simply add a text `from` field to the onion that gets encrypted to the recipient that can say: `from: Alice`?
+[/quote]
+
+This makes sense if you're not building a payment system that requires verification. For example, today you can use one of the Bolt12 methods used by Ocean to send a payout to a miner, and someone could try to send a payment with a spam description. This is one reason why Ocean includes a description, so if a spammer sends a payment, the miner just ends up with more money.
+
+Currently, there's no way to identify that the payer wasn’t Ocean without going to Ocean and asking, 'Hey, was this you?' Ocean can then prove with the `invoice_payer_id` that it was someone else.
+
+[quote="harding, post:1, topic:1046"]
+When Alice wants to pay Bob (who is one of her trusted contacts), Alice can optionally decide to use her own `contact_key` to reveal her identity to Bob. Bob should only learn that the payment comes from Alice if Alice is also on Bob’s contacts list.
+[/quote]
+
+Personally, I prefer Option 1 because it’s simple (and it aligns with my design :slight_smile: so I’m biased here).
+
+However, I’m not sure I fully understand the use case for Option 2. Why do you think a user might need a per-contact `invreq_payer_id`?
+
+Probably regarding privacy for the `invreq_payer_id`? Do you think this could be an additional feature?
+
+Finally, I also think that bLIP-31 is a bit overcomplicated for a feature like this, but I want to think more about it. It's possible I haven't encountered a use case where this protocol could be used for exchanging contact IDs.
+
+-------------------------
+
