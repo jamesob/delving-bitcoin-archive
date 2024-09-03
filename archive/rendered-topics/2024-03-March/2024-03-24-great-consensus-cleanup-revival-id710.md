@@ -777,3 +777,81 @@ It's also worth pointing out that the associated storage cost is nominally one b
 
 -------------------------
 
+AntoineP | 2024-09-03 16:06:05 UTC | #41
+
+I see reasonable arguments on both sides. Thanks everyone for contributing those.
+
+To evaluate whether to include it in a future Consensus Cleanup proposal, i'd like to weigh the remaining pros and cons of making 64 bytes transactions invalid through a soft fork. To do so i'll list the main pros and cons i can think of and/or were raised by others (notably Dave and Eric above). Then i'll try to make the best case for each position's arguments, and provide a rebuttal for some of the points presented when i can.
+
+Please let me know if an argument (or rebuttal) is missing or could be better presented.
+
+Here are the pros:
+- Reduces the bandwidth of block inclusion proofs for transactions.
+- Eliminates potential risks when implementing an application that verifies such a proof.
+
+And the cons:
+- Introduces a non-obvious transaction validity rule.
+- Requires a soft fork.
+
+Let's try to make the best case for each argument, starting with the pros.
+
+This change would allow merkle proofs to be ~50% smaller in both the worst and average cases for a typical 200 bytes transaction [0]. In addition it would remove a large footgun threatening anyone implementing software which needs to verify transaction merkle proofs. This concern is growing since, as network hashrate increases, the price of a fake inclusion proof using this method is decreasing compared to the price of mining an invalid block. This is in addition to the fact this method allows to fake any number of confirmations, compared to a single one by producing an invalid block.  Finally, it is important to not only consider lite clients. Proofs of inclusion of a transaction in a block are useful in other, existing or potential, applications. Examples include sidechains, or future Script changes which would allow to check a merkle proof directly in the interpreter.
+
+Here is a list of rebuttals to those specific points:
+- Looking at the worst case cost is not a valid way of judging efficiency gains.
+  - True. But the proof size reduction is (very) similar in the average case.
+- Hypothetical future consensus changes should not be taken into account for the purpose of this standalone fix. Because it's hard to weigh the benefit this usecase brings since we don't know whether it would ever exist, and simply because the fix could then be bundled with a future soft fork which enables this usecase.
+  - Sure. Other usecases than lite-client remain though, such as sidechains. It's also not hard to imagine a Bitcoin-related application could verify a block inclusion proof.
+
+Now, the cons.
+
+All changes to consensus rules bear a cost. The proof size reduction and proof verifier simplification does not meet the bar to be considered as a soft fork. The proof size reduction seems large in proportion, but it's small in absolute: a few hundred bytes. In addition you need only one per block, so the efficiency improvement decreases quickly as you query proofs for more than one transaction per block. The implementation simplification is also not a given. It removes one non-obvious check to be performed by inclusion proofs verifiers by another that needs to be performed by all validating nodes, which introduces [consensus "seam"](https://groups.google.com/g/bitcoindev/c/CAfm7D5ppjo/m/kKD1x3gJCgAJ).
+
+And a list of rebuttals for those:
+- Part of the fixed cost of the soft fork itself is compensated by bundling this fix with others. The cost inherent to changing the consensus rules should be weighed against the benefits brought by all the fixes together.
+- It's true making 64 bytes transactions invalid introduces consensus "seam", but it's not clear how it's an issue. It's a simple and straightforward rule which adds virtually no cost for full nodes to check.
+- It's true that "all transaction sizes that fit in a block are valid except for 64 bytes" is surprising as a rule. But we can't equate this with "actually merkle proofs for 64 bytes transactions are insecure and you need to be aware of this clever-yet-convoluted workaround of asking for a proof for the coinbase too". In addition, we can generally expect protocol developers implementing a full node to be more aware of intricacies in the protocol than would be an application developer.
+
+
+Anything i'm missing?
+
+----
+
+[0] 200 bytes is a slight over-estimation. The median vsize of transactions using a moving average over the past 1000 days is about 189 vbytes according to [transactionfee.info](https://transactionfee.info/charts/transactions-sizes). Calculation assumes a 260 bytes coinbase transaction, not compressed. In the worst case the proof is `80 + 14*32 + 200 = 728` without the coinbase vs `80 + 2*14*32 + 200 + 260 = 1436` with. In the modern average case under the same assumption the proof is `80 + 11*32 + 200 = 1244` without the coinbase vs `80 + 2*11*32 + 200 + 260 = 632` with.
+
+-------------------------
+
+harding | 2024-09-03 17:21:52 UTC | #42
+
+[quote="AntoineP, post:41, topic:710"]
+This change would allow merkle proofs to be ~50% smaller in both the worst and average cases for a typical 200 bytes transaction [0]
+[/quote]
+
+As mentioned [[1](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710/31?u=harding)], I think the worst case proof size now is actually ~1 MB.  For example, imagine we have the following block (P2P `block` serialization):
+
+| Bytes | Description |
+|--:|--|
+| 80 | Header |
+| 1 | Tx count |
+| 999,826 | Coinbase tx |
+| 93 | 1-in, 1-out P2TR (stripped size) |
+
+A lite client performing whitepaper-style SPV can be tricked into accepting a fake transaction if the coinbase transaction was actually 64 bytes.  To avoid that, it needs to learn the contents of the entire coinbase transaction in order to derive its txid for verifying its depth in the merkle tree.  That means, even with optimizations, a proof size of about 1 MB.
+
+Obviously, very large coinbase transactions will be rare given that they reduce miners' ability include fee-paying transactions, but I think it's worth noting in discussion and documentation that the worst case is ~1 MB.  It should still be possible to validate a worst-case merkle proof with coinbase in witness data (given other soft fork changes), but it would be ~2,000x more expensive than validating a merkle proof that didn't require a copy of the entire coinbase transaction.
+
+[quote="AntoineP, post:41, topic:710"]
+Anything i’m missing?
+[/quote]
+
+@evoskuil mentioned an alternative potential soft fork: a commitment to tree depth, which could be done for any depth possible with the current consensus rules[1] using only 4 bits.  He didn't suggest where the commitment could be stored, but I think it's clear that we're probably never going to use all BIP8/9 versionbits and miners currently seem satisfied with the 16 BIP320 version bits, meaning we could probably put the commitment it the block header version.  That wouldn't require any extra bandwidth for SPV.
+
+I think the two cons of that approach are:
+
+- We might want to give more (eventually all of the available) versionbits to miners in the future as hashrate increases; that way individual hardware doesn't need to create coinbase extranonces or use hacks like nTime rolling.
+- It still makes SPV more complicated than described in the whitepaper, although only slightly more so.
+
+[1] 4 bits can express a maximum depth of 16 and a tree of depth 16 can have up to 65,536 transactions.  However, the minimum possible transaction size is [60 bytes](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-May/017883.html) and a 999,919-byte block (excluding header and tx count) can only fit a maximum of 16,665 transactions of that size.
+
+-------------------------
+
