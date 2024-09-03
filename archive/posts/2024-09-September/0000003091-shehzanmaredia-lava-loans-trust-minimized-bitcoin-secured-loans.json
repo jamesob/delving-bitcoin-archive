@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0.4,
   "yours": false,
   "topic_id": 1112,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hey all, I had some people who are active on Delving Bitcoin suggest I post about Lava Loans here. I know many active members of Delving Bitcoin have read the paper already and given feedback (which is very much appreciated). I think for those who haven't, this might be an interesting read. \n\nI recently released the paper for Lava Loans, a DLC-based loans protocol, enabling more trust-minimized bitcoin-secured loans. You can find the paper here: https://github.com/lava-xyz/loans-paper/blob/960b91af83513f6a17d87904457e7a9e786b21e0/loans_v2.pdf\n\nThis is v2 of the protocol, but we're also working on v3 which involves a more scriptless design and other optimizations. For those who aren't familiar, DLCs enable oracle-based contracts for bitcoin where each contract can have it's own set of oracles, where the oracles can be blinded from the contract, and where the oracles can attest off-chain. To gain more context on DLCs, please check out this link: https://github.com/discreetlogcontracts/dlcspecs/tree/master\n\nHappy to answer any questions.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
