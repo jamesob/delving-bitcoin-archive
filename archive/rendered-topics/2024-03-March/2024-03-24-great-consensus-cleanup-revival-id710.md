@@ -929,3 +929,37 @@ After the above process, the verifier can be certain of the following:
 
 -------------------------
 
+evoskuil | 2024-09-04 15:48:55 UTC | #45
+
+[quote="ajtowns, post:43, topic:710"]
+I think the reduction in complexity is more of an advantage tbh:
+[/quote]
+
+I agree, as the average absolute bandwidth is trivial, can be easily reduced by another 36 bytes, and can be amortized over an entire block of transactions.
+
+[quote="AntoineP, post:41, topic:710"]
+Looking at the worst case cost is not a valid way of judging efficiency gains.
+[/quote]
+
+And as the above implies, worst case should not be a consideration given that it is reasonably bounded.
+
+[quote="ajtowns, post:43, topic:710"]
+you need a combined merkle path to both the coinbase and the tx; you need to check they’re the same depth; you need to check the coinbase is valid; in order to minimise bandwidth you need to deal with sha256 midstates
+[/quote]
+
+Given that bandwidth is not a material issue, adding sha256 midstates is unnecessary complexity.
+
+Also, by simply compacting out the excess 36 bytes as mentioned above there is no need to validate the coinbase. Reconstituting it with the presumed null point is sufficient  (e.g. defaulting a tx deserialization with no input point to a null input point). 
+
+Consequently the complexity comparison becomes:
+
+* Ensure that the stripped transaction is not 64 bytes, and ensure that its Merkle path is valid.
+
+vs:
+
+* Ensure that the (reconstituted) coinbase merkle path is valid, and ensure the same Merkle depth for any tx in the block.
+
+Validating the coinbase Merkle path is of course code reuse, so the new logic is checking the Merkle path size.
+
+-------------------------
+
