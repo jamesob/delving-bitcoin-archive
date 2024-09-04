@@ -929,7 +929,7 @@ After the above process, the verifier can be certain of the following:
 
 -------------------------
 
-evoskuil | 2024-09-04 15:50:52 UTC | #45
+evoskuil | 2024-09-04 15:51:44 UTC | #45
 
 [quote="ajtowns, post:43, topic:710"]
 I think the reduction in complexity is more of an advantage tbh:
@@ -957,7 +957,7 @@ Consequently the complexity comparison becomes:
 
 vs:
 
-* Ensure that the (reconstituted) coinbase Merkle path is valid, and ensure the same Merkle depth for any tx in the block.
+* Ensure that the (reconstituted) coinbase Merkle path is valid, and ensure the same valid Merkle depth for any tx in the block.
 
 Validating the coinbase Merkle path is of course code reuse, so the new logic is checking the Merkle path size.
 
