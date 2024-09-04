@@ -929,7 +929,7 @@ After the above process, the verifier can be certain of the following:
 
 -------------------------
 
-evoskuil | 2024-09-04 15:51:44 UTC | #45
+evoskuil | 2024-09-04 16:01:43 UTC | #45
 
 [quote="ajtowns, post:43, topic:710"]
 I think the reduction in complexity is more of an advantage tbh:
@@ -959,7 +959,7 @@ vs:
 
 * Ensure that the (reconstituted) coinbase Merkle path is valid, and ensure the same valid Merkle depth for any tx in the block.
 
-Validating the coinbase Merkle path is of course code reuse, so the new logic is checking the Merkle path size.
+Validating the coinbase Merkle path is of course code reuse, so the new logic is checking the Merkle path size. This is the tradeoff in the SPV wallet. The tradeoff in the full node is mandatory checking of the stripped size of all transactions (and soft fork) vs. doing nothing (possibly "compressing" null points for SPV clients).
 
 -------------------------
 
