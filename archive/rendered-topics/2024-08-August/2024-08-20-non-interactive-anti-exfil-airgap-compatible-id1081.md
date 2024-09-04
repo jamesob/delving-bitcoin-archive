@@ -231,3 +231,24 @@ Yes, theoretically the SD with malicious firmware could churn the final R point 
 
 -------------------------
 
+moonsettler | 2024-09-03 21:28:46 UTC | #14
+
+### Dark Smoothie
+I was not sure where to put this, so here we go:
+
+Many have heard about Dark Skippy already, while it is trivial to leak the private key using chosen nonce and it only takes a single signature, Dark Skippy demonstrated the ability to practically leak a 128 bit (12 words) seed using merely 2 signatures from the same device. Here is an alternative (Dark Smoothie), that works if a transaction is signed with 2 inputs locked by the same private key x and can leak 256 bits (24 words) without any fancy math or churning:
+```text
+k1 = hash(attacker_secret|e1)·x
+k2 = 256_bit_secret
+z = e1+hash(attacker_secret|e1)
+s1 = k1+e1·x = x·z
+x = s1·mod_inv(z)
+s2 = k2+e2·x
+k2 = s2-e2·x
+```
+`256_bit_secret` leaked on an encrypted channel to the attacker! Worst part is, this works as a low probability attack, that may be triggered by something like for example "dusting" an address with a TXID that conforms to some specific 32 bit checkum. That means such a signing device will statistically always pass factory and user tests expecting RFC6979 noncegen, but can still be triggered to leak the secrets without physical access.
+
+Both attacks are in theory "defeated" by level 2 or 3 Anti-Exfil if the companion app is not malicious.
+
+-------------------------
+
