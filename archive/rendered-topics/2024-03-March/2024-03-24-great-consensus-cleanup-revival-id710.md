@@ -855,3 +855,27 @@ I think the two cons of that approach are:
 
 -------------------------
 
+ajtowns | 2024-09-04 03:16:40 UTC | #43
+
+[quote="harding, post:42, topic:710"]
+A lite client performing whitepaper-style SPV can be tricked into accepting a fake transaction if the coinbase transaction was actually 64 bytes. To avoid that, it needs to learn the contents of the entire coinbase transaction in order to derive its txid for verifying its depth in the merkle tree.
+[/quote]
+
+I don't think that's strictly true? sha256 includes the size of its input when calculating the hash, so implicit in being provided a midstate is being provided the number of bytes that went into the midstate, in bitcoin that's `s` (the midstate), `buf` (the remaining bytes that will build the next chunk) and `bytes` (the number of bytes that went into both those things). So a preimage for the txid of a very large coinbase tx can still be reduced to as few as 104 bytes. That requires you have some way of differentiating a "valid" 64 byte coinbase tx from an internal node of the tx merkle tree, but it's easy to transmit the full coinbase tx in that case anyway.
+
+[quote="AntoineP, post:41, topic:710"]
+Reduces the bandwidth of block inclusion proofs for transactions.
+[/quote]
+
+Compared to the status quo, it improves the correctness of block inclusion proofs. Compared to including the coinbase in the proof, I think the reduction in complexity is more of an advantage tbh:
+
+  * you need a merkle path, and also to check the witness-stripped tx isn't 64 bytes
+  * you need a combined merkle path to both the coinbase and the tx; you need to check they're the same depth; you need to check the coinbase is valid; in order to minimise bandwidth you need to deal with sha256 midstates
+  * you need to lookup the block's merkle tree depth via (TBD), (except if the block height is prior to the activation height, in which case you'll need to use this fixed table and hope there's no absurdly large reorg) then check the merkle path is exactly that long
+
+Perhaps worth noting that these merkle proofs will only give you the witness-stripped tx anyway -- in order to verify the tx's witness data you need the full coinbase in order to obtain the segwit commitment (which can be essentially anywhere in the coinbase tx), and then you need the matching merkle path from that to your non-stripped tx. So for a lite node, checking the stripped size of the tx is straight-forward -- that's all the data it's likely to be able to verify anyway.
+
+It occurs to me that most of the time, you're probably more interested in whether an output is (was) in the utxo set, rather than whether a tx is in a block. But I think the concerns here are irrelevant for things like utreexo that have some new merkle tree: they can use a prefix to distinguish tree contents from internal nodes.
+
+-------------------------
+

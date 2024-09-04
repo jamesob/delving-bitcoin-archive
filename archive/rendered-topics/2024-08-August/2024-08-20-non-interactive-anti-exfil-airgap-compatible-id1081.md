@@ -252,3 +252,39 @@ Both attacks are in theory "defeated" by level 2 or 3 Anti-Exfil if the companio
 
 -------------------------
 
+ajtowns | 2024-09-04 03:39:06 UTC | #15
+
+The notation there confuses me (if `e1` is `H(k1*G,pubkey,m1)`, then you can't choose `k1` depending on it, eg). On the offchance that anyone else also find it confusing, I'd write the "Dark Smoothie" approach as:
+
+```
+HMAC(s) = sha256(attacker secret, s)
+secret = 256 bit wallet seed, encrypted to attacker
+
+r1 = HMAC(pubkey, m1)*privkey
+r2 = secret
+
+s1 = r1 + H(r1*G, pubkey, m1)*privkey
+s2 = r2 + H(r2*G, pubkey, m2)*privkey
+```
+
+`(r1*G, s1, pubkey, m1)` and `(r2*G, s2, pubkey, m2)` are valid Schnorr signatures.
+
+The attacker can quickly check that `r1*G` matches `HMAC(pubkey, m1)*pubkey`, to work out which transactions are providing secrets. This first signature allows the attacker to determine `privkey`:
+
+```
+s1 = r1 + H(r1*G, pubkey, m1)*privkey
+s1 = (HMAC(pubkey, m1) + H(r1*G, pubkey, m1))*privkey
+privkey = s1 / (HMAC(pubkey, m1) + H(r1*G, pubkey, m1))
+```
+
+But that might be a hardened privkey from a HD wallet, so to compromise the entire wallet you want the seed, for which we use the second signature, and the fact that we already know the privkey:
+
+```
+s2 = r2 + H(r2*G, pubkey, m2)*privkey
+s2 = secret + H(r2*G, pubkey, m2)*privkey
+secret = H(r2*G, pubkey, m2)*privkey - s2
+seed = decrypt secret
+```
+
+-------------------------
+
