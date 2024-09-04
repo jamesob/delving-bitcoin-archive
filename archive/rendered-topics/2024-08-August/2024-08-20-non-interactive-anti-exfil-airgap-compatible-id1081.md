@@ -288,3 +288,12 @@ seed = decrypt secret
 
 -------------------------
 
+moonsettler | 2024-09-04 14:38:47 UTC | #16
+
+[quote="ajtowns, post:15, topic:1081"]
+if `e1` is `H(k1*G,pubkey,m1)` , then you can’t choose `k1` depending on it, eg)
+[/quote]
+👍 Yeah i fumbled that, but ofc it's not required to commit to R1. The point is the commitment would contain a secret only known by the attacker to encrypt this channel to him exclusively and it would also commit to the message and the private key.
+
+-------------------------
+

@@ -879,3 +879,53 @@ It occurs to me that most of the time, you're probably more interested in whethe
 
 -------------------------
 
+harding | 2024-09-04 11:08:40 UTC | #44
+
+[quote="ajtowns, post:43, topic:710"]
+sha256 includes the size of its input when calculating the hash, so implicit in being provided a midstate is being provided the number of bytes that went into the midstate, in bitcoin that’s `s` (the midstate), `buf` (the remaining bytes that will build the next chunk) and `bytes` (the number of bytes that went into both those things). So a preimage for the txid of a very large coinbase tx can still be reduced to as few as 104 bytes.
+[/quote]
+
+It took me a while to figure out how knowing the number of bytes used to 
+create a digest was an alternative to validating the structure of a 
+coinbase transaction.  Do I accurately understand that you propose the 
+following:
+
+1. Prover provides the coinbase transaction midstate (including size)
+for all but the final chunk of the first of the double SHA256 hashes,
+plus the final chunk.
+
+2. Prover provides a partial merkle branch for the coinbase transaction.
+
+3. Verifier uses the midstate (including size) and the final chunk to
+generate the coinbase txid.
+
+4. Verifier checks all provided nodes in the partial merkle branch are
+on the right side (i.e., that the branch is for the first transaction in 
+a block, i.e. the coinbase transaction).
+
+5. Verifier inserts its generated coinbase txid into the partial merkle
+branch and verifies up the tree until it connects to the merkle root in 
+the block header.
+
+After the above process, the verifier can be certain of the following:
+
+- The number of bytes used to generate the digest (txid).
+
+  - If the number of bytes is not equal to 64, then the digested data
+    must have been a transaction (or the block was invalid).
+
+  - If the number of bytes is equal to 64, then the digested data may
+    have been either a transaction or concatenated digests for an 
+    internal merkle node.  The verifier can distinguish between these by
+    checking whether the 64-byte chunk provided to it matches a coinbase
+    transaction pattern.
+
+- The verified transaction is a coinbase transaction given the inability 
+  to use CVE-2017-12842 to forge coinbase transactions and the position
+  of the transaction in the merkle tree (or the block was invalid).  
+  
+- The depth of the coinbase transaction, which is the same depth as all
+  other transactions in the tree.
+
+-------------------------
+
