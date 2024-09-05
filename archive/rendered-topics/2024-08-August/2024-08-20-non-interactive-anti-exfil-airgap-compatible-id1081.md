@@ -297,3 +297,13 @@ if `e1` is `H(k1*G,pubkey,m1)` , then you can’t choose `k1` depending on it, e
 
 -------------------------
 
+moonsettler | 2024-09-05 09:04:09 UTC | #17
+
+An other fun note related to Dark Smoothie, I believe it does not require strict address reuse, Reusable Payment Code schemes like Silent Payments allow for the sender to tweak the private key. So they do reuse the same private key, without this being apparent on-chain. It may be counter intuitive to the users, but signing a transaction that consolidates Silent Payments may be used for efficient exfiltration.
+
+In this case the attacker could make two "donations" to the Reusable Payment Address and also churn the TXIDs them so that they trigger the exfiltration from the compromised device.
+
+These attacks may seem very situational, but the attacker can easily set up a lot of these conditions. And these are not circumstances people with rudimentary understanding of how to secure their bitcoin worry about. People are told reusing addresses only affects privacy and that Reusable Payment Codes in fact solve reusing addresses.
+
+-------------------------
+
