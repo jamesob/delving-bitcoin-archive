@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:15, topic:1081\"]\nif `e1` is `H(k1*G,pubkey,m1)` , then you can\u2019t choose `k1` depending on it, eg)\n[/quote]\n\ud83d\udc4d Yeah i fumbled that, but ofc it's not required to commit to R1. The point is the commitment would contain a secret only known by the attacker to encrypt this channel to him exclusively and it would also commit to the message and the private key.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
