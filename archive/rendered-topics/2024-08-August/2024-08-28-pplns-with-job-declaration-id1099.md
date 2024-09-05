@@ -49,7 +49,7 @@ I'm looking forward to following [this Discussion on SRI repo](https://github.co
 
 -------------------------
 
-plebhash | 2024-09-05 19:55:14 UTC | #3
+plebhash | 2024-09-05 20:00:37 UTC | #3
 
 As a pleb advocate, I'm particularly curious how the proposed SV2 extension would affect GCC txs (meaning they would hurt low-end nodes, even if they pay high fees and are included in the so called "Standard/Canonical/Platonic" mempool).
 
@@ -59,7 +59,7 @@ How should a SV2-JD-enabled Pool take that into account? I see two options:
 
 The proposed extension is not really relevant for option A, since the basic SV2 primitives already allow for that.
 
-But option B does have some relevance.
+But option B does have some relevance, and I'm curious as to whether this issue is being taken into account.
 
 -------------------------
 
