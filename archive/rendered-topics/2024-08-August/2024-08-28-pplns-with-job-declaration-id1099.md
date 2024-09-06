@@ -16,7 +16,7 @@ Everything above is still work in progress and need reviews.
 
 -------------------------
 
-plebhash | 2024-09-06 00:54:55 UTC | #2
+plebhash | 2024-09-06 12:33:28 UTC | #2
 
 I'm a Spiral grantee working as a contributor to [StratumV2 Reference Implementation (SRI)](https://github.com/stratum-mining/stratum).
 
@@ -40,7 +40,7 @@ Which means hashers have the right to be paid for hashing on templates that coul
 - maybe the hasher's Template Providing (TP) node is suboptimally connected (remote location, poor internet, plebhashers) and the "mempool" they see is suboptimal.
 - maybe they are ideologically driven and see some categories of consensus-valid transactions as spam (which is a subjective term, albeit introduced by Satoshi and ingrained into protocol primitives).
 - maybe they want to do [MEVil](https://bluematt.bitcoin.ninja/2024/04/16/stop-calling-it-mev/) and prioritize transactions under some specific meta-protocol.
-- maybe they want to filter out consensus-valid that would hurt low-end nodes (see [GCC](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki) for more).
+- maybe they want to filter out consensus-valid transactions that would hurt low-end nodes (see [GCC](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki) for more).
 
 So an economically rational pool needs a mechanism to still allow for jobs with low-revenue templates, while rewarding them fairly with regards to jobs with more economically optimal templates, which is work that deserves to be rewarded more.
 
@@ -50,7 +50,7 @@ I'm looking forward to following [this Discussion on SRI repo](https://github.co
 
 -------------------------
 
-plebhash | 2024-09-05 23:33:41 UTC | #3
+plebhash | 2024-09-06 11:24:19 UTC | #3
 
 As a pleb advocate, I'm particularly curious how the proposed SV2 extension would affect transactions described under [GCC](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki), which would essentially penalize low-end nodes, even if they:
 - pay high fees
@@ -68,10 +68,6 @@ The proposed extension is not really relevant for option A, since the basic SV2 
 
 Option B does have some relevance here, and I'm curious as to whether this is being taken into account in the design of the proposed extension.
 
-And **I really hope we will never see pools taking path C**, because that would be basically a statement that they don't care about low-end nodes and are more than willing to centralize Bitcoin in this dimension in exchange for extra fee revenue.
-
-And **I REALLY REALLY HOPE that GCC gets more attention and a well-deserved sense of urgency, so that we no longer need to rely on pools and hashers to be "benevolent guardians" of low-end nodes**. After all, protecting low-end nodes is the main reason why we kept blocks small, right?
-
 -------------------------
 
 Fi3 | 2024-09-06 07:22:02 UTC | #4
@@ -79,6 +75,70 @@ Fi3 | 2024-09-06 07:22:02 UTC | #4
 We only look at total fee payed by the mined[^1] job, respect to the jobs in the same slice. So we will not penalize anything we can say that pool take an agnostic approach.
 
 [^1]: job for which we received the share.
+
+-------------------------
+
+plebhash | 2024-09-06 12:30:42 UTC | #5
+
+💔 from pleb noderunners.
+
+But that is fully understandable, since it shouldn't be up to pools nor hashers to act as "benevolent guardians" of low-end nodes. Ideally, this is something to be addressed at the consensus level, not mining.
+
+Hopefully @AntoineP will save the day for us with [GCC Revival](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710)! 🙏
+
+-------------------------
+
+marathon-gary | 2024-09-06 14:28:25 UTC | #6
+
+What prevents a pool from diluting shares within a slice/window?
+
+I think this protocol makes sense but still suffers from the same issue that pools suffer from now, all of the validation data being used by miners is given out by the pool. 
+
+I think there's a way forward with blinded signatures here that makes each proposal more robust. I'm not sure what that looks like yet but will post when I have someothing on the topic.
+
+-------------------------
+
+Fi3 | 2024-09-06 14:33:46 UTC | #7
+
+the fact that every miner verify a random sample of shares and that shares can not be faked.
+
+-------------------------
+
+marathon-gary | 2024-09-06 14:38:21 UTC | #8
+
+But miners can only validate using shares they know of? Where does this source of shares come from that miners are using as a random sampling?
+
+-------------------------
+
+Fi3 | 2024-09-06 14:40:53 UTC | #9
+
+No miner can validate every share that the pool receive.
+
+-------------------------
+
+marathon-gary | 2024-09-06 14:51:39 UTC | #10
+
+How do they get shares they didn't create?
+
+-------------------------
+
+Fi3 | 2024-09-06 14:58:25 UTC | #11
+
+they can use this message https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#getshares-client---server
+
+This is not an sv2 message and it can be used only with pool that support the ext.
+
+-------------------------
+
+plebhash | 2024-09-06 14:59:48 UTC | #12
+
+> How do they get shares they didn’t create?
+
+See:
+- [`Share` Data Type](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#share)
+- [`GetShares` message](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#getshares-client---server)
+
+@Fi3 is it correct to assume that the Share Data Type is encoded as `SEQ0_64K[U32]`?
 
 -------------------------
 

@@ -241,3 +241,13 @@ Finally, I also think that bLIP-31 is a bit overcomplicated for a feature like t
 
 -------------------------
 
+t-bast | 2024-09-06 11:35:02 UTC | #7
+
+[quote="vincenzopalazzo, post:6, topic:1046"]
+However, I’m not sure I fully understand the use case for Option 2. Why do you think a user might need a per-contact `invreq_payer_id`?
+[/quote]
+
+The main reason is domain separation: it's safer from both a privacy and security aspect to use different keys when talking to different nodes, especially since those keys are repeatedly used for cryptographic signatures.
+
+-------------------------
+
