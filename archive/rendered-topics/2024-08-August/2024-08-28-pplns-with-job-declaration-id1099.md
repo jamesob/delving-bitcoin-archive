@@ -171,3 +171,9 @@ edited those questions out of my previous message to avoid further propagating m
 
 -------------------------
 
+Fi3 | 2024-09-06 15:09:43 UTC | #16
+
+yep for inaccurate an misleading shares you have the merkle tree. Not clear what you mean by omission.
+
+-------------------------
+
