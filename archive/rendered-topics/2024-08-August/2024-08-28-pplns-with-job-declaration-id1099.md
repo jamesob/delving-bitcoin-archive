@@ -209,3 +209,9 @@ they can spot it cause each share come along the share's merkle path in the slic
 
 -------------------------
 
+Fi3 | 2024-09-06 15:34:51 UTC | #21
+
+keep in mind that miners have shares mined by themself in the slice and they know the index of them: https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#shareok-server---client
+
+-------------------------
+
