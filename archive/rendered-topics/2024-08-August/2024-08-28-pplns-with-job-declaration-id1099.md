@@ -130,13 +130,14 @@ This is not an sv2 message and it can be used only with pool that support the ex
 
 -------------------------
 
-plebhash | 2024-09-06 15:02:12 UTC | #12
+plebhash | 2024-09-06 15:03:21 UTC | #12
 
 > How do they get shares they didn’t create?
 
 See:
 - [`Share` Data Type](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#share)
-- [`GetShares` message](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#getshares-client---server)
+- [`GetShares` message](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#getshares-client---server) (Client -> Server)
+- [`GetSharesSuccess` message](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#getsharessuccess-server---client) (Server -> Client)
 
 -------------------------
 
@@ -145,6 +146,14 @@ Fi3 | 2024-09-06 15:02:50 UTC | #13
 No Share is a custom datatype and is encoded like described in the extension spec.
 
 Is implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/master/src/data_types.rs#L174
+
+-------------------------
+
+marathon-gary | 2024-09-06 15:03:55 UTC | #14
+
+The client gives the server a list of id's (how id this list of IDs determined?) of shares they want to validate, I understand this piece. There is just no guarantee that the pool is providing accurate information. This is the same as using an API to query for shares.
+
+What stops a pool from providing inaccurate or misleading share data? or omitting shares when requested?
 
 -------------------------
 

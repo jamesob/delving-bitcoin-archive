@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "No Share is a custom datatype and is encoded like described in the extension spec.\n\nIs implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/master/src/data_types.rs#L174",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
