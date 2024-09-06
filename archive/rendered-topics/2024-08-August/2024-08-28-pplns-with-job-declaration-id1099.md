@@ -74,3 +74,11 @@ And **I REALLY REALLY HOPE that GCC gets more attention and a well-deserved sens
 
 -------------------------
 
+Fi3 | 2024-09-06 07:22:02 UTC | #4
+
+We only look at total fee payed by the mined[^1] job, respect to the jobs in the same slice. So we will not penalize anything we can say that pool take an agnostic approach.
+
+[^1]: job for which we received the share.
+
+-------------------------
+
