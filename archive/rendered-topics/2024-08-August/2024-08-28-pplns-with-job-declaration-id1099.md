@@ -203,3 +203,9 @@ How does Client B know they were deceived? Assuming share 6 and share 5 are not 
 
 -------------------------
 
+Fi3 | 2024-09-06 15:27:29 UTC | #20
+
+they can spot it cause each share come along the share's merkle path in the slice, hence the index.
+
+-------------------------
+
