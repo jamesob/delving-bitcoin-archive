@@ -191,3 +191,15 @@ this is not needed cause when you get the actual share you can verify that the i
 
 -------------------------
 
+marathon-gary | 2024-09-06 15:20:34 UTC | #19
+
+Given a window with one slice. Given that slice contains 10 shares, 0...10.
+
+Client A requests shares 1,3,5,7. Pool provides 1,3,5,7
+
+Client B requests shares 2,4,6,8. Pool provides 2,4,5,8
+
+How does Client B know they were deceived? Assuming share 6 and share 5 are not shares they themselves submitted.
+
+-------------------------
+
