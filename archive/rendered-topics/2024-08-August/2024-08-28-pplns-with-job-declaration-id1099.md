@@ -130,7 +130,7 @@ This is not an sv2 message and it can be used only with pool that support the ex
 
 -------------------------
 
-plebhash | 2024-09-06 14:59:48 UTC | #12
+plebhash | 2024-09-06 15:00:54 UTC | #12
 
 > How do they get shares they didn’t create?
 
@@ -139,6 +139,8 @@ See:
 - [`GetShares` message](https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/extension.md#getshares-client---server)
 
 @Fi3 is it correct to assume that the Share Data Type is encoded as `SEQ0_64K[U32]`?
+
+edit: just saw that @Fi3 gave the same answer above, so it's good to know I'm on the right track! but still curious about `SEQ0_64K[U32]`
 
 -------------------------
 
