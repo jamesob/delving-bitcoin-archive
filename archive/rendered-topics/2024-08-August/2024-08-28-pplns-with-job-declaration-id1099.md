@@ -221,10 +221,72 @@ we can add the index in the merkle root I think that would be better
 
 -------------------------
 
-lorbax | 2024-09-06 15:48:41 UTC | #23
+lorbax | 2024-09-06 16:12:36 UTC | #23
 
 A miner can solve this issue by asking the pool a bunch of consecutive shares, containing some produced by the miner itself. Since a miner knows the position in the slice of the shares he produced, becomes very difficult to perform the trick you said.
-BTW I cannot see the incentive for doing so. I think the most likely scenario is when the pool is a miner and produces fake shares. Recall also that this is a separate issue, affecting also standard PPLNS.
+BTW I cannot see the incentive for doing so. I think the most likely scenario is when the pool is a miner and produces fake shares. Recall also that this issue affects also standard PPLNS and has nothing to do with job declaration.
+
+-------------------------
+
+marathon-gary | 2024-09-06 16:18:15 UTC | #24
+
+>  think the most likely scenario is when the pool is a miner and produces fake shares. 
+
+Exactly this. 
+
+> Recall also that this issue affects also standard PPLNS and has nothing to do with job declaration.
+
+You're right, the issue I describe is orthogonal to this proposal (which I like a lot!).
+
+-------------------------
+
+marathon-gary | 2024-09-06 16:21:39 UTC | #25
+
+> we can add the index in the merkle root I think that would be better
+
+You could use the share index to determine Merkle tree ordering for the slice, this would prevent the scenario I outlined above. IIUC, this would also give the client some idea as the what the Merkle path should look like for a given share.
+
+-------------------------
+
+marathon-gary | 2024-09-06 16:24:49 UTC | #26
+
+> this would also give the client some idea as the what the Merkle path should look like for a given share.
+
+If the Merkle tree ordering is pre-determined by what indeed it is in a slice, then you can omit that from the Share data struct.
+
+-------------------------
+
+Fi3 | 2024-09-06 16:29:52 UTC | #27
+
+main issue is that you can not cache the hashes and for each window you need to recalculate everything.
+
+-------------------------
+
+marathon-gary | 2024-09-06 16:31:17 UTC | #28
+
+[quote="Fi3, post:27, topic:1099"]
+can not cache the hashes
+[/quote]
+
+for the Merkle tree?
+
+-------------------------
+
+Fi3 | 2024-09-06 16:38:03 UTC | #29
+
+yep cause index depend on window, so slice root would be different based on the window on which belong. I have to look better into it, but it seems feasible.
+
+-------------------------
+
+plebhash | 2024-09-06 19:54:14 UTC | #30
+
+@lorbax I have a question about the last formula of Section 3.3.
+
+Can you demonstrate this? 
+
+$\sum_{j=k_1}^{k_2} score_f(s_j) + ... + \sum_{j=k_{t-1}}^{k_t} score_f(s_j) = t$
+
+From an intuitive perspective it makes sense, but I'm having trouble to visualize this clearly in my mind.
 
 -------------------------
 
