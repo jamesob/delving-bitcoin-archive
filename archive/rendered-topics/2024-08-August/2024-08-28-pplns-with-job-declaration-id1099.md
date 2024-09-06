@@ -221,3 +221,10 @@ we can add the index in the merkle root I think that would be better
 
 -------------------------
 
+lorbax | 2024-09-06 15:48:01 UTC | #23
+
+A miner can solve this issue by calculating a bunch of consecutive shares, containing also some produced by the miner itself. Since a miner knows the position in the slice of the shares he produced, becomes very difficult to perform the trick you said.
+BTW I cannot see the incentive for doing so. I think the most likely scenario is when the pool is a miner and produces fake shares. Recall also that this is a separate issue, affecting also standard PPLNS.
+
+-------------------------
+
