@@ -16,7 +16,7 @@ Everything above is still work in progress and need reviews.
 
 -------------------------
 
-plebhash | 2024-09-05 23:39:36 UTC | #2
+plebhash | 2024-09-06 00:48:10 UTC | #2
 
 I'm a Spiral grantee working as a contributor to [StratumV2 Reference Implementation (SRI)](https://github.com/stratum-mining/stratum).
 
@@ -39,6 +39,7 @@ Now, SV2 decentralizes via JD!
 Which means hashers have the right to be paid for hashing on templates that could be economically suboptimal with regards to fee revenue... that could happen for different reasons:
 - maybe the hasher's Template Providing (TP) node is suboptimally connected (remote location, poor internet, plebhashers) and the "mempool" they see is suboptimal.
 - maybe they are ideologically driven and see some categories of consensus-valid transactions as spam (which is a subjective term, albeit introduced by Satoshi and ingrained into protocol primitives).
+- maybe they want to prioritize transactions under some specific meta-protocol, despite fee-revenue
 - maybe they decide to filter out consensus-valid and high-fee txs that would hurt low-end nodes (see [GCC](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki) for more).
 
 So an economically rational pool needs a mechanism to still allow for jobs with low-revenue templates, while rewarding them fairly with regards to jobs with more economically optimal templates, which is work that deserves to be rewarded more.
