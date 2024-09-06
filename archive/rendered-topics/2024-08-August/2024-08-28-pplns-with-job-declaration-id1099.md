@@ -185,3 +185,9 @@ Does the id of a share factor into the Merkle path for that share?
 
 -------------------------
 
+Fi3 | 2024-09-06 15:17:25 UTC | #18
+
+this is not needed cause when you get the actual share you can verify that the is the share at position x in the slice, so is the one that you required
+
+-------------------------
+
