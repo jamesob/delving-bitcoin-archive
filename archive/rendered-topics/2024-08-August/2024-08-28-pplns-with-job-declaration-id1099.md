@@ -149,11 +149,13 @@ Is implemented here: https://github.com/demand-open-source/share-accounting-ext/
 
 -------------------------
 
-marathon-gary | 2024-09-06 15:04:47 UTC | #14
+marathon-gary | 2024-09-06 15:08:22 UTC | #14
 
 The client gives the server a list of id's (how is this list of IDs determined?) of shares they want to validate, I understand this piece. There is just no guarantee that the pool is providing accurate information. This is the same as using an API to query for shares.
 
 What stops a pool from providing inaccurate or misleading share data? or omitting shares when requested?
+
+Edit: Inaccurate or misleading shares would fail the Merkle inclusion validation piece. but omission remains un answered.
 
 -------------------------
 
