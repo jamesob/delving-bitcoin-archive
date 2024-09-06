@@ -177,3 +177,11 @@ yep for inaccurate an misleading shares you have the merkle tree. Not clear what
 
 -------------------------
 
+marathon-gary | 2024-09-06 15:16:25 UTC | #17
+
+Nvm on the omission part, I misunderstood. 
+
+Does the id of a share factor into the Merkle path for that share?
+
+-------------------------
+
