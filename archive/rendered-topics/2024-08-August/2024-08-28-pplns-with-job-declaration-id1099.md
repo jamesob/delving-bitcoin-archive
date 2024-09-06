@@ -157,3 +157,11 @@ What stops a pool from providing inaccurate or misleading share data? or omittin
 
 -------------------------
 
+plebhash | 2024-09-06 15:05:32 UTC | #15
+
+yeah I was making some confusion there, thanks for the clarification!
+
+edited those questions out of my message to avoid further propagating my misunderstanding
+
+-------------------------
+
