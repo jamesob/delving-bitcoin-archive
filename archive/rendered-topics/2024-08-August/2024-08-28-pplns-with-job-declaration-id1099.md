@@ -159,11 +159,11 @@ Edit: Inaccurate or misleading shares would fail the Merkle inclusion validation
 
 -------------------------
 
-plebhash | 2024-09-06 15:06:17 UTC | #15
+plebhash | 2024-09-06 15:11:24 UTC | #15
 
 > No Share is a custom datatype and is encoded like described in the extension spec.
 >
-> Is implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/master/src/data_types.rs#L174
+> Is implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/src/data_types.rs#L174
 
 yeah I was making some confusion there, thanks for the clarification!
 
