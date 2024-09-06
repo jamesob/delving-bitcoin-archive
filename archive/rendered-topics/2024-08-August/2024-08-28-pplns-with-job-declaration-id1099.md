@@ -215,3 +215,9 @@ keep in mind that miners have shares mined by themself in the slice and they kno
 
 -------------------------
 
+Fi3 | 2024-09-06 15:43:39 UTC | #22
+
+we can add the index in the merkle root I think that would be better
+
+-------------------------
+
