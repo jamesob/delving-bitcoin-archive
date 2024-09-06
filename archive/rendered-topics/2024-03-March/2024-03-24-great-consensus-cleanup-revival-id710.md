@@ -963,3 +963,11 @@ Validating the coinbase Merkle path is of course code reuse, so the new logic is
 
 -------------------------
 
+plebhash | 2024-09-05 23:18:30 UTC | #46
+
+Cross referencing this SV2-related post here, as I brought up GCC as a point of relevance on that discussion.
+
+https://delvingbitcoin.org/t/pplns-with-job-declaration/1099/3
+
+-------------------------
+
