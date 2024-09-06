@@ -141,11 +141,11 @@ See:
 
 -------------------------
 
-Fi3 | 2024-09-06 15:02:50 UTC | #13
+Fi3 | 2024-09-06 15:07:52 UTC | #13
 
 No Share is a custom datatype and is encoded like described in the extension spec.
 
-Is implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/master/src/data_types.rs#L174
+Is implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/src/data_types.rs#L174
 
 -------------------------
 

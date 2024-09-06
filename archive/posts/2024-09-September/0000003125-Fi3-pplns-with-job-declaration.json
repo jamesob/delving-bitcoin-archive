@@ -4,10 +4,10 @@
   "username": "Fi3",
   "avatar_template": "/user_avatar/delvingbitcoin.org/fi3/{size}/316_2.png",
   "created_at": "2024-09-06T15:02:50.644Z",
-  "cooked": "<p>No Share is a custom datatype and is encoded like described in the extension spec.</p>\n<p>Is implemented here: <a href=\"https://github.com/demand-open-source/share-accounting-ext/blob/master/src/data_types.rs#L174\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">share-accounting-ext/src/data_types.rs at master \u00b7 demand-open-source/share-accounting-ext \u00b7 GitHub</a></p>",
+  "cooked": "<p>No Share is a custom datatype and is encoded like described in the extension spec.</p>\n<p>Is implemented here: <a href=\"https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/src/data_types.rs#L174\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">share-accounting-ext/src/data_types.rs at 281c1cbc4f9a07b21a443753a525197dc5d8e18c \u00b7 demand-open-source/share-accounting-ext \u00b7 GitHub</a></p>",
   "post_number": 13,
   "post_type": 1,
-  "updated_at": "2024-09-06T15:02:50.644Z",
+  "updated_at": "2024-09-06T15:07:52.685Z",
   "reply_count": 1,
   "reply_to_post_number": 12,
   "quote_count": 0,
@@ -28,7 +28,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -41,7 +41,7 @@
     "avatar_template": "/user_avatar/delvingbitcoin.org/plebhash/{size}/302_2.png"
   },
   "bookmarked": false,
-  "raw": "No Share is a custom datatype and is encoded like described in the extension spec.\n\nIs implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/master/src/data_types.rs#L174",
+  "raw": "No Share is a custom datatype and is encoded like described in the extension spec.\n\nIs implemented here: https://github.com/demand-open-source/share-accounting-ext/blob/281c1cbc4f9a07b21a443753a525197dc5d8e18c/src/data_types.rs#L174",
   "actions_summary": [
     {
       "id": 2,
@@ -56,7 +56,7 @@
   "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
-  "edit_reason": null,
+  "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
   "reactions": [
