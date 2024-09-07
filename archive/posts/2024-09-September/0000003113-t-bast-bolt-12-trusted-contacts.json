@@ -12,8 +12,8 @@
   "reply_to_post_number": 6,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 1.0,
   "yours": false,
   "topic_id": 1046,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"vincenzopalazzo, post:6, topic:1046\"]\nHowever, I\u2019m not sure I fully understand the use case for Option 2. Why do you think a user might need a per-contact `invreq_payer_id`?\n[/quote]\n\nThe main reason is domain separation: it's safer from both a privacy and security aspect to use different keys when talking to different nodes, especially since those keys are repeatedly used for cryptographic signatures.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
