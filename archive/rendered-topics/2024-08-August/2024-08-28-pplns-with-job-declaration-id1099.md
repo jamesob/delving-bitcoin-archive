@@ -290,3 +290,17 @@ From an intuitive perspective it makes sense, but I'm having trouble to visualiz
 
 -------------------------
 
+plebhash | 2024-09-06 22:06:12 UTC | #31
+
+While I read the paper, I created some visuals to organize my thoughts.
+
+If the information is accurate and the authors feel they are useful, they are free to use and modify them without attribution.
+
+![PPLNS with Job Declaration-coinbase reward drawio (1)](upload://xbk5dybkdwKrDjBA2Y7QRMx7EgU.png)
+
+![PPLNS with Job Declaration-slices drawio (1)](upload://rkUojT9Or7xsjJta4Vxj4Hfa3wI.png)
+
+![PPLNS with Job Declaration-MMEF drawio (2)](upload://76zzXp5DJNvViw5xnBlKsxWteXz.png)
+
+-------------------------
+
