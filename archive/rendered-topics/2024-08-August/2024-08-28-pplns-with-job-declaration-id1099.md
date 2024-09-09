@@ -304,13 +304,13 @@ If the information is accurate and the authors feel they are useful, they are fr
 
 -------------------------
 
-lorbax | 2024-09-09 10:24:29 UTC | #32
+lorbax | 2024-09-09 10:25:45 UTC | #32
 
 There is a typo. There should be $1<k_1<\dots < k_t = N$, where $N$ is the number of shares in the PPLNS window such that the $m$-slice contains the shares $s_{k_{m-1}+1}, \dots , s_{k_{m}}$. Recall that, by Remark 5 in Section 3.2, if $S$ is a slice,  we have that 
 $ \sum_{s \in S} score_f(s) =1.$
 Hence
 $$
-\sum_{j=1}^{k_1} score_f(s_j) + ... + \sum_{j=k_{t-1}+1}^{k_t} score_f(s_j) = 1+\dots +1 +t
+\sum_{j=1}^{k_1} score_f(s_j) + ... + \sum_{j=k_{t-1}+1}^{k_t} score_f(s_j) = 1+\dots +1  =t
 $$
 
 -------------------------
