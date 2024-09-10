@@ -25,3 +25,26 @@ The point about necessity is one I don't feel qualified to answer. If most peopl
 
 -------------------------
 
+sipa | 2024-09-10 12:51:20 UTC | #2
+
+@virtu Interesting, can `getaddrinfo` read these NULL encodings, on all supported platforms?
+
+-------------------------
+
+1440000bytes | 2024-09-10 13:13:40 UTC | #3
+
+[quote="virtu, post:1, topic:1123"]
+To answer my original question about darknet-only nodes: they should be doing fine. Still I wondered, why they’re excluded from taking advantage of the DNS seed-mechanism, which has several advantages: for one, DNS seeds provide more up-to-date on reachable nodes, increasing the probability of quickly finding a reachable address; for another, they might improve privacy by advertising from a larger pool of nodes, thus reducing the likelihood of a hardcoded seed collecting statistics about bootstrapping nodes; etc.
+[/quote]
+
+I think it should be the other way around. We should completely remove the dependency on DNS, and DNS seeds should be replaced with the IP addresses of nodes run by those developers. These nodes can respond to `getaddr` for bootstrapping.
+
+ 
+[quote="virtu, post:1, topic:1123"]
+I’d like to address the first and last points with a [PoC darknet seeder ](https://github.com/virtu/darkseed) I wrote which is capable of serving Onion, I2P and Cjdns addresses using a BIP155-like encoding and is reachable via IPv4 and Cjdns (DNS/UDP) as well as Onion and I2P (DNS/TCP).
+[/quote]
+
+Interesting use of NULL records. IIUC TXT records could also be used although laanwj recently shared issues related with such DNS records: https://github.com/bitcoin/bitcoin/pull/30007#issuecomment-2094289500
+
+-------------------------
+
