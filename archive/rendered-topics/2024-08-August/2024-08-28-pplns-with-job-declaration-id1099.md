@@ -315,3 +315,12 @@ $$
 
 -------------------------
 
+Fi3 | 2024-09-10 10:29:38 UTC | #33
+
+I slightly changed the share definition https://github.com/demand-open-source/share-accounting-ext/blob/master/extension.md#share
+
+1. Remove merkle_path from the share, the field is redundant cause we can derive it from the transactions in the job, later in the verification procedure.
+2. Add share_index: the index of the share in the slice. This solve the issue raised above by @marathon-gary (there is no way for a miner the check if the share sent by the pool are the ones required)
+
+-------------------------
+
