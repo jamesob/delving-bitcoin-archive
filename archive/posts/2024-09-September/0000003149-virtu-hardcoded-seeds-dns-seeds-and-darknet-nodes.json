@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 42,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 232.8,
+  "incoming_link_count": 69,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 383.6,
   "yours": false,
   "topic_id": 1123,
   "topic_slug": "hardcoded-seeds-dns-seeds-and-darknet-nodes",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -58,10 +58,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
