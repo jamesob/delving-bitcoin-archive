@@ -48,3 +48,101 @@ Interesting use of NULL records. IIUC TXT records could also be used although la
 
 -------------------------
 
+virtu | 2024-09-11 07:43:47 UTC | #4
+
+As far as I know `getaddrinfo` will only return A and AAAA records.
+
+I understand we don't want to add some dependency library for this. But since we only need to send a particular query I don't think that's necessary. From what I learned writing the seeder, DNS is refreshingly straightforward. Here's some C++ to send and receive a NULL query to demonstrate.
+
+```C++
+#include <arpa/inet.h>
+#include <cstring>
+#include <iostream>
+#include <netinet/in.h>
+#include <sstream>
+#include <string>
+#include <sys/socket.h>
+#include <unistd.h>
+#include <vector>
+
+struct DNSHeader {
+  uint16_t id;
+  uint16_t flags;
+  uint16_t q_count;
+  uint16_t ans_count;
+  uint16_t auth_count;
+  uint16_t add_count;
+};
+
+struct DNSQuestion {
+  std::vector<unsigned char> qname;
+  uint16_t qtype;
+  uint16_t qclass;
+
+  DNSQuestion(const std::string &domain, uint16_t type, uint16_t cls)
+      : qtype(type), qclass(cls) {
+    // Convert domain to DNS format: prefix parts with their length and
+    // end with null byte (e.g. dnsseed.21.ninja -> 7dnsseed2215ninja0)
+    std::stringstream ss(domain);
+    std::string segment;
+    while (getline(ss, segment, '.')) {
+      qname.push_back(static_cast<uint8_t>(segment.size()));
+      qname.insert(qname.end(), segment.begin(), segment.end());
+    }
+    qname.push_back(0);
+  }
+
+  std::vector<unsigned char> serialize() const {
+    std::vector<unsigned char> serialized;
+    serialized.insert(serialized.end(), qname.begin(), qname.end());
+    serialized.insert(
+        serialized.end(), reinterpret_cast<const unsigned char *>(&qtype),
+        reinterpret_cast<const unsigned char *>(&qtype) + sizeof(qtype));
+    serialized.insert(
+        serialized.end(), reinterpret_cast<const unsigned char *>(&qclass),
+        reinterpret_cast<const unsigned char *>(&qclass) + sizeof(qclass));
+    return serialized;
+  }
+};
+
+int main() {
+  const std::string domain = "dnsseed.21.ninja";
+  const std::string nameserver = "89.116.30.184";
+
+  // Prepare DNS query
+  std::vector<unsigned char> query;
+  DNSHeader header = {static_cast<uint16_t>(getpid() % 65536), htons(0x0100), htons(1), 0, 0, 0}; // 0x0100 for recursion desired
+  query.insert(query.end(), reinterpret_cast<unsigned char *>(&header), reinterpret_cast<unsigned char *>(&header) + sizeof(DNSHeader));
+  DNSQuestion question = {domain, htons(10), htons(1)}; // 10 for NULL record, 1 for IN class
+  auto serializedQuestion = question.serialize();
+  query.insert(query.end(), serializedQuestion.begin(), serializedQuestion.end());
+
+  int sock = socket(AF_INET, SOCK_DGRAM, IPPROTO_UDP);
+  struct sockaddr_in dest = { .sin_family = AF_INET, .sin_port = htons(53), .sin_addr = {.s_addr = inet_addr(nameserver.c_str())}};
+  ssize_t bytes_sent = sendto(sock, query.data(), query.size(), 0, (struct sockaddr *)&dest, sizeof(dest));
+  printf("Sent query (size=%ld, header id=%d)\n", bytes_sent, reinterpret_cast<const DNSHeader *>(query.data())->id);
+
+  std::vector<unsigned char> response(512);
+  socklen_t addr_len = sizeof(dest);
+  ssize_t bytes_received = recvfrom(sock, response.data(), response.size(), 0, (struct sockaddr *)&dest, &addr_len);
+  printf("Received reply (size=%ld, header id=%d)\n", bytes_received, reinterpret_cast<const DNSHeader *>(response.data())->id);
+
+  close(sock);
+  return 0;
+}
+```
+
+-------------------------
+
+virtu | 2024-09-11 08:02:10 UTC | #5
+
+[quote="1440000bytes, post:3, topic:1123"]
+Interesting use of NULL records. IIUC TXT records could also be used although laanwj recently shared issues related with such DNS records: [chainparams: Add achow101 DNS seeder by achow101 · Pull Request #30007 · bitcoin/bitcoin · GitHub ](https://github.com/bitcoin/bitcoin/pull/30007#issuecomment-2094289500)
+[/quote]
+
+Concerning TXT records, I actually tried them first because I thought there might be an advantage to having "human-readable" data in the record. I used a base85 encoding to represent the 256-bit keys/hashes of Onion/Tor address. But using human-readable letters doesn't make the data human interpretable, so I went with NULL records which are more efficient because they allow for binary data.
+
+Good point about the lack of support for caching in the comment though. I'll look into to. But given the 60-second TTL used by most DNS seeds, I highly doubt  more than a handful of bootstrapping nodes ever used cached DNS data.
+
+-------------------------
+
