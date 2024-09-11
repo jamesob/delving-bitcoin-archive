@@ -146,3 +146,15 @@ Good point about the lack of support for caching in the comment though. I'll loo
 
 -------------------------
 
+sipa | 2024-09-11 18:05:17 UTC | #6
+
+All else being equal, we'd certainly prefer not needing a dependency or ad-hoc DNS implementation to do DNS seed queries, but that on itself isn't the main point here IMHO.
+
+The reasons for wanting DNS-based seeding in the first place over more obvious alternatives (e.g., make a P2P connection to the seeder and send them a `GETADDR` request...) is the worldwide caching infrastructure and the ubiquitous access through ~every operating system for it. The caching makes it cheap to operate, and adds some notion of privacy: when you're using your ISP's recursive resolver, the DNS seed operator doesn't see exactly what IPs are running Bitcoin nodes there, or exactly how many are present.
+
+Not using the OS's resolver and configuration means losing some of these advantages. A dependency or ad-hoc DNS resolver implementation means complexity to make it work on all supported platforms. Making such an approach find the system's configured DNS server adds to that, or alternatively when sending the query directly to the seed, loses the caching/privacy benefits. So does switching to non-A/AAA records unless they're reliably cached too.
+
+In my view, if we're going to be losing these advantages anyway, it's simpler to switch to P2P-style seeding (already used when running on Tor, FWIW).
+
+-------------------------
+
