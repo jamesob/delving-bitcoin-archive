@@ -384,3 +384,131 @@ I'll post my results from the simplified simulations once I've validated them us
 
 -------------------------
 
+remyers | 2024-09-11 15:14:28 UTC | #13
+
+I have some results from testing [PR 30080](https://github.com/bitcoin/bitcoin/pull/30080) with a simulation of funding liquidity ads and moved the PR out of draft. I'd love to get some feedback on it.
+
+## Results
+
+The top line result is that adding excess to the funding output (instead of to fees) in changeless transactions with the new `add_excess_to_recipient_position` parameter produces extra transaction fees of about 14% compared to 26% over the baseline case without any changes to coin selection. Lower is better.
+
+I compare the effect of this PR on transaction fees in my simulation against the baseline cost of a one input, one output transaction. If all 24809 simulated funding transactions were funded with a single input and output then that would score 0% extra fees.
+
+Using the `max_excess` parameter does not significantly reduce the extra fees result in this simulation, but does increase the amount of changeless transactions from 86% to 92% and created more UTXOs in the target buckets. More changeless txs means more confirmed UTXOs in our mempool available to create new funding transactions. Fewer UTXOs but a (slightly) higher average bucket capacity increases the chance of creating changeless transactions.
+
+## Simulation
+
+I simulate a series of funding requests from a provided probability distribution (see below) and a series of historic fee rates for the period April 2023 to April 2024. Feerate data is from [txstats.com](https://txstats.com/d/000000011/fee-estimation?orgId=1). This time range had two distinct periods with high fee rates.
+
+The overall results after 24809 simulated funding transactions:
+
+|  simulation  | utxo set size | avg bucket capacity | extra fees | changless txs |
+| ----------------| ----------------- | ---------------------------|---------------|------------------- |
+|  Disable add excess (current bitcoind behavior) | 15294 | 73% | 126% | 86% |
+| Add excess (max excess = cost of adding a change output) | 14763 | 72% | 114% | 87% |
+| Add excess (max excess = 10000 sats) | 13884 | 73% | 114% | 92% | 
+
+A graph that compares the three different simulations for extra fees paid:
+![extra_fees|690x235](upload://geHGh5ewik7uLje1Le4WDxF6UqQ.png)
+
+and percent of changeless transactions created:
+![percent|690x235](upload://zh6wi5I4f09fta9u2hZrtLguTeN.png)
+
+## Simulation Details
+
+The simulation tracks buckets of UTXOs at different possible fee rates and funding amounts. For example, 66% of the 1000 UTXOs in the 10400 sats/kvbyte bucket will be utxos of 10000 sats+the fee to create a 1 input, 1 output transaction at 10400 sats/kvbyte. 
+
+When the capacity of any of these buckets drops below 70%, the current fee rate is less than 20000 sats/kvbyte and there are UTXOs greater than the largest bucket, it will use the largest spendable UTXO and split up the change output to refill the buckets. 
+
+The simulation adds 255 utxos of 0.05 BTC at the start and again every 10,000 blocks to refill the buckets.
+
+I estimated the fee rate probability distribution from the time period of my simulation and increase the count for buckets further from the refill fee rate. The funding bucket probabilities were used to create the simulated funding requests in my scenario.
+
+The funding buckets and fee rate probability distributions I used for these simulations are: 
+
+```json
+{
+    "buckets": [
+        {
+            "start_satoshis": 10000,
+            "target_utxo_percent": 0.66
+        },
+        {
+            "start_satoshis": 50000,
+            "target_utxo_percent": 0.22
+        },
+        {
+            "start_satoshis": 200000,
+            "target_utxo_percent": 0.10
+        },
+        {
+            "start_satoshis": 1000000,
+            "target_utxo_percent": 0.02
+        }
+    ],
+    "bucket_refill_feerate": 20000,
+    "feerates_satoshis_per_kvbyte": [
+    {
+      "feerate": 10400,
+      "target_count": 1000
+    },
+    {
+      "feerate": 14400,
+      "target_count": 1000
+    },
+    {
+      "feerate": 19900,
+      "target_count": 1000
+    },
+    {
+      "feerate": 27400,
+      "target_count": 1000
+    },
+    {
+      "feerate": 37700,
+      "target_count": 1000
+    },
+    {
+      "feerate": 51800,
+      "target_count": 1000
+    },
+    {
+      "feerate": 71400,
+      "target_count": 1000
+    },
+    {
+      "feerate": 98200,
+      "target_count": 2000
+    },
+    {
+      "feerate": 135000,
+      "target_count": 2000
+    },
+    {
+      "feerate": 186000,
+      "target_count": 3000
+    },
+    {
+      "feerate": 256000,
+      "target_count": 4000
+    },
+    {
+      "feerate": 354000,
+      "target_count": 5000
+    },
+    {
+      "feerate": 487000,
+      "target_count": 6000
+    },
+    {
+      "feerate": 671000,
+      "target_count": 6000
+    }
+  ]
+
+}
+```
+Simulation code and results can be found [here](https://github.com/remyers/coin-selection-simulation/tree/targets) .
+
+-------------------------
+
