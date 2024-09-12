@@ -1,10 +1,11 @@
 # Hardcoded seeds, DNS seeds and Darknet nodes
 
-virtu | 2024-09-10 08:42:24 UTC | #1
+virtu | 2024-09-12 09:53:46 UTC | #1
 
 Since darknet-only nodes cannot use DNS seeds[^1] to learn about addresses of Bitcoin nodes to connect to, I wanted to get a feel on how such nodes fare on hardcoded-seed data. To this end, I created some statistics on hardcoded seed nodes[^2] to investigate how fast the number of reachable seeds decreases over time.
 
-![hardcoded_seeds|690x343, 100%](upload://dBVnqgb1Pp2mnUNtdZx7haPAyWt.png)
+![hardcoded_seeds|690x343](upload://2gGLdxo1P03Eweufksjb1VnObcx.jpeg)
+
 
 Each chart shows the number of reachable hardcoded seeds over time for a particular network type (I excluded Cjdns because I've only been collecting this data for a couple of weeks) and includes data for the last four Bitcoin Core releases (red lines correspond to release dates).
 
@@ -155,6 +156,18 @@ The reasons for wanting DNS-based seeding in the first place over more obvious a
 Not using the OS's resolver and configuration means losing some of these advantages. A dependency or ad-hoc DNS resolver implementation means complexity to make it work on all supported platforms. Making such an approach find the system's configured DNS server adds to that, or alternatively when sending the query directly to the seed, loses the caching/privacy benefits. So does switching to non-A/AAA records unless they're reliably cached too.
 
 In my view, if we're going to be losing these advantages anyway, it's simpler to switch to P2P-style seeding (already used when running on Tor, FWIW).
+
+-------------------------
+
+virtu | 2024-09-12 06:03:21 UTC | #7
+
+Thanks for the feedback.
+
+Although not exhaustive, I've looked at various public nameservers (Google, Control D, Quad9, OpenDNS Home, Cloudflare, AdGuard, CleanBrowsing, Alternate DNS), and they all seem to cache TXT and NULL records if the authoritative server's answer matches certain criteria.
+
+If the inclusion of a custom DNS lookup is a blocker though, I'll not pursue the TXT/NULL record approach any further.
+
+Something that just came to mind but I haven't fully thought through: One could encode the data inside AAAA records (with a reserved prefix perhaps, to avoid confusing them with actual IPv6 addresses). In this case, the lookup in Bitcoin Core would remain unchanged (ie, `getaddrinfo`); there'd just have to be some extra decoding logic triggered by the reserved prefix.
 
 -------------------------
 

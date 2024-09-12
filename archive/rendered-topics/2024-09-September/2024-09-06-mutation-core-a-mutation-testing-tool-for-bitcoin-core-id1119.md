@@ -63,3 +63,11 @@ For more informations, please see the README in the repository. Feedbacks are we
 
 -------------------------
 
+0xB10C | 2024-09-12 08:51:38 UTC | #2
+
+Cool! 
+
+I was wondering how this compares to the mutation testing done by https://corecheck.dev?
+
+-------------------------
+
