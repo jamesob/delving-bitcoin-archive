@@ -171,3 +171,27 @@ Something that just came to mind but I haven't fully thought through: One could 
 
 -------------------------
 
+1440000bytes | 2024-09-12 18:41:16 UTC | #8
+
+[quote="virtu, post:7, topic:1123"]
+Something that just came to mind but I haven’t fully thought through: One could encode the data inside AAAA records (with a reserved prefix perhaps, to avoid confusing them with actual IPv6 addresses). In this case, the lookup in Bitcoin Core would remain unchanged (ie, `getaddrinfo`); there’d just have to be some extra decoding logic triggered by the reserved prefix.
+[/quote]
+
+This is interesting and I have never thought about it before.
+
+Onion v3 and i2p addresses are 256 bits, while IPv6 addresses are 128 bits, so I'm not sure if encoding would help. However, it could be useful for sharing IP addresses with port numbers, for nodes using non-default ports.
+
+Encoding IPv4 address and port number in IPv6 address: https://gitlab.com/-/snippets/3746764
+
+-------------------------
+
+virtu | 2024-09-12 19:40:15 UTC | #9
+
+[quote="1440000bytes, post:8, topic:1123"]
+Onion v3 and i2p addresses are 256 bits, while IPv6 addresses are 128 bits, so I’m not sure if encoding would help. However, it could be useful for sharing IP addresses with port numbers, for nodes using non-default ports.
+[/quote]
+
+Well, once you start misappropriating AAAA records there's no reason to only do it lightly. With successive records, one could encode arbitrary data.
+
+-------------------------
+

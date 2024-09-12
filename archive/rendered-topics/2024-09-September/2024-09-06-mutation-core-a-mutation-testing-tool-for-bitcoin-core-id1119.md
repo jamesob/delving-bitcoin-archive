@@ -71,3 +71,9 @@ I was wondering how this compares to the mutation testing done by https://corech
 
 -------------------------
 
+bruno | 2024-09-12 19:06:30 UTC | #3
+
+Tbh, I'm not sure how corecheck works. I found https://github.com/corecheck/mutation-worker and https://github.com/corecheck/chernobyl/ but they'are archived and haven't been updated.
+
+-------------------------
+
