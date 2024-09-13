@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.4,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 1128,
   "topic_slug": "fork-withholding-attack",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Proof of Partial Work (PoPW) refers to the concept of shares contributed by miners in a mining pool. In the context of mining pools, shares are submitted by miners to demonstrate the work they've done, even if that work hasn't yet resulted in finding a block. These shares are essentially proof of partial work, as they show that the miner has contributed effort",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
