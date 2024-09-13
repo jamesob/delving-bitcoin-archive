@@ -324,3 +324,29 @@ I slightly changed the share definition https://github.com/demand-open-source/sh
 
 -------------------------
 
+marathon-gary | 2024-09-13 14:04:28 UTC | #34
+
+Is there a minimum threshold for Merkle inclusion that a miner would want to challenge the pool for? mathematically or statistically speaking?
+
+-------------------------
+
+marathon-gary | 2024-09-13 14:23:55 UTC | #35
+
+Is the delta for determining a new slice dynamic or static? I suppose that's left up to the pool or implementer of the payout schema, but am curious about that.
+
+@plebhash I think I was wrong in our discussion about this.
+
+-------------------------
+
+Fi3 | 2024-09-13 14:37:49 UTC | #36
+
+The pool can decide it, there no way to communicate it in the protocol, so is something static that pool and miners have to agree before.
+
+-------------------------
+
+Fi3 | 2024-09-13 14:38:31 UTC | #37
+
+not sure, I guess that depends on the number of miners that use the pool
+
+-------------------------
+

@@ -14,3 +14,19 @@ Thanks in advance!
 
 -------------------------
 
+mcelrath | 2024-09-13 13:57:18 UTC | #2
+
+Very welcome to have you working on this! What is a "Proof of Partial Work"? I can't find reference to it anywhere except this post.
+
+[I jotted down some thoughts on this here,](https://github.com/braidpool/braidpool/discussions/70) but I don't see any really great solutions. I'd welcome some new ideas.
+
+There is also a new [bitcoin mining mailing list](https://groups.google.com/g/bitcoinminingdev?pli=1) that you may be interested in joining.
+
+-------------------------
+
+Jassu7082 | 2024-09-13 14:58:08 UTC | #3
+
+Proof of Partial Work (PoPW) refers to the concept of shares contributed by miners in a mining pool. In the context of mining pools, shares are submitted by miners to demonstrate the work they've done, even if that work hasn't yet resulted in finding a block. These shares are essentially proof of partial work, as they show that the miner has contributed effort
+
+-------------------------
+
