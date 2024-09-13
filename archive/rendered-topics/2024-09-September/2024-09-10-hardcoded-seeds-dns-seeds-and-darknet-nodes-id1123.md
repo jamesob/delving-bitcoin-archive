@@ -195,3 +195,9 @@ Well, once you start misappropriating AAAA records there's no reason to only do 
 
 -------------------------
 
+sipa | 2024-09-12 21:47:52 UTC | #10
+
+You'd need some encoding that lets you reconstruct the order, because recursive resolvers may change the order of entries in a response.
+
+-------------------------
+
