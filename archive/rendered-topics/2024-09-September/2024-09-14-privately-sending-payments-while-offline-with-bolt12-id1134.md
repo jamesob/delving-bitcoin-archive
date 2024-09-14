@@ -46,3 +46,16 @@ The main flaw I see here is that when the buyer's node receives the invoice, the
 
 -------------------------
 
+ZmnSCPxj | 2024-09-14 11:30:29 UTC | #2
+
+I have a long-ago tweet with a similar idea, i.e. the payer sends encrypted data to the payee, plus an onion-message path to its LSP or its high-uptime node.
+
+Note that an LSP (instead of a high-uptime remote-controlled node) can be used here if the mobile phone of the payer is the client of that LSP.  We only need to send the necessary messages (`update_add_htlc` et al) over onion-message instead of normal BOLT8 tunnel.  Thus, I propose:
+
+1. Have some standard by which a remote control can talk to a high-uptime home node via BOLT8.
+2. Have a separate other standard by which a high-uptime payee can create a "BOLT8 tunnel" over onion messages, so that the payee can assist the payer in contacting either its LSP or its high-uptime home node.  The LSP or the high-uptime home node then translates the onion messages to BOLT8 messages and treats them as another BOLT8 tunnel.
+
+This expands the usability of the scheme to allow for both remote-controlled home nodes and mobile phone-with-LSP nodes to be the payer here.
+
+-------------------------
+
