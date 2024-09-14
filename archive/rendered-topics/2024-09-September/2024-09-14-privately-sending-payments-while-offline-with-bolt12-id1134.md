@@ -59,3 +59,9 @@ This expands the usability of the scheme to allow for both remote-controlled hom
 
 -------------------------
 
+andyschroder | 2024-09-14 15:48:20 UTC | #3
+
+You are talking about a custodial or non-custodial LSP?
+
+-------------------------
+
