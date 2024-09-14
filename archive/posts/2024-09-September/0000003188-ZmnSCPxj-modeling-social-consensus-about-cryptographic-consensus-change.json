@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 23,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 110.6,
+  "incoming_link_count": 28,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 156.0,
   "yours": false,
   "topic_id": 1136,
   "topic_slug": "modeling-social-consensus-about-cryptographic-consensus-change",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "OR: Bitcoin Has Ossified, Now Go Use Decker-Wattenhofer\n\nEvery 4 years, Bitcoin has an event called the \"halvening\".  This causes the transient supply to be halved.\n\nSince the price of a good is a function of the transient demand over the transient supply, and there is a continuous transient demand due to HODLers habit of DCAing into Bitcoin, the Bitcoin halvening causes the price to increase dramatically.\n\nThe increase in price catches the attention of larger groups of people, who have not been exposed to the ideas of Bitcoin.  Some part of these new people then become HODLers as well, and start buying Bitcoin.  Some part of these new HODLers continue on to run fullnodes and have great economic power in consensus of the coin --- specifically, the ability to sell off coins in an undesired chainsplit whose rules they dislike, crashing the value of the coins in that chainsplit and disincentivizing miners from mining that chainsplit, thus removing security and usability of coins in that chainsplit.\n\nNow, every change in the blockchain consensus rules must, by necessity, require EVERYONE to agree to it, that is what consensus means.  A sufficiently large quorum (measured by economic power, i.e. ability to dump coins of undesired rulesets) can forcibly evict a minority that desires a different ruleset, and declare a slightly-smaller consensus, but due to economic disparity, their preferred consensus rules dominate and the evicted minority either becomes even less powerful economically, or capitulates and converts their coin to the greater consensus (or else suffer by having to always exchange for coins of the greater consensus in order to transact with more people, thus always paying for exchange spreads).\n\nThe consensus effect, and the halvening period, combine to the following second-order effect:\n\n* After every halvening, a new group of users joins the consensus.\n* The new group of users must be convinced of the value of future consensus changes, or else they would need to be evicted (right after joining!).\n* We do not want to evict the new users (as that inhibits hyperbitcoinization).\n\nIf it took you more than one halvening period to convince ***existing*** users, then the new users after a halvening will also need to be convinced, and you took more than a halvening period to convince the ***previous*** users, it seems likely you need to convince the ***new*** users a similar time period (yes, you might have learned lessons from explaining to the previous existing users --- but the new users are ***new*** and you may need to learn ***new*** lessons on explaining and justifying consensus changes this time, so you should allocate a similar amount of time as convincing the previous users --- you *are* older and wiser now, but you are *older* and less energetic and more likely to just say \"eh, screw it\").\n\nThus, I postulate ZmnSCPxj's Law Of Ossification:\n\n> If a consensus change takes more than one halvening period to deploy, it will not happen.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
