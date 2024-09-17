@@ -65,3 +65,13 @@ You are talking about a custodial or non-custodial LSP?
 
 -------------------------
 
+t-bast | 2024-09-17 08:13:05 UTC | #4
+
+[quote="ZmnSCPxj, post:2, topic:1134"]
+Have some standard by which a remote control can talk to a high-uptime home node via BOLT8.
+[/quote]
+
+That was exactly the goal of https://github.com/lightning/blips/pull/28, which can provide good security by pairing your remote node with a hardware wallet (e.g. Ledger or Coldcard). I still thinks it would be very useful to standardize the control messages in this bLIP.
+
+-------------------------
+

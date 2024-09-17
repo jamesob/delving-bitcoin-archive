@@ -510,3 +510,15 @@ There are no implementations underway.  I thought of this literally just last we
 
 -------------------------
 
+ariard | 2024-09-17 07:28:54 UTC | #4
+
+[quote="ZmnSCPxj, post:1, topic:1143"]
+The timeout condition forces all clients to come online before the timeout and exit the mechanism. Exit can be unilateral or with cooperation of the LSP.
+[/quote]
+
+This does not seems to works well if you have mass off-chain force-closure as more or less described in the “Forced Expiration Spam” section of the lightning paper: https://lightning.network/lightning-network-paper.pdf
+
+Timeout condition only gonna provoke a mass on-chain fallout of unilateral exit competing for scarce blockspace, and no guarantee that the LSP is online when timeout matures for batching, at least at the protocol-level.
+
+-------------------------
+

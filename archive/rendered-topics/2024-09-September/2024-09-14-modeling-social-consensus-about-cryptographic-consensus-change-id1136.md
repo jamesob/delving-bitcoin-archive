@@ -26,3 +26,19 @@ Thus, I postulate ZmnSCPxj's Law Of Ossification:
 
 -------------------------
 
+ariard | 2024-09-17 07:23:35 UTC | #2
+
+[quote="ZmnSCPxj, post:1, topic:1136"]
+If a consensus change takes more than one halvening period to deploy, it will not happen
+[/quote]
+
+Let’s recall very quickly Karl Popper theory of falsification. A theory to be considered scientific, it must be able to be logically proven false by an empirical test.
+
+About ZmnSCPxj’s Law of Ossification, let’s try it with an empirical test.
+
+The first time the merkelized abstract syntax tree (MAST) was mentioned was in 2013. The first time this idea when to birth in some consensus rules (BIP341) was in 2021. There has been a span of 8 years.
+
+All things equals, an halvening period should happen every `nSubsidyHalvingInterval`.
+
+-------------------------
+
