@@ -347,3 +347,27 @@ We’d also like to express our heartfelt gratitude to all that made the trip to
 
 -------------------------
 
+ProofOfKeags | 2024-09-17 17:37:58 UTC | #2
+
+One of the things I find odd about the approach to reputation described in the [original doc](https://gist.github.com/carlaKC/02251cd061260bbb149f361c65fc9f2f) is that it is the downstream that is fundamentally responsible for preimage release, and, by extension, the delayed resolution. This occurred to me after reading your description of the Sink Attack.
+
+Consider the sub-route `... <-> B <-> C <-> D <-> ...`found on some route with unknown extensions on both sides. C is trying to make a forwarding decision based on B's endorsement of the HTLC. Let's assume for the sake of simplicity that B believes it has a heuristic that genuinely warrants an endorsement. C is faced with the decision of forwarding given the raw set of data that is on some level comprised of the following raw information:
+1. B is the upstream
+2. D is the downstream
+3. The HTLC size
+4. the full lifecycle history of every htlc originating from B
+5. the full lifecycle history of every htlc traveling to D
+6. the endorsement signal from B
+
+Note that despite the fact that B has made the endorsement, B -- in general -- lacks any ability to *control* the prompt resolution of the HTLC. Any control it has is coincidental such as the case of a circular route. The downstream nodes each have the opportunity to delay resolution. Further, if B is a forwarding hop it is unaware of D's identity entirely and thus cannot use the identity of D in its own judgement as to whether or not to make the endorsement in the first place.
+
+It occurs to me that the primary risk that C is trying to avoid is that D or any node downstream of D holds the HTLC for a long period of time. I am not sure how B is supposed to make even a slightly educated guess about this which impacts its ability to accurately endorse an HTLC. The only thing I can see here is that if we exclude route blinding, then the source knows the whole route and can therefore endorse it based off of all of its payment lifecycle data and that endorsement of the HTLC by the upstream implies that it should be endorsed downstream unless there is a sufficiently good reason not to. In this case if C knows something that B didn't about the route it may choose to drop the endorsement.
+
+Still, while I think reputation is a fine way to try and deal with jamming mitigations, I'm now skeptical that endorsement can be successfully correlated with any sort of probability of prompt resolution. B would have to be able to build up an accurate model for when it believes an HTLC will resolve quickly, and this mirrors the exact problem C is trying to solve. B and C are effectively equally underequipped to solve this.
+
+I have always imagined endorsement as a statement that approximates the following: "I am personally staking my own reputation on the outcome of this risk I am asking you to take". In order for this to make sense, the endorser must know something that the forwarder does not. However, in *most* cases, the endorser knows *less*.
+
+Please tell me I'm wrong. I would love to be.
+
+-------------------------
+
