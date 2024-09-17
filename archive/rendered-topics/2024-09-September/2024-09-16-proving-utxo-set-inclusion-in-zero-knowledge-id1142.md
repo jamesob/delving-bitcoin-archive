@@ -36,3 +36,19 @@ How does this compare with [aut-ct](https://github.com/AdamISZ/aut-ct)?
 
 -------------------------
 
+ajtowns | 2024-09-17 02:00:23 UTC | #3
+
+I think in comparison to [taproot ring signatures](https://github.com/jonasnick/taproot-ringsig) this doesn't require that the verifier have the full utxo set, just the corresponding "utreexo" root, which seems like a win.
+
+I don't think it's quite accurate to call this "utreexo":
+
+> The tool works with the UTXO set dump from Bitcoin Core. It uses this dump to create a [Utreexo](https://dci.mit.edu/utreexo) representation of the UTXO set
+
+The normal utreexo construction depends on the entire history of the utxo set, and can't just be reconstructed from the current utxo set (otherwise you'd often need to rearrange utxos that weren't touched by a block when figuring out the new utreexo structure after a block comes in). So I think this is just a regular merkle tree of the utxo set, not really a "utreexo" thing per se.
+
+I don't see how this really works for lightning channel announcements -- can't you just give a proof for a utxo as at block X, then spend it in block X+1? ie, at best, isn't this just proof-of-use-of-blockspace?
+
+Also, can't you use the same utxo multiple times with different blinding factors to advertise multiple lightning channels? If you make the "verifier's public key" (`P'` in `P' = P+bG`) be the channel's advertised public key (`musig(A,B)`?) that might be good enough to prevent selling utxos.
+
+-------------------------
+
