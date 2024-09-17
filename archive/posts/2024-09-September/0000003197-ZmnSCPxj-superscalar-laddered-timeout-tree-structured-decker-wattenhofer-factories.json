@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -64,9 +64,14 @@
       "id": "clap",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
