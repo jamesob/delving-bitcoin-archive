@@ -466,3 +466,47 @@ To mitigate these:
 
 -------------------------
 
+cryptoquick | 2024-09-16 21:37:03 UTC | #2
+
+Apologies if you've already answered these, but the information is a bit dense, and I have a few questions to help me put this work into context... Say, practical takeaways.
+
+Could one use case for this be to help people in developing nations receive small amounts of bitcoin instantly and with low transaction fees? I suppose the question is, can this work well for small payments as well as for large ones?
+
+Additionally, how critical is liveness for trustlessness? Could this work on a mobile app for example?
+
+What are the worst case scenarios, especially if the LSP is shut down by the authorities?
+
+How much do you think this can scale with 1MB blocks? Does this essentially solve the billions of Lightning users metric without the need for changes to bitcoin?
+
+Finally, are there any implementations underway? Could this be compatible with LND or CLN, say as a plugin or layer, or would an entire new node be needed, such as one built with LDK?
+
+-------------------------
+
+ZmnSCPxj | 2024-09-16 23:54:39 UTC | #3
+
+> Could one use case for this be to help people in developing nations receive small amounts of bitcoin instantly and with low transaction fees? I suppose the question is, can this work well for small payments as well as for large ones?
+
+Hopefully, yes. The idea is that the cost of management of a smaller number of UTXOs is amortized by the LSP for a larger number of clients.
+
+>Additionally, how critical is liveness for trustlessness? Could this work on a mobile app for example?
+
+For *trustlessness*, you need to come online at least once in the lifetime of the factory. The proposal is that a factory lasts for about a month, at the end of which you must have made a decision whether you exit or move to a new factory for the next month.  As long as you come online and do a *unilateral* exit within the lifetime of the factory, you are safe.  However, if you do *not* do a *unilateral* exit, you *must* come online during the "dying period" of the factory (a grace period offered by the LSP, and enforced onchain so that the LSP cannot rug you during the active period+dying period, but *CAN* rug you after it) at which point you ***MUST*** decide to unilateral exit, assisted exit (swap offchain to onchain with LSP cooperation; this can be indistinguishable from paying out using your entire funds if you use e.g. Boltz offchain-to-onchain), or move to a new factory (with LSP cooperation, possibly to a new LSP if your current LSP allows it or if we design the move to be indistinguishable from a payment using all your funds).
+
+The mobile app is ***the*** target use-case here.  It turns out that mobile apps in iOS and Android have the ability to be notified, which gives them a small amount of CPU and network connectivity during which they could potentially perform a few important crypto operations, possibly including signatures.  We already know that Phoenix wallets can do enough operations while awakened using the notification system to receive payments while the phone is "asleep" in your back pocket, and that it is reliable enough in practice that it reduces pressure for the need for asynchronous receive.
+
+To an extent, if you already use Lightning on a sometimes-online wallet like Electrum, Phoenix, etc. you already can handle the once-a-month-online in practice.
+
+>What are the worst case scenarios, especially if the LSP is shut down by the authorities?
+
+In such case all clients have to unilaterally exit, with their funds forced onchain (possibly into a UTXO that is below standardness dust limit meaning it will outright go to fees, or below practical onchain usage if onchain fees are high), and timelocks coming into play (which are potentially larger than timelocks already on normal Poon-Dryja Lightning channels).  This requires publishing O(N) transactions, where N is the number of fellow clients in the factory; the constant factors depend on arity of the tree (arity of 2 is 2x more, arity of 4 is 1.3333x more, etc; arity means the number of children at each node of the tree).
+
+>How much do you think this can scale with 1MB blocks? Does this essentially solve the billions of Lightning users metric without the need for changes to bitcoin?
+
+My own ***hopeful*** estimation is that this will 10x our effective channel-opening capacity, so is equivalent to approximately increasing block size to 10Mb (40 Mweight) in effect.  Not sure if we can reach *billions* yet but maybe the dozen millions is a bit more reachable with this, without sacrificing trustlessness just yet (beyond what Lightning already imposes on users, i.e. you have to come online periodically to ensure your counterparty has not performed a theft attempt).
+
+>Finally, are there any implementations underway? Could this be compatible with LND or CLN, say as a plugin or layer, or would an entire new node be needed, such as one built with LDK?
+
+There are no implementations underway.  I thought of this literally just last week, while my family was forcing me to ride YET ANOTHER roller coaster.  FML.  On the client side it would probably be an entire new node software, possibly taking some LDK code for managing of the Poon-Dryja channels at the leaves of the tree, but with novel code to handle the tree itself.  On the LSP side you would need to integrate into an existing node software; I think CLN has enough hooks that you could write a plugin so that forwarding can be implemented to and from this scheme to the "actual" LN node, by hooking into `htlc_accepted` for public-to-client forwardings, and just using `sendpay` for client-to-public forwardings; the LSP-side plugin can then use the same code as the client (including LDK dependency) to implement the factory construction as well, plus some automation to perform the periodic movement for the laddering scheme.  I expect LND would have similar enough hooks to implement this as well.
+
+-------------------------
+

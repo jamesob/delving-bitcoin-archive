@@ -24,3 +24,15 @@ Any feedback and suggestions for the path forward are welcome!
 
 -------------------------
 
+1440000bytes | 2024-09-16 22:06:50 UTC | #2
+
+[quote="halseth, post:1, topic:1142"]
+**Proving time and proof size**
+
+The tool is very much a rough draft at this point. On my laptop (Apple M1 Max, 32GB), proving time is around 6 min, and the result is a proof of UTXO ownership of 1.4 MB. Verification is much quicker at around 300 ms. Both timings assuming the UTXO set is already loaded into memory as a Utreexo data structure.
+[/quote]
+
+How does this compare with [aut-ct](https://github.com/AdamISZ/aut-ct)?
+
+-------------------------
+
