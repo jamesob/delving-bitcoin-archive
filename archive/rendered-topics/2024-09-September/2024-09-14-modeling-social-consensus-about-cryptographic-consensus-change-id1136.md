@@ -42,9 +42,9 @@ All things equals, an halvening period should happen every `nSubsidyHalvingInter
 
 -------------------------
 
-1440000bytes | 2024-09-17 22:51:16 UTC | #3
+1440000bytes | 2024-09-18 12:52:49 UTC | #3
 
-I have different theory for ossification and its not based on halving: https://www.cia.gov/static/5c875f3ec660e092cf893f60b4a288df/SimpleSabotage.pdf
+I have a different theory for ossification and its not based on halving: https://www.cia.gov/static/5c875f3ec660e092cf893f60b4a288df/SimpleSabotage.pdf
 
 This is not a troll post either. Some really powerful people who control the real world are involved in bitcoin and do influence things. This includes investors trying to scale bitcoin with custodians as well.
 

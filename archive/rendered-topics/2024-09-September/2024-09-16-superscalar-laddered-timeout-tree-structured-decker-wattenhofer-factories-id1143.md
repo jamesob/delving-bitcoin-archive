@@ -530,3 +530,41 @@ There is no magic bullet, only tradeoffs.
 
 -------------------------
 
+t-bast | 2024-09-18 14:37:42 UTC | #6
+
+Thanks for this detailed post, this is well explained and the diagrams are very clear.
+
+There are two cases that I'd like to understand better:
+
+- how exactly can the LSP add liquidity when its `L` leaf outputs are depleted
+- the state of the factory after a unilateral exit
+
+### Adding liquidity when the `L` leaf outputs are depleted
+
+[quote="ZmnSCPxj, post:1, topic:1143"]
+Of course, if `B` cannot come online, the LSP does have to fall back to alternate methods, such as onchain. This can lead to onchain fees needing to be paid, which the LSP would pass on to `A`.
+[/quote]
+
+I don't see how that works: to add on-chain funds, the LSP needs to modify the root transaction to add more funds to it, right? Which means it has to modify the whole tree to propagate those added funds to some of the leaf outputs, which requires waking up every node in the tree? Or am I misunderstanding how that would work?
+
+Another possibility is that when this happens, the LSP simply doesn't honor the liquidity request, and will only honor it when other participants can come online to transfer from within the factory, or when moving to a new factory (and thus broadcasting a new on-chain root transaction).
+
+### State after a unilateral exit
+
+[quote="ZmnSCPxj, post:1, topic:1143"]
+Thus, in the case that `A` wants to exit, not only are the clients on the same leaf transaction (`B`) are inadvertently exited, but also sibling clients on the next higher level, `C` and `D`.
+[/quote]
+
+Can you tell me whether the following is correct in this scenario:
+
+- B, C and D have been exited, which means they now have a "plain" lightning channels whose funding output is confirmed on-chain: this is fine, they can enroll into a new factory using a splice on that existing channel?
+- E, F, G and H are still in a factory that is one level smaller than the previous one and consists of the subtree with those 4 nodes: the number of available state transitions has been reduced (since we lost one level of the tree), but apart from that nothing has changed for them?
+
+### Synchronization issues with concurrent liquidity requests
+
+It seems to me that there are non-trivial synchronization issues when moving liquidity inside the factory. If A wants liquidity and B isn't online, the LSP may reach out to C and D to use their leaf node. If that happens, we still need B to come online as well to exchange all the signature needed to complete the liquidity allocation, right?
+
+While we're waiting for one of those nodes to come online, we may have other, conflicting liquidity allocation requests happening. I'm not sure how we can resolve them and avoid being in a huge mess where software need to track concurrent, incompatible asynchronous operations? Unless the LSP imposes a strict ordering, which may take a very long time to complete to get all the signatories online in the right order?
+
+-------------------------
+
