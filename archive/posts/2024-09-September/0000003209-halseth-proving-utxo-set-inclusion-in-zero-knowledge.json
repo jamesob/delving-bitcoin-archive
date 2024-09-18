@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 1142,
   "topic_slug": "proving-utxo-set-inclusion-in-zero-knowledge",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "aut-ct is much faster and succint AFAIK (~kB proof instead of ~MB proof, seconds to prove instead of minutes).\n\nThe difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output.\n\nutxozkp is based on a more general proof of computation model, so you can choose to reveal more about the output (e.g. that the output holds at least 1 BTC) (note: not yet implemented).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -522,3 +522,11 @@ Timeout condition only gonna provoke a mass on-chain fallout of unilateral exit 
 
 -------------------------
 
+ZmnSCPxj | 2024-09-17 21:55:37 UTC | #5
+
+If most unilateral exit costs are borne by the LSP, it has an incentive to (1) provide very good service so that clients have no desire to unilateral exit and instead do assisted exit, (2) to come online ASAP to batch at timeout maturity, to reduce the risk of accidental or deliberate unilateral exit by the LSP, and (3) be picky about its clients so that clients do not just unilaterally exit to drain the LSP of funds.
+
+There is no magic bullet, only tradeoffs.
+
+-------------------------
+

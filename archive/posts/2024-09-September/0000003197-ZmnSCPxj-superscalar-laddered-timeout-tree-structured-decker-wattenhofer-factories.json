@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 519,
-  "reads": 50,
-  "readers_count": 49,
-  "score": 2675.0,
+  "incoming_link_count": 523,
+  "reads": 52,
+  "readers_count": 51,
+  "score": 2720.4,
   "yours": false,
   "topic_id": 1143,
   "topic_slug": "superscalar-laddered-timeout-tree-structured-decker-wattenhofer-factories",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 6
     }
   ],
   "moderator": false,
@@ -58,7 +58,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     },
     {
       "id": "clap",
@@ -72,6 +72,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
+  "reaction_users_count": 6,
   "current_user_used_main_reaction": false
 }
