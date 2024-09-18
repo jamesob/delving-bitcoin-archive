@@ -371,3 +371,58 @@ Please tell me I'm wrong. I would love to be.
 
 -------------------------
 
+carla | 2024-09-18 15:39:02 UTC | #3
+
+Adding in A to the above example: `.. --> A --> B --> C -- D --> ...`
+
+It's certainly correct that `C` will always have more
+information than `B` about `D`; as our history with our peers gives us
+information to base our forwarding decisions on. Likewise, `B` will 
+always have more information than `C` about its incoming edge `A`.
+
+I see this as happening in two parts, with each node responsible for the
+direction that they are most informed about:
+1. `B` decides to forward the HTLC as endorsed to `C` because they have
+   local information about `A`, and have decided that it has sufficient
+   incoming reputation to take the risk.
+2. `C` decides to forward the HTLC to `D` only if they have sufficient
+   outgoing reputation for an endorsed payment (dropping it otherwise).
+
+This happens transitively down the route: 
+- Incoming nodes only endorse, tracing all the way back to the sender
+  if outgoing reputation holds.
+- Forwarding nodes only proceed with outgoing endorsed HTLCs, all the 
+  way to the eventual recipient, if outgoing reputation holds.
+
+Of course, none of this applied to unendorsed HTLCs where there's no risk of channels being fully jammed!
+
+> I am not sure how B is supposed to make even a slightly educated 
+  guess about this which impacts its ability to accurately endorse an 
+  HTLC.
+
+You're absolutely correct that B can only provide input about the 
+incoming direction. This is still very valuable information, as it 
+provides C with information about the direction that they otherwise are
+totally in the dark about. 
+
+Without this signal, any node can show up and saturate a channel with 
+failing payments. This is more efficient with the collaboration of a
+downstream peer, but also possible without it by just spraying payments
+to any node in the network. 
+
+The key insight from running through this attack is that we need to
+account for *both* directions to close any gaps that an attacker may
+abuse. Endorsement + reputation does this for the incoming direction,
+and forwarding nodes are individually responsible for doing so in the
+outgoing direction based on reputation.
+
+> I am personally staking my own reputation on the outcome of this 
+  risk I am asking you to take.
+
+I agree with this, perhaps only adding:
+
+I am staking my own reputation on the outcome of this risk I am asking
+you to take, informed by your locally available information.
+
+-------------------------
+
