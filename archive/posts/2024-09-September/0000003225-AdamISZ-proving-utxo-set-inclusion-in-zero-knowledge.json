@@ -1,0 +1,72 @@
+{
+  "id": 3225,
+  "name": "Adam Gibson",
+  "username": "AdamISZ",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/adamisz/{size}/418_2.png",
+  "created_at": "2024-09-18T17:34:41.535Z",
+  "cooked": "<p>Hi <a class=\"mention\" href=\"/u/halseth\">@halseth</a> ;</p>\n<p>First thanks for publishing this, super interesting. I\u2019ll read up on it.</p>\n<p>Second, on:</p>\n<blockquote>\n<p>The difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output.</p>\n</blockquote>\n<p>The structure is more flexible than that; indeed, I\u2019ve just written a <a href=\"https://reyify.com/blog/privacy-preserving-proof-of-taproot-assets\" rel=\"noopener nofollow ugc\">blog post</a> (code impl. and paper are linked in there), concretely illustrating how you can use the same techniques to not only prove statements about individual utxos with certain properties (age, size) but also, statements about aggregates over groups (so that one is \u201cproof that N utxos have total sats value in range x to y\u201d).</p>\n<p>To state the perhaps obvious, the way to do that is just to add other constraints into the bulletproofs that you are using to proof membership in the curve tree.</p>\n<p>Obviously that work is very speculative in its details, but I think the basic principle is pretty clear.</p>",
+  "post_number": 9,
+  "post_type": 1,
+  "updated_at": "2024-09-18T17:34:41.535Z",
+  "reply_count": 0,
+  "reply_to_post_number": 5,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 15.8,
+  "yours": false,
+  "topic_id": 1142,
+  "topic_slug": "proving-utxo-set-inclusion-in-zero-knowledge",
+  "topic_title": "Proving UTXO set inclusion in zero-knowledge",
+  "topic_html_title": "Proving UTXO set inclusion in zero-knowledge",
+  "category_id": 8,
+  "display_username": "Adam Gibson",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "halseth",
+    "name": "Johan T. Halseth",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/halseth/{size}/198_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Hi @halseth ;\n\nFirst thanks for publishing this, super interesting. I'll read up on it.\n\nSecond, on: \n\n> The difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output.\n\nThe structure is more flexible than that; indeed, I've just written a [blog post](https://reyify.com/blog/privacy-preserving-proof-of-taproot-assets) (code impl. and paper are linked in there), concretely illustrating how you can use the same techniques to not only prove statements about individual utxos with certain properties (age, size) but also, statements about aggregates over groups (so that one is \"proof that N utxos have total sats value in range x to y\").\n\nTo state the perhaps obvious, the way to do that is just to add other constraints into the bulletproofs that you are using to proof membership in the curve tree.\n\nObviously that work is very speculative in its details, but I think the basic principle is pretty clear.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 343,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

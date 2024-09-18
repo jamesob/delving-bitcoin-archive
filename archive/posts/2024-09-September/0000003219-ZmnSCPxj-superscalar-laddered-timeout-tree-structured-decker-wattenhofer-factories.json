@@ -1,0 +1,72 @@
+{
+  "id": 3219,
+  "name": "ZmnSCPxj jxPCSnmZ",
+  "username": "ZmnSCPxj",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/z/ee7513/{size}.png",
+  "created_at": "2024-09-18T16:12:54.047Z",
+  "cooked": "<blockquote>\n<p>I don\u2019t see how that works: to add on-chain funds, the LSP needs to modify the root transaction to add more funds to it, right?</p>\n</blockquote>\n<p>No, I mean the LSP takes <em>other</em> LSP-single-sig funds outside of the mechanism and then adds a JIT channel to the client.</p>\n<blockquote>\n<ul>\n<li>B, C and D have been exited, which means they now have a \u201cplain\u201d lightning channels whose funding output is confirmed on-chain: this is fine, they can enroll into a new factory using a splice on that existing channel?</li>\n<li>E, F, G and H are still in a factory that is one level smaller than the previous one and consists of the subtree with those 4 nodes: the number of available state transitions has been reduced (since we lost one level of the tree), but apart from that nothing has changed for them?</li>\n</ul>\n</blockquote>\n<p>Both are correct.</p>\n<blockquote>\n<p>It seems to me that there are non-trivial synchronization issues when moving liquidity inside the factory. If A wants liquidity and B isn\u2019t online, the LSP may reach out to C and D to use their leaf node. If that happens, we still need B to come online as well to exchange all the signature needed to complete the liquidity allocation, right?</p>\n</blockquote>\n<p>Yes, in that case LSP does <strong>not</strong> reach out to <code>C</code> or <code>D</code>, but does an onchain fallback (i.e. open a JIT channel with onchain LSP-single-sig funds).</p>\n<blockquote>\n<p>While we\u2019re waiting for one of those nodes to come online, we may have other, conflicting liquidity allocation requests happening.</p>\n</blockquote>\n<p>A simple heuristic is that if the client leaf partner is offline, the LSP just falls back to opening an onchain JIT channel.  Similarly, if <code>A</code> and <code>B</code> are online but the leaf has depleted the <code>L</code> liquidity, try to wake up <code>C</code> and <code>D</code> and take the <code>L</code> liquidity from their leaf, but if that fails due to offlineness of <code>C</code> or <code>D</code> then just fall back to opening an onchain JIT channel.</p>\n<p>A more sophisticated \u201cwaiting\u201d strategy can probably use research on e.g. optimistic locking implementations of transactional memory.  Basically, every deferred decision to give more liquidity to some client will decide on some set of clients it needs to \u201clock\u201d, and some scheduler can decide the order of client locking using similar implementations to transactional memory.  Once you have locked a client (i.e. checked it is online and reserved its participation in this transfer) you can then check if you can do the liquidity movement using those clients, then once the needed signatures have been provided by the clients you can release the locks on those clients so that other requests can continue.  Most requests will only lock a client and its leaf partner, so this will have high concurrency.</p>",
+  "post_number": 7,
+  "post_type": 1,
+  "updated_at": "2024-09-18T16:17:04.470Z",
+  "reply_count": 1,
+  "reply_to_post_number": 6,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 20.8,
+  "yours": false,
+  "topic_id": 1143,
+  "topic_slug": "superscalar-laddered-timeout-tree-structured-decker-wattenhofer-factories",
+  "topic_title": "SuperScalar: Laddered Timeout-Tree-Structured Decker-Wattenhofer Factories",
+  "topic_html_title": "SuperScalar: Laddered Timeout-Tree-Structured Decker-Wattenhofer Factories",
+  "category_id": 7,
+  "display_username": "ZmnSCPxj jxPCSnmZ",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 2,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "t-bast",
+    "name": "Bastien Teinturier",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png"
+  },
+  "bookmarked": false,
+  "raw": ">I don\u2019t see how that works: to add on-chain funds, the LSP needs to modify the root transaction to add more funds to it, right?\n\nNo, I mean the LSP takes *other* LSP-single-sig funds outside of the mechanism and then adds a JIT channel to the client.\n\n> * B, C and D have been exited, which means they now have a \u201cplain\u201d lightning channels whose funding output is confirmed on-chain: this is fine, they can enroll into a new factory using a splice on that existing channel?\n> * E, F, G and H are still in a factory that is one level smaller than the previous one and consists of the subtree with those 4 nodes: the number of available state transitions has been reduced (since we lost one level of the tree), but apart from that nothing has changed for them?\n\nBoth are correct.\n\n> It seems to me that there are non-trivial synchronization issues when moving liquidity inside the factory. If A wants liquidity and B isn\u2019t online, the LSP may reach out to C and D to use their leaf node. If that happens, we still need B to come online as well to exchange all the signature needed to complete the liquidity allocation, right?\n\nYes, in that case LSP does **not** reach out to `C` or `D`, but does an onchain fallback (i.e. open a JIT channel with onchain LSP-single-sig funds).\n\n> While we\u2019re waiting for one of those nodes to come online, we may have other, conflicting liquidity allocation requests happening.\n\nA simple heuristic is that if the client leaf partner is offline, the LSP just falls back to opening an onchain JIT channel.  Similarly, if `A` and `B` are online but the leaf has depleted the `L` liquidity, try to wake up `C` and `D` and take the `L` liquidity from their leaf, but if that fails due to offlineness of `C` or `D` then just fall back to opening an onchain JIT channel.\n\nA more sophisticated \"waiting\" strategy can probably use research on e.g. optimistic locking implementations of transactional memory.  Basically, every deferred decision to give more liquidity to some client will decide on some set of clients it needs to \"lock\", and some scheduler can decide the order of client locking using similar implementations to transactional memory.  Once you have locked a client (i.e. checked it is online and reserved its participation in this transfer) you can then check if you can do the liquidity movement using those clients, then once the needed signatures have been provided by the clients you can release the locks on those clients so that other requests can continue.  Most requests will only lock a client and its leaf partner, so this will have high concurrency.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 104,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 31.2,
   "yours": false,
   "topic_id": 1147,
   "topic_slug": "hybrid-jamming-mitigation-results-and-updates",
@@ -37,7 +37,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "Adding in A to the above example: `.. --> A --> B --> C -- D --> ...`\n\nIt's certainly correct that `C` will always have more\ninformation than `B` about `D`; as our history with our peers gives us\ninformation to base our forwarding decisions on. Likewise, `B` will \nalways have more information than `C` about its incoming edge `A`.\n\nI see this as happening in two parts, with each node responsible for the\ndirection that they are most informed about:\n1. `B` decides to forward the HTLC as endorsed to `C` because they have\n   local information about `A`, and have decided that it has sufficient\n   incoming reputation to take the risk.\n2. `C` decides to forward the HTLC to `D` only if they have sufficient\n   outgoing reputation for an endorsed payment (dropping it otherwise).\n\nThis happens transitively down the route: \n- Incoming nodes only endorse, tracing all the way back to the sender\n  if outgoing reputation holds.\n- Forwarding nodes only proceed with outgoing endorsed HTLCs, all the \n  way to the eventual recipient, if outgoing reputation holds.\n\nOf course, none of this applied to unendorsed HTLCs where there's no risk of channels being fully jammed!\n\n> I am not sure how B is supposed to make even a slightly educated \n  guess about this which impacts its ability to accurately endorse an \n  HTLC.\n\nYou're absolutely correct that B can only provide input about the \nincoming direction. This is still very valuable information, as it \nprovides C with information about the direction that they otherwise are\ntotally in the dark about. \n\nWithout this signal, any node can show up and saturate a channel with \nfailing payments. This is more efficient with the collaboration of a\ndownstream peer, but also possible without it by just spraying payments\nto any node in the network. \n\nThe key insight from running through this attack is that we need to\naccount for *both* directions to close any gaps that an attacker may\nabuse. Endorsement + reputation does this for the incoming direction,\nand forwarding nodes are individually responsible for doing so in the\noutgoing direction based on reputation.\n\n> I am personally staking my own reputation on the outcome of this \n  risk I am asking you to take.\n\nI agree with this, perhaps only adding:\n\nI am staking my own reputation on the outcome of this risk I am asking\nyou to take, informed by your locally available information.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

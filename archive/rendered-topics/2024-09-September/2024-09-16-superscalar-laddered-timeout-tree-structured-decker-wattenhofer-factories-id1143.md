@@ -568,3 +568,52 @@ While we're waiting for one of those nodes to come online, we may have other, co
 
 -------------------------
 
+ZmnSCPxj | 2024-09-18 16:17:04 UTC | #7
+
+>I don’t see how that works: to add on-chain funds, the LSP needs to modify the root transaction to add more funds to it, right?
+
+No, I mean the LSP takes *other* LSP-single-sig funds outside of the mechanism and then adds a JIT channel to the client.
+
+> * B, C and D have been exited, which means they now have a “plain” lightning channels whose funding output is confirmed on-chain: this is fine, they can enroll into a new factory using a splice on that existing channel?
+> * E, F, G and H are still in a factory that is one level smaller than the previous one and consists of the subtree with those 4 nodes: the number of available state transitions has been reduced (since we lost one level of the tree), but apart from that nothing has changed for them?
+
+Both are correct.
+
+> It seems to me that there are non-trivial synchronization issues when moving liquidity inside the factory. If A wants liquidity and B isn’t online, the LSP may reach out to C and D to use their leaf node. If that happens, we still need B to come online as well to exchange all the signature needed to complete the liquidity allocation, right?
+
+Yes, in that case LSP does **not** reach out to `C` or `D`, but does an onchain fallback (i.e. open a JIT channel with onchain LSP-single-sig funds).
+
+> While we’re waiting for one of those nodes to come online, we may have other, conflicting liquidity allocation requests happening.
+
+A simple heuristic is that if the client leaf partner is offline, the LSP just falls back to opening an onchain JIT channel.  Similarly, if `A` and `B` are online but the leaf has depleted the `L` liquidity, try to wake up `C` and `D` and take the `L` liquidity from their leaf, but if that fails due to offlineness of `C` or `D` then just fall back to opening an onchain JIT channel.
+
+A more sophisticated "waiting" strategy can probably use research on e.g. optimistic locking implementations of transactional memory.  Basically, every deferred decision to give more liquidity to some client will decide on some set of clients it needs to "lock", and some scheduler can decide the order of client locking using similar implementations to transactional memory.  Once you have locked a client (i.e. checked it is online and reserved its participation in this transfer) you can then check if you can do the liquidity movement using those clients, then once the needed signatures have been provided by the clients you can release the locks on those clients so that other requests can continue.  Most requests will only lock a client and its leaf partner, so this will have high concurrency.
+
+-------------------------
+
+t-bast | 2024-09-18 16:29:35 UTC | #8
+
+Thanks that's very clear.
+
+[quote="ZmnSCPxj, post:7, topic:1143"]
+No, I mean the LSP takes *other* LSP-single-sig funds outside of the mechanism and then adds a JIT channel to the client.
+[/quote]
+
+So basically whenever the LSP wants to use on-chain funds that aren't in the factory, they just keep this fully separate from the factory and import them into normal channels.
+
+This is a drawback, because it means the LSP would need to have multiple channels per-user, which defeats the goal of using less utxos for more users. But LSPs could opt to never use normal channels and only work inside factories, with the downside that liquidity requests sometimes cannot be satisfied...
+
+-------------------------
+
+ZmnSCPxj | 2024-09-18 17:22:08 UTC | #9
+
+[quote="t-bast, post:8, topic:1143"]
+This is a drawback, because it means the LSP would need to have multiple channels per-user, which defeats the goal of using less utxos for more users.
+[/quote]
+
+The intent is that the LSP makes a probabilistic bet that most users, most of the time, can have their hardware awakened so the LSP can use offchain funds to provide liquidity. This also means that we probably need to handle at most 2 channels per client: one inside this mechanism, and one onchain (which you JIT-open or JIT-splice to if the other clients cannot be awakened inside this mechanism).  So you might have one UTXO backing multiple clients (the one that backs this mechanism), and for some fraction (< 100%) of those clients, have an additional UTXO for the optional onchain channel (1 + FRACTION x N where the LSP bets that FRACTION < 100%).  This is still better than having 100% x N UTXOs for N users.
+
+The onchain channel itself can be infected with a `CLTV` branch for the LSP so that after the period, the client has to move to a new factory and consolidate both channels into a single channel inside the next timeout-tree-structured mechanism.
+
+-------------------------
+

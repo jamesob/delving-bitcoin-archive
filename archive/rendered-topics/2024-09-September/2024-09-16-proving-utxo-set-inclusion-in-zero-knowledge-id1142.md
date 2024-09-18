@@ -98,3 +98,59 @@ I'm sure there are better ways.
 
 -------------------------
 
+Davidson | 2024-09-18 17:19:19 UTC | #8
+
+Pretty cool to see someone looking at this. I did [start](https://github.com/Davidson-Souza/zktreexo) something similar, but never finished. My goal was to commit the private key by hashing it at the end, so it couldn't be replayed. I also commit to the current accumulator, so you can know exactly up to which height it is valid.
+
+As already pointed out, the `utreexo` accumulator is dynamic and needs to be computed from all blocks. Just as a heads-up, you can use [utreexod](https://github.com/utreexo/utreexod) or [floresta](https://github.com/Davidson-Souza/Floresta) if you want to get the current roots and prove a given utxo. Furthermore, the commitment scheme used in utreexo is [a bit different](https://github.com/vinteumorg/Floresta/blob/5fa8c546ef4aa25eda8a929c443a189d49e04530/crates/floresta-chain/src/pruned_utreexo/udata.rs#L50-L58) (I keep pondering if I should add this to `rustreexo` or keep it as "we only have the accumulator algorithms").
+
+-------------------------
+
+AdamISZ | 2024-09-18 17:34:41 UTC | #9
+
+Hi @halseth ;
+
+First thanks for publishing this, super interesting. I'll read up on it.
+
+Second, on: 
+
+> The difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output.
+
+The structure is more flexible than that; indeed, I've just written a [blog post](https://reyify.com/blog/privacy-preserving-proof-of-taproot-assets) (code impl. and paper are linked in there), concretely illustrating how you can use the same techniques to not only prove statements about individual utxos with certain properties (age, size) but also, statements about aggregates over groups (so that one is "proof that N utxos have total sats value in range x to y").
+
+To state the perhaps obvious, the way to do that is just to add other constraints into the bulletproofs that you are using to proof membership in the curve tree.
+
+Obviously that work is very speculative in its details, but I think the basic principle is pretty clear.
+
+-------------------------
+
+AdamISZ | 2024-09-18 19:18:58 UTC | #10
+
+[quote="ariard, post:4, topic:1142"]
+So no guarantee that the utxo set inclusion proof cannot be double-spend, and as such a `channel_announcement` being unboundedly replay to dos lightning nodes.
+[/quote]
+
+[quote="ajtowns, post:3, topic:1142"]
+Also, can’t you use the same utxo multiple times with different blinding factors to advertise multiple lightning channels? If you make the “verifier’s public key” (`P'` in `P' = P+bG`) be the channel’s advertised public key (`musig(A,B)`?) that might be good enough to prevent selling utxos.
+[/quote]
+
+This is already addressed in the aut-ct construction with key images; the application stores a flat file database of those key images. The same  could also be done here afaik. You attach a trivial sigma-protocol type proof of DLEQ between a key image $I$ and the non-blinded part of the blinded commitment to $P$, i.e. proof that $C = xG + bH$ AND $I = xJ$.
+
+[quote="ajtowns, post:3, topic:1142"]
+I think in comparison to [taproot ring signatures ](https://github.com/jonasnick/taproot-ringsig) this doesn’t require that the verifier have the full utxo set, just the corresponding “utreexo” root, which seems like a win.
+[/quote]
+
+Yes; also in Curve Trees the verifier can verify just against the root, it's the same principle.
+
+But (maybe stating the obvious?) basic AOS style ring signatures never really felt viable for these tasks, since they scale linearly in the anonymity set, so you can only get quite trivially small anonymity sets, which are probably too fragile to claim any real anonymity. Moreover, in some kind of flat network structure of interaction (like Lightning) you need verification of others' proofs to be fast, so that you can't get DOS just with *claims* of ownership etc. That's why I gravitated towards the Curve Tree structure. This alternative STARK direction could well be viable too.
+
+[quote="ajtowns, post:3, topic:1142"]
+I don’t see how this really works for lightning channel announcements – can’t you just give a proof for a utxo as at block X, then spend it in block X+1? ie, at best, isn’t this just proof-of-use-of-blockspace?
+[/quote]
+
+This feels like the most important question. Currently announcements are made publically of channel utxos. Assuming the key image (no double spend) thing mentioned above, how much worse is it to announce privately a utxo of the same size, for DOS resistance?
+
+My (slightly woolly) thinking on this was always, while simply announcing money owned, not having to spend it, is obviously a vastly smaller cost, you can filter and control this to some extent: filters by age and by value can be included in your merkle/curve tree setup to make it that only "higher quality" utxos are allowed (e.g. amount $=T^aV^b$ for age $T$, size $V$, perhaps). But .. how is this defence really worse than the advertisement of "real" channels (which after all is not a meaningful distinction, in taproot/musig land, right?).
+
+-------------------------
+
