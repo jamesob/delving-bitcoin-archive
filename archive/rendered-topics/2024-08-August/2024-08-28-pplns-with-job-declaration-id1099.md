@@ -350,3 +350,20 @@ not sure, I guess that depends on the number of miners that use the pool
 
 -------------------------
 
+lorbax | 2024-09-19 09:07:34 UTC | #38
+
+Hi!
+Just to mention that a new version of the article is available. I would like to thank @plebhash and @marathon-gary, that reviewed the article and made a lot of useful suggestions/corrections
+https://www.dmnd.work/pplns-with-job-declaration/pplns-with-job-declaration.pdf
+
+-------------------------
+
+Fi3 | 2024-09-19 09:46:43 UTC | #39
+
+Update ext spec, add [PHash](https://github.com/demand-open-source/share-accounting-ext/blob/e25659ff92505913e1b8c87354751b46e198726d/extension.md#phash) data type, needed by the miner to verify the share's work
+
+
+The [PHash](https://github.com/demand-open-source/share-accounting-ext/blob/e25659ff92505913e1b8c87354751b46e198726d/extension.md#phash) message includes the previous hash and the starting index of the slices that use it. This message is sent within the [GetWindowSuccess](https://github.com/demand-open-source/share-accounting-ext/blob/e25659ff92505913e1b8c87354751b46e198726d/extension.md#getwindowsuccess-server---client) response, enabling the miner to identify which slices correspond to which previous hash, and thereby determine the previous hash for each share. This information is essential for verifying the work of each share.
+
+-------------------------
+
