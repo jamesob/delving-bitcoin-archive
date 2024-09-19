@@ -209,3 +209,17 @@ With JoinMarket there are people that make their bitcoin available as a Maker an
 
 -------------------------
 
+AdamISZ | 2024-09-19 16:21:53 UTC | #13
+
+Sorry for necroposting here but I only just noticed this thread.
+
+So, yes you basically have it right, of course, Joinmarket never "solved" the centralized **communication** coordinator problem (see slight caveat below). Certainly, not as cleanly as your earlier Coinshuffle work did.
+
+The only caveat is: the "directory node" concept, offering a service on *.onion, was intended to partially solve it, because its intention was to shift the role from communication coordinator to only a peer discovery service.
+
+I say "intention" because, mainly because of difficulties in using ephemeral tor onion services, it has proved not to work very well in practice. We did have a period shortly after we added that feature, when we could happily say there were coinjoins of larger size being coordinated, and also since most of the communication occurred p2p (the idea was that makers also ran their own onion services, so that the taker would go to the directory node to advertise, then after choosing makers, it would talk to them directly), it reduced the centralization element very significantly.
+
+But even if that did, or will, work perfectly, it still does not achieve what a protocol like Coinshuffle achieves in that regard.
+
+-------------------------
+
