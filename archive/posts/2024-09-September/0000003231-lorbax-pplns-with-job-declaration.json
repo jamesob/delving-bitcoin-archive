@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi!\nJust to mention that a new version of the article is available. I would like to thank @plebhash and @marathon-gary, that reviewed the article and made a lot of useful suggestions/corrections\nhttps://www.dmnd.work/pplns-with-job-declaration/pplns-with-job-declaration.pdf",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
