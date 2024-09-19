@@ -367,3 +367,13 @@ The [PHash](https://github.com/demand-open-source/share-accounting-ext/blob/e256
 
 -------------------------
 
+plebhash | 2024-09-19 14:55:27 UTC | #40
+
+I made some adjustments to this graph.
+
+Now the $\delta$ steps are explicitly clear on the MMEF axis.
+
+![PPLNS with Job Declaration-MMEF.drawio|348x460](upload://dja6x7ARhpJTzSQm5y5NLIyiyjB.png)
+
+-------------------------
+
