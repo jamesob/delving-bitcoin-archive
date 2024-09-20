@@ -244,3 +244,13 @@ Yes, my bad, my thinking is fuzzy there: you're solving centralized coordination
 
 -------------------------
 
+1440000bytes | 2024-09-20 19:37:54 UTC | #16
+
+TBH only coinjoin implementation that did try to fix it was joinstr.
+
+I dont feel like I did something great, it was needed for bitcoin. And I don't know anyone if they caught me.
+
+Money would save some but I would save all.
+
+-------------------------
+
