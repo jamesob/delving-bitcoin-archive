@@ -223,3 +223,13 @@ But even if that did, or will, work perfectly, it still does not achieve what a 
 
 -------------------------
 
+real-or-random | 2024-09-20 14:03:45 UTC | #14
+
+[quote="AdamISZ, post:13, topic:934"]
+So, yes you basically have it right, of course, Joinmarket never “solved” the centralized **communication** coordinator problem (see slight caveat below). Certainly, not as cleanly as your earlier Coinshuffle work did.
+[/quote]
+
+Okay, I didn't have CoinShuffle in mind when I commented above. CoinShuffle(++) is not much better: when it comes to communication, it still relies on a coordinator (or strictly speaking, a "bulletin board" because the only functionality is receiving messages and broadcasting them). Moreover, you still need a way to assign participants into sessions. So it suffers from all the hard practical issues with CoinJoin...
+
+-------------------------
+
