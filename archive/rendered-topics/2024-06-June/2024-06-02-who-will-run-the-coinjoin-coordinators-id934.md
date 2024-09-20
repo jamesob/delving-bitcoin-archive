@@ -233,3 +233,14 @@ Okay, I didn't have CoinShuffle in mind when I commented above. CoinShuffle(++) 
 
 -------------------------
 
+AdamISZ | 2024-09-20 15:23:05 UTC | #15
+
+
+[quote="real-or-random, post:14, topic:934"]
+Okay, I didn’t have CoinShuffle in mind when I commented above. CoinShuffle(++) is not much better: when it comes to communication, it still relies on a coordinator (or strictly speaking, a “bulletin board” because the only functionality is receiving messages and broadcasting them). Moreover, you still need a way to assign participants into sessions. So it suffers from all the hard practical issues with CoinJoin…
+[/quote]
+
+Yes, my bad, my thinking is fuzzy there: you're solving centralized coordination of one coinjoin, but (and yes I remember your 'bulletin board' definition there) you're not actually claiming to solve communication centralization (which matters even more for those other implementations like Wasabi, Samurai) because the only type of bulletin board we know of that can't be selectively censored is the blockchain and that's not a practical option. Maybe ham radio? :smile:
+
+-------------------------
+
