@@ -244,13 +244,9 @@ Yes, my bad, my thinking is fuzzy there: you're solving centralized coordination
 
 -------------------------
 
-1440000bytes | 2024-09-20 19:37:54 UTC | #16
+1440000bytes | 2024-09-21 01:34:41 UTC | #16
 
-TBH only coinjoin implementation that did try to fix it was joinstr.
-
-I dont feel like I did something great, it was needed for bitcoin. And I don't know anyone if they caught me.
-
-Money would save some but I would save all.
+(post deleted by author)
 
 -------------------------
 
@@ -275,6 +271,18 @@ Then even later we added "directory nodes" which tried to go a little bit farthe
 (Also the 'redundant message channel concept' still applied, so you would send data over all available ones, whether the directory node type or the IRC type; btw it would not be at all difficult, imo, to code nostr as a further redundant message channel, here, but you'd need to have some network anonymity as we do for the others).
 
 Is there some specific technique used by joinstr other than 'send over nostr'? You could say that communication happens peer to peer but it's still going over relays right? Would you say multiple nostr relays is better than multiple redundant IRC servers? I suspect it *is* better, but mainly in that performance will be better; I'd want to know how the anonymity part would work, but I'm certainly no expert on that.
+
+-------------------------
+
+1440000bytes | 2024-09-21 01:44:52 UTC | #18
+
+[quote="AdamISZ, post:17, topic:934"]
+How does joinstr do more on this specific issue (*communication* coordination centralization) than Joinmarket?
+[/quote]
+
+No hardcoded addresses for bootstrapping. Users decide their own relays and it uses SIGHASH ALL | SIGHASH ANYONECANPAY.
+
+It can easily be upgraded to [covenants](https://x.com/1440000bytes/status/1821357538899611681).
 
 -------------------------
 
