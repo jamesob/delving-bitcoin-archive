@@ -286,3 +286,16 @@ It can easily be upgraded to [covenants](https://x.com/1440000bytes/status/18213
 
 -------------------------
 
+AdamISZ | 2024-09-21 15:17:30 UTC | #19
+
+Oh, so it uses SINGLE|ACP ? Every time people analyzed that idea before they stopped because of the restriction of SINGLE requiring matching in/out indices, which means you can't get privacy * . How did you get round that? Maybe there's a doc I can read somewhere?
+
+\* I mean, a scenario where one contributor adds an input and an output then "passes on" the incomplete transaction, they have to match the position of the input and output.
+
+[quote="1440000bytes, post:18, topic:934"]
+No hardcoded addresses for bootstrapping.
+[/quote]
+Aren't nostr relay addresses hardcoded, as seeds? Obviously you can discover others, but that's possible with all of these approaches.
+
+-------------------------
+
