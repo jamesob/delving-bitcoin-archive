@@ -254,3 +254,27 @@ Money would save some but I would save all.
 
 -------------------------
 
+AdamISZ | 2024-09-20 22:46:58 UTC | #17
+
+[quote="1440000bytes, post:16, topic:934"]
+TBH only coinjoin implementation that did try to fix it was joinstr.
+[/quote]
+
+How does joinstr do more on this specific issue (*communication* coordination centralization) than Joinmarket?
+
+For context, over the years Joinmarket developed this model:
+
+At first, it supported 1 IRC server as a central communication coordinator, but encrypted the private information between makers and takers E2E using a DH key exchange (see: libsodium). So while the central coordinator could censor messages that could affect the market-making coordination, it couldn't censor in a way relevant to the coinjoins themselves (selecting certain utxos and not others etc.). Still of course, at that level, that's super censorable and weak, because one server.
+
+Then somewhat later it started supporting multiple redundant IRC servers, with here "redundant" very specifically meaning *all* messages passed over *all* connected servers. We also added details like signatures over the endpoints and the communication servers to prevent replay attacks across different "message channels" (which is the abstraction, with IRC servers just being a type of that). At this point it's already quite robust. Probably 6-8 different IRC servers were used in practice, though usually only 3 at a time.
+
+A couple relevant details: obviously this required ephemeral public key identities to sign over, which were done with secp256k1 of course. Also, perhaps obvious, but we used onion endpoints of the IRC servers.
+
+Then even later we added "directory nodes" which tried to go a little bit farther: not only are the messages between parties encrypted on the message channel, but even the parties talk p2p; the taker/maker model helps here, because makers can run their own onion services since they're always online. This model worked extremely well for a while, allowing much larger coinjoins with more performant messaging (IRC servers are a bit of a bottleneck for coordinating), and a better privacy/censorship resistance model (the directory nodes effectively coordinate discovery of makers for takers and that's it). The problem was that it kind of started to collapse about 9 months after release, because the directory node onion services just weren't working. I don't know if this has been solved (I think not).
+
+(Also the 'redundant message channel concept' still applied, so you would send data over all available ones, whether the directory node type or the IRC type; btw it would not be at all difficult, imo, to code nostr as a further redundant message channel, here, but you'd need to have some network anonymity as we do for the others).
+
+Is there some specific technique used by joinstr other than 'send over nostr'? You could say that communication happens peer to peer but it's still going over relays right? Would you say multiple nostr relays is better than multiple redundant IRC servers? I suspect it *is* better, but mainly in that performance will be better; I'd want to know how the anonymity part would work, but I'm certainly no expert on that.
+
+-------------------------
+

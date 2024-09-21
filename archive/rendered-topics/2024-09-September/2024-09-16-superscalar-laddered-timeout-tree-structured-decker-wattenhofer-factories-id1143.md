@@ -617,3 +617,352 @@ The onchain channel itself can be infected with a `CLTV` branch for the LSP so t
 
 -------------------------
 
+ZmnSCPxj | 2024-09-20 22:42:45 UTC | #10
+
+Addendum: Channel Funding Has Been Achieved Internally (via `OP_CAT`)
+=====================================================================
+
+***WARNING*** This addendum requires a blockchain layer change, which
+***violates the second constraint*** noted above.
+However, it has the major advantage that it requires only the client
+that needs inbound liquidity to come online, and allows the LSP to
+use up to half the funds in the leaf node with that client to new
+inbound liquidity to that client.
+
+Let us focus on the `A` `B` leaf node:
+
+    nSequence
+      +---+---+
+      |   |A&L| LN channel
+      |   +---+
+      |432|B&L| LN channel
+      |   +---+
+      |   | L |
+      +---+---+
+
+Now, suppose `A` is online and in need of inbound liquidity, but
+`B` does not come online.
+What can the LSP `L` do?
+
+The LSP `L` can spend directly from the `L` output and fund a new
+`A`-`L` channel:
+
+    nSequence
+      +---+---+
+      |   |A&L| LN channel
+      |   +---+
+      |432|B&L| LN channel
+      |   +---+
+      |   | L |-+ +--+---+
+      +---+---+ | |  |A&L| LN channel
+                +>|  +---+
+                  |  | L |
+                  +--+---+
+
+That is, we can have additional channel funding be achieved
+*internally* to the mechanism, instead of *externally* onchain.
+
+Of course, the problem is that the LSP can double-spend the above
+transaction;
+the tree is kept offchain, and the new transaction depends on the
+tree, and the LSP, being the sole signatory of that transaction,
+can change the transaction freely.
+Thus, `A` MUST NOT accept the above unless it trusts the LSP.
+
+Can we remove this trust requirement?
+
+If we had a way to ensure the LSP can only sign a transaction
+spending the `L` output exactly once, then in fact, we *can*
+remove this trust.
+
+One example of ensuring that the LSP can only sign once (and that
+signing for a different transaction is impossible) is to fix the
+`R` component of the signature.
+This can be achieved by using `OP_CAT`; the LSP precommits to some
+fixed `R` signature component, and can only provide the `s` on the
+witness stack.
+Then `OP_CAT` would concatenate `R` and `s` signature components
+to be fed to an `OP_CHECKSIG`.
+The `s` would vary depending on the transaction being signed; if
+the LSP signs more than one transaction, then anyone who has seen
+two signatures of two different transactions can extract the private
+key `L` of the LSP.
+
+(A less overpowered and more focused opcode can be added to the
+base layer, such as a bespoke `OP_CHECKSEPARATEDSIG` where the `R`
+and `s` components must be two separate stack items instead of
+concatenated into a single stack item.
+The important part is that the `L` output has a contract "if the
+LSP signs multiple times with this output, then it leaks the
+private key to `L`", or what I shall call `1sign(L)` meaning the
+LSP can only generate a single signature of `L` without leaking.)
+
+Bonding The LSP
+---------------
+
+Now, `1sign(L)` is not sufficient to prevent the LSP from cheating
+the client `A`.
+If `L` itself is not used anywhere else, knowledge of the private
+key of `L` is valueless to `A`.
+
+The trick is that the LSP has *another* output, with condition
+`(L & (A|B)) | (L & CLTV)`, where the `CLTV` has the same lifetime
+as the timeout-tree-structured Decker-Wattenhofer factory.
+
+             nSequence
+               +---+--------+
+               |   |   A&L  | LN channel
+               |   +--------+
+    offchain ->|432|   B&L  | LN channel
+      tree     |   +--------+
+               |   |1sign(L)| liquidity stock
+               +---+--------+
+
+               ----+---------+
+                   |(L&(A|B))| Bond
+    onchain ->     ||(L&CLTV)|
+               ----+---------+
+
+Suppose `A` needs inbound liquidity but `B` is offline.
+In that case, instead of recreating the leaf node and moving
+the funds in the liquidity stock to the existing `A`-`L` channel,
+the LSP can provide a signature spending the liquidity stock,
+funding a second LN channel with `A`:
+
+             nSequence
+               +---+--------+
+               |   |   A&L  | LN channel
+               |   +--------+
+    offchain ->|432|   B&L  | LN channel
+      tree     |   +--------+
+               |   |1sign(L)| -+ +--+--------+
+               +---+--------+  | |  |   A&L  | LN channel again
+                               +>|  +--------+
+                                 |  |1sign(L)| liquidity stock
+                                 +--+--------+
+
+               ----+---------+
+                   |(L&(A|B))| Bond
+    onchain ->     ||(L&CLTV)|
+               ----+---------+
+
+If the LSP tries to cheat `A` by publishing the leaf and *then*
+signing a new version of the channel funding transaction of the
+second `A`-`L` channel, then `A` will learn the private key to
+`L`.
+The condition `(L & (A | B))` would then let the client `A`
+claw back the bond output.
+
+The only condition is that the bond amount must be equal to the
+initial `1sign(L)` liquidity stock amount.
+This condition ensures that the most that `A` can lose would
+be a channel that contains the *entire* liquidity stock amount.
+If the bond is equal to that potential loss, then even if the
+LSP attempts to steal the entire channel content, it would
+still lose an amount (the bond amount, which is equal to the
+liquidity stock amount, which is the largest channel it can
+provide to `A` without waking up other clients) equal to what
+it stole, thus having 0 net earnings from the theft attempt
+(and probably losses due to onchain fees, if the LSP pays some
+of the onchain fees when the tree is published onchain).
+
+Digression: Channel *Funding* Not *Splicing*
+--------------------------------------------
+
+Note that the client and the LSP still have to handle two
+channels.
+Both channels are internal to the timeout-tree-structured
+Decker-Wattenhofer channel factory, but are still two separate
+channels, with separate, independent state machines.
+
+This is complicated because we can enter degenerate cases
+where an HTLC is to be forwarded to the client, which is too
+large to fit in either channel, but the inbound liquidity of
+both channels, in total, could fit the HTLC being forwarded.
+In that case, we would need to implement "local multipath",
+first proposed by Lightning Labs 7 years ago but which has
+no code or spec yet, wherein the LSP and client locally
+agree to split the HTLC being forwarded.
+
+We might now be tempted to consider a channel splice
+*internal* to the tree, like so:
+
+             nSequence
+               +---+--------+
+               |   |   A&L  | ------------+
+               |   +--------+             |
+    offchain ->|432|   B&L  | LN channel  |
+      tree     |   +--------+             |
+               |   |1sign(L)| -+          | +--+--------+
+               +---+--------+  |          +>|  |   A&L  | LN channel
+                               |            |--+--------+
+                               +----------->|  |1sign(L)| liquidity stock
+                                            +--+--------+
+
+               ----+---------+
+                   |(L&(A|B))| Bond
+    onchain ->     ||(L&CLTV)|
+               ----+---------+
+
+The problem with the above is that the bond amout must
+now be larger.
+You see, part of the splicing flow is that any channel state
+that spends from the pre-splice output *MUST* be invalidated.
+Thus, if the LSP were to double-spend the first `1sign(L)`
+output, it could also cause the client `A` to lose the funds
+equal to the first channel (it would not be able to *steal* it,
+but it could also do this just to hurt the client `A` for
+non-economic reasons, such as capitulating to political
+pressure).
+To prevent this, the bond amount *MUST* be large enough to
+recompense the client `A` for the *total* channel size.
+Thus, the bond amount must be the larger of the `A`-`L` and
+`B`-`L` channels, *plus* the liquidity stock, in the initial
+state of the leaf node.
+
+Due to the bond amount being larger, this represents a greater
+cost: after all, if instead of implementing SuperScalar, the
+LSP just did LN routing as a published node, it would have
+earned from just having plain published LN channels, at no
+risk of implementing new code for this novel scheme.
+Thus, the bond amount being larger represents a cost on the
+LSP, which the LSP will pass to the clients.
+
+Thus, we *fund* channels internally to the mechanism, we
+**do not** splice channels internally.
+
+Internalized Bondage
+--------------------
+
+Whoever said that the bond output had to be *onchain*, like
+the above diagrams showed?
+I never did actually tell you that it had to be onchain.
+(Tell, Do Not Show principle of misleading your readers for
+fun and profit)
+
+The only requirement is that the bond output *exist* when the
+leaf node liquidity stock output is published onchain.
+
+And we can do that by putting the bond output on the leaf
+node itself:
+
+             nSequence
+               +---+---------+
+               |   |   A&L   | LN channel
+               |   +---------+
+               |   |   B&L   | LN channel
+    offchain ->|432+---------+
+      tree     |   |1sign(L) | liquidity stock
+               |   +---------+
+               |   |(L&(A|B))| Bond
+               |   ||(L&CLTV)|
+               +---+---------+
+
+This results in an *internalized* bond output.
+
+Of note is that the LSP can only claw back the channel funding
+if the leaf node, and all nodes in the tree leading to the
+leaf node, are published onchain.
+When the leaf node is published, then the bond is also
+published.
+If the LSP then claws back the channel funding for the second
+`A`-`L` channel, then client `A` can now take the bonded funds.
+
+Now, we must have the rule that the liquidity stock and the
+bond must be equal on every version of the leaf node.
+
+Let us provide a more concrete example.
+In the below, the numbers indicate some abstract units of
+money:
+
+             nSequence
+               +---+---------+
+               |   |   A&L   | 10
+               |   +---------+
+               |   |   B&L   | 10
+    offchain ->|432+---------+
+      tree     |   |1sign(L) | 4
+               |   +---------+
+               |   |(L&(A|B))| 4
+               |   ||(L&CLTV)|
+               +---+---------+
+
+Suppose that `A` runs out of inbound liquidity, and buys
+4 units of liquidity from the LSP.
+However, `B` is not online.
+The LSP can just create the below funding transaction, by
+itself, without `B`, with the bond output ensuring that it
+will not cheat `A` later:
+
+             nSequence
+               +---+---------+
+               |   |   A&L   | 10
+               |   +---------+
+               |   |   B&L   | 10 
+    offchain ->|432+---------+      +--+-----+
+      tree     |   |1sign(L) | 4 -->|  | A&L | 4
+               |   +---------+      +--+-----+
+               |   |(L&(A|B))| 4
+               |   ||(L&CLTV)|
+               +---+---------+
+
+Now `A` and the LSP go on their merry way and continue
+transacting offchain.
+
+Now suppose `B` now comes online, while `A` is also online.
+Then the LSP can now start a new state, with a lower
+`nSequence`, and then *redistribute the bond amount*:
+
+             nSequence
+               +---+---------+
+               |   |   A&L   | 14
+               |   +---------+
+               |   |   B&L   | 10 
+    offchain ->|288+---------+
+      tree     |   |1sign(L) | 2
+               |   +---------+
+               |   |(L&(A|B))| 2
+               |   ||(L&CLTV)|
+               +---+---------+
+
+This has a lower `nSequence` and is thus expected to confirm
+before the previous state, thus invalidating the previous
+leaf state node.
+Because this invalidates the previous state, it is safe to
+have a smaller bond output of only 2 units this time,
+because the previous state, where 4 units of money are at
+risk and need to be protected by a 4-unit bond, has been
+completely invalidated.
+
+Then, even if `A` or `B` are offline, and the other client
+needs inbound liquidity, the LSP can offer up to 2 units of
+funding for inbound liquidity to the client that is online.
+
+If *both* `A` and `B` are online, and one of them needs
+inbound liquidity, the LSP can offer the total of 4 for
+inbound liquidity.
+This is because the bond only needs to protect the case where
+one of the clients is offline.
+
+Thus, putting the bond internally to the leaf, and thus also
+part of and modifiable by the leaf state, allows:
+
+* If *all* clients in the leaf are *online*, the entire
+  LSP-owned liquidity stock can be offered by the LSP for
+  inbound liquidity needs of clients.
+* If *any* client in the leaf is *offline*, up to *half*
+  the LSP-owned liquidity stock can be offered by the LSP
+  for inbound liquidity needs of clients.
+
+Thus, this scheme, with internalized bondage, allows for a
+better graceful degradation: if the other clients in the
+leaf are offline, the LSP can offer up to half its stock
+for inbound liquidity, and if all clients in the leaf are
+online, the LSP can offer its entire stock for inbound
+liquidity.
+
+Pity it needs a blockchain consensus change, which will
+never happen.
+
+-------------------------
+
