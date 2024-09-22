@@ -244,12 +244,6 @@ Yes, my bad, my thinking is fuzzy there: you're solving centralized coordination
 
 -------------------------
 
-1440000bytes | 2024-09-21 01:34:41 UTC | #16
-
-(post deleted by author)
-
--------------------------
-
 AdamISZ | 2024-09-20 22:46:58 UTC | #17
 
 [quote="1440000bytes, post:16, topic:934"]
