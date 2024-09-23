@@ -75,3 +75,17 @@ That was exactly the goal of https://github.com/lightning/blips/pull/28, which c
 
 -------------------------
 
+andyschroder | 2024-09-23 03:34:23 UTC | #5
+
+[quote="t-bast, post:4, topic:1134"]
+That was exactly the goal of [bLIP-0028: Paratonnerre by t-bast · Pull Request #28 · lightning/blips · GitHub ](https://github.com/lightning/blips/pull/28), which can provide good security by pairing your remote node with a hardware wallet (e.g. Ledger or Coldcard). I still thinks it would be very useful to standardize the control messages in this bLIP.
+[/quote]
+
+Does bLIP-0028 do any onion messaging?
+
+Also, at a high level, how does bLIP-0028 differ from what https://vls.tech/ attempts to do?
+
+bLIP-0028 looks cool for a lot of use cases, but I'm wondering if it is much more complex in its feature set than what I've proposed for simple invoice payment with a merchant.
+
+-------------------------
+
