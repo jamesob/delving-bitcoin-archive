@@ -966,3 +966,25 @@ never happen.
 
 -------------------------
 
+ZmnSCPxj | 2024-09-23 06:13:27 UTC | #11
+
+***ANYWAY*** in Lightning proto dev summit, someone pointed out that we might be able to have some kind of sign-only-once scheme that could be used here.
+
+(also pointed out that the number of bonds have to be equal to the number of clients; so for example, for a 2-client leaf, the LSP can allocate 1/3 of its funds in the leaf while only one client is online; more generally, for an N-client leaf, the LSP can allocate 1/(N+1) of its funds if only one client is online).
+
+The following pointer was given regarding possible constructions that ***might*** be workable for sign-only-once today without `OP_CAT`: https://eprint.iacr.org/2024/025
+
+-------------------------
+
+ZmnSCPxj | 2024-09-23 06:57:54 UTC | #12
+
+Another idea proposed in the Lightning proto dev summit is with LSP-assisted exit.  If a client exits from one factory with no intention to ever return to that factory (either by exiting onchain, or to a new factory during the dying period of the previous factory) then the client can use PTLCs to offer the private key it uses inside the factory.  For example, if client `A` wants to permanently exit using an LSP-assisted exit to an onchain address, then `A` can offer an in-factory PTLC to the LSP, where the payment point is the public key of `A`. Then the LSP has to make an onchain PTLC with the same payment point, which is claimable by `A`.  `A` can then claim the onchain PTLC into its own onchain address with a fresh keypair, revealing the scalar behind the payment point, which is equal to the private key of `A`.
+
+The advantage of this private key turnover is that if `A` and `B` are on the same leaf, `A` has performed this assisted exit and never comes online again, the LSP can, with `B` and its private key copy of `A`, sign a new leaf state, without `A` ever talking to the LSP ever again.  The LSP can even use the funds of the `A`-`L` channel to provide additional liquidity to the remaining client `B`!
+
+If the same mechanism is used for transferring from a dying factory to the next laddered factory, then if all clients exit the dying factory, the LSP is now in possession of all the private keys and can claim using the `A & B & ... & G & H` branch. This can be a Taproot keyspend path, which is just a single signature without revealing a special `OP_CLTV` script, and which is indistinguishable from many other P2TR spends, giving better privacy to the LSP (and by implication, its clients).  If all clients exit before the actual end-of-life of the channel factory (i.e. before the end of the dying phase) then the LSP can recover its funds "early", even, which might be strategically important in funding decisions.
+
+Because of this, the LSP may now have an incentive to cover some of the cost to perform an assisted exit --- that is, the assisted exit can be cheaper, for the client, than the unilateral exit case, because the LSP has an advantage that it can sockpuppet the exiting client for the rest of the lifetime of the individual factory.  The LSP can offer to pay for the privilege of sockpuppeting the client when it assisted-exits, by reducing the cost (on the client) for exiting onchain.
+
+-------------------------
+
