@@ -293,3 +293,30 @@ Aren't nostr relay addresses hardcoded, as seeds? Obviously you can discover oth
 
 -------------------------
 
+1440000bytes | 2024-09-23 12:49:42 UTC | #20
+
+[quote="AdamISZ, post:19, topic:934"]
+Oh, so it uses SINGLE|ACP ? Every time people analyzed that idea before they stopped because of the restriction of SINGLE requiring matching in/out indices, which means you can’t get privacy * . How did you get round that? Maybe there’s a doc I can read somewhere?
+
+* I mean, a scenario where one contributor adds an input and an output then “passes on” the incomplete transaction, they have to match the position of the input and output.
+[/quote]
+
+No. `ALL|ANYONECANPAY` is different.
+
+
+[quote="AdamISZ, post:19, topic:934"]
+Aren’t nostr relay addresses hardcoded, as seeds? Obviously you can discover others, but that’s possible with all of these approaches.
+[/quote]
+
+No. Nostr relays's main goal is not coinjoin. Almost 1000 relays that we can use to share PSBT.
+
+No peer discovery. Discover yourself or run a relay and share.
+
+-------------------------
+
+1440000bytes | 2024-09-23 12:50:43 UTC | #21
+
+A developer found a bug which I am trying to fix but its more about PSBT and wallets. Not joinstr.
+
+-------------------------
+

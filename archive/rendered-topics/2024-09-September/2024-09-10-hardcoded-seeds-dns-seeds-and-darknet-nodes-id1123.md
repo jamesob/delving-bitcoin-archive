@@ -201,3 +201,61 @@ You'd need some encoding that lets you reconstruct the order, because recursive 
 
 -------------------------
 
+virtu | 2024-09-23 14:33:41 UTC | #11
+
+Just implemented this to see if there might be any caveats.
+
+The only con is the poor encoding efficiency of around 50%. NULL records can have an arbitrary length, so you're paying the resource record overhead of ten bytes (2B for type, class and length each plus 4B for TTL) only once. With AAAA records, there's ~12B of overhead (the ten-byte record overhead plus one or two bytes for a hardcoded restricted IPv6 prefix and the ordering information) for ~14B of payload.
+
+On the upside, this approach works with `getaddrinfo` and does not interfere with server-side caching.
+
+The demo implementation uses the ff00::/8 prefix to signal custom encoding and the next 8 bits for ordering (in theory, this could be reduced to just five bits, since you cannot fit more than 17 24-byte records into a 512B DNS message with a 12B header).
+
+Note that regular IPv6 addresses are note affected: `2a02:4780:28:a4bb::1` and `2a01:4ff:1f0:8d5c::1` are regular AAAA records. Everything following that (`ff00:...`, `ff01:...`, `ff02:...`) is the new encoding. Overall, 11 AAAA records are required to encode two onion, two I2P and two CJDNS addresses.
+
+```bash
+» nix shell . -c darkdig seed.21.ninja. --nameserver 127.0.0.1 --port 8053
+
+; <<>> darkdig 0.13 <<>> @127.0.0.1 -p 8053 -l INFO seed.21.ninja.
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51259
+;; flags: qr rd, QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0
+
+;;QUESTION SECTION:
+; domain=seed.21.ninja., rdclass=IN, rdtype=ANY
+
+;;ANSWER SECTION:
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=162.249.228.218
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=84.247.133.104
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=152.117.88.43
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=109.210.214.5
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=67.207.84.53
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=2a02:4780:28:a4bb::1
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=2a01:4ff:1f0:8d5c::1
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff00:604:1a1b:53af:68b2:1754:ca5b:9b8e
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff01:dbed:7368:3d5f:e79d:28d3:55bb:be39
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff02:e8a8:4961:ef5c:4f6:5b5f:de9d:aa90
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff03:fcc2:cbfa:87ba:d504:43d7:d8e9:4902
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff04:469f:725d:1312:32b0:aea:8405:6070
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff05:5e8f:753a:f0a4:b20f:50d1:6e6a:4f08
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff06:7f4e:bf5:a7d3:4acb:7828:6c08:4d2d
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff07:837b:5d8:a70e:a682:650d:74d1:9ab8
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff08:18c2:8726:1b25:7d6c:adb:c945:7b81
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff09:fd4d:edb:99f9:e106:fc1f:22c3:95dc
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff0a:a3af:4a93:8251:beb9:1858:6fc:d1c2
+domain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff0b:9bc:31a:7580:d828:38a1:f148:c400
+;; ->>custom AAAA encoding<<-
+;; ->>custom AAAA-encoded address <<- record: 0, net_type: onion_v3, address: dinvhl3iwilvjss3tohnx3ltna6v7z45fdjvlo56hhukqslb55of7iyd.onion
+;; ->>custom AAAA-encoded address <<- record: 1, net_type: onion_v3, address: 6znv7xu5vkipzqwl7kd3vvieipl5r2kjajdj64s5cmjdfmak5kcht6qd.onion
+;; ->>custom AAAA-encoded address <<- record: 2, net_type: i2p, address: mbyf5d3vhlykjmqpkdiw42spbb7u4c7vu7juvs3yfbwaqtjnqn5q.b32.i2p
+;; ->>custom AAAA-encoded address <<- record: 3, net_type: i2p, address: 3ctq5jucmugxjum2xammfbzgdmsx23ak3peuk64b7vgq5w4z7hqq.b32.i2p
+;; ->>custom AAAA-encoded address <<- record: 4, net_type: cjdns, address: fc1f:22c3:95dc:a3af:4a93:8251:beb9:1858
+;; ->>custom AAAA-encoded address <<- record: 5, net_type: cjdns, address: fcd1:c209:bc03:1a75:80d8:2838:a1f1:48c4
+
+;; Query time: 4 msec
+;; SERVER: 127.0.0.1#8053
+;; WHEN: Mon Sep 23 16:23:57 CEST 2024
+;; MSG SIZE  rcvd: 503
+```
+
+-------------------------
+

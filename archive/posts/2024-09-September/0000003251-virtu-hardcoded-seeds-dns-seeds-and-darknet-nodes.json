@@ -1,0 +1,72 @@
+{
+  "id": 3251,
+  "name": "",
+  "username": "virtu",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/virtu/{size}/540_2.png",
+  "created_at": "2024-09-23T14:24:57.095Z",
+  "cooked": "<p>Just implemented this to see if there might be any caveats.</p>\n<p>The only con is the poor encoding efficiency of around 50%. NULL records can have an arbitrary length, so you\u2019re paying the resource record overhead of ten bytes (2B for type, class and length each plus 4B for TTL) only once. With AAAA records, there\u2019s ~12B of overhead (the ten-byte record overhead plus one or two bytes for a hardcoded restricted IPv6 prefix and the ordering information) for ~14B of payload.</p>\n<p>On the upside, this approach works with <code>getaddrinfo</code> and does not interfere with server-side caching.</p>\n<p>The demo implementation uses the ff00::/8 prefix to signal custom encoding and the next 8 bits for ordering (in theory, this could be reduced to just five bits, since you cannot fit more than 17 24-byte records into a 512B DNS message with a 12B header).</p>\n<p>Note that regular IPv6 addresses are note affected: <code>2a02:4780:28:a4bb::1</code> and <code>2a01:4ff:1f0:8d5c::1</code> are regular AAAA records. Everything following that (<code>ff00:...</code>, <code>ff01:...</code>, <code>ff02:...</code>) is the new encoding. Overall, 11 AAAA records are required to encode two onion, two I2P and two CJDNS addresses.</p>\n<pre data-code-wrap=\"bash\"><code class=\"lang-bash\">\u00bb nix shell . -c darkdig seed.21.ninja. --nameserver 127.0.0.1 --port 8053\n\n; &lt;&lt;&gt;&gt; darkdig 0.13 &lt;&lt;&gt;&gt; @127.0.0.1 -p 8053 -l INFO seed.21.ninja.\n;; -&gt;&gt;HEADER&lt;&lt;- opcode: QUERY, status: NOERROR, id: 51259\n;; flags: qr rd, QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0\n\n;;QUESTION SECTION:\n; domain=seed.21.ninja., rdclass=IN, rdtype=ANY\n\n;;ANSWER SECTION:\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=162.249.228.218\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=84.247.133.104\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=152.117.88.43\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=109.210.214.5\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=67.207.84.53\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=2a02:4780:28:a4bb::1\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=2a01:4ff:1f0:8d5c::1\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff00:604:1a1b:53af:68b2:1754:ca5b:9b8e\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff01:dbed:7368:3d5f:e79d:28d3:55bb:be39\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff02:e8a8:4961:ef5c:4f6:5b5f:de9d:aa90\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff03:fcc2:cbfa:87ba:d504:43d7:d8e9:4902\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff04:469f:725d:1312:32b0:aea:8405:6070\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff05:5e8f:753a:f0a4:b20f:50d1:6e6a:4f08\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff06:7f4e:bf5:a7d3:4acb:7828:6c08:4d2d\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff07:837b:5d8:a70e:a682:650d:74d1:9ab8\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff08:18c2:8726:1b25:7d6c:adb:c945:7b81\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff09:fd4d:edb:99f9:e106:fc1f:22c3:95dc\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff0a:a3af:4a93:8251:beb9:1858:6fc:d1c2\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff0b:9bc:31a:7580:d828:38a1:f148:c400\n;; -&gt;&gt;custom AAAA encoding&lt;&lt;-\n;; -&gt;&gt;custom AAAA-encoded address &lt;&lt;- record: 0, net_type: onion_v3, address: dinvhl3iwilvjss3tohnx3ltna6v7z45fdjvlo56hhukqslb55of7iyd.onion\n;; -&gt;&gt;custom AAAA-encoded address &lt;&lt;- record: 1, net_type: onion_v3, address: 6znv7xu5vkipzqwl7kd3vvieipl5r2kjajdj64s5cmjdfmak5kcht6qd.onion\n;; -&gt;&gt;custom AAAA-encoded address &lt;&lt;- record: 2, net_type: i2p, address: mbyf5d3vhlykjmqpkdiw42spbb7u4c7vu7juvs3yfbwaqtjnqn5q.b32.i2p\n;; -&gt;&gt;custom AAAA-encoded address &lt;&lt;- record: 3, net_type: i2p, address: 3ctq5jucmugxjum2xammfbzgdmsx23ak3peuk64b7vgq5w4z7hqq.b32.i2p\n;; -&gt;&gt;custom AAAA-encoded address &lt;&lt;- record: 4, net_type: cjdns, address: fc1f:22c3:95dc:a3af:4a93:8251:beb9:1858\n;; -&gt;&gt;custom AAAA-encoded address &lt;&lt;- record: 5, net_type: cjdns, address: fcd1:c209:bc03:1a75:80d8:2838:a1f1:48c4\n\n;; Query time: 4 msec\n;; SERVER: 127.0.0.1#8053\n;; WHEN: Mon Sep 23 16:23:57 CEST 2024\n;; MSG SIZE  rcvd: 503\n</code></pre>",
+  "post_number": 11,
+  "post_type": 1,
+  "updated_at": "2024-09-23T14:33:41.084Z",
+  "reply_count": 0,
+  "reply_to_post_number": 10,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 45.6,
+  "yours": false,
+  "topic_id": 1123,
+  "topic_slug": "hardcoded-seeds-dns-seeds-and-darknet-nodes",
+  "topic_title": "Hardcoded seeds, DNS seeds and Darknet nodes",
+  "topic_html_title": "Hardcoded seeds, DNS seeds and Darknet nodes",
+  "category_id": 8,
+  "display_username": "",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 2,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "sipa",
+    "name": "Pieter Wuille",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Just implemented this to see if there might be any caveats.\n\nThe only con is the poor encoding efficiency of around 50%. NULL records can have an arbitrary length, so you're paying the resource record overhead of ten bytes (2B for type, class and length each plus 4B for TTL) only once. With AAAA records, there's ~12B of overhead (the ten-byte record overhead plus one or two bytes for a hardcoded restricted IPv6 prefix and the ordering information) for ~14B of payload.\n\nOn the upside, this approach works with `getaddrinfo` and does not interfere with server-side caching.\n\nThe demo implementation uses the ff00::/8 prefix to signal custom encoding and the next 8 bits for ordering (in theory, this could be reduced to just five bits, since you cannot fit more than 17 24-byte records into a 512B DNS message with a 12B header).\n\nNote that regular IPv6 addresses are note affected: `2a02:4780:28:a4bb::1` and `2a01:4ff:1f0:8d5c::1` are regular AAAA records. Everything following that (`ff00:...`, `ff01:...`, `ff02:...`) is the new encoding. Overall, 11 AAAA records are required to encode two onion, two I2P and two CJDNS addresses.\n\n```bash\n\u00bb nix shell . -c darkdig seed.21.ninja. --nameserver 127.0.0.1 --port 8053\n\n; <<>> darkdig 0.13 <<>> @127.0.0.1 -p 8053 -l INFO seed.21.ninja.\n;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 51259\n;; flags: qr rd, QUERY: 1, ANSWER: 2, AUTHORITY: 0, ADDITIONAL: 0\n\n;;QUESTION SECTION:\n; domain=seed.21.ninja., rdclass=IN, rdtype=ANY\n\n;;ANSWER SECTION:\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=162.249.228.218\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=84.247.133.104\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=152.117.88.43\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=109.210.214.5\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=A, data=67.207.84.53\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=2a02:4780:28:a4bb::1\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=2a01:4ff:1f0:8d5c::1\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff00:604:1a1b:53af:68b2:1754:ca5b:9b8e\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff01:dbed:7368:3d5f:e79d:28d3:55bb:be39\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff02:e8a8:4961:ef5c:4f6:5b5f:de9d:aa90\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff03:fcc2:cbfa:87ba:d504:43d7:d8e9:4902\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff04:469f:725d:1312:32b0:aea:8405:6070\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff05:5e8f:753a:f0a4:b20f:50d1:6e6a:4f08\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff06:7f4e:bf5:a7d3:4acb:7828:6c08:4d2d\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff07:837b:5d8:a70e:a682:650d:74d1:9ab8\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff08:18c2:8726:1b25:7d6c:adb:c945:7b81\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff09:fd4d:edb:99f9:e106:fc1f:22c3:95dc\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff0a:a3af:4a93:8251:beb9:1858:6fc:d1c2\ndomain=seed.21.ninja., ttl=60, rdclass=IN, rdtype=AAAA, data=ff0b:9bc:31a:7580:d828:38a1:f148:c400\n;; ->>custom AAAA encoding<<-\n;; ->>custom AAAA-encoded address <<- record: 0, net_type: onion_v3, address: dinvhl3iwilvjss3tohnx3ltna6v7z45fdjvlo56hhukqslb55of7iyd.onion\n;; ->>custom AAAA-encoded address <<- record: 1, net_type: onion_v3, address: 6znv7xu5vkipzqwl7kd3vvieipl5r2kjajdj64s5cmjdfmak5kcht6qd.onion\n;; ->>custom AAAA-encoded address <<- record: 2, net_type: i2p, address: mbyf5d3vhlykjmqpkdiw42spbb7u4c7vu7juvs3yfbwaqtjnqn5q.b32.i2p\n;; ->>custom AAAA-encoded address <<- record: 3, net_type: i2p, address: 3ctq5jucmugxjum2xammfbzgdmsx23ak3peuk64b7vgq5w4z7hqq.b32.i2p\n;; ->>custom AAAA-encoded address <<- record: 4, net_type: cjdns, address: fc1f:22c3:95dc:a3af:4a93:8251:beb9:1858\n;; ->>custom AAAA-encoded address <<- record: 5, net_type: cjdns, address: fcd1:c209:bc03:1a75:80d8:2838:a1f1:48c4\n\n;; Query time: 4 msec\n;; SERVER: 127.0.0.1#8053\n;; WHEN: Mon Sep 23 16:23:57 CEST 2024\n;; MSG SIZE  rcvd: 503\n```",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 91,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}
