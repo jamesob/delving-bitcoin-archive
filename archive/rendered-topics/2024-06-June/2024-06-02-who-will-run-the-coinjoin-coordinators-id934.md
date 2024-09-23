@@ -320,3 +320,21 @@ A developer found a bug which I am trying to fix but its more about PSBT and wal
 
 -------------------------
 
+AdamISZ | 2024-09-23 18:48:34 UTC | #22
+
+[quote="1440000bytes, post:20, topic:934"]
+No. `ALL|ANYONECANPAY` is different.
+[/quote]
+
+Oof, sorry. Bad reading fail there. Again though, you could you point me to something to read roughly how it's used? That's very interesting. I seem to recall Mike Hearn's original crowdfunding project used that. I think I can vaguely imagine that helping, but I can't foresee the details offhand.
+
+> No. Nostr relays’s main goal is not coinjoin. Almost 1000 relays that we can use to share PSBT.
+
+The same is true of IRC; its main goal is not coinjoin, but users can just choose 1-3 out of many. It doesn't mean it's an ideal transport layer of course! :laughing: 
+
+> No peer discovery. Discover yourself or run a relay and share.
+
+Don't really understand, you mean: the software exists and it's up to users to find each other to do coinjoins? There's nothing wrong with that, but it's very limited; anonymity sets with *unknown* peers are clearly very desirable (and just as importantly, larger). If no, then I just didn't get what you meant, sorry.
+
+-------------------------
+
