@@ -168,7 +168,9 @@ This should work since we are checking that the private key used as a preimage t
 
 -------------------------
 
-halseth | 2024-09-24 20:01:28 UTC | #12
+halseth | 2024-09-24 20:08:42 UTC | #12
+
+> The structure is more flexible than that; indeed, I’ve just written a [blog post ](https://reyify.com/blog/privacy-preserving-proof-of-taproot-assets) (code impl. and paper are linked in there), concretely illustrating how you can use the same techniques to not only prove statements about individual utxos with certain properties (age, size) but also, statements about aggregates over groups (so that one is “proof that N utxos have total sats value in range x to y”).
 
 Very cool, did not know that was possible! :star_struck: 
 
