@@ -132,3 +132,9 @@ The checksum is added to ensure that invalid `Record` encodings are discovered d
 
 -------------------------
 
+valuedmammal | 2024-09-24 15:36:57 UTC | #2
+
+Maybe have a record type for "last known derivation index"?
+
+-------------------------
+
