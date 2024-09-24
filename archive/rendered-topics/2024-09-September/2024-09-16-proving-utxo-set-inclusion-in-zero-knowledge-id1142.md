@@ -178,3 +178,19 @@ What are the limitations to what you can prove about the UTXO using aut-ct? (at 
 
 -------------------------
 
+halseth | 2024-09-24 20:28:57 UTC | #13
+
+> This feels like the most important question. Currently announcements are made publically of channel utxos. Assuming the key image (no double spend) thing mentioned above, how much worse is it to announce privately a utxo of the same size, for DOS resistance?
+
+The way current channels are announced, they prove that a certain UTXO on-chain opens a channel, such that nodes watching the chain can know when that UTXO is spent and prune the channel from their graph accordingly.
+
+In the zero-knowledge setting we can still prove that a UTXO was created ("I opened a channel between block height `X` and `X+10`"), but as a LN node maintaining a channel graph you cannot know when channels close. 
+
+To a certain degree this problem exists already, in case a channel "dies" without being closed on-chain (nodes go offline, key loss etc). So as a good steward of your channel graph, you should probably be maintaining it and pruning inactive channels from your graph regardless, so maybe a heuristic like this can make up for not knowing whether it was closed on-chain.
+
+As the public channel graph grows it will most likely be infeasible to keep track of every channel in any case, so one needs to be picky about which ones to keep.
+
+Light client LN nodes are already using certain heuristics AFAIK to prune the graph, for example by removing channels where a channel update hasn't been sent recently.
+
+-------------------------
+
