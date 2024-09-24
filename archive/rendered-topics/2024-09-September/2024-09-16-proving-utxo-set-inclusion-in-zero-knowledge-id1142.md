@@ -154,9 +154,13 @@ My (slightly woolly) thinking on this was always, while simply announcing money 
 
 -------------------------
 
-halseth | 2024-09-24 19:57:04 UTC | #11
+halseth | 2024-09-24 20:08:00 UTC | #11
 
-Thanks, I'll update it to use the dynamic accumulator :slight_smile: 
+> As already pointed out, the `utreexo` accumulator is dynamic and needs to be computed from all blocks. Just as a heads-up, you can use [utreexod ](https://github.com/utreexo/utreexod) or [floresta ](https://github.com/Davidson-Souza/Floresta) if you want to get the current roots and prove a given utxo. Furthermore, the commitment scheme used in utreexo is [a bit different ](https://github.com/vinteumorg/Floresta/blob/5fa8c546ef4aa25eda8a929c443a189d49e04530/crates/floresta-chain/src/pruned_utreexo/udata.rs#L50-L58) (I keep pondering if I should add this to `rustreexo` or keep it as “we only have the accumulator algorithms”).
+
+Thanks, I'll update it to use the dynamic accumulator :slight_smile:
+
+> Pretty cool to see someone looking at this. I did [start ](https://github.com/Davidson-Souza/zktreexo) something similar, but never finished. My goal was to commit the private key by hashing it at the end, so it couldn’t be replayed. I also commit to the current accumulator, so you can know exactly up to which height it is valid.
 
 I added the private key hash at the end as well, as an attempt to create a private identifier for the output: https://github.com/halseth/utxozkp/commit/6fd00e2077dc82a46074a81b6f01ede316631a39
 
