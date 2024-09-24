@@ -194,3 +194,13 @@ Light client LN nodes are already using certain heuristics AFAIK to prune the gr
 
 -------------------------
 
+AdamISZ | 2024-09-24 20:53:35 UTC | #14
+
+[quote="halseth, post:12, topic:1142"]
+What are the limitations to what you can prove about the UTXO using aut-ct? (at the extreme, can you prove something like “I know a witness that let me execute the script to this utxo” ?)
+[/quote]
+
+At a rough assessment, without delving into detail, it will be definitely straightforwardly possible for sPKs that are just logical conjunctions of keys or otherwise use EC arithmetic (thinking taproot style tweaks), since that's in EC-land so to speak; for sPKs that are based on hash locks, then clearly it's problematic for the usual reason: proofs of non-algebraic hashes (like SHA2) in such a system are extremely unwieldy. (which is of course why i use only taproot anon sets in these examples).
+
+-------------------------
+
