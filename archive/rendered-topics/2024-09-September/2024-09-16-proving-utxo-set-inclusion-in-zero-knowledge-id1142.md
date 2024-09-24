@@ -164,3 +164,11 @@ This should work since we are checking that the private key used as a preimage t
 
 -------------------------
 
+halseth | 2024-09-24 20:01:28 UTC | #12
+
+Very cool, did not know that was possible! :star_struck: 
+
+What are the limitations to what you can prove about the UTXO using aut-ct? (at the extreme, can you prove something like "I know a witness that let me execute the script to this utxo" ?)
+
+-------------------------
+
