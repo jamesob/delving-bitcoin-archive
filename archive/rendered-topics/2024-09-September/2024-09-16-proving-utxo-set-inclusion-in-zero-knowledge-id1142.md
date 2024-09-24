@@ -204,3 +204,15 @@ At a rough assessment, without delving into detail, it will be definitely straig
 
 -------------------------
 
+AdamISZ | 2024-09-24 20:57:13 UTC | #15
+
+[quote="halseth, post:13, topic:1142"]
+In the zero-knowledge setting we can still prove that a UTXO was created (“I opened a channel between block height `X` and `X+10`”), but as a LN node maintaining a channel graph you cannot know when channels close.
+[/quote]
+
+Yes after writing my note I did realize that that's the obvious answer to "isn't a private version kinda the same?" is: It isn't the same, for that reason.
+
+But there is a (slightly weak) answer to that: if proofs have to be generated at intervals, e.g. let's say we are optimistic about performance of this approach and imagine it's OK to have a 24 hour update cycle, you could require everyone to reproduce proofs based on utxo snaphots on that cycle. Maybe that's unrealistic, I wouldn't be at all surprised, for a very large network like Lightning. But there are presumably all kinds of finesses/details here, like what you mention in the remainder of your post.
+
+-------------------------
+

@@ -8,7 +8,7 @@
   "post_number": 13,
   "post_type": 1,
   "updated_at": "2024-09-24T20:28:57.889Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "> This feels like the most important question. Currently announcements are made publically of channel utxos. Assuming the key image (no double spend) thing mentioned above, how much worse is it to announce privately a utxo of the same size, for DOS resistance?\n\nThe way current channels are announced, they prove that a certain UTXO on-chain opens a channel, such that nodes watching the chain can know when that UTXO is spent and prune the channel from their graph accordingly.\n\nIn the zero-knowledge setting we can still prove that a UTXO was created (\"I opened a channel between block height `X` and `X+10`\"), but as a LN node maintaining a channel graph you cannot know when channels close. \n\nTo a certain degree this problem exists already, in case a channel \"dies\" without being closed on-chain (nodes go offline, key loss etc). So as a good steward of your channel graph, you should probably be maintaining it and pruning inactive channels from your graph regardless, so maybe a heuristic like this can make up for not knowing whether it was closed on-chain.\n\nAs the public channel graph grows it will most likely be infeasible to keep track of every channel in any case, so one needs to be picky about which ones to keep.\n\nLight client LN nodes are already using certain heuristics AFAIK to prune the graph, for example by removing channels where a channel update hasn't been sent recently.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
