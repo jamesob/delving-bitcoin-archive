@@ -154,3 +154,13 @@ My (slightly woolly) thinking on this was always, while simply announcing money 
 
 -------------------------
 
+halseth | 2024-09-24 19:57:04 UTC | #11
+
+Thanks, I'll update it to use the dynamic accumulator :slight_smile: 
+
+I added the private key hash at the end as well, as an attempt to create a private identifier for the output: https://github.com/halseth/utxozkp/commit/6fd00e2077dc82a46074a81b6f01ede316631a39
+
+This should work since we are checking that the private key used as a preimage to the hash function also gives us the public key that is proven to be in the UTXO set.
+
+-------------------------
+
