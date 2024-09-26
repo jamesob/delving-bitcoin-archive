@@ -114,3 +114,17 @@ Instead of using <1/-1> OP_ADD, it'd be more efficient to just push the last byt
 
 -------------------------
 
+ajtowns | 2024-09-26 12:59:34 UTC | #3
+
+If you have `<x> <y>` on the stack, you can verify that `y=x+1` with:
+
+```
+2DUP
+1 SWAP OVER CAT TOALTSTACK CAT
+1 ADD FROMALTSTACK EQUALVERIFY
+```
+
+The process is just to append a `0x01` byte to both suffixes, to ensure neither value is treated as negative or non-minimal (`0x00` or `0x80` or a multibyte string ending in `0x00` or `0x0080`), then increment, then check. The suffix can be one, two or three bytes this way, so this only doesn't work if the smaller hash ends with `FFFFFF`, but that's a one-in-16-million chance, instead of 1-in-2 or 255-in-256.
+
+-------------------------
+
