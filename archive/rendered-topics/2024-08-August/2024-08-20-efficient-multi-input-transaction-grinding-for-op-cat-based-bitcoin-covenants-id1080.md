@@ -108,3 +108,9 @@ Full change can be found in [this Github commit](https://github.com/sCrypt-Inc/c
 
 -------------------------
 
+benthecarman | 2024-09-26 07:49:09 UTC | #2
+
+Instead of using <1/-1> OP_ADD, it'd be more efficient to just push the last byte and last byte +1 in the witness, saves a byte and removes the need to handle if its 1 or -1
+
+-------------------------
+
