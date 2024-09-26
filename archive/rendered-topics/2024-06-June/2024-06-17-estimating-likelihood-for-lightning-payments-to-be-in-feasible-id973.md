@@ -230,3 +230,12 @@ Isn‘t equally weighting all network states equivalent to uniformly independent
 
 -------------------------
 
+xedivad | 2024-09-26 18:02:48 UTC | #8
+
+[quote="stefanwouldgo, post:7, topic:973"]
+Isn‘t equally weighting all network states equivalent to uniformly independently choosing channel balances?
+[/quote]
+I don't think so. A node balance is the sum of local liquidity in channels, but if those liquidity are uniformly distributed then it doesn't mean their sum (node balance) it's uniformly distributed. Like if you roll 2 dice, each one is has an uniform value 1..6, but the resulting sum is not an uniform value in the range 2 - 12. And viceversa.
+
+-------------------------
+
