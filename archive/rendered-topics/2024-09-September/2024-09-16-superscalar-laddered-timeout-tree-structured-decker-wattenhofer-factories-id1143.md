@@ -617,12 +617,6 @@ The onchain channel itself can be infected with a `CLTV` branch for the LSP so t
 
 -------------------------
 
-ZmnSCPxj | 2024-09-26 04:01:20 UTC | #10
-
-(post deleted by author)
-
--------------------------
-
 ZmnSCPxj | 2024-09-23 06:13:27 UTC | #11
 
 ***ANYWAY*** in Lightning proto dev summit, someone pointed out that we might be able to have some kind of sign-only-once scheme that could be used here.
