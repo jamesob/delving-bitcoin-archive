@@ -148,3 +148,15 @@ https://github.com/ajtowns/powcoins
 
 -------------------------
 
+garlonicon | 2024-09-27 18:42:02 UTC | #5
+
+Another type of P2W (Pay to Proof of Work) address, in testnet4: [url=https://mempool.space/testnet4/address/tb1qzsjnew5qcn75e4cqdsc6r9v8fjy5ensancqmv2l2n82p0q5f5tls758l9d]tb1qzsjnew5qcn75e4cqdsc6r9v8fjy5ensancqmv2l2n82p0q5f5tls758l9d[/url]
+
+Script: `OP_SIZE 60 OP_LESSTHAN OP_VERIFY 0279be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798 OP_CHECKSIG`
+
+If we use "less than 60" as the signature size, then for 59-byte signature, it requires grinding a single byte in s-value (assuming R-value is half of the generator). Then, we can lower it byte-by-byte, changing difficulty 256 times with each step.
+
+This approach requires no consensus changes, not even OP_CAT, so can be applied everywhere, including mainnet. It works best with P2WSH, because DER signatures are needed for OP_SIZE, and using P2SH will lead to non-standard transaction.
+
+-------------------------
+
