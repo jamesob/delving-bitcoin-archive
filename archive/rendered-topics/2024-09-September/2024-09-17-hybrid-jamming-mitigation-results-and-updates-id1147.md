@@ -426,3 +426,84 @@ you to take, informed by your locally available information.
 
 -------------------------
 
+morehouse | 2024-09-26 22:09:59 UTC | #4
+
+[quote="carla, post:1, topic:1147"]
+#### Manipulation - Surge Attack
+
+We also [fuzzed this attack](https://github.com/carlaKC/reputation-fuzz/blob/fda5a8823a26fd6b6dc243f3035288523a5e50b6/fuzz_test.go#L116) for ~24H (~22 billion execs) with the following conditions, and did not find any attacks where the targeted node loses revenue to the attack:
+[/quote]
+
+I made an [optimization](https://github.com/carlaKC/reputation-fuzz/pull/1) to the fuzz test and was able to find many surge attacks.  For example, here's one where the victim loses 50% of their revenue:
+
+```shell
+$ go test -run=FuzzSurgeAttack/e8e56d18133e
+27e4                                                                        
+--- FAIL: FuzzSurgeAttack (0.00s)                                           
+    --- FAIL: FuzzSurgeAttack/e8e56d18133e27e4 (0.00s)                      
+        fuzz_test.go:171: Successful attack: Peer count: 18, cutoff: 17:    
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 808464432 reputation (6m) contributes 67372036 revenue (2w) 
+              - 48053104688 reputation (6m) contributes 4004425390 revenue (2w)                                                                         
+              - 52348071984 reputation (6m) contributes 4362339332 revenue (2w)                                                                         
+              - 52348071984 reputation (6m) contributes 4362339332 revenue (2w)                                                                         
+              - 69527941168 reputation (6m) contributes 5793995097 revenue (2w)                                                                         
+              - 69527941168 reputation (6m) contributes 5793995097 revenue (2w)                                                                         
+              - 69527941168 reputation (6m) contributes 5793995097 revenue (2w)                                                                         
+              - 69527941168 reputation (6m) contributes 5793995097 revenue (2w)                                                                         
+              - 86707810352 reputation (6m) contributes 7225650862 revenue (2w)                                                                         
+              - 86707810352 reputation (6m) contributes 7225650862 revenue (2w)                                                                         
+              - 86707810352 reputation (6m) contributes 7225650862 revenue (2w)                                                                         
+             with outcome: Node lost: 50 % of revenue  - attacker paid: 28586797036 to meet threshold: 58121013316, node still earned: 28586797036 (0 honest + 28586797036 attacker), <nil>                                                                                     
+```
+
+I think this highlights a case where the current reputation algorithm performs poorly in general: fan-in topologies (and also fan-out if we're using bidirectional reputation).  
+
+With the recommended parameters, incoming reputation is calculated over a 24-week period while outgoing revenue is calculated over a 2-week period.  So, each incoming node will generally have a reputation score 12x higher than their contribution to the outgoing revenue.  It follows that if there's more than 12 incoming nodes contributing equally to outgoing revenue, none of them can *ever* build enough reputation to access endorsed slots.
+
+A surge attack is essentially just putting a finger on the scale to tip it towards this crossover point where no incoming nodes can build enough reputation.  The closer the topology and traffic flows are to the crossover point already, the less the cost of a surge attack.
+
+## Mitigation Thoughts
+
+### Custodial Lightning
+
+For custodial wallets, fan-in and fan-out topologies are likely rare and the current reputation algorithm might be "good enough".
+
+### LSP-Specific Reputation Algorithms
+
+LSPs generally have very high fan-in/out -- many small user channels fan-in to the LSP, while just a few large channels route out from the LSP.  It seems reasonable that LSPs would use their own reputation algorithms to handle their specific topology (AFAIU eclair/phoenix are already working on their own algorithm).  But how exactly those algorithms should work is an open question.
+
+Trampoline routing may also help.  LSPs may be able to endorse trampoline payments regardless of the previous node's reputation, since they get to choose the remainder of the path.  But if the destination of such payments is also an LSP user, the opposite problem (fan-out) will exist at the destination, and endorsed payments are likely to be failed back under the new bidirectional algorithm.
+
+-------------------------
+
+morehouse | 2024-09-26 23:03:58 UTC | #5
+
+[quote="ProofOfKeags, post:2, topic:1147"]
+One of the things I find odd about the approach to reputation described in the [original doc](https://gist.github.com/carlaKC/02251cd061260bbb149f361c65fc9f2f) is that it is the downstream that is fundamentally responsible for preimage release, and, by extension, the delayed resolution. This occurred to me after reading your description of the Sink Attack.
+[/quote]
+
+Echoing this thought  -- with the new bidirectional algorithm we would start failing endorsed payments if any node on the payment path has insufficient outgoing reputation.  So what benefit do we get from tracking incoming reputation?  Could we drop it altogether without losing anything?
+
+[quote="carla, post:3, topic:1147"]
+Without this signal, any node can show up and saturate a channel with failing payments. This is more efficient with the collaboration of a downstream peer, but also possible without it by just spraying payments to any node in the network.
+[/quote]
+
+But if the sprayed payments fail quickly, does it really matter?  This is what unconditional fees are for.
+
+If you're a node on an endorsed payment path, you only care about the remainder of the payment path resolving quickly.  Previous nodes on the path are irrelevant to this goal, so why track incoming reputation at all?  Local outgoing reputation seems sufficient -- each node on the path makes the best decision they can about forwarding the endorsed HTLC or failing it back immediately.
+
+### Implications of Outgoing-Only Reputation
+- Endorsing an HTLC no longer stakes your reputation on it resolving quickly, but rather communicates that you would like to try using endorsed slots along the *entire* payment path.
+- If any node along the payment path has insufficient reputation as decided by the node before it, the entire payment gets failed.  To save on unconditional fees, a node would prefer to send unendorsed payments during peacetime.
+- New nodes can immediately pay using endorsed slots if the destination and all intermediate hops have good reputation. (Much better UX during wartime).
+- New nodes cannot receive using endorsed slots until they have built enough reputation.
+
+-------------------------
+
