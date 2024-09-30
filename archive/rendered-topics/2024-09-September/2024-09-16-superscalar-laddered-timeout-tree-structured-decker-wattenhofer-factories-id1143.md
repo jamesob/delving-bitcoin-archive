@@ -700,7 +700,7 @@ Another question - How do you prevent `A` to unilaterally downgrade the construc
 
 -------------------------
 
-ZmnSCPxj | 2024-09-30 00:05:56 UTC | #15
+ZmnSCPxj | 2024-09-30 00:07:29 UTC | #15
 
 >Also any assisted exit sounds a double-edged sword mechanism as it could be leveraged to kick out a user, at the worst time e.g when the on-chain fees are full.
 
@@ -708,7 +708,7 @@ An assisted exit is a PTLC in the in-factory construction from user to LSP, foll
 
 An assisted exit like this allows the LSP to recover its in-factory funds earlier. If all clients perform assisted exits (including assisted exits from the current factory to a newer factory) then the LSP can recover funds directly from the funding outpoint, ***and*** can get those funds ***immediately***, before the end of the timeout period (which is safe since all the clients have exited; the entire fund is now solely owned by the LSP). This is in contrast with evicting clients by unilaterally exiting them: the LSP has to wait for some time due to the extra Decker-Wattenhofer steps along the way, and has to actively pay for fees if the LSP does it during high-fee periods.  That is, the LSP has an incentive to keep clients in the tree until the clients perform an assisted exit, because the assisted exit lets the LSP use less blockspace to recover its funds.  It has nothing to do with the LSP fee policy, simply the pragmatic realization that the private key of the client is valuable (and the client can safely hand it over in exchange for getting its funds out of the construction and into another one, either onchain or to a new factory) because it allows the LSP to close the construction earlier and with just a simple 1-input 1-output tx with a single signature.
 
-Even if not all clients perform an assisted exit (say, a client never comes online again because the underlying phone hardware was destroyed or irretrievably lost) the LSP would still prefer an assisted exit from the *other* clients, because each node has a `A & B & C & ... & Z & L` branch and once a subset is reached that is a strict subset of the clients that *have* performed assisted exit, the LSP can recover the rest of its funds from that output using the "everyone signs" branch, because it is now in possession of everyone's keys.
+Even if not all clients perform an assisted exit (say, a client never comes online again because the underlying phone hardware was destroyed or irretrievably lost) the LSP would still prefer an assisted exit from the *other* clients, because each node has a `A & B & C & ... & Z & L` branch and once a subset is reached that is a strict subset of the clients that *have* performed assisted exit, the LSP can recover the rest of its funds from that output using the "everyone signs" branch without publishing that subtree, because it is now in possession of everyone's keys.  This is still cheaper than the LSP preemptively evicting non-responsive clients; the LSP can always hold out and hope that the  client comes back online and performs an assisted exit (which it would need to perform to transfer from one tree to the next).
 
 Private key handover is ***AWESOME***.
 
