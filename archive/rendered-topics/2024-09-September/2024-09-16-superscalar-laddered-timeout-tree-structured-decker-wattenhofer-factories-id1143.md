@@ -684,3 +684,29 @@ With this, we can have P2A on all tree nodes as well, and incentive for the LSP 
 
 -------------------------
 
+ariard | 2024-09-29 22:59:07 UTC | #14
+
+[quote="ZmnSCPxj, post:5, topic:1143"]
+If most unilateral exit costs are borne by the LSP, it has an incentive to (1) provide very good service so that clients have no desire to unilateral exit and instead do assisted exit, (2) to come online ASAP to batch at timeout maturity, to reduce the risk of accidental or deliberate unilateral exit by the LSP, and (3) be picky about its clients so that clients do not just unilaterally exit to drain the LSP of funds.
+[/quote]
+
+To gauge better the fault-tolerance of this construction, I think you should have an estimation of the on-chain weight units costs for a range of less than perfect interactivity situations (e.g m-of-m, m-of-m - 1, m-of-m - 2). Also any assisted exit sounds a double-edged sword mechanism as it could be leveraged to kick out a user, at the worst time e.g when the on-chain fees are full.
+
+There is no guarantee that the LSP respects its own liquidity policy on that regard.
+
+> In order for `A` to exit, it must first have the `A & L` channel funding outpoint confirmed, then finally exit the `A & L` channel using standard Poon-Dryja unilateral exit. Thus, `A` must publish the path to its channel below:
+
+Another question - How do you prevent `A` to unilaterally downgrade the construction fault-tolerance for all the subset of users intersecting with its path to its channel ? I.e A to D being partitioned from E to H.
+
+-------------------------
+
+ZmnSCPxj | 2024-09-29 23:59:52 UTC | #15
+
+>Also any assisted exit sounds a double-edged sword mechanism as it could be leveraged to kick out a user, at the worst time e.g when the on-chain fees are full.
+
+An assisted exit is a PTLC in the in-factory construction from user to LSP, followed by an onchain PTLC from LSP to user, with the scalar being the private key that client is using for the in-factory constructions.  It is ***not*** the LSP initiating a unilateral exit for a user and assisting it by paying for onchain fees.  The client is the one that initiates this; it has to actually offer a PTLC inside the in-factory construction before the LSP can safely put the swap PTLC onchain.  Thus, the client can choose to ***not*** initiate an assisted exit during high-fee times.  The LSP has no incentive to eject clients during high fees.
+
+An assisted exit like this allows the LSP to recover its in-factory funds earlier. If all clients perform assisted exits (including assisted exits from the current factory to a newer factory) then the LSP can recover funds directly from the funding outpoint, ***and*** can get those funds ***immediately***, before the end of the timeout period (which is safe since all the clients have exited; the entire fund is now solely owned by the LSP). This is in contrast with evicting clients by unilaterally exiting them: the LSP has to wait for some time due to the extra Decker-Wattenhofer steps along the way, and has to actively pay for fees if the LSP does it during high-fee periods.  That is, the LSP has an incentive to keep clients in the tree until the clients perform an assisted exit, because the assisted exit lets the LSP use less blockspace to recover its funds.
+
+-------------------------
+
