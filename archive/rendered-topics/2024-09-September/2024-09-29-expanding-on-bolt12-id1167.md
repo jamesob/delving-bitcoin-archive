@@ -50,3 +50,11 @@ I look forward to your feedback.
 
 -------------------------
 
+andyschroder | 2024-09-30 06:32:47 UTC | #2
+
+Here's another proposal that I missed. This one suggests it should be a bLIP, not a revision of the BOLT. That makes sense to me since this proposal is optional and BOLT12 should work normally if the user doesn't have/want this proposed feature.
+
+https://delvingbitcoin.org/t/bolt-12-trusted-contacts/1046
+
+-------------------------
+
