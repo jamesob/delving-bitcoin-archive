@@ -304,3 +304,10 @@ Finally, a wallet policy might have the same `@i` multiple times (especially on 
 
 -------------------------
 
+andrewtoth | 2024-10-02 15:40:06 UTC | #25
+
+An issue with using left-to-right is that it makes `sortedmulti_a` depend on the order of keys added now.
+A `sortedmulti_a(k,KEY_1,KEY_2,...,KEY_N)` descriptor is identical to `sortedmulti_a(k,KEY_N,KEY_N-1,...,KEY_1)`, but this will create a different chaincode with this approach.
+
+-------------------------
+
