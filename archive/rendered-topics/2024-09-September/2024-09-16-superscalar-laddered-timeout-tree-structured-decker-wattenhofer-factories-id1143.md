@@ -714,3 +714,299 @@ Private key handover is ***AWESOME***.
 
 -------------------------
 
+ZmnSCPxj | 2024-10-02 16:41:04 UTC | #16
+
+Wide Leaves With Pseudo-Spilman Multiparty (N>2) Channel Factories
+==================================================================
+
+Consider the following sub-tree:
+
+                                        nSequence
+                                         +-----+---+
+                                         |     |A&L| LN channel
+                            +--+-----+   |     +---+
+      nSequence           +>|  |A&B&L|-->| 432 |B&L| LN channel
+       +-----+----------+ | +--+-----+   |     +---+
+       |     |  (A&B&L) |-+              |     | L | Liquidity stock
+       |     |or(L&CLTV)|                +-----+---+
+    -->| 432 +----------+               nSequence
+       |     |  (C&D&L) |                +-----+---+
+       |     |or(L&CLTV)|-+              |     |C&L| LN channel
+       +-----+----------+ | +--+-----+   |     +---+
+                          +>|  |C&D&L|-->| 432 |D&L| LN channel
+                            +--+-----+   |     +---+
+                                         |     | L | Liquidity stock
+                                         +-----+---+
+
+The above is not quite what I showed earlier, but the only real
+change is that the kickoff hosting the leaves have an arity of 1
+rather than 2, which I suggested earlier to provide better isolation
+of the pair `C` `D` from the pair `A` `B`.
+We do have the option of having the kickoff transactions have an
+arity of 2 or more for higher up in the tree, just as we might have
+higher arities for state transactions at nodes higher up the tree.
+
+For the above sub-tree, we have the following operations that can
+be done without touching the blockchain:
+
+* `A` can buy liquidity from the LSP if `B` and `L` are online.
+* `B` can buy liquidity from the LSP if `A` and `L` are online.
+* `C` can buy liquidity from the LSP if `D` and `L` are online.
+* `D` can buy liquidity from the LSP if `C` and `L` are online.
+
+Now, let me present an alternative implementation of the above
+sub-tree, that also allows the above operations, again without
+touching the blockchain.
+The advantage of the below is *the removal of one Decker-Wattenhofer
+layer*, which translates to a reduction in the maximum total
+relative locktime (`nSequence`).
+
+       +-----+----------+
+       |     |    A&L   | LN channel
+       |     +----------+
+       |     |    B&L   | LN channel
+       |     +----------+
+       |     |  (A&B&L) | Liquidity stock (A&B)
+       |     |or(L&CLTV)|
+    -->| 432 +----------+
+       |     |    C&L   | LN channel
+       |     +----------+
+       |     |    D&L   | LN channel
+       |     +----------+
+       |     |  (C&D&L) | Liquidity stock (C&D)
+       |     |or(L&CLTV)|
+       +-----+----------+
+
+How does `A` (`B` `C` `D`) buy liquidity from `L` in the above
+scheme?
+Like so:
+
+       +-----+----------+
+       |     |    A&L   |
+       |     +----------+
+       |     |    B&L   |   +--+----------+
+       |     +----------+   |  |    A&L   |
+       |     |  (A&B&L) |-->|  +----------+
+       |     |or(L&CLTV)|   |  |  (A&B&L) |
+    -->| 432 +----------+   |  |or(L&CLTV)|
+       |     |    C&L   |   +--+----------+
+       |     +----------+
+       |     |    D&L   |
+       |     +----------+
+       |     |  (C&D&L) |
+       |     |or(L&CLTV)|
+       +-----+----------+
+
+The new transaction takes the `A & B & L` branch.
+(In the case that the LSP incentivizes `B` to join the signing
+session by providing a small amount of free inbound liquidity,
+we "simply" add another `B & L` output as an extra channel.)
+
+The above is remniscient of Spilman channels; the output here is
+semantically owned by `L`, and `L` may reduce its allocation of
+funds to give more funds (or in this use-case, inbound liquidity)
+to the other participants.
+
+However, a difference with the above vs ***real*** Spilman channels
+is when `A` buys liquidity again:
+
+       +-----+----------+
+       |     |    A&L   |
+       |     +----------+
+       |     |    B&L   |   +--+----------+
+       |     +----------+   |  |    A&L   |   +--+----------+
+       |     |  (A&B&L) |-->|  +----------+   |  |    A&L   |
+       |     |or(L&CLTV)|   |  |  (A&B&L) |-->|  +----------+
+    -->| 432 +----------+   |  |or(L&CLTV)|   |  |  (A&B&L) |
+       |     |    C&L   |   +--+----------+   |  |or(L&CLTV)|
+       |     +----------+                     +--+----------+
+       |     |    D&L   |
+       |     +----------+
+       |     |  (C&D&L) |
+       |     |or(L&CLTV)|
+       +-----+----------+
+
+In a ***real*** Spilman channel, `L` would have simply replaced
+the previous transaction with a new one.
+However, direct replacement is unsafe when there are more than 2
+participants, because the other participants could actually be
+sockpuppets of `L`.
+In that case, `L` can get a complete set of signatures for all
+versions of the transaction, including older versions of the
+transaction, and can bribe a miner to confirm the older version.
+Thus, this scheme is not a true Spilman channel factory.
+
+Instead, the above scheme forces the LSP to only spend
+each of the liquidity stock UTXOs at most once, and protects
+against double-spending by clients simply refusing to sign for a
+transaction that spends an already-used liquidity stock UTXO.
+Even if the other participants are sockpuppets of `L`, as long
+as the buying participant is a signatory, it can ensure the
+correct operation of the scheme.
+
+The major advantage of this wide leaf is that it provides the
+same basic liquidity purchase operations as the first sub-tree
+shown earlier, but with one less Decker-Wattenhofer layer.
+Each layer of Decker-Wattenhofer is a liability even if the
+construction never hits the blockchain, because each
+Decker-Wattenhofer layer adds more relative locktimes.
+Any hosted HTLCs or PTLCs would need a CLTV-delta that is at
+least the total maximum Decker-Wattenhofer locktime, plus any
+margin deemed necessary by the receiving side;
+if the remaining time in a pending HTLC or PTLC is less than
+the current Decker-Wattenhofer locktime plus margin, participants
+***MUST*** drop the construction onchain, which is expensive and
+time-consuming due to the larger participant set.
+Thus, reducing the worst-case Decker-Wattenhofer locktime
+is always an advantage, as it helps avoid unilateral closes.
+
+If a client has ever bought liquidity, then its unilateral
+close involves more bytes on the blockchain.
+This is a distinct disadvantage over the original sub-tree.
+In addition, because the new inbound liquidity is in a new
+channel, forwarded HTLCs from the LSP to client may need to
+be split at that hop (i.e. local multipath).
+
+Further, this additional complexity with managing liquidity
+compounds.
+If the wide leaf is replaced entirely (for instance, if the
+liquidity stock for `A` and `B` runs out and the LSP wants to
+move some of the stock from `C` and `D`), it would be advantageous
+to cut-through all the dependent transactions that give
+additional channels to the buying client `A`, creating just a
+single channel.
+This means that any hosted HTLCs would need to be put in the
+same single new channel in the new state, effectively merging
+the pending HTLC sets.
+
+Against Internal Splicing
+-------------------------
+
+In this scheme, as noted, the LSP creates a new channel to the
+client instead of increasing the capacity of the existing channel
+inside the construction.
+This adds complications, in that HTLCs forwarded from the LSP to
+the client may need to be split among the multiple channels.
+We might wonder if we could instead splice, so that there is only
+one liquidity "bag" for the HTLCs.
+
+Suppose that the LSP has the policy that incentivizes `B` to
+participate in signing sessions by giving `B` a small amount of
+free inbound liquidity whenever it is online to assist the
+purchase of `A` of inbound liquidity.
+In that case, the splice transaction would spend the `A & L` and
+`B & L` outputs.
+
+However, suppose in addition that `B` is actually a sockpuppet of
+the LSP.
+In that case, the LSP can trivially invalidate the splice transaction
+by simply spending from the `B & L` output, as it is actually in
+possession of both keys.
+
+The same may happen even if the LSP does ***not*** have a policy
+of incentivizing signing sessions by offering free inbound
+liquidity.
+If `B` purchases inbound liquidity first (or rather, the LSP emulates
+`B` purchasing inbound liquidity) and *then* `A` buys inbound
+liquidity, then again the splice of the `A & L` channel is dependent
+on the `B & L` output, and if `B` is actually a sockpuppet of the LSP,
+then this is still a way for the LSP to clawback the sold liquidity.
+
+Thus, it is not safe to use internal splicing inside offchain
+mechanisms; we should use cut-through instead when transaction
+replacement is possible (which is not true in this scheme; it is
+dependent on a parent node being able to perform replacement).
+Splicing in general is only safe if confirmed onchain.
+
+Incentivizing LSP-pays-mining-fee
+---------------------------------
+
+An important model here is that clients may not have onchain
+UTXOs with which to pay for unilateral exit.
+One may consider this scheme, as well as related schemes, as ways
+for a client to build up their Bitcoin HODLings without having an
+onchain UTXO, but with an assurance that the service provider has
+no incentive to rug their funds until they have accumulated enough
+to own their own unique UTXO.
+
+The unilateral exit is, in effect, a proof-of-liabilities that is
+publishable onchain, to prevent the LSP from rugging the client.
+
+Thus, this scheme also provides an "assisted exit" where, in
+exchange for the client keys in this construction, the LSP assists
+the client to get an onchain UTXO, or to move to a new factory in
+the ladder.
+This is done by using PTLCs to swap, with the scalar being the
+private key.
+
+The assisted exit is part of the protocol so that the LSP has an
+incentive to retain clients in the mechanism, until the clients
+have performed an assisted exit.
+
+* If all clients have performed an assisted exit from one of the
+  factories, the LSP can immediately reclaim the funds in the
+  factory, even before the timeout.
+  * Even if some clients do not perform an assisted exit, the LSP
+    can, at its option (i.e. if onchain fees are low) perform a
+    partial unilateral exit to reclaim funds from subsets of the
+    participating clients.
+
+Our goal is that, if the client is unsatisfied with the performance
+of the LSP, the client can perform a unilateral exit at the
+expense of the LSP.
+
+Crucially, as we update offchain, the LSP has an incentive to
+claw back its funds in case of a unilateral exit, by waiting for
+older states to be publishable onchain (by the Decker-Wattenhofer
+mechanism) and then paying to have that confirmed.
+If clients do not have an existing onchain UTXO with which to
+pay fees, and all their Bitcoins are held in a shared UTXO with
+the LSP, then the clients will not be able to have the newer states
+confirmed.
+
+Our exact scheme for the not-really-Spilman factory is thus:
+
+* All clients in the liquidity stock sign *two* transactions
+  spending the liquidity stock:
+  * One is the transaction we showed above, funding new client
+    channel(s) and an optional change output that is the new
+    liquidity stock.
+    - This transaction is `nVersion=3`, has 0 fee, and has a
+      P2A output for feebumping.
+    - Call this the "state" transaction.
+  * Another version is a `nLockTime`d transaction, with timelock
+    equal to the timeout of the tree, and with a single `OP_RETURN`
+    output.
+    - Care must be take to respect minimum transaction size
+      (65 bytes in txid format).
+    - Also has `nVersion=3`, but its fee is effectively the entire
+      value of the liquidity stock.
+    - Call this the "burn" transaction.
+
+The liquidity stock output of the wide leaf has effectively two
+states:
+
+* The original starting state where it is owned semantically by
+  the LSP, but is claimable at the end of the tree timeout.
+* The new state where part of the fund is allocated to a new
+  channel with a client.
+
+The LSP may attempt to claw back the original state by simply
+not feebumping the 0-fee state transaction.
+However, if so, the clients can retaliate by simply publishing
+the burn transaction.
+Due to its small size, it is very difficult for the LSP to
+replace it with a higher-fee transaction; it can only do so by
+effectively spending more than the actual original liquidity
+stock.
+If so, the LSP has incentive to always publish --- and pay for
+confirmation of --- the correct latest state, as it ends up
+saving more money that way.
+
+As practical consideration, the actual `L & CLTV` locktime should
+be a little later than the formal end of the timeout tree, while
+the burn transaction should have the `nLockTime` of the timeout
+tree.
+
+-------------------------
+
