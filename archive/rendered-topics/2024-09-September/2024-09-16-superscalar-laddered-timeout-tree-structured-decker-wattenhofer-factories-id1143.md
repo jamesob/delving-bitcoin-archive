@@ -1010,3 +1010,27 @@ tree.
 
 -------------------------
 
+ariard | 2024-10-02 22:48:07 UTC | #17
+
+[quote="ZmnSCPxj, post:15, topic:1143"]
+An assisted exit is a PTLC in the in-factory construction from user to LSP, followed by an onchain PTLC from LSP to user, with the scalar being the private key that client is using for the in-factory constructions
+[/quote]
+
+In the worst-case, how do you guarantee the user to guarantee PTLC-to-LSP and PTLC-to-LSP to settle at the same time ? And the user to have enough funds to confirms those 2 transactions under few blocks of relapse. 
+
+See my point above the “Forced Expiration Spam”: https://lightning.network/lightning-network-paper.pdf 3 I don’t see how you’re making things better here.
+
+-------------------------
+
+ariard | 2024-10-02 22:55:05 UTC | #18
+
+[quote="ZmnSCPxj, post:16, topic:1143"]
+Thus, this scheme also provides an “assisted exit” where, in exchange for the client keys in this construction, the LSP assists the client to get an onchain UTXO, or to move to a new factory in the ladder. This is done by using PTLCs to swap, with the scalar being the private key.
+[/quote]
+
+How can you trust the LSP to fee-bump just-on-time for the end user and the LSP won’t maliciously abort the private key handover ?
+
+“Fair exchange” of a secret is an unsolved problem since 90s's distributed system literature.
+
+-------------------------
+
