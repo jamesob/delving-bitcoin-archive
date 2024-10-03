@@ -311,3 +311,18 @@ A `sortedmulti_a(k,KEY_1,KEY_2,...,KEY_N)` descriptor is identical to `sortedmul
 
 -------------------------
 
+andrewkozlik | 2024-10-03 15:18:51 UTC | #26
+
+I agree with @andrewtoth that it would be most beneficial if the chain code would be derived from the XPUBs independently of their order. It would alleviate the issue of whether the wallet policy order or the descriptor order should be used, as well as the mentioned surprising behavior with `sortedmulti_a`.
+
+I see three possible approaches to achieve this:
+1. Sort the XPUBs, then hash the sorted and concatenated list.
+2. Hash each XPUB, then XOR the results. (Problem: repeated XPUBs would cancel out. I suppose that may happen in more complex descriptors/policies.)
+3. Hash each XPUB, then add the results mod 2^256. (Repeated XPUBs don't cancel out.)
+
+Instead of XPUBs it may be simpler to work with only a part of the XPUB, i.e. the compressed public key, as @AntoineP did, or with the chain code. In fact, I think the chain code could be used directly in options 2 or 3 without hashing it, i.e. just a XOR-sum of the chain codes or a mod 2^256 sum of the chain codes. That would make for a very simple implementation. A potential risk of not hashing is that a malicious participant could craft the chain code in their XPUB so that it cancels out with the other participants to force the result to a desired value. However, such a malicious participant could just as well publish the dummy XPUB to achieve the same goal, so I don't see a problem with a simple sum of the chain codes.
+
+To ensure smooth interoperability amongst different wallets, it would be very helpful if we could agree on standardizing `unspend()` with deterministic `HEXCHAINCODE`.
+
+-------------------------
+
