@@ -20,3 +20,20 @@ Crypt-iQ | 2024-10-03 18:51:34 UTC | #2
 
 -------------------------
 
+roasbeef | 2024-10-03 20:00:20 UTC | #3
+
+I thought it would be useful to add some additional context here. It is the case that
+we wanted to further delay the disclosure, as we felt that disclosing just 3
+months after a patch landed was too soon. Particularly given existing
+precedence set by other full node implementations to delay disclosure of
+sufficiently critical issues well beyond the 6 months we requested between patch
+and disclosure (observe some of the timelines carried out for the recent set of
+[bitcoind security disclosures
+here](https://bitcoincore.org/en/security-advisories/)).
+
+Ultimately, Niklas and AntoineP _refused_ to delay an extra 3 months (to bring
+the total age of the release to 6 months), instead deciding to prematurely
+disclose themselves against the wishes of the `btcd` maintainers.
+
+-------------------------
+
