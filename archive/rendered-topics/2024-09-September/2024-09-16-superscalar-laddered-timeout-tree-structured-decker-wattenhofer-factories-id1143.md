@@ -1034,3 +1034,11 @@ How can you trust the LSP to fee-bump just-on-time for the end user and the LSP 
 
 -------------------------
 
+ZmnSCPxj | 2024-10-03 02:17:32 UTC | #19
+
+> In the worst-case, how do you guarantee the user to guarantee PTLC-to-LSP and PTLC-to-LSP to settle at the same time ? And the user to have enough funds to confirms those 2 transactions under few blocks of relapse
+
+Honestly, I do not have an answer for you here.  What I can point out is that while it does not work in theory, it does work in practice; lots of users are able to swap offchain to onchain, and vice versa; lots of people can still pay over Lightning, over multiple hops, even during high onchain fees.  It somehow still all works, and this is just another application of same constructions.  Puzzling, but sometimes I just have to move on and get stuff done.
+
+-------------------------
+
