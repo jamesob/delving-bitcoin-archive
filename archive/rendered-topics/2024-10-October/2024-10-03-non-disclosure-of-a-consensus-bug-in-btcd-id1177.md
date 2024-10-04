@@ -14,12 +14,6 @@ Given that these 16 nodes only represent 0.022% of the Bitcoin network and we do
 
 -------------------------
 
-Crypt-iQ | 2024-10-03 18:51:34 UTC | #2
-
-(post deleted by author)
-
--------------------------
-
 roasbeef | 2024-10-03 20:00:20 UTC | #3
 
 I thought it would be useful to add some additional context here. It is the case that
