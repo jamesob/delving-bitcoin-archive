@@ -37,3 +37,15 @@ disclose themselves against the wishes of the `btcd` maintainers.
 
 -------------------------
 
+ariard | 2024-10-04 01:03:09 UTC | #4
+
+[quote="AntoineP, post:1, topic:1177"]
+and the project awarded us a bounty for this finding.
+[/quote]
+
+Guys, I don’t know if you had the chance to be trained by people doing infosec professionally back in school, or whatever if you’re autodidact, but personally I did. And reporting security disclosure it's kinda an art, though as soon as you start to take money from the softwares vendors and wish to give your timeline it’s all very borderline…Personally, I never took any money reward for all my past disclosures and I keep doing so, to keep the interest of the end-users as a priority, among other considerations.
+
+To clarify for everyone in the community that could read this post, I think it would be great to have the LND vendor publishing a bug bounty program with clear rules of engagement. I believe Conner Fromknecht has been working on it for a while.
+
+-------------------------
+

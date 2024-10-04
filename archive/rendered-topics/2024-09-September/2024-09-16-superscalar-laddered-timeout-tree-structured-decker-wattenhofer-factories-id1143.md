@@ -1042,3 +1042,17 @@ Honestly, I do not have an answer for you here.  What I can point out is that wh
 
 -------------------------
 
+ariard | 2024-10-04 01:08:45 UTC | #20
+
+[quote="ZmnSCPxj, post:19, topic:1143"]
+it does work in practice; lots of users are able to swap offchain to onchain,
+[/quote]
+
+It doesn’t work in practice. There is no guarantee in bitcoin that an off-chain state is reconciliated with the on-chain state of the blockchain, before expiration of the safety timelocks in a world where users are in a fees competition to confirm off-chain states.
+
+> Puzzling, but sometimes I just have to move on and get stuff done.
+
+It’s easy to get stuff done, I can do it too. Just ship completely broken stuff to users.
+
+-------------------------
+
