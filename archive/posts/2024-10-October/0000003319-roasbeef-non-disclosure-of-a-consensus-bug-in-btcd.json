@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 6,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 31.6,
+  "incoming_link_count": 7,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 52.6,
   "yours": false,
   "topic_id": 1177,
   "topic_slug": "non-disclosure-of-a-consensus-bug-in-btcd",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I thought it would be useful to add some additional context here. It is the case that\nwe wanted to further delay the disclosure, as we felt that disclosing just 3\nmonths after a patch landed was too soon. Particularly given existing\nprecedence set by other full node implementations to delay disclosure of\nsufficiently critical issues well beyond the 6 months we requested between patch\nand disclosure (observe some of the timelines carried out for the recent set of\n[bitcoind security disclosures\nhere](https://bitcoincore.org/en/security-advisories/)).\n\nUltimately, Niklas and AntoineP _refused_ to delay an extra 3 months (to bring\nthe total age of the release to 6 months), instead deciding to prematurely\ndisclose themselves against the wishes of the `btcd` maintainers.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
