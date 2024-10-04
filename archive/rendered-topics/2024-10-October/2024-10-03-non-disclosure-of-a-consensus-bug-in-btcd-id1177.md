@@ -59,7 +59,7 @@ Can you provide more context on why the patch took ~3 months to land? I can unde
 
 -------------------------
 
-AntoineP | 2024-10-04 09:54:02 UTC | #6
+AntoineP | 2024-10-04 10:01:47 UTC | #6
 
 [quote="Crypt-iQ, post:2, topic:1177"]
 Unfortunately, it seems like there is a double standard emerging in security reporting between bitcoin implementations. If this were a bitcoind security issue, I doubt there would have been the same pressure to disclosure with such a short timeline.
@@ -78,6 +78,12 @@ I thought it would be useful to add some additional context here. It is the case
 [/quote]
 
 Again, it's curious how this sudden concern only made its appearance a few days before the deadline. Not when you actually released and stated you would disclose the details 90 days later.
+
+[quote="roasbeef, post:3, topic:1177"]
+Ultimately, Niklas and AntoineP *refused* to delay an extra 3 months (to bring the total age of the release to 6 months), instead deciding to prematurely disclose themselves against the wishes of the `btcd` maintainers.
+[/quote]
+
+We indeed refused to arbitrarily make an (other) exception to the published schedule. However we still haven't released the details of the vulnerability. We asked you numerous times privately to give us a good reason not to respect the schedule. I'll restate it publicly. **We're happy to withhold the details should there be any reasonable concern about publishing them according to the initial schedule.**
 
 -------------------------
 
