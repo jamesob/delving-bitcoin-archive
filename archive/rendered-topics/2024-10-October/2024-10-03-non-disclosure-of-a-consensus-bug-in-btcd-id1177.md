@@ -49,3 +49,35 @@ To clarify for everyone in the community that could read this post, I think it w
 
 -------------------------
 
+josibake | 2024-10-04 09:09:33 UTC | #5
+
+[quote="roasbeef, post:3, topic:1177"]
+as we felt that disclosing just 3 months after a patch landed was too soon.
+[/quote]
+
+Can you provide more context on why the patch took ~3 months to land? I can understand the desire to give users more than 3 months to upgrade, which is why I am a bit surprised at the timeline given that the public disclosure was agreed to in advance.
+
+-------------------------
+
+AntoineP | 2024-10-04 09:54:02 UTC | #6
+
+[quote="Crypt-iQ, post:2, topic:1177"]
+Unfortunately, it seems like there is a double standard emerging in security reporting between bitcoin implementations. If this were a bitcoind security issue, I doubt there would have been the same pressure to disclosure with such a short timeline.
+[/quote]
+
+[quote="roasbeef, post:3, topic:1177"]
+Particularly given existing precedence set by other full node implementations to delay disclosure of sufficiently critical issues well beyond the 6 months we requested between patch and disclosure
+[/quote]
+
+Trying to deflect this on Bitcoin Core is not a good look. If you disagreed with the timeline, why not state so back when we reported the bug? Why confirm the schedule three months later, when you publicly committed to release the details in 90 days?
+
+Bitcoin Core now has a disclosure policy. Had we reported it to this project and two days before the deadline maintainers requested us not to respect the schedule *with no good reason*, it would have played the same. But i doubt they would do that in the first place.
+
+[quote="roasbeef, post:3, topic:1177"]
+I thought it would be useful to add some additional context here. It is the case that we wanted to further delay the disclosure, as we felt that disclosing just 3 months after a patch landed was too soon.
+[/quote]
+
+Again, it's curious how this sudden concern only made its appearance a few days before the deadline. Not when you actually released and stated you would disclose the details 90 days later.
+
+-------------------------
+
