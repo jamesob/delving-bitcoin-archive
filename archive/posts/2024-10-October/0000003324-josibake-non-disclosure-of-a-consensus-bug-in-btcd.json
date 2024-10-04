@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"roasbeef, post:3, topic:1177\"]\nas we felt that disclosing just 3 months after a patch landed was too soon.\n[/quote]\n\nCan you provide more context on why the patch took ~3 months to land? I can understand the desire to give users more than 3 months to upgrade, which is why I am a bit surprised at the timeline given that the public disclosure was agreed to in advance.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
