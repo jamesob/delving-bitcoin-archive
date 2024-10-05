@@ -58,3 +58,13 @@ https://delvingbitcoin.org/t/bolt-12-trusted-contacts/1046
 
 -------------------------
 
+andyschroder | 2024-10-05 15:57:36 UTC | #3
+
+[quote="andyschroder, post:1, topic:1167"]
+there seems to be no human-readable prefix defined for invoices in BOLT12, so I’m proposing the prefix `lni`
+[/quote]
+
+Despite not being defined in the spec, it looks like CLN already uses the `lni` prefix for their fetchinvoice (https://docs.corelightning.org/reference/lightning-fetchinvoice) and pay (https://docs.corelightning.org/reference/lightning-pay) RPC commands.
+
+-------------------------
+
