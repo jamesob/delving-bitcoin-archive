@@ -1056,3 +1056,45 @@ It’s easy to get stuff done, I can do it too. Just ship completely broken stuf
 
 -------------------------
 
+ZmnSCPxj | 2024-10-07 18:44:30 UTC | #21
+
+Addenda
+
+# CLTV Locktime Extended By Decker-Wattenhofer Relative Delays
+
+A side-effect of Decker-Wattenhofer use is that HTLCs hosted (directly or indirectly, as in the channel factory case) have a minimum CLTV-delta that is equal to the current Decker-Wattenhofer `nSequence` state delay, plus any safety margin needed by the node for downtime or forwarding purposes.  Note that this happens for *any* use of `nSequence` to provide timeouts for resolving the latest state --- for example, Poon-Dryja **could** have had the same drawback, **if** the `CSV` timelock had been placed before HTLCs instead of as an alternate branch (the tradeoff here is that if the BOLT Poon-Dryja specification had put the `CSV` delay *before* HTLCs, it would have allowed Poon-Dryja implementations to completely drop historical HTLC data --- note that dropping the resolved and failed HTLC data is something the implementation *can* do but which actual code could potentially still keep for surveillance purposes anyway, so this tradeoff was not taken).
+
+However, it also means that the LSP has to unilaterally close "early" if clients have not done an assisted exit from their current tree to the next tree, or to onchain, and the specific SuperScalar tree is approaching the current Decker-Wattenhofer delay to the timelock.
+
+Thus, for actual implementations, the timelock of the timeout trees would be active period + dying period (i.e. a grace period for clients to move from older tree to newer trees) + maximum Decker-Wattenhofer delay.
+
+This increases pressure for the LSP to provide proper assisted exit, as the additional delay from the Decker-Wattenhofer mechanisms would also represen additional time that the LSP funds are locked.
+
+I am currently wondering if the Decker-Wattenhofer delay can be mashed with the dying period, just as the Decker-Wattenhofer layers were mashed with the timeout-tree layers in SuperScalar.
+
+# Asymmetric Onchain Fee Schemes For Poon-Dryja
+
+In the most recent Lightning Network protocol dev summit, it was decided that the "next step" would be 0-fee commitment transactions, with a common P2A output that either side can use to fee-bump.
+
+This has the drawback that it requires exogenous fees.  If our base assumption is that clients do not afford their own UTXO (which is why they are sharing one with many other clients and the LSP in SuperScalar), then 0-fee commitment transactions are not good for clients.
+
+An alternative idea given to a few people at the summit, was to have multiple commitment transactions per commitment state with different feerates (dependent transactions such as HTLC-success and HTLC-failure would have the same feerate as the commitment transactions).  This is kept incentive compatible by taking advantage of the asymmetry of Poon-Dryja commitment transactions: the side that holds that commitment transaction is the one whose funds are deducted from for fees of that commitment transaction.  Obviously this means that clients with 0 funds in the channel cannot pay for the commitment transaction, but if the client has 0 funds, it does not matter if the client cannot unilaterally close anyway.  The extended drawback, however, is that the maximum fee the client can pay is limited by how much money they have in the channel (HTLCs they offerred may be garnished similarly).
+
+An extension of this asymmetry would be to asymmetrize the onchain fee scheme:
+
+* For the LSP side commitment transaction, use a P2A output so that onchain fees are paid exogenously --- the LSP is presumed to have ready access to onchain funds with which to CPFP via the P2A output.
+  * This allows the LSP to reduce its reserve requirement per channel to only provide security to the client in case the LSP tries to cheat.
+* For the client side commitment transasction, use multiple versions with various feerates, funded endogenously by the client-side owned funds and possibly the HTLCs they offered.
+
+-------------------------
+
+ZmnSCPxj | 2024-10-07 18:52:54 UTC | #22
+
+[quote="ariard, post:20, topic:1143"]
+It’s easy to get stuff done, I can do it too. Just ship completely broken stuff to users.
+[/quote]
+
+I object to "completely".  Consider that custodial Bitcoin wallets are even worse, in that the offchain state is merely the trustmebro of the custodian; with Lightning and SuperScalar, the offchain state at least has the (unguaranteed) possibility of resolving with the onchain state if the LSP becomes uncooperative (unlike the case of custodial Bitcoin, where if the custodian refuses to cooperate, it can simply 0 out your account under you).  Custodial Bitcoin is significantly more broken than Lightning or similar schemes.  Until you can present a perfect scheme that allows Bitcoin to have offchain state perfectly resolved 100% of the time, I would respectfully ask you to point your attention at custodial schemes instead.  Improving something is still better than waiting for the perfect thing.  Sometimes you have to accept gray in a gray vs black fight.
+
+-------------------------
+
