@@ -1,6 +1,6 @@
 # Bitcoin PIPEs: Introducting Covenants without Soft Forks
 
-MishaKomarov | 2024-10-07 20:23:33 UTC | #1
+MishaKomarov | 2024-10-07 20:25:10 UTC | #1
 
 # **Bitcoin PIPEs: Covenants on Bitcoin Without Soft Fork**
 
@@ -65,7 +65,7 @@ Besides emulating opcodes, Bitcoin PIPEs can be defined to be much more complica
 
 Bitcoin PIPE acts as an off-chain FH-MIPE-based processor of an encrypted transaction signing key, which yields a signature in case the predicate logic is satisfied (e.g. a zk-proof is verified or a concatenation is done correctly).
 
-![Image 1: Usage Workflow](https://prod-files-secure.s3.us-west-2.amazonaws.com/38e9ffa2-a958-42ea-b848-2fb5407a62b8/1e7bc1ed-d468-4f42-b723-1c2b212b3f89/BItcoin_PIPEs.jpg)
+![Screenshot 2024-10-07 at 4.24.59 PM|690x460](upload://2qhrpNtDuOATOQPEnKN97Wgu9Tt.jpeg)
 
 Image 1: Usage Workflow
 
