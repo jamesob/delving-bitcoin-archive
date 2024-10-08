@@ -1098,3 +1098,17 @@ I object to "completely".  Consider that custodial Bitcoin wallets are even wors
 
 -------------------------
 
+instagibbs | 2024-10-08 14:11:40 UTC | #23
+
+[quote="ZmnSCPxj, post:21, topic:1143"]
+For the client side commitment transasction, use multiple versions with various feerates, funded endogenously by the client-side owned funds and possibly the HTLCs they offered.
+[/quote]
+
+This is in effect Peter Todd's suggestion to make fees endogenous(and moreover, a single transaction).
+
+It begets potentially weird behavior in that the layer 1 chain can not actually know what the latest state is, so we don't know what "their own funds" are, to spend as fees. During the challenge period, we just don't know. It relies much heavier on the penalty mechanism, and ignores the fact that a miner could be in cahoots with your counter-party, robbing the LSP by simply playing an old state that had lots of fees attached to it.
+
+If we had "non-contentious" funds inside the tree, ala the Timeout Tree paper(off-chain funds, I think it was called), these could directly be used without weirdness, but that's liquidity per-user at least, and I honestly didn't quite understand the stated construction.
+
+-------------------------
+
