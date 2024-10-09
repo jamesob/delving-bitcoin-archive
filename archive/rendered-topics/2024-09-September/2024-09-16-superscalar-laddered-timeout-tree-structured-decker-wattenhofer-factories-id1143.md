@@ -1112,3 +1112,71 @@ If we had "non-contentious" funds inside the tree, ala the Timeout Tree paper(of
 
 -------------------------
 
+ariard | 2024-10-08 21:40:46 UTC | #24
+
+> This is standard tree transaction structures, but timeout trees also add an alternative spending condition: the LSP can spend by itself after a particular timeout.
+
+> Private key handover is AWESOME.
+
+The security model of time-sensitive contracting protocol is to be able for any counterparty to broadcast and unilaterally fee-bump its off-chain states, before expiration of the safety timelocks.
+
+This construction is so broken...The arity of the tree inflates the branch of transactions in weight units that a counterparty can have to fee-bump in the worst-case scenario.
+
+"Fair secret exchange" i.e the private key out-of-band swap to make an assisted exit cannot work, as there is no guarantee that the LSP _complete_ the key exchange on time (under classic physics), before the safety timelocks of the tree expire. That way letting the LSP to rug pull the end users.
+
+> An alternative idea given to a few people at the summit, was to have multiple commitment transactions
+
+> per commitment state with different feerates (dependent transactions such as HTLC-success and HTLC-failure
+
+> would have the same feerate as the commitment transactions).
+
+> This is in effect Peter Todd’s suggestion to make fees endogenous(and moreover, a single transaction).
+
+Sure making the fees endogenous is an idea known for years, with rainbow ranges of pre-signed replacement lightning states. But I think I should still go to explain to Peter Todd, why it doesn't work as soon as you have one or two bitcoin stacked in your lightning channels.
+
+> I object to “completely”. Consider that custodial Bitcoin wallets are even worse, in that the offchain state
+
+> is merely the trustmebro of the custodian; with Lightning and SuperScalar, the offchain state at least has the
+
+> (unguaranteed) possibility of resolving with the onchain state if the LSP becomes uncooperative (unlike the case
+
+> of custodial Bitcoin, where if the custodian refuses to cooperate, it can simply 0 out your account under you).
+
+> Custodial Bitcoin is significantly more broken than Lightning or similar schemes. Until you can present a perfect
+
+> scheme that allows Bitcoin to have offchain state perfectly resolved 100% of the time, I would respectfully ask
+
+> you to point your attention at custodial schemes instead. Improving something is still better than waiting for the
+
+> perfect thing. Sometimes you have to accept gray in a gray vs black fight.
+
+Can I ask you a simple question ? Are you the ZmnSCPxj which whom I've already been on the same panel at some bitcoin conference to talk about the subject of off-chain scaling eyes in the eyes ? And if yes are you realizing this work about SuperScalar as part of your paid time as an [employee](https://github.com/ZmnSCPxj-jr) at TBD's the Jack Dorsey’s Block Inc's subsidiary ? I respect your privacy, just not using a pseudonym as an excuse for shameless corporate lobbying about open-source.
+
+Apart of that, what you're saying about custodial wallet vs non custodial wallet is gibberish, and one is better to put its money at Silicon Valley Bank, than within a SuperScalar off-chain construction.
+
+Back to the more technical conservation about scaling and off-chain constructions, if one goes the way of using short-paced timelocks and Decker-Wattenhofer Factories are just that, one as to find a solution at the consensus-level for the “*Forced Expiration Spam*" problem as described in the lightning whitepaper (section 9.2).
+
+I'm not the one who came to describe this problem in the bitcoin community. Tadge Dryja and Joseph Poon did it back in 2015. And as far as I know, since then there has been no research emanating from the academic or industry pointing out that this problem is not a real issue for this approach of bitcoin scalability, of which factories and payment channels clearly belong.
+
+-------------------------
+
+ZmnSCPxj | 2024-10-08 22:10:19 UTC | #25
+
+> Can I ask you a simple question ? Are you the ZmnSCPxj which whom I’ve already been on the same panel at some bitcoin conference to talk about the subject of off-chain scaling eyes in the eyes ?
+
+Yes
+
+>And if yes are you realizing this work about SuperScalar as part of your paid time as an [employee](https://github.com/ZmnSCPxj-jr) at TBD’s the Jack Dorsey’s Block Inc’s subsidiary ?
+
+Yes.
+
+>And as far as I know, since then there has been no research emanating from the academic or industry pointing out that this problem is not a real issue for this approach of bitcoin scalability, of which factories and payment channels clearly belong.
+
+Feel free to attack the actual Lightning Network to demonstrate the problem. Clearly, you believe:
+
+>one is better to put its money at Silicon Valley Bank, than within a SuperScalar off-chain construction.
+
+If so, you can demonstrate this, today, with the actual Lightning Network.
+
+-------------------------
+
