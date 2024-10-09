@@ -1180,3 +1180,30 @@ If so, you can demonstrate this, today, with the actual Lightning Network.
 
 -------------------------
 
+ZmnSCPxj | 2024-10-09 01:05:29 UTC | #26
+
+addendum
+
+# Inversion of Timelock Default
+
+Existing timeout tree discussion has the timeout default in the favor of the LSP.
+
+However, we should note that the construction needs a timeout (in order to provide a well-defined scope for how long the LSP needs to provide service to the clients), but does not actually need to have the timeout default to the LSP.
+
+If we assume that the LSP is in the business of selling liquidity, we can assume that the LSP has large amounts of funds available onchain to pay for onchain fees if the timeout tree needs to be published onchain.  What we need is a way to force the LSP to handle unilateral closes and pay for them if the client is so unsatisfied with LSP services that it decides a unilateral close is more palatable.
+
+Instead of having an `L & CLTV` branch at the transaction outputs of Decker-Wattenhofer state transactions, we can instead have the signatories sign an `nLockTime`d transaction that sends the funds to the clients, with the timelock being the timeout of the tree.  Thus, each node output that goes would have gone to an `(A & ... & Z & L) or (L & CLTV)` would instead have just `A & ... & Z & L` and ***two*** transactions signed:
+
+* The node as shown in the main post.
+* An alternate transaction, locked at `nLockTime`, which distributes the funds so that the initial channels of `A`...`Z` are given solely to the respective client, and with `L`-funds (i.e. the liquidity stock) split evenly among all clients.
+  * Each node output that eventually leads to the client channel must, by necessity, include the total value of the client channel, plus any channel reserve imposed by clients on the LSP, plus any fellow client channels, plus the liquidity stock the LSP is holding ready for sale to clients.
+  * As the clients have unilateral control of the outputs, they can trivially fee-bump this alternate timeout transaction to any level.
+
+Then, if a client decides it wants to unilaterally exit, it can force the LSP to pay for unilateral exit by simply never performing an assisted exit from the current tree and waiting until `nLockTime`.  If the blockheight approaches the `nLockTime` of the tree, the LSP ***must*** initiate the unilateral exit itself, *and* pay for the confirmation of those nodes, or else it risks loss of all funds still locked in that part of the sub-tree.
+
+If a client has performed assisted exit (i.e. a PTLC-based swap that exchanges the client private key used in the tree for onchain funds, or for funds in next laddered timeout-tree) then the LSP does not need to fully perform a unilateral exit; it only needs to publish enough nodes until it reaches an output with `(A & ... & M & L)` where it already got the client private keys `A`...`M` via assisted exit.
+
+This means that the LSP is very incentivized to provide assisted exit.  For instance, for an onchain assisted exit, the client can wait for the PTLC output to be deeply confirmed, and if onchain feerates have changed enough, can require the LSP to re-sign a new PTLC-claim transaction at a different feerate, and the LSP has incentive, up to the cost of onchain fees to perform a unilateral exit from the tree, to cooperate.  The client can abort this assisted exit, and it would not be much different from the client simply refusing to perform an assisted exit and forcing the LSP to perform a unilateral exit from the tree.
+
+-------------------------
+
