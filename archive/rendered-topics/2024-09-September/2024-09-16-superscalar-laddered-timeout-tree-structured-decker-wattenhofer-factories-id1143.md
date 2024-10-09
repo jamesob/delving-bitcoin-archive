@@ -1221,3 +1221,61 @@ For HTLCs offered by the LSP, we have already given the assumption that the LSP 
 
 -------------------------
 
+ariard | 2024-10-09 19:26:22 UTC | #28
+
+Thanks for the clarification.
+
+Let's recall some fact for the public bitcoin community:
+
+- few months agos, a block inc employe A is making an [invitation list](https://github.com/lightning/bolts/issues/1171#issuecomment-2391532275) for a so-called Lightning Dev Summit and apparently deliberately excluding people who are scientifically critical to their technical ideas
+- during the time that meeting happening, you, a block inc employe B publish out of nowwhere, without any peer review that one expect at academic or industry venue, that SuperScalar construction
+- during that meeting happening, another block inc employe C, [shows the light](https://github.com/lightning/bolts/issues/1171#issuecomment-2365479410) on SuperScalar construction, making the call to discuss that construction
+- after that meeting, you, a block inc employe B and another block inc employe D are using the fact that this construction was discussed at that recent Lightning Dev Summit, as an argument of authority, or at least I'm under that impression, that this construction has been peer-reviewed in any meaningful way
+
+Correct me, if I'm wrong on the fact, though I think it's a fair description of the fact.
+
+I don't know if you're familiar with the history of Bitcoin protocol development (here the Wikipedia [link](https://en.wikipedia.org/wiki/Bitcoin_scalability_problem)). During the block size war, in 2016, there was something called the Hongkong Agreement, where some devs attended and industry participants, and while some more senior devs discourage other folks to attend, there was some pow-mow style agreement born out of that on the future of bitcoin scalability.
+
+That agreement, which was done in a complete opaque fashion for the rest of the bitcoin community and maybe without considering the maths, economics and network aspects of discussed topics with distant minds, gave the birth years latter to many controversies and was used as an argument to plan the Segwit2x hard fork.
+
+In the spirit of avoiding future controversies in the community, I think it would be great if you
+could highlight that this SuperScalar constructions represents only the view of the block inc employes. Or worst if  has been also vetted in a pow-mow fashion by the other lightning protocol devs present at this summit, and they’re weighing their experts opinions on it. Far from me to accuse block inc to engage in a embrace, extend, extinguish stragegy a la microsoft about the lightning protocol, but many in the communities can have real doubts. At least, when
+blockstream folks published their landmark paper about sidechains in 2014, there were more vocal about their vested interest in the adoption of this blockchain technology (— and the company CEOs were old cypherpunks themselves).
+
+I don't think the lightning community has put so much years of works in getting a decentralized network of payment, with instant and private settlements, to fall into some very ill-designed
+off-chain construction, with a lot of trust in the LSP. If block inc is designing a product only for the US market, where there are legal framework in case of issues, it's better to be more verbose about it (-- I'm not going to say that Jack Dorsey's tweets are misleading between what he's saying and what block inc is really doing, but why TBD hasn't released yet a LSP ?).
+
+Edit: corrected  s/defamatory/misleading/g. it’s not the same.
+
+Personally, I'm more interested in a decentralized network where a lambda user in El Salvador
+or Oman can pay another user in Seoul or Singapor, while relying only on the trust-minimized
+assumptions of the protocol. A protocol working well in war zones and developing countries,
+where there is not always a stable nation-state authority and a legal remedy is not an option.
+
+> Feel free to attack the actual Lightning Network to demonstrate the problem. Clearly, you believe:
+
+As far as I know, I've never seen any CVE or responsible disclosure associated to your name in the bitcoin field. You might have done so in the past in another industry as an infosec researcher, and if so you're free to communicate such realizations.
+
+In the lack of such information, I don't really think you're familiar with ethical disclosure as a security researcher when end-users money are at risk, and as such I'll let your naive remark
+here. Sorry, not sorry.
+
+> If so, you can demonstrate this, today, with the actual Lightning Network.
+
+I don't think you're understanding how the "Forced Expiration Spam" laid out in the lightning whitepaper of 2015 characterize a systemic risk in a world where the bitcoin blockchain space is limited and the number of coins limited to 21 millions.
+
+Let's me re-give you an explanation.
+
+Post-segwit, blocks are limited to 4MB in weight units. Under current lightning protocol safety timelocks of 144 blocks in average and assuming commitment transactions of 300 weight units in average, the block chain can only process 13k channels per bloc. That means the blockchain can only process 2M of channel per day in the worst-case scenario of everyone force-closing at the same time.
+
+Failing to confirming on-time a commitment transaction and the corresponding HTLC-preimage or HTLC-timeout leads to loss of funds for one of the lightning counterparty.
+
+This is the best scenario, I'm not considering fully charged lightning channels with `max_accepted_htlc` limits number of HTLCs, neither second-stage transactions and usage of lower than 144 blocks, as done in practice by lightning implementation. We have only 44k public channels in lightning today, though probably another order of magnitude of private channels, so ~500k. Massive force expiration spam could already be an issue for today's Lightning Network, if we see such forced expiration spam happening (or in other words a bank run).
+
+Your SuperScalar proposal, even if it does not implies a consensus change, only makes the problem worst, as now all the combinations of the full tree of transactions might have to be confirmed on-chain. Corresponding fee reserves have to be provisioned by the lightning routing nodes, or the end-users lightning wallet, who ever is paying the fee. So if you assume timeout tree with a k-factor of 2 and 8 users, that's 12 transactions that have been to confirm in the worst-case. 12 transactions, that's more than the 8 commitment transactions that have to be confirmed in the worst-case scenarios, rather than 8 commitment transactions, and there is no, or only small compression gain as the k-factor has to be materialized in the fan-out output at each intersection of your timeout tree.
+
+So, I'll re-say what I've already said the SuperScalar construction is broken and only makes the systemic risk that is already happening with open lightning channels, in a world where the size of the block is statically limited. Pleasure to discuss the mathematics and the economics, if there is still some persistent wondering.
+
+I think that problem has been understood for years by many bitcoin protocol experts, and again it's described in the lightning whitepaper section 9.2
+
+-------------------------
+
