@@ -81,3 +81,19 @@ We indeed refused to arbitrarily make an (other) exception to the published sche
 
 -------------------------
 
+ajtowns | 2024-10-09 06:24:15 UTC | #7
+
+[quote="roasbeef, post:3, topic:1177"]
+we felt that disclosing just 3 months after a patch landed was too soon. Particularly given existing [precedents] set by other full node implementations to delay disclosure of sufficiently critical issues well beyond the 6 months we requested between patch and disclosure
+[/quote]
+
+Vendors tend to have a very strong bias towards always feeling that disclosing is too soon; having security researchers push back against that has been a relatively recent trend, and a good one.
+
+For example, Google's [Project Zero timeline](https://googleprojectzero.blogspot.com/p/vulnerability-disclosure-faq.html) (for public disclosure of problems they uncover) is 90 days from disclosure to the software maintainers, or 30 days after the fix is made available, as long as that's no more than 120 days after the initial disclosure. So that would presumably have resulted in public disclosure on or before 29th June (90 days after 31st March, 3 days after 0.24.2's release), or 26th July (117 days after 31st March, 30 days after 0.24.2's release). By that measure, the 10th of October is already at least 193 days / six months since initial disclosure.
+
+Bitcoin Core still defaults to a much more conservative approach than Google does here, but even so, a "consensus bug [..that..] allows an attacker to hard fork [..] nodes using a simple standard transaction" would certainly be classed as a "critical" severity bug, and even according to core's policy that would "most likely require an ad-hoc procedure".
+
+As far as btcd goes, I would have thought that the commitment in the release notes ("release includes **important security** fixes, with full details to be disclosed in **90 days**.") would be honoured, especially given that the project's [security policy](https://github.com/btcsuite/btcd/?tab=security-ov-file) is that only the last major version is considered supported anyway.
+
+-------------------------
+
