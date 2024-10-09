@@ -1207,3 +1207,17 @@ This means that the LSP is very incentivized to provide assisted exit.  For inst
 
 -------------------------
 
+ZmnSCPxj | 2024-10-09 14:04:01 UTC | #27
+
+For the "Inversion of Timelock Default" case, the following question may be raised: if the client performs unilateral exit by passively waiting for the timelock default so that the LSP is forced to perform (and pay for) unilateral exit on behalf of the client, how can the client enforce HTLC timeouts for outgoing payments?
+
+And the simple answer is: it does not have to (as long as the client is not secretly a forwarder, i.e. if the client is really just an end-user that never forwards payments)!
+
+If the HTLC timeout is shorter than the timeout tree timeout, then the LSP can very well simply not fail the HTLC and not drop unilateral exit.  However, the LSP gains no advantage; either it knows the preimage or not.  If the LSP did not successfully forward to the final destination and refuses to fail the HTLC, this is equivalent to the LSP refusing service to the client; then the client can simply force a passive unilateral exit and recover its funds, including the outgoing HTLC.  If the LSP still forwards the payment (in order to learn the preimage) after the client-offered HTLC has timed out, it is at the risk of the LSP: the client ***might*** still have onchain funds to pay for exogenous fees, and the nodes have P2A outputs that the client can use (a truly destitute client might go to a competitor LSP, give them the signatures of the tree nodes, and let the competitor LSP punish the misbehaving LSP).  Thus, the incentive for the LSP is to respect the timeout of the HTLC, and to fail the HTLC before the timeout.  The LSP can only lose a customer if it misbehaves this way.
+
+This is risky if the client is forwarding: the upstream node may enforce the upstream timeout.  However, the expectation is that the client is a plain end-user that never forwards.
+
+For HTLCs offered by the LSP, we have already given the assumption that the LSP is capable of paying for onchain fees to do unilateral closes via exogenous fees.  Thus, even though the LSP is only a forwarder, it can enforce the timeout on HTLCs it offered to the client.
+
+-------------------------
+
