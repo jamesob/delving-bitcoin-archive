@@ -97,3 +97,9 @@ As far as btcd goes, I would have thought that the commitment in the release not
 
 -------------------------
 
+AntoineP | 2024-10-10 09:03:48 UTC | #8
+
+Just published [the details](https://delvingbitcoin.org/t/cve-2024-38365-public-disclosure-btcd-findanddelete-bug/1184?u=antoinep) for this vulnerability, after btcd released [the security advisory](https://github.com/btcsuite/btcd/security/advisories/GHSA-27vh-h6mc-q6g8).
+
+-------------------------
+
