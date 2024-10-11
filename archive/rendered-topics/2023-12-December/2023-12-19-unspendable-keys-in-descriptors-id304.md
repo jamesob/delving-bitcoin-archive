@@ -326,3 +326,13 @@ To ensure smooth interoperability amongst different wallets, it would be very he
 
 -------------------------
 
+andrewtoth | 2024-10-10 22:36:12 UTC | #27
+
+[quote="andrewkozlik, post:26, topic:304"]
+A potential risk of not hashing is that a malicious participant could craft the chain code in their XPUB so that it cancels out with the other participants to force the result to a desired value. However, such a malicious participant could just as well publish the dummy XPUB to achieve the same goal
+[/quote]
+
+I think publishing the dummy XPUB out of band to interested parties is not exactly the same goal as making the dummy XPUB obvious to any observer of the transaction.
+
+-------------------------
+
