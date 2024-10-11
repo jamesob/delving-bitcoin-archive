@@ -50,3 +50,11 @@ This is not a troll post either. Some really powerful people who control the rea
 
 -------------------------
 
+mzumsande | 2024-10-11 20:17:08 UTC | #4
+
+There are various points in this that I wouldn't agree with, but most importantly, if the model was good at describing reality, then what we should be seeing is that long-term users would agree on consensus change, but progress isn't made because newer participants to the space block it.
+
+In my opinion, this is not at all what's happening these days - the disagreement, in particular regarding which covenant softfork to activate (if any) doesn't seem to be related at all to the time the relevant parties entered the space.
+
+-------------------------
+
