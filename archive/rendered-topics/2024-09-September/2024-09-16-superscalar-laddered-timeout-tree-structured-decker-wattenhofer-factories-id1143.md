@@ -1307,3 +1307,173 @@ The thing about SuperScalar is that timeout trees suck because of the large numb
 
 -------------------------
 
+ariard | 2024-10-11 22:34:21 UTC | #30
+
+Thanks again for the clarifications
+
+> Sure — people who work in the same company tend to work together on the same stuff. SuperScalar was released in a limited venue internal to Block, before we presented it at the summit.
+
+Be sure, I don't question a private company to seek profit, neither people working at the same company working together on the same stuff, that's all right.
+
+I'm questioning if all of that it's not a bit of corporate capture of the communication channels and venues dedicated to the Lightning protocol. Such protocol has been developed in common by different implementations since the Milan meeting around Scaling Bitcoin in 2016, and all the protocol specifications have been released under Creative Common License 4.0 since then.
+
+Such meetings have been usually reserved to discuss matters related to the lightning protocol, and not to present commercial products in exclusivity. E.g, the folks at Lightning Labs, has never used that to talk about their Lightning Pool product, that they released in late 2020, and I think it would have been inappropriate for them to do so.
+
+Moreover, and here I'll recall the example of Blockstream in 2014, when they released the sidechain paper, this was explicitly licensed into the public domain. Concerning the SuperScalar construction, given it has been developed internally at Block Inc as you said so, there could be patent protection in application. As far as I can see, there has been no such mention when you published your post few weeks ago, and this forum has moderation rules noticing about “deceptively encouraring the use of patent-encumbered techniques" as documented here:
+https://delvingbitcoin.org/t/flagging-posts-topics/1085
+
+Beyond, and here it's more concerning the lightning summit attendees, has any Block Inc employe explicitly said to the non-Block attendees that the SuperScalar construction was a Block Inc product, before to make a presentation about it ? If yes, have they give opportunity to
+the non-Block attendees to leave the room or not attend the session if they didn't wish to discuss SuperScalar ? For the ones who did attend a session on it, as all materials presented to them being explicitly put into the public domain or a creative common license ?
+
+As a reminder, it's not liked "closed-door" meetings, where only some developers were invited have raised many controversies in the past, of which the Hong Kong Agreement of 2016 is a good example.
+
+So far there has been no answer on a public forum or channel from TheBlueMatt, a Block Inc employee, how the invitation list has been composed: https://github.com/lightning/bolts/issues/1201 and if any technical criterias has been followed. 
+
+Some in the community could have doubt if it wasn't just opportunistically to lobby some
+lightning devs about BlockInc's SuperScalar product ?
+
+Concerning lightning summits, I think Rusty Russel sets a good standard in the past in matters of open-source protocol meetings, where the invitation for the Adelaide meeting of 2018 were announced on the mailing list: https://lists.linuxfoundation.org/pipermail/lightning-dev/2018-April/001168.html
+
+I certainly don't wish to accuse TheBlueMatt of hypocrisy or double-standard on a public forum in matters of open-source, neither that he would forget his open-source standards everytime he's changing of corporate employer. After all, I contributed with him for years on the `rust-lightning` open-source project.
+
+> The initial SuperScalar was lousy — it was just laddered timeout trees,
+> without the Decker-Wattenhofer. This was developed a few months ago,
+> internally to Block, and not released publicly because it sucked. A few
+> weeks ago, while looking over @instagibbs work on P2A, I realized that
+> P2A handled the issues I had with Decker-Wattenhofer — in particular,
+> the difficulty of having either exogenous fees (without P2A, you need
+> every participant to have its own anchor output, increasing the size of
+> each tx with an output per participant) or mutable endogenous fees (because
+> not every offchain transaction is changed at each state change, earlier
+> transactions cannot change their feerates when you update the state for
+> a feerate change), which is why I shelved Decker-Wattenhofer constructions
+> and stopped work on sidepools, which used Decker-Wattenhofer. However,
+> with P2A, I realized that Decker-Wattenhofer was actually more viable —
+> and thus can be combined with timeout trees, creating the current
+> SuperScalar. I then rushed to create a quick writeup, got it reviewed
+> internally, and got permission to publish it on Delving, so we could
+> present this at the summit. @moneyball believes it provides a possible
+> path to wider Lightning onboarding, so this encouraged me to focus more
+> attention on it and figuring out its flaws and limitations.
+
+I don't know if you're reading the mailing list, though the timeout trees concept was presented there. If I remember numerous limitations were pointed out. Beyond, it's not like the P2A sounds to be broken too, as a fee-bumping scheme for off-chain counterparties with competing interest.
+
+> (You can track my thinking around laddered timeout trees by my Twitter
+> posts, incidentally — again, I only started posting about timeout trees,
+> and musing on laddering them, in the past 6 months. Thinking takes time.)
+
+I'm not on Twitter. Social medias culture can only make you dumb, and
+more inclined to follow the madness of the crowd. Good to read again the
+philosopher Hannah Arendt, her writings on the crisis of culture or some
+of her essays on the essence of totalitarism.
+
+> Adding Decker-Wattenhofer to laddered timeout-trees was an idea that occurred
+> to me literally a few weeks before the summit. Again, remember that I stopped
+> working on sidepools because Decker-Wattenhofer sucked (exogenous fees are out
+> because you need an output per participant, endogenous fees cannot be meaningfully
+> changed because each state transition only changes a subset of offchain transactions),
+> and I only returned my attention to Decker-Wattenhofer after @instagibbs could
+> release P2A for Bitcoin Core 28. Without thinking about Decker-Wattenhofer, I
+> cannot combine Decker-Wattenhofer with timeout-trees, obviously. The timing was
+> coincidental, not planned. Thinking takes time.
+
+The main issue with Decker-Wattenhofer, whatever the elegance of the construction, is that for each state update, the relative timelocks are decremented and when they reach near of expiration, you can suddenly have massive surface of transactions to fee-bump, at the worst time of block demand.
+
+On the other hand, the long safety timelocks can only make the construction very burdensome for the user, as they would have to wait until their on-chain expiration if there is an early exit.
+
+> I have not made any representation that the construction has been peer-reviewed
+> meaningfully, even internally in Block. Given the addenda I have been writing, it
+> is very much a work-in-progress, one that I am taking all of my time to work on rather
+> than anything else. If anyone can poke holes into it, they can do so in this very thread,
+> that is the whole point of making this thread and presenting it at the summit. I am in
+> fact taking the time here to allow people to respond. All I did was present this to the
+> people at the conference, and I believe it to be worth my time to think about and refine.
+
+Again, see all the comments above about making the timing of this publication at the same time than the summit and that being explicitly pointed out by another Block Inc employe in the github thread about the lightning dev summit.
+
+In 2017, the way the extension block proposal was brought into the public conversation too raise controversies, when it was published on a Medium post, rather than usual communication venues.
+
+> I have been advised to avoid mentioning of legal or regulatory stuff, as I am not a
+> lawyer and anything I say about regulations, legal frameworks, or regulatory bodies
+> would not be expert advice on it. Let me ask my supervisor about this.
+
+Why your supervisor cannot comment here on this public forum on this name ? That’s only sounds more like corporate capture of the lightning protocol, when questions are asked on how a "closed-door" meetings, did happen. Some folks it was just pure hazard about the timing of publication and meetings happening, and when asked more questions someone falls into the "let me ask to my boss.." as they were just doing Silicon Valley-style bad public relationships…
+
+Corrected: s/this name/its name/g - English can be hard.
+
+Personally, I'm fine too to talk about technical and legal matters in a public fashion, and I think few other bitcoin and lightning protocols devs are versed too in legal matters.
+
+Again, it's not like your top-down hierarchical supervisor, Jack Dorsey might freely have given in the past his contacts to some devs in that space and some people can go to ask in private explanations if someone wishes to know more. But if a supervisor at Block Inc is not able to explain on a public why there are some irregularities in the organization of a "closed-doors" meeting about an open-source protocol, this can only raise doubts among the bitcoin community what that SuperScalar product is all about.
+
+> We are aware of this issue and this issue was also presented at the Lightning
+> Proto Dev Summit. However, the tree structure does allow for subsets to sign off
+> on changes instead of requiring the entire participant set to be online to sign;
+> this reduces the need for large groups to come online.
+
+If some participants are signing off the changes, the construction is broken,
+as they cannot verify that ulterior state changes are correct, and the LSP
+and another subset of the group colludes to double-spend the balance. The
+whole lightning security model is about not trusting the channel counterparty
+with loss of funds style risk, or the Lightning Service Provider, for what
+the LSP is worth.
+
+> @adiabat last year in TABConf had a talk about how onlineness (specifically,
+> coordination problems with large groups) will be the next problem; tree structures
+> allow us to reduce participant sets, regardless of consensus change, and tree
+> structures do still require a multiple of N data to publish N leaves. Full exits
+> of OP_TLUV-style trees are even worse, as they require O(N log N) instead of O(N)
+> data (m * N data to be specific, where m is reduced by higher arity). OP_TLUV-style
+> trees also cannot change subset without changing the root, which means they do not
+> gain the ability of SuperScalar to have subsets sign off on changes; this is because
+> OP_TLUV-style trees use Merkle trees, unlike timeout trees which use transaction
+> trees which allow sub-trees to mutate if you combine it with Decker-Wattenhofer.
+
+Lol, Tadge saying that onliness and coordination problems with large groups will
+be the next problem. It's not like something that the OG working on Lightning
+have known for years...and even some more.
+
+Sure, OP_TLUV-style trees cannot changes subset without changing the root, however
+_**if done correctly**_ they do not require trust in any of the other counterparty about
+integrity of the balance.
+
+> I have been refining SuperScalar to shift much of the risk to the LSP, precisely to
+> prevent risks on clients. You may not agree that it goes far enough, but I think it
+> can be done in practice such that it is more economical for the LSP to not screw over
+> its clients, just as typical capitalism works.
+
+That's missing the point about the discussion about levels of security risks. What
+you're presentation of this SuperScalar product is saying, is that the LSP can
+rug pull at anytime one of the user, so it's a loss of balance security risk. Not
+a simpler risk like a delay in processing due to the bitcoin CSV timelocks.
+
+In the real world, there is something call "bank run" and as one put it
+into the bitcoin blockchain years years ago, "Chancellor on brink of
+second bailout for banks”.
+
+> You cannot earn money from a dead customer, which is why capitalism works
+
+I'll let you dig into the etymology of mortgage, a financial instrument underpinning
+many of business operations in modern capitalism.
+
+> The thing about SuperScalar is that timeout trees suck because of the large numbers
+> of transactions that need to be put onchain in the worst case, Decker-Wattenhofer
+> sucks because of the large numbers of transaction that need to be put onchain in
+> the worst case, but when you mash them together they gain more power while not increasing
+> their suckiness — their suckiness combines to a common suckiness instead of adding their
+> suckiness together. Timeout trees get the ability to mutate due to combining with
+> Decker-Wattenhofer, while Decker-Wattenhofer gets the ability to mutate using partial
+> participant sets. The whole is better than the sum of its parts, and I think it is
+> worth my while to investigate if this is good enough in practice.
+
+That SuperScalar construction still does not solve the "Forced Expiration Spam”
+about a massive number of off-chain state transactions hitting the blockchain,
+as whoever is paying the on-chain fees, be it the LSP or the channel counterparty,
+there is a limited blockchain space (4MB) and a limited number of coins (`MAX_MONEY`)
+that can be used to pay the fees. The LSP can inflate the timeout trees, with actually no fee-bumping reserves to back them up, so it's clearly trusted and the LSP can steal the participant sets at anytime.
+
+But sure, what you're doing or what Block Inc is doing you it's up to you guys.
+
+The rest of the lightning community, they will prefer something that scales bitcoin in a more trust-minimized fashion.
+
+-------------------------
+
