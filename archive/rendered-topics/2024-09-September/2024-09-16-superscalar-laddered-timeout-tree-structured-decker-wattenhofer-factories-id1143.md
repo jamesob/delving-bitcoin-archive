@@ -1477,3 +1477,11 @@ The rest of the lightning community, they will prefer something that scales bitc
 
 -------------------------
 
+ZmnSCPxj | 2024-10-14 01:08:18 UTC | #31
+
+I can state that Block has no intention of patenting SuperScalar or otherwise limiting the use of SuperScalar. The entire point of publishing the damn thing on delving and in presenting it to the summit was to bring it out to the public, WTF. There are no copyright claims or similar because a lot of these is just initial design notes.  I am designing it in public, right here, on delving.
+
+I have been advised to not engage you in anything that is non-technical.  Given that your technical expertise has not raised anything that has not been raised before, I am also no longer engaging you in anything technical, either.
+
+-------------------------
+
