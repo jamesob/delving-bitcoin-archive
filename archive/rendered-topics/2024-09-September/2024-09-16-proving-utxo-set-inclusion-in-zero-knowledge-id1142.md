@@ -216,3 +216,11 @@ But there is a (slightly weak) answer to that: if proofs have to be generated at
 
 -------------------------
 
+halseth | 2024-10-14 13:03:27 UTC | #16
+
+The repo has been updated to do the schnorr signature verification in the ZK environment. This lets us avoid the blinding of the public key (since we are just proving that we have a valid signature for some public key that exists in the UTXO set, without revealing the key).
+
+Together with an optimized library for schnorr signatures, this reduces proving time to ~50 sec on my machine: https://github.com/halseth/utxozkp?tab=readme-ov-file#benchmarks-apple-m1-max
+
+-------------------------
+
