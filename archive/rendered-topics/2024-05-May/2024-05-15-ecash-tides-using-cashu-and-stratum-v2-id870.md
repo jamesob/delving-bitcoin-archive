@@ -408,3 +408,10 @@ https://github.com/stratum-mining/stratum/discussions/1052
 
 -------------------------
 
+marathon-gary | 2024-10-15 21:03:35 UTC | #31
+
+https://www.youtube.com/watch?v=uCyRffPdsaU
+The first presentation in this video is Hashpools by @vnprc
+
+-------------------------
+

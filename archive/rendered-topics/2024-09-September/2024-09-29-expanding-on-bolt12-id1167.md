@@ -68,3 +68,21 @@ Despite not being defined in the spec, it looks like CLN already uses the `lni` 
 
 -------------------------
 
+accumulator | 2024-10-16 09:00:18 UTC | #4
+
+I want to mention one other idea that would be useful to have in the BOLT12 spec.
+
+**Bundled Payments**
+
+The gist is to have an invoice with two distinct preimages and amounts in a single invoice. 
+
+The use case is for services that require the prepayment of a mining fee in order for a non-custodian exchange to take place:
+  - Submarine swaps
+  - JIT channels
+
+A more detailed description of the proposal can be found here : 
+- https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-June/003977.html
+- https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-June/003990.html
+
+-------------------------
+

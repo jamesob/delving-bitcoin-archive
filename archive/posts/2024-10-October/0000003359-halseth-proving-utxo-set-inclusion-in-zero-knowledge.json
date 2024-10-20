@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 6.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 22.2,
   "yours": false,
   "topic_id": 1142,
   "topic_slug": "proving-utxo-set-inclusion-in-zero-knowledge",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The repo has been updated to do the schnorr signature verification in the ZK environment. This lets us avoid the blinding of the public key (since we are just proving that we have a valid signature for some public key that exists in the UTXO set, without revealing the key).\n\nTogether with an optimized library for schnorr signatures, this reduces proving time to ~50 sec on my machine: https://github.com/halseth/utxozkp?tab=readme-ov-file#benchmarks-apple-m1-max",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -1485,3 +1485,28 @@ I have been advised to not engage you in anything that is non-technical.  Given 
 
 -------------------------
 
+ariard | 2024-10-17 22:42:34 UTC | #32
+
+> I can state that Block has no intention of patenting SuperScalar or otherwise limiting the use of > SuperScalar. The entire point of publishing the damn thing on delving and in presenting it to > the summit was to bring it out to the public, WTF.
+
+If all what Block Inc did in the organization of this summit where SuperScalar was presented in “exclusivity” to selected devs, and respectuous of how Lightning development has been done in the open-source fashion, since 2016 and after since then There is still no answer from one of the Block Inc employe on how it was really organized.
+
+This is not like I've myself organized open-source protocol dev meetings in the past, making abstraction of people backgrounds or the organizations (be it for-profit, non-profit or whatever) there were representing to concentrate the discussion on purely technical matters.
+
+This silence from Block Inc is very speaking in itself…
+
+Going back to SuperScalar, and the chain economics and deep technicals here.
+
+Let's say you have the initial transaction with the LSP and all the users, i.e the root transaction.
+
+Under, Decker-Wattenhofer update mechanism, channel factories have two stages: kick-off and state transaction, spending the root transaction. Each state transaction has a decrementing timelock and attached to this state transaction, there is a timeout tree, where after a timelock X, either the use should have come back online to interact with the LSP to update the tree, or the LSP (+ some users to sign the multisig of rhe state transaction) can evict out of the tree the user.
+
+There is a k-factor at each output of the state channel factory transaction, to branch off and fan-out the users in the subtrees.
+
+So if you assume a k-factor of 2 (at each branching of the timeout tree) and 8 users, that's 12 transactions that have to confirm in the worst-case. That means in the worst-case, either the user (if they wish to make a fully non assisted exit) or the LSP must have on-chain amounts available to confirm the 4 transactions constituting the path before the safety timelock expiration. For the LSP, it's even worst as they must have liquidity for all the combination of the timeout tree, and this when mempool networks might be full.
+
+So, I'll re-say what I said above in one of my previous post, under current block size (4 MB) and
+the maximum number of bitcoins, that can be used to pay the fees, I don't see how SuperScalar works at all under "Forced Expiration Spam" as described in the section 9.2 lightning whitepaper. As a reminder, that problem was well-described by protocol experts before I was involved in bitcoin dev, so don't take the shortcoming I'm pointing too about SuperScalar as ad hominem here.
+
+-------------------------
+

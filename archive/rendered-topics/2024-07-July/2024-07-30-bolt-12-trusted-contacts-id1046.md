@@ -251,3 +251,9 @@ The main reason is domain separation: it's safer from both a privacy and securit
 
 -------------------------
 
+t-bast | 2024-10-18 04:01:43 UTC | #8
+
+I have completely re-written this protocol based on feedback received during the lightning summit: this doesn't use `payer_id` anymore, doesn't require any modification to the existing offers, which stay private by default. The updated protocol can be found in https://github.com/lightning/blips/pull/42
+
+-------------------------
+
