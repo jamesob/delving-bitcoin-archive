@@ -98,3 +98,24 @@ Read the paper here: https://www.allocin.it/uploads/placeholder-bitcoin.pdf
 
 -------------------------
 
+GaloisField2718 | 2024-10-22 13:52:11 UTC | #2
+
+Hi, 
+
+This is very interesting! Thanks a lot for this work 🙏
+
+I have some questions regarding the schema and the execution. 
+
+In PIPE setup at step we need to create a ZKP to prove execution of computation. This verification is before covenants and made off-chain right? 
+If we implement ZKP covenant as a PIPE address, should it be possible to « call it » in order to verify setup for other PIPE? 
+In such cases, after ZKP-PIPE implemented it would be only on-chain verification for other PIPE covenants? 
+
+
+At step 4, push the cipher text in inscription-alike mechanics is really on OP_FALSE OP_IF … OP_ENDIF envelope or is it to invoke some commit reveal mechanisms with data pushed at the end? 
+
+Also, in the paper it’s assessed that CAT PIPE should have an optimistic verification of commitment scheme. Why is it only for CAT? And how to solve disputes if transaction already happened on-chain? 
+
+Moreover, have you tried some implementation of algorithms provided in the paper?
+
+-------------------------
+
