@@ -182,3 +182,13 @@ Elle
 
 -------------------------
 
+harding | 2024-10-22 20:21:13 UTC | #2
+
+[quote="ellemouton, post:1, topic:1202"]
+the current proposal needs quite a few updates
+[/quote]
+
+FYI, for anyone else who's curious, this appears to be the current proposal: https://github.com/lightning/bolts/pull/1059
+
+-------------------------
+
