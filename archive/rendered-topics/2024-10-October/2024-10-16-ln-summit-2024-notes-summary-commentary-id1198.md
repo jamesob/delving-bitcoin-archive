@@ -860,3 +860,19 @@ Was there any leanings for the two PTLC directions? People have been saying thes
 
 -------------------------
 
+roasbeef | 2024-10-21 21:38:01 UTC | #6
+
+The two directions being single sig or musig2 based adapter signatures? I think the determination will partially depend on what the libraries/tooling looks like. The [  musig module for libsecp](https://github.com/bitcoin-core/secp256k1/pull/1479) was merged in 2 weeks ago, but I don't think it contains an implementation of musig2 adapter signatures yet. I'd wager that along the road to implementation, a pitstop is made to specify the construction in a new BIP. 
+
+Adapter signature choice aside, to get to PTLC enabled channels, there're roughly 4 or so steps:
+  1. Taproot channels. 
+  2. Taproot gossip. 
+  3. Simplified commit (round based channel state machine).
+  4. PTLC. 
+
+Right now the first 3 have spec PRs, with the first two having a complete or nearly complete implementation (IIRC Rusty is working on refreshing the code+spec for #3). Steps 1 and 3 are just link-level upgrades, so they can be rolled out in a loosely coupled manner once a pair of peers understands the protocol. Steps 2 and 4 are internal network wide upgrades, they require all nodes in a prospective path to be upgraded before they can be widely rolled out. 
+
+IMO, concurrent with step 3, we'll likely start to focus on carving out the specifics of the new v3 commitment transaction format. It's just a link-level upgrade, and with dynamic commitments, we can start to upgrade links in the internal routing network. I'd put this as relatively high priority, as it gets rid of a lot of the warts related to fees, and better positions us for the eventual long lived fee spike.
+
+-------------------------
+
