@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi, \n\nThis is very interesting! Thanks a lot for this work \ud83d\ude4f\n\nI have some questions regarding the schema and the execution. \n\nIn PIPE setup at step we need to create a ZKP to prove execution of computation. This verification is before covenants and made off-chain right? \nIf we implement ZKP covenant as a PIPE address, should it be possible to \u00ab call it \u00bb in order to verify setup for other PIPE? \nIn such cases, after ZKP-PIPE implemented it would be only on-chain verification for other PIPE covenants? \n\n\nAt step 4, push the cipher text in inscription-alike mechanics is really on OP_FALSE OP_IF \u2026 OP_ENDIF envelope or is it to invoke some commit reveal mechanisms with data pushed at the end? \n\nAlso, in the paper it\u2019s assessed that CAT PIPE should have an optimistic verification of commitment scheme. Why is it only for CAT? And how to solve disputes if transaction already happened on-chain? \n\nMoreover, have you tried some implementation of algorithms provided in the paper?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
