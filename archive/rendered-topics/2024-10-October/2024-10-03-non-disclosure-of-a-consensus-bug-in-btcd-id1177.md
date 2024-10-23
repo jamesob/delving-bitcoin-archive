@@ -103,3 +103,15 @@ Just published [the details](https://delvingbitcoin.org/t/cve-2024-38365-public-
 
 -------------------------
 
+real-or-random | 2024-10-23 20:35:37 UTC | #9
+
+[quote="roasbeef, post:3, topic:1177"]
+Ultimately, Niklas and AntoineP *refused* to delay an extra 3 months (to bring the total age of the release to 6 months), instead deciding to prematurely disclose themselves against the wishes of the `btcd` maintainers.
+[/quote]
+
+Ultimately, the `btcd` maintainers shipped vulnerable software.
+
+The idea that discovery comes with a moral responsibility to cooperate with the maintainer is flawed. People need to understand that discoverers don't owe maintainers (or users or anybody) anything. Not a timeline, not a specific method of disclosure, and not a specific audience. And particularly not that they spend their time having a debate about any of these.
+
+-------------------------
+
