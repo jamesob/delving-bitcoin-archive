@@ -12,8 +12,8 @@
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0.2,
   "yours": false,
   "topic_id": 1177,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"roasbeef, post:3, topic:1177\"]\nUltimately, Niklas and AntoineP *refused* to delay an extra 3 months (to bring the total age of the release to 6 months), instead deciding to prematurely disclose themselves against the wishes of the `btcd` maintainers.\n[/quote]\n\nUltimately, the `btcd` maintainers shipped vulnerable software.\n\nThe idea that discovery comes with a moral responsibility to cooperate with the maintainer is flawed. People need to understand that discoverers don't owe maintainers (or users or anybody) anything. Not a timeline, not a specific method of disclosure, and not a specific audience. And particularly not that they spend their time having a debate about any of these.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
