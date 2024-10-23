@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 5.6,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 50.8,
   "yours": false,
   "topic_id": 1202,
   "topic_slug": "updates-to-the-gossip-1-75-proposal-post-ln-summit-meeting",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ellemouton, post:1, topic:1202\"]\nthe current proposal needs quite a few updates\n[/quote]\n\nFYI, for anyone else who's curious, this appears to be the current proposal: https://github.com/lightning/bolts/pull/1059",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
