@@ -89,3 +89,85 @@ ENDIF
 
 -------------------------
 
+1440000bytes | 2024-10-25 17:57:14 UTC | #3
+
+I am sorry but these new opcodes added to proposals will only delay or cancel them forever. I understand you like 2 things combined on the stack, OP_CAT etc. but this brings a lot of complexity in something that needs to be kept simple.
+
+If we ever get OP_CAT, maybe this could be possible with OP_SHA256 and OP_CAT at that moment.
+
+Its better if we get OP_CTV activated first instead of trying to build the next Great Covenant Proposal.
+
+-------------------------
+
+moonsettler | 2024-10-25 19:06:11 UTC | #4
+
+It would be possible with OP_CAT to closely emulate OP_PAIRCOMMIT, they are more complicated and or more expensive. We have redundancies in bitcoin script for much smaller optimizations.
+
+```text
+<x1> <x2>
+OP_SWAP
+OP_SIZE
+<0x00000001>
+OP_ADD
+OP_TOALTSTACK
+OP_SWAP
+OP_SIZE
+<0x00000001>
+OP_ADD
+OP_TOALTSTACK
+OP_CAT
+OP_FROMALTSTACK
+OP_CAT
+OP_FROMALTSTACK
+OP_CAT
+OP_HASH256
+```
+or simply
+```text
+<x1> <x2>
+OP_HASH256
+OP_SWAP
+OP_HASH256
+OP_SWAP
+OP_HASH256
+```
+
+-------------------------
+
+moonsettler | 2024-10-25 19:11:15 UTC | #5
+
+But the question was really not about this, but rather if it makes any sense to do a mini-hashing of the sizes instead of static padding, for making the preimage more mutable when you redistribute bytes between the stack elements?
+
+The "original" variant:
+```c++
+const HashWriter HASHER_PAIRCOMMIT{TaggedHash("PairCommit")};
+
+uint256 PairCommitHash(const std::vector<unsigned char>& x1, const std::vector<unsigned char>& x2)
+{
+    // PAD is 0x00000001 in little endian serializaton
+    const uint32_t PAD = 0x01000000;
+
+    HashWriter ss{HASHER_PAIRCOMMIT};
+    ss << x1
+       << x2
+       << uint32_t(x1.size()) << PAD
+       << uint32_t(x2.size()) << PAD;
+
+    return ss.GetSHA256();
+}
+```
+
+-------------------------
+
+1440000bytes | 2024-10-25 19:22:36 UTC | #6
+
+[quote="moonsettler, post:5, topic:1216"]
+But the question was really not about this, but rather if it makes any sense to do a mini-hashing of the sizes instead of static padding, for making the preimage more mutable when you redistribute bytes between the stack elements?
+[/quote]
+
+I do not like when someone disagrees, because we spent days building this and such comment.
+
+But this is against LNHANCE. I am not a "core developer" so it might not feel the same.
+
+-------------------------
+
