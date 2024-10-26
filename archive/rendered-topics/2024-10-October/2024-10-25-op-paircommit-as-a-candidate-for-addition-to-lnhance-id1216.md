@@ -171,3 +171,9 @@ But this is against LNHANCE. I am not a "core developer" so it might not feel th
 
 -------------------------
 
+moonsettler | 2024-10-25 21:50:45 UTC | #7
+
+It's okay, but I'm looking for opinions on the way these pieces are hashed, specifically from a security and efficiency pov.
+
+-------------------------
+
