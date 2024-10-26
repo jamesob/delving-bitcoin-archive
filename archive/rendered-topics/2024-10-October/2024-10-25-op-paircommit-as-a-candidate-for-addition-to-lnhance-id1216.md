@@ -159,15 +159,9 @@ uint256 PairCommitHash(const std::vector<unsigned char>& x1, const std::vector<u
 
 -------------------------
 
-1440000bytes | 2024-10-25 19:22:36 UTC | #6
+1440000bytes | 2024-10-26 12:40:28 UTC | #6
 
-[quote="moonsettler, post:5, topic:1216"]
-But the question was really not about this, but rather if it makes any sense to do a mini-hashing of the sizes instead of static padding, for making the preimage more mutable when you redistribute bytes between the stack elements?
-[/quote]
-
-I do not like when someone disagrees, because we spent days building this and such comment.
-
-But this is against LNHANCE. I am not a "core developer" so it might not feel the same.
+(post deleted by author)
 
 -------------------------
 
