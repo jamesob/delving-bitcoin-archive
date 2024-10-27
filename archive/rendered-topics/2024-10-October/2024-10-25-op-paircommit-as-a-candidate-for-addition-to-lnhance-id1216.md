@@ -159,12 +159,6 @@ uint256 PairCommitHash(const std::vector<unsigned char>& x1, const std::vector<u
 
 -------------------------
 
-1440000bytes | 2024-10-26 12:40:28 UTC | #6
-
-(post deleted by author)
-
--------------------------
-
 moonsettler | 2024-10-25 21:50:45 UTC | #7
 
 It's okay, but I'm looking for opinions on the way these pieces are hashed, specifically from a security and efficiency pov.
