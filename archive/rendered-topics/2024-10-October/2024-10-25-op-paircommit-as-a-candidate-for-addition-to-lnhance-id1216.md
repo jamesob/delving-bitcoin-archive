@@ -165,3 +165,40 @@ It's okay, but I'm looking for opinions on the way these pieces are hashed, spec
 
 -------------------------
 
+ajtowns | 2024-10-28 11:16:51 UTC | #8
+
+[quote="moonsettler, post:1, topic:1216"]
+The idea is that the number of SHA256 iterations should be minimized in the most likely use case we can optimize for, which is LN-Symmetry.
+[/quote]
+
+Not really seeing that as particularly important to minimise, personally; the difference between hashing 64 bytes and 256 bytes is pretty minor, compared to the checksig operation(s) you also have. I'd just write `[BAL] [CTVHASH] SHA256 SWAP SHA256 CAT SHA256`.
+
+[quote="moonsettler, post:1, topic:1216"]
+In case of a 7 byte balance commitment + 32 byte CTV hash (no HTLCs in-flight), the total preimage size is 55 bytes. Which should make it fit into a single block with the SHA256 length commitment.
+[/quote]
+
+[quote="moonsettler, post:1, topic:1216"]
+It’s a particular concern for LN-Symmetry with CTV that the concatenation of the two preimages allows for length redistribution attacks, because CTV is only defined for 32 byte templates and will act as NOP for different template sizes for upgradeability.
+[/quote]
+
+This seems as much an argument against doing upgradeability that way as anything else; but if you do want that, and want to minimise hashing as well for whatever reason, then writing `[BAL] [CTVHASH] SIZE 32 EQUALVERIFY CAT SHA256` seems like it would solve the problem.
+
+If you want to support CTV upgradeability prior to knowing what that upgradeability will do, you could do `[BAL] [CTVHASH] SIZE DUP VERIFY DUP 127 LESSTHANOREQUAL VERIFY SWAP CAT SWAP CAT SHA256` to construct `sha256(1B: <size(CTVHASH)>; 0B-127B: <CTVHASH>; <BAL>)`. (Having CTV error if the hash is 0 bytes would let you avoid the `DUP VERIFY` step and might be a reasonable update to the BIP)
+
+-------------------------
+
+moonsettler | 2024-10-28 12:05:19 UTC | #9
+
+[quote="ajtowns, post:8, topic:1216"]
+Having CTV error if the hash is 0 bytes would let you avoid the `DUP VERIFY` step and might be a reasonable update to the BIP
+[/quote]
+
+Yes, don't think there is a legitimate reason to have a 0 size argument for CTV. Thank you for the suggestion!
+
+Btw the PC code on that branch is broken, this is in good shape now:
+https://github.com/lnhance/bitcoin/pull/6
+
+PS: not gonna lie, the way `valtype` is serialized to `HashWriter` in bitcoin caught me off-guard.
+
+-------------------------
+
