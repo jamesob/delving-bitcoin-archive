@@ -8,13 +8,13 @@
   "post_number": 11,
   "post_type": 1,
   "updated_at": "2024-10-29T10:52:30.693Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 1216,
   "topic_slug": "op-paircommit-as-a-candidate-for-addition-to-lnhance",
@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Don't want to delete threads/replies unless they're spam/non-constructive; probably not going to archive things in general. If you want to open a new topic, that's fine. I think it's best to approach this as a conversation/presentation rather than a new edition of a book -- ie, \"am I saying something new that's interesting and worthwhile\", rather than \"whoops, I made a few errors, and would like to update a section, better republish the whole thing\". If you want somewhere so you can say \"here's the current comprehensive doc\" better to publish things as a BIP/BINANA, a gist, or in the docs/ directory on your repo, I think?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

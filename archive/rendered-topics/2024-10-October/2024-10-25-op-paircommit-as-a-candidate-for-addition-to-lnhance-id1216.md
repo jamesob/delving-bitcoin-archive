@@ -216,3 +216,10 @@ Don't want to delete threads/replies unless they're spam/non-constructive; proba
 
 -------------------------
 
+moonsettler | 2024-10-29 11:36:58 UTC | #12
+
+Alright, here is the current state of OP_PAIRCOMMIT spec, making a PR against BINANA was actually the original plan once I'm done.
+https://gist.github.com/moonsettler/d7f1fb88e3e54ee7ecb6d69ff126433b
+
+-------------------------
+

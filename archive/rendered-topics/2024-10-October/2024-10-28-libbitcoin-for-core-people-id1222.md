@@ -1,6 +1,6 @@
 # Libbitcoin for Core people
 
-AntoineP | 2024-10-28 19:09:55 UTC | #1
+AntoineP | 2024-10-29 13:53:33 UTC | #1
 
 Recently Eric Voskuil [shared](https://x.com/evoskuil/status/1847684550966599894) a benchmark of doing IBD with Libbitcoin versus Bitcoin Core, showing that [Libbitcoin could perform IBD 15x faster than Core](https://x.com/evoskuil/status/1848015101233672628) with `-assumevalid`.
 
@@ -8,7 +8,7 @@ Libbitcoin's approach is very different from Bitcoin Core. This writeup intends 
 
 Libbitcoin is event-based. It will kick-off multiple asynchronous tasks (it uses [Boost ASIO](https://www.boost.org/doc/libs/1_86_0/doc/html/boost_asio/overview/core/async.html)). As you'll see later it's important as it enables it to take full advantage of its approach of splitting the various validation steps into checks which require strict, partial or no ordering.
 
-Libbitcoin's database is *conceptually* relational but the storage is abstracted out so different backends can be implemented. Conceptually the Libbitcoin node's database has a table for headers, transactions, transaction inputs and transaction outputs. It maintains an index from confirmation to header, header to transactions, transaction to header (only transactions confirmed in the best chain) and transaction output to its spending transaction.
+Libbitcoin's database is *conceptually* relational but the storage is abstracted out so different backends can be implemented. Conceptually the Libbitcoin node's database has a table for headers, transactions, transaction inputs and transaction outputs. It maintains an index from confirmation height to header, header to transactions, transaction to header (only transactions confirmed in the best chain) and transaction output to its spending transaction.
 
 To sync, Libbitcoin will spin up a hundred (by default) connections (more on how it handles connections later) and will redundantly request headers from all its peers. Once it gets a chain of headers which is "current", as defined by being less than 1h older than the system time (by default), it will start querying blocks from its peers. Blocks queries are spread across all peers.
 
@@ -42,6 +42,26 @@ Libbitcoin uses similar words for similar but different things as Bitcoin Core d
 ## Credits
 
 Thanks to Eric Voskuil for patiently answering my questions and walking me through the inner working of Libbitcoin in more details. Obviously, all remaining mistakes are mine.
+
+-------------------------
+
+instagibbs | 2024-10-29 13:06:58 UTC | #2
+
+[quote="AntoineP, post:1, topic:1222"]
+It maintains an index from confirmation to header
+[/quote]
+
+what does confirmation mean here
+
+-------------------------
+
+AntoineP | 2024-10-29 13:53:22 UTC | #3
+
+[quote="AntoineP, post:1, topic:1222"]
+from confirm
+[/quote]
+
+Missed a word, it's supposed to be "confirmation **height** to header". Thanks.
 
 -------------------------
 
