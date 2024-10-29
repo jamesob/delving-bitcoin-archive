@@ -210,3 +210,9 @@ The code is out of draft and it's not this variant, also updated the spec, which
 
 -------------------------
 
+ajtowns | 2024-10-29 10:52:30 UTC | #11
+
+Don't want to delete threads/replies unless they're spam/non-constructive; probably not going to archive things in general. If you want to open a new topic, that's fine. I think it's best to approach this as a conversation/presentation rather than a new edition of a book -- ie, "am I saying something new that's interesting and worthwhile", rather than "whoops, I made a few errors, and would like to update a section, better republish the whole thing". If you want somewhere so you can say "here's the current comprehensive doc" better to publish things as a BIP/BINANA, a gist, or in the docs/ directory on your repo, I think?
+
+-------------------------
+
