@@ -202,3 +202,11 @@ PS: not gonna lie, the way `valtype` is serialized to `HashWriter` in bitcoin ca
 
 -------------------------
 
+moonsettler | 2024-10-29 09:38:38 UTC | #10
+
+@ajtowns could you please delete or archive this topic? I want a redo with less confusing information for a PAIRCOMMIT thread.
+
+The code is out of draft and it's not this variant, also updated the spec, which I should start the topic with.
+
+-------------------------
+
