@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 16.0,
+  "incoming_link_count": 1,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 37.8,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -45,7 +45,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
