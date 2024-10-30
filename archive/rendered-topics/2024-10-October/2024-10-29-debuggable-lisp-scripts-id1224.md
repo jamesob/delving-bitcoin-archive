@@ -92,3 +92,9 @@ Anyway, the point of this post was just to update on the language design; hopefu
 
 -------------------------
 
+bramcohen | 2024-10-30 19:39:10 UTC | #2
+
+On the general topic of being able to have an 'apply' in the higher level language. A few things have to be a little bit special but it doesn't require that you completely sacrifice the compiled language to just be a fancies version of the lower level one. The 'apply' function does have to be special, in that it's the same thing to both the high and low level language, and it needs to have the property that the things passed into it have byte level specifications. But those byte level specifications can be fixed by doing a compilation run instead of having exact requirements of what sorts of optimizations the compiler does at the language level. Being able to tear off functions in the name space and use them as data structures is important for this, as is having a lambda which is special like apply and does what you think. The other subtle point is that compilation needs to be able to have multiple output targets, because in many cases there are multiple things which need to be internally consistent but can be optimized as a group.
+
+-------------------------
+
