@@ -228,13 +228,13 @@ IKEY is Tapscript only indeed, as it reads the BIP341 internal key from the cont
 
 -------------------------
 
-moonsettler | 2024-10-30 08:32:30 UTC | #18
+moonsettler | 2024-10-30 12:55:15 UTC | #18
 
 The LNhance family of opcodes has a new addition:
 
 OP_PAIRCOMMIT (PC)
 
-When used in sequence of `CTV PC IK CSFSV` they form the backbone of the LNhance-Symmetry channel.
+When used in sequence of `CTV PC IK CSFS` they form the backbone of the LNhance-Symmetry channel.
 
 https://github.com/bitcoin-inquisition/binana/pull/8
 
