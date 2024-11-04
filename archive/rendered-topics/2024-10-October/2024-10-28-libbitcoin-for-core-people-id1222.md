@@ -81,3 +81,78 @@ With that in mind, this approach seems more like a combination of assumevalid an
 
 -------------------------
 
+josibake | 2024-11-04 10:51:22 UTC | #5
+
+Thanks for writing this! I found the bridging of the terminology particularly helpful. I was finding it difficult to conceptualise the Libbitcoin data model from your description, so I made an attempt at diagraming it, let me know if this is an accurate representation [^1].
+
+## My understanding of Libbitcoin
+
+```mermaid height=829,auto
+erDiagram
+    Headers {
+        header_hash BYTES PK
+    }
+
+    ChainIndex {
+        block_height INT PK
+        header_hash BYTES FK
+    }
+
+    Transactions {
+        txid BYTES PK
+        header_hash BYTES FK
+        other_fields TEXT "Transaction data fields"
+    }
+
+    Outputs {
+        outpoint BYTES PK "txid + index"
+        txid BYTES FK
+    }
+
+    Inputs {
+        txid BYTES PK
+        index INT PK
+        outpoint BYTES FK "outpoint being spent"
+    }
+
+    ConfirmedTransactions {
+        txid BYTES PK
+        block_height INT FK
+    }
+
+    Headers ||--o{ Transactions : contains
+    ChainIndex ||--|| Headers : "best chain"
+    ChainIndex ||--o{ ConfirmedTransactions : "confirms at height"
+    Transactions ||--o{ Outputs : creates
+    Transactions ||--o{ Inputs : contains
+    Outputs ||--o{ Inputs : "spent by"
+```
+
+(also been awhile since I've written an ER diagram so likely contains mistakes :sweat_smile: ). To check my understanding against this data model (under the `-assumevalid` / milestone model):
+
+1. Non-overlapping ranges of blocks (e.g., 1000 blocks at a time) are downloaded and and unordered checks are done in parallel across multiple ranges
+2. The first range can also start confirmability checks (genesis to block 999), after which transactions from this range are committed to the `Transactions` table and the `ConfirmationIndex` is updated
+3. Now that the first range has finished with it's confirmability checks, the second range of blocks can start its confirmability checks, and so on
+
+Conceptually, this seems close to a MapReduce algorithm, where unordered checks are mapped on to each range, and then the Reduce step requires sequential ordering of each range of blocks for the confirmability checks [^2]. Clear separation between un-ordered and fully ordered checks is what makes this possible, from what I can tell. The partially ordered checks are not done under the `-assumevalid` / milestone model.
+
+Before commenting on how this compares to Bitcoin Core, I want to say hats off to the Libbitcoin engineering team! If my understanding is correct, this is an elegantly designed event driven system, using MapReduce for data processing. My intuition is that the speedups are coming from the more aggressive peer utilisation during download, and the clear separation of unordered vs ordered checks to take advantage of parallelism.
+
+## Comparing to Bitcoin Core
+
+While attempting to write the ER diagrams, it occurred to me Libbitcoin is using a _Transaction_ based data model, as opposed to Core's _Block_ based data model. I know in other places this has been called a "UTXO set" data model, but it's more helpful for me to think of it as _Block_ based for this comparison. A few differences that jump out to me:
+
+1. When a Libbitcoin node serves a block to a peer, it must reconstruct the block into its serialised representation, which will require some compute for each block request. Bitcoin Core, however, stores the blocks on disk in their serialised format and will simply read the block from disk and send it to the peer
+2. When updating the chaintip, it seems Bitcoin Core will be faster at fully validating the new block (unordered, partially ordered, and fully ordered checks) and updating the chaintip, whereas Libbitcoin will be slower as most of its speed-ups rely on processing ranges of blocks under the milestone model
+
+These are very high-level handwavey claims, and as its been mentioned already, Libbitcoin might be able to close this gap on fully validating new blocks after implementing libsecp / SHANI optimisations that are currently in Core. But I wanted to highlight the differences in data model because my intuition is a perfectly optimised _Transaction_ based data model will _always_ perform faster during IBD than a perfectly optimised _Block_ based data model, and a perfectly optimised _Block_ based data model will always perform faster than the _Transaction_ model when it comes to processing new blocks and serving them to peers.
+
+## Closing thoughts
+
+I don't want to make claims (and hope I haven't implied) in this post that one is better than the other. My personal view on the role of a Bitcoin node is that its primary purpose is to validate and propagate new blocks as quickly as possible, such that all nodes and miners on the network can quickly come to agreement on what the longest/heaviest PoW chain is. This is why I favour the _Block_ based data model. However, it's also clear that many other services / use cases need fast IBD and have more of a transaction based usecase for bitcoin, namely any block explorer, wallet backend, payment processing, etc. It feels like there is likely some middleground between the _Transaction_ based model and the _Block_ based model that could serve both use cases.
+
+[^1]: I realise I'm mostly just rephrasing the original post in my own language. My hope is this is seen as useful and not a critique of the original post, which I found extremely helpful in understanding the differences between Core and Libbitcoin
+[^2]: This is not quite MapReduce in that I don't think classic MapReduce requires a strict sequential ordering, which the confirmability checks do. Still, I found it to be a helpful mental model for trying to better understand the Libbitcoin approach
+
+-------------------------
+
