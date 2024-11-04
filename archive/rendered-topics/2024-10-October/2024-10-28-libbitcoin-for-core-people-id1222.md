@@ -81,7 +81,7 @@ With that in mind, this approach seems more like a combination of assumevalid an
 
 -------------------------
 
-josibake | 2024-11-04 10:51:22 UTC | #5
+josibake | 2024-11-04 10:57:58 UTC | #5
 
 Thanks for writing this! I found the bridging of the terminology particularly helpful. I was finding it difficult to conceptualise the Libbitcoin data model from your description, so I made an attempt at diagraming it, let me know if this is an accurate representation [^1].
 
@@ -149,7 +149,7 @@ These are very high-level handwavey claims, and as its been mentioned already, L
 
 ## Closing thoughts
 
-I don't want to make claims (and hope I haven't implied) in this post that one is better than the other. My personal view on the role of a Bitcoin node is that its primary purpose is to validate and propagate new blocks as quickly as possible, such that all nodes and miners on the network can quickly come to agreement on what the longest/heaviest PoW chain is. This is why I favour the _Block_ based data model. However, it's also clear that many other services / use cases need fast IBD and have more of a transaction based usecase for bitcoin, namely any block explorer, wallet backend, payment processing, etc. It feels like there is likely some middleground between the _Transaction_ based model and the _Block_ based model that could serve both use cases.
+I don't want to make claims (and hope I haven't implied) in this post that one is better than the other. My personal view on the role of a Bitcoin node is that its primary purpose is to validate and propagate new blocks as quickly as possible, such that all nodes and miners on the network can quickly come to agreement on what the longest/heaviest PoW chain is. This is why I favour the _Block_ based data model. However, it's also clear that many other services / use cases need fast IBD and have more of a transaction based use case for bitcoin, namely any block explorer, wallet backend, payment processing, etc. It feels like there is likely some middleground between the _Transaction_ based model and the _Block_ based model that could serve both use cases.
 
 [^1]: I realise I'm mostly just rephrasing the original post in my own language. My hope is this is seen as useful and not a critique of the original post, which I found extremely helpful in understanding the differences between Core and Libbitcoin
 [^2]: This is not quite MapReduce in that I don't think classic MapReduce requires a strict sequential ordering, which the confirmability checks do. Still, I found it to be a helpful mental model for trying to better understand the Libbitcoin approach
