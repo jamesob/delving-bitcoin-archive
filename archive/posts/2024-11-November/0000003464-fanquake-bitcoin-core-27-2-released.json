@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "incoming_link_count": 73,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 381.4,
   "yours": false,
   "topic_id": 1239,
   "topic_slug": "bitcoin-core-27-2-released",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Bitcoin Core version 27.2 is now available from:\n\n  <https://bitcoincore.org/bin/bitcoin-core-27.2/>\n\nOr through BitTorrent:\n\n[magnet:?xt=...](magnet:?xt=urn:btih:f21febdf8c54d2a9b09ed54f7eebb909537fb7b0&dn=bitcoin-core-27.2&tr=udp%3A%2F%2Ftracker.openbittorrent.com%3A80&tr=udp%3A%2F%2Ftracker.opentrackr.org%3A1337%2Fannounce&tr=udp%3A%2F%2Ftracker.coppersurfer.tk%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.leechers-paradise.org%3A6969%2Fannounce&tr=udp%3A%2F%2Fexplodie.org%3A6969%2Fannounce&tr=udp%3A%2F%2Ftracker.torrent.eu.org%3A451%2Fannounce&tr=udp%3A%2F%2Ftracker.bitcoin.sprovoost.nl%3A6969&ws=http%3A%2F%2Fbitcoincore.org%2Fbin%2F)\n\nThis release includes various bug fixes and performance\nimprovements, as well as updated translations.\n\nPlease report bugs using the issue tracker at GitHub:\n\n  <https://github.com/bitcoin/bitcoin/issues>\n\nTo receive security and update notifications, please subscribe to:\n\n  <https://bitcoincore.org/en/list/announcements/join/>\n\nHow to Upgrade\n==============\n\nIf you are running an older version, shut it down. Wait until it has completely\nshut down (which might take a few minutes in some cases), then run the\ninstaller (on Windows) or just copy over `/Applications/Bitcoin-Qt` (on macOS)\nor `bitcoind`/`bitcoin-qt` (on Linux).\n\nUpgrading directly from a version of Bitcoin Core that has reached its EOL is\npossible, but it might take some time if the data directory needs to be migrated. Old\nwallet versions of Bitcoin Core are generally supported.\n\nCompatibility\n==============\n\nBitcoin Core is supported and extensively tested on operating systems\nusing the Linux Kernel 3.17+, macOS 11.0+, and Windows 7 and newer. Bitcoin\nCore should also work on most other Unix-like systems but is not as\nfrequently tested on them. It is not recommended to use Bitcoin Core on\nunsupported systems.\n\nNotable changes\n===============\n\n### P2P\n\n- [#30394](https://github.com/bitcoin/bitcoin/pull/30394) net: fix race condition in self-connect detection\n\n### Init\n\n- [#30435](https://github.com/bitcoin/bitcoin/pull/30435) init: change shutdown order of load block thread and scheduler\n\n### RPC\n\n- [#30357](https://github.com/bitcoin/bitcoin/pull/30357) Fix cases of calls to FillPSBT errantly returning complete=true\n\n### PSBT\n\n- [#29855](https://github.com/bitcoin/bitcoin/pull/29855) psbt: Check non witness utxo outpoint early\n\n### Test\n\n- [#30552](https://github.com/bitcoin/bitcoin/pull/30552) test: fix constructor of msg_tx\n\n### Doc\n\n- [#30504](https://github.com/bitcoin/bitcoin/pull/30504) doc: use proper doxygen formatting for CTxMemPool::cs\n\n### Build\n\n- [#30283](https://github.com/bitcoin/bitcoin/pull/30283) upnp: fix build with miniupnpc 2.2.8\n- [#30633](https://github.com/bitcoin/bitcoin/pull/30633) Fixes for GCC 15 compatibility\n\n### CI\n\n- [#30193](https://github.com/bitcoin/bitcoin/pull/30193) ci: move ASan job to GitHub Actions from Cirrus CI\n- [#30299](https://github.com/bitcoin/bitcoin/pull/30299) ci: remove unused bcc variable from workflow\n\nCredits\n=======\n\nThanks to everyone who directly contributed to this release:\n\n- Ava Chow\n- Cory Fields\n- Martin Zumsande\n- Matt Whitlock\n- Max Edwards\n- Sebastian Falbesoner\n- Vasil Dimov\n- willcl-ark\n\nAs well as to everyone that helped with translations on\n[Transifex](https://www.transifex.com/bitcoin/bitcoin/).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
