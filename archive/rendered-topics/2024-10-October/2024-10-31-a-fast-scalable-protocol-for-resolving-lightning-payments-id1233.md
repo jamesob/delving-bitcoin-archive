@@ -1,6 +1,6 @@
 # A Fast, Scalable Protocol For Resolving Lightning Payments
 
-JohnLaw | 2024-10-31 22:50:15 UTC | #1
+JohnLaw | 2024-11-03 01:56:53 UTC | #1
 
 
 The security of all known Lightning payment protocols breaks down when the incremental cost of resolving a payment on-chain exceeds the value of the payment.
@@ -200,22 +200,22 @@ The OPR protocol can also be used for large payments, either directly or by divi
 
 References
 ==========
-[1] Burchert, Decker and Wattenhofer, "Scalable Funding of Bitcoin Micropayment Channel Networks", http://dx.doi.org/10.1098/rsos.180089
-[2] BOLT 02 - Peer Protocol, https://github.com/lightning/bolts/blob/247e83d528a2a380e533e89f31918d7b0ce6a0c1/02-peer-protocol.md
-[3] BOLT 03 - Transactions, https://github.com/lightning/bolts/blob/247e83d528a2a380e533e89f31918d7b0ce6a0c1/03-transactions.md
-[4] Decker, Russell and Osuntokun, "eltoo: A Simple Layer2 Protocol for Bitcoin", https://blockstream.com/eltoo.pdf
-[5] Dryja, "Discreet Log Contracts", https://adiabat.github.io/dlc.pdf
-[6] Fournier, "CTV dramatically improves DLCs", https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-January/019808.html
-[7] Law, "Scaling Bitcoin With Inherited IDs", https://github.com/JohnLaw2/btc-iids
-[8] Law, "Watchtower-Free Lightning Channels For Casual Users", https://github.com/JohnLaw2/ln-watchtower-free
-[9] Law, "Lightning Channels With Tunable Penalties", https://github.com/JohnLaw2/ln-tunable-penalties
-[10] Law, "Factory-Optimized Channel Protocols For Lightning", https://github.com/JohnLaw2/ln-factory-optimized
-[11] Law, "Efficient Factories For Lightning Channels", https://github.com/JohnLaw2/ln-efficient-factories
-[12] Law, "Resizing Lightning Channels Off-Chain With Hierarchical Channels", https://github.com/JohnLaw2/ln-hierarchical-channels
-[13] Law, "Scaling Lightning With Simple Covenants", https://github.com/JohnLaw2/ln-scaling-covenants
-[14] Law, "A Fast, Scalable Protocol For Resolving Lightning Payments", https://github.com/JohnLaw2/ln-opr
-[15] Riard, "Unjamming lightning (new research paper)", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02996.html
-[16] Riard and Naumenko, "Lightning Jamming Book", https://jamming-dev.github.io/book/
+[1] Burchert, Decker and Wattenhofer, "Scalable Funding of Bitcoin Micropayment Channel Networks", http://dx.doi.org/10.1098/rsos.180089  
+[2] BOLT 02 - Peer Protocol, https://github.com/lightning/bolts/blob/247e83d528a2a380e533e89f31918d7b0ce6a0c1/02-peer-protocol.md  
+[3] BOLT 03 - Transactions, https://github.com/lightning/bolts/blob/247e83d528a2a380e533e89f31918d7b0ce6a0c1/03-transactions.md  
+[4] Decker, Russell and Osuntokun, "eltoo: A Simple Layer2 Protocol for Bitcoin", https://blockstream.com/eltoo.pdf  
+[5] Dryja, "Discreet Log Contracts", https://adiabat.github.io/dlc.pdf  
+[6] Fournier, "CTV dramatically improves DLCs", https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-January/019808.html  
+[7] Law, "Scaling Bitcoin With Inherited IDs", https://github.com/JohnLaw2/btc-iids  
+[8] Law, "Watchtower-Free Lightning Channels For Casual Users", https://github.com/JohnLaw2/ln-watchtower-free  
+[9] Law, "Lightning Channels With Tunable Penalties", https://github.com/JohnLaw2/ln-tunable-penalties  
+[10] Law, "Factory-Optimized Channel Protocols For Lightning", https://github.com/JohnLaw2/ln-factory-optimized  
+[11] Law, "Efficient Factories For Lightning Channels", https://github.com/JohnLaw2/ln-efficient-factories  
+[12] Law, "Resizing Lightning Channels Off-Chain With Hierarchical Channels", https://github.com/JohnLaw2/ln-hierarchical-channels  
+[13] Law, "Scaling Lightning With Simple Covenants", https://github.com/JohnLaw2/ln-scaling-covenants  
+[14] Law, "A Fast, Scalable Protocol For Resolving Lightning Payments", https://github.com/JohnLaw2/ln-opr  
+[15] Riard, "Unjamming lightning (new research paper)", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02996.html  
+[16] Riard and Naumenko, "Lightning Jamming Book", https://jamming-dev.github.io/book/  
 [17] Transaction Fees, https://blockchain.com/explorer/charts/transaction-fees
 
 -------------------------

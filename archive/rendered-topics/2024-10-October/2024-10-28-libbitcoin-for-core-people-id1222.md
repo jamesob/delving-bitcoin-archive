@@ -65,3 +65,19 @@ Missed a word, it's supposed to be "confirmation **height** to header". Thanks.
 
 -------------------------
 
+andrewtoth | 2024-11-03 16:56:25 UTC | #4
+
+Thanks for this writeup! Sharing some thoughts below from private conversation.
+
+For one, since there is no utxo set, prevouts are verified unspent by looking up the outpoint's spending transaction and verifying that it does not exist. This to me would seem slower than looking up the prevout from a utxo set.
+
+[quote="AntoineP, post:1, topic:1222"]
+Note that for blocks below the milestone (see below for terminology), Libbitcoin will skip transaction validation (besides checking they were properly committed, i.e. no malleation of either transactions or witnesses). This is in my opinion a similar threat model to Bitcoin Core’s `-assumevalid`.
+[/quote]
+
+Based on insights from a private conversation, Libbitcoin will also skip checking confirmability if below the milestone. This means that transactions are written in order in the confirmability thread, but their inputs are assumed to exist and be yet unspent. Skipping this check is where the real speedup lies I believe, and was not clear to me on first read.
+
+With that in mind, this approach seems more like a combination of assumevalid and assumeutxo, since the signature checks are skipped and the utxo set is assumed to be valid based on the block height.
+
+-------------------------
+
