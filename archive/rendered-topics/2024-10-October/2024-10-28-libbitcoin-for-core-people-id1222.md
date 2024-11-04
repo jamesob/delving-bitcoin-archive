@@ -156,3 +156,13 @@ I don't want to make claims (and hope I haven't implied) in this post that one i
 
 -------------------------
 
+josibake | 2024-11-04 15:14:10 UTC | #6
+
+[quote="andrewtoth, post:4, topic:1222"]
+Libbitcoin will also skip checking confirmability if below the milestone. This means that transactions are written in order in the confirmability thread, but their inputs are assumed to exist and be yet unspent. Skipping this check is where the real speedup lies I believe, and was not clear to me on first read.
+[/quote]
+
+This also is not clear to me at all from this write up. Would be good to confirm this and perhaps amend the OP to reflect what Libbitcoin is actually doing.
+
+-------------------------
+
