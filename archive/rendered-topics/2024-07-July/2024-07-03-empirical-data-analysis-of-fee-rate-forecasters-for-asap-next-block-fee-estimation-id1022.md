@@ -182,3 +182,13 @@ As of now just taking the 25th and 50th percentiles of the mempool seems to be t
 
 -------------------------
 
+murch | 2024-11-06 19:16:16 UTC | #2
+
+[quote="ismaelsadeeq, post:1, topic:1022"]
+Smart Mempool-Based Forecaster
+[/quote]
+
+I don’t understand this distinction. At any point in time, we expect the next block in about 10 minutes. Wouldn’t it make sense to use whatever transactions we received in the last 10 minutes as a template for what we need to compete with, instead of tying it to whether some things were already confirmed or not?
+
+-------------------------
+
