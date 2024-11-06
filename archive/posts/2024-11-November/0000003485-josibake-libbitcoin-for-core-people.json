@@ -1,0 +1,72 @@
+{
+  "id": 3485,
+  "name": "josie",
+  "username": "josibake",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/josibake/{size}/83_2.png",
+  "created_at": "2024-11-05T08:41:22.133Z",
+  "cooked": "<p>Awesome, thanks for the invite; just joined! In addition, if you\u2019re able to respond here to which parts of my summary are incorrect, I think that would be of tremendous value. My intent in writing down my (likely incomplete) understanding was to give an opportunity for people to correct it here in the hopes of making this a more complete document on the differences between Libbitcoin and Core\u2019s architectures. I\u2019m also happy to try and translate my learnings from the slack channel back to this post, but it would be more efficient and correct to get it straight from the horses mouth.</p>",
+  "post_number": 9,
+  "post_type": 1,
+  "updated_at": "2024-11-05T08:41:22.133Z",
+  "reply_count": 0,
+  "reply_to_post_number": 8,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 34.0,
+  "yours": false,
+  "topic_id": 1222,
+  "topic_slug": "libbitcoin-for-core-people",
+  "topic_title": "Libbitcoin for Core people",
+  "topic_html_title": "Libbitcoin for Core people",
+  "category_id": 8,
+  "display_username": "josie",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "evoskuil",
+    "name": "Eric Voskuil",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/evoskuil/{size}/391_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Awesome, thanks for the invite; just joined! In addition, if you're able to respond here to which parts of my summary are incorrect, I think that would be of tremendous value. My intent in writing down my (likely incomplete) understanding was to give an opportunity for people to correct it here in the hopes of making this a more complete document on the differences between Libbitcoin and Core's architectures. I'm also happy to try and translate my learnings from the slack channel back to this post, but it would be more efficient and correct to get it straight from the horses mouth.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 92,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

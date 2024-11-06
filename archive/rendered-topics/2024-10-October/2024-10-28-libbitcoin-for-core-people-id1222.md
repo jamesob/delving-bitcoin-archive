@@ -1,6 +1,6 @@
 # Libbitcoin for Core people
 
-AntoineP | 2024-10-29 13:53:33 UTC | #1
+AntoineP | 2024-11-05 18:23:21 UTC | #1
 
 Recently Eric Voskuil [shared](https://x.com/evoskuil/status/1847684550966599894) a benchmark of doing IBD with Libbitcoin versus Bitcoin Core, showing that [Libbitcoin could perform IBD 15x faster than Core](https://x.com/evoskuil/status/1848015101233672628) with `-assumevalid`.
 
@@ -16,7 +16,7 @@ Libbitcoin breaks down block validation into steps which need partial ordering a
 
 When a block is downloaded, checks which don't require ordering are performed and then the transactions are stored. Of course this is fine to do DoS-wise because it only considers transactions which are part of the chain with the most PoW. Concurrently the validation (see below for terminology) thread will perform for all new transactions the check which only require partial ordering. That is, all checks (including script) but whether inputs exist (and also relative timelocks, interestingly). The confirmability (see terminology below) thread will, still in parallel, check for a range of validated blocks whether all inputs spent by these transactions exist and are yet unspent. If they are it will for each transaction insert an entry in the transaction -> header index, which conceptually "marks the block as confirmed". So the steps are 1) download 2) validation 3) confirmability but those happen concurrently for different ranges of blocks.
 
-Note that for blocks below the milestone (see below for terminology), Libbitcoin will skip transaction validation (besides checking they were properly committed, i.e. no malleation of either transactions or witnesses). This is in my opinion a similar threat model to Bitcoin Core's `-assumevalid`.
+Note that for blocks below the milestone (see below for terminology), Libbitcoin will skip validation and confirmability (see below for terminology) checks. Of course it will still check transactions were properly committed, i.e. no malleation of either transactions or witnesses. This is in my opinion a similar threat model to Bitcoin Core's `-assumevalid`.
 
 Reorg'ing is straightforward. To unconfirm a block the node just wipes the blocks' transactions from the transaction -> header index.
 
@@ -163,6 +163,64 @@ Libbitcoin will also skip checking confirmability if below the milestone. This m
 [/quote]
 
 This also is not clear to me at all from this write up. Would be good to confirm this and perhaps amend the OP to reflect what Libbitcoin is actually doing.
+
+-------------------------
+
+AntoineP | 2024-11-04 18:49:27 UTC | #7
+
+[quote="andrewtoth, post:4, topic:1222"]
+Based on insights from a private conversation, Libbitcoin will also skip checking confirmability if below the milestone. This means that transactions are written in order in the confirmability thread, but their inputs are assumed to exist and be yet unspent. Skipping this check is where the real speedup lies I believe, and was not clear to me on first read.
+[/quote]
+
+Thanks for pointing out it's worth underlining this in the writeup. Will edit OP.
+
+I do also think this is what drives most of the IBD speedup there. And it is directly related to their architecture, doing it for Bitcoin Core wouldn't bring much benefit since you still have to update the UTxO set (see also [this #bitcoin-core-dev discussion](https://gnusha.org/bitcoin-core-dev/2024-10-24.log) discussion about this).
+
+[quote="josibake, post:5, topic:1222"]
+My intuition is that the speedups are coming from the more aggressive peer utilisation during download, and the clear separation of unordered vs ordered checks to take advantage of parallelism.
+[/quote]
+
+Yes although in the context of this specific benchmark it's more about being able to skip a whole class of checks than parallelizing them, i think.
+
+[quote="josibake, post:5, topic:1222"]
+These are very high-level handwavey claims, and as its been mentioned already, Libbitcoin might be able to close this gap on fully validating new blocks after implementing libsecp / SHANI optimisations that are currently in Core.
+[/quote]
+
+Even if they do, we can expect there still being an edge in using a UTxO set (as long as it doesn't get enormous) as you check inputs against a much smaller index.
+
+[quote="josibake, post:5, topic:1222"]
+My personal view on the role of a Bitcoin node is that its primary purpose is to validate and propagate new blocks as quickly as possible, such that all nodes and miners on the network can quickly come to agreement on what the longest/heaviest PoW chain is. This is why I favour the *Block* based data model.
+[/quote]
+
+This isn't so much block storage which makes a difference but how their content is indexed. In this case it would be clearer to make a distinction between a historical transactions index vs an unspent outputs index.
+
+-------------------------
+
+evoskuil | 2024-11-04 22:24:25 UTC | #8
+
+There are a few good observations here, but also several reasonable but incorrect assumptions. If anyone is interested in detailed discussion on libbitcoin's node progress we invite you to join the [libbitcoin Slack channel](https://libbitcoin.slack.com/join/shared_invite/enQtNDgxMjQxODg0NTM1LTFhYzNhYjYxYTg1OTc0NGQ0OWQxY2ZiYWI5ODc1ZmFjZjEyNGZkNWQwM2JiMzk0YjhkMDc0MjkxOTgwMzQ0ZDM#/shared-invite/email) and/or attend our weekly dev meetings.
+
+-------------------------
+
+josibake | 2024-11-05 08:41:22 UTC | #9
+
+Awesome, thanks for the invite; just joined! In addition, if you're able to respond here to which parts of my summary are incorrect, I think that would be of tremendous value. My intent in writing down my (likely incomplete) understanding was to give an opportunity for people to correct it here in the hopes of making this a more complete document on the differences between Libbitcoin and Core's architectures. I'm also happy to try and translate my learnings from the slack channel back to this post, but it would be more efficient and correct to get it straight from the horses mouth.
+
+-------------------------
+
+josibake | 2024-11-05 10:23:56 UTC | #10
+
+[quote="AntoineP, post:1, topic:1222"]
+Libbitcoin will skip transaction validation besides checking they were properly committed, i.e. no malleation of either transactions or witnesses (note this means in particular inputs existence isn’t checked). This is in my opinion a similar threat model to Bitcoin Core’s `-assumevalid`.
+[/quote]
+
+I think this edit helps, but is still a bit confusing in that the term "transaction validation" is overloaded. Later in the post, you define "Validation" and "Confirmability" as two separate things, i.e., "Validation" is all verification checks _except_ "Confirmability" and "Confirmability" is only verifying prevouts exist and are unspent. I think the OP would be more clear if it explicitly mentions that for blocks under the milestone, both "Validation" and "Confirmability" checks are skipped. I think this also makes it more clear where the differences with Core's architecture are: while this is conceptually a similar threat model, Core _does_ need to check that inputs exist and are unspent because this is necessary for maintaining a "UTXO set" (in that we must know what inputs are being spent so that they can be deleted from the UTXO set before continuing).
+
+-------------------------
+
+AntoineP | 2024-11-05 18:24:04 UTC | #11
+
+Fair. Made another edit. Thanks.
 
 -------------------------
 

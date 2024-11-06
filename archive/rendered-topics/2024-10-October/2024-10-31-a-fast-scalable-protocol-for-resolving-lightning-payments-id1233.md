@@ -220,3 +220,71 @@ References
 
 -------------------------
 
+morehouse | 2024-11-04 23:59:52 UTC | #2
+
+[quote="JohnLaw, post:1, topic:1233"]
+For example, if Alice uses the current Lightning protocol to offer an HTLC to Bob, and Bob fulfills the HTLC by providing the required hash preimage before its expiry, Alice is supposed to update the channel state off-chain to reflect the payment of the HTLC to Bob. However, if Alice fails to do so, Bob’s only recourse is to put an HTLC-success transaction on-chain. If the cost of putting the HTLC-success transaction on-chain exceeds the value of the payment, resolving the HTLC on-chain is more costly for Bob than allowing Alice to claim the payment. Therefore, Alice is incentivized to violate the protocol by not giving the payment’s funds to Bob off-chain, as she will receive those funds unless Bob acts against his immediate self-interest.
+[/quote]
+
+All lightning implementations today will force close in this case even though it's not cost effective (though they might not claim the HTLC output on chain), and for good reason.  If Bob adopts a policy of "forgiving" small HTLCs in an attempt to stay off chain, it enables Alice to steal Bob's entire channel balance one small HTLC at a time.  Besides, if Alice is unresponsive to HTLC claims for 5+ hours (i.e. the typical CLTV delta), she's a poor channel partner even if she's honest.
+
+OPR actually makes this problem worse.  Because Bob's cost of force closing is  higher with OPR (due to burned fees), there is a larger incentive for Bob to forgive small HTLCs that Alice refuses to resolve before expiry.
+
+[quote="JohnLaw, post:1, topic:1233"]
+In order to determine if an HTLC was resolved successfully, a node has to determine if the required hash preimage was provided before the HTLC’s expiry. All hash preimage messages can include a time stamp recording when they were sent, and each node can keep a time-stamped nonvolatile log of each hash preimage that it sends or receives. This log can be used to determine the result of an HTLC, even if the node crashes when the HTLC was being resolved. Channel partners can keep their clocks synchronized by exchanging frequent time stamp messages, and the htlc_expiry_delta_msec parameters can include a buffer for clock skew.
+[/quote]
+
+Seems tricky.  Since networks are inherently unreliable, can't an attacker easily lie about the actual time the message was sent?  How does a node distinguish between occasional network lag and a malicious peer?
+
+Even if everyone is honest, I fear that the higher complexity of determining success/failure will lead to implementation bugs and more force closes, which are extra costly with OPR.
+
+[quote="JohnLaw, post:1, topic:1233"]
+# Usability
+
+The OPR protocol’s guaranteed resolution of a payment attempt within seconds makes it much more attractive to casual users than the current Lightning protocol, which could require waiting hours to find out that a payment attempt failed.
+[/quote]
+
+Yes, this is good UX for casual users.
+
+But the capital requirements of OPR are also quite bad UX for casual users.  To properly disincentivize cheating, the amount of funds each party contributes to the burn output must always be higher than the total value of outstanding HTLCs (otherwise users could profit from force closing without forwarding preimages).  This means that in order to *receive* payments, users must *already* have at least as much balance on their side of the channel as they want to receive.  Casual lightning users already get frustrated by the 1% reserve requirement, so this new requirement is sure to cause even more frustration.
+
+-------------------------
+
+harding | 2024-11-05 10:14:19 UTC | #3
+
+I think OPR needs some sort of unconditional fees to work.
+
+In the current LN protocol, the party that creates a payment only pays forwarding fees if the payment is successful.  Unsuccessful payments, and HTLCs designed to fail (called _probes_), cost their creator nothing.
+
+However, if that model was adopted by OPR, then Mallory could send a constant stream of probes through Bob to random endpoints.  Each of those endpoints would fail the probes (because they wouldn't know the payment preimage) in the normal case, but it would occasionally be the case that there would be a problem downstream and a penalty payment would propagate back to Mallory.
+
+Even with unconditional fees, OPR would seem to create an incentive for an attacker to create disruptions within the network.  Defending against such attacks could become a centralizing factor (e.g. in the same way that many popular websites use CloudFlare today because it's one of the few services big enough to survive cheap-to-perform DDoS attacks).
+
+[quote="JohnLaw, post:1, topic:1233"]
+If we assume the average incremental latency required to resolve an HTLC is 100 milliseconds and the average payment traverses 11 hops, each HTLC will be resolved an average of 600 milliseconds after it’s created. If each node fails (due to a crash, delay, or protocol error) randomly 10 times a day, thus causing it to lose the value of all unresolved HTLCs, that node will lose the value of one out of every 14,400 HTLCs. Therefore, increasing the routing fee by 1/14,400 = 0.007% of the HTLC value per node (and thus 0.077% per payment) will cover the cost of node failures that cause HTLC failures.
+[/quote]
+
+If the risk-free interest rate is 2% per annum, then we would expect the forwarding fee in a mature system to approach 0.00000004% per hop for a 600 ms average settlement time (`2 / (86400 / 0.6) / 365.25`), or 0.0000004% per payment assuming 11 hops. The OPR fee is 5 orders of magnitude higher.  https://1ml.com/statistics says the current median percentage fee (not factoring in the base fee) is "0.000072 sat/sat", or 0.0072% per hop, or 0.08% per payment assuming 11 hops, so OPR accidental routing failures is roughly expected to double the routing cost over the current system or 10,000x increase the cost over a (very theoretical) expected floor.
+
+That does not count the costs of non-accidental failures (i.e. attacks) or the costs of preventing attacks.
+
+[quote="JohnLaw, post:1, topic:1233"]
+The security of all known Lightning payment protocols breaks down when the incremental cost of resolving a payment on-chain exceeds the value of the payment.
+[/quote]
+
+One theoretical solution, [proposed years ago](https://docs.google.com/presentation/d/1G4xchDGcO37DJ2lPC_XYyZIUkJc2khnLrCaZXgvDN0U/edit?pref=2&pli=1#slide=id.g85f425098_0_195), is for low-value payments to be encapsulated in higher-value outputs using probabilistic payments.  For example: when it would cost $10 in onchain fees to settle an HTLC, Alice offers Bob a $100 HTLC with an HTLC-Success transaction that gives him a 1% chance of being able to claim it onchain (the other 99% of the time, Alice reclaims the money).  Bob accepts that and forwards $1 to Carol (perhaps also using a probabilistic payment).  If the HTLC is settled offchain (either success or failure), then the $100 output is reallocated $1 to Bob and $99 to Alice.  If it goes onchain, then Bob gets his 1% chance at $100 (i.e., an expected value before fees of $1) which will cost him $10 in fees if he's successful; in the other 99% of the time, Alice gets her $100 back (expected value $99) by paying $10 in fees.
+
+Probabilistic payments are possible today on Elements-based sidechains using `OP_DETERMINISTIC_RANDOM`.
+
+It's my belief (possibly ill-informed) that there's been minimal work in this direction due to HTLC settlement cost griefing not being perceived as a major problem at present.
+
+[quote="JohnLaw, post:1, topic:1233"]
+all payments are resolved within seconds (as compared to hours for the current protocol),
+[/quote]
+
+[Opportunistic overpayments](https://bitcoinops.org/en/topics/redundant-overpayments/) also has this property for _almost_ all payments.  If, in your proposal, the burn output is expected to be a multiple of the maximal OPR HTLC amount, then the same amount of funds could be used instead for an refundable overpayment that would significantly increase the odds of rapid payment success.
+
+Most discussion about overpayments that I'm aware of has preferred a PTLC-based mechanism, which is something that's still being developed for LN.
+
+-------------------------
+

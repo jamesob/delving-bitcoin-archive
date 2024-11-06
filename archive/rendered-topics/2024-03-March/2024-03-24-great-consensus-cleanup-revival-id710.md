@@ -971,3 +971,45 @@ https://delvingbitcoin.org/t/pplns-with-job-declaration/1099/3
 
 -------------------------
 
+AntoineP | 2024-11-04 21:06:02 UTC | #47
+
+[quote="harding, post:42, topic:710"]
+A lite client performing whitepaper-style SPV can be tricked into accepting a fake transaction if the coinbase transaction was actually 64 bytes.
+[/quote]
+
+Not important to your point but executing this attack using the coinbase transaction requires brute-forcing 40 more bits in the first stage, which makes it fairly impractical.
+
+[quote="harding, post:42, topic:710"]
+@evoskuil mentioned an alternative potential soft fork: a commitment to tree depth [...].
+
+I think the two cons of that approach are:
+[/quote]
+
+To add to this list:
+- This is a roundabout way of closing the fake inclusion attack vector instead of addressing the root issue that 64 bytes transaction are indistinguishable from inner nodes.
+- This requires miners to update their software stack, whereas making 64 bytes transactions invalid doesn't require them to do anything (if they aren't running a non-standard Bitcoin Core).
+
+[quote="ajtowns, post:43, topic:710"]
+* you need a merkle path, and also to check the witness-stripped tx isn’t 64 bytes
+[/quote]
+
+[quote="evoskuil, post:45, topic:710"]
+Consequently the complexity comparison becomes:
+
+* Ensure that the stripped transaction is not 64 bytes, and ensure that its Merkle path is valid.
+
+vs:
+
+* Ensure that the (reconstituted) coinbase Merkle path is valid, and ensure the same valid Merkle depth for any tx in the block.
+[/quote]
+
+Even then for an application which checks the SPV proof of transactions for received payments this would never be an issue as they would only check transactions paying to a normal scriptpubkey in the first place, which would implicitly ensure the transaction is never 64 bytes.
+
+-------------------------
+
+AntoineP | 2024-11-05 14:54:27 UTC | #48
+
+After re-reading through the arguments presented in this thread i'm leaning toward including the invalidity of 64 bytes transactions as part of the consensus cleanup proposal. I appreciate Eric's push back against some of the advertised benefits (my caching assumptions being incorrect and the bandwidth reduction in absolute terms being modest). Still i think the actual benefits, mostly in terms of reduced complexity for SPV applications, outweigh the cost.
+
+-------------------------
+
