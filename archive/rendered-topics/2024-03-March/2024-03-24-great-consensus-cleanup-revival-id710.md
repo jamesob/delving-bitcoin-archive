@@ -1013,3 +1013,13 @@ After re-reading through the arguments presented in this thread i'm leaning towa
 
 -------------------------
 
+AntoineP | 2024-11-08 15:52:47 UTC | #49
+
+[quote="AntoineP, post:1, topic:710"]
+A neat fix would be to simply requires the `nLockTime` field of the coinbase transaction to be set to the height of the block being created.
+[/quote]
+
+It recently occurred to me this would require mandating the coinbase input to have its `nSequence` field be `SEQUENCE_FINAL`, as otherwise the coinbase transaction would fail the `IsFinalTx()` check (the locktime value is the height at which a transaction is valid in the *next* block).
+
+-------------------------
+
