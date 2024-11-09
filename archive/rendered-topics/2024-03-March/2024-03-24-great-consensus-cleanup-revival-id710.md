@@ -1029,3 +1029,11 @@ Why wouldn't you have `nLockTime` be the height of the parent block (mod 500M) i
 
 -------------------------
 
+AntoineP | 2024-11-09 15:16:49 UTC | #51
+
+I just figured the off-by-one would be unnecessarily confusing to anyone trying to use this. But i don't have a strong opinion, and we might favor the small confusion over restricting the coinbase's `nSequence`.
+
+The height could also be encoded in the coinbase's `nVersion`, and if we think making the block height available in a simpler manner than parsing the scriptSig isn't a goal then i think just requiring the coinbase transaction `nVersion` be anything but `1` would be sufficient.
+
+-------------------------
+
