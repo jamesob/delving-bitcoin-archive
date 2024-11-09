@@ -1023,3 +1023,9 @@ It recently occurred to me this would require mandating the coinbase input to ha
 
 -------------------------
 
+ajtowns | 2024-11-09 08:35:14 UTC | #50
+
+Why wouldn't you have `nLockTime` be the height of the parent block (mod 500M) instead?
+
+-------------------------
+
