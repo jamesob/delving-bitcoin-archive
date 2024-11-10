@@ -389,3 +389,49 @@ In any case, I think it's quite possible that a user would choose to pay an addi
 
 -------------------------
 
+JohnLaw | 2024-11-10 00:06:59 UTC | #6
+
+[quote="harding, post:3, topic:1233"]
+It’s my belief (possibly ill-informed) that there’s been minimal work in this direction due to HTLC settlement cost griefing not being perceived as a major problem at present.
+[/quote]
+
+Fair enough.
+
+Let's assume the current protocol is safe for payments that are smaller than the on-chain fees required to claim them.
+I think the reason they are safe is:
+
+  1) no one is willing to be shown to be a sucker from whom funds can be stolen, therefore:
+  2) everyone is willing to claim the funds that are owed to them, even if this results in a net loss due to fees, therefore:
+  3) Alice will never try to steal Bob's funds by using the attack given at the beginning of this post.
+
+Regarding point 3, Alice won't try to steal because doing so won't succeed (due to point 2) and would make it look like she has low availability (even though she wouldn't lose funds if she tried).
+
+If we believe the above reasoning, then I think it's fair to say that the OPR protocol is safe (for any size payment) because:
+
+  4) no one is willing to be shown to be a sucker from whom funds can be stolen, therefore:
+  5) everyone is willing to prevent a bullying attack, even if they would obtain more funds if they could be bullied, therefore:
+  6) no one will ever attack their peer by failing to agree to the correct resolution of an HTLC.
+
+Regarding point 6, no one will try such an attack, both because it won't succeed (due to point 5) and it would make the attacker lose funds and reputation.
+
+If we agree to the reasoning above, that means the OPR protocol is safe in the sense that one's peer will always try to resolve each HTLC correctly.
+
+Does that sound right?
+
+There are tradeoffs with the OPR protocol's use of a burn output because one's peer can fail permanently or the partners may fail to agree on an HTLC's resolution (despite their best efforts).
+However, those costs provide the benefits of resolving payments in a completely off-chain and scalable manner.
+I could certainly image that those costs could be worth paying someday, especially if lightning becomes widely used and the blockchain becomes very congested.
+
+There's also a potential cost to supporting short HTLC expiries, as they increase the risk of losing the payment because of a failure.
+However, this is tunable.
+
+For example, consider the case where each router sets their htlc_expiry_delta_msec parameter to match the off-chain (G) portion of their CLTV delta parameter.
+In this case, there's no obvious risk from having shorter expiries, and users are likely to appreciate the faster payment resolutions.
+In practice, I'm guessing that the htlc_expiry_delta_msec parameters will be much shorter, but that's just a guess for now.
+
+In any case, prior to the OPR protocol, I wasn't aware of a way to resolve payments quickly and safely without ever having to go onchain.
+
+I hope that adding these capabilities to our toolkit will help lightning scale and become more widely adopted.
+
+-------------------------
+
