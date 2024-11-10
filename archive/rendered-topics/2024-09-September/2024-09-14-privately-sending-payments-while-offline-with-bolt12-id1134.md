@@ -89,3 +89,13 @@ bLIP-0028 looks cool for a lot of use cases, but I'm wondering if it is much mor
 
 -------------------------
 
+andyschroder | 2024-11-10 19:32:58 UTC | #6
+
+[quote="andyschroder, post:1, topic:1134"]
+Could be much more secure than alternatives such as [GitHub - theDavidCoen/LNURL-withdrawPOS: A reference flow for open source implementations of POS devices able to read LNURL-withdraw links via NFC ](https://github.com/theDavidCoen/LNURL-withdrawPOS) .
+[/quote]
+
+Related: I've discovered that there is a better LNURL solution that uses deterministic rolling withdrawal URI's with a special NFC chip: https://github.com/boltcard . The reference above appeared to use static LNURL withdrawal links, which seemed mostly insecure to me. The Bolt Card solution seems okay (despite all the architectural drawbacks of LNURL).
+
+-------------------------
+

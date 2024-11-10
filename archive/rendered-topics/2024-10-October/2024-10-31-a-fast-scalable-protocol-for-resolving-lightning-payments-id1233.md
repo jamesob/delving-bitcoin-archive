@@ -435,3 +435,79 @@ I hope that adding these capabilities to our toolkit will help lightning scale a
 
 -------------------------
 
+harding | 2024-11-10 18:03:56 UTC | #7
+
+[quote="JohnLaw, post:5, topic:1233"]
+I’m afraid I’m not following you here. What do you mean by a “penalty payment”?
+[/quote]
+
+Let's assume Alice wants to pay Carol through Bob, `A -> B -> C`.  Alice
+uses OPR to offer Bob 10,000 sats (~$10) conditional on delivery of a
+preimage within 10 seconds.  Bob makes the same offer to Carol but for 9
+seconds (and minus a small forwarding fee).
+
+Before either OPR-HTLC is resolved, Bob's node is subjected to a ping
+flood DoS attack for 15 seconds, preventing him from communicating with
+either Alice or Carol.  When he comes back online, Carol delivers the
+preimage along with a claim that she sent it before the expiry.  Bob's
+node knows it lost connectivity during that time, so it resolves the
+HTLC---paying Carol 10,000 sats.
+
+Bob also delivers the preimage to Alice but she says that it's too late.
+Again Bob's node acquiesces and refunds her 10,000 sats.  Now Bob has
+paid Carol 10,000 sats without gaining anything from Alice, a net loss
+of 10,000 sats.
+
+Either Alice or Carol, who might actually be the same person (Mallory),
+could have enginereed this situation by attacking Bob's node.
+
+This attack can also be performed on longer routes, e.g. `A -> B -> ...
+-> Y -> Z`.  If Kay's node is prevented from communicating, she'll pay
+forward to Lloyd and refund to John.  John will refund to Iris, etc,
+back to Alice.  Zed will have propagated the preimage back to Lloyd and
+claimed the payment.  Again, Kay loses money due to being the victim of
+an attack.  Also again, if the endpoints (Alice and Zed) are both
+controlled by the same person (Mallory), that person will gain from
+Kay's loss.
+
+This may not be called a penalty, but I think it acts as one.
+
+This attack doesn't require Mallory to DoS attack nodes or attempt to
+disrupt the network---it can simply depend on some nodes naturally
+crashing or losing connectivity from time to time---but instigating
+attacks will increases its profitability.  The natural consequence of
+this attack is that OPR nodes will need to be much more robust against
+IP-layer attacks, which is good for payment reliability but bad if it
+excessively raises the cost of running a node, as expensive nodes or
+cost sharing will likely lead to forwarding node centralization.
+
+-------------------------
+
+JohnLaw | 2024-11-10 18:35:51 UTC | #8
+
+[quote="JohnLaw, post:4, topic:1233"]
+When they finally close the channel, they can create a cooperative close that returns their base funds and only burns the single HTLC on which they disagreed.
+[/quote]
+
+I should note that this is a change. The protocol as written forbids a cooperative close and return of base funds if any HTLCs were disputed.
+
+(Despite forbidding a cooperative close, there was no requirement to close the channel unilaterally after a disputed HTLC, rather than continuing to add new HTLCs. Sorry if this wasn't clear.)
+
+The intent was to have at least a minimal self-griefing cost (the base funds), but such a cost should be per-HTLC, if it is needed at all.
+
+I'll update the paper to reflect this and any other changes that come out of this discussion..
+
+-------------------------
+
+JohnLaw | 2024-11-10 18:50:47 UTC | #9
+
+Thanks for the explanation. It was very clear.
+
+This type of attack has nothing to do with the use of a burn output. In fact, a similar attack is possible with the current lightning protocol. The only difference is that the DoS attack has to be much longer with the current protocol, given its longer expiries.
+
+This seems to be an inherent tradeoff between maximum payment resolution latency and each node's availability requirements.  Given this tradeoff, I'm not sure where these factors will balance out in practice.
+
+In any case, gaining the ability to make this tradeoff without being subject to the latency for going onchain, and without having to ever add to onchain congestion to resolve HTLCs, seems interesting.
+
+-------------------------
+

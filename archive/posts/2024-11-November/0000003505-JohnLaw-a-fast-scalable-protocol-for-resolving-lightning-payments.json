@@ -1,0 +1,72 @@
+{
+  "id": 3505,
+  "name": null,
+  "username": "JohnLaw",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/j/58956e/{size}.png",
+  "created_at": "2024-11-10T18:50:47.197Z",
+  "cooked": "<p>Thanks for the explanation. It was very clear.</p>\n<p>This type of attack has nothing to do with the use of a burn output. In fact, a similar attack is possible with the current lightning protocol. The only difference is that the DoS attack has to be much longer with the current protocol, given its longer expiries.</p>\n<p>This seems to be an inherent tradeoff between maximum payment resolution latency and each node\u2019s availability requirements.  Given this tradeoff, I\u2019m not sure where these factors will balance out in practice.</p>\n<p>In any case, gaining the ability to make this tradeoff without being subject to the latency for going onchain, and without having to ever add to onchain congestion to resolve HTLCs, seems interesting.</p>",
+  "post_number": 9,
+  "post_type": 1,
+  "updated_at": "2024-11-10T18:50:47.197Z",
+  "reply_count": 0,
+  "reply_to_post_number": 7,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 2,
+  "readers_count": 1,
+  "score": 15.4,
+  "yours": false,
+  "topic_id": 1233,
+  "topic_slug": "a-fast-scalable-protocol-for-resolving-lightning-payments",
+  "topic_title": "A Fast, Scalable Protocol For Resolving Lightning Payments",
+  "topic_html_title": "A Fast, Scalable Protocol For Resolving Lightning Payments",
+  "category_id": 7,
+  "display_username": null,
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "harding",
+    "name": "David A. Harding",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Thanks for the explanation. It was very clear.\n\nThis type of attack has nothing to do with the use of a burn output. In fact, a similar attack is possible with the current lightning protocol. The only difference is that the DoS attack has to be much longer with the current protocol, given its longer expiries.\n\nThis seems to be an inherent tradeoff between maximum payment resolution latency and each node's availability requirements.  Given this tradeoff, I'm not sure where these factors will balance out in practice.\n\nIn any case, gaining the ability to make this tradeoff without being subject to the latency for going onchain, and without having to ever add to onchain congestion to resolve HTLCs, seems interesting.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 279,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}
