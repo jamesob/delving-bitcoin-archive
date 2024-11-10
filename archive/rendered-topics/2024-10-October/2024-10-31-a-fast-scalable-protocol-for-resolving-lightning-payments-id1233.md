@@ -288,3 +288,104 @@ Most discussion about overpayments that I'm aware of has preferred a PTLC-based 
 
 -------------------------
 
+JohnLaw | 2024-11-09 23:21:48 UTC | #4
+
+[quote="morehouse, post:2, topic:1233"]
+All lightning implementations today will force close in this case even though it’s not cost effective (though they might not claim the HTLC output on chain), and for good reason. If Bob adopts a policy of “forgiving” small HTLCs in an attempt to stay off chain, it enables Alice to steal Bob’s entire channel balance one small HTLC at a time.
+[/quote]
+
+Yes, it makes sense that all lightning implementations prevent theft of small HTLCs, even when it's not cost effective.
+As you point out, this is required to avoid becoming a sucker who can be slowly cheated out of their funds.
+As a result, the lightning protocol is fairly secure, even for small payments.
+
+It seems the main benefits of the OPR protocol are its speed and scalability.
+I probably should have emphasized those benefits, rather than security for small payments, in the post and paper.
+Thanks for your feedback.
+
+[quote="morehouse, post:2, topic:1233"]
+OPR actually makes this problem worse. Because Bob’s cost of force closing is higher with OPR (due to burned fees), there is a larger incentive for Bob to forgive small HTLCs that Alice refuses to resolve before expiry
+[/quote]
+
+Actually, with the OPR protocol, choosing to stay off-chain (rather than force closing) in no way leads to accepting the incorrect resolution of an HTLC.
+That type of logic (having to go on-chain for resolve an HTLC in one's favor) applies to the current lightning protocol, but not to the OPR protocol.
+
+[quote="morehouse, post:2, topic:1233"]
+Since networks are inherently unreliable, can’t an attacker easily lie about the actual time the message was sent? How does a node distinguish between occasional network lag and a malicious peer?
+[/quote]
+
+Yes, an attacker can lie.
+However, with the OPR protocol they have absolutely no incentive to do so (and will actually be penalized if they do so).
+
+There's no reason for a peer to be malicious (unless they're griefing while self-griefing, which should be very rare).
+
+The more relavent question is how both non-malicious peers can agree on whether or not an HTLC was resolved.
+A number of techniques for doing this are presented in the post at the end of the Burned Funds section.
+
+[quote="morehouse, post:2, topic:1233"]
+Even if everyone is honest, I fear that the higher complexity of determining success/failure will lead to implementation bugs and more force closes, which are extra costly with OPR.
+[/quote]
+
+OPR never requires a forced close, even if the peers fail to agree on the resolution of an HTLC.
+In such a case, they can keep the channel open and process additional HTLCs.
+
+When they finally close the channel, they can create a cooperative close that returns their base funds and only burns the single HTLC on which they disagreed.
+As a result, the OPR protocol strictly improves scalability, as it completely eliminates the need to resolve HTLCs on-chain.
+
+[quote="morehouse, post:2, topic:1233"]
+To properly disincentivize cheating, the amount of funds each party contributes to the burn output must always be higher than the total value of outstanding HTLCs (otherwise users could profit from force closing without forwarding preimages).
+[/quote]
+
+Users can *never* profit from force closing a channel with the OPR protocol (as long as their peer follows the protocol and avoids being bullied, as described in the post).
+With the OPR protocol, neither the offerer nor the offeree receives the HTLC's funds if they force close the channel with a peer that has not agreed on the HTLC's resolution.
+Therefore, there is no such minimum burn contribution that's required to secure the channel.
+
+-------------------------
+
+JohnLaw | 2024-11-09 23:59:58 UTC | #5
+
+[quote="harding, post:3, topic:1233"]
+I think OPR needs some sort of unconditional fees to work.
+
+In the current LN protocol, the party that creates a payment only pays forwarding fees if the payment is successful. Unsuccessful payments, and HTLCs designed to fail (called *probes*), cost their creator nothing.
+
+However, if that model was adopted by OPR, then Mallory could send a constant stream of probes through Bob to random endpoints. Each of those endpoints would fail the probes (because they wouldn’t know the payment preimage) in the normal case, but it would occasionally be the case that there would be a problem downstream and a penalty payment would propagate back to Mallory.
+[/quote]
+
+I'm afraid I'm not following you here.
+What do you mean by a "penalty payment"?
+
+Do you mean the case where Bob does not get the hash preimage but Bob fails to provide a timely update_fail_htlc message?
+In this case, the HTLC fails with the OPR protocol (even though Bob didn't explicitly fail it quickly).
+
+As long as Bob eventually realizes that he failed to resolve the HTLC by its expiry, he will realize that the HTLC failed and he will agree to refund the HTLC to Mallory.
+
+However, in this case Mallory only gets back the funds Mallory put in the burn output (namely the HTLC payment amount and Mallory's matching funds), and Bob's matching funds for this HTLC are returned to *Bob*.
+Thus, there is no penalty payment from Bob to Mallory.
+
+[quote="harding, post:3, topic:1233"]
+Even with unconditional fees, OPR would seem to create an incentive for an attacker to create disruptions within the network.
+[/quote]
+
+Mallory would never attack Bob in this manner, as Mallory would never benefit from such an attack.
+
+It's true that someone outside of the channel partners could mount a DOS attack on a channel in order to make a payment fail.
+Such an attack would be an attack on lightning (and not an attempt to steal funds), as it would fail a payment and it would make one of the routing nodes lose the value of the payment (they would pay in the channel in which they offered the HTLC, but would not collect in the channel in which they were offered the HTLC).
+
+I see your point about the potential to rely on high-availability infrastructure (like CloudFlare) to be able to prevent such attacks.
+It's hard to fully quantify the tradeoffs between the need for high availability with OPR versus the current lightning protocol.
+On the one hand, OPR is more susceptible to such attacks, given its very short expiries.
+On the other hand, the amount at risk with OPR could be much smaller if OPR replaces a single large HTLC with a stream of tiny, fast HTLCs.
+
+[quote="harding, post:3, topic:1233"]
+says the current median percentage fee (not factoring in the base fee) is “0.000072 sat/sat”, or 0.0072% per hop, or 0.08% per payment assuming 11 hops, so OPR accidental routing failures is roughly expected to double the routing cost over the current system or 10,000x increase the cost over a (very theoretical) expected floor.
+[/quote]
+
+Thanks for the data and analysis.
+
+Yes, the numbers I gave are much higher in terms of relative fees, but the base fees are quite important when considering small payments.
+The OPR protocol should have much lower base fees (especially if on-chain feerates increase), as there is never an on-chain fee required to resolve an OPR payment.
+
+In any case, I think it's quite possible that a user would choose to pay an additional $0.01 in order to guarantee that their $10.00 payment will be resolved within seconds, rather than hours.
+
+-------------------------
+
