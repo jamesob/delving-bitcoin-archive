@@ -86,3 +86,9 @@ A more detailed description of the proposal can be found here :
 
 -------------------------
 
+andyschroder | 2024-11-12 00:21:51 UTC | #5
+
+Another thing to note about refunds. BIP70 had a refund field. See https://github.com/bitcoin/bips/blob/master/bip-0070.mediawiki#payment . It worked quite well for things like [The Bitcoin Fluid Dispenser](http://andyschroder.com/BitcoinFluidDispenser/2.3/) .
+
+-------------------------
+
