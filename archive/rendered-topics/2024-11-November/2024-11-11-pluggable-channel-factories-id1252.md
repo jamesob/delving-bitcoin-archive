@@ -78,3 +78,29 @@ In any case I believe a protocol for pluggable channel factories should give pro
 
 -------------------------
 
+ZmnSCPxj | 2024-11-14 15:02:21 UTC | #3
+
+>>A node:
+>>
+>>* SHOULD  monitor the funding transactions in the blockchain, to identify channels that are being closed.
+>
+> ...
+
+Indeed, the equivalent of BOLT7 requirement to monitor the blockchain for unilateral exit of the factory would need to be implemented by the plugin, not the base software.
+
+A note however is that even if the factory layer is closed and its hosted channels directly published onchain, the channel can keep operating. So the base node software would still monitor the blockchain as normal for channels inside channel factories; even if the factory layer is closed, it may end up with channels directly onchain instead, and the channels can still continue to operate as channels.
+
+Of course, there may be factories where closing the factory also closes the hosted channels (possibly in some edge cases, such as a single SuperScalar instance timing out and being resolved using the timeout branch, where channels are never published; this "should not" happen, but accidents can happen, such as an LSP getting forcibly shut down somehow) so there is a need for the factory plugin to inform its attached base node software to forget an in-factory channel.
+
+> Similarly the announcement of such channels will be tricky...
+
+Some years back (I forgot exactly when) there was some discussion about generalizing gossip, where a node only needs to point to some onchain fund that it can show proof it has shared n-of-n control over, and that would let the node gossip some number of channels (i.e. it shows 1 mBTC of onchain fund that it can prove it has one shard of n-of-n control over, we let it gossip up to N * 1mBTC of total channel capacity).
+
+This is because Lightning uses the Bitcoin blockchain UTXO set to limit the size of the gossiped public network; this is the REAL reason we even require channel announcements to point to an unspent TXO.
+
+So I think that gossip change needs to be put in place first before we can discuss gossip for channels inside factories.  So for now, I am deliberately saying "out of scope" for this bit; I want to focus on the protocol that gets channels hosted in factories.
+
+(off-topic, but for the public network at least, instead of hosting channels inside a factory, an alternative is my sidepools idea. Basically, instead of a N > 2 offchain mechanism containing N=2 mechanisms, we have N=2 mechanisms directly on the blockchain and a parallel N > 2 mechanism ("to the side", hence "sidepool"). The public routing nodes can then swap funds on the N > 2 mechanism to "reload" capacity on the N=2 mechanisms. This gets us some of the nice properties of both worlds: no need to change the gossip protocol (all the existing public 2-of-2 channels remain as plain onchain 2-of-2 channels and existing pathfinding algos that assume nodes and 2-party channels remain operational, and still using the Bitcoin UTXO set as a backstop against uncontrolled growth of the gossiped public network) while still allowing effective use of liquidity (with something better than Decker-Wattenhofer, we can swap on the N > 2 mechanism "JIT", effectively doing a "JIT rebalance" whenever a channel is depleted and we need to forward over it; this requires all parties to be online, but public forwarding nodes have a strong incentive to be as close to 100% uptime anyway; even with just Decker-Wattenhofer we can probably do a single large rebalance once a day and that will still get us 90% of the benefit of full N > 2 mechanisms).)
+
+-------------------------
+
