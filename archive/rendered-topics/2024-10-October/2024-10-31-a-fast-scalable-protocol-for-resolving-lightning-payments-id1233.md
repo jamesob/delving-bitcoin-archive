@@ -511,3 +511,62 @@ In any case, gaining the ability to make this tradeoff without being subject to 
 
 -------------------------
 
+morehouse | 2024-11-14 20:52:41 UTC | #10
+
+[quote="JohnLaw, post:4, topic:1233"]
+Users can *never* profit from force closing a channel with the OPR protocol (as long as their peer follows the protocol and avoids being bullied, as described in the post). With the OPR protocol, neither the offerer nor the offeree receives the HTLC’s funds if they force close the channel with a peer that has not agreed on the HTLC’s resolution. Therefore, there is no such minimum burn contribution that’s required to secure the channel.
+[/quote]
+
+After thinking through this more, I agree a node can't profit from force closing.  It can, however, carry out an asymmetric griefing attack where the cost of the attack is less than the damage caused to the victim.
+
+Suppose the following payment route:
+
+```mermaid height=60,auto
+flowchart LR
+Alice--1001 sat-->Bob--1000 sat-->Mallory
+```
+
+Suppose further than 200 sat of matching funds are contributed by each party to the burn outputs of the two channels.  So while the HTLC is outstanding the contributions to burn outputs on the Bob-Mallory channel are as follows:
+
+| Bob's Burn | Mallory's Burn |
+|---|---|
+| 1200 sat | 200 sat |
+
+If Mallory closes the Bob-Mallory channel, Bob loses 1200 sat while Mallory only loses 200 sat (5x griefing potential).
+
+While this griefing attack is not free, it could still be quite attractive to nodes looking to put competitors out of business.
+
+[quote="JohnLaw, post:4, topic:1233"]
+Actually, with the OPR protocol, choosing to stay off-chain (rather than force closing) in no way leads to accepting the incorrect resolution of an HTLC. That type of logic (having to go on-chain for resolve an HTLC in one’s favor) applies to the current lightning protocol, but not to the OPR protocol.
+[/quote]
+
+Good point -- instead of forgiving the HTLC or force closing, the channel can remain open with diminished capacity.
+
+Over time, however, disputed HTLCs will accumulate and capacity will continue to decrease.  Eventually a channel close will be needed and all disputed HTLCs  will be burned with their matching funds.
+
+If the frequency of disputed HTLCs is low enough, channels can still be profitable while staying off chain, providing a chain fee benefit over the current LN protocol.
+
+
+[quote="JohnLaw, post:4, topic:1233"]
+[quote="morehouse, post:2, topic:1233"]
+Since networks are inherently unreliable, can’t an attacker easily lie about the actual time the message was sent? How does a node distinguish between occasional network lag and a malicious peer?
+[/quote]
+
+Yes, an attacker can lie. However, with the OPR protocol they have absolutely no incentive to do so (and will actually be penalized if they do so).
+
+There’s no reason for a peer to be malicious (unless they’re griefing while self-griefing, which should be very rare).
+[/quote]
+
+There's an incentive to lie in the following case:
+- If an HTLC from Alice to Mallory has already expired and then Mallory learns the preimage, she can backdate the timestamp in an attempt to convince Alice that network lag occurred and Mallory should still get the value of the HTLC.
+
+Now Alice could still dispute the HTLC, since Alice's clock says the HTLC already expired.  But that just proves my point -- timestamps from the other party cannot be trusted and therefore shouldn't be used to determine HTLC resolution.
+
+[quote="JohnLaw, post:4, topic:1233"]
+The more relavent question is how both non-malicious peers can agree on whether or not an HTLC was resolved. A number of techniques for doing this are presented in the post at the end of the Burned Funds section.
+[/quote]
+
+Yes, the whole protocol hinges on such agreement being possible the vast majority of the time.  If disputes are too common, then routing fees become quite expensive.
+
+-------------------------
+
