@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "incoming_link_count": 5,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 47.0,
   "yours": false,
   "topic_id": 1252,
   "topic_slug": "pluggable-channel-factories",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I have been wondering about channel factories and how to extend the bolts to support them quite a bit. For example I think besides your SuperScalar proposal VTXOs in Ark are a natural candidate to be funding TX for channels. \n\nWhile many LSPs consider channel factories a proper use for the last mile problem and are willing to consider unannounced channels I am wondering about extensions to [BOLT7](https://github.com/lightning/bolts/blob/aa5207aeaa32d841353dd2df3ce725a4046d528d/07-routing-gossip.md) where it states for example: \n\n> A node:\n>\n> * SHOULD monitor the funding transactions in the blockchain, to identify  channels that are being closed.\n> * if the funding output of a channel is spent and received 12 block confirmations:\n>  * SHOULD be removed from the local network view AND be considered closed.\n\nChannels within a factory cannot be monitored on the blockchain. Similarly the announcement of such channels will be tricky as bolt7 currently states: \n\n> * MUST set `bitcoin_key_1` and `bitcoin_key_2` to `node_id_1` and `node_id_2`'s respective `funding_pubkey`s.\n\nHowever as [laid out in my research I believe routing nodes will eventually need channel factories for their liquidity management to fulfill and facilitate payment requests](https://github.com/renepickhardt/Lightning-Network-Limitations). Thus those channels may need to be announced and we should wonder how we can extend gossip to do so. I understand that there are ideas in future gossip to remove the tight coupling and spam prevention. \n\nIn any case I believe a protocol for pluggable channel factories should give providers of channel factories an API to sign of that they created a channel and a method for to nodes to monitor if the channel was closed.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
