@@ -78,7 +78,7 @@ In any case I believe a protocol for pluggable channel factories should give pro
 
 -------------------------
 
-ZmnSCPxj | 2024-11-14 15:02:21 UTC | #3
+ZmnSCPxj | 2024-11-14 15:04:03 UTC | #3
 
 >>A node:
 >>
@@ -100,7 +100,7 @@ This is because Lightning uses the Bitcoin blockchain UTXO set to limit the size
 
 So I think that gossip change needs to be put in place first before we can discuss gossip for channels inside factories.  So for now, I am deliberately saying "out of scope" for this bit; I want to focus on the protocol that gets channels hosted in factories.
 
-(off-topic, but for the public network at least, instead of hosting channels inside a factory, an alternative is my sidepools idea. Basically, instead of a N > 2 offchain mechanism containing N=2 mechanisms, we have N=2 mechanisms directly on the blockchain and a parallel N > 2 mechanism ("to the side", hence "sidepool"). The public routing nodes can then swap funds on the N > 2 mechanism to "reload" capacity on the N=2 mechanisms. This gets us some of the nice properties of both worlds: no need to change the gossip protocol (all the existing public 2-of-2 channels remain as plain onchain 2-of-2 channels and existing pathfinding algos that assume nodes and 2-party channels remain operational, and still using the Bitcoin UTXO set as a backstop against uncontrolled growth of the gossiped public network) while still allowing effective use of liquidity (with something better than Decker-Wattenhofer, we can swap on the N > 2 mechanism "JIT", effectively doing a "JIT rebalance" whenever a channel is depleted and we need to forward over it; this requires all parties to be online, but public forwarding nodes have a strong incentive to be as close to 100% uptime anyway; even with just Decker-Wattenhofer we can probably do a single large rebalance once a day and that will still get us 90% of the benefit of full N > 2 mechanisms).)
+(off-topic, but for the public network at least, instead of hosting channels inside a factory, an alternative is my sidepools idea. Basically, instead of a N > 2 offchain mechanism containing N=2 mechanisms, we have N=2 mechanisms directly on the blockchain and a parallel N > 2 mechanism ("to the side", hence "sidepool"). The public routing nodes can then swap funds on the N > 2 mechanism to "reload" capacity on the N=2 mechanisms. This gets us some of the nice properties of both worlds: no need to change the gossip protocol (all the existing public 2-of-2 channels remain as plain onchain 2-of-2 channels and existing pathfinding algos that assume nodes and 2-party channels remain operational, and still using the Bitcoin UTXO set as a backstop against uncontrolled growth of the gossiped public network) while still allowing effective use of liquidity (with something better than Decker-Wattenhofer, we can swap on the N > 2 mechanism "JIT", effectively doing a "JIT rebalance" whenever a channel is depleted and we need to forward over it; this requires all parties to be online, but public forwarding nodes have a strong incentive to be as close to 100% uptime anyway; even with just Decker-Wattenhofer we can probably do a single large "everyone, rebalance!" once a day and that will still get us 90% of the benefit of full N > 2 mechanisms).)
 
 -------------------------
 
