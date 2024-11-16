@@ -182,3 +182,27 @@ I tracked these by hacking up a signet node that tries to validate block transac
 
 -------------------------
 
+1440000bytes | 2024-11-15 21:28:39 UTC | #2
+
+I can understand the importance of use cases and proof of concepts. Looking at number of transactions and adoption of prototypes on signet for a soft fork is beyond me. 
+
+Especially when I see such things on signet:
+
+![image|690x98](upload://w4tiivqn0jxFRBJx9wAgXA0FqIa.png)
+
+[quote="ajtowns, post:1, topic:1257"]
+or the [simple-ctv-spacechain ](https://github.com/nbd-wtf/simple-ctv-spacechain/blob/3c3c664c56aaf8069cd33bb3ba7b86b4d7e0e137/main.py), which uses bare CTV and creates a chain of CTV’s ending in an OP_RETURN.
+[/quote]
+
+It was tested on CTV signet and transaction is shared in the repository. I am sure some developers prefer to use regtest as well.
+
+I have seen zero interest in average bitcoin users to try anything built using OP_CAT. Although some of them have tried using [CTV playground](https://ctv.ursus.camp/).
+[quote="ajtowns, post:1, topic:1257"]
+* [Thu, 08 Aug 2024 00:52:10 +0000](https://mempool.space/signet/tx/931ac79f471e6c31eee598f00ad730ea60ac2ccab55121aaa1fc0e742a8ab008)
+* [Thu, 08 Aug 2024 01:22:10 +0000](https://mempool.space/signet/tx/98e5af9f34bf89bce0931a487619d97b2ce0d5ef22f06ac9ad5c355b3cfa41e8)
+[/quote]
+
+These 2 transactions are mine and were used to demo [joinpool](https://gist.github.com/harding/a30864d0315a0cebd7de3732f5bd88f0).
+
+-------------------------
+

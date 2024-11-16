@@ -8,13 +8,13 @@
   "post_number": 1,
   "post_type": 1,
   "updated_at": "2024-11-14T17:34:11.568Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 119,
-  "reads": 36,
-  "readers_count": 35,
-  "score": 666.4,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 712.4,
   "yours": false,
   "topic_id": 1257,
   "topic_slug": "ctv-apo-cat-activity-on-signet",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 6
+      "count": 7
     }
   ],
   "moderator": true,
@@ -58,7 +58,7 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 5
+      "count": 6
     },
     {
       "id": "+1",
@@ -67,6 +67,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 6,
+  "reaction_users_count": 7,
   "current_user_used_main_reaction": false
 }
