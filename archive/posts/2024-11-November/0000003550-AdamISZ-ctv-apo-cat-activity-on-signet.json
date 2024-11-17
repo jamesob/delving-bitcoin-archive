@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 1257,
   "topic_slug": "ctv-apo-cat-activity-on-signet",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The CTV examples in Oct/Nov 2023 were me and a friend demo testing [pathcoin](https://github.com/AdamISZ/pathcoin-poc/tree/master) (see fidelitybonds.py for the scripts).\n\n(at least .. I'm 99% sure .. I certainly did it around then just before the San Salvador conference but didn't keep a record, and the scripts match exactly)\n\nPerhaps not the most practically realistic use-case but, interesting experiment :) thanks for setting it up to be usable on signet!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
