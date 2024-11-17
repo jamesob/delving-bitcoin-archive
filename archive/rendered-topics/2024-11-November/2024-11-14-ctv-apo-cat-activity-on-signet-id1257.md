@@ -206,3 +206,13 @@ These 2 transactions are mine and were used to demo [joinpool](https://gist.gith
 
 -------------------------
 
+AdamISZ | 2024-11-16 23:13:48 UTC | #3
+
+The CTV examples in Oct/Nov 2023 were me and a friend demo testing [pathcoin](https://github.com/AdamISZ/pathcoin-poc/tree/master) (see fidelitybonds.py for the scripts).
+
+(at least .. I'm 99% sure .. I certainly did it around then just before the San Salvador conference but didn't keep a record, and the scripts match exactly)
+
+Perhaps not the most practically realistic use-case but, interesting experiment :) thanks for setting it up to be usable on signet!
+
+-------------------------
+

@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 8,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 40.8,
+  "incoming_link_count": 9,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 46.6,
   "yours": false,
   "topic_id": 1262,
   "topic_slug": "radpool-decentralised-mining-pool-with-futures-contracts-for-payouts",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi all,\n\nI am looking for some feedback on, [Radpool](https://radpool.xyz), a new design to resist mining centralisation by building a syndicate of nodes acting as mining service providers, or MSPs.\n\nThe design decentralises template generation away from a centralised pools while reducing payouts for miners in a scalable manner. The detailed design is available at https://radpool.xyz \n\n## Independent Block Templates and Stratum Services\n\nMSPs independently build blocks and can follow any policies for building block templates. MSPs can run stratum v1 or v2 servers, letting miners build the templates. A radpool node implementation will provide this optionality out of the box by using FOSS community implementations where possible. All MSPs can be seen as mini centralised pools that are collaborating using Radpool mining syndicate to reduce all their miner's payout variance. \n\n## Payout Mechanism With Unilateral Exit\n\nThe MSPs fund DLC contracts to pay miners based on the miner's hashrate. These contracts are settled at fixed, well known intervals. MSPs with enough hashrate generate attestations using FROST threshold signatures to settle these DLC contracts. The MSPs in turn get the payout from the coinbase of the pool's blocks using PPLNS. The MSPs thus absorb the risk of variance in block discovery and earn a yield for providing this service to the miners. Most importantly MSPs can't bail out of their contract as the syndicate will publish an attestation anyway to pay the miner for it's work. This results in guaranteed payouts for miners as long as the syndicate is operational  and the miner can connect to at least one MSP. See [Payout Mechanism](https://www.radpool.xyz/1/payout-mechanism.html) for details.\n\n## Yield for MSPs\n\nAnyone with capital for funding DLC contracts can run an MSP - they need to attract miners to earn a yield though. As the network grows, the miner's variance reduces and the MSP's return on their capital increases. We believe this does two things 1) creates an open market for pool fees and 2) encourages MSPs to grow the network. This is a classic network effect - each additional MSP or miner increases the utility for everyone else on the network.\n\n## Design Space\n\nThe Radpool design sits in the middle of centralised pools on one end, and p2p pools on the other end where miners have to run services at the network edges. Instead, with Radpool, MSPs run an open syndicate and miners connect to an MSP just like they would connect to a centralised pool. See [FROST Membership](https://www.radpool.xyz/1/frost-federation.html#_membership) section for details. \n\n\n# The Key Features of Radpool\n\n1. Block template construction is decentralised as each MSP builds an\n   independent blocktemplate for their miners.\n\n2. MSPs pay miners over futures contract built using DLCs. Miners get\n   paid for their hashrate at fixed intervals - think of this as decentralised FPPS.\n\n3. Radpool acts as an oracle where a threshold number of MSPs generate\n   the attestation required to settle DLCs.\n\n4. MSPs earn a yield in exchange of locking capital that funds miner\n   payouts.\n\n5. Share accounting is transparent to anyone who connects to receive\n   data, making the pool fully auditable.\n\n6. The payout mechanism allows unilateral exits for miners and MSPs.\n\n7. Switching to Radpool from current centralised pools has zero\n   friction for miners - i.e. miners don't have to run any additional\n   services if they don't want to.\n\n## Progress\n\nMy current focus is on the FROST Federation\n([repo](https://github.com/pool2win/frost-federation)) for providing\nthe federation of MSPs. We also started work on implementing the DLC contracts using\nrust-dlc - still early days - public repo coming soon.\n\nWe have a [Discord](https://discord.gg/Kg3YR6z4), if you want to come chat. We'd like to discover as many attacks possible as early as possible :) \n\nThanks",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
