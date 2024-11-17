@@ -79,3 +79,17 @@ I am aware of a few limitations and have some open questions. There is probably 
 
 -------------------------
 
+ajtowns | 2024-11-17 07:22:09 UTC | #2
+
+For a given initial network state, is the resulting spanning tree reproducible/predictable? Are there circumstances where the spanning tree change after being established, solely due to payments being made, without opening/closing channels (or changing fee rates)?
+
+This seems to me like a bit like you've designed a network with an implicit "most expensive" spanning tree, and that the simulation simply exhausts all the cheaper paths until that's what's left?
+
+Having the network spontaneously resolve itself to an acyclic spanning tree seems similar to things like [amoeba maze solving](https://www.nature.com/articles/35035159) or electricity finding the path of least resistance to me.
+
+Are some nodes themselves running out of lightning funds? You could perhaps modify your simulation to address that, eg "I'm receiving $10000 a month, some by lightning, some by fiat rails; I'm likewise spending $9000 a month; if my lightning balance is $50000 or more, I'll try to send all my payments via lightning; if it's $25000, I'll only try to send half my payments via lighting".
+
+If lightning is always your first choice when sending payments, then hitting a balance of $0 will mean as soon as you receive $50, you'll send it right back out, so will stay depleted, which isn't a good strategy if you want to get any value out of participating in lightning. The above might be a simple way of modelling a better one?
+
+-------------------------
+
