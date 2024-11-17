@@ -8,13 +8,13 @@
   "post_number": 2,
   "post_type": 1,
   "updated_at": "2024-11-17T07:22:09.509Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 10.6,
+  "incoming_link_count": 3,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 36.4,
   "yours": false,
   "topic_id": 1259,
   "topic_slug": "channel-depletion-ln-topology-cycles-and-rational-behavior-of-nodes",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "For a given initial network state, is the resulting spanning tree reproducible/predictable? Are there circumstances where the spanning tree change after being established, solely due to payments being made, without opening/closing channels (or changing fee rates)?\n\nThis seems to me like a bit like you've designed a network with an implicit \"most expensive\" spanning tree, and that the simulation simply exhausts all the cheaper paths until that's what's left?\n\nHaving the network spontaneously resolve itself to an acyclic spanning tree seems similar to things like [amoeba maze solving](https://www.nature.com/articles/35035159) or electricity finding the path of least resistance to me.\n\nAre some nodes themselves running out of lightning funds? You could perhaps modify your simulation to address that, eg \"I'm receiving $10000 a month, some by lightning, some by fiat rails; I'm likewise spending $9000 a month; if my lightning balance is $50000 or more, I'll try to send all my payments via lightning; if it's $25000, I'll only try to send half my payments via lighting\".\n\nIf lightning is always your first choice when sending payments, then hitting a balance of $0 will mean as soon as you receive $50, you'll send it right back out, so will stay depleted, which isn't a good strategy if you want to get any value out of participating in lightning. The above might be a simple way of modelling a better one?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
