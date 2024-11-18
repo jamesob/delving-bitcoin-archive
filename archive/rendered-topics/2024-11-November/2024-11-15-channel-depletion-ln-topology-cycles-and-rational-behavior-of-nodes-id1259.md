@@ -184,3 +184,33 @@ Yes, the math that I use here to model and understand the emerging phenomena of 
 
 -------------------------
 
+ajtowns | 2024-11-18 05:11:13 UTC | #4
+
+[quote="renepickhardt, post:3, topic:1259"]
+* The red channels are those where the liquidity is on the cheaper end of the channel (contradicting your intuition that I have just created a “most expensive” spanning tree.
+[/quote]
+
+Ah, don't worry; I misunderstood the "spanning tree" part entirely.
+
+In your example there are two cycles remaining: (B pays A pays C pays B), and (D pays A pays C pays D) -- I think my intuition is more along the lines of those being the minimally most expensive cycles? Is there such a thing as a spanning cycle, ie a cycle that touches every node? In this case I think my intuition would be that the remaining spanning cycle CDACBAC is more expensive than any other possible spanning cycle? (Perhaps provable by noting that any payment along that cycle will create a cheaper spanning cycle, providing a cheaper path from some node X to Y, than existed previously, so the next payment from X to Y will break that cheaper spanning cycle?)
+
+[quote="renepickhardt, post:3, topic:1259"]
+I am not sure about your proposed simulation.
+[/quote]
+
+Agreed: that would only be interesting if nodes were ending up depleted, rather than just channels.
+
+[quote="renepickhardt, post:3, topic:1259"]
+Instead of focusing on such a mixed model wouldn’t it be more interesting to focus on how node operators should adjust their fees to help with flow control and adjust to channel depletion
+[/quote]
+
+I think you've already "solved" this (ok, without proof, perhaps)? The only way you avoid channel depletion is if your channel appears in the "spanning tree in which the network is balanced", so you either need to be structurally critical, or manage your fees with far more precision than is reasonably feasible. Otherwise you're just trying to drive straight by alternating between steering hard left and hard right... which okay, it might work, particularly if you can make the adjustments at high frequency, but sure seems pretty annoying.
+
+To me, it makes sense that a policy of "everyone will keep using the cheapest path that works" will naturally exhaust the cheapest channels until the only ones that work are the "most expensive", per some global metric.
+
+To me, it seems logical that the only way to avoid that resulting in channel depletion and routing errors/retries, is to have some way of having some payments "not work" for reasons other than channel depletion, in a way that is predictable when constructing the payment route. I continue to think [`max_msat` valves](https://web.archive.org/web/20231114193403/https://lists.linuxfoundation.org/pipermail/lightning-dev/2022-September/003686.html) are the way to solve this.
+
+Actually an additional thought on that topic: as a forwarding node, if you advertise a `max_msat` value, then you could/should use that (or a small multiple of it) as a cap on the total value of payments you'll allow to be (recently) pending across that channel. If (in the usual case) the payment resolves "immediately" that's no constraint at all, which is great; but if someone splits their payment into 100 `max_msat` HTLCs and forwards them all over your channel, you'll immediately reject almost all of them, so there's ~no advantage in users attempting to finesse the signal to minimise fees. ("recently" -- if a payment has been unresolved for more than a few seconds, it's probably hung, and you don't want to continue to reject new payments because of it).
+
+-------------------------
+
