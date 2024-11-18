@@ -570,3 +570,27 @@ Yes, the whole protocol hinges on such agreement being possible the vast majorit
 
 -------------------------
 
+JohnLaw | 2024-11-17 21:43:42 UTC | #11
+
+[quote="morehouse, post:10, topic:1233"]
+There’s an incentive to lie in the following case:
+
+* If an HTLC from Alice to Mallory has already expired and then Mallory learns the preimage, she can backdate the timestamp in an attempt to convince Alice that network lag occurred and Mallory should still get the value of the HTLC.
+
+Now Alice could still dispute the HTLC, since Alice’s clock says the HTLC already expired. But that just proves my point – timestamps from the other party cannot be trusted and therefore shouldn’t be used to determine HTLC resolution.
+[/quote]
+
+It's not that Alice *could* dispute the HTLC, it's that she *has* to dispute the HTLC in order to follow the protocol.
+
+I agree that the other party's timestamps can't be trusted. That is why the protocol never relies on them.
+
+[quote="morehouse, post:10, topic:1233"]
+Yes, the whole protocol hinges on such agreement being possible the vast majority of the time. If disputes are too common, then routing fees become quite expensive.
+[/quote]
+
+I agree.
+
+I suspect that it's possible to reach agreement in the vast majority of cases, but we can't know until it's tried in practice.
+
+-------------------------
+
