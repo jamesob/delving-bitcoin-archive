@@ -214,3 +214,106 @@ Actually an additional thought on that topic: as a forwarding node, if you adver
 
 -------------------------
 
+sorukumar | 2024-11-19 22:54:24 UTC | #5
+
+Thank you for this comprehensive work. Had an amazing last couple of days going through notebooks, linked papers and discussions
+
+While I am in awe of the scope of the work, my comment is more around being conservative on making conclusions. While it is tempting, let’s not get carried away by sexy maths and good looking charts.
+
+We are thoughtful on listing out the limitation of the model, but underestimating how critical they are. More so, because, we don’t have good grasp or theory on how they can ‘change’ the conclusions. 
+
+Of course some of the conclusions will continue to make sense. I’ll go on to add that number of insights tell us more about the constraints of the model rather than the lightning network. (This applies to Guidi's otherwise excellent work as well).
+
+To illustrate this, I'll focus on a 'part' of the one of the listed limitation.
+
+[quote="renepickhardt, post:1, topic:1259"]
+
+* While payment dynamics are part of the model the network topology and fees are assumed to be static.
+
+[/quote]
+
+
+Fee:
+
+Fee is one of the most effective levers for node operators to manage balance of the channel.
+
+Currently Fee potential defined as
+
+[quote="renepickhardt, post:1, topic:1259"]
+ϕv=∑e∈E:v∈E(λ(v,e)⋅ppm(v,e))
+[/quote]
+
+Modeling liquidity and channel depletion with static fees is like evaluating a baseball pitcher with their throwing arm tied. it might lead us in wrong direction if we're not careful.
+
+A rational node operator optimizes for 'lifetime fee value' (LTF) of a channel. The levers of LTF: Channel Capacity, Channels own fee policy, Fee policies of adjacent channels (same node)
+
+Potential input for the fee part of the fee potential:
+
+1. Liquidity level and/or liquidity share of the channel
+
+2. Peer's fee policy for the channel
+
+3. Fee & liquidity share of node's other channels preceding and following in potential paths
+
+Of course, incorporating all these factors may make the model too complicated for initial work, but at least we should have dynamic fee.
+
+I’ll argue that no channel will ever get depleted if a we have rational/smart node runners.
+
+* In liquidity-share aware fee models, fee rates approach infinity as the channel's liquidity is getting towards depletion on one side. Consequently, channel unusability is triggered by prohibitive fees rather than absolute liquidity exhaustion
+* Why do we have depleted channels now? It is because only few nodes are professionally run, and we don’t have good fee management algo/tools yet.
+
+by the way, happy that fee is already in the scope of work now:
+[quote="renepickhardt, post:3, topic:1259"]
+Instead of focusing on such a mixed model wouldn’t it be more interesting to focus on how node operators should adjust their fees to help with flow control and adjust to channel depletion?
+[/quote]
+
+
+
+Given the depth and breadth of ideas presented, I’ll tackle only open questions and conclusion with quick responses, and go deeper if there is interest.
+
+**Open Questions:**
+
+[quote="renepickhardt, post:1, topic:1259"]
+Is this evidence enough to conclude that drain on channels and depletion does not come from the existence of sink / and source nodes but would also emerge in a circular economy?
+[/quote]
+
+
+Is this evidence enough: No, not at all. Will channel depletion will emerge w/o channel management. Yes, it will.
+
+
+[quote="renepickhardt, post:1, topic:1259"]
+Can one derive strategies for node operators to adopt fees in their liquidity management strategies?
+[/quote]
+
+
+Yes, an area that is as important as any other work.
+
+[quote="renepickhardt, post:1, topic:1259"]
+Are more channels than a spanning tree useful? I mean obviously they provide redundancy but also depeletion and have on chain cost.
+[/quote]
+
+
+Pls don’t ask this. We are asking this cuz we are going too far with a simple model with number of constraints. In real world it does not make sense.
+
+[quote="renepickhardt, post:1, topic:1259"]
+Has anyone a good data set to test how accurate the prediction is in comparison to the actual network?
+[/quote]
+
+Not sure what you are looking for. But, I may have some data
+
+**Conclusions**
+
+Most likely much less probing will be necessary to estimate where the liquidity is located. 
+
+*Yes, may be. But other factors would also have play on it.*
+
+A spanning tree of non depleted channels remains. This is pretty much a hub and spoke topology 3. 
+
+*This is very loaded question and conclusion, and may need ‘qualifications’.*
+
+The direction of the drain off a particular channel depends on the topology and fees within the entire network (and payment flows). In particular it the ratio of ppms in both directions may be less indicative.
+
+*Yes, true. However, On the ratio of PPM in both direction, it may not be indicative now, cuz most of the nodes are run as hobby projects. For professionally managed nodes when they get smarter, it will be even more indicative than it is now.*
+
+-------------------------
+
