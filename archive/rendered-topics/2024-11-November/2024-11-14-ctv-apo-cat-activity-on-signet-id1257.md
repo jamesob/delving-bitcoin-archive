@@ -216,3 +216,11 @@ Perhaps not the most practically realistic use-case but, interesting experiment 
 
 -------------------------
 
+vostrnad | 2024-11-21 20:04:01 UTC | #4
+
+Your investigation inspired me to create an explorer for Bitcoin Inquisition transactions. It should hopefully make similar analysis easier in the future, let me know if there's something I can improve.
+
+https://inquisition.observer
+
+-------------------------
+
