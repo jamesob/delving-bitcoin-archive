@@ -192,3 +192,20 @@ FYI, for anyone else who's curious, this appears to be the current proposal: htt
 
 -------------------------
 
+t-bast | 2024-11-21 15:00:03 UTC | #3
+
+Sorry for the very late reply! Thanks for the detailed summary :slight_smile: 
+
+I'm a big fan of the unsigned TLV for SPV proof, very good idea!
+
+It all looks mostly good to me, I only have a couple of nitpicks:
+
+- C): I would like the outpoint to be included in the signed fields, it's nicer for `txindex` nodes and provides more information about the tx which is generally a good thing
+- C): I'm not a fan of the "hash of the SPV proof" proposal: I don't think it's a good idea to force nodes to be able to generate the SPV proof when creating the announcement, as I believe most nodes won't care about including an SPV proof for light clients
+- D): I think we could collapse feature bits 1 and 2 into a single one, I don't think it's a huge amount of implementation work to support both and would speed up network adoption. But I'm also ok with keeping them separate if people feel strongly about it.
+- E): nice to have this!
+
+On the eclair side, we'd be happy to work on implementing features 1 and 2 as soon as you feel that you have the spec ready and an lnd implementation ready for cross-compat. Let's do this!
+
+-------------------------
+
