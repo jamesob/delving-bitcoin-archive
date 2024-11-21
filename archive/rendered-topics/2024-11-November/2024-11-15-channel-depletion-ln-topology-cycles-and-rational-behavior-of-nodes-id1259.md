@@ -317,3 +317,13 @@ The direction of the drain off a particular channel depends on the topology and 
 
 -------------------------
 
+ZmnSCPxj | 2024-11-21 15:10:46 UTC | #6
+
+[quote="ajtowns, post:4, topic:1259"]
+(“recently” – if a payment has been unresolved for more than a few seconds, it’s probably hung, and you don’t want to continue to reject new payments because of it).
+[/quote]
+
+Seems gameable if the payer is willing to wait --- they could release a shard below `max_msat`, wait, release another shard below `max_msat`, wait, etc. until they have 100 HTLCs through it, especially with `fee_base=0` and proportional fees rounding down. Gets even worse with PTLCs since those are not correlatable.
+
+-------------------------
+
