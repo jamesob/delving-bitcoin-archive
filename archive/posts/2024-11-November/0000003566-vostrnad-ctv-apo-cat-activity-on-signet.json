@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 4,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 27.2,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 42.4,
   "yours": false,
   "topic_id": 1257,
   "topic_slug": "ctv-apo-cat-activity-on-signet",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Your investigation inspired me to create an explorer for Bitcoin Inquisition transactions. It should hopefully make similar analysis easier in the future, let me know if there's something I can improve.\n\nhttps://inquisition.observer",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
