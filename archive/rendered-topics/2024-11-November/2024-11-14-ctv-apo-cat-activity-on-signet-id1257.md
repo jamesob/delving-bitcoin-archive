@@ -238,3 +238,11 @@ it will create so many txs you will need a new thread
 
 -------------------------
 
+1440000bytes | 2024-11-22 00:34:58 UTC | #7
+
+Your community is less than 5 people who can cannot see see anything that disagree with them.
+
+Are you new to forums?
+
+-------------------------
+
