@@ -223,3 +223,77 @@ https://gist.github.com/moonsettler/d7f1fb88e3e54ee7ecb6d69ff126433b
 
 -------------------------
 
+moonsettler | 2024-11-23 15:41:32 UTC | #13
+
+To try to keep the [BIP](https://gist.github.com/moonsettler/d7f1fb88e3e54ee7ecb6d69ff126433b) as short and to the point as possible, an in depth discussion of the design rationale especially regarding alternatives was omitted. I'm posting these here, so that they are available for those interested.
+
+## Background
+
+LNhance at it's core is `CTV` + `CSFS` with the primary intent of not only enabling more scalable less interactive timeout tree and covenant pool constructions, but also to enable LN-Symmetry (formerly known as eltoo). `IKEY` was added to access the internal public key from the control block (which would be a 2-of-2 MuSig key in case of a lightning channel allowing for cooperative closes on the taproot keypath) making the contract more efficient.
+
+As I recall, later on @instagibbs discovered in an attempt to implement Symmetry, that one of the main benefits of not having to keep all backups is lost when the channel peer can not reconstruct the script that spends an intermediate state pushed on chain. While most pieces are deterministic, the specific distribution of funds for that particular state is not. We call this the "data availability problem" of LN-Symmetry. For APO the alternative solution discussed was to use the taproot annex.
+
+## Rationale
+
+If `OP_CAT` was available, it could be used to combine multiple stack elements,
+that get verified with `OP_CHECKSIGFROMSTACK` as a valid state update.
+
+`OP_PAIRCOMMIT` solves this specific problem without introducing a wide range
+of potentially controversial new behaviors, such as novel 2-way peg mechanisms.
+
+### Alternatives discussed
+
+#### OP_CAT
+
+`OP_CAT` allows for fine grained introspection possibly bigint operations and
+extending the arithmetic capabilities of bitcoin script using lookup tables.
+
+#### SHA256 streaming opcodes
+
+These would predictably allow for the same functionality as `OP_CAT` for
+introspection purposes, since verification of a computation is largely
+equivalent with carrying it out. Bigint and new arithmetic operations would
+be hard or even impossible.
+
+Naively implemented they relax the script limitations on what is possible both the limitation of stack element size that can get hashed with CAT only and without CAT it allows for custom construction of 'sighashes' like CTV templates or with CSFS pretty much everything CAT enables in terms of introspection.
+
+#### Merkle operation opcodes
+
+These would be of very limited general use and hard to rationalize without OP_CAT. Their complexity and resource cost is hard to justified for vector
+commitments only.
+
+#### 'Kitty' CAT (result or inputs limited in size)
+
+The original idea would have limited the maximum size of `OP_CAT` output to a
+size that is smaller than the smallest sighash preimage, thus disabling the
+introspection capabilities and trivial ways to extend the arithmetic repertoire
+of bitcoin script. This turned out to be an awkward, arbitrary and offering
+weak .
+
+#### OP_CHECKTEMPLATEVERIFY committing to the taproot annex in tapscript
+
+A CTV template can be considered a sighash, however relaxing the relay policy
+to take advantage of this change would make various endogenous asset protocols
+more efficient, and therefore be controversial. There is also no consensus on
+how to use or how to structure the annex.
+
+#### OP_CHECKSIGFROMSTACK on n elements as message
+
+This was previously discussed and also implemented, it complicates the code
+and is a pretty arbitrary coupling of behaviors.
+
+#### OP_VECTORCOMMIT
+
+The obvious generalized solution for committing to n > 2 stack elements, however
+it involves looping and hard to argue about setting the proper limits to it. It could be forked in later with for example `OP_CHECKCONTRACTVERIFY`.
+
+It's impossible to predict what would be more optimal for the user a) leave the items on the stack and only consume the number of items, or b) consume the items from the stack.
+
+We could probably do `<vch1> .. <vchn> <n> VECTORCOMMIT` where n as a signed char can be `2..127` or `-2..-127`, and if it's positive the stack elements are left on stack, if negative they are consumed.
+
+### Possible future improvements
+
+LNhance + `OP_CHECKCONTRACTVERIFY` (aka `CCV` the centerpiece of MATT by @salvatoshi) or OP_VAULT/RECOVER (aka BIP-345 by @jamesob) would enable good vaults with flexible amount withdrawal and immediate re-vault of change. The both assume `OP_CHECKTEMPLATEVERIFY` as an available building block, and `OP_CHECKCONTRACTVERIFY` especially benefits from `OP_PAIRCOMMIT` as a means to carry multiple stack elements.
+
+-------------------------
+
