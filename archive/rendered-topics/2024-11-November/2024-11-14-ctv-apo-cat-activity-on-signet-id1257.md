@@ -224,17 +224,15 @@ https://inquisition.observer
 
 -------------------------
 
-1440000bytes | 2024-11-22 00:14:03 UTC | #5
+1440000bytes | 2024-11-23 10:23:53 UTC | #5
 
-I plan to create a bot if this happens in "consensus"
-
-Will be very difficult
+(post deleted by author)
 
 -------------------------
 
-1440000bytes | 2024-11-22 00:14:10 UTC | #6
+1440000bytes | 2024-11-23 10:23:58 UTC | #6
 
-it will create so many txs you will need a new thread
+(post deleted by author)
 
 -------------------------
 
