@@ -223,7 +223,7 @@ https://gist.github.com/moonsettler/d7f1fb88e3e54ee7ecb6d69ff126433b
 
 -------------------------
 
-moonsettler | 2024-11-23 15:41:32 UTC | #13
+moonsettler | 2024-11-23 15:47:36 UTC | #13
 
 To try to keep the [BIP](https://gist.github.com/moonsettler/d7f1fb88e3e54ee7ecb6d69ff126433b) as short and to the point as possible, an in depth discussion of the design rationale especially regarding alternatives was omitted. I'm posting these here, so that they are available for those interested.
 
@@ -293,7 +293,7 @@ We could probably do `<vch1> .. <vchn> <n> VECTORCOMMIT` where n as a signed cha
 
 ### Possible future improvements
 
-LNhance + `OP_CHECKCONTRACTVERIFY` (aka `CCV` the centerpiece of MATT by @salvatoshi) or OP_VAULT/RECOVER (aka BIP-345 by @jamesob) would enable good vaults with flexible amount withdrawal and immediate re-vault of change. The both assume `OP_CHECKTEMPLATEVERIFY` as an available building block, and `OP_CHECKCONTRACTVERIFY` especially benefits from `OP_PAIRCOMMIT` as a means to carry multiple stack elements.
+LNhance + `OP_CHECKCONTRACTVERIFY` (aka `CCV` the centerpiece of MATT by @salvatoshi) or `OP_VAULT/RECOVER` (aka BIP-345 by @jamesob) would enable good vaults with flexible amount withdrawal and immediate re-vault of change. The both assume `OP_CHECKTEMPLATEVERIFY` as an available building block, and `OP_CHECKCONTRACTVERIFY` especially benefits from `OP_PAIRCOMMIT` as a means to carry multiple stack elements.
 
 -------------------------
 
