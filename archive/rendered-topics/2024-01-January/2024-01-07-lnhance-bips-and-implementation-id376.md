@@ -240,3 +240,16 @@ https://github.com/bitcoin-inquisition/binana/pull/8
 
 -------------------------
 
+moonsettler | 2024-11-24 15:12:57 UTC | #19
+
+I hears some claims that `CTV` needs 3 other opcodes to do LN-Symmtery. That's wrong.
+
+LNhance is `CTV` + `CSFS` at it's core and that is enough to do LN-Symmetry.
+IKEY and PC are tiny composable pieces that optimize the use of `CTV` and `CSFS` for LN-Symmetry.
+
+There are several ways to solve the data availability problem, some don't even require a consensus change. Some don't even require a relay policy change.
+
+LNhance is just the best way of doing it that we know of.
+
+-------------------------
+
