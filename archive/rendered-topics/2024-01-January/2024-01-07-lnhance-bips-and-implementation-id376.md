@@ -240,9 +240,9 @@ https://github.com/bitcoin-inquisition/binana/pull/8
 
 -------------------------
 
-moonsettler | 2024-11-24 15:12:57 UTC | #19
+moonsettler | 2024-11-24 15:13:09 UTC | #19
 
-I hears some claims that `CTV` needs 3 other opcodes to do LN-Symmtery. That's wrong.
+I heard some claims that `CTV` needs 3 other opcodes to do LN-Symmtery. That's wrong.
 
 LNhance is `CTV` + `CSFS` at it's core and that is enough to do LN-Symmetry.
 IKEY and PC are tiny composable pieces that optimize the use of `CTV` and `CSFS` for LN-Symmetry.
