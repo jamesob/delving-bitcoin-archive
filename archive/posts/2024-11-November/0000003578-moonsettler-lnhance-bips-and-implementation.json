@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 10.2,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 26.0,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I heard some claims that `CTV` needs 3 other opcodes to do LN-Symmtery. That's wrong.\n\nLNhance is `CTV` + `CSFS` at it's core and that is enough to do LN-Symmetry.\nIKEY and PC are tiny composable pieces that optimize the use of `CTV` and `CSFS` for LN-Symmetry.\n\nThere are several ways to solve the data availability problem, some don't even require a consensus change. Some don't even require a relay policy change.\n\nLNhance is just the best way of doing it that we know of.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
