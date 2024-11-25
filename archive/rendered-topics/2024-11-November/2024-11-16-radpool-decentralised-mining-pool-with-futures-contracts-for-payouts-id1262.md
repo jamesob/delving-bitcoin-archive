@@ -1,6 +1,6 @@
 # Radpool: Decentralised Mining Pool With Futures Contracts For Payouts
 
-jungly | 2024-11-16 14:58:04 UTC | #1
+jungly | 2024-11-25 15:03:49 UTC | #1
 
 Hi all,
 
@@ -55,9 +55,81 @@ My current focus is on the FROST Federation
 the federation of MSPs. We also started work on implementing the DLC contracts using
 rust-dlc - still early days - public repo coming soon.
 
-We have a [Discord](https://discord.gg/Kg3YR6z4), if you want to come chat. We'd like to discover as many attacks possible as early as possible :) 
+We have a [Discord](https://discord.gg/SUbYfBzq5g), if you want to come chat. We'd like to discover as many attacks possible as early as possible :) 
 
 Thanks
+
+-------------------------
+
+marathon-gary | 2024-11-25 17:41:41 UTC | #2
+
+I enjoyed reading through the proposal and couldn't think of concrete reason it won't work.
+
+I have several questions and comments regarding the following:
+
+#### **Threshold Signature Schemes**
+
+* Was ROAST considered as an alternative to Lindell's scheme? How does the robustness/rounds of ROAST compare?
+
+#### **Data Handling and Transparency**
+  
+  * Recommendation: Implement time-decayed deletion of data for stratum jobs and shares. This incentivizes timely validation by miners and reduces storage costs for MSPs. Mining shares and jobs are incredibly data intensive.
+  * Protocol-level data availability: Defining or recommending a baseline for data availability ensures transparency while leaving implementation details to MSPs.
+
+**Miner Registration and Authentication:**
+  * Suggestion to replace "registration" with "enrollment" when discussing the relationship between miners and MSPs.
+  * The miner username should be unique across the network. 
+   
+    How can uniqueness be accomplished? Using MSP pub key + mining username?
+  * Recommendation: specify desired authentication properties instead of specific username/password methods.
+
+**Syndicate Protocols for MSPs:**
+  * Misbehaving MSPs are removed from the syndicate and denied rewards.
+    
+    How exactly are dishonest MSPs identified and removed?
+  * MSP hash rate validation: If an MSP fails to provide valid hash rate within 2000 blocks, they are rejected. 
+
+     Why is 2000 blocks the threshold?
+
+  * Syndicate's lack of visibility into miner-MSP contract rates:
+    
+    Does syndicate awareness of miner/MSP exchange rates break assumptions or security?
+
+**Scaling Threshold Signatures:**
+  * The syndicate must publish oracle signatures proportional to the number of miners. 
+   
+    Could this scale become prohibitive?
+
+**Signed Coinbase:**
+  * Each MSP retains the signed coinbase until confirmed to a 100-block depth. MSPs are incentivized to mine this quickly, potentially with zero fees.
+
+**Malicious MSPs:**
+  * Could MSPs supply “bad” nonces? What risks does this pose to payouts or pool operations?
+
+**Small Hash Rate Miners:**
+  * Roll-over mechanisms for DLC payouts could be beneficial for miners with low hash rates, preventing the creation of dust UTXOs. 
+   
+    Has there been other consideration for small scale miners, aside from the Roll-overs?
+
+**FROST Federation Quorum:** 
+* Benchmarks for FROST quorum performance are not present in the repository. 
+  
+   Could latency/throughput FROST signing be a bottleneck?
+
+**Mining Fee Trends:** 
+* [PPLNS-JD](https://delvingbitcoin.org/t/pplns-with-job-declaration/1099) seems particularly relevant as fees increasingly dominate mining revenue.
+
+**Miner Dashboard:**
+  * The dashboard allows miners to view balances, extend contracts, or switch MSPs. 
+   
+    Are these features explicitly defined in the protocol?
+
+---
+
+1. **Threshold Signature Schemes:** How does ROAST compare to Lindell’s scheme in robustness and efficiency?
+2. **Dishonest MSP Handling:** What exact mechanisms are in place for identifying and removing dishonest MSPs?
+3. **2000-Block Delay:** Why is this specific threshold chosen for validating new MSPs?
+4. **Dashboard Specifications:** Are the dashboard functions and user interactions clearly defined anywhere?
 
 -------------------------
 

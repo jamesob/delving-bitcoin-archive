@@ -111,3 +111,13 @@ I believe both bll and simplicity have a sufficient feature set to be able to ex
 
 -------------------------
 
+instagibbs | 2024-11-25 19:06:50 UTC | #2
+
+[quote="ajtowns, post:1, topic:1275"]
+With flexible coin earmarks, this becomes much simpler: layered commitments are just updating the earmarks, and state updates are just wholesale replacement of the earmarks. Neither of these change the coin’s balance, and nor do they split the coin.
+[/quote]
+
+I think years ago we called this "magical eltoo" :slight_smile:
+
+-------------------------
+
