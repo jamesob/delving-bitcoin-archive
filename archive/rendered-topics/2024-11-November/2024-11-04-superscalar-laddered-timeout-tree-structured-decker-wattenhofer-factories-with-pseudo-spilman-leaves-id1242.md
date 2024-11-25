@@ -1032,7 +1032,7 @@ The protocol extensions are:
 
 -------------------------
 
-ZmnSCPxj | 2024-11-25 20:13:00 UTC | #2
+ZmnSCPxj | 2024-11-25 20:18:07 UTC | #2
 
 These are the SuperScalar UX notes that I wrote some time ago. I am now sharing it here.
 
@@ -1101,7 +1101,7 @@ webserver can register webhooks via LSPS5 that then cause
 messages to be sent to the specific client mobile app, and
 allow it to work with the SuperScalar provided by the LSP.
 
-[LSPS5]: https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/main/LSPS5/README.md
+[LSPS5]: https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/52acff41b07f082d32512b0dd9a161d54ecaa2b9/LSPS5/README.md
 
 The User Concepts
 =================
@@ -1592,7 +1592,7 @@ The terms and conditions for this opening are:
   it enables upgrading of the account limit, i.e.
   purchasing inbound liquidity within SuperScalar.
 
-[LSPS2]: https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/main/LSPS2/README.md
+[LSPS2]: https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/52acff41b07f082d32512b0dd9a161d54ecaa2b9/LSPS2/README.md
 
 Onchain Account Open
 --------------------
