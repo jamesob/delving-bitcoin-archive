@@ -11,10 +11,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 49,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 298.2,
+  "incoming_link_count": 52,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 328.4,
   "yours": false,
   "topic_id": 1275,
   "topic_slug": "flexible-coin-earmarks",
@@ -40,7 +40,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": true,
@@ -61,12 +61,17 @@
       "count": 2
     },
     {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "rocket",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
