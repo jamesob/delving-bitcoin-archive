@@ -1037,3 +1037,19 @@ The height could also be encoded in the coinbase's `nVersion`, and if we think m
 
 -------------------------
 
+AntoineP | 2024-11-26 16:12:00 UTC | #52
+
+I just caught up with the testnet4 discussions around fixing timewarp from back in May. Here is the TL;DR:
+-  The [original testnet4 PR](https://github.com/bitcoin/bitcoin/pull/29775) included a timewarp fix with a 2h leeway (as opposed to the 10 minutes from Matt's original proposal). The rationale for this was that if a miner publishes the last block of a period 2 hours in the future, another miner working on the first block of the next period should be able to use its "wall clock" as this block's timestamp. I'm speculating but i think the intention behind this was to not make it possible for a single miner to push the time forward just because it happened to mine the last block of a period. But this is not necessary, the second block of the new period can just get back to use the current time.
+- The leeway was reduced from 2h to 10min in PR [#30647](https://github.com/bitcoin/bitcoin/pull/30647) after discussion in BIPs PR [#1658](https://github.com/bitcoin/bips/pull/1658) on the basis that 2h leeway would unnecessarily leave (slightly) more room for inflation, since Bitcoin Core would never create a block template with an invalid timestamp in the first place since PR [#30681](https://github.com/bitcoin/bitcoin/pull/30681). A further motivation was to go with the more restrictive value on the test network to be able to learn about any unknown compatibility issue.
+
+-------------------------
+
+AntoineP | 2024-11-26 16:26:00 UTC | #53
+
+I think the Consensus Cleanup should include a fix for the [Murch-Zawy attack](https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062#variant-on-zawys-attack-2), in the form of requiring the timestamp of the last block in a retarget period to never be lower than the timestamp of the first block in this same period. In other words, the time span between the first and last block of a retarget period should never be negative.
+
+[We discussed it](https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062/3?u=antoinep) in this thread already back in August, but i figured i should mention it here as well.
+
+-------------------------
+
