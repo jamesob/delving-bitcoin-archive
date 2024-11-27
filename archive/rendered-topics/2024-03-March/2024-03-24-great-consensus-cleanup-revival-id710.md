@@ -1104,15 +1104,25 @@ Why does it seem somewhat better to you?
 
 -------------------------
 
-zawy | 2024-11-27 15:55:05 UTC | #57
+zawy | 2024-11-27 19:51:00 UTC | #57
 
 Consensus primacy: MTP -> timestamps -> difficulty.
 
-In deciding the consensus in any consensus mechanism, monotonicity has primacy over timestamps. In the case of PoW, timestamps have precedence over difficulty because they are how difficulty is determined which determines PoW. No adjustment to timespan that is restricted to the difficulty calculation should be made. It doesn't matter what difficulty algorithm you use, as long as it's a "fair" (blind) mathematical estimate of the hashrate. Changing timespan in the algorithm pollutes the math. I have seen many exploits that result from that. For example, the 4 and 1/4 timespan limits allow exploits which I previously said should exist for this theoretical reason and apparently PW believe my reasoning enough to found the exploit. He may do the same here. 
+In deciding the consensus in any consensus mechanism, monotonicity has primacy over timestamps. In the case of PoW, timestamps have precedence over difficulty because they are how difficulty is determined which determines PoW. No adjustment to timespan (or target for that matter) that is restricted to the difficulty calculation should be made. It doesn't matter what difficulty algorithm you use, as long as it's a "fair" (blind) mathematical estimate of the hashrate based on prior difficulty(ies) and solvetime(s). Changing timespan in the algorithm pollutes the math. I have seen many exploits that result from that. For example, the 4 and 1/4 timespan limits allow exploits which I previously said should exist for this theoretical reason and apparently PW believed my reasoning enough to found the exploit. He may do the same here. 
 
-So this consensus rule change should be made in the MTP calculation.
+So this consensus rule change should be made in the MTP calculation. When it's at that level, it makes more intuitive sense to do it every block.
 
 Hard-to-see "gotcha" problems involve the MTP because it's a patch instead of strictly following monotonicity.
+
+edit: I was having trouble figuring out what it means to say
+
+MTP -> timestamps -> difficulty.
+
+when I know that's the theoretical requirement and yet timestamps dictate MTP. The answer prevents the exploit: it means that the "timestamps" used by the difficulty algorithm to calculate timespan must be the MTP of the 1st and 2016th blocks. Even PW's attack on the 4x ad 1/4 timespan limits can be fixed without removing them completely if they're turned into limits on the MTP. That is, no timestamp can be more that 3/4 * 2016 * 600 seconds into the past from the current MTP or more than 4 * 2016 * 600 into the future. If there's a network partition for more than that limit the limit is used until real time catches up. Likewise for the past limit.
+
+But either of these are too big of a change to implement. I don't know of any simple solution that would make me feel comfortable in saying "it probably can't be attack" except to make MTP=1 instead of 11. This forces true monotonicity. But as a minimum, Murch's limit on timespan better be enforced on the timestamp instead of timespan or there's probably an exploit.
+
+How many times have people had to learn "don't use timestamps for time, use the MTP"? And here we are still trying to use them for the absolute core of our consensus. Non-monotonic timestamps for any consensus mechanism are not legitimate.
 
 -------------------------
 

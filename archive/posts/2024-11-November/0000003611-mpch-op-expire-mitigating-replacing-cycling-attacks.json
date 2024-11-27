@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 11,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 57.6,
+  "incoming_link_count": 18,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 108.2,
   "yours": false,
   "topic_id": 1282,
   "topic_slug": "op-expire-mitigating-replacing-cycling-attacks",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hello all :wave:,\n\nI'm currently working towards prototypes and implementations to fix replacement cycling attacks.\n\n# **Why is this important?**\n\nAs the current state of the lightning network, malicious actors have a capacity to bribe miners on channel resolutions, consequently, have a capacity to steal funds from peers.\n\n# **What are Replacement Cycling attacks?**\n\nReplacement cycling attack is a method that makes use of transaction input replacements and HTLCs scripts conditions, to make forcefully stuck HTLCs not be confirmed until CLTV delta from the HTLC on a previous (malicious) hop timeout. After the timeout, as the attacker has the preimage, spend the funds from the stuck payment, stealing the payment that went through the HTLC.\n\nIn other words, as Peter Todd points out in the mailing list [[link]](https://gnusha.org/pi/bitcoindev/ZTMWrJ6DjxtslJBn@petertodd.org/) , the problem here is that after the HTLC-timeout path becomes spendable, the HTLC-preimage path remains spendable.\n\nWe need to find solutions to this issue.\n\n# **Proposed and implemented mitigations**\n\nAntonie Riard in his paper proposed five mitigations related to mempool monitoring and how the HTLC-timeout transaction is rebroadcasted [[link]](https://gnusha.org/pi/bitcoindev/CALZpt+GdyfDotdhrrVkjTALg5DbxJyiS8ruO2S7Ggmi9Ra5B9g@mail.gmail.com/): Local Mempool and transaction relay traffic monitoring, miner mempool monitoring, defensive fee broadcasting, aggressive broadcasting and per hop packet delay bumping. All of them, attempt to mitigate the issue doing either:\n\n* Trying to win the race\n* Trying to make the race not worthwhile.\n\nSome of them, local-mempool and aggressive rebroadcasting, were implemented by the different node implementations to fix this issue.\n\n# **Why we don't want races in Lightning Protocol**\n\nEvery time there is a dispute or want to *end a relationship*, nodes go on-chain. Both cases depend on what the contract between the parties says. I think anyone can see a problem with the \"whoever comes first, was right\" type of contract. Incentivises cheating. Also makes it so whoever has more capital (therefore, better machine or connection) will probably end up winning.\n\nbetter contracts == better infrastructure\n\n**OP_EXPIRE enters the scene.**\n\nMy goal is to build a prototype demonstrating the usefulness of this opcode to the lightning protocol, through a proposed patch to bitcoin-core and the required updates to the lightning spec and CLN, to demonstrate how the softfork proposal is useful for resolving HTLC timeouts off chain.\n\nOP_EXPIRE, AKA, OP_ANTICHECKLOCKTIMEVERIFY lets us build better contracts so node implementations don\u2019t need to go on-chain to be sure that funds are safe.\n\nAs the name says, it lets a branch or the script expire after certain block or delta blocks. This means that the HTLC-preimage branch would expire after a delta, previously negotiated, amount of blocks, making it an urgent thing. Now after a certain amount of block an HTLC is not returned, the channel wouldn\u2019t need to be closed, implementation would need to make the HTLC-preimage become not spendable to return the error back to the network.\n\nIf someone has a problem, it wouldn't mean chaos on-chain given automatic unilateral closures.\n\nIf you see your peer down and you want to really want to close the channel, you would manually (or programmatically) take action and not be part of the protocol.\n\nWe can see the changes on the script here (extracted from Elle Mouton blog [[link]](https://ellemouton.com/posts/htlc-deep-dive/)):\n\n**Current offering HTLC**\n```\n# To remote node with revocation key\nOP_DUP OP_HASH160 <RIPEMD160(SHA256(revocationpubkey))> OP_EQUAL\nOP_IF\n    OP_CHECKSIG\nOP_ELSE\n    <remote_htlcpubkey> OP_SWAP OP_SIZE 32 OP_EQUAL\n    OP_NOTIF\n     # To local node via HTLC-timeout transaction (timelocked). OP_DROP 2                           OP_SWAP <local_htlcpubkey> 2 OP_CHECKMULTISIG\n    OP_ELSE\n           # To remote node with preimage\n           <expire block height> OP_EXPIRE OP_DROP OP_HASH160\n           <RIPEMD160(payment_hash)> OP_EQUALVERIFY OP_CHECKSIG\n    OP_ENDIF\nOP_ENDIF\n```\n\n\n**New offering HTLC**\n\nWhen going to remote or pre image, after specified blockheight the script would fail, leaving only the first two branches as possible way to unlock the funds.\n\n```\n# To remote node with revocation key\nOP_DUP OP_HASH160 <RIPEMD160(SHA256(revocationpubkey))> OP_EQUAL\nOP_IF\n    OP_CHECKSIG\nOP_ELSE\n    <remote_htlcpubkey> OP_SWAP OP_SIZE 32 OP_EQUAL\n    OP_NOTIF\n     # To local node via HTLC-timeout transaction (timelocked). OP_DROP 2                           OP_SWAP <local_htlcpubkey> 2 OP_CHECKMULTISIG\n    OP_ELSE\n           # To remote node with preimage that expires on expire block height.                                    <expire block height> OP_EXPIRE OP_DROP OP_HASH160\n           <RIPEMD160(payment_hash)> OP_EQUALVERIFY OP_CHECKSIG\n    OP_ENDIF\nOP_ENDIF\n```\n\n**How could it be implemented?**\n\nPeter Todd suggested a few ways of implementing this solution [[link]](https://gnusha.org/pi/bitcoindev/ZTMWrJ6DjxtslJBn@petertodd.org/) [[link]](https://www.youtube.com/watch?v=HXnNRmhCpNM):\n\n1. Coinbase Bit: modify the nVersion to enable transactions to have tx outputs to be spendable like the coinbase transaction output.\n2. Delta encoding expiration: encodes the a delta expiration in the nVersion that applied to the nLockTime, acts like a new factor \u201cAbsoluteExpireHeight\u201d to be checked as the OP_CLTV.\n3. Taproot Annex: use the annex as nExpiryHeight that would work as the same of the \u201cAbsoluteExpireHeight\u201d.\n\nI took the liberty to implement the second one.\n\nAll transactions using this op_code would need to use nLockTime greater than 0 and do not use sequence_final.\n\nWe take the first 16 bytes of the nVersion field of the transaction (now nDeltaExpireHeight), this would signal the maximum delta of all OP_EXPIRE in scripts inside the transaction from the nLockTime field.\n\nSo the actual script takes the first element of the stack and compares it to the AbsoluteExpireHeight (nDeltaExpireHeight + nLockTime).\n\nThe script would fail then in the following cases:\n\n1. The stack is empty\n2. The top item on the stack is less or equal than 0\n3. The lock time type of the stack item is not block height\n4. The lock time type of the nLockTime is not height\n5. The top stack item is greater than AbsoluteExpireHeight\n6. the nSequence field of the txin is sequence_final\n\n[**You can see a draft implementation in bitcoin core here**](https://github.com/bitcoin/bitcoin/commit/7b3cc52e55e7f942bed8afe73ee33ac652b1c3ce)\n\n[Branch with test from Antoine Riard and modified version of this HTLC\n](https://github.com/a-mpch/bitcoin/commits/2024-11-op-expire/)\n\n## Summary\n\nHaving OP_EXPIRE as a possibility in Bitcoin Script enable us:\n- To solve Lightning open problem of replacement cycling attacks\n- Have a less automated unilateral closure of channels, less footprint in base chain\n- Better scripts for other projects: Auction bids, Vaults, Time-limited delegation (rough list from Peter Todd's presentation)\n- We don't introduce a that different script as it is more-or-less a negation of OP_CLTV\n\nPossible cons:\n- We need would need to find consensus on what's the nExpireHeight field would be. Version? Annex? That's a long conversation to have. For now Version and have a delta works best. \n\n*Side notes:*\n\n*Next steps are doing a CLN draft implementation making use of this HTLC script.*\n\n*This is a extract of a [blog post](https://world.hey.com/mpch/mitigating-replacement-cycling-attacks-with-some-magic-part-i-4a76ad45) so this post would be concise,  If you need more details, graphical example of the problem or explanation of possible mitigations, you can checkout the blog itself.*",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

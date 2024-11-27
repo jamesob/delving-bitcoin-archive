@@ -135,3 +135,13 @@ Possible cons:
 
 -------------------------
 
+instagibbs | 2024-11-27 16:38:24 UTC | #2
+
+OP_EXPIRE adds brand new behavior to Bitcoin that you can not emulate otherwise, so I think you're going to have a very tough time pushing it forward.
+
+If it's specifically for replacement cycling, I'd suggest efforts are better spent understanding the problem first. We may have much lighter-weight solutions that don't require consensus changes.
+
+AFAIK there is no working replacement cycling scenario for warnet, so I'd start there? I've been hoping someone would do that since the issue was first covertly disclosed but no one seems to bother?
+
+-------------------------
+
