@@ -1053,3 +1053,17 @@ I think the Consensus Cleanup should include a fix for the [Murch-Zawy attack](h
 
 -------------------------
 
+ajtowns | 2024-11-27 00:13:24 UTC | #54
+
+[quote="AntoineP, post:53, topic:710"]
+in the form of requiring the timestamp of the last block in a retarget period to never be lower than the timestamp of the first block in this same period
+[/quote]
+
+Why this, rather than a rolling "past time limit" along the lines of [option 3 here](https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062/5?u=ajtowns)? (eg: as well as the monotonic median time past, we maintain a non-decreasing `earliest_time_past`, which is initially the genesis timestamp, and thereafter `max(earliest_time_past, block.nTimestamp - 2 hours)`, and add a new consensus rule `next_block.nTimestamp >= earliest_time_past` in addition to `next_block.nTimestamp > median_time_past`)
+
+Having a rule that is applied consistently to every block seems somewhat better to me than a rule that only applies to every 2016th block to me. YMMV.
+
+(Most of the discussion in that thread was about options 1 and 2, which replaced/simplified median time past, which I don't think is a practical option)
+
+-------------------------
+
