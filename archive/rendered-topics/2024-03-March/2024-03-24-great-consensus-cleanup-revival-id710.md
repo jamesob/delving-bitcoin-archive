@@ -1067,3 +1067,40 @@ Having a rule that is applied consistently to every block seems somewhat better 
 
 -------------------------
 
+zawy | 2024-11-27 14:48:15 UTC | #55
+
+TL;DR
+A 2 hr limit on every block enables an easy attack on external applications that don't implement it correctly if the median of past timestamps (MPT ot MTP) is ever more than 2 hours in the past. Applying Murch's timestamp limit to every block appears better than doing it only on the 2016th block because it forces everyone to view it and code it as a change to the MPT consensus rule which will prevent mistakes and attacks if it's viewed as only a "timestamp" or "difficulty" change. This is because there may be script or code somewhere in the world that is focused on MPT and the developer thinks the change only affects timestamp or the difficulty.
+
+I called the 2 hr limit on every block the "safest and easiest" option, but I need to retract that due to 2 hour being too small. It changes the MPT consensus rule that a lot of software depends on by overriding it if a timestamp >2 hr in the past occurs and if the MPT is even further in the past. It enables an easy malicious attack on all software that doesn't implement the rule change. A single miner only needs to use a timestamp >2 hrs in the past if the MTP happens to be more than that.
+
+The general rule is that if you make a consensus rule change, make it as small as possible. This is what Murch's fix does (timestamps at 2016th block can't older than the 1st block), but there's a lack of "symmetry", "consistency", "simplicity", or "beauty" in not applying the limit to every block which might be a way of saying there's an unknown risk. It seems harder for me to reason that doing it on only 1 block is as safe as doing it on every block. Applying it to every block might be simpler (less risky) code. In testing, the change would occur 2016 times more often, possibly making problems easier to detect. If it's safe at the transition, it better be safe on every block. 
+
+So the choice is between minimal consensus change (apply only on 2016th block) and adhering to "symmetry", "consistency", "consistency", or "beauty" as a way to prevent problems that are hard to detect or deduce. 
+
+As observational evidence that lack of "symmetry" or "beauty" is risky in ways that are hard to detect (and therefore the same changes should be applied to every block) I think halvings and difficulty changes not being slowly changed on every block are possibly Satoshi's biggest mistakes. No alt coin has survived on-off mining when using bitcoin's difficulty algorithm which means it's dangerous to bitcoin itself if the fundamental security requirement of non-repurposable hashrate equipment is relaxed or not present, as it is in most alt coins. The halvings are harmful to miners' investment planning and have caused large price fluctuations that have been brutal to weak hodlers and bitcoin's reputation in the populace. In both cases Satoshi chose math or code simplicity over "symmetry" or "consistency". He should have felt some uneasiness about those decisions despite there not being an error in the calculations. It's widely known (at least intuitively) that batch processing or fluctuations towards a goal is less efficient than continuous, stable progress.
+
+The two problems occured but there wasn't any error in Satoshi's math. The problem is at a higher level than his objective. I don't know what problem there could be in this case of changing once per 2016 blocks, but it probably isn't in the specific objective of preventing attacks, but "external" to it. For example, "external" code or applications may not have an awareness of something happening every 2016 blocks but depend only on the MPT, which is potentially going to be overridden. So from their point of view, not doing it every block might be a "larger" consensus change.
+
+If people only look at the difficulty algorithm or timestamp code to deploy or see the effects of this consensus change, it allows  attacks on code that only need to know the MPT. This should be marketed as an MTP change, not a difficulty or timestamp change. Doing it every block seems better in the sense it forces everyone to realize it's an MTP rule change.
+
+This argument doesn't mean "we might as well use a 2 hr limit" because it allows an easy attack on code that doesn't update. If some reason the proposed two week limit makes people uneasy, a 1 day limit would be safer than 2 hours.
+
+-------------------------
+
+AntoineP | 2024-11-27 14:50:19 UTC | #56
+
+[quote="ajtowns, post:54, topic:710"]
+Why this, rather than a rolling “past time limit” along the lines of [option 3 here ](https://delvingbitcoin.org/t/zawy-s-alternating-timestamp-attack/1062/5)?
+[/quote]
+
+Because it would be an unnecessarily bigger and more restrictive change. Restricting only the timestamp of those blocks that matter is less invasive and i find it elegant to simply check the timespan is not negative.
+
+[quote="ajtowns, post:54, topic:710"]
+Having a rule that is applied consistently to every block seems somewhat better to me than a rule that only applies to every 2016th block to me. YMMV.
+[/quote]
+
+Why does it seem somewhat better to you?
+
+-------------------------
+
