@@ -1104,3 +1104,13 @@ Why does it seem somewhat better to you?
 
 -------------------------
 
+zawy | 2024-11-27 15:37:08 UTC | #57
+
+Consensus primacy: MTP -> timestamps -> difficulty.
+
+In deciding the consensus in any consensus mechanism, monotonicity has primacy over timestamps. In the case of PoW, timestamps have precedence over difficulty because they are how difficulty is determined which determines PoW. No adjustment to timespan that is restricted to the difficulty calculation should be made. It doesn't matter what difficulty algorithm you use, as long as it's a "fair" (blind) mathematical estimate of the hashrate. Changing timespan in the algorithm pollutes the math. I have seen many exploits that result from that. For example, the 4 and 1/4 timespan limits allow exploits which I previously said should exist for this theoretical reason and apparently PW believe my reasoning enough to found the exploit. He may do the same here. 
+
+Again, this consensus rule change should be made in the MTP calculation.
+
+-------------------------
+
