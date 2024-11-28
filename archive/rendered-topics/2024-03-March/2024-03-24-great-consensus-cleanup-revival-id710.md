@@ -1104,7 +1104,7 @@ Why does it seem somewhat better to you?
 
 -------------------------
 
-zawy | 2024-11-28 00:59:45 UTC | #57
+zawy | 2024-11-28 09:29:32 UTC | #57
 
 Consensus primacy: MTP -> timestamps -> difficulty.
 
@@ -1124,7 +1124,19 @@ But either of these are too big of a change to implement. I don't know of any si
 
 How many times have people had to learn "don't use timestamps for time, use the MTP"? And here we are still trying to use them for the absolute core of our consensus. Non-monotonic timestamps for any consensus mechanism are not legitimate.
 
-It's concerning that the "official time" for a lot of things in bitcoin like what scripts use is the MTP, but the consensus mechanism  is based on timestamps.   A 51% attack enables a huge disconnect between those two estimates of time even if the difficulty can't be exploited for excess blocks. Even more so if the timespan is changed in the algorithm and not determined directly by 2 timestamps on the chain. The MTP monotonicity isn't even enforcing monotonicity on the difficulty algorithm if there's a >51% attack which is why we had to proposed a monotonic rule on the timespan. Monotonicity on each timestamp is the only way to assure there are no unknown attacks external to the difficulty algorithm. Assuming that's too drastic to implement (via MTP=1 instead of 11), I'd say no timestamp should be older than 1 second after the 2016th timestamp in the past. But this doesn't address the problem of the disconnect between the difficulty timestamps and the MTP time used everywhere else. The simplest fix for that if MTP=1 can't be used is to base the timespan on the MTP of the 1st and 2016th blocks. This wouldn't need a limit on the timestamps.
+It's concerning that the "official time" for a lot of things in bitcoin like what scripts use is the MTP, but the consensus mechanism  is based on timestamps. The consensus mechanism isn't determining the value of the MTP.  All nodes place an upper limit on it, so it's how far in the past that a 51% attack, enabling an unlimited disconnect even if the difficulty can't be exploited for excess blocks. The MTP monotonicity isn't enforcing monotonicity on the difficulty algorithm if there's a >51% attack which is why we had to proposed a monotonic rule on the timespan.  Also, by limiting only the timespan, the consensus isn't attesting to the value of the 1st and 2016th timestamps. 
+
+This gives two levers that miners can control without PoW. 
+
+Monotonicity on each timestamp is the only way to assure there are no unknown attacks external to the difficulty algorithm. Assuming that's too drastic to implement (via MTP=1 instead of 11), I'd say no timestamp should be older than 1 second after the 2016th timestamp in the past. But this doesn't address the problem of the disconnect between the difficulty timestamps and the MTP time used everywhere else. The simplest fix for that if MTP=1 can't be used is to base the timespan on the MTP of the 1st and 2016th blocks. This wouldn't need a limit on the timestamps.
+
+Lamport's 1978 paper tells us what must be done with timestamps in all consensus mechanisms to do it correctly.  We can propose patches but if the rules aren't followed, there's an attack. The only way to let the PoW prove the 1st and 2016th timestamps and MTP are correct is to force the timestamps to be monotonic. All nodes independently prevent miners from pushing time forward. Monotonicty prevents them from holding it back.
+
+The other rules being broken show an attack isn't necessarily large. The other rules are that clock tick must be slower than propagation speed but a lot faster than the length of consensus rounds (1 block) and clock accuracy should be less than 1/2 clock ticks. Enforcing these rules would prevent the possibility of 1 or 2 block selfish mining attacks, is they start being a problem.
+
+The non-repurposability requirement for good security forces the miners to act in the best interest of the value of the coin, but I believe there are instances where they won't if they're not required to such as maximizing fees. They can't increase the number of blocks with the proposed fix, but can their control of the other two levers somehow increase fees or deprecate  something they don't like? 
+
+Murch's fix seems the easiest and safest in terms of preventing an attack and not breaking anything. But a monotonicity fix should be readily available in case of an emergency. There should be a BIP.
 
 -------------------------
 
