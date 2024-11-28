@@ -44,3 +44,31 @@ I'm unsure how to best analyse this.
 
 -------------------------
 
+evoskuil | 2024-11-28 16:08:13 UTC | #2
+
+Concurrent validation of competing blocks would only make sense if they had the same amount of work. I'm have no idea how common this is. Given that it doesn't matter to consensus which one of two equal-work blocks is confirmed, it could make sense to validate them both and keep the one that validated in less time. There is nothing wrong with discarding the top block for another of equal work - for any reason.
+
+Given the complexity and performance cost of attempting to synchronize the problem between two (or more?) blocks, I would take a closer look at the objective. If the objective is to propagate the faster block of the same work, then it is just as reasonable and a lot easier, to just validate any block that has equal work to the top block. Presently we just ignore that block unless its branch gets stronger than the confirmed branch. If that block validates faster than the top block, then reorg and announce it. This also has the advantage of prioritizing the faster block even if it arrives much later.
+
+Presumably that satisfies the objective. However, I don't think this would make much of a dent in the problem.
+
+-------------------------
+
+sjors | 2024-11-28 16:28:17 UTC | #3
+
+[quote="evoskuil, post:2, topic:1288"]
+Concurrent validation of competing blocks would only make sense if they had the same amount of work. I’m have no idea how common this is.
+[/quote]
+
+In the extreme case of block that takes 1 hour to validate, there could be six competing blocks at the same height (i.e. same total work). But generally for every second it takes to validate a block, there's a ~1/600 chance of a competing block appearing. I just don't know it that's enough to deter such an attack though.
+
+[quote="evoskuil, post:2, topic:1288"]
+If that block validates faster than the top block, then reorg and announce it. This also has the advantage of prioritizing the faster block even if it arrives much later.
+[/quote]
+
+It's certainly a stronger measure to slow-block attacks. But it would also significantly change behaviour in a non-attack scenario. E.g. single confirmation would be a lot less safe.
+
+And when a miner sees a new valid block, they have to choose between ignoring it or mining on top of it, based on some estimate of how likely it is another miner would produce a faster-to-validate block. This seems like a can of worms. (though my proposal may have a similar worm)
+
+-------------------------
+
