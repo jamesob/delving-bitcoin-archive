@@ -145,7 +145,7 @@ AFAIK there is no working replacement cycling scenario for warnet, so I'd start 
 
 -------------------------
 
-mpch | 2024-11-27 21:45:32 UTC | #3
+mpch | 2024-11-28 00:13:25 UTC | #3
 
 [quote="instagibbs, post:2, topic:1282"]
 OP_EXPIRE adds brand new behavior to Bitcoin that you can not emulate otherwise, so I think you’re going to have a very tough time pushing it forward.
@@ -164,7 +164,7 @@ Even though, OP_EXPIRE is the main thing here, I'm quite motivated to solve this
 AFAIK there is no working replacement cycling scenario for warnet, so I’d start there? I’ve been hoping someone would do that since the issue was first covertly disclosed but no one seems to bother?
 [/quote]
 
-That's a great insight. I think this is really LN script oriented problem. I haven't found any Warner for LN itself to deploy this.
+That's a great insight. I think this is really LN script oriented problem. I haven't found any Warnet for LN itself to deploy this.
 
 Thanks @instagibbs !
 
