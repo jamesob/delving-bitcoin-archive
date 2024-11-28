@@ -170,3 +170,25 @@ Thanks @instagibbs !
 
 -------------------------
 
+jonas | 2024-11-28 01:44:47 UTC | #4
+
+[quote="mpch, post:3, topic:1282"]
+That’s a great insight. I think this is really LN script oriented problem. I haven’t found any Warnet for LN itself to deploy this.
+[/quote]
+
+The [warnet](https://github.com/bitcoin-dev-project/warnet) team would be happy to support this. We had LN support but temporarily disabled it for our recent refactor. We'll have feature parity in 2 weeks(TM). Happy to start the conversation now though.
+
+-------------------------
+
+mpch | 2024-11-28 02:33:48 UTC | #5
+
+[quote="jonas, post:4, topic:1282"]
+The [warnet](https://github.com/bitcoin-dev-project/warnet) team would be happy to support this. We had LN support but temporarily disabled it for our recent refactor. We’ll have feature parity in 2 weeks™. Happy to start the conversation now though.
+[/quote]
+
+Thanks, @jonas . Happy to collaborate with the warnet team!
+
+I’ll be reviewing the repository, but it would be great to have a conversation with someone to better understand how to make this most useful with the refactor. I’d be happy to discuss it further with someone from the team.
+
+-------------------------
+
