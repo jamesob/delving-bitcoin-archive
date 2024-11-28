@@ -37,12 +37,7 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"instagibbs, post:2, topic:1282\"]\nOP_EXPIRE adds brand new behavior to Bitcoin that you can not emulate otherwise, so I think you\u2019re going to have a very tough time pushing it forward.\n[/quote]\n\n\nYes, I started this project knowing this. But someone has to start the conversation somehow. Could be moonshot but I believe that OP_EXPIRE has potential to be beneficial for Bitcoin. Doing a draft implementation and one \"real world scenario\" could help move this forward.\n\n[quote=\"instagibbs, post:2, topic:1282\"]\nIf it\u2019s specifically for replacement cycling, I\u2019d suggest efforts are better spent understanding the problem first. We may have much lighter-weight solutions that don\u2019t require consensus changes.\n[/quote]\n\nEven though, OP_EXPIRE is the main thing here, I'm quite motivated to solve this problem as well. On Peter Todd's side, main issue is the race condition of scripts. I don't know if using any covenant or other solutions could help us build better HTLC contracts, so we don't depend going on-chain for channel resolution. Lighter-weight solutions already implemented are focused on winning the race itself as I described. \n\n[quote=\"instagibbs, post:2, topic:1282\"]\nAFAIK there is no working replacement cycling scenario for warnet, so I\u2019d start there? I\u2019ve been hoping someone would do that since the issue was first covertly disclosed but no one seems to bother?\n[/quote]\n\nThat's a great insight. I think this is really LN script oriented problem. I haven't found any Warner for LN itself to deploy this.\n\nThanks @instagibbs !",
-  "actions_summary": [
-    {
-      "id": 2,
-      "count": 1
-    }
-  ],
+  "actions_summary": [],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,14 +49,8 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [
-    {
-      "id": "+1",
-      "type": "emoji",
-      "count": 1
-    }
-  ],
+  "reactions": [],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 0,
   "current_user_used_main_reaction": false
 }
