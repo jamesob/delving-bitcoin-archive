@@ -1104,7 +1104,7 @@ Why does it seem somewhat better to you?
 
 -------------------------
 
-zawy | 2024-11-27 19:51:00 UTC | #57
+zawy | 2024-11-28 00:38:31 UTC | #57
 
 Consensus primacy: MTP -> timestamps -> difficulty.
 
@@ -1123,6 +1123,8 @@ when I know that's the theoretical requirement and yet timestamps dictate MTP. T
 But either of these are too big of a change to implement. I don't know of any simple solution that would make me feel comfortable in saying "it probably can't be attack" except to make MTP=1 instead of 11. This forces true monotonicity. But as a minimum, Murch's limit on timespan better be enforced on the timestamp instead of timespan or there's probably an exploit.
 
 How many times have people had to learn "don't use timestamps for time, use the MTP"? And here we are still trying to use them for the absolute core of our consensus. Non-monotonic timestamps for any consensus mechanism are not legitimate.
+
+It's concerning that the "official time" for a lot of things in bitcoin like what scripts use is the MTP, but the consensus mechanism  is based on timestamps.   A 51% enables a huge disconnect between those them even if the difficulty can't be exploited for excess blocks. Even more so if the timespan changed in the algorithm instead of determined by the 2 timestamps on the chain. The MTP monotonicity isn't even enforcing monotonicity on the difficulty algorithm if there's a >51% attack which is why we had to proposed a monotonic rule on the timespan.  Monotonicity on each timestamp is the only way the assure there are no unknown attacks external to the difficulty algorithm. Assuming that's too difficult to implement (MTP=1 instead of 11), I'd say no timestamp should be older than the 144th timestamp in the past, with the 2016th as proposed as my second choice. But this doesn't address the problem of the disconnect between the difficulty timestamps and the MTP time used everywhere else causing an unforeseen problem in apps or scripts. The simplest fix for that if MTP=1 can't be used is to base the timespan on the MTP of the 1st and 2016th blocks.
 
 -------------------------
 
