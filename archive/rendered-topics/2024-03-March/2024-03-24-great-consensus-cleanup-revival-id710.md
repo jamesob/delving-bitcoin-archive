@@ -1104,7 +1104,7 @@ Why does it seem somewhat better to you?
 
 -------------------------
 
-zawy | 2024-11-28 09:29:32 UTC | #57
+zawy | 2024-11-28 12:39:39 UTC | #57
 
 Consensus primacy: MTP -> timestamps -> difficulty.
 
@@ -1134,7 +1134,7 @@ Lamport's 1978 paper tells us what must be done with timestamps in all consensus
 
 The other rules being broken show an attack isn't necessarily large. The other rules are that clock tick must be slower than propagation speed but a lot faster than the length of consensus rounds (1 block) and clock accuracy should be less than 1/2 clock ticks. Enforcing these rules would prevent the possibility of 1 or 2 block selfish mining attacks, is they start being a problem.
 
-The non-repurposability requirement for good security forces the miners to act in the best interest of the value of the coin, but I believe there are instances where they won't if they're not required to such as maximizing fees. They can't increase the number of blocks with the proposed fix, but can their control of the other two levers somehow increase fees or deprecate  something they don't like? 
+The non-repurposability requirement for good security forces the miners to act in the best interest of the value of the coin, but I believe there are instances where they won't if they're not required to such as maximizing fees. They can't increase the number of blocks with the proposed fix, but can their control of the other two levers somehow increase fees or deprecate  something they don't like? What are the possible profitable  consequences if miners as a group hold the MTP back 6 months and make it jump to the present in 1 block?  This can't be done without a super-majority if the timespan limit is moved out of the DA to a limit on every timestamp.
 
 Murch's fix seems the easiest and safest in terms of preventing an attack and not breaking anything. But a monotonicity fix should be readily available in case of an emergency. There should be a BIP.
 

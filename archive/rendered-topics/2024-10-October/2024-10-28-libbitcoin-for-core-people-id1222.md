@@ -224,3 +224,19 @@ Fair. Made another edit. Thanks.
 
 -------------------------
 
+sjors | 2024-11-28 12:13:10 UTC | #12
+
+Has anyone (else) done this benchmark? A 15x performance difference, despite a native sha256 handicap, sounds too good to be true.
+
+It's also useful to investigate which machine properties (and settings) determine the difference. For example I have two machines than can do IBD in about 5 hours, in part thanks to a high `-dbcache` value and gigabit internet. Will libbitcoin do it in 20 minutes? (presumably not, if just because of disk speed limits)
+
+But even a 3x difference on typical consumer hardware with typical internet bandwidth and only a few GB of RAM would be worth thoroughly investigating. 
+
+IIUC there's only two things that Bitcoin Core does in parallel during IBD:
+1. Block download
+2. Script validation (I recently tried dropping the `-par=16` limit, but `-par=32` made no noticeable difference)
+
+There certainly room to do more things in parallel, and it's probably fine to spend a bit more CPU and I/O validating a chain that turns out to be invalid (but had the most PoW). Bitcoin Core currently tries to abort such validation as early as possible.
+
+-------------------------
+
