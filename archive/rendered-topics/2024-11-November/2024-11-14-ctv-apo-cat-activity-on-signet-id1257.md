@@ -236,3 +236,29 @@ https://inquisition.observer
 
 -------------------------
 
+JeremyRubin | 2024-11-27 21:07:42 UTC | #8
+
+I don't really think these are valid metrics, given they don't include ctv-signet which predates inquisition.
+
+I ran a count of CTV activity on ctv-signet. I did this by scanning for NOP4.
+
+- 1558 segwit v0 spends
+- 52 legacy spends
+- 14 taproot spends
+
+ This was last used in 2022, though i keep it running still.
+
+There were only 52 spends of legacy, although there were around 24 additional creations not counted in the above figure. This suggests some amount of other taproot or segwit outputs would also be CTV users. Especially taproot -- the whole point being you can't tell if it's just a key!
+
+
+
+Overall I think signet is just... not that useful, in general. There's no track record of these vanity metrics having anything to do with consensus. Most devs just do stuff on regtest at the end of the day.
+
+-------------------------
+
+JeremyRubin | 2024-11-27 21:11:41 UTC | #9
+
+Your methodology also AFAIU won't catch IF blah ELSE <H> CTV ENDIF scripts, if they execute the blah.
+
+-------------------------
+

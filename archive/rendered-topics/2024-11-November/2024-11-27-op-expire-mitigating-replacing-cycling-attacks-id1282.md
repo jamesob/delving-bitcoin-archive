@@ -145,3 +145,28 @@ AFAIK there is no working replacement cycling scenario for warnet, so I'd start 
 
 -------------------------
 
+mpch | 2024-11-27 21:45:32 UTC | #3
+
+[quote="instagibbs, post:2, topic:1282"]
+OP_EXPIRE adds brand new behavior to Bitcoin that you can not emulate otherwise, so I think you’re going to have a very tough time pushing it forward.
+[/quote]
+
+
+Yes, I started this project knowing this. But someone has to start the conversation somehow. Could be moonshot but I believe that OP_EXPIRE has potential to be beneficial for Bitcoin. Doing a draft implementation and one "real world scenario" could help move this forward.
+
+[quote="instagibbs, post:2, topic:1282"]
+If it’s specifically for replacement cycling, I’d suggest efforts are better spent understanding the problem first. We may have much lighter-weight solutions that don’t require consensus changes.
+[/quote]
+
+Even though, OP_EXPIRE is the main thing here, I'm quite motivated to solve this problem as well. On Peter Todd's side, main issue is the race condition of scripts. I don't know if using any covenant or other solutions could help us build better HTLC contracts, so we don't depend going on-chain for channel resolution. Lighter-weight solutions already implemented are focused on winning the race itself as I described. 
+
+[quote="instagibbs, post:2, topic:1282"]
+AFAIK there is no working replacement cycling scenario for warnet, so I’d start there? I’ve been hoping someone would do that since the issue was first covertly disclosed but no one seems to bother?
+[/quote]
+
+That's a great insight. I think this is really LN script oriented problem. I haven't found any Warner for LN itself to deploy this.
+
+Thanks @instagibbs !
+
+-------------------------
+

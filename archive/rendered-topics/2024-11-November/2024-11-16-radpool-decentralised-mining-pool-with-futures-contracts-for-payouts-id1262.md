@@ -264,3 +264,23 @@ Thanks for the great questions
 
 -------------------------
 
+mcelrath | 2024-11-27 21:15:02 UTC | #6
+
+If you don't have consensus on who has which shares, you can't possibly pay everyone accordingly. You can't decide in a decentralized manner who to pay and how much. This is not a requirement that is reasonable to remove. You will end up inventing a consensus mechanism to do accounting of shares.
+
+I will write more about the Braid mechanism as I'm porting it to Rust, but it's very simple. Fundamentally it's just Nakamoto consensus on a DAG, and there really isn't much variability on how to do this correctly.
+
+-------------------------
+
+jungly | 2024-11-27 21:34:24 UTC | #7
+
+With consistent views from BFT broadcast, each node will arrive at the same reward distribution as they data set they reason upon is consistent.
+
+The elegance here is to note the difference between consensus and BFT broadcast. Consensus/Agreement in theory states that one node proposes a value and everyone else agrees with it - to phrase things loosely. BFT broadcast on the other hand is much more relaxed. It makes sure threshold parties have received a given message. If all messages are BFT broadcast, all nodes end up with a consistent view, and we don't need consensus/agreement. In fact, there is a simple reduction from reliable broadcast to consensus, where you need more rounds on top of broadcast to get to consensus.
+
+Another very important point to note, the broadcast among MSPs is within a known set of parties. Which is a much much easier problem than consensus in a permissionless system where the set of parties is _not_ known at the outset.
+
+It will not be a mundane task to define, prove and implement a permissionless consensus protocol. It will add a _lot_ of engineering man months. Radpool wants to avoid such huge projects, even without consensus Radpool is a _big_ project. We instead run with a known membership, and choose well known easy to implement algorithms to get to a functional MVP.
+
+-------------------------
+
