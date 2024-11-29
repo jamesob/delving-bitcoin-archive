@@ -112,3 +112,27 @@ Would be interesting to see the maths on race to first validation; reorging to f
 
 -------------------------
 
+sjors | 2024-11-29 09:00:41 UTC | #8
+
+[quote="evoskuil, post:6, topic:1288"]
+This seems to assume that all blocks of the same height have the same amount of work.
+[/quote]
+
+A reorg more than 6 blocks deep would probably cause more economic harm than a block that takes an hour to validate.
+
+But there's also the edge of a retarget period to consider. An attacker could set the timestamp of the last block as early as allowed so the difficulty increase is maximal. And then also mine the first block in the new retarget period, and reveal both at the same time. Without manual intervention an honest miner would use wall time and thus their two blocks would have less cumulative difficulty.
+
+[quote="evoskuil, post:5, topic:1288"]
+If the script is inherently an attack, then why not soft fork it out?
+[/quote]
+
+If you know the attack long in advance you can do that. But you might only discover the attack when it happens. That's what I referred to with "unknown unknowns".
+
+[quote="ajtowns, post:7, topic:1288"]
+I think making sure core could still quickly do compact block relay (of missing transactions) while the block was being validating, would improve things a bunch.
+[/quote]
+
+So that wouldn't discourage slow-to-validate blocks, but simply make them less harmful.
+
+-------------------------
+
