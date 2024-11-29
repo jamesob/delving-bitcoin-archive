@@ -240,3 +240,15 @@ There certainly room to do more things in parallel, and it's probably fine to sp
 
 -------------------------
 
+AntoineP | 2024-11-29 14:08:23 UTC | #13
+
+[quote="sjors, post:12, topic:1222"]
+IIUC there’s only two things that Bitcoin Core does in parallel during IBD:
+
+1. Block download
+[/quote]
+
+Bitcoin Core may parallelize requests but block processing is still sequential.
+
+-------------------------
+
