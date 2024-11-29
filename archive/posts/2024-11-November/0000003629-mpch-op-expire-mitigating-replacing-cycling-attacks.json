@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 1282,
   "topic_slug": "op-expire-mitigating-replacing-cycling-attacks",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"jonas, post:4, topic:1282\"]\nThe [warnet](https://github.com/bitcoin-dev-project/warnet) team would be happy to support this. We had LN support but temporarily disabled it for our recent refactor. We\u2019ll have feature parity in 2 weeks\u2122. Happy to start the conversation now though.\n[/quote]\n\nThanks, @jonas . Happy to collaborate with the warnet team!\n\nI\u2019ll be reviewing the repository, but it would be great to have a conversation with someone to better understand how to make this most useful with the refactor. I\u2019d be happy to discuss it further with someone from the team.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
