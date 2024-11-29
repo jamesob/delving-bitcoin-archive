@@ -72,3 +72,43 @@ And when a miner sees a new valid block, they have to choose between ignoring it
 
 -------------------------
 
+evoskuil | 2024-11-29 02:21:05 UTC | #4
+
+(post deleted by author)
+
+-------------------------
+
+evoskuil | 2024-11-29 02:24:10 UTC | #5
+
+[quote="sjors, post:3, topic:1288"]
+It’s certainly a stronger measure to slow-block attacks. But it would also significantly change behaviour in a non-attack scenario. E.g. single confirmation would be a lot less safe.
+[/quote]
+
+The problem you may have here is making a clear distinction between attack and not attack. If the script is inherently an attack, then why not soft fork it out?
+
+-------------------------
+
+evoskuil | 2024-11-29 02:33:14 UTC | #6
+
+[quote="sjors, post:3, topic:1288"]
+generally for every second it takes to validate a block, there’s a ~1/600 chance of a competing block appearing
+[/quote]
+
+This seems to assume that all blocks of the same height have the same amount of work.
+
+-------------------------
+
+ajtowns | 2024-11-29 03:45:38 UTC | #7
+
+[quote="sjors, post:1, topic:1288"]
+Does the large miner advantage stay in place even if their blocks are at increased risk of reorg?
+[/quote]
+
+Arguably, it's an advantage to have mined the block, because at that point you know it's valid and can mine on top of it immediately; meanwhile others have to wait until the block propagates and validates. If you're mining empty blocks as soon as the header propagates, you might only be losing fees and adding a mild risk of building on an invalid block, but that's still some advantage for the original miner.
+
+I think making sure core could still quickly do compact block relay (of missing transactions) while the block was being validating, would improve things a bunch. Having a well connected FIBRE relay network would also probably help (as it relays things just based on PoW and doesn't block on validation, aiui); afaik there isn't a public FIBRE network these days. At the moment, I'd expect block relay to be pretty severely impacted by slow validation.
+
+Would be interesting to see the maths on race to first validation; reorging to fastest to validate seems like it would favour empty blocks and perhaps add a little instability (if different hardware validates blocks at inconsistent speeds eg) which doesn't seem super desirable.
+
+-------------------------
+
