@@ -72,12 +72,6 @@ And when a miner sees a new valid block, they have to choose between ignoring it
 
 -------------------------
 
-evoskuil | 2024-11-29 02:21:05 UTC | #4
-
-(post deleted by author)
-
--------------------------
-
 evoskuil | 2024-11-29 02:24:10 UTC | #5
 
 [quote="sjors, post:3, topic:1288"]
