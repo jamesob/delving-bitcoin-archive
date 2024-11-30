@@ -192,3 +192,14 @@ I’ll be reviewing the repository, but it would be great to have a conversation
 
 -------------------------
 
+mplsgrant | 2024-11-29 21:58:50 UTC | #6
+
+@mpch I had been experimenting with replacement cycling using Warnet, but my experiments were all from before the refactor that jonas mentioned. They mostly use a replacement cycling example created by ariard. You can find them here:
+
+https://github.com/bitcoin-dev-project/warnet/pull/422
+https://github.com/bitcoin-dev-project/warnet/pull/373
+
+As jonas mentioned, the Warent team is gearing up with a new system to deploy lightning nodes into Wanret and also a new plugin system to make it easier for users to add functionality.
+
+-------------------------
+
