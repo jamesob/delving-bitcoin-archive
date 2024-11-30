@@ -306,3 +306,13 @@ We've also noticed Core shutdown times of 10 minutes or more. BN shutdown time i
 
 -------------------------
 
+JeremyRubin | 2024-11-30 17:58:01 UTC | #19
+
+I'll just note that when I was actively doing research into performance, there were a lot of architectural nudges that could unlock more perf in core's architecture.
+
+e.g., https://github.com/bitcoin/bitcoin/pull/14837 was a PR that separates the tx graph connection logic outside of the processing of transactions, which would also longer term enable refactors to make processing of scripts more efficient.
+
+Maybe time to revisit refactors like those?
+
+-------------------------
+
