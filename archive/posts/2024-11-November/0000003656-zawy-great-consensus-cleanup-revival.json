@@ -1,0 +1,72 @@
+{
+  "id": 3656,
+  "name": "Zawy",
+  "username": "zawy",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png",
+  "created_at": "2024-11-30T11:28:58.360Z",
+  "cooked": "<p>Opentimestamps isn\u2019t secure. This is due to bitcoin not adhering to a proven distributed consensus requirement.</p>\n<p>Unlike other 51% attacks, this isn\u2019t prevented by bitcoin\u2019s security model which depends on miners\u2019 long-term profit motive. <strong>MPT isn\u2019t backed by PoW</strong> because 1) it isn\u2019t allowed to imposed a \u201creverse\u201d time limit on the timestamps and difficulty algorithm and 2) manipulating it doesn\u2019t seem to harm (and may increase) miners\u2019 profit motive.  <strong>Do not use MPT if you want a secure source of decentralized time.</strong> MPT is a permissioned consensus mechanism.</p>\n<p>To falsify the above, one of the following statements must be shown to not be true, or a fault found in the reasoning. It\u2019s verbose to make it easier to falsify.</p>\n<p>In short, miners should be able to find a way to profit more from holding MPT time back (due to its affect on Opentimestamps) than it reduces the present value of their equipment.</p>\n<p>definitions:</p>\n<p>\u201cposition\u201d = existence, possession, and/or transfer.</p>\n<ol>\n<li>Opentimestamps agglomerates attestations crucial to the position of value.</li>\n<li>The agglomerations greatly reduce the fees paid per value positioned.</li>\n<li>Some attestations crucially depend on MPT time. Height &amp; a single timestamp are not always (usually?) viable options.</li>\n<li>A hashrate majority can hold back MPT time.</li>\n<li>The hashrate majority seeks to maximize net present value of their hashrate.</li>\n<li>A hashrate majority could profit from making the attestations appear earlier in MPT time than real time.</li>\n<li>The profit from 6 can exceed the harm it causes to the majority hashrate\u2019s interest in the current and future BTC value on exchanges.</li>\n</ol>\n<p>The above is proof of the first sentence. The following is proof of the second.</p>\n<ol start=\"8\">\n<li>Bitcoin doesn\u2019t use monotonic timestamps on every block.</li>\n<li>Lamport\u2019s 1978 paper on clocks and timestamps applies to all concepts of distributed consensus and it proves monotonic timestamps must be used.</li>\n<li>Monotonicity on every timestamp prevents a hashrate majority from being able to hold MPT back significantly unless it\u2019s &gt;95% of hashrate or it orphans the honest hashrate\u2019s blocks.</li>\n<li>At least 5% of hashrate will be honest.</li>\n<li>The degree to which the majority hashrate can profit from 6 depends on the degree to which it can hold MPT back significantly.</li>\n<li>The majority hashrate\u2019s interest in the current and future BTC value on exchanges decreases in value as the number of orphans of honest miners increases.</li>\n<li>Conjecture: Due to 12 and 13, the profit from 6 will not exceed the losses mentioned in 7.</li>\n</ol>\n<p>Monotonic timestamps would enable MPT (and therefore Opentimestamps) to be supported by PoW.  The goal of Opentimestamps is to have PoW decentrally support the claim that the stamps occurred at a certain point in real time or earlier, not that they definitely occurred before a certain time when they didn\u2019t.</p>\n<p>The attestations my also change the movement of value based on a minimal or maximum <em>difference</em> in real time which the hashrate majority could thwart (initiate or prevent) by making MTP change a month in a single block or by holding MPT back.</p>\n<p>There are two consensus mechanism at work in bitcoin when you don\u2019t have monotonicity. One is PoW based on single timestamps that dictate difficulty, not directly subject to the MPT. The other is a median of the block winners (MPT) which is a permissioned mechanism.</p>",
+  "post_number": 59,
+  "post_type": 1,
+  "updated_at": "2024-11-30T13:29:02.779Z",
+  "reply_count": 0,
+  "reply_to_post_number": 57,
+  "quote_count": 0,
+  "incoming_link_count": 5,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 41.4,
+  "yours": false,
+  "topic_id": 710,
+  "topic_slug": "great-consensus-cleanup-revival",
+  "topic_title": "Great Consensus Cleanup Revival",
+  "topic_html_title": "Great Consensus Cleanup Revival",
+  "category_id": 7,
+  "display_username": "Zawy",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 9,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "zawy",
+    "name": "Zawy",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Opentimestamps isn't secure. This is due to bitcoin not adhering to a proven distributed consensus requirement. \n\nUnlike other 51% attacks, this isn't prevented by bitcoin's security model which depends on miners' long-term profit motive. **MPT isn't backed by PoW** because 1) it isn't allowed to imposed a \"reverse\" time limit on the timestamps and difficulty algorithm and 2) manipulating it doesn't seem to harm (and may increase) miners' profit motive.  **Do not use MPT if you want a secure source of decentralized time.** MPT is a permissioned consensus mechanism.\n\nTo falsify the above, one of the following statements must be shown to not be true, or a fault found in the reasoning. It's verbose to make it easier to falsify. \n\nIn short, miners should be able to find a way to profit more from holding MPT time back (due to its affect on Opentimestamps) than it reduces the present value of their equipment.\n\ndefinitions:\n\n\"position\" = existence, possession, and/or transfer.\n\n1. Opentimestamps agglomerates attestations crucial to the position of value.\n2. The agglomerations greatly reduce the fees paid per value positioned. \n3. Some attestations crucially depend on MPT time. Height & a single timestamp are not always (usually?) viable options.\n4. A hashrate majority can hold back MPT time.\n5. The hashrate majority seeks to maximize net present value of their hashrate.\n6. A hashrate majority could profit from making the attestations appear earlier in MPT time than real time. \n7. The profit from 6 can exceed the harm it causes to the majority hashrate's interest in the current and future BTC value on exchanges.\n\nThe above is proof of the first sentence. The following is proof of the second.\n\n8. Bitcoin doesn't use monotonic timestamps on every block.\n9. Lamport's 1978 paper on clocks and timestamps applies to all concepts of distributed consensus and it proves monotonic timestamps must be used. \n10. Monotonicity on every timestamp prevents a hashrate majority from being able to hold MPT back significantly unless it's >95% of hashrate or it orphans the honest hashrate's blocks.\n11. At least 5% of hashrate will be honest.\n12. The degree to which the majority hashrate can profit from 6 depends on the degree to which it can hold MPT back significantly. \n13. The majority hashrate's interest in the current and future BTC value on exchanges decreases in value as the number of orphans of honest miners increases.\n14. Conjecture: Due to 12 and 13, the profit from 6 will not exceed the losses mentioned in 7. \n\nMonotonic timestamps would enable MPT (and therefore Opentimestamps) to be supported by PoW.  The goal of Opentimestamps is to have PoW decentrally support the claim that the stamps occurred at a certain point in real time or earlier, not that they definitely occurred before a certain time when they didn't.\n\nThe attestations my also change the movement of value based on a minimal or maximum *difference* in real time which the hashrate majority could thwart (initiate or prevent) by making MTP change a month in a single block or by holding MPT back.\n\nThere are two consensus mechanism at work in bitcoin when you don't have monotonicity. One is PoW based on single timestamps that dictate difficulty, not directly subject to the MPT. The other is a median of the block winners (MPT) which is a permissioned mechanism.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 502,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

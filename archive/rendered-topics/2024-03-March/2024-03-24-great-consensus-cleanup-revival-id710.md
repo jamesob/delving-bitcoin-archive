@@ -1150,3 +1150,43 @@ Mostly that a field with a fairly free choice of values normally having differen
 
 -------------------------
 
+zawy | 2024-11-30 13:29:02 UTC | #59
+
+Opentimestamps isn't secure. This is due to bitcoin not adhering to a proven distributed consensus requirement. 
+
+Unlike other 51% attacks, this isn't prevented by bitcoin's security model which depends on miners' long-term profit motive. **MPT isn't backed by PoW** because 1) it isn't allowed to imposed a "reverse" time limit on the timestamps and difficulty algorithm and 2) manipulating it doesn't seem to harm (and may increase) miners' profit motive.  **Do not use MPT if you want a secure source of decentralized time.** MPT is a permissioned consensus mechanism.
+
+To falsify the above, one of the following statements must be shown to not be true, or a fault found in the reasoning. It's verbose to make it easier to falsify. 
+
+In short, miners should be able to find a way to profit more from holding MPT time back (due to its affect on Opentimestamps) than it reduces the present value of their equipment.
+
+definitions:
+
+"position" = existence, possession, and/or transfer.
+
+1. Opentimestamps agglomerates attestations crucial to the position of value.
+2. The agglomerations greatly reduce the fees paid per value positioned. 
+3. Some attestations crucially depend on MPT time. Height & a single timestamp are not always (usually?) viable options.
+4. A hashrate majority can hold back MPT time.
+5. The hashrate majority seeks to maximize net present value of their hashrate.
+6. A hashrate majority could profit from making the attestations appear earlier in MPT time than real time. 
+7. The profit from 6 can exceed the harm it causes to the majority hashrate's interest in the current and future BTC value on exchanges.
+
+The above is proof of the first sentence. The following is proof of the second.
+
+8. Bitcoin doesn't use monotonic timestamps on every block.
+9. Lamport's 1978 paper on clocks and timestamps applies to all concepts of distributed consensus and it proves monotonic timestamps must be used. 
+10. Monotonicity on every timestamp prevents a hashrate majority from being able to hold MPT back significantly unless it's >95% of hashrate or it orphans the honest hashrate's blocks.
+11. At least 5% of hashrate will be honest.
+12. The degree to which the majority hashrate can profit from 6 depends on the degree to which it can hold MPT back significantly. 
+13. The majority hashrate's interest in the current and future BTC value on exchanges decreases in value as the number of orphans of honest miners increases.
+14. Conjecture: Due to 12 and 13, the profit from 6 will not exceed the losses mentioned in 7. 
+
+Monotonic timestamps would enable MPT (and therefore Opentimestamps) to be supported by PoW.  The goal of Opentimestamps is to have PoW decentrally support the claim that the stamps occurred at a certain point in real time or earlier, not that they definitely occurred before a certain time when they didn't.
+
+The attestations my also change the movement of value based on a minimal or maximum *difference* in real time which the hashrate majority could thwart (initiate or prevent) by making MTP change a month in a single block or by holding MPT back.
+
+There are two consensus mechanism at work in bitcoin when you don't have monotonicity. One is PoW based on single timestamps that dictate difficulty, not directly subject to the MPT. The other is a median of the block winners (MPT) which is a permissioned mechanism.
+
+-------------------------
+
