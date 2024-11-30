@@ -130,3 +130,23 @@ So that wouldn't discourage slow-to-validate blocks, but simply make them less h
 
 -------------------------
 
+evoskuil | 2024-11-30 07:12:33 UTC | #9
+
+[quote="sjors, post:8, topic:1288"]
+If you know the attack long in advance you can do that.
+[/quote]
+
+We are aware of such scenarios now. My point was really rhetorical. It is not actually clear what constitutes an attack.
+
+-------------------------
+
+evoskuil | 2024-11-30 07:18:28 UTC | #10
+
+[quote="sjors, post:8, topic:1288"]
+A reorg more than 6 blocks deep would probably cause more economic harm than a block that takes an hour to validate.
+[/quote]
+
+I think you missed my point. The only blocks that could compete in a legitimate race to validate are those with the same amount of work (or in a fork with the same amount of work). I assume that's not generally common, but I don't know. If it's rare then such a feature wouldn't accomplish much.
+
+-------------------------
+

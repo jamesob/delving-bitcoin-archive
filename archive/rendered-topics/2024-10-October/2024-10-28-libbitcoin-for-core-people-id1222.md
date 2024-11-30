@@ -252,3 +252,57 @@ Bitcoin Core may parallelize requests but block processing is still sequential.
 
 -------------------------
 
+evoskuil | 2024-11-30 06:49:18 UTC | #14
+
+[quote="sjors, post:12, topic:1222"]
+Will libbitcoin do it in 20 minutes?
+[/quote]
+
+The benchmarks we've published are based on a 2.3Gbps (down, 40Mbps up, measured speed) Internet connection. It would not be possible to download to block 850k in 20 minutes in this case. The theoretical limit is around 40 minutes and we hit closer to 60. However with a 5 Gbps connection I suspect it would be close to 30 mins.
+
+-------------------------
+
+evoskuil | 2024-11-30 06:53:30 UTC | #15
+
+[quote="sjors, post:12, topic:1222"]
+presumably not, if just because of disk speed limits
+[/quote]
+
+Disk speed isn't the limiting factor, at least in these benchmarks. The store is append-only memory maps, so the only disk activity during IBD is periodic flushing to disk to free up more RAM. With sufficient RAM the disk is barely touched.
+
+-------------------------
+
+evoskuil | 2024-11-30 07:02:50 UTC | #16
+
+[quote="AntoineP, post:13, topic:1222"]
+Bitcoin Core may parallelize requests but block processing is still sequential.
+[/quote]
+
+The Core parallel download is very limited, and really operates as just a read-ahead cache. Libbitcoin downloads, checks, stores, and indexes concurrently on all available (or configured) threads. The full chain can be concurrently downloading, though we generally narrow the window to 50k blocks or less to improve data locality and prevent extended gaps while validating. The store is fully write-concurrent and the overall design is lock-free (proactor pattern).
+
+When fully validating, Libbitcoin also validates blocks concurrently on all available (or configured) threads - not just scripts, all accept/connect checks, and not limited to one block. A concurrent download window of about 50k blocks generally ensures that the validator threads are rarely starved.
+
+-------------------------
+
+evoskuil | 2024-11-30 07:33:40 UTC | #17
+
+[quote="sjors, post:12, topic:1222"]
+despite a native sha256 handicap
+[/quote]
+
+On a low thread count machine this would be noticeable, but since CPU is not maxed out it is not a factor. We have noticed that this significantly affects Core, even though CPU is never close to max. This is an indication of how sequential is the operation.
+
+FWIW we do have sse4 (4), avx2 (8), and avx512 (16 channel) Merkle tree and single/multiple block message scheduling vectorizations [though the benchmark hardware does not have avx512], are presently adding SHANI, and take advantage of several other SHA optimizations (e.g. cached whole block padding, function rewrites, vectorization-friendly array copies).
+
+-------------------------
+
+evoskuil | 2024-11-30 07:54:13 UTC | #18
+
+I'll just add that Libbitcoin is doing a lot more useful work in this much shorter timeframe. We always index all transactions. Our Core benchmarks are with txindex disabled. We also always index all spenders - which input(s) spend a given output - which is a huge amount of information. All chain objects are stored relationally with full constant time bidirectional indexation.
+
+We optionally can add the full Electrum style address index (e.g. ElectrumX) for an additional 30 minutes of sync time. It can take ElectrumX days to pull this same information out of a local Core node and index it in the same manner. Additionally the query response is orders of magnitude faster.
+
+We've also noticed Core shutdown times of 10 minutes or more. BN shutdown time is generally less than a minute even after a full sync. We haven't included that factor in our comparisons.
+
+-------------------------
+

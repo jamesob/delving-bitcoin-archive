@@ -1140,3 +1140,13 @@ Murch's fix seems the easiest and safest in terms of preventing an attack and no
 
 -------------------------
 
+ajtowns | 2024-11-30 09:28:17 UTC | #58
+
+[quote="AntoineP, post:56, topic:710"]
+Why does it seem somewhat better to you?
+[/quote]
+
+Mostly that a field with a fairly free choice of values normally having different constraints apply to it 0.05% of the time seems a bit error prone, in that it would be easy to not take the 0.05% chance thing into account, and cost people money as a result... But I suppose the same complaint would apply to the original timewarp fix too, and these are really 0% chance things outside of very high cost attacks anyway.
+
+-------------------------
+

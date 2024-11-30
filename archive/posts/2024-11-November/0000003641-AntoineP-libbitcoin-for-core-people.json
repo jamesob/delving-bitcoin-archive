@@ -8,13 +8,13 @@
   "post_number": 13,
   "post_type": 1,
   "updated_at": "2024-11-29T14:08:23.249Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 12,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 22.4,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -38,7 +38,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"sjors, post:12, topic:1222\"]\nIIUC there\u2019s only two things that Bitcoin Core does in parallel during IBD:\n\n1. Block download\n[/quote]\n\nBitcoin Core may parallelize requests but block processing is still sequential.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

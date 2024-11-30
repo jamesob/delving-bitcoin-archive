@@ -14,7 +14,7 @@
   "incoming_link_count": 0,
   "reads": 15,
   "readers_count": 14,
-  "score": 8.0,
+  "score": 23.0,
   "yours": false,
   "topic_id": 1288,
   "topic_slug": "can-parallel-validation-side-step-the-slow-block-issue",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sjors, post:1, topic:1288\"]\nDoes the large miner advantage stay in place even if their blocks are at increased risk of reorg?\n[/quote]\n\nArguably, it's an advantage to have mined the block, because at that point you know it's valid and can mine on top of it immediately; meanwhile others have to wait until the block propagates and validates. If you're mining empty blocks as soon as the header propagates, you might only be losing fees and adding a mild risk of building on an invalid block, but that's still some advantage for the original miner.\n\nI think making sure core could still quickly do compact block relay (of missing transactions) while the block was being validating, would improve things a bunch. Having a well connected FIBRE relay network would also probably help (as it relays things just based on PoW and doesn't block on validation, aiui); afaik there isn't a public FIBRE network these days. At the moment, I'd expect block relay to be pretty severely impacted by slow validation.\n\nWould be interesting to see the maths on race to first validation; reorging to fastest to validate seems like it would favour empty blocks and perhaps add a little instability (if different hardware validates blocks at inconsistent speeds eg) which doesn't seem super desirable.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
