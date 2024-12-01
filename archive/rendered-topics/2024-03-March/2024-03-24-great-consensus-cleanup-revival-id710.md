@@ -1150,11 +1150,13 @@ Mostly that a field with a fairly free choice of values normally having differen
 
 -------------------------
 
-zawy | 2024-11-30 13:29:02 UTC | #59
+zawy | 2024-11-30 22:52:09 UTC | #59
 
-Opentimestamps isn't secure. This is due to bitcoin not adhering to a proven distributed consensus requirement. 
+Opentimestamps isn't secure [edit: to the extent MPT time is used as the measure of time instead of the highest timestamp value seen]. This is due to bitcoin not adhering to a proven distributed consensus requirement. 
 
-Unlike other 51% attacks, this isn't prevented by bitcoin's security model which depends on miners' long-term profit motive. **MPT isn't backed by PoW** because 1) it isn't allowed to imposed a "reverse" time limit on the timestamps and difficulty algorithm and 2) manipulating it doesn't seem to harm (and may increase) miners' profit motive.  **Do not use MPT if you want a secure source of decentralized time.** MPT is a permissioned consensus mechanism.
+[edit: Here's a simple solution: don't use MPT as the official bitcoin time. Use the timestamp with the highest value.] 
+
+Unlike other 51% attacks, this isn't prevented by bitcoin's security model which depends on miners' long-term profit motive. **MPT isn't suported by PoW** because 1) bitcoin doesn't imposed a "reverse" time limit on it, and 2) manipulating it doesn't necessarily harm (and may increase) miners' profit motive.  MPT isn't a secure source of decentralized time. It's a lie to say bitcoin provides a secure decentralized source of time.  MPT is a permissioned consensus mechanism. 
 
 To falsify the above, one of the following statements must be shown to not be true, or a fault found in the reasoning. It's verbose to make it easier to falsify. 
 
@@ -1166,7 +1168,7 @@ definitions:
 
 1. Opentimestamps agglomerates attestations crucial to the position of value.
 2. The agglomerations greatly reduce the fees paid per value positioned. 
-3. Some attestations crucially depend on MPT time. Height & a single timestamp are not always (usually?) viable options.
+3. Some attestations crucially depend on MPT time. Height & a single timestamp are not always useful options.
 4. A hashrate majority can hold back MPT time.
 5. The hashrate majority seeks to maximize net present value of their hashrate.
 6. A hashrate majority could profit from making the attestations appear earlier in MPT time than real time. 

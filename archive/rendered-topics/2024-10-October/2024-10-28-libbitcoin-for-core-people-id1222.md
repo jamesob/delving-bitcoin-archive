@@ -316,3 +316,9 @@ Maybe time to revisit refactors like those?
 
 -------------------------
 
+evoskuil | 2024-11-30 21:44:53 UTC | #20
+
+Libbitcoin adds all block input points (actually references to points) to a hashmap while checking for existence on the emplace. Constant time per input. It’s done during block.check, so it’s coincident with download, which is fully concurrent.
+
+-------------------------
+
