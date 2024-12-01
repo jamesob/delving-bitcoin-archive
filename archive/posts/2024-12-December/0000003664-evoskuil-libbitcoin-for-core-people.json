@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Performance at the chain \u201ctip\u201d (we refer to \u201ctop\u201d, since the linearizarion of the block tree is a stack) is a reasonable consideration. However this is really about compact blocks. Interestingly previous comments about block serialization work in reverse here.\n\nCore stores whole confirmed blocks, so it must gather up all transactions from its memory pool, validate, and then serialize the block, and update the utxo store. This is an *extra* cost imposed by its data model, in a time-critical phase.\n\nLibbitcoin does not have to construct or serialize a block, and does not have a utxo store to update. That alone gives it a large advantage.\n\nBut also, unconfirmed txs are validated and stored in the same table as block txs. So under compact blocks there is no need to validate or store any known txs. The block is constructed from unconfirmed tx metadata only, retained in memory. Validation of the block from this tx metadata is trivial. So this is likely to be significantly faster than Core, not despite the storage model, but because of it.\n\nFinally, this data model effectively eliminates the \u201cmempool\u201d overflow issues with which Core continues to struggle.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
