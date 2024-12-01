@@ -338,3 +338,17 @@ If one doubts this, consider that when downloading we deserialize a block off th
 
 -------------------------
 
+evoskuil | 2024-12-01 15:05:36 UTC | #23
+
+Performance at the chain “tip” (we refer to “top”, since the linearizarion of the block tree is a stack) is a reasonable consideration. However this is really about compact blocks. Interestingly previous comments about block serialization work in reverse here.
+
+Core stores whole confirmed blocks, so it must gather up all transactions from its memory pool, validate, and then serialize the block, and update the utxo store. This is an *extra* cost imposed by its data model, in a time-critical phase.
+
+Libbitcoin does not have to construct or serialize a block, and does not have a utxo store to update. That alone gives it a large advantage.
+
+But also, unconfirmed txs are validated and stored in the same table as block txs. So under compact blocks there is no need to validate or store any known txs. The block is constructed from unconfirmed tx metadata only, retained in memory. Validation of the block from this tx metadata is trivial. So this is likely to be significantly faster than Core, not despite the storage model, but because of it.
+
+Finally, this data model effectively eliminates the “mempool” overflow issues with which Core continues to struggle.
+
+-------------------------
+
