@@ -322,3 +322,19 @@ Libbitcoin adds all block input points (actually references to points) to a hash
 
 -------------------------
 
+evoskuil | 2024-12-01 14:40:35 UTC | #21
+
+Comments above regarding where Libbitcoin achieves its performance advantage are not correct. The major performance advantage comes as a consequence of massive parallelism.
+
+Milestone and assume valid are from a logical and security standpoint the exact same feature. Libbitcoin does not perform unnecessary checks under milestone. Core must build a utxo store even under assume valid, and this ordered building of the utxo set imposes strict ordering - preventing parallelism. It also operates as spend checks, but those unnecessary checks cannot be avoided due to the need to build the utxo set.
+
+-------------------------
+
+evoskuil | 2024-12-01 14:52:52 UTC | #22
+
+Regarding block serialization, it is true that Libbitcoin must compose outgoing blocks. However the store and composition are significantly faster than the network, and require very little CPU. Consequently response time is not impacted.
+
+If one doubts this, consider that when downloading we deserialize a block off the wire, hash all txs (twice for segwits) and merkle hash (twice for segwits) perform block checks, and serialize the block to the store, with full indexation. When doing this on 64 threads concurrently (without shani) the store is *still* outpacing the 2.3Gbps network and completes in under an hour. Deserialization of blocks is not an issue.
+
+-------------------------
+

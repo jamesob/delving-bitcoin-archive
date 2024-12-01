@@ -1150,11 +1150,11 @@ Mostly that a field with a fairly free choice of values normally having differen
 
 -------------------------
 
-zawy | 2024-11-30 22:52:09 UTC | #59
+zawy | 2024-12-01 11:24:27 UTC | #59
 
 Opentimestamps isn't secure [edit: to the extent MPT time is used as the measure of time instead of the highest timestamp value seen]. This is due to bitcoin not adhering to a proven distributed consensus requirement. 
 
-[edit: Here's a simple solution: don't use MPT as the official bitcoin time. Use the timestamp with the highest value.] 
+[edit: Here's a simple solution if attacks on Opentimestamps start occurring: don't use MPT as the official bitcoin time. Use the timestamp in the prior 11 blocks that has with the highest value. It can only be 2 hours at most into the future, and being in the future instead of past is consistent with a working timestamp.] 
 
 Unlike other 51% attacks, this isn't prevented by bitcoin's security model which depends on miners' long-term profit motive. **MPT isn't suported by PoW** because 1) bitcoin doesn't imposed a "reverse" time limit on it, and 2) manipulating it doesn't necessarily harm (and may increase) miners' profit motive.  MPT isn't a secure source of decentralized time. It's a lie to say bitcoin provides a secure decentralized source of time.  MPT is a permissioned consensus mechanism. 
 
@@ -1189,6 +1189,14 @@ Monotonic timestamps would enable MPT (and therefore Opentimestamps) to be suppo
 The attestations my also change the movement of value based on a minimal or maximum *difference* in real time which the hashrate majority could thwart (initiate or prevent) by making MTP change a month in a single block or by holding MPT back.
 
 There are two consensus mechanism at work in bitcoin when you don't have monotonicity. One is PoW based on single timestamps that dictate difficulty, not directly subject to the MPT. The other is a median of the block winners (MPT) which is a permissioned mechanism.
+
+-------------------------
+
+zawy | 2024-12-01 12:00:59 UTC | #60
+
+If silence means everyone agrees MTP isn't secure, isn't supported by PoW, and shouldn't be used or recommended for any purpose that makes those assumptions, here's an alternative that doesn't require a change to bitcoin. Instead of using MTP, use the highest timestamp out of the prior 11 blocks and the current timestamp. This would be at most 2 hours in future which is consistent with timestamping (whereas being in the past isn't). This has PoW support and is enforcing monotonicity. 
+
+Miners should enforce monotonicity even if it's not a requirement, but I guess it's too early to require other miners to do it.
 
 -------------------------
 
