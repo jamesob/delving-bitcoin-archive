@@ -316,9 +316,9 @@ Maybe time to revisit refactors like those?
 
 -------------------------
 
-evoskuil | 2024-11-30 21:44:53 UTC | #20
+evoskuil | 2024-12-01 16:34:08 UTC | #20
 
-Libbitcoin adds all block input points (actually references to points) to a hashmap while checking for existence on the emplace. Constant time per input. It’s done during block.check, so it’s coincident with download, which is fully concurrent.
+(post deleted by author)
 
 -------------------------
 
@@ -349,6 +349,16 @@ Libbitcoin does not have to construct or serialize a block, and does not have a 
 But also, unconfirmed txs are validated and stored in the same table as block txs. So under compact blocks there is no need to validate or store any known txs. The block is constructed from unconfirmed tx metadata only, retained in memory. Validation of the block from this tx metadata is trivial. So this is likely to be significantly faster than Core, not despite the storage model, but because of it.
 
 Finally, this data model effectively eliminates the “mempool” overflow issues with which Core continues to struggle.
+
+-------------------------
+
+evoskuil | 2024-12-01 16:34:03 UTC | #24
+
+[quote="JeremyRubin, post:19, topic:1222"]
+Maybe time to revisit refactors like those?
+[/quote]
+
+Libbitcoin adds all block input points (actually references to points) to a hashmap while checking for existence on the emplace. Constant time per input. It’s done during block.check, so it’s coincident with download, which is fully concurrent.
 
 -------------------------
 

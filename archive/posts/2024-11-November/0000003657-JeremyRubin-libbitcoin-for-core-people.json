@@ -8,13 +8,13 @@
   "post_number": 19,
   "post_type": 1,
   "updated_at": "2024-11-30T17:58:01.211Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 3,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 17.2,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 37.8,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'll just note that when I was actively doing research into performance, there were a lot of architectural nudges that could unlock more perf in core's architecture.\n\ne.g., https://github.com/bitcoin/bitcoin/pull/14837 was a PR that separates the tx graph connection logic outside of the processing of transactions, which would also longer term enable refactors to make processing of scripts more efficient.\n\nMaybe time to revisit refactors like those?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
