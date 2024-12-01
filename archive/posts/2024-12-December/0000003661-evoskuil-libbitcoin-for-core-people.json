@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Comments above regarding where Libbitcoin achieves its performance advantage are not correct. The major performance advantage comes as a consequence of massive parallelism.\n\nMilestone and assume valid are from a logical and security standpoint the exact same feature. Libbitcoin does not perform unnecessary checks under milestone. Core must build a utxo store even under assume valid, and this ordered building of the utxo set imposes strict ordering - preventing parallelism. It also operates as spend checks, but those unnecessary checks cannot be avoided due to the need to build the utxo set.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

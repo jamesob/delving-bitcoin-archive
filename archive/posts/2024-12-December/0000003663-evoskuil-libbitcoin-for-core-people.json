@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "Regarding block serialization, it is true that Libbitcoin must compose outgoing blocks. However the store and composition are significantly faster than the network, and require very little CPU. Consequently response time is not impacted.\n\nIf one doubts this, consider that when downloading we deserialize a block off the wire, hash all txs (twice for segwits) and merkle hash (twice for segwits) perform block checks, and serialize the block to the store, with full indexation. When doing this on 64 threads concurrently (without shani) the store is *still* outpacing the 2.3Gbps network and completes in under an hour. Deserialization of blocks is not an issue.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
