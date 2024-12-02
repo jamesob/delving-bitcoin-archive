@@ -316,12 +316,6 @@ Maybe time to revisit refactors like those?
 
 -------------------------
 
-evoskuil | 2024-12-01 16:34:08 UTC | #20
-
-(post deleted by author)
-
--------------------------
-
 evoskuil | 2024-12-01 14:40:35 UTC | #21
 
 Comments above regarding where Libbitcoin achieves its performance advantage are not correct. The major performance advantage comes as a consequence of massive parallelism.
@@ -359,6 +353,50 @@ Maybe time to revisit refactors like those?
 [/quote]
 
 Libbitcoin adds all block input points (actually references to points) to a hashmap while checking for existence on the emplace. Constant time per input. It’s done during block.check, so it’s coincident with download, which is fully concurrent.
+
+-------------------------
+
+andrewtoth | 2024-12-02 17:36:40 UTC | #25
+
+[quote="sjors, post:12, topic:1222"]
+There certainly room to do more things in parallel
+[/quote]
+
+I have a PR open to fetch inputs from disk in parallel. https://github.com/bitcoin/bitcoin/pull/31132
+
+-------------------------
+
+andrewtoth | 2024-12-02 17:41:04 UTC | #26
+
+[quote="sjors, post:12, topic:1222"]
+For example I have two machines than can do IBD in about 5 hours
+[/quote]
+
+Also worth trying this again since https://github.com/bitcoin/bitcoin/pull/30039 has been merged. I can do IBD in 5 hours with default dbcache settings now.
+
+-------------------------
+
+evoskuil | 2024-12-02 19:09:24 UTC | #27
+
+I don’t understand why inputs are being fetched from a cache at all. Only one block at a time is being validated, and the block had to have just been parsed. Why not just enumerate the inputs and fire off the script validation jobs?
+
+-------------------------
+
+andrewtoth | 2024-12-02 19:14:53 UTC | #28
+
+The block has been parsed, but we need to check whether all inputs are unspent. That cannot happen in parallel, since it depends on the order of transactions included in the block. The inputs of one transaction can spend outputs from a previous transaction included in the block. So, each transaction must lookup and remove each input's prevout from the utxo set, failing if not found. Then each output must be inserted into the utxo set before the next transaction is checked.
+
+-------------------------
+
+evoskuil | 2024-12-02 19:44:13 UTC | #29
+
+These are two distinct block rules. (1) no forward references, (2) no double spends. Rule 1 is pointless, likely just an implementation artifact. Rule 2 is just a check for duplicate points within a block.
+
+These are context free, they do not require a utxo store or any chain context. Rule 1 requires order, rule 2 does not. Libbitcoin splits these two rules and evaluates them independently. This allows the second to be evaluated using concurrency.
+
+However, concurrency for such a fast algorithm with a bounded set size proved counterproductive - especially since it is part of block.check and is therefore evaluated concurrently across blocks.
+
+Given the need to populate and depopulate a utxo store, these checks become tied to it. However you are referring to lookup of previous outputs, not inputs. I was asking why there is an input fetch.
 
 -------------------------
 

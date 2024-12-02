@@ -104,3 +104,9 @@ So I think that gossip change needs to be put in place first before we can discu
 
 -------------------------
 
+ZmnSCPxj | 2024-12-02 16:11:13 UTC | #4
+
+Concrete bLIP spec: https://github.com/lightning/blips/pull/56
+
+-------------------------
+

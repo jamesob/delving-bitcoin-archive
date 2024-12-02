@@ -284,3 +284,17 @@ It will not be a mundane task to define, prove and implement a permissionless co
 
 -------------------------
 
+marathon-gary | 2024-12-02 18:20:14 UTC | #8
+
+It seems that Radpool is likely to be realized quicker than Braidpool. Is that a fair conclusion to derive from this thread?
+
+It is nice to see that many of the pieces can be reapplied from one proposal to the next.
+
+[quote="jungly, post:4, topic:1262"]
+FWIW, I think we should build delay tolerant protocols.
+[/quote]
+
+I imagine any interactive protocol can benefit from delay tolerance, or at a minimum, well defined timing?
+
+-------------------------
+

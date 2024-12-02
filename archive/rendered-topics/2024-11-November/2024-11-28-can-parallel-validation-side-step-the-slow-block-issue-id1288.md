@@ -150,3 +150,104 @@ I think you missed my point. The only blocks that could compete in a legitimate 
 
 -------------------------
 
+AntoineP | 2024-12-02 18:23:17 UTC | #11
+
+Unfortunately not.
+
+When presented a block a miner has the choice to mine on top of it or keep mining on the previous tip.
+- If the block is valid, it's in his best interest (and the network's) to mine on top of it \[0].
+- If the block is invalid, it's in his best interest (and the network's) to mine on top of the previous tip.
+
+However this is assuming the miner knows instantly whether the block is valid. Until he knows the validity of the block the miner only has two poor choices: keep mining on a likely outdated tip or take the risk of mining on top of a potentially invalid block.
+
+It seems likely that a miner would prefer the first option, by assuming mining on the old tip is wasted anyways and that a miner wouldn't waste a valid PoW on an invalid block. This is also [what we observe(d)](https://bitcoin.stackexchange.com/q/38437/101498) in practice.
+
+The idea you present involves 1) a miner being presented a block, figuring out it's expensive to validate, discarding it, and instead continuing to mine on top of the old tip to then 2) find a normal block at the same height before other miners are done validating the expensive one and 3) other miners being presented with this normal block to start building on top of it in place of the competing expensive block.
+
+Besides all the issues that may be created by implementing 3) and the low likelihood of 2), i don't think we can reasonably expect 1) to happen in the first place. A minority miner does not want to discard a potentially-valid block.
+
+It is also possible, although improbable, that a race between a normal and an expensive block could also happen naturally, but in this case the expensive block is already at a severe disadvantage due to how its propagation is hindered. In this case having miners who received the expensive block first also validate the normal block in parallel would further disadvantage the expensive block. But this is only a marginal improvement in an unlikely scenario, at the cost of high implementation complexity.
+
+Finally i'd like to point out there is a third option for miners when presented a block that is potentially expensive to validate: just stop mining until you are done validating. This is unfortunate for the network. When miners distrust each other this is also more rationale than wasting electricity mining on a potentially outdated tip or a potentially invalid block. Unfortunately what i expect instead is that miners would build tighter trust relationship to reduce their risk of SPV mining. In this sense expensive block validation is an additional mining centralization pressure which i think we should mitigate by bounding the maximum block validation time.
+
+[quote="sjors, post:1, topic:1288"]
+And with every future soft fork we need to deeply worry about block validation time.
+[/quote]
+
+In any case we always do need to deeply worry about how a new feature may impact block validation time?
+
+[quote="sjors, post:1, topic:1288"]
+**It would be really nice if we can make slow blocks a problem only for the miner who produced one.**
+[/quote]
+
+Note that even if this resolved the attack against other miners this would also be a concern, in the sense that it would be a new dimension to optimize for when building a block template.
+
+[quote="sjors, post:1, topic:1288"]
+Does the large miner advantage stay in place even if their blocks are at increased risk of reorg?
+[/quote]
+
+The attacker does not need to be large, although this could degenerate in a race to the bottom where large miners eventually benefit. But i think the race to the bottom scenario is unlikely if the attack necessitates a large number of preparation blocks.
+
+That said as discussed previously i don't think your idea makes it so their blocks are at a higher risk of reorg.
+
+[quote="sjors, post:1, topic:1288"]
+If miners typically run higher end hardware for their node, does that mean slow blocks propagate just fine between miners, with the other nodes in the network being out of the loop?
+[/quote]
+
+If "miners" is a group of tightly interconnected nodes, it means expensive blocks relay faster (not "just fine" though :slight_smile:) between them. But i don't think we can assume such a network topology.
+
+Also an attacker exploiting this would probably want to directly connect to as much of his competition as he can.
+
+[quote="sjors, post:1, topic:1288"]
+Does it create an incentive for miners who trust each other (or collude) to skip validation so they always build on the first-seen block, ignoring a fast-to-validate competitor block?
+[/quote]
+
+I think it is a likely outcome, yes. Along with (further) tightening of trust relationship between miners to edge their risk of doing this, as discussed above.
+
+[quote="sjors, post:1, topic:1288"]
+Does this accidentally introduce an incentive to produce empty blocks?
+[/quote]
+
+Empty blocks are a symptom of SPV mining due to propagation time. If the miner is stalled due to validation time he already has the full block and therefore can include transactions in his template.
+
+In passing, the fact miners are SPV mining due to propagation time, which are tiny compared to the potential validation times we are talking about, confirms we should be concerned expensive blocks would significantly incentivize them to skip full validation / collude.
+
+
+----
+
+\[0] As long as the miner doesn't have more than 50% of the hashrate of course.
+
+-------------------------
+
+AntoineP | 2024-12-02 18:39:59 UTC | #12
+
+[quote="evoskuil, post:6, topic:1288"]
+This seems to assume that all blocks of the same height have the same amount of work.
+[/quote]
+
+All blocks with the same parent will always have the same amount of work.
+
+[quote="evoskuil, post:2, topic:1288"]
+Concurrent validation of competing blocks would only make sense if they had the same amount of work. I’m have no idea how common this is.
+[/quote]
+
+[Fork.observer](https://fork.observer/) says there has been 23 1-block reorgs since block height [845,625 (2024-05-29)](https://blockstream.info/block/000000000000000000034231f368448e06b644716fc11e28b4aa23005b3f0cdd).
+
+[quote="ajtowns, post:7, topic:1288"]
+At the moment, I’d expect block relay to be pretty severely impacted by slow validation.
+[/quote]
+
+This is also what i would expect and is confirmed by the couple basic experiments i ran on Warnet. Since the transaction in the block wasn't previously announced the propagation time to a node is the validation time times the number of nodes on the shorter path between it and the emitter.
+
+-------------------------
+
+evoskuil | 2024-12-02 19:49:02 UTC | #13
+
+[quote="AntoineP, post:12, topic:1288"]
+All blocks with the same parent will always have the same amount of work.
+[/quote]
+
+Yes, my mistake - thanks.
+
+-------------------------
+
