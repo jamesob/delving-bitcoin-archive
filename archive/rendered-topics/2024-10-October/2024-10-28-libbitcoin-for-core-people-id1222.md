@@ -462,11 +462,11 @@ Existence and spentness are all about block order, we call that "confirmability"
 
 -------------------------
 
-andrewtoth | 2024-12-02 20:35:13 UTC | #35
+andrewtoth | 2024-12-02 20:37:12 UTC | #35
 
 Yes, and I believe any check that requires total or partial order is skipped if below the milestone block. This is what allows a sync in an hour. So, I think it's still accurate to say that not looking up input prevouts is where the main speedup is.
 
-Looking at a flamegraph of Bitcoin Core IBD, the majority of time is spent looking up input prevouts. That's why parallelizing that provides a nice speedup. Skipping it entirely though is not possible since we would not have a utxo set at the end.
+Looking at a flamegraph of Bitcoin Core IBD, the majority of time is spent looking up input prevouts. That's why parallelizing that provides a nice speedup. Skipping it entirely though is not possible since we would not have a utxo set at the end, which is not a constraint that libbitcoin has.
 
 -------------------------
 
