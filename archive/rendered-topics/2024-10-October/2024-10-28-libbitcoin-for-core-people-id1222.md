@@ -452,11 +452,19 @@ The important observation is that it does not require a total ordering by block.
 
 -------------------------
 
-evoskuil | 2024-12-02 20:27:29 UTC | #34
+evoskuil | 2024-12-02 20:32:25 UTC | #34
 
 I should clarify that rules 4 and 5 (as described above) do require a total ordering by block. It's just that validating scripts (input->output) does not, that's a partial ordering (3). And the forward reference (1) and internal double spend (2) checks impose no ordering requirement.
 
 The trick to obtaining maximal concurrency is factoring necessary constraints such that no unnecessary order is imposed.
+
+Existence and spentness are all about block order, we call that "confirmability" and perform these checks in a "confirmation" phase. Checks such as script execution, and the related prevout queries, run concurrently across blocks in the "validation" phase. Anything that is block-context free (header context is always available) is performed in the "download" phase. The three phases run concurrently.
+
+-------------------------
+
+andrewtoth | 2024-12-02 20:32:46 UTC | #35
+
+Yes, and I believe any check that requires total or partial order is skipped if below the milestone block. This is what allows a sync in an hour. So, I think it's still accurate to say that not looking up input prevouts is where the main speedup is.
 
 -------------------------
 
