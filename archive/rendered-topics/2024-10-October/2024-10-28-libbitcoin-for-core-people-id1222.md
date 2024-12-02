@@ -412,7 +412,7 @@ It is fetching the previous outputs of the inputs.
 
 -------------------------
 
-evoskuil | 2024-12-02 20:09:54 UTC | #31
+evoskuil | 2024-12-02 20:15:49 UTC | #31
 
 [quote="andrewtoth, post:30, topic:1222"]
 It is fetching the previous outputs of the inputs.
@@ -425,6 +425,8 @@ I don’t see how checking if an input exists could be done without chain contex
 [/quote]
 
 I think you mean output (previous output of the input) here as well. If the prevout doesn't exist then the input script will fail to validate. That's just a query for the output during block.connect, which requires no order and is performed concurrently across blocks.
+
+In other words, there are other checks: (1) no forward reference, (2) no [internal] double spend, (3) prevout exists and executes successfully. There is also (4) prevout is in the current or previously-confirmed block, (5) prevout is not spent in any previously-confirmed block [not double spent in current block is #2).
 
 -------------------------
 
