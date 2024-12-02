@@ -42,7 +42,12 @@
   },
   "bookmarked": false,
   "raw": "I think a weaker equivalent of the partial-ordering idea can be implemented in an \"explicit UTXO set\" model, though only prior to the assumevalid point (or anywhere it's known that script validation won't happen).\n\nIf an input is encountered which doesn't exist in the UTXO set, instead add a \"negative UTXO\" entry, reflecting the spend, but not the creation. When the UTXO is later added, they cancel out. If negative UTXOs remain at the end, the chain is invalid (but it would require proper care to assign these failures to the spending, not the creation). This would pretty much allow processing blocks in any order.\n\nWhen script validation is enabled, this isn't possible because the state required to run script validation is pretty much the entire spending transaction, not just a small piece of UTXO data.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
