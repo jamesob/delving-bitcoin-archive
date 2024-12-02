@@ -1192,9 +1192,9 @@ There are two consensus mechanism at work in bitcoin when you don't have monoton
 
 -------------------------
 
-zawy | 2024-12-02 08:29:00 UTC | #60
+zawy | 2024-12-02 11:10:00 UTC | #60
 
-If silence means everyone agrees MTP isn't secure, isn't supported by PoW, and shouldn't be used or recommended for any purpose that makes those assumptions, here's an alternative that doesn't require a change to bitcoin. Instead of using MTP, use the highest timestamp out of the prior 11 blocks and the current timestamp (or more simply, the highest timestamp seen). This would be at most 2 hours in future which is consistent with timestamping (whereas being in the past isn't). This has PoW support and is enforcing monotonicity. 
+If silence means everyone agrees MTP isn't secure, isn't supported by PoW, and shouldn't be used or recommended for any purpose that makes those assumptions, here's an alternative that doesn't require a change to bitcoin. Instead of using MTP, use the highest timestamp out of the prior 11 blocks and the current timestamp (or more simply, the highest timestamp seen). This would be at most 2 hours in future which is consistent with timestamping (whereas being in the past isn't). This has PoW support and is enforcing monotonicity. The highest timestamp seen would have better PoW support if the DAA changed every block which would increase the cost of miners delaying timestamps during the 2 week adjustment period.
 
 Miners should enforce monotonicity even if it's not a requirement.
 
