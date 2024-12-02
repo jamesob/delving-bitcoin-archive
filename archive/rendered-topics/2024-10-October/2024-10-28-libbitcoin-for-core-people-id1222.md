@@ -400,3 +400,15 @@ Given the need to populate and depopulate a utxo store, these checks become tied
 
 -------------------------
 
+andrewtoth | 2024-12-02 20:03:17 UTC | #30
+
+I don't see how checking if an input exists could be done without chain context.
+
+[quote="evoskuil, post:29, topic:1222"]
+However you are referring to lookup of previous outputs, not inputs. I was asking why there is an input fetch.
+[/quote]
+
+It is fetching the previous outputs of the inputs.
+
+-------------------------
+
