@@ -480,3 +480,15 @@ When script validation is performed, this isn't possible because the state requi
 
 -------------------------
 
+evoskuil | 2024-12-02 20:39:53 UTC | #37
+
+[quote="andrewtoth, post:35, topic:1222"]
+So, I think it’s still accurate to say that not looking up input prevouts is where the main speedup is.
+[/quote]
+
+The previous discussion is about full validation. Libbitcoin validates blocks (prevout lookup an script execution) concurrently, which is a significant performance advantage. However, in milestone runs there is no need to look up prevouts.
+
+You might believe that it's the lack of this lookup that saves the time, but it's not. It's the lack of a utxo store imposing a total order on block commitment. This allows us to download, check, store and index blocks concurrently across the entire chain.
+
+-------------------------
+
