@@ -470,3 +470,13 @@ Looking at a flamegraph of Bitcoin Core IBD, the majority of time is spent looki
 
 -------------------------
 
+sipa | 2024-12-02 20:38:57 UTC | #36
+
+I think a weaker equivalent of the partial-ordering idea can be implemented in an "explicit UTXO set" model, though only prior to the assumevalid point (or anywhere it's known that script validation won't happen).
+
+If an input is encountered which doesn't exist in the UTXO set, instead add a "negative UTXO" entry, reflecting the spend, but not the creation. When the UTXO is later added, they cancel out. If negative UTXOs remain at the end, the chain is invalid (but it would require proper care to assign these failures to the spending, not the creation).
+
+When script validation is performed, this isn't possible because the state required to run script validation is pretty much the entire spending transaction, not just a small piece of UTXO data.
+
+-------------------------
+
