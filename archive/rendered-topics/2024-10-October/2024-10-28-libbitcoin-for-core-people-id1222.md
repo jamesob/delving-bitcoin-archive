@@ -430,3 +430,13 @@ In other words, there are other checks: (1) no forward reference, (2) no [intern
 
 -------------------------
 
+andrewtoth | 2024-12-02 20:17:59 UTC | #32
+
+[quote="evoskuil, post:31, topic:1222"]
+If the prevout doesn’t exist then the input script will fail to validate. That’s just a query for the output during block.connect, which requires no order and is performed concurrently across blocks.
+[/quote]
+
+I don't see how this requires no order though. If the transaction which contains the prevout has not been stored yet then this check will fail even if it does exist.
+
+-------------------------
+
