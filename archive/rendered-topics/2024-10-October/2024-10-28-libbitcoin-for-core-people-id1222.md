@@ -452,9 +452,9 @@ The important observation is that it does not require a total ordering by block.
 
 -------------------------
 
-evoskuil | 2024-12-02 20:27:01 UTC | #34
+evoskuil | 2024-12-02 20:27:29 UTC | #34
 
-I should clarify that rules 4 and 5 (as described above) do require a total ordering by block. It's just that validating scripts (input->output) does not, that's a partial ordering (3). And the forward reference and internal double spend checks impose no ordering requirement.
+I should clarify that rules 4 and 5 (as described above) do require a total ordering by block. It's just that validating scripts (input->output) does not, that's a partial ordering (3). And the forward reference (1) and internal double spend (2) checks impose no ordering requirement.
 
 The trick to obtaining maximal concurrency is factoring necessary constraints such that no unnecessary order is imposed.
 
