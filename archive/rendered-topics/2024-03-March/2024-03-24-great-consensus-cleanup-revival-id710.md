@@ -1192,13 +1192,13 @@ There are two consensus mechanism at work in bitcoin when you don't have monoton
 
 -------------------------
 
-zawy | 2024-12-01 19:06:50 UTC | #60
+zawy | 2024-12-02 08:29:00 UTC | #60
 
-If silence means everyone agrees MTP isn't secure, isn't supported by PoW, and shouldn't be used or recommended for any purpose that makes those assumptions, here's an alternative that doesn't require a change to bitcoin. Instead of using MTP, use the highest timestamp out of the prior 11 blocks and the current timestamp. This would be at most 2 hours in future which is consistent with timestamping (whereas being in the past isn't). This has PoW support and is enforcing monotonicity. 
+If silence means everyone agrees MTP isn't secure, isn't supported by PoW, and shouldn't be used or recommended for any purpose that makes those assumptions, here's an alternative that doesn't require a change to bitcoin. Instead of using MTP, use the highest timestamp out of the prior 11 blocks and the current timestamp (or more simply, the highest timestamp seen). This would be at most 2 hours in future which is consistent with timestamping (whereas being in the past isn't). This has PoW support and is enforcing monotonicity. 
 
-Miners should enforce monotonicity even if it's not a requirement, but I guess it's too early to require other miners to do it.
+Miners should enforce monotonicity even if it's not a requirement.
 
-My statements are an exaggeration in this sense: if timestamps are observed to monotonically increase, the MTP and the timestamps are valid and have PoW support.  The degree to which they don't have PoW support is limited by how far out of sequence they get. In other words, if there's a lack of security and lack of PoW support, it can be seen. The problem is if code, script, apps, or legal contracts depend on them as accurate.
+It's not a big problem in this sense: if timestamps are observed to monotonically increase, the MTP and the timestamps are valid and have PoW support.  The degree to which they don't have PoW support is limited by how far out of sequence they get. If it's a problems, it can be seen and the highest timestamp seen can be used. The problem is if code, script, apps, or legal contracts depend on MTP or current timestamps as accurate.
 
 -------------------------
 
