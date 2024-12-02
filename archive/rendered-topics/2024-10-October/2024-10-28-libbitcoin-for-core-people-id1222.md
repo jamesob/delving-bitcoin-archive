@@ -492,3 +492,13 @@ You might believe that it's the lack of this lookup that saves the time, but it'
 
 -------------------------
 
+evoskuil | 2024-12-02 20:41:46 UTC | #38
+
+[quote="andrewtoth, post:35, topic:1222"]
+Looking at a flamegraph of Bitcoin Core IBD, the majority of time is spent looking up input prevouts. That’s why parallelizing that provides a nice speedup. Skipping it entirely though is not possible since we would not have a utxo set at the end, which is not a constraint that libbitcoin has.
+[/quote]
+
+I'm sure it could be a material improvement.
+
+-------------------------
+
