@@ -440,3 +440,15 @@ I don't see how this requires no order though. If the transaction which contains
 
 -------------------------
 
+evoskuil | 2024-12-02 20:20:15 UTC | #33
+
+[quote="andrewtoth, post:32, topic:1222"]
+I don’t see how this requires no order though. If the transaction which contains the prevout has not been stored yet then this check will fail even if it does exist.
+[/quote]
+
+It only requires that the previous output has been downloaded. That's a partial ordering requirement. That's why #3 cannot be performed in block.check.
+
+The important observation is that it does not require a total ordering by block. That constraint is only imposed by the need to populate a utxo store.
+
+-------------------------
+
