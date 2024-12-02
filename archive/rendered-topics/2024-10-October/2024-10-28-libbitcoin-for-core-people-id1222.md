@@ -412,3 +412,19 @@ It is fetching the previous outputs of the inputs.
 
 -------------------------
 
+evoskuil | 2024-12-02 20:09:54 UTC | #31
+
+[quote="andrewtoth, post:30, topic:1222"]
+It is fetching the previous outputs of the inputs.
+[/quote]
+
+Ok, that makes sense. 
+
+[quote="andrewtoth, post:30, topic:1222"]
+I don’t see how checking if an input exists could be done without chain context.
+[/quote]
+
+I think you mean output (previous output of the input) here as well. If the prevout doesn't exist then the input script will fail to validate. That's just a query for the output during block.connect, which requires no order and is performed concurrently across blocks.
+
+-------------------------
+
