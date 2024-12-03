@@ -298,3 +298,19 @@ I imagine any interactive protocol can benefit from delay tolerance, or at a min
 
 -------------------------
 
+mcelrath | 2024-12-03 00:50:23 UTC | #9
+
+[quote="marathon-gary, post:8, topic:1262"]
+It seems that Radpool is likely to be realized quicker than Braidpool. Is that a fair conclusion to derive from this thread?
+[/quote]
+
+That is @jungly's opinion, not mine. He's been working on FROST, I've been working on consensus. And now he wants to fork, over concerns about consensus. I've been considering BFT broadcast as well (at his suggestion) but I think rate limiting is a problem. More on that soon as I've only just begun working on this full time (thanks @Spiral). My proposal for rate limiting (aka difficulty adjustment) is here. https://rawgit.com/mcelrath/braidcoin/master/Braid%2BExamples.html
+
+IMHO BFT broadcast is not an unreasonable suggestion but I'm not willing to pass judgement on it one way or the other right now. I know my braid algorithm works, and has a strong cousin in DAGKnight if that's necessary as a fallback. And there are dozens of other asynchronous algorithms that have similar properties but I don't like because they're not PoW. (Avalanche, HoneybadgerBFT, among others)
+
+The difficulty targeting in Braidpool is fully delay tolerant. In fact it measures it from graph structure. Defining timing is an anti-pattern IMHO. Measurements are better and the size of the earth isn't changing, but mining with e.g. Starlink instead of undersea cables does have a significant impact on latency, that a braid will automatically adapt to. 
+
+I look forward to similar proposals involving BFT broadcast, but I've yet to see one. So I think estimates of complexity are very premature.
+
+-------------------------
+
