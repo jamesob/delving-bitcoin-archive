@@ -353,3 +353,31 @@ For me option 2 is more complex to build.
 
 -------------------------
 
+mcelrath | 2024-12-03 13:42:34 UTC | #12
+
+You still didn't describe how you're going to rate-limit the BFT messages and share announcements. Aka difficulty adjustment. Without this you have serious scaling and DDoS problem.
+
+-------------------------
+
+jungly | 2024-12-03 14:36:07 UTC | #13
+
+Maybe I wasn't clear how the MSP to Miner communication plays a role in the design. Each MSP is a full blown mining pool service. It runs stratum servers and validates incoming shares from miners and other MSPs.
+
+Given that we can address the concerns you highlighted.
+
+## Rate Limiting Share Broadcast
+
+Given the MSP builds blocktemplates for all the miners working with it. The MSP receives stratum work.submit messages from the miner, verifies they are valid PoW shares and only then forwards them to other MSPs.
+
+If an MSP is flooding the network with invalid shares, all others will drop the connection to it, and if it was one of the parties of the DKG/TSS goup, it will be removed in the next signing/dkg round by the rest of the parties. Remember they have consistent views thanks to BFT Broadcast.
+
+## Difficulty Adjustment
+
+Each MSP runs a stratum server, so it is responsible for making sure each miner is sending enough shares to the pool - about 1 share per 15 seconds from each of it's miners, and not too many more.
+
+The above leads to the question how do we value all shares equally. That isn't hard either, each share is PoW for a blocktemplate that has already been reliably broadcast to the network. Knowing the blocktemplate and thus the fees, we can normalise the shares. I think Ocean and Demand are both doing this too.
+
+Each MSP essentially does what centralised pools do to keep their processing needs under control, and MSPs monitor each other  for bad behaviour that can cause ddos like attacks.
+
+-------------------------
+
