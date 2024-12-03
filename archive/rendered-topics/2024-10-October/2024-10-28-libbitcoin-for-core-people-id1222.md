@@ -516,3 +516,31 @@ Ultimately this can be resolved by just downloading the full utxo set under assu
 
 -------------------------
 
+evoskuil | 2024-12-03 03:32:11 UTC | #40
+
+I've been trying to find a good way to show this with data. I think that our construction of the ElecrumX address index table along with our point compression is a pretty good proxy (both are optional). These are not ordered but in combination impose the same number and type of table reads/writes as a utxo store population would under assume valid.
+
+The address index requires the mapping of the sha256 hash of every output to the surrogate key of the output. This is comparable to the write of the output to the utxo store (the surrogate key allows direct recovery of the corresponding output, with navigation to its spending input).
+
+We don't do deletes, but the spend of the output can be approximated by the search of each input in the point hash table, and write of an entry to that table in the case that it's missing. This optional search compresses out redundant point hashes, saving about 50GB (making the fully-indexed store materially smaller than the Core store).
+
+Point compression is neutral on total sync time, because the resulting table is so much smaller (similar to the reduction caused by removing spent outputs in a utxo table). The address index adds about 30 minutes to a 1 hour sync. This is on a machine that takes Core 15 hours to sync under assume valid.
+
+I think this makes the case as closely as possible that lack of utxo store population (reads/writes) is not what powers milestone sync, it's the lack of imposition of total block ordering by a utxo store.
+
+However, one might also consider the extraordinary amount of non-optional indexing. BN always indexes all transactions by hash, all confirmed txs to their containing block, all outputs to their spending input(s), all inputs to their point hash (optionally compressible), all headers by hash, and all headers to their associated txs (if associated). Each of these is a hash table.
+
+-------------------------
+
+ajtowns | 2024-12-03 04:45:30 UTC | #41
+
+[quote="sipa, post:36, topic:1222"]
+When script validation is enabled, this isn’t possible because the state required to run script validation is pretty much the entire spending transaction, not just a small piece of UTXO data.
+[/quote]
+
+I think you can do the same optimisation even in that case, if you augment the spending block with its corresponding revNNN.dat data. You can't authenticate the revNNN.dat, so still need to track negative entries, and in addition also need to check that the rev data was correct (compare it to the utxo when you find a match), and need to be able handle falling back to in-order processing (in case you're given bad rev data which says a tx is invalid, you need to recheck when you get the actual utxo data, if it's different).
+
+(I was thinking of that technique in the context of taking an assumeutxo set and validating the chain both forwards and backwards simultaneously, to avoid the need to maintaining two utxo sets, provided you didn't care about optimising for the case where the assumeutxo point was actually invalid)
+
+-------------------------
+

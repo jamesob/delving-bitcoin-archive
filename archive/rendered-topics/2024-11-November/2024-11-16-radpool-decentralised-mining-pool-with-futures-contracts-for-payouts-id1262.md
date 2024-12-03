@@ -314,3 +314,15 @@ I look forward to similar proposals involving BFT broadcast, but I've yet to see
 
 -------------------------
 
+mcelrath | 2024-12-03 01:18:20 UTC | #10
+
+To put a finer point on this: BFT broadcast is a good protocol worth considering. But absent consensus on minimum difficulty, it's easy to flood with low work shares that will DoS the network. 
+
+Again, I don't think this can be done without "consensus" and I think @jungly's idea that you can make a decentralized mining pool without consensus is just wrong. I look forward to a concrete proposal.
+
+Until then, Braidpool and Radpool are 99% the same set of ideas and will and up re-using each other's components. I encourage anyone interested in either to engage both of us. FROST, DLCs will definitely be re-used across both projects. I have no idea how Radpool intends to do accounting, as it wasn't described. But if it ends up being a braid, there's no reason to have two projects. Or use another consensus protocol? There are dozens of reasonable ones out there at this point but only braids and DAGKnight are fundamentally PoW and compatible with Nakamoto consensus. It would not be totally unreasonable to insert a different consensus protocol, but I don't like mixing security assumptions. Braids and DAGKnight are "highest work" protocols. BFT broadcast is fundamentally different and not based on PoW. It's also not a "consensus protocol" but I will delve into why consensus is required in a future post. (Difficulty adjustment is part of it but not the only reason you need consensus)
+
+In other news, both projects would benefit from covenants. Pre-committing to payouts in the event that FROST signing fails...
+
+-------------------------
+

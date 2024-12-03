@@ -251,3 +251,13 @@ Yes, my mistake - thanks.
 
 -------------------------
 
+ajtowns | 2024-12-03 04:50:53 UTC | #14
+
+[quote="AntoineP, post:12, topic:1288"]
+All blocks with the same parent will always have the same amount of work.
+[/quote]
+
+The testnet min difficulty blocks are the exception to this rule.
+
+-------------------------
+

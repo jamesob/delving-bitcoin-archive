@@ -336,3 +336,15 @@ I think publishing the dummy XPUB out of band to interested parties is not exact
 
 -------------------------
 
+andrewtoth | 2024-12-03 03:33:40 UTC | #28
+
+[quote="salvatoshi, post:24, topic:304"]
+Finally, a wallet policy might have the same `@i` multiple times (especially on taproot); in your version you’d either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.
+[/quote]
+
+If we would like an unspendable internal xpub to be standardized between descriptors and wallet policies, then we must remove duplicates. I think sorting and removing duplicates of all xpubs, then concatenating and SHA256 hashing the result would be the simplest to implement.
+
+We would also have to restrict all xpubs to `xpub/<0;1>/*` with no allowance for [optional derivation paths](https://github.com/bitcoin/bips/blob/532c4c10f2e04b3dca7d39ce1b1a4bdbf0c88e52/bip-0388.mediawiki#optional-derivation-paths). I think that's ok because that allowance is for legacy wallets, who would not have taproot support anyways.
+
+-------------------------
+
