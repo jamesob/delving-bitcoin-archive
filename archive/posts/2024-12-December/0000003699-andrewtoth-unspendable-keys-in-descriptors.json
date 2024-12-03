@@ -12,8 +12,8 @@
   "reply_to_post_number": 24,
   "quote_count": 1,
   "incoming_link_count": 3,
-  "reads": 4,
-  "readers_count": 3,
+  "reads": 5,
+  "readers_count": 4,
   "score": 10.8,
   "yours": false,
   "topic_id": 304,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"salvatoshi, post:24, topic:304\"]\nFinally, a wallet policy might have the same `@i` multiple times (especially on taproot); in your version you\u2019d either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.\n[/quote]\n\nIf we would like an unspendable internal xpub to be standardized between descriptors and wallet policies, then we must remove duplicates. I think sorting and removing duplicates of all xpubs, then concatenating and SHA256 hashing the result would be the simplest to implement.\n\nWe would also have to restrict all xpubs to `xpub/<0;1>/*` with no allowance for [optional derivation paths](https://github.com/bitcoin/bips/blob/532c4c10f2e04b3dca7d39ce1b1a4bdbf0c88e52/bip-0388.mediawiki#optional-derivation-paths). I think that's ok because that allowance is for legacy wallets, who would not have taproot support anyways.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
