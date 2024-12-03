@@ -12,9 +12,9 @@
   "reply_to_post_number": 6,
   "quote_count": 3,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 5.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 1288,
   "topic_slug": "can-parallel-validation-side-step-the-slow-block-issue",
@@ -38,7 +38,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"evoskuil, post:6, topic:1288\"]\nThis seems to assume that all blocks of the same height have the same amount of work.\n[/quote]\n\nAll blocks with the same parent will always have the same amount of work.\n\n[quote=\"evoskuil, post:2, topic:1288\"]\nConcurrent validation of competing blocks would only make sense if they had the same amount of work. I\u2019m have no idea how common this is.\n[/quote]\n\n[Fork.observer](https://fork.observer/) says there has been 23 1-block reorgs since block height [845,625 (2024-05-29)](https://blockstream.info/block/000000000000000000034231f368448e06b644716fc11e28b4aa23005b3f0cdd).\n\n[quote=\"ajtowns, post:7, topic:1288\"]\nAt the moment, I\u2019d expect block relay to be pretty severely impacted by slow validation.\n[/quote]\n\nThis is also what i would expect and is confirmed by the couple basic experiments i ran on Warnet. Since the transaction in the block wasn't previously announced the propagation time to a node is the validation time times the number of nodes on the shorter path between it and the emitter.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

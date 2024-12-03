@@ -502,3 +502,17 @@ I'm sure it could be a material improvement.
 
 -------------------------
 
+evoskuil | 2024-12-02 23:27:20 UTC | #39
+
+[quote="sipa, post:36, topic:1222"]
+When script validation is enabled, this isn’t possible because the state required to run script validation is pretty much the entire spending transaction, not just a small piece of UTXO data.
+[/quote]
+
+I'm not sure I follow this explanation, but the conclusion is correct. The approach wouldn't work under a candidate header branch above the milestone (assume valid block) because blocks *above* the block being validated are updating prevout existence and spentness. So existence in the utxo store no longer represents order. Under milestone, validity of the branch is assumed so this doesn't matter, the objective is just to populate the utxo store up to the milestone.
+
+A material cost of this approach (under milestone) is that the utxo store must not only be thread safe, but locks must persist across each output being searched, compared and written. Given that there are billions of outputs this is a non-trivial consideration.
+
+Ultimately this can be resolved by just downloading the full utxo set under assumption as well, which is already implemented.
+
+-------------------------
+
