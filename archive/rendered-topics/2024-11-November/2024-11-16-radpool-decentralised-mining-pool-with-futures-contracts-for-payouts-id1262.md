@@ -326,3 +326,30 @@ In other news, both projects would benefit from covenants. Pre-committing to pay
 
 -------------------------
 
+jungly | 2024-12-03 07:19:56 UTC | #11
+
+[quote="mcelrath, post:9, topic:1262"]
+I look forward to similar proposals involving BFT broadcast, but I’ve yet to see one. So I think estimates of complexity are very premature.
+[/quote]
+
+The subtlety is that BFT broadcast is necessary and sufficient to derive consistency in a _known_ group membership. With BFT broadcast, all parties have a consistent view, and by running a deterministic algorithm they all arrive at the same result - thus they have an agreement.
+
+This is the part Radpool is using - by explicitly requiring a membership of the syndicate we can stop at broadcast and don't need a consensus protocol to be built first.
+
+_Radpool builds on the simplest protocol possible and stops there. We don't build something that is not required._
+
+In Braidpool, we start from consensus (a more complex protocol). And because we are solving nakamoto consensus here, i.e. we don't know the group membership - i.e. anyone can join and can actually be the block generator, we need to handle more complexities.
+
+In Radpool's syndicate - this is not the case. Any new party can join the network, start receiving and sending shares. But they don't become part of the syndicate until they have contributed PoW for 2016 blocks and have met other membership conditions defined in terms of hashrate contributed to the network. We need this membership agreement for FROST DKG (which braidpool needs too). 
+
+Since we have agreement on the group in Radpool - we can get away with a simpler protocol. Braidpool builds another explicit consensus apart from this. 
+
+Let me put it another way.
+
+1. FROST DKG requires echo broadcast on a point to point network model - I have [already built this](https://github.com/pool2win/frost-federation/tree/e44431e4c8cd2f5f42f61a5715c644c183c12b3a/src/node/echo_broadcast). This broadcast is enough to make the Radpool syndicate with its membership agreement work.
+2. Braidpool will need to build a separate p2p broadcast protocol and a p2p nakamoto consensus while also using FROST DKG which includes a point to point broadcast.
+
+For me option 2 is more complex to build.
+
+-------------------------
+
