@@ -12,8 +12,8 @@
   "reply_to_post_number": 12,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
+  "reads": 2,
+  "readers_count": 1,
   "score": 0.2,
   "yours": false,
   "topic_id": 1288,
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"AntoineP, post:12, topic:1288\"]\nAll blocks with the same parent will always have the same amount of work.\n[/quote]\n\nThe testnet min difficulty blocks are the exception to this rule.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
