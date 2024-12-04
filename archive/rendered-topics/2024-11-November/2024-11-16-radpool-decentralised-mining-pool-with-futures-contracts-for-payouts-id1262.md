@@ -381,3 +381,9 @@ Each MSP essentially does what centralised pools do to keep their processing nee
 
 -------------------------
 
+mcelrath | 2024-12-04 10:54:07 UTC | #14
+
+How do MSP's prove to *each other* that the shares downstream from them are valid? I assume by broadcasting all of them? This is about *valid* shares with a low target, not invalid shares. And for that you have to set a difficulty target that everyone must agree to. This is consensus.
+
+-------------------------
+
