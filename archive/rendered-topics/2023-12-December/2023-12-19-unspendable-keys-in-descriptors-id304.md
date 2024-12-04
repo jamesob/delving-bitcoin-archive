@@ -348,3 +348,23 @@ We would also have to restrict all xpubs to `xpub/<0;1>/*` with no allowance for
 
 -------------------------
 
+salvatoshi | 2024-12-04 10:24:27 UTC | #29
+
+[quote="andrewtoth, post:28, topic:304"]
+If we would like an unspendable internal xpub to be standardized between descriptors and wallet policies, then we must remove duplicates. I think sorting and removing duplicates of all xpubs, then concatenating and SHA256 hashing the result would be the simplest to implement.
+[/quote]
+
+That sounds good to me; in the context of wallet policies, it just means "sorting the vector of keys" (and dropping key origins), then concatenating the compressed pubkeys, then hashing.
+
+In descriptors, it would need to be decided what to do (or if `_` is supported at all) when there are key expressions that are not xpubs.
+
+[quote="andrewtoth, post:28, topic:304"]
+We would also have to restrict all xpubs to `xpub/<0;1>/*` with no allowance for [optional derivation paths ](https://github.com/bitcoin/bips/blob/532c4c10f2e04b3dca7d39ce1b1a4bdbf0c88e52/bip-0388.mediawiki#optional-derivation-paths). I think that’s ok because that allowance is for legacy wallets, who would not have taproot support anyways.
+[/quote]
+
+This restriction doesn't quite make sense in the context of wallet policies: it is desired (and expected) that people would use the same xpub in the descriptor with different 'endings' for different spending paths (e.g. `xpub/<0;1>/*` for one spending path, `xpub/<2;3>/*` for another, etc.). Note that those would indeed be a single xpub in the wallet policy. This is in fact the reason wallet policies keep the `/<0;1>/*` in the *descriptor template* rather than the key information vector.
+
+Vendors/wallets, of course, can decide to support a subset of valid descriptors/policies if they want additional properties that the general class of descriptors doesn't or can't satisfy.
+
+-------------------------
+
