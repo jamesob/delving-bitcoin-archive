@@ -387,3 +387,25 @@ How do MSP's prove to *each other* that the shares downstream from them are vali
 
 -------------------------
 
+jungly | 2024-12-04 14:09:17 UTC | #15
+
+[quote="mcelrath, post:14, topic:1262"]
+I assume by broadcasting all of them?
+[/quote]
+
+Yes. MSPs broadcast both the blocktemplates and the received shares to all other MSPs.
+
+> And for that you have to set a difficulty target that everyone must agree to. This is consensus.
+
+In centralised pools, miners work on different difficulty target and the share weight is adjusted for their difficulty.
+
+Similarly in Radpool, all miners do not need to agree on the difficulty target. Just as in centralised pools, different miners even on the same MSP will be given different difficulty target based on the hash rate they have. As a miner adds/removes machines, their difficulty target is dynamically adjusted by the stratum server. This adjustment of difficulty is commonly used in centralised pools.
+
+The shares from various miners with varying difficulty are then normalised for PPLNS computation - again a common thing in centralised pool.
+
+Think of Radpool just as a centralised pool, but the single centralised entity is replaced by a syndicate of MSPs, who maintain a consistent database replica in the presence of byzantine faults, run TSS to sign DLC payouts, and generate independent blocktemplates. Everything else for the miner remains exactly the same - the difficulty adjustment is locally managed by each MSP for each of their miners.
+
+Radpool really is a simple solution, and that is why hopefully we can implement it with well known protocols.
+
+-------------------------
+
