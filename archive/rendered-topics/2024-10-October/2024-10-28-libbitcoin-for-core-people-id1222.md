@@ -564,3 +564,18 @@ If not already implemented, it might help Core's flush time to use a custom line
 
 -------------------------
 
+evoskuil | 2024-12-05 20:03:25 UTC | #44
+
+For example, I just happened to have just completed a full validation run to block 850k.
+
+![image|675x472](upload://4G1wkOjwadpDBTrf9SZrH67rMN6.png)
+
+```
+2024-12-05T19:59:28Z.0 Database stopped successfully in 8 secs.
+2024-12-05T19:59:28Z.0 Node stopped successfully.
+2024-12-05T19:59:28Z.0 ====================== shutdown ======================
+2024-12-05T19:59:28Z.0 Press <enter> to exit...
+```
+
+-------------------------
+
