@@ -544,3 +544,23 @@ I think you can do the same optimisation even in that case, if you augment the s
 
 -------------------------
 
+andrewtoth | 2024-12-05 19:01:54 UTC | #42
+
+[quote="evoskuil, post:18, topic:1222"]
+We’ve also noticed Core shutdown times of 10 minutes or more.
+[/quote]
+
+This is fixed by https://github.com/bitcoin/bitcoin/pull/30611.
+
+-------------------------
+
+evoskuil | 2024-12-05 19:52:23 UTC | #43
+
+Sure, but that's cumulative to sync time. It's not really a fix it just amortizes the cost.
+
+Flush to disk and destruct of an object model is far more costly than flush from mmap. Not only is mmap flush simple but it is paged in the background. Even with 32GB of RAM fully loaded during/after a full sync (with no explicit/periodic flush during sync), flushing the RAM takes around 10 seconds at shutdown.
+
+If not already implemented, it might help Core's flush time to use a custom linear memory allocator. That effectively eliminates the destruct cost. This can be very high if the objects are passed between threads (another consideration if the cache was to become threadsafe).
+
+-------------------------
+
