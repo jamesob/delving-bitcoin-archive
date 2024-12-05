@@ -409,3 +409,25 @@ Radpool really is a simple solution, and that is why hopefully we can implement 
 
 -------------------------
 
+marathon-gary | 2024-12-05 03:28:21 UTC | #16
+
+[quote="jungly, post:13, topic:1262"]
+That isn’t hard either, each share is PoW for a blocktemplate that has already been reliably broadcast to the network.
+[/quote]
+
+This enables an upcoming MSP be able to listen for the broadcast and then start providing shares without being a TSS member. Am I understanding that correctly?
+
+[quote="jungly, post:15, topic:1262"]
+Think of Radpool just as a centralised pool, but the single centralised entity is replaced by a syndicate of MSPs, who maintain a consistent database replica in the presence of byzantine faults, run TSS to sign DLC payouts, and generate independent blocktemplates. Everything else for the miner remains exactly the same - the difficulty adjustment is locally managed by each MSP for each of their miners.
+[/quote]
+
+I find this to be a good summary of Radpool, thank you for sharing.
+
+______
+It seems to me that a lot of the existing incentives and trade offs are similar for existing centralizes pools with miners. I believe that will be an easier selling point. Already, pools (MSPs) are handling technical complexity for hash providers (miners). This, to me, retains existing incentives and burdens for centralized mining which could lead to great adoption. 
+
+What added incentives are there for the MSPs that don't exist now?
+What benefits does this present to potential MSPs?
+
+-------------------------
+
