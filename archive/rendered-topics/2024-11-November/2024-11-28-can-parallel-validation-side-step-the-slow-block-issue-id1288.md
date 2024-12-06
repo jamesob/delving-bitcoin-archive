@@ -261,3 +261,41 @@ The testnet min difficulty blocks are the exception to this rule.
 
 -------------------------
 
+sjors | 2024-12-06 13:17:22 UTC | #15
+
+[quote="AntoineP, post:11, topic:1288"]
+The idea you present involves 1) a miner being presented a block, figuring out it’s expensive to validate, discarding it, and instead continuing to mine on top of the old tip to then 2) find a normal block at the same height before other miners are done validating the expensive one and 3) other miners being presented with this normal block to start building on top of it in place of the competing expensive block.
+[/quote]
+
+Not exactly: in step (1) a miner discards a slow block _only if_  a competing block arrives during validation. It will never mine on top of the old tip, it just prefers the faster (equal-work) tip. Miners don't do anything different from regular relay nodes in this proposal.
+
+[quote="AntoineP, post:11, topic:1288"]
+a race between a normal and an expensive block could also happen naturally, but in this case the expensive block is already at a severe disadvantage due to how its propagation is hindered. In this case having miners who received the expensive block first also validate the normal block in parallel would further disadvantage the expensive block.
+[/quote]
+
+That's all I'm proposing.
+
+(but if all miners SPV mine on the latest block, there will never be such a naturally occurring competing block - in order to defeat the attack _some_ miner has to take a risk, which may be too much ask) 
+
+[quote="AntoineP, post:11, topic:1288"]
+But this is only a marginal improvement in an unlikely scenario, at the cost of high implementation complexity.
+[/quote]
+
+I don't think we can estimate the likeness of a miner proposing a one-hour validation block. But if they do, then there could be as many as six competing blocks produced while the slowest node is still validating.
+
+I think the question isn't whether this attack is rare. It's whether the risk of the attacker seeing their stale block go stale is enough to deter them. If there's high deterrence then it may be worth some complexity.
+
+[quote="AntoineP, post:11, topic:1288"]
+Empty blocks are a symptom of SPV mining due to propagation time
+[/quote]
+
+At present SPV mining appears to be the only cause of empty blocks. But perhaps when miners also need to optimize for validation speed that would be another reason to make empty blocks.
+
+-------------------------
+
+AntoineP | 2024-12-06 14:31:08 UTC | #16
+
+I think you are missing my point: someone needs to mine this competing block you want to optimize for.
+
+-------------------------
+
