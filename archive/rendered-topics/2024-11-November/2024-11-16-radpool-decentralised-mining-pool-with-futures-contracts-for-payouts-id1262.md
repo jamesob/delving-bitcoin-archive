@@ -431,3 +431,25 @@ What benefits does this present to potential MSPs?
 
 -------------------------
 
+jungly | 2024-12-05 22:25:36 UTC | #17
+
+[quote="marathon-gary, post:16, topic:1262"]
+This enables an upcoming MSP be able to listen for the broadcast and then start providing shares without being a TSS member.
+[/quote]
+
+Yes, we want MSPs to be able to participate in the network without being a part of the threshold signature. They still run echo-broadcast for broadcasting the shares. If an MSP misbehaves, as usual, it is dropped from the network by its peers.
+
+> This, to me, retains existing incentives and burdens for centralized mining which could lead to great adoption.
+
+:crossed_fingers: 
+
+> What added incentives are there for the MSPs that don’t exist now? What benefits does this present to potential MSPs?
+
+Yield generation is the first one that comes to mind. But that is what mining pools are in the game for too.
+
+There's also the case that some MSPs can run sv2 to let their miners build blocks. Again, current pools can do this too.
+
+I think another idea is that some miners can run an MSP for themselves and totally avoid any fees. They do have to front the capital, but it is technically possible. They also can build their own templates this way if no MSPs are running sv2.
+
+-------------------------
+
