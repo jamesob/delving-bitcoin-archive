@@ -579,3 +579,29 @@ For example, I just happened to have just completed a full validation run to blo
 
 -------------------------
 
+evoskuil | 2024-12-06 16:15:29 UTC | #45
+
+[quote="evoskuil, post:14, topic:1222"]
+The theoretical limit is around 40 minutes and we hit closer to 60. However with a 5 Gbps connection I suspect it would be close to 30 mins.
+[/quote]
+
+The theoretical limit to download 850k blocks (582,391,632,423 bytes) over 2.3 Gbps Internet is 34 minutes. After integrating shani we are now achieving 40 minutes (plus up to a minute for store build, startup, header sync, and full shutdown) on the $350 benchmark machine.
+
+The remaining 6 minutes is largely a consequence of mmap flushing and remapping the mmap as the files grow. A higher memory machine would eliminate most of that. Also hashing will be further reduced with an avx512 box, which I just ordered for our test bench ($421).
+
+-------------------------
+
+cguida | 2024-12-06 17:27:39 UTC | #46
+
+@sjors by the way I went out and bought the exact hardware @evoskuil used for his Windows benchmark (PELADN HA-4, 1TB SSD / 32GB RAM), and I have performed the same benchmark using a slightly newer version of bn.exe .
+
+The sync took 7605 seconds, which is about 127 minutes or 2.11 hours.
+
+My sync was slower than @evoskuil's because my internet connection is about 800Mbps vs Eric's >2Gbps.
+
+So libbitcoin does indeed seem to sync very quickly. I should probably do a bitcoin core sync on the same box to set the baseline.
+
+For the record, the hardware cost US$530 for me because of import duties, but 2 hours on a US$530 machine is still an amazing result IMO.
+
+-------------------------
+

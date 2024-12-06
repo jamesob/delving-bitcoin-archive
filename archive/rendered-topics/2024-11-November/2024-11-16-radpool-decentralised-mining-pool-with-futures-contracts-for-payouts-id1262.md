@@ -453,3 +453,15 @@ I think another idea is that some miners can run an MSP for themselves and total
 
 -------------------------
 
+marathon-gary | 2024-12-06 19:28:52 UTC | #18
+
+[quote="jungly, post:17, topic:1262"]
+I think another idea is that some miners can run an MSP for themselves and totally avoid any fees. They do have to front the capital, but it is technically possible. 
+[/quote]
+
+Could you elaborate more on what you mean by this?
+
+If a miner is an MSP, what prevents them from having DLCs that are nil value? Then they're just fronting the money to themselves. I'm not sure what "fees" you're referring to.
+
+-------------------------
+

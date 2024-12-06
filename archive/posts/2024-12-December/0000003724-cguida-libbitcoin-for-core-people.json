@@ -1,0 +1,72 @@
+{
+  "id": 3724,
+  "name": "Chris Guida",
+  "username": "cguida",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/c/87869e/{size}.png",
+  "created_at": "2024-12-06T17:27:39.213Z",
+  "cooked": "<p><a class=\"mention\" href=\"/u/sjors\">@sjors</a> by the way I went out and bought the exact hardware <a class=\"mention\" href=\"/u/evoskuil\">@evoskuil</a> used for his Windows benchmark (PELADN HA-4, 1TB SSD / 32GB RAM), and I have performed the same benchmark using a slightly newer version of bn.exe .</p>\n<p>The sync took 7605 seconds, which is about 127 minutes or 2.11 hours.</p>\n<p>My sync was slower than <a class=\"mention\" href=\"/u/evoskuil\">@evoskuil</a>\u2019s because my internet connection is about 800Mbps vs Eric\u2019s &gt;2Gbps.</p>\n<p>So libbitcoin does indeed seem to sync very quickly. I should probably do a bitcoin core sync on the same box to set the baseline.</p>\n<p>For the record, the hardware cost US$530 for me because of import duties, but 2 hours on a US$530 machine is still an amazing result IMO.</p>",
+  "post_number": 46,
+  "post_type": 1,
+  "updated_at": "2024-12-06T17:27:39.213Z",
+  "reply_count": 0,
+  "reply_to_post_number": 12,
+  "quote_count": 0,
+  "incoming_link_count": 2,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 41.0,
+  "yours": false,
+  "topic_id": 1222,
+  "topic_slug": "libbitcoin-for-core-people",
+  "topic_title": "Libbitcoin for Core people",
+  "topic_html_title": "Libbitcoin for Core people",
+  "category_id": 8,
+  "display_username": "Chris Guida",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "sjors",
+    "name": "Sjors Provoost",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sjors/{size}/59_2.png"
+  },
+  "bookmarked": false,
+  "raw": "@sjors by the way I went out and bought the exact hardware @evoskuil used for his Windows benchmark (PELADN HA-4, 1TB SSD / 32GB RAM), and I have performed the same benchmark using a slightly newer version of bn.exe .\n\nThe sync took 7605 seconds, which is about 127 minutes or 2.11 hours.\n\nMy sync was slower than @evoskuil's because my internet connection is about 800Mbps vs Eric's >2Gbps.\n\nSo libbitcoin does indeed seem to sync very quickly. I should probably do a bitcoin core sync on the same box to set the baseline.\n\nFor the record, the hardware cost US$530 for me because of import duties, but 2 hours on a US$530 machine is still an amazing result IMO.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 140,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}
