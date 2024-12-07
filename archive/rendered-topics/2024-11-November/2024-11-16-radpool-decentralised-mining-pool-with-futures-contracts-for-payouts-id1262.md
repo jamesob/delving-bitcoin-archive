@@ -524,3 +524,40 @@ You still haven't answered my questions.
 
 -------------------------
 
+jungly | 2024-12-07 17:22:11 UTC | #22
+
+[quote="mcelrath, post:21, topic:1262, full:true"]
+You simply cannot pay people if you don’t know how much to pay them. You cannot know how much to pay them unless all parties in partial control of the FROST signature agree on the shares contributed, and those shares must be rate-limited, so you need consensus on the message/share rate too.
+[/quote]
+
+They do agree on the shares - that is the agreement I tried to clarify in the message above. There is a well understood reduction from reliable broadcast to/from agreement and that is what we are using. Once the MSPs have a consistently replicated database of shares - which is what echo broadcast provides - they will calculate how much each of the MSPs is owed. They will all arrive at the same answer without us building a nakamoto consensus.
+
+I addressed rate limiting in an earlier message above. To repeat, each MSP adjusts difficulty for its miners. MSPs will be dropped from the network if they try to DDoS other MSPs.
+
+[quote="mcelrath, post:21, topic:1262, full:true"]
+MSPs must prove to each other how much hash rate they represent. You haven’t shown how this is done and broadcasting all tiny tiny shares for a bunch of BitAxe’s is not a workable solution. (The message rate will be WAY too high) But this is a solvable problem. Assuming, somehow that MSP’s proved their hashrate to each other and were able to sign the FROST signature, then each MSP is a centralized pool for their downstream miners, with no effective accounting on them for their users. They can lie to individual miners about their hashrate.
+[/quote]
+
+The shares that are forwarded by MSPs have verifiable ownership. MSPs that receive shares can associate identity to miners and to MSPs. This is explained here https://www.radpool.xyz/1/stratum.html#_verifiable_share_ownership.
+
+> each MSP is a centralized pool for their downstream miners
+
+Yes! This is by design.
+
+Radpool is a syndicate of mining service providers.
+
+> with no effective accounting on them for their users. 
+
+No, as the link above describes, each MSP is able to tally up the shares by miners and MSPs. They are able to validate that a share was produced by a given miner for a blocktemplate produced by a given MSP.
+
+[quote="mcelrath, post:21, topic:1262, full:true"]
+The only way this is better than the status quo is that it reduces variance. But relative to Braidpool it adds the possibility of transaction censorship since MSPs create blocks, and provides no accountability for individual miners to their MSP. This is a step backwards from OCEAN with DATUM.
+
+[/quote]
+
+No again. Instead of say one centralised pool, we have 20 MSPs collaborating and each is generating templates for their miners.
+
+Going further, remember MSPs are competing to attract miners. If miners want to use sv2 and/or datum, they will work with the MSPs providing sv2/datum, and thus we get even further more decentralisation of template production.
+
+-------------------------
+
