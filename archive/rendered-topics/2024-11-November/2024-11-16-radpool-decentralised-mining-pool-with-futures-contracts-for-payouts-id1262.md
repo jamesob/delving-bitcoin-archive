@@ -465,3 +465,50 @@ If a miner is an MSP, what prevents them from having DLCs that are nil value? Th
 
 -------------------------
 
+jungly | 2024-12-07 07:32:41 UTC | #19
+
+[quote="marathon-gary, post:18, topic:1262"]
+Could you elaborate more on what you mean by this?
+
+If a miner is an MSP, what prevents them from having DLCs that are nil value? Then they’re just fronting the money to themselves. I’m not sure what “fees” you’re referring to.
+[/quote]
+
+
+The fees is not really directly a fees, but comes from the difference in how MSPs get BTC from bitcoin and how miners receive BTC from DLCs. Let me explain and then I will answer the zero fees idea.
+
+## Inflows vs Outflows for MSPs
+
+So lets say an MSP has three miners, A, B and C. MSP estimates their hashrate (after an initial period or agree out of band etc) and creates DLCs for each of them, which essentially means they are fronting the payment to the miners, subject to the condition they produce the hashrate at expiry time.
+
+Now, the expiry period arrives and say the MSP pays in total 1 BTC to each of the miner. The MSP has not yet received a payout from the Radpool's PPLNS payout to MSPs. There is a risk here for the MSP. Therefore, the MSP will always pay the MSP slightly less than it expects to receive from the pool. In other words the MSP should pay the miners 1 BTC for the hashrate if it can expect to get 1 + delta from the pool. The delta is in a way - the fees.
+
+The above risk is what makes Radpool an effort to decentralise FPPS. The MSPs take on risk and for that they earn a "fees".
+
+I have a mathematical model where I model the payouts to miners as deterministic outflows, but the reward from the pool as a Poisson process of inflows. We will integrate the model and recommend how much hashrate is safe for the MSP to take on given the amount of BTC they want to commit to paying miners. This will also give the MSPs a rate of return for their BTC locked in.
+
+## How Zero Fees, Then?
+
+Having said all that, a miner can run an MSP, front capital to pay itself and any difference in the inflows from pool and outflows to the miner will be kept by the miner too, because miner and MSP are the same entity. Thus miners can effectively mine for zero fees - they just need to have the cash upfront :slight_smile: 
+
+Currently, FPPS is run by centralised entities, Radpool challenges that status quo.
+
+P.S. - If anyone wants to review the MSP risk model, I am happy to share it privately.
+
+-------------------------
+
+jungly | 2024-12-07 07:46:54 UTC | #20
+
+# Consensus Debate
+
+There is a lot of debate around how can Radpool distribute rewards without a consensus.
+
+I want to point out, it is not that Radpool doesn't reach a consensus on the shares from all miners and the payouts to pay.
+
+Radpool reaches the agreement on shares and rewards distribution without requiring an explicit nakamoto consensus at the share chain level.
+
+Radpool reduces the problem to a BFT consensus with known membership and therefore is able to use any of the off the shelf BFT consensus implementations.
+
+In our published design, we have chosen the simplest solution to build - even if it has expensive in terms of communication complexity. We can later swap to a more efficient BFT if and when we run into scalability challenges.
+
+-------------------------
+
