@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": 14,
   "quote_count": 1,
-  "incoming_link_count": 1,
+  "incoming_link_count": 3,
   "reads": 11,
   "readers_count": 10,
-  "score": 7.2,
+  "score": 32.2,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"evoskuil, post:14, topic:1222\"]\nThe theoretical limit is around 40 minutes and we hit closer to 60. However with a 5 Gbps connection I suspect it would be close to 30 mins.\n[/quote]\n\nThe theoretical limit to download 850k blocks (582,391,632,423 bytes) over 2.3 Gbps Internet is 34 minutes. After integrating shani we are now achieving 40 minutes (plus up to a minute for store build, startup, header sync, and full shutdown) on the $350 benchmark machine.\n\nThe remaining 6 minutes is largely a consequence of mmap flushing and remapping the mmap as the files grow. A higher memory machine would eliminate most of that. Also hashing will be further reduced with an avx512 box, which I just ordered for our test bench ($421).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
