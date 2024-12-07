@@ -512,3 +512,15 @@ In our published design, we have chosen the simplest solution to build - even if
 
 -------------------------
 
+mcelrath | 2024-12-07 13:41:54 UTC | #21
+
+You simply cannot pay people if you don't know how much to pay them. You cannot know how much to pay them unless all parties in partial control of the FROST signature agree on the shares contributed, and those shares must be rate-limited, so you need consensus on the message/share rate too.
+
+MSPs must prove to each other how much hash rate they represent. You haven't shown how this is done and broadcasting all tiny tiny shares for a bunch of BitAxe's is not a workable solution. (The message rate will be WAY too high) But this is a solvable problem. Assuming, somehow that MSP's proved their hashrate to each other and were able to sign the FROST signature, then each MSP is a centralized pool for their downstream miners, with no effective accounting on them for their users. They can lie to individual miners about their hashrate.
+
+The only way this is better than the status quo is that it reduces variance. But relative to Braidpool it adds the possibility of transaction censorship since MSPs create blocks, and provides no accountability for individual miners to their MSP. This is a step backwards from OCEAN with DATUM.
+
+You still haven't answered my questions.
+
+-------------------------
+
