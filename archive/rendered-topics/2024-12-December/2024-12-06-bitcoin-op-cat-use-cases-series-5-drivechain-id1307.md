@@ -287,3 +287,9 @@ Our implementation draws inspiration from [the SHA-gate contract](https://github
 
 -------------------------
 
+1440000bytes | 2024-12-08 16:55:22 UTC | #2
+
+Thank you for writing this post. I think this is the best use case for OP_CAT.
+
+-------------------------
+
