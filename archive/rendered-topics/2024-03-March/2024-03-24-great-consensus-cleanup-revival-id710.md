@@ -1202,3 +1202,9 @@ It's not a big problem in this sense: if timestamps are observed to monotonicall
 
 -------------------------
 
+sjors | 2024-12-09 05:56:29 UTC | #61
+
+Discussing and/or improving OpenTimeStamps seems out of scope for this discussion, maybe open a new topic for it?
+
+-------------------------
+
