@@ -11,3 +11,9 @@ There is a CVE ID request pending on the MITRE, with the temporary identifier 17
 
 -------------------------
 
+ariard | 2024-12-09 15:11:22 UTC | #2
+
+This is now tracked under CVE-2024-55563.
+
+-------------------------
+
