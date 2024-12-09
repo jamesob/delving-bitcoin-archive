@@ -262,3 +262,27 @@ Your methodology also AFAIU won't catch IF blah ELSE <H> CTV ENDIF scripts, if t
 
 -------------------------
 
+ajtowns | 2024-12-09 19:28:51 UTC | #10
+
+[quote="JeremyRubin, post:8, topic:1257"]
+I don’t really think these are valid metrics, given they don’t include ctv-signet which predates inquisition.
+[/quote]
+
+As you know, I already did a similar [review of transactions](https://gnusha.org/pi/bitcoindev/20220420023107.GA6061@erisian.com.au/) on ctv-signet in 2022. There wasn't anything there that made it seem like it would be worth the time to do another review.
+
+[quote="JeremyRubin, post:8, topic:1257"]
+Overall I think signet is just… not that useful, in general. There’s no track record of these vanity metrics having anything to do with consensus.
+[/quote]
+
+The point isn't to find another instance of "number go up", it's to see if there's been any testing of the code, or any experimentation to see if the hypothesised use cases are implementable in the real world.
+
+For things that are interesting to people, you do see real experimentation on signet. For example, there's about 60k [inscriptions](https://signet.ordinals.com/inscription/e10d3076bc1af7cbb194053ca744830d3ceeca1e71505ab71324c2ba4d2c7843i0), about 1000 [runes](https://signet.ordinals.com/rune/THESE%E2%80%A2WILL%E2%80%A2BE%E2%80%A2WORTHLESS), and babylon's test runs ["filled" quite a few blocks](https://mempool.space/signet/block/000000167ac3b24d5ea8c911901cf4eab87c345240257dfc94528897a3e9d596), leading to an apparently successful (and comparatively less disruptive) [mainnet launch](https://x.com/mononautical/status/1826604180251050388) (and, TIL, [followup](https://x.com/babylonlabs_io/status/1845961016158704132)).
+
+[quote="JeremyRubin, post:9, topic:1257, full:true"]
+Your methodology also AFAIU won’t catch IF blah ELSE CTV ENDIF scripts, if they execute the blah.
+[/quote]
+
+It similarly won't catch CTV invocations that aren't executed because they're in unrevealed taproot branches, or in presigned child transactions that are never broadcast. The point of having a test environment is that you can test the rare cases to make sure they behave correctly just in case the rare case happens in real life some day; and if you do that, there will be example transactions where those paths are exercised. Nobody's saying you have to do that testing on signet, of course.
+
+-------------------------
+

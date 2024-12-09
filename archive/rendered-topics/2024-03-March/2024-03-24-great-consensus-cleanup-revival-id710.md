@@ -1208,3 +1208,9 @@ Discussing and/or improving OpenTimeStamps seems out of scope for this discussio
 
 -------------------------
 
+zawy | 2024-12-09 17:23:48 UTC | #62
+
+That's true, but my wider point is that MTP isn't a valid PoW timestamp as some scripts may assume.  Peter Todd informed me that he was aware of MTP not being good for timestamps back in 2016 and Opentimestamps therefore doesn't depend on it.
+
+-------------------------
+
