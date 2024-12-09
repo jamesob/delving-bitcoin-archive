@@ -377,3 +377,23 @@ Now the $\delta$ steps are explicitly clear on the MMEF axis.
 
 -------------------------
 
+sjors | 2024-12-09 05:25:00 UTC | #41
+
+I'm a bit worried about miners proposing fake block templates with absurdly high fees, thereby enjoying a relatively large payout.
+
+This seems worse than block withholding, because such a miner could run a way with ~100% of the block reward with ~0% of the PoW.
+
+The obvious counter measure is for the pool (or separate Job Declarator server entity, JDS) to verify every template. But this a non-trivial task, since the JDS node mempool could be very different. It may need to replace transactions its mempool with that of the template to check that it doesn't contain a big fee transaction that's actually unspendable.
+
+Absurdly high fees would always trigger a new slice, so you can at least prioritize its verification.
+
+For coinbase-only templates the JDS doesn't know the transactions and can't verify anything.
+
+It's also unclear how, in the random sample verification protocol, you would distinguish a malicious miner from a malicious pool making such templates for themselves (and 'accidentally' approving them).
+
+*Perhaps a simpler solution* is to cap the fees for all slices to whatever fees were in the found block. The fake templates, if not caught, would then have their fees reduced to a level that at least in principle they could have found. Then it's not much worse than regular block witholding.
+
+This also creates a disincentive to produce high value templates with 'secret' transactions. Template providers will want everyone else to have the good stuff in their mempool too.
+
+-------------------------
+
