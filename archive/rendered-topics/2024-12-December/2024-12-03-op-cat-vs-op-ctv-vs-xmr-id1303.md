@@ -16,3 +16,18 @@ I believe Bitcoin is money but monero is cash, as Bitcoin is not fungible & ligh
 
 -------------------------
 
+HubertusVIE | 2024-12-09 22:12:18 UTC | #2
+
+This is a reply from an economics point of view, contra Monero.
+
+1. Bitcoin can become cash (currency for the real economy).
+2. It is PRIMARILY held back by an economic issue, not a technical one. Monero has the same problem. Let's call it volatility but there is more to it. 
+3. I think the best way for bitcoin to become cash is a bitcoin based Chaumian ecash layer. Long story.
+4. Lightning is needed for the total system but is not 'cash' per se.
+5. Bitcoin-based ecash has blinded signatures, this gives great fungibility.
+6. No CTV needed (for this cash goal). If just for that, Core can just stay as is.
+
+I am currently writing up the economic problem and a proposed solution which is already being developed. If interested, here are the first two chapters: https://blog.bitcr.org/p/the-bitcoin-dilemma-store-of-value-or-medium-of-exchange.
+
+-------------------------
+
