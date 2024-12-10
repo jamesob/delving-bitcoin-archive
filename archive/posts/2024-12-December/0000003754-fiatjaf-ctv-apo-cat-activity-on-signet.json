@@ -37,7 +37,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:1, topic:1257\"]\nAPO as an overridable CTV in the second quarter of 2023, with a script of the form `<sig> 1 OP_CHECKSIG`\n[/quote]\n\nThese were testing the https://github.com/nbd-wtf/soma, a spacechain toy implementation for transferring NFTs (the simplest example of blockchain I could come up with). These transactions correspond to blind merged-mining events (paid out of band with signet lightning) that would each yield a different spacechain block, as you can see they have an OP_RETURN with the hash of corresponding spacechain block.\n\nThe broken key path free spending part was a stupid vulnerability due to an overlooked detail. Please ignore, it was just a demo.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +54,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
