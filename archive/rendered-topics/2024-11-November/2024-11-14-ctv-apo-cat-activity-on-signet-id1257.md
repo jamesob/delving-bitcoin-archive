@@ -286,3 +286,15 @@ It similarly won't catch CTV invocations that aren't executed because they're in
 
 -------------------------
 
+fiatjaf | 2024-12-10 02:18:08 UTC | #11
+
+[quote="ajtowns, post:1, topic:1257"]
+APO as an overridable CTV in the second quarter of 2023, with a script of the form `<sig> 1 OP_CHECKSIG`
+[/quote]
+
+These were testing the https://github.com/nbd-wtf/soma, a spacechain toy implementation for transferring NFTs (the simplest example of blockchain I could come up with). These transactions correspond to blind merged-mining events (paid out of band with signet lightning) that would each yield a different spacechain block, as you can see they have an OP_RETURN with the hash of corresponding spacechain block.
+
+The broken key path free spending part was a stupid vulnerability due to an overlooked detail. Please ignore, it was just a demo.
+
+-------------------------
+
