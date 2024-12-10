@@ -397,3 +397,32 @@ This also creates a disincentive to produce high value templates with 'secret' t
 
 -------------------------
 
+lorbax | 2024-12-10 09:32:38 UTC | #42
+
+> This seems worse than block withholding, because such a miner could run a way with ~100% of the block reward with ~0% of the PoW.
+
+If a miner is providing ~0% of the PoW, then he would get ~0% of blocks subsidy and ~0% of the block fees, because the fee-based score is calculated on top of the difficulty based score. Suppose that a slice contains the shares from ther $k_1$-th to the $k_2$-th. Suppose also that the fee and the difficulty score of the $i$-th share are $f_i$ and $\bar d_i$. Then
+$ score_f(i) = \frac{\bar d_i f_i}{\sum_{j=k_1}^{k_2}\bar d_j f_j}$. If $\bar d_i \approx 0$ then this $score_f(i) \approx 0$.
+
+The easiest architecture is that each pool run its JDS. In this case, the JDS validates each share. In the SRI, the JDS runs a light mempool just for faster recognition of the transactions. If there is some unknown transaction during validating the shares, then it will be asked to the miner through "PovideMissingTransactions" message, as for Sv2 protocol.
+
+> For coinbase-only templates the JDS doesn’t know the transactions and can’t verify anything.
+
+I understand that "coinbase-only templates" is a share with just the coinbase transaction, so it is an "empty weak block". But then you refer at the transactions, so there is more than one. I do not understand, can you explain?
+
+> *Perhaps a simpler solution* is to cap the fees for all slices to whatever fees were in the found block.
+
+This reflects the state of the mempool when the blocks is found. If a share is produced in a moment in which the MMEF (mempool maximum extractible fees) is much less then the fee found in the block, then the share is devalued, even though the miner is very good at maximizing fees. This is not fair IMO.
+
+> It’s also unclear how, in the random sample verification protocol, you would distinguish a malicious miner from a malicious pool making such templates for themselves (and ‘accidentally’ approving them).
+
+I don't quite understand what you mean. Perhaps is worth pointing out that one of the main concerns is when the pool is also a miner, so there are some incentives for the pool to pay more for the fees it produced. Since a shares are public and those which are not valid can be spotted easily, one possible way the pool can cheat is by reordering shares by putting them in a slice with reference job that a a lower fee. But it is not trivial, because the job of the share must be compatible with the reference job, and fixing it involves timestamps or pointers, but this is outside the scope of the article.
+
+-------------------------
+
+lorbax | 2024-12-10 09:41:54 UTC | #43
+
+If the JDS is an independent service, then we must take into account the fact that can service for different pools. In this setting, I think that each pool must communicate the JDS the coinbase outputs and each miner must communicate the pool that it is working for. Apart from this, seems to work exactly as it currently working in the SRI.
+
+-------------------------
+
