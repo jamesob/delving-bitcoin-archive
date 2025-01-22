@@ -1,0 +1,73 @@
+{
+  "id": 4018,
+  "name": "Pieter Wuille",
+  "username": "sipa",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "created_at": "2025-01-08T13:56:30.120Z",
+  "cooked": "<p>Let\u2019s say <span class=\"math\">c_i</span> is the actual time at which block <span class=\"math\">i</span> is found, and <span class=\"math\">t_i</span> is its timestamp.</p>\n<p>If the attacker (who is assumed to have 100% hashrate) follows this strategy:</p>\n<ul>\n<li>The first block in every period <span class=\"math\">p</span> uses as timestamp the previous block\u2019s timestamp minus the grace period: <span class=\"math\">t_{2016p} = t_{2016p-1} - G</span> (the minimum legal time according to the proposed rule).</li>\n<li>The 2014 middle blocks use the minimum legal time, which doesn\u2019t really matter as long as it\u2019s low enough: <span class=\"math\">t_{2016p+k} = 0</span> for <span class=\"math\">0 &lt; k &lt; 2015</span>.</li>\n<li>The final block in the period uses the current time <span class=\"math\">t_{2016p+2015} = c_{2016p+2015}</span>.</li>\n</ul>\n<p>Then the observed duration of the <strong>2015</strong> blocks in period <span class=\"math\">p</span> (relevant for difficulty adjustment) is <span class=\"math\">t_{2016p+2015} - t_{2016p} = c_{2016p+2015} - c_{2016p-1} + G</span>, i.e. the time it took to mine <strong>2016</strong> blocks plus <span class=\"math\">G</span>.</p>\n<p>The difficulty multiplier <span class=\"math\">m</span> will thus be <span class=\"math\">m = \\frac{P}{X + G}</span>, where <span class=\"math\">X</span> is Erlang distributed with <span class=\"math\">k=2016</span> and <span class=\"math\">\\lambda=hashrate \\cdot \\frac{target}{2^{256}}</span>.</p>\n<p>In a simulation with <span class=\"math\">G=600</span> I get an effective average block interval under constant hashrate of 599.9997\u2026 seconds. With <span class=\"math\">G=7200</span> I get 596.7211\u2026 seconds.</p>",
+  "post_number": 32,
+  "post_type": 1,
+  "updated_at": "2025-01-08T15:17:23.805Z",
+  "reply_count": 1,
+  "reply_to_post_number": 31,
+  "quote_count": 0,
+  "incoming_link_count": 2,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 33.8,
+  "yours": false,
+  "topic_id": 1326,
+  "topic_slug": "timewarp-attack-600-second-grace-period",
+  "topic_title": "Timewarp attack 600 second grace period",
+  "topic_html_title": "Timewarp attack 600 second grace period",
+  "category_id": 7,
+  "display_username": "Pieter Wuille",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 3,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "zawy",
+    "name": "Zawy",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Let's say $c_i$ is the actual time at which block $i$ is found, and $t_i$ is its timestamp.\n\nIf the attacker (who is assumed to have 100% hashrate) follows this strategy:\n* The first block in every period $p$ uses as timestamp the previous block's timestamp minus the grace period: $t_{2016p} = t_{2016p-1} - G$ (the minimum legal time according to the proposed rule).\n* The 2014 middle blocks use the minimum legal time, which doesn't really matter as long as it's low enough: $t_{2016p+k} = 0$ for $0 < k < 2015$.\n* The final block in the period uses the current time $t_{2016p+2015} = c_{2016p+2015}$.\n\nThen the observed duration of the **2015** blocks in period $p$ (relevant for difficulty adjustment) is $t_{2016p+2015} - t_{2016p} = c_{2016p+2015} - c_{2016p-1} + G$, i.e. the time it took to mine **2016** blocks plus $G$.\n\nThe difficulty multiplier $m$ will thus be $m = \\frac{P}{X + G}$, where $X$ is Erlang distributed with $k=2016$ and $\\lambda=hashrate \\cdot \\frac{target}{2^{256}}$.\n\nIn a simulation with $G=600$ I get an effective average block interval under constant hashrate of 599.9997... seconds. With $G=7200$ I get 596.7211... seconds.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 96,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

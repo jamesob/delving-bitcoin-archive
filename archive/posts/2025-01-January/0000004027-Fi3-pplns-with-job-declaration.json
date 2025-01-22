@@ -1,0 +1,78 @@
+{
+  "id": 4027,
+  "name": "Fi3",
+  "username": "Fi3",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/fi3/{size}/316_2.png",
+  "created_at": "2025-01-09T11:16:34.306Z",
+  "cooked": "<p>committing the share_index and also return it to the miner is a nightmare to implement right and efficiently. If the only reason to have it is to avoid the pool to lie about share indexes in slice (when challenged) we can remove it since the path is enough to know the index of a leaf and the pool already have to provide the path.</p>",
+  "post_number": 55,
+  "post_type": 1,
+  "updated_at": "2025-01-09T11:16:34.306Z",
+  "reply_count": 0,
+  "reply_to_post_number": 22,
+  "quote_count": 0,
+  "incoming_link_count": 1,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 22.8,
+  "yours": false,
+  "topic_id": 1099,
+  "topic_slug": "pplns-with-job-declaration",
+  "topic_title": "PPLNS with job declaration",
+  "topic_html_title": "PPLNS with job declaration",
+  "category_id": 7,
+  "display_username": "Fi3",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "Fi3",
+    "name": "Fi3",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/fi3/{size}/316_2.png"
+  },
+  "bookmarked": false,
+  "raw": "committing the share_index and also return it to the miner is a nightmare to implement right and efficiently. If the only reason to have it is to avoid the pool to lie about share indexes in slice (when challenged) we can remove it since the path is enough to know the index of a leaf and the pool already have to provide the path.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 262,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "yawning_face",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

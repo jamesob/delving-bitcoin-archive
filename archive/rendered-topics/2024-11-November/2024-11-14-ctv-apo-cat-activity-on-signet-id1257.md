@@ -224,18 +224,6 @@ https://inquisition.observer
 
 -------------------------
 
-1440000bytes | 2024-11-23 10:23:53 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
-1440000bytes | 2024-11-23 10:23:58 UTC | #6
-
-(post deleted by author)
-
--------------------------
-
 JeremyRubin | 2024-11-27 21:07:42 UTC | #8
 
 I don't really think these are valid metrics, given they don't include ctv-signet which predates inquisition.
@@ -295,6 +283,156 @@ APO as an overridable CTV in the second quarter of 2023, with a script of the fo
 These were testing the https://github.com/nbd-wtf/soma, a spacechain toy implementation for transferring NFTs (the simplest example of blockchain I could come up with). These transactions correspond to blind merged-mining events (paid out of band with signet lightning) that would each yield a different spacechain block, as you can see they have an OP_RETURN with the hash of corresponding spacechain block.
 
 The broken key path free spending part was a stupid vulnerability due to an overlooked detail. Please ignore, it was just a demo.
+
+-------------------------
+
+ajtowns | 2024-12-11 11:49:09 UTC | #12
+
+Oh wow; up until now I've only seen spacechain demos that didn't actually implement the spacechain part. Is the spacechain data archived somewhere?
+
+Not using a NUMS point probably makes sense for an experiment -- lets you use a key path spend to hardfork the spacechain when updating the code, while potentially retaining history. Of course, that assumes you're using a somewhat secure key; looks like you used G so the funds could be stolen at any point (edit: or more importantly, the spacechain could be stopped dead) by anyone who can figure out what signature the latest scriptPubKey contains.
+
+(I was expecting a non-well-known pubkey and a published list of signatures, which would have been secure-ish and also allowed permissionless mining)
+
+If I'm reading the code right, you limited the spacechain to only doing 50 blocks (Publish.scala, `bmm.precompute(0, 50)`), which looks like it about matches the number of txs listed above, which presumably means the only script path spend you can do now is the final tx, paying to a 0sat "fim" OP_RETURN and reclaiming the funds (or using them for fees, or using them to launch a brand new spacechain)?
+
+-------------------------
+
+fiatjaf | 2024-12-11 21:56:21 UTC | #13
+
+This was a long time ago so I don't remember exactly, but it looks like 50 was just the number of precomputed transactions that was stored initially by the miner (and presumably it would run the computation again and store more transactions when it was restarted). In fact the spacechain was precomputed to last 100 years (`BMM.scala`, line 11).
+
+So I wasn't really expecting to get to the last block of this, I was probably planning on expanding the maximum period to 1000 years in a "production" scenario, but it didn't make sense to calculate so much given that this was just a demo.
+
+I ran the demo miners and spacechain nodes for months and tried to get people to use it, but didn't get much attention, maybe ~10 people played with it at the time. Then I got disillusioned and decided to shut it down, I thought about keeping a record of the blockchain data, but it was too depressing and the blockchain didn't really have any value, it probably makes more sense to start a new spacechain now and test again if anyone is interested.
+
+All the blockchain did was to generate NFTs (without any metadata whatsoever except for a serial number) and transferred them between bip340 pubkey accounts. It had two types of transactions, `mint` and `transfer`.
+
+The mining process was interesting: to publish a transaction on the spacechain a user would contact any of the (or all) miners and send them the transaction, the miner would make a Lightning invoice and the user would pay. Miners would hold the Lightning payment in-flight while they gathered more transactions from other spacechain users and then try to use the funds they got via Lightning to pay for an onchain BMM transaction, always performing an RBF when a new user tx arrived -- once they succeeded they would resolve the Lightning payments and release the spacechain block to other spacechain nodes. If they didn't succeed in 10 blocks or if they saw one of the transactions they were holding mined in another spacechain block then they would cancel that transaction specifically and fail the Lightning payment. The user "wallet" was a web interface for keeping track of user assets, pending transactions and it also contacted miners directly via the CLN websocket "commando" interface. It's weird, I should at least have recorded a screencast of the process, but I can't find any.
+
+For the BMM covenant I should have used a provably invalid key (is that what a NUMS mean?), but I think I got too distracted while coding the script path and all the APO stuff (I didn't have any prior experience with programming Bitcoin script and much less with Taproot and APO and PSBT) and didn't pay attention to that obvious key path flaw.
+
+-------------------------
+
+fiatjaf | 2024-12-11 22:00:37 UTC | #14
+
+Oh, by the way, the BMM transactions should all be linked in a chain, every new one always spending the "canonical" `1234sat` output from the previous -- when you see that chain broken that is probably because I was testing myself, then abandoning the chain and starting a new one, before releasing it to the public.
+
+-------------------------
+
+ajtowns | 2024-12-12 05:57:47 UTC | #15
+
+[quote="fiatjaf, post:13, topic:1257"]
+t looks like 50 was just the number of precomputed transactions that was stored initially by the miner (and presumably it would run the computation again and store more transactions when it was restarted).
+[/quote]
+
+Ah, that makes more sense. Could cache every 4000th hash, and the next 4000 hashes, so you don't have to recalculate all 5M hashes everytime you run out of cached hashes. Would only be ~20k hashes (640kB) to cache even for the 1000 year case then, and you could save them to disk or precalculate at compile-time.
+
+[quote="fiatjaf, post:13, topic:1257"]
+I ran the demo miners and spacechain nodes for months and tried to get people to use it, but didn’t get much attention, maybe ~10 people played with it at the time.
+[/quote]
+
+Yeah, gotta have a marketing plan to build up lots of drama/excitement if you want attention in the NFT/memecoin space. As far as I'm aware, it never even got mentioned in any of the tech spaces I follow (eg bitcoin-dev, optech). OTOH, I expect I would have ignored anything I did see though, since that was around the time of the [inv-to-send issue](https://bitcoincore.org/en/2024/10/08/disclose-large-inv-to-send/). Shame.
+
+Two things that would probably be interesting, but also perhaps much harder than what you did: a spacechain that includes actual new programming features (simplicity? EVM like RSK? confidential txs? multiple fungible assets? utreexo commitments?), and/or a spacechain with a currency that's pegged against sBTC in some way (even a boring trusted third-party way like RKS's or liquid's multisig federation or whatever WBTC does), so the chain could theoretically help with "overflow txs" during fee spikes. But those are probably hard to do, and it's better to be simple but implemented than fancy but imaginary.
+
+Maybe utreexo commitments could be interesting for NFTs -- you could have short proofs that you "own" your profile picture NFT; though having the proof potentially change every block might be too awkward in practice... I guess you'd need some way to link the things you mint to some other data though; atm I think soma just lets you create a token that's tradeable but has no link to anything else? [Reverse commitments](https://gnusha.org/pi/bitcoindev/Y9t%2FNcgRzv1w%2F%2FFx@erisian.com.au/), where the data links to the token (instead of the token containing/committing to the data) might work fine with soma as-is though, though then you'd also need to add an `O(n_transfers)`-size proof that your utxo matches the token... a spacechain with a chia-esque coin-set model instead of a utxo model could let you avoid that, though...
+
+How reliable spacechains are in adversarial environments is a big question to me; will people actually fully validate spacechains, or is there a risk that you can just pay to mine lots of "invalid" spacechain blocks and that will be accepted anyway? How easy/disruptive are reorgs -- if you can reorg some blocks, doublespend one transaction, but nobody else loses out (because there's no coinbase fees), will anyone try to prevent the reorg, or is the person being doublespent on their own? Could be fun to explore that sort of thing with a real implementation.
+
+[quote="fiatjaf, post:13, topic:1257"]
+I ran the demo miners and spacechain nodes for months and tried to get people to use it, but didn’t get much attention, maybe ~10 people played with it at the time.
+[/quote]
+
+That's probably similar to the actual usage of the powcoins script, fwiw. Also comparable to bitcoin itself, really; ignoring coinbase txs, there were only 93 txs in its first 3 months (10570 blocks). Sometimes you just have to give these things time.
+
+[quote="fiatjaf, post:13, topic:1257"]
+For the BMM covenant I should have used a provably invalid key (is that what a NUMS mean?),
+[/quote]
+
+Yeah, "Nothing Up My Sleeve" -- ie, "it's completely/cryptographically infeasible for me to possibly have a private key/preimage/etc corresponding to this".
+
+[quote="fiatjaf, post:13, topic:1257"]
+Miners would hold the Lightning payment in-flight while they gathered more transactions from other spacechain users and then try to use the funds they got via Lightning to pay for an onchain BMM transaction,
+[/quote]
+
+Sounds a bit complicated for an experiment tbh; though I see you setup a thing to auto pay people's invoices for them anyway. I think I can see how you could plausibly build up a reputation as a trustworthy miner for people to be willing to go through that process with non-fake coins. Neat.
+
+[quote="fiatjaf, post:13, topic:1257"]
+I thought about keeping a record of the blockchain data, but it was too depressing and the blockchain didn’t really have any value, it probably makes more sense to start a new spacechain now and test again if anyone is interested.
+[/quote]
+
+If you do, I'd suggest trying to make something that you can just leave running unattended for ages, and ideally that automatically includes some spacechain content occassionally, even if it's trivial. Automatically dumping the block data into a github repo once a week might be workable? If the explorer could make static html pages that could also go into the github repo that would maybe be nice, as a low overhead way of making it still explorable even if you don't want to keep actually maintaining/running the servers?
+
+-------------------------
+
+1440000bytes | 2024-12-14 22:17:24 UTC | #16
+
+It doesn't even detect transactions that create bare CTV unspent outputs with OP_NOP4.
+
+Example: https://mempool.space/signet/tx/ab953773f8f8306567bf48357d8ca5a179909c12b2bc64ae2ef80f0850708920
+
+-------------------------
+
+ajtowns | 2024-12-16 11:15:42 UTC | #17
+
+As I already replied to Jeremy, it detects spends, not output creation.
+
+-------------------------
+
+1440000bytes | 2024-12-16 12:42:36 UTC | #18
+
+Fair enough. This looks misleading though.
+
+![image|690x179](upload://faVUI8oLrExmYI3gfFSlUMbClsI.png)
+
+Cc: @vostrnad
+
+-------------------------
+
+vostrnad | 2024-12-16 13:03:52 UTC | #19
+
+The website also only detects spends. I guess I could argue that if you never spend an output you didn't actually "use" the opcode. Nevertheless, you're more than welcome to suggest a different wording in a pull request.
+
+-------------------------
+
+1440000bytes | 2024-12-16 17:04:12 UTC | #20
+
+Pull request: https://github.com/vostrnad/inquisition.observer/pull/1
+
+However, it would be great if transactions that create bare CTV outputs were included in these stats. It is possible that someone was unable to spend a CTV output after creation during testing.
+
+-------------------------
+
+1440000bytes | 2025-01-03 00:47:17 UTC | #21
+
+It's unclear how much these stats have helped developers who are genuinely testing soft forks. However, they seem to have convinced a number of OP_CAT supporters that signet bots can be used to justify activation on mainnet. Here are some examples from rationales on the Bitcoin Wiki:
+
+> Despite being activated just six months ago, OP_CAT has already outpaced other proposals like BIP 118 (SIGHASH_ANYPREVOUT, APO) and BIP 119 (OP_CHECKTEMPLATEVERIFY, CTV), which have been on signet for nearly two years. With 10 times more transactions on signet, OP_CAT’s usage dwarfs APO’s and CTV’s, showcasing its exponential adoption (source).
+
+[https://gist.github.com/catOnStack/3e9aea351346cd316e6e0dcaa195da2d](https://gist.github.com/catOnStack/3e9aea351346cd316e6e0dcaa195da2d)
+
+> While BIP 118 (SIGHASH_ANYPREVOUT, APO) and BIP 119 (OP_CHECKTEMPLATEVERIFY, CTV) have been active on signet for nearly two years, OP_CAT, activated six months ago, has already seen significantly more usage. With 95101 transactions compared to APO’s 1093 and CTV’s 261, OP_CAT’s adoption is exponentially higher
+
+[https://gist.github.com/rousjiamo/309d1ddfcfa89e061bbc397838480bbb](https://gist.github.com/rousjiamo/309d1ddfcfa89e061bbc397838480bbb)
+
+> BIP 118 (SIGHASH_ANYPREVOUT, APO) and BIP 119 (OP_CHECKTEMPLATEVERIFY, CTV) have been enabled on signet for nearly two years, since late 2022. More recently, BIP 347 (OP_CAT) was activated, having been available for six months. Despite of being active for only 1/4 of the time, there are significantly more on-chain transactions utilizing OP_CAT (74K) compared to APO (1K) or CTV (16), translating to ***300X*** and ***18500X*** more usage in a given period.
+
+[https://scryptplatform.medium.com/evaluating-bitcoin-upgrade-proposals-2df82bfe48df](https://scryptplatform.medium.com/evaluating-bitcoin-upgrade-proposals-2df82bfe48df)
+
+-------------------------
+
+ajtowns | 2025-01-03 07:34:05 UTC | #22
+
+Not sure what good you think will come of promoting rationales you think are bad. It's already easy to do a sybil attack against a more-or-less permissionless wiki page; if you're going to do anything with it, it's better to promote whatever signal there is to be found there rather than the noise.
+
+-------------------------
+
+1440000bytes | 2025-01-03 08:27:55 UTC | #23
+
+I think its far easier to create fake stats on signet than fake evaluations on wiki. 
+
+https://x.com/stevenroose3/status/1862231147851243760
 
 -------------------------
 

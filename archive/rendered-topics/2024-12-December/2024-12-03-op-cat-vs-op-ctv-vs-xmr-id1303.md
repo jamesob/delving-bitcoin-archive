@@ -31,3 +31,17 @@ I am currently writing up the economic problem and a proposed solution which is 
 
 -------------------------
 
+moonsettler | 2024-12-30 15:15:55 UTC | #3
+
+I think it's worth pointing out that nothing we currently do is post-quantum. CTV would be quantum resistant as far as SHA256 is, but the scaling related constructs take extensive use of Taproot Schnorr sig aggregation. The current blind Schnorr ecash is not post-quantum either. Someone with access to a quantum computer could easily print infinite amount of "cash" for himself.
+
+Monero does have a good enough path to mitigate it's privacy issues as well as providing forward secrecy for a post-quantum era with the FCMP++ and subsequent updates. Afaik they are on track to deliver these updates within 3 years.
+
+Now ofc many dismiss the quantum threat as FUD, but within 3 to 10 years as far as we "know", there is a significant chance that this becomes an issue. Bitcoin development especially regarding post-quantum scaling and privacy is simply not on track to deal with this in any plausible manner.
+
+**edit:** inb4 people are working on PQC for bitcoin! That's great, however to my knowledge the whole body of work is massively anti-scaling and there has been no realistic sounding migration plan proposed.
+
+PS: shouldn't this thread be moved to Philosophy from Protocol Design?
+
+-------------------------
+

@@ -57,3 +57,47 @@ Instead we should use a tried and proven algorithm like WOTS as an emergency fal
 
 -------------------------
 
+cryptoquick | 2025-01-02 19:14:16 UTC | #4
+
+I just looked through your article and have been doing some research and thought towards which algorithms we should develop with and include, and I tend to agree that we shouldn't rush into introducing what's available now into, as Adam Back puts it, [high assurance products](https://x.com/adam3us/status/1874877560427004190).
+
+I'm not yet sure how I'll update BIP-360 to reflect this thinking, but I'm definitely flexible and open to different approaches. I like your idea of starting with WOTS, and I think we should choose one other algorithm for testing attestation disambiguation.
+
+As for DASK, that looks really interesting. One modification I might suggest is to not ever deprecate secp256k1 keys, but instead, expect them to be included along with other signature types, an approach known as hybrid cryptography.
+
+One question... In HBS, if signatures are validated in clients, how will nodes validate signatures for inclusion in a block? I would assume the same way clients do, except clients would have their own secrets.
+
+Great work on your article btw, very well-researched.
+
+Also, here's a link to the latest iteration of the BIP:
+https://github.com/cryptoquick/bips/blob/0ae69db70a4a28f202d441b7131cd5b2169e7afe/bip-0360.mediawiki
+
+Would you be interested in writing a BIP for DASK, and do you think it might be a good idea to narrow down BIP-360 to work with DASK?
+
+-------------------------
+
+conduition | 2025-01-11 22:13:01 UTC | #5
+
+Thank you! I think some newer and better approaches than DASK have been proposed since i wrote this article and which would allow us to more easily implement these changes as a soft fork without any new address formats needed. Check out @MattCorallo's post [on the mailing list here](https://groups.google.com/g/bitcoindev/c/8O857bRSVV8).
+
+Matt's soft-fork proposal is to disable key-spending on P2TR addresses, and define one of the `OP_SUCCESS` opcodes reserved by BIP342 to validate a post-quantum signature scheme in a taproot script-path spend branch.
+
+This implies some additional fun twists, such as the fact that one must now carefully hide this `OP_SUCCESS` script branch until activation day, otherwise it could be spent by literally anybody. But in principle it seems much more achievable to me than DASK, so i'm wholeheartedly in favor. If we were going to write a BIP, i think Matt's idea would be the way to go. All power to you for writing that draft BIP but I think we should try to reuse P2TR if we can, so that we can get the space saving benefits of taproot for as long as possible.
+
+He suggests using SPHINCS right off the bat for this, but i think a WOTS certification layer would be way better for future-proofing. Surely SPHINCS isn't the best we will ever have. We could also use WOTS or FORS to directly sign a transaction instead, which would be even more efficient but less flexible/safe. So there's still some kinks to iron out. 
+
+The action steps i can see would be:
+- Find consensus on a flavor of hash-based signatures (i'm partial to Compact WOTS+C personally)
+- Determine whether to use it as a certification layer or to sign transactions directly
+- Create a reference implementation of the signature scheme (specifically key-generation)
+- Define the ground rules for how validation of the new opcode should work (following past BIPs as examples should help). New rules, such as the specific signature scheme to certify with WOTS, can be added later, since we're not planning to activate this upgrade for a long time.
+- Write it all down in a BIP and start collecting feedback
+
+
+
+A separate client-side BIP could be written to define deterministic key-gen of the HBS keypair, safe and future-proof taptree structure, etc.
+
+I'm unfortunately tied up helping a full-time client at the moment and can't spare the time to pursue these things myself, but I'd be happy to review if this is something you're interested in.
+
+-------------------------
+

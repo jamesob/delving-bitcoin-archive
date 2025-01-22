@@ -594,3 +594,19 @@ I suspect that it's possible to reach agreement in the vast majority of cases, b
 
 -------------------------
 
+JohnLaw | 2024-12-19 19:21:30 UTC | #12
+
+Matt and Dave,
+
+Thanks again for your feedback.
+
+I've re-written the paper based on it.
+Version 1.1 is available at https://github.com/JohnLaw2/ln-opr.
+
+The new version focuses on the speed and scalability gains from the OPR protocol.
+The security of the OPR protocol is shown to be analagous to the security of the current Lightning protocol when making small payments.
+In both cases, parties follow the protocol in order to maintain their long-term reputation.
+In both cases, following the protocol prevents thefts.
+
+-------------------------
+

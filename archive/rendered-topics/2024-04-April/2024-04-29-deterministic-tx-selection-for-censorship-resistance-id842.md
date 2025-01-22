@@ -79,3 +79,71 @@ Cheers,
 
 -------------------------
 
+ajtowns | 2025-01-04 07:56:50 UTC | #7
+
+[quote="harding, post:3, topic:842"]
+But if 100% of miners use your described pool, they’ll have to mine any transaction that was previously included in a share before they can mine any transactions of their own choosing.
+[/quote]
+
+I think there's two ways in which this isn't true -- if your deterministic algorithm is "highest feerate txs", then by including some very high feerate txs you could be able to mine them into your block immediately just by following the deterministic algorithm. But in addition you could also allow for 5% of the block space to be free-use (similar to the old space for mining txs by priority) after having filled up 95% of the block space deterministically.
+
+Maintaining a deterministic mempool at pool-consensus level is likely fairly complicated in practice; particularly in rolling out upgrades/changes to relay policy (eg TRUC relay, different RBF policies, new soft fork features, changes to min fee rates or limits). 
+
+It's also likely a bit more complex if you have to be able to efficiently calculate the top of the mempool from a previous state, for dealing with beads when the braid has width greater than 1.
+
+At ~1/1000th the difficulty of a block, with a pool at 10% hashrate, you're receiving a new bead every 6 seconds, so probably don't want to receive 2MB of new tx data every bead. Probably it would work to take `sha256(sharehash)` as a random seed and then allow 10% of beads to include 150kvB of tx data that will be incorporated into descendants, while the remaining 90% of beads can only include 5kvB of tx data -- that's about ~2MvB tx data relayed over 100 beads (which is 600s for 10% hashrate at 1/100th difficulty).
+
+-------------------------
+
+mcelrath | 2025-01-06 18:36:22 UTC | #8
+
+> But in addition you could also allow for 5% of the block space to be free-use (similar to the old space for mining txs by priority) after having filled up 95% of the block space deterministically.
+
+What is the motivation for doing this? Every tx included this way needs to be transmitted and validated with every share-chain block, so possibly as fast as every 250ms.
+
+The entire purpose of the deterministic block template idea is to avoid having to transmit or validate any txs at all (because it's already been done in the DAG parents).
+
+As regards censorship resistance, graffiti blocks, parasitic assets and the like, Braidpool will need to have its own tx acceptance rules (yet to be determined), which will fall somewhere between Bitcoin's P2P rules and Bitcoin's block rules, avoiding the well-known pitfalls. Personally I don't see any point in being very opinionated about acceptable txs and I don't plan to be as restrictive as OCEAN and Knots, nor do I plan to implement tools in Braidpool that make censorship "easy", whether the user wants to omit graffiti/runes/BRC-20 or prevent Russians from donating to Ukraine. We will be liberal in what we accept. Those who want to omit certain txs will have to fork the code and run a modified client (like Knots). Those who want to be even more liberal than what we choose can either fork the code to make a new instance of Braidpool or solo mine.
+
+-------------------------
+
+ajtowns | 2025-01-07 04:06:21 UTC | #9
+
+[quote="mcelrath, post:8, topic:842"]
+What is the motivation for doing this? Every tx included this way needs to be transmitted and validated with every share-chain block, so possibly as fast as every 250ms.
+[/quote]
+
+Providing an escape hatch for txs to be mined outside of policy, eg RSK's [recovery txs](https://github.com/bitcoin/bitcoin/pull/26348), and to provide a way for pool members to support [off-chain tx acceleration](https://mempool.space/accelerator) without requiring a central coordinator. (Perhaps it would be possible to do off-chain acceleration by revoking unredeemed pool shares though?)
+
+[quote="mcelrath, post:8, topic:842"]
+Braidpool will need to have its own tx acceptance rules (yet to be determined), which will fall somewhere between Bitcoin’s P2P rules and Bitcoin’s block rules,
+[/quote]
+
+If Braidpool were to be successful (>30% hashrate?), I'd expect bitcoin core's relay policy to match braidpool's (well, probably with a larger backlog) to minimise divergence between actual blocks and expected blocks ([ref](https://github.com/bitcoin/bitcoin/pull/30493#issuecomment-2260918779)).
+
+-------------------------
+
+mcelrath | 2025-01-07 06:20:49 UTC | #10
+
+If RSK's recovery txs should be mined then they should be isstandard(). Why aren't they already?
+
+Off-chain tx acceleration is worth consideration. Braidpool could mine such txs into its deterministic mempool and prioritize them if we can figure out how to make an out of band fee go to the pool. (A competing pool could just steal the extra fee if an apparently-unrelated tx pays high fees) But frankly this should be handled by fee-bumping mechanisms in Bitcoin itself. Paying out-of-band for mining is a bug, not a feature. You should be able to bump fees.
+
+I agree on the divergence from P2P relay policy generally...
+
+-------------------------
+
+ajtowns | 2025-01-07 10:34:33 UTC | #11
+
+RSK's txs shouldn't have been structured that way, and no longer are. But their testing failing to catch the problem before going live, and being able to contact miners directly to bypass the problem was helpful. It's been helpful in other cases too. OTOH, so long as there's someone with significant hashpower willing/able to do special cases, doesn't matter that much if one pool or even the majority of hashpower doesn't.
+
+-------------------------
+
+mcelrath | 2025-01-07 13:40:25 UTC | #12
+
+I think for Braidpool, making decisions about acceptable transactions is just as complicated as doing it for Bitcoin, because it will be a decentralized network and blockchain (DAG) similar in most respects to Bitcoin. Changing policy requires upgrading all nodes and possibly a hard fork in the DAG. We'll try to make reasonable choices here but it seems unlikely that we will be able to support extremely odd transactions.
+
+I'll give some more thought to allowing miners to include a small number of non-committed bitcoin txs in their share-chain blocks. It increases share validation and propagation time but if it's only one or two txs maybe that's acceptable.
+
+-------------------------
+

@@ -1,6 +1,6 @@
 # Research into the effects of a cluster size limited mempool in 2023
 
-sdaftuar | 2024-04-12 20:28:55 UTC | #1
+sdaftuar | 2024-04-20 15:00:54 UTC | #1
 
 In https://delvingbitcoin.org/t/an-overview-of-the-cluster-mempool-proposal/393, I wrote up a description of a new mempool design.  As that proposal would change which transactions make it into the mempool under certain circumstances, it raises questions around what effects those changes to relay policy might have on the network, should the proposal be widely adopted.
 
@@ -134,7 +134,7 @@ However, my primary focus in analyzing this data was to try to characterize the 
 
 ### Cluster mempool RBF rejections
 
-Why are some replacememnts rejected only by the cluster mempool rules?  There are four reasons that we might reject a replacement in the proposed RBF policy:
+Why are some replacements rejected only by the cluster mempool rules?  There are four reasons that we might reject a replacement in the proposed RBF policy:
 
 1. **Too many direct conflicts**. In my current implementation, there is a limit of 100 direct conflicts that a replacement can have (which bounds the number of clusters that might need to be re-linearized to 100). This is more lax than BIP 125's rule about the number of conflicts a transaction can have.  
 2.  **Tx fee must exceed that of conflicts and be able to pay for own relay**. This anti-DoS rule is the same as what appears in BIP 125.
@@ -163,11 +163,11 @@ In this example, the BIP 125 rules are permitting a replacement that may be maki
 
 ![Higher feerate child|690x273](upload://wdTGwlbsbE1LLo6GcUMHbfw3kpj.jpeg)
 
-In this example, the blue transaction would replace both the red transactions, but it only directly conflicts with the parent.  Because BIP 125 only requires that a replacement transaction have a higher feerate than its direct conflicts, and the feerate rules of BIP 125 are satisfied, even though the replacement has a lower feerate than the child transaction that it would replace.  
+In this example, the blue transaction would replace both the red transactions, but it only directly conflicts with the parent.  Because BIP 125 only requires that a replacement transaction have a higher feerate than its *direct conflicts*, the feerate rules of BIP 125 are satisfied  even though the replacement has a lower feerate than the child that it would also replace.  
 
 In fact, the child has a higher mining score than the incoming blue transaction (10.6 vs 9.0 sats/vb), so again the BIP 125 rules here are permitting a replacement that may be making the mempool worse.
 
-It's tempting to think at this point that the new RBF rules are always just better than BIP 125.  However, there is a caveat to this that is worth flagging.
+It's tempting to think at this point that the new RBF rules are always just better than BIP 125, in that they differ in cases where BIP 125 would allow the mempool to become theoretically worse.  However, there is a caveat to this that is worth flagging.
 
 #### Replacements can also be rejected due to suboptimal linearizations
 
@@ -181,7 +181,7 @@ However, due to quirks in the ancestor feerate algorithm, sometimes we wouldn't 
  * Even though such transactions "ought" to be accepted, they really are (inadvertently) making the mempool worse in some way, by triggering flaws in our linearization code. This highlights that under the existing BIP 125 rules, we are also allowing such replacements which, under the hood, result in worse behavior than we expect. 
  * Obviously, we'd still like to eliminate all these cases as much as possible, as it's more optimal for everyone (users and miners) if this doesn't happen.
 
-In practice, we have linearization techniques (learned from seeing these examples) which will eliminate the specific type of failure that I observed from happening again.  However, as a theoretical point, it's worth noting that these examples will always exist.  So if new use cases emerge that are triggering this behavior, then we may want to put in additional work to try to tweak our algorithms to improve linearizations in those cases.
+In practice, we have linearization techniques (learned from seeing these examples) which will eliminate the specific type of failure that I observed from happening again.  However, as a theoretical point, it's worth noting that this category of example will always exist.  So if new use cases emerge that are triggering this type of behavior, then we may want to put in additional work to try to tweak our algorithms to improve linearizations for those use cases.
 
 #### RBF summary
 
@@ -194,6 +194,13 @@ It seems to me that with cluster size limits of 100 transactions / 101 kvb, and 
 In the case of RBF, the effect of the rule change is small and beneficial -- perhaps the ideal type of change!
 
 And finally, it seems that block construction is unlikely to be any worse, and in my estimation, is actually likely to be better (but this is hard to say definitively).
+
+-------------------------
+
+lorbax | 2024-12-23 10:52:37 UTC | #2
+
+Hi!
+Are the logs and your patched version of bitcoincore published somewhere? I think they may be very useful to the community!
 
 -------------------------
 

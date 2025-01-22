@@ -384,3 +384,23 @@ With the above clarified restriction, that would apply to descriptors as well. A
 
 -------------------------
 
+andrewtoth | 2025-01-17 14:55:19 UTC | #31
+
+Created a BIP draft using the ideas from here.
+
+https://github.com/bitcoin/bips/pull/1746
+
+-------------------------
+
+jaonoctus | 2025-01-17 19:46:09 UTC | #32
+
+I've created a NUMS key generator and validator following the proposed way in the BIP-0341: `H + r*G`. The thing that I like the most in this approach is that the resultant key does not looks like a NUMS yet you can prove by revealing `r`. And I might work on next steps to produce a valid signature without showing `r` as @sipa mentioned before 
+
+https://nums-secp256k1.jaonoctus.dev/?pk=2575ac0d328639136911eb82d6164b64908fef69f2c7df59314bdcae29653c26&input=jaonoctus+unspendable+key-path
+
+https://mempool.space/signet/tx/080af3e3b86e10f1455719281f2727c4410f2480a8541d50583cbe11e6cb56d0
+
+![1000292768|690x378](upload://eUSvDtv9hCiC8NnlOLZ1aggZd1V.png)
+
+-------------------------
+

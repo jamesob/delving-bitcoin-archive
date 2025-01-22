@@ -1,6 +1,6 @@
 # How to linearize your cluster
 
-sipa | 2024-02-22 03:31:16 UTC | #1
+sipa | 2024-04-25 20:27:06 UTC | #1
 
 # How to linearize your cluster
 
@@ -335,6 +335,94 @@ sipa | 2024-02-22 10:29:02 UTC | #3
 @hebasto The problem of finding the (optimal) chunks is reducible to the problem of finding the optimal linearization actually, and the other way around. So if you can do one, you can do the other. The meat of the algorithm described here is effectively iterating all topologically-valid subsets, and then moving the highest-feerate one to the front, where it becomes a chunk.
 
 So either I'm misunderstanding your suggestion, or it's effectively what we're doing already. Happy to hear if you have more ideas to try, though. We don't have a proof that finding the optimal linearization (or finding the highest-feerate topologically-valid subset) is NP-hard, so it's possible a polynomial algorithm exist.
+
+-------------------------
+
+lorbax | 2025-01-06 17:30:02 UTC | #4
+
+Hi!
+First of all I give you my compliments for your work. It is very complete and comprehensive. I am struggling to understand the following statement:
+[quote="sipa, post:1, topic:303"]
+the transactions in $pot$ that do not belong to $inc$ must have a feerate at least as high as can be achieved by *any* set that includes $inc$ and excludes $exc$
+[/quote]
+I have the feeling that I am missing something. Consider this example: there are three transactions $a,b$ and $c$, with equal size and fees respectively $2, 1000$ and $1$. Suppose that $a$ has $b$ as only parent, and $b$ has $c$ as only parent, so in the graph  $a \to b \to c$. Suppose also that $inc = \{a\}$ and $pot = \{a,b,c\}$. Then adding $a$ to $\{b,c\}$ actually decrease feerate.
+
+BTW the same example seems to go against the following Proposition with $best = \{b,c\}$ and $pot$ as a topologically valid subset of itself.
+
+[quote="sipa, post:1, topic:303"]
+every highest-feerate topologically-valid set among those that include $inc$ and exclude $exc$ *must* contain every topologically valid subset of $pot$
+[/quote]
+
+Can examples like the above appear?
+
+Anyway, this is needed only for the jump ahead optimization, but seems that the heart of the algo is still pretty much effective!
+
+-------------------------
+
+sipa | 2025-01-06 17:37:34 UTC | #5
+
+[quote="lorbax, post:4, topic:303"]
+Suppose also that $inc = \{a\}$ and $pot = \{a,b,c\}$.
+[/quote]
+
+This is not possible. $pot$ is a pure function of $inc$ and $exc$: the set of undecided transactions, picked from high feerate to low feerate ignoring topology, until the feerate stops increasing.
+
+Presumably in your case $inc=\{a\}$, $exc=\{\}$, so $und = \{b,c\}$. $pot$ is computed as follows:
+* Start with $pot = inc = \{a\}$.
+* See if adding $b$ (the highest feerate transaction in $und \setminus pot$) improves it. And indeed, $\{a,b\}$ is better than $\{a\}$, so $b \in pot$.
+* See if adding $c$ improves it. It does not: $\{a,b,c\}$ is worse than $\{a,b\}$, so $c \not\in pot$.
+
+Thus, $pot$ in this case is $\{a,b\}$.
+
+-------------------------
+
+lorbax | 2025-01-06 18:59:43 UTC | #6
+
+Sorry, you are right.
+Anyway, is the following trivial? Is there a proof for it?
+
+>the transactions in $pot$ that do not belong to $inc$ must have a feerate at least as high as can be achieved by *any* set that includes $inc$ and excludes $exc$
+
+-------------------------
+
+sipa | 2025-01-06 20:12:46 UTC | #7
+
+[quote="lorbax, post:6, topic:303"]
+Sorry, you are right. Anyway, is the following trivial? Is there a proof for it?
+[/quote]
+
+Let $B$ be the highest-feerate subset including $inc$, and excluding $exc$, ignoring topology. We're trying to prove that $pot = B$.
+
+$B$ must have the property that for any $t \in und$ it is the case that $t \in B$ if and only if $\operatorname{feerate}(t) > \operatorname{feerate}(B)$, for the simple reason that if it didn't, and there was a $t \not\in B$ with higher feerate than $B$, you could add it to $B$, and improve it further. Similarly, if there was a $t \in B$ with lower feerate than $B$, it could be removed from it to improve it.
+
+Furthermore, this property defines $B$, in the sense that there is only one subset (including $inc$ and excluding $exc$) that satisfies that property. Imagine we had distinct $B_1$ and $B_2$ that both satisfy the property. Without loss of generality, assume that $B_2$ is the bigger one, so $B_1 \subset B_2$. The set of transactions $t \in B_2 \setminus B_1$ have $\operatorname{feerate}(t) \leq B_1$, otherwise they would be included in $B_1$. Thus, $\operatorname{feerate}(B_2) \leq \operatorname{feerate}(B_1)$, because $B_2$ does include these transactions. But these transactions also have a $\operatorname{feerate}(t) > \operatorname{feerate}(B_2)$ because of the property above, and thus also $\operatorname{feerate}(t) > \operatorname{feerate}(B_1)$, so they should have been included in $B_1$, a contradiction.
+
+Thus, if we can show that $pot$ satisfies the property, it must be the case that $pot = B$.
+
+We know that $B$ must consist of $inc$ plus some *prefix* of $und$ (when considered in decreasing-feerate order), which matches how $pot$ is constructed. And it must be the same, because if the last transaction had feerate $\leq$ than $pot$'s, it wouldn't have been included. If the next not included transaction had feerate $>$ than $pot$'s, it would have been included.
+
+-------------------------
+
+lorbax | 2025-01-07 12:37:16 UTC | #8
+
+Thank you, now I understand.
+All of this started in my head while trying to understand the proof of the following.
+
+[quote="sipa, post:1, topic:303"]
+every highest-feerate topologically-valid set among those that include $inc$ and exclude $exc$ *must* contain every topologically valid subset of $pot$
+[/quote]
+
+I tried to expand the proof of it, using the additional material you provided. From the comment above we can deduce the following
+
+*Lemma.* 
+1. $pot$ is *the* (i.e. unique) highest amongst all the sets including $inc$ and excluding $exc$.
+2. $t\in pot$ if and only if $feerate(t)> feerate(pot)$.
+
+*Proposition.* Let $B$ an element that maximize the feerate in the following collection.$\{U \text{ topological} \mid inc \subseteq U \subseteq exc^c \}$. If $C \subseteq pot$ is topological, then $C\subseteq B$.
+
+*Proof.* By contraddiction, suppose that there is $B$ like in the hypothesis and $C$ topological, $C\subseteq pot$ and $C \not \subseteq B$. Since $C$ is topological, possibly replacing $t$ with some of its ancestors, it is no loss to assume $anc(t) \subseteq B$. Since $t\in pot$, by 2. of Lemma above, $feerate(t) > feerate(pot)$. By characterization of $pot$ in 1. of Lemma above, we have that $feerate(pot) \ge feerate(B)$. So, $feerate(t)> feerate(B)$. Consider $B' = \{t\} \cup B$. Clearly, $feerate(B')> feerate(B)$; moreover, since $anc(t) \subseteq (B)$, $B'$ is topological. This is against the definition of $B$.
+
+Let me know what do you think.
 
 -------------------------
 

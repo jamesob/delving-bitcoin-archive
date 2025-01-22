@@ -426,3 +426,160 @@ If the JDS is an independent service, then we must take into account the fact th
 
 -------------------------
 
+sjors | 2024-12-17 07:49:44 UTC | #44
+
+[quote="lorbax, post:42, topic:1099"]
+then this score_f(i) \approx 0scoref(i)≈0
+[/quote]
+
+Try the following numbers:
+* fake fees: 1 million BTC
+* shares: 0.0001% of the pool for the interval
+
+So they could steal approximately 1 BTC.
+
+[quote="lorbax, post:42, topic:1099"]
+In this case, the JDS validates each share.
+[/quote]
+
+I assume you mean each proposed template (`DeclareMiningJob`), not each share?
+
+>  If there is some unknown transaction during validating the shares, then it will be asked to the miner through “PovideMissingTransactions” message, as for Sv2 protocol.
+
+This takes time and bandwidth. And in order to verify if the new transaction is actually valid the JDS has to insert it into its mempool. And in order to do that it may need to evict other conflicting transactions first. Doing this for every `DeclareMiningJob` may not scale very well.
+
+[quote="lorbax, post:42, topic:1099"]
+> For coinbase-only templates the JDS doesn’t know the transactions and can’t verify anything.
+
+I understand that “coinbase-only templates” is a share with just the coinbase transaction, so it is an “empty weak block”. But then you refer at the transactions, so there is more than one. I do not understand, can you explain?
+[/quote]
+
+I'm referring to a recent proposal that allows a `DeclareMiningJob` message with just a merkle proof for the coinbase transaction, without revealing which transactions are in the block.
+
+I can't find the link to the actual propososal, just a reference to in from the SRI call minutes: https://discord.com/channels/950687892169195530/1019861139573714994/1314469730781757500:
+
+> `coinbase_only` Mode and `DeclareMiningJob`
+> * **Optionality for `DeclareMiningJob` :** Its usage depends on the mode.
+> * **Flag Renaming:** The flag `REQUIRES_ASYNC_JOB_MINING` in
+> `AllocateMiningJobToken.Success` will be renamed to better reflect its purpose.
+> * **Dropping Synchronous Case:** Only two modes will remain:
+>  * **`coinbase_only JD` Mode:** No `DeclareMiningJob` is sent.
+>  * **`template JD` Mode:** `DeclareMiningJob` is sent.
+
+-------------------------
+
+Fi3 | 2024-12-17 09:03:17 UTC | #45
+
+[quote="sjors, post:44, topic:1099"]
+Try the following numbers:
+
+* fake fees: 1 million BTC
+* shares: 0.0001% of the pool for the interval
+
+So they could steal approximately 1 BTC.
+[/quote]
+
+
+
+I think there is a misunderstanding here. The pool is supposed to verify all the shares/jobs, the miners only a random subset. So this attack is not possible.
+
+-------------------------
+
+Fi3 | 2024-12-17 09:06:00 UTC | #46
+
+[quote="sjors, post:44, topic:1099"]
+This takes time and bandwidth. And in order to verify if the new transaction is actually valid the JDS has to insert it into its mempool. And in order to do that it may need to evict other conflicting transactions first. Doing this for every `DeclareMiningJob` may not scale very well.
+[/quote]
+
+not the most scalable solution but is the best trade off that we have been able to find, and a pool can support it.
+
+-------------------------
+
+Fi3 | 2024-12-17 09:07:19 UTC | #47
+
+[quote="sjors, post:44, topic:1099"]
+I’m referring to a recent proposal that allows a `DeclareMiningJob` message with just a merkle proof for the coinbase transaction, without revealing which transactions are in the block.
+
+I can’t find the link to the actual propososal, just a reference to in from the SRI call minutes: [Discord](https://discord.com/channels/950687892169195530/1019861139573714994/1314469730781757500:)
+
+> ``
+[/quote]
+
+this system do not work with coinbase only
+
+-------------------------
+
+sjors | 2024-12-17 11:43:26 UTC | #48
+
+[quote="Fi3, post:45, topic:1099"]
+I think there is a misunderstanding here. The pool is supposed to verify all the shares/jobs, the miners only a random subset. So this attack is not possible.
+[/quote]
+
+No, I understand that's the intention of your proposal. I just don't think verifying all jobs is realistic.
+
+ SRI doesn't implement it yet, it only checks that all transactions are present. If the checks are incomplete there will always be some exploit. And if the checks are complete, it may be too easy to DoS the JDS.
+
+-------------------------
+
+Fi3 | 2024-12-17 12:41:02 UTC | #49
+
+why you say that is easy to DoS the JDS? Do you have some numbers?
+
+-------------------------
+
+sjors | 2024-12-17 13:27:21 UTC | #50
+
+You could send infinitely many block proposals to it that each take a long time validate. See https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710
+The blocks can be invalid, so it's a free attack.
+
+Fortunately there's at least two mitigations for this attack:
+
+1. Don't validate anything until you have received some threshold worth of shares
+2. Don't allow non-standard transactions in the template
+
+Simply checking if all transactions are in the JDS mempool is not enough. There might be an unknown transaction. Those are fetched via an sv2 message, but the transactions that obtained this way could all be slow to validate. And in order to check them, e.g. to make sure they're not spending high value fake coins, you need to insert them into the JDS mempool. But maybe there's conflict in the pool, so you have to evict some other transactions.
+
+The best way to fully check if the proposed block is valid is by having the node verify it just like any other block, but without checking the PoW. There's currently no RPC method to do this, e.g. `submitblock` requires proof-of-work. It may be useful to introduce such a method though.
+
+-------------------------
+
+Fi3 | 2024-12-17 13:53:13 UTC | #51
+
+I'm assuming that you can do it faster. At demand we rebuilt the mempool. Another assumption is that user are authenticated (otherwise there are other ways to DoS the pool), so I can at least detect who is building unusual block. For unknown txs we check if the tx is spendable and do not have conflict with other txs in the proposed block this is enough.
+
+-------------------------
+
+Fi3 | 2024-12-17 14:09:53 UTC | #52
+
+about solution (1) a pool can implement it outside of this proposal, for example the pool can send some work (so we are sure that work is valid) and activate the job declaration protocol and this extension only after that downstream sent some shares.
+
+solution (2) is as well an implementation details, in this proposal we are not saying if pool can or can not deny some txs, and which should be denied.
+
+-------------------------
+
+Fi3 | 2024-12-17 13:59:40 UTC | #53
+
+Personally I like more (1) then (2) since I think that (2) go against the goal of sv2
+
+-------------------------
+
+sjors | 2024-12-21 10:26:28 UTC | #54
+
+[quote="sjors, post:50, topic:1099"]
+The best way to fully check if the proposed block is valid is by having the node verify it just like any other block, but without checking the PoW. There’s currently no RPC method to do this, e.g. `submitblock` requires proof-of-work. It may be useful to introduce such a method though.
+[/quote]
+
+Here's a proof-of-concept implantation of a `checkblock` RPC for Bitcoin Core:
+
+https://github.com/Sjors/bitcoin/pull/75
+
+It can be used with block templates, which don't have any proof-of-work. But it also has `multiplier` argument that can be used to raise the target for weak blocks, inspired by @instagibbs work in https://delvingbitcoin.org/t/second-look-at-weak-blocks/805 (though a different use case).
+
+-------------------------
+
+Fi3 | 2025-01-09 11:16:34 UTC | #55
+
+committing the share_index and also return it to the miner is a nightmare to implement right and efficiently. If the only reason to have it is to avoid the pool to lie about share indexes in slice (when challenged) we can remove it since the path is enough to know the index of a leaf and the pool already have to provide the path.
+
+-------------------------
+

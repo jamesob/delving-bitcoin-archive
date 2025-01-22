@@ -415,3 +415,137 @@ The first presentation in this video is Hashpools by @vnprc
 
 -------------------------
 
+vnprc | 2025-01-08 01:56:55 UTC | #32
+
+Hey! I've been working on this idea for some time in isolation. I'm in the process of [building it](https://github.com/vnprc/hashpool). Apologies for not engaging in this discussion earlier. I didn't realize there was such a robust discussion until I read the Optech year-in-review.
+
+I believe I have solved many (all?) of the issues raised here and discovered several new insights. But in the process I have raised more questions that need answers. Let's get into it:
+
+**You can't redeem ecash multiple times**
+
+I tried this approach as well and decided that it was impossible to reissue an ecash token after the first payout because these tokens are inherently unlinkable to the underlying collateral (in this case a PoW mining share). You can do multiple redemptions by linking the tokens to the mining share, but in the process you destroy the privacy properties of ecash.
+
+I think the correct solution is to only allow one redemption per eHash token. If miners hold the token until the share window expires they get the maximum payout. If they choose to redeem early they donate potential future rewards in that share window to all the other owners of shares in that window. Kind of like how destroying bitcoin only makes the remaining bitcoin more valuable.
+
+If miners want immediate liquidity they can sell their eHash tokens. This closely emulates FPPS payouts without adding trust assumptions (more on this in the auditing section). This will create a new and highly efficient futures market.
+
+To Bob McElrath's point differentiating futures from forwards, eHash will be a futures instrument because cashu will be the standard. Users can buy and sell tokens from different mints through any exchange medium. Personally, I think decentralized and private nostr marketplaces are the right way to go here but that's external to this proposal.
+
+**Payout Calculations**
+
+I go into detail on this in [my talk](https://www.youtube.com/watch?v=uCyRffPdsaU). The key insight is that you can use Calle's [Proof of Liabilities](https://gist.github.com/callebtc/ed5228d1d8cbaade0104db5d1cf63939) protocol to enforce an arrow of time on mint operations. When a share is accepted, an eHash token will be issued within the current ecash epoch. Epochs are defined by the keyset used by the mint to sign blinded secrets. Epochs will be rotated at a regular time interval. The mint transitions to a new epoch by announcing a new keyset. This essentially 'buckets' all shares into time windows that can be used to calculate payouts and enforce a TTL for each token the mint issues.
+
+I find it useful to think of this construction as a series of rolling contracts. Each ecash epoch is a different contract and eHash tokens issued in that epoch are a claim on the block rewards the pool wins within the share window of the contract. Coinbase transactions are peg-ins to the contract and eHash redemptions are peg-outs.
+
+The *really* cool part is that with this arrow-of-time scheme you also get ecash mint auditing for free.
+
+**Auditing**
+
+An ecash mint is essentially a new kind of bank. In banking, there are two facets to auditing: assets and liabilities. Ehash tokens are liabilities and can be audited in a privacy-preserving fashion as described in the PoL protocol (linked above).
+
+In the mining pool scenario each PoW mining share represents an asset, it is proof that some miner performed valuable work for the pool and should be compensated accordingly. I haven't designed this protocol yet but I am keen to get there. This will also be very useful for existing pools since proving share validity is an unsolved problem for the industry at large.
+
+In order to prove the validity of a mining share you need 3 pieces of information: block template, block header, and nonce(s). The goal is to prove that each share accepted by the pool corresponds to a valid block.[^*]
+
+I think all you need is a lookup table of block template, header, and nonce data and a merkle sum tree of block header hashes. In order to prove an individual share's validity you look up the block template, header, and nonce data, combine them into a full bitcoin block (with insufficient proof of work, probably), hash the header and provide a merkle proof for that header. The merkle sum tree is used to attest to the sum of difficulty of accepted shares. Ehash tokens are denominated in difficulty so this value can be directly compared to the sum of liabilities (mint proofs minus burn proofs (not including ecash redemptions)) from the Proof of Liabilities report. I haven't fully scoped out the idea but it seems like a fairly straight-forward problem. Am I missing anything?
+
+A really cool aspect of this proposal is that it actually closes all of the gaps that Calle describes in the PoL protocol. By comparing a proof of the collateral used to issue liabilities against the proof of liabilities we can fully audit all mint operations, leaving no possibility of hidden fraud on the part of the mint. (Please prove me wrong!)
+
+I was surprised and encouraged by this realization. By exploring the architecture that would enable ecash mining shares I found solutions to problems that I wasn't even trying to solve. It's pretty fucking rad IMO. Keep reading for more solutions to seemingly unrelated problems. :)
+
+**Goals of the Proposal**
+
+This was repeatedly brought up in this thread and I agree that unclear or unstated goals lead to confusion and dead end arguments, so let's clear the air. I have three major goals in mind, in order of importance:
+
+1. distribute block template production
+2. create a new FOSS self-hostable KYC-free bitcoin onramp
+3. reduce the minimum threshold of mining withdrawals (enable pleb mining)
+
+I originally started working on this problem with only last two goals in mind but then I had an insight that blew open the doors. Pseudonymous and transparent PPLNS payouts enable a layered approach to bitcoin mining. With PPLNS, you can run a small pool that mines upstream to a larger pool. This lets you skip over the 0-to-1 problem of launching a new pool. You don't need to launch with enough hashrate to regularly find blocks. A small pool can mine to an account with a larger pool, receive payouts when the upstream pool finds a block, and issue payouts to downstream miners from those funds. This is a fundamentally more scalable arrangement than the monolithic mining pool model that everyone seems to carry around in their head.
+
+It only makes economic sense with PPLNS pools because FPPS pools assume the role of pricing hashrate; PPLNS pools push the 'luck risk' or payout variability (and thus the pricing of hashrate) onto the miners. We're building a decentralized ecash market for pricing hashrate, so mining to an FPPS pool account pays the upstream pool to provide a redundant service that free markets can do a better job at providing. This fee is wasted on an FPPS pool and only increases the cost to downstream miners.
+
+With a diversity of hashpools mining upstream to a few large top-level mining pools we can finally realize the ideal of a big dumb mining pool that does nothing more than aggregate hashrate and distribute block rewards. The second layer pools can specialize in payout mechanisms, authentication (or lack thereof), block template production, and more.
+
+I believe the biggest wins come later when hashpools can start experimenting with template selection and coinbase payouts. Paid template selection would enable hashpools to offer transaction accelerator and non-standard transaction services. Coinbase output markets enable the mining pool to be used as a coin mixer in a fundamentally more private manner than coinjoin services because coinbase outputs have no on-chain transaction history. 🤯
+
+I've written a lot on these topics elsewhere and this post is long enough already so I'll stop here. But ponder this: what would bitcoin look like with a thousand small mining pools innovating in coinbase and block template future (or forward) instruments? The state can stop some of us some of the time but they can't stop all of us all the time. Let's fucking go.
+
+[*] Valid within the bitcoin consensus rules at the current block height. The pool also needs to validate that the coinbase transaction includes the cashu `keyset_id` somewhere and pays the right amounts to the to the right outputs. The `keyset_id` commitment prevents miners from submitting shares to multiple pools.
+
+-------------------------
+
+vnprc | 2025-01-07 22:41:04 UTC | #33
+
+**Open Questions**
+
+1. What should the Proof of Assets a.k.a. hashrate validation protocol look like?
+
+Can we build something that works for hashpool and traditional mining pools? Can we get some help from existing pools? 🙏
+
+2. What payout formula should we use? Basic PPLNS, TIDES, or some other tweaked PPLNS algorithm?
+
+If the pool uses authentication I think we could even go back to proportional payouts. PPLNS was invented to prevent pool hopping but it would seem that an eHash free market could also solve this problem. So can we go back to proportional payouts in this scenario? What are the benefits? Is the juice worth the squeeze?
+
+**Post 1.0 Questions**
+1. How to build a block template selection market?
+
+The solution probably involves mining a share and selling it to the 'block template purchaser' (or transaction accelerator customer if you like to think in those terms) along with a merkle proof of the mining share.
+
+2. How do we minimize MEV or MEVil risk?
+
+You can't solve a problem that is poorly defined. I think we first need to do some fundamental research into the causes of MEV (or MEVil). I am confident that with the right foundational research we can put some basic restrictions in place to limit this possibility.
+
+`<soapbox>` I *do not* believe the solution is to avoid building any software that could possibly enable spooky, undefined behavior. Bitcoin is permissionless, someone will build it (they might even get a free wizard NFT for their efforts). We are better off building it the right way first and setting the example to emulate. `</soapbox>`
+
+3. How to build a coinbase output market?
+
+I have concluded that you can't trustlessly pay for a coinbase output with eHash tokens because the tokens are indelibly tied to past block templates. How does one ensure that future block templates include the right coinbase output? Furthermore, how do you ensure the coinbase output has the right amount if eHash tokens have indeterminate value?
+
+The only remaining option is for the pool to sell coinbase outputs directly for bitcoin. Which leads to my next question:
+
+4. How do we trustlessly and transparently funnel (most of) the profits from selling coinbase output to the miners?
+
+If the purchaser is paying with an on-chain UTXO they can craft a transaction that pays the right amount directly to mining fees. This way all miners who contribute to the pool get to share in the profits. But how to prevent other pools from mining that transaction and stealing those fees? Easy peasy, put a connector output in the coinbase.
+
+Well...it seems easy peasy but I can imagine a consensus rule that might prevent a graph cycle where a coinbase output pays to a transaction that pays fees into the coinbase. Has anyone ever tried to build something like this? Does such a rule exist?
+
+I haven't worked out a solution for coinbase output purchasers paying in ecash. Maybe the mint simply creates the transaction that flows entirely to fees? This is a half-baked idea. Let me know if you can think of a way to break it.
+
+-------------------------
+
+mcelrath | 2025-01-08 14:42:29 UTC | #34
+
+Really cool that you're actually building this. Kudos!
+
+How do people validate shares? A share is a full bitcoin block, including all transactions, but having a PoW less than Bitcoin's difficulty target.. This means a "share" is up to 4MB of data. See [General Considerations for Decentralized Mining Pools for Bitcoin](https://github.com/braidpool/braidpool/blob/6bc7785c7ee61ea1379ae971ecf8ebca1f976332/docs/general_considerations.md) for details on this. If block templates are truly arbitrary, this means that any share mining a tx that is not in the share-validator's mempool cannot be validated. Even if all txs are known at best I have to store and download the txid list for every share. At worst I have to download an entire 4MB graffiti block full of txs I've never seen before.
+
+Let me suggest something. [Braidpool](https://github.com/braidpool/braidool/) will be a public blockchain (DAG) with each entry (bead) in the DAG being a share. I've proposed using using [Deterministic Block Templates](https://github.com/braidpool/braidpool/discussions/69) to mitigate this problem. The idea being that Braidpool beads carry bitcoin transactions, which for any given set of braid tips defines a committed mempool. Tx selection can then proceed using any deterministic algorithm on this committed mempool. Proof of a share is then only the share header (bead ~ 2kb or so), which implicitly commits to a tx set in a committed mempool, and a block header independently computable via the defined deterministic algorithm. Thus the block template nor its txs need to be separately stored and or transmitted for verification (as long as the share verifier is running a Braidpool node -- the data within is entirely public).
+
+Now, this is really only possible with a consensus algorithm on that mempool. Because TIDES and Cashu don't have any such publicly known list of txs or consensus, that means that shares in your scheme require transporting or storing a tremendous amount of data.
+
+Braidpool is limited on the size of shares it can support, by the restriction on how many beads (shares) can be mined in a given period of time and consensus decide upon them. This is limited by the latency of transmitting shares, and given the 600s block time and observed latencies, this is a bead time around 250ms - 1000ms, so for round numbers let's call it 600ms or 1000x shares per Bitcoin block. If a miner wins one share per bitcoin block (so has 0.1% of the bitcoin hashrate) he'd have a monthly revenue variance of about 1.5%. Variance reduction is the main point of pools in the first place, and this is really the floor in variance of where miners want to be, given their margins. If you're a smaller miner than that you either accept higher variance or want to find another payout solution. However 0.1% of the network at today's hashrate of 800M Th/s is about 4000 S21-class devices. This is a fairly large operation corresponding to 13MW of power. For miners smaller than 4000 devices we need to find another solution.
+
+This is where I think an eCash mint can come in. I've proposed Braidpool sub-pools for this, which is another instance of Braidpool that takes payment from shares in the parent pool, instead of Bitcoin. Shares in this sub-pool could be eCash tokens leveraging the corresponding Braidpool sub-pool instance for share information and validation. This could get us down to ~1.5% monthly variance for miners having as few as ~4 S21-class devices. Smaller miners than this (e.g. Bitaxe) could use sub-sub-pools, but at this point the payouts are so small that it's even difficult to put them on-chain because of the dust limit, so Lightning or eCash tokens are really required because of the small denominations.
+
+I don't know that it makes much sense to worry about the BitAxe folks though, they're really playing a lottery, not expecting steady income. Running a BitAxe on a sub-pool is still a pretty nice lottery.
+
+Cheers,
+-- Bob
+
+-------------------------
+
+marathon-gary | 2025-01-08 19:26:22 UTC | #35
+
+[quote="vnprc, post:32, topic:870"]
+I think all you need is a lookup table of block template, header, and nonce data and a merkle sum tree of block header hashes. In order to prove an individual share’s validity you look up the block template, header, and nonce data, combine them into a full bitcoin block (with insufficient proof of work, probably), hash the header and provide a merkle proof for that header. The merkle sum tree is used to attest to the sum of difficulty of accepted shares. Ehash tokens are denominated in difficulty so this value can be directly compared to the sum of liabilities (mint proofs minus burn proofs (not including ecash redemptions)) from the Proof of Liabilities report. I haven’t fully scoped out the idea but it seems like a fairly straight-forward problem. Am I missing anything?
+[/quote]
+
+[quote="vnprc, post:33, topic:870"]
+What payout formula should we use? Basic PPLNS, TIDES, or some other tweaked PPLNS algorithm?
+[/quote]
+
+I recommend checking out the [PPLN-JD post](https://delvingbitcoin.org/t/pplns-with-job-declaration/1099) as it offers a complimentary/orthogonal solution to share accounting and auditing. I believe eHash is doable using the PPLNS-JD accounting schema.
+
+-------------------------
+

@@ -41,3 +41,32 @@ This message is timestamped in the bitcoin blockchain for authenticity of the co
 
 -------------------------
 
+ariard | 2025-01-10 00:46:34 UTC | #3
+
+Giving an update on this thread.
+
+I'll pursue Matthew Corallo in front of courts of justice, be it a North Carolina one or another competent US court.
+
+I started to contribute on the rust-lightning project in 2018, when it was actually 2 active contributors working on it, i.e only Mr Corallo and myself, far before Square Crypto was a thing, so we know each other quite well.
+
+This will avoid unrelated third-party people like Rusty Russell again being lied to and being instrumentalized to serve the very private interest of Mr. Corallo, or also as I might suspect a commercial interest of Mr. Corallo's current employer.
+
+I've been asked by some journalists to clarify what's going with those issues, and again very recently by people I'm usually not connected with, so I'll re-said in public what I've been saying in private.
+
+Those issues are not related to the US national security. Neither anything w.r.t US intelligence agencies.
+
+This is more simply an old-fashion quarrel among 2 foss guys. One guy thinks he’s the benevolent dictator for life of each open-source project he's touching, and in consequence
+that other contributors should just shut up and obey, and even believe it's okay to do private phone calls to threat the professional reputations of the ones who don't comply.
+
+The other guy disagrees.
+
+Courts of justice it's usually the civilized way of solving conflicts among grown up people. It will take the time that it will takes, years if we have to. The timeframe of courts of justice is usually not the one of publishing an online social media post, and there people most of time, think before to speak.
+
+It will be interesting to have a US court of justice have a say on what “decentralization” really means in an open-source project. Up to the Supreme Court of the US, if it’s necessary.
+
+Warmly,
+
+Antoine Riard.
+
+-------------------------
+

@@ -1,0 +1,73 @@
+{
+  "id": 3984,
+  "name": "Pieter Wuille",
+  "username": "sipa",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "created_at": "2025-01-06T16:45:01.124Z",
+  "cooked": "<p>I asked Andrew. Apparently it was just a <a href=\"https://bitcointalk.org/index.php?topic=98314.msg1075701#msg1075701\">bitcointalk post</a> post, and later referenced in the <a href=\"https://eprint.iacr.org/2020/1101.pdf\">NC-Max paper</a>.</p>",
+  "post_number": 20,
+  "post_type": 1,
+  "updated_at": "2025-01-06T16:45:01.124Z",
+  "reply_count": 0,
+  "reply_to_post_number": 19,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
+  "yours": false,
+  "topic_id": 1331,
+  "topic_slug": "fastest-possible-pow-via-simple-dag",
+  "topic_title": "Fastest-possible PoW via Simple DAG",
+  "topic_html_title": "Fastest-possible PoW via Simple DAG",
+  "category_id": 7,
+  "display_username": "Pieter Wuille",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "pmn",
+    "name": null,
+    "avatar_template": "/user_avatar/delvingbitcoin.org/pmn/{size}/971_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I asked Andrew. Apparently it was just a [bitcointalk post](https://bitcointalk.org/index.php?topic=98314.msg1075701#msg1075701) post, and later referenced in the [NC-Max paper](https://eprint.iacr.org/2020/1101.pdf).",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 96,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

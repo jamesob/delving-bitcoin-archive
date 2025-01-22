@@ -1214,3 +1214,19 @@ That's true, but my wider point is that MTP isn't a valid PoW timestamp as some 
 
 -------------------------
 
+sjors | 2024-12-17 06:35:00 UTC | #63
+
+I opened a separate discussion about https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326
+
+-------------------------
+
+AntoineP | 2025-01-07 15:24:23 UTC | #64
+
+Hi, i'd like to update this thread with the outcome of the discussions in the [private one](https://delvingbitcoin.org/t/worst-block-validation-time-inquiry/711?u=antoinep) on the topic of improving the worst case validation time.
+
+Shortly after posting the details of the worst block, i realized i could adapt it to bypass the [mitigations originally proposed](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki#specification) in 2019. This opened up an almost year long discussion about possible mitigations and their tradeoffs in terms of impact, confiscatory surface and complexity. Thanks to everyone who participated and in particular to Anthony Towns for his contributions, corrections and the helpful discussions.
+
+After studying the various options i believe the best way forward is to introduce a 2'500 per-transaction limit on the number of legacy (both bare and P2SH) input sigops. This provides a 40x decrease in the worst case validation time with a straightforward and flexible rule minimizing the confiscatory surface. A further 7x decrease is possible by combining it with another rule, which is in my opinion not worth the additional confiscatory surface.
+
+-------------------------
+

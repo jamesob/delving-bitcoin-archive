@@ -1,0 +1,73 @@
+{
+  "id": 3935,
+  "name": "/dev/fd0",
+  "username": "1440000bytes",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png",
+  "created_at": "2025-01-03T08:27:55.123Z",
+  "cooked": "<p>I think its far easier to create fake stats on signet than fake evaluations on wiki.</p>\n<aside class=\"onebox twitterstatus\" data-onebox-src=\"https://x.com/stevenroose3/status/1862231147851243760\">\n  <header class=\"source\">\n\n      <a href=\"https://x.com/stevenroose3/status/1862231147851243760\" target=\"_blank\" rel=\"noopener nofollow ugc\">x.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <img src=\"https://delvingbitcoin.org/uploads/default/original/1X/45e18056484ed7df824ba77e4e544f9d9e2030bf.jpeg\" class=\"thumbnail onebox-avatar\" data-dominant-color=\"48678A\" width=\"200\" height=\"200\">\n<h4><a href=\"https://x.com/stevenroose3/status/1862231147851243760\" target=\"_blank\" rel=\"noopener nofollow ugc\">Steven Roose (@stevenroose3) on X</a></h4>\n<div class=\"twitter-screen-name\"><a href=\"https://x.com/stevenroose3/status/1862231147851243760\" target=\"_blank\" rel=\"noopener nofollow ugc\">@stevenroose3</a></div>\n\n<div class=\"tweet\">\n  <span class=\"tweet-description\">@ercwl If an Ark would be deployed on inquisition, you'd also barely see any CTV txs confirm, because they stay off-chain. This is a bad metric for usage/interest. Also trivially inflatable.</span>\n</div>\n\n<div class=\"date\">\n  <a href=\"https://x.com/stevenroose3/status/1862231147851243760\" class=\"timestamp\" target=\"_blank\" rel=\"noopener nofollow ugc\"></a>\n\n\n</div>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
+  "post_number": 23,
+  "post_type": 1,
+  "updated_at": "2025-01-03T08:27:55.123Z",
+  "reply_count": 0,
+  "reply_to_post_number": 22,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
+  "yours": false,
+  "topic_id": 1257,
+  "topic_slug": "ctv-apo-cat-activity-on-signet",
+  "topic_title": "CTV, APO, CAT activity on signet",
+  "topic_html_title": "CTV, APO, CAT activity on signet",
+  "category_id": 8,
+  "display_username": "/dev/fd0",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "ajtowns",
+    "name": "Anthony Towns",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I think its far easier to create fake stats on signet than fake evaluations on wiki. \n\nhttps://x.com/stevenroose3/status/1862231147851243760",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 247,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

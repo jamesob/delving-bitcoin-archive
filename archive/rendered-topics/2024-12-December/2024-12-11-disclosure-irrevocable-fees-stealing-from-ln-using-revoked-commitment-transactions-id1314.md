@@ -205,3 +205,19 @@ In most implementations, the deployed mitigation for the irrevocable fees vulner
 
 -------------------------
 
+ariard | 2024-12-12 06:42:46 UTC | #2
+
+Thanks for the catch. For precision on LDK, respectively up to v0.0.116 (for `option_zero_fee_htlc_tx` channels) and up to v0.0.119 (for legacy channels) there was an upper limit on the accepted feerate from a channel counterparty, initially introduced by this [commit](https://github.com/lightningdevkit/rust-lightning/commit/d3af49e9f07fc28d104f1f1dbcf8e216b65e9f89).
+
+In my understanding, keeping this limit check would have prevented this type of “irrevocable fees” vulnerabilities affecting LDK. The limit check was introduced at the time of “excessive trimmed HTLCs / dust HTLC exposure” mitigations implementations in 2021 to make the msat denominated worst-case of dust HTLCs exposure easier to calculate (numerous scenarios were considered).
+
+The report does not say a word about the Validating Lightning Signer. As of commit `c2c5d994` and since the pre-production release, VLS always had a `validate_fee()` check validating the counterparty’s proposed feerate against a `max_feerate_per_kw` and this style of attacks have been discussed in the VLS context under the name of “miner-fee-siphoning attacks” since early 2023. The value of `max_feerate_per_kw` has been usually around 100 sat / vb, though it is normally configurable by the operator.
+
+-------------------------
+
+everythingSats | 2024-12-18 12:47:43 UTC | #3
+
+This is a poignant addition Antoine. Thanks
+
+-------------------------
+

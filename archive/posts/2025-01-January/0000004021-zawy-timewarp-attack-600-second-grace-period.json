@@ -1,0 +1,78 @@
+{
+  "id": 4021,
+  "name": "Zawy",
+  "username": "zawy",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png",
+  "created_at": "2025-01-08T17:04:51.668Z",
+  "cooked": "<p>OK, now I see. It\u2019s not that an adjustment for both Erlang and \u201c2015 hole\u201d aren\u2019t needed, it\u2019s that 600 seconds before the previous block isn\u2019t a 600 second lie, it\u2019s a 1200 second lie because we expected a timestamp 600 seconds after it.</p>",
+  "post_number": 33,
+  "post_type": 1,
+  "updated_at": "2025-01-08T17:04:51.668Z",
+  "reply_count": 1,
+  "reply_to_post_number": 32,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 98.6,
+  "yours": false,
+  "topic_id": 1326,
+  "topic_slug": "timewarp-attack-600-second-grace-period",
+  "topic_title": "Timewarp attack 600 second grace period",
+  "topic_html_title": "Timewarp attack 600 second grace period",
+  "category_id": 7,
+  "display_username": "Zawy",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "sipa",
+    "name": "Pieter Wuille",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+  },
+  "bookmarked": false,
+  "raw": "OK, now I see. It's not that an adjustment for both Erlang and \"2015 hole\" aren't needed, it's that 600 seconds before the previous block isn't a 600 second lie, it's a 1200 second lie because we expected a timestamp 600 seconds after it.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 4
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 502,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false
+}

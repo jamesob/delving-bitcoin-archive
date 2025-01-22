@@ -101,3 +101,89 @@ $ man bitcoind | grep blockreconstructionextratxn -A 2
 
 -------------------------
 
+0xB10C | 2025-01-19 11:03:42 UTC | #5
+
+Here is an updated graph of share of block reconstructions that didn’t need to request transactions - higher is better.
+
+![image|141x500, 100%](upload://zAST1Hc8viBRGS4k3DhGq3mwfnn.jpeg)
+
+When the mempool grows (below shows everything above 3 sat/vByte), we usually need to request transactions for more block reconstructions. A few examples are:
+
+- between 2024-11-08 and 2024-11-15
+- between 2024-12-04 and 2024-12-17
+
+![image|690x198](upload://szTUIVWV1vZ9TrQYg35kKy2k7DH.png)
+
+-------------------------
+
+sipa | 2025-01-19 13:26:01 UTC | #6
+
+Interesting, do you have any insight in what causes this? Inconsistent eviction from nodes, or more out-of-band relayed/prioritized transactions?
+
+-------------------------
+
+ismaelsadeeq | 2025-01-19 15:21:50 UTC | #7
+
+One possible way to get this insight is to target blocks with low numbers to check how many of the requested transactions are non-standard. If they are much in all blocks with low numbers, it is most likely due to out-of-band prioritized transactions causing the issue; otherwise, it maybe inconsistent eviction.
+
+-------------------------
+
+0xB10C | 2025-01-20 10:51:08 UTC | #8
+
+I have been running some of my nodes with this patch https://github.com/0xB10C/bitcoin/commit/90181a45651fdebc7cc5dc5262416f0f83fa4c48 and have the logs for them. Here is an example: https://gist.github.com/0xB10C/bc24f1406443faf92fe30efd16555327
+
+Don't really have an idea yet how to automatically determine why my node didn't know about these transactions yet/anymore, but it probably makes sense to look at:
+
+- feerate (low-feerate evicted?)
+- age (exired?)
+- non-standard?
+- does the txid appear anywhere else in the logs?
+
+---
+
+I grepped for a few randomly picked txids:
+
+```log
+2024-12-07T00:21:12.376791Z [msghand] [txorphanage.cpp:75] [EraseTx] [txpackages]    removed orphan tx dd869c31dfafba5daec91a772f0b74b505245a31a49d9ad15e61fc0f689581e2 (wtxid=ee1b55a6a2ec26997f1a52c3156a2fa20cf686ee9f887d909d9d017b57a58ef1) after 1240s
+2024-12-07T00:31:58.796780Z [msghand] [blockencodings.cpp:222] [FillBlock] [cmpctblock] Reconstructed block 00000000000000000000ce6d3b8a652dcea3b7d83cbaeb5831bc599aa7356618 required tx dd869c31dfafba5daec91a772f0b74b505245a31a49d9ad15e61fc0f689581e2
+```
+
+
+```log
+2024-12-07T00:20:59.602944Z [msghand] [net_processing.cpp:2977] [ProcessInvalidTx] [mempoolrej] 0b77bbf7b1ed040b96f59d4db84cbacf6a65bcc04e8f6952e39059960b1155ea (wtxid=d9fbb98ab4d6497704b43aa6b9a86962745c36a0e74d74c19c075a830d2d4d46) from peer=964 was not accepted: bad-txns-inputs-missingorspent
+2024-12-07T00:20:59.603119Z [msghand] [txorphanage.cpp:43] [AddTx] [txpackages] stored orphan tx 0b77bbf7b1ed040b96f59d4db84cbacf6a65bcc04e8f6952e39059960b1155ea (wtxid=d9fbb98ab4d6497704b43aa6b9a86962745c36a0e74d74c19c075a830d2d4d46), weight: 798 (mapsz 78 outsz 164)
+2024-12-07T00:21:03.668277Z [msghand] [net_processing.cpp:4276] [ProcessMessage] [txpackages] package evaluation for parent 59cca4937290bf650b84b4ca015d07d57eed8114054ff962870b1efcabfa8c8f (wtxid=afa16ed76c1f1f871aa2f8af6fc38cf8da0a0cf1ded0903037b73b82e41341d3, sender=964) + child 0b77bbf7b1ed040b96f59d4db84cbacf6a65bcc04e8f6952e39059960b1155ea (wtxid=d9fbb98ab4d6497704b43aa6b9a86962745c36a0e74d74c19c075a830d2d4d46, sender=964): package rejected
+2024-12-07T00:25:31.420207Z [msghand] [txorphanage.cpp:75] [EraseTx] [txpackages]    removed orphan tx 0b77bbf7b1ed040b96f59d4db84cbacf6a65bcc04e8f6952e39059960b1155ea (wtxid=d9fbb98ab4d6497704b43aa6b9a86962745c36a0e74d74c19c075a830d2d4d46) after 272s
+2024-12-07T00:32:58.242773Z [msghand] [blockencodings.cpp:222] [FillBlock] [cmpctblock] Reconstructed block 0000000000000000000182f6bf1083700dfba1a3d5644649ed004a3d0e4bacec required tx 0b77bbf7b1ed040b96f59d4db84cbacf6a65bcc04e8f6952e39059960b1155ea
+```
+
+
+```
+2024-12-07T01:07:17.535310Z [msghand] [node/txdownloadman_impl.cpp:218] [GetRequestsToSend] [net] Requesting tx b5d8f7a4b4988e3bfe3aa0608d9ff2eae681b9ddff4b9dd107d2103f8e7b9e55 peer=12433
+2024-12-07T01:07:17.622901Z [msghand] [net_processing.cpp:2977] [ProcessInvalidTx] [mempoolrej] b5d8f7a4b4988e3bfe3aa0608d9ff2eae681b9ddff4b9dd107d2103f8e7b9e55 (wtxid=08d230a6818d5264dc0fd525cc5f7cfb01311b7870367553b96e0c30d8ac6de1) from peer=12433 was not accepted: bad-txns-inputs-missingorspent
+2024-12-07T01:07:17.623050Z [msghand] [txorphanage.cpp:43] [AddTx] [txpackages] stored orphan tx b5d8f7a4b4988e3bfe3aa0608d9ff2eae681b9ddff4b9dd107d2103f8e7b9e55 (wtxid=08d230a6818d5264dc0fd525cc5f7cfb01311b7870367553b96e0c30d8ac6de1), weight: 840 (mapsz 86 outsz 227)
+2024-12-07T01:17:35.855476Z [msghand] [blockencodings.cpp:222] [FillBlock] [cmpctblock] Reconstructed block 00000000000000000001a7e2ed2922731cf8b7cee9dac340818b4b8432e5d5d6 required tx b5d8f7a4b4988e3bfe3aa0608d9ff2eae681b9ddff4b9dd107d2103f8e7b9e55
+2024-12-07T01:17:37.815985Z [scheduler] [txorphanage.cpp:75] [EraseTx] [txpackages]    removed orphan tx b5d8f7a4b4988e3bfe3aa0608d9ff2eae681b9ddff4b9dd107d2103f8e7b9e55 (wtxid=08d230a6818d5264dc0fd525cc5f7cfb01311b7870367553b96e0c30d8ac6de1) after 620s
+```
+
+```
+2024-12-07T01:25:34.454162Z [msghand] [net_processing.cpp:2977] [ProcessInvalidTx] [mempoolrej] 1d20e245f0f18e5f0978c2cd53bc38e36068017b6dcfc5d7bbfb1490fdf2d903 (wtxid=243602b97786ee30a35a407e32f24dc1b6e286a8ac105d5258cf48f8328e2e07) from peer=37 was not accepted: bad-txns-inputs-missingorspent
+2024-12-07T01:25:34.454350Z [msghand] [txorphanage.cpp:43] [AddTx] [txpackages] stored orphan tx 1d20e245f0f18e5f0978c2cd53bc38e36068017b6dcfc5d7bbfb1490fdf2d903 (wtxid=243602b97786ee30a35a407e32f24dc1b6e286a8ac105d5258cf48f8328e2e07), weight: 798 (mapsz 72 outsz 180)
+2024-12-07T01:25:36.477590Z [msghand] [net_processing.cpp:4276] [ProcessMessage] [txpackages] package evaluation for parent f8d9aa002166e96cebb52b112ae15fb40a02b26247b05307a8ee9dd209e98e09 (wtxid=f20440a4b8a9a3907aeb74c6dd02a0e41761044564939999845730a74c8e732a, sender=37) + child 1d20e245f0f18e5f0978c2cd53bc38e36068017b6dcfc5d7bbfb1490fdf2d903 (wtxid=243602b97786ee30a35a407e32f24dc1b6e286a8ac105d5258cf48f8328e2e07, sender=37): package rejected
+2024-12-07T01:47:46.164651Z [msghand] [blockencodings.cpp:222] [FillBlock] [cmpctblock] Reconstructed block 000000000000000000025423e700b6520db875948468bc4c1d9e8c0ec12e7b69 required tx 1d20e245f0f18e5f0978c2cd53bc38e36068017b6dcfc5d7bbfb1490fdf2d903
+2024-12-07T01:47:47.707790Z [scheduler] [txorphanage.cpp:75] [EraseTx] [txpackages]    removed orphan tx 1d20e245f0f18e5f0978c2cd53bc38e36068017b6dcfc5d7bbfb1490fdf2d903 (wtxid=243602b97786ee30a35a407e32f24dc1b6e286a8ac105d5258cf48f8328e2e07) after 1333s
+```
+
+These all seem to be orphans - It seems to me like they weren't in [`vExtraTxnForCompact`](https://github.com/bitcoin/bitcoin/blob/89720b7a1b37af885f304350fa25f2479179ae3e/src/net_processing.cpp#L952C34-L952C53) (anymore). Two ideas:
+
+- run a node with a larger `-blockreconstructionextratxn` than the default of 100 transactions to check if these perform significantly better
+- look for the transactions in the orphan pool too
+
+-------------------------
+
+ajtowns | 2025-01-20 14:43:27 UTC | #9
+
+Doing a better job of requesting parents of orphan txs from other peers that offered us the orphan tx might help here too? See https://github.com/bitcoin/bitcoin/pull/31397 merged in master a couple of days ago.
+
+-------------------------
+

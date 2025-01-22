@@ -1,0 +1,73 @@
+{
+  "id": 3910,
+  "name": "David A. Harding",
+  "username": "harding",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png",
+  "created_at": "2025-01-01T02:39:58.581Z",
+  "cooked": "<p>Allowing amount arithmetic for a limited range of values seems unergonomic in the best case (wallet devs have to write code to prevent overflows) and a footgun in the worst case (wallet devs don\u2019t write correct code addressing overflows and money can be stolen by <a href=\"https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2020-September/002796.txt\">fee siphoning</a> attacks or destroyed by accident).</p>\n<p>Although I take no position on the desirability of these opcodes, if they are to be added, I would favor a design that either doesn\u2019t allow arithmetic or which is compatible with a previously or simultaneously activated soft fork adding 64-bit operators.</p>",
+  "post_number": 6,
+  "post_type": 1,
+  "updated_at": "2025-01-01T02:39:58.581Z",
+  "reply_count": 1,
+  "reply_to_post_number": 5,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 21.4,
+  "yours": false,
+  "topic_id": 1344,
+  "topic_slug": "ctv-op-templatehash-and-op-inputamounts",
+  "topic_title": "CTV++ OP_TEMPLATEHASH and OP_INPUTAMOUNTS",
+  "topic_html_title": "CTV++ OP_TEMPLATEHASH and OP_INPUTAMOUNTS",
+  "category_id": 7,
+  "display_username": "David A. Harding",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "moonsettler",
+    "name": "moonsettler",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Allowing amount arithmetic for a limited range of values seems unergonomic in the best case (wallet devs have to write code to prevent overflows) and a footgun in the worst case (wallet devs don't write correct code addressing overflows and money can be stolen by [fee siphoning](https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2020-September/002796.txt) attacks or destroyed by accident).\n\nAlthough I take no position on the desirability of these opcodes, if they are to be added, I would favor a design that either doesn't allow arithmetic or which is compatible with a previously or simultaneously activated soft fork adding 64-bit operators.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 6,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

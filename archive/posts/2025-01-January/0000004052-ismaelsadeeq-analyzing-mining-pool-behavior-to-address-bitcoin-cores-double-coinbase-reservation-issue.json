@@ -1,0 +1,73 @@
+{
+  "id": 4052,
+  "name": "Abubakar Sadiq Ismail",
+  "username": "ismaelsadeeq",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ismaelsadeeq/{size}/151_2.png",
+  "created_at": "2025-01-13T20:21:16.934Z",
+  "cooked": "<p>Thanks so much for looking into this in depth</p>\n<aside class=\"quote no-group\" data-username=\"0xB10C\" data-post=\"3\" data-topic=\"1351\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/0xb10c/48/15_2.png\" class=\"avatar\"> 0xB10C:</div>\n<blockquote>\n<p>I was surprised by this.</p>\n</blockquote>\n</aside>\n<p>Same, but unfortunately, I did not account for the block header size.\nIt all makes sense now.</p>\n<p>I\u2019ll strike that through and note that the small increase is due to the size of the block headers.</p>",
+  "post_number": 5,
+  "post_type": 1,
+  "updated_at": "2025-01-13T20:21:16.934Z",
+  "reply_count": 0,
+  "reply_to_post_number": 4,
+  "quote_count": 1,
+  "incoming_link_count": 14,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 85.2,
+  "yours": false,
+  "topic_id": 1351,
+  "topic_slug": "analyzing-mining-pool-behavior-to-address-bitcoin-cores-double-coinbase-reservation-issue",
+  "topic_title": "Analyzing Mining Pool Behavior to Address Bitcoin Core's Double Coinbase Reservation Issue",
+  "topic_html_title": "Analyzing Mining Pool Behavior to Address Bitcoin Core&rsquo;s Double Coinbase Reservation Issue",
+  "category_id": 8,
+  "display_username": "Abubakar Sadiq Ismail",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "0xB10C",
+    "name": "0xB10C",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/0xb10c/{size}/15_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Thanks so much for looking into this in depth\n[quote=\"0xB10C, post:3, topic:1351\"]\nI was surprised by this.\n[/quote]\n\nSame, but unfortunately, I did not account for the block header size.\nIt all makes sense now.\n\nI\u2019ll strike that through and note that the small increase is due to the size of the block headers.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 135,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

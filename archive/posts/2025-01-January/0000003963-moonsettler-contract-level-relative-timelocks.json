@@ -1,0 +1,73 @@
+{
+  "id": 3963,
+  "name": "moonsettler",
+  "username": "moonsettler",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png",
+  "created_at": "2025-01-04T19:45:53.869Z",
+  "cooked": "<p>Maybe I misunderstand the problem, but assume Mallory submits an old state, Alice submits the newest state in the mempool, but Mallory can outbid hers with any of the previous states. If you use a TXID dependent form of fee paying mechanism Alice has to re-sign each and every time this happens. Her rebindable signatures are still good ofc, just the transactions are ejected from the mempool.</p>\n<p>CLRT does not really mitigate this afaik, in fact makes it more dangerous.</p>",
+  "post_number": 5,
+  "post_type": 1,
+  "updated_at": "2025-01-04T19:45:53.869Z",
+  "reply_count": 1,
+  "reply_to_post_number": 4,
+  "quote_count": 0,
+  "incoming_link_count": 1,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 27.4,
+  "yours": false,
+  "topic_id": 1353,
+  "topic_slug": "contract-level-relative-timelocks",
+  "topic_title": "Contract-level Relative Timelocks",
+  "topic_html_title": "Contract-level Relative Timelocks",
+  "category_id": 7,
+  "display_username": "moonsettler",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "cguida",
+    "name": "Chris Guida",
+    "avatar_template": "/letter_avatar_proxy/v4/letter/c/87869e/{size}.png"
+  },
+  "bookmarked": false,
+  "raw": "Maybe I misunderstand the problem, but assume Mallory submits an old state, Alice submits the newest state in the mempool, but Mallory can outbid hers with any of the previous states. If you use a TXID dependent form of fee paying mechanism Alice has to re-sign each and every time this happens. Her rebindable signatures are still good ofc, just the transactions are ejected from the mempool.\n\nCLRT does not really mitigate this afaik, in fact makes it more dangerous.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 48,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

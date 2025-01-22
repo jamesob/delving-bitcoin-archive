@@ -1,6 +1,6 @@
 # BTC Lisp as an alternative to Script
 
-ajtowns | 2024-03-14 12:51:49 UTC | #1
+ajtowns | 2024-12-17 12:53:47 UTC | #1
 
 This is a continuation from my post on [Chia Lisp](https://delvingbitcoin.org/t/chia-lisp-for-bitcoiners/636). It maintains the bottom-up theme, so again, if this doesn't strike you as innately interesting, maybe just remember that this topic exists so you can refer back to it later as useful background material when we do finally get to something interesting.
 
@@ -53,7 +53,7 @@ So let's start with a run through of the opcodes that I roughly ended up with.
 | `all` | 0x0a | A B ... | `all` | if any of A, B... are nil return nil, else return 1
 | `any` | 0x0b | A B ... | `any` | if all of A, B... are nil return nil, else return 1
 | `=` (eq) | 0x0c | A B C ... | `=` | if all of B, C... equal A return 1, else nil
-| `<s` (lt_str) | 0x0d | *A *B *C ... | `>s` | if A is less than B (lexicographically), C is less than B, etc return 1, else nil
+| `<s` (lt_str) | 0x0d | *A *B *C ... | `>s` | if A is less than B (lexicographically), B is less than C, etc return 1, else nil
 | `strlen` | 0x0e | *A *B ... | `strlen` | return the sum of the lengths of A, B, etc
 | `substr` | 0x0f | *A *B *E | `substr` | return the substring of A, starting at position B, ending at position E; if B is missing return A, if E is missing, treat it as `(strlen A)`
 | `cat` | 0x10 | *A *B ... | `concat` | return a new atom with A, B, etc concatenated together` |
@@ -593,6 +593,22 @@ cryptoquick | 2024-04-01 06:02:32 UTC | #15
 Might I suggest simply calling it Thcript? It's Script with a Lisp.
 
 EDIT: If not, for consistency's sake, perhaps we can just retcon Script as being BTC Forth.
+
+-------------------------
+
+Ajian | 2024-12-17 02:52:32 UTC | #16
+
+[quote="ajtowns, post:1, topic:682"]
+`<s` (lt_str) 0x0d *A *B *C … `>s` if A is less than B (lexicographically), C is less than B, etc return 1, else nil
+[/quote]
+
+Is here any typo? Is this operator requiring these atoms being a lexicographically sorted list, or requiring *B is the biggest?
+
+-------------------------
+
+ajtowns | 2024-12-17 12:54:51 UTC | #17
+
+Yeah, a typo. I suspect when I started writing that, I was duplicating chia's `>s` operator, but then figured that if you're writing `A B C` it makes more sense to do them in order from smallest to biggest.
 
 -------------------------
 

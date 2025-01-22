@@ -1,0 +1,72 @@
+{
+  "id": 3772,
+  "name": "Qbits",
+  "username": "QbitsCode",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/qbitscode/{size}/918_2.png",
+  "created_at": "2024-12-13T18:42:55.375Z",
+  "cooked": "<p>Thanks crypotquick.  What we have proposed Group 2: Kyber, FrodoKEM, and NTRU are not for digital signature is a complementary of Group 1: SPHINCS+, CRYSTALS-Dilithium, FALCON, and SQIsign \u2018what BIP\u2019s P2QRH proposed protection\u2019.  Both groups are pqc, however, what is adding value in Group 2 is strong in terms of if Bitcoin evolves to require encrypted communications (e.g., between wallets or nodes).  Group 1 is exactly designed for Digital Signature Algorithms.  So, they are complement each other.  We are so glad to see the cryptography of bitcoin is quantum-safe and quantum-resistance in a permanent setup.</p>",
+  "post_number": 3,
+  "post_type": 1,
+  "updated_at": "2024-12-14T13:17:30.553Z",
+  "reply_count": 1,
+  "reply_to_post_number": 2,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 22.6,
+  "yours": false,
+  "topic_id": 1320,
+  "topic_slug": "implemented-post-quantum-cryptography-pqc-feature-into-bitcoin-core",
+  "topic_title": "Implemented Post-Quantum Cryptography (PQC) Feature into Bitcoin Core!",
+  "topic_html_title": "Implemented Post-Quantum Cryptography (PQC) Feature into Bitcoin Core!",
+  "category_id": 8,
+  "display_username": "Qbits",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "version": 2,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "cryptoquick",
+    "name": "Hunter Beast",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/cryptoquick/{size}/55_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Thanks crypotquick.  What we have proposed Group 2: Kyber, FrodoKEM, and NTRU are not for digital signature is a complementary of Group 1: SPHINCS+, CRYSTALS-Dilithium, FALCON, and SQIsign 'what BIP's P2QRH proposed protection'.  Both groups are pqc, however, what is adding value in Group 2 is strong in terms of if Bitcoin evolves to require encrypted communications (e.g., between wallets or nodes).  Group 1 is exactly designed for Digital Signature Algorithms.  So, they are complement each other.  We are so glad to see the cryptography of bitcoin is quantum-safe and quantum-resistance in a permanent setup.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 613,
+  "hidden": false,
+  "trust_level": 0,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

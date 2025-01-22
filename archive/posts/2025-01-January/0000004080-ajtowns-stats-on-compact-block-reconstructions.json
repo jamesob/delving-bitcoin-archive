@@ -1,0 +1,73 @@
+{
+  "id": 4080,
+  "name": "Anthony Towns",
+  "username": "ajtowns",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
+  "created_at": "2025-01-20T14:43:27.958Z",
+  "cooked": "<p>Doing a better job of requesting parents of orphan txs from other peers that offered us the orphan tx might help here too? See <a href=\"https://github.com/bitcoin/bitcoin/pull/31397\">https://github.com/bitcoin/bitcoin/pull/31397</a> merged in master a couple of days ago.</p>",
+  "post_number": 9,
+  "post_type": 1,
+  "updated_at": "2025-01-20T14:43:27.958Z",
+  "reply_count": 0,
+  "reply_to_post_number": 8,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 17.6,
+  "yours": false,
+  "topic_id": 1052,
+  "topic_slug": "stats-on-compact-block-reconstructions",
+  "topic_title": "Stats on compact block reconstructions",
+  "topic_html_title": "Stats on compact block reconstructions",
+  "category_id": 7,
+  "display_username": "Anthony Towns",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "0xB10C",
+    "name": "0xB10C",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/0xb10c/{size}/15_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Doing a better job of requesting parents of orphan txs from other peers that offered us the orphan tx might help here too? See https://github.com/bitcoin/bitcoin/pull/31397 merged in master a couple of days ago.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": true,
+  "admin": true,
+  "staff": true,
+  "user_id": 3,
+  "hidden": false,
+  "trust_level": 4,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}
