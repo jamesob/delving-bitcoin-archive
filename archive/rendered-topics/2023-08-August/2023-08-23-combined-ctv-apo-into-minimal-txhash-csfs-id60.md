@@ -226,3 +226,13 @@ https://github.com/reardencode/bips/blob/bip-template-key/bip-template-key.media
 
 -------------------------
 
+moonsettler | 2025-01-26 13:47:56 UTC | #9
+
+[quote="instagibbs, post:2, topic:60"]
+I think adding upgrade hooks, as he says, is pretty fraught, vs “just use another opcode”.
+[/quote]
+
+Maybe fair for OP_SUCCESS, but we don't have all that many upgradeable NOPs left. CHECKSIGFROMSTACKVERIFY was dropped from the CSFS BIP for this reason. In this particular case it's perfectly reasonable.
+
+-------------------------
+

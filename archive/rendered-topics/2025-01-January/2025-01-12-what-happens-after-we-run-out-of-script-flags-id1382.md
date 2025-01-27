@@ -40,3 +40,15 @@ As you already know i believe it's entirely premature to talk about activation o
 
 -------------------------
 
+moonsettler | 2025-01-26 15:51:44 UTC | #5
+
+After giving it a try, I don't think it's a super viable path to change the type. It's a lot of change that breaks easy code portability, it compiles without problems while certainly bugged. `flags_t` could be `ScriptFlags`, or whatever for better readability.
+
+**edit:** I did experiment with using `typedef std::bitset<64> flags_t;` for script flags, it could be a good solution long term, but the imminent pain is even worse. Also doing so noticed that the flags as `unsigned int` are indeed exposed on APIs. and honestly I have no idea what to do with that.
+
+**edit:** Context for picking up this thread again: `LNhance` + `C3PO` has enough script flags left, but I became increasingly convinced that `C4` should also be part of the conversation, because activating `CAT` without `CCV` carries the likelihood of greater annoyance with new opcodes as opposed to the immediate desire to soft-fork in further optimizations.
+
+https://github.com/lnhance/bitcoin/compare/lnhance-26.x-deploy...lnhance:bitcoin:lnhance-26.x-deploy64
+
+-------------------------
+

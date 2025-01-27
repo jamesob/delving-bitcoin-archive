@@ -187,3 +187,72 @@ Doing a better job of requesting parents of orphan txs from other peers that off
 
 -------------------------
 
+jungly | 2025-01-23 08:49:12 UTC | #10
+
+I am curious if we considered _not_ deleting transactions from the pool of received transactions? In other words, back the mempool with a db store.
+
+As transactions get pushed out from the mempool by better fees transactions, we eject them from the mempool and store them to disk/db instead. Later we can fetch them from the db when required instead of reaching out to a peer.
+
+This might also help with the problems that we are trying to solve using package relay of transactions. Not sure about this, but it could have an impact.
+
+I think libbitcoin does not delete any received transactions, ever. Which avoids problems like trying to fetch them over the network if they are later required. There is no mempool there and instead the same transactions table holds all received transactions, spent or unspent. As long as they are unspent they can be used to construct next block.
+
+In Core, the problem will be to delete txs from the mempool backup store when txs are spent. This will have a performance penalty. Maybe the libbitcoin solution of a single txs table is worth looking into again? One store, for all rcvd txs, spent or unspent and never delete them.
+
+Regarding spam txs, we need the same defences we use against spam when protecting mempool.
+
+-------------------------
+
+instagibbs | 2025-01-23 14:46:08 UTC | #11
+
+[quote="jungly, post:10, topic:1052"]
+I think libbitcoin does not delete any received transactions, ever.
+[/quote]
+
+This opens up some barn-door sized DoS vectors that graduate bandwidth waste to disk filling. If you're ever out of step with miner's policies, or someone partitions miner's mempools with pins, you'll fill your disk for free. And you'd still be taking round-trips for those blocks.
+
+It also makes the amount of disk required per time period only bounded by gossip rate limiting.
+
+-------------------------
+
+jungly | 2025-01-23 17:14:31 UTC | #12
+
+[quote="instagibbs, post:11, topic:1052"]
+This opens up some barn-door sized DoS vectors that graduate bandwidth waste to disk filling.
+[/quote]
+
+Yes. The assumption in that decision is that disk is cheap. I suppose you can occasionally clean up older transactions in a manner similar to how we prune right now. 
+
+We can use a pruning policy that is similar policies for tx eviction from mempool, but much more forgiving as we have a much larger store available.
+
+I was just curious if such a line of thinking has been debated before.
+
+-------------------------
+
+ajtowns | 2025-01-23 21:00:49 UTC | #13
+
+[quote="instagibbs, post:11, topic:1052"]
+This opens up some barn-door sized DoS vectors that graduate bandwidth waste to disk filling.
+[/quote]
+
+For the purposes of avoiding round trips on block relay, I think you could probably restrict that pretty easily -- only keep txs that were in the mempool within the last 20 minutes, only keep the most recent 20MB of txs. If you also limited it to txs that were near the top of the mempool (either accurately via cluster mempool, or approximately by estimating a top of mempool feerate and comparing that to ancestor feerate and keeping their ancestors) I think that could work pretty okay, and probably just be done in memory, without being persisted to disk.
+
+-------------------------
+
+sipa | 2025-01-23 22:37:29 UTC | #14
+
+Isn't that pretty much what the compact block reconstruction "extra pool" is?
+
+-------------------------
+
+ajtowns | 2025-01-24 00:42:29 UTC | #15
+
+Yeah, differences are:
+ * limit on extra txns is 100 txns at any one time (by default), which is a fair bit smaller than 20MB
+ * all evicted txns go through the extra txns pool, not just those at the top of the mempool (so it doesn't prioritise top of mempool txs)
+ * the extra txns pool isn't indexed, so what's evicted isn't prioritised
+
+(All of which only matter if there's enough replacements going on that top of mempool stuff isn't already being kept around long enough)
+
+-------------------------
+
