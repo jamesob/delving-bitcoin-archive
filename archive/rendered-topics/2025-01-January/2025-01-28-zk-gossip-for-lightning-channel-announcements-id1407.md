@@ -133,3 +133,27 @@ Feedback much appreciated!
 
 -------------------------
 
+sanket1729 | 2025-01-28 22:28:00 UTC | #2
+
+First off, awesome work with this. I have been brainstorming this specific issue for quite sometime now. Great to concrete progress here.
+
+I will try out the code and ask specific questions in a followup reply, but here is the main one that I struggled with initially. 
+
+How does this interact with lightning channel closures? I am not familiar with lighting routing messages for channel close, or if the node directly figures it out by observing the blockchain. 
+
+For effective payment routing, the graph also needs to be updated with the closed channels, removing them network. Will the ZK benefits go away if the channel_id is leaked when we close the channel?
+
+-------------------------
+
+roasbeef | 2025-01-28 23:44:14 UTC | #3
+
+> How does this interact with lightning channel closures?
+
+IIUC, in this model, as nodes don't know which outpoint to watch, they won't be able to detect channel closures. Instead, they'll just drop _all_ channels every N weeks. This is a more agressive version of the graph pruning that nodes do today (dropping channels that you haven't received a channel update for in 2 weeks). As a result, nodes will now need to continually rebroadcast the announcement data for active channels periodically (today they only rebroadcast channel updates, which contain routing policy information). 
+
+To my knowledge, some Lightning implementations today already implement such behavior: they won't watch for closes at all on-chain, and just drop channels after a period of time. When/if they encounter a channel that has been permanently closed on chain, they can use a unique error (non-temp) to penalize the channel to the point that the path finding model never uses it, or to just remove it all together. Proactive probing can help to discover such channels, enabling early pruning of the graph (vs at payment attempt time). 
+
+As far as what's revealed on open, as formulated the scheme still has the channel capacity in plain text, with the verifier using that as public input to verify that the committed output has a value that matches the channel capacity. This leaks a bit of information as a verifier can scan on-chain using the utreexo checkpoint height as a starting point (new channel can only be created after the checkpoint). It's possible to omit the capacity field all together (or just allow it to float all together based on some multiple as suggested in earlier Gossip 2.0 proposals). Omitting it likely has some path finding implications (read: UX) as many path finding implementations input the capacity of a channel into a model to determine the conditional success probability of a payment given the capacity and past observations.
+
+-------------------------
+
