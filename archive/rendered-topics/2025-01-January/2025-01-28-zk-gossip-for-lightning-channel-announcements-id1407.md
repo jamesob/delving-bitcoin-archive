@@ -189,3 +189,15 @@ It is worth mentioning that there's no way to tell whether the channel was open 
 
 -------------------------
 
+MattCorallo | 2025-01-29 15:25:42 UTC | #5
+
+Why utreexo and groth16 vs much simpler UTXO snapshots and log-scale ring sigs? The ring sig approach has some overhead, but avoiding all the more complicated crypto seems well worth it (which we expect every lightning implementation to take as a dependency? bleh).
+
+> As far as what’s revealed on open, as formulated the scheme still has the channel capacity in plain text, with the verifier using that as public input to verify that the committed output has a value that matches the channel capacity.
+
+Right, if we're gonna go ZK gossip we should remove this leak. No one cares about having the *exact* channel capacity, we should limit the precision of the announcements if we're still gonna tie proofs to channels.
+
+Really we should let people under-commit, though - commit to N BTC on chain, announce M*N BTC in channels (still probably with reduced precision).
+
+-------------------------
+
