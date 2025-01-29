@@ -157,3 +157,35 @@ As far as what's revealed on open, as formulated the scheme still has the channe
 
 -------------------------
 
+halseth | 2025-01-29 11:22:02 UTC | #4
+
+[quote="sanket1729, post:2, topic:1407"]
+How does this interact with lightning channel closures? I am not familiar with lighting routing messages for channel close, or if the node directly figures it out by observing the blockchain.
+[/quote]
+
+Currently, an LN node backed by a Bitcoin full node definitely will watch the chain and remove channels when their output is spent. Light clients can't effectively do this, and as roasbeef mentions fall back to using the `channel_updates` as a liveness signal (or use some trusted source for graph/routing information).
+
+
+[quote="roasbeef, post:3, topic:1407"]
+This is a more agressive version of the graph pruning that nodes do today (dropping channels that you haven’t received a channel update for in 2 weeks)
+[/quote]
+
+Exactly. A channel being unspent on-chain is no guarantee that it is still usable, so it is nice to get some kind of heartbeat from the nodes. This is why I think requiring a refreshed `channel_announcement` every few weeks is not a bad option.
+
+[quote="sanket1729, post:2, topic:1407"]
+Will the ZK benefits go away if the channel_id is leaked when we close the channel?
+[/quote]
+I definitely think that would be a big loss, since closing channels then will be discouraged since it hurts privacy.
+
+[quote="roasbeef, post:3, topic:1407"]
+As far as what’s revealed on open, as formulated the scheme still has the channel capacity in plain text, with the verifier using that as public input to verify that the committed output has a value that matches the channel capacity.
+[/quote]
+In my current implementation, I prove in ZK that the advertised capacity is _less or equal_ to the on-chain output. This leaves some obfuscation to what (taproot) outputs it could be. In a production implementation I would imagine a floating range could work, as roasbeef suggests. 
+
+[quote="roasbeef, post:3, topic:1407"]
+This leaks a bit of information as a verifier can scan on-chain using the utreexo checkpoint height as a starting point (new channel can only be created after the checkpoint).
+[/quote]
+It is worth mentioning that there's no way to tell whether the channel was open or not before the checkpoint. So a privacy conscious node could open the channel on-chain, but wait several weeks before announcing it (they could actually start using it as a private channel right away, then later make it public).
+
+-------------------------
+

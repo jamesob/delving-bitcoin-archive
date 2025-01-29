@@ -426,7 +426,7 @@ Let me know what do you think.
 
 -------------------------
 
-stefanwouldgo | 2025-01-29 08:43:44 UTC | #9
+stefanwouldgo | 2025-01-29 13:09:02 UTC | #9
 
 Hi sipa, thanks for your great work on this. 
 
@@ -442,7 +442,91 @@ Vol. 18, No. 1, pp. 30-55, February 1989, you can find it on sci-hub). Actually,
 
 It requires a rather involved algorithm, where the graph is modified into a flow network whose capacities depend on a parameter $\lambda$ (standing for the target feerate) and a min-cut is calculated for several $\lambda$ until the optimum is found. Gallo, Grigoriadis and Tarjan solve this in the same asymptotic time that a single min-cut would take by modifying the Goldberg-Tarjan push-relabel algorithm to keep on working on the next $\lambda$ after finding the min-cut for the one before, and proving that under some conditions that hold here, there are only $O(n)$ breakpoints at which we need to calculate the min-cut. 
 
-This seem great news to me. It should mean that we can accomodate much larger clusters. The question is, how do we implement this? I haven't found an open source implementation of exactly this algorithm, but the repo at [https://github.com/jonas-sauer/MonotoneParametricMinCut](https://github.com/jonas-sauer/MonotoneParametricMinCut) has several algorithms in C++ that solve very similar problems, are supposed to be even faster in practice, and might be modified for our purposes (MIT license). The alternative would be to write the push-relabel parameterized min-cut algorithm from scratch, but as I said, this is not trivial.
+This seems great news to me. It should mean that we can accomodate much larger clusters. The question is, how do we implement this? I haven't found an open source implementation of exactly this algorithm, but the repo at [https://github.com/jonas-sauer/MonotoneParametricMinCut](https://github.com/jonas-sauer/MonotoneParametricMinCut) has several algorithms in C++ that solve very similar problems, are supposed to be even faster in practice, and might be modified for our purposes (MIT license). The alternative would be to write the push-relabel parameterized min-cut algorithm from scratch, but as I said, this is not trivial.
+
+-------------------------
+
+sipa | 2025-01-29 14:05:48 UTC | #10
+
+Hi @stefanwouldgo, crazy! I see a vague relation with min-cut / max-flow problems, but would never had thought to look in this direction.
+
+[quote="stefanwouldgo, post:9, topic:303"]
+Finding a highest-feerate topologically-valid subset is possible in $O(nm \log (n^2/m))$ time
+[/quote]
+
+I haven't been able to find the publication yet, based on what I find for related algorithm, but I assume $n$ is the number of nodes (transactions), and $m$ is the number of arcs (dependencies)? If so, that sounds great if it is practical as well. Note that the number of dependencies itself may be up to quadratic in the number of transactions, so this is essentially cubic in $n$?
+
+In the abstract of [this paper](https://pubsonline.informs.org/doi/10.1287/opre.37.5.748), an additional condition is present (emphasis mine):
+
+> We present a simple sequential algorithm for the maximum flow problem on a network with $n$ nodes, $m$ arcs, and integer arc capacities bounded by $U$. Under the practical assumption that ***U* is polynomially bounded in *n***, our algorithm runs in time $O(nm + n^2 \log n)$.
+
+It's not clear if that condition is also present in the algorithm you're citing, but if it is, that may be a problem.
+
+[quote="stefanwouldgo, post:9, topic:303"]
+the only difference being the direction of the arrows in the graph.
+[/quote]
+
+Difference between what?
+
+> This seems great news to me. It should mean that we can accomodate much larger clusters.
+
+Maybe. The cluster size bound is really informed by how big of a cluster we can linearize with "acceptable" quality (scare-quotes, because it isn't all that clear what acceptable should mean), not what we can linearize optimally, in an extremely small amount of time (we've imposed a 50 µs ourselves, because a single transaction may simultaneously affect many clusters, which would all require re-linearization).
+
+So far, we've interpreted acceptable as "at least as good as what we had before" (through [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825)), and "at least as good as ancestor sort" (the current CPFP-accomodating mining algorithm, which is inherently $O(n^2)$. But (so far) all the ideas in this thread are "extra", in the sense that they'd only be applied when we have time left, or in a background re-linearization process, that does not act until after transaction relay.
+
+Now, it is quite possible that this algoritm is *so* fast that it can linearize larger clusters *optimally* in the time that ancestor sort + LIMO may need for smaller ones. That would obviously move the needle. Or if it's possible that a reasonable argument can be made that a time-bounded version of this algorithm (only performing a lower-than-optimal number of cuts, for example, and then stopping) results in something that is practically as good as ancestor-sort (e.g., sufficient to make CPFP in typical, but potentially adverserial, scenarios work).
+
+[quote="stefanwouldgo, post:9, topic:303"]
+The alternative would be to write the push-relabel parameterized min-cut algorithm from scratch, but as I said, this is not trivial.
+[/quote]
+
+That's a concern, because we don't just care about asymptotic complexity, but real performance for relatively small problems too. And complicated algorithms, with complicated data structures, tend to result in things with high start-up costs (to convert the problem into the right representation), or with high constant factors (e.g., for some small problems, (sorted) lists can be several times faster than hash maps).
+
+---
+
+This is probably the point where I should reveal that we've been working on a new cluster linearization algorithm too (which I will write a bigger post about in time). It's a result of a conversation we had at the Bitcoin Research Week, where Dongning Guo and Aviv Zohar pointed out that the "find highest-feerate topologically-valid subset" problem can be formulated as a Linear Programming problem, on which all LP solving methods are applicable. This implies two things:
+* Through [Interior-Point Methods](https://en.wikipedia.org/wiki/Interior-point_method), the problem can be solved in $O((n+m)^{2.5} \log S)$ time, where $S$ is the sum of transaction sizes, or essentially $O(n^5)$ in just $n$.
+* The simplex algorithm, while worst-case exponential in the general case but practically very fast, becomes applicable. And it is possible that for our specific problem, these exponential cases don't exist as well.
+
+Inspired by this last point, by observing what the simplex algorithm "steps" translate to in our problem space, in terms of sets and fees and feerates rather than matrix row-operations, removing some apparently useless transitions, and observing that it effectively finds a full linearization rather than just a single topologically-valid highest-feerate subset, we obtain the following:
+
+* Input: $n$ transactions with fees and sizes, and $m$ dependencies between them (as $(parent, child)$ pairs).
+* Output: a list of sets (the chunks), forming a graph partition, with all the consecutive highest-feerate topologically-valid subsets of what remains after the previous ones.
+* Algorithm:
+  * For every dependency, have a boolean "active"; initially all dependencies are inactive.
+    * These partition the graph into components (when two transactions are reachable from one another by travelling only over active dependencies, up or down, they are in the same component).
+    * Thus, the initial state has every transaction in its own singleton component.
+    * As an additional invariant, no (undirected) cycles of active dependencies are allowed, so the component's active dependencies form a spanning tree for that component. The entire state can thus be described as an (undirected) spanning forest, which is a subgraph of the problem graph.
+  * Keep performing any of the following steps as long as any apply:
+    * If a dependency is inactive, and is between two distinct components, and the "child" component has higher feerate than the "parent" component, make it active.
+    * If a dependency is active, and making it inactive would split the component it is in in two components (due to no-cycles property, this is true for every active dependency), where the parent component has higher feerate than the child component, make it inactive.
+  * Finally, output all the component in decreasing feerate order.
+
+This appears to be very fast in practice, and easy to implement. Further, it can be proven that if it terminates, the result is indeed an optimal linearization. However, we don't have a proof it always terminates, and certainly no bound on its runtime. A lot seems to depend on the policy on *how* to pick which dependency to make active or inactive in every step, but this needs a lot more investigation.
+
+-------------------------
+
+stefanwouldgo | 2025-01-29 14:35:08 UTC | #11
+
+[quote="sipa, post:10, topic:303"]
+I haven’t been able to find the publication yet, based on what I find for related algorithm, but I assume nnn is the number of nodes (transactions), and mmm is the number of arcs (dependencies)? If so, that sounds great if it is practical as well. Note that the number of dependencies itself may be up to quadratic in the number of transactions, so this is essentially cubic in nnn?
+[/quote]
+
+The publication can be found at [https://www.wellesu.com/10.1137/0218003](https://www.wellesu.com/10.1137/0218003). Yes, n is the number of nodes and m the number of edges, so that is cubic in the worst case.
+
+[quote="sipa, post:10, topic:303"]
+In the abstract of [this paper](https://pubsonline.informs.org/doi/10.1287/opre.37.5.748), an additional condition is present (emphasis mine):
+
+> We present a simple sequential algorithm for the maximum flow problem on a network with nnn nodes, mmm arcs, and integer arc capacities bounded by UUU. Under the practical assumption that ***U* is polynomially bounded in *n***, our algorithm runs in time O(nm + n^2 \log n)O(nm+n2logn)O(nm + n^2 \log n).
+[/quote]
+
+No, one of the contributions of the GGT paper linked above is that they show how to bound the runtime independently of U. 
+
+[quote="sipa, post:10, topic:303"]
+Difference between what?
+[/quote]
+
+The difference between what we call highest-feerate topologically-valid subset and they call maximum-ratio closure problem is that in their model, they want a closure regarding descendants, while we want a closure regarding ancestors, which can be achieved by simply turning every edge (u,v) into (v,u), i.e. changing the direction of the arrows.
 
 -------------------------
 
