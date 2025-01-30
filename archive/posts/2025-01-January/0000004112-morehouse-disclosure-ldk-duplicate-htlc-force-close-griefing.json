@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.0,
   "yours": false,
   "topic_id": 1410,
   "topic_slug": "disclosure-ldk-duplicate-htlc-force-close-griefing",
@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,10 +59,10 @@
     {
       "id": "clap",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
