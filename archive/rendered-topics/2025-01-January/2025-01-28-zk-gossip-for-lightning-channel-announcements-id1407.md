@@ -201,3 +201,30 @@ Really we should let people under-commit, though - commit to N BTC on chain, ann
 
 -------------------------
 
+halseth | 2025-01-30 13:34:13 UTC | #6
+
+[quote="MattCorallo, post:5, topic:1407"]
+Why utreexo and groth16 vs much simpler UTXO snapshots and log-scale ring sigs?
+[/quote]
+
+Utreexo is nice since it is deterministic and easy to maintain as a full-node (efficient updates to the accumulator). You need the accumulator both to create and verify proofs.
+
+Groth16 was just used in this case since the proof-size is small and it is supported by the Risc0 framework. I made no other considerations for the POC. The proposal is meant to not be tied to any specific proof type. 
+
+Regarding ring signatures as an alternative, I have not explored how you could use that in this setting. The nice thing about Risc0 is that you can selectively reveal what you want about the output and the Musig2 keys in play.
+
+[quote="MattCorallo, post:5, topic:1407"]
+Right, if we’re gonna go ZK gossip we should remove this leak. No one cares about having the *exact* channel capacity, we should limit the precision of the announcements if we’re still gonna tie proofs to channels.
+
+Really we should let people under-commit, though - commit to N BTC on chain, announce M*N BTC in channels (still probably with reduced precision).
+[/quote]
+I agree. Luckily this is easy to do, by changing the proof assertion from 
+
+`capacity <= vout.value` 
+
+to 
+
+`capacity <= M*vout.value`
+
+-------------------------
+
