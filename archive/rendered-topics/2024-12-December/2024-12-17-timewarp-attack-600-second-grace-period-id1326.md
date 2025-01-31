@@ -158,7 +158,7 @@ I'm not convinced (yet) that we need to make these numbers so tight. It seems th
 
 -------------------------
 
-AntoineP | 2024-12-20 12:54:41 UTC | #11
+AntoineP | 2025-01-29 15:37:36 UTC | #11
 
 [quote="sjors, post:10, topic:1326"]
 If the sv2 spec explicitly disallows accelerated nTime rolling then indeed the attacker would take the same risk as their victim.
@@ -170,7 +170,9 @@ At this point this is not an attack, it's a footgun. I don't see how A could eve
 [quote="sjors, post:10, topic:1326"]
 I’m not convinced (yet) that we need to make these numbers so tight. It seems that having a few hours of padding, instead of 10 minutes, avoids some actual bugs (pool software ignoring nTime) and theoretical future bugs. While the only downside is a minuscule increase in worst case inflation.
 [/quote]
-I don't think it's a fair characterization of the downside. Faster subsidy emission is only one of the harms of an artificially increased block rate. And if the leeway is large enough, the block rate increase isn't minuscule anymore. Here is some numbers:
+I don't think it's a fair characterization of the downside. Faster subsidy emission is only one of the harms of an artificially increased block rate. And if the leeway is large enough, the block rate increase isn't minuscule anymore.
+
+~~Here is some numbers:~~ EDIT: the numbers are incorrect as they assume gains accumulate across periods, which isn't the case once the timestamp of the first block needs to move forward.
 ```
 Leeway: 10 minutes. Max diff decrease per period: 1.0004960317460319. Number of periods to take the diff to 1 is 65169.20533651417, to halve the diff is 1397.7312609540088 and to reduce it by 10% is 212.45947546985983.
 Leeway: 60 minutes. Max diff decrease per period: 1.0029761904761905. Number of periods to take the diff to 1 is 10874.99226688242, to halve the diff is 233.24385460225878 and to reduce it by 10% is 35.453787426590814.
@@ -602,6 +604,40 @@ it’s a 1200 second lie because we expected a timestamp 600 seconds after it.
 [/quote]
 
 That's a great way to put it.
+
+-------------------------
+
+sjors | 2025-01-31 08:32:51 UTC | #35
+
+See this comment: https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710/66?u=sjors
+
+Although @AntoineP now agrees with increasing the grace period, for reasons explained in the above comment, it might still be useful to investigate the following:
+
+[quote="AntoineP, post:66, topic:710"]
+Sjors then raises another concern about pool software ignoring the time in the Bitcoin Core provided block template and instead using wall clock time.
+[/quote]
+
+[quote="AntoineP, post:66, topic:710"]
+Further, it’s not clear the timewarp fix is worsening things that much since such software is already vulnerable today to having a timestamp lower than 6 or more of its previous 11 blocks. Contrary to the timewarp fix this can happen on any block and does not even require an attack scenario (misconfigured clock).
+[/quote]
+
+Does anyone have a log of when their node saw blocks arrive over e.g. the past 10 years? Perhaps we can determine, or rule out, the presence of such a bug in the wild.
+
+I don't know how though.
+
+One problem with such analysis is that any block violating the MTP rule would not get propagated, so you wouldn't observe it. Even compact block relay checks the header: https://github.com/bitcoin/bips/blob/5333e5e9514aa9f92810cfbde830da79c44051bf/bip-0152.mediawiki#user-content-PreValidation_Relay_and_Consistency_Considerations
+
+Another problem is that you don't know know the clock of the (pool) node that generated the block template.
+
+A bug that ignores the template timestamp can be present in the pool software, the ASIC (stock or alternative) firmware or a proxy run by the miner.
+
+If the bug is in pool software, we might be able to observe it live by studying live stratum jobs. This is easy on testnet4 today because MTP is ahead of wall clock time there. But not on mainnet.
+
+Perhaps long term logs of such jobs exist, though again I'm not sure what to look for.
+
+It seems a bit less likely to me that ASIC firmware ignores the timestamp provided in its stratum job. My own experience with old linux machines is that NTP doesn't always work out of the box, so someone would have noticed such a bug the hard way quickly.
+
+I have no idea how stratum proxies work. Those might exist at the scale of a small mining farm that rarely finds an actual block, so it seems undetectable.
 
 -------------------------
 
