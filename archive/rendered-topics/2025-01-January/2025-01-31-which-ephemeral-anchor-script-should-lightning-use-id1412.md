@@ -110,3 +110,15 @@ Alternatively, as soon as the output gets large enough to not be considered dust
 
 -------------------------
 
+ariard | 2025-01-31 18:00:52 UTC | #3
+
+I strongly recommend not to do the 1st option: unkeyed anchors to avoid txn hijack by miners:
+https://groups.google.com/g/bitcoindev/c/ZspZzO4sBys
+(see the section 6.4 “transaction traffic hijack and policy exposure surface”)
+
+Option 2 sounds reasonable: this let each counterparty deal with its own commitment tx + cpfp, without letting the other one tampering with it, rather than a pure replacement at the root of the utxo. Though other keyed options sound okay-ish too.
+
+For keeping fee-bumping delegation, I don’t see why pre-signed txn with `ANYONECANPAY` cannot be used between the delegate and the delegatee (in that model, you exclude that the delegate pin or do other things).
+
+-------------------------
+
