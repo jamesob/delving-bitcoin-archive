@@ -63,3 +63,13 @@ At no point during this exchange are either Alice's nor Bob's funds at risk.
 
 -------------------------
 
+instagibbs | 2025-01-31 20:24:18 UTC | #2
+
+So let's assume this new pattern is used, and now Bob confidently forwards that added HTLC.
+
+After the next `commitment_signed` message from Bob to Alice, if Alice withholds the subsequent `revoke_and_ack`, cannot Alice just take that to chain and "take back" the committed HTLC Bob has forwarded?
+
+I get turned around quite a bit in asymmetric channel states, but I feel like this is the same reasoning I wrote about PTLCs like two years ago? https://gist.github.com/instagibbs/1d02d0251640c250ceea1c66665ec163#rationale
+
+-------------------------
+
