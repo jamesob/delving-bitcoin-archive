@@ -73,3 +73,9 @@ I get turned around quite a bit in asymmetric channel states, but I feel like th
 
 -------------------------
 
+morehouse | 2025-01-31 20:49:25 UTC | #3
+
+Dang, you're right... Thanks for the sanity-check and sorry for the spam.
+
+-------------------------
+
