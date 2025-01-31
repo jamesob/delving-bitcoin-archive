@@ -641,3 +641,13 @@ I have no idea how stratum proxies work. Those might exist at the scale of a sma
 
 -------------------------
 
+zawy | 2025-01-31 11:12:39 UTC | #36
+
+[quote="sjors, post:35, topic:1326"]
+It seems a bit less likely to me that ASIC firmware ignores the timestamp provided in its stratum job. My own experience with old linux machines is that NTP doesn’t always work out of the box, so someone would have noticed such a bug the hard way quickly.
+[/quote]
+
+Systemic use of NTP breaks security.
+
+-------------------------
+

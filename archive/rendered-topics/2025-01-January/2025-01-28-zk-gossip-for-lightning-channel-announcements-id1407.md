@@ -246,3 +246,26 @@ I'm not sure how useful that is here? We can instead split the UTXO snapshot int
 
 -------------------------
 
+halseth | 2025-01-31 13:25:10 UTC | #8
+
+[quote="MattCorallo, post:7, topic:1407"]
+Is this more efficient than, say, just building a fresh UTXO snapshot every 6 hours?
+[/quote]
+
+Depends on what you mean by "efficient". My first implementation did build a merkle tree from the full utxo set dump, and that took about 10 minutes every time if I remember correctly (not optimized in any way).
+
+With utreexo you don't even need to hold the full utxo set to create proofs, so it is also compatible with light clients.
+
+[quote="MattCorallo, post:7, topic:1407"]
+I’m not sure how useful that is here?
+[/quote]
+
+It is useful in this setting since we can reveal the keys (node IDs) used to create the aggregated key. Maybe you could do that with a ring signature also, I will look into it.
+
+[quote="MattCorallo, post:7, topic:1407"]
+We can instead split the UTXO snapshot into separate trees for all amounts in different amount ranges and prove against a single amount range.
+[/quote]
+This is a great idea! I will look into that, thanks :)
+
+-------------------------
+

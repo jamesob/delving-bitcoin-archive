@@ -256,3 +256,22 @@ Yeah, differences are:
 
 -------------------------
 
+glozow | 2025-01-31 13:31:01 UTC | #16
+
+[quote="0xB10C, post:8, topic:1052"]
+These all seem to be orphans - It seems to me like they weren’t in [`vExtraTxnForCompact`](https://github.com/bitcoin/bitcoin/blob/89720b7a1b37af885f304350fa25f2479179ae3e/src/net_processing.cpp#L952C34-L952C53) (anymore). Two ideas:
+
+* run a node with a larger `-blockreconstructionextratxn` than the default of 100 transactions to check if these perform significantly better
+* look for the transactions in the orphan pool too
+[/quote]
+
+Wow, that's new for me.
+
+(Using vextra as short for `vExtraTxnForCompact`) It seems very reasonable for vextra to be larger, or for it to only contain non-orphan transactions, and then `InitData` can look through the orphanage as well (the orphans in vextra are kind of "free" memory-wise compared to the others).
+
+In addition to running with a larger `-blockreconstructionextratxn`, I wonder if we can try to analyze how well we use vextra. Broadly we have (1) replaced transactions (2) orphans (3) transactions that fail validation, you could have a patch that turns the buffer into pairs of `<CTransactionRef, OriginEnum>`. I wonder if one or two of these types of vextra transactions is usually more useful than the others. (More granular, are there certain `TxValidationResult`s that are particularly helpful/unhelpful? I think `TX_CONSENSUS` is skippable. I expect this is inconsequential though.)
+
+If most of the reconstructions are orphans, then perhaps we should consider iterating through the whole orphanage in addition to the vextra buffer. fwiw I'm also currently working on a PR to that would make the number of transactions in orphanage potentially much larger, though (in the tens of thousands). So that might be a consideration if we're thinking about doing this.
+
+-------------------------
+
