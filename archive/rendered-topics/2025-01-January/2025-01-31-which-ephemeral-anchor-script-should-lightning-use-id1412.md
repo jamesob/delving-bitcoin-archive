@@ -1,6 +1,6 @@
 # Which ephemeral anchor script should lightning use?
 
-t-bast | 2025-01-31 15:47:17 UTC | #1
+t-bast | 2025-01-31 15:49:30 UTC | #1
 
 In this post, I'd like to explore the various options available for the ephemeral anchor output used in future lightning commitment transactions that use `nVersion = 3`. We could go in a few different directions, and every option has a different set of trade-offs.
 
@@ -22,7 +22,7 @@ Note that this means that the anchor output amount will contain funds that may c
 
 This can result in the anchor output amount being large enough to pay the commitment fees on its own, depending on how many pending dust HTLCs nodes allow on the channel. This can be a good thing because it may allow CPFP on the commitment transaction without adding external wallet inputs. But the drawback is that if the anchor output amount is larger than the on-chain fees that need to be paid, there is a race between everyone who can spend that output to collect the remaining amount.
 
-For example, let's assume that the anchor output amount is `50 000 sat` but Alice only needs `20 000 sat` to pay enough on-chain fees for the commitment transaction to be confirmed. So Alice will create an `anchor-tx` that spends the anchor outputs and sends `30 000 sat` back to her address. But when Bob sees that transaction, he will most likely replace it with a different `anchor-tx` transaction that sends `25 000 sat` to his own address, and this will be a more interesting package for miners!
+For example, let's assume that the anchor output amount is `50 000 sat` but Alice only needs `20 000 sat` to pay enough on-chain fees for the commitment transaction to be confirmed. So Alice will create an `anchor-tx` that spends the anchor output and sends `30 000 sat` back to her address. But when Bob sees that transaction, he will most likely replace it with a different `anchor-tx` transaction that sends `25 000 sat` to his own address, and this will be a more interesting package for miners!
 
 ## Option 1: unkeyed anchor
 
