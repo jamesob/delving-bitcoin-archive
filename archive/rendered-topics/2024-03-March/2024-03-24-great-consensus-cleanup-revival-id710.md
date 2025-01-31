@@ -1238,3 +1238,23 @@ If anyone has an objection or a good reason to prefer an alternative approach pl
 
 -------------------------
 
+AntoineP | 2025-01-30 23:31:58 UTC | #66
+
+Sjors convinced me of using a 2 hours grace period for the timewarp fix. Let me summarize the arguments put forth in the thread he opened and what led me to this conclusion.
+
+One first illustration of his concern is with large powerful machines. He argues a hypothetical 3PH machine would need to roll timestamps by 10s every second. This could cause an issue when mining the first block of a period, if the miner of the previous block set its timestamp as far in the future as possible, and if the pool does not feed a new template to the miner more frequently than once every minute and 6 seconds.
+
+This was addressed by Matt Corallo and Anthony Towns. Matt points out he's unaware of any miner that rolls `nTime` more aggressively than once per second, and that the existence of [old pool software that hard rejects rolling past 600 seconds](https://github.com/btccom/btcpool-ABANDONED/blob/e7c536834fd6785af7d7d68ff29111ed81209cdf/src/bitcoin/StratumServerBitcoin.cc#L384) makes that very unlikely. Further, he points out that in SV2 miners can roll the extranonce. So this hypothetical powerful ASIC could just do that when exhausting the 600 seconds.  Finally, Anthony Towns points out that as long as `nTime` is not rolled by more than 600 seconds the attack scenario is moot as the attacker's block would also be too far in the future and have been rejected in the first place.
+
+Sjors then raises another concern about pool software ignoring the time in the Bitcoin Core provided block template and instead using wall clock time. He argues that while such software is technically broken today because of the MTP rule, it's unlikely to cause issues because nobody pushes time forward such as a block using current time would have a too far back timestamp. On the other hand, a pool using such software would be directly vulnerable post 600s-grace-period timewarp fix activation to producing an invalid first block of a period if the miner which produced the previous block set its timestamp as far in the future as possible.
+
+I disagree we should make inferior protocol decisions to accommodate hypothetical software being ran by pools that would already be incompatible with today's consensus rules. Further, it's not clear the timewarp fix is worsening things that much since such software is already vulnerable today to having a timestamp lower than 6 or more of its previous 11 blocks. Contrary to the timewarp fix this can happen on any block and does not even require an attack scenario (misconfigured clock). So really the 600 seconds grace period only introduces marginal additional risks to a blatantly broken software that most likely nobody is running on mainnet with actual money on the line.
+
+In addition to those concerns Sjors reminded me that Fabian Jahr initially [implemented the timewarp fix on testnet4 with a 2 hours grace period](https://github.com/bitcoin/bitcoin/pull/29775#discussion_r1704428831), and that it would make sense to keep this property of being able to use current time no matter the value of the previous block's timestamp (which may be up to 2 hours in the future).
+
+Finally Sjors pressed me to consider the downside of a 2 hours grace period as opposed to a 10 minutes one. It would increase the worst case block rate increase from ~0.1% to ~0.65%. We would also lose the aesthetically pleasing property that with a 10 minutes grace period the block rate under attack would be equivalent to that originally intended: [one block every 599.9997 seconds](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32?u=antoinep) (vs one block every 596.7211 seconds with a 2 hours grace period).
+
+I concluded that despite the fairly weak arguments in favor of increasing the grace period, the cost of doing so did not prohibit erring on the safe side.
+
+-------------------------
+

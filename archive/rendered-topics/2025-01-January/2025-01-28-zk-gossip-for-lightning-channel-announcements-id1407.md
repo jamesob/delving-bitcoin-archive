@@ -228,3 +228,21 @@ to
 
 -------------------------
 
+MattCorallo | 2025-01-30 23:11:20 UTC | #7
+
+[quote="halseth, post:6, topic:1407"]
+Utreexo is nice since it is deterministic and easy to maintain as a full-node (efficient updates to the accumulator). You need the accumulator both to create and verify proofs.
+[/quote]
+
+Is this more efficient than, say, just building a fresh UTXO snapshot every 6 hours?
+
+> Groth16 was just used in this case since the proof-size is small and it is supported by the Risc0 framework. I made no other considerations for the POC. The proposal is meant to not be tied to any specific proof type.
+
+Sure, fair enough. We spent a long time discussing this a few years ago and basically the issue we ran into was that there was no suitable proof scheme that can be realistically included in lightning "consensus". That seems like the hardest part of all this, sadly.
+
+> Regarding ring signatures as an alternative, I have not explored how you could use that in this setting. The nice thing about Risc0 is that you can selectively reveal what you want about the output and the Musig2 keys in play.
+
+I'm not sure how useful that is here? We can instead split the UTXO snapshot into separate trees for all amounts in different amount ranges and prove against a single amount range.
+
+-------------------------
+
