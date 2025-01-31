@@ -275,3 +275,13 @@ If most of the reconstructions are orphans, then perhaps we should consider iter
 
 -------------------------
 
+instagibbs | 2025-01-31 20:45:26 UTC | #17
+
+[quote="glozow, post:16, topic:1052"]
+consider iterating through the whole orphanage
+[/quote]
+
+Didn't immediately realize why we need to iterate through whole thing so saying it out loud in case others weren't aware: it's because the short IDs aren't known until one gets the compact block itself, so it cannot be precomputed.
+
+-------------------------
+
