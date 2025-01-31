@@ -100,11 +100,13 @@ Since nodes can decide how much dust they allow in the commitment, it is somewha
 
 -------------------------
 
-instagibbs | 2025-01-31 15:56:20 UTC | #2
+instagibbs | 2025-01-31 15:58:28 UTC | #2
 
 Note that you aren't stuck with one format. You could reasonably consider p2a when the anchor is 0-value, and keyed otherwise.
 
 re:miner "stealing" the funds, I'm not sure that's bad at all? The main new weirdness is counterparty may be tempted to ramp up the trimmed amount and take it themselves, even though in the end miners will probably do well to snipe that entire value.
+
+Alternatively, as soon as the output gets large enough to not be considered dust, you can go right back to inserting the remaining trimmed value into the commitment transaction fee, since it no longer has to be 0-fee.
 
 -------------------------
 
