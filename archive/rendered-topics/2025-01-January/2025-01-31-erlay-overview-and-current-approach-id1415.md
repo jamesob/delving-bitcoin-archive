@@ -1,6 +1,6 @@
 # Erlay: Overview and current approach
 
-sr-gi | 2025-01-31 20:20:15 UTC | #1
+sr-gi | 2025-01-31 20:23:48 UTC | #1
 
 Earlier last year I started working on a second attempt to implement Erlay into Bitcoin Core, a process that started from convincing myself that the theoretical improvements were achievable in practice, followed by a research-oriented approach where multiple protocol choices need to be simulated and that will hopefully conclude with a well though implementation that satisfies the original goals.
 
@@ -67,8 +67,6 @@ Choosing peers at relay time has a better effect on being effective when selecti
 Independently of the method chosen to pick fanout peers, **transactions must only be available after a given delay** this helps prevent adversarial peers from knowing when a transaction enters our mempool, which can be used to learn who the transaction originator is. This behavior is not new, and it has been used for years. This process is known as **trickle** [^5]) and it is applied to every connection depending on their type.
 
 For Erlay connections, transactions **are made available for reconciliation when the timer for the given peer trickles**. Transactions flagged for reconciliation between intervals are delayed and won’t be part of a sketch should a reconciliation be scheduled. 
-
-**TODO: Add a note somewhere around here about potentially reducing the expected values for the timers to reduce Erlay latency**
 
 The way we currently deal with this is by having two internal collections behind the reconciliation set interface, the **ready set**, and the **delayed set**. Transactions are added to the delayed set and readied on trickle (moved from one to the other). The set is seen as a single entity though, therefore the limits, collisions, deletions, … are performed by checking both internal collections. **For reconciliation purposes, only transactions in the ready set are used.**
 
