@@ -1,6 +1,6 @@
 # Erlay: Overview and current approach
 
-sr-gi | 2025-01-31 20:23:48 UTC | #1
+sr-gi | 2025-01-31 20:36:05 UTC | #1
 
 Earlier last year I started working on a second attempt to implement Erlay into Bitcoin Core, a process that started from convincing myself that the theoretical improvements were achievable in practice, followed by a research-oriented approach where multiple protocol choices need to be simulated and that will hopefully conclude with a well though implementation that satisfies the original goals.
 
@@ -111,7 +111,7 @@ Simulations will be presented in independent posts, but I'll be linking them her
 
 # Acknowledgements
 
-Many of the results and ideas presented here originate from discussions with several people, both inside and outside the working group including, Gleb Naumenko (@naumenkogs), Pieter Wuille (@sipa), Greg Maxwell, Mark Erhardt (@murch), Marco De Leon (@marcofleon) and others.
+Many of the results and ideas presented here originate from discussions with several people, both inside and outside the working group including: Gleb Naumenko (@naumenkogs), Pieter Wuille (@sipa), Greg Maxwell, Mark Erhardt (@murch), Marco De Leon (@marcofleon) and others.
 
  [^1]: As presented in the [Erlay paper](https://arxiv.org/abs/1905.10518), most of these transaction announcements are redundant, given the transaction has already been announced to (or even received by) a given node. This is the main assumption Erlay builds on top of
 [^2]: What sketches are, and how are they computed is outside the scope of this document. They can be seen as black boxes with two properties: 1. Given two sketches, the symmetrical difference of the elements in the reconciliation sets can be computed. 2. Sketch size grows proportionally to the expected difference, instead of to the number of elements in it
