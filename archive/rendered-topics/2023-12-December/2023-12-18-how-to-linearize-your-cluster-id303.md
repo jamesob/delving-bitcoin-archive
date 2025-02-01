@@ -530,7 +530,7 @@ The difference between what we call highest-feerate topologically-valid subset a
 
 -------------------------
 
-sipa | 2025-01-31 20:58:53 UTC | #12
+sipa | 2025-01-31 21:10:38 UTC | #12
 
 [quote="stefanwouldgo, post:11, topic:303"]
 The publication can be found at https://www.wellesu.com/10.1137/0218003. Yes, n is the number of nodes and m the number of edges, so that is cubic in the worst case.
@@ -557,21 +557,31 @@ Given this, one can define a slightly more complex problem:
   * Subtract $\lambda$ from the feerates of all transactions, leaving their sizes unchanged (i.e., transform $(\operatorname{fee},\operatorname{size}) \rightarrow (\operatorname{fee} - \lambda \operatorname{size}, \operatorname{size})$).
   * Run the maximum-weight closure algorithm above, and return its result. The empty set has fee $0$, so if any topologically-valid subset with higher fee exists, one will be returned, and since $\lambda$ was subtracted from all feerates, the result necessarily has higher feerate than $\lambda$ in this case.
 
-Finally, we can define the maximum-ratio closure problem, which is asking what the highest $\lambda$ is for which the previous problem has a non-empty set as answer (and what that empty set is). Three different papers use three different approaches:
+Finally, we can define the maximum-ratio closure problem, which is asking what the highest $\lambda$ is for which the previous problem has a non-empty set as answer (and what that set is). Three different papers use three different approaches:
 * **Bisection search**:
   * Paper: E. L. Lawler, "Sequencing jobs to minimize total weighted completion time subject to precedence constraints", 1978
   * Approach: use a lower and upper bound on the maximum $\lambda$, and use bisection search to find the highest for which a set exists.
   * Complexity: $\mathcal{O}(knm \log(n^2/m))$, where $k$ is the number of bits in the sizes/fees involved.
 * **FP algorithm**:
-  * Paper: J.C. Picard and M. Queyranne, "Selected applications o.f minimum cuts in networks", 1982.
-  * Approach: maintain a single best solution, with associated feerate $\lambda$. Run the previous algorithm with that $\lambda$ as input, and if it returns a non-empty solution, update lambda to be that set's feerate.
+  * Paper: J.C. Picard and M. Queyranne, "Selected applications of minimum cuts in networks", 1982.
+  * Approach: maintain a single best solution, with associated feerate $\lambda$. Run the previous algorithm with that $\lambda$ as input, and if it returns a non-empty solution, update lambda to be that set's feerate, and start over.
   * Complexity: $\mathcal{O}(n^2 m \log(n^2/m))$, due to the fact that apparently no more than $\mathcal{O}(n)$ iterations are necessary.
 * **Parametric min-cut**:
-  * Paper: Giorgio Gallo, Michael D. Grigoriadis, and Robert E. Tarjan, "A Fast Parametric Maximum Flow Algorithm And Applications".
+  * Paper: Giorgio Gallo, Michael D. Grigoriadis, and Robert E. Tarjan, "A Fast Parametric Maximum Flow Algorithm And Applications", 1989.
   * Approach: make the graph itself parametrized by $\lambda$, and then solve the whole thing generically to find the maximum $\lambda$, rather than needing multiple improvement steps. I don't quite get this yet.
   * Complexity: $\mathcal{O}(nm \log(n^2/m))$.
 
 Depending on whether the number of dependencies is linear or quadratic in the number of transactions, this last approach is $\mathcal{O}(n^2 \log{n})$ or $\mathcal{O}(n^3)$ in the number of transactions. That is however just for a single topologically-valid subset, and for a full linearization we need to potentially run it $n$ times, meaning an overall $\mathcal{O}(n^3 \log{n})$ or $\mathcal{O}(n^4)$. If it were somehow possible to reuse information from one subset-finding to the next this may be avoided, but that's not yet clear to me. Also, state of the art on minimum-cut algorithms has improved since 1989, so it's possible that even better is possible now.
+
+-------------------------
+
+sipa | 2025-01-31 21:03:05 UTC | #13
+
+[quote="stefanwouldgo, post:9, topic:303"]
+However, DeepSeek R1 finally helped me find the surprising answer:
+[/quote]
+
+I do wonder: what was your query, and what was the response that you learned this from?
 
 -------------------------
 

@@ -1,6 +1,6 @@
 # Erlay: Overview and current approach
 
-sr-gi | 2025-01-31 20:36:05 UTC | #1
+sr-gi | 2025-01-31 21:15:29 UTC | #1
 
 Earlier last year I started working on a second attempt to implement Erlay into Bitcoin Core, a process that started from convincing myself that the theoretical improvements were achievable in practice, followed by a research-oriented approach where multiple protocol choices need to be simulated and that will hopefully conclude with a well though implementation that satisfies the original goals.
 
@@ -108,6 +108,9 @@ Therefore, we only need to be careful about flagging dependent transactions for 
 # Simulations
 
 Simulations will be presented in independent posts, but I'll be linking them here for reference and easy access. 
+
+### Completed
+- https://delvingbitcoin.org/t/erlay-filter-fanout-candidates-based-on-transaction-knowledge/1416
 
 # Acknowledgements
 
