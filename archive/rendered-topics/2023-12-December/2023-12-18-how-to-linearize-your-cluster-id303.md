@@ -530,7 +530,7 @@ The difference between what we call highest-feerate topologically-valid subset a
 
 -------------------------
 
-sipa | 2025-01-31 21:10:38 UTC | #12
+sipa | 2025-02-01 16:23:11 UTC | #12
 
 [quote="stefanwouldgo, post:11, topic:303"]
 The publication can be found at https://www.wellesu.com/10.1137/0218003. Yes, n is the number of nodes and m the number of edges, so that is cubic in the worst case.
@@ -539,6 +539,8 @@ The publication can be found at https://www.wellesu.com/10.1137/0218003. Yes, n 
 Thank you!
 
 Ok, here is my understanding so far. This paper, and two other papers it cites, introduce the concept of the "maximum-ratio closure problem", which is what we've been calling "maximum-feerate topologically-valid subset finding".
+
+### 1. Maximum-weight closure
 
 To explain it, we first need a simpler problem, the "maximum-weight closure problem", which, if applied to our setting, is effectively this:
 * Input: a transaction graph with dependencies, fees, sizes, where fees can be positive or negative.
@@ -550,12 +552,16 @@ To explain it, we first need a simpler problem, the "maximum-weight closure prob
   * Add an adge from each transaction, with capacity $0$.
   * Run a [minimum cut](https://en.wikipedia.org/wiki/Minimum_cut) algorithm between $s$ and $t$. The side of the cut that includes $s$ consists of the highest-fee topologically-valid subset.
 
+### 2. Closure with ratio above a given $\lambda$
+
 Given this, one can define a slightly more complex problem:
 * Input: a transaction graph with dependencies, fees, sizes, and a feerate $\lambda$.
 * Output: a non-empty topologically-valid subset with feerate $\geq \lambda$ if one exists, or $\varnothing$ otherwise.
 * Algorithm:
   * Subtract $\lambda$ from the feerates of all transactions, leaving their sizes unchanged (i.e., transform $(\operatorname{fee},\operatorname{size}) \rightarrow (\operatorname{fee} - \lambda \operatorname{size}, \operatorname{size})$).
   * Run the maximum-weight closure algorithm above, and return its result. The empty set has fee $0$, so if any topologically-valid subset with higher fee exists, one will be returned, and since $\lambda$ was subtracted from all feerates, the result necessarily has higher feerate than $\lambda$ in this case.
+
+### 3. Maximum-ratio closure
 
 Finally, we can define the maximum-ratio closure problem, which is asking what the highest $\lambda$ is for which the previous problem has a non-empty set as answer (and what that set is). Three different papers use three different approaches:
 * **Bisection search**:
@@ -724,6 +730,42 @@ the answer was
 > The technique was first introduced by Dinkelbach (1967) for general fractional programming. Its adaptation to graph problems (e.g., maximum density subgraph, topological subsets) emerged in the 1980s–2000s through the integration of parametric max-flow algorithms. The modern flow-based implementation for ratio maximization in directed graphs is largely attributed to Gallo-Grigoriadis-Tarjan (1989) and later refinements by Goldberg and others.
 
 And this finally convinced me to read GGT, where I found that they actually completely solve this problem as an application of their general technique. Which is something that the AI hasn't really told me, it stuck to a bisection approach. But it has helped me find the key paper which would have been very hard otherwise.
+
+-------------------------
+
+sipa | 2025-02-01 18:06:05 UTC | #16
+
+[quote="stefanwouldgo, post:14, topic:303"]
+I wonder if one could reuse this state even further after removing the highest feerate closure in order to find the next. I suspect this isn’t so easy because then the graph has really changed, but it might merit further investigation.
+[/quote]
+
+Actually, I don't think the graph really changes.
+
+You can think of removing the previously-found subset as setting the fee and size of all its transactions to 0, which satisfies the monotonicity of capacities requirement. As in, while a transaction is not removed its capacity is $f-\lambda s$, and afterwards it is just 0?
+
+-------------------------
+
+stefanwouldgo | 2025-02-01 18:06:59 UTC | #17
+
+That’s an interesting idea but I don’t believe it’s quite that easy. The weight $fee-\lambda size$ is positive for some nodes and negative for others, so setting it to 0 doesn’t seem to preserve monotonicity in general.
+
+-------------------------
+
+sipa | 2025-02-01 18:23:07 UTC | #18
+
+How about just leaving the capacity at $f - \lambda_1 s$ once chunk $1$ has been found, etc. (meaning its combined capacity remains at 0 for the whole chunk).
+
+-------------------------
+
+stefanwouldgo | 2025-02-01 18:23:23 UTC | #19
+
+However, it might actually be easily fixable: if we just set the negative weights to 0, there’s no reason to include the positive ones in a min-cut, because no remaining negative ones depend on them.
+
+-------------------------
+
+stefanwouldgo | 2025-02-01 18:27:06 UTC | #20
+
+Yeah, it looks like there might be a way to fix this. I don’t have time to check the details right now, but will look into it next week.
 
 -------------------------
 

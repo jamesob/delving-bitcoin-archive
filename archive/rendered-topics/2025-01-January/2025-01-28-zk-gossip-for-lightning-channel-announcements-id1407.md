@@ -269,3 +269,60 @@ This is a great idea! I will look into that, thanks :)
 
 -------------------------
 
+AdamISZ | 2025-02-01 17:06:17 UTC | #9
+
+[quote="MattCorallo, post:5, topic:1407"]
+Why utreexo and groth16 vs much simpler UTXO snapshots and log-scale ring sigs? The ring sig approach has some overhead, but avoiding all the more complicated crypto seems well worth it
+[/quote]
+
+IMHO the juice isn't worth the squeeze with the log scaled ring signature option, because the verification time (and compute too) is unavoidably linear in the set size. I just don't see much point in getting ring sizes of say a few thousand, which is still fragile anon-set-wise, and then also pay a lot in verifying time. To quote myself from an old blog post that [implemented](https://gist.github.com/AdamISZ/03a5112172807ae614ccc34c55ed686e) triptych:
+
+> You might naturally think, "cool, let's do 100K keys or even more; it should still be pretty small". That's true. But the computation and verification costs, as discussed above w.r.t. Bootle15, are approximately linear in (N) and that means this will become impractical somewhere, depending on your coding efficiency. My guess from playing with the code in the gist above, is that with properly optimised code/algos, we can stay sub 1-3 seconds for these operations as long as we're in the 10K region or perhaps a little larger. But that's already a *huge* practical achievement, in my opinion (and .. I'm guessing).
+
+(from [here](https://reyify.com/blog/little-riddle/))
+
+Having said all of that, I still do get your point. It is at least conceivable. And on reflection maybe I'm wrong that verifying time is so important; for *this* use case, I guess it's fine if it's somewhat slower(?).
+
+@halseth a couple of Qs, as I'm also very interested to delve into understanding this better; it does look promising. Your [gist](https://github.com/halseth/output-zero/blob/15cfb6adcef11379c5601831a864e15fe09910dc/docs/musig2.md) has an 80 second prove time for the un-wrapped, correct? Does the wrapped version take more time, if so how much more? Do we have a path to getting these numbers down, do you think?
+
+Clearly verif. is going to be cheap, and proof size naturally is at the ideal small O(1) for groth16. I need to study utreexo again and better understand how it fits into your circuit construction here before making other comments.
+
+I'm glad to see in this thread there's discussion that realistically, we can just take regular snapshots of utxo set (or better, subset), and though we can't "read" channel closes in plaintext, it doesn't have to be a killer of this idea. For this reason I don't think either @halseth 's work here, or aut-ct should be dismissed as a possibility based on "it only proves ownership at one time". Other possibilities (like timelocks?) would I guess be really awkward.
+
+Re: 
+
+> Right, if we’re gonna go ZK gossip we should remove this leak. No one cares about having the *exact* channel capacity, we should limit the precision of the announcements if we’re still gonna tie proofs to channels.
+Really we should let people under-commit, though - commit to N BTC on chain, announce M*N BTC in channels (still probably with reduced precision).
+
+Wanted to mention, I added this kind of functionality - amount ranges, support for multiple utxos, in my aut-ct repo (see the `auditor-docs` subdirectory for details). People can generate concise proofs of aggregated-over-several-utxos total amount in a range (i.e. there is a range proof included in the bulletproofs circuit). If anyone's confused about how amounts fit in, just understand that the curve tree is not only a tree of pubkeys, it can be a tree of composite values (pubkey, amount) using a Pedersen commitment to both: C = P + vH + rJ for example. This idea is developed way further in @kayabaNerve 's [FCMP++](https://github.com/kayabaNerve/fcmp-plus-plus/tree/develop) work.
+
+"Concise" in the above para. : maybe 2-4kB is not concise! There is some analysis [here](https://github.com/AdamISZ/aut-ct/issues/19). I always assumed that was fine, but for LN .. perhaps it just isn't (?), even if there are other advantages like < 100ms verification and 1-2 seconds for proof.
+
+Question for everybody:
+
+Something I often wondered is, could we use pairings based (e.g. KZG commitments) type stuff *if* we just make the tradeoff like this: every participant in LN, starting out with a new utxo or several, say, and has the utxo's pubkey sign a key on a pairing friendly curve. Then we can start using substantially more efficient crypto/ZK techniques with O(1) scaling for proofs and very cheap verifiers, but with the obvious tradeoff: the anon set is *only* the participants of "this system" (what is "this"? People would opt-in to adding their utxo to a list anonymously, and perhaps some altruistic volunteers also provide their non LN utxos to this list; kind of a fun thought!). An example of such a much-better-scaling system might be [Caulk](https://eprint.iacr.org/2022/621.pdf) (just one example I happen to know is const. proof size and verif time, and log(N) proving compute .. may not be the best).
+
+-------------------------
+
+MattCorallo | 2025-02-01 19:18:18 UTC | #10
+
+>  Depends on what you mean by “efficient”. My first implementation did build a merkle tree from the full utxo set dump, and that took about 10 minutes every time if I remember correctly (not optimized in any way).
+
+This seems pretty slow. Hashing the full UTXO set on my node (with a networkfed filesystem! though it seems to have mostly been hitting memory) only took 1:30. If we do that once every 6 hours that seems totally fine, honestly, especially since we'd restrict to a subset of the UTXO set (eg taproot-only, outputs above value X, etc).
+
+[quote="AdamISZ, post:9, topic:1407"]
+IMHO the juice isn’t worth the squeeze with the log scaled ring signature option, because the verification time (and compute too) is unavoidably linear in the set size. I just don’t see much point in getting ring sizes of say a few thousand, which is still fragile anon-set-wise, and then also pay a lot in verifying time.
+[/quote]
+
+Shucks. Then it seems we're right back where we were three years ago - this is in theory a great idea, we know we want to do it, we even have some ideas for optimizations for it, but ultimately there simply is no suitable proof scheme with a mature implementation space.
+
+> And on reflection maybe I’m wrong that verifying time is so important; for *this* use case, I guess it’s fine if it’s somewhat slower(?).
+
+This was, sadly, not my point. Verification in the 1-3 second range is already probably too slow here (though if we can batch, verification in the 60+ second range may be totally fine!).
+
+> Something I often wondered is, could we use pairings based (e.g. KZG commitments) type stuff *if* we just make the tradeoff like this: every participant in LN, starting out with a new utxo or several, say, and has the utxo’s pubkey sign a key on a pairing friendly curve...the anon set is *only* the participants of “this system”
+
+I mean its better than what we have today, so...sure? The real issue that we've run into is that we can only use stuff where there's robust implementations that all lightning nodes are happy to take as a dependency (and/or is simple enough for there to be multiple implementations!). In our previous searches, that was far from the case...there's plenty of ZK implementations of various algorithms, but most of them are kinda meh on quality, and the ones that are better are often more generic than we need (we could optimize a lot by not trying to verify secp256k1 curve ops in RISC-V) or impractical to build our own proof system using. The state of things may be better here than it was three years ago when we last looked, so happy to be proven wrong!
+
+-------------------------
+
