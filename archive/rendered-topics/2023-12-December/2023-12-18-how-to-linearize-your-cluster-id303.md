@@ -585,3 +585,145 @@ I do wonder: what was your query, and what was the response that you learned thi
 
 -------------------------
 
+stefanwouldgo | 2025-02-01 07:35:35 UTC | #14
+
+This is a great summary! I have only read the GGT paper, not the citations in there, so I cannot comment on how accurately you depicted these, but I like the way you framed it as three problems. 
+
+GGT really don't do much else than Picard and Queranne (in your interpretation), but they use a specific min-cut algorithm that can be modified so it can keep its working state after finding the best solution for one $\lambda$. The rest is simply a better analysis AFAIU. 
+
+[quote="sipa, post:12, topic:303"]
+If it were somehow possible to reuse information from one subset-finding to the next this may be avoided, but that’s not yet clear to me.
+[/quote]
+
+I wonder if one could reuse this state even further after removing the highest feerate closure in order to find the next. I suspect this isn't so easy because then the graph has really changed, but it might merit further investigation.  
+
+[quote="sipa, post:12, topic:303"]
+Also, state of the art on minimum-cut algorithms has improved since 1989, so it’s possible that even better is possible now.
+[/quote]
+
+Yes, they have. Min-cut is theoretically possible in the optimum conceivable $O(m)$, but I believe this is not really a practical result so far. There are numerous approaches, but it isn't clear which of these are amenable to  modification for solving the parametric problem in one go. 
+
+The github repo I posted before and the paper it belongs to test several algorithms on real-world instances. It appears that our problem, or rather, its generalized solution which is called ***source-sink-monotone parametric min-cut*** has applications in something called polygon aggregation for map simplification and other topics in computer vision. There also seem to be more papers to be explored that report such experiments.
+
+-------------------------
+
+stefanwouldgo | 2025-02-01 07:33:33 UTC | #15
+
+[quote="sipa, post:13, topic:303"]
+I do wonder: what was your query, and what was the response that you learned this from?
+[/quote]
+
+Here's my prompt:
+
+> Here’s a mathematical problem: let G be a directed graph. We call a subset of its nodes topological if it includes all its ancestors. Now let’s assume every node of the graph has two integer properties called size and fee, and a derived property called feerate=fee/size. The feerate of a set of nodes is the sum of their fees divided by the sum of their sizes. Can you give an algorithm that finds the highest feerate topological subset of a given directed graph?
+
+DeepSeek-R1 thought about this for about two minutes (and it always puts out its thought process, which is very interesting, but for some reason I cannot copy from the iOS App I did this in) and then it answered
+
+> To solve the problem of finding the highest feerate topological subset in a directed graph, we can use a binary search approach combined with a max-flow/min-cut algorithm. Here's the step-by-step algorithm:
+> 
+> ### Algorithm
+> 
+> 1. Binary Search Setup:
+>    - Initialize low to 0 and high to the maximum feerate of any individual node (or a sufficiently large upper bound).
+> 
+> 2. Binary Search Loop:
+>    - While high - low exceeds a small precision threshold (e.g., `1e-9`):
+>      - Compute mid = (low + high) / 2.
+>      - For each node v, calculate its adjusted weight: w(v) = fee(v) - mid * size(v).
+> 
+> 3. Flow Network Construction:
+>    - Create a flow network with a source s and sink t.
+>    - For each node v:
+>      - If w(v) > 0, add an edge from s to v with capacity w(v).
+>      - If w(v) < 0, add an edge from v to t with capacity -w(v).
+>    - For each original directed edge u → v, add an edge from u to v with infinite capacity (practically a large value).
+> 
+> 4. Max-Flow/Min-Cut Computation:
+>    - Compute the min cut of the constructed flow network. The nodes on the source side of the min cut form a candidate subset S.
+> 
+> 5. Decision:
+>    - Calculate the total adjusted weight of S: W = sum(w(v) for v in S).
+>    - If W > 0, set low = mid (feasible to aim higher). Otherwise, set high = mid.
+> 
+> 6. Extract Optimal Subset:
+>    - After convergence, recompute the flow network for λ = low and determine the subset S from the min cut.
+> 
+> 7. Result:
+>    - The subset S obtained from the final min cut is the highest feerate topological subset, with the maximum feerate λ ≈ low.
+> 
+> ### Explanation
+> 
+> - Binary Search: Efficiently narrows down the possible feerate values, leveraging the monotonicity of the feerate function.
+> - Flow Network Transformation: Converts the problem of finding a maximum weight closed set into a max-flow problem, ensuring the subset includes all ancestors.
+> - Min-Cut Interpretation: The min cut in the flow network corresponds to the optimal subset, balancing the inclusion of high-feerate nodes and exclusion of low-feerate ones.
+> 
+> This approach ensures we efficiently find the subset with the highest feerate while respecting the topological constraints, using polynomial-time algorithms for max-flow.
+
+I first didn't believe it so I asked it for a proof that the problem is hard and it correctly answered me that it isn't. Then I asked for a correctness proof, which didn't really convince me, but from my understanding of the ideas in the algorithm and the thought process I started to believe that this could actually work. 
+
+So I asked to find a precise runtime bound, and the answer was a little meh (and included log U). I then suspected that it might be possible to lose that U and asked it
+
+> Can we refine this analysis (make it independent of U) by only taking into account lambda steps that change the sign of a node’s weight?
+
+The answer was really handwavy, but pointed in the right direction. But when I asked it
+
+> Where has this technique of ratio maximization using a Lagrange multiplier been first introduced?
+
+the answer was
+
+> The technique of maximizing a ratio (e.g., fee/size) by introducing a parameter \( \lambda \) and converting it into a feasibility problem (e.g., checking if \( \text{fee}(S) - \lambda \cdot \text{size}(S) \geq 0 \)) is rooted in Dinkelbach's algorithm for fractional programming. This approach is analogous to using a Lagrange multiplier to handle the ratio objective, though it differs in its exact mechanics. Here’s a breakdown of its origins and key milestones:
+> 
+> ---
+> 
+> ### 1. Foundational Work: Fractional Programming
+> - Wolfgang Dinkelbach (1967) introduced the parametric method for solving nonlinear fractional programs in his seminal work:
+>   - Title: *"On Nonlinear Fractional Programming"* (Management Science, 1967).
+>   - Key Idea: Transform the problem of maximizing \( \frac{f(x)}{g(x)} \) into solving \( f(x) - \lambda g(x) = 0 \) via iterative updates of \( \lambda \).
+>   - This is the earliest formalization of the technique used in the algorithm.
+> 
+> ---
+> 
+> ### 2. Application to Combinatorial Optimization
+> The adaptation of this parametric approach to combinatorial problems (e.g., graph subsets with constraints) emerged later, notably in:
+> 
+> - Jean-Claude Picard (1976):
+>   - Showed that finding a maximum closure (a subset closed under predecessor inclusion) in a directed graph reduces to a min-cut problem.
+>   - Title: *"Maximal Closure of a Graph and Applications to Combinatorial Problems"* (Management Science, 1976).
+>   - This work enabled the use of flow networks to enforce topological closure constraints.
+> 
+> - Gallo, Grigoriadis, and Tarjan (1989):
+>   - Developed parametric max-flow algorithms to efficiently solve sequences of flow problems with parameter-dependent capacities.
+>   - Title: *"A Fast Parametric Maximum Flow Algorithm and Applications"* (SIAM Journal on Computing, 1989).
+>   - This allowed binary search over \( \lambda \) with guaranteed polynomial runtime.
+> 
+> ---
+> 
+> ### 3. Modern Adaptations for Ratio Maximization
+> The specific use of this technique for feerate-like ratio maximization (e.g., density maximization \( \frac{\text{sum of weights}}{\text{size}} \)) was popularized in:
+> 
+> - Charikar (2000):
+>   - Formalized the \( O(\log n) \)-approximation algorithm for the maximum coverage problem using LP rounding.
+>   - Title: *"Greedy Approximation Algorithms for Finding Dense Components in a Graph"* (APPROX 2000).
+>   - While not identical, this work highlighted the broader applicability of parametric methods.
+> 
+> - Goldberg (1984):
+>   - Studied the maximum density subgraph problem and showed it reduces to parametric max-flow.
+>   - Title: *"Finding a Maximum Density Subgraph"* (UC Berkeley Technical Report, 1984).
+>   - This directly connects ratio maximization to flow-based techniques.
+> 
+> ---
+> 
+> ### Why It’s Linked to Lagrange Multipliers
+> The parameter \( \lambda \) acts similarly to a Lagrange multiplier in constrained optimization:
+> - It balances the trade-off between the numerator (fee) and denominator (size) in the ratio.
+> - However, unlike classical Lagrange multipliers (which handle equality/inequality constraints), this method uses \( \lambda \) to transform the ratio objective into a sequence of feasibility checks.
+> 
+> ---
+> 
+> ### Key Takeaway
+> The technique was first introduced by Dinkelbach (1967) for general fractional programming. Its adaptation to graph problems (e.g., maximum density subgraph, topological subsets) emerged in the 1980s–2000s through the integration of parametric max-flow algorithms. The modern flow-based implementation for ratio maximization in directed graphs is largely attributed to Gallo-Grigoriadis-Tarjan (1989) and later refinements by Goldberg and others.
+
+And this finally convinced me to read GGT, where I found that they actually completely solve this problem as an application of their general technique. Which is something that the AI hasn't really told me, it stuck to a bisection approach. But it has helped me find the key paper which would have been very hard otherwise.
+
+-------------------------
+
