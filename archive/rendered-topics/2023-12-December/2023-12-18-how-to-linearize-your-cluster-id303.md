@@ -769,3 +769,11 @@ Yeah, it looks like there might be a way to fix this. I don’t have time to che
 
 -------------------------
 
+sipa | 2025-02-01 23:32:56 UTC | #21
+
+Sorry, I don't think this is possible.
+
+When you remove a chunk, it may be possible to find a way to keep the capacities of the chunk itself monotonic, but everything else pretty fundamentally needs to go up, because the next $\lambda$ will be lower (you've removed the highest-feerate subset, the next subset you remove can have a lower feerate).
+
+-------------------------
+

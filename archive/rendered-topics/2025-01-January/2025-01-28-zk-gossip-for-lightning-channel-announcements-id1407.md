@@ -326,3 +326,23 @@ I mean its better than what we have today, so...sure? The real issue that we've 
 
 -------------------------
 
+AdamISZ | 2025-02-01 23:00:58 UTC | #11
+
+[quote="MattCorallo, post:10, topic:1407"]
+Shucks. Then it seems we’re right back where we were three years ago - this is in theory a great idea, we know we want to do it, we even have some ideas for optimizations for it, but ultimately there simply is no suitable proof scheme with a mature implementation space.
+[/quote]
+
+I mean, sure, possibly. But from *my* point of view it's certainly not "we're in the same place as 3 years ago" because that's when I was looking at ring sigs for this idea and they never get past O(N) compute and verify. Curve Trees are to me a very clearly better version of that, with as they say in the paper "concretely small proving, verifying times". And since it can all be built on secp/secq (including bulletproofs circuits) it isn't dragging in a new area of dependencies to bitcoin coders (I mean, OK, *kinda*). As you put it, indeed, "we could optimize a lot by not trying to verify secp256k1 curve ops in RISC-V". Of course my aut-ct repo is little more than a hobbyist project, as it caveats it's not something ready for production use, and nor will it be without other people contributing/analyzing it. And apart from the aforementioned FCMP++ project (which, worth mentioning, at least has an audit! - not to mention generally being a more substantial project), there is not as you put it a "mature implementation space", i.e. who else is even using Curve Trees? But, that's a high bar for a quite novel concept in play here.
+
+But of course this thread is about @halseth 's scheme with zkSTARKs so I'll stop talking about an alternative idea, here (there is another thread about that!).
+
+> The state of things may be better here than it was three years ago when we last looked, so happy to be proven wrong!
+
+Indeed it may be. But, the main thought that I have in reading your analysis here is, that I perhaps (can't speak for others in the discussion) don't know the set of criteria you (and other lightning engineers) have in mind of what exactly is acceptable and/or needed to do a ZKP of utxo ownership that's actually workable in LN (gossip).
+
+> Verification in the 1-3 second range is already probably too slow here
+
+OK that's what I originally thought, though I had other use cases in mind too. Yeah, that's part of why the "juice not worth the squeeze" comment.
+
+-------------------------
+
