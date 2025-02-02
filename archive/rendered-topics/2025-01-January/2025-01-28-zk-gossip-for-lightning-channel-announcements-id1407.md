@@ -346,3 +346,19 @@ OK that's what I originally thought, though I had other use cases in mind too. Y
 
 -------------------------
 
+AdamISZ | 2025-02-02 17:00:25 UTC | #12
+
+@halseth one more question, I don't immediately know whether your scheme enforces distinctness/uniqueness? Does it output something like a nullifier or key image such that you can't reuse the (channel or otherwise) utxo more than once?
+
+as per the readme anyway, you don't seem to be mentioning it?:
+
+
+    The prover has a valid signature for an arbitrary message for a public key P, where P = x * G. The message and hash(x)is shown to the verifier.
+    The prover has a proof showing that the public key P is found in the Utreexo set. The Utreexo root is shown to the verifier.
+
+(In aut-ct I did a key-image "add-on" to the curvetree part, for this)
+
+Edit: Oh, I guess hash(x) satisfies this purpose, right?
+
+-------------------------
+
