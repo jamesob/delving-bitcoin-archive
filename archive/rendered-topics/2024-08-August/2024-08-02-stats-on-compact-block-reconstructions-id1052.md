@@ -285,3 +285,15 @@ Didn't immediately realize why we need to iterate through whole thing so saying 
 
 -------------------------
 
+ajtowns | 2025-02-02 03:30:20 UTC | #18
+
+[quote="glozow, post:16, topic:1052"]
+If most of the reconstructions are orphans, then perhaps we should consider iterating through the whole orphanage in addition to the vextra buffer.
+[/quote]
+
+I'm not sure if adding orphans would do much to help avoid round trips -- you're missing the parent and the parent will need to be in the block, after all.
+
+One thing that could be worth looking into is doing a better job of populating prefilledtxns -- ie, "I'm pretty sure my peers don't know about these txs in the block, so I'll send them straight away". Though maybe it would be more useful to just spend that time on bringing the FIBRE patch set up to date, and having some public servers running again.
+
+-------------------------
+

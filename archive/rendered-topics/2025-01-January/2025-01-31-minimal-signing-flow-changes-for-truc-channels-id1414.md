@@ -85,3 +85,18 @@ Reminds me why I wasn't able to figure out a simple way to do what you're trying
 
 -------------------------
 
+ajtowns | 2025-02-02 04:36:56 UTC | #5
+
+I think you could solve this by hanging a HTLC commitment off of a balance output. ie, if you have a commitment `(Alice: 10k, Bob: 20k, HTLCs: X: 1k, Y: 4k)`, and want to add a new HTLC from Alice to Bob for 2k, then you do two things:
+
+  * sign a new commitment `(Alice: 8k, Bob: 20k, HTLCs: X: 1k, Y: 4k, Z: 2k)`
+  * sign a spend of Alice's balance from Alice's version of the old commitment tx to `(Alice: 8k, Z: 2k)`
+
+After sending the above, if Alice closes the channel with the old commitment, Bob can claim HTLC Z via Alice's balance; or Bob can close the channel with the new commitment. If Bob closes the channel with the old commitment, that just automatically refunds HTLC Z to Alice with no action needed on Alice's behalf.
+
+(That probably only works with something like [option-simplified-update](https://github.com/lightning/bolts/pull/867), as otherwise Bob may have had an update in flight when Alice sends the sigs for Z through, and if Alice closed the channel with that commitment, Z would not be claimable by Bob)
+
+(Similar stuff discussed in [Oct 2021](https://web.archive.org/web/20231114193842/https://lists.linuxfoundation.org/pipermail/lightning-dev/2021-October/003278.html))
+
+-------------------------
+
