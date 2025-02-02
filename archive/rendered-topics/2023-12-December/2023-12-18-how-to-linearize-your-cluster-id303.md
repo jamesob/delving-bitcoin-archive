@@ -777,3 +777,17 @@ When you remove a chunk, it may be possible to find a way to keep the capacities
 
 -------------------------
 
+Lagrang3 | 2025-02-02 09:01:18 UTC | #22
+
+I could help with the implementation of a min-cut algorithm from scratch.
+Given the fact that clusters are expected to be small, I would stick to simpler implementations
+so the Bisection search would be my pick (E.L. Lawler mentioned above).
+Also a tailored implementation could exploit the problem's specific characteristics, eg. that
+all arcs besides those connecting s and t, have unlimited capacity and that the cluster
+doesn't have cycles.
+
+It would be nice to have some test cases, like the typical worst case clusters one might expect
+and such, for benchmarks.
+
+-------------------------
+
