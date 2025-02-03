@@ -297,3 +297,13 @@ One thing that could be worth looking into is doing a better job of populating p
 
 -------------------------
 
+instagibbs | 2025-02-03 14:16:02 UTC | #19
+
+[quote="ajtowns, post:18, topic:1052"]
+Though maybe it would be more useful to just spend that time on bringing the FIBRE patch set up to date, and having some public servers running again.
+[/quote]
+
+This was the end conclusion of my offline discussion with a few folks back when I was thinking harder about this. I just saw so many different reasons for misses that I felt anything that isn't a relatively simple improvement wouldn't be worth the lift. Second look at a p2p version of FIBRE?
+
+-------------------------
+

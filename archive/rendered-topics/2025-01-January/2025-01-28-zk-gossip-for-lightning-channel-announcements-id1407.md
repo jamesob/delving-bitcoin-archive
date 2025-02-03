@@ -362,3 +362,58 @@ Edit: Oh, I guess hash(x) satisfies this purpose, right?
 
 -------------------------
 
+halseth | 2025-02-03 14:03:57 UTC | #13
+
+Thanks for the insights! (and for finding a bug :smile: )
+
+[quote="AdamISZ, post:9, topic:1407"]
+Your [gist](https://github.com/halseth/output-zero/blob/15cfb6adcef11379c5601831a864e15fe09910dc/docs/musig2.md) has an 80 second prove time for the un-wrapped, correct? Does the wrapped version take more time, if so how much more?
+[/quote]
+
+Yes, that's correct. On my laptop (M1 Max, 32GB) creating the STARK creates about 80 seconds. The wrapped (groth16) version is currently not possible to create on non-x86 hardware. 
+
+RISC0 provides a (trusted) proof server one can use. Using that server the fully wrapped proof is created in less than 30 seconds. I must assume that it is sporting som beefy GPUs, but it gives you an idea what is possible. I am aiming to rent som GPUs myself to see what proving times I can get to for the groth16 proof.
+
+An interesting thing to note is that wrapping the proof (STARK->SNARK) reveals nothing about the private inputs, so one can imagine outsourcing the wrapping to a non-trusted server without giving up privacy.
+
+[quote="AdamISZ, post:9, topic:1407"]
+Do we have a path to getting these numbers down, do you think?
+[/quote]
+I'm certain these numbers can be brought down quite a lot. As of now I have spent close to no time profiling the ZK application. RiscZero has an extensive guide on how one can do this: https://dev.risczero.com/api/zkvm/optimization
+
+In addition there are alternative implementations of the zkVM that claims to have better performance, like [SP1](https://github.com/succinctlabs/sp1). It would be worthwhile spending some time comparing them.
+
+[quote="AdamISZ, post:9, topic:1407"]
+“Concise” in the above para. : maybe 2-4kB is not concise! There is some analysis [here](https://github.com/AdamISZ/aut-ct/issues/19). I always assumed that was fine, but for LN … perhaps it just isn’t (?), even if there are other advantages like < 100ms verification and 1-2 seconds for proof.
+[/quote]
+My hunch is that we need verification times to be at least sub-second on "normal" hardware, preferably sub-100ms. Proof times I am not too worried about, several minutes is not a problem since you are waiting several blocks anyway before announcing it. Proofs are gossiped around so they should not be too big (and maybe they have to be less than 65kB to fit the LN max message size?).
+
+-------------------------
+
+halseth | 2025-02-03 14:13:28 UTC | #14
+
+[quote="AdamISZ, post:11, topic:1407"]
+But of course this thread is about @halseth 's scheme with zkSTARKs so I’ll stop talking about an alternative idea, here (there is another thread about that!).
+[/quote]
+
+It would be great to chat and discuss the various alternatives (STARKs, SNARKs, Curve Trees, ring sigs) and how we could use them to get to the goals we aim for (verification time, proof size, crypto maturity) for the scheme to be practical :smile:
+
+-------------------------
+
+halseth | 2025-02-03 14:24:44 UTC | #15
+
+[quote="AdamISZ, post:12, topic:1407"]
+@halseth one more question, I don’t immediately know whether your scheme enforces distinctness/uniqueness? Does it output something like a nullifier or key image such that you can’t reuse the (channel or otherwise) utxo more than once?
+[/quote]
+In this context (Musig2 for LN gossip) you should look at the [musig2 branch](https://github.com/halseth/output-zero/blob/15cfb6adcef11379c5601831a864e15fe09910dc/docs/musig2.md) and the [LN gossip document](https://github.com/halseth/output-zero/blob/15cfb6adcef11379c5601831a864e15fe09910dc/docs/ln_gossip.md) there.
+
+Here we enforce uniqueness by hashing the public keys before they are aggregated to a taproot key: 
+
+```
+pk_hash = hash(bitcoin_keys[0] || bitcoin_keys[1])
+```
+
+These individual Musig2 public keys never go on-chain, so the idea is that no observer is able to link this hash with an on-chain output or spend.
+
+-------------------------
+

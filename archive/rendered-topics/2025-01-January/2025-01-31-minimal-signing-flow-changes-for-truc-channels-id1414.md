@@ -100,3 +100,11 @@ After sending the above, if Alice closes the channel with the old commitment, Bo
 
 -------------------------
 
+instagibbs | 2025-02-03 14:33:13 UTC | #6
+
+Again may be turned around here, but I'm unclear how this helps with the specific problem.
+
+Going back to the running scenario posed by @morehouse , Bob has already forwarded an incoming HTLC that is yet un-resolved. So what we're concerned about here is Alice's commitment transaction having a valid signature from Bob, but no way for Bob to claim the second stage HTLC-Success transaction (which would now have to be pre-signed for anti-pin reasons). How would adding a signature on an old commitment transaction resolve this? Alice can still immediately go to chain with the new commitment transaction that doesn't have a signed second-stage HTLC transaction, and now Bob has no way of resolving it in the success path.
+
+-------------------------
+
