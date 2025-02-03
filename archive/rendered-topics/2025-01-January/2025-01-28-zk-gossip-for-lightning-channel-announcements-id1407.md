@@ -417,3 +417,40 @@ These individual Musig2 public keys never go on-chain, so the idea is that no ob
 
 -------------------------
 
+AdamISZ | 2025-02-03 16:07:32 UTC | #16
+
+[quote="halseth, post:13, topic:1407"]
+Proof times I am not too worried about, several minutes is not a problem since you are waiting several blocks anyway before announcing it.
+[/quote]
+
+I've vacillated on this one. While in principle, yes, proofs can be slow, and 100% for sure we can allow them to be far slower than verifies, I'm not convinced that times of 1min + will be viable. Consider that some hardware running LN is a lot weaker, but even if that concern can be sidestepped, there's something a bit impractical about *any* CPU intensive operation taking double digit seconds, no matter if it's non urgent. Still, I do get your argument, as per the docs:
+
+> It should be noted that only nodes announcing public channels need to do this, and they usually require a certain level of hardware to be effective routers anyway.
+
+I think it is a bit debatable though. Glad to hear substantial performance improvement is a real possibility as per your optimisation comments.
+
+On to:
+
+
+> Here we enforce uniqueness by hashing the public keys before they are aggregated to a taproot key:
+
+```
+pk_hash = hash(bitcoin_keys[0] || bitcoin_keys[1])
+```
+
+This feels a bit flaky. In the docs of the non-MuSig version I see you did hash(x) where x is privkey (for single control utxo), which to me is kind of "the" way to do it; a key image is, functionally, almost exactly the same as a hash of a private key.
+
+But hashing public keys is kind of a violation of expectations that could screw up connected protocols; if the pk_hash value can leak whenever those keys are derivable or directly seen. (I'm considering the nuances of BIP32, but who knows how else they could leak - public keys are public!).
+
+Here's the part that might be interesting to you (it was to me!): I didn't even *consider* the proof-creation-by-channel-parties-together idea. My thinking was (a) taproot + musig2 making channel utxos the same as other utxos and (b) 2-party construction of proof is a nightmare, so just make proofs over *other* utxos that happen not to be channels. In an ideal world it doesn't make a difference, but I neglected to consider: **utxos that are not channels are extra liquidity cost** for actual Lightning operators!
+
+So while that's not a slam dunk argument for "supporting musig 2-party outputs is required", it's a pretty *good* argument, and if the *only* thing sacrificed is that slightly flaky version of a key image, it ... may be OK?
+
+-------------------------
+
+AdamISZ | 2025-02-03 17:01:05 UTC | #17
+
+Hmm. Could the 2 counterparties maybe just ECDH to add a third term to pk_hash? Or just directly use ECDH(bitcoin key 1, bitcoin key 2), then use that as the key image instead? Would that be much extra work for the zkSTARK part considering it's EC operations?
+
+-------------------------
+
