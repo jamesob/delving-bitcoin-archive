@@ -810,3 +810,61 @@ Now it might be that because our graphs are so small, an even simpler approach m
 
 -------------------------
 
+sipa | 2025-02-04 15:41:50 UTC | #24
+
+I have posted a topic about the algorithm we had been working on before these min-cut based approaches were discovered: https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419. Perhaps some of the insights there carry over still.
+
+---
+[quote="stefanwouldgo, post:23, topic:303"]
+This means that as we look at the series of potential feerates \lambdaλ\lambda from the highest to the lowest, the min-cuts are only ever increasing in the sense that the highest weight closure for a lower $\lambda$ includes all the highest weight closures for higher $\lambda$.
+[/quote]
+
+That's an amazing insight, and with it, it indeed sounds plausible that with the same overall complexity all chunks can be found. My belief was that since there can exist $O(2^n)$ different-feerate chunks, an algorithm like this needs extra work to remove previous chunks to avoid the blowup, but what you're saying is that maximizing weight for a given minimum $\lambda$ already accomplishes that?
+
+[quote="stefanwouldgo, post:23, topic:303"]
+So calling any min-cut algorithm at these \lambdaλ\lambda will at least let us know if the new cluster improves on the old one. But maybe this is premature optimization.
+[/quote]
+
+Determining if an RBF is an improvement isn't just a question of whether the first chunk is better, but whether the diagram is better everywhere (RBFs can conflict with transactions in other clusters even, and we care about the combined diagram in this case).
+
+
+
+[quote="stefanwouldgo, post:23, topic:303"]
+However, their algorithm seems to perform best on all their instances, they are all MIT licensed C++ implementations and it seems to me they solve exactly our full problem
+[/quote]
+
+This is a very preliminary comment, as I haven't looked at the actual implementation, but I'm skeptical that any existing implementation will do. We're working with extremely tight timeframes (sub-millisecond, preferably less), which in my experience means that even just the cost of converting the problem to a data structure an existing implementation accepts may be non-trivial already. If the approach is restricted to a background thread that re-linearizes any hard things that weren't linearized optimally at relay time, such concerns are less relevant, but still, ideally we have just a single codebase that can handle all cases.
+
+[quote="stefanwouldgo, post:23, topic:303"]
+So it would probably indeed be helpful to have some test cases/benchmarks.
+[/quote]
+
+Unfortunately, because we work in an adverserial setting, the real question isn't (just) about real-life clusters we see today, but also worst-case clusters that attackers can construct. Obviously it doesn't matter that attacker clusters are optimally linearized, but attackers may in some scenarios be able to attach their transactions to honest users' transactions, and ideally, even in these settings simple use cases keep working (e.g. CPFP).
+
+As an example, imagine an honest user performing a CPFP, which causes a transaction to be fee-bumped slightly. Simultaneously, an attacker manages to attach to this simple CPFP cluster a bunch of transactions of their own, which involve significant potential gains from good linearization. A linearization algorithm that spends all its time optimizing the attacker side, but then runs out of time and is interrupted before it ever considers finding the honest users' fee-bump, would break things.
+
+In the currently-merged code, this is addressed by always including an ancestor-set finding in the result: each successive chunk has a feerate that is at least as high as the best ancestor set (single child together with all its ancestors) among the transactions that remain. It may be possible to keep using that strategy here; please have a look at the [LIMO algorithm](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) which may still apply. There is no guarantee that that is sufficient for any particular use case, but it's probably not far from best we can do within $O(n^2)$ time algorithms, and anything worse than $O(n^2)$ is probably infeasible in the worst case for the cluster sizes we want to support within our time limits.
+
+But all of this means is that what we're actually aiming for isn't all that well defined. Still:
+* We don't necessarily care about the time it takes to find an optimal linearization, but more about how much improvement to the linearization is made per time unit.
+* It's not necessarily actual clusters we see today that matter, but also worst cases attackers can produce.
+* We probably need an algorithm that can run with a time limit.
+* When the algorithm runs with a time limit that results in the optimal not being found, ideally the work it did is spread out over all transactions. This may mean some degree of randomization is needed to prevent deterministic behavior that lets an attacker direct where work is performed. It may even be worth doing so if the randomization worsens the worst-case complexity.
+* Probably obvious, but still worth stating: for small problems like ours, constant factors matter a lot, and may matter more than asymptotic complexity. In particular, things like bitvectors to represent sets of transactions are possible, which let you do in practice $O(1)$ set operations, where a purely theoretical complexity analysis would likely suggest some form of tree structure to represent the sets, with $O(\log n)$ complexity, and very significantly worse constant factors.
+
+[quote="Lagrang3, post:22, topic:303"]
+I could help with the implementation of a min-cut algorithm from scratch. Given the fact that clusters are expected to be small, I would stick to simpler implementations so the Bisection search would be my pick (E.L. Lawler mentioned above). Also a tailored implementation could exploit the problem’s specific characteristics, eg. that all arcs besides those connecting s and t, have unlimited capacity and that the cluster doesn’t have cycles.
+[/quote]
+
+That's great! I do think we need time to experiment with these algorithms, because as stated above, actual performance will matter a lot. Once I understand the min-cut algorithms and this paper better I will probably try writing a from-scratch implementation too.
+
+[quote="Lagrang3, post:22, topic:303"]
+It would be nice to have some test cases, like the typical worst case clusters one might expect and such, for benchmarks.
+[/quote]
+
+Worst cases really depend on the algorithm. This isn't just theoretical: the currently-merged (exponential) linearization algorithm seems to have clusters with $O(1)$ dependency per transaction as worst case, while the spanning-forest algorithm I had been working on (see above) seems to have clusters with $O(n)$ dependencies per transaction as worst case.
+
+It is entirely possible that a well-optimized min-cut based implementation works in pretty much negligible time for any real clusters we see today, which makes it hard to source benchmarks there.
+
+-------------------------
+
