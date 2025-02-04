@@ -1,6 +1,6 @@
 # Erlay: Filter fanout candidates based on transaction knowledge
 
-sr-gi | 2025-02-04 15:19:59 UTC | #1
+sr-gi | 2025-02-04 15:42:37 UTC | #1
 
 This post is part of the Erlay implementation experiments. See https://delvingbitcoin.org/t/erlay-overview-and-current-approach/1415 for context.
 
@@ -12,11 +12,11 @@ When selecting fanout candidates for a given transaction, we could be filtering 
 
 ## Filtering nodes that already know the transaction
 
-Filtering out nodes based on the knowledge of the transaction should have the effect that the fanout rate stays high when the propagation of the transaction is low, and it should decrease gradually when the transaction reaches a bigger chunk of the network. This is because, as long as the number of peers that don’t know about the transaction is smaller than our fanout target rate, the rate would remain constant, and once the number grows too small, the remaining peers will be picked.
+Filtering out nodes based on the knowledge of the transaction should have the effect that the fanout rate stays high when the propagation of the transaction is low, and it should decrease suddenly when the transaction reaches a bigger chunk of the network. This is because, as long as the number of peers that don’t know about the transaction is smaller than our fanout target rate, the rate would remain constant, and once the number grows too small, the remaining peers will be picked.
 
 ## Not filtering based on transaction knowledge
 
-Not filtering peers should have a less smooth effect. It means that, on average, nodes should be able to reach the target fanout rate when not many of their peers know about the transaction, and hit mostly peers that already know about it the further the transaction has propagated. However, some nodes could be “unlucky” for the propagation of certain transactions, hitting mostly peers that already know about it, and relaying at a fanout rate below what would be expected based on how much the transaction has propagated.
+Not filtering peers should have a smoother effect. On average, nodes should be able to reach the target fanout rate when few of their peers know about the transaction, and mostly select peers that already know about it the further the transaction has propagated. However, being this a probabilistic approach, some nodes could be “unlucky” for the propagation of certain transactions,  mostly selecting peers that already know about it, and relaying at a fanout rate below what would be expected based on how far the transaction has propagated.
 
 # Simulation
 
