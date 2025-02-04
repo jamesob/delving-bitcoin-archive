@@ -307,3 +307,11 @@ This was the end conclusion of my offline discussion with a few folks back when 
 
 -------------------------
 
+ajtowns | 2025-02-04 07:44:49 UTC | #20
+
+The FIBRE code is [AGPL licensed](https://github.com/bitcoinfibre/bitcoinfibre/blob/65e12faf7c5516757476b9b9f227b9bd497ab8cb/src/fec.cpp) so would presumably need a rewrite/relicense to be included in bitcoin p2p.
+
+Not sure what it would look like in a decentralised model; maybe just the ability to select some peer(s) as ultra-high-bandwidth compact block relay, and have them stream an FEC-encoded version of the block contents at you immediately after the compact block announcement? Not sure if it would make sense to have that open to random peers, or just restricted to whitelisted peers.
+
+-------------------------
+
