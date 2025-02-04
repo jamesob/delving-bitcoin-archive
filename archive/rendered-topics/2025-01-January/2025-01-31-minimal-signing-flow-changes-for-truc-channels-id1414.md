@@ -108,3 +108,45 @@ Going back to the running scenario posed by @morehouse , Bob has already forward
 
 -------------------------
 
+ajtowns | 2025-02-04 05:58:35 UTC | #7
+
+I think the approach in the Oct 2021 thread addressed this by having two parts to the commitment tx: an output containing Alice's balance and the HTLCs from Alice to Bob, and another with the same but for Bob. That way you have 0.5 RTT updates to either output, with signatures from just one party, without invalidating the signatures from the other party on the latest spend of the other output.
+
+Note: when you want to update the underlying commitment (to reshuffle the balances once payments have succeeded), that still requires 1.5 round trips, but can be done in a quiet period, or just less frequently.
+
+So the txs look like:
+
+```mermaid height=598,auto
+classDiagram
+    class Commitment{
+        FundingTx
+        Alice()
+        Bob()
+        anchor()
+    }
+    class AliceCmt{
+        Commitment.Alice
+        AliceBal()
+        HTLC-X()
+        anchor()
+    }
+    class HTLC-X-Claim{
+        AliceCmt.HTLC-X[Preimage]
+        Bob()
+        anchor()
+    }
+    class HTLC-X-Refund{
+        AliceCmt.HTLC-X[Timeout]
+        Alice()
+    }
+    Commitment <|-- AliceCmt
+    AliceCmt  <|--HTLC-X-Claim
+    AliceCmt  <|--HTLC-X-Refund
+```
+
+at which point you can have the preimage path for HTLC-X-Claim require both Alice's and Bob's signature and commit to being v3, but the refund path requires just Alice's signature and a timeout, and does not commit to being v3. If Bob updates BobCmt, that doesn't affect the signatures here, so that's fine.
+
+(If these are for PTLCs instead of HTLCs, the claim tx needs to be signed by both Alice and Bob in order to force Bob to reveal the PTLC preimage, which was the original motivation for this setup)
+
+-------------------------
+
