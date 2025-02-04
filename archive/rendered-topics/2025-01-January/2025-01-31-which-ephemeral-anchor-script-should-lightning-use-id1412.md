@@ -172,3 +172,23 @@ While this may apply to small nodes (who probably aren't a meaningful target sin
 
 -------------------------
 
+harding | 2025-02-04 15:12:03 UTC | #7
+
+[quote="t-bast, post:6, topic:1412"]
+HTLC delays should always be large enough to ensure that reorgs aren’t an issue (e.g. `cltv_expiry_delta = 144 blocks`) so this shouldn’t put funds at risk?
+[/quote]
+
+Sure, but if you think all of your channels are closed, you may take your node offline after (say) just 6 confirmations.  Again, I'm not claiming this is a strong criticism; it just seems more conservative to prevent your counterparty from being able to use money you paid to create transactions that are less likely to persist through a reorg.
+
+[quote="t-bast, post:6, topic:1412"]
+While this may apply to small nodes (who probably aren’t a meaningful target since they’re small), I don’t think this applies to serious nodes (our node never has a 10 minutes downtime)
+[/quote]
+
+I don't like safety tradeoffs that optimize for "serious nodes".  I'd prefer a network that's reasonably safe even for non-experts.
+
+In addition, the risk is probabilistic.  If an attacker can guess when your node will be offline for 1 minute, they have a ~10% chance of being able to get their transaction mined uncontested.  The cost is the onchain fee they paid to open the channel (if any) and the cost to unilaterally close.  Opening a single-funded channel at 1 s/vb costs ~150 sats and closing with just a keyed anchor is (I'm guessing) ~300 sats at 1 s/vb; so with Eclair's default dust tolerance of 50,000 sat, the attack reaches breakeven profitability if the attacker can predict when your node will be offline for at least 6 seconds (`600 seconds / (50_000 sats dust tolerance / 450 sats costs)`).
+
+Six seconds is probably below propagation time to your node and back to miners if your counterparty is able to initially relay the transaction directly to large miners, meaning a clever attacker doesn't even need to wait for your node to go offline.
+
+-------------------------
+
