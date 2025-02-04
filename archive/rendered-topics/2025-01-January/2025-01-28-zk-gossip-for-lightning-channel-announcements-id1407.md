@@ -497,3 +497,21 @@ I must confess I'm not understanding what you are saying here :sweat_smile: Coul
 
 -------------------------
 
+AdamISZ | 2025-02-04 15:03:32 UTC | #20
+
+> I must confess I’m not understanding what you are saying here :sweat_smile: Could you explain?
+
+Oh sure. Let me write it out carefully (though you probably already know most of it) because I'm not exactly sure which part didn't click with you:
+
+ If the possession of a channel opening utxo (proved by signing) is sufficient to grant me access to X in the LN protocol, we want to replace that with "ZKP of possession of a channel opening utxo", for better privacy. But, why does that "gate" exist? Only because it imposes a cost on spamming. It isn't the case that, logically, the utxo *must* be a channel-related utxo, in fact. Because from an attacker's point of view, creating a channel is the same cost as creating a utxo. So far so good? This implies we don't *have* to use channel utxos and therefore MuSig2 negotiation. 
+
+Further, because we're considering a taproot scenario the distinction between one type of utxo is not revealed, in the happy paths.
+
+So in my work I went to the other extreme, considering only a single sig generated case.
+
+Then we get into the capacity and cost consideration. As you yourself noted, we don't want to leak the exact channel amount, defeating the purpose. We can use multipliers or ranges. E.g. @MattCorallo above comments about M*N worth of channels for one N utxo. I was just noting that economically it seems a bit "off" to not make use of channel utxos in the proofs, but privacy wise it might be better.
+
+So at the end there I'm trying to say we, maybe, do indeed need MuSig2 support in the ZKP scheme because it's not economical to not use channel utxos (but tbh I'm not entirely sure).
+
+-------------------------
+
