@@ -417,7 +417,7 @@ These individual Musig2 public keys never go on-chain, so the idea is that no ob
 
 -------------------------
 
-AdamISZ | 2025-02-03 16:07:32 UTC | #16
+AdamISZ | 2025-02-03 21:19:50 UTC | #16
 
 [quote="halseth, post:13, topic:1407"]
 Proof times I am not too worried about, several minutes is not a problem since you are waiting several blocks anyway before announcing it.
@@ -445,6 +445,8 @@ But hashing public keys is kind of a violation of expectations that could screw 
 Here's the part that might be interesting to you (it was to me!): I didn't even *consider* the proof-creation-by-channel-parties-together idea. My thinking was (a) taproot + musig2 making channel utxos the same as other utxos and (b) 2-party construction of proof is a nightmare, so just make proofs over *other* utxos that happen not to be channels. In an ideal world it doesn't make a difference, but I neglected to consider: **utxos that are not channels are extra liquidity cost** for actual Lightning operators!
 
 So while that's not a slam dunk argument for "supporting musig 2-party outputs is required", it's a pretty *good* argument, and if the *only* thing sacrificed is that slightly flaky version of a key image, it ... may be OK?
+
+(Edited to add: another reason I forgot to mention, for *not* using channel utxos, is that updates to one's sybil-resistance ZKproof would not be correlated with channel opens/closes, and such correlation has the potential to remove the ZK-ness)
 
 -------------------------
 
