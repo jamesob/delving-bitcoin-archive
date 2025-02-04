@@ -159,3 +159,19 @@ Sorry if I'm missing something obvious and thank your for your work on Erlay!
 
 -------------------------
 
+sr-gi | 2025-02-04 15:33:09 UTC | #3
+
+[quote="harding, post:2, topic:1416"]
+I’m having a hard time understanding this entire post and I think it’s because I don’t understand the opening paragraphs. It sounds to me like Alice’s node has a transaction and Bob’s node sent her an `inv` or a sketch with the wtxid, so Alice knows Bob has a validated copy of the transaction. Given that, a particular instance of the general question you seem to be asking is, “should Alice send Bob an `inv` for that transaction?”
+[/quote]
+
+You're right, I took this from my notes and some context was dropped, making it hard to follow.
+
+Alice has a transaction `t` and she is to decide what peers to fanout it to, and reconcile with the rest. Before making the decision, Bob announces `t`, making Alice aware that Bob already knows about it. The question here is: should Alice consider this when selecting fanout candidates, or should Bob be a potential candidate, even if that announcement would never be sent?
+
+Regardless of the decision, `t` will not be announced to Bob. However, filtering means that Alice will maintain a constant fanout rate while the candidate pool is big enough, and afterward, the rate will drop to 0. Not filtering may have a smoother fanout rate reduction effect.
+
+I've re-worded the thesis section to reflect this more clearly. I hope it is easier to follow now.
+
+-------------------------
+
