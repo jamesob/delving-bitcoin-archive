@@ -1,12 +1,14 @@
 # Erlay: Filter fanout candidates based on transaction knowledge
 
-sr-gi | 2025-01-31 21:19:46 UTC | #1
+sr-gi | 2025-02-04 15:19:59 UTC | #1
 
 This post is part of the Erlay implementation experiments. See https://delvingbitcoin.org/t/erlay-overview-and-current-approach/1415 for context.
 
 # Thesis
 
-When selecting what peers we should be fanning out transactions to, a question arises for whether peers who already know about it should also be considered. In none of the cases the transaction should be announced more than once, but, in theory, the peer selection strategy affects how the fanout rate evolves with respect to the transaction propagation rate.
+In Erlay, transactions can be sent to peers using fanout or reconciliation. In our current approach, we select which peers to fanout to on a per-transaction basis [^1] and reconcile with the rest of our neighborhood. 
+
+When selecting fanout candidates for a given transaction, we could be filtering out the ones that already know about it (i.e., those that have already announced it to us). Regardless of whether filtering is applied, a transaction should not be announced more than once through the same link. However, filtering may affect the effective fanout rate, since the more propagated a transaction is, the more likely it is for a peer to receive multiple announcements of it. As a result, the filtered subset of peers may fall below the target fanout rate.
 
 ## Filtering nodes that already know the transaction
 
@@ -66,9 +68,9 @@ timestamp,percentile-target,percentile-time,r-sent-msgs,r-received-msgs,r-sent-b
 1734462444,90,20801980416,222.98781,371.10538,715.7427,1070.6921,32.490536,17.67878,94.54821,59.053257,10000,100000,100,true,14569482637851975056
 ```
 
-These results showed that for the given network [^1], filtering didn’t make a difference, which, based on our thesis, should make us wonder **why.** 
+These results showed that for the given network [^2], filtering didn’t make a difference, which, based on our thesis, should make us wonder **why.** 
 
-To answer this question, we need to check how many peers are being filtered per node on the network, and how that number ties to the propagation of the transaction. To do this, I modified the simulator on the fly [^2] to record how many peers know about a transaction when a node is deciding who to fanout to, that is, how many `INV` messages a given node has received when they are scheduling their transaction announcement. This yielded the following output:
+To answer this question, we need to check how many peers are being filtered per node on the network, and how that number ties to the propagation of the transaction. To do this, I modified the simulator on the fly [^3] to record how many peers know about a transaction when a node is deciding who to fanout to, that is, how many `INV` messages a given node has received when they are scheduling their transaction announcement. This yielded the following output:
 
 ```cmd
 0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,
@@ -84,7 +86,7 @@ Even though these are mostly a few random samples from the **110000** produced, 
 
 To understand this, we need to go deeper into how the network is structured, and how transactions are propagated. When a transaction is scheduled for announcement by a given peer, its announcement is delayed based on the type of peer it is to be announced to. [We covered this on the Erlay overview post](https://delvingbitcoin.org/t/erlay-overview-and-current-approach/1415#footnote-4127-5). This means that outbound peers are likely to receive the transaction before inbounds. Given how the network is structured, unreachable peers are **only connected** to reachable ones through outbound connections (which are inbound on the receiving end), reachable nodes, on the other hand, are connected to other reachable through outbound connections, and to both reachable and unreachable through inbound connections only. 
 
-This means that once a transaction has reached the reachable network it is likely to propagate through the reachable network at a higher rate than it does to the unreachable one [^3]. Furthermore, for every hop in the unreachable network, the transaction **must** go to a reachable node, if any. This should explain why reachable nodes have a higher number of peers having heard of a given transaction when they are to schedule its announcement, but it does not explain why for unreachable nodes the count is almost always `1`. 
+This means that once a transaction has reached the reachable network it is likely to propagate through the reachable network at a higher rate than it does to the unreachable one [^4]. Furthermore, for every hop in the unreachable network, the transaction **must** go to a reachable node, if any. This should explain why reachable nodes have a higher number of peers having heard of a given transaction when they are to schedule its announcement, but it does not explain why for unreachable nodes the count is almost always `1`. 
 
 To understand why, there is another detail we should be considering: when a transaction is being announced by a peer, **if the peer is inbound**, the transaction request is **delayed by** `NONPREF_PEER_TX_DELAY{2s}`, otherwise, the request is sent straight away. This prioritizes requesting transaction from outbound peers, which should be harder to control by malicious parties. Reachable nodes are mostly connected to peers by inbound connections (they are the gateways to the network), while unreachable nodes are solely connected to peers via outbound connections. This means that reachable nodes are likely to wait for **two seconds** between receiving a transaction announcement and requesting a transaction, whereas unreachable peers will receive the transaction almost instantly (modulo link latencies).
 
@@ -134,9 +136,10 @@ A way to see this even more clearly is to make both inbound and outbound equally
 
 Given the nature of the Bitcoin network topology, and how transaction announcements from inbound connections are de-prioritized, most nodes in the network would hear from a small subset of their peers about a transaction before they schedule their own announcement. Hence, **filtering fanout selection based on the peer knowledge of the transaction is mostly irrelevant.**
 
-[^1]: Network topologies for our simulator are created at random, making sure that all nodes initiate 8 outgoing connections to reachable nodes, and that connections are not duplicates. The Bitcoin network should follow a similar, but it is “impossible” to tell
-[^2]: The code can be run from https://github.com/sr-gi/hyperion/commit/500da78463fa8bbf22b8ecee978caff21c82a35c, a non-erlay simulation running on default settings is enough for this
-[^3]:  Notice the transaction would take at most one hop to reach the reachable network
+[^1]: As opposed to on a connection basis, check https://delvingbitcoin.org/t/erlay-overview-and-current-approach/1415#p-4127-approach-3 for rationale
+[^2]: Network topologies for our simulator are created at random, making sure that all nodes initiate 8 outgoing connections to reachable nodes, and that connections are not duplicates. The Bitcoin network should follow a similar, but it is “impossible” to tell
+[^3]: The code can be run from https://github.com/sr-gi/hyperion/commit/500da78463fa8bbf22b8ecee978caff21c82a35c, a non-erlay simulation running on default settings is enough for this
+[^4]:  Notice the transaction would take at most one hop to reach the reachable network
 
 -------------------------
 
