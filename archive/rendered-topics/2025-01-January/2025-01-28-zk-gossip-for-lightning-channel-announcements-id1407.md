@@ -456,3 +456,44 @@ Hmm. Could the 2 counterparties maybe just ECDH to add a third term to pk_hash? 
 
 -------------------------
 
+halseth | 2025-02-04 14:45:08 UTC | #18
+
+[quote="AdamISZ, post:16, topic:1407"]
+I’m not convinced that times of 1min + will be viable.
+[/quote]
+
+Considering 
+- opening channels is not something you do often AND
+- you wait minimum 6 blocks before announcing the channel AND
+- you should perhaps wait even longer to increase your anonymity set AND
+- either channel party can create the proof (the one with the beefiest hw) AND
+- it can likely be optimized quite a lot AND
+- hardware acceleration tends to become more widespread
+
+I think we can quickly get proving times down to something reasonable. 
+
+[quote="AdamISZ, post:16, topic:1407"]
+This feels a bit flaky. In the docs of the non-MuSig version I see you did hash(x) where x is privkey (for single control utxo), which to me is kind of “the” way to do it; a key image is, functionally, almost exactly the same as a hash of a private key.
+[/quote]
+I understand why you say that. I myself spent some time convincing myself this was safe (I'm happy to hear a counterargument). 
+
+The thinking here is that these public keys are never revealed to anyone other than the two channel counterparties (and they have all the information to leak the existence of the channel anyway of course), hence it is "semi-private".
+
+If they leak, then an observer can obviously link the channel to the output. But that is still not worse than today, where the link is already public and gossiped around.
+
+I do get the confusion that a "public key that should be kept private" could bring though. And I believe you could indeed do a ECDH as an alternative. The problem with that as I see it, is that you need to give the prover access to the private key (or give it access to APIs that can perform the ECDH). With the hash of public keys we currently do  the LN implementation can just spit out a regular channel accnouncement, then this external tool can convert it to a ZK proof before it gets broadcasted.
+
+-------------------------
+
+halseth | 2025-02-04 14:47:45 UTC | #19
+
+[quote="AdamISZ, post:16, topic:1407"]
+Here’s the part that might be interesting to you (it was to me!): I didn’t even *consider* the proof-creation-by-channel-parties-together idea. My thinking was (a) taproot + musig2 making channel utxos the same as other utxos and (b) 2-party construction of proof is a nightmare, so just make proofs over *other* utxos that happen not to be channels. In an ideal world it doesn’t make a difference, but I neglected to consider: **utxos that are not channels are extra liquidity cost** for actual Lightning operators!
+
+So while that’s not a slam dunk argument for “supporting musig 2-party outputs is required”, it’s a pretty *good* argument, and if the *only* thing sacrificed is that slightly flaky version of a key image, it … may be OK?
+[/quote]
+
+I must confess I'm not understanding what you are saying here :sweat_smile: Could you explain?
+
+-------------------------
+

@@ -8,13 +8,13 @@
   "post_number": 7,
   "post_type": 1,
   "updated_at": "2025-02-04T05:58:35.383Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 37.0,
   "yours": false,
   "topic_id": 1414,
   "topic_slug": "minimal-signing-flow-changes-for-truc-channels",
@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "I think the approach in the Oct 2021 thread addressed this by having two parts to the commitment tx: an output containing Alice's balance and the HTLCs from Alice to Bob, and another with the same but for Bob. That way you have 0.5 RTT updates to either output, with signatures from just one party, without invalidating the signatures from the other party on the latest spend of the other output.\n\nNote: when you want to update the underlying commitment (to reshuffle the balances once payments have succeeded), that still requires 1.5 round trips, but can be done in a quiet period, or just less frequently.\n\nSo the txs look like:\n\n```mermaid height=598,auto\nclassDiagram\n    class Commitment{\n        FundingTx\n        Alice()\n        Bob()\n        anchor()\n    }\n    class AliceCmt{\n        Commitment.Alice\n        AliceBal()\n        HTLC-X()\n        anchor()\n    }\n    class HTLC-X-Claim{\n        AliceCmt.HTLC-X[Preimage]\n        Bob()\n        anchor()\n    }\n    class HTLC-X-Refund{\n        AliceCmt.HTLC-X[Timeout]\n        Alice()\n    }\n    Commitment <|-- AliceCmt\n    AliceCmt  <|--HTLC-X-Claim\n    AliceCmt  <|--HTLC-X-Refund\n```\n\nat which point you can have the preimage path for HTLC-X-Claim require both Alice's and Bob's signature and commit to being v3, but the refund path requires just Alice's signature and a timeout, and does not commit to being v3. If Bob updates BobCmt, that doesn't affect the signatures here, so that's fine.\n\n(If these are for PTLCs instead of HTLCs, the claim tx needs to be signed by both Alice and Bob in order to force Bob to reveal the PTLC preimage, which was the original motivation for this setup)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -55,8 +60,19 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

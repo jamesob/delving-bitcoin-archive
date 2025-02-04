@@ -140,3 +140,19 @@ Given the nature of the Bitcoin network topology, and how transaction announceme
 
 -------------------------
 
+harding | 2025-02-04 12:57:14 UTC | #2
+
+[quote="sr-gi, post:1, topic:1416"]
+When selecting what peers we should be fanning out transactions to, a question arises for whether peers who already know about it should also be considered.
+[/quote]
+
+I'm having a hard time understanding this entire post and I think it's because I don't understand the opening paragraphs.  It sounds to me like Alice's node has a transaction and Bob's node sent her an `inv` or a sketch with the wtxid, so Alice knows Bob has a validated copy of the transaction.  Given that, a particular instance of the general question you seem to be asking is, "should Alice send Bob an `inv` for that transaction?"
+
+That doesn't make sense to me.  Why would Alice ever tell Bob about a transaction she knows that he already has?
+
+When you say "peers who already know about it", do you mean something else?  Like _peers we **think** know about a transaction, based on probabilistic reasoning_?
+
+Sorry if I'm missing something obvious and thank your for your work on Erlay!
+
+-------------------------
+

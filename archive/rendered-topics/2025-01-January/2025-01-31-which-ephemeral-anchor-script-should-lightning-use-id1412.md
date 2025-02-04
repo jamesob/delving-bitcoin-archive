@@ -122,3 +122,53 @@ For keeping fee-bumping delegation, I don’t see why pre-signed txn with `ANYON
 
 -------------------------
 
+harding | 2025-02-04 14:11:45 UTC | #4
+
+Notwithstanding @instagibbs's comments about a dynamic approach, option 1 (P2A) seems much safer to me:
+
+- _Theft of trimmed HTLC value:_ options 2, 3, and 4 allow a counterparty to receive trimmed HTLC value if their force close is uncontested while it is in the mempool.  Average time in the mempool is easily reduced to 10 minutes by paying a next-block fee, and it may be possible for your counterparty to make good guesses about when your node will be offline for ~10 minutes.
+
+  For example, every Saturday night, Bob automatically takes his node offline for 30 minutes to perform a full filesystem backup and software update.  His counterparty, Mallory, learns about his predictable downtime from her logs and causes the maximum amount of trimmed HTLC value to be forwarded through his node to her node shortly before his next downtime.  She then force closes the channel with the keyed anchor paying for next-block confirmation, which at that time is less than its full value, allowing her to profit.
+
+- _Reduction in reorg safety:_ a counterparty that works with a miner can pay the full value of a keyed anchor to their wallet, leaving both the commitment transaction and the CPFP transaction as zero fee in a block.  If there's a natural reorg, no rational miner will include those zero-fee transactions in their reorg blocks, reopening a channel that previously seemed closed.  If the reorg is long enough, it may become possible to steal value from regular HTLCs in the reopened channel.
+
+  Long reorgs create all sorts of other problems, so I'm not claiming that this is a strong criticism, but it does seem better to me that out-of-band fee payment can't reduce the chance that a commitment transaction will re-mined in a reorg.
+
+-------------------------
+
+t-bast | 2025-02-04 14:15:28 UTC | #5
+
+[quote="instagibbs, post:2, topic:1412"]
+Note that you aren’t stuck with one format. You could reasonably consider p2a when the anchor is 0-value, and keyed otherwise.
+[/quote]
+
+Good point, we should definitely do something like this! When the anchor output is 0, there's no value to steal so I think P2A makes a lot of sense since it's the cheapest way to bump fees. @ariard I don't think the issue you're describing applies in that case, does it?
+
+So we really just need to choose which option we use when the anchor amount isn't 0. Let's keep debating that case!
+
+[quote="instagibbs, post:2, topic:1412"]
+Alternatively, as soon as the output gets large enough to not be considered dust, you can go right back to inserting the remaining trimmed value into the commitment transaction fee, since it no longer has to be 0-fee.
+[/quote]
+
+I'm not a fan of this option (but we should still keep it on the table if others think this is desirable). I'd rather always keep the commitment 0-fee, so that all of the channel's value is split among existing outputs and nodes don't have to lose all of the dust HTLCs to mining fees in case of a force-close. It seems to be an improvement to materialize these dust HTLCs so that they may be only partially allocated to mining fees (especially in option 2, where your peer could overbid you but would need to get their commitment confirmed in that case, which means they'll need to wait for the `to_self_delay`).
+
+-------------------------
+
+t-bast | 2025-02-04 14:24:16 UTC | #6
+
+[quote="harding, post:4, topic:1412"]
+*Reduction in reorg safety:* a counterparty that works with a miner can pay the full value of a keyed anchor to their wallet, leaving both the commitment transaction and the CPFP transaction as zero fee in a block.
+[/quote]
+
+I hadn't considered this case, thanks! I think this is fine though, because lightning nodes will only consider transactions irrevocably confirmed after a long enough delay to protect against reorgs. In this case, the honest node will keep rebroadcasting his anchor-spend (and the associated commitment), which honest miners should pick up?
+
+HTLC delays should always be large enough to ensure that reorgs aren't an issue (e.g. `cltv_expiry_delta = 144 blocks`) so this shouldn't put funds at risk?
+
+[quote="harding, post:4, topic:1412"]
+it may be possible for your counterparty to make good guesses about when your node will be offline for ~10 minutes.
+[/quote]
+
+While this may apply to small nodes (who probably aren't a meaningful target since they're small), I don't think this applies to serious nodes (our node never has a 10 minutes downtime), so I think it could still be valuable to have the option to claim back some of the dust HTLCs instead of having them go entirely to fees? Even if you're not able to claim it back 100% of the time, it's still valuable if you're able to claim it back sometimes?
+
+-------------------------
+

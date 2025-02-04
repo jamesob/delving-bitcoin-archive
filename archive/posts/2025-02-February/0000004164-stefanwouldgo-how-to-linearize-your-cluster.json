@@ -12,9 +12,9 @@
   "reply_to_post_number": 21,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.2,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 47.2,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "I've looked into the problem some more and it turns out that its structure is really fascinating and helpful. The key property here is that the min-cuts are **nested** for a large class of parametric min-cut problems including the monotone source-sink ones. This means that as we look at the series of potential feerates $\\lambda$ from the highest to the lowest, the min-cuts are only ever increasing in the sense that the highest weight closure for a lower $\\lambda$ includes all the highest weight closures for higher $\\lambda$. To be more precise, there always is a min-cut with this property and all the algorithms that we are looking at here are preserving it, for example by always looking for a sink-minimal min-cut. This also makes sense intuitively: Including a better chunk into your worse chunk only improves the feerate. \n\nThis property is very useful: Firstly, it means that there can only be at most $O(n)$ different min-cuts/subsets/$\\lambda$ that we need to find. And secondly, it means we can solve the entire problem (not just finding the highest feerate subset, but partition the entire cluster into optimal chunks) in asymptotically the same time that it takes to find a single min-cut!\n\nBecause of the nested min-cuts, one can also simply continue on to the next lower $\\lambda$ to find the next best closure (which includes the previous ones, but of course it's easy to strip these away to get at the chunks). All this trickery that we were thinking about isn't really necessary.  However, it turns out the canonical way of speeding up working after finding the highest fee closure is to contract the entire source side (the closure) into the source, and this was already proposed in the GGT paper. \n\nAnother interesting thought occured to me as I was thinking about this problem: One application where we might use these algorithms is in deciding whether a potential RBF tx improves the cluster diagram. But this is especially simple because we already know the feerates that we are comparing to. So calling any min-cut algorithm at these $\\lambda$ will at least let us know if the new cluster improves on the old one. But maybe this is premature optimization.\n\nLet's talk about implementation: [This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf#page14) from 2007 compares an implementation of the full GGT algorithm (which includes calculating the flow forward and backwards from the sink to the source in order to get a better worst-case bound) to a simplified GGT algorithm (which doesn't do the bidirectional flow calculation and \"starts each maximum flow from scratch\" but also seems to do the source contraction). The simple algorithm always wins in practice (they also compare it to an algorithm that is even faster in natural instances but only works on bipartite graphs, which doesn't apply here). \n\n[This paper from 2012](https://arxiv.org/pdf/2410.15920#page14) is also really helpful, in particular because it supplies multiple implementations (including their own \"simpler\" algorithm) in the github repo I've already linked above. They even have benchmark examples there, though I'm not sure how comparable they will be to our instances. However, their algorithm seems to perform best on all their instances, they are all MIT licensed C++ implementations and it seems to me they solve exactly our full problem: We just need to use $-\\lambda$ instead of $\\lambda$ everywhere (because the standard description of source-sink monotone has capacities that are increasing at the source and decreasing at the sink with increasing $\\lambda$, we use it the other way round), and instantiate the capacity functions a little more involved than they do (they use affine functions, but the only \nimportant property for their algorithm, or really for any algorithm that finds all min-cuts, is that one can easily find roots of these functions, which should be just as easy for ours). It's great that you want to help with the implementation, Lagrang3, and I suggest starting by investigating this code. I'm not a C++ wizard and you guys certainly will have an easier time of deciding how useable this is for us. For example, are the dependencies this has a problem, are there ways of speeding it up even more in our case etc.\n\nNow it might be that because our graphs are so small, an even simpler approach might be even faster: Really any standard min-cut/max-flow algorithm, combined with some logic that finds the correct series of $\\lambda$ (this process is described quite well in both papers). So it would probably indeed be helpful to have some test cases/benchmarks.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,19 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }

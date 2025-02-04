@@ -150,3 +150,9 @@ at which point you can have the preimage path for HTLC-X-Claim require both Alic
 
 -------------------------
 
+instagibbs | 2025-02-04 13:01:14 UTC | #8
+
+right I find it plausible that some version of what I recall being "fast forward" for PTLCs would also work for this purpose. Thanks for digging up the citations.
+
+-------------------------
+

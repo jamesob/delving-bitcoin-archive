@@ -315,3 +315,15 @@ Not sure what it would look like in a decentralised model; maybe just the abilit
 
 -------------------------
 
+0xB10C | 2025-02-04 14:03:58 UTC | #21
+
+[quote="ajtowns, post:18, topic:1052"]
+One thing that could be worth looking into is doing a better job of populating prefilledtxns – ie, “I’m pretty sure my peers don’t know about these txs in the block, so I’ll send them straight away”.
+[/quote]
+
+I've started recording the contents of inbound and outbound `getblocktxn` messages a week ago. This should allow for some insights into "are peers often missing the same transactions?" and "can we pre-fill the transactions we had to request our self?". I haven't taken a closer look at the data yet.
+
+Also, I've changed on of my nodes to run with `blockreconstructionextratxn=10000` and updated two nodes to a `master` that includes [p2p: track and use all potential peers for orphan resolution #31397](https://github.com/bitcoin/bitcoin/pull/31397). Probably need to wait until the mempool fills up again to see the effects of this.
+
+-------------------------
+
