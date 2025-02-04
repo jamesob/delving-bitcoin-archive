@@ -810,7 +810,7 @@ Now it might be that because our graphs are so small, an even simpler approach m
 
 -------------------------
 
-sipa | 2025-02-04 15:41:50 UTC | #24
+sipa | 2025-02-04 15:45:02 UTC | #24
 
 I have posted a topic about the algorithm we had been working on before these min-cut based approaches were discovered: https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419. Perhaps some of the insights there carry over still.
 
@@ -848,7 +848,7 @@ In the currently-merged code, this is addressed by always including an ancestor-
 But all of this means is that what we're actually aiming for isn't all that well defined. Still:
 * We don't necessarily care about the time it takes to find an optimal linearization, but more about how much improvement to the linearization is made per time unit.
 * It's not necessarily actual clusters we see today that matter, but also worst cases attackers can produce.
-* We probably need an algorithm that can run with a time limit.
+* We probably need an algorithm that can run with a time limit, and produce a valid (possibly non-optimal) linearization still.
 * When the algorithm runs with a time limit that results in the optimal not being found, ideally the work it did is spread out over all transactions. This may mean some degree of randomization is needed to prevent deterministic behavior that lets an attacker direct where work is performed. It may even be worth doing so if the randomization worsens the worst-case complexity.
 * Probably obvious, but still worth stating: for small problems like ours, constant factors matter a lot, and may matter more than asymptotic complexity. In particular, things like bitvectors to represent sets of transactions are possible, which let you do in practice $O(1)$ set operations, where a purely theoretical complexity analysis would likely suggest some form of tree structure to represent the sets, with $O(\log n)$ complexity, and very significantly worse constant factors.
 
