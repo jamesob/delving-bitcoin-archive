@@ -1258,3 +1258,15 @@ I concluded that despite the fairly weak arguments in favor of increasing the gr
 
 -------------------------
 
+harding | 2025-02-05 13:39:47 UTC | #67
+
+[quote="AntoineP, post:64, topic:710"]
+i believe the best way forward is to introduce a 2’500 per-transaction limit on the number of legacy (both bare and P2SH) input sigops.
+[/quote]
+
+In this accounting, how many sigops will `OP_CHECKMULTISIG` (CMS) count for?  IIRC, current accounting for bare scripts (which is only applied to output scripts) counts each CMS as 20 sigops, but accounting for P2SH redeem scripts makes the sigops equal to CMS parameter for number of pubkeys to check (e.g. `2 <key> <key> <key> 3 OP_CMS` counts as 3 sigops).
+
+Also, to be clear, am I correct assume the 2,500 input limit will apply to CHECK*SIG operations specified in a bare prevout script?  E.g., spending a P2PK output will count 1 sigop towards the transaction limit.
+
+-------------------------
+
