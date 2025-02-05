@@ -1270,3 +1270,18 @@ Also, to be clear, am I correct assume the 2,500 input limit will apply to CHECK
 
 -------------------------
 
+AntoineP | 2025-02-05 15:30:36 UTC | #68
+
+[quote="harding, post:67, topic:710"]
+In this accounting, how many sigops will `OP_CHECKMULTISIG` (CMS) count for? IIRC, current accounting for bare scripts (which is only applied to output scripts) counts each CMS as 20 sigops, but accounting for P2SH redeem scripts makes the sigops equal to CMS parameter for number of pubkeys to check (e.g. `2 <key> <key> <key> 3 OP_CMS` counts as 3 sigops).
+[/quote]
+
+I will be sharing the specs i've been drafting soon (just wanted to cleanup and better test my implementation before). The intention here is to account in the same way as for P2SH/Segwit. The number of sigops in a CMS is the number of keys if it's inferior or equal to 16, and 20 otherwise.
+
+[quote="harding, post:67, topic:710"]
+Also, to be clear, am I correct assume the 2,500 input limit will apply to CHECK*SIG operations specified in a bare prevout script? E.g., spending a P2PK output will count 1 sigop towards the transaction limit.
+[/quote]
+Yes. The previous scriptpubkey, scriptsig + redeem script if P2SH all count toward the limit.
+
+-------------------------
+
