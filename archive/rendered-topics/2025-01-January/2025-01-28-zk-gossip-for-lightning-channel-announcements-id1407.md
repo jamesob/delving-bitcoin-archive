@@ -515,3 +515,15 @@ So at the end there I'm trying to say we, maybe, do indeed need MuSig2 support i
 
 -------------------------
 
+Davidson | 2025-02-05 00:35:23 UTC | #21
+
+Hi @halseth thanks for the impressive work you've been putting on this zk prover.
+
+One major advantage I can think of using this approach, is that it works out-of-the-box with extremely lightweight nodes like [floresta](https://github.com/vinteumorg/Floresta) and [utreexod](https://github.com/utreexo/utreexod), since the utreexo state is all context you need to verify the proof. This would be beneficial for resource-constrained lightning nodes, as they may not have full access to the UTXO set.
+
+Just out of curiosity: have you benchmarked this using an algebraic hash function? `rustreexo` now (since October last year to be precise) lets you choose your custom hash function, and algebraic hashes are waaaayyy lighter when running inside a prover. I wonder how much proving time is due to utreexo proofs. 
+
+I see you're using my bridge node for proof generation, it supports Poseidon 2 as hash function and puts everything in a nice json format intended for provers (this was developed for the folks at starkware for their bitcoin zk prover), just need to toggle the `shinigami` feature (it won't build the API tho).
+
+-------------------------
+
