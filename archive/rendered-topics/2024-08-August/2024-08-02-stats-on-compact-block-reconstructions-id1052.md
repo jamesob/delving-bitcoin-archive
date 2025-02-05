@@ -327,3 +327,13 @@ Also, I've changed on of my nodes to run with `blockreconstructionextratxn=10000
 
 -------------------------
 
+ajtowns | 2025-02-05 04:51:21 UTC | #22
+
+[quote="ajtowns, post:20, topic:1052"]
+Not sure what it would look like in a decentralised model;
+[/quote]
+
+One other thing is that FIBRE is designed for UDP transmission to avoid delays due to retransmits; so redoing it over TCP via the existing p2p network would be a pretty big loss...
+
+-------------------------
+
