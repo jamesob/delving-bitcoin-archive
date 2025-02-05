@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
+  "reads": 13,
+  "readers_count": 12,
   "score": 2.4,
   "yours": false,
   "topic_id": 1407,
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi @halseth thanks for the impressive work you've been putting on this zk prover.\n\nOne major advantage I can think of using this approach, is that it works out-of-the-box with extremely lightweight nodes like [floresta](https://github.com/vinteumorg/Floresta) and [utreexod](https://github.com/utreexo/utreexod), since the utreexo state is all context you need to verify the proof. This would be beneficial for resource-constrained lightning nodes, as they may not have full access to the UTXO set.\n\nJust out of curiosity: have you benchmarked this using an algebraic hash function? `rustreexo` now (since October last year to be precise) lets you choose your custom hash function, and algebraic hashes are waaaayyy lighter when running inside a prover. I wonder how much proving time is due to utreexo proofs. \n\nI see you're using my bridge node for proof generation, it supports Poseidon 2 as hash function and puts everything in a nice json format intended for provers (this was developed for the folks at starkware for their bitcoin zk prover), just need to toggle the `shinigami` feature (it won't build the API tho).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
