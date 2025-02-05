@@ -12,8 +12,8 @@
   "reply_to_post_number": 67,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
+  "reads": 2,
+  "readers_count": 1,
   "score": 0.2,
   "yours": false,
   "topic_id": 710,
@@ -39,7 +39,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"harding, post:67, topic:710\"]\nIn this accounting, how many sigops will `OP_CHECKMULTISIG` (CMS) count for? IIRC, current accounting for bare scripts (which is only applied to output scripts) counts each CMS as 20 sigops, but accounting for P2SH redeem scripts makes the sigops equal to CMS parameter for number of pubkeys to check (e.g. `2 <key> <key> <key> 3 OP_CMS` counts as 3 sigops).\n[/quote]\n\nI will be sharing the specs i've been drafting soon (just wanted to cleanup and better test my implementation before). The intention here is to account in the same way as for P2SH/Segwit. The number of sigops in a CMS is the number of keys if it's inferior or equal to 16, and 20 otherwise.\n\n[quote=\"harding, post:67, topic:710\"]\nAlso, to be clear, am I correct assume the 2,500 input limit will apply to CHECK*SIG operations specified in a bare prevout script? E.g., spending a P2PK output will count 1 sigop towards the transaction limit.\n[/quote]\nYes. The previous scriptpubkey, scriptsig + redeem script if P2SH all count toward the limit.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,8 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
