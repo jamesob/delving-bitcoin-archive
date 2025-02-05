@@ -10,7 +10,7 @@ I analyzed the debug.logs of some of my nodes, which all have the default maximu
 
 -------------------------
 
-0xB10C | 2025-02-05 15:29:59 UTC | #2
+0xB10C | 2025-02-05 15:46:40 UTC | #2
 
 I found >10M removals on, for example, 2024-09-14 across all nodes to be surprising. Looking at data from node alice on 2024-09-14 shows that we're sometimes removing more than 100k orphans per minute. This feels like someone flooding us with orphans.
 
@@ -20,6 +20,8 @@ Something like this is probably pretty effective at clearing our orphanage from 
 
 
 Edit: >99% of these have a weight of 501 WU or 502 WU and are similar to this [transaction](https://mempool.space/tx/ac8990b04469bad8630eaf2aa51561086d81a241deff6c95d96d27e41fa19f90) which seems related to runestone mints.
+
+Edit2: I briefly checked and it seems like these transaction were all solicited. Additionally, grepping for `Requesting tx` yields more than 10M lines.
 
 -------------------------
 
