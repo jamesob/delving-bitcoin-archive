@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 1.6,
   "yours": false,
   "topic_id": 1416,
   "topic_slug": "erlay-filter-fanout-candidates-based-on-transaction-knowledge",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"harding, post:2, topic:1416\"]\nI\u2019m having a hard time understanding this entire post and I think it\u2019s because I don\u2019t understand the opening paragraphs. It sounds to me like Alice\u2019s node has a transaction and Bob\u2019s node sent her an `inv` or a sketch with the wtxid, so Alice knows Bob has a validated copy of the transaction. Given that, a particular instance of the general question you seem to be asking is, \u201cshould Alice send Bob an `inv` for that transaction?\u201d\n[/quote]\n\nYou're right, I took this from my notes and some context was dropped, making it hard to follow.\n\nAlice has a transaction `t` and she is to decide what peers to fanout it to, and reconcile with the rest. Before making the decision, Bob announces `t`, making Alice aware that Bob already knows about it. The question here is: should Alice consider this when selecting fanout candidates, or should Bob be a potential candidate, even if that announcement would never be sent?\n\nRegardless of the decision, `t` will not be announced to Bob. However, filtering means that Alice will maintain a constant fanout rate while the candidate pool is big enough, and afterward, the rate will drop to 0. Not filtering may have a smoother fanout rate reduction effect.\n\nI've re-worded the thesis section to reflect this more clearly. I hope it is easier to follow now.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
