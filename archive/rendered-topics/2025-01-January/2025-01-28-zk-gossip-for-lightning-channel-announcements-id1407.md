@@ -527,3 +527,23 @@ I see you're using my bridge node for proof generation, it supports Poseidon 2 a
 
 -------------------------
 
+halseth | 2025-02-05 16:46:45 UTC | #22
+
+Aha, I get what you are saying. Using a different UTXO than the channel output as the "anti-spam cost".
+
+However, I'm not sure if it give us anything (in a non-ZK scenario it obviously could):
+- Since channel counterparties _have to_ create a multisig output in order to open a channel between them, you already have a utxo available for this purpose. (if we wanted to allow channels not backed by a real utxo this would not be the case of course...)
+- Channels are often created between non-trusted parties. Who would put up a utxo in that scenario? If both had to that would be less scalable of course.
+
+-------------------------
+
+halseth | 2025-02-05 16:48:23 UTC | #23
+
+Thanks!
+
+I have not tried the algebraic functions, but it is on my list of optimizations to try!
+
+Great to hear that rustreexo has it available already, that will make it a lot easier to test out :smile:
+
+-------------------------
+
