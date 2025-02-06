@@ -1297,3 +1297,11 @@ The condition is whether the script is `OP_1` .. `OP_16` immediately followed by
 
 -------------------------
 
+sjors | 2025-02-06 08:38:10 UTC | #70
+
+Also keep in mind that pre-SegWit sigops are multiplied by 4.
+
+But if you introduce a new name then maybe also don't bother with that multiplication, since it _only_ applies to pre-SegWit spends.
+
+-------------------------
+

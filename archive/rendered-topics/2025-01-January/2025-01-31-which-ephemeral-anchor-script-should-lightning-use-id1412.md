@@ -266,3 +266,13 @@ Or, for simplicity, we could just always use the current anchor script and addre
 
 -------------------------
 
+ajtowns | 2025-02-06 06:19:44 UTC | #9
+
+[quote="morehouse, post:8, topic:1412"]
+The channel counterparty can do fee griefing and replacement cycling, but no one else can.
+[/quote]
+
+Isn't the channel counterparty doing fee griefing more of a concern? If a random person does it, they risk losing a bunch of fees, and get no benefit; if a miner does it, either they mine your original tx (delaying it slightly because other miners didn't see it) and everything's still fine, or they risk losing funds and get no benefit; but if your counterparty does it, they may get to claim a htlc payment back via the timeout path, and actually make a profit.
+
+-------------------------
+
