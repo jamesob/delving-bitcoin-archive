@@ -871,3 +871,48 @@ That said, there are benchmarks for the currently-merged algorithm: https://gith
 
 -------------------------
 
+stefanwouldgo | 2025-02-06 15:37:45 UTC | #25
+
+[quote="sipa, post:24, topic:303"]
+I have posted a topic about the algorithm we had been working on before these min-cut based approaches were discovered: [Spanning-forest cluster linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419). Perhaps some of the insights there carry over still.
+[/quote]
+
+Thank you for the in-depth writeup. It's certainly full of interesting observations.  It appears you have independently rediscovered a lot of the theory that applies here.
+
+[quote="sipa, post:24, topic:303"]
+My belief was that since there can exist O(2^n)O(2n)O(2^n) different-feerate chunks, an algorithm like this needs extra work to remove previous chunks to avoid the blowup, but what you’re saying is that maximizing weight for a given minimum \lambdaλ\lambda already accomplishes that?
+[/quote]
+
+I'm not quite sure I understand your question. What I am saying is that for any $\lambda$, a min-cut calculation gives us a chunk/closure of at least feerate $\lambda$ (or possibly the empty set if there is no such chunk). For a very low $\lambda$ (say the lowest feerate of any transaction), it might just give us the entire cluster. If we increase $\lambda$ from there, we will get better chunks until we overshoot to a $\lambda$ that is higher than the optimum feerate (after that we might just get the empty set). But the nested cut property means that in every step we get a subset of the earlier chunks. So if we search in the other direction, starting with a high $\lambda$, we get bigger and bigger chunks and can just remove the better chunks we have found before. 
+
+In particular, the min-cuts/optimal chunks we find this way form a sub-lattice of the lattice of closures/topogical subsets, that is, they are closed under union and intersection. Even more astoundingly, if $X_1$ is a min-cut for $\lambda_1$  and  $X_2$ a min-cut for $\lambda_2$ with $\lambda_1 \geq \lambda_2$, then $X_1 \cap X_2$  is a min-cut for $\lambda_1$ and $X_1 \cup X_2$ is a min-cut for $\lambda_2$. This is sometimes called the ascending property. And I believe it is exactly this structure that you have been rediscovering with the cluster diagrams and guides.
+
+[quote="sipa, post:24, topic:303"]
+Determining if an RBF is an improvement isn’t just a question of whether the first chunk is better, but whether the diagram is better everywhere (RBFs can conflict with transactions in other clusters even, and we care about the combined diagram in this case).
+[/quote]
+
+I know. But the structure that I have just tried to explain appears to guarantee that we can check if we can find a better diagram for the cluster including the new RBF tx by calculating a min-cut at the breakpoints of the combined conflicting diagram. In this way we might not find the optimal chunking, but we can decide if it is better than what we already have.
+
+[quote="sipa, post:24, topic:303"]
+Unfortunately, because we work in an adverserial setting, the real question isn’t (just) about real-life clusters we see today, but also worst-case clusters that attackers can construct.
+[/quote]
+
+Yes, that is why I think it's very important to find good worst-case bounds. 
+
+The CPFP example you give is very interesting. I'll have to think more about the implications.
+
+[quote="sipa, post:24, topic:303"]
+We probably need an algorithm that can run with a time limit, and produce a valid (possibly non-optimal) linearization still.
+[/quote]
+
+I think the minimum unit of time in which this kind of algorithm can be useful is the time it takes to calculate a min-cut. But it is always easy to get a linearization of any cluster by simply sorting it topologically. From there, with every min-cut we calculate, we can find an optimal chunk to put at the beginning of a linearization. It will be really interesting to find out how fast we can calculate these min-cuts in practice. As I said, in theory this can be done linearly in the number of edges, but that's not how it will be done in practice. Also in theory, it doesn't help for our graphs to be DAGs, because any flow network can be transformed into an equivalent DAG in linear time, but in practice it might be very fast. Unless an attacker can construct a bad graph ...
+so designing how to deploy these algorithms in a secure way might be another challenge.
+
+[quote="sipa, post:24, topic:303"]
+It would be nice if the algorithm can incorporate “externally” found good topologically-valid sets, like LIMO can with ancestor sets, guaranteeing them as a minimum quality level.
+[/quote]
+
+In a way, this helps, because like in the RBF case mentioned above, it gives us feerates that can be a good starting point. Unfortunately, the nice ascending property from above doesn't apply to just any chunking we get from anywhere. So if we take the union or intersection of, say, an ancestor set and an optimal min-cut, we will get a closure, but it could have arbitrarily bad feerate. Your LIMO algorithm might help here, but I haven't fully understood that yet.
+
+-------------------------
+
