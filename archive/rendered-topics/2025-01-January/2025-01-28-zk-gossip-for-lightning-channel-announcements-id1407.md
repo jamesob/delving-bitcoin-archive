@@ -572,3 +572,29 @@ But it seems pretty clear you're looking at it differently (as per the OP, v1.75
 
 -------------------------
 
+halseth | 2025-02-06 11:42:05 UTC | #25
+
+[quote="AdamISZ, post:24, topic:1407"]
+I personally find Rusty’s model makes a lot more logical sense, taking anti-DOS as far away as possible from the blockchain and making capacity claims vague).
+[/quote]
+
+I think that model makes a lot of sense in the non-ZKP scenario, since you have to reveal _some utxo_ but allow it to be a different one from the channel.
+
+In the ZKP setting I think it is less efficient, as using the actual channel utxo as stake doesn't reveal it. 
+
+Also, as you mention, this proposal doesn't change the trust model as much; each channel is still backed by a single UTXO, you just don't reveal which one.
+
+-------------------------
+
+halseth | 2025-02-06 13:44:44 UTC | #26
+
+[quote="Davidson, post:21, topic:1407"]
+Just out of curiosity: have you benchmarked this using an algebraic hash function? `rustreexo` now (since October last year to be precise) lets you choose your custom hash function, and algebraic hashes are waaaayyy lighter when running inside a prover. I wonder how much proving time is due to utreexo proofs.
+[/quote]
+
+![Screenshot 2025-02-06 at 14.41.45|690x306](upload://91VOuBcnHGDMFjAeKhmx4Yc1GUt.png)
+
+From profiling looks like most of the proving time comes from key aggregation (to verify the Musig signature), while utreexo verification and SHA-256 play a much smaller part.
+
+-------------------------
+
