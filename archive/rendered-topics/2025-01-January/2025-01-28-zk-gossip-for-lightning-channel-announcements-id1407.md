@@ -598,3 +598,11 @@ From profiling looks like most of the proving time comes from key aggregation (t
 
 -------------------------
 
+Davidson | 2025-02-06 17:11:33 UTC | #27
+
+Oh, nvm then. Def not worth it.
+
+It actually makes sense, once ECC enters the game, everything else becomes irrelevant performance-wise. (It's good to know my code isn't the bottleneck tho :joy: ).
+
+-------------------------
+

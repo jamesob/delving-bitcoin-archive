@@ -276,3 +276,43 @@ Isn't the channel counterparty doing fee griefing more of a concern? If a random
 
 -------------------------
 
+morehouse | 2025-02-06 18:31:50 UTC | #10
+
+[quote="ajtowns, post:9, topic:1412"]
+Isn’t the channel counterparty doing fee griefing more of a concern? If a random person does it, they risk losing a bunch of fees, and get no benefit; if a miner does it, either they mine your original tx (delaying it slightly because other miners didn’t see it) and everything’s still fine, or they risk losing funds and get no benefit; but if your counterparty does it, they may get to claim a htlc payment back via the timeout path, and actually make a profit.
+[/quote]
+
+When the channel counterparty does it, yes they might be able to steal HTLCs if the victim isn't willing to fee bump high enough.
+
+A random person indeed can't steal funds via this attack, but they *can* grief the victim.  They don't need to risk much in fees either if they already have a low-priority ~1000vB transaction they want to get mined anyway.  In fact we've already seen a similar kind of [accidental pinning](https://x.com/peterktodd/status/1793380279018803208) in the wild with expired anchor outputs.  Are you sure that *no one* on the network will ever want to grief in this way? 
+
+A mining pool may stand to profit nicely if the victim pays 50% more in fees than they normally would.  The EV depends on:
+
+- the probability of the pinned transaction confirming before the victim fee bumps enough to escape the pin, and
+- the percentage of hash rate controlled by the pool.
+
+
+By using a keyed anchor, we can limit our exposure to such attacks to *just* the channel counterparty, instead of allowing anyone on the network to do it.
+
+-------------------------
+
+instagibbs | 2025-02-06 19:45:31 UTC | #11
+
+[quote="morehouse, post:10, topic:1412"]
+Are you sure that *no one* on the network will ever want to grief in this way?
+[/quote]
+
+It's a question of probabilities and assumptions, there are no absolutes here. Every time a P2TR keyspend is done in lieu of a P2A spend, that's ~46vB additionally used.
+
+The actual % of pin relies on many factors, the absolute worst case being a very flat, deep mempool, a tiny commitment transaction and tiny honest CPFP.
+
+To reverse the framing, every time you require a signature where none was needed, with small packages you are deterministically "pinning yourself" by ~10% to avoid being pinned by X% due to a completely unrelated third party attacker. As packages get larger, the relative pin in both senses drops, of course.
+
+> A mining pool may stand to profit nicely if the victim pays 50% more in fees than they normally would
+
+I think this is isomorphic with miner censorship with one exception: the fact that there would also have "victim miners" who are essentially being robbed of the "honest" CPFP that would have been on the table initially for the next block. If miners in general think they'll get more out of you by collectively waiting, that cannot be helped and you need to set longer HTLC expiries to make defection more palatable.
+
+All that said, I think this specific choice is a fairly minor decision in the overall security story.
+
+-------------------------
+

@@ -916,3 +916,74 @@ In a way, this helps, because like in the RBF case mentioned above, it gives us 
 
 -------------------------
 
+sipa | 2025-02-06 18:16:54 UTC | #26
+
+[quote="sipa, post:24, topic:303"]
+My belief was that since there can exist O(2^n)O(2n)O(2^n) different-feerate chunks, an algorithm like this needs extra work to remove previous chunks to avoid the blowup
+[/quote]
+
+Just in case I confused you here: I was trying to explain why this ascending property you mention later wasn't obvious to me earlier. It doesn't matter, it makes sense to me now.
+
+[quote="stefanwouldgo, post:25, topic:303"]
+I’m not quite sure I understand your question.
+[/quote]
+
+My question was whether I had understood things correctly; given your responses, I believe that was indeed the case.
+
+[quote="stefanwouldgo, post:25, topic:303"]
+I know. But the structure that I have just tried to explain appears to guarantee that we can check if we can find a better diagram for the cluster including the new RBF tx by calculating a min-cut at the breakpoints of the combined conflicting diagram. In this way we might not find the optimal chunking, but we can decide if it is better than what we already have.
+[/quote]
+
+I see now. That may work, but it's probably premature optimization. Just evaluating the new diagram at all the old diagram breakpoints may be just as hard as just computing the new diagram?
+
+[quote="stefanwouldgo, post:25, topic:303"]
+I think the minimum unit of time in which this kind of algorithm can be useful is the time it takes to calculate a min-cut.
+[/quote]
+
+That may be somewhat unfortunate. I was hoping it would be possible to spend some time finding *some* cut (not necessarily the minimal one), and then later revisit and find a better cut. Because even just finding a single min-cut is $O(n^3)$ as I understand it (if $m = O(n^2)$), which is probably too much.
+
+[quote="stefanwouldgo, post:25, topic:303"]
+But it is always easy to get a linearization of any cluster by simply sorting it topologically. From there, with every min-cut we calculate, we can find an optimal chunk to put at the beginning of a linearization.
+[/quote]
+
+Right, but doing this in a "time-restricted" setting means you might end up with a linearization where the beginning is optimal, but the end is terrible, which might be undesirable.
+
+[quote="stefanwouldgo, post:25, topic:303"]
+Your LIMO algorithm might help here, but I haven’t fully understood that yet.
+[/quote]
+
+You can think of LIMO as repeatedly doing:
+* Given a cluster with an existing linearization L for it
+  * Loop:
+    * Find a topological subset S with good feerate to move to the front.
+    * Compute L', which is L with with S moved to the front (leaving the order of transactions within S, and outside of S, unchanged from L).
+    * Compute L'' as a merge of L and L', which has a diagram that's at least as good as the best of both everywhere.
+    * Output the first chunk of L'', and continue with L as what remains of L''.
+
+I suspect this can be done in combination with the GGT approach, but the more interesting combination is if it can feed back too, i.e. the S set finding algorithm can be bootstrapped by using the first chunk of L at that point. This may be harder.
+
+I'm currently polishing up an implementation of the spanning-forest algorithm, so that I don't forget the ideas I got while creating the writeup, and also to have a benchmark to target for future things (I think that comparing with the current exponential algorithm will be hard, as the style of graphs which are hard may differ wildly between exponential and GGT, but the difference between spanning-forest and GGT is probably smaller). After that, I plan to dig deeper into minimal-cut and GGT.
+
+-------------------------
+
+sipa | 2025-02-06 19:17:47 UTC | #27
+
+Woah, :exploding_head:.
+
+The GGT algorithm is effectively finding a subset $x$ which maximizes
+$$
+\operatorname{fee}_x - \lambda \operatorname{size}_x
+$$
+for a given existing solution $S$ with feerate $\lambda$. In order words, it maximizes
+$$
+\operatorname{fee}_x - \frac{\operatorname{fee}_S}{\operatorname{size}_S} \operatorname{size}_x
+$$
+which, given that $\operatorname{size}_S$ is a constant in this context, is the same as maximizing
+$$
+\operatorname{fee}_x\operatorname{size}_S - \operatorname{fee}_S\operatorname{size}_x
+$$
+
+Which is what I've called $q(x, S)$ in the spanning-forest writeup, the quantity being maximized when performing chunk splits...
+
+-------------------------
+
