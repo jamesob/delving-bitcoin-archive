@@ -1285,3 +1285,15 @@ Yes. The previous scriptpubkey, scriptsig + redeem script if P2SH all count towa
 
 -------------------------
 
+ajtowns | 2025-02-06 02:19:58 UTC | #69
+
+I think it would be helpful if we could have distinct names for the two limits here -- keep "sigop" for signatures that appear in the p2sh, p2wsh and the output scriptPubKey, and use something new for the new limit ("sigchecked"? "legacysig"?)
+
+[quote="AntoineP, post:68, topic:710"]
+The number of sigops in a CMS is the number of keys if it’s inferior or equal to 16, and 20 otherwise.
+[/quote]
+
+The condition is whether the script is `OP_1` .. `OP_16` immediately followed by CMS, versus anything else, not strictly the number of keys. So eg `1 1 ADD CMS` will be treated as 20 sigops, not 2, and `0 0 0 CHECKMULTISIG` also counts as 20 sigops, rather than 0. It also counts CHECK*SIG opcodes from unexecuted branches, so `IF <P> CHECKSIG ELSE <Q> CHECKSIG ENDIF` counts as 2 sigops while  `IF <P> ELSE <Q> ENDIF CHECKSIG` counts as 1.
+
+-------------------------
+

@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.6,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 47.8,
   "yours": false,
   "topic_id": 1421,
   "topic_slug": "stats-on-orphanage-overflows",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I've recently been asked about some numbers on orphanage overflows of my nodes. In Bitcoin Core, [`LimitOrphans()`](https://github.com/bitcoin/bitcoin/blob/33932d30e382d1296be438ec5365fa0a56cf0864/src/txorphanage.cpp#L123) is [called](https://github.com/bitcoin/bitcoin/blob/33932d30e382d1296be438ec5365fa0a56cf0864/src/node/txdownloadman_impl.cpp#L431) every time we add an orphan to the orphanage. Next to removing expired orphans from time to time, `LimitOrphans()` will remove (usually) one random orphan from the orphanage if it's larger than the maximum orphanage size (default 100; controlled with `-maxorphantx=n`). This is logged with `orphanage overflow, removed 1 tx`.\n\nI analyzed the debug.logs of some of my nodes, which all have the default maximum orphanage size of 100.\n\n![image|100%](upload://xjkMVmwC03Cg7pwsL5VelspjPMX.jpeg)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
