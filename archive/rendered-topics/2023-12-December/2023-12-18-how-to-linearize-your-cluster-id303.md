@@ -1001,3 +1001,13 @@ That, I think is not accurate to say. For a fixed $\lambda$ finding a subset tha
 
 -------------------------
 
+sipa | 2025-02-06 20:51:41 UTC | #29
+
+[quote="Lagrang3, post:28, topic:303"]
+The novelty of GGT is that you don’t need to do bisection to solve the “maximum feerate closure” and the computation complexity of the feerate problem stays the same as the computational complexity of a single “max. weight closure”.
+[/quote]
+
+Forget that I mentioned GGT here, I understand. I was using it as a shorthand for "min-cut based approaches", which is indeed not the novelty of GGT at all, it came earlier.
+
+-------------------------
+
