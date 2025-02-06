@@ -1,6 +1,6 @@
 # Erlay: Define fanout rate based on the transaction reception method
 
-sr-gi | 2025-02-05 20:48:35 UTC | #1
+sr-gi | 2025-02-05 21:36:02 UTC | #1
 
 This post is part of the Erlay implementation experiments. See [Erlay: Overview and current approach](https://delvingbitcoin.org/t/erlay-overview-and-current-approach/1415) for context.
 
@@ -57,7 +57,7 @@ For unreachable, the data volume has increased between ~4% to ~11%.
 
 Both for reachable and unreachable cases, the lower end of this range is the most compelling. It not only results in a smaller bandwidth increase but also achieves a higher relative speedup. Specifically, **1/10% + 4/10%** delivers an **18% speedup** with only a **6.5% increase in bandwidth utilization**. In contrast, **1/20% + 4/20%** reduces latency further (**~25% faster**) but comes at a higher cost—**double the bandwidth increase for reachable nodes** and **nearly 3× for unreachable nodes** compared to **1/10% + 4/10%**.
 
-You may have noticed an additional yellow line in the plots, representing **4/10%**. This serves as a reference to compare the impact of the variable approach against the fixed approach. The propagation times for **4/10%** are akin to **1/10% + 4/10%** (they are barely 3% faster), however, the bandwidth utilization is 13%-15% worse than for **1/10% + 4/10%** 
+You may have noticed an additional yellow line in the plots, representing **4/10%**. This serves as a reference to compare the impact of the variable approach against the fixed approach. The propagation times for **4/10%** are akin to **1/10% + 4/10%** (they are barely 3% faster), however, the bandwidth utilization is 13%-15% worse than **1/10% + 4/10%** 
 
 # Conclusion
 

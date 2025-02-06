@@ -547,3 +547,28 @@ Great to hear that rustreexo has it available already, that will make it a lot e
 
 -------------------------
 
+AdamISZ | 2025-02-05 23:33:28 UTC | #24
+
+[quote="halseth, post:22, topic:1407"]
+Channels are often created between non-trusted parties. Who would put up a utxo in that scenario? If both had to that would be less scalable of course.
+[/quote]
+
+I had been working with a mental model based on what I read a long time ago [here](https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2022-February/003470.txt) (Rusty's gossip v2 proposal, I think the original one? Hard to keep track).
+
+To crib from there:
+
+> 1. Nodes send out weekly node_announcement_v2, proving they own some
+   UTXOs.
+> 2. This entitles them to broadcast channels, using channel_update_v2; a
+   channel_update_v2 from both peers means the channel exists.
+> 3. This uses UTXOs for anti-spam, but doesn't tie them to channels
+   directly.
+> 4. Future ZKP proofs are could be added.
+
+He also has a concept of claiming the channel on open at the end of that post.
+Obviously in that model, my perspective should make a lot more sense.
+
+But it seems pretty clear you're looking at it differently (as per the OP, v1.75 but with zkp added in). Responding more directly to your Q, though, I think you could make this argument: single funder provides zkp, dual funders have the starting channel balance reflect the asymmetric cost of one funder making a single proof; but as you can see this is fudgy, and maybe I'm wrong. I personally find Rusty's model makes a lot more logical sense, taking anti-DOS as far away as possible from the blockchain and making capacity claims vague).
+
+-------------------------
+

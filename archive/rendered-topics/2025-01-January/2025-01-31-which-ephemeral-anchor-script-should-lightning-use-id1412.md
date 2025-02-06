@@ -192,3 +192,77 @@ Six seconds is probably below propagation time to your node and back to miners i
 
 -------------------------
 
+morehouse | 2025-02-05 22:13:12 UTC | #8
+
+A major benefit of TRUC channels is that nodes don't have to monitor mempools anymore, since they can rely on their commitment package replacing the counterparty's once they bump to a high enough fee rate.  This simplifies a lot of code and is especially good for mobile.
+
+I think we should lean into this simplification and therefore dismiss Options 3 and 4 entirely.  Their main benefit is the ability to CPFP the remote commitment, which many/most nodes won't implement anyway for TRUC channels.
+
+In deciding between the remaining options, there's at least 2 issues to consider:
+
+- [fee griefing](https://petertodd.org/2023/v3-txs-pinning-vulnerability)
+- dust theft
+-----------------------
+
+**Tl;dr:** We can avoid dust theft and fee griefing as follows:
+- Do Option 2 with the same anchor script we already use.
+- Make @instagibbs [suggested changes](https://delvingbitcoin.org/t/which-ephemeral-anchor-script-should-lightning-use/1412/2?u=morehouse) to dust HTLC handling.
+
+--------------------------
+
+## Option 1: unkeyed anchor
+
+#### Fee griefing
+
+Anyone on the network can broadcast a conflicting anchor spend, potentially evicting the commitment package from the mempool (replacement cycling) or forcing the victim to spend more fees than normal (limited RBF rule #3 pinning).
+
+#### Dust theft
+
+In the medium-long term, unkeyed anchors are safe from dust theft attacks, since miners will claim the full anchor output as fees, preventing the channel counterparty from ever profiting from such an attack.  As a result, the counterparty has no extra motivation to inflate the anchor output with dust HTLCs in the first place, beyond getting the other party to pay for the force close (which exists with current channels already).
+
+## Option 2: single-participant keyed anchor
+
+#### Fee griefing
+
+The channel counterparty can do fee griefing and replacement cycling, but no one else can.
+
+#### Dust theft
+
+The counterparty can steal dust HTLCs, as @t-bast described.
+
+## Alternative option: single-participant keyed anchor without anchor value inflation
+
+This is Option 2, along with @instagibbs idea:
+
+- Dust HTLCs increase the value of the keyed anchor up to the dust limit.
+- Once the anchor reaches the dust limit, further dust HTLCs increase the commitment fees.
+
+#### Fee griefing
+
+The channel counterparty can do fee griefing and replacement cycling, but no one else can.
+
+#### Dust theft
+
+The channel counterparty cannot steal dust HTLCs, since the excess always goes to miners as commitment fees.
+
+## Thoughts
+
+Current mitigations against replacement cycling (rebroadcasting and aggressive fee bumping) are enough to make such attacks very expensive for the channel counterparty or anyone else on the network, so I think we shouldn't be too worried about additional exposure due to unkeyed anchors in that regard.
+
+However, unkeyed anchors *do* make it possible for anyone to grief lightning force closes they see in the mempool, forcing each victim to spend up to ~50% more in fees (see Peter Todd's math [here](https://petertodd.org/2023/v3-txs-pinning-vulnerability)).
+
+We can limit our exposure to such griefing by using keyed anchors.  But then to prevent dust HTLC theft we need to add the excess dust HTLCs to commitment fees.  And to prevent UTXO bloat in that case we should probably add an anyone-can-spend path to the non-ephemeral anchor with a CSV delay (like with current anchor channels).
+
+So most of the time we could use a simple P2TR anchor script and the anchor would be considered ephemeral dust, so it would need to be spent immediately.  But once the anchor output accumulates a value of 330 sats, we'd need to switch to the same P2WSH anchor script we currently have for anchor channels:
+
+```
+<local_funding_pubkey> OP_CHECKSIG OP_IFDUP
+OP_NOTIF
+    OP_16 OP_CHECKSEQUENCEVERIFY
+OP_ENDIF
+```
+
+Or, for simplicity, we could just always use the current anchor script and address the slight P2TR optimization later when we do taproot TRUC channels.
+
+-------------------------
+
