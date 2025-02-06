@@ -987,3 +987,17 @@ Which is what I've called $q(x, S)$ in the spanning-forest writeup, the quantity
 
 -------------------------
 
+Lagrang3 | 2025-02-06 20:47:07 UTC | #28
+
+[quote="sipa, post:27, topic:303"]
+The GGT algorithm is effectively finding a subset xxx which maximizes
+
+\operatorname{fee}_x - \lambda \operatorname{size}_x
+
+feex−λsizex
+[/quote]
+
+That, I think is not accurate to say. For a fixed $\lambda$ finding a subset that maximizes $\mathrm{fee}_x - \lambda \mathrm{size}_x$ simply transforms to the "maximum weight closure problem" that can be solved with any min-cut finding algorithm. The "max. weight closure problem" is a subproblem of your original "maximum feerate closure problem". The novelty of GGT is that you don't need to do bisection to solve the "maximum feerate closure" and the computation complexity of the feerate problem stays the same as the computational complexity of a single "max. weight closure".
+
+-------------------------
+
