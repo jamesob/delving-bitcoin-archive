@@ -1,6 +1,6 @@
 # Spanning-forest cluster linearization
 
-sipa | 2025-02-05 01:08:43 UTC | #1
+sipa | 2025-02-07 20:28:28 UTC | #1
 
 # Spanning-forest cluster linearization
 
@@ -10,7 +10,7 @@ This is a write-up about a work in progress cluster linearization algorithm that
 
 While this spanning-forest algorithm looks promising, the recent [discovery](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) by @stefanwouldgo that well-known [minimal-cut](https://en.wikipedia.org/wiki/Minimum_cut)-based algorithms with good asymptotic complexity exist for the problem we call cluster linearization (the established term is the "maximum-ratio [closure problem](https://en.wikipedia.org/wiki/Closure_problem)") is even more promising.
 
-I am still creating this write-up, because despite lacking known complexity bounds, it appears to be very elegant, fast, and practical (I have a prototype implementation). It is possible that good bounds for it still get found, or that its insights help others build on top, or that it ultimately appears more practical for the real-life problems we face than more advanced algorithms. Or perhaps we discover it's actually equivalent to a well-known algorithm. I don't know, but before switching over to studying another approach, I want to have it written down in some form, also to have my own thoughts ordered.
+I am still creating this write-up, because despite lacking known complexity bounds, it appears to be very elegant, fast, and practical (I have a [prototype implementation](https://github.com/sipa/commits/spanning_tree_linearization]). It is possible that good bounds for it still get found, or that its insights help others build on top, or that it ultimately appears more practical for the real-life problems we face than more advanced algorithms. Or perhaps we discover it's actually equivalent to a well-known algorithm. I don't know, but before switching over to studying another approach, I want to have it written down in some form, also to have my own thoughts ordered.
 
 ## 1. Background: cluster linearization as an LP problem
 
@@ -41,7 +41,7 @@ In a problem with $n$ transactions and $m$ dependencies, this means $n + m + 1$ 
 * $g = \sum_i t_i \operatorname{fee}(i)$ (the goal)
 * $\sum_i t_i \operatorname{size}(i) = 1$ (the normalization)
 
-The simplex algorithm then maintains a set of $n-1$ ***free* variables**, which are chosen to be zero. All other variables (the ***basic* variables**) can be computed from the free variables using the $n+m+1$ equations. In every iteration of the algorithm, one free variable is chosen to become basic, while a basic algorithm is chosen to become free. In this context:
+The simplex algorithm then maintains a set of $n-1$ ***free* variables**, which are chosen to be zero. All other variables (the ***basic* variables**) can be computed from the free variables using the $m+2$ equations. In every iteration of the algorithm, one free variable is chosen to become basic, while a basic algorithm is chosen to become free. In this context:
 * A free $t_i$ variable means transaction $i$ is excluded from the solution.
 * A free $d_j$ variable means that transactions $p_j$ and $c_j$ are either both included, or both excluded.
 
