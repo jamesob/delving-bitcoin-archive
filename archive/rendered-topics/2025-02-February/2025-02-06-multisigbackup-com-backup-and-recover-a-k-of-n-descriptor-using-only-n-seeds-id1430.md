@@ -68,3 +68,17 @@ Source code: [https://github.com/joshdoman/multisig-backup](https://github.com/j
 
 -------------------------
 
+jsarenik | 2025-02-07 08:26:07 UTC | #2
+
+Thank you!
+
+I love this and I use 2-of-2 multisig (only) with a real human counterpart since 2019. Reason is simple: after noticing the logarithmic chart on Marc Bevand's site I saw the most important thing is to secure the sats from myself. And it allows me to backup while alive and the backup can not spend anything alone. My counterpart also has a backup which I won't cooperate with on spending anything while the counterpart is alive and well. And I pray for that every day when I rehearse my mnemonic (and think of the counterpart).
+
+With some students I have already dissolved our 2-of-2 in peace and voluntary cooperation. I still rehearse those (unique) mnemonics though 
+
+Yes. Bitcoin does not ask for any monthly fees. The network and computers would run where I live anyway.
+
+And such multisig gives plausible deniability so neither me nor my counterparts have any sats. But I also know for sure that noone else has them. Less money for wars and centrally managed social programs.
+
+-------------------------
+

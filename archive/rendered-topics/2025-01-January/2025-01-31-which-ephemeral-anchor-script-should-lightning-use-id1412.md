@@ -344,3 +344,23 @@ If this griefing approach does somehow become common anyway, it can also be work
 
 -------------------------
 
+jsarenik | 2025-02-07 07:39:38 UTC | #13
+
+Seeing word "miners" mentioned a lot I would like to shed some light to the background of a recent [mainnet P2A all-fee tx](https://mempool.space/tx/ad1507f186ccdd448cc58a5ed68367249de6ad55d7f4b70bb3fcc5c88a85c626?mode=details).
+
+I kept watching P2A recently but came too late to notice the last-recently added sats and found the transaction on mempool.space in its 3rd replacement that was about to send 330 sats to one particular keyed address I did not make note of and which is no longer in replacements history on mempool.space. That tx also had a child transaction and even combining all the available P2A unspent inputs in an all-fee no-text transaction didn't get me to replace.
+
+So I decided to experiment and prioritise my tx in my mempools of 3 pruned nodes running at home on one IPv4 address, just different ports.
+
+And it worked.
+
+See [my handrafted tx as a commit in git repo](https://github.com/carnhofdaki/anchor/commit/86a4983b4f0947e2858795e90faa3c71d09fa290)
+
+I think miners are totally clean in this. MARA just may happen to use Peter Todd's LibreRelay where replacements need merely 1/4 sats extra compared to Bitcoin Core.
+
+That's my two sats on the topic of P2A.
+
+`in fees we rust`
+
+-------------------------
+

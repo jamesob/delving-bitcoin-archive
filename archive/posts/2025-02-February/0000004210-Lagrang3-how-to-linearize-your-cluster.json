@@ -12,9 +12,9 @@
   "reply_to_post_number": 27,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 6.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 22.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:27, topic:303\"]\nThe GGT algorithm is effectively finding a subset xxx which maximizes\n\n\\operatorname{fee}_x - \\lambda \\operatorname{size}_x\n\nfeex\u2212\u03bbsizex\n[/quote]\n\nThat, I think is not accurate to say. For a fixed $\\lambda$ finding a subset that maximizes $\\mathrm{fee}_x - \\lambda \\mathrm{size}_x$ simply transforms to the \"maximum weight closure problem\" that can be solved with any min-cut finding algorithm. The \"max. weight closure problem\" is a subproblem of your original \"maximum feerate closure problem\". The novelty of GGT is that you don't need to do bisection to solve the \"maximum feerate closure\" and the computation complexity of the feerate problem stays the same as the computational complexity of a single \"max. weight closure\".",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

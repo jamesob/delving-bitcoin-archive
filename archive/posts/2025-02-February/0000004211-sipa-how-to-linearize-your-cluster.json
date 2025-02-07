@@ -12,9 +12,9 @@
   "reply_to_post_number": 28,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"Lagrang3, post:28, topic:303\"]\nThe novelty of GGT is that you don\u2019t need to do bisection to solve the \u201cmaximum feerate closure\u201d and the computation complexity of the feerate problem stays the same as the computational complexity of a single \u201cmax. weight closure\u201d.\n[/quote]\n\nForget that I mentioned GGT here, I understand. I was using it as a shorthand for \"min-cut based approaches\", which is indeed not the novelty of GGT at all, it came earlier.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

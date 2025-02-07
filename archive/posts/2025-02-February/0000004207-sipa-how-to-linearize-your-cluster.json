@@ -12,9 +12,9 @@
   "reply_to_post_number": 26,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 51.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 67.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -46,7 +46,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -65,9 +65,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
