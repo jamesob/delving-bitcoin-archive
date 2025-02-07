@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 1409,
   "topic_slug": "emulating-op-rand",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"olkurbatov, post:1, topic:1409\"]\nAnd we can go to the final stage when Alice takes her coins. For that Alice spends the first output, so publishes $P_a + A_1$ value.\n\nIf the secret key $h_1 + sk_b$ satisfies the address $\\mathsf{addr}_b$, Bob can take 10 BTC , locked on the second output. If not \u2014 Alice can spend them after the timelock.\n[/quote]\n\nWhy wouldn't Alice sit on the $P_a+A_1$ output until the $\\mathsf{addr}_b$ timelock expires, even if Bob guessed correctly? I would have expected an extra setup tx, like:\n\n```mermaid height=328,auto\nclassDiagram\n    class Alice{\n        AliceFunds\n        Pa+A1()\n    }\n    class ChallengeTx{\n        Pa+A1 [pubkey reveal + sig]\n        BobFunds\n        BobWinsOrAliceTimeout()\n    }\n    Alice<|--ChallengeTx\n```\n\nwhere Alice can only complete the challenge tx to publish it by revealing $P_a+A_1$.\n\n[quote=\"harding, post:2, topic:1409\"]\nOnly if the channel is forced closed does the probabilistic payment happen. Is that possible with your scheme?\n[/quote]\n\nI don't think this quite works -- you'd need the force-closer to take the challenger role (because they're publishing the tx), but you also need the recipient of the HTLC to take the acceptor role (because they're the one that gets the 1-in-1000 chance of a win, with the challenger getting the remaining 999-in-1000 chance), so if the force-closer is the recipient of the probabilistic payment, you've got a problem. Might be recoverable with tweaks to the protocol though?\n\nHaving to transmit 1000 hashed pubkeys and a zkp for every dusty-HTLC for every update is also probably prohibitive.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

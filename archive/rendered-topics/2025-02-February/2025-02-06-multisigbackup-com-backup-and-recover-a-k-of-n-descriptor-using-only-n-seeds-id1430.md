@@ -82,3 +82,11 @@ And such multisig gives plausible deniability so neither me nor my counterparts 
 
 -------------------------
 
+sipa | 2025-02-07 14:32:39 UTC | #3
+
+I don't feel like using a globally replicated database for information that just a single person cares about is a good use of the technology. It may appear convenient at times when demand for block space is low, but I would caution against building an expectation that this is a realistic option in the long run.
+
+You need backups for other data anyway, and it ought to be trivial to hide this amount of data in your backups in a plausibly deniable way too.
+
+-------------------------
+
