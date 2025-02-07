@@ -69,3 +69,65 @@ If the secret key $h_1 + sk_b$ satisfies the address $\mathsf{addr}_b$, Bob can 
 
 -------------------------
 
+harding | 2025-02-07 03:00:21 UTC | #2
+
+Thank you for publishing this exciting work!  I was wondering if you think your protocol could also work for probabilistic HTLCs in the Lightning Network (LN).
+
+[Prior research][dryja pp] into probabilistic payments by @adiabat has looked at using them for sending payments that would be impossible or [uneconomical][topic uneconomical outputs] to spend onchain.  In the current LN, uneconomical payments are sent using [trimmed HTLCs][topic trimmed htlc], where the upstream party allocates the payment amount to the transaction fee of the offchain commitment transaction.  If the channel remains offchain until the trimmed HTLC is resolved, the fee is reduced and the money is allocated to the downstream party.  If the channel is force closed, the fee is paid to miners and one of the parties loses funds (which party loses depends on whether the trimmed HTLC eventually gets resolved further downstream).
+
+I think it would be nice to replace trimmed HTLCs with probabilistic HTLCs.  For example, Alice wants to relay 1 sat to Bob.  This is uneconomical, so instead Alice's creates an output paying Bob 10,000 sats (~$10) with a 1-in-10,000 probability.  If the channel stays offchain until the HTLC is resolved, Alice and Bob sign a mutual channel update transferring 1 sat from her to him.  Only if the channel is forced closed does the probabilistic payment happen.  Is that possible with your scheme?
+
+If so, is it further possible to condition resolution based on an HTLC?  For example, Alice can take back the money after 1,000 blocks; Bob can receive the money with 0.01% probability if he discloses the preimage for a known hash digest.  (Stretch goal: is the scheme compatible with PTLC resolution where [signature adaptors][topic adaptor signatures] are used?).  Bob must not be able to learn whether he can claim the money until after he has accepted the probabilistic HTLC, otherwise he'll refuse to forward any HTLCs that he can't fully claim.
+
+If probabilistic HTLCs are possible, is it also possible to add [LN-Penalty][topic ln-penalty] revocation paths?  For example, if Alice publishes the HTLC onchain, she has to wait a certain number of blocks before taking an action but Bob can immediately claim the funds by providing a signature that Alice gave him when the HTLC was revoked or by providing the preimage.  If Bob publishes the HTLC onchain, he has to similarly wait to give Alice a chance to provide his signature or to reclaim the funds after the 1,000 block timeout.  The determination of who published onchain is made based on who published the commitment transaction, of which there are two different versions (one for Alice and one for Bob).  (Stretch or alternative goal: is the scheme also/instead compatible with alternative LN protocols, like [LN-Symmetry][topic ln-symmetry]?)
+
+If it can accomplish all of the above, then would it be possible to perform most or all of the interactive steps in advance before a specific probability was known?  For example, during channel setup or during a long period between forwarding HTLCs, Alice and Bob pre-share the known public key and a large number of commitments for the next payment.  Then, when Alice knows that she wants to forward x sats with x/10_000 probability, she selects the appropriate number of commitments for each rank to obtain that probability.  She concisely tells Bob what she did and provides a signature for the new version of the commitment transaction that funds the probabilistic payment; he validates and accepts, ideally with no additional interaction required.  If additional interaction is required, it would be convenient if it did not exceed the [interactivity requirements][sanders ptlc] for using MuSig2 signature adaptors.
+
+I realize I'm basically asking you to do my homework, but I'm not a cryptographer and it would otherwise take me a long time to understand your proposal well enough to answer the questions myself.  Any help will be appreciated.
+
+[sanders ptlc]: https://gist.github.com/instagibbs/1d02d0251640c250ceea1c66665ec163
+[dryja pp]: https://docs.google.com/presentation/d/1G4xchDGcO37DJ2lPC_XYyZIUkJc2khnLrCaZXgvDN0U/mobilepresent?pli=1#slide=id.g85f425098_0_219
+[topic uneconomical outputs]: https://bitcoinops.org/en/topics/uneconomical-outputs/
+[topic trimmed htlc]: https://bitcoinops.org/en/topics/trimmed-htlc/
+[topic adaptor signatures]: https://bitcoinops.org/en/topics/adaptor-signatures/
+[topic ln-penalty]: https://bitcoinops.org/en/topics/ln-penalty/
+[topic ln-symmetry]: https://bitcoinops.org/en/topics/eltoo/
+
+-------------------------
+
+ajtowns | 2025-02-07 04:36:44 UTC | #3
+
+[quote="olkurbatov, post:1, topic:1409"]
+And we can go to the final stage when Alice takes her coins. For that Alice spends the first output, so publishes $P_a + A_1$ value.
+
+If the secret key $h_1 + sk_b$ satisfies the address $\mathsf{addr}_b$, Bob can take 10 BTC , locked on the second output. If not — Alice can spend them after the timelock.
+[/quote]
+
+Why wouldn't Alice sit on the $P_a+A_1$ output until the $\mathsf{addr}_b$ timelock expires, even if Bob guessed correctly? I would have expected an extra setup tx, like:
+
+```mermaid height=328,auto
+classDiagram
+    class Alice{
+        AliceFunds
+        Pa+A1()
+    }
+    class ChallengeTx{
+        Pa+A1 [pubkey reveal + sig]
+        BobFunds
+        BobWinsOrAliceTimeout()
+    }
+    Alice<|--ChallengeTx
+```
+
+where Alice can only complete the challenge tx to publish it by revealing $P_a+A_1$.
+
+[quote="harding, post:2, topic:1409"]
+Only if the channel is forced closed does the probabilistic payment happen. Is that possible with your scheme?
+[/quote]
+
+I don't think this quite works -- you'd need the force-closer to take the challenger role (because they're publishing the tx), but you also need the recipient of the HTLC to take the acceptor role (because they're the one that gets the 1-in-1000 chance of a win, with the challenger getting the remaining 999-in-1000 chance), so if the force-closer is the recipient of the probabilistic payment, you've got a problem. Might be recoverable with tweaks to the protocol though?
+
+Having to transmit 1000 hashed pubkeys and a zkp for every dusty-HTLC for every update is also probably prohibitive.
+
+-------------------------
+

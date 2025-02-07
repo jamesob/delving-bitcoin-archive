@@ -12,9 +12,9 @@
   "reply_to_post_number": 26,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 51.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "Woah, :exploding_head:.\n\nThe ~~GGT algorithm~~ min-cut based algorithms are effectively finding a subset $x$ which maximizes\n$$\n\\operatorname{fee}_x - \\lambda \\operatorname{size}_x\n$$\nfor a given existing solution $S$ with feerate $\\lambda$. In order words, it maximizes\n$$\n\\operatorname{fee}_x - \\frac{\\operatorname{fee}_S}{\\operatorname{size}_S} \\operatorname{size}_x\n$$\nwhich, given that $\\operatorname{size}_S$ is a constant in this context, is the same as maximizing\n$$\n\\operatorname{fee}_x\\operatorname{size}_S - \\operatorname{fee}_S\\operatorname{size}_x\n$$\n\nWhich is what I've called $q(x, S)$ in the spanning-forest writeup, the quantity being maximized when performing chunk splits...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -316,3 +316,31 @@ All that said, I think this specific choice is a fairly minor decision in the ov
 
 -------------------------
 
+ajtowns | 2025-02-07 03:43:05 UTC | #12
+
+[quote="morehouse, post:10, topic:1412"]
+In fact we’ve already seen a similar kind of [accidental pinning](https://x.com/peterktodd/status/1793380279018803208) in the wild with expired anchor outputs.
+[/quote]
+
+I don't think that's an interesting example: anchor outputs for txs that have already confirmed are just "here's a small amount of free sats for anyone"; if you're structuring your tx in such a way that you're making moving real funds contingent on also claiming those free sats, that's a bad bug.
+
+[quote="morehouse, post:10, topic:1412"]
+Are you sure that *no one* on the network will ever want to grief in this way?
+[/quote]
+
+Even with a keyed anchor, your counterparty can grief you in this way, and they are much more likely to do so than a random person on the network, because they have a much greater chance of seeing a profit from doing so (and even if it's just due to buggy software, they're the ones paying attention to the tx prior to it being mined). You can't make this scenario impossible (or even vanishingly unlikely) all you can do is make the expected costs cheaper. If the 1000vb ancestor limit provided by TRUC doesn't reduce those costs enough, that's an argument for providing a way to have [a smaller limit](https://github.com/bitcoin/bips/blob/ea7aae8d1ff275f0d5cff4b3c0efaff66b8fa55f/bip-0431.mediawiki#cite_note-13) (the limit was already reduced from [4000vb to 1000vb](https://github.com/bitcoin/bitcoin/pull/25038#issuecomment-1198946822)).
+
+[quote="morehouse, post:10, topic:1412"]
+A mining pool may stand to profit nicely if the victim pays 50% more in fees than they normally would.
+[/quote]
+
+If they run the attack, then their win scenarios are:
+ * every other miner that wins a block before them sees their tx (at high fee but low feerate) instead of the user's tx (at low fee but high feerate) and doesn't mine it, slightly driving down the revenue of other mining pools
+ * people routinely overpay channel close txs, driving up average close fees, of which they get the regular percentage
+
+Their loss scenario is that the mempool clears out a bit too much and a different pool mines their high fee / low feerate tx, meaning they pay extra fees to another miner, and the user gets their tx mined without paying any fees. I don't think that adds up to making a nice profit.
+
+If this griefing approach does somehow become common anyway, it can also be worked around by some nodes/pools adopting a policy of "replace by feerate", at least for txs that would be at the top of the mempool. (And cluster mempool would make measuring "top of the mempool" substantially more efficient/straightforward)
+
+-------------------------
+
