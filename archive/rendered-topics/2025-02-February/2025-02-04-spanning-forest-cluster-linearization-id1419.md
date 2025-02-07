@@ -229,14 +229,14 @@ Note however that while the best possible complexity is certainly an interesting
 
 -------------------------
 
-sipa | 2025-02-07 20:19:05 UTC | #2
+sipa | 2025-02-07 20:20:58 UTC | #2
 
 I cleaned up my implementation a bit, and pushed it [here](https://github.com/sipa/bitcoin/commits/spanning_tree_linearization), replacing the `Linearize()` function currently merged in Bitcoin Core.
 
-Here are benchmarks with the existing examples in the codebase. These are the timing for full, optimal, linearizations from scratch, for a rather arbitrarily-selected collections of "hard" clusters actually seen on the network. "hard", of course, is based on examples that we hard with the existing approach, by a few different metric, but this may not carry over to the new approach. I entirely expect that these are not anywhere close to the worst cases for the spanning-forest algorithm.
+Here are benchmarks with the existing examples in the codebase. These are the timing for full, optimal, linearizations from scratch, for a rather arbitrarily-selected collections of "hard" clusters actually seen on the network. "hard", of course, is based on examples that were hard with the existing approach, by a few different metrics, but this may not carry over to the new approach. I entirely expect that these are not anywhere close to the worst cases for the spanning-forest algorithm.
 
 |               µs (master) | µs (this)  | &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; | #tx | benchmark
-|--------------------:|----------------------------:|:--|-|:-------
+|--------------------:|----------------------------:|--:|-|:-------
 |           70.6 |  21.1 || 71 | `LinearizeOptimallyExample00`
 |           94.9 |  30.4 || 81 | `LinearizeOptimallyExample01`
 |           55.3 |  29.5 || 90 | `LinearizeOptimallyExample02`
