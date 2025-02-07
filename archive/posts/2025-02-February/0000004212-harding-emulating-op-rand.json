@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 23.0,
   "yours": false,
   "topic_id": 1409,
   "topic_slug": "emulating-op-rand",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thank you for publishing this exciting work!  I was wondering if you think your protocol could also work for probabilistic HTLCs in the Lightning Network (LN).\n\n[Prior research][dryja pp] into probabilistic payments by @adiabat has looked at using them for sending payments that would be impossible or [uneconomical][topic uneconomical outputs] to spend onchain.  In the current LN, uneconomical payments are sent using [trimmed HTLCs][topic trimmed htlc], where the upstream party allocates the payment amount to the transaction fee of the offchain commitment transaction.  If the channel remains offchain until the trimmed HTLC is resolved, the fee is reduced and the money is allocated to the downstream party.  If the channel is force closed, the fee is paid to miners and one of the parties loses funds (which party loses depends on whether the trimmed HTLC eventually gets resolved further downstream).\n\nI think it would be nice to replace trimmed HTLCs with probabilistic HTLCs.  For example, Alice wants to relay 1 sat to Bob.  This is uneconomical, so instead Alice's creates an output paying Bob 10,000 sats (~$10) with a 1-in-10,000 probability.  If the channel stays offchain until the HTLC is resolved, Alice and Bob sign a mutual channel update transferring 1 sat from her to him.  Only if the channel is forced closed does the probabilistic payment happen.  Is that possible with your scheme?\n\nIf so, is it further possible to condition resolution based on an HTLC?  For example, Alice can take back the money after 1,000 blocks; Bob can receive the money with 0.01% probability if he discloses the preimage for a known hash digest.  (Stretch goal: is the scheme compatible with PTLC resolution where [signature adaptors][topic adaptor signatures] are used?).  Bob must not be able to learn whether he can claim the money until after he has accepted the probabilistic HTLC, otherwise he'll refuse to forward any HTLCs that he can't fully claim.\n\nIf probabilistic HTLCs are possible, is it also possible to add [LN-Penalty][topic ln-penalty] revocation paths?  For example, if Alice publishes the HTLC onchain, she has to wait a certain number of blocks before taking an action but Bob can immediately claim the funds by providing a signature that Alice gave him when the HTLC was revoked or by providing the preimage.  If Bob publishes the HTLC onchain, he has to similarly wait to give Alice a chance to provide his signature or to reclaim the funds after the 1,000 block timeout.  The determination of who published onchain is made based on who published the commitment transaction, of which there are two different versions (one for Alice and one for Bob).  (Stretch or alternative goal: is the scheme also/instead compatible with alternative LN protocols, like [LN-Symmetry][topic ln-symmetry]?)\n\nIf it can accomplish all of the above, then would it be possible to perform most or all of the interactive steps in advance before a specific probability was known?  For example, during channel setup or during a long period between forwarding HTLCs, Alice and Bob pre-share the known public key and a large number of commitments for the next payment.  Then, when Alice knows that she wants to forward x sats with x/10_000 probability, she selects the appropriate number of commitments for each rank to obtain that probability.  She concisely tells Bob what she did and provides a signature for the new version of the commitment transaction that funds the probabilistic payment; he validates and accepts, ideally with no additional interaction required.  If additional interaction is required, it would be convenient if it did not exceed the [interactivity requirements][sanders ptlc] for using MuSig2 signature adaptors.\n\nI realize I'm basically asking you to do my homework, but I'm not a cryptographer and it would otherwise take me a long time to understand your proposal well enough to answer the questions myself.  Any help will be appreciated.\n\n[sanders ptlc]: https://gist.github.com/instagibbs/1d02d0251640c250ceea1c66665ec163\n[dryja pp]: https://docs.google.com/presentation/d/1G4xchDGcO37DJ2lPC_XYyZIUkJc2khnLrCaZXgvDN0U/mobilepresent?pli=1#slide=id.g85f425098_0_219\n[topic uneconomical outputs]: https://bitcoinops.org/en/topics/uneconomical-outputs/\n[topic trimmed htlc]: https://bitcoinops.org/en/topics/trimmed-htlc/\n[topic adaptor signatures]: https://bitcoinops.org/en/topics/adaptor-signatures/\n[topic ln-penalty]: https://bitcoinops.org/en/topics/ln-penalty/\n[topic ln-symmetry]: https://bitcoinops.org/en/topics/eltoo/",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -8,13 +8,13 @@
   "post_number": 3,
   "post_type": 1,
   "updated_at": "2025-02-07T04:36:44.490Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 2,
   "incoming_link_count": 0,
   "reads": 13,
   "readers_count": 12,
-  "score": 17.6,
+  "score": 37.6,
   "yours": false,
   "topic_id": 1409,
   "topic_slug": "emulating-op-rand",
@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -57,12 +57,17 @@
   "wiki": false,
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "thinking",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

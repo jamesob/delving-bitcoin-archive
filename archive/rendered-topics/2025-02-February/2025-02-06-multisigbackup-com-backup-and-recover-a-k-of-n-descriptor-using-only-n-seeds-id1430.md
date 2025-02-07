@@ -90,3 +90,21 @@ You need backups for other data anyway, and it ought to be trivial to hide this 
 
 -------------------------
 
+josh | 2025-02-07 17:55:37 UTC | #4
+
+
+[quote="sipa, post:3, topic:1430, full:true"]
+I don't feel like using a globally replicated database for information that just a single person cares about is a good use of the technology. It may appear convenient at times when demand for block space is low, but I would caution against building an expectation that this is a realistic option in the long run.
+
+You need backups for other data anyway, and it ought to be trivial to hide this amount of data in your backups in a plausibly deniable way too.
+[/quote]
+
+
+I appreciate the feedback. For most single-sig use cases, backing up the seed phrase is all a user needs to do. This is somewhat intuitive for new users, as it’s akin to a password. Because it’s not much information, users can easily write it down, or even engrave it on steel.
+
+This tool merely extends that simplicity to multisigs, so that a user can recover their wallet knowing nothing but a threshold number of seeds. Inscribing the descriptor onchain is more like an insurance policy, and users can decide whether it’s worth the cost, given the fee environment. The cost to inscribe is constant relative to the cost of spending from a multisig, so, presumably, if a user has enough funds to warrant setting up a multisig, it’s within their budget to inscribe the descriptor. This tool merely gives users a new backup option, and I’d push back on the claim that this isn’t a good use of Bitcoin. That’s for the market to decide.
+
+I might also add that users can choose to broadcast the inscription at a low fee rate. Getting the inscribed descriptor into a block may not necessarily be time sensitive, and users might be okay with a prolonged delay. Miners are naturally incentivized to hold onto the transaction, in case the fee environment weakens and it becomes profitable to mine. This provides an option for users to minimize costs and specify their willingness to pay, regardless of the present fee environment.
+
+-------------------------
+

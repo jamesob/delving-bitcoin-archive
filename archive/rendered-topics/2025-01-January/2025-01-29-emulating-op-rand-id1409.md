@@ -131,3 +131,9 @@ Having to transmit 1000 hashed pubkeys and a zkp for every dusty-HTLC for every 
 
 -------------------------
 
+olkurbatov | 2025-02-07 16:20:30 UTC | #4
+
+Yeah, you are totally right, we do need such a setup
+
+-------------------------
+
