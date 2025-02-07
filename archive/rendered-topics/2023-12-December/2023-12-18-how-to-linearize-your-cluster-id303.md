@@ -966,11 +966,11 @@ I'm currently polishing up an implementation of the spanning-forest algorithm, s
 
 -------------------------
 
-sipa | 2025-02-06 19:17:47 UTC | #27
+sipa | 2025-02-06 21:00:39 UTC | #27
 
 Woah, :exploding_head:.
 
-The GGT algorithm is effectively finding a subset $x$ which maximizes
+The ~~GGT algorithm~~ min-cut based algorithms are effectively finding a subset $x$ which maximizes
 $$
 \operatorname{fee}_x - \lambda \operatorname{size}_x
 $$
