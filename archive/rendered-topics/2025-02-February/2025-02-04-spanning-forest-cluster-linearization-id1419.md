@@ -1,6 +1,6 @@
 # Spanning-forest cluster linearization
 
-sipa | 2025-02-07 20:28:28 UTC | #1
+sipa | 2025-02-07 20:29:17 UTC | #1
 
 # Spanning-forest cluster linearization
 
@@ -10,7 +10,7 @@ This is a write-up about a work in progress cluster linearization algorithm that
 
 While this spanning-forest algorithm looks promising, the recent [discovery](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) by @stefanwouldgo that well-known [minimal-cut](https://en.wikipedia.org/wiki/Minimum_cut)-based algorithms with good asymptotic complexity exist for the problem we call cluster linearization (the established term is the "maximum-ratio [closure problem](https://en.wikipedia.org/wiki/Closure_problem)") is even more promising.
 
-I am still creating this write-up, because despite lacking known complexity bounds, it appears to be very elegant, fast, and practical (I have a [prototype implementation](https://github.com/sipa/commits/spanning_tree_linearization]). It is possible that good bounds for it still get found, or that its insights help others build on top, or that it ultimately appears more practical for the real-life problems we face than more advanced algorithms. Or perhaps we discover it's actually equivalent to a well-known algorithm. I don't know, but before switching over to studying another approach, I want to have it written down in some form, also to have my own thoughts ordered.
+I am still creating this write-up, because despite lacking known complexity bounds, it appears to be very elegant, fast, and practical (I have a [prototype implementation](https://github.com/sipa/bitcoin/commits/spanning_tree_linearization]). It is possible that good bounds for it still get found, or that its insights help others build on top, or that it ultimately appears more practical for the real-life problems we face than more advanced algorithms. Or perhaps we discover it's actually equivalent to a well-known algorithm. I don't know, but before switching over to studying another approach, I want to have it written down in some form, also to have my own thoughts ordered.
 
 ## 1. Background: cluster linearization as an LP problem
 
