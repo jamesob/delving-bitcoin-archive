@@ -364,3 +364,109 @@ That's my two sats on the topic of P2A.
 
 -------------------------
 
+ariard | 2025-02-08 04:02:33 UTC | #14
+
+> Note that you aren’t stuck with one format. You could reasonably consider p2a when the anchor is 0-value, and keyed otherwise.
+
+As LN pre-signed transactions are always valid, option A should not allow you to break the tx-relay safety of option B, whatever is picked up for option A and option B.
+
+> "re:miner “stealing” the funds, I’m not sure that’s bad at all? The main new weirdness is counterparty may be tempted to ramp up the trimmed amount and take it themselves, even though in the end miners will probably do well to snipe that entire value.”
+
+Max HTLC cltv_expiry_time is 2016, so a LN node operator is trusting that a miner with 1/2016 is not stealing the funds.
+
+> Theft of trimmed HTLC value: options 2, 3, and 4 allow a counterparty to receive trimmed HTLC value if their force close is uncontested while it is in the mempool. Average time in the mempool is easily reduced to 10 minutes by paying a next-block fee, and it may be possible for your counterparty to make good guesses about when your node will be offline for ~10 minutes.”
+
+Mining is an anonymous open set by design, so I think we can never assume that lightning counterparty != miner. So as far as i can understand of the options proposed, "theft of trimmed HTLC value" is a risk we always have.
+
+> "Good point, we should definitely do something like this! When the anchor output is 0, there’s no value to steal so I think P2A makes a lot of sense since it’s the cheapest way to bump fees. @ariard I don’t think the issue you’re describing applies in that case, does it?”
+
+No it doesn't fix it, the jamming attacker can evict a honest parent transaction from the mempool with a RCA, while the CPFP is bringing to-be-captured feerate paying for the surface of said parent.
+
+To be fair, I don't think that something that LN can really fixes at this level, apart of avoiding to increase the set of can-be hijacked txn with unkeyed anchors and making the problem worst.
+
+Package malleability bad.
+
+> "HTLC delays should always be large enough to ensure that reorgs aren’t an issue (e.g. cltv_expiry_delta = 144 blocks) so this shouldn’t put funds at risk?”
+
+No, this is not the cltv delta for a carried HTLC, it's the on-chain reorg-safety delay (rust-lightning’s `ANTI_REORG_DELAY`), after which a HTLC is considered irrevocably resolved.
+
+> I don’t like safety tradeoffs that optimize for “serious nodes”. I’d prefer a network that’s reasonably safe even for non-experts.
+
+I agree here with Dave - Lightning protocol safety tradeoffs are already circumvoluted enough that even serious nodes configured by experts are not reasonably safe.
+
+> In addition, the risk is probabilistic
+
+And even if a node max downtime is 10 min, in bitcoin block issuance is probabilistic, so you might have a spike of blocks in few lapse of time. That is something a counterparty can try to take opportunity off, as your node will have to catchup the downtime (i.e block validation), and unless you over-provision the downtime resumption, that computational overhead won't be amortize before a longer period of blocks. Not a tx propagation issue only.
+
+> Six seconds is probably below propagation time to your node and back to miners if your counterparty is able to initially relay the transaction directly to large miners, meaning a clever attacker doesn’t even need to wait for your node to go offline.
+
+Privacy-enhancing propagation delays are already 2 seconds for outbound links (`OUTBOUND_INVENTORY_BROADCAST_INTERVAL`).
+
+""A major benefit of TRUC channels is that nodes don’t have to monitor mempools anymore, since they can rely on their commitment package replacing the counterparty’s once they bump to a high enough fee rate. This simplifies a lot of code and is especially good for mobile.
+
+No, the benefit to not have to monitor mempools anymore is not coming with TRUC itself per se, which is a mempool-level topological restriction policy only. The benefit of propagating one's commitment transaction and a CPFP, and getting a guarantee this can replace a current spend of the same UTXO is what normally should be achieved with ancestor package relay, atomicity of the replacement try matters. Actually, this is still good to monitor mempool, and a lightning node can see what should be the most effective feerate for a claim to be included, and not some hardcoded bumps at each X block ticks.
+
+> I think we should lean into this simplification and therefore dismiss Options 3 and 4 entirely. Their main benefit is the ability to CPFP the remote commitment, which many/most nodes won’t implement anyway for TRUC channels.
+
+True, with current dual anchors format, last time I checked most lightning implementations, at the exception of Eclair, didn't CPFP correctly the remote commitment.
+
+> Anyone on the network can broadcast a conflicting anchor spend, potentially evicting the commitment package from the mempool (replacement cycling) or forcing the victim to spend more fees than normal (limited RBF rule #3 pinning).
+
+If the 0-fee commitment transaction is under mempool min fee, yes it is evicted from network mempools when they're at their max size.
+
+To enhance the analysis, there should be a dissociation of a fee griefing (the LN counterparty forces to spend more fees than the average) from HTLC stealing (the LN counterparty "double-spend" a routed HTLC).
+
+> In the medium-long term, unkeyed anchors are safe from dust theft attacks, since miners will claim the full anchor output as fees, preventing the channel counterparty from ever profiting from such an attack. As a result, the counterparty has no extra motivation to inflate the anchor output with dust HTLCs in the first place, beyond getting the other party to pay for the force close (which exists with current channels already).
+
+This forgets the edge situation where the counterparty is a low-hashrate miner with a direct motivation to inflate the anchor output with dust HTLCs.
+
+> Current mitigations against replacement cycling (rebroadcasting and aggressive fee bumping) are enough to make such attacks very expensive for the channel counterparty or anyone else on the network, so I think we shouldn’t be too worried about additional exposure due to unkeyed anchors in that regard.
+
+In the world of today where you can exploit the expiration time of mempools txn to slash the cost of a replacement cycling attack, not really:
+
+https://groups.google.com/g/bitcoindev/c/OWxX-o4FffU
+
+> We can limit our exposure to such griefing by using keyed anchors. But then to prevent dust HTLC theft we need to add the excess dust HTLCs to commitment fees. And to prevent UTXO bloat in that case we should probably add an anyone-can-spend path to the non-ephemeral anchor with a CSV delay (like with current anchor channels).
+
+I think it's good idea to do keyed anchors to reduce malleability of the package to the counterparty only, and not the whole world. We can never prevent dust HTLC theft in the edge situation where the counterparty is a miner.
+
+> A random person indeed can’t steal funds via this attack, but they can grief the victim. They don’t need to risk much in fees either if they already have a low-priority ~1000vB transaction they want to get mined anyway. In fact we’ve already seen a similar kind of accidental pinning in the wild with expired anchor outputs. Are you sure that no one on the network will ever want to grief in this way?
+
+A LSP fee griefing another LSP's splice-out transaction cannot be excluded, as there might be a way to capture more off-chain routing fees from doing that.
+
+A LSP fee griefing another LSP's splice-out transaction cannot be excluded, as there might be a way to capture more off-chain routing fees from doing that.
+
+> the probability of the pinned transaction confirming before the victim fee bumps enough to escape the pin, and
+
+> the percentage of hash rate controlled by the pool.
+
+And devil is in the details - the pinning transaction can in theory be used to pin multiple channels in parallel to maximize the EV.
+
+No guarantee that all the victims try to fee-bump at the same time point in the network.
+
+> every other miner that wins a block before them sees their tx (at high fee but low feerate) instead of the user’s tx (at low fee but high feerate) and doesn’t mine it, slightly driving down the revenue of other mining pools
+> people routinely overpay channel close txs, driving up average close fees, of which they get the regular percentage
+> Their loss scenario is that the mempool clears out a bit too much and a different pool mines their high fee / low feerate tx, meaning they pay extra fees to another miner, and the user gets their tx mined without paying any fees. I don’t think that adds up to making a nice profit.
+
+In the world of today where you can exploit the expiration time of mempools txn to kickout the low fee but high feerate of a user's transaction, that's easy to make profit:
+
+https://groups.google.com/g/bitcoindev/c/OWxX-o4FffU
+
+Though of course coming up with a quantitative analysis of a "nice profit" in real-world mempool flows, that is the question.
+
+## Gathering Thoughts
+
+I believe we have 4 distinct risks (at least) to consider for ephemeral anchors:
+- a) miner fee griefing: where a miner seeks to optimize its block template average feerate e.g RCA a commitment's CPFP
+- b) counterparty fee griefing: where a counterparty seeks to DoS the package propagation for an external gain
+- c) dust theft: miner or counterparty stealing the trimmed HTLC output
+- d) counterparty HTLC stealing: where a counterparty seeks to steal a HTLC e.g RCA the 2nd-stage HTLC-timeout
+
+I think one of the main open question is if we assume that a counterparty can be a miner, even before considering keyed vs unkeyed anchor, and what to do with the trimmed HTLC value.
+
+E.g for a dust theft as a counterparty inflating the dust value, and as a miner mining this dust value out-of-band.
+
+If I remember correctly, a HTLC max locktime is 2016 blocks LN-wide, so it’s a bar as low as like a miner with 1/2016 of the hashrate to consider as a potential adversary targeting a LN node (though even a miner with 1/144 of the hashrate, I think it’s a low bar).
+
+-------------------------
+
