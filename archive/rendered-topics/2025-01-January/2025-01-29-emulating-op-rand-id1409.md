@@ -137,3 +137,17 @@ Yeah, you are totally right, we do need such a setup
 
 -------------------------
 
+AdamISZ | 2025-02-08 16:10:51 UTC | #5
+
+Very interesting set of ideas! I particularly like the hiddenness property. I believe it works, modulo @ajtowns 's correction on tx-structure.
+
+One thing that strikes me: it could be that the most expensive part of this operation is putting hash160 into an arithmetic circuit (well, assuming you used something for which the EC operations are native, like bulletproofs, which of course may not actually be the best option, depending ...). Did you consider rewriting this in Schnorr/taproot form? Because that part would be removed.
+
+The obvious objection is that taproot does not natively come with a hashed pubkey type scriptPubKey and so it's not meaningful/useful, if you had to insert that into the tapscript anyway, in order to maintain the property that the final pay-in addresses addr_a and addr_b actually function to hide the choices made.
+
+I spent some time thinking about ways around that. The obvious starting point might be blinding addr_a,b with a third point, so e.g. $P_a + A_1 + T$. But on reflection it's not surprising that there's no easy way to make that work, since you're blinding with a point, not a scalar. You can always add other relations to the ZKP to prove this extra structure, but it doesn't help if what is atomically revealed in broadcast (i.e. the schnorr signature) only reveals the overall key. I looked briefly at adding in adaptors via MuSig between the parties but it didn't seem to work because of the aforementioned thing that the "secret" here is a point, not a scalar.
+
+Anyway, perhaps just a sidetrack - I think the core concept is very nice.
+
+-------------------------
+
