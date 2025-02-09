@@ -507,3 +507,61 @@ If you're a node on an endorsed payment path, you only care about the remainder 
 
 -------------------------
 
+Purpletimez | 2025-02-09 20:25:01 UTC | #6
+
+*Re-posting the questions on original delving thread on request + idea on how to price-in worst-case sink attack in the opportunity cost.*
+
+Browsed the "Hybrid Jamming Mitigation: Results and Updates", with some interrogations, which are echoing the open questions in this issue.
+
+### The "Resource Jamming" / "Reputation Jamming" Distinction
+
+I got the distinction between ressource jamming, which is the classic loop attack / channel jamming attack characterization where in a simple topology (A <-> B <-> C <-> D and E <-> B), a HTLC sender (e.g E) and receiver (e.g D) are holding the resolution to jam an intermediate link (e.g B <-> C) to provoke a blocking or stealing of routing fees. And on the other hand, reputation jamming, where the protected resources are rendered unusable by downgrading all the peers's reputation with the target node.
+
+I think there can be attacks which are blurring the frontier between "resource jamming" and "reputation jamming". E.g, let's say you have the topology Alice <-> Bob <-> Caroll <-> Dave, with the additional topology segments { Alice <-> Eve <-> Caroll ; Fanny <-> Alice }.
+
+Here, the jamming attackers are Dave, Eve and Fanny and they do a slow jamming on the Alice <-> Bob link to occupy all the protected_slot_count of this channel link with cheap htlc_minimum_msat HTLCs. Indeed, they will burn all the built reputation for the link, however if Alice is a low reputation peer and she receives a consequential influx of inbound HTLC traffic from honest links to send to Caroll, this traffic will be "hijacked" to Eve.
+
+In the described experiment on slow slot jamming, the attack has paid 1,370,485 msat in off-chain fees and the target has earned 1,875,080 msat in off-chain fees. As far as I can tell, there is no indication if hijacked traffic is included in the slow jamming experiment evaluation.
+
+Especially, as in lightning off-chain fees are paid proportionally to the routed amount (bolt7 fee_proportional_millionths) so the occupying traffic for the protected_slot_count might be very cheap while the hijacked traffic to the attacker (here Eve) can be very high, more near htlc_maximum_msat. As fact as I can tell, there is no decaying penalty to occupy high-value slots encumbered by at max low return off-chain fees HTLC.
+
+This would deserve more experiments of course, but I believe a reputation jamming can be leveraged to get a "classic" jamming attack, so I think the two different approach to jamming attacks should be thought in a composable fashion, rather than dissociatively.
+
+### The Laddering Attack
+
+If I'm understanding correctly, the idea with the laddering attack is to pipeline routing nodes to acquire reputation on the targeted link to gain the endorsed flag at a lower cost than direct neighboring with the targeted link.
+
+This is interesting that the fuzzing experiment didn't yield a positive attacking result, which is a hint there might some link transitivity already assured by the local resource conservation algorithms.
+
+From browsing the spreadsheet, if I'm understanding correctly the ladder is only built-in on ascending inter-peer traffic denominated in absolute satoshi denominated revenue (10,000 ; 100,000 ; 400,000 ; 800,000). I think an obvious variation could be to layout channels of varying capacity along the ladder, with some asymmetry e.g A <-> B: 0.5 BTC, B <-> C: 0.2 BTC, C -> D: 0.7 BTC and C <-> D 0.6 BTC, contrary to the assumption that size is a proxy for activity.
+
+A well-placed routing node in the lightning topology could get highest absolute routing fee revenue for the same period with smaller capacity due to the topological location.
+
+So let's assume the same scenario than in the paragraph above, where the attack goal is to hijack honest traffic from the target link to a substitution link owned by the attacker. If you have Fanny <-> Alice <-> Bob the correct question to ask about laddering is if Fanny <-> Alice is 0.2 BTC and Alice <-> Bob is 0.5 BTC and Bob <-> Caroll is 0.5 BTC the reputation building cost to acquire a 1 sat of protected_slot_liquidity on the Bob <-> Caroll link proportional to the channel capacity ?
+
+Otherwise, I think any differential in the reputation building cost gives an advantage to the attacker in deploying a substitution link on the Alice <-> Bob <-> Caroll link. I.e now, Eve can put 0.3 BTC to capture slow jammed traffic on the ABC links, stealing routing fees income from Bob.
+
+### Sink Attack and Footnote 5
+
+There is no walkthrough available for the Sink Attack, so it's hard to get the topology, though if I'm understanding correctly you have a circular topology where Alice <-> Bob * 10 <-> Caroll <-> Alice.
+
+Alice is the attacker and self-forward HTLC to itself, while holding the resolution to downgrade the reputation on the Bob * 10 <-> Caroll links, until Bob * 10 do not send any honest traffic on their links with Caroll. Yes, I think this attack holds, and in fact it's similar to what is described on the local resource conservation 1071 pull request as a resolution_period drift attack (with more details and explanation on how to make the attack stealth).
+
+I think too it can be tempting to think again about monetary solutions here, where the fees is scaled on the max hold time (i.e the HTLC-timeout's nLocktime). Honest peers could get a discount for the fees based on their reputation building cost, after they have proven they're really honest.
+
+### HTLC Resolution in Single Time Referential
+
+So if I'm understanding correctly the sink attack, the main issue is arising from the fact that the `resolution_period` to compute a HTLC contribution to a channel reputation is only done on the incoming link and not the outgoing link.
+
+While still not going more into monetary solutions, I wonder if the "effective HTLC fees" algorithm could not be modified to encompass in a single time referential the resolution of the HTLC on both the incoming link and the outgoing link.
+
+There would be still a single `resolution_period`, however there would be now `incoming_resolution_time` and `outgoing_resolution_time` while of course the `fees` stay the same. The `opportunity_cost` is correspondingly duplicated in `incoming_opportunity_cost` and the `outgoing_opportunity_cost`, so for the outgoing channel the idea is introduced of the best alternative channel that could have been picked up (i.e the second-one with the average fastest HTLC resolution time).
+
+The `outgoing_resolution_time` should be deduced from the `incoming_resolution_time`, to minimize coupling between the incoming and outgoing channels. In Lightning routing, the `scid` is selected by the payee, not the intermediary nodes.
+
+If I remember correctly the equations of the local resource conservation framework, the `incoming_opportunity_cost` is factored in the `incoming_channel_revenue` and the `outgoing_opportunity_cost` is factored in the `outgoing_channel_revenue`.
+
+Apart of timing issues, I believe it would already reduce some damage of the sink attacks.
+
+-------------------------
+
