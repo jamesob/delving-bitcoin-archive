@@ -108,3 +108,13 @@ I might also add that users can choose to broadcast the inscription at a low fee
 
 -------------------------
 
+jsarenik | 2025-02-09 07:55:29 UTC | #5
+
+Now I wonder about txouts space pollution. If the proposed multi-sig-backup inscription means there will stay a (very little in terms of amount but it does not matter for the chainstate) UTXO that noone is going to spend then I think it is wasteful but agree with you on the subjective value point and it is unstoppable anyway.
+
+I especially like the educative meaning of https://multisigbackup.com/ .
+
+Some details: `bitcoin-cli gettxoutsetinfo muhash` at block 882991 reports 179791457 txouts. The chainstate occupies now 11.5 GB on every single Bitcoin Core node. It's down from 12 GB that was on 2024-12-24 but up from 4.7 GB on 2022-12-24. See https://anyone.eu.org/bitcoin.txt and its [archives](https://web.archive.org/web/20250000000000*/ln.anyone.eu.org).
+
+-------------------------
+
