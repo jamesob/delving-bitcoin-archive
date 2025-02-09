@@ -161,3 +161,40 @@ Would $t \cdot (P_a + A_1)$ work for this? ie provide $X, T$ and prove you have 
 
 -------------------------
 
+AdamISZ | 2025-02-09 16:20:45 UTC | #7
+
+Yes, I believe that works. So the process would be:
+
+(The following is modifications to Algorithm 2 per the doc): Alice provides:
+
+* the unsigned transaction template for TX1, with the output address now being (taproot) key $X$
+* $T$
+* $\pi_a$ which now is modified to prove that $X = (a_1 + x_a)T$ OR $=(a_2 + x_a)T$ and additionally proves knowledge of the DL of $T$ (or just sign on it, same thing). Using formal notation it becomes $R_a =   \{a_1, a_2, t, x_a: H_1, H_2, T, P_a, X, G: \\ a_1 G = A_1 \land a_2G = A_2 \land  T = tG \land \textrm{hash}_p(A_1) = h_1 \land \textrm{hash}_p(A_2) = h_2 \\
+\land H_1 = h_1 G \land H_2 = h_2G \\
+\land (X = t(P_a + A_1) \lor X = t(P_a + A_2)) \}$
+
+To explain the next steps, though, we need a slight sidetrack: $X$ is now not the output address $\textrm{addr}_a$! The reason I say that is, we need to use an adaptor secret atomic revelation in signing (which plays the role analogous to the fact that in a hashlock output signing, you reveal the hash preimage, i.e. the pubkey), and to make that enforced, you need fixed $R$, which can only be accomplished by a collaborative signing.
+
+So we define $\textrm{addr}_a$ as MuSig($X$, $P_b$). Using the simpler MuSig1 model the process would be:
+
+* $X$ and $P_b$ are the input pubkeys. Hashes of the two participant nonces $H(R_a)$, $H(R_b)$ are shared as usual then $R_a, R_b$ are shared. $P_{agg}$ is calculated as normal from each key.
+* Bob gives his partial sig on the TX1 message $m$, so $\sigma_b = k_b + H(R_{agg} + T, P_{agg}, m)x_b$
+* Alice gives adaptor on her partial: $\sigma_a' = k_a + H(R_{agg} + T, P_{agg}, m)x$ where $x = t(x_a + a_1)$ (if $a_1$ was chosen).
+* Bob verifies the adaptor to ensure that $t$ will be revealed, by doing $\sigma_a' G \stackrel{?}{=} R_a + H(R_{agg} + T, P_{agg}, m)X$ 
+
+(To be clear, I am not asserting that this is secure, because it does have at least one feature that is very non-standard: the private key for the signature adaptor depends on the adaptor secret $x = t(x_a + a_1)$. I actually really doubt that that is a security problem, since all of the RHS there is secret, but I'm certainly not claiming to *know* it's secure.)
+
+At this point Bob is convinced that Alice's behaviour is correct, and proceeds to do the other side: choosing say $H_1$ he'll construct $\textrm{addr}_b$ as $t_b(P_b + H_1)$. The situation is not entirely symmetrical: he *does* need to convince Alice that the address has the given structure, so the ZKP is needed (basically proving that it is $H_1 \lor H_2$). And it still needs to be hidden from Alice, so we still need some blinding factor, hence $t_b$. But we do *not* need any adaptor secret business here; Alice doesn't need to extract the key, only wait for a timeout.
+So just for completeness, Bob's ZKP will now be (not much changed):
+$R_b =   \{P_b, \sigma, t_b: H_1, H_2, X_b, G:
+\textrm{sigVer}(\sigma, P_b, X_b) = \textrm{true} \\
+\land (X_b = t_b(P_b + H_1) \lor X_b = t_b(P_b + H_2)) \}$
+
+with of course $X_b = \textrm{addr}_b$ and $\sigma$ being as described in Algo. 2.
+
+With this structure, when Alice broadcasts, with her signature $\sigma_a$ she will reveal $t = \sigma_a - \sigma_a'$. Bob can then extract the $A_{1,2}$ value by calculating $t^{-1}X = P_a + A_{1,2}$ and subtracting $P_a$, from there getting the necessary tweak value $h_{1,2}$ to spend the coin if he won the bet.
+
+Obviously this (a) makes it more complicated, at least somewhat, but it was already interactive so at least that part is not a stretch and (b) this is a rough draft and it might need modifying. The reason it interests me is I think you could make "native" ZKPs work with good performance here (i.e. not slow proving) using bulletproofs, the circuits would be very small, heck, you could even just use generalised schnorr proofs.
+
+-------------------------
+

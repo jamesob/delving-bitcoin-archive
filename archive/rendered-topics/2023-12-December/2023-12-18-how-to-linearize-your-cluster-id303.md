@@ -1028,13 +1028,13 @@ There is another interesting point to remember, which is the fact that we are in
 
 -------------------------
 
-sipa | 2025-02-09 13:14:56 UTC | #32
+sipa | 2025-02-09 16:37:28 UTC | #32
 
 [quote="Lagrang3, post:30, topic:303"]
 or alternatively one can simply use a queue to process *active* nodes in FIFO order leading to a provable $O(n^3)$ complexity
 [/quote]
 
-Or, from what I understand so far, one can use maximum-label as a selection strategy ($O(n^2 \sqrt{m})$), which also means a $O(n^3)$ worst-case provably complexity, but only $O(n^{2.5})$ when het number of dependencies scales linearly with the number of transactions (which is probably somewhat true in practice, as dependencies cost input vsize).
+Or, from what I understand so far, one can use maximum-label as a selection strategy ($O(n^2 \sqrt{m})$), which also means a $O(n^3)$ worst-case provably complexity, but only $O(n^{2.5})$ when the number of dependencies scales linearly with the number of transactions (which is probably somewhat true in practice, as dependencies cost input vsize).
 
 [quote="Lagrang3, post:31, topic:303"]
 The other take away points from GGT is that the same preflow-push algorithm can be extended to parametric problems (like the maximum-rate-closure problem that we are interested in) and still keep the same runtime complexity of $O(n^3)$ for our FIFO-preflow-push case
@@ -1051,7 +1051,7 @@ That's surprising to me, because if you computed the min-cut, in our setting, yo
 
 ---
 
-I also had the following realization. Solving for the closure with maximal $\operatorname{fee} - \lambda \operatorname{size}$ can be visualized on the feerate diagram (diagram with cumulative size on X axis, cumulative fee on Y axis, dots for all optimal chunk boundaries, straight lines between them).
+I also had the following realization (see diagram posted [below](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/34)). Solving for the closure with maximal $\operatorname{fee} - \lambda \operatorname{size}$ can be visualized on the feerate diagram (diagram with cumulative size on X axis, cumulative fee on Y axis, dots for all optimal chunk boundaries, straight lines between them).
 
 In the initial step, where you set $\lambda$ to the feerate of the entire cluster, draw a line L from the origin to the end point of the diagram (whose slope will be $\lambda$). The min cut found will the point on the diagram whose highest point lies most *above* L, in vertical distance. And from this it is clear that point must be on a chunk boundary (if it wasn't, and was on or below a line segment of the diagram, then depending on the slope of L, one of the two segment end points must lie higher above L).
 

@@ -361,3 +361,25 @@ I asked Andrew. Apparently it was just a [bitcointalk post](https://bitcointalk.
 
 -------------------------
 
+mcelrath | 2025-02-09 16:48:47 UTC | #21
+
+I have now ported my simulator code, refined and cleaned up the basic algorithms (cohorts, highest work path) with tests. You can find it here:
+
+https://github.com/mcelrath/braidpool/tree/main/tests
+
+The simulator randomly distributes 25 nodes by random latitude and longitude, and accurately computes distance between them on the surface of a sphere, and accurately simulates propagation latency of beads. Each node has 4 peers, but you can modify this by arguments to the script. Run `python simulator.py -h` to see the options.
+
+I find that using @zawy's suggestion of targeting 2 parents per bead results in Nb/Nc=3.5 or so. (Number of beads per cohort) The difference between his simulation and mine is more accurate simulation of latencies, and correct calculation of cohorts. He was using an approximation where only a single-bead can close a cohort.
+
+I really like the "number of parents" target method. I find that if I bias the downward pressure when there are too many parents, I can hit Nb/Nc=2.5 or so by just doubling how much we push down the target when there are too many parents. (My [analysis](https://github.com/braidpool/braidpool/blob/6bc7785c7ee61ea1379ae971ecf8ebca1f976332/docs/braid_consensus.md) indicated that 2.42 was optimal -- sorry about this link, it looks like GitHub hosed their Latex processor since I pushed it last -- this doc is a WIP)
+
+I can use the cohorts algorithm to actually target a number of cohorts, but it seems to me that this is unnecessary, and also introduces an arbitrary "averaging window" over which we compute cohorts. By tuning how much we push the target up or down we can hit 2.42 on average with a much simpler algorithm with fewer parameters that is extremely resistant to manipulation because it doesn't use timestamps. Note that miners will be paid proportional to their work, so having different beads with different targets slightly affects their variance, but not their expected payout.
+
+If you want to play with this, see `simulator.py:244` to change the difficulty algorithm and zawy's suggestion at `simulator.py:259` and my "asymmetric" suggestion at `simulator.py:266`.
+
+This simulator also has two modes: one where it actually computes sha256d hashes (CPU mining only) if you pass `--mine` to the script, and one where it uses the geometric distribution to compute expected solve times and skip the CPU-intensive mining (default). The functionality is intended to be the same between the two modes, but of course using the geometric distribution is much faster. It takes about 1.5m to generate 10,000 beads on a single core. `python simulator.py -b 10000`. Doing the same with `--mine` will take about an hour.
+
+If you test this and have any interesting observations please let me know. I'm porting this to Rust and will discuss this result on the [OpTech recap on Tuesday](https://x.com/bitcoinoptech/status/1887827549209645090). Join our [Discord to discuss this](https://discord.gg/pZYUDwkpPv).
+
+-------------------------
+

@@ -1317,3 +1317,13 @@ Ig if such a drastic change is needed, maybe we propose just reworking the entir
 
 -------------------------
 
+sipa | 2025-02-09 18:29:57 UTC | #72
+
+[quote="Chris_Stewart_5, post:71, topic:710"]
+One thing to note of disallowing 64 byte transactions on the network is that this will not work well if we ever decide to move away from a 256 bit hash digest for our merkle tree structure.
+[/quote]
+
+The entire reason why 64-byte transactions are problematic is because Bitcoin's txid Merkle tree has a design flaw that doesn't distinguish between internal nodes and leaves. If anyone ever realistically considers changing the Merkle tree design, like changing the hash function, they should start from a sane design that's not broken in the first place.
+
+-------------------------
+
