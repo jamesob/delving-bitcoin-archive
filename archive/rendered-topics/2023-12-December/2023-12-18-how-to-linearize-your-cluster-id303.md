@@ -1028,3 +1028,66 @@ There is another interesting point to remember, which is the fact that we are in
 
 -------------------------
 
+sipa | 2025-02-09 13:14:56 UTC | #32
+
+[quote="Lagrang3, post:30, topic:303"]
+or alternatively one can simply use a queue to process *active* nodes in FIFO order leading to a provable $O(n^3)$ complexity
+[/quote]
+
+Or, from what I understand so far, one can use maximum-label as a selection strategy ($O(n^2 \sqrt{m})$), which also means a $O(n^3)$ worst-case provably complexity, but only $O(n^{2.5})$ when het number of dependencies scales linearly with the number of transactions (which is probably somewhat true in practice, as dependencies cost input vsize).
+
+[quote="Lagrang3, post:31, topic:303"]
+The other take away points from GGT is that the same preflow-push algorithm can be extended to parametric problems (like the maximum-rate-closure problem that we are interested in) and still keep the same runtime complexity of $O(n^3)$ for our FIFO-preflow-push case
+[/quote]
+
+That's good to know. My guess would be that the dynamic trees version (which would be also $O(n^3)$ in the worst case, but $O(n^2 \log n)$ for a linear number of dependencies) might be not worth it for us for the small problem sizes.
+
+[quote="Lagrang3, post:31, topic:303"]
+There is another interesting point to remember, which is the fact that we are interested in the min-cut set and not on the maxflow itself. So we may stop the algorithm execution earlier and possibly save half of the running time by doing so.
+[/quote]
+
+
+That's surprising to me, because if you computed the min-cut, in our setting, you know the closure, whose total fee and size you can determine in $O(n)$ time (just sum them up), and the max flow of the problem you just solved will be $\operatorname{fee} - \lambda \operatorname{size}$, with $\lambda$ the parameter value you just solved for. So it seems to me that not computing the actual max flow can at best save you $O(n)$ work.
+
+---
+
+I also had the following realization. Solving for the closure with maximal $\operatorname{fee} - \lambda \operatorname{size}$ can be visualized on the feerate diagram (diagram with cumulative size on X axis, cumulative fee on Y axis, dots for all optimal chunk boundaries, straight lines between them).
+
+In the initial step, where you set $\lambda$ to the feerate of the entire cluster, draw a line L from the origin to the end point of the diagram (whose slope will be $\lambda$). The min cut found will the point on the diagram whose highest point lies most *above* L, in vertical distance. And from this it is clear that point must be on a chunk boundary (if it wasn't, and was on or below a line segment of the diagram, then depending on the slope of L, one of the two segment end points must lie higher above L).
+
+In a second iteration (which in GGT does not require starting over from scratch), one does the same thing, but with $\lambda$ now set to the feerate of the previously-found solution, and L a line from the origin to the point found there. The next min-cut will now found us the point that lies most above *that* L, etc.
+
+From this it is clear that there can at most be N steps, because there can be at most N chunks, and each min-cut step is sort of a bisection search, cutting off one or more bad chunks of the solution.
+
+It also means that the breakpoints GGT finds each correspond with chunk boundaries of the diagram already, but not all of them. To find all of them, one needs to rerun the search in the "other half" of the bisections cut off as well?
+
+-------------------------
+
+Lagrang3 | 2025-02-09 13:17:00 UTC | #33
+
+[quote="sipa, post:32, topic:303"]
+That’s surprising to me, because if you computed the min-cut, in our setting, you know the closure, whose total fee and size you can determine in O(n)O(n)O(n) time (just sum them up), and the max flow of the problem you just solved will be \operatorname{fee} - \lambda \operatorname{size}fee−λsize\operatorname{fee} - \lambda \operatorname{size}, with \lambdaλ\lambda the parameter value you just solved for. So it seems to me that not computing the actual max flow can at best save you O(n)O(n)O(n) work.
+[/quote]
+
+One thing is the scalar value of the maximum flow (the sum of all incoming flows to the sink) and the flow function that achieves that value (real valued function over the set of edges). In the context of Goldberg-Tarjan algorithm when you arrive to a certain state for which every node with positive excess is unable to reach the sink, then you can already construct the min-cut and maxflow value with $O(m)$, but this might be an incomplete state for the sake of the flow function cause the balance conditions are not guaranteed to be satisfied yet,
+you're still at a preflow state and every excess flow has to go back to the source before a proper flow function is obtained.
+
+-------------------------
+
+sipa | 2025-02-09 14:46:34 UTC | #34
+
+To demonstrate what I mean above:
+
+![min_cuts|690x443, 75%](upload://AbufjIH2s8rI16C4OoShtGe7NGI.png)
+
+* D is the feerate diagram of the optimal linearization, so each black dot on it corresponds to some topologically-valid subset, and D is the convex hull through them. The vertices of the convex hull (and the transaction sets they correspond to) are what we are trying to find.
+* $L_1$ is the line whose slope is the $\lambda_1$ for the first min-cut iteration, corresponding with the feerate of the entire cluster.
+* Then we run the min-cut algorithm, to find the closure $C_1$ whose weight $Q_1 = \operatorname{fee}_{C_1} - \lambda_1 \operatorname{size}_{C_1}$ is maximal.
+* Then we set $\lambda_2$ to the previous solution, i.e., $\lambda_2 = \operatorname{fee}_{C_1} /\operatorname{size}_{C_1}$.
+* $L_2$ is the line whose slope is $\lambda_2$.
+* Then we run the min-cut algorithm again, to find the closure $C_2$ whose weight $Q_2 = \operatorname{fee}_{C_2} - \lambda_2 \operatorname{size}_{C_2}$ is maximal.
+
+In every iteration, one or more chunks are removed, but the solutions each correspond to a prefix of chunks of the optimal linearization. So by the time we find the first chunk $C_2$, we have found the next chunk already too ($C_1 \setminus C_2$), but not the one after that because the first iteration skipped that one already. I'm guessing that's where the contraction comes in: replace the source $s$ with $C_1 \cup \{s\}$, and start over, and somehow that is still possible without fully resetting the algorithm state?
+
+-------------------------
+

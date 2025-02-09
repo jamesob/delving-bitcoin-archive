@@ -151,3 +151,13 @@ Anyway, perhaps just a sidetrack - I think the core concept is very nice.
 
 -------------------------
 
+ajtowns | 2025-02-09 13:18:54 UTC | #6
+
+[quote="AdamISZ, post:5, topic:1409"]
+I spent some time thinking about ways around that. The obvious starting point might be blinding addr_a,b with a third point, so e.g. $P_a + A_1 + T$.
+[/quote]
+
+Would $t \cdot (P_a + A_1)$ work for this? ie provide $X, T$ and prove you have a $t$ where $T = t\cdot G$ and $X = t\cdot(P_a + A_1)$. Then you could reveal $t$ via an adaptor signature.
+
+-------------------------
+

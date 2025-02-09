@@ -1305,3 +1305,15 @@ But if you introduce a new name then maybe also don't bother with that multiplic
 
 -------------------------
 
+Chris_Stewart_5 | 2025-02-09 14:04:49 UTC | #71
+
+One thing to note of disallowing 64 byte transactions on the network is that this will not work well if we ever decide to move away from a 256 bit hash digest for our merkle tree structure.
+
+For instance if we decide to move to a 512 bit digest, we would now disallow 128 byte transactions, which by my count ~300,000 occurring in the bitcoin blockchain. A 1024 bit digest would disallow 256 byte transactions, of which there are ~450,000 occurring in the bitcoin blockchain.
+
+More generally with this approach it seems if have a `N` byte digest, we cannot allow `N*2` transaction size? 
+
+Ig if such a drastic change is needed, maybe we propose just reworking the entire merkle tree structure.
+
+-------------------------
+
