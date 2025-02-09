@@ -1011,11 +1011,20 @@ Forget that I mentioned GGT here, I understand. I was using it as a shorthand fo
 
 -------------------------
 
-Lagrang3 | 2025-02-09 10:40:08 UTC | #30
+Lagrang3 | 2025-02-09 10:45:10 UTC | #30
 
 There several options for implementing preflow-push (Goldberg-Tarjan maxflow/min-cut algorithm). The fastest theoretical bound $O(nm \log(n^2/m))$ is obtained using a dynamic tree data structure or alternatively one can simply use a queue to process *active* nodes in FIFO order leading to a provable $O(n^3)$ complexity.
 The FIFO-preflow-push is actually pretty simple to implement. See for example:
-https://github.com/Lagrang3/max-density-closure/blob/master/examples/kattis-maxflow.cpp
+https://github.com/Lagrang3/max-density-closure/blob/27c874164a0b457cc4092e64f0fc46457e60ab7e/examples/kattis-maxflow.cpp
+
+-------------------------
+
+Lagrang3 | 2025-02-09 10:45:52 UTC | #31
+
+The other take away points from GGT is that the same preflow-push algorithm can be extended to parametric problems (like the maximum-rate-closure problem that we are interested in) and still keep the same runtime complexity of $O(n^3)$
+for our FIFO-preflow-push case.
+
+There is another interesting point to remember, which is the fact that we are interested in the min-cut set and not on the maxflow itself. So we may stop the algorithm execution earlier and possibly save half of the running time by doing so.
 
 -------------------------
 
