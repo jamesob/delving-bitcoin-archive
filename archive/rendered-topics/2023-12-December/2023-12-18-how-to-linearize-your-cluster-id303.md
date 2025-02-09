@@ -1011,3 +1011,11 @@ Forget that I mentioned GGT here, I understand. I was using it as a shorthand fo
 
 -------------------------
 
+Lagrang3 | 2025-02-09 10:40:08 UTC | #30
+
+There several options for implementing preflow-push (Goldberg-Tarjan maxflow/min-cut algorithm). The fastest theoretical bound $O(nm \log(n^2/m))$ is obtained using a dynamic tree data structure or alternatively one can simply use a queue to process *active* nodes in FIFO order leading to a provable $O(n^3)$ complexity.
+The FIFO-preflow-push is actually pretty simple to implement. See for example:
+https://github.com/Lagrang3/max-density-closure/blob/master/examples/kattis-maxflow.cpp
+
+-------------------------
+
