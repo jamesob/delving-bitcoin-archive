@@ -1091,9 +1091,62 @@ In every iteration, one or more chunks are removed, but the solutions each corre
 
 -------------------------
 
-stefanwouldgo | 2025-02-10 08:54:13 UTC | #35
+stefanwouldgo | 2025-02-10 10:59:31 UTC | #35
+
+[quote="sipa, post:34, topic:303"]
+To demonstrate what I mean above:
+[/quote]
 
 Wow, this is a brilliant visualization of what's happening here.
+
+[quote="sipa, post:26, topic:303"]
+You can think of LIMO as repeatedly doing:
+
+* Given a cluster with an existing linearization L for it
+  * Loop:
+    * Find a topological subset S with good feerate to move to the front.
+    * Compute L’, which is L with with S moved to the front (leaving the order of transactions within S, and outside of S, unchanged from L).
+    * Compute L’’ as a merge of L and L’, which has a diagram that’s at least as good as the best of both everywhere.
+    * Output the first chunk of L’‘, and continue with L as what remains of L’'.
+
+I suspect this can be done in combination with the GGT approach, but the more interesting combination is if it can feed back too, i.e. the S set finding algorithm can be bootstrapped by using the first chunk of L at that point. This may be harder
+[/quote]
+
+This sounds as if LIMO is a good solution for improving an existing linearization in combination with a min-cut approach. The existing best chunk gives a great starting $\lambda$, and from there, a min-cut will find a better chunk if there is one, which yields a better linearization. Every min-cut calculation will then either improve a chunk or show that it cannot be improved.
+
+[quote="sipa, post:32, topic:303"]
+It also means that the breakpoints GGT finds each correspond with chunk boundaries of the diagram already, but not all of them. To find all of them, one needs to rerun the search in the “other half” of the bisections cut off as well?
+[/quote]
+
+Yes, and that is why the GGT algorithm for finding all breakpoints (3.3) is so involved. In order to get the same runtime bound, it needs to contract the s- or t- components. Because the sizes of the s- and t-sides might be badly distributed, it needs to run the flow calculation on the reverse graph from t to s in parallel, and only use the result of the calculation that finishes first. This is obviously wasteful and complicated, and in practice, a simpler algorithm is always better. The PBST-algorithm avoids this waste and seems even faster in reality (and just as good in the worst case), and it finds all the breakpoints in ascending order (descending $\lambda$ for our case), which might be a desirable property. However, it is also pretty involved. But, we already have code for it.
+
+-------------------------
+
+sipa | 2025-02-10 13:24:25 UTC | #36
+
+[quote="stefanwouldgo, post:35, topic:303"]
+The PBST-algorithm avoids this waste and seems even faster in reality (and just as good in the worst case), and it finds all the breakpoints in ascending order (descending \lambdaλ\lambda for our case), which might be a desirable property.
+[/quote]
+
+That does sound at least conceptually simpler.
+
+You mean PBFS from https://arxiv.org/pdf/2410.15920, right? Its complexity bound seems somewhat worse than GGT.
+
+Summarizing the different algorithms I see, for sparse ($m = \mathcal{O}(n)$) and dense ($m = \mathcal{O}(n^2)$) graphs. FP is just the idea of solving a new min-cut from scratch for each breakpoint.
+
+| Algorithm | Complexity | Sparse | Dense |
+|:--|:--|:--|:--|
+| FP (generic) | $\mathcal{O}(n^3 m)$ | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^5)$ |
+| FP (FIFO) | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^4)$ |
+| FP (max label) | $\mathcal{O}(n^3 \sqrt{m})$ | $\mathcal{O}(n^{3.5})$ | $\mathcal{O}(n^4)$ |
+| FP (dynamic trees) | $\mathcal{O}(n^2m \log(n^2/m))$ | $\mathcal{O}(n^3 \log n)$ | $\mathcal{O}(n^4)$ |
+| PBFS | $\mathcal{O}(n^2 m)$ | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^4)$ |
+| GGT (generic) | $\mathcal{O}(n^2 m)$ | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^4)$ |
+| GGT (FIFO) | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^3)$ |
+| GGT (max label) | $\mathcal{O}(n^2 \sqrt{m})$ | $\mathcal{O}(n^{2.5})$ | $\mathcal{O}(n^3)$ |
+| GGT (dynamic trees) | $\mathcal{O}(nm \log(n^2/m))$ | $\mathcal{O}(n^2 \log n)$ | $\mathcal{O}(n^3)$ |
+
+We'll need to experiment with specialized implementations though, because seeing papers talk about problems with millions of nodes means that what they consider "practical problems" may be very different than what we have in mind (we'll probably prefer simpler algorithms over better complexity ones) but also that many data-structure optimizations may not apply in their settings. However, we also care more about worst-case performance than they do, presumably.
 
 -------------------------
 

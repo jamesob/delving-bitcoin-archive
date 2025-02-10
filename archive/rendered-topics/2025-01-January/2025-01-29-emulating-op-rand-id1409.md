@@ -198,3 +198,15 @@ Obviously this (a) makes it more complicated, at least somewhat, but it was alre
 
 -------------------------
 
+harding | 2025-02-10 14:36:42 UTC | #8
+
+[quote="ajtowns, post:3, topic:1409"]
+Having to transmit 1000 hashed pubkeys and a zkp for every dusty-HTLC for every update is also probably prohibitive.
+[/quote]
+
+Prohibitive for who?  If the data can be mostly computed, transmitted, and verified in advance, then it might be possible to use CPU and bandwidth that would otherwise sit idle.  That said, I can easily believe it's not worth LN developer time to study and implement a sub-protocol solely for moving tiny values.
+
+However, I'm not sure probabilistic HTLCs would only be useful for tiny values.  Imagine Alice and Bob are channel partners deep within a channel factory.  They want to relay a $100 HTLC, but the cost of fanning out their part of the factory onchain would be $1,000 in transaction fees.  Should they use a trimmed HTLC, where one of them risks losing $100?  Or maybe [OPR](https://delvingbitcoin.org/t/a-fast-scalable-protocol-for-resolving-lightning-payments/1233) where they each risk losing $100?  I think a probabilistic HTLC might be better where the risk of loss is, on average, 0.  Admittedly, there's still problems with probabilistic HTLCs: for a $100 payment and $1,000 expected transaction fee to resolve onchain, one party might need to put up $10,000 in capital for the duration of the HTLC in order to make onchain settlement economic; I think that might be solvable in >2-party channels where one of the parties is a speculator, but I haven't really thought that through.
+
+-------------------------
+

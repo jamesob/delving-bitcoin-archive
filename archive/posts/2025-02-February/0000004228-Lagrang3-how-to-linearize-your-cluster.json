@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 22.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "There several options for implementing preflow-push (Goldberg-Tarjan maxflow/min-cut algorithm). The fastest theoretical bound $O(nm \\log(n^2/m))$ is obtained using a dynamic tree data structure or alternatively one can simply use a queue to process *active* nodes in FIFO order leading to a provable $O(n^3)$ complexity.\nThe FIFO-preflow-push is actually pretty simple to implement. See for example:\nhttps://github.com/Lagrang3/max-density-closure/blob/27c874164a0b457cc4092e64f0fc46457e60ab7e/examples/kattis-maxflow.cpp",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
