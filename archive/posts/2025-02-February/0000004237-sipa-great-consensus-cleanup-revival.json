@@ -12,9 +12,9 @@
   "reply_to_post_number": 71,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 3,
+  "readers_count": 2,
+  "score": 15.6,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"Chris_Stewart_5, post:71, topic:710\"]\nOne thing to note of disallowing 64 byte transactions on the network is that this will not work well if we ever decide to move away from a 256 bit hash digest for our merkle tree structure.\n[/quote]\n\nThe entire reason why 64-byte transactions are problematic is because Bitcoin's txid Merkle tree has a design flaw that doesn't distinguish between internal nodes and leaves. If anyone ever realistically considers changing the Merkle tree design, like changing the hash function, they should start from a sane design that's not broken in the first place.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
