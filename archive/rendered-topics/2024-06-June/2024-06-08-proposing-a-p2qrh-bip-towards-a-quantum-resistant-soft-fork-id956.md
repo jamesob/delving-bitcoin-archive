@@ -101,3 +101,35 @@ I'm unfortunately tied up helping a full-time client at the moment and can't spa
 
 -------------------------
 
+0xfffffffa | 2025-02-10 15:37:09 UTC | #6
+
+Hello, 
+
+Its my first post here and have come across this very interesting work by @cryptoquick 
+
+I've been working on https://www.bitcoinqs.org - its a L2 solution rather than a soft/hard fork of the L1 Bitcoin network. 
+
+Behind the scenes, I've gone for ML-DSA/Dilithium. 
+
+I've created a bridge between L1 / L2 BitcoinQS that bridges back and forth between L1 Bitcoin and L2 Quantum Wrapped Bitcoin (Quantum Safe) BQS at a 1:1 ratio ie same in same quantum wrapped out and vice versa.
+
+I considered the BIP route as well, but given historically BIPS take an incredibly long time to get implemented and supported I thought this would be the fastest way to get a working solution ready. 
+
+High level, signature algo ML-DSA as previously stated. At present while on testnet the  address generation uses SHA3 256 and base58 encoding. However I'm in the process of upgrading this in time for mainnet launch.
+
+Key generation , signing all happen entirely in the browser. Console tools are being developed to perform same from the command line. The platform is non custodial and at no point do we have access to user keys. 
+
+Once transaction is signed in the browser, it is broadcast as expected to various validators that confirm said signature and update their state.
+
+A block size in testnet is defined as 2 transactions once 2 transactions happen on L2 they are hashed and posted to L1 Bitcoin using OP_RETURN referencing the previous hash (first genesis hash is simply the word GENESIS followed by the hash of the transaction). 
+
+On mainnet, I'm still rather undecided what the optimal block size would be as need to find the golden ratio between security and keeping transaction costs low (possibly 20) - ultimately this will depend on adoption and # of txs per hour. 
+
+Given its L2, can implement all sorts of wonderful extensions such as quantum resistant BRC20 tokens. We can implement quantum safe smart contracts and others. 
+
+there is no limit to what the imagination can conceive and extend the base system to support. 
+
+We are thinking along the same lines and it would be nice to collaborate feel free to reach out on twitter @bitcoinqs
+
+-------------------------
+
