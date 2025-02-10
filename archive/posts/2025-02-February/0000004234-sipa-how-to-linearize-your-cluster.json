@@ -8,13 +8,13 @@
   "post_number": 34,
   "post_type": 1,
   "updated_at": "2025-02-09T14:46:34.169Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "To demonstrate what I mean above:\n\n![min_cuts|690x443, 75%](upload://AbufjIH2s8rI16C4OoShtGe7NGI.png)\n\n* D is the feerate diagram of the optimal linearization, so each black dot on it corresponds to some topologically-valid subset, and D is the convex hull through them. The vertices of the convex hull (and the transaction sets they correspond to) are what we are trying to find.\n* $L_1$ is the line whose slope is the $\\lambda_1$ for the first min-cut iteration, corresponding with the feerate of the entire cluster.\n* Then we run the min-cut algorithm, to find the closure $C_1$ whose weight $Q_1 = \\operatorname{fee}_{C_1} - \\lambda_1 \\operatorname{size}_{C_1}$ is maximal.\n* Then we set $\\lambda_2$ to the previous solution, i.e., $\\lambda_2 = \\operatorname{fee}_{C_1} /\\operatorname{size}_{C_1}$.\n* $L_2$ is the line whose slope is $\\lambda_2$.\n* Then we run the min-cut algorithm again, to find the closure $C_2$ whose weight $Q_2 = \\operatorname{fee}_{C_2} - \\lambda_2 \\operatorname{size}_{C_2}$ is maximal.\n\nIn every iteration, one or more chunks are removed, but the solutions each correspond to a prefix of chunks of the optimal linearization. So by the time we find the first chunk $C_2$, we have found the next chunk already too ($C_1 \\setminus C_2$), but not the one after that because the first iteration skipped that one already. I'm guessing that's where the contraction comes in: replace the source $s$ with $C_1 \\cup \\{s\\}$, and start over, and somehow that is still possible without fully resetting the algorithm state?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
