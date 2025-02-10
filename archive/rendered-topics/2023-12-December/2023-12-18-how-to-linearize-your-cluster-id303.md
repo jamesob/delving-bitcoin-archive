@@ -1150,7 +1150,7 @@ We'll need to experiment with specialized implementations though, because seeing
 
 -------------------------
 
-stefanwouldgo | 2025-02-10 15:36:28 UTC | #37
+stefanwouldgo | 2025-02-10 16:50:11 UTC | #37
 
 [quote="sipa, post:36, topic:303"]
 That does sound at least conceptually simpler.
@@ -1158,9 +1158,27 @@ That does sound at least conceptually simpler.
 You mean PBFS from https://arxiv.org/pdf/2410.15920, right? Its complexity bound seems somewhat worse than GGT.
 [/quote]
 
-Yes, that's the one I mean. In fact, it seems conceptually more complex to me. And you are right, the asymptotic worst-case complexity is potentially worse. But in experiments, FP (what they call DS in the PBFS paper) seems to always beat GGT (the other experimental paper), and PBFS seems to always beat FP/DS. And this is already on instances that are probably way bigger than what we need: Their smallest example has about 5k nodes and is done in 11 ms. Assuming cubic runtime, we might expect 500 nodes to run in less than 50 $\mu$ s. 
+Yes, that's the one I mean. In fact, it seems conceptually more complex to me. And you are right, the asymptotic worst-case complexity is potentially worse. But in experiments, FP (what they call DS in the PBFS paper) seems to always beat GGT (the other experimental paper), and PBFS seems to always beat FP/DS. And this is already on instances that are probably way bigger than what we need: Their smallest example has about 5k nodes and is done in 11 ms. Assuming cubic runtime, we might expect 500 nodes to run in less than 50 $\mu s$. 
 
-So it's all about the constants, but they are also very dependent on implementation details. Your running time table is a great starting point. But it might turn out that for the instances we are interested in, the story looks exactly the other way round than asymptotics suggest. In fact, our instances are small enough that simple DS/FP with a nicely tuned min-cut algorithm might indeed be the best solution.
+So it's all about the constants, but they are also very dependent on implementation details. Your running time table is a great starting point. But it might turn out that for the instances we are interested in, the story looks exactly the other way round than asymptotics suggest. In fact, our instances are small enough that simple DS/FP with a nicely tuned min-cut algorithm might be the best solution.
+
+-------------------------
+
+sipa | 2025-02-10 18:39:53 UTC | #38
+
+[quote="stefanwouldgo, post:37, topic:303"]
+Assuming cubic runtime, we might expect 500 nodes to run in less than 50 \mu sμs\mu s.
+[/quote]
+
+I think that would be an incorrect assumption; the benchmarks in the paper seem to exhibit behavior very far from the proven complexity bound. I ran regression on its data set, and obtain runtimes that are approximated by $t = 0.00098 \times n^{0.091} \times m^{0.77}$.
+
+-------------------------
+
+stefanwouldgo | 2025-02-10 19:26:16 UTC | #39
+
+That’s an interesting idea, but the result doesn’t appear very convincing. The algorithm should at least look at every node and edge once.
+
+But of course my estimation may be far off, there are probably large additive constants in effect.
 
 -------------------------
 

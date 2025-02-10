@@ -210,3 +210,19 @@ However, I'm not sure probabilistic HTLCs would only be useful for tiny values. 
 
 -------------------------
 
+ajtowns | 2025-02-10 16:12:31 UTC | #9
+
+[quote="harding, post:8, topic:1409"]
+Prohibitive for who? If the data can be mostly computed, transmitted, and verified in advance, then it might be possible to use CPU and bandwidth that would otherwise sit idle.
+[/quote]
+
+My default assumption is that you'd need to rerun the protocol for every randomized-HTLC every time you update your commitment tx, which I think would start eating up significant cpu/bandwidth pretty quickly (ie, every channel performs like it's running over tor). It also seems like it'd be kind-of "hot path" in that you need to perform it everytime you forward a payment, before you can forward a payment. But, I mean, I could be completely wrong -- super early to be trying to thinking about things like that!
+
+[quote="harding, post:8, topic:1409"]
+However, I’m not sure probabilistic HTLCs would only be useful for tiny values. Imagine Alice and Bob are channel partners deep within a channel factory. They want to relay a $100 HTLC, but the cost of fanning out their part of the factory onchain would be $1,000 in transaction fees.
+[/quote]
+
+$1000 in tx fees at 100sat/vb at $100k/BTC means 10k vbytes, or about 40kB of witness data, which seems large -- if you can walk through a merkle tree of 2**n entries with 50 witness bytes a step, then a factory with a billion participants would still be only 1.5kB of witness data, for maybe about 530k vbytes or $53 at 100sat/vb at $100k/BTC. So for me, I think it makes more sense to work on [improving the fan out technology](https://delvingbitcoin.org/t/flexible-coin-earmarks/1275), and to continue thinking of the probabilistic stuff as only relevant for dusty outputs (where they don't pay enough to justify their own appearance on-chain).
+
+-------------------------
+

@@ -133,3 +133,15 @@ We are thinking along the same lines and it would be nice to collaborate feel fr
 
 -------------------------
 
+sipa | 2025-02-10 18:01:14 UTC | #7
+
+[quote="0xfffffffa, post:6, topic:956"]
+its a L2 solution rather than a soft/hard fork of the L1 Bitcoin network.
+[/quote]
+
+What's the point?
+
+In the hypothetical future people are concerned about, L1 UTXOs are vulnerable to theft. The currency cannot maintain value in that setting, regardless of what other technologies are additionally used to represent tokens pegged to it. Instead of adding security, this is weakening it: now there are potentially two protocol stacks which could be broken that threaten security of the system. Remember, PQ algorithms can still be broken, possibly even classically; this has even happened fairly [recently](https://cacm.acm.org/news/nist-post-quantum-cryptography-candidate-cracked/).
+
+-------------------------
+

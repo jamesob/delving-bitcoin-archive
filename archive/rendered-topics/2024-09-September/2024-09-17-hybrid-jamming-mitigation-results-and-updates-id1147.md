@@ -565,3 +565,104 @@ Apart of timing issues, I believe it would already reduce some damage of the sin
 
 -------------------------
 
+carla | 2025-02-10 18:50:00 UTC | #7
+
+We have run a few simulations to get a better understanding of how outgoing reputation defends nodes from a “sink” attack. Apologies for the delayed response!
+
+<details>
+  <summary>See here for a full outline of how we ran the attack. </summary>
+  <ul>
+    <li>Create a graph centered on the target node by:
+      <ul>
+        <li>Randomly selecting 5 neighbors with the target</li>
+        <li>Randomly selecting 10 neighbors for each of the 5 target’s neighbors</li>
+      </ul>
+    </li>
+    <li>Add the attacking node to the graph:
+      <ul>
+        <li>Connect the target to the attacker</li>
+        <li>Connect the attacker to the 15 largest nodes in the network not already connected to the target</li>
+      </ul>
+    </li>
+    <li>Generate traffic in the network to bootstrap reputation:
+      <ul>
+        <li>Honest nodes are bootstrapped for 6 months</li>
+        <li>The attacking node is bootstrapped for the period defined by the simulation</li>
+      </ul>
+    </li>
+    <li>Start the attack:
+      <ul>
+        <li>General jam all of the target's peers</li>
+        <li>Attacking node slow-jams any endorsed payments it receives from the target</li>
+      </ul>
+    </li>
+    <li>Stop the simulation when:
+      <ul>
+        <li>The attacker has lost all of its reputation with the target (won’t get any endorsed HTLCs to slow-jam anymore)</li>
+        <li>The target’s revenue has dropped below what its revenue would be during times of peace</li>
+      </ul>
+    </li>
+  </ul>
+</details>
+
+
+Our results were pretty consistent across simulation runs. As the attacker holds endorsed payments, their reputation drops and the target node will stop forwarding them endorsed payments. In all simulations the attacker loses its reputation with the target quickly, and the target’s reputation does not drop below peacetime projections
+
+The graph below shows the attacker’s reputation with the target node in a sink attack against a graph centered on the acinq node where the attacker bootstraps their reputation for 90 days before starting an attack. The target will forward endorsed payments to the attacker when the reputation delta is > 0 and drop them otherwise.
+
+![Figure1: Sink Attack Results](upload://tRjNDAvcwWzpBXqTrFKxbBOZAJa.png)
+
+
+<details>
+ <summary>There are of course some shortcomings in these simulations.</summary>
+
+* They depend on the traffic patterns produced by sim-ln.
+* The strategy taken to bootstrap by the attacker is relatively simple. This could undoubtedly be enhanced with smarter channel placement and/or more strategic channel jamming.
+* This is a topology-dependent attack, so our graph selection strategy will impact the results.
+
+</details>
+
+Open to suggestions here if there’s any particular scenario that you’d like to see! Our current plan is to come up with some manufactured “worst case” topologies where the attacker is at a great advantage, with the reasoning that if the solution works there then it’ll work in less ideal scenarios as well.
+
+## Bi-Directional Reputation?
+
+(terminology recap available [here](https://gist.github.com/carlaKC/6762d88903d1cc27339859816ed80d43)).
+
+We began to look at outgoing reputation after the observation from @ProofOfKeags and @morehouse that a slow jamming attack requires a malicious downstream node, but not necessarily a malicious upstream node. Fast jamming attacks are perpetrated by upstream nodes, but we have unconditional fees to protect against this type of spam so perhaps we don’t need to worry about incoming reputation.
+
+Our aim has been to design a reputation system where the cost of acquiring reputation is comparable to the damage that can be done by abusing it. When we look at reputation in only one direction, we’re only able to enforce this compensation promise in one direction. This is okay when we’re only thinking on an individual channel basis, but when we holistically consider all of a node’s channels we run into some issues.
+
+Take the example of a network implementing outgoing reputation only, with malicious nodes `M0` and `M1` aiming to channel jam target node `T`:
+
+* We assume that `A`, `B` and `C` have good outgoing reputation with `T`.
+* M0 does not need to build any reputation to send endorsed payments to `T`.
+* M1 will need to build good reputation with `A`, `B` and `C` for endorsed payments to be sent to it as an outgoing link.
+
+To build good reputation, `M1` will send payments over `M1 -> {A / B / C} -> M1` to build outgoing reputation for endorsed payments forwarded over `{A / B / C} -> M1`. The malicious nodes can then go ahead and send and hold endorsed payments from `M0 -> .. -> M1` to channel jam `T -> A`, `T -> B` and `T -> C` without making any payments to `T` itself.
+
+![Outgoing Reputation](upload://piyuDKIgiMoMXPexiLcuYL1xClP.png)
+
+In the outgoing reputation case, we compensate the node receiving the HLTCs that are used for jamming, but not the node offering them. 
+
+The same applies for incoming reputation, just in reverse. We compensate the node offering the HTLCs that are used for jamming but not the node receiving them.
+
+<details>
+ <summary>A walkthrough of the incoming case is available here, minimized for brevity.
+</summary>
+
+The same single-sided issue can happen with incoming reputation only. Flipping the network around:
+
+* We assume that `A`, `B` and `C` have good incoming reputation with `T`.
+* `M0` will have to build reputation with `A`, `B` and `C` to send endorsed payments with `T`.
+* `M1` does not have to build good reputation with `T` to receive endorsed payments from `T`.
+
+![Incoming Reputation](upload://6iwZDxp9Ad8MKNtZDFWM1kX48Qh.png)
+
+To build good reputation, `M0` will send payments over `M0 -> {A / B / C} -> M0` to build incoming reputation for for endorsed payments sent over `{A / B / C} -> T`. As before, the malicious nodes can send and endorse payments from `M0 -> … -> M1` to channel jam `A -> T`, `B -> T`, `C -> T` without making any payments to `T` itself.
+
+</details>
+
+In a system with bi-directional reputation, we’re able to enforce that both ends of the channel are compensated (either directly through the attacker’s payments or transitively because they’ll have to build up reputation on both ends). In the original example, `M0` will need to build incoming reputation with `T` in addition to `M1` building outgoing reputation with `T`’s peers to achieve the same attack. We’ve got some thoughts on how to address the UX drawbacks that come along with bidirectional reputation, but will share those in another post!
+
+-------------------------
+
