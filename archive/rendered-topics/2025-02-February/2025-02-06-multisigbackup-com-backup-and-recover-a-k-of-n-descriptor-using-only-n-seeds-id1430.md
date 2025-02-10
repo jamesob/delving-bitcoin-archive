@@ -118,3 +118,19 @@ Some details: `bitcoin-cli gettxoutsetinfo muhash` at block 882991 reports 17979
 
 -------------------------
 
+josh | 2025-02-10 15:44:09 UTC | #6
+
+> Now I wonder about txouts space pollution. If the proposed multi-sig-backup inscription means there will stay a (very little in terms of amount but it does not matter for the chainstate) UTXO that noone is going to spend then I think it is wasteful but agree with you on the subjective value point and it is unstoppable anyway.
+
+@jsarenik I should clarify that I intentionally built this tool to avoid creating new UTXOs.
+
+The tool generates an address that will reveal the inscription when it is spent, but which anyone can spend. It listens for payments to the address in the browser, via the [mempool.space](https://mempool.space) webhook, and then creates a transaction that has a single `OP_RETURN` output, with 4 dummy bytes so that the transaction is large enough to be considered standard.
+
+As a result, the entire payment to inscribe the descriptor is forwarded to the miner as a fee, and no new UTXOs are created. This reduces the cost of making the inscription and prevents UTXO bloat.
+
+You can see how this works in:
+
+https://github.com/joshdoman/btc-scribe
+
+-------------------------
+
