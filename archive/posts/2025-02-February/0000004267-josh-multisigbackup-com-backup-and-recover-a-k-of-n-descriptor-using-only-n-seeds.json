@@ -12,8 +12,8 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 7,
-  "readers_count": 6,
+  "reads": 8,
+  "readers_count": 7,
   "score": 6.4,
   "yours": false,
   "topic_id": 1430,
@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "> Now I wonder about txouts space pollution. If the proposed multi-sig-backup inscription means there will stay a (very little in terms of amount but it does not matter for the chainstate) UTXO that noone is going to spend then I think it is wasteful but agree with you on the subjective value point and it is unstoppable anyway.\n\n@jsarenik I should clarify that I intentionally built this tool to avoid creating new UTXOs.\n\nThe tool generates an address that will reveal the inscription when it is spent, but which anyone can spend. It listens for payments to the address in the browser, via the [mempool.space](https://mempool.space) webhook, and then creates a transaction that has a single `OP_RETURN` output, with 4 dummy bytes so that the transaction is large enough to be considered standard.\n\nAs a result, the entire payment to inscribe the descriptor is forwarded to the miner as a fee, and no new UTXOs are created. This reduces the cost of making the inscription and prevents UTXO bloat.\n\nYou can see how this works here:\n\nhttps://github.com/joshdoman/btc-scribe",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
