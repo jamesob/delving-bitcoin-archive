@@ -1265,3 +1265,15 @@ And I guess that means the different variants are simply about reusing info from
 
 -------------------------
 
+ajtowns | 2025-02-11 19:59:20 UTC | #45
+
+[quote="sipa, post:34, topic:303"]
+Then we run the min-cut algorithm, to find the closure $C_1$ whose weight $Q_1 = \operatorname{fee}_{C_1} - \lambda_1 \operatorname{size}_{C_1}$ is maximal.
+[/quote]
+
+I believe a different way of looking at this is that the min cut algorithm collects ***all*** the chunks from the optimal feerate diagram whose individial chunk feerate is greater than the target feerate $\lambda_1$. That makes $Q_1$ maximal, because a greater slope means the lines were moving apart as the cumulative size increased (and a lower slope from then on means they're getting closer together).
+
+(Finding the residual network from the max flow eliminates chunks with lower feerates as a chunk with a lower feerate is either only connected to the sink, or because any higher feerate children have their connection to the source eliminated because more flow is able to go to the sink than can come from the source)
+
+-------------------------
+

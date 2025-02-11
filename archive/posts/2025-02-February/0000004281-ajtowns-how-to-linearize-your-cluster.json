@@ -12,9 +12,9 @@
   "reply_to_post_number": 43,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"stefanwouldgo, post:43, topic:303\"]\nIn this case the weights are 100-50=50 for A, 3980-2500=1480 for B, and 920-2450=-1530 for C. So the min-cut will pick AB as first subset/chunk.\n[/quote]\n\nOh, I think I follow now; I was missing something super basic just as I thought. So you have the network:\n\n```mermaid height=330,auto\nflowchart TB\n         s --50--> A\n         s --1480--> B\n         C --1530--> t\n         subgraph txs\n         C --\u221e--> B --\u221e--> A\n         end\n ```\n\nand your max flow is 0, which means the residual network is the same as the original network, and the min cut sets are {s,A,B} (the nodes reachable from the source) and {C,t} (the nodes that can reach the sink). With a less trivial example you might have some flow from s to B to A to t (where B pays for its parent A whose feerate is below $\\lambda$) in which case you'd do some actual work.\n\nSo... is the essence of the idea really just:\n\n * take your collection of txs, and its overall feerate $\\lambda$\n * calculate a min cut of $S$ (higher feerate) and $T$ (lower feerate) on a network with $n+m$ edges using $f-\\lambda s$ and $\\infty$ as the capacities\n * repeat the algorithm on both $S$ and $T$ to further improve things, prioritising $S$\n * run the algorithm at most $2k-1$ times where $k$ is the final/optimal number of chunks -- each run will either split a chunk into two, or tell us we no longer need to do any more processing of that chunk\n\nAnd I guess that means the different variants are simply about reusing info from the previous step (eg of ABC with $\\lambda_0=50$) to make the next step (eg of AB with $\\lambda_1=80$) faster than doing it from scratch, since the nature of the network is really restricted -- all you're doing is changing the value of $\\lambda$ and getting either a subset of S as you increase it, or a subset of T as you decrease it?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
