@@ -1182,3 +1182,11 @@ But of course my estimation may be far off, there are probably large additive co
 
 -------------------------
 
+sipa | 2025-02-11 00:34:48 UTC | #40
+
+Another advantage that GGT (or DS) may have over PBFS is that the chunk splittings that each min-cut corresponds to is in a sense optimal: it is *the* best improvement to the diagram possible, when considering only steps that subdivide a single chunk in two. PBFS doesn't have this, as it finds the breakpoints in order.
+
+If the way this gets implemented is by aborting the computation as soon as a time/work threshold is exceeded, for GGT this probably means a better/fairer partial solution than PBFS (which may have spent all its time on the first chunk, and nother further).
+
+-------------------------
+
