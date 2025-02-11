@@ -1222,3 +1222,15 @@ No, bisection does not find them in order. It always finds the optimal improveme
 
 -------------------------
 
+stefanwouldgo | 2025-02-11 10:59:28 UTC | #43
+
+[quote="ajtowns, post:41, topic:303"]
+If you have txs A at f/s = 100/1f/s=100/1f/s = 100/1, B at 3980/50, C at 920/49 (with \lambda=5000/100=50λ=5000/100=50\lambda=5000/100=50), and where C spends B and B spends A, what’s the flow diagram that tells you the first/best breakpoint is AB vs C, rather than A vs BC?
+[/quote]
+
+In this case the weights are 100-50=50 for A, 3980-2500=1480 for B, and 920-2450=-1530 for C. So the min-cut will pick AB as first subset/chunk. 
+
+Next you can choose to see if optimizing AB further is even better: the new $\lambda$ is the new breakpoint is the combined feerate of AB, which is 4080/51=80.  Then the new weights become 20 for A, -20 for B, -3000 for C. So the min-cut will pick A as the next best chunk. We could let the algorithm run again with the new breakpoint $\lambda=100$ and see that now we get the empty set or maybe A again, but we already know that a single node cannot be improved upon, so the optimal chunking is (A,B,C).
+
+-------------------------
+
