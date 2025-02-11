@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 45.8,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Another advantage that GGT (or DS) may have over PBFS is that the chunk splittings that each min-cut corresponds to is in a sense optimal: it is *the* best improvement to the diagram possible, when considering only steps that subdivide a single chunk in two. PBFS doesn't have this, as it finds the breakpoints in order.\n\nIf the way this gets implemented is by aborting the computation as soon as a time/work threshold is exceeded, for GGT this probably means a better/fairer partial solution than PBFS (which may have spent all its time on the first chunk, and nother further).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
