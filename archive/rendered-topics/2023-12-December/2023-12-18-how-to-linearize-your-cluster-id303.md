@@ -1204,3 +1204,21 @@ If you have txs A at $f/s = 100/1$, B at 3980/50, C at 920/49 (with $\lambda=500
 
 -------------------------
 
+stefanwouldgo | 2025-02-11 10:44:34 UTC | #42
+
+[quote="ajtowns, post:41, topic:303"]
+I haven’t read the papers, but I’m not following how you construct a network flow where solving a max flow / min cut gives you a subset of txs that maximises f_C - \lambda s_CfC−λsCf_C - \lambda s_C for a given \lambdaλ\lambda.
+[/quote]
+
+But that's just what the DeepSeek approach does. It finds a subset $C$ with maximum weight under the side condition that $C$ is a closure. And we choose the weight to be $f-\lambda s$ for all nodes. It's a closure because it's a min-cut, and the original edges get infinite capacity, so they are never cut. It maximizes weight because the size of the min-cut is exactly the sum of excluded nodes with positive weight plus the sum of included nodes with negative weight. 
+
+The trick is that turning our feerate into a weight by introducing $\lambda$ lets us simply sum up the weights into total weight instead of directly optimizing a ratio. 
+
+[quote="ajtowns, post:41, topic:303"]
+The [DeepSeek](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/15) approach seems like it could solve for a CCC that gives the largest feerate, by bisecting on different values for \lambdaλ\lambda, but that seems more like finding the breakpoints in order?
+[/quote]
+
+No, bisection does not find them in order. It always finds the optimal improvement for the diagram in the interval you are looking at. And then you choose the next interval to look for.
+
+-------------------------
+
