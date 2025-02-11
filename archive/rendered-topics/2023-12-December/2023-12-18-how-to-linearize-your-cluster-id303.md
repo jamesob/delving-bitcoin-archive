@@ -1190,3 +1190,17 @@ If the way this gets implemented is by aborting the computation as soon as a tim
 
 -------------------------
 
+ajtowns | 2025-02-11 10:02:17 UTC | #41
+
+[quote="sipa, post:38, topic:303"]
+I ran regression on its data set, and obtain runtimes that are approximated by $t = 0.00098 \times n^{0.091} \times m^{0.77}$.
+[/quote]
+
+That just suggests the example problems being solved are effectively getting simpler as $n,m$ increase, no?
+
+I haven't read the papers, but I'm not following how you construct a network flow where solving a max flow / min cut gives you a subset of txs that maximises $f_C - \lambda s_C$ for a given $\lambda$. The [DeepSeek](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/15) approach seems like it could solve for a $C$ that gives the largest feerate, by bisecting on different values for $\lambda$, but that seems more like finding the breakpoints in order?
+
+If you have txs A at $f/s = 100/1$, B at 3980/50, C at 920/49 (with $\lambda=5000/100=50$), and where C spends B and B spends A, what's the flow diagram that tells you the first/best breakpoint is AB vs C, rather than A vs BC?
+
+-------------------------
+
