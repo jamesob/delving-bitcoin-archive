@@ -8,7 +8,7 @@
   "post_number": 43,
   "post_type": 1,
   "updated_at": "2025-02-11T10:59:28.126Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 41,
   "quote_count": 1,
   "incoming_link_count": 0,
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:41, topic:303\"]\nIf you have txs A at f/s = 100/1f/s=100/1f/s = 100/1, B at 3980/50, C at 920/49 (with \\lambda=5000/100=50\u03bb=5000/100=50\\lambda=5000/100=50), and where C spends B and B spends A, what\u2019s the flow diagram that tells you the first/best breakpoint is AB vs C, rather than A vs BC?\n[/quote]\n\nIn this case the weights are 100-50=50 for A, 3980-2500=1480 for B, and 920-2450=-1530 for C. So the min-cut will pick AB as first subset/chunk. \n\nNext you can choose to see if optimizing AB further is even better: the new $\\lambda$ is the new breakpoint is the combined feerate of AB, which is 4080/51=80.  Then the new weights become 20 for A, -20 for B, -3000 for C. So the min-cut will pick A as the next best chunk. We could let the algorithm run again with the new breakpoint $\\lambda=100$ and see that now we get the empty set or maybe A again, but we already know that a single node cannot be improved upon, so the optimal chunking is (A,B,C).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

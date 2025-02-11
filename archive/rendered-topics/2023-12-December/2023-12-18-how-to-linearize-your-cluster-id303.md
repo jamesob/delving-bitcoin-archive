@@ -1234,3 +1234,34 @@ Next you can choose to see if optimizing AB further is even better: the new $\la
 
 -------------------------
 
+ajtowns | 2025-02-11 15:48:05 UTC | #44
+
+[quote="stefanwouldgo, post:43, topic:303"]
+In this case the weights are 100-50=50 for A, 3980-2500=1480 for B, and 920-2450=-1530 for C. So the min-cut will pick AB as first subset/chunk.
+[/quote]
+
+Oh, I think I follow now; I was missing something super basic just as I thought. So you have the network:
+
+```mermaid height=330,auto
+flowchart TB
+         s --50--> A
+         s --1480--> B
+         C --1530--> t
+         subgraph txs
+         C --∞--> B --∞--> A
+         end
+ ```
+
+and your max flow is 0, which means the residual network is the same as the original network, and the min cut sets are {s,A,B} (the nodes reachable from the source) and {C,t} (the nodes that can reach the sink). With a less trivial example you might have some flow from s to B to A to t (where B pays for its parent A whose feerate is below $\lambda$) in which case you'd do some actual work.
+
+So... is the essence of the idea really just:
+
+ * take your collection of txs, and its overall feerate $\lambda$
+ * calculate a min cut of $S$ (higher feerate) and $T$ (lower feerate) on a network with $n+m$ edges using $f-\lambda s$ and $\infty$ as the capacities
+ * repeat the algorithm on both $S$ and $T$ to further improve things, prioritising $S$
+ * run the algorithm at most $2k-1$ times where $k$ is the final/optimal number of chunks -- each run will either split a chunk into two, or tell us we no longer need to do any more processing of that chunk
+
+And I guess that means the different variants are simply about reusing info from the previous step (eg of ABC with $\lambda_0=50$) to make the next step (eg of AB with $\lambda_1=80$) faster than doing it from scratch, since the nature of the network is really restricted -- all you're doing is changing the value of $\lambda$ and getting either a subset of S as you increase it, or a subset of T as you decrease it?
+
+-------------------------
+
