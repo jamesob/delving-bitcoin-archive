@@ -78,3 +78,19 @@ I don't think that nodes appending `(HA)` to their alias should be a problem. If
 
 -------------------------
 
+MattCorallo | 2025-02-12 15:17:46 UTC | #6
+
+[quote="joostjager, post:5, topic:1438"]
+For instance that pathfinding is not a major barrier today. It might be a barrier for certain groups of senders.
+[/quote]
+
+I agree with that, I'd just prefer to pay the social costs of doing HA-based pathfinding until we hit those barriers.
+
+[quote="joostjager, post:5, topic:1438"]
+For instance that pathfinding is not a major barrier today. It might be a barrier for certain groups of senders. Probing and/or downloading probe data isn’t ideal either. I would rather minimize that if possible.
+[/quote]
+
+Its certainly not ideal, but it seems wayyyy more ideal than the potential social implications of "HA" signaling. And, really, its not all that bad. Individuals probing don't necessarily generate all that much traffic (especially now that we don't see almost any stuck HTLCs anymore). Downloading probing results seems even more inoffensive - the prober can influence your pathfinding somewhat, potentially hurting your privacy if they are already a potential path for you, but in many cases we're fetching probe results from an LSP, who is gonna see all your payments anyway. This leaves us, basically, only with people running full lightning nodes without an LSP and without making a lot of payments or probing having reduced privacy, but these nodes are increasingly few and far between, and that's probably a good thing for total payment success anyway.
+
+-------------------------
+
