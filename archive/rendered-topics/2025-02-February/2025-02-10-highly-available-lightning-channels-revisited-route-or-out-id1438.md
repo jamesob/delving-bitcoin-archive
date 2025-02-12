@@ -68,3 +68,13 @@ In general, before we take actions that have substantial social implications for
 
 -------------------------
 
+joostjager | 2025-02-12 09:27:45 UTC | #5
+
+I see your point. And I also see that there are uncertainties. For instance that pathfinding is not a major barrier today. It might be a barrier for certain groups of senders. Probing and/or downloading probe data isn't ideal either. I would rather minimize that if possible.
+
+Regarding senders taking the easy way out: I'd argue that they might do so already but in a worse way. Just download a list of good nodes and prefer those. For nodes that aren't on that list for whatever reason, it may be even more difficult to get on it in comparison to fairly earning the HA badge.
+
+I don't think that nodes appending `(HA)` to their alias should be a problem. If it is and has substantial social implications, then we'd better find that out sooner rather than later.
+
+-------------------------
+
