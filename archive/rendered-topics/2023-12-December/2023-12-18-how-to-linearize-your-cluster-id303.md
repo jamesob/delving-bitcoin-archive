@@ -1277,3 +1277,13 @@ I believe a different way of looking at this is that the min cut algorithm colle
 
 -------------------------
 
+sipa | 2025-02-12 04:05:25 UTC | #46
+
+[quote="ajtowns, post:45, topic:303"]
+I believe a different way of looking at this is that the min cut algorithm collects ***all*** the chunks from the optimal feerate diagram whose individial chunk feerate is greater than the target feerate $\lambda_1$.
+[/quote]
+
+Oh, right, of course. That's an easier way to think about it.
+
+-------------------------
+

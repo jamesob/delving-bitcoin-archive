@@ -8,13 +8,13 @@
   "post_number": 45,
   "post_type": 1,
   "updated_at": "2025-02-11T19:59:20.560Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 34,
   "quote_count": 1,
   "incoming_link_count": 0,
   "reads": 5,
   "readers_count": 4,
-  "score": 1.0,
+  "score": 21.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:34, topic:303\"]\nThen we run the min-cut algorithm, to find the closure $C_1$ whose weight $Q_1 = \\operatorname{fee}_{C_1} - \\lambda_1 \\operatorname{size}_{C_1}$ is maximal.\n[/quote]\n\nI believe a different way of looking at this is that the min cut algorithm collects ***all*** the chunks from the optimal feerate diagram whose individial chunk feerate is greater than the target feerate $\\lambda_1$. That makes $Q_1$ maximal, because a greater slope means the lines were moving apart as the cumulative size increased (and a lower slope from then on means they're getting closer together).\n\n(Finding the residual network from the max flow eliminates chunks with lower feerates as a chunk with a lower feerate is either only connected to the sink, or because any higher feerate children have their connection to the source eliminated because more flow is able to go to the sink than can come from the source)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
