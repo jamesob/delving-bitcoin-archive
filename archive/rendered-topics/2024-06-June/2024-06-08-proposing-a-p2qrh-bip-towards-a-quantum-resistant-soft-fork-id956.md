@@ -145,3 +145,19 @@ In the hypothetical future people are concerned about, L1 UTXOs are vulnerable t
 
 -------------------------
 
+0xfffffffa | 2025-02-13 08:39:33 UTC | #8
+
+Thank you for your reply. Its a valid question and we can both theorize at this point and of course use our discussions as fuel to help build more robust solutions. 
+
+The way the solution has been designed is that it starts life as an L2 working as a parallel system (think like lightning network) works as a parallel system on top of Bitcoin. 
+
+As some point when a cryptographically relevant quantum computer comes to fruition and is capable of attacking Bitcoin and this is observed by the community / us / everyone on the blockchain that this has happened the L1 Bitcoin chain as we know it can no longer be trusted. Blocks can be rearranged so on and so forth. 
+
+At this point  the parallel system that was working as backup becomes the new L1. Its capable of it as it has its own consensus, its own independent blockchain. 
+
+When I say "working as a backup" the concept is more akin to a third wheel that continuously is working and supporting but if one of the other wheels gets punctured it can be relied upon to continue functioning as normal and as a replacement to the wheel that was punctured - in other words people can use it now on testnet and mainnet once it launches to quantum wrap their BTC.
+
+I am aware of the article you referenced regarding SIKE. Our system uses FIPS240 ML-DSA which for all intents and purposes at present is considered by NIST approved and went through their rigorous verification process.
+
+-------------------------
+

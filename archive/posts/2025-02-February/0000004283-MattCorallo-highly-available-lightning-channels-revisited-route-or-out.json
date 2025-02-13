@@ -14,7 +14,7 @@
   "incoming_link_count": 1,
   "reads": 14,
   "readers_count": 13,
-  "score": 27.8,
+  "score": 42.8,
   "yours": false,
   "topic_id": 1438,
   "topic_slug": "highly-available-lightning-channels-revisited-route-or-out",
@@ -46,7 +46,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -64,10 +64,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
