@@ -1287,3 +1287,21 @@ Oh, right, of course. That's an easier way to think about it.
 
 -------------------------
 
+Lagrang3 | 2025-02-13 13:08:09 UTC | #47
+
+@sipa on which branch can one follow the progress of this work?
+Is it `wip_memepool_fuzz`?
+
+-------------------------
+
+sipa | 2025-02-13 13:27:24 UTC | #48
+
+Depending on what you mean by "this work":
+* The old exponential algorithm (which the first post in this thread is about) is merged in Bitcoin Core's [master branch](https://github.com/bitcoin/bitcoin/blob/a5b0a441f85db25ca3d866185fef5d282a2efd72/src/cluster_linearize.h), along with various related things (postlinearizing, merging, LIMO, ancestor sort, ...). The current work is building a higher abstraction layer around it to manage clusters, and integrating it in the mempool and validation code. See the [tracking issue](https://github.com/bitcoin/bitcoin/issues/30289). This is currently taking most of my time.
+* The simplex-derived [spanning forest algorithm](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) that I recently posted about is implemented [here](https://github.com/sipa/bitcoin/commits/spanning_tree_linearization). I am currently no longer working on it, as the min-cut approaches being discussed here are more promising.
+* As for min-cut based linearization approaches, my next step is experimenting with a from-scratch implementation of GGT (with FIFO or max-label strategies) as that seems to be the most promising balance between implementation complexity and worst-case asymptotic behavior to me, but I don't have any code yet.
+
+I expect that the min-cut work will eventually lead to a better cluster linearization algorithm that can be a drop-in replacement of the currently-merged code, but that's probably a longer-term thing than getting the existing code actually operational.
+
+-------------------------
+
