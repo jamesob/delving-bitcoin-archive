@@ -134,3 +134,213 @@ https://github.com/joshdoman/btc-scribe
 
 -------------------------
 
+josh | 2025-02-14 06:21:28 UTC | #7
+
+> I don’t feel like using a globally replicated database for information that just a single person cares about is a good use of the technology. It may appear convenient at times when demand for block space is low, but I would caution against building an expectation that this is a realistic option in the long run.
+
+@sipa I've thought long and hard about the better way to respond to this.
+
+I think we need to define, "the database."
+
+Is the Tape, on which all 1's and 0's, are passed, "the database"?
+
+Or is the UTXO set, and the block headers, that determine what gets added to the Tape...
+
+I do not deny that the size of the Tape is critically important to regulate.
+
+But Bitcoin already has.
+
+What I'm asking is, are 1s and 0s explicitly outside of the "database,"
+
+That governs the Machine called Core.
+
+Within the scope of the "database"
+
+Of which you are understandably concerned.
+
+----
+
+I failed to properly disclose, in this writeup, the precise mechanism by which data is inscribed.
+
+But intentionally built btcscribe.org, as a separate primitive.
+
+That could enable trustless "scribing" without the creation of new UTXOs.
+
+Not only is this better for the user (cheaper fees, while maintaining visibility into their inscription, via mempool.space)
+
+It is better for Core, and frankly the only responsible way to place data on it.
+
+-----
+Understandably, there has been a lot of uneasiness, about the expansion of the size of the UTXO set, created by "inscriptions."
+
+But we have to define what is causing it.
+
+It isn't the act of adding otherwise meaningless 1's and 0's to the Tape.
+
+It is the act of assigning something of Value.
+
+Which demands, at least initially, its own UTXO.
+
+----
+Point being,
+
+The act of creation, of new UTXO's, is really what matters.
+
+Especially if that act of creation, is done on behalf of assets, that are not long-lived.
+
+----
+That being said,
+
+Thank you for your reply. It means a lot coming from you.
+
+I hoped this would be a tool that was well-received by developers,
+
+Because it tries to solve a real pain point, associated with the act of holding, "bitcoin-the-asset."
+
+Nevertheless, I acknowledge,
+
+That I could have been more direct about the care I took to remain consensus-compatible.
+
+---
+I'd also note, that unlike some new metaprotocols being developed,
+
+There is no long-term dependency, in the act of making the inscription.
+
+A descriptor, once placed on the Tape, is therefore forever.
+
+And there is no need, to encrypt it there twice.
+
+-----
+Moreover, this is really just a proof-of-concept.
+
+There are WAY better ways of packaging this data effectively, in a long-term well designed and maintainable piece of software.
+
+I built what I built in Javascript in the client, only because it was easy / AI-aided during setup.
+
+And the indexer is only built in JS because that's where the JS encryptor descriptor logic already was.
+
+In practice, you'd want to build a tool like this in rust, or in some other low-dependency way.
+
+----
+My point, is merely that this post was made for a tool that I believed in my heart of hearts to be consensus-compatible, and your comment was deeply discouraging, even though I'm sure that is not how you meant it. I had no idea who you were, until later, when I clicked on your username.
+
+(Thank you for responding! You have no idea how giddy it made me)
+
+-----
+Wrapping up, I'd like to acknowledge that Delving Bitcoin may have been the wrong place to post this.
+
+I didn't consider doing so, until someone from BitDevs ATL, suggested doing it.
+
+I think it's important, that Core, recognizes that it is critical to consensus,
+
+That data be recognized as important.
+
+That is not consensus compatible.
+
+Re-framing, that came out wrong,
+
+What I mean, is that I think Core, as the Machine that governs the Tape,
+
+Should intentionally, with purpose, be reserving 1s and 0s
+
+And creating ways for developers and users to do so
+
+In an incentive compatible way.
+
+This means considering "official" ways to place data in the Witness.
+
+In a single transaction.
+
+------
+By my understanding, this is already possible, via the taproot annex.
+
+But, perhaps fortunately, hardly any developer knows about it.
+
+------
+A proposal, though, could easily be made, however, for a preemptive soft fork,
+
+Assigning the first bit of the first byte in the annex,
+
+To designate a promise by "Core"
+
+To never be touched.
+
+This would, at the very least,
+
+Provide an incentive-compatible way,
+
+For 1s and 0s to be reserved in the Witness.
+
+-----
+Without it,
+
+Core must trust a non-explicit process
+
+Of economic actors weeding out such transactions
+
+And preventing them from showing up onchain.
+
+-----
+In summary,
+
+It is my sincere belief.
+
+That the act of reserving 1s and 0s
+
+With the explicit promise of never being touched by Core,
+
+Is a fundamental necessity to long-term consensus.
+
+------
+In the worst case,
+
+A well-intentioned developer builds an extremely powerful new primitive that lives there,
+
+That enables legitimate, significant forms of Capital, otherwise aligned with bitcoin-the-asset,
+
+To live 
+
+On the Tape
+
+But solely inside the annex
+
+And in a way that precludes Core
+
+From ever using it
+
+Without breaking the representation of Capital for everyone else.
+
+This could create enormous incentives,
+
+For actors non necessarily aligned with bitcoin-the-asset,
+
+To try to restrict Core from using the annex.
+
+-----
+Avoid it,
+
+it should be avoided at all costs.
+
+An explicit guarantee,
+
+A pointer to developers
+
+An indication of what is and is not safe
+
+Is so, so important.
+
+The days of bitcoin-the-asset
+
+Being the only asset of Value
+
+To live on the Tape.
+
+Are not guaranteed to last forever...
+
+------
+Sincerely,
+
+Josh
+
+-------------------------
+
