@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 239,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 1199.6,
+  "incoming_link_count": 257,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 1304.8,
   "yours": false,
   "topic_id": 1451,
   "topic_slug": "bitcoin-forking-guide",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I appreciated the perspective the [bcap](https://github.com/bitcoin-cap/bcap) project offered regarding consensus changes within Bitcoin, but one thing I found a bit dissatisfying was that it lacked specific recommendations on how you should do things, whether as someone proposing consensus changes, or as one of the \"stakeholders\" who might want to exercise some influence over proposed changes.\n\nBut I guess 2025 is the year of \"you can just do things\", so why not be the change I want to see in the world, and write my own guide to making consensus changes in Bitcoin? That also lets me tweak bcap's list of stakeholders into my preferred set of roles. So here it is:\n\nhttps://ajtowns.github.io/bfg/\n\nIf you prefer to TLDR, the key idea is in the first paragraph:\n\n> This guide advocates the approach of ***consensus before consensus***;\nnamely that it is important to establish social consensus in favour\nof a change prior to changing the consensus code that will make the\nchange reality.\n\nIt's not intended to be the be-all and end-all of how to change Bitcoin -- after all, that's not a goal that's compatible with a decentralised system in the first place.\n\nAs such, there's obviously no teeth, per se, to any of its recommendations. At best the only real potential enforcement of any of its recommendations are either your conscience saying \"you know, that recommendation is probably a good idea, maybe you should actually do it that way\", or other people saying \"you seem like you're skipping major steps here; that seems shady, so I don't think I can support you\". But conversely, if you're skipping steps because you have good reasons, that's fine: it's a guide, not a cop.\n\nBeyond that, it's also only a fairly high-level guide. In practice, following the steps outlined will require drilling down into a lot of fiddly details at every stage, and doing a lot of work to get all those details right. This isn't a shortcut for how to have your way with a two-trillion dollar asset.\n\nAnd finally, it's only a guide to the cooperative path, where you make a change that makes everyone's life better, and more or less everyone ends up agreeing that the change makes everyone's lives better. It doesn't provide a path to activation for changes that want to make a more utilitarian calculation where more some people might lose, but more people benefit (apart from saying that until that changes they don't achieve consensus, and so get stuck forever in the early phases).\n\nAnyway, I wanted to put forward some concrete, constructive thoughts on what I think is a sensible approach to changing bitcoin looks like, and that's it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
