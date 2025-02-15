@@ -666,3 +666,56 @@ In a system with bi-directional reputation, we’re able to enforce that both en
 
 -------------------------
 
+morehouse | 2025-02-14 22:07:12 UTC | #8
+
+[quote="carla, post:7, topic:1147"]
+The graph below shows the attacker’s reputation with the target node in a sink attack against a graph centered on the acinq node where the attacker bootstraps their reputation for 90 days before starting an attack.
+[/quote]
+
+It's interesting that the reputation delta fluctuates so much.  Once the hodling begins, the attacker's reputation should be strictly decreasing.  So I presume the delta variance is entirely from fluctuations in the target node's incoming revenue?
+
+Or perhaps some variance is from the randomness of endorsed payments being sent to the attacker.  It would be interesting to see at which points on the graph did new endorsed payments arrive at the attacker.  We could also reduce that variance by having the attacker take a more direct approach to jamming -- after building reputation, they would send themselves a payment of the maximum amount they can get endorsed and hodl.
+
+I'm also curious how you chose to exclude outliers and how the graph looks with them included.
+
+[quote="carla, post:7, topic:1147"]
+In a system with bi-directional reputation, we’re able to enforce that both ends of the channel are compensated (either directly through the attacker’s payments or transitively because they’ll have to build up reputation on both ends). In the original example, `M0` will need to build incoming reputation with `T` in addition to `M1` building outgoing reputation with `T`’s peers to achieve the same attack.
+[/quote]
+
+So with outgoing reputation the final nodes in the jamming path get compensated.  And with incoming reputation the initial nodes in the jamming path get compensated.  What about all the intermediate nodes in the jamming path?
+
+Consider a simple example:
+
+```mermaid height=60,auto
+graph LR 
+M0 --- A --- T --- B --- M1
+```
+
+`M0` builds reputation with `A`, `M1` builds reputation with `B`, and then the malicious nodes jam the `A-T` and `T-B` channels.  `T` gets nothing in this case.
+
+If the goal is to compensate *all* victims of a jamming attack, I don't think the current reputation algorithm can do that, bidirectional or not.
+
+### Path-Length Attack Multiplier
+
+In general, the problem gets worse the more intermediate nodes there are.  Not only do those intermediate nodes not get compensated, but also the attacker's cost remains fixed while the damage multiplies.
+
+The worst case involves a maximum route of 27 hops, with the attacker able to route endorsed payment(s) across all of them while only paying to build reputation with the edge nodes (`A` and `B`):
+
+```mermaid height=60,auto
+graph LR
+M0 --- A --- T0 --- TX((...))--- T23 --- B --- M1
+```
+
+Equivalently (and more realistically), the attacker can use circular routing to multiply the damage across a smaller core of target nodes:
+
+```mermaid height=95,auto
+graph LR
+M0 --> T0 --> T1
+T1 --> T2 --> T0
+T2 --> M1
+```
+
+Thus once the attacker has enough reputation to route a single endorsed HTLC, they can actually do ~24x as much jamming and reputation damage (8 HTLC cycles * 3 target channels).
+
+-------------------------
+
