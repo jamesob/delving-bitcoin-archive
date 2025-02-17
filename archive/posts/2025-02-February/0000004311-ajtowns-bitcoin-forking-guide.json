@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 277,
-  "reads": 28,
-  "readers_count": 27,
-  "score": 1335.4,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 1436.2,
   "yours": false,
   "topic_id": 1451,
   "topic_slug": "bitcoin-forking-guide",
@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": true,
@@ -59,7 +59,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "rocket",
@@ -68,6 +68,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }

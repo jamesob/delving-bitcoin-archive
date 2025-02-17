@@ -27,3 +27,26 @@ Anyway, I wanted to put forward some concrete, constructive thoughts on what I t
 
 -------------------------
 
+ariard | 2025-02-16 21:49:14 UTC | #2
+
+From a brief read, I think the guide is summarizing well how social consensus can be build by the champions of any consensus change before reaching technical consensus.
+
+> Comparing your idea to similar ideas from the past
+
+> Documenting the tradeoffs of your idea versus other approaches
+
+I believe this is where we have been mostly been stuck as a community at the very large, especially for covenants and contracting primitives in the last years. There is a multitude of ideas on how to do covenant the Right Way, and of course every time the primitive design is influenced by the use-case(s) thought off.
+
+That phenomena is easy to point out to the 3 or 4 payments pools designed that have been proposed where according to the off-chain construction semantics wished, the primitive expressivity has changed. This kind of phenomena generally generate a lot of frustration among the bona fides devs and stakeholders involved and it has even led some to claim that the consensus process is "**memoryless**" as the same arguments are re-hashed again and again
+from year to another. This is not completely wrong as a viewpoint.
+
+In my view, we are suffering less than a lack of consensus change methodology and more of a lack of a high-quality technical **archive**, from which researcher and protocol dev in your terminology can converge on same set of experiences, ideas and frameworks argued on. Said archive maintained and established with the highest degree of objectivity and with the best of human ability to do things with a no partisan and disinterested mindset.
+
+There is a page of the bitcoin wiki which is listing people's opinion on a bunch of soft-forks, though it's very **people-centric** rather than being **ideas-centric**. I.e pointing out what are the trade-offs among all the soft-forks proposals or what use-cases are enabled by the proposals, and then having people's taking positions w.r.t the ideas.
+
+There has been attempt with the [Bitcoin Contracting Primitives WG](https://github.com/ariard/bitcoin-contracting-primitives-wg) in the past, where public IRC meetings were organized for people to speak about their different levels of understanding of a proposal and there was also a [similar attempt](https://github.com/bitcoinops/bitcoinops.github.io/pull/806) by the Optech folk to extensively document covenants.
+
+(-- I do not plan to resurrect the Bitcoin Contracting Primitives WG, no time and no interest, though if optech or others with sufficient credibility are thinking to do the hard work of maintaining a public online archive to document proposed consensus change I believe it would be welcome as a nice initiative).
+
+-------------------------
+
