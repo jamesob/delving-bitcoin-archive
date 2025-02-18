@@ -337,9 +337,9 @@ One other thing is that FIBRE is designed for UDP transmission to avoid delays d
 
 -------------------------
 
-sipa | 2025-02-18 14:51:21 UTC | #23
+sipa | 2025-02-18 20:53:04 UTC | #23
 
-@0xB10C Would it be possible to see if @glozow's [PR 31829](https://github.com/bitcoin/bitcoin/pull/31829) measurably changes the numbers you see?
+(post deleted by author)
 
 -------------------------
 
