@@ -27,3 +27,20 @@ edit3: In total, the node requested about 200k unique txids with `Requesting tx`
 
 -------------------------
 
+glozow | 2025-02-18 20:36:11 UTC | #3
+
+Thanks as always for the awesome stats!
+
+[quote="0xB10C, post:2, topic:1421"]
+I found >10M removals on, for example, 2024-09-14 across all nodes to be surprising. Looking at data from node alice on 2024-09-14 shows that we’re sometimes removing more than 100k orphans per minute. This feels like someone flooding us with orphans.
+[/quote]
+
+[quote="0xB10C, post:2, topic:1421"]
+
+edit3: In total, the node requested about 200k unique txids with `Requesting tx` that day. It seems like it forgot about the orphans and re-requested them multiple times.
+[/quote]
+
+fwiw, this is good motivation for increasing the capacity + making it more difficult for any one peer to churn orphanage: https://github.com/bitcoin/bitcoin/pull/31829
+
+-------------------------
+
