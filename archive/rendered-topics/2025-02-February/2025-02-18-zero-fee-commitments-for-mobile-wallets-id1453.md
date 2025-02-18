@@ -1,0 +1,140 @@
+# Zero-fee commitments for mobile wallets
+
+t-bast | 2025-02-18 13:06:24 UTC | #1
+
+Work is currently ongoing to add support for [zero-fee commitments](https://github.com/lightning/bolts/pull/1228) to lightning channels.
+
+In this post, I'd like to share my ideas on how this commitment format can be tweaked for mobile wallets, and gather feedback from the community.
+
+This will eventually be translated into a [bLIP](https://github.com/lightning/blips) once we agree on a satisfying solution.
+
+Let's first take a look at the threat model for mobile wallets: since mobile wallets don't relay payments, they have less attack surface than routing nodes.
+
+However, most mobile wallets don't have on-chain utxos available: our challenge is to find ways to get force-close transactions confirmed using existing channel outputs only.
+
+## Mobile wallet funds safety
+
+### Revoked commitments
+
+Mobile wallets must be able to publish penalty transactions if their peer broadcasts a revoked commitment.
+
+This will work trivially with zero-fee commitments: channel outputs can be spent immediately (no CSV delay), so they can be used to pay the on-chain fees. We don't have to change anything here compared to the BOLTs.
+
+### Received HTLCs
+
+When receiving HTLCs, a mobile wallet is the final recipient. The only way the peer can steal funds is:
+
+- the mobile wallet fulfills the HTLC (by sending `update_fulfill_htlc` with the preimage)
+
+- the peer then forwards that preimage to its own peers, which ensures that it has been paid (the payer receives the preimage)
+
+- they go silent and don't revoke their previous commitment (which contains the HTLC)
+
+- they wait for the HTLC to timeout to try to claim it on-chain
+
+Before the HTLC timeout, the mobile wallet must:
+
+- broadcast their commitment transaction
+
+- broadcast their HTLC-success transaction
+
+- get those two transactions confirmed
+
+### Sent HTLCs
+
+When sending HTLCs, a mobile wallet is the payer: funds thus can never be stolen by the peer. If the payment succeeds, the peer must reveal the preimage to claim the funds, at which point the mobile wallet has a proof of payment.
+
+An interesting thing to note is that mobile wallets are never in a rush to claim HTLCs when they timeout. They don't have funds at stake in an upstream channel since they are the payer, so they could potentially wait longer to see if their peer reveals the preimage.
+
+Even after force-closing and publishing their HTLC-timeout transaction, if their peer publishes an HTLC-success transaction, the mobile wallet has not lost any funds: the payment can instead simply be considered fulfilled.
+
+So the only thing the peer can do is griefing (not stealing):
+
+- the mobile wallet sends an HTLC
+
+- this HTLC times out
+
+- the peer never fails the HTLC, which remains in the commitment transaction
+
+- the funds used by that HTLC cannot be re-used until the HTLC is failed
+
+At that point, to recover their funds, the mobile wallet must:
+
+- broadcast their commitment transaction
+
+- broadcast their HTLC-timeout transaction
+
+- get those two transactions confirmed
+
+Note that there is no deadline before which those transactions must confirm and the peer doesn't have anything to gain from this griefing.
+
+### Unresponsive peer without HTLCs
+
+When there are no pending HTLCs, no funds are at risk.
+
+But the mobile wallet user can still be griefed if their peer becomes unresponsive or disappears.
+
+To recover their funds, they must be able to:
+
+- broadcast their commitment transaction
+
+- claim their main output
+
+Note that there is no deadline before which those transactions must confirm and the peer doesn't have anything to gain from this griefing.
+
+## Additional signatures for HTLC transactions
+
+With zero-fee commitments [as proposed in the BOLTs](https://github.com/lightning/bolts/pull/1228), mobile wallets will mostly rely on their peer publishing their commitment transaction. This way the mobile wallet can use their main output (or any HTLC output) to CPFP that commitment transaction and get it confirmed.
+
+The main issue arises when the peer isn't cooperative and the mobile wallet has to publish their commitment transaction. That transaction usually has a `0 sat` anchor output and the main output has a `to_self_delay` CSV. So the only option to CPFP without additional inputs is to use HTLC transactions, but they are pre-signed and don't pay fees either.
+
+A very simple proposal to fix that is to have the peer always sign two versions of HTLC transactions:
+
+- the default one that doesn't pay any fee and needs additional on-chain inputs
+
+- and another one in a custom TLV of `commitment_signed` at a high feerate that matches the currently observed feerate
+
+- if the peer doesn't provide those signatures, the mobile wallet can force-close before revoking the commitment that doesn't contain the new HTLCs
+
+This way, when HTLCs are pending, the mobile wallet can always publish their commitment transaction and CPFP it using one of the HTLC transactions. Since funds can only be stolen for received HTLCs, which should expire somewhat quickly after being received, fee estimation can be somewhat accurate.
+
+With this simple addition, mobile wallets are able to unilaterally force-close when HTLCs are pending.
+
+The only scenario that isn't fixed is the "Unresponsive peer without HTLCs" scenario. But this scenario can never be fixed by pre-signing transactions at various feerates, because we have no idea at which point in the future the peer will become unresponsive. On top of that, funds are not at risk in this scenario, which should only happen when an LSP completely disappears without closing channels. I think it's acceptable that when this happens, mobile wallet users will need *someone* (which could be an on-chain wallet they own) to spend the anchor output to CPFP the commitment transaction.
+
+I like this proposal because it is trivial to implement and doesn't require a lot of changes compared to the default zero-fee commitment format. Please let me know what you think, and if you have other ideas on how we could make zero-fee commitments work seamlessly with mobile wallets.
+
+-------------------------
+
+harding | 2025-02-18 14:31:14 UTC | #2
+
+[quote="t-bast, post:1, topic:1453"]
+A very simple proposal to fix that is to have the peer always sign two versions of HTLC transactions:
+
+* the default one that doesn’t pay any fee and needs additional on-chain inputs
+* and another one in a custom TLV of `commitment_signed` at a high feerate that matches the currently observed feerate
+[/quote]
+
+This seems pretty clever.  Am I understanding correctly that the fees for the high feerate will be deducted from the balance of the channel opener in the current way?  Since we would always expect the mobile wallet to be the channel opener, that means (1) it costs the peer nothing to offer the mobile wallet a high feerate option and (2) the mobile wallet has an incentive to not use the high-feerate option unless it's actually necessary for safety or recovering liquidity from a stale channel.
+
+-------------------------
+
+t-bast | 2025-02-18 14:54:25 UTC | #3
+
+[quote="harding, post:2, topic:1453"]
+Am I understanding correctly that the fees for the high feerate will be deducted from the balance of the channel opener in the current way?
+[/quote]
+
+Not exactly the channel opener, but rather the owner of the HTLC transaction (ie the mobile wallet), which is even better (and as you highlight, doesn't cost anything to the peer): those fees are deducted from the output of the HTLC tx. Your conclusions correctly apply though!
+
+The only thing to be careful about is that we shouldn't use an unreasonably high feerate, otherwise the following attack can be performed by the mobile wallet user:
+
+- the mobile wallet receive a batch of HTLCs for which the fee-paying pre-signed transaction consumes almost all of the HTLC amount to fees
+- the mobile wallet then fulfills those HTLCs
+- later, they publish the revoked commitment that contains all of those HTLCs
+- since most of the value goes to mining fees, it cannot be claimed by the peer as penalty transactions
+
+This type of attack is why we had to make HTLC transactions pay 0 fees in anchor outputs to protect against miners attacking lightning peers. But in this specific case, the LSP can mitigate that risk by not overshooting the feerate and/or trying to detect that kind of behavior and refusing to relay "risky" HTLCs. Details need to be fleshed out for that, but I'm not too worried, I think we can come up with something that guarantees that the LSP doesn't take too much risk as long as they have some honest users.
+
+-------------------------
+
