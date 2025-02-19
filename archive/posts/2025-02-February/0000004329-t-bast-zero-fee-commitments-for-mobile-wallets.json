@@ -1,0 +1,73 @@
+{
+  "id": 4329,
+  "name": "Bastien Teinturier",
+  "username": "t-bast",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png",
+  "created_at": "2025-02-19T14:45:41.602Z",
+  "cooked": "<p>I\u2019m not sure I understand the issue: let me describe with more details that pre-signed transaction, that should help figure out if it works or not!</p>\n<p>Let\u2019s assume we have one pending incoming HTLC of 20 000 sat (from the mobile wallet\u2019s point of view). Outgoing HTLCs will work exactly the same.</p>\n<p>If we only follow the BOLTs, the HTLC-success transaction that is signed by the LSP will be:</p>\n<ul>\n<li>one input (the corresponding 20 000 sat HTLC output from the commitment transaction)</li>\n<li>one output with amount 20 000 sat (the transaction doesn\u2019t pay any fee)</li>\n<li>it is signed with <code>SIGHASH_SINGLE | SIGHASH_ANYONECANPAY</code></li>\n</ul>\n<p>I proposed also signing a second version of that HTLC-success transaction:</p>\n<ul>\n<li>one input (the corresponding 20 000 sat HTLC output from the commitment transaction)</li>\n<li>one output with amount 17 500 sat (or a different value based on the feerate chosen)</li>\n<li>it is still signed with <code>SIGHASH_SINGLE | SIGHASH_ANYONECANPAY</code></li>\n</ul>\n<p>If the mobile wallet needs to force-close and the LSP isn\u2019t cooperating, it will publish a package containing:</p>\n<ul>\n<li>its commitment transaction, which contains:\n<ul>\n<li>its main output, which has a long CSV delay</li>\n<li>the LSP\u2019s main output</li>\n<li>the shared anchor, which is likely 0 sat</li>\n<li>the HTLC output</li>\n</ul>\n</li>\n<li>the second pre-signed HTLC-success transaction, modified to also spend the shared anchor, with the mobile wallet adding a <code>SIGHASH_ALL</code> signature</li>\n</ul>\n<p>This package pays 2500 sats of fees, and I believe this should work fine with ephemeral dust policy as it spends the commitment\u2019s dust P2A?</p>",
+  "post_number": 6,
+  "post_type": 1,
+  "updated_at": "2025-02-19T14:46:22.347Z",
+  "reply_count": 0,
+  "reply_to_post_number": 5,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 2,
+  "readers_count": 1,
+  "score": 0.4,
+  "yours": false,
+  "topic_id": 1453,
+  "topic_slug": "zero-fee-commitments-for-mobile-wallets",
+  "topic_title": "Zero-fee commitments for mobile wallets",
+  "topic_html_title": "Zero-fee commitments for mobile wallets",
+  "category_id": 7,
+  "display_username": "Bastien Teinturier",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "harding",
+    "name": "David A. Harding",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I'm not sure I understand the issue: let me describe with more details that pre-signed transaction, that should help figure out if it works or not!\n\nLet's assume we have one pending incoming HTLC of 20 000 sat (from the mobile wallet's point of view). Outgoing HTLCs will work exactly the same.\n\nIf we only follow the BOLTs, the HTLC-success transaction that is signed by the LSP will be:\n\n- one input (the corresponding 20 000 sat HTLC output from the commitment transaction)\n- one output with amount 20 000 sat (the transaction doesn't pay any fee)\n- it is signed with `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY`\n\nI proposed also signing a second version of that HTLC-success transaction:\n\n- one input (the corresponding 20 000 sat HTLC output from the commitment transaction)\n- one output with amount 17 500 sat (or a different value based on the feerate chosen)\n- it is still signed with `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY`\n\nIf the mobile wallet needs to force-close and the LSP isn't cooperating, it will publish a package containing:\n\n- its commitment transaction, which contains:\n  - its main output, which has a long CSV delay\n  - the LSP's main output\n  - the shared anchor, which is likely 0 sat\n  - the HTLC output\n- the second pre-signed HTLC-success transaction, modified to also spend the shared anchor, with the mobile wallet adding a `SIGHASH_ALL` signature\n\nThis package pays 2500 sats of fees, and I believe this should work fine with ephemeral dust policy as it spends the commitment's dust P2A?",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 101,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

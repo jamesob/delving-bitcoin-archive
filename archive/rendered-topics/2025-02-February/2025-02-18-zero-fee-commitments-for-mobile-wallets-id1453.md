@@ -164,3 +164,47 @@ I think this is a risk that is worth taking by wallet providers (who are betting
 
 -------------------------
 
+harding | 2025-02-19 14:21:01 UTC | #5
+
+[quote="t-bast, post:1, topic:1453"]
+A very simple proposal to fix that is to have the peer always sign two versions of HTLC transactions:
+
+* the default one that doesn’t pay any fee and needs additional on-chain inputs
+* and another one in a custom TLV of `commitment_signed` at a high feerate that matches the currently observed feerate
+[/quote]
+
+Will the second (custom) variant also include a zero-fee P2A?  If so, doesn't the mobile wallet still need another UTXO to spend the P2A output to make the transaction relayable under the ephemeral dust policy?
+
+-------------------------
+
+t-bast | 2025-02-19 14:46:22 UTC | #6
+
+I'm not sure I understand the issue: let me describe with more details that pre-signed transaction, that should help figure out if it works or not!
+
+Let's assume we have one pending incoming HTLC of 20 000 sat (from the mobile wallet's point of view). Outgoing HTLCs will work exactly the same.
+
+If we only follow the BOLTs, the HTLC-success transaction that is signed by the LSP will be:
+
+- one input (the corresponding 20 000 sat HTLC output from the commitment transaction)
+- one output with amount 20 000 sat (the transaction doesn't pay any fee)
+- it is signed with `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY`
+
+I proposed also signing a second version of that HTLC-success transaction:
+
+- one input (the corresponding 20 000 sat HTLC output from the commitment transaction)
+- one output with amount 17 500 sat (or a different value based on the feerate chosen)
+- it is still signed with `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY`
+
+If the mobile wallet needs to force-close and the LSP isn't cooperating, it will publish a package containing:
+
+- its commitment transaction, which contains:
+  - its main output, which has a long CSV delay
+  - the LSP's main output
+  - the shared anchor, which is likely 0 sat
+  - the HTLC output
+- the second pre-signed HTLC-success transaction, modified to also spend the shared anchor, with the mobile wallet adding a `SIGHASH_ALL` signature
+
+This package pays 2500 sats of fees, and I believe this should work fine with ephemeral dust policy as it spends the commitment's dust P2A?
+
+-------------------------
+

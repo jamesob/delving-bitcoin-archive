@@ -12,9 +12,9 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 23.0,
   "yours": false,
   "topic_id": 1453,
   "topic_slug": "zero-fee-commitments-for-mobile-wallets",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"harding, post:2, topic:1453\"]\nAm I understanding correctly that the fees for the high feerate will be deducted from the balance of the channel opener in the current way?\n[/quote]\n\nNot exactly the channel opener, but rather the owner of the HTLC transaction (ie the mobile wallet), which is even better (and as you highlight, doesn't cost anything to the peer): those fees are deducted from the output of the HTLC tx. Your conclusions correctly apply though!\n\nThe only thing to be careful about is that we shouldn't use an unreasonably high feerate, otherwise the following attack can be performed by the mobile wallet user:\n\n- the mobile wallet receive a batch of HTLCs for which the fee-paying pre-signed transaction consumes almost all of the HTLC amount to fees\n- the mobile wallet then fulfills those HTLCs\n- later, they publish the revoked commitment that contains all of those HTLCs\n- since most of the value goes to mining fees, it cannot be claimed by the peer as penalty transactions\n\nThis type of attack is why we had to make HTLC transactions pay 0 fees in anchor outputs to protect against miners attacking lightning peers. But in this specific case, the LSP can mitigate that risk by not overshooting the feerate and/or trying to detect that kind of behavior and refusing to relay \"risky\" HTLCs. Details need to be fleshed out for that, but I'm not too worried, I think we can come up with something that guarantees that the LSP doesn't take too much risk as long as they have some honest users.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
