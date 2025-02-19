@@ -606,7 +606,7 @@ It actually makes sense, once ECC enters the game, everything else becomes irrel
 
 -------------------------
 
-halseth | 2025-02-18 21:43:39 UTC | #28
+halseth | 2025-02-19 16:19:46 UTC | #28
 
 I did work on a new approach where we do the signature verification on a blinded key, such that we can move the heavy EC operations outside the ZK environment (see the discussion here: https://github.com/halseth/output-zero/issues/10).
 
@@ -616,7 +616,9 @@ This results in the SHA-512 hashing in verifying the utreexo proof dominating th
 
 @Davidson How easy is it to either 
 1) Switch to using the `poseidon2` hash function for this, OR
-2) use the Risc0 precompile for SHA-512 (it looks like rustreexo is using the `bitcoin_hashes::Sha512` implementation).
+2) ~~use the Risc0 precompile for SHA-512 (it looks like rustreexo is using the `bitcoin_hashes::Sha512` implementation).~~
+
+I see that this is made possible in the latest rustreexo release :+1:
 
 -------------------------
 

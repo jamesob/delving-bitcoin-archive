@@ -218,3 +218,65 @@ That LGTM.  Thanks for writing it out in detail!
 
 -------------------------
 
+morehouse | 2025-02-19 16:11:27 UTC | #8
+
+[quote="t-bast, post:6, topic:1453"]
+I proposed also signing a second version of that HTLC-success transaction:
+
+* one input (the corresponding 20 000 sat HTLC output from the commitment transaction)
+* one output with amount 17 500 sat (or a different value based on the feerate chosen)
+* it is still signed with `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY`
+[/quote]
+
+We would want to sign this new variant with `SIGHASH_ALL`.
+
+The only reason to do `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` is so the mobile user can add their own input and output to pay fees, which we're trying to avoid here.  And allowing the user to add their own outputs means that they can claim any excess mining fees for *themselves* when broadcasting a revoked commitment+HTLC package.
+
+In the above example, the wallet user could broadcast the revoked package and claim some portion of the 2500 sat intended for fees.  Depending on the size of the channel and whether the LSP allows zero-reserve, it shouldn't be difficult for the user to profit from this.
+
+-------------------------
+
+t-bast | 2025-02-19 16:18:32 UTC | #9
+
+Right, good catch @morehouse! The additional pre-signed transaction should indeed then include the P2A output from the commitment transaction and use `SIGHASH_ALL`. If the mobile wallet can actually leverage `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` by adding inputs to pay fees, they should use the default 0-fee HTLC transaction.
+
+-------------------------
+
+morehouse | 2025-02-19 18:28:29 UTC | #10
+
+[quote="t-bast, post:1, topic:1453"]
+A very simple proposal to fix that is to have the peer always sign two versions of HTLC transactions:
+
+* the default one that doesn’t pay any fee and needs additional on-chain inputs
+* and another one in a custom TLV of `commitment_signed` at a high feerate that matches the currently observed feerate
+* if the peer doesn’t provide those signatures, the mobile wallet can force-close before revoking the commitment that doesn’t contain the new HTLCs
+[/quote]
+
+How will feerates be negotiated between the user and the LSP?  I think this might add some complexity...
+
+### User decides, LSP accepts/rejects
+
+If we just use what exists today, the user needs to periodically send `update_fee` to the LSP, so that the LSP uses the correct feerate when forwarding HTLCs to the user.  But if the user is offline for a while (as mobile users often are), the LSP may end up forwarding an HTLC with too low of a feerate.  In that case, the user would need to NACK the HTLC somehow.  Currently there's three ways to (kind of) do this:
+
+1. Accept the HTLC, sign updated commitments, and then fail it.
+2. Force close.
+3. Disconnect and reconnect with the peer.
+
+Option 1 might work if we're careful.  A state is created where the HTLC is accepted and the user's commitment+HTLC package won't confirm in a timely manner.  But the current HTLC is safe from theft because the user will fail it without revealing the preimage.  The only concern is theft of any *previous* HTLCs on the commitment for which the user has already revealed the preimage.  It seems like a rare corner case, but we'd need to think carefully about how to avoid or get out of that situation.  Option 1 also has bad UX since the entire payment gets failed back to the sender even though the payment path was fine.
+
+Option 2 protects from theft, but also sucks from a UX perspective.  Especially if the the previous commitment has no HTLCs on it -- then the user *can't* force close and would need to wait for the HTLC to expire and for the LSP to force close.
+
+In theory, Option 3 could work.  But in practice today's implementations simply resend the same commitment updates on reconnection, so I don't think the user would be able to do `update_fee` before the LSP resends the same commitment and HTLC signatures.
+
+### LSP decides, user accepts/rejects
+
+The LSP could just choose the feerate on its own and use it when forwarding HTLCs to the user.  If the user thinks the feerate is too high/low, they (once again) need some way to NACK the HTLC.  In that case we have the same options and problems described above.
+
+To be fair, this feerate disagreement should only be expected during times of feerate spikes, which current lightning channels already have issues with.  But zero-fee commitments were supposed to fix this issue, so it's unfortunate that this approach brings it back.
+
+### Add a new NACK mechanism
+
+I think there was discussion about adding a NACK mechanism to `option_simplified_update` at some point, but the [current spec proposal](https://github.com/lightning/bolts/pull/867) doesn't have it.  We could either wait for that, or implement something special purpose for this case.  Either one is probably more work than we want.
+
+-------------------------
+
