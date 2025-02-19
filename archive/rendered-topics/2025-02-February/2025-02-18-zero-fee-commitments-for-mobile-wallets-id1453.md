@@ -138,3 +138,29 @@ This type of attack is why we had to make HTLC transactions pay 0 fees in anchor
 
 -------------------------
 
+t-bast | 2025-02-19 09:44:53 UTC | #4
+
+Let me clarify my previous comment about revoked commitments, which was too vague. What a malicious wallet can do to its peer to abuse the additional pre-signed HTLC transactions is the following:
+
+- open a channel
+- wait for the mempool feerate to be high
+- send its whole balance out (to another node it controls)
+- once the HTLCs are fulfilled, it only has its channel reserve at stake (which may be `0 sat` if the wallet provider allows zero-reserve)
+- broadcast the revoked commitment where the HTLCs were still pending
+- broadcast the HTLC transactions that pay non-zero fees
+
+The peer will be able to publish penalty transaction to claim the outputs of those HTLC transactions. But it won't be able to claim the HTLC transaction fees, which will go to miners. In that case, it's similar to the wallet peer paying the on-chain fees, whereas they should be paid by the wallet user.
+
+This is the risk taken by the wallet peer when offering those pre-signed HTLC transactions. This risk is however offset by the following facts:
+
+- the wallet peer should have earned fees for the channel creation
+- the wallet peer earned routing fees for the outgoing HTLC
+- the wallet peer decides the feerate, and could cap it to X% of the HTLC amount
+- splice transactions make it impossible to publish revoked commitments that happened before the splice
+- pathological scenarios like the one above can be detected and HTLCs can be failed instead of relayed when it looks risky
+- the wallet peer can limit the risk they take until they've earned enough fees from the wallet user (from routing or liquidity purchases)
+
+I think this is a risk that is worth taking by wallet providers (who are betting they will have enough honest users anyway) to provide good lightning trust trade-offs for their users.
+
+-------------------------
+
