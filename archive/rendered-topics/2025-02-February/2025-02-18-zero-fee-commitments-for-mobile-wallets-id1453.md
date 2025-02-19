@@ -208,3 +208,13 @@ This package pays 2500 sats of fees, and I believe this should work fine with ep
 
 -------------------------
 
+harding | 2025-02-19 15:14:08 UTC | #7
+
+[quote="t-bast, post:6, topic:1453"]
+the second pre-signed HTLC-success transaction, modified to also spend the shared anchor, with the mobile wallet adding a `SIGHASH_ALL` signature
+[/quote]
+
+That LGTM.  Thanks for writing it out in detail!
+
+-------------------------
+
