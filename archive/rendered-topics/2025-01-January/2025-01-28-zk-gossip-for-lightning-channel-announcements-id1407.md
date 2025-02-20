@@ -622,3 +622,13 @@ I see that this is made possible in the latest rustreexo release :+1:
 
 -------------------------
 
+halseth | 2025-02-20 16:04:59 UTC | #29
+
+Changing the utreexo hash function to using SHA-256 (which has a Risc0 precompile) reduces proving time to 22s using this approach:
+
+![Screenshot 2025-02-20 at 11.02.04|690x154](upload://pPbGPOfhwT7T9OfIO6mYvuuk6Dn.png)
+
+Now again the two EC multiplications (blinding the key and creating the taproot output key) dominates (in addition to ZKVM serde).
+
+-------------------------
+
