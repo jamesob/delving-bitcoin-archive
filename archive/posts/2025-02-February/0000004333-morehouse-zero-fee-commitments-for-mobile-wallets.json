@@ -8,13 +8,13 @@
   "post_number": 10,
   "post_type": 1,
   "updated_at": "2025-02-19T18:28:29.521Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 21.4,
   "yours": false,
   "topic_id": 1453,
   "topic_slug": "zero-fee-commitments-for-mobile-wallets",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"t-bast, post:1, topic:1453\"]\nA very simple proposal to fix that is to have the peer always sign two versions of HTLC transactions:\n\n* the default one that doesn\u2019t pay any fee and needs additional on-chain inputs\n* and another one in a custom TLV of `commitment_signed` at a high feerate that matches the currently observed feerate\n* if the peer doesn\u2019t provide those signatures, the mobile wallet can force-close before revoking the commitment that doesn\u2019t contain the new HTLCs\n[/quote]\n\nHow will feerates be negotiated between the user and the LSP?  I think this might add some complexity...\n\n### User decides, LSP accepts/rejects\n\nIf we just use what exists today, the user needs to periodically send `update_fee` to the LSP, so that the LSP uses the correct feerate when forwarding HTLCs to the user.  But if the user is offline for a while (as mobile users often are), the LSP may end up forwarding an HTLC with too low of a feerate.  In that case, the user would need to NACK the HTLC somehow.  Currently there's three ways to (kind of) do this:\n\n1. Accept the HTLC, sign updated commitments, and then fail it.\n2. Force close.\n3. Disconnect and reconnect with the peer.\n\nOption 1 might work if we're careful.  A state is created where the HTLC is accepted and the user's commitment+HTLC package won't confirm in a timely manner.  But the current HTLC is safe from theft because the user will fail it without revealing the preimage.  The only concern is theft of any *previous* HTLCs on the commitment for which the user has already revealed the preimage.  It seems like a rare corner case, but we'd need to think carefully about how to avoid or get out of that situation.  Option 1 also has bad UX since the entire payment gets failed back to the sender even though the payment path was fine.\n\nOption 2 protects from theft, but also sucks from a UX perspective.  Especially if the the previous commitment has no HTLCs on it -- then the user *can't* force close and would need to wait for the HTLC to expire and for the LSP to force close.\n\nIn theory, Option 3 could work.  But in practice today's implementations simply resend the same commitment updates on reconnection, so I don't think the user would be able to do `update_fee` before the LSP resends the same commitment and HTLC signatures.\n\n### LSP decides, user accepts/rejects\n\nThe LSP could just choose the feerate on its own and use it when forwarding HTLCs to the user.  If the user thinks the feerate is too high/low, they (once again) need some way to NACK the HTLC.  In that case we have the same options and problems described above.\n\nTo be fair, this feerate disagreement should only be expected during times of feerate spikes, which current lightning channels already have issues with.  But zero-fee commitments were supposed to fix this issue, so it's unfortunate that this approach brings it back.\n\n### Add a new NACK mechanism\n\nI think there was discussion about adding a NACK mechanism to `option_simplified_update` at some point, but the [current spec proposal](https://github.com/lightning/bolts/pull/867) doesn't have it.  We could either wait for that, or implement something special purpose for this case.  Either one is probably more work than we want.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

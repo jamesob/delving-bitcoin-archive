@@ -280,3 +280,21 @@ I think there was discussion about adding a NACK mechanism to `option_simplified
 
 -------------------------
 
+t-bast | 2025-02-20 08:43:54 UTC | #11
+
+I was leaning towards LSP decides and user accepts or rejects through option 1. I think this is the simplest way to implement this feature that doesn't lead to unwanted force-closes: also, since the LSP is always online and runs a bitcoin node, they have a more precise view of the feerate than the mobile wallet user will ever have.
+
+There is a risk that the LSP uses a feerate that is too low during feerate spikes that aren't detected by mobile wallet users in time: since by design mobile wallet users will never have a perfectly reliable view of the mempool/feerate (and nobody can predict the future), I don't think this can be completely fixed, so we'll have to live with the fact that it's not a perfect solution, but is still an improvement over the current anchor output channels!
+
+Mobile wallet users should also use longer `min_final_expiry_delta` than what they use today (which is between 24 and 36 blocks for Phoenix) to have more time to potentially get their HTLC-success transaction confirmed.
+
+I don't think we can ever have a 100% secure solution for mobile wallet users unless they use some form of watch-tower (which most people won't do): my goal is to raise the bar to make it as hard as possible for LSPs to cheat, without making the protocol more complex than it needs to be :man_shrugging: 
+
+[quote="morehouse, post:10, topic:1453"]
+Add a new NACK mechanism
+[/quote]
+
+I think this hasn't been added to the existing PR simply because it hasn't been updated in a while: it will probably be added once someone is ready to work on implementing this feature.
+
+-------------------------
+
