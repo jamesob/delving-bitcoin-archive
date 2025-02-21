@@ -719,3 +719,133 @@ Thus once the attacker has enough reputation to route a single endorsed HTLC, th
 
 -------------------------
 
+Purpletimez | 2025-02-20 21:18:23 UTC | #9
+
+Topological Graphic of "Sink" attack, afaiu.
+
+```
+                                                                 ------------------------
+                                                                  |                      |
+                                                        ----------|  direct neighbor #1  |---------
+                                                        |         |______________________|        |
+                                                        |                                         |
+                                                        |         ------------------------        |
+                                                        |         |                      |        |
+                                                        |---------|  direct neighbor #2  |--------|
+                                                        |         |______________________|        |
+                                                        |                                         |
+                                ---------------         |         ------------------------        |
+                                |             |         |         |                      |        |
+                ----------------| target node |---------|---------|  direct neighbor #3  |--------|
+                |               |_____________|         |         |______________________|        |
+                |                                       |                                         |
+                |                                       |         ------------------------        |
+                |                                       |         |                      |        |
+                |                                       |---------|  direct neighbor #4  |--------|
+                |                                       |         |______________________|        |
+                |                                       |                                         |
+                |                                       |         ------------------------        |
+                |                                       |         |                      |        |
+                |                                       |---------|  direct nighbor #5   |--------|
+                |                                                 |______________________|        |
+                |                                                                                 |
+        -----------------                                                                         |
+        |               |                                                                         |
+        | attacker node |                                                                         |
+        |_______________|                                                                         |
+                |                                                                                 | 
+                |                                                                                 |
+                |                                                                                 |
+                |                                                                                 |
+                |               ----------------------------                                      |
+                |               |                          |                                      |
+                |---------------| indirect neighbor * #15  |--------------------------------------|
+                                |__________________________|
+
+
+```
+
+[quote="carla, post:7, topic:1147"]
+Our results were pretty consistent across simulation runs. As the attacker holds endorsed payments, their reputation drops and the target node will stop forwarding them endorsed payments. In all simulations the attacker loses its reputation with the target quickly, and the target’s reputation does not drop below peacetime projections
+[/quote]
+
+Afaiu, a "sink" attack in the absence of outgoing reputation exploiting the lack of outgpoing reputation works in the following way, there is a target node A connected to a number of direct neighbor, which are themselves connected to a large indirect neighbor. A HTLC from a target node's direct neighbor at destination of an indirect neighbor is withheld for few hours during which there is no resolution.
+
+The attacker node might already general jam the channel links between the target node's direct neighbor and the indirect neighbor to provoke the traffic re-direction from the target node's peers links to the "destination" large node to the attacker carried links.
+
+In that simulation outline, still afaiu, the attacker should get a drop of the incoming reputation of the target node's peers links and hypothetically the target revenue has dropped below its revenue as time of no jam.
+
+What is not said in presenting the simulation results is if it is encompassing in the attack cost computation, the subsidiary cost of jamming the links between the direct neighbor and indirect neighbor to provoke the traffic re-direction.
+
+[quote="carla, post:7, topic:1147"]
+The graph below shows the attacker’s reputation with the target node in a sink attack against a graph centered on the acinq node where the attacker bootstraps their reputation for 90 days before starting an attack. The target will forward endorsed payments to the attacker when the reputation delta is > 0 and drop them otherwise.
+[/quote]
+
+While for simulation reproducibility, one can go to collect `channel_announcement` signed by the acinq node pubkey, this is only for pub channel and it doesn't display the private chan, which by design are not announced on the gossip network.
+
+I think it's an interesting research question if there is bootstrapping asymmetries in the design of
+local ressource conservation that an attacker could exploit by spawning of a lot of spikes nodes to a high-"pub-chan"-density routing node to downgrade the incoming or outgoing reputation of a node.
+
+[quote="carla, post:7, topic:1147"]
+Open to suggestions here if there’s any particular scenario that you’d like to see! Our current plan is to come up with some manufactured “worst case” topologies where the attacker is at a great advantage, with the reasoning that if the solution works there then it’ll work in less ideal scenarios as well.
+[/quote]
+
+If there is a repository somewhere for the traffic patterns samples that have been already run, that it's interesting for reproducibility. Alternatively the fuzz targets should be good enough as it's verbose to indicate what should be the traffic patterns yield.
+
+Apart of the pub-chan vs private-chan as pointed above, another "worst case" topologies scenario, where the attacker could have a great advantage, if its the attacker is "allowed" to open links during the simulation or if the simulation is only considering a static chan graph.
+
+> We began to look at outgoing reputation after the observation from @ProofOfKeags and > @morehouse that a slow jamming attack requires a malicious downstream node, but not > necessarily a malicious upstream node. Fast jamming attacks are perpetrated by upstream > nodes, but we have unconditional fees to protect against this type of spam so perhaps we > don’t need to worry about incoming reputation.
+
+I think this is a correct observation that you do not necessarily need a malicious upstream node. Going even further in the world of lightning today, one could use invoice `r` routing hints to inject jamming in the graph, with neither upstream or downstream node at all (-- i believe there is an astucious trick here). Leveraging peerswap style flow both as traffic entries and exists can be an interesting point to study.
+
+[quote="carla, post:7, topic:1147"]
+In a system with bi-directional reputation, we’re able to enforce that both ends of the channel are compensated (either directly through the attacker’s payments or transitively because they’ll have to build up reputation on both ends). In the original example, `M0` will need to build incoming reputation with `T` in addition to `M1` building outgoing reputation with `T`’s peers to achieve the same attack. We’ve got some thoughts on how to address the UX drawbacks that come along with bidirectional reputation, but will share those in another post!
+[/quote]
+
+I believe this is mostly correct, that you have to doubly compensate reputation-wise both incoming and outgoing links (or negatively downward their reputation) though I believe there might be a thorny case where both incoming and outgoing links are malicious and holding the resolution (i.e not signing commitment_signed on time) to break the transitivity. Somehow, I think the bi-directional reputation might have to be ticked by the same clock for a same HTLC transit, though still treaded in isolation for the viewpoint of the target node. I have not given more thoughts to it.
+
+-------------------------
+
+Purpletimez | 2025-02-20 21:21:42 UTC | #10
+
+[quote="morehouse, post:8, topic:1147"]
+It’s interesting that the reputation delta fluctuates so much. Once the hodling begins, the attacker’s reputation should be strictly decreasing. So I presume the delta variance is entirely from fluctuations in the target node’s incoming revenue?
+
+Or perhaps some variance is from the randomness of endorsed payments being sent to the attacker. It would be interesting to see at which points on the graph did new endorsed payments arrive at the attacker. We could also reduce that variance by having the attacker take a more direct approach to jamming – after building reputation, they would send themselves a payment of the maximum amount they can get endorsed and hodl.
+[/quote]
+
+
+That's a good question. One should not exclude that an attacker might alternate between "failing" jamming traffic and "succeeding" jamming traffic, even just to navigate around a static threshold if more than %80 traffic is jamming and can the remaining traffic being flagged as jamming.
+
+As a reminder, the decaying algorithm is currently the following:
+
+```
+Track the following values for each rolling window: 
+* `last_update`: stores the timestamp of the last update to the decaying 
+    average, expressed in seconds.
+* `decaying_average`: stores the value of the decaying average.
+* `decay_rate`: a constant rate of decay based on the rolling window chosen, 
+  calculated as: `((1/2)^(2/window_length_seconds))`.
+```
+
+As an enhancement of the graphic, it could be interesting to add the HTLC traffic success in a discrete fashion, not continuous. Just to observe if the current decaying algorithm displayed any smoothing statistical bias, in the sense of discounting the marginal jamming HTLC temporally ordered.
+
+[quote="morehouse, post:8, topic:1147"]
+So with outgoing reputation the final nodes in the jamming path get compensated. And with incoming reputation the initial nodes in the jamming path get compensated. What about all the intermediate nodes in the jamming path?
+[/quote]
+
+This is unclear in this simple example, if it assumes that A, T and B are running local resource conservation algorithms themselves. If they're and assuming the bi-reputation algorithm satisfies
+its transitivity property, they should be compensated by HTLC traffic on their local links, i.e M0-A and B-M1, afaiu.
+
+Of course, that would also assume that local resource conversation algorithms are tuned with the same settings as downside, otherwise I believe it might generate exploitable jamming surface.
+
+[quote="morehouse, post:8, topic:1147"]
+In general, the problem gets worse the more intermediate nodes there are. Not only do those intermediate nodes not get compensated, but also the attacker’s cost remains fixed while the damage multiplies.
+[/quote]
+
+If local resource conservation algorithms are deployed in a recursive fashion over the graph, both for entries and exit edges, this is more or less what is done today for internet DDoS ingress / outgress filtering. Now, of course, a routing node can deviate at the price of the higher jamming DoS, they might offer lower `fee_base_msat` and `fee_proportional_millionths`.
+
+In a world where onion-routing is native for payments, this is an interesting question if the payer could over-compensate routing nodes for forwarding payments along a low-reputation path. Somehow, `amt_to_forward` is part of the per-hop onion payload, I believe.
+
+-------------------------
+
