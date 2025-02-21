@@ -161,3 +161,35 @@ I am aware of the article you referenced regarding SIKE. Our system uses FIPS240
 
 -------------------------
 
+vazertuche | 2025-02-21 20:04:43 UTC | #9
+
+I think a push to go straight to a quantum-resistant address type is too premature. 
+
+The best thing to do for people that want to be proactive about this threat is to finalize as quickly as possible the most secure and simple quantum proof signature scheme, likely something akin to Lamport signatures since they are simple and hash based. (Yes, they are massive, but we’ll get to that in a minute) 
+
+Your BIP would lay out exactly how this would be rolled out in SegWit version 2. This version 2 quantum address (bc1z…) type would add to taproot such that it includes ECDSA, Schnorr, and Lamport signatures. 
+
+When wide consensus is gathered around this, wallets could begin to implement it immediately without any soft fork or hard fork needed. They would simply make it standard practice to always include at least one Quantum Lamport signature path within the script tree of every taproot address generated. In the event of a sudden quantum attack, we could immediately roll out the soft fork adding a segwit v2 quantum address type and also enables taproot spending of the hidden Lamport script path. This would allow people to freely move from taproot to the new v2 quantum address without fear of a quantum computer sniping their transaction in the mempool.
+
+Now this scenario is highly unlikely in the near term. Personally, I don’t believe there is any evidence of a quantum computer being able to break our encryption for at least 15 to 20 years. But that’s besides the point.  Using this approach allows us to leverage the time needed to work out the robust math that Bitcoin requires and also allows us to be proactive about doing something in the meantime. In 20 years, we could have easily already moved consensus to a proven lattice based crypto that is more compact and then after that, hopefully to a proven supersingular EC Isogeny crypto also that is compact enough to be acceptable to Bitcoins size constraints AND we can do all this without ever actually implementing any type of fork. 
+
+In this hypothetical scenario, when the quantum attack happens in 20 years then 90% of people will be able to move their taproot addresses via the newest quantum algo, 8% on the older lattice algo and 1% using the oldest Lamport algo. The remaining 1% will either be lost or we can allow ECDSA and Schnorr script path spends ONLY. These people would be able to connect directly with a mining pool via a quantum secure connection and spend that way. 
+
+Yes, trust will be assumed on the miner but it is better than just having those people get burned. In addition, this whole plan requires trust that any of these offline algo’s will ever get implemented via a soft-fork. In addition, what about all the people not using taproot addresses? All things being equal, while it would seem that taproot addresses are the worst option to use in this new quantum world they might actually be our salvation. 
+
+Given the quirky nature taptweak and the two different spending paths, we can use that to our advantage. It can’t be overstated how powerful a taproot address in which the primary path is un-spendable via a NUMS point is. 
+
+It’s powerful since it acts as a honeytrap for a quantum computer. If it was my address and a quantum computer stole the funds, I would be able to raise the alarm to everyone that it WAS in fact a quantum computer that stole the funds. I would be able to prove this by revealing the necessary info to show that the primary path was in fact an un-spendable NUMS point and that I had true ownership over a pubkey in the script path. (In fact, you wouldn’t even need to do the last part. Showing the NUMS point and the merkle root is enough) Everyone would be able to see that the valid signature could have only been created by a quantum computer. (or all our crypto we know now somehow broke)
+
+Given some basic game theory, this actually gives Bitcoin a huge tactical advantage. If a majority of UTXO’s actually move to taproot and if wallets begin to make it common practice to make the primary path un-spendable if necessary and even if not necessary (example: to create deliberate honey pot addresses) then we’ve effectively laid out land mines for a quantum computer. Any adversary who gains the first quantum mover advantage will want to retain that advantage as long as possible without alerting the world at large. The fact that any attack on a Bitcoin address “could” fully reveal their advantage would be incentive enough to not even try to attack Bitcoin. Exchanges and large ETF players would of course be incentivized to use taproot addresses with un-spendable primary paths for all their large holdings. 
+
+If an adversary instead wanted to use all their quantum power to just attack bitcoin directly, then again, we would know fairly immediately that we were being attacked and could shut down all non-quantum algo’s and implement a soft fork immediately. We could implement some form of Tadge’s idea from the mailing list about a pre-emptive quantum soft fork that is triggered by one of these honeypot taproot addresses. Soft-forks are contentious as-is. Having solid proof of a quantum attack should alleviate a lot of obstacles in implementing a soft-fork in an expedited manner. 
+
+All in all I think this method buys us TIME and that is what is needed for this new frontier of quantum math to develop. It buys us TIME and appeases the masses who will remain hyper vigilant about quantum computers suddenly appearing in the near term.
+
+In the end, what we really want is a quantum proof of knowledge that is compact. Add that with some client-side verification and quantum thrustless bridges and we are really in business. 
+
+If the stars align right, we can get that before a quantum threat really does become real (in 25+ yrs) In the meantime we can simply leave a trail of alternate quantum spending paths that are all TOO large to ever be feasibly implemented and thus subsequently abandoned in never revealed script leaves.
+
+-------------------------
+
