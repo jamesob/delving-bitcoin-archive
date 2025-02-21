@@ -312,3 +312,9 @@ And if the mobile wallet has a utxo to use, they can still do the batching.
 
 -------------------------
 
+t-bast | 2025-02-21 15:06:40 UTC | #13
+
+Good point, one more trade-off to decide: does the LSP take more risk to allow the user to potentially batch, or is this not so important since mobile wallet users generally don't have many pending payments at the same time (especially when using trampoline)?
+
+-------------------------
+
