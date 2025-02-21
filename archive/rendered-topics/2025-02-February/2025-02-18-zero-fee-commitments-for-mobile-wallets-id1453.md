@@ -298,3 +298,17 @@ I think this hasn't been added to the existing PR simply because it hasn't been 
 
 -------------------------
 
+instagibbs | 2025-02-21 14:35:52 UTC | #12
+
+[quote="t-bast, post:9, topic:1453"]
+If the mobile wallet can actually leverage `SIGHASH_SINGLE | SIGHASH_ANYONECANPAY` by adding inputs to pay fees, they should use the default 0-fee HTLC transaction.
+[/quote]
+
+One caveat is that without a flexible signature hash you cannot batch the incoming HTLC-success transactions. It may be the case that you have one fee-infused HTLC-Success transaction, and that is enough to pay for the whole package of commitment transaction and other HTLC-Success transactions.
+
+I suspect from average mobile wallets this isn't much of a concern or desire, but just noting.
+
+And if the mobile wallet has a utxo to use, they can still do the batching.
+
+-------------------------
+
