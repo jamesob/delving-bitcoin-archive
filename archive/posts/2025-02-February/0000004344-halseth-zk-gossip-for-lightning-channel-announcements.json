@@ -12,8 +12,8 @@
   "reply_to_post_number": 28,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
+  "reads": 13,
+  "readers_count": 12,
   "score": 2.2,
   "yours": false,
   "topic_id": 1407,
@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "Changing the utreexo hash function to using SHA-256 (which has a Risc0 precompile) reduces proving time to 22s using this approach:\n\n![Screenshot 2025-02-20 at 11.02.04|690x154](upload://pPbGPOfhwT7T9OfIO6mYvuuk6Dn.png)\n\nNow again the two EC multiplications (blinding the key and creating the taproot output key) dominates (in addition to ZKVM serde).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
