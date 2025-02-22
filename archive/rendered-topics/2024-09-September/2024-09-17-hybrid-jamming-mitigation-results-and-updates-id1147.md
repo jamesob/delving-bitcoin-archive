@@ -849,3 +849,156 @@ In a world where onion-routing is native for payments, this is an interesting qu
 
 -------------------------
 
+ClaraShk | 2025-02-22 03:08:42 UTC | #11
+
+[quote="morehouse, post:8, topic:1147, full:true"]
+So I presume the delta variance is entirely from fluctuations in the target node's incoming revenue?
+[/quote]
+
+Yes, we’re looking at forwards over a series of incoming channels, so so reputation will fluctuate with the incoming channel and the HTLC amount.
+
+[quote="morehouse, post:8, topic:1147, full:true"]
+I’m also curious how you chose to exclude outliers and how the graph looks with them included.
+[/quote]
+
+<details>  
+ <summary>Script we used for outliers and a graph with no outlier removal here. </summary>  
+
+```python
+import sys
+import os
+import pandas as pd
+import matplotlib.pyplot as plt
+import numpy as np
+from datetime import datetime, timedelta
+
+if len(sys.argv) != 3:
+    print("Usage: python reputation_graph.py <file> <channel_id>")
+    sys.exit(1)
+
+file_path = sys.argv[1]
+channel_id = int(sys.argv[2])
+
+# Load CSV data
+df = pd.read_csv(file_path)
+
+# Ensure ts_offset_ns column exists and convert to datetime
+df['ts_offset_ns'] = pd.to_numeric(df['ts_offset_ns'])
+
+# Normalize ts_offset_ns to start from zero
+df['normalized_ts_ns'] = df['ts_offset_ns'] - df['ts_offset_ns'].min()
+
+# Filter for the specified outgoing channel ID
+df_filtered = df[df['outgoing_channel_id'] == channel_id].copy()
+
+# Check if the filtered DataFrame is empty
+if df_filtered.empty:
+    print(f"No data found for outgoing_channel_id {channel_id}.")
+    sys.exit(1)
+
+# Sort by normalized timestamp
+df_filtered = df_filtered.sort_values(by='normalized_ts_ns')
+
+# Calculate reputation delta
+df_filtered['reputation_delta'] = (
+    df_filtered['outgoing_reputation'] - df_filtered['in_flight_risk'] 
+    - df_filtered['htlc_risk'] - df_filtered['incoming_revenue']
+)
+
+# Remove outliers
+outlier_threshold = 1
+if len(df_filtered['reputation_delta']) > 0:
+    lower_percentile = np.percentile(df_filtered['reputation_delta'], outlier_threshold)
+    upper_percentile = np.percentile(df_filtered['reputation_delta'], 100 - outlier_threshold)
+    df_smooth = df_filtered[(df_filtered['reputation_delta'] >= lower_percentile) & (df_filtered['reputation_delta'] <= upper_percentile)]
+else:
+    df_smooth = df_filtered
+
+# Calculate Exponential Moving Average (EMA)
+alpha = 0.01  # Adjust for decay rate
+if not df_smooth.empty:
+    df_smooth['ema'] = df_smooth['reputation_delta'].ewm(alpha=alpha).mean()
+
+    # Plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(df_smooth['normalized_ts_ns'], df_smooth['reputation_delta'], 'o', label='Reputation Delta No Outliers', alpha=0.7)
+    plt.plot(df_smooth['normalized_ts_ns'], df_smooth['ema'], label='Exponential Moving Average', linewidth=2)
+    plt.axhline(0, color='red', linewidth=2, linestyle='--', label='Zero Line')
+
+    plt.title('Reputation Delta with Moving Decaying Average')
+    plt.xlabel('Timestamp Offset (ns) from Start')
+    plt.ylabel('Reputation Delta')
+    plt.xticks(rotation=45)
+    plt.legend()
+    plt.tight_layout()
+
+    # Save graph
+    output_dir = os.path.dirname(file_path)
+    file_name = os.path.basename(file_path).rsplit('.', 1)[0]
+    output_path = os.path.join(output_dir, f"{file_name}_reputation.png")
+    plt.savefig(output_path)
+
+    print(f"Graph saved to {output_path}")
+else:
+    print(f"No data available to plot after outlier removal for channel_id {channel_id}.")
+```
+
+</details>
+
+Turns out there isn’t much of a difference for this experiment - in some of the others there was one large negative point which made it difficult to see the gradient of the exponential moving average.
+**![|624x375](upload://co16BAznf3meGljzkJDa0bMo32W.png)**
+
+[quote="morehouse, post:8, topic:1147, full:true"]
+So with outgoing reputation the final nodes in the jamming path get compensated. And with incoming reputation the initial nodes in the jamming path get compensated.
+[/quote]
+
+Correct.
+
+
+[quote="morehouse, post:8, topic:1147, full:true"]
+Consider a simple example:
+
+```mermaid height=59,auto
+graph LR 
+M0 --- A --- T --- B --- M1
+```
+
+`M0` builds reputation with `A`, `M1` builds reputation with `B`, and then the malicious nodes jam the `A-T` and `T-B` channels.  `T` gets nothing in this case.
+[/quote]
+
+For honest node A to be able to send endorsed payments to `T`, they need to have paid `T` enough in the last 6 months over `A-T` to compensate them for their revenue from `T-B`. So while `T` hasn’t been paid by the attacker, they’ve still been compensated for the damage that abusing that reputation can do. 
+
+Where bi-directional reputation helps is that it forces the attacker to pay to attach to this chain of existing reputation; without it, `M0` can take advantage of `A`’s reputation with `T` without compensating `A` at all.
+
+
+[quote="morehouse, post:8, topic:1147, full:true"]
+ In general, the problem gets worse the more intermediate nodes there are.
+[/quote]
+
+The issue here doesn’t seem to be compensation under attack, but rather how this chain of nodes will recover after an attack. If we think about this in multiple “rounds” of two weeks (the period our reputation algorithm looks at):
+
+* Round 1: attacker builds reputation and jams, nodes are compensated
+* Round 2: attacker has lost reputation from attack, but chain has lost reputation
+
+Since we’re aiming to protect revenue, not reputation itself, the chain of honest nodes runs into issues if they’re general jammed in round 2 because some nodes' reputation will have been knocked out and they’re not able to re-build it using general resources.
+
+This is because:
+
+1. Reputation is only focused on a 2 week horizon, so it is only compensating for that period exactly.
+2. General jamming is trivial for an extended period of time.
+
+We’re going to look into some options for both of these!
+
+[quote="morehouse, post:8, topic:1147, full:true"]
+Thus once the attacker has enough reputation to route a single endorsed HTLC, they can actually do ~24x as much jamming and reputation damage (8 HTLC cycles * 3 target channels).
+[/quote]
+
+I don’t think that this can easily be translated to a loop. If `T0` has enough reputation with `T1` to get 8 HTLCs in flight, the `T0-T1` channel will be quite valuable to `T0`. Transitively, `M0` will need to meet quite a high threshold to get to that one endorsed HTLC, and will have to compensate `T0` accordingly. My intuition is that it wouldn’t work out so advantageously for the attacker here, but we can take a look at some numbers.
+
+
+Cheers,
+
+Clara (posting on Carla’s behalf while she’s OOO)
+
+-------------------------
+
