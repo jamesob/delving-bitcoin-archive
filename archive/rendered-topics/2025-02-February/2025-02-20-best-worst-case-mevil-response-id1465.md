@@ -121,3 +121,47 @@ Yes this is a significant hurdle to Proposal One, and thus in our opinion it is 
 
 -------------------------
 
+ariard | 2025-02-21 23:58:35 UTC | #6
+
+Hello 7d5x9, thanks for your comments.
+
+(— and Welcome ! As there is an automatic message in delving forum saying we should welcome newcomers, and not just “trash” them for being newbies)
+
+[quote="7d5x9, post:5, topic:1465"]
+For some further specificity, please refer to the mevpool writeup linked in the OP:
+[/quote]
+
+I did `cat mempool-marketplace.md | grep -C 0 “MEV”` and `cat mempool-marketplace.md | grep | -C 0 extraction”` I didn’t find *any definition*. More, it’s underlying that in what is generally understood as *miner-extracted value* there is a lot of repetition in the markdown write-up of the word “extraction in expression like “MEV extraction”.
+
+Traditionally in physics, an idea with some heuristic worthiness is a *clear* *definition* we can *measure*.
+
+[quote="7d5x9, post:5, topic:1465"]
+You might also find further understanding by studying the MEV vectors available across the Ethereum ecosystem which are fairly well documented. But more generally you can think of MEVil, distinct from pure MEV (e.g. RBF), as transaction sequencing that relies on generalized financial sophistication (i.e. what you might find at a HFT firm with quants), domain-specific understandings of smart contracts on the Bitcoin blockchain, as well as access to significant liquidity to take advantage of MEVil opportunities.
+[/quote]
+
+Never seen an Ethereum paper with a consistent def of MEV so far, though if there is an existent one, feel free to share it. That’s the issue you’re pointing by saying there is MEVil on one side and MEV on the other side by giving RBF as an exemple, as any block template optimization can make genuine assumptions on RBF hard constants bip125 rules. There is no need to be a quant at a HFT firm and even there when someone says “generalized financial sophistication” most of the time it’s not serious math, just being a vetted liquidity provider in a regulated market class.
+
+*Domain-specific* understanding of smart contracts on the Bitcoin blockchain. I don’t know what is a "smart contract" on Bitcoin, generally I prefer a bitcoin contract to be *dumb* i.e the execution of which being understood by its own designers…Though let’s say very roughly assume 3 to 6 months to learn the in and outs of a Bitcoin contracting protocol, of a class of complexity under Lightning.
+
+Significant liquidity this is something we can *measure*, though you don’t give any n*umerical value* denominated in bitcoin units here.
+
+[quote="7d5x9, post:5, topic:1465"]
+Unlike Intel SGX, modern TEEs (e.g. TDX) are near-native guest performance so the latency issue described is negligible. There is some research available on this, an example of which you might find here: [An Experimental Evaluation of TEE technology Evolution: Benchmarking Transparent Approaches based on SGX, SEV, and TDX](https://arxiv.org/html/2408.00443v1)
+[/quote]
+
+No way for the latency penalty, with the flush of the memory pages tables. The paper doesn’t even say in its index how much memory-management is the significant problem in virtualization. So I’m not sure the author of the papers understands well themselves the perf problem.
+
+[quote="7d5x9, post:5, topic:1465"]
+Yes this is a significant hurdle to Proposal One, and thus in our opinion it is sub-optimal. That said, if the Marketplace’s payout depend on the block being accepted by the network, you might assume the incentives are aligned to ensure quick delivery.
+[/quote]
+
+Again, that’s where there is a fundamental bottleneck with Proposal One. If you go for a cyperpunk trust-minimized escrow system, the best people have come up in decades of Internet is Bitcoin Script on the bitcoin blockchain, and here you have to do a 2-phases commit protocol on the *result* of a block template commitment at tip N that can only be *arbitrated* at best at tip N+1 in a *probabilistic* fashion not theory number-based sec model (let’s wave for now *selfish mining* that could let the Marketplace operator do “insider trading” against the miners participating in the marketplace).
+
+More fundamentally, you’re pointing out a problem which you’re defining in HFT-style fashion, of which liquidity is an advantage factor and you’re brining as a solution a Marketplace solution, where miners are going to *front* liquidity for complete uncertain results. There is something that doesn’t hold, and miners are better to invest their existent liquidity in improving their chips.
+
+At the end, it’s all like just re-inventing the centralization pressure of mining pools in face of the payout variance issue affecting bitcoin miners.
+
+All that said - I do agree that block template construction or its potential jamming is a problem, though so far the only line of solution I’m convinced of can be fruitful is *pure algorithmic one* like the cluster mempool idea in core aims to do.
+
+-------------------------
+
