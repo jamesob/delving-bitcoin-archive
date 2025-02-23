@@ -46,3 +46,15 @@ What is a (average) bitcoin core user ? What level of know-how they should have 
 
 -------------------------
 
+jsarenik | 2025-02-23 08:37:34 UTC | #5
+
+Let me share one, not caring how much average or not:
+
+There is a person who runs Bitcoin Core nodes, re-reads Satoshi's whitepaper every few months and is totally satisfied with v28.1. All the ideas he has need not changes in Bitcoin Core as much as his time to observe how it works and contemplate upon possible improvements in his domain, without changing the code of Bitcoin Core but rather his local "code" i.e. scripts that make use of generally available Bitcoin Core releases. See [alt.signetfaucet.com](https://alt.signetfaucet.com) which is a living result of all the ideas he had since 2017 (Linux-only nocoiner until then). He does not go to meetups much although he likes to hear from friends who attend them.
+
+He has questions like "Will my hand-crafted tx spending unkeyed LN Anchor all on fees get mined even though it does not have enough additional fees to replace the previous in-mempool transaction (which is sending sats to a keyed address) in most of Bitcoin Core nodes' mempools?" so for the sake of experiment he does prioritize the hand-crafted tx in mempools of his three nodes, waits a few days and viola, it got [mined](https://mempool.space/tx/ad1507f186ccdd448cc58a5ed68367249de6ad55d7f4b70bb3fcc5c88a85c626?mode=details) on mainnet. He wonders "Does RBF work multiple-times?" and it [does](https://mempool.space/signet/tx/6283defdc43b1fead93c851a8d11d7d79d796d8d1596216bae7b213e9f49f5aa?mode=details) - proven on signet. And so on and so forth.
+
+> As for me and my household we will run Bitcoin Core nodes. And we enjoy its development process and everyone involved (incl. @ajtowns and @ariard from this post). Also including, though not mentioning here, others - it would be a long list and someone might be missing still. And even those silent Bitcoiners and Twitter randos. We teach children of all kinds: wise, wicked, simple and the ones who do not know how to ask - as far as they are interested and curious about Bitcoin.
+
+-------------------------
+

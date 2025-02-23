@@ -8,13 +8,13 @@
   "post_number": 4,
   "post_type": 1,
   "updated_at": "2025-02-22T00:14:24.712Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.4,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 22.8,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "\"*When you consider that Bitcoin Core\u2019s userbase is indirectly all Bitcoin users, how to prioritise development becomes quite clear.* \u201c Excerpt - https://antoinep.com/posts/stating_the_obvious/\n\nWho is a (average) Bitcoin Core\u2019s user ? This is a well-informed series of posts, though it\u2019s very centered on contributors, maintainers, dev process, etc without really asking for the obvious. \n\nWhat is a (average) bitcoin core user ? What level of know-how they should have to run `bitcoind` ? Are they more often on Windaube or a *NIX ? Do they care about running `bitcoind` to verify their stack the cypherpunk way or just because to contemplate the well-architected `bitcoind` burning CPU time ? Do they prefer a browser-like exp or are they die-hard CLI galts and guys ? What\u2019s their level of engagement w.r.t Bitcoin, are they going to their local meetups to hear the latest about consensus changes or do they just care fiat-vs-btc NGU price ? How often are they using their `bitcoin-wallet`, a week, a month, a year, etc ?\n\n(\u2014 yes it\u2019s asked in the maieutic way, no right or wrong answers).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
