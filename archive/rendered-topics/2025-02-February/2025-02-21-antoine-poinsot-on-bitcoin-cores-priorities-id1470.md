@@ -78,3 +78,13 @@ Splitting the wallet into its own repo won't automagically bring all of these be
 
 -------------------------
 
+moonsettler | 2025-02-25 15:48:22 UTC | #8
+
+[quote="bruno, post:6, topic:1470"]
+What makes BDK evolves so fast compared to Bitcoin Core?
+[/quote]
+
+The bitcoin core codebase is notoriously horrible to interact with. It's not just the language, but also how you use it.
+
+-------------------------
+
