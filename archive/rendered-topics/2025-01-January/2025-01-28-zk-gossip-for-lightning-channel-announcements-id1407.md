@@ -632,3 +632,23 @@ Now again the two EC multiplications (blinding the key and creating the taproot 
 
 -------------------------
 
+halseth | 2025-02-25 07:58:20 UTC | #30
+
+The way the ZK-proof was created in the original post here, is very non-intrusive and simple to apply to existing LN implementations. You simply take the gossip message, and do the verification of it in zero-knowledge, hiding all the inputs that would leak your privacy (namely the `bitcoin_key` fields).
+
+However, this requires to to the full Musig2 key aggregation and signature verification in the ZK environment, which can be expensive and slow. On my machine proving time was about 80 seconds.
+
+To speed this up, I created a variant of this that does less work in ZK, by blinding the channel output key with a tweak before funding it. The tradeoff is that the LN implementation must be aware of this tweak.
+
+It works by the channel counterparties creating a Musig2 aggregate key `P` as before, but then agreeing on a secret blinding value `r`, and `beta = hash(r || P)`. The output key will then be `P_out = P + beta * G` (optionally this key can then be given a taptweak if needed).
+
+Now channel operation can work as before, but the parties must tweak the key with `beta` before signing.
+
+When creating the gossip message, everything will be done as before, and the verifier will validate the channel announcement according to the gossip 1.75 proposal. The only difference is that the output tapkey is not found on-chain (since it has been tweaked) and hence we must attach a ZK proof to prove that the tweaked version is actually in the UTXO set.
+
+An implementation of this approach is here: https://github.com/halseth/output-zero/tree/blinded-tap-key
+
+This reduces proving time to 16-22 sec on my laptop since we are left with only 2 EC multiplications (see above pprof flamegraph).
+
+-------------------------
+
