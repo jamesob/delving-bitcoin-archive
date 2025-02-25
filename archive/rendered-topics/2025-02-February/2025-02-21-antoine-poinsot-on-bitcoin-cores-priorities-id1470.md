@@ -88,3 +88,43 @@ The bitcoin core codebase is notoriously horrible to interact with. It's not jus
 
 -------------------------
 
+AntoineP | 2025-02-25 19:19:21 UTC | #9
+
+[quote="ajtowns, post:3, topic:1470"]
+I’m not convinced multiprocess is the right way
+[/quote]
+
+As i shared in my comment above I don't think a split around multiprocess binaries is ideal. But i believe it is important to refocus the main project on the node parts of the software, and i just see such a split as the only realistic and socially acceptable way of achieving that. Do you have a better suggestion?
+
+[quote="ajtowns, post:3, topic:1470"]
+Having all our wallet features be available via a library (or command-line tool, like bitcoin-tx or bitcoin-wallet)
+[/quote]
+
+I agree that raw transaction parsing, PSBT updating, script decoding, signing, etc.. should not be part of the node RPC since it does not required a node in the first place. But yes it's tangential.
+
+[quote="ajtowns, post:3, topic:1470"]
+BDK also [seems to assume](https://bitcoindevkit.github.io/book-of-bdk/cookbook/syncing/electrum/) having access to indexes like that is a good idea. That’s something core has traditionally resisted
+[/quote]
+
+BDK does not assume that anymore. It now just indexes wallet transactions and has a wallet-spk-to-derivation-index index just like the Core wallet. It has a [bitcoind RPC chain data source](https://github.com/bitcoindevkit/bdk/tree/master/crates/bitcoind_rpc) as well.
+
+[quote="ajtowns, post:3, topic:1470"]
+Personally, I like the idea that bitcoin core aims to provide enough software to make Bitcoin usable
+[/quote]
+
+Me too. Unfortunately with the current resources it comes at non-trivial cost for all Bitcoin users, who are indirectly using Core, for the benefit of a handful of direct Core GUI users.
+
+[quote="ajtowns, post:3, topic:1470"]
+Having wallet functionality also seems useful to have in doing functional tests
+[/quote]
+
+We have `MiniWallet` for this?
+
+[quote="ajtowns, post:3, topic:1470"]
+and experimenting with bitcoin more broadly (eg, messing around on signet).
+[/quote]
+
+In a split future this could just be done using the Core wallet project which would release the equivalent of today's `bitcoind`? Or just any other wallet that would bundle a `bitcoin-node` (Sparrow, Liana, ..).
+
+-------------------------
+
