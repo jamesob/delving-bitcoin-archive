@@ -1327,3 +1327,87 @@ The entire reason why 64-byte transactions are problematic is because Bitcoin's 
 
 -------------------------
 
+Chris_Stewart_5 | 2025-02-26 17:50:27 UTC | #73
+
+# **Characteristics of a 64-byte Transaction**
+
+I recently proposed [a Bitcoin Improvement Proposal (BIP)](https://github.com/Christewart/bips/blob/3f68df0ca172e2523afa809eb5d572b5a8881393/bip-XXXX.mediawiki) to make 64-byte transactions **consensus-invalid** in Bitcoin. This document examines the characteristics of 64-byte transactions.
+
+## **Background**
+
+According to [Suhas Daftuar](https://github.com/Christewart/bips/blob/3f68df0ca172e2523afa809eb5d572b5a8881393/bip-XXXX/2-BitcoinMerkle.pdf), 64-byte transactions follow this format:
+
+* version (4 bytes)
+* vin size (1 byte)
+* outpoint (36 bytes)
+* length scriptSig (1 byte)
+* scriptSig (0–4 bytes, depending on the scriptPubKey in this transaction)
+* sequence (4 bytes)
+* vout size (1 byte)
+* value (8 bytes)
+* length scriptPubKey (1 byte)
+* scriptPubKey (0–4 bytes, depending on the scriptSig in this transaction)
+* locktime (4 bytes)
+
+## **64-Byte Pre-Segwit Transactions Cannot Contain a Digital Signature in the `scriptSig`**
+
+Since the activation of [BIP66](https://github.com/bitcoin/bips/blob/cc81fde2731546dd9185590c72661d7d620f7919/bip-0066.mediawiki#der-encoding-reference) on the Bitcoin network, digital signatures must be at least 9 bytes long.
+
+As a result, a 64-byte pre-segwit transaction cannot spend raw scripts that contain:
+
+* `OP_CHECKSIG`
+* `OP_CHECKSIGVERIFY`
+* `OP_CHECKMULTISIG`
+* `OP_CHECKMULTISIGVERIFY`
+
+## **64-Byte Transactions Must Create an `ANYONECANSPEND` Output**
+
+No known `scriptPubKey` is 4 bytes long while still being protected by a public key or a supported hash function in Bitcoin Script.
+
+Therefore, every output created by a 64-byte transaction can be trivially claimed by miners. If the goal of the transaction is to create an output claimable by miners, this can be achieved with Bitcoin transactions either smaller or larger than 64 bytes.
+
+## **Nonstandard Outputs**
+
+As of block `00000000000000000001194ae6be942619bf61aa70822b9643d01c1a441bf2b7`, there are no non-standard, non-zero-value outputs that could be satisfied exclusively by a 64-byte transaction.
+
+## **P2SH Outputs**
+
+P2SH outputs place a redeem script in the `scriptSig`. We can allocate up to 3 bytes for the `redeemScript` when spending a P2SH output.
+
+As of block `00000000000000000001194ae6be942619bf61aa70822b9643d01c1a441bf2b7`, there are no UTXOs in the blockchain with `redeemScripts` of 0–3 bytes.
+
+## **SegWit Outputs**
+
+[BIP141](https://github.com/bitcoin/bips/blob/cc81fde2731546dd9185590c72661d7d620f7919/bip-0141.mediawiki#user-content-Witness_program) fundamentally restructures Bitcoin transactions. It introduces a new data structure called a **witness** that can replace the `scriptSig` for SegWit programs. This data does not count toward the 64-byte transaction limit, meaning digital signatures can be included in 64-byte SegWit transactions.
+
+### **Native SegWit v0 and v1 Programs**
+
+64-byte transactions that spend native SegWit programs must have exactly 4-byte `scriptPubKeys`. This is because the inputs to their programs are put into the witness rather than the `scriptSig`.
+
+As a side note, when running tests for this document I realized it is [impossible to broadcast 64-byte transactions, even with `-acceptnonstdtxn=1`](https://github.com/bitcoin/bitcoin/blob/e486597f9a57903600656fb5106858941885852f/src/validation.cpp#L798) via the RPC interface without custom-compiling `bitcoind`.
+
+### **Wrapped SegWit Programs**
+
+There are two types of wrapped SegWit programs:
+
+* `p2sh(p2wpkh)`
+* `p2sh(p2wsh)`
+
+Both types of outputs require witness programs in the `scriptSig`, which are larger than 4 bytes. Therefore, these types of outputs cannot be spent by 64-byte transactions.
+
+### **Future SegWit Versions**
+
+As per [BIP141](https://github.com/bitcoin/bips/blob/cc81fde2731546dd9185590c72661d7d620f7919/bip-0141.mediawiki#witness-program), this is how a witness program is defined:
+
+> A `scriptPubKey` (or `redeemScript` as defined in BIP16/P2SH) that consists of a 1-byte push opcode (one of `OP_0,OP_1,OP_2,...,OP_16`) followed by a direct data push between 2 and 40 bytes gets a new special meaning.
+
+If a BIP disallowing 64-byte transactions is activated, we will no longer allow **1-input, 1-output** SegWit transactions paying to 2-byte witness programs.
+
+Here is an example of a witness program that would no longer be possible in a **1-input, 1-output** transaction:
+
+> `OP_2 0x02 0xXXXX`
+
+I am not aware of any reason why this would be a problem, but I have not seen it documented anywhere.
+
+-------------------------
+
