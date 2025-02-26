@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.6,
+  "incoming_link_count": 1,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 22.4,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks @AntoineP for thinking deeply about this subject and @ajtowns for relaying.  I'm not sure Antoine's \"obvious\" is obvious to me:\n\n> Bitcoin Core\u2019s userbase is indirectly all Bitcoin users, [so] how to prioritise development becomes quite clear. Bitcoin Core should be a robust backbone for the Bitcoin network\n\nI think it's weird and non-obvious to define your users as including people who don't directly use your software.  My ISP presumably uses a bunch of software to manage the network that connects my home to the Internet.  Providing connectivity to me, and thousands of customers like me, is the ultimate purpose of that software---but its user is the ISP.  That distinction is important because when that software forces a choice between tradeoffs onto my ISP, they _as the user_ will make the choice that's best for them and not necessarily for me.\n\nSimilarly, if an industrial full node operator who serves data to customers is forced to choose, they will make the choice that's best for them and not necessarily for their customers.\n\nThe distinction between user and customer would be petty pedantry except for one thing: even a short lapse in enforcement of Bitcoin's consensus rules can practically change them forever.  Imagine if the operators of the predominant share of economic full nodes decided to allow a transaction spending an extra 1M BTC into the chain, and then quickly fanned out that money by opening new LN channels and forwarding the funds to channels they established before the fraud block (or using same-chain or cross-chain coinswaps, or buying non-revocable goods and services, etc...).  After 3 to 6 confirmations (30 to 60 minutes on average), performing a reorg to put those fake Bitcoins back into Pandora's box would mainly destroy the wealth of honest users while leaving the attackers enriched.  In that case, I think we as community might choose instead to accept a new limit of 22M BTC.\n\nA hour isn't enough time for Bitcoiners to respond to such an attack, so the only practical mitigation is prevention: we need large numbers of Bitcoiners to run economic full nodes.  That is, they need to be direct users of Bitcoin Core **and** have their wallet connected to their node.  That will ensure that they will reject any attempt to open a channel with them using fake bitcoins (and the other attacks mentioned), directly protecting their wealth and indirectly protecting the wealth of anyone who doesn't run a full node by making the attack less viable.\n\nIn that sense, building a secure node isn't just about eliminating bugs and vetting protocols but also about ensuring large numbers of people use their own copy of the node to verify their own incoming transactions.  That requires a wallet and the means for non-experts to use it (a GUI).  Certainly, those don't need to be bundled with Bitcoin Core, but if the developers of the Bitcoin Core project cease to put effort into making a node-backed wallet accessible, why would we expect anyone else outside the project to go through the frustrating process of trying to get PRs merged into Bitcoin Core that will provide them with the interfaces they need?  Anyone who has tried to do that in the past has received a litany of \"noes\": no, we're not going to add another index; no, we're not going to extend the P2P interface to provide unverifiable info; no, we're not going to keep SSL to allow remote RPC access; etc...\n\nWill those noes suddenly become yeses after a multiprocess-based repo split?  Or will there be even more reason to say \"no\" to wallet-supporting features in the node because all of the focus is on optimal verification and relay?  The idea of a node being embedded in wallet software is mentioned above, but is that realistic both from the standpoint of software development (e.g., will every wallet that wants to do that have to write thousands of lines of code to deal with Bitcoin Core's limited interfaces) and from actual usage (e.g., I don't want to run an always-on node on my mobile device; I'd rather run a node at home and connect to it as needed from my mobile)?\n\nIn considering priorities for the future of Bitcoin Core, I would ask contributors to ask where those priorities will lead the project in five or ten years.  Will it be a greater percentage of Bitcoin users validating their transactions with their own full node, or will it be a greater percentage of users entrusting verification to industry?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
