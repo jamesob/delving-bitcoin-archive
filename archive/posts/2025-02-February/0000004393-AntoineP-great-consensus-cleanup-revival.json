@@ -39,7 +39,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"AntoineP, post:75, topic:710\"]\n(But also it\u2019s not necessary to make the point it wouldn\u2019t freeze anyone\u2019s coins, for the same reason.)\n[/quote]\n\nActually this is incorrect. P2SH requires the scriptSig to be pushonly.\n\n[quote=\"Chris_Stewart_5, post:76, topic:710\"]\nI\u2019m getting caught up on this, if you have a link handy to the discussion it would be much appreciated.\n[/quote]\n\nSee the thread for [segwit ephemeral anchor](https://delvingbitcoin.org/t/segwit-ephemeral-anchors/160). It contains no direct mention of 64 bytes transactions though.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,8 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
