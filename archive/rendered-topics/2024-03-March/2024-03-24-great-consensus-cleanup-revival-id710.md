@@ -1483,3 +1483,13 @@ See the thread for [segwit ephemeral anchor](https://delvingbitcoin.org/t/segwit
 
 -------------------------
 
+instagibbs | 2025-02-27 20:46:12 UTC | #78
+
+[quote="Chris_Stewart_5, post:73, topic:710"]
+I am not aware of any reason why this would be a problem, but I have not seen it documented anywhere.
+[/quote]
+
+I'll think a bit more but I cannot foresee a use-case. If you only have a single output and that output is key-less(like P2A), I'm unsure what action could be taken that couldn't be taken by burning value to fees with a minimally sized op_return as well?
+
+-------------------------
+
