@@ -46,12 +46,6 @@ What is a (average) bitcoin core user ? What level of know-how they should have 
 
 -------------------------
 
-jsarenik | 2025-02-25 21:08:56 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
 bruno | 2025-02-25 13:20:23 UTC | #6
 
 > For instance [`rust-bitcoin`](https://github.com/rust-bitcoin) has never made so much progress, and [BDK](https://github.com/bitcoindevkit/bdk) is a major success [adopted by dozens of projects](https://bitcoindevkit.org/adoption/all) with probably millions of users altogether. They have a larger feature set, with the Bitcoin Core wallet still struggling to catch up even years after a feature has been largely adopted by the industry[1](https://antoinep.com/posts/bitcoin_core_scope/#fn:1).
