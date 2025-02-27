@@ -1423,3 +1423,63 @@ So, in general, when you want to send from Segwit to Anchor, or from Anchor to A
 
 -------------------------
 
+AntoineP | 2025-02-27 16:48:39 UTC | #75
+
+[quote="Chris_Stewart_5, post:73, topic:710"]
+As of block `00000000000000000001194ae6be942619bf61aa70822b9643d01c1a441bf2b7`, there are no non-standard, non-zero-value outputs that could be satisfied exclusively by a 64-byte transaction.
+[/quote]
+
+Did you check all utxos one by one? In any case this statement is always true because you can just pad the scriptsig (even if that might be nonstandard).
+
+[quote="Chris_Stewart_5, post:73, topic:710"]
+As of block `00000000000000000001194ae6be942619bf61aa70822b9643d01c1a441bf2b7`, there are no UTXOs in the blockchain with `redeemScripts` of 0–3 bytes.
+[/quote]
+
+Nice, did you bruteforce all possible valid script serializations from 0 to 3 bytes and checked no corresponding P2SH exist in the utxo set? (But also it's not necessary to make the point it wouldn't freeze anyone's coins, for the same reason.)
+
+[quote="Chris_Stewart_5, post:73, topic:710"]
+but I have not seen it documented anywhere.
+[/quote]
+
+I'm pretty sure it was discussed around Greg's segwit ephemeral anchors (renamed ephemeral dust along the road), as alluded to by garlonicon.
+
+-------------------------
+
+Chris_Stewart_5 | 2025-02-27 17:32:51 UTC | #76
+
+>Did you check all utxos one by one
+
+:+1: and note, i excluded 0 value utxos. I also excluded any utxo that involves a checksig op (BIP66), and syntactically invalid Scripts (there is a lot of Scripts that have OP_IF with no OP_ENDIF!). I can rerun with different filters if you would like. Here is a link to the source code
+
+https://github.com/Christewart/bitcoin-s-core/blob/dfcd59eddc7ac2d5c622136fa100e6a448d20021/app/scripts/src/main/scala/org/bitcoins/scripts/ScanBitcoind.scala#L225
+
+>In any case this statement is always true because you can just pad the scriptsig (even if that might be nonstandard).
+
+This seems right to me but i haven't tested this yet with the various interpreter flags (`CLEANSTACK`,`PUSHONLY`,`MINIMALDATA` etc).
+
+>Nice, did you bruteforce all possible valid script serializations from 0 to 3 bytes and checked no corresponding P2SH exist in the utxo set?
+
+:+1:
+
+>I’m pretty sure it was discussed around Greg’s segwit ephemeral anchors (renamed ephemeral dust along the road), as alluded to by garlonicon.
+
+I'm getting caught up on this, if you have a link handy to the discussion it would be much appreciated.
+
+-------------------------
+
+AntoineP | 2025-02-27 19:19:33 UTC | #77
+
+[quote="AntoineP, post:75, topic:710"]
+(But also it’s not necessary to make the point it wouldn’t freeze anyone’s coins, for the same reason.)
+[/quote]
+
+Actually this is incorrect. P2SH requires the scriptSig to be pushonly.
+
+[quote="Chris_Stewart_5, post:76, topic:710"]
+I’m getting caught up on this, if you have a link handy to the discussion it would be much appreciated.
+[/quote]
+
+See the thread for [segwit ephemeral anchor](https://delvingbitcoin.org/t/segwit-ephemeral-anchors/160). It contains no direct mention of 64 bytes transactions though.
+
+-------------------------
+

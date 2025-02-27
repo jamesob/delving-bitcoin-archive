@@ -383,3 +383,17 @@ If you test this and have any interesting observations please let me know. I'm p
 
 -------------------------
 
+zawy | 2025-02-27 19:57:52 UTC | #22
+
+I was looking back over this thread and wanted to make clear the parent method I was initially excited about loses its usefulness if the "topology" (hashrate-weighted latency between peers) of the network changes significantly, and creates an incentive for big miners to have lower latency between each other which would unfairly increase the number blocks they get compared to smaller miners.  I'm thinking strictly in terms of a PoW DAG chain. Braidpool may be able to create incentives to negate the problem.  My grandparents and great-grandparents "fix" did not do as well as I had hoped, if that wasn't clear.
+
+In contrast, the "Nc/Nb" method is very resilient to changes in network topology as I mentioned above, but I didn't explain what it is other than referring to Bob's page. In short, it targets a desired "width" of the DAG by looking recent ancestors to get a measurement.  As with the parent method, time and timestamps are not used. "Latency" can be viewed as the "clock tick rate".  By choosing a width, "block time" becomes a fixed multiple or fraction of network latency.
+
+As with the parent method, an "EMA" adjustment formula is probably the best of all possible methods:
+```
+D = mean_D_ancestors * (1 - width_measured/N + width_desired/N)
+```
+where N is an integer like 100 to smooth out the chances.  mean_D_ancestors is the mean difficulty of the blocks inspected to measure the width.
+
+-------------------------
+
