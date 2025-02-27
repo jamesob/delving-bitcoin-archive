@@ -1411,3 +1411,15 @@ I am not aware of any reason why this would be a problem, but I have not seen it
 
 -------------------------
 
+garlonicon | 2025-02-27 14:16:59 UTC | #74
+
+[quote]I am not aware of any reason why this would be a problem, but I have not seen it documented anywhere.[/quote]
+See this testnet4 transaction: f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a
+https://mempool.space/testnet4/tx/f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a
+
+The message wrapped in OP_RETURN says: "Without this OP_RETURN, sending to tb1pfees will result in 64-byte transaction."
+
+So, in general, when you want to send from Segwit to Anchor, or from Anchor to Anchor, then you need a dummy OP_RETURN (or anything else) to make it valid.
+
+-------------------------
+
