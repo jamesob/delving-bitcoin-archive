@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "[quote]I am not aware of any reason why this would be a problem, but I have not seen it documented anywhere.[/quote]\nSee this testnet4 transaction: f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\nhttps://mempool.space/testnet4/tx/f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\n\nThe message wrapped in OP_RETURN says: \"Without this OP_RETURN, sending to tb1pfees will result in 64-byte transaction.\"\n\nSo, in general, when you want to send from Segwit to Anchor, or from Anchor to Anchor, then you need a dummy OP_RETURN (or anything else) to make it valid.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
