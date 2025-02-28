@@ -138,3 +138,12 @@ In considering priorities for the future of Bitcoin Core, I would ask contributo
 
 -------------------------
 
+adrienlacombe | 2025-02-28 05:44:49 UTC | #11
+
+"For technical and historical reasons, Bitcoin Core is the only reasonable full node implementation for all Bitcoin users to run. Re-implementations of Bitcoin face significant technical challenges and appear to be doomed to have consensus bugs." from [Antoine Poinsot - Stating the obvious](https://antoinep.com/posts/stating_the_obvious/)
+
+@AntoineP do you have an idea of what work it would take for Core to allow for other clients? I imagine such change would required a hard fork anyway?
+Merci
+
+-------------------------
+
