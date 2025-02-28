@@ -147,3 +147,37 @@ Merci
 
 -------------------------
 
+ariard | 2025-02-28 16:06:05 UTC | #12
+
+> [quote="harding, post:10, topic:1470"]
+That is, they need to be direct users of Bitcoin Core **and** have their wallet connected to their node.
+[/quote]
+
+A pedantic point, there is no necessity to have the wallet directly connected to the node (e.g through SSH or Wireguard), as long as you can feed it with the block updates with whatever communication channel, including one-shot USB sticks. That was the idea with `multiprocess` to not have the node and the wallet running in the same memory space, generally more wallet and node hosts are dissociated better you’re are.
+
+Otherwise, I agree a lot with what Dave says and that a greater percentage of Bitcoin users validating their transactions with their own full node is the *key metric* that matters.
+
+[quote="adrienlacombe, post:11, topic:1470"]
+do you have an idea of what work it would take for Core to allow for other clients? I imagine such change would required a hard fork anyway? Merci
+[/quote]
+
+No hard fork or soft fork required at all to have inter-compatible clients with Core, if this the question. And the bar has been reduced by many order of magnitude with the `[libbitcoinkernel](https://github.com/bitcoin/bitcoin/issues/24303)` becoming mature. It’s supposed to be a standalone library encompassing all bitcoin consensus rules, and you’re free to re-write all the others components as you wish. If you find consensus bugs or DDoS issues while hacking on `libbitcoinkernel` be at minima responsible and report them.
+
+-------------------------
+
+AntoineP | 2025-02-28 16:50:32 UTC | #13
+
+[quote="adrienlacombe, post:11, topic:1470"]
+@AntoineP do you have an idea of what work it would take for Core to allow for other clients? I imagine such change would required a hard fork anyway? Merci
+[/quote]
+
+A lot of work was put in the past 5 years [^0] to separate the consensus critical logic in Bitcoin Core. The result of this work is [libbitcoinkernel](https://github.com/bitcoin/bitcoin/issues/27587), a library encapsulating Core's validation engine. The primary purpose of this library was to untangle the consensus-critical part from the rest of the software, but it also [makes it possible for others to build competing node implementations](https://thecharlatan.ch/Kernel) while still giving reasonable consensus compatibility guarantees to their users.
+
+There is no need for a Bitcoin hard fork to allow for competing full node implementations. But short of something like libbitcoinkernel being available, users of these re-implementations hard forking themselves out of the network is indeed the [most](https://delvingbitcoin.org/t/cve-2024-38365-public-disclosure-btcd-findanddelete-bug/1184?u=antoinep) [likely](https://delvingbitcoin.org/t/disclosure-btcd-consensus-bugs-due-to-usage-of-signed-transaction-version/455) [out](https://github.com/libbitcoin/libbitcoin-system/issues/1523)[come](https://github.com/libbitcoin/libbitcoin-system/issues/1526).
+
+However if you are hinting at reimplementing Core with a scope such as the one i am proposing in my post, i think this is a terrible idea. It would just further dilute the already scarce resources allocated to the maintenance of the network.
+
+[^0]: Work was put into it before then too but in 2020 it became its own sub-project and an explicit priority of the group.
+
+-------------------------
+
