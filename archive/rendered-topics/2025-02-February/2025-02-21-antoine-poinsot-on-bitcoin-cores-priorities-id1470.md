@@ -181,3 +181,48 @@ However if you are hinting at reimplementing Core with a scope such as the one i
 
 -------------------------
 
+AntoineP | 2025-03-01 20:20:24 UTC | #14
+
+@harding thanks for your response. In your message you push back against my characterization of Bitcoin Core users being all Bitcoin users, and argue end users running full nodes are key to the security of the network and therefore making this more accessible should be a priority of the Core project.
+
+With regard to the former, it seems pretty clear all users of Bitcoin are indirectly affected by the quality of the Bitcoin software. I don't think users interacting directly with the software should be prioritized over those interacting with the network in a different manner. You could even stretch this to say all Bitcoin users are Core users, only some use the private RPC interface and others the public P2P interface. Instead of basing priorities based on how users interface with the software i think we should consider stakes. The Core GUI is potentially important to a handful of non-technical users to be able to use Bitcoin at all. The Core wallet is potentially *very* important to a non-trivial share of Bitcoin users, whether to make payments (6% of all transactions nowadays may be crafted by the Core wallet[^0]) or to store value (as the oldest wallet and probably the one with the strongest compatibility guarantees). The Core node is critically important to every single Bitcoin user. Given the size of the network today, it's pretty clear the stakes for the Core node are so high as to dwarf those of the two other components. This is *not* to say the wallet and GUI are not important. But it should be clear that they are order of magnitudes less so than the network itself.
+
+I wholeheartedly agree with your other point. Making running a full node accessible to end users is a key component to the security of the network. However:
+1. The Core GUI is not that. It has barely seen any development [in years](https://github.com/bitcoin-core/gui/pulls?q=is%3Apr+is%3Amerged+). It is extremely inconvenient to use and people largely prefer to it other GUI interfacing with `bitcoind` directly, such as Sparrow. In fact it's not even been usable out of the box on newer Mac for a while now[^1]. As to the other non-technical end user platform, we [disabled automated unit testing on Windows](https://github.com/bitcoin/bitcoin/pull/31284) after years of flaky CI and hours of maintainers' time sunk to keep it running, as nobody stepped up to help unbreak it. I wish Core's GUI was the one stop for non-technical end users to just "download and run Bitcoin", but it is not.
+2. It should not come at the expense of development of the Core node, as per the previous point on the respective stakes of each project. Keeping the code for the wallet and GUI imposes significant costs on the node project, which really cannot afford it right now. Sure, if Core had unlimited resources we could tackle all important issues in Bitcoin[^2]. But we do not therefore we have to focus on the most important one first.
+
+Splitting the GUI and wallet in their own projects gives you point 2. As i argued in my blog post they also provide an opportunity to make better progress on these projects and possibly resolve point 1.
+
+Now some comments on the specifics.
+
+[quote="harding, post:10, topic:1470"]
+I think it’s weird and non-obvious to define your users as including people who don’t directly use your software.
+[/quote]
+
+I do not think it's weird to define your users by who is impacted by your software.
+
+[quote="harding, post:10, topic:1470"]
+My ISP presumably uses a bunch of software to manage the network that connects my home to the Internet. Providing connectivity to me, and thousands of customers like me, is the ultimate purpose of that software—but its user is the ISP.
+[/quote]
+
+I do not think it's a good analogy. Your ISP is a company providing you a service. Bitcoin is a public consensus system. If your ISP runs buggy software it may prevent you and other customers from accessing the Internet, but not other Internet users. If Bitcoin Core releases buggy software, it will likely impact Phoenix users.
+
+[quote="harding, post:10, topic:1470"]
+That distinction is important because when that software forces a choice between tradeoffs onto my ISP, they *as the user* will make the choice that’s best for them and not necessarily for me.
+[/quote]
+
+Besides disagreeing with the analogy i also disagree with this statement in isolation. Surely your ISP's software provider would prioritize "not breaking Internet access to my client's clients" over "shiny new way of my direct user to interface with my software".
+
+[quote="harding, post:10, topic:1470"]
+Similarly, if an industrial full node operator who serves data to customers is forced to choose, they will make the choice that’s best for them and not necessarily for their customers.
+[/quote]
+
+This is an additional concern about this[^3]. I think people falling pray to [demagogy that feeds on some of these truths](https://x.com/jamesob/status/1857049961235403101) to reach dangerous conclusions, could lead to a significant part of the network running significantly less qualitative software, or worse.
+
+[^0]: Based on transaction fingerprinting. I have heard this number from reputable sources but have not checked it for myself.
+[^1]: Since the binaries of all previous releases are not notarized, to run the software users would have to self-sign the binary themselves from the command line (see the 6 years old issue [here](https://github.com/bitcoin/bitcoin/issues/15774)). Hardly something we can expect non-technical users to do. This might get fixed before the upcoming 30.0 release, see [this PR](https://github.com/bitcoin/bitcoin/pull/31407).
+[^2]: Cf the first two paragraphs of the [second post](https://antoinep.com/posts/stating_the_obvious) in my series.
+[^3]: Cf the next to last paragraph of the [same post](https://antoinep.com/posts/stating_the_obvious).
+
+-------------------------
+
