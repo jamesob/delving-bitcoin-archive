@@ -226,3 +226,25 @@ This is an additional concern about this[^3]. I think people falling pray to [de
 
 -------------------------
 
+ajtowns | 2025-03-02 00:48:13 UTC | #15
+
+[quote="AntoineP, post:14, topic:1470"]
+we [disabled automated unit testing on Windows](https://github.com/bitcoin/bitcoin/pull/31284) after years of flaky CI and hours of maintainers’ time sunk to keep it running, as nobody stepped up to help unbreak it.
+[/quote]
+
+That doesn't seem a very fair characterisation considering the existence of 
+
+https://github.com/bitcoin/bitcoin/pull/31176
+
+[quote="AntoineP, post:14, topic:1470"]
+It should not come at the expense of development of the Core node, as per the previous point on the respective stakes of each project.
+[/quote]
+
+I don't think I agree with that -- rather, I'd say that if we have new developments we want to make to core that we can't make accessible to end users, then the feature isn't fully baked and either shouldn't be merged at all or should only be merged with the understanding that there's a lot more work to do to complete it. If, for instance, we separate out the GUI into a separate repo, then that still means we should block PRs that add features while breaking the API that the GUI relies on.
+
+To me, providing wallet features (mostly) and a GUI (to a lesser extent, IMO anyway) is a way of keeping us honest to the princple of bitcoin being usable by a decentralised bunch of hackers, versus being something that you can only really use if you're a whale or an established corporation willing to make a big investment. (And not providing sufficient features to mine on mainnet directly is something important that's missing to complete that featureset, really)
+
+Making the wallet or GUI not be a reproducible build, or not be well tested on major platforms, or not be performant, would be a bit of a regression in holding to that goal, the way I see things.
+
+-------------------------
+
