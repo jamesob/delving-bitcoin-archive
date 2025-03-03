@@ -254,3 +254,9 @@ thank you @AntoineP @ariard
 
 -------------------------
 
+AntoineP | 2025-03-03 15:39:24 UTC | #17
+
+I gave a presentation on this topic last week at the Coredev meetup. Slides are [available here](https://antoinep.com/presentations/coredev_2025_scope.pdf).
+
+-------------------------
+
