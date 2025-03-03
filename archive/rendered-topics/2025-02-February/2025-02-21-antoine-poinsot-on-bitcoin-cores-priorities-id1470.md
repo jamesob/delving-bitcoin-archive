@@ -260,3 +260,43 @@ I gave a presentation on this topic last week at the Coredev meetup. Slides are 
 
 -------------------------
 
+AntoineP | 2025-03-03 16:19:05 UTC | #18
+
+Some more comments on the specifics points raised by @harding i had not replied to yet.
+
+[quote="harding, post:10, topic:1470"]
+Certainly, those don’t need to be bundled with Bitcoin Core, but if the developers of the Bitcoin Core project cease to put effort into making a node-backed wallet accessible, why would we expect anyone else outside the project to go through the frustrating process of trying to get PRs merged into Bitcoin Core that will provide them with the interfaces they need?
+[/quote]
+
+I am not sure to understand how this is related at all. I expect people would go through this process for the same reason they do now: because they need the interface and/or think it's useful for Core to have.
+
+[quote="harding, post:10, topic:1470"]
+Anyone who has tried to do that in the past has received a litany of “noes”: no, we’re not going to add another index; no, we’re not going to extend the P2P interface to provide unverifiable info; no, we’re not going to keep SSL to allow remote RPC access; etc…
+[/quote]
+
+Same, i don't see how it's related. It's also completely misrepresenting the situation: the way you present it sounds like Core contributors would reject adding any new interface regardless on the merit of having the interface at all.
+
+I believe the opposite is true on both counts. It seems to me Core's position has historically been yes by default if there's been enough reviews and it's not a bad idea. And the cases where contributors objected they did so with very good reasons.
+
+Could you point to some examples? The ones you give strike me as bad ideas that fortunately did not make it in (spk index, SSL for remote RPC access). And there is plenty of examples of new indexes and interfaces being added in recent years: on the top of my head block filters and coinstats for instance.
+
+[quote="harding, post:10, topic:1470"]
+Or will there be even more reason to say “no” to wallet-supporting features in the node because all of the focus is on optimal verification and relay?
+[/quote]
+
+The wallet interface is not going anywhere. In addition with multiprocess all wallets will be able to use the same interface as the Core wallet, which for a long time had "privileged" access.
+
+I don't see how you could infer from my posts that i would argue for pruning interfaces that would be consumed by wallets (or object to introducing more if there is a good reason to). Obviously a node that you can't use to check your received payments is useless to an end user and nobody is proposing this.
+
+[quote="harding, post:10, topic:1470"]
+The idea of a node being embedded in wallet software is mentioned above, but is that realistic both from the standpoint of software development (e.g., will every wallet that wants to do that have to write thousands of lines of code to deal with Bitcoin Core’s limited interfaces) and from actual usage (e.g., I don’t want to run an always-on node on my mobile device; I’d rather run a node at home and connect to it as needed from my mobile)?
+[/quote]
+
+I'm confused. Are you pointing to my suggestion of having the Core wallet project release a `bitcoind` that embeds `bitcoin-node` + `bitcoin-wallet`? If so this is completely orthogonal to splitting the projects, this would happen with multiprocess anyways.
+
+With regards to the "thousands of lines" comment, i'm not sure what it corresponds to but as i point out in my previous comment the most popular way of running a full-node backed wallet today is probably Sparrow which does exactly that. Liana does too. In addition, multiprocess will give them access to an enhanced interface to get information and signals from the node.
+
+Finally about whether it's realistic for people to run a node locally, this is again orthogonal... People that do today would still be able to use whatever software they use (Sparrow, Core, Liana, ..) and people that prefer to run a node at home and connect to -say- an Electrum server running on top would still be able to.
+
+-------------------------
+
