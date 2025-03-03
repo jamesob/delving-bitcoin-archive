@@ -248,3 +248,9 @@ Making the wallet or GUI not be a reproducible build, or not be well tested on m
 
 -------------------------
 
+adrienlacombe | 2025-03-03 06:51:12 UTC | #16
+
+thank you @AntoineP @ariard
+
+-------------------------
+
