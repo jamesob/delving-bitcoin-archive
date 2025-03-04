@@ -81,3 +81,17 @@ If someone has any more ideas about useful data to generate, let me know and I'l
 
 -------------------------
 
+jungly | 2025-03-04 05:02:20 UTC | #2
+
+Thanks for this, it is really neat to see the distribution of data used by various p2p messages.
+
+The "Traffic estimate validation" chart was the most interesting to me. I was curious if we should split that chart out by message type and then capture the distribution of data size for each of those messages. I am curious for example, how many inventory items are sent in response to getblocks or how many headers are sent in response to getheaders. We could plot the mean and the standard deviation, or maybe candles/error bars to see the distribution of how far back are peers reaching into your node's data.
+
+I guess, what I am trying to get to is to dissect the Daily peer traffic by message type and plot the ranges for it. IDK if that will tell us anything interesting or not, but since you have the data we can dig in a bit :) 
+
+Thanks again for sharing this. I look forward to seeing what optimisations/changes you can conclude from the data.
+
+-jungly
+
+-------------------------
+
