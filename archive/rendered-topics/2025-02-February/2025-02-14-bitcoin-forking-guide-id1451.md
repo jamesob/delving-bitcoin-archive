@@ -50,3 +50,25 @@ There has been attempt with the [Bitcoin Contracting Primitives WG](https://gith
 
 -------------------------
 
+instagibbs | 2025-03-04 21:21:58 UTC | #3
+
+Under this framework, I guess I'd park my https://delvingbitcoin.org/t/ln-symmetry-project-recap/359 work under "Power User Exploration". 
+
+My intentions were, for APO at least to push forward the three goals of that phase:
+
+> The main goals of progressing through this phase are:
+
+> * Making sure your idea can actually be implemented as conceived
+> * Testing your idea in practice to find unexpected flaws
+> * Having a ready-to-use implementation to present to industry participants
+
+Obviously some of this work can be retooled to validate other proposals like CTV+CSFS / TXHASH+CSFS or similar, assuming the work to actually retool is done by whoever is pushing it forward.
+
+
+
+The trickier part to me is I think we can't be too protocol-focused on whatever we are attempting to do, as requirements/goals change for each project over time, even ignoring paradigm shifts in L2 architectures.
+
+A set of proposals coming out of research stage being seemingly inapplicable to actual usage / L2s in practice is a signal that's something is off, but it's not entirely clear to me what that relationship be, aside from the fact that we should tend to err on the side of composability, at the expense of some additional vbytes (but how much?).
+
+-------------------------
+
