@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.6,
   "yours": false,
   "topic_id": 1451,
   "topic_slug": "bitcoin-forking-guide",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Under this framework, I guess I'd park my https://delvingbitcoin.org/t/ln-symmetry-project-recap/359 work under \"Power User Exploration\". \n\nMy intentions were, for APO at least to push forward the three goals of that phase:\n\n> The main goals of progressing through this phase are:\n\n> * Making sure your idea can actually be implemented as conceived\n> * Testing your idea in practice to find unexpected flaws\n> * Having a ready-to-use implementation to present to industry participants\n\nObviously some of this work can be retooled to validate other proposals like CTV+CSFS / TXHASH+CSFS or similar, assuming the work to actually retool is done by whoever is pushing it forward.\n\n\n\nThe trickier part to me is I think we can't be too protocol-focused on whatever we are attempting to do, as requirements/goals change for each project over time, even ignoring paradigm shifts in L2 architectures.\n\nA set of proposals coming out of research stage being seemingly inapplicable to actual usage / L2s in practice is a signal that's something is off, but it's not entirely clear to me what that relationship be, aside from the fact that we should tend to err on the side of composability, at the expense of some additional vbytes (but how much?).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
