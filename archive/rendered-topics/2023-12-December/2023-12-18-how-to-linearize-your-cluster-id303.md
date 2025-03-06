@@ -1317,3 +1317,17 @@ Download the file (preferably to a `tmpfs`-mounted directory like `/dev/shm`) an
 
 -------------------------
 
+sipa | 2025-03-06 04:40:15 UTC | #50
+
+So, short update.
+
+My plan is still to write a prototype of GGT (with max-distance selection strategy, not dynamic trees, so $\mathcal{O}(n^2 \sqrt{m}$ complexity) to experiment with, but no code yet.
+
+@ajtowns and I spent some time thinking about how to represent capacities/flows internally. The paper only describes them as real numbers, but actual implementations need to represent them somehow:
+* The most obvious choice is using floating-point data types, but these involve potential rounding issues. More conceptually, it's also unclear under what circumstances they actually result in exact results.
+* A line of thinking we followed for a while was representing them as exact fractions. It turns out that within **one** min-cut (ignoring GGT slicing), all capacities will be a multiple of $1/S$, where $S =\sum_{i \in G} \operatorname{size}(i)$, so one can easily represent all capacities/flows as integer multiples thereof, which can grow up to $\mathcal{O}(FS)$ (with $F = \sum_{i \in G} \operatorname{fee}(i)$). Unfortunately, when slicing (descending into one side of the cut) in GGT, the flows are inherited by the child problem, which needs a different denominator. Bringing everything on the same denominator could lead to ever-growing numerators.
+* A next line of thinking was to convert the problem from one denominator to another, by first mapping to the closest integer, and then getting rid of the remaining fractional parts using [Flow Rounding](https://arxiv.org/pdf/1507.08139), which will find a flow with integer numerators for the subproblem using a flow for the parent with integer numerators these. It's not very costly computationally, but seems nontrivial, and just feels unnecessary.
+* [This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf) suggests a simpler alternative: multiply the flows and capacities by a *fixed* constant (the same for the entire GGT problem, including subproblems) and represent them as *rounded* integer multiples. It argued that as long as this multiplier $M$ is such that all distinct breakpoints (in our context: chunk feerates) multiplied by $M$ are at least 2 apart, the found min-cuts will be exactly correct. No two chunk feerates can differ by less than $1/(S^2 - S)$, so picking $M=2S^2$ would suffice for exact results. This involves $\mathcal{O}(S^3 F)$ multiplication results internally, but 128-bit integers should more than suffice in practice.
+
+-------------------------
+
