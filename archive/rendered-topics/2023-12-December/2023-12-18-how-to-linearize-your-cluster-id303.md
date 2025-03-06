@@ -1331,3 +1331,15 @@ My plan is still to write a prototype of GGT (with max-distance selection strate
 
 -------------------------
 
+stefanwouldgo | 2025-03-06 08:50:04 UTC | #51
+
+[quote="sipa, post:50, topic:303"]
+[This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf) suggests a simpler alternative: multiply the flows and capacities by a *fixed* constant (the same for the entire GGT problem, including subproblems) and represent them as *rounded* integer multiples. It argued that as long as this multiplier MMM is such that all distinct breakpoints (in our context: chunk feerates) multiplied by MMM are at least 2 apart, the found min-cuts will be exactly correct. No two chunk feerates can differ by less than 1/(S^2 - S)1/(S2−S)1/(S^2 - S), so picking M=2S^2M=2S2M=2S^2 would suffice for exact results. This involves \mathcal{O}(S^3 F)O(S3F)\mathcal{O}(S^3 F) multiplication results internally, but 128-bit integers should more than suffice in practice
+[/quote]
+
+This approach seems appropriate. I’d even argue that we don’t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough. 
+
+Maybe these considerations are also another hint that calculating one breakpoint at a time using a simple min-cut algorithm is preferable for our small instances.
+
+-------------------------
+
