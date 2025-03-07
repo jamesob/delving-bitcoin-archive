@@ -300,3 +300,201 @@ Finally about whether it's realistic for people to run a node locally, this is a
 
 -------------------------
 
+harding | 2025-03-07 02:58:07 UTC | #19
+
+> I don’t think users interacting directly with the software should be
+> prioritized over those interacting with the network in a different
+> manner.
+
+IMO, each contributor to Bitcoin Core should prefer prioritization of
+development that benefits the type of user that they most want to use
+Bitcoin Core.
+
+I'm not a Bitcoin Core contributor, but as a user of Bitcoin Core and
+author of Bitcoin documentation, the type of user that's most important
+to me are individuals who strongly desire preservation of Bitcoin's
+current core principles, such as confiscation resistance, censorship
+resistance, and monetary supply consistency.  The security of **my**
+bitcoins, and **my** ability to spend them autonomously, depends on
+enough of those highly motivated individuals connecting their wallets to
+their own personal full nodes so that there's no question that the
+current consensus rules will be enforced with 100% reliability.
+
+I can see how non-validating and partially validating users ("weak
+validators") may benefit me in multiple ways, such as increasing the
+economic reach of Bitcoin and potentially increasing the market value of
+the currency.  But even universally accepted bitcoins at a high market
+price are not what I want if weak validators become economically
+predominate and allow the third-parties who control the remote nodes
+they use to accept changes to the protocol that allow theft, censorship,
+or siphoning of **my** value.
+
+> Keeping the code for the wallet and GUI imposes significant costs on
+> the node project, which really cannot afford it right now.
+
+Why is that?  Nakamoto developed the initial wallet and GUI alongside
+the node as a single individual with no funding (AFAIK).  Ten years ago,
+when only a handful of Bitcoin Core developers had funding, I created a
+[marketing
+website](https://web.archive.org/web/20150930013906/https://bitcoin.org/en/bitcoin-core/)
+for Bitcoin Core that highlighted a [wallet and
+GUI](https://web.archive.org/web/20150930021614/https://bitcoin.org/en/bitcoin-core/features/user-interface)
+that were comparable to many other contemporary wallets (and better than
+any in at least a few ways).  Today, there's more highly active Bitcoin
+Core developers than ever before and every one of them that wants
+funding has it.  There are also dozens (hundreds?) of other projects
+with GUI-based wallets, almost none of them with a significant fraction
+of the funding that's overall provided to Bitcoin Core contributors.
+
+It looks to me like Bitcoin Core development is well funded, at least
+compared to historic norms, and that developing a wallet and GUI isn't
+an extraordinary undertaking.  Why do you think the project in such dire
+straits that it cannot support continued development of its wallet and
+GUI components?
+
+> If Bitcoin Core releases buggy software, it will likely impact Phoenix
+> users.
+
+I agree, but it's also the case that if everyone with a wallet connects
+to Bitcoin Core through a third party, even if just for a brief period
+of time, then those third parties will be able to arbitrarily change
+Bitcoin's consensus rules.  Ultimately, does it matter to Phoenix users
+whether their bitcoins were stolen due to a bug in Bitcoin Core or
+because not enough individuals connected their wallets to Bitcoin Core?
+
+> It’s also completely misrepresenting the situation: the way you
+> present it sounds like Core contributors would reject adding any new
+> interface regardless on the merit of having the interface at all.
+
+In the past decade, the main Bitcoin Core project has added almost no
+interfaces that downstream wallets would find useful and has removed
+several interfaces that were used by millions of wallet users.  In each
+case, the rejection or removal was made with a reasonable explanation,
+but the net effect has been that I do not expect Bitcoin Core to provide
+interfaces useful for connected wallets.  I think many downstream wallet
+devs may share my view.
+
+If it's not a priority to change that in the near future after years of
+failing to provide widely used interfaces, then I think it's fair for me
+to argue against a claim that [the purpose of the system is what it
+constantly fails to
+do](https://en.wikipedia.org/wiki/The_purpose_of_a_system_is_what_it_does).
+
+> Could you point to some examples? The ones you give strike me as bad
+> ideas that fortunately did not make it in (spk index, SSL for remote
+> RPC access).
+
+Let's look at those examples in detail.  A scriptPubKey (spk) index has
+been proposed multiple times (AJ linked the [most recent
+attempt][bitcoin core #14053] from 2018) and represents a few hundred
+lines of code before tests.  It would allow wallets currently used by
+millions of users to connect to those user's full nodes (with either
+some small modification to the wallet software or by Bitcoin Core adding
+some more code to support mature spk-requesting protocols).  
+
+AFAIK, the main
+[argument](https://github.com/bitcoin/bitcoin/pull/14053#issuecomment-747648440)
+against it has been that "it's a bad idea for any infrastructure to be
+built all that relies on having fully-indexed blockchain data available
+(this also applies to txindex, but we can't just remove support...)."
+That quote is from 2020, but I recall essentially the same argument
+being made years earlier.  I personally agree that relying on full spk
+indexing is not scalable in perpetuity and significantly increases the
+cost of operating a wallet for all users who chose this model due to the
+disk space requirements.  But it seems worse to either prevent millions
+of users from privately validating using their own node or to require
+them to install separate software in order to use an spk index anyway.
+
+SSL for remote RPC access was always problematic on multiple levels, but
+despite that some wallets implemented support for it, indicating demand.
+After RPC-SSL support was
+[removed](https://github.com/bitcoin/bitcoin/blob/d6a92dd0ea42ec64f15b81843b4db62c7b186bdb/doc/release-notes.md#ssl-support-for-rpc-dropped),
+demand remained and some of those wallets instead
+[recommended](https://x.com/hrdng/status/1053629086617223168) users bind
+RPC to a their public IP to accept any incoming connections, which was
+[worse](https://bitcoinops.org/en/newsletters/2018/10/23/#over-1-100-listening-nodes-have-open-rpc-ports).
+Despite this demonstrated demand from wallet users to remotely connect
+to their own personal node for RPC access, no secure interface in
+Bitcoin Core for doing so has ever been provided.  The best that's been
+offered is a recommendation to use stunnel or an httpd reverse proxy,
+which is not something I expect everyday users to do.
+
+If you would like, I can cite at least a half-dozen other examples of
+interfaces that would have allowed individual wallet users to validate
+transactions against Bitcoin Core without requiring any additional
+software or complicated set up.  In every case, the interface was either
+rejected, brainstormed but never fully developed, or (if it already
+existed) removed or neutered.  As I wrote earlier, each occasion was
+accompanied by a reasonable explanation, but the net effect has been
+that almost no wallets today can be connected to Bitcoin Core by a
+typical user unless that user operates a third-party-maintained software
+stack (like the NodeBox mentioned by @ajtowns above).
+
+You mentioned Sparrow wallet and Liana as examples of wallets people
+prefer to use to Bitcoin Core GUI, but I note that they both appear to
+use a watch-only Bitcoin Core wallet in the background, similar to the
+approach pioneered by Electrum Personal Server (EPS) and advanced by
+Bitcoin Wallet Tracker (bwt).  I take this as further evidence that the
+node itself does not currently provide useful interfaces for personal
+full validation.
+
+> there is plenty of examples of new indexes and interfaces being added
+> in recent years: on the top of my head block filters and coinstats for
+> instance.
+
+How does coinstats help people validate their wallet transactions with
+their personal full node?  My understanding is that the main advantage
+of coinstats is that it makes it easier to validate UTXO files for
+assumeutxo, which is something almost entirely done by devs and power
+users.
+
+IIRC, adding support for compact block filters to Bitcoin Core was an
+uphill battle.  It took almost three years from when the [first
+PR](https://github.com/bitcoin/bitcoin/pull/12254) for it was opened
+until the final [main PR](https://github.com/bitcoin/bitcoin/pull/19070)
+was merged.  By the time it was merged, one of its early and significant
+contributors (Tamas Blummer) had died and the primary developer (Jim
+Posen) had retired from Bitcoin protocol development.
+
+I would be interested in any other examples you have of interfaces being
+added to Bitcoin Core node in the past decade that are useful for
+external wallets to validate against a user's personal full node.
+Without some much more positive examples, I continue to maintain that
+the modern Bitcoin Core project is hostile to the introduction of the
+types of new interfaces that wallet authors want.
+
+> I don’t see how you could infer from my posts that i would argue for
+> pruning interfaces that would be consumed by wallets (or object to
+> introducing more if there is a good reason to).
+
+What the heck!  Just two paragraphs before you wrote this, you discussed
+a pruned interface (RPC over SSL) and objections to adding an interface
+(an spk index).  In both cases you argued exactly the way you now say
+you wouldn't argue!  
+
+> multiprocess will give them access to an enhanced interface to get
+> information and signals from the node 
+
+Is that a guarantee, or will we be back here in a year or two talking
+about how it would simplify maintenance of the node to remove
+multiprocess's privileged interface for wallets?  If no wallet today is
+currently using the new interface, except for Bitcoin Core Wallet, how
+do we know it's actually a useful interface for other wallets?
+
+In conclusion, I'm genuinely concerned that narrowing the scope of the
+Bitcoin Core project will accelerate the longstanding trend of making it
+increasingly difficult for individuals to validate their wallet
+transactions with Bitcoin Core.  I don't understand why you think that
+scope reduction is necessary or useful.  It's also clear to me that you
+and I disagree about the utility of Bitcoin Core's external interfaces
+and the likelihood of those interfaces being maintained (or even
+improved) if the project scope is narrowed.  Rather than prioritize the
+production of bug-free software, I think it would be great to see the
+project prioritize getting (say) a million users to validate their
+wallet transactions with their own full nodes (hopefully along a path
+that's still reasonably good at minimizing the number of bugs).
+
+Thank you for the opportunity to discuss this subject.
+
+-------------------------
+

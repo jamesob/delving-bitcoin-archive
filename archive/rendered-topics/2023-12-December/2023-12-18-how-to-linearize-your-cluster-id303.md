@@ -1317,17 +1317,17 @@ Download the file (preferably to a `tmpfs`-mounted directory like `/dev/shm`) an
 
 -------------------------
 
-sipa | 2025-03-06 04:40:15 UTC | #50
+sipa | 2025-03-07 03:18:10 UTC | #50
 
 So, short update.
 
-My plan is still to write a prototype of GGT (with max-distance selection strategy, not dynamic trees, so $\mathcal{O}(n^2 \sqrt{m}$ complexity) to experiment with, but no code yet.
+My plan is still to write a prototype of GGT (with max-distance selection strategy, not dynamic trees, so $\mathcal{O}(n^2 \sqrt{m})$ complexity) to experiment with, but no code yet.
 
 @ajtowns and I spent some time thinking about how to represent capacities/flows internally. The paper only describes them as real numbers, but actual implementations need to represent them somehow:
 * The most obvious choice is using floating-point data types, but these involve potential rounding issues. More conceptually, it's also unclear under what circumstances they actually result in exact results.
 * A line of thinking we followed for a while was representing them as exact fractions. It turns out that within **one** min-cut (ignoring GGT slicing), all capacities will be a multiple of $1/S$, where $S =\sum_{i \in G} \operatorname{size}(i)$, so one can easily represent all capacities/flows as integer multiples thereof, which can grow up to $\mathcal{O}(FS)$ (with $F = \sum_{i \in G} \operatorname{fee}(i)$). Unfortunately, when slicing (descending into one side of the cut) in GGT, the flows are inherited by the child problem, which needs a different denominator. Bringing everything on the same denominator could lead to ever-growing numerators.
 * A next line of thinking was to convert the problem from one denominator to another, by first mapping to the closest integer, and then getting rid of the remaining fractional parts using [Flow Rounding](https://arxiv.org/pdf/1507.08139), which will find a flow with integer numerators for the subproblem using a flow for the parent with integer numerators these. It's not very costly computationally, but seems nontrivial, and just feels unnecessary.
-* [This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf) suggests a simpler alternative: multiply the flows and capacities by a *fixed* constant (the same for the entire GGT problem, including subproblems) and represent them as *rounded* integer multiples. It argued that as long as this multiplier $M$ is such that all distinct breakpoints (in our context: chunk feerates) multiplied by $M$ are at least 2 apart, the found min-cuts will be exactly correct. No two chunk feerates can differ by less than $1/(S^2 - S)$, so picking $M=2S^2$ would suffice for exact results. This involves $\mathcal{O}(S^3 F)$ multiplication results internally, but 128-bit integers should more than suffice in practice.
+* [This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf) suggests a simpler alternative: multiply the flows and capacities by a *fixed* constant (the same for the entire GGT problem, including subproblems) and represent them as *rounded* integer multiples. It argues that as long as this multiplier $M$ is such that all distinct breakpoints (in our context: chunk feerates) multiplied by $M$ are at least 2 apart, the found min-cuts will be exactly correct. No two (distinct) chunk feerates can differ by less than $1/(S^2 - S)$, so picking $M=2S^2$ would suffice for exact results. This involves $\mathcal{O}(S^3 F)$ multiplication results internally, but 128-bit integers should more than suffice in practice.
 
 -------------------------
 
@@ -1340,6 +1340,22 @@ stefanwouldgo | 2025-03-06 08:50:04 UTC | #51
 This approach seems appropriate. I’d even argue that we don’t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough. 
 
 Maybe these considerations are also another hint that calculating one breakpoint at a time using a simple min-cut algorithm is preferable for our small instances.
+
+-------------------------
+
+sipa | 2025-03-07 04:03:46 UTC | #52
+
+[quote="stefanwouldgo, post:51, topic:303"]
+I’d even argue that we don’t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough.
+[/quote]
+
+That is probably true. Even if cluster sizes are limited to 4 MWU, and feerates are limited to ~10000 sat/vB, $M = 461$ can be used, which suffices to separate chunks whose feerate are just $0.004$ sat/vB apart.
+
+That said, I think the cost of 128-bit vs 64-bit arithmetic is probably close to negligible. There is one division per chunk, and a few multiplications per transaction per chunk. Everything else (the bulk of min-cut itself) is just comparisons, additions, and subtractions. I expect the bulk of the runtime cost to come from iterating over nodes and edges, and maintaining the data structures for them.
+
+---
+
+Unrelatedly, the [paper](https://sci-hub.se/10.1137/0218072) that introduced the $\mathcal{O}(n^2 \sqrt{m})$ bound for max-height push-relabel also looks interesting. It appears to contain recipes for building worst cases for which that complexity is actually reached. This may be useful for us for benchmarking worst cases.
 
 -------------------------
 
