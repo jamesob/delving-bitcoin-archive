@@ -226,14 +226,14 @@ $1000 in tx fees at 100sat/vb at $100k/BTC means 10k vbytes, or about 40kB of wi
 
 -------------------------
 
-RobinLinus | 2025-03-07 07:51:31 UTC | #10
+RobinLinus | 2025-03-07 17:35:56 UTC | #10
 
 Here's another scheme in Script generalizing Tadge's idea. It allows Alice and Bob to generate an arbitrary amount of random bits using a single preimage each.
 
 The key idea is that you can commit to a sequence of `n` bits by hashing a preimage with one of two hash functions (e.g. sha2 and hash160) `n` times and then commit to the result. 
 E.g. `committed_hash = sha2(sha2(hash160(sha2(preimage))))` would represent 0010. 
 
-Both Alice and Bob commit to such a sequence of bits and then they are pairwise XOR'd to produce the sequence of random bits.
+Both Alice and Bob commit to such a sequence of bits and then those are pairwise XOR'd to produce the sequence of random bits.
 
 Here's an example Script for 3 random bits. It's a naive implementation that can be optimized a lot.
 
@@ -331,10 +331,9 @@ OP_TOALTSTACK
 
 OP_SHA1
 
-// Bob's commitment 
+// Alice's commitment 
 <0xded526e7a29e10e49f95fbed94b1c13fa8aa786f>
-// OP_EQUALVERIFY
-OP_2DROP
+OP_EQUALVERIFY
 
 
 
