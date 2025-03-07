@@ -1,6 +1,6 @@
 # Research Paper on B.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network
 
-Laz1m0v | 2025-03-07 00:31:01 UTC | #1
+Laz1m0v | 2025-03-07 00:36:04 UTC | #1
 
 "B.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network - A Novel Framework for Self-Custodial Yield Generation via Cryptographic Time-Locked Contracts"
 
@@ -20,7 +20,7 @@ Key Contributions:
 
 Our experimental implementations on Bitcoin's signet testing environment have demonstrated annualized yield of approximately 3.8% while maintaining full node verification capabilities and complete sovereignty preservation.
 
-Full paper: https://github.com/Laz1mov/hxmt/blob/main/brain.pdf
+Full paper: https://github.com/Laz1mov/hxmt/blob/6d6b3e5a04912271404b16d2bf17668dd0a80098/brain.pdf
 
 I welcome rigorous peer review, particularly regarding the temporal security assumptions in our timelock cascade implementation and potential attack vectors in the agent communication protocol. Critical examination of our cryptographic proofs would be especially valuable.
 
