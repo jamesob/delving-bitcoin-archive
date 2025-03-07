@@ -226,3 +226,159 @@ $1000 in tx fees at 100sat/vb at $100k/BTC means 10k vbytes, or about 40kB of wi
 
 -------------------------
 
+RobinLinus | 2025-03-07 07:51:31 UTC | #10
+
+Here's another scheme in Script generalizing Tadge's idea. It allows Alice and Bob to generate an arbitrary amount of random bits using a single preimage each.
+
+The key idea is that you can commit to a sequence of `n` bits by hashing a preimage with one of two hash functions (e.g. sha2 and hash160) `n` times and then commit to the result. 
+E.g. `committed_hash = sha2(sha2(hash160(sha2(preimage))))` would represent 0010. 
+
+Both Alice and Bob commit to such a sequence of bits and then they are pairwise XOR'd to produce the sequence of random bits.
+
+Here's an example Script for 3 random bits. It's a naive implementation that can be optimized a lot.
+
+( You can paste it into https://ide.scriptwiz.app )
+
+```
+//
+// Unlocking Script 
+//
+
+// Alice's random bits
+<1>
+<0>
+<0>
+<'alice_preimage'>
+
+// Bob's random bits
+<1>
+<1>
+<0>
+<'bob_preimage'>
+
+
+//
+// Locking Script 
+//
+
+OP_SWAP
+OP_IF
+    OP_HASH160
+    <0>
+OP_ELSE
+    OP_SHA256
+    <1>
+OP_ENDIF
+OP_TOALTSTACK
+
+OP_SWAP
+OP_IF
+    OP_HASH160
+    <0>
+OP_ELSE
+    OP_SHA256
+    <1>
+OP_ENDIF
+OP_TOALTSTACK
+
+OP_SWAP
+OP_IF
+    OP_HASH160
+    <0>
+OP_ELSE
+    OP_SHA256
+    <1>
+OP_ENDIF
+OP_TOALTSTACK
+
+OP_SHA1
+
+// Bob's commitment 
+<0x6afb8a480b6f5c5ab977168a2de9a1a90b125868>
+OP_EQUALVERIFY
+
+
+
+OP_SWAP
+OP_IF
+    OP_HASH160
+    <0>
+OP_ELSE
+    OP_SHA256
+    <1>
+OP_ENDIF
+OP_TOALTSTACK
+
+OP_SWAP
+OP_IF
+    OP_HASH160
+    <0>
+OP_ELSE
+    OP_SHA256
+    <1>
+OP_ENDIF
+OP_TOALTSTACK
+
+OP_SWAP
+OP_IF
+    OP_HASH160
+    <0>
+OP_ELSE
+    OP_SHA256
+    <1>
+OP_ENDIF
+OP_TOALTSTACK
+
+OP_SHA1
+
+// Bob's commitment 
+<0xded526e7a29e10e49f95fbed94b1c13fa8aa786f>
+// OP_EQUALVERIFY
+OP_2DROP
+
+
+
+OP_FROMALTSTACK
+OP_FROMALTSTACK
+OP_FROMALTSTACK
+
+OP_FROMALTSTACK
+<3> 
+OP_ROLL
+
+// XOR
+OP_ADD
+OP_1
+OP_EQUAL
+
+
+OP_FROMALTSTACK
+<3> 
+OP_ROLL
+
+// XOR
+OP_ADD
+OP_1
+OP_EQUAL
+
+
+
+OP_FROMALTSTACK
+<3> 
+OP_ROLL
+
+// XOR
+OP_ADD
+OP_1
+OP_EQUAL
+
+```
+
+-------------------------
+
+jsarenik | 2025-03-07 08:51:52 UTC | #11
+
+Are there any examples on signet?
+
+-------------------------
+

@@ -12,9 +12,9 @@
   "reply_to_post_number": 51,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"stefanwouldgo, post:51, topic:303\"]\nI\u2019d even argue that we don\u2019t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough.\n[/quote]\n\nThat is probably true. Even if cluster sizes are limited to 4 MWU, and feerates are limited to ~10000 sat/vB, $M = 461$ can be used, which suffices to separate chunks whose feerate are just $0.004$ sat/vB apart.\n\nThat said, I think the cost of 128-bit vs 64-bit arithmetic is probably close to negligible. There is one division per chunk, and a few multiplications per transaction per chunk. Everything else (the bulk of min-cut itself) is just comparisons, additions, and subtractions. I expect the bulk of the runtime cost to come from iterating over nodes and edges, and maintaining the data structures for them.\n\n---\n\nUnrelatedly, the [paper](https://sci-hub.se/10.1137/0218072) that introduced the $\\mathcal{O}(n^2 \\sqrt{m})$ bound for max-height push-relabel also looks interesting. It appears to contain recipes for building worst cases for which that complexity is actually reached. This may be useful for us for benchmarking worst cases.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

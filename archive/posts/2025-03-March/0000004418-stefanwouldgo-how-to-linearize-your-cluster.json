@@ -12,9 +12,9 @@
   "reply_to_post_number": 50,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 6.4,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:50, topic:303\"]\n[This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf) suggests a simpler alternative: multiply the flows and capacities by a *fixed* constant (the same for the entire GGT problem, including subproblems) and represent them as *rounded* integer multiples. It argued that as long as this multiplier MMM is such that all distinct breakpoints (in our context: chunk feerates) multiplied by MMM are at least 2 apart, the found min-cuts will be exactly correct. No two chunk feerates can differ by less than 1/(S^2 - S)1/(S2\u2212S)1/(S^2 - S), so picking M=2S^2M=2S2M=2S^2 would suffice for exact results. This involves \\mathcal{O}(S^3 F)O(S3F)\\mathcal{O}(S^3 F) multiplication results internally, but 128-bit integers should more than suffice in practice\n[/quote]\n\nThis approach seems appropriate. I\u2019d even argue that we don\u2019t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough. \n\nMaybe these considerations are also another hint that calculating one breakpoint at a time using a simple min-cut algorithm is preferable for our small instances.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

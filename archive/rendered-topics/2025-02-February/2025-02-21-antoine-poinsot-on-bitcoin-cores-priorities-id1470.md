@@ -498,3 +498,9 @@ Thank you for the opportunity to discuss this subject.
 
 -------------------------
 
+jsarenik | 2025-03-07 08:47:24 UTC | #20
+
+Is there a recording of the mentioned Coredev meetup  presentation available?
+
+-------------------------
+

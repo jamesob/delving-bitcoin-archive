@@ -1,0 +1,73 @@
+{
+  "id": 4425,
+  "name": "Robin Linus",
+  "username": "RobinLinus",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/robinlinus/{size}/130_2.png",
+  "created_at": "2025-03-07T07:49:58.870Z",
+  "cooked": "<p>Here\u2019s another scheme in Script generalizing Tadge\u2019s idea. It allows Alice and Bob to generate an arbitrary amount of random bits using a single preimage each.</p>\n<p>The key idea is that you can commit to a sequence of <code>n</code> bits by hashing a preimage with one of two hash functions (e.g. sha2 and hash160) <code>n</code> times and then commit to the result.\nE.g. <code>committed_hash = sha2(sha2(hash160(sha2(preimage))))</code> would represent 0010.</p>\n<p>Both Alice and Bob commit to such a sequence of bits and then they are pairwise XOR\u2019d to produce the sequence of random bits.</p>\n<p>Here\u2019s an example Script for 3 random bits. It\u2019s a naive implementation that can be optimized a lot.</p>\n<p>( You can paste it into <a href=\"https://ide.scriptwiz.app\" rel=\"noopener nofollow ugc\">https://ide.scriptwiz.app</a> )</p>\n<pre><code class=\"lang-auto\">//\n// Unlocking Script \n//\n\n// Alice's random bits\n&lt;1&gt;\n&lt;0&gt;\n&lt;0&gt;\n&lt;'alice_preimage'&gt;\n\n// Bob's random bits\n&lt;1&gt;\n&lt;1&gt;\n&lt;0&gt;\n&lt;'bob_preimage'&gt;\n\n\n//\n// Locking Script \n//\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    &lt;0&gt;\nOP_ELSE\n    OP_SHA256\n    &lt;1&gt;\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    &lt;0&gt;\nOP_ELSE\n    OP_SHA256\n    &lt;1&gt;\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    &lt;0&gt;\nOP_ELSE\n    OP_SHA256\n    &lt;1&gt;\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SHA1\n\n// Bob's commitment \n&lt;0x6afb8a480b6f5c5ab977168a2de9a1a90b125868&gt;\nOP_EQUALVERIFY\n\n\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    &lt;0&gt;\nOP_ELSE\n    OP_SHA256\n    &lt;1&gt;\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    &lt;0&gt;\nOP_ELSE\n    OP_SHA256\n    &lt;1&gt;\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    &lt;0&gt;\nOP_ELSE\n    OP_SHA256\n    &lt;1&gt;\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SHA1\n\n// Bob's commitment \n&lt;0xded526e7a29e10e49f95fbed94b1c13fa8aa786f&gt;\n// OP_EQUALVERIFY\nOP_2DROP\n\n\n\nOP_FROMALTSTACK\nOP_FROMALTSTACK\nOP_FROMALTSTACK\n\nOP_FROMALTSTACK\n&lt;3&gt; \nOP_ROLL\n\n// XOR\nOP_ADD\nOP_1\nOP_EQUAL\n\n\nOP_FROMALTSTACK\n&lt;3&gt; \nOP_ROLL\n\n// XOR\nOP_ADD\nOP_1\nOP_EQUAL\n\n\n\nOP_FROMALTSTACK\n&lt;3&gt; \nOP_ROLL\n\n// XOR\nOP_ADD\nOP_1\nOP_EQUAL\n\n</code></pre>",
+  "post_number": 10,
+  "post_type": 1,
+  "updated_at": "2025-03-07T07:51:31.701Z",
+  "reply_count": 1,
+  "reply_to_post_number": 9,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 36.2,
+  "yours": false,
+  "topic_id": 1409,
+  "topic_slug": "emulating-op-rand",
+  "topic_title": "Emulating OP_RAND",
+  "topic_html_title": "Emulating OP_RAND",
+  "category_id": 7,
+  "display_username": "Robin Linus",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "ajtowns",
+    "name": "Anthony Towns",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Here's another scheme in Script generalizing Tadge's idea. It allows Alice and Bob to generate an arbitrary amount of random bits using a single preimage each.\n\nThe key idea is that you can commit to a sequence of `n` bits by hashing a preimage with one of two hash functions (e.g. sha2 and hash160) `n` times and then commit to the result. \nE.g. `committed_hash = sha2(sha2(hash160(sha2(preimage))))` would represent 0010. \n\nBoth Alice and Bob commit to such a sequence of bits and then they are pairwise XOR'd to produce the sequence of random bits.\n\nHere's an example Script for 3 random bits. It's a naive implementation that can be optimized a lot.\n\n( You can paste it into https://ide.scriptwiz.app )\n\n```\n//\n// Unlocking Script \n//\n\n// Alice's random bits\n<1>\n<0>\n<0>\n<'alice_preimage'>\n\n// Bob's random bits\n<1>\n<1>\n<0>\n<'bob_preimage'>\n\n\n//\n// Locking Script \n//\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    <0>\nOP_ELSE\n    OP_SHA256\n    <1>\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    <0>\nOP_ELSE\n    OP_SHA256\n    <1>\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    <0>\nOP_ELSE\n    OP_SHA256\n    <1>\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SHA1\n\n// Bob's commitment \n<0x6afb8a480b6f5c5ab977168a2de9a1a90b125868>\nOP_EQUALVERIFY\n\n\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    <0>\nOP_ELSE\n    OP_SHA256\n    <1>\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    <0>\nOP_ELSE\n    OP_SHA256\n    <1>\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SWAP\nOP_IF\n    OP_HASH160\n    <0>\nOP_ELSE\n    OP_SHA256\n    <1>\nOP_ENDIF\nOP_TOALTSTACK\n\nOP_SHA1\n\n// Bob's commitment \n<0xded526e7a29e10e49f95fbed94b1c13fa8aa786f>\n// OP_EQUALVERIFY\nOP_2DROP\n\n\n\nOP_FROMALTSTACK\nOP_FROMALTSTACK\nOP_FROMALTSTACK\n\nOP_FROMALTSTACK\n<3> \nOP_ROLL\n\n// XOR\nOP_ADD\nOP_1\nOP_EQUAL\n\n\nOP_FROMALTSTACK\n<3> \nOP_ROLL\n\n// XOR\nOP_ADD\nOP_1\nOP_EQUAL\n\n\n\nOP_FROMALTSTACK\n<3> \nOP_ROLL\n\n// XOR\nOP_ADD\nOP_1\nOP_EQUAL\n\n```",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 131,
+  "hidden": false,
+  "trust_level": 1,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}
