@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 4,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 38.0,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 69.0,
   "yours": false,
   "topic_id": 1500,
   "topic_slug": "an-exposition-of-pathfinding-strategies-within-lightning-network-clients",
@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -59,10 +59,15 @@
     {
       "id": "heart",
       "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
