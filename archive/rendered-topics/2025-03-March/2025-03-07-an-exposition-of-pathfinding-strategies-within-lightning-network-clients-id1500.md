@@ -1,0 +1,63 @@
+# An Exposition of Pathfinding Strategies Within Lightning Network Clients
+
+sindurasaraswathi | 2025-03-07 21:33:51 UTC | #1
+
+In the Lightning Network (LN), routing payments efficiently requires an effective pathfinding algorithm. To achieve this, a sender node uses a pathfinding strategy, which varies across different LN implementations. Notable implementations, including Lightning Network Daemon (LND), Core Lightning (CLN), Lightning Development Kit (LDK), and Eclair, have each developed their own approach to pathfinding. While mostly using a variant of a shortest-path algorithm, each of these node implementations differs in its pathfinding strategy in substantial details such as in the weight function that establishes underlying path costs, leading to variations in performance and trade-offs regarding fees, payment path length, routing delays, and payment reliability.
+
+Despite these differences, little research has been conducted on selecting the most suitable client or pathfinding strategy based on user-specific trade-offs. This gap in understanding motivated our study, where we systematically present a comprehensive analysis of the single-path pathfinding algorithms deployed by LND, CLN, LDK, and Eclair. Our objective is to compare the underlying channel weight functions, constraints, properties of deployed algorithms, and evaluate the performance and reveal the strengths and weaknesses of each client variant, providing insights for LN developers and researchers to guide future research and development efforts.
+
+In the Lightning Network, when the payment is initiated, the source node needs to select a path to the receiver node using pathfinding strategies on the LN graph $G(V,E)$. Existing LN clients employ instantiations of shortest path algorithms, such as Dijkstra’s algorithm, modified Dijkstra-style algorithms or Yen’s K-shortest path algorithm to find the path between specified source and receiver nodes.
+
+Dijkstra’s algorithm is widely regarded as an efficient method for single-path pathfinding in the Lightning Network, with a worst-case complexity of $O((|E| +|V |) \log (|V |))$. Dijkstra’s algorithm ensures that the cheapest path is found based on an additive path cost. However, within LN clients, apart from the total path cost of a path $p$, pathfinding is subject to certain (one or more) side constraints that can be expressed as,
+$
+\operatorname{x}(p) := \sum_{e \in p} y_e \leq \alpha,
+$
+where $\operatorname{x}$ defines the constraint function with non-negative $y_e$, $e \in E$ and $\alpha \geq 0$ an upper bound.
+
+LN clients aim to enforce specific payment path characteristics, such as a maximum total fee (which, if exceeded by the path fee, makes a path non-desirable by the user) or a minimum path success probability. These constraints require modifications to the Dijkstra’s algorithm, transforming it into a constrained shortest-path problem, which is **NP-complete**. While the adapted algorithm offers a practical approach, it does not guarantee optimal solutions for all instances.
+
+In the Lightning Network (LN), pathfinding must balance routing fees with path success probability ––– the likelihood that a payment will successfully reach its destination. Assuming that the routing success across one channel $e\in p$ is independent of the routing success across any other channel along the path, the overall path success probability $P_p$ is given by the product of the individual channel probabilities:  $P_p = \prod_{e \in p} P_e$. 
+
+In existing literature on LN pathfinding, there are two approaches for incorporating a path success probability estimate $P_p$ into a total path cost $c(p)$ of a payment path $p$ --- the first proportional to an **inverse probability penalization** $(\frac{1}{P_p})$  and the second proportional to the **negative logarithm of** $P_p$ $(\log (\frac{1}{P_p}) = -\log⁡ (\prod_{e \in p}P_{e}) = \sum_{e \in p} \log (P_e)$).
+
+CLN, LDK and Eclair use the negative logarithmic success probability term in their weight function to prioritize paths with higher success probability within their pathfinding algorithms while keeping the cost function fully additive.
+In contrast, LND’s pathfinding penalizes unreliable paths using the inverse probability penalization, where the cost function is,
+$c(p) = F_p + \frac{c_{\text{attempt}}}{P_p}$.
+
+In this equation, the fee cost term $F_p = \sum_{e \in p} \operatorname{weight_a}(e)$, where $\operatorname{weight_a}: E \to R_{\geq 0}$ is a non-negative, additive weight function. For the second summand, the situation is different, as an additive decomposition of $\frac{c_{\text{attempt}}}{P_p}$ across edges cannot be mathematically justified. However, considering $P_p = \prod_{e \in p} P_e$ (as discussed above), it is possible to decompose the second summand across edges if we introduce the multiplicative weight $\operatorname{weight_m}: E \to R_{\geq 1}, e \mapsto 1/P_e$  such that
+$c(p) = F_p + \frac{c_{\text{attempt}}}{P_p} = \sum_{e \in p} \operatorname{weight_a}(e) + c_{\text{attempt}} \prod_{e \in p} \operatorname{weight_m}(e)$. 
+
+Here, 
+* $\operatorname{weight_a}(e)$ represents the additive weight, such as routing fees.
+
+* $\operatorname{weight_m}(e)$ represents multiplicative weight derived from success probabilities, typically modeled as $\frac{1}{P_e}$ to penalize unreliable paths.
+
+* $c_{attempt}$ is a virtual cost assigned to payment attempts.
+
+LND’s pathfinding approach uses a **modified Dijkstra-style algorithm** to minimize this **additive-plus-multiplicative weight function**. Unlike traditional Dijkstra’s algorithm, it prioritizes paths based on a combined cost model, incorporating both additive and multiplicative weights. However, due to the nature of this weight function, the algorithm does not always guarantee the optimal path.
+
+A counterexample (Figure 1) illustrates how LND’s modified Dijkstra-style algorithm may overlook a cheaper route, as it selects predecessors greedily based on the current weight. In this counterexample, each edge e comprises of an additive weight $\operatorname{weight_a (e)}$ and a multiplicative weight $\operatorname{weight_m (e)}$, denoted with subscript $a$ and with subscript $m$. The goal is to find the cheapest path from the source node $s$ to the recipient node $r$.
+
+The algorithm begins by relaxing the neighbors of $s$, and updates the distances to $h$ and $k$. As the algorithm progresses, it continues to relax nodes in a greedy manner, updating paths based on immediate costs. However, when it reaches node $j$, it fails to recognize that the path $s→h→j→r$ (cost 11) is cheaper than the path $s→h→i→r$ (cost 14) that it returns.
+
+This happens because the algorithm prioritizes paths based on the current additive and multiplicative costs, which leads to overlooking potentially cheaper paths in the long run. While parameter tuning can adjust the weighting, no single value of $c_{attempt}$ in the above equation ensures optimality in all cases. The counterexample shows that, due to its greedy approach, **modified Dijkstra-style algorithm does not always find the optimal path.**
+
+![image|674x266](upload://wNB6NZIzoBbqoOMAwlPo05BZIOn.png)
+Figure 1: Counterexample graph for suboptimality of LND’s modified Dijkstra-style algorithm for pathfinding with respect to additive-plus-multiplicative cost.
+
+While an inverse probability penalization $P_p$ leads to difficulties in the pathfinding algorithms as mentioned above, an argument can be made that this modeling is more suitable to avoid unreliable paths as $\frac{1}{P_p}$  grows faster for $P_p → 0$ than $-\log (P_p)$, i.e., the penalization of unreliable vs. reliable paths is stronger in the modeling used by LND.
+
+We conducted simulations to study the empirical performance, across key metrics such as success rate, fee ratio, path length, and timelock, of LND-ap, LND-bm, CLN, LDK-un, LDK-bm, Eclair1, Eclair2, and Eclair3. LND-ap and LND-bm represent the LND implementation with Apriori and Bimodal estimators, respectively, for channel-wise success probability calculation. The LDK implementation with Uniform and Bimodal estimators for channel-wise success probability is represented as LDK-un and LDK-bm, respectively. Similarly, Eclair1, Eclair2, and Eclair3 denote three distinct cases of Eclair: heuristics ratios, heuristics constants (without logarithm) and heuristics constants (with logarithm), respectively. Building on the existing LND implementation, we propose and study a new weight function by assuming a uniform liquidity distribution for calculating channel-wise success probability, defined as $P_e =\frac{capacity_e – amount_e}{capacity_e}$ . This expression is used to compute the path success probability, which is subsequently incorporated into the LND weight function. We refer to this implementation as LND-un.
+
+We used an [LN snapshot](https://www.rene-pickhardt.de/%20listchannels20220412.json) that consists of 13,129 nodes for simulations. Consistent with the available information of an arbitrary LN node operator who is not engaged in balance probing, the dataset does not contain information about channel balances, which is only known to the two participating nodes of channel. To simulate the channel balances, we use two random models for the balances. The first model is built by uniformly choosing channel balances between zero and the channel capacity. The second graph model is constructed by sampling channel balances from a bimodal distribution with density $P(x)$ proportional to $P(x) ∼ e^{-\frac{x}{s}}+e^{\frac{x-capacity_e}{s}}$ on $[0, capacity_e]$, where $s$ is selected as a fixed fraction of the channel capacity, specifically $s = \frac{capacity_e}{10}$.
+
+In the analysis of the Lightning Network (LN) clients under both uniform and bimodal balance distributions, several key performance trends emerge. For the uniform distribution graph, **LND-un** consistently achieves the highest success rates across most payment amounts $(1-10^8 sats)$ compared to all other existing LN client variants, with an average success rate of **76.25%**. Among the eight existing LN client variants, **Eclair3** demonstrates a high success rate, with an average of **75.61%**. Eclair3 also provided the **lowest fee ratios overall**, with a median fee ratio of **0.0116%**, while LDK-bm had the highest at 0.0564%. However, it is worth noting that for larger payment amounts $(10^5-10^8 sats)$, both LDK-un and LDK-bm offer the lowest fee ratios compared to all other clients. Under the bimodal balance distribution, **LND-bm** with a liquidity broadening scale of $s = \frac{capacity_e}{10}$ in the bimodal estimator for success probability calculations achieves the highest success rates across most payment amounts $(1-10^8 sats)$, with an average of **62.74%**, outperforming LND-bm with the default value of $s = 3×10^5 sats$. This suggests that the success rates of **LND-bm can potentially be improved by fine-tuning the liquidity broadening scale $s$** based on historical channel liquidity data. CLN emerges as the top performer in terms of total timelock, offering paths with the lowest latency for routing payment amounts. Eclair1 and Eclair2 perform the best in terms of path length, while Eclair3 exhibits the highest path length and latency.
+
+In this study, we provide transparency into the pathfinding modules of the four prominent Lightning Network clients LND, CLN, LDK, and Eclair. Our study underscores the **need for better-designed weight functions** that can deliver better trade-offs between payment reliability, routing fees and other desired properties. We expect that **there is room for substantial improvements in future work**. From an algorithmic side, we conclude that it is worthwhile to consider more **sophisticated algorithms than Dijkstra’s algorithm and its ad-hoc modifications to improve pathfinding** both in terms of computational efficiency (which corresponds to payment latency) and solution quality (which corresponds to routing fees and payment reliability).
+
+While beyond the scope of this study, we note that the insights gained in this study are also relevant for future improvements in multi-part payment pathfinding algorithms, as those algorithms are based on the solution of minimum cost flow problems, which are a generalization of shortest path problems. The choice of an appropriate channel-specific weight/cost function likewise significantly influences the solution quality in multi-part pathfinding.
+
+More details of our research can be found at: [https://arxiv.org/pdf/2410.13784](https://arxiv.org/pdf/2410.13784)
+
+-------------------------
+
