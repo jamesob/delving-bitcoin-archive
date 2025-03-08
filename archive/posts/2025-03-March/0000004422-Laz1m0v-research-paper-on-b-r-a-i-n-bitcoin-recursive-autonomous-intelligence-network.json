@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 23,
-  "reads": 12,
-  "readers_count": 11,
+  "reads": 13,
+  "readers_count": 12,
   "score": 87.2,
   "yours": false,
   "topic_id": 1497,
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "\"B.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network - A Novel Framework for Self-Custodial Yield Generation via Cryptographic Time-Locked Contracts\"\n\nDear Colleagues,\n\nI am pleased to announce the publication of our research paper titled \"B.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network,\" which introduces a novel protocol for implementing autonomous agent systems directly on the Bitcoin blockchain utilizing native script primitives.\n\nAbstract\n\nThis paper presents a decentralized framework for autonomous financial operations on Bitcoin's UTXO model without requiring custodial intermediaries or cross-chain bridges. We demonstrate the theoretical foundations and practical implementation of recursive transaction structures that enable programmatic capital allocation while maintaining cryptographic guarantees of ownership through the entire execution lifecycle.\n\nKey Contributions:\n- Formalization of a recursive UTXO state management system with provable termination properties\n- Implementation of non-interactive zero-knowledge verification mechanisms for yield attestation without oracle dependencies\n- Novel application of Merkle path verification for secure inter-agent communication while preserving transaction graph privacy\n- Empirical analysis of transaction fee economics demonstrating viability under varying network conditions\n\nOur experimental implementations on Bitcoin's signet testing environment have demonstrated annualized yield of approximately 3.8% while maintaining full node verification capabilities and complete sovereignty preservation.\n\nFull paper: https://github.com/Laz1mov/hxmt/blob/6d6b3e5a04912271404b16d2bf17668dd0a80098/brain.pdf\n\nI welcome rigorous peer review, particularly regarding the temporal security assumptions in our timelock cascade implementation and potential attack vectors in the agent communication protocol. Critical examination of our cryptographic proofs would be especially valuable.\n\nThis work builds upon foundational research by Nakamoto (2008), Maxwell's Confidential Transactions (2015), and recent advances in Bitcoin script optimization techniques following the Taproot activation.\n\nRespectfully submitted,\nLaz1m0v",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
