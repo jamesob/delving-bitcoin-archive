@@ -504,3 +504,19 @@ Is there a recording of the mentioned Coredev meetup  presentation available?
 
 -------------------------
 
+TheCharlatan | 2025-03-08 22:48:53 UTC | #21
+
+> Rather than prioritize the production of bug-free software, I think it would be great to see the project prioritize getting (say) a million users to validate their wallet transactions with their own full nodes (hopefully along a path that’s still reasonably good at minimizing the number of bugs).
+
+I think you put the finger on the actual tension here. Reading through this thread, I also feel like there is some conflation of deprecating significant features used by users of Bitcoin Core and re-organising the code within the project into multiple repositories to help with maintenance, focus of review, and getting out of each other's way when contributing code. Contrary to your points made above, I think splitting can actually help shipping more diverse interfaces and features in the long run without adding significant debt to the entire project (though I'm also not entirely following your line of argumentation of organisationally separating the components leading to deprecating more components).
+
+> IIRC, adding support for compact block filters to Bitcoin Core was an uphill battle. It took almost three years from when the [first PR](https://github.com/bitcoin/bitcoin/pull/12254) for it was opened until the final [main PR](https://github.com/bitcoin/bitcoin/pull/19070) was merged. By the time it was merged, one of its early and significant contributors (Tamas Blummer) had died and the primary developer (Jim Posen) had retired from Bitcoin protocol development.
+
+This is a good example and I think it can help steer the conversation here. Not only did it take three years to get merged, it took another two years to get pruning support for it to be [merged](https://github.com/bitcoin/bitcoin/pull/15946), another year for this behaviour to get a [functional test](https://github.com/bitcoin/bitcoin/pull/21726), and to the present day to actually make the behaviour [robust](https://github.com/bitcoin/bitcoin/pull/29770). To me this shows things taking long and development often being a slow march is not a symptom of the current group of developers being less well suited than previous, rather it is an indication of mounting debt in the project that is harder and harder to deal with. The interactions between indexes, p2p, pruning, the wallet, the gui, and now assumeutxo (never mind zmq, rest, rpc, and command line notifications) are very hard to reason about. My belief is that having better interfaces enforced by some degree of separation (e.g. through repository separation) between the components can help us with this. I'm optimistic that the project is capable of delivering both a highly-scrutinized kernel and node component, as well as better index, wallet, and gui software targeted at users. 
+
+A point that I think some people underestimate is that the current state of the code also makes development less fun. Being forced to care about everything in the project while trying to focus on making the mempool better, p2p more private, or validation faster may create some contempt, and I speculate that over the past decade developers have left the project because of this. Conversely, and for the same reason, I also think it would increase the likelihood of Bitcoin Core releasing more indexes, wallet features, and interfaces again.
+
+Looking at actually following through with what was said here, I think splitting out the gui might be relatively straight forward at this point, but I am less sure if the interfaces and libraries for the wallet are ready for this quite yet.
+
+-------------------------
+
