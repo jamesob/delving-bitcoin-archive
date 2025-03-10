@@ -605,3 +605,9 @@ For the record, the hardware cost US$530 for me because of import duties, but 2 
 
 -------------------------
 
+jsarenik | 2025-03-10 10:22:09 UTC | #47
+
+Speaking of memory allocator, is there any publicly available benchmark using [gperftools](https://github.com/gperftools/gperftools) `tcmalloc`?
+
+-------------------------
+
