@@ -165,3 +165,52 @@ All that said - I do agree that block template construction or its potential jam
 
 -------------------------
 
+Laz1m0v | 2025-03-10 12:32:46 UTC | #7
+
+# Agent Networks: An Alternative Approach to MEV Mitigation
+
+Hi all,
+
+I've been thinking about Matt and @7d5x9's marketplace proposal, and while it makes a lot of sense as a pragmatic approach, I wonder if we're overlooking an alternative that might better preserve Bitcoin's decentralization properties.
+
+## Agent-based MEV mitigation
+
+What if, instead of creating marketplaces that centralize order flow, we deployed networks of specialized software agents that could collectively identify and neutralize MEV opportunities? The basic architecture would look like:
+
+1. **Monitoring agents** deployed across the network that detect potential MEV extraction patterns
+2. **Response agents** that dynamically adjust transaction parameters to make extraction unprofitable 
+3. **Coordination protocols** that allow these agents to share information without creating central points of failure
+
+This approach leverages the same insights from the marketplace proposal - that MEV requires visibility into the transaction flow and the ability to sequence transactions - but addresses these at the protocol layer rather than through intermediaries.
+
+## How this would work in practice
+
+Imagine a user submitting a DEX transaction that might be vulnerable to frontrunning. Instead of routing through a marketplace, their wallet would coordinate with a network of monitoring agents that:
+
+1. Scan the mempool for patterns indicating potential extraction opportunities
+2. Compute optimal fee strategies to make extraction unprofitable 
+3. Adjust transaction timing and parameters automatically
+
+Users gain MEV protection without having to trust a marketplace operator. The system becomes more effective over time as agents learn extraction patterns and develop countermeasures.
+
+## Comparison to the marketplace approach
+
+Compared to Matt's proposal, this approach:
+
+- **Advantages**: Preserves decentralization, doesn't require trusting marketplace operators, potentially more adaptive to new extraction techniques
+- **Disadvantages**: More complex implementation, likely slower to deploy, requires coordination among multiple agents
+
+## Technical feasibility
+
+Many of the components required for this already exist in some form - mempool monitoring tools, statistical analysis of transaction patterns, and dynamic fee estimation. The challenge is integrating these into a cohesive system.
+
+We could start by developing simple monitoring agents that only identify the most common extraction patterns, then gradually expand capabilities as the system proves effective.
+
+## Next steps?
+
+If people think this approach has merit, I'd be happy to work on a more detailed specification. We might be able to implement a basic version without any consensus changes, similar to how Matt's marketplace could operate outside the core protocol.
+
+What do you think? Is this agent-based approach worth exploring as an alternative or complement to the marketplace model?
+
+-------------------------
+
