@@ -232,3 +232,13 @@ The marketplace could potentially also track recently conflicted bids and reincl
 
 -------------------------
 
+instagibbs | 2025-03-11 15:29:15 UTC | #9
+
+[quote="ajtowns, post:8, topic:1465"]
+The marketplace could potentially also track recently conflicted bids and reinclude them if they cease being conflicted, which might be an effective mitigation to replacement cycling attacks all on its own.
+[/quote]
+
+Building the machinery to track these cycles is basically all the work and shouldn't be that prohibitive to do p2p. I think more interesting might be side-stepping RBF incremental fee pinning, presuming the actual incentives for those replacements are worked out to a miner's satisfaction.
+
+-------------------------
+
