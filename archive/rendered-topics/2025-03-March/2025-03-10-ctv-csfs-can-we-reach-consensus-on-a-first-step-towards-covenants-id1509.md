@@ -146,3 +146,44 @@ In conclusion, from the presented motivations for soft-forking `CTV`+`CSFS` toda
 
 -------------------------
 
+1440000bytes | 2025-03-11 15:55:55 UTC | #5
+
+[quote="AntoineP, post:4, topic:1509"]
+You say both implementations would use CTV as soon as possible beyond any doubt, but it seems the other team stated otherwise on Twitter. (Reference will have to wait until Twitter is back up.)
+[/quote]
+
+Other team will use CTV if its available although prefer TXHASH which is explained as the next step in OP. 
+
+There are lot of things that are discussed privately and other team is also willing to issue a grant for a proof of concept on signet that uses CTV for Ark.
+[quote="AntoineP, post:4, topic:1509"]
+Bitcoin users don’t seem too interested in DLCs, [at all](https://10101.finance/blog/10101-is-shutting-down).
+[/quote]
+
+This is a misleading. [Atomic Finance](https://atomic.finance/) and [Lava](https://www.lava.xyz/) use discreet log contracts. Failure of one project does not show anything about demand for discreet log contracts and improvements with covenants.
+
+[quote="AntoineP, post:4, topic:1509"]
+Has BitVM seen any adoption from Bitcoin users, either directly or indirectly?
+[/quote]
+
+Yes multiple projects are based on BitVM.
+
+[quote="AntoineP, post:4, topic:1509"]
+This is misleading to qualify such constructions as “vaults”. Vaults were introduced as a way for Bitcoin users to receive coins on a script such as external payments may be canceled, by enforcing an unvault period whereby external spend are delayed for a configurable amount of time.
+[/quote]
+
+Its not misleading. Vaults can even be built using pre-signed transactions.
+
+[quote="AntoineP, post:4, topic:1509"]
+Send too little to the address? Your funds are locked forever. Send too much? The excess is burned to fees. Which makes it so you need to first receive funds on your hot wallet before sending it to this utxo-with-precomputed-chain-of-transactions, and even then make really sure you are not going to burn your funds in doing so.
+[/quote]
+
+The demo uses a simple CTV vault with single hop. There are several ways to setup a vault with CTV.
+
+[quote="AntoineP, post:4, topic:1509"]
+In conclusion, from the presented motivations for soft-forking `CTV`+`CSFS` today, only one was clearly [demonstrated](https://delvingbitcoin.org/t/ln-symmetry-project-recap/359). Reduced interactivity in protocols by replacing presigned transactions with `CTV` commitments. This seems pretty light on its own for a Bitcoin soft fork.
+[/quote]
+
+It wasn't light in [2022](https://gnusha.org/pi/bitcoindev/p3P0m2_aNXd-4oYhFjCKJyI8zQXahmZed6bv7lnj9M9HbP9gMqMtJr-pP7XRAPs-rn_fJuGu1cv9ero5i8f0cvyZrMXYPzPx17CxJ2ZSvRk=@protonmail.com/) when you were interested to activate APO and built a [vault demo](https://github.com/darosior/simple-anyprevout-vault) using it. [Co-author of APO](https://xcancel.com/Snyke/status/1895880013796556818) supports CTV+CSFS as a soft fork.
+
+-------------------------
+
