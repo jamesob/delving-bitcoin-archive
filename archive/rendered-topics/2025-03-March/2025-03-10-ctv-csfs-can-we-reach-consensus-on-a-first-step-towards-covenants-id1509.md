@@ -146,7 +146,7 @@ In conclusion, from the presented motivations for soft-forking `CTV`+`CSFS` toda
 
 -------------------------
 
-1440000bytes | 2025-03-11 15:55:55 UTC | #5
+1440000bytes | 2025-03-11 15:57:02 UTC | #5
 
 [quote="AntoineP, post:4, topic:1509"]
 You say both implementations would use CTV as soon as possible beyond any doubt, but it seems the other team stated otherwise on Twitter. (Reference will have to wait until Twitter is back up.)
@@ -159,7 +159,7 @@ There are lot of things that are discussed privately and other team is also will
 Bitcoin users don’t seem too interested in DLCs, [at all](https://10101.finance/blog/10101-is-shutting-down).
 [/quote]
 
-This is a misleading. [Atomic Finance](https://atomic.finance/) and [Lava](https://www.lava.xyz/) use discreet log contracts. Failure of one project does not show anything about demand for discreet log contracts and improvements with covenants.
+This is misleading. [Atomic Finance](https://atomic.finance/) and [Lava](https://www.lava.xyz/) use discreet log contracts. Failure of one project does not show anything about demand for discreet log contracts and improvements with covenants.
 
 [quote="AntoineP, post:4, topic:1509"]
 Has BitVM seen any adoption from Bitcoin users, either directly or indirectly?
