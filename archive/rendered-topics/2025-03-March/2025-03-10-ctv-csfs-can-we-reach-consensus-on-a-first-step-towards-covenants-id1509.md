@@ -389,3 +389,39 @@ Maybe i don't have enough experience, as you seem to imply, but i would argue th
 
 -------------------------
 
+stevenroose | 2025-03-11 20:27:40 UTC | #12
+
+Allow me to wind back a little bit here.
+
+The core of the motivation of the OP was that it should be our goal to make the bitcoin protocol better, but that we as a community are both not sure of the best complete package for covenants and not entirely convinced enabling generalized covenants will not have unforeseen negative side-effects.
+
+The argument I make in OP is that "covenants" doesn't have to be an all-or-nothing question, and can be achieved in multiple steps.
+
+[quote="AntoineP, post:11, topic:1509"]
+Huh, what? What does Taproot has to do with all this?
+[/quote]
+
+I think it is a bit unfair to claim that we can't draw on examples from the past. Bitcoin soft-forks are clearly a unique technical and political challenge, and we have not much more than our own past to learn lessons from. Taproot, our previous soft-fork, seems to me like it came about with the same motivation I am citing as a motivation for covenants: it makes the bitcoin protocol better. At the time that seems to have been sufficient motivation. Of course things can change, but I never had the impression that we as a community felt that the taproot soft-fork was a mistake.
+
+[quote="AntoineP, post:11, topic:1509"]
+If DLCs are going to be used as a motivation for a CTV soft fork, it seems appropriate to ask how it’s going to 1) actually improve an application that 2) users actually care about.
+[/quote]
+
+[quote="AntoineP, post:11, topic:1509"]
+I think it’s reasonable to demonstrate usecases if they are going to be used as a motivation for a soft fork proposal.
+[/quote]
+
+To come back to your main point of critique: I am not using the new use cases I mentioned as a motivation for this soft-fork proposal. What I am using as motivation is that it is a clear improvement to the protocol that falls cleanly in a larger roadmap towards covenants, while the opcodes in question are well-studied so the risk of unforeseen side-effects is small. And since we are far from close to reaching consensus on what the entirety of this roadmap looks like, it seems a reasonable technical decision to start with deploying a first step. 
+
+I took great care in selecting (and demonstrating) that these are two opcodes that would not be "lost" if we would later execute further steps on a roadmap, and excluded other opcode candidates that could (like PAIRCOMMIT and INTERNALKEY).
+
+I used the mentioned use cases as a added bonus of protocols that could be built of enhanced with *just* this starting package of opcodes. Obviously these benefits will be somehow limited when compared to benefits that generalized covenants would imply.
+
+Again drawing on the past, taproot similarly didn't "enable" a whole lot of new *use-cases*, especially not compared to what a way simpler `OP_CHECKSCHNORRSIG` could do. It was nonetheless a worthwhile technical improvement of the protocol, as I think most developers at the time agreed on, even without having actually built any applications using it.
+
+To finish, I obviously agree that as bitcoin matures and grows more important on the world stage, we should definitely raise the bar for changes to our consensus. I just get the feeling that for some people the height of this bar has become a fixation as some kind of proxy for bitcoin's political maturity, while on the technical side I hear almost no voices claiming that these opcodes are either endangering the network or will turn out useless after subsequent upgrades. I am afraid that this mentality is ultimately holding us back. 
+
+Where should the bar realistically be? Is bitcoin a done project? Is it working perfectly and should it only be changed if its security is endangered? Or should we realize that bitcoin is still a work-in-progress and our goal is to incrementally extend its functionality while maintaining its security? This is obviously a false dichotomy, but I hope you can see the point I'm trying to make.
+
+-------------------------
+
