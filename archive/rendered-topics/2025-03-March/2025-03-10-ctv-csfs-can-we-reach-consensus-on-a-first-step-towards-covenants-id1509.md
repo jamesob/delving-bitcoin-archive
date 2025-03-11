@@ -86,3 +86,63 @@ STARKs become a possibility at step 2 with CAT and afaik pretty much a certainty
 
 -------------------------
 
+AntoineP | 2025-03-11 15:01:15 UTC | #4
+
+Thanks for writing this. My [personal view](https://antoinep.com/posts/softforks) on the topic is that we should change Bitcoin's consensus rules if we have a good reason to, but **only if** we do. I would like to offer some push backs and explain why i don't think a `CTV`+`CSFS` does not meet the bar we should set for ourselves for a soft fork.
+
+[quote="stevenroose, post:1, topic:1509"]
+In general terms, CTV simplifies any protocol that is based on pre-signed transactions by removing the need for both the interactivity of the pre-signing and the requirement to store the signatures.
+[/quote]
+
+This is actually the main selling point of CTV in my opinion. Interactivity reduction is often underappreciated.
+
+[quote="stevenroose, post:1, topic:1509"]
+Various Lightning devs have stated their intention to implement LN Symmetry if CTV+CSFS would be available.
+[/quote]
+
+It would be useful to get some statement on the matter from active contributors to the Lightning specifications. What i heard from some people there is that Eltoo might be nice for (far) future stuff, like multiparty channels. But would not be close to a priority for the moment, where all resources are currently allocated to features demanded by users that can be implemented today (including some made possible by the last soft fork but not yet implemented).
+
+[quote="stevenroose, post:1, topic:1509"]
+More generally, CTV + CSFS as an APO replacement enabling re-bindable signatures can have further usage beyond LN Symmetry.
+[/quote]
+
+This is pretty vague. What are concrete examples of applications leveraging those that have any realistic chance of bringing value to Bitcoin end users, should such a soft fork be activated?
+
+[quote="stevenroose, post:1, topic:1509"]
+CTV is a game-changer for [Ark](https://ark-protocol.org/), the younger second-layer protocol. While both Ark implementations are currently being built within bitcoin’s actual capabilities, the [benefits of CTV](https://x.com/stevenroose3/status/1865144252751028733) to the user experience are undeniable, and it is without doubt that both implementations will utilize CTV as soon as it is available.
+[/quote]
+
+If Ark becomes widely used and CTV makes it significantly better, then i think this would be a very convincing argument in favor of a CTV soft fork.
+
+Could you list the benefits of CTV for Ark here, instead of linking to Twitter? This is better for discussion here, future reference, people who don't have an account there, and for when it's down like it's been in the past couple days.
+
+You say both implementations would use CTV as soon as possible beyond any doubt, but it seems the other team stated otherwise on Twitter. (Reference will have to wait until Twitter is back up.)
+
+[quote="stevenroose, post:1, topic:1509"]
+Protocols involving [DLCs](https://dci.mit.edu/smart-contracts), which have been growing in popularity, can be [significantly simplified](https://gnusha.org/pi/bitcoindev/CAH5Bsr2vxL3FWXnJTszMQj83jTVdRvvuVpimEfY7JpFCyP1AZA@mail.gmail.com/) using CTV.
+[/quote]
+
+Bitcoin users don't seem too interested in DLCs, [at all](https://10101.finance/blog/10101-is-shutting-down).
+
+[quote="stevenroose, post:1, topic:1509"]
+[BitVM](https://bitvm.org/) would be able to drastically reduce its script sizes by replacing their current use of Lamport signatures implemented in Script by simple CSFS operations, while CTV could eliminate the need for some of the pre-signed transactions in its constructions.
+[/quote]
+
+Has BitVM seen any adoption from Bitcoin users, either directly or indirectly?
+
+[quote="stevenroose, post:1, topic:1509"]
+[Very limited vaults](https://github.com/jamesob/simple-ctv-vault) have been built with CTV.
+[/quote]
+
+This is misleading to qualify such constructions as "vaults". Vaults were introduced as a way for Bitcoin users to receive coins on a script such as external payments may be canceled, by enforcing an unvault period whereby external spend are delayed for a configurable amount of time.
+
+The construction described there simply defines a precomputed chain of transaction to spend a UTxO which requires using a hot wallet before making a payment, which kills the purpose of using a ""vault"" if your intention was to protect yourself from your hot wallet being compromised. In addition, this transaction chain requires committing to the amount which is by itself a gigantic footgun. Send too little to the address? Your funds are locked forever. Send too much? The excess is burned to fees. Which makes it so you need to first receive funds on your hot wallet before sending it to this utxo-with-precomputed-chain-of-transactions, and even then make really sure you are not going to burn your funds in doing so.
+
+CTV [may be useful](https://gnusha.org/url/https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-April/020337.html) to reduce interactivity in some actual vault constructions, but those don't seem to have much traction in the first place.
+
+---
+
+In conclusion, from the presented motivations for soft-forking `CTV`+`CSFS` today, only one was clearly [demonstrated](https://delvingbitcoin.org/t/ln-symmetry-project-recap/359?u=antoinep). Reduced interactivity in protocols by replacing presigned transactions with `CTV` commitments. This seems pretty light on its own for a Bitcoin soft fork.
+
+-------------------------
+
