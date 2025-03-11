@@ -146,13 +146,13 @@ In conclusion, from the presented motivations for soft-forking `CTV`+`CSFS` toda
 
 -------------------------
 
-1440000bytes | 2025-03-11 15:57:02 UTC | #5
+1440000bytes | 2025-03-11 16:22:24 UTC | #5
 
 [quote="AntoineP, post:4, topic:1509"]
 You say both implementations would use CTV as soon as possible beyond any doubt, but it seems the other team stated otherwise on Twitter. (Reference will have to wait until Twitter is back up.)
 [/quote]
 
-Other team will use CTV if its available although prefer TXHASH which is explained as the next step in OP. 
+Other team will use CTV if its available although prefer TXHASH which is explained as the next step by OP. 
 
 There are lot of things that are discussed privately and other team is also willing to issue a grant for a proof of concept on signet that uses CTV for Ark.
 [quote="AntoineP, post:4, topic:1509"]
@@ -184,6 +184,208 @@ In conclusion, from the presented motivations for soft-forking `CTV`+`CSFS` toda
 [/quote]
 
 It wasn't light in [2022](https://gnusha.org/pi/bitcoindev/p3P0m2_aNXd-4oYhFjCKJyI8zQXahmZed6bv7lnj9M9HbP9gMqMtJr-pP7XRAPs-rn_fJuGu1cv9ero5i8f0cvyZrMXYPzPx17CxJ2ZSvRk=@protonmail.com/) when you were interested to activate APO and built a [vault demo](https://github.com/darosior/simple-anyprevout-vault) using it. [Co-author of APO](https://xcancel.com/Snyke/status/1895880013796556818) supports CTV+CSFS as a soft fork.
+
+-------------------------
+
+reardencode | 2025-03-11 16:19:25 UTC | #6
+
+[quote="AntoineP, post:4, topic:1509"]
+[quote="stevenroose, post:1, topic:1509"]
+Various Lightning devs have stated their intention to implement LN Symmetry if CTV+CSFS would be available.
+[/quote]
+
+It would be useful to get some statement on the matter from active contributors to the Lightning specifications.
+[/quote]
+![image|690x330](upload://z097XjR135aqxq9BtuG1oNBawVc.png)
+https://x.com/rusty_twit/status/1865546920779022434
+
+-------------------------
+
+instagibbs | 2025-03-11 16:26:19 UTC | #7
+
+[quote="stevenroose, post:1, topic:1509"]
+Given the above arguments, I feel like we have both not yet figured out how to best design a practical protocol for fully generalized covenants, nor fully figured out their implications for the network’s incentives.
+[/quote]
+
+Agreed. I am very wary of efforts to lock people into a "roadmap" when we can barely see what's in front of us. It's very unclear to me what is possible and desire-able longer term, but my personal preference is to bite the bullet and build/use something from the ground up that people can actually reason about.
+
+That's clearly a long way out and there's no assurance that anything will pan out for practical and reasonable reasons, so thinking shorter term improvements is the best we can do, whether or not we decide to adopt the most mature proposals.
+
+[quote="stevenroose, post:1, topic:1509"]
+ince CTV+CSFS functions as an equivalent for [SIGHASH_ANYPREVOUT](https://covenants.info/proposals/apo/) (APO)
+[/quote]
+
+Caveat here being it only emulates a form of `SIGHASH_ALL` style APO. This is somewhat limiting and comes with downsides / additional roadblocks to adoption as a slot in replacement. e.g., it will heavily rely on CPFP instead of single tx exo fees which is a bit cheaper and reliably from relay PoV.
+
+[quote="AntoineP, post:4, topic:1509"]
+But would not be close to a priority for the moment, where all resources are currently allocated to features demanded by users that can be implemented today (including some made possible by the last soft fork but not yet implemented).
+[/quote]
+
+It depends on a number factors such as timing with other updates(one update of commitment tx is easier than two), difficulty of swapping out parts, and synergies with other changes to protocols.
+
+I do think it would accelerate updating to PTLCs, f.e., even if symmetry per-se is never adopted. Re-bindable signatures just makes life so much less of a headache when stacking protocols...
+
+I would caution on an overall effort to gate a softfork on a single group's public declaration of using it promptly. If they're good, powerful, modular primitives that seem to improve many existing constructions (with proper integration testing!), I think that's the signal we're looking for for "utility".
+
+[quote="AntoineP, post:4, topic:1509"]
+Has BitVM seen any adoption from Bitcoin users, either directly or indirectly?
+[/quote]
+
+It's still in development by [multiple companies](https://bitvm.org/#about-bitvm-alliance) from my understanding, so it's hard to judge whether or not it will lead to usage, or what the end usage will be *for*. I am not interesting in jpegs, but I find trust-minimized bridges to a Shielded CSV-like system quite attractive.
+
+What I'd like on this claim is concrete numbers on the size of improvement. CSFS doesn't change the security/trust model of BitVM, when something like TXHASH could. And the efficiency claims would have to be weighed against alternative improvements e.g., bignum support alone supposedly brings down the disprove tx from 4MWU to <400kWU. 
+
+[quote="1440000bytes, post:5, topic:1509"]
+There are lot of things that are discussed privately
+[/quote]
+
+Unfortunately this is not an effective strategy to gather industry feedback. It is not incumbent on all reviewers to chase down motivations and validation for changes.
+
+Overall, I think CTV+CSFS is an incrementalist improvement, but it *is* an improvement, built on modular pieces that likely won't become wholly deprecated in the future if and when we rewrite script or decide we're not worried about more MEVil. In other words, ignoring the social/technical costs of deployments which are very non-trivial, I believe it would be a positive outcome with limited maintenance burden.
+
+-------------------------
+
+stevenroose | 2025-03-11 16:42:06 UTC | #8
+
+I think @1440000bytes already responded with some things I wanted to mention as well. I'm not going to re-iterate them.
+
+I think my main response here is something that I already tried to emphasize in the OP. **Bitcoin users don't use the bitcoin protocol.** They use applications that application developers built on the protocol and it is these application developers that use the bitcoin protocol. I was there when users knew whether their wallet was "p2shwpkh" or "p2pkh" etc, the time when all users were developers. That time is over, because bitcoin is growing up. This basic principle inspires a lot of my responses.
+
+[quote="AntoineP, post:4, topic:1509"]
+Bitcoin users don’t seem too interested in DLCs, [at all](https://10101.finance/blog/10101-is-shutting-down).
+[/quote]
+
+Bitcoin users shouldn't be interested in DLCs. You mention a failed company building on DLCs, while @1440000bytes mentions one that raised 30M in funding last week. Only mentioning one or the other is misleading.
+
+[quote="AntoineP, post:4, topic:1509"]
+Has BitVM seen any adoption from Bitcoin users, either directly or indirectly?
+[/quote]
+
+Again, no. Users won't use BitVM, but developers will. And they are. BitVM is obviously a very young and complex project, but multiple teams with ample funding have been [building an implementation](https://github.com/BitVM/BitVM) in the last year.
+
+In fact, BitVM is a good example of the result of the lack of expressiveness in bitcoin's protocol. It is essentially a bad version [MATT](https://merkle.fun/), but built as a workaround around the lack of covenants in bitcoin. To me this shows that there is great demand for this expressiveness and developers are going to extreme lengths to obtain equivalent behavior in the ugliest possible ways.
+
+[quote="AntoineP, post:4, topic:1509"]
+CTV [may be useful](https://gnusha.org/url/https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-April/020337.html) to reduce interactivity in some actual vault constructions, but those don’t seem to have much traction in the first place.
+[/quote]
+
+I find is quite disingenuous when people point to the lack of implementations as an argument against a protocol upgrade. First of all, there were 0 implementations of taproot when it was deployed, but more generally, we cannot expect our developer ecosystem to be building on features we are still pondering to even add or not. Most of us can't afford to spend months building something that in the best case will have to be shelved for another two years and worst case will be thrown out entirely.
+
+There is an enormous difference in time commitment between brainstorming how certain primitives can be combined to achieve certain functionality, and actually implementing them. I think people with sufficient experience don't need the latter to be convinced of the former.
+
+-------------------------
+
+reardencode | 2025-03-11 17:19:12 UTC | #9
+
+I support this effort, as reflected in my [pinned post](https://x.com/reardencode/status/1871343039123452340
+) on X.
+
+![image|690x353](upload://m7pNR3NmzBQGDpvYTnXZdFdxAhX.png)
+
+To slightly expand on why specifically CTV+CSFS(and IKEY+PC?):
+
+IKEY: [INTERNALKEY](https://github.com/bitcoin/bips/blob/050d422b2ac24d8221edab0ff0053e0f585409f7/bip-0349.md)
+PC: [PAIRCOMMIT](https://github.com/bitcoin/bips/pull/1699)
+
+There's a tension between "only change bitcoin consensus in gravest extremity" and "upgrade bitcoin whenever there's a clear improvement to be had". Team Slow and Steady (as promoted by @ajtowns, @moneyball, and others) is a proposed middle of the road that aligns well with the CTV+CSFS upgrade.
+
+While there are many, @AntoineP included, who are in a fourth camp of "only change bitcoin consensus when there is a strong and clear reason", that standard is simply not realizable while navigating the delicately balanced space between "only in gravest extremity" and "slow and steady". Any upgrade that would add sufficient capabilities to show such a strong and clear reason will necessarily also raise the specter of potentially weakening the incentives which are necessary for bitcoin's continued success. While I personally am confident that an upgrade such as CAT, Simplicity, or Lisp would not harm the incentive structure, that is difficult (I think impossible) to defend to Team Slow and Steady.
+
+Therefore, we are left not with a choice of "CTV+CSFS now or something with stronger justification later" but rather "CTV+CSFS at some point, or nothing until solving the 2106 timestamp overflow".
+
+----
+
+Lastly, I'd like to expand on why I think CTV+CSFS alone may need IKEY and PC to reach activation.
+
+There was some debate during the development over the exclusion of a keyless spend. This was resolved with the justification that nearly all protocols have a cooperative n-of-n case that will dominate over whatever uncooperative cases. While this is broadly true, for some of these protocols, success would mean that the cooperative case itself is rarely broadcast which would then imply that uncooperative cases are the main spend seen in blocks. For those protocols, IKEY largely mitigates the cost of the mandatory key spend. Without IKEY, those potentially dominant spends are 32WU larger for no reason.
+
+Thanks to @JeremyRubin's [key laddering concept](https://rubin.io/bitcoin/2024/12/02/csfs-ctv-rekey-symmetry/), we know that CSFS alone enables Merkle-tree-ish commitments by using sigops to ladder keys which then commit to items. Given this, and the usefulness of such multi-commitments, I think it would be poor stewardship to add CSFS to bitcoin without also enabling multi-commitments directly. If we do so then protocol developers will use sigops instead, pushing up validation costs (not above current worst cases but simply unnecessarily). When I was developing the CSFS BIP, I briefly explored the idea of using magic keys of small sizes to specify additional items from the stack to sign over. In the end, I concluded that that functionality belongs in a separate opcode. @moonsettler developed PC as that opcode.
+
+---
+
+To tie this all together: While CAT would also enable multi-commitments for CSFS, CAT also violates the "slow and steady" ethos by introducing many capabilities with difficult to reason about incentive implications. PC is ideally situated to be everything we need to maintain incentive alignment between nodes and application protocol developers in a post-CSFS world, without introducing additional capabilities beyond those already added by CSFS itself.
+
+-------------------------
+
+instagibbs | 2025-03-11 18:39:51 UTC | #10
+
+[quote="stevenroose, post:8, topic:1509"]
+I find is quite disingenuous when people point to the lack of implementations as an argument against a protocol upgrade. First of all, there were 0 implementations of taproot when it was deployed, but more generally, we cannot expect our developer ecosystem to be building on features we are still pondering to even add or not. Most of us can’t afford to spend months building something that in the best case will have to be shelved for another two years and worst case will be thrown out entirely.
+[/quote]
+
+Appealing to history means you can only convince people perhaps that taproot wasn't vetted enough. Valid argument to be made (I'm sympathetic to it, really), but I don't think it will persuade people the integration testing bar should be the same 7 years later.
+
+With regards to the latter point, there's a lot of potential distance between "blog posts" and "fully production ready integrations". Pushing this effort forward probably involves getting people to demonstrate in specification and end to end PoC code which is firmly between the two ends.
+
+-------------------------
+
+AntoineP | 2025-03-11 18:41:38 UTC | #11
+
+[quote="stevenroose, post:8, topic:1509"]
+**Bitcoin users don’t use the bitcoin protocol.** They use applications that application developers built on the protocol and it is these application developers that use the bitcoin protocol.
+[/quote]
+
+I mean.. sure? What's your point here?
+
+[quote="stevenroose, post:8, topic:1509"]
+Bitcoin users shouldn’t be interested in DLCs.
+[/quote]
+
+I am interpreting this charitably as "Bitcoin users should be interested in applications enabled by DLCs, not by DLCs themselves". I wholeheartedly agree and this has been a point i've raised a few times already: for consensus changes we should consider what is enabled to Bitcoin users down the road, and should only consider tools made available to app developers insofar as it may bring benefits to end users.
+
+[quote="stevenroose, post:8, topic:1509"]
+You mention a failed company building on DLCs, while @1440000bytes mentions one that raised 30M in funding last week. Only mentioning one or the other is misleading.
+[/quote]
+
+I am sorry if this came across as misleading, this was absolutely not my intention. I am merely pointing out that we've been hearing about DLCs for years, companies were built to bring applications it enabled to market, and the market shrugged. Others also [pointed out](https://gist.github.com/jonasnick/e9627f56d04732ca83e94d448d4b5a51#dlcs) the lack of traction did not seem to be due to the performance limitations that would be lifted by CTV.
+
+If DLCs are going to be used as a motivation for a CTV soft fork, it seems appropriate to ask how it's going to 1) actually improve an application that 2) users actually care about.
+
+[quote="stevenroose, post:8, topic:1509"]
+[quote="AntoineP, post:4, topic:1509"]
+Has BitVM seen any adoption from Bitcoin users, either directly or indirectly?
+[/quote]
+
+Again, no. Users won’t use BitVM, but developers will. And they are. BitVM is obviously a very young and complex project, but multiple teams with ample funding have been [building an implementation](https://github.com/BitVM/BitVM) in the last year.
+[/quote]
+
+Obviously my question about indirect users of BitVM was about whether anyone was using an application that a developer leveraged BitVM to build.
+
+And if we are going to be uncharitable in interpreting each other's points here let me be clearer. Handwavy claims about speculative applications of a not-yet-existing protocol are not appropriate to justify a Bitcoin soft fork in the near term.
+
+You've also mentioned funding a few times now. Funding is good, and is a signal to take into consideration as presumably people that are putting money on a table have an incentive to properly research the market fit of a product. But this can't be blindly followed in decisions about changing Bitcoin's consensus rules, for obvious reasons.
+
+[quote="stevenroose, post:8, topic:1509"]
+To me this shows that there is great demand for this expressiveness and developers are going to extreme lengths to obtain equivalent behavior in the ugliest possible ways.
+[/quote]
+
+There is some demand for more expressiveness from application developers for sure, that's why we are here. But again, what should be demonstrated to motivate a soft fork is whether there is demand from Bitcoin users for the applications this expressiveness would enable.
+
+[quote="stevenroose, post:8, topic:1509"]
+I find is quite disingenuous when people point to the lack of implementations as an argument against a protocol upgrade.
+[/quote]
+
+I don't see how it relates to your quote of my message, but let me reply to your point in general. I think it's reasonable to demonstrate usecases if they are going to be used as a motivation for a soft fork proposal. Demonstrating a usecase does not mean building a production-ready application. It merely means showing there is demand for the usecase and that the proposed change does indeed enable the usecase.
+
+I guess what i'm describing is something akin to the "power user exploration phase" in @ajtowns' [Bitcoin Forking Guide](https://ajtowns.github.io/bfg/power.html).
+
+[quote="stevenroose, post:8, topic:1509"]
+First of all, there were 0 implementations of taproot when it was deployed,
+[/quote]
+
+Huh, what? What does Taproot has to do with all this?
+
+[quote="stevenroose, post:8, topic:1509"]
+we cannot expect our developer ecosystem to be building on features we are still pondering to even add or not
+[/quote]
+
+I think my previous comment addresses this, nobody expects a full production application to be built to motivate a soft fork.
+
+[quote="stevenroose, post:8, topic:1509"]
+There is an enormous difference in time commitment between brainstorming how certain primitives can be combined to achieve certain functionality, and actually implementing them. I think people with sufficient experience don’t need the latter to be convinced of the former.
+[/quote]
+
+Maybe i don't have enough experience, as you seem to imply, but i would argue the contrary. You seldom grasp all the ramifications of a protocol until you've actually implemented it.
 
 -------------------------
 
