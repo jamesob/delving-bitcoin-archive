@@ -214,3 +214,21 @@ What do you think? Is this agent-based approach worth exploring as an alternativ
 
 -------------------------
 
+ajtowns | 2025-03-11 03:19:59 UTC | #8
+
+[quote="MattCorallo, post:1, topic:1465"]
+We also propose that the marketplaces offer private transaction inclusion
+[/quote]
+
+One thing I wonder is if a structure like this could also be used to mitigate some mempool/policy attack patterns.
+
+If you have the same setup of a "marketplace" recommending packages of txs to miners, perhaps as well as MEV extractors proposing packages of txs, you could have "watchtowers" proposing transactions to the marketplace.
+
+That could be an improvement on what watchtowers can do with existing p2p communication if the marketplace offers direct feedback to bidders when their proposed tx package is replaced in the marketplace's recommendation to miners. That would perhaps be better than just having a watchtower on its own by allowing some specialisation: marketplaces are good at monitoring the mempool and not having their view of transactions censored by an attacker, while the watchtowers only need to be good at knowing how to deal with one specific protocol.
+
+The marketplace could potentially also track recently conflicted bids and reinclude them if they cease being conflicted, which might be an effective mitigation to replacement cycling attacks all on its own. That's possibly easier to do with bids that go through some limiting auth/payment process, rather than generic txs that appear on the p2p network.
+
+(That wouldn't help if all marketplaces were colluding in the replacement cycling attack, of course; it may also not be great for anonymity, if you need to dox yourself in some way to interact with the marketplace)
+
+-------------------------
+
