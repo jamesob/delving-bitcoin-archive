@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -64,10 +64,10 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
