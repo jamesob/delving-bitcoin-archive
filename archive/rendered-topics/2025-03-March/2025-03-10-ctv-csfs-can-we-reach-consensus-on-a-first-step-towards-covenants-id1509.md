@@ -567,3 +567,59 @@ It's great that Steven has apparently been working on this in the last hour, but
 
 -------------------------
 
+stevenroose | 2025-03-12 14:50:44 UTC | #17
+
+[quote="ajtowns, post:14, topic:1509"]
+CTV+CSFS isn’t equivalent to APO, it’s somewhat more costly by requiring you to explicitly include the CTV hash in the witness data. The [TXHASH](https://gnusha.org/pi/bitcoindev/CAMZUoK=pkZuovtifBzdqhoyegzG+9hRTFEc7fG9nZPDK4KbU3w@mail.gmail.com/) approach is (in my opinion) a substantial improvement on that.
+[/quote]
+
+I think it's fair to call something equivalent even if it's a little more costly but achieves the same functionality. (Of course I wouldn't go as far to make the same argument for things like CAT where you have to dump the entire tx on stack including several dozen opcodes.) A better argument would be that CTV+CSFS can only emulate APO|ALL and not the other APO flags. Though it seems that the APO|ALL variant of APO has the most interest.
+
+[quote="ajtowns, post:14, topic:1509"]
+The TXHASH approach would be a taproot-only solution (as is CSFS), which would have the benefit of both simplifying the change (removing policy considerations for relay of bare-CTV txs, not having to consider the CTV in P2SH being unsatisfiable)
+[/quote]
+
+The TXHASH BIP explicitly also specifies to enable CHECKTXHASHVERIFY in legacy and segwit context and outlines how hashes should be calculated for those contexts. This is specifically done so to enable "bare CTXHV" which is about a 70 witness bytes saving over p2tr and 30-something bytes over p2wsh. Having implemented TXHASH, I would definitely not say that it "simplifies the change". The difference in both technical debt and potential for bugs is an order of magnitude bigger for TXHASH than for CTV. (Not to say that I don't think TXHASH would be worthwhile, but I will definitely say that it has not received the attention I had expected, so I would definitely not want to put it on the table anytime soon.)
+
+When it comes to IBD slowdown, I believe that was before the CTV cache was made lazy? All TXHASH caches are already implemented to be lazy, so they shouldn't affect IBD or any tx validation without TXHASH opcodes.
+
+[quote="ajtowns, post:14, topic:1509"]
+It also used APO, the annex, and some custom relay rules, not CTV or CSFS
+[/quote]
+
+It actually explicitly mentions some additional benefits from CTV on top of its use of APO:
+
+[quote="instagibbs, post:1, topic:359"]
+CTV(emulation) ended up being useful! It removed the necessity of round-trips from the payment protocol, allowing for “fast forwards” that are extremely simple, and would likely reduce payment times if widely adopted.
+[/quote]
+
+[quote="ajtowns, post:14, topic:1509"]
+Unfortunately, eltoo/ln-symmetry doesn’t seem to be a very high priority in the lightning space from what I can see – eg, see the [priorities from LDK](https://x.com/TheBlueMatt/status/1859070516956389704).
+[/quote]
+
+An argument could be made that the lack of prioritization of eltoo in Lightning land is no proxy for a lack of enthusiasm for it. Lightning is not a moonshot industry, it has actual products and users, so they have to be pragmatic and build what can improve user experience tomorrow and not in several years.
+
+[quote="ajtowns, post:14, topic:1509"]
+When I looked into this, [as far as I could tell](https://x.com/ajtowns/status/1856635064941166753) Ark has been built based on the elements introspection opcodes and on pre-signed transactions, but there has been no practical exploration into actually using it with CTV.
+[/quote]
+
+Like already mentioned, I did the experiment [last night](https://x.com/stevenroose3/status/1899651611385057519) and it was remarkably straightforward.
+
+[quote="ajtowns, post:16, topic:1509, full:true"]
+It’s great that Steven has apparently been working on this in the last hour, but maybe it’s even better to let the code bake a little while before trying to use it in a debate.
+[/quote]
+
+I wouldn't go so far as to dismiss this experiment based on its age. The code is obviously not to be deployed in the state it is in, because I hackishly used conditional compilation to swap out our musig-cosigned transaction trees with ctv-based trees and for deployment you'd just pick one and not have the conditional compilation.
+
+But we have been working on this implementation for over 6 months, it is working on bitcoin's vanilla signet, we have ample integration tests that test various unilateral exit scenarios and all of these are passing for the ctv-based trees. From the looks of it, it seems like we could net remove about 900 lines of code if we would delete the cosigning code in favor of ctv and reduce our own round protocol to just two rounds of interactions instead of three. (Not to speak of the bandwidth improvement for not having to pass around signing nonces and partial signatures.)
+
+Anyway, while this experiment shows that ctv is a practical primitive to use as a developer, I think it is still mostly off topic and I'd prefer to stick to the topic at hand.
+
+[quote="ajtowns, post:14, topic:1509"]
+Doesn’t having CSFS available on its own give you equally efficient and much more flexible simplifications of DLCs? I think having CAT available as well would probably also be fairly powerful here.
+[/quote]
+
+I would assume so, but they would make the protocols a lot less "discreet", I guess. The whole "hide the tweak inside the output key" feature is I think one of the main draws to DLCs and why they're called "discreet" log contracts. Obviously not arguing against CAT adding a lot of value in most protocols :slight_smile:
+
+-------------------------
+
