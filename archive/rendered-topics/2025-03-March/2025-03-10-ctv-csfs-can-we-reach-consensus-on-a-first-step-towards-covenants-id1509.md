@@ -623,3 +623,37 @@ I would assume so, but they would make the protocols a lot less "discreet", I gu
 
 -------------------------
 
+instagibbs | 2025-03-12 15:36:31 UTC | #18
+
+[quote="ajtowns, post:14, topic:1509"]
+suspect TXHASH, CAT and CSFS would actually be a good combination here, as that would allow for a single signature to easily commit to both the tx and publication of some data while minimising wasted bytes and without needing to allow relay of random data in the annex.
+[/quote]
+
+Yes, getting the tx hash you want on the stack, sticking it to whatever data you want published onto it, and signing it does the trick.
+
+[quote="ajtowns, post:14, topic:1509"]
+(Doing an adaptor signature rather than forcing publication of data would be more efficient on-chain, but seems to still be hard to convert from a whiteboard spec to an actual implementation)
+[/quote]
+
+This probably needs to be rewritten on a whiteboard because I don't remember it saving much and being much harder to reason about in multiparty settings vs 32 WU. I'm guessing this is getting a bit off topic though :) 
+
+[quote="ajtowns, post:14, topic:1509"]
+Not simple per se, but separates out the PTLC calculation for the signing of the tx as a whole (avoiding the need for adaptor signatures), and only needs to be calculated once, not once per channel update. I can’t see a way to get the same result from just CSFS alone.
+[/quote]
+
+One signature per PTLC also falls out of using APO/(CTV/TXHASH+CSFS), just to be clear. Not needing adaptor signatures (and binding it to a specific sighash?) is kinda cool.
+
+[quote="ajtowns, post:14, topic:1509"]
+Otherwise, discarding BIP 119 entirely and starting from scratch with an equally expressive and more efficient simplified TXHASH BIP could be a good option.
+[/quote]
+
+Current TXHASH BIP has "sepcial" TxFieldSelector options, with 0-length argument being CTV mode, and 1-byte allowing BIP118 emulation. I think it's pretty straight forward to investigate that direction.
+
+[quote="stevenroose, post:17, topic:1509"]
+This is specifically done so to enable “bare CTXHV” which is about a 70 witness bytes saving over p2tr and 30-something bytes over p2wsh.
+[/quote]
+
+I've found this use-case the least compelling part, especially at the cost of having to reason about legacy scripting. If it's really important one idea I'd suggest it be included it as a new segwit output type as a separate feature that lives and dies in a proposal on its own merits. I ended up doing this with P2A for the exact same two reasons.
+
+-------------------------
+
