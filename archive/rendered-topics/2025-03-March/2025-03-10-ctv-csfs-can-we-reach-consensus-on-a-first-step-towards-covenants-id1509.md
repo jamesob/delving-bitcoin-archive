@@ -86,7 +86,7 @@ STARKs become a possibility at step 2 with CAT and afaik pretty much a certainty
 
 -------------------------
 
-AntoineP | 2025-03-11 15:01:15 UTC | #4
+AntoineP | 2025-03-11 22:08:19 UTC | #4
 
 Thanks for writing this. My [personal view](https://antoinep.com/posts/softforks) on the topic is that we should change Bitcoin's consensus rules if we have a good reason to, but **only if** we do. I would like to offer some push backs and explain why i don't think a `CTV`+`CSFS` does not meet the bar we should set for ourselves for a soft fork.
 
@@ -116,7 +116,7 @@ If Ark becomes widely used and CTV makes it significantly better, then i think t
 
 Could you list the benefits of CTV for Ark here, instead of linking to Twitter? This is better for discussion here, future reference, people who don't have an account there, and for when it's down like it's been in the past couple days.
 
-You say both implementations would use CTV as soon as possible beyond any doubt, but it seems the other team stated otherwise on Twitter. (Reference will have to wait until Twitter is back up.)
+You say both implementations would use CTV as soon as possible beyond any doubt, ~~but it seems the other team stated otherwise on Twitter. (Reference will have to wait until Twitter is back up.)~~ *edit: couldn't find a reference*
 
 [quote="stevenroose, post:1, topic:1509"]
 Protocols involving [DLCs](https://dci.mit.edu/smart-contracts), which have been growing in popularity, can be [significantly simplified](https://gnusha.org/pi/bitcoindev/CAH5Bsr2vxL3FWXnJTszMQj83jTVdRvvuVpimEfY7JpFCyP1AZA@mail.gmail.com/) using CTV.
