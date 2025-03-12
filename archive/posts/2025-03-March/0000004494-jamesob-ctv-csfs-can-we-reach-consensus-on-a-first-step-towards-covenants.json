@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "Oh, and I forgot to mention on the subject of vaults/presigned-txns: I've spoken to two Blockstream engineers in the past couple months who both say that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

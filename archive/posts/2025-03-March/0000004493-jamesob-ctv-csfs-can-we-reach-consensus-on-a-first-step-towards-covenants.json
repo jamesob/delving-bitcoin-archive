@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:14, topic:1509\"]\nI don\u2019t believe the CTV-only \u201cvaults\u201d are at all interesting or useful in practice\n[/quote]\n\nI know firsthand that a large custodian would make use of CTV to replace presigned transactions specifically for custodial operations.\n\nBeyond that, as you should recall from your `VAULT` days, CTV (or an equivalent) is a necessary prerequisite to doing any kind of \"better\" vault. It's tablestakes. Rob Hamilton recently [substantiated the industry demand for good vaults, using `VAULT` or similar](https://x.com/Rob1Ham/status/1897781338796966103), and once again I can corroborate firsthand there.\n\nSo to downplay the demand for vaults is very strange to me. It's an obvious use that people keep asking for in various forms, and CTV is a required primitive.\n\nThe best argument you can make against CTV on this count is that TXHASH's CTV mode would serve the same purpose, but scrutinizing the TXHASH implementation for validity is probably an order of magnitude harder than for CTV's given [its complexity](https://github.com/stevenroose/bitcoin/blob/599020daaa3deab922229adf41f5021ee9f4ca3b/src/script/txhash.cpp).\n\n[quote=\"ajtowns, post:14, topic:1509\"]\nFundamentally, I think you want some ability to calculate an output scriptPubKey as \u201cback to cold storage, or spend here after some delay\u201d, and CTV and the like only give the \u201cspend here\u201d part of that.\n[/quote]\nI'm not understanding you here - CTV vaults, and [my implementation in particular](https://github.com/jamesob/simple-ctv-vault), allows you to either do a time-delayed spend, or sweep immediately to cold. That much is shown in the first state diagram on the page.\n\n[quote=\"ajtowns, post:14, topic:1509\"]\nI believe the only cost would be adding 70 witness bytes to txs in the \u201ccongestion control\u201d use case, however that use case doesn\u2019t seem viable in the first place to me.\n[/quote]\nI'm not sure what your basis for saying this is. Aside from the \"thundering herd use\" potential, congestion control can be used by miners to compress payouts in the coinbase transaction during times of elevated feerates. I spoke to LukeJr about this last night, who runs Ocean Mining, and he said that miners would make use of this - although possibly on the basis of firmware limitations rather than fee smoothing.\n\nThe point stands that there are many uses for what's referred to as \"congestion control,\" and to dismiss them all casually seems presumptuous.\n\nThe \"bare legacy\" mode for CTV is especially important in these cases because it's the most succinct first-stage commitment (`<32byte-hash> OP_CTV`) that can serve to lock in a series of `n` payments on bitcoin.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
