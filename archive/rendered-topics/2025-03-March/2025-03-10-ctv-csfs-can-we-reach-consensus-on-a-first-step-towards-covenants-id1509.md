@@ -86,9 +86,9 @@ STARKs become a possibility at step 2 with CAT and afaik pretty much a certainty
 
 -------------------------
 
-AntoineP | 2025-03-11 22:08:19 UTC | #4
+AntoineP | 2025-03-12 18:14:32 UTC | #4
 
-Thanks for writing this. My [personal view](https://antoinep.com/posts/softforks) on the topic is that we should change Bitcoin's consensus rules if we have a good reason to, but **only if** we do. I would like to offer some push backs and explain why i don't think a `CTV`+`CSFS` does not meet the bar we should set for ourselves for a soft fork.
+Thanks for writing this. My [personal view](https://antoinep.com/posts/softforks) on the topic is that we should change Bitcoin's consensus rules if we have a good reason to, but **only if** we do. I would like to offer some push backs and explain why i don't think a `CTV`+`CSFS` meets the bar we should set for ourselves for a soft fork.
 
 [quote="stevenroose, post:1, topic:1509"]
 In general terms, CTV simplifies any protocol that is based on pre-signed transactions by removing the need for both the interactivity of the pre-signing and the requirement to store the signatures.
@@ -654,6 +654,74 @@ This is specifically done so to enable “bare CTXHV” which is about a 70 witn
 [/quote]
 
 I've found this use-case the least compelling part, especially at the cost of having to reason about legacy scripting. If it's really important one idea I'd suggest it be included it as a new segwit output type as a separate feature that lives and dies in a proposal on its own merits. I ended up doing this with P2A for the exact same two reasons.
+
+-------------------------
+
+1440000bytes | 2025-03-12 16:34:27 UTC | #19
+
+Nobody here is dumb and "we" can see who is trying to form consensus.
+
+It is obvious objections are part of politics and drama.
+
+-------------------------
+
+1440000bytes | 2025-03-12 16:32:18 UTC | #20
+
+We will do CTV+CSFS this year for activation. Please try your best to stop it and become "the gatekeepers" 
+
+We don't need to appease every developer.
+
+-------------------------
+
+stevenroose | 2025-03-12 18:14:51 UTC | #21
+
+My purpose with this thread is to avoid doing an independent activation client which will undoubtedly upset people, but instead hear everyone out and see if we can gather enough momentum to get some version of these changes deployed through the regular Core release process.
+
+-------------------------
+
+1440000bytes | 2025-03-12 18:22:38 UTC | #22
+
+I wanted to read other people's opinion as well since I created a table on wiki and even approved edits that I don't agree with. 
+
+We see an arrogance and non sense being repeated here by developers who are misusing their reputation in the community. Some of these developers have no reasons to block CTV and been writing non sense for years that affects bitcoin.
+
+They are experienced and know the proposed soft forks will not harm bitcoin. Their ego is not one of the reasons to abandon a soft fork.
+
+-------------------------
+
+jamesob | 2025-03-12 19:51:09 UTC | #23
+
+[quote="ajtowns, post:14, topic:1509"]
+I don’t believe the CTV-only “vaults” are at all interesting or useful in practice
+[/quote]
+
+I know firsthand that a large custodian would make use of CTV to replace presigned transactions specifically for custodial operations.
+
+Beyond that, as you should recall from your `VAULT` days, CTV (or an equivalent) is a necessary prerequisite to doing any kind of "better" vault. It's tablestakes. Rob Hamilton recently [substantiated the industry demand for good vaults, using `VAULT` or similar](https://x.com/Rob1Ham/status/1897781338796966103), and once again I can corroborate firsthand there.
+
+So to downplay the demand for vaults is very strange to me. It's an obvious use that people keep asking for in various forms, and CTV is a required primitive.
+
+The best argument you can make against CTV on this count is that TXHASH's CTV mode would serve the same purpose, but scrutinizing the TXHASH implementation for validity is probably an order of magnitude harder than for CTV's given [its complexity](https://github.com/stevenroose/bitcoin/blob/599020daaa3deab922229adf41f5021ee9f4ca3b/src/script/txhash.cpp).
+
+[quote="ajtowns, post:14, topic:1509"]
+Fundamentally, I think you want some ability to calculate an output scriptPubKey as “back to cold storage, or spend here after some delay”, and CTV and the like only give the “spend here” part of that.
+[/quote]
+I'm not understanding you here - CTV vaults, and [my implementation in particular](https://github.com/jamesob/simple-ctv-vault), allows you to either do a time-delayed spend, or sweep immediately to cold. That much is shown in the first state diagram on the page.
+
+[quote="ajtowns, post:14, topic:1509"]
+I believe the only cost would be adding 70 witness bytes to txs in the “congestion control” use case, however that use case doesn’t seem viable in the first place to me.
+[/quote]
+I'm not sure what your basis for saying this is. Aside from the "thundering herd use" potential, congestion control can be used by miners to compress payouts in the coinbase transaction during times of elevated feerates. I spoke to LukeJr about this last night, who runs Ocean Mining, and he said that miners would make use of this - although possibly on the basis of firmware limitations rather than fee smoothing.
+
+The point stands that there are many uses for what's referred to as "congestion control," and to dismiss them all casually seems presumptuous.
+
+The "bare legacy" mode for CTV is especially important in these cases because it's the most succinct first-stage commitment (`<32byte-hash> OP_CTV`) that can serve to lock in a series of `n` payments on bitcoin.
+
+-------------------------
+
+jamesob | 2025-03-12 19:57:23 UTC | #24
+
+Oh, and I forgot to mention on the subject of vaults/presigned-txns: I've spoken to two Blockstream engineers in the past couple months who both say that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.
 
 -------------------------
 

@@ -170,3 +170,13 @@ At the same time, implementers would do well to avoid complete rewrites of the o
 
 -------------------------
 
+instagibbs | 2025-03-12 18:54:19 UTC | #2
+
+[quote="morehouse, post:1, topic:1512"]
+By setting fee budgets in proportion to HTLC values, LND’s new sweeper is able to provide much stronger guarantees that any replacement cycling attacks will be uneconomical.
+[/quote]
+
+Glad to see this common-sense approach which also is additional defense against HTLC expiry bribe attacks. "miner harvesting" is a thing, but so is bribing miners via a timeout tx; you need to make it worth it for a miner one way or another.
+
+-------------------------
+
