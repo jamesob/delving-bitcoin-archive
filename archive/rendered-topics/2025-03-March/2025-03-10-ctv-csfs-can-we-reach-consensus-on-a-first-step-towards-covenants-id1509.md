@@ -425,3 +425,145 @@ Where should the bar realistically be? Is bitcoin a done project? Is it working 
 
 -------------------------
 
+ariard | 2025-03-12 01:20:13 UTC | #13
+
+Thanks Steven for introducing this subject.
+
+This is indeed a really compelling question if the community of bitcoin technical experts is in measure or not to reach consensus on covenants. Even if I disagree with a lot of the positions asserted within, this is always valuable to have that kind of conversation with the most dispassionate and disinterested minds.
+
+*First and foremost*, I strong believe we should abstain ourselves to use expressions like "*we as a community felt*", who is we ? who is that community ? and if you go to read any treatise on psychology, biological emotions and as such expressing "feelings" is one of the most subjective experience that one can have as a human being. The domain of subjective psychology is not necessarily the most compelling lexical fields when you have to argue on objective criterias for an audience who is geographically spread around the world.
+
+*Secondly*, I strongly also believe we should abstain ourselves to use expressions like "*Bitcoin soft-forks are clearly a unique technical and political challenge*,”.
+
+As said in reply to James on the mailing list which is still pending moderation, **science and engineering != politics**. The old bitcoin motto is "*Vires in numeris*”, which for the ones less used with Latin means "*Trust the Numbers*", i.e all the cryptographic assumptions backing Bitcoin as a protocol and a network (Discreet Log problem, preimage-collision resistance for SHA256, Hashcash as a cryptographic protocol, etc).
+
+That changing the Bitcoin consensus involves discussions, arguments and palavers with other human beings, yes this is a reality and otherwise there would be no one else with whom you could exchange few scarce sats of your stack. However, this is a social activity, e.g like a group of people who would play the different instruments of a musical orchestra, but it's not a political activity, as it’s understood in humanities (e.g in postmodern theories, science has always been a unique object of its own).
+
+If my memory is correct, myself I've only used the "political" adjectives 2 in my more than half-a-decade Bitcoin career, and the 2 times it was to denounce the kind of horse-trading show we often see on bitcoin core, where contributor A goes to review PR #1 in exchange of another contributor B going to review PR #2 (— they mutually benefit of merged PRs for their funding renewal, afterall...), under all very questionable technical criteria. Horse-trading show more or less documented in IETF RFC 7282, pointing this is not technically sound "rough consensus”.
+
+Of course, that historically in Bitcoin some people involved at the crux of the development process of `bitcoind`, the original client, have tacken at times, or been deliberately ambiguous with trying to establish any sound guidelines, while at the same time having massive commercial interests on a specific technical outcome has been seriously detrimental for the *credibility* of the process of consensus changes.
+
+Let's remember the example of Blockstream, where folks have gone to raise venture capitals for $21M, publishing a sidechain with a proposed Bitcoin Script (e.g `OP_SIDECHAINPROOFVERIFY`) while the names on the paper had work experience with Mozilla and few other non-profits. At Mozilla, the Foundation is dissociated from Mozilla Corporation, and this was already true at the time in 2014.
+
+I don't remember that Satoshi ever announced the venture capitalist funding of the Bitcoin whitepaper on TechCrunch.
+
+Instead the Blockstream people (Sipa, Gmax, Adam Back, Austin Hill), especially the engineers could have instead focus their time nurturing initiatives like Bitcoin Optech and its online-ressources and in-person workshops, or ensuring the old bitcoin mailing list hosted by the Linux foundation was moderated on neutral grounds, or building up on the work of Amir Taaki in maintaining the BIPs. All community activities building bridges in matters of consensus changes…
+
+But no what we had instead is a [kick-out](https://laanwj.github.io/2016/05/06/hostility-scams-and-moving-forward.html) of Gavin Andresen of its maintenance rights in 2016 (cf. laanwj’s blog post). Gavin Andresen and Mike Hearn, whatever all others judgements we can have on them, were technical builders and building communities. Somehow it turns out that Mike Hearn's bitcoinj micropayment channels, which was Satoshi's idea and of which the Lightning Network is only a sophisticated iteration, is what is certainly the most decentralized used second-layers, compared to "federated" side-chains.
+
+All that said I wasn't active in Bitcoin protocol development during the early days of the Block Size War. I wasn't in Blockstream folks shoes and I might judge them harshly retrospectively without all the facts in mind. However, as said the adage "*Error humanum est, perseverare diabolicum*”.
+
+So I understood Jeremy's "hot take" at the time of CTV 1st activation attempt in 2022 when he was jooking on one of his blog post (I can't remind which one exactly…) that current Bitcoin consensus change is like getting the blessing of a "*Grey Beards Committee*". One thing about unaccountable committee, you'll always find people to join them and _do nothing_, just here to take the periodic financial reward associated with the committed seat…
+
+*Thirdly*, saying proposal OP_MNO or proposal OP_IJK has "funding", be it for-profit, non-profit, commercial venture, whatever is very short-sighted. Bitcoin as a protocol is first a complex scientific endeavor and let reminds [Theranos](https://en.wikipedia.org/wiki/Theranos) in matters of results on a highly-funded, scientifically deficient venture (cf. Theranos wikipedia page). W.r.t to non-profit sources of funding which can be driven with a more scientific perspective, if we exclude Jeremy the only independent names I'm aware off I've never contributed to bitcoin script code, themselves, even less on covenants, as far as I can remember.
+
+*Fourthly*, on the statement that "*while the opcodes in question are well-studied so the risk of unforeseen side-effects is small*", this is factually wrong.
+
+As Gleb Naumenko researched in the past and I pointed out this research on the mailing list, extending the bitcoin script can break the current UTXO model and enable to have tx-withhold risks of time-sensitive transactions.
+
+Here the blog post, drawing from Ethereum academic literature actually:
+https://blog.bitmex.com/txwithhold-smart-contracts/
+
+To put it plainly, an attacker could (1) set a tx-withhold UTXO with a time-sensitive txid and (2) have this UTXO paying out miners for each block or sequence of blocks the txid is not confirmed in the UTXO set and (3) double-spend the funding UTXO of a LN channel as "honest" lightning transactions have been withheld.
+
+*Fifthly*, *CheckTemplateVerify* and its iterations has been around since more than ~6 years, it has been broken few times at least there was a change to integrate input in the template to avoid ***"half-spend”*** issues, as Gmax pointed out. Very strict template is easier to reason on if it does enable some kind of change in the UTXO model.
+
+*Sixthly*, for the Taproot there was an extended evaluation phase, with more than ~ 2 years and half between the proposition of BIP116 (`OP_MERKLEBRANCHVERIFY`) and BIP117 (Tail Call Execution Semantics), the original Taproot proposition in 2018 and the open-to-all on IRC review process over a span of weeks. This does not make Taproot perfect, as few people noticed after the code was merged for payment pools, there was no commitment to the script-path internal pubkey oddness *in the control block c*. Everyone is free to come to point out defects that could arise from Taproot consensus code, existing consensus code even made for Satoshi has its own issue, as the dummy element for `OP_CHECKMULTISIG` taught it.
+
+*Seventhly*, on the "*Is it working perfectly and should it only be changed if its security is endangered?*". See the point above about ***tx-withholding risk*** and the ***"half-spend” issue*** that was found in the past about CTV. If bringing covenants in bitcoin is a real security risk, we should do no soft-fork, or delay until they have been more studied. Personally, if bitcoin dies next week, I'm lucky to have access to a wide range of other options to preserve my financial autonomy, even better than the average fiat billionaire.
+
+This is not the case of a lot of people in war zones, in developing countries or who cannot access the mainstream 24 / 7 banking system because they are discriminated due to a social factor (e.g they have an exotic name), etc. *Bitcoin is an alternative for the ones who need it.*
+
+*edited: to correct my own english and add missing link.*
+
+-------------------------
+
+ajtowns | 2025-03-12 03:11:53 UTC | #14
+
+[quote="stevenroose, post:1, topic:1509"]
+has been deployed on various [test networks](https://github.com/bitcoin-inquisition/bitcoin) and has been used to develop [several use cases](https://utxos.org/uses/).
+[/quote]
+
+I like the aphorism "trust, but verify" (of course, some Bitcoiners take it further with "don't trust, verify" -- but either way, the verification part is important). When I try to verify statements like these about CTV, they usually come up pretty lacking.
+
+Taking the specific examples you list for CTV+CSFS, rather than the ones on the utxos page:
+
+ * "CTV+CSFS functions as an equivalent for SIGHASH_ANYPREVOUT (APO), which enables Lightning Symmetry (formerly Eltoo)"
+
+CTV+CSFS isn't equivalent to APO, it's somewhat more costly by requiring you to explicitly include the CTV hash in the witness data. The [TXHASH](https://gnusha.org/pi/bitcoindev/CAMZUoK=pkZuovtifBzdqhoyegzG+9hRTFEc7fG9nZPDK4KbU3w@mail.gmail.com/) approach is (in my opinion) a substantial improvement on that.
+
+The TXHASH approach would be a taproot-only solution (as is CSFS), which would have the benefit of both simplifying the change (removing policy considerations for relay of bare-CTV txs, not having to consider the CTV in P2SH being unsatisfiable), and removing the need for segwit-related hashes to be precalculated for non-segwit transactions, preventing [the potential for IBD slowdown](https://github.com/bitcoin/bitcoin/pull/21702#pullrequestreview-859718084), and not requiring complicated workarounds. I believe the only cost would be adding 70 witness bytes to txs in the "congestion control" use case, however that use case doesn't seem viable in the first place to me.
+
+(Strictly, "TXHASH EQUAL" is perhaps an extra witness byte compared to "CTV", though "TXHASH EQUALVERIFY" is the same as "CTV DROP". "[sig] TXHASH [p] CSFS" is probably a byte cheaper than APO, since you add "TXHASH" but save both a SIGHASH byte and a public key version byte. TXHASH also has the benefit that you can just run the script "TXHASH" through a script interpreter to get the TXHASH you want to commit to, rather than having to construct it out of band)
+
+Beyond that, the exploration into ln-symmetry has been both fairly preliminary (to the best of my knowledge, nobody has been able to reproduce Greg's results; I've tried, and I believe cguida has as well -- ie, the "verify" part hasn't succeeded in general). It also used APO, the annex, and some custom relay rules, not CTV or CSFS or the current TRUC/ephemeral anchor model, so even if it did provide good evidence that eltoo was possible with APO, someone would still need to do the work to redesign it for CTV/TXHASH/CSFS before it was good evidence for that approach. I suspect TXHASH, CAT and CSFS would actually be a good combination here, as that would allow for a single signature to easily commit to both the tx and publication of some data while minimising wasted bytes and without needing to allow relay of random data in the annex. (Doing an adaptor signature rather than forcing publication of data would be more efficient on-chain, but seems to still be hard to convert from a whiteboard spec to an actual implementation)
+
+Unfortunately, eltoo/ln-symmetry doesn't seem to be a very high priority in the lightning space from what I can see -- eg, see the [priorities from LDK](https://x.com/TheBlueMatt/status/1859070516956389704).
+
+I think having both CAT and CSFS would make implementing PTLCs a bit easier -- you could replace "<preimage> SIZE 32 EQUALVERIFY SHA256 <x> EQUALVERIFY" with "<y> SIZE 32 EQUALVERIFY <x> TUCK CAT SWAP DUP CSFS" where "y" is the the s-part of the signature, calculated as preimage/(1+H(x,x,x)). Not simple per se, but separates out the PTLC calculation for the signing of the tx as a whole (avoiding the need for adaptor signatures), and only needs to be calculated once, not once per channel update. I can't see a way to get the same result from just CSFS alone.
+
+ * "I am obviously biased here, but CTV is a game-changer for Ark"
+
+When I looked into this, [as far as I could tell](https://x.com/ajtowns/status/1856635064941166753) Ark has been built based on the elements introspection opcodes and on pre-signed transactions, but there has been no practical exploration into actually using it with CTV. For something that was announced as being implementable either with BIP 118 (APO) or BIP 119 (CTV), never having actually done that comes across as a huge red flag for me, particularly when people are willing to implement crazy things like the "purrfect" vaults.
+
+ * "Protocols involving DLCs, which have been growing in popularity, can be significantly simplified using CTV."
+
+Doesn't having CSFS available on its own give you equally efficient and much more flexible simplifications of DLCs? I think having CAT available as well would probably also be fairly powerful here.
+
+ * "BitVM would be able to drastically reduce its script sizes by replacing their current use of Lamport signatures implemented in Script by simple CSFS operations"
+
+I think CAT would also be a significant win here.
+
+ * "Very limited vaults have been built with CTV."
+
+I don't believe the CTV-only "vaults" are at all interesting or useful in practice; I'm not sure if adding CSFS into the mix changes that in any way. Fundamentally, I think you want some ability to calculate an output scriptPubKey as "back to cold storage, or spend here after some delay", and CTV and the like only give the "spend here" part of that. Features like that are very complicated, and are very poorly explored. I think [they're worth exploring](https://delvingbitcoin.org/t/flexible-coin-earmarks/1275), but probably not worth rushing.
+
+[quote="stevenroose, post:1, topic:1509"]
+While no one will deny that covenants are a useful tool to build a wide variety of second-layer protocols, I feel that there is still hesitancy in the wider bitcoin user community on how the merits of the functionality covenants and second-layer protocols enable outweigh the risks of introducing them.
+[/quote]
+
+I mean, personally [I have denied that covenants are a useful tool](https://gnusha.org/pi/bitcoindev/20220719044458.GA26986@erisian.com.au/) and continue to do so. Covenants are a bad idea, and misusing that term to also cover things that are useful was also a bad idea. Jeremy may have had a good excuse for making that mistake in 2019 or so, but there's no reason to continue it.
+
+If you're seriously trying to establish consensus about activating CTV and CSFS simultaneously, I would expect the first step would be to revise the CTV BIP so that its motivation/rationale are actually consistent with such an action.
+
+[quote="stevenroose, post:1, topic:1509"]
+This is why I took on the work to spec out and implement the [OP_TXHASH opcode](https://covenants.info/proposals/txhash/) according to Russel O’Connor’s ideas. While TXHASH as it stands is far from being mature enough to be deployed, it can function as an upgrade path for the similar but more restricted opcode [OP_CTV](https://covenants.info/proposals/ctv/).
+[/quote]
+
+There's no fundamental reason for TXHASH to be particuarly more flexible than CTV; it could be implemented precisely as "push the BIP-119 hash for this tx onto the stack". If you wanted slightly more flexibility, you could use a SIGHASH-like approach where there's a handful of values that will hash different parts of the tx, which could also precisely cover all the BIP-118 sighash values. It's not immediately clear to me what variants would actually be useful though; I think having CAT available would cover most of the cases where committing to the OP_CODESEPARATOR position or the script being executed as a whole would be very useful though, which are the main differences between the two APO variants. I don't think upgradability considerations here are even particularly necessary; just introducing OP_TXHASH2 in future seems roughly fine. (For general tx introspection, an OP_TX that doesn't automatically hash everything is perhaps more useful, but general tx introspection is a much wider design space)
+
+[quote="stevenroose, post:8, topic:1509"]
+I find is quite disingenuous when people point to the lack of implementations as an argument against a protocol upgrade. First of all, there were 0 implementations of taproot when it was deployed, but more generally, we cannot expect our developer ecosystem to be building on features we are still pondering to even add or not. Most of us can’t afford to spend months building something that in the best case will have to be shelved for another two years and worst case will be thrown out entirely.
+[/quote]
+
+So much for "I won't be .. pointing fingers", I guess? In any event, I would personally argue this was a serious flaw in how we deployed taproot, and one that we shouldn't repeat. While we did have some practical experimentation (the [optech taproot workshops](https://bitcoinops.org/en/schnorr-taproot-workshop/) explored schnorr, alternative tapscripts, and degrading multisig eg), and certainly had plenty of internal tests, that was still pretty limited. In particular, there were a variety of problems we didn't catch particularly early, but likely could have with more focus on "does this work in practice, or just in theory?":
+
+ * going from an abstract design for musig to an actual implementation was quite complicated, and perhaps would have been simplified if the x-only/32-byte point changes could have been reconsidered. The optech workshops predated this change, so didn't have a chance to catch the problem; and the taproot review sessions afterwards were mostly focussed on the theory, with any failures at not being able to actually use the features in practice not raising huge alarms.
+ * Neutrino had a [bug](https://gnusha.org/pi/bitcoindev/CAO3Pvs-Jazo27Vmi3Rforke++T5rkboS=2PK9CSSTtCk4enF2w@mail.gmail.com/) regarding compact block filters impacting blocks with taproot spends, that was only discovered a little over a week before taproot activated on mainnet.
+ * Likewise, there were [multiple](https://bitcoinops.org/en/newsletters/2022/10/19/#block-parsing-bug-affecting-btcd-and-lnd) [bugs](https://bitcoinops.org/en/newsletters/2022/11/09/#block-parsing-bug-affecting-multiple-software) in btcd related to parsing of transactions that were only caught long after taproot was in active use. Really, these were holdover bugs since segwit, however taproot at least made transactions that trigger the first bug relayable. Either way, more practical experimentation on public test networks, rather than just in our internal test framework, would likely have allowed these bugs to have been discovered earlier, and potentially fixed prior to it causing downtime for users on mainnet, with risk of loss of funds.
+
+From a social point of view this outcome probably shouldn't be surprising -- there were plenty of people pushing for taproot to be activated ASAP, and nobody saying that we should slow down and spend more time testing things and demonstrating that they're useful.
+
+As far as "most of us can't afford to spend months building" goes, there's two things you should consider. One is that with open source, you only need one person to build something, after which point everyone can reap the benefits. If you can't find even one person willing to spend time on a moonshot project, it's probably not actually much of a moonshot. Second, is that, [reportedly](https://x.com/tierotiero/status/1899406106851463530) these things only take a few hours, not months.
+
+
+Personally, I think the biggest blocker to progress here continues to be CTV's misguided description of "covenants", and its misguided and unjustified concern about "recursive covenants". Particularly given those concerns are incompatible with co-activation of CSFS, I would have thought a simple first step would be updating BIP 119 to remove/correct them, which might then also allow some rational discussion of CAT and similar features. I and others have already tried talking to Jeremy both publicly and privately about those issues with no success, but maybe you'll have some. Otherwise, discarding BIP 119 entirely and starting from scratch with an equally expressive and more efficient simplified TXHASH BIP could be a good option.
+
+-------------------------
+
+1440000bytes | 2025-03-12 03:32:38 UTC | #15
+
+[quote="ajtowns, post:14, topic:1509"]
+When I looked into this, [as far as I could tell](https://x.com/ajtowns/status/1856635064941166753) Ark has been built based on the elements introspection opcodes and on pre-signed transactions, but there has been no practical exploration into actually using it with CTV. For something that was announced as being implementable either with BIP 118 (APO) or BIP 119 (CTV), never having actually done that comes across as a huge red flag for me, particularly when people are willing to implement crazy things like the “purrfect” vaults.
+[/quote]
+
+https://codeberg.org/ark-bitcoin/bark/src/branch/ctv
+
+-------------------------
+
+ajtowns | 2025-03-12 03:38:25 UTC | #16
+
+It's great that Steven has apparently been working on this in the last hour, but maybe it's even better to let the code bake a little while before trying to use it in a debate.
+
+-------------------------
+
