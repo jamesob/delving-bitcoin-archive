@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "See the original post of 2013 by Gregory Maxwell on the idea of covenant.\n\n[\u201cCoinCovenants using SCIP signatures, an amusingly bad idea\u201d.](https://bitcointalk.org/index.php?topic=278122.0)\n\nThere is a lot of comments on the idea of recursivity among a chain of transactions.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
