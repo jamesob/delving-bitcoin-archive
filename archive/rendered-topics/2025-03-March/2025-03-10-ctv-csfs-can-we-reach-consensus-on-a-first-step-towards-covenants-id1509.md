@@ -657,19 +657,15 @@ I've found this use-case the least compelling part, especially at the cost of ha
 
 -------------------------
 
-1440000bytes | 2025-03-12 16:34:27 UTC | #19
+1440000bytes | 2025-03-12 22:52:57 UTC | #19
 
-Nobody here is dumb and "we" can see who is trying to form consensus.
-
-It is obvious objections are part of politics and drama.
+(post deleted by author)
 
 -------------------------
 
-1440000bytes | 2025-03-12 16:32:18 UTC | #20
+1440000bytes | 2025-03-12 22:53:03 UTC | #20
 
-We will do CTV+CSFS this year for activation. Please try your best to stop it and become "the gatekeepers" 
-
-We don't need to appease every developer.
+(post deleted by author)
 
 -------------------------
 
@@ -722,6 +718,34 @@ The "bare legacy" mode for CTV is especially important in these cases because it
 jamesob | 2025-03-12 19:57:23 UTC | #24
 
 Oh, and I forgot to mention on the subject of vaults/presigned-txns: I've spoken to two Blockstream engineers in the past couple months who both say that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.
+
+-------------------------
+
+instagibbs | 2025-03-12 21:24:45 UTC | #25
+
+[quote="jamesob, post:24, topic:1509"]
+I’ve spoken to two Blockstream engineers
+[/quote]
+
+For the sake of discussion getting these things on the record by the claimants somewhere public with details is helpful. I think I know the upsides/downsides of the approach but without details it's hard to engage.
+
+-------------------------
+
+AntoineP | 2025-03-12 22:34:34 UTC | #26
+
+[quote="jamesob, post:24, topic:1509"]
+that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.
+[/quote]
+
+I am skeptical of this claim.
+
+First of all, it's vague. What does "drastically improve" even means, concretely? Following [Liquid's documentation](https://docs.liquid.net/docs/technical-overview#emergency-recovery-procedure), i assume you are talking about the peg-in script. TL;DR for everyone here: Bitcoin users who want to onboard to the Liquid sidechain can pay to this Script. Coins sent to this Script by users onboarding may later be spent by 2/3 of the Liquid watchmen (custodians) when a Liquid users wants to peg-out to Bitcoin. This Script contains a timelock clause, such that those coins may be spent using three emergency keys [after 4032 blocks](https://help.blockstream.com/hc/en-us/articles/900001408623-How-does-Liquid-Bitcoin-L-BTC-work).
+
+Using such a timelocked spending path directly in the receiving Script presents the same trade-off as for Liana: if they don't want the emergency recovery to become available then the Liquid watchmen need to spend every coin within 28 days (4032 blocks) of its reception. This presents an inescapable trade-off between funds availability in case the recovery is needed and the security margin to avoid the weaker spending path from being available unless absolutely necessary.
+
+More [interesting covenants provide a way out of this](https://delvingbitcoin.org/t/using-op-vault-for-recovery/150?u=antoinep), by delaying the timelock to only be triggered through a second stage similar to that of vault constructions. I think claiming `CTV` can achieve as much is misleading, as in this case you would have to commit to the second-stage transaction at the time of receiving the coins. Since the receiver crafts the address to request funds on, this means the Liquid watchmen would need to both 1) know the amount before giving away the address and 2) trust that the user will for sure use the **exact same amount** they said they would in the previous round of communication, or the funds may be **locked forever** or have the excess burned to fees. In addition they need to trust the address will never be reused with a different in the future, something that is infamously hard to get users to do.
+
+This scheme would probably do (much) more harm than good, and this is why i'm skeptical either Liquid or Liana engineers would ever put such a footgun in the hand of their users. Therefore, i do not think it is a valid motivation for a CTV soft fork.
 
 -------------------------
 
