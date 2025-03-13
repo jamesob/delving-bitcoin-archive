@@ -749,7 +749,7 @@ This scheme would probably do (much) more harm than good, and this is why i'm sk
 
 -------------------------
 
-ariard | 2025-03-13 00:23:25 UTC | #27
+ariard | 2025-03-13 00:28:28 UTC | #27
 
 ### Lightning Eltoo
 
@@ -789,7 +789,7 @@ stevenroose:
 > The TXHASH BIP explicitly also specifies to enable CHECKTXHASHVERIFY in legacy and segwit
 > context and outlines how hashes should be calculated for those contexts. 
 
-See the old Johnson Lau [idea](https://github.com/jl2012/bips/blob/vault/bip-0ZZZ.mediawiki) with `OP_PUSHDATADATA` for another variant of push-approach.
+See the old Johnson Lau [idea](https://github.com/jl2012/bips/blob/ce4a6980c89859b8f5c9074b6f219f973e4d9128/bip-0ZZZ.mediawiki) with `OP_PUSHDATADATA` for another variant of push-approach.
 
 My belief on the push-vs-implicit-access-with-sigs digest, it's all up to wish semantic you wish to check on the spending transaction of your constrained UTXO, and if it's not a templated approach, what is shortest path for stack operations among a N number of transactions fields.
 
@@ -802,7 +802,7 @@ I don't know if it's a programming model we wish to move towards wish...This wou
 ajtowns:
 > So much for “I won’t be … pointing fingers”, I guess? In any event, I would personally argue this was a serious flaw in how we deployed taproot, and one that we shouldn’t repeat.
 
-I share the opinion, that we could have spent more time doing experimentations of the use-case enabled by Schnorr / Taproot. There was a [research page](https://github.com/BlockstreamResearch/scriptless-scripts/blob/master/md/multi-hop-locks.md) at the time listing all the ideas enabled by Schnorr. I did an [experiment](https://github.com/lightningdevkit/rust-lightning/issues/605) to implement PTLC+DLC in early ~2020 for Discreet Log Contract. The learning I’ve come from it that we would have to seriously re-write the LN state machine. As far as I can tell, this has been confirmed by the more recent research of other LN folks.
+I share the opinion, that we could have spent more time doing experimentations of the use-case enabled by Schnorr / Taproot. There was a [research page](https://github.com/BlockstreamResearch/scriptless-scripts/blob/fd2000d2c30cc8d9125ecd85b0dc14edf32266a3/md/multi-hop-locks.md) at the time listing all the ideas enabled by Schnorr. I did an [experiment](https://github.com/lightningdevkit/rust-lightning/issues/605) to implement PTLC+DLC in early ~2020 for Discreet Log Contract. The learning I’ve come from it that we would have to seriously re-write the LN state machine. As far as I can tell, this has been confirmed by the more recent research of other LN folks.
 
 On the more conceptual limitations of the Taproot, the lack of commitment in the control block of the oddness of an internal pubkey is a limitation to leverage a Schnorr signature as mutable cryptographic accumulator for payments pools. This limitation was known before the activation of Taproot, and it has been discussed few times on the mailing list and [documented](https://bitcoinops.org/en/newsletters/2021/09/15/#covenant-opcode-proposal) by Optech.
 
