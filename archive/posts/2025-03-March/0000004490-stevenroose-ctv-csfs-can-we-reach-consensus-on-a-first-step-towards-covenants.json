@@ -12,8 +12,8 @@
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
+  "reads": 20,
+  "readers_count": 19,
   "score": 53.8,
   "yours": false,
   "topic_id": 1509,
@@ -46,7 +46,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -64,10 +64,10 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
