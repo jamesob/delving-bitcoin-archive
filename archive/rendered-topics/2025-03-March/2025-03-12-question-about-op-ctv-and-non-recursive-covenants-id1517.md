@@ -32,3 +32,13 @@ Appreciate your help understanding OP_CTV and thinking through this problem!
 
 -------------------------
 
+ariard | 2025-03-13 00:27:38 UTC | #2
+
+See the original post of 2013 by Gregory Maxwell on the idea of covenant.
+
+[“CoinCovenants using SCIP signatures, an amusingly bad idea”.](https://bitcointalk.org/index.php?topic=278122.0)
+
+There is a lot of comments on the idea of recursivity among a chain of transactions.
+
+-------------------------
+
