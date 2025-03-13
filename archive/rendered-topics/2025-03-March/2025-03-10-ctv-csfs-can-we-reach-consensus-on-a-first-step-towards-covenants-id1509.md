@@ -749,3 +749,145 @@ This scheme would probably do (much) more harm than good, and this is why i'm sk
 
 -------------------------
 
+ariard | 2025-03-13 00:23:25 UTC | #27
+
+### Lightning Eltoo
+
+ajtowns:
+> "CTV+CSFS isn’t equivalent to APO, it’s somewhat more costly by requiring you to explicitly include the CTV hash in the witness data. The TXHASH approach is (in my opinion) a substantial improvement on that.”
+
+stevenroose:
+> "I think it’s fair to call something equivalent even if it’s a little more costly but achieves the
+> same functionality. (Of course I wouldn’t go as far to make the same argument for things like CAT where you have to dump the entire tx on stack including several dozen opcodes.) A better argument  would be that CTV+CSFS can only emulate APO|ALL and not the other APO flags. Though it seems that  the APO|ALL variant of APO has the most interest.”
+
+I don't believe we can say things are equivalent when the marginal on-chain witness cost can fluctuates in the range of two-digits bytes. In Lightning, we already have to trim the outputs
+out of the commitment transaction, if the outputs scriptpubkeys + claiming input is superior to
+the ongoing mempool feerates (very imperfect heuristic...). This is a safety issue if you go to open LN chan with a miner, that you can never be sure of.
+
+Going for the more expensive Eltoo, i.e the one where the script stack has to provide `<pubkey>` `<message>` `<signature>`, where message size is equal to 32 bytes those 32 bytes compared to the `ANYPREVOUT` sighash approach that might make some chan unable to uncooperatively force-close, at a time of fee spikes.
+
+Note this concern on marginal channel or off-chain payment is something that very likely affects Ark too. It's even hard to compare the cost of a LN chan marginal payment vs the cost of a Ark marginal payment, as with ARK you have an ASP and you have to come with some probabilistic estimations for the interactivity of the ASP.
+
+If my memory is correct, the efficiency approach of logically equivalent primitive was already discussed in the `OP_CHECKMERKLEBRANCHVERIFY` vs check-if-this-is-a-PTR2 templated
+approach (i.e BIP341).
+
+### Discreet Log Contracts
+
+ajtowns:
+
+>  "Doesn’t having CSFS available on its own give you equally efficient and much more flexible
+> simplifications of DLCs? I think having CAT available as well would probably also be fairly 
+> powerful here".
+
+See this [thread](https://github.com/bitcoinops/bitcoinops.github.io/pull/806) on Optech Github for the trade-offs on the usage of CTV of Discreet Log Contracts.
+
+tl;dr: With adding a hash for each CTV outcome, there is a logarithmic growth of the witness script size (i.e `<hash1_event>` `<OP_CTV>` `<hash2_event>` `<OP_CTV>`), if the bet is logarithmic in its structure. Evaluating what primitive is the best for a Discreet Log Contract is very function of (1) what is the marginally value "bet on" and (2) what is the probabilistic structure of the bet (i.e are you betting on a price where equal chance among all outcomes or a bet sport where ranges scores can be approximated).
+
+### Push-Based Approach Templating
+
+stevenroose:
+> The TXHASH BIP explicitly also specifies to enable CHECKTXHASHVERIFY in legacy and segwit
+> context and outlines how hashes should be calculated for those contexts. 
+
+See the old Johnson Lau [idea](https://github.com/jl2012/bips/blob/vault/bip-0ZZZ.mediawiki) with `OP_PUSHDATADATA` for another variant of push-approach.
+
+My belief on the push-vs-implicit-access-with-sigs digest, it's all up to wish semantic you wish to check on the spending transaction of your constrained UTXO, and if it's not a templated approach, what is shortest path for stack operations among a N number of transactions fields.
+
+Of course, there can be numerous low-level details of primitive implementation to make that more efficient, like bitvector, special opcodes to push target input or assumptions on the "most-likely" fetched transaction fields.
+
+I don't know if it's a programming model we wish to move towards wish...This would start to be very likely to ASM where you have to program CPU registers at the bit-level. If you think Bitcoin Script programming is already low-level and error-prone, this is an order of magnitude worst. Complexity for the use-case programmer at the benefit of more on-chain efficiency.
+
+### On the Taproot Rush
+
+ajtowns:
+> So much for “I won’t be … pointing fingers”, I guess? In any event, I would personally argue this was a serious flaw in how we deployed taproot, and one that we shouldn’t repeat.
+
+I share the opinion, that we could have spent more time doing experimentations of the use-case enabled by Schnorr / Taproot. There was a [research page](https://github.com/BlockstreamResearch/scriptless-scripts/blob/master/md/multi-hop-locks.md) at the time listing all the ideas enabled by Schnorr. I did an [experiment](https://github.com/lightningdevkit/rust-lightning/issues/605) to implement PTLC+DLC in early ~2020 for Discreet Log Contract. The learning I’ve come from it that we would have to seriously re-write the LN state machine. As far as I can tell, this has been confirmed by the more recent research of other LN folks.
+
+On the more conceptual limitations of the Taproot, the lack of commitment in the control block of the oddness of an internal pubkey is a limitation to leverage a Schnorr signature as mutable cryptographic accumulator for payments pools. This limitation was known before the activation of Taproot, and it has been discussed few times on the mailing list and [documented](https://bitcoinops.org/en/newsletters/2021/09/15/#covenant-opcode-proposal) by Optech.
+
+On the merge of the Taproot feature, let's remember that [the PR implementing it](https://github.com/bitcoin/bitcoin/pull/19953) was merged the latest day of the feature freeze for 0.21.0, which I don’t believe I was the only one to find it was a bit of a rush…
+
+One can see the names who have ACKed the merged commit at the time on the Github pull
+request, as I think seriously reviewing and testing code for a consensus change is always more expensive than talking about it:
+- instagibbs
+- benthecarman
+- kallewoof
+- jonasnick
+- fjahr
+- achow101
+- jamesob (post-merge)
+- ajtowns (post-merge)
+- ariard (post-merge)
+- marcofalke (post-merge)
+
+### On the usage of the "Covenant” word
+
+ajtowns:
+> Personally, I think the biggest blocker to progress here continues to be CTV’s misguided
+> description of “covenants”, and its misguided and unjustified concern about “recursive covenants”.
+
+To be fair here the usage of the word covenant in Bitcoin is not Jeremy's initiative. I think it comes with Gmax "[CoinCovenants using SCIP signatures, an amuingly bad idea](https://bitcointalk.org/index.php?topic=278122.0)” bitcoin talk org article in 2013, and it was in the aftermath also used by folks like Roconnor, Johnson Lau, Roasbeef or even by myself as early as 2019 when OP_CTV was still called OP_SECURETHEBAG.
+
+I'm not aware if Satoshi herself / himself has used the word covenant in its public writing. However the idea to use Script for many use-cases beyond payments, that’s Satoshi, there is quote in the sense somewhere talking about escrow and having to think carefully the design of Script ahead.
+
+The problem of "recursive covenants" is also layout in Gmax's article of 2013, as a basic question, if malicious "covenants" could be devised or thought at lot, and it was abundantly commented at the time on bitcoin talk org.
+
+### On the lack of enthusiasm for Lightning / Eltoo
+
+1440000bytes:
+> We see an arrogance and non sense being repeated here by developers who are misusing their reputation in the community. Some of these developers have no reasons to block CTV and been writing non sense for years that affects bitcoin.
+
+To bring more context on why there is a lack of enthusiasm for Eltoo Lightning, during the year of 2022, Greg Sanders have worked on a fork of core-lightning with eltoo support and this was reviewed multiple times by AJ Towns and myself.
+
+This is during the review of this Lightning-Eltoo and considering hypothetical novel attacks on eltoo Lightning ("Updates Overflow" Attacks against Two-Party Eltoo ?"), that I found was is (sadly) known today as Replacement Cycling Attacks.
+
+This is for a very experimental point, if you believe that reviewing complex Bitcoin second-layers is shamanism or gatekeeping. I still strongly believe that end-to-end PoC'ing, testing and adversarial review is a good practice to get secure protocols, and no not all second-layers issues can be fixed "in flight" like "that", especially if the fixes commands themselves for serious engineering works at the base-layer (e.g better replacement / eviction policy algorithms).
+
+### Ark + CTV
+
+stevenroose:
+> But we have been working on this implementation for over 6 months, it is
+> working on bitcoin’s vanilla signet, we have ample integration tests that
+> test various unilateral exit scenarios and all of these are passing for
+> the ctv-based trees.
+
+If I'm understanding correctly, Ark is argued as an example of a near-production or production-ready use-case that would benefit from a hash-chain covenant like CTV. Given Ark is relying on a single "blessed party" the ASP, I'm still curious how an ASP client can be sure that he can redeems its balance on-chain in a collaborative on-chain.
+
+Namely, how do you generalize the fair exchange of a secret to a N number of parties, where among the set of N there is blessed party M, how do you avoid collusion between the N-1 parties + the blessed party M against the N party. Fair exchange of secret is quite studied the 90's distributed litterature. There were papers also few years ago on Lightning, analyzing unsafe update mechanism for many parties.
+
+Of course, you can do a congestion control tree embedded in the on-chain swap UTXO coming the ASP, but now there is no efficiency gain remained for the usage of CTV (nVersion / nLocktime fields penalty for each depth of the tree).
+
+### Vault + CTV / better primitives
+
+jamesob:
+> Beyond that, as you should recall from your VAULT days, CTV (or an equivalent)
+> is a necessary prerequisite to doing any kind of “better” vault. It’s tablestakes.
+> Rob Hamilton recently substantiated the industry demand for good vaults, using
+> VAULT or similar, and once again I can corroborate firsthand there.
+
+The issue, with vault, is of course dynamics fees for time-sensitive transactions, and if I remember correctly the emergency path, which is a time-sensitive path you have to be sure dynamic fees works well. Even if you pre-sign at some crazy rate, there is no guarantee that you won't have a nation-state sponsoring hacking group going to engage in a feerate race to delay the confirmation (e.g costless bribes to the miners), until the compromised withdrawal can confirm.
+
+This is not paranoia, if one follows smart contract exploits in the wider cryptocurrencies world (free to check rekt.news), you often see hacks in the $100M - $500M range. So an attacker going to burn 10% of the targeted value in miner bribing fees do not seem unrealistic or unreasonable to me. If you assume that attacker has already keys for the withdrawal or unvault target "hot” wallet.
+
+To be frank, fixing dynamics fess, it's very likely going to be someting in the line of “[fee-dependent timelocks](https://bitcoinops.org/en/newsletters/2024/01/03/#fee-dependent-timelocks)". And here everyone is free to believe or not (don't trust, verify), under all technical info and hypothesis I'm aware off, eventually those are not going to be simple consensus changes…
+
+Now, on the more precise question of CheckTemplateVerify and its usage for vaults, the best piece of information I'm aware of for the key-sig-vs-hash-chain is based on this Phd Thesis, section 4 "[Evolving Bitcoin Custody](https://arxiv.org/pdf/2310.11911)”.
+
+Of course, while CheckTemplateVerify introduces _immutability_ of a chain of transactions, where intermediary vault transactions do not have to be pre-signed and corresponding privates key deleted, there is still the issue of key ceremony to be dealt with. After reorg-delay, though this a novel property if one goes to design bitcoin second-layers.
+
+If you're software engineer with know-how on the difference between userspace and kernelspace or familiarity with core Internet protocols (...yes all those talks on bitcoin consensus changes can be very technical in the raw sense), keys ceremonies and overall corresponding operational guidelines can be an incredibly hard thing to get right. All depends the threat model considered, though it’s hard thing to do, and hard to do it repeatedly in production.
+
+So what is key ceremony for bitcoin vaults ? This is dealing with the transition of the cold wallet to the hotter wallets, though for bitcoin this is not a only a "blind signature", it's verifying that the spent utxo exists, that the unvaulting outputs `scriptPubkeys` are valid or at byte-for-byte equal to the one that are going to be verified by the Script by bitcoin full-nodes at run-time.
+
+As people who are familiar with the [Validating Lightning Signer](https://vls.tech/), series of custom checks and the situation there are to have re-write a LN state machine embeddable for the constraint of a secure enclave, being sure that your vault is the "correct" vault in production is a bit more complex safety-wise than is this a P2WSH yes or no.
+
+So I strongly believe the bottleneck we have to evaluate a CTV-enabled vault is a vault proof-of-concept specified enough that all the logic of the vault can be described with chain headers, UTXO proofs and outputs descriptors that they can be given through a carefully-designed interface to a HW or secure enclave and have the vault setup verification done there.
+
+**Do we have any bitcoin HW vendors or secure enclave vendors**
+**ready-to-extend their interfaces for a simple [2-steps](https://github.com/jamesob/simple-ctv-vault) CTV vault protocol ?**
+
+Not only with output script support though also with any efficient proving of the UTXO set, which can be challenging programming-wise as secure enclave RAM and cache memory is limited, by design. And as far as I researched so far, constrained templating like CTV do not comes with [tx-withhold risks](https://blog.bitmex.com/txwithhold-smart-contracts/) and do not alter the UTXO model, though my thanks if you prove me wrong here.
+
+-------------------------
+
