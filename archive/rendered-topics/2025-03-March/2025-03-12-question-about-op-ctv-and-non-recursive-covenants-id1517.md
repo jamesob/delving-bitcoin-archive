@@ -42,3 +42,13 @@ There is a lot of comments on the idea of recursivity among a chain of transacti
 
 -------------------------
 
+JeremyRubin | 2025-03-13 00:40:24 UTC | #3
+
+These are some really solid questions and ideating!
+
+
+1. CTV can actually accept multiple inputs, and you can use them to write option contracts. This would enable to do e.g. register an on-chain auction of a ordinal, if you wanted that. There's code some stuff like that here: https://github.com/sapio-lang/sapio/tree/master/sapio-contrib/src/contracts/derivatives
+2. Your idea for relative references is similar to John Law's inherited ID's proposal. See https://gnusha.org/pi/bitcoindev/CAD5xwhh-1zUbPgYW6hE8q3CmhFZFdEqjx5pB7+VFM4mV=1FfaQ@mail.gmail.com/
+
+-------------------------
+
