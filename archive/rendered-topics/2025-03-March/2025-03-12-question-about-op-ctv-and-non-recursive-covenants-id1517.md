@@ -52,7 +52,7 @@ These are some really solid questions and ideating!
 
 -------------------------
 
-ajtowns | 2025-03-13 00:41:46 UTC | #4
+ajtowns | 2025-03-13 00:46:49 UTC | #4
 
 [quote="josh, post:1, topic:1517"]
 My interest in runes is chiefly as a protocol that could facilitate the issuance of stocks and other securities natively on Bitcoin.
@@ -70,7 +70,7 @@ I'm not sure I understand the problem statement here. I think what you're saying
 
 Because rune transfers can be modified by the presence of an OP_RETURN output, and you obviously also want to specify your own output, I don't think a SIGHASH_SINGLE signature is sufficient when creating an offer to buy a rune, but a SIGHASH_ALL signature (or CTV hash) would also need to commit to an receiving address for whoever you're paying for the rune, which is almost certainly a different signature for each of different runes you're willing to purchase.
 
-Perhaps using [elements-style introspection](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md) you could solve that (writing a script that asserts there are only 2 outputs, that the first is your address, and the second is not an OP_RETURN), but you would still need to differentiate the 12 acceptable txids as inputs from any other random input. Doing that via a single PSBT would require a custom field ("I've used this complicated script, which can be satisfied by any of these utxos as the second input along with including one of these [signatures/merkle paths] in the witness"), which doesn't seem much better/different than just having separate PSBTs in the first place.
+Perhaps using [elements-style introspection](https://github.com/ElementsProject/elements/blob/abbc17048a320910e68e347fa3ebbea770539cda/doc/tapscript_opcodes.md) you could solve that (writing a script that asserts there are only 2 outputs, that the first is your address, and the second is not an OP_RETURN), but you would still need to differentiate the 12 acceptable txids as inputs from any other random input. Doing that via a single PSBT would require a custom field ("I've used this complicated script, which can be satisfied by any of these utxos as the second input along with including one of these [signatures/merkle paths] in the witness"), which doesn't seem much better/different than just having separate PSBTs in the first place.
 
 [quote="josh, post:1, topic:1517"]
 My understanding is that OP_CTV was explicitly designed to avoid recursive covenants, which is why users of OP_CTV can commit to the outputs of a transaction, but not the inputs.
