@@ -57,7 +57,7 @@
   "wiki": false,
   "reactions": [
     {
-      "id": "+1",
+      "id": "heart",
       "type": "emoji",
       "count": 1
     }
