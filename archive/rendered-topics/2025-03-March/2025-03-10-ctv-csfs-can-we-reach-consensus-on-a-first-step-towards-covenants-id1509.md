@@ -1026,3 +1026,60 @@ You're the one saying you're putting things to rest. I'm curious to learn of the
 
 -------------------------
 
+ariard | 2025-03-13 20:15:10 UTC | #36
+
+[quote="ajtowns, post:29, topic:1509"]
+Greg used the term precisely and correctly – his post describes taking a general [zero-knowledge proof](https://bitcointalk.org/index.php?topic=277389.0) feature and using that to produce actual covenant constructions where a coin and all possible spends of that coin are permanently constrained in a particular way, creating a burn address that allows the burnt coins to be burnt again and again:
+[/quote]
+
+Yes, I'm familiar with the idea that you have a SNARK verifier as a replacement for the script interpreter, so you get as an input stack `<input public data>` `<verification public key>` `<signature>` `<hash_masked_tx>`, where you can assert properties on the spending tx (e.g is this output scriptpubkey size 32 bytes).
+
+By setting the verification rule that an output redeem script must be of the form `THIS_VALIDATION_KEY && {whatever rules you want}`, in my understanding you're introducing recursivity of the verification rules.
+
+The recursivity can be bounded (i.e using the tx nVersion field as a counter) or unbounded, by generating a correct and custom `<verification public key>`.
+
+In my understanding, and here with in mind Roconnor's FC'17 paper and Jeremy's talk at Standford's 2017, the idea of constraining and recursively applying a set of rules on a UTXO and any of spent tx, is what probably mistakenly understood as a covenant nowadays. At the very least, I gave talks and used the term in that sense in my own writing on bitcoin covenants.
+
+I don't disagree that "covenant" is an imprecise terminology. After re-checking the translation in my native tongue (i.e "une convention legale"), the term designates more wider legal constructions than what is understood as a "covenant" in the English real estate law. Saying contracting primitives or Script opcodes sounds indeed better.
+
+[quote="reardencode, post:30, topic:1509"]
+I’ve made a comparison of many alternatives for developing eltoo. Briefly, APO+CTV+standardized_annex is the most efficient of known alternatives. Compared to this:
+[/quote]
+
+So the original idea of Eltoo was to have a new sighash flag for the signature of state transaction, that makes them re-bindable on any previous state, removing the constraint to have to store revoked scripts / amounts, for each previous state, and opening the door to >= 2 parties off-chain constructions.
+
+Efficiency-wise, yes I can see how you can have the chan constraint in an "anyprevout_flag" tx template in the commitment_tx output, the per-state counter in the annex fields which could be saving the signature cost size, though I'm not sure we're talking about the same data layout. And I believe you might need one more opcode to push the annex field on the stack.
+
+[quote="stevenroose, post:31, topic:1509"]
+I wasn’t trying to point fingers at whomever was involved in the taproot deployment. More rather trying to indicate that the bar for the taproot soft fork was met on perceived technical merit only, while today it seems that practical usage is the only bar upheld.
+[/quote]
+
+As I pointed out on the mailing list more powerful opcode primitives can open the door to `TxWithhold` risks, by allowing to introspect the status of another UTXO. E.g a basic tx-withhold contract would be someone promising to any miner that if target LN commitment tx is not confirmed until N, a native bitcoin bounty is paid. The N picked up can be the safety timelock of a LN commitment tx.
+
+At the very least CSFS, with CSFS you can have the `<message>` being the commitment transaction, for which you know the public key (e.g if you're a LN counterparty), but you don't know the `<signature>`.
+
+If you combine it with an UTXO set oracle (e.g `<message=UTXO_123` signed), you've already a rudimentary yet powerful tx-withhold contract. I don't believe CTV allows in any fashion to do more powerful malicious tx-withhold contract, though I believe if it can affect LN, it can certainly affect Ark too.
+
+If I'm correct here, the lemma is that you certainly needs to have any LN chan UTXO be veiled with some kind of consensus-level semantics, "this outpoint cannot be referenced by the Script execution of another UTXO spend". That can be very touchy to implement in bitcoin Script interpreter…
+
+[quote="jamesob, post:32, topic:1509"]
+What the watchmen need is super simple. “These keys allow moving the coins to a special timelocked staging area, from which the original keys can still pull them back” It’s basically a one-step vault.
+
+In fact we literally implemented it in terms of unsigned transactions in an early version of liquid, but it was too difficult to keep them synced up and invalidated.
+[/quote]
+
+Thanks, this is interesting to get Andrew's opinion here. While I disagree with him on the simplicity (lol) of translating "these keys allow moving the coins..." in a protocol and well-designed cryptographic API, I believe this is backing the point I was raising in my previous comment that you should get support for any opcode at the HW-level or within the secure enclave.
+
+Otherwise, how can you be sure that the "cold keys" are authorizing the spend to the correct hash of a transaction, if you do not re-verify the hash computation on the enclave ? This is the same problem that the Validating Lightning Signer has already today to verify *all* the state transition of the LN protocol to be secure in face of a "compromised" main LN node.
+
+In my opinion, this as much the community of bitcoin protocol experts to convince than HW vendors of all kinds, that a said given opcode should be supported.
+
+—————————————————————————————————————————-
+
+Speaking for myself, I can be supportive of the most minimal opcode improvement that improves self-custody for the lambda bitcoin user, at condition it doesn't introduce tx-withholding risk or extend DoS surface area for full-nodes. If you go in the street to ask to 10 bitcoiners "do you wish to make the self-custody of your coins, *stronger* and *easier*", I genuinely believe the number of positive answer is going to be equal to 10. I don't expect the same level of positive answer for Ark, DLC or payment pool, I think it's just either early or far too complex to be understood by a lambda bitcoin user. In comparison coins self-custody has always been an
+area of focus of bitcoin development since people have started to develop lightweight wallets for their own usage in  ~2010 / 2011.
+
+Liquid, no opinion. I've already met many Liquid devs in real-life but I've never met a L-BTC user, which it doesn't mean Liquid users don't exist.
+
+-------------------------
+
