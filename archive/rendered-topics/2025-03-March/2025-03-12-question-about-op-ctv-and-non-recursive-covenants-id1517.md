@@ -150,7 +150,7 @@ This is a bit better than using a signature for presigning, since there's no oth
 
 -------------------------
 
-josh | 2025-03-13 03:15:16 UTC | #8
+josh | 2025-03-13 14:29:22 UTC | #8
 
 [quote="JeremyRubin, post:7, topic:1517, full:true"]
 Just the sequences, ScriptSigs, input index, and the input count are committed to. So if you have an "offer" branch where funds need to be added, it can bind to a payment to a particular user.
@@ -167,11 +167,75 @@ The problem is that you can't realistically do this at scale, without creating a
 
 Unless I'm missing something, CTV can't help here.
 
-My idea was for the bidder to first create a transaction $T_0$ that commits to a P2TR output that has a unique script spend path $S_i$ for each UTXO $U_i$ they're bidding on. There would be no signatures in the script spend path, just a commitment to a transaction $T_i$ that has the buyer's output, the seller's output, and an `OP_RETURN` that sends $X$ runes to the buyer's output.
+My idea was for the bidder to first create a transaction $T_0$ that commits to a P2TR output that has a unique script spend path $S_i$ for each UTXO $U_i$ they're bidding on. There would be no signatures in the script spend path, just a commitment to a transaction $T_i$ that has the buyer's output, the seller's output, the seller's input, and an `OP_RETURN` that sends $X$ runes to the buyer's output.
 
 The transaction $T_0$ could then be easily broadcast, and any owner of rune $R$ at $U_i$ could create and sign the "reveal" transaction $T_i$ that sends the runes to the bidder and claims the sats for themselves.
 
 This though would require some way to commit to the spent outpoint $U_i$, but I'm afraid there's no way to do that with CTV.
+
+-------------------------
+
+josh | 2025-03-13 14:48:52 UTC | #9
+
+@ajtowns Thank you for the detailed response! Below are some of my thoughts:
+
+[quote="ajtowns, post:4, topic:1517, full:true"]
+
+[quote="josh, post:1, topic:1517"]
+
+My interest in runes is chiefly as a protocol that could facilitate the issuance of stocks and other securities natively on Bitcoin.
+
+[/quote]
+
+...my expectation is that doing these things on bitcoin will end up out-competed by custom solutions.
+
+[/quote]
+
+That's very fair, and I think that's the dominant perspective right now. My perspective is somewhat contrarian. If you're a public company like Microstrategy / Strategy and you want to raise bitcoin *directly from bitcoiners*, you need to go to where the bitcoin is. You can't expect the bitcoin to come to you. Features like speed and programmability are less relevant when all you care about is raising capital and the alternative is DTCC.
+
+Bitcoin holders don’t want to move their bitcoin to an exchange, where it could get frozen, only to then sell for dollars and wait days to move it to a brokerage, just to buy the stock. Nor do they wish to take on the hassle and risk of bridging to another blockchain or giving someone else custody.
+
+If a company issued their stock natively on Bitcoin, a secondary market could develop directly between bitcoin and their stock, and the company could easily raise bitcoin by selling shares into the market. Likewise, they could easily buyback their stock and issue bitcoin dividends, and prospective investors could easily invest or divest with a single trustless transaction, without needing KYC or intermediaries.
+
+[quote="ajtowns, post:4, topic:1517, full:true"]
+
+I’m not sure I understand the problem statement here. I think what you’re saying is essentially “I know of a dozen existing txids, each of which imply control of a different rune R1 … R12, and I am happy to buy any one of those runes for X BTC”.
+
+[/quote]
+
+Here is a more formal problem statement:
+
+*With a single signature, make a blanket buy offer of $X$ runes of type $R$ for $Y$ sats, across all UTXOs with a balance of at least $X$ runes of type $R$.*
+
+This unfortunately isn't practical to do today:
+
+[quote="josh, post:8, topic:1517, full:true"]
+You can create a rune buy offer today for a single UTXO holding $X$ runes of type $R$ by creating a PSBT with SIGHASH_ALL committing to the entire transaction, leaving the seller's input for them to sign. This is how `ord` implements [inscription buy offers](https://github.com/ordinals/ord/blob/ca9950a1dc702bad082ba016c62eaa88456e99fa/src/subcommand/wallet/offer/create.rs).
+
+The problem is that you can't realistically do this at scale, without creating a ridiculous number of signatures. You would need to sign a distinct PSBT for each UTXO with a balance of at least $X$ runes of type $R$, which could number in the 1000s or 10s of 1000s, or more.
+
+[/quote]
+
+The idea I was exploring was to commit to multiple possible transaction templates with a single signature, which any of the potential sellers could use to accept their specific buy offer. 
+
+[quote="josh, post:8, topic:1517, full:true"]
+
+My idea was for the bidder to first create a transaction $T_0$ that commits to a P2TR output that has a unique script spend path $S_i$ for each UTXO $U_i$ they're bidding on. There would be no signatures in the script spend path, just a commitment to a transaction $T_i$ that has the buyer's output, the seller's output, the seller's input, and an `OP_RETURN` that sends $X$ runes to the buyer's output.
+
+The transaction $T_0$ could then be easily broadcast, and any owner of rune $R$ at $U_i$ could create and sign the "reveal" transaction $T_i$ that sends the runes to the bidder and claims the sats for themselves.
+
+This though would require some way to commit to the spent outpoint $U_i$, but I'm afraid there's no way to do that with CTV.
+[/quote]
+
+Finally,
+
+[quote="ajtowns, post:4, topic:1517, full:true"]
+
+If the CTV hash committed to the inputs, then you couldn’t construct a (spendable) scriptPubKey that included a CTV hash...
+
+[/quote]
+
+I'm not sure I totally follow, but I'd like to. Just to clarify, I'm not suggesting that you commit to the full input, including the scripts. Just the mined location of the spent outpoint you wish to buy (to ensure the correct number of runes are in the transaction, without enabling recursive covenants).
 
 -------------------------
 

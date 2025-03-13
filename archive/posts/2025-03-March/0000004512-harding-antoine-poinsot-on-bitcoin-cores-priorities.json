@@ -1,0 +1,73 @@
+{
+  "id": 4512,
+  "name": "David A. Harding",
+  "username": "harding",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png",
+  "created_at": "2025-03-13T14:33:28.033Z",
+  "cooked": "<p>Thank you for your reply, <a class=\"mention\" href=\"/u/thecharlatan\">@TheCharlatan</a>.  I\u2019ve learned a lot from you\nand <a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> about how you view the project as contributors and I\u2019ll\ntry to contemplate it carefully before I (as a non-contributor) write\nfurther about the main subject.  However, I did want to immediately\naddress one misunderstanding:</p>\n<blockquote>\n<p>a symptom of the current group of developers being less well suited\nthan previous [developers]</p>\n</blockquote>\n<p>I\u2019m sorry if my comments were interpreted as an attack on the current\ndevelopment team.  In 11 years of writing Bitcoin documentation, I\u2019ve\nhad the pleasure of working with several generations of Bitcoin Core\ndevelopers and I find the current cohort to be just as capable as\nprevious teams.  I also recognize that the job of improving a piece of\nsoftware can only get harder over time as all of the easy wins are taken\nand what remains are either increasingly difficult challenges, less\nsubstantial payoffs, or (as is often the case) a squeeze at both ends as\nthe challenges are more difficult than before for payoffs that are also\nless significant than before.  With an established project, the natural\ndirection is backwards: bitrot breaks what already exists and paying off\ntechnical debt saps forward momentum.  The current team consistently\novercoming all of these obstacles and making significant progress with\neach major release is a clear sign of both competence and diligence.</p>\n<p>I\u2019m impressed by the current development team, and I apologize to anyone\nwho thought I felt otherwise.</p>",
+  "post_number": 22,
+  "post_type": 1,
+  "updated_at": "2025-03-13T14:33:28.033Z",
+  "reply_count": 0,
+  "reply_to_post_number": 21,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
+  "yours": false,
+  "topic_id": 1470,
+  "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
+  "topic_title": "Antoine Poinsot on Bitcoin Core's Priorities",
+  "topic_html_title": "Antoine Poinsot on Bitcoin Core&rsquo;s Priorities",
+  "category_id": 8,
+  "display_username": "David A. Harding",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "TheCharlatan",
+    "name": "TheCharlatan",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/thecharlatan/{size}/885_2.png"
+  },
+  "bookmarked": false,
+  "raw": "Thank you for your reply, @TheCharlatan.  I've learned a lot from you\nand @AntoineP about how you view the project as contributors and I'll\ntry to contemplate it carefully before I (as a non-contributor) write\nfurther about the main subject.  However, I did want to immediately\naddress one misunderstanding:\n\n> a symptom of the current group of developers being less well suited\n> than previous [developers]\n\nI'm sorry if my comments were interpreted as an attack on the current\ndevelopment team.  In 11 years of writing Bitcoin documentation, I've\nhad the pleasure of working with several generations of Bitcoin Core\ndevelopers and I find the current cohort to be just as capable as\nprevious teams.  I also recognize that the job of improving a piece of\nsoftware can only get harder over time as all of the easy wins are taken\nand what remains are either increasingly difficult challenges, less\nsubstantial payoffs, or (as is often the case) a squeeze at both ends as\nthe challenges are more difficult than before for payoffs that are also\nless significant than before.  With an established project, the natural\ndirection is backwards: bitrot breaks what already exists and paying off\ntechnical debt saps forward momentum.  The current team consistently\novercoming all of these obstacles and making significant progress with\neach major release is a clear sign of both competence and diligence.\n\nI'm impressed by the current development team, and I apologize to anyone\nwho thought I felt otherwise.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 6,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

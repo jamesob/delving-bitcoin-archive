@@ -520,3 +520,34 @@ Looking at actually following through with what was said here, I think splitting
 
 -------------------------
 
+harding | 2025-03-13 14:33:28 UTC | #22
+
+Thank you for your reply, @TheCharlatan.  I've learned a lot from you
+and @AntoineP about how you view the project as contributors and I'll
+try to contemplate it carefully before I (as a non-contributor) write
+further about the main subject.  However, I did want to immediately
+address one misunderstanding:
+
+> a symptom of the current group of developers being less well suited
+> than previous [developers]
+
+I'm sorry if my comments were interpreted as an attack on the current
+development team.  In 11 years of writing Bitcoin documentation, I've
+had the pleasure of working with several generations of Bitcoin Core
+developers and I find the current cohort to be just as capable as
+previous teams.  I also recognize that the job of improving a piece of
+software can only get harder over time as all of the easy wins are taken
+and what remains are either increasingly difficult challenges, less
+substantial payoffs, or (as is often the case) a squeeze at both ends as
+the challenges are more difficult than before for payoffs that are also
+less significant than before.  With an established project, the natural
+direction is backwards: bitrot breaks what already exists and paying off
+technical debt saps forward momentum.  The current team consistently
+overcoming all of these obstacles and making significant progress with
+each major release is a clear sign of both competence and diligence.
+
+I'm impressed by the current development team, and I apologize to anyone
+who thought I felt otherwise.
+
+-------------------------
+

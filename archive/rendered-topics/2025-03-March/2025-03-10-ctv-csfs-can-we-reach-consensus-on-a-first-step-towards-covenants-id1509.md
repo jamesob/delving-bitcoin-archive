@@ -675,13 +675,9 @@ My purpose with this thread is to avoid doing an independent activation client w
 
 -------------------------
 
-1440000bytes | 2025-03-13 00:06:23 UTC | #22
+1440000bytes | 2025-03-13 12:59:26 UTC | #22
 
-I wanted to read other people's opinion as well since I created a table on wiki and even approved edits that I don't agree with. 
-
-We see an arrogance and non sense being repeated here by developers who are misusing their reputation in the community. Some of these developers have no reasons to block CTV and been writing non sense for years that affects bitcoin.
-
-They are experienced and know the proposed soft forks will not harm bitcoin. Their ego is not one of the reasons to abandon a soft fork.
+(post deleted by author)
 
 -------------------------
 
@@ -922,6 +918,28 @@ To be fair here the usage of the word covenant in Bitcoin is not Jeremy’s init
 Greg used the term precisely and correctly -- his post describes taking a general [zero-knowledge proof](https://bitcointalk.org/index.php?topic=277389.0) feature and using that to produce actual covenant constructions where a coin and all possible spends of that coin are permanently constrained in a particular way, creating a burn address that allows the burnt coins to be burnt again and again:
 
 > A particular sort of rule could take the form of requiring any output scriptpubkey to be of the form `THIS_VALIDATION_KEY && {whatever rules you want}` and by doing so you have effectively created a coin which is forever subject to a [covenant](http://en.wikipedia.org/wiki/Covenant_%28law%29) which will run with the coin and forever constrain the use of it and its descendants degrading and its fungibility.
+
+-------------------------
+
+reardencode | 2025-03-13 14:45:03 UTC | #30
+
+On not ignoring the importance of script cost for contested settlement:
+
+[quote="ariard, post:27, topic:1509"]
+Note this concern on marginal channel or off-chain payment is something that very likely affects Ark too. It’s even hard to compare the cost of a LN chan marginal payment vs the cost of a Ark marginal payment, as with ARK you have an ASP and you have to come with some probabilistic estimations for the interactivity of the ASP.
+[/quote]
+
+I've made a comparison of many alternatives for developing eltoo. Briefly, APO+CTV+standardized_annex is the most efficient of known alternatives. Compared to this:
+
+| Method | uncontested | once contested |
+| --- | --- | --- |
+| LNHANCE | +8vB | +16vB |
+| @instagibbs APO+annex | +16vB | +32vB |
+| CTV+CSFS | +58vB | +109vB |
+
+As in other protocols CTV consistently reduces cost and sigops even when used with other mechanisms.
+
+edit: corrected some figures and made into a table
 
 -------------------------
 

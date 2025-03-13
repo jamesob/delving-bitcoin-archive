@@ -12,9 +12,9 @@
   "reply_to_post_number": 24,
   "quote_count": 1,
   "incoming_link_count": 2,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 19.0,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 34.4,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -39,7 +39,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"jamesob, post:24, topic:1509\"]\nthat CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.\n[/quote]\n\nI am skeptical of this claim.\n\nFirst of all, it's vague. What does \"drastically improve\" even means, concretely? Following [Liquid's documentation](https://docs.liquid.net/docs/technical-overview#emergency-recovery-procedure), i assume you are talking about the peg-in script. TL;DR for everyone here: Bitcoin users who want to onboard to the Liquid sidechain can pay to this Script. Coins sent to this Script by users onboarding may later be spent by 2/3 of the Liquid watchmen (custodians) when a Liquid users wants to peg-out to Bitcoin. This Script contains a timelock clause, such that those coins may be spent using three emergency keys [after 4032 blocks](https://help.blockstream.com/hc/en-us/articles/900001408623-How-does-Liquid-Bitcoin-L-BTC-work).\n\nUsing such a timelocked spending path directly in the receiving Script presents the same trade-off as for Liana: if they don't want the emergency recovery to become available then the Liquid watchmen need to spend every coin within 28 days (4032 blocks) of its reception. This presents an inescapable trade-off between funds availability in case the recovery is needed and the security margin to avoid the weaker spending path from being available unless absolutely necessary.\n\nMore [interesting covenants provide a way out of this](https://delvingbitcoin.org/t/using-op-vault-for-recovery/150?u=antoinep), by delaying the timelock to only be triggered through a second stage similar to that of vault constructions. I think claiming `CTV` can achieve as much is misleading, as in this case you would have to commit to the second-stage transaction at the time of receiving the coins. Since the receiver crafts the address to request funds on, this means the Liquid watchmen would need to both 1) know the amount before giving away the address and 2) trust that the user will for sure use the **exact same amount** they said they would in the previous round of communication, or the funds may be **locked forever** or have the excess burned to fees. In addition they need to trust the address will never be reused with a different in the future, something that is infamously hard to get users to do.\n\nThis scheme would probably do (much) more harm than good, and this is why i'm skeptical either Liquid or Liana engineers would ever put such a footgun in the hand of their users. Therefore, i do not think it is a valid motivation for a CTV soft fork.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,8 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
