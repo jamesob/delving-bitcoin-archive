@@ -52,3 +52,33 @@ These are some really solid questions and ideating!
 
 -------------------------
 
+ajtowns | 2025-03-13 00:41:46 UTC | #4
+
+[quote="josh, post:1, topic:1517"]
+My interest in runes is chiefly as a protocol that could facilitate the issuance of stocks and other securities natively on Bitcoin.
+[/quote]
+
+Stocks and securities seem like a perfect case for centralised management -- whichever company issued the stocks or physically controls whatever is being securitised has a strong interest in managing this stuff properly and if you can switch from a decentralised model to a centralised one you can make things much more efficient. Doing this via an "ecash" model would allow anonymous trades if that's desired, having wrapped BTC or stablecoins available on the same platform would allow automated market makers, and aggregating multiple securities onto a single "stock exchange" platform would make for easy cross-security trades. So personally, my expectation is that doing these things on bitcoin will end up out-competed by custom solutions.
+
+[quote="josh, post:1, topic:1517"]
+For context, I’ve been thinking about how to create multiple buy offers for multiple UTXOs at once, in a single PSBT. As it stands, it is impossible to do this without creating a separately signed PSBT for every UTXO you wish to make an offer for.
+
+This is a pressing problem faced by the runes protocol. Users can make a trustless PSBT offer, which anyone can accept, but users cannot make the equivalent PSBT buy offer. Doing so would require making a separate PSBT offer for every single UTXO holding the rune the user wishes to make an offer for.
+[/quote]
+
+I'm not sure I understand the problem statement here. I think what you're saying is essentially "I know of a dozen existing txids, each of which imply control of a different rune R1 .. R12, and I am happy to buy any one of those runes for X BTC".
+
+Because rune transfers can be modified by the presence of an OP_RETURN output, and you obviously also want to specify your own output, I don't think a SIGHASH_SINGLE signature is sufficient when creating an offer to buy a rune, but a SIGHASH_ALL signature (or CTV hash) would also need to commit to an receiving address for whoever you're paying for the rune, which is almost certainly a different signature for each of different runes you're willing to purchase.
+
+Perhaps using [elements-style introspection](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md) you could solve that (writing a script that asserts there are only 2 outputs, that the first is your address, and the second is not an OP_RETURN), but you would still need to differentiate the 12 acceptable txids as inputs from any other random input. Doing that via a single PSBT would require a custom field ("I've used this complicated script, which can be satisfied by any of these utxos as the second input along with including one of these [signatures/merkle paths] in the witness"), which doesn't seem much better/different than just having separate PSBTs in the first place.
+
+[quote="josh, post:1, topic:1517"]
+My understanding is that OP_CTV was explicitly designed to avoid recursive covenants, which is why users of OP_CTV can commit to the outputs of a transaction, but not the inputs.
+[/quote]
+
+If the CTV hash committed to the inputs, then you couldn't construct a (spendable) scriptPubKey that included a CTV hash -- the CTV hash would be `H=hash(SPK, outputs, nlocktime, etc...)`, but the scriptPubKey would be `SPK=hash(H CTV ...)` so every time you calculate H you have to recalculate SPK which means you have to recalculate H, and repeat. Because they're 256-bit hashes, you would have to do about $2^{128}$ calculations to come up with a pair of values that are consistent ([related discussion](https://gnusha.org/pi/bitcoindev/20160108153329.GA15731@sapphire.erisian.com.au/)), at which point you've essentially solved mining, and are probably able to guess everyone's private key.
+
+(The same loop doesn't occur for signatures (which do commit to the inputs) because the signature is included in the witness rather than scriptPubKey)
+
+-------------------------
+
