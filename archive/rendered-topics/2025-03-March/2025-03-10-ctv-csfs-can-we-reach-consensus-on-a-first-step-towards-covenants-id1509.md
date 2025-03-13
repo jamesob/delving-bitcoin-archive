@@ -913,3 +913,15 @@ Overall, I agree with the sentiment that general-purpose vaults are better and l
 
 -------------------------
 
+ajtowns | 2025-03-13 05:18:58 UTC | #29
+
+[quote="ariard, post:27, topic:1509"]
+To be fair here the usage of the word covenant in Bitcoin is not Jeremy’s initiative. I think it comes with Gmax "[CoinCovenants using SCIP signatures, an amuingly bad idea](https://bitcointalk.org/index.php?topic=278122.0)”
+[/quote]
+
+Greg used the term precisely and correctly -- his post describes taking a general [zero-knowledge proof](https://bitcointalk.org/index.php?topic=277389.0) feature and using that to produce actual covenant constructions where a coin and all possible spends of that coin are permanently constrained in a particular way, creating a burn address that allows the burnt coins to be burnt again and again:
+
+> A particular sort of rule could take the form of requiring any output scriptpubkey to be of the form `THIS_VALIDATION_KEY && {whatever rules you want}` and by doing so you have effectively created a coin which is forever subject to a [covenant](http://en.wikipedia.org/wiki/Covenant_%28law%29) which will run with the coin and forever constrain the use of it and its descendants degrading and its fungibility.
+
+-------------------------
+
