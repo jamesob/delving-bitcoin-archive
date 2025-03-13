@@ -180,7 +180,7 @@ Glad to see this common-sense approach which also is additional defense against 
 
 -------------------------
 
-ismaelsadeeq | 2025-03-13 10:57:18 UTC | #3
+ismaelsadeeq | 2025-03-13 10:58:51 UTC | #3
 
 [quote="morehouse, post:1, topic:1512"]
 By default, a linear fee function is used which starts at a low fee (determined by the minimum relay fee rate or an external estimator) and ends with the total budget being allocated to fees when the deadline is one block away. The initial batched transaction is published and a “fee bumper” is assigned to monitor confirmation status in the background. For each block the transaction remains unconfirmed, the fee bumper broadcasts a new transaction with a higher fee rate determined by the fee function.
@@ -196,14 +196,14 @@ When you call `estimateSmartFee` with a confirmation target of `n`, you should n
 However, in this case, the transaction is time-sensitive, and you strictly want it to confirm before `n` blocks have elapsed.
 
 Calling `estimateSmartFee` with `n`, and expecting it to confirm ASAP is not not ideal, and would likely not confirm ASAP.
-Instead, I they should call `estimateSmartFee` with a `conf_target` of `1`. If the transaction does not confirm within the next 1–2 blocks, they can then call the fee function to determine the fee rate they are willing to pay at that target based on the available budget (curve).
+Instead, they should call `estimateSmartFee` with a `conf_target` of `1`. If the transaction does not confirm within the next 1–2 blocks, they can then call the fee function to determine the fee rate they are willing to pay at that target based on the available budget (curve).
 
 [quote="morehouse, post:1, topic:1512"]
  **Problems**
 >While external fee rate estimators can be helpful, they’re not perfect. And relying on them too much can lead to missed deadlines when unusual things are happening in the mempool or with miners (e.g., increasing mempool congestion, pinning, replacement cycling, miner censorship).
 [/quote]
 
-See the API proposal for Bitcoin Core’s improved fee estimator response, which provides the current state of the mempool in past with respect to miner's mempool. This information could help clients make more informed decisions: https://github.com/bitcoin/bitcoin/issues/30392#issuecomment-2717491587
+See the API proposal for Bitcoin Core’s improved fee estimator response, which provides the state of the mempool in the past with respect to miner's mempool. This information could help clients make more informed decisions: https://github.com/bitcoin/bitcoin/issues/30392#issuecomment-2717491587
 
 
 
