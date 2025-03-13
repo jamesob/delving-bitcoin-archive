@@ -82,3 +82,96 @@ If the CTV hash committed to the inputs, then you couldn't construct a (spendabl
 
 -------------------------
 
+josh | 2025-03-13 02:12:51 UTC | #5
+
+Thank you for the thoughtful responses! They're super helpful. I'll split up my follow-ups into a few replies.
+
+[quote="ariard, post:2, topic:1517, full:true"]
+See the original post of 2013 by Gregory Maxwell on the idea of covenant.
+
+[“CoinCovenants using SCIP signatures, an amusingly bad idea”.](https://bitcointalk.org/index.php?topic=278122.0)
+
+There is a lot of comments on the idea of recursivity among a chain of transactions.
+[/quote]
+
+Thanks for sharing this! It's fascinating how long these ideas have been discussed. I can understand why people find recursive covenants concerning.
+
+@ariard Do you think that a covenant that can only commit to the mined location of a spent outpoint (and not the outpoint independent of its location) would be safe from the concerns Maxwell raised of permanently encumbered sats?
+
+-------------------------
+
+josh | 2025-03-13 02:21:42 UTC | #6
+
+[quote="JeremyRubin, post:3, topic:1517, full:true"]
+
+These are some really solid questions and ideating!
+
+[/quote]
+
+Thank you for the encouragement!
+
+[quote="JeremyRubin, post:3, topic:1517, full:true"]
+
+Your idea for relative references is similar to John Law’s inherited ID’s proposal.
+
+[/quote]
+
+Interesting! I hadn't heard of this proposal before. I need to better understand it, but my instinct is that it wouldn't help much with the problem I presented (make a blanket buy offer of X runes of type R for Y sats, across all UTXOs with a balance of at least X runes of type R.
+
+To do this, you need to commit to all the outputs of the "buy" transaction *and* the spent outpoint of the UTXO you wish to buy, because you need assurance that the `OP_RETURN` will direct the right quantity of runes of type R to the output you control.
+
+[quote="JeremyRubin, post:3, topic:1517, full:true"]
+
+CTV can actually accept multiple inputs, and you can use them to write option contracts.
+
+[/quote]
+
+Can CTV commit to the outpoints of the inputs in the transaction? I thought it couldn't, just the sequences, ScriptSigs, input index, and the input count.
+
+Or are you just saying that a transaction using CTV can have multiple inputs?
+
+Appreciate the clarification!
+
+-------------------------
+
+JeremyRubin | 2025-03-13 02:37:26 UTC | #7
+
+[quote="josh, post:6, topic:1517"]
+sequences, ScriptSigs, input index, and the input count.
+[/quote]
+
+Just the sequences, ScriptSigs, input index, and the input count are committed to. So if you have an "offer" branch where funds need to be added, it can bind to a payment to a particular user.
+
+But if the other input is a p2sh or legacy, the commitment to scriptsig containing a signature will commit to the specific inputs.
+
+So if you gather the signature, e.g., using ANYONECANPAY, then you can get it to work because you avoid the hash cycle and commit to your input and can form a CTV, the CTV would be able to commit to the other inputs.
+
+This is a bit better than using a signature for presigning, since there's no other way to spend once it's in CTV.
+
+-------------------------
+
+josh | 2025-03-13 03:15:16 UTC | #8
+
+[quote="JeremyRubin, post:7, topic:1517, full:true"]
+Just the sequences, ScriptSigs, input index, and the input count are committed to. So if you have an "offer" branch where funds need to be added, it can bind to a payment to a particular user.
+
+But if the other input is a p2sh or legacy, the commitment to scriptsig containing a signature will commit to the specific inputs.
+
+So if you gather the signature, e.g., using ANYONECANPAY, then you can get it to work because you avoid the hash cycle and commit to your input and can form a CTV, the CTV would be able to commit to the other inputs.
+[/quote]
+Oh I got it! That's pretty cool, but sadly I don't think it will help with my use case.
+
+You can create a rune buy offer today for a single UTXO holding $X$ runes of type $R$ by creating a PSBT with SIGHASH_ALL committing to the entire transaction, leaving the seller's input for them to sign. This is how `ord` implements [inscription buy offers](https://github.com/ordinals/ord/blob/ca9950a1dc702bad082ba016c62eaa88456e99fa/src/subcommand/wallet/offer/create.rs).
+
+The problem is that you can't realistically do this at scale, without creating a ridiculous number of signatures. You would need to sign a distinct PSBT for each UTXO with a balance of at least $X$ runes of type $R$, which could number in the 1000s or 10s of 1000s, or more.
+
+Unless I'm missing something, CTV can't help here.
+
+My idea was for the bidder to first create a transaction $T_0$ that commits to a P2TR output that has a unique script spend path $S_i$ for each UTXO $U_i$ they're bidding on. There would be no signatures in the script spend path, just a commitment to a transaction $T_i$ that has the buyer's output, the seller's output, and an `OP_RETURN` that sends $X$ runes to the buyer's output.
+
+The transaction $T_0$ could then be easily broadcast, and any owner of rune $R$ at $U_i$ could create and sign the "reveal" transaction $T_i$ that sends the runes to the bidder and claims the sats for themselves.
+
+This though would require some way to commit to the spent outpoint $U_i$, but I'm afraid there's no way to do that with CTV.
+
+-------------------------
+

@@ -8,13 +8,13 @@
   "post_number": 3,
   "post_type": 1,
   "updated_at": "2025-03-13T00:40:24.184Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 1517,
   "topic_slug": "question-about-op-ctv-and-non-recursive-covenants",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "These are some really solid questions and ideating!\n\n\n1. CTV can actually accept multiple inputs, and you can use them to write option contracts. This would enable to do e.g. register an on-chain auction of a ordinal, if you wanted that. There's code some stuff like that here: https://github.com/sapio-lang/sapio/tree/master/sapio-contrib/src/contracts/derivatives\n2. Your idea for relative references is similar to John Law's inherited ID's proposal. See https://gnusha.org/pi/bitcoindev/CAD5xwhh-1zUbPgYW6hE8q3CmhFZFdEqjx5pB7+VFM4mV=1FfaQ@mail.gmail.com/",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

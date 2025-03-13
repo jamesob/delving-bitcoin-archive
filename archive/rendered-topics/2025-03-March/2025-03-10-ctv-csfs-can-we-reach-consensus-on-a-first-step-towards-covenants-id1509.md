@@ -891,3 +891,25 @@ Not only with output script support though also with any efficient proving of th
 
 -------------------------
 
+sanket1729 | 2025-03-13 01:00:11 UTC | #28
+
+[quote="instagibbs, post:25, topic:1509"]
+For the sake of discussion getting these things on the record by the claimants somewhere public with details is helpful. I think I know the upsides/downsides of the approach but without details it’s hard to engage.
+[/quote]
+
+I spoke with @jamesob about this. I am no longer affiliated with Blockstream, but  I do feel that liquid script can benefit from CTV. I worked on research team, maybe @stevenroose and @instagibbs who worked more closely with liquid can correct me if I am in the wrong here. 
+
+[quote="AntoineP, post:26, topic:1509"]
+1) know the amount before giving away the address and 2) trust that the user will for sure use the **exact same amount** they said they would in the previous round of communication, or the funds may be **locked forever** or have the excess burned to fees. In addition they need to trust the address will never be reused with a different in the future, something that is infamously hard to get users to do.
+[/quote]
+
+You’re right. A straightforward implementation would be highly prone to issues for the same reasons you mentioned. However, this can be addressed as follows: users deposit funds using a standard liquid peg-in script. These peg-in funds are then consolidated into a separate CTV address managed by the watchmen. This shifts the responsibility of correct CTV usage from users to the liquid engineering team.
+
+While this approach requires careful engineering, the potential fee savings could make it well worth the effort.
+
+I don't think Liana can achieve something similar since it is non-custodial. In this case, once the funds are in the watchmen's custody, they can optimize spending as needed.
+
+Overall, I agree with the sentiment that general-purpose vaults are better and less error-prone for this use case, for the same reasons you listed. However, as mentioned above, CTV remains useful on its own for avoiding recurring fees.
+
+-------------------------
+
