@@ -943,3 +943,86 @@ edit: corrected some figures and made into a table
 
 -------------------------
 
+stevenroose | 2025-03-13 16:40:26 UTC | #31
+
+Eh, I seem to somehow have missed the second half of AJ's first response. My bad.
+
+[quote="ajtowns, post:14, topic:1509"]
+So much for “I won’t be … pointing fingers”, I guess? In any event, I would personally argue this was a serious flaw in how we deployed taproot, and one that we shouldn’t repeat.
+[/quote]
+
+I wasn't trying to point fingers at whomever was involved in the taproot deployment. More rather trying to indicate that the bar for the taproot soft fork was met on perceived technical merit only, while today it seems that practical usage is the only bar upheld. Is this because people actually don't see technical merit in CTV and CSFS and hence want convincing by usage, or because we believe purely technical merit is no longer enough for a consensus upgrade?
+
+[quote="ajtowns, post:14, topic:1509"]
+If you can’t find even one person willing to spend time on a moonshot project, it’s probably not actually much of a moonshot. Second, is that, [reportedly](https://x.com/tierotiero/status/1899406106851463530) these things only take a few hours, not months.
+[/quote]
+
+Arguably CTV so closely resembles presigned transactions yes, one can [swap presigned txs to CTV in a few hours](https://x.com/stevenroose3/status/1899651611385057519), but that is only possible because we have spent the presigned txs project for several months while keeping the potential of swapping to CTV in mind while designing API. This strategy wouldn't apply for any project that really needs a new primitive to be built.
+
+[quote="ajtowns, post:14, topic:1509"]
+Personally, I think the biggest blocker to progress here continues to be CTV’s misguided description of “covenants”, and its misguided and unjustified concern about “recursive covenants”. Particularly given those concerns are incompatible with co-activation of CSFS, I would have thought a simple first step would be updating BIP 119 to remove/correct them
+[/quote]
+
+I'm confused. Are you talking about a technical amendment to CTV? Or are you (again, like in your recent mailing list post) whining about the Motivation section of the BIP? Excuse my French, but if your "biggest blocker" in what is trying to be a pragmatic evaluation of a technical change is some wording in a BIP's motivation section, I can't help but question whether you are actually trying to constructively participate in this conversation.
+
+[quote="ajtowns, post:14, topic:1509"]
+Otherwise, discarding BIP 119 entirely and starting from scratch with an equally expressive and more efficient simplified TXHASH BIP could be a good option.
+[/quote]
+
+FWIW, I wouldn't mind this outcome of course, I implemented TXHASH exactly because it's a more powerful version of CTV that offers a lot more flexibility. Though when I published the BIP and implementation, I barely received any feedback, so I figured there was not much interest. Given your own remarks on the topic, I suspect you also haven't read the BIP text yourself.
+
+
+[quote="AntoineP, post:26, topic:1509"]
+Since the receiver crafts the address to request funds on, this means the Liquid watchmen would need to both 1) know the amount before giving away the address and 2) trust that the user will for sure use the **exact same amount** they said they would in the previous round of communication, or the funds may be **locked forever** or have the excess burned to fees
+[/quote]
+
+It's true that CTV isn't suitable for a scheme where you want to present the user with an address that they can deposit any sort of funds into. However, when these transactions are managed by software, I think it's ok. Liquid could just abandon the "pegin address" concept and have wallets implement pegins internally.
+
+We do the same with Ark: when onboarding you craft an exit tx and send it to the server for cosigning. With CTV you could do away with this round of interaction and since the amount is visible in the tx, you could also re-generate the template hash and recover funds using a mnemonic, which in the current system is impossible because loss of the cosign signature means you can't recover the exit tx.
+
+(For completion, TXHASH is able to assert that input amount equals output amount, so that would solve this particular problem if you only use a single input. Can't do input sum amount equals output sum amount unfortunately.)
+
+-------------------------
+
+jamesob | 2025-03-13 17:30:22 UTC | #32
+
+[quote="instagibbs, post:25, topic:1509"]
+For the sake of discussion getting these things on the record by the claimants somewhere public with details is helpful.
+[/quote]
+
+[quote="AntoineP, post:26, topic:1509"]
+I am skeptical of this claim.
+[/quote]
+
+Andrew Poelstra is the second person I spoke with about this. Today he gave me permission to affirm here that he thinks CTV could be used for this purpose with Liquid.
+
+He writes
+
+>  What the watchmen need is super simple. "These keys allow moving the coins to a special timelocked staging area, from which the original keys can still pull them back" It's basically a one-step vault.
+> 
+> In fact we literally implemented it in terms of unsigned transactions in an early version of liquid, but it was too difficult to keep them synced up and invalidated.
+
+Given that he is short time (and a Delving Bitcoin account), he graciously allowed me to republish here.
+
+So we have two independent attestations that CTV could be used to good effect on Liquid -- hopefully that's sufficient to put the matter to rest.
+
+-------------------------
+
+moneyball | 2025-03-13 17:59:58 UTC | #33
+
+I still don't see any quantification of benefit to Liquid so seems premature for you to put the matter to rest.
+
+-------------------------
+
+jamesob | 2025-03-13 18:25:04 UTC | #34
+
+What has been put to rest is that two highly qualified Liquid devs have said, "yeah, we'd use CTV for Liquid."
+
+-------------------------
+
+moneyball | 2025-03-13 18:57:58 UTC | #35
+
+You're the one saying you're putting things to rest. I'm curious to learn of the magnitude of the advantage.
+
+-------------------------
+

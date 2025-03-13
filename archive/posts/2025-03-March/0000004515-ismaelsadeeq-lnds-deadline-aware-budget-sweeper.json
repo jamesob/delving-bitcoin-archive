@@ -1,0 +1,73 @@
+{
+  "id": 4515,
+  "name": "Abubakar Sadiq Ismail",
+  "username": "ismaelsadeeq",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ismaelsadeeq/{size}/151_2.png",
+  "created_at": "2025-03-13T16:11:31.211Z",
+  "cooked": "<blockquote>\n<p>Generally LN nodes want the transaction to confirm within n blocks but they don\u2019t want to pay more fees than necessary. Confirming ASAP is generally not needed, unless deadlines are getting close.</p>\n</blockquote>\n<blockquote>\n<p>But fundamentally, estimators are still estimators and cannot guarantee that transactions confirm before deadlines, especially when directed attacks are in play (pinning, censorship, etc.). In such situations a naive budget-based fee bumping strategy is much more reliable.</p>\n</blockquote>\n<p>Then in this case instead of using the fee function for fee bumping immediately at n-1,  you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)</p>\n<p>Towards the end when deadline is really close, you can combine both approaches take the maximum between the output of the fee function and ASAP fee rate estimate to increase the chances. (But when their is a fee spike towards the end of the deadline you might pay above budget using this method).</p>",
+  "post_number": 5,
+  "post_type": 1,
+  "updated_at": "2025-03-13T16:11:31.211Z",
+  "reply_count": 1,
+  "reply_to_post_number": 4,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 36.4,
+  "yours": false,
+  "topic_id": 1512,
+  "topic_slug": "lnds-deadline-aware-budget-sweeper",
+  "topic_title": "LND's Deadline-Aware Budget Sweeper",
+  "topic_html_title": "LND&rsquo;s Deadline-Aware Budget Sweeper",
+  "category_id": 8,
+  "display_username": "Abubakar Sadiq Ismail",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "morehouse",
+    "name": "Matt Morehouse",
+    "avatar_template": "/letter_avatar_proxy/v4/letter/m/df705f/{size}.png"
+  },
+  "bookmarked": false,
+  "raw": "> Generally LN nodes want the transaction to confirm within n blocks but they don\u2019t want to pay more fees than necessary. Confirming ASAP is generally not needed, unless deadlines are getting close.\n\n\n> But fundamentally, estimators are still estimators and cannot guarantee that transactions confirm before deadlines, especially when directed attacks are in play (pinning, censorship, etc.). In such situations a naive budget-based fee bumping strategy is much more reliable.\n\nThen in this case instead of using the fee function for fee bumping immediately at n-1,  you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)\n\nTowards the end when deadline is really close, you can combine both approaches take the maximum between the output of the fee function and ASAP fee rate estimate to increase the chances. (But when their is a fee spike towards the end of the deadline you might pay above budget using this method).",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 135,
+  "hidden": false,
+  "trust_level": 2,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

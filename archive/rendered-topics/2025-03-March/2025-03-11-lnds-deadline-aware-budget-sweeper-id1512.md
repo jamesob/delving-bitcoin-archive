@@ -211,3 +211,57 @@ cc @ClaraShk
 
 -------------------------
 
+morehouse | 2025-03-13 15:31:06 UTC | #4
+
+[quote="ismaelsadeeq, post:3, topic:1512"]
+Calling `estimateSmartFee` with `n`, and expecting it to confirm ASAP is not not ideal, and would likely not confirm ASAP. Instead, they should call `estimateSmartFee` with a `conf_target` of `1`. If the transaction does not confirm within the next 1–2 blocks, they can then call the fee function to determine the fee rate they are willing to pay at that target based on the available budget (curve).
+[/quote]
+
+Generally LN nodes want the transaction to confirm within `n` blocks but they don't want to pay more fees than necessary.  Confirming ASAP is generally not needed, unless deadlines are getting close.
+
+But I think you make a good point that there is probably a mismatch here between the fee estimator's intended use and what LN nodes do.  If the estimator says a certain fee rate should get the transaction confirmed within `n` blocks and then confirmation takes `n+1` blocks, that's probably not considered a big deal from the estimator's point of view.  But for LN nodes there's a huge (and expensive) difference.
+
+Presumably this is why eclair switches to exponential bumping once the deadline gets close, and why LDK uses exponential bumping whenever the estimator does not return an increased fee rate.
+
+
+[quote="ismaelsadeeq, post:3, topic:1512"]
+See the API proposal for Bitcoin Core’s improved fee estimator response, which provides the state of the mempool in the past with respect to miner’s mempool. This information could help clients make more informed decisions: [Fee Estimation via Fee rate Forecasters tracking issue · Issue #30392 · bitcoin/bitcoin · GitHub](https://github.com/bitcoin/bitcoin/issues/30392#issuecomment-2717491587)
+[/quote]
+
+Improving Bitcoin Core's estimator is great and should decrease the number of LN node operators that rely on third-party estimators such as mempool.space or Blockstream.
+
+But fundamentally, estimators are still estimators and cannot guarantee that transactions confirm before deadlines, especially when directed attacks are in play (pinning, censorship, etc.).  In such situations a naive budget-based fee bumping strategy is much more reliable.
+
+-------------------------
+
+ismaelsadeeq | 2025-03-13 16:11:31 UTC | #5
+
+> Generally LN nodes want the transaction to confirm within n blocks but they don’t want to pay more fees than necessary. Confirming ASAP is generally not needed, unless deadlines are getting close.
+
+
+> But fundamentally, estimators are still estimators and cannot guarantee that transactions confirm before deadlines, especially when directed attacks are in play (pinning, censorship, etc.). In such situations a naive budget-based fee bumping strategy is much more reliable.
+
+Then in this case instead of using the fee function for fee bumping immediately at n-1,  you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)
+
+Towards the end when deadline is really close, you can combine both approaches take the maximum between the output of the fee function and ASAP fee rate estimate to increase the chances. (But when their is a fee spike towards the end of the deadline you might pay above budget using this method).
+
+-------------------------
+
+t-bast | 2025-03-13 16:41:31 UTC | #6
+
+[quote="morehouse, post:4, topic:1512"]
+Presumably this is why eclair switches to exponential bumping once the deadline gets close, and why LDK uses exponential bumping whenever the estimator does not return an increased fee rate.
+[/quote]
+
+That was indeed our reasoning for eclair!
+
+[quote="ismaelsadeeq, post:5, topic:1512"]
+Then in this case instead of using the fee function for fee bumping immediately at n-1, you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)
+
+Towards the end when deadline is really close, you can combine both approaches take the maximum between the output of the fee function and ASAP fee rate estimate to increase the chances. (But when their is a fee spike towards the end of the deadline you might pay above budget using this method).
+[/quote]
+
+Those are good ideas, this is slightly different from what we do today, but in essence that's what we'd like to achieve. We will update eclair to have a behavior that is closer to what you describe.
+
+-------------------------
+
