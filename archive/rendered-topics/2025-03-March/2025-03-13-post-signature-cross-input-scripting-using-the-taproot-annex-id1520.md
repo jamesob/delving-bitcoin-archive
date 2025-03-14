@@ -1,6 +1,6 @@
 # Post-Signature Cross-Input Scripting Using the Taproot Annex
 
-josh | 2025-03-13 23:03:37 UTC | #1
+josh | 2025-03-14 12:15:17 UTC | #1
 
 *This post is not an endorsement of CTV or any specific covenant proposal. It should also not be confused with cross-input signature aggregation, which is a separate proposal.*
 
@@ -29,7 +29,9 @@ This can be used to create on-the-fly delegated signatures (e.g. Alice signs a p
 
 This could also be used for post-signature timelocks (e.g. Alice signs a transaction that is only valid after $X$ blocks).
 
-Another interesting use case is post-signature transaction templating, if covenants are one day introduced (e.g. Alice signs a transaction committing to any one of thousands of transaction templates).
+Another interesting use case is post-signature transaction templating, if covenants are one day introduced (e.g., Alice signs a partial transaction committing to any one of thousands of transaction templates).
+
+On this point, an unexpected side benefit is that opcodes may be enabled exclusively within a subscript that would otherwise enable recursive covenants (e.g., Alice may commit to a hash of the spent outpoints or the legacy txid when signing her PSBT, but she would not be able to permanently encumber the resulting outputs).
 
 ### Request for feedback
 

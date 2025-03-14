@@ -12,9 +12,9 @@
   "reply_to_post_number": 21,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 32.6,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 63.6,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -46,7 +46,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -64,10 +64,15 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }

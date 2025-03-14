@@ -1081,3 +1081,19 @@ The confusion Jeremy has created with this has been continually used to block di
 
 -------------------------
 
+stevenroose | 2025-03-14 14:55:01 UTC | #38
+
+Jeremy has not at all participated in this discussion and you are the first one to bring up both him and the BIP text. Or even CTV history in general. Most other comments to focus on the actual technical merit of the proposal, whether it be evidence or lack of evidence thereof. 
+
+[quote="ajtowns, post:37, topic:1509"]
+has been continually used to block discussion of other comparable approaches in this design space
+[/quote]
+
+You are the only one bringing up historical artifacts and calling them "blockers".
+
+I am aware I said I wouldn't be pointing fingers, but I tried to start a discussion here that focuses on where we are right now and how we want to move forward and I don't appreciate attempts to derail the conversation into old fights that have been fought before and add absolutely no value to the topic.
+
+Let's yield the space so others have a chance to weigh in...
+
+-------------------------
+
