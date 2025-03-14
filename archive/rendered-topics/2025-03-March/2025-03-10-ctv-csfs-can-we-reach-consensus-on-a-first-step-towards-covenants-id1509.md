@@ -1071,3 +1071,13 @@ Liquid, no opinion. I've already met many Liquid devs in real-life but I've neve
 
 -------------------------
 
+ajtowns | 2025-03-14 03:19:50 UTC | #37
+
+[quote="stevenroose, post:31, topic:1509"]
+I’m confused. Are you talking about a technical amendment to CTV? Or are you (again, like in your recent mailing list post) whining about the Motivation section of the BIP? Excuse my French, but if your “biggest blocker” in what is trying to be a pragmatic evaluation of a technical change is some wording in a BIP’s motivation section, I can’t help but question whether you are actually trying to constructively participate in this conversation.
+[/quote]
+
+The confusion Jeremy has created with this has been continually used to block discussion of other comparable approaches in this design space, including combinations of CTV with other opcodes, variations on introspection approaches, and other opcodes entirely. Thanks at least for confirming that this is as much of a waste of time as every other CTV discussion has been.
+
+-------------------------
+
