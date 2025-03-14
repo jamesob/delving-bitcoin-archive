@@ -2,7 +2,7 @@
   "id": 4528,
   "name": "YY",
   "username": "yyforyongyu",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/yyforyongyu/{size}/270_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/yyforyongyu/{size}/1099_2.png",
   "created_at": "2025-03-14T10:02:03.325Z",
   "cooked": "<blockquote>\n<p>Then in this case instead of using the fee function for fee bumping immediately at n-1, you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)</p>\n</blockquote>\n<p>A grace period is nice, which can be accomplished by a different fee function. This <a href=\"https://github.com/lightningnetwork/lnd/issues/4215#issuecomment-699628337\" rel=\"noopener nofollow ugc\">research</a> may be a bit outdated, but the conclusion still holds - we can switch fee functions based on the current deadline.</p>\n<p>There was also this assumption when I implemented the sweeper, in that we don\u2019t know what\u2019s gonna happen in the next block, either the fee spikes or declines. This means there\u2019s an opportunity cost if we skip fee bumping for a few blocks.</p>\n<p>Finally there\u2019s the time value - although the deadline may be far away, the user may want to unlock the liquidity quickly, which is also enabled in the new sweeper.</p>",
   "post_number": 7,
