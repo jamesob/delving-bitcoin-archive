@@ -265,3 +265,15 @@ Those are good ideas, this is slightly different from what we do today, but in e
 
 -------------------------
 
+yyforyongyu | 2025-03-14 10:02:03 UTC | #7
+
+> Then in this case instead of using the fee function for fee bumping immediately at n-1, you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)
+
+A grace period is nice, which can be accomplished by a different fee function. This [research](https://github.com/lightningnetwork/lnd/issues/4215#issuecomment-699628337) may be a bit outdated, but the conclusion still holds - we can switch fee functions based on the current deadline.
+
+There was also this assumption when I implemented the sweeper, in that we don’t know what’s gonna happen in the next block, either the fee spikes or declines. This means there’s an opportunity cost if we skip fee bumping for a few blocks.
+
+Finally there’s the time value - although the deadline may be far away, the user may want to unlock the liquidity quickly, which is also enabled in the new sweeper.
+
+-------------------------
+
