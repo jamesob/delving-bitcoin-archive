@@ -1,0 +1,73 @@
+{
+  "id": 4531,
+  "name": "Gregory Sanders",
+  "username": "instagibbs",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png",
+  "created_at": "2025-03-14T17:01:34.406Z",
+  "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"18\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>I\u2019ve found this use-case the least compelling part, especially at the cost of having to reason about legacy scripting. If it\u2019s really important one idea I\u2019d suggest it be included it as a new segwit output type as a separate feature that lives and dies in a proposal on its own merits. I ended up doing this with P2A for the exact same two reasons.</p>\n</blockquote>\n</aside>\n<p>My technical suggestion for a post-segwit/taproot world:</p>\n<ol>\n<li>switch to OP_SUCCESSx CTV that pushes to stack (tascript++ only)</li>\n<li>P2CTV softfork which is defined as a spk of exactly:<br>\na) &lt;32 bytes data&gt; &lt;OP_NOP5&gt; # for upgrade hook ensuring no one intended to use this otherwise, no corresponding address. Or it could be any other non-segwit template.<br>\nb) OR &lt;2&gt; &lt;32 bytes data&gt; # unknown witness version, has address</li>\n</ol>\n<p>Either one would be required to have empty witness data / scriptSig on spend and does otherwise identical hashing checks on spending tx.</p>\n<p>Either bare CTV is important or it\u2019s not; it would be pretty trivial to do (2.b)\nand allows the reviewer to never think about legacy script opcodes at all.</p>",
+  "post_number": 39,
+  "post_type": 1,
+  "updated_at": "2025-03-14T17:01:34.406Z",
+  "reply_count": 1,
+  "reply_to_post_number": 18,
+  "quote_count": 1,
+  "incoming_link_count": 4,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 58.2,
+  "yours": false,
+  "topic_id": 1509,
+  "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
+  "topic_title": "CTV+CSFS: Can we reach consensus on a first step towards covenants?",
+  "topic_html_title": "CTV+CSFS: Can we reach consensus on a first step towards covenants?",
+  "category_id": 7,
+  "display_username": "Gregory Sanders",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "bookmarked": false,
+  "raw": "[quote=\"instagibbs, post:18, topic:1509\"]\nI\u2019ve found this use-case the least compelling part, especially at the cost of having to reason about legacy scripting. If it\u2019s really important one idea I\u2019d suggest it be included it as a new segwit output type as a separate feature that lives and dies in a proposal on its own merits. I ended up doing this with P2A for the exact same two reasons.\n[/quote]\n\nMy technical suggestion for a post-segwit/taproot world:\n1. switch to OP_SUCCESSx CTV that pushes to stack (tascript++ only)\n2. P2CTV softfork which is defined as a spk of exactly:  \n\ta) <32 bytes data> <OP_NOP5> # for upgrade hook ensuring no one intended to use this otherwise, no corresponding address. Or it could be any other non-segwit template.  \n\tb) OR <2> <32 bytes data> # unknown witness version, has address\n\t\nEither one would be required to have empty witness data / scriptSig on spend and does otherwise identical hashing checks on spending tx.\n\nEither bare CTV is important or it's not; it would be pretty trivial to do (2.b)\nand allows the reviewer to never think about legacy script opcodes at all.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 31,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

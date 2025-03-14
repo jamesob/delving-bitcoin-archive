@@ -1097,3 +1097,100 @@ Let's yield the space so others have a chance to weigh in...
 
 -------------------------
 
+instagibbs | 2025-03-14 17:01:34 UTC | #39
+
+[quote="instagibbs, post:18, topic:1509"]
+I’ve found this use-case the least compelling part, especially at the cost of having to reason about legacy scripting. If it’s really important one idea I’d suggest it be included it as a new segwit output type as a separate feature that lives and dies in a proposal on its own merits. I ended up doing this with P2A for the exact same two reasons.
+[/quote]
+
+My technical suggestion for a post-segwit/taproot world:
+1. switch to OP_SUCCESSx CTV that pushes to stack (tascript++ only)
+2. P2CTV softfork which is defined as a spk of exactly:  
+	a) <32 bytes data> <OP_NOP5> # for upgrade hook ensuring no one intended to use this otherwise, no corresponding address. Or it could be any other non-segwit template.  
+	b) OR <2> <32 bytes data> # unknown witness version, has address
+	
+Either one would be required to have empty witness data / scriptSig on spend and does otherwise identical hashing checks on spending tx.
+
+Either bare CTV is important or it's not; it would be pretty trivial to do (2.b)
+and allows the reviewer to never think about legacy script opcodes at all.
+
+-------------------------
+
+ariard | 2025-03-14 18:19:37 UTC | #40
+
+[quote="stevenroose, post:38, topic:1509"]
+I am aware I said I wouldn’t be pointing fingers, but I tried to start a discussion here that focuses on where we are right now and how we want to move forward and I don’t appreciate attempts to derail the conversation into old fights that have been fought before and add absolutely no value to the topic.
+[/quote]
+
+So in my view, of someone who has been involved or have followed the conversation on "covenants” / "contracting primitives" on the last 3 / 4 years, we're more or less doing circles as there is not real convergence on the use-case worthiness, that are improved by covenants.
+
+Following Jeremy's 1st initiative to activate CTV in early 2022, there have been people for who have take a step back and try to improve the development process of consensus changes, be it AJ Towns with bitcoin-inquisition, myself with the Bitcoin Contracting Primitives WG on IRC, Optech with a collection of all covenant ideas, some people who have attempted to reboot in-person Scaling Bitcoin with op.next, etc.
+
+From the last 3 / 4 years, I don't think there have been major technical breakthrough on the conceptual side (i.e finding new cryptographic primitives that allows to do *more* with *less*), and all the conceptual advances have been either lines on opcode-level efficiency tricks or ideas like BitVM or ColliderScript. Those latest novels ideas are interesting in themselves, though of course, there are not achieving the same in terms of performance or expressivity than their logical equivalent, at the consensus-level.
+
+So I think, we're still halting on the lack of social consensus on specific use-cases, that are strong technical and economical motivation enough to warrant consensus changes of Bitcoin Script.
+
+If there is an inability as a community to come to consensus, there is always the path to fork bitcoin core and do an activation client. While I strongly believe more competing clients in the bitcoin space is a good thing on the long-term (yes - you can outcompete bitcoin core on so many technical dimensions), I don't believe this is the way to go when we're talking about consensus changes. There is a value in itself in the stability of the bitcoin network, which is not worth to play on a coin toss, or bargain with brinksmanship.
+
+My position, as expressed in the last paragraph of my previous post, is that I can be supportive of a minimal Script change improving bitcoin coins self-custody, at the condition it doesn’t introduce tx-withholding risks or extend the DoS surface of full-nodes. If it has a side-effect to improve other use-cases, cool, but not something which is ranking high in my list of bitcoin technical items I'm interested to contribute on.
+
+In a spirit to move the conversation forward, we had 11 developers expressing on this thread so far, eventually each one could express which use-cases they can be interested by, and if there is any primitive they think will improve the use-case, or the technical reasons they think a primitive have weakness, limitation, is not suiting their particular use-case, etc.
+
+Expressing technical motivations why you're against an idea (e.g me against CSFS due to tx-withholding risk), is I think a good development practice as objective elements can be discussed on, rather than information-poor marks like "thumbs up" or "like" on gh or twitter.
+
+If the conservation stalls, I'm fine with the status quo.
+
+-------------------------
+
+jamesob | 2025-03-14 18:22:17 UTC | #41
+
+[quote="instagibbs, post:39, topic:1509"]
+Either bare CTV is important or it’s not; it would be pretty trivial to do (2.b) and allows the reviewer to never think about legacy script opcodes at all.
+[/quote]
+
+There is very little marginal complexity in the implementation that is due to bare/legacy CTV. On the other hand, there is significant complexity in an additional fork deployment - both in terms of added code and process.
+
+What is the concrete reason that CTV as `OP_NOP4` is a sticking point for you?
+
+-------------------------
+
+jamesob | 2025-03-14 18:28:01 UTC | #42
+
+[quote="ariard, post:40, topic:1509"]
+we’re more or less doing circles as there is not real convergence on the use-case worthiness, that are improved by covenants.
+[/quote]
+
+Except that in the last week, we've had
+- 2 Blockstream engineers go on record as saying CTV would be valuable for Liquid,
+- the CEO of one of Bitcoin's most popular hardware wallets saying [he'd implement vaults](https://x.com/nvk/status/1899918763728003420),
+- the CEO of Bitcoin's only custodial insurance product saying [he wants vaults](https://x.com/Rob1Ham/status/1897781338796966103), and
+- a prototype of Ark based on CTV passing tests and showing a substantial reduction in the interactivity required (mentioned above).
+
+I wouldn't call that "doing circles!"
+
+-------------------------
+
+instagibbs | 2025-03-14 19:00:11 UTC | #43
+
+[quote="jamesob, post:41, topic:1509"]
+There is very little marginal complexity in the implementation that is due to bare/legacy CTV.
+[/quote]
+
+IIUC, the NOP/verify pattern is primarily being justified due to bare usage. I am suggesting an alternative (at handwave height) which fits the same hole, while converting the rest of the functionality to something that is more efficient for the use cases I care about, signing hashes that reside on the stack.
+
+I admit this is speaking off the cuff, but I'd like to know why this is not a good idea.
+
+[quote="jamesob, post:41, topic:1509"]
+On the other hand, there is significant complexity in an additional fork deployment - both in terms of added code and process.
+[/quote]
+
+If consensus arrives that the bare case is worthwhile, just bundle them.
+
+[quote="jamesob, post:41, topic:1509"]
+What is the concrete reason that CTV as `OP_NOP4` is a sticking point for you?
+[/quote]
+
+If reviewers (me) don't have to think about legacy script, it's a win.
+
+-------------------------
+
