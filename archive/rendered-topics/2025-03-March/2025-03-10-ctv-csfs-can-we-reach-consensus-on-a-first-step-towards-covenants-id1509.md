@@ -657,18 +657,6 @@ I've found this use-case the least compelling part, especially at the cost of ha
 
 -------------------------
 
-1440000bytes | 2025-03-12 22:52:57 UTC | #19
-
-(post deleted by author)
-
--------------------------
-
-1440000bytes | 2025-03-12 22:53:03 UTC | #20
-
-(post deleted by author)
-
--------------------------
-
 stevenroose | 2025-03-12 18:14:51 UTC | #21
 
 My purpose with this thread is to avoid doing an independent activation client which will undoubtedly upset people, but instead hear everyone out and see if we can gather enough momentum to get some version of these changes deployed through the regular Core release process.

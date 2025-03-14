@@ -43,7 +43,7 @@ Having it be possible to specify indexes would be very helpful in creating more 
 
 -------------------------
 
-Chris_Stewart_5 | 2025-03-13 18:49:13 UTC | #3
+Chris_Stewart_5 | 2025-03-13 21:08:20 UTC | #3
 
 Ok Johan, i finally took you up on this. Here is my attempt at implementing what I think you and [AJ Towns](https://gnusha.org/pi/bitcoindev/20210909065330.GB22496@erisian.com.au/) were hinting at.
 
@@ -133,9 +133,9 @@ Lets assume my witness script looks like this
 
 >OP_1 OP_INOUT_AMOUNT ONE_BTC OP_DUP OP_EQUALVERIFY OP_EQUAL
 
-This script checks that the output at index 0 is equal to 1BTC. It also checks there exists at least 1 input that is equal to 1BTC. The caller of this Script can specify the input index to check that its equal to exactly 1BTC.
+This script checks that the output at index 0 is equal to `1BTC`. It also checks there exists at least 1 input that is equal to `1BTC`. The caller of this Script can specify the input index to check that its equal to exactly `1BTC`.
 
-If you have multiple inputs that have exactly 1BTC, 3rd parties on the network could malleate the witness stack and still have the bitcoin transaction be valid.
+If you have multiple inputs that have exactly `1BTC`, 3rd parties on the network could malleate the witness stack and still have the bitcoin transaction be valid.
 
 -------------------------
 
