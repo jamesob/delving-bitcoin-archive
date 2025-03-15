@@ -1194,3 +1194,96 @@ If reviewers (me) don't have to think about legacy script, it's a win.
 
 -------------------------
 
+AntoineP | 2025-03-14 21:11:30 UTC | #44
+
+[quote="jamesob, post:42, topic:1509"]
+the CEO of one of Bitcoin’s most popular hardware wallets saying [he’d implement vaults](https://x.com/nvk/status/1899918763728003420),
+[/quote]
+
+The post you are linking to mentions `OP_VAULT`. It seems inappropriate to use as motivation for a proposal, a statement in favour of a separate proposal.
+
+[quote="jamesob, post:42, topic:1509"]
+the CEO of Bitcoin’s only custodial insurance product saying [he wants vaults](https://x.com/Rob1Ham/status/1897781338796966103), and
+[/quote]
+
+This post does not mention `OP_CTV` either. Also, AnchorWatch is great but it's a company that launched less than 3 months ago. 
+
+Meanwhile Bob McElrath [stated](https://x.com/BobMcElrath/status/1900445574626693258) that from his experience researching vaults for years at [Fidelity Digital Asset](https://www.fidelitydigitalassets.com), one of the largest Bitcoin custodians in the world, vaults sounded like a good idea but were not in practice. The CEO of [Nunchuk](https://nunchuk.io/), a popular Bitcoin wallet in operation since 2021, [stated](https://x.com/hugomofn/status/1899998739512832377) that after investigating vaults he did not believe those were practical for end users ("plebs"). The CEO of [Wizardsardine](https://wizardsardine.com/), who spent years developing vaults and otherwise developing advanced custody products also [stated](https://x.com/KLoaec/status/1897694745050194392) that in practice the revealed preferences of people is that they'd rather not take on the burden that comes with managing a vault. The reasons stated by every single of these persons (as well as myself) for their skepticism of the value of vaults in practice is all the infrastructure that comes with it (watchtowers, etc). These opinions were informed by their experience in actually building all that comes with a product targeting real-life end users, and this would also apply to an ideal vault architecture with an opcode dedicated to it[^0].
+
+Now, all these discussions you brought up are about vaults that the proposal at hand does not enable. So i hope we can "put this matter to rest" and come back on topic to usecases actually enabled by the combination of `OP_CTV` and `OP_CSFS`. So far i see three:
+- Make LN-symmetry a possible option for Lightning developers
+- Make it [easier for Lightning to upgrade to PTLCs](https://delvingbitcoin.org/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/7?u=antoinep) (regardless of LN-symmetry usage)
+- Improve Ark (@stevenroose could you lay down the exact improvements?)
+- Reduce interactivity in various (potentially future or not yet known) protocols and applications
+- In theory be helpful for UTxO management for Liquid watchmen, which would be fair to generalize to custodial sidechains in general
+
+[^0]: Something like `OP_VAULT` seems to have other interesting usecases beyond vault, but again, this is off-topic for this thread.
+
+-------------------------
+
+jamesob | 2025-03-14 21:37:02 UTC | #45
+
+[quote="AntoineP, post:44, topic:1509"]
+The post you are linking to mentions `OP_VAULT`. It seems inappropriate to use as motivation for a proposal, a statement in favour of a separate proposal.
+[/quote]
+
+A prerequisite for any vault is unambiguously locking the coins to a certain destination during the trigger stage. CTV is the most basic way of doing this; in fact, anything that is capable of accomplishing this is either CTV or a generalization. So an argument for the value of vaults is in essence an argument for CTV (or something more general that encompasses it as one mode).
+
+[quote="AntoineP, post:44, topic:1509"]
+Meanwhile Bob McElrath [stated](https://x.com/BobMcElrath/status/1900445574626693258) ...
+[/quote]
+
+One (or three) custodians saying "I'm not going to use taproot, it doesn't make sense for me" isn't an argument against taproot. Especially if you have a number of other custodians (who are more current and not working on competing products) saying, "yes, I'd really like this, it would make a difference for my business."
+
+-------------------------
+
+AntoineP | 2025-03-14 21:44:33 UTC | #46
+
+[quote="jamesob, post:45, topic:1509"]
+A prerequisite for any vault is unambiguously locking the coins to a certain destination during the trigger stage. [...] So an argument for the value of vaults is in essence an argument for CTV
+[/quote]
+
+I disagree. If people are proposing to change Bitcoin in X manner, they should make the case for X. Not for a future theoretical Y change that X combines well with. Y should only matter to argue that X won't be rendered obsolete in the near future (which Steven did pretty convincingly in OP), to convince people it is worth going through a soft fork for X without waiting for Y.
+
+-------------------------
+
+1440000bytes | 2025-03-14 22:03:45 UTC | #47
+
+[quote="AntoineP, post:44, topic:1509"]
+Meanwhile Bob McElrath [stated](https://x.com/BobMcElrath/status/1900445574626693258) that from his experience researching vaults for years at [Fidelity Digital Asset](https://www.fidelitydigitalassets.com), one of the largest Bitcoin custodians in the world, vaults sounded like a good idea but were not in practice. The CEO of [Nunchuk](https://nunchuk.io/), a popular Bitcoin wallet in operation since 2021, [stated](https://x.com/hugomofn/status/1899998739512832377) that after investigating vaults he did not believe those were practical for end users (“plebs”). The CEO of [Wizardsardine](https://wizardsardine.com/), who spent years developing vaults and otherwise developing advanced custody products also [stated](https://x.com/KLoaec/status/1897694745050194392) that in practice the revealed preferences of people is that they’d rather not take on the burden that comes with managing a vault.
+[/quote]
+
+There are several other developers and users who need vaults with covenants. This includes companies with successful products and services.
+
+What do others achieve by blocking someone from using different types of vaults?
+
+-------------------------
+
+jamesob | 2025-03-14 22:18:13 UTC | #48
+
+[quote="instagibbs, post:43, topic:1509"]
+IIUC, the NOP/verify pattern is primarily being justified due to bare usage.
+[/quote]
+
+VERIFY is also important for upgradeability; if you don't have the <32-byte-hash> parameter, you can't make the opcode upgradeable.
+
+Now maybe in a tapscript context that's okay because you've got so much unused opcode space.
+
+[quote="instagibbs, post:43, topic:1509"]
+I’d like to know why this is not a good idea.
+[/quote]
+I'm not averse to it, I'm just trying to figure out why you want it, since all the uses of CTV I'm familiar with are VERIFYs - I gather it's to make ln-symm more efficient or something? I'm not trying to be glib here, I just think the motivation for what you suggested wasn't explicitly mentioned.
+
+I'm totally fine with having adding a tapscript-only `OP_CHECKTEMPLATEHASH` that pushes the hash to the stack if it helps someone, that's not a lot of marginal complexity. But I think the idea that it would replace CTV as-is is sort of a different proposal.
+
+[quote="instagibbs, post:43, topic:1509"]
+If reviewers (me) don’t have to think about legacy script, it’s a win.
+[/quote]
+Again, not trying to be glib here but is there a more specific reason than "each reviewer has to review about 15 marginal lines of not-substantially-novel code?" What about legacy is so complicated that it really moves the needle?
+
+I understand the argument that we only have so much NOP-space left, but given the bare CTV case is "most compact way possible to commit to `n` future spends," I think it probably justifies the allocation.
+
+Please grant me the goodwill to admit it's a reasonable thought that if chainspace ever does become massively short, congestion control is a good escape hatch to have on hand - even outside of the use for miners today.
+
+-------------------------
+

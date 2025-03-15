@@ -8,13 +8,13 @@
   "post_number": 42,
   "post_type": 1,
   "updated_at": "2025-03-14T18:28:01.399Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 40,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 22.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ariard, post:40, topic:1509\"]\nwe\u2019re more or less doing circles as there is not real convergence on the use-case worthiness, that are improved by covenants.\n[/quote]\n\nExcept that in the last week, we've had\n- 2 Blockstream engineers go on record as saying CTV would be valuable for Liquid,\n- the CEO of one of Bitcoin's most popular hardware wallets saying [he'd implement vaults](https://x.com/nvk/status/1899918763728003420),\n- the CEO of Bitcoin's only custodial insurance product saying [he wants vaults](https://x.com/Rob1Ham/status/1897781338796966103), and\n- a prototype of Ark based on CTV passing tests and showing a substantial reduction in the interactivity required (mentioned above).\n\nI wouldn't call that \"doing circles!\"",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
