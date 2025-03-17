@@ -1,0 +1,73 @@
+{
+  "id": 4546,
+  "name": "",
+  "username": "gmaxwell",
+  "avatar_template": "/letter_avatar_proxy/v4/letter/g/fbc32d/{size}.png",
+  "created_at": "2025-03-16T04:28:01.147Z",
+  "cooked": "<p>If the \u201cconvex hull\u201d part of Sipa\u2019s description of optimality seems capricious to you,  perhaps it would be helpful for me to share why I found it intuitive:</p>\n<p>Consider the mining problem without the issue of dependencies.  An obvious approximation algorithm for the problem is to sort transactions by feerate, and include transactions in that order until you can\u2019t fit the next one.</p>\n<p>One thing to observe about the algorithm is that if the last transaction you include exactly fills the block then this greedy algorithm is optimal, not approximate.  With that in mind, you can see that there is an obvious bound on the worst case approximation error:  You will at most miss out on fees for the unfilled bytes times the next best feerate.   The relative error is also small so long as transactions are small compared to the block (since the loss is no more than the left out transaction).  Of course, in practice its less than that if you fill in the remaining space as best you can (which is what Bitcoin Core has done for a long time).</p>\n<p>A similar kind of analogy exists for the \u201cchunk\u201d approximation--  the constraint to chunks causes an approximation error in the otherwise elegant definition of optimality\u2026 but only when the available space doesn\u2019t line up with chunks. And when it doesn\u2019t the amount of error is bounded by the maximum size of a chunk.</p>\n<p>And since any kind of optimized linearization is going to have some less attractive parent transactions ahead of child transactions that make them worthwhile, there will always be some approximation loss for any algorithim that isn\u2019t figuring out the order just in time.  I think that an argument can also be made that it doesn\u2019t make sense to optimize for any particular fullness location because the distribution of the remaining space is going to look like a sum of arbitrarily many randomly sized chunks mod the typical chunk size, and will be pretty uniformly distributed (though admittedly that\u2019s a total hand-wave, but it\u2019s my intuition).</p>\n<p>I think it\u2019s also important to keep in mind that the linearization is usually unimportant:</p>\n<p>The <em>vast</em> majority of all clusters have only one possible linearization because there is only a single txn or the txn form a straight chain.  And the linearization is irrelevant during both mining and eviction if either none of the transactions would be selected or if all of them would be selected. \u2013 which is again usually the case.</p>",
+  "post_number": 55,
+  "post_type": 1,
+  "updated_at": "2025-03-16T04:28:01.147Z",
+  "reply_count": 0,
+  "reply_to_post_number": 53,
+  "quote_count": 0,
+  "incoming_link_count": 1,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 2.6,
+  "yours": false,
+  "topic_id": 303,
+  "topic_slug": "how-to-linearize-your-cluster",
+  "topic_title": "How to linearize your cluster",
+  "topic_html_title": "How to linearize your cluster",
+  "category_id": 8,
+  "display_username": "",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "Lagrang3",
+    "name": "Lagrang3",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/lagrang3/{size}/377_2.png"
+  },
+  "bookmarked": false,
+  "raw": "If the \"convex hull\" part of Sipa's description of optimality seems capricious to you,  perhaps it would be helpful for me to share why I found it intuitive:\n\nConsider the mining problem without the issue of dependencies.  An obvious approximation algorithm for the problem is to sort transactions by feerate, and include transactions in that order until you can't fit the next one.\n\nOne thing to observe about the algorithm is that if the last transaction you include exactly fills the block then this greedy algorithm is optimal, not approximate.  With that in mind, you can see that there is an obvious bound on the worst case approximation error:  You will at most miss out on fees for the unfilled bytes times the next best feerate.   The relative error is also small so long as transactions are small compared to the block (since the loss is no more than the left out transaction).  Of course, in practice its less than that if you fill in the remaining space as best you can (which is what Bitcoin Core has done for a long time).\n\nA similar kind of analogy exists for the \"chunk\" approximation--  the constraint to chunks causes an approximation error in the otherwise elegant definition of optimality... but only when the available space doesn't line up with chunks. And when it doesn't the amount of error is bounded by the maximum size of a chunk.\n\nAnd since any kind of optimized linearization is going to have some less attractive parent transactions ahead of child transactions that make them worthwhile, there will always be some approximation loss for any algorithim that isn't figuring out the order just in time.  I think that an argument can also be made that it doesn't make sense to optimize for any particular fullness location because the distribution of the remaining space is going to look like a sum of arbitrarily many randomly sized chunks mod the typical chunk size, and will be pretty uniformly distributed (though admittedly that's a total hand-wave, but it's my intuition).\n\nI think it's also important to keep in mind that the linearization is usually unimportant:\n\nThe *vast* majority of all clusters have only one possible linearization because there is only a single txn or the txn form a straight chain.  And the linearization is irrelevant during both mining and eviction if either none of the transactions would be selected or if all of them would be selected. -- which is again usually the case.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 699,
+  "hidden": false,
+  "trust_level": 0,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

@@ -12,9 +12,9 @@
   "reply_to_post_number": 45,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.0,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 19.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -39,7 +39,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"jamesob, post:45, topic:1509\"]\nA prerequisite for any vault is unambiguously locking the coins to a certain destination during the trigger stage. [...] So an argument for the value of vaults is in essence an argument for CTV\n[/quote]\n\nI disagree. If people are proposing to change Bitcoin in X manner, they should make the case for X. Not for a future theoretical Y change that X combines well with. Y should only matter to argue that X won't be rendered obsolete in the near future (which Steven did pretty convincingly in OP), to convince people it is worth going through a soft fork for X without waiting for Y.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,8 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

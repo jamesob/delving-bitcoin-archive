@@ -95,3 +95,19 @@ Thanks again for sharing this. I look forward to seeing what optimisations/chang
 
 -------------------------
 
+gmaxwell | 2025-03-16 05:01:54 UTC | #3
+
+There are a number of very long term abusers that are probably wasting a majority of the network's total non-ibd bandwidth usage on identifiable networks.
+
+It might be useful to break out those networks in any further reporting for them because they have different implications.  E.g. they won't benefit from erlay gains... and probably the only way to mitigate them is to start shipping a list of subnets that are relegated to blocks only by default or similar.
+
+In terms of listening nodes-- the term you want is archive nodes or listening archive nodes, ones that have the complete chain and accept connections.  There are plenty of listening pruned nodes.
+
+Probably the biggest improvement in bandwidth usage for listening archive nodes is to try to get more nodes that don't mind the bandwidth into that state:  if we say 10% of archive nodes are listening today (largely as a result of a lack of nat traversal) then each that is will be seeing something like 10x the total transfer that they'd see if all listened.
+
+You can get ~25% reduction by transferring blocks using a more efficient encoding, there had been some mailing list posts on an alternative encoding that I think is similar to that used by the blockstream satellite stuff. See [BIP337](https://github.com/bitcoin/bips/blob/00c13baff0dc4a3a250d9725129b0d2c8d0be6a9/bip-0337.mediawiki)  As a bonus it's perfectly reasonable to use that encoding on disk and get the savings there too.
+
+A useful metric I think is also to measure the frequency you see of fetches of blocks e.g. 100k to 110k  vs  10k from the tip to 20k from the tip... which would estimate how much bandwidth is being wasted on syncs that don't complete.
+
+-------------------------
+

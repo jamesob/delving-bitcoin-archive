@@ -12,9 +12,9 @@
   "reply_to_post_number": 41,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.8,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 24.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"jamesob, post:41, topic:1509\"]\nThere is very little marginal complexity in the implementation that is due to bare/legacy CTV.\n[/quote]\n\nIIUC, the NOP/verify pattern is primarily being justified due to bare usage. I am suggesting an alternative (at handwave height) which fits the same hole, while converting the rest of the functionality to something that is more efficient for the use cases I care about, signing hashes that reside on the stack.\n\nI admit this is speaking off the cuff, but I'd like to know why this is not a good idea.\n\n[quote=\"jamesob, post:41, topic:1509\"]\nOn the other hand, there is significant complexity in an additional fork deployment - both in terms of added code and process.\n[/quote]\n\nIf consensus arrives that the bare case is worthwhile, just bundle them.\n\n[quote=\"jamesob, post:41, topic:1509\"]\nWhat is the concrete reason that CTV as `OP_NOP4` is a sticking point for you?\n[/quote]\n\nIf reviewers (me) don't have to think about legacy script, it's a win.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -1359,3 +1359,62 @@ Unrelatedly, the [paper](https://sci-hub.se/10.1137/0218072) that introduced the
 
 -------------------------
 
+Lagrang3 | 2025-03-15 17:22:05 UTC | #53
+
+[quote="sipa, post:1, topic:303"]
+Here I build up an algorithm that eventually finds the optimal linearization.
+[/quote]
+
+Hi @sipa.
+As far as I understand, the *linearization* of a cluster means any algorithm
+that takes as input a dependency graph of transactions
+and outputs those transactions in topological order (if B is a child of A,
+"B->A", then A must come before B).
+I understand that filling blocks maximizing fees is a hard problem (literally)
+but some approximate heuristics can be used to obtain fairly good solutions,
+for example linearizing the clusters of transactions and merging the
+resulting sequences.
+But still it is not clear to me what's the definition of the *optimal linearization*.
+How do you measure the quality of one linearization vs another.
+
+I am asking because I can think of other ways, besides the one described
+here, to linearize the cluster and I am not able to judge it good or bad
+because I lack the definition of *optimality* or the measure of *goodness*
+in this problem.
+
+-------------------------
+
+sipa | 2025-03-15 22:16:37 UTC | #54
+
+I've made a number of posts on the topic, but it's explained at least in:
+* https://delvingbitcoin.org/t/introduction-to-cluster-linearization/1032 (more accessible)
+* https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202 (more theory)
+
+Summarized very briefly:
+* A *linearization* is any topological ordering for the transactions in a cluster (i.e., parents always go before children).
+* The *fee-size diagram* for a linearization of a cluster is the convex hull through the points whose $(x,y)$ are the $(size,fee)$ of all prefixes of the linearization. The line sections of the diagram correspond to *chunks* of the linearization: groups of transactions which "pay for each other" (which can be seen as a generalization of CPFP).
+* A linearization $L_1$ is *at least as good as* a linearization $L_2$ for the same cluster if the diagram of $L_1$ is nowhere below the diagram of $L_2$. The intuition is that we don't know ahead of time how much of the cluster we'll be able to include in a block (when considering clusters in isolation), so we want something that is good "everywhere" - the diagram tells us (roughly, ignoring the fact that the convex-hulling makes it approximate) how good a linearization is for every possible prefix that gets included.
+* There is a proof that by this definition, at least one optimal linearization for every cluster exists, which means a linearizations that is at least as good as every other linearization for the cluster. In other words, making the convex-hull approximation is sufficient to simplify the problem enough so that a globally optimal linearization always exists, abstracting away the fact that we don't know ahead of time how much of a cluster will be included in a block.
+
+One way of constructing an optimal linearization is by finding the highest-feerate topologically-closed subset of the cluster, moving it to the front of the linearization, and then continuing with what remains of the cluster. GGT uses another approach, by subdividing the cluster into smaller and smaller portions, which end up being the chunks.
+
+-------------------------
+
+gmaxwell | 2025-03-16 04:28:01 UTC | #55
+
+If the "convex hull" part of Sipa's description of optimality seems capricious to you,  perhaps it would be helpful for me to share why I found it intuitive:
+
+Consider the mining problem without the issue of dependencies.  An obvious approximation algorithm for the problem is to sort transactions by feerate, and include transactions in that order until you can't fit the next one.
+
+One thing to observe about the algorithm is that if the last transaction you include exactly fills the block then this greedy algorithm is optimal, not approximate.  With that in mind, you can see that there is an obvious bound on the worst case approximation error:  You will at most miss out on fees for the unfilled bytes times the next best feerate.   The relative error is also small so long as transactions are small compared to the block (since the loss is no more than the left out transaction).  Of course, in practice its less than that if you fill in the remaining space as best you can (which is what Bitcoin Core has done for a long time).
+
+A similar kind of analogy exists for the "chunk" approximation--  the constraint to chunks causes an approximation error in the otherwise elegant definition of optimality... but only when the available space doesn't line up with chunks. And when it doesn't the amount of error is bounded by the maximum size of a chunk.
+
+And since any kind of optimized linearization is going to have some less attractive parent transactions ahead of child transactions that make them worthwhile, there will always be some approximation loss for any algorithim that isn't figuring out the order just in time.  I think that an argument can also be made that it doesn't make sense to optimize for any particular fullness location because the distribution of the remaining space is going to look like a sum of arbitrarily many randomly sized chunks mod the typical chunk size, and will be pretty uniformly distributed (though admittedly that's a total hand-wave, but it's my intuition).
+
+I think it's also important to keep in mind that the linearization is usually unimportant:
+
+The *vast* majority of all clusters have only one possible linearization because there is only a single txn or the txn form a straight chain.  And the linearization is irrelevant during both mining and eviction if either none of the transactions would be selected or if all of them would be selected. -- which is again usually the case.
+
+-------------------------
+

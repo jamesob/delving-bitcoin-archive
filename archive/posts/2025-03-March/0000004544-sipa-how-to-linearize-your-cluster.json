@@ -1,0 +1,73 @@
+{
+  "id": 4544,
+  "name": "Pieter Wuille",
+  "username": "sipa",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "created_at": "2025-03-15T17:37:15.879Z",
+  "cooked": "<p>I\u2019ve made a number of posts on the topic, but it\u2019s explained at least in:</p>\n<ul>\n<li><a href=\"https://delvingbitcoin.org/t/introduction-to-cluster-linearization/1032\" class=\"inline-onebox\">Introduction to cluster linearization</a> (more accessible)</li>\n<li><a href=\"https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202\" class=\"inline-onebox\">Cluster mempool definitions &amp; theory</a> (more theory)</li>\n</ul>\n<p>Summarized very briefly:</p>\n<ul>\n<li>A <em>linearization</em> is any topological ordering for the transactions in a cluster (i.e., parents always go before children).</li>\n<li>The <em>fee-size diagram</em> for a linearization of a cluster is the convex hull through the points whose <span class=\"math\">(x,y)</span> are the <span class=\"math\">(size,fee)</span> of all prefixes of the linearization. The line sections of the diagram correspond to <em>chunks</em> of the linearization: groups of transactions which \u201cpay for each other\u201d (which can be seen as a generalization of CPFP).</li>\n<li>A linearization <span class=\"math\">L_1</span> is <em>at least as good as</em> a linearization <span class=\"math\">L_2</span> for the same cluster if the diagram of <span class=\"math\">L_1</span> is nowhere below the diagram of <span class=\"math\">L_2</span>. The intuition is that we don\u2019t know ahead of time how much of the cluster we\u2019ll be able to include in a block (when considering clusters in isolation), so we want something that is good \u201ceverywhere\u201d - the diagram tells us (roughly, ignoring the fact that the convex-hulling makes it approximate) how good a linearization is for every possible prefix that gets included.</li>\n<li>There is a proof that by this definition, at least one optimal linearization for every cluster exists, which means a linearizations that is at least as good as every other linearization for the cluster. In other words, making the convex-hull approximation is sufficient to simplify the problem enough so that a globally optimal linearization always exists, abstracting away the fact that we don\u2019t know ahead of time how much of a cluster will be included in a block.</li>\n</ul>\n<p>One way of constructing an optimal linearization is by finding the highest-feerate topologically-closed subset of the cluster, moving it to the front of the linearization, and then continuing with what remains of the cluster. GGT uses another approach, by subdividing the cluster into smaller and smaller portions, which end up being the chunks.</p>",
+  "post_number": 54,
+  "post_type": 1,
+  "updated_at": "2025-03-15T22:16:37.967Z",
+  "reply_count": 0,
+  "reply_to_post_number": 53,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 21,
+  "readers_count": 20,
+  "score": 18.2,
+  "yours": false,
+  "topic_id": 303,
+  "topic_slug": "how-to-linearize-your-cluster",
+  "topic_title": "How to linearize your cluster",
+  "topic_html_title": "How to linearize your cluster",
+  "category_id": 8,
+  "display_username": "Pieter Wuille",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 5,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "Lagrang3",
+    "name": "Lagrang3",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/lagrang3/{size}/377_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I've made a number of posts on the topic, but it's explained at least in:\n* https://delvingbitcoin.org/t/introduction-to-cluster-linearization/1032 (more accessible)\n* https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202 (more theory)\n\nSummarized very briefly:\n* A *linearization* is any topological ordering for the transactions in a cluster (i.e., parents always go before children).\n* The *fee-size diagram* for a linearization of a cluster is the convex hull through the points whose $(x,y)$ are the $(size,fee)$ of all prefixes of the linearization. The line sections of the diagram correspond to *chunks* of the linearization: groups of transactions which \"pay for each other\" (which can be seen as a generalization of CPFP).\n* A linearization $L_1$ is *at least as good as* a linearization $L_2$ for the same cluster if the diagram of $L_1$ is nowhere below the diagram of $L_2$. The intuition is that we don't know ahead of time how much of the cluster we'll be able to include in a block (when considering clusters in isolation), so we want something that is good \"everywhere\" - the diagram tells us (roughly, ignoring the fact that the convex-hulling makes it approximate) how good a linearization is for every possible prefix that gets included.\n* There is a proof that by this definition, at least one optimal linearization for every cluster exists, which means a linearizations that is at least as good as every other linearization for the cluster. In other words, making the convex-hull approximation is sufficient to simplify the problem enough so that a globally optimal linearization always exists, abstracting away the fact that we don't know ahead of time how much of a cluster will be included in a block.\n\nOne way of constructing an optimal linearization is by finding the highest-feerate topologically-closed subset of the cluster, moving it to the front of the linearization, and then continuing with what remains of the cluster. GGT uses another approach, by subdividing the cluster into smaller and smaller portions, which end up being the chunks.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 96,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

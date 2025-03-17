@@ -1287,3 +1287,98 @@ Please grant me the goodwill to admit it's a reasonable thought that if chainspa
 
 -------------------------
 
+Rob1Ham | 2025-03-15 17:32:28 UTC | #49
+
+[quote="AntoineP, post:44, topic:1509, full:true"]
+[quote="jamesob, post:42, topic:1509"]
+the CEO of Bitcoin’s only custodial insurance product saying [he wants vaults](https://x.com/Rob1Ham/status/1897781338796966103), and
+[/quote]
+
+This post does not mention `OP_CTV` either. Also, AnchorWatch is great but it's a company that launched less than 3 months ago. 
+
+[/quote]
+
+Making my first post at Delving (only because I'm specifically referenced, I just lurk otherwise) to say the post does not mention `OP_CTV` specifically, but the need to make a commitment to a future transaction like the primitive of what `OP_CTV` enables would be a necessary part of the vaulting structure from my view.
+
+Most of my reading of `OP_VAULT` is from the official [BIP 345](https://github.com/bitcoin/bips/blob/00c13baff0dc4a3a250d9725129b0d2c8d0be6a9/bip-0345.mediawiki) which makes several references to `OP_CTV`.
+
+I'm in support of CTV + CSFS.
+
+-------------------------
+
+stevenroose | 2025-03-17 12:09:55 UTC | #50
+
+Because it was requested, let me make the [Ark case for CTV](https://x.com/stevenroose3/status/1865144252751028733) in a bit more detail, because I think it is significant. One can also refer to [ark-protocol.org](https://ark-protocol.org/intro/vtxos/index.html) for more detail.
+
+TL;DR: send-to-others, automatic vtxo reissuance, lightning receive and mass payouts
+
+For those that don't know, in Ark users hold off-chain utxos that we call virtual utxos or vtxos. In the original design, which uses CTV, these vtxos are constructed using a tree of transactions where each transaction uses a CTV covenant to get into the next transaction. Much like congestion control.
+
+Generalized, a vtxo can be any construction that has:
+
+1. a chain or one or more txs with policy `ctv OR (pk(S) AND after(T))` (`S` being the Ark server's key and `T` being the vtxo's expiry time). Each `ctv` comitting to the next tx in the chain
+
+2. followed by a tx with the following policy `(pk(A) AND pk(S)) OR (pk(A) AND older(delta))` (`A` being the key of the vtxo's owner and `delta` being a relative timelock which gives the other policy enough time to react (something like 24h or 28h).
+
+Using CTV, this construction can be constructed entirely non-interactively, meaning that knowing the Ark's parameters `S` and `delta`, anyone can issue their own vtxo that expires at time `T`. This is how "onboarding" works, i.e. entering the Ark.
+
+When we developing `clArk` (covenant-less Ark), we replace the `ctv` policy with a MuSig2 pre-signature of `S` and all the users of the leaves below that node. The intermediate nodes from step 1. above become then `pk(S+A+B+C+..) OR (pk(S) AND after(T))`. Apart from additional signing and storage overhead, this has one strong limitation:
+
+**Co-signed (clArk) vtxos cannot be issued without the presence of the eventual owner**, otherwise the construction is not safe. This has led our team (at [Second](second.tech)) to only designate Ark rounds to be used for users that have expiring vtxos and need them to be refreshed, in effect "sending them to themselves". Because senders always have to be present in either Ark construction (they need to sign [forfeit txs](https://ark-protocol.org/intro/connectors/index.html#forfeit-transactions)), if the receivers are also the senders, they are already present during the process.
+
+But being able to issue vtxos for others has several significant benefits:
+
+- The most obvious is simply being able to **send vtxos to others without requiring the receiver to participate in Ark rounds**. We currently only support users sending to each other using [out-of-round (Arkoor)](https://ark-protocol.org/intro/oor/index.html) transactions, which has an additional security assumption. With CTV we could again support sending vtxos to others in rounds.
+
+- It allows the server to issue vtxos for users. We currently want to do this in two occasions:
+  - A good server will want to **re-issue expired vtxos automatically**. This is obviously not secure, but the server can continuously provide proofs that it hasn't claimed any expired vtxos and for some smaller-value vtxos, this can be enough security for certain users.
+  - **Receiving Lightning payments** in Ark (without having virtual channels) is not easy. One way it could be done is by having the user notify the server that it is expecting an inbound payment, the server will accept the HTLC as a hodl HTLC and issue an HTLC for the user in a vtxo in the next round. The user can then reveal the preimage which grants him the vtxo fully and allows the server to claim the hodl HTLC. (With various anti-abuse measures in place.) Without CTV the receiver would have to participate in a round in order to receive his HTLC.
+
+- It would allow non-interactive onboards, but since for an onboard, the onboarder is usually the receiver anyway this seems quite uninteresting, but it equivalently **allows any party to non-interactively issue any number of vtxos with a single on-chain output**. We think this can be a very powerful tool for exchanges or DCA providers that want to regularly payout amounts to their users. Using CTV, they could independently construct a tree of vtxos (using the Ark's parameters), fund the root tx and inform all their users. Since these vtxos are no different than vtxos created in Ark rounds, the recipients can use them as if they were any other type of vtxo in this Ark.
+
+At Second we believe these benefits are quite significant for both the user experience more broadly and the viability of participating in Ark rounds a the mobile setting in the first place. We have little data currently to back up this latter claim, but we are working hard to put up our implementation of co-signed Ark to the test on mobile clients.
+
+-------------------------
+
+instagibbs | 2025-03-17 14:43:03 UTC | #51
+
+[quote="jamesob, post:48, topic:1509"]
+VERIFY is also important for upgradeability; if you don’t have the <32-byte-hash> parameter, you can’t make the opcode upgradeable.
+
+Now maybe in a tapscript context that’s okay because you’ve got so much unused opcode space.
+[/quote]
+
+Good point, but you're correct I've basically stopped thinking about these kinds of details because we have so many upgrade hooks. Let's use them!
+
+[quote="jamesob, post:48, topic:1509"]
+I’m just trying to figure out why you want it, since all the uses of CTV I’m familiar with are VERIFYs
+[/quote]
+
+The use-cases I'm thinking about that involve the CTV + CSFS combo means we can elide bringing the hash into the witness data, saving ~32WU. State channels, payment channels, statechains, pre-signed HTLC transactions, PTLC transactions. Probably more, but probably most of the CTV + CSFS intersection of functionality. 
+
+The tradeoff here is 1WU(?) in the tapscript CTV case, which would apply to things like Ark, Timeout Trees, settlement path in ln-symmetry(et al.), anywhere where authorization isn't required, just precommitment. I don't find this a compelling savings if we have to choose just one.
+
+And if VERIFY behavior is still desired, you could still softfork a NOP, just in tapscript circumstances.
+
+[quote="jamesob, post:48, topic:1509"]
+But I think the idea that it would replace CTV as-is is sort of a different proposal.
+[/quote]
+
+I'm much more interested in CTV + CSFS than CTV alone, so there lies some design bias.
+
+[quote="jamesob, post:48, topic:1509"]
+Again, not trying to be glib here but is there a more specific reason than “each reviewer has to review about 15 marginal lines of not-substantially-novel code?” What about legacy is so complicated that it really moves the needle?
+[/quote]
+
+I'm thinking about it from another direction: Designing BIP119 from scratch, how should we build it? Legacy script (short-hand for non-segwit, not NOPs) is a dumpster fire, and it shouldn't be touched unless necessary. 
+
+If it saves no vbytes, makes no operations safer, doesn't make the changes easier to understand for reviewers, why would we build it this way? 
+
+[quote="jamesob, post:48, topic:1509"]
+Please grant me the goodwill to admit it’s a reasonable thought that if chainspace ever does become massively short, congestion control is a good escape hatch to have on hand - even outside of the use for miners today.
+[/quote]
+
+I think bare CTV in any form is one of the least motivated proposals I've seen in a long while, but if it's going to happen, I want it to happen in the way that's least damaging in terms of maintenance of Bitcoin script. I believe my proposal is one way to do it without changing any known capabilities from the original.
+
+-------------------------
+
