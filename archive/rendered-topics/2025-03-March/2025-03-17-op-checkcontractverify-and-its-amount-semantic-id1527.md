@@ -133,3 +133,61 @@ This way value forwarding is always explicit when desired, no there's no default
 
 -------------------------
 
+Chris_Stewart_5 | 2025-03-17 16:59:40 UTC | #3
+
+Hey Salvatoshi, looking through the code and BIP right now. I obviously come at this from thinking about handling amounts in Scripts. 
+
+Does this opcode make sense to use in "fan-in" and "fan-out" patterns? Its unclear to me if `X` in the examples could also be `A''` OP_CCV?
+
+### Fan-in
+
+Does it make sense to aggregate multiple OP_CCV funding outputs into a single OP_CCV output?
+
+### Fan-out 
+
+Does it make sense to take a single OP_CCV funding output and split it into multiple OP_CCV outputs? Its unclear to me from the examples if `X` can be an OP_CCV as well
+
+
+### Single input Single Output 
+
+In the case where you have a transaction that takes a single OP_CCV input and a single OP_CCV output, how is fee handling expected to work? Is the idea that you just add an anchor output and the CPFP the parent? 
+
+Or can you use the "deduct" feature to slice off a portion of the OP_CCV amount to use for a fee?
+
+-------------------------
+
+salvatoshi | 2025-03-17 18:25:33 UTC | #4
+
+[quote="instagibbs, post:2, topic:1527"]
+1. OP_IN_AMOUNT: pushes input amount on stack
+2. CCV with value introspection: takes value off stack (can be >4 bytes), allocates to an output, and pushes residual of input back on stack, where residual is always the full amount minus the specified amount
+[/quote]
+
+Interesting approach, I'll think more about it. Although, having worked with it, I consider the opt-out semantic quite natural and enjoyable to work with, and it works for most cases.
+
+I tend to think that bringing amount on the stack is too error prone to bring in without bignums, especially since you can start with 4-byte amounts and aggregate up to 5-byte ones.
+
+If my conjecture is true that "equality checks is all you need" beyond CCV, you avoid doing math altogether.
+
+-------------------------
+
+salvatoshi | 2025-03-17 18:49:16 UTC | #5
+
+
+Output Scripts in CCV-based state machines are more often than not completely unrelated scripts; however, you can obtain "same script as the input" by combining CCV on the input with CCV on the output; I use this for example in vaults for the partial revault).
+
+So I think the answer is yes for all the variations you mentioned - except that in the *Fan-out* case, for it to make sense, you'd probably still need to introspect the various output amounts.
+
+[quote="Chris_Stewart_5, post:3, topic:1527"]
+In the case where you have a transaction that takes a single OP_CCV input and a single OP_CCV output, how is fee handling expected to work? Is the idea that you just add an anchor output and the CPFP the parent?
+[/quote]
+
+CCV doesn't put any limitation on the inputs/outputs that it doesn't introspect, so you can have separate input just for the fees, and a separate output just for the change. Or you could also use anchor outputs, package relay, or whatever is compatible with the relay policies.
+
+[quote="Chris_Stewart_5, post:3, topic:1527"]
+Or can you use the “deduct” feature to slice off a portion of the OP_CCV amount to use for a fee?
+[/quote]
+The amount you can use for fees is by definition not bound by the covenant restrictions, so I think either exogenous fees or anchors are inherent with any covenant construction.
+
+-------------------------
+

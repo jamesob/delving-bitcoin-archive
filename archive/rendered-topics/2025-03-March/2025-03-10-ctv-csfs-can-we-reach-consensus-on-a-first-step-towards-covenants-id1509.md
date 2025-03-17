@@ -1306,7 +1306,9 @@ I'm in support of CTV + CSFS.
 
 -------------------------
 
-stevenroose | 2025-03-17 12:09:55 UTC | #50
+stevenroose | 2025-03-17 17:24:27 UTC | #50
+
+**EDIT: To avoid derailing this conversation with questions and suggestions on the below reply, I created a [separate topic here](https://delvingbitcoin.org/t/the-ark-case-for-ctv/1528) where the post is copied and reactions can be posted :pray:**
 
 Because it was requested, let me make the [Ark case for CTV](https://x.com/stevenroose3/status/1865144252751028733) in a bit more detail, because I think it is significant. One can also refer to [ark-protocol.org](https://ark-protocol.org/intro/vtxos/index.html) for more detail.
 
