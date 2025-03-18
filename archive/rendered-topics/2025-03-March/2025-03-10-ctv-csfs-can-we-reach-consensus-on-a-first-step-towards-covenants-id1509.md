@@ -1439,3 +1439,9 @@ I believe for the very understandable reason that it was prior to the taproot BI
 
 -------------------------
 
+moonsettler | 2025-03-18 00:52:54 UTC | #54
+
+Also bare CTV seems pretty useful and economic for certain cases. Has no "address" to send to by accident from wallets which could result in burned funds.
+
+-------------------------
+
