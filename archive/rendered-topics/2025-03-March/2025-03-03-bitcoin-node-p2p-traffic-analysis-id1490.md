@@ -111,3 +111,13 @@ A useful metric I think is also to measure the frequency you see of fetches of b
 
 -------------------------
 
+jsarenik | 2025-03-18 11:08:29 UTC | #4
+
+I am running three such pruned Bitcoin Core nodes. No space for all the historical blocks here. But two are accessible from outside via IPv4 and all three have the latest chainstate and verify+relay transactions. One is supporting also a pruned Elements Core node running liquidv1
+
+https://anyone.eu.org
+
+What I find worse than pruned nodes are blocksonly nodes which invalidate the first step in chapter 5 (Network) of Satoshi's whitepaper. But anyway, both pruned and blocksonly are unstoppable now.
+
+-------------------------
+
