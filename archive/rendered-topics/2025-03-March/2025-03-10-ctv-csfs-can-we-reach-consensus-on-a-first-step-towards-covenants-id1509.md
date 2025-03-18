@@ -1445,3 +1445,14 @@ Also bare CTV seems pretty useful and economic for certain cases. Has no "addres
 
 -------------------------
 
+harding | 2025-03-18 15:54:26 UTC | #55
+
+[quote="instagibbs, post:53, topic:1509"]
+I believe for the very understandable reason that it was prior to the taproot BIP being written.
+[/quote]
+
+I believe the original idea was indeed developed before publication of the taproot and tapscript BIPs, but drafts of those BIPs were [published](https://gnusha.org/pi/bitcoindev/CAPg+sBg6Gg8b7hPogC==fehY3ZTHHpQReqym2fb4XXWFpMM-pQ@mail.gmail.com/) about two weeks before [OP_COSHV](https://mailing-list.bitcoindevs.xyz/bitcoindev/CAD5xwhgHyR5qdd09ikvA_vgepj4o+Aqb0JA_T6FuqX56ZNe1RQ@mail.gmail.com/), the predecessor for CTV.  Versions of both the
+[COSHV](https://github.com/JeremyRubin/bips-archive/blob/op-checkoutputshashverify/bip-coshv.mediawiki#deployment) and [STB](https://github.com/JeremyRubin/bips-archive/blob/op-secure-the-bag-taproot/bip-secure-the-bag.mediawiki#deployment) BIPs linked to the draft Tapscript BIP and depended on it making `OP_RESERVED1` (0x89) opcode into an `OP_SUCCESSx` in tapscript.
+
+-------------------------
+
