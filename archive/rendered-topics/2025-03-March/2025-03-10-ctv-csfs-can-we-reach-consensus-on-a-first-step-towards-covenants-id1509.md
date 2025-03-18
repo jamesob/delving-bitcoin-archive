@@ -1384,3 +1384,58 @@ I think bare CTV in any form is one of the least motivated proposals I've seen i
 
 -------------------------
 
+ariard | 2025-03-17 22:28:38 UTC | #52
+
+[quote="jamesob, post:42, topic:1509"]
+Except that in the last week, we’ve had
+
+* 2 Blockstream engineers go on record as saying CTV would be valuable for Liquid,
+* the CEO of one of Bitcoin’s most popular hardware wallets saying [he’d implement vaults](https://x.com/nvk/status/1899918763728003420),
+* the CEO of Bitcoin’s only custodial insurance product saying [he wants vaults](https://x.com/Rob1Ham/status/1897781338796966103), and
+* a prototype of Ark based on CTV passing tests and showing a substantial reduction in the interactivity required (mentioned above).
+
+I wouldn’t call that “doing circles!”
+[/quote]
+
+Okay so yes to be precise, it was more on the theoretical / primitive design space technical options, in the sense that I don't think we have seen primitives breakthrough since OP_TLUV, OP_EVICT, MATT or PT2R merkle tree editors since few years ago. The only recent breakthrough have been constructions like BitVM or ColliderScript, to attempt to achieve the same for some use-cases, without consensus changes.
+
+Though yes, getting industry's opinions on how they would see vaults in practice, and not only on whiteboard is a notable move forward, I do not disagree. IMHO, the more interesting question, I was laying is if HW / secure enclave vendors would be ready to have CTV-like support on the enclave-side, otherwise it's "blind signing" for the key ceremonies (cf. "[Blind Signing Considered Harmful](https://medium.com/@devrandom/blind-signing-considered-harmful-ac82e5852853)").
+
+[quote="AntoineP, post:44, topic:1509"]
+Meanwhile Bob McElrath [stated](https://x.com/BobMcElrath/status/1900445574626693258) that from his experience researching vaults for years at [Fidelity Digital Asset](https://www.fidelitydigitalassets.com), one of the largest Bitcoin custodians in the world, vaults sounded like a good idea but were not in practice.
+[/quote]
+
+In my perspective, the only security property improvement, that one can argue on is *immutability*, that once the coins are deposited on-chain beyond reorgs, there is no more reliance on correct and secure key-deletion for the intermediary unvaulting transactions.
+
+From browsing the Nunchuk, McElrath and Wizardsardine viewpoints, if I'm understanding correctly they're saying either (a) vault it's hard because *reactive model* (so chain monitoring or watchtower) or (b) vault it's hard because duplicate set of keys. To have researched in the past extensively second-layers threats models (cf. [L2 Transaction-Relay Workshops](https://github.com/ariard/L2-zoology)), vault security model is not more complex than Lightning, and while LN is plagued by security vulnerabilities and limitations, courageous wallet vendors have succeeded to integrate it on mobile and desktop wallets. Of course, key ceremonies is a hard thing for vaults, i.e dealing well the transition from cold storage, though it's that harder than managing seeds transfers on multiple platforms for LN, and inadvertently broadcasting an already revoked state ? I don't think so...
+
+Contrary to LN, vaults are not stateful, in the sense of off-chain update with a counterparty. This is already far less complexity, imo.
+
+[quote="AntoineP, post:44, topic:1509"]
+Now, all these discussions you brought up are about vaults that the proposal at hand does not enable. So i hope we can “put this matter to rest” and come back on topic to usecases actually enabled by the combination of `OP_CTV` and `OP_CSFS`. So far i see three:
+[/quote]
+
+Fwiw, if we wish to have LN-Symmetry / Eltoo, we should just do ANYPREVOUT. I think OP_CSFS enhances the range of [TxWithhold](https://blog.bitmex.com/txwithhold-smart-contracts/) contract, as you can pass now a signature for a tx, you're not a counterparty to (i.e not a pubkey in a 2-of-2 P2WSH), which can be concerned for already deployed L2s like Lightning.
+
+[quote="instagibbs, post:51, topic:1509"]
+I’m thinking about it from another direction: Designing BIP119 from scratch, how should we build it? Legacy script (short-hand for non-segwit, not NOPs) is a dumpster fire, and it shouldn’t be touched unless necessary.
+
+If it saves no vbytes, makes no operations safer, doesn’t make the changes easier to understand for reviewers, why would we build it this way?
+[/quote]
+
+I do not disagree that we should avoid to go for legacy script, avoids making the DoS surface worst (e.g worst-block case). I'm re-reading BIP119 though there is no footnote to explain why `OP_NOP4` vs another upgrade path (e.g tapleaf version or `OP_SUCCESS`).
+
+Doing an OP_PUSH `<template>` instead of a OP_CHECK `<template>`, that means now you have a comparison on the Script stack to be done between `<pushed_template>` and `<reference_template>`. I do no think something in terms of `<template>` *bad malleability* it's an issue (hmm...), however it's more memory allocated among the different script ops on the stack by each full-nodes. Not sure it's a concern.
+
+-------------------------
+
+instagibbs | 2025-03-17 22:45:20 UTC | #53
+
+[quote="ariard, post:52, topic:1509"]
+I’m re-reading BIP119 though there is no footnote to explain why `OP_NOP4` vs another upgrade path (e.g tapleaf version or `OP_SUCCESS`).
+[/quote]
+
+I believe for the very understandable reason that it was prior to the taproot BIP being written.
+
+-------------------------
+

@@ -239,3 +239,15 @@ I'm not sure I totally follow, but I'd like to. Just to clarify, I'm not suggest
 
 -------------------------
 
+ariard | 2025-03-17 22:39:49 UTC | #10
+
+[quote="josh, post:5, topic:1517"]
+@ariard Do you think that a covenant that can only commit to the mined location of a spent outpoint (and not the outpoint independent of its location) would be safe from the concerns Maxwell raised of permanently encumbered sats?
+[/quote]
+
+If I'm understanding correctly your idea, you would have B1 <- B2 <- B3, where B are blocks. What you would like is a covenant at hypothetical B.i inclusion being able to refer to the mined location of a spent outpoint on any block among {B1, ... B.i}. E.g the mined location headers attributes (`nVersion` or `nTime` of B2). I think one could design adversarial contract where you slash the reward of a target miner (e.g if `nVersion` is of some value, do a tx-withhold of the coinbase output of B2), jeopardizing the stability of the network of miners.
+
+I'm not sure it's a direction to go as we would jeopardize *linearity* and *finality* of the blockchain advances, which are good properties to have.
+
+-------------------------
+
