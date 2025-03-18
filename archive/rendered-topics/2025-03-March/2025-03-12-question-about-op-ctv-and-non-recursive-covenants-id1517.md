@@ -251,3 +251,21 @@ I'm not sure it's a direction to go as we would jeopardize *linearity* and *fina
 
 -------------------------
 
+josh | 2025-03-18 15:12:03 UTC | #11
+
+[quote="ariard, post:10, topic:1517, full:true"]
+I think one could design adversarial contract where you slash the reward of a target miner (e.g if `nVersion` is of some value, do a tx-withhold of the coinbase output of B2), jeopardizing the stability of the network of miners.
+
+I’m not sure it’s a direction to go as we would jeopardize *linearity* and *finality* of the blockchain advances, which are good properties to have.
+[/quote]
+
+These are really good points. I agree that this type of non-linearity shouldn't be introduced.
+
+Not long after posting this, I realized there's a much more elegant solution, if the goal is to let users bid on a large subset of UTXOs in a single PSBT.
+
+The idea would be to introduce [signature-time cross-input scripting](https://delvingbitcoin.org/t/post-signature-cross-input-scripting-using-the-taproot-annex/1520). Theoretically, down the road, a subscript-only opcode could be enabled that provides full introspection, which would add meaningful expressivity to PSBTs but would not enable recursive covenants since it cannot be used to encumber an output.
+
+This functionality would make it possible to create a trustless buy offer for every UTXO that contains a desired fungible asset (as defined by some metaprotocol). This is essentially impossible to do today. Trustless sell markets already exist, but trustless buy markets are impractical.
+
+-------------------------
+

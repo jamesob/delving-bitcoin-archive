@@ -202,3 +202,28 @@ References
 
 -------------------------
 
+harding | 2025-03-18 15:11:31 UTC | #2
+
+I don't think this proposal addresses the main criticism of past proposals.  [Quoting](https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2023-July/004033.txt) @ClaraShk:
+
+> [T]he ?holy grail? is indeed charging fees as a
+function of the time the HTLC was held. As for now, we are not aware of a
+reasonable way to do this. There is no universal clock, and there is no way
+for me to prove that a message was sent to you, and you decided to pretend
+you didn't. It can easily happen that the fee for a two-week unresolved
+HTLC is higher than the fee for a quickly resolving one.
+
+Specifically, what stops a downstream node from ignoring an incoming HTLC and thus forcing its upstream peer to pay hold fees until they broadcast a force close transaction and get it confirmed to a certain depth?
+
+For example, Bob forwards a half-signed HTLC to Mallory (with burn output).  Mallory doesn't reply with either acceptance or rejection.  Now Bob can't safely cancel the HTLC unless he force closes the channel.  Bob will probably need to pay onchain transaction fees to force close the channel, so he'll be incentivized to wait a bit and to use a non-urgent fee estimation---but until the channel confirms to a depth he finds sufficient to prevent double spending, he'll be liable for hold fees.
+
+In this situation, Bob gains an upfront fee (presumably small compared to 6+ blocks of hold fees), he pays hold fees to his upstream node (which might be controlled by Mallory), and he loses onchain transaction fees to close the channel.  He does not earn a success fee.
+
+A more specific example includes two nodes controlled by Mallory (M0, M1) and Bob's node.  M0 forwards funds through Bob to M1.  M0 pays Bob an upfront fee, Bob pays M0 a hold fee that's greater than than the upfront fee, and Bob pays the onchain transaction fee to force close.
+
+M1 may have had to pay an onchain transaction fee to open the channel with Bob, but that could have been inexpensive compared to amount of money M0 will earn from several blocks of hold fees---and potentially _very_ inexpensive compared to Bob's total losses as victim of this attack.
+
+I'll also note that any sort of hold fees seems fraught if LSPs continue offering [JIT channels](https://bitcoinops.org/en/topics/jit-channels/).  Mallory can forward a payment through an LSP to a fake customer, who neither accepts nor rejects the HTLC.  The LSP is liable for paying hold fees to Mallory until they can double spend the channel opening transaction and it confirms to a sufficient depth.  Mallory's only cost in this case is upfront fee.
+
+-------------------------
+
