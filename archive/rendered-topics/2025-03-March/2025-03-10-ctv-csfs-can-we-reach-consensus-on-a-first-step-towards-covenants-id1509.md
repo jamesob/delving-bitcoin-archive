@@ -1456,3 +1456,9 @@ I believe the original idea was indeed developed before publication of the tapro
 
 -------------------------
 
+instagibbs | 2025-03-19 16:39:12 UTC | #56
+
+I suppose this alternative is more likely: If you're not considering composibility with other future opcodes, there's not much to be done with a "push to stack" variant except equality checks.
+
+-------------------------
+

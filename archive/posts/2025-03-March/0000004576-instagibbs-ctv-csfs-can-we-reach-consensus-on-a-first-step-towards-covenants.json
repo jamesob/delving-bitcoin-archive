@@ -1,0 +1,73 @@
+{
+  "id": 4576,
+  "name": "Gregory Sanders",
+  "username": "instagibbs",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png",
+  "created_at": "2025-03-19T16:39:12.609Z",
+  "cooked": "<p>I suppose this alternative is more likely: If you\u2019re not considering composibility with other future opcodes, there\u2019s not much to be done with a \u201cpush to stack\u201d variant except equality checks.</p>",
+  "post_number": 56,
+  "post_type": 1,
+  "updated_at": "2025-03-19T16:39:12.609Z",
+  "reply_count": 0,
+  "reply_to_post_number": 55,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 17.2,
+  "yours": false,
+  "topic_id": 1509,
+  "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
+  "topic_title": "CTV+CSFS: Can we reach consensus on a first step towards covenants?",
+  "topic_html_title": "CTV+CSFS: Can we reach consensus on a first step towards covenants?",
+  "category_id": 7,
+  "display_username": "Gregory Sanders",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "reply_to_user": {
+    "username": "harding",
+    "name": "David A. Harding",
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
+  },
+  "bookmarked": false,
+  "raw": "I suppose this alternative is more likely: If you're not considering composibility with other future opcodes, there's not much to be done with a \"push to stack\" variant except equality checks.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 31,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false
+}

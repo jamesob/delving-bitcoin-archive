@@ -8,13 +8,13 @@
   "post_number": 55,
   "post_type": 1,
   "updated_at": "2025-03-18T15:59:31.117Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 53,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 3.4,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 23.8,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"instagibbs, post:53, topic:1509\"]\nI believe for the very understandable reason that it was prior to the taproot BIP being written.\n[/quote]\n\nI believe the original idea was indeed developed before publication of the taproot and tapscript BIPs, but drafts of those BIPs were [published](https://gnusha.org/pi/bitcoindev/CAPg+sBg6Gg8b7hPogC==fehY3ZTHHpQReqym2fb4XXWFpMM-pQ@mail.gmail.com/) about two weeks before [OP_COSHV](https://mailing-list.bitcoindevs.xyz/bitcoindev/CAD5xwhgHyR5qdd09ikvA_vgepj4o+Aqb0JA_T6FuqX56ZNe1RQ@mail.gmail.com/), the predecessor for CTV.  Versions of both the\n[COSHV](https://github.com/JeremyRubin/bips-archive/blob/87ae732da28346515be9049ea2d2b548f81812e8/bip-coshv.mediawiki#deployment) and [STB](https://github.com/JeremyRubin/bips-archive/blob/e2b34bd59986bd2b173a89ac969b4728170fa8fa/bip-secure-the-bag.mediawiki#deployment) BIPs linked to the draft Tapscript BIP and depended on it making `OP_RESERVED1` (0x89) opcode into an `OP_SUCCESSx` in tapscript.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

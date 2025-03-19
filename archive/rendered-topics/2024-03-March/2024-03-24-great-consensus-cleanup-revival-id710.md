@@ -1493,3 +1493,21 @@ I'll think a bit more but I cannot foresee a use-case. If you only have a single
 
 -------------------------
 
+AntoineP | 2025-03-19 17:36:04 UTC | #79
+
+As i'm finalizing the BIP, @ajtowns suggested to me a neat idea.
+
+In addition to mandating the `nLockTime` of coinbase transactions be set to the block height minus 1, we could also require their `nSequence` not be final. This would make it so the timelock is enforced.
+
+Once (and if) the Consensus Cleanup is activated and its activation height buried, this would give us the following property: "BIP30 validation is never necessary after CC activation height".
+
+Note we don't otherwise necessarily have this property. Technically now that we removed checkpoints[^1], Bitcoin Core could validate a chain containing a coinbase transaction before BIP34 activation height such that it committed, according to both BIP34 and CC, to a block height post CC activation. In this case, it would be necessary to resume BIP30 validation or a duplicate coinbase could be let in.
+
+But mandating the coinbase's `nSequence` never be final, by leveraging that timelocks are also checked on coinbase transactions, makes it so it cannot be possible for a previous transaction to have the very same txid.
+
+Of course it does not matter for any practical purpose. But it's pretty neat. Thoughts?
+
+[^1]: EDIT: @sipa pointed out that actually it was also possible when checkpoints were still in place, provided that the node never saw the checkpointed block past BIP34 activation!
+
+-------------------------
+
