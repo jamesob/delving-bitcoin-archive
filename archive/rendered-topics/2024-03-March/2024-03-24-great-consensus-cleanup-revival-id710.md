@@ -1511,3 +1511,11 @@ Of course it does not matter for any practical purpose. But it's pretty neat. Th
 
 -------------------------
 
+AntoineP | 2025-03-20 20:39:01 UTC | #80
+
+I have decided to include Aj's suggestion in the proposal.
+
+In other news, i scanned the chain and there has never been a single usage of a 64 bytes transaction in 16 years of Bitcoin history.
+
+-------------------------
+
