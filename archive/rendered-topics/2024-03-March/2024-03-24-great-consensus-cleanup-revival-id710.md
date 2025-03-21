@@ -1511,11 +1511,31 @@ Of course it does not matter for any practical purpose. But it's pretty neat. Th
 
 -------------------------
 
-AntoineP | 2025-03-20 20:39:01 UTC | #80
+AntoineP | 2025-03-21 19:23:04 UTC | #80
 
 I have decided to include Aj's suggestion in the proposal.
 
+~~In other news, i scanned the chain and there has never been a single usage of a 64 bytes transaction in 16 years of Bitcoin history.~~ Incorrect, Chris has a list of historical 64 bytes transactions [here](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710/81?u=antoinep).
+
+-------------------------
+
+Chris_Stewart_5 | 2025-03-21 19:09:48 UTC | #81
+
+[quote="AntoineP, post:80, topic:710"]
 In other news, i scanned the chain and there has never been a single usage of a 64 bytes transaction in 16 years of Bitcoin history.
+[/quote]
+
+This is the list of the 64 byte transactions that I found in the bitcoin blockchain.
+
+https://github.com/bitcoin/bips/pull/1760/files#diff-62b4650c88cc2ccee485ed278b8e7c55dd985a22d7d7c056fbf9b3b92cb14c9b
+
+These results were produce around  `00000000000000000001194ae6be942619bf61aa70822b9643d01c1a441bf2b7` but unfortunately I didn't document the exact hash. Its unlikely that any have occurred since then, but no guarantees.
+
+-------------------------
+
+AntoineP | 2025-03-21 19:24:52 UTC | #82
+
+Ugh, thanks. I mixed up the binaries in my testing (had more than one `bitcoind` in my build directory, ran the one that did not enforce the check).
 
 -------------------------
 

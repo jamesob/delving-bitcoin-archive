@@ -49,3 +49,13 @@ I wasn't under the expectation that Arkoor would be statecoins forever, but "rou
 
 -------------------------
 
+neha | 2025-03-21 16:49:31 UTC | #3
+
+I want to make sure I'm understanding this correctly, because if so I find it really interesting and striking:
+
+Requiring interactivity (the receiver to be online) was such a strong requirement from a UX perspective, that instead you chose to introduce the (time-limited) security assumption of relying on the server and sender not to collude.
+
+I think this is a really important data point for understanding the tradeoffs between interactivity and trust!
+
+-------------------------
+
