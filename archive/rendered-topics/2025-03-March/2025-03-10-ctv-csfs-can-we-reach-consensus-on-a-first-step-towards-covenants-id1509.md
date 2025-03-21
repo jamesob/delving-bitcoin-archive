@@ -1462,7 +1462,7 @@ I suppose this alternative is more likely: If you're not considering composibili
 
 -------------------------
 
-ariard | 2025-03-21 00:12:17 UTC | #57
+ariard | 2025-03-21 00:13:23 UTC | #57
 
 [quote="instagibbs, post:53, topic:1509"]
 I believe for the very understandable reason that it was prior to the taproot BIP being written.
@@ -1471,7 +1471,7 @@ I believe for the very understandable reason that it was prior to the taproot BI
 I believe the original idea was indeed developed before publication of the taproot and tapscript BIPs, but drafts of those BIPs were [published](https://gnusha.org/pi/bitcoindev/CAPg+sBg6Gg8b7hPogC==fehY3ZTHHpQReqym2fb4XXWFpMM-pQ@mail.gmail.com/) about two weeks before [OP_COSHV](https://mailing-list.bitcoindevs.xyz/bitcoindev/CAD5xwhgHyR5qdd09ikvA_vgepj4o+Aqb0JA_T6FuqX56ZNe1RQ@mail.gmail.com/), the predecessor for CTV. Versions of both the [COSHV](https://github.com/JeremyRubin/bips-archive/blob/87ae732da28346515be9049ea2d2b548f81812e8/bip-coshv.mediawiki#deployment) and [STB](https://github.com/JeremyRubin/bips-archive/blob/e2b34bd59986bd2b173a89ac969b4728170fa8fa/bip-secure-the-bag.mediawiki#deployment) BIPs linked to the draft Tapscript BIP and depended on it making `OP_RESERVED1` (0x89) opcode into an `OP_SUCCESSx` in tapscript.
 [/quote]
 
-I always thought the original author of BIP119  (@JeremyRubin) had or did a version on top of Taproot.
+I always thought the original author of BIP119  (@JeremyRubin) had or did a version on top of Taproot. But didn’t read the BIP recently.
 
 Anyway, try a quick-didn’t-check-it-compiles-because-im-too-lazy version of OP_CHECKTEMPLATEVERIFY on top of bitcoin-inquisition 28.x (cf. [the full branch](https://github.com/ariard/bitcoin/commit/f8820e583a3d0d819955e2177ead95789a6317f1)).
 
