@@ -1462,3 +1462,69 @@ I suppose this alternative is more likely: If you're not considering composibili
 
 -------------------------
 
+ariard | 2025-03-21 00:12:17 UTC | #57
+
+[quote="instagibbs, post:53, topic:1509"]
+I believe for the very understandable reason that it was prior to the taproot BIP being written.
+[/quote]
+[quote="harding, post:55, topic:1509"]
+I believe the original idea was indeed developed before publication of the taproot and tapscript BIPs, but drafts of those BIPs were [published](https://gnusha.org/pi/bitcoindev/CAPg+sBg6Gg8b7hPogC==fehY3ZTHHpQReqym2fb4XXWFpMM-pQ@mail.gmail.com/) about two weeks before [OP_COSHV](https://mailing-list.bitcoindevs.xyz/bitcoindev/CAD5xwhgHyR5qdd09ikvA_vgepj4o+Aqb0JA_T6FuqX56ZNe1RQ@mail.gmail.com/), the predecessor for CTV. Versions of both the [COSHV](https://github.com/JeremyRubin/bips-archive/blob/87ae732da28346515be9049ea2d2b548f81812e8/bip-coshv.mediawiki#deployment) and [STB](https://github.com/JeremyRubin/bips-archive/blob/e2b34bd59986bd2b173a89ac969b4728170fa8fa/bip-secure-the-bag.mediawiki#deployment) BIPs linked to the draft Tapscript BIP and depended on it making `OP_RESERVED1` (0x89) opcode into an `OP_SUCCESSx` in tapscript.
+[/quote]
+
+I always thought the original author of BIP119  (@JeremyRubin) had or did a version on top of Taproot.
+
+Anyway, try a quick-didn’t-check-it-compiles-because-im-too-lazy version of OP_CHECKTEMPLATEVERIFY on top of bitcoin-inquisition 28.x (cf. [the full branch](https://github.com/ariard/bitcoin/commit/f8820e583a3d0d819955e2177ead95789a6317f1)).
+
+```
+case OP_CTV:
+{
+    if (flags & SCRIPT_VERIFY_DISCOURAGE_CHECK_TEMPLATE_VERIFY_HASH) {
+        return set_error(serror, SCRIPT_ERR_DISCOURAGE_UPGRADABLE_CTV);
+    }
+
+    // if flags not enabled; treat as a NOP4
+    if (!(flags & SCRIPT_VERIFY_OP_CTV)) {
+        break;
+    }
+
+    if (stack.size() < 1) {
+        return set_error(serror, SCRIPT_ERR_INVALID_STACK_OPERATION);
+    }
+
+    // If the argument was not 32 bytes, treat as OP_NOP4:
+    switch (stack.back().size()) {
+        case 32:
+        {
+            const Span<const unsigned char> hash{stack.back()};
+            if (!checker.CheckDefaultCheckTemplateVerifyHash(hash)) {
+                return set_error(serror, SCRIPT_ERR_TEMPLATE_MISMATCH);
+            }
+            break;
+        }
+        default:
+            // future upgrade can add semantics for this opcode with different length args
+            // so discourage use when applicable
+            if (flags & SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_CHECK_TEMPLATE_VERIFY_HASH) {
+                return set_error(serror, SCRIPT_ERR_DISCOURAGE_UPGRADABLE_TEMPLATE);
+            }
+    }
+}
+break;
+```
+
+I think other upgradable paths could be tested for CTV, e.g upgradable tapscript version, to something that is not *0xC0* as a leaf head byte.
+
+[quote="moonsettler, post:54, topic:1509, full:true"]
+Also bare CTV seems pretty useful and economic for certain cases. Has no “address” to send to by accident from wallets which could result in burned funds.
+[/quote]
+
+This point deserves better discussions, as I think it’s the opposite. Due to the *immutability* of any chain of transactions generated with CTV (i.e with a sig-based escape path), the whole chain of transaction should be verified by any recipient (e.g verify that intermediary tx in a congestion control tree is not nLocktime=<year_2109> i.e practically *freezing* your funds). It’s more likely that good practice of using CTV should come with *enhanced* “address” carrying enough info to any recipient to verify the semantic of the chain of transaction, which is in itself a use-case specific thing.
+
+[quote="instagibbs, post:56, topic:1509"]
+there’s not much to be done with a “push to stack” variant except equality checks.
+[/quote]
+
+So if you can do equality checks on a template and one can pre-compute the result of equality checks on an outpoint (txid:output_index) and pre-commit them in a *redeemScript*, it’s already an interesting primitive to do adversarial [tx-withholding](https://blog.bitmex.com/txwithhold-smart-contracts/). However, I don’t think this is still a *non-collaborative* utxo oracle, as the templated tx would have been to be built with a valid witness for the probed utxo. So somehow there is an opt-in of the owner of the probed utxo for the spend to be integated in the CTV template. But I’m not sure.
+
+-------------------------
+
