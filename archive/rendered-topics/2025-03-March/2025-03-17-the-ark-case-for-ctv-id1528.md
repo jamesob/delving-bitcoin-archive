@@ -1,6 +1,6 @@
 # The Ark case for CTV
 
-stevenroose | 2025-03-17 17:23:04 UTC | #1
+stevenroose | 2025-03-22 19:14:08 UTC | #1
 
 I initially made this layout as part of [another thread](https://delvingbitcoin.org/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/50?u=stevenroose), but to avoid derailing the original conversation, I'll repeat the post here so that questions and suggestions can be posted here.
 
@@ -29,7 +29,7 @@ But being able to issue vtxos for others has several significant benefits:
 
 - It allows the server to issue vtxos for users. We currently want to do this in two occasions:
   - A good server will want to **re-issue expired vtxos automatically**. This is obviously not secure, but the server can continuously provide proofs that it hasn't claimed any expired vtxos and for some smaller-value vtxos, this can be enough security for certain users.
-  - **Receiving Lightning payments** in Ark (without having virtual channels) is not easy. One way it could be done is by having the user notify the server that it is expecting an inbound payment, the server will accept the HTLC as a hodl HTLC and issue an HTLC for the user in a vtxo in the next round. The user can then reveal the preimage which grants him the vtxo fully and allows the server to claim the hodl HTLC. (With various anti-abuse measures in place.) Without CTV the receiver would have to participate in a round in order to receive his HTLC.
+  - **Receiving Lightning payments** in Ark (without having virtual channels) is not easy. One way it could be done is by having the user notify the server that it is expecting an inbound payment, the server will accept the HTLC as a hodl HTLC and issue an HTLC for the user in a vtxo in the next round. The user can then reveal the preimage which grants him the vtxo fully and allows the server to claim the hodl HTLC. (With various anti-abuse measures in place.) Without CTV the receiver would have to participate in a round in order to receive his HTLC, but **receivers participating in rounds is vulnerable to DoS attacks**, so this is not possible. It would mean that only receivers with already existing VTXOs could receive LN VTXOs and they would have to proof ownership of an existing VTXO so that we can slash their VTXO if they don't provide their signatures in the round.
 
 - It would allow non-interactive onboards, but since for an onboard, the onboarder is usually the receiver anyway this seems quite uninteresting, but it equivalently **allows any party to non-interactively issue any number of vtxos with a single on-chain output**. We think this can be a very powerful tool for exchanges or DCA providers that want to regularly payout amounts to their users. Using CTV, they could independently construct a tree of vtxos (using the Ark's parameters), fund the root tx and inform all their users. Since these vtxos are no different than vtxos created in Ark rounds, the recipients can use them as if they were any other type of vtxo in this Ark.
 
@@ -56,6 +56,34 @@ I want to make sure I'm understanding this correctly, because if so I find it re
 Requiring interactivity (the receiver to be online) was such a strong requirement from a UX perspective, that instead you chose to introduce the (time-limited) security assumption of relying on the server and sender not to collude.
 
 I think this is a really important data point for understanding the tradeoffs between interactivity and trust!
+
+-------------------------
+
+stevenroose | 2025-03-22 19:02:45 UTC | #4
+
+Exactly, so arkoor vtxo have what we call the "statechain model", but maybe we should find a better name for it, like "server cosign assumption" or something.
+
+The assumption is that it can't be double spent as long as the server doesn't collude with a previous owner of the VTXO (meaning anyone since its inception in a round). A user can "exit" this reduced trust model by refreshing their VTXO during a round. A VTXO that is the direct result of a round does not have such reduced trust assumption.
+
+This means that in the worst case, any VTXO in such an arkoor model will be refreshed back into "trustless mode" every interval of the expiry time (1 or 2 months). Users who don't feel comfortable holding an arkoor VTXO can always submit their VTXOs for refresh directly after receiving them. But since the liquidity fee that has to be paid for refreshes is proportional with the time until the expiry of the VTXO, the fee will be higher when a VTXO is refreshed right after receipt, compared to a lower fee when the receiver holds on to the arkoor VTXO until it almost expires.
+
+-------------------------
+
+stevenroose | 2025-03-22 19:12:19 UTC | #5
+
+Yes. But only partially yes. There are other benefits from the arkoor model. Like I mention in my previous reply, the liquidity cost for the server (and hence the liquidity fee paid by the user) to refresh a VTXO is proportional with the time remaining until the expiration of the VTXO. Hence, the arkoor model gives the receiver of a VTXO the choice which side of the trade-off he wants to take. 
+
+If he wants full trustless ownership of the VTXO, but pay a higher liquidity fee, he can refresh the VTXO. If he is ok with the arkoor trust assumption for another 15-30 days (on average half the expiration time), he can save on fees.
+
+We imagine that people that are holding significant amounts in their VTXOs, and receive them from unknown third parties, will be more inclined to refresh their VTXOs early. While users that are doing smaller day-to-day payments will probably prefer to save on fees.
+
+But to reply to your root question: yes, the interactivity requirement of the round is pretty strong. Moreso, it is also **very vulnerable to denial-of-service attacks**. The round can only finish if all the participating users do their part correctly, so f.e. it is possible for an attacker to participate in the round with multiple "users", and each attempt fail a single one, hence forcing the entire round to be retried as many times as he has identities.
+
+The way we mitigate these DoS problems is first of all banning non-cooperative users from the next attempt, this is an obvious step. Every time a round needs to be re-attempted, only the participants that provided their signatures are allowed in the next attempt.
+
+But second, we also penalize the VTXOs of the participants. And here there is a very big difference between a sender and a receiver. A sender submits a VTXO as input to the round. If he abandons the round, we can slash his VTXO a little bit (basically reducing it's value in our books by a few sats). This means that each time he abandons a round, he loses some money. (They can always unilaterally exit to get the full amount but exits also have an on-chain cost.)
+
+Receivers, on the other hand, are not associated with an existing VTXO. So they can't be penalized and have nothing to lose in performing a DoS attack on the round. Therefore, even if the interactivity would be minimal, we can't actually have receivers participate in rounds. (That's why LN receives are difficult without CTV, a receiver would only be able to receive a LN payment if they would already have an existing VTXO they can sign overship for and we'd slash that one.)
 
 -------------------------
 
