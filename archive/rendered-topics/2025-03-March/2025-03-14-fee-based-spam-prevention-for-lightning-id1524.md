@@ -227,3 +227,70 @@ I'll also note that any sort of hold fees seems fraught if LSPs continue offerin
 
 -------------------------
 
+JohnLaw | 2025-03-21 21:08:20 UTC | #3
+
+Dave,
+
+Thanks for your thoughtful response.
+
+You're right that there's a problem with the Hold Fee if the downstream node ignores an offered HTLC.
+
+I believe the fix is to update the downstream node's Commitment transaction in two separate steps:
+* increase the burn funds to include Upfront and Hold Fees (plus matching funds) for the offered HTLC, and
+* add the HTLC output to the downstream node's Commitment transaction.
+
+The downstream node performs the first step (increasing burn funds), and revokes its previous Commitment transaction, before the second step is performed.
+It's safe for the downstream node to commit to the first update (with increased burn funds), as the this update includes the upstream node's matching funds (and its Upfront funds).
+
+From the Bolt 02 spec, the current flow for adding an HTLC goes through the following states:
+
+* pending on the receiver
+* in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the update is pending on the sender
+* ... and in the sender's latest commitment transaction
+* ... and the sender's previous commitment transaction has been revoked
+
+In order to fix the bug you found, we need to change this to:
+
+* pending on the receiver
+* increased burn funds (but no HTLC output) in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the update is pending on the sender
+* ... and increased burn funds and HTLC output in the sender's latest commitment transaction
+* ... and the sender's previous commitment transaction has been revoked
+* ... and increased burn funds and HTLC output in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction (with the increased burn amount but no HTLC output) has been revoked
+
+Thus the upstream node sends an update_add_htlc packet and then a commitment_signed packet, where the new signatures cover the increased burn funds for the new HTLC (but not a new HTLC output).
+Then, once the downstream node has sent a revoke_and_ack committing to the increased burn amount, the next commitment_signed transaction sent by the upstream node includes new increased burn funds and the new HTLC output.
+
+Note that there's still just one update to the upstream node's Commitment transaction that adds both the increased burn funds and the HTLC output.
+It's only the downstream node's Commitment transaction that needs to be updated in two steps.
+
+The downstream node commits to paying the Hold fee for the new HTLC when it commits to the increased burn funds by revoking its previous Commitment transaction (that did not have the increased burn funds).
+
+If the downstream node hasn't revoked its previous Commitment transaction before the new HTLC's grace period expires, the upstream node fails the HTLC by never updating the downstream node's Commitment transaction to include an output for the HTLC.
+In this case, the upstream node can fail the HTLC with its upstream partner prior to the HTLC's grace period in that channel, so it doesn't have to pay any Hold Fees.
+
+For example, Bob offers an HTLC to Mallory by signing a new Commitment transaction for Mallory that increases the burn funds for the new HTLC (but doesn't include a new HTLC output).
+If Mallory fails to revoke his previous Commitment transaction prior to the HTLC's grace period in the channel with Bob, Bob fails the HTLC with Alice (Bob's upstream partner) prior to the HTLC's grace period in that channel.
+As a result, Bob doesn't owe any Hold Fees to Alice.
+
+Also, note that Bob doesn't run the risk of having to pay the HTLC to Mallory, as Bob still has a Commitment transaction without the HTLC (and without increased burn funds).
+Thus, if Mallory never wakes up, Bob can close the channel by putting that transaction on-chain.
+If Mallory does wake up before the channel is closed, Bob and Mallory resolve blame for the failure of the latest HTLC as described in the post and the paper (e.g., using nonvolalite logs, timestampted messages, etc.).
+
+Please let me know if you agree that this fixes the bug.
+If so, there's still work to do in defining the exact set of changes to the protocol for updating the channel state.
+It's probably possible to define these changes while supporting asynchronous updates to both parties' Commitment transactions.
+However, I believe Rusty proposed simplifying the protocol to eliminate races between updates to the parties' Commitment transations.
+It should be much easier to implement the 2-stage update to the downstream party's Commitment transaction in such a race-free channel.
+
+Regarding the "holy grail" of charging fees as a function of how long the HTLC was held, I believe using a burn output (with matching funds) provides the missing ingredient.
+In particular, once both nodes have devoted funds to a burn output, they each individually want to determine the correct division of those funds so that they won't be burned.
+This is what gets around the need to "prove" to one's partner that a message was sent.
+
+I acknowledge that there are some limitations to using burn outputs, such as the risk of having one's partner fail completely, in which case the funds in the burn output are lost.
+However, this proposal (with the fix described above) does charge fees that depend on how long an HTLC was held, and it does so in a way that prevents the theft of those fees.
+
+-------------------------
+
