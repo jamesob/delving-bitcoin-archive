@@ -1,0 +1,73 @@
+{
+  "id": 4595,
+  "name": "Gloria Zhao",
+  "username": "glozow",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/glozow/{size}/261_2.png",
+  "created_at": "2025-03-24T16:47:48.819Z",
+  "cooked": "<p>Binaries for Bitcoin Core version v29.0rc2 are available from:</p>\n<p><a href=\"https://bitcoincore.org/bin/bitcoin-core-29.0/test.rc2/\" class=\"onebox\" target=\"_blank\" rel=\"noopener\">https://bitcoincore.org/bin/bitcoin-core-29.0/test.rc2/</a></p>\n<p>Source code can be found in git under the signed tag</p>\n<aside class=\"onebox githubfolder\" data-onebox-src=\"https://github.com/bitcoin/bitcoin/tree/v29.0rc2\">\n  <header class=\"source\">\n      <img src=\"https://github.githubassets.com/favicons/favicon.svg\" class=\"site-icon\" width=\"32\" height=\"32\">\n\n      <a href=\"https://github.com/bitcoin/bitcoin/tree/v29.0rc2\" target=\"_blank\" rel=\"noopener\">github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h3><a href=\"https://github.com/bitcoin/bitcoin/tree/v29.0rc2\" target=\"_blank\" rel=\"noopener\">GitHub - bitcoin/bitcoin at v29.0rc2</a></h3>\n\n  <p><a href=\"https://github.com/bitcoin/bitcoin/tree/v29.0rc2\" target=\"_blank\" rel=\"noopener\">v29.0rc2</a></p>\n\n  <p><span class=\"label1\">Bitcoin Core integration/staging tree. Contribute to bitcoin/bitcoin development by creating an account on GitHub.</span></p>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>This is a release candidate for a new major version release.</p>\n<p>Preliminary release notes for the release can be found here: <a href=\"https://github.com/bitcoin-core/bitcoin-devwiki/wiki/29.0-Release-Notes-draft\" class=\"inline-onebox\">29.0 Release Notes draft \u00b7 bitcoin-core/bitcoin-devwiki Wiki \u00b7 GitHub</a></p>\n<p>There is also a testing guide here: <a href=\"https://github.com/bitcoin-core/bitcoin-devwiki/wiki/29.0-Release-Candidate-Testing-Guide\" class=\"inline-onebox\">29.0 Release Candidate Testing Guide \u00b7 bitcoin-core/bitcoin-devwiki Wiki \u00b7 GitHub</a></p>\n<p>Please put your issues or comments here: <a href=\"https://github.com/bitcoin/bitcoin/issues/32052\" class=\"inline-onebox\">v29.0 Testing \u00b7 Issue #32052 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a></p>\n<p>Release candidates are test versions for releases.\nWhen no critical problems are found, this release candidate\nwill be tagged as v29.0</p>",
+  "post_number": 1,
+  "post_type": 1,
+  "updated_at": "2025-03-24T16:47:48.819Z",
+  "reply_count": 0,
+  "reply_to_post_number": null,
+  "quote_count": 0,
+  "incoming_link_count": 0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 17.2,
+  "yours": false,
+  "topic_id": 1536,
+  "topic_slug": "bitcoin-core-29-0-release-candidate-is-available",
+  "topic_title": "Bitcoin Core 29.0 release candidate is available",
+  "topic_html_title": "Bitcoin Core 29.0 release candidate is available",
+  "category_id": 8,
+  "display_username": "Gloria Zhao",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": "",
+  "bookmarked": false,
+  "raw": "Binaries for Bitcoin Core version v29.0rc2 are available from:\n\nhttps://bitcoincore.org/bin/bitcoin-core-29.0/test.rc2/\n\nSource code can be found in git under the signed tag\n\nhttps://github.com/bitcoin/bitcoin/tree/v29.0rc2\n\nThis is a release candidate for a new major version release.\n\nPreliminary release notes for the release can be found here: https://github.com/bitcoin-core/bitcoin-devwiki/wiki/29.0-Release-Notes-draft\n\nThere is also a testing guide here: https://github.com/bitcoin-core/bitcoin-devwiki/wiki/29.0-Release-Candidate-Testing-Guide\n\nPlease put your issues or comments here: https://github.com/bitcoin/bitcoin/issues/32052\n\nRelease candidates are test versions for releases.\nWhen no critical problems are found, this release candidate\nwill be tagged as v29.0",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 7,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false
+}

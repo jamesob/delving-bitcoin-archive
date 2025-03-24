@@ -315,7 +315,7 @@ Not sure what it would look like in a decentralised model; maybe just the abilit
 
 -------------------------
 
-0xB10C | 2025-02-04 14:03:58 UTC | #21
+0xB10C | 2025-03-24 18:01:57 UTC | #21
 
 [quote="ajtowns, post:18, topic:1052"]
 One thing that could be worth looking into is doing a better job of populating prefilledtxns – ie, “I’m pretty sure my peers don’t know about these txs in the block, so I’ll send them straight away”.
@@ -323,7 +323,7 @@ One thing that could be worth looking into is doing a better job of populating p
 
 I've started recording the contents of inbound and outbound `getblocktxn` messages a week ago. This should allow for some insights into "are peers often missing the same transactions?" and "can we pre-fill the transactions we had to request our self?". I haven't taken a closer look at the data yet.
 
-Also, I've changed on of my nodes to run with `blockreconstructionextratxn=10000` and updated two nodes to a `master` that includes [p2p: track and use all potential peers for orphan resolution #31397](https://github.com/bitcoin/bitcoin/pull/31397). Probably need to wait until the mempool fills up again to see the effects of this.
+Also, I've changed one of my nodes to run with `blockreconstructionextratxn=10000` and updated two nodes to a `master` that includes [p2p: track and use all potential peers for orphan resolution #31397](https://github.com/bitcoin/bitcoin/pull/31397). Probably need to wait until the mempool fills up again to see the effects of this.
 
 -------------------------
 
@@ -337,9 +337,44 @@ One other thing is that FIBRE is designed for UDP transmission to avoid delays d
 
 -------------------------
 
-sipa | 2025-02-18 20:53:04 UTC | #23
+0xB10C | 2025-03-24 19:26:58 UTC | #24
 
-(post deleted by author)
+[quote="0xB10C, post:21, topic:1052"]
+Also, I’ve changed one of my nodes to run with `blockreconstructionextratxn=10000` and updated two nodes to a `master` that includes [p2p: track and use all potential peers for orphan resolution #31397](https://github.com/bitcoin/bitcoin/pull/31397). Probably need to wait until the mempool fills up again to see the effects of this.
+[/quote]
+
+- I've changed node `alice` to run with `blockreconstructionextratxn=10000` early February. This had a noticeable effect the following days with slightly higher scores starting 2025-02-06. During the increased mempool activity between 2025-02-21 and 2025-03-06 it performed significantly better than my other nodes.
+- Node `charlie` and node `erin` were switched to a branch that includes [p2p: track and use all potential peers for orphan resolution #31397](https://github.com/bitcoin/bitcoin/pull/31397) at the same time in early February. I don't see any immediate improvement for these two nodes.
+- Node `ian` was running Bitcoin Core `v26.1` until I switched all nodes to run `v29.0rc1` release candidate. `ian` clearly performed worse than the other nodes before the update, which is expected as e.g. `mempoolfullrbf` wasn't default in `v26.1`.
+- Node `mike` doesn't allow inbound connections (while the other nodes do and usually have full inbound slots). This is noticeable in the reconstruction performance. Only having eight peers that inform `mike` about transactions is probably likely worse than having close to 100 peers that inform you about new transactions.
+
+The stats from `alice`, `charlie`, and `erin` could indicate that orphans aren't the problem, but conflicts, replacements, and policy invalid transactions (i.e. extra pool txns) cause low performance during high mempool activity. Although, I'm not sure if these three moths of data are enough to be certain yet.
+
+![image](upload://8CSj419oYeckv0IIiXCsKbPbnIy.png)
+
+[quote="0xB10C, post:21, topic:1052"]
+[quote="ajtowns, post:18, topic:1052"]
+One thing that could be worth looking into is doing a better job of populating prefilledtxns – ie, “I’m pretty sure my peers don’t know about these txs in the block, so I’ll send them straight away”.
+[/quote]
+
+I’ve started recording the contents of inbound and outbound `getblocktxn` messages a week ago. This should allow for some insights into “are peers often missing the same transactions?” and “can we pre-fill the transactions we had to request our self?”. I haven’t taken a closer look at the data yet.
+[/quote]
+
+I've started to look at the data I've been recording. It seems that many of my peers I announced a compact block to end up requesting very different sets of transactions (and usually larger sets) than I request from my peers. I assume many of them might be non-listening nodes like `mike` or run with a non-default configuration. This needs more work, but I hope to post more stats on requested transactions here at some point.
+
+I've also noticed that my listening nodes running with the default configuration often independently request similar sets of transactions. This seems promising in regards to predictably prefilling transactions in our compact block announcements. My assumption would be that if we prefill:
+- transactions we had to request
+- transactions we took from our extra pool
+- and prefilled transactions we didn't have in our mempool (i.e. prefilled txns that were announced to use and ended up being useful)
+
+we can improve the propagation time among nodes that accept inbound connections and use a "Bitcoin Core" default policy. This in turn should improve block propagation time of the complete network as now more nodes know about the block earlier. Additionally, useful prefilled transactions don't end up wasting bandwidth, only transactions that a peer already knew about would waste bandwidth. These improvements would probably be most noticeable during high mempool activity: the (main) goal wouldn't be to bring the days with 93% (of reconstructions not needing to request a transaction) to 98% but rather the days with 45% to something like 90% for well-connected nodes. 
+
+Since Bitcoin Core only high-bandwidth/fast announces compact blocks to peers that specifically requested it from us (because we quickly gave them new blocks in the past), non-listening nodes that are badly connected won't start sending wasteful announcements with many prefilled, well-known transactions to their peers.        
+
+I've started implementing this in [2025-03-prefill-compactblocks](https://github.com/0xB10C/bitcoin/commits/2025-03-prefill-compactblocks/) but its still work-in-progress:
+- limit the prefill amount to something like 10kB worth of transactions as per [BIP152 implementation note #5](https://github.com/bitcoin/bips/blob/02ad0e01c2a9189124e05a52afe97ef90a3b7f1f/bip-0152.mediawiki#implementation-notes). I think this is useful to avoid wasting too much bandwidth if a node does a high-bandwidth announcement but, for some reason, prefills a lot of well-known transactions in the announcement
+- `cmpctblock` debug logging on wasted bandwidth: log the number of bytes of transactions we already knew about when receiving a prefilled compact block. This can be tracked/monitored to determine if were wasting too much bandwidth by prefilling
+- since the positive effect on the network is only measurable with a wide(r) deployment of the prefilling patch, it's probably worthwhile to do some Warnet simulations on this and test the improvement under different scenarios.
 
 -------------------------
 
