@@ -87,3 +87,13 @@ Receivers, on the other hand, are not associated with an existing VTXO. So they 
 
 -------------------------
 
+instagibbs | 2025-03-24 14:32:20 UTC | #6
+
+[quote="stevenroose, post:4, topic:1528"]
+A user can “exit” this reduced trust model by refreshing their VTXO during a round. A VTXO that is the direct result of a round does not have such reduced trust assumption.
+[/quote]
+
+Ah I see, users can "send to self" aka refresh, but not send to others. I can see why that is possibly attractive; you only have to get self-sending right for the client :slight_smile:
+
+-------------------------
+
