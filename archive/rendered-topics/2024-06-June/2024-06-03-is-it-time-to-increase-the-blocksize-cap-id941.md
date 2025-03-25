@@ -401,3 +401,9 @@ As I said, it's all about who pays the price of securing the network. With small
 
 -------------------------
 
+qustavo | 2025-03-25 18:54:37 UTC | #26
+
+Given the impossibility to quantify an optimal blockspace demand,  are you aware of proposals suggesting a dynamic blocksize that would work similar to the block difficulty adjustment?
+
+-------------------------
+

@@ -12,8 +12,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
+  "reads": 18,
+  "readers_count": 17,
   "score": 33.4,
   "yours": false,
   "topic_id": 1536,
@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -57,17 +57,17 @@
   "wiki": false,
   "reactions": [
     {
-      "id": "rocket",
+      "id": "tada",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
-      "id": "tada",
+      "id": "rocket",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }

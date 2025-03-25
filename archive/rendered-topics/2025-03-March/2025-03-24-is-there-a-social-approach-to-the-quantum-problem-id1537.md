@@ -46,3 +46,13 @@ They put their proofs inside OP_RETURN. New protocols should probably commit thi
 
 -------------------------
 
+josh | 2025-03-25 17:24:08 UTC | #3
+
+Fascinating!
+
+You got me thinking. There's probably a better approach. At least for taproot addresses, users could conceivably tweak their Schnorr public key with the hash of some quantum-resistant public key.
+
+This would minimize the on-chain footprint and the off-chain backup requirements, while providing a seamless way to backup the ledger.
+
+-------------------------
+

@@ -1432,3 +1432,47 @@ There are surely encodings for such chunkings that add negligible space overhead
 
 -------------------------
 
+sipa | 2025-03-25 16:09:53 UTC | #57
+
+Yeah, we've discussed the possibility of relaying linearizations or other cluster/chunking information along with transactions.
+
+It's hard to make it a requirement however, because the sender's cluster might not be the same as your cluster, and requiring that they're identical would permit even worse attacks, by an attacker attaching different incompatible transactions to the same cluster for different peers.
+
+Still, it is possible to do this as an independent improvement, because the linearization merging algorithm can always be applied between the linearization received over the network, and the linearization the receiver already had for a cluster, even when the clusters aren't exactly identical.
+
+Because of the above however, I don't think it can remove the need for having a fast-but-good-enough from-scratch linearization algorithm that can run at relay/tx processing time.
+
+-------------------------
+
+stefanwouldgo | 2025-03-25 16:29:27 UTC | #58
+
+I don’t think the clusters have to be identical. We just want the received linearization to beat any conflicting transactions or show the improvement by CPFP. Can you elaborate on a scenario where an attacker can do this in multiple ways? What would they gain? Would this enable free relay or prevent me from further improving the graph? I’m having a hard time envisioning a concrete attack.
+
+-------------------------
+
+stefanwouldgo | 2025-03-25 17:29:21 UTC | #59
+
+In particular, we can always assume ancestor sets as the baseline. Beyond that, BYO linearization or optimize your whole mempool with the algorithms from this thread if you have spare resources.
+
+-------------------------
+
+sipa | 2025-03-25 18:01:16 UTC | #60
+
+Ok, taking a step back.
+
+I'm interpreting your suggestion as follows:
+
+> Instead of computing linearizations locally every time a cluster changes, require peers to give you a better linearization than what you had before, along with the new transaction, in order for it to be acceptable.
+
+This is nice, because it means the cost of computing linearizations can be deduplicated, and the responsibility to find it lands on the relayer, who probably already has it anyway or they wouldn't have accepted/relayed it.
+
+But what if someone wants to send you a transaction to attach to your cluster (incl. a linearization for the result), but you already have in the cluster a transaction that conflicts with the newly relayed one (and this conflicting one, for DoS-protection reasons, can't be evicted)?
+
+The rule cannot be "if the linearization received isn't for the _exact_ cluster you're considering, reject it", because that would make it in some cases trivial for an attack to make a transaction to relay at all (spam the network simultaneously with many different transactions attaching to the same cluster, so everyone has a different cluster).
+
+The rule could be "merge the linearization received with the linearization you already have, for the part that overlaps, and if the result is better than the cluster you had, and it doesn't conflict with anti-DoS rules, accept it". However, I think this can still be used by attacker to thwart relay, by attaching different other transactions to the cluster that offer significant linearization opportunities when combined with the new honest transaction being relayed. E.g., the honest transaction and the attacker's attachment both fee-bump a parent, but the attacker's transaction can bump more than the honest transaction alone. In this case, when the honest transaction is relayed along with a linearization, which does not include the already-accepted attacker transaction, it may appear worse (or not strictly better) than what the receiver already had.
+
+Note that all of this is about using network-relayed linearization as **replacement** for requiring nodes to compute their own good from-scratch linearizations/improvements, which I fear could be exploited. If we're just talking about **additionally** relaying linearizations and incorporating their linearizations along with self-computed ones, there is no problem.
+
+-------------------------
+
