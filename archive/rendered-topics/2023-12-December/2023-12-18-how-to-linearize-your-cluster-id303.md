@@ -1122,7 +1122,7 @@ Yes, and that is why the GGT algorithm for finding all breakpoints (3.3) is so i
 
 -------------------------
 
-sipa | 2025-02-10 13:24:25 UTC | #36
+sipa | 2025-03-22 18:27:34 UTC | #36
 
 [quote="stefanwouldgo, post:35, topic:303"]
 The PBST-algorithm avoids this waste and seems even faster in reality (and just as good in the worst case), and it finds all the breakpoints in ascending order (descending \lambdaλ\lambda for our case), which might be a desirable property.
@@ -1132,14 +1132,18 @@ That does sound at least conceptually simpler.
 
 You mean PBFS from https://arxiv.org/pdf/2410.15920, right? Its complexity bound seems somewhat worse than GGT.
 
-Summarizing the different algorithms I see, for sparse ($m = \mathcal{O}(n)$) and dense ($m = \mathcal{O}(n^2)$) graphs. FP is just the idea of solving a new min-cut from scratch for each breakpoint.
+Summarizing the different algorithms I see (FP = solve each min-cut from scratch), where:
+* $n$: number of transactions
+* $m$: number of dependencies (which is itself $\mathcal{O}(n)$ for sparse graphs and $\mathcal{O}(n^2)$ for dense graphs).
+* $k$: number of chunks (up to $\mathcal{O}(n)$).
+
 
 | Algorithm | Complexity | Sparse | Dense |
 |:--|:--|:--|:--|
-| FP (generic) | $\mathcal{O}(n^3 m)$ | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^5)$ |
-| FP (FIFO) | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^4)$ |
-| FP (max label) | $\mathcal{O}(n^3 \sqrt{m})$ | $\mathcal{O}(n^{3.5})$ | $\mathcal{O}(n^4)$ |
-| FP (dynamic trees) | $\mathcal{O}(n^2m \log(n^2/m))$ | $\mathcal{O}(n^3 \log n)$ | $\mathcal{O}(n^4)$ |
+| FP (generic) | $\mathcal{O}(k n^2 m)$ | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^5)$ |
+| FP (FIFO) | $\mathcal{O}(k n^3)$ | $\mathcal{O}(n^4)$ | $\mathcal{O}(n^4)$ |
+| FP (max label) | $\mathcal{O}(k n^2 \sqrt{m})$ | $\mathcal{O}(n^{3.5})$ | $\mathcal{O}(n^4)$ |
+| FP (dynamic trees) | $\mathcal{O}(knm \log(n^2/m))$ | $\mathcal{O}(n^3 \log n)$ | $\mathcal{O}(n^4)$ |
 | PBFS | $\mathcal{O}(n^2 m)$ | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^4)$ |
 | GGT (generic) | $\mathcal{O}(n^2 m)$ | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^4)$ |
 | GGT (FIFO) | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^3)$ | $\mathcal{O}(n^3)$ |
@@ -1415,6 +1419,16 @@ And since any kind of optimized linearization is going to have some less attract
 I think it's also important to keep in mind that the linearization is usually unimportant:
 
 The *vast* majority of all clusters have only one possible linearization because there is only a single txn or the txn form a straight chain.  And the linearization is irrelevant during both mining and eviction if either none of the transactions would be selected or if all of them would be selected. -- which is again usually the case.
+
+-------------------------
+
+stefanwouldgo | 2025-03-25 15:52:30 UTC | #56
+
+As I was pondering all the potential ways an adversary might abuse the fact that finding a good chunking/linearization can take time (even if it's polynomial), the following idea struck me: why don't we allow/expect someone submitting a cluster of transactions that conflicts with some mempool txns (RBF) or that improves the mempool diagram (CPFP) to show this improvement themselves by also submitting a chunking/linearization of all affected txs?
+
+While we have been discussing in this thread that it is absolutely possible to calculate an optimal chunking in reasonable time, it might still be a burden to do this for every adversarially submitted tx on low spec hardware. But most txns don't need this at all, and for those that do, Core could offer to do it locally and then forward this linearization with the txns. Checking if it really improves the status quo should be possible in linear time and in particular shouldn't be harder than what is checked now.
+
+There are surely encodings for such chunkings that add negligible space overhead to the transactions themselves.
 
 -------------------------
 
