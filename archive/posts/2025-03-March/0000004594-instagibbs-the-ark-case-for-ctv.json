@@ -8,13 +8,13 @@
   "post_number": 6,
   "post_type": 1,
   "updated_at": "2025-03-24T14:32:20.830Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 28.4,
   "yours": false,
   "topic_id": 1528,
   "topic_slug": "the-ark-case-for-ctv",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"stevenroose, post:4, topic:1528\"]\nA user can \u201cexit\u201d this reduced trust model by refreshing their VTXO during a round. A VTXO that is the direct result of a round does not have such reduced trust assumption.\n[/quote]\n\nAh I see, users can \"send to self\" aka refresh, but not send to others. I can see why that is possibly attractive; you only have to get self-sending right for the client :slight_smile:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

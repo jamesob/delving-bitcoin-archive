@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 1537,
   "topic_slug": "is-there-a-social-approach-to-the-quantum-problem",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "> using something like OpenTimestamps\n\nThey put their proofs inside OP_RETURN. New protocols should probably commit things directly into ECDSA signature instead, by tweaking R-value of the signature. Then, transaction size will be smaller, and it will be harder to detect, if someone attached any commitment or not.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

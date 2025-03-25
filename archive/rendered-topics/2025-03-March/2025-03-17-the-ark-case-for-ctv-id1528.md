@@ -97,3 +97,9 @@ Ah I see, users can "send to self" aka refresh, but not send to others. I can se
 
 -------------------------
 
+stevenroose | 2025-03-25 14:23:10 UTC | #7
+
+Exactly. When everyone is self-sending in a round, all senders and receivers are present. Senders obviously have to be present anyway, but since they are all self-sending, they can also perform receiving interactions.
+
+-------------------------
+
