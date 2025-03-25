@@ -294,3 +294,71 @@ However, this proposal (with the fix described above) does charge fees that depe
 
 -------------------------
 
+harding | 2025-03-25 06:09:28 UTC | #4
+
+Hi John,
+
+AFAICT, your solution does eliminate the immediate issue.  However, it
+seems to significantly increase link-layer latency, as described below.
+
+> From the Bolt 02 spec [...]
+
+I think we can simplify by ignoring `update_add_htlc` messages and
+assuming that the commitment transaction is symmetric.  In that version
+of the current protocol:
+
+1. Alice sends Bob a new half-signed commitment transaction containing a
+   new HTLC.
+
+2. Bob replies with his half of the signature and his revocation secret
+   for the previous commitment transaction.
+
+3. Alice replies with her revocation secret for the previous commitment
+   transaction.
+
+Besides simplification, phrasing it this way showcases one of the
+advantages of the current commitment protocol: even though the full
+process requires 1.5 network round-trip time (RTT), Bob receives
+everything he needs in Step 1 to be able to safely able to forward the
+HTLC to the next hop after just 0.5 RTT.  So for an _n_-hop payment, the
+best-case forwarding time can be said to be `n*0.5` RTT.
+
+> In order to fix the bug you found, we need to change this to:
+
+Using the simplification described above, I think this is what you're
+proposing:
+
+1. Alice sends Bob a new half-signed commitment transaction committing
+funds from both of them to a burn output.
+
+2. Bob replies his half of the signature for Step 1 and his revocation
+secret for the previous commitment transaction.
+
+3. Alice sends Bob her revocation secret for the previous commitment
+transaction and a new half-signed commitment transaction containing
+the new HTLC.
+
+4. Bob replies with his half of the signature for Step 3 and his
+revocation for the commitment transaction created in Step 1.
+
+5. Alice replies with her revocation secret for the transaction created
+in Step 1.
+
+We immediately see that the proposed protocol increases full resolution
+time to 2.5 RTT.  That's not concerning AFAIK, but what's notable is
+that the critical path increases to 1.5 RTT.  That's potentially a 3x
+slow down in LN payments as seen by the ultimate receiver.  Proof of
+payment in both the current and proposed protocols takes an additional
+`n*0.5` RTT, so the spender-observed slow down is 2x.
+
+More generally, although I still feel uneasy about MAD-based OPR-style
+protocols, I do clearly see the benefits of hold fees.
+Although described here for spam mitigation (something for which other
+solutions might work roughly as well), I think there could additionally
+be significant demand for [not-immediately-settled
+payments](https://bitcoinops.org/en/topics/hold-invoices/)---but that's
+something we can only encourage if forwarding nodes are fairly
+compensated for the delay.
+
+-------------------------
+

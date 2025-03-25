@@ -38,3 +38,11 @@ Has anyone pursued this approach before? Would there be interest / support from 
 
 -------------------------
 
+garlonicon | 2025-03-25 06:58:42 UTC | #2
+
+> using something like OpenTimestamps
+
+They put their proofs inside OP_RETURN. New protocols should probably commit things directly into ECDSA signature instead, by tweaking R-value of the signature. Then, transaction size will be smaller, and it will be harder to detect, if someone attached any commitment or not.
+
+-------------------------
+
