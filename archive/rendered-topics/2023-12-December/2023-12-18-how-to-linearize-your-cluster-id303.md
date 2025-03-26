@@ -1476,3 +1476,48 @@ Note that all of this is about using network-relayed linearization as **replacem
 
 -------------------------
 
+stefanwouldgo | 2025-03-26 11:36:40 UTC | #61
+
+[quote="sipa, post:60, topic:303"]
+The rule could be “merge the linearization received with the linearization you already have, for the part that overlaps, and if the result is better than the cluster you had, and it doesn’t conflict with anti-DoS rules, accept it”.
+[/quote]
+
+Yes, that's what I had in mind.
+
+
+[quote="sipa, post:60, topic:303"]
+However, I think this can still be used by attacker to thwart relay, by attaching different other transactions to the cluster that offer significant linearization opportunities when combined with the new honest transaction being relayed.
+[/quote]
+
+This is where I fail to see the problem ATM. Of course, it's hard to prove that there isn't any problem, but intuitively, an attacker would have to attach transactions that make the mempool objectively better (and provide linearizations for them if they are not trivial) and so has to spend as many resources as anybody else.
+
+[quote="sipa, post:60, topic:303"]
+E.g., the honest transaction and the attacker’s attachment both fee-bump a parent, but the attacker’s transaction can bump more than the honest transaction alone. In this case, when the honest transaction is relayed along with a linearization, which does not include the already-accepted attacker transaction, it may appear worse (or not strictly better) than what the receiver already had.
+[/quote]
+
+Sounds like fair competition to me. The attacker got there first and I haven't heard of them updating the mempool. OK, my tx gets rejected. Ideally with a reason why. But this way or through normal propagation I will learn of the newly attached attacker transaction eventually. When I do, I do the calculation again and resubmit with a better linearization. Of course the attacker could again attach something better in the mean time, but again it will cost him fees.
+
+It may well be that my intuition here is way off, but it feels to me like this kind of dance should already be possible now, just with one less round of communication between me and the relay, because my linearization might be outdated.
+
+Notice also that in this case, one min-cut calculation with the feerate that we are competing against would suffice for the relay node to check if the current cluster can be improved upon. And if this times out, the sender can still retry.
+
+I was also wondering if the problem isn't even easier in our setting because we receive the transactions online. That is, whether we receive one tx or a whole bundle, these new txs can only be dependent on clusters already in the mempool. But the mempool clusters cannot depend on the new txs. With this limitation, can there even arise linearizations that are better than merging a linearization for the new txs with a linearization of the existing clusters?
+
+-------------------------
+
+sipa | 2025-03-26 13:20:35 UTC | #62
+
+[quote="stefanwouldgo, post:61, topic:303"]
+But this way or through normal propagation I will learn of the newly attached attacker transaction eventually. When I do, I do the calculation again and resubmit with a better linearization.
+[/quote]
+
+No, not necessarily. If the attacker makes many different versions of the attached transaction, that all conflict with each other, and races them all to the network, then every network participant will eventually learn *one* of them, but not all, "partitioning" the network into groups of nodes which have the same attacker transaction. And relay of other, honest, transactions across these partition boundaries will be harder if you require the sender to provide good linearization information, because it will be a requirement of linearization on a cluster the sender does not (exactly) have.
+
+---
+
+In other news, I have a working GGT implementation with max-height active node selection strategy (so, $\mathcal{O}(n^2 \sqrt{m})$): https://github.com/sipa/bitcoin/commits/min_cut_linearization. It passes all tests, so I'm reasonably confident that it can actually optimally linearize from scratch. I'll post more detailed benchmarks later, but my benchmarks for up to 64 transactions run in 5-15 µs, and up to 60 µs for up to 99 transactions. These numbers are comparable to the spanning-forest linearizarion algorithm I posted about in the other thread. It's a bit slower (around 1.5x) than the numbers I had before adding the concurrent reverse execution, but maybe that'a not a terrible price for gaining a factor $n$ in the worst case.
+
+Counting how many iterations the algorithm actually performs, and extrapolating that to the worst case for 64 transactions predicts something in the "few ms" range, which is amazing performance for a background optimizer, but probably not acceptable for doing at relay time itself.
+
+-------------------------
+

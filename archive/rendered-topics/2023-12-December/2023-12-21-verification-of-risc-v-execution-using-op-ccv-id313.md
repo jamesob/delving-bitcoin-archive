@@ -16,3 +16,13 @@ TLDR: https://twitter.com/johanth/status/1737778712987287990
 
 -------------------------
 
+sjors | 2025-03-26 14:08:28 UTC | #2
+
+IIUC you're using the newly proposed `OP_CCV` as well as `OP_CAT`, but otherwise only existing op codes. It seems one particular annoyance you need to work around when emulating a 32 bit system is the [31 bit limitation](https://bitcoin.stackexchange.com/a/122944/4948) of `CScriptNum` .
+
+Would your code get significantly easier and produce more compact leaves by allowing slightly bigger numbers? IIUC the Great Script Restoration project goe straight to 64 bit, but it seems just a few extra bits would do the trick here? https://rusty.ozlabs.org/2024/01/19/the-great-opcode-restoration.html 
+
+Are there other currently disabled op codes that would help?
+
+-------------------------
+
