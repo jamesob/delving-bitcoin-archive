@@ -56,3 +56,13 @@ This would minimize the on-chain footprint and the off-chain backup requirements
 
 -------------------------
 
+garlonicon | 2025-03-26 06:46:51 UTC | #4
+
+> At least for taproot addresses, users could conceivably tweak their Schnorr public key with the hash of some quantum-resistant public key.
+
+Tweaking keys works on all address types, which use OP_CHECKSIG in that way or another. You can even tweak some DER signature for P2PK, if you really want. Later, when the private key will be compromised, people could always make new signatures, but couldn't go back in the chain, and change previous commitments.
+
+And I think the main problem is not related to technically doing it, but rather to standardizing it correctly, so when the community will want to upgrade the rules, the new code will handle all commitments correctly. Because I think it is quite likely, that there will be more than one way to commit to things, and different people may use different schemes.
+
+-------------------------
+
