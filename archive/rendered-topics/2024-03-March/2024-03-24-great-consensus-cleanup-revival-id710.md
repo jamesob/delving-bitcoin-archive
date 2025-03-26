@@ -1539,3 +1539,9 @@ Ugh, thanks. I mixed up the binaries in my testing (had more than one `bitcoind`
 
 -------------------------
 
+AntoineP | 2025-03-26 17:28:12 UTC | #83
+
+I've just published a BIP draft for a Consensus Cleanup soft fork. The post to the mailing list is apparently awaiting moderator approval but the PR to the BIPs repository is available [here](https://github.com/bitcoin/bips/pull/1800). Thanks to everyone who helped to bring it this far.
+
+-------------------------
+
