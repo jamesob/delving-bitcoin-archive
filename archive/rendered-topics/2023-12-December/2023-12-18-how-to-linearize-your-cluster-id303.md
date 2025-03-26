@@ -1505,7 +1505,7 @@ I was also wondering if the problem isn't even easier in our setting because we 
 
 -------------------------
 
-sipa | 2025-03-26 13:20:35 UTC | #62
+sipa | 2025-03-26 15:17:30 UTC | #62
 
 [quote="stefanwouldgo, post:61, topic:303"]
 But this way or through normal propagation I will learn of the newly attached attacker transaction eventually. When I do, I do the calculation again and resubmit with a better linearization.
@@ -1515,7 +1515,7 @@ No, not necessarily. If the attacker makes many different versions of the attach
 
 ---
 
-In other news, I have a working GGT implementation with max-height active node selection strategy (so, $\mathcal{O}(n^2 \sqrt{m})$): https://github.com/sipa/bitcoin/commits/min_cut_linearization. It passes all tests, so I'm reasonably confident that it can actually optimally linearize from scratch. I'll post more detailed benchmarks later, but my benchmarks for up to 64 transactions run in 5-15 µs, and up to 60 µs for up to 99 transactions. These numbers are comparable to the spanning-forest linearizarion algorithm I posted about in the other thread. It's a bit slower (around 1.5x) than the numbers I had before adding the concurrent reverse execution, but maybe that'a not a terrible price for gaining a factor $n$ in the worst case.
+In other news, I have a working GGT implementation with max-height active node selection strategy (so, $\mathcal{O}(n^2 \sqrt{m})$): https://github.com/sipa/bitcoin/commits/min_cut_linearization. It passes all tests, so I'm reasonably confident that it can actually optimally linearize from scratch. I'll post more detailed benchmarks later, but my benchmarks for up to 64 transactions run in 5-15 µs, and up to 60 µs for up to 99 transactions. These numbers are comparable to the spanning-forest linearizarion algorithm I posted about in the other thread. It's a bit slower (around 1.5x) than the numbers I had before adding the concurrent reverse execution, but maybe that's not a terrible price for gaining a factor $n$ in the worst case.
 
 Counting how many iterations the algorithm actually performs, and extrapolating that to the worst case for 64 transactions predicts something in the "few ms" range, which is amazing performance for a background optimizer, but probably not acceptable for doing at relay time itself.
 
