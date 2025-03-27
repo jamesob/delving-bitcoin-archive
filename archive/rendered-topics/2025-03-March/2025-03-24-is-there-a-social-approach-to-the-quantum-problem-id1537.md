@@ -66,3 +66,21 @@ And I think the main problem is not related to technically doing it, but rather 
 
 -------------------------
 
+josh | 2025-03-27 02:49:13 UTC | #5
+
+> Tweaking keys works on all address types, which use OP_CHECKSIG in that way or another. You can even tweak some DER signature for P2PK, if you really want. Later, when the private key will be compromised, people could always make new signatures, but couldn’t go back in the chain, and change previous commitments.
+
+I see. Just to clarify, you're talking about tweaking signatures in the input(s), correct? Not data embedded in the UTXO itself.
+
+My understanding is that a P2TR UTXO is the only type of UTXO where a commitment can be made *in the output script*. It sounds like you're suggesting users instead commit to quantum-resistant public keys by tweaking signatures in the inputs, for backing up outputs created in the same transaction, or outputs that exist elsewhere.
+
+That's an interesting idea. It could work. It doesn't matter where the commitment exists, as long as the earliest provable commitment is used as a UTXO's proof of ownership.
+
+> I think the main problem is not related to technically doing it, but rather to standardizing it correctly, so when the community will want to upgrade the rules, the new code will handle all commitments correctly.
+
+I agree 100%. This is a social problem, not a technical one. If there existed a "standard" way to commit to a quantum-resistant backup public key, for any existing or newly created UTXO, users and investors would probably feel more comfortable with the "quantum risk," since a fallback plan exists.
+
+Whether we like it or not, perception matters. If Bitcoin is perceived as less risky, its purchasing power in real terms will naturally rise.
+
+-------------------------
+
