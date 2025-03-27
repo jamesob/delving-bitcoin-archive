@@ -84,3 +84,27 @@ Whether we like it or not, perception matters. If Bitcoin is perceived as less r
 
 -------------------------
 
+garlonicon | 2025-03-27 05:19:09 UTC | #6
+
+> Just to clarify, you’re talking about tweaking signatures in the input(s), correct?
+
+You can tweak things in two places: in your output, or in your input. I think it is better to tweak inputs, because changing your output will change your address, which may confuse some users. And it is harder to handle commitments in outputs, because you have to always carry your commitment in your output descriptor, to properly derive your address.
+
+> My understanding is that a P2TR UTXO is the only type of UTXO where a commitment can be made in the output script.
+
+No, you can commit data to any public key, no matter where it is located, and in which address type it is wrapped. No matter if you pick Taproot or not, you should not push your committed data on-chain now, because it is not enforced by the current consensus (just like you should not push witness data on-chain before 2017).
+
+> for backing up outputs created in the same transaction, or outputs that exist elsewhere.
+
+First, the whole way of committing to any data should be standardized. And then, we can decide, how to interpret committed data, and how they should be revealed (and should they be stripped before sending to non-upgraded nodes, like we handle witness data).
+
+Today, if you encounter OP_CHECKSIG anywhere, you can see any valid signature, and then it is accepted. In the new consensus, when it will be possible to go from public to private key, not all signatures will be accepted. You will need a regular signature, as it is today, and some commitment to prove, that you are the true owner, and not someone, who only recovered the private key.
+
+Which means, that after a future soft-fork, you will be able to move P2PK in the same way as today, but additional commitment will be required, and attached in a similar way, like witness is attached today. And then, non-upgraded nodes will just see everything in the current format, but upgraded ones will accept a new format, and a valid commitment data for each OP_CHECKSIG call.
+
+Which also means, that old address types would not be "burned", like "removed from the UTXO set". Instead, they would be just "trapped", so you would need more conditions to move them (signature + commitment). And decades later, commitments may also become unsafe, so we will upgrade into (signature + commitment + something). And so on, and so forth.
+
+And I guess hash functions can be upgraded in a similar way: if SHA-256 will ever be broken, then the new hash function should produce identical hashes for all old data, but new 256-bit values for some broken edge cases, like it is done today with hardened SHA-1.
+
+-------------------------
+
