@@ -1521,3 +1521,19 @@ Counting how many iterations the algorithm actually performs, and extrapolating 
 
 -------------------------
 
+stefanwouldgo | 2025-03-28 09:57:45 UTC | #63
+
+[quote="sipa, post:62, topic:303"]
+If the attacker makes many different versions of the attached transaction, that all conflict with each other, and races them all to the network, then every network participant will eventually learn *one* of them, but not all, “partitioning” the network into groups of nodes which have the same attacker transaction. And relay of other, honest, transactions across these partition boundaries will be harder if you require the sender to provide good linearization information, because it will be a requirement of linearization on a cluster the sender does not (exactly) have.
+[/quote]
+
+This is an interesting partitioning attack. First, the partitioning part is already possible now. But it doesn’t really hurt anyone as long as nobody needs to attach to the attacker txns. If anybody else needs to spend an attacker txn, that is a problem already now, because presumably your mempool won’t accept a txn that spends an unknown attacker txn (which conflicts with your version of the attacker txn), so propagation of the honest txn might become impossible. Package relay might fix this.
+
+What would change if we required nontrivial chunkings/linearizations to be forwarded? The attacker might partition the network with not just single txns but entire clusters that differ (maybe just in id, or maybe in structure). OK, here is where it gets worse: if for some reason we need to attach to the entire cluster (not just the attacker part, it might be an earlier tx that we spend), we cannot propagate our attachment, because we can only optimize our linearization for the cluster version that we know. Again, package relay might fix this, because if the entire cluster is preferable to the competing attacker clusters (because we optimized it), it can replace all of them. 
+
+So I see this as an interesting attack that probably needs fixing through package relay. And you are right that requiring linearizations makes it worse in the sense that the attack now also works if we don’t need to attach directly to malleable attacker txns, which probably makes it much more problematic, say, for LN. However, it seems to me that in all cases, it can be fixed by relaying entire clusters.
+
+Also, in the case that is different from today, where we don’t directly attach to attacker txns, it seems that simply merging the attacker linearization with ours should be optimal. If we can prove that, I don’t see why requiring linearizations makes things worse.
+
+-------------------------
+
