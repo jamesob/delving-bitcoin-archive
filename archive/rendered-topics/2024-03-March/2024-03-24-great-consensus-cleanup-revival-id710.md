@@ -1533,9 +1533,9 @@ These results were produce around  `00000000000000000001194ae6be942619bf61aa7082
 
 -------------------------
 
-AntoineP | 2025-03-21 19:24:52 UTC | #82
+AntoineP | 2025-03-27 21:05:34 UTC | #82
 
-Ugh, thanks. I mixed up the binaries in my testing (had more than one `bitcoind` in my build directory, ran the one that did not enforce the check).
+Ugh, thanks. I mixed up the binaries in my testing (due to a [recent change](https://github.com/bitcoin/bitcoin/pull/31161) in the location of binaries i had more than one `bitcoind` in my build directory, ran the one that did not enforce the check).
 
 -------------------------
 
