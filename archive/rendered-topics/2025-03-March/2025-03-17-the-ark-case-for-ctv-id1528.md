@@ -103,3 +103,23 @@ Exactly. When everyone is self-sending in a round, all senders and receivers are
 
 -------------------------
 
+harding | 2025-03-28 21:16:38 UTC | #8
+
+[quote="stevenroose, post:1, topic:1528"]
+**Receiving Lightning payments** in Ark [...] the user notify the server that it is expecting an inbound payment, the server will accept the HTLC as a hodl HTLC and issue an HTLC for the user in a vtxo in the next round. The user can then reveal the preimage which grants him the vtxo fully and allows the server to claim the hodl HTLC. (With various anti-abuse measures in place.) Without CTV the receiver would have to participate in a round in order to receive his HTLC, but **receivers participating in rounds is vulnerable to DoS attacks**, so this is not possible.
+[/quote]
+
+Can you go into detail about how CTV helps in this case and what the anti-abuse measures might be?
+
+You describe the potential for abuse from a receiver participating in a round without having anything at stake, which I agree is fixed by CTV eliminating the need for receiver participation.  However, for HTLCs, it seems to me that the same potential for abuse exists from a receiver who fails to reveal a preimage, and the risk and consequences of that seems to be the same whether multisig or CTV is used.
+
+My understanding is that the risk of non-revelation applies today to current [JIT channels](https://bitcoinops.org/en/topics/jit-channels/) and it's [handled](https://bitcoinops.org/en/newsletters/2023/06/21/#just-in-time-jit-channels) in two ways:
+
+- *Big trust in the LSP:* the receiver discloses their preimage before the channel funding transaction has been confirmed.  This makes it technically easy for the LSP to steal the full payment amount prior to confirmation (but, after suitable confirmation, the LSP can no longer steal).
+
+- *Small trust in the LSP:* the spender pays two invoices, one for the payment itself and one a prepayment for signing a funding transaction.  The receiver releases the prepayment preimage upon receipt of an (unconfirmed) funding transaction, later releasing the payment preimage after the funding transaction has been confirmed to a suitable depth.  This still allows the LSP to steal the amount of the prepayment invoice but prevents them from being able to steal the amount of the payment invoice (which is probably the far larger amount).
+
+It seems to me that CTV doesn't change that situation for Ark.  Either method can be used today to allow clArk to receive LN payments, as both give the user funds at stake (in _big trust_, the server can take up to 100% of the payment amount; in _small trust_, the server can take up to the prepayment amount).  If the user has value at stake, they can participate in a round without creating a DoS risk, and their participation (signature) will ensure that their received funds can't be stolen by the Ark server after a round is confirmed to suitable depth.  Either method can also be used with CTV (with the same trust tradeoffs).  If neither method is used with CTV, and no alternative method is used, then an abuser who fails to disclose a preimage can lock up server liquidity for the duration of the round.
+
+-------------------------
+
