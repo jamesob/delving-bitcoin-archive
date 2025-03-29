@@ -1309,15 +1309,9 @@ I expect that the min-cut work will eventually lead to a better cluster lineariz
 
 -------------------------
 
-jsarenik | 2025-02-21 13:25:12 UTC | #49
+jsarenik | 2025-03-29 14:31:43 UTC | #49
 
-Here are data from my v28.1 node's mempool. Hoping this helps in testing:
-
- - txid's in a text file: https://anyone.eu.org/mymempool.txt
- - binary file from `savemempool`: https://anyone.eu.org/mymempool.dat
- - log: https://anyone.eu.org/mymempool-log.txt
-
-Download the file (preferably to a `tmpfs`-mounted directory like `/dev/shm`) and use it with `importmempool` RPC to quickly fill mainnet mempool of a freshly-started empty Bitcoin Core node. Updated every 5 minutes with a double that window to download.
+(post deleted by author)
 
 -------------------------
 
