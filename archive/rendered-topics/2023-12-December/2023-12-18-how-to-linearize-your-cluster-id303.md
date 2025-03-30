@@ -1309,12 +1309,6 @@ I expect that the min-cut work will eventually lead to a better cluster lineariz
 
 -------------------------
 
-jsarenik | 2025-03-29 14:31:43 UTC | #49
-
-(post deleted by author)
-
--------------------------
-
 sipa | 2025-03-07 03:18:10 UTC | #50
 
 So, short update.
