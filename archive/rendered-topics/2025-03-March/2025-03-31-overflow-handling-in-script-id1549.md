@@ -1,6 +1,6 @@
 # Overflow handling in Script
 
-Chris_Stewart_5 | 2025-03-31 15:42:16 UTC | #1
+Chris_Stewart_5 | 2025-03-31 15:45:13 UTC | #1
 
 # Overflow handling in Script
 
@@ -49,7 +49,7 @@ Simply put, if my Script is
 
 > 2^31-1 OP_1ADD 
 
-the result on the stack would be `2^31`, which is a valid result. If I tried to do an `OP_1ADD` on `2^31` an [this exception would occur](https://github.com/bitcoin/bitcoin/blob/3358b1d105196647230e6f828b8ec820426b96a0/src/script/script.h#L313)
+the result on the stack would be `2^31`, which is a valid result. If I tried to do an `OP_1ADD` on `2^31` an [this exception would occur](https://github.com/bitcoin/bitcoin/blob/770d39a37652d40885533fecce37e9f71cc0d051/src/script/script.h#L249)
 
 which then would result in this error being propagated to the user
 
