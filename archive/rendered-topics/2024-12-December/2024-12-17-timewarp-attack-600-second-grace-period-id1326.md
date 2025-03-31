@@ -574,7 +574,7 @@ For your example of subtracting 600 at the beginning and end, the difficulty is 
 
 -------------------------
 
-sipa | 2025-01-08 15:17:23 UTC | #32
+sipa | 2025-02-07 23:23:09 UTC | #32
 
 Let's say $c_i$ is the actual time at which block $i$ is found, and $t_i$ is its timestamp.
 
@@ -585,7 +585,7 @@ If the attacker (who is assumed to have 100% hashrate) follows this strategy:
 
 Then the observed duration of the **2015** blocks in period $p$ (relevant for difficulty adjustment) is $t_{2016p+2015} - t_{2016p} = c_{2016p+2015} - c_{2016p-1} + G$, i.e. the time it took to mine **2016** blocks plus $G$.
 
-The difficulty multiplier $m$ will thus be $m = \frac{P}{X + G}$, where $X$ is Erlang distributed with $k=2016$ and $\lambda=hashrate \cdot \frac{target}{2^{256}}$.
+The difficulty multiplier $m$ will thus be $m = \frac{P}{X + G}$, where $X$ is Erlang distributed with $k=2016$ and $\lambda=\operatorname{hashrate} \cdot \frac{\operatorname{target}}{2^{256}}$.
 
 In a simulation with $G=600$ I get an effective average block interval under constant hashrate of 599.9997... seconds. With $G=7200$ I get 596.7211... seconds.
 
@@ -648,6 +648,21 @@ It seems a bit less likely to me that ASIC firmware ignores the timestamp provid
 [/quote]
 
 Systemic use of NTP breaks security.
+
+-------------------------
+
+sjors | 2025-03-31 15:19:12 UTC | #37
+
+I'm still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):
+
+* Period 0: [$0$, $0$, $0$, ..., $0$, $0$, $P$].
+* Period 1: [$P-G$, $P-G$, ..., $P-G$, $2P$].
+* Period 2: [$2P-G$, ..., $3P$].
+* Period 3: [$3P-G$, ..., $4P$],
+* ...
+* Period $k$: [$kP-G$, ..., $(1+k)P$].
+
+So each period is stretched by $G$, causing the difficulty to drop every time. For $G$ = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.
 
 -------------------------
 
