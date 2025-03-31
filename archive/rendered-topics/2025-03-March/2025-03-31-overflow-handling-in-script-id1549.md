@@ -1,12 +1,12 @@
 # Overflow handling in Script
 
-Chris_Stewart_5 | 2025-03-31 15:45:13 UTC | #1
+Chris_Stewart_5 | 2025-03-31 20:04:35 UTC | #1
 
 # Overflow handling in Script
 
 ## Motivation
 
-There is interest in enhancing Script's functionality. Re-enabling new opcodes one of the main feature enhancements that have been proposed. This overflow limitation has been talked about in the Rusty Russell's [Great Script Restoration](https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html) project, as well as the [64-bit arithmetic delving bitcoin post](https://delvingbitcoin.org/t/64-bit-arithmetic-soft-fork/397).
+There is interest in enhancing Script's functionality. Re-enabling opcodes is one of the main feature enhancements that have been proposed. This overflow limitation has been talked about in the Rusty Russell's [Great Script Restoration](https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html) project, as well as the [64-bit arithmetic delving bitcoin post](https://delvingbitcoin.org/t/64-bit-arithmetic-soft-fork/397).
 
 Here are some highlights
 
@@ -72,6 +72,21 @@ This soft fork introduces _overflow handling_ when arithmetic computations are p
 
 >This gives the user flexibility to deal if they script to have overflows using `OP_IF\OP_ELSE` or `OP_VERIFY` the success bit if they expect that operation would never fail. When defining the opcodes which can fail, we only define the success path, and assume the overflow behavior as stated above.
 
+AJ Towns provided a critique to this design in the 64-bit arithmetic thread
+
+[quote="ajtowns, post:50, topic:397"]
+FWIW, the big concern I have with this is people writing scripts where they don’t think an overflow is possible, so they just do an OP_DROP for the overflow indicator, and then someone thinks a bit harder, and figures out how to steal money via an overflow, and then they do exactly that. That’s arguably easily mitigated: just use `OP_VERIFY` to guarantee there wasn’t an overflow, but I noticed that an example script in [review club](https://bitcoincore.reviews/29221#l-86) used the more obvious DROP:
+
+```
+<Chris_Stewart_5> Script: 0x000e876481700000 0x000e876481700000 OP_ADD64 OP_DROP OP_LE64TOSCRIPTNUM OP_SIZE OP_8 OP_EQUALVERIFY OP_SCRIPTNUMTOLE64 0x001d0ed902e00000 OP_EQUAL
+```
+
+Worries me a bit when the obvious way of doing something (“this won’t ever overflow, so just drop it”) is risky.
+
+You could imagine introducing two opcodes: “OP_ADD64” and “OP_ADD64VERIFY” the latter of which does an implicit VERIFY, and hence fails the script if there was overflow; but that would effectively be the existing behaviour of OP_ADD. So I guess what I’m saying is: maybe consider an approach along the lines that sipa suggested:
+[/quote]
+
+
 ### Bitcoin Cash
 
 Bitcoin cash seems to have re-added disabled opcodes such as [OP_MUL](https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node/-/blob/master/src/script/interpreter.cpp#L884) and [OP_DIV](https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node/-/blob/master/src/script/interpreter.cpp#L895). They have decided to modify the exception handling behavior by [setting `serror` exception](https://gitlab.com/bitcoin-cash-node/bitcoin-cash-node/-/blob/master/src/script/interpreter.cpp#L887) if the result overflows. Note, this is different than how bitcoin works currently as we catch an exception thrown by `CScriptNum`.
@@ -83,6 +98,59 @@ Both [Zcash](https://github.com/zcash/zcash/blob/a3435336b0c561799ac6805a27993ec
 ### Other bitcoin derivatives?
 
 If you know of any interesting design choices made by other forks of bitcoin, please share them below!
+
+### Ethan Heilmans suggested design
+
+[quote="EthanHeilman, post:36, topic:397"]
+The BIP states: “If the operation results in an overflow, push false onto the stack”.
+
+I would propose altering this to so that the result and the overflow amount are pushed onto the stack.
+
+**Case 1, no overflow:**
+
+1, 1, OP_ADD64 → 2, 0
+
+where 2 is the result and 0 is the overflow amount.
+
+**Case 2, overflow:**
+
+2^64 - 1, 5, OP_ADD64 → 4, 1
+
+where 4 is the result (mod 2^64), and 1 is the overflow amount. You can think of these two stack values as representing the 128 bit number 2^64+4 broken into two 64 bit chunks.
+
+Push values on the stack in this fashion makes it esimple use these 64 opcodes to do math on numbers larger than 64 bits by chunking them into 64-bit stack elements. The overflow amount tells you how much to carry into the next chunk.
+
+You’d still get the benefit of having a flag to check, if overflow amount is not 0, overflow occurred.
+
+I think the BIP as written lets you add numbers larger than 64-bits using a similar chunking approach, but it is less straight forward and requires IF statements and substructions operations.
+[/quote]
+
+with suggestions from AJ Towns
+
+[quote="ajtowns, post:40, topic:397"]
+I think there’s a few choices here:
+
+* what happens with “overflows” ?
+  * they’re not possible, everything happens modulo 2^n2n2^n
+  * if the inputs are “too large”, the script aborts
+  * you get an overflow indicator in every result
+* what is 2^n2n2^n or what constitutes “too large” ?
+  * BTC’s max supply is about 2^{51}2512^{51} satoshis, so 64bit is a fine minimum
+  * 2^{256}22562^{256} would let you manipulate scalars for secp256k1 which might be useful
+  * 2^{4160}241602^{4160} would let you do numbers of to 520 bytes which matches current stack entry limits
+* unsigned only, or signed
+  * if we’re doing modular arithmetic, unsigned seems easier
+  * signed maths probably makes some contracts a bunch easier though
+* what serialization format?
+  * if signed, use a sign-bit or 2’s complement?
+  * fixed length or variable length – if fixed length, that constrains the precision we could use
+  * if variable length, does every integer have a unique serialization, or can you have “0000” and “0” and “-0” all as different representations of 0?
+
+I guess 64-bit unsigned modular arithmetic would be easiest (`uint64_t` already works), but 4160-bit signed numbers (or some similarly large value that benchmarks fast enough) with abort-on-overflow behaviour and stored/serialized like CScriptNum format might be more appropriate?
+
+Abort-on-overflow seems kind of appealing as far as writing contracts goes: we’ve already had an “overflow allows printing money” bug in bitcoin proper, so immediately aborting if that happens in script seems like a wise protection. If people want to do modular arithmetic, they could perhaps manually calculate `((x % k) * (y % k)) % k` provided they pick k \le \sqrt{2^{n}}k≤√2nk \le \sqrt{2^{n}} or similar.
+[/quote]
+
 
 ## Future research
 
