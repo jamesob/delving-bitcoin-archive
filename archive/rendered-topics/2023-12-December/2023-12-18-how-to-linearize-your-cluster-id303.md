@@ -1525,3 +1525,9 @@ Also, in the case that is different from today, where we don’t directly attach
 
 -------------------------
 
+stefanwouldgo | 2025-03-31 14:59:18 UTC | #64
+
+I‘ve opened a new topic for the discussion on this attack [here](https://delvingbitcoin.org/t/cluster-mempool-partitioning-attacks/1548?u=stefanwouldgo) because I don’t want to clutter this topic further and because I believe it is of independent interest.
+
+-------------------------
+
