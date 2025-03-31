@@ -651,7 +651,7 @@ Systemic use of NTP breaks security.
 
 -------------------------
 
-sjors | 2025-03-31 15:19:12 UTC | #37
+sjors | 2025-03-31 16:19:09 UTC | #37
 
 I'm still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):
 
@@ -663,6 +663,10 @@ I'm still trying to understand whether the difficulty decrease compounds. Take t
 * Period $k$: [$kP-G$, ..., $(1+k)P$].
 
 So each period is stretched by $G$, causing the difficulty to drop every time. For $G$ = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.
+
+---
+
+Note that any difficulty decrease accumulation can be reset by an honest miner finding the last block of any retarget period.
 
 -------------------------
 

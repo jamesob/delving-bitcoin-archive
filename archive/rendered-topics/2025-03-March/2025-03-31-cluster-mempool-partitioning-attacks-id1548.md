@@ -16,3 +16,31 @@ Is this still the current proposal for RBF in a cluster mempool world? If it is,
 
 -------------------------
 
+instagibbs | 2025-03-31 19:47:44 UTC | #2
+
+First, thanks for splitting this out, because indeed it was getting a like sidetracked.
+
+[quote="stefanwouldgo, post:1, topic:1548"]
+Now IIUC, the argument against requiring chunkings
+[/quote]
+
+There are other reasons too, such as bandwidth wasting. In probably 99.9% of the time the hints won't be required, so deciding when and what to send is an open question.
+
+[quote="stefanwouldgo, post:1, topic:1548"]
+Now recall that I only argue for requiring linearizations when replacing existing txs using RBF, because it seems to me that this is the only scenario where we are time limited during relay.
+[/quote]
+
+I don't believe that's correct; a better linearization could cause it to avoid eviction, or cause it to be mined faster. Perhaps the issues aren't as severe as with RBF, but they still exist.
+
+[quote="stefanwouldgo, post:1, topic:1548"]
+the attacker can keep me from relaying any RBF tx in this cluster, because I don’t even get to know all the versions I would have to improve upon
+[/quote]
+
+In general we cannot assume a "wallet" knows anything about mempool contents, and that a specific mempool is remotely consistent with another mempool. 
+
+You don't have to "know" all the possible variants, you just have to relay a package with linearization information which ends up dominating in the diagram check.
+
+The trick is finding a fix that isn't "send entire clusters redundantly" and is still useful for the <<0.1% of the time it's actually needed.
+
+-------------------------
+

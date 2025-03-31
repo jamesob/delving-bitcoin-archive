@@ -4,17 +4,17 @@
   "username": "sjors",
   "avatar_template": "/user_avatar/delvingbitcoin.org/sjors/{size}/59_2.png",
   "created_at": "2025-03-31T15:19:12.728Z",
-  "cooked": "<p>I\u2019m still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):</p>\n<ul>\n<li>Period 0: [<span class=\"math\">0</span>, <span class=\"math\">0</span>, <span class=\"math\">0</span>, \u2026, <span class=\"math\">0</span>, <span class=\"math\">0</span>, <span class=\"math\">P</span>].</li>\n<li>Period 1: [<span class=\"math\">P-G</span>, <span class=\"math\">P-G</span>, \u2026, <span class=\"math\">P-G</span>, <span class=\"math\">2P</span>].</li>\n<li>Period 2: [<span class=\"math\">2P-G</span>, \u2026, <span class=\"math\">3P</span>].</li>\n<li>Period 3: [<span class=\"math\">3P-G</span>, \u2026, <span class=\"math\">4P</span>],</li>\n<li>\u2026</li>\n<li>Period <span class=\"math\">k</span>: [<span class=\"math\">kP-G</span>, \u2026, <span class=\"math\">(1+k)P</span>].</li>\n</ul>\n<p>So each period is stretched by <span class=\"math\">G</span>, causing the difficulty to drop every time. For <span class=\"math\">G</span> = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.</p>",
+  "cooked": "<p>I\u2019m still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):</p>\n<ul>\n<li>Period 0: [<span class=\"math\">0</span>, <span class=\"math\">0</span>, <span class=\"math\">0</span>, \u2026, <span class=\"math\">0</span>, <span class=\"math\">0</span>, <span class=\"math\">P</span>].</li>\n<li>Period 1: [<span class=\"math\">P-G</span>, <span class=\"math\">P-G</span>, \u2026, <span class=\"math\">P-G</span>, <span class=\"math\">2P</span>].</li>\n<li>Period 2: [<span class=\"math\">2P-G</span>, \u2026, <span class=\"math\">3P</span>].</li>\n<li>Period 3: [<span class=\"math\">3P-G</span>, \u2026, <span class=\"math\">4P</span>],</li>\n<li>\u2026</li>\n<li>Period <span class=\"math\">k</span>: [<span class=\"math\">kP-G</span>, \u2026, <span class=\"math\">(1+k)P</span>].</li>\n</ul>\n<p>So each period is stretched by <span class=\"math\">G</span>, causing the difficulty to drop every time. For <span class=\"math\">G</span> = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.</p>\n<hr>\n<p>Note that any difficulty decrease accumulation can be reset by an honest miner finding the last block of any retarget period.</p>",
   "post_number": 37,
   "post_type": 1,
-  "updated_at": "2025-03-31T15:19:12.728Z",
+  "updated_at": "2025-03-31T16:19:09.870Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 15.4,
+  "incoming_link_count": 22,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 127.0,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -29,7 +29,7 @@
   "flair_color": null,
   "flair_group_id": null,
   "badges_granted": [],
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -37,8 +37,13 @@
   "can_wiki": false,
   "user_title": null,
   "bookmarked": false,
-  "raw": "I'm still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):\n\n* Period 0: [$0$, $0$, $0$, ..., $0$, $0$, $P$].\n* Period 1: [$P-G$, $P-G$, ..., $P-G$, $2P$].\n* Period 2: [$2P-G$, ..., $3P$].\n* Period 3: [$3P-G$, ..., $4P$],\n* ...\n* Period $k$: [$kP-G$, ..., $(1+k)P$].\n\nSo each period is stretched by $G$, causing the difficulty to drop every time. For $G$ = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.",
-  "actions_summary": [],
+  "raw": "I'm still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):\n\n* Period 0: [$0$, $0$, $0$, ..., $0$, $0$, $P$].\n* Period 1: [$P-G$, $P-G$, ..., $P-G$, $2P$].\n* Period 2: [$2P-G$, ..., $3P$].\n* Period 3: [$3P-G$, ..., $4P$],\n* ...\n* Period $k$: [$kP-G$, ..., $(1+k)P$].\n\nSo each period is stretched by $G$, causing the difficulty to drop every time. For $G$ = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.\n\n---\n\nNote that any difficulty decrease accumulation can be reset by an honest miner finding the last block of any retarget period.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
