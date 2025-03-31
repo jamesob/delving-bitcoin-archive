@@ -1,6 +1,6 @@
 # Overflow handling in Script
 
-Chris_Stewart_5 | 2025-03-31 15:35:30 UTC | #1
+Chris_Stewart_5 | 2025-03-31 15:40:38 UTC | #1
 
 # Overflow handling in Script
 
@@ -64,7 +64,7 @@ https://github.com/bitcoin/bitcoin/blob/770d39a37652d40885533fecce37e9f71cc0d051
 Here is the design space as I see it, please comment below if I've missed any designs that have been deployed
 
 ### Elements project
-[In 2022](https://github.com/ElementsProject/elements/blob/master/doc/tapscript_opcodes.md#new-opcodes-for-additional-functionality) the Elements project introduced a new set of opcodes to handle the case of overflowing numbers in Script. This upgrade also added 64 bits of precision, 64 bit specific opcodes, and a new encoding format -- all of which we will ignore for the purposes of this post. 
+[In 2022](https://github.com/ElementsProject/elements/blob/811d8359600477b38088d12f7a686291fdad211f/doc/tapscript_opcodes.md#new-opcodes-for-additional-functionality) the Elements project introduced a new set of opcodes to handle the case of overflowing numbers in Script. This upgrade also added 64 bits of precision, 64 bit specific opcodes, and a new encoding format -- all of which we will ignore for the purposes of this post. 
 
 This soft fork introduces _overflow handling_ when arithmetic computations are performed with the new 64 bit opcodes in elements.
 
