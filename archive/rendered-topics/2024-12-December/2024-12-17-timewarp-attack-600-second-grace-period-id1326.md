@@ -680,3 +680,9 @@ And beyond that, indeed, this allows miners to reduce the difficulty while keepi
 
 -------------------------
 
+AntoineP | 2025-04-01 15:02:02 UTC | #39
+
+What Pieter said. As soon as you have a restriction on the timestamp of the first block in a period, miners can only "carry over" a fixed block rate increase. There is no compounding.
+
+-------------------------
+
