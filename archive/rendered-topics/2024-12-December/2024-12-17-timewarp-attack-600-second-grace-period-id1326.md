@@ -721,3 +721,13 @@ As an attacker you have a certain hashrate, so you will find blocks sometimes fa
 
 -------------------------
 
+sjors | 2025-04-01 16:43:34 UTC | #43
+
+Ah, it seems I was confused indeed.
+
+What I had in mind is that block timestamps would gradually drift further into the *past*, because blocks are coming in faster. So the attacker won't use the real timestamp, won't wait and doesn't mine in secret.
+
+But actually when blocks come in fast $kP]$ is in the _future_. So my scheme runs into the rule that blocks can't be more than 2 hours from the future.
+
+-------------------------
+
