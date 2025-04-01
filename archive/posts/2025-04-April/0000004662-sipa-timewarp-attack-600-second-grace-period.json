@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": "Right. Exactly setting the timestamps isn't something a computationally-bounded miner can do because it is still a Poisson process.\n\nIf you try to adapt [Sjors' scheme](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/37) to a real algorithm for deciding timestamps, I think you exactly get the scheme I posted [above](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32). And we simulated that: it has no compounding effect because the attackers' block production rate is affected by the difficulty adjustment they caused, providing negative feedback. But, again, even if there was a compounding effect it would not be a concern, as mentioned above, because it's at worst equivalent to attackers just choosing to reduce their hashrate.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
