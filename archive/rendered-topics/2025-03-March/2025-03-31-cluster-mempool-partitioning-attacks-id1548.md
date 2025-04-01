@@ -44,13 +44,13 @@ The trick is finding a fix that isn't "send entire clusters redundantly" and is 
 
 -------------------------
 
-sipa | 2025-03-31 22:28:45 UTC | #3
+sipa | 2025-04-01 01:34:34 UTC | #3
 
 [quote="stefanwouldgo, post:1, topic:1548"]
 it seems to me that this is the only scenario where we are time limited during relay. Please let me know if that’s a false assumption!
 [/quote]
 
-There is another one: after processing a block, we need to relinearize all clusters affected by it (by including transactions from it, or by having included transactions that conflict with it). And in that setting, we obviously can't require linearization information for the clusters - we must accept valid blocks. It's even more complicated when there is a reorg involved, as the re-added transactions (those that were in disconnected blocks, and are being moved back to mempool) may cause us to temporarily violate cluster count/size limits. Fixing that is, due to the amount of transactions involved, even more of a best-effort thing compared to transaction relay.
+There is another one: after processing a block, we need to relinearize all clusters affected by it (by having includes mempool transactions or by having included transactions that conflict with it). And in that setting, we obviously can't require linearization information for the clusters - we must accept valid blocks. It's even more complicated when there is a reorg involved, as the re-added transactions (those that were in disconnected blocks, and are being moved back to mempool) may cause us to temporarily violate cluster count/size limits. Fixing that is, due to the amount of transactions involved, even more of a best-effort thing compared to transaction relay.
 [quote="stefanwouldgo, post:1, topic:1548"]
 the rule that RBF requires strictly improving the diagram means that the attacker can keep me from relaying any RBF tx in this cluster, because I don’t even get to know all the versions I would have to improve upon.
 [/quote]
