@@ -4,10 +4,10 @@
   "username": "sipa",
   "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2025-04-01T14:54:07.973Z",
-  "cooked": "<p>That\u2019s fair, I think this may work, but even if it does, I don\u2019t believe this is a problem.</p>\n<p>Given that the end-of-window time (which is bounded by the current time) goes up by <span class=\"math\">P</span> per block, it means the real-time block production rate in your scheme is exactly <span class=\"math\">P</span> per window, exactly the intended rate. So, from the perspective of validating nodes, there is no resource consumption attack.</p>\n<p>And beyond that, indeed, this allows miners to reduce the difficulty while keeping the block rate constant. But a colluding group of miners is always able to do that: they can just agree to all reduce their hashrate. All that achieves is making it easier/cheaper for a competing miner who doesn\u2019t follow the scheme to take over.</p>",
+  "cooked": "<p>That\u2019s fair, I think this may work, but even if it does, I don\u2019t believe this is a problem.</p>\n<p>Given that the end-of-window time (which is bounded by the current time) goes up by <span class=\"math\">P</span> per block, it means the real-time block production rate in your scheme is exactly <span class=\"math\">P</span> per window, exactly the intended rate. So, from the perspective of validating nodes, there is no resource consumption attack.</p>\n<p>And beyond that, indeed, this allows miners to reduce the difficulty while keeping the block rate constant. But a colluding group of miners is always able to do that: they can just <strong>agree to all reduce their hashrate</strong>, for any difficulty reduction they\u2019d like. But, all that achieves is making it easier/cheaper for a competing miner who doesn\u2019t follow the scheme to take over.</p>",
   "post_number": 38,
   "post_type": 1,
-  "updated_at": "2025-04-01T14:55:22.053Z",
+  "updated_at": "2025-04-01T15:12:06.955Z",
   "reply_count": 0,
   "reply_to_post_number": 37,
   "quote_count": 0,
@@ -29,7 +29,7 @@
   "flair_color": null,
   "flair_group_id": null,
   "badges_granted": [],
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -42,7 +42,7 @@
     "avatar_template": "/user_avatar/delvingbitcoin.org/sjors/{size}/59_2.png"
   },
   "bookmarked": false,
-  "raw": "That's fair, I think this may work, but even if it does, I don't believe this is a problem.\n\nGiven that the end-of-window time (which is bounded by the current time) goes up by $P$ per block, it means the real-time block production rate in your scheme is exactly $P$ per window, exactly the intended rate. So, from the perspective of validating nodes, there is no resource consumption attack.\n\nAnd beyond that, indeed, this allows miners to reduce the difficulty while keeping the block rate constant. But a colluding group of miners is always able to do that: they can just agree to all reduce their hashrate. All that achieves is making it easier/cheaper for a competing miner who doesn't follow the scheme to take over.",
+  "raw": "That's fair, I think this may work, but even if it does, I don't believe this is a problem.\n\nGiven that the end-of-window time (which is bounded by the current time) goes up by $P$ per block, it means the real-time block production rate in your scheme is exactly $P$ per window, exactly the intended rate. So, from the perspective of validating nodes, there is no resource consumption attack.\n\nAnd beyond that, indeed, this allows miners to reduce the difficulty while keeping the block rate constant. But a colluding group of miners is always able to do that: they can just **agree to all reduce their hashrate**, for any difficulty reduction they'd like. But, all that achieves is making it easier/cheaper for a competing miner who doesn't follow the scheme to take over.",
   "actions_summary": [
     {
       "id": 2,
