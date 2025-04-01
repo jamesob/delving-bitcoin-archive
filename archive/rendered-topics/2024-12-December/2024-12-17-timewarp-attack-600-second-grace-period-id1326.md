@@ -694,9 +694,19 @@ If you try to adapt [Sjors' scheme](https://delvingbitcoin.org/t/timewarp-attack
 
 -------------------------
 
-Jonny1000 | 2025-04-01 15:48:38 UTC | #41
+Jonny1000 | 2025-04-01 15:49:35 UTC | #41
 
-(post deleted by author)
+Thanks Antoine and Pieter
+
+I am just trying to wrap my head around why the 0.6% cannot compound.
+
+If miners conduct the timewarp attack, then in epoch 2 they manipulate the difficulty down 0.6%
+
+Then in epoch 3, since the difficulty is lower (But the hashrate is the same), the miners are expected to produce 0.6% more blocks. Then they use the fake timestamp trick again, shifting the difficulty down 0.6%, but that only offsets the impact of the 0.6% more blocks. So with this 2 hour rule, miners can only achieve a **one-off** 0.6% downward shift?
+
+Am I thinking about that correctly?
+
+Miners could of course just produce fewer blocks and keep shifting the difficulty downwards, but then that isnt really an attack with fake timestamps, that is just mining less
 
 -------------------------
 
