@@ -694,9 +694,9 @@ If you try to adapt [Sjors' scheme](https://delvingbitcoin.org/t/timewarp-attack
 
 -------------------------
 
-Jonny1000 | 2025-04-01 15:34:25 UTC | #41
+Jonny1000 | 2025-04-01 15:40:22 UTC | #41
 
-Thanks Antoine
+Thanks Antoine and Pieter
 
 I am just trying to wrap my head around why the 0.6% cannot compound.
 
