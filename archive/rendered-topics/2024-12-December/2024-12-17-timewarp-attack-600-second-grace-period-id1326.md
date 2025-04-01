@@ -670,3 +670,13 @@ Note that any difficulty decrease accumulation can be reset by an honest miner f
 
 -------------------------
 
+sipa | 2025-04-01 14:55:22 UTC | #38
+
+That's fair, I think this may work, but even if it does, I don't believe this is a problem.
+
+Given that the end-of-window time (which is bounded by the current time) goes up by $P$ per block, it means the real-time block production rate in your scheme is exactly $P$ per window, exactly the intended rate. So, from the perspective of validating nodes, there is no resource consumption attack.
+
+And beyond that, indeed, this allows miners to reduce the difficulty while keeping the block rate constant. But a colluding group of miners is always able to do that: they can just agree to all reduce their hashrate. All that achieves is making it easier/cheaper for a competing miner who doesn't follow the scheme to take over.
+
+-------------------------
+
