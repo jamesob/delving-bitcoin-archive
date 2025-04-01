@@ -44,3 +44,28 @@ The trick is finding a fix that isn't "send entire clusters redundantly" and is 
 
 -------------------------
 
+sipa | 2025-03-31 22:28:45 UTC | #3
+
+[quote="stefanwouldgo, post:1, topic:1548"]
+it seems to me that this is the only scenario where we are time limited during relay. Please let me know if that’s a false assumption!
+[/quote]
+
+There is another one: after processing a block, we need to relinearize all clusters affected by it (by including transactions from it, or by having included transactions that conflict with it). And in that setting, we obviously can't require linearization information for the clusters - we must accept valid blocks. It's even more complicated when there is a reorg involved, as the re-added transactions (those that were in disconnected blocks, and are being moved back to mempool) may cause us to temporarily violate cluster count/size limits. Fixing that is, due to the amount of transactions involved, even more of a best-effort thing compared to transaction relay.
+[quote="stefanwouldgo, post:1, topic:1548"]
+the rule that RBF requires strictly improving the diagram means that the attacker can keep me from relaying any RBF tx in this cluster, because I don’t even get to know all the versions I would have to improve upon.
+[/quote]
+
+There are many reasons why transaction relay on the network (today, but also post cluster-mempool) is non-confluent. Even just hearing about the exact same transactions, but in a different order, may result in a different set of actually accepted ones. This is due to several reasons:
+* **DoS protection** not all policy rules boil down to incentive compatibility; there are other ones involving resource limits (e.g. cluster size/count), and ones to prevent free relay (generally, we expect all RBF transactions to pay some marginal fee in addition to normal requirements, which pay for the relay of the transactions they evicted).
+* **Dealing with conflicts** While we have nice theoretical results about the linearization of a single set of transactions having a global and object optimum, this does not hold once replacements are introduced. Once you're considering an optimal choice/order of transaction among a set with dependencies *and* conflicts, it is not a well defined problem what the better one is even, let alone having an algorithm for picking the best one.
+
+However, our general thinking is that this isn't really a problem, because people in practice don't reason about replacement fees. Even today, with the relatively simple (compared to post cluster mempool RBF) BIP125 rules, people just fire and forget: if a transaction doesn't look like it's confirming, retry with a higher fee, repeat. With cluster mempool the process would become a lot more opaque, but for more consistent.
+
+My concern with requiring linearization for relay is however something in addition to problems with general non-confluence of relay. At least with the proposed cluster mempool RBF rules (and nodes individually computing near-optimal cluster linearizations for it), the transaction *will* relay and confirm once its feerate makes it incentive compatible to do. If senders are additionally required to come up with good linearizations themselves, for whatever clusters it may attach to in peers, you're requiring wallets/node to not only decide for themselves, but also for others.
+
+> Is this still the current proposal for RBF in a cluster mempool world?
+
+It's not, but I don't think the change invalidates anything you said here. Here is a writeup for what post-cluster mempool RBF would become (it focuses on package RBF, which is even more complicated, but just imagine the transactions are submitted one by one now): https://delvingbitcoin.org/t/post-clustermempool-package-rbf-per-chunk-processing/190
+
+-------------------------
+
