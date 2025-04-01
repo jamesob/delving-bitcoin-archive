@@ -710,3 +710,14 @@ Miners could of course just produce fewer blocks and keep shifting the difficult
 
 -------------------------
 
+sipa | 2025-04-01 15:55:45 UTC | #42
+
+What practically goes wrong if you try to pull of the scheme exactly as described by Sjors, is the following, I think.
+
+As an attacker you have a certain hashrate, so you will find blocks sometimes faster, sometimes slower. From time to time, you will find a block $2016k$ at time before $(1+k)P$. You can now do two things:
+* Use the real clock time instead, in which case the scheme turns into [this one](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32), where your own block rate is affected by the difficulty reduction, and has no compounding.
+* Wait. Give the block exactly timestamp $(1+k)P$, and when you find it, you just turn off your equipment until the time comes to start looking for the next block. Now the "attack" has literally turned into attackers choosing to reduce their hashrate.
+* Start secretly mining the next block. Give the block exactly timestamp $(1+k)$, and when you find it, just start working on the block after that one. This is actually equivalent to just waiting, because due to the difficulty adjustment, if you'd mine the entire time you'd find blocks at a higher that the scheme allows, so you *have to* slow down.
+
+-------------------------
+
