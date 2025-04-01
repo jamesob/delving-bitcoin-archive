@@ -686,11 +686,11 @@ What Pieter said. As soon as you have a restriction on the timestamp of the firs
 
 -------------------------
 
-sipa | 2025-04-01 15:11:12 UTC | #40
+sipa | 2025-04-01 15:16:54 UTC | #40
 
 Right. Exactly setting the timestamps isn't something a computationally-bounded miner can do because it is still a Poisson process.
 
-If you try to adapt [Sjors' scheme](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/37) to a real algorithm for deciding timestamps, I think you exactly get the scheme I posted [above](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32). And we simulated that; it has no compounding effect (but, even if it did, I don't think that would be a concern, as mentioned above).
+If you try to adapt [Sjors' scheme](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/37) to a real algorithm for deciding timestamps, I think you exactly get the scheme I posted [above](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32). And we simulated that: it has no compounding effect because the attackers' block production rate is affected by the difficulty adjustment they caused, providing negative feedback. But, again, even if there was a compounding effect it would not be a concern, as mentioned above, because it's at worst equivalent to attackers just choosing to reduce their hashrate.
 
 -------------------------
 
