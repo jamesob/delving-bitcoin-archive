@@ -1,6 +1,6 @@
 # Signet faucet using 25-long-tx-chain & RBF
 
-jsarenik | 2025-04-01 09:14:18 UTC | #1
+jsarenik | 2025-04-02 05:25:48 UTC | #1
 
 The same Signet faucet is now available at
 
@@ -8,7 +8,7 @@ The same Signet faucet is now available at
 * https://signetfaucet.bublina.eu.org
 * https://signet25.bublina.eu.org
 
-Its git repository resides at https://github.com/jsarenik/bitcoin-faucet-shell since Nov 2021 but the recent 25-long-tx-chain and RBF features were implemented in the beginning of 2025.
+Its git repository resides at https://github.com/jsarenik/bitcoin-faucet-shell since Nov 2021 but the recent 25-long-tx-chain and RBF features were implemented in the beginning of 2025 along with Cloudflare Turnstile which significantly impoved humanness of the faucet.
 
 The faucet pays just the minimal increment of sats (`vsize`) for its fee to replace the previous transaction whenever possible or matches fee-rate when adding minimal increment is not enough. It even [shows on mempool.space](https://mempool.space/signet/address/tb1p4tp4l6glyr2gs94neqcpr5gha7344nfyznfkc8szkreflscsdkgqsdent4) like if the new sat/vB fee-rate was the same as in the just-replaced transaction.
 
