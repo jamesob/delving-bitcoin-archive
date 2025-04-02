@@ -44,3 +44,16 @@ Thank you for your time! Looking forward to hearing the community's thoughts and
 
 -------------------------
 
+harding | 2025-04-02 08:05:02 UTC | #2
+
+I found this post a bit confusing because it seems to be proposing two orthogonal things:
+
+1. A signer satisfying existing script conditions but adding new conditions that must be satisfied by other signers
+2. Additional introspection
+
+For point 1 (adding conditions), I think you get that with pretty much any delegation feature (e.g., OP_CSFS, graftroot/g'root, BitVM-style Script-based Lamport sigs).  I don't think there's any benefit in those cases to putting the additional script operations in the annex rather than on the regular witness stack.
+
+For point 2 (additional introspection opcodes), this is heavily discussed.  The novelty in your proposal is potentially only allowing certain types of introspection during delegation rather than original script creation.  Do you have any examples of how that might be useful?  (I don't understand your example about "permanently encumber[ing] the resulting outputs".)
+
+-------------------------
+
