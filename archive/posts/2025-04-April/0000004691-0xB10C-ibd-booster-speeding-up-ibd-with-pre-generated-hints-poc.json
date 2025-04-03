@@ -11,10 +11,10 @@
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0,
+  "incoming_link_count": 1,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 52.2,
   "yours": false,
   "topic_id": 1562,
   "topic_slug": "ibd-booster-speeding-up-ibd-with-pre-generated-hints-poc",
@@ -38,7 +38,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"RubenSomsen, post:2, topic:1562\"]\nAnd one point of lesser importance, but it\u2019s simple to implement so why not: you can encode the bit hints as the number of 0\u2019s before each 1. So 00010000011001 would be encoded as 3,5,0,2. There is more you can do, but this should already save a ton of space.\n[/quote]\n\nI remember thinking about this when first hearing about IBD booster / SwiftSync and just had a quick and dirty look at using delta / differential encoding together with CompactSize and VarInt's in this [notebook](https://gist.github.com/0xB10C/01900837f92e48da4800e57152ef2a1d). This seems to half the size of the uncompressed data. Though, as the hints will likely be distributed compressed and the `xz` compressed data is about the same size for all combinations, I'm not sure if it's worth to differentially encode it. \n\n| filename                          | size (bytes)      |\n|-----------------------------------|------------|\n| booster850900.bin                 | 364964716  |\n| differential_compact_size.bin     | 188209875  |\n| differential_varint.bin           | 190098381  |\n|            |   |\n|            |   |\n|            |   |\n| booster850900.bin.xz              | 87882052   |\n| differential_compact_size.bin.xz  | 81697540   |\n| differential_varint.bin.xz        | 81321492   |\n\nNote that most of the median deltas are below 253 and encodable with a 1 byte CompactSize: \n![image|570x432](upload://xdCGxjytrHxfH80WKhEO2vTZVq5.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

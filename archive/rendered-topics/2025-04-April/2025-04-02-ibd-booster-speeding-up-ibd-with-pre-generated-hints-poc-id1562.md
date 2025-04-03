@@ -192,3 +192,39 @@ Note that most of the median deltas are below 253 and encodable with a 1 byte Co
 
 -------------------------
 
+jamesob | 2025-04-03 12:55:03 UTC | #5
+
+Very cool work.
+
+I don't mean to be discouraging, but isn't this more or less what we spent a bunch of time on assumeutxo to accomplish? 
+
+IBD booster requires (as far as I can tell) essentially trusted metadata -- the hints -- that were produced using some other, already synced node. It also requires modifications to very sensitive parts of the validation code in order to make use of the hints.
+
+Assumeutxo snapshots, on the other hand, aren't trusted in the same way that hints seem to be given that the snapshots are committed to with hashes in the source code.
+
+IBD booster provides a ~2.24x speedup -- which again is very cool -- but assumeutxo provides a higher order of speedup (sync in an hour or two) given that we're truncating the IBD process to the history between the snapshot base and the current network tip.
+
+---
+
+This is very interesting research, and I don't mean to discourage. But I'm just wondering if it isn't worth instead investing more effort to "deliver" assumeutxo in terms of making it usable with the GUI etc. rather than inventing and implementing yet another way to produce exogenous metadata, distribute it safely, and use it to speed up IBD.
+
+-------------------------
+
+RubenSomsen | 2025-04-03 14:39:09 UTC | #6
+
+>Assumeutxo snapshots, on the other hand, aren’t trusted in the same way that hints seem to be given that the snapshots are committed to with hashes in the source code.
+
+The exact same can apply to the hints - they could equally be committed in the source code. 
+
+Also note that unlike assumvalid/assumeutxo the hints cannot affect consensus since validation will fail if the hints aren't correct rather than ending up on the wrong chain. This makes it much more conceivable to get them from a trusted third party and use them to validate all the way up to the tip (the worst they can do is waste your time).
+
+>isn’t this more or less what we spent a bunch of time on assumeutxo to accomplish
+
+It's actually completely orthogonal.
+
+Today your options are to start with assumeutxo or not, and then to either use assumevalid or not for (background) validation. SwiftSync speeds up the latter, regardless of whether you utilize assumeutxo or not.
+
+In fact, assumeutxo and SwiftSync synergize quite nicely in some ways. SwiftSync makes background validation near-stateless, meaning you wouldn't have to manage two full chainstates when you're simultaneously validating at the tip. And if you use SwiftSync (specifically the non-assumevalid version) with assumeutxo then you don't even need the hints anymore. You can just add every output (spent or unspent) to the hash aggregate and subtract the UTXO set from it (i.e. all outputs - inputs - UTXO set == 0).
+
+-------------------------
+
