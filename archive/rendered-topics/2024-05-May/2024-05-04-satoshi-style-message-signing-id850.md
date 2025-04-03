@@ -67,3 +67,9 @@ Mystery solved 😊
 
 -------------------------
 
+jsarenik | 2025-04-03 04:41:01 UTC | #5
+
+It is also used in [Blockstream's puzzle](https://blockstream.com/puzzle/) where they call it "old Bitcoin Armory style". Thank you all! I really appreciate this!
+
+-------------------------
+

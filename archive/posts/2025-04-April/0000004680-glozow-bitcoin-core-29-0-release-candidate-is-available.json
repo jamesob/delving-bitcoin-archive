@@ -12,9 +12,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 32.6,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 48.0,
   "yours": false,
   "topic_id": 1536,
   "topic_slug": "bitcoin-core-29-0-release-candidate-is-available",
@@ -41,7 +41,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -60,9 +60,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
