@@ -167,3 +167,28 @@ Fine work otherwise.
 
 -------------------------
 
+0xB10C | 2025-04-03 10:58:20 UTC | #4
+
+[quote="RubenSomsen, post:2, topic:1562"]
+And one point of lesser importance, but it’s simple to implement so why not: you can encode the bit hints as the number of 0’s before each 1. So 00010000011001 would be encoded as 3,5,0,2. There is more you can do, but this should already save a ton of space.
+[/quote]
+
+I remember thinking about this when first hearing about IBD booster / SwiftSync and just had a quick and dirty look at using delta / differential encoding together with CompactSize and VarInt's in this [notebook](https://gist.github.com/0xB10C/01900837f92e48da4800e57152ef2a1d). This seems to half the size of the uncompressed data. Though, as the hints will likely be distributed compressed and the `xz` compressed data is about the same size for all combinations, I'm not sure if it's worth to differentially encode it. 
+
+| filename                          | size (bytes)      |
+|-----------------------------------|------------|
+| booster850900.bin                 | 364964716  |
+| differential_compact_size.bin     | 188209875  |
+| differential_varint.bin           | 190098381  |
+|            |   |
+|            |   |
+|            |   |
+| booster850900.bin.xz              | 87882052   |
+| differential_compact_size.bin.xz  | 81697540   |
+| differential_varint.bin.xz        | 81321492   |
+
+Note that most of the median deltas are below 253 and encodable with a 1 byte CompactSize: 
+![image|570x432](upload://xdCGxjytrHxfH80WKhEO2vTZVq5.png)
+
+-------------------------
+
