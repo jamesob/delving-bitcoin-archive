@@ -43,7 +43,12 @@
   },
   "bookmarked": false,
   "raw": ">Assumeutxo snapshots, on the other hand, aren\u2019t trusted in the same way that hints seem to be given that the snapshots are committed to with hashes in the source code.\n\nThe exact same can apply to the hints - they could equally be committed in the source code. \n\nAlso note that unlike assumvalid/assumeutxo the hints cannot affect consensus since validation will fail if the hints aren't correct rather than ending up on the wrong chain. This makes it much more conceivable to get them from a trusted third party and use them to validate all the way up to the tip (the worst they can do is waste your time).\n\n>isn\u2019t this more or less what we spent a bunch of time on assumeutxo to accomplish\n\nIt's actually completely orthogonal.\n\nToday your options are to start with assumeutxo or not, and then to either use assumevalid or not for (background) validation. SwiftSync speeds up the latter, regardless of whether you utilize assumeutxo or not.\n\nIn fact, assumeutxo and SwiftSync synergize quite nicely in some ways. SwiftSync makes background validation near-stateless, meaning you wouldn't have to manage two full chainstates when you're simultaneously validating at the tip. And if you use SwiftSync (specifically the non-assumevalid version) with assumeutxo then you don't even need the hints anymore. You can just add every output (spent or unspent) to the hash aggregate and subtract the UTXO set from it (i.e. all outputs - inputs - UTXO set == 0).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -55,8 +60,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
