@@ -12,9 +12,9 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 16.6,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 33.0,
   "yours": false,
   "topic_id": 1562,
   "topic_slug": "ibd-booster-speeding-up-ibd-with-pre-generated-hints-poc",
@@ -46,7 +46,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -65,9 +65,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
