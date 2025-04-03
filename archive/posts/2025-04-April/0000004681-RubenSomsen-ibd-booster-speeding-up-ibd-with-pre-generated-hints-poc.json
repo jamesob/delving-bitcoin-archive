@@ -38,7 +38,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "Nice work! Really great to see such a large speedup already on the initial benchmark, especially considering this is without parallel block validation. Btw I now call this \"SwiftSync\" and I've been working on a full write-up. I'll send you the unpublished draft, but I already published an initial overview [here](https://gist.github.com/RubenSomsen/82ccd0f913057e05353b437457f68a11?permalink_comment_id=5510301#gistcomment-5510301) (along with the coredev session notes). I also gave a presentation on it at the recent Amsterdam bitdevs. Slides are [here](https://docs.google.com/presentation/d/1sqZIW3tBubaZRpTHJzgkiW1Vln-aDvrWxJIYI7JIMS8/edit), though I'm not sure how clear they'll be without context.\n\nWithout going too much into detail (I'll leave that for the write-up), here are two important points:\n\nFirst, assumevalid is not actually a prerequisite (though it does make for an easier first PoC). Perhaps that was my fault for emphasizing it too much - you weren't the only one who got that impression. When processing the output you can add all the UTXO set data into the hash instead of just the outpoint. On the input side you'd then have to re-download the UTXOs that are being spent in each block (essentially the undo data, though we should encode it a bit more efficiently... maybe 10% more data) in order to remove it again. This allows you to do full validation without assumevalid (a few more steps are actually needed, but you'll see the details in the draft).\n\nSecond, MuHash is not strictly required. We can use a regular hash function like sha256 and do modular arithmetic, provided we add a salt to prevent birthday attacks. So it'd be `hash(utxo_data_A||salt) + hash(utxo_data_B||salt) - hash(utxo_data_C||salt) - hash(utxo_data_D||salt) == 0` (thus proving `(A==C && B==D) || (A==D && B==C)`). This should be faster than MuHash.\n\nAnd one point of lesser importance, but it's simple to implement so why not: you can encode the bit hints as the number of 0's before each 1. So 00010000011001 would be encoded as 3,5,0,2. There is more you can do, but this should already save a ton of space.\n\nVery exciting!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -50,8 +55,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
