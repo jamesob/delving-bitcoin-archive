@@ -157,3 +157,13 @@ Very exciting!
 
 -------------------------
 
+vostrnad | 2025-04-02 22:46:27 UTC | #3
+
+I've looked at the current hints data format to think about how to best compress it, and I've spotted a flaw. It seems you're storing the output count of each block as a 2-byte sequence, but that only goes up to 65,535. This is more than the current mainnet maximum of 26,908 outputs in a block, but since the smallest possible output only takes up 9 bytes, the theoretical maximum is well over 65,535 (demonstrated e.g. by [this 100 kB transaction with 10,002 outputs](https://mempool.space/tx/3c2284977f93a1395f1b0e06fd3a843c3e8ce2277a0d770781f6655d1aadfe13)).
+
+This could be fixed by using a variable-length encoding for the output count, but do you even need it at all? The order of outputs as they are created is defined just as well without splitting them into blocks. (Also you'd avoid having to pad between blocks for a modest 0.4375 bytes saved per block on average, on top of the savings from removing the output counts.)
+
+Fine work otherwise.
+
+-------------------------
+
