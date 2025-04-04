@@ -7,6 +7,7 @@
   "cooked": "<p>Very cool work.</p>\n<p>I don\u2019t mean to be discouraging, but isn\u2019t this more or less what we spent a bunch of time on assumeutxo to accomplish?</p>\n<p>IBD booster requires (as far as I can tell) essentially trusted metadata \u2013 the hints \u2013 that were produced using some other, already synced node. It also requires modifications to very sensitive parts of the validation code in order to make use of the hints.</p>\n<p>Assumeutxo snapshots, on the other hand, aren\u2019t trusted in the same way that hints seem to be given that the snapshots are committed to with hashes in the source code.</p>\n<p>IBD booster provides a ~2.24x speedup \u2013 which again is very cool \u2013 but assumeutxo provides a higher order of speedup (sync in an hour or two) given that we\u2019re truncating the IBD process to the history between the snapshot base and the current network tip.</p>\n<hr>\n<p>This is very interesting research, and I don\u2019t mean to discourage. But I\u2019m just wondering if it isn\u2019t worth instead investing more effort to \u201cdeliver\u201d assumeutxo in terms of making it usable with the GUI etc. rather than inventing and implementing yet another way to produce exogenous metadata, distribute it safely, and use it to speed up IBD.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2025-04-03T12:55:03.821Z",
   "reply_count": 1,
   "reply_to_post_number": null,
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Very cool work. \nI don\u2019t mean to be discouraging, but isn\u2019t this more or less what we spent a bunch of time on assumeutxo to accomplish? \nIBD booster requires (as far as I can tell) essentially trusted metadata \u2013 the hints \u2013 that were produced using some other, already synced node. It also requires &hellip;",
+  "truncated": true,
+  "post_url": "/t/ibd-booster-speeding-up-ibd-with-pre-generated-hints-poc/1562/5",
   "reactions": [
     {
       "id": "+1",

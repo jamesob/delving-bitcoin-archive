@@ -7,6 +7,7 @@
   "cooked": "<p>I\u2019ve looked at the current hints data format to think about how to best compress it, and I\u2019ve spotted a flaw. It seems you\u2019re storing the output count of each block as a 2-byte sequence, but that only goes up to 65,535. This is more than the current mainnet maximum of 26,908 outputs in a block, but since the smallest possible output only takes up 9 bytes, the theoretical maximum is well over 65,535 (demonstrated e.g. by <a href=\"https://mempool.space/tx/3c2284977f93a1395f1b0e06fd3a843c3e8ce2277a0d770781f6655d1aadfe13\" rel=\"noopener nofollow ugc\">this 100 kB transaction with 10,002 outputs</a>).</p>\n<p>This could be fixed by using a variable-length encoding for the output count, but do you even need it at all? The order of outputs as they are created is defined just as well without splitting them into blocks. (Also you\u2019d avoid having to pad between blocks for a modest 0.4375 bytes saved per block on average, on top of the savings from removing the output counts.)</p>\n<p>Fine work otherwise.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2025-04-02T22:46:27.281Z",
   "reply_count": 0,
   "reply_to_post_number": null,
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I\u2019ve looked at the current hints data format to think about how to best compress it, and I\u2019ve spotted a flaw. It seems you\u2019re storing the output count of each block as a 2-byte sequence, but that only goes up to 65,535. This is more than the current mainnet maximum of 26,908 outputs in a block, but &hellip;",
+  "truncated": true,
+  "post_url": "/t/ibd-booster-speeding-up-ibd-with-pre-generated-hints-poc/1562/3",
   "reactions": [
     {
       "id": "+1",
