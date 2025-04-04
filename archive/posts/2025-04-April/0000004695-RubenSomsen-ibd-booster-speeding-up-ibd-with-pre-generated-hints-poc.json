@@ -47,7 +47,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": true,
@@ -68,7 +68,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "thinking",
@@ -77,6 +77,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false
 }
