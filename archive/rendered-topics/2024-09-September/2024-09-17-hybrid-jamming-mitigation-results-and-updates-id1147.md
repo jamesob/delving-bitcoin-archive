@@ -1002,3 +1002,63 @@ Clara (posting on Carla’s behalf while she’s OOO)
 
 -------------------------
 
+Purpletimez2 | 2025-04-05 12:52:46 UTC | #12
+
+[quote="carla, post:7, topic:1147"]
+See here for a full outline of how we ran the attack.
+[/quote]
+
+```
+
+
+
+
+                -----------------           -------------------
+                |               |           |                 |
+                |  target node  |-----------|  peer's target  |
+                |_______________|           |_________________|
+                        |                       /
+                 slow jammed HTLC              /
+                        |                     /
+                -----------------       "hijack" channel
+                |               |           /
+                |  attack node  |----------/
+                |_______________|
+                        |
+                        |
+                ------------------
+                |                |
+                |  largest node  |
+                |________________|
+
+```
+
+HTLCs are flowing from the peer’s target to largest node.
+
+
+Re-reading the description of a sink attack, I think the simplest graph that one can come for the numerical analysis of a sink attack and its mitigation, which is still retaining what is understood as a sink attack. I believe it’s not needed to connect neighbor’s peers, Occam’s razor to follow.
+
+[quote="ClaraShk, post:11, topic:1147"]
+```
+# Calculate reputation delta
+df_filtered['reputation_delta'] = (
+    df_filtered['outgoing_reputation'] - df_filtered['in_flight_risk'] 
+    - df_filtered['htlc_risk'] - df_filtered['incoming_revenue']
+)
+```
+[/quote]
+
+There is at least one easily observable limitation with what this reputation delta formula is aiming to model, as if `in_flight_risk` is equal at the sum of the `outstanding_risk` of each non-endorsed HTLC (i.e with `outstanding_risk = `fees` * ((`cltv_expiry` - `height_added`) * 10 * 60) / `resolution_period` and `htlc_risk` is equal to the sum of the `outstanding_risk` of each non-endorsed HTLC on the channel, there is no guarantee that the `height_added` for a HTLC forward is the same on the outgoing channel.
+
+Block propagation can be observed on the block-relay network, so a jamming attack could profit of the +1 of a block diff in some ways.
+
+This is also a good question if heuristically the `htlc_risk` shouldn’t be put as a *positive credit* to the outgoing reputation, as yet-to-be settled HTLC might bump or not the `incoming_revenue` of the outgoing chan.
+
+[quote="ClaraShk, post:11, topic:1147"]
+For honest node A to be able to send endorsed payments to `T`, they need to have paid `T` enough in the last 6 months over `A-T` to compensate them for their revenue from `T-B`. So while `T` hasn’t been paid by the attacker, they’ve still been compensated for the damage that abusing that reputation can do.
+[/quote]
+
+I believe the node T, when it's making a decision to forward HTLC on `T-B` should also weight the potential traffic on hypothetical `A’-T` that might be go through `T-B` at the same time than traffic from `A-T`. Intuitively, one could think that the decaying average delta should be dynamically scaled up or scaled down when there is some measured-on-all-incoming-chan congestion.
+
+-------------------------
+
