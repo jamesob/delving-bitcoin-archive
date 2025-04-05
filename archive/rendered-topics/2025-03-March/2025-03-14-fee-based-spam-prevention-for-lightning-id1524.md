@@ -362,3 +362,366 @@ compensated for the delay.
 
 -------------------------
 
+JohnLaw | 2025-04-05 19:42:07 UTC | #5
+
+Hi Dave,
+
+Thanks for pointing out the benefits of time-dependent Hold Fees for not-immediately-settled payments.
+
+Regarding the increase in latency, I agree that the bug fix (which increases the burn funds before it adds the HTLC output) adds one round-trip time (RTT).
+However, I believe this is a 1.67x increase (rather than a 3x increase) as the downstream node has to wait for the revocation of the upstream node's commitment transaction that doesn't include the HTLC output (step 3 in your description of the current protocol and step 5 in your description of the protocol with the bug fix).
+Thus, the latency goes from 1.5 RTTs to 2.5 RTTs.
+
+Fortunately, I think it's possible to eliminate this latency penalty while implementing time-dependent Hold Fees with the bug fix.
+
+The idea is to increase burn funds before adding the HTLC output (as in the high-latency bug fix), but to allow the downstream node to provide signatures for both of these updates consecutively (without a RTT in between).
+
+If the downstream node committed to the increase burn funds (by revoking their previous commitment transaction) *during* the grace period, the upstream node can commit to the addition of the HTLC output (by revoking all earlier commitment transactions).
+Then the upstream node gives the downstream node a signature for a commitment transaction with the HTLC output.
+At this point, the downstream node is guaranteed to be able to get payment for the HTLC if they get the hash preimage in time, so the downstream node can offer the HTLC in the payment's next channel.
+Note that the overall latency is just 1.5 RTTs.
+
+On the other hand, if the downstream node committed to the increased burn funds *after* the grace period, the upstream node does not have to commit to the addition of the HTLC output.
+Instead, it sends an update_remove_htlc packet to the downstream node, followed by a revocation of only the commitment transaction that precedes the one with increased burn funds.
+As a result, the upstream node still has an unrevoked commitment transaction without the HTLC output that it can put on-chain if needed.
+The downstream node responds with a signature for a new commitment transaction without the increased burn funds or HTLC output and the upstream node revokes all commitment transactions that precede this latest one.
+This flow uses 2.5 RTTs, but it only occurs when there's a failure to propagate the payment within the grace period.
+As a result, the payment fails without having to wait beyond the grace period.
+
+This improved protocol requires the upstream node to have up to 3 current (signed and not revoked) transactions at a time.
+Therefore, the rules for providing pc_points and pc_secrets have to be modified.
+In particular, the current revoke_and_ack packet includes pc_secret_x and pc_point_(x+2) (for an arbitrary value of x).
+To make this new low-latency spam-prevention protocol work, we have to change the revoke_and_ack packet to include pc_secret_x and pc_point_(x+3).
+In addition, the funding_locked packet is changed to include pc_point_1 and pc_point_2 (rather than just pc_point_1).
+
+The detailed protocol is presented below.
+If no one finds any problems with it, I'll update the paper to include it.
+
+Current Protocol
+================
+
+Terminology, Notation and Packet Definitions
+--------------------------------------------
+* Alice is sender
+* Bob is receiver
+* A_i is Alice's commitment transaction using pc_point_i
+* B_j is Bob's commitment transaction using pc_point_j
+* open_channel packet includes pc_point_0
+* accept_channel packet includes pc_point_0
+* funding_locked packet includes pc_point_1
+* revoke_and_ack_x packet includes pc_secret_x and pc_point_(x+2)
+* commitment_signed_x is commitment_signed message providing a signature for the commitment transaction which uses pc_point_x
+* commitment transaction x is:
+  - "signed" if commitment_signed_x has been received, "unsigned" otherwise
+  - "revoked" if revoke_and_ack_x has been received
+  - "current" if it is signed and not revoked
+
+Flow for adding an HTLC
+-----------------------
+* pending on the receiver
+* ... in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the update is pending on the sender
+* ... and in the sender's latest commitment transaction
+* ... and the sender's previous commitment transaction has been revoked
+
+Detailed Protocol
+-----------------
+* a1  update_add_htlc to receiver
+  * HTLC output pending on the receiver
+  * Bob has 1 current commitment transaction
+    - HTLC output is not in Bob's current commitment transaction
+* a2  commitment_signed_j to receiver
+  * ... and the HTLC output is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(j-1) and B_j
+    - HTLC output is not in B_(j-1)
+    - HTLC output is in B_j
+* a3  revoke_and_ack_(j-1) to sender
+  * ... and the receiver's previous commitment transaction has been revoked, and the HTLC output is pending on the sender
+  * Bob has 1 current commitment transaction: B_j
+    - HTLC output is in B_j
+* a4  commitment_signed_i to sender
+  * ... and the HTLC output is in the sender's latest commitment transaction
+  * Alice has 2 current commitment transactions: A_(i-1) and A_i
+    - HTLC output is not in A_(i-1)
+    - HTLC output is in A_i
+* a5  revoke_and_ack_(i-1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked
+  * Alice has 1 current commitment transaction: A_i
+    - HTLC output is in A_i
+
+and eventually:
+
+* a6  update_fulfill_htlc or update_fail_htlc to sender
+  * ... and the HTLC resolution is pending on the sender
+* a7  commitment_signed_x to sender
+  * ... and the HTLC resolution is in the sender's latest commitment transaction
+  * Alice has 2 current commitment transactions: A_(x-1) and A_x
+    - HTLC output is in A_(x-1)
+    - resolved HTLC (without HTLC output) is in A_x
+* a8  revoke_and_ack_(x-1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked, and the HTLC resolution is pending on the receiver
+  * Alice has 1 current commitment transactions: A_x
+    - resolved HTLC (without HTLC output) is in A_x
+a9  commitment_signed_y to receiver
+  * ... and the HTLC resolution is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(y-1) and B_y
+    - HTLC output is in B_(y-1)
+    - resolved HTLC (without HTLC output) is in B_y
+* a10 revoke_and_ack_(y-1) to sender
+  * ... and the receiver's previous commitment transaction has been revoked
+  * Bob has 1 current commitment transactions: B_y
+    - resolved HTLC (without HTLC output) is in B_y
+
+HTLC Propagation Latency
+------------------------
+* receiver can send update_add_htlc in next channel after receiving a5
+* 1.5 RTTs:
+  * a1/a2
+  * a3/a4
+  * a5
+
+
+Spam Prevention Protocol Without Increased Latency
+==================================================
+
+Terminology, Notation and Packet Definitions
+--------------------------------------------
+* Alice is sender
+* Bob is receiver
+* A_i is Alice's commitment transaction using pc_point_i
+* B_j is Bob's commitment transaction using pc_point_j
+* open_channel packet includes pc_point_0
+* accept_channel packet includes pc_point_0
+* funding_locked packet includes pc_point_1 and pc_point_2
+* revoke_and_ack_x packet includes pc_secret_x and pc_point_(x+3)
+* commitment_signed_x is commitment_signed message providing a signature for the commitment transaction which uses pc_point_x
+* commitment transaction x is:
+  - "signed" if commitment_signed_x has been received, "unsigned" otherwise
+  - "revoked" if revoke_and_ack_x has been received
+  - "current" if it is signed and not revoked
+
+Case 1: Receiver commits to increased burn amount *during* grace period
+======================================================================
+
+Flow for adding an HTLC
+-----------------------
+* increased burn amount is pending on the receiver
+* ... and the increased burn amount is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+* ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+* ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+* ... and the sender's earliest current commitment transaction has been revoked
+* ... and the sender's previous commitment transaction has been revoked, and the HTLC output is pending on the receiver
+* ... and the HTLC output is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked
+
+
+Detailed Protocol
+-----------------
+* d1  update_add_htlc to receiver
+  * increased burn amount pending on the receiver
+  * Bob has 1 current commitment transaction
+    - increased burn amount is not in Bob's current commitment transaction
+* d2  commitment_signed_j to receiver
+  * ... and the increased burn amount is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(j-1) and B_j
+    - increased burn amount is not in B_(j-1)
+    - increased burn amount is in B_j
+* d3  revoke_and_ack_(j-1) to sender during grace period
+  * ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+  * Bob has 1 current commitment transaction: B_j
+    - increased burn amount is in B_j
+* d4  commitment_signed_i to sender
+  * ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+  * Alice has 2 current commitment transactions: A_(i-1) and A_i
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i
+* d5  commitment_signed_(i+1) to sender
+  * ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+  * Alice has 3 current commitment transactions: A_(i-1), A_i and A_(i+1)
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* d6  revoke_and_ack_(i-1) to receiver
+  * ... and the sender's earliest current commitment transaction has been revoked
+  * Alice has 2 current commitment transaction: A_i and A_(i+1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* d7  revoke_and_ack_i to receiver
+  * ... and the sender's previous commitment transaction has been revoked, and the HTLC output is pending on the receiver
+  * Alice has 1 current commitment transaction: A_(i+1)
+    - increased burn amount and HTLC output are in A_(i+1)
+* d8  commitment_signed_(j+1) to receiver
+  * ... and the HTLC output is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_j and B_(j+1)
+    - increased burn amount is in B_j, HTLC output is not in B_j
+    - increased burn amount and HTLC output are in B_(j+1)
+* d9  revoke_and_ack_j to sender
+  * ... and the receiver's previous commitment transaction has been revoked
+  * Bob has 1 current commitment transaction: B_(j+1)
+    - increased burn amount and HTLC output are in B_(j+1)
+
+and eventually:
+
+* d10 update_fulfill_htlc or update_fail_htlc to sender
+  * ... and the HTLC resolution is pending on the sender
+* d11 commitment_signed_x to sender
+  * ... and the HTLC resolution is in the sender's latest commitment transaction
+  * Alice has 2 current commitment transactions: A_(x-1) and A_x
+    - increased burn amount and HTLC output are in A_(x-1)
+    - resolved HTLC (without increased burn amount or HTLC output) is in A_x
+* d12 revoke_and_ack_(x-1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked, and the HTLC resolution is pending on the receiver
+  * Alice has 1 current commitment transactions: A_x
+    - resolved HTLC (without increased burn amount or HTLC output) is in A_x
+* d13 commitment_signed_y to receiver
+  * ... and the HTLC resolution is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(y-1) and B_y
+    - increased burn amount and HTLC output are in B_(y-1)
+    - resolved HTLC (without increased burn amount or HTLC output) is in B_y
+* d14 revoke_and_ack_(y-1) to sender
+  * ... and the receiver's previous commitment transaction has been revoked
+  * Bob has 1 current commitment transactions: B_y
+    - resolved HTLC (without increased burn amount or HTLC output) is in B_y
+
+
+HTLC Propagation Latency
+------------------------
+* receiver can send update_add_htlc in next channel after receiving d8
+* 1.5 RTTs:
+  * d1/d2
+  * d3/d4/d5
+  * d6/d7/d8
+
+
+Case 2: Receiver commits to increased burn amount *after* grace period
+=====================================================================
+
+Flow for adding an HTLC
+-----------------------
+* increased burn amount is pending on the receiver
+* ... and the increased burn amount is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+* ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+* ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+* ... and the failed HTLC (without increased burn amount or HTLC output) is pending on the receiver
+* ... and the sender's earliest current commitment transaction has been revoked
+* ... and the failed HTLC (without increased burn amount or HTLC output) is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the failed HTLC (without increased burn amount or HTLC output) is pending on the sender
+* ... and the failed HTLC (without increased burn amount or HTLC output) is in the sender's latest commitment transaction
+* ... and the sender's earliest current commitment transaction has been revoked
+* ... and the sender's previous commitment transaction has been revoked
+
+
+
+Detailed Protocol
+-----------------
+* e1  update_add_htlc to receiver
+  * increased burn amount pending on the receiver
+  * Bob has 1 current commitment transaction
+    - increased burn amount is not in Bob's current commitment transactions
+* e2  commitment_signed_j to receiver
+  * ... and the increased burn amount is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(j-1) and B_j
+    - increased burn amount is not in B_(j-1)
+    - increased burn amount is in B_j
+* e3  revoke_and_ack_(j-1) to sender after grace period
+  * ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+  * Bob has 1 current commitment transaction: B_j
+    - increased burn amount is in B_j
+* e4  commitment_signed_i to sender
+  * ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+  * Alice has 2 current commitment transactions: A_(i-1) and A_i
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i
+* e5  commitment_signed_(i+1) to sender
+  * ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+  * Alice has 3 current commitment transactions: A_(i-1), A_i and A_(i+1)
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* e6  update_remove_htlc to receiver
+  * ... and the failed HTLC (without increased burn amount or HTLC output) is pending on the receiver
+* e7  revoke_and_ack_(i-1) to receiver
+  * ... and the sender's earliest current commitment transaction has been revoked
+  * Alice has 2 current commitment transaction: A_i and A_(i+1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* e8  commitment_signed_(j+1) to receiver
+  * ... and the failed HTLC (without increased burn amount or HTLC output) is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_j and B_(j+1)
+    - increased burn amount is in B_j, HTLC output is not in B_j
+    - failed HTLC (without increased burn amount or HTLC output) is in B_(j+1)
+* e9  revoke_and_ack_j to sender
+  * ... and the receiver's previous commitment transaction has been revoked, and the failed HTLC (without increased burn amount or HTLC output) is pending on the sender
+  * Bob has 1 current commitment transaction: B_(j+1)
+    - failed HTLC (without increased burn amount or HTLC output) is in B_(j+1)
+* e10 commitment_signed_(i+2) to sender
+  * ... and the failed HTLC (without increased burn amount or HTLC output) is in the sender's latest commitment transaction
+  * Alice has 3 current commitment transaction: A_i, A_(i+1) and A_(i+2)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+    - failed HTLC (without increased burn amount or HTLC output) is in A_(i+2)
+* e11 revoke_and_ack_i to receiver
+  * ... and the sender's earliest current commitment transaction has been revoked
+  * Alice has 2 current commitment transactions: A_(i+1) and A_(i+2)
+    - increased burn amount and HTLC output are in A_(i+1)
+    - failed HTLC (without increased burn amount or HTLC output) is in A_(i+2)
+* e12 revoke_and_ack_(i+1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked
+  * Alice has 1 current commitment transaction: A_(i+2)
+    - failed HTLC (without increased burn amount or HTLC output) is in A_(i+2)
+
+
+Allowed Flows For Spam Prevention Protocol With Low Latency
+===========================================================
+
+Terminology and Notation
+------------------------
+* an HTLC is "speculative" at the sender/offerer until the receiver/offeree has been given a signature for their corresponding HTLC output
+* a state is "failed" if it includes an HTLC output for a speculative HTLC which cannot be used because the receiver failed to commit to the increased burn amount during the grace period
+* a failed state will be indicated with an exclamation mark
+
+* Configuration 1: 1 current state (not failed)
+  * x
+
+* Configuration 2: 2 current states (neither failed)
+  * x
+  * x+1
+
+* Configuration 3: 3 current states (none failed)
+  * x
+  * x+1
+  * x+2
+
+* Configuration 4: 3 current states (only last one failed)
+  * x
+  * x+1
+  * x+2!
+
+* Configuration 5: 2 current states (only last one failed)
+  * x
+  * x+1!
+
+* Configuration 6: 3 current states (only second one failed)
+  * x
+  * x+1!
+  * x+2
+
+* Configuration 7: 2 current states (only first one failed)
+  * x!
+  * x+1
+
+Note: One's partner knows exactly which configuration one has, except they can't distinguish 3 from 4.
+
+Allowed Flows:
+-------------
+* State update without adding a speculative HTLC
+  * 1->2->1
+* State update adding a successful speculative HTLC
+  * 1->2->3->2->1
+* State update adding a failed speculative HTLC
+  * 1->2->4->5->6->7->1
+
+-------------------------
+
