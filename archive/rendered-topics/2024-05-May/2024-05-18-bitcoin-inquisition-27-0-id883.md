@@ -21,3 +21,12 @@ This no longer includes relay support for annexdatacarrier (see [PR#22](https://
 
 -------------------------
 
+GaloisField2718 | 2025-04-06 07:12:38 UTC | #2
+
+Hello, 
+
+I have a question: what is exactly Bitcoin inquisition? 
+I’ve seen binana which seems to be some BIPs but I don’t understand the point of Bitcoin inquisition. Seems to have OP_CAT integrated but seems as well to be Bitcoin core.
+
+-------------------------
+

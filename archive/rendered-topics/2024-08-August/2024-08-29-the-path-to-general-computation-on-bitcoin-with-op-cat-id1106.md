@@ -210,3 +210,70 @@ To conclude, in this post we’ve seen that:
 
 -------------------------
 
+Laz1m0v | 2025-04-06 08:26:53 UTC | #2
+
+Hello, 
+Thanks for your work and your post. 
+I have several remarks to your post. 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+2. UTXO model and locking scripts
+[/quote]
+
+First, you remind what is UTXO model and locking, that's cool but doesn't seems useful in this place. I hope most of readers here are aware about this.
+
+[quote="victorkstarkware, post:1, topic:1106"]
+Bitcoin scripts **are not stateful**.
+[/quote]
+This assertion is true but it can be done through Indexers and trackers. You don't specify in your post how a Bitcoin node should evolve to handle such states and how you'll be able to handle those evolutive states in Bitcoin (node). Do node will directly store each states? Do we would need to build covenants trackers into the node? 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+what a “**smart contract**” looks like on Bitcoin.
+[/quote]
+The use of term **covenant** looks especially crafted to avoid the use of "smart contract" (SC) term which is not well defined especially in this case. Will you be able to trigger automatically new transactions with your implementation? I don't think so, and this implies that the "smart contract capabilities" are not fully embraced. We don't have `OP_CALL` on Bitcoin and as with OP_CAT we won't be able to trigger from the protocol level new transactions (or at least it's not discussed in your post). 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+We claim the covenant described above is sufficient to build general smart contracts on Bitcoin.
+[/quote]
+This can't be assumed as long as there is no precise definition of a smart contract in the post and the automatic trigger of a SC is not shown. 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+**Figure 6:** A proof system for computation delegation. The prover computes y=f(x) and convinces the verifier of the correctness of this statement. Crucially, if y≠f(x), the prover couldn’t have convinced the verifier of this fact.
+[/quote]
+You remind what UTXO model is but you don't explain the proof computation in STARK models neither a general definition of STARK which seems more important. 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+Bitcoin smart contract
+[/quote]
+Do you mean the Bitcoin covenant? 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+Battle-tested, trusted with over $1T settled
+[/quote]
+Where does this value come from? 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+7. Using OP_CAT for concatenation and beyond
+[/quote]
+All the previous sections mention SC/convenants but never OP_CAT does it mean that covenants can be done without OP_CAT? 
+ 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+However, it is possible to store the state using other output types, such as **Pay2WitnessScriptHash**.
+[/quote]
+Does it mean that your covenants will be implemented in P2WSH? 
+How exactly the Schnorr trick compensates for the absence of address tweaking? 
+How state tracking would be managed at the node level?
+
+[quote="victorkstarkware, post:1, topic:1106"]
+A [Circle-STARK verifier](https://github.com/Bitcoin-Wildlife-Sanctuary/bitcoin-circle-stark) with a working demo that **verifies a STARK proof of a simple statement (related to Fibonacci numbers) on Bitcoin signet,** which you can track through this [address](https://mempool.space/signet/address/tb1p2jczsavv377s46epv9ry6uydy67fqew0ghdhxtz2xp5f56ghj5wqlexrvn).
+[/quote]
+Where states can be verified? 
+
+[quote="victorkstarkware, post:1, topic:1106"]
+Through this effort, we aim to bring OP_CAT-enabled smart contracts to Bitcoin that are efficient, secure,
+[/quote]
+Please stop mentioning Bitcoin smart contract it's horrible and factually wrong. We have a word for this it's covenants.
+
+-------------------------
+
