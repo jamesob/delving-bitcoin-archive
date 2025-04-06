@@ -1531,3 +1531,48 @@ I‘ve opened a new topic for the discussion on this attack [here](https://delvi
 
 -------------------------
 
+Lagrang3 | 2025-04-05 21:26:50 UTC | #65
+
+I was implementing a proof of concept myself, just to get some understanding of GGT.
+https://github.com/Lagrang3/max-density-closure/blob/e298019aac6b4b7725d68156737aaff20b87968b/examples/maxfeerate-ggt.cpp
+
+I will love to see through your code.
+
+I think there might be a little optimization gain if we consider the fact that the graph
+is bipartite. Nodes have either a non-zero capacity arc with the source or the sink but not both.
+If we classify nodes this way, let's say into set N1 (nodes connected to the source)
+and N2 (nodes connected to the sink) we also realize that we can ignore arcs that go from
+N1 to N1, and N2 to N2, why is that? because for any arc that connects nodes a and b (in N1 for
+instance) that arc either:
+
+case 1, does NOT carry any flow in the final solution, so it can be ignored,
+
+case 2, it DOES carry some flow, but that means that there exist some node c in N2 for which
+a and b have an arc with (by the dependency transitivity) so we might as well deviate that flow
+directly from a to c and not use arc a-b, this can be done since these arcs have infinite capacity.
+
+Similarly with N2-N2 arcs.
+
+I might be wrong though, but I think it is an interesting idea worth exploring.
+
+-------------------------
+
+sipa | 2025-04-05 23:30:05 UTC | #66
+
+Hmm, I think this works, but it has some caveats:
+* Changes to $\lambda$ during GGT recursion mean that transactions may move from the sink side of the partition to the source side; I believe this violates the condition that only sink-to-node and node-to-source capacities may change. If so, this means the factor $n$ speedup on the worst case disappears.
+* It means that the edges need to be expanded to their transitive closure (if A depends on B, and B depends on C, we need an edge from A to C as well). With complexities like $\mathcal{O}(n^2 \sqrt{m})$, this may be a slight worsening in practice, if we account for the fact that realistic clusters tend to have $m = \mathcal{O}(n)$, but the full transitive closure may well have $m = \mathcal{O}(n^2)$.
+
+I do remember reading about specialized bipartite-graph min-cut algorithms, though...
+
+---
+
+[quote="Lagrang3, post:65, topic:303"]
+I will love to see through your code.
+[/quote]
+
+
+I'll do a writeup soon on the implementation and optimizations I came up with, but I'm still experimenting with a few ideas first (in particular, trying representing the edge data in $n\times n$ matrix form, so bitsets can be used to match things more easily).
+
+-------------------------
+
