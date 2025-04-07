@@ -228,3 +228,26 @@ In fact, assumeutxo and SwiftSync synergize quite nicely in some ways. SwiftSync
 
 -------------------------
 
+theStack | 2025-04-06 23:38:42 UTC | #7
+
+Thanks for the update and the resources, that all sounds very promising! I'll focus on the non-assumevalid version with my reply for now, since I still haven't fully processed the assumevalid one yet.
+
+[quote="RubenSomsen, post:2, topic:1562"]
+Second, MuHash is not strictly required. We can use a regular hash function like sha256 and do modular arithmetic, provided we add a salt to prevent birthday attacks. So it’d be `hash(utxo_data_A||salt) + hash(utxo_data_B||salt) - hash(utxo_data_C||salt) - hash(utxo_data_D||salt) == 0` (thus proving `(A==C && B==D) || (A==D && B==C)`). This should be faster than MuHash.
+[/quote]
+
+Nice idea! As already noted in private, I'm wondering though if only adding a salt is really enough to provide the same security guarantees as MuHash would do? Reducing the modulo field size from 3072 bits to 256 bits and using simple addition instead multiplication as basic operation seem to be quite drastic cuts. This is more "gut-feeling" and far away from a mathematical sound argument, but it feels to me that this was too good to be true if there aren't any significant downsides to this approach. (That said, I hope I'm wrong, and even if there is a reduction in security, it's maybe still good enough for the SwiftSync use-case, since the goals of MuHash and the aggregate hash here are different.)
+
+Since it was relatively easy to do, I adapted the implementation above to take use of that suggestion (by abusing secp256k1 scalars for the aggregate hash type): https://github.com/theStack/bitcoin/tree/ibd_booster_v1_addsub_sha256 (commit https://github.com/theStack/bitcoin/commit/494692ebc57e159c36b0a2042abca59f539ca0c2)
+
+The results are pleasant, with this I'm now already observing a ~5x IBD speed-up compared to the assumevalid run (again, up to block 850900, and using `-reindex-chainstate`), and this is still without any parallel block validation involved:
+
+| | assumevalid only | SwiftSync (MuHash for aggregate hash) | SwiftSync (salted sha256 add/sub for aggregate hash) |
+|--- | --- | --- | ---|
+|time | 2454m37.039s | 1094m31.100s | 464m37.234s |
+|speed-up | - | ~2.24x | ~5.28x |
+
+Doing parallel block validation as next proof-of-concept step would be very nice, but that needs of course much more invasive changes in the codebase.
+
+-------------------------
+
