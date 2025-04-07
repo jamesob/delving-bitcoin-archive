@@ -30,3 +30,9 @@ I’ve seen binana which seems to be some BIPs but I don’t understand the poin
 
 -------------------------
 
+ajtowns | 2025-04-07 17:05:31 UTC | #3
+
+There's a brief introduction on the [github wiki](https://github.com/bitcoin-inquisition/bitcoin/wiki) and longer background in the mailing list archives, here's [the first release](https://gnusha.org/pi/bitcoindev/Y5gCqsCaT0rVKrmX@erisian.com.au/), and [the original idea](https://gnusha.org/pi/bitcoindev/YyQioS3F942wu1HW@erisian.com.au/).
+
+-------------------------
+
