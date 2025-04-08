@@ -111,13 +111,13 @@ A useful metric I think is also to measure the frequency you see of fetches of b
 
 -------------------------
 
-jsarenik | 2025-03-18 11:08:29 UTC | #4
+andrewtoth | 2025-04-08 13:45:17 UTC | #5
 
-I am running three such pruned Bitcoin Core nodes. No space for all the historical blocks here. But two are accessible from outside via IPv4 and all three have the latest chainstate and verify+relay transactions. One is supporting also a pruned Elements Core node running liquidv1
+[quote="virtu, post:1, topic:1490"]
+Spy nodes: Now interestingly, the bulk of inbound peers exchange only around 1MB of traffic with my node, which is too low (using traffic via my outbound connections as baseline) for them to be regular connections. All those nodes do is complete the P2P handshake, and politely reply to ping messages. Other than that, they just suck up our INV messages.
+[/quote]
 
-https://anyone.eu.org
-
-What I find worse than pruned nodes are blocksonly nodes which invalidate the first step in chapter 5 (Network) of Satoshi's whitepaper. But anyway, both pruned and blocksonly are unstoppable now.
+If something like https://github.com/bitcoin/bitcoin/pull/29415 is merged and a majority of nodes start using it, we can disincentivize this behavior.
 
 -------------------------
 

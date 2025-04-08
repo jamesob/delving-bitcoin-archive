@@ -251,3 +251,9 @@ Doing parallel block validation as next proof-of-concept step would be very nice
 
 -------------------------
 
+instagibbs | 2025-04-08 13:43:29 UTC | #8
+
+A key trade-off is that a salt must be kept private for security of the node if hashes are being used.
+
+-------------------------
+

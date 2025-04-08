@@ -378,3 +378,16 @@ I've started implementing this in [2025-03-prefill-compactblocks](https://github
 
 -------------------------
 
+andrewtoth | 2025-04-08 13:50:16 UTC | #25
+
+[quote="0xB10C, post:24, topic:1052"]
+My assumption would be that if we prefill:
+
+* transactions we had to request
+* transactions we took from our extra pool
+[/quote]
+ 
+I'm not sure I understand why we would want to also prefill txs from our extra pool. The logic for extra pool inclusion would be the same for all nodes. So if we consider that our peers would have the same txs in their mempool then logically we would consider that our peers would have the same txs in their extra pool, no?
+
+-------------------------
+
