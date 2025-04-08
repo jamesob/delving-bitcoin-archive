@@ -257,3 +257,23 @@ A key trade-off is that a salt must be kept private for security of the node if 
 
 -------------------------
 
+harding | 2025-04-08 18:54:43 UTC | #9
+
+> A key trade-off is that a salt must be kept private for security of the node if hashes are being used
+
+Obviously the salt should not be publicly exposed, but are you sure it _needs_ to be secret?  If the hints file commits to the chaintip at the end of SwiftSync and the user has a copy of (or commitment to) the hints file when they choose their salt, how can an attacker use knowledge of the salt to create a TXO that negates a previously accumulated TXO?  The chaintip commits to all of the past txids, so they can't be changed (or we have bigger problems!).  The node also won't be using SwiftSync after IBD, so the attacker can't create new TXOs based on learning the salt.  I think that means that even an attacker who knows the salt can't do anything with it.
+
+The exception would be if you started SwiftSync with one hints file and then switched to another (e.g., you upgraded node versions in the middle of IBD).  However, that must be forbidden anyway since a TXO that was previously hinted to be a UTXO might now be a STXO.
+
+-------------------------
+
+instagibbs | 2025-04-08 18:56:35 UTC | #10
+
+[quote="harding, post:9, topic:1562"]
+The node also won’t be using SwiftSync after IBD, so the attacker can’t create new TXOs based on learning the salt.
+[/quote]
+
+You might be right, but imo that's a lot of "probably"s we should think about a bit more robustly.
+
+-------------------------
+

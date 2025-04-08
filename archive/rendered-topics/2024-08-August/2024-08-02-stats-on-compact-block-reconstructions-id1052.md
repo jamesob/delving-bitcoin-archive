@@ -391,3 +391,37 @@ I'm not sure I understand why we would want to also prefill txs from our extra p
 
 -------------------------
 
+0xB10C | 2025-04-08 16:06:52 UTC | #26
+
+Yeah, good question. I don't have data on this yet, but I think it makes sense to look at the extra_pools of nodes and see if they are similar or different. My assumption is that they aren't too similar. 
+
+> So if we consider that our peers would have the same txs in their mempool then logically we would consider that our peers would have the same txs in their extra pool, no?
+
+A few arguments against extra pool similarity are:
+- the extra pool is quite small with only 100 transactions in it by default
+- mempool transactions are relayed with the hope that mempools converge, extra pool transactions are stopped at their first hop and aren't relayed
+- you might have peer that is sending a lot of transactions you'll reject and put into your extra pool, but I might not have a connection to this peer - our extra pools will be quite different
+
+-------------------------
+
+andrewtoth | 2025-04-08 16:43:45 UTC | #27
+
+
+[quote="0xB10C, post:26, topic:1052"]
+the extra pool is quite small with only 100 transactions in it by default
+[/quote]
+
+But our peers will also have the same default.
+
+[quote="0xB10C, post:26, topic:1052"]
+mempool transactions are relayed with the hope that mempools converge, extra pool transactions are stopped at their first hop and aren’t relayed
+[/quote]
+RBF replaced txs are put into the extra pool, and the replacing tx is still relayed. So they should converge. If we are going to search the orphanage anyways, we can stop putting orphans into the extra pool.
+
+[quote="0xB10C, post:26, topic:1052"]
+you might have peer that is sending a lot of transactions you’ll reject and put into your extra pool, but I might not have a connection to this peer - our extra pools will be quite different
+[/quote]
+Would it be likely a miner will mine these rejected txs though? Not sure.
+
+-------------------------
+
