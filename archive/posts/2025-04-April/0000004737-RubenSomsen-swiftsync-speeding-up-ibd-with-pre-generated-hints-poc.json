@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 12,
   "readers_count": 11,
-  "score": 2.2,
+  "score": 17.4,
   "yours": false,
   "topic_id": 1562,
   "topic_slug": "swiftsync-speeding-up-ibd-with-pre-generated-hints-poc",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "I just published the [full SwiftSync write-up](https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd).\n\nIt contains more details about the hash aggregate, and answers the following questions (and more):\n\n- How exactly assumevalid is utilized and what the implications are\n- How we can still check for inflation when we skip the amounts with\nassumevalid\n- How we can validate transaction order while doing everything in parallel\n- How we can perform the BIP30 duplicate output check without the UTXO set\n- How this all relates to assumeutxo\n\nTo my knowledge, every validation check involving the UTXO set is covered,\nbut I'd be curious to hear if anything was overlooked or if you spot any\nother issues.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +59,14 @@
   "excerpt": "I just published the <a href=\"https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd\">full SwiftSync write-up</a>. \nIt contains more details about the hash aggregate, and answers the following questions (and more): \n\nHow exactly assumevalid is utilized and what the implications are\nHow we can still check for inflation when we skip the amounts with\nassumevalid\nHow we &hellip;",
   "truncated": true,
   "post_url": "/t/swiftsync-speeding-up-ibd-with-pre-generated-hints-poc/1562/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
