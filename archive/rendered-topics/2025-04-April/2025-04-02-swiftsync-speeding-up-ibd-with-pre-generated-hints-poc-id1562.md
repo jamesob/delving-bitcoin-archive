@@ -1,8 +1,8 @@
 # SwiftSync -- Speeding up IBD with pre-generated hints (PoC)
 
-theStack | 2025-04-09 10:40:26 UTC | #1
+theStack | 2025-04-09 10:41:39 UTC | #1
 
-(EDIT: The working title for this thread was initially "IBD Booster", but the official name for the proposal is now "SwiftSync", see https://delvingbitcoin.org/t/swiftsync-speeding-up-ibd-with-pre-generated-hints-poc/1562/2?u=thestack and https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd). Sorry for creating this confusion in naming, I should have checked with Ruben before publishing.)
+(EDIT: The working title for this thread was initially "IBD Booster", but the official name for the proposal is now "SwiftSync", see https://delvingbitcoin.org/t/swiftsync-speeding-up-ibd-with-pre-generated-hints-poc/1562/2?u=thestack and https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd. Sorry for creating this confusion in naming, I should have checked with Ruben before publishing.)
 
 A few weeks ago @RubenSomsen proposed to speed up the IBD phase in Bitcoin Core by 
 reducing the chainstate operations with the aid of pre-generated hints. Right now, the main optimization
