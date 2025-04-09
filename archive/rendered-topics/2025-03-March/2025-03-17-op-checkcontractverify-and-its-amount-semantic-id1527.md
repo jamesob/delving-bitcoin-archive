@@ -1,6 +1,6 @@
 # OP_CHECKCONTRACTVERIFY and its amount semantic
 
-salvatoshi | 2025-03-17 12:29:05 UTC | #1
+salvatoshi | 2025-03-31 12:31:52 UTC | #1
 
 I have done some work on formalizing the semantic of `OP_CHECKCONTRACTVERIFY`.  I also wrote the first draft BIP and an implementation in bitcoin-core:
 
@@ -27,7 +27,7 @@ I start with a brief intro on `OP_CHECKCONTRACTVERIFY`, for the sake of making t
 Similarly to taproot, *tweaking* allows to create a commitment to a piece of data inside a public key. Therefore, by using a 'double' tweak, one can easily commit to an additional piece of arbitrary data.
 An equality check of a double tweak with the input's taproot key is therefore enough to 'introspect' the current input's embedded data (if any), and an equality check with an output's taproot public key can force both the program (*naked key* and *taptree*) and the data of the output to be a desired value.
 
-In combination with an opcode that allows to create a *vector commitment* (like `OP_CAT`, `OP_PAIRCOMMIT` or an hypothetical `OP_VECTORCOMMIT` opcode), it is of course possible to commit to multiple pieces of data instead of a single one.
+In combination with an opcode that allows to create a *vector commitment* (like `OP_CAT`, `OP_PAIRCOMMIT` or a hypothetical `OP_VECTORCOMMIT` opcode), it is of course possible to commit to multiple pieces of data instead of a single one.
 
 While certainly not the only way to only way to implement a dynamic commitment inside a Script, this is the best I could come up with, and has some nice properties.
 
@@ -35,7 +35,7 @@ While certainly not the only way to only way to implement a dynamic commitment i
 - Fully compatible with taproot. Keypath spending is still available, and cheap.
 - No additional burden for nodes; state is committed in the UTXO, not explicitly stored.
 - It keeps the *program* (the taptree) logically separated from the *data*.
-- Spending paths that do not require access to the embedded data (if any) do not pay extra witness bytes because of its present.
+- Spending paths that do not require access to the embedded data (if any) do not pay extra witness bytes because of its presence.
 
 **Con:**
 - Only compatible with P2TR.
@@ -48,8 +48,8 @@ It would be rather unusual to care about the output's Script, and then sending 0
 
 Therefore, when checking an output, `OP_CCV` allows a convenient semantic to specify the amount flow in a way that works for most cases. There are three options:
 
-- *default*: assign to the output the entire unassigned amount the current input
-- *deduct*: assign to the output the portion of current input's amount equal to this output's amount (the rest remain unassigned
+- *default*: assign to the output the entire unassigned amount of the current input
+- *deduct*: assign to the output the portion of current input's amount equal to this output's amount (the rest remain unassigned)
 - *ignore*: only check the output's Script but not the amount.
 
 An output can be used with the *default* logic from different inputs, but no output can be used as the target of both a *deduct* check and a *default* check, nor multiple *deduct* checks.
@@ -188,6 +188,25 @@ CCV doesn't put any limitation on the inputs/outputs that it doesn't introspect,
 Or can you use the “deduct” feature to slice off a portion of the OP_CCV amount to use for a fee?
 [/quote]
 The amount you can use for fees is by definition not bound by the covenant restrictions, so I think either exogenous fees or anchors are inherent with any covenant construction.
+
+-------------------------
+
+AntoineP | 2025-04-09 16:06:58 UTC | #6
+
+Hi,
+
+Thanks for the concrete BIP draft and implementation. Something akin to `CCV` strikes me as elegant and potentially useful. However i think we should try to avoid the spillover effect across inputs you are introducing with the amount checks. I know there already exist some spillover effects through `CLTV`, but i think adding more such cases is the wrong direction to go.
+
+I think it's possible to avoid by using an indirection akin to that of `CSV` for instance. The constraint(s) set on output amounts could be enforced as a new field in each input. Say in the annex. The field would specify a list of (constraint type, output index, optional amount) per input. For your use here the constraint types would be either sweep or deduct (equivalent to your *default* and *deduct*). A validator would go through the inputs of the transaction before executing the script (again, similarly to how relative timelocks are implemented). For each constraint in the annex (which may be none, your *ignore* option) it would record how much value must be set in the referenced output. The optional amount field is for the deduct constraint type, the amount to be deducted. Then in your Script you could have an operation which enforces the annex of the spending input has a given set of constraints.
+
+I also think it makes sense to have separately from the `CCV` opcode as it seems like a useful primitive on its own to combine with other functionalities.
+
+I have demonstrated this approach in a branch [here](https://github.com/darosior/bitcoin/tree/2504_hack_poc_annex_amounts) on top of Bitcoin Core v29.0. This is just a quick and dirty PoC, nothing like an actual proposal. But i hope it helps convey the idea. I have implemented the various semantics you describe in your post ("1-to-1", "many-to-1", "send partial amount, and aggregate") as a unit test. You can run it like so (after cloning the repo and checking out the branch):
+```
+cmake -B defbuild
+cmake --build defbuild/ -j20
+./defbuild/bin/test_bitcoin -t txvalidation_tests
+```
 
 -------------------------
 
