@@ -228,9 +228,9 @@ In fact, assumeutxo and SwiftSync synergize quite nicely in some ways. SwiftSync
 
 -------------------------
 
-theStack | 2025-04-06 23:38:42 UTC | #7
+theStack | 2025-04-09 10:29:17 UTC | #7
 
-Thanks for the update and the resources, that all sounds very promising! I'll focus on the non-assumevalid version with my reply for now, since I still haven't fully processed the assumevalid one yet.
+Thanks for the update and the resources, that all sounds very promising! I'll focus on the assumevalid version with my reply for now, since I still haven't fully processed the non-assumevalid one yet.
 
 [quote="RubenSomsen, post:2, topic:1562"]
 Second, MuHash is not strictly required. We can use a regular hash function like sha256 and do modular arithmetic, provided we add a salt to prevent birthday attacks. So it’d be `hash(utxo_data_A||salt) + hash(utxo_data_B||salt) - hash(utxo_data_C||salt) - hash(utxo_data_D||salt) == 0` (thus proving `(A==C && B==D) || (A==D && B==C)`). This should be faster than MuHash.
