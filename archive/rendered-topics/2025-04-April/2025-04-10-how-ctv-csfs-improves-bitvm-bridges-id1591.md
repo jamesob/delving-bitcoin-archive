@@ -63,3 +63,20 @@ I tried to integrate OP_CTV in BitVM2 Bridge based on your idea. And this is the
 
 -------------------------
 
+ekrembal | 2025-04-10 16:09:12 UTC | #5
+
+![bitvm_bridge_opctv|640x500](upload://nHkN9JnYCqgwQrk6JFN0zkvuZuz.jpeg)
+
+Here is a transaction graph that supports efficient collateral usage for operators:  
+- Operators provide signatures for the red arrows at the time of deposit.  
+- Every kickoff must be finalized before the operator sends the **ready-to-reimburse transaction**.  
+- A kickoff can get finalized with either **challenge timeout transaction** or **disprove timeout transaction**.
+- Kickoffs can proceed in parallel, allowing many withdrawals to be processed with a single collateral.  
+- If one of the kickoffs is disproven, all reimbursements stop.
+
+Current Limitations:  
+- A Bitcoin light client is needed to prove the inclusion of the payout transaction and the sidesystem's state.  (We are still working on this, but this also might add trust-minimized assumptions for safety)
+- All operators' signatures need to be published somewhere for data availability, and Bitcoin is not ideal for this due to limited block space.
+
+-------------------------
+
