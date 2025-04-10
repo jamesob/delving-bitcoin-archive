@@ -44,3 +44,22 @@ This trick demonstrates that with a clever use of CTV and CSFS, we can dramatica
 
 -------------------------
 
+Cyimon | 2025-04-10 14:00:19 UTC | #2
+
+(post deleted by author)
+
+-------------------------
+
+Cyimon | 2025-04-10 13:30:31 UTC | #3
+
+(post deleted by author)
+
+-------------------------
+
+Cyimon | 2025-04-10 14:28:23 UTC | #4
+
+![image|689x411](upload://8BdEnPVfhewYeSZ8YaYIS99GlRD.png)
+I tried to integrate OP_CTV in BitVM2 Bridge based on your idea. And this is the graph. Are there any mistakes?
+
+-------------------------
+
