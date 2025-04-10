@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "Hi,\n\nThanks for the concrete BIP draft and implementation. Something akin to `CCV` strikes me as elegant and potentially useful. However i think we should try to avoid the spillover effect across inputs you are introducing with the amount checks. I know there already exist some spillover effects through `CLTV`, but i think adding more such cases is the wrong direction to go.\n\nI think it's possible to avoid by using an indirection akin to that of `CSV` for instance. The constraint(s) set on output amounts could be enforced as a new field in each input. Say in the annex. The field would specify a list of (constraint type, output index, optional amount) per input. For your use here the constraint types would be either sweep or deduct (equivalent to your *default* and *deduct*). A validator would go through the inputs of the transaction before executing the script (again, similarly to how relative timelocks are implemented). For each constraint in the annex (which may be none, your *ignore* option) it would record how much value must be set in the referenced output. The optional amount field is for the deduct constraint type, the amount to be deducted. Then in your Script you could have an operation which enforces the annex of the spending input has a given set of constraints.\n\nI also think it makes sense to have separately from the `CCV` opcode as it seems like a useful primitive on its own to combine with other functionalities.\n\nI have demonstrated this approach in a branch [here](https://github.com/darosior/bitcoin/tree/2504_hack_poc_annex_amounts) on top of Bitcoin Core v29.0. This is just a quick and dirty PoC, nothing like an actual proposal. But i hope it helps convey the idea. I have implemented the various semantics you describe in your post (\"1-to-1\", \"many-to-1\", \"send partial amount, and aggregate\") as a unit test. You can run it like so (after cloning the repo and checking out the branch):\n```\ncmake -B defbuild\ncmake --build defbuild/ -j20\n./defbuild/bin/test_bitcoin -t txvalidation_tests\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "excerpt": "Hi, \nThanks for the concrete BIP draft and implementation. Something akin to CCV strikes me as elegant and potentially useful. However i think we should try to avoid the spillover effect across inputs you are introducing with the amount checks. I know there already exist some spillover effects throu&hellip;",
   "truncated": true,
   "post_url": "/t/op-checkcontractverify-and-its-amount-semantic/1527/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
