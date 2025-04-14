@@ -91,3 +91,13 @@ I'm sorry, I don't understand what you mean here. What are wallets required to d
 
 -------------------------
 
+sipa | 2025-04-14 15:25:44 UTC | #6
+
+[quote="stefanwouldgo, post:5, topic:1548"]
+What are wallets required to decide for others?
+[/quote]
+
+Good linearizations for other's mempools.
+
+-------------------------
+
