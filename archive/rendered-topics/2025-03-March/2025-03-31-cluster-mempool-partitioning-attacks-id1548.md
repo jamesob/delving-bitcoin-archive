@@ -81,3 +81,13 @@ All of this may end up being moot if we can effectively linearize everything opt
 
 -------------------------
 
+stefanwouldgo | 2025-04-14 15:23:02 UTC | #5
+
+[quote="sipa, post:3, topic:1548"]
+If senders are additionally required to come up with good linearizations themselves, for whatever clusters it may attach to in peers, you’re requiring wallets/node to not only decide for themselves, but also for others.
+[/quote]
+
+I'm sorry, I don't understand what you mean here. What are wallets required to decide for others?
+
+-------------------------
+
