@@ -284,3 +284,52 @@ CCV _does_ of course allows you to design UTXOs that can't be spent in the same 
 
 -------------------------
 
+AntoineP | 2025-04-14 15:06:40 UTC | #10
+
+[quote="salvatoshi, post:7, topic:1527"]
+Can you elaborate on why? Validity is necessarily meaningful only at transaction-level. So I don’t know what you mean by “spill-over” - these new validation rules are by definition at transaction-level, the same way that CHECKSIG is.
+[/quote]
+
+Sure, but CHECKSIG is precomputed before the execution of the scripts. In a sense, my suggestion achieves exactly the same for the amount constraints.
+
+[quote="salvatoshi, post:7, topic:1527"]
+On the opposite direction, it might be interesting to attempt a refactoring/simplification of the validation code so that jobs in `ConnectBlock` receive *transactions* to validate, rather than input scripts. That’s where the implementation complexity of any kind of cross-input logic stems from (because of the added synchronization code), and I strongly suspect that input-level parallelism doesn’t bring any measurable improvement in performance.
+[/quote]
+
+I think this is the wrong direction to take. There are a few reasons:
+1. On its face, reducing parallelization (and most likely efficiency as a consequence) to match a proposal seems inappropriate if the same goal can be achieved without reducing parallelization.
+2. Although this is implementation specific, i think breaking a property the implementation was able to rely upon raises questions about whether this property is desirable to keep when designing extensions to the Script language.
+3. Input-level parallelization is key to reducing the validation time for unconfirmed transactions, where a would-be attacker does not have to expend a PoW to incur costs on a node, as well as worst case block validation times which adds up across a block propagation path.
+
+[quote="salvatoshi, post:7, topic:1527"]
+It would of course work, although I do see some downsides, while it’s not too yet clear to me what are the benefits.
+[/quote]
+
+Benefits include not breaking cross-input parallelization, a cleaner implementation and a more composable primitive (separation of concerns).
+
+[quote="salvatoshi, post:7, topic:1527"]
+Therefore, the opcode has to repeat in full the constraint as it appears in the annex, doubling the number of bytes needed to express it.
+[/quote]
+
+I agree the repetition isn't ideal, but i don't see a few weight units more as a major downside. Overall i think it's a good tradeoff to make.
+
+[quote="salvatoshi, post:7, topic:1527"]
+Some care would also need to be taken to make sure that the annex is not malleable (as the input Script could use CCV without any signature).
+[/quote]
+
+If your transaction doesn't have a signature, malleability already goes out the window.
+
+[quote="salvatoshi, post:7, topic:1527"]
+As a side note, I think a solution using the annex would be very similar in implementation complexity to my previous attempt in [this diff](https://github.com/bitcoin-inquisition/bitcoin/compare/4e23c3a9867eedadb9e20387936ec9f0eca6e918...Merkleize:bitcoin:34f05028661932b417b59bdcdd58f4453f19cec5)
+[/quote]
+
+Why "would"? I [demonstrated it](https://github.com/bitcoin/bitcoin/compare/v29.0...darosior:2504_hack_poc_annex_amounts) already, and it's *much* simpler.
+
+[quote="salvatoshi, post:7, topic:1527"]
+based on the *deferred checks framework* from James O’Beirne’s OP_VAULT PR (particularly, [this commit](https://github.com/bitcoin-inquisition/bitcoin/commit/32c9b122d72b3748051c979ce2d46f07a48c44cc)).
+[/quote]
+
+In a sense you could see my suggestion as "preemptive" ("eager"?), rather than "deferred", checks. Existing features, for instance absolute locktimes, could have also been designed to have transaction-level checks be deferred to after executing the inputs scripts. Instead they were designed with transaction-level checks performed beforehand (surely because for those the field already existed in the transaction), and i think it is much cleaner.
+
+-------------------------
+
