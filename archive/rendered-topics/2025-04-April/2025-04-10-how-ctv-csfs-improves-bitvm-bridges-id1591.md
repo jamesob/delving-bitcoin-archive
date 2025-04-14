@@ -44,18 +44,6 @@ This trick demonstrates that with a clever use of CTV and CSFS, we can dramatica
 
 -------------------------
 
-Cyimon | 2025-04-10 14:00:19 UTC | #2
-
-(post deleted by author)
-
--------------------------
-
-Cyimon | 2025-04-10 13:30:31 UTC | #3
-
-(post deleted by author)
-
--------------------------
-
 Cyimon | 2025-04-10 14:28:23 UTC | #4
 
 ![image|689x411](upload://8BdEnPVfhewYeSZ8YaYIS99GlRD.png)
@@ -77,6 +65,22 @@ Here is a transaction graph that supports efficient collateral usage for operato
 Current Limitations:  
 - A Bitcoin light client is needed to prove the inclusion of the payout transaction and the sidesystem's state.  (We are still working on this, but this also might add trust-minimized assumptions for safety)
 - All operators' signatures need to be published somewhere for data availability, and Bitcoin is not ideal for this due to limited block space.
+
+-------------------------
+
+RobinLinus | 2025-04-11 17:37:20 UTC | #6
+
+It seems I can’t edit my post anymore, but there’s an error:
+
+[quote="RobinLinus, post:1, topic:1591"]
+Presign a signature using sighash `SINGLE|NONE`
+[/quote]
+
+It should say:
+
+[quote="RobinLinus, post:1, topic:1591"]
+Presign a signature using sighash `ANYONECANPAY|NONE`
+[/quote]
 
 -------------------------
 

@@ -210,3 +210,77 @@ cmake --build defbuild/ -j20
 
 -------------------------
 
+salvatoshi | 2025-04-12 15:37:45 UTC | #7
+
+[quote="AntoineP, post:6, topic:1527"]
+However i think we should try to avoid the spillover effect across inputs you are introducing with the amount checks. I know there already exist some spillover effects through `CLTV`, but i think adding more such cases is the wrong direction to go.
+[/quote]
+
+Can you elaborate on why?
+Validity is necessarily meaningful only at transaction-level. So I don't know what you mean by "spill-over" - these new validation rules are by definition at transaction-level, the same way that CHECKSIG is.
+
+On the opposite direction, it might be interesting to attempt a refactoring/simplification of the validation code so that jobs in `ConnectBlock` receive _transactions_ to validate, rather than input scripts. That's where the implementation complexity of any kind of cross-input logic stems from (because of the added synchronization code), and I strongly suspect that input-level parallelism doesn't bring any measurable improvement in performance. Of course, this would need to be validated with benchmarks.
+
+
+[quote="AntoineP, post:6, topic:1527"]
+I think it’s possible to avoid by using an indirection akin to that of `CSV` for instance. The constraint(s) set on output amounts could be enforced as a new field in each input. Say in the annex. The field would specify a list of (constraint type, output index, optional amount) per input. For your use here the constraint types would be either sweep or deduct (equivalent to your *default* and *deduct*).
+[/quote]
+
+Thanks for demonstrating the approach. It would of course work, although I do see some downsides, while it's not too yet clear to me what are the benefits.
+
+I think you can remove the optional amount from the constraint (which is not used in CCV, since in the *deduct* mode, the amount must equal exactly the output's amount).
+
+The annex is only enforced by a signature, but signatures already cover output Scripts and amounts.
+So this is only meaningful if the constraints are _also_ enforced in full by the opcode (CCV or any other new opcodes that might want to use this feature). Therefore, the opcode has to repeat in full the constraint as it appears in the annex, doubling the number of bytes needed to express it. That can be reduced to just a couple of bytes per constraint, so maybe that's not too bad for CCV in terms of byte cost.
+
+Some care would also need to be taken to make sure that the annex is not malleable (as the input Script could use CCV without any signature).
+
+As a side note, I think a solution using the annex would be very similar in implementation complexity to my previous attempt in [this diff](https://github.com/bitcoin-inquisition/bitcoin/compare/4e23c3a9867eedadb9e20387936ec9f0eca6e918...Merkleize:bitcoin:34f05028661932b417b59bdcdd58f4453f19cec5), on inquisition, based on the *deferred checks framework* from James O'Beirne's OP_VAULT PR (particularly, [this commit](https://github.com/bitcoin-inquisition/bitcoin/commit/32c9b122d72b3748051c979ce2d46f07a48c44cc)). While that avoids the explicit synchronization, it's quite a bit more complex than the code based on the mutex.
+
+For an implementation based on the annex, I'd expect very similar complexity, as what's accumulated in the deferred checks is isomorphic to what would be in the annex in your approach.
+
+-------------------------
+
+Chris_Stewart_5 | 2025-04-12 20:12:21 UTC | #8
+
+> [quote="salvatoshi, post:7, topic:1527"]  
+> Can you elaborate on why?  
+> [/quote]
+
+I don’t personally agree with this, but the concern stems from the possibility of having *UTXOs with mutually exclusive spend conditions*. Let me walk through an example to illustrate.
+
+It might helpful to revisit [BIP65](https://github.com/bitcoin/bips/blob/8375f71ee64cda848b159fa4a0c3719a48037492/bip-0065.mediawiki) for some background here.
+
+Imagine I have two UTXOs in my wallet:
+
+1. **UTXO A** has an `OP_CLTV` script that uses block height.  
+2. **UTXO B** has an `OP_CLTV` script that uses wall clock time.
+
+These UTXOs cannot be spent together in the same transaction because they both rely on the `nLockTime` field for validation. Since a transaction only has a single `nLockTime`, you can’t satisfy both scripts at the same time. (Note: `OP_CLTV` uses the same kind of "indirect validation" mechanism that `OP_CSV` does.)
+
+This creates an awkward scenario for wallets: how do you convey that these two UTXOs are *mutually exclusive* in terms of spendability?
+
+`OP_CSV` avoids this problem because it uses per-input `nSequence` values, so the same conflict doesn't arise. Each input can specify its own relative locktime.
+
+[quote="salvatoshi, post:7, topic:1527"]
+Validity is necessarily meaningful only at transaction-level.
+[/quote]
+
+I agree with this framing. Transactions are the atomic unit of validation in the Bitcoin network, and we should be able to introspect anything within the transaction.
+
+I don’t think this principle extends to external factors like block time or block height as they aren't directly available in the transaction we are validating. That’s why the indirection used in BIP65/BIP112 is clever: the transaction’s `nLockTime`/`nSequence` values are validated before entering the interpreter, and inside the interpreter, we just read those fields and check them against the stack parameters given to `OP_CLTV`/`OP_CSV`.
+
+However, this indirection *can* result in transactions that are valid in the interpreter (and thus valid under relay policy, I believe) but can never be mined. See this [PR](https://github.com/bitcoin/bitcoin/pull/32229) in Bitcoin Core for examples of `OP_CLTV` transactions that pass relay rules but are unmineable due to [BIP113](https://github.com/bitcoin/bips/blob/8375f71ee64cda848b159fa4a0c3719a48037492/bip-0113.mediawiki)’s `median-time-past` rules.
+
+-------------------------
+
+salvatoshi | 2025-04-13 10:13:16 UTC | #9
+
+Thanks for the explanation. I would consider that a design flaw in CLTV (although there was probably no sane way of repurposing a transaction-level field like nLockTime without such 'bug', other than _not_ using it for both block height and wall time).
+
+I think CCV doesn't have any such pathological situation: the only case when inputs cannot be spent together is when they violate the conditions on the output script or amounts as stipulated in the opcode itself.
+
+CCV _does_ of course allows you to design UTXOs that can't be spent in the same transaction (e.g. a UTXO that requires the first output to be X, together with another UTXO that requires the first output to be Y != X) - but that's explicitly stipulated in the script, and can be avoided (if desired) by writing scripts with more flexible output indexes. (This situation is anyway not related to the cross-input logic)
+
+-------------------------
+

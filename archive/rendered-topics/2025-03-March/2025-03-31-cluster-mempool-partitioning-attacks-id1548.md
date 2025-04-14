@@ -69,3 +69,15 @@ It's not, but I don't think the change invalidates anything you said here. Here 
 
 -------------------------
 
+sipa | 2025-04-14 12:04:34 UTC | #4
+
+Somewhat related, but if we are considering P2P extensions to relay linearization information for clusters (something I'm skeptical about as pointed out above, but ignoring that), there may be another option worth considering.
+
+In the https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419 algorithm, if one knows which dependencies are "active" (which is just $m$ bits, or $n \log_2(2n+1)$ bits with a more advanced encoding), it is possible to decide in $\mathcal{O}(n^2)$ time whether it represents an optimal state. In contrast, deciding whether an existing linearization is optimal is I believe equivalent to computing a single min-cut, so $\mathcal{O}(n^2 \sqrt{m})$ in practice, $\mathcal{O}(nm)$ in theory, in case the existing linearization consists of a single chunk.
+
+A downside is that I don't know how to "combine" these states. For linearizations we have the $\mathcal{O}(n^2)$ [merging algorithm](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) that can take two incomparable suboptimal linearizations, and compute a new linearization that is better than both. In a P2P setting this means it is possible to incorporate good linearization information even if there are mismatches between peers (without guarantees of optimality, of course). I don't know anything similar for the spanning-forest state.
+
+All of this may end up being moot if we can effectively linearize everything optimally in practice, of course...
+
+-------------------------
+

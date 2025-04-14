@@ -123,3 +123,17 @@ It seems to me that CTV doesn't change that situation for Ark.  Either method ca
 
 -------------------------
 
+stevenroose | 2025-04-14 12:24:36 UTC | #9
+
+They are two different considerations here. One is the risk to DoS the round (to the detriment of all other round participants) and the other is liquidity lockup (to the detriment of the server).
+
+You are right that in either case, there is a liquidity lockup issue: an incoming pending payment is no guarantee that the user will eventually reveal the preimage and in that case the server locks up liquidity until the round expires. Mitigations are hard, but could be only servicing users with some record of good behavior (using blinded tokens), but that obviously has a catch-22 issue if you only take LN receive as a reference. Proving ownership of other existing vtxos that can be a solution but also comes with a catch-22. In the end, some servers might just be willing to take the liquidity lockup risk for certain amounts and not for others.
+
+In either case, these are considerations entirely to the server to consider. While the DoS issue in question is about making rounds fail and causing a series of round retries which means that all users have to restart the round.
+
+With CTV, the server can simply issue the HTLC leaf in the new round, while without CTV, the HTLC receiver has to join the round and can refuse to sign and cause a round retry, while the  server has no way to slash the user. As opposed to refreshes where the server can slash the input vtxo for failing to sign.
+
+Totally independent of this post, we have recently come up with new ways to structure Ark to have entirely no more interaction between users in a round, we are polishing up the ideas and preparing a write-up soon.
+
+-------------------------
+

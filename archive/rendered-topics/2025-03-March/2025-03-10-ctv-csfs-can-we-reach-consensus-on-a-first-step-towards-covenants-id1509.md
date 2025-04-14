@@ -663,12 +663,6 @@ My purpose with this thread is to avoid doing an independent activation client w
 
 -------------------------
 
-1440000bytes | 2025-03-13 12:59:26 UTC | #22
-
-(post deleted by author)
-
--------------------------
-
 jamesob | 2025-03-12 19:51:09 UTC | #23
 
 [quote="ajtowns, post:14, topic:1509"]
@@ -1525,6 +1519,35 @@ there’s not much to be done with a “push to stack” variant except equality
 [/quote]
 
 So if you can do equality checks on a template and one can pre-compute the result of equality checks on an outpoint (txid:output_index) and pre-commit them in a *redeemScript*, it’s already an interesting primitive to do adversarial [tx-withholding](https://blog.bitmex.com/txwithhold-smart-contracts/). However, I don’t think this is still a *non-collaborative* utxo oracle, as the templated tx would have been to be built with a valid witness for the probed utxo. So somehow there is an opt-in of the owner of the probed utxo for the spend to be integated in the CTV template. But I’m not sure.
+
+-------------------------
+
+instagibbs | 2025-04-11 14:08:36 UTC | #58
+
+FYI: after discussion a while back, I hacked together very small loc changes that:
+
+1) Makes bare CTV a first class citizen
+2) Converts CTV into a push-onto-stack taproot-only opcode
+
+It's a very small set of changes, does not change the hash digest formula for BIP119 (nor invalidate the unit tests), cheaper to use in conjunction with CSFS for any floating signature scheme.
+
+https://github.com/instagibbs/bitcoin/commit/9b5ae77d97222efc2328c1916f790c7f67cf10b3
+
+edit: I also tried another alternative where bare CTV follows exactly he format today, but only softforks for that OP_NOP template, to reduce the scope of the softforking behavior where we only have to test the single bare CTV case vs additional bare scripts. It was messy and not worth it.
+
+-------------------------
+
+ariard | 2025-04-12 02:51:25 UTC | #59
+
+[quote="instagibbs, post:58, topic:1509"]
+Converts CTV into a push-onto-stack taproot-only opcode
+[/quote]
+
+
+I’m +1 for taproot-only CTV as an op_success for future composability. No opinion on an OP_PUSHTEMPLATE + OP_EQUALVERIFY or OP_CHECKTEMPLATEVERIFY approach.
+
+By the way, I believe there might be some DoS surface that has been not considered in the BIP:
+https://github.com/bitcoin/bitcoin/pull/31989#discussion_r2040517393
 
 -------------------------
 

@@ -1576,3 +1576,9 @@ I'll do a writeup soon on the implementation and optimizations I came up with, b
 
 -------------------------
 
+stefanwouldgo | 2025-04-14 07:23:36 UTC | #67
+
+This is a great observation. I'm not sure how useful it will be since it seems to imply that we'd have to replace each edge within N1 and N2 by an edge between those two sets. [This paper ](https://www.cs.cmu.edu/~jonderry/maxflow.pdf#page28) points to a balancing algorithm for bipartite graphs that is typically faster than GGT, but worse on adversarially chosen instances, which is probably not what we want unless we can require chunkings to be broadcast.
+
+-------------------------
+
