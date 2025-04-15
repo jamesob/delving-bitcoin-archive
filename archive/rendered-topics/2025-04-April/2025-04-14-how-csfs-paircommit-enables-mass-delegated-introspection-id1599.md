@@ -69,3 +69,21 @@ An alternative approach would be to use the annex to commit to an additional scr
 
 -------------------------
 
+redundant | 2025-04-15 12:36:22 UTC | #2
+
+Interesting write-up! One concern: committing to a merkle root with different sighashes in the scriptPubKey seems tricky, since you'd need the inputs to compute the sighash—but the inputs depend on the finalized scriptPubKey. The classic circular dependency issue. 
+
+I'm assuming everything on the stack is from the witness stack, so I can see some interesting possibilities with a MuSig2 `<key>` and presigned transactions. I'll go back and read your bidding problem post—maybe that's the intended use case. If so, even combining the 'Schnorr trick' with MuSig2 keys could lead to some cool results.
+
+-------------------------
+
+stevenroose | 2025-04-15 13:25:40 UTC | #3
+
+Just on PAIRCOMMIT itself. I think until now, people have always thought about using `OP_CAT` for building merkle trees and branches in Script. It's easy to leave vulnerabilities when doing that though, as the 64-byte tx vulnerability that the [Great Consensus Cleanup](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710) fixes has shown.
+
+To do a merkle tree branch check safely with `OP_CAT`, you always have to first check the size of the pushes to avoid byte shifting attacks on the content of the nodes. The script would en up looking something like `OP_TOALTSTACK OP_SIZE <32> OP_EQUALVERIFY OP_2DROP OP_FROMALTSTACK OP_CAT OP_SHA256` for each node in the tree branch. This is 9 bytes instead of the 1-byte `OP_PAIRCOMMIT`. This is a simplification, in practice you'll also need to know which side of the tree you're taking, so another piece will have to be added for that at each level, but this will also have to be added to PAIRCOMMIT.
+
+Not sure if a 9 bytes saving is sufficient motivation for an opcode.
+
+-------------------------
+

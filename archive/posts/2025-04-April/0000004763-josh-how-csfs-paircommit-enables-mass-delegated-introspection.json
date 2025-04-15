@@ -7,15 +7,15 @@
   "cooked": "<p><em>Disclaimer: This post is not an endorsement of any new opcodes. It is simply an exploration of new capabilities that could be enabled.</em></p>\n<h2><a name=\"p-4763-terminology-1\" class=\"anchor\" href=\"#p-4763-terminology-1\"></a>Terminology</h2>\n<p><em>Mass delegated introspection</em> refers to the ability to authorize a wide range of potential transactions (e.g. different coinjoin variants, channel updates, or UTXO purchases) with a single signature, without knowing which will ultimately be executed.</p>\n<h2><a name=\"p-4763-tldr-2\" class=\"anchor\" href=\"#p-4763-tldr-2\"></a>TLDR</h2>\n<p>CSFS+PAIRCOMMIT would make it possible to efficiently commit to many possible sighashes with a single signature, without introducing hash cycles and with the ability to commit to new sighashes on-the-fly.</p>\n<h2><a name=\"p-4763-how-it-works-3\" class=\"anchor\" href=\"#p-4763-how-it-works-3\"></a>How it works</h2>\n<p>I had the opportunity to sit down with <a class=\"mention\" href=\"/u/reardencode\">@reardencode</a> at OP_NEXT and ask him a few questions about CSFS. For context, I\u2019ve been thinking about how to solve <a href=\"https://delvingbitcoin.org/t/post-signature-cross-input-scripting-using-the-taproot-annex/1520/3\">the bidding problem</a>, which refers to the problem of efficiently authorizing many possible bids on different UTXOs, without knowing which will be accepted. At its simplest, this requires a delegated commitment to many possible txids. I imagine that this type of mass delegated introspection would be useful for many other use cases (like coinjoins, vaults, and channel factories), and I was curious if CSFS could enable this functionality.</p>\n<p>We concluded that it can, but it would require a fairly bespoke script and an opcode which can verify a merkle proof, like PAIRCOMMIT. The idea is to:</p>\n<ol>\n<li>Use CSFS to sign a merkle root</li>\n<li>Use multiple PAIRCOMMITs to verify a leaf on a merkle tree of a fixed height</li>\n<li>Use CSFS and CHECKSIG on a dummy private key to verify that the leaf equals the desired sighash.</li>\n</ol>\n<p>Here is how the script might look (full credit to <a class=\"mention\" href=\"/u/reardencode\">@reardencode</a> for this implementation):</p>\n<pre><code class=\"lang-auto\">                  | &lt;txsig&gt; &lt;sig&gt; &lt;path...&gt; &lt;leafhash&gt;\nDUP               | &lt;txsig&gt; &lt;sig&gt; &lt;path...&gt; &lt;leafhash&gt; &lt;leafhash&gt;\nTOALTSTACK        | &lt;txsig&gt; &lt;sig&gt; &lt;path...&gt; &lt;leafhash&gt;\nPAIRCOMMIT...     | &lt;txsig&gt; &lt;sig&gt; &lt;root&gt;\n&lt;key&gt;             | &lt;txsig&gt; &lt;sig&gt; &lt;root&gt; &lt;key&gt;\nCHECKSIGFROMSTACK | &lt;txsig&gt; &lt;0|1&gt;\nVERIFY            | &lt;txsig&gt;\n&lt;G&gt;               | &lt;txsig&gt; &lt;G&gt;\n2DUP              | &lt;txsig&gt; &lt;G&gt; &lt;txsig&gt; &lt;G&gt;\nFROMALTSTACK      | &lt;txsig&gt; &lt;G&gt; &lt;txsig&gt; &lt;G&gt; &lt;leafhash&gt;\nCHECKSIGFROMSTACK | &lt;txsig&gt; &lt;G&gt; &lt;0|1&gt;\nVERIFY            | &lt;txsig&gt; &lt;G&gt;\nCHECKSIG          | &lt;0|1&gt;\n</code></pre>\n<p>It\u2019s a fairly complex script, but it works. We can extend this approach to multi-signature inputs, by duplicating the merkle root and verifying the threshold number of signatures.</p>\n<p>It\u2019s worth noting that the leaf hash does not need to be a sighash. It can be any type of data, as long as there is an introspection opcode able to verify it.</p>\n<h2><a name=\"p-4763-limitations-4\" class=\"anchor\" href=\"#p-4763-limitations-4\"></a>Limitations</h2>\n<p>The primary limitation of CSFS+PAIRCOMMIT is that the height of the merkle tree must be pre-committed to. This could be somewhat inefficient, if the merkle proof has to be unnecessarily large. Users could mitigate this by committing to multiple tapleafs with a varying number of PAIRCOMMITs, but this has its own costs.</p>\n<p>A secondary limitation is that this approach can\u2019t be used with key path spends or in wallets that haven\u2019t pre-committed to the necessary tapscript(s). Users would need a special wallet and a larger, more complex descriptor, which isn\u2019t ideal. Alternatively, users might make a preparation transaction every time they want to use this functionality.</p>\n<h2><a name=\"p-4763-alternatives-5\" class=\"anchor\" href=\"#p-4763-alternatives-5\"></a>Alternatives</h2>\n<p>I attempted to solve this problem in <a href=\"https://delvingbitcoin.org/t/post-signature-cross-input-scripting-using-the-taproot-annex/1520/3\">this post</a> by giving consensus meaning to the annex. The approach I described would work for both key path and script path spends without pre-commitments, but it\u2019s limited by the need to have multiple annexes. This is fine for certain multi-party protocols (like those involving buyers and sellers), but it\u2019s not ideal for coinjoins, vaults, channel factories, or the generalized use case.</p>\n<p>An alternative approach would be to use the annex to commit to an additional script, which executes against the remaining elements on the stack, following a (hypothetical) <code>APPLYANNEXSCRIPT</code> opcode. This approach would be compatible with a soft fork and would allow for on-the-fly delegation across one or more signatures without needing pre-committed tapscripts with fixed merkle heights. Key path delegation, however, would require a new witness program and address type.</p>\n<h2><a name=\"p-4763-questions-6\" class=\"anchor\" href=\"#p-4763-questions-6\"></a>Questions</h2>\n<ol>\n<li>\n<p><em>Would mass delegated introspection improve the practicality of coinjoins?</em> I imagine that the ability to make a single signature committing to many possible coinjoins would be useful, especially if funds are held in cold storage and one or more participants fail to sign.</p>\n</li>\n<li>\n<p><em>Would channel factories become more practical with this capability?</em> My understanding is that channel factories suffer from the combinatorial number of state updates that users need to sign. I imagine that the ability to commit to many possible state updates with a single signature would be useful, but I\u2019m curious what the community thinks.</p>\n</li>\n<li>\n<p><em>Is PAIRCOMMIT likely to be included in a soft fork, if CSFS is adopted?</em> Most discussions right now seem centered around CTV+CSFS, and I\u2019m curious where PAIRCOMMIT currently stands. Are there obstacles to its adoption or alternatives under consideration?</p>\n</li>\n<li>\n<p><em>Is the need to pre-commit to CSFS and the height of the merkle tree acceptable?</em> It\u2019s not the most elegant solution, nor the most efficient, but it seems to work.</p>\n</li>\n<li>\n<p><em>Is it worth exploring annex-based alternatives?</em> Using the annex to commit on-the-fly to additional locking scripts could be an elegant way to do delegation across one or more signatures, without pre-commitments or complex wallet descriptors.</p>\n</li>\n</ol>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 3,
   "updated_at": "2025-04-14T20:59:02.008Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 18,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 122.4,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 138.4,
   "yours": false,
   "topic_id": 1599,
   "topic_slug": "how-csfs-paircommit-enables-mass-delegated-introspection",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "heart",
@@ -72,6 +72,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
