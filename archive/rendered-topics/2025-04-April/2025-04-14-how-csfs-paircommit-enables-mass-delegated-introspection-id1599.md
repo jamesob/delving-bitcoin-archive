@@ -103,3 +103,15 @@ My understanding is that the chief motivation for PAIRCOMMIT is to narrowly enab
 
 -------------------------
 
+moonsettler | 2025-04-15 17:14:20 UTC | #5
+
+[quote="josh, post:4, topic:1599"]
+The byte savings is nice, but the real benefit of PAIRCOMMIT is that it doesn’t enable the kind of recursive covenants that CAT does, so it might be easier for the community to support.
+[/quote]
+
+Recursive covenants do not really grasp the core of the issue. If you have state carrying covenants that naturally quine, then you can create something close to "native" tokens, as in exogenous assets that you can interact with in contracting language and make AMMs for them and stuff like that. That might be a bit of a hard sell for the community.
+
+`PC` was conceived as a tool that might enable multi-commitments and with that Merkle proofs, but do not break this particular threshold and do not allow for arbitrarily fine grained introspection or inspection of ancestor transactions.
+
+-------------------------
+

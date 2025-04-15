@@ -7,15 +7,15 @@
   "cooked": "<p>Just on PAIRCOMMIT itself. I think until now, people have always thought about using <code>OP_CAT</code> for building merkle trees and branches in Script. It\u2019s easy to leave vulnerabilities when doing that though, as the 64-byte tx vulnerability that the <a href=\"https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710\">Great Consensus Cleanup</a> fixes has shown.</p>\n<p>To do a merkle tree branch check safely with <code>OP_CAT</code>, you always have to first check the size of the pushes to avoid byte shifting attacks on the content of the nodes. The script would en up looking something like <code>OP_TOALTSTACK OP_SIZE &lt;32&gt; OP_EQUALVERIFY OP_2DROP OP_FROMALTSTACK OP_CAT OP_SHA256</code> for each node in the tree branch. This is 9 bytes instead of the 1-byte <code>OP_PAIRCOMMIT</code>. This is a simplification, in practice you\u2019ll also need to know which side of the tree you\u2019re taking, so another piece will have to be added for that at each level, but this will also have to be added to PAIRCOMMIT.</p>\n<p>Not sure if a 9 bytes saving is sufficient motivation for an opcode.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2025-04-15T13:25:40.792Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.8,
   "yours": false,
   "topic_id": 1599,
   "topic_slug": "how-csfs-paircommit-enables-mass-delegated-introspection",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Just on PAIRCOMMIT itself. I think until now, people have always thought about using `OP_CAT` for building merkle trees and branches in Script. It's easy to leave vulnerabilities when doing that though, as the 64-byte tx vulnerability that the [Great Consensus Cleanup](https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710) fixes has shown.\n\nTo do a merkle tree branch check safely with `OP_CAT`, you always have to first check the size of the pushes to avoid byte shifting attacks on the content of the nodes. The script would en up looking something like `OP_TOALTSTACK OP_SIZE <32> OP_EQUALVERIFY OP_2DROP OP_FROMALTSTACK OP_CAT OP_SHA256` for each node in the tree branch. This is 9 bytes instead of the 1-byte `OP_PAIRCOMMIT`. This is a simplification, in practice you'll also need to know which side of the tree you're taking, so another piece will have to be added for that at each level, but this will also have to be added to PAIRCOMMIT.\n\nNot sure if a 9 bytes saving is sufficient motivation for an opcode.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Just on PAIRCOMMIT itself. I think until now, people have always thought about using OP_CAT for building merkle trees and branches in Script. It\u2019s easy to leave vulnerabilities when doing that though, as the 64-byte tx vulnerability that the <a href=\"https://delvingbitcoin.org/t/great-consensus-cleanup-revival/710\">Great Consensus Cleanup</a> fixes has shown. \nTo do a merkle t&hellip;",
   "truncated": true,
   "post_url": "/t/how-csfs-paircommit-enables-mass-delegated-introspection/1599/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
