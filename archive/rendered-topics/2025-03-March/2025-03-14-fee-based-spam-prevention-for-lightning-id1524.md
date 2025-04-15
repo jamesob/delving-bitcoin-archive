@@ -725,3 +725,17 @@ Allowed Flows:
 
 -------------------------
 
+ClaraShk | 2025-04-15 15:55:25 UTC | #6
+
+Hi,
+
+I’m trying to better understand the suggestion—could you clarify a couple of points?
+
+1. Is the idea that each channel with capacity of $m$ sats would also lock an additional $m$ sats solely as collateral to mitigate jamming attacks? Do you have any estimates of the associated costs, such as the opportunity cost of locking up these funds?
+
+2. Regarding channel closure and the distribution of the extra funds: as I understand it, both parties would need to agree, or else the funds are lost. Have you considered behavioral dynamics, such as those studied in experiments like the ultimatum game? These may suggest that real-world outcomes could diverge from the theoretically optimal ones.
+
+I think a numerical example that explores different waiting times could be very helpful in understanding the tradeoffs.
+
+-------------------------
+
