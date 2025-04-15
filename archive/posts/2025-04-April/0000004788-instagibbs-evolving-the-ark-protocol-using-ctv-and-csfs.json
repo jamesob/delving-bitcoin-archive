@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This is getting extremely close to the classic Timeout Trees, though I've always said they were already similar. I think the analogue here is that you could build a Timeout Tree where instead of routing funds through the LN to move to a new tree, you can \"refresh\" the vUTXOs directly, transporting the channel to the new Ark. \n\nAll without connector or control inputs.\n\nLoving the interactivity reductions perhaps the most here.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "This is getting extremely close to the classic Timeout Trees, though I\u2019ve always said they were already similar. I think the analogue here is that you could build a Timeout Tree where instead of routing funds through the LN to move to a new tree, you can \u201crefresh\u201d the vUTXOs directly, transporting t&hellip;",
   "truncated": true,
   "post_url": "/t/evolving-the-ark-protocol-using-ctv-and-csfs/1602/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
