@@ -87,3 +87,19 @@ Not sure if a 9 bytes saving is sufficient motivation for an opcode.
 
 -------------------------
 
+josh | 2025-04-15 15:48:52 UTC | #4
+
+> One concern: committing to a merkle root with different sighashes in the scriptPubKey seems tricky, since you’d need the inputs to compute the sighash—but the inputs depend on the finalized scriptPubKey. The classic circular dependency issue.
+
+@redundant That's the trick! Using CSFS, the user only commits in the scriptPubKey to the *key* able to authorize a merkle root, *not the merkle root itself*.
+
+This avoids circular dependencies. It also means that the user can authorize alternative merkle roots on-the-fly, without creating a new transaction.
+
+> Not sure if a 9 bytes saving is sufficient motivation for an opcode.
+
+@stevenroose Interesting to learn how merkle proofs might work with CAT.
+
+My understanding is that the chief motivation for PAIRCOMMIT is to narrowly enable merkle proofs, without enabling anything else. The byte savings is nice, but the real benefit of PAIRCOMMIT is that it doesn't enable the kind of recursive covenants that CAT does, so it might be easier for the community to support.
+
+-------------------------
+

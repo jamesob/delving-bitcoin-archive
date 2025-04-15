@@ -7,7 +7,7 @@
   "cooked": "<p>Interesting write-up! One concern: committing to a merkle root with different sighashes in the scriptPubKey seems tricky, since you\u2019d need the inputs to compute the sighash\u2014but the inputs depend on the finalized scriptPubKey. The classic circular dependency issue.</p>\n<p>I\u2019m assuming everything on the stack is from the witness stack, so I can see some interesting possibilities with a MuSig2 <code>&lt;key&gt;</code> and presigned transactions. I\u2019ll go back and read your bidding problem post\u2014maybe that\u2019s the intended use case. If so, even combining the \u2018Schnorr trick\u2019 with MuSig2 keys could lead to some cool results.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2025-04-15T12:36:22.185Z",
   "reply_count": 0,
   "reply_to_post_number": null,
