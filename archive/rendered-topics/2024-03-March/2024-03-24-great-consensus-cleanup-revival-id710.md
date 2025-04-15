@@ -1545,9 +1545,9 @@ I've just published a BIP draft for a Consensus Cleanup soft fork. The post to t
 
 -------------------------
 
-AntoineP | 2025-04-15 20:06:41 UTC | #84
+AntoineP | 2025-04-15 20:07:08 UTC | #84
 
-I was recently made aware that several Bitcoin side-systems in development were vulnerable to faked SPV proofs using 64-byte transactions. The impact varied from one side-system to another, but for some it was as critical as "an attacker can drain all the funds from the side-system". This is a perfect illustration of the footgun concern: people don't know about this obscure bug and go about creating systems that rely on SPV proofs without the equally-obscure mitigation. It also illustrates the complexity: those proofs are often implemented in constrained environments [such as smart contracts](https://github.com/keep-network/tbtc-v2/blob/cf4d12f71b08511bc2185802be88e302b7bef656/solidity/contracts/bridge/BitcoinTx.sol#L176-L225). The case for making 64-byte transactions invalid is stronger than i initially thought.
+I was recently made aware that several Bitcoin side-systems in development were vulnerable to faked SPV proofs using 64-byte transactions. The impact varied from one side-system to another, but for some it was as critical as "an attacker can drain all the funds from the side-system". This is a perfect illustration of the footgun concern: people don't know about this obscure weakness and go about creating systems that rely on SPV proofs without the equally-obscure mitigation. It also illustrates the complexity concern: those proofs are often implemented in constrained environments [such as smart contracts](https://github.com/keep-network/tbtc-v2/blob/cf4d12f71b08511bc2185802be88e302b7bef656/solidity/contracts/bridge/BitcoinTx.sol#L176-L225). The case for making 64-byte transactions invalid is stronger than i initially thought.
 
 -------------------------
 
