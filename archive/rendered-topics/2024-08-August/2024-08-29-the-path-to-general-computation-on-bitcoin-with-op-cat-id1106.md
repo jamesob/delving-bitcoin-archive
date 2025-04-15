@@ -277,3 +277,16 @@ Please stop mentioning Bitcoin smart contract it's horrible and factually wrong.
 
 -------------------------
 
+moonsettler | 2025-04-15 08:55:58 UTC | #3
+
+[quote="victorkstarkware, post:1, topic:1106"]
+As mentioned above, OP_CAT is a simple, currently disabled, opcode that could allow Bitcoin script to concatenate elements on the stack. The importance of this simple operation cannot be overstated, as it simultaneously enables **covenants** and **STARKs** on Bitcoin. It does so in the following way:
+
+* **STARKs** – In fact, this is somewhat unsurprising. This is because STARKs practically consist of just **concatenating** data together and hashing it, which leads to great savings as hashing is a native Bitcoin script operation, unlike algebraic operations. The main hashing operations in STARKs are **Merkle path verification** (see Figure 8), and the **Fiat-Shamir transform**. (Furthermore, the field size of the Circle-STARK variant is only 31 bits, so it fits in the 4-byte restriction of Bitcoin script, making it a Bitcoin-friendly algorithm.)
+* **Covenants** – In 2021, Andrew Poelstra made the [nontrivial observation](https://medium.com/blockstream/cat-and-schnorr-tricks-i-faf1b59bd298) that OP_CAT can enable covenants on Bitcoin, through something called the **Schnorr trick**, where Schnorr’s algorithm is the digital signature of **Pay2Taproot** output types (for other output types, a similar **ECDSA trick** can be used, [as observed by Robin Linus](https://gist.github.com/RobinLinus/9a69f5552be94d13170ec79bf34d5e85)). To briefly describe the idea, to get covenants, we need to use OP_CHECKSIG, which is the only opcode that is capable of putting data related to the spender transaction onto the stack. It’s not entirely straightforward, but through some manipulations, you can access all the necessary data.
+[/quote]
+
+Curiously LNhance enables both covenants with `CTV` and `CSFS` and multi-commitments with `PAIRCOMMIT`. Yet it does not give us functional STARK proofs as far as I know. I am intrigued by the crucial piece missing. Is it the simple act of concatenation in the end?
+
+-------------------------
+
