@@ -156,3 +156,9 @@ If you can't construct all the inputs simultaneously, it gets a lot uglier, sinc
 
 -------------------------
 
+instagibbs | 2025-04-16 10:48:02 UTC | #9
+
+The scriptSig could include the `CHECKSIG` opcode directly, contra standardness rules. :grimacing:
+
+-------------------------
+

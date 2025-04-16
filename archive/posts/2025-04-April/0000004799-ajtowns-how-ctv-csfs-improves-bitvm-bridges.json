@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"RobinLinus, post:1, topic:1591\"]\nThe key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express \u201cinputA is spendable only together with inputB\u201d.\n\n1. Define inputB to be a (legacy) P2SH output.\n2. Presign a signature using sighash [`NONE|ANYONECANPAY`], effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB\u2019s scriptSig.\n[/quote]\n\nI don't think this works? As I understand it, with this setup you have something like:\n\n```txt\nutxo A:   10 BTC, p2tr: ... <H> CTV\nutxo B:  500 sats, p2sh: <P> CHECKSIG\n```\n\nwith the idea being that you spend utxo A via the CTV with:\n\n```txt\ninput 1: utxo A, witness reveals CTV path and any other conditions, no scriptSig\ninput 2: utxo B, scriptSig = \"<S;NONE|ANYONECANPAY>\" \"<P> CHECKSIG\"\noutput: whatever\n```\n\nwhere `<H>` locks in where the output goes to, and input 2's scriptSig. But because H is only committing to the second input's scriptSig, then it's easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey `OP_2DROP OP_TRUE`:\n\n```txt\nutxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE\n\ninput 1: utxo A, no witness/scriptSig\ninput 2: utxo C, scriptSig = \"<S;NONE|ANYONECANPAY>\" \"<P> CHECKSIG\"\noutput: whatever\n```   \n\nThat allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you're trying to enforce.\n\n(I'm assuming in a real example utxo B's spend condition is more complicated than `<P> CHECKSIG`, as otherwise the availability of a NONE|ANYONECANPAY signature means it can be spent immediately, so a griefer could fairly easily prevent the happy path from ever being taken)\n\n[quote=\"RobinLinus, post:1, topic:1591\"]\nThese commitments are one-way: **inputA** commits to **inputB**, but not vice versa. Two-way commitment would ideally be desirable but is impossible due to hash cycles (even with `TXHASH` or introspection opcodes).\n\nFor our bridge it would be sufficient to constrain **inputB** to always be burned. But that too is unachievable with CTV\u2014its template hash would have to commit to its own `scriptSig`, which already commits to **inputB**, and therefore its TXID\u2014creating a hash cycle.\n[/quote]\n\nI believe this sort of setup would actually be fairly simple to achieve with generic introspection opcodes: you first construct all your outputs simultaneously in a single transaction, eg:\n\n```txt\noutput 1: 10 BTC, collateral\noutput 2: 500 sats, assertion output\noutput 3: 500 sats, challenge output\n```\n\nthen you can setup \"output 1\" with a \"happy path\" script that checks that the second input has the same txid as this input, and spends the third output of that tx, and conversely for that output 3 has a happy path script where the first input has the same txid and spends the first output of that tx. Because a generic introspection opcode lets you just query an input's txid, that doesn't create any cryptographically intractable loops, and you can apply equivalent logic for each output.\n\nIn bllsh, you could write that as:\n\n```\n(all (= (tx 11) (tx '(11 . 1))) (= (+ (tx '(12 . 1))) 2))\n```\n\nwhere `(tx 11)` takes the current input's prevout's txid; `(tx '(11 . 1))` takes the prevout's txid for the input at position 1 (ie, the second input); `(tx '(12 . 1))` takes that prevout's index; and then it checks that the index is numerically 2, and the txid's are the same. Executable example in the [repo](https://github.com/ajtowns/bllsh/blob/5c981a57607452be8cb6dc4d83cb8bae7842cf99/examples/test-sibling-prevout).\n\nIf you can't construct all the inputs simultaneously, it gets a lot uglier, since you probably have to prove ancestry, which is [another thread entirely](https://delvingbitcoin.org/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/1)...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +59,14 @@
   "excerpt": "I don\u2019t think this works? As I understand it, with this setup you have something like: \nutxo A:   10 BTC, p2tr: ... &lt;H&gt; CTV\nutxo B:  500 sats, p2sh: &lt;P&gt; CHECKSIG\n\nwith the idea being that you spend utxo A via the CTV with: \ninput 1: utxo A, witness reveals CTV path and any other conditions, no scri&hellip;",
   "truncated": true,
   "post_url": "/t/how-ctv-csfs-improves-bitvm-bridges/1591/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
