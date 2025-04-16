@@ -164,3 +164,55 @@ In the original idea, a p2sh redeemscript is just pushes, so the spk could just 
 
 -------------------------
 
+ajtowns | 2025-04-16 11:19:31 UTC | #10
+
+[quote="instagibbs, post:9, topic:1591"]
+The scriptSig could include the `CHECKSIG` opcode directly, contra standardness rules. :grimacing:
+[/quote]
+
+You'd also be violating the `CONST_SCRIPTCODE` standardness check, I think, because you'd need `FindAndDelete` to actually delete the signature from the scriptcode (or you'd need to use OP_CODESEP to do the same thing manually). Would probably also mean you need two CHECKSIG ops, one in the scriptSig for CTV, and one in the scriptPubKey so that it's not anyone can spend. You'd also presumably need to repeat the public key, though could possibly at least reuse the signature.
+
+Not doing it as p2sh would also make it cumbersome to have any more complicated logic in your spending condition.
+
+-------------------------
+
+JeremyRubin | 2025-04-16 13:49:57 UTC | #11
+
+This is an interesting point; without some sort of "stack sentinel" that guarantees a specific script type, using CTV as a gadget for any P2SH type seems broken, as you can replace it with a legacy script that does something else. This is "confusing" because you cannot replace it with a p2sh script that does something else. I can make an effort to better document this issue...
+
+wrt the legacy requirement, what you *can* do is as follows:
+
+use a legacy input B which has 
+
+    scriptSig: [other program stuff] <sig || ALL|ACP > Dup <pk> checksig
+    script: <pk> checksig
+
+you are free to include more inputs like this for more data.
+
+What you can also do is employ a taproot-adapter to create B. That is a output X like:
+
+    tr(NUMS, {[general program] <1-in-1-out w/ <pk> checksig> CTV)
+
+You can then bind B as usual from A, and A's commitment to B's Outpoint via B's signature guarantees that the output X has executed. So if you were relying on X for knowing some other validation property has passed, you can move most of that work into the witness data space.
+
+-------------------------
+
+AntoineP | 2025-04-16 14:21:48 UTC | #12
+
+[quote="JeremyRubin, post:11, topic:1591"]
+use a legacy input B which has
+
+```
+scriptSig: [other program stuff] <sig || ALL|ACP > Dup <pk> checksig
+script: <pk> checksig
+```
+[/quote]
+
+For what it's worth i don't think you can reuse the signature like that. The message being signed by the `CHECKSIG` in the scriptSig is different from the message being signed by the `CHECKSIG` in the scriptPubKey. This is because [EvalScript is called](https://github.com/bitcoin/bitcoin/blob/cdc32994feadf3f15df3cfac5baae36b4b011462/src/script/interpreter.cpp#L1975-L1980) with the scriptSig for the former and with the scriptPubKey for the latter, which is later used as [the scriptCode in the `CHECKSIG` evaluation](https://github.com/bitcoin/bitcoin/blob/cdc32994feadf3f15df3cfac5baae36b4b011462/src/script/interpreter.cpp#L324-L338).
+
+So, besides the fact that you are using a `CHECKSIG` in the scriptSig where i think you meant to use a `CHECKSIGVERIFY`, the script you propose would always either fail one of the two `CHECKSIG`s and therefore fail execution.
+
+(Interestingly i think you might be able to not duplicate the signature by using some clever `CODESEPARATOR` hack so that the scriptCode is the same for both the scriptSig and the scriptPubKey.)
+
+-------------------------
+

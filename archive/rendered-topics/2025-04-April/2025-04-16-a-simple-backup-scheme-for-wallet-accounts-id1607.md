@@ -1,0 +1,93 @@
+# A simple backup scheme for wallet accounts
+
+salvatoshi | 2025-04-16 14:35:38 UTC | #1
+
+For any wallet account that is not single-signature, backing up the descriptor is crucial, as its loss is likely to be catastrophic and lead to lost funds - even if the seeds that are in theory sufficient for recovery are not lost. This is true even for simple multisig wallets, as losing the knowledge of just a single xpub might make recovery impossible.
+
+In lack of a standard, this led people to get creative with wallet backups schemes, with some even engraving the descriptor in metal.
+
+I believe **this is a bad idea and should be discouraged**. Descriptors are not seeds, and should be treated radically differently both in theory and in practice.
+
+In this post, I briefly introduce the context, and draft what I believe is the ideal structure for a *wallet account backup standard* that could be adopted by software wallets.
+
+## Motivation: secrecy vs privacy
+
+The seed is ***secret***, as it is what protects the key material that allows spending funds. Unauthorized access to the seed implies that attackers gain ownership of the funds (or at least the specific access controls that the keys are protecting). Hence, it is very valuable for an attacker to gain access to seed, and they will be willing to increase the cost and the sophistication of the attacks, because of the potential of high returns.
+
+Therefore, for **seeds**:
+- **digital copies are a high risk**: hardware signing devices have been built to keep the seeds in a secure enclave, separate from the machine the software wallet is running on.
+- **redundant copies of the seed are a high risk**: the seed has to be physically protected, and multiple copies in multiple places inherently make their protection harder.
+
+The descriptors (and their little brother *xpub*) is only ***private***: unauthorized access allows an attacker, to spy on your funds. That is bad, but not nearly as valuable as taking your funds. Attackers might use this to get information about you, and to inform further attacks, but *will lose interest once attempting an attack becomes too costly* or sophisticate.
+
+For **descriptors**:
+- **digital copies are unavoidable**: each of parties using the account *will* necessarily have a digital copy in their software wallet.
+- additional **redundant copies are a very moderate risk**.
+
+Therefore, having multiple copies of the descriptor, whether physical, digital, on your disk or on the cloud, is a valid mean to reduce the risk of loss of funds, unlike replicating the seed - which would incur a much higher risk.
+
+I recommend timelocked recovery mechanisms like [liana](https://github.com/wizardsardine/liana) to effectively address the risk of loss of funds caused by mismanaging the seed.
+
+So how do we backup descriptors and wallet policies, *the right way*?
+
+Physical copies are easy - all you need is a printer. *Paper is fine when you have redundancy*.
+Here I'm concerned with digital copies only.
+
+## Desirable properties of a digital backup
+
+- **Encrypted**: this allows to outsource its storage to untrusted parties, for example, cloud providers, or even public forums.
+- Has **access control**: decrypting it should only be available to the desired parties (typically, a subset of the cosigners)
+- **Easy to implement**: it should not require any sophisticated tools
+- **Vendor-independent**: ideally, it should be easy to implement using any hardware signing device.
+- **Deterministic**: the result of the backup is the same for the same payload.  Not crucial, but a nice-to-have.
+
+## A simple deterministic encrypted backup scheme (draft)
+
+We could just encrypt the payload with each of the xpubs of the parties that we want to be able to decrypt it.
+
+*Idea 1*:
+We can do better: we generate a random 32-byte symmetric secret $s$, encrypt $s$ with each of the public keys, and encrypt the payload with $s$. This reduces the backup size from $O(n \cdot |data|)$ to $O(n + |data|)$ for $n$ keys.
+
+*Idea 2*:
+For any party that knows the descriptor, there is nothing to protect. Therefore, *secrecy* is reduced to *secrecy for anyone who doesn't already have the descriptor*. We already have a key (the xpub) for each involved cosigner, so we can re-use the same key as the encryption key. However, using asymmetric encryption would require the private key for decryption. This is undesirable, as private keys might be kept in secure enclaves that might not be easily programmed with customized decryption logic. Instead, we reuse the entropy of the public key itself to generate a symmetric secret key, and use it to 'encrypt' the shared secret $s$. Therefore, for the party $i$ with public key $p_i$, we derive its symmetric secret $s_i = \operatorname{sha256}(``\textrm{BACKUP_INDIVIDUAL_SECRET}" \| p_i)$. This avoids asymmetric encryption, and only requires access to the public key from the secure enclave - a functionality that all the signing devices for bitcoin already provide.
+
+*Idea 3*:
+The only randomness in the process is the shared secret $s$. In order to make it fully deterministic, we can use the combined entropy of the descriptor to derive a deterministic, shared secret known to anyone who knows the descriptor. Assuming that the different xpubs involved in the descriptor/wallet policy are $p_1, p_2, \dots, p_n$ (in lexicographical order), a simple choice is: $s = \operatorname{sha256}(``\textrm{BACKUP_DECRYPTION_SECRET}" \| p_1 \| p_2 \| \dots \| p_n)$.
+
+The next section puts these ideas together.
+
+### The scheme
+
+In the following, the payload $data$ that is being backed up is left unspecified, but it will include (at least) the descriptor or the [BIP388](https://github.com/bitcoin/bips/blob/c5220f8c3b43821efa3841a6c5e90af9ce5519e8/bip-0388.mediawiki) wallet policy. The operator $\oplus$ refers to the bitwise XOR.
+
+- Let $p_1, p_2, \dots, p_n$, be the public keys in the descriptor/wallet policy, in increasing lexicographical order
+- Let $s = \operatorname{sha256}(``\textrm{BACKUP_DECRYPTION_SECRET}" \| p_1 \| p_2 \| \dots \| p_n)$
+- Let $s_i = \operatorname{sha256}(``\textrm{BACKUP_INDIVIDUAL_SECRET}" \| p_i)$
+- Let $c_i = s \oplus s_i $
+- encrypt the payload $data$ using the symmetric key $s$ using AES-GCM.
+
+The backup is the list of $c_i$, followed by the encryption of $data$.
+
+### Decryption
+
+In order to decrypt the payload of a backup, the owner of a certain public key $p$ computes $s =  \operatorname{sha256}(``\textrm{BACKUP_INDIVIDUAL_SECRET}" \| p)$, and attempt the decryption of the payload with the key $c_i \oplus s$ for each of the provided $c_i$.
+
+Decryption will succeed if and only if $p$ was one of the keys in the descriptor/wallet policy.
+
+
+### Security considerations
+
+A deterministic encryption, by definition, cannot satisfy the standard *[semantic security](https://en.wikipedia.org/wiki/Semantic_security)* property commonly used in cryptography; however, in our context, it is safe to assume that the adversary does not have access to plaintexts, and no other plaintext will be encrypted with the same secret $s$.
+
+## Further work
+
+I hope this serves as an inspiration for a more formal specification and implementation that software wallets can adopt.
+
+-------------------------
+
+reardencode | 2025-04-16 13:52:53 UTC | #2
+
+@josh this has a lot in common with the method you were describing to me, except for the inscription and location features of yours. Perhaps getting Salvatore's standardized and then layering those parts on would help everyone :)
+
+-------------------------
+
