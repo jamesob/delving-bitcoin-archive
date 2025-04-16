@@ -216,3 +216,9 @@ So, besides the fact that you are using a `CHECKSIG` in the scriptSig where i th
 
 -------------------------
 
+JeremyRubin | 2025-04-16 20:02:02 UTC | #13
+
+yeah it does seem you'd need two independent signatures, unless @ajtowns had a trick in mind of codeseps.
+
+-------------------------
+
