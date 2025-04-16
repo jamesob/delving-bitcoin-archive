@@ -91,7 +91,7 @@ reardencode | 2025-04-16 13:52:53 UTC | #2
 
 -------------------------
 
-josh | 2025-04-16 15:19:35 UTC | #3
+josh | 2025-04-16 15:57:46 UTC | #3
 
 @reardencode Thanks for the shoutout!
 
@@ -101,7 +101,7 @@ The scheme you propose is simple and would appear to work, assuming SHA256 can b
 
 If the encrypted descriptor is stored publicly or on a compromised server, an attacker who gains access to one secret gains knowledge of the existence of the multisig. This is not ideal if a user wants to protect themselves with a decoy single-sig wallet.
 
-The scheme I'm using makes one significant change. In a $k$-of-$n$ multisig descriptor, the secret $s$ is split into $n$ shares using shamir secret sharing, where $k$ shares is enough to recover. Each share is then encrypted with one xpub, so that $k$ xpubs are needed to decrypt.
+The scheme I'm using makes one significant change. In a $k$-of-$n$ multisig descriptor, the secret $s$ is split into $n$ shares using shamir secret sharing, where $k$ shares are needed to recover. Each share is then encrypted with one xpub, so that $k$ xpubs are needed to decrypt.
 
 The other minor difference is that I leave the derivation paths in plaintext, so that a user knows how to derive their xpubs. Only the sensitive data is encrypted (the xpubs and master fingerprints).
 
