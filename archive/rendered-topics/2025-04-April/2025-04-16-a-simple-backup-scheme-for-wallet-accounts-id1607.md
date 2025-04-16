@@ -1,6 +1,6 @@
 # A simple backup scheme for wallet accounts
 
-salvatoshi | 2025-04-16 14:35:38 UTC | #1
+salvatoshi | 2025-04-16 17:27:45 UTC | #1
 
 For any wallet account that is not single-signature, backing up the descriptor is crucial, as its loss is likely to be catastrophic and lead to lost funds - even if the seeds that are in theory sufficient for recovery are not lost. This is true even for simple multisig wallets, as losing the knowledge of just a single xpub might make recovery impossible.
 
@@ -68,6 +68,9 @@ In the following, the payload $data$ that is being backed up is left unspecified
 
 The backup is the list of $c_i$, followed by the encryption of $data$.
 
+<br>
+**Note**: this scheme should not be used with descriptors containing private keys (*xprv*). Most software wallets only include *xpubs*.
+
 ### Decryption
 
 In order to decrypt the payload of a backup, the owner of a certain public key $p$ computes $s =  \operatorname{sha256}(``\textrm{BACKUP_INDIVIDUAL_SECRET}" \| p)$, and attempt the decryption of the payload with the key $c_i \oplus s$ for each of the provided $c_i$.
@@ -113,13 +116,45 @@ Let me know if you'd like to discuss!
 
 -------------------------
 
-1440000bytes | 2025-04-16 15:55:41 UTC | #4
+1440000bytes | 2025-04-16 16:00:46 UTC | #4
 
 [quote="salvatoshi, post:1, topic:1607"]
 The descriptors (and their little brother *xpub*) is only ***private***: unauthorized access allows an attacker, to spy on your funds. That is bad, but not nearly as valuable as taking your funds.
 [/quote]
 
-Descriptors could include private keys: https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md#including-private-keys
+Descriptors could include private keys: https://github.com/bitcoin/bitcoin/blob/cdc32994feadf3f15df3cfac5baae36b4b011462/doc/descriptors.md#including-private-keys
+
+-------------------------
+
+salvatoshi | 2025-04-16 17:28:51 UTC | #5
+
+Good point, I added a note to mention to not use it with such descriptors.
+
+-------------------------
+
+salvatoshi | 2025-04-16 17:47:43 UTC | #6
+
+Hi @josh, thanks for the comments! Somehow I missed your previous post, my bad.
+
+[quote="josh, post:3, topic:1607"]
+If the encrypted descriptor is stored publicly or on a compromised server, an attacker who gains access to one secret gains knowledge of the existence of the multisig. This is not ideal if a user wants to protect themselves with a decoy single-sig wallet.
+[/quote]
+
+I would say in my scheme there is no distinction between an attacker and 'someone who knows a secret', as it's designed to give knowledge of the descriptor precisely to the people who know at least one of the xpubs (or a subset of them, if desired). So if someone has the backup _and_ knows an xpub, they are expected to be able to decrypt.
+
+[quote="josh, post:3, topic:1607"]
+The scheme I’m using makes one significant change. In a $k$-of-$n$ multisig descriptor, the secret $s$ is split into $n$ shares using shamir secret sharing, where $k$ shares are needed to recover. Each share is then encrypted with one xpub, so that $k$ xpubs are needed to decrypt.
+[/quote]
+
+Shamir secret sharing, apart from adding at least *some* (arguably manageable) complexity, does not generalize well to wallet setups more complex than multisig. For example, in a setup where there is a time-locked recovery partner that can help retrieve the funds if the primary spending path became inaccessible, you want them to be able to decrypt the backup even with the single xpub.
+
+If you don't want to enable some party to decode the backup, I think what will work better in practice is to have redundant copies of the backup, but do not give access to the backup to this third party (therefore, not posting it in a public place). Only if the primary spending path becomes lost, then they will be sent the encrypted backup.
+
+[quote="josh, post:3, topic:1607"]
+The other minor difference is that I leave the derivation paths in plaintext, so that a user knows how to derive their xpubs. Only the sensitive data is encrypted (the xpubs and master fingerprints).
+[/quote]
+
+This is a great idea; even just a list of all the derivation paths that appear in the key-origin information (without attribution to specific keys) would reduce the search space to at most $n$ xpubs when attempting decryption.
 
 -------------------------
 

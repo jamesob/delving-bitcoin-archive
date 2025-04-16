@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.8,
   "yours": false,
   "topic_id": 1602,
   "topic_slug": "evolving-the-ark-protocol-using-ctv-and-csfs",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"roasbeef, post:3, topic:1602\"]\nAfter this fragment, there\u2019s no further mention of CSFS until the very end of the post. What exactly is the message being signed here? If the message isn\u2019t constructed carefully, replays may be possible.\n[/quote]\n\nWhat is signed in the CTV hash of the tx. Not committing to inputs, but committing to nb of inputs and input index. These refund txs are in some sense replayable, but since the output guarantees that the user receives the value of his vtxo, that is not a problem. In the perpetual refresh scheme, we use timelocks to prevent the server from applying all sequential refund txs (though as we mention that will likely be uneconomical anyway).\n\n[quote=\"roasbeef, post:3, topic:1602\"]\nDon\u2019t the users still need to interact in order to send to each other in a round? IIUC, they still need to:\n[/quote]\n\nYeah we struggled to find the best term to describe the type of interaction where users have to do something synchronously and the bad actions of certain users will affect all other users. This is the type of user interactions we eliminate for Erk and hArk.\n\nIt is true that \n\n- senders have to learn receiver pubkeys\n- senders should inform receivers about their new vtxo\n\nIn the Erk case, additionally, the receiver should indeed sign it's incoming refund tx, which requires additional interaction. However, this interaction can happen at any point in time before they submit their payment request for the round; and also, hArk is strictly better for in-round payments than Erk, while Erk makes more sense for send-to-self refreshes.\n\nThere are no connectors anymore for Erk and hArk, but when the sender informs the receiver about their new vtxo, it should include the secret for the hArk case.\n\nWe do however think that arkoor payments still make more sense for payments, after which the receiver can decide to either refresh with hArk or sign an Erk refund to have his vtxo auto-refreshed before expiry.\n\n[quote=\"roasbeef, post:3, topic:1602\"]\nEven if CTV is used, until the round is constructed the \u201croot\u201d CTV hash isn\u2019t known. That can only be known once all participants provide their parameters (keys timeouts, amts, etc). As a result, users must remain online until all other users have committed to parameters, as they need to sign their leaf to ensure they can exit.\n[/quote]\n\nYou're confused here. In Ark, Erk and hArk, no leaves need to be signed. All the leaves are committed to using CTV. The user can just submit their \"request\" for inclusion in the round, the server can then create the entire round tree, and fund a CTV output that commits to it, and users can come back online any time after the round to be informed about their inclusion in the round.\n\n[quote=\"roasbeef, post:3, topic:1602\"]\nHow can they sign for this new exit tx if it doesn\u2019t yet exist, and has a txid that can\u2019t be known until *new* exit tree (which is dependent on the participants) is created? For NO_INPUT/APO, this is possible as you don\u2019t sign the outpoint, so there\u2019s no dependency other than the script.\n[/quote]\n\nWe are indeed using NO_INPUT/APO rebindable signatures. We emulate them using CTV+CSFS.\n\n[quote=\"roasbeef, post:3, topic:1602\"]\nIs the deducted fee known to the user ahead of time? If not, how can they pre-sign this new vtxo exit if they don\u2019t know the fee (assuming `SIGHASH_ALL`)?\n[/quote]\n\nYes it has to be known ahead of time, because this knowledge is needed to sign the refund tx. The fee can either be fixed, or the server can inform the user during the interaction they have when signing up for the round.\n\n[quote=\"roasbeef, post:3, topic:1602\"]\nRelated to the question above, how can the user pre-sign the refund tx if they don\u2019t yet know what the new second input is (the new round txn, which hasn\u2019t been created yet).\n[/quote]\n\nSince it is an APO signature (using CTV+CSFS), the signature only signs the outputs. The refund tx then guarantees that if there ever exists a vtxo for key $A$ and a vtxo for key $A'$ at the same time, the server can consolidate them into *just* the $A'$ vtxo.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "What is signed in the CTV hash of the tx. Not committing to inputs, but committing to nb of inputs and input index. These refund txs are in some sense replayable, but since the output guarantees that the user receives the value of his vtxo, that is not a problem. In the perpetual refresh scheme, we&hellip;",
   "truncated": true,
   "post_url": "/t/evolving-the-ark-protocol-using-ctv-and-csfs/1602/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
