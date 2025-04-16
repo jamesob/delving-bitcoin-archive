@@ -91,3 +91,25 @@ reardencode | 2025-04-16 13:52:53 UTC | #2
 
 -------------------------
 
+josh | 2025-04-16 15:19:35 UTC | #3
+
+@reardencode Thanks for the shoutout!
+
+@salvatoshi I'd love to share a tool I built that does something similar and perhaps collaborate on getting a multisig backup scheme standardized. I agree that this is a problem that needs to be solved.
+
+The scheme you propose is simple and would appear to work, assuming SHA256 can be used as a secure KDF where the key is derived from a large subset of the data it is encrypting. There is at least one drawback, though:
+
+If the encrypted descriptor is stored publicly or on a compromised server, an attacker who gains access to one secret gains knowledge of the existence of the multisig. This is not ideal if a user wants to protect themselves with a decoy single-sig wallet.
+
+The scheme I'm using makes one significant change. In a $k$-of-$n$ multisig descriptor, the secret $s$ is split into $n$ shares using shamir secret sharing, where $k$ shares is enough to recover. Each share is then encrypted with one xpub, so that $k$ xpubs are needed to decrypt.
+
+The other minor difference is that I leave the derivation paths in plaintext, so that a user knows how to derive their xpubs. Only the sensitive data is encrypted (the xpubs and master fingerprints).
+
+As of now, the scheme only supports standard (non-taproot) multisig descriptors. In the future, I hope to generalize it to support decaying and non-decaying P2TR multisigs.
+
+Here's the [GitHub repo](https://github.com/joshdoman/multisig-backup) and the corresponding [Delving post](https://delvingbitcoin.org/t/multisigbackup-com-backup-and-recover-a-k-of-n-descriptor-using-only-n-seeds/1430/4). The slides I presented at BitDevs ATL can be found [here](https://docs.google.com/presentation/d/1S6XN2jyeQsAkPeT4zvOaFIrOkGyzBnO8fbvcqg2Jlwk/edit?usp=sharing).
+
+Let me know if you'd like to discuss!
+
+-------------------------
+
