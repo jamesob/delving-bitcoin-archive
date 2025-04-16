@@ -156,9 +156,11 @@ If you can't construct all the inputs simultaneously, it gets a lot uglier, sinc
 
 -------------------------
 
-instagibbs | 2025-04-16 10:48:02 UTC | #9
+instagibbs | 2025-04-16 10:58:29 UTC | #9
 
 The scriptSig could include the `CHECKSIG` opcode directly, contra standardness rules. :grimacing:
+
+In the original idea, a p2sh redeemscript is just pushes, so the spk could just be blank and it would pass, since cleanstack isn't consensus anyways.
 
 -------------------------
 
