@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@josh this has a lot in common with the method you were describing to me, except for the inscription and location features of yours. Perhaps getting Salvatore's standardized and then layering those parts on would help everyone :)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "<a class=\"mention\" href=\"/u/josh\">@josh</a> this has a lot in common with the method you were describing to me, except for the inscription and location features of yours. Perhaps getting Salvatore\u2019s standardized and then layering those parts on would help everyone :slight_smile:",
   "truncated": true,
   "post_url": "/t/a-simple-backup-scheme-for-wallet-accounts/1607/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
