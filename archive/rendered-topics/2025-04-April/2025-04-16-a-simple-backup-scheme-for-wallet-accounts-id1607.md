@@ -113,3 +113,13 @@ Let me know if you'd like to discuss!
 
 -------------------------
 
+1440000bytes | 2025-04-16 15:55:41 UTC | #4
+
+[quote="salvatoshi, post:1, topic:1607"]
+The descriptors (and their little brother *xpub*) is only ***private***: unauthorized access allows an attacker, to spy on your funds. That is bad, but not nearly as valuable as taking your funds.
+[/quote]
+
+Descriptors could include private keys: https://github.com/bitcoin/bitcoin/blob/master/doc/descriptors.md#including-private-keys
+
+-------------------------
+
