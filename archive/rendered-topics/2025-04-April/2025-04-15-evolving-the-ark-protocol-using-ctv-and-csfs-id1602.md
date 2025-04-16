@@ -264,3 +264,41 @@ Loving the interactivity reductions perhaps the most here.
 
 -------------------------
 
+roasbeef | 2025-04-15 23:26:53 UTC | #3
+
+Kudos for this write up, it's probably the most succinct, yet clear write up of the Ark design I've seen to date. 
+
+[quote="stevenroose, post:1, topic:1602"]
+We can use CTV+CSFS to implement rebindable signatures.
+[/quote]
+
+After this fragment, there's no further mention of CSFS until the very end of the post. What exactly is the message being signed here? If the message isn't constructed carefully, replays may be possible. 
+
+> Erk rounds have no user interaction (in the sense that users have to take actions synchronously together)
+
+Don't the users still need to interact in order to send to each other in a round? IIUC, they still need to:
+  * Get the new public key of the receiver. 
+  * Obtain the new VTXO+connector tree from the server. 
+  * Give the receiver the new VTXO+connector tree so they can verify everything. 
+  * Get a signature from the receiver on the new VTXO. 
+
+Or is the assumption that the server is trusted to transmit all this information to receivers? Or is the assumption that the statechains security model (trust server and prior owner to not collude, Arkoor as y'all call it) is meant to be used for all _actual_ transfers? 
+
+Even if CTV is used, until the round is constructed the "root" CTV hash isn't known. That can only be known once all participants provide their parameters (keys timeouts, amts, etc). As a result, users must remain online until all other users have committed to parameters, as they need to sign their leaf to ensure they can exit.  
+
+Is my mental model here off? 
+
+> The core and fundamental principle of Erk rests on the following tx, which we call a *refund tx* .
+
+How can they sign for this new exit tx if it doesn't yet exist, and has a txid that can't be known until _new_ exit tree (which is dependent on the participants) is created? For NO_INPUT/APO, this is possible as you don't sign the outpoint, so there's no dependency other than the script. 
+
+> At that point, the server can safely create a new vtxo tree, issuing the same vtxo (minus some fee) for the user. This new vtxo has an exit policy with the user’s new key 
+
+Is the deducted fee known to the user ahead of time? If not, how can they pre-sign this new vtxo exit if they don't know the fee (assuming `SIGHASH_ALL`)?
+
+> This means that the server can at any time safely re-issue the vtxo, holding the refund tx that guarantees the user can never claim both.
+
+Related to the question above, how can the user pre-sign the refund tx if they don't yet know what the new second input is (the new round txn, which hasn't been created yet).
+
+-------------------------
+
