@@ -90,3 +90,69 @@ Added the link in https://en.bitcoin.it/wiki/Covenants_Uses
 
 -------------------------
 
+ajtowns | 2025-04-16 09:48:04 UTC | #8
+
+[quote="RobinLinus, post:1, topic:1591"]
+The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express “inputA is spendable only together with inputB”.
+
+1. Define inputB to be a (legacy) P2SH output.
+2. Presign a signature using sighash [`NONE|ANYONECANPAY`], effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB’s scriptSig.
+[/quote]
+
+I don't think this works? As I understand it, with this setup you have something like:
+
+```txt
+utxo A:   10 BTC, p2tr: ... <H> CTV
+utxo B:  500 sats, p2sh: <P> CHECKSIG
+```
+
+with the idea being that you spend utxo A via the CTV with:
+
+```txt
+input 1: utxo A, witness reveals CTV path and any other conditions, no scriptSig
+input 2: utxo B, scriptSig = "<S;NONE|ANYONECANPAY>" "<P> CHECKSIG"
+output: whatever
+```
+
+where `<H>` locks in where the output goes to, and input 2's scriptSig. But because H is only committing to the second input's scriptSig, then it's easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey `OP_2DROP OP_TRUE`:
+
+```txt
+utxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE
+
+input 1: utxo A, no witness/scriptSig
+input 2: utxo C, scriptSig = "<S;NONE|ANYONECANPAY>" "<P> CHECKSIG"
+output: whatever
+```   
+
+That allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you're trying to enforce.
+
+(I'm assuming in a real example utxo B's spend condition is more complicated than `<P> CHECKSIG`, as otherwise the availability of a NONE|ANYONECANPAY signature means it can be spent immediately, so a griefer could fairly easily prevent the happy path from ever being taken)
+
+[quote="RobinLinus, post:1, topic:1591"]
+These commitments are one-way: **inputA** commits to **inputB**, but not vice versa. Two-way commitment would ideally be desirable but is impossible due to hash cycles (even with `TXHASH` or introspection opcodes).
+
+For our bridge it would be sufficient to constrain **inputB** to always be burned. But that too is unachievable with CTV—its template hash would have to commit to its own `scriptSig`, which already commits to **inputB**, and therefore its TXID—creating a hash cycle.
+[/quote]
+
+I believe this sort of setup would actually be fairly simple to achieve with generic introspection opcodes: you first construct all your outputs simultaneously in a single transaction, eg:
+
+```txt
+output 1: 10 BTC, collateral
+output 2: 500 sats, assertion output
+output 3: 500 sats, challenge output
+```
+
+then you can setup "output 1" with a "happy path" script that checks that the second input has the same txid as this input, and spends the third output of that tx, and conversely for that output 3 has a happy path script where the first input has the same txid and spends the first output of that tx. Because a generic introspection opcode lets you just query an input's txid, that doesn't create any cryptographically intractable loops, and you can apply equivalent logic for each output.
+
+In bllsh, you could write that as:
+
+```
+(all (= (tx 11) (tx '(11 . 1))) (= (+ (tx '(12 . 1))) 2))
+```
+
+where `(tx 11)` takes the current input's prevout's txid; `(tx '(11 . 1))` takes the prevout's txid for the input at position 1 (ie, the second input); `(tx '(12 . 1))` takes that prevout's index; and then it checks that the index is numerically 2, and the txid's are the same. Executable example in the [repo](https://github.com/ajtowns/bllsh/blob/5c981a57607452be8cb6dc4d83cb8bae7842cf99/examples/test-sibling-prevout).
+
+If you can't construct all the inputs simultaneously, it gets a lot uglier, since you probably have to prove ancestry, which is [another thread entirely](https://delvingbitcoin.org/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/1)...
+
+-------------------------
+
