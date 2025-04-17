@@ -1582,12 +1582,12 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-17 20:33:21 UTC | #68
+sipa | 2025-04-17 20:36:33 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expected.
 
-The reasons for choosing SFL over GGT and CSS (candidate set search, the old exponential algorithm which this thread was originally about): are:
-* **[Anytime algorithm](https://en.wikipedia.org/wiki/Anytime_algorithm)**: it is possible to interrupt SFL at any point, and get linearization out. The longer it runs, the better the result gets. This is also true for the old exponential algorithm that this thread was initially about (which I'll call candidate set search, CSS), but less so for GGT as any min-cut that has not be computed completely doesn't result in an improvement (and the entire runtime may consist of just a single cut).
+The reasons for choosing SFL over [GGT](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) and CSS (candidate set search, the old exponential algorithm which [this thread](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/1) was originally about): are:
+* **[Anytime algorithm](https://en.wikipedia.org/wiki/Anytime_algorithm)**: it is possible to interrupt SFL at any point, and get linearization out. The longer it runs, the better the result gets. This is also true for CSS, but less so for GGT as any min-cut that has not be computed completely doesn't result in an improvement (and the entire runtime may consist of just a single cut).
 * **Improving existing linearizations**: it is possible to initialize SFL with an existing linearization as input, and any output it gives will be a linearization that's better or equal. In some, but not all, practical cases it makes the algorithm also find the optimal faster when provided with a good input linearization already. This avoids the need to use the [linearization merging](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) algorithm to combine with existing linearization, or the [LIMO algorithm](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) to combine candidate finding with improvement of an existing linearization.
 * **Load balancing**: both GGT and CSS subdivide the problem in different ways. When trying to turn them into anytime algorithms, there is a question of how to subdivide the computation budget over these subproblems. In contrast, SFL always just operates on a single state which it keeps improving, so no such budgetting decisions are necessary.
 * **Fairness**: Related to the previous point, it is easy to make SFL spread its work over all transactions in the cluster in a more-or-less fair way, for example by trying going through the transactions in a round-robin fashion to find dependencies to improve. GGT works by subdividing the cluster in a divide-and-conquer manner, but choices need to be made about which part to attempt to subdivide next. CSS fundamentally works from highest-feerate to lowest-feerate chunks, so if time runs after only some part is done, the (transactions in) the first chunk will have had more effort on them. I think that's concerning, because it risks an attacker attaching a very complex set of transactions to an honest CPFP or so, and have the algorithm spend all its time on the attacker's transactions, running out before even considering the steps necessary to recognize the CPFP.
@@ -1607,7 +1607,7 @@ All 3 about issues are open questions, and solutions/improvements could be found
 
 In table form:
 
-| Trait | CSS | SFL | GGT |
+| Trait | [CSS](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/1) | [SFL](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419/1) | [GGT](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) |
 | --- | --- | --- | --- |
 | **Proven worst-case** | $\mathcal{O}(n \cdot 2^n)$ | $\mathcal{O}(\infty)$ | $\mathcal{O}(n^3)$ |
 | **Conjectured worst complexity** | $\mathcal{O}(n \cdot \sqrt{2^n})$ | $\mathcal{O}(n^5)$ | $\mathcal{O}(n^3)$ |
