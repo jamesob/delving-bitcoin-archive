@@ -1582,7 +1582,7 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-17 20:47:39 UTC | #68
+sipa | 2025-04-17 20:48:24 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expected.
 
@@ -1613,8 +1613,8 @@ In table form:
 |**Conjectured worst complexity** | 🟥&nbsp;$\mathcal{O}(n \cdot \sqrt{2^n})$ | 🟧&nbsp;$\mathcal{O}(n^5)$ | 🟩&nbsp;$\mathcal{O}(n^3)$|
 |**Historical worst runtime (µs)** $(n \leq 64)$ (*) | 🟥&nbsp;>14,000 | 🟩&nbsp;45 | 🟧&nbsp;80|
 |**Extrapolated worst runtime (µs)** $(n \leq 64)$ | 🟥&nbsp;700,000,000 | 🟧&nbsp;1,000,000 | 🟩&nbsp;10,000|
-|**Anytime algorithm** | 🟧&nbsp;Needs&nbsp;budgeting | 🟩&nbsp;Natively | 🟥&nbsp;May&nbsp;lose&nbsp;progress |
-|**Improving existing** | 🟧&nbsp;Through&nbsp;[LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | 🟩&nbsp;Natively | 🟥&nbsp;[Merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209))&nbsp;afterwards|
+|**Anytime algorithm** | 🟧&nbsp;Needs budgeting | 🟩&nbsp;Natively | 🟥&nbsp;May&nbsp;lose progress |
+|**Improving existing** | 🟧&nbsp;Through&nbsp;[LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | 🟩&nbsp;Natively | 🟥&nbsp;[Merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209)) afterwards|
 |**Fairness** | 🟥&nbsp;Hard | 🟩&nbsp;Easy | 🟥&nbsp;Hard|
 |**Ancestor sort mix** | 🟩&nbsp;Yes | 🟥&nbsp;No | 🟥&nbsp;No|
 |**Minimal chunks** | 🟩 Natively | 🟥 No | 🟥 No|
