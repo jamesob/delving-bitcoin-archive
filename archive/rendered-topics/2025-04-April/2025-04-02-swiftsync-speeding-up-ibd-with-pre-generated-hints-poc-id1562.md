@@ -298,3 +298,13 @@ other issues.
 
 -------------------------
 
+sjors | 2025-04-17 10:32:59 UTC | #12
+
+[quote="theStack, post:7, topic:1562"]
+I’ll focus on the assumevalid version with my reply for now, since I still haven’t fully processed the non-assumevalid one yet.
+[/quote]
+
+I'm much more exited about the SwiftSync variant that makes _less_ assumptions than assumevalid. Would love to try a demo of that...
+
+-------------------------
+
