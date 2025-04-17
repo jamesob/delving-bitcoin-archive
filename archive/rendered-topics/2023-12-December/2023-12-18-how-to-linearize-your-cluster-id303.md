@@ -1582,3 +1582,44 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
+sipa | 2025-04-17 20:33:21 UTC | #68
+
+I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expected.
+
+The reasons for choosing SFL over GGT and CSS (candidate set search, the old exponential algorithm which this thread was originally about): are:
+* **[Anytime algorithm](https://en.wikipedia.org/wiki/Anytime_algorithm)**: it is possible to interrupt SFL at any point, and get linearization out. The longer it runs, the better the result gets. This is also true for the old exponential algorithm that this thread was initially about (which I'll call candidate set search, CSS), but less so for GGT as any min-cut that has not be computed completely doesn't result in an improvement (and the entire runtime may consist of just a single cut).
+* **Improving existing linearizations**: it is possible to initialize SFL with an existing linearization as input, and any output it gives will be a linearization that's better or equal. In some, but not all, practical cases it makes the algorithm also find the optimal faster when provided with a good input linearization already. This avoids the need to use the [linearization merging](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) algorithm to combine with existing linearization, or the [LIMO algorithm](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) to combine candidate finding with improvement of an existing linearization.
+* **Load balancing**: both GGT and CSS subdivide the problem in different ways. When trying to turn them into anytime algorithms, there is a question of how to subdivide the computation budget over these subproblems. In contrast, SFL always just operates on a single state which it keeps improving, so no such budgetting decisions are necessary.
+* **Fairness**: Related to the previous point, it is easy to make SFL spread its work over all transactions in the cluster in a more-or-less fair way, for example by trying going through the transactions in a round-robin fashion to find dependencies to improve. GGT works by subdividing the cluster in a divide-and-conquer manner, but choices need to be made about which part to attempt to subdivide next. CSS fundamentally works from highest-feerate to lowest-feerate chunks, so if time runs after only some part is done, the (transactions in) the first chunk will have had more effort on them. I think that's concerning, because it risks an attacker attaching a very complex set of transactions to an honest CPFP or so, and have the algorithm spend all its time on the attacker's transactions, running out before even considering the steps necessary to recognize the CPFP.
+* **Runtime**: when benchmarking using replayed mempool data of previous years (credit to @sdaftuar), my SFL implementation seems somewhat (~2x) faster than the GGT one. 
+
+The downsides of SFL compared to GGT are:
+* **Complexity bounds**: there is no known bound for the runtime of SFL, and it may be infinite, while GGT is proven to be $\mathcal{O}(n^3)$. I suspect that SFL is $\mathcal{O}(n^5)$ or so in the worst case. However, even GGT's cubic runtime is probably too much in the worst case to run at transaction relay time.
+
+The downsides of SFL compared to CSS are:
+* **Mix with ancestor sort**: CSS, when used through LIMO, can include arbitrary additional sources for finding good topological sets to move to the front. In the current implementation, optimal ancestor sets are used as additional inputs. There are no well-defined properties that this gives the linearization, but at least intuitively, this provides a "linearization always has at least ancestor-set like quality" property, regardless of how much time was spent in candidate finding. I don't know how to do anything like this in SFL (nor in GGT). If we believe that this quality is important, despite not being well-defined, then switching to SFL in theory means we could lose it in clusters that cannot be linearized optimally in time. My thinking is that combined with the SFL fairness, and the fact that it is just so much faster overall, it is unlikely to be an issue. Further, if we *really* wanted ancestor-sort quality, it would be possible to compute, in addition to running SFL, an ancestor sort linearization from scratch, and then merge the two if SFL doesn't find an optimal result. However, I suspect that the time this would take is better spent on performing more SFL iterations.
+* **Minimal chunks**: CSS finds a linearization by actively searching for good chunks to move to the front, and in doing so, it can prefer smaller chunks over bigger ones. This guarantees that (if it completes) it will find the linearization with *minimal* possible chunks among all feerate-diagram-optimal linearizations. SFL (and GGT) on the other hand really just find groups of connected transactions with equal chunk feerate, and thus can't guarantee to pull equal-feerate chunks apart.
+* **Complexity bounds**: there is no known bound for the runtime of SFL, and it may be infinite, while CSS is trivially bounded by $\mathcal{O}(n \cdot 2^n)$, although I believe it may be $\mathcal{O}(n \cdot \sqrt{2^n})$ instead. These bounds are obviously impractical.
+
+All 3 about issues are open questions, and solutions/improvements could be found to them.
+
+---
+
+In table form:
+
+| Trait | CSS | SFL | GGT |
+| --- | --- | --- | --- |
+| **Proven worst-case** | $\mathcal{O}(n \cdot 2^n)$ | $\mathcal{O}(\infty)$ | $\mathcal{O}(n^3)$ |
+| **Conjectured worst complexity** | $\mathcal{O}(n \cdot \sqrt{2^n})$ | $\mathcal{O}(n^5)$ | $\mathcal{O}(n^3)$ |
+| **Historical worst runtime (µs)** $(n \leq 64)$ (*) |  >14,000 | 45 | 80 |
+| **Extrapolated worst runtime (µs)** $(n \leq 64)$ | 700,000,000 | 1,000,000 | 10,000 |
+| **Anytime algorithm** | Needs budgeting over chunks | Natively | Needs heuristics for knowing what chunk to split first |
+| **Improving existing** | Yes, through [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | Natively | Only through [merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209)) afterwards |
+| **Fairness** | Hard | Easy | Hard |
+| **Ancestor sort mix** | Yes | No | No |
+| **Minimal chunks** | Natively | No | No |
+
+(*) = Preliminary numbers, more benchmark data coming.
+
+-------------------------
+
