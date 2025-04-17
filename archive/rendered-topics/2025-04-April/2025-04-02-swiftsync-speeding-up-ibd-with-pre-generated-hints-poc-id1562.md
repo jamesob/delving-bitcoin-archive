@@ -298,13 +298,15 @@ other issues.
 
 -------------------------
 
-sjors | 2025-04-17 10:33:57 UTC | #12
+sjors | 2025-04-17 10:52:11 UTC | #12
 
 [quote="theStack, post:7, topic:1562"]
 I’ll focus on the assumevalid version with my reply for now, since I still haven’t fully processed the non-assumevalid one yet.
 [/quote]
 
 I'm much more exited about the SwiftSync variant that makes _less_ assumptions than `-assumevalid`. Would love to try a demo of that... https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd#without-assumevalid
+
+Maybe implementing this as a `-reindex` is easier for a PoC, since you already have the undo data on disk?
 
 -------------------------
 
