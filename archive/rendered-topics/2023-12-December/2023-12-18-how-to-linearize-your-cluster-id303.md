@@ -1582,7 +1582,7 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-17 20:48:24 UTC | #68
+sipa | 2025-04-17 20:49:28 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expected.
 
@@ -1601,7 +1601,7 @@ The downsides of SFL compared to CSS are:
 * **Minimal chunks**: CSS finds a linearization by actively searching for good chunks to move to the front, and in doing so, it can prefer smaller chunks over bigger ones. This guarantees that (if it completes) it will find the linearization with *minimal* possible chunks among all feerate-diagram-optimal linearizations. SFL (and GGT) on the other hand really just find groups of connected transactions with equal chunk feerate, and thus can't guarantee to pull equal-feerate chunks apart.
 * **Complexity bounds**: there is no known bound for the runtime of SFL, and it may be infinite, while CSS is trivially bounded by $\mathcal{O}(n \cdot 2^n)$, although I believe it may be $\mathcal{O}(n \cdot \sqrt{2^n})$ instead. These bounds are obviously impractical.
 
-All 3 about issues are open questions, and solutions/improvements could be found to them.
+All 3 above issues are open questions, and solutions/improvements could be found to them.
 
 ---
 
