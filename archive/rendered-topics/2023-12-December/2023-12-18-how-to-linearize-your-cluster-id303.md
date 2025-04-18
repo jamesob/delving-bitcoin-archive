@@ -1309,7 +1309,7 @@ I expect that the min-cut work will eventually lead to a better cluster lineariz
 
 -------------------------
 
-sipa | 2025-03-07 03:18:10 UTC | #50
+sipa | 2025-04-18 02:47:34 UTC | #50
 
 So, short update.
 
@@ -1320,6 +1320,12 @@ My plan is still to write a prototype of GGT (with max-distance selection strate
 * A line of thinking we followed for a while was representing them as exact fractions. It turns out that within **one** min-cut (ignoring GGT slicing), all capacities will be a multiple of $1/S$, where $S =\sum_{i \in G} \operatorname{size}(i)$, so one can easily represent all capacities/flows as integer multiples thereof, which can grow up to $\mathcal{O}(FS)$ (with $F = \sum_{i \in G} \operatorname{fee}(i)$). Unfortunately, when slicing (descending into one side of the cut) in GGT, the flows are inherited by the child problem, which needs a different denominator. Bringing everything on the same denominator could lead to ever-growing numerators.
 * A next line of thinking was to convert the problem from one denominator to another, by first mapping to the closest integer, and then getting rid of the remaining fractional parts using [Flow Rounding](https://arxiv.org/pdf/1507.08139), which will find a flow with integer numerators for the subproblem using a flow for the parent with integer numerators these. It's not very costly computationally, but seems nontrivial, and just feels unnecessary.
 * [This paper](https://www.cs.cmu.edu/~jonderry/maxflow.pdf) suggests a simpler alternative: multiply the flows and capacities by a *fixed* constant (the same for the entire GGT problem, including subproblems) and represent them as *rounded* integer multiples. It argues that as long as this multiplier $M$ is such that all distinct breakpoints (in our context: chunk feerates) multiplied by $M$ are at least 2 apart, the found min-cuts will be exactly correct. No two (distinct) chunk feerates can differ by less than $1/(S^2 - S)$, so picking $M=2S^2$ would suffice for exact results. This involves $\mathcal{O}(S^3 F)$ multiplication results internally, but 128-bit integers should more than suffice in practice.
+
+EDIT: I realized that integers capable of representing $4 S^2 F$ suffices. The two places where multiplications happen are:
+* In the computation of the scaled group feerate for a group $g$, $\lambda_g = -(M f_g) / s_g$.
+* In the computation of from-source / to-sink capacity of a transaction $x$, $c_x = M f_x + \lambda_g s_x$.
+
+There are two cases of an $M f$ multiplication, and one $\lambda_g s_x$ multiplication. In the latter it holds that $s_x \leq s_g$ (since $x \in g$), thus $|\lambda s_x|$ cannot exceed $M |f_g|$ as well, and $|c_x|$ is bounded by $2MF$. If $M$ is set to $2S^2$, this yields $4S^2F$.
 
 -------------------------
 
@@ -1582,7 +1588,7 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-17 21:07:52 UTC | #68
+sipa | 2025-04-18 02:49:06 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
 
@@ -1591,7 +1597,8 @@ The reasons for choosing SFL over [GGT](https://delvingbitcoin.org/t/how-to-line
 * **Improving existing linearizations**: it is possible to initialize SFL with an existing linearization as input, and any output it gives will be a linearization that's better or equal. In some, but not all, practical cases it makes the algorithm also find the optimal faster when provided with a good input linearization already. This avoids the need to use the [linearization merging](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) algorithm to combine with existing linearization, or the [LIMO algorithm](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) to combine candidate finding with improvement of an existing linearization.
 * **Load balancing**: both GGT and CSS subdivide the problem in different ways. When trying to turn them into anytime algorithms, there is a question of how to subdivide the computation budget over these subproblems. In contrast, SFL always just operates on a single state which it keeps improving, so no such budgetting decisions are necessary.
 * **Fairness**: Related to the previous point, it is easy to make SFL spread its work over all transactions in the cluster in a more-or-less fair way, for example by trying going through the transactions in a round-robin fashion to find dependencies to improve. GGT works by subdividing the cluster in a divide-and-conquer manner, but choices need to be made about which part to attempt to subdivide next. CSS fundamentally works from highest-feerate to lowest-feerate chunks, so if time runs after only some part is done, the (transactions in) the first chunk will have had more effort on them. I think that's concerning, because it risks an attacker attaching a very complex set of transactions to an honest CPFP or so, and have the algorithm spend all its time on the attacker's transactions, running out before even considering the steps necessary to recognize the CPFP.
-* **Runtime**: when benchmarking using replayed mempool data of previous years (credit to @sdaftuar), my SFL implementation seems somewhat (~2x) faster than the GGT one. 
+* **Runtime**: when benchmarking using replayed mempool data of previous years (credit to @sdaftuar), my SFL implementation seems somewhat (~2x) faster than the GGT one.
+* **Integer arithmetic**: GGT needs to represent flows and feerates as [approximate integers](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/50), which need to be scaled such that they are sufficiently precise. If $F$ is the sum of the (absolute values of) fees in the graph and $S$ the sum of the sizes in the graph, then GGT needs integers large enough to represent $4S^2F$ if exactly optimal solutions are desired. SFL and CSS only need integers large enough to represent $2SF$ and $SF$. Of course, perhaps we don't care about exactness of solutions for huge clusters that pay enormous feerates, and in either case, this isn't a very hard problem, just complicates the implementation somewhat.
 
 The downsides of SFL compared to GGT are:
 * **Complexity bounds**: there is no known bound for the runtime of SFL, and it may be infinite, while GGT is proven to be $\mathcal{O}(n^3)$. I suspect that SFL is $\mathcal{O}(n^5)$ or so in the worst case. However, even GGT's cubic runtime is probably too much in the worst case to run at transaction relay time. Also note that we don't really need optimal linearization. They're nice, because they're obviously the most incentive-compatible ones, but in practice, the bar is really a "good enough for what people actually use", which is hard to define, and interacts in difficult ways with adversial models (see fairness above).
@@ -1616,6 +1623,7 @@ In table form:
 |**Anytime algorithm** | 🟧|Needs budgeting | 🟩|Natively | 🟥|May lose progress |
 |**Improving existing** | 🟧|Through [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | 🟩|Natively | 🟥|[Merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209)) afterwards|
 |**Fairness** | 🟥|Hard | 🟩|Easy | 🟥|Hard|
+**Integer sizes**|🟩|$SF$ |🟩|$2SF$ |🟧 |$4S^2F$|
 |**Ancestor sort mix** | 🟩|Yes | 🟥|No | 🟥|No|
 |**Minimal chunks** | 🟩|Natively | 🟥|No | 🟥|No|
 
@@ -1639,13 +1647,13 @@ I’m confused, I thought that CSS basically starts from the Ancestor Set Sort r
 
 -------------------------
 
-sipa | 2025-04-18 00:39:14 UTC | #70
+sipa | 2025-04-18 01:21:40 UTC | #70
 
 [quote="murch, post:69, topic:303"]
 I’m confused, I thought that CSS basically starts from the Ancestor Set Sort result, or it is guaranteed to be as good as Ancestor Set Sort by merging. If you have to do an Ancestor Set Sort to achieve at least Ancestor Set Sort quality, wouldn’t it be fair to do Ancestor Set Sort first and let SFL start with the result of Ancestor Set Sort?
 [/quote]
 
-There are multiple ways of combining things, but that is not how it's currently implemented. The important part is that in practice, we have a linearization for every cluster at all times, and want to exploit that knowledge. So the input linearization to LIMO/CSS is the earlier, existing, linearization for the cluster, not a pure ancestor sort based linearization.
+There are multiple ways of combining things, but that is not how it's currently implemented. The important part is that in practice, we have a linearization for every cluster at all times, and want to exploit that knowledge. So the input linearization to LIMO/CSS is the earlier, existing, linearization for the cluster, not a pure ancestor sort based linearization. This input linearization can be great (if it was a hard cluster that was linearized before, and only a trivial change made to it), but it may also be terrible (say two clusters got merged, so we combine their linearizations naively, but the transactions interact a lot).
 
 The ancestor sort mixing-in happens inside, which means that each candidate set search can be bootstrapped from it, and LIMO'd with it.
 
@@ -1661,7 +1669,7 @@ The LIMO/CSS as implemented now, is roughly:
 
 This mixing/bootstrapping with ancestor sets in addition to existing prefixes doesn't actually guarantee anything (in particular, it does *not* guarantee that the output is as good as pure ancestor set sort, though in practice it'll usually beat it easily), but it's a relatively fast way to have a good initial thing to start with, in particular when the input linearization is terrible.
 
-And it's this incremental mixing in of various sources of candidate sets (whether that's ancestor sets or CSS or something else) that I don't know how to map to SFL. But unless we really think that this ancestor-set mixing has some specifically useful properties, I don't think we care. The normal SFL steps seem to make the output linearization very quickly better, and in practice, optimal within 10s of microseconds.
+And it's this incremental mixing in of various sources of candidate sets (whether that's ancestor sets or CSS or something else) that I don't know how to map to SFL. It can start with an input linearization, but I think it's more important to use the existing cluster linearization for that. However, unless we really think that this ancestor-set mixing has some specifically useful properties, I don't think we care. The normal SFL steps seem to make the output linearization very quickly better, and in practice, optimal within 10s of microseconds.
 
 -------------------------
 
