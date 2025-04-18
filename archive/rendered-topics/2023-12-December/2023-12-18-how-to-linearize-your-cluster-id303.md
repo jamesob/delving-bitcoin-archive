@@ -1588,12 +1588,12 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-18 02:49:06 UTC | #68
+sipa | 2025-04-18 13:29:20 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
 
-The reasons for choosing SFL over [GGT](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) and CSS (candidate set search, the old exponential algorithm which [this thread](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/1) was originally about): are:
-* **[Anytime algorithm](https://en.wikipedia.org/wiki/Anytime_algorithm)**: it is possible to interrupt SFL at any point, and get linearization out. The longer it runs, the better the result gets. This is also true for CSS, but less so for GGT as any min-cut that has not been computed completely may not result in an improvement (and the entire runtime may consist of just a single cut).
+The reasons for choosing SFL over [GGT](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) and CSS (candidate set search, the old exponential algorithm which [this thread](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/1) was originally about) are:
+* **[Anytime algorithm](https://en.wikipedia.org/wiki/Anytime_algorithm)**: it is possible to interrupt SFL at any point, and get a linearization out. The longer it runs, the better the result gets. This is also true for CSS, but less so for GGT as any min-cut that has not been computed completely may not result in an improvement (and the entire runtime may consist of just a single cut).
 * **Improving existing linearizations**: it is possible to initialize SFL with an existing linearization as input, and any output it gives will be a linearization that's better or equal. In some, but not all, practical cases it makes the algorithm also find the optimal faster when provided with a good input linearization already. This avoids the need to use the [linearization merging](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209) algorithm to combine with existing linearization, or the [LIMO algorithm](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) to combine candidate finding with improvement of an existing linearization.
 * **Load balancing**: both GGT and CSS subdivide the problem in different ways. When trying to turn them into anytime algorithms, there is a question of how to subdivide the computation budget over these subproblems. In contrast, SFL always just operates on a single state which it keeps improving, so no such budgetting decisions are necessary.
 * **Fairness**: Related to the previous point, it is easy to make SFL spread its work over all transactions in the cluster in a more-or-less fair way, for example by trying going through the transactions in a round-robin fashion to find dependencies to improve. GGT works by subdividing the cluster in a divide-and-conquer manner, but choices need to be made about which part to attempt to subdivide next. CSS fundamentally works from highest-feerate to lowest-feerate chunks, so if time runs after only some part is done, the (transactions in) the first chunk will have had more effort on them. I think that's concerning, because it risks an attacker attaching a very complex set of transactions to an honest CPFP or so, and have the algorithm spend all its time on the attacker's transactions, running out before even considering the steps necessary to recognize the CPFP.
@@ -1682,6 +1682,46 @@ The factor of 2 is interesting to me, since that's also what GGT loses from havi
 I confess that I'm happy to see you seemingly leaning towards SFL because GGT's arithmetic struck me as particularly ugly.
 
 Preferring linearizations with smaller chunks first among options with equivalent feerate diagrams sounds pretty attractive particularly absent any kind of just in time space constrained linearization.  But how often does it even matter historically?  My WAG is that it's almost always the case in practice that the optimal diagram is unique unless transactions are the same sizes.
+
+-------------------------
+
+sipa | 2025-04-18 11:19:56 UTC | #72
+
+[quote="gmaxwell, post:71, topic:303"]
+There are also other non-GGT algorithms in the literature with similar worst case complexity. Perhaps one of them may even be (a variation of) SFL.
+[/quote]
+
+SFL is ultimately a modified version of simplex for the LP formulation of the maximum ratio closure problem, though one with two important changes:
+* Whenever dependencies are made active (i.e., become basic variables in simplex terms), pick the ones whose feerate difference is maximal. This is crucial apparently, because (as far as fuzzing can confirm) it is sufficient to never hit repeated states.
+* Operate on all chunks at once, rather than just on finding the one first chunk. This is nice from a computation perspective (no separation into subproblems that the budget needs to be split over), but also from a fairness perspective (can distribute work over all transactions equally).
+
+Simplex in general, without heuristics, can cycle forever. With heuristics, it can be exponential in the worst case. But our problem is very much not a general LP problem, and the max-feerate-difference heuristic is a fairly strong one, so I think it's at least plausible this makes it polynomial.
+
+[quote="gmaxwell, post:71, topic:303"]
+The factor of 2 is interesting to me, since that’s also what GGT loses from having to run both forward and backward to save a factor of N in the worst case-- right? If so leaving that out would leave it competitive with SFL in average performance but still better than SFL’s conjectured worst case.
+[/quote]
+
+I think I saw a factor of 1.5 from running forward and backward, but this is perhaps a good thing to include in further benchmarks, to compare SFL with a version of GGT that just runs forward (which has $\mathcal{O}(n^4)$ worst-case complexity, FWIW).
+
+And of course, these are tiny constant factors. They may also be achievable by mundane implementation aspects, like picking a different data structure here or there. Or they may be the consequence of a dumb oversight in my unreviewed implementations.
+
+[quote="gmaxwell, post:71, topic:303"]
+I confess that I’m happy to see you seemingly leaning towards SFL because GGT’s arithmetic struck me as particularly ugly.
+[/quote]
+
+I think SFL is more elegant too, mostly because it really has a small amount of state: the set of active edges. The implementation does need a lot of precomputed values to be efficient, but those precomputed values can all be determined in $\mathcal{O}(n^2)$ time from the set of active dependencies. On the other hand, GGT has a lot of state: the flows between the source/sink and each transactions, and the flows along every dependency, and a copy of all of that per instance of the min-cut problem. It just feels like there is redundancy in there that is not exploited (e.g., there can be many equivalent flows that represent the same cut).
+
+[quote="gmaxwell, post:71, topic:303"]
+Preferring linearizations with smaller chunks first among options with equivalent feerate diagrams sounds pretty attractive particularly absent any kind of just in time space constrained linearization.
+[/quote]
+
+All else being equal, we should of course prefer smaller chunks over bigger ones, as it reduces the binpacking loss at the end of a block (it can be compensated through other means too, but if it can be done through smaller chunks it's just a win overall). But on the other hand, *exactly* equal feerate chunks are just a special case. If we seriously cared about the binpacking impact of larger chunks, we should arguably also prefer splitting up "chunks" into quasi-chunks that have *almost* the same feerate. Unfortunately, that does break some of the theory (e.g., now it is no longer the case that chunks are monotonically decreasing in feerate), but as long as we're talking about small feerate differences, this may still well be worth it in practice.
+
+[quote="gmaxwell, post:71, topic:303"]
+But how often does it even matter historically? My WAG is that it’s almost always the case in practice that the optimal diagram is unique unless transactions are the same sizes.
+[/quote]
+
+I have certainly seen clusters with many exactly-equal-feerate transactions.
 
 -------------------------
 
