@@ -1639,3 +1639,29 @@ I’m confused, I thought that CSS basically starts from the Ancestor Set Sort r
 
 -------------------------
 
+sipa | 2025-04-18 00:39:14 UTC | #70
+
+[quote="murch, post:69, topic:303"]
+I’m confused, I thought that CSS basically starts from the Ancestor Set Sort result, or it is guaranteed to be as good as Ancestor Set Sort by merging. If you have to do an Ancestor Set Sort to achieve at least Ancestor Set Sort quality, wouldn’t it be fair to do Ancestor Set Sort first and let SFL start with the result of Ancestor Set Sort?
+[/quote]
+
+There are multiple ways of combining things, but that is not how it's currently implemented. The important part is that in practice, we have a linearization for every cluster at all times, and want to exploit that knowledge. So the input linearization to LIMO/CSS is the earlier, existing, linearization for the cluster, not a pure ancestor sort based linearization.
+
+The ancestor sort mixing-in happens inside, which means that each candidate set search can be bootstrapped from it, and LIMO'd with it.
+
+The LIMO/CSS as implemented now, is roughly:
+* Linearize(cluster, input_lin):
+  * While cluster is not empty:
+    * Find anc, the best ancestor set in cluster
+    * Find pre, the best prefix of input_lin in what remains of cluster.
+    * Set best = higher feerate of anc and pre
+    * Update best = CSS(cluster, best), starting with best as initial candidate.
+    * Update best to be the highest-feerate prefix of the intersection between best and input_lin (this is the LIMO step, guaranteeing that the result will be as good as input_lin).
+    * Output best, and remove it from cluster
+
+This mixing/bootstrapping with ancestor sets in addition to existing prefixes doesn't actually guarantee anything (in particular, it does *not* guarantee that the output is as good as pure ancestor set sort, though in practice it'll usually beat it easily), but it's a relatively fast way to have a good initial thing to start with, in particular when the input linearization is terrible.
+
+And it's this incremental mixing in of various sources of candidate sets (whether that's ancestor sets or CSS or something else) that I don't know how to map to SFL. But unless we really think that this ancestor-set mixing has some specifically useful properties, I don't think we care. The normal SFL steps seem to make the output linearization very quickly better, and in practice, optimal within 10s of microseconds.
+
+-------------------------
+
