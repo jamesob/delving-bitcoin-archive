@@ -1623,3 +1623,19 @@ In table form:
 
 -------------------------
 
+murch | 2025-04-18 00:08:13 UTC | #69
+
+Cool results regarding SFL. It sounds quite attractive that you can just stop anytime and are guaranteed to have been at least as good as what you started with. If you remember whether a cluster is linearized optimally, it would be easy to pick up non-optimally linearized cluster at a later time and improve them in the background.
+
+[quote="sipa, post:68, topic:303"]
+**Improving existing linearizations**: it is possible to initialize SFL with an existing linearization as input, and any output it gives will be a linearization that’s better or equal.
+[/quote]
+
+[quote="sipa, post:68, topic:303"]
+**Mix with ancestor sort**: CSS, when used through LIMO, can include arbitrary additional sources for finding good topological sets to move to the front. In the current implementation, optimal ancestor sets are used as additional inputs. There are no well-defined properties that this gives the linearization, but at least intuitively, this provides a “linearization always has at least ancestor-set like quality” property, regardless of how much time was spent in candidate finding. I don’t know how to do anything like this in SFL (nor in GGT).
+[/quote]
+
+I’m confused, I thought that CSS basically starts from the Ancestor Set Sort result, or it is guaranteed to be as good as Ancestor Set Sort by merging. If you have to do an Ancestor Set Sort to achieve at least Ancestor Set Sort quality, wouldn’t it be fair to do Ancestor Set Sort first and let SFL start with the result of Ancestor Set Sort?
+
+-------------------------
+
