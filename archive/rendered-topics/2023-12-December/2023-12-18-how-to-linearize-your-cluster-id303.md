@@ -1673,3 +1673,15 @@ And it's this incremental mixing in of various sources of candidate sets (whethe
 
 -------------------------
 
+gmaxwell | 2025-04-18 05:53:27 UTC | #71
+
+There are also other non-GGT algorithms in the literature with similar worst case complexity.  Perhaps one of them may even be (a variation of) SFL.
+
+The factor of 2 is interesting to me, since that's also what GGT loses from having to run both forward and backward to save a factor of N in the worst case-- right?  If so leaving that out would leave it competitive with SFL in average performance but still better than SFL's conjectured worst case.
+
+I confess that I'm happy to see you seemingly leaning towards SFL because GGT's arithmetic struck me as particularly ugly.
+
+Preferring linearizations with smaller chunks first among options with equivalent feerate diagrams sounds pretty attractive particularly absent any kind of just in time space constrained linearization.  But how often does it even matter historically?  My WAG is that it's almost always the case in practice that the optimal diagram is unique unless transactions are the same sizes.
+
+-------------------------
+
