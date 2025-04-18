@@ -1588,7 +1588,7 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-18 13:29:20 UTC | #68
+sipa | 2025-04-18 17:57:37 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
 
@@ -1623,7 +1623,7 @@ In table form:
 |**Anytime algorithm** | 🟧|Needs budgeting | 🟩|Natively | 🟥|May lose progress |
 |**Improving existing** | 🟧|Through [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | 🟩|Natively | 🟥|[Merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209)) afterwards|
 |**Fairness** | 🟥|Hard | 🟩|Easy | 🟥|Hard|
-**Integer sizes**|🟩|$SF$ |🟩|$2SF$ |🟧 |$4S^2F$|
+**Integer sizes**|🟩|$SF$ $(\times,<)$ |🟩|$2SF$ $(\times,<,-)$ |🟧 |$4S^2F$ $(\times,/,<,+,-)$|
 |**Ancestor sort mix** | 🟩|Yes | 🟥|No | 🟥|No|
 |**Minimal chunks** | 🟩|Natively | 🟥|No | 🟥|No|
 
