@@ -121,3 +121,11 @@ If something like https://github.com/bitcoin/bitcoin/pull/29415 is merged and a 
 
 -------------------------
 
+gmaxwell | 2025-04-18 05:57:44 UTC | #6
+
+Maybe but I am a little doubtful the vast majority will since it requires additional installation and configuration... and that the parties spying on the network are presumably selling the data and probably don't care that much if it's mostly useless... their customers probably don't even care unless its completely useless and it wouldn't be unless *everyone* used that kind of relay and perhaps maybe not even then.
+
+The incremental privacy improvement is, of course, worth it on its own merits but I'm doubtful it will stop the network abuse.
+
+-------------------------
+
