@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 1,
-  "incoming_link_count": 178,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 892.6,
+  "incoming_link_count": 186,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 948.0,
   "yours": false,
   "topic_id": 1562,
   "topic_slug": "swiftsync-speeding-up-ibd-with-pre-generated-hints-poc",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"theStack, post:7, topic:1562\"]\nI\u2019ll focus on the assumevalid version with my reply for now, since I still haven\u2019t fully processed the non-assumevalid one yet.\n[/quote]\n\nI'm much more excited about the SwiftSync variant that makes _less_ assumptions than `-assumevalid`. Would love to try a demo of that... https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd#without-assumevalid\n\nMaybe implementing this as a `-reindex` is easier for a PoC, since you already have the undo data on disk?\n\nRegarding `MuHash` performance, have you tried with this? https://github.com/bitcoin/bitcoin/pull/19181. Though I guess this one https://github.com/bitcoin/bitcoin/pull/21590 added much more performance boost, and is already in your branch. One comment in that PR suggests there's more potential gain: \"Using libgmp for inverses is 1.5x-2x faster still\"",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "I\u2019m much more excited about the SwiftSync variant that makes less assumptions than -assumevalid. Would love to try a demo of that\u2026 <a href=\"https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd#without-assumevalid\" class=\"inline-onebox\">SwiftSync - smarter synchronization with hints \u00b7 GitHub</a> \nMaybe implementing this as a -reindex is easier for a PoC, since you already have the undo data on disk? \nRegar&hellip;",
   "truncated": true,
   "post_url": "/t/swiftsync-speeding-up-ibd-with-pre-generated-hints-poc/1562/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
