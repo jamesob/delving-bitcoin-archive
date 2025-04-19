@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 1616,
   "topic_slug": "some-problems-with-current-bitcoin-core-moderation-md",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Following some [moderation incident](https://github.com/bitcoin/bitcoin/pull/31989#issuecomment-2702330203) on the proposal to add CTV support on bitcoin core, I\u2019ve [opened a PR](https://github.com/bitcoin-core/meta/pull/15) to remove the moderation guidelines (the `MODERATION.md` floating in the\n`bitcoin-core-meta` repo). I don't think bitcoin core should have mod guidelines, not concerning consensus rules.\n\nPhilosophically, in consideration of bitcoin history with the block size war, there should be no formal governance, or even the gist of some \"*Impatience led various participants to advocate*\n*models that would privilege high-profile actors and grant them control over the direction of*\n*the protocol*\". See the [The Tao of Bitcoin Development](https://medium.com/@bergealex4/the-tao-of-bitcoin-development-ff093c6155cd) essay from 2017. Yes you will find the \u201cproject management\" in the `.md`, so it's unclear what's the goal.\n\nLegally, there is something called the [Berne Convention of 1886](https://en.wikipedia.org/wiki/Berne_Convention), it's an IP treatise with 170+ countries are contracting parties. Almost all the historical or active development or organization stakeholders contributing to bitcoin dev are located in those countries. In its [article 7bis](https://www.law.cornell.edu/treaties/berne/7bis.html), it's protecting what's called joint authorship. Yes, joint authorship can be applied to open source projects. See [A Theory of Jointauthorship for Free and Open Software Projects](https://ctlj.colorado.edu/wp-content/uploads/2018/09/3-Chestek-6.20.18-FINAL.pdf) from some 2017 FSF workshop.\n\nThe `.md` has been acked by [~13 contributors](https://github.com/bitcoin-core/meta/pull/13#issuecomment-2748178454) only, with somehow no respect for the hard\ncontributed work of the ~1200 contributors that can be fetched from bitcoind git log, and as such there eventual right to consent or not to the `MODERATION.md`.\n\nLegally more, there is a UK judicial ruling of 2023, to which few formers or current maintainer(s) have been defendants ([Tulip Trading Limited v Van Der Laan and ors [2023] EWCA Civ 83](https://www.judiciary.uk/wp-content/uploads/2023/02/Tulip-v-Van-Der-Laan-judgment-030223.pdf)). Within, they made the following defense \"*They contend that they have nothing like the power or control*\" on the bitcoin network and go to argue \"*they are part of a very large, and shifting, group of contributors without an organisation or structure*\" (quote from the judicial ruling). The ruling explicitly considers Github, \"*with the relevant electronic password for the particular code database on GitHub*\u201d.\n\nNow currently, there is a `.md`, with some specific contributors (\"*the moderators*\" and \"*the maintainers*\u201d) that can enforce [behavioral guidelines](https://github.com/bitcoin-core/meta/pull/14#issuecomment-2753889160) on other contributors, decide what is \"*on-topic*\" / \"*off-topic*\", decide what is related to \"*project management*\" and what is related to \"*technical issues*\"...I don\u2019t know if it's \u201c*power*\" or \u201c*control*\", though it doesn't sound exactly like \"[janitorial roles](https://bitcoincore.org/en/about/)\u201d\u2026\n\nSomehow, there is a logical problem somewhere.\n\nI care about civility and courtesy in an internet community of contributors spread over the whole world, and treating with fairness and respect any contributor whatever the social background, however I don't think at all the current `MODERATION.md` flies very well.\n\nOpening this as a \"meta\", as I don't see why it's not a meta subject as long as it\u2019s discussed with politeness and kindness. And it's of interest to everyone in bitcoin.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Following some <a href=\"https://github.com/bitcoin/bitcoin/pull/31989#issuecomment-2702330203\">moderation incident</a> on the proposal to add CTV support on bitcoin core, I\u2019ve <a href=\"https://github.com/bitcoin-core/meta/pull/15\">opened a PR</a> to remove the moderation guidelines (the MODERATION.md floating in the\nbitcoin-core-meta repo). I don\u2019t think bitcoin core should have mod guidelines, not concerning consensus rules. \nPhilosophica&hellip;",
   "truncated": true,
   "post_url": "/t/some-problems-with-current-bitcoin-core-moderation-md/1616/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
