@@ -284,7 +284,7 @@ CCV _does_ of course allows you to design UTXOs that can't be spent in the same 
 
 -------------------------
 
-AntoineP | 2025-04-14 15:06:40 UTC | #10
+AntoineP | 2025-04-16 16:07:22 UTC | #10
 
 [quote="salvatoshi, post:7, topic:1527"]
 Can you elaborate on why? Validity is necessarily meaningful only at transaction-level. So I don’t know what you mean by “spill-over” - these new validation rules are by definition at transaction-level, the same way that CHECKSIG is.
@@ -299,7 +299,7 @@ On the opposite direction, it might be interesting to attempt a refactoring/simp
 I think this is the wrong direction to take. There are a few reasons:
 1. On its face, reducing parallelization (and most likely efficiency as a consequence) to match a proposal seems inappropriate if the same goal can be achieved without reducing parallelization.
 2. Although this is implementation specific, i think breaking a property the implementation was able to rely upon raises questions about whether this property is desirable to keep when designing extensions to the Script language.
-3. Input-level parallelization is key to reducing the validation time for unconfirmed transactions, where a would-be attacker does not have to expend a PoW to incur costs on a node, as well as worst case block validation times which adds up across a block propagation path.
+3. Input-level parallelization is key to reducing the validation time for unconfirmed transactions[^0], where a would-be attacker does not have to expend a PoW to incur costs on a node, as well as worst case block validation times which adds up across a block propagation path.
 
 [quote="salvatoshi, post:7, topic:1527"]
 It would of course work, although I do see some downsides, while it’s not too yet clear to me what are the benefits.
@@ -330,6 +330,51 @@ based on the *deferred checks framework* from James O’Beirne’s OP_VAULT PR (
 [/quote]
 
 In a sense you could see my suggestion as "preemptive" ("eager"?), rather than "deferred", checks. Existing features, for instance absolute locktimes, could have also been designed to have transaction-level checks be deferred to after executing the inputs scripts. Instead they were designed with transaction-level checks performed beforehand (surely because for those the field already existed in the transaction), and i think it is much cleaner.
+
+[^0]: Although we don't actually do it today! *(h/t Greg Sanders)*
+
+-------------------------
+
+salvatoshi | 2025-04-19 15:56:27 UTC | #11
+
+[quote="AntoineP, post:10, topic:1527"]
+I think this is the wrong direction to take. There are a few reasons:
+<br>[ ... ]
+[/quote]
+
+I don't find these arguments particularly convincing. Input validation parallelization is already an approach that can be argued to have caused a certain amount of additional code complexity. Therefore, if (?) it can be proven (with benchmarks) that it doesn't bring any substantial benefit - then that could be an argument for its removal.
+Today, the counter-example to this no-benefits claim is the fact that parallel input validation (poorly) mitigates the damage of quadratic hashing - which I look forward to see mitigated more properly with your work on the Great Consensus Cleanup.
+Simplifying the interpreter code would benefit any present and future cross-input logic - not just CCV.
+
+In any case, I will not pursue this approach further at this time, as it widens the scope of the change too much.
+
+[quote="AntoineP, post:10, topic:1527"]
+If your transaction doesn’t have a signature, malleability already goes out the window.
+[/quote]
+
+You're right, it doesn't make a difference. I was thinking of cases where CCV makes sense without signatures (for example it seems to make sense for the *recover* transaction of vaults, which can be implemented so that jut knowledge of the spending path is enough to execute it. It seems to me that the little malleability possible is not an issue - but then it wouldn't be an issue even with your annex approach.
+
+[quote="AntoineP, post:10, topic:1527"]
+Why “would”? I [demonstrated it](https://github.com/bitcoin/bitcoin/compare/v29.0...darosior:2504_hack_poc_annex_amounts) already, and it’s *much* simpler.
+[/quote]
+
+You demonstrated the amount logic based on the annex, but there's still a non-trivial amount of code that is missing to make it work with a covenant opcode, and that's required for a fair comparison. An opcode adopting this system will have to:
+- parse the parameters relevant to the amount constraints
+- make sure that these constraints are indeed present in the annex
+
+This will require adding the annex constraints in a place that is accessible during the opcode execution (perhaps in `ScriptExecutionData`), with some due care as they should be stored in a format that can be queried efficiently like a hash table in order to avoid introducing *quadratic annexing*...
+
+I'm convinced that your approach is _somewhat_ simpler than the deferred checks, but it's definitely more complicated/redundant than the current implementation based on a mutex from the current PR. (for comparison the current amount logic is entirely contained in [interpreter.h#L246-L301](https://github.com/bitcoin/bitcoin/blob/77c8c9ebb8082e8285d0c5d3b302c319fe659ae5/src/script/interpreter.h#L246-L301) plus [interpreter.cpp#L1896-L1943](https://github.com/bitcoin/bitcoin/blob/77c8c9ebb8082e8285d0c5d3b302c319fe659ae5/src/script/interpreter.cpp#L1896-L1943)).
+
+---
+
+Taking a step back, my general impression is that for even for something like [batch validation](https://github.com/bitcoin/bitcoin/pull/29491) (that is already useful today), one of:
+
+  - synchronization with mutexes
+  - a mechanism like deferred checks
+  - removal of parallel input validation
+
+will be necessary. Whatever solution is deemed best, it will be re-usable for CCV without sacrificing the desirable semantic (and avoiding redundant bytes).
 
 -------------------------
 
