@@ -1685,7 +1685,7 @@ Preferring linearizations with smaller chunks first among options with equivalen
 
 -------------------------
 
-sipa | 2025-04-18 11:19:56 UTC | #72
+sipa | 2025-04-19 12:47:57 UTC | #72
 
 [quote="gmaxwell, post:71, topic:303"]
 There are also other non-GGT algorithms in the literature with similar worst case complexity. Perhaps one of them may even be (a variation of) SFL.
@@ -1721,7 +1721,7 @@ All else being equal, we should of course prefer smaller chunks over bigger ones
 But how often does it even matter historically? My WAG is that it’s almost always the case in practice that the optimal diagram is unique unless transactions are the same sizes.
 [/quote]
 
-I have certainly seen clusters with many exactly-equal-feerate transactions.
+I have certainly seen clusters with many exactly-equal transaction fees and sizes.
 
 -------------------------
 
