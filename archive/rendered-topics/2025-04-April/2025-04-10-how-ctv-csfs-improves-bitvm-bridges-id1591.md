@@ -222,3 +222,110 @@ yeah it does seem you'd need two independent signatures, unless @ajtowns had a t
 
 -------------------------
 
+JeremyRubin | 2025-04-20 20:06:45 UTC | #14
+
+This example I created seems to deduplicate the signatures to work with OP_CODESEPARATOR
+
+
+```python3
+#!/usr/bin/env python3
+"""
+Test‑bed for the script pair:
+
+    scriptSig   = <sig> OP_DUP OP_CODESEPARATOR <pk> OP_CHECKSIG
+    scriptPubKey= <pk> OP_CHECKSIG
+
+The code builds a fake funding UTXO, spends it with the
+non‑standard scriptSig above, and verifies consensus acceptance
+(regtest only – policy rules would reject this on mainnet).
+"""
+
+from bitcointx.core import (
+    COutPoint, CTxIn, CTxOut, CMutableTransaction, b2x
+)
+from bitcointx.core.script import (
+    CScript, OP_DUP, OP_CODESEPARATOR, OP_CHECKSIGVERIFY, OP_TRUE
+)
+from bitcointx.core.key import CPubKey
+from bitcointx.wallet import CBitcoinSecret
+from bitcointx.core.scripteval import VerifyScript,MANDATORY_SCRIPT_VERIFY_FLAGS
+from bitcointx.core.script import SignatureHash, SIGHASH_ALL
+
+
+# --------------------------------------------------------------------------
+# 1. Network & key‑pair
+# --------------------------------------------------------------------------
+seckey  = CBitcoinSecret.from_secret_bytes(b"\x01"*32)
+pubkey  = CPubKey(seckey.pub)
+
+# --------------------------------------------------------------------------
+# 2. Fake funding tx : 1 BTC to "<pk> OP_CHECKSIG"
+# --------------------------------------------------------------------------
+funding_tx = CMutableTransaction([], [
+    CTxOut(100_000_000, CScript([pubkey, OP_CHECKSIGVERIFY]))
+])
+funding_tx.GetHash()                                  # gives it a txid
+
+# --------------------------------------------------------------------------
+# 3. Spending tx skeleton
+# --------------------------------------------------------------------------
+vin  = CTxIn(COutPoint(funding_tx.GetTxid(), 0))
+vout = CTxOut(90_000_000, CScript([OP_DUP]))         # arbitrary output
+spend_tx = CMutableTransaction([vin], [vout])
+
+# --------------------------------------------------------------------------
+# 4. Signature – note the script *after* OP_CODESEPARATOR
+# --------------------------------------------------------------------------
+# For OP_CHECKSIG inside the scriptSig, only the bytes *after* the last
+# OP_CODESEPARATOR – "[pubkey] OP_CHECKSIG" – are hashed.  That sequence
+# is byte‑for‑byte identical to the funding output’s scriptPubKey, so a
+# single SIGHASH_ALL signature works for both checks.
+
+subscript = CScript([pubkey, OP_CHECKSIGVERIFY])           # bytes after CODESEP
+sighash   = SignatureHash(subscript, spend_tx, 0, SIGHASH_ALL)
+
+sig = seckey.sign(sighash) + bytes([SIGHASH_ALL])
+
+
+print(len(sig), sig)
+# --------------------------------------------------------------------------
+# 5. Assemble full scriptSig
+#    <sig> OP_DUP OP_CODESEPARATOR <pk> OP_CHECKSIG
+# --------------------------------------------------------------------------
+spend_tx.vin[0].scriptSig = CScript([
+    OP_TRUE,
+    sig,
+    OP_DUP,
+    OP_CODESEPARATOR,
+    pubkey,
+    OP_CHECKSIGVERIFY
+])
+
+spend_tx.GetHash()
+
+# --------------------------------------------------------------------------
+# 6. Consensus verification (policy flags kept minimal)
+# --------------------------------------------------------------------------
+VerifyScript(
+    spend_tx.vin[0].scriptSig,
+    CScript([pubkey, OP_CHECKSIGVERIFY]),
+    spend_tx, 0,
+    flags=MANDATORY_SCRIPT_VERIFY_FLAGS,
+)
+
+print("✓ script validated under consensus rules")
+print("Funding txid :", b2x(funding_tx.GetTxid()))
+print("Spending tx  :", b2x(spend_tx.serialize()))
+
+```
+
+output:
+
+```
+✓ script validated under consensus rules
+Funding txid : a9114135fa063561c2f931374a411328225e4069f53bdbb57326ff919feef0d4
+Spending tx  : 0200000001a9114135fa063561c2f931374a411328225e4069f53bdbb57326ff919feef0d4000000006e51473044022064c6b87eed1936f2c10ed05ef410f967aecea28acf1dbb58dcb5a643afb5c71f02202fbef2d81754f46a19583948d1c3fb38c25ea1ce5429affc4386c99ad2039e320176ab21031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fadffffffff01804a5d0500000000017600000000
+```
+
+-------------------------
+
