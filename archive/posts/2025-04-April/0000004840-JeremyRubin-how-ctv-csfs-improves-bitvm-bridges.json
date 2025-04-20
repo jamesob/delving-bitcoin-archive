@@ -12,7 +12,7 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 5,
+  "incoming_link_count": 9,
   "reads": 4,
   "readers_count": 3,
   "score": 5.6,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This example I created seems to deduplicate the signatures to work with OP_CODESEPARATOR\n\n\n```python3\n#!/usr/bin/env python3\n\"\"\"\nTest\u2011bed for the script pair:\n\n    scriptSig   = <sig> OP_DUP OP_CODESEPARATOR <pk> OP_CHECKSIG\n    scriptPubKey= <pk> OP_CHECKSIG\n\nThe code builds a fake funding UTXO, spends it with the\nnon\u2011standard scriptSig above, and verifies consensus acceptance\n(regtest only \u2013 policy rules would reject this on mainnet).\n\"\"\"\n\nfrom bitcointx.core import (\n    COutPoint, CTxIn, CTxOut, CMutableTransaction, b2x\n)\nfrom bitcointx.core.script import (\n    CScript, OP_DUP, OP_CODESEPARATOR, OP_CHECKSIGVERIFY, OP_TRUE\n)\nfrom bitcointx.core.key import CPubKey\nfrom bitcointx.wallet import CBitcoinSecret\nfrom bitcointx.core.scripteval import VerifyScript,MANDATORY_SCRIPT_VERIFY_FLAGS\nfrom bitcointx.core.script import SignatureHash, SIGHASH_ALL\n\n\n# --------------------------------------------------------------------------\n# 1. Network & key\u2011pair\n# --------------------------------------------------------------------------\nseckey  = CBitcoinSecret.from_secret_bytes(b\"\\x01\"*32)\npubkey  = CPubKey(seckey.pub)\n\n# --------------------------------------------------------------------------\n# 2. Fake funding tx : 1 BTC to \"<pk> OP_CHECKSIG\"\n# --------------------------------------------------------------------------\nfunding_tx = CMutableTransaction([], [\n    CTxOut(100_000_000, CScript([pubkey, OP_CHECKSIGVERIFY]))\n])\nfunding_tx.GetHash()                                  # gives it a txid\n\n# --------------------------------------------------------------------------\n# 3. Spending tx skeleton\n# --------------------------------------------------------------------------\nvin  = CTxIn(COutPoint(funding_tx.GetTxid(), 0))\nvout = CTxOut(90_000_000, CScript([OP_DUP]))         # arbitrary output\nspend_tx = CMutableTransaction([vin], [vout])\n\n# --------------------------------------------------------------------------\n# 4. Signature \u2013 note the script *after* OP_CODESEPARATOR\n# --------------------------------------------------------------------------\n# For OP_CHECKSIG inside the scriptSig, only the bytes *after* the last\n# OP_CODESEPARATOR \u2013 \"[pubkey] OP_CHECKSIG\" \u2013 are hashed.  That sequence\n# is byte\u2011for\u2011byte identical to the funding output\u2019s scriptPubKey, so a\n# single SIGHASH_ALL signature works for both checks.\n\nsubscript = CScript([pubkey, OP_CHECKSIGVERIFY])           # bytes after CODESEP\nsighash   = SignatureHash(subscript, spend_tx, 0, SIGHASH_ALL)\n\nsig = seckey.sign(sighash) + bytes([SIGHASH_ALL])\n\n\nprint(len(sig), sig)\n# --------------------------------------------------------------------------\n# 5. Assemble full scriptSig\n#    <sig> OP_DUP OP_CODESEPARATOR <pk> OP_CHECKSIG\n# --------------------------------------------------------------------------\nspend_tx.vin[0].scriptSig = CScript([\n    OP_TRUE,\n    sig,\n    OP_DUP,\n    OP_CODESEPARATOR,\n    pubkey,\n    OP_CHECKSIGVERIFY\n])\n\nspend_tx.GetHash()\n\n# --------------------------------------------------------------------------\n# 6. Consensus verification (policy flags kept minimal)\n# --------------------------------------------------------------------------\nVerifyScript(\n    spend_tx.vin[0].scriptSig,\n    CScript([pubkey, OP_CHECKSIGVERIFY]),\n    spend_tx, 0,\n    flags=MANDATORY_SCRIPT_VERIFY_FLAGS,\n)\n\nprint(\"\u2713 script validated under consensus rules\")\nprint(\"Funding txid :\", b2x(funding_tx.GetTxid()))\nprint(\"Spending tx  :\", b2x(spend_tx.serialize()))\n\n```\n\noutput:\n\n```\n\u2713 script validated under consensus rules\nFunding txid : a9114135fa063561c2f931374a411328225e4069f53bdbb57326ff919feef0d4\nSpending tx  : 0200000001a9114135fa063561c2f931374a411328225e4069f53bdbb57326ff919feef0d4000000006e51473044022064c6b87eed1936f2c10ed05ef410f967aecea28acf1dbb58dcb5a643afb5c71f02202fbef2d81754f46a19583948d1c3fb38c25ea1ce5429affc4386c99ad2039e320176ab21031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fadffffffff01804a5d0500000000017600000000\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "This example I created seems to deduplicate the signatures to work with OP_CODESEPARATOR \n#!/usr/bin/env python3\n&quot;&quot;&quot;\nTest\u2011bed for the script pair:\n\n    scriptSig   = &lt;sig&gt; OP_DUP OP_CODESEPARATOR &lt;pk&gt; OP_CHECKSIG\n    scriptPubKey= &lt;pk&gt; OP_CHECKSIG\n\nThe code builds a fake funding UTXO, spends it with&hellip;",
   "truncated": true,
   "post_url": "/t/how-ctv-csfs-improves-bitvm-bridges/1591/14",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
