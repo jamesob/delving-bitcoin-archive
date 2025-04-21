@@ -222,12 +222,12 @@ yeah it does seem you'd need two independent signatures, unless @ajtowns had a t
 
 -------------------------
 
-JeremyRubin | 2025-04-20 21:18:58 UTC | #14
+JeremyRubin | 2025-04-21 20:23:13 UTC | #14
 
 This example I created seems to deduplicate the signatures to work with OP_CODESEPARATOR
 
 
-```python3
+```python
 #!/usr/bin/env python3
 """
 Test‑bed for the script pair:
