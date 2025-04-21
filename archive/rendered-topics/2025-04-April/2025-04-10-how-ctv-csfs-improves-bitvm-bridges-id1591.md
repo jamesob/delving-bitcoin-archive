@@ -222,7 +222,7 @@ yeah it does seem you'd need two independent signatures, unless @ajtowns had a t
 
 -------------------------
 
-JeremyRubin | 2025-04-20 20:06:45 UTC | #14
+JeremyRubin | 2025-04-20 21:18:58 UTC | #14
 
 This example I created seems to deduplicate the signatures to work with OP_CODESEPARATOR
 
@@ -326,6 +326,35 @@ output:
 Funding txid : a9114135fa063561c2f931374a411328225e4069f53bdbb57326ff919feef0d4
 Spending tx  : 0200000001a9114135fa063561c2f931374a411328225e4069f53bdbb57326ff919feef0d4000000006e51473044022064c6b87eed1936f2c10ed05ef410f967aecea28acf1dbb58dcb5a643afb5c71f02202fbef2d81754f46a19583948d1c3fb38c25ea1ce5429affc4386c99ad2039e320176ab21031b84c5567b126440995d3ed5aaba0565d71e1834604819ff9c17f5e9d5dd078fadffffffff01804a5d0500000000017600000000
 ```
+
+
+p.s., if you wanted the script to have a scriptSig that was a bit tighter, you could do something like this to restrict the scriptSig and scriptPubKey to have a single item on the stack that gets dup'd, and then checksigverify it. Less garbage data possible
+
+```
+POST_SEP = [
+    OP_DEPTH,
+    OP_1,
+    OP_EQUALVERIFY,
+    OP_DUP,
+    pubkey,
+    OP_CHECKSIGVERIFY]
+```
+
+-------------------------
+
+JeremyRubin | 2025-04-20 21:20:33 UTC | #15
+
+Overall this approach serves to allow A to be spent with a specific spend of B. However, B can still be spent elsewhere, and is still subject to third-party malleability (e.g. scriptSig NOP injection).
+
+So while A can be sure it is spent with B or none-other, B could be caused to be spent spuriously as long as someone is willing to e.g. front the money to pay for whatever other outputs.
+
+-------------------------
+
+JeremyRubin | 2025-04-20 21:24:17 UTC | #16
+
+Addenda:
+
+this approach doesn't actually require OP_CODESEPARATOR at all it seems, as if you have the DUP contained in both scriptsig and scriptPubKey, following the signature, the FindAndDelete behavior will run more or less identically.
 
 -------------------------
 
