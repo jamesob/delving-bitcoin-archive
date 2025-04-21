@@ -1551,3 +1551,19 @@ I was recently made aware that several Bitcoin side-systems in development were 
 
 -------------------------
 
+AntoineP | 2025-04-21 14:21:14 UTC | #85
+
+I'm moving a conceptual discussion from the BIP PR to this thread. There, Luke Dashjr [pointed out](https://github.com/bitcoin/bips/pull/1800#discussion_r2029450291) that since the nLockTime field is serialized at the very end of a transaction, it makes for a good extranonce. Luke has not provided any details so it's difficult to address his objection precisely, but i can't think of a realistic situation where not being able to roll the nLockTime would be a significant issue for a miner.
+
+-------------------------
+
+sjors | 2025-04-21 14:57:21 UTC | #86
+
+To repeat the response I had there: why not just use a `scriptPubKey`? Since a coinbase doesn't have input signatures that commit to outputs, there'd be no extra hashing either.
+
+Also note that Stratum v2 spec [suggests](https://github.com/stratum-mining/sv2-spec/blob/a4738d0f96efb2994f5f0536c1c1ae4f0dc8ef4b/05-Mining-Protocol.md) that ASICs roll the [BIP320](https://github.com/bitcoin/bips/blob/6ceafc51b17665f7cb13c8e2b9ee6354b9d374bd/bip-0320.mediawiki) version bits, and only pool software updates the coinbase extraNonce.
+
+That's enough for devices up to 280 TH/s. Beyond that devices could roll their timestamp a bit (though some people believe that [should be discouraged](https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/8)) or handle multiple jobs in parallel. Both approaches avoid the need for an ASIC to deal with the block merkle tree.
+
+-------------------------
+
