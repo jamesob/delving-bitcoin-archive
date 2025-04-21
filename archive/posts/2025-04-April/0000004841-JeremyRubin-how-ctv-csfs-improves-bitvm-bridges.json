@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Overall this approach serves to allow A to be spent with a specific spend of B. However, B can still be spent elsewhere, and is still subject to third-party malleability (e.g. scriptSig NOP injection).\n\nSo while A can be sure it is spent with B or none-other, B could be caused to be spent spuriously as long as someone is willing to e.g. front the money to pay for whatever other outputs.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Overall this approach serves to allow A to be spent with a specific spend of B. However, B can still be spent elsewhere, and is still subject to third-party malleability (e.g. scriptSig NOP injection). \nSo while A can be sure it is spent with B or none-other, B could be caused to be spent spuriously&hellip;",
   "truncated": true,
   "post_url": "/t/how-ctv-csfs-improves-bitvm-bridges/1591/15",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
