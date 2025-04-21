@@ -358,7 +358,7 @@ this approach doesn't actually require OP_CODESEPARATOR at all it seems, as if y
 
 -------------------------
 
-JeremyRubin | 2025-04-21 15:29:36 UTC | #17
+JeremyRubin | 2025-04-21 16:18:03 UTC | #17
 
 Addenda:
 
@@ -382,7 +382,9 @@ B'd signature's scriptcode is comitted to. It also seems not possible to sneakil
 
 *edit: we also put the OP_NOP's at the end, so that the signature cannot be placed arbitrarily in the OP_NOP segment.*
 
-I believe this prevents the issue that B could be caused to be spent spuriously as long as someone is willing to e.g. front the money to pay for whatever other outputs. It seems with this change, B can be sure that their scriptSig cannot be modified by a third party.
+~~I believe this prevents the issue that B could be caused to be spent spuriously as long as someone is willing to e.g. front the money to pay for whatever other outputs. It seems with this change, B can be sure that their scriptSig cannot be modified by a third party.~~
+
+Edit: This prevents that *if* there is a checksig in the scriptSig, it must match this template. But it does not seem to require that the scriptSig must be a match to this template. E.g., you could drop all the other scriptSig logic entirely to just have the sig on the stack. This seems inherent.
 
 -------------------------
 
