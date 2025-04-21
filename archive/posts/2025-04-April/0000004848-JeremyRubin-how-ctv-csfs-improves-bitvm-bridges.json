@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 27,
-  "reads": 12,
-  "readers_count": 11,
+  "reads": 13,
+  "readers_count": 12,
   "score": 152.4,
   "yours": false,
   "topic_id": 1591,
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -61,12 +61,17 @@
   "post_url": "/t/how-ctv-csfs-improves-bitvm-bridges/1591/17",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
