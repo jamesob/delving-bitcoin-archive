@@ -7,7 +7,7 @@
   "cooked": "<p>Addenda:</p>\n<p>this approach doesn\u2019t actually require OP_CODESEPARATOR at all it seems, as if you have the DUP contained in both scriptsig and scriptPubKey, following the signature, the FindAndDelete behavior will run more or less identically.</p>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 15,
   "updated_at": "2025-04-20T21:24:17.688Z",
   "reply_count": 0,
   "reply_to_post_number": 15,

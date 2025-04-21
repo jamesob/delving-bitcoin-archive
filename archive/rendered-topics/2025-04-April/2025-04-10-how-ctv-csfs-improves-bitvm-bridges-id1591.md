@@ -358,3 +358,29 @@ this approach doesn't actually require OP_CODESEPARATOR at all it seems, as if y
 
 -------------------------
 
+JeremyRubin | 2025-04-21 15:19:21 UTC | #17
+
+Addenda:
+
+to limit malleability, 197 OP_NOPs may be on the scriptSig following the signature.
+
+The OP_DEPTH check prevents any other pushdatas. The NOPs also prevent any other codeseparator being placed.
+
+
+
+```
+POST_SEP = [OP_NOP]*197 + [
+    OP_DEPTH,
+    OP_1,
+    OP_EQUALVERIFY,
+    OP_DUP,
+    pubkey,
+    OP_CHECKSIGVERIFY]
+```
+
+B'd signature's scriptcode is comitted to. It also seems not possible to sneakily inject another copy of the signature itself somewhere, relying on FindAndDelete, since there is no way to drop it before the second stack size check (in the **scriptPubKey**) executes.
+
+I believe this prevents the issue that B could be caused to be spent spuriously as long as someone is willing to e.g. front the money to pay for whatever other outputs. It seems with this change, B can be sure that their scriptSig cannot be modified by a third party.
+
+-------------------------
+

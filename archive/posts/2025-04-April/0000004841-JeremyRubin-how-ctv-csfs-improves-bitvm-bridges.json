@@ -7,7 +7,7 @@
   "cooked": "<p>Overall this approach serves to allow A to be spent with a specific spend of B. However, B can still be spent elsewhere, and is still subject to third-party malleability (e.g. scriptSig NOP injection).</p>\n<p>So while A can be sure it is spent with B or none-other, B could be caused to be spent spuriously as long as someone is willing to e.g. front the money to pay for whatever other outputs.</p>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 15,
   "updated_at": "2025-04-20T21:20:33.878Z",
   "reply_count": 1,
   "reply_to_post_number": null,
