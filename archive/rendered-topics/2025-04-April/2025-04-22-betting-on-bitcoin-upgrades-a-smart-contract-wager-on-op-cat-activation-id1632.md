@@ -83,3 +83,9 @@ No soft forks. No oracles. **Just Bitcoin.** 🚀
 
 -------------------------
 
+JeremyRubin | 2025-04-22 15:49:36 UTC | #2
+
+doesn't seem to work because of how OP_SUCCESSx works -- it makes immediately trivially satisfiable any script containing an op_sucess, with no logic executed around it.
+
+-------------------------
+
