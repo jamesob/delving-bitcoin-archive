@@ -1588,7 +1588,7 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-18 17:57:37 UTC | #68
+sipa | 2025-04-22 18:02:38 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
 
@@ -1618,7 +1618,8 @@ In table form:
 |--- | --- | --- | ---| --- | --- | --- |
 |**Proven worst-case** | 🟥 | $\mathcal{O}(n \cdot 2^n)$ | 🟥 | $\mathcal{O}(\infty)$ | 🟩| $\mathcal{O}(n^3)$|
 |**Conjectured worst complexity** | 🟥| $\mathcal{O}(n \cdot \sqrt{2^n})$ | 🟧 | $\mathcal{O}(n^5)$ | 🟩 | $\mathcal{O}(n^3)$|
-|**Historical worst runtime (µs)** $(n \leq 64)$ (*) | 🟥|>14,000 | 🟩|45 | 🟧|80|
+|**Historical avg. runtime (µs)** $(n \leq 64)$ | 🟥|80 | 🟩|10 | 🟧|22|
+|**Historical worst runtime (µs)** $(n \leq 64)$ | 🟥|31500 | 🟩|26 | 🟧|33|
 |**Extrapolated worst runtime (µs)** $(n \leq 64)$ | 🟥|700,000,000 | 🟧|1,000,000 | 🟩|10,000|
 |**Anytime algorithm** | 🟧|Needs budgeting | 🟩|Natively | 🟥|May lose progress |
 |**Improving existing** | 🟧|Through [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | 🟩|Natively | 🟥|[Merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209)) afterwards|
@@ -1626,8 +1627,6 @@ In table form:
 **Integer sizes**|🟩|$SF$ $(\times,<)$ |🟩|$2SF$ $(\times,<,-)$ |🟧 |$4S^2F$ $(\times,/,<,+,-)$|
 |**Ancestor sort mix** | 🟩|Yes | 🟥|No | 🟥|No|
 |**Minimal chunks** | 🟩|Natively | 🟥|No | 🟥|No|
-
-(*) = Preliminary numbers, more benchmark data coming.
 
 -------------------------
 
@@ -1722,6 +1721,85 @@ But how often does it even matter historically? My WAG is that it’s almost alw
 [/quote]
 
 I have certainly seen clusters with many exactly-equal transaction fees and sizes.
+
+-------------------------
+
+sipa | 2025-04-22 19:51:27 UTC | #73
+
+Some benchmark results!
+
+Only clusters with $26 \leq n \leq 64$ transactions are included.
+
+All data is tested in 6 different linearization settings:
+* CSS: the candidate-set search algorithm this thread was initially about, both from scratch and when given an optimal linearization as input already.
+* SFL: the spanning-forest linearization algorithm, also from scratch and when given an optimal linearization as input already.
+* GGT: the parametric min-cut breakpoints algorithm from the 1989 GGT paper, both its full bidirectional version, and a variant that only runs in the forward direction.
+
+### Simulated 2023 mempools
+
+This uses clusters that were created by replaying a dump of 2023 P2P network activity into a cluster-mempool-patched version of Bitcoin Core (by @sdaftuar), and storing all clusters that appear in a file. This included 199076 clusters of size between 26 and 64 transactions (and over 24 million clusters between 2 and 25 transactions). Note that this is not necessarily representative for what a post-cluster-mempool world will look like, as it enforces a cluster size limit of 64, which may well influence network behavior after adoption.
+
+Here are two example 64-transaction clusters:
+
+![sim2023_ggt|690x448, 25%](upload://rpxX7rby2r1MGgaywce8tU458zm.png)
+![sim2023|690x63, 74%](upload://9Aavvgu4bhZSUHJ7xmDg48H167f.png)
+
+
+![clusters_sim2023_min|690x431, 33%](upload://6PDmxbkv8Vsr1lf7nJyIbNtxQkD.png)
+![clusters_sim2023_avg|690x431, 33%](upload://tZPNji1C1cbz9XGK5jMKLKP5EW1.png)
+![clusters_sim2023_max|690x431, 33%](upload://lJL4bwjK6wa4XkfPz5DCi1fwNFf.png)
+
+For average and maximum runtimes, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (31.5 ms).
+
+### Randomly-generated spanning-tree clusters
+
+In this dataset, for each size between 26 and 64 transactions, 100 random spanning-tree clusters (i.e., a connected graph with exactly n-1 dependencies) were generated, like this 64-transaction one:
+
+![spanning|690x173](upload://tEYngxsf8LUCo8HLISq7aXaYPIG.png)
+
+![clusters_spanning_min|690x431, 33%](upload://d5nL3ubMjye46VCC7PzkWAjQtxH.png)
+![clusters_spanning_avg|690x431, 33%](upload://kdWro2g2uT1bdQMlGQErc81ILjn.png)
+![clusters_spanning_max|690x431, 33%](upload://u4Et8z6mIRRemy47v1N25OjxlW6.png)
+
+Again, SFL seems the clear winner.
+
+### Randomly-generated medium-density clusters
+
+In this dataset, for each size between 26 and 64 transactions, 100 random spanning-tree clusters (with roughly 3 dependencies per transaction) were generated, like this 64-transaction one. I promise this is not the plot of [Primer (2004)](https://xkcd.com/657/):
+
+![medium|690x216](upload://3X1WUmO6VnMeUpxpLBoBePwqWGf.jpeg)
+
+![clusters_medium_min|690x431, 33%](upload://hjzBUaRwuFqz5dcIwHQDkZYJPIE.png)
+![clusters_medium_avg|690x431, 33%](upload://zdIZ2nqb55EtnoqlsPTTFT1cYDS.png)
+![clusters_medium_max|690x431, 33%](upload://wC6rfAgY2NsJb36vLvZxeCJkQw2.png)
+
+Notably, SFL performs worst in the worst case here, with up to 83.1 μs runtime, though even the fastest algorithm (unidirectional GGT) even takes up to 30.2 μs. This is probably due to it inherently scaling with the number of dependencies.
+
+### Randomly-generated complete bipartite clusters
+
+In this dataset, for each size between 26 and 64 transactions, 100 random complete-connected bipartite clusters (with roughly n/4 dependencies per transaction) were generated, like this 64-transaction one:
+
+![bipartite|690x15](upload://yOmpgaj0xSIW6UTther0VFFJw0d.png)
+
+![clusters_bipartite_min|690x431, 33%](upload://hSbxpGowcPSRGf6RNMeYwu8ZEQ7.png)
+![clusters_bipartite_avg|690x431, 33%](upload://ojBiwSihXBJqPDRWdxuY42KUX8O.png)
+![clusters_bipartite_max|690x431, 33%](upload://k4QXeSt58pjHoZGYyQNp20GG3s3.png)
+
+With even more dependencies per transaction here, SFL's weakness is even more visible (up to 114.8 μs), though it affects GGT too. Note that due to the large number of dependencies, these clusters are expensive too: if all the inputs and outputs are key-path P2TR, then the 64-transaction case needs ~103 kvB in transaction input & output data.
+
+### Methodology
+
+All of these numbers are constructed by:
+* Gather a list of N clusters (by replaying mempool data, or randomly generating them).
+* For each of the N cluster, do the following 5 times:
+  * Generate 100 RNG seeds for the linearization algorithm.
+  * For each RNG seed:
+    * Benchmark optimal linearization 13 times with the same RNG seed, on an AMD Ryzen 9 5950X system.
+    * Remember the median of those 13 runs, to weed out variance due to task swapping and other effects).
+  * Remember the average of those 100 medians, as we care mostly about how long the duration of linearization many clusters at once is, not an individual one. This removes some of the variance caused by individual RNG seeds.
+* Output the minimum, average, and maximum of those 5N average-of-medians.
+
+All the data and graphs can be found on https://gist.github.com/sipa/6e21121eaecda0cb33f99cb80ad03766.
 
 -------------------------
 

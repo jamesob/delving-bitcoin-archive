@@ -89,3 +89,56 @@ doesn't seem to work because of how OP_SUCCESSx works -- it makes immediately tr
 
 -------------------------
 
+garlonicon | 2025-04-22 18:18:47 UTC | #3
+
+[quote]doesn’t seem to work because of how OP_SUCCESSx works[/quote]
+True. If you want to enforce any time-based restrictions, then all you can do, is just using the nLockTime field of the whole transaction.
+
+-------------------------
+
+sCrypt | 2025-04-22 18:50:56 UTC | #4
+
+Note OP_SUCCESSx (such as OP_SUCCESS126, i.e., OP_CAT after activation) only makes a script immediately succeeds if **EXECUTED**. 
+
+For example, the script will **not automatically succeed** just because `OP_SUCCESS3` is in the code — it only triggers success if actually run. If this script is evaluated with `OP_FALSE` on the stack, the `OP_IF` branch with `OP_SUCCESS3` is **not executed**, so the `ELSE` branch runs instead.
+```
+OP_FALSE
+OP_IF
+  OP_SUCCESS3
+OP_ELSE
+  OP_CHECKSIG
+OP_ENDIF
+```
+
+Similarly, in our case, branching condition at Line 16 ensures only Bob can get OP_SUCCESS126 executed (i.e., when OP_CAT is still disabled), thus succeed. Alice cannot trigger OP_SUCCESS126, which is what we want.
+
+-------------------------
+
+sipa | 2025-04-22 19:39:02 UTC | #5
+
+[quote="sCrypt, post:4, topic:1632"]
+Note OP_SUCCESSx (such as OP_SUCCESS126, i.e., OP_CAT after activation) only makes a script immediately succeeds if **EXECUTED**.
+[/quote]
+
+This is incorrect. The mere *presence* of an `OP_SUCCESSx` opcode in a BIP 342 tapscript makes it automatically evaluate to true. Quoting [BIP 342](https://github.com/bitcoin/bips/blob/757e15e56883b754963dff732dde01a425f9cec6/bip-0342.mediawiki), emphasis mine:
+
+> The script as defined in BIP341 (i.e., the penultimate witness stack element after removing the optional annex) is called the tapscript and **is decoded into opcodes**, one by one:
+> 1. ...
+> 2. If any opcode numbered *80, 98, 126-129, 131-134, 137-138, 141-142, 149-153, 187-254* **is encountered, validation succeeds (none of the rules below apply)**. This is true even if later bytes in the tapscript would fail to decode otherwise. These opcodes are renamed to `OP_SUCCESS80`, ..., `OP_SUCCESS254`, and collectively known as `OP_SUCCESSx`.
+> 3. ...
+> 4. **The tapscript is executed** according to the rules in the following section, with the initial stack as input.
+
+I think the scheme works, but only if you split the branches into separate script leaves.
+
+-------------------------
+
+Chris_Stewart_5 | 2025-04-22 19:38:02 UTC | #6
+
+> The inclusion of `OP_SUCCESSx` in a script will pass it unconditionally. It precedes any script execution rules to avoid the difficulties in specifying various edge cases, for example: `OP_SUCCESSx` in a script with an input stack larger than 1000 elements, `OP_SUCCESSx` after too many signature opcodes, or even scripts with conditionals lacking `OP_ENDIF`.
+
+https://github.com/bitcoin/bips/blob/757e15e56883b754963dff732dde01a425f9cec6/bip-0342.mediawiki#cite_note-1
+
+Link to code: https://github.com/bitcoin/bitcoin/blob/e5a00b24972461f7a181bc184dd461cedcce6161/src/script/interpreter.cpp#L1795
+
+-------------------------
+

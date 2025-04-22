@@ -7,15 +7,15 @@
   "cooked": "<p>doesn\u2019t seem to work because of how OP_SUCCESSx works \u2013 it makes immediately trivially satisfiable any script containing an op_sucess, with no logic executed around it.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 6,
   "updated_at": "2025-04-22T15:49:36.443Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 21.8,
   "yours": false,
   "topic_id": 1632,
   "topic_slug": "betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "doesn't seem to work because of how OP_SUCCESSx works -- it makes immediately trivially satisfiable any script containing an op_sucess, with no logic executed around it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "doesn\u2019t seem to work because of how OP_SUCCESSx works \u2013 it makes immediately trivially satisfiable any script containing an op_sucess, with no logic executed around it.",
   "truncated": true,
   "post_url": "/t/betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation/1632/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -425,3 +425,15 @@ Would it be likely a miner will mine these rejected txs though? Not sure.
 
 -------------------------
 
+Crypt-iQ | 2025-04-22 19:58:48 UTC | #28
+
+[quote="0xB10C, post:24, topic:1052"]
+limit the prefill amount to something like 10kB worth of transactions as per [BIP152 implementation note #5](https://github.com/bitcoin/bips/blob/02ad0e01c2a9189124e05a52afe97ef90a3b7f1f/bip-0152.mediawiki#implementation-notes). I think this is useful to avoid wasting too much bandwidth if a node does a high-bandwidth announcement but, for some reason, prefills a lot of well-known transactions in the announcement
+[/quote]
+
+One point brought up by sipa here in a semi-related thread (https://github.com/bitcoin/bitcoin/pull/27086#issuecomment-1426937832) is that the number of TCP packets sent over could increase if we're making the CMPCTBLOCK message larger with prefilledtxns. I think that is maybe one downside to prefilling transactions. Perhaps it's possible to prefill transactions up to a certain total message size limit specifically for compact blocks?
+
+EDIT: His point was actually about the GETBLOCKTXN causing more round trips, but the same thing applies.
+
+-------------------------
+
