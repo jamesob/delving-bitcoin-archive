@@ -59,8 +59,14 @@
   "excerpt": "Note OP_SUCCESSx (such as OP_SUCCESS126, i.e., OP_CAT after activation) only makes a script immediately succeeds if EXECUTED. \nFor example, the script will not automatically succeed just because OP_SUCCESS3 is in the code \u2014 it only triggers success if actually run. If this script is evaluated with O&hellip;",
   "truncated": true,
   "post_url": "/t/betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation/1632/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
