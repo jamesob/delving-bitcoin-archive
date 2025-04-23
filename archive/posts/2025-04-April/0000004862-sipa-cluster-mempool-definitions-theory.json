@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "incoming_link_count": 1,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 202,
   "topic_slug": "cluster-mempool-definitions-theory",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "An interesting property which in hindsight seems obvious, but still worth noting:\n\nFor a given cluster, every linearization for which the **unconvexified** area under the fee-size diagram is maximal (among all topologically-valid linearizations), is an optimal linearization as defined above (which means its convex diagram is in every point as high as every other convex linearization diagram, which in turns implies its convexified area under the diagram is also maximal).\n\nOptimality of a linearization, being defined in function of the convex diagram, ignores the ordering of transactions within each chunk. However, the area under the unconvexified diagram does depend on the exact ordering. Furthermore, the area under the unconvexified diagram is directly proportional to the average feerate that can be obtained in a block, if one only [considers prefixes of the linearization](https://delvingbitcoin.org/t/cluster-mempool-block-building-with-sub-chunk-granularity/1044), assuming the block boundary falls uniformly randomly within the cluster. Thus, I think it makes sense to define a **sub-chunk-optimal linearization** simply as one whose area under the unconvexified diagram is maximal, knowing that this is a subset of the optimal linearizations as defined earlier.\n\nI do not know of any efficient algorithm to compute these sub-chunk-optimal linearizations. However, the [post-linearization](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201) algorithm is (among other things) a sub-chunk-optimizer, in the sense that it will never worsen this unconvexified area under the diagram.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "An interesting property which in hindsight seems obvious, but still worth noting: \nFor a given cluster, every linearization for which the unconvexified area under the fee-size diagram is maximal (among all topologically-valid linearizations), is an optimal linearization as defined above (which means&hellip;",
   "truncated": true,
   "post_url": "/t/cluster-mempool-definitions-theory/202/21",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

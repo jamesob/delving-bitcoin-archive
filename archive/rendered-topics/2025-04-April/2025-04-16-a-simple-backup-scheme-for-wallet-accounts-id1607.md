@@ -158,3 +158,18 @@ This is a great idea; even just a list of all the derivation paths that appear i
 
 -------------------------
 
+kloaec | 2025-04-23 19:29:50 UTC | #7
+
+Great work, thanks for doing this salvatoshi.
+
+Assuming we want all keys to form the secret, one way to "prevent" someone to be able to access it would be to simply to not generate their *c*<sub>i</sub>. Might be useful for some use-cases.
+
+I'm also pondering if the *c*<sub>i</sub> should not use a different entropy, maybe a different path (standard, this time), from the same device. The major drawback is that all devices need to provide their second key for the backup to be performed, instead of just any person in the setup being able to create the encrypted backup.
+The advantage is to not have to deal with unknown paths (let's not create a descriptor of the descriptor backup?), possibly even allowing hardware manufacturers to later on add security features to this specific path (confirm on screen to share it?), without breaking compatibility now.
+
+Lastly, I feel like these files would benefit strongly from an **error correction mechanism.**
+I obviously don't like the idea of sending it to the chain, so I assume most users won't have large number of replications.
+In the case of Liana, assuming it's for disaster recovery or inheritance, it might be just one copy easily accessible. You want that one to be correct.
+
+-------------------------
+
