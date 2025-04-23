@@ -388,11 +388,9 @@ Edit: This prevents that *if* there is a checksig in the scriptSig, it must matc
 
 -------------------------
 
-1440000bytes | 2025-04-21 23:42:10 UTC | #18
+1440000bytes | 2025-04-23 05:48:22 UTC | #18
 
-I appreciate the conversation in this thread. Always good to get review before ideas are implemented.
-
-I wish we had this in past but we can always learn and make things harder.
+(post deleted by author)
 
 -------------------------
 
