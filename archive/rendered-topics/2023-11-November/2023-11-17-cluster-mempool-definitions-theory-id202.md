@@ -608,14 +608,26 @@ I got caught up on this too long without realizing size here means count of node
 
 -------------------------
 
-sipa | 2024-05-11 21:47:53 UTC | #20
+sipa | 2024-05-20 18:58:23 UTC | #20
 
 The $\operatorname{compose}$ operator as defined above actually captures a ton of things:
 * Chunking is the composition of a single linearization.
 * ~~Pure ancestor sort is the composition of all ancestor sets in a cluster, because the intersection of two ancestor sets is again an ancestor set.~~ EDIT: this is not true, the intersection of two ancestor sets may be the union of more than one ancestor set.
   * The current sorting algorithm (which includes the highest-feerate ancestor set among those for which the bottom transaction has a higher feerate than its ancestry) isn't exactly a composition, because the intersection of two such sets may have a bottom with low feerate.
-* Merging is the composition of two linearizations (with a specialized supreme subset finding algorithm).
+* Merging is the composition of the union of two linearizations (with a specialized supreme subset finding algorithm).
 * LIMO is a variant of composition of the input linearization plus the $S_i$ set(s), though these sets get recomputed every iteration.
+
+-------------------------
+
+sipa | 2025-04-23 14:46:29 UTC | #21
+
+An interesting property which in hindsight seems obvious, but still worth noting:
+
+For a given cluster, every linearization for which the **unconvexified** area under the fee-size diagram is maximal (among all topologically-valid linearizations), is an optimal linearization as defined above (which means its convex diagram is in every point as high as every other convex linearization diagram, which in turns implies its convexified area under the diagram is also maximal).
+
+Optimality of a linearization, being defined in function of the convex diagram, ignores the ordering of transactions within each chunk. However, the area under the unconvexified diagram does depend on the exact ordering. Furthermore, the area under the unconvexified diagram is directly proportional to the average feerate that can be obtained in a block, if one only [considers prefixes of the linearization](https://delvingbitcoin.org/t/cluster-mempool-block-building-with-sub-chunk-granularity/1044), assuming the block boundary falls uniformly randomly within the cluster. Thus, I think it makes sense to define a **sub-chunk-optimal linearization** simply as one whose area under the unconvexified diagram is maximal, knowing that this is a subset of the optimal linearizations as defined earlier.
+
+I do not know of any efficient algorithm to compute these sub-chunk-optimal linearizations. However, the [post-linearization](https://delvingbitcoin.org/t/linearization-post-processing-o-n-2-fancy-chunking/201) algorithm is (among other things) a sub-chunk-optimizer, in the sense that it will never worsen this unconvexified area under the diagram.
 
 -------------------------
 

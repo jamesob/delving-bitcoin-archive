@@ -1724,11 +1724,9 @@ I have certainly seen clusters with many exactly-equal transaction fees and size
 
 -------------------------
 
-sipa | 2025-04-22 19:51:27 UTC | #73
+sipa | 2025-04-23 12:35:52 UTC | #73
 
-Some benchmark results!
-
-Only clusters with $26 \leq n \leq 64$ transactions are included.
+## Benchmark results
 
 All data is tested in 6 different linearization settings:
 * CSS: the candidate-set search algorithm this thread was initially about, both from scratch and when given an optimal linearization as input already.
@@ -1737,19 +1735,26 @@ All data is tested in 6 different linearization settings:
 
 ### Simulated 2023 mempools
 
-This uses clusters that were created by replaying a dump of 2023 P2P network activity into a cluster-mempool-patched version of Bitcoin Core (by @sdaftuar), and storing all clusters that appear in a file. This included 199076 clusters of size between 26 and 64 transactions (and over 24 million clusters between 2 and 25 transactions). Note that this is not necessarily representative for what a post-cluster-mempool world will look like, as it enforces a cluster size limit of 64, which may well influence network behavior after adoption.
+This uses clusters that were created by replaying a dump of 2023 P2P network activity into a cluster-mempool-patched version of Bitcoin Core (by @sdaftuar), and storing all clusters that appear in a file. This included 199076 clusters of size between 26 and 64 transactions, and over 24 million clusters between 2 and 25 transactions. Note that this is not necessarily representative for what a post-cluster-mempool world will look like, as it enforces a cluster size limit of 64, which may well influence network behavior after adoption.
 
 Here are two example 64-transaction clusters:
 
 ![sim2023_ggt|690x448, 25%](upload://rpxX7rby2r1MGgaywce8tU458zm.png)
 ![sim2023|690x63, 74%](upload://9Aavvgu4bhZSUHJ7xmDg48H167f.png)
 
+Numbers for 2-25 transaction clusters, based on benchmarks of 7.5% of the recorded clusters:
+
+![clusters_sim2023_ntx2_min|690x431, 33%](upload://z42rlavWdSxtVB7B8nkGpB3KUmZ.png)
+![clusters_sim2023_ntx2_avg|690x431, 33%](upload://cn0EWqNATF7CDP6PM8RlZHCxuKE.png)
+![clusters_sim2023_ntx2_max|690x431, 33%](upload://vCOMHf1ZoNblhqUCOFQX8E3dlrD.png)
+
+Numbers for 26-64 transaction clusters, benchmarking all of the clusters:
 
 ![clusters_sim2023_min|690x431, 33%](upload://6PDmxbkv8Vsr1lf7nJyIbNtxQkD.png)
 ![clusters_sim2023_avg|690x431, 33%](upload://tZPNji1C1cbz9XGK5jMKLKP5EW1.png)
 ![clusters_sim2023_max|690x431, 33%](upload://lJL4bwjK6wa4XkfPz5DCi1fwNFf.png)
 
-For average and maximum runtimes, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (31.5 ms).
+For sufficiently large clusters, and in average and maximum runtime, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (31.5 ms).
 
 ### Randomly-generated spanning-tree clusters
 

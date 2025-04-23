@@ -276,3 +276,9 @@ Here are some of the open problems still with SFL:
 
 -------------------------
 
+sipa | 2025-04-23 11:11:19 UTC | #4
+
+I [posted](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/73) more extensive benchmarks of the spanning-forest linearization algorithm, as well as the old exponential candidate-set search algorithm, and the minimum-cut based parametric breakpoints algorithm from the GGT paper in the other thread.
+
+-------------------------
+
