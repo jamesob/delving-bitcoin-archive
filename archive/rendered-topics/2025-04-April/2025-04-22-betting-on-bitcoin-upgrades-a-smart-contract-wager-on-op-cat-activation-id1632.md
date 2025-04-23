@@ -142,3 +142,9 @@ Link to code: https://github.com/bitcoin/bitcoin/blob/e5a00b24972461f7a181bc184d
 
 -------------------------
 
+sCrypt | 2025-04-22 21:35:03 UTC | #7
+
+Correct, *OP_SUCCESSx* will make a script succeed, even if **NOT** executed. "split the branches into separate script leaves" would not help, since timelock check at Line 17 will be bypassed, even if it precedes OP_SUCCESS126. Bob can take the bet fund **before** the deadline. Additional measures, like [Taplock](https://github.com/taproot-wizards/taplocks/blob/16a07c446977337da2dd278dae2ed9f32151eade/README.md), must be taken to hide the script, so Bob is unable to spend it before the deadline.
+
+-------------------------
+
