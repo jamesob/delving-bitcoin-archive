@@ -148,3 +148,14 @@ Correct, *OP_SUCCESSx* will make a script succeed, even if **NOT** executed. "sp
 
 -------------------------
 
+sCrypt | 2025-04-23 22:55:06 UTC | #8
+
+In practice, standardness rule has `SCRIPT_VERIFY_DISCOURAGE_OP_SUCCESS`, which would make any script containing `OP_SUCCESSx` **fail** immediately, instead of **succeeding**.
+https://github.com/bitcoin/bitcoin/blob/e5a00b24972461f7a181bc184dd461cedcce6161/src/policy/policy.h#L126
+
+https://github.com/bitcoin/bitcoin/blob/e5a00b24972461f7a181bc184dd461cedcce6161/src/script/interpreter.cpp#L1803
+
+So the above scheme works, assuming no miner colludes with Bob by turning off `SCRIPT_VERIFY_DISCOURAGE_OP_SUCCESS`. Updated [the original article](https://scryptplatform.medium.com/betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation-607c8f12da91).
+
+-------------------------
+
