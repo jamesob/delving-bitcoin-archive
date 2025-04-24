@@ -1808,3 +1808,9 @@ All the data and graphs can be found on https://gist.github.com/sipa/6e21121eaec
 
 -------------------------
 
+gmaxwell | 2025-04-24 09:31:56 UTC | #74
+
+Time per 'cost' might be an interesting graph-- given that dependencies add transaction size.  I had previously wondered if it might make sense for the limit to actually be in terms of dependencies rather than transactions in a cluster (e.g. set the limit to tx+dep < 512 or something).
+
+-------------------------
+

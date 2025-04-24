@@ -173,3 +173,32 @@ In the case of Liana, assuming it's for disaster recovery or inheritance, it mig
 
 -------------------------
 
+salvatoshi | 2025-04-24 08:31:45 UTC | #8
+
+[quote="kloaec, post:7, topic:1607, full:true"]
+Assuming we want all keys to form the secret, one way to "prevent" someone to be able to access it would be to simply to not generate their *c*<sub>i</sub>. Might be useful for some use-cases.
+[/quote]
+
+Indeed this is what I meant when I wrote above that the scheme has *access control*, but I could elaborate a bit more.
+
+[quote="kloaec, post:7, topic:1607"]
+I’m also pondering if the *c* i should not use a different entropy, maybe a different path (standard, this time), from the same device. The major drawback is that all devices need to provide their second key for the backup to be performed, instead of just any person in the setup being able to create the encrypted backup.
+[/quote]
+
+I agree with the advantage of reducing/eliminating the number of search paths for recovery. However, my main concern is that in practice, this adds a big dependency: the backup scheme now needs access to the necessary tech stack to access the hardware signers (notoriously, a non-trivial one), and the physical device needs to be available when the backup is created - so for example, a watch-only wallet that only receives the descriptor can't create the encrypted backup.
+
+Instead, the more trivial scheme above is a pure function `f(descriptor) -> backup`, which I think is a big practical advantage.
+
+[quote="kloaec, post:7, topic:1607"]
+Lastly, I feel like these files would benefit strongly from an **error correction mechanism.** I obviously don’t like the idea of sending it to the chain, so I assume most users won’t have large number of replications. In the case of Liana, assuming it’s for disaster recovery or inheritance, it might be just one copy easily accessible. You want that one to be correct.
+[/quote]
+
+Can you elaborate on this? I can't think of situations where error correction would save the day.
+
+I'd rather suggest implementations to get creative in how to make sure that there are multiple replicas of the backup. Save to google drive? Send via e-mail or DM to someone else (that's two copies)? Post on nostr/twitter/facebook?...
+All of these options could be just a few clicks away with a good implementation in software wallets.
+
+Many services doing any form of collaborative custody (or providing services for self-custody) could also consider storing the encrypted backup for their customer, so backup would be entirely transparent and add no UX cost at all.
+
+-------------------------
+
