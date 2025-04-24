@@ -202,3 +202,21 @@ Many services doing any form of collaborative custody (or providing services for
 
 -------------------------
 
+kloaec | 2025-04-24 11:04:04 UTC | #9
+
+[quote="salvatoshi, post:8, topic:1607"]
+Can you elaborate on this? I can’t think of situations where error correction would save the day.
+[/quote]
+Over time, data storage decay. As we can't assume it will always be stored in a self healing manner, I would put such a self healing mechanism in the backup itself.
+That being said, it might be overkill in the sense that most data storage media already implement an error correction mechanism (SD, HDD, SSD, optical disks).
+Still, each mechanism has his own tolerance for failure, and sometimes the error correction assumes regular use.
+To answer your questions: backups on an offline Flash, Magnetic or Optical storage, let to data rot for 10 years.
+Sure, extra ECC won't prevent failure ultimately, but could prolong the viability of the data long for a negligible cost.
+
+While having more backups is the better option, it's still not certain the user will easily be able to store and recover data in a large number of places.
+Another point would be that a user might not want to leave copies everywhere (or in public, even if encrypted).
+
+To conclude, I'd say that this scheme should still "strongly recommend" having multiple backups, in multiple places. But any one copy should also be pretty resilient against decay, more than your average data.
+
+-------------------------
+
