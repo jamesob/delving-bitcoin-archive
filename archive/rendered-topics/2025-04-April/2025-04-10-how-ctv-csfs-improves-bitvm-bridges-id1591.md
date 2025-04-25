@@ -388,9 +388,13 @@ Edit: This prevents that *if* there is a checksig in the scriptSig, it must matc
 
 -------------------------
 
-1440000bytes | 2025-04-23 05:48:22 UTC | #18
+niftynei | 2025-04-25 15:55:43 UTC | #19
 
-(post deleted by author)
+“inputA is spendable only together with inputB”
+
+Using signatures, a SIGHASH_GROUP* would trivially solve this. Current discussion seems to favor introspection vs sigs tho. 
+
+*notably unimplemented/lacking a proposal so yes this isn't currently practicable.
 
 -------------------------
 
