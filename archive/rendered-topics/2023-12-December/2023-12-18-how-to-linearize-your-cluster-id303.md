@@ -1724,7 +1724,7 @@ I have certainly seen clusters with many exactly-equal transaction fees and size
 
 -------------------------
 
-sipa | 2025-04-23 12:35:52 UTC | #73
+sipa | 2025-04-25 11:11:11 UTC | #73
 
 ## Benchmark results
 
@@ -1756,9 +1756,9 @@ Numbers for 26-64 transaction clusters, benchmarking all of the clusters:
 
 For sufficiently large clusters, and in average and maximum runtime, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (31.5 ms).
 
-### Randomly-generated spanning-tree clusters
+### Randomly-generated tree-shaped clusters
 
-In this dataset, for each size between 26 and 64 transactions, 100 random spanning-tree clusters (i.e., a connected graph with exactly n-1 dependencies) were generated, like this 64-transaction one:
+In this dataset, for each size between 26 and 64 transactions, 100 random tree-shaped clusters (i.e., a connected graph with exactly n-1 dependencies) were generated, like this 64-transaction one:
 
 ![spanning|690x173](upload://tEYngxsf8LUCo8HLISq7aXaYPIG.png)
 
