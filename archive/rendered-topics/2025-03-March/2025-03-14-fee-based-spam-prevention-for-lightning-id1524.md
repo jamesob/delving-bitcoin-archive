@@ -739,3 +739,29 @@ I think a numerical example that explores different waiting times could be very 
 
 -------------------------
 
+JohnLaw | 2025-04-25 21:17:55 UTC | #7
+
+[quote="ClaraShk, post:6, topic:1524"]
+Is the idea that each channel with capacity of $m$ sats would also lock an additional $m$ sats solely as collateral to mitigate jamming attacks? Do you have any estimates of the associated costs, such as the opportunity cost of locking up these funds?
+[/quote]
+
+No, there is no need to devote am amount equal lto the channel capacity as collateral to mitigate jamming. That would be very inefficient!
+
+The amount that one has to stake for Upfront and Hold fees is just the maximum amount of those fees that would be required for the currently-outstanding HTLCs (plus some frixed fraction in matching funds, where the amount of matching funds is a function of the maximum possible Upfront and Hold fees, not the channel capacity).
+
+Yes I've definitely thought about the behavioral dynamics. The general principle is that one doesn't like to lose one's own funds, so one is generally unlikely to do so. The ultimatum game captures one of the few cases where people are sometimes willing to give up their own funds (or at least not maximize them), namely when they feel they are bing taken advantage of. In fact, that desire to "not be a sucker" is discussed in the related OPR paper. In that paper, the main way to prevent being taken advantage of is to rely on programmatic control. However, as the utlimatum game shows, even if one gets to make a human decision, allowing oneself to be ripped off if the one time when one may be willing to forego wealth. This is required to avoid a "bullying" attack, as described in the OPR paper.
+
+Thanks for your suggestion to include a numeric example, I'll work one up.
+
+-------------------------
+
+JohnLaw | 2025-04-25 21:20:40 UTC | #8
+
+I have uploaded a revised version of the paper (version 1.1) to:
+
+https://github.com/JohnLaw2/ln-spam-prevention
+
+It includes a full specification of the lower-latency version of the bug fix described in an earlier post.
+
+-------------------------
+
