@@ -290,3 +290,92 @@ Curiously LNhance enables both covenants with `CTV` and `CSFS` and multi-commitm
 
 -------------------------
 
+victorkstarkware | 2025-04-27 12:48:37 UTC | #4
+
+[quote="moonsettler, post:3, topic:1106, full:true"]
+
+
+Curiously LNhance enables both covenants with `CTV` and `CSFS` and multi-commitments with `PAIRCOMMIT`. Yet it does not give us functional STARK proofs as far as I know. I am intrigued by the crucial piece missing. Is it the simple act of concatenation in the end?
+[/quote]
+
+
+
+For STARK proof verification, we need three things:
+1. Carry data between transactions (to split the verifier into multiple transactions). This is because working with a 1000-element size stack is very limiting
+2. Being able to Merkle-decommit data and perform algebraic checks on it
+3. Derive randomness from a Fiat-Shamir hash accumulation
+
+I think PAIRCOMMIT doesn't give you item 2, but maybe it's fine if you store only 4 bytes of elements per leaf. Even then, I am not sure how to use it to achieve item 3 (because the hash, which is a large element, is used to derive other data for the rest of the protocol)
+
+Regarding item 1, I am not sure how to achieve this with CTV+CSFS alone
+
+-------------------------
+
+victorkstarkware | 2025-04-27 12:45:15 UTC | #5
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+This assertion is true but it can be done through Indexers and trackers.
+[/quote]
+Not sure what "it" means here
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Do node will directly store each states? Do we would need to build covenants trackers into the node?
+[/quote]
+The state is stored onchain. You would need to track the transaction at the tip of the "smart contract" chain
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+The use of term **covenant** looks especially crafted to avoid the use of “smart contract” (SC) term which is not well defined especially in this case.
+[/quote]
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+This can’t be assumed as long as there is no precise definition of a smart contract in the post and the automatic trigger of a SC is not shown.
+[/quote]
+There is a loose definition for "smart contract" in the text:
+> A smart contract here means some sort of stateful logic, with a collection of functions that can be invoked to transition the state to a different, valid one, according to predefined rules.
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Will you be able to trigger automatically new transactions with your implementation? I don’t think so, and this implies that the “smart contract capabilities” are not fully embraced. We don’t have `OP_CALL` on Bitcoin and as with OP_CAT we won’t be able to trigger from the protocol level new transactions (or at least it’s not discussed in your post).
+[/quote]
+Correct, this "smart contract" doesn't have all the capabilities of smart contracts from other blockchains. I am open to suggestions for a better name for this functionality (i.e. an SC but without the ability to call other SCs)
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+You remind what UTXO model is but you don’t explain the proof computation in STARK models neither a general definition of STARK which seems more important.
+[/quote]
+There is whole discussion dedicated to proof systems and delegated computation (of which a STARK is a particular example) in Section 6. Going into more details about STARKs specifically is distracting in my opinion.
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Do you mean the Bitcoin covenant?
+[/quote]
+No, I mean a smart contract as loosely defined above.
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Where does this value come from?
+[/quote]
+From StarkWare, whose proof systems in production have settled over $1T
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+All the previous sections mention SC/convenants but never OP_CAT does it mean that covenants can be done without OP_CAT?
+[/quote]
+See the text in the introduction:
+> Finally, we’ll discuss OP_CAT and how it enables the tools mentioned above. We’ll also reference some of our efforts in this direction and discuss what’s to come.
+
+I don't know how to achieve the same type of construction with other opcodes, see my comment to moonsettler above.
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Does it mean that your covenants will be implemented in P2WSH? How exactly the Schnorr trick compensates for the absence of address tweaking? How state tracking would be managed at the node level?
+[/quote]
+Not sure I understand the Schnorr trick question.
+
+Regarding state tracking, there is a freedom of choice on where to store the hash preimage. If it is small, you could provide the hash preimage in the tx witness. If it's large, perhaps it needs to be split across multiple tx, which is also doable and out of scope for the article.
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Where states can be verified?
+[/quote]
+Not sure I understand the question
+
+[quote="Laz1m0v, post:2, topic:1106, full:true"]
+Please stop mentioning Bitcoin smart contract it’s horrible and factually wrong. We have a word for this it’s covenants.
+[/quote]
+I disagree. A covenant is a well-known concept that is used as a tool to build smart contracts, as loosely defined above.
+
+-------------------------
+
