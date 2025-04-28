@@ -398,3 +398,9 @@ Using signatures, a SIGHASH_GROUP* would trivially solve this. Current discussio
 
 -------------------------
 
+instagibbs | 2025-04-28 13:51:17 UTC | #20
+
+Capabilities offered in https://github.com/bitcoin/bips/pull/1500 which is a spiritual successor to GROUP in some ways would trivially do this, as you can selectively choose to commit to prevouts, or whatever you like.
+
+-------------------------
+
