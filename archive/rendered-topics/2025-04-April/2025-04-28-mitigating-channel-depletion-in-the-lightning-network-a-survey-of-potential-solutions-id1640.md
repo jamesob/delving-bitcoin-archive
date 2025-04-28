@@ -165,3 +165,14 @@ Many solutions interact and involve trade-offs between implementation overhead, 
 
 -------------------------
 
+brh28 | 2025-04-28 20:31:21 UTC | #2
+
+Rather than use gossip to share liquidity info, another potential solution which I briefly describe in [this post](https://delvingbitcoin.org/t/revisiting-pathfinding/1503) is to add a query message to get path(s) from a peer.
+
+- This improves the likelihood of successful payment because each hop can inform the requester of a feasible outbound channel set without revealing any of their channel balances. 
+- Depending on implementation, this potentially allows nodes to change their routing policies (e.g fees) on a per transaction basic, which improves their control over liquidity flow.
+
+Of course, this approach has a lot of implications, so I want to create follow-up on my previous post with details regarding an implementation and a cost/benefit analysis, but I think it's actually a relatively simple way to solve a lot of existing problems.
+
+-------------------------
+
