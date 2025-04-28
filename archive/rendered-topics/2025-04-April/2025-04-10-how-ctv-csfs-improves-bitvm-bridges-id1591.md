@@ -404,3 +404,11 @@ Capabilities offered in https://github.com/bitcoin/bips/pull/1500 which is a spi
 
 -------------------------
 
+JeremyRubin | 2025-04-28 15:47:16 UTC | #21
+
+a sighash group actually does not trivially solve this, since a signature then re-entails the need for it to be constructed with interactive setup (Unless also using APO-semantics, or something else).
+
+it's also not "trivial" in that A can commit to B, but B cannot commit to A, even with these other opcodes.
+
+-------------------------
+
