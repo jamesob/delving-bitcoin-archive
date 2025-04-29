@@ -397,3 +397,20 @@ Yes, LNhance does not provide generic data carrying capability.
 
 -------------------------
 
+victorkstarkware | 2025-04-29 10:21:08 UTC | #7
+
+[quote="moonsettler, post:6, topic:1106, full:true"]
+Heard this mentioned before, what exactly can you do with 4 bytes? Is this related to the M31 field? But how do these 4 byte elements relate to something like a distribution of funds? I keep getting stuck on that one would need to construct a CTV hash or a hash of a signature on stack somewhere along the line. (ofc this is trivial with CAT)
+[/quote]
+Andrew Poelstra coined the terms "Small Script" and "Big Script" for this. With Small Script (4 byte elements), you can do arithmetic and comparisons such as OP_GREATERTHAN, meaning you can have arbitrary logic. In contrast, in Big Script, you can't make any comparisons beyond OP_EQUAL, but you have native access to hashing and signature opcodes. so CAT gives you a way to bridge the gap between these two domains.
+
+We wrote a fairly detailed documentation of Big Script vs Small Script in section 2.2.3 here: https://eprint.iacr.org/2024/1802.pdf
+
+
+[quote="moonsettler, post:6, topic:1106, full:true"]
+If I understand correctly, CAT is actually used for SPLIT, to cut an arithmetically useful sized chunk off of a cryptographic hash?
+[/quote]
+You need both combining and splitting. Splitting is used to perform arbitrary logic (as mentioned above), and combining is used for native hash/signature operations. You can achieve both with either CAT or SUBSTR.
+
+-------------------------
+
