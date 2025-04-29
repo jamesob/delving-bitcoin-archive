@@ -412,3 +412,13 @@ it's also not "trivial" in that A can commit to B, but B cannot commit to A, eve
 
 -------------------------
 
+ajtowns | 2025-04-29 05:54:54 UTC | #22
+
+[quote="JeremyRubin, post:21, topic:1591"]
+it’s also not “trivial” in that A can commit to B, but B cannot commit to A, even with these other opcodes.
+[/quote]
+
+I think the TXHASH spec in bips [PR#1500](https://github.com/bitcoin/bips/pull/1500) can't directly do the same [bllsh trick mentioned above](https://delvingbitcoin.org/t/how-ctv-csfs-improves-bitvm-bridges/1591/8) because it only allows you to request the hash of a prevout, not the individual txid and out-index components that make that up. I think you could simulate it with CAT by requiring the user to provide the txid, the CAT'ing that with the expected vout, hashing, and comparing that with the TXHASH result, then doing the same for the other input and vout though.
+
+-------------------------
+
