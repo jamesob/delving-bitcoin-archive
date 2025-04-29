@@ -176,3 +176,15 @@ Of course, this approach has a lot of implications, so I want to create follow-u
 
 -------------------------
 
+t-bast | 2025-04-29 08:37:42 UTC | #3
+
+[quote="renepickhardt, post:1, topic:1640"]
+Semantics of Control valve using `htlc_maximum_msat` are not agreed upon and is thus not supported by node software.
+[/quote]
+
+Can you detail that a bit more? We've been using `htlc_maximum_msat` in eclair as a control valve like you suggested a few years ago, and it seems to be working quite nicely (I'm not sure how exactly we could quantify that "it works", but at least we've implemented the mechanism and haven't seen any specific issues with it).
+
+I don't know if other implementations have done it, but it's nice because it doesn't require any protocol changes: you only need to update your implementation, and other nodes on the network will respect the `htlc_maximum_msat` value you dynamically set. It creates a bit of a (reasonable) `channel_update` spam though.
+
+-------------------------
+
