@@ -379,3 +379,21 @@ I disagree. A covenant is a well-known concept that is used as a tool to build s
 
 -------------------------
 
+moonsettler | 2025-04-28 21:44:53 UTC | #6
+
+[quote="victorkstarkware, post:4, topic:1106"]
+I think PAIRCOMMIT doesn’t give you item 2, but maybe it’s fine if you store only 4 bytes of elements per leaf.
+[/quote]
+Heard this mentioned before, what exactly can you do with 4 bytes? Is this related to the M31 field? But how do these 4 byte elements relate to something like a distribution of funds? I keep getting stuck on that one would need to construct a CTV hash or a hash of a signature on stack somewhere along the line. (ofc this is trivial with CAT)
+[quote="victorkstarkware, post:4, topic:1106"]
+Even then, I am not sure how to use it to achieve item 3 (because the hash, which is a large element, is used to derive other data for the rest of the protocol)
+[/quote]
+If I understand correctly, CAT is actually used for SPLIT, to cut an arithmetically useful sized chunk off of a cryptographic hash?
+
+[quote="victorkstarkware, post:4, topic:1106"]
+Regarding item 1, I am not sure how to achieve this with CTV+CSFS alone
+[/quote]
+Yes, LNhance does not provide generic data carrying capability.
+
+-------------------------
+
