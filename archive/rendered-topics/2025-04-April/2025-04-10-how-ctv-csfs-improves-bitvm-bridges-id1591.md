@@ -422,3 +422,26 @@ I think the TXHASH spec in bips [PR#1500](https://github.com/bitcoin/bips/pull/1
 
 -------------------------
 
+RobinLinus | 2025-04-29 15:44:26 UTC | #23
+
+[quote="RobinLinus, post:1, topic:1591"]
+### The scriptSig Trick
+
+The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express “inputA is spendable only together with inputB”.
+
+1. Define inputB to be a (legacy) P2SH output.
+2. Presign a signature using sighash `SINGLE|NONE`, effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB’s scriptSig.
+3. Define inputA to be a P2TR output and contain a CTV condition with a template hash that commits to the scriptSigs, including the signature for inputB.
+
+The result: **inputA** commits to the signature for **inputB**, which itself commits to **inputB**. So **inputA** becomes spendable only in conjunction with **inputB**.
+[/quote]
+
+
+For completeness, we are encountering another issue with this construction:
+
+* If `inputA` and `inputB` are created by the same transaction, we cannot apply our trick, as it would create a hash cycle.
+* For the same reason, we cannot apply it to any `inputB'` that is a child of `inputB`.
+* Similarly, we cannot apply it to any `inputA'` that is a child of `inputA` and connected via a chain of CTV hashes.
+
+-------------------------
+
