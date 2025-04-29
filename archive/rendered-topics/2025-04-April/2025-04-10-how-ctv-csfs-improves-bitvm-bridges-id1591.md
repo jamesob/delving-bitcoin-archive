@@ -422,7 +422,7 @@ I think the TXHASH spec in bips [PR#1500](https://github.com/bitcoin/bips/pull/1
 
 -------------------------
 
-RobinLinus | 2025-04-29 15:44:26 UTC | #23
+RobinLinus | 2025-04-29 16:01:48 UTC | #23
 
 [quote="RobinLinus, post:1, topic:1591"]
 ### The scriptSig Trick
@@ -430,7 +430,7 @@ RobinLinus | 2025-04-29 15:44:26 UTC | #23
 The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express “inputA is spendable only together with inputB”.
 
 1. Define inputB to be a (legacy) P2SH output.
-2. Presign a signature using sighash `SINGLE|NONE`, effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB’s scriptSig.
+2. Presign a signature using sighash `ANYONECANPAY|NONE`, effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB’s scriptSig.
 3. Define inputA to be a P2TR output and contain a CTV condition with a template hash that commits to the scriptSigs, including the signature for inputB.
 
 The result: **inputA** commits to the signature for **inputB**, which itself commits to **inputB**. So **inputA** becomes spendable only in conjunction with **inputB**.
@@ -442,6 +442,25 @@ For completeness, we are encountering another issue with this construction:
 * If `inputA` and `inputB` are created by the same transaction, we cannot apply our trick, as it would create a hash cycle.
 * For the same reason, we cannot apply it to any `inputB'` that is a child of `inputB`.
 * Similarly, we cannot apply it to any `inputA'` that is a child of `inputA` and connected via a chain of CTV hashes.
+
+Furthermore, `inputB` should use sighash `ANYONECANPAY|ALL` to ensure it creates the correct output. However, it could still be spent "maliciously" without `inputA`.
+
+-------------------------
+
+JeremyRubin | 2025-04-29 18:10:29 UTC | #24
+
+yeah that seems correct -- inputA and inputB must be separate txs, or you entail a hash cycle.
+
+interestingly, for this case, you *can* do both sides with (a variant of txhash), by doing a constraint check that they both have the same txid and the correct vout...
+
+e.g. 
+
+input 0: GETTXIDOFINPUT(0) == GETTXIDOFINPUT(1) && GETCURRENTINDEX == 0
+input 1: GETTXIDOFINPUT(0) == GETTXIDOFINPUT(1) && GETCURRENTINDEX == 1
+
+where txid is known to have two outputs (or else do some other checks).
+
+I'm not sure this is relevant, or even interesting, since there's marginal difference between two inputs that must be spent together from the same tx, and one input that contains the value for both(, or can be split in two after some delay, optionally).
 
 -------------------------
 
