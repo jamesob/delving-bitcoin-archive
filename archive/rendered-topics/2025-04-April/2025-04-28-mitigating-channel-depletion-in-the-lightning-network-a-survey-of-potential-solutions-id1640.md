@@ -188,3 +188,31 @@ I don't know if other implementations have done it, but it's nice because it doe
 
 -------------------------
 
+renepickhardt | 2025-04-29 11:44:03 UTC | #4
+
+[quote="t-bast, post:3, topic:1640"]
+Can you detail that a bit more?
+[/quote]
+
+Sorry I may have shortened my initial post a bit too much with respect to the control valves section. As you pointed out the semantics of `htlc_maximum_msat` are clear in the sense that your node will not accept an hltc of a larger amount and indeed sending nodes will respect this in path or flow finding (though it is not clear what happens if a node tries to add a second HTLC with the same preimage that also respects `htlc_maximum_msat`).
+
+However I have seen various motivations of why node operators select a specific value for `htlc_maximum_msat` for example
+* I have seen node operators signaling the amount of liquidity that they have left in the channel (or a fraction of the remaining liquidity, such that they do not have to update the value after each successful routing).
+* In my initial Blog article I suggested to use a markov process such that two peers that share a channel converge to a ratio of `htlc_maximum_msat` values so that the expected flow through the channel is balanced - given the demand. That of course is a very different semantic than just selecting a fraction of the liquidity
+* In eclair it seems that you set the value to 0 if the channel is almost depleted and that [you have various threasholds depending on the available liquidity](https://github.com/ACINQ/eclair/blob/826284cb277c28c7eef14aa275f3d6e3255c8e66/docs/release-notes/eclair-v0.10.0.md?plain=1#L77). Also you seem to [set the value](https://github.com/ACINQ/eclair/commit/8320964c547022c02c4d6fd0c7af82284534cc22)
+ to what you [believe you can forward](https://github.com/ACINQ/eclair/blob/826284cb277c28c7eef14aa275f3d6e3255c8e66/eclair-core/src/main/scala/fr/acinq/eclair/router/BalanceEstimate.scala#L123). 
+
+[quote="t-bast, post:3, topic:1640"]
+We’ve been using `htlc_maximum_msat` in eclair as a control valve like you suggested a few years ago, and it seems to be working quite nicely (I’m not sure how exactly we could quantify that “it works”, but at least we’ve implemented the mechanism and haven’t seen any specific issues with it).
+[/quote]
+
+I am happy to hear that you an confirmed that a version of my suggestion works for you. I'd love to see some quantification for this. Maybe if it has sufficient interest from your end we could out of band discuss how we could measure and quantify this. Maybe it gives insights on weather this is sufficient or if other steps are necessary.
+
+[quote="t-bast, post:3, topic:1640"]
+I don’t know if other implementations have done it, but it’s nice because it doesn’t require any protocol changes: you only need to update your implementation, and other nodes on the network will respect the `htlc_maximum_msat` value you dynamically set. It creates a bit of a (reasonable) `channel_update` spam though.
+[/quote]
+
+Yes that was exactly why I advocated for `htlc_maximum_msat` initially. It works out of the box without protocol upgrade which is extremely nice! However as in my first reply a protocol wide agreement on what nodes signal with their value may make this mechanism even stronger.
+
+-------------------------
+

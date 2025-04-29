@@ -414,3 +414,38 @@ You need both combining and splitting. Splitting is used to perform arbitrary lo
 
 -------------------------
 
+Laz1m0v | 2025-04-29 11:11:55 UTC | #8
+
+tbh I think you missed the points of my previous message. 
+
+[quote="Laz1m0v, post:2, topic:1106"]
+[quote="victorkstarkware, post:1, topic:1106"]
+Bitcoin scripts **are not stateful**.
+[/quote]
+
+This assertion is true but it can be done through Indexers and trackers. You don’t specify in your post how a Bitcoin node should evolve to handle such states and how you’ll be able to handle those evolutive states in Bitcoin (node). Do node will directly store each states? Do we would need to build covenants trackers into the node?
+[/quote]
+
+**It** refers  to statefulness of Bitcoin script that can be achieved obviously through metaprotocol indexing without the need to constraint utxos at the main layer. 
+
+
+Globally I think `OP_CAT` can be very dangerous for Bitcoin as long as it allows recursive covenants. 
+
+[quote="victorkstarkware, post:5, topic:1106"]
+A smart contract here means some sort of stateful logic, with a collection of functions that can be invoked to transition the state to a different, valid one, according to predefined rules.
+[/quote]
+
+A definition of covenant give by @petertodd is: 
+"**covenants** are mechanisms by which the way a txout can be spent is is restricted in advance, such that the form of transactions used to spend that txout are pre-defined or otherwise restricted in a way that is not purely limited to signatures."
+https://petertodd.org/2024/covenant-dependent-layer-2-review
+
+In other words it allows stateful computation over UTXOs with transitioning mechanisms allowed by Bitcoin script operation. I don't see why do you want to talk about SCs as with a loose definition. 
+
+Happy to know you have $1T of value over Starknet and so, why do you want to come on Bitcoin instead of staying on your own layer? 
+
+I really feel there is a marketing campaign over delvingbitcoin for `OP_CAT` but I don't think it'll help to reach a dev consensus over this operation. `OP_CTV` seems way more dangerous and assume to enable already a lot of new use cases where to be honest validate a stark proof on Bitcoin doesn't seem enough to take such risk of recursive covenants. 
+
+Gl with your products. Hope you'll make money
+
+-------------------------
+
