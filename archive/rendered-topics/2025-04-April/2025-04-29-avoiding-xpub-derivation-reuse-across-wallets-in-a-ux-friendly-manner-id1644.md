@@ -118,7 +118,7 @@ Regarding air gapped wallets, we might want to define a "xpub request" QR from t
 
 -------------------------
 
-salvatoshi | 2025-04-30 14:43:04 UTC | #3
+salvatoshi | 2025-04-30 15:13:39 UTC | #3
 
 Thanks for raising the discussion. I think it's an important problem, and it will become increasingly more important in the future. I'll add some of my thoughts for consideration in the discussion.
 
@@ -130,7 +130,7 @@ If a BIP-XXX emerges from this discussion, it could still make sense to have `XX
 
 ## Concerns for hardware signing device UX
 
-About the scheme, a concern is that it increases the amount of information content (entropy) of the descriptor. That information **has to be displayed to the user**, and failure to check it could lead to ***ransom attacks*** if the software wallet is compromised (<small>that is: malware tricks the user into registering a descriptor with a wrong backup. Then, all they need to do lock you out of your funds is delete the user's software wallet. When the user tries to recover from their incorrect backup, the attacker can ransom them in exchange for the correct descriptor</small>).
+About the scheme, a concern is that it increases the amount of information content (entropy) of the descriptor. That information **has to be displayed to the user**, and failure to check it could lead to ***ransom attacks*** if the software wallet is compromised (<small>that is: malware tricks the user into registering a descriptor with a wrong backup. Then, all they need to do in order to lock the user out of their funds is to delete their software wallet. When the user tries to recover from their incorrect backup, the attacker can ransom them in exchange for the correct descriptor</small>).
 
 Therefore, this is making a tradeoff: improving privacy by default, but also making the UX a bit worse by default - at a security-critical moment like the on-device descriptor registration).
 
