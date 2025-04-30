@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 2,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 32.8,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 48.0,
   "yours": false,
   "topic_id": 1640,
   "topic_slug": "mitigating-channel-depletion-in-the-lightning-network-a-survey-of-potential-solutions",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -61,12 +61,17 @@
   "post_url": "/t/mitigating-channel-depletion-in-the-lightning-network-a-survey-of-potential-solutions/1640/3",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
