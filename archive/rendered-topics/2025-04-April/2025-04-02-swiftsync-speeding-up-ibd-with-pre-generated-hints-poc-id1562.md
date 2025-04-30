@@ -312,3 +312,153 @@ Regarding `MuHash` performance, have you tried with this? https://github.com/bit
 
 -------------------------
 
+l0rinc | 2025-04-30 11:24:37 UTC | #13
+
+
+
+# SwiftSync Benchmark Analysis and Future Ideas
+
+I love this idea (needed a few iterations with Ruben to understand how it changes the guarantees); it's a much-needed alternative for something between full IBD and AssumeUTXO.
+@theStack created an excellent prototype that makes it easy to check it out and experiment further.
+
+I usually test my IBDs using hyperfine for precision, either an i9 processor with an NVMe SSD or an i7 with an HDD.
+
+I have separated the addition of ibdboosterfile/swiftsyncfile argument to be the very first commit so that I can run both before/after versions with the exact same arguments (in the first instance the value is ignored; it's basically master branch with an unused arg).
+I have measured a `-reindex-chainstate` instead of a full IBD to reduce unrelated networking fluctuations.
+
+I have first tried it with the provided *850900* block hints with MuHash for `-dbcache=4500` (since we're not testing flushing behavior, so let's use plenty of memory).
+As mentioned before, it seems like the MuHash version is surprisingly slow, it's actually 2x **slower** than master:
+
+[details="MuHash benchmark details with 4.5 GB cache"]
+
+```bash
+COMMITS="76a731ed49e4234e62a79f492657d0138ded6437 9cdda4f301aa4aa1113024ee52c87b92449ad02b"; \
+STOP_HEIGHT=850901; DBCACHE=4500; \
+CC=gcc; CXX=g++; \
+BASE_DIR="/mnt/my_storage"; DATA_DIR="$BASE_DIR/BitcoinData"; LOG_DIR="$BASE_DIR/logs"; \
+(echo ""; for c in $COMMITS; do git fetch origin $c -q && git log -1 --pretty=format:'%h %s' $c || exit 1; done; echo "") && \
+hyperfine \
+  --sort 'command' \
+  --runs 1 \
+  --export-json "$BASE_DIR/rdx-${COMMITS// /-}-$STOP_HEIGHT-$DBCACHE-$CC.json" \
+  --parameter-list COMMIT ${COMMITS// /,} \
+  --prepare "killall bitcoind; rm -f $DATA_DIR/debug.log; git checkout {COMMIT}; git clean -fxd; git reset --hard; \
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WALLET=OFF && cmake --build build -j$(nproc) --target bitcoind && \
+    ./build/bin/bitcoind -datadir=$DATA_DIR -stopatheight=$STOP_HEIGHT -dbcache=5000 -printtoconsole=0; sleep 100" \
+  --cleanup "cp $DATA_DIR/debug.log $LOG_DIR/debug-{COMMIT}-$(date +%s).log" \
+  "COMPILER=$CC ./build/bin/bitcoind -datadir=$DATA_DIR -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=$STOP_HEIGHT -dbcache=$DBCACHE -ibdboosterfile=../booster850900.bin"
+```
+
+```
+> branch - 76a731ed49 IBD Booster: bugfix: skip txs that are overwritten later (duplicate txids)
+> master - 9cdda4f301 Add ibdboosterfile arg - to simplify benchmark params
+```
+
+```
+Benchmark 1: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=850901 -dbcache=4500 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -ibdboosterfile=../booster850900.bin (COMMIT = 76a731ed49e4234e62a79f492657d0138ded6437)
+  Time (abs ≡):        30699.125 s               [User: 30626.081 s, System: 534.603 s]
+
+Benchmark 2: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=850901 -dbcache=4500 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -ibdboosterfile=../booster850900.bin (COMMIT = 9cdda4f301aa4aa1113024ee52c87b92449ad02b)
+  Time (abs ≡):        15758.185 s               [User: 17931.351 s, System: 832.149 s]
+```
+
+```
+Relative speed comparison
+        1.95          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=850901 -dbcache=4500 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -ibdboosterfile=../booster850900.bin (COMMIT = 76a731ed49e4234e62a79f492657d0138ded6437)
+        1.00          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=850901 -dbcache=4500 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -ibdboosterfile=../booster850900.bin (COMMIT = 9cdda4f301aa4aa1113024ee52c87b92449ad02b)
+```
+
+[/details]
+
+Luckily @theStack provided an alternative which just uses SHA-256 to keep track of spentness via `HashWriter`.
+I have tested this version as well by first generating the hints until block *888888* for good luck🍀 and gave it more cowbell (45 GB in-memory cache to have a single flush at the end to reduce noise).
+This is indeed 56% faster for me, resulting in a 2h:47m reindex-chainstate - sweet, I could get used to that.
+
+[details="SHA-256 benchmark details with 45 GB cache"]
+
+```bash
+COMMITS="ab8dec1c87aef36e390bcc7d64d8604cc9170b93 e7194c13507a89544a3cf5f31c4eab88c19ba72b"; \
+STOP_HEIGHT=888888; DBCACHE=45000; \
+CC=gcc; CXX=g++; \
+BASE_DIR="/mnt/my_storage"; DATA_DIR="$BASE_DIR/BitcoinData"; LOG_DIR="$BASE_DIR/logs"; \
+(echo ""; for c in $COMMITS; do git fetch origin $c -q && git log -1 --pretty=format:'%h %s' $c || exit 1; done; echo "") && \
+hyperfine \
+  --sort 'command' \
+  --runs 1 \
+  --export-json "$BASE_DIR/rdx-${COMMITS// /-}-$STOP_HEIGHT-$DBCACHE-$CC.json" \
+  --parameter-list COMMIT ${COMMITS// /,} \
+  --prepare "killall bitcoind; rm -f $DATA_DIR/debug.log; git checkout {COMMIT}; git clean -fxd; git reset --hard; \
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WALLET=OFF && cmake --build build -j$(nproc) --target bitcoind && \
+    ./build/bin/bitcoind -datadir=$DATA_DIR -stopatheight=$STOP_HEIGHT -dbcache=5000 -printtoconsole=0; sleep 100" \
+  --cleanup "cp $DATA_DIR/debug.log $LOG_DIR/debug-{COMMIT}-$(date +%s).log" \
+  "COMPILER=$CC ./build/bin/bitcoind -datadir=$DATA_DIR -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=$STOP_HEIGHT -dbcache=$DBCACHE -swiftsyncfile=../ibd-booster-888888.bin"
+```
+
+```
+> master - ab8dec1c87 init: add -swiftsyncfile option
+> branch - e7194c1350 init: use the -swiftsyncfile option
+```
+
+```
+Benchmark 1: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=888888 -dbcache=45000 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
+  Time (abs ≡):        15653.472 s               [User: 19512.089 s, System: 663.930 s]
+
+Benchmark 2: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=888888 -dbcache=45000 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
+  Time (abs ≡):        10040.169 s               [User: 11106.200 s, System: 533.065 s]
+```
+
+```
+Relative speed comparison
+        1.56          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=888888 -dbcache=45000 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
+        1.00          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -stopatheight=888888 -dbcache=45000 -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
+```
+
+[/details]
+
+The final flush from memory to disk was included in the benchmark, it took roughly 12½ minutes (see https://github.com/bitcoin/bitcoin/pull/32043 for other pull requests meant to speed that up).
+
+[details="Log details"]
+
+```bash
+2025-04-30T06:44:15Z *** SwiftSync: aggregate hash check at terminal block height 888888 succeeded. ***
+2025-04-30T06:44:15Z UpdateTip: new best=00000000000000000001347938c263a968987bf444eb9596ab0597f721e4e9e8 height=888888 version=0x24bc4000 log2_work=95.509247 tx=1169009164 date='2025-03-22T09:15:51Z' progress=0.986891 cache=25442.8MiB(173676464txo)
+...
+2025-04-30T06:44:15Z [warning] Flushing large (24 GiB) UTXO set to disk, it may take several minutes
+2025-04-30T06:56:52Z Shutdown: done
+```
+
+[/details]
+
+## Future Ideas and Questions
+I have a few ideas and questions about the implementation (some might be a bit undercooked for now):
+
+1. **Further Optimizations**
+   * Do we really need a cryptographic hash here, or can we use a "pretty-good" hash instead? I'd like to better understand the requirements for salting, especially if we're storing the hint hashes as well.
+   * Could we use a native 64/128-bit aggregator instead of a 256-bit one? Especially if we can split one big aggregator to one-per-thread, which we'd combine at the very end to check for validity (fork-join)... Given a 256-bit hash for the hints and AssumeUTXO heights, can we make this "less secure"?
+
+2. **Memory/Disk Handling**
+   * Since we don't need to read or remove from the UTXO set anymore, we could use a concurrent queue/ring-buffer instead of the dbcache and write continuously to disk via a background thread (avoiding the expensive final flush). Or maybe just directly write to LevelDB with bigger in-memory cache.
+   * We could investigate what it would take to add undos on a background thread during swift-syncing (e.g. while the main thread connects the next block).
+   * Would this enable ultra-low-memory IBD (e.g., 100MiB, assuming gradual hint loading)?
+
+3. **Validation and Security**
+   * We should definitely validate that total amounts at the current tip don't exceed expected mined values (just noticed you mention this in the latest version of the writeup as well). While assumevalid skips script validation (doesn't really concern me), I find skipping amount validation more concerning (potential inflation bugs).
+   * We need more negative tests for various invalid scenarios (invalid hints, different tricky double-spends, etc.).
+   * Validate current state against hard-coded AssumeUTXO heights to fail early if inconsistencies are found. We could also add the utxo-hint-hashes there as well to be able to request the hints from any node safely.
+   * Do we need to validate whether any of the outpoints accidentally hash to the same value?
+
+4. **Performance**
+   * How would this combine with other pending IBD optimizations (batched block reading/writing, obfuscation speedup, faster UTXO batch writing, etc.)?
+   * What are the next bottlenecks after removing the obvious ones (since this removed the most obvious ones, which eclipsed all other ones)?
+   * How many blocks have outputs that were either all spent or all unspent until a given height?  Could we optimize the hints for these cases? Can we optimize the storage compressibility (e.g. sorting by similar block spends)?
+
+5. **Usage Extensions**
+   * Could SwiftSync work for very low-performance devices (e.g. smartwatch) even after IBD (reorgs)?
+   * Should we keep updating the hints after IBD to speed up RPC calls (maybe `gettxout`, `gettxoutsetinfo`, `scantxoutset`, `listunspent`, etc)?
+   * Initially introduce this for `reindex(-chainstate)` only, since we've already validated the chain.
+
+
+I'll try to parallelize this in the following weeks (threadpool + coroutines?), which should be straightforward (though measuring takes time), and apply other orthogonal optimizations (see https://github.com/bitcoin/bitcoin/pull/32043) to get a clearer picture of what we can achieve here.
+
+-------------------------
+

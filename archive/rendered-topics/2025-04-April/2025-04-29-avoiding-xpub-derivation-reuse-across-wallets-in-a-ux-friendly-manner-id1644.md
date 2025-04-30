@@ -118,3 +118,36 @@ Regarding air gapped wallets, we might want to define a "xpub request" QR from t
 
 -------------------------
 
+salvatoshi | 2025-04-30 14:43:04 UTC | #3
+
+Thanks for raising the discussion. I think it's an important problem, and it will become increasingly more important in the future. I'll add some of my thoughts for consideration in the discussion.
+
+## Save the `coin_type'`
+
+A little note that while I agree that descriptors mostly supersede the various derivation standards, there's still value in using hardened derivations to partition key hierarchies. Arguably, of the three level defined in [BIP-44](https://github.com/bitcoin/bips/blob/74fc5b92b04152ed7d4cd367644d78b4afefd8e8/bip-0044.mediawiki) (`purpose'/coin_type'/account'`), the `coin_type'` is still quite useful to partition keys across networks/coins. In fact, Ledger (and I suspect other vendors) uses it to disallow the acceptable derivation paths for most apps.
+
+If a BIP-XXX emerges from this discussion, it could still make sense to have `XXX'/coin_type'` as the first two derivation steps.
+
+## Concerns for hardware signing device UX
+
+About the scheme, a concern is that it increases the amount of information content (entropy) of the descriptor. That information **has to be displayed to the user**, and failure to check it could lead to ***ransom attacks*** if the software wallet is compromised (<small>that is: malware tricks the user into registering a descriptor with a wrong backup. Then, all they need to do lock you out of your funds is delete the user's software wallet. When the user tries to recover from their incorrect backup, the attacker can ransom them in exchange for the correct descriptor</small>).
+
+Therefore, this is making a tradeoff: improving privacy by default, but also making the UX a bit worse by default - at a security-critical moment like the on-device descriptor registration).
+
+Unfortunately, minimizing the entropy while at the same time obtaining privacy by default seems to inherently require state - and I don't think keeping the state on the signing devices is viable.
+
+## :light_bulb: Monotonic backups?
+
+A possible solution I was toying with (but certainly nontrivial to implement) could be to have *small storage providers* that are only trusted to store small amounts of encrypted data. That would kind of generalize [what I proposed for descriptors and wallet policies](https://delvingbitcoin.org/t/a-simple-backup-scheme-for-wallet-accounts/1607), in that you would backup some extra information, and you'd want to be able to update it dynamically over time (therefore, some more care is needed for the cryptography, compared to the linked scheme).
+
+Information like `I used xpub m/xx'/yy'/zz` is very small, and monotonically updated over time (you never *un-use* a used xpub).
+Therefore, you could (should!) have multiple digital copies of this information, and it is straightforward to reconcile diverging copies: you store the union of the two sets of *used xpubs*. Since the loss of this information is not catastrophic (at most you end up re-using an xpub), something that works *almost always* might be good enough in practice.
+
+*Small storage providers* could be: the user's own devices; cloud storage accounts; semi-trusted nostr contacts; service providers for wallets (like Liana); etc.
+
+Such a backup system could also be used for other *monotonic* info wallets might want to store ([BIP-329](https://github.com/bitcoin/bips/blob/74fc5b92b04152ed7d4cd367644d78b4afefd8e8/bip-0329.mediawiki) labels?).
+
+However, building the tooling for such a system (standards, storage types and management, reconciliation) is rather large endeavor which extends much beyond the scope of your post.
+
+-------------------------
+

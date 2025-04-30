@@ -216,3 +216,13 @@ Yes that was exactly why I advocated for `htlc_maximum_msat` initially. It works
 
 -------------------------
 
+nick | 2025-04-30 14:15:45 UTC | #5
+
+Hi Rene,
+
+This makes me think of @ZmnSCPxj 's [Forwardable Peerswaps proposal](https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2022-October/003710.txt). Essentially a way to voluntarily optimize on-chain swaps, "forwarding" them from net senders of liquidity to net receivers and replenishing liquidity across the whole route. 
+
+This would take what would be a local peerswap rebalancing one channel and have it rebalance many channels at once, with each participating node benefiting. Should at least be considered in this discussion imo.
+
+-------------------------
+
