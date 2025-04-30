@@ -226,3 +226,17 @@ This would take what would be a local peerswap rebalancing one channel and have 
 
 -------------------------
 
+ZmnSCPxj | 2025-04-30 16:11:09 UTC | #6
+
+Nearly all proposals listed above require some erosion of privacy.
+
+In addition, flow valves do not fix the core complaint of payment failure anyway --- they just signal the payment failure earlier.
+
+We have to accept that any solution to payment failure requires onchain action.  Full stop.  The point is not to set onchain actions to 0.  The point is to keep the onchain actions low, which is sufficient for scaling purposes.
+
+Forwardable peerswaps scales a single onchain action to multiple channels being rebalanced at once.  Even if only a single channel is rebalanced, it potentially still scales multiple smaller in-Lightning payments over that channel to a single onchain action. It also does not erode existing privacy, as the details of in-Lightning payments are not changed (unlike local forwarding or centralized routing).
+
+Another thing to consider is sidepools.  Sidepools are multiparty channels, but are unpublished. This implies that existing routing is not changed at all (avoiding "rethinking routing itself") and existing privacy is preserved (multiparty channels leak routing to all participants in the channel, but in sidepools, the multiparty construct is restricted to only rebalancing 2-party channels).  Again, this implies onchain actions to move funds to/from sidepools, but again, the point of scaling is to have multiple in-Lightning payments be summarized into a few onchain actions, not eliminate onchain actions to 0.
+
+-------------------------
+

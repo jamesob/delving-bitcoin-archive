@@ -312,7 +312,7 @@ Regarding `MuHash` performance, have you tried with this? https://github.com/bit
 
 -------------------------
 
-l0rinc | 2025-04-30 11:24:37 UTC | #13
+l0rinc | 2025-04-30 16:56:05 UTC | #13
 
 
 
@@ -321,7 +321,7 @@ l0rinc | 2025-04-30 11:24:37 UTC | #13
 I love this idea (needed a few iterations with Ruben to understand how it changes the guarantees); it's a much-needed alternative for something between full IBD and AssumeUTXO.
 @theStack created an excellent prototype that makes it easy to check it out and experiment further.
 
-I usually test my IBDs using hyperfine for precision, either an i9 processor with an NVMe SSD or an i7 with an HDD.
+I usually test my IBDs using hyperfine for precision, either an i9 processor with an NVMe SSD (or an i7 with an HDD, not used here).
 
 I have separated the addition of ibdboosterfile/swiftsyncfile argument to be the very first commit so that I can run both before/after versions with the exact same arguments (in the first instance the value is ignored; it's basically master branch with an unused arg).
 I have measured a `-reindex-chainstate` instead of a full IBD to reduce unrelated networking fluctuations.
