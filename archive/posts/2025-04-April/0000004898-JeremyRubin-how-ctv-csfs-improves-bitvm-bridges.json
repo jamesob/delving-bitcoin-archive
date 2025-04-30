@@ -13,9 +13,9 @@
   "reply_to_post_number": 23,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -44,7 +44,12 @@
   },
   "bookmarked": false,
   "raw": "yeah that seems correct -- inputA and inputB must be separate txs, or you entail a hash cycle.\n\ninterestingly, for this case, you *can* do both sides with (a variant of txhash), by doing a constraint check that they both have the same txid and the correct vout...\n\ne.g. \n\ninput 0: GETTXIDOFINPUT(0) == GETTXIDOFINPUT(1) && GETCURRENTINDEX == 0\ninput 1: GETTXIDOFINPUT(0) == GETTXIDOFINPUT(1) && GETCURRENTINDEX == 1\n\nwhere txid is known to have two outputs (or else do some other checks).\n\nI'm not sure this is relevant, or even interesting, since there's marginal difference between two inputs that must be spent together from the same tx, and one input that contains the value for both(, or can be split in two after some delay, optionally).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -59,8 +64,14 @@
   "excerpt": "yeah that seems correct \u2013 inputA and inputB must be separate txs, or you entail a hash cycle. \ninterestingly, for this case, you can do both sides with (a variant of txhash), by doing a constraint check that they both have the same txid and the correct vout\u2026 \ne.g. \ninput 0: GETTXIDOFINPUT(0) == GETT&hellip;",
   "truncated": true,
   "post_url": "/t/how-ctv-csfs-improves-bitvm-bridges/1591/24",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -44,3 +44,9 @@ As follow up, we have just pushed to the repo adding both Groups 1 & 2 and updat
 
 -------------------------
 
+cryptoquick | 2025-04-29 23:42:53 UTC | #5
+
+I recommend removing SQIsign. It's been removed from BIP-360, not just because it's not standardized yet, but also, it's been reported that verification times are quite slow.
+
+-------------------------
+
