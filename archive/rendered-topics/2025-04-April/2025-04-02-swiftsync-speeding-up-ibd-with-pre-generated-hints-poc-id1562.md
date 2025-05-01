@@ -462,3 +462,29 @@ I'll try to parallelize this in the following weeks (threadpool + coroutines?), 
 
 -------------------------
 
+RubenSomsen | 2025-05-01 15:45:27 UTC | #14
+
+Nice work. Makes sense to me that the speedup is less apparent when RAM isn't limited. Nice to see it's still quite significant.
+
+>can we use a “pretty-good” hash [...] Could we use a native 64/128-bit aggregator
+
+You could consider running a benchmark with a theoretical 0-cost hash aggregate function (i.e. simply don't hash or aggregate anything) to see what the maximum possible savings are. In terms of security, I believe it boils down to the chance of a single accidental collision, so a 4 byte hash would only have a one in 4 billion chance of incorrectly accepting an invalid chain. Not unreasonable, but the default should probably be at least 16 bytes, just to be able to say there's no reduction in security.
+
+>Validate current state against hard-coded AssumeUTXO heights to fail early if inconsistencies are found
+
+Not fully sure I understood correctly, but if the assumeutxo hash and hints come from the same source, then I don't think failing early helps.
+
+>Do we need to validate whether any of the outpoints accidentally hash to the same value?
+
+I wouldn't be concerned here about accidental hash collisions, as that's not happening with 32 bytes and a salt. 
+
+>What are the next bottlenecks
+
+Batch validation of Schnorr signatures is an interesting one to reduce CPU load (for the non-assumevalid version). 
+
+>I’ll try to parallelize this in the following weeks
+
+Looking forward to those benchmarks!
+
+-------------------------
+
