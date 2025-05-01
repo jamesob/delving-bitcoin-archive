@@ -1551,3 +1551,19 @@ https://github.com/bitcoin/bitcoin/pull/31989#discussion_r2040517393
 
 -------------------------
 
+securitybrahh | 2025-05-01 04:58:38 UTC | #60
+
+(sorry for being a noob and lazy but) can someone give me tldr on why we stacking ctv and csfs, and not cat and csfs.
+
+CAT gives more room for spam? also ofc ctv is most historically not merged tested opcode and appearantly CAT was switched off by Satoshi himself (or so I have heard on the streets) 
+
+hope CTV doesn't activate some non-desirables.
+
+P.S. I hate ossification. 
+
+![1000015680|277x500](upload://7xgJsmZdk71OdYLuQmmqW3cUuY0.jpeg)
+
+https://en.wikipedia.org/wiki/G%C3%B6del's_incompleteness_theorems
+
+-------------------------
+
