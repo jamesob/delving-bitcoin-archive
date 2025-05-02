@@ -282,3 +282,36 @@ I [posted](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/73) mo
 
 -------------------------
 
+sipa | 2025-05-01 21:11:10 UTC | #5
+
+### Fairness
+
+There are a number of options for finding which split operation to perform:
+1. Among all active dependencies, pick the one with the highest-$q()$. This is what the post above describes.
+2. Round-robin over all chunks, until one is found with at least one positive-$q()$ dependency. Pick the highest-$q()$ active dependency within that chunk.
+3. Round-robin over all transactions, until one is found with at least one positive-$q()$ dependency among its children. Pick the highest-$q()$ dependency among them.
+
+(3) has arguably the best "fairness", as it balances activity somewhat equally over all transactions, giving each in turn a chance to improve its feerate (by splitting off a worse child + subtree). That was the approach I used initially in the benchmark I linked to above, but I've since changed the approach to (2), as it seems (3) does not actually guarantee that every step is an improvement (@ajtowns found that the same state can be repeated), even though it seems extremely hard to hit this when randomness is added into the process. (2) still distributes work somewhat fairly, at least as soon as different potential parties' transactions have been split into separate chunks - and if they can't, then the chunk may well be optimal already and it doesn't matter. More complex cases may exist though, where the optimal chunks consists of combinations of multiple parties' transactions, in which case it's unclear to me what approach is better.
+
+Further, if (1) has the property that it always makes progress, then so does (2). Assume it doesn't, and a state exists for which (2) cycles. We know that any split that is not immediately followed by a self-merge strictly improves the area under the diagram, so afterwards no repetition of earlier states is possible anymore; thus, the cycle can only consist of splits + self-merges. If one removes from this cycling state all chunks but one splittable one (which must exist, as otherwise the algorithm has terminated), one obtains a state that cycles for (1), which is in contradiction with the assumption.
+
+Note that we don't know (yet) whether (1) or (2) actually always make progress, just that if (1) does, then so does (2).
+
+### Randomization
+
+Even though it appears that nearly all real clusters (based on simulations using replay of 2023 P2P activity) can be linearized optimally by SFL in a very reasonable time, it's also clear that it's not hard to construct clusters that take longer, and I believe that it's possible to construct pathological examples where it takes a very long time.
+
+Because of that, I think the right approach is to having randomization in the linearization algorithm, so that no attacker can deterministically trigger problems across the network, like specific subsets of a cluster being badly linearized, causing things like say a simple CPFP not working. There are some downsides to non-determinism, like in extreme cases getting inconsistent relay behavior, but I think it's preferable to deterministic attacks, and given that we expect that pretty much all non-adversially-created clusters will be linearized optimally in negligible time with SFL, it feels like a non-issue.
+
+Here is a list of the types of randomness I have currently implemented in my prototype implementation (which the benchmarks are for):
+* All transactions are given a random index value at startup. This index value is used for:
+  * When performing a split, and there are multiple active dependencies within a chunk with the same $q()$, one with the lowest-index parent transaction is used.
+  * When performing a merge, and there are multiple inactive dependencies between the chunks being merged, one with the lowest-index child (when bubbling up) or lowest-index parent (when bubbling down) is used.
+* The dependencies (both active and inactive, and both parent and children) per transaction are kept in lists that are ordered randomly at startup. When a dependency is activated, it moves to the end of the active list. When a dependency is deactivated, it is placed in a random position in the inactive list. These lists are used to:
+  * When performing a split, and there are multiple active dependencies within a chunk with the same $q()$ and the same parent transaction, the first one from the list is used.
+  * When performing a merge, and there are multiple inactive dependencies between the two chunks with the same child (when bubbling up) or same parent (when bubbling down), the first one from the list is used.
+* There is a FIFO queue of chunks which should be considered for splitting. This queue is randomly shuffled initially.
+* If no existing linearization is provided, a random one is constructed by shuffling the transactions randomly, and then sorting by number of ancestors.
+
+-------------------------
+
