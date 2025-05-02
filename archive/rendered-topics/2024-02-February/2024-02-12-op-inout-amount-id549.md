@@ -139,3 +139,266 @@ If you have multiple inputs that have exactly `1BTC`, 3rd parties on the network
 
 -------------------------
 
+Chris_Stewart_5 | 2025-05-02 17:37:51 UTC | #4
+
+# Case study: OP_VAULT
+
+
+This case study explores how Script opcodes can be used to implement **amount locks**—restrictions that ensure the value of inputs and outputs in a transaction meets certain conditions. The goal is to evaluate the required features and developer ergonomics for opcodes that push input and output amounts onto the stack. Rather than starting from scratch, we build on existing opcode proposals and retrofit them to support amount locks directly in Script
+
+This requires 2 proposals I am working on
+
+1. [64-bit arithmetic in Script](https://github.com/Christewart/bips/blob/79257ba5d7a632fa828208f266fd4f5540ffba7f/bip-XXXX.mediawiki)
+2. [`OP_INOUT_AMOUNT`](https://delvingbitcoin.org/t/op-inout-amount/549/3?u=chris_stewart_5)
+
+**Note:** This study does not attempt to implement _destination locks_—restrictions on where funds may be sent. That logic is preserved from the original proposal being examined.
+
+[Here](https://github.com/Christewart/bitcoin/tree/2025-04-16-covtools-softfork-nochange) is a link to the repository that implements everything talked about below - a good place to start reading is the functional test [`feature_vaults.py`](https://github.com/Christewart/bitcoin/blob/4c6c2ecb59a132eeac43d5608a1a1c081940b0e0/test/functional/feature_vaults.py)
+
+## BIP345
+[BIP345](https://github.com/bitcoin/bips/blob/3365fb7a7e5e25b95b94d65808e32a02aa684aaa/bip-0345.mediawiki) proposes a mechanism that enforces a delay before certain coins can be spent to arbitrary destinations—unless they're redirected along a predefined "recovery" path. At any time before final withdrawal, the funds can be moved to this recovery path.
+
+The proposal introduces two opcodes—`OP_VAULT` and `OP_VAULT_RECOVER`—that depend on enforcing **two amount locks**. In the original implementation, these were enforced using [deferred checks](https://github.com/bitcoin/bips/blob/3365fb7a7e5e25b95b94d65808e32a02aa684aaa/bip-0345.mediawiki#cite_note-7):
+
+1. `trigger_vout_value` + `revault_vout_value?` = sum(`funding_vault_outputs`)  
+2. sum(`vault_recover_outputs`) = `recov_vout_value`
+
+> Note: In (1), `revault_vout_value` is optional and may not be present in every case.
+
+This document explores how these amount locks can be enforced directly in Script using `OP_INOUT_AMOUNT`, eliminating the need for deferred checks for the amount lock portion of `OP_VAULT`/`OP_VAULT_RECOVER`.
+
+
+## OP_VAULT
+
+Here is what the BIP345 stack looks like when evaluating `OP_VAULT`
+```
+<leaf-update-script-body>
+<push-count>
+[ <push-count> leaf-update script data items ... ]
+<trigger-vout-idx>
+<revault-vout-idx>
+<revault-amount>
+```
+
+We are interested in `trigger-vout-idx`, `revault-vout-idx`, and `revault-amount`. The `OP_VAULT` opcode checks that the destination lock is satisfied, and the amount lock is satisfied via a combination of [logic in the opcode implementation itself](https://github.com/jamesob/bitcoin/blob/5e59c074703f0913db7ee004b99d086857d10ad6/src/script/interpreter.cpp#L2159), and a [deferred check](https://github.com/jamesob/bitcoin/blob/5e59c074703f0913db7ee004b99d086857d10ad6/src/validation.cpp#L1894) that is run after all inputs are validated in the trigger transaction.
+
+### Trigger Transaction's Amount Lock Logic in Script
+
+Here is what the witness stack looks like when you begin to evaluate in `OP_VAULT` output in a trigger transaction.
+
+```
+<leaf-update-script-body>
+<push-count>
+[ <push-count> leaf-update script data items ... ]
+<trigger-vout-idx>
+<revault-vout-idx>
+<input_indices> # a bitmap for compatible OP_VAULT outputs we are verifying in this transaction
+```
+
+The only new field is `input_indices` which corresponds to the compatible `OP_VAULT` outputs that are sending funds to the `trigger-vout-idx` and `revault-vout-idx`. This change removes `<revault-amount>` from the stack as it will be pushed onto the stack by `OP_INOUT_AMOUNT`. As a side note, I don't believe `revault-amount` is required in the original BIP345 proposal as the value can be checked via deferred checks.
+
+Here is what the corresponding `trigger_script` looks like to evaluate this stack
+
+```
+OP_6,            # Depth of input bitmap on stack
+OP_ROLL,         # Move input bitmap to stack top
+OP_6,            # Depth of revault vout index on stack
+OP_ROLL,         # Move revault vout index to top
+OP_6,            # Depth of trigger vout index on stack
+OP_PICK,         # Copy trigger vout index to top (keep original for OP_VAULT)
+OP_SWAP,         # Bring revault index to top
+OP_DUP,          # Copy revault index (for -1 check)
+OP_1NEGATE,
+OP_EQUAL,        # Check if revault index == -1
+
+OP_IF,           # Case: No revault output present
+  OP_DROP,       # Drop duplicated -1
+
+  # Convert trigger index into bitmap (simulate shift table since we have no OP_LSHIFT)
+  OP_DUP,
+  OP_0,
+  OP_EQUAL,
+  OP_IF,
+    OP_DROP,
+    OP_1,
+  OP_ELSE,
+    OP_DUP,
+    OP_1,
+    OP_EQUAL,
+    OP_IF,
+      OP_DROP,
+      OP_2,
+    OP_ELSE,
+      OP_0,
+      OP_VERIFY,
+    OP_ENDIF,
+  OP_ENDIF,
+
+  # Push amounts: op_vault_input_sum, trigger_vout_value
+  OP_INOUT_AMOUNT,
+  OP_EQUALVERIFY,  # Require: sum(inputs) == trigger output
+OP_ELSE,         # Case: Revault output exists
+  OP_DUP,
+  OP_0,
+  OP_GREATERTHAN,
+  OP_VERIFY,      # Require revault index >= 0
+
+  # Convert revault index into bitmap (since we have no OP_LSHIFT)
+  OP_DUP,
+  OP_0,
+  OP_EQUAL,
+  OP_IF,
+    OP_DROP,
+    OP_1,
+  OP_ELSE,
+    OP_DUP,
+    OP_1,
+    OP_EQUAL,
+    OP_IF,
+      OP_DROP,
+      OP_2,
+    OP_ELSE,
+      OP_0,
+      OP_VERIFY,
+    OP_ENDIF,
+  OP_ENDIF,
+
+  OP_2,           # Depth of input bitmap
+  OP_ROLL,        # Bring input bitmap to top
+  OP_SWAP,        # Reorder: input bitmap, output bitmap
+  OP_INOUT_AMOUNT, # Push amounts: op_vault_input_sum, revault_output_value
+
+  # Prepare trigger output lookup
+  OP_2,
+  OP_ROLL,
+  OP_0,           # Dummy input bitmap
+  OP_SWAP,
+
+  # Convert trigger index into bitmap (since we have no OP_LSHIFT)
+  OP_DUP,
+  OP_0,
+  OP_EQUAL,
+  OP_IF,
+    OP_DROP,
+    OP_1,
+  OP_ELSE,
+    OP_DUP,
+    OP_1,
+    OP_EQUAL,
+    OP_IF,
+      OP_DROP,
+      OP_2,
+    OP_ELSE,
+      OP_0,
+      OP_VERIFY,
+    OP_ENDIF,
+  OP_ENDIF,
+
+  OP_INOUT_AMOUNT, # Push trigger output amount
+  OP_SWAP,
+  OP_DROP,         # Drop dummy input amount
+  OP_ADD,          # total_outputs = trigger + revault
+  OP_EQUALVERIFY,  # Require: sum(inputs) == total_outputs
+OP_ENDIF,
+
+OP_VAULT          # Final vault check
+```
+
+This Script checks this invariant using only Script
+
+>1. `trigger_vout_value` + `revault_vout_value?` = sum(`funding_vault_outputs`)
+
+[Small modifications were made to the OP_VAULT implementation](https://github.com/Christewart/bitcoin/blob/4c6c2ecb59a132eeac43d5608a1a1c081940b0e0/src/script/interpreter.cpp#L1427). Namely the `OP_VAULT` opcode no longer consumes these stack arguments because the logic is implemented in Script
+
+1. `revault_vout_idx`
+2. `revault_amount`
+
+`revault_amount` is removed all together, and `revault_vout_idx` is used by `OP_INOUT_AMOUNT` rather than `OP_VAULT`. 
+
+## OP_VAULT_RECOVER
+
+`OP_VAULT_RECOVER` is an opcode that allows a user to recover a vaulted amount from a trigger transaction. This output can be spent at any time before the withdrawal transaction becomes confirmed on the bitcoin network.
+
+Here is what the witness stack looks like for `OP_VAULT_RECOVER` in BIP345.
+
+```
+<recovery-sPK-hash>
+<recovery-vout-idx>
+```
+
+We are interested in `recovery_vout_idx`. This index represents the output that the recovered funds are sent to in the recovery transaction.
+
+We need all inputs that spend an `OP_VAULT_RECOVER` to sum to the output value at the `recover_vout_idx`. The original implementation in BIP345 uses deferred checks to enforce this invariant - we are going to show how `OP_INOUT_AMOUNT` could be used to replace the deferred check.
+
+### Recovery Transaction's Amount Lock Logic in Script
+
+This is what the `recovery_script` looks like to implement the amount lock on the recovery transaction. 
+
+```
+OP_DUP,           # Duplicate recovery_output_idx for lookup
+
+# Simulate a left shift for recovery_output_idx using a lookup table since OP_LSHIFT isn't available
+OP_0,
+OP_EQUAL,
+OP_IF,
+  OP_1,
+OP_ELSE,
+  OP_DUP,
+  OP_1,
+  OP_EQUAL,
+  OP_IF,
+    OP_2,
+  OP_ELSE,
+    OP_DUP,
+    OP_2,
+    OP_EQUAL,
+    OP_IF,
+      OP_4,
+    OP_ELSE,
+      OP_DUP,
+      OP_3,
+      OP_EQUAL,
+      OP_IF,
+        OP_8,
+      OP_ELSE,
+        OP_DUP,
+        OP_5,
+        OP_EQUAL,
+        OP_IF,
+          CScriptNum(32),
+        OP_ELSE,
+          OP_DUP,
+          OP_1NEGATE,
+          OP_EQUAL,
+          OP_IF,
+            OP_1NEGATE,
+          OP_ELSE,
+            OP_0,
+            OP_VERIFY,
+          OP_ENDIF,
+        OP_ENDIF,
+      OP_ENDIF,
+    OP_ENDIF,
+  OP_ENDIF,
+OP_ENDIF,
+
+OP_2,             # Stack depth of trigger_input_indices
+OP_ROLL,          # Move input bitmap to stack top
+OP_SWAP,          # Reorder: input_bitmap, output_bitmap
+OP_INOUT_AMOUNT,  # Push input_sum and recovery_output_value
+OP_EQUALVERIFY,   # Ensure: sum(trigger_inputs) == recovery_output_value
+
+self.recovery_hash,
+OP_VAULT_RECOVER
+```
+
+If you are remove the shift table, the Script is relatively compact to enforce the recovery output's amount lock.
+
+
+## Learnings
+
+1. Any index based opcodes require shift operators to be have nice developer ergonomics in Script. Most of the Script I've written for BIP345's logic comes down to writing a table to figure out what the appropriate input/output indice we are checking.
+2. Segregating `OP_INOUT_AMOUNT` into 2 opcodes - `OP_IN_AMOUNT` and `OP_OUT_AMOUNT` would reduce the amount of stack manipulation that needs to be done with `OP_PICK`/`OP_ROLL`.
+
+-------------------------
+
