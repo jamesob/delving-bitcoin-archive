@@ -37,3 +37,37 @@ I shared the logs with different LLMs as an experiment. I asked whether they cou
 
 -------------------------
 
+vostrnad | 2025-05-02 15:26:40 UTC | #3
+
+Hard disagree with most of your points.
+
+> I think the whole OP_RETURN debate is missing one important part: a communication link between the developers and the users.
+
+I don't see a lack of communication avenues between users and developers. We have the mailing list, GitHub issues and even the pull request comments for constructive criticisms of proposed changes (not brigading and repeating already addressed arguments).
+
+> However, it is important that there is mutual respect and trust between users and devs. Right now, trust is pretty broken.
+
+No, it is not. Bitcoin Core developers and maintainers are doing an excellent job, as evidenced e.g. by around 95% of the network choosing Bitcoin Core as their node implementation, despite multiple alternatives being available.
+
+> It’s a big change that came out of nowhere
+
+It's not a big change, it just allows people to send transactions through the network that they are already submitting directly to miners. It also didn't come out of nowhere, lifting the OP_RETURN limits has been talked about for ages and especially since people started putting arbitrary data into witnesses instead (which was over 2 years ago).
+
+> One protocol is mentioned that would benefit from this change
+
+The protocol mentioned would not really benefit from this change, rather everyone else would benefit if this protocol could switch from unspendable UTXOs to OP_RETURN outputs.
+
+> and then an investor ACKs the PR. Someone points out a potential conflict of interest, and their comment gets hidden. That’s shady, no denying it.
+
+Conflict of interest doesn't really matter here. If a change is proposed that would hurt Bitcoin at someone's benefit, it can just as well be rejected on the basis of hurting Bitcoin alone. Changes can also be proposed pseudonymously, so there's really no hope of policing conflicts of interest in the first place. Lastly, pull request comments are meant for reviewing the proposed changes, which is why the comment was hidden as off-topic.
+
+> It’s a ““technocracy””, where devs have all the power in their hands and can decide where the protocol goes, while completely dismissing users’ concerns.
+
+No, they cannot. Devs only write the code, it is up to the users to choose to run it. Devs can decide to make any changes they want, but without users running their code they have no power.
+
+> users freaking out and holding core developers accountable and flooding Github is a feature, not a bug
+
+There is no need to hold developers accountable. You either run the software they provide to you (for free, at that), or you don't. Brigading pull request comments only wastes everyone's time and definitely contributes to the divide you seem to be so keen on resolving.
+
+-------------------------
+
