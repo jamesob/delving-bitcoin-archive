@@ -312,7 +312,7 @@ Regarding `MuHash` performance, have you tried with this? https://github.com/bit
 
 -------------------------
 
-l0rinc | 2025-04-30 16:56:05 UTC | #13
+l0rinc | 2025-05-02 11:44:34 UTC | #13
 
 
 
@@ -350,8 +350,8 @@ hyperfine \
 ```
 
 ```
-> branch - 76a731ed49 IBD Booster: bugfix: skip txs that are overwritten later (duplicate txids)
-> master - 9cdda4f301 Add ibdboosterfile arg - to simplify benchmark params
+> (branch) 76a731ed49 IBD Booster: bugfix: skip txs that are overwritten later (duplicate txids)
+> (master) 9cdda4f301 Add ibdboosterfile arg - to simplify benchmark params
 ```
 
 ```
@@ -374,7 +374,7 @@ Luckily @theStack provided an alternative which just uses SHA-256 to keep track 
 I have tested this version as well by first generating the hints until block *888888* for good luck🍀 and gave it more cowbell (45 GB in-memory cache to have a single flush at the end to reduce noise).
 This is indeed 56% faster for me, resulting in a 2h:47m reindex-chainstate - sweet, I could get used to that.
 
-[details="SHA-256 benchmark details with 45 GB cache"]
+[details="SHA-256 benchmark details with 45 GB dbcache"]
 
 ```bash
 COMMITS="ab8dec1c87aef36e390bcc7d64d8604cc9170b93 e7194c13507a89544a3cf5f31c4eab88c19ba72b"; \
@@ -395,8 +395,8 @@ hyperfine \
 ```
 
 ```
-> master - ab8dec1c87 init: add -swiftsyncfile option
-> branch - e7194c1350 init: use the -swiftsyncfile option
+> (master) ab8dec1c87 init: add -swiftsyncfile option
+> (branch) e7194c1350 init: use the -swiftsyncfile option
 ```
 
 ```
@@ -427,6 +427,49 @@ The final flush from memory to disk was included in the benchmark, it took rough
 2025-04-30T06:56:52Z Shutdown: done
 ```
 
+[/details]
+
+EDIT:
+Running it on a HDD with a slower i7 processor and a lot lower dbcache reveals a lot bigger speedup of 282% (or rather a lot bigger slowdown of `master`):
+
+[details="SHA-256 benchmark details with 450 MB dbcache on an i7 with HDD"]
+
+```bash
+COMMITS="ab8dec1c87aef36e390bcc7d64d8604cc9170b93 e7194c13507a89544a3cf5f31c4eab88c19ba72b"; \
+STOP_HEIGHT=888889; DBCACHE=450; \
+CC=gcc; CXX=g++; \
+BASE_DIR="/mnt/my_storage"; DATA_DIR="$BASE_DIR/BitcoinData"; LOG_DIR="$BASE_DIR/logs"; \
+(echo ""; for c in $COMMITS; do git fetch origin $c -q && git log -1 --pretty=format:'%h %s' $c || exit 1; done; echo "") && \
+hyperfine \
+  --sort 'command' \
+  --runs 1 \
+  --export-json "$BASE_DIR/rdx-${COMMITS// /-}-$STOP_HEIGHT-$DBCACHE-$CC.json" \
+  --parameter-list COMMIT ${COMMITS// /,} \
+  --prepare "killall bitcoind; rm -f $DATA_DIR/debug.log; git checkout {COMMIT}; git clean -fxd; git reset --hard; \
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WALLET=OFF && cmake --build build -j$(nproc) --target bitcoind && \
+    ./build/bin/bitcoind -datadir=$DATA_DIR -stopatheight=$STOP_HEIGHT -dbcache=5000 -printtoconsole=0; sleep 100" \
+  --cleanup "cp $DATA_DIR/debug.log $LOG_DIR/debug-{COMMIT}-$(date +%s).log" \
+  "COMPILER=$CC ./build/bin/bitcoind -datadir=$DATA_DIR -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=$STOP_HEIGHT -dbcache=$DBCACHE -swiftsyncfile=../ibd-booster-888888.bin"
+```
+
+```
+> (master) ab8dec1c87 init: add -swiftsyncfile option
+> (branch) e7194c1350 init: use the -swiftsyncfile option
+```
+
+```
+Benchmark 1: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=450 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
+  Time (abs ≡):        41784.833 s               [User: 35625.004 s, System: 2890.844 s]
+ 
+Benchmark 2: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=450 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
+  Time (abs ≡):        14798.992 s               [User: 10653.979 s, System: 499.766 s]
+```
+
+```
+Relative speed comparison
+        2.82          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=450 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
+        1.00          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=450 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
+```
 [/details]
 
 ## Future Ideas and Questions
