@@ -37,7 +37,7 @@ I shared the logs with different LLMs as an experiment. I asked whether they cou
 
 -------------------------
 
-vostrnad | 2025-05-02 15:26:40 UTC | #3
+vostrnad | 2025-05-02 15:28:55 UTC | #3
 
 Hard disagree with most of your points.
 
@@ -64,6 +64,10 @@ Conflict of interest doesn't really matter here. If a change is proposed that wo
 > It’s a ““technocracy””, where devs have all the power in their hands and can decide where the protocol goes, while completely dismissing users’ concerns.
 
 No, they cannot. Devs only write the code, it is up to the users to choose to run it. Devs can decide to make any changes they want, but without users running their code they have no power.
+
+> they’re treated like “bullies” that devs should ignore, devs should “merge Todd’s PR and call it a day”
+
+As far as I can tell, all the arguments (that is, the few that actually had merit) against lifting OP_RETURN limits have been adequately addressed, in which case it's indeed fine to merge the PR.
 
 > users freaking out and holding core developers accountable and flooding Github is a feature, not a bug
 
