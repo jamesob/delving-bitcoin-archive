@@ -75,3 +75,9 @@ There is no need to hold developers accountable. You either run the software the
 
 -------------------------
 
+1440000bytes | 2025-05-02 15:46:39 UTC | #4
+
+Is Bitcoin Core maintained for users or regular contributors (most of them never use bitcoin)?
+
+-------------------------
+
