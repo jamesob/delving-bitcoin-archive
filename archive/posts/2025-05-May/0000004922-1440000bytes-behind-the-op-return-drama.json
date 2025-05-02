@@ -59,7 +59,13 @@
   "excerpt": "Is Bitcoin core maintained for users or regular contributors (most of them never use bitcoin)?",
   "truncated": true,
   "post_url": "/t/behind-the-op-return-drama/1650/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
   "reaction_users_count": 0,
   "current_user_used_main_reaction": false
