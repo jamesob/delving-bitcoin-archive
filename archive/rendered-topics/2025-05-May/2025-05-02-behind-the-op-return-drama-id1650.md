@@ -29,3 +29,11 @@ A Bitcoin Dev
 
 -------------------------
 
+1440000bytes | 2025-05-02 10:41:54 UTC | #2
+
+IRC meeting logs: https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2025-05-01
+
+I shared the logs with different LLMs as an experiment. I asked whether they could identify humble and arrogant people in the chat. The results were interesting including some false positives.
+
+-------------------------
+
