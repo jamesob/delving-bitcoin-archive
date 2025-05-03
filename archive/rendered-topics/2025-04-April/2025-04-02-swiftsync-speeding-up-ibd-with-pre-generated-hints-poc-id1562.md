@@ -312,7 +312,7 @@ Regarding `MuHash` performance, have you tried with this? https://github.com/bit
 
 -------------------------
 
-l0rinc | 2025-05-02 11:44:34 UTC | #13
+l0rinc | 2025-05-03 12:30:02 UTC | #13
 
 
 
@@ -429,7 +429,7 @@ The final flush from memory to disk was included in the benchmark, it took rough
 
 [/details]
 
-EDIT:
+EDIT 1:
 Running it on a HDD with a slower i7 processor and a lot lower dbcache reveals a lot bigger speedup of 282% (or rather a lot bigger slowdown of `master`):
 
 [details="SHA-256 benchmark details with 450 MB dbcache on an i7 with HDD"]
@@ -469,6 +469,49 @@ Benchmark 2: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinD
 Relative speed comparison
         2.82          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=450 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
         1.00          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=450 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
+```
+[/details]
+
+Edit 2:
+Running it on a the same i7/HDD combo but with a reasonable dbcache still reveals a 173% speedup:
+
+[details="SHA-256 benchmark details with 4.5 GB dbcache on an i7 with HDD"]
+
+```bash
+COMMITS="ab8dec1c87aef36e390bcc7d64d8604cc9170b93 e7194c13507a89544a3cf5f31c4eab88c19ba72b"; \
+STOP_HEIGHT=888889; DBCACHE=4500; \
+CC=gcc; CXX=g++; \
+BASE_DIR="/mnt/my_storage"; DATA_DIR="$BASE_DIR/BitcoinData"; LOG_DIR="$BASE_DIR/logs"; \
+(echo ""; for c in $COMMITS; do git fetch origin $c -q && git log -1 --pretty=format:'%h %s' $c || exit 1; done; echo "") && \
+hyperfine \
+  --sort 'command' \
+  --runs 1 \
+  --export-json "$BASE_DIR/rdx-${COMMITS// /-}-$STOP_HEIGHT-$DBCACHE-$CC.json" \
+  --parameter-list COMMIT ${COMMITS// /,} \
+  --prepare "killall bitcoind; rm -f $DATA_DIR/debug.log; git checkout {COMMIT}; git clean -fxd; git reset --hard; \
+    cmake -B build -DCMAKE_BUILD_TYPE=Release -DENABLE_WALLET=OFF && cmake --build build -j$(nproc) --target bitcoind && \
+    ./build/bin/bitcoind -datadir=$DATA_DIR -stopatheight=$STOP_HEIGHT -dbcache=5000 -printtoconsole=0; sleep 100" \
+  --cleanup "cp $DATA_DIR/debug.log $LOG_DIR/debug-{COMMIT}-$(date +%s).log" \
+  "COMPILER=$CC ./build/bin/bitcoind -datadir=$DATA_DIR -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=$STOP_HEIGHT -dbcache=$DBCACHE -swiftsyncfile=../ibd-booster-888888.bin"
+```
+
+```
+> (master) ab8dec1c87 init: add -swiftsyncfile option
+> (branch) e7194c1350 init: use the -swiftsyncfile option
+```
+
+```
+Benchmark 1: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=4500 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
+  Time (abs ≡):        26664.974 s               [User: 23769.239 s, System: 957.159 s]
+ 
+Benchmark 2: COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=4500 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
+  Time (abs ≡):        15427.521 s               [User: 11293.178 s, System: 487.449 s]
+```
+
+```
+Relative speed comparison
+        1.73          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=4500 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = ab8dec1c87aef36e390bcc7d64d8604cc9170b93)
+        1.00          COMPILER=gcc ./build/bin/bitcoind -datadir=/mnt/my_storage/BitcoinData -reindex-chainstate -blocksonly -connect=0 -printtoconsole=0 -stopatheight=888889 -dbcache=4500 -swiftsyncfile=../ibd-booster-888888.bin (COMMIT = e7194c13507a89544a3cf5f31c4eab88c19ba72b)
 ```
 [/details]
 
@@ -554,6 +597,42 @@ Batch validation of Schnorr signatures is an interesting one to reduce CPU load 
 [/quote]
 
 There is still a significant portion of validation past the AV point, like six months to a year of chain. So even with AV signature validation is in important part of IBD esp if the AV part is made much faster. Keeping that part fast is also good for avoiding any pressure to set AV closer to the tip.
+
+-------------------------
+
+RubenSomsen | 2025-05-03 14:06:12 UTC | #16
+
+[quote="gmaxwell, post:15, topic:1562"]
+Use xor as the aggregator
+[/quote]
+
+I pointed out my reluctance to do this [on the mailing list](https://gnusha.org/pi/bitcoindev/CAPv7TjaM0tfbcBTRa0_713Bk6Y9jr+ShOC1KZi2V3V2zooTXyg@mail.gmail.com/T/#m42c4a511e2ef912b9d19860e83cc2823b0c92e27).
+
+[quote="gmaxwell, post:15, topic:1562"]
+To be the most tidy and paranoid the user’s seed should be a secret function of the blockhash at the AV height (or whatever height the hints are at, if it’s not the AV height.).
+[/quote]
+
+Makes sense. I have even been wondering if using that block hash as a salt is enough, given that it is essentially a commitment to the two sets (inputs and spent outputs) you're comparing against each other, but that's difficult to reason through.
+
+[quote="gmaxwell, post:15, topic:1562"]
+I would suggest that you have some per node random number (maybe there is one saved with the address database already? I forget) and just hash that with the AV blockhash to get your seed.
+
+This kind of paranoia isn’t necessary for sha256, but I think it’s free to design it that way and would make it safer if deployed with a weaker hash function.
+[/quote]
+
+All good points.
+
+[quote="gmaxwell, post:15, topic:1562"]
+There are probably a number of tests that are still free to perform that might be getting skipped in your changes without some refactoring, probably worth going and rescuing them. Like nLocktime can be checked against the block height
+[/quote]
+
+Agree.
+
+[quote="gmaxwell, post:15, topic:1562"]
+There is still a significant portion of validation past the AV point, like six months to a year of chain. So even with AV signature validation is in important part of IBD esp if the AV part is made much faster. Keeping that part fast is also good for avoiding any pressure to set AV closer to the tip.
+[/quote]
+
+Right, optimization beyond the AV point is certainly important as well. In theory SwiftSync could also help you sync beyond the AV point if you accept hints from a third party. The worst they could do is waste your time.
 
 -------------------------
 
