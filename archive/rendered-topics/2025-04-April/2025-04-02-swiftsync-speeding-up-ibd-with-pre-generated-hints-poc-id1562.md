@@ -531,3 +531,29 @@ Looking forward to those benchmarks!
 
 -------------------------
 
+gmaxwell | 2025-05-03 02:01:24 UTC | #15
+
+Use xor as the aggregator.  The low characteristic field is less secure for a subset sum attack, but since the attacker doesn't know the salt they can't make any meaningful progress anyways.  The important property from the hash is its collision resistance with an unknown salt.
+
+To be the most tidy and paranoid the user's seed should be a secret function of the blockhash at the AV height (or whatever height the hints are at, if it's not the AV height.).  The system must not leak any collision information along the way, so no checking for collisions! (which would be slow regardless) It should sync all the way to AV height, and then only if all the chain data it received actually matched AV height should it check the accumulator, don't check the other way around.  If the system is rerun on the same blockhash it should use the same seed.  If the system tries to sync with a different AV blockhash it should use a different seed.  The point is that an attacker should only get one try per node.  (doing the exact same chain over again isn't another try so long as the seed stays the same).  So I would suggest that you have some per node random number (maybe there is one saved with the address database already? I forget) and just hash that with the AV blockhash to get your seed.
+
+This kind of paranoia isn't necessary for sha256, but I think it's free to design it that way and would make it safer if deployed with a weaker hash function.
+
+The requirements here are extraordinarily low because an attacker also has to do chainwork to get the user to adopt a tampered chain... but I think using a weaker non-cryptographic hash function would not be a good use of development time right now.  With this in place the bottlenecks have to move to things like network, block serialization, validation parallelism overheads...   Development time would be better spent on optimizing those than producing confidence that a non-cryptographic hash is sufficient.  Also hardware with SHA-NI sha256 will be competitive-ish in performance with 'fast' hash functions.
+
+[quote="l0rinc, post:13, topic:1562"]
+I find skipping amount validation more concerning (potential inflation bugs)
+[/quote]
+
+It's basically free so it should do that for sure.  That said, there are so many lost/abandoned coins that if miners (with developer collusion) create a chain that unjustly rewards them, they'll just steal coins rather than inflate.
+
+There are probably a number of tests that are still free to perform that might be getting skipped in your changes without some refactoring, probably worth going and rescuing them.  Like nLocktime can be checked against the block height, sadly CSV can't be tested.
+
+[quote="RubenSomsen, post:14, topic:1562"]
+Batch validation of Schnorr signatures is an interesting one to reduce CPU load (for the non-assumevalid version).
+[/quote]
+
+There is still a significant portion of validation past the AV point, like six months to a year of chain. So even with AV signature validation is in important part of IBD esp if the AV part is made much faster. Keeping that part fast is also good for avoiding any pressure to set AV closer to the tip.
+
+-------------------------
+

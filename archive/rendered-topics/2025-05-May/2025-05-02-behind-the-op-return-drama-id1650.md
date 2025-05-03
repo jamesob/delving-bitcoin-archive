@@ -81,3 +81,33 @@ Is Bitcoin core maintained for users or regular contributors (most of them never
 
 -------------------------
 
+gmaxwell | 2025-05-03 02:47:55 UTC | #5
+
+Always ask yourself,  "What do I (think) I know and why do I know it?"
+
+I've been reading the public discussions-- it's how I'm aware of this issue at all.  I'm seeing an awful lot of wookie defense.    Bitcoin is important. Spam is bad. Apple pie is delicious, and that's why this change is destroying bitcoin!   
+
+If you feel like you're not seeing a response to an argument it can be because it's a non-sequitur and there just isn't anything to respond to.
+
+But don't let me create yet another 'dismissive' response.  You say here that this is a big change,  why do you think it is?   I think it is a very small change which should be of no interest to users generally.
+
+>  PRs take so long to get merged, 
+
+Most don't.  
+
+>  (Maybe there was, but behind closed doors?)
+
+I doubt it. I saw it, and recognized that it was obviously the right thing to do, and if anything it is significantly overdue.  I would have acked it but I'm not currently involved in development.  It's worth mentioning that I happily defended putting in that limit in the first place.
+
+There is perhaps a bit of an inverse chestertons fence here-- you know the idea that you shouldn't remove a fence without understanding why it was there?  It's probably a bad idea to assume bad faith when the people who put in a fence go to take it down. :slight_smile: 
+
+I had no discussion with anyone about it before seeing the public discussion except for over a year ago I became aware of poor 0.5RTT block reconstruction rates (partially caused by the lack of this change) and nagged a few people along the lines of WTF is no one doing anything about this???? (and then proceeded to be disappointed while nothing was done).
+
+[quote="pandacute, post:1, topic:1650"]
+Users do have concerns—lots of them.
+[/quote]
+
+Please ask about them then!
+
+-------------------------
+
