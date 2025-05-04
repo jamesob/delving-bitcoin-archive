@@ -111,13 +111,3 @@ Please ask about them then!
 
 -------------------------
 
-1440000bytes | 2025-05-03 17:07:38 UTC | #6
-
-[quote="gmaxwell, post:5, topic:1650"]
-Always ask yourself, “What do I (think) I know and why do I know it?”
-[/quote]
-
-Thank you sir. We never had this thought.
-
--------------------------
-
