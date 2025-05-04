@@ -164,3 +164,11 @@ From a user perspective, the ideal UX would be to only ever "add" a key/ device 
 
 -------------------------
 
+benk10 | 2025-05-04 17:23:24 UTC | #5
+
+Also for single sig, since there is only one way to use it, I think the maintaining the current standard, or keeping something similar where there is still just purpose and account (and of course coin type) derivation is good, with the account and purpose parts unhardened though.
+
+Then for multisig, backing up of the descriptor is already a recommended action, so using Unix time may be a good approach there, but only with unhardened derivation, otherwise the friction with hardware wallet will just make users reuse their xpubs.
+
+-------------------------
+
