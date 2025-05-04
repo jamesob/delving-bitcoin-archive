@@ -151,3 +151,16 @@ However, building the tooling for such a system (standards, storage types and ma
 
 -------------------------
 
+benk10 | 2025-05-04 06:43:00 UTC | #4
+
+When dealing with xpubs we have 2 main considerations, privacy and UX. The current BIP43 standard is lacking in both good privacy and UX. It pushes users to reuse pub keys, and also it forces users to manage many xpubs, making a bad UX.
+
+I think UX wise both the random option and the unix options would be a negative.
+
+1. It would mean requiring the user to connect all devices when they create, rotate, or renew a wallet. This is already a difficult UX when the user has all keys together, but when keys are kept separately (with different people or at different locations), especially common in rotating or renewing, forcing the user to get new xpubs from each signing device would make the process much more complicated (for example a 3 of 5, rotating out 1 key would mean you'd need to first get xpubs from all other 4 keys, not just 3 keys which need to sign the rotation tx).
+2. Showing random numbers or unix time is a very bad UX, we already have users confused with many random numbers throughout the entire process, and adding more of these in the UI will make it even harder to reason about.
+
+From a user perspective, the ideal UX would be to only ever "add" a key/ device to their software once. This would be feasible only if we use unhardened derivations to manage different wallets, but I don't think this is a big issue nowdays. For normal use cases unhardened derivations should be fine, and the UX gains are significant.
+
+-------------------------
+
