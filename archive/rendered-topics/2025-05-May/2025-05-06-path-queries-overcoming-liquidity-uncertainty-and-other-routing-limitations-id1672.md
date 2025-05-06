@@ -1,6 +1,6 @@
 # Path Queries: Overcoming liquidity uncertainty and other routing limitations
 
-brh28 | 2025-05-06 20:25:57 UTC | #1
+brh28 | 2025-05-06 20:31:00 UTC | #1
 
 ## Introduction
 
@@ -122,7 +122,7 @@ The messages defined in this proposal are pretty bare. New fields can be added t
 
 ## Comparisons to Trampoline
 
-As far as I can tell, path queries can be used to accomplish everything trampoline routing proposes. The [trampoline proposal](https://github.com/lightning/bolts/blob/trampoline-routing/proposals/trampoline.md#introduction) states, "The main goal of trampoline routing is to reduce the amount of gossip that constrained nodes need to sync". Furthermore, it states "constrained devices should only keep a small part of the network and leverage trampoline nodes to route payments." With path queries, a node does not need any knowledge of the graph, but instead only a connection to a supporting peer.
+As far as I can tell, path queries can be used to accomplish everything trampoline routing proposes. The [trampoline proposal](https://github.com/lightning/bolts/blob/32fd16e243d7ea4438c6646f35e731a73d691ca7/proposals/trampoline.md#introduction) states, "The main goal of trampoline routing is to reduce the amount of gossip that constrained nodes need to sync". Furthermore, it states "constrained devices should only keep a small part of the network and leverage trampoline nodes to route payments." With path queries, a node does not need any knowledge of the graph, but instead only a connection to a supporting peer.
 
 Trampoline pursues this goal while also preserving anonymity for the sender and receiver. This is done by including multiple hops in the trampoline route. Using path queries in the form of onion messages, a source node can attain a comparable anonymity set with only a single 'trampoline hop' using the following process: 
 
@@ -143,7 +143,7 @@ My primary goal is to get feedback, iterate on the proposal and open a draft PR 
 
 ## Appendix A - Payment Failure Probabilities 
 
-Referencing [Mastering the Lightning Network](https://github.com/lnbook/lnbook/blob/develop/12_path_finding.asciidoc#liquidity-uncertainty-and-probability)
+Referencing [Mastering the Lightning Network](https://github.com/lnbook/lnbook/blob/54453c7b1cf82186614ab929b80876ba18bdc65d/12_path_finding.asciidoc#liquidity-uncertainty-and-probability)
 
 #### For a given channel 
 
