@@ -1567,3 +1567,16 @@ https://en.wikipedia.org/wiki/G%C3%B6del's_incompleteness_theorems
 
 -------------------------
 
+moonsettler | 2025-05-05 22:42:36 UTC | #61
+
+[quote="securitybrahh, post:60, topic:1509"]
+CAT gives more room for spam?
+[/quote]
+No. That sounds impossible. Can it enable new token protocols and applications interacting with them on bitcoin? Yes.
+[quote="securitybrahh, post:60, topic:1509"]
+hope CTV doesn’t activate some non-desirables.
+[/quote]
+Nobody was able to come up with anything remotely plausible so far. And it's been many years.
+
+-------------------------
+
