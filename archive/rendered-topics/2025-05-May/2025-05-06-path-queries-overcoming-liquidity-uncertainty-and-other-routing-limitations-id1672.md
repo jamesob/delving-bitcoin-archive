@@ -1,8 +1,6 @@
 # Path Queries: Overcoming liquidity uncertainty and other routing limitations
 
-brh28 | 2025-05-06 20:22:26 UTC | #1
-
-# Path Queries: Overcoming liquidity uncertainty and other routing limitations
+brh28 | 2025-05-06 20:25:57 UTC | #1
 
 ## Introduction
 
