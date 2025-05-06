@@ -1580,3 +1580,26 @@ Nobody was able to come up with anything remotely plausible so far. And it's bee
 
 -------------------------
 
+securitybrahh | 2025-05-06 06:38:14 UTC | #62
+
+[quote="securitybrahh, post:60, topic:1509"]
+switched off
+[/quote]
+
+oh CAT was removed in [2010](https://github.com/bitcoin/bitcoin/commit/4bd188c4383d6e614e18f79dc337fbabe8464c82#diff-8458adcedc17d046942185cb709ff5c3R94) lol. 
+
+because of this apparently:
+
+
+https://en.bitcoin.it/wiki/Value_overflow_incident
+
+-------------------------
+
+securitybrahh | 2025-05-06 06:42:36 UTC | #63
+
+https://gnusha.org/pi/bitcoindev/20220420023107.GA6061@erisian.com.au/
+
+prob relevent to the thread, I should read the thread quickly first though.
+
+-------------------------
+
