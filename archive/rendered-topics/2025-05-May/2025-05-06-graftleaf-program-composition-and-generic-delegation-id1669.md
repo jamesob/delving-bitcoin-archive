@@ -1,10 +1,10 @@
 # Graftleaf: Program Composition and Generic Delegation
 
-josh | 2025-05-06 15:04:57 UTC | #1
+josh | 2025-05-06 15:10:06 UTC | #1
 
 _TLDR: I'm exploring an idea to enable generalized program composition and coin delegation, which seems to strike a nice balance between simplicity and flexibility._
 
-I’ve been thinking recently about the optimal way to introduce delegation to Bitcoin. The idea of delegating one’s coins is not a new one. Some [speculate](https://bitcoinops.org/en/topics/op_codeseparator/) that `OP_CODESEPARATOR` was an early attempt by Satoshi to do delegation. More recently, proposals like [Graftroot](https://gnusha.org/pi/bitcoindev/CAAS2fgSnfd++94+40vnSRxQfi9fk8N6+2-DbjVpssHxFvYveFQ@mail.gmail.com/) and [Entroot](https://gist.github.com/sipa/ca1502f8465d0d5032d9dd2465f32603) have been put forward, which would enable delegation (and re-delegation), but only from key path spends and only to a locking script. In contrast, [CSFS](https://github.com/bitcoin/bips/blob/master/bip-0348.md) would enable delegation from script path spends, but it's limited, as it only facilitates delegation within a pre-committed script.
+I’ve been thinking recently about the optimal way to introduce delegation to Bitcoin. The idea of delegating one’s coins is not a new one. Some [speculate](https://bitcoinops.org/en/topics/op_codeseparator/) that `OP_CODESEPARATOR` was an early attempt by Satoshi to do delegation. More recently, proposals like [Graftroot](https://gnusha.org/pi/bitcoindev/CAAS2fgSnfd++94+40vnSRxQfi9fk8N6+2-DbjVpssHxFvYveFQ@mail.gmail.com/) and [Entroot](https://gist.github.com/sipa/ca1502f8465d0d5032d9dd2465f32603) have been put forward, which would enable delegation (and re-delegation), but only from key path spends and only to a locking script. In contrast, [CSFS](https://github.com/bitcoin/bips/blob/3365fb7a7e5e25b95b94d65808e32a02aa684aaa/bip-0348.md) would enable delegation from script path spends, but it's limited, as it only facilitates delegation within a pre-committed script.
 
 When considering delegation, what type of functionality is desirable? I’d argue that generalized delegation has two properties:
 1. Delegation _from any valid spending path_
