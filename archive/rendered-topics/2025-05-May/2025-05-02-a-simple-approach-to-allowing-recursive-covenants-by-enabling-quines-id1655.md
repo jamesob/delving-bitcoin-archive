@@ -24,3 +24,11 @@ It would of course be useful when making more complex smart coins to have a loop
 
 -------------------------
 
+bramcohen | 2025-05-07 04:32:30 UTC | #2
+
+Some more details: The enforced output should be specifically P2WSH. It adds more power but is not necessary to make an option for taproot as well. Given the vagaries of the parsing of Bitcoin Script the 'reverse order' opcode should probably cause the rest of the script to be in reverse order at the byte level. To make that work with quining there needs to also be either an opcode for reversing the byte order of a string or the incremental hashing opcodes need to have an option for implicitly reversing the strings.
+
+The opcodes needed for this are all simple, in keeping with how Bitcoin Script already works, immediately useful, and overwhelmingly likely to be a good basis for any more powerful extra functionality added later. That most likely would involve capabilities which explicitly are not enabled by this. The scope of this proposal is strictly recursive covenants.
+
+-------------------------
+
