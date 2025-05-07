@@ -172,3 +172,17 @@ Then for multisig, backing up of the descriptor is already a recommended action,
 
 -------------------------
 
+kloaec | 2025-05-07 15:50:34 UTC | #6
+
+I understand the concerns, and would definitely like to find a good way to do it with unhardened paths.
+
+I suppose random works, but as you said it's another nonsensical thing for the user to check.
+Not sure if we are willing to accept this compromise.
+
+It could be to keep a "standard" path for export, and add a few unhardened depths of randomness on top.
+I'm not sure it is supported by hardware signers right now. I'm also not sure how many depth we would need to offer a reasonable privacy protection.
+
+I wouldn't go for unix or date/time completely unhardened, as I want to be able to switch software (and import my descriptor) without breaking the privacy of my other wallets.
+
+-------------------------
+
