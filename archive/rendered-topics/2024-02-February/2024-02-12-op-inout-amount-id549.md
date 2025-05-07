@@ -402,3 +402,185 @@ If you are remove the shift table, the Script is relatively compact to enforce t
 
 -------------------------
 
+Chris_Stewart_5 | 2025-05-07 17:16:31 UTC | #5
+
+# Case study: OP_CHECKCONTRACTVERIFY
+
+This case study explores how Script opcodes can be used to implement **amount locks**—restrictions that ensure the value of inputs and outputs in a transaction meets certain conditions. The goal is to evaluate the required features and developer ergonomics for opcodes that push input and output amounts onto the stack. Rather than starting from scratch, we build on existing opcode proposals and retrofit them to support amount locks directly in Script.
+
+This requires two proposals I am working on:
+
+1. [64-bit arithmetic in Script](https://github.com/Christewart/bips/blob/79257ba5d7a632fa828208f266fd4f5540ffba7f/bip-XXXX.mediawiki)  
+2. [`OP_IN_AMOUNT` & `OP_OUT_AMOUNT`](https://delvingbitcoin.org/t/op-inout-amount/549/3?u=chris_stewart_5)
+
+**Note:** This study does not attempt to implement _destination locks_—restrictions on where funds may be sent. That logic is preserved from the original proposal being examined.
+
+[Here](https://github.com/Christewart/bitcoin/tree/ccv-core-op-in-out-amount) is a link to the repository that implements everything discussed below. A good place to start reading is the functional test: [`feature_checkcontractverify.py`](https://github.com/Christewart/bitcoin/blob/c83ed810a889e4e69ba8c417ddf4c85c1723f9e5/test/functional/feature_checkcontractverify.py).
+
+
+## OP_CHECKCONTRACTVERIFY
+
+[OP_CHECKCONTRACTVERIFY](https://github.com/Merkleize/bips/blob/2655b8b88f15ac3ecfaad91f2c2c1a7be3454fc3/bip-ccv.mediawiki) is an opcode enables users to create UTXOs that carry a dynamic commitment to a piece of data. The commitment can be validated during the execution of the script, allowing introspection to the committed data. Moreover, a script can constrain the internal public key and taptree of one or more outputs, and possibly the committed data.
+
+This case study is interested in the [amount locks](https://github.com/Merkleize/bips/blob/2655b8b88f15ac3ecfaad91f2c2c1a7be3454fc3/bip-ccv.mediawiki#user-content-Output_amounts) of the `OP_CHECKCONTRACTVERIFY` proposal. Similar to the [BIP345](https://github.com/bitcoin/bips/blob/3365fb7a7e5e25b95b94d65808e32a02aa684aaa/bip-0345.mediawiki) [case study](https://delvingbitcoin.org/t/op-inout-amount/549/4?u=chris_stewart_5), we are going to replace the current amount locks implemented via [modes](https://github.com/Merkleize/bips/blob/2655b8b88f15ac3ecfaad91f2c2c1a7be3454fc3/bip-ccv.mediawiki#output-amounts) in the [`CheckContract()`](https://github.com/bitcoin/bitcoin/blob/1fca2689866761ee4cd6629c0f3a0deb0fac72ae/src/script/interpreter.cpp#L1908) function in the OP_CCV proposal with the opcodes `OP_IN_AMOUNT` and `OP_OUT_AMOUNT`.
+
+
+## OP_CCV Witness Stack
+
+Here is what the stack looks like when evaluating `OP_CCV`
+```
+`<mode>` # is a minimally encoded integer, according to one of the values defined below.
+`<taptree>` # is the Merkle root of the taproot tree, or a minimally encoded `-1`, or the empty buffer.
+`<pk>` # is called the _naked key_, and it's a valid 32-byte x-only public key, or a minimally encoded `-1`, or the empty buffer.
+`<index>` # is a minimally encoded -1, or a minimally encoded non-negative integer.
+`<data>` # is a buffer of arbitrary length.
+```
+
+We are interested in two values on the stack for implementing amount locks - `index` and `mode`. 
+
+### Modes
+
+There are 4 modes defined in the `OP_CHECKCONTRACTVERIFY` BIP. Unfortuantely the OP_CCV opcode currently has context specific meanings for the `index` value on the stack depending on the `mode` below. This will not work with implement amount locks in Script, so this work changes the meaning of `index` to be the `output_index` we are spending to. 
+
+We add a new value called [`input_indices`](https://github.com/Christewart/bitcoin/blob/c83ed810a889e4e69ba8c417ddf4c85c1723f9e5/test/functional/feature_checkcontractverify.py#L232) that reference all of the funding outputs we are validating.
+
+#### CCV_MODE_CHECK_INPUT
+
+The `CCV_MODE_CHECK_INPUT` checks an input's script; no amount check. This means we do not need to implement an amount lock in Script.
+
+#### CCV_MODE_CHECK_OUTPUT_IGNORE_AMOUNT
+
+The `CCV_MODE_CHECK_OUTPUT_IGNORE_AMOUNT` checks an output's script, but ignores the amount. This means we do not need to implement an amount lock in the Script.
+
+#### CCV_MODE_CHECK_OUTPUT
+
+The `CCV_MODE_CHECK_OUTPUT` checks an output's script; preserve the (possibly residual) amount. 
+
+Here is what the amount lock for this mode looks like when implemented in Script with `OP_IN_AMOUNT` and `OP_OUT_AMOUNT`. You can view the python implementation with working test cases [here](https://github.com/Christewart/bitcoin/blob/c83ed810a889e4e69ba8c417ddf4c85c1723f9e5/test/functional/feature_checkcontractverify.py#L271).
+
+```
+OP_3, # output_indices position on stack
+OP_PICK, # move output_indices to stack top
+OP_DUP, #duplicate output_indices
+
+# shift table for index since we have no OP_LSHIFT
+OP_0,
+OP_EQUAL,
+OP_IF,
+  OP_DROP, # drop duplicated index
+  OP_1,
+OP_ELSE,
+  OP_0,
+  OP_VERIFY,
+OP_ENDIF,
+# end shift table
+
+OP_OUT_AMOUNT, # push output_amount onto stack
+OP_5, # input indices position on stack
+OP_ROLL, # move input_indices to stack top
+OP_IN_AMOUNT, # push input amount onto stack
+OP_EQUALVERIFY, # make sure input and output amounts are equal
+OP_CHECKCONTRACTVERIFY,
+OP_TRUE
+```
+
+#### CCV_MODE_CHECK_OUTPUT_DEDUCT_AMOUNT
+
+The `CCV_MODE_CHECK_OUTPUT_DEDUCT_AMOUNT` mode checks an output's script and deducts the output amount from the input's residual amount.
+
+Here is what the amount lock for this mode looks like when implemented in Script with `OP_IN_AMOUNT` and `OP_OUT_AMOUNT`. You can view the python implementation with working test cases [here](https://github.com/Christewart/bitcoin/blob/c83ed810a889e4e69ba8c417ddf4c85c1723f9e5/test/functional/feature_checkcontractverify.py#L351).
+
+```
+
+# 1. Push full amount from input_indices
+# 2. Push first output index value
+# 3. Subract first output index value from input_indices amount
+# 4. Push second output index value
+# 5. Check (input_value - first_output_value) - second_output_value = 0
+
+OP_3, # input_indices on stack
+OP_ROLL, # move input_indices to stack top
+OP_IN_AMOUNT, # push full input amount onto the stack
+OP_4, # first output index on stack
+OP_PICK, # move it to stack top
+
+# shift table for index since we have no OP_LSHIFT
+OP_0,
+OP_EQUAL,
+OP_IF,
+  OP_1,
+OP_ELSE,
+  OP_0,
+  OP_VERIFY,
+OP_ENDIF,
+# end shift table
+
+OP_OUT_AMOUNT, # push first_output_amount onto stack
+OP_SUB, # input_amount - first_output_amount
+OP_TOALTSTACK, # move input_amount - first_output_amount to alt stack for now to check later
+
+CCV_MODE_CHECK_OUTPUT_DEDUCT_AMOUNT,
+OP_CHECKCONTRACTVERIFY,
+
+0, # no data tweaking (hardcoded in author's OP_CCV test case)
+1, # index (hardcoded in author's OP_CCV test case)
+0, # NUMS pubkey (hardcoded in author's OP_CCV test case)
+0, # no taptweak (hardcoded in author's OP_CCV test case)
+
+# check output, all remaining amount must go to this output
+OP_2,
+OP_PICK,
+
+# shift table for index since we have no OP_LSHIFT
+OP_1,
+OP_EQUAL,
+OP_IF,
+  OP_2,
+OP_ELSE,
+  OP_0,
+  OP_VERIFY,
+OP_ENDIF,
+# end shift table
+
+OP_OUT_AMOUNT, # push second_output_value onto stack
+OP_FROMALTSTACK, # move input_amount - first_output_amount back from alt stack
+OP_SUB, # (input_amount - first_output_amount) - second_output_value
+OP_0,
+OP_EQUALVERIFY, # (input_amount - first_output_amount) - second_output_value = 0
+CCV_MODE_CHECK_OUTPUT,
+OP_CHECKCONTRACTVERIFY,
+OP_TRUE
+```
+
+### One Big Beautiful Script
+
+The `mode` for OP_CCV could be given as input to this Script and the mode could be matched with `OP_IF` `OP_ELSE` `OP_ENDIF`. The body of each conditional would be the different Script's written above. This could give the spending transaction more control over how the Script is evaluated. 
+
+I'm not sure if it could make sense to add `mode` to the witness stack in certain cases - or have it computed during Script execution. If there is a use case where this makes sense, having "one big beautiful Script" where all of the amount lock's conditionals are included in the Script could be very useful.
+
+## Lessons learned
+
+### Extensibility 
+
+In the case of OP_CCV, amount locks implemented with `OP_IN_AMOUNT` and `OP_OUT_AMOUNT` greatly enhance the extensibility of the proposal. Rather than having to soft fork in a new `mode` every time there is a new feature we want to introduce, Script programmers can just implement the logic themselves. This makes the `OP_CCV` proposal much more flexible.
+
+### Separation of concerns
+
+I think it is very useful to think of "destination locks" and "amount locks" separately. You need both restrictions to implement any covenant proposal. Trying to build them both in the same proposal can lead to sub-optimal design choices.
+
+For Instance, in this proposal it seems like OP_CCV is very close to [`OP_TAPLEAFUPDATEVERIFY`](https://gnusha.org/pi/bitcoindev/20210909064138.GA22496@erisian.com.au/) if it were to add support for adding/remove tap leafs from the taptree. 
+
+The merkle root hash for the taptree is already on the stack for OP_CCV evaluation as its needed for verifying the piece of data is included in the internal key. It seems like it isn't too far of a stretch to adding a parameter to add a new leaf to the tap tree or removing a leaf.
+
+### Separating OP_INOUT_AMOUNT into two opcodes: OP_IN_AMOUNT, OP_OUT_AMOUNT
+
+This did reduce some stack manipulation. Namely, I didn't have to use `OP_SWAP` as much to make sure stack arguments were in the correct place to be consumed by the single opcode `OP_INOUT_AMOUNT`. 
+
+Unfortunately `OP_PICK` and `OP_ROLL` usage is still necessary to make sure stack arguments could be moved to the correct places to be used by the Script implementing the amount locks.
+
+### `OP_LSHIFT`/`OP_RSHIFT`
+
+As expressed on the BIP345 case study, this case study reaffirms the need for `OP_LSHIFT`/`OP_RSHIFT` for a proposal like `OP_IN_AMOUNT`/`OP_OUT_AMOUNT` to be viable in its current form - specifically consuming bitvectors that correspond to input/output indices as an argument.
+
+-------------------------
+
