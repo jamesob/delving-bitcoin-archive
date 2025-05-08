@@ -32,3 +32,19 @@ The opcodes needed for this are all simple, in keeping with how Bitcoin Script a
 
 -------------------------
 
+ajtowns | 2025-05-08 04:39:17 UTC | #3
+
+[quote="bramcohen, post:2, topic:1655"]
+The enforced output should be specifically P2WSH.
+[/quote]
+
+You can't add opcodes to P2WSH (except by replacing NOPs), so I don't think that works if you want recursive covenants?
+
+-------------------------
+
+bramcohen | 2025-05-08 04:51:44 UTC | #4
+
+No change to P2WSH itself, I'm saying the opcode which requires a particular output be in the transaction should be enforcing the existence of a P2WSH so that it can specify a sha256 of a script.
+
+-------------------------
+
