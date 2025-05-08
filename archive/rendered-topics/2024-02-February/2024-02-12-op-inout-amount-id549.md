@@ -605,3 +605,82 @@ Note that I believe that opcodes like `OP_OUT_AMOUNT` would be very useful in co
 
 -------------------------
 
+Chris_Stewart_5 | 2025-05-08 18:35:01 UTC | #7
+
+[quote="salvatoshi, post:6, topic:549"]
+It only works for cases where the structure of the transaction (that is, “what inputs will be spent together”) is known in advance and can be hardcoded in Script.
+[/quote]
+
+Why? By "it" I assume you are referring to `OP_CCV`/`OP_VAULT`. Is there some security consideration I am missing?
+
+[quote="salvatoshi, post:6, topic:549"]
+You might receive a number of transactions to a vault address, and then at spending time (*trigger* transaction) you’ll want to select which of the vault UTXOs you want use as part of the withdrawal.
+[/quote]
+
+This is tested in the [BIP345](https://delvingbitcoin.org/t/op-inout-amount/549/4?u=chris_stewart_5) case study. I didn't have this issue you are talking about. Both [`test_batch_unvault`](https://github.com/Christewart/bitcoin/blob/4c6c2ecb59a132eeac43d5608a1a1c081940b0e0/test/functional/feature_vaults.py#L362)  and [`test_batch_recovery`](https://github.com/Christewart/bitcoin/blob/4c6c2ecb59a132eeac43d5608a1a1c081940b0e0/test/functional/feature_vaults.py#L251) test cases work with `OP_{IN,OUT}_AMOUNT`.
+
+[quote="salvatoshi, post:6, topic:549"]
+The number and the position of those UTXOs can’t be known in advance when their script is defined. In order to avoid having to hardcode these bitmaps, you’d need some cross-input logic to somehow make sure that all those inputs are using compatible bitmaps
+[/quote]
+
+Yes, that is why they should be provided on the witness stack at spending time rather than when the utxos are created. I modified your [OP_CCV test code](https://github.com/Christewart/bitcoin/blob/c83ed810a889e4e69ba8c417ddf4c85c1723f9e5/test/functional/feature_checkcontractverify.py#L232) code to do just that.
+
+[quote="salvatoshi, post:6, topic:549"]
+I believe this is in fact the most interesting part of the amount logic of `CCV` (inspired from `VAULT` rather than from the original applications of `CCV` to MATT and fraud proofs).
+[/quote]
+
+Admittedly I am confused, as far as I can tell your test framework defines the index parameter for OP_CCV in the output script rather than placing it in the witness when the OP_CCV utxo is spent. Here is a link to the code I am looking at: [1](https://github.com/Merkleize/bitcoin/blob/1fca2689866761ee4cd6629c0f3a0deb0fac72ae/test/functional/feature_checkcontractverify.py#L280) [2](https://github.com/Merkleize/bitcoin/blob/1fca2689866761ee4cd6629c0f3a0deb0fac72ae/test/functional/feature_checkcontractverify.py#L303) [3](https://github.com/Merkleize/bitcoin/blob/1fca2689866761ee4cd6629c0f3a0deb0fac72ae/test/functional/feature_checkcontractverify.py#L311) [4](https://github.com/Merkleize/bitcoin/blob/1fca2689866761ee4cd6629c0f3a0deb0fac72ae/test/functional/feature_checkcontractverify.py#L258) [5](https://github.com/Merkleize/bitcoin/blob/1fca2689866761ee4cd6629c0f3a0deb0fac72ae/test/functional/feature_checkcontractverify.py#L234). 
+
+I understand that both of our proposals are works in progress -- is the the goal to remove the hard coded indices in favor of providing them on the witness stack in your OP_CCV test cases?
+
+[quote="salvatoshi, post:6, topic:549"]
+Assuming that a clean solution to (1) is found, since all the related inputs that are being aggregated need to have a matching bitmap, the trivial implementation would require to report this same bitmap for all the inputs. This has $O(n^2)$ cost both in terms of space occupation and computational cost. While $O(n^2)$ bits and $O(n^2)$ additions might not be a huge deal for many common use cases, it seems rather unsatisfactory to do in $O(n^2)$ cost something that can be done optimally in $O(n)$ cost.
+[/quote]
+
+I think this is a fair critique and something I'm going to look into.
+
+[quote="salvatoshi, post:6, topic:549"]
+Without a real, embedded cross-input logic, the only way to achieve the optimal $O(n)$ cost seems to be something like [this demo from burak](https://brqgoo.medium.com/emulating-op-vault-with-elements-opcodes-bdc7d8b0fe71) <small>(TL;DR: one special input performs all the amount checks, while the other inputs merely check the presence of the special input)</small>, which is not exactly ergonomic.
+[/quote]
+
+Thank you for sharing this, I wasn't aware of this work. I'll look into it. I'm always interested in alternative designs for amount locks :-).
+
+[quote="salvatoshi, post:6, topic:549"]
+More generally, any covenant opcode that constrains the destination seems to be pointless if the covenant opcode itself doesn’t *also* enforce the *presence* of the amount logic,
+[/quote]
+
+I think that is right. However I'm not sure the inverse is true. I think amount locks may be useful without destination locks. [See my coinjoin example](https://delvingbitcoin.org/t/op-inout-amount/549/3#p-4521-coinjoin-use-case-3). If privacy is your #1 concern, you want to enforce at the Script level that your utxos follow a specific amount pattern -- you can enforce the destinations with digital signatures as coinjoin protocols do today.
+
+I also think we can make more general purpose primitives to implement amount locks rather than baking them into a single covenant opcode. I like the design of OP_CCV for implementing destination locks from what I've learned so far, but I'm not a big fan of the amount lock side of things.
+
+[quote="salvatoshi, post:6, topic:549"]
+I strongly believe that some amount of redundancy is unavoidable for any mechanism that extracts the amount logic out of the covenant opcode.
+[/quote]
+
+I'll think about this more.
+
+Thank you for the thoughtful reply, you've given me a lot to think about. :slightly_smiling_face:
+
+-------------------------
+
+salvatoshi | 2025-05-08 19:41:45 UTC | #8
+
+[quote="Chris_Stewart_5, post:7, topic:549"]
+Why? By “it” I assume you are referring to `OP_CCV`/`OP_VAULT`. Is there some security consideration I am missing?
+[/quote]
+
+By "it" I meant  "a separate amount logic enforced with OP_{IN,OUT}_AMOUNT or similar opcodes".
+
+[quote="Chris_Stewart_5, post:7, topic:549"]
+This is tested in the [BIP345](https://delvingbitcoin.org/t/op-inout-amount/549/4) case study. I didn’t have this issue you are talking about. Both [`test_batch_unvault`](https://github.com/Christewart/bitcoin/blob/4c6c2ecb59a132eeac43d5608a1a1c081940b0e0/test/functional/feature_vaults.py#L362) and [`test_batch_recovery`](https://github.com/Christewart/bitcoin/blob/4c6c2ecb59a132eeac43d5608a1a1c081940b0e0/test/functional/feature_vaults.py#L251) test cases work with `OP_{IN,OUT}_AMOUNT`.
+[/quote]
+
+Perhaps I'm misunderstanding something, but here's the scenario I have in mind.
+
+If you trigger two Vault UTXOs A and B of 1 ₿ each and spend A, B ==> U (where U is the "staging" or unvaulting output), you want the Script to enforce that U has amount at least 2 ₿.
+If the input Script receive the input indices via the witness stack, what prevents "lying" to the inputs, by claiming that the input indices are the set $\{0\}$ in the witness stack of A, and the set $\{1\}$ in the witness stack of B? It seems to me that such transaction would be valid and allow stealing 1 ₿.
+
+You can only prevent this kind of issues if you have some form of "synchronization" among the different input Scripts, that makes sure that the involved indices are the same for all the related inputs.
+
+-------------------------
+
