@@ -584,3 +584,24 @@ As expressed on the BIP345 case study, this case study reaffirms the need for `O
 
 -------------------------
 
+salvatoshi | 2025-05-08 14:09:29 UTC | #6
+
+Hi Chris,
+
+Thanks for exploring the combination of amount opcodes with covenant opcodes - I think it's interesting and there is some potential synergy.
+
+However, I think removing the amount semantic from `CCV` (or `VAULT`) is problematic.
+
+1. It only works for cases where the structure of the transaction (that is, "what inputs will be spent together") is known in advance and can be hardcoded in Script. This might be true for some use cases, but is certainly false for ergonomic vaults. You might receive a number of transactions to a vault address, and then at spending time (*trigger* transaction) you'll want to select which of the vault UTXOs you want use as part of the withdrawal. The number and the position of those UTXOs can't be known in advance when their script is defined. In order to avoid having to hardcode these bitmaps, you'd need some cross-input logic to somehow make sure that all those inputs are using compatible bitmaps. I believe this is in fact the most interesting part of the amount logic of `CCV` (inspired from `VAULT` rather than from the original applications of `CCV` to MATT and fraud proofs). To the best of my understanding, this is not implemented in your demo.
+2. Assuming that a clean solution to (1) is found, since all the related inputs that are being aggregated need to have a matching bitmap, the trivial implementation would require to report this same bitmap for all the inputs. This has $O(n^2)$ cost both in terms of space occupation and computational cost. While $O(n^2)$ bits and $O(n^2)$ additions might not be a huge deal for many common use cases, it seems rather unsatisfactory to do in $O(n^2)$ cost something that can be done optimally in $O(n)$ cost. Without a real, embedded cross-input logic, the only way to achieve the optimal $O(n)$ cost seems to be something like [this demo from burak](https://brqgoo.medium.com/emulating-op-vault-with-elements-opcodes-bdc7d8b0fe71) <small>(TL;DR: one special input performs all the amount checks, while the other inputs merely check the presence of the special input)</small>, which is not exactly ergonomic.
+
+More generally, any covenant opcode that constrains the destination seems to be pointless if the covenant opcode itself doesn't _also_ enforce the *presence* of the amount logic, whether embedded in the same opcode or enforced via some other mechanism. This is something I also [commented about darosior's approach using the annex](https://delvingbitcoin.org/t/op-checkcontractverify-and-its-amount-semantic/1527/7?u=salvatoshi), and I strongly believe that some amount of redundancy is unavoidable for any mechanism that extracts the amount logic out of the covenant opcode.
+
+Because of these reasons, I'm not convinced that ejecting the amount logic leads to improved outcomes or better scripts.
+
+Note that I believe that opcodes like `OP_OUT_AMOUNT` would be very useful in combination with `OP_CCV`, particularly with the `DEDUCT` mode: by simply having equality checks for outputs, one could avoid explicit arithmetic over 64-bit amounts in a Script that performs a withdrawal of one or several users from a shared UTXO.
+
+`OP_IN_AMOUNT` and 64-bit arithmetic might of course also be useful for some applications - for example to implement constructions with velocity limits.
+
+-------------------------
+
