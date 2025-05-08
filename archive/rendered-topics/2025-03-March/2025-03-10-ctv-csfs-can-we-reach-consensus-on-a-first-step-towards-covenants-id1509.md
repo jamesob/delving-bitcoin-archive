@@ -1603,3 +1603,9 @@ prob relevent to the thread, I should read the thread quickly first though.
 
 -------------------------
 
+securitybrahh | 2025-05-08 07:23:41 UTC | #64
+
+Also the core-devs has put a "regtest" label on the PR, can I see thr opcodes running on something like mempool.space?
+
+-------------------------
+
