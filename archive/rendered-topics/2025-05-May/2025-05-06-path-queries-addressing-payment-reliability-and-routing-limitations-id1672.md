@@ -173,3 +173,29 @@ Additionally, payment success probabilities are higher for nodes with more volum
 
 -------------------------
 
+brh28 | 2025-05-09 17:39:59 UTC | #2
+
+Expanding on privacy implications...
+
+Naturally, any time information is shared, there is a privacy implication. A `path_query` reveals a downstream node - either a hop or the destination - to the prospective routing node. When iterated upon, each node in the path becomes aware of the *queried* destination. Meanwhile, a `path_reply` implicitly reveals information about channel balances. As so, let's consider sender/receiver anonymity and channel balance privacy:
+
+*Sender Anonymity*
+
+While a single query does not tell a routing node about the source of a payment, the number of queries a routing node receives and whom they come from may reduce the anonymity set of the *query origin*. Depending on the nature of the payment, the sender may consider anonymity in it's path construction process, including adding trampoline hops or opting out of queries altogether.
+
+*Receiver Anonymity*
+
+While the receiver does not have a choice in how a payment gets routed to them, they do get to choose the entry point of the payment via blinded routes. Using path queries, a receiver can construct more reliable paths to itself; the longer the path, the more anonymity from the sender and it's gang of routing nodes. The receiver may also choose to construct their sub-path using trampolines to prevent routing nodes from discovering full paths.
+
+*Privacy of channel balances*
+
+First, it's important to note  the following:
+
+1. In source-based routing, payment reliability and channel balance privacy are fundamentally at odds with one another. If a path is constructed with zero knowledge of channel balances, payment success probabilities are low, and vice-versa, perfect knowledge leads to optimal routing. 
+2. Channel balance is shared between channel peers, which means nodes already have a trust relationship with their peers regarding privacy.
+3. Channel balance information can already be obtained by other nodes via probing. 
+
+With that in mind, path queries differ from trial-and-error (including probing) in the manner that liquidity uncertainty is reduced. Trial-and-error informs the *sender* about liquidity on the path, while path queries informs the *requester* about liquidity on the path. In our PEER_ONLY strategy described above, the sender (S) gained no information about liquidity on the network other than what was used for the final path. While probing remains an unsolved problem, path queries enable better information control as nodes can choose *who* they want to reveal liquidity information with.
+
+-------------------------
+
