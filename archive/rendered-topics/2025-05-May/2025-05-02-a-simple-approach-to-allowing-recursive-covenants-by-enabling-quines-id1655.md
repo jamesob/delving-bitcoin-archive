@@ -42,15 +42,17 @@ You can't add opcodes to P2WSH (except by replacing NOPs), so I don't think that
 
 -------------------------
 
-bramcohen | 2025-05-08 06:37:48 UTC | #4
-
-(post deleted by author)
-
--------------------------
-
 bramcohen | 2025-05-08 06:38:16 UTC | #5
 
 No change to P2WSH itself, I’m saying the opcode which requires a particular output be in the transaction should be enforcing the existence of a P2WSH so that it can specify a sha256 of a script.
+
+-------------------------
+
+bramcohen | 2025-05-09 06:29:35 UTC | #6
+
+The idea behind OP_ASSERT_OUTPUT is that it's a dumbing down of OP_CTV. It only makes a claim about one output rather than the entire transaction, allowing for it to be used more dynamically, have less complexity, and target specifically the thing which covenants are, which is specifying outputs. It can of course be called multiple times if you want to make multiple outputs. It's following the general pattern of OP_CHECKLOCKTIMEVERIFY in that it narrowly talks about a very specific part of the transaction rather than the whole thing.
+
+My motivation behind this design is to enable playing games over state channels. I am happy to report that it does, in fact, enable that with no further enhancements necessary. This is a bit non-tangible at the moment because state channel gaming isn't out at all yet but I'm near completion on a proof of concept of it and having spent a few years on the project have a deep understanding of what's needed to enable it.
 
 -------------------------
 
