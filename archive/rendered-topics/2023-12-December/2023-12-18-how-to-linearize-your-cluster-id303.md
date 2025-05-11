@@ -1828,3 +1828,24 @@ Don't we already try to extend INCnew as possible as we can? why do we put it ba
 
 -------------------------
 
+sipa | 2025-05-11 11:16:34 UTC | #76
+
+[quote="blockchainhao, post:75, topic:303"]
+Don’t we already try to extend INCnew as possible as we can? why do we put it back to the W to do more iteration on it?
+[/quote]
+
+This is inside the loop of $(inc_{new}, exc_{new})$, over the two sides of the split (one with ancestors of the split added to $inc$, one with descendants of the split added to $exc$). The logic indeed tries to extend $inc_{new}$ after adding ancestors of the split to it as much as possible, but that cannot be guaranteed to be the end of the line for this work item.
+
+---
+
+Aside, there is no point in analysing this algorithm anymore. The GGT min-cut based algorithm later in this thread, and the SFL algorithm in the other thread, are far more efficient.
+
+-------------------------
+
+blockchainhao | 2025-05-11 12:11:09 UTC | #77
+
+Gotcha, Thanks. Yes, later I realize that The after adding another tx to INCnew, then there may be more anc(p) (p belongs to POTnew, all of anc(p) belongs to POTnew) that can be added to INCnew.(Sorry for the text format here)
+BTW, will GGT and SFL both be applied to the code base (or they are already in there)
+
+-------------------------
+
