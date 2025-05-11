@@ -1724,7 +1724,7 @@ I have certainly seen clusters with many exactly-equal transaction fees and size
 
 -------------------------
 
-sipa | 2025-04-25 11:11:11 UTC | #73
+sipa | 2025-04-30 22:48:11 UTC | #73
 
 ## Benchmark results
 
@@ -1742,19 +1742,19 @@ Here are two example 64-transaction clusters:
 ![sim2023_ggt|690x448, 25%](upload://rpxX7rby2r1MGgaywce8tU458zm.png)
 ![sim2023|690x63, 74%](upload://9Aavvgu4bhZSUHJ7xmDg48H167f.png)
 
-Numbers for 2-25 transaction clusters, based on benchmarks of 7.5% of the recorded clusters:
+Numbers for 2-25 transaction clusters, based on benchmarks of 1% of the recorded clusters:
 
-![clusters_sim2023_ntx2_min|690x431, 33%](upload://z42rlavWdSxtVB7B8nkGpB3KUmZ.png)
-![clusters_sim2023_ntx2_avg|690x431, 33%](upload://cn0EWqNATF7CDP6PM8RlZHCxuKE.png)
-![clusters_sim2023_ntx2_max|690x431, 33%](upload://vCOMHf1ZoNblhqUCOFQX8E3dlrD.png)
+![clusters_sim2023_ntx2_min|690x431, 33%](upload://59dIXiIALVOUDd3joKrRNFXI56K.png)
+![clusters_sim2023_ntx2_avg|690x431, 33%](upload://zbNkd9iNTrcsllpXLtLs5FCWVqa.png)
+![clusters_sim2023_ntx2_max|690x431, 33%](upload://kmLow9zcnpd8sRTxW03mnY74aZu.png)
 
 Numbers for 26-64 transaction clusters, benchmarking all of the clusters:
 
-![clusters_sim2023_min|690x431, 33%](upload://6PDmxbkv8Vsr1lf7nJyIbNtxQkD.png)
-![clusters_sim2023_avg|690x431, 33%](upload://tZPNji1C1cbz9XGK5jMKLKP5EW1.png)
-![clusters_sim2023_max|690x431, 33%](upload://lJL4bwjK6wa4XkfPz5DCi1fwNFf.png)
+![clusters_sim2023_min|690x431, 33%](upload://ljuPpWthZ8mLDWoTGxCUPpeuEt5.png)
+![clusters_sim2023_avg|690x431, 33%](upload://8Gevtxer7zPJLNMDT5FBRatQlBm.png)
+![clusters_sim2023_max|690x431, 33%](upload://m8pEH4dN9FgWwJGhHPSeZl1gHnl.png)
 
-For sufficiently large clusters, and in average and maximum runtime, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (31.5 ms).
+For sufficiently large clusters, and in average and maximum runtime, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (37 **m**s).
 
 ### Randomly-generated tree-shaped clusters
 
@@ -1762,9 +1762,9 @@ In this dataset, for each size between 26 and 64 transactions, 100 random tree-s
 
 ![spanning|690x173](upload://tEYngxsf8LUCo8HLISq7aXaYPIG.png)
 
-![clusters_spanning_min|690x431, 33%](upload://d5nL3ubMjye46VCC7PzkWAjQtxH.png)
-![clusters_spanning_avg|690x431, 33%](upload://kdWro2g2uT1bdQMlGQErc81ILjn.png)
-![clusters_spanning_max|690x431, 33%](upload://u4Et8z6mIRRemy47v1N25OjxlW6.png)
+![clusters_spanning_min|690x431, 33%](upload://khMYIexyZDFQirBrG5GIBeyeSXy.png)
+![clusters_spanning_avg|690x431, 33%](upload://qnY80esnhkoscJJDowjTv6eliRI.png)
+![clusters_spanning_max|690x431, 33%](upload://7STRBRkPISv7VbuwT1L62TWpfo.png)
 
 Again, SFL seems the clear winner.
 
@@ -1774,11 +1774,11 @@ In this dataset, for each size between 26 and 64 transactions, 100 random spanni
 
 ![medium|690x216](upload://3X1WUmO6VnMeUpxpLBoBePwqWGf.jpeg)
 
-![clusters_medium_min|690x431, 33%](upload://hjzBUaRwuFqz5dcIwHQDkZYJPIE.png)
-![clusters_medium_avg|690x431, 33%](upload://zdIZ2nqb55EtnoqlsPTTFT1cYDS.png)
-![clusters_medium_max|690x431, 33%](upload://wC6rfAgY2NsJb36vLvZxeCJkQw2.png)
+![clusters_medium_min|690x431, 33%](upload://vJOG2cyngdIU5X3J7m0weZ51Q6a.png)
+![clusters_medium_avg|690x431, 33%](upload://jOitXjOz9XuMpAamKHbPxtAbBCW.png)
+![clusters_medium_max|690x431, 33%](upload://3jDMTR7TOwFdIfta88Z3G8GLWhM.png)
 
-Notably, SFL performs worst in the worst case here, with up to 83.1 μs runtime, though even the fastest algorithm (unidirectional GGT) even takes up to 30.2 μs. This is probably due to it inherently scaling with the number of dependencies.
+Notably, SFL performs worst in the worst case here, with up to 62.3 μs runtime, though even the fastest algorithm (unidirectional GGT) even takes up to 34.1 μs. This is probably due to it inherently scaling with the number of dependencies.
 
 ### Randomly-generated complete bipartite clusters
 
@@ -1786,23 +1786,24 @@ In this dataset, for each size between 26 and 64 transactions, 100 random comple
 
 ![bipartite|690x15](upload://yOmpgaj0xSIW6UTther0VFFJw0d.png)
 
-![clusters_bipartite_min|690x431, 33%](upload://hSbxpGowcPSRGf6RNMeYwu8ZEQ7.png)
-![clusters_bipartite_avg|690x431, 33%](upload://ojBiwSihXBJqPDRWdxuY42KUX8O.png)
-![clusters_bipartite_max|690x431, 33%](upload://k4QXeSt58pjHoZGYyQNp20GG3s3.png)
+![clusters_bipartite_min|690x431, 33%](upload://6JkAOLOO8TuzCqNhzB6H1JQi3Ar.png)
+![clusters_bipartite_avg|690x431, 33%](upload://bSaimiig1m6kPdUZxbkVMYO6IIV.png)
+![clusters_bipartite_max|690x431, 33%](upload://cpRfZHLTJduuUZvzjQFk88p7Vs3.png)
 
-With even more dependencies per transaction here, SFL's weakness is even more visible (up to 114.8 μs), though it affects GGT too. Note that due to the large number of dependencies, these clusters are expensive too: if all the inputs and outputs are key-path P2TR, then the 64-transaction case needs ~103 kvB in transaction input & output data.
+With even more dependencies per transaction here, SFL's weakness is even more visible (up to 98.9 μs), though it affects GGT too. Note that due to the large number of dependencies, these clusters are expensive too: if all the inputs and outputs are key-path P2TR, then the 64-transaction case needs ~103 kvB in transaction input & output data.
 
 ### Methodology
 
 All of these numbers are constructed by:
 * Gather a list of N clusters (by replaying mempool data, or randomly generating them).
-* For each of the N cluster, do the following 5 times:
+* For each of the N cluster, do the following 3 times:
   * Generate 100 RNG seeds for the linearization algorithm.
   * For each RNG seed:
-    * Benchmark optimal linearization 13 times with the same RNG seed, on an AMD Ryzen 9 5950X system.
+    * Benchmark optimal linearization 13 times with the same RNG seed, on an AMD Ryzen 9 5950X system at 3.4 GHz, remembering the CPU cycle count.
     * Remember the median of those 13 runs, to weed out variance due to task swapping and other effects).
   * Remember the average of those 100 medians, as we care mostly about how long the duration of linearization many clusters at once is, not an individual one. This removes some of the variance caused by individual RNG seeds.
-* Output the minimum, average, and maximum of those 5N average-of-medians.
+* Output the minimum, average, and maximum of those 3N average-of-medians.
+* Divide all numbers by 3400 to go from CPU cycles to µs.
 
 All the data and graphs can be found on https://gist.github.com/sipa/6e21121eaecda0cb33f99cb80ad03766.
 
@@ -1811,6 +1812,19 @@ All the data and graphs can be found on https://gist.github.com/sipa/6e21121eaec
 gmaxwell | 2025-04-24 09:31:56 UTC | #74
 
 Time per 'cost' might be an interesting graph-- given that dependencies add transaction size.  I had previously wondered if it might make sense for the limit to actually be in terms of dependencies rather than transactions in a cluster (e.g. set the limit to tx+dep < 512 or something).
+
+-------------------------
+
+blockchainhao | 2025-05-11 08:51:19 UTC | #75
+
+In 2.4 Jumping Ahead, why do we do:
+[quote="sipa, post:1, topic:303"]
+If $\operatorname{feerate}(pot_{new}) > \operatorname{feerate}(best)$:
+
+* Add $(inc_{new}, exc_{new})$ to $W$.
+[/quote]
+
+Don't we already try to extend INCnew as possible as we can? why do we put it back to the W to do more iteration on it?
 
 -------------------------
 
