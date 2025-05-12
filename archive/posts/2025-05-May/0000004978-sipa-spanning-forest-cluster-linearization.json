@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 2,
+  "readers_count": 1,
+  "score": 0.4,
   "yours": false,
   "topic_id": 1419,
   "topic_slug": "spanning-forest-cluster-linearization",
@@ -54,8 +54,14 @@
   "excerpt": "It seems that even when restricting splits to maximum-q, it is possible that SFL repeats the same state. \nThis 15-transaction cluster, with 30 dependencies, allows for a cycle of 24 splits + merges that returns to the same state: \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/1/10064a213d8b96896cdaa4ee29c1b5628bad80b4.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/10064a213d8b96896cdaa4ee29c1b5628bad80b4\" title=\"out\">[out]</a> \nThe black edges form the initial spanning tree (T1T0, T6T0, T&hellip;",
   "truncated": true,
   "post_url": "/t/spanning-forest-cluster-linearization/1419/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "sob",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
