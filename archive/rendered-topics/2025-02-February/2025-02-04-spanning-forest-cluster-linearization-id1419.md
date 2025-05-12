@@ -315,3 +315,22 @@ Here is a list of the types of randomness I have currently implemented in my pro
 
 -------------------------
 
+sipa | 2025-05-11 22:39:54 UTC | #6
+
+It seems that even when restricting splits to maximum-$q$, it is possible that SFL repeats the same state.
+
+This 15-transaction cluster, with 30 dependencies, allows for a cycle of 24 splits + merges that returns to the same state:
+
+![out|690x100](upload://2hL77yic98KiusXGyjX7aWAowF6.png)
+
+The black edges form the initial spanning tree (T1T0, T6T0, T12T0, T2T1, T3T1, T7T4, T7T5, T12T5, T14T5, T10T7, T2T8, T2T9, T13T11, T2T13). From there, a sequence of 24 steps are possible that each deactivate one dependency, and active another one (possibly an initially grey one). Those steps are -T12T0+T13T4, -T7T4+T13T5, -T2T1+T3T8, -T2T8+T3T9, -T2T9+T6T5, -T6T0+T3T7, -T13T5+T14T11, -T14T5+T12T11, -T12T5+T1T4, -T13T4+T3T13, -T3T7+T10T8, -T3T8+T10T9, -T3T9+T6T11, -T6T5+T7T11, -T3T13+T14T0, -T14T11+T12T0, -T12T11+T7T4, -T1T4+T7T0, -T7T11+T2T9, -T10T9+T2T8, -T10T8+T6T0, -T6T11+T2T1, -T7T0+T14T5, -T14T0+T12T5.
+
+
+This was found by building a graph whose nodes are the *states* of SFL (i.e., set of active dependencies in the cluster above), and whose edges represent steps SFL can take (splits + self-merges that can follow, if any), and then exploring random parts of this state diagram. This approach was suggested and first implemented by @ajtowns, and the example above was found thanks to @gmaxwell running it on 832 CPU cores worth of hardware.
+
+---
+
+Overall, this means that SFL really does not have a termination guarantee. That's unfortunate, because it means there is no amount of "guaranteed progress" it'll make over time. Practically however, these repeatable states seem hard to find, and even in clusters that admit them, they have some 50%-80% chance of being escaped from in every step, when randomization is involved. The only real concern would be the existence of a cluster which *inescapable* repeating states.
+
+-------------------------
+
