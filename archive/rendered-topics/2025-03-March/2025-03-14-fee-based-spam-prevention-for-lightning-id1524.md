@@ -765,3 +765,344 @@ It includes a full specification of the lower-latency version of the bug fix des
 
 -------------------------
 
+JohnLaw | 2025-05-12 17:47:12 UTC | #9
+
+
+Here's a numerical example of using Upfront, Hold and Success Fees for a 10-hop payment of 10,000 sats, where node 0 is the payment's source and node 10 is the payment's destination.  
+
+It also includes a comparison to the current protocol.
+
+FEE-BASED SPAM REDUCTION PROTOCOL  
+=================================  
+
+Assume:  
+------  
+* each node on the route uses the same parameters  
+* each routing node charges 10 msats as the fixed part of the Upfront Fee to cover the costs of calculation, communication and allocation of a slot  
+* each routing node charges 1 * 10^(-5) of the payment amount as the proportional part of the Upfront Fee to cover:  
+  - the cost of allocating channel funds to the payment for the seconds that can be required for a non-delayed payment, and  
+  - the risk of losing the payment amount (due to paying the downstream HTLC without being paid the upstream HTLC)  
+* each node has a cltv_expiry_delta of 10 hours (600 blocks)  
+* each node charges a Hold Fee at the rate of 2 * 10^(-5) / hour  
+  - this corresponds to a 19% (compounded) annual rate of return (as 1.00002^(24*365) = 1.19)  
+* each node charges 1 * 10^(-4) of their nonreimbursable Hold Fee stake contribution as part of the Upfront Fee  
+  - this covers the risk that the node will be responsible for paying a Hold Fee due to a delay that it causes  
+  - the value 1 * 10^(-4) corresponds to causing a 10-hour delay once every 10,000 payments  
+    - note that a 10-hour delay is the maximum nonreimbursable delay given the cltv_expiry_delta value of 10 hours  
+    - any delay beyond 10 hours must be caused by some downstream node and thus will be paid (reimbursed) by that downstream node  
+* each node charges 1 * 10^(-4) of their Hold Fee stake contribution as part of the Upfront Fee  
+  - this covers the risk of burning those funds due to a partner who fails to agree to the division of the burn funds (e.g., due to a permanent failure or griefing attack)  
+* each node requires their partner devote (as matching funds) 1/4 of the base funds in the burn output  
+  - this guarantees one's partner loses at least 1/5 of what one loses in a griefing attack  
+  - this increases the size of the burn output by 50% (as each channel partner provides matching funds that are 1/4 of the base funds)  
+* each routing node charges 90 msats as the fixed part of the Success Fee  
+* each routing node charges 6 * 10^(-5) of the payment amount as the proportional part of the Success Fee  
+
+Given the above assumptions:  
+* each node charges a Hold Fee of (2 * 10^(-5) / hour) * (10,000 sats) = 2 * 10^(-1) sats / hour  
+* each node i, 1 <= i <= 10, pays a nonreimbursable Hold Fee to the i upstream nodes at the rate of i * (2 * 10^(-1) sats / hour) for delays caused by node i  
+  - thus node i pays a maximum of 2i sats in nonreimbursed Hold Fees if node i causes its maximum possible 10-hour delay  
+* each routing node i, 1 <= i <= 9, charges a Succees Fee of 90 msats + 10,000 * 6 * 10^(-5) sats = 690 msats  
+
+     	               		Upfront Fee     	    
+     	Max            		charge for      	Hold Fee    
+     	nonreimbursable		nonreimburable  	base stake    
+     	Hold Fee       		Hold Fee risk   	contribution    
+Node:	payment (sats):		(msats):        	(sats):    
+---- 	---------------		--------------- 	------------  
+ 0   	   0           		   0.0          	 0  
+ 1   	   2	           	   0.2          	20  
+ 2   	   4	           	   0.4          	36  
+ 3   	   6           		   0.6          	48  
+ 4   	   8           		   0.8          	56  
+ 5   	  10           		   1.0          	60  
+ 6   	  12           		   1.2          	60  
+ 7   	  14           		   1.4          	56  
+ 8   	  16           		   1.6          	48  
+ 9   	  18           		   1.8          	36  
+10   	  20           		   2.0          	20  
+
+(For example, node 6 pays at most 2 sats to each of the 6 upstream nodes (nodes 0..5) for delays that node 6 causes.)  
+(For example, node 6 charges 12 sats * 10^(-4) = 1.2 msats in additional Upfront Fees in order to cover the risk that node 6 will have to pay a Hold Fee for a delay that it causes.)  
+(For example, node 6 stakes 5 * 6 * 2 = 60 sats for the maximum 2-sat Hold Fee paid by each of the 5 downstream nodes (nodes 6..10) to each of the 6 upstream nodes (nodes 0..5).)  
+
+     	             	Total        	Upfront Fee  
+     	Hold Fee     	Hold Fee     	charge for  
+     	match stake  	stake	     	Hold Fee  
+     	contribution 	contribution 	burn risk  
+Node:	(sats):      	(sats):	     	(msats):  
+---- 	------------ 	------------ 	---------------  
+ 0   	5            	5            	   0.5  
+ 1   	14           	34           	   3.4  
+ 2   	21           	57           	   5.7  
+ 3   	26           	74           	   7.4  
+ 4   	29           	85           	   8.5  
+ 5   	30           	90           	   9.0  
+ 6   	29           	89           	   8.9  
+ 7   	26           	82           	   8.2  
+ 8   	21           	69           	   6.9  
+ 9   	14           	50           	   5.0  
+10   	5            	25           	   2.5  
+(For example, node 6 matches 1/4 of its 60-sat Hold Fee base stake in the channel with node 5 and 1/4 of node 7's 56-sat Hold fee base stake in that channel.)  
+(For example, node 6 contributes 60 sats of base funds in the channel with node 5, plus it contributes 15 sats of matching funds in that channel and 14 sats of matching funds in its channel with node 7.)  
+(For example, node 6 charges 89 sats * 10^(-4) = 8.9 msats for the risk that its 89-sat Hold Fee stake contribution to burn outputs will be lost due to burning those funds.)  
+
+     	Upfront Fee   
+     	charge       	Total       	Upfront Fee  
+     	unrelated to 	Upfront Fee 	base stake  
+     	Hold Fees    	charge      	contribution  
+Node:	(msats):     	(msats):    	(msats):  
+---- 	------------ 	----------- 	------------  
+ 0   	   0         	   0.5      	1,066.5  
+ 1   	 110         	 113.6      	  952.9  
+ 2   	 110         	 116.1      	  836.8  
+ 3   	 110         	 118.0      	  718.8  
+ 4   	 110         	 119.3      	  599.5  
+ 5   	 110         	 120.0      	  479.5  
+ 6   	 110         	 120.1      	  359.4  
+ 7   	 110         	 119.6      	  239.8  
+ 8   	 110         	 118.5      	  121.3  
+ 9   	 110         	 116.8      	    4.5  
+10   	   0         	   4.5      	    0.0  
+(For example, node 6 charges a fixed Upfront fee of 10 msats and a proportional Upfront Fee of 10,000 * 10^(-5) = 0.1 sats = 100 msats.)  
+(For example, node 6 charges 1.2 msats for the risk of paying a nonreimbursable Hold Fee, 8.9 msats for the risk of burning its contributions to Hold Fee stakes, and 110 msats unrelated to Hold Fees.)  
+(For example, node 6 stakes base funds to cover Upfront Fee transfers for payments of 119.6 + 118.5 + 116.8 + 4.5 = 359.4 msats to nodes 7..10.)  
+
+     	               	             	Total Hold +   
+     	Upfront Fee     Upfront Fee  	Upfront Fee    
+     	matching stake  total stake  	stake          
+     	contribution   	contribution 	contribution   
+Node:	(msats):       	(msats):     	(msats):     
+---- 	-------------- 	------------  	-------------  
+ 0   	266.625        	1,333.1      	 6,333.1        
+ 1   	504.850        	1,457.8      	35,457.8        
+ 2   	447.425        	1,284.2      	58,284.2        
+ 3   	388.900        	1,107.7      	75,107.7        
+ 4   	329.575        	  929.1      	85,929.1        
+ 5   	269.750        	  749.3      	90,749.3        
+ 6   	209.725        	  569.1      	89,569.1        
+ 7   	149.800        	  389.6      	82,569.1        
+ 8   	 90.275        	  211.6      	69,211.6        
+ 9   	 31.450        	   36.0      	50,036.0        
+10   	  1.125        	    1.1      	25,001.1        
+(For example, node 6 contributes 479.5 / 4 = 119.875 msats Upfront matching funds in its channel with node 5 and 359.4 / 4 = 89.85 msats Upfront matching fund in its channel with node 7.)  
+(For example, node 6 contributes 359.4 msats base funds and 209.725 msats matching funds for the Upfront Fee.)  
+(For example, node 6 contributes 89 sats for Hold Fee stakes and 569.1 msats for Upfront Fee stakes.)  
+
+        	            	            	burn output  
+        	HTLC output 	burn output 	overhead     
+Channel:	(msats):    	(msats):    	(percent):   
+------- 	----------- 	----------- 	-----------  
+0-1     	10,006,210  	 31,600     	0.32%  
+1-2    		10,005,520  	 55,429     	0.55%  
+2-3    		10,004,830  	 73,255     	0.73%  
+3-4    		10,004,140  	 85,078     	0.85%  
+4-5    		10,003,450  	 90,899     	0.91$  
+5-6    		10,002,760  	 90,719     	0.91$  
+6-7    		10,002,070  	 84,539     	0.85%  
+7-8    		10,001,380  	 72,360     	0.72%  
+8-9    		10,000,690  	 54,182     	0.54%  
+9-10   		10,000,000  	 30,007     	0.30%  
+(For example, the HTLC output in channel 5-6 contains the 10,000,000 msats for the payment amount and a Success Fee of 690 msats for each of the 4 downstream routing nodes (nodes 6..9).)  
+(For example, the burn output in channel 5-6 contains 479.5 msats in Upfront Fee base stake contributions from node 5 and 60,000 msats in Hold Fee base stake contributions from node 6 = 60,479.5 msats base funds plus an additional 60,479.5 / 4 = 15,119.875 msats of matching funds from each of nodes 5 and 6.)  
+(For example, the overhead for the burn output in channel 5-6 is 90,719 / 10,002,760 = 0.91%.)  
+
+This completes the analysis of the calculation of the HTLC output and the burn output for this payment in each channel.  
+
+
+COMPARISON WITH CURRENT PROTOCOL  
+================================  
+
+Now consider 4 scenarios for the execution of this payment using the Fee-Based Spam Prevention protocol and the current protocol.  
+
+For the current protocol, assume:  
+--------------------------------  
+* each routing node charges a 100 msats as the fixed portion of the routing fee  
+* each routing node charges 7.011 * 10^(-5) as the proportional part of the routing fee  
+  - this value was chosen to match the charges for the Fee-Based Spam Prevention protocol above, minus the costs associated with losing funds by burning them (as those costs are unique to that protocol)  
+  - however, this value is likely too small, as it ignores the larger on-chain fees that the current protocol can have (as shown in Scenario 3 below)  
+* on-chain transactions cost 10 sats/vbyte  
+* timing out an HTLC on-chain requires 388.75 vbytes  
+  - Commitment transaction is 168 vbytes non-witness data + 222/4 vbytes witness data  
+  - HTLC-timeout transaction is 94 vbytes non-witness data + 285/4 vbytes witness data  
+  - cost of timing out an HTLC on-chain is 10,000 msats/vbyte * 388.75 vbytes = 3,887,500 msats  
+
+Given these assumptions, with the current protocol the sender attempts to create the following HTLC outputs.  
+
+        	HTLC output  
+Channel:	(msats):  
+------- 	-----------  
+0-1     	10,007,210  
+1-2    		10,006,409  
+2-3    		10,005,608  
+3-4    		10,004,807  
+4-5    		10,004,006  
+5-6    		10,003,204  
+6-7    		10,002,403  
+7-8    		10,001,602  
+8-9    		10,000,801  
+9-10   		10,000,000  
+(For example, the HTLC output in channel 5-6 contains the 10,000,000 msats for the payment amount and a routing fee of 100 + 10,000,000 * 7.011 * 10^(-5) = 801.1  msats for each of the 4 downstream routing nodes (nodes 6..9).)  
+
+Scenario 1: Successful payment with no delay  
+--------------------------------------------  
+
+     	Spam Prevention 	Current Protocol  
+     	gain from       	gain from  
+     	successful      	successful  
+     	non-delayed     	non-delayed  
+     	payment          	payment  
+Node:	(msats):         	(msats):  
+---- 	-------------   	----------------  
+ 0   	-10,007,276.5   	-10,007,209.9  
+ 1   	        803.6   	        801.1  
+ 2   	        806.1   	        801.1  
+ 3   	        808.0   	        801.1  
+ 4   	        809.3   	        801.1  
+ 5   	        810.0   	        801.1  
+ 6   	        810.1   	        801.1  
+ 7   	        809.6   	        801.1  
+ 8   	        808.5   	        801.1  
+ 9   	        806.8   	        801.1  
+10   	 10,000,004.5   	 10,000,000.0  
+(For example, node 6 charges an Upfront Fee of 120.1 msats and a Success Fee of 690 msats.)  
+(For example, node 6 charges a fixed routing fee of 100 msats and a proportional routing fee of 10,000 sats * 7.011 * 10^(-5) = 701.1 msats.)  
+
+Note that in Scenario 1 the two protocols have very similar results, with the fees for the Spam Prevention protocol being 0.9% higher overall (as 7276.5 / 7209.5 = 1.0092).  
+
+
+Scenario 2: Successful payment delayed 1 hour at the destination  
+----------------------------------------------------------------  
+
+     	Spam Prevention 	Spam Prevention 	Spam Prevention  
+     	gross gain from 	capital costs   	net gain from  
+     	successful      	of successful   	successful  
+     	payment         	payment         	payment  
+     	delayed 1 hour  	delayed 1 hour   	delayed 1 hour  
+     	at destination 		at destination  	at destination  
+Node:	(msats):       		(msats):        	(msats):  
+---- 	-------------- 		--------------- 	---------------  
+ 0   	-10,007,076.5  		200.3           	-10,007,276.8  
+ 1   	      1,003.6  		200.8           	        802.8  
+ 2   	      1,006.1  		201.3           	        804.8  
+ 3   	      1,008.0  		201.6           	        806.4  
+ 4   	      1,009.3  	  	201.8           	        807.5  
+ 5   	      1,010.0  	  	201.9           	        808.1  
+ 6   	      1,010.1  	  	201.8           	        808.3  
+ 7   	      1,009.6  	  	201.7           	        807.9  
+ 8   	      1,008.5  	  	201.4           	        807.1  
+ 9   	      1,006.8  	   	201.0           	        805.8  
+10   	  9,998,004.5  	    	  0.5           	  9,998,004.0  
+(For example, node 6 charges an Upfront Fee of 120.1 msats, a Hold Fee of 10,000,000 msats * (2 * 10^(-5) / hour) * 1 hour = 200 msats, and a Success Fee of 690 msats.)  
+(For example, node 6 has capital costs of (10,002,070 + 89,569.1) msats * (2 * 10^(-5) / hour) * 1 hour = 201.8 msats.)  
+(For example, node 6 receives 1,010.1 msats in fees and loses 201.8 msats in capital costs for a net gain of 808.3 msats.)  
+
+     	Current Protocol 	Current Protocol 	Current Protocol  
+     	gross gain from  	capital costs    	net gain from  
+     	successful       	of successful    	successful  
+     	payment          	payment          	payment  
+     	delayed 1 hour   	delayed 1 hour   	delayed 1 hour  
+     	at destination 	 	at destination   	at destination  
+Node:	(msats):       	 	(msats):         	(msats):  
+---- 	-------------- 	 	--------------- 	---------------  
+ 0   	-10,007,209.9  	 	200.1           	-10,007,410.0  
+ 1   	        801.1  	 	200.1           	        601.0  
+ 2   	        801.1  	 	200.1           	        601.0  
+ 3   	        801.1  	 	200.1           	        601.0  
+ 4   	        801.1  	 	200.1           	        601.0  
+ 5   	        801.1  	  	200.1           	        601.0  
+ 6   	        801.1  	  	200.0           	        601.1  
+ 7   	        801.1  	  	200.0           	        601.1  
+ 8   	        801.1  	  	200.0           	        601.1  
+ 9   	        801.1  	 	200.0           	        601.1  
+10   	 10,000,000.0  	 	  0.0           	 10,000,000.0  
+(For example, node 6 charges a fixed routing fee of 100 msats and a proportional routing fee of 10,000 sats * 7.011 * 10^(-5) = 701.1 msats.)  
+(For example, node 6 has capital costs of 10,002,403 msats * (2 * 10^(-5) / hour) * 1 hour = 200.0 msats.)  
+(For example, node 6 receives 801.1 msats in fees and loses 200.0 msats in capital costs for a net gain of 601.1 msats.)  
+
+Note that in Scenario 2 the Spam Prevention protocol has a much more fair outcome, as the sender and the routing nodes are compensated for their capital costs by the node (namely the destination) that imposed those costs on them. This is an important scenario, as it is an example of a not-immediately-settled payment (as Dave Harding pointed out above).  
+
+Scenario 3: Failed payment due to an unresponsive destination  
+-------------------------------------------------------------  
+
+     	Spam Prevention  
+     	gain from  
+     	failed payment  
+     	due to  
+     	unresponsive  
+     	destination  
+Node:	(msats):  
+---- 	--------------  
+ 0   	-1,062.0       
+ 1   	   113.6       
+ 2   	   116.1       
+ 3   	   118.0       
+ 4   	   119.3       
+ 5   	   120.0       
+ 6   	   120.1       
+ 7   	   119.6       
+ 8   	   118.5       
+ 9   	   116.8       
+10   	     0.0       
+(For example, node 6 charges an Upfront Fee of 120.1 msats.)  
+
+     	Current Protocol 	Current Protocol  	Current Protocol  
+     	capital costs of 	on-chain fees for 	net gain from  
+     	failed payment   	failed payment    	failed payment  
+     	due to           	due to            	due to  
+     	unresponsive     	unresponsive      	unresponsive 
+     	destination      	destination       	destination  
+Node:	(msats):         	(msats):          	(msats):  
+---- 	---------------- 	----------------- 	---------------  
+ 0   	 2,001.4         	        0.0       	    -2,001.4   
+ 1   	 2,001.3         	        0.0       	    -2,001.3   
+ 2   	 2,001.1         	        0.0       	    -2,001.1   
+ 3   	 2,001.0         	        0.0       	    -2,001.0   
+ 4   	 2,000.8         	        0.0       	    -2,000.8   
+ 5   	 2,000.6         	        0.0       	    -2,000.6   
+ 6   	 2,000.5         	        0.0       	    -2,000.5   
+ 7   	 2,000.3         	        0.0       	    -2,000.3   
+ 8   	 2,000.2         	        0.0       	    -2,000.2  
+ 9   	 2,000.0          	3,887,500.0       	-3,889,500.0   
+10   	     0.0         	        0.0       	         0.0   
+(For example, node 6 has capital costs of 10,002,403 msats * (2 * 10^(-5) / hour) * 10 hours = 2,000.5 msats.)  
+(For example, node 6 is able to resolve the failed payment off-chain with nodes 5 and 7 and therefore has no on-chain costs.)  
+(For example, node 6 loses 2,000.5 msats in capital costs for a net loss of 2,000.5 msats.)  
+
+Note that in Scenario 3 the Spam Prevention protocol has a far better outcome than the current protocol. In particular, with the Spam Prevention protocol the sender is notified of the failed payment within seconds and no node is required to devote their capital to the payment for more than a few seconds. In contrast, with the current protocol the sender has to wait 10 hours (the time required for node 9 to time out node 10 on-chain) before discovering that the payment has failed. Furthermore, with the current protocol nodes 0 through 9 have to devote their capital to this failed payment for those 10 hours and (even more significantly) node 9 has to pay millions of msats in on-chain fees in order to resolve the payment  
+
+The protocols behave so differently because the Spam Prevention protocol allows node 9 to fail the payment off-chain and within seconds when the destination fails to increase the burn output for the payment. In contrast, the current protocol requires node 9 to go on-chain to resolve the payment. (Note that this difference between the protocols did not exist in the original paper; it was enabled by the bug fix that separates the increase in burn funds from the creation of the HTLC output.)  
+
+Scenario 4: Failed payment due to insufficient funds at node 6  
+--------------------------------------------------------------  
+
+     	Spam Prevention 	Current Protocol  
+     	gain from       	gain from  
+     	failed payment  	failed payment  
+     	due to          	due to  
+     	insufficient     	insufficient  
+     	funds at node 6 	funds at node 6  
+Node:	(msats):         	(msats):  
+----  	--------------- 	----------------  
+ 0   	-707.1          	          0.0  
+ 1   	 113.6          	          0.0  
+ 2   	 116.1          	          0.0  
+ 3   	 118.0          	          0.0  
+ 4   	 119.3          	          0.0  
+ 5   	 120.0          	          0.0  
+ 6   	 120.1          	          0.0  
+ 7   	   0.0          	          0.0  
+ 8   	   0.0          	          0.0  
+ 9   	   0.0          	          0.0  
+10   	   0.0          	          0.0  
+(For example, node 6 charges an Upfront Fee of 120.1 msats.)  
+(For example, node 6 does not receive a routing fee because the payment was unsuccessful.)  
+
+Note that in Scenario 4 the Spam Prevention protocol compensates nodes 1..6 for their costs, while the current protocol fails to do so.  
+
+Hopefully the above analysis helps to clarify the details of the Spam Prevention protocol and to give some quantitative sense of how it operates. The comparison with the current protocol helps to demonstrate the advantages of the Spam Prevention protocol.  
+
+Please let me know if anything isn't clear or if you feel the example parameters are unrealistic.
+
+-------------------------
+

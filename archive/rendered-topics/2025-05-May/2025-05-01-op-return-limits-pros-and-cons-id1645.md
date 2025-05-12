@@ -69,3 +69,9 @@ Link: https://x.com/wtogami/status/1917289539703280006
 
 -------------------------
 
+1440000bytes | 2025-05-12 19:16:11 UTC | #4
+
+OP_RETURN and Coinjoin: https://uncensoredtech.substack.com/p/op_return-and-coinjoin
+
+-------------------------
+

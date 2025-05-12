@@ -64,9 +64,9 @@ I will be happy for feedback since I have never heard any complaint other than `
 
 -------------------------
 
-jsarenik | 2025-05-12 06:57:32 UTC | #2
+jsarenik | 2025-05-12 16:22:22 UTC | #2
 
-In extension of this anecdotal thought I would like to say that a witness of any SHA256 hash consisting of two octets (two bytes, 0xFFFF maximum) can be easily put into the locktime of a transaction. This does not influence the raw transaction size.
+In extension to this anecdotal thought I would like to say that a witness of any SHA256 hash consisting of two octets (two bytes, 0xFFFF maximum) can be easily put into the locktime of a transaction. This does not influence the raw transaction size.
 
 Example:
 
