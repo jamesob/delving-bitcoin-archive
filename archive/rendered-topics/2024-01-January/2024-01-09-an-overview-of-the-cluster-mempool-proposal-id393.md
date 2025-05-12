@@ -1,6 +1,6 @@
 # An overview of the cluster mempool proposal
 
-sdaftuar | 2024-02-05 22:30:23 UTC | #1
+sdaftuar | 2024-04-25 20:25:17 UTC | #1
 
 Last spring, @sipa and I first floated a concept for a new mempool design to a group of Bitcoin Core contributors, which I later wrote up as a github issue (https://github.com/bitcoin/bitcoin/issues/27677).  Over the course of the past year, the ideas have been refined, and I will use this post to provide an updated high level summary of the overall proposal -- including the motivations and implications -- for anyone looking to catch up on this topic.
 
@@ -697,6 +697,25 @@ There are two differences between validation of RBF transactions and non-RBF tra
 2) Doing a feerate diagram comparison of the old vs the new clusters.  This is linear in the number of chunks of the two diagrams (which is bounded by the number of transactions in the clusters that the diagrams come from).
 
 Today's RBF rules (BIP 125) impose a limit on the number of total transactions that would be evicted by a single replacement at 100. For cluster mempool, if we limited the number of direct conflicts a single transaction could have at 100, and if clusters end up being limited to at most 100 transactions, then this might be good enough -- effectively bounding the number of extra linearizations at 100 and the size of a feerate diagram comparison to 10,000 entries.  But we'll get a better sense of this as we do more benchmarking -- if this is too many, we could do some kind of more precise calculation of how many clusters are being relinearized and how many entries the feerate diagram has, and bound things based on the exact numbers we care about limiting so that validating a single transaction is not too expensive.
+
+-------------------------
+
+blockchainhao | 2025-05-12 14:29:45 UTC | #23
+
+[quote="sdaftuar, post:1, topic:393"]
+How can we tell whether transaction C’ should be accepted
+[/quote]
+Ask a newbie question:here C' is a child of D, while C in the old mempool is a child of A, how can C and C' be confliction?
+
+-------------------------
+
+sipa | 2025-05-12 14:31:40 UTC | #24
+
+[quote="blockchainhao, post:23, topic:393"]
+Ask a newbie question:here C’ is a child of D, while C in the old mempool is a child of A, how can C and C’ be confliction?
+[/quote]
+
+C and C' can spend the same confirmed UTXO, which wouldn't show up as a dependency as it's not spending an unconfirmed output.
 
 -------------------------
 

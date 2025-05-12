@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 1.6,
   "yours": false,
   "topic_id": 1419,
   "topic_slug": "spanning-forest-cluster-linearization",
@@ -58,10 +58,10 @@
     {
       "id": "sob",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }

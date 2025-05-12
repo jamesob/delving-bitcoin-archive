@@ -260,14 +260,14 @@ Here are benchmarks with the existing examples in the codebase. These are the ti
 
 -------------------------
 
-sipa | 2025-04-18 12:31:09 UTC | #3
+sipa | 2025-05-12 12:13:07 UTC | #3
 
 I have [posted](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/68) a comparison of this algorithm (SFL) with the GGT parametric min-cut algorithm, and the existing candidate set searching (CSS) algorithm from the other thread.
 
 ---
 
 Here are some of the open problems still with SFL:
-* **Termination**: there is a proof that if SFL terminates, the result is an optimal linearization. However, there is no proof that it always will, even though fuzzing seems to indicate that the "merge chunks by maximum feerate difference" heuristic is sufficient to never cause the same state to be repeated (which would suffice for termination, as there is only a finite number of possible states).
+* **Termination**: there is a proof that if SFL terminates, the result is an optimal linearization. ~~However, there is no proof that it always will, even though fuzzing seems to indicate that the "merge chunks by maximum feerate difference" heuristic is sufficient to never cause the same state to be repeated (which would suffice for termination, as there is only a finite number of possible states).~~ EDIT: it is not guaranteed to terminate.
   * **Complexity bound**: it would be good to have some bound on how many iterations the algorithm can go through. If the above observation (no repeated states) holds, then there is some bound on the number of iterations, as there are at most $2^m$ states, but this is not a very interesting bound. Somewhat stronger bounds are possible by taking into account that no more than $n-1$ dependencies can be active, and that they form a spanning forest, but it remains exponential.
 * **Equal-feerate chunk splitting**: The algorithm works if splits are applied whenever the top subset has *strictly* higher feerate than the bottom, and merges whenever the bottom has *higher or equal* feerate as the top. If instead splits are done when the top has higher-or-equal feerate, the algorithm may loop forever. If instead merged are only done when the bottom has strictly higher feerate than the top, the result may not be topological. The result of this is that the chunks that come out may be contain multiple equal-feerate components that could be split in a topologically-valid manner, i.e., become separate equal-feerate chunks. It would be nice to find an algorithm that can efficiently find these, whether that's done as part of SFL, or as a separate post-processing step. Note that this is not simply finding connected components within the chunks: the SFL chunks are *always* connected already.
   * **Sub-chunk linearization**: Somewhat related, SFL provides no way to order the transactions within a chunk. This only matters for block building with [sub-chunk granularity](https://delvingbitcoin.org/t/cluster-mempool-block-building-with-sub-chunk-granularity/1044), but intuitively, it feels like there is some information within the SFL state that may be useful. When a chunk is repeatedly split and re-merges with itself, it feels to me like it is really improving some implied sub-chunk linearization, until that sub-chunk linearization becomes good enough that it permanently splits the chunk in two. An "optimal sub-chunk linearization" would imply splitting equal-feerate chunks too, though beyond that, it's not clear how to define optimality here.
@@ -282,7 +282,7 @@ I [posted](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/73) mo
 
 -------------------------
 
-sipa | 2025-05-01 21:11:10 UTC | #5
+sipa | 2025-05-12 12:12:10 UTC | #5
 
 ### Fairness
 
@@ -295,7 +295,7 @@ There are a number of options for finding which split operation to perform:
 
 Further, if (1) has the property that it always makes progress, then so does (2). Assume it doesn't, and a state exists for which (2) cycles. We know that any split that is not immediately followed by a self-merge strictly improves the area under the diagram, so afterwards no repetition of earlier states is possible anymore; thus, the cycle can only consist of splits + self-merges. If one removes from this cycling state all chunks but one splittable one (which must exist, as otherwise the algorithm has terminated), one obtains a state that cycles for (1), which is in contradiction with the assumption.
 
-Note that we don't know (yet) whether (1) or (2) actually always make progress, just that if (1) does, then so does (2).
+~~Note that we don't know (yet) whether (1) or (2) actually always make progress, just that if (1) does, then so does (2).~~ EDIT: neither always makes progress.
 
 ### Randomization
 

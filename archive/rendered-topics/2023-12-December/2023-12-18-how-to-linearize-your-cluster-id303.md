@@ -1588,9 +1588,9 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-04-22 18:02:38 UTC | #68
+sipa | 2025-05-12 12:17:38 UTC | #68
 
-I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (we don't even have a proof that it terminates), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
+I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (it can in theory run forever, though randomization makes this unlikely), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
 
 The reasons for choosing SFL over [GGT](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9) and CSS (candidate set search, the old exponential algorithm which [this thread](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/1) was originally about) are:
 * **[Anytime algorithm](https://en.wikipedia.org/wiki/Anytime_algorithm)**: it is possible to interrupt SFL at any point, and get a linearization out. The longer it runs, the better the result gets. This is also true for CSS, but less so for GGT as any min-cut that has not been computed completely may not result in an improvement (and the entire runtime may consist of just a single cut).
@@ -1601,12 +1601,12 @@ The reasons for choosing SFL over [GGT](https://delvingbitcoin.org/t/how-to-line
 * **Integer arithmetic**: GGT needs to represent flows and feerates as [approximate integers](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/50), which need to be scaled such that they are sufficiently precise. If $F$ is the sum of the (absolute values of) fees in the graph and $S$ the sum of the sizes in the graph, then GGT needs integers large enough to represent $4S^2F$ if exactly optimal solutions are desired. SFL and CSS only need integers large enough to represent $2SF$ and $SF$. Of course, perhaps we don't care about exactness of solutions for huge clusters that pay enormous feerates, and in either case, this isn't a very hard problem, just complicates the implementation somewhat.
 
 The downsides of SFL compared to GGT are:
-* **Complexity bounds**: there is no known bound for the runtime of SFL, and it may be infinite, while GGT is proven to be $\mathcal{O}(n^3)$. I suspect that SFL is $\mathcal{O}(n^5)$ or so in the worst case. However, even GGT's cubic runtime is probably too much in the worst case to run at transaction relay time. Also note that we don't really need optimal linearization. They're nice, because they're obviously the most incentive-compatible ones, but in practice, the bar is really a "good enough for what people actually use", which is hard to define, and interacts in difficult ways with adversial models (see fairness above).
+* **Complexity bounds**: ~~there is no known bound for the runtime of SFL, and it may be infinite~~ SFL may in theory run forever, while GGT is proven to be $\mathcal{O}(n^3)$. However, even that cubic runtime is probably too much in the worst case to run at transaction relay time. Also note that we don't really need optimal linearization. They're nice, because they're obviously the most incentive-compatible ones, but in practice, the bar is really a "good enough for what people actually use", which is hard to define, and interacts in difficult ways with adversial models (see fairness above).
 
 The downsides of SFL compared to CSS are:
 * **Mix with ancestor sort**: CSS, when used through LIMO, can include arbitrary additional sources for finding good topological sets to move to the front. In the current implementation, optimal ancestor sets are used as additional inputs. There are no well-defined properties that this gives the linearization, but at least intuitively, this provides a "linearization always has at least ancestor-set like quality" property, regardless of how much time was spent in candidate finding. I don't know how to do anything like this in SFL (nor in GGT). If we believe that this quality is important, despite not being well-defined, then switching to SFL in theory means we could lose it in clusters that cannot be linearized optimally in time. My thinking is that combined with the SFL fairness, and the fact that it is just so much faster overall, it is unlikely to be an issue. Further, if we *really* wanted ancestor-sort quality, it would be possible to compute, in addition to running SFL, an ancestor sort linearization from scratch, and then merge the two if SFL doesn't find an optimal result. However, I suspect that the time this would take is better spent on performing more SFL iterations.
 * **Minimal chunks**: CSS finds a linearization by actively searching for good chunks to move to the front, and in doing so, it can prefer smaller chunks over bigger ones. This guarantees that (if it completes) it will find the linearization with *minimal* possible chunks among all feerate-diagram-optimal linearizations. SFL (and GGT) on the other hand really just find groups of connected transactions with equal chunk feerate, and thus can't guarantee to pull equal-feerate chunks apart.
-* **Complexity bounds**: there is no known bound for the runtime of SFL, and it may be infinite, while CSS is trivially bounded by $\mathcal{O}(n \cdot 2^n)$, although I believe it may be $\mathcal{O}(n \cdot \sqrt{2^n})$ instead. These bounds are obviously impractical.
+* **Complexity bounds**: SFL may in theory run forever, while CSS is trivially bounded by $\mathcal{O}(n \cdot 2^n)$, although I believe it may be $\mathcal{O}(n \cdot \sqrt{2^n})$ instead. These bounds are obviously impractical.
 
 All 3 above issues are open questions, and solutions/improvements could be found to them.
 
@@ -1617,10 +1617,10 @@ In table form:
 |Trait | | [CSS](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/1) | | [SFL](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419/1) | | [GGT](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/9)|
 |--- | --- | --- | ---| --- | --- | --- |
 |**Proven worst-case** | 🟥 | $\mathcal{O}(n \cdot 2^n)$ | 🟥 | $\mathcal{O}(\infty)$ | 🟩| $\mathcal{O}(n^3)$|
-|**Conjectured worst complexity** | 🟥| $\mathcal{O}(n \cdot \sqrt{2^n})$ | 🟧 | $\mathcal{O}(n^5)$ | 🟩 | $\mathcal{O}(n^3)$|
+|**Conjectured worst complexity** | 🟥| $\mathcal{O}(n \cdot \sqrt{2^n})$ | 🟧 | $\mathcal{O}(\infty)$ | 🟩 | $\mathcal{O}(n^3)$|
 |**Historical avg. runtime (µs)** $(n \leq 64)$ | 🟥|80 | 🟩|10 | 🟧|22|
 |**Historical worst runtime (µs)** $(n \leq 64)$ | 🟥|31500 | 🟩|26 | 🟧|33|
-|**Extrapolated worst runtime (µs)** $(n \leq 64)$ | 🟥|700,000,000 | 🟧|1,000,000 | 🟩|10,000|
+|**Extrapolated worst runtime (µs)** $(n \leq 64)$ | 🟧|700,000,000 | 🟥|$\infty$ | 🟩|10,000|
 |**Anytime algorithm** | 🟧|Needs budgeting | 🟩|Natively | 🟥|May lose progress |
 |**Improving existing** | 🟧|Through [LIMO](https://delvingbitcoin.org/t/limo-combining-the-best-parts-of-linearization-search-and-merging/825) | 🟩|Natively | 🟥|[Merging]((https://delvingbitcoin.org/t/merging-incomparable-linearizations/209)) afterwards|
 |**Fairness** | 🟥|Hard | 🟩|Easy | 🟥|Hard|
@@ -1846,6 +1846,16 @@ blockchainhao | 2025-05-11 12:11:09 UTC | #77
 
 Gotcha, Thanks. Yes, later I realize that The after adding another tx to INCnew, then there may be more anc(p) (p belongs to POTnew, all of anc(p) belongs to POTnew) that can be added to INCnew.(Sorry for the text format here)
 BTW, will GGT and SFL both be applied to the code base (or they are already in there)
+
+-------------------------
+
+sipa | 2025-05-12 12:25:58 UTC | #78
+
+[quote="blockchainhao, post:77, topic:303"]
+BTW, will GGT and SFL both be applied to the code base (or they are already in there)
+[/quote]
+
+At least one of the two, I expect. I have prototype implementations of both which I have been benchmarking (see higher up in this thread). I'm currently leaning towards SFL still, but the recent [discovery](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419/6) that it can in theory run forever is unfortunate.
 
 -------------------------
 
