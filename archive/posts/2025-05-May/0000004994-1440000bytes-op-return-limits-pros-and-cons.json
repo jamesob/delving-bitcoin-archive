@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "OP_RETURN and Coinjoin: https://uncensoredtech.substack.com/p/op_return-and-coinjoin",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "OP_RETURN and Coinjoin: <a href=\"https://uncensoredtech.substack.com/p/op_return-and-coinjoin\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">OP_RETURN and Coinjoin - floppy\u2019s Substack</a>",
   "truncated": true,
   "post_url": "/t/op-return-limits-pros-and-cons/1645/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
