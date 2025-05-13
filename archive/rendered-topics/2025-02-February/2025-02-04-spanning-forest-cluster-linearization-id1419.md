@@ -334,3 +334,19 @@ Overall, this means that SFL really does not have a termination guarantee. That'
 
 -------------------------
 
+gmaxwell | 2025-05-12 21:42:32 UTC | #7
+
+So far all looping states are extraordinarily likely to be immediately exited, and so probably have no effect on the runtime.   No one complains when they look at RNG code and see something like a while(res==0)res=random_number();   That's the kind of 'unbounded'  operation that is (apparently) rarely possible for SFL.   Though it's existence probably makes it inordinately hard to prove anything about its runtime.  (Sadly, also that there don't exist ones that are more like while(res)res=random_number();  :( )
+
+Even if it were possible for an attacker to construct an inescapable loop, this code is always run with a time limit-- and it's a limit that is low enough that for large inputs totally ordinary non-looping inputs would hit it too.  And since SFL is generally so much faster than alternatives for non-trivial inputs, *and* easily randomized I think it's likely less vulnerable to being forced into an unfair conclusion in spite of the potential for loop states.
+
+One should also keep in mind that given the complexity of these algorithms I wouldn't be shocked if real implementations of the proven worst case bound algorithms could also loop, either because the proof was just wrong or (more likely) implementation errors.  Consider, it's common for programmers to get bisection wrong and its a much simpler algorithm that any closure problem solver.. and it's much easier to detect that bisection gets the boundary wrong than to detect some failures in these algorithms.  It's likely people here are applying much more scrutiny, both because computing power has become very cheap and just the culture around Bitcoin Core.  (I wouldn't be surprised if it took more computing power to casually find one counter example to max-q than had been spent on all computation in the history of mankind  back in the mid 1960s when these algorithms were first being explored).  So don't be too hard on the rare failures here. :)
+
+[Aside, I found several more loop states, which are pending validation by Sipa]
+
+That said, I think it may be worth giving https://onlinelibrary.wiley.com/doi/10.1002/net.1012  a read as it discusses a 1960's algorithm which has been preferred by industry over GGT in spite of the latter's theoretical benefits (perhaps for the same reasons we've seen for SFL over GGT), and the paper goes on to make small modifications to give it O(n^3 log n) class worst case bound.  The algorithm is flowless and sounds (to my lay ears) at least somewhat morally similar to SFL... and so some of the techniques there may be of use even if the algorithm itself isn't.
+
+A good worst case complexity bound is a nice thing to optimize for, but given that for larger problem even the best available will not run to termination, I don't know if its really relevant.  And as we've seen from sipa's GGT implementation (and from comments in the literature, suggesting that it's not just sipa) there are substantial constant factor differences that easily dominate at the sizes of interest here.
+
+-------------------------
+
