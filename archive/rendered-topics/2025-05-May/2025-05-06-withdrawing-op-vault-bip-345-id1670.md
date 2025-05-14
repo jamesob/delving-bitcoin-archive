@@ -18,3 +18,11 @@ But I think CCV is still the superior base to build on, and if we need vaulting-
 
 -------------------------
 
+sjors | 2025-05-14 09:44:53 UTC | #2
+
+What's the latest thinking with regards to the MEvil potential of `OP_VAULT`? Not having such potential could be another selling point for an application specific opcode.
+
+Other than that, I also think that the vaults created with CCV are good enough, and the missing features don't justify a dedicated op code (yet).
+
+-------------------------
+

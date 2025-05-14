@@ -199,3 +199,64 @@ With that in mind, path queries differ from trial-and-error (including probing) 
 
 -------------------------
 
+renepickhardt | 2025-05-14 09:36:17 UTC | #3
+
+Thank you for your proposal and thoughts. I think most people will agree with the problem setting that you are describing. I also agree that there is a relation to trampoline routing. I was missing a bit the comparison to the proposal to [share liquidity information within the local neighborhood as proposed here](https://github.com/lightning/bolts/pull/780). I wonder about the trade offs between those two ideas? For that keep in mind that the recipient of a payment could potentially share its local view of the network in the invoice. 
+
+While I agree that the ability for nodes to cascade path queries seems interesting and useful I was wondering weather it could lead to eventually probe the entire network and thus quite some communication overhead - which would have to be redone all the time as the liquidity state of the network should be rather dynamic. 
+
+
+Please allow me my concerns that the benefits of your proposal may not be as high as one could think:
+
+Generally [we have an issue with payments being infeasible](https://delvingbitcoin.org/t/estimating-likelihood-for-lightning-payments-to-be-in-feasible/973) - even if full information about liquidity was known. The uncertainty about liquidity can be [addressed  by implementing probabilistic models](https://arxiv.org/abs/2103.08576) (which all implementations do). Of course removing the uncertainty is better than handling the uncertainty. 
+
+[quote="brh28, post:1, topic:1672"]
+#### Benefits
+
+As a simple set of flexible messages, it’s impossible to define all potential use cases. However, benefits can be broadly outlined as follows:
+
+1. Improves routes for larger payments, including lower fees, lower expected payment delivery times, and better fee estimation.
+[/quote]
+
+The supported size of the payment depends on the liquidity state and at most to a small degree on the uncertainty. In particular as mentioned before the fact that payments of certain sizes are expected to be infeasible has nothing to do with the uncertainty about the liquidity. In particular [I encourage you to look at this study](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/eec0945424289915d02868f2a691f160df5fead1/likelihood-of-payment-possability/An%20upper%20Bound%20for%20the%20Probability%20to%20be%20able%20to%20successfully%20conduct%20a%20Payment%20on%20the%20Lightning%20Network.ipynb) which [has been independently verified](https://stacker.news/items/ir412708). From that research you can find this diagram: 
+
+![image|562x391](upload://zxUIZz0LhEj3tFarfCI40ReZbEG.png)
+
+It indicates that we expect that 2.5% of all payments cannot exceed the size of 766 sats. Yes the uncertainty makes it harder to find those channels that allow to transport those 766 sats but removing the uncertainty does not increase that size at all. in particular [it was shown that the bottlekneck is in 95% of all cases within the outbound liquidity of the sender and the inbound liquidity of the recipient.](https://arxiv.org/abs/2107.05322) 
+
+Similarly I doubt that it is obvious that the removal of the uncertainty will yield lower fees. A counterargument may be: Routing nodes may - given more knowledge about the liquidity - increase the fees of their channels if they see that their liquidity is desirable. 
+
+[quote="brh28, post:1, topic:1672"]
+2. Eliminates reliance of a fully synced channel graph. This is especially useful for mobile nodes who are not always available to receive updates and may prefer a relationship with an LSP.
+[/quote]
+
+As with trampoline routing which we already have.
+
+[quote="brh28, post:1, topic:1672"]
+3. Enables more dynamic routing policy, whereby nodes can share updates without globally enforced rate limits.
+[/quote]
+
+I expect this will more quickly lead to deplete channels. Also it is not clear how many nodes will be queried and asked for one routing / payment request. In your proposal you already suggested that a sender can send many of those queries in parallel.
+
+[quote="brh28, post:1, topic:1672"]
+4. Distributes routing more evenly across the network, making smaller routing nodes more competitive
+[/quote]
+
+see above. Cheap channels will drain more quickly. If at all the fact that nodes have knowledge will decrease loead balancing and not increase it.
+
+[quote="brh28, post:1, topic:1672"]
+5. Allow for network growth
+[/quote]
+
+How so? The fact that payment amounts become infeasible is positively corelated with the number of participants (and negatively corelated with the amount of coins on the network). In particular network growth is limited by onchain constraints anyway. So I doubt that this is a benefit of your proposal.
+
+## Summary 
+
+While I attacked your benefits I like the proposal as I think it is in some sense more elegant and cleaner than asking within the friend of a friend network. However I am not convinced that both of those ideas will really improve the reliability situation drastically - though I agree it would be nice to have some uncertainty removal. 
+
+What for example about a simple flag in channel updates that indicates on which side the liquidity is currently located? Given that channels are expected to deplete this information would be most useful anyway. Nodes could quickly share it - potentially even network wide - with a single message for all their channels. 
+
+Thus I think if the community is willing to think about protocols to reduce uncertainty of liquidity we should think about which of the ideas is the best way forward by comparing those ideas to each other
+
+-------------------------
+
