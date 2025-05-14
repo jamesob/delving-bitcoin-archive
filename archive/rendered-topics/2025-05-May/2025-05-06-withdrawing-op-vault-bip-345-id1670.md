@@ -26,3 +26,9 @@ Other than that, I also think that the vaults created with CCV are good enough, 
 
 -------------------------
 
+instagibbs | 2025-05-14 18:11:48 UTC | #3
+
+You can do some pretty weird games with it, so I am not particularly persuaded it's substantially less MEVil-y.
+
+-------------------------
+

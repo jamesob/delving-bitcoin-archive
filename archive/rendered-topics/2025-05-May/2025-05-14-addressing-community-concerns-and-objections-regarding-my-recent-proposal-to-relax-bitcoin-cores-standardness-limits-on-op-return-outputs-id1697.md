@@ -1,6 +1,6 @@
 # Addressing community concerns and objections regarding my recent proposal to relax Bitcoin Core's standardness limits on OP_RETURN outputs
 
-AntoineP | 2025-05-14 15:47:13 UTC | #1
+AntoineP | 2025-05-14 19:34:53 UTC | #1
 
 Hi everyone.
 
@@ -273,7 +273,7 @@ Then a consensus change needs to actually be proposed, and proponents need to ra
 
 ## On the separate question of Github moderation
 
-Moderation on the Bitcoin Core Github repository further worsened perception of the proposed change. Although it is necessarily connected, this is a separate topic from whether the change is desirable or not. For a discussion of Bitcoin Core's Github moderation policy see @glozow's [post on the topic](https://x.com/glozow/status/1918379285045211402).
+Moderation on the Bitcoin Core Github repository further worsened perception of the proposed change. Although it is necessarily connected, this is a separate topic from whether the change is desirable or not. ~~For a discussion of Bitcoin Core's Github moderation policy see @glozow's [post on the topic](https://x.com/glozow/status/1918379285045211402).~~ Gloria deleted her Twitter account. In any case let's focus here on the `OP_RETURN` change and the broader issue of "filters", that's already plenty to talk about.
 
 -------------------------
 

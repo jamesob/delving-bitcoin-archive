@@ -260,3 +260,57 @@ Thus I think if the community is willing to think about protocols to reduce unce
 
 -------------------------
 
+brh28 | 2025-05-14 17:25:28 UTC | #4
+
+Hey Rene, I really appreciate your feedback!  
+
+[quote="renepickhardt, post:3, topic:1672"]
+I was wondering weather it could lead to eventually probe the entire network and thus quite some communication overhead - which would have to be redone all the time as the liquidity state of the network should be rather dynamic.
+[/quote]
+
+Quite the opposite, the purpose of the proposal is to allow nodes to find a reliable path *without* prior knowledge of the graph, meaning that continuously monitoring the network via probes is not necessary for successful payments. At the peer level, a `path_query` & `path_reply` only requires one round-trip vs the 3 round trips required to set up and tear down an HTLC (1.5 roundtrips per commit x 2 commits).
+
+[quote="renepickhardt, post:3, topic:1672"]
+Generally [we have an issue with payments being infeasible](https://delvingbitcoin.org/t/estimating-likelihood-for-lightning-payments-to-be-in-feasible/973) - even if full information about liquidity was known
+[/quote]
+
+Agree, the proposal does not intend to create feasible paths, but rather, to quickly find them.  
+
+[quote="renepickhardt, post:3, topic:1672"]
+A counterargument may be: Routing nodes may - given more knowledge about the liquidity - increase the fees of their channels if they see that their liquidity is desirable.
+[/quote]
+
+Alluding to *Privacy of channel balances* above, queries give routing nodes better control of their routing information, including liquidity; they can choose *who* to reveal information to and *how much* information they want to provide. Generally speaking, the more channels a node has, the harder it is to make inferences about their liquidity state from an offered path. 
+
+[quote="renepickhardt, post:3, topic:1672"]
+As with trampoline routing which we already have.
+[/quote]
+
+Trampoline adds much more complexity at the protocol level. Additionally, it does not completely eliminate syncing as the node still needs a feasible path to the first trampoline hop. 
+[quote="renepickhardt, post:3, topic:1672"]
+I expect this will more quickly lead to deplete channels.
+[/quote]
+
+I disagree, dynamic policy can actually be used to help balance channels, as nodes are able to change their routing fee in each direction based on their current liquidity state. This is conceptually similar to rate cards, but offers routing nodes more flexibility and payment senders do not need to guess the rate.    
+
+[quote="renepickhardt, post:3, topic:1672"]
+Also it is not clear how many nodes will be queried and asked for one routing / payment request.
+[/quote]
+
+Could you elaborate on your concern here? Request and response strategies are freely determined by the node.
+
+
+[quote="renepickhardt, post:3, topic:1672"]
+How so? The fact that payment amounts become infeasible is positively corelated with the number of participants (and negatively corelated with the amount of coins on the network). In particular network growth is limited by onchain constraints anyway. So I doubt that this is a benefit of your proposal.
+[/quote]
+
+Apologies, I should have been more specific here; I'm referring to growth of the network *diameter* here. As the network grows outwards, there must be a way to reliably find longer paths (when feasible). Conversely, if the network converged on a hub-and-spoke model, that would improve payment reliability, but it's not a desired outcome. 
+
+As you mention, onchain constraints (block size) is a limiting factor to the *growth rate* of the network - not the maximum size. Over time, the network should still support an indefinite number of nodes and channels. Furthermore, payment channels could theoretically be constructed on different settlement layers (or 'realms'), so I don't think we should assume that growth is bounded by block size.  
+
+***
+
+I believe this response is already long enough, so I'll leave it here. Let me know if you want me to go more into anything I missed, including comparisons to other approaches such as FofF or liquidity indications.
+
+-------------------------
+
