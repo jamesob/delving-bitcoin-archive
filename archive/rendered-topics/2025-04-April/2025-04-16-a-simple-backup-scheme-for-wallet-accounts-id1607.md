@@ -220,3 +220,63 @@ To conclude, I'd say that this scheme should still "strongly recommend" having m
 
 -------------------------
 
+sjors | 2025-05-14 12:18:33 UTC | #10
+
+[quote="salvatoshi, post:1, topic:1607"]
+Therefore, *secrecy* is reduced to *secrecy for anyone who doesn’t already have the descriptor*.
+[/quote]
+
+I like this approach. Conversely, if you lose one of the signer keys (and the software wallet that goes with it), having _any_ of the other keys lets you recover this information. E.g. your house burns down along with one signing device, your Bitcoin Core node and its wallet, but you still have a signing device in a vault.
+
+[quote="salvatoshi, post:1, topic:1607"]
+In order to decrypt the payload of a backup, the owner of a certain public key $p$ computes $s = \operatorname{sha256}(``\textrm{BACKUP_INDIVIDUAL_SECRET}" \| p)$, and attempt the decryption of the payload with the key $c_i \oplus s$ for each of the provided $c_i$.
+[/quote]
+
+Calling this $s$ had me confused. But IIUC what you're actually doing here is to reconstruct your $s_i$, without knowing which $i$ is you. You try it against each $c_i$ to see if you found $s$. The way you know if that worked is if $s$ decrypts something sane.
+
+You still need to figure out which xpub to use for $p$.
+
+The [BIP87](https://github.com/bitcoin/bips/blob/60ac0e8feccb07f891fd984e4ed76105d2898609/bip-0087.mediawiki) account level xpub seems like a good candidate to recommended for this, where you may have to try multiple accounts for decryption.
+
+Or you just add a (plain text) derivation hint to the backup.
+
+Another approach is to pick a standard derivation path for these backups, but then you lose the nice property of being able to derive the backup key from a descriptor:
+
+[quote="salvatoshi, post:8, topic:1607"]
+Instead, the more trivial scheme above is a pure function `f(descriptor) -> backup`, which I think is a big practical advantage.
+[/quote]
+
+One such practical advantage:
+
+[quote="kloaec, post:9, topic:1607"]
+Over time, data storage decay. As we can’t assume it will always be stored in a self healing manner, I would put such a self healing mechanism in the backup itself
+[/quote]
+
+Backups can easily be verified against data corruption by any software that has the descriptor.
+
+If you want to go one level fancier, you can even use this backup format for cloud sync.
+
+[quote="salvatoshi, post:1, topic:1607"]
+the payload $data$ that is being backed up is left unspecified, but it will include (at least) the descriptor or the [BIP388](https://github.com/bitcoin/bips/blob/c5220f8c3b43821efa3841a6c5e90af9ce5519e8/bip-0388.mediawiki) wallet policy
+[/quote]
+
+I would suggest a simple JSON blob with a `"descriptor"` field. That can arbitrarily be expanded to include whatever else people want to (occasionally) backup, such as [BIP329](https://github.com/bitcoin/bips/blob/60ac0e8feccb07f891fd984e4ed76105d2898609/bip-0329.mediawiki) labels.
+
+[quote="josh, post:3, topic:1607"]
+If the encrypted descriptor is stored publicly or on a compromised server, an attacker who gains access to one secret gains knowledge of the existence of the multisig. This is not ideal if a user wants to protect themselves with a decoy single-sig wallet.
+[/quote]
+
+But this is an essential property for recovery in my opinion, see above.
+
+[quote="josh, post:3, topic:1607"]
+In a $k$-of-$n$ multisig descriptor, the secret $s$ is split into $n$ shares using shamir secret sharing, where $k$ shares are needed to recover. Each share is then encrypted with one xpub, so that $k$ xpubs are needed to decrypt.
+[/quote]
+
+This adds complexity to recovery, since the (miniscript) descriptor might define a completely different policy than the the information access control. You'd also have to remember the threshold value.
+
+In any case this scheme still reveals the _presence_ of a more sophisticated wallet even if not its contents. It makes it unlikely an attacker falls for the decoy.
+
+Stenographic storage of the backup seems like a better way to deal with this issue.
+
+-------------------------
+
