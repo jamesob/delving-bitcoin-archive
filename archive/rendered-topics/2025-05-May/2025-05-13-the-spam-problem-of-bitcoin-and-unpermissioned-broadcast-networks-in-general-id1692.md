@@ -1,6 +1,6 @@
 # The Spam problem of Bitcoin and Unpermissioned Broadcast Networks in general
 
-moonsettler | 2025-05-13 13:24:31 UTC | #1
+moonsettler | 2025-05-14 10:25:42 UTC | #1
 
 Has the spam problem of bitcoin ever been formally defined in quasi-mathematical terms?
 
