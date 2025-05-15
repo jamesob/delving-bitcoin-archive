@@ -30,3 +30,11 @@ Looking forward to testing out your tool as a replacement. We need more tracepoi
 
 -------------------------
 
+jb55 | 2025-05-15 20:23:27 UTC | #3
+
+yeah I wanted something a bit more hackable that doesn't depend on nats. The library just exposes an mpsc channel that you can use to read events from. Using that you should be able to build anything on top of it, including realtime visualizations.
+
+I was trying to build a realtime cluster mempool visualizer at the bitcoin++ mempool hackathon and realized I needed this tool first.
+
+-------------------------
+
