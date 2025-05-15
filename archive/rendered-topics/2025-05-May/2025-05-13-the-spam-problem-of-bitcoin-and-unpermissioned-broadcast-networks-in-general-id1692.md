@@ -34,3 +34,16 @@ There does exist an analog of email spam in Bitcoin,  "dusting" ... but it's sel
 
 -------------------------
 
+garlonicon | 2025-05-15 05:58:29 UTC | #3
+
+[quote]While nostr or a future social media network can easily adopt a different strategy for propagation than dumb broadcast, bitcoin is for better or worse stuck with it on layer-1.[/quote]
+Have you ever thought about Layer Zero? It is possible to not only go downwards, and make networks like sidechains, which are definitely Layer Two, or Lightning Network, which is something like "Layer One and a Half", but it is also possible to go upwards as well, and make a network, where Bitcoin mainchain will be a subnetwork of.
+
+Which means, that if you have for example Lightning Network, then you have to process the mainchain, and your LN transactions. Which means, that resource-wise, you see and process more transactions than usual, because the cost of handling it, is the accumulated cost of running a Bitcoin node, and some LN node.
+
+But: it is technically possible to do it differently. You can have a network on Layer Zero, which will contain less transactions, than the Bitcoin mainchain, and where Layer One transactions will commit to. And then, you can look at the current Bitcoin Core code as a combination of Layer Zero node, and some Layer One additional code. Which means, that you can process less data, and stay in the same network.
+
+So, to sum up, the answer to your question "how to deal with spam" is "just compress it, just simplify it". Then, spammers will still stay on Layer One, when they will still push their data, as much as they want, but you, as a user, can jump to Layer Zero, and enjoy a more useful network in practice. I think the main reason, why Layer Zero was not yet made, is that people are lazy, and nobody was really forced to do so in practice.
+
+-------------------------
+
