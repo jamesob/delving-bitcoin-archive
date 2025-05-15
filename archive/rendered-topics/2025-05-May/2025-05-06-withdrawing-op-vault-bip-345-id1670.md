@@ -32,3 +32,22 @@ You can do some pretty weird games with it, so I am not particularly persuaded i
 
 -------------------------
 
+salvatoshi | 2025-05-15 09:14:49 UTC | #4
+
+[quote="sjors, post:2, topic:1670, full:true"]
+What’s the latest thinking with regards to the MEvil potential of `OP_VAULT`? Not having such potential could be another selling point for an application specific opcode.
+[/quote]
+
+I think you can make a strong case that the MEVil concerns are identical, in that there is virtually nothing you can build with one opcode, and not with the other. Constructions might vary in ergonomics/costs, but not enough to justify different MEVil categories.
+
+A feature that VAULT has and CCV leaves to a separate opcode for vector commitments (CAT/PAIRCOMMIT/VECTORCOMMIT) is to propagate *multiple pieces of data* to the output - OP_VAULT prepends them as push opcodes for the next script. However, there are tricks to partially (= non-economically and non-ergonomically) simulate this with CCV.  Further exploring this is however not very interesting to me because I would not advocate activating CCV alone.
+
+[quote="sjors, post:2, topic:1670, full:true"]
+and the missing features don’t justify a dedicated op code (yet).
+[/quote]
+I don't think OP_CCV is missing any OP_VAULT feature, except (*only if merged on its own*) the fact that you can pass multiple pieces of data instead of a single one as mentioned above. However, in the context of natural vaults and vault-like scripts, this doesn't really seem to be a necessary feature, to the best of my knowledge.
+
+In practice, CCV is more generic for vaults thanks to the complete freedom of choosing the next taptree (instead of replacing a single leaf). One notable place where this is relevant is when using [vault-like spending conditions for recovery](https://delvingbitcoin.org/t/using-op-vault-for-recovery/150): if you have multiple vault-like leaves, you probably want to drop *all of them* for the next output if *any of them* is triggered; with OP_VAULT, the only way to obtain this effect is to put all the vault-like spending paths in a single leaf with several IF/ELSE branches).
+
+-------------------------
+
