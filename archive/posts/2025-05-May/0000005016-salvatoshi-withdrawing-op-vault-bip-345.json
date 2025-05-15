@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 1670,
   "topic_slug": "withdrawing-op-vault-bip-345",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sjors, post:2, topic:1670, full:true\"]\nWhat\u2019s the latest thinking with regards to the MEvil potential of `OP_VAULT`? Not having such potential could be another selling point for an application specific opcode.\n[/quote]\n\nI think you can make a strong case that the MEVil concerns are identical, in that there is virtually nothing you can build with one opcode, and not with the other. Constructions might vary in ergonomics/costs, but not enough to justify different MEVil categories.\n\nA feature that VAULT has and CCV leaves to a separate opcode for vector commitments (CAT/PAIRCOMMIT/VECTORCOMMIT) is to propagate *multiple pieces of data* to the output - OP_VAULT prepends them as push opcodes for the next script. However, there are tricks to partially (= non-economically and non-ergonomically) simulate this with CCV.  Further exploring this is however not very interesting to me because I would not advocate activating CCV alone.\n\n[quote=\"sjors, post:2, topic:1670, full:true\"]\nand the missing features don\u2019t justify a dedicated op code (yet).\n[/quote]\nI don't think OP_CCV is missing any OP_VAULT feature, except (*only if merged on its own*) the fact that you can pass multiple pieces of data instead of a single one as mentioned above. However, in the context of natural vaults and vault-like scripts, this doesn't really seem to be a necessary feature, to the best of my knowledge.\n\nIn practice, CCV is more generic for vaults thanks to the complete freedom of choosing the next taptree (instead of replacing a single leaf). One notable place where this is relevant is when using [vault-like spending conditions for recovery](https://delvingbitcoin.org/t/using-op-vault-for-recovery/150): if you have multiple vault-like leaves, you probably want to drop *all of them* for the next output if *any of them* is triggered; with OP_VAULT, the only way to obtain this effect is to put all the vault-like spending paths in a single leaf with several IF/ELSE branches).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "I think you can make a strong case that the MEVil concerns are identical, in that there is virtually nothing you can build with one opcode, and not with the other. Constructions might vary in ergonomics/costs, but not enough to justify different MEVil categories. \nA feature that VAULT has and CCV l&hellip;",
   "truncated": true,
   "post_url": "/t/withdrawing-op-vault-bip-345/1670/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
