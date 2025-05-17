@@ -350,3 +350,15 @@ A good worst case complexity bound is a nice thing to optimize for, but given th
 
 -------------------------
 
+sipa | 2025-05-17 13:13:41 UTC | #8
+
+I have made a few changes to the merge and split selection works:
+* When deciding which dependency between two to-be-merged chunks to activate, pick a uniformly random one. It turns out this can be done in $\mathcal{O}(n)$ time anyway, without needing to maintain randomly-sorted lists of dependencies per transaction. The previous approach picked a randomized (though not uniformly random) dependency, but always from the first transaction in the cluster that had any. This change alone seems to dramatically improve worst-case performance in synthetic clusters that are very dense (a factor 1.5x in some settings), but it also reduces attackers' ability to reliably trigger bad decisions even further.
+* Keep track, per chunk, how many consecutive split attempts have failed on it (because the top part that was split off contains a dependency on the bottom part). Whenever that number is 1 below a multiple of 3, a uniformly random dependency within the chunk (among those with positive $q$) rather than the one with highest $q$ is split. Benchmarks show that max-$q$ is generally better on all types of graphs I can construct, but it does raise a small concern that by being more deterministic, it might be the case that adverserially-constructed clusters could reliably cause it make bad choices. I have not found any way of doing that, especially when merging is already done randomly, but out of an abundance of caution, this introduces an even more random step occasionally. By only triggering every 3rd attempt, its performance impact is minimal on realistic clusters, for which splits generally just don't fail.
+
+I have updated the benchmarks in the [other thread](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/73) to reflect this.
+
+With these changes, I'm quite confident that SFL is still the way to go.
+
+-------------------------
+
