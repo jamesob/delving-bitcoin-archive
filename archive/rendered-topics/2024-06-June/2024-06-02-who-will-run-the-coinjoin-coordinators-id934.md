@@ -338,3 +338,11 @@ Don't really understand, you mean: the software exists and it's up to users to f
 
 -------------------------
 
+1440000bytes | 2025-06-04 22:57:12 UTC | #23
+
+US secret service has mentioned @kruw's coordinator in https://www.secretservice.gov/sites/default/files/reports/2025-06/Public-Alert-Cryptocurrency-Mixing.pdf
+
+![image|690x251](upload://yJXfWk3FPZgRjOGyDwGjGBA0epF.png)
+
+-------------------------
+

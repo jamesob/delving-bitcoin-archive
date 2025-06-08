@@ -280,3 +280,106 @@ Stenographic storage of the backup seems like a better way to deal with this iss
 
 -------------------------
 
+securitybrahh | 2025-05-21 06:34:14 UTC | #11
+
+how does this compare to [superbacked](https://github.com/superbacked/superbacked)?
+
+-------------------------
+
+salvatoshi | 2025-05-21 09:45:02 UTC | #12
+
+Not much documentation on the link to understand what it is, but it seems about backing up *secrets* (like seeds and private keys), while the scheme I'm proposing is about backing up public keys and descriptors/wallet policies.
+
+-------------------------
+
+josh | 2025-05-24 18:41:51 UTC | #13
+
+Hey @salvatoshi, I created a [rust library](https://docs.rs/descriptor-encrypt/latest/descriptor_encrypt/) `descriptor-encrypt` that can encrypt any descriptor such that only authorized spenders can decrypt. I plan to make a separate post about it, but I wanted to share it here first as I thought you might find it interesting.
+
+The basic idea is to make the access control policy match the spending policy of the descriptor. It supports all descriptor types and miniscript, and it includes a tag-based and variable-length encoding scheme to minimize the size of the encrypted data, among other features.
+
+With "full secrecy" mode turned on, the encrypted data can be stored in public, and an attacker will learn nothing about the descriptor, or even its existence, unless they compromise enough seeds to spend the funds. 
+
+Let me know what you think! My goal was to address your earlier concern about not being able to handle complex wallet setups, like those with a hash-lock or time-lock.
+
+Github: [https://github.com/joshdoman/descriptor-encrypt](https://github.com/joshdoman/descriptor-encrypt)
+
+Demo: https://descriptorencrypt.org
+
+-------------------------
+
+salvatoshi | 2025-05-25 11:41:49 UTC | #14
+
+Hi josh,
+I didn't look into the details of how the recursive secret splitting works, but it seems reasonable and it's very cool that this can be done at all. Good work!
+
+In a way, it could be considered a generalization of the scheme: in the form I proposed, the "parties that can decode the backup are (a subset of) the parties providing the xpubs, while with your scheme you can also enable thresholds of them, and more complex subsets matching (some of) the spending conditions defined by the miniscript rules.
+
+In practice, I still expect that the simple choice is the best for most users, and likely has a much lower adoption barrier because of the much simpler implementation complexity. In particular, if recovering from backup requires multiple parties, building a UX for it is substantially more complex in a wallet.
+
+-------------------------
+
+josh | 2025-05-25 23:34:10 UTC | #15
+
+Thanks! I agree that the implementation is more complex, but my hope is that packaging it into a rust crate with WASM and other bindings might make it easier for wallets to adopt.
+
+Regarding multi-party wallets, I agree that there is a tradeoff there. You get stronger privacy guarantees, in the event that one of the keys is compromised, but recovery then requires two rounds of collaboration, instead of one.
+
+-------------------------
+
+sjors | 2025-05-31 18:45:36 UTC | #16
+
+As I pointed out in the related thread https://delvingbitcoin.org/t/avoiding-xpub-derivation-reuse-across-wallets-in-a-ux-friendly-manner/1644/7, I'm inclined towards `m/87'/0'/0'/[UNIX-TIME]/{0,1}/*`.
+
+[BIP 338](https://github.com/bitcoin/bips/blob/72af87fc72999e3f0a26a06e6e0a7f3134236337/bip-0388.mediawiki) *Wallet Policies for Descriptor Wallets* could be expanded to add `T`, the wallet birthday timestamp. It has to be the same everywhere, e.g. `tr(musig(@0,@1)/T/**,{and_v(v:pk(@0/T/**),older(12960))}` is 2-of-2 where `@0` can unilaterally sign after 3 months.
+
+You could also use block height `H`, since it's a smaller number. But not everyone has an intuitive feel for block heights. It's also much more likely that you'll recognise a date even in the distant future.
+
+Either `T` or `H` also make for a nice rescan hint.
+
+-------------------------
+
+salvatoshi | 2025-05-31 22:24:07 UTC | #17
+
+[quote="sjors, post:16, topic:1607"]
+[BIP 338](https://github.com/bitcoin/bips/blob/72af87fc72999e3f0a26a06e6e0a7f3134236337/bip-0388.mediawiki) *Wallet Policies for Descriptor Wallets* could be expanded to add `T`, the wallet birthday timestamp.
+[/quote]
+
+That would be a breaking change in the specs for all the hardware signers that implemented it.
+
+I think adding the `/T` step (whether hardened or unhardened) for each of the involved keys (rather than modifying the *descriptor template*) achieves the same without breaking changes, so your descriptor above would still be just `tr(musig(@0,@1)/**,{and_v(v:pk(@0/**),older(12960))}`, but each key has the additional derivation step for the xpubs (so `/T` only appears in the key origins, rather than in the descriptor template).
+
+In that form, the fact that `T` is the same for all keys is not a requirement - and I don't think it's practical to expect it in a multiparty setting: people will provide an xpub at a different time. Forcing it to match would require a round of communication prior to exporting the xpub. While I expect wallets to just store the *other parties'* key origins if they have it, that is not always possible and wallets should probably avoid relying on its knowledge at all.
+
+-------------------------
+
+sjors | 2025-06-01 07:08:14 UTC | #18
+
+I hadn't thought about the interactivity requirement for making T match. My implicit assumption was that one party collects the xpubs, picks T, generates the descriptors and sends them back.
+
+But by making T part of the key, you lose the property of having a predictable xpub to recover from.
+
+A related issue is that Bitcoin Core normalizes descriptors to the last hardened derivation step, so aside from musig() which is a bit special, [a]/T would just become [aT] and we lose the predictable xpub.
+
+Another thing I realized is that BIP32 only allows for 31 bit numbers (and one bit is reserved for the hardening flag), so this scheme would break in 2048. We could divide the timestamp by 3600 to work around that. Hourly precision should be enough to avoid duplicates.
+
+-------------------------
+
+salvatoshi | 2025-06-01 09:54:34 UTC | #19
+
+[quote="sjors, post:18, topic:1607"]
+But by making T part of the key, you lose the property of having a predictable xpub to recover from.
+[/quote]
+
+It was suggested above (and I agree) to leave the derivation paths from the key origins in clear text in the wallet backup (tbd if with or without fingerprints). Wouldn't that obviate the need for a predictable xpub?
+
+-------------------------
+
+sjors | 2025-06-02 09:44:03 UTC | #20
+
+It would, but it would also reveal the number of participants.
+
+I think it's better to have a (non-mandatory) predictable derivation, and just recommend using a fresh account number when reusing a device in more than one setup. During recovery, trying a few different account numbers shouldn't be too bad.
+
+-------------------------
+

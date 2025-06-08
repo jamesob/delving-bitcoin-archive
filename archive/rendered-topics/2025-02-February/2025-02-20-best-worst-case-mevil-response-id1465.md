@@ -242,3 +242,51 @@ Building the machinery to track these cycles is basically all the work and shoul
 
 -------------------------
 
+sjors | 2025-05-21 13:55:10 UTC | #10
+
+[quote="ariard, post:6, topic:1465"]
+Traditionally in physics, an idea with some heuristic worthiness is a *clear* *definition* we can *measure*.
+[/quote]
+
+A reasonable definition of MEV could be along the lines of, a miner:
+1. choosing between two or more transactions that spend the same inputs; or
+2. withholding a transaction from the public mempool, only revealing it by (optional) inclusion in their own block
+
+MEVil then is the subset that can't be handled by Bitcoin Core and/or alternative open source software with similar resource consumption. Those extra resources could just be more powerful computers, or - worse - human expertise (not just financial engineers, even a mere devops person).
+
+How much more? Perhaps such that for a small 10kW miner the additional capital expense is less than 5% and operating expense less than 1%.
+
+So several hundred dollars extra equipment and 0.1 kW extra power consumption. At  $0.05 / kWh such an operation might spend $4K per year on electricity, which I use as a proxy of revenue. That's nowhere near enough to hire a devops person. Perhaps a 20 MW operation could find and afford a skilled parttime devops person in a low wage country for $10k per year and stay under this 1%.
+
+One could argue whether this skill needs to exist at the individual mining operator level or if it's enough that (many, small) pools have them. In that case adjust the above, taking into account that pools have tighter (?) margins.
+
+(and you'd lose Stratum v2 style miner block template creation)
+
+The MeVil threshold then, is a parameter space that one should specify.
+
+This definition would exclude large (non-standard) `OP_RETURN` transactions, since regardless of what Bitcoin Core does, there's going to be a patched version of Bitcoin Core that can relay and mine them at negligible extra resource cost. 
+
+Some drivechains could be MeVil, if they require software that processes each individual drivechain in order to make economically optimal decisions, e.g. to decide whether to vote for or against an attempted theft withdrawal. In the above example threshold, it wouldn't be if it had trivial consensus rules with small and slow blocks.
+
+But it would be MeVil, depending on your choice of parameters, but certainly in my example, if the Drivechain required the equivalent of fully validating the Ethereum blockchain.
+
+A similar analysis applies to Bitcoin miners that are also STX miners.
+
+Having to run a bunch of these extra nodes could quickly become an operational headache even if the computers required aren't huge, and even if there was a simple script out there to install them all. Each such node could have its own DoS (and theft) issues that add risk to the Bitcoin mining operation if not properly isolated.
+
+Very quickly you need a devops person (having these skills yourself still involves opportunity cost). The STX example also suggests that sometimes you need to be in the know of shenanigans that you can perform that your software won't do by default. This may require hiring an expert, or maybe a SAAS subscription to a company that remotely configures your tooling.
+
+The withholding aspect of my definition (2) seems more difficult to parameterise. The software doing this doesn't have to be complicated; it can just take a payment over lightning. But it requires some sort of (reputation) marketplace to coordinate. If such a market is permissioned like MEVpool, that's not ideal.
+
+From the proposal:
+
+> With or without covenants, protocols with MEV are likely to increase in the Bitcoin network.
+
+This touches the big open question, to me anyway, as to whether any of the new functionality provided by (powerful) covenant opcodes such as OP_CCV require significant extra resources, compared to what's already possible.
+
+I'd like to see more concrete examples of that, with the caveat that for any example one can dismiss as not MeVil, there might be an unknown unknown other system.
+
+Although one needs to be careful with fatalistic reasoning.
+
+-------------------------
+

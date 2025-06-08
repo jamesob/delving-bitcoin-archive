@@ -293,3 +293,13 @@ Thank you for writing this post. I think this is the best use case for OP_CAT.
 
 -------------------------
 
+light | 2025-06-07 21:46:35 UTC | #3
+
+[quote="sCrypt-ts, post:1, topic:1307"]
+A group of operators (m-of-n configuration) manage the state transitions.
+[/quote]
+
+Why is this m-of-n group of operators needed, rather than allowing any user to initiate a withdrawal?
+
+-------------------------
+

@@ -75,3 +75,19 @@ OP_RETURN and Coinjoin: https://uncensoredtech.substack.com/p/op_return-and-coin
 
 -------------------------
 
+1440000bytes | 2025-05-17 17:55:29 UTC | #5
+
+https://www.twitch.tv/videos/2451181919
+
+Review session by Ava Chow: https://x.com/achow101/status/1918371961719394355
+
+-------------------------
+
+1440000bytes | 2025-05-19 15:05:56 UTC | #6
+
+![image|679x357](upload://1rfRFXlYQm2tJJafNPa3D66L6lM.png)
+
+Link: https://ledgerjournal.org/ojs/ledger/article/download/101/93/613
+
+-------------------------
+

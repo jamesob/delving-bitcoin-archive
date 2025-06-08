@@ -277,3 +277,173 @@ Moderation on the Bitcoin Core Github repository further worsened perception of 
 
 -------------------------
 
+cguida | 2025-05-20 17:29:56 UTC | #2
+
+Hi Antoine - 
+
+Thanks for engaging the community in what appears to be a good-faith effort to address its concerns.
+
+I can't speak for everyone who is against raising opreturn limits, but here are my thoughts:
+
+> First, it is possible to store data onchain in larger `OP_RETURN` outputs than allowed by Bitcoin Core standardness limits by using [private bridges](https://slipstream.mara.com) or [alternative p2p relay](https://github.com/petertodd/bitcoin/tree/libre-relay-v29.0) networks.
+
+Of course it is. This doesn't mean the filters aren't working. "Filters working" means that filters raise the cost of getting abusive transactions confirmed. The notion that filters don't work because a transaction that pays 10x the normal rate occasionally slips through is a silly strawman. Spam filters have never been perfect; your email provider most likely filters spam, and I guarantee you are happy with keeping the filter even though an occasional spam email ends up in your inbox.
+
+>However, those require relying on a central point of failure or a not as robust p2p relay network. These may be acceptable options for people willing to store arbitrary data, but not for time-sensitive transactions as typically used by Bitcoin scaling solutions. Developers of such solutions want to be able to broadcast their time-sensitive transactions through the public network of Core nodes because of the robustness and censorship resistance guarantees it provides.
+
+Bitcoin noderunners are not obligated to bend over backwards to accommodate dubious "scaling solutions" like Citrea. If they would like to be able to use our peer network to get their transactions confirmed in a timely manner, they can do what everyone else does and make their data fit into 80 bytes. If they cannot do this, then that's not *our* problem; that's *their* problem. If they go ahead and put their data into fake pubkeys, then they are using bitcoin in a way that users have not consented for it to be used, and should expect such transactions to be aggressively filtered.
+
+>In any case, the limit is not preventing those new applications from relaying their transactions through the public network. They just modify their transactions and use fake public keys instead. This method gives them standard transactions, but forces all Bitcoin users to store those outputs in the UTxO set forever because they are not spendable. This is why i suggested removing the limit, since they are going to store the data anyways just in a more harmful manner.
+
+As I and many others have pointed out repeatedly, "save the utxoset" is a fake motivation. You are being dishonest here, and it would be great if you could come clean about what your real motivation is. Citrea's abusive watchtower challenge transactions are expected *never* to occur. The worst-case scenario is a few hundred bytes per year.  If you and other core devs pushing to remove opreturn limits *really* cared about utxoset bloat, you would lift a pinky to merge [Luke's anti-inscriptions PR](https://github.com/bitcoin/bitcoin/pull/28408) which, if it had been merged at the time it was submitted, would have prevented the utxoset from tripling from 4GB to 12GB in the space of two years. Now we're supposed to believe that suddenly core maintainers care about utxoset bloat because you're worried about a few hundred bytes per year, when you *still* haven't fixed the bug that allowed 8GB of new utxoset bloat (and might add another 8GB in the next two years)? Please forgive me for not taking this rationale seriously. Bitcoin users are sometimes dumb, but we're not *that* dumb.
+
+Raising the opreturn limit from 80 bytes to 100000 bytes is a cure 1000x worse than the disease it purports to solve (but does not actually solve). Sure, at the end of 2026 the utxoset might be an eensy-weensy bit smaller, but bitcoin will be overrun with shitcoin scams that crowd out real economic activity.
+
+> Therefore, the two are compatible. The limit does not prevent storing arbitrary data *by relying on a third party*. The limit does prevent applications from storing data through `OP_RETURN`s *and also use the public relay network*. Therefore the applications turn to still relaying through the public network, but to do so they use a more harmful way of storing the data than `OP_RETURN` outputs (namely, unspendable outputs).
+
+Again, this is Citrea's problem, not the bitcoin network's problem. If they can't find a way to build their application in a way that bitcoin users consent to (ie, by fitting their arb data into 80 bytes), then they should build on a different blockchain, or build something else. It is not up to bitcoiners to accommodate random VC-funded scamcoin rollups.
+
+>What we believe an application may or may not need is irrelevant
+
+No it isn't. Bitcoin is money, and should be used as such. It should not be used as a [practically-]free-forever personal file storage service. Bitcoin should not cater to non-monetary usages, because it will quickly be overrun by scams and crowd out real economic activity from honest merchants just trying to start a Lightning node.
+
+If an application fits its arbitrary data into 80 bytes, then it can do whatever it likes, as long as it doesn't crowd out legitimate economic activity (Runes are a notable exception, where their data fits into 40 bytes but crowds out legitimate activity). If it doesn't, then it needs the bitcoin user network's consent. Citrea has not gotten our consent and has *not even asked for it*. This is a hostile action, no matter how you spin it. We should not be kowtowing to scammers who threaten to harm bitcoin, by giving them whatever they want. This is a surefire way for bitcoin to become irrelevant in short order.
+
+>I would personally disagree that a zero-knowledge proof (in the case of Citrea) for a Bitcoin scaling solution is “spam”.
+
+I agree that it's not that harmful and we should not make any changes to the protocol, except socially ostracize Citrea and anyone involved. It is only fair that if you treat bitcoin with hostility, bitcoiners should treat you accordingly.
+
+>Now, what is qualified as “spam” does end up in the chain anyways.
+
+This is not relevant. The vast majority of potential spam never happens, because there are filters in place that reduce economic demand for such transactions, so people either make their transactions fit into bitcoin's mempool policy, or they spam other chains. Yes, occasionally a spammer will put his transaction into the chain by relaying it directly to a miner, but this is usually very costly because of robust mempool filtering.
+
+>Preventing “public key stuffing” is not on the table
+
+I have no idea why anyone would think this. Luke-jr gave a [workshop at bitcoin++](https://youtu.be/J9bRVIXOhm0?t=12555) demonstrating how to filter Citrea's watchtower challenge transactions. As long as the transaction format is known (and it *must* be known in order for anyone to use the spammy metaprotocol), a filter that blocks it can trivially be made. Yes, Citrea could have been more sneaky about hiding their data, but we can just make a filter that blocks that, too. If Citrea treats us with hostility, we can trivially make it so their whole protocol falls apart because these watchtower transactions don't quickly confirm. It will not be easy for hostile VC-funded apps like Citrea to get investor funding in the first place unless they work *with* us instead of forcing their apps on bitcoin users.
+
+> People won’t move from using fake pubkeys to op_return to be nice to us is ludicrous because it’d cost them 4x more. This is just bluff to kill the filters.
+
+Yes, it's incorrect that opreturn is 4x more expensive than fake pubkeys, but it's *not* incorrect in that it's silly to expect hostile companies like Citrea to simply rewrite their protocol to use opreturns because they're "good citizens" or something. They've literally just proven that they are the opposite. If they said "hey bitcoin community, we're building something we think is really important for bitcoin and will benefit the ecosystem a lot, would you consider raising the opreturn limit to 145 bytes?", then that would not have caused such a backlash. The reason they didn't do it is probably because they are not confident their product would be useful to bitcoin in any way, so they knew it would be a tough sell. (I'm certainly not convinced.) So they went the sneaky backdoor way instead.
+
+>This is why we need to act now, to make the less harmful option available before such applications are deployed.
+
+No, we really don't. Again, *persuade bitcoiners that what you're doing is going to impact us positively*. If you can't do this, then go away! (Ethereum is *right there*!)
+
+>Transactions can already carry large payloads of data. Transactions pay a fee once, regardless of how long they are stored. Transactions are always stored forever by unpruned nodes. The proposed change does not affect this.
+
+What this ignores is that non-arbitrary data (data relevant to utxo transfer) is *priceless* to the bitcoin network because it is always relevant forever, because new nodes will always need to sync the blockchain from genesis in order to fully join the network. This is why we store utxo-ownership-transfer-relevant data *for the rest of eternity* - because if we didn't, bitcoin would simply not function. So there's a *huge cost* to storing this data, but also a *huge benefit*.
+
+Conversely, arbitrary data carries no such benefit. It is forgotten almost immediately. In ten, or a hundred, or a million years, everyone you know will be dead, and all nuclear waste will be safely broken down, but everyone's brc20 scamtokens will still be in the blockchain. The differential benefits between arbitrary data and non-arbitrary data are *incalculably massive*, so we must bias bitcoin toward non-arbitrary data, so bitcoin doesn't collect so much garbage that it collapses under its own weight.
+
+> Relaying larger `OP_RETURN` outputs on the public network may marginally reduce the cost of using them. However the data stored in `OP_RETURN` outputs cost 4 times as much as data stuffed in an input witness, which is standard today and already relayed on the public network.
+
+Yes, and this is a bug that should be fixed. The bitcoin network has agreed to 80 bytes of arbitrary data per transaction. Inscriptions larger than that do not have the consent of the bitcoin network.
+
+> Boiling frog: Core developers are trying to gradually make Bitcoin a universal database instead of just money, one step at a time.
+
+I don't think there's any such conspiracy, but I do think the economic incentives created by fiat money push all truly disruptive movements eventually towards watering down and irrelevance. It's hard to think of a better way to do this to bitcoin than to have bitcoiners forget that bitcoin is money, and instead convince them that it's a database with no particular purpose.
+
+> Core is trying to accommodate the Taproot Wizards who are a self-declared attack on Bitcoin which tries to corrupt the ecosystem.
+
+Are Taproot Wizards and Citrea linked? I wasn't aware.
+
+Anyway I already addressed this; I don't think the accommodation is necessarily intentional on the part of core devs; I just think that core devs are no longer willing to act with courage and tell companies with large VC-funded purses to get lost.
+
+> Raising UTxO bloat as a concern is ironic when considering applications like Citrea may only cause trivial amount of bloat while inscriptions, which Core refuses to filter, are responsible for over 8 GiB of bloat in the past couple of years.
+
+>This is confusing UTxO set usage and UTxO set bloat. While there is no normative language for Bitcoin concepts, the latter usually refers to **forever unspendable** outputs. No matter what we do those outputs will sit forever in every single user’s UTxO set. Spendable outputs, even if uneconomical to spend, can always be swept by someone incentivized out of band or a good samaritan (as was done in the past).
+
+Are you hearing yourself right now? You're not seriously trying to argue that 8GB of new utxoset bloat, created by brc20s that are *NEVER, EVER* going to be spent, are somehow less harmful than Citrea's "definitely unspendable" fake pubkeys, even though such txs have caused precisely 0 bloat so far, and are not expected to cause more than a few hundred bytes per year?? Come on, man, stop being silly.
+
+Utxoset bloat appears to have been fixed in libbitcoin's most recent unreleased version anyway, so I'm much less concerned by utxoset bloat, and much more concerned by high-fee spam that crowds out legitimate spends, which is what removing the opreturn limits will DEFINITELY incentivize.
+
+Anyway, I don't have the time or inclination to respond to your whole post, but I think the above suffices to communicate my understanding of the opposition to removing the opreturn limits.
+
+-------------------------
+
+AntoineP | 2025-05-26 04:10:15 UTC | #3
+
+Chris,
+
+I'd like to say thanks for your answer but you are mischaracterizing my points, getting emotional, ascribing intentions and in the end are not even able to engage with the arguments presented. I'm not interested in further entertaining barstool demagoguery, if you came here only to repeat recycled slogans without substance you could have kept it on Twitter. In fact, i've had (multiple) more constructive exchanges there than this. 
+
+Nobody's saying that tightening standardness rules wouldn't impose JPEGers some marginal (and temporary) cost in the form of having to re-build their tools on top of private APIs or alternative p2p relays to the Bitcoin Core one. The point has always been that with such demand for these transactions 1) the costs are ludicrously small and 2) the nudge to use direct submission to miners is an additional unnecessary mining centralization pressure. Bitcoin Core as a project has always put significant work into addressing mining centralization pressures. So you can build up strawmans and yell at them all you want, i am confident the project will continue to treat this as a primary concern in the interest of all users of the Bitcoin network.
+
+Nobody's proposing to change standardness rules to accommodate Citrea or any other side system. Their design works fine for them today, with or without your (or my) blessing. The point is to rectify the perverse incentive to use forever-unspendable outputs unnecessarily created by Core's standardness rules. I'm aware that you love this strawman so i'm sorry to break it up to you: Citrea's usage itself has never been the primary concern. It was only insofar as it is a manifestation of the perverse incentives which need to be rectified and as it's always some potentially created forever-unspendable outputs that we are better off not taking. Another argument that was later [brought up](https://gnusha.org/pi/bitcoindev/9c50244f-0ca0-40a5-8b76-01ba0d67ec1bn@googlegroups.com) is that since large miners already mine these transactions, Bitcoin Core should relay and include them in block templates by default.
+
+-------------------------
+
+cguida | 2025-05-26 19:06:22 UTC | #4
+
+Hi Antoine.
+
+>I’d like to say thanks for your answer but you are mischaracterizing my points, getting emotional, ascribing intentions and in the end are not even able to engage with the arguments presented.
+
+I am doing no such thing.
+
+>I’m not interested in further entertaining barstool demagoguery, if you came here only to repeat recycled slogans without substance you could have kept it on Twitter.
+
+This is precisely the condescending, arrogant attitude that is leading to the backlash you dislike so much. If you would treat our arguments with the respect we feel they rightly deserve, and actually *address* them rather than dismissing them, then you would be much more popular and liked. So far I have tried to keep things civil, but it seems you simply don't respond when I do, so I am forced to be louder and more annoying. Again, the ball is in your court here; I'm willing to have an in-depth good-faith conversation, but you don't seem willing to reciprocate.
+
+>Nobody’s saying that tightening standardness rules wouldn’t impose JPEGers some marginal (and temporary) cost in the form of having to re-build their tools on top of private APIs or alternative p2p relays to the Bitcoin Core one.
+
+Great! I'm glad you agree that filters work :)
+
+>The point has always been that with such demand for these transactions 1) the costs are ludicrously small
+
+Any increase at all in differential costs between legitimate transactions and spam transactions is a win for filters! The costs are not "ludicrously small"; as a matter of fact, Rob Hamilton tested an attempt to get past the dust filter, and ended up spending [72 hours and 9x the normal fee](https://x.com/Rob1Ham/status/1744540220853268538) to get it confirmed. Obviously since Mara implemented their hostile Slipstream service, the cost to go around mempool filters has come down significantly, but the average cost seems to be [still around 3x what a normal tx would cost](https://x.com/SuperTestnet/status/1919852784699990318). Again, this is a huge win for filters! 
+
+The costs will increase even more once Libre Relay's DoS attacks on bitcoin are countered by enough [defensive nodes](https://x.com/UnderCoercion/status/1925045834040889829).
+
+>and 2) the nudge to use direct submission to miners is an additional unnecessary mining centralization pressure
+
+Giving miners whatever fees they want for confirming abusive transactions is a much faster way to cause mining centralization than "nudging users toward direct submission". Currently only a minority of hashrate (Mara and F2Pool) have "direct submission" services, because these pools are bad actors. The rest of the hashrate has not implemented these abusive services, because they clearly care about bitcoin being usable as money (which they should if they want to avoid undermining their investment!)
+
+So what that means is that Mara and F2Pool are increasing their risk of having their blocks orphaned by not following standardness rules. Of course, they are also opening themselves up to retaliatory action, such as boycotts, by angry bitcoiners. All in all, it doesn't seem worth the risk for a mining pool to attack bitcoin in this way. Anyway they will always end up passing on this additional risk in the form of increased fees to their customers, which means filters will always be effective, as long as a majority of the network runs them.
+
+>Bitcoin Core as a project has always put significant work into addressing mining centralization pressures.
+
+Yes, that has always been a stated goal, but it doesn't seem to be very effective so far. At the moment, there are only a handful of entities creating block templates for the vast majority of hashrate. Maybe instead of kicking the can down the road by caving to scammers' demands, core should focus on tech to help re-decentralize mining.
+
+>So you can build up strawmans and yell at them all you want, i am confident the project will continue to treat this as a primary concern in the interest of all users of the Bitcoin network.
+
+What "strawmen" are you referring to? You're just projecting. You are completely ignoring all of the points I made, which (as far as I know) are dealing with your actual positions, and not strawmen. Conversely, your points have all attacked strawmen from the anti-spam side, and you have still not dealt with the steelmen. But please point out where I have made errors and I will apologize and retract.
+
+>Nobody’s proposing to change standardness rules to accommodate Citrea or any other side system
+
+I guess I misread your stated rationale then, which [explicitly mentions Citrea's new rollup bridge as a motivation](https://groups.google.com/g/bitcoindev/c/d6ZO7gXGYbQ/m/mJyek28lDAAJ) for wanting to remove opreturn limits. Yes, of course there may be "other" rollups that try to do a similar thing, but such rollups can also be treated as hostile (because they are).
+
+>Their design works fine for them today, with or without your (or my) blessing
+
+It actually doesn't. If enough people filter their transactions, their entire system falls apart. Currently their txs are considered standard, but there's [no reason why we can't filter them](https://youtu.be/J9bRVIXOhm0?t=12555). The reason they are not relying on hostile private relay services such as Mara or F2Pool is that they need assurances that these transactions will be confirmed in a timely manner and just using one or two small miners is not a good enough guarantee. They need the cooperation of the public relay network to even launch. They need us. We don't need them.
+
+>The point is to rectify the perverse incentive to use forever-unspendable outputs unnecessarily created by Core’s standardness rules. 
+
+Yes, and you still haven't addressed my point about this being a fake motivation, given brc20s having added 8GB of utxoset bloat because of core's failure to merge Luke's anti-inscription PR. The longer you dance around trying to avoid answering this point, the more dishonest you look.
+
+>I’m aware that you love this strawman so i’m sorry to break it up to you: Citrea’s usage itself has never been the primary concern
+
+I never claimed this was the primary concern. Citrea was the catalyst, though, and if we respond to such attacks with the hostility they deserve, it's very unlikely that other similar ventures will follow. Again, they need our cooperation in order for their system to function. We don't need them - *any* of them. Bitcoin works just fine without EVM-casino scamcoin rollups. (Actually it works a lot better!)
+
+>It was only insofar as it is a manifestation of the perverse incentives which need to be rectified and as it’s always some potentially created forever-unspendable outputs that we are better off not taking
+
+It's amazing how you keep dancing around the brc20 issue. You don't see the contradiction in calling Citrea's usage of fake pubkeys a "perverse incentive", but somehow letting anyone stuff as much data as they want into the witness, causing a tripling of the utxoset size in 2 years, is *not* a perverse incentive?? Please let me know how you are squaring that circle.
+
+> Another argument that was later [brought up](https://gnusha.org/pi/bitcoindev/9c50244f-0ca0-40a5-8b76-01ba0d67ec1bn@googlegroups.com) is that since large miners already mine these transactions, Bitcoin Core should relay and include them in block templates by default.
+
+They don't, actually. Only a minority of hashrate mines nonstandard txs. And again, the mining pools that do (F2Pool and Mara) are hostile actors and we should not simply lie down and let them get away with ruining bitcoin's entire reason for existence (being ***money***) by stuffing it with permanent, toxic junk.
+
+And if a majority of hashrate were mining abusive txs against the will of the noderunners, then we have much bigger problems on our hands and we should find out right away. After all, Nakamoto Consensus falls apart if miners are not at least 50% honest.
+
+-------------------------
+
+1440000bytes | 2025-05-27 01:18:16 UTC | #5
+
+[quote="cguida, post:4, topic:1697"]
+The costs will increase even more once Libre Relay’s DoS attacks on bitcoin are countered by enough [defensive nodes](https://x.com/UnderCoercion/status/1925045834040889829).
+[/quote]
+
+Typo fixed: ~~defensive~~ [sybil attack](https://en.bitcoin.it/wiki/Weaknesses#Sybil_attack). I [tweeted](https://x.com/1440000bytes/status/1751282873707987100) about this in 2024 along with some countermeasures.
+
+-------------------------
+

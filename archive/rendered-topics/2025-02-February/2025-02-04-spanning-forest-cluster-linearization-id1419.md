@@ -260,7 +260,7 @@ Here are benchmarks with the existing examples in the codebase. These are the ti
 
 -------------------------
 
-sipa | 2025-05-12 12:13:07 UTC | #3
+sipa | 2025-05-24 14:34:59 UTC | #3
 
 I have [posted](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/68) a comparison of this algorithm (SFL) with the GGT parametric min-cut algorithm, and the existing candidate set searching (CSS) algorithm from the other thread.
 
@@ -269,7 +269,7 @@ I have [posted](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/6
 Here are some of the open problems still with SFL:
 * **Termination**: there is a proof that if SFL terminates, the result is an optimal linearization. ~~However, there is no proof that it always will, even though fuzzing seems to indicate that the "merge chunks by maximum feerate difference" heuristic is sufficient to never cause the same state to be repeated (which would suffice for termination, as there is only a finite number of possible states).~~ EDIT: it is not guaranteed to terminate.
   * **Complexity bound**: it would be good to have some bound on how many iterations the algorithm can go through. If the above observation (no repeated states) holds, then there is some bound on the number of iterations, as there are at most $2^m$ states, but this is not a very interesting bound. Somewhat stronger bounds are possible by taking into account that no more than $n-1$ dependencies can be active, and that they form a spanning forest, but it remains exponential.
-* **Equal-feerate chunk splitting**: The algorithm works if splits are applied whenever the top subset has *strictly* higher feerate than the bottom, and merges whenever the bottom has *higher or equal* feerate as the top. If instead splits are done when the top has higher-or-equal feerate, the algorithm may loop forever. If instead merged are only done when the bottom has strictly higher feerate than the top, the result may not be topological. The result of this is that the chunks that come out may be contain multiple equal-feerate components that could be split in a topologically-valid manner, i.e., become separate equal-feerate chunks. It would be nice to find an algorithm that can efficiently find these, whether that's done as part of SFL, or as a separate post-processing step. Note that this is not simply finding connected components within the chunks: the SFL chunks are *always* connected already.
+* ~~**Equal-feerate chunk splitting**: The algorithm works if splits are applied whenever the top subset has *strictly* higher feerate than the bottom, and merges whenever the bottom has *higher or equal* feerate as the top. If instead splits are done when the top has higher-or-equal feerate, the algorithm may loop forever. If instead merged are only done when the bottom has strictly higher feerate than the top, the result may not be topological. The result of this is that the chunks that come out may be contain multiple equal-feerate components that could be split in a topologically-valid manner, i.e., become separate equal-feerate chunks. It would be nice to find an algorithm that can efficiently find these, whether that's done as part of SFL, or as a separate post-processing step. Note that this is not simply finding connected components within the chunks: the SFL chunks are *always* connected already.~~ EDIT: solved, see [post](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419/9) below.
   * **Sub-chunk linearization**: Somewhat related, SFL provides no way to order the transactions within a chunk. This only matters for block building with [sub-chunk granularity](https://delvingbitcoin.org/t/cluster-mempool-block-building-with-sub-chunk-granularity/1044), but intuitively, it feels like there is some information within the SFL state that may be useful. When a chunk is repeatedly split and re-merges with itself, it feels to me like it is really improving some implied sub-chunk linearization, until that sub-chunk linearization becomes good enough that it permanently splits the chunk in two. An "optimal sub-chunk linearization" would imply splitting equal-feerate chunks too, though beyond that, it's not clear how to define optimality here.
 * **LIMO-like improvements**: It would be useful if one could take an SFL state, and a topologically-valid subset, and make directed improvement steps such that the corresponding linearization is at least as good as moving that subset to the front of the linearization. This would permit things like mixing in ancestor sets into the state.
   * **Merging states**: a more general question is, can one, given two SFL states (sets of active dependencies) efficiently find a third SFL state whose linearization is at least as good as both linearizations corresponding to the input states? This is trivially possibly by extracting linearizations from both, applying the [linearization merging](https://delvingbitcoin.org/t/merging-incomparable-linearizations/209/1) algorithm, and converting those back to SFL, which is all possible in $\mathcal{O}(n^2)$, but this loses valuable information. A final SFL state lets one decide that the corresponding linearization is optimal (by not having any more splits or merges to apply) in $\mathcal{O}(n^2)$ time, while doing that for just a linearization is as far I know equivalent to computing a (single) min-cut, which is $\mathcal{O}(n^3)$ even with the most state-of-the-art algorithms.
@@ -359,6 +359,41 @@ I have made a few changes to the merge and split selection works:
 I have updated the benchmarks in the [other thread](https://delvingbitcoin.org/t/how-to-linearize-your-cluster/303/73) to reflect this.
 
 With these changes, I'm quite confident that SFL is still the way to go.
+
+-------------------------
+
+sipa | 2025-05-24 19:37:28 UTC | #9
+
+[quote="sipa, post:3, topic:1419"]
+The result of this is that the chunks that come out may be contain multiple equal-feerate components that could be split in a topologically-valid manner, i.e., become separate equal-feerate chunks. It would be nice to find an algorithm that can efficiently find these, whether that’s done as part of SFL, or as a separate post-processing step.
+[/quote]
+
+Solved!
+
+The idea is that equal-feerate chunks can be split using the existing algorithm, by perturbing the transaction feerates slightly. If we pick an arbitrary transaction in a chunk, and:
+* give it an infinitesimally **higher** feerate than it really has, then if a way to split the chunk exists such that this transaction is in the **top** part, it will be found using the normal split/merge algorithm
+* give a transaction an infinitesimally **smaller** feerate than it really has, then if a way to split the chunk exists such that this transaction is in the bottom part, it will be found using the normal split/merge algorithm.
+
+If we try both the infinitesimally-higher and infinitesimally-smaller approaches for the same transaction, then if a split exists it must be found, as this transaction must appear in either the top or the bottom of the split.
+
+We do not actually need to modify the transaction feerates to implement this. Instead, for increased feerate we can look for $q=0$ dependencies where the modified transaction is in the top part, as $q(a \cup \epsilon, b) = q(a,b) + q(\epsilon,b) = q(\epsilon,b) > 0$, where $\epsilon$ is an imaginary transaction with very high feerate, but infinitesimal size. Similarly, for decreased feerate we can look for $q=0$ dependencies with the modified transaction in the bottom. If the chunks are already optimal otherwise, the resulting split components cannot merge with any other chunk, so we only need to attempt self-merges, and do not need a full merge sequence.
+
+More concretely, given a chunk:
+* Pick an arbitrary transaction $t$ in it.
+* Loop, trying to split the chunk with $t$ in the top set:
+  * Find an active dependency $d_1$ in it with $q \geq 0$ (but note that $q > 0$ is not possible anymore if the normal optimization process has finished), and which has $t$ in its **top** set. If no such dependency is found, stop.
+  * Deactivate $d_1$.
+  * Find an inactive dependency $d_2$ whose child is in $d_1$'s top and whose parent is in $d_2$'s bottom. If none can be found, recurse into minimizing the created top and bottom chunk.
+  * Activate $d_2$.
+* Loop, trying to split the chunk with $t$ in the bottom set:
+  * Find an active dependency $d_1$ in it with $q \geq 0$ (but note that $q > 0$ is not possible anymore if the normal optimization process has finished), and which has $t$ in its **bottom** set. If no such dependency is found, stop.
+  * Deactivate $d_1$.
+  * Find an inactive dependency $d_2$ whose child is in $d_1$'s top and whose parent is in $d_2$'s bottom. If none can be found, recurse into minimizing the created top and bottom chunk.
+  * Activate $d_2$.
+
+I have implemented this in the [Bitcoin Core PR](https://github.com/bitcoin/bitcoin/pull/32545) for adding SFL.
+
+When running this on the replayed 2023 data, it appears that out of 24693846 clusters with 2 or more transactions, 136709 of them (0.55%) gain one or more chunks by running this chunk minimization procedure (at least for some random seeds), adding on average 1.58 chunks per affected cluster, or 0.0087 chunks per cluster over the whole dataset.
 
 -------------------------
 

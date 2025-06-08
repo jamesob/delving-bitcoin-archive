@@ -222,3 +222,164 @@ Some previous discussion about this issue:
 
 -------------------------
 
+light | 2025-05-17 20:50:31 UTC | #15
+
+I have been thinking about this topic and have a random collection of thoughts to share here.
+
+---
+
+Regarding the features of the KYC covenant described in OP:
+
+[quote]
+* The government does not have to use a hot key. It can sign offline using air-gapped devices
+[/quote]
+
+This is an advantage; at the same time, a signing server can create multiple spending paths such that if the key on one path is compromised, they can switch to another key. That doesn't help in cases where the attacker has also compromised the user key, but helps recover in cases where the user key is not compromised. This might be "good enough", since the case of the covenant, if the user key is compromised, this can also lead to theft (see point below about stealing KYC'd coins).
+
+[quote]
+* The government can remove addresses from the whitelist every two weeks
+[/quote]
+
+I don't think this will be acceptable in practice. If an address is found to be compromised authorities will want to be able to immediately remove it from the KYC list. Two weeks is a long time to allow an address to be abused.
+
+[quote]
+* Self custody becomes much safer as attackers cannot steal KYC’d coins
+[/quote]
+
+Stealing coins is likely more difficult in the KYC covenant paradigm but we only have to look at how prevalent theft and fraud are in the actually-existing KYC banking system to see that "cannot steal" is far too strong a claim. Attackers have many tools at their disposal to steal KYC funds, such as money mules, account takeover, and identity theft, to name just a few. Translating these methods into the KYC covenant context, this is how an attacker could circumvent the KYC restrictions to steal coins (assuming they have already compromised the private key, of course):
+
+- Money mules: the attacker would hire willing agents to go through the KYC process and receive funds stolen from another account, and quickly cash them out before the theft victim can report the theft and freeze the funds.
+
+- Account takeover: the attacker would compromise an existing KYC'd account and use it to cash out stolen funds before either the theft victim or the takeover victim realizes what is happening.
+
+- Identity theft: the attacker would create a KYC account using a stolen identity and use it to cash out stolen funds before either the theft victim or the identity theft victim realizes what is happening.
+
+These methods can also be combined to create "chains" or "fan-out" structures of transfers that make the theft harder to (fully) recover from. Again this is not theoretical, this is already how attackers steal money in the KYC banking system.
+
+---
+
+Regarding alternatives:
+
+Today we have a few comparable alternatives to point to, one that uses a signing server ([AMP](https://docs.liquid.net/docs/blockstream-amp-overview)) and two that use smart contracts ([Railgun](https://docs.railgun.org/wiki/assurance/private-proofs-of-innocence) and [Privacy Pools](https://docs.privacypools.com/layers/asp)). AFAIK neither model has been adopted or mandated by any govt, so TBD which model tyrants will end up preferring.
+
+(Notably, trustless implementations of Railgun and Privacy Pools could be built on bitcoin using only `OP_CAT`, by using `OP_CAT` to create a trustless bridge to an EVM-compatible rollup and then deploying the open-source Railgun/Privacy Pools smart contracts to that rollup.)
+
+-------------------------
+
+RobinLinus | 2025-05-17 21:49:58 UTC | #16
+
+[quote="light, post:15, topic:556"]
+I don’t think this will be acceptable in practice. If an address is found to be compromised authorities will want to be able to immediately remove it from the KYC list. Two weeks is a long time to allow an address to be abused.
+[/quote]
+
+A compromised account can still transact only within the KYC'd subset of accounts. So in fact it doesn't matter when you blacklist them (or the addresses to which they sent the compromised coins).
+
+
+[quote="light, post:15, topic:556"]
+quickly cash them out before the theft victim can report the theft and freeze the funds
+[/quote]
+
+KYC would be probably pointless without some sort of rate limit which prohibits draining funds like that. Particularly for large amounts, for which this "theft protection" is the most relevant.  
+
+[quote="light, post:15, topic:556"]
+cash out stolen funds
+[/quote]
+
+Though where would you cash out those stolen funds if your trace is fully KYC'd as can only send them to KYC'd accounts and exchanges?
+
+[quote="light, post:15, topic:556"]
+fan-out” structures of transfers
+[/quote]
+
+Again, this assumes there's no rate limiting for large amounts.
+[quote="light, post:15, topic:556"]
+signing server
+[/quote]
+
+Key management is hard. Hot-key management is harder. Even more so if you care about uptime and throughput.
+
+[quote="light, post:15, topic:556"]
+neither model has been adopted or mandated by any govt
+[/quote]
+
+But they also haven't rolled out CBDCs yet...
+
+-------------------------
+
+light | 2025-05-25 00:16:13 UTC | #17
+
+[quote="RobinLinus, post:16, topic:556"]
+A compromised account can still transact only within the KYC’d subset of accounts. So in fact it doesn’t matter when you blacklist them (or the addresses to which they sent the compromised coins).
+[/quote]
+
+It does matter, for the reasons I explained in this part of my response:
+
+> an attacker could circumvent the KYC restrictions to steal coins...
+
+Merely requiring KYC on an account does not stop abuse of the account or any downstream accounts where the stolen funds could be moved to. But if you can quickly "blacklist" the accounts then the funds can be frozen in their tracks (same way the stablecoin issuers freeze coins when a hack happens -- this generally becomes less effective the longer it takes for them to act).
+
+[quote="RobinLinus, post:16, topic:556"]
+KYC would be probably pointless without some sort of rate limit which prohibits draining funds like that. Particularly for large amounts, for which this “theft protection” is the most relevant.
+[/quote]
+
+But we see in practice with tradfi KYC accounts that such rate limits are either untenable from a UX perspective (leading to there being no effective limit) or the limits are circumvented when they are put in place anyways. Many horror stories of scam victims wiring their life savings to scammers (using fully KYC'd bank accounts on both ends of the transaction). The banks will put up all kinds of roadblocks to try to stop them but the victims jump through all the hoops and get past the limits and still lose all their money. This stuff is not hypothetical, I am talking about how the attackers in the KYC tradfi system actually operate today. Adding smart contracts into the mix is unlikely to meaningfully change any of this.
+
+[quote="RobinLinus, post:16, topic:556"]
+Key management is hard. Hot-key management is harder. Even more so if you care about uptime and throughput.
+[/quote]
+
+Yeah but governments already run many different kinds of PKI systems, including for mass scale, high volume signing e.g. TLS on govt websites. It's not uncharted territory for them.
+
+[quote="RobinLinus, post:16, topic:556"]
+But they also haven’t rolled out CBDCs yet…
+[/quote]
+
+Sure I was just pointing out that we don't yet have any empirical data about which model tyrants will prefer (if any) for controlling cryptocurrency usage.
+
+-------------------------
+
+RobinLinus | 2025-05-26 05:12:52 UTC | #18
+
+[quote="light, post:17, topic:556"]
+> an attacker could circumvent the KYC restrictions to steal coins…
+[/quote]
+
+As I said, this is hard for an attacker trying to steal large sums, which is what institutions care about.
+
+[quote="light, post:17, topic:556"]
+TLS on govt websites
+[/quote]
+
+The difference is that TLS certificates can be easily revoked if a  key gets lost or compromised. 
+
+That's not possible with a co-signing key once it is enshrined into millions of UTXOs. In contrast, with CAT, EXPIRE, and CSFS you can build an infrastructure similar to TLS, including certificate authorities and such.
+
+-------------------------
+
+light | 2025-05-30 15:44:35 UTC | #19
+
+[quote="RobinLinus, post:18, topic:556"]
+this is hard for an attacker trying to steal large sums
+[/quote]
+
+It's probably not as hard as you think:
+
+> The federal government cannot say for sure how much of the more than $900 billion in pandemic-related unemployment relief has been stolen, but credible estimates range from $87 billion to $400 billion — at least half of which went to foreign criminals, law enforcement officials say...
+>
+> "Organized crime has never had an opportunity where any American's identity could be converted into $20,000, and it became their Super Bowl."
+> 
+> [Source](https://www.nbcnews.com/news/us-news/easy-money-how-international-scam-artists-pulled-epic-theft-covid-n1276789)
+
+
+[quote="RobinLinus, post:18, topic:556"]
+The difference is that TLS certificates can be easily revoked if a key gets lost or compromised.
+
+That’s not possible with a co-signing key once it is enshrined into millions of UTXOs. In contrast, with CAT, EXPIRE, and CSFS you can build an infrastructure similar to TLS, including certificate authorities and such.
+[/quote]
+
+I have only napkin sketched this so not 100% sure, but I think the govt could use a connector output to prevent spending on the path with the compromised key, forcing transactions to go through a secondary path with a backup key that the govt keeps offline until it is needed for a situation like this. The govt can prepare an arbitrarily large number of such paths in the emulated covenant tapscript. In the mean time, the attacker still needs to compromise the end user key in addition to the cosigner key, so as soon as compromise is detected the govt can alert users to roll their funds over into a new covenant with new cosigner keys.
+
+In any case I do agree that with new opcodes the system becomes easier to manage. My argument is, despite that, the limitations that exist today seem unlikely to be _critical impediments_ for tyrants (and there are [credible alternatives](https://delvingbitcoin.org/t/on-the-possibility-of-evil-covenants-and-implications-for-soft-fork-proposals/1703) if the cosigning method does prove to be too cumbersome).
+
+-------------------------
+

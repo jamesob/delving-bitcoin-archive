@@ -1106,3 +1106,29 @@ Please let me know if anything isn't clear or if you feel the example parameters
 
 -------------------------
 
+JohnLaw | 2025-05-22 21:20:03 UTC | #10
+
+I've updated the associated paper to include the numerical example given above: 
+
+https://github.com/JohnLaw2/ln-spam-prevention
+
+The tables are better formatted there, so it may be easier to read.
+
+-------------------------
+
+ClaraShk | 2025-06-02 14:22:43 UTC | #11
+
+Hi John,
+
+Thanks for this!
+
+Could you clarify some details?
+
+When exactly is the hold fee charged, and what ensures that the necessary funds are available to cover it? 
+
+If the funds are pre-locked, what’s the maximum amount that can be charged?
+
+Is the hold fee calculated by amount, by slot, or both?
+
+-------------------------
+

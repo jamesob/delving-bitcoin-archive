@@ -314,3 +314,9 @@ I believe this response is already long enough, so I'll leave it here. Let me kn
 
 -------------------------
 
+brh28 | 2025-06-04 15:25:00 UTC | #5
+
+I've created a draft PR in the BOLTs, which includes the updated proposal: https://github.com/lightning/bolts/pull/1259
+
+-------------------------
+

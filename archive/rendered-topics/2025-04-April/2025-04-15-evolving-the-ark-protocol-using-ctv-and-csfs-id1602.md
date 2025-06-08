@@ -355,3 +355,21 @@ Since it is an APO signature (using CTV+CSFS), the signature only signs the outp
 
 -------------------------
 
+neha | 2025-05-20 21:02:39 UTC | #5
+
+I did my own writeup for Ark to try to understand it. It includes the benefits of CTV+CSFS and compares it a bit to Lightning/rollups. Might be helpful for those who come across this post to try to understand Ark variants:
+
+https://nehanarula.org/2025/05/20/ark.html
+
+-------------------------
+
+securitybrahh | 2025-05-21 06:26:14 UTC | #6
+
+bitcoin-core maintainers added a regtest label to that PR,
+
+so can I see this in action on regtest?
+
+also supertestnet.org needs to analyze this.
+
+-------------------------
+

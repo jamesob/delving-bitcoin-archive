@@ -47,3 +47,25 @@ So, to sum up, the answer to your question "how to deal with spam" is "just comp
 
 -------------------------
 
+moonsettler | 2025-05-22 10:34:09 UTC | #4
+
+Well to me if there is a layer-0, then it's the internet. The other attempts to define it are super confusing.
+
+-------------------------
+
+garlonicon | 2025-05-22 11:40:30 UTC | #5
+
+> The other attempts to define it are super confusing.
+
+Why? The whole idea behind it is quite simple: if you have L2 and L1, then Lightning Network has more transactions than mainnet, and when they are committed on-chain, they can be discarded (so that future LN nodes don't have to download them). And the same can be true between L1 and L0: if you can commit things upwards in a way, where cryptographical assumptions are not weaker than before, then you can discard some data from L1, and use L0 instead.
+
+Because during Initial Blockchain Download, you don't have to pull the full history from 2009 to 2025. You only have to pull enough data, to be 100% sure, that Proof of Work is correct, and all chains of signatures are correct, and other consensus rules like that are met. But: if you can process some kind of proof, instead of processing the actual data, and the proof has the same cryptographic assumptions, then you can reach better spam resistance. If you have "Alice -> Bob -> Charlie" transaction chain, then you can just process and store "Alice -> Charlie" in your L0 node, and the proof, that Bob was inside, can be kept separately. Then, you will reach similar case, as if "Alice -> Bob" and "Bob -> Charlie" would be LN transactions, and "Alice -> Charlie" would be the final on-chain commitment, but instead of doing it between L2 and L1, you would do that between L1 and L0.
+
+> Well to me if there is a layer-0, then it’s the internet.
+
+Oh, there are many things, which are simpler than L1: for example, you can have a node, which collects only block headers, and traces only Proof of Work, based on that. In another topic, there are discussions about UTXO proofs. But in general, you can have quite lightweight node in practice, where you have to process less data during Initial Blockchain Download, and more data, when coins are moved.
+
+And to reach better spam resistance, you can simply make your node more pruned, than it currently is. Now, you have only full nodes, and pruned nodes. In the future, there will probably be nodes, which will process only a subset of what is happening in L1, and then, they will be more resistant to spam, because users would have to provide heavier proofs, when moving their coins.
+
+-------------------------
+

@@ -437,3 +437,115 @@ EDIT: His point was actually about the GETBLOCKTXN causing more round trips, but
 
 -------------------------
 
+davidgumberg | 2025-05-21 06:35:09 UTC | #29
+
+[0xB10C/2025-03-prefill-compactblocks](https://github.com/0xB10C/bitcoin/commits/2025-03-prefill-compactblocks/) is very interesting, 
+
+> since the positive effect on the network is only measurable with a wide(r) deployment of the prefilling patch, it’s probably worthwhile to do some Warnet simulations on this and test the improvement under different scenarios.
+
+I think one low effort way to perform a limited test of this patch on mainnet is to run a second node which only listens to `CMPCTBLOCK` announcements from manually-connected peers, and is manually connected to a [0xB10C/2025-03-prefill-compactblocks](https://github.com/0xB10C/bitcoin/commits/2025-03-prefill-compactblocks/) node. I've created a branch to try this: [davidgumberg/5-20-25-cmpct-manual-only](https://github.com/davidgumberg/bitcoin/tree/5-20-25-cmpct-manual-only), I'll try to run an experiment soon with two nodes.
+
+--------
+
+> My assumption would be that if we prefill:
+> - transactions we had to request
+> - transactions we took from our extra pool
+> - prefilled transactions we didn’t have in our mempool (i.e. prefilled txns that were announced to use and ended up being useful)
+
+I think the privacy concerns raised in [bitcoin/bitcoin#27086](https://github.com/bitcoin/bitcoin/pull/27086), are relevant here, how can a node avoid:
+1. Providing a unique fingerprint by revealing its exact mempool policy in CMPCTBLOCK announcements.
+2. Revealing all of the non-standard transactions that belong to it by failing to include them in it's prefill.
+
+`2.` is more severe, and may be part of a class of problems (mempool's special treatment of it's own transactions) that is susceptible to a general fix outside of the scope of compact block prefill. Even if it's impossible or infeasible to close all leaks of what's in your mempool, it would be good to solve this.
+
+One way of fixing this might be to add another instantation of the mempool data structure ([`CTxMempool`](https://github.com/bitcoin/bitcoin/blob/ee5409d5705b2cb955c12e3ba07e051164b378d4/src/txmempool.h#L303)), maybe called `m_user_pool`. Most of the code could go unchanged except for where it is desirable to give special treatment to user transactions, and these cases could be handled explicitly.
+
+To solve `1.`, I wonder if there is a reasonably performant way to shift the prefills in the direction of prefilled transactions the node *wouldn't* have included according to default mempool policy. This is not just for privacy, as I imagine this is the ideal set of transactions to include, strict mempools prefilling too much, and loose mempools prefilling too little.[^1] If this would be too expensive to compute on CMPCTBLOCK receipt, maybe a variation of `m_user_pool` is possible, where a node maintains another `CTxMempool` instance for all the transactions which default mempool policy would have excluded, but user supplied arguments have permitted. Or maybe the extra state is too expensive/complicated, and instead just performing an extra standardness check with the default policy on tx receipt and setting a flag on the tx (or keeping a map of flagged tx'es) is enough.
+
+Maybe all of this is too complicated to implement proportional to its value here, but these could also be steps toward solving mempool fingerprinting more generally.[^2]
+
+--------
+
+>the number of TCP packets sent over could increase if we’re making the CMPCTBLOCK message larger with prefilledtxns.
+
+I am not very knowledgeable about TCP, but as I understand [RFC 5681](https://datatracker.ietf.org/doc/html/rfc5681), the issue is not a message growing to a size where it has to be split across multiple packets/segments, but a message that grows too big to fit in the receiver-advertised message window (rwnd) and the RFC 5681 (or other congestion control algorithm) specified congestion window. (cwnd). The smallest of these two (cwnd and rwnd) is the largest amount of data that can be transmitted in a single TCP round trip, it should be possible to get the relevant metrics for this from the `tcp_info` structure on *nix systems[^3] doing something like:
+
+```c
+struct tcp_info info;
+socklen_t info_len = sizeof(info);
+getsockopt(sockfd, IPPROTO_TCP, TCP_INFO, &info, &info_len)
+
+// congestion send window (# of segments) * mss (max segment size)
+uint32_t cwnd_bytes = info.tcpi_snd_cwnd * info.tcpi_snd_mss;
+// our peer's advertised receive window in bytes
+uint32_t peer_rwnd_bytes = info.tcpi_snd_wnd;
+// get the smaller one
+uint32_t max_bytes_per_round_trip = cwnd_bytes < peer_rwnd_bytes ? cwnd_bytes : peer_rwnd_bytes;
+```
+
+And the announcer could pack the prefill until it hits this limit. I am not sure how likely it is that that constraining messages to this size would deter a second round trip from taking place, but it seems like a reasonable starting point.
+
+[^1]: For better or for worse, such an approach would disadvantage nodes with stricter-than-default mempools in compact block reconstruction.
+[^2]: But maybe no general solution to mempool fingerprinting is possible, and nodes with non-default mempools shouldn't have any expectation that they can't be fingerprinted. 
+[^3]: [Linux](https://github.com/torvalds/linux/blob/b36ddb9210e6812eb1c86ad46b66cc46aa193487/include/uapi/linux/tcp.h#L261), [Mac](https://developer.apple.com/documentation/kernel/tcp_info/3944476-tcpi_snd_cwnd), [FreeBSD](https://github.com/freebsd/freebsd-src/blob/3d2957336c7ddaa0a29cf60cfd458c07df1f5be9/sys/netinet/tcp.h#L421) It seems something similar on Windows is possible with [`SIO_TCP_INFO`](https://learn.microsoft.com/en-us/windows/win32/winsock/sio-tcp-info)
+
+-------------------------
+
+gmaxwell | 2025-05-21 08:29:08 UTC | #30
+
+Prefilling is just a flawed part of the design, it was kinda tossed in because it was very easy to add and harmless if not used. After compact blocks were deployed I did a bunch of testing and was unable to make it do anything but harm.
+
+The issues it has are several fold:  it's part of the compact block message so it blocks reception of the compact block in cases where it wasn't needed.   Peers also get compact blocks from multiple sources and so if they all use prefill then you waste N fold the bandwidth (or N-1 if one was indeed helpful).  And then of course the extra data stuffs you further back into needing RTTs, thanks to window issues.
+
+Then of course you have the issue that many missed transactions are missed because they were too large, which makes all the above issues much worse.
+
+Fiber being AGPL is a non-issue, parts could be re-licensed if needed. It has in it solutions to every one of the issues raised above-- including the ability for extra data to be sent that helps even if the prediction of what was missed wasn't accurate, allowing data from multiple peers to all contribute, and so on.
+
+The use of UDP however, needed get around the TCP window issues, would probably be challenging for widespread deployment due to the need for hole punching.
+
+A lot of thing have happened since then, core has minisketch merged (though unused),  and using that kind of tool I was able to get blocks in consistently 800-ish bytes before.  A big reduction in compact block size would leave a lot of room for data to fill in missing transactions.
+
+But if miners are regularly including hundreds of kilobytes that were never relayed I'm a bit dubious that any scheme is going to result in particularly good performance except between peers with extremely high dedicated bandwidth that can do manual congestion management (e.g. a fiber like deployment of geographically dispersed data center nodes).  Though the fact that it can help even if just some nodes run something faster is helpful-- it makes development of stuff more interesting even if there isn't a serious deployment story.
+
+-------------------------
+
+davidgumberg | 2025-05-22 02:56:14 UTC | #31
+
+> The issues it has are several fold: it’s part of the compact block message so it blocks reception of the compact block in cases where it wasn’t needed. Peers also get compact blocks from multiple sources and so if they all use prefill then you waste N fold the bandwidth (or N-1 if one was indeed helpful). And then of course the extra data stuffs you further back into needing RTTs, thanks to window issues.
+>
+>Then of course you have the issue that many missed transactions are missed because they were too large, which makes all the above issues much worse.
+
+I agree that in the extreme case, prefilling will not be helpful. But I'm optimistic that prefilling up to the TCP congestion window (no extra RTT) is not harmful. It seems reasonable to presume that, in general, a node's operating system's congestion control algorithm will reliably predict the maximum message that can be sent to a peer without incurring an extra round trip, and nodes with slow connections will tend to also have small windows, mitigating the redundant prefill cost. If it works as I understand, it seems like using the cwnd will scale nicely up and down with connection speeds, and offloads the engineering burden of this problem to kernel developers and the IETF. 
+
+It seems worth measuring what the typical sizes of compact block `BLOCKTXN` fulfillments are. I've made a branch that might help with this: (https://github.com/bitcoin/bitcoin/pull/32582). It would also be useful to have some data on bitcoin node congestion windows sizes, and if these are close to each other in size, compact block reconstruction failures don't go away, but conservatively prefilling might make them less frequent while incurring little additional cost.
+
+> A lot of thing have happened since then, core has minisketch merged (though unused), and using that kind of tool I was able to get blocks in consistently 800-ish bytes before. A big reduction in compact block size would leave a lot of room for data to fill in missing transactions. 
+
+Great idea, I see that on my node compact block messages hover around ~20kB, 800 bytes would leave a lot more overhead for prefills!
+
+-------------------------
+
+Crypt-iQ | 2025-05-30 16:05:05 UTC | #32
+
+[quote="davidgumberg, post:29, topic:1052"]
+I am not very knowledgeable about TCP, but as I understand [RFC 5681](https://datatracker.ietf.org/doc/html/rfc5681), the issue is not a message growing to a size where it has to be split across multiple packets/segments, but a message that grows too big to fit in the receiver-advertised message window (rwnd) and the RFC 5681 (or other congestion control algorithm) specified congestion window. (cwnd). The smallest of these two (cwnd and rwnd) is the largest amount of data that can be transmitted in a single TCP round trip
+[/quote]
+
+I am not sure whether the comment in PR 27086 I linked is referring to congestion issues or IPv4 fragmentation issues. I don't have hard data, but I believe both contribute to latency issues here and sending data >> MTU (~1500 bytes) is going to lead to lots of fragmentation. Two links if you have the time:
+- https://datatracker.ietf.org/doc/html/rfc8900#name-ip-fragmentation
+- https://datatracker.ietf.org/doc/html/rfc4963
+
+I'm not really sure that pre-filling above MTU is worth it after reading the two above RFCs, but curious to hear thoughts.
+
+EDIT: Sorry to cross-post, but I've TLDR'd the above two RFC's in a related Lightning conversation here: https://delvingbitcoin.org/t/latency-and-privacy-in-lightning/1723/13?u=crypt-iq
+
+I think I've actually conflated IP reassembly with TCP reassembly. I think maybe hard data would be nice to have here?
+
+-------------------------
+
+gmaxwell | 2025-05-31 16:14:28 UTC | #33
+
+There is no IP fragmentation involved in TCP transmissions (well, assuming PMTUD did its thing)... indeed, you're conflating IP reassembly with TCP reassembly.
+
+-------------------------
+

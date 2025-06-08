@@ -1609,3 +1609,120 @@ Also the core-devs has put a "regtest" label on the PR, can I see thr opcodes ru
 
 -------------------------
 
+moonsettler | 2025-05-27 14:44:18 UTC | #65
+
+regtest means you can only use it on your own computer on a private blockchain.
+
+-------------------------
+
+securitybrahh | 2025-05-28 10:08:00 UTC | #66
+
+lol, atleast let me run on some test net that we all can view through mempool space UI.
+
+-------------------------
+
+Chris_Stewart_5 | 2025-06-05 00:09:35 UTC | #67
+
+Has anyone actually published a branch that has both CTV+CSFS? From skimming through this topic I don't see one. It would be nice to have one on top of the major latest release of bitcoin core for integration testing the 2 opcodes together.
+
+-------------------------
+
+AntoineP | 2025-06-05 13:29:31 UTC | #68
+
+Good point. Greg [has a PR](https://github.com/bitcoin-inquisition/bitcoin/pull/72) to introduce CSFS to inquisition. This is in effect a branch with both CTV+CSFS. It's worth noting nobody bothered reviewing it in the past 3 months.
+
+-------------------------
+
+Chris_Stewart_5 | 2025-06-05 21:47:46 UTC | #69
+
+I think the @RobinLinus and @ajtowns interactions on the BitVM & CTV+CSFS thread illustrates the subtle foot guns that come with OP_CTV as an OP_NOP and OP_SUCCESS. I don't think I would have caught this subtle vulnerability that comes with supporting legacy Script. 
+
+This interaction occurred after the posts on this thread arguing about OP_NOP support, so I feel like its worthwhile to highlight it here.
+
+[quote="ajtowns, post:8, topic:1591"]
+where `<H>` locks in where the output goes to, and input 2’s scriptSig. But because H is only committing to the second input’s scriptSig, then it’s easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey `OP_2DROP OP_TRUE`:
+
+```
+utxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE
+
+input 1: utxo A, no witness/scriptSig
+input 2: utxo C, scriptSig = "<S;NONE|ANYONECANPAY>" "<P> CHECKSIG"
+output: whatever
+```
+
+That allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you’re trying to enforce.
+
+(I’m assuming in a real example utxo B’s spend condition is more complicated than `<P> CHECKSIG`, as otherwise the availability of a NONE|ANYONECANPAY signature means it can be spent immediately, so a griefer could fairly easily prevent the happy path from ever being taken)
+[/quote]
+
+It seems like this could be worked around since OP_CTV does commit to the scriptSig according to instagibbs
+
+[quote="instagibbs, post:9, topic:1591, full:true"]
+The scriptSig could include the `CHECKSIG` opcode directly, contra standardness rules. :grimacing:
+
+In the original idea, a p2sh redeemscript is just pushes, so the spk could just be blank and it would pass, since cleanstack isn’t consensus anyways.
+[/quote]
+
+However this seems rather unpleasant. 
+
+I think Jeremy Rubin is conceding the point that at least for p2sh OP_CTV is broken? 
+
+[quote="JeremyRubin, post:11, topic:1591"]
+This is an interesting point; without some sort of “stack sentinel” that guarantees a specific script type, using CTV as a gadget for any P2SH type seems broken, as you can replace it with a legacy script that does something else. This is “confusing” because you cannot replace it with a p2sh script that does something else. I can make an effort to better document this issue…
+[/quote]
+
+Which leaves us with only spending "raw"/"bare" outputs to be able to commit to meaningful data in the scriptSig with CTV.
+
+Is the juice really worth the squeeze for committing to scriptSig data?
+
+-------------------------
+
+instagibbs | 2025-06-06 11:47:46 UTC | #70
+
+I've come to see this capability of CTV (committing to other prevouts in very round-about way) as an anti-feature, an unexpected capability that is so sharp-edged that if it's something we want we should explicitly design for it instead to discourage such bizarre usage.
+
+Alternatively we could remove the capability by making non-empty scriptSigs fail the script execution. This of course only makes sense in a post-segwit world only which I've already advocated above as a taproot-only push opcode.
+
+-------------------------
+
+josh | 2025-06-06 17:37:06 UTC | #71
+
+> This of course only makes sense in a post-segwit world only which I’ve already advocated above as a taproot-only push opcode.
+
+@instagibbs If a taproot-only push opcode is the way to go, would it make sense to introduce a new witness version for bare tapscript?
+
+That way, you can still make bare CTV commitments (leaving other types of bare scripts non-standard).
+
+-------------------------
+
+instagibbs | 2025-06-06 20:41:37 UTC | #72
+
+[quote="josh, post:71, topic:1509"]
+If a taproot-only push opcode is the way to go, would it make sense to introduce a new witness version for bare tapscript?
+[/quote]
+
+I did here https://delvingbitcoin.org/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/58?u=instagibbs 
+
+I find it nice to consider both separately, even if they both end up being adopted.
+
+-------------------------
+
+jamesob | 2025-06-07 16:06:31 UTC | #73
+
+[quote="instagibbs, post:58, topic:1509"]
+FYI: after discussion a while back, I hacked together very small loc changes that:
+
+1. Makes bare CTV a first class citizen
+2. Converts CTV into a push-onto-stack taproot-only opcode
+[/quote]
+
+This is a cool patch, thanks for doing it.
+
+I still prefer the existing CTV impl. for a few reasons:
+
+1. Bare legacy CTV is upgradeable (i.e. >32byte CTV hashes). Though you could make your patch upgradeable by returning true for any witV2 with a program size of over 32 bytes.
+2. In wit v0 CTV, you can have scripts that are more complicated than just a single CTV invocation, but avoid the Taproot control block overhead of 33vB (e.g. in [simple-ctv-vault](https://github.com/jamesob/simple-ctv-vault/blob/7dd6c4ca25debb2140cdefb79b302c65d1b24937/main.py#L303-L316)). 33vB may well be worth fretting over in the future.
+3. This is probably fringe, but one "nice" thing about bare CTV legacy scripts is that because they don't have an associated address, accidental address reuse by a human is impossible (i.e. erroneous send to an already-setup vault). ~~Of course your witV2 scheme doesn't define an address format, but it would be easy to.~~ Edit: witV2 by default [uses bech32m addresses](https://github.com/bitcoin/bitcoin/blob/e2174378aa8a339c7be8b4e91311513ed520a16d/src/key_io.cpp#L68-L78).
+
+-------------------------
+

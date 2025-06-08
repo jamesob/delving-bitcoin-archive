@@ -1588,7 +1588,7 @@ This is a great observation. I'm not sure how useful it will be since it seems t
 
 -------------------------
 
-sipa | 2025-05-12 12:17:38 UTC | #68
+sipa | 2025-05-24 14:33:01 UTC | #68
 
 I'm beginning to think that the [spanning-forest linearization](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419) (SFL) algorithm is a better choice in general than the min-cut GGT algorithm, because while asymptotic complexity is worse (it can in theory run forever, though randomization makes this unlikely), it's actually a lot more practical. It's of course possible to combine the two, e.g., use GGT just for linearizing very hard clusters in a background thread, but it'll practically be barely used I expect.
 
@@ -1605,7 +1605,7 @@ The downsides of SFL compared to GGT are:
 
 The downsides of SFL compared to CSS are:
 * **Mix with ancestor sort**: CSS, when used through LIMO, can include arbitrary additional sources for finding good topological sets to move to the front. In the current implementation, optimal ancestor sets are used as additional inputs. There are no well-defined properties that this gives the linearization, but at least intuitively, this provides a "linearization always has at least ancestor-set like quality" property, regardless of how much time was spent in candidate finding. I don't know how to do anything like this in SFL (nor in GGT). If we believe that this quality is important, despite not being well-defined, then switching to SFL in theory means we could lose it in clusters that cannot be linearized optimally in time. My thinking is that combined with the SFL fairness, and the fact that it is just so much faster overall, it is unlikely to be an issue. Further, if we *really* wanted ancestor-sort quality, it would be possible to compute, in addition to running SFL, an ancestor sort linearization from scratch, and then merge the two if SFL doesn't find an optimal result. However, I suspect that the time this would take is better spent on performing more SFL iterations.
-* **Minimal chunks**: CSS finds a linearization by actively searching for good chunks to move to the front, and in doing so, it can prefer smaller chunks over bigger ones. This guarantees that (if it completes) it will find the linearization with *minimal* possible chunks among all feerate-diagram-optimal linearizations. SFL (and GGT) on the other hand really just find groups of connected transactions with equal chunk feerate, and thus can't guarantee to pull equal-feerate chunks apart.
+* ~~**Minimal chunks**: CSS finds a linearization by actively searching for good chunks to move to the front, and in doing so, it can prefer smaller chunks over bigger ones. This guarantees that (if it completes) it will find the linearization with *minimal* possible chunks among all feerate-diagram-optimal linearizations. SFL (and GGT) on the other hand really just find groups of connected transactions with equal chunk feerate, and thus can't guarantee to pull equal-feerate chunks apart.~~ EDIT: with an [extra step](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419/9), SFL can find the minimal chunks.
 * **Complexity bounds**: SFL may in theory run forever, while CSS is trivially bounded by $\mathcal{O}(n \cdot 2^n)$, although I believe it may be $\mathcal{O}(n \cdot \sqrt{2^n})$ instead. These bounds are obviously impractical.
 
 All 3 above issues are open questions, and solutions/improvements could be found to them.
@@ -1626,7 +1626,7 @@ In table form:
 |**Fairness** | 🟥|Hard | 🟩|Easy | 🟥|Hard|
 **Integer sizes**|🟩|$SF$ $(\times,<)$ |🟩|$2SF$ $(\times,<,-)$ |🟧 |$4S^2F$ $(\times,/,<,+,-)$|
 |**Ancestor sort mix** | 🟩|Yes | 🟥|No | 🟥|No|
-|**Minimal chunks** | 🟩|Natively | 🟥|No | 🟥|No|
+|**Minimal chunks** | 🟩|Natively | 🟧|Extra step | 🟥|No|
 
 -------------------------
 
@@ -1724,7 +1724,7 @@ I have certainly seen clusters with many exactly-equal transaction fees and size
 
 -------------------------
 
-sipa | 2025-04-30 22:48:11 UTC | #73
+sipa | 2025-05-16 19:33:50 UTC | #73
 
 ## Benchmark results
 
@@ -1742,17 +1742,17 @@ Here are two example 64-transaction clusters:
 ![sim2023_ggt|690x448, 25%](upload://rpxX7rby2r1MGgaywce8tU458zm.png)
 ![sim2023|690x63, 74%](upload://9Aavvgu4bhZSUHJ7xmDg48H167f.png)
 
-Numbers for 2-25 transaction clusters, based on benchmarks of 1% of the recorded clusters:
+Numbers for 2-25 transaction clusters, based on benchmarks of 17% of the recorded clusters:
 
-![clusters_sim2023_ntx2_min|690x431, 33%](upload://59dIXiIALVOUDd3joKrRNFXI56K.png)
-![clusters_sim2023_ntx2_avg|690x431, 33%](upload://zbNkd9iNTrcsllpXLtLs5FCWVqa.png)
-![clusters_sim2023_ntx2_max|690x431, 33%](upload://kmLow9zcnpd8sRTxW03mnY74aZu.png)
+![clusters_sim2023_ntx2_min|690x431, 33%](upload://hiCpjVHqapa1jjpXUoLL1vpxW1y.png)
+![clusters_sim2023_ntx2_avg|690x431, 33%](upload://1KHlTcYPVkWV9hNYe8QeMvgqk1B.png)
+![clusters_sim2023_ntx2_max|690x431, 33%](upload://g8d1YBCQEichYnCCWaTY8ZaM2xM.png)
 
 Numbers for 26-64 transaction clusters, benchmarking all of the clusters:
 
-![clusters_sim2023_min|690x431, 33%](upload://ljuPpWthZ8mLDWoTGxCUPpeuEt5.png)
-![clusters_sim2023_avg|690x431, 33%](upload://8Gevtxer7zPJLNMDT5FBRatQlBm.png)
-![clusters_sim2023_max|690x431, 33%](upload://m8pEH4dN9FgWwJGhHPSeZl1gHnl.png)
+![clusters_sim2023_min|690x431, 33%](upload://9dBC7UgGbnSPt6IuhRZxcKuXfso.png)
+![clusters_sim2023_avg|690x431, 33%](upload://xqcYHs0LkIFxiHmtXLD7w0bUtvG.png)
+![clusters_sim2023_max|690x431, 33%](upload://4WL4LVCElZwNqOwKiDMG1UkeOFZ.png)
 
 For sufficiently large clusters, and in average and maximum runtime, SFL is the clear winner in this data set. CSS has better lower bounds, but is terrible in the worst case (37 **m**s).
 
@@ -1762,9 +1762,9 @@ In this dataset, for each size between 26 and 64 transactions, 100 random tree-s
 
 ![spanning|690x173](upload://tEYngxsf8LUCo8HLISq7aXaYPIG.png)
 
-![clusters_spanning_min|690x431, 33%](upload://khMYIexyZDFQirBrG5GIBeyeSXy.png)
-![clusters_spanning_avg|690x431, 33%](upload://qnY80esnhkoscJJDowjTv6eliRI.png)
-![clusters_spanning_max|690x431, 33%](upload://7STRBRkPISv7VbuwT1L62TWpfo.png)
+![clusters_spanning_min|690x431, 33%](upload://fhikzw98iksoHF6ASsjaE5X8rOP.png)
+![clusters_spanning_avg|690x431, 33%](upload://1Vrj67O1r7Kye5mt7lQ5TWnoDPT.png)
+![clusters_spanning_max|690x431, 33%](upload://6Fq9MFmfUTCBqMNCFFrp0CINHm7.png)
 
 Again, SFL seems the clear winner.
 
@@ -1774,9 +1774,9 @@ In this dataset, for each size between 26 and 64 transactions, 100 random spanni
 
 ![medium|690x216](upload://3X1WUmO6VnMeUpxpLBoBePwqWGf.jpeg)
 
-![clusters_medium_min|690x431, 33%](upload://vJOG2cyngdIU5X3J7m0weZ51Q6a.png)
-![clusters_medium_avg|690x431, 33%](upload://jOitXjOz9XuMpAamKHbPxtAbBCW.png)
-![clusters_medium_max|690x431, 33%](upload://3jDMTR7TOwFdIfta88Z3G8GLWhM.png)
+![clusters_medium_min|690x431, 33%](upload://9M1l4rt8Dpr5OpwGfuwGsYtDqJ6.png)
+![clusters_medium_avg|690x431, 33%](upload://7fjGkpHKG1WghEUXUCnR48YsuOv.png)
+![clusters_medium_max|690x431, 33%](upload://gra62VzsLrFSr21TOeT49PDMqMx.png)
 
 Notably, SFL performs worst in the worst case here, with up to 62.3 μs runtime, though even the fastest algorithm (unidirectional GGT) even takes up to 34.1 μs. This is probably due to it inherently scaling with the number of dependencies.
 
@@ -1786,9 +1786,9 @@ In this dataset, for each size between 26 and 64 transactions, 100 random comple
 
 ![bipartite|690x15](upload://yOmpgaj0xSIW6UTther0VFFJw0d.png)
 
-![clusters_bipartite_min|690x431, 33%](upload://6JkAOLOO8TuzCqNhzB6H1JQi3Ar.png)
-![clusters_bipartite_avg|690x431, 33%](upload://bSaimiig1m6kPdUZxbkVMYO6IIV.png)
-![clusters_bipartite_max|690x431, 33%](upload://cpRfZHLTJduuUZvzjQFk88p7Vs3.png)
+![clusters_bipartite_min|690x431, 33%](upload://7AXl0qEvZ9lUwlmnZjMonytzhFB.png)
+![clusters_bipartite_avg|690x431, 33%](upload://7rHk18MTR0dX4Ca7DMTZymA5bgz.png)
+![clusters_bipartite_max|690x431, 33%](upload://vRMqQQyinPMmdwXog4V21YIJpIJ.png)
 
 With even more dependencies per transaction here, SFL's weakness is even more visible (up to 98.9 μs), though it affects GGT too. Note that due to the large number of dependencies, these clusters are expensive too: if all the inputs and outputs are key-path P2TR, then the 64-transaction case needs ~103 kvB in transaction input & output data.
 
@@ -1799,11 +1799,11 @@ All of these numbers are constructed by:
 * For each of the N cluster, do the following 3 times:
   * Generate 100 RNG seeds for the linearization algorithm.
   * For each RNG seed:
-    * Benchmark optimal linearization 13 times with the same RNG seed, on an AMD Ryzen 9 5950X system at 3.4 GHz, remembering the CPU cycle count.
+    * Benchmark optimal linearization 13 times with the same RNG seed, on an AMD Ryzen Threadripper 7995WX system, remembering the time it took.
     * Remember the median of those 13 runs, to weed out variance due to task swapping and other effects).
   * Remember the average of those 100 medians, as we care mostly about how long the duration of linearization many clusters at once is, not an individual one. This removes some of the variance caused by individual RNG seeds.
 * Output the minimum, average, and maximum of those 3N average-of-medians.
-* Divide all numbers by 3400 to go from CPU cycles to µs.
+* Convert all numbers to µs.
 
 All the data and graphs can be found on https://gist.github.com/sipa/6e21121eaecda0cb33f99cb80ad03766.
 
@@ -1856,6 +1856,12 @@ BTW, will GGT and SFL both be applied to the code base (or they are already in t
 [/quote]
 
 At least one of the two, I expect. I have prototype implementations of both which I have been benchmarking (see higher up in this thread). I'm currently leaning towards SFL still, but the recent [discovery](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419/6) that it can in theory run forever is unfortunate.
+
+-------------------------
+
+sipa | 2025-05-18 17:06:42 UTC | #79
+
+I have opened a [pull request](https://github.com/bitcoin/bitcoin/pull/32545) to replace CSS with SFL.
 
 -------------------------
 

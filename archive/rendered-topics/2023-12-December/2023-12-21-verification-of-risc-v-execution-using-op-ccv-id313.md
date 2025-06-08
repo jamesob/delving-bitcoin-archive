@@ -26,3 +26,11 @@ Are there other currently disabled op codes that would help?
 
 -------------------------
 
+halseth | 2025-05-19 16:41:49 UTC | #3
+
+Yes, the biggest improvement would come from 64-bit arithmetics.
+
+Since we are emulating unsigned 32-bit RISC-V opcodes, and Bitcoin Script only supports 31-bit, we must reimplement the full bit-by-bit arithmetics in script (and the scripts get huge).
+
+-------------------------
+

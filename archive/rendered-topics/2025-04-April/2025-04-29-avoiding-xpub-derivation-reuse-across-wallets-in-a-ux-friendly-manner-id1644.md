@@ -172,7 +172,7 @@ Then for multisig, backing up of the descriptor is already a recommended action,
 
 -------------------------
 
-kloaec | 2025-05-07 16:01:40 UTC | #6
+kloaec | 2025-05-09 15:10:00 UTC | #6
 
 I understand the concerns, and would definitely like to find a good way to do it with unhardened paths.
 
@@ -181,12 +181,31 @@ Not sure if we are willing to accept this compromise.
 
 It could be to keep a "standard" path for export, and add a few unhardened depths of randomness on top.
 ```
-m/48'/0'/0'/2'/xpub/[RANDOM]/[RANDOM]/[RANDOM]/[...]
+m/48'/0'/0'/2'/[RANDOM]/[RANDOM]/[RANDOM]/[...]
 ```
+or equivalent. The export from the signing device would still be the xpub at m/48'/0'/0'/2', but it would need to be able to accept a descriptor with a few extra unhardened depths for signing and address verification.
 
 I'm not sure it is supported by hardware signers right now. I'm also not sure how many depth we would need to offer a reasonable privacy protection.
 
 I wouldn't go for unix or date/time completely unhardened, as I want to be able to switch software (and import my descriptor) without breaking the privacy of my other wallets. Unix or Date/time reduces the range too much and would need randomness on top.
+
+*Edit: I clarified that the xpub would be still shared on the "standard" path, but then random unhardened derivations could be added on top, on the software/service side, without access to the hardware signer*
+
+-------------------------
+
+sjors | 2025-05-19 16:02:36 UTC | #7
+
+`m/87'/0'/0'/[UNIX-TIME]/{0,1}/*` would work well with the backup scheme @salvatoshi proposed.
+
+https://delvingbitcoin.org/t/a-simple-backup-scheme-for-wallet-accounts/1607/10
+
+A date is easy to render in a user friendly way "did you create this wallet on ....".
+
+One downside is that co-signers know your xpub. This is what makes the descriptor backup scheme work. They can't find your single-sig wallet, as that has different purpose derivation.
+
+It would take them some brute force to find the other multisigs (pick a random date, derive N pub keys, see if they appear in a `OP_CHECKSIGADD`). If the user uses MuSig2 in these other multisigs and never a recovery path, it would be impossible to find, unless you also know the xpub of their cosigner in the other multisig.
+
+Wallets could _recommend_ that the user manually picks a unique *account* number. As long as that's below 1 million or so it wouldn't break the backup scheme, as during recovery it can iterate through many account numbers.
 
 -------------------------
 
