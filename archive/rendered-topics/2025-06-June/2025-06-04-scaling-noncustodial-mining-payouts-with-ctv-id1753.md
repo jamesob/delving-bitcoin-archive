@@ -109,3 +109,29 @@ Note: Miners can use [ark on-chain](https://docs.second.tech/getting-started/bar
 
 -------------------------
 
+jamesob | 2025-06-08 16:51:36 UTC | #5
+
+[quote="AntoineP, post:3, topic:1753"]
+I do not see how what you describe scales non-custodial mining payouts
+[/quote]
+
+Without this technique, a pool operator must literally act as a custodian until the payout happens. L2 use is possible, but not necessarily economical depending on the cost for unilateral exit.
+
+[quote="AntoineP, post:3, topic:1753"]
+Using Ark for payouts instead introduces some additional assumptions but at least does make sense from a scalability perspective
+[/quote]
+
+We have yet to see how expensive in practice the unilateral exit case is from an Ark, which would determine this claim.
+
+[quote="AntoineP, post:3, topic:1753"]
+But this is not a viable strategy under normal circumstances, where you would expect that increasing your block space usage would work against maximizing your fee revenues.
+[/quote]
+
+"Normal circumstance" for the last few months has been that the mempool is empty during weekends. I'm not sure if you're familiar with the (old?) argument that when block revenue is dominated by fees and if the mempool goes empty, the chain will struggle to make progress as miners simply reorg one another to grab fees.
+
+This strategy, and congestion control in general, helps that situation by allowing fee smoothing over some period of time without introducing a custodial reliance.
+
+I'm not sure why you'd be so hostile to having another unique "tool in the toolbox" for not only decentralizing mining, but helping to address a profound and incoming issue with bitcoin as the block subsidy goes away.
+
+-------------------------
+

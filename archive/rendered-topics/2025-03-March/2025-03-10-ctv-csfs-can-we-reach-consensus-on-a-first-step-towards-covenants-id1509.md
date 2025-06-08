@@ -1726,3 +1726,9 @@ I still prefer the existing CTV impl. for a few reasons:
 
 -------------------------
 
+jamesob | 2025-06-08 16:24:54 UTC | #74
+
+@instagibbs Maybe it goes without saying, but I think it'd be totally reasonable to layer on a tapscript-only `OP_CHECKTEMPLATE` to the existing proposal. If it saves 32 vbytes for the Lightning case and likely others, I think that's great.
+
+-------------------------
+
