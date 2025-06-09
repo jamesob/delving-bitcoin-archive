@@ -167,3 +167,15 @@ I am aware of the arguments for CTV-based congestion control. I was just pointin
 
 -------------------------
 
+jamesob | 2025-06-09 15:22:36 UTC | #7
+
+[quote="AntoineP, post:6, topic:1753"]
+No, it can just include payouts in the block directly.
+[/quote]
+
+This steals fee revenue from otherwise revenue-generating blockspace (unless the pool constituents are paying the miner fees somehow), especially for large numbers of pool participants.
+
+Using a CTV payout allows the pool to collect maximum fee revenue in the moment, and then allows each pool constituent to individually decide how much they're willing to pay in fees (and when) to take receipt of the payout.
+
+-------------------------
+
