@@ -1,6 +1,6 @@
 # JIT fees with TXHASH: comparing options for sponsorring and stacking
 
-stevenroose | 2025-06-09 10:23:19 UTC | #1
+stevenroose | 2025-06-09 10:29:38 UTC | #1
 
 Specifying fees upfront in second layer solutions is annoying. Both predicting future feerates and deciding how to allocate the money for the fee are non-trivial problems that can be avoided if fees can be paid when they are needed (just-in-time): when (usually pre-signed) off-chain contracts go on-chain.
 
@@ -356,6 +356,8 @@ Or in vB per _stackee tx_:
 
 TXSIGHASH based constructions provide an extremely cost-effective way for both sponsorring single transactions and for stacking multiple transactions together, **possibly by a third party. With stacking, the cost in virtual bytes of each stacked transaction can even be lower than their original cost without a sponsor included**.
 
+It is also worth noting that stacking with TXSIGHASH results in having a single big transaction instead of a series of multiple transactions, like both CPFP and Tx Sponsors. Additionally, all inputs are "simple"[^5] key-spends, meaning that they could be aggregated if [CISA](https://bitcoinops.org/en/topics/cross-input-signature-aggregation/) were to be deployed.
+
 The drawback of sponsorring and stacking using TXSIGHASH is the overhead of creating, storing and relaying multiple variants of the signatures used in the transaction. This has to be done by the creators of any transaction that wants to be eligible for stacking, at the time of its creation. This added complexity can be considered quite significant, especially when compared with Tx Sponsors which doesn't require any special preparation by the original transactions.
 
 
@@ -366,6 +368,7 @@ The drawback of sponsorring and stacking using TXSIGHASH is the overhead of crea
 [^2]: In theory this could maybe be even a 0-byte `TxFieldSelector` as it would make sense to make the "default" sighash type to be ALL.
 [^3]: The careful reader will have noted that this construction is vulnerable to an attack where if the user for some reason produces two different signatures for the first input, the other inputs could be linked to the other spends as well. This can be dangerous. Full atomicity can be guaranteed by putting commitments into the annex, but this requires quite some changes. A possible simple and free improvement is that the other inputs also commit to the outputs below their own index. By carefully ordering the outputs by value and putting the largest one at the index equivalent with the last input, the signatures can be made significantly more safe.
 [^4]: This one byte could be saved by defining a new segwit version (v2).
+[^5]:  "simple" because they do use different SIGHASHES, but still only have a single pubkey and signature per input
 
 -------------------------
 
