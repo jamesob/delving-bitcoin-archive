@@ -135,3 +135,35 @@ I'm not sure why you'd be so hostile to having another unique "tool in the toolb
 
 -------------------------
 
+AntoineP | 2025-06-08 22:18:03 UTC | #6
+
+[quote="jamesob, post:5, topic:1753"]
+I’m not sure why you’d be so hostile to having another unique “tool in the toolbox” for not only decentralizing mining
+[/quote]
+
+I am only hostile to bad arguments for potentially good ideas, of which your motivated reasoning here and on other issues (CTV ""vaults"") is an example, because it makes good ideas less likely to become reality and bad ideas more difficult to uncover as such.
+
+[quote="jamesob, post:5, topic:1753"]
+[quote="AntoineP, post:3, topic:1753"]
+I do not see how what you describe scales non-custodial mining payouts
+[/quote]
+
+Without this technique, a pool operator must literally act as a custodian until the payout happens. L2 use is possible, but not necessarily economical depending on the cost for unilateral exit.
+[/quote]
+
+No, it can just include payouts in the block directly. Using CTV to commit to the payouts only defers the time at which the payout transaction hits the chain, at the cost of more block space usage. It is not a scalability solution.
+
+[quote="jamesob, post:5, topic:1753"]
+We have yet to see how expensive in practice the unilateral exit case is from an Ark, which would determine this claim.
+[/quote]
+
+Sure, it's not guaranteed but at least is not literally proposing to use more block space as a scalability solution.
+
+[quote="jamesob, post:5, topic:1753"]
+This strategy, and congestion control in general, helps that situation by allowing fee smoothing over some period of time without introducing a custodial reliance.
+[/quote]
+
+I am aware of the arguments for CTV-based congestion control. I was just pointing out that OP is merely proposing to use congestion control for mining pool payouts, and that it is incorrect to claim this is a scalability solution.
+
+-------------------------
+
