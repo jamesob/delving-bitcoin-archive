@@ -1,6 +1,6 @@
 # JIT fees with TXHASH: comparing options for sponsorring and stacking
 
-stevenroose | 2025-06-09 10:22:17 UTC | #1
+stevenroose | 2025-06-09 10:23:19 UTC | #1
 
 Specifying fees upfront in second layer solutions is annoying. Both predicting future feerates and deciding how to allocate the money for the fee are non-trivial problems that can be avoided if fees can be paid when they are needed (just-in-time): when (usually pre-signed) off-chain contracts go on-chain.
 
@@ -8,7 +8,7 @@ I have two aims with this post:
 1. compare different options for simple fee sponsorring both for a single and for multiple transactions
 2. show that TXSIGHASH can be used for effective stacking of transactions by third parties
 
-I make a comparisong for paying fees JIT with CPFP, Tx Sponsors and TXSIGHASH, both for a single transaction and for stacks of transactions. You can skip to the [summary table](#Summary-table) if you wish.
+I make a comparisong for paying fees JIT with CPFP, Tx Sponsors and TXSIGHASH, both for a single transaction and for stacks of transactions. You can skip to the [summary table](#p-5256-summary-table-16) or the bit on [TXHASH-based stacking](#p-5256-txsighash-15) if you wish.
 
 
 ## CPFP
