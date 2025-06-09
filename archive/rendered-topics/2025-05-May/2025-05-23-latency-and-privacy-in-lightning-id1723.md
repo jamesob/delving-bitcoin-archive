@@ -907,3 +907,13 @@ Just to re-iterate @t-bast's question. Wouldn't the whole point of cover traffic
 
 -------------------------
 
+tnull | 2025-06-09 08:21:20 UTC | #41
+
+[quote="carla, post:40, topic:1723"]
+Just to re-iterate @t-bast’s question. Wouldn’t the whole point of cover traffic be that we have “fake” HTLCs propagating through the network at the same time as real ones so that an attacker gets false positives on this type of surveillance?
+[/quote]
+
+Yes, but I don't think it necessarily needs to be fully 'fake HTLCs', as any interleaved messages might somewhat break up the distinct HTLC-forwarding pattern (assuming they all look the same, post message padding).
+
+-------------------------
+
