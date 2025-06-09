@@ -1732,3 +1732,28 @@ jamesob | 2025-06-08 16:24:54 UTC | #74
 
 -------------------------
 
+instagibbs | 2025-06-09 15:39:25 UTC | #75
+
+[quote="jamesob, post:73, topic:1509"]
+Bare legacy CTV is upgradeable
+[/quote]
+
+No other output lengths would be defined for the "P2CTV" case, there's no difference in this respect.
+
+[quote="jamesob, post:73, topic:1509"]
+33vB may well be worth fretting over in the future.
+[/quote]
+
+33WU, or <9vB. I don't find byte pinching over hypotheticals very persuasive but other's mileage may vary.
+
+[quote="jamesob, post:73, topic:1509"]
+This is probably fringe, but one “nice” thing about bare CTV legacy scripts is that because they don’t have an associated address
+[/quote]
+
+I know we differ on this but I expect very little bare CTV usage vs some form of script. We can't protect people there; I think that ship sailed a long time ago.
+
+---
+The proposal is materially different than before with CSFS added. Let's avoid sunk cost thinking.
+
+-------------------------
+

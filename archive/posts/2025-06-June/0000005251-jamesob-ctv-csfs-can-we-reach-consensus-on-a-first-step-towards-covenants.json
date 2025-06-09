@@ -7,7 +7,7 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/instagibbs\">@instagibbs</a> Maybe it goes without saying, but I think it\u2019d be totally reasonable to layer on a tapscript-only <code>OP_CHECKTEMPLATE</code> to the existing proposal. If it saves 32 vbytes for the Lightning case and likely others, I think that\u2019s great.</p>",
   "post_number": 74,
   "post_type": 1,
-  "posts_count": 71,
+  "posts_count": 72,
   "updated_at": "2025-06-08T16:24:54.664Z",
   "reply_count": 0,
   "reply_to_post_number": null,
