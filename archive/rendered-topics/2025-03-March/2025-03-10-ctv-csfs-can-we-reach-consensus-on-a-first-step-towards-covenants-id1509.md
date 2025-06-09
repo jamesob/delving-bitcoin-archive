@@ -1732,7 +1732,7 @@ jamesob | 2025-06-08 16:24:54 UTC | #74
 
 -------------------------
 
-instagibbs | 2025-06-09 15:39:25 UTC | #75
+instagibbs | 2025-06-09 15:51:41 UTC | #75
 
 [quote="jamesob, post:73, topic:1509"]
 Bare legacy CTV is upgradeable
@@ -1750,7 +1750,7 @@ No other output lengths would be defined for the "P2CTV" case, there's no differ
 This is probably fringe, but one “nice” thing about bare CTV legacy scripts is that because they don’t have an associated address
 [/quote]
 
-I know we differ on this but I expect very little bare CTV usage vs some form of script. We can't protect people there; I think that ship sailed a long time ago.
+I know we differ on this but I expect very little bare CTV usage vs some form of script. We can't protect people in script hash land; I think that ship sailed a long time ago.
 
 ---
 The proposal is materially different than before with CSFS added. Let's avoid sunk cost thinking.
