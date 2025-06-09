@@ -13,9 +13,9 @@
   "reply_to_post_number": 73,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"jamesob, post:73, topic:1509\"]\nBare legacy CTV is upgradeable\n[/quote]\n\nNo other output lengths would be defined for the \"P2CTV\" case, there's no difference in this respect.\n\n[quote=\"jamesob, post:73, topic:1509\"]\n33vB may well be worth fretting over in the future.\n[/quote]\n\n33WU, or <9vB. I don't find byte pinching over hypotheticals very persuasive but other's mileage may vary.\n\n[quote=\"jamesob, post:73, topic:1509\"]\nThis is probably fringe, but one \u201cnice\u201d thing about bare CTV legacy scripts is that because they don\u2019t have an associated address\n[/quote]\n\nI know we differ on this but I expect very little bare CTV usage vs some form of script. We can't protect people in script hash land; I think that ship sailed a long time ago.\n\n---\nThe proposal is materially different than before with CSFS added. Let's avoid sunk cost thinking.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "No other output lengths would be defined for the \u201cP2CTV\u201d case, there\u2019s no difference in this respect. \n\n33WU, or &lt;9vB. I don\u2019t find byte pinching over hypotheticals very persuasive but other\u2019s mileage may vary. \n\nI know we differ on this but I expect very little bare CTV usage vs some form of scrip&hellip;",
   "truncated": true,
   "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/75",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

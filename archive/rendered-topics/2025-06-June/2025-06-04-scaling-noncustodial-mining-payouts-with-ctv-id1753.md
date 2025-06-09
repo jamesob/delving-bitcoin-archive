@@ -179,3 +179,73 @@ Using a CTV payout allows the pool to collect maximum fee revenue in the moment,
 
 -------------------------
 
+vnprc | 2025-06-09 17:17:42 UTC | #8
+
+> Thanks for the detailed writeup.
+
+You are welcome! It's my pleasure to explore and write about how CTV materially improves bitcoin. Thank you for reading and commenting.
+
+> I do not see how what you describe scales non-custodial mining payouts (the title of this post), or maximizes fee revenues
+
+We can define non-custodial mining payouts as such: newly created UTXOs in the coinbase of a bitcoin block that are unable to be spent by any party other than the intended recipient of that payout. Every large pool today, with the exception of Ocean, sends the coinbase outputs to a custodial wallet and renders payouts from that wallet. This means the pool operator could rug their miners by simply not transferring the bitcoin from their wallet to the miner's wallet. In this sense, Ocean is a non-custodial pool for all miners who receive a coinbase output in a given Ocean block.
+
+Ocean is limited in the number of these outputs they can produce each block by two factors. The first is a hard limit: Some ASIC appliance firmware places a limit on the size of the coinbase. The second is a soft limit: since the coinbase counts against the maximum block size limit, pools are incentivized to use the smallest possible coinbase in order to maximize fee revenue in each block.
+
+CTV sidesteps both limitations. It enables an effectively unlimited number of non-custodial payouts in each block mined while improving pool profitability compared to the status quo. In other words, CTV scales non-custodial mining payouts.
+
+> At best this is a congestion control claim
+
+This is not a congestion control claim. The heart of my argument is that CTV unfetters trustless mining payouts. Trusted systems are a security vulnerability, as asserted by Satoshi in the first two sentences of the white paper. CTV can fundamentally improve the trust model of bitcoin mining. Proof of work mining is the foundation of bitcoin's trust model. Therefore, CTV can be used to fundamentally improve the trust model of bitcoin.
+
+> increasing your block space usage would work against maximizing your fee revenues
+
+I'm not sure how you reach this conclusion. You appear to be considering total block space usage for the bitcoin network in the context of a single mining pool. This doesn't translate. CTV can very slightly increase total blockspace usage but this is not a concern for a mining pool operator unless they are producing all of the blocks on the network. In practice, every custodial pool externalizes their payout costs to future blocks using fanout transactions. My design is only different in the trust model used.
+
+> Using Ark for payouts instead introduces some additional assumptions but at least does make sense from a scalability perspective
+
+I am very bullish on Ark for payments. I'm also very excited about how it can be used to improve mining operations and scalability. Again, you are talking about scalability of the entire bitcoin system. In this post I am focused on scaling trustless mining payouts beyond the limitations it faces under current consensus rules.
+
+> If the intention of this post was to motivate a CTV soft fork
+
+My intention is to improve bitcoin's chance of long-term success as a self-sovereign monetary commodity by improving the mining stack. I believe that mining pool centralization is currently the biggest threat to bitcoin and therefore this is the highest impact work I can do. I did not wade into the CTV debate earlier because I didn't have a concrete proposal in an area of domain expertise. (This was the case the last time we talked.)
+
+I have chosen a domain. I am working hard to gain practical expertise. And I have found (I believe) a very compelling use for CTV within my domain. I plan to continue building use cases for CTV+CSFS, as indicated at the end of the github readme. If you still question my motives you can also reach out to me personally. I'm always happy to talk to a respected core developer such as yourself.
+
+> unrealistic wild claims that twist reality to fit a certain narrative
+
+Greg Maxwell backward engineered a Bitmain ASIC appliance to demonstrate how it was capable of covert ASIC boost. This is what settled the block size debate for me personally by revealing the motivations of the primary economic actor opposing the segwit soft fork.
+
+Covert ASICboost was obsoleted by the segwit soft fork, demonstrating to me that it is easier to change bitcoin than to change Bitmain firmware or hardware. This is a subjective claim and, as such, it cannot be proven or disproven. You can choose to agree or disagree. I only made this statement in response to a subjective criticism of my proposal.
+
+I don't believe we can fix the deep and long-running problems in the bitcoin mining stack by being ignorant of history or naive about the motivations of the largest actors in this space. My claims are not unrealistic or wild and they do not distort reality or promote a narrative other than that which is supported by the historical facts.
+
+Here is some reading material if you don't believe me.
+
+Greg's initial claim about reverse engineering the ASIC:
+https://gnusha.org/pi/bitcoindev/CAAS2fgR84898xD0nyq7ykJnB7qkdoCJYnFg6z5WZEUu0+-=mMA@mail.gmail.com/
+
+This reddit thread shows achow confirming with greg over IRC how he did it:
+https://www.reddit.com/r/Bitcoin/comments/63soe3/comment/dfx9ncr/
+
+The smoking gun, IMO, was when Braiins shipped the option to activate covert ASICboost on their S9 firmware.
+https://www.ccn.com/under-pressure-bitmain-releases-patch-to-let-bitcoin-miners-activate-overt-asicboost/
+
+-------------------------
+
+vnprc | 2025-06-09 17:45:40 UTC | #9
+
+@1440000bytes Thanks for adding this to your covenants wiki.  And thank you for taking on the job of cataloging this debate. I am very appreciative of your efforts!
+
+> IIUC this solves 2 problems without involving ASP:
+
+I would characterize it as solving three problems or perhaps solving the two problems you mentioned but having three distinct positive outcomes:
+1. Eliminate the influence of ASIC firmware vendors on the viability of non-custodial mining payouts.
+2. Remove the effective cap on the number of payouts in each coinbase. This serves to reduce the minimum on-chain payout threshold of non-custodial pools down to the dust limit.[^1] It is currently very much higher than the dust limit at Ocean.
+3. Remove the disincentive for non-custodial pools to limit the number of payouts in order to increase transaction fee profits.
+
+
+
+[^1]: For those who don't read carefully (you really should): "down to the dust limit" does not imply a preference for the size of these outputs. This phrase only establishes the practical lower limit of those payouts.
+
+-------------------------
+
