@@ -1763,3 +1763,11 @@ Another more practical point in favor of making CTV available in witness v0 is t
 
 -------------------------
 
+instagibbs | 2025-06-10 15:38:09 UTC | #77
+
+That's a reasonable point, under the restricted set of functionality that encompasses a hash-assertion and a disjoint signature over the transaction itself.
+
+So you could have a "next tx" transition or override with some (non-aggregated) key or require both.
+
+-------------------------
+
