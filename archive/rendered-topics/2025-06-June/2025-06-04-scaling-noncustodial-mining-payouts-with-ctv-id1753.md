@@ -265,3 +265,13 @@ I am convinced. I need to look more closely at the noncustodial nature of ark. I
 
 -------------------------
 
+marathon-gary | 2025-06-10 20:14:16 UTC | #11
+
+RE: congestion control
+
+Isn't this what Lightning Network accomplished to a degree? It deferred on-chain settlement in payment channels so users would not have to use the base chain.
+
+I also would imagine miners being able to "unroll" any tree they're in (Ark or bare CTV) with a 0 fee transaction in their block template.
+
+-------------------------
+
