@@ -1757,3 +1757,9 @@ The proposal is materially different than before with CSFS added. Let's avoid su
 
 -------------------------
 
+jamesob | 2025-06-10 01:10:30 UTC | #76
+
+Another more practical point in favor of making CTV available in witness v0 is that many (or most?) HSMs do not yet natively support Schnorr signatures - and for existing installations, may never. There is likely overlap between companies who currently use such HSMs (making witness v0 the default) and companies who would like to make use of CTV vaults.
+
+-------------------------
+
