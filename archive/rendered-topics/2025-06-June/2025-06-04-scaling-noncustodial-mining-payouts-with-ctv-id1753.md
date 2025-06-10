@@ -249,3 +249,19 @@ I would characterize it as solving three problems or perhaps solving the two pro
 
 -------------------------
 
+vnprc | 2025-06-10 17:04:12 UTC | #10
+
+Oh hey you can link quotes to the original. Delving is pretty sweet!
+
+[quote="AntoineP, post:3, topic:1753"]
+i think you should focus on how Ark could be used to scale mining pool payouts and how CTV (+CSFS) would improve it
+[/quote]
+
+[quote="ErikDeSmedt, post:2, topic:1753"]
+The mining pool can use OP_CTV to pay into a [transaction tree](https://docs.second.tech/protocol/intro/#utxo-sharing-using-transaction-trees). The leaf of this tree is called a VTXO. A miner can hold on to their VTXO’s for a while until they have collected a good amount of VTXO’s and offboard all funds at once.
+[/quote]
+
+I am convinced. I need to look more closely at the noncustodial nature of ark. If the security guarantees are comparable to a basic CTV payment tree in then it would be a natural upgrade to reduce the on-chain footprint of small payouts overall.
+
+-------------------------
+
