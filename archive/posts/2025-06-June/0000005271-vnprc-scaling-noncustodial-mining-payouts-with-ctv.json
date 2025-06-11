@@ -7,15 +7,15 @@
   "cooked": "<p>Oh hey you can link quotes to the original. Delving is pretty sweet!</p>\n<aside class=\"quote no-group\" data-username=\"AntoineP\" data-post=\"3\" data-topic=\"1753\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>i think you should focus on how Ark could be used to scale mining pool payouts and how CTV (+CSFS) would improve it</p>\n</blockquote>\n</aside>\n<aside class=\"quote no-group\" data-username=\"ErikDeSmedt\" data-post=\"2\" data-topic=\"1753\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/erikdesmedt/48/208_2.png\" class=\"avatar\"> ErikDeSmedt:</div>\n<blockquote>\n<p>The mining pool can use OP_CTV to pay into a <a href=\"https://docs.second.tech/protocol/intro/#utxo-sharing-using-transaction-trees\" rel=\"noopener nofollow ugc\">transaction tree</a>. The leaf of this tree is called a VTXO. A miner can hold on to their VTXO\u2019s for a while until they have collected a good amount of VTXO\u2019s and offboard all funds at once.</p>\n</blockquote>\n</aside>\n<p>I am convinced. I need to look more closely at the noncustodial nature of ark. If the security guarantees are comparable to a basic CTV payment tree in then it would be a natural upgrade to reduce the on-chain footprint of small payouts overall.</p>",
   "post_number": 10,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 13,
   "updated_at": "2025-06-10T17:04:12.552Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "Oh hey you can link quotes to the original. Delving is pretty sweet!\n\n[quote=\"AntoineP, post:3, topic:1753\"]\ni think you should focus on how Ark could be used to scale mining pool payouts and how CTV (+CSFS) would improve it\n[/quote]\n\n[quote=\"ErikDeSmedt, post:2, topic:1753\"]\nThe mining pool can use OP_CTV to pay into a [transaction tree](https://docs.second.tech/protocol/intro/#utxo-sharing-using-transaction-trees). The leaf of this tree is called a VTXO. A miner can hold on to their VTXO\u2019s for a while until they have collected a good amount of VTXO\u2019s and offboard all funds at once.\n[/quote]\n\nI am convinced. I need to look more closely at the noncustodial nature of ark. If the security guarantees are comparable to a basic CTV payment tree in then it would be a natural upgrade to reduce the on-chain footprint of small payouts overall.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Oh hey you can link quotes to the original. Delving is pretty sweet! \n\n\nI am convinced. I need to look more closely at the noncustodial nature of ark. If the security guarantees are comparable to a basic CTV payment tree in then it would be a natural upgrade to reduce the on-chain footprint of small&hellip;",
   "truncated": true,
   "post_url": "/t/scaling-noncustodial-mining-payouts-with-ctv/1753/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

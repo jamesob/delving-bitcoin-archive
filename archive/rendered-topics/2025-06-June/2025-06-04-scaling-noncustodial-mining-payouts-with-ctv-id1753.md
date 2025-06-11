@@ -275,3 +275,29 @@ I also would imagine miners being able to "unroll" any tree they're in (Ark or b
 
 -------------------------
 
+AntoineP | 2025-06-10 21:22:12 UTC | #12
+
+[quote="marathon-gary, post:11, topic:1753"]
+RE: congestion control
+
+Isn’t this what Lightning Network accomplished to a degree? It deferred on-chain settlement in payment channels so users would not have to use the base chain.
+[/quote]
+
+No, Lightning channels *compress* an infinite number of payments to a couple of onchain transactions (in the optimistic case). Congestion control keeps the same number of onchain transactions (in fact it adds some more) but allows their inclusion in the block chain to be deferred (and spread out).
+
+-------------------------
+
+marathon-gary | 2025-06-10 22:49:48 UTC | #13
+
+I see the distinction you're making but a LN channel is still a deferment of final settlement. I think a better contrast would be LN channels defer an *unknown final state* within the bounds of channel capacity, while a CTV tree defers a *known final state*.  Although a CTV tree could also have within it [batch channels](https://utxos.org/uses/batch-channels/) as well, so a CTV tree could hold both known and unknown final state of the deferred transactions.
+
+In the case of mining pool payouts, the coinbase CTV tree could be optimistically updated every block the pool wins, assuming interactivity of the participants (LN assumes interactivity of participants too) by leveraging MuSig for the various nodes of the CTV tree. If all participants are online and interacting, the entire CTV tree state could be updated without the need to exit from the construct. Since mining is boolean, you're mining or you're not, a miner is already active with the pool so could optimistically participate in any protocol that requires interactivity.
+
+Furthermore, since miners have the ability to make their own block templates, a miner could always include a 0 fee transaction paying themselves out of the CTV tree in the next block that is found. 
+
+[quote="vnprc, post:8, topic:1753"]
+In practice, every custodial pool externalizes their payout costs to future blocks using fanout transactions. My design is only different in the trust model used.
+[/quote]
+
+-------------------------
+

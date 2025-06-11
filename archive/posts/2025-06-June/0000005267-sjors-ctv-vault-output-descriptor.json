@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 7,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 43.4,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 58.6,
   "yours": false,
   "topic_id": 1766,
   "topic_slug": "ctv-vault-output-descriptor",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Given the [renewed effort](https://groups.google.com/g/bitcoindev/c/KJF6A55DPJ8/m/ZWhVgOm7AQAJ) to prioritise `OP_CTV` ([BIP 119](https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0119.mediawiki)) over other soft forks that can enable vaults (e.g. `OP_CCV`) and the [withdrawal of OP_VAULT](https://delvingbitcoin.org/t/withdrawing-op-vault-bip-345/1670), it's useful to revisit how one can build vaults with OP_CTV.\n\n@jamesob designed such a vault a few years ago:\n\nhttps://github.com/jamesob/simple-ctv-vault\n\n> OP_CTV allows the vault strategy to be used without the need to maintain critical presigned transaction data for the lifetime of the vault, as in the case of earlier vault implementations. This approach is much simpler operationally, since all relevant data aside from key material can be regenerated algorithmically. This makes vaulting more practical at any scale.\n\nIt could be modernised to make use of ephemeral (dust) anchors (see [BIP 341](https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0431.mediawiki)), and to use taproot script paths rather than `OP_IF`.\n\nBut for any vault construction to be useful in wallets, it needs to either fit in the existing [BIP 380](https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0380.mediawiki) output descriptor paradigm or develop an alternative.\n\nIn the context of `OP_CHECKCONTRACTVERIFY` (`OP_CCV`, [BIP 443](https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0443.mediawiki)) @salvatoshi [wrote](https://github.com/bitcoin/bips/pull/1793#issuecomment-2749295131):\n\n> My general take is that descriptors are the wrong tool for this purpose: a spend from UTXO X to UTXO Y where f(Y) = X needs to somehow encode the relation between X and Y as a *predicate* . While you could do that (every program is a predicate, and every program expressible in Script is a predicate that can be expressed in a tree structure like miniscript...) it quickly becomes unmanageable.\n\nPerhaps this reasoning applies to `OP_CTV` as well. But given that it's less powerful, perhaps for a simple use case like vaults it can still work? It would be more likely to gain adoption given existing infrastructure.\n\nLet's take a simple 2-of-2 multisig, where after an N block delay either party can spend the coins. \n\nThis can already be done, e.g. with Alice (`A`) and Bob (`B`):\n\n`tr(musig(A, B), {and_v(pk(A), older(N)),...})`\n\nHowever this requires Alice and Bob to move their coins at least every `N` blocks. Higher values of $N$ means fewer such movements, but also a slower recovery time. Additionally [BIP 68](https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0068.mediawiki#compatibility) limits relative time and height locks to about a year, so coins have to be rotated at least that often.\n\nThis is where a (CTV) vault can come in handy.\n\nThe key path remains `musig(A, B)`, but the script paths allow either party, e.g. Alice, to move coins into a vault. After N blocks Alice can move the coins using a pre-determined key under her control (e.g. just `A`).\n\nIf Alice believes her key was compromised, or if Bob didn't actually lose his key, either of them can immediately and without a signature send the coins back. Back *where* though?\n\nWith CCV the vault could be recursive, but afaik not with CTV. That's ok because we wouldn't want to go in circles anyway. Instead the fallback could be the design we started out with: `tr(musig(A, B), {and_v(pk(A), older(N)),...})`. That gives both parties N blocks time to sort things out between them, after which either side can move the coins. Including the delay of the vault itself, they have `2 * N` blocks time.\n\nSo what would this look like as descriptor? How about:\n\n`tr(musig(A, B),{and_v(pk(A),ctv(musig(A, B), {unvault_cold, unvault_hot}), ...})`\n\nWhere:\n- `unvault_hot` is `and_v(older(N), pk(A))`\n- `unvault_cold` is `ctv(musig(A, B), {and_v(pk(A), older(N)),...})`\n\nUnvaulting back to cold can be done without any signature, hence the nested `ctv()`, which is good when Alice and/or Bob are racing an attacker. But if they have some extra time, they could double-spend the unsigned unvault using the `musig(A,B)` keypath and send coins straight to where they want it (even back to the original vault).\n\nThe `ctv` fragment has the same syntax as the `tr()` descriptor and would have very limited functionality here. It's just the key path and list of script paths that the committed transaction must send to. Perhaps it should be called `vault()`.\n\nAssuming the above makes any sense, it'd love to see someone implement it...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Given the <a href=\"https://groups.google.com/g/bitcoindev/c/KJF6A55DPJ8/m/ZWhVgOm7AQAJ\">renewed effort</a> to prioritise OP_CTV (<a href=\"https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0119.mediawiki\">BIP 119</a>) over other soft forks that can enable vaults (e.g. OP_CCV) and the <a href=\"https://delvingbitcoin.org/t/withdrawing-op-vault-bip-345/1670\">withdrawal of OP_VAULT</a>, it\u2019s useful to revisit how one can build vaults with OP_CTV. \n<a class=\"mention\" href=\"/u/jamesob\">@jamesob</a> designed such a vault a few years ago: \n\n\n\nOP_CTV allows the vault strategy to be &hellip;",
   "truncated": true,
   "post_url": "/t/ctv-vault-output-descriptor/1766/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
