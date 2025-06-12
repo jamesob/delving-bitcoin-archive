@@ -102,3 +102,23 @@ I think you'd need to include amounts for each output, in addition to a descript
 
 -------------------------
 
+sjors | 2025-06-12 07:07:37 UTC | #5
+
+[quote="sanket1729, post:3, topic:1766"]
+FTR, I am slowly warming to @salvatoshi’s view that descriptors might be the wrong language to play with this.
+[/quote]
+
+I agree for the general case. However it's been about 6 years since outputs descriptors were proposed for Bitcoin Core and we're just barely getting around to proper MuSig2 support. Inventing a whole new paradigm probably means we won't have working vaults (in Bitcoin Core) for a decade. (to be fair, there were other factors contributing to the long timeline, and with more developers involved it might go faster next time)
+
+[quote="sanket1729, post:3, topic:1766"]
+Descriptors **must** convey **all** the information necessary to spend the output.
+[/quote]
+
+Perhaps this requirement can be relaxed to allow looking up information in the blockchain. In Bitcoin Core at least the implementation of descriptors comes with a cache. Right now that's a simple cache of just the derived keys at each index, as well as the most recently used height.
+
+So the wallet could look for coins that match the top level descriptor, then detect spends that use the `ctv()` branch and reconstruct everything needed for the CTV hash. For that reconstruction to work we'd need some opinionated defaults, e.g. the `nlocktime` needs to match the `nlocktime ` of the original transaction, or the `ctv()` fragment has an optional locktime offset argument.
+
+I think the most important requirement from a usability perspective is that you only to have to backup your descriptors once in the lifetime of a wallet. It's fine if the wallet generates additional descriptors such as the `ctv_tx()` when it needs to, as long as those can be regenerated from a backup (and anything in the blockchain).
+
+-------------------------
+

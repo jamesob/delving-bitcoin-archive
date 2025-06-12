@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 168,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 844.2,
+  "incoming_link_count": 174,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 879.4,
   "yours": false,
   "topic_id": 1768,
   "topic_slug": "research-update-a-geometric-approach-for-optimal-channel-rebalancing",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I\u2019d like to share my latest research notebook, *[A Geometric Approach for Optimal Channel Rebalancing](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/1a5720056b46dd9350d957ab0191e8aae7e458ba/Limits%20of%20two%20party%20channels/A%20Geometric%20Approach%20for%20Optimal%20Channel%20Replanishment.ipynb)*, which builds upon the [mathematical theory of payment channel networks](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/305db330c96dc751f0615d9abb096b12b8a6191f/Limits%20of%20two%20party%20channels/paper/a%20mathematical%20theory%20of%20payment%20channel%20networks.pdf) to provide a framework for improving liquidity management in payment channel networks. This work builds on earlier discussions about [channel depletion and topology cycles](https://delvingbitcoin.org/t/channel-depletion-ln-topology-cycles-and-rational-behavior-of-nodes/1259) and was hinted as one possible mitigation in [this Delving Bitcoin thread](https://delvingbitcoin.org/t/mitigating-channel-depletion-in-the-lightning-network-a-survey-of-potential-solutions/1640).  \n\n## Motivation  \n\nWhile off-chain rebalancing does not affect [the expected rate of payment feasibility](https://delvingbitcoin.org/t/estimating-likelihood-for-lightning-payments-to-be-in-feasible/973) in theory, in practice, unbalanced channels lead to frequent routing failures even if the payment was feasible. This notebook investigates whether structured, globally optimal replenishment can mitigate this issue\u2014even when starting from a severely depleted network.  \n\n## Method  \n\nThe approach formulates liquidity balancing as a constrained optimization problem (see appendix at the end of the post for some more math details):  \n\n1. **Objective**: Find the closest feasible liquidity state to a target (e.g., balanced channels)  \n2. **Solution**:  \n   - Continuous relaxation (via [Quadratic Programming](https://en.wikipedia.org/wiki/Quadratic_programming)) for fractional flows  \n   - Integer linear programming (via [Integer Linear Programming](https://en.wikipedia.org/wiki/Integer_programming)) to enforce satoshi constraints and make sure nodes do not loose money. \n\nThis is computationally intensive but provides a theoretical upper bound on how well rebalancing *could* work under ideal coordination.  \n\n## Results  \n\nThe most illustrative case starts from a heavily depleted network, where only **11.31% of channels** have balanced liquidity (both peers own between 40\u201360% of the channels' liquidity). After optimization:  \n\n- **Balanced channels increase to 56.30% (from 11.31%)**  \n- **Moderately imbalanced channels (both peers own between 10\u201390% of the channels' liquidity) rise to 95.24% (from 41.52%)**  \n\nThe optimizer suggests to shift **33.23% of the total network capacity** to achieve this.\n\nThe novelty about this method is that instead of rebalancing local cycles we try to find a state that satisfies the liquidity wishes of all peers on the network.\n\n\n\nThe above mentioned results can be seen in the CDF diagram where I depicted the relative liquidity peers own in channels before and after running the channel replanishment code.\n\n\n![download|652x500](upload://1i0yc8k0Kc5ifE6wJDYD3FC05Zu.png)\n\n**Interpretation**: The blue curve shows how before rebalancing almost half of all channels are heavily depleted with the liquidity either at 0 sats or 100% of the capacity of the channel. The distribution after rebalancing shows how optimization pulls channels away from extreme depletion (near 0% or 100%) toward balanced states.  \n\n## Caveats and Future Work  \n\nThis is a *theoretical benchmark*, not a deployable protocol. Key limitations include:  \n- **Central coordination requirement**: The current method assumes full network visibility.  \n- **Computational cost**: Solving QPs and ILPs at scale may be impractical.  \n- **Unknown desired state**: Currently the desirable target state is all channels should be 50:50. Of course it is rather easy to adopt the code to fulfill the wishes of node operators as long as those wishes reflect their locally owned liquidity. \n\nOpen questions for the community:  \n1. How to find an agent based approximation?  I haven't compared it yet to [prior research of mine](https://arxiv.org/abs/1912.09555) where I suggested a greedy version for rebalancing. \n2. Is it even worthwile to continue to think in this direction. It is my understanding that many node operators assume liquidity managment via fees is the way to go\n3. How might nodes *negotiate* target states without a central coordinator?  \n\n## Try the Notebook  \n\nThe [code is available for experimentation](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/1a5720056b46dd9350d957ab0191e8aae7e458ba/Limits%20of%20two%20party%20channels/A%20Geometric%20Approach%20for%20Optimal%20Channel%20Replanishment.ipynb), including:  \n- Network simulation with depletion/rebalancing  \n- Visualization tools (e.g., CDFs of liquidity states)  \n\nFeedback is welcome and highly appreciated.\n\n## Appendix: Mathematical details\nBuilding upon the framework established in [the mathematical theory of payment channel networks](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/305db330c96dc751f0615d9abb096b12b8a6191f/Limits%20of%20two%20party%20channels/paper/a%20mathematical%20theory%20of%20payment%20channel%20networks.pdf), we recall that for any given liquidity state $\\lambda\\in\\mathbb{Z}^{2m}$ (where $m$ is the number of channels), there exists a corresponding wealth distribution $\\omega\\in\\mathbb{Z}^n$ (where $n$ is the number of nodes) computable via a projection $\\pi$. The equivalence class $[\\lambda]$ comprises all liquidity states yielding identical wealth distribution $\\omega$, with its cardinality equal to the number of strict circulations on the liquidity graph represnting the current state $\\lambda$.\n\nThe channel replenishment problem is equivalent to finding a circulation that shifts the liquidity to a more desireable state (e.g. less depletion). This problemen reduces to selecting an optimal element from $[\\lambda]$. As demonstrated previously, feasible solutions can be obtained by solving a system of linear Diophantine equations subject to two constraint classes:\n\n1. **Conservation of Liquidity**: $m$ constraints enforcing channel capacity bounds  \n   $\u2200(u,v) \u2208 E: \u03bb(u,v) + \u03bb(v,u) = c(u,v)$  \n   where $c(u,v)$ denotes the capacity of channel $(u,v)$\n\n2. **Conservation of Wealth**: $n$ constraints preserving nodal wealth  \n   $\u2200u \u2208 V: \u2211_{v\u2208N(u)} \u03bb(u,v) = \u03c9_u$  \n\nThe solution space forms a convex polytope $P \u2282 \\mathbb{Z}\u00b2\u1d50 \u2229 [0, c(u,v)]^{2m}$, which may be empty for certain $(\u03c9, G)$ pairs due to the intersection with the capacity hypercube.\n\nOur optimization approach introduces a target liquidity state $x\u2080 \u2208 \\mathbb{Z}\u00b2\u1d50$, representing the desired channel balance configuration. While we typically select $x\u2080$ where each node holds exactly half of each channel's capacity ($x\u2080_{u,v} = c(u,v)/2$), the framework accommodates arbitrary target states. The optimal replenishment problem then becomes:\n\nminimize $\u2016x - x\u2080\u2016\u2082$  \nsubject to $x \u2208 P \u2229 \u2124\u00b2\u1d50$\n\nWe solve this via a two-phase approximation:\n\n1. **Continuous relaxation**: Compute $x_\\rho$ = argmin $\u2016x - x\u2080\u2016\u2082$ over $P \u2282 \u211d\u00b2\u1d50$ using quadratic programming.\n\n2. **Integer approximation**: Restrict search to the \u03b4-neighborhood of $x_\\rho$ \n   $B_\u03b4(x_\\rho) = {x \u2208 \u2124\u00b2\u1d50 | \u2016x - x_\\rho\u2016_\u221e \u2264 \u03b4}$  \n   where $\\delta = |\\sqrt{\\frac{||x_\\rho - x_0)||_2}{m}))}+1|$\n\nThe choice of $\u03b4$ ensures the neighborhood contains feasible integer solutions while maintaining computational tractability. This procedure is implemented in the accompanying code, which operationalizes the theoretical framework through constrained optimization techniques.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,19 @@
   "excerpt": "I\u2019d like to share my latest research notebook, <a href=\"https://github.com/renepickhardt/Lightning-Network-Limitations/blob/1a5720056b46dd9350d957ab0191e8aae7e458ba/Limits%20of%20two%20party%20channels/A%20Geometric%20Approach%20for%20Optimal%20Channel%20Replanishment.ipynb\" rel=\"noopener nofollow ugc\">A Geometric Approach for Optimal Channel Rebalancing</a>, which builds upon the <a href=\"https://github.com/renepickhardt/Lightning-Network-Limitations/blob/305db330c96dc751f0615d9abb096b12b8a6191f/Limits%20of%20two%20party%20channels/paper/a%20mathematical%20theory%20of%20payment%20channel%20networks.pdf\" rel=\"noopener nofollow ugc\">mathematical theory of payment channel networks</a> to provide a framework for improving liquidity management in payment channel networks. This work builds on earlier discussions ab&hellip;",
   "truncated": true,
   "post_url": "/t/research-update-a-geometric-approach-for-optimal-channel-rebalancing/1768/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
