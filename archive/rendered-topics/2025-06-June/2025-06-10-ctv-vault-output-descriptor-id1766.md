@@ -128,3 +128,51 @@ Thinking about it a bit more, it seems you can't actually do what I'm describing
 
 -------------------------
 
+AdamISZ | 2025-06-12 17:54:29 UTC | #7
+
+> In particular a descriptor can’t and shouldn’t commit to the *amount* that is sent to it, because the receiver doesn’t have control over that.
+
+(sorry on reflection this 1st paragraph is me mostly repeating your point ...)
+
+That's true but are you not here just pointing to a limitation of using CTV in any case? If your spending of a utxo is constrained in this way, you have to provide an amount which also has a constraint (obviously usually it's the other way round - you first decide an amount, and then construct a ctv hash). It's true that CTV supports multi-input so it's certainly not as simple as "your utxo must have exactly x satoshis + fees for an output of value x", but it's also true that the BIP somewhat strongly discourages more than one input, anyway.
+
+I guess it's like, if we tend to think of descriptors as "a thing that describes an unboundedly large pot you can put stuff into", then that doesn't work here, these are not that. They are customized pots of fixed size created dynamically when you've already decided what you want to put in them.
+
+(I guess technically these limitations are not only on size, but e.g. timelocking, since you have to commit to nLockTime in advance, also).
+
+If I were trying to be constructive (but in a state of relative ignorance about descriptors), I'd say, the descriptor could have the preimage of the CTV hash all serialized. I'm not sure why that wouldn't be the correct thing to do, albeit it might not be a "normal" descriptor.
+
+-------------------------
+
+sjors | 2025-06-12 18:44:41 UTC | #8
+
+[quote="AdamISZ, post:7, topic:1766"]
+That’s true but are you not here just pointing to a limitation of using CTV in any case?
+[/quote]
+
+Yes, if I understand this limitation correctly, and if there's no elegant way around it, it makes CTV not practical for vaults. Except perhaps for very sophisticated users, in particular those with existing (reliable, frequent) backup infrastructure.
+
+[quote="AdamISZ, post:7, topic:1766"]
+, if we tend to think of descriptors as “a thing that describes an unboundedly large pot you can put stuff into”
+[/quote]
+
+The use case I have in mind is a "daily" wallet with a recovery mechanism, where if you don't use the mechanism it shouldn't get in your way. Otherwise it's not going to be a UX improvement over the current state of the art of just rotating coins once a year as a dead man's switch (and having your wallet reminding you).
+
+[quote="AdamISZ, post:7, topic:1766"]
+the descriptor could have the preimage of the CTV hash all serialized
+[/quote]
+
+You can't know this hash at wallet creation time. Indeed also because you won't know what lock time to pick. Maybe you could have giant tree of amounts and fixed dates?
+
+---
+
+Maybe the above is a bit too pessimistic; it doesn't work for the use case I'm describing, and descriptors aren't the right tool, but the original [Simple-CTV-Vault](https://github.com/jamesob/simple-ctv-vault) design [seems to only require](https://github.com/jamesob/simple-ctv-vault/issues/9) the user to backup:
+1. the involved public keys
+2. one (?) private key
+3. the block delay
+4. each deposit transaction id
+
+(1) - (3) are known at creation time. (4) requires continuous backups, but may be recoverable with context.
+
+-------------------------
+
