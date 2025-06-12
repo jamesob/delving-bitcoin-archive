@@ -66,3 +66,39 @@ Cc: @shesek
 
 -------------------------
 
+sanket1729 | 2025-06-12 01:11:15 UTC | #3
+
+FTR, I am slowly warming to @salvatoshi's view that descriptors might be the wrong language to play with this. But I'm still exploring the idea as mentioned in the post. Descriptors **must** convey **all** the information necessary to spend the output.
+
+> [quote="sjors, post:1, topic:1766"]
+> `tr(musig(A, B), {and_v(pk(A), ctv(musig(A, B), {unvault_cold, unvault_hot}), ...)})`
+> [/quote]
+
+CTV spec specifies a bunch of other fields that are going to be hashed. For example, we need to decide what sequence value to set for the transaction, as well as the complete serialization of all inputs and outputs. If we don't store all of this information, then we don't satisfy the property that descriptors must contain all the information required to spend from it.
+
+One naive attempt could be to encode the entire transaction as hex in the descriptor. But we still want the flexibility to express BIP32 keys in there. Maybe if we had a new `ctv_tx` fragment in the descriptor language that looks like:
+
+```
+ctv_tx(version, nlocktime, inputs_hash, [out_desc1, out_desc2, ...])
+```
+
+where each `out_desc_i` is a BIP380 descriptor in itself, that would be a complete specification. This is clearly clunky, and maybe with some work we can simplify the fragment for common use cases. But in any such simplification, we must preserve the property that the descriptor contains all information required to spend the output. (minus the private key of course). 
+
+[quote="sjors, post:1, topic:1766"]
+Assuming the above makes any sense, it’d love to see someone implement it…
+[/quote]
+
+Happy to try to do this once I get some spare time
+
+-------------------------
+
+ajtowns | 2025-06-12 02:28:54 UTC | #4
+
+[quote="sanket1729, post:3, topic:1766"]
+where each `out_desc_i` is a BIP380 descriptor in itself,
+[/quote]
+
+I think you'd need to include amounts for each output, in addition to a descriptor that can produce the scriptPubKey? You'd probably want some other expression that can convert `total_in_amount_pct(50)` to 50% of the sum of all the input amounts or similar.
+
+-------------------------
+
