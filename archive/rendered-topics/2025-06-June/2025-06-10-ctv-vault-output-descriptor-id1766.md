@@ -122,3 +122,9 @@ I think the most important requirement from a usability perspective is that you 
 
 -------------------------
 
+sjors | 2025-06-12 14:11:46 UTC | #6
+
+Thinking about it a bit more, it seems you can't actually do what I'm describing here with CTV and it only works with CCV. In particular a descriptor can't and shouldn't commit to the _amount_ that is sent to it, because the receiver doesn't have control over that.
+
+-------------------------
+
