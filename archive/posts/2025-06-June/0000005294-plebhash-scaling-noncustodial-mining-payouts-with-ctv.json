@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Some words about how this relates to Stratum V2.\n\nRecently, we had some discussions on Coinbase Output allocation on the spec repo: https://github.com/stratum-mining/sv2-spec/pull/138\n\nWe realized that there's a there's a chicken-and-egg problem that's very hard to solve without introducing new round-trip messages into the canonical Sv2 Job Declaration (JD) process.\n\nIn the bootstrapping phase of the Sv2 JD, the following Sv2 messages need to happen in sequence:\n- [`AllocateMiningJobToken`](https://github.com/stratum-mining/sv2-spec/blob/66287a5d9e8d94a681febadcaffa6e141e3cf4b4/06-Job-Declaration-Protocol.md#642-allocateminingjobtoken-jdc---jds) (JD Client / Miner -> JD Server / Pool)\n- [`AllocateMiningJobToken.Success`](https://github.com/stratum-mining/sv2-spec/blob/66287a5d9e8d94a681febadcaffa6e141e3cf4b4/06-Job-Declaration-Protocol.md#643-allocateminingjobtokensuccess-server---client) (JD Server / Pool -> JD Client / Miner)\n- [`CoinbaseOutputConstraints`](https://github.com/stratum-mining/sv2-spec/blob/66287a5d9e8d94a681febadcaffa6e141e3cf4b4/07-Template-Distribution-Protocol.md#71-coinbaseoutputconstraints-client---server) (JD Client / Miner -> Template Provider / Miner)\n\n`AllocateMiningJobToken.Success.coinbase_tx_outputs` is how JD Server / Pool informs the bare minimum information that it expects to see in the Coinbase Outputs in order to acknowledge work. At this point, neither Pool nor Miner know the template revenue, because the Template Provider still wasn't informed about the blockspace and sigops budget available for creating the template (that happens over `CoinbaseOutputConstraints`).\n\nSo we established a convention where the first output of `AllocateMiningJobToken.Success.coinbase_tx_outputs` dictates where the pooled mining goes. This output is informed as a 0 valued output, and it is up to the JD Client / Miner to fill it on subsequent JD messages (`DeclareMiningJob` and `SetCustomMiningJob`) with the amount of sats it wants to allocate towards pooled mining.\n\nThis is enough to establish a sequence of causality in the chain of messages listed above. JD Client has enough data to inform the Template Provider about the available blockspace and sigops budget via `CoinbaseOutputConstraints`, and later it can continue with the JD process without violating the agreements with the Pool.\n\nThis is however a compromise that sacrifices non-custodial payouts under the canonical Sv2 JD spec. Pool / JDS cannot determine non-custodial payouts without knowledge of template revenue. Miner / JDC cannot inform template revenue without knowledge of blockspace/sigops budget. \ud83d\udc14\ud83e\udd5a.\n\nSome protocol extension would be needed to unblock non-custodial payouts, be it multi-output or CTV-based.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Some words about how this relates to Stratum V2. \nRecently, we had some discussions on Coinbase Output allocation on the spec repo: <a href=\"https://github.com/stratum-mining/sv2-spec/pull/138\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">clarify `AllocateMiningJobToken.Succes`, `DeclareMiningJob.Success` and `SetCustomMiningJob`; and remove `SetCustomMiningJob.coinbase_tx_value_remaining` by plebhash \u00b7 &hellip;</a>",
   "truncated": true,
   "post_url": "/t/scaling-noncustodial-mining-payouts-with-ctv/1753/14",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
