@@ -348,3 +348,23 @@ I'll take some time in the next few days to write up my thinking.
 
 -------------------------
 
+plebhash | 2025-06-13 20:17:11 UTC | #17
+
+but then where would the consensus for reward distribution happen?
+
+what you're saying sounds like decentralized consensus, but as far as I've looked into this, it's very non-trivial problem to solve, which p2pool and braidpool are doing their own compromises to achieve. 
+
+also, those are projects where Sv2 JD don't really serve much of a purpose (Sv2 Mining Protocol could benefit them, but not really relevant on this discussion).
+
+I heard the Ocean folks talking about moving DATUM in a direction where miners are spot-checking eachother work, but I'm yet to fully assimilate how that would look like, and also how that would scale up.
+
+the point about having a centralized pool is that it dictates how the coinbase must ultimately look like (be it custodial or non-custodial payouts).
+
+in canonical Sv2 JD, we try to simplify the problem as much as possible, by saying that there will be only one single output... it's up to the miner to take the template revenue and allocate how many sats it wants to this specific output.
+
+a protocol extension would introduce new messages that (at the cost of extra round-trips) to allow Miner to inform the template revenue (or revenue to be allocated towards pooled mining), and then be informed about the non-custodial coinbase output that will qualify valid work.
+
+I agree that the part about sigops + blocksize budget is relatively trivial, and could even be something the miner informs its TP without the need for any dedicated message (since it's kind of statically defined)... but the point is that would diverge from the message flow that's already established on the canonical Sv2 JD
+
+-------------------------
+
