@@ -301,3 +301,28 @@ In practice, every custodial pool externalizes their payout costs to future bloc
 
 -------------------------
 
+plebhash | 2025-06-13 14:56:51 UTC | #14
+
+Some words about how this relates to Stratum V2.
+
+Recently, we had some discussions on Coinbase Output allocation on the spec repo: https://github.com/stratum-mining/sv2-spec/pull/138
+
+We realized that there's a there's a chicken-and-egg problem that's very hard to solve without introducing new round-trip messages into the canonical Sv2 Job Declaration (JD) process.
+
+In the bootstrapping phase of the Sv2 JD, the following Sv2 messages need to happen in sequence:
+- [`AllocateMiningJobToken`](https://github.com/stratum-mining/sv2-spec/blob/main/06-Job-Declaration-Protocol.md#642-allocateminingjobtoken-jdc---jds) (JD Client / Miner -> JD Server / Pool)
+- [`AllocateMiningJobToken.Success`](https://github.com/stratum-mining/sv2-spec/blob/main/06-Job-Declaration-Protocol.md#643-allocateminingjobtokensuccess-server---client) (JD Server / Pool -> JD Client / Miner)
+- [`CoinbaseOutputConstraints`](https://github.com/stratum-mining/sv2-spec/blob/main/07-Template-Distribution-Protocol.md#71-coinbaseoutputconstraints-client---server) (JD Client / Miner -> Template Provider / Miner)
+
+`AllocateMiningJobToken.Success.coinbase_tx_outputs` is how JD Server / Pool informs the bare minimum information that it expects to see in the Coinbase Outputs in order to acknowledge work. At this point, neither Pool nor Miner know the template revenue, because the Template Provider still wasn't informed about the blockspace and sigops budget available for creating the template (that happens over `CoinbaseOutputConstraints`).
+
+So we established a convention where the first output of `AllocateMiningJobToken.Success.coinbase_tx_outputs` dictates where the pooled mining goes. This output is informed as a 0 valued output, and it is up to the JD Client / Miner to fill it on subsequent JD messages (`DeclareMiningJob` and `SetCustomMiningJob`) with the amount of sats it wants to allocate towards pooled mining.
+
+This is enough to establish a sequence of causality in the chain of messages listed above. JD Client has enough data to inform the Template Provider about the available blockspace and sigops budget via `CoinbaseOutputConstraints`, and later it can continue with the JD process without violating the agreements with the Pool.
+
+This is however a compromise that sacrifices non-custodial payouts under the canonical Sv2 JD spec. Pool / JDS cannot determine non-custodial payouts without knowledge of template revenue. Miner / JDC cannot inform template revenue without knowledge of blockspace/sigops budget. 🐔🥚.
+
+Some protocol extension would be needed to unblock non-custodial payouts, be it multi-output or CTV-based.
+
+-------------------------
+

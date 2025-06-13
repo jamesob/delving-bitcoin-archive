@@ -1,11 +1,11 @@
 # OP_CHECKCONTRACTVERIFY and its amount semantic
 
-salvatoshi | 2025-03-31 12:31:52 UTC | #1
+salvatoshi | 2025-05-16 17:33:49 UTC | #1
 
 I have done some work on formalizing the semantic of `OP_CHECKCONTRACTVERIFY`.  I also wrote the first draft BIP and an implementation in bitcoin-core:
 
 Links:
-- [BIP draft](https://github.com/bitcoin/bips/pull/1793)
+- [BIP-443](https://github.com/bitcoin/bips/blob/master/bip-0443.mediawiki) ([PR discussion](https://github.com/bitcoin/bips/pull/1793))
 - [bitcoin-core implementation draft](https://github.com/bitcoin/bitcoin/pull/32080)
 
 In this post, I will briefly introduce the `OP_CCV` opcode semantic, then expand and discuss on an its amount-handling logic — an aspect that wasn't fully explored (and not properly formalized) in my previous posts on the topic. I will make the argument that it provides a convenient and compelling feature set that would be difficult to implement with more 'atomic' opcodes.
@@ -375,6 +375,46 @@ Taking a step back, my general impression is that for even for something like [b
   - removal of parallel input validation
 
 will be necessary. Whatever solution is deemed best, it will be re-usable for CCV without sacrificing the desirable semantic (and avoiding redundant bytes).
+
+-------------------------
+
+halseth | 2025-06-13 11:11:19 UTC | #12
+
+Thanks for demonstrating the two different implementations @salvatoshi and @AntoineP. It has gotten me thinking about what would be the best approach, and I see both having their tradeoffs.
+
+I tried implementing both methods in `btcd`, and similar to `bitcoind` the difference in complexity of the two methods is a result of the attempt of doing input script validation in parallell during tx/block processing (maybe even more so in btcd because of how easy it is to distribute work across goroutines: https://github.com/btcsuite/btcd/blob/1eb974aab6ef11097571f9517b4b6b0c639ab63b/blockchain/scriptval.go#L148-L170) 
+
+Similar to the bitcoind implementations it comes down to either (1) introducing a shared mutable state across the threads, or (2) doing a pre-check of the intended amount flows and then have `CCV` assert this data (like in the annex) during script execution. 
+
+Or (3) having a deferred check framework in place, performing  extra checks after a group of dependent inputs have been validated. The deferred checks framework would actually fit nicely (my hunch, I haven't actually implemented it) with the btcd implementation.
+
+***Shared state (1)***
+
+The various alternatives all have their downsides, but generally I would be skeptical to introducing a shared state guarded by a mutex, and "give up" on parallel input validation. 
+
+I think it is definitely worth asking the question whether parallel input validation actually has a practical effect in real life (and benchmarks), but at the same time I think *Why change it? There be dragons.*
+
+***Annex hints (2)***
+
+The annex approach is nice in the sense that it doesn't need that much plumbing into the script engine, and the separation of concerns. With this approach you would reduce the CCV opcode to just do "annex assertion" not really caring what the annex means. I believe that would make it easier to add more meaning to the annex at a later point (via a soft fork) and immediately have it available for assertion by CCV without touching the script engine.
+
+I am curios to explore whether the annex hint approach would be useful together with other (future) script primitives. If you can specify for each input how you expect the funds will flow, that feels like it could be useful in itself. If you combine this with SIGHASH_NONE (only sign inputs), maybe that could be used to built partially signed transactions where flow of funds are pre-determined, but outputs are left unspecified (not sure if this is useful at all though).
+
+***Batch validation***
+
+Cross-input (batch) signature validation is definitely something we should think about supporting down the road, and accompany for that being practical to implement. To me neither of these approaches seems to be in the way of that (though something like deferred checks might be more aligned with that vision).
+
+-------------------------
+
+AntoineP | 2025-06-13 13:12:08 UTC | #13
+
+Nice, good to see more practical exploration on this.
+
+[quote="halseth, post:12, topic:1527"]
+With this approach you would reduce the CCV opcode to just do “annex assertion” not really caring what the annex means. I believe that would make it easier to add more meaning to the annex at a later point (via a soft fork) and immediately have it available for assertion by CCV without touching the script engine.
+[/quote]
+
+I think my preference would be to separate concerns entirely and have an opcode that does the assertion. `OP_CHECKAMOUNT`? Then CCV can take care of the scripts.
 
 -------------------------
 
