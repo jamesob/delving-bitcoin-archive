@@ -301,7 +301,7 @@ In practice, every custodial pool externalizes their payout costs to future bloc
 
 -------------------------
 
-plebhash | 2025-06-13 14:56:51 UTC | #14
+plebhash | 2025-06-13 15:01:56 UTC | #14
 
 Some words about how this relates to Stratum V2.
 
@@ -310,9 +310,9 @@ Recently, we had some discussions on Coinbase Output allocation on the spec repo
 We realized that there's a there's a chicken-and-egg problem that's very hard to solve without introducing new round-trip messages into the canonical Sv2 Job Declaration (JD) process.
 
 In the bootstrapping phase of the Sv2 JD, the following Sv2 messages need to happen in sequence:
-- [`AllocateMiningJobToken`](https://github.com/stratum-mining/sv2-spec/blob/main/06-Job-Declaration-Protocol.md#642-allocateminingjobtoken-jdc---jds) (JD Client / Miner -> JD Server / Pool)
-- [`AllocateMiningJobToken.Success`](https://github.com/stratum-mining/sv2-spec/blob/main/06-Job-Declaration-Protocol.md#643-allocateminingjobtokensuccess-server---client) (JD Server / Pool -> JD Client / Miner)
-- [`CoinbaseOutputConstraints`](https://github.com/stratum-mining/sv2-spec/blob/main/07-Template-Distribution-Protocol.md#71-coinbaseoutputconstraints-client---server) (JD Client / Miner -> Template Provider / Miner)
+- [`AllocateMiningJobToken`](https://github.com/stratum-mining/sv2-spec/blob/66287a5d9e8d94a681febadcaffa6e141e3cf4b4/06-Job-Declaration-Protocol.md#642-allocateminingjobtoken-jdc---jds) (JD Client / Miner -> JD Server / Pool)
+- [`AllocateMiningJobToken.Success`](https://github.com/stratum-mining/sv2-spec/blob/66287a5d9e8d94a681febadcaffa6e141e3cf4b4/06-Job-Declaration-Protocol.md#643-allocateminingjobtokensuccess-server---client) (JD Server / Pool -> JD Client / Miner)
+- [`CoinbaseOutputConstraints`](https://github.com/stratum-mining/sv2-spec/blob/66287a5d9e8d94a681febadcaffa6e141e3cf4b4/07-Template-Distribution-Protocol.md#71-coinbaseoutputconstraints-client---server) (JD Client / Miner -> Template Provider / Miner)
 
 `AllocateMiningJobToken.Success.coinbase_tx_outputs` is how JD Server / Pool informs the bare minimum information that it expects to see in the Coinbase Outputs in order to acknowledge work. At this point, neither Pool nor Miner know the template revenue, because the Template Provider still wasn't informed about the blockspace and sigops budget available for creating the template (that happens over `CoinbaseOutputConstraints`).
 
