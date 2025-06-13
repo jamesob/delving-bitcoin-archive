@@ -326,3 +326,25 @@ Some protocol extension would be needed to unblock non-custodial payouts, be it 
 
 -------------------------
 
+vnprc | 2025-06-13 16:11:25 UTC | #15
+
+Thanks for looking into this @plebhash. I'm very interested in exploring this further because I view non-custodial payouts as a high priority feature for my project.
+
+It seems like the pool's ability to require certain transactions in the template is interfering with the possibility of non-custodial payouts within the current spec.
+
+If the pool simply forgoes this option and leaves the template wide open for miners to fill, wouldn't that solve the problem?
+
+Miners could use the known fixed-size CTV coinbase to non-interactively calculate sigops and blockspace budget.
+
+-------------------------
+
+vnprc | 2025-06-13 16:33:29 UTC | #16
+
+@marathon-gary I didn't respond to your LN post because it's off-topic in this thread and I think it deserves a dedicated Delving post.
+
+The TL;DR of that post (which I haven't written yet) is that Poon-Dryja channels with block producers are fundamentally insecure. I think Spillman channels are a superior choice for pool payouts.
+
+I'll take some time in the next few days to write up my thinking.
+
+-------------------------
+
