@@ -248,3 +248,25 @@ Maybe no one's done it because it's basically a bad trade-off? But again I'm con
 
 -------------------------
 
+1440000bytes | 2025-06-14 17:38:15 UTC | #7
+
+re: https://groups.google.com/g/bitcoindev/c/KJF6A55DPJ8/m/85w00kw8AwAJ
+
+> I'm struggling to figure out what kind of useful 'vault' could be constructed from CTV that isn't equivalent to "presign a transaction that sweeps your funds to an emergency address".  Can someone clue me in?
+
+Without CTV, you must securely delete the keys after signing transactions, and ensure you don’t lose the pre-signed transactions. With CTV, you can avoid this and use an emergency path if the unvault transaction is maliciously triggered by an attacker.
+
+*Replying here since its not easy to communicate on mailing list because of delays, rejections etc. in moderation.*
+
+Cc: @gmaxwell
+
+-------------------------
+
+1440000bytes | 2025-06-14 19:15:45 UTC | #8
+
+[Jose-Luis Landabaso](https://github.com/landabaso) has created [rewindbitcoin](https://rewindbitcoin.com/) which uses pre-signed transactions with key deletion.
+
+Related tweet thread: https://x.com/landabaso/status/1933153049050017994
+
+-------------------------
+
