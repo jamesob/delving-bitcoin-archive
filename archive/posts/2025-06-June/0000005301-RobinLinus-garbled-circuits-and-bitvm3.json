@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 8.4,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 24.2,
   "yours": false,
   "topic_id": 1773,
   "topic_slug": "garbled-circuits-and-bitvm3",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "## Garbled Circuits and BitVM3\n\nThe BitVM Alliance is pivoting to garbled circuits, as they make SNARK verification on Bitcoin over 1000x more efficient than BitVM2, enabling drastically cheaper BTC bridges. A vast design space is now being explored in parallel by multiple teams.\n\nOne such approach is [BitVM3](https://bitvm.org/bitvm3.pdf), which strikes a practical balance between implementation complexity, communication overhead, and proving cost.\n\nThe design is inspired by Jeremy Rubin\u2019s [Delbrag](https://rubin.io/bitcoin/2025/04/04/delbrag) scheme. The key improvement is that BitVM3 circuits can be verified in plaintext and then reblinded \u2014 addressing Delbrag\u2019s main drawback: the need for either expensive circuit correctness proofs or 200kB disprove scripts.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "<a name=\"p-5301-garbled-circuits-and-bitvm3-1\" class=\"anchor\" href=\"#p-5301-garbled-circuits-and-bitvm3-1\"></a>Garbled Circuits and BitVM3\nThe BitVM Alliance is pivoting to garbled circuits, as they make SNARK verification on Bitcoin over 1000x more efficient than BitVM2, enabling drastically cheaper BTC bridges. A vast design space is now being explored in parallel by multiple teams. \nOne such approach is <a href=\"https://bitvm.org/bitvm3.pdf\" rel=\"noopener nofollow ugc\">B&hellip;</a>",
   "truncated": true,
   "post_url": "/t/garbled-circuits-and-bitvm3/1773/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
