@@ -375,9 +375,9 @@ OP_EQUAL
 
 -------------------------
 
-jsarenik | 2025-03-07 08:51:52 UTC | #11
+olkurbatov | 2025-06-18 09:21:36 UTC | #12
 
-Are there any examples on signet?
+The OP_RAND PoC: [https://github.com/distributed-lab/op_rand](https://github.com/distributed-lab/op_rand)
 
 -------------------------
 
