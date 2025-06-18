@@ -1771,3 +1771,22 @@ So you could have a "next tx" transition or override with some (non-aggregated) 
 
 -------------------------
 
+jamesob | 2025-06-18 02:54:18 UTC | #78
+
+Brief overview of my current thoughts, for whatever they're worth: 
+
+I'd be happy to modify BIP-119 to omit legacy script support for CTV if there's a 34-byte "witness v2" along the lines of what @instagibbs sketched out.
+
+My hold out here had been that I thought the BitVM "sibling input requirement" trick relies upon legacy use, but it does not. Note that I still think CTV availability in witness v0 is worth preserving for reasons mentioned above.
+
+If there's demand to introduce a push-style `OP_TEMPLATEHASH` that puts the CTV digest on the stack, that sounds like a totally reasonable and low-effort/risk enhancement to me.
+
+---
+
+Do the stakeholders opining here think there could be consensus around this? Namely:
+- BIP-119 modified to remove legacy script support (but retaining wit v0 support),
+- definition of a witness v2 per [instagibb's patch](https://github.com/instagibbs/bitcoin/commit/9b5ae77d97222efc2328c1916f790c7f67cf10b3), and
+- inclusion of a tapscript-only `OP_TEMPLATEHASH`?
+
+-------------------------
+
