@@ -176,3 +176,19 @@ Maybe the above is a bit too pessimistic; it doesn't work for the use case I'm d
 
 -------------------------
 
+sanket1729 | 2025-06-20 01:50:09 UTC | #9
+
+Taking another stab at this. I am modifying the construction of CTV vaults as follows. Instead of depositing funds directly into vaults, funds are deposited into a regular BIP380 `in_desc`. All UTXOs then go into a CTV address that is governed by a ctv vault-like policy.
+
+There is a big difference from traditional vaults here, in that the deposit also goes into a hot wallet and is then moved with a separate transaction into the CTV vault. As discussed in several other threads earlier, users depositing directly into CTV addresses will be error-prone and can lead to loss of funds. If we are using software to deposit funds into a CTV vault, we might use the descriptor where we get the money to identify the wallets. For tracing all funds for backup purposes, we can then use this descriptor to trace them.
+
+What if we fit in the ctv_vaults as follows:
+`ctv(in_desc, out_desc)` where
+
+* `in_desc` is a BIP380 descriptor that we use to index deposits. We immediately move funds to the vault with a regular CTV transaction.
+* `out_desc` represents the first output of a BIP380 descriptor with the same amount as the input, and a second output that serves as an anchor for fees. This can be a fixed amount like a DUST output with a fixed fee for 1 sat/vb etc. Along with other sensible defaults for nlocktime, sequence etc @sjors mentioned above.
+
+I believe this should be easy to implement, as most wallets (including bitcoin core) would not need any or complex logic to support this. Implementing it this way, we also avoid the footgun of potentially depositing incorrect amounts in CTV vaults. Curious to hear your thoughts
+
+-------------------------
+
