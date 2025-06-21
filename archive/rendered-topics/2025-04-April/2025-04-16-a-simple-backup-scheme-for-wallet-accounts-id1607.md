@@ -383,3 +383,15 @@ I think it's better to have a (non-mandatory) predictable derivation, and just r
 
 -------------------------
 
+jdlcdl | 2025-06-21 13:57:41 UTC | #21
+
+I'm trying to wrap my head around the XOR set of individual secrets Ci (included in backup) as they relate to the shared secret S (to decrypt the ciphertext payload).
+
+If there are only 2 xpubs in a descriptor, then the XOR result of both Ci values IS the shared secret?
+
+If there are 4 xpubs, or any "even" number of xpubs since each Ci is the whole shared secret minus that individual secret, then the combined XOR result of all Ci values (w/ each individual secret XORed an odd number of times, and revealed), IS the shared secret?
+
+I think I recall a version of similar scheme where each Ci was ciphertext decrypted by its pubkey that revealed the shared secret, rather than XOR-"subtracted" (if that makes sense) from the shared-secret.
+
+-------------------------
+
