@@ -383,9 +383,11 @@ I think it's better to have a (non-mandatory) predictable derivation, and just r
 
 -------------------------
 
-jdlcdl | 2025-06-21 15:08:18 UTC | #21
+jdlcdl | 2025-06-22 10:33:44 UTC | #21
 
 I'm trying to wrap my head around the XOR set of individual secrets Ci (included in backup) as they relate to the shared secret S (to decrypt the ciphertext payload).
+
+[updated] to explain my confusion yesterday about the above statement.  They're not related at all.  The shared decryption key is a secret by itself, as are each of the individual Ci pre-images, which are hashed to hide the shared secret until one of the cosigners can remove theirs via XOR to reveal the shared decryption key.
 
 ~~If there are only 2 xpubs in a descriptor, then the XOR result of both Ci values IS the shared secret?~~
 
