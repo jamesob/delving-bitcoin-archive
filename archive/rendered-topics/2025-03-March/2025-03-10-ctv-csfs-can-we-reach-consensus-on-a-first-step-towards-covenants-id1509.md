@@ -1790,9 +1790,19 @@ Do the stakeholders opining here think there could be consensus around this? Nam
 
 -------------------------
 
-1440000bytes | 2025-06-19 15:02:15 UTC | #79
+sjors | 2025-06-23 15:22:42 UTC | #80
 
-(post deleted by author)
+[quote="instagibbs, post:7, topic:1509"]
+I do think it would accelerate updating to PTLCs, f.e., even if symmetry per-se is never adopted. Re-bindable signatures just makes life so much less of a headache when stacking protocols…
+[/quote]
+
+Can you clarify the situation with regards to PTLC (without LN Symmetry)? My understanding is that PTLC is an enormous privacy upgrade, since it removes the trail of identical hash pre-images along a (split) route.
+
+I guess I'm stuck in 2021 when we thought that just Taproot would do the trick.
+
+Is it merely easier if we add CSFS (plus CTV)? Or is it nearly impossible without that?
+
+Since it tends to take a few years for a soft fork to activate and for a protocol like Lightning to take advantage of it, could be we in a situation where by that time the complexities have been overcome and we already have working PTLC? It would still be a welcome simplification, but not introducing something new. Or do you reckon we'll PTLC faster despite the extra step of activating a soft fork?
 
 -------------------------
 
