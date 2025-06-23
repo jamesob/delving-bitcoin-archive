@@ -1790,13 +1790,13 @@ Do the stakeholders opining here think there could be consensus around this? Nam
 
 -------------------------
 
-sjors | 2025-06-23 15:26:00 UTC | #80
+sjors | 2025-06-23 15:27:04 UTC | #80
 
 [quote="instagibbs, post:7, topic:1509"]
 I do think it would accelerate updating to PTLCs, f.e., even if symmetry per-se is never adopted. Re-bindable signatures just makes life so much less of a headache when stacking protocols…
 [/quote]
 
-Can you clarify the situation with regards to PTLC (without LN Symmetry)? My understanding is that PTLC is an enormous privacy upgrade, since it removes the trail of identical hash pre-images along a (split) route.
+Can you clarify the situation with regards to PTLC (without LN Symmetry)? My understanding is that PTLC is an enormous privacy upgrade, since it removes the trail of identical hash pre-images along a (split) route. (especially in a scenario where an adversary is gradually collecting log files through nefarious means)
 
 I guess I'm stuck in 2021 when we thought that just Taproot would do the trick.
 
