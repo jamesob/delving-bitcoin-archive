@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 3,
-  "reads": 12,
-  "readers_count": 11,
+  "reads": 13,
+  "readers_count": 12,
   "score": 92.4,
   "yours": false,
   "topic_id": 1786,
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 6
     }
   ],
   "moderator": false,
@@ -68,7 +68,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "eyes",
@@ -77,6 +77,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
+  "reaction_users_count": 6,
   "current_user_used_main_reaction": false
 }
