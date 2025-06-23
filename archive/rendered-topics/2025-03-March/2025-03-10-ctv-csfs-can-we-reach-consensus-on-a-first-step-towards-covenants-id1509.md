@@ -1806,3 +1806,15 @@ Since it tends to take a few years for a soft fork to activate and for a protoco
 
 -------------------------
 
+instagibbs | 2025-06-23 15:37:14 UTC | #81
+
+[quote="sjors, post:80, topic:1509"]
+Is it merely easier if we add CSFS (plus CTV)? Or is it nearly impossible without that?
+[/quote]
+
+Take a look [here](https://gist.github.com/instagibbs/1d02d0251640c250ceea1c66665ec163) to see what complications arise from PTLCs on today's protocols. It's by no means impossible, but with rebindable signatures it just gets significantly simpler.
+
+I will not try to predict uptake on established protocols however. There's a long list of improvements that users actually care about, and PTLCs isn't one of them generally.
+
+-------------------------
+
