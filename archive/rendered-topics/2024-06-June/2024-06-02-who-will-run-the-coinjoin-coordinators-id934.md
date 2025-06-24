@@ -346,3 +346,9 @@ US secret service has mentioned @kruw's coordinator in https://www.secretservice
 
 -------------------------
 
+1440000bytes | 2025-06-24 00:46:03 UTC | #24
+
+New whirlpool coordinator with some red flags and vulnerabilities: https://bitcointalk.org/index.php?topic=5547639.0
+
+-------------------------
+
