@@ -193,3 +193,26 @@ EDIT: This [paper](https://proceedings.neurips.cc/paper_files/paper/2017/file/6c
 
 -------------------------
 
+mzumsande | 2025-06-24 20:05:56 UTC | #5
+
+Thank you for the research and the writeup!
+
+Some thoughts on the mitigation suggestions:
+
+> Randomizing timestamps
+
+The challenge with randomization is that timestamp of GETADDR results are spread over a large time (30 days), so just adding a slight random delay of a few hours probably won't change too much.
+I wonder if there would be major downsides if we'd just indiscriminately set the timestamp of each address from a GETADDR answer to a randomised but fixed value in the past (e.g. 10 +/- 2 days ago) when creating the cached response, not using our nTime information at all (with a different random value for each cache of course).
+
+> Removing timestamps
+
+Timestamps are also used in gossip relay (a separate mechanism from GETADDR) of node announcements.
+There, the goal is that announcements of nodes make it to some part of the network (but not the entire network) to achieve a reasonable propagation without leading to flooding - this is being achieved by only forwarding received addrs from packages of size <= 10 to 1-2 peers, and by also by limiting the timespan in which an address is being forwarded to 10 minutes after the original submission (the timestamp is needed for that).
+While I don't know if anyone has ever looked into the efficiency of that, I'm not sure we'd want to remove the timestamp on a p2p-level - just changing way we set the timestamps when responding to GETADDR seems sufficient for me.
+
+> an attacker can guess how connected these two nodes are. The attacker can repeat this indefinitely to try to guess network topology a little bit better.
+
+There is some past work on this by the KIT group, after the "addr spam attack" of 2021, see  https://fc22.ifca.ai/preproceedings/114.pdf and https://publikationen.bibliothek.kit.edu/1000146768.
+
+-------------------------
+
