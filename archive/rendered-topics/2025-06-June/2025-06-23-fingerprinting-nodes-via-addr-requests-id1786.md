@@ -171,3 +171,13 @@ fwiw I can confirm this: I provided an address on one of the networks and they c
 
 -------------------------
 
+0xB10C | 2025-06-23 21:11:58 UTC | #3
+
+One though I had:
+
+Did you look into nodes that have different IPv4 addresses, but return the same addr responses? I.e. IPv4–IPv4 node pairs? This could be an indicator for Sybil nodes / nodes listening on multiple IPv4 addresses.
+
+cc @AntoineP
+
+-------------------------
+
