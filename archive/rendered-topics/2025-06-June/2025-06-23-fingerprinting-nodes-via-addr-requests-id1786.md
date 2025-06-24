@@ -181,3 +181,15 @@ cc @AntoineP
 
 -------------------------
 
+Crypt-iQ | 2025-06-24 11:35:42 UTC | #4
+
+Nice work, I find ADDR relay fascinating because it's free unlike TX relay. The suggestion to remove timestamps from ADDR sounds interesting.
+
+I ran some tests a few years ago and came to the conclusion that if an attacker constructs ADDR messages with  <= 10 addresses, makes them all unique (i.e. `60.99.x.x`), and sends them to a target node, the attacker can connect to many other nodes on the network to see if they receive any of the "attacker" addresses from other nodes. Depending on the time elapsed from 1) the initial send to the target node and 2) the receipt from the non-target node, an attacker can guess how connected these two nodes are. The attacker can repeat this indefinitely to try to guess network topology a little bit better.
+
+I think the introduction of the ADDR rate-limit might make things a little more complex. I also think there are some quirks of how ADDR-relay works (different networks, fiddling with the timestamp so the ADDR doesn't travel too far, etc) that can even leak more information. I think a warnet simulation could measure how likely it is an attacker can fingerprint a node.
+
+EDIT: This [paper](https://proceedings.neurips.cc/paper_files/paper/2017/file/6c3cf77d52820cd0fe646d38bc2145ca-Paper.pdf) about de-anonymization using TX relay might be relevant for ADDR relay. I believe the math is different since ADDR relay does not flood the network, but it accounts for the Poisson timer (called "diffusion" in the paper).
+
+-------------------------
+
