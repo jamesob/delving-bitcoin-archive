@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 112,
-  "reads": 33,
-  "readers_count": 32,
-  "score": 671.6,
+  "incoming_link_count": 114,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 697.0,
   "yours": false,
   "topic_id": 1786,
   "topic_slug": "fingerprinting-nodes-via-addr-requests",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 7
+      "count": 8
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     },
     {
       "id": "heart",
@@ -77,6 +77,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 7,
+  "reaction_users_count": 8,
   "current_user_used_main_reaction": false
 }

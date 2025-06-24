@@ -25,3 +25,9 @@ An important consideration remains: Is there perhaps greater demand for these mo
 
 -------------------------
 
+ProofOfKeags | 2025-06-24 19:12:57 UTC | #2
+
+TXHASH does not obviate the need for CSFS. It is a full-replacement for CTV, though.
+
+-------------------------
+
