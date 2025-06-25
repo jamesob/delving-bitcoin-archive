@@ -464,3 +464,74 @@ I'm not sure this is relevant, or even interesting, since there's marginal diffe
 
 -------------------------
 
+Chris_Stewart_5 | 2025-06-25 01:36:47 UTC | #25
+
+Hi everyone,
+
+I took the liberty of implementing this idea [in the python test harness](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py) to familiarize myself with OP_CTV and make things a little more concerete in this thread. Hopefully this can help others that are learning about OP_CTV or be used to hack on other interesting OP_CTV projects. You will find direct lin
+
+[quote="RobinLinus, post:1, topic:1591"]
+The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express “inputA is spendable only together with inputB”.
+
+1. Define inputB to be a (legacy) P2SH output.
+2. Presign a signature using sighash `SINGLE|NONE`, effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB’s scriptSig.
+3. Define inputA to be a P2TR output and contain a CTV condition with a template hash that commits to the scriptSigs, including the signature for inputB.
+
+The result: **inputA** commits to the signature for **inputB**, which itself commits to **inputB**. So **inputA** becomes spendable only in conjunction with **inputB**.
+[/quote]
+
+I first implemented the original idea by Robin Linus, you can find the test case [here](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L234)
+
+[quote="ajtowns, post:8, topic:1591"]
+I don’t think this works? As I understand it, with this setup you have something like:
+
+```
+utxo A:   10 BTC, p2tr: ... <H> CTV
+utxo B:  500 sats, p2sh: <P> CHECKSIG
+```
+
+with the idea being that you spend utxo A via the CTV with:
+
+```
+input 1: utxo A, witness reveals CTV path and any other conditions, no scriptSig
+input 2: utxo B, scriptSig = "<S;NONE|ANYONECANPAY>" "<P> CHECKSIG"
+output: whatever
+```
+
+where `<H>` locks in where the output goes to, and input 2’s scriptSig. But because H is only committing to the second input’s scriptSig, then it’s easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey `OP_2DROP OP_TRUE`:
+
+```
+utxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE
+
+input 1: utxo A, no witness/scriptSig
+input 2: utxo C, scriptSig = "<S;NONE|ANYONECANPAY>" "<P> CHECKSIG"
+output: whatever
+```
+
+That allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you’re trying to enforce.
+[/quote]
+
+I implemented this logic in a test case [here](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L249). It seems AJ is correct about the limitations of Robin's original scheme.
+
+[quote="instagibbs, post:9, topic:1591, full:true"]
+The scriptSig could include the `CHECKSIG` opcode directly, contra standardness rules. :grimacing:
+
+In the original idea, a p2sh redeemscript is just pushes, so the spk could just be blank and it would pass, since cleanstack isn’t consensus anyways.
+[/quote]
+
+Finally, I took a [crack at implementing this](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L288). This is a little more tricky than it appears. I believe this would theoretically work, but requires a lot of hacking around producing valid signatures for the scriptSig OP_CHECKSIG operation.
+
+It is my understanding that the scriptcodes are different for the digital signature to satisfy the redeem script and the OP_CHECKSIG embedded in the scriptSignature. 
+
+Here is where I believe they are defined
+1. [Input scriptcode (i.e. the script signature including the redeem script?)](https://github.com/bitcoin/bitcoin/blob/ad654a4807cd584be9ffcd8640f628ab40cb5170/src/script/interpreter.cpp#L1975)
+2. [The output scriptcode (i.e. the p2sh script)](https://github.com/bitcoin/bitcoin/blob/ad654a4807cd584be9ffcd8640f628ab40cb5170/src/script/interpreter.cpp#L1980).
+
+I attempted to produce the 2 digital signatures. The p2sh output script was no problem of course as its a standardized script type. [Here](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L144) is where I attempted to produce the scriptSignature's OP_CHECKSIG operation. Unfortunately, the [`signrawtransactionwithkey`](https://github.com/bitcoin/bitcoin/blob/ad654a4807cd584be9ffcd8640f628ab40cb5170/src/rpc/rawtransaction.cpp#L710) RPC will not just give you the digital signature back that it produced (this would have saved me a lot of time :joy:). It attempts to place the digital signature in the transaction which only works for standardized transactions that the solver is aware of :/. 
+
+Since this is a very nonstandard transaction, it doesn't give me back anything useful at all - just an the same transaction that you passed to the RPC. I do think this workaround will theoretically work, but the practical barriers in this code base are just too high to continue at this time.
+
+Let me know if you see anything wrong with this analysis or have other use cases you would like to see prototyped with OP_{CTV,CSFS}
+
+-------------------------
+
