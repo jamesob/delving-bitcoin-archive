@@ -464,11 +464,11 @@ I'm not sure this is relevant, or even interesting, since there's marginal diffe
 
 -------------------------
 
-Chris_Stewart_5 | 2025-06-25 01:36:47 UTC | #25
+Chris_Stewart_5 | 2025-06-25 19:39:15 UTC | #25
 
 Hi everyone,
 
-I took the liberty of implementing this idea [in the python test harness](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py) to familiarize myself with OP_CTV and make things a little more concerete in this thread. Hopefully this can help others that are learning about OP_CTV or be used to hack on other interesting OP_CTV projects. You will find direct lin
+I took the liberty of implementing this idea [in the python test harness](https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py) to familiarize myself with OP_CTV and make things a little more concerete in this thread. Hopefully this can help others that are learning about OP_CTV or be used to hack on other interesting OP_CTV projects. You will find direct links to the test cases embedded in the blog post
 
 [quote="RobinLinus, post:1, topic:1591"]
 The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express “inputA is spendable only together with inputB”.

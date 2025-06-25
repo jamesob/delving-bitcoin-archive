@@ -234,3 +234,43 @@ Is it possible that this would cause the address to become "terrible" quicker if
 
 -------------------------
 
+danielabrozzoni | 2025-06-25 17:06:47 UTC | #7
+
+[quote="0xB10C, post:3, topic:1786"]
+Did you look into nodes that have different IPv4 addresses, but return the same addr responses? I.e. IPv4–IPv4 node pairs? This could be an indicator for Sybil nodes / nodes listening on multiple IPv4 addresses.
+[/quote]
+
+We initially considered ipv4<>ipv4 pairs, but decided not to include in this post, as it was long enough already :)
+
+I quickly run the numbers and found 801 IPv4 nodes that gave the exact same replies as some other nodes. They didn’t all give the same reply, but instead, there are ~30 clusters of nodes that gave identical replies within each group.
+
+However, all of these ipv4 nodes gave ipv4-only responses, so they were already filtered:
+[quote="danielabrozzoni, post:1, topic:1786"]
+While analyzing the node responses, we noticed that 85% of the IPv4 nodes and 30% of Tor nodes only returned addresses from their own network - for example, IPv4 nodes responding exclusively with IPv4 addresses. We are assuming that these nodes are operating on a single network, and as such, we excluded them from further analysis.
+[/quote]
+
+---
+
+[quote="mzumsande, post:5, topic:1786"]
+The challenge with randomization is that timestamp of GETADDR results are spread over a large time (30 days), so just adding a slight random delay of a few hours probably won’t change too much.
+[/quote]
+
+
+Agreed, from a very quick first glance, it seemed to me that randomizing by a few hours wouldn't do much, while a few days was more effective.
+
+[quote="mzumsande, post:5, topic:1786"]
+Timestamps are also used in gossip relay (a separate mechanism from GETADDR) of node announcements.
+[/quote]
+
+Ah yes, right. I think it should be possible to "remove" timestamps from GETADDR responses (i.e.: setting them all to zero, or to the current time), but keeping them in the gossip relay. Although, this isn’t too different from your suggestion of setting `nTime` to a fixed time in the past.
+
+Although... the [IRC meeting](https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2020-10-20#409126;) specifically talks about "Removing timestamps from ADDR messages", so I wonder if there's a way of maintaining gossip relay even without timestamps...
+
+[quote="Crypt-iQ, post:6, topic:1786"]
+I think this may instead be due to the ability of nTime to be [refreshed](https://github.com/mzumsande/bitcoin/blob/458720e5e98c6e9103aea1fdfcd39bafc26c27bb/src/addrman.cpp#L566)?
+[/quote]
+
+Yes, I think it's a combination of `nTime`s getting refreshed, plus the network caches getting created at slightly different times.
+
+-------------------------
+
