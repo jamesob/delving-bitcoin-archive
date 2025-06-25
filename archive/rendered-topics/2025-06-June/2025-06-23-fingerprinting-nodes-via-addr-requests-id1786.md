@@ -216,3 +216,21 @@ There is some past work on this by the KIT group, after the "addr spam attack" o
 
 -------------------------
 
+Crypt-iQ | 2025-06-24 21:34:41 UTC | #6
+
+[quote="danielabrozzoni, post:1, topic:1786"]
+One possible explanation for this behavior is that `GETADDR` caches for different interfaces are refreshed at different times. The refresh timing is [randomized](https://github.com/bitcoin/bitcoin/blob/af65fd1a333011137dafd3df9a51704fd319feb4/src/net.cpp#L3550), and a cache is only updated when a `GETADDR` request is received. Since each cache acts as a “snapshot” of the node’s addrman at the moment it’s refreshed, differences in refresh time can lead to discrepancies between caches for different interfaces.
+[/quote]
+
+I think this may instead be due to the ability of nTime to be [refreshed](https://github.com/mzumsande/bitcoin/blob/458720e5e98c6e9103aea1fdfcd39bafc26c27bb/src/addrman.cpp#L566)?
+
+> Timestamps are also used in gossip relay (a separate mechanism from GETADDR) of node announcements.
+
+Oh, right.
+
+> I wonder if there would be major downsides if we’d just indiscriminately set the timestamp of each address from a GETADDR answer to a randomised but fixed value in the past (e.g. 10 +/- 2 days ago) when creating the cached response, not using our nTime information at all (with a different random value for each cache of course).
+
+Is it possible that this would cause the address to become "terrible" quicker if it's successively requested by GETADDRs across a path (i.e. B requests from C, A requests from B)?
+
+-------------------------
+
