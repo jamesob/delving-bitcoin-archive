@@ -535,17 +535,15 @@ Let me know if you see anything wrong with this analysis or have other use cases
 
 -------------------------
 
-1440000bytes | 2025-06-25 20:52:30 UTC | #26
+1440000bytes | 2025-06-25 21:13:08 UTC | #26
 
-I love your testing with core RPC tests because of anything that could include soft forks
-
-ALL SOFT FORKS and HARD FORKS are bad.
+(post deleted by author)
 
 -------------------------
 
-1440000bytes | 2025-06-25 20:55:37 UTC | #27
+1440000bytes | 2025-06-25 21:12:02 UTC | #27
 
-Or maybe if i can write tests its good.
+(post deleted by author)
 
 -------------------------
 
