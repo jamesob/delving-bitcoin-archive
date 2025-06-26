@@ -286,3 +286,14 @@ naiyoma | 2025-06-26 20:28:46 UTC | #9
 
 -------------------------
 
+naiyoma | 2025-06-26 20:31:54 UTC | #10
+
+[quote="mzumsande, post:5, topic:1786"]
+Timestamps are also used in gossip relay (a separate mechanism from GETADDR) of node announcements. There, the goal is that announcements of nodes make it to some part of the network (but not the entire network) to achieve a reasonable propagation without leading to flooding - this is being achieved by only forwarding received addrs from packages of size <= 10 to 1-2 peers, and by also by limiting the timespan in which an address is being forwarded to 10 minutes after the original submission (the timestamp is needed for that)
+[/quote]
+
+
+A good TODO would be to try replacing nTime with m_last_try // m_last_success here and observe the impact. Even if we don't end up removing nTime, we could get some insights as to how significant the current check is.
+
+-------------------------
+
