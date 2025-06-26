@@ -280,9 +280,9 @@ My data is almost similar to what Daniela has, but with a slight variation. I ha
 
 -------------------------
 
-naiyoma | 2025-06-26 20:19:09 UTC | #9
+naiyoma | 2025-06-26 20:28:46 UTC | #9
 
-In regards to gossip relay, a good TODO would be to try replacing nTime with m_last_try // m_last_success and observe the impact. Even if we don't end up removing it, we could get some insights as to how significant the current check is.
+(post deleted by author)
 
 -------------------------
 
