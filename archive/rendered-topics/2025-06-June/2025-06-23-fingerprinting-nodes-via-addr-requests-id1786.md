@@ -274,3 +274,9 @@ Yes, I think it's a combination of `nTime`s getting refreshed, plus the network 
 
 -------------------------
 
+naiyoma | 2025-06-26 18:33:05 UTC | #8
+
+My data is almost similar to what Daniela has, but with a slight variation. I have 894 ipv4 nodes and 42 clusters. While most of the nodes only had IPv4 responses, I found a few small clusters that had both IPv4 and IPv6.
+
+-------------------------
+
