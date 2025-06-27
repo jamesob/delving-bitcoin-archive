@@ -44,7 +44,7 @@ Another way to view it without needing to know the about Erlang distribution com
 
 -------------------------
 
-sipa | 2025-06-27 19:28:17 UTC | #4
+sipa | 2025-06-27 20:07:25 UTC | #4
 
 You are correct, @zawy.
 
@@ -99,7 +99,7 @@ $$
 
 So far so good. The formula being used is the maximum-likelihood estimator, at least when the difficulty does not change within the measured interval. And if the difficulty does change within it, then the starting assumption that the true but unknown hashrate is a constant throughout the interval probably doesn't hold anyway, and it may be reasonable to deviate from it.
 
-However, the real question is whether this estimator is unbiased. To determine that, we compute the expected value of the estimation $\hat{r}$ when repeating the experiment many times (each experiment consisting of $n$ block measurements), with a *known* true hashrate $r$.
+However, the real question is whether this estimator is unbiased. To determine that, we compute the expected value of the estimation $\hat{r}_\mathrm{MLE}$ when repeating the experiment many times (each experiment consisting of $n$ block measurements), with a *known* true hashrate $r$.
 
 $$
 \mathrm{E}[\hat{r}_\mathrm{MLE}] = \mathrm{E}\left[\dfrac{n}{\sum_{i=1}^n \alpha_i}\right]
