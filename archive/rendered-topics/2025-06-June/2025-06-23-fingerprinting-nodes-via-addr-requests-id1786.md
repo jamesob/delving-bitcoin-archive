@@ -280,12 +280,6 @@ My data is almost similar to what Daniela has, but with a slight variation. I ha
 
 -------------------------
 
-naiyoma | 2025-06-26 20:28:46 UTC | #9
-
-(post deleted by author)
-
--------------------------
-
 naiyoma | 2025-06-26 20:31:54 UTC | #10
 
 [quote="mzumsande, post:5, topic:1786"]
