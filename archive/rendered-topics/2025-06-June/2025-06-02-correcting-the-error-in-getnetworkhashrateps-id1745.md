@@ -12,3 +12,19 @@ I assume the $10 B mining industry knows about it.
 
 -------------------------
 
+sipa | 2025-06-27 13:51:19 UTC | #2
+
+Is this about the difference between the expected value of an Erlang distribution, and the inverse of the expected value of an inverse Erlang distribution not being the same? That applies to the difficulty adjustment because it involves *dividing* by the hashrate, but would not apply to `getnetworkhashrateps` as it's not inverting.
+
+If the actual hashrate is constant but unknown, then I would think that
+
+$$
+\dfrac{\sum_{b \in \mathrm{blocks}} E(\mathrm{hashes}(b))}{\sum_{b \in \mathrm{blocks}} \mathrm{time}(b)}
+$$
+
+gives an unbiased estimate for the amount of hashes per time. That is because the denominator here uses an *observed* quantity (time), rather than an *expected* quantity (hashes) - unlike in difficulty adjustment where one divides by the expected value, and thus wants the expectation of the inverse to be unbiased.
+
+I still want to simulate this, though.
+
+-------------------------
+
