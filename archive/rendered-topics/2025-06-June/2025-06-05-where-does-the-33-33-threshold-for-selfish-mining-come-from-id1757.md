@@ -308,3 +308,17 @@ Thanks to @ClaraShk for going over the math in the paper with me, explaining me 
 
 -------------------------
 
+zawy | 2025-06-28 12:01:51 UTC | #2
+
+I have a simpler way of explaining the 33.33% (it can be even less under certain circumstances). The reason is that you can't get a secure consensus with 51% hashrate (a simple majority) and instead have to rely on the more common 66.67% majority if the following conditions aren't met:
+
+1. Honest clocks are synchronized to a fraction of the consensus round.
+2. Timestamps from 1) are on all consensus messages.
+3. All messages are digitally-signed.
+
+Most consensus schemes don't have digitally-signed messages (Bitcoin's costly hashes serve that function) so they have to rely on 67%.  Bitcoin fails 1 and 2 by allowing timestamps far in the past and far into the future, much further than a consensus round which is 1 block time. If timestamps were required to be within a reasonable +/- 5 seconds plus a 2 second propagation delay (or else the block gets put in "timeout" for 1 block time to enable PoW to override the timeout if a network partition occurs) then there can't be a profitable selfish mine because selfish miners have to assign a timestamp before they know when they will need to release the block(s) to the public. 
+
+\> 33.33% can thwart consensus when they can either lie / err about the message a peer sent or lie / err about when it sent a message.
+
+-------------------------
+

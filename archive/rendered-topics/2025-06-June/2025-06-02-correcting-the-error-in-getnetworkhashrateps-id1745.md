@@ -154,3 +154,40 @@ P.S. My fault: we should have been calling it ```getnetworkhashps```
 
 -------------------------
 
+zawy | 2025-06-28 11:23:57 UTC | #6
+
+Correcting / clarifying my comment that Erlang should be used, we're estimating hashrate which has time in the denominator which means we need to use the expected value of the *inverse* of an Erlang-distributed random variable. The key point here is that the error comes from 
+
+1/E[T] != E[1/T]
+
+We try to use 1/E[T] when we need to use E[1/T]
+
+So less formally (to get the desired result): 
+
+* T = timespan
+* k = N = n blocks 
+* λ = 1/(mean_blocktime):
+
+E[1/T] = λ / (k-1) for k > 2 via Grok.
+
+* H = hashrate
+* W = sipa's sum of work.
+* estimated λ = k/T from Erlang λ = k / E[T].
+* estimated λ = k/T from MLE for Poisson.
+
+E[H] = E[W/T] = W * E[1/T] = W / T * k / (k-1)
+
+-------------------------
+
+sipa | 2025-06-28 12:18:04 UTC | #7
+
+By substituting $\alpha_i = t_i / W_i$ and $W_i = 2^{256} / (\mathrm{target}_i+1)$ in the formula for the corrected, unbiased, estimate:
+
+$$
+\hat{r} = (n-1) \cdot \frac{2^{256}}{\sum_{i=1}^n t_i (\mathrm{target}_i+1)}
+$$
+
+Which is quite practical if one already has 256-bit arithmetic for target computations anyway.
+
+-------------------------
+
