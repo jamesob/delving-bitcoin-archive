@@ -44,7 +44,7 @@ Another way to view it without needing to know the about Erlang distribution com
 
 -------------------------
 
-sipa | 2025-06-27 20:07:25 UTC | #4
+sipa | 2025-06-27 22:25:19 UTC | #4
 
 You are correct, @zawy.
 
@@ -123,6 +123,34 @@ $$
 & \, = & \, \frac{n-1}{\sum_{i=1}^n \frac{t_i}{W_i}}
 \end{split}
 $$
+
+I believe it can be shown that this unbiased estimator is [sufficient](https://en.wikipedia.org/wiki/Sufficient_statistic) and [complete](https://en.wikipedia.org/wiki/Completeness_(statistics)), which would [imply](https://en.wikipedia.org/wiki/Lehmann%E2%80%93Scheff%C3%A9_theorem) it is the [minimum-variance unbiased estimator](https://en.wikipedia.org/wiki/Minimum-variance_unbiased_estimator)(MVUE).
+
+-------------------------
+
+zawy | 2025-06-27 23:54:13 UTC | #5
+
+I like the idea of using a fixed time window to get hashrate instead of a fixed number of blocks because it's valid at the moment you run the query. This allows minor errors in timestamps from (usually) affecting the result.
+
+Instead of adjusting by (N-1)/N, it might be as accurate to use the current time (of the query) in place of the most recent timestamp.  If you run the query at random, it's expected to be 1 blocktime since the most recent block, so it seems to work the same as applying (N-1)/N by making the timespan 1 block longer. This also allows me to get an estimate of hashrate at N=1 which is otherwise not possible due to the divide by zero. But by experiment and forcing timespan = 1 second if timespan < 1 second, for N=1 I get:
+
+hashrate =~ difficulty * 2^32 / timespan / 6
+
+BTW, an N-1 is also seen when estimating total chain work from the Nth lowest hashes ever seen. Interestingly, knowledge of difficulty and timestamps isn't needed.
+
+chain_work =~ 2^256 * (N-1) / Nth_lowest_hash
+
+StdDev of the error =~ 1/SQRT(N-1) for N > 10
+
+on the condition that difficulty target was never < Nth_lowest_hash and all orphans with low hashes are included (if needed) in N, but this also counts all orphans in chainwork.
+
+If given only the lowest hash:
+
+chain_work =~ (2^256 -1) / 6 / lowest_hash
+
+StdDev =~ 5000%
+
+P.S. My fault: we should have been calling it ```getnetworkhashps```
 
 -------------------------
 
