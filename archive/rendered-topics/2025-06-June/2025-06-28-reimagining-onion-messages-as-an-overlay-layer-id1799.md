@@ -259,3 +259,17 @@ In this post, we've proposed an alternative (and even parallel!) deployment of o
 
 -------------------------
 
+shocknet_justin | 2025-06-28 18:12:18 UTC | #2
+
+I'm disheartened to see mental cycles as valuable as yours Mr. Beef being used on something like this, onion messages are a terrible thing and beyond saving. 
+
+[As I have long warned and been vindicated](https://stacker.news/items/730371/r/justin_shocknet?commentId=731289), each hop inherently increases latency and failure probability. This makes OM's unfit for communication in areas where high reliability and performance are paramount, like payments. Bolt12 has no future because of this. 
+
+Anyone who has used Tor can attest to the fact there is no production value to OM's. To the extent OM's work on Lightning even conceptually is due only to the nature of the network being a defacto bonding apparatus, any further decoupling from that can only make reliability worse. 
+
+Now, Lightning would absolutely benefit from a better overlay network for communication, but that is almost unanimously Nostr. Concerns are properly separated, web comportability allows deprecation of things like LNURL, and identity can be either leveraged trivially or entirely de-coupled based on the use-case. 
+
+Better protocols like we're developing with [CLINK](https://clinkme.dev) solve the node-to-app coordination problem without the unreliable p2p topology. The preceding link demonstrates Nostr static payment offers that retrieve bolt11 invoices from a simple static web page without wasm, and there are also specs for the reverse flow (debits) and a draft for remote management of static offers (app manages offers on a remote node).
+
+-------------------------
+
