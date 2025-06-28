@@ -128,9 +128,9 @@ I believe it can be shown that this unbiased estimator is [sufficient](https://e
 
 -------------------------
 
-zawy | 2025-06-27 23:54:13 UTC | #5
+zawy | 2025-06-28 07:49:41 UTC | #5
 
-I like the idea of using a fixed time window to get hashrate instead of a fixed number of blocks because it's valid at the moment you run the query. This allows minor errors in timestamps from (usually) affecting the result.
+I like the idea of using a fixed time window to get hashrate instead of a fixed number of blocks because it's valid at the moment you run the query. This allows minor errors in timestamps from (usually) affecting the result. It also allows getting hashrates in the past at specific times such as a daily estimate at midnight. BTW the estimate isn't at that time or height, but at the midpoint of the heights or time range from which you're summing work.
 
 Instead of adjusting by (N-1)/N, it might be as accurate to use the current time (of the query) in place of the most recent timestamp.  If you run the query at random, it's expected to be 1 blocktime since the most recent block, so it seems to work the same as applying (N-1)/N by making the timespan 1 block longer. This also allows me to get an estimate of hashrate at N=1 which is otherwise not possible due to the divide by zero. But by experiment and forcing timespan = 1 second if timespan < 1 second, for N=1 I get:
 
