@@ -154,7 +154,7 @@ P.S. My fault: we should have been calling it ```getnetworkhashps```
 
 -------------------------
 
-zawy | 2025-06-28 11:23:57 UTC | #6
+zawy | 2025-06-29 14:43:12 UTC | #6
 
 Correcting / clarifying my comment that Erlang should be used, we're estimating hashrate which has time in the denominator which means we need to use the expected value of the *inverse* of an Erlang-distributed random variable. The key point here is that the error comes from 
 
@@ -170,12 +170,13 @@ So less formally (to get the desired result):
 
 E[1/T] = λ / (k-1) for k > 2 via Grok.
 
-* H = hashrate
 * W = sipa's sum of work.
 * estimated λ = k/T from Erlang λ = k / E[T].
 * estimated λ = k/T from MLE for Poisson.
 
-E[H] = E[W/T] = W * E[1/T] = W / T * k / (k-1)
+E[W/T] = W * E[1/T] = W / T * k / (k-1)
+
+This is the expected, biased, hashrate measurement, so we have to multiply (k-1)/k to get W/T, the true, unbiased hashrate.
 
 -------------------------
 
@@ -188,6 +189,20 @@ $$
 $$
 
 Which is quite practical if one already has 256-bit arithmetic for target computations anyway.
+
+-------------------------
+
+zawy | 2025-06-29 13:00:35 UTC | #8
+
+Years ago I was testing this this time-weighted target calculation and it had substantial error if both difficulty and hashrate changed a lot for small N.  Using
+
+* hashrate = total_work / timespan * (N-1) / N 
+
+had much less error in that case. This latter method had a slight error (verses 0% in the time-weighted target method) if hashrate changed but difficulty didn't.
+
+When I multiplied the hashrate by timespan in the latter method, it always gave the correct amount of work.  This means sum of difficulties needs to be multiplied by (N-1)/N to get the correct amount of work in making PoW consensus decisions to prevent errors or exploits in something like selfish mining. This applies even if accurate timestamp enforcement were used to prevent selfish-mining.  The time-weighted method (multiplied by the timespan) doesn't give the correct amount of work if difficulty and hashrate are changing.    
+
+If 2 competing tips have the same final solvetime but one is 2 blocks after their common ancestor and the other is 3 blocks, then the leading tip doesn't have 50% more hashrate & work, but averages (3-1)/(2-1) = 100% more.  This may be important in something like DAGs. The sum of descendant work perfectly orders DAGs if difficulty changes every block, but only now do I realize it may need the (N-1)/N adjustment to make some decisions and it may fix an objection Yonatan Sompolinsky pointed out to me long ago & why I couldn't get them to use sum of descendant difficulties to find the earliest blocks (instead of k nearest-neighbor). The problem is that the decision in ordering based on it doesn't "compound" quickly into a decision. An attacker could use a smallish hashrate to keep the ordering from reaching closure for as long as he attacks. With (N-1)/N, closure might come quicker. A complicating factor is that the median hashrate may be more important than the average in making decisions.
 
 -------------------------
 
