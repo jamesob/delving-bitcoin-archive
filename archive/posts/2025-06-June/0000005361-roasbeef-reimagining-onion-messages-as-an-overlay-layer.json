@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 134,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 687.8,
+  "incoming_link_count": 137,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 718.0,
   "yours": false,
   "topic_id": 1799,
   "topic_slug": "reimagining-onion-messages-as-an-overlay-layer",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -61,6 +61,11 @@
   "post_url": "/t/reimagining-onion-messages-as-an-overlay-layer/1799/1",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "-1",
       "type": "emoji",
       "count": 1
@@ -72,6 +77,6 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false
 }
