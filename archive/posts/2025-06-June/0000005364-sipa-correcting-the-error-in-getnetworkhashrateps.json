@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 9,
   "readers_count": 8,
-  "score": 1.8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 1745,
   "topic_slug": "correcting-the-error-in-getnetworkhashrateps",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "By substituting $\\alpha_i = t_i / W_i$ and $W_i = 2^{256} / (\\mathrm{target}_i+1)$ in the formula for the corrected, unbiased, estimate:\n\n$$\n\\hat{r} = (n-1) \\cdot \\frac{2^{256}}{\\sum_{i=1}^n t_i (\\mathrm{target}_i+1)}\n$$\n\nWhich is quite practical if one already has 256-bit arithmetic for target computations anyway.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "By substituting \\alpha_i = t_i / W_i and W_i = 2^{256} / (\\mathrm{target}_i+1) in the formula for the corrected, unbiased, estimate: \n\n\\hat{r} = (n-1) \\cdot \\frac{2^{256}}{\\sum_{i=1}^n t_i (\\mathrm{target}_i+1)}\n\nWhich is quite practical if one already has 256-bit arithmetic for target computations &hellip;",
   "truncated": true,
   "post_url": "/t/correcting-the-error-in-getnetworkhashrateps/1745/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
