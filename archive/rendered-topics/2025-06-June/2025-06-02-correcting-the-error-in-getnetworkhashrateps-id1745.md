@@ -192,9 +192,11 @@ Which is quite practical if one already has 256-bit arithmetic for target comput
 
 -------------------------
 
-zawy | 2025-06-29 13:00:35 UTC | #8
+zawy | 2025-06-29 18:30:57 UTC | #8
 
-Years ago I was testing this this time-weighted target calculation and it had substantial error if both difficulty and hashrate changed a lot for small N.  Using
+Years ago I was testing this this time-weighted target calculation and it had substantial error if both difficulty and hashrate changed a lot for small N.  I changed hashrate and difficulty when a block was found. 
+
+Using
 
 * hashrate = total_work / timespan * (N-1) / N 
 
