@@ -192,7 +192,7 @@ Which is quite practical if one already has 256-bit arithmetic for target comput
 
 -------------------------
 
-zawy | 2025-06-30 10:52:50 UTC | #8
+zawy | 2025-06-30 12:45:13 UTC | #8
 
 Years ago I was testing this this time-weighted target calculation and it had substantial error if both difficulty and hashrate changed a lot for small N.  I changed hashrate and difficulty when a block was found. 
 
@@ -202,16 +202,41 @@ Using
 
 had much less error in that case. This latter method had a slight error (verses 0% in the time-weighted target method) if hashrate changed but difficulty didn't.
 
-<strike>
+[edit: I'll make an argument for the following in the next post] 
+
 This means sum of difficulties needs to be multiplied by (N-1)/N to get the correct amount of work in making PoW consensus decisions to prevent errors or exploits in something like selfish mining. This applies even if accurate timestamp enforcement were used to prevent selfish-mining.  The time-weighted method (multiplied by the timespan) doesn't give the correct amount of work if difficulty and hashrate are changing.   
 
-If 2 competing tips have the same final solvetime but one is 2 blocks after their common ancestor and the other is 3 blocks, then the leading tip doesn't have 50% more hashrate & work, but averages (3-1)/(2-1) = 100% more.  This may be important in something like DAGs. The sum of descendant work perfectly orders DAGs if difficulty changes every block, but only now do I realize it may need the (N-1)/N adjustment to make some decisions and it may fix an objection Yonatan Sompolinsky pointed out to me long ago & why I couldn't get them to use sum of descendant difficulties to find the earliest blocks (instead of k nearest-neighbor). The problem is that the decision in ordering based on it doesn't "compound" quickly into a decision. An attacker could use a smallish hashrate to keep the ordering from reaching closure for as long as he attacks. With (N-1)/N, closure might come quicker. A complicating factor is that the median hashrate may be more important than the average in making decisions.</strike>
+If 2 competing tips have the same final solvetime but one is 2 blocks after their common ancestor and the other is 3 blocks, then the leading tip doesn't have 50% more hashrate & work, but averages (3-1)/(2-1) = 100% more.  This may be important in something like DAGs. The sum of descendant work perfectly orders DAGs if difficulty changes every block, but only now do I realize it may need the (N-1)/N adjustment to make some decisions and it may fix an objection Yonatan Sompolinsky pointed out to me long ago & why I couldn't get them to use sum of descendant difficulties to find the earliest blocks (instead of k nearest-neighbor). The problem is that the decision in ordering based on it doesn't "compound" quickly into a decision. An attacker could use a smallish hashrate to keep the ordering from reaching closure for as long as he attacks. With (N-1)/N, closure might come quicker. A complicating factor is that the median hashrate may be more important than the average in making decisions.
 
 -------------------------
 
 zawy | 2025-06-30 10:42:48 UTC | #9
 
 (post deleted by author)
+
+-------------------------
+
+zawy | 2025-06-30 13:16:54 UTC | #10
+
+The number of hashes (W) in N blocks with hashrates H<sub>i</sub> and solvetimes t<sub>i</sub> is 
+
+W  = sum(H<sub>i</sub> * t<sub>i</sub> )
+
+If our hashrate estimate is correct:
+
+W_estimate = H_estimate * timespan
+
+Experimentally & theoretically, the 2nd equation is (N-1)/N lower than the first. The mean number of hashes performed in many trials obeys the 1st. The 2nd is an underestimate of hashes actually performed, and yet we know the hashrate estimate is correct, and therefore it should be as correct as the 1st. My only guess / intuition to resolve this is that the observed timespan creates a conditional probability, so that the 2nd equation is the correct one to use. The 1st is a fact and a prediction. The 2nd is an observation where the hashrate fact is unknown but estimated. Another intuition is that the first equation is more-often-than-not lucky. The 2nd equation removes the excess luck.
+
+To make another argument for the 2nd equation: in a network partition, we want the partition with the highest hashrate we've observed (the most dedicated mining equipment), not the "predicted" highest work.
+
+PoW should be an observation of what has occurred, not a "prediction" of what will occur if something is repeated many times.
+
+-------------------------
+
+sipa | 2025-06-30 14:04:44 UTC | #11
+
+Work (defined as the *expected* number of hashes for an individual block) is an exactly known quantity, not subject to a probability distribution. It's exactly proportional to difficulty, or inversely proportional to the target. To estimate number-of-hashes-performed, we just need to sum up the work for each block; I believe that is both the maximum likelihood estimate and unbiased. I'll try to work out the math to make that formal.
 
 -------------------------
 

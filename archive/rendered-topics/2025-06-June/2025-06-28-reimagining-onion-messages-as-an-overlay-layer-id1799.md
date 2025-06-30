@@ -273,3 +273,15 @@ Better protocols like we're developing with [CLINK](https://clinkme.dev) solve t
 
 -------------------------
 
+MattCorallo | 2025-06-30 12:41:34 UTC | #3
+
+The reason the onion messages go over channel links is there's an inherint anti-DoS protection to using your existing channel partners to accept onion messages for forwarding. What your proposal appears to be missing is a way to handle DoS/onion message peer selection in a useful way.
+
+[quote="roasbeef, post:1, topic:1799"]
+Due to the embedded nature of the current deployment, onion messages travel over the same TCP connection between peers as gossip messages and channel updates. By maintaining this tight coupling, the current deployment path isn’t able to independently address quality of service concerns. Due to head-of-line blocking in TCP, any active gossip or channel update messages that remain unacked in the TCP window (or even an outbound application queue) will necessarily *block* the processing of onion messages. This unnecessarily blocking once again hurts the payment experience, as it leads to increase latency of the time-to-payment-attempt.
+[/quote]
+
+There's nothing in the spec that mandates this. It is how its implemented in most clients, today, indeed, but AFAIK all such clients have active queue management to address the QoS concerns. Future implementations that have issues here can, of course, establish parallel TCP connections to forward onion messages over, as you noted in your QUIC exploration.
+
+-------------------------
+
