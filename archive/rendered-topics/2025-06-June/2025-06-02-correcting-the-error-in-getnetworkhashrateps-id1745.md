@@ -240,3 +240,33 @@ Work (defined as the *expected* number of hashes for an individual block) is an 
 
 -------------------------
 
+zawy | 2025-06-30 15:56:54 UTC | #12
+
+If I'm wrong, why can't our estimated hashrate not simply be multiplied by the timespan to get the total work? 
+
+Here's my "math":
+
+* W = total hashes, assume constant target
+* EE [  ] = expected value of inverse of an Erlang-distributed random variable
+* T = true timespan = N / &lambda;
+
+E [ hashrate ] = E [ W / T ] =  W * EE[1/T]
+
+EE[1/T] = &lambda; / (N-1) = ( N / T ) / (N-1)
+
+E [ W / T ]  = W / T * N / (N-1)
+
+This means W / T = hashrate is as we said above: 
+
+W / T = E [ W / T ] * (N-1) / N 
+
+This "math" is claiming our hashrate isn't the E [hashrate]. 
+
+Can I multiply this by T_observed to get W? T_observed is the only estimate of T that I have, and it's not in the denominator which is where I would normally a problem. So I get:
+
+W / T * T_observed = W = Expected [ W / T ] * (N-1) / N 
+
+My intuitive excuse for why this might be correct, despite giving the wrong W over many trials, is that an observation doesn't give us the benefit of many trials. It's only correct for a single observation. We want the work we observe, not the work we expect.
+
+-------------------------
+
