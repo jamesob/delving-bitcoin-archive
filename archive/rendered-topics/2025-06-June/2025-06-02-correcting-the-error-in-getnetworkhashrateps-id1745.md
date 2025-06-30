@@ -270,3 +270,17 @@ My intuitive excuse for why this might be correct, despite giving the wrong W ov
 
 -------------------------
 
+sipa | 2025-06-30 17:03:02 UTC | #13
+
+I think the answer is that this would work if you want to estimate the amount of hashes performed **under the assumption that the hashrate is constant**. But there is no reason to make this assumption (it's almost certainly an approximation) if you want to estimate work. It's just a necessary assumption for estimating hashrate.
+
+-------------------------
+
+zawy | 2025-06-30 19:54:11 UTC | #14
+
+It's very confusing that hashrate * hashing_time doesn't equal work. I wonder if hashrate is more important than work.  I prefer the partition that has a higher rate of lottery ticket purchases over the one with the most winning lottery tickets. The security model depends on non-repurpose-able equipment (hashrate).  
+
+Let's say we have a strange PoW protocol where difficulty is selected by miners in the event of a partition and a partition occurs that splits them into 2 groups. One group selects a difficulty 50% harder than the other.  That group finds their 2nd block at the same time as the other finds their 3rd block.  They have equal work but statistically we know the 2nd group with lower difficulties had 33% more hashrate and therefore should have performed more hashes.
+
+-------------------------
+

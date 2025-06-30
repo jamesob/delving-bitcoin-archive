@@ -285,3 +285,23 @@ There's nothing in the spec that mandates this. It is how its implemented in mos
 
 -------------------------
 
+roasbeef | 2025-06-30 19:23:57 UTC | #4
+
+> What your proposal appears to be missing is a way to handle DoS/onion message peer selection in a useful way.
+
+Peers would be free to _reject_ an attempt to create an onion link if the requesting peer doesn't already have a channel with the responding node. 
+
+_Requiring_ that a channel already exists doesn't necessarily provide DoS protection. It just increases the cost to creating an onion link. The onion link establishment protocol sketched out in the OP can be extended to require an upfront payment, require presenting a UTXO provably locked to a future time, stream funds to maintain link uptime, etc.  
+
+> There’s nothing in the spec that mandates this. 
+
+That mandates that the same TCP connection be used? Can you point to where this is explicitly outlined? I can find no text that discusses anything of the sort. Minimally, it would need to select/dictate a new port. Implicitly, after BOLT 1, all p2p interaction is assumed to take place over a single port. 
+
+> but AFAIK all such clients have active queue management to address the QoS concerns
+
+Can you describe such active queue management? Last time I asked about how clients handle active queue management (BOLT issue where I brought up QUIC), the responses were all something along the lines of "we make sure not to send too much". Which is a writer side heuristic, rather than a reader side queue management. 
+
+No matter what type of active queue management takes place, a single global TCP connection for all p2p messages will _still_ run into head-of-line blocking.
+
+-------------------------
+

@@ -1173,3 +1173,20 @@ Please let me know if any of this isn't clear or if you have other questions.
 
 -------------------------
 
+ClaraShk | 2025-06-30 17:09:09 UTC | #13
+
+To understand this better, I tried to work through a simple example where all payments are for 10k sats.
+
+Let’s assume the node typically routes payments of around 10k sats, earning about 1 sat per transaction. Also, assume that 2 minutes is a reasonable time for an HTLC to resolve.
+
+Now, suppose someone wants to lock a slot on the channel for a payment that could take up to 2 weeks to resolve (ignoring liquidity for now). Then, the opportunity cost for the slot is:
+$
+2*7*24*30*1 \approx  10,000
+$ sats.
+
+So to send 10k sats, they need to lock an extra 10k sats?
+
+If I got this wrong, can you do the calculation given these parameters?
+
+-------------------------
+
