@@ -276,11 +276,13 @@ I think the answer is that this would work if you want to estimate the amount of
 
 -------------------------
 
-zawy | 2025-06-30 20:29:17 UTC | #14
+zawy | 2025-06-30 20:56:59 UTC | #14
 
 It's very confusing that hashrate * hashing_time doesn't equal work. I wonder if hashrate is more important than work.  I prefer the partition that has a higher rate of lottery ticket purchases over the one with the most winning lottery tickets. The security model depends on non-repurpose-able equipment (hashrate).  
 
 Let's say we have a strange PoW protocol where difficulty is selected by miners in the event of a partition and a partition occurs that splits them into 2 groups. One group selects a difficulty 50% harder (D=1.5) than the other (D=1).  That group finds their 2nd block at the same time as the other finds their 3rd block.  They have equal work (W=3) but statistically we know the 2nd group with lower difficulties had 33% more hashrate (Hashrate = 3/T * (3-1) /3  verses 3/T * (2-1)/ 2) and therefore should have performed 33% more hashes.
+
+I may have an error in my simulation.  I'm running a million trials of N=5 at specific hashrates, but maybe that's not right for work. The work changes every trial. Maybe I should be running a 10 million trials of a certain work and getting the timespan for N=5.
 
 -------------------------
 
