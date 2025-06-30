@@ -208,3 +208,9 @@ If 2 competing tips have the same final solvetime but one is 2 blocks after thei
 
 -------------------------
 
+zawy | 2025-06-30 10:38:10 UTC | #9
+
+Correction: Sum of difficulties is the correct work.
+
+-------------------------
+
