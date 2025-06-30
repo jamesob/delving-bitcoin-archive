@@ -1132,3 +1132,44 @@ Is the hold fee calculated by amount, by slot, or both?
 
 -------------------------
 
+JohnLaw | 2025-06-30 00:57:12 UTC | #12
+
+Hi Clara,
+
+Thanks for your questions.
+
+"When exactly is the hold fee charged, and what ensures that the necessary funds are available to cover it?"
+
+The charging of the hold fee consists of 3 phases:  
+* the channel state is updated by staking funds for the meximum possible hold fee charge:  
+  - the downstream node moves funds from their output to the burn output that cover the maximum possible hold fee charge, and  
+  - the upstream node moves matching funds (which are a fixed fraction of the funds staked by the downstream node) by moving them from their output to the burn output  
+* both nodes calculate the correct hold fee charge when the HTLC is resolved with an update_fulfill_htlc or update_fail_htlc message (or the HTLC's expiry is reached), and  
+* both nodes update the channel state by transferring the correct hold fee charge (plus the upfront node's matching funds) from the burn output to the upstream node and refunding the remainder of the downstream node's stake to the downstream node.  
+
+The fact that the maximum possible hold fee charge is staked (placed in the burn output) ensures that the funds are available. The maximum possible hold fee charge is the product of the rate at which the hold fee is charged to the downstream node and how long the payment was delayed at this hop. The payment delay is the time from when the hop's hold grace period ends until an update_fulfill_htlc or update_fail_htlc message is sent, but it cannot extend past the HTLC's expiry (thus providing a maximum possible charge).
+
+"If the funds are pre-locked, what’s the maximum amount that can be charged?"
+
+They are pre-locked (by staking them in the burn output).
+
+The maximum amount that can be charged is the product of the rate at which the downstream node is charged a hold fee and the maximum possible delay of the payment at this hop. The maximum possible delay of the payment at this hop is the time from the end of the payment's grace period to the HTLC's expiry.
+
+Note that the downstream node is charged a hold fee at a rate that covers the cost of capital held by *all* of the nodes upstream of it (not just its upstream partner).
+
+"Is the hold fee calculated by amount, by slot, or both?"
+
+The hold fee charge covers the entire cost of capital for the time that capital was delayed. Thus, it depends on the amount of capital in all of the upstream nodes (rather than just the payment amount).
+
+Of course, one could easily modify the protocol to use a different function for calculating hold fee charges. For example, a fixed lump sum charge could be added for any delay past the grace period. As another example, the charge could be based on a nonlinear function of the delay.
+
+I chose the simple linear charge in order to capture the costs of capital. However, more complex charges (such as nonlinear ones) could cover the "free call option" cost when using the LN to make a Taproot Assets payment. This may be of interest given the recent news about using Taproot Assets for stable coins payments.
+
+The costs associated with allocation of a slot are covered by Upfront fees and are paid by the sender.
+
+If you want more detail, the calculation of hold fees is covered in Section 5 of the paper and the collection of hold fees is covered in Section 3.2 of the paper.
+
+Please let me know if any of this isn't clear or if you have other questions.
+
+-------------------------
+
