@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 2,
   "readers_count": 1,
-  "score": 0.2,
+  "score": 0.4,
   "yours": false,
   "topic_id": 1804,
   "topic_slug": "a-rust-library-to-encode-descriptors-with-a-30-40-size-reduction",
