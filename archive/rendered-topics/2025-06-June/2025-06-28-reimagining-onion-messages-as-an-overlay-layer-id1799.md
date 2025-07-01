@@ -305,3 +305,49 @@ No matter what type of active queue management takes place, a single global TCP 
 
 -------------------------
 
+ZmnSCPxj | 2025-07-01 12:00:57 UTC | #5
+
+[quote="roasbeef, post:4, topic:1799"]
+> What your proposal appears to be missing is a way to handle DoS/onion message peer selection in a useful way.
+
+Peers would be free to *reject* an attempt to create an onion link if the requesting peer doesn’t already have a channel with the responding node.
+
+*Requiring* that a channel already exists doesn’t necessarily provide DoS protection. It just increases the cost to creating an onion link. The onion link establishment protocol sketched out in the OP can be extended to require an upfront payment, require presenting a UTXO provably locked to a future time, stream funds to maintain link uptime, etc.
+[/quote]
+
+As I understand it, the DoS issue here is that I can invent any number of "public nodes" by just runnng a cheap CSPRNG and getting 256-bit sections of its output, then inventing a bunch of `onion_link_proof` messages with myself and my random number, and pump it at the gossip network.
+
+Third-party nodes (i.e. every node other than me and "partner" in the `onion_link_proof`) can only verify that the node exists as an actual entity if there is an onchain trace that pays for blockspace.  Note that a "UTXO provably locked to a future time" is no different from a channel in that regard --- the DoS-protection heuristic is the same, "blockspace was used, so it was not a cheap CSPRNG output", and would fall victim to your exact objection, that an onchain action (and thus non-cheap blockspace) is necessary.
+
+-------------------------
+
+MattCorallo | 2025-07-01 12:55:02 UTC | #6
+
+[quote="roasbeef, post:4, topic:1799"]
+Peers would be free to *reject* an attempt to create an onion link if the requesting peer doesn’t already have a channel with the responding node.
+
+*Requiring* that a channel already exists doesn’t necessarily provide DoS protection. It just increases the cost to creating an onion link. The onion link establishment protocol sketched out in the OP can be extended to require an upfront payment, require presenting a UTXO provably locked to a future time, stream funds to maintain link uptime, etc.
+[/quote]
+
+So what you're saying is that in practice your proposal wouldn't change the network topology at all? What's the point, then?
+
+[quote="roasbeef, post:4, topic:1799"]
+That mandates that the same TCP connection be used? Can you point to where this is explicitly outlined? I can find no text that discusses anything of the sort. Minimally, it would need to select/dictate a new port. Implicitly, after BOLT 1, all p2p interaction is assumed to take place over a single port.
+[/quote]
+
+The spec doesn't say that it has to be on the same connection, which implies that nodes are free to do whatever they want. Nodes today may restrict peers to a single connection with the same pubkey, but that doesn't mean its banned? Also, there's no need for a separate port for this? You can just open a second connection on the same port.
+
+[quote="roasbeef, post:4, topic:1799"]
+Can you describe such active queue management? Last time I asked about how clients handle active queue management (BOLT issue where I brought up QUIC), the responses were all something along the lines of “we make sure not to send too much”. Which is a writer side heuristic, rather than a reader side queue management.
+[/quote]
+
+Yes, TCP is all about applying backpressure from an application through to the sender to ensure the sender can do these things without making the recipient unable to respond. You don't need receiver-size queue management if the sender is handling TCP correctly :).
+
+[quote="roasbeef, post:4, topic:1799"]
+No matter what type of active queue management takes place, a single global TCP connection for all p2p messages will *still* run into head-of-line blocking.
+[/quote]
+
+Sure, but if you don't send too much the head-of-line blocking isn't going to slow down channel operations. Head-of-line blocking isn't some death curse, for a long-lived connection where we're processing messages fairly quickly (basically all lightning messages are *super* quick to process) its not gonna materially impact latency. The web has major head-of-line blocking issues because they can't open parallel connections (due to slowstart, which isn't an issue for us) nor signal (in practice) which resources are needed urgently and which won't impact pageload.
+
+-------------------------
+

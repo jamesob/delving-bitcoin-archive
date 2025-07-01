@@ -210,12 +210,6 @@ If 2 competing tips have the same final solvetime but one is 2 blocks after thei
 
 -------------------------
 
-zawy | 2025-06-30 10:42:48 UTC | #9
-
-(post deleted by author)
-
--------------------------
-
 zawy | 2025-06-30 13:16:54 UTC | #10
 
 The number of hashes (W) in N blocks with hashrates H<sub>i</sub> and solvetimes t<sub>i</sub> is 
@@ -284,13 +278,21 @@ Let's say we have a strange PoW protocol where difficulty is selected by miners 
 
 -------------------------
 
-zawy | 2025-07-01 10:57:41 UTC | #15
+zawy | 2025-07-01 14:28:31 UTC | #15
 
-I found the problem. The total work in the **timespan** that N blocks are found is the sum of Ds from 1 to N-1 blocks. When we say W = sum of Ds in N blocks, it's actually the amount of work done in the timespan covering N+1 blocks.  The sum of Ds in the past N blocks is the work done up until the current time (randomly chosen), not up until the most recent block's timestamp. The hashrate doesn't need the (N-1)/N correction because it's dividing by a longer timespan when you use current time.
+I found the problem. The total work in the **timespan** that N blocks are found is the sum of Ds from 1 to N-1 blocks. When we say W = sum of Ds in N blocks, it's actually the amount of work done in the timespan covering N+1 blocks.  The sum of Ds in the past N blocks is the work done up until the current time (a randomly chosen time to perform the query), not up until the most recent block's timestamp. The hashrate doesn't need the (N-1)/N correction in that case if it divides by the longer timespan in using current time instead of most recent timestamp.
 
 Hashrate at any height h in the past is
 
 2^32 * sumD(h+1 to h+N) / timespan(h to h+N+1)
+
+And the work in that timespan is just this times that timespan. 
+
+In my competing tips example, pretend the last block has not been found, but the ending time is the same and is local time which is the expected time to be randomly looking at both chains. Then both our hashrate and work calculations agree that the tip with the easier difficulty did 33% more work.
+
+If you want the work done in the solvetime of N blocks, and you sum up the difficulties for those N blocks, then you have to apply the (N-1)/N correction to get the ~correct amount of work in that timespan.
+
+In deciding a leading tip, you just sum the difficulties as usual because you want the work up until current time, not the last timestamp.
 
 -------------------------
 
