@@ -284,3 +284,13 @@ Let's say we have a strange PoW protocol where difficulty is selected by miners 
 
 -------------------------
 
+zawy | 2025-07-01 10:57:41 UTC | #15
+
+I found the problem. The total work in the **timespan** that N blocks are found is the sum of Ds from 1 to N-1 blocks. When we say W = sum of Ds in N blocks, it's actually the amount of work done in the timespan covering N+1 blocks.  The sum of Ds in the past N blocks is the work done up until the current time (randomly chosen), not up until the most recent block's timestamp. The hashrate doesn't need the (N-1)/N correction because it's dividing by a longer timespan when you use current time.
+
+Hashrate at any height h in the past is
+
+2^32 * sumD(h+1 to h+N) / timespan(h to h+N+1)
+
+-------------------------
+
