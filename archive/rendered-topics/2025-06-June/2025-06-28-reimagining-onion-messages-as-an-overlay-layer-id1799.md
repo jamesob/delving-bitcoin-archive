@@ -351,3 +351,49 @@ Sure, but if you don't send too much the head-of-line blocking isn't going to sl
 
 -------------------------
 
+roasbeef | 2025-07-01 22:18:36 UTC | #7
+
+> As I understand it, the DoS issue here is that I can invent any number of “public nodes” by just runnng a cheap CSPRNG and getting 256-bit sections of its output, then inventing a bunch of `onion_link_proof` messages with myself and my random number, and pump it at the gossip network.
+
+Not quite. Today nodes store a `node_announcement` if a node has active channels. Going a step further, `lnd` will also prune out any `node_announcement` instance that have no channels after we process the set of closed channels in a block. 
+
+As a result, a `onion_link_proof` (a public one) will only be accepted if both nodes have channels. Clients can opt to filter out further and only accept onion link proofs from a node that has at least `N` channels with `X` BTC total across the channels, etc, etc. 
+
+The onion overlay anchors into the _existing_ LN channel graph, but isn't _embedded_ within it.
+
+-------------------------
+
+roasbeef | 2025-07-01 22:49:08 UTC | #8
+
+> So what you’re saying is that in practice your proposal wouldn’t change the network topology at all? What’s the point, then?
+
+The fact that you arrived at the conclusion after reading my last post shows an impressive ability to make logical leaps. If one carefully reads the OP and my initial reply, they'd arrive at the conclusion that: the onion overlay doesn't necessarily _mirror_ the topology of the existing channel graph. This is due to the fact that: nodes that don't have direct channels with each other can create+advertise an onion link. 
+
+> The spec doesn’t say that it has to be on the same connection, which implies that nodes are free to do whatever they want.
+> Also, there’s no need for a separate port for this? You can just open a second connection on the same port.
+
+The [very first BOLT](https://github.com/lightning/bolts/blob/68881992b97f20aca29edf7a4d673b8e6a70379a/01-messaging.md#connection-handling-and-multiplexing) is pretty clear on this point: 
+> Implementations MUST use a single connection per peer; channel messages (which include a channel ID) are multiplexed over this single connection.
+
+Again, can you point me to the where in the spec literally any of what you're describing is outlined? 
+
+>  which implies that nodes are free to do whatever they want
+
+Sure, nodes implementation can implement pretty much anything they want to. However, interoperability requires that the behavior be specified so all implementations are on the same page. This is why we write _explicit_ specs. 
+
+> Yes, TCP is all about applying backpressure from an application through to the sender to ensure the sender can do these things without making the recipient unable to respond
+
+You seem to have repeatedly missed the nuance in this example. So here's a simplified scenario that you should be able to understand:
+  * Alice has an FIFO internal queue that contains 5 messages: 3x `channel_update`, 1x `commit_sig`, and 1x `onion_message`. 
+  * Bob only processes a single message a time, he's entirely single threaded. He's slow, and a single `channel_update` can take him 5 seconds to process. Bob never drops incoming messages, they're processed in order. 
+  * Alice sends her first channel update, to Bob, the TCP parameters have been arbitrary restricted s.t only a single message can be outstanding at a time.  
+  * In this scenario, only 15+ seconds after the first `channel_update` is sent can Alice send the `onion_message`. 
+
+Can you see how using a distinct TCP (or even [a single QUIC connection](https://github.com/lightning/bolts/issues/1257)!)  connection would allow Alice to send/propagate her `onion_message` more expediently? If not, then I'm not sure we can continue to have a productive conversation on this matter. 
+
+> Head-of-line blocking isn’t some death curse
+
+I'm not presenting it as such, that's just a strawman you seem to enjoy wrangling with. My statement is pretty simple: onion messaging over a distinct TCP eliminates unnecessary blocking, and sidesteps networking+processing contention w/ other node functionality.
+
+-------------------------
+

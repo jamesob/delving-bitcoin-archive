@@ -1190,3 +1190,29 @@ If I got this wrong, can you do the calculation given these parameters?
 
 -------------------------
 
+JohnLaw | 2025-07-01 22:03:02 UTC | #14
+
+Hi Clara,
+
+Even if we assume that a router typically routes 10k sat payments, that most HTLCs resolve in 2 minutes, and the router typically charges 1 sat per payment, we can't just use those numbers to determine that the router's cost of capital is 1 sat/10k sats per 2 minutes = 10^(-4) per 2 minutes = 3 * 10^(-3) per hour.
+
+First, there are costs and risks that the router's 1 sat fee has to cover, including:  
+* expected cost of on-chain fees to resolve the payment,  
+* risk of losing the payment's funds due to a crash or failure,  
+* computation costs, and  
+* communication costs.
+
+These costs and risks are paid for with the Upfront Fee and Success Fee. 
+
+In addition, utilization of the router's capital isn't 100%, so we cant' just assume that a 2-week delay prevents the router from routing 10k other payments.
+
+In fact, your cost of capital assumption is that 10k sats of capital returns 10k sats of profit every 2 weeks, thus doubling capital 26 times per year, resulting in a factor of 64 million annual return on capital. I don't believe that is a realistic risk-free rate of return.
+
+In my example, I assumed a cost of capital of 2 * 10^(-5)/hour, which corresponds to a 19% compounded annual rate of return.  This sounds more realistic to me.
+
+Finally, I should note that the Hold fee actually has to pay for the cost of capital for all of the capital that is being held. As a result, the 10th downstream node has to stake an amount that covers the maximum cost of capital for all 10 upstream nodes, thus increasing the amount staked by a factor of 10 at that node. All of this is included in my example.
+
+Please let me know if any of this doesn't make sense or isn't clear.
+
+-------------------------
+
