@@ -1216,3 +1216,9 @@ Please let me know if any of this doesn't make sense or isn't clear.
 
 -------------------------
 
+ClaraShk | 2025-07-02 13:03:14 UTC | #15
+
+Can you provide a number (and the calculation) for the example above? How much funds would need to be locked?
+
+-------------------------
+

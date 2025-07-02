@@ -397,3 +397,24 @@ I'm not presenting it as such, that's just a strawman you seem to enjoy wranglin
 
 -------------------------
 
+gijswijs | 2025-07-02 13:50:39 UTC | #9
+
+Firstly, onion messages today don't have to keep to the same graph topology as the channel graph. The BOLT specifically states:
+
+> Onion messages don't explicitly require a channel, but for spam-reduction a node may choose to ratelimit such peers, especially messages it is asked to forward.
+
+This would allow for a multi-hop message over nodes without any channel between them. But this is a kind of hail Mary approach to sending messages, as the chances of a message being dropped are substantial. Current implementation most likely stick to their current path finding functionality that takes to the channel graph.
+
+More likely, this property of onion messaging is used to fall back to directly connecting to the recipient (with whom you don't have a channel) so that the onion message gets delivered directly.
+
+Secondly, I'm not convinced the resulting onion messaging graph will turn out smaller. (depending on your definition of smaller) For a graph to become smaller (by means of graph diameter) the edge density would have to increase. Meaning that nodes would have to be quite permissive in accepting onion message connections. But if nodes either
+
+- only accept `onion_link_req` from peers with which they have a channel, or
+- filter out `onion_link_proof`s from nodes with less thean `N` channels or with less than `X` BTC total capacity,
+
+the resulting graph won't be substantially smaller in diameter, because you are tying the cost of edge creation in the onion message graph (which should be low to be able to get a smaller diameter) to the cost of edge creation in the underlying channel graph (which is high).
+
+I do like the separation of concerns that lies at the foundation of this proposal and I think that warrants further exploration of this topic.
+
+-------------------------
+

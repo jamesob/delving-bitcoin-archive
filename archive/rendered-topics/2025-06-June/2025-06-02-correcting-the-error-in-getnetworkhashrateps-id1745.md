@@ -278,9 +278,11 @@ Let's say we have a strange PoW protocol where difficulty is selected by miners 
 
 -------------------------
 
-zawy | 2025-07-01 19:53:03 UTC | #15
+zawy | 2025-07-02 11:45:17 UTC | #15
 
-I found the problem. The total work in the **timespan** that N blocks are found is the sum of Ds from 1 to N-1 blocks. When we say W = sum of Ds in N blocks, it's actually the amount of work done in the timespan covering N+1 blocks.  The sum of Ds in the past N blocks is the work done up until the current time (a randomly chosen time to perform the query), not up until the most recent block's timestamp. The hashrate doesn't need the (N-1)/N correction in that case if it divides by the longer timespan in using current time instead of most recent timestamp.
+I found the problem. Chain work isn't the sum of D's that starts at the block after a timestamp at height H and ends at the timestamp at H+N, but the sum of D's between those 2 timestamps which has N-1 blocks. Starting and ending on a block is a biased selection of the timespan.  
+
+But the sum of Ds in the past N blocks is the work done up until current time (a randomly chosen point in time to perform the query, not an ending timestamp).
 
 Hashrate at any height h in the past is
 

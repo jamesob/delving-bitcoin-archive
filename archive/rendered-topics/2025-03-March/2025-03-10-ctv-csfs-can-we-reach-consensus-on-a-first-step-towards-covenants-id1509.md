@@ -1838,3 +1838,13 @@ Having CAT+CSFS available would avoid the tooling issue, at a cost in on-chain e
 
 -------------------------
 
+instagibbs | 2025-07-02 13:37:58 UTC | #83
+
+[quote="ajtowns, post:82, topic:1509"]
+In particular, the script `<R> CAT <G> DUP CSFS` can be satisfied by having `<s>` on the stack where `s*G = R + H(R,G,G)*G`, so the preimage of `R` can be calculated as `r = s - H(R,G,G)`, with straightforward ECC maths, and no need for secret keys
+[/quote]
+
+To be clear, does this include per-hop blinding? My PTLC context has completely paged out of memory.
+
+-------------------------
+
