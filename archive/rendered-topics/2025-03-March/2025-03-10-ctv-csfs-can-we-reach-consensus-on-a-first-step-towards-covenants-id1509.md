@@ -1848,3 +1848,9 @@ To be clear, does this include per-hop blinding? My PTLC context has completely 
 
 -------------------------
 
+ajtowns | 2025-07-02 16:59:32 UTC | #84
+
+Per-hop blinding just means that you have inbound value `R1` and outbound value `R2=R1+kG`, where `k` is a per-hop constant known only to you and the person initiating the payment, so when you receive/calculate `r2` on your outbound link, you can calculate `r1=r2-k` to claim the inbound funds. You just need to relate r1/R1 (and r2/R2) on-chain, you don't need to relate r1/r2 or R1/R2 on-chain (which would remove the privacy benefit anyway).
+
+-------------------------
+

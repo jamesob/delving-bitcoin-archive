@@ -322,3 +322,21 @@ Most consensus schemes don't have digitally-signed messages (Bitcoin's costly ha
 
 -------------------------
 
+ajtowns | 2025-07-02 16:16:16 UTC | #3
+
+[quote="zawy, post:2, topic:1757"]
+If timestamps were required to be within a reasonable +/- 5 seconds plus a 2 second propagation delay (or else the block gets put in “timeout” for 1 block time to enable PoW to override the timeout if a network partition occurs) then there can’t be a profitable selfish mine
+[/quote]
+
+Rather than putting blocks in a ten minute timeout, would it be effective to treat "reasonable" timestamps with higher priority -- so that anytime we see a block with a "reasonable" timestamp, we request its full data and re-announce it, even if it's only equal-work to our current tip, and if it's equal-work and reasonable but our current tip had an "unreasonable" timestamp, we switch our tip to the other block, even though we heard about the other block slightly later?
+
+"Reasonable" could mean `abs(now() - header.nTime) < 10s && (more_work_than_tip || abs(tiptime - header.nTime) < 10s)` where now is our current system time, and tiptime is our system time when we received the header for our current tip, that this new block would potentially replace.
+
+-------------------------
+
+zawy | 2025-07-02 17:18:14 UTC | #4
+
+A timestamp that is too far into the future (compared to arrival time) is provably not an honest (correctly-functioning) node and needs to be rejected more strongly, possibly permanently unless the receiving node discovers his clock was wrong.  Unreasonably long in the past is assuming there's not large propagation delay so it must go into a timeout in case there was a real delay. PoW eventually discover which partition has the highest hashrate.  If applying your idea in the case of old timestamps, then a new block with a good timestamp that comes in will be working on top of the bad timestamp just like you unless there is a real network delay.  This allows the normal selfish mining if there's not a real network delay because the miner could be withholding the block to get a "head start" on it.  And if there's a real partition, it's not clear to me that you should switch.
+
+-------------------------
+
