@@ -1818,3 +1818,23 @@ I will not try to predict uptake on established protocols however. There's a lon
 
 -------------------------
 
+ajtowns | 2025-07-02 05:01:19 UTC | #82
+
+[quote="sjors, post:80, topic:1509"]
+I guess I’m stuck in 2021 when we thought that just Taproot would do the trick.
+[/quote]
+
+I think there's also a lack of tooling/standardisation for doing a PTLC reveal in combination with a musig 2-of-2 (which would be efficient on-chain), or even general tx signatures (ie `x CHECKSIGVERIFY y CHECKSIG`).
+
+The efficient way of doing PTLCs would be to have a partially-presigned musig2 signature for the redeem tx, where completing the signature reveals the PTLC secret to the other party. But this would require adaptor signature support for musig2, and that's not part of the spec and was removed from the secp256k1 implementation see [pr#1479](https://github.com/bitcoin-core/secp256k1/pull/1479). Doing it less efficiently as a separate adaptor signature would work too, but even plain adaptor signatures for schnorr sigs also isn't available in secp256k1.
+
+These also aren't included even in the more experimental secp256k1-zkp project, see [pr#299](https://github.com/BlockstreamResearch/secp256k1-zkp/pull/299), though secp256k1-zkp does have support for ECDSA-based adaptor signatures ([pr#117](https://github.com/BlockstreamResearch/secp256k1-zkp/pull/117)) and adaptor signatures in the old musig scheme that predates musig2 and [BIP-327](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki) (see [musig.md](https://github.com/BlockstreamResearch/secp256k1-zkp/blob/master/src/modules/musig/musig.md)).
+
+If the tooling were ready, I could see PTLC support being added as a "let's get it in early so it's already widely supported when we actually want to enable it", but I don't think anyone considers it a high enough priority to put in the work to get the crypto stuff standardised and polished. Making the unhappy path more efficient is something that could be done later on a per-peer basis without too much hassle.
+
+Having CAT+CSFS available would avoid the tooling issue, at a cost in on-chain efficiency (though only in the unhappy path, of course), using 102 witness bytes for a PTLC reveal versus 56/67 witness bytes for a HTLC reveal. In particular, the script `<R> CAT <G> DUP CSFS` can be satisfied by having `<s>` on the stack where `s*G = R + H(R,G,G)*G`, so the preimage of `R` can be calculated as `r = s - H(R,G,G)`, with straightforward ECC maths, and no need for secret keys. I think with only CSFS available you continue having similar tooling problems, because you need to use adaptor signatures to prevent your counterparty from choosing a different R value for the signature.
+
+(These issues are independent of the update complexity and peer protocol updates @instagibbs describes above)
+
+-------------------------
+
