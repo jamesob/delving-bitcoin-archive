@@ -1818,7 +1818,7 @@ I will not try to predict uptake on established protocols however. There's a lon
 
 -------------------------
 
-ajtowns | 2025-07-02 05:01:19 UTC | #82
+ajtowns | 2025-07-02 05:06:22 UTC | #82
 
 [quote="sjors, post:80, topic:1509"]
 I guess I’m stuck in 2021 when we thought that just Taproot would do the trick.
@@ -1828,7 +1828,7 @@ I think there's also a lack of tooling/standardisation for doing a PTLC reveal i
 
 The efficient way of doing PTLCs would be to have a partially-presigned musig2 signature for the redeem tx, where completing the signature reveals the PTLC secret to the other party. But this would require adaptor signature support for musig2, and that's not part of the spec and was removed from the secp256k1 implementation see [pr#1479](https://github.com/bitcoin-core/secp256k1/pull/1479). Doing it less efficiently as a separate adaptor signature would work too, but even plain adaptor signatures for schnorr sigs also isn't available in secp256k1.
 
-These also aren't included even in the more experimental secp256k1-zkp project, see [pr#299](https://github.com/BlockstreamResearch/secp256k1-zkp/pull/299), though secp256k1-zkp does have support for ECDSA-based adaptor signatures ([pr#117](https://github.com/BlockstreamResearch/secp256k1-zkp/pull/117)) and adaptor signatures in the old musig scheme that predates musig2 and [BIP-327](https://github.com/bitcoin/bips/blob/master/bip-0327.mediawiki) (see [musig.md](https://github.com/BlockstreamResearch/secp256k1-zkp/blob/master/src/modules/musig/musig.md)).
+These also aren't included even in the more experimental secp256k1-zkp project, see [pr#299](https://github.com/BlockstreamResearch/secp256k1-zkp/pull/299), though secp256k1-zkp does have support for ECDSA-based adaptor signatures ([pr#117](https://github.com/BlockstreamResearch/secp256k1-zkp/pull/117)) and adaptor signatures in the old musig scheme that predates musig2 and [BIP-327](https://github.com/bitcoin/bips/blob/36618d1c3c6b1559d0ce69fd958191b8789f350a/bip-0327.mediawiki) (see [musig.md](https://github.com/BlockstreamResearch/secp256k1-zkp/blob/6152622613fdf1c5af6f31f74c427c4e9ee120ce/src/modules/musig/musig.md)).
 
 If the tooling were ready, I could see PTLC support being added as a "let's get it in early so it's already widely supported when we actually want to enable it", but I don't think anyone considers it a high enough priority to put in the work to get the crypto stuff standardised and polished. Making the unhappy path more efficient is something that could be done later on a per-peer basis without too much hassle.
 
