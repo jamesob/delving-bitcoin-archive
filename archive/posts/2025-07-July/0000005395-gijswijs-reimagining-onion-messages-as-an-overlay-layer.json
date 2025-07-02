@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 20.8,
   "yours": false,
   "topic_id": 1799,
   "topic_slug": "reimagining-onion-messages-as-an-overlay-layer",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Firstly, onion messages today don't have to keep to the same graph topology as the channel graph. The BOLT specifically states:\n\n> Onion messages don't explicitly require a channel, but for spam-reduction a node may choose to ratelimit such peers, especially messages it is asked to forward.\n\nThis would allow for a multi-hop message over nodes without any channel between them. But this is a kind of hail Mary approach to sending messages, as the chances of a message being dropped are substantial. Current implementation most likely stick to their current path finding functionality that takes to the channel graph.\n\nMore likely, this property of onion messaging is used to fall back to directly connecting to the recipient (with whom you don't have a channel) so that the onion message gets delivered directly.\n\nSecondly, I'm not convinced the resulting onion messaging graph will turn out smaller. (depending on your definition of smaller) For a graph to become smaller (by means of graph diameter) the edge density would have to increase. Meaning that nodes would have to be quite permissive in accepting onion message connections. But if nodes either\n\n- only accept `onion_link_req` from peers with which they have a channel, or\n- filter out `onion_link_proof`s from nodes with less thean `N` channels or with less than `X` BTC total capacity,\n\nthe resulting graph won't be substantially smaller in diameter, because you are tying the cost of edge creation in the onion message graph (which should be low to be able to get a smaller diameter) to the cost of edge creation in the underlying channel graph (which is high).\n\nI do like the separation of concerns that lies at the foundation of this proposal and I think that warrants further exploration of this topic.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Firstly, onion messages today don\u2019t have to keep to the same graph topology as the channel graph. The BOLT specifically states: \n\nOnion messages don\u2019t explicitly require a channel, but for spam-reduction a node may choose to ratelimit such peers, especially messages it is asked to forward. \n\nThis wo&hellip;",
   "truncated": true,
   "post_url": "/t/reimagining-onion-messages-as-an-overlay-layer/1799/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
