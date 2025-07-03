@@ -1,10 +1,10 @@
 # Understanding and Mitigating a OP_CTV Footgun: The Unsatisfiable UTXO
 
-Chris_Stewart_5 | 2025-07-03 20:04:19 UTC | #1
+Chris_Stewart_5 | 2025-07-03 20:09:21 UTC | #1
 
 Hi everyone,
 
-A well-known "footgun" when working with `OP_CTV` (CheckTemplateVerify) is the scenario where an amount **less** than the expected value is sent to a `OP_CTV`-locked output. As `BIP119` (the proposal for `OP_CTV`) highlights in its discussion on ["forwarding address contracts"](https://github.com/bitcoin/bips/blob/master/bip-0119.mediawiki#forwarding-addresses):
+A well-known "footgun" when working with `OP_CTV` (CheckTemplateVerify) is the scenario where an amount **less** than the expected value is sent to a `OP_CTV`-locked output. As `BIP119` (the proposal for `OP_CTV`) highlights in its discussion on ["forwarding address contracts"](https://github.com/bitcoin/bips/blob/fd1955694b95440bde70890475548dfb59e2e759/bip-0119.mediawiki#forwarding-addresses):
 
 >Key-reuse with CHECKTEMPLATEVERIFY may be used as a form of "forwarding address contract". A forwarding address is an address which can automatically execute in a predefined way. For example, an exchange's hot wallet might use an address which can automatically be moved to a cold storage address after a relative timeout.
 
@@ -24,7 +24,7 @@ It's important to note that designing your `OP_CTV` template to always require t
 
 ### Future work
 
-This research is part of piece of research on how OP_CTV can work with [OP_{IN,OUT}_AMOUNT](https://delvingbitcoin.org/t/op-inout-amount/549) to create safer forwarding addresses and realize the [AMOUNTVERIFY](https://github.com/bitcoin/bips/blob/master/bip-0119.mediawiki#op_amountverify) idea written in BIP119.
+This research is part of piece of research on how OP_CTV can work with [OP_{IN,OUT}_AMOUNT](https://delvingbitcoin.org/t/op-inout-amount/549) to create safer forwarding addresses and realize the [AMOUNTVERIFY](https://github.com/bitcoin/bips/blob/fd1955694b95440bde70890475548dfb59e2e759/bip-0119.mediawiki#op_amountverify) idea written in BIP119.
 
 -------------------------
 
