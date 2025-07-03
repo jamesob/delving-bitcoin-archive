@@ -436,3 +436,19 @@ https://x.com/stevenroose3/status/1862231147851243760
 
 -------------------------
 
+ajtowns | 2025-07-03 08:10:02 UTC | #24
+
+[quote="ajtowns, post:1, topic:1257"]
+the [simple-ctv-spacechain](https://github.com/nbd-wtf/simple-ctv-spacechain/blob/3c3c664c56aaf8069cd33bb3ba7b86b4d7e0e137/main.py), which uses bare CTV and creates a chain of CTV’s ending in an OP_RETURN.
+[/quote]
+
+There were a few of these in Nov/Dec, with shortish chains starting at [[1]](https://mempool.space/signet/tx/4436231f5003fe7943c4394d5c04a2b1d51fea76bb8f63f2b611bd834c0573ed) [[2]](https://mempool.space/signet/tx/f4e627b1d97264fad4905270f9c5b9962c0f9b1aebb818fb058043d49786caa6) [[3]](https://mempool.space/signet/tx/dff73d8afd0c9abdc6b7fd00e4e70371f16c295f9ca1ccd62d038d19fb9f2b1f), and some slightly longer chains at [[4]](https://mempool.space/signet/tx/68f45bca9e52c76497060cbc33a8c9f33c74f578de4c40eb3eea8396e1efffb2) [[5*]](https://mempool.space/signet/tx/d541ccbce23f958cb475d1878a7333300cddb5d92da7b1103b0d9439da588b04) [[6*]](https://mempool.space/signet/tx/141d852317d3c45e34f9454dd343636f4e1b9a3ad7a6f1a1c8881d2d065b830e) [[7]](https://mempool.space/signet/tx/e2d5f9852e9fce69bbaafeb3df1a9e6975f36f4b9eb25f13bb0c2ac2ad4d3d36) [[8]](https://mempool.space/signet/tx/c1d41002d36321c381fcc0124160f93ddca0525cbb4680a1f673a2c76a3a6ce2) [[9]](https://mempool.space/signet/tx/54e38782931bc7cf2539099b892313dae078ec64953ac2edc12146dc840a44b5). A couple of those chains weren't completed, but presumably could be by reusing information from previous spends of the same scriptPubKey.
+
+There were a few txs in Dec (eg [[10]](https://mempool.space/signet/tx/d6c0a1a6ef05566c20bc17377e03dda555aed21414b363110b1a1d069c38938e)) using the pattern `<p> CHECKSIGVERIFY <t> CTV DROP`, and redundantly including the CTV hash in the witness as the final "true" value for the stack.
+
+April saw a single tx ([[11]](https://mempool.space/signet/tx/8dba98e0773d783620311c0ae4d636ccd4f95dbdddef57fa93758337f4a5d741)) using the pattern `IF 1 CSV DROP <t1> CTV ELSE <t2> CTV ENDIF`.
+
+There were also a variety of plain `<t> CTV` or `<t> CTV DROP` txs between November and April that didn't appear to include any additional logic, eg [[12]](https://mempool.space/signet/tx/17a4dfa811e0a44ab7370b0e4c10127816d4d65eae78b36b0102bc6d80895be0) [[13]](https://mempool.space/signet/tx/8b0c09b92387ddbbea7ae2a8bca24e48a28551be4025c50ab74844ac8001077c) [[14]](https://mempool.space/signet/tx/5fa5342f5be158b5a7190ec57f8f1b53c0dac6cd03a4fc7e0f778686832f420a) [[15]](https://mempool.space/signet/tx/e95e03fca749db418f97aa56f22d737822fd57e0c20d3573a684e0f606ed5421) [[16]](https://mempool.space/signet/tx/d508d1f6873abe6031a2ff620c7830d72e103a1593353b88ee15896f81eef827).
+
+-------------------------
+

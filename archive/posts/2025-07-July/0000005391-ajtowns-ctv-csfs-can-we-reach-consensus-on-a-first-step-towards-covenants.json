@@ -13,9 +13,9 @@
   "reply_to_post_number": 80,
   "quote_count": 1,
   "incoming_link_count": 5,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 49.0,
+  "reads": 21,
+  "readers_count": 20,
+  "score": 64.2,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -64,9 +64,14 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
