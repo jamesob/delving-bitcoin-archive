@@ -418,3 +418,27 @@ I do like the separation of concerns that lies at the foundation of this proposa
 
 -------------------------
 
+ZmnSCPxj | 2025-07-03 01:13:14 UTC | #10
+
+[quote="roasbeef, post:7, topic:1799, full:true"]
+> As I understand it, the DoS issue here is that I can invent any number of “public nodes” by just runnng a cheap CSPRNG and getting 256-bit sections of its output, then inventing a bunch of `onion_link_proof` messages with myself and my random number, and pump it at the gossip network.
+
+Not quite. Today nodes store a `node_announcement` if a node has active channels. Going a step further, `lnd` will also prune out any `node_announcement` instance that have no channels after we process the set of closed channels in a block.
+
+As a result, a `onion_link_proof` (a public one) will only be accepted if both nodes have channels. Clients can opt to filter out further and only accept onion link proofs from a node that has at least `N` channels with `X` BTC total across the channels, etc, etc.
+
+The onion overlay anchors into the *existing* LN channel graph, but isn’t *embedded* within it.
+[/quote]
+
+Let us say I invent 10 nodes and create 10 "channels" from my real node to each of my fake nodes.  `lnd` will now treat those 10 fake nodes as "real".  I can then have the 10 nodes claim `onion_link_proof` to each other to create (10 * (10 - 1)) / 2) fake onion links.  That is, for O(n) blockspace and minimum channel size amount, I can push O(n^2) onion links.  Presumably, other nodes who are interested in sending onion messages would need to store those O(n^2) onion links in the very-unlikely case they might send to those nodes.
+
+(We can of course use shortest-path-tree to prune the graph instead of a full graph, but that becomes fragile)
+
+That is precisely why we cannot just invent "overlay" links that are not backed by actual UTXOs on the blockchain layer, and precisely why every channel should have a backing UTXO (or if we want to relax that, we want it to be linear on number of backing UTXOs at worst, not quadratic).  For linear cost to me I can create quadratic cost on everyone else.
+
+We could of course just break that principle, but if we do, we should just allow virtual *full* channels and have an "onion-message-only" flag instead..
+
+In particular, if even if we do heuristics like "the node should have some minimum of M satoshis locked in C channels or else we will drop their `onion_link_proof`" this does not change the fundamental O(n) cost on me vs O(n^2) cost I can impose on others.
+
+-------------------------
+
