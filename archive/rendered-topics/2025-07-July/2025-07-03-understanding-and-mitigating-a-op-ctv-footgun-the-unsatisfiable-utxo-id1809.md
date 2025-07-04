@@ -28,3 +28,23 @@ This research is part of piece of research on how OP_CTV can work with [OP_{IN,O
 
 -------------------------
 
+instagibbs | 2025-07-04 13:24:37 UTC | #2
+
+Aside from the additional costs involved, requiring an additional input to be created at the right amount (to free up the committed tx and also not overspend on fees!) and then spent, committing to two inputs also means that you don't get transaction id stability. 
+
+This precludes use-cases such as connector/control outputs being made by these transactions, for instance.
+
+-------------------------
+
+1440000bytes | 2025-07-04 14:07:13 UTC | #3
+
+It is also possible to have multiple spending paths with different number of inputs committed by CTV.
+
+[quote="Chris_Stewart_5, post:1, topic:1809"]
+This capability becomes especially relevant for applications like **vault constructions**, a use case many are excited about for `OP_CTV`. Vaults often involve locking large amounts of funds within `OP_CTV` outputs. Given that transaction hashes don’t inherently convey the exact expected amount, having an “escape hatch” in case of an accidental underfunding (or even a slight amount mismatch due to floating-point arithmetic or human error) is incredibly valuable and prudent.
+[/quote]
+
+Vaults will be used with a notification service or watchtower that can monitor such transactions, notify the user, replace transactions, etc.
+
+-------------------------
+
