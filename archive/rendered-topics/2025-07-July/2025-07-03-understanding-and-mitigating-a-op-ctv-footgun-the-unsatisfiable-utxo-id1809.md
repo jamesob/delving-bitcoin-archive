@@ -48,3 +48,36 @@ Vaults will be used with a notification service or watchtower that can monitor s
 
 -------------------------
 
+Chris_Stewart_5 | 2025-07-04 18:07:40 UTC | #4
+
+[quote="1440000bytes, post:3, topic:1809"]
+Vaults will be used with a notification service or watchtower that can monitor such transactions, notify the user, replace transactions, etc.
+[/quote]
+
+Assuming we're dealing with an `OP_CTV` template that commits to **exactly one input**, I don't believe we can "replace" an already created, unsatisfiable `UTXO` in the way one might replace an unconfirmed transaction via RBF. Once a transaction creating such an underfunded `OP_CTV` `UTXO` is confirmed, that `UTXO` becomes a permanent part of the `UTXO` set. Its `OP_CTV` script's requirements (including the exact amount) are set in stone, effectively locking the funds if the received amount doesn't match the committed amount precisely.
+
+A traditional watchtower monitors for *spending* attempts of the `OP_CTV` `UTXO` - this wouldn't be able to help with an *underfunded funding transaction* that has already confirmed. The watchtower would only see the `OP_CTV` `UTXO` available for spending, but wouldn't inherently know that it's unspendable due to an amount mismatch.
+
+For a watchtower to truly help in this "underfunding" scenario, it would need to:
+
+1. **Be aware of the `OP_CTV` hash preimage at the time of the `UTXO`'s creation:** This means the watchtower would need to know the *exact* transaction template that the `OP_CTV` hash commits to, including the expected input amount, before the funding transaction is even broadcast.
+2. **Monitor the funding transaction:** It would then have to compare the actual amount received by the `OP_CTV` output in the funding transaction against the expected amount from the preimage.
+3. **Alert the user *before confirmation*:** The watchtower would need to detect the mismatch and alert the user *while the funding transaction is still unconfirmed* (if it was an RBF-eligible transaction) so that it could potentially be replaced.
+
+The challenge here is that the specific amount committed to within the `OP_CTV` hash is **not readily apparent from data available on-chain** when the `OP_CTV` `UTXO` is created. This commitment is only fully revealed when an attempt is made to *spend* the `OP_CTV` `UTXO` by providing the pre-image and the full transaction template as part of the witness. Therefore, a watchtower simply monitoring the blockchain wouldn't know at the funding stage that the `UTXO` is unsatisfiable.
+
+This reinforces my point about committing to at least two inputs in the `OP_CTV` template. This design choice effectively provides a "rescue path" for correcting amount mismatches *after* the `UTXO` has been created.
+
+-------------------------
+
+1440000bytes | 2025-07-04 18:22:21 UTC | #5
+
+
+[quote="Chris_Stewart_5, post:4, topic:1809"]
+For a watchtower to truly help in this “underfunding” scenario, it would need to:
+[/quote]
+
+I have no clue why you can't setup a watchtower that does all of this if you already need one for vault.
+
+-------------------------
+
