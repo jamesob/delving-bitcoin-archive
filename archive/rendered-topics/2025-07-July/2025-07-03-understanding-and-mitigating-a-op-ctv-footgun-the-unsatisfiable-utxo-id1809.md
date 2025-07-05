@@ -81,3 +81,13 @@ I have no clue why you can't setup a watchtower that does all of this if you alr
 
 -------------------------
 
+salvatoshi | 2025-07-05 07:03:01 UTC | #6
+
+To the best of my understanding, it is in general true that for (future) Script-based covenants based on programmatic restriction on the outputs (as opposed to restrictions obtained via presigned transactions), stability of txids doesn't seem to be useful. Therefore a simplified version of CTV that only commits to the outputs would allow greater flexibility, at no cost. Vaults constructed with CCV+CTV (essentially the same as VAULT+CTV) are an example.
+
+In constructions with such expressive covenants, CSFS might also be used as a means of enabling certain spending paths without depending on stable txids, by signing a message instead.
+
+However, *connector outputs* seem to be somewhat of an exception in that I am not aware of an equally easy *covenant-y* replacement for this primitive. Generalizations not based on presigned transactions do exist (see [ancestry proofs/singletons](https://delvingbitcoin.org/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353)) and it would be interesting to further explore what opcodes would enable the cleanest implementation.
+
+-------------------------
+

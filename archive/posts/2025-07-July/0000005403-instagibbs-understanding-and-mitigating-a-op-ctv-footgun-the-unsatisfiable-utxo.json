@@ -7,7 +7,7 @@
   "cooked": "<p>Aside from the additional costs involved, requiring an additional input to be created at the right amount (to free up the committed tx and also not overspend on fees!) and then spent, committing to two inputs also means that you don\u2019t get transaction id stability.</p>\n<p>This precludes use-cases such as connector/control outputs being made by these transactions, for instance.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2025-07-04T13:24:37.788Z",
   "reply_count": 0,
   "reply_to_post_number": null,
