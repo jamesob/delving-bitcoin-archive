@@ -372,9 +372,9 @@ FIBRE shut down somewhere in 2020-2021, I believe.
 
 -------------------------
 
-zawy | 2025-07-07 10:31:36 UTC | #7
+zawy | 2025-07-07 10:51:28 UTC | #7
 
-Grok really had me going. Now it says I can replace "Fibre" with "Fibre-like" and not change a thing.  
+Grok really had me going. Now it indicates I can replace "Fibre" with "Fibre-like".   It's sticking by its characterization of delays, going along with my suggestion that the network can be roughly viewed as "80% fast and 20% slow" although now it indicates a more continuous spectrum.  But my main goal was to show how to "look at it" and to see if the observed stale rate is credible (not intentional) for the estimated latencies.
 
 I found another web site with stale block data. Stales are occurring at least 1 per 1277 block (1 per 9 days), indicating a hashrate-weighted propagation delay of 477 ms.  If that's not credible, large pools are holding back blocks.
 
