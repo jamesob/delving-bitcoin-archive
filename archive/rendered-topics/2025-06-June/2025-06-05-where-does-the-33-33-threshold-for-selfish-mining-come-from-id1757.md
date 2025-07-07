@@ -366,3 +366,9 @@ But instead of claiming they are delaying 200 ms, I'll be generous to Fibre and 
 
 -------------------------
 
+sipa | 2025-07-07 03:03:18 UTC | #6
+
+FIBRE shut down somewhere in 2020-2021, I believe.
+
+-------------------------
+
