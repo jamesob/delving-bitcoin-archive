@@ -340,3 +340,29 @@ A timestamp that is too far into the future (compared to arrival time) is provab
 
 -------------------------
 
+zawy | 2025-07-06 22:40:48 UTC | #5
+
+Large pools using Fibre for better connectivity is a weak form of selfish mining.  Fibre miners aren't withholding blocks intentionally to get an extra second of mining, but that's the net effect.  They get of 1/600 excess profit from the remaining 20% of the network (0.2 * 1/600 = 0.03% excess profit)
+
+I'm curious if they're "accidentally" increasing the delay, or if Fibre miners are delaying their release of blocks to each other. This has no net effect relative to each other, but extracts rewards and fees from the non-Fibre miners. If a Fibre miner finds a block, then it's ~1 second before the hashrate-weighted non-Fibre miner sees it. Conversely, if a non-Fibre miner finds a blocks then it might be ~1 second before the Fibre network sees it.  So Fibre miners have 2 seconds before they need to release a block (even to to each other) to give them a head start on the non-Fibre miners.  And there's another second before the non-Fibre miners can mine on top of that cheat, a total of 3 seconds , so if non-Fibre is 20% of the hashrate, they could lose 0.2 * 3 / 600 = 0.1% of the rewards to Fibre miners.
+
+I can look at the stale block rate to determine if someone's cheating:
+
+stale_rate =~ 1 - e^(-Delay/600) 
+
+Sale blocks are occurring [1 per 1784 blocks](https://fork.observer/) (22 in past 39,240 blocks, 9 months). This is a minimum due to some not getting relayed enough to get seen. I found 3 more in the 1st half of that timespan [here](https://github.com/bitcoin-data/stale-blocks/blob/abee96d45926707e77aeb03929125b519cad83a6/stale-blocks.csv) and it indicates my timespan needs to increase to 39,832. So let's guess the 2nd server would have found 3 more in the 2nd half and that those 2 servers are missing 10%, so there were about 31 stale blocks in 40,000 (0.0775%) or 1 per 1,290 blocks.
+
+Rearranging my equation above and using e^(-x) =~ 1-x for small x, the delay is about 600 * 31 / 40,000  = 465 ms. From an old paper, this value is between the median and mean, and not far from them.
+
+Grok tells me 80% of the hashrate is on Fibre and that Fibre's hashrate-weighted delay is 50 ms. It says the hashrate-weighted delay for the non-Fibre part is ~ 1 second.  To see if this matches with the observed delay from the stale rate.
+
+0.8 * 50 + 0.2 * 1,000 = 240 ms  
+
+stale_rate = 0.240 / 600 = 1 per 2,500 blocks
+
+So from the data I have, we're seeing almost 2x the stale blocks we should be. Fibre miners could be delaying release of their block 200 ms to get a very minor profit ontop of the 0.03%.  If they were doing a real attack and delaying 2 seconds (when the parent block came from a Fibre miner), stale blocks would occur once every 333 blocks.
+
+But instead of claiming they are delaying 200 ms, I'll be generous to Fibre and assume it has a 100 ms delay and that the non-Fibre delay is 1.5 s (this latter delay being the main thing). At these extremes, we should have seen 1 stale block in 1,580.  Also, let's say there were only the 25 stale blocks we directly observed (instead of my "statistical" estimate of 31) in the past 39,832 blocks. This give close agreement of 1 in 1,593.
+
+-------------------------
+
