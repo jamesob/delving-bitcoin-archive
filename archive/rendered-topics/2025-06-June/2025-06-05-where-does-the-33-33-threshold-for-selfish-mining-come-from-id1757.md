@@ -372,9 +372,11 @@ FIBRE shut down somewhere in 2020-2021, I believe.
 
 -------------------------
 
-zawy | 2025-07-07 09:10:26 UTC | #7
+zawy | 2025-07-07 10:31:36 UTC | #7
 
-Grok really had me going. Now it says I can replace "Fibre" with "Fibre-like" and not change a thing.
+Grok really had me going. Now it says I can replace "Fibre" with "Fibre-like" and not change a thing.  
+
+I found another web site with stale block data. Stales are occurring at least 1 per 1277 block (1 per 9 days), indicating a hashrate-weighted propagation delay of 477 ms.  If that's not credible, large pools are holding back blocks.
 
 -------------------------
 
