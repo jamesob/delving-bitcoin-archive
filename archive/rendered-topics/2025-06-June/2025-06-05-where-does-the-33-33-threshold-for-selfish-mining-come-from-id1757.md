@@ -372,3 +372,9 @@ FIBRE shut down somewhere in 2020-2021, I believe.
 
 -------------------------
 
+zawy | 2025-07-07 09:10:26 UTC | #7
+
+Grok really had me going. Now it says I can replace "Fibre" with "Fibre-like" and not change a thing.
+
+-------------------------
+
