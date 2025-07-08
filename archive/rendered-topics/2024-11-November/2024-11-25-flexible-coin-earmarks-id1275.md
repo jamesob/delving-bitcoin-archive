@@ -1,6 +1,6 @@
 # Flexible Coin Earmarks
 
-ajtowns | 2024-11-25 06:56:45 UTC | #1
+ajtowns | 2025-07-08 07:46:00 UTC | #1
 
 I'd like to share a concept that I'm working on implementing in [bllsh](https://delvingbitcoin.org/t/debuggable-lisp-scripts/1224), that I'm calling "Flexible Coin Earmarks", along with how it relates to ideas like lightning commitments, vaults, and payment pools. This post does go into some implementation details, but not to the level of specifying any code, so should apply equally to a realisation in bll or simplicity or something else.
 
@@ -76,7 +76,7 @@ Here's a diagram of how that generalised example might look, where there are thr
 flowchart
     spk{{scriptPubKey}} --> ipk{{internal public key}}
     spk --> tr([taproot script tree root])
-    tr --> coop[wholesale replacement\nof earmarks]
+    tr --> coop[wholesale replacement of earmarks]
     tr --> unco([earmarks subtree])
     unco --> em[[earmarks merkle root]]
     unco --> us([earmarks scripts])
@@ -118,6 +118,20 @@ With flexible coin earmarks, this becomes much simpler: layered commitments are 
 [/quote]
 
 I think years ago we called this "magical eltoo" :slight_smile:
+
+-------------------------
+
+ajtowns | 2025-07-08 07:50:38 UTC | #3
+
+[quote="ajtowns, post:1, topic:1275"]
+I believe both bll and simplicity have a sufficient feature set to be able to express the above. My hope is that it’s possible to express it in a modular way, so you can spend most of your time defining what the earmark execution and wholesale replacement conditions are, rather than manually tweaking the checks/calculations above for your particular use case.
+[/quote]
+
+Here's one way of doing that in bll:
+
+https://github.com/ajtowns/bllsh/blob/04f924f672adf0ff5f5d39e258e9f19cdf9ab493/examples/test-flexmarks
+
+It provides five hooks (EXTRACT, NEWIPK, NEWEM, NEWOV, CHECKEM) that should let you fairly easily implement any design where each payment deals with executing a single earnmark (and where the individual conditions are expressible in bll in the first place).
 
 -------------------------
 
