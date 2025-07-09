@@ -442,3 +442,25 @@ In particular, if even if we do heuristics like "the node should have some minim
 
 -------------------------
 
+roasbeef | 2025-07-08 23:04:27 UTC | #11
+
+> Let us say I invent 10 nodes and create 10 “channels” from my real node to each of my fake nodes
+
+Thanks for this example! I understand the scenario you have in mind now. 
+
+>  That is, for O(n) blockspace and minimum channel size amount, I can push O(n^2) onion links. Presumably, other nodes who are interested in sending onion messages would need to store those O(n^2) onion links in the very-unlikely case they might send to those nodes.
+
+I think the asymptotics here ignore some of the concrete realities that serve to mitigate nuisance attacks like this. 
+
+For one, as this information would be piggy backed along side a `node_announcement`, which has a 65 KB limit like all other messages, the amount of onion links a node can advertise has a hard upper limit. As a result, for node announcements, we already have an upper bound on the amount of storage required per node. 
+
+The creation of each of those initial backing costs also has a direct on-chain cost. Going further, clients that observe/implement this overlay can enforce additional constraints on the minimum eligibility requirements to advertise an onion link for public nodes. An example of such requirements would include: a min channel size, number of onion links per channel, etc. 
+
+> (We can of course use shortest-path-tree to prune the graph instead of a full graph, but that becomes fragile)
+
+Why would the maintenance of a [minimum spanning tree](https://en.wikipedia.org/wiki/Minimum_spanning_tree) be fragile? Such algorithms are routinely used in the domain of computer networking. The textbook algorithms are also relatively efficient ($O(m \log n)$) as far as graph algos go. Can you elaborate on why you think techniques to maintain a minimal graph like MST algos are fragile in this domain? 
+
+Nodes are also free to add nearly arbitrary constraints on how their construct their view of the network. As an example, nodes can set a hard budget on the amount of vertexes to add to such a tree, as there's no need for an onion overlay with say, 100k links. If a node's added constraints impact reachability, then they can just re-run the algo with a higher threshold (they've already downloaded the information via the set of node announcements).
+
+-------------------------
+
