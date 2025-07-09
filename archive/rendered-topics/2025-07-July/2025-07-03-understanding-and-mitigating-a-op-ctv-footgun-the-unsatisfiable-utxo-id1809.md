@@ -91,3 +91,13 @@ However, *connector outputs* seem to be somewhat of an exception in that I am no
 
 -------------------------
 
+jamesob | 2025-07-09 19:06:30 UTC | #7
+
+[quote="salvatoshi, post:6, topic:1809"]
+Therefore a simplified version of CTV that only commits to the outputs would allow greater flexibility, at no cost.
+[/quote]
+
+Doesn't this introduce a trivial pinning vector where an observer can tack on a very heavy input during broadcast? Is there some way of mitigating that?
+
+-------------------------
+
