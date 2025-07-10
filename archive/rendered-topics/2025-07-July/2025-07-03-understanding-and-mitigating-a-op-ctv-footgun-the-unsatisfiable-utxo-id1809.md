@@ -109,3 +109,13 @@ That seems to be an issue with any script that doesn't commit to all inputs, rat
 
 -------------------------
 
+ajtowns | 2025-07-10 00:10:33 UTC | #9
+
+[quote="salvatoshi, post:8, topic:1809"]
+I’m not yet very knowledgeable on mempool policies, but how is this any better with CTV, which only commits to the number of inputs?
+[/quote]
+
+If there's a commitment that there's a single input exactly, then you can't add extraneous inputs, so pinning in that direction isn't possible.
+
+-------------------------
+
