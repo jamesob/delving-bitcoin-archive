@@ -143,3 +143,21 @@ The half-spend problem is a good point, though. [CCV](https://github.com/bitcoin
 
 -------------------------
 
+josh | 2025-07-10 20:13:45 UTC | #12
+
+[quote="jamesob, post:10, topic:1809"]
+FWIW, there are a number of other reasons that only committing to the output side has problems (half-spend problem, malleation issues).
+[/quote]
+
+(Reposting from the mailing list as I believe it's relevant)
+
+I might point out that we can resolve pinning, half-spend, and malleability concerns by modifying CTV to commit to sibling prevouts. In a naive implementation, this introduces quadratic hashing, but we can make it linear using MuHash with pre-processing.
+
+The idea is to define a sibling commitment as the MuHash of $SHA256(i \, || \, prevout_{i})$ for all inputs except the current input.
+
+To validate, we precompute a MuHash over all prevouts and then selectively remove the hash of the current prevout. Removal is $O(1)$ with MuHash, making validation $O(N)$, even with multiple inputs using CTV.
+
+Since MuHash is already implemented in Bitcoin Core for `assumeUTXO`, this wouldn't necessarily be a heavy lift.
+
+-------------------------
+

@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"salvatoshi\" data-post=\"8\" data-topic=\"1809\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/salvatoshi/48/72_2.png\" class=\"avatar\"> salvatoshi:</div>\n<blockquote>\n<p>I\u2019m not yet very knowledgeable on mempool policies, but how is this any better with CTV, which only commits to the number of inputs?</p>\n</blockquote>\n</aside>\n<p>If there\u2019s a commitment that there\u2019s a single input exactly, then you can\u2019t add extraneous inputs, so pinning in that direction isn\u2019t possible.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2025-07-10T00:10:33.926Z",
   "reply_count": 1,
   "reply_to_post_number": 8,
