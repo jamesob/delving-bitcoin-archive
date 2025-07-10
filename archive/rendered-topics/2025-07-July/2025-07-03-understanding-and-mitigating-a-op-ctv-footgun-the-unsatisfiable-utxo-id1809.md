@@ -119,9 +119,9 @@ If there's a commitment that there's a single input exactly, then you can't add 
 
 -------------------------
 
-jamesob | 2025-07-10 00:55:37 UTC | #10
+jamesob | 2025-07-10 01:00:41 UTC | #10
 
-FWIW, there are a number of other reasons that only committing to the output side has problems (half-spend problem, malleation issues). See [rationale from BIP-119](https://github.com/bitcoin/bips/blob/master/bip-0119.mediawiki#committing-to-the-number-of-inputs).
+FWIW, there are a number of other reasons that only committing to the output side has problems (half-spend problem, malleation issues). See [rationale from BIP-119](https://github.com/bitcoin/bips/blob/c17a3dbcebafb6d48a8510438ab9dab58ece1add/bip-0119.mediawiki#committing-to-the-number-of-inputs).
 
 -------------------------
 
