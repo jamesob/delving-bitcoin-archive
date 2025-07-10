@@ -7,7 +7,7 @@
   "cooked": "<p>I\u2019m not yet very knowledgeable on mempool policies, but how is this any better with CTV, which only commits to the number of inputs?</p>\n<p>That seems to be an issue with any script that doesn\u2019t commit to all inputs, rather than tied to specific opcodes.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 10,
   "updated_at": "2025-07-09T21:52:52.199Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
