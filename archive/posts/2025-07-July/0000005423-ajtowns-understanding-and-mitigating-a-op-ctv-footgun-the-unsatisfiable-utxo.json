@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"salvatoshi\" data-post=\"8\" data-topic=\"1809\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/salvatoshi/48/72_2.png\" class=\"avatar\"> salvatoshi:</div>\n<blockquote>\n<p>I\u2019m not yet very knowledgeable on mempool policies, but how is this any better with CTV, which only commits to the number of inputs?</p>\n</blockquote>\n</aside>\n<p>If there\u2019s a commitment that there\u2019s a single input exactly, then you can\u2019t add extraneous inputs, so pinning in that direction isn\u2019t possible.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 11,
   "updated_at": "2025-07-10T00:10:33.926Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 21.8,
   "yours": false,
   "topic_id": 1809,
   "topic_slug": "understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"salvatoshi, post:8, topic:1809\"]\nI\u2019m not yet very knowledgeable on mempool policies, but how is this any better with CTV, which only commits to the number of inputs?\n[/quote]\n\nIf there's a commitment that there's a single input exactly, then you can't add extraneous inputs, so pinning in that direction isn't possible.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +59,14 @@
   "excerpt": "If there\u2019s a commitment that there\u2019s a single input exactly, then you can\u2019t add extraneous inputs, so pinning in that direction isn\u2019t possible.",
   "truncated": true,
   "post_url": "/t/understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo/1809/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

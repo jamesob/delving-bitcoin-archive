@@ -125,3 +125,21 @@ FWIW, there are a number of other reasons that only committing to the output sid
 
 -------------------------
 
+salvatoshi | 2025-07-10 08:07:13 UTC | #11
+
+[quote="ajtowns, post:9, topic:1809"]
+If there’s a commitment that there’s a single input exactly, then you can’t add extraneous inputs, so pinning in that direction isn’t possible.
+[/quote]
+
+Good point that committing to only one input does not have the pinning issue, although I suppose the same can be solved with standardness policy.
+I don't know if policy rules + replacement rules can solve it in general for an arbitrary number of inputs - it seems like an interesting question.
+
+[quote="jamesob, post:10, topic:1809, full:true"]
+FWIW, there are a number of other reasons that only committing to the output side has problems (half-spend problem, malleation issues). See [rationale from BIP-119](https://github.com/bitcoin/bips/blob/c17a3dbcebafb6d48a8510438ab9dab58ece1add/bip-0119.mediawiki#committing-to-the-number-of-inputs).
+[/quote]
+
+Malleation in BIP-119 mostly refer the TXID, so it's out of scope in the discussion above.<br>
+The half-spend problem is a good point, though. [CCV](https://github.com/bitcoin/bips/blob/c17a3dbcebafb6d48a8510438ab9dab58ece1add/bip-0443.mediawiki) doesn't have it because of the cross-input amount logic. For a CTV-like opcode, the only other solution I see is to only allow one input to use the opcode - which might be sensible, but requires some cross-input logic (albeit very simple).
+
+-------------------------
+
