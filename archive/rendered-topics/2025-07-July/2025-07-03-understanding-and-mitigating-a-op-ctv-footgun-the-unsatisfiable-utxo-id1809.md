@@ -101,3 +101,11 @@ Doesn't this introduce a trivial pinning vector where an observer can tack on a 
 
 -------------------------
 
+salvatoshi | 2025-07-09 21:52:52 UTC | #8
+
+I'm not yet very knowledgeable on mempool policies, but how is this any better with CTV, which only commits to the number of inputs?
+
+That seems to be an issue with any script that doesn't commit to all inputs, rather than tied to specific opcodes.
+
+-------------------------
+
