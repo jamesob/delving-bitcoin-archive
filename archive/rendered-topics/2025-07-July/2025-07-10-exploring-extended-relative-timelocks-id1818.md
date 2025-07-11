@@ -25,3 +25,11 @@ To be clear, I’m not pushing for a soft fork—just curious about the communit
 
 -------------------------
 
+fjahr | 2025-07-10 21:18:02 UTC | #2
+
+Unless you are convinced that quantum computers will never work, I don't think you will want to do this before there isn't a way to make the coins quantum safe at the same time as locking them for an extended amount of time. But even when there is a concept to do that, so much can change over 10 years, so I wouldn't recommend anyone to lock their coins for longer than ~2 years. 
+
+I am not an expert on quantum computers, I just think the chance is definitely non-zero to see them within our lifetimes and for me the use cases for extended time locks don't seem compelling enough to risk loosing all of the funds if quantum attacks become possible.
+
+-------------------------
+
