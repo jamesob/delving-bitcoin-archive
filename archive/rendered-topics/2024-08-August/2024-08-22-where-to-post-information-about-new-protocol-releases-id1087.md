@@ -18,3 +18,9 @@ Second question: is it possible to request to add a mew tag “client-side-valid
 
 -------------------------
 
+ajtowns | 2025-07-11 15:51:22 UTC | #4
+
+Once you participate more on the forum (reading posts, reacting to posts, writing posts/replies) you'll get automatically updated from "new user" to higher trust levels. People who've made it to level 2 aka "member" should be able to create new tags themselves, I believe.
+
+-------------------------
+
