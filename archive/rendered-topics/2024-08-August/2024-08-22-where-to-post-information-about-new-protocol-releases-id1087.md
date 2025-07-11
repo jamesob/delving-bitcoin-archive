@@ -12,3 +12,9 @@ There's an #announcement tag that's been used for software releases in the #impl
 
 -------------------------
 
+dr-orlovsky | 2025-07-11 10:18:08 UTC | #3
+
+Second question: is it possible to request to add a mew tag “client-side-validation”? The topic is general enough and covers more and more tech: OpenTimeStamps, RGB, shielded client-side validation, TapAss - and more to come.
+
+-------------------------
+
