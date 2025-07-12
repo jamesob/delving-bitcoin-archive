@@ -304,7 +304,7 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 00:55:02 UTC | #16
+zawy | 2025-07-12 10:11:28 UTC | #16
 
 I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
 
@@ -334,11 +334,17 @@ $D' = \frac{2^{256}}{2 \cdot \text{lowest_hash}} = \frac{1}{\lambda}$
 
 My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
 
-We use the exponential distribution to simulate solvetimes by using the CDF and solving for solvetime.  That equation is the only thing we can know about chain work from the lowest hash. 
+We use the exponential distribution to simulate solvetimes by using the CDF and solving for solvetime.  <strike>That equation is the only thing we can know about chain work from the lowest hash.</strike>  But that is *given* a known expected blocktime. We only have a single sample for D, so the following doesn't apply.
 
 $W = -\ln(rand(0,1)) \cdot D$
 
-This results in usually seeing $\frac{D}{W}$ ratios around 12, and often from 5 to 30, when averaged over many trials of many blocks.  
+What the experiment is measuring is 
+
+$D = \frac{W}{-\ln(rand(0,1)}$
+
+This results in usually seeing $\frac{D}{W}$ ratios around 12, and often from 5 to 30, when averaged over many trials of many block histories.  When we integrate this for the middle 60% of samples, the expected value is 1.05. If the 20% lowest hashes are removed (from 20% of the blockchain histories), this average 1.13.
+
+![image|356x79](upload://waMeCidzHhPwg3j18c198BCEuXy.png)
 
 An easy way to estimate of chain_work from lowest hash is to use the 1st equation and realize there can be a lot of variability. About 10% of the time it will be either > 10x too high or < 6x too low.
 
