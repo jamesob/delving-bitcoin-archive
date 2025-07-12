@@ -304,7 +304,7 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 10:15:44 UTC | #16
+zawy | 2025-07-12 10:31:45 UTC | #16
 
 I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
 
@@ -318,15 +318,9 @@ $D = \frac{2^{256}}{\text{lowest_hash}} = \frac{1}{\lambda}$
 
 $W = \text{chain_work}$
 
-$\text{PDF}(W) = \frac{1}{D} e^{-\frac{W}{D}}$
+$\text{PDF}(1/D) = W e^{-\frac{W}{D}}$
 
-The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median of sticks around the expected ln(2), and the mean and StdDev are 1 as expected. In hindsight it seems to be just this:
-
-$H = \text{lifetime effective hashrate}$
-
-$T = \text{blockchain lifetime}$
-
-$\text{PDF}(H \cdot T) = \frac{1}{D} e^{-\frac{H \cdot T}{D}}$
+The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median  sticks around the expected ln(2), and the mean and StdDev are 1 as expected. 
 
 But I expected a different value for D as I described at the beginning:
 
@@ -334,21 +328,19 @@ $D' = \frac{2^{256}}{2 \cdot \text{lowest_hash}} = \frac{1}{\lambda}$
 
 My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
 
-We use the exponential distribution to simulate solvetimes by using the CDF and solving for solvetime.  <strike>That equation is the only thing we can know about chain work from the lowest hash.</strike>  But that is *given* a known expected blocktime. We're going the other way around, like trying to assume a single solvetime sample is an estimate of 1/&lambda;. We only have a single sample for D, so the following doesn't apply.
+We use the exponential distribution to simulate solvetimes by using the CDF and solving for solvetime.  
 
-$W = -\ln(rand(0,1)) \cdot D$
+$\frac{1}{D} = \frac{-\ln(rand(0,1)) }{W}$
 
-The experiment is many lowest hashes for a fixed amount of work. What the experiment is measuring is 
+$D = \frac{W}{-\ln(rand(0,1))}$
 
-$D = \frac{W}{-\ln(rand(0,1)}$
-
-This results in usually seeing $\frac{D}{W}$ ratios around 12, and often from 5 to 30, when averaged over many trials of many block histories.  When we integrate this for the middle 60% of samples, the expected value is 1.05. If the 20% lowest hashes are removed (from 20% of the blockchain histories), this average 1.13.
+This results in usually seeing $\frac{D}{W}$ ratios around 12, and often from 5 to 30, when averaged over many trials of many block histories.  When we integrate this for the middle 60% of samples, the expected value is 1.05. If the 20% lowest hashes are removed (from 20% of the blockchain histories), this average 1.13.  If bitcoin falls into that 80%, chain work could go 3x more before a new lowest hash is found.
 
 ![image|356x79](upload://waMeCidzHhPwg3j18c198BCEuXy.png)
 
-An easy way to estimate of chain_work from lowest hash is to use the 1st equation and realize there can be a lot of variability. About 10% of the time it will be either > 10x too high or < 6x too low.
+The experiment is measuring D for a fixed amount of work. Rarranging the equation to attempt the following doesn't work because it's assuming the expected D is known.
 
-$\text{chain_work} = \frac{2^{256}}{2 \cdot \text{lowest_hash}}$
+$W' = -\ln(rand(0,1)) \cdot D'$
 
 -------------------------
 
