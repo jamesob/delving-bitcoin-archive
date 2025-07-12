@@ -304,7 +304,7 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 10:31:45 UTC | #16
+zawy | 2025-07-12 10:46:05 UTC | #16
 
 I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
 
@@ -314,9 +314,9 @@ This reasoning seems solid and it's close for Bitcoin: this equation gives 2x th
 
 The problem reminded me of being unable to estimate the expected solvetime (1/&lambda;) from a single solvetime. After playing around with it, it appears they are both based on the exponential distribution:
 
-$D = \frac{2^{256}}{\text{lowest_hash}} = \frac{1}{\lambda}$
+$D = \frac{2^{256}}{\text{lowest_hash}} 
 
-$W = \text{chain_work}$
+$W = \text{chain_work} = \lambda$
 
 $\text{PDF}(1/D) = W e^{-\frac{W}{D}}$
 
