@@ -148,3 +148,29 @@ Docs: [https://docs.rs/descriptor-codec/latest/descriptor_codec](https://docs.rs
 
 -------------------------
 
+dr-orlovsky | 2025-07-12 10:33:39 UTC | #2
+
+Thank you for putting an effort into this!
+
+Some time ago I understood I am not satisfied with bitcoin descriptors being non-deterministic strings due to a bunch of reasons:
+- ambiguity in using `'`, `h` (and sometimes even `H`);
+- ambiguity in specifying `/*/*` or `/<0;1>/*` in terminal derivation;
+- ambiguity in using upper- or lower-case encoding for the master key fingerprint;
+- possibility of arbitrary using spaces, newlines etc between descriptor components.
+
+This all results in the fact that you can't compare two descriptor strings to be equivalent, nor you can't use a descriptor checksum as a sort of id.
+
+Other then the problem with the deteminism, it is quite strange that you can write an syntactically-valid descriptor which is semantically invalid (can't represent a wallet), for instance when different xpubs in multisig use different derivation options (like one pub having `/<0;1>/*` and the other `/<0;1;2>/*`, which is meaningless).
+
+Finally, multisite descriptors for segwit or taproot may have the same actors repeating the same xpubs in different parts of the descriptor, making it overly bulk and completely human-uncheckable.
+
+I started to look into a ways of encoding descriptor in a standard deterministic way, and I also came with an idea similar to splitting the descriptor into a template and payload part. I had put some ideas in https://github.com/BP-WG/stingerjet-docs, and I was also planning working on a binary descriptor encoding and script template library - but never had a time to finish both of these things.
+
+I have ended up with just using the hash of the first derived scriptpubkey from a descriptor as a deterministic descriptor id.
+
+Your work gives me a push to complete my work on these ideas; maybe I will be able to re-use some of your library code there - or we can move shared parts into some crate. I will keep you updated on my work in progress.
+
+(PS. I am the author of https://mycitadel.io, so I have a wallet where I want to implement all of that; but also have done BP: a rust from-scratch bitcoin library implementation independent from rust-bitcoin and rust-miniscript, which can be found in https://github.com/BP-WG/bp-std and https://github.com/BP-WG/bp-core).
+
+-------------------------
+
