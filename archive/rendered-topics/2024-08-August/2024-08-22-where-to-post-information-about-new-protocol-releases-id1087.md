@@ -24,3 +24,14 @@ Once you participate more on the forum (reading posts, reacting to posts, writin
 
 -------------------------
 
+AntoineP | 2025-07-11 21:37:45 UTC | #5
+
+[quote="ajtowns, post:4, topic:1087"]
+People who’ve made it to level 2 aka “member” should be able to create new tags themselves, I believe.
+[/quote]
+
+Yes.
+![image|690x331, 75%](upload://cLnkLHgqouQb9SKR5fYN5zvcfj3.png)
+
+-------------------------
+

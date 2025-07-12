@@ -304,3 +304,39 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
+zawy | 2025-07-11 23:56:18 UTC | #16
+
+I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
+
+$\text{chain_work} = \frac{2^{256}}{2 \cdot \text{lowest_hash}}$ 
+
+This is close for Bitcoin: it's 2x the actual chain work. Experiment indicates it should be about 3.5x too high, but it varies often from 2x to 7x. I've seen 50x too high but none less than 1.8x. 
+
+The problem reminded me of being unable to estimate the expected solvetime (1/&lambda;) from a single solvetime. After playing around with it, it appears they are both based on the exponential distribution:
+
+$D = \frac{2^{256}}{\text{lowest_hash}} = \frac{1}{\lambda}$
+
+$W = \text{chain_work}$
+
+$\text{PDF}(W) = \frac{1}{D} e^{-\frac{W}{D}}$
+
+The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median of sticks around the expected ln(2), and the mean and StdDev are 1 as expected. In hindsight it seems to be just this:
+
+$H = \text{lifetime effective hashrate}$
+
+$T = \text{blockchain lifetime}$
+
+$\text{PDF}(H \cdot T) = \frac{1}{D} e^{-\frac{H \cdot T}{D}}$
+
+But I expected a different value for D as I described at the beginning:
+
+$D' = \frac{2^{256}}{2 \cdot \text{lowest_hash}} = \frac{1}{\lambda}$
+
+My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
+
+We use the exponential distribution to simulate solvetimes by using the CDF and solving for solvetime.  That equation is the only thing we can know about chain work from the lowest hash. 
+
+$W = -\ln(rand(0,1)) \cdot D$
+
+-------------------------
+
