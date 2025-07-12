@@ -344,3 +344,9 @@ $W' = -\ln(rand(0,1)) \cdot D'$
 
 -------------------------
 
+zawy | 2025-07-12 10:32:27 UTC | #17
+
+I had D and W backwards in my PDF which caused a lot of errors that I've corrected.
+
+-------------------------
+
