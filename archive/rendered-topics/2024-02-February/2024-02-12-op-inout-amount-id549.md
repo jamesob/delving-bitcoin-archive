@@ -684,3 +684,72 @@ You can only prevent this kind of issues if you have some form of "synchronizati
 
 -------------------------
 
+Chris_Stewart_5 | 2025-07-12 17:51:14 UTC | #9
+
+# Case study: OP_CHECKTEMPLATEVERIFY
+
+This case study explores how Script opcodes can be used to implement **amount locks**—restrictions that ensure the value of inputs and outputs in a transaction meets certain conditions. The goal is to evaluate the required features and developer ergonomics for opcodes that push input and output amounts onto the stack. Rather than starting from scratch, we build on existing opcode proposals and retrofit them to support amount locks directly in Script.
+
+This requires two proposals I am working on:
+
+1.  [64-bit arithmetic in Script](https://github.com/Christewart/bips/blob/79257ba5d7a632fa828208f266fd4f5540ffba7f/bip-XXXX.mediawiki)
+2.  [`OP_IN_AMOUNT` & `OP_OUT_AMOUNT`](https://delvingbitcoin.org/t/op-inout-amount/549/3)
+
+**Note:** This study does not attempt to implement _destination locks_—restrictions on where funds may be sent. That logic is preserved from the original proposal being examined.
+
+[Here](https://github.com/Christewart/bitcoin/tree/2025-06-27-ctv-csfs-op-in-out-amount) is a link to the repository that implements everything discussed below. A good place to start reading is the functional test: [`feature_ctv_amount.py`](https://github.com/Christewart/bitcoin/blob/91815443c06b64858c532821d72c4e3a2b33aa52/test/functional/feature_ctv_amount.py).
+
+# OP_CHECKTEMPLATEVERIFY
+
+[`OP_CHECKTEMPLATEVERIFY`](https://github.com/bitcoin/bips/blob/83ac8427e7f81cead035728b9c1d925aceddf0d0/bip-0119.mediawiki) introduces a transaction template, a simple spending restriction that pattern matches a transaction against a hashed transaction specification. `OP_CTV` reduces many of the trust, interactivity, and storage requirements inherent with the use of pre-signing in applications.
+
+This case study is interested in the [`AMOUNTVERIFY`](https://github.com/bitcoin/bips/blob/83ac8427e7f81cead035728b9c1d925aceddf0d0/bip-0119.mediawiki#user-content-OP_AMOUNTVERIFY) section of the `OP_CTV` proposal. We will implement safe [forwarding addresses](https://github.com/bitcoin/bips/blob/83ac8427e7f81cead035728b9c1d925aceddf0d0/bip-0119.mediawiki#user-content-Forwarding_Addresses) for OP_CTV that prevents users from
+1. [Accidentally creating unsatisfiable UTXOs](https://delvingbitcoin.org/t/understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo/1809?u=chris_stewart_5)
+2. Creating overfunded UTXOs that must pay large miner fees
+
+## Safe Forwarding Addresses with `OP_IN_AMOUNT`
+
+A "safe" forwarding address, in this context, refers to creating additional spending paths within an `OP_CTV` output's script that can be utilized when the amount received by the `OP_CTV` hash lock does **not** match the exact amount committed in the hash. By leveraging a proposed opcode like `OP_IN_AMOUNT` (which allows introspection of input amounts), we can build custom logic to handle such discrepancies.
+
+Let's illustrate with an example: Imagine our `OP_CTV` hash commits to spending an output that is expected to contain exactly 1 BTC. However, due to user error, only 0.9 BTC was actually sent to this `OP_CTV`-locked output. If we relied solely on the exact match specified by `OP_CTV` for a single input, this 0.9 BTC would become an **unsatisfiable UTXO**, permanently frozen.
+
+However, by incorporating an "amount lock guard" using `OP_IN_AMOUNT`, we can define an alternative script path to recover these funds. Here's a conceptual representation of such a script:
+
+```
+OP_1,           # Push the index of the relevant input (e.g., the CTV input)
+OP_IN_AMOUNT,   # Push the actual amount of the input at that index onto the stack
+100000000,      # Push 1 BTC (in satoshis) onto the stack (the expected amount)
+OP_EQUAL,       # Check if the actual funding amount equals the expected amount
+OP_IF,          # If they are equal, execute the OP_CTV check
+  withdrawl_tx_hash, # The hash of the template transaction
+  OP_CHECKTEMPLATEVERIFY,
+OP_ELSE,        # Otherwise (if amounts don't match)
+  pub,          # Push a predefined public key
+  OP_CHECKSIG,  # Use a standard OP_CHECKSIG with this pubkey to recover funds
+OP_ENDIF
+
+```
+
+This script effectively encodes a "safe forwarding address" (or more accurately, a safe spending condition for the UTXO). If an incorrect amount of money is used to fund the `OP_CTV` output, the `OP_CHECKSIG` clause provides an accessible recovery mechanism. The funds, though misfunded, can still be spent by the holder of the `pub` key, preventing them from being irrevocably lost.
+
+Furthermore, `OP_IN_AMOUNT` allows for more sophisticated recovery logic. For instance, you could differentiate between overfunded vs. underfunded scenarios:
+
+-   **Underfunded:** Trigger a simple `OP_CHECKSIG` for recovery to a known address.
+    
+-   **Overfunded (by a small amount):** Perhaps apply a slightly higher miner fee to absorb the excess, or route it to a designated "dust" address.
+    
+-   **Overfunded by a _large_ amount (e.g., 100 BTC instead of 1 BTC):** For such significant sums, you could enforce even more stringent security policies, like requiring a 2-of-3 multisig to recover the funds, rather than a single key, adding an extra layer of protection.
+    
+
+The Python test suite demonstrating this concept can be found [here](https://github.com/Christewart/bitcoin/blob/91815443c06b64858c532821d72c4e3a2b33aa52/test/functional/feature_ctv_amount.py#L273).
+
+----------
+
+### Future Work
+
+Next, I will be addressing Salvatoshi's insightful point regarding [amount replay attacks](https://delvingbitcoin.org/t/op-inout-amount/549/8?u=chris_stewart_5) in the context of `OP_IN_AMOUNT` and `OP_OUT_AMOUNT`. Stay tuned!
+
+----------
+
+-------------------------
+

@@ -304,17 +304,11 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 14:55:37 UTC | #16
+zawy | 2025-07-12 19:31:00 UTC | #16
 
-I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
+I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The problem reminded me of being unable to estimate the expected solvetime (1/&lambda;) from a single solvetime. After playing around with it, it appears they are both based on the exponential distribution:
 
-$\text{chain_work} = \frac{2^{256}}{2 \cdot \text{lowest_hash}}$ 
-
-This reasoning seems solid and it's close for Bitcoin: this equation gives 2x the actual chain work. Probably due to dividing by small numbers, experiment indicates this equation after many runs gives average results that are about 3.5x too high, but it varies often from 2x to 7x.
-
-The problem reminded me of being unable to estimate the expected solvetime (1/&lambda;) from a single solvetime. After playing around with it, it appears they are both based on the exponential distribution:
-
-$D = \frac{2^{256}}{\text{lowest_hash}} 
+$D = \frac{2^{256}}{\text{lowest_hash}}$
 
 $W = \text{chain_work} = \lambda$
 
@@ -325,24 +319,18 @@ Grok says I should have written this equivalently as:
 
 $\text{PDF}(\text{lowest_hash}) = \frac{W}{2^{256}} e^{-\frac{W}{2^{256}}}$
 
-
 The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median  sticks around the expected ln(2), and the mean and StdDev are 1 as expected. 
 
 My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
 
-We use the exponential distribution to simulate solvetimes by using the CDF and solving for solvetime.  
+Edit: 
+Grok insists W = D is a good unbiased estimator for the smallest hash value. This is primarily because if we're looking at the Bitcoin chain we have only 1 trial.  To support it's point, it provided the following equation that showed itself more accurate than mine that uses 1/6. It depends on the number of trial runs in my experiment:
 
-$\frac{1}{D} = \frac{-\ln(rand(0,1)) }{W}$
+W = 2^256/lowest_hash/(ln(trials) + 0.577)
 
-$D = \frac{W}{-\ln(rand(0,1))}$
+It's almost 2x higher than W = D that Grok insists on for 1 trial. So presumably, this equation applies for at least 2 trials.
 
-This results in usually seeing $\frac{D}{W}$ ratios around 12, and often from 5 to 30, when averaged over many trials of many block histories.  When we integrate this for the middle 60% of samples, the expected value is 1.05. If the 20% lowest hashes are removed (from 20% of the blockchain histories), this average 1.13.  If bitcoin falls into that 80%, chain work could go 3x more before a new lowest hash is found.
-
-![image|356x79](upload://waMeCidzHhPwg3j18c198BCEuXy.png)
-
-The experiment is measuring D for a fixed amount of work. Rarranging the equation to attempt the following doesn't work because it's assuming the expected D is known.
-
-$W' = -\ln(rand(0,1)) \cdot D'$
+I pointed out that W for the Nth lowest hash is 2^256 * (N-1) / Nth_lowest_hash. It agreed. So I pointed out that for N=1 this equation implies chain work would be 0 which doesn't seem right, but that my 1/6 factor is more in line with the trend of being a larger and larger correction downward, but that W=D is a sudden reversal of the trend. It disagreed.
 
 -------------------------
 
