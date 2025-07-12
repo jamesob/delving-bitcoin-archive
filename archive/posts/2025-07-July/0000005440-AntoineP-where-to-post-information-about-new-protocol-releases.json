@@ -13,9 +13,9 @@
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 1087,
   "topic_slug": "where-to-post-information-about-new-protocol-releases",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:4, topic:1087\"]\nPeople who\u2019ve made it to level 2 aka \u201cmember\u201d should be able to create new tags themselves, I believe.\n[/quote]\n\nYes.\n![image|690x331, 75%](upload://cLnkLHgqouQb9SKR5fYN5zvcfj3.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,14 @@
   "excerpt": "Yes.\n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/5/5975142a9cffe62085e633588792b0e4d2ce5dc9.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/5975142a9cffe62085e633588792b0e4d2ce5dc9\" title=\"image\">[image]</a>",
   "truncated": true,
   "post_url": "/t/where-to-post-information-about-new-protocol-releases/1087/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

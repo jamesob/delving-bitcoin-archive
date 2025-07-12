@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 22.6,
   "yours": false,
   "topic_id": 1087,
   "topic_slug": "where-to-post-information-about-new-protocol-releases",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Once you participate more on the forum (reading posts, reacting to posts, writing posts/replies) you'll get automatically updated from \"new user\" to higher trust levels. People who've made it to level 2 aka \"member\" should be able to create new tags themselves, I believe.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -60,8 +65,14 @@
   "excerpt": "Once you participate more on the forum (reading posts, reacting to posts, writing posts/replies) you\u2019ll get automatically updated from \u201cnew user\u201d to higher trust levels. People who\u2019ve made it to level 2 aka \u201cmember\u201d should be able to create new tags themselves, I believe.",
   "truncated": true,
   "post_url": "/t/where-to-post-information-about-new-protocol-releases/1087/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
