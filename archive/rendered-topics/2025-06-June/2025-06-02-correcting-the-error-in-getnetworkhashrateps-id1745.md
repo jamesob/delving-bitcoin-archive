@@ -304,7 +304,7 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 10:46:05 UTC | #16
+zawy | 2025-07-12 14:55:37 UTC | #16
 
 I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
 
@@ -320,11 +320,13 @@ $W = \text{chain_work} = \lambda$
 
 $\text{PDF}(1/D) = W e^{-\frac{W}{D}}$
 
+[ edit: 
+Grok says I should have written this equivalently as:
+
+$\text{PDF}(\text{lowest_hash}) = \frac{W}{2^{256}} e^{-\frac{W}{2^{256}}}$
+
+
 The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median  sticks around the expected ln(2), and the mean and StdDev are 1 as expected. 
-
-But I expected a different value for D as I described at the beginning:
-
-$D' = \frac{2^{256}}{2 \cdot \text{lowest_hash}} = \frac{1}{\lambda}$
 
 My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
 

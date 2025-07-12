@@ -399,3 +399,13 @@ I'll politely ask you to excuse me if I've wasted your time or brain cycles to c
 
 -------------------------
 
+dr-orlovsky | 2025-07-12 12:49:23 UTC | #22
+
+Thank you for putting thoughts into this important topic.
+
+One idea for an improvement: I do not like that I need now to keep a secret to get an access to descriptor. So, what if I use master xpub chain code as a secret? With that, I would be able to gain access to _all_ descriptors in which keys derived from that master xpub participate.
+
+Also, it is not clear why we need to have a share secret; instead, each multisig participant creates his own backups symmetrically encrypted with just his master xpub chaincode.
+
+-------------------------
+
