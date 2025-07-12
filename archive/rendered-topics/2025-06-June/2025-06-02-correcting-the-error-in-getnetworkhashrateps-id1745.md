@@ -304,7 +304,7 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 10:13:13 UTC | #16
+zawy | 2025-07-12 10:15:44 UTC | #16
 
 I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The expected hash for given target is half the target, so a guess is that the "effective target" for the lifetime of the chain is 2x the lowest hash seen. 
 
@@ -338,7 +338,7 @@ We use the exponential distribution to simulate solvetimes by using the CDF and 
 
 $W = -\ln(rand(0,1)) \cdot D$
 
-What the experiment is measuring is 
+The experiment is many lowest hashes for a fixed amount of work. What the experiment is measuring is 
 
 $D = \frac{W}{-\ln(rand(0,1)}$
 
