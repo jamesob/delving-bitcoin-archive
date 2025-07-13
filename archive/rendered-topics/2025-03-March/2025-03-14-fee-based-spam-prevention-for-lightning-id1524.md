@@ -1222,3 +1222,19 @@ Can you provide a number (and the calculation) for the example above? How much f
 
 -------------------------
 
+JohnLaw | 2025-07-13 00:20:28 UTC | #16
+
+Hi Clara,
+
+When you say "the example above", I guess you mean the example you gave where each routing node expects to be paid 1 sat every 2 minutes for routing 10k sat payments, has no risks and no expenses in doing so, and therefore expects to double there funds in a risk-free manner every 2 weeks. 
+
+If this is what you mean, the answer is that the first routing node needs to lock 10k sats in order to be able to pay the maximum possible hold fee, and the 10th routing node has to lock 100k sats in order to pay the maximum possible hold fee. The calculations are exactly the ones you gave.
+
+However, I was hoping that you would agree that being able to double your money every 2 weeks without expenses and without risk is not reasonable. As I noted, actual Lightning routing involves expenses and risks, and actual Lightning channels do not have 100% utilization, so even if a router charges 1 sat to route a 10k sat payment and such a payment typically takes 2 minutes, that in no way implies that they double their money every 2 weeks in a risk-free manner.
+
+If we make the more reasonable assumption that routing nodes have a cost of capital of 19% per year, that translates to a 2 * 10^(-5) rate of return per hour. Therefore, the maximum hold fee that the first router could have to pay is 2 * 7 * 24 = 336 hours * 2 * 10^(-5) sats/hour * 10k sats = 67.2 sats. Thus, the first router would lock 67.2 sats to cover the maximum hold fee when routing a 10k sat payment. The 10th router would lock 10 times as much (that is, 672 sats) to route a 10k sat payment, as the 10th router could have to pay hold fees to the 10 upstream nodes that they could delay.
+
+I hope this answers your question.
+
+-------------------------
+
