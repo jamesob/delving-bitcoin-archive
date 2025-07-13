@@ -304,7 +304,7 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-12 19:31:00 UTC | #16
+zawy | 2025-07-13 09:30:54 UTC | #16
 
 I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The problem reminded me of being unable to estimate the expected solvetime (1/&lambda;) from a single solvetime. After playing around with it, it appears they are both based on the exponential distribution:
 
@@ -324,13 +324,15 @@ The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median  stick
 My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
 
 Edit: 
-Grok insists W = D is a good unbiased estimator for the smallest hash value. This is primarily because if we're looking at the Bitcoin chain we have only 1 trial.  To support it's point, it provided the following equation that showed itself more accurate than mine that uses 1/6. It depends on the number of trial runs in my experiment:
+Grok insists W = D is a good unbiased estimator for the chain work. This is primarily because if we're looking at the Bitcoin chain we have only 1 trial.  To support it's point, it provided the following equation that showed itself more accurate than mine that uses 1/6. It depends on the number of trial runs in my experiment:
 
 W = 2^256/lowest_hash/(ln(trials) + 0.577)
 
 It's almost 2x higher than W = D that Grok insists on for 1 trial. So presumably, this equation applies for at least 2 trials.
 
-I pointed out that W for the Nth lowest hash is 2^256 * (N-1) / Nth_lowest_hash. It agreed. So I pointed out that for N=1 this equation implies chain work would be 0 which doesn't seem right, but that my 1/6 factor is more in line with the trend of being a larger and larger correction downward, but that W=D is a sudden reversal of the trend. It disagreed.
+I pointed out that W for the Nth lowest hash is 2^256 * (N-1) / Nth_lowest_hash. It agreed. So I pointed out that for N=1 this equation implies chain work would be 0 which doesn't seem right, but that my 1/6 factor is more in line with the trend of being a larger and larger correction downward, but that W=D = 2^256/lowest_hash is a sudden reversal of the trend. It disagreed.
+
+I then pointed out that if I have the 2 lowest hashes, then W = 2^256 (2-1) / 2nd_lowest_hash is always smaller than 2^256/lowest_hash which appears to show 2^256/lowest_hash is too large. It disagreed, saying N=2 is merely more robust.
 
 -------------------------
 
