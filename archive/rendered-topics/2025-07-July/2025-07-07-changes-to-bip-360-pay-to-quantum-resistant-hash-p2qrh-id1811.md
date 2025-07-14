@@ -30,3 +30,9 @@ BIP-360 includes a purely informational plan for adding PQ signature algorithms 
 
 -------------------------
 
+stevenroose | 2025-07-14 09:31:50 UTC | #2
+
+If you're going the route of adding post-quantum crypto as just opcodes, then I would strongly suggest renaming the p2qrh soft-fork simply pay-to-tapscript or pay-to-mast. It's not quantum-specific and there is definitely demand from other parts of the ecosystem for something like p2ts.
+
+-------------------------
+

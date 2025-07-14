@@ -33,3 +33,41 @@ I am not an expert on quantum computers, I just think the chance is definitely n
 
 -------------------------
 
+stevenroose | 2025-07-14 09:29:43 UTC | #3
+
+[quote="pyth, post:1, topic:1818"]
+**Use cases**: Are there compelling use cases for ~10-years timelocks?
+[/quote]
+
+I think the question is **are there compelling use cases for relative timelocks over the current limit?** and I think the answer is very clearly yes. Whether we move to a 10 years limit is kind of an implementation detail. I think 10 years is long, but if the alternative is 5 years (multiplier of 4), I'd go with 10 years as well.
+
+[quote="pyth, post:1, topic:1818"]
+What risks or edge cases might arise? Are there consensus or compatibility concerns I’m overlooking?
+[/quote]
+
+I think most risks concern people locking funds for too long, until a point that some future soft fork might affect their ability to spend their coins. People will mention quantum computers etc. Since doing so is currently already possible and easy with absolute locktimes, I don't think they are a good argument against extending the relative timelock limit.
+
+[quote="pyth, post:1, topic:1818"]
+Can we address the (potential) need for longer relative timelocks without a soft fork ?
+[/quote]
+
+You can always pre-sign a series of relative timelock txs! /s 
+
+I don't think it's possible in a reasonable and manageable way without a softfork. Some covenants could be used to build a contract that forces you to go through multiple CSV periods, but first of all covenants also require a softfork and second it's definitely both ugly and wasteful in on-chain space.
+
+[quote="pyth, post:1, topic:1818"]
+Does the bit 21 flag with 8-block units seem reasonable, or are there better ways to do this?
+[/quote]
+
+I'm surprised with the elegance of this proposal. Of course the choice for 8 year blocks is arbitrary, but doing this keeps existing 1-block granularity possible while adding additional space.
+
+One might consider if 10 years is long enough, we'd better avoid having to do this dance again some time in the future. 16-block units gives us 20 years. I'm quite indifferent tbh.
+
+One consideration you could make is to not just take plain 8-block units, but 8-block units after the first 65535 blocks. That both gives you an extra ~1 year and avoids that there are two different ways to represent some relative timelocks.
+
+---
+
+As someone for whom the 1 year limit is definitely a reason I'm not using Liana-like inheritance constructions yet, I'm excited about this proposal!
+
+-------------------------
+
