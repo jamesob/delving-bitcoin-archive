@@ -36,17 +36,9 @@ If you're going the route of adding post-quantum crypto as just opcodes, then I 
 
 -------------------------
 
-EthanHeilman | 2025-07-14 15:04:34 UTC | #3
+EthanHeilman | 2025-07-14 15:05:35 UTC | #3
 
-> there is definitely demand from other parts of the ecosystem for something like p2ts.
-
-Agreed! There is a case to be made for BIP-360 (P2QRH) independent of its value to quantum resistance. It is a useful output type to have regardless.
-
-> If you’re going the route of adding post-quantum crypto as just opcodes, then I would strongly suggest renaming the p2qrh soft-fork simply pay-to-tapscript or pay-to-mast.
-
-Under other circumstances I would be in favor of naming this pay-to-tapscript (P2TS) or pay-to-tapleaf (P2TL). The motivation here is quantum resistance and that is the more important characteristic to communicate to users. In a post-quantum world, we do not want user's getting confused with P2TS (quantum safe output) and P2TR (quantum vulnerable output).
-
-This is also why we use Segwit version 3 rather than version 2. It makes the address contain an r,  `bc1(r)...`, so "r for resistant". This functions as a mnemonic and makes it easier for users to remember. Allowing users to, at a glance, determine if an output is Quantum-Resistant or not based it being bc1r... is helpful for avoiding accidents and letting users assess which if any of their addresses are vulnerable to long-exposure attacks. You really don't want to be spending funds to a bc1p... address if bc1p... addresses are vulnerable.
+(post deleted by author)
 
 -------------------------
 
