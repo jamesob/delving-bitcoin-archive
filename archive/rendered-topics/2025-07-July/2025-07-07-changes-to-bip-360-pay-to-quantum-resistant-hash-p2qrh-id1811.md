@@ -123,3 +123,11 @@ Should I go ahead and make the PR?
 
 -------------------------
 
+cryptoquick | 2025-07-14 20:55:06 UTC | #8
+
+mkay, I had some time to put together the change. here's what it looks like:
+https://github.com/cryptoquick/bips/pull/26
+@stevenroose If you find this satisfactory and we merge this, I just ask that you ACK the bitcoin/bips thread considering your name would now be on the BIP :joy_cat:
+
+-------------------------
+
