@@ -1238,3 +1238,17 @@ I hope this answers your question.
 
 -------------------------
 
+ClaraShk | 2025-07-14 13:26:38 UTC | #17
+
+To make the conversation easier, let's focus on a simple case with just a few hops:
+$$
+M_1 \rightarrow A \rightarrow B \rightarrow M_2
+$$
+Where the attacker controlls $M_1$ and $ M_2 $, and wants to jam the channel $A - B$.
+
+If there are 120 slots in the channel, it will cost an attacker 67.2*120 ~ 8k sats to jam it for two weeks?
+
+Does the this change if the payments the attacker is sending is only 1 sat? Do they need to lock 0.8 sats?
+
+-------------------------
+

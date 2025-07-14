@@ -1818,7 +1818,7 @@ I will not try to predict uptake on established protocols however. There's a lon
 
 -------------------------
 
-ajtowns | 2025-07-02 05:06:22 UTC | #82
+ajtowns | 2025-07-04 05:01:24 UTC | #82
 
 [quote="sjors, post:80, topic:1509"]
 I guess I’m stuck in 2021 when we thought that just Taproot would do the trick.
@@ -1833,6 +1833,8 @@ These also aren't included even in the more experimental secp256k1-zkp project, 
 If the tooling were ready, I could see PTLC support being added as a "let's get it in early so it's already widely supported when we actually want to enable it", but I don't think anyone considers it a high enough priority to put in the work to get the crypto stuff standardised and polished. Making the unhappy path more efficient is something that could be done later on a per-peer basis without too much hassle.
 
 Having CAT+CSFS available would avoid the tooling issue, at a cost in on-chain efficiency (though only in the unhappy path, of course), using 102 witness bytes for a PTLC reveal versus 56/67 witness bytes for a HTLC reveal. In particular, the script `<R> CAT <G> DUP CSFS` can be satisfied by having `<s>` on the stack where `s*G = R + H(R,G,G)*G`, so the preimage of `R` can be calculated as `r = s - H(R,G,G)`, with straightforward ECC maths, and no need for secret keys. I think with only CSFS available you continue having similar tooling problems, because you need to use adaptor signatures to prevent your counterparty from choosing a different R value for the signature.
+
+EDIT: `<R> TUCK SWAP CAT SWAP DUP CSFS`, which uses R for the pubkey and message as well as the nonce, probably works better -- 73 witness bytes for the reveal is pretty close to the HTLC version, and the calculation is just `r = s/(1 + H(R,R,R))` which is only slightly more annoying, in that it requires a modular division. (Maybe `OP_0` would be a better "message" in this case)
 
 (These issues are independent of the update complexity and peer protocol updates @instagibbs describes above)
 
@@ -1851,6 +1853,35 @@ To be clear, does this include per-hop blinding? My PTLC context has completely 
 ajtowns | 2025-07-02 16:59:32 UTC | #84
 
 Per-hop blinding just means that you have inbound value `R1` and outbound value `R2=R1+kG`, where `k` is a per-hop constant known only to you and the person initiating the payment, so when you receive/calculate `r2` on your outbound link, you can calculate `r1=r2-k` to claim the inbound funds. You just need to relate r1/R1 (and r2/R2) on-chain, you don't need to relate r1/r2 or R1/R2 on-chain (which would remove the privacy benefit anyway).
+
+-------------------------
+
+stevenroose | 2025-07-14 13:13:29 UTC | #85
+
+Since I originally started this thread, I suppose it'd make sense to post an update.
+
+Over the course of the months since this conversation started, I feel like quite some progress has been made. Both in convincing people of the benefits of a consensus upgrade like this (cfr the number of signers of the recent open letter[^letter]), and in convincing developers to start doing the work required to get there.
+
+While the discussion on a right stopping point for the next softfork is not entirely settled[^sp1][^sp2], I feel that more people are coming to agreement that we can leave other interesting proposals like TXHASH, CHECKCONTRACTVERIFY or GSR for consideration of future upgrades.
+
+The two core capabilities we are enabling with this softfork are "next tx commitment" and "re-bindable signatures". The combination of CTV and CSFS supports both, but it is way more efficient for the "next tx commitment" use-case, while being quite inefficient for the "re-bindable signature" use-case.
+
+Therefore, during the OP_NEXT conference recently, the idea came up for a slightly tweaked iteration of this bundle that is significantly more optimized for the "re-bindable signature" use-case while only adding a single byte for the "next tx commitment" one: replacing OP_CTV with a new opcode OP_TEMPLATEHASH to directly push the template hash onto the stack, and adding existing proposed opcode OP_INTERNALKEY[^ikey] to give access to the internal pubkey from the control block.
+
+There have been some opposition to activating new features in legacy script contexts, so I see it as beneficial that these opcodes are only possible to be added to the tapscript context (as they need to use OP_SUCCESS upgrade hooks to push to the stack). Additionally, since the new opcode TEMPLATEHASH will only work under taproot, we took the opportunity to revisit a few of the implementation choices that were made for CTV, primarily regarding the commitment to scriptSigs and the taproot annex.
+
+The result has been posted to the mailing list[^ml-bundle] and the BIP text for the newly proposed opcode[^bip-th] and bundle[^bip-bundle] are available for review. Ultimately, this bundle is a technical iteration of the capabilities that are intended with the start of this discussion, based on the feedback it received.
+
+Hoping for further feedback.
+
+
+[^letter]: https://gnusha.org/pi/bitcoindev/CALiT-Zr3KO0fw1_DCpDVvA1Z1aLrvM-HFtvdsyLKhXxWvR=hvA@mail.gmail.com/T/#m931db16bec60fff6d025558138a11a1a511f25df
+[^sp1]: https://gnusha.org/pi/bitcoindev/1d42b799-6c99-4d33-98d4-ecd333a63dbdn@googlegroups.com/T/#m99c12036fdb3972632622f472e739cb690fe406a
+[^sp2]: https://delvingbitcoin.org/t/why-ctv-csfs-and-not-txhash/1781
+[^ikey]: https://github.com/bitcoin/bips/blob/83ac8427e7f81cead035728b9c1d925aceddf0d0/bip-0349.md
+[^ml-bundle]: https://gnusha.org/pi/bitcoindev/2c16b2d0-ac82-4c10-8404-02001bda2658n@googlegroups.com/T/#m33a098d6f38bd6c79f650854f7b40996d8799ede
+[^bip-th]: https://github.com/instagibbs/bips/blob/bf1efa1b675633c79a027ec22f48445ae5bae5b0/bip-templatehash.md
+[^bip-bundle]: https://github.com/instagibbs/bips/blob/bf1efa1b675633c79a027ec22f48445ae5bae5b0/bip-templatehash-csfs-ik.md
 
 -------------------------
 
