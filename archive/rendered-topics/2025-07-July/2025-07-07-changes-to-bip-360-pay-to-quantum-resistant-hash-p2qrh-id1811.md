@@ -113,3 +113,13 @@ I'm curious what you want such an output for? If you don't care about quantum at
 
 -------------------------
 
+cryptoquick | 2025-07-14 20:30:49 UTC | #7
+
+Honestly I'd be open to renaming it to Pay to Tap Script Hash, or P2TSH. It rhymes better with P2WSH that way.
+
+I'll admit I've done worse things just to get an ACK on my BIP :joy_cat: 
+
+Should I go ahead and make the PR?
+
+-------------------------
+
