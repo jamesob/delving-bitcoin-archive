@@ -204,3 +204,11 @@ The privacy aspect I think would be identical for cases where a keyspend is not 
 
 -------------------------
 
+sipa | 2025-07-15 15:35:18 UTC | #15
+
+There are two privacy downsides to it:
+* Unless you require that even in the MAST root case the output must look like a valid point on the curve, this creates outputs that are distinguishable (because only ~half of 32-byte values are valid X coordinates).
+* In either case, spending a MAST root output reveals that no key path ever existed in the output.
+
+-------------------------
+
