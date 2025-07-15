@@ -71,3 +71,13 @@ As someone for whom the 1 year limit is definitely a reason I'm not using Liana-
 
 -------------------------
 
+pyth | 2025-07-15 05:52:08 UTC | #4
+
+[quote="fjahr, post:2, topic:1818"]
+at the same time as locking them for an extended amount of time.
+[/quote]
+
+  just a note about _locking_ coins: in constructions like Liana your coins are never locked by policy, there is a mandatory (non-timelocked) spending path that let you spend you coins _without timelock_. The only way of getting your coins _locked_ is by loosing ability to fullfill the condition(s) of this primary path, but this means your coins are lost if you compare with more "standard" constructions like single/multi signatures schemes.
+
+-------------------------
+
