@@ -1,6 +1,6 @@
 # Chain Code Delegation: Access Control for Bitcoin Keys
 
-jurvis | 2025-07-15 00:38:33 UTC | #1
+jurvis | 2025-07-15 00:41:07 UTC | #1
 
 Hi all,
 
