@@ -151,3 +151,15 @@ I prefer that name, yes. No need to add my name, it would mean I'd have to do a 
 
 -------------------------
 
+sipa | 2025-07-15 01:13:12 UTC | #11
+
+That sounds like it's trying to undo the privacy advantage that Taproot was intended to provide: incentivizing having a cooperative everyone-agrees key path option, which is cheaper to use than anything else.
+
+If you feel that it's unreasonable to effectively impose a penalty on using the script path option, which is not there due to any resource being consumed, but simply due to not providing the possibility of having just a script path, consider the following.
+
+Imagine a proposal to add account balances to the UTXO set, which can be incremented and decremented, Ethereum-style. It would simplify some things, complicate other things, but due to the removal of a need for change outputs, it would also make things cheaper for users in general. However, it would do so at the cost of incentivizing non-private behavior, equivalent to address reuse today. You could argue that the option of fresh balances per transaction still exists, at a cost, for those who care about it. But privacy is a common good - it doesn't work if only those who need it get it. Thus, I think such a proposal would not get much traction, because the protocol shouldn't incentivize non-private behavior.
+
+I feel this is similar. Yes, it's technically possible to provide a cheaper option. But it's better for everyone if it's not available for anyone. I understand that (in the context of this thread) there may be other reasons to consider a non-tweaked Merkle root of scripts outputs. But arguing for this because of a desire to avoid a cost only born by protocols that can't be made to use a cooperative key path spends, seems like an anti-feature to me.
+
+-------------------------
+

@@ -7,15 +7,15 @@
   "cooked": "<p>Honestly I\u2019d be open to renaming it to Pay to Tap Script Hash, or P2TSH. It rhymes better with P2WSH that way.</p>\n<p>I\u2019ll admit I\u2019ve done worse things just to get an ACK on my BIP <img src=\"https://delvingbitcoin.org/images/emoji/twitter/joy_cat.png?v=14\" title=\":joy_cat:\" class=\"emoji\" alt=\":joy_cat:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>Should I go ahead and make the PR?</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 11,
   "updated_at": "2025-07-14T20:30:49.131Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Honestly I'd be open to renaming it to Pay to Tap Script Hash, or P2TSH. It rhymes better with P2WSH that way.\n\nI'll admit I've done worse things just to get an ACK on my BIP :joy_cat: \n\nShould I go ahead and make the PR?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Honestly I\u2019d be open to renaming it to Pay to Tap Script Hash, or P2TSH. It rhymes better with P2WSH that way. \nI\u2019ll admit I\u2019ve done worse things just to get an ACK on my BIP :joy_cat: \nShould I go ahead and make the PR?",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
