@@ -7,7 +7,7 @@
   "cooked": "<p>Few non-important comments</p>\n<aside class=\"quote no-group\" data-username=\"EthanHeilman\" data-post=\"1\" data-topic=\"1811\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ethanheilman/48/328_2.png\" class=\"avatar\"> EthanHeilman:</div>\n<blockquote>\n<p>P2QRH protects tapscript outputs against long-exposure attacks.</p>\n</blockquote>\n</aside>\n<p>Unless wallet descriptor is exposed</p>\n<aside class=\"quote no-group\" data-username=\"EthanHeilman\" data-post=\"4\" data-topic=\"1811\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ethanheilman/48/328_2.png\" class=\"avatar\"> EthanHeilman:</div>\n<blockquote>\n<p>This is also why we use Segwit version 3 rather than version 2</p>\n</blockquote>\n</aside>\n<p>From my understanding the main reason of using version 3 is the fact that in order to re-use version 2 you need a different payload size, while your size is exactly 256 bits (hash), and it is better to use a newer version than extend it with some unneeded byte(s), consuming blockchain space forever.</p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 13,
   "updated_at": "2025-07-15T11:19:21.847Z",
   "reply_count": 1,
   "reply_to_post_number": null,

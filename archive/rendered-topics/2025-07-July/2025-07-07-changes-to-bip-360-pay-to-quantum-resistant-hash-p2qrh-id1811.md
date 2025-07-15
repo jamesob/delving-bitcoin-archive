@@ -36,12 +36,6 @@ If you're going the route of adding post-quantum crypto as just opcodes, then I 
 
 -------------------------
 
-EthanHeilman | 2025-07-14 15:05:35 UTC | #3
-
-(post deleted by author)
-
--------------------------
-
 EthanHeilman | 2025-07-14 15:09:06 UTC | #4
 
 > there is definitely demand from other parts of the ecosystem for something like p2ts.
