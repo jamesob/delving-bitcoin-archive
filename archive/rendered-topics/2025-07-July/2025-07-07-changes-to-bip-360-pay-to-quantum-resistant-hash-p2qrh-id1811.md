@@ -141,3 +141,13 @@ Exactly for this. Many second-layer protocols using covenants would not want the
 
 -------------------------
 
+stevenroose | 2025-07-15 00:05:51 UTC | #10
+
+[quote="cryptoquick, post:8, topic:1811"]
+@stevenroose If you find this satisfactory and we merge this, I just ask that you ACK the bitcoin/bips thread considering your name would now be on the BIP
+[/quote]
+
+I prefer that name, yes. No need to add my name, it would mean I'd have to do a more thorough review of the BIP and I don't currently have the time for that. I might take a closer look in the next few months. I do believe a p2ts primitive is useful.
+
+-------------------------
+
