@@ -200,3 +200,13 @@ I'd classify arguments against into three categories:
 
 -------------------------
 
+stevenroose | 2025-07-15 15:09:55 UTC | #14
+
+@sipa How about a simple taproot v2 where you still commit to a 32-byte output, where you can do regular taproot spend (sign with output key or proof MAST tweak), or if you can simply show the MAST root as the preimage of the output.
+
+This obviously wouldn't work in the context of eliminating EC for quantum-resistance, but I have often wondered why taproot didn't include this option. Is such an idea broken in some way that I'm not seeing? It relies on both no one being able to sign for an arbitrary 32-byte SHA256 output and no one knowing the SHA256 preimage of a public key.
+
+The privacy aspect I think would be identical for cases where a keyspend is not present.
+
+-------------------------
+
