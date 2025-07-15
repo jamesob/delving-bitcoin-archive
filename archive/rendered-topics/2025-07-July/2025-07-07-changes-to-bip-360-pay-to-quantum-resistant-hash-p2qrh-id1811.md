@@ -131,3 +131,13 @@ https://github.com/cryptoquick/bips/pull/26
 
 -------------------------
 
+stevenroose | 2025-07-15 00:03:39 UTC | #9
+
+[quote="EthanHeilman, post:6, topic:1811"]
+I’m curious what you want such an output for? If you don’t care about quantum attacks, use P2TR with a NUMS point. Sure P2QRH would save you 32 bytes in transaction size. What is your use case here?
+[/quote]
+
+Exactly for this. Many second-layer protocols using covenants would not want the key-spend option and hence will be wasting 32 bytes in witness space. Also, primitive CAT-based covenant smart contract would be more easily composed without the need for EC tweaking inside Script. F.e. proving an output is the mast root of 2 scripts is easy CAT+SHA, while proving the same in taproot means needing to do a tweak which currently we can't.
+
+-------------------------
+
