@@ -81,3 +81,33 @@ at the same time as locking them for an extended amount of time.
 
 -------------------------
 
+pyth | 2025-07-15 06:09:14 UTC | #5
+
+[quote="stevenroose, post:3, topic:1818"]
+One consideration you could make is to not just take plain 8-block units, but 8-block units after the first 65535 blocks.
+[/quote]
+
+I've considered this, the main point I have "against" this, is in that case we have to manage 2 types of timelocks (long/short), thus increasing the bug surface (and I dont expect users cares about sub 8 blocks granularity in such constructions)
+
+-------------------------
+
+pyth | 2025-07-15 06:10:54 UTC | #6
+
+[quote="stevenroose, post:3, topic:1818"]
+and avoids that there are two different ways to represent some relative timelocks
+[/quote]
+
+there is already two ways to represent many values by using bit 22 ^^
+
+-------------------------
+
+pyth | 2025-07-15 06:13:47 UTC | #7
+
+[quote="stevenroose, post:3, topic:1818"]
+One might consider if 10 years is long enough, we’d better avoid having to do this dance again some time in the future. 16-block units gives us 20 years. I’m quite indifferent tbh.
+[/quote]
+
+8 blocks was an arbitrary choice, I'm also quite indifferent about the value itself
+
+-------------------------
+

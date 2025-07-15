@@ -409,3 +409,19 @@ Also, it is not clear why we need to have a share secret; instead, each multisig
 
 -------------------------
 
+pyth | 2025-07-15 08:34:22 UTC | #23
+
+[quote="salvatoshi, post:6, topic:1607"]
+For example, in a setup where there is a time-locked recovery partner that can help retrieve the funds if the primary spending path became inaccessible, you want them to be able to decrypt the backup even with the single xpub.
+[/quote]
+
+I do not completely agree with you on this specific point, for privacy reason you may not want _any_ recovery key to be able to decrypt alone, if the lowest recovery condition is a threshold forinstance.
+
+Let say my Liana policy is `or(A, and(thresh(2,B,C,D), older(timelock)))` where i'm `A` and `B`,`C`,`D` are my heirs, I may want to limit the possibility to decrypt the backup only if 2 of my heirs cooperate (or even 2 heirs + a lawyer/ third party).
+
+In this (particular) case SSS (or any mechanism enforcing a threshold at decrypting) may be useful.
+
+But I personally see it more as an optionnal feature or a different format/version rather than default.
+
+-------------------------
+
