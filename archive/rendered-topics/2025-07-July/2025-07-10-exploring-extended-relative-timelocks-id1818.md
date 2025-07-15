@@ -111,3 +111,13 @@ One might consider if 10 years is long enough, we’d better avoid having to do 
 
 -------------------------
 
+stevenroose | 2025-07-15 15:04:53 UTC | #8
+
+[quote="pyth, post:5, topic:1818"]
+I’ve considered this, the main point I have “against” this, is in that case we have to manage 2 types of timelocks (long/short), thus increasing the bug surface (and I dont expect users cares about sub 8 blocks granularity in such constructions)
+[/quote]
+
+Oh so you're idea is that it will be easier to just deprecate the old timelock system and entirely use this one, assuming no one will care about sub-8 block granularity? Bold idea. But definitely not crazy.
+
+-------------------------
+
