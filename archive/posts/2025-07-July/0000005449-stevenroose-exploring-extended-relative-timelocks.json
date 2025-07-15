@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"pyth, post:1, topic:1818\"]\n**Use cases**: Are there compelling use cases for ~10-years timelocks?\n[/quote]\n\nI think the question is **are there compelling use cases for relative timelocks over the current limit?** and I think the answer is very clearly yes. Whether we move to a 10 years limit is kind of an implementation detail. I think 10 years is long, but if the alternative is 5 years (multiplier of 4), I'd go with 10 years as well.\n\n[quote=\"pyth, post:1, topic:1818\"]\nWhat risks or edge cases might arise? Are there consensus or compatibility concerns I\u2019m overlooking?\n[/quote]\n\nI think most risks concern people locking funds for too long, until a point that some future soft fork might affect their ability to spend their coins. People will mention quantum computers etc. Since doing so is currently already possible and easy with absolute locktimes, I don't think they are a good argument against extending the relative timelock limit.\n\n[quote=\"pyth, post:1, topic:1818\"]\nCan we address the (potential) need for longer relative timelocks without a soft fork ?\n[/quote]\n\nYou can always pre-sign a series of relative timelock txs! /s \n\nI don't think it's possible in a reasonable and manageable way without a softfork. Some covenants could be used to build a contract that forces you to go through multiple CSV periods, but first of all covenants also require a softfork and second it's definitely both ugly and wasteful in on-chain space.\n\n[quote=\"pyth, post:1, topic:1818\"]\nDoes the bit 21 flag with 8-block units seem reasonable, or are there better ways to do this?\n[/quote]\n\nI'm surprised with the elegance of this proposal. Of course the choice for 8 year blocks is arbitrary, but doing this keeps existing 1-block granularity possible while adding additional space.\n\nOne might consider if 10 years is long enough, we'd better avoid having to do this dance again some time in the future. 16-block units gives us 20 years. I'm quite indifferent tbh.\n\nOne consideration you could make is to not just take plain 8-block units, but 8-block units after the first 65535 blocks. That both gives you an extra ~1 year and avoids that there are two different ways to represent some relative timelocks.\n\n---\n\nAs someone for whom the 1 year limit is definitely a reason I'm not using Liana-like inheritance constructions yet, I'm excited about this proposal!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "I think the question is are there compelling use cases for relative timelocks over the current limit? and I think the answer is very clearly yes. Whether we move to a 10 years limit is kind of an implementation detail. I think 10 years is long, but if the alternative is 5 years (multiplier of 4), I&hellip;",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
