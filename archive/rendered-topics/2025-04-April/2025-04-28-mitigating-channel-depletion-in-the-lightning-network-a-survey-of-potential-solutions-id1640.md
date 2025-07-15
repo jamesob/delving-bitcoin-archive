@@ -240,3 +240,22 @@ Another thing to consider is sidepools.  Sidepools are multiparty channels, but 
 
 -------------------------
 
+renepickhardt | 2025-07-15 12:41:48 UTC | #7
+
+@nick sure I missed to include peerwaps and I agree they may be useful. Thanks for the reminder!
+
+[quote="ZmnSCPxj, post:6, topic:1640"]
+We have to accept that any solution to payment failure requires onchain action. Full stop. The point is not to set onchain actions to 0. The point is to keep the onchain actions low, which is sufficient for scaling purposes.
+[/quote]
+
+I think we fully agree though I would like to be a bit more precise in language and differentiate between **infeasible payments** and **payment failure**:
+
+1. **Infeasible payments** (e.g. those where even if all liquidity states where known the min cut from sender to recipient is below the payment amount) need on chain action
+2. Feasible payments can still **fail** - most likely due to channel depletion. Those can be drastically reduced (as shown here) via off chain liquidity management without any additional on chain transaction. 
+
+Note that in particular if you follow the first route (with or without forwardable peerswap) you may improve your situation but this will affect the network and you may drastically worsen the situation of the network (you could also improve it, but the fact is that you don´t know). This is why I am thinking about solutions where [nodes can collaborate to find an improved liquidity state that is beneficial for everyone](https://delvingbitcoin.org/t/research-update-a-geometric-approach-for-optimal-channel-rebalancing/1768). 
+
+This kind of collaboration is something that should also be considered when doing a peerswap or any other method of onchain / offchain swap.
+
+-------------------------
+

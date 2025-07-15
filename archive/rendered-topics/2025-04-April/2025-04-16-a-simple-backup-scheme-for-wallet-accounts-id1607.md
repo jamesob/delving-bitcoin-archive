@@ -425,3 +425,22 @@ But I personally see it more as an optionnal feature or a different format/versi
 
 -------------------------
 
+salvatoshi | 2025-07-15 12:06:03 UTC | #24
+
+[quote="dr-orlovsky, post:22, topic:1607"]
+I do not like that I need now to keep a secret to get an access to descriptor
+[/quote]
+In the proposed scheme, indeed you do not need any additional secret (other than your seed/mnenomic). The encryptions of the common secret are part of the backup, not extra secrets to store individually.
+
+[quote="pyth, post:23, topic:1607"]
+Let say my Liana policy is `or(A, and(thresh(2,B,C,D), older(timelock)))` where i’m `A` and `B`,`C`,`D` are my heirs, I may want to limit the possibility to decrypt the backup only if 2 of my heirs cooperate (or even 2 heirs + a lawyer/ third party).
+
+In this (particular) case SSS (or any mechanism enforcing a threshold at decrypting) may be useful.
+[/quote]
+
+There are certainly possible extensions, as explored by @josh ([[1]](https://delvingbitcoin.org/t/multisigbackup-com-backup-and-recover-a-k-of-n-descriptor-using-only-n-seeds/1430) [[2]](https://delvingbitcoin.org/t/rust-descriptor-encrypt-encrypt-any-descriptor-such-that-only-authorized-spenders-can-decrypt/1750)). While I think they are neat and interesting, I would be wary of adding complexity to an otherwise very simple scheme, as I think it is likely to hamper adoption. While a library can encapsulate the implementation complexity, it cannot always encapsulate the *interface*, which is often made more verbose/difficult by the presence of additional features. Interoperability might also be affected if there are optional features.
+
+In your example, and for most inheritance use cases, the capability of individual heirs to decrypt the backup (even if cooperation is required to actually move the funds) is IMHO unlikely to be problematic in practice.
+
+-------------------------
+

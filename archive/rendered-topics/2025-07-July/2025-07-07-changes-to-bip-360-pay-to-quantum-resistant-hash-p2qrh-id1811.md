@@ -163,3 +163,40 @@ I feel this is similar. Yes, it's technically possible to provide a cheaper opti
 
 -------------------------
 
+dr-orlovsky | 2025-07-15 11:19:21 UTC | #12
+
+Few non-important comments
+
+[quote="EthanHeilman, post:1, topic:1811"]
+P2QRH protects tapscript outputs against long-exposure attacks.
+[/quote]
+
+Unless wallet descriptor is exposed
+
+[quote="EthanHeilman, post:4, topic:1811"]
+This is also why we use Segwit version 3 rather than version 2
+[/quote]
+
+From my understanding the main reason of using version 3 is the fact that in order to re-use version 2 you need a different payload size, while your size is exactly 256 bits (hash), and it is better to use a newer version than extend it with some unneeded byte(s), consuming blockchain space forever.
+
+-------------------------
+
+EthanHeilman | 2025-07-15 14:48:49 UTC | #13
+
+> From my understanding the main reason of using version 3 is the fact that in order to re-use version 2 you need a different payload size, while your size is exactly 256 bits
+
+I haven't heard this before. I can only speak for myself, but that was not a consideration. Can you provide more details about this?
+
+The motivation, as far as I am aware, was to take an opinionated stance that SegWit versions should not be used in order. Rather they should be used to signal the type of output in an address. So in theory P2QRH might use SegWit version 3 for "bc1(r)", then later another output might use SigWit version 2 to "bc1(z)" for say a (z)ero knowledge output). That is we are not using SegWit versions as incrementing version numbers, but are disregarding the numeric order to use them as flags.
+
+It is worth having a conversation about if this is the right way to use SegWit versions. If the community is strongly against it, then I'd personally rather have P2QRH than Segwit version based output flagging. 
+
+My argument in favor of output flagging is as follows: Having SegWit versions used out of order is mildly confusing for new bitcoin-core developers, but reduces user error. My philosophy is, outside of extreme examples, to always take the trade-off in favor of usability.
+
+I'd classify arguments against into three categories:
+- There is a technical reason SegWit versions must increment that Ethan missed.
+- There is no net usability benefit or the complexity is too high for bitcoin-core.
+- There isn't enough support in the community for idea of using SegWit versions as flags and it holds up agreement on BIP-360.
+
+-------------------------
+
