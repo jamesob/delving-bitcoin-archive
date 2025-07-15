@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 10,
   "readers_count": 9,
-  "score": 1.8,
+  "score": 2.0,
   "yours": false,
   "topic_id": 1818,
   "topic_slug": "exploring-extended-relative-timelocks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"stevenroose, post:3, topic:1818\"]\nand avoids that there are two different ways to represent some relative timelocks\n[/quote]\n\nthere is already two ways to represent many values by using bit 22 ^^",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "there is already two ways to represent many values by using bit 22 ^^",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 8,
   "readers_count": 7,
-  "score": 1.4,
+  "score": 1.6,
   "yours": false,
   "topic_id": 1818,
   "topic_slug": "exploring-extended-relative-timelocks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"stevenroose, post:3, topic:1818\"]\nOne might consider if 10 years is long enough, we\u2019d better avoid having to do this dance again some time in the future. 16-block units gives us 20 years. I\u2019m quite indifferent tbh.\n[/quote]\n\n8 blocks was an arbitrary choice, I'm also quite indifferent about the value itself",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "8 blocks was an arbitrary choice, I\u2019m also quite indifferent about the value itself",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
