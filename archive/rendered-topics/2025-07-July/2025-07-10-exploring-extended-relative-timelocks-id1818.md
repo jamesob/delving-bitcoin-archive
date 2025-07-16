@@ -174,3 +174,9 @@ Unless we extend the descriptor spec to somehow support semantics like "next rou
 
 -------------------------
 
+pyth | 2025-07-16 11:27:15 UTC | #14
+
+technically yes, but on an other topic, I think we should try to make the policy/miniscript more "readable" in order to be really validated on the signing device in a sane way by a lambda user, and imho adding more argument to the policy semantic push to the wrong direction ...
+
+-------------------------
+
