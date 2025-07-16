@@ -121,3 +121,13 @@ Oh so you're idea is that it will be easier to just deprecate the old timelock s
 
 -------------------------
 
+pyth | 2025-07-16 02:02:26 UTC | #9
+
+[quote="stevenroose, post:8, topic:1818"]
+Oh so you’re idea is that it will be easier to just deprecate the old timelock system and entirely use this one, assuming no one will care about sub-8 block granularity? Bold idea. But definitely not crazy.
+[/quote]
+
+I'd not say deprecate, I think it can be usefull in some constructions, but like in a Liana context, I really believe nobody uses sub-8 blocks granularity (or better say only uses for test purposes), so in our case it's a no brainer to just change the flag in our wallet logic & change the factor applied to the slider used to select the timelock in our UI if one day we have to upgrade. But no strong opinion.
+
+-------------------------
+

@@ -549,7 +549,7 @@ There is no IP fragmentation involved in TCP transmissions (well, assuming PMTUD
 
 -------------------------
 
-davidgumberg | 2025-07-16 00:00:24 UTC | #34
+davidgumberg | 2025-07-16 03:04:51 UTC | #34
 
 > An interactive/modifiable version of all the data and plots are in a jupyter notebook here: [https://davidgumberg.github.io/logkicker/lab/index.html#Data]()
 
@@ -643,10 +643,10 @@ $$
 If we plug in some example values, prefilling 10KiB with a bandwidth of 5 MiB/s and an RTT of 50ms (.050s) and use a worst case $n$ of 1
 
 $$
-\frac{10\text{KiB}*1}{5 \text{MiB/s} * 0.050\text{s}} = 0.0488
+\frac{10\text{KiB}*1}{5 \text{MiB/s} * 0.050\text{s}} = 0.039
 $$
 
-In this case, if prefilling improves reconstruction rates by at least 4.9% it is definitely better than not prefilling.
+In this case, if prefilling improves reconstruction rates by at least 3.9% it is definitely better than not prefilling.
 
 ## Latency Cost of Prefilling
 
