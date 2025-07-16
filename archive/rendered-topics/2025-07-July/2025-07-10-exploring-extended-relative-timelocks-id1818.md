@@ -164,3 +164,13 @@ afaik BitcoinKeeper uses this kind of constructions, but it comes with some inco
 
 -------------------------
 
+stevenroose | 2025-07-16 10:28:56 UTC | #13
+
+[quote="pyth, post:12, topic:1818"]
+every time you “roll” your timelock you create a new descriptor and then you need
+[/quote]
+
+Unless we extend the descriptor spec to somehow support semantics like "next round year at least 5 years in the future" and that wallets when scanning expand into all the year marks since the birthday of the wallet (or just last 20 or so). Not saying I'm in favor of something like this, but the descriptor issue could be worked around.
+
+-------------------------
+

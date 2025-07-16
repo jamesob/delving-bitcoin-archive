@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"stevenroose\" data-post=\"3\" data-topic=\"1818\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stevenroose/48/1087_2.png\" class=\"avatar\"> stevenroose:</div>\n<blockquote>\n<p>I don\u2019t think they are a good argument against extending the relative timelock limit</p>\n</blockquote>\n</aside>\n<p>agree, current max is too low</p>\n<p>one <em>nit</em> argument against is that you can do this already with CLTV, when the lock expires, instead of spend (refreshing relative lock), you do sweep to different wallet where you have ability to set nLockTime value again</p>",
   "post_number": 10,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2025-07-16T08:34:31.869Z",
   "reply_count": 2,
   "reply_to_post_number": null,
