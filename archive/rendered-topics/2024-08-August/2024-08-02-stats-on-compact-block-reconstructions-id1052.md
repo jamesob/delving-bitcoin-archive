@@ -549,7 +549,7 @@ There is no IP fragmentation involved in TCP transmissions (well, assuming PMTUD
 
 -------------------------
 
-davidgumberg | 2025-07-16 07:12:10 UTC | #34
+davidgumberg | 2025-07-16 17:24:20 UTC | #34
 
 > An interactive/modifiable version of all the data and plots are in a jupyter notebook here: [https://davidgumberg.github.io/logkicker/lab/index.html?path=2025-07-11-first-report%2FPrefilling.ipynb](https://davidgumberg.github.io/logkicker/lab/index.html?path=2025-07-11-first-report%2FPrefilling.ipynb)
 
@@ -755,7 +755,20 @@ Avg reconstruction time: 25.741588ms
 
 
 ### TCP Window data
-There is a flaw in the window available bytes metric, pointed out to me by @hodlinator, which is that I did not factor existing bytes queued to send to peers in `vSendMsg`. I anticipate this will have a small effect, but a branch which prefills up to the TCP window limit should take this into account.
+There is a flaw in the window available bytes metric I have used, pointed out to me by @hodlinator, which is that I only did `window_size - cmpctblock_size`, and did not factor existing bytes queued to send to peers in `vSendMsg`. I anticipate this will have a small effect, but a branch which prefills up to the TCP window limit should take this into account.
+
+**Edit:**
+
+@andrewtoth has pointed out more complications in the available bytes metric: it will also have to take into account the current in-flight segments to the peer. On Linux, for example, this is [`tcpi_unacked`](https://github.com/torvalds/linux/blob/155a3c003e555a7300d156a5252c004c392ec6b0/include/uapi/linux/tcp.h#L244) (Multiplied by  [`tcpi_snd_mss`](https://github.com/torvalds/linux/blob/155a3c003e555a7300d156a5252c004c392ec6b0/include/uapi/linux/tcp.h#L241) to get size in bytes). It will also have to account for bytes that are in the operating system's send queue ([`tcpi_notsent_bytes`](https://github.com/torvalds/linux/blob/155a3c003e555a7300d156a5252c004c392ec6b0/include/uapi/linux/tcp.h#L278)). But I believe that because Bitcoin Core [uses](https://github.com/bitcoin/bitcoin/pull/6867) `TCP_NODELAY` the OS send buffer should generally be empty. On Linux, the sum of these two values can be obtained with `SIOCOUTQ`[^1]:
+
+```c
+int bytes_inflight_and_unsent, err;
+err = ioctl(socket, SIOCOUTQ, &bytes_inflight_and_unsent)
+```
+
+I found this article helpful: https://tiebing.blogspot.com/2019/05/tcp-socket-send-buffer-deep-dive.html ([archive link](https://web.archive.org/web/20250716165959/https://tiebing.blogspot.com/2019/05/tcp-socket-send-buffer-deep-dive.html))
+
+[^1]: `man tcp` incorrectly documents `SIOCOUTQ` as only the unsent bytes, but it's [both unsent and unacked](https://github.com/torvalds/linux/blob/155a3c003e555a7300d156a5252c004c392ec6b0/include/uapi/linux/sockios.h#L27)
 
 ```
 TCP Window Size: Avg: 16128.76 bytes, Median: 14480.0, Mode: 14480

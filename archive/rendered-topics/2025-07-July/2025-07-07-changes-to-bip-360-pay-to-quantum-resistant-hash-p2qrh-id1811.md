@@ -212,3 +212,27 @@ There are two privacy downsides to it:
 
 -------------------------
 
+dr-orlovsky | 2025-07-16 16:45:26 UTC | #16
+
+[quote="EthanHeilman, post:13, topic:1811"]
+I haven’t heard this before. I can only speak for myself, but that was not a consideration. Can you provide more details about this?
+[/quote]
+
+Well, I meant "taproot version of segwit". These 0-based numerations are driving me crazy.
+
+If you carefully read BIP-341 you will see that you can use taproot segwit version (whatever it is, 1 or 2, I do not remember) with a different length of payload which should be not 256 bits, and it can be a future taproot version.
+
+But you have 256 bits, meaning you can't go that route.
+
+-------------------------
+
+murch | 2025-07-16 17:53:01 UTC | #17
+
+[quote="dr-orlovsky, post:12, topic:1811"]
+From my understanding the main reason of using version 3 is the fact that in order to re-use version 2 you need a different payload size, while your size is exactly 256 bits (hash), and it is better to use a newer version than extend it with some unneeded byte(s), consuming blockchain space forever.
+[/quote]
+
+I think there is a misunderstanding here. P2TR is version 1, and Ethan was discussing using either version 2 or version 3, having already decided not to use the same version as P2TR.
+
+-------------------------
+
