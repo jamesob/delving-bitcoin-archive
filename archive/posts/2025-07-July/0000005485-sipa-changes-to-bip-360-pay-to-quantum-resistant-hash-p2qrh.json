@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "There are two privacy downsides to it:\n* Unless you require that even in the MAST root case the output must look like a valid point on the curve, this creates outputs that are distinguishable (because only ~half of 32-byte values are valid X coordinates).\n* In either case, spending a MAST root output reveals that no key path ever existed in the output.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,14 @@
   "excerpt": "There are two privacy downsides to it: \n\nUnless you require that even in the MAST root case the output must look like a valid point on the curve, this creates outputs that are distinguishable (because only ~half of 32-byte values are valid X coordinates).\nIn either case, spending a MAST root output &hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/15",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
