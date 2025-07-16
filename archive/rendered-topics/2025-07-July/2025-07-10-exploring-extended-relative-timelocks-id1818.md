@@ -131,3 +131,36 @@ I'd not say deprecate, I think it can be usefull in some constructions, but like
 
 -------------------------
 
+scgbckbone | 2025-07-16 08:34:31 UTC | #10
+
+[quote="stevenroose, post:3, topic:1818"]
+I don’t think they are a good argument against extending the relative timelock limit
+[/quote]
+
+agree, current max is too low
+
+one *nit* argument against is that you can do this already with CLTV, when the lock expires, instead of spend (refreshing relative lock), you do sweep to different wallet where you have ability to set nLockTime value again
+
+-------------------------
+
+scgbckbone | 2025-07-16 09:08:20 UTC | #11
+
+[quote="scgbckbone, post:10, topic:1818"]
+different wallet
+[/quote]
+
+same keys, updating just nLockTime in descriptor
+
+-------------------------
+
+pyth | 2025-07-16 09:27:16 UTC | #12
+
+[quote="scgbckbone, post:10, topic:1818"]
+f spend (refreshing relative lock), you do sweep to different wallet where you have ability to set nLockTime value again
+[/quote]
+afaik BitcoinKeeper uses this kind of constructions, but it comes with some inconvenients, every time you "roll" your timelock you create a new descriptor and then you need:
+ - to make a proper backup of this descriptor
+ - to register/validate your policy on your signing device(s)
+
+-------------------------
+

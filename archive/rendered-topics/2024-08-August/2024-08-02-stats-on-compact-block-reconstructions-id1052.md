@@ -549,9 +549,9 @@ There is no IP fragmentation involved in TCP transmissions (well, assuming PMTUD
 
 -------------------------
 
-davidgumberg | 2025-07-16 03:04:51 UTC | #34
+davidgumberg | 2025-07-16 07:12:10 UTC | #34
 
-> An interactive/modifiable version of all the data and plots are in a jupyter notebook here: [https://davidgumberg.github.io/logkicker/lab/index.html#Data]()
+> An interactive/modifiable version of all the data and plots are in a jupyter notebook here: [https://davidgumberg.github.io/logkicker/lab/index.html?path=2025-07-11-first-report%2FPrefilling.ipynb](https://davidgumberg.github.io/logkicker/lab/index.html?path=2025-07-11-first-report%2FPrefilling.ipynb)
 
 # Summary
 
