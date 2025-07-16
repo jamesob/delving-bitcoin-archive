@@ -137,3 +137,11 @@ References
 
 -------------------------
 
+marathon-gary | 2025-07-16 20:15:30 UTC | #2
+
+This seems to be similar to [blinded xpubs](https://github.com/mflaxman/blind-xpub) but with an even greater reduction in "blast radius" since after revealing the blinded path for the xpub, any usage thereof is now compromised and the custodian is able to view any future usage of the xpub derived keys.
+
+Very cool.
+
+-------------------------
+
