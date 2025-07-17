@@ -112,3 +112,11 @@ I did experiment and play around with the library for a while, I've dropped some
 
 -------------------------
 
+lauren | 2025-07-17 20:51:59 UTC | #3
+
+Not 100% sure which version of Bitcoin Core is used to return results from `curl https://blockstream.info/api/fee-estimates`, but based on [this](https://github.com/Blockstream/esplora/blob/52de3ccf39c56ff839e26829ccd6d18f169832f7/contrib/Dockerfile.base#L37) file, I'm guessing 27.2.
+
+v1 of the benchmarking tool should be ready very soon (@zpv has been busy this week!), at which point we're happy to iterate with incorporating additional measures (average overestimation factor, etc.)
+
+-------------------------
+
