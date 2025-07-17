@@ -94,3 +94,21 @@ We'll share the benchmarking tool here once it's ready. In the meantime, feel fr
 
 -------------------------
 
+ismaelsadeeq | 2025-07-17 09:26:05 UTC | #2
+
+This is great work!
+
+> Blockstream (Bitcoin Core): 18.7% / 44.2% / 35.9%
+
+Which version of Bitcoin Core did you benchmark?
+
+One important metric we can also measure is the average overestimation factor i.e, 2x, 3x, etc. This would help indicate the severity of overpayment, because a little overpayment is negligible for conservative users.
+
+> We’re building an open-source version of our benchmarking tool to enable the community to:
+
+Really looking forward to it.
+
+I did experiment and play around with the library for a while, I've dropped some thoughts on tracking issue https://github.com/block/bitcoin-augur/issues/3
+
+-------------------------
+
