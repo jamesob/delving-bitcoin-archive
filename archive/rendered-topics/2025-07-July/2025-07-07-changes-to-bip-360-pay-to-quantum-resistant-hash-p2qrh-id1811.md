@@ -236,3 +236,9 @@ I think there is a misunderstanding here. P2TR is version 1, and Ethan was discu
 
 -------------------------
 
+dr-orlovsky | 2025-07-17 18:29:51 UTC | #18
+
+Ok, so what I have meant is the fact that segwit v1 can also be used for post-taproot, if the payload is not 256 bit
+
+-------------------------
+
