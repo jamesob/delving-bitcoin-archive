@@ -242,3 +242,33 @@ Ok, so what I have meant is the fact that segwit v1 can also be used for post-ta
 
 -------------------------
 
+conduition | 2025-07-18 23:11:43 UTC | #19
+
+Hey @EthanHeilman, this is looking great, I like the new approach. I don't think the name really matters, but toss my hat in the "Pay to TapScript Hash" (P2TSH) bucket. I don't think you should invoke the term "Quantum resistant" in this BIP, since it no longer specifies any PQ signature algorithm opcodes to use inside the MAST.
+
+The rest of this comment is possibly tangential and more in the realm of exploratory ideas but here goes. 
+
+Are you familiar with how SPHINCS (SLH-DSA) works internally? [I wrote a more detailed summary here](https://conduition.io/cryptography/quantum-hbs/#SPINCS), but basically the authors of SPHINCS wanted to decouple the SPHINCS public key - which is just a merkle root hash - from the vast number of child signing keys (the leafs of the merkle tree) . They did this by using intermediate layers of "certification keys", which themselves sign other trees of certification keys, till eventually we reach the actual signing keys. Kinda like how TLS certificate authorities work.
+
+We can borrow this idea for BIP360 to build tapscript leaves which can be defined dynamically at spending time. This would let users start moving funds to quantum-safe addresses even though we don't have PQ opcodes defined yet.
+
+Imagine a P2QRH (or whatever) address, where one of its leaves commits to a hash-based one-time signature public key (such as WOTS or Lamport) instead of directly committing to a script. 
+
+This leaf can be used to spend the UTXO if the spender provides *a locking script signed by the OTS pubkey,* and a witness stack to unlock the "dynamically endorsed script".
+
+Why is this better than just defining OP_WINTERNITZ or some other OTS opcode to use inside tapscript?
+
+- It will enable gentle transition towards new PQ signature opcodes defined in a future BIP. Users can start moving money over to P2QRH and be assured of quantum safety, even though the full-strength PQ signature opcodes and their public key formats aren't defined yet.
+- We maintain forward-looking soft-fork compatibility as long as any PQ opcode is just a rename of OP_SUCCESS. 
+- If a quantum attacker learns our wallet descriptor, they cannot exploit EC pubkeys inside the endorsed script to steal money until the owner has published an OTS endorsement signature, even if the adversary knows and cracks the EC pubkey(s) inside the to-be-endorsed script. 
+- Users with funds in a P2QRH address can safely HODL until PQ opcodes are released, and then endorse a script which uses PQ opcodes instead of EC opcodes. They incur no short-term exposure to the quantum attacker at all. When the time comes, switching to PQ signatures will then be as easy as upgrading your wallet software.
+- If a classical attacker learns our wallet descriptor, they can't sweep our money with an OP_SUCCESS opcode because they can't sign with the OTS key.
+- Reusing the leaf doesn't leak the OTS secret key provided you always endorse the same script pubkey on every spend.
+- Enables a new behavior never before possible on bitcoin: Dynamically choosing the script pubkey of an address *after* it is created, granted you can only do it once per leaf due to OTS limitations. Maybe there are new use cases to be explored?
+
+It'd mean fully defining an OTS scheme for script endorsement, so maybe that'd be best as a new script leaf version, in a new BIP. What do you think?
+
+EDIT: I still think if possible we should try to get ML-DSA and SLH-DSA standardized and packaged with BIP360, even if they are separate BIPs. However if that's not practical this "dynamic script endorsement" thing might give us a transition plan.
+
+-------------------------
+
