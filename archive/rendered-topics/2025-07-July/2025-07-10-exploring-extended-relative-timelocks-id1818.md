@@ -180,3 +180,9 @@ technically yes, but on an other topic, I think we should try to make the policy
 
 -------------------------
 
+pyth | 2025-07-19 00:58:18 UTC | #15
+
+an other pain point I see with using absolutes timelock is it's very likely you'll not be able to spend several inputs with a different timelocks in a same transaction in a safe way with some (or maybe all?) signing devices actually supporting miniscript: as this outputs are paying to a script generated from different descriptors, some inputs will be seen by the devices as an non-owned input whereas they are indeed owned...
+
+-------------------------
+
