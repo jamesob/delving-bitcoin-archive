@@ -7,15 +7,15 @@
   "cooked": "<p>Hi <a class=\"mention\" href=\"/u/ethanheilman\">@EthanHeilman</a></p>\n<p>Thank you for the write-up to discuss the changes you\u2019re making to the proposal.</p>\n<p>I believe there may be an implicit understanding behind the proposal and how it is to be deployed in conjunction with other changes, because I do not understand the motivation for this proposal if it does not disable(**) DL-based opcodes along with removing the key path spend from the start.</p>\n<p>The proposal talks about allowing users to move to outputs that are not vulnerable to long-range attacks. However, given that there are already millions of BTC stored in outputs with exposed public keys, a significant amount of which should be expected to remain there (and that is just counting known ones, not including ones revealed selectively through second-layer protocols, payment protocols, wallet servers, other infrastructure, \u2026), it seems to me that any realistic hope(*) of long-range protection must inevitably disable spending through DL opcodes anyway. It does not matter that individual holders can move their coins to quantum safety if a significant portion of the supply is expected to remain vulnerable; those holders (if they perceive the threat of CRQC to be real, because if not, why are they moving their coins ar all?) are much better off exchanging their coins for another asset that does not risk being flooded by millions of stolen coins.</p>\n<p>Given that, the current proposal achieves nothing in my mind. No quantum protection is achieved until DL spending is disabled through a separate consensus change, and it can disable that for P2TR just as well as inside BIP360 scripts.</p>\n<p>I <em>could</em> see an advantage to having a separate output type <strong>if</strong> it also disabled the existing checksig opcodes inside the scripts. That would enable things like the introduction of a protocol rule to only allow sending to definitely-quantum-safe output types at some stage in the future to encourage migration. I\u2019m very hesitant about the idea of using outputs (which for privacy reasons really shouldn\u2019t reveal anything about the receiver\u2019s conditions), but ignoring that, it seems like a defensible position. However, given that BIP360 as discussed here doesn\u2019t even disable DL spending, it does not even permit this. With that, the only benefit this proposal seems to give is to those who do not wish to pay the key-path reveal cost/complication in protocols that cannot or don\u2019t want to use a cooperate internal key, which I\u2019ve argued above is not a positive evolution in my view.</p>\n<p>(*) To be clear, I do not intend to take a position here about the viability of a CRQC, or the timelines involved. Treat everything in this post as a consideration to be made if/when whatever milestone you consider relevant is met, whether you think that is today or something hypothetical that likely never happens.</p>\n<p>(**) I am not commenting on whether a DL-disabling consensus change should be made. I am merely pointing out that without one, I do not see how this proposal achieves its self-described goal.</p>",
   "post_number": 20,
   "post_type": 1,
-  "posts_count": 19,
+  "posts_count": 20,
   "updated_at": "2025-07-19T19:24:15.695Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 20.8,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi @EthanHeilman \n\nThank you for the write-up to discuss the changes you're making to the proposal.\n\nI believe there may be an implicit understanding behind the proposal and how it is to be deployed in conjunction with other changes, because I do not understand the motivation for this proposal if it does not disable(**) DL-based opcodes along with removing the key path spend from the start.\n\nThe proposal talks about allowing users to move to outputs that are not vulnerable to long-range attacks. However, given that there are already millions of BTC stored in outputs with exposed public keys, a significant amount of which should be expected to remain there (and that is just counting known ones, not including ones revealed selectively through second-layer protocols, payment protocols, wallet servers, other infrastructure, ...), it seems to me that any realistic hope(*) of long-range protection must inevitably disable spending through DL opcodes anyway. It does not matter that individual holders can move their coins to quantum safety if a significant portion of the supply is expected to remain vulnerable; those holders (if they perceive the threat of CRQC to be real, because if not, why are they moving their coins ar all?) are much better off exchanging their coins for another asset that does not risk being flooded by millions of stolen coins.\n\nGiven that, the current proposal achieves nothing in my mind. No quantum protection is achieved until DL spending is disabled through a separate consensus change, and it can disable that for P2TR just as well as inside BIP360 scripts.\n\nI *could* see an advantage to having a separate output type **if** it also disabled the existing checksig opcodes inside the scripts. That would enable things like the introduction of a protocol rule to only allow sending to definitely-quantum-safe output types at some stage in the future to encourage migration. I'm very hesitant about the idea of using outputs (which for privacy reasons really shouldn't reveal anything about the receiver's conditions), but ignoring that, it seems like a defensible position. However, given that BIP360 as discussed here doesn't even disable DL spending, it does not even permit this. With that, the only benefit this proposal seems to give is to those who do not wish to pay the key-path reveal cost/complication in protocols that cannot or don't want to use a cooperate internal key, which I've argued above is not a positive evolution in my view.\n\n(*) To be clear, I do not intend to take a position here about the viability of a CRQC, or the timelines involved. Treat everything in this post as a consideration to be made if/when whatever milestone you consider relevant is met, whether you think that is today or something hypothetical that likely never happens.\n\n(**) I am not commenting on whether a DL-disabling consensus change should be made. I am merely pointing out that without one, I do not see how this proposal achieves its self-described goal.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Hi <a class=\"mention\" href=\"/u/ethanheilman\">@EthanHeilman</a> \nThank you for the write-up to discuss the changes you\u2019re making to the proposal. \nI believe there may be an implicit understanding behind the proposal and how it is to be deployed in conjunction with other changes, because I do not understand the motivation for this proposal if it &hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }

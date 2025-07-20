@@ -292,3 +292,46 @@ I *could* see an advantage to having a separate output type **if** it also disab
 
 -------------------------
 
+EthanHeilman | 2025-07-19 22:10:01 UTC | #21
+
+[quote="sipa, post:20, topic:1811"]
+I believe there may be an implicit understanding behind the proposal and how it is to be deployed in conjunction with other changes, because I do not understand the motivation for this proposal if it does not disable(**) DL-based opcodes along with removing the key path spend from the start.
+[/quote]
+
+The purpose of BIP-360 and the future PQ signature BIP is to specify how to softfork Bitcoin so that funds can be securely spent in a post-quantum world. It does not need to have opinion on what to do about quantum vulnerable outputs.
+
+It makes sense to propose such solutions in separate BIPs. This lets us make forward progress in some areas without getting consensus on the freeze/don't freeze proposals.
+
+[quote="sipa, post:20, topic:1811"]
+I *could* see an advantage to having a separate output type **if** it also disabled the existing checksig opcodes inside the scripts. That would enable things like the introduction of a protocol rule to only allow sending to definitely-quantum-safe output types at some stage in the future to encourage migration.
+[/quote]
+
+Users are unlikely to move to spending with quantum resistant signatures due to the high fee cost until quantum computers are a serious threat. We want to avoid everyone having to move outputs all at once at a moment of crisis.
+
+With P2QRH, you can spend in a quantum-secure manner, but also spend using Schnorr so you don't hit high fees. This means users, exchanges, etc... can switch to P2QRH without any serious adoption cost and gain the benefits of post-quantum security. If, at some future time, the community decides to freeze quantum vulnerable spends, all funds in P2QRH outputs with PQ signature leafs are safe and don't need to move.
+
+If P2QRH disabled Schnorr, then no one would move their coin to it until absolutely necessary because fees would be 6 times higher. This means that wallet, exchange and lightning network support will probably not exist (why support an output type no one uses). A rapid project to add support and switch everyone over at the last minute will increase the risk of disaster.
+
+[quote="sipa, post:20, topic:1811"]
+With that, the only benefit this proposal seems to give is to those who do not wish to pay the key-path reveal cost/complication in protocols that cannot or don’t want to use a cooperate internal key, which I’ve argued above is not a positive evolution in my view.
+[/quote]
+
+In protocols with a cooperative key spend and uncooperative script spend the P2QRH Merkle tree looks like:
+
+1. Cooperative (key spend): A tiny script that does a simple 1 pubkey, 1 signature. 
+2. Uncooperative (Script spend): A bigger script that does the more complex script spend with at least 2 pubkeys, 2 signatures.
+
+It is at least 32+64 bytes cheaper to do cooperative (so cooperative is still incentivized). Yes, you leak the fact that another spending condition may exist.
+
+Is there so much demand for script-only tapscript outputs with no cooperative path that making uncooperative 32 bytes cheaper would actually be problem?
+
+[quote="sipa, post:20, topic:1811"]
+it can disable that for P2TR just as well as inside BIP360 scripts.
+[/quote]
+
+We could take the path where there is a belief that P2TR is safe to use because P2TR key path spends are promised to be disabled if a CRQC arises. Such a promise could be made credible by having a quantum bounty that automatically disables P2TR key spends. Once disabled P2TR just becomes P2QRH but 32-bytes larger.
+
+I think such a strategy is workable but not as nice as P2QRH.  Softforking a system to disable key spend via a quantum bounty is more complex and risker than P2QRH. Without such a automatic disable switch the promise alone seems insufficient.
+
+-------------------------
+
