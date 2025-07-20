@@ -335,3 +335,13 @@ I think such a strategy is workable but not as nice as P2QRH.  Softforking a sys
 
 -------------------------
 
+jesseposner | 2025-07-20 18:46:55 UTC | #22
+
+[quote="sipa, post:20, topic:1811"]
+It does not matter that individual holders can move their coins to quantum safety if a significant portion of the supply is expected to remain vulnerable; those holders (if they perceive the threat of CRQC to be real, because if not, why are they moving their coins ar all?) are much better off exchanging their coins for another asset that does not risk being flooded by millions of stolen coins.
+[/quote]
+
+This assumes the existence of another asset that provides equivalent or superior properties. For example, a fork of bitcoin that disables DL opcodes could be perceived as inferior due to the precedent it sets with respect to property rights. In addition, the effect of millions of stolen coins is speculative. Bitcoin has survived many extreme drawdowns and it can likely survive them again, and we don't know what buyers might step in if a flood of coins hits the market. We also don't know if CRQC attackers would choose to flood the market.
+
+-------------------------
+
