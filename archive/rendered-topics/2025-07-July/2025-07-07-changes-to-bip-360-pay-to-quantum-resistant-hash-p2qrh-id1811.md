@@ -292,7 +292,7 @@ I *could* see an advantage to having a separate output type **if** it also disab
 
 -------------------------
 
-EthanHeilman | 2025-07-19 22:10:01 UTC | #21
+EthanHeilman | 2025-07-21 17:39:38 UTC | #21
 
 [quote="sipa, post:20, topic:1811"]
 I believe there may be an implicit understanding behind the proposal and how it is to be deployed in conjunction with other changes, because I do not understand the motivation for this proposal if it does not disable(**) DL-based opcodes along with removing the key path spend from the start.
@@ -324,6 +324,8 @@ In protocols with a cooperative key spend and uncooperative script spend the P2Q
 It is at least 32+64 bytes cheaper to do cooperative (so cooperative is still incentivized). Yes, you leak the fact that another spending condition may exist.
 
 Is there so much demand for script-only tapscript outputs with no cooperative path that making uncooperative 32 bytes cheaper would actually be problem?
+
+You could, if you wanted, have P2TR where the script path spend replaces OP_CHECKSIG with OP_CHECKSIG_PQ and then keep the key path spend as Schnorr. Then you could disable key path spends when a CRQC becomes relevant. The downside here is the uncooperative spends would be much larger which could reduce the security if used in the Lightning Network and then once key path spends are disabled we are wasting an additional 32 bytes. It is workable but P2QRH just seems slightly better (smaller, easier to adopt, less complex)
 
 [quote="sipa, post:20, topic:1811"]
 it can disable that for P2TR just as well as inside BIP360 scripts.

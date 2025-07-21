@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 67,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 337.6,
+  "incoming_link_count": 73,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 373.0,
   "yours": false,
   "topic_id": 1854,
   "topic_slug": "post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "The algebraic structure of lattices suggests that HD wallets, silent\u2011payment\u2013style addresses, key aggregation, and threshold signatures can be built on post\u2011quantum primitives and could, in principle, align with the current draft BIP\u2011360 (P2QRH) and ML\u2011DSA (Dilithium, FIPS 204).\n\n* **HD wallets & stealth addresses**  \n  *\u201c[A Secure Hierarchical Deterministic Wallet with Stealth Address from Lattices](https://www.sciencedirect.com/science/article/pii/S0304397524002895?via%3Dihub)\u201d* proposes a deterministic tree based on basis\u2011delegation and a static public identifier from which any sender can derive a one\u2011time address.\n\n* **Key aggregation (MuSig\u2011like)**  \n  *\u201c[Round\u2011Optimal Secure Multisignature Schemes from Lattices with Public Key Aggregation and Signature Compression](https://link.springer.com/chapter/10.1007/978-3-030-51938-4_14)\u201d* shows that multiple lattice public keys can be aggregated into a single pk and signature. A more efficient follow\u2011up is *\u201c[Efficient Multi\u2011Signature Scheme Using Lattice](https://academic.oup.com/comjnl/article-abstract/65/9/2421/6289877?redirectedFrom=fulltext)\u201d*.\n\n* **Threshold signatures (FROST\u2011like)**  \n  *\u201c[Finally! A Compact Lattice\u2011Based Threshold Signature](https://eprint.iacr.org/2025/872)\u201d* gives a t\u2011of\u2011n protocol (t \u2264 8) whose final signature is the same size as a single Dilithium sig.\n\nTaken together, these papers indicate there is nothing inherently blocking lattice\u2011based post\u2011quantum replacements for BIP\u201132, BIP\u2011352 silent payments, MuSig, or FROST.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "The algebraic structure of lattices suggests that HD wallets, silent\u2011payment\u2013style addresses, key aggregation, and threshold signatures can be built on post\u2011quantum primitives and could, in principle, align with the current draft BIP\u2011360 (P2QRH) and ML\u2011DSA (Dilithium, FIPS 204). \n\n\nHD wallets &amp; stea&hellip;",
   "truncated": true,
   "post_url": "/t/post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures/1854/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
