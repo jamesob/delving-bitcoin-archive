@@ -211,3 +211,21 @@ I don't believe the absolute timelock fits well in dead-man-switch situation, an
 
 -------------------------
 
+scgbckbone | 2025-07-21 12:55:15 UTC | #18
+
+having larger relative lock is definitely less convoluted than CLTV approach (I mentioned it's a nit argument)
+
+I'll support this proposal any day.
+
+-------------------------
+
+rafael | 2025-07-21 13:45:12 UTC | #19
+
+[quote="pyth, post:1, topic:1818"]
+It would be a soft fork, as older nodes would ignore the flag and enforce a timelock 8 times shorter.
+[/quote]
+
+Wouldn't it be a risk to not move the coins after the 1x period has passed, since older nodes would still be able to propagate a transaction spending it? And miners could eventually mine it.
+
+-------------------------
+
