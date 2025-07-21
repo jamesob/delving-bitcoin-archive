@@ -186,3 +186,28 @@ an other pain point I see with using absolutes timelock is it's very likely you'
 
 -------------------------
 
+kloaec | 2025-07-21 09:22:39 UTC | #16
+
+[quote="pyth, post:1, topic:1818"]
+* It would be a soft fork, as older nodes would ignore the flag and enforce a timelock 8 times shorter.
+[/quote]
+
+Already answered by Pyth, but just to clarify:
+Timelocks aren't really used to lock coins, but to add different conditions in Script that become valid only in the future.
+Typically:
+- collaborative spend with no timelock
+- unilateral spend with timelock
+for multiparty constructions
+
+or, in the case of Liana:
+- regular spend condition without timelock (let's say a 2-of-2 multisig)
+- backup spend condition with a timelock (let's say a 2-of-3 with a 3rd party key, or even a single sig key agent)
+
+-------------------------
+
+kloaec | 2025-07-21 09:28:45 UTC | #17
+
+I don't believe the absolute timelock fits well in dead-man-switch situation, and i despise stacking multiple wallets (including past ones) as we currently cannot "disable" an old wallet in Bitcoin. Users will do mistakes, address reuse of old wallets, fuck up their descriptor backups, and until we solve the xpub reuse properly, it's also bad for privacy and compatibility between wallets (need a state to make sure no key/derivation is reused)
+
+-------------------------
+
