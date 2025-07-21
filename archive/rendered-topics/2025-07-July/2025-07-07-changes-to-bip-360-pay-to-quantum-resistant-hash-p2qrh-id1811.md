@@ -345,3 +345,25 @@ This assumes the existence of another asset that provides equivalent or superior
 
 -------------------------
 
+EthanHeilman | 2025-07-21 15:21:36 UTC | #23
+
+This is a cool idea, though I rather make as few changes in P2QRH as possible.
+
+[quote="conduition, post:19, topic:1811"]
+If a quantum attacker learns our wallet descriptor, they cannot exploit EC pubkeys inside the endorsed script to steal money until the owner has published an OTS endorsement signature, even if the adversary knows and cracks the EC pubkey(s) inside the to-be-endorsed script.
+[/quote]
+
+If I understand you correctly this would prevent long exposure attacks on reused public keys, but not solve short exposure attacks.
+
+You don't need to change P2QRH to get this. Simply require a preimage and a signature (H(x) == y AND VER(pk, sig, m) == 1) to spend and have a different preimage per leaf. This prevents long exposure attacks even if the public key is reused since the attacker doesn't know the preimage x. This seems like not reusing a public key but with extra steps.
+
+In P2SH you can do slightly better using the techniques from [Signing a Bitcoin Transaction with Lamport Signatures (no changes needed)](https://groups.google.com/g/bitcoindev/c/mR53go5gHIk). Though as pointed out by [Adam Borcany](https://groups.google.com/g/bitcoindev/c/mR53go5gHIk/m/HdLvltBIAAAJ) this scheme functions more like a speed bump since due to the 201 opcode limit in pre-tapscript the key space is small enough to be vulnerable to bruteforce.
+
+[quote="conduition, post:19, topic:1811"]
+It’d mean fully defining an OTS scheme for script endorsement, so maybe that’d be best as a new script leaf version, in a new BIP. What do you think?
+[/quote]
+
+You should write this up more concretely. It is an interesting idea.
+
+-------------------------
+
