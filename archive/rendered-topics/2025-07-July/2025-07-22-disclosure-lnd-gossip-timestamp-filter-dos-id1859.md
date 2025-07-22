@@ -90,3 +90,15 @@ Engineering with security in mind is slower and more difficult, but in the long 
 
 -------------------------
 
+Crypt-iQ | 2025-07-22 20:39:23 UTC | #2
+
+Nice work finding this.
+
+[quote="morehouse, post:1, topic:1859"]
+**2023-12-11:** Failed [attempt](https://github.com/lightningnetwork/lnd/pull/8030/commits/a242ad5acb6b46e82ef839be84b0695b2de089a7#diff-5321d5dad7ab003eff5e595aef273619fd9c22586f28f1b141940932b93c6ec7) at a stealth mitigation, which could be bypassed by using multiple node IDs when carrying out the attack.
+[/quote]
+
+Just to set the record straight, this was my mistake even though the commit attribution says otherwise.
+
+-------------------------
+
