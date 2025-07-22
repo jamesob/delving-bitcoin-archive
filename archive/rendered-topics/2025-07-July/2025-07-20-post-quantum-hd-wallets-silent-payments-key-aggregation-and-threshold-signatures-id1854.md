@@ -17,3 +17,11 @@ Taken together, these papers indicate there is nothing inherently blocking latti
 
 -------------------------
 
+sanket1729 | 2025-07-22 18:55:36 UTC | #2
+
+Awesome. It is great to know that there is nothing conceptually blocking these technologies in PQ world. 
+
+Have you had time to investigate each scheme’s pros and cons compared to today’s ECDSA options? Maybe some of them might not be practical or some of them might be even more attractive than ECDSA alternatives. For example, it seems like Musig/Frost equivalent is only 1 round signing instead of 2 rounds which is big deal
+
+-------------------------
+
