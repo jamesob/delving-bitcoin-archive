@@ -160,3 +160,11 @@ This approach requires no consensus changes, not even OP_CAT, so can be applied 
 
 -------------------------
 
+garlonicon | 2025-07-22 06:20:48 UTC | #6
+
+Update: Now, there is an incentive, to claim these coins on mainnet: [url=https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801]aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801[/url]
+
+Which means, that now, any user can append Proof of Work challenge to any output script.
+
+-------------------------
+
