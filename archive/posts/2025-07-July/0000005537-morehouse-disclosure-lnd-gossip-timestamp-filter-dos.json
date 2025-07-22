@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
+  "reads": 6,
+  "readers_count": 5,
   "score": 0.8,
   "yours": false,
   "topic_id": 1859,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "*The following disclosure is copied verbatim from a [blog post](https://morehouse.github.io/lightning/lnd-gossip-timestamp-filter-dos/) on [morehouse.github.io](http://morehouse.github.io), reproduced here to facilitate discussion.*\n\nLND 0.18.2 and below are vulnerable to a denial-of-service (DoS) attack involving repeated gossip requests for the full Lightning Network graph.\nThe attack is trivial to execute and can cause LND to run out of memory (OOM) and crash or hang.\nYou can protect your node by updating to at least [LND 0.18.3](https://github.com/lightningnetwork/lnd/releases/tag/v0.18.3-beta) or by setting `ignore-historical-gossip-filters=true` in your node configuration.\n\n# Background\n\nTo send payments successfully across the Lightning Network, a node generally needs to have an accurate view of the Lightning Network graph.\nLightning nodes maintain a local copy of the network graph that they continuously update as they receive channel and node updates from their peers via a [gossip protocol](https://en.wikipedia.org/wiki/Gossip_protocol).\n\nNew nodes and nodes that have been offline for a while need a way to bootstrap their local copy of the network graph.\nA common way this is done is to send a [`gossip_timestamp_filter`](https://github.com/lightning/bolts/blob/6c5968ab83cee68683b4e11dc889b5982a2231e9/07-routing-gossip.md#the-gossip_timestamp_filter-message) message to some of the node's peers, requesting that they share all gossip messages they have that are newer than a certain timestamp.\nNodes that cooperate with the message will load the requested gossip from their databases and send them to the requesting peer.\n\n# The Vulnerability\n\nBy default, LND cooperates with all `gossip_timestamp_filter` requests.\nPrior to v0.18.3, LND's [logic](https://github.com/lightningnetwork/lnd/blob/9380292a5a41697640c2284186c82dad6f7b004f/discovery/syncer.go#L1317-L1384) to respond to these requests looks like this:\n\n```go\nfunc RespondGossipFilter(filter *GossipTimestampFilter) {\n  gossipMsgs := loadGossipFromDatabase(filter)\n\n  go func() {\n    for msg := range gossipMsgs {\n      sendToPeerSynchronously(msg)\n    }\n  }\n}\n```\n\nLND loads *all* requested messages into memory at the same time, and then sends them one by one to the peer, pausing after each send until the peer acknowledges receiving the message.\nThe peer can specify any filter, including one that requests *all* historical gossip messages to be sent to them, and LND will happily comply with the request.\nAs a result, **LND can load potentially hundreds of thousands of messages into memory for *each* request**.\nAnd since LND has no limit on the number of concurrent requests it will handle, memory usage can get out of hand quickly.\n\n# The DoS Attack\n\nExploiting this vulnerability to DoS attack a victim is easy.\nAn attacker simply needs to:\n\n1. Send lots of `gossip_timestamp_filter` messages to the victim, setting the timestamp to 0 to request the full graph.\n2. Keep the connection with the victim open by periodically sending pings and slowly ACKing incoming messages.\n\nThis causes LND's memory consumption to grow over time, until an OOM occurs.\n\n## Experiment\n\nI carried out this DoS attack against an LND node with 8 GB of RAM and 2 GB of swap.\nAfter a few minutes, the node exhausted its RAM and started using swap, and LND's performance slowed to a crawl.\nAfter about 2 hours, LND exhausted the swap as well and the operating system killed the LND process.\n\n# The Mitigation\n\nLND 0.18.3 added a [global semaphore](https://github.com/lightningnetwork/lnd/commit/013452cff0788289aae3aa296242c698c9beff9d#diff-fd66292d846960a30b8ff5e63dbf15b846fdb6b55afe6dde63c8c2ebca66674dL22-L513) to limit the number of concurrent `gossip_timestamp_filter` requests that LND will cooperate with.\nWhile this doesn't fix LND's excessive memory usage per request, it does limit the global impact on memory usage, which is enough to protect against this DoS attack.\n\n# Discovery\n\nThis vulnerability was discovered while looking at how LND handles various peer messages.\n\n## Timeline\n\n- **2023-07-13:** Vulnerability reported to the LND security mailing list.\n- **2023-12-11:** Failed [attempt](https://github.com/lightningnetwork/lnd/pull/8030/commits/a242ad5acb6b46e82ef839be84b0695b2de089a7#diff-5321d5dad7ab003eff5e595aef273619fd9c22586f28f1b141940932b93c6ec7) at a stealth mitigation, which could be bypassed by using multiple node IDs when carrying out the attack.\n- **2023-12-11:** Emailed the security mailing list again, explaining the problem with the attempted mitigation.\n- **2024-08-27:** Proper mitigation [merged](https://github.com/lightningnetwork/lnd/commit/013452cff0788289aae3aa296242c698c9beff9d#diff-fd66292d846960a30b8ff5e63dbf15b846fdb6b55afe6dde63c8c2ebca66674dL22-L513).\n- **2024-09-12:** LND 0.18.3 released containing the fix.\n- **2025-07-22:** [Gijs](https://github.com/gijswijs) gives the OK to disclose publicly.\n- **2025-07-22:** Public disclosure.\n\n# Prevention\n\nThis vulnerability has existed ever since gossip filtering was added to LND in 2018.\nThe [pull request](https://github.com/lightningnetwork/lnd/pull/1106) that added the feature contained over 5k lines of new code and received only minor review feedback.\nIt seems that no one was thinking adversarially about the new code at that time, and apparently no one has re-evaluated the code since then.\n\nWhile it's understandable that developers were more focused on building features and shipping quickly in the early days of the Lightning Network, I think it is long overdue that a shift is made to more careful development.\nEngineering with security in mind is slower and more difficult, but in the long run it pays dividends in the form of greater user trust and disasters avoided.\n\n# Takeaways\n\n- Update to at least LND 0.18.3 or set `ignore-historical-gossip-filters=true` to protect your node.\n- More investment in Lightning security is needed.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "The following disclosure is copied verbatim from a <a href=\"https://morehouse.github.io/lightning/lnd-gossip-timestamp-filter-dos/\" rel=\"noopener nofollow ugc\">blog post</a> on <a href=\"http://morehouse.github.io\" rel=\"noopener nofollow ugc\">morehouse.github.io</a>, reproduced here to facilitate discussion. \nLND 0.18.2 and below are vulnerable to a denial-of-service (DoS) attack involving repeated gossip requests for the full Lightning Network graph.\nThe attack is trivial to ex&hellip;",
   "truncated": true,
   "post_url": "/t/disclosure-lnd-gossip-timestamp-filter-dos/1859/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
