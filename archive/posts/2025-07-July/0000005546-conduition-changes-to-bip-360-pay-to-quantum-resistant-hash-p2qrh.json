@@ -13,9 +13,9 @@
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.4,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Whether or not DL opcodes are disabled, users will need somewhere to move their funds to once they become aware and concerned about quantum attack - Whether that occurs in a year or a decade or longer, we need an option ready.\n\nDisabling key-path spending on P2TR is just as technically viable an option as BIP360, but if our long-term plan is P2TR without key-paths, this comes with some UX and DX problems:\n\n- Once QCs are around, how do wallets prevent users from sending funds to quantum-vulnerable addresses, if they look exactly the same as quantum-resistant addresses?\n- Before QCs are around, how do users know if their P2TR wallet actually has quantum-resistant leafs attached? A legacy P2TR wallet would mostly look and act exactly the same as a P2TR wallet which has post-quantum leafs. Users would need assurance from the wallet maintainers or to read the source code themselves. \n- Naive users who have funds in P2TR may hear \"P2TR is now quantum secure\" and falsely believe their UTXOs are safe and that no action is needed.\n- Bitcoin client authors must now maintain secp256k1 code indefinitely - tap-tweaking the internal key becomes a required step to spend bitcoin even in a post-quantum world.\n\nAs for disabling EC opcodes, I am personally in favor of eventually placing a temporary restriction on them, pending a ZK-STARK soft fork which re-unlocks them. [See this mailing list thread for info](https://groups.google.com/g/bitcoindev/c/uEaf4bj07rE). But certainly that kind of change should not be concurrent with BIP360's deployment, as it would prevent people from migrating to P2QRH, and as Ethan hinted, it'd also needlessly embroil a perfectly valid BIP in a contentious debate. \n\nWhatever your stance on freeze/not-freeze/zk-starks, we can all agree we need addresses people can migrate towards which are definitively quantum resistant.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,14 @@
   "excerpt": "Whether or not DL opcodes are disabled, users will need somewhere to move their funds to once they become aware and concerned about quantum attack - Whether that occurs in a year or a decade or longer, we need an option ready. \nDisabling key-path spending on P2TR is just as technically viable an opt&hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/25",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
