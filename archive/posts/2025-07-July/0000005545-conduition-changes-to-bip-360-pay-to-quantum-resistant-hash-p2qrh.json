@@ -13,8 +13,8 @@
   "reply_to_post_number": 23,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0.4,
   "yours": false,
   "topic_id": 1811,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> You don\u2019t need to change P2QRH to get this. Simply require a preimage and a signature (H(x) == y AND VER(pk, sig, m) == 1) to spend and have a different preimage per leaf.\n\nFair point, more efficient that way, I hadn't considered that. The other benefits of dynamic script endorsement still stand. I'll try to write up a draft BIP when I have some free time",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,14 @@
   "excerpt": "You don\u2019t need to change P2QRH to get this. Simply require a preimage and a signature (H(x) == y AND VER(pk, sig, m) == 1) to spend and have a different preimage per leaf. \n\nFair point, more efficient that way, I hadn\u2019t considered that. The other benefits of dynamic script endorsement still stand. &hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/24",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
