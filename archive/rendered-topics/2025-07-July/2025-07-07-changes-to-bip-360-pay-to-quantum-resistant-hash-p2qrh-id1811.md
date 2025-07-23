@@ -369,3 +369,11 @@ You should write this up more concretely. It is an interesting idea.
 
 -------------------------
 
+conduition | 2025-07-23 14:40:25 UTC | #24
+
+> You don’t need to change P2QRH to get this. Simply require a preimage and a signature (H(x) == y AND VER(pk, sig, m) == 1) to spend and have a different preimage per leaf.
+
+Fair point, more efficient that way, I hadn't considered that. The other benefits of dynamic script endorsement still stand. I'll try to write up a draft BIP when I have some free time
+
+-------------------------
+

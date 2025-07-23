@@ -229,3 +229,11 @@ Wouldn't it be a risk to not move the coins after the 1x period has passed, sinc
 
 -------------------------
 
+stevenroose | 2025-07-23 11:53:33 UTC | #20
+
+Generally new consensus rules are only activated once a large base of miners has flagged support. This would ensure that no tx violating the new rules can be mined anymore.
+
+This new scheme also uses a different bit in the sequence field, so for old nodes, the sequence value would not have any meaning, they would not confuse it with the current relative timelock rules.
+
+-------------------------
+
