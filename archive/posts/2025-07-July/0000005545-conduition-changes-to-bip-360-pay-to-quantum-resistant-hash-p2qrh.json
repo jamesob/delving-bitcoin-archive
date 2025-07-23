@@ -7,7 +7,7 @@
   "cooked": "<blockquote>\n<p>You don\u2019t need to change P2QRH to get this. Simply require a preimage and a signature (H(x) == y AND VER(pk, sig, m) == 1) to spend and have a different preimage per leaf.</p>\n</blockquote>\n<p>Fair point, more efficient that way, I hadn\u2019t considered that. The other benefits of dynamic script endorsement still stand. I\u2019ll try to write up a draft BIP when I have some free time</p>",
   "post_number": 24,
   "post_type": 1,
-  "posts_count": 23,
+  "posts_count": 24,
   "updated_at": "2025-07-23T14:40:25.337Z",
   "reply_count": 0,
   "reply_to_post_number": 23,

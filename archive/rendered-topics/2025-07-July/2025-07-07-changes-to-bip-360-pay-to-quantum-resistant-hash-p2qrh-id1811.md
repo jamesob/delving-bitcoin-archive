@@ -377,3 +377,20 @@ Fair point, more efficient that way, I hadn't considered that. The other benefit
 
 -------------------------
 
+conduition | 2025-07-23 15:10:42 UTC | #25
+
+Whether or not DL opcodes are disabled, users will need somewhere to move their funds to once they become aware and concerned about quantum attack - Whether that occurs in a year or a decade or longer, we need an option ready.
+
+Disabling key-path spending on P2TR is just as technically viable an option as BIP360, but if our long-term plan is P2TR without key-paths, this comes with some UX and DX problems:
+
+- Once QCs are around, how do wallets prevent users from sending funds to quantum-vulnerable addresses, if they look exactly the same as quantum-resistant addresses?
+- Before QCs are around, how do users know if their P2TR wallet actually has quantum-resistant leafs attached? A legacy P2TR wallet would mostly look and act exactly the same as a P2TR wallet which has post-quantum leafs. Users would need assurance from the wallet maintainers or to read the source code themselves. 
+- Naive users who have funds in P2TR may hear "P2TR is now quantum secure" and falsely believe their UTXOs are safe and that no action is needed.
+- Bitcoin client authors must now maintain secp256k1 code indefinitely - tap-tweaking the internal key becomes a required step to spend bitcoin even in a post-quantum world.
+
+As for disabling EC opcodes, I am personally in favor of eventually placing a temporary restriction on them, pending a ZK-STARK soft fork which re-unlocks them. [See this mailing list thread for info](https://groups.google.com/g/bitcoindev/c/uEaf4bj07rE). But certainly that kind of change should not be concurrent with BIP360's deployment, as it would prevent people from migrating to P2QRH, and as Ethan hinted, it'd also needlessly embroil a perfectly valid BIP in a contentious debate. 
+
+Whatever your stance on freeze/not-freeze/zk-starks, we can all agree we need addresses people can migrate towards which are definitively quantum resistant.
+
+-------------------------
+
