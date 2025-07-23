@@ -130,3 +130,13 @@ Nice. I expect lower overestimation and a lower average overestimation factor on
 
 -------------------------
 
+zpv | 2025-07-23 00:36:52 UTC | #5
+
+We've now released the dataset and benchmarking tool used to generate the metrics in our blog post. The dataset includes Bitcoin block fee spans and fee estimations from multiple providers covering January 2025 through June 2025.
+
+Check it out here: https://github.com/block/bitcoin-augur-benchmarking
+
+Feel free to explore, reproduce our results, and share any feedback!
+
+-------------------------
+
