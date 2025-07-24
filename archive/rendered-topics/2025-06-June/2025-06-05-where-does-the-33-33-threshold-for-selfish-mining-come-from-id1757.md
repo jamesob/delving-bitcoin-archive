@@ -380,3 +380,34 @@ I found another web site with stale block data. Stales are occurring at least 1 
 
 -------------------------
 
+ajtowns | 2025-07-24 08:35:32 UTC | #8
+
+
+[quote="zawy, post:4, topic:1757"]
+A timestamp that is too far into the future (compared to arrival time) is provably not an honest (correctly-functioning) node and needs to be rejected more strongly,
+[/quote]
+
+I guess there's two aspects here:
+
+ * how do you get consistent consensus behaviour between nodes that have been operating continually for a while and nodes that are just doing IBD now or are otherwise catching up from being offline for a while
+ * how do you cope gracefully with many people running computers with poor time keeping, and that the cheapest and easiest ways of getting good time keeping (ntp, gps) likely being vulnerable to jamming and corruption?
+
+For the first, I think it's probably sufficient to just apply roughly the same rule to IBD -- we do headers first downloading, so have a policy where you start off by setting your tip header to the highest common block amongst your peers, and only update to the actual most work header when you see one whose timestamp is near to the current time.
+
+The second seems trickier, and causes a few problems. Miners/pools could probably justify spending a few thousand dollars on their own stratum 1 ntp server with a long holdover time. Presuming miners consistently produce blocks with close to the real time, you could perhaps mitigate it by using the timestamps of new blocks as inputs to an algorithm that automatically corrects your system clock, in the event that your tip is consistently lagging the highest-work chain? It seems like you could conceivably do that in a way where the correction doesn't occur if there's two chains of similar work, and one of them matches what you think the time is.
+
+Looking at when one of my nodes has been receiving blocks (first header seen) vs the block timestamps, I see:
+
+ * 0.7% of blocks with a timestamp >120s in the future (up to 441s in my sample)
+ * 1.9% of blocks with a timestamp 30s-120s in the future
+ * 3.1% of blocks with a timestamp <=30s in the future
+ * 13.0% of blocks with a timestamp <=10s in the past
+ * 67.2% of blocks with a timestamp 10s-30s in the past
+ * 12.3% of blocks with a timestamp 30s-60s in the past
+ * 1.6% of blocks with a timestamp 60s-120s in the past
+ * 0.2% of blocks with a timestamp >120s in the past (up to 524s in my sample)
+
+So I guess there'd probably need to be a fair bit of work done in the mining ecosystem to lower these numbers significantly before it a strategy like this could be adopted by miners in practice.
+
+-------------------------
+
