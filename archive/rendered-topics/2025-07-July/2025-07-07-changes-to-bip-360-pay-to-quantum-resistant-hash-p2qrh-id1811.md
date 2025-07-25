@@ -394,3 +394,13 @@ Whatever your stance on freeze/not-freeze/zk-starks, we can all agree we need ad
 
 -------------------------
 
+cryptoquick | 2025-07-24 21:26:47 UTC | #26
+
+"Given that, the current proposal achieves nothing in my mind. No quantum protection is achieved until DL spending is disabled through a separate consensus change, and it can disable that for P2TR just as well as inside BIP360 scripts."
+
+That's not quite true though, right? P2TR is vulnerable to long exposure attack via the key path spend. P2QRH disables that, making TapScript safe to use for committing to PQ PKHs. This then gives wallet users the *option* to spend their coins with either ECC or PQC, depending on which script path they choose. P2QRH makes Taproot useful in a PQ context. Right now it simply isn't. And if CRQCs never manifest, it's good that we still have the ECC path.
+
+The alternative is to disable key path spends in P2TR, which could confiscate funds. Personally I'd be very against breaking people's existing usage of bitcoin even if a quantum threat were active or imminent. There's not as many coins using P2TR yet anyway in comparison to coins held in P2PKs or reused addresses... 150K vs. 1.7M.
+
+-------------------------
+
