@@ -411,3 +411,17 @@ So I guess there'd probably need to be a fair bit of work done in the mining eco
 
 -------------------------
 
+zawy | 2025-07-25 14:04:33 UTC | #9
+
+If a node comes back online, he knows his clock didn't check timestamps when the blocks arrived, so he can accept the timestamps for the most-work chain. In a sense he knows "his clock is wrong" compared when he saw the blocks arrive.
+
+I think it should be easy for nodes to know current UTC time within +/- 15 seconds if not +/- 5 seconds.  There should not be any agreed-upon source of time or widespread adoption of any particular source like GPS, an NTP, cell network, NIST source, or when a stock market opens. As a last resort (but not common practice) a node could get the median error between his clock and the arrival time of the past say 1,000 blocks to periodically recalibrate his clock (this isn't good because it injects "permission" from past winners into what we want to be permissionless). Truest decentralization would be to have a telescope to calibrate based on his geolocation and the stars. That way an attacker would have to change Earth's orbit or make the definition of UTC a point of contention to attack local times. 
+
+The benefit of accurate timestamps has more importance in helping Opentimestamps have more accuracy than preventing selfish mining.
+
+Non-mining nodes need time to make sure miners as a group aren't releasing coins too quickly.  Otherwise, they could use the chain as a source of time. 
+
+I just realized that as reward switches over to fees, there's not an inflation problem from miners advancing time to lower difficulty, and doing so doesn't increase how much they can gain in fees (they have to spread the same fees over more blocks) unless faster blocks / more space makes the coin more valuable from increased utility.  It could hurt or maybe help the value of the coin depending on the effect it has on contracts / scripts that depend on the height or timestamps. Ultimately it's the combination of fees per second and exchange value that would decide if they would do it.
+
+-------------------------
+
