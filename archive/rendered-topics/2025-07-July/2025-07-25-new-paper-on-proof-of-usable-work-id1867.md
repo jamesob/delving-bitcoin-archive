@@ -1,6 +1,6 @@
 # New paper on Proof of Usable Work
 
-zawy | 2025-07-25 15:01:57 UTC | #1
+zawy | 2025-07-25 18:54:04 UTC | #1
 
 There's a [new paper](https://x.com/hashdag/status/1933544298810622335) that shows how the world's A.I. compute based on matrix multiplication can be used as if that compute power is a "parent coin" to "merge mine" a blockchain coin. They found a way for matrix multiplications to not be restricted in their size and yet easily prove how many "FLOPs" were spent. I view it as a potential threat to Bitcoin dominance if Bitcoin isn't prepared to adopt it as a new PoW.
 
@@ -12,7 +12,11 @@ Since sha256d for non-bitcoin uses pays less than Bitcoin, the vast majority of 
 
 The innovation in this PoUW that bypasses the need for "imprisoned" (dedicated) work is that it's like merge mining. It enables miners to get their primary profit from other sources. It's secure if the exchange value of double-spending is less than the cost of the work provided by the portion of the world's matrix multiplication that's "merge mining" the coin.   
 
-There has to be enough "merge mining" to raise the cost of solving the difficulty above the value of an attack.  This has a feature that makes one of Max Kaiser's more suspicious comments about bitcoin actually applicable in this case: the work provided by the merge mining must stay ahead of the exchange value of the coin.  Work may drive the value instead of exchange value limiting the hashrate.
+There has to be enough "merge mining" to raise the cost of solving the difficulty above the value of an attack.  
+
+Max Kaiser has claimed increased hashrate increases price but I think it's obviously the other way. In bitcoin expected future profit due to price limits hashrate but in PoUW, difficulty ("hashrate") limits the value transferred per time to prevent double-spending. 
+
+Less pricisely, in PoUW hashrate limits price in contrast to Bitcoin's price limiting hashrate. Work preceding value feels like creating value which is appealing. There may be something useful and very different from bitcoin such as making the amount of coin proportional to the proven matrix multiplication FLOPs devoted to the merge mining.
 
 -------------------------
 
