@@ -1252,3 +1252,52 @@ Does the this change if the payments the attacker is sending is only 1 sat? Do t
 
 -------------------------
 
+JohnLaw | 2025-07-26 19:36:06 UTC | #18
+
+Hi Clara,
+
+"
+If there are 120 slots in the channel, it will cost an attacker 67.2*120 ~ 8k sats to jam it for two weeks?
+
+Does the this change if the payments the attacker is sending is only 1 sat? Do they need to lock 0.8 sats?
+"
+
+Yes, if there are just 120 slots, the Hold Fee charged by one channel for 120 10k-sat payments would just be 8k sats to jam for 2 weeks, and this drops to 0.8 sats for 1-sat payments.
+(I believe BOLT 02 sets max_accepted_htlc to 483, so these values would be about 4 times as much, namely 32k sats for 10k-sat payments and 3.2 sats for 1-sat payments).
+
+These would be low costs for a successful jamming attack.
+However, the Hold Fee isn't the only fee that is charged.
+There's also an Upfront Fee and a Succss Fee.
+
+The Upfront Fee includes a charge for consuming a slot:
+
+"
+The Upfront Fee pays for:
+
+    the computation and communication costs of routing the payment,. 
+    the cost of allocating a Commitment transaction output (“slot”) to the payment,. 
+    the cost of allocating channel funds to the payment for the seconds that can be required for a non-delayed payment,. 
+    the risk of not fulfilling the HTLC with one’s upstream partner despite one’s downstream partner having fulfilled their HTLC,. 
+    the risk of having to pay a Hold Fee (as described below), and. 
+    the risk of burning funds (as described below).  
+"
+
+As long as the per-slot component of the Upfront Fee is set high enough, jamming the slots with 10k-sat (or 1-sat) payments will be expensive enough to compensate the routers for their stranded capital.
+
+Still, you make an excellent point about the potential to jam a channel for 2 weeks by consuming all of the slots!
+
+As you noted, the impact of running out of slots lasts the entire time the payment is being routed.
+As a result, it makes sense to include a charge for consuming a slot as part of the Hold Fee (the per-slot charge within the Upfront Fee can be kept to cover the loss of the slot for a payment that isn't delayed).
+
+The simplest way to do this is to make the Hold Fee a function of the time the payment is held and the maximum of:
+1) the value of the payment, and
+2) the capital in the channel divided by 483.
+
+This approach forces the party that causes the delay to pay for the costs that they impose on others, which is the idea behind the fee-based approach.
+
+An optimization may be to separate the channel's funds into two channels which are advertised separately. One of these channels would have a small amount of capital and wouuld be devoted to making small payments only. With this optimization, even if each channel charges a Hold Fee that depends on the max of the value of the payment and the capital in the channel divided by 483, the Hold Fee charged for small payments will be low.
+
+Finally, another approach for routing small payments is to use the OPR protocol (https://github.com/JohnLaw2/ln-opr), as it eliminates the potential to delay the payment as well as all on-chain charges for resolving the payment.
+
+-------------------------
+
