@@ -39,3 +39,15 @@ I completely understand this would drastically remove the "anonymity" from Bitco
 
 -------------------------
 
+chris | 2025-07-27 13:15:22 UTC | #2
+
+Study worldcoin and why we don't want that.
+
+-------------------------
+
+PakoVM | 2025-07-27 13:18:07 UTC | #3
+
+Is this an out of season April fools joke?
+
+-------------------------
+
