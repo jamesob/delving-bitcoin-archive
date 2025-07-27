@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 9,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 42.0,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 62.6,
   "yours": false,
   "topic_id": 1877,
   "topic_slug": "bitcoin-version-2-only-for-conscious-living-individuals",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "**Description**\n\nI'm proposing a new fork, where only one wallet could be created for each physical entity, probably using a proof like the national identity number \"[NIN](https://en.wikipedia.org/wiki/National_identification_number)\" (e.g.: US+SSN, MX+CURP, etc.), and getting sure it's a living conscious being (not yet registered as death).\n\nTo be able to carry out transactions with institutions, this could be done, through decentralized exchanges (DEXs).\n\nTo perform the fork migration, after the snapshot of the blockchain, the replication of the original bitcoins should be requested from the original Bitcoin wallet addressing the personal wallet in the new fork (Bitcoin Px).\nInstitutional Bitcoins could be replicated in to a personal wallet, but this replication should have a maximum socially congruent limit (maybe 10 or 20 times the average wealth of a global citizen).\n\nBitcoins that aren't reclaimed under the replication period (maybe 3 months), should be nonexistent in the new blockchain, so they are available to be mined as fresh new Bitcoins.\n\n**Problems that this solves**\n\nThe problem this issue would deal with, is the current centralization of the available money under the control of a few institutions, giving them unmeasurable power over society. Leaving once again the power of the whole/conjunct (democracy) at the mercy of the power of a few (oligarchy).\n\nNow that the efficiency of Bitcoin has been accepted even by institutions, maybe it's time to stop pandering those institutional whales, by creating an institution-proof Bitcoin replica, exclusively for physical individuals. This could be a way to decentralize money in a second phase, and expand the democratization that internet and it's native tools are allowing.\n\n**Other issues this might solve**\n\nAs long as only humans (or conscious living beings) are able to step inside this money platform, and institutions can be kept away (even through false human agents), this could work also as a worldwide equity platform.\n\n**Alternatives considered for the use of oficial NIN's**\n\nIf the proof method chosen is NIN's, for the citizens of countries without any trustful NIN system, Biometrics (Facial recognition, fingerprints, etc) could be used, or a different solution could be created in collaboration with other Bitcoin cycle agents (miners, nodes, etc), so that the system can be certain the entities are in fact conscious living beings.\n\nGenome or blood could be alternatives or complimentary to NIN's, but might add an extra layer of complexity. I would suggest them to be implemented as a posterior implementation.\n\nI would personally disagree with any solution that involves invasive technology.\n\n**Additional context**\n\nI completely understand this would drastically remove the \"anonymity\" from Bitcoin, but it could be also a good thing for addressing inequality and corruption (at least inside this blockchain), and allow the world to use this tools in general for the common good.\n\n(originally posted [in here](https://github.com/bitcoin/bitcoin/issues/32897?reload=1?reload=1), but rejected as wrong place)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,14 @@
   "excerpt": "Description \nI\u2019m proposing a new fork, where only one wallet could be created for each physical entity, probably using a proof like the national identity number \u201c<a href=\"https://en.wikipedia.org/wiki/National_identification_number\" rel=\"noopener nofollow ugc\">NIN</a>\u201d (e.g.: US+SSN, MX+CURP, etc.), and getting sure it\u2019s a living conscious being (not yet registered as death). \nTo be able to carry out&hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-version-2-only-for-conscious-living-individuals/1877/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "laughing",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
