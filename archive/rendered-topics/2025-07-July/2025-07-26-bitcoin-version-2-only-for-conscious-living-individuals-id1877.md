@@ -1,10 +1,10 @@
 # Bitcoin Version 2 only for conscious living individuals
 
-davidtaubmann | 2025-07-26 23:45:02 UTC | #1
+davidtaubmann | 2025-07-28 01:58:36 UTC | #1
 
 **Description**
 
-I'm proposing a new fork, where only one wallet could be created for each physical entity, probably using a proof like the national identity number "[NIN](https://en.wikipedia.org/wiki/National_identification_number)" (e.g.: US+SSN, MX+CURP, etc.), and getting sure it's a living conscious being (not yet registered as death).
+I'm proposing a new paralel Bitcoin version, where only one wallet could be created for each physical entity, probably using a proof like the national identity number "[NIN](https://en.wikipedia.org/wiki/National_identification_number)" (e.g.: US+SSN, MX+CURP, etc.), and getting sure it's a living conscious being (not yet registered as death).
 
 To be able to carry out transactions with institutions, this could be done, through decentralized exchanges (DEXs).
 
@@ -48,6 +48,20 @@ Study worldcoin and why we don't want that.
 PakoVM | 2025-07-27 13:18:07 UTC | #3
 
 Is this an out of season April fools joke?
+
+-------------------------
+
+davidtaubmann | 2025-07-28 02:10:35 UTC | #4
+
+No, it's serious.
+I even agree with a vision that states institutions are the root cause of many problems and need to be limited and taken out from certain areas.
+
+-------------------------
+
+davidtaubmann | 2025-07-28 02:09:30 UTC | #5
+
+I know about worldcoin, but I believe alt's won't survive many more years. Maybe just a few of them, but definitely not WDC.
+Where could I find the reasons "why we don't want that"?
 
 -------------------------
 

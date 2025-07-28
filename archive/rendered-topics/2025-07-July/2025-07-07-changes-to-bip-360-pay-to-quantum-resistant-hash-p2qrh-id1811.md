@@ -404,15 +404,33 @@ The alternative is to disable key path spends in P2TR, which could confiscate fu
 
 -------------------------
 
-sipa | 2025-07-27 21:51:45 UTC | #27
+sipa | 2025-07-28 02:28:27 UTC | #27
 
 [quote="cryptoquick, post:26, topic:1811"]
 That’s not quite true though, right? P2TR is vulnerable to long exposure attack via the key path spend
 [/quote]
 
-Yes. And I don't think it's relevant that individual users can *choose* to migrate their coins if there is no expectation that everyone will (all assuming a CRQC actalually appears). And without widespread agreement that EC spending will be disabled (for P2TR, but much more for the many other types of outputs whose pubkeys are known), I cannot image that enough coin owners (many of whom are dormant) will.
+Yes. And I don't think it's all that relevant that individual users can *choose* to migrate their coins if there is no expectation that everyone will (all assuming a CRQC actalually appears). And without widespread agreement that EC spending will be disabled (for P2TR, but much more for the many other types of outputs whose pubkeys are known), I cannot imagine that enough coin owners (many of whom are dormant) will.
 
-Millions of BTC likely will remain in EC-protected outputs even if the option of migrating to something else is possible. In such a situation, nobody's (value of their) holdings are safe until such time that *all* EC spending is disabled.
+Millions of BTC likely will remain in EC-protected outputs even if the option of migrating to something else is possible. In such a situation, nobody's (value of their) holdings are safe until such time that (nearly) *all* EC spending is disabled.
+
+-------------------------
+
+sipa | 2025-07-28 04:36:33 UTC | #28
+
+[quote="EthanHeilman, post:21, topic:1811"]
+With P2QRH, you can spend in a quantum-secure manner, but also spend using Schnorr so you don’t hit high fees. This means users, exchanges, etc… can switch to P2QRH without any serious adoption cost and gain the benefits of post-quantum security.
+[/quote]
+
+This seems like a false sense of security at best to me.
+
+If a CRQC appears, I don't see how BTC can retain any value at all, if EC spending is not disabled. This is not an argument in favor of freezing; it is pointing out that we can ignore potential timelines/blockchain forks in which (crqc exists AND NOT ec is disabled). A chain in which millions of BTC are believed to be stealable fails at its primary function. In such, value is lost anyway, so nothing being discussed here matters.
+
+Thus, for the point of discussion, we can treat any CRQC-having timeline as being one in which EC is disabled, regardless of how, when, why, or in which fork that happens. It doesn't need to be discussed now even, but we can still assume it happens somehow in such timelines, because the alternative is simply not relevant.
+
+If EC is disabled, P2QRH being available independently of PQC locks seems irrelevant to me, because nobody should be using it without PQC locks. For mixed EC-or-PQC spending conditions, P2TR is strictly better in functionality, privacy, and (typically) cost. For pure-PQC spending conditions, something like P2QRH may be relevant, but there is no way to judge that without an actual PQC scheme (e.g., maybe the scheme supports taproot-like tweaking).
+
+And I *could* see relevance to P2QRH if it disabled EC from the get-go, because that would mean an observably-PQC output type, which makes it susceptible to policies/consensus rules that mandate at some point that PQC outputs must be used. I don't think that's a particularly attractive idea (I feel outputs should reveal as little as possible), but this is what I assumed P2QRH was aiming for when I saw the name and your ML post. However, this appears to not be at all what BIP360 is aiming to achieve, and thus, I fail to see the point.
 
 -------------------------
 
