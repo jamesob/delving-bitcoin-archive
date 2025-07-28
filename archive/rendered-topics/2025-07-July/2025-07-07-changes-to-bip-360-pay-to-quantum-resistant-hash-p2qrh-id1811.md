@@ -404,3 +404,15 @@ The alternative is to disable key path spends in P2TR, which could confiscate fu
 
 -------------------------
 
+sipa | 2025-07-27 21:51:45 UTC | #27
+
+[quote="cryptoquick, post:26, topic:1811"]
+That’s not quite true though, right? P2TR is vulnerable to long exposure attack via the key path spend
+[/quote]
+
+Yes. And I don't think it's relevant that individual users can *choose* to migrate their coins if there is no expectation that everyone will (all assuming a CRQC actalually appears). And without widespread agreement that EC spending will be disabled (for P2TR, but much more for the many other types of outputs whose pubkeys are known), I cannot image that enough coin owners (many of whom are dormant) will.
+
+Millions of BTC likely will remain in EC-protected outputs even if the option of migrating to something else is possible. In such a situation, nobody's (value of their) holdings are safe until such time that *all* EC spending is disabled.
+
+-------------------------
+
