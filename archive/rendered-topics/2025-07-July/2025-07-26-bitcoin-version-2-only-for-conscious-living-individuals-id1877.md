@@ -65,3 +65,11 @@ Where could I find the reasons "why we don't want that"?
 
 -------------------------
 
+marathon-gary | 2025-07-28 13:48:08 UTC | #6
+
+I would recommend looking into the term "fungible" in your exploration of why this idea makes no sense. 
+
+Additionally, why would you want to limit internet use to just "living individuals". There is a robust and established use case for bitcoin it's layers for the machine payable web.
+
+-------------------------
+

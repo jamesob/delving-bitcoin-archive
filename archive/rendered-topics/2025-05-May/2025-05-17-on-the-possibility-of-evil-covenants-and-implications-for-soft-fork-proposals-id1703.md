@@ -153,3 +153,11 @@ characters*
 
 -------------------------
 
+CubicEarth | 2025-07-28 12:27:54 UTC | #9
+
+Plenty of companies have built products, such as: BitGo Wallet, Coinbase Vault, Unchained Vaults, Casa Keymaster, Green Wallet, Nunchuk Wallet, Bitkey Wallet, Swan Vault, Theya Multi  Vault, Trident Vault.
+
+Do you think these products aren't used?
+
+-------------------------
+
