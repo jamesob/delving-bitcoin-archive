@@ -167,3 +167,11 @@ Same name doesn't mean similar functionality.  I think it would be interesting t
 
 -------------------------
 
+CubicEarth | 2025-07-28 16:29:21 UTC | #11
+
+That is true. But this is really a questions about user behavior and desire, is it not? We are trying to figure if it would be worth rolling out a new feature, and people understandably want to know if it would see use.  So the question isn't if these services are technically identical to on-chain vaults, but rather if people are using them in lieu of  them, since they don't currently exit, and if they would use the on-chain option if they did.
+
+I am not vouching for any of the things I listed, and I didn't do a deep dive into all of them. Some of them are probably stupid.
+
+-------------------------
+

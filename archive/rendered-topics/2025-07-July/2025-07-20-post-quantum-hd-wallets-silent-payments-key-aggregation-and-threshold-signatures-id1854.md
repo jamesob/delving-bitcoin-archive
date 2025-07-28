@@ -25,3 +25,9 @@ Have you had time to investigate each scheme’s pros and cons compared to today
 
 -------------------------
 
+jesseposner | 2025-07-28 19:05:27 UTC | #3
+
+That's a great point! I will follow-up after I dig in deeper to understand all the tradeoffs.
+
+-------------------------
+

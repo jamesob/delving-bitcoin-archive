@@ -434,3 +434,47 @@ And I *could* see relevance to P2QRH if it disabled EC from the get-go, because 
 
 -------------------------
 
+EthanHeilman | 2025-07-28 18:19:03 UTC | #29
+
+[quote="sipa, post:28, topic:1811"]
+If a CRQC appears, I don’t see how BTC can retain any value at all, if EC spending is not disabled.
+[/quote]
+
+Lets say tomorrow we wake up and it turns out there has been a breakthrough either a classic algorithm to break EC or a breakthrough that enables quantum computers of the size needed to break EC.
+
+**Case 1 (long-exposure vuln, but no immediate short-exposure vuln):** This breakthrough allows an extremely well resourced attacker to break a EC public after 1 week of computation, with attack time being halved every two months.
+
+Users can protect their P2TR coins by moving them to P2SH. The LN shuts down since P2SH is pre-tapscript and it will take months to move the protocol away from tapscript. Exchanges which moved to P2TR have to rapidly switch all their wallets to use P2SH. Fees spike as everyone rushes to more their coins away from vulnerable outputs like P2TR.
+
+A soft fork is proposed to disable P2PK, P2PKH, outputs whose public key is known and disable key-spend in P2TR. Maybe it succeeds, maybe it doesn't. If it succeeds, lots of people lose their money because they didn't manage move it from P2TR key spends. If the softfork fails, someone will propose a hardfork that freezes these outputs. The coins on the hardfork will likely be more valuable than Bitcoin because there will be much less than 21 million coins on the hardfork.
+
+P2QRH mitigates a some of the harm in case 1 since exchanges and whales will likely have transitioned away from P2TR due to the stronger security of not being vulnerable to long-exposure attacks on EC.
+
+P2QRH + PQ sig opcodes algorithms makes case 1 even easier to deal with since a large number of active users will have P2QRH and a PQ signatures in a tapleaf. Wallets, exchanges and LN will have built out support for it. The main question is to freeze coins or not. If the freeze softfork happens, the coins in P2QRH outputs are protected. If the freeze softfork doesn't happen and instead there is a hardfork, the coins in P2QRH outputs are protected in both forks.
+
+**Case 2 (long-exposure and short-range attacks):** This breakthrough allows an extremely well resourced attacker to break a EC public after 1 second of computation.
+
+Total chaos as early Satoshi and modern P2TR coins are stolen. No one can tell between attacker theft and users spending their coins. There is no safe way to secure coins unless you do something like commit reveal but there is not wallet support for that. Bitcoin is no longer able to authenticate ownership of most coins, RIP.
+
+P2QRH does not help much here, but P2QRH + PQ sig opcodes does help. Even in this nightmare can still authenticate ownership of coins for those users that moved away from vulnerable outputs and uses PQ signature opcodes. This makes a freeze softfork or freeze hardfork worth doing since Bitcoin can be saved.
+
+Case 1 is much more likely than Case 2.
+
+> However, this appears to not be at all what BIP360 is aiming to achieve, and thus, I fail to see the point.
+
+A PQ-only output is unlikely to get wallet and exchange support because very few people want to pay the much higher fees to spend using a PQ signature algorithm. An extra 32-bytes is fine, an extra 2,000-bytes is not.
+
+There are two ways to do this:
+
+1. P2TR with PQ opcodes with the idea that we freeze all key-spends when EC is broken. This pretends a risk that the freeze doesn't happen.
+
+2. P2QRH with PQ opcodes which has no key-spends, so it is opt-in. We can start encouraging user's to move from P2TR to P2QRH.
+
+The PQ opcodes are designed to be in tapscript and work with P2TR as well as P2QRH  such that if the community prefers to have core pinky promise they will disable P2TR key spends, then it works with P2TR as well. I just can't imagine core wants to commit to a controversial promise like that.
+
+> For mixed EC-or-PQC spending conditions, P2TR is strictly better in functionality, privacy, and (typically) cost. 
+
+If EC is not vulnerable then P2QRH is the NUMS point feature of P2TR in functionality and privacy, but slightly better in cost.
+
+-------------------------
+
