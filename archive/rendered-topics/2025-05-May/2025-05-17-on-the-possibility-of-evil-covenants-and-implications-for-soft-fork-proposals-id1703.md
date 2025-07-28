@@ -114,3 +114,21 @@ In fact, we have more PoCs to test covenants (pool, vault, ark etc.) than any ot
 
 -------------------------
 
+CubicEarth | 2025-07-28 10:43:29 UTC | #7
+
+[quote="gmaxwell, post:2, topic:1703"]
+There is a flip side to this point however: The productive use of covenants can also almost always be accomplished with some compromise via multisig. There are reasons that it’s not quite symmetrical (evil overlord loses only some uptime guarantees with multisig, while honest covenant user takes an addition security risks) but I do think it’s fair to say that any proposal for increased functionality which could be emulated with some kind of multisig oracle but isn’t should explain why the public should believe that their application is so important and yet no one is doing it via emulation.
+[/quote]
+
+Vaults aren't just any application, they are an attempt to *improve* the security situation for users protecting what are possibly their lifetimes savings, or perhaps billions of dollars worth of assets on behalf of others.
+
+If people have bitcoin, they are implicitly trusting the core network itself to validate things according to the rules. There is absolutely demand for *trustless vaults*, which would be native to the chain. 
+
+If one relies on an oracle or other external source, that would require a different line of trust to said external system for the protection of coins. In a sense that is already available with BitGo or Coinbase or Casa, using various implementation of shared multisig schemes. 
+
+So we have evidence of implementation and robust demand for trusted, external vaults! But until they are implemented and available we of course cannot directly observe usage for trustless ones, we can only infer.
+
+If we can reasonably replace a widely used trusted option with a crustless one, I think we should. Usage might well end up being higher for the trustless one owing to the superior security guarantees .
+
+-------------------------
+
