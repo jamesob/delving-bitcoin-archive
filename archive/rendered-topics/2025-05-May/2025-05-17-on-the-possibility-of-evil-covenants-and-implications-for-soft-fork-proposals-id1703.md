@@ -161,3 +161,9 @@ Do you think these products aren't used?
 
 -------------------------
 
+gmaxwell | 2025-07-28 15:55:10 UTC | #10
+
+Same name doesn't mean similar functionality.  I think it would be interesting to see an example of how any mapped, to be sure consensus functionality captured the behavior.   For example, which consensus proposal allows the network to perform SMS validation before sending funds?
+
+-------------------------
+
