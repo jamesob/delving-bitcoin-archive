@@ -1,6 +1,6 @@
 # Fingerprinting nodes via addr requests
 
-danielabrozzoni | 2025-06-23 13:13:58 UTC | #1
+danielabrozzoni | 2025-06-30 10:13:52 UTC | #1
 
 This blog post comes from the research of @naiyoma and me.
 
@@ -9,6 +9,8 @@ It is currently possible to identify nodes running on multiple networks by analy
 This fingerprint attack can hurt network privacy and enable more critical scenarios; for example, it could expose network bridges then to be targeted in partitioning attacks or to gather sensitive metadata.
 
 This attack is not outstanding; for instance, [#28760](https://github.com/bitcoin/bitcoin/issues/28760) outlines a different approach with the same objective, and a separate [research paper](https://www.cs.umd.edu/projects/coinscope/coinscope.pdf) demonstrates how `ADDR` timestamps can be exploited to infer network topology. However, we believe that addressing the attack would make a reasonable incremental step towards network security.
+
+**Our primary goal in publishing this post is to gather feedback on the proposed solutions.** If you have thoughts on potential mitigations, concerns about the trade-offs involved, or ideas we haven’t considered, we’d very much appreciate hearing from you.
 
 # Background
 
@@ -288,6 +290,39 @@ Timestamps are also used in gossip relay (a separate mechanism from GETADDR) of 
 
 
 A good TODO would be to try replacing nTime with m_last_try // m_last_success here and observe the impact. Even if we don't end up removing nTime, we could get some insights as to how significant the current check is.
+
+-------------------------
+
+naiyoma | 2025-07-29 07:34:49 UTC | #11
+
+[quote="danielabrozzoni, post:1, topic:1786"]
+## Randomizing timestamps
+[/quote]
+
+This would work; however, it would make new addresses appear older and therefore at risk of being marked as Terrible more quickly. Another issue is that we can't be completely sure an attacker wouldn’t try to defuzz these timestamps
+
+While fuzzing introduces obfuscation by adding bounded noise (within a ±𝛿 window), it does not guarantee unlinkability. This makes exact reconstruction difficult, but not entirely impossible.
+
+Given enough fuzzed samples and knowledge of the fuzzing parameters (e.g., distribution and bounds), an attacker could use statistical techniques—such as maximum likelihood estimation (MLE), clustering, or Bayesian inference—to:
+
+* Estimate the original (pre-fuzzed) values,
+
+* Determine whether two fuzzed values likely originated from the same or similar source.
+
+Even when fuzzing is applied uniformly and independently, correlations between original values can still leak through the noise.
+
+I'm curious if anyone has thoughts or ideas on how realistic or effective defuzzing might be in practice?
+
+-------------------------
+
+naiyoma | 2025-07-29 07:53:36 UTC | #12
+
+[quote="mzumsande, post:5, topic:1786"]
+if we’d just indiscriminately set the timestamp of each address from a GETADDR answer to a randomised but fixed value in the past (e.g. 10 +/- 2 days ago)
+[/quote]
+
+As far as we can tell, there aren't any major downsides to this. Addresses will be saved with their timestamps as they are into the recipient’s AddrMan. However, the concern here is that—just like the other solutions we've considered (setting getaddr responses to now()/current time or to 0)—the timestamps will either be saved as-is, adjusted to 5 days ago, or set to the current time.
+One possible issue is a synchronized pattern where batches of addresses are marked as 'Terrible' at the same time and are therefore at risk of being filtered out simultaneously.
 
 -------------------------
 

@@ -145,3 +145,19 @@ Very cool.
 
 -------------------------
 
+jaonoctus | 2025-07-29 08:08:38 UTC | #3
+
+Nice, clean algebra, no magic 😅
+
+Love how the validation works out cleanly:
+
+```
+P_i = P + t_i * G
+s_i * G = R + e * P_i
+s_i = s + e * t_i = r + e * (x + t_i)
+```
+
+Meaning the signature remains valid even after tweaking the public key with t_i, thanks to the linearity of Schnorr
+
+-------------------------
+
