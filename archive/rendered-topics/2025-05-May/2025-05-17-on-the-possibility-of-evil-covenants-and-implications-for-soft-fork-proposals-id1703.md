@@ -175,3 +175,23 @@ I am not vouching for any of the things I listed, and I didn't do a deep dive in
 
 -------------------------
 
+ajtowns | 2025-07-29 04:02:38 UTC | #12
+
+[quote="gmaxwell, post:10, topic:1703"]
+Same name doesn’t mean similar functionality. I think it would be interesting to see an example of how any mapped, to be sure consensus functionality captured the behavior.
+[/quote]
+
+The [Coinbase Vault](https://help.coinbase.com/en/coinbase/getting-started/other/vaults-faq) sounds like it has two phases: get an authorised signer to approve within 24 hours or it's a no-op; then you have 48 hours to cancel the transaction. The latter phase sounds like the reactive security model -- in the Coinbase model you get an email to your inbox and secondary inbox, in the [BIP 345](https://github.com/bitcoin/bips/blob/7f13f8f9f5d440be4c024657c0520e5f2bb2878d/bip-0345.mediawiki) you see a tx on-chain; and to cancel, then in both cases you have a fixed timeout to "cancel" the transaction: in the Coinbase model you login and click buttons and perhaps do something to re-secure your Coinbase accounts, while in the BIP 345 model you move the funds to a cold wallet on-chain.
+
+Obviously there are plenty of differences between the two systems; eg, the Coinbase model applies to all the cryptocurrencies they support, not just BTC. And it's not obvious to me how much uptake the feature has.
+
+I find it pretty hard to translate the marketing materials for all these things into what they're actually doing, so I might be mistaken in how Coinbase Vault works, and I wouldn't hazard a guess on the others.
+
+[quote="gmaxwell, post:10, topic:1703"]
+For example, which consensus proposal allows the network to perform SMS validation before sending funds?
+[/quote]
+
+Setting up a watchtower-like system to monitor the blockchain and SMS you when an event occurs doesn't seem particularly challenging, and there's been research about doing so in ways where you don't reveal what you're watching for until it occurs, though SMS is both costly and unreliable so I would have thought other methods would be preferable. But if that's actually a feature you think's important, then at a first pass, I'd say all the consensus proposals would allow that.
+
+-------------------------
+

@@ -425,3 +425,17 @@ I just realized that as reward switches over to fees, there's not an inflation p
 
 -------------------------
 
+ajtowns | 2025-07-29 04:29:14 UTC | #10
+
+[quote="zawy, post:9, topic:1757"]
+I just realized that as reward switches over to fees, there’s not an inflation problem from miners advancing time to lower difficulty, and doing so doesn’t increase how much they can gain in fees
+[/quote]
+
+The "inflation" problem is that a higher rate of blocks allows you to get a higher percentage of the 21M bitcoin issued earlier than expected -- eg, we expect there to be about 156k new BTC in circulation over the next 350 days or so, but if difficulty were exploited and we had a million blocks in that time rather than 50,000, there'd be about 1M new BTC instead.
+
+With fees instead of subsidy, you get a similar effect: 50k blocks gives you 50GvB worth of transaction space, while 1M blocks gives you 1TvB worth of transaction space. Whether that gives miners more profit (fee rates stay constant, then you get 20x the revenue) or less (fee rates collapse by a factor of 100, then you get 20% of the revenue) depends on market dynamics, however.
+
+Exploiting the difficulty algorithm to increase tx throughput was described detail in the [Forward Blocks](https://tokyo2018.scalingbitcoin.org/transcript/tokyo2018/forward-blocks) talk at Scaling Bitcoin 2018.
+
+-------------------------
+
