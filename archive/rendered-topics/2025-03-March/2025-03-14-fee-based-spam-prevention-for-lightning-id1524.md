@@ -1301,3 +1301,11 @@ Finally, another approach for routing small payments is to use the OPR protocol 
 
 -------------------------
 
+ClaraShk | 2025-08-01 15:50:43 UTC | #19
+
+Hi John,
+
+Thanks for your reply. It sounds like there is still some complexity to this suggestion, interested to hear what others think.
+
+-------------------------
+
