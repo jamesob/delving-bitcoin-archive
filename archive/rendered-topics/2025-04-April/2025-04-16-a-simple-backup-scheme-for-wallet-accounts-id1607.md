@@ -452,3 +452,15 @@ It's in Ruby, though I might switch to Rust.
 
 -------------------------
 
+pyth | 2025-08-01 09:09:29 UTC | #26
+
+Nice, I'm working on an implementation based on this scheme in rust, I'll share there in few days.
+
+-------------------------
+
+sjors | 2025-08-01 09:50:24 UTC | #27
+
+Looking forward. Perhaps you can also use https://github.com/joshdoman/descriptor-codec from @josh to reduce the encrypted payload size a bit. That library itself could perhaps gain even more size reduction by checking for duplicate xpubs (followed by different derivation paths).
+
+-------------------------
+

@@ -21,3 +21,25 @@ Curious whether others have thoughts on how the minimum feerates are used, what 
 
 -------------------------
 
+garlonicon | 2025-08-01 06:27:52 UTC | #2
+
+> Blocks with lots of sub-1sat/vB transactions don’t propagate as quickly to nodes that rejected or didn’t hear about those transactions earlier.
+
+The same is true with any transaction, which is considered non-standard by existing nodes. Does it mean, that standardness rules should be discarded, if miners will start confirming free transactions, and using future Segwit versions for random data pushes, up to 4 MB per transaction? Because in this way, any existing limit can be lifted.
+
+> The minimum relay feerate is a DoS protection rule, representing a price on the network bandwidth used to relay transactions that have no PoW.
+
+Does it mean, that it would be different, if transactions would contain Proof of Work? Because they can, and it can be enforced inside Script, by checking the size of DER signature.
+
+> block minimum feerate: shouldn’t be above min relay feerate, otherwise the node accepts transactions it will never mine
+
+Which can be seen as a benefit, when it comes to batching: many low-fee transactions could be shared in P2P network, and they could contain sighashes, which would make them open for modifications and adjustments. And then, nodes can keep batching their transactions, and pushing them through full-RBF, until reaching 1 sat/vB, when the final transaction can land in a block.
+
+Also, it is about scaling as well: by keeping on-chain fees always low enough, so any user can make cheap on-chain transactions on its own, usage of second layers is discouraged. Because if everyone can do everything on-chain, and it will always land in produced blocks, then why do we need Lightning Network, sidechains, or any other second layer at all? In this case, we could allow paying one satoshi per transaction, because other limits like 300 MB default mempool size limit, or 4 MB maximum block size limit will still protect us.
+
+> dust feerate: I don't think these arguments apply in the same way
+
+What if that limit will be lifted by miners as well? Would we have yet another discussion about changing default settings again, just because miners did it?
+
+-------------------------
+
