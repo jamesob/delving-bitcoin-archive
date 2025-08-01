@@ -444,11 +444,13 @@ In your example, and for most inheritance use cases, the capability of individua
 
 -------------------------
 
-sjors | 2025-07-31 22:35:56 UTC | #25
+sjors | 2025-08-01 17:24:40 UTC | #25
 
 I wrote a rough implementation draft: https://github.com/Sjors/descriptor-backup
 
 It's in Ruby, though I might switch to Rust.
+
+Update 2025/08/01: also vibe coded a bech32m encoding. It takes a descriptor as input and finds the xpubs for you.
 
 -------------------------
 

@@ -137,3 +137,13 @@ This forum is for bitcoin discussions. What you're describing is not bitcoin and
 
 -------------------------
 
+davidtaubmann | 2025-08-01 19:50:10 UTC | #13
+
+What I see is that if as a society we do not generate a Bitcoin Fork in which institutions cannot get on board, the Western oligarchy will have won in one way (if Bitcoin falls, because it was always in their way) or another (if Bitcoin rises, because now they will be the biggest beneficiaries, along with Satoshi Nakamoto, who could well be part of those institutions).
+
+That is not decentralization from my very humble perspective.
+
+Thanks anyway, it was nice to try.
+
+-------------------------
+
