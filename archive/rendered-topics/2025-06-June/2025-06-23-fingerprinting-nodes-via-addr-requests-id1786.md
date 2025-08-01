@@ -326,3 +326,25 @@ One possible issue is a synchronized pattern where batches of addresses are mark
 
 -------------------------
 
+danielabrozzoni | 2025-08-01 10:41:24 UTC | #13
+
+After giving it more thought, I realized the phrasing "Removing timestamps" was too broad, and it can be broken down into three distinct approaches:
+- Stop using `nTime` in addrman: this would mean using a differrent metric to determine if an address is terrible. This isn't directly linked to our fingerprinting issue, it's more of a follow-up task, something we might consider if the fingerprinting fix makes `nTime` less meaningful, and we want addrman to use a better metric.
+- Restructure the `ADDR` message to exclude the `nTime` field: As @mzumsande pointed out, this isn't feasible for gossip relay. For `GETADDR` responses, it would require designing new message formats, which to me is a lot of work for effectively zero benefit, as there are simpler ways to fix the fingerprinting.
+- Use a `nTime` in `GETADDR` responses that is unrelated to our addrman, and sharing no information about the timestamps in our addrman.(This is what solutions 2, 3, and 4 below are trying to do.)
+
+Based on that breakdown, here's a summary of the solutions we're considering:
+
+1. Randomizing `nTime` by a few days: as Naiyoma pointed out above, we would need to figure out if the messages could still be fingerprintable. Given this uncertainty, I'm leaning towards disregarding this solution completely, in favor of solutions that can't be fingerprinted
+2. Setting the `nTime` to 0: Receiving nodes would insert the address into their addrman with a timestamp of 5 days in the past (https://github.com/bitcoin/bitcoin/blob/4f27e8ca4d2a31b685b91e70b0542c0077a944b2/src/net_processing.cpp#L3919).
+3. As @mzumsande suggested, setting the timestamp to a randomized but fixed value in the past
+4. Setting the `nTime` to `now()` at the time of the request: I think this is nice, and the nTime would automatically represent "last time I saw this address (either on the P2P network, or I connected to it)". However... This might make no sense, but I wonder if there's an edge case where a node clock is so out of sync, that its responses are still fingerprintable.
+
+[quote="naiyoma, post:12, topic:1786"]
+One possible issue is a synchronized pattern where batches of addresses are marked as ‘Terrible’ at the same time and are therefore at risk of being filtered out simultaneously.
+[/quote]
+
+This would apply for solutions 2/3/4 above. I wonder if this would be the case, or since we refresh timestamps, it would never happen that a set of addresses that we got from the same ADDR message expire all at the same time.
+
+-------------------------
+
