@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "This forum is for bitcoin discussions. What you're describing is not bitcoin and is philosophically opposed to bitcoin, so you are not going to get support from anyone in the community here.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,14 @@
   "excerpt": "This forum is for bitcoin discussions. What you\u2019re describing is not bitcoin and is philosophically opposed to bitcoin, so you are not going to get support from anyone in the community here.",
   "truncated": true,
   "post_url": "/t/paralel-bitcoin-only-for-conscious-living-individuals/1877/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
