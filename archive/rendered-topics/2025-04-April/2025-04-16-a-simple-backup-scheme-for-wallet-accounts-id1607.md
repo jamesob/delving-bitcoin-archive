@@ -444,3 +444,11 @@ In your example, and for most inheritance use cases, the capability of individua
 
 -------------------------
 
+sjors | 2025-07-31 22:35:56 UTC | #25
+
+I wrote a rough implementation draft: https://github.com/Sjors/descriptor-backup
+
+It's in Ruby, though I might switch to Rust.
+
+-------------------------
+
