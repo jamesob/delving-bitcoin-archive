@@ -107,3 +107,33 @@ Under this precept, this is not the right Universe for living conscious entities
 
 -------------------------
 
+davidtaubmann | 2025-08-01 01:34:41 UTC | #9
+
+One more thing I would suggest for this parallel Bitcoin, is that decentralization should be taken also to the matters of maximum amount a wallet should be able to poses. 
+Again 10 to 20 times the average of the rest of the world, sounds good for me.
+
+But clearly, hyper concentration (which is the opposite of descentralization) is a problem for dynamism. Our societies don't need more money with the already big ones, we need the available money to flow much more between the most. Money shouldn't stay, stop or concentrate in some few corners. Money is not a goal or symbol of success, it is just a tool, for our entire dynamism.
+
+-------------------------
+
+danoprey | 2025-08-01 02:28:21 UTC | #10
+
+Don't waste any more of your time on this
+
+-------------------------
+
+davidtaubmann | 2025-08-01 03:26:26 UTC | #11
+
+with all of you in this category?
+Thanks for the advice, so this is also the wrong place?
+
+Then, should I post it in the Philosophy category? or should I build it by myself?
+
+-------------------------
+
+danoprey | 2025-08-01 03:28:20 UTC | #12
+
+This forum is for bitcoin discussions. What you're describing is not bitcoin and is philosophically opposed to bitcoin, so you are not going to get support from anyone in the community here.
+
+-------------------------
+
