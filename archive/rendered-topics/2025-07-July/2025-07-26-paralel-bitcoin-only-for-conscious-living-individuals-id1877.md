@@ -1,10 +1,10 @@
 # Paralel Bitcoin only for conscious living individuals
 
-davidtaubmann | 2025-07-29 02:49:46 UTC | #1
+davidtaubmann | 2025-08-01 21:34:02 UTC | #1
 
 **Description**
 
-The proposal is a new paralel Bitcoin, where only one wallet could be created for each physical conscious entity ("Bitcoin Px" maybe), probably using a proof like the national identity number "[NIN](https://en.wikipedia.org/wiki/National_identification_number)" (e.g.: US+SSN, MX+CURP, etc.), and getting sure it's a living conscious being (not yet registered as death).
+The proposal is a new paralel Bitcoin, where only one wallet could be created for each physical conscious entity ("Bitcoin Px" maybe), probably using a proof like the national identity number "[NIN](https://en.wikipedia.org/wiki/National_identification_number)" (e.g.: US+SSN, MX+CURP, etc.), and getting sure it's a living conscious being (not yet registered as dead).
 
 To be able to carry out transactions with institutions, this could be done, through decentralized exchanges (DEXs).
 
@@ -17,7 +17,7 @@ Bitcoins that aren't reclaimed under the replication period (maybe 3 months), sh
 
 The problem this issue would deal with, is the current centralization of the available money under the control of a few institutions, giving them unmeasurable power over society. Leaving once again the power of the whole/conjunct (democracy of any level, even liquid) at the mercy of the power of a few (oligarchy). This is completely against the global democratization Internet should be promoting and empowering.
 
-Now that the efficiency of Bitcoin has been accepted even by institutions, maybe it's time to stop pandering those institutional whales, by creating an institution-proof Bitcoin replica, exclusively for physical conscious individuals. This could be a way to decentralize money in a second phase, and expand the democratization that internet and it's native tools are allowing.
+Now that the efficiency of Bitcoin has been accepted even by institutions, maybe it's time to stop pandering those institutional whales, by creating an institution-proof Bitcoin replica, exclusively for physical conscious individuals. This could be a way to decentralize money in a second phase, and expand the democratization that the internet and it's native tools are allowing.
 
 **Other issues this might solve**
 
