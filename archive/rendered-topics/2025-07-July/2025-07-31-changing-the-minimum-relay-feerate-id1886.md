@@ -43,3 +43,13 @@ What if that limit will be lifted by miners as well? Would we have yet another d
 
 -------------------------
 
+1440000bytes | 2025-08-02 19:24:55 UTC | #3
+
+[quote="garlonicon, post:2, topic:1886"]
+The same is true with any transaction, which is considered non-standard by existing nodes. Does it mean, that standardness rules should be discarded, if miners will start confirming free transactions, and using future Segwit versions for random data pushes, up to 4 MB per transaction? Because in this way, any existing limit can be lifted.
+[/quote]
+
+This was [discussed](https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2025-05-22#1123266;) on IRC and nobody really has a convincing answer. I wonder if [non-standard transactions](https://mempool.space/tx/bb41a757f405890fb0f5856228e23b715702d714d59bf2b1feb70d8b2b4e3e08) that take a long time to validate would become standard if a percentage of miners include them in blocks.
+
+-------------------------
+
