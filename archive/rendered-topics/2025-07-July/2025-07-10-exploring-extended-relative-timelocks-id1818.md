@@ -237,3 +237,9 @@ This new scheme also uses a different bit in the sequence field, so for old node
 
 -------------------------
 
+chris | 2025-08-03 11:57:18 UTC | #21
+
+When onboarding users to Liana, the most common question I get is whether the timelock can be extended beyond the current 15 months. Personally, I think extending it to 5 or even 10 years would be ideal it would resolve several UX pain points and better align with long-term custody and inheritance needs.
+
+-------------------------
+
