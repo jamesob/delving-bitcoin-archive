@@ -243,3 +243,11 @@ When onboarding users to Liana, the most common question I get is whether the ti
 
 -------------------------
 
+sjors | 2025-08-04 11:24:34 UTC | #22
+
+I wish the original [BIP68](https://github.com/bitcoin/bips/blob/31450c3dbde336cd8503197d78e06ece46c28d7a/bip-0068.mediawiki) authors had used just one more bit.
+
+Why not just do that and include bit 16? So the mask goes from `0x0000ffff` to `0x0001ffff`. If bit 16 set, old software would allow spending strictly earlier, so it's a soft fork. The downside is that if someone set this bit accidentally they'll have to wait a decade longer than expected.
+
+-------------------------
+
