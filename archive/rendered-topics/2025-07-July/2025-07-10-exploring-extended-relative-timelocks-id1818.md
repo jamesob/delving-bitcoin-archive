@@ -251,3 +251,13 @@ Why not just do that and include bit 16? So the mask goes from `0x0000ffff` to `
 
 -------------------------
 
+AntoineP | 2025-08-04 16:05:38 UTC | #23
+
+[quote="sjors, post:22, topic:1818"]
+Why not just do that and include bit 16?
+[/quote]
+
+Because Lightning already uses these bits to store obfuscated commitment transaction numbers. The nSequence bits with no consensus meaning are i think in practice lost as an upgrade hook. I think that if someone wanted to work on extending relative timelocks they should use the Taproot annex, and why not also bundle per-input absolute timelocks under a single "improved timelocks" proposal.
+
+-------------------------
+

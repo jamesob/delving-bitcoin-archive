@@ -53,3 +53,21 @@ This was [discussed](https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2025-05-
 
 -------------------------
 
+glozow | 2025-08-04 17:09:18 UTC | #4
+
+[quote="garlonicon, post:2, topic:1886"]
+Does it mean, that standardness rules should be discarded, if miners will start confirming free transactions, and using future Segwit versions for random data pushes, up to 4 MB per transaction? Because in this way, any existing limit can be lifted.
+[/quote]
+
+[quote="1440000bytes, post:3, topic:1886"]
+I wonder if [non-standard transactions](https://mempool.space/tx/bb41a757f405890fb0f5856228e23b715702d714d59bf2b1feb70d8b2b4e3e08) that take a long time to validate would become standard when a percentage of miners include them in blocks.
+[/quote]
+
+No. If the intention was to just loosen policy rules completely, we wouldn't be having a discussion about what was appropriate for DoS protections. The argument being made is: if policy is stricter than necessary and prevents nodes from hearing about transactions that are likely to be mined, we should loosen it to only what is necessary.
+
+> Does it mean, that it would be different, if transactions would contain Proof of Work?
+
+Yes. It sounds like a nice idea, but I'm not sure it's reasonable to impose something like this on signing devices. The work requirement would need to be fairly high to be effective.
+
+-------------------------
+
