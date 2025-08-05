@@ -71,3 +71,19 @@ Yes. It sounds like a nice idea, but I'm not sure it's reasonable to impose some
 
 -------------------------
 
+garlonicon | 2025-08-05 03:36:29 UTC | #5
+
+> It sounds like a nice idea, but I’m not sure it’s reasonable to impose something like this on signing devices.
+
+1. It can be fully optional, and used only when needed, by wrapping it in `OP_IF <proof_of_work> OP_ELSE <other_conditions> OP_ENDIF`.
+2. It is already deployed on-chain, and it works as a faucet, giving satoshis to puzzle solvers: https://bitcointalk.org/index.php?topic=5551080.0
+3. It is possible to combine Proof of Work with any existing Script, except TapScript. Which means, that for example LN transactions or things from other second layers (like sidechains) could contain optional Proof of Work, to limit transaction replacements.
+
+> The work requirement would need to be fairly high to be effective.
+
+Yes, but many users could work on the same transaction. Then, one of them would broadcast the solution, so all second layer users can benefit from it. Which means, that if honest second layer miners will have more power than any attacker, then it would work. And the main requirement is to get enough Proof of Work, to make it confirmed in the next block, which means, that if Proof of Work requires many days or months of grinding, and the transaction is confirmed after 10 minutes, then attackers have very low chances to double-spend it in practice (and by double-spending, it would mean things like "sharing the old state of some LN channel").
+
+So, to sum up: any given transaction can use two ways to deal with spam: one is transaction fee, another is Proof of Work. And then, it is all about finding an equilibrium, and deciding, if a given user wants to put more coins in, or more Proof of Work instead. Personally, I have nothing against allowing even free transactions, as long as they will have significant Proof of Work requirements, to prevent it from being abused.
+
+-------------------------
+
