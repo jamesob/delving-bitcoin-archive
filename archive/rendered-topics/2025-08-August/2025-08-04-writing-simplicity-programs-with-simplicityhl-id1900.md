@@ -118,3 +118,13 @@ The goal here is to highlight that writing these types of contracts is possible 
 
 -------------------------
 
+niftynei | 2025-08-05 15:32:01 UTC | #2
+
+Nice. A reverse dutch auction for fees on a transaction is such a neat idea. 
+
+This is my first time really looking at a simplicityHL contract, and it's surprising me how much it resembles "normal code". 
+
+Am I right in reading this as including a custom sighash implementation? That's a neat trick.
+
+-------------------------
+
