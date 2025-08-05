@@ -7,7 +7,7 @@
   "cooked": "<p>I wish the original <a href=\"https://github.com/bitcoin/bips/blob/31450c3dbde336cd8503197d78e06ece46c28d7a/bip-0068.mediawiki\">BIP68</a> authors had used just one more bit.</p>\n<p>Why not just do that and include bit 16? So the mask goes from <code>0x0000ffff</code> to <code>0x0001ffff</code>. If bit 16 set, old software would allow spending strictly earlier, so it\u2019s a soft fork. The downside is that if someone set this bit accidentally they\u2019ll have to wait a decade longer than expected.</p>",
   "post_number": 22,
   "post_type": 1,
-  "posts_count": 23,
+  "posts_count": 24,
   "updated_at": "2025-08-04T11:24:34.635Z",
   "reply_count": 1,
   "reply_to_post_number": null,

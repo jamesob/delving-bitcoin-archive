@@ -87,3 +87,21 @@ So, to sum up: any given transaction can use two ways to deal with spam: one is 
 
 -------------------------
 
+1440000bytes | 2025-08-05 07:40:00 UTC | #6
+
+[quote="glozow, post:4, topic:1886"]
+The argument being made is: if policy is stricter than necessary and prevents nodes from hearing about transactions that are likely to be mined, we should loosen it to only what is necessary.
+[/quote]
+
+A few suggestions for the open pull request if changing the minimum relay feerate is necessary:
+
+1. Sub 1 sat/vbyte transactions don't deserve to be in the pool with other transactions. A subpool should be possible if these transactions follow a different `maxmempool` and `mempoolexpiry`. *Example: 32 MB and 36 hours*
+2. If the subpool idea makes sense and does not introduce [free relay](https://bitcoinops.org/en/topics/free-relay/) then `minrelaytxfee` could be dropped to anything above zero.
+3. It does not make sense to leave the fee estimates unchanged if lower fee transactions are relayed and mined.
+
+In the long term, mining pools will realize the [revenue](https://studio.glassnode.com/charts/fees.VolumeSum?a=BTC&mScl=log) will drop further with lower fee rates. It has only made new lows since 2017 (fees in BTC per day), price (in USD) is only ~5x since then and reward down from 12.5 BTC to 3.125 BTC.
+
+Still hopeful that [most blocks](https://mempool.space/graphs/mining/block-fee-rates#1w) will continue to have minimum fee rate above 1 sat/vbyte and users will prefer L2 for lower fees.
+
+-------------------------
+

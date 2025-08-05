@@ -261,3 +261,17 @@ Because Lightning already uses these bits to store obfuscated commitment transac
 
 -------------------------
 
+sjors | 2025-08-05 07:37:22 UTC | #24
+
+[quote="AntoineP, post:23, topic:1818"]
+Lightning already uses these bits to store obfuscated commitment transaction numbers
+[/quote]
+
+Ah, this is burried [deep in BOLT 03](https://github.com/lightning/bolts/blob/6c5968ab83cee68683b4e11dc889b5982a2231e9/03-transactions.md#commitment-transaction):
+
+> the lower 24 bits of the obscured commitment number
+
+It would be good if Lightning folks opened a BIP similar to [BIP320](https://github.com/bitcoin/bips/blob/3e15178a43cf36f6e242bc3ff8caa659f22acb1c/bip-0320.mediawiki) to document this. cc @rustyrussell ?
+
+-------------------------
+
