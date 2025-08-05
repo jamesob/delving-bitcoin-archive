@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 2.0,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -54,8 +54,14 @@
   "excerpt": "Awesome work <a class=\"mention\" href=\"/u/davidgumberg\">@davidgumberg</a>. I haven\u2019t gotten to dig into it deeper yet. \nJust some brief updated stats on reconstructions over the past months since I also posted them in <a href=\"https://github.com/bitcoin/bitcoin/pull/33106#issuecomment-3155627414\" class=\"inline-onebox\">policy: lower the default blockmintxfee, incrementalrelayfee, minrelaytxfee by glozow \u00b7 Pull Request #33106 \u00b7 bitcoin/bitcoin \u00b7 G&hellip;</a>",
   "truncated": true,
   "post_url": "/t/stats-on-compact-block-reconstructions/1052/35",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "sob",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false
 }
