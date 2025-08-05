@@ -813,3 +813,20 @@ Avg. available bytes for prefill in blocks that were already over a single RTT: 
 
 -------------------------
 
+0xB10C | 2025-08-05 15:27:54 UTC | #35
+
+Awesome work @davidgumberg. I haven't gotten to dig into it deeper yet.
+
+Just some brief updated stats on reconstructions over the past months since I also posted them in https://github.com/bitcoin/bitcoin/pull/33106#issuecomment-3155627414. 
+
+![image](upload://5dfMqobUOqoYuhBawJE1BjO1Bz3.png)
+
+
+Since https://github.com/bitcoin/bitcoin/pull/32582, we log the the size of the requested transactions. Here, I plot the average size of the requested transactions per block per day.
+
+![image](upload://sZyQqsXR68OJLHeEaTVd4SJBjte.png)
+
+In early June we were requesting less than 10kB per block were we needed to request something (about 40-50% of blocks) on average. Currently, we are requesting close to 800kB of transactions on average for 70% (30% of the blocks need no requests) of the blocks.
+
+-------------------------
+
