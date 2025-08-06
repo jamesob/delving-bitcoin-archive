@@ -113,3 +113,9 @@ But more realistically, whatever mechanism they have to prevent those transactio
 
 -------------------------
 
+marathon-gary | 2025-08-06 18:12:22 UTC | #4
+
+Just noting that https://stratum.work also provides some template timing data points from its infrastructure relevant to this discussion.
+
+-------------------------
+

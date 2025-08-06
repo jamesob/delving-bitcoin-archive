@@ -111,3 +111,13 @@ Why the sudden urgency to push this change into the next release? Policy changes
 
 -------------------------
 
+glozow | 2025-08-06 16:47:35 UTC | #8
+
+[quote="Sceptic, post:7, topic:1886"]
+Why the sudden urgency to push this change into the next release?
+[/quote]
+
+See https://github.com/bitcoin/bitcoin/pull/33106#issuecomment-3155627414
+
+-------------------------
+
