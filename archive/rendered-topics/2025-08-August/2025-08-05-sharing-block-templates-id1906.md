@@ -93,3 +93,23 @@ Then the next template from our peer still required some transactions, but much 
 
 -------------------------
 
+portlandhodl | 2025-08-06 11:25:57 UTC | #2
+
+I love the idea; but combined with GETDATA this would allow for someone to obtain transactions a miner has deemed to valuable enough even with bad prop to be private.
+
+Currently Antpool (all whitelabels) & MARA Pool participate in this behavior. Rebar labs offers this as a service.
+
+-------------------------
+
+sipa | 2025-08-06 12:29:34 UTC | #3
+
+[quote="portlandhodl, post:2, topic:1906"]
+I love the idea; but combined with GETDATA this would allow for someone to obtain transactions a miner has deemed to valuable enough even with bad prop to be private.
+[/quote]
+
+... that seems like a good thing?
+
+But more realistically, whatever mechanism they have to prevent those transactions from being relayed currently could equally be used to prevent them from being included in the template responses proposed here.
+
+-------------------------
+
