@@ -105,3 +105,9 @@ Still hopeful that [most blocks](https://mempool.space/graphs/mining/block-fee-r
 
 -------------------------
 
+Sceptic | 2025-08-06 15:44:53 UTC | #7
+
+Why the sudden urgency to push this change into the next release? Policy changes usually aren’t rushed.
+
+-------------------------
+
