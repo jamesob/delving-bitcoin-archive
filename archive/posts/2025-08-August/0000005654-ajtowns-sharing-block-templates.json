@@ -15,7 +15,7 @@
   "incoming_link_count": 22,
   "reads": 12,
   "readers_count": 11,
-  "score": 127.2,
+  "score": 142.4,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -61,12 +61,17 @@
   "post_url": "/t/sharing-block-templates/1906/1",
   "reactions": [
     {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false
 }
