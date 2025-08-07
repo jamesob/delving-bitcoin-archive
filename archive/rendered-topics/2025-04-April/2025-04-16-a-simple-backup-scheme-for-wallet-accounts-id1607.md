@@ -466,3 +466,27 @@ Looking forward. Perhaps you can also use https://github.com/joshdoman/descripto
 
 -------------------------
 
+pyth | 2025-08-07 06:34:37 UTC | #28
+
+ yes, I plan to have a look at it in a second time, its very interesting for those that want to engrave their encrypted backup
+
+-------------------------
+
+pyth | 2025-08-07 06:54:43 UTC | #29
+
+Since last week I've been working on an Rust implementation based on this scheme & comments that have been made in this thread:
+https://github.com/pythcoiner/encrypted_backup
+
+I've also started to write draft spec:
+
+https://github.com/pythcoiner/encrypted_backup/blob/6c165bc871c81e8dd1abde7fc20f16989f608ca3/BIP.mediawiki
+
+tldr : it define a broader scope of what can be encrypted and add few useful metadas to the encrypted payload:
+- version
+- list of derivation path (optional)
+- the type of content
+- the encryption protocol used
+- the nonce used in AES-GCM
+
+-------------------------
+
