@@ -128,3 +128,16 @@ Am I right in reading this as including a custom sighash implementation? That's 
 
 -------------------------
 
+sanket1729 | 2025-08-06 22:37:56 UTC | #3
+
+[quote="niftynei, post:2, topic:1900"]
+Am I right in reading this as including a custom sighash implementation? That’s a neat trick.
+[/quote]
+
+The current version of SimplicityHL requires committing to programs at the time of address creation. However, it is also possible to implement this behavior using a sighash check, which allows the signer to make this choice at signing time instead of during address setup. This approach is enabled by a Simplicity extension called *delegation*. Currently, SimplicityHL programs do not utilize the [universal sighash](https://blog.blockstream.com/simplicity-taproot-and-universal-sighashes/) mode described below. While there are no technical barriers to implementing this as a more flexible sighash based check, it has not been implemented yet.
+
+
+> The key insight is that sighash modes, unlike any other aspect of Bitcoin’s Script, allow the user to decide what gets signed *at signing time* rather than at *address generation time* . In Bitcoin, this signing-time ability is limited to setting the sighash mode, but with careful use of Simplicity’s disconnect combinator, we can go much further. We can enable the signer to do much more than fixing various parts of the transaction data. He could fix arbitrary transaction parts not only to specific values, but to certain ranges or subsets, and conditional these restrictions on timelocks being satisfied, external data being signed — or any arbitrary computation! Further, he could delegate these decisions to alternate (sets of) public keys.
+
+-------------------------
+
