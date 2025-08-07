@@ -310,12 +310,6 @@ I deleted and rewrote this into a more coherent article [here](https://github.co
 
 -------------------------
 
-zawy | 2025-08-06 11:22:46 UTC | #17
-
-(post deleted by author)
-
--------------------------
-
 zawy | 2025-08-07 00:45:21 UTC | #18
 
 work = (2^256 - 1)  / 2nd_lowest_hash
