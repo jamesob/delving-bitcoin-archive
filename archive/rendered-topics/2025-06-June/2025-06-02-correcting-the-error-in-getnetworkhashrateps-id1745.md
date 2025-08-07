@@ -318,7 +318,7 @@ The 2nd lowest hash is an "effective difficulty" that the lowest hash "solves".
 
 -------------------------
 
-sipa | 2025-08-07 20:08:05 UTC | #19
+sipa | 2025-08-07 20:18:22 UTC | #19
 
 Interesting. This works with any “k'th lowest hash”, actually.
 
@@ -334,6 +334,21 @@ $$
 \mathrm{Var}\left[\frac{k-1}{H_{(k)}}\right] = \frac{n(n-k+1)}{k-2}
 $$
 which means that using higher $k$ gives a better estimate.
+
+However, for any small constant $k$, this variance is still $\mathcal{O}(n^2)$. Using the number of blocks is a much better estimators. Let $b$ be the number of blocks seen, and $w$ the expected amount of work per block:
+$$
+w = \frac{2^{256}-1}{\mathrm{target}}
+$$
+Then
+$$
+b \sim \mathrm{Poisson}\left(\frac{n}{w}\right)
+$$
+And we can esimate the amount of work as $bw$:
+$$
+\mathrm{E}[bw] = n \\
+\mathrm{Var}[bw] = n
+$$
+Which has just $\mathcal{O}(n)$ variance.
 
 -------------------------
 
