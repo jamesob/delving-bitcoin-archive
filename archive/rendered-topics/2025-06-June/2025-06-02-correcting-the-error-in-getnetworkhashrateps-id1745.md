@@ -318,9 +318,9 @@ The 2nd lowest hash is an "effective difficulty" that the lowest hash "solves".
 
 -------------------------
 
-sipa | 2025-08-07 20:06:39 UTC | #19
+sipa | 2025-08-07 20:08:05 UTC | #19
 
-Interesting. This works with any “$k$th lowest hash”, actually.
+Interesting. This works with any “k'th lowest hash”, actually.
 
 If $H_{(k)}$ is the k’th lowest hash seen (the lowest one having $k=1$), normalized to $[0 \ldots 1]$, then $\frac{k-1}{H_{(k)}}$ is an estimate for the amount of work.
 
