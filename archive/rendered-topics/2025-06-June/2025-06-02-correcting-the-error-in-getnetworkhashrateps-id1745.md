@@ -318,11 +318,22 @@ The 2nd lowest hash is an "effective difficulty" that the lowest hash "solves".
 
 -------------------------
 
-sipa | 2025-08-07 20:03:14 UTC | #19
+sipa | 2025-08-07 20:06:39 UTC | #19
 
 Interesting. This works with any “$k$th lowest hash”, actually.
 
-If $H\_{(k)}$ is the k’th lowest hash seen (the lowest one having $k=1$), normalized to $\[0 \\ldots 1\]$, then $\\frac{k-1}{H\_{(k)}}$ is an estimate for the amount of work. If we model this as $n$ uniformly random samples being taken from $\[0 \\ldots 1\]$ (which is what each hash attempt is), then $H\_{(k)}$ is distributed as $\\mathrm{Beta})(k, n+k-1)$. For such a distribution, $\\mathrm{E}\[\\frac{k-1}{H\_{(k)}}\] = n$. Its variance $\\mathrm{Var}\[\\frac{k-1}{H\_{(k)}}\] = \\frac{n(n-k+1)}{k-2}$, which means that using higher $k$ gives a better estimate.
+If $H_{(k)}$ is the k’th lowest hash seen (the lowest one having $k=1$), normalized to $[0 \ldots 1]$, then $\frac{k-1}{H_{(k)}}$ is an estimate for the amount of work.
+
+If we model this as $n$ uniformly random samples being taken from $[0 \ldots 1]$ (which is what each hash attempt is), then
+$$
+H_{(k)} \sim  \mathrm{Beta}(k, n+k-1)
+$$
+For such a distribution
+$$
+\mathrm{E}\left[\frac{k-1}{H_{(k)}}\right] = n \\
+\mathrm{Var}\left[\frac{k-1}{H_{(k)}}\right] = \frac{n(n-k+1)}{k-2}
+$$
+which means that using higher $k$ gives a better estimate.
 
 -------------------------
 
