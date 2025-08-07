@@ -28,3 +28,11 @@ Your proposal can be simplified into "there should never be any whales" rule. Wh
 
 -------------------------
 
+jcorgan | 2025-08-07 02:11:03 UTC | #3
+
+Your proposal is easy to summarize: "I don't like what happens when people I don't like are free to buy or sell bitcoin without meeting my personal criteria for participation in the bitcoin market, so let's confiscate coins and force redistribution until I'm happy."
+
+Go away and make your own coin and everyone who obviously agrees with you will join in and we all can live happily ever after.
+
+-------------------------
+
