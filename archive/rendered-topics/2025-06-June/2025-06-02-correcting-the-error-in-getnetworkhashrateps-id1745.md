@@ -304,41 +304,23 @@ In deciding a leading tip, you just sum the difficulties as usual because you wa
 
 -------------------------
 
-zawy | 2025-07-13 09:30:54 UTC | #16
+zawy | 2025-08-06 11:23:27 UTC | #16
 
-I want to find the relation between chain_work and the lowest_hash (an N=1 situation).  The problem reminded me of being unable to estimate the expected solvetime (1/&lambda;) from a single solvetime. After playing around with it, it appears they are both based on the exponential distribution:
-
-$D = \frac{2^{256}}{\text{lowest_hash}}$
-
-$W = \text{chain_work} = \lambda$
-
-$\text{PDF}(1/D) = W e^{-\frac{W}{D}}$
-
-[ edit: 
-Grok says I should have written this equivalently as:
-
-$\text{PDF}(\text{lowest_hash}) = \frac{W}{2^{256}} e^{-\frac{W}{2^{256}}}$
-
-The histogram of $\frac{W}{D}$ looks like the exponential PDF, the median  sticks around the expected ln(2), and the mean and StdDev are 1 as expected. 
-
-My experiments didn't assume a constant hashrate or difficulty, but that the difficulty was correctly adjusted for the hashrate (i.e. the expected solvetimes were the block time). 
-
-Edit: 
-Grok insists W = D is a good unbiased estimator for the chain work. This is primarily because if we're looking at the Bitcoin chain we have only 1 trial.  To support it's point, it provided the following equation that showed itself more accurate than mine that uses 1/6. It depends on the number of trial runs in my experiment:
-
-W = 2^256/lowest_hash/(ln(trials) + 0.577)
-
-It's almost 2x higher than W = D that Grok insists on for 1 trial. So presumably, this equation applies for at least 2 trials.
-
-I pointed out that W for the Nth lowest hash is 2^256 * (N-1) / Nth_lowest_hash. It agreed. So I pointed out that for N=1 this equation implies chain work would be 0 which doesn't seem right, but that my 1/6 factor is more in line with the trend of being a larger and larger correction downward, but that W=D = 2^256/lowest_hash is a sudden reversal of the trend. It disagreed.
-
-I then pointed out that if I have the 2 lowest hashes, then W = 2^256 (2-1) / 2nd_lowest_hash is always smaller than 2^256/lowest_hash which appears to show 2^256/lowest_hash is too large. It disagreed, saying N=2 is merely more robust.
+I deleted and rewrote this into a more coherent article [here](https://github.com/zawy12/difficulty-algorithms/issues/84).
 
 -------------------------
 
-zawy | 2025-07-12 10:32:27 UTC | #17
+zawy | 2025-08-06 11:22:46 UTC | #17
 
-I had D and W backwards in my PDF which caused a lot of errors that I've corrected.
+(post deleted by author)
+
+-------------------------
+
+zawy | 2025-08-07 00:45:21 UTC | #18
+
+work = (2^256 - 1)  / 2nd_lowest_hash
+
+The 2nd lowest hash is an "effective difficulty" that the lowest hash "solves".
 
 -------------------------
 
