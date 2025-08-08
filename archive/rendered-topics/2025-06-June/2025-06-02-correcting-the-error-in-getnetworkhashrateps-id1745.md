@@ -318,7 +318,7 @@ The 2nd lowest hash is an "effective difficulty" that the lowest hash "solves".
 
 -------------------------
 
-sipa | 2025-08-07 21:56:29 UTC | #19
+sipa | 2025-08-08 01:35:39 UTC | #19
 
 Interesting. This works with any “k'th lowest hash”, actually.
 
@@ -326,16 +326,16 @@ If $H_{(k)}$ is the k’th lowest hash seen (the lowest one having $k=1$), norma
 
 If we model this as $n$ uniformly random samples being taken from $[0 \ldots 1]$ (which is what each hash attempt is), then
 $$
-H_{(k)} \sim  \mathrm{Beta}(k, n+k-1)
+H_{(k)} \sim  \mathrm{Beta}(k, n-k+1)
 $$
 For such a distribution
 $$
 \mathrm{E}\left[\frac{k-1}{H_{(k)}}\right] = n \\
-\mathrm{Var}\left[\frac{k-1}{H_{(k)}}\right] = \frac{n(n-k+1)}{k-2}
+\mathrm{Var}\left[\frac{k-1}{H_{(k)}}\right] = \frac{n(n-k+1)}{k-2} \approx \frac{n^2}{k-2}
 $$
 which means that using higher $k$ gives a better estimate.
 
-However, for any small constant $k$, this variance is still $\mathcal{O}(n^2)$. Using the number of blocks is a much better estimators. Let $b$ be the number of blocks seen, and $w$ the expected amount of work per block:
+~~However, for any small constant $k$, this variance is still $\mathcal{O}(n^2)$. Using the number of blocks is a much better estimators.~~ Let $b$ be the number of blocks seen, and $w$ the expected amount of work per block:
 $$
 w = \frac{2^{256}-1}{\mathrm{target}}
 $$
@@ -346,9 +346,13 @@ $$
 And we can esimate the amount of work as $bw$:
 $$
 \mathrm{E}\left[bw\right] = n \\
-\mathrm{Var}\left[bw\right] = n
+\mathrm{Var}\left[bw\right] = nw \approx \frac{n^2}{b}
 $$
-Which has just $\mathcal{O}(n)$ variance.
+~~Which has just $\mathcal{O}(n)$ variance.~~
+
+EDIT: I made a mistake in the variance of the $bw$ estimator, it's $nw$, not $n$. The two approaches do seem similar in terms of variance:
+* $\frac{k-1}{H_{(k)}}$ has standard deviation roughly equal to $\frac{n}{\sqrt{k-2}}$
+* $bw$ has standard deviation roughly equal to $\frac{n}{\sqrt{b}}$.
 
 -------------------------
 
@@ -365,6 +369,20 @@ StdDev = n / SQRT(k-1)
 Which has increasing error as b and k get small. They *should* be the same if “the kth lowest is like the target that the k-1 lowest solved”.
 
 [Here’s an article](https://github.com/zawy12/difficulty-algorithms/issues/77) I did on the kth lowest hashes when looking at Bitcoin’s lowest hashes.
+
+-------------------------
+
+sipa | 2025-08-08 02:23:35 UTC | #21
+
+You're right; I made a mistake in determining the variance of the $bw$ estimator. See edit.
+
+I do get a standard deviation of approximately $\frac{n}{\sqrt{k-2}}$ for the $\frac{k-1}{H_{(k)}}$ estimator, though, not $\frac{n}{\sqrt{k-1}}$.
+
+I think that means you can generally use this algorithm to determine the amount of work in some window of blocks:
+* Let T be the lowest target among all the blocks.
+* Let S be the set of block hashes below T (including from blocks with a different target than T).
+* Let H be the highest hash in S (i.e., the one closest to T).
+* The work estimate is then $(\#S -1) \times \frac{2^{256}}{H}$.
 
 -------------------------
 

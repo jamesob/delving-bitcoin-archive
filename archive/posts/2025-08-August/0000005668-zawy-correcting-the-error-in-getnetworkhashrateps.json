@@ -7,7 +7,7 @@
   "cooked": "<p>work = (2^256 - 1)  / 2nd_lowest_hash</p>\n<p>The 2nd lowest hash is an \u201ceffective difficulty\u201d that the lowest hash \u201csolves\u201d.</p>",
   "post_number": 18,
   "post_type": 1,
-  "posts_count": 18,
+  "posts_count": 19,
   "updated_at": "2025-08-07T00:45:21.764Z",
   "reply_count": 1,
   "reply_to_post_number": null,
