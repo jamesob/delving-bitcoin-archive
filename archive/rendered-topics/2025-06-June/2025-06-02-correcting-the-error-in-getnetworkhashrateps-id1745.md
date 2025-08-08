@@ -318,7 +318,7 @@ The 2nd lowest hash is an "effective difficulty" that the lowest hash "solves".
 
 -------------------------
 
-sipa | 2025-08-07 20:18:22 UTC | #19
+sipa | 2025-08-07 21:56:29 UTC | #19
 
 Interesting. This works with any “k'th lowest hash”, actually.
 
@@ -345,8 +345,8 @@ b \sim \mathrm{Poisson}\left(\frac{n}{w}\right)
 $$
 And we can esimate the amount of work as $bw$:
 $$
-\mathrm{E}[bw] = n \\
-\mathrm{Var}[bw] = n
+\mathrm{E}\left[bw\right] = n \\
+\mathrm{Var}\left[bw\right] = n
 $$
 Which has just $\mathcal{O}(n)$ variance.
 
