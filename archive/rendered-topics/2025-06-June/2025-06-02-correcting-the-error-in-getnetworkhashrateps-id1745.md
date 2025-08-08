@@ -386,3 +386,11 @@ I think that means you can generally use this algorithm to determine the amount 
 
 -------------------------
 
+zawy | 2025-08-08 10:57:26 UTC | #22
+
+Or you could just use $W = \text{#S} \times \frac{2^{256}}{T}$. The proof of W within the StdDev error range (now $\frac{1}{\sqrt{\text{#S}-1}}$ ) requires all the S headers to be retained. That would be a big set that includes most of the recent blocks.  
+
+I think PoPoW schemes usually increase the number of lowest-hash-headers with the log() of chain work.
+
+-------------------------
+
