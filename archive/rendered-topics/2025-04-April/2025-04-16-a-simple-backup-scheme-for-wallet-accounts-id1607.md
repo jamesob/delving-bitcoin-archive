@@ -490,3 +490,9 @@ tldr : it define a broader scope of what can be encrypted and add few useful met
 
 -------------------------
 
+AntoineP | 2025-08-08 17:37:10 UTC | #30
+
+Related to the topic of this thread, the Bitcoin Core wallet is about to add an RPC to backup a wallet’s descriptors and related information. See https://github.com/bitcoin/bitcoin/pull/32489. I’m unsure how much overlap there is with this effort, but it’s about achieving the same goal: backing up all private-but-not-secret information related to the wallet of a user.
+
+-------------------------
+
