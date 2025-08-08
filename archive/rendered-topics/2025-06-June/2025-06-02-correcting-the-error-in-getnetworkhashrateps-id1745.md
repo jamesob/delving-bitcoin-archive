@@ -356,9 +356,9 @@ EDIT: I made a mistake in the variance of the $bw$ estimator, it's $nw$, not $n$
 
 -------------------------
 
-zawy | 2025-08-08 00:32:21 UTC | #20
+zawy | 2025-08-08 08:46:09 UTC | #20
 
-I don’t understand your variance comments. By experiment, the standard deviation in these estimates of n hashes of work is about the same, i.e.
+<strike>I don’t understand your variance comments.</strike> By experiment, the standard deviation in these estimates of n hashes of work is about the same, i.e.
 
 StdDev = n / SQRT(b)
 
