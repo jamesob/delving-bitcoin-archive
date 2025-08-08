@@ -352,15 +352,15 @@ Which has just $\mathcal{O}(n)$ variance.
 
 -------------------------
 
-zawy | 2025-08-08 00:02:57 UTC | #20
+zawy | 2025-08-08 00:14:20 UTC | #20
 
-I don’t understand your variance comments. By experiment, the standard deviation in these estimates of work is about the same, i.e. 
+I don’t understand your variance comments. By experiment, the standard deviation in these estimates of n hashes of work is about the same, i.e.
 
 StdDev = n / SQRT(b)
 
 and
 
-StdDev = n / SQRT(k-1) 
+StdDev = n / SQRT(k-1)
 
 Which has increasing error as b and k get small.
 
