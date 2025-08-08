@@ -352,3 +352,19 @@ Which has just $\mathcal{O}(n)$ variance.
 
 -------------------------
 
+zawy | 2025-08-08 00:02:57 UTC | #20
+
+I don’t understand your variance comments. By experiment, the standard deviation in these estimates of work is about the same, i.e. 
+
+StdDev = n / SQRT(b)
+
+and
+
+StdDev = n / SQRT(k-1) 
+
+Which has increasing error as b and k get small.
+
+[Here’s an article](https://github.com/zawy12/difficulty-algorithms/issues/77) I did on the kth lowest hashes when looking at Bitcoin’s lowest hashes.
+
+-------------------------
+
