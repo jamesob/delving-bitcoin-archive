@@ -352,7 +352,7 @@ Which has just $\mathcal{O}(n)$ variance.
 
 -------------------------
 
-zawy | 2025-08-08 00:14:20 UTC | #20
+zawy | 2025-08-08 00:21:34 UTC | #20
 
 I don’t understand your variance comments. By experiment, the standard deviation in these estimates of n hashes of work is about the same, i.e.
 
@@ -362,7 +362,7 @@ and
 
 StdDev = n / SQRT(k-1)
 
-Which has increasing error as b and k get small.
+Which has increasing error as b and k get small. They should be the same if “the kth lowest is like the target that the k-1 lowest solved”.
 
 [Here’s an article](https://github.com/zawy12/difficulty-algorithms/issues/77) I did on the kth lowest hashes when looking at Bitcoin’s lowest hashes.
 
