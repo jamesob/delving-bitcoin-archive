@@ -396,3 +396,49 @@ It's interesting that the window of blocks is flexible. To prevent selection bia
 
 -------------------------
 
+zawy | 2025-08-09 14:35:01 UTC | #23
+
+TL;DR: I think @sipa used Beta where he should have used <strike>Gamma</strike> Binomial.
+ 
+It's suspicious that the variance denominator jumps from k-2 to k when I "increase k by 1".   
+
+That is, we have
+
+$W = (\text{#S}-1) \times \frac{2^{256}}{H}$
+
+and I say "let's increase #S by 1" by pretending T was a hash. It's just a little higher than H by definition. I believe this is legitimate because I believe the mean interval from H to T is equal to the mean interval between the elements in #S. So I'll add T as an extra "hash" to the set S to make S'. 
+
+$W = (\text{#S}'-1) \times \frac{2^{256}}{T} =  \text{#S} \times \frac{2^{256}}{T} $
+
+If difficulty is a constant at T, then b = #S'-1 and the W equation for the Beta distribution is equal to the Poisson's. But the variance denominators are supposedly different, i.e. 1/b verses 1/(#S' - 2). 
+
+So I wonder if we're back to the original point of this thread, i.e. an (N-1)/N correction is needed when we try to apply a distribution that counts events in a given amount of time in situations where we make the mistake of starting with a given number of events. Or there could be a vice versa mistake. In this case, the Poisson counts events in a fixed amount of time and the Beta distribution counts time for a fixed number of blocks, so there's a probable mismatch. 
+
+In asking Grok about this, it appears the Erlang (or Gamma) should be used in place of the Poisson if we look back a fixed number of blocks, or the Binomial used in place of the Beta if we're looking back a fixed amount of time. (Poisson is for fixed time and Beta is for fixed blocks). I believe we're doing the latter, and if I knew how to apply the Binomial I would get "lowest hashes" method to have n^2 / (#S'-1) variance, same as Poisson's n^2 / b. In other words, the Nth lowest hash is precisely like a difficulty target for N-1 "blocks found" so that we can just use Poisson in both cases. This is a given if my supposition above about the mean interval is correct. 
+
+If the difficulty isn't constant, it still looks correct. In that situation b > #S' so that the W from b has a lower variance while still using the same Poisson equations for W and Var for both b and #S'.
+
+-------------------------
+
+sipa | 2025-08-09 13:28:09 UTC | #24
+
+To be clear, my claim of $\mathrm{Var}[\frac{k-1}{H_{(k)}}] \approx \frac{n^2}{k-2}$ is for the case where $k$ is fixed, before the experiment is conducted. I don't know if it remains when $k$ becomes dependent on the experiment (as is the case in the "use largest-hash block among those beating the lowest target" approach).
+
+-------------------------
+
+zawy | 2025-08-09 14:31:50 UTC | #25
+
+Correction: I meant to say Binomial instead of Gamma.  Yes, Beta is the distribution of a normalized time for a fixed number of events, and Poisson is the distribution of events for a fixed time, so there's a probable mismatch.
+
+-------------------------
+
+zawy | 2025-08-09 14:43:45 UTC | #26
+
+Since Beta is for fixed blocks and Poisson is for fixed time, I would guess we have to make the (N-1)/N correction like this to your Poisson equations to convert it to fixed blocks:
+
+$E[bw] = n \frac{b-1}{b}$
+
+$Var[bw] = \frac{n^2}{b} \frac{b}{b-1}$
+
+-------------------------
+
