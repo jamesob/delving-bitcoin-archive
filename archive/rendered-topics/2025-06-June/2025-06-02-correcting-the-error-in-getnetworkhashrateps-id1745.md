@@ -426,19 +426,21 @@ To be clear, my claim of $\mathrm{Var}[\frac{k-1}{H_{(k)}}] \approx \frac{n^2}{k
 
 -------------------------
 
-zawy | 2025-08-09 14:31:50 UTC | #25
+zawy | 2025-08-09 19:50:18 UTC | #25
 
-Correction: I meant to say Binomial instead of Gamma.  Yes, Beta is the distribution of a normalized time for a fixed number of events, and Poisson is the distribution of events for a fixed time, so there's a probable mismatch.
+Correction: I meant to say use Binomial (not Gamma) in place of Beta.  Yes, Beta is the distribution of a normalized time for a fixed number of events, and Poisson is the distribution of events for a fixed time, so there's a probable mismatch.
 
 -------------------------
 
-zawy | 2025-08-09 14:43:45 UTC | #26
+zawy | 2025-08-09 19:54:27 UTC | #26
 
 Since Beta is for fixed blocks and Poisson is for fixed time, I would guess we have to make the (N-1)/N correction like this to your Poisson equations to convert it to fixed blocks:
 
 $E[bw] = n \frac{b-1}{b}$
 
 $Var[bw] = \frac{n^2}{b} \frac{b}{b-1}$
+
+In other words, if Beta is used (fixed-blocks), then make the above correction to Poisson which should be the same as using Erlang (or Gamma).  If Poisson is used (fixed time interval), use Bionomial in place of Beta.
 
 -------------------------
 
