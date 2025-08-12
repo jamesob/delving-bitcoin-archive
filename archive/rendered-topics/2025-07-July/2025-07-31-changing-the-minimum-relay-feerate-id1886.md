@@ -147,3 +147,57 @@ I completely agree with a more comprehensive solution to poor compact block reco
 
 -------------------------
 
+garlonicon | 2025-08-12 16:53:22 UTC | #11
+
+> I wonder if it is possible to set minimum relay fees dynamically
+
+It is set dynamically, because after filling the whole mempool (which is 300 MB by default), transactions with lower fee rates are automatically dropped.
+
+> If one only had to account for blockspace demand the problem would be more tractable
+
+Even if you allow free transactions, then still, you have 4 MB as the maximum block size, and it is always enforced, even if all transactions pay zero fees. And because fees are sorted from highest to lowest, then even if you allow free transactions, then most of the time, you will still get a lot of fees, as long as blocks are not empty.
+
+> in some circumstances it might be profitable for miners to include transactions at a feerate (sats/vB) below the network’s relay cost
+
+But they can. They can accept even one satoshi per transaction, if they want to. And they can provide a batching service, which would allow relaying low fee transactions, only to build a chain of signatures, and simplify it later, by compressing it into some smaller transaction, having exactly the same final outputs, which would bump its feerate. Usually, it’s just a matter of using different sighashes than SIGHASH_ALL, or having more than one user per UTXO.
+
+-------------------------
+
+davidgumberg | 2025-08-12 18:54:56 UTC | #12
+
+> The [headerssync parameters](https://github.com/bitcoin/bitcoin/blob/273e600e65c2e31a6e9a0bd72b40672aaa503b08/contrib/devtools/headerssync-params.py#L24) depend on specs of modern processors (the speed a “Ryzen 5950X CPU thread can hash headers“), the length of the chain, and the release sunset date.
+
+> Values like network size and approximate computation/bandwidth costs change very gradually, certainly slower than the pace at which other parts of the software are modernized/fixed. 
+
+I am not objecting to hardcoded values being included in releases in general, I agree that hashrate of generally available computer hardware, Bitcoin network size, and the absolute cost of network bandwidth tend to move slowly and monotonically, but can't changes in blockspace demand and the conversion rate between BTC and network bandwidth swing by orders of magnitude in either direction between release cycles?
+
+I guess that blockspace demand can be disregarded since Bitcoin Core's minimum relay feerate is primarily an anti-DoS mechanism and not a mechanism to set a price floor for transaction feerates.
+
+Looking at inter-release USD/BTC changes, using the same figures as I did [above](https://delvingbitcoin.org/t/changing-the-minimum-relay-feerate/1886/9), you can divide 3,600 by the USD/BTC conversion^[$9 * 10^{-2} \frac{\text{USD}}{\text{GB}} * 10^{-9} \frac{\text{GB}}{\text{Bytes}} * 4 \frac{\text{Bytes}}{\text{vB}} * 10^8 \frac{\text{sats}}{\text{BTC}} * 10^5 = 3600 \frac{\text{USD} * \text{sats}}{\text{BTC}*{\text{vB}}}$], to get the approximate network relay cost, for the last few releases of Bitcoin Core:
+
+|Version | Date | USD/BTC | Network Relay Cost (sats/vB)|
+|--- | --- | --- | ---|
+|master | 08/12/25 | 118707.94 | 0.0303|
+|29.0 | 04/15/25 | 84539.7 | 0.0426|
+|28.0 | 08/05/24 | 58110.3 | 0.0620|
+|27.0 | 04/16/24 | 63419.3 | 0.0568|
+|26.0 | 12/07/23 | 43769.13 | 0.0822|
+|25.0 | 05/26/23 | 26474.18 | 0.1360|
+|24.0 | 12/12/22 | 17102.5 | 0.2105|
+|23.0 | 04/25/22 | 39472.61 | 0.0912|
+|22.0 | 09/14/21 | 44960.05 | 0.0801|
+|21.0 | 01/15/21 | 39156.71 | 0.0919|
+|20.0 | 06/03/20 | 9533.76 | 0.3776|
+|19.0 | 11/24/19 | 7398.63 | 0.4866|
+|18.0 | 05/18/19 | 7341.66 | 0.4904|
+
+I think this table suggests that I'm wrong, and conversion rates have moved slowly enough historically to make hardcoding minimum relay feerates viable, and a situation like the one we have today won't recur as long as someone remembers to check and update the minimum relay feerate every once in a while.
+
+----
+
+>It is set dynamically, because after filling the whole mempool (which is 300 MB by default), transactions with lower fee rates are automatically dropped.
+
+Bitcoin Core has a minimum relay feerate and does not simply rely on the lowest feerate transaction in the mempool to protect against DoS. If there was no minimum relay feerate, any time the mempool clears, an attacker could DoS the network cheaply by broadcasting very low feerate transactions that they bump out of the mempool (with no conflicts) with incremental feerate increases.
+
+-------------------------
+
