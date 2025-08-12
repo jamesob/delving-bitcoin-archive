@@ -133,3 +133,17 @@ But, determining the cost to externally relay to the Bitcoin network seems like 
 
 -------------------------
 
+glozow | 2025-08-12 13:56:31 UTC | #10
+
+> will Bitcoin Core always have to hardcode minimum relay feerates, responding to network / market shifts one release cycle after they happen?
+
+There are a number of hardcoded things in Bitcoin Core that are based on “real world” values and updated every 6-12 months. The [headerssync parameters](https://github.com/bitcoin/bitcoin/blob/273e600e65c2e31a6e9a0bd72b40672aaa503b08/contrib/devtools/headerssync-params.py#L24) depend on specs of modern processors (the speed a “Ryzen 5950X CPU thread can hash headers“), the length of the chain, and the release sunset date. Fallback [fixed seeds](https://github.com/bitcoin/bitcoin/tree/master/contrib/seeds) hardcode a snapshot of current nodes on the network, which is highly ephemeral.
+
+Values like network size and approximate computation/bandwidth costs change very gradually, certainly slower than the pace at which other parts of the software are modernized/fixed. The current proposal is to just be within an order of magnitude of what these back-of-the-envelope calculations come out to. I don’t think we should tweak it at every release, but it’s sensible and normal to have these values grounded in an economic reality that can change over time.
+
+> mitigate compact block relay issues related to minimum relay feerate
+
+I completely agree with a more comprehensive solution to poor compact block reconstruction rates. In this case, however, we can diagnose the problem (at least the majority of it) as a single policy rule that is stricter on the network than for miners, and one that we should have revisited sooner than once every 10 years.
+
+-------------------------
+
