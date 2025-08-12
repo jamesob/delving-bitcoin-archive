@@ -1,10 +1,10 @@
 # Confidential Script: Emulate soft forks using stateless TEEs
 
-josh | 2025-08-12 19:03:15 UTC | #1
+josh | 2025-08-12 20:50:38 UTC | #1
 
 ## TLDR
 
-[confidential-script-lib](https://github.com/joshdoman/confidential-script-lib) is a Rust library for emulating Bitcoin script by converting script path spends to key path spends. Intended for use inside a TEE, the library validates unlocking conditions and then authorizes the transaction using a deterministically derived private key.
+[confidential-script-lib](https://github.com/joshdoman/confidential-script-lib) is a Rust library for emulating Bitcoin script by converting script path spends to key path spends. Intended for use inside a Trusted Execution Environment (TEE), the library validates unlocking conditions and then authorizes the transaction using a deterministically derived private key.
 
 This approach enables confidential execution of complex script, including opcodes not yet supported by the Bitcoin protocol. The actual on-chain footprint is a minimal key-path spend, and it is compatible with `rust-bitcoinkernel`, or a fork thereof.
 
