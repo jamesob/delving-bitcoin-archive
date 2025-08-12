@@ -275,3 +275,16 @@ It would be good if Lightning folks opened a BIP similar to [BIP320](https://git
 
 -------------------------
 
+pyth | 2025-08-12 03:35:40 UTC | #25
+
+Interesting remark, thanks.
+
+I’ve take a look about nSequence usage onchain with this \[tool\]([nsequence_runner](https://github.com/pythcoiner/nsequence_runner)) and what I can observe is:
+
+* there is no nsequence bit that have not been used at least once 
+* the combination of bit31 = 0 && bit 22 = 0 && bit 21 = 1 && (nSequence & 0xFFFF) > 0 &&  the spending script contains an OP_CSV (only looked at segwitv0 & taproot)
+
+I’ve no strong opinion on how it should be interpreted btw
+
+-------------------------
+
