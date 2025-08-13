@@ -36,3 +36,16 @@ Go away and make your own coin and everyone who obviously agrees with you will j
 
 -------------------------
 
+davidtaubmann | 2025-08-13 03:01:47 UTC | #4
+
+Ok, Thanks, you’ve helped me understand my error.
+
+I’ve been expecting this tools like Bitcoin to help humanity to evolve into a real Civilization (not a bunch of thinking animals fighting between them for greed instead of collaborating for the common good of their entire species). 
+
+Wanting to achieve this by changing the economic tools (for less social disparity, or isolating money of the living ones from the money of the rest) won’t help at all, as the change should come voluntarily, not by force.
+
+Was a nice try, and very helpful.
+Good life.
+
+-------------------------
+
