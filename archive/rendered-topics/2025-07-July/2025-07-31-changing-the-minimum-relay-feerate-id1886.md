@@ -163,7 +163,7 @@ But they can. They can accept even one satoshi per transaction, if they want to.
 
 -------------------------
 
-davidgumberg | 2025-08-12 18:54:56 UTC | #12
+davidgumberg | 2025-08-13 00:48:40 UTC | #12
 
 > The [headerssync parameters](https://github.com/bitcoin/bitcoin/blob/273e600e65c2e31a6e9a0bd72b40672aaa503b08/contrib/devtools/headerssync-params.py#L24) depend on specs of modern processors (the speed a “Ryzen 5950X CPU thread can hash headers“), the length of the chain, and the release sunset date.
 
@@ -191,7 +191,7 @@ Looking at inter-release USD/BTC changes, using the same figures as I did [above
 |19.0 | 11/24/19 | 7398.63 | 0.4866|
 |18.0 | 05/18/19 | 7341.66 | 0.4904|
 
-I think this table suggests that I'm wrong, and conversion rates have moved slowly enough historically to make hardcoding minimum relay feerates viable, and a situation like the one we have today won't recur as long as someone remembers to check and update the minimum relay feerate every once in a while.
+I think this table suggests that I'm wrong, and conversion rates **have** moved slowly enough historically to make hardcoding minimum relay feerates viable, and a situation like the one we have today won't recur as long as someone remembers to check and update the minimum relay feerate every once in a while as you are suggesting.
 
 ----
 
