@@ -1,6 +1,6 @@
 # Confidential Script: Emulate soft forks using stateless TEEs
 
-josh | 2025-08-12 20:50:38 UTC | #1
+josh | 2025-08-12 21:11:24 UTC | #1
 
 ## TLDR
 
@@ -14,9 +14,15 @@ This library is a follow-up to the BTC++ hackathon in Austin, where I presented 
 
 The goal is to allow developers to experiment on mainnet with features not yet supported by the Bitcoin protocol (ex: `OP_CAT`, `OP_CTV`, `OP_CCV`, Simplicity, etc.), in a permissionless manner with minimal trust assumptions. This could provide a useful compromise in the soft fork debate and allow the community to see which upgrades have real world demand.
 
+## What is a TEE?
+
+A Trusted Execution Environment is an isolated system that segregates memory and the CPU from the outside world, keeping secrets stored in memory secure against side-channel and physical attacks and providing secure attestations about the code being run inside and the result of any computation.
+
+A popular TEE is AWS's [Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/), which is used by [ACINQ](https://aws.amazon.com/ec2/nitro/nitro-enclaves/#ACINQ) to secure funds held in its LSP. AWS Nitro notably integrates with the AWS key management system (KMS), which can facilitate the provisioning of sensitive material. Users must trust AWS as the manufacturer and operator of the machine, but the security guarantees of the system have proven sufficient for many use cases where developers must secure significant funds.
+
 ## Overview
 
-The library operates internally with a two-step process: emulation and signing.
+The `confidential-script-lib` library operates internally with a two-step process: emulation and signing.
 
 1.  **Emulation**: A transaction is constructed using an input spending a *real* `previous_outpoint` with a witness that is a script-path spend from an *emulated* P2TR `script_pubkey`. The library validates this emulated witness using a `Verifier`, which matches the API of `rust-bitcoinkernel`. If compiled with the `bitcoinkernel` feature, users can use the actual kernel as the default verifier, or they can provide an alternative verifier that enforces a different set of rules (ex: a fork of `rust-bitcoinkernel` that supports Simplicity).
 
