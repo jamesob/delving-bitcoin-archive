@@ -1,0 +1,14 @@
+# Qubic attack on Monero
+
+zawy | 2025-08-13 11:39:34 UTC | #1
+
+The Qubic attack on Monero appears to be a costly advertising gimmick to remind us "non-repurposeability" is a requirement for PoW security. Most if not all ASIC-resistant PoWs are vulnerable. ASIC PoWs that are repurposeable (i.e. they can find significant profit elsewhere) aren't secure. Only the biggest CAPEX "waste" has the most security. ^[A "cash coin" can be created by OPEX waste (~electricity) if it's timestamped to adjust for Moore's law.  That is, CAPEX is ideal for PoW consensus security while a timestamped-OPEX PoW is ideal for creating coin that can expand in quantity as demand for it expands, adjusted for Moore's law. This can be achieved if difficulty increases in proportion to Moore's law. But there's no known way to decentrally measure Moore's law. But if it were possible, it would be a "cash coin" can be in units of Joules * velocity = Watts of societal production that is under the control of the cash coin. If demand falls, its value falls, but this is appropriate. The past has no inherent right to control or dictate what the future values. Coins that can't have out-sized value in the future are thereby helping to secure their future value.] Optical-PoW and Chia's proof of hard drive waste aren't ASICs but could potentially be secure, but it's not as clear as it is in Bitcoin. Merge-mined coins using Bitcoin's PoW aren't secure because Bitcoin miner's could attack. X11 PoW that uses a mixture of PoWs (if it includes Bitcoin's PoW) might be a unique case that has at least as much security.  But all cases of sufficient security can be viewed as having sufficient non-repurposeability. 
+
+Sufficiently non-repurposeable can be defined as >50% of the hashrate (including equipment that has gone dark due to inefficiency) gaining more from long-term rewards + fees (from his remaining non-repurposeable CAPEX value) than from double-spending + short-term rewards + fees. 
+
+Non-repurposeability isn't completely secure. The main threat to Bitcoin is from states gaining more than the chain can provide by attacking Bitcoin to protect their fiat's relevance, their control of fiat transactions, and their knowledge of who's transacting. To be secure against this, the current OPEX invested (~ the sum of future rewards + fees) must exceed the amount of tax revenue and fiat printing that colluding states can muster for an attack, and expect to win if they do attack. This latter condition is satisfied to the extent Bitcoin is a threat to their power. About 40 governments could spend less than 10% of their revenue to maintain an attack ($10 B annually).  U.S. only needs to use 0.15% of its spending.
+
+Selfish mining was part of the Monero attack, but it isn't a threat to Bitcoin as soon as the majority of hashrate agrees to softly-enforce timestamp accuracy to less than say 20 seconds of error as I've described before.
+
+-------------------------
+
