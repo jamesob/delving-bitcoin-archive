@@ -444,3 +444,53 @@ In other words, if Beta is used (fixed-blocks), then make the above correction t
 
 -------------------------
 
+zawy | 2025-08-13 16:31:09 UTC | #27
+
+Experimentally, given b blocks seen, a difficulty, and a uniformly random number of hashes, the Poisson equation seems to need a (b+1)/b correction which is in the opposite direction I had guessed. It's accurate down to b=1. This makes me wonder if my OP about hashrate needing a correction is correct. In the hashrate case, we're specifying a number of blocks to look at and the correction (N-1)/N is, in my intuition, based on converting it to be in a fixed amount of time, as in this case. But this is showing that if hashes per that fixed time are uniformly random, an (N+1)/N correction is also needed, giving a net N-1/N correction, or no net correction if our (N-1)/N is really supposed to be N/(N+1). This makes more sense to my intuitive interpretation.
+
+This correction is if work and therefore &lambda; are uniformly random, which may not be an assumption we should use since hashrate is typically roughly stable.
+
+Output:
+```
+target/max_target = 0.0100
+b = 5, runs = 100000
+runs that had b blocks = 6156
+Mean work when b blocks were seen = 600
+Poisson_work = b * max_target/target = 500
+Poisson_work * (b+1)/b = 600
+Stdev work / mean_work when b blocks were seen = 0.409 
+StdDev 1/SQRT(b+1)= 0.408
+```
+Code:
+```
+import random
+import statistics
+
+# Mean work for a given difficulty and given number of blocks found if work is uniformly random in a fixed amount of time. 
+
+runs = 100000 # number of times to do the experiment  
+work_if_b_blocks_found = []
+b = 5 # a given number of found blocks
+max_target = pow(2,256)
+target = 0.01*max_target # difficulty target
+max_work = int((1+5/pow(b,0.5))*b*max_target/target) # get 5 StdDev's more than estimated mean hashes needed
+Poisson_work = b * max_target / target
+for i in range(1, runs):     
+    work = int(random.random()*max_work)  # perform random # of hashes
+    if work < b: continue
+    hash_list = [random.random()*max_target for _ in range(work)] 
+    wins_list = [x for x in hash_list if x < target] # get winning hashes
+    if len(wins_list) == b:
+        work_if_b_blocks_found.append(work)
+print(f"\ntarget/max_target = {target/max_target:,.4f}")
+print("b = " + str(b) + ", runs = " + str(runs) )
+print("runs that had b blocks = " + str(len(work_if_b_blocks_found)) )
+print("Mean work when b blocks were seen = " + str(int(statistics.mean(work_if_b_blocks_found))))
+print("Poisson_work = b * max_target/target = " + str(int(Poisson_work)))
+print("Poisson_work * (b+1)/b = " + str(int(Poisson_work*(b+1)/b)))
+print(f"Stdev work / mean_work when b blocks were seen = {statistics.stdev(work_if_b_blocks_found)/statistics.mean(work_if_b_blocks_found):.3f} ")
+print(f"StdDev 1/SQRT(b+1)= {1/pow(b+1,0.5):,.3f}")
+```
+
+-------------------------
+
