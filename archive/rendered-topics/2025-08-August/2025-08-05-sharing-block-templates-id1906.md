@@ -119,3 +119,13 @@ Just noting that https://stratum.work also provides some template timing data po
 
 -------------------------
 
+ajtowns | 2025-08-14 01:45:43 UTC | #5
+
+Draft BIP text:
+
+https://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md
+
+Comments/review can be made here or [on this PR](https://github.com/ajtowns/bips/pull/7).
+
+-------------------------
+
