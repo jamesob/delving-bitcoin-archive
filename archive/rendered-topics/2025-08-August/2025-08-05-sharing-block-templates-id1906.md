@@ -129,3 +129,9 @@ Comments/review can be made here or [on this PR](https://github.com/ajtowns/bips
 
 -------------------------
 
+fjahr | 2025-08-14 20:18:27 UTC | #6
+
+I am kind of new to this topic and didn’t go through all of the previous weak block conversations but I am curious if usage of set reconciliation has been discussed in this context. Sharing templates is certainly the easiest way to implement and reason about such a feature but if we want to share more transactions than are included in one block/template I think it might be interesting to consider.
+
+-------------------------
+
