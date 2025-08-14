@@ -1,6 +1,6 @@
 # [Proposal] Bitcoin Deposits: A Zero UTXO Trust-Minimized Lightning Wallet
 
-ynniv | 2025-08-13 22:37:55 UTC | #1
+ynniv | 2025-08-14 13:57:42 UTC | #1
 
 Hey all! I’ve been working on an idea for scaling Lightning and it’s time to see whether it holds water. It’s more complex than I’d like, but it seems to solve tough problems that don’t currently have solutions. I’ll start with the motivation, then work through the protocol one layer at a time using a process of trust-reduction.
 
@@ -149,14 +149,9 @@ The last step is replacing Victor with a multisig of the same channel partners w
 
 https://deposits.ynniv.com/
 
-
-
 https://github.com/ynniv/deposits
 
-
-
 https://njump.me/npub12akj8hpakgzk6gygf9rzlm343nulpue3pgkx8jmvyeayh86cfrus4x6fdh
-
 
 https://x.com/ynniv
 

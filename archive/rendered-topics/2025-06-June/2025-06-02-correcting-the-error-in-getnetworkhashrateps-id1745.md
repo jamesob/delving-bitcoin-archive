@@ -494,3 +494,51 @@ print(f"StdDev 1/SQRT(b+1)= {1/pow(b+1,0.5):,.3f}")
 
 -------------------------
 
+sipa | 2025-08-14 11:23:54 UTC | #28
+
+Why do you only look at cases where a specific ($b = 5$) number of blocks during the fixed interval? That must create a distortion.
+
+If you fix the time window, the number of blocks found within it will be variable, and estimations should account for all of the possibilities observed.
+
+In my simulation, even with a variable hashrate during the window, and variable difficulties during the window, the estimator `sum(block.work for block in window) / window.duration)` gives an unbiased estimate for the (average) hashrate during the window, without any correction factors.
+
+-------------------------
+
+zawy | 2025-08-14 13:16:35 UTC | #29
+
+I fixed b because you fixed k and I was wanting to see if the equations for b and k-1 were the same in the limit, i.e. if the kth lowest hash is exactly like a target for b.  Also, when someone runs getnetworkhashps, they're selecting a b number of blocks. Difficulty adjustment also uses a fixed number of blocks.
+
+My simulation doesn't specify a timespan, so <strike>I guess I could be wrong</strike> I'm wrong in saying it's for a fixed amount of time and thereby doesn't say or reveal anything about hashrate. <strike>But if I said it's for a certain timespan before I ran it, I don't see what I would need to change.</strike>
+
+-------------------------
+
+sipa | 2025-08-14 13:31:15 UTC | #30
+
+> I fixed b because you fixed k and I was wanting to see if the equations for b and k-1 were the same in the limit, i.e. if the kth lowest hash is exactly like a target for b
+
+Fair enough. However, I've also come to the conclusion that using the k'th lowest hash for estimating hashrate is inferior to using `(n-1)/n * sum(work)/sum(time)`, so while interesting, I don't think it's useful for actually measuring hashrate.
+
+>  Also, when someone runs getnetworkhashps, they’re selecting a b number of blocks.
+
+Sure, but then you're talking about a random process where the number of blocks is fixed, and the time isn't. If you fix the time, the number of blocks isn't fixed anymore, and then indeed, it isn't directly applicable anymore in the current `getnetworkhashps` RPC. But intuitively, because in that case `sum(work in window)/(window length)` is such a simple and unbiased estimator, it seems that "fixed time window, variable number of blocks" is actually the better way of measuring hashrate if say you want to know the hashrate in the last week (as opposed to first checking how many blocks there in the window, and then running a fixed-number-of-block estimator on that, which - whether you want it or not - brings actually back to the fixed-blocks-variable-time case).
+
+To simulate:
+* Pick a scenario, which is a **fixed** amount of time, which you subdivide into a number of fixed segments, each having a fixed hashrate and a fixed difficulty. I think that roughly matches reality, allowing the hashrate and difficulty to change as a function of time. Further down I'll relax this to allow them to be functions of the previous blocks' timestamps too.
+* For each segment $i$, sample $\mathrm{Poisson}(\mathrm{duration}_i \times \mathrm{hashrate}_i / \mathrm{difficulty}_i)$, representing the number of blocks $b_i$ found in that segment.
+* The hashrate estimate is `sum(work)/(window duration)`, so in this simulation that corresponds to $(\sum_{i}b_i \times \mathrm{difficulty}_i) / \sum_{i}\mathrm{duration}_i$.
+* The real average hashrate through the window is $(\sum_{i} \mathrm{duration}_i \times \mathrm{hashrate}_i) / \sum_{i} \mathrm{duration}_i$
+
+My finding is that the expected value of the estimate exactly matches the real average hashrate, without any correction factor to make it unbiased. I also think this is easy to prove: the expected value of each $(b_i \times \mathrm{difficulty}_i)$ is $(\mathrm{duration}_i \times \mathrm{hashrate}_i)$, and the expectation of a sum is the sum of the expectations. Lastly, dividing by $\sum_{i} \mathrm{duration}_i$ is just dividing the expectation by a constant (it's this last step that is much harder in the variable-time case, because it's not a constant anymore then).
+
+We can generalize this to making the difficulty a function of the prior blocks' timestamps without losing the result. First, observe that we can arbitrarily split each segment into multiple smaller segments with all the same hashrate and difficulty. In the limit, we can think of there being an infinite number of tiny segments, which can each have their own hashrate and difficulty, i.e., this approaches making hashrate and difficulty a *function of time*.
+
+Secondly, observe that the difficulty just does not matter. It affects the number $b_i$ of blocks within a segment, but is cancelled out in the expression of the expected value of $\sum_{i} b_i \times \mathrm{difficulty}_i$. So the $\mathrm{difficulty}_i$ can be made a function of the prior $b_j$ for $j < i$.
+
+Combining these, we can treat the difficulty as an arbitrarily function of the previous block's timestamps (which are encoded in the $b_i$ values, if the segments become infinitesimal), changing every time $N$ blocks are found (well, infinitesimally after that block is found, during the next segment).
+
+Making the hashrate a function of previous blocks' timestamps is a bit more complicated, but the result still holds. This does not cancel out in the expression for the expectation of $b_i$, and thus these are no longer independent. However, since the expectation of a sum is still the sum of the expectations, even when the terms being added are not independent, this does not affect the result.
+
+So, I conclude that `sum(work in window) / (window duration)` is an unbiased estimator for the hashate during **a fixed window**, even when the hashrate and difficulty can change as a function of both time and prior blocks' timestamps.
+
+-------------------------
+
