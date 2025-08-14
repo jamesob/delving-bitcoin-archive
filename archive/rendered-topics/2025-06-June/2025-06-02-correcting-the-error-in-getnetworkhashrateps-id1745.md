@@ -444,11 +444,11 @@ In other words, if Beta is used (fixed-blocks), then make the above correction t
 
 -------------------------
 
-zawy | 2025-08-13 16:31:09 UTC | #27
+zawy | 2025-08-14 00:25:06 UTC | #27
 
 Experimentally, given b blocks seen, a difficulty, and a uniformly random number of hashes, the Poisson equation seems to need a (b+1)/b correction which is in the opposite direction I had guessed. It's accurate down to b=1. This makes me wonder if my OP about hashrate needing a correction is correct. In the hashrate case, we're specifying a number of blocks to look at and the correction (N-1)/N is, in my intuition, based on converting it to be in a fixed amount of time, as in this case. But this is showing that if hashes per that fixed time are uniformly random, an (N+1)/N correction is also needed, giving a net N-1/N correction, or no net correction if our (N-1)/N is really supposed to be N/(N+1). This makes more sense to my intuitive interpretation.
 
-This correction is if work and therefore &lambda; are uniformly random, which may not be an assumption we should use since hashrate is typically roughly stable.
+This correction is if work and therefore &lambda; are uniformly random, which may not be an assumption we should use when adjusting difficulty or checking hashrate.
 
 Output:
 ```
