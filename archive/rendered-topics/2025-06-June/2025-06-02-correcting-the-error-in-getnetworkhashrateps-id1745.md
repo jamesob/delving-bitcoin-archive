@@ -542,3 +542,9 @@ So, I conclude that `sum(work in window) / (window duration)` is an unbiased est
 
 -------------------------
 
+zawy | 2025-08-14 15:51:32 UTC | #31
+
+I had mentioned my preference for ```sum(work in window) / (window duration)``` over a given time window. It's good, interesting, and useful to know it's correct even for difficulty and hashrate changes. Maybe an update to ```getnetworkhashps``` could include it (by choosing a time range in addition a block range) as an option.
+
+-------------------------
+
