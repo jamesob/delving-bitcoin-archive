@@ -201,16 +201,16 @@ Bitcoin Core has a minimum relay feerate and does not simply rely on the lowest 
 
 -------------------------
 
-1440000bytes | 2025-08-14 20:56:46 UTC | #13
+1440000bytes | 2025-08-14 22:46:08 UTC | #13
 
-[quote="davidgumberg, post:9, topic:1886"]
-But, determining the cost to externally relay to the Bitcoin network seems like it will always require external information (cost of internet bandwidth in sats / 4 bytes) and accurately determining the number of nodes on the network is difficult and will always be subject to sybiling, so will Bitcoin Core always have to hardcode minimum relay feerates, responding to network / market shifts one release cycle after they happen?
+[quote="davidgumberg, post:12, topic:1886"]
+Looking at inter-release USD/BTC changes, using the same figures as I did [above](https://delvingbitcoin.org/t/changing-the-minimum-relay-feerate/1886/9), you can divide 3,600 by the USD/BTC conversion[\[1\]](#footnote-5694-1), to get the approximate network relay cost, for the last few releases of Bitcoin Core:
 
 [/quote]
 
-I don’t think policy defaults should be based on the price of bitcoin in USD if they protect the p2p network from DoS. I agree with Matt Corallo’s [tweet](https://x.com/TheBlueMatt/status/1953115648101613619) that the cost of attack should keep increasing over time.
+I don’t think policy defaults should be changed with the price of bitcoin (in USD) if they protect the p2p network from DoS. I agree with Matt Corallo’s [tweet](https://x.com/TheBlueMatt/status/1953115648101613619) that the cost of attack should keep increasing over time.
 
-USD has [devalued](https://i.ibb.co/4wzZdyNY/fredgraph.png) and [average salaries](https://i.ibb.co/nspxp4pd/LT-Wages.png) have increased significantly over the last 10 years. So these calculations would never be appropriate for bitcoin p2p network. The adversaries for networks like bitcoin could remain unaffected with an increase in the cost of attack.
+USD has [devalued](https://i.ibb.co/4wzZdyNY/fredgraph.png) and [average salaries](https://i.ibb.co/nspxp4pd/LT-Wages.png) have increased significantly over the last 10 years. So these calculations would never be appropriate for bitcoin p2p network. The adversaries for networks like bitcoin could remain unaffected even with an increase in the cost of attack.
 
 -------------------------
 

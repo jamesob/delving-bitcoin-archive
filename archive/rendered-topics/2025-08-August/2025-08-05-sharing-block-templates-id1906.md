@@ -135,3 +135,20 @@ I am kind of new to this topic and didn’t go through all of the previous weak 
 
 -------------------------
 
+ajtowns | 2025-08-14 21:52:52 UTC | #7
+
+[quote="fjahr, post:6, topic:1906"]
+I am curious if usage of set reconciliation has been discussed in this context.
+[/quote]
+
+Good question, that's been asked a few times now. I had a look at using minisketch / [BIP330](https://github.com/bitcoin/bips/blob/9a55a542cc5efc8fe1884dcb4d839623fcdd8ace/bip-0330.mediawiki) for it.
+
+I think there's two immediate challenges:
+
+ * BIP330's still [in progress](https://github.com/bitcoin/bitcoin/issues/30249) so just reusing an existing implementation isn't possible
+ * minisketch has $O(n^2)$ scaling for computation as the capacity increases, and the number of transactions in a block template is often much larger than the number of transactions in the INV queue. So when trying to figure out a new peer's template, it might not be very suitable/efficient.
+
+As far as updating a template goes, I'm not sure complicated set reconciliation is needed though -- the sending peer knows what template they last sent to each peer, so could probably just send a diff if that template is recent enough to still be in memory: ie tell the receiving peer to drop these txs by position, then add these txs by short id and new position. That would probably reduce the template message from 20kB (3000 6-byte shortids) to 2.5kB (250 2-byte positions plus 250 6-byte short ids/2-byte positions).
+
+-------------------------
+
