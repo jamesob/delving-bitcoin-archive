@@ -141,3 +141,13 @@ The current version of SimplicityHL requires committing to programs at the time 
 
 -------------------------
 
+niftynei | 2025-08-15 16:12:24 UTC | #4
+
+I’m not sure I follow. 
+
+The universal sighash mode seems to allow for rangeproof style signature commitments or key delegation. In the original code sample you simply create a ‘custom’ sighash based on selective commitment to the transaction contents. It seems like you could also require a commitment to arbitrary data (however the data would have to be committed to in the script at creation time)
+
+Out of curiosity, what would be required for adding the universal sighash to simplicity?
+
+-------------------------
+
