@@ -548,3 +548,33 @@ I had mentioned my preference for ```sum(work in window) / (window duration)``` 
 
 -------------------------
 
+zawy | 2025-08-15 14:00:40 UTC | #32
+
+I believe this is the best-possible estimate of _current_ hashrate for an arbitrarily-small fixed time period t when given only the lowest hash seen in t. 
+
+$L = \text{lowest hash seen in time t}$
+
+$W = \text{work in t}$
+
+$\lambda = \frac{W}{2^{256}}$
+
+$\text{exponential CDF}(L) = 1 - e^{-\lambda L}$
+
+$E = \text{error signal} = \text{CDF}(L) - 0.5$
+
+The error signal is the probability that the prior estimate of W was wrong. 0.5 is the median observation if the prior estimate was correct, so there would be no error. Use the error signal in the EMA equation. 
+
+$h = \text{height of t time segments}$
+
+$W_{h} = W_{h-1} \cdot e^{-\frac{E}{N}}$
+
+$\text{Stdev} \approx \frac{W}{\sqrt{2N}}$
+
+N = "mean lifetime" of the EMA estimate in units of t. You choose N to get your desired stability / slowness of the estimate.  Divide by t to get hashrate. Use $\frac{2^{256}}{W_h}$ to get the target for a difficulty algorithm that changes every 600 seconds (probably impractical to securely implement).
+
+```hashrate = sum(work)/(time duration)``` from $h - N$ to $h$ gives a better estimate of hashrate at $h -N/2$.  The EMA needs a starting W. If it starts at $h-N$ The starting $W_{h-N}$ could be obtained by ```sum(work) ``` from $h-\frac{3N}{2}$ to $h-\frac{N}{2}$ and dividing by N.
+
+edit: i previously had the wrong sign on the error signal.
+
+-------------------------
+

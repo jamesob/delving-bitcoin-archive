@@ -7,7 +7,7 @@
   "cooked": "<p>Why do you only look at cases where a specific (<span class=\"math\">b = 5</span>) number of blocks during the fixed interval? That must create a distortion.</p>\n<p>If you fix the time window, the number of blocks found within it will be variable, and estimations should account for all of the possibilities observed.</p>\n<p>In my simulation, even with a variable hashrate during the window, and variable difficulties during the window, the estimator <code>sum(block.work for block in window) / window.duration)</code> gives an unbiased estimate for the (average) hashrate during the window, without any correction factors.</p>",
   "post_number": 28,
   "post_type": 1,
-  "posts_count": 29,
+  "posts_count": 30,
   "updated_at": "2025-08-14T11:23:54.178Z",
   "reply_count": 1,
   "reply_to_post_number": 27,

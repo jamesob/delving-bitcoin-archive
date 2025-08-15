@@ -20,9 +20,9 @@ Less pricisely, in PoUW hashrate limits price in contrast to Bitcoin's price lim
 
 -------------------------
 
-VigSeth | 2025-08-15 07:13:19 UTC | #2
+VigSeth | 2025-08-15 14:56:02 UTC | #2
 
-Let’s start a new high performance L1 protocol using PoUW from arbitrary matrix multiplication to power Digital Twin replication, diagnostic and repair across automobile, aerospace and consumer electronics industry with initial 1000+ TPS. This would be a far more profitable and useful revenue generator and a practical industry user-case than mere mass AI inference of LLM models. 
+Let’s collaborate to launch a new high performance L1 protocol using PoUW from arbitrary matrix multiplication to power Digital Twin replication, diagnostic and repair across automobile, aerospace and consumer electronics industry with initial 1000+ TPS. This would be a far more profitable and useful revenue generator and a practical industry user-case than mere mass AI inference of LLM models.
 
 I suggest naming it “ Twinstor Blockchain “. I have just booked a domain: twinstor.xyz and I invite you and other collaborators for their valuable suggestions.
 

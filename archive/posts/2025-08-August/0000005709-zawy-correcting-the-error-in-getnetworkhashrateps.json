@@ -7,7 +7,7 @@
   "cooked": "<p>I had mentioned my preference for <code>sum(work in window) / (window duration)</code> over a given time window. It\u2019s good, interesting, and useful to know it\u2019s correct even for difficulty and hashrate changes. Maybe an update to <code>getnetworkhashps</code> could include it (by choosing a time range in addition a block range) as an option.</p>",
   "post_number": 31,
   "post_type": 1,
-  "posts_count": 29,
+  "posts_count": 30,
   "updated_at": "2025-08-14T15:51:32.969Z",
   "reply_count": 0,
   "reply_to_post_number": 30,

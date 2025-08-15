@@ -7,7 +7,7 @@
   "cooked": "<p>I fixed b because you fixed k and I was wanting to see if the equations for b and k-1 were the same in the limit, i.e. if the kth lowest hash is exactly like a target for b.  Also, when someone runs getnetworkhashps, they\u2019re selecting a b number of blocks. Difficulty adjustment also uses a fixed number of blocks.</p>\n<p>My simulation doesn\u2019t specify a timespan, so <strike>I guess I could be wrong</strike> I\u2019m wrong in saying it\u2019s for a fixed amount of time and thereby doesn\u2019t say or reveal anything about hashrate. <strike>But if I said it\u2019s for a certain timespan before I ran it, I don\u2019t see what I would need to change.</strike></p>",
   "post_number": 29,
   "post_type": 1,
-  "posts_count": 29,
+  "posts_count": 30,
   "updated_at": "2025-08-14T13:16:35.776Z",
   "reply_count": 1,
   "reply_to_post_number": 28,
