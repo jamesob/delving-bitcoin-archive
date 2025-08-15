@@ -121,3 +121,11 @@ If there is interest in using this library, the next step would be to deploy it 
 
 -------------------------
 
+sanket1729 | 2025-08-15 05:09:15 UTC | #2
+
+Really cool. Reminds of something Jeremy Rubin did for CTV. But this is better because of TEEs
+
+Have you deployed this somewhere?
+
+-------------------------
+
