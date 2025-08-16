@@ -127,3 +127,11 @@ Have you deployed this somewhere?
 
 -------------------------
 
+josh | 2025-08-16 02:51:53 UTC | #3
+
+Thanks! No, I haven't yet deployed this in a TEE, but that's definitely the next step that I'm working towards. I'd also welcome attempts by others to use this library in a TEE. There are many possible deployments, and I expect that others may have more experience in that area than myself.
+
+Separately, it would be really valuable to fork `rust-bitcoinkernel` to add support for the soft forks the community is interested in (`OP_CAT`,  `OP_CTV`, `OP_CCV`, Simplicity, etc.). Having all desired functionality in a single kernel would mean that you could deploy a single TEE to support them all, rather than have separate deployments for each.
+
+-------------------------
+

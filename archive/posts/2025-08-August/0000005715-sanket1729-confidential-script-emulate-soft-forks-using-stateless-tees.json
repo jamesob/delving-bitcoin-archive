@@ -7,15 +7,15 @@
   "cooked": "<p>Really cool. Reminds of something Jeremy Rubin did for CTV. But this is better because of TEEs</p>\n<p>Have you deployed this somewhere?</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-08-15T05:09:15.910Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
+  "incoming_link_count": 2,
   "reads": 11,
   "readers_count": 10,
-  "score": 7.2,
+  "score": 32.2,
   "yours": false,
   "topic_id": 1918,
   "topic_slug": "confidential-script-emulate-soft-forks-using-stateless-tees",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Really cool. Reminds of something Jeremy Rubin did for CTV. But this is better because of TEEs\n\nHave you deployed this somewhere?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Really cool. Reminds of something Jeremy Rubin did for CTV. But this is better because of TEEs \nHave you deployed this somewhere?",
   "truncated": true,
   "post_url": "/t/confidential-script-emulate-soft-forks-using-stateless-tees/1918/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
