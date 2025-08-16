@@ -548,7 +548,7 @@ I had mentioned my preference for ```sum(work in window) / (window duration)``` 
 
 -------------------------
 
-zawy | 2025-08-15 14:00:40 UTC | #32
+zawy | 2025-08-16 13:01:43 UTC | #32
 
 I believe this is the best-possible estimate of _current_ hashrate for an arbitrarily-small fixed time period t when given only the lowest hash seen in t. 
 
@@ -570,11 +570,21 @@ $W_{h} = W_{h-1} \cdot e^{-\frac{E}{N}}$
 
 $\text{Stdev} \approx \frac{W}{\sqrt{2N}}$
 
-N = "mean lifetime" of the EMA estimate in units of t. You choose N to get your desired stability / slowness of the estimate.  Divide by t to get hashrate. Use $\frac{2^{256}}{W_h}$ to get the target for a difficulty algorithm that changes every 600 seconds (probably impractical to securely implement).
+$W$ and $L$ in my lambda are at $h -1$
+
+N = "mean lifetime" of the EMA estimate in units of t. You choose N to get your desired stability / slowness of the estimate.  Divide by t to get hashrate. 
+
+To simplify the equation, use $e^{-x} \approx 1-x$ for small $x = \frac{E}{N}$:
+
+$W_{h} = W_{h-1} \cdot ( 1 + \frac{e^{-L \cdot W_{h-1}}}{N} - \frac{1}{2N})$
+
+The median L is expected to be $ln(2) \cdot  W_{h-1}$ which would be no correction. The smallest-possible L makes the largest-possible correction:
+
+$W_{h} = W_{h-1} \cdot ( 1 + \frac{1}{2N})$
+
+A large L can has a large correction, but an accidentally-large L isn't possible like a small L. This is a spot check on my math and the legitimacy of the idea The idea comes from my search for the mathematically-perfect difficulty algorithm which similarly uses the exponential CDF of solvetimes to adjust difficulty every block and experiments have shown it is the best-known (fastest response time to changes in hashrate with the least variation).
 
 ```hashrate = sum(work)/(time duration)``` from $h - N$ to $h$ gives a better estimate of hashrate at $h -N/2$.  The EMA needs a starting W. If it starts at $h-N$ The starting $W_{h-N}$ could be obtained by ```sum(work) ``` from $h-\frac{3N}{2}$ to $h-\frac{N}{2}$ and dividing by N.
-
-edit: i previously had the wrong sign on the error signal.
 
 -------------------------
 
