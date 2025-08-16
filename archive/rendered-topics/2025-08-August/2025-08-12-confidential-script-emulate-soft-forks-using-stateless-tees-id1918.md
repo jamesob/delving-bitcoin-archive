@@ -1,6 +1,6 @@
 # Confidential Script: Emulate soft forks using stateless TEEs
 
-josh | 2025-08-12 21:11:24 UTC | #1
+josh | 2025-08-15 23:25:58 UTC | #1
 
 ## TLDR
 
@@ -59,18 +59,19 @@ Finally, the enclave should expose the master public key, so that users can inde
 ///
 /// This function performs script verification using bitcoinkernel, verifying an
 /// emulated P2TR input. If successful, it derives an XOnlyPublicKey from the
-/// parent key and the emulated merkle root, which is then tweaked with an optional
-/// backup merkle root to derive the actual spent UTXO, which is then key path signed
-/// with `SIGHASH_DEFAULT`.
+/// parent key and the emulated merkle root, which is then tweaked with an 
+/// optional backup merkle root to derive the actual spent UTXO, which is then 
+/// key-path signed with `SIGHASH_DEFAULT`.
+///
+/// If the emulated script-path spend includes a data-carrying annex (begins with 
+/// 0x50 followed by 0x00), the annex is included in the key-path spend. 
+/// Otherwise, the annex is dropped.
 ///
 /// # Arguments
 /// * `verifier` - The verifier to use for script validation
-/// * `emulated_script_pubkey` - The P2TR script to verify against
-/// * `amount` - The amount for the input
-/// * `emulated_tx_to` - Serialized transaction to verify and sign
 /// * `input_index` - Index of the input to verify and sign (0-based)
-/// * `emulated_spent_outputs` - Outputs being spent in the emulated transaction
-/// * `actual_spent_outputs` - Actual outputs for signature generation
+/// * `emulated_tx_to` - Serialized transaction to verify and sign
+/// * `actual_spent_outputs` - Actual outputs being spent
 /// * `aux_rand` - Auxiliary random data for signing
 /// * `parent_key` - Parent secret key used to derive child key for signing
 /// * `backup_merkle_root` - Optional merkle root for backup script path spending
@@ -79,11 +80,8 @@ Finally, the enclave should expose the master public key, so that users can inde
 /// Returns error if verification fails, key derivation fails, or signing fails
 pub fn verify_and_sign<V: Verifier>(
     verifier: &V,
-    emulated_script_pubkey: &[u8],
-    amount: i64,
-    emulated_tx_to: &[u8],
     input_index: u32,
-    emulated_spent_outputs: &[TxOut],
+    emulated_tx_to: &[u8],
     actual_spent_outputs: &[TxOut],
     aux_rand: &[u8; 32],
     parent_key: SecretKey,

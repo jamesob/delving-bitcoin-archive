@@ -152,3 +152,23 @@ As far as updating a template goes, I'm not sure complicated set reconciliation 
 
 -------------------------
 
+gmaxwell | 2025-08-15 21:15:37 UTC | #8
+
+Minisketch complexity is quadratic in the set difference, so what matters is the consistency not the size of the queue.  I’ve implemented it and lab tested for block relay and it was highly efficient for it.
+
+Before coming up with the ideas behind erlay my thinking was actually centered on continually reconciling the entire mempool. But the issue I ran into with that was that when there was a policy difference or a conflict race there would be a continual bandwidth loss until mining resolved it.  Reconciling announcements avoids the issue.  But except for the persistent difference problem reconciliation of the mempool and invs should otherwise take the same bandwidth and decoding cost.
+
+But you are absolutely right about the preferable alternates: if you have a recent template from the same peer it’s better to just construct an edit– the edit is small and fast to construct, and should be compact on existing data.
+
+One can also use minisketch to make predictable edits easier to communicate, but it may not be worth it (e.g. by using setrecon on the edits). Or may only be worth it periodically, like the first update or first update after a new block.
+
+I think it’s worth considering avoiding salted shortids in further reconciliation protocols (deltas are a reconciliation protocol too!).  We had to use them in compact blocks because making the short IDs very short was essential to making it efficient, and without the salting we’d probably want at least 128bit ids which would have put compact blocks consistently outside of TCP window sizes.  But hashing the mempool results in a fairly large portion of the total reconstruction time particularly when you’ve missed txn and must hash the whole thing.  Any scheme that mostly avoids sending IDs can probably get away with using 128 bit wtxids.
+
+I think my general thinking is that in the future nodes should just maintain a clone of a small (say 4-8) peers’ “top two blocks” (or three blocks) of mempool via deltas and(/or) reconciliation with absolutely no policy restrictions (though if the peer exposes and *invalid* txn they should be disconnected).  E.g. these little alternative mempools would even allow txn that conflicted with transactions in your own mempool.
+
+So each peer would have in memory a 2-3 block mempool tip which is the last one they shared with other peers, plus one for each of a couple peers they’ve picked to remember.   When a block comes in it can be relayed from or to any peer with a remembered template using highly efficient means.
+
+This should largely eliminate policy differences and even conflict-announcement-announcement races as a significant source of block propagation delay.  Memory usage would be moderate, costing at worst a hand full of megabytes per selected peer, but likely much less due to sharing the tx objects.
+
+-------------------------
+
