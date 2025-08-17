@@ -830,3 +830,21 @@ In early June we were requesting less than 10kB per block were we needed to requ
 
 -------------------------
 
+Crypt-iQ | 2025-08-17 17:07:38 UTC | #36
+
+Nice work on this @davidgumberg, this is very helpful. I have a few questions.
+
+> Within DoS limits (maybe a limit of 4 MiB per valid header), temporarily store a per-block cache of prefilled transactions you hear about, increasing the chances that you successfully reconstruct without having to wait for an RTT.
+
+Is this because we have 3 HB peers and we want to combine prefills across them to try and reconstruct?
+
+> So far, I have assumed perfectly reliable networks and this isn’t always the case, packets get lost, and in TCP that means waiting for a timeout, and then retransmitting
+
+I think it would be helpful to run this experiment where one of the nodes is on the other side of the world (maybe China?) to see what packet loss looks like and how that affects reconstruction times with/without prefilling.
+
+For the “Scatter plot of Missing Bytes/Reconstruction Time for a node whose peers don’t prefill”, some of the points have > 1 MiB missing and have reconstruction times at \~100ms. Do you know if these points are with peers with large window sizes? I would think that if that much data has to be sent across and the window sizes are \~14480, reconstruction times would be a bit higher… I’m wondering if you have any ideas on why the reconstruction times are low in those cases?
+
+Edit: For the latency formulas, should they include the cost of transmitted data needed to reconstruct in the failure case? I know they are just to form an intuition, but I was also curious about that.
+
+-------------------------
+
