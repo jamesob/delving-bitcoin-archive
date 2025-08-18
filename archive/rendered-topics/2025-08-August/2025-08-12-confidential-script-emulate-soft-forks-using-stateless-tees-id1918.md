@@ -135,3 +135,23 @@ Separately, it would be really valuable to fork `rust-bitcoinkernel` to add supp
 
 -------------------------
 
+stutxo | 2025-08-18 02:37:52 UTC | #4
+
+hey josh, big fan of this idea, i’m working on a fork of bitcoinkernel which adds covenant support linked below. 
+
+So far i have added op_ctv, op_csfs and op_cat. 
+
+il continue to add more op_codes and i agree it would be very cool to add simplicity support so i will look at that at some point. 
+
+thanks! 
+
+https://github.com/stutxo/rust-bitcoinkernel-covenants/tree/covenants_enabled
+
+-------------------------
+
+JeremyRubin | 2025-08-18 02:45:37 UTC | #5
+
+the CTV emulator is here: https://learn.sapio-lang.org/ch05-01-ctv-emulator.html I wrote up a generalized formalism for covenant-oracle with script as key tweak paradigm in https://rubin.io/public/pdfs/unfedcovenants.pdf – this seems to follow that formalism relatively closely, but the document goes a bit further to also give a section on how to implement integrity checks using BitVM.
+
+-------------------------
+
