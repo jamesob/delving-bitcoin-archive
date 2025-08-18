@@ -172,3 +172,13 @@ This should largely eliminate policy differences and even conflict-announcement-
 
 -------------------------
 
+sipa | 2025-08-18 00:41:33 UTC | #9
+
+For this purpose, the order of transactions in the template doesn't actually matter (at least until compact blocks, or some other block relay protocol, can make use of pre-sent orderings). This means there is a nice additional bandwidth saving possible.
+
+Sort the set of all short ids (interpreted as 48-bit integers), and only send the differences, using Golomb-Rice coding, like BIP158 does. For a block with 4000 entries, the [math](https://github.com/sipa/writeups/tree/main/minimizing-golomb-filters) I get that this only needs ~37.8 bits per element, rather than 48.
+
+Of course, using an edit encoding w.r.t. the previous template can be a much bigger win, but that too can benefit from using some canonical encoding of the transactions (like the sorted shortids from above; there is no need for it to be topologically valid in this context).
+
+-------------------------
+
