@@ -13,9 +13,9 @@
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "For this purpose, the order of transactions in the template doesn't actually matter (at least until compact blocks, or some other block relay protocol, can make use of pre-sent orderings). This means there is a nice additional bandwidth saving possible.\n\nSort the set of all short ids (interpreted as 48-bit integers), and only send the differences, using Golomb-Rice coding, like BIP158 does. For a block with 4000 entries, the [math](https://github.com/sipa/writeups/tree/main/minimizing-golomb-filters) I get that this only needs ~37.8 bits per element, rather than 48.\n\nOf course, using an edit encoding w.r.t. the previous template can be a much bigger win, but that too can benefit from using some canonical encoding of the transactions (like the sorted shortids from above; there is no need for it to be topologically valid in this context).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "For this purpose, the order of transactions in the template doesn\u2019t actually matter (at least until compact blocks, or some other block relay protocol, can make use of pre-sent orderings). This means there is a nice additional bandwidth saving possible. \nSort the set of all short ids (interpreted as&hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
