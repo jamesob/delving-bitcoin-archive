@@ -151,3 +151,47 @@ Out of curiosity, what would be required for adding the universal sighash to sim
 
 -------------------------
 
+hodlinator | 2025-08-19 19:59:33 UTC | #5
+
+Great to see progress in this area!
+
+Here follows first impressions from someone interested in programming languages but no expert by any means.
+
+---
+
+[quote="sanket1729, post:1, topic:1900"]
+```
+fn check_neg(v: bool) {
+    let v1: u1 = <bool>::into(v);
+    let v2: u64 = <u1>::into(v1);
+    assert!(jet::eq_8(v2, 0));
+}
+```
+
+[/quote]
+
+What is happening here? Almost looks like the language has negative booleans that require a user defined function to check.
+
+---
+
+Why does one use `jet::eq_8()` above with a `u64` parameter when the less-than operator for the same types has the `_64` suffix?
+
+[quote="sanket1729, post:1, topic:1900"]
+`   assert!(jet::lt_64(fees, max_fee));`
+
+[/quote]
+
+---
+
+The repeated `let`-binding of `ctx` seems like it could make provability easier, but this language is meant to *compile down* to a provable language. Is there any goal to increase mutability in syntax at this higher level to gain ergonomics, `mut` without `let`, for example:
+
+`jet::sha_256_ctx_8_add_32(mut ctx, sighash_tx_nifb());`
+
+or is there intent behind preferring the current syntax?
+
+---
+
+Again, I think it’s phenomenal that work is being done in this area. Hope this comes off more as curious than ungrateful, and somewhat mirrors first impressions of others.
+
+-------------------------
+
