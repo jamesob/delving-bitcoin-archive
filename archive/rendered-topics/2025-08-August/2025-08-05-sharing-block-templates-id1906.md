@@ -182,3 +182,9 @@ Of course, using an edit encoding w.r.t. the previous template can be a much big
 
 -------------------------
 
+hodlinator | 2025-08-19 20:19:33 UTC | #10
+
+If the originating node of the next PoW block shares its template ahead of time with its direct peers, they would be able to reconcile compact blocks at a much higher rate, but would there be much benefit for indirect peers? My understanding is that indirect peers would not be forwarding templates they received from others, or is that a thing in this design?
+
+-------------------------
+
