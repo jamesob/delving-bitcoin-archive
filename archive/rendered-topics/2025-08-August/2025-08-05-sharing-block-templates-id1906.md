@@ -188,3 +188,11 @@ If the originating node of the next PoW block shares its template ahead of time 
 
 -------------------------
 
+sipa | 2025-08-19 20:45:19 UTC | #11
+
+That is my understanding.
+
+But in between the two extremes (1 being ~everyone+miners running the same policy, 2 being ~everyone running the same policy but miners another one), there is an intermediate situation, where there are a number of diverging policies on the network, one of which matches closely what miners do, and they're sufficiently widespread that many network participants are connected to some peers with a miner-matching policy. It's in such a scenario that the approach here has the most benefit.
+
+-------------------------
+
