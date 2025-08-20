@@ -206,3 +206,41 @@ It’s a little hard to give concrete measurements though because the big policy
 
 -------------------------
 
+ajtowns | 2025-08-20 05:26:23 UTC | #13
+
+[quote="gmaxwell, post:8, topic:1906"]
+I think my general thinking is that in the future nodes should just maintain a clone of a small (say 4-8) peers’ “top two blocks” (or three blocks) of mempool via deltas
+[/quote]
+
+My original concept was along the lines of "It would be nice if blocks propagated quickly even if they include transactions filtered by 95% of the network" -- with the theory being that if 5% of the network isn't filtering them (and is a strongly connected subgraph), then that gives listening nodes a >99% chance of having one of their peers be non-censoring, and thus they'd be at least theoretically able to get the tx in advance. That's then good for censorship resistance, good for spam-filtering mining nodes who want to minimise their orphan rate, and good for nodes who haven't kept up with the latest policy/soft-fork changes.
+
+For that to work, I suspect you'd want to continually be reviewing updated templates from all your peers, not just a select few of them, though.
+
+That only makes reducing the bandwidth and computation needed for processing updates more important, of course.
+
+[quote="gmaxwell, post:8, topic:1906"]
+So each peer would have in memory a 2-3 block mempool tip which is the last one they shared with other peers, plus one for each of a couple peers they’ve picked to remember.
+[/quote]
+
+I'd really like to have something reasonably widely deployed on mainnet to be able to get some data to inform these sorts of decisions, so I think something simple to start with makes sense, that can then be refined later.
+
+One idea might be to have a `GETTEMPLATE` request with no arguments just give a fresh 1MvB template encoded as a compact block, but to have something like `GETTEMPLATE 2 d02b1b466de4ab17a64c9dc81f7677f39e3e67fea1a83610f22dd3def6c55062` request a 2MvB template encoded as a delta versus a specified previous template received from this peer.
+
+[quote="gmaxwell, post:8, topic:1906"]
+When a block comes in it can be relayed from or to any peer with a remembered template using highly efficient means.
+[/quote]
+
+One of the nice things about compact blocks is that the node sending the block only has to calculate the compact block once; if they had to re-encode the block's tx list multiple times due to the different templates they'd sent recently, or, worse, the different templates each peer had sent them, that might be cumbersome.
+
+[quote="gmaxwell, post:8, topic:1906"]
+We had to use them in compact blocks because making the short IDs very short was essential to making it efficient, and without the salting we’d probably want at least 128bit ids which would have put compact blocks consistently outside of TCP window sizes.
+[/quote]
+
+Maybe something to think about would be having the receiver choose the salt and send it to the sender; eg `GETTEMPLATE 0x8c7e823d78453ad3 0xdd6e8934258433c5 2`. That puts some additional computational burden on the sender, but they only have to do the calculation on the txs in their template, so it shouldn't be very burdensome. Meanwhile the receiver could give the same salt to all their peers, and pre-calculate and index the short ids for everything in their mempool. 
+
+That might be annoying in that it would let peers easily identify your node across distinct connections despite the use of tor/etc (though consistently providing the same templates would also do that). It might also allow adversarial nodes to construct txs that have the same shortid, resulting in reconstruction failures (if you had one of the txs but the template included the other). 
+
+Another option might be to continue using 6-byte short ids with a random seed chosen fresh for each template by the sender, but for the receiver to only compare it against the template pool (including their own template which might be the top 3 MvB of their mempool) not their entire mempool. That would result in more round trips and perhaps some avoidable tx retransmissions, but maybe that's fine. If retransmissions are a problem, having a `GETBLOCKTXIDS` step to just get the missing wtxids rather going straight to getting the missing transactions could perhaps work.
+
+-------------------------
+

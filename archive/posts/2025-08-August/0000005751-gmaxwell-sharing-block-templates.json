@@ -7,7 +7,7 @@
   "cooked": "<p>That said, the extrapool does (or at least <em>can</em> if it\u2019s size is large enough) substantially solve \u201cone hop divergence\u201d all on its own.</p>\n<p>At least what I observe is that one hop is not enough.</p>\n<p>It\u2019s a little hard to give concrete measurements though because the big policy divergence right now has been minfee related and fee filter messes up the ability of the extrapool to address it.</p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2025-08-19T21:42:50.827Z",
   "reply_count": 0,
   "reply_to_post_number": 11,
