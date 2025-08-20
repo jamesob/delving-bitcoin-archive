@@ -196,3 +196,13 @@ But in between the two extremes (1 being ~everyone+miners running the same polic
 
 -------------------------
 
+gmaxwell | 2025-08-19 21:42:50 UTC | #12
+
+That said, the extrapool does (or at least *can* if it’s size is large enough) substantially solve “one hop divergence” all on its own.
+
+At least what I observe is that one hop is not enough.
+
+It’s a little hard to give concrete measurements though because the big policy divergence right now has been minfee related and fee filter messes up the ability of the extrapool to address it.
+
+-------------------------
+
