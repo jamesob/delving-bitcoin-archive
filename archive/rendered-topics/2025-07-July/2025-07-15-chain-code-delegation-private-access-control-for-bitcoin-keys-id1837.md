@@ -161,3 +161,9 @@ Meaning the signature remains valid even after tweaking the public key with t_i,
 
 -------------------------
 
+pinheadmz | 2025-08-20 15:51:59 UTC | #4
+
+[OpenBazaar](https://github.com/OpenBazaar/openbazaar-go) had a protocol like this as well. Moderators would post a static public key. Buyers and sellers could agree on a moderator for each transaction. The transacting parties would then agree on a chaincode and include the tweaked moderator’s key in a script that had two paths: a 2-of-2 buyer+seller “happy path”, and a 2-of-3 “dispute” path that included the (tweaked) moderator. Buyers and sellers could transact privately all the time, and a moderator would never know they were ever included unless there was a dispute. In such a case, the moderator would be sent the chaincode and the transaction information to decide which party got to receive the money.
+
+-------------------------
+
