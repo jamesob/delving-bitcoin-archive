@@ -13,8 +13,8 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
+  "reads": 19,
+  "readers_count": 18,
   "score": 8.2,
   "yours": false,
   "topic_id": 1906,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "That is my understanding.\n\nBut in between the two extremes (1 being ~everyone+miners running the same policy, 2 being ~everyone running the same policy but miners another one), there is an intermediate situation, where there are a number of diverging policies on the network, one of which matches closely what miners do, and they're sufficiently widespread that many network participants are connected to some peers with a miner-matching policy. It's in such a scenario that the approach here has the most benefit.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "That is my understanding. \nBut in between the two extremes (1 being ~everyone+miners running the same policy, 2 being ~everyone running the same policy but miners another one), there is an intermediate situation, where there are a number of diverging policies on the network, one of which matches clo&hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
