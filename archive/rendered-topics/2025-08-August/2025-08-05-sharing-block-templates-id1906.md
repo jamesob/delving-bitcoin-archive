@@ -244,3 +244,13 @@ Another option might be to continue using 6-byte short ids with a random seed ch
 
 -------------------------
 
+gmaxwell | 2025-08-21 22:14:16 UTC | #14
+
+At least having sender compute is a constant cost– however many txids are in a block. vs rx which might have to do several hundred times the work if they can’t cache it.
+
+OTOH RX having a long lived id is an attack vector as its quite trivial to construct 48-bit colliding txn… so the ‘cost’ of working that way is having to continually assume that someone can do that.  Compact blocks are at least protected by the root hash needing to match, so you’ll always detect that it failed.
+
+It would perhaps not excite you for me to point out that the send could at essentially no cost send a tiny minisketch (like 8 element) over the last 64-bits of each txid and the receiver of a template could reliably detect a failure and recover from small number of collisions.  (and if they know the colliding txn they don’t even need a minisketch decoder, they could just try the alternatives) :stuck_out_tongue:
+
+-------------------------
+
