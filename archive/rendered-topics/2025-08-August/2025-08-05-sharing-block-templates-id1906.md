@@ -254,3 +254,23 @@ It would perhaps not excite you for me to point out that the send could at essen
 
 -------------------------
 
+ajtowns | 2025-08-22 04:46:39 UTC | #15
+
+[quote="gmaxwell, post:14, topic:1906"]
+the send could at essentially no cost send a tiny minisketch (like 8 element) over the last 64-bits of each txid and the receiver of a template could reliably detect a failure and recover from small number of collisions.
+[/quote]
+
+I can imagine three benefits/reasons to do this:
+
+ * detecting unknown collisions, where the sender has wtxid A and the receiver has wtxid B and they both map to the same seeded shortid; assuming there are fewer than 4 such errors, when you calculate the minisketch, each A/B value will be reported, and because you can identify the B txs in your receovered template, you can request the A values
+ * resolving known collisions, if the receiver has wtxids A and B that both map to the same shortid, you can know which one of them to include without a round-trip
+ * optimising reconstruction, where you just calculate the shortids for the txs you think are highly likely to be in the block/template, then use the minisketch to tell you the 64-bit suffixes of the handful of wtxids you missed, then look those up in the mempool, check their shortids, and finish the reconstruction
+
+Doing 8 elements (64 byte sketch) seems fine for the first two (detecting 4 unknown collisions, or resolving 8 known collisions), but you'd presumably want a bit more than that if you were trying to optimise reconstruction by ignoring most of your mempool on the first pass -- maybe 64 or 128 elements (512 or 1024 byte sketch)?
+
+If you did the latter, then a template delta could include a list of the changes by shortid (perhaps a few hundred new transactions in the last couple of minutes for maybe 4kB) plus a sketch (1kB) and be recovered by only examining a small fraction of the mempool and doing a minisketch calculation, I think?
+
+Maybe you could save bandwidth a little further by doing up to three round trips: get the shortids+sketch, if there's more problems than the sketch can resolve, get the 64-byte wtxid suffixes directly, and only then request the txs you're missing.
+
+-------------------------
+
