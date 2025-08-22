@@ -274,3 +274,29 @@ Maybe you could save bandwidth a little further by doing up to three round trips
 
 -------------------------
 
+gmaxwell | 2025-08-22 11:34:53 UTC | #16
+
+Right my intuition is that you want to send some check value to confirm you got a correct decode regardless.   You could just use a hash, but using a minisketch has the advantage of letting you do more than just pass-fail.  An implementation could start by just using it as a pass/fail like a hash.
+
+When doing the math on short-id collisions it turns out that the failure rate is dominated by cases where there is just a one or two collisions (unless the short-id is woefully too small), so being able to disambiguate just a couple is potentially useful.
+
+Assuming it’s all unsalted the sketch is very close to free to compute, like store w/ txn their sketch values, and you just xor them when building the template (either on the sender side or as the receiver decodes).
+
+I suggested size 8 kind of as a random example, with the thought in mind that overly small minisketches have a non-negligible probability of false decode.  Though I didn’t bother to run the calculator to check (there is a function in the library), IIRC it’s cryptographically negligible by size 8 for 64-bit hashes but it might also be by size 4.
+
+Information theoretically it should be possible to decode minisketch sketches well beyond the size limit if you happen to have a list of candidate elements that you expect to be more likely in the difference – like your own mempool or a list of collisions.  Unfortunately we don’t currently know of a decoder that can exploit that which has subexponential complexity.  So like a 64bit \* 8 element sketch could teach you 8 elements that you’re missing, but it probably could tell you about removing 30 extra elements you have that you shouldn’t out of a collection of 1000. (the exponential decoder is the one that just brute force tries toggling every combination of your set then runs the ordinary quadratic decoder).  I only mention it because this is a case where it would be handy to go beyond the bound, but it’s really a sidebar unless someone figures out how to make it tractable :P
+
+If the receiver picks the salt for the ordinary short ids and has been caching it all along then it’s very cheap to do the decode anyways, so I don’t know that your third example is that compelling.
+
+-------------------------
+
+ajtowns | 2025-08-22 11:59:35 UTC | #17
+
+[quote="gmaxwell, post:16, topic:1906"]
+If the receiver picks the salt for the ordinary short ids and has been caching it all along then it’s very cheap to do the decode anyways, so I don’t know that your third example is that compelling.
+[/quote]
+
+I was assuming the sender would choose the salt in that case, so you don't have to worry about someone targeting you and giving you many conflicts (or having to worry about updating your salt and reindexing all the txs in the mempool). I guess is you changed your salt once every few minutes and reindexed, that wouldn't be too expensive, and would let you avoid reusing salts with any given peer, which might make attempting to attack any particular salt fairly worthless.
+
+-------------------------
+
