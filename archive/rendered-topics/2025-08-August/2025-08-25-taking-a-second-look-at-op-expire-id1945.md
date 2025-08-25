@@ -61,3 +61,19 @@ Aside from those considerstions, I see this opcode as a simple feature that does
 
 -------------------------
 
+garlonicon | 2025-08-25 07:59:36 UTC | #2
+
+> I see this opcode as a simple feature that doesn’t affect MEVil nor would have unpredicted outcomes
+
+There is some MEV, because if a given transaction can expire, and make some funds unspendable, then it means, that by not mining some transaction, you can force someone, to burn some coins.
+
+Lost coins is like a donation to everyone. Lose half of the supply, and everything will be worth at least two times more, than it was. And when the block reward will be set to zero, and only existing coins will circulate, then whales will have more reasons, to encourage other people to burn more coins, because it will increase the value of their own coins even more.
+
+> Other possible attack vector I think may exist are miners holding to approve txs in order to make participants pay higher fees under pressure. However, this would only work in a centralized mining world, because otherwise miners may lose possible earnings to concurrent pools.
+
+We don’t have that many mining pools, so it is centralized to some extent. Now, if 1% hashrate is including your transactions, censored by everyone else, you have a chance to get a confirmation once per 100 blocks. When new rules will be activated, then it would mean, that if your timelock is less than 100 blocks, it can simply expire, and other pools will benefit from that, so there will be an incentive, to censor transactions, because later, nobody will be able to include them, after they will expire.
+
+I think there is only one proper way, to really reach transaction expiration: just confirm a different version of the same transaction. Then, all versions, which use the same inputs, will expire automatically, without any consensus changes.
+
+-------------------------
+

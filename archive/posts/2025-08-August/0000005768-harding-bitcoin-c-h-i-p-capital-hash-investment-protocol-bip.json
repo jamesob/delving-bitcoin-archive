@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 1941,
   "topic_slug": "bitcoin-c-h-i-p-capital-hash-investment-protocol-bip",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "What proposal?  What protocol?  What BIP?  There are no details or links in your post.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "What proposal?  What protocol?  What BIP?  There are no details or links in your post.",
   "truncated": true,
   "post_url": "/t/bitcoin-c-h-i-p-capital-hash-investment-protocol-bip/1941/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
