@@ -10,3 +10,9 @@ The protocol is designed to integrate with the growing institutional Bitcoin ado
 
 -------------------------
 
+harding | 2025-08-24 21:59:28 UTC | #2
+
+What proposal?  What protocol?  What BIP?  There are no details or links in your post.
+
+-------------------------
+
