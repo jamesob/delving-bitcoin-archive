@@ -77,3 +77,27 @@ I think there is only one proper way, to really reach transaction expiration: ju
 
 -------------------------
 
+cmp_ancp | 2025-08-26 01:36:09 UTC | #3
+
+[quote="garlonicon, post:2, topic:1945"]
+There is some MEV, because if a given transaction can expire, and make some funds unspendable, then it means, that by not mining some transaction, you can force someone, to burn some coins.
+
+[/quote]
+
+Yes, I thought about that possible outcome. But to me this is very situational and would only be viable in a world where BTC had already been compromised. In a world with pool competition, all pools know that you cannot just leave gains on the table, because that would create some decisive disadvantage in a narrow profit market.
+
+In a world where there is no more emission, all earnings come from fees, and to deny txs with greater fees means to create an outflow of hashrate from your pool. The number of pools isn’t a problem per se, because miners can always migrate from one pool to another.
+
+This discussion becomes more nuanced with the selfish mining variable, specially after the recent attack on monero. But we cannot directly compare monero to BTC because their average hashrate is way lower than of BTC, their market cap is way lower (the price is specially important in monero situation because they have a permanent tail emission), miners doesn’t really put too much of capital in risk by mining monero (there isn’t specialized hardware), etc (anyone, correct me if I said something stupid).
+
+I think all of this should be on the philosophy category (not that an expiration opcode shouldn’t be in a philosophy category, btw). But you cannot forget that some cases already are, in some way, “vulnerable” to this MEVil vector. Even after all the replace-cycling attack patches, miners may still wait and don’t mine your revoke tx. All of LN is already based on the assumption that you can perceive and confirm a tx in some delta time.
+
+[quote="garlonicon, post:2, topic:1945"]
+I think there is only one proper way, to really reach transaction expiration: just confirm a different version of the same transaction. Then, all versions, which use the same inputs, will expire automatically, without any consensus changes.
+
+[/quote]
+
+This isn’t by any mean a replacement of the OP_EXPIRE utility, mainly in the signed expiration cases checked by OP_CSFS, unless you create a new UTXO any time the state of the outside world updates in order to invalidate previous confirmations. This would also prevent the last tx elision on privkey handover protocols.
+
+-------------------------
+
