@@ -195,3 +195,9 @@ Again, I think it’s phenomenal that work is being done in this area. Hope this
 
 -------------------------
 
+gmaxwell | 2025-08-25 21:45:56 UTC | #6
+
+Cute example!   Though if I consider it practically rather than just as an example: how big is the resulting compiled bytecode?   If it’s not tiny the consequence is that you could just leave it out, and overpay the fee by the amount required for the auto-bumping code and come out ahead.
+
+-------------------------
+
