@@ -201,3 +201,11 @@ Cute example!   Though if I consider it practically rather than just as an examp
 
 -------------------------
 
+instagibbs | 2025-08-26 14:01:55 UTC | #7
+
+Compiling that example from the SimplicityHL repo, it gives me what I think would amount to 447WU for the program, without witness data.
+
+Not a SimplicityHL question per se but one question I’ve had is how much the serialization of the Simplicity code itself can be compressed without violating the actual costing of the underlying JET operations, since f.e. [output amount](https://docs.rs/simfony-as-rust/latest/simfony_as_rust/jet/transaction/fn.output_amount.html) is only 298mWU but the serialized version of that script will be a couple order of magnitudes larger (15WU if I’m doing this right).
+
+-------------------------
+
