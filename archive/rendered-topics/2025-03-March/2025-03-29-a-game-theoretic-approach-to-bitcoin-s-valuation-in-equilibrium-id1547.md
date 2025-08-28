@@ -117,3 +117,15 @@ This analysis provides a game-theoretic approach to bitcoin's adoption as money 
 
 -------------------------
 
+taparoo | 2025-08-28 00:29:09 UTC | #2
+
+This is too big of a can of tuna to really ingest.
+
+I’ll add a couple things:
+1) I agree with “Bitcoin will eventuall equilibrium towards 50% of all wealth.  Due to S=I (savings equals investment).  I first heard this from Saylor.
+2)  Don’t forget Gresham’s Law:   the law explains why Bitcoin will not initially become a currency, because it will first be “hoarded”, due to “bad money driving out good”.  Being hoarded doesn’t make it a failure though.   Eventually, Theirs law will take over and finally, in late stages, “good money will drive out the bad”, probably in the form of a gigantic or prolonged hyper-inflation of world currencies and THEN Bitcoin will become a daily “unit of account” as currency.
+
+My 2 cents, but barely touching this gigantic post.
+
+-------------------------
+
