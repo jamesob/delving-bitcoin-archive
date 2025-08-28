@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 14,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 148.0,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 148.2,
   "yours": false,
   "topic_id": 1946,
   "topic_slug": "the-state-of-bitcoinfuzz",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 6
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "rocket",
       "type": "emoji",
-      "count": 5
+      "count": 6
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
+  "reaction_users_count": 6,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
