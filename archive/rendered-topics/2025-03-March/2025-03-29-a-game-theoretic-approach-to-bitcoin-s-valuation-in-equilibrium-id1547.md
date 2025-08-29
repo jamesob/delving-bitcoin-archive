@@ -129,7 +129,7 @@ My 2 cents, but barely touching this gigantic post.
 
 -------------------------
 
-josh | 2025-08-29 15:14:44 UTC | #3
+josh | 2025-08-29 15:20:13 UTC | #3
 
 Hey @taparoo, thanks for giving it a skim!
 
@@ -149,7 +149,7 @@ Perfect capital market assumptions mean that we cannot rely on traditional argum
 
 This post argues that *unit-of-account* is what gives Bitcoin value under perfect capital markets. Perfect capital markets require a unit of account to function, and the post argues that the optimal unit of account represents a constant fraction of the economy's total wealth, because **it provides the necessary price signals to transmit information through the economy**.
 
-This is very much a Hayekian argument, and I might call such a unit a "Hayek." The piece argues that a "Hayek" can only exist through independent valuation, where each economic actor values a single finite supply inert good at the maximum extent of their utility function. A central authority cannot define the "Hayek" in terms of other assets, as that would introduce circular reasoning.
+This is very much a Hayekian argument, and I might call such a unit a "Hayek." The piece argues that a "Hayek" can only exist through independent valuation, where each economic actor values a single fungible, finite, inert good at the maximum extent of their utility function. A central authority cannot define the "Hayek" in terms of other assets, as that would introduce circular reasoning.
 
 Therefore, we can establish that a "Hayek" must exist under perfect capital market assumptions. We can then look out at the market and find potential contenders to be humanity's "Hayek," and we'll see that Bitcoin is far and away the leading contender. Therefore, it has value, at least probabilistically.
 
