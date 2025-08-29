@@ -20,3 +20,16 @@ I will update this post if we have further release candidates.
 
 -------------------------
 
+fanquake | 2025-08-29 13:47:12 UTC | #2
+
+Binaries for Bitcoin Core version v29.1rc2 are available from:
+[https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/](https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/)
+
+Source code can be found in git under the signed tag
+[https://github.com/bitcoin/bitcoin/tree/v29.1rc2](https://github.com/bitcoin/bitcoin/tree/v29.1rc2) 
+
+Preliminary release notes for the release can be found here:
+[https://github.com/bitcoin/bitcoin/blob/027a60d218e7d4e1d50a30cee1188614252f3837/doc/release-notes.md](https://github.com/bitcoin/bitcoin/blob/v29.1rc2/doc/release-notes.md)
+
+-------------------------
+
