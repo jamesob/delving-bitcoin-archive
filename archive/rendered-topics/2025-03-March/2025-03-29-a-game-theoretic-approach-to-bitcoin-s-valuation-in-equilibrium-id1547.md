@@ -129,13 +129,13 @@ My 2 cents, but barely touching this gigantic post.
 
 -------------------------
 
-josh | 2025-08-29 15:03:53 UTC | #3
+josh | 2025-08-29 15:04:43 UTC | #3
 
 Hey @taparoo, thanks for giving it a skim!
 
 It is incorrect in my opinion to invoke Gresham's law to explain bitcoin's lack of usage as a currency. Gresham's law is only relevant to *physical* currencies where people accept payment in two or more "coins" with the same *nominal* value. The intrinsic properties of physical coins make them different investments, and people will tend to save the one with a superior long-run risk-adjusted real rate of return. This argument does not hold for bitcoin, because there are no physical currencies backed by bitcoin with a non-bitcoin nominal value.
 
-I somewhat disagree that $S=I$ in any way explains bitcoin's eventual equilibrium. $S = I$ is a purely accounting identity. All it says is that the definition of investing is the same as the definition of saving.
+I somewhat disagree that $S=I$ explains bitcoin's eventual equilibrium. $S = I$ is a purely accounting identity. All it says is that the definition of investing is the same as the definition of saving.
 
 ---
 
