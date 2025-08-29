@@ -129,3 +129,29 @@ My 2 cents, but barely touching this gigantic post.
 
 -------------------------
 
+josh | 2025-08-29 15:03:53 UTC | #3
+
+Hey @taparoo, thanks for giving it a skim!
+
+It is incorrect in my opinion to invoke Gresham's law to explain bitcoin's lack of usage as a currency. Gresham's law is only relevant to *physical* currencies where people accept payment in two or more "coins" with the same *nominal* value. The intrinsic properties of physical coins make them different investments, and people will tend to save the one with a superior long-run risk-adjusted real rate of return. This argument does not hold for bitcoin, because there are no physical currencies backed by bitcoin with a non-bitcoin nominal value.
+
+I somewhat disagree that $S=I$ in any way explains bitcoin's eventual equilibrium. $S = I$ is a purely accounting identity. All it says is that the definition of investing is the same as the definition of saving.
+
+---
+
+It's been a few months since I've revisited this post. My goal was to articulate an academic argument that I haven't seen elsewhere in the literature. I'll try to summarize it here.
+
+In theoretical financial economics, and in particular in asset pricing theory, the concept of "perfect capital markets" is fundamental to valuation. Without it, we have no grounding to assert the market value of an asset relative to something else. While the assumptions may seem unrealistic, they provide the basis for formal logic that gives us something to stand on.
+
+The challenge then is: **can we prove the equilibrium value of bitcoin under perfect capital market assumptions?** If we can, we'll have a new tool in our arsenal to explain bitcoin's value to academics, and to the world at large.
+
+Perfect capital market assumptions mean that we cannot rely on traditional arguments, like appealing to bitcoin's censorship resistance, transaction finality, or uniquely guaranteed finite supply. Among other assumptions, we assume frictionless markets and no transaction costs. Trust is free and mathematically assured. The implication is that under these assumptions, Bitcoin has no unique utility as a medium-of-exchange.
+
+This post argues that *unit-of-account* is what gives Bitcoin value under perfect capital markets. Perfect capital markets require a unit of account to function, and the post argues that the optimal unit of account represents a constant fraction of the economy's total wealth, because it **provides the necessary price signals to transmit information through the economy**.
+
+This is very much a Hayekian argument, and I might call such a unit a "Hayek." The piece argues that a "Hayek" can only exist through independent valuation, where each economic actor values a single finite supply inert good at the maximum extent of their utility function. A central authority cannot define the "Hayek" in terms of other assets, as that would introduce circular reasoning.
+
+Therefore, we can establish that a "Hayek" must exist under perfect capital market assumptions. We can then look out at the market and find potential contenders to be humanity's "Hayek," and we'll see that Bitcoin is far and away the leading contender. Therefore, it has value, at least probabilistically.
+
+-------------------------
+
