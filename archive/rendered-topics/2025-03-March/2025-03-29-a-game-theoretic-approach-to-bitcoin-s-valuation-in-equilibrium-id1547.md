@@ -129,7 +129,7 @@ My 2 cents, but barely touching this gigantic post.
 
 -------------------------
 
-josh | 2025-08-29 15:04:43 UTC | #3
+josh | 2025-08-29 15:14:44 UTC | #3
 
 Hey @taparoo, thanks for giving it a skim!
 
@@ -147,7 +147,7 @@ The challenge then is: **can we prove the equilibrium value of bitcoin under per
 
 Perfect capital market assumptions mean that we cannot rely on traditional arguments, like appealing to bitcoin's censorship resistance, transaction finality, or uniquely guaranteed finite supply. Among other assumptions, we assume frictionless markets and no transaction costs. Trust is free and mathematically assured. The implication is that under these assumptions, Bitcoin has no unique utility as a medium-of-exchange.
 
-This post argues that *unit-of-account* is what gives Bitcoin value under perfect capital markets. Perfect capital markets require a unit of account to function, and the post argues that the optimal unit of account represents a constant fraction of the economy's total wealth, because it **provides the necessary price signals to transmit information through the economy**.
+This post argues that *unit-of-account* is what gives Bitcoin value under perfect capital markets. Perfect capital markets require a unit of account to function, and the post argues that the optimal unit of account represents a constant fraction of the economy's total wealth, because **it provides the necessary price signals to transmit information through the economy**.
 
 This is very much a Hayekian argument, and I might call such a unit a "Hayek." The piece argues that a "Hayek" can only exist through independent valuation, where each economic actor values a single finite supply inert good at the maximum extent of their utility function. A central authority cannot define the "Hayek" in terms of other assets, as that would introduce circular reasoning.
 
