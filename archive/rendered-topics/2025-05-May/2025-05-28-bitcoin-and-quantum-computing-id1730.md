@@ -115,3 +115,30 @@ Thanks for these!
 
 -------------------------
 
+garlonicon | 2025-08-29 16:34:57 UTC | #7
+
+[quote]
+and the hourglass strategy, which rate-limits vulnerable UTXO spending
+
+[/quote]
+
+I think Hourglass has the highest chances to be activated. Related topic by Saint Wenhao: https://bitcointalk.org/index.php?topic=5557305.0
+
+Script:
+
+```
+OP_SWAP
+  OP_SIZE
+  OP_DUP OP_ADD OP_DUP OP_ADD
+  OP_CHECKSEQUENCEVERIFY OP_DROP
+OP_SWAP
+
+OP_CODESEPARATOR
+
+OP_DUP OP_HASH160 <pubkeyHash> OP_EQUALVERIFY OP_CHECKSIG
+```
+
+If enough people will upgrade, and if coins will be moved from such addresses, and to such addresses, then only short exposure attacks will be dangerous. And Proof of Work can be checked on every signature in a soft-fork way, so that coins can be timelocked for shorter or longer amount of blocks, depending on how small a given signature is.
+
+-------------------------
+
