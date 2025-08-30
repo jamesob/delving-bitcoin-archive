@@ -155,3 +155,21 @@ the CTV emulator is here: https://learn.sapio-lang.org/ch05-01-ctv-emulator.html
 
 -------------------------
 
+josh | 2025-08-30 20:26:41 UTC | #6
+
+> hey josh, big fan of this idea, i’m working on a fork of bitcoinkernel which adds covenant support linked below.
+
+Hey @stutxo thanks for doing this! It's awesome that there's now a public crate that implements these opcodes. Ideally, it would point to a repo like Inquisition that has gone through a formal peer review process. I'd definitely encourage you to make a PR there!
+
+@ajtowns Are you open to adding kernel support to Inquisition? I realize that may not be in the spirit of what Inquisition was designed for, but it seems like the natural home for peer-reviewed soft fork proposals, especially if they're going to be used with real money.
+
+> the CTV emulator is here: [BIP-119 Emulation - Designing Bitcoin Contracts with Sapio](https://learn.sapio-lang.org/ch05-01-ctv-emulator.html) I wrote up a generalized formalism for covenant-oracle with script as key tweak paradigm in https://rubin.io/public/pdfs/unfedcovenants.pdf – this seems to follow that formalism relatively closely, but the document goes a bit further to also give a section on how to implement integrity checks using BitVM.
+
+Thanks for sharing @JeremyRubin ! I wasn't previously aware of your work, and I'll make sure to add citations to the repo. Adding integrity checks with BitVM is an interesting concept, though I worry that needlessly overcomplicates things.
+
+My goal with this project is to build something that's highly secure with simple publicly audited code, yet extremely user friendly. That way, developers can easily write programs **deployable as written if the soft fork is adopted**, and users can easily and permissionlessly run a shared emulator and unilaterally exit, including from UTXOs shared by multiple users (i.e. ShieldedCSV).
+
+To the extent that additional integrity checks are desirable, I think the best way to accomplish that is with MuSig2. I plan to add support once it's merged into [rust/bitcoin](https://github.com/rust-bitcoin/rust-bitcoin).
+
+-------------------------
+
