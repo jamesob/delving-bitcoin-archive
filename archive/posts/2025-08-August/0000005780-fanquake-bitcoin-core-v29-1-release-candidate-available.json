@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
+  "reads": 11,
+  "readers_count": 10,
   "score": 2.0,
   "yours": false,
   "topic_id": 1881,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Binaries for Bitcoin Core version v29.1rc2 are available from:\n[https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/](https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/)\n\nSource code can be found in git under the signed tag\n[https://github.com/bitcoin/bitcoin/tree/v29.1rc2](https://github.com/bitcoin/bitcoin/tree/v29.1rc2) \n\nPreliminary release notes for the release can be found here:\n[https://github.com/bitcoin/bitcoin/blob/027a60d218e7d4e1d50a30cee1188614252f3837/doc/release-notes.md](https://github.com/bitcoin/bitcoin/blob/v29.1rc2/doc/release-notes.md)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Binaries for Bitcoin Core version v29.1rc2 are available from:\n<a href=\"https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/\">https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/</a> \nSource code can be found in git under the signed tag\n<a href=\"https://github.com/bitcoin/bitcoin/tree/v29.1rc2\">https://github.com/bitcoin/bitcoin/tree/v29.1rc2</a> \nPreliminary release notes for the release can be found here:\n<a href=\"https://github.com/bitcoin/bitcoin/blob/v29.1rc2/doc/release-notes.md\">https://github.c&hellip;</a>",
   "truncated": true,
   "post_url": "/t/bitcoin-core-v29-1-release-candidate-available/1881/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
