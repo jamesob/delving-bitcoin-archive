@@ -155,7 +155,7 @@ the CTV emulator is here: https://learn.sapio-lang.org/ch05-01-ctv-emulator.html
 
 -------------------------
 
-josh | 2025-08-30 20:26:41 UTC | #6
+josh | 2025-09-01 03:06:39 UTC | #6
 
 > hey josh, big fan of this idea, i’m working on a fork of bitcoinkernel which adds covenant support linked below.
 
@@ -167,7 +167,7 @@ Hey @stutxo thanks for doing this! It's awesome that there's now a public crate 
 
 Thanks for sharing @JeremyRubin ! I wasn't previously aware of your work, and I'll make sure to add citations to the repo. Adding integrity checks with BitVM is an interesting concept, though I worry that needlessly overcomplicates things.
 
-My goal with this project is to build something that's highly secure with simple publicly audited code, yet extremely user friendly. That way, developers can easily write programs **deployable as written if the soft fork is adopted**, and users can easily and permissionlessly run a shared emulator and unilaterally exit, including from UTXOs shared by multiple users (i.e. ShieldedCSV).
+My goal with this project is to build something that's highly secure with simple publicly audited code, yet extremely user friendly. That way, developers can easily write programs deployable as written if the soft fork is adopted, and users can easily and permissionlessly run a shared emulator and unilaterally exit, including from UTXOs shared by multiple users (i.e. ShieldedCSV).
 
 To the extent that additional integrity checks are desirable, I think the best way to accomplish that is with MuSig2. I plan to add support once it's merged into [rust/bitcoin](https://github.com/rust-bitcoin/rust-bitcoin).
 
