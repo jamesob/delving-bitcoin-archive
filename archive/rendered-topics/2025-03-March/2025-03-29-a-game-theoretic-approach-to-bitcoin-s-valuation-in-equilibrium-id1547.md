@@ -179,3 +179,13 @@ What’s the difference?
 
 -------------------------
 
+josh | 2025-09-03 15:18:12 UTC | #7
+
+Describe the physics of the perfect capital market.
+
+Describe the black hole.
+
+Prove its existence.
+
+-------------------------
+
