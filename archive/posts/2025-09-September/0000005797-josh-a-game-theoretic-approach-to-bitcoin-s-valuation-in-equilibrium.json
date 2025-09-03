@@ -54,7 +54,13 @@
   "excerpt": "The Hayek reveals information. \nTherefore, the Hayek must exist. \nQED.",
   "truncated": true,
   "post_url": "/t/a-game-theoretic-approach-to-bitcoin-s-valuation-in-equilibrium/1547/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
   "reaction_users_count": 0,
   "current_user_used_main_reaction": false,
