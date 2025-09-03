@@ -129,7 +129,7 @@ My 2 cents, but barely touching this gigantic post.
 
 -------------------------
 
-josh | 2025-08-29 15:20:13 UTC | #3
+josh | 2025-08-31 17:11:37 UTC | #3
 
 Hey @taparoo, thanks for giving it a skim!
 
@@ -155,11 +155,19 @@ Therefore, we can establish that a "Hayek" must exist under perfect capital mark
 
 -------------------------
 
-josh | 2025-08-29 15:38:17 UTC | #4
+josh | 2025-09-01 03:05:37 UTC | #4
 
-In effect, we can prove the necessity of a Hayek under perfect capital market assumptions. Academics can't both rely on perfect capital markets to value real life assets like stocks and bonds and reject Bitcoin, which is the leading candidate for the Hayek under those very same conditions.
+Assumptions should be applied consistently.
 
-Assumptions should be applied consistently. If we can prove that a perfect capital market requires an independent unit of account that is a constant fraction of total wealth (a "Hayek"), then academics can't logically dismiss the leading real-world candidate for that role.
+-------------------------
+
+josh | 2025-09-03 15:15:45 UTC | #5
+
+The Hayek reveals information.
+
+Therefore, the Hayek must exist.
+
+QED.
 
 -------------------------
 
