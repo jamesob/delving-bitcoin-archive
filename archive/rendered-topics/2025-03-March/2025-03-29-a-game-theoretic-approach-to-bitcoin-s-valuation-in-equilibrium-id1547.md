@@ -189,3 +189,13 @@ Prove its existence.
 
 -------------------------
 
+josh | 2025-09-03 15:19:51 UTC | #8
+
+Start with this paper.
+
+Kevin Kaiser, game theoretic proof of valuation, under perfect game theoretic assumptions.
+
+Bankruptcy.
+
+-------------------------
+
