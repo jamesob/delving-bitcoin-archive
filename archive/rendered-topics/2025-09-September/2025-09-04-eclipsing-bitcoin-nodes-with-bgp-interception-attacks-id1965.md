@@ -1,6 +1,6 @@
 # Eclipsing Bitcoin Nodes with BGP Interception Attacks
 
-cedarctic | 2025-09-04 10:57:12 UTC | #1
+cedarctic | 2025-09-04 14:08:14 UTC | #1
 
 ## Summary
 
@@ -60,7 +60,7 @@ The attacker aims to intercept or control all victim node connections by the end
 
 6. Test to see if the victim is eclipsed: submit a transaction to the victim node and drop or delay traffic to the hijacked connections. Then check if the transaction propagates. At this point the attacker only has to maintain up to as many prefix hijacks as the number of connections it intercepts.
 
-[details="Note on asymmetric routing" open]
+[details="Note on asymmetric routing"]
 Because internet routing can be asymmetric, if the attacker wishes to intercept both directions of the communication, they may have to make one additional prefix announcement for the victim’s prefix that targets the routers on the inbound path.
 
 [/details]
@@ -118,7 +118,7 @@ The attacker cannot claim to be the origin because of the ROA, and instead claim
 
 ### 4. Malicious announcement acceptance
 
-For the 59.87% of node prefixes that the attacker’s malicious routes will have to compete with the legitimate ones, the attacker can influence the [BGP best path selection algorithm](https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html) in their favor by place themselves as close to the victim as possible to influence the AS path length criterion.
+For the 59.87% of node prefixes that the attacker’s malicious routes will have to compete with the legitimate ones, the attacker can influence the [BGP best path selection algorithm](https://www.cisco.com/c/en/us/support/docs/ip/border-gateway-protocol-bgp/13753-25.html) in their favor by placing themselves as close to the victim as possible to influence the AS path length criterion.
 
 The success rate and feasibility of the attack depends on the victim. The figure below quantifies this for a victim node in AS 31034. The x axis represents the number of hops away (in number of ASes) that the adversary AS is from the victim AS. The y axis shows the number of Bitcoin nodes that the adversary intercepts in blue, and in red the number of ASes that exist up to that number of hops away from the victim AS which the attacker can potentially compromise. For instance, an attacker can compromise one of 10,000+ ASes that are 3 or fewer hops away from the victim, and successfully hijack connections to over 85% of reachable nodes.
 
@@ -146,11 +146,11 @@ To confirm the feasibility of the attack I emulated a simple AS topology with ga
 While performing the attack, I noticed that in certain cases, possibly due to reasons related to the emulation environment, some intercepted connections dropped because of a TCP RST packet sent from one of the hops on the path. To overcome this, I ran the attack script 6 more times, at which point I was intercepting all of my node’s connections, including anchor connections. Because anchor connections exchange less traffic, I had to expand the observation time window to ensure that the the attack script had the chance to observe anchor traffic in hijacked prefixes.
 
 [details="Additional emulation details"]
-I emulated the AS topology shown below using [SEED](https://www.notion.so/24-02-2025-Emulator-work-1a4163ec85c08067be13eabfa406aeff?pvs=21). In this topology, AS 152 hosts the victim Bitcoin node which is connected to the emulator [via a VPN tunnel](https://github.com/seed-labs/seed-emulator/blob/eff5a7fba2412bb90191934ae6f3c8ad1aeb9d25/misc/openvpn-remote-access/README.md). AS 152 peers at Internet Exchange Point (IXP) 100 and peers with AS 2 which provides transit to IXP 101. There, AS 998 acts as a provider to AS 2 and is a gateway to the real internet. This means that under normal operation traffic from the victim AS to the real internet flows as follows: 152→ 100→ 2 →101 → 998 → Internet.
+I emulated the AS topology shown below using [SEED](https://www.notion.so/24-02-2025-Emulator-work-1a4163ec85c08067be13eabfa406aeff?pvs=21). In this topology, AS 152 hosts the victim Bitcoin node which is connected to the emulator [via a VPN tunnel](https://github.com/seed-labs/seed-emulator/blob/eff5a7fba2412bb90191934ae6f3c8ad1aeb9d25/misc/openvpn-remote-access/README.md). AS 152 peers at Internet Exchange Point (IXP) 101 and peers with AS 2 which provides transit to IXP 100. At IXP 100, AS 998 acts as a provider to AS 2 and is a gateway to the real internet. This means that under normal operation traffic from the victim AS to the real internet flows as follows: 152→ 101→ 2 →100 → 998 → Internet.
 
-The attacker controls AS 157 which peers at IXP 101 and has ASes 999 and 998 as upstream providers. Like AS 998, AS 999 is a gateway to the real internet. AS 999 and AS 998 have a peer relationship with each other. During the attack, AS 157 makes malicious announcements to AS 998 claiming to be the second hop on the path to all reachable nodes. To avoid AS 999 also adopting the malicious routes, preventing AS 157 from intercepting and routing the traffic to the legitimate destination via AS 999, the attacker attaches the NoExport BGP community to its announcements.
+The attacker controls AS 157 which peers at IXP 100 and has ASes 999 and 998 as upstream providers. Like AS 998, AS 999 is a gateway to the real internet. AS 999 and AS 998 have a peer relationship with each other. During the attack, AS 157 makes malicious announcements to AS 998 claiming to be the second hop on the path to all reachable nodes. To avoid AS 999 also adopting the malicious routes, which would prevent AS 157 from intercepting and routing the traffic to the legitimate destination via AS 999, the attacker attaches the NoExport BGP community to its announcements.
 
-The attacker proceeds to hijack prefixes as described in the attack algorithm making the traffic from the victim AS destined to the hijacked prefixes flow as follows: AS 152 → 100→ 2 →101 → 998 → 101 → 157 → 101 → 999 → Internet.
+The attacker proceeds to hijack prefixes as described in the attack algorithm making the traffic from the victim AS destined to the hijacked prefixes flow as follows: AS 152 → 101→ 2 →100 → 998 → 100 → 157 → 100 → 999 → Internet.
 
 [/details]
 
@@ -169,24 +169,24 @@ I have been collecting measurements for over a month at this point. I intend to 
 
 I share some relevant insights from the collected data:
 
-[details="Insight #1: Host churn is low." open]
+[details="Insight #1: Host churn is low."]
 Over the past month, the number of nodes that could not be reached using ICMP pings has increased from 4 to 15-18 in the sample set of 350 reachable nodes.
 
 ![Average number of failed pings per measurement round for each vantage point / monitor over the course of 2 weeks. Drops and gaps in measurements on 8/4, 8/8 and 8/9 are artifacts of rebooting the collection system.|690x230](upload://lzvQMmhWADycohT7x1HcBMIcNxr.png)
 
 [/details]
 
-[details="Insight #2: Traceroutes have a high success rate." open]
+[details="Insight #2: Traceroutes have a high success rate."]
 After post-processing, I confirmed that the traceroutes reached the destination AS in **97% of cases**. In particular, 43.3% of traceroutes reach the actual host, 47.9% stop because they reach the limit of allowable gaps at the end of the path, 8.17% report the host as unreachable, and 0.06% stop because a routing loop is detected.
 
 [/details]
 
-[details="Insight #3: Most AS hops on a given path can be reliably inferred." open]
+[details="Insight #3: Most AS hops on a given path can be reliably inferred."]
 The worst performing vantage point used for measurements had an average AS path completeness of 75.1%, while the best performing one had **92% AS path completeness**. These are conservative estimates where null hops are counted as single ASes. Path inference was done using data collected from [BGP monitor nodes](https://archive.routeviews.org/bgpdata/), and [Internet Routing Registries](https://www.radb.net/) (IRRs), and using an algorithm informed by [AS connectivity and business relationships](http://www.caida.org/catalog/datasets/as-relationships/).
 
 [/details]
 
-[details="Insight #4: Paths to reachable nodes are generally stable." open]
+[details="Insight #4: Paths to reachable nodes are generally stable."]
 This is demonstrated in the figures below that show the number of router hops, number of AS hops, and number of unidentifiable ASes on the paths reported by the traceroute measurements from each vantage point.
 
 In the boxplot, with the exception of a handful of nodes (marked in red on the axes), all nodes had < 5% measurement outliers (marked with Os). In the vast majority of cases, interquantile ranges are equal to 0.
@@ -199,7 +199,7 @@ It’s also the case that the path to a given destination is generally stable wi
 
 [/details]
 
-[details="Insight #5: AS diversity increases during the first few hops before decreasing." open]
+[details="Insight #5: AS diversity increases during the first few hops before decreasing."]
 This is illustrated in the sankey diagram below that samples traffic to all 350 nodes and aggregates all destinations and terminal null traceroute hops in the block on the right. All traffic initially flows from AS 25 to 2152 before being it gets split over a set of ASes on the 3rd hop, and then an even larger set on the 4th hop.
 
 ![54e53f60-3c9f-49ef-8810-51d2559162b0|690x280](upload://6FwJaYBB9R0tAoujhmhzzGjYvcT.jpeg)
