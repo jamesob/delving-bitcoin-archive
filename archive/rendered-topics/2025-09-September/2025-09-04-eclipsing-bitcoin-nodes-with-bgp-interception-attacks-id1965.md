@@ -1,6 +1,6 @@
 # Eclipsing Bitcoin Nodes with BGP Interception Attacks
 
-cedarctic | 2025-09-04 10:52:07 UTC | #1
+cedarctic | 2025-09-04 10:57:12 UTC | #1
 
 ## Summary
 
@@ -52,7 +52,7 @@ The attacker aims to intercept or control all victim node connections by the end
 
       1. If the peer’s IP is public, maintain the hijack as it is possibly an outbound connection
 
-         1. If it’s an [encrypted V2 connection](https://github.com/bitcoin/bips/blob/master/bip-0324.mediawiki), continue forwarding and intercepting traffic
+         1. If it’s an [encrypted V2 connection](https://github.com/bitcoin/bips/blob/4d6cd518a04a4101f3cd833cd18b1f31facbc129/bip-0324.mediawiki), continue forwarding and intercepting traffic
 
          2. If it’s a V1 connection, impersonate it (or continue forwarding and intercepting)
 
@@ -146,7 +146,7 @@ To confirm the feasibility of the attack I emulated a simple AS topology with ga
 While performing the attack, I noticed that in certain cases, possibly due to reasons related to the emulation environment, some intercepted connections dropped because of a TCP RST packet sent from one of the hops on the path. To overcome this, I ran the attack script 6 more times, at which point I was intercepting all of my node’s connections, including anchor connections. Because anchor connections exchange less traffic, I had to expand the observation time window to ensure that the the attack script had the chance to observe anchor traffic in hijacked prefixes.
 
 [details="Additional emulation details"]
-I emulated the AS topology shown below using [SEED](https://www.notion.so/24-02-2025-Emulator-work-1a4163ec85c08067be13eabfa406aeff?pvs=21). In this topology, AS 152 hosts the victim Bitcoin node which is connected to the emulator [via a VPN tunnel](https://github.com/seed-labs/seed-emulator/blob/master/misc/openvpn-remote-access/README.md). AS 152 peers at Internet Exchange Point (IXP) 100 and peers with AS 2 which provides transit to IXP 101. There, AS 998 acts as a provider to AS 2 and is a gateway to the real internet. This means that under normal operation traffic from the victim AS to the real internet flows as follows: 152→ 100→ 2 →101 → 998 → Internet.
+I emulated the AS topology shown below using [SEED](https://www.notion.so/24-02-2025-Emulator-work-1a4163ec85c08067be13eabfa406aeff?pvs=21). In this topology, AS 152 hosts the victim Bitcoin node which is connected to the emulator [via a VPN tunnel](https://github.com/seed-labs/seed-emulator/blob/eff5a7fba2412bb90191934ae6f3c8ad1aeb9d25/misc/openvpn-remote-access/README.md). AS 152 peers at Internet Exchange Point (IXP) 100 and peers with AS 2 which provides transit to IXP 101. There, AS 998 acts as a provider to AS 2 and is a gateway to the real internet. This means that under normal operation traffic from the victim AS to the real internet flows as follows: 152→ 100→ 2 →101 → 998 → Internet.
 
 The attacker controls AS 157 which peers at IXP 101 and has ASes 999 and 998 as upstream providers. Like AS 998, AS 999 is a gateway to the real internet. AS 999 and AS 998 have a peer relationship with each other. During the attack, AS 157 makes malicious announcements to AS 998 claiming to be the second hop on the path to all reachable nodes. To avoid AS 999 also adopting the malicious routes, preventing AS 157 from intercepting and routing the traffic to the legitimate destination via AS 999, the attacker attaches the NoExport BGP community to its announcements.
 
