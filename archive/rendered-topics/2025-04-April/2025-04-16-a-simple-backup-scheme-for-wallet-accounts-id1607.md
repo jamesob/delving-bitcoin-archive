@@ -496,3 +496,10 @@ Related to the topic of this thread, the Bitcoin Core wallet is about to add an 
 
 -------------------------
 
+pyth | 2025-09-04 07:27:27 UTC | #31
+
+ I’ve just PR a draft BIP related to this:
+[Bip draft: Bitcoin Encrypted Backup](https://github.com/bitcoin/bips/pull/1951)
+
+-------------------------
+
