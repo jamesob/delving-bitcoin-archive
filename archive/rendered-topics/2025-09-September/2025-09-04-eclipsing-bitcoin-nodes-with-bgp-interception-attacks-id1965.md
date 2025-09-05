@@ -306,3 +306,11 @@ I want to extend my gratitude to the people at Chaincode Labs for their support.
 
 -------------------------
 
+0xB10C | 2025-09-05 11:40:27 UTC | #2
+
+Thanks for posting this!
+
+I was wondering if you have a suggestion of how an attack like this can be detected through monitoring and what metrics would be useful to keep track of. I run a couple of “honeypot“ monitoring nodes as part of my https://b10c.me/projects/024-peer-observer/ and while I don’t suspect they’ll be attacked with a BGP attack, it could be useful to use some Bitcoin Core external monitoring tool that  e.g. periodically traceroutes peers and collects information about reachabillity, AS path length, … to have more real-world data before implementing it in node software.
+
+-------------------------
+

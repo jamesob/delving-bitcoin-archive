@@ -352,3 +352,13 @@ New whirlpool coordinator with some red flags and vulnerabilities: https://bitco
 
 -------------------------
 
+kravens | 2025-09-05 11:25:31 UTC | #25
+
+Latest Wasabi Wallet release should make it easier to run your own anonymous coordinator as an onion service (only reachable over Tor network): https://github.com/WalletWasabi/WalletWasabi/releases/tag/v2.7.0
+So when public/clearnet coordinators (e.g. https://coinjoin.nl) are taken down, I expect anonymous Tor-only coordinators to proliferate.
+
+
+Important notice for people using BTCPay Server, the Coinjoin plugin is no longer actively maintained and the developers recommend me to switch to Wasabi Wallet for running a coordinator. You can still use an older plugin version as long as Wasabi Wallet’s implementation doesn’t break backwards compatibility. There is still user demand for this plugin, so we encourage anyone that can to help maintain it. See: https://github.com/Kukks/BTCPayServerPlugins/tree/master/Plugins/BTCPayServer.Plugins.Wabisabi
+
+-------------------------
+

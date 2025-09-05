@@ -33,3 +33,13 @@ Preliminary release notes for the release can be found here:
 
 -------------------------
 
+kravens | 2025-09-05 11:10:30 UTC | #3
+
+
+https://bitcoincore.org/bin/bitcoin-core-29.1/
+
+
+Looks like the final 29.1 release is out today ⚡
+
+-------------------------
+
