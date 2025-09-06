@@ -314,3 +314,13 @@ I was wondering if you have a suggestion of how an attack like this can be detec
 
 -------------------------
 
+gmaxwell | 2025-09-06 04:29:41 UTC | #3
+
+If/when countersign is ever implement such attacks should be readily detectable from even a small number of nodes using authentication,  particularly because the attacker wouldn’t be able to simply distinguish auth using and auth-not-using connections in order to successfully avoid MITM the authenticated ones.
+
+Absent that, if you do know some of your peers you can manually compare session IDs today.
+
+Also having another internet connection would be extremely valuable, and while that’s kind of costly in much of the world you can put in a satellite feed receiver for the blockstream satellite to get another view.
+
+-------------------------
+
