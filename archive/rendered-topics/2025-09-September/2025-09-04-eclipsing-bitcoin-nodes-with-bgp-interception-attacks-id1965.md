@@ -324,3 +324,57 @@ Also having another internet connection would be extremely valuable, and while t
 
 -------------------------
 
+cedarctic | 2025-09-06 08:02:28 UTC | #4
+
+[quote="0xB10C, post:2, topic:1965"]
+Thanks for posting this!
+
+I was wondering if you have a suggestion of how an attack like this can be detected through monitoring and what metrics would be useful to keep track of. \[…\]
+
+[/quote]
+
+Based on the data that I collected, I think keeping track of the following metrics is a good idea:
+
+1. Number of connection path changes: since paths to a specific destination remain mostly stable (same ASes and routers on path - Insight #4), if many or all of our connections’ paths change to be routed through a common AS, that is a sign of this attack. The attacker can tamper with traceroute traffic that goes through their AS but not before it - this allows us to observe a common path on which connections will consolidate to if this attack takes place.
+
+2. Connection churn rate for non reachable nodes: the attacker wants to minimize the number of prefix hijacks they maintain in order to reduce the traffic they forward, and increase their chances of remaining unnoticed. Thus the attacker prefers to reset inbound connections to the victim and occupy their slots with connections of their own. A high churn rate of non reachable nodes can be an indicator of this attack.
+
+I might be missing some candidate metrics though - happy to discuss other ideas.
+
+[quote="gmaxwell, post:3, topic:1965"]
+If/when countersign is ever implement such attacks should be readily detectable from even a small number of nodes using authentication, particularly because the attacker wouldn’t be able to simply distinguish auth using and auth-not-using connections in order to successfully avoid MITM the authenticated ones.
+
+Absent that, if you do know some of your peers you can manually compare session IDs today.
+
+[/quote]
+
+Authentication would help in preventing the attacker from impersonating unauthenticated connections or MITM-ing new ones during the handshake. For existing authenticated connections, the attacker can still intercept them, but not inspect their traffic, using this attack.
+
+[quote="gmaxwell, post:3, topic:1965"]
+Also having another internet connection would be extremely valuable, and while that’s kind of costly in much of the world you can put in a satellite feed receiver for the blockstream satellite to get another view.
+
+[/quote]
+
+Multi-homing a node is probably one of the best countermeasures against routing-based attacks.
+
+-------------------------
+
+gmaxwell | 2025-09-06 08:25:15 UTC | #5
+
+[quote="cedarctic, post:4, topic:1965"]
+Authentication would help in preventing the attacker from impersonating unauthenticated connections or MITM-ing new ones during the handshake. For existing authenticated connections, the attacker can still intercept them, but not inspect their traffic, using this attack.
+
+[/quote]
+
+The key point of countersign, vs any authentication scheme proposed elsewhere that I’m aware of is that a would-be MITM can’t detect if the parties are authenticating or not.  This means that once its deployed and reaches some small threshold of use the MITM must either choose between being detected or not MITMing any meaningful amount of traffic at all.
+
+Now for the attacks discussed here maybe we could imagine that the attackers wouldn’t bother MITMing anyways, they’d just sever links to selectively partition the network at a time of their choosing.  For example, carve off a majority hashpower to carry their reversal transaction and partition their target with a minority to confirm a payment to be reversed.
+
+But if they’re actively that should be detectable through connection loss.
+
+When we were thinking about countersign we imagined that a transacting node with good security practices would establish a couple peers that were authenticated– then have their wallet treat transactions without a lot of depth as unconfirmed if too many of their authenticated peers were unreachable.
+
+Regarding diversity, there are perhaps other ways to accomplish that.  For example, if many people ran observation points and published signed messages of the chain tip(s) they think are leading… then these observations would give you a diverse view.   Unfortunately I don’t think mechanisms like this can actively be used in consensus (e.g. to pick your own chain tip) without creating vulnerabilities like those signers censoring some participants blocks.  But they presumably can be used to cause something to fail safer (e.g. regarding things as unconfirmed without recent observations or observations that suggest a better chain may exist).
+
+-------------------------
+
