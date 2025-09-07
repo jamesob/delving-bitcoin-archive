@@ -378,7 +378,7 @@ Regarding diversity, there are perhaps other ways to accomplish that.  For examp
 
 -------------------------
 
-fjahr | 2025-09-07 00:56:20 UTC | #6
+fjahr | 2025-09-07 13:01:34 UTC | #6
 
 Thank you for this great work! It is great to see more research going into the impact of network level attacks on Bitcoin.
 
@@ -429,6 +429,8 @@ I think a lot a questions would need to be answered for this, for example: Can d
 I think the first thing that could be done would be to raise further awareness among node runners and bitcoin infrastructure providers. Educate them on this in a more accessible way and let them choose their hosters/ISPs accordingly (tight ROAs, ASPA) or let them contact their provider and request adoption of these features asap. This might be something interesting to collaborate bitcoin optech on.
 
 Overall, I am a bit surprised [ASPA](https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-aspa-verification) isn’t mentioned. It should make parts of these attacks much harder and while it’s pretty new and not widely rolled out yet rpki-client and routinator support it already and some AS have implemented it as well. I think even a minor rollout of ASPA could help a lot because the attacker needs to eclipse all our connections, if just a few connections are hosted in an ASPA-enabled AS, then the attack becomes much harder. Quantifying that for the current adoption of ASPA and maybe a projected adoption a year from now would be very interesting. So this would also fit in with your prevention “Favor peers in protected prefixes”.
+
+EDIT: Here is a list of operators that are currently releasing ASPA objects: https://console.rpki-client.org/aspa.html
 
 -------------------------
 
