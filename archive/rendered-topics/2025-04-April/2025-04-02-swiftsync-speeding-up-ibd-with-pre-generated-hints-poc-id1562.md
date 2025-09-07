@@ -636,3 +636,9 @@ Right, optimization beyond the AV point is certainly important as well. In theor
 
 -------------------------
 
+murch | 2025-09-07 15:20:56 UTC | #17
+
+I was just trying to figure out the status of SwiftSync. Is someone working on this meanwhile?
+
+-------------------------
+
