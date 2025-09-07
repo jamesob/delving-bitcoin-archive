@@ -378,3 +378,57 @@ Regarding diversity, there are perhaps other ways to accomplish that.  For examp
 
 -------------------------
 
+fjahr | 2025-09-07 00:54:02 UTC | #6
+
+Thank you for this great work! It is great to see more research going into the impact of network level attacks on Bitcoin.
+
+I am dropping a few unordered thoughts here, feel free to ignore any of them if they are not useful:
+
+\> Eclipse attacks: The goal of the attacker is to control all incoming and outgoing connections to a node. This allows the attacker to waste mining power, do selfish mining, double spend, attack Lightning, etc \[[1](https://ihchoi12.github.io/assets/tran2020stealthier.pdf)\]. This was previously done by polluting AddrMan’s tables with IPs that the attacker controlled \[[2](https://www.usenix.org/system/files/conference/usenixsecurity15/sec15-paper-heilman.pdf)\], or was on the path to \[[1](https://ihchoi12.github.io/assets/tran2020stealthier.pdf)\]. Core has mitigated these eclipsing methods by making changes to AddrMan.
+
+IMO it should be noted for completeness that usage of BIP324 and StratumV2 is limiting the damage that an attacker can do if these attacks are explicitly named. Also I think the impact of alternative connection types like Tor or I2P would be interesting to evaluate. Having multiple tor peers may actually make the attack easier if the entry guard is being used consistently through out the attack. On the other hand, if there is one tor connection and multiple entry guards are used or rotated frequently then it makes it harder again.
+
+\> Compromise or set up a new AS as close (in number of AS hops) to the victim node AS as possible.
+
+It’s not clear to me from the write-up if this is the same AS that is mentioned in the requirements or if this is a second one. I guess 1. is just the classic way of trying to evict and starting from 2. this is what you suggest as a new style of attack. I think the description could be a bit clearer to make clear if both of these styles need to be used or if that is not the case maybe mention the classic style rather as a footnote.
+
+\> Sort IP prefixes by number of nodes and hijack them in succession at a rate that will not raise alarms.
+
+\> Hijack rate
+
+I am not a network engineer and I don’t know what detection mechanisms there might be triggered but I would expect that being much more aggressive should yield higher success probability. Doing the attack as fast as possible should raise the success probability significantly since there is less other interference happening (node changing connections, new routes being made available etc.). In your numbers you assume the absolute worst case scenario (hijacking all prefixes), I think that can be more optimistic. A well organized attacker might do some probing without hijacking first, just using the bitcoin network, to make more informed choices about which prefixes to attack.
+
+\> We find that the attacker can always successfully hijack 41.13% of node prefixes
+
+I find that a bit too strongly worded given that there are often additional filters in place that could prevent the shorter prefix from being successful. At least when there is a customer relationship this can be assumed to be the case. I would say that number is the worst case or make trying this type of hijack feasible.
+
+Side-note: I would be interested in that AS relationship dataset from CAIDA if you were able to get it ;) I wasn’t successful but I only tried that form once a long time ago, seeing the link here reminded me of that.
+
+\> \[1-NT\] Peer rotation
+
+I think Cons should mention that this also makes the classic eclipse attack easier in some ways because the attacker has more chances to become get into connection slots, right?
+
+\> \[4-T\] Select at least one peer with the shortest path possible
+
+It might be interesting to check if quickest ping response correlates well enough with shortest path so that this could replace needing to do traceroutes.
+
+\> \[5-T\] Route-aware peer selection
+
+Hm, but this would require periodic traceroutes on the peers that we are connected to as well not just candidates, right? A non-intercepted peer that we connect today could be intercepted tomorrow, right? So we might want to monitor if the routes change as well and then maybe prefer these for rotating them out in peer rotation? Not sure, I have to think about this some more.
+
+\> exponentially favoring peers whose paths introduce new ASes earlier on.
+
+This also could make the classic eclipse attack easier if the attacker can create some nodes in “exotic” locations (of the internet).
+
+\> I would also like to hear people’s thoughts on integrating traceroute functionality into core to enable the aforementioned mitigations.
+
+I think a lot a questions would need to be answered for this, for example: Can detection be  avoided with tunneling and if so what else do we have to do to detect that? And assuming traceroute itself works reasonably well, what would we do with connections if an anomaly is detected? I think you could propose some basic decision tree for this so this feature can be reasoned about on a conceptual level aside from collecting the data to evaluate if traceroute is technically reliable enough Also, afaict you are only proposing to use traceroute to detect outbound connection hijacks. If inbound is targeted instead we would need to use some other vantage point or so?
+
+\> Mitigations
+
+I think the first thing that could be done would be to raise further awareness among node runners and bitcoin infrastructure providers. Educate them on this in a more accessible way and let them choose their hosters/ISPs accordingly (tight ROAs, ASPA) or let them contact their provider and request adoption of these features asap. This might be something interesting to collaborate bitcoin optech on.
+
+Overall, I am a bit surprised [ASPA](https://datatracker.ietf.org/doc/html/draft-ietf-sidrops-aspa-verification) isn’t mentioned. It should make parts of these attacks much harder and while it’s pretty new and not widely rolled out yet rpki-client and routinator support it already and some AS have implemented it as well. I think even a minor rollout of ASPA could help a lot because the attacker needs to eclipse all our connections, if just a few connections are hosted in an ASPA-enabled AS, then the attack becomes much harder. Quantifying that for the current adoption of ASPA and maybe a projected adoption a year from now would be very interesting. So this would also fit in with your prevention “Favor peers in protected prefixes”.
+
+-------------------------
+
