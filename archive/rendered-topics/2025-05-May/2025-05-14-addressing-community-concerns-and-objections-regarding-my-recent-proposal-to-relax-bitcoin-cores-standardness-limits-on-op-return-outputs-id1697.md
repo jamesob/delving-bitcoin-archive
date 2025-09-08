@@ -447,3 +447,35 @@ Typo fixed: ~~defensive~~ [sybil attack](https://en.bitcoin.it/wiki/Weaknesses#S
 
 -------------------------
 
+FernandoTheKoala | 2025-09-08 13:59:11 UTC | #6
+
+Hi Antoine and all, I’m sorry to re-open this debate as I’m sure people are very tired of this, but would it be possible to have a clarification in regard to the issue below? The goal is to provide some answers to confused ppl and to channel eventual future comments in the same place.  
+
+In regard to the latest claims that in this way (with 100’000 bytes for op_return) csam images can:
+
+1. be uploaded as a single jpg which is visible/clear enough
+
+2. It is possible to visualize it in a much much simpler way  compared as to other data already embedded in the blockchain but that are “fractured” in multiple txs and are much harder to reconstruct?
+
+I believe the main questions which I gathered from various avenues are: 
+
+a) is point #2 true? we all agree that the data is in hex form, but some people say that to visualize it is a simple as: extract bytes, save them to a file, open file with image viewer; other people say it is not so easy to visualize it and advanced/sophisticated tools are still needed. There is confusion here  
+
+b) what is the legal defense that people seem to have if this get weaponized? we know that this kind of thing is already present, but when is fractured in many txs it’s easier to legally defend and claim ignorance. Having it in a single tx it’s a different story, what’s the legal defense that people have in mind here? 
+
+3) Since after BVS did the same change (open op_return to 100’000), and this kind of material has been uploaded immediately, we should expect to have the same thing happen here. Are people dismissing it because they don’t think is going to happen the same on btc? or is the reasoning “BVS has been doing it for ages and nothing happened”? 
+
+  
+
+Since this specific dangerous use case has surfaced aggressively in the recent discussions, and there seems to be contradicting ideas, it would be appreciated to have some clarification on this. 
+
+Respectfully, a perfect nobody who is trying to understand things
+
+-------------------------
+
+AntoineP | 2025-09-08 14:23:41 UTC | #7
+
+I think your questions were already addressed in OP. See [this section](https://delvingbitcoin.org/t/addressing-community-concerns-and-objections-regarding-my-recent-proposal-to-relax-bitcoin-cores-standardness-limits-on-op-return-outputs/1697). The legality of stored data does not depend of its encoding. Even if it did, it is trivial to get a large `OP_RETURN` output mined today regardless of the Bitcoin Core policy change. Assuming an attacker cannot pay a couple dollars premium or is unable to simply use a website is an uninteresting threat model. This risk is fundamental to Bitcoin, the proposed Bitcoin Core policy change does not materially affect this concern. What does make a difference and could put node runners at risk is fear mongerers trying to draw more public attention to this already existing issue.
+
+-------------------------
+

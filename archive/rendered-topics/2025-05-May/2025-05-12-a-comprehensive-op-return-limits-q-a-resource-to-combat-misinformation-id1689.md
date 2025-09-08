@@ -51,3 +51,21 @@ I'll list the questions in order of activity and tips received. I've removed dup
 
 -------------------------
 
+FernandoTheKoala | 2025-09-08 13:18:43 UTC | #2
+
+First of all thank you for your guide, very useful. 
+
+In regard to point#24, specifically as to why the limit has been increased so much to 100’000 bytes, the given motivation is:  *“…undemanded blockspace is no longer a thing. OP_RETURN outputs would have to compete for blockspace with other transactions at all times. The limit is neither as important nor as effective today as when it was introduced. Instead of providing mining pools with a financial incentive to accept oversized OP_RETURN outputs out of band, and to have debates to slightly loosen the limit further every once in a while, it seems easier to get rid of the incentive and debates by dropping it altogether*”. 
+
+The given motivation claims that the limit is irrelevant as large op_return will be pushed out by market forces. In regard to the latest claims that in this way (with 100’000 bytes for op_return) CP images can: 
+
+1) be uploaded as a single jpeg which is visible/clear enough  
+
+2) It is possible to visualize it in a much much simpler way (being a single hash) compared as to other data already embedded in the blockchain but that are “fractured” in multiple txs and are much harder to reconstruct? 
+
+If the 2 points above are correct, would not this expose btc to a massive risk of having CP images uploaded on the chain? (I’m referring to legal risks here). If this is the case a sufficiently motivated actor will not be discouraged by large fees, also as it would be enough to upload 1 of these images to have enough reasons/proofs to his advantage. 
+
+Since this specific case has surfaced aggressively in the recent discussions, and there seems to be contradicting ideas (on how easy it is to visualize it) i would be appreciated to have some clarification on this
+
+-------------------------
+
