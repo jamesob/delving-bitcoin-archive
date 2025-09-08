@@ -642,3 +642,16 @@ I was just trying to figure out the status of SwiftSync. Is someone working on t
 
 -------------------------
 
+rustaceanrob | 2025-09-08 15:08:15 UTC | #18
+
+
+I am working on a Rust-based binary that performs SwiftSync [here](https://github.com/2140-dev/swiftsync). We made a couple of patches to the `libbitcoinkernel` library to do this. From the client perspective, `ProcessNewBlockHeaders` to pre-sync block headers and manage the chain state. To build the hintfile, I also require `HaveCoin` on the `ChainStateManager`. 
+
+The IBD binary works as follows: 1. read a hintfile into memory and parse the agreed upon stop-hash 2. query DNS for reachable nodes 3. connect to a peer and sync block headers to that stop hash 4. spawn `N` threads to continually request batches of blocks 5. update an accumulator if the output is not contained in the UTXO set (given by the hint file) 6. return true/false if the accumulator state is zero once all blocks have been downloaded.
+
+The times to sync have been promising when testing on my computer(s). I encourage people to try it out and give feedback!
+
+Of note, I am working on a patch to divide block hashes into a “work-stealing” style, which should improve sync times in the coming days.
+
+-------------------------
+
