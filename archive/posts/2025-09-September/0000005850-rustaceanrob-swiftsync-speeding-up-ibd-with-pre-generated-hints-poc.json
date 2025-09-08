@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I am working on a Rust-based binary that performs SwiftSync [here](https://github.com/2140-dev/swiftsync/tree/master/node). We made a couple of patches to the `libbitcoinkernel` library to do this. From the client perspective, `ProcessNewBlockHeaders` to pre-sync block headers and manage the chain state. To build the hintfile, I also require `HaveCoin` on the `ChainStateManager`.\n\nThe IBD binary works as follows: 1. read a hintfile into memory and parse the agreed upon stop-hash 2. query DNS for reachable nodes 3. connect to a peer and sync block headers to that stop hash 4. spawn `N` threads to continually request batches of blocks 5. update an accumulator if the output is not contained in the UTXO set (given by the hint file) 6. return true/false if the accumulator state is zero once all blocks have been downloaded.\n\nThe times to sync have been promising when testing on my computer(s). I encourage people to try it out and give feedback!\n\nOf note, I am working on a patch to divide block hashes into a \u201cwork-stealing\u201d style, which should improve sync times in the coming days.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I am working on a Rust-based binary that performs SwiftSync <a href=\"https://github.com/2140-dev/swiftsync/tree/master/node\" rel=\"noopener nofollow ugc\">here</a>. We made a couple of patches to the libbitcoinkernel library to do this. From the client perspective, ProcessNewBlockHeaders to pre-sync block headers and manage the chain state. To build the hintfile, I also require HaveCoin on the Ch&hellip;",
   "truncated": true,
   "post_url": "/t/swiftsync-speeding-up-ibd-with-pre-generated-hints-poc/1562/18",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "clap",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
