@@ -69,3 +69,21 @@ Since this specific case has surfaced aggressively in the recent discussions, an
 
 -------------------------
 
+garlonicon | 2025-09-09 06:28:54 UTC | #3
+
+> If the 2 points above are correct, would not this expose btc to a massive risk of having CP images uploaded on the chain?
+
+There are much worse ways to push data on-chain, than OP_RETURN. For example, it is possible to use some future Segwit version, and push everything, as a continuous 4 MB witness data chunk.
+
+Also, 520-byte chunks can be easily collected, and displayed, so even if some data will be fragmented between many outputs, many transactions, and many coins, then it doesn’t matter, because writing a parser, which will collect all of that, and display it to the user, is quite easy.
+
+-------------------------
+
+FernandoTheKoala | 2025-09-09 07:51:36 UTC | #4
+
+Thank you for the reply. So basically it is already feasible in an equally easy way, and the “new” op_return would not change this particular use case in any way. 
+
+I was confused as it was claimed that using single op_return of 100KB would have made it easier to visualize the jpeg  (much less complicated tools needed to see the image from the hex)
+
+-------------------------
+
