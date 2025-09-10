@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 16
+      "count": 17
     }
   ],
   "moderator": false,
@@ -71,12 +71,12 @@
       "count": 3
     },
     {
-      "id": "clap",
+      "id": "rocket",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
-      "id": "rocket",
+      "id": "clap",
       "type": "emoji",
       "count": 2
     },
@@ -87,7 +87,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 16,
+  "reaction_users_count": 17,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
