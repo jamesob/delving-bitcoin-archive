@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 102,
-  "reads": 26,
-  "readers_count": 25,
+  "reads": 27,
+  "readers_count": 26,
   "score": 705.2,
   "yours": false,
   "topic_id": 1974,
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 11
+      "count": 12
     }
   ],
   "moderator": false,
@@ -73,7 +73,7 @@
     {
       "id": "clap",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "rocket",
@@ -82,7 +82,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 11,
+  "reaction_users_count": 12,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
