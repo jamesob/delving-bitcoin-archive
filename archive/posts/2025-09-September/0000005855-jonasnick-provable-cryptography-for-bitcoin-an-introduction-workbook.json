@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 14
+      "count": 15
     }
   ],
   "moderator": false,
@@ -79,10 +79,15 @@
       "id": "rocket",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 14,
+  "reaction_users_count": 15,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
