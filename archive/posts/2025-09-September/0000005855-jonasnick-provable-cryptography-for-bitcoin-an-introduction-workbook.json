@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 9
+      "count": 10
     }
   ],
   "moderator": false,
@@ -68,7 +68,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "clap",
@@ -82,7 +82,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 9,
+  "reaction_users_count": 10,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
