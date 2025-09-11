@@ -290,13 +290,23 @@ If the receiver picks the salt for the ordinary short ids and has been caching i
 
 -------------------------
 
-ajtowns | 2025-08-22 11:59:35 UTC | #17
+ajtowns | 2025-08-27 05:00:05 UTC | #17
 
 [quote="gmaxwell, post:16, topic:1906"]
 If the receiver picks the salt for the ordinary short ids and has been caching it all along then it’s very cheap to do the decode anyways, so I don’t know that your third example is that compelling.
 [/quote]
 
-I was assuming the sender would choose the salt in that case, so you don't have to worry about someone targeting you and giving you many conflicts (or having to worry about updating your salt and reindexing all the txs in the mempool). I guess is you changed your salt once every few minutes and reindexed, that wouldn't be too expensive, and would let you avoid reusing salts with any given peer, which might make attempting to attack any particular salt fairly worthless.
+I was assuming the sender would choose the salt in that case, so you don't have to worry about someone targeting you and giving you many conflicts (or having to worry about updating your salt and reindexing all the txs in the mempool). I guess if you changed your salt once every few minutes and reindexed, that wouldn't be too expensive, and would let you avoid reusing salts with any given peer, which might make attempting to attack any particular salt fairly worthless.
+
+-------------------------
+
+mcelrath | 2025-09-11 16:30:35 UTC | #18
+
+It seems to me that sendtemplate is just transaction relay with extra steps. I don’t see the point, we should just focus on transaction relay instead, by increasing the size of the orphan pool, for instance.
+
+A template (without using weak blocks) is costless to generate so is just an “extra step”. There’s also no way to know whether the sender is actually a miner and trying to mine the block. If I want to fill your orphan pool with junk that wouldn’t normally be relayed, I’ll just send all my peers templates with the junk txs. I think we need to think harder about relay policies against DoS, and instead using a (very) large orphan pool and `blockreconstructionextratxn`.
+
+I posted \[some comments on the PR\](https://github.com/ajtowns/bips/pull/7#issuecomment-3258608404) that I doubt anyone read. and since learned about `blockreconstructionextratxn`…
 
 -------------------------
 
