@@ -310,3 +310,13 @@ I posted \[some comments on the PR\](https://github.com/ajtowns/bips/pull/7#issu
 
 -------------------------
 
+ajtowns | 2025-09-12 06:35:51 UTC | #19
+
+It is a way of relaying transactions, but the important/novel part of it is that it's a way of finding out what transactions your peers think are likely to be mined. If nodes and miners maintain diverse transaction acceptance policies, that's valuable information.
+
+Orphan transactions are generally not useful for block relay -- that they're orphans means you don't have their parent transactions, and any block that included the orphan but not the parent would simply be invalid. And once you have to ask for the parent, you're already incurring the round trip cost you'd like to avoid.
+
+The extra pool accepts any transaction that is below a certain size, which is fine as a best-effort approach, but is not particularly good. Expanding it significantly simply opens up an attack surface, allowing adversarial peers to fill your memory with arbitrary garbage (The [datum recommendation](https://github.com/OCEAN-xyz/datum_gateway/blob/4c00de9a401b87ef3a2add2ca592f93c83db2484/README.md?plain=1#L79-L82) of a million entries, combined with the 100kB per-entry limit could hit 100GB of memory usage, eg; Knots's recent release has [added an additional 10MB limit](https://github.com/bitcoinknots/bitcoin/commit/9b78a13aea28b09b320bfe192ec4f72cdcc57762), which means that an adversarial peer can again clear your million-tx-capacity extra pool by sending 100 invalid txs (100*100kB = 10MB)).
+
+-------------------------
+
