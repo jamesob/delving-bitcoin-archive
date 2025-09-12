@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 31.6,
   "yours": false,
   "topic_id": 1980,
   "topic_slug": "bitcoin-core-v30-0-release-candidate-is-available",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Binaries for Bitcoin Core version v30.0rc1 are available from:\n\nhttps://bitcoincore.org/bin/bitcoin-core-30.0/test.rc1/\n\nSource code can be found under the signed tag\n\nhttps://github.com/bitcoin/bitcoin/tree/v30.0rc1\n\nThis is a release candidate for a new major version release.\n\nPreliminary release notes for the release can be found here: https://github.com/bitcoin-core/bitcoin-devwiki/wiki/v30.0-Release-Notes-Draft\n\nThere is also a testing guide here: https://github.com/bitcoin-core/bitcoin-devwiki/wiki/30.0-Release-Candidate-Testing-Guide\n\nPlease put your issues or comments here: https://github.com/bitcoin/bitcoin/issues/33368\n\nRelease candidates are test versions for releases. When no critical problems are found, this release candidate will be tagged as v30.0.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Binaries for Bitcoin Core version v30.0rc1 are available from: \n\n\nSource code can be found under the signed tag \n\n\nThis is a release candidate for a new major version release. \nPreliminary release notes for the release can be found here: <a href=\"https://github.com/bitcoin-core/bitcoin-devwiki/wiki/v30.0-Release-Notes-Draft\" class=\"inline-onebox\">v30.0 Release Notes Draft \u00b7 bitcoin-core/bitcoin-devwiki Wiki &hellip;</a>",
   "truncated": true,
   "post_url": "/t/bitcoin-core-v30-0-release-candidate-is-available/1980/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

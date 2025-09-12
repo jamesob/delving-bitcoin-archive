@@ -330,3 +330,13 @@ Anyone can put anything into a Merkle tree, that doesn't mean it's “likely to 
 
 -------------------------
 
+AntoineP | 2025-09-12 13:22:41 UTC | #21
+
+[quote="mcelrath, post:20, topic:1906"]
+…is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in **exactly** the same way.
+[/quote]
+
+I find it surprising you'd simply assume AJ didn't think about that. Under this proposal you maintain [a template per peer](https://github.com/ajtowns/bitcoin/commit/ee12518a4a5e8932175ee57c8f1ad116f675d089#diff-6875de769e90cec84d2e8a9c1b962cdbcda44d870d42e4215827e599e11e90e3R239-R259), so one peer cannot evict other peers' transactions. It can at worst waste a bounded amount of your memory.
+
+-------------------------
+
