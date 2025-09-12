@@ -320,3 +320,13 @@ The extra pool accepts any transaction that is below a certain size, which is fi
 
 -------------------------
 
+mcelrath | 2025-09-12 10:08:39 UTC | #20
+
+> what transactions your peers think are likely to be mined
+
+…is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in **exactly** the same way.
+
+Anyone can put anything into a Merkle tree, that doesn't mean it's “likely to be mined”.
+
+-------------------------
+
