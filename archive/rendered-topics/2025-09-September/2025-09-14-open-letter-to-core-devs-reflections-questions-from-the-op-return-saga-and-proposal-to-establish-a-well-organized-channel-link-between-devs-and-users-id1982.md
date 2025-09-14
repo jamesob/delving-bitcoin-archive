@@ -54,3 +54,23 @@ Reference list for the statements and comments expressed in this post:
 
 -------------------------
 
+ArmchairCryptologist | 2025-09-14 18:41:16 UTC | #2
+
+Not a Core developer, but FWIW; the fundamental reason for some recent changes like OP_RETURN, full-RBF and minrelaytxfee is that a limitation that does not stop people from doing what it is intended to limit, and that encourages them to instead do it in a way that is actively worse or degrades the network, is a bad limitation.
+
+Keeping the OP_RETURN limit does not prevent people from storing data on the blockchain, since they were already doing so via ordinals etc. For smallish amounts of data, letting people store it in an OP_RETURN instead of abusing witness data is beneficial to both the sender and the network since it does not require an additional chained transaction to “reveal” this data. And there is simply no good reason to increase the datacarriersize to a higher but still arbitrary value, instead of just having it limited by the max transaction size.
+
+Furthermore, node mempool policy that does not match miner mempool policy create a mismatch between the node mempools and the blocks that are being mined, which breaks compact blocks and makes block propagation (very) significantly slower. Nodes enforcing the RBF flag do not prevent miners from running full-RBF. Nodes enforcing a minrelaytxfee of 1 sat/vB do not prevent miners from accepting transactions paying less. And nodes enforcing a lower OP_RETURN datacarriersize do not prevent miners from mining blocks with larger limits. Most miners were doing at least one if not all of those things.
+
+In general, for open source projects, organizing communication from a loose connection of volunteer developers tends to be difficult, and whatever communication there is tends to get lost in the noise. But if you are sufficiently interested in the technical aspects of Bitcoin, there are many mailing lists and other forums you can subscribe to that would have thoroughly informed you of the rationales for these changes, not to mention the Github itself. The devs have better things to do than sit on Reddit and X all day long and argue with people who are already convinced they are right and who won’t listen to reason.
+
+And to address one of your claims;
+
+> this is shown by the fact that today 24% of the nodes run Knots (from less than 1% 4 months ago).
+
+According to BitNodes, of the \~7100 nodes with “Knots” in the subver, \~6100 are on tor. Seeing as you can make an unlimited number of onion addresses and map them to a single node, most of these are likely fake.
+
+There seem to be about 800 Knots nodes on IPv4, of a total of 6658, and it’s hard to say how many of these were previously running Core and how many were deployed as new nodes to make the number larger. But seeing as about half of the Knots nodes are running a version that was released only 11 days ago, my money are on a good number of these being run by one or a mere handful of individuals.
+
+-------------------------
+
