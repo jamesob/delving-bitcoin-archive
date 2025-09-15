@@ -693,3 +693,23 @@ is thus left as an exercise to the reader.
 
 -------------------------
 
+harding | 2025-09-15 20:15:08 UTC | #2
+
+[quote="ZmnSCPxj, post:1, topic:1983"]
+The advantage of the MultiPTLC \[over sender-created stuckless payments\] is that Ursula the end-user sender is only required to lock exactly the amount they want to pay plus routing fees.
+
+[/quote]
+
+Would you be able to explain more about why you think that’s an advantage worth the additional complexity?
+
+[quote="ZmnSCPxj, post:1, topic:1983"]
+We expect Ursula the end-user to not have a lot of liquidity on the MultiChannel.
+
+[/quote]
+
+What is the basis for that expectation?  Almost all of my payments with physical cash, LN sats, and bank credit are for less than half of my available liquidity (respectively: cash-in-wallet, sats-on-my-side-of-the-channel, and available credit); I would guess most of my payments are for less than 1/10th my liquidity.  User-initiated stuckless payments should be convenient under those conditions, with no need for additional third party liquidity.
+
+In the rare cases where I make payments that approach the limit of my liquidity—conditions where stuckless payments might not function well or at all—I don’t usually mind waiting longer.  For example, I don’t want to wait more than a few seconds to complete a purchase of a $5 hot beverage but I don’t mind much that it often takes over a minute to complete a $2,000 purchase of airplane tickets on my current credit card (the bank usually requiring me to verify the purchase via text message).
+
+-------------------------
+
