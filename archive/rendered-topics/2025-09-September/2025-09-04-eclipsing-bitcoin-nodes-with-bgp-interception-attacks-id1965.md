@@ -434,3 +434,134 @@ EDIT: Here is a list of operators that are currently releasing ASPA objects: htt
 
 -------------------------
 
+cedarctic | 2025-09-15 18:41:24 UTC | #7
+
+[quote="gmaxwell, post:5, topic:1965"]
+The key point of countersign, vs any authentication scheme proposed elsewhere \[…\]
+
+[/quote]
+
+I understand now your point on countersign making MITMing ineffective in this case and in the partitioning example.
+
+I was also thinking about scenarios where the attacker’s goal is to censor TXs or blocks. For example, an attacker that intercepts the connections of a mining pool gateway could delay and drop traffic from the victim to its peers when a new block is found. This just requires the attacker to have a connection to the victim node to identify a new block, and be on path to drop / delay encrypted traffic that they intercept.
+
+[quote="fjahr, post:6, topic:1965"]
+IMO it should be noted for completeness that usage of BIP324 and StratumV2 is limiting the damage that an attacker can do if these attacks are explicitly named.
+
+[/quote]
+
+Agreed - unfortunately I don’t seem to have the option to edit my original post anymore.
+
+[quote="fjahr, post:6, topic:1965"]
+Also I think the impact of alternative connection types like Tor or I2P would be interesting to evaluate. Having multiple tor peers may actually make the attack easier if the entry guard is being used consistently through out the attack. On the other hand, if there is one tor connection and multiple entry guards are used or rotated frequently then it makes it harder again.
+
+[/quote]
+
+I agree, this would be interesting to look into. I’m not very familiar with I2P, but as far as I understand, to evaluate this I would have to run an I2P router, build a copy of the NetDB and perform the above analysis again. I2P might be more resilient to this attack compared to Tor as it forms [short lived tunnels using a larger set of peers](https://geti2p.net/en/docs/how/peer-selection).
+
+Tor, on the other hand, by default uses a single entry guard node at any given time, which it [picks out of a set of 3 entry guards](https://torproject.gitlab.io/torspec/guard-spec.html). If I understand correctly, rotating guard nodes introduces a tradeoff: it makes this attack harder, but increases the chances of an attacker deanonymizing the circuit. Tor guard nodes seem to be more centralized than Bitcoin nodes, and **\~39% of them are potentially vulnerable to prefix hijack** by virtue of them not being covered by RPKI or having overly permissive ROAs.
+
+![image|690x411](upload://Aw8xfieawfxEEtkZfWeh4XF9JoK.png)
+
+[quote="fjahr, post:6, topic:1965"]
+It’s not clear to me from the write-up if this is the same AS that is mentioned in the requirements or if this is a second one. I guess 1. is just the classic way of trying to evict and starting from 2. this is what you suggest as a new style of attack. \[…\]
+
+[/quote]
+
+Clarifications: it is indeed the same AS, and that is right - step 1 is indeed the classic attack, and starting 2 is the new attack (eclipsing via interceptions). I’ll make the suggested edits in any future revised writeups, since I can’t edit the original post.
+
+[quote="fjahr, post:6, topic:1965"]
+I am not a network engineer and I don’t know what detection mechanisms there might be triggered but I would expect that being much more aggressive should yield higher success probability.
+
+[/quote]
+
+I am not aware of any widespread detection mechanism beyond ROA/RPKI and custom filters / monitoring that is employed in practice by network operators, but I will look into it a bit more. Being more aggressive is advantageous for the adversary, but features related to the volume of announcements have previously been proposed in the literature for anomaly detection ([see Table III](https://www.researchgate.net/profile/Bahaa-Al-Musawi/publication/309519246_BGP_Anomaly_Detection_Techniques_A_Survey/links/59de2577aca27247d7941ec2/BGP-Anomaly-Detection-Techniques-A-Survey.pdf)).
+
+[quote="fjahr, post:6, topic:1965"]
+A well organized attacker might do some probing
+
+[/quote]
+
+This sounds interesting, what kind of probing do you have in mind?
+
+[quote="fjahr, post:6, topic:1965"]
+Side-note: I would be interested in that AS relationship dataset from CAIDA
+
+[/quote]
+
+[The link](https://www.caida.org/catalog/datasets/as-relationships/) works now! 👀
+
+[quote="fjahr, post:6, topic:1965"]
+I think Cons should mention that this also makes the classic eclipse attack easier in some ways because the attacker has more chances to become get into connection slots, right?
+
+[/quote]
+
+This does make it easier for the attacker to get into outbound connection slots, but as far as I understand, this does not make it make it much easier for the attacker to poison addrman’s tables since outbound and inbound connections seem to be treated equally with regards to received ADDR messages in `net_processing.cpp`.
+
+[quote="fjahr, post:6, topic:1965"]
+It might be interesting to check if quickest ping response correlates well enough with shortest path so that this could replace needing to do traceroutes.
+
+[/quote]
+
+There seems to be a weak correlation between the two:
+
+![image|690x438](upload://lgpLFb2woRkOUraB9o0xIfO8Dzn.png)
+
+[quote="fjahr, post:6, topic:1965"]
+Hm, but this would require periodic traceroutes on the peers that we are connected to as well not just candidates, right?
+
+[/quote]
+
+Rotating peers whose paths have changed might be a good heuristic, I’ll also think on this some more.
+
+[quote="fjahr, post:6, topic:1965"]
+This also could make the classic eclipse attack easier if the attacker can create some nodes in “exotic” locations (of the internet).
+
+[/quote]
+
+That’s true, it’s something that an attacker might seek to game. I’ll have to think more on this.
+
+[quote="fjahr, post:6, topic:1965"]
+Can detection be avoided with tunneling and if so what else do we have to do to detect that?
+
+[/quote]
+
+An attacker can evade detection by tunneling if they peer with an AS on the “common stem” of ASes that all traffic traverses out of the victim AS. For instance assume that all traffic from the victim flows from AS A (source) to B1 and on the second hop to ASes C1, C2. The attacker AS X uses AS B1 as a provider, and tunnels traffic to C1 and C2. It also does not decrease the TTL field on packets used for traceroute. This makes X invisible in the trace. If however, the victim node had peers in B2, the attack would be obvious, as the observed trace would change from A → B2 to A → B1 → B2 since the attacker cannot prevent B1 from appearing in the trace via tunneling. Detecting tunneling attackers could perhaps be done by observing other signals, such as new router IPs appearing in the trace (e.g the border router in B1 that connects to X might differ from the one that connects to C1).
+
+[quote="fjahr, post:6, topic:1965"]
+And assuming traceroute itself works reasonably well, what would we do with connections if an anomaly is detected?
+
+[/quote]
+
+As a reactive measure (versus the proactive ones in the post), if we detect route consolidation through a common (potentially adversarial) AS, we perform more traceroutes to peers in our tables trying to find candidates whose routes do not cross the attacker AS.
+
+[quote="fjahr, post:6, topic:1965"]
+I think you could propose some basic decision tree \[…\]
+
+[/quote]
+
+I think that’s a good idea. I’ll think on this and try to put something together to share.
+
+[quote="fjahr, post:6, topic:1965"]
+Also, afaict you are only proposing to use traceroute to detect outbound connection hijacks. If inbound is targeted instead we would need to use some other vantage point or so?
+
+[/quote]
+
+We can use traceroutes for detecting interception attacks of egress traffic for both inbound and outbound connections. If we want to detect the interception of ingress traffic we would need cooperation from external vantage points or the node to which we are connected.
+
+[quote="fjahr, post:6, topic:1965"]
+I think the first thing that could be done would be to raise further awareness \[…\]
+
+[/quote]
+
+Agreed, this is important and immediately actionable. Have there been any similar efforts in raising awareness in bitcoin optech that I can look into?
+
+[quote="fjahr, post:6, topic:1965"]
+Quantifying that for the current adoption of ASPA and maybe a projected adoption a year from now would be very interesting. So this would also fit in with your prevention “Favor peers in protected prefixes”.
+
+[/quote]
+
+Thank you for the references. I ran the prefix analysis again: Currently, **0.5% of node prefixes** are covered by an ASPA object, and for all of the supporting ASNs there is at least 1 provider that does not issue an ASPA, meaning that the attacker can still perform a shorter path attack without incurring too big of an AS_PATH length penalty. I’ll look into how we can model ASPA adoption and reason about the level of security it will offer against this attack.
+
+-------------------------
+

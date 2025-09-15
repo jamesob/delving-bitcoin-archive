@@ -224,3 +224,16 @@ if __name__ == "__main__":
 
 -------------------------
 
+AdamISZ | 2025-09-15 18:38:45 UTC | #2
+
+> So, users can generate new keys from npub and receive bitcoin payments.
+
+[quote="1440000bytes, post:1, topic:1816"]
+Alice would generate a new key for Bob and share the notification as encrypted message using NIP-17.
+
+[/quote]
+
+Just for ease of review, could you outline with equations what exactly the proposal consists of? What is in the notification? What’s the exact structure of the public key that Alice pays to? (like $P = B\_{nostr} + H(aB\_{nostr}|i)G$?) (I’m setting aside scan/spend distinction there because I think that was your intention, but I’m not sure). And is the idea to avoid scanning that Bob stores a batch of addresses for Alice that he can watch for? (Sorry if that last question misses the point, but I don’t understand in detail what you’re proposing here) (my interest here is more analyzing the structure from a crypto point of view, than arguing about what the right design choices are, which explains why I’m mostly interested in just seeing the proposal written out in detail, than discussing whether it’s good or not!).
+
+-------------------------
+
