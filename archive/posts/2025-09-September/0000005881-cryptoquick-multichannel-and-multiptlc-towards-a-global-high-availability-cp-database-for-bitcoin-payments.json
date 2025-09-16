@@ -7,7 +7,7 @@
   "cooked": "<p>Hmm</p>\n<ol>\n<li>PTLCs aren\u2019t quantum resistant, so it would be a good idea to evaluate the risk in that context</li>\n<li>I\u2019m a fan of databases too and am a fellow CAP appreciator\u2026 But maybe consider not calling it a \u201cglobal CP database\u201d, especially given current discussions on CSAM</li>\n</ol>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2025-09-16T00:25:18.250Z",
   "reply_count": 0,
   "reply_to_post_number": null,
