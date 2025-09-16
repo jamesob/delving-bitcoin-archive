@@ -722,3 +722,55 @@ Hmm
 
 -------------------------
 
+ZmnSCPxj | 2025-09-16 18:48:02 UTC | #4
+
+[quote="harding, post:2, topic:1983"]
+[quote="ZmnSCPxj, post:1, topic:1983"]
+The advantage of the MultiPTLC \[over sender-created stuckless payments\] is that Ursula the end-user sender is only required to lock exactly the amount they want to pay plus routing fees.
+
+[/quote]
+
+Would you be able to explain more about why you think that’s an advantage worth the additional complexity?
+
+[/quote]
+
+As mentioned, my model is that Ursula has a small amount of funds.
+
+In particular, as noted elsewhere, MultiPTLC really protects against ***global*** high-availability, i.e. when a ***remote*** routing node goes down while it is in the middle of a PTLC-lock-chain.  Suppose, as you mention, Ursula makes 10 stuckless payments using plain PTLCs.  Suppose one goes through, but one of the other 9 does not get a `update_fail_ptlc` message.  That fund remains locked, potentially for the entire lock time, which, since Ursula is the sender, is at its largest.  This can happen if one of the routing nodes along that path goes down while it has a PTLC on one or both of the channels it has on the route.
+
+So tell me: how do I explain to  Ursula “Yes, the 1000 sats payment got through and I deducted it from your account, but now I have to hold ***another*** 1000 sats of your money because the Lightning Network had problems.”?  Sure, I could hide that fact and hope that Ursula never actually needs to zero out their wallet in the next two weeks, but if Ursula ***does*** want to drain their wallet, the jig is up and now I have just doubled down on my little white UX lie.
+
+I mean… “stuckless” is really a lie.  It can still get stuck, it is just that we can now let them get stuck ***in parallel*** instead of having a strict required serialization where I have to wait for the current attempt to get unstuck before making a different attempt.  It is not really stuckless, it is actually “parallel stuckness is not a money loss risk”.  The locks still exists on the money. and the issue is that, because we do not have control over the ***rest*** of the network, we cannot ensure that the money will not get locked for two weeks due to failures of the remote nodes that we do not control.
+
+The fact that MultiPTLC only locks ***one*** unit of the payment on the side of Ursula is nearer to how the mind of a human-implemented Ursula works: they have allocated ***one*** unit of the payment for this receiver, so it getting locked until the network is able to deliver it or not is what Ursula expects.  Ursula ***does not expect*** that multiples of their designated amounts get lockedd.
+
+---
+
+That is just ***one*** advantage of MultiPTLC.  Another is that it is significantly better for mobile devices with low or spurious connectivity.
+
+By having just ***one*** unit of the payment locked on the side of Ursula, Ursula can outright hand over the receiver-can-claim scalars to the LSPs.  Then, Ursula device can calculate all the necessities — signatures, encrypted blobs, paths, onions — without touching the network, then send out all of those to at least two LSPs (or whatever minimum quorum) over a few dozen IP packets.  Then Ursula can go offline once again.  Ursula only needs those few dozen IP packets, and the rest of the payment flow is now handled by the LSPs.
+
+Compare this to the sender-created “stuckless” payment, where Ursula needs to be constantly online, waiting for “request for receiver-can-claim scalar”.  Because Ursula is putting out multiples of the payment amount, it cannot hand over the receiver-can-claim scalars to the LSPs.  If Ursula loses connectivity after sending out the payment request, then Ursula cannot give the receiver-can-claim scalar and the receiver might decide to free up inbound liquidity early by giving up after a short timeout, leading to total payment failure.
+
+The LSPs are better positioned to have high connectivity and high uptime.  Let us delegate the payment re-attempt flow and the receiver-can-claim scalar sending to them, not on Ursula, who could be low-connectivity and low uptime.
+
+[quote="harding, post:2, topic:1983"]
+[quote="ZmnSCPxj, post:1, topic:1983"]
+
+[/quote]
+
+[quote="ZmnSCPxj, post:1, topic:1983"]
+We expect Ursula the end-user to not have a lot of liquidity on the MultiChannel.
+
+[/quote]
+
+What is the basis for that expectation?  Almost all of my payments with physical cash, LN sats, and bank credit are for less than half of my available liquidity (respectively: cash-in-wallet, sats-on-my-side-of-the-channel, and available credit); I would guess most of my payments are for less than 1/10th my liquidity.  User-initiated stuckless payments should be convenient under those conditions, with no need for additional third party liquidity.
+
+In the rare cases where I make payments that approach the limit of my liquidity—conditions where stuckless payments might not function well or at all—I don’t usually mind waiting longer.  For example, I don’t want to wait more than a few seconds to complete a purchase of a $5 hot beverage but I don’t mind much that it often takes over a minute to complete a $2,000 purchase of airplane tickets on my current credit card (the bank usually requiring me to verify the purchase via text message).
+
+[/quote]
+
+As noted earlier, the problem is not just that Ursula might not have the liquidity, it is simply that it does not match the expectations of a naive human Ursula that multiple units of their payment amount get locked, and potentially can be locked for two weeks if bad things happen beyond the control of Ursula, the wallet developer, or the LSPs.  It is already bad enough that, with MultiPTLC, if ***all*** the parallel attempts by the quorum of LSPs fail but at least one of them gets stuck, the MultiPTLC is still stuck (the LSPs cannot safely revert it while at least one of their outgoing PTLCs are not reverted or commited, since Ursula might be a pseudonym of ZmnSCPxj the notorious hacker who can directly hand over the receiver-can-claim scalar to the receiver by sneakernet).
+
+-------------------------
+

@@ -373,7 +373,7 @@ also supertestnet.org needs to analyze this.
 
 -------------------------
 
-instagibbs | 2025-09-16 14:49:09 UTC | #7
+instagibbs | 2025-09-16 16:52:32 UTC | #7
 
 [quote="stevenroose, post:1, topic:1602"]
 ```
@@ -391,7 +391,7 @@ Slight improvement could be to have the input using a key-spend level adaptor si
 
 This would turn the `secret` hash into a curve point, so for maximal savings you’d have the leaf policy in the new tree also be a key-level adaptor spend rather than a tapscript hash image reveal, leaking the same secret.
 
-Granted this is “never should happen” stuff I normally warn against complexity for…
+Alternatively with CSFS, the `secret` can be late-bound via a single Alice CSFS based signature, which can leave the secret hash-based.
 
 -------------------------
 
