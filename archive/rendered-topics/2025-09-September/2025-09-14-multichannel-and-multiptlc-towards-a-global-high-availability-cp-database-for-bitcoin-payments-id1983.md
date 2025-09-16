@@ -713,3 +713,12 @@ In the rare cases where I make payments that approach the limit of my liquidity�
 
 -------------------------
 
+cryptoquick | 2025-09-16 00:25:18 UTC | #3
+
+Hmm
+
+1. PTLCs aren't quantum resistant, so it would be a good idea to evaluate the risk in that context
+2. I'm a fan of databases too and am a fellow CAP appreciator… But maybe consider not calling it a “global CP database”, especially given current discussions on CSAM
+
+-------------------------
+
