@@ -485,14 +485,21 @@ Thanks for the reply Antoine, much appreciated
 
 -------------------------
 
-FernandoTheKoala | 2025-09-16 09:59:52 UTC | #9
+FernandoTheKoala | 2025-09-16 13:28:15 UTC | #9
 
 [quote="AntoineP, post:1, topic:1697"]
 Bitcoin Core does not provide an option for all possible ways the relay policy may be tweaked, because there are too many ways it can be tweaked and this does not provide value to the user. Bitcoin Core should only have options that provide value to the user.
 
 [/quote]
 
-How are we to establish what is an option that users consider valuable? Shouldn’t users themselves decide whether an option has value to them or not? In this way it seems like core is deciding for users what is a valuable option for them (even after several requests from users to not take away option to configure datacarrier size, core is still persisting with its stated decision to take away this configurability in future releases).  
+How are we to establish what is an option that users consider valuable? Shouldn’t users themselves decide whether an option has value to them or not? In this way it seems like core is deciding for users what is a valuable option for them (even after several requests from users to not take away option to configure datacarrier size, core is still persisting with its stated decision to take away this configurability in future releases).
+
+[quote="AntoineP, post:1, topic:1697"]
+This may have only a marginal impact when considering only Citrea. But Citrea is the canary in the coal mine for the presence of perverse incentives (for instance other BitVM side-systems will probably use similar techniques). We should act before the incentives currently in place lead to more bloat from future applications that may or may not hear our concerns about the harm inflicted on all Bitcoin users.
+
+[/quote]
+
+There is a huge assumption here that other businesses will follow Citrea techniques. This is speculation, a non-objective statement which is not sufficient to be used to justify the proposed change.
 
 [quote="AntoineP, post:1, topic:1697"]
 #### taking a step back from the technical details, Core is trying to push a contentious change that obviously everybody is annoyed with.
@@ -501,21 +508,21 @@ This is not obvious, at all. I would posit that most Bitcoin users do not care a
 
 [/quote]
 
-Are you still of this opinion after the developments of the last few months? Or do you still consider this proposed change non-contentious? 
+Are you still of this opinion after the developments of the last few months? Or do you still consider this proposed change non-contentious?
 
 [quote="AntoineP, post:1, topic:1697"]
 That being said, whether i (or anyone else) paid Peter Todd to propose a change to Bitcoin Core should not matter. If proposed changes are considered on the basis of who proposes them rather than their content, we have a much bigger problem than the standardness limit on the size of `OP_RETURN` outputs. Fortunately, this is not the case
 
 [/quote]
 
-I don’t think it’s a realistic expectation to consider only technical merits and not take into account from whom the proposal is coming from, their potential interest/sitation, and how the whole proposal was managed. This constant attempt to force the whole conversation into the “technical box” only, and refusal to acknowledge any other aspect (social/economic/personal interest) prevents the conversation from being adressed from an holistic perspective and is not a realistic manner in which humans make decision. Continual refusal to not-acknowledge any non-technical aspect is what is creating the most damage to core my opinion. 
+I don’t think it’s a realistic expectation to consider only technical merits and not take into account from whom the proposal is coming from, their potential interest/sitation, and how the whole proposal was managed. This constant attempt to force the whole conversation into the “technical box” only, and refusal to acknowledge any other aspect (social/economic/personal interest) prevents the conversation from being adressed from an holistic perspective and is not a realistic manner in which humans make decision. Continual refusal to not-acknowledge any non-technical aspect is what is creating the most damage to core my opinion.
 
 [quote="AntoineP, post:1, topic:1697"]
 Moderation on the Bitcoin Core Github repository further worsened perception of the proposed change. Although it is necessarily connected, this is a separate topic from whether the change is desirable or not.
 
 [/quote]
 
-Wholeheartly disagree with this statament. The manner in which the whole situation is handled cannot be treated as a separate topic from the content of the proposal.  As already mentioned above, this is another way to greatly limit the discussion to very few talking points.
+Wholeheartly disagree with this statament. The manner in which the whole situation is handled cannot be treated as a separate topic from the content of the proposal.  As already mentioned above, this is another way to greatly limit the discussion to very few talking points and is not a realistic manner in which humans make decisions
 
 -------------------------
 

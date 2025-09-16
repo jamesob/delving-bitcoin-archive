@@ -434,7 +434,7 @@ EDIT: Here is a list of operators that are currently releasing ASPA objects: htt
 
 -------------------------
 
-cedarctic | 2025-09-15 18:41:24 UTC | #7
+cedarctic | 2025-09-16 13:04:35 UTC | #7
 
 [quote="gmaxwell, post:5, topic:1965"]
 The key point of countersign, vs any authentication scheme proposed elsewhere \[…\]
@@ -561,7 +561,12 @@ Quantifying that for the current adoption of ASPA and maybe a projected adoption
 
 [/quote]
 
-Thank you for the references. I ran the prefix analysis again: Currently, **0.5% of node prefixes** are covered by an ASPA object, and for all of the supporting ASNs there is at least 1 provider that does not issue an ASPA, meaning that the attacker can still perform a shorter path attack without incurring too big of an AS_PATH length penalty. I’ll look into how we can model ASPA adoption and reason about the level of security it will offer against this attack.
+Thank you for the references. I ran the prefix analysis again: Currently, no node prefixes are covered by an ASPA object. I’ll look into how we can model ASPA adoption and reason about the level of security it will offer against this attack.
+
+[details="Correction on ASPA analysis"]
+Previously this post mistakenly mentioned that 0.5% of node prefixes are covered by an ASPA object. This was for Tor node prefixes, not bitcoin. Even then, for all of the supporting ASNs there is at least 1 provider that does not issue an ASPA, meaning that the attacker can still perform a shorter path attack without incurring too big of an AS_PATH length penalty.
+
+[/details]
 
 -------------------------
 

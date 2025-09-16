@@ -373,3 +373,25 @@ also supertestnet.org needs to analyze this.
 
 -------------------------
 
+instagibbs | 2025-09-16 14:49:09 UTC | #7
+
+[quote="stevenroose, post:1, topic:1602"]
+```
+forfeit tx:
+| inputs  |    outputs | 
++=========+============+
+| exit tx | S + secret |
+|         | or  A + Δt |
++---------+------------+
+```
+
+[/quote]
+
+Slight improvement could be to have the input using a key-spend level adaptor signature instead to late-bind `R` to `secret`. Then the output can simply be going to `S`, since there is no need for for the Alice clause (she got her `secret` already).
+
+This would turn the `secret` hash into a curve point, so for maximal savings you’d have the leaf policy in the new tree also be a key-level adaptor spend rather than a tapscript hash image reveal, leaking the same secret.
+
+Granted this is “never should happen” stuff I normally warn against complexity for…
+
+-------------------------
+
