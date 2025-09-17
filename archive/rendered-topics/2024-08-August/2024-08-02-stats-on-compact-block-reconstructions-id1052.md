@@ -873,3 +873,36 @@ Any reason to test this only with `bob` and not include other [14 nodes](https:/
 
 -------------------------
 
+0xB10C | 2025-09-17 11:33:40 UTC | #39
+
+In this case, my goal wasn't to test the PR (which had already been merged for over a week at the time I updated `bob`). 
+
+The goal is more: How does this change perform against what's currently released and deployed on the network. While having another one or two nodes with this setup would have been nice for a bit more confidence in the data, running it on all other nodes would have made it impossible to compare old vs new.
+
+As part of my 30.0rc1 [testing](https://github.com/bitcoin/bitcoin/issues/33368#issuecomment-3291550859), the nodes now all run with the defaults decreased by 33106.
+
+-------------------------
+
+1440000bytes | 2025-09-17 12:29:01 UTC | #40
+
+2 reasons I was interested in the results with other nodes:
+
+1. Greg Maxwell shared that compact block relay was still affected when running with new `minrelaytxfee` because of peers: https://github.com/bitcoin/bitcoin/pull/33106#issuecomment-3169815863
+
+2. `nico` node is running knots in which `blockreconstructionextratxnsize` is added in v29.1 with 10 MB default and `blockreconstructionextratxn` limit is increased to 32768 transactions.
+
+There may be other reasons for changes in compact block relay stats that I am unaware of.
+
+-------------------------
+
+orangesurf | 2025-09-17 14:17:10 UTC | #41
+
+[quote="0xB10C, post:37, topic:1052"]
+Besides the bad reconstruction performance on 2025-09-06, 2025-09-07, and 2025-09-08
+
+[/quote]
+
+Nice work! Any idea what might have caused this?
+
+-------------------------
+
