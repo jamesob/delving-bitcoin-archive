@@ -265,3 +265,16 @@ Bob can then reconstruct the stealth public key `P` himself using the formula ab
 
 -------------------------
 
+AdamISZ | 2025-09-17 20:21:08 UTC | #4
+
+Thanks.
+
+[quote="1440000bytes, post:1, topic:1816"]
+So, users can generate new keys from npub and receive bitcoin payments.
+
+[/quote]
+
+One thing I was trying to clarify was this part of the description. In the above, is $B$ a key that is being used as an npub? And A, also? (I guess the latter, not, because she wouldn’t need to send it perhaps?)
+
+-------------------------
+
