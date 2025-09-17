@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 25,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 126.8,
+  "incoming_link_count": 27,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 152.4,
   "yours": false,
   "topic_id": 1988,
   "topic_slug": "peer-observer-a-tool-and-infrastructure-for-monitoring-the-bitcoin-p2p-network-for-attacks-and-anomalies",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I've written about my peer-observer project in https://b10c.me/projects/024-peer-observer/ and post about it here for me to share project updates, enable discussion about the project, and for readers to leave ideas further monitoring ideas.\n\nSince the project relies on  \"honeypot nodes\", the actual web front end isn't publicly accessible (though I've set up accounts for a bunch of people over the last years) as the data would make the nodes identifiable. On [public.peer.observer](https://public.peer.observer) a list of the nodes and their configurations can be found. Similarly, the fork-observer instance connected to the nodes is also [publicly reachable](https://public.peer.observer/forks/).\n\nI do however plan to set up a separate demo instance with public dashboards and data (and thus IPs, accepting the fact that some people might see this as invitation to mess with the nodes) soon.\n\nAs for code, the tooling can be found on [github.com/0xB10C/peer-observer](https://github.com/0xB10C/peer-observer), and I have a NixOS package and module in [github.com/0xb10c/nix](https://github.com/0xb10c/nix/) that I use to run the tooling. The (opinionated) infrastructure configuration for deploying, managing and connecting the tools to e.g. a Prometheus and Grafana instance, debug.log rotation, addrman-observer, ... isn't public yet, but I hope to publish this with or after the demo set up to enable others to run their own set up similar to mine (to be clear: running this yourself is entirely possible right now, but publishing my infrastructure configuration should make it easier to replicate my setup elsewhere).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I\u2019ve written about my peer-observer project in <a href=\"https://b10c.me/projects/024-peer-observer/\" class=\"inline-onebox\">peer-observer: A tool and infrastructure for monitoring the Bitcoin P2P network for attacks and anomalies</a> and post about it here for me to share project updates, enable discussion about the project, and for readers to leave ideas further monitoring idea&hellip;",
   "truncated": true,
   "post_url": "/t/peer-observer-a-tool-and-infrastructure-for-monitoring-the-bitcoin-p2p-network-for-attacks-and-anomalies/1988/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
