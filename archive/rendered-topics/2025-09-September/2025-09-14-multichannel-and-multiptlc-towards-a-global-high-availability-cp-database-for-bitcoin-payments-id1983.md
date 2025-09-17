@@ -799,7 +799,7 @@ In order to mitigate the existing low-availability issues of both the Channel an
 
 -------------------------
 
-ZmnSCPxj | 2025-09-17 00:26:38 UTC | #6
+ZmnSCPxj | 2025-09-17 01:07:41 UTC | #6
 
 [quote="ZmnSCPxj, post:5, topic:1983"]
 The ability to rollback the MultiPTLC exists only if the LSPs are the ones with knowledge of the receiver-can-claim scalars, and Ursula can only delegate that ***if it is making a single unit MultiPTLC instead of multiple parallel PTLCs***.
@@ -823,11 +823,33 @@ So my current proposed MultiPTLC scheme requires just 1.5 roundtrips:
 
 After that, Ursula can go offline (in practice it should probably wait for a TCP `ACK` before disconnecting; it can just send a `FIN` (via `shutdown(fd, SHUT_WR)`) and then try to drain their end of the channel so that the TCP driver will eventually find some `ACK` embedded in the incoming TCP segments to ensure the last message got through in full).  Then, their wallet shows “-1000 sats”.  When Ursula comes back later, it just asks any of the LSPs for how the payment went.  If the LSPs decided to time out and stop retrying, the wallet can now show “+1000 sats, refund from payment failure”.  Otherwise if the payment succeeded on at least one path, the wallet replaces the last “-1000 sats; confirmed”.  If there are any stuck attempts in the “stuckless in name only haha” payment protocol, none of them affect the hop at Ursula, they only lock funds on the LSPs.
 
+And that is the important bit, the big difference between what Ursula holds in the wallet versus what the LSP holds in the routing node:
+
+* ***Without*** MultiPTLCs, there is the very real risk that the wallet says “Okay the 5 USD went through, but sorry I have to hold another 5 USD for up to two weeks because the Lightning Network broke down” on a 50 USD wallet, do you think Ursula will be happy?
+* ***With*** MultiPTLCs, the LSP has a very real risk that of its 200,000 USD investment in Lightning liquidity, maybe about 500 USD or so of it is always locked for several days in various PTLC-lock-chains due to remote nodes being down, this is just a cost of doing business on an unreliable network, which we are all already aware is true.
+
 MultiPTLCs are simpler and gives better UX ***and*** end-user security.  It is very rare to have something that has improved UX ***and*** end-user security, it is usually one or the other (what is sacrificed is the security of the LSPs who have to trust a quorum of their fellow LSPs, not the end-user).
 
 Gentle reminder that our current Lightning Network BOLT protocol requires 1.5 roundtrips ***per payment attempt*** and if there are payment failures, that’s 1.5 roundtrips to cancel this attempt at the source and another 1.5 roundtrips for the next attempt etc. etc.  With this, it is 1.5 roundtrips per ***payment plan*** where a payment plan is a fixed set of multiple payment attempts.
 
 The nice thing is that there is nothing that requires the LSPs to know anything in the onion other than their layer, further layers can be kept hidden from the LSPs.  ***The LSPs can now make multiple attempts on behalf of Ursula without knowing the recipient, even without blinded routes***.  Even if a payment attempt fails and falls back to the LSP, the LSP can assume it is simply a temporary failure and retry it a small amount of time later, in the hope that whatever prevented it from succeeding in the first place was just a temporary issue.
+
+-------------------------
+
+ZmnSCPxj | 2025-09-17 04:37:50 UTC | #7
+
+[quote="ZmnSCPxj, post:6, topic:1983"]
+So my current proposed MultiPTLC scheme requires just 1.5 roundtrips:
+
+[/quote]
+
+LOL wait I just realized…. the MultiPTLC P branches are just `(proof-of-payment + delta) * G`.  And nothing really requires that the onion data includes the actual incoming point or the outgoing point, it only requires the `delta` shard for that hop to be included.  So the LSP can select the receiver-can-claim scalar ***after*** Ursula gets the MultiPTLC irrevocably committed — ***Ursula does not need to know either the receiver-can-claim scalar or its point***.  So the LSP ***adds*** the receiver-can-claim point to the point asked for by the incoming P branch and fire out an outgoing plain PTLC to the receiver with the point added, so that at the receiver, it needs the receiver-can-claim scalar from the LSP to be able to finally claim the money.  This lets us remove the 1.0 roundtrips for Ursula to request for receiver-can-claim points, getting us down to 0.5 roundtrips at the Ursula→(Alice,Bob,Carol) hop if we use “fast forwards” in the MultiChannel.  In fact, we do not even need to use TCP (which requires `ACK`ing return packets) we can use UDP and forward error correction like the old mining protocol compact blocks encoding thing by TheBlueMatt to make it truly 0.5 roundtrips from Ursula→(Alice, Bob, Carol) and have Ursula just blast out the data to all of the LSPs.  As long as any one of the LSPs can recover enough of the FEC data, they can then share with the others in the quorum via standard TCP and be able to facilitate the rest of the “stuckless but not actually lolololol” payment flow.
+
+MultiPTLC is awesome man.
+
+I mean think about it: what the sender Ursula wants is “any one of these `proof-of-payment + delta` is revealed to me, but at most only one.”  MultiPTLC encodes that directly, because only one of the P branches can be fulfilled.  HAving multiple parallel plain PTLCs at the Ursula→(Alice,Bob,Carol) hop does not encode that directly, we need to add the receiver-can-claim scalar to ensure that exactly only one PTLC can be claimed by the receiver.  So multiple parallel plain PTLCs are. from a system design standpoint, ***more***  complicated than just a MultiPTLC because it requires adding in a receiver-can-claim scalar.  Basically, the MultiPTLC simply directly encodes the intent of Ursula the user: “I only care that at most one of these paths succeeds, I do not care what happens to the others” and it is the LSPs who can make those paths be runnable in parallel by adding in their own receiver-can-claim secret at their hop.
+
+SOOOO anyway the final piece is: how would the LSPs prove that they managed to get a payment out to the receiver? What we can do is that the final onion payload at the receiver gets a challenge nonce that the receiver hands back to the “sender” (or more specifically, whoever holds the receiver-can-claim secret); in terms of “stateless” LDK that nonce can be used to derive the receiver-can-claim secret, just like the payment secret in LDK is used to derive the payment preimage.  In the case of MultiPTLC in MultiChannel, that nonce is the proof that the final onion payload reached the receiver — Ursula puts different receiver-end nonces in the onions it prepares, and provides the HASH of those nonce in the MultiPTLC package.  The winning LSP can then show this preimage (which is unique to one of the paths that the LSP sent out) to convince the other LSPs to sign for the MultiPTLC branch that finalizes that path, so that the LSP can be assured that it can claim the Ursula-provided funds if it releases the corresponding receiver-can-claim secret to the receiver.  Yes Ursula can provide that receiver-reached-nonce to the LSP directly, but that is no different than just handing over money to the LSP it is favoring, which it can do with a direct transfer to that LSP over the MultiChannel, so this is just doing the same thing that Ursula can already do anyway.
 
 -------------------------
 
