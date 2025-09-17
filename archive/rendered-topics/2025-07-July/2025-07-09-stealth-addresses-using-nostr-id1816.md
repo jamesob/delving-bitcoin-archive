@@ -237,7 +237,7 @@ Just for ease of review, could you outline with equations what exactly the propo
 
 -------------------------
 
-1440000bytes | 2025-09-17 10:57:59 UTC | #3
+1440000bytes | 2025-09-17 10:58:14 UTC | #3
 
 * **Alice**
   * Private key: `a`
@@ -261,7 +261,7 @@ Stealth private key: p = b + H(S || i || "stealth") mod n
 * Alice’s public key `A`
 * Counter value `i` used
 
-Bob can then reconstruct the stealth public key `P` himself using the formula above, a private key and bitcoin address to watch.
+Bob can then reconstruct the stealth public key `P` himself using the formula above, private key and bitcoin address to watch.
 
 -------------------------
 
