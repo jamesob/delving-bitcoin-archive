@@ -237,3 +237,31 @@ Just for ease of review, could you outline with equations what exactly the propo
 
 -------------------------
 
+1440000bytes | 2025-09-17 09:55:36 UTC | #3
+
+* **Alice**
+  * Private key: `a`
+  * Public key: `A = aG`
+* **Bob**
+  * Private key: `b`
+  * Public key: `B = bG`
+
+**Shared secret**
+`S = aB = abG = baG`
+
+**Stealth keys**
+
+```markdown
+Stealth public key:  P = B + H(S || i || "stealth")G
+Stealth private key: p = b + H(S || i || "stealth") mod n
+```
+
+**Notification (sent via NIP-17 encrypted DM) contains:**
+
+* Alice’s public key `A`
+* Counter value `i` used
+
+Bob can then reconstruct the stealth public key `P` himself using the formula above with a private key and bitcoin address to watch.
+
+-------------------------
+

@@ -848,3 +848,28 @@ Edit: For the latency formulas, should they include the cost of transmitted data
 
 -------------------------
 
+0xB10C | 2025-09-17 08:51:38 UTC | #37
+
+Here are updated reconstruction stats:
+
+I updated the [peer.observer](https://public.peer.observer) node `bob` to a recent `master` that includes https://github.com/bitcoin/bitcoin/pull/33106  on 2025-08-22. It didn’t have existing sub-1 sat/vbyte transactions in it’s mempool and thus took a few days before the reconstruction rate improved. Besides the bad reconstruction performance on 2025-09-06, 2025-09-07, and 2025-09-08, it performed significantly better.
+
+![Compact block reconstructions without requested transactions per day (higher is better). Data between 2025-07-01 and 2025-09-13.|366x500, 100%](upload://5pElKA9KEqc2kka2iTkHqlROXh.png)
+
+Similarly, a clear improvement in the average size of requested transactions can be seen for `bob`.
+
+![image|366x500](upload://jWjAAkmdZ1QzAwegzagLENbtkml.png)
+
+-------------------------
+
+1440000bytes | 2025-09-17 09:19:48 UTC | #38
+
+[quote="0xB10C, post:37, topic:1052"]
+I updated the [peer.observer](https://public.peer.observer) node `bob` to a recent `master` that includes [policy: lower the default blockmintxfee, incrementalrelayfee, minrelaytxfee by glozow · Pull Request #33106 · bitcoin/bitcoin · GitHub](https://github.com/bitcoin/bitcoin/pull/33106) on 2025-08-22.
+
+[/quote]
+
+Any reason to test this only with `bob` and not include other [14 nodes](https://public.peer.observer/)?
+
+-------------------------
+
