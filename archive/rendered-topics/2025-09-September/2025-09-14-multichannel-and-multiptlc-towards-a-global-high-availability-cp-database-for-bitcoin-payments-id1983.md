@@ -799,3 +799,35 @@ In order to mitigate the existing low-availability issues of both the Channel an
 
 -------------------------
 
+ZmnSCPxj | 2025-09-17 00:26:38 UTC | #6
+
+[quote="ZmnSCPxj, post:5, topic:1983"]
+The ability to rollback the MultiPTLC exists only if the LSPs are the ones with knowledge of the receiver-can-claim scalars, and Ursula can only delegate that ***if it is making a single unit MultiPTLC instead of multiple parallel PTLCs***.
+
+[/quote]
+
+Again, let me emphasize this, that MultiPTLC holding only one unit of the payment is core to allowing the LSPs to be the only ones with knowledge of the receiver-can-claim scalars.
+
+If Ursula locks multiple units of the payment, as in the “normal” source-level stuckless payments, then Ursula also needs to know some scalar that is part of the receiver-can-claim scalar.  This can be done with Magic Math, but now Ursula is required to be online to issue the receiver-can-claim scalar for exactly ***one*** of the outgoing payments.  This is unlike the MultiPTLC case where, after Ursula has gotten the MultiPTLC into the irrevocably committed state in the consistency protocol, Ursula can go offline and only the online LSPs need to keep being online and operating the “stuckless but only because it was the original name” payment protocol.
+
+We can do various magic math techniques to “allow” Ursula to sod off and go offline, such as having different `deltaA` `deltaB` `deltaC` for each of Alice, Bob, and Carol.  But I should remind you that parts of the `delta` are outright revealed to remote forwarding nodes.  If a global surveillor exists, relying on `delta` to be secret to the LSPs means Ursula can end up paying more than just one unit of the payment it wanted to pay, because it is now possible for A B C to be part of the global surveillor and learning all of `deltaA` `deltaB` `deltaC` (if all the forwarding nodes that Ursula were unlucky enough to select are part of the global surveillor).  Thus, relying on separate `delta`s per LSP risks monetary loss if there is a global surveillor.  With a MultiPTLC instead, even if a global surveillor exists, all it learns is the proof-of-payment secret (and in the current HTLC world, every forwarding node learns the proof-of-payment anyway, so this is still an improvement) and Ursula has no risk of ***monetary loss***, only risk of privacy loss, ***precisely because Ursula only locks one unit of payment before going offline, unlike with any other scheme where Ursula locks multiple units of the payment***, where for full security Ursula needs to remain online to provide the receiver with a shard of the receiver-can-claim secret.
+
+There are a bunch of other magic stuff I also thought about, and then shot down, because it is simply much better for Ursula to ever only lock one unit of payment in a single MultiPTLC than for Ursula to have multiple plain PTLCs of which only exactly one is acceptable to be claimed.  I mean, a MultiPTLC is literally just a PTLC with multiple P branches and one TL branch, it is ***not*** that complicated.  I just do not know enough about the math involved if you can do something like just have multiple Taproot branches (which is why I proposed multiple alternate transactions that terminate at a plain PTLC, because that is what I am sure will work) but if that is possible than that simplifies things (I am ***not a mathist***, I only portray one on the interwebz).  It lets Ursula delegate retries to the LSPs completely without requiring further interactions with Ursula, and Ursula can simply go online whenever she wants later.
+
+So my current proposed MultiPTLC scheme requires just 1.5 roundtrips:
+
+* Ursula requests to one of the LSPs for a set of receiver-can-claim points plus tweaks.
+  * Alice, Bob, and Carol can share some receiver-can-claim points and their tweaks to each other as they have high connectivity anyway, so whenever any random Ursula (or Ursula2 or Ursula3) asks for some points, they can easily replenish from their fellow LSPs.  The LSPs can sign the points and tweaks they issue so that random Ursulae can trust that the direct LSP they are talking to is not lying and that those points really are issued by the respective LSPs.
+* LSP responds with some number of receiver-can-claim points from itself and its fellow LSPs.
+* After computing stuff and finding payment paths etc. etc. Ursula can then use the old “fast forwarding” scheme to make a single large message in a few dozen IP packets to provide enough information to let the MultiPTLC be irrevocably committed.
+
+After that, Ursula can go offline (in practice it should probably wait for a TCP `ACK` before disconnecting; it can just send a `FIN` (via `shutdown(fd, SHUT_WR)`) and then try to drain their end of the channel so that the TCP driver will eventually find some `ACK` embedded in the incoming TCP segments to ensure the last message got through in full).  Then, their wallet shows “-1000 sats”.  When Ursula comes back later, it just asks any of the LSPs for how the payment went.  If the LSPs decided to time out and stop retrying, the wallet can now show “+1000 sats, refund from payment failure”.  Otherwise if the payment succeeded on at least one path, the wallet replaces the last “-1000 sats; confirmed”.  If there are any stuck attempts in the “stuckless in name only haha” payment protocol, none of them affect the hop at Ursula, they only lock funds on the LSPs.
+
+MultiPTLCs are simpler and gives better UX ***and*** end-user security.  It is very rare to have something that has improved UX ***and*** end-user security, it is usually one or the other (what is sacrificed is the security of the LSPs who have to trust a quorum of their fellow LSPs, not the end-user).
+
+Gentle reminder that our current Lightning Network BOLT protocol requires 1.5 roundtrips ***per payment attempt*** and if there are payment failures, that’s 1.5 roundtrips to cancel this attempt at the source and another 1.5 roundtrips for the next attempt etc. etc.  With this, it is 1.5 roundtrips per ***payment plan*** where a payment plan is a fixed set of multiple payment attempts.
+
+The nice thing is that there is nothing that requires the LSPs to know anything in the onion other than their layer, further layers can be kept hidden from the LSPs.  ***The LSPs can now make multiple attempts on behalf of Ursula without knowing the recipient, even without blinded routes***.  Even if a payment attempt fails and falls back to the LSP, the LSP can assume it is simply a temporary failure and retry it a small amount of time later, in the hope that whatever prevented it from succeeding in the first place was just a temporary issue.
+
+-------------------------
+
