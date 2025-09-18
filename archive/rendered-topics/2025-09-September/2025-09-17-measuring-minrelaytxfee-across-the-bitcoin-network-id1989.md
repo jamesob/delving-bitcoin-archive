@@ -90,3 +90,41 @@ Some of them might be running version older than [2016](https://github.com/bitco
 
 -------------------------
 
+0xB10C | 2025-09-18 08:55:46 UTC | #3
+
+Thanks for sharing!
+
+[quote="danielabrozzoni, post:1, topic:1989"]
+The **9170997** entries are a bit odd… I connected to a few of those nodes with Bitcoin Core and checked `minfeefilter` in `getpeerinfo` to make sure the crawler wasn’t wrongly parsing messages. The value really is what they’re advertising, but I have no idea why… if anyone has a theory, I’d love to hear it.
+[/quote]
+
+Bitcoin Core "rounds" the feerate filters a bit (i.e. it put them into bins) as sending an exact feefilter based on mempool contents is a way of fingerprinting nodes across networks. See [`FeeFilterRounder`](https://github.com/bitcoin/bitcoin/blob/1444ed855f438f1270104fca259ce61b99ed5cdb/src/policy/fees.h#L322-L343) in `src/policy/fees.h`.  The `FeeFilterRounder` defines a `MAX_FILTER_FEERATE` of `1e7` (10,000,000). `1e7` happens to "round" to `9170997`. This can also be seen in this test where `MAX_MONEY` (21,000,000 * COIN) is "rounded" to `9170997`.
+
+https://github.com/bitcoin/bitcoin/blob/1444ed855f438f1270104fca259ce61b99ed5cdb/src/test/policy_fee_tests.cpp#L31-L32
+
+
+When in IBD, a feefilter of `MAX_MONEY` is set:
+https://github.com/bitcoin/bitcoin/blob/1444ed855f438f1270104fca259ce61b99ed5cdb/src/net_processing.cpp#L5382-L5386
+
+so they should return a feefilter of `9170997`. Maybe the nodes were in IBD when you connected to them?
+
+---
+
+Looking at some logs I can see the following pattern happening repeatedly: 
+
+We connect to peer=5129 at height 908087, the peer is at height 907929 (158 blocks behind). Initially, the peer sends a feefilter of 9170997. After four seconds, the peer lowers its feefilter of 9170997 to 1000. 
+
+```
+2025-09-01T09:29:34.83Z [net] send version message: version 70016, blocks=908087, txrelay=1, peer=5129
+2025-09-01T09:29:34.83Z [net] receive version message: version 70016, blocks=907929, txrelay=1, peer=5129
+..
+2025-09-01T09:29:35.99Z [net] received: feefilter of 0.09170997 BTC/kvB from peer=5129
+2025-09-01T09:29:39.08Z [net] received: feefilter of 0.00001000 BTC/kvB from peer=5129
+```
+
+The code for is:
+
+https://github.com/bitcoin/bitcoin/blob/1444ed855f438f1270104fca259ce61b99ed5cdb/src/net_processing.cpp#L5388-L5391
+
+-------------------------
+

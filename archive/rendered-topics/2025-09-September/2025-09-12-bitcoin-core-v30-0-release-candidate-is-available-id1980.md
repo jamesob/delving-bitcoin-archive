@@ -22,9 +22,9 @@ Release candidates are test versions for releases. When no critical problems are
 
 -------------------------
 
-jsarenik | 2025-09-17 14:14:25 UTC | #2
+jsarenik | 2025-09-18 09:02:44 UTC | #2
 
-Rebuilding Coinstatsindex to the new power-failure-tolerant one on pruned nodes with very low-power CPU takes days (like any IBD would there).
+Rebuilding Coinstatsindex to the new power-failure-safe one on pruned nodes with very low-power CPU takes days (like any IBD would there).
 
 Would it be possible to provide a migration script in case muhash is still in sync with some recent known one?
 

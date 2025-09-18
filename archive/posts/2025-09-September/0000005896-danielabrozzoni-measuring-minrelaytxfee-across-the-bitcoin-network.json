@@ -7,15 +7,15 @@
   "cooked": "<p>I crawled the Bitcoin network to record the minimum relay fee advertised by reachable nodes through the <code>FEEFILTER</code> message.</p>\n<p>The scan used a <a href=\"https://github.com/danielabrozzoni/p2p-crawler/tree/feefilter_parsing\" rel=\"noopener nofollow ugc\">modified version</a> of <a href=\"https://github.com/virtu/p2p-crawler/\" rel=\"noopener nofollow ugc\">virtu\u2019s p2p-crawler</a> which connects to every node, waits up to three minutes for a <code>FEEFILTER</code> message, and records the result. If no <code>FEEFILTER</code> message is received within the timeout the node is listed as \u201cNo <code>FEEFILTER</code> sent.\u201d</p>\n<p>Only nodes that accept inbound connections are included, and the results are based only on what each node advertises in its <code>FEEFILTER</code> message. I don\u2019t think nodes have a reason to fake this field, but I suppose it\u2019s possible, and I did not perform additional checks such as sending test transactions or monitoring relays.</p>\n<p>Two full scans were run on 10/09 and 15/09.</p>\n<h2><a name=\"p-5896-networks-covered-1\" class=\"anchor\" href=\"#p-5896-networks-covered-1\"></a>Networks covered</h2>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>Network</th>\n<th>Nodes 10/09</th>\n<th>Nodes 15/09</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>i2p</td>\n<td>2,980 (10.6%)</td>\n<td>3,081 (10.8%)</td>\n</tr>\n<tr>\n<td>ipv4</td>\n<td>9,020 (32.0%)</td>\n<td>8,681 (30.4%)</td>\n</tr>\n<tr>\n<td>ipv6</td>\n<td>2,002 (7.1%)</td>\n<td>2,008 (7.0%)</td>\n</tr>\n<tr>\n<td>onion_v3</td>\n<td>14,216 (50.4%)</td>\n<td>14,769 (51.8%)</td>\n</tr>\n</tbody>\n</table>\n</div><h2><a name=\"p-5896-reported-minimum-relay-fees-2\" class=\"anchor\" href=\"#p-5896-reported-minimum-relay-fees-2\"></a>Reported minimum relay fees</h2>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>MinRelayFee</th>\n<th>Nodes 10/09</th>\n<th>Nodes 15/09</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1000</td>\n<td>25,125 (89.0%)</td>\n<td>24,695 (86.5%)</td>\n</tr>\n<tr>\n<td>No FEEFILTER sent</td>\n<td>2,135 (7.6%)</td>\n<td>2,331 (8.2%)</td>\n</tr>\n<tr>\n<td>100</td>\n<td>569 (2.0%)</td>\n<td>1105 (3.9%)</td>\n</tr>\n<tr>\n<td>9170997</td>\n<td>84 (0.3%)</td>\n<td>73 (0.3%)</td>\n</tr>\n<tr>\n<td>1</td>\n<td>81 (0.3%)</td>\n<td>91 (0.3%)</td>\n</tr>\n</tbody>\n</table>\n</div><p>(Because categories with very few nodes were excluded, the percentages do not add up to exactly 100%.)</p>\n<h3><a name=\"p-5896-network-by-network-breakdown-3\" class=\"anchor\" href=\"#p-5896-network-by-network-breakdown-3\"></a>Network-by-Network Breakdown</h3>\n<h4><a name=\"p-5896-i2p-4\" class=\"anchor\" href=\"#p-5896-i2p-4\"></a>i2p</h4>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>MinRelayFee</th>\n<th>Nodes 10/09</th>\n<th>Nodes 15/09</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1000</td>\n<td>2,862 (96.0%)</td>\n<td>2,844 (93.6%)</td>\n</tr>\n<tr>\n<td>100</td>\n<td>61 (2.0%)</td>\n<td>143 (4.6%)</td>\n</tr>\n<tr>\n<td>No FEEFILTER sent</td>\n<td>20 (0.7%)</td>\n<td>21 (0.7%)</td>\n</tr>\n</tbody>\n</table>\n</div><h4><a name=\"p-5896-ipv4-5\" class=\"anchor\" href=\"#p-5896-ipv4-5\"></a>IPv4</h4>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>MinRelayFee</th>\n<th>Nodes 10/09</th>\n<th>Nodes 15/09</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1000</td>\n<td>6,879 (76.3%)</td>\n<td>6,295 (72.5%)</td>\n</tr>\n<tr>\n<td>No FEEFILTER sent</td>\n<td>1,758 (19.5%)</td>\n<td>1,924 (22.2%)</td>\n</tr>\n<tr>\n<td>100</td>\n<td>223 (2.5%)</td>\n<td>307 (3.5%)</td>\n</tr>\n</tbody>\n</table>\n</div><h4><a name=\"p-5896-ipv6-6\" class=\"anchor\" href=\"#p-5896-ipv6-6\"></a>IPv6</h4>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>MinRelayFee</th>\n<th>Nodes 10/09</th>\n<th>Nodes 15/09</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1000</td>\n<td>1,685 (84.2%)</td>\n<td>1,639 (81.6%)</td>\n</tr>\n<tr>\n<td>No FEEFILTER sent</td>\n<td>221 (11.0%)</td>\n<td>239 (11.9%)</td>\n</tr>\n<tr>\n<td>100</td>\n<td>59 (2.9%)</td>\n<td>69 (3.4%)</td>\n</tr>\n</tbody>\n</table>\n</div><h4><a name=\"p-5896-onion_v3-7\" class=\"anchor\" href=\"#p-5896-onion_v3-7\"></a>onion_v3</h4>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>MinRelayFee</th>\n<th>Nodes 10/09</th>\n<th>Nodes 15/09</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>1000</td>\n<td>13,699 (96.4%)</td>\n<td>13,877 (94.0%)</td>\n</tr>\n<tr>\n<td>100</td>\n<td>226 (1.6%)</td>\n<td>586 (4.0%)</td>\n</tr>\n<tr>\n<td>No FEEFILTER sent</td>\n<td>136 (1.0%)</td>\n<td>147 (1.0%)</td>\n</tr>\n</tbody>\n</table>\n</div><hr>\n<h2><a name=\"p-5896-open-questions-8\" class=\"anchor\" href=\"#p-5896-open-questions-8\"></a>Open questions</h2>\n<ul>\n<li>I was surprised to see that a large share of IPv4 nodes didn\u2019t send a <code>FEEFILTER</code>. Peter Todd suggested these might be spy nodes. When I checked the IP addresses, I noticed several clusters of about 50 nodes sharing the same subnet, though I did not investigate further.</li>\n<li>The <strong>9170997</strong> entries are a bit odd\u2026 I connected to a few of those nodes with Bitcoin Core and checked <code>minfeefilter</code> in <code>getpeerinfo</code> to make sure the crawler wasn\u2019t wrongly parsing messages. The value really is what they\u2019re advertising, but I have no idea why\u2026 if anyone has a theory, I\u2019d love to hear it.</li>\n</ul>\n<h2><a name=\"p-5896-acknowledgments-9\" class=\"anchor\" href=\"#p-5896-acknowledgments-9\"></a>Acknowledgments</h2>\n<p>The idea for this post was inspired by tweets from Murch (<a href=\"https://x.com/murchandamus/status/1962634242581766643\" rel=\"noopener nofollow ugc\">original tweet</a>, <a href=\"https://x.com/murchandamus/status/1962751958894485534\" rel=\"noopener nofollow ugc\">correction</a>)</p>\n<p>Thanks to Peter Todd for a few pointers and a quick sanity check. All remaining errors are my fault <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=14\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-09-17T13:22:50.674Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 13,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 102.8,
+  "incoming_link_count": 14,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 143.6,
   "yours": false,
   "topic_id": 1989,
   "topic_slug": "measuring-minrelaytxfee-across-the-bitcoin-network",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

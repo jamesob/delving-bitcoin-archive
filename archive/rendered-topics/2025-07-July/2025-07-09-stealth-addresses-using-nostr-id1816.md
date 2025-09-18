@@ -278,3 +278,9 @@ One thing I was trying to clarify was this part of the description. In the above
 
 -------------------------
 
+1440000bytes | 2025-09-18 07:56:53 UTC | #5
+
+Yes A and B are keys used as npub on nostr. Its not necessary to send it and would entirely depend on the protocol if someone uses this for stealth addresses.
+
+-------------------------
+
