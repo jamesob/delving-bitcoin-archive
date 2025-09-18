@@ -1,6 +1,6 @@
 # Measuring minrelaytxfee across the Bitcoin network
 
-danielabrozzoni | 2025-09-17 13:22:50 UTC | #1
+danielabrozzoni | 2025-09-18 15:18:48 UTC | #1
 
 I crawled the Bitcoin network to record the minimum relay fee advertised by reachable nodes through the `FEEFILTER` message.
 
@@ -70,7 +70,8 @@ Two full scans were run on 10/09 and 15/09.
 ## Open questions
 
 * I was surprised to see that a large share of IPv4 nodes didn’t send a `FEEFILTER`. Peter Todd suggested these might be spy nodes. When I checked the IP addresses, I noticed several clusters of about 50 nodes sharing the same subnet, though I did not investigate further.
-* The **9170997** entries are a bit odd… I connected to a few of those nodes with Bitcoin Core and checked `minfeefilter` in `getpeerinfo` to make sure the crawler wasn’t wrongly parsing messages. The value really is what they’re advertising, but I have no idea why… if anyone has a theory, I’d love to hear it.
+* ~~The **9170997** entries are a bit odd… I connected to a few of those nodes with Bitcoin Core and checked `minfeefilter` in `getpeerinfo` to make sure the crawler wasn’t wrongly parsing messages. The value really is what they’re advertising, but I have no idea why… if anyone has a theory, I’d love to hear it.~~
+EDIT: See 0xb10c's explanation here [https://delvingbitcoin.org/t/measuring-minrelaytxfee-across-the-bitcoin-network/1989/3?u=danielabrozzoni]
 
 ## Acknowledgments
 
