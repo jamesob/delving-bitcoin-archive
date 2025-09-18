@@ -853,3 +853,10 @@ SOOOO anyway the final piece is: how would the LSPs prove that they managed to g
 
 -------------------------
 
+ZmnSCPxj | 2025-09-18 16:32:29 UTC | #8
+
+1. My understanding is that lattices might get us similar features as ECC, possibly including something very much like a PTLC, especially the ability to homomorphically “add” things together in the public-key space.  As ***I am not a mathist***, I can only speculate on this, and work on stuff I do know how to use, already made by better mathists.
+2. Sorry.  I was deeply studying Lightning Network forwarding node resilience, and one of the things that came up was the use of highly-available databases, with strong consistency, like YugabyteDB, to ensure that data is well-replicated while ensuring consistency.  The YugabyteDB documentation was pretty thorough (and is what pointed out to me that you need 3 nodes for high-availability strong consistency) and it kinda uses “CP” in the CAP sense, such as: https://docs.yugabyte.com/preview/architecture/design-goals/#partition-tolerance-cap I kinda forgot “CP” has other meanings.  Mea culpa.
+
+-------------------------
+
