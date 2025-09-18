@@ -57,3 +57,11 @@ $ bitcoin-cli gettxoutsetinfo muhash 915117
 
 -------------------------
 
+fjahr | 2025-09-18 11:59:34 UTC | #3
+
+The overflow bug didn’t happen on muhash, so that value should always be in sync. Unfortunately there is no migration function included, we experimented with one, but it didn’t make it into the final version of the code. I don’t think it’s worth the effort to write an external script that migrates the index.
+
+What should work and seems much easier is taking an already synced, new version of the index (from a fast machine) and copying it into the \`index/coinstatsindex/\` location of your slow node. Just make sure that the slow node is ahead of the last block of the index.
+
+-------------------------
+

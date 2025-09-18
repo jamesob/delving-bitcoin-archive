@@ -633,3 +633,85 @@ Lightning security model.
 
 -------------------------
 
+ZmnSCPxj | 2025-09-18 13:21:56 UTC | #2
+
+[quote="ZmnSCPxj, post:1, topic:1994"]
+* The user Ursula ***does trust*** a quorum of LSPs to not lock the Ursula funds for two weeks (or so) due to unilateral exit when Ursula is willing to cooperatively exit.
+
+[/quote]
+
+Whoops!
+
+Looks like this is lost, due to the symmetric nature of Decker-Wattenhofer.  With the scheme proposed in this writeup as-is, every participant, including the LSPs individually, get a signed copy of the kickoff transaction, and can unilaterally exit without permission from any of the other members.
+
+As noted, the goal of this construction is to reduce censorship risk by reducing funds loss risk for LSPs.  The original Poon-Dryja-based MultiChannel construction put significant funds loss risk for the LSPs, meaning that the most likely setup was a single corporation setting up multiple LSPs and only allowing MultiChannels for the LSPs it set up.  This puts Ursula at significant risk of being censored if that single corporation is pressured to censor her.
+
+If any single LSP can unilaterally exit the MultiChannel anyway, then the same censorship risk is still present.
+
+To ameliorate this, I propose returning the asymmetric nature of Poon-Dryja.
+
+Instead of a single chain of transactions funding→kickoff→decrementing-`nSequence`→…→decrementing-`nSequence`→Spilman complex, we have two chains:
+
+* Ursula-side chain: funding→Ursula kickoff→decrementing-`nSequence`→…→decrementing-`nSequence`→Spilman complex
+* LSPs-side chain: funding→LSPs kickoff→decrementing-`nSequence`→…→decrementing-`nSequence`→Spilman complex
+
+The Ursula kickoff is signed as an n-of-n of Ursula and the LSPs Alice, Bob, and Carol.  All the subsequent transactions are also signed as n-of-n of all participants, with the Spilman Complex dividing out the funds into the Spilman channels with varying signing protocols as discussed in the main text.
+
+The LSP-side kickoff is signed with two sets of signatures:
+
+* Funds safety set: n-of-n of Ursula and the LSPs Alice, Bob, and Carol
+* Unilateral exit set: k-of-n of the LSPs Alice, Bob, and Carol
+
+Subsequent transactions in the LSPs-side chain are all signed as n-of-n of all participants, with the Spilman Complex yada yada.
+
+For the kickoff transactions ***only***, the LSPs provide signatures for the Ursula kickoff, while Ursula provides its signature for the LSPs kickoff.  For all other dependent transactions, all participants have to share full sets of signatures at setup time and at each Cleanup/Onchain Cleanup (Spilman channels are great in that they do not need pre-signed transactions now since `OP_CHECKLOCKTIMEVERIFY` and `OP_CHECKSEQUENCEVERIFY` activation…. I miss the good old days when we could still add opcodes.  I sometimes hallucinate that people are still working on covenant opcodes, even).
+
+-------------------------
+
+ZmnSCPxj | 2025-09-18 14:45:54 UTC | #3
+
+“Everybody say ‘fees’!” - some joker in Adelaide, 2017
+
+Unilateral exit has to pay onchain fees.  This is a rote fact.
+
+Nowadays we have P2A, and it is awesome that instagibbs managed to get that in before the local mempool management heuristics ossified.  In the bad old days Lightning Network participants had to agree on the same onchain feerates, and caused even more expensive channel closures if they disagreed.
+
+With P2A, however, offchain constructions have to have a separate UTXO — the “exogenous fee UTXO” — in order to pay for their unilateral exit in the future.  This is unfortunate:
+
+* Liquidity in the exogenous fee UTXO cannot be spent in Lightning, and spending it onchain risks your future ability to unilaterally exit.
+* It is another UTXO, increasing onchain resource consumption.
+
+There is, however, a curious wrinkle: the exogenous fee UTXO has to exist ***per participant,*** not per construction.  A participant with one construction, or millions, can maintain just one exogenous fee UTXO (in practice participants with millions of channels have to maintain more than one, but the point still stands).
+
+With millions of MultiChannels, there would be millions of Ursulae.  But there are still only three LSPs, Alice, Bob, and Carol.  So what we want to do is ***have unilateral exit be paid by LSPs*** (who will indirectly extract those fees from the Ursulae via routing fees, but because they aggregate the requirement for maintaining exogenous fee UTXO into a smaller number, they can get economies of scale, and pass on the savings to the Ursulae).  With this, onchain resource consumption is reduced and the Ursulae do not have to have extra liquidity they cannot spend.
+
+We can enforce this by returning revocation to the construction.
+
+For the decrementing-`nSequence`, the consumed input script (from the kickoff or from a previous decrementing-`nSequence`) has to have two branches:
+
+* n-of-n of all participants.
+* CSV(max-`nSequence`+1 hour) && Ursula
+
+At the initial condition after setup or Onchain Cleanup, the decrementing-`nSequence` transactions all have the maximum `nSequence` value they start with (called “max-`nSequence` above).  By adding the alternate branch above, if the decrementing-`nSequence` transaction has not been confirmed after an hour or so after the `nSequence` makes it valid, Ursula can simply get all the funds.  Ursula can create a punishment transaction that pays for its own onchain fees here.  This forces the LSPs to pay for the decrementing-`nSequence` transaction within an hour.
+
+Now, to update the decrementing-`nSequence` to a later version, we have to import the “sign, then revoke” dance from Poon-Dryja.
+
+* First, everyone signs the next decrementing-`nSequence` state, with an `nSequence` that is one hour less than the current state (sign step).
+* Then, the LSPs sign for every output of the current decrementing-`nSequence` state, signing a 0-fee transaction that spends that output and gives it outright to Ursula (revoke step).
+
+After the revoke step, the new state is now valid and the participants can proceed after the Cleanup operation.
+
+For intermediate decrementing-`nSequence` transactions, they only have one output, which is the “n-of-n || (CSV && Ursula)”, and signing the revocation transaction is trivial.  For the final decrementing-`nSequence` transaction that instantiates the Spilman Complex, well, Spilman channels are all already “n-of-n | (CSV && participant)” and can be revoked with the n-of-n branch.
+
+The complication here is with the Ursula-sourced Spilman channel.  The transaction that revokes this channel is an alternate transaction from the Spilman-exit transactions that Ursula has been giving to the LSPs, and the LSPs can make old state appear and pay for that to be confirmed.  To protect against this, the Spilman-exit transactions that Ursula gives to the LSPs have to have an `nSequence` that encodes 1 hour delay (the “CSV && participant” branch then needs to have the CSV be at least 2 hours).  Then, a revocation of the Ursula-sourced Spilman channel has an `nSequence` of 0, allowing Ursula to spend it immediately if the old decrementing-`nSequence` state is published by the LSPs instead of the latest one.
+
+As noted, revocation is needed so that the latest decrementing-`nSequence` is confirmed by the LSPs in a timely manner; if they delay, they run the risk that Ursula is actually notorious hacker ZmnSCPxj, who then uses the not-latest, revoked, decrementing-`nSequence` to get all the funds from the MultiChannel.  Thus, the LSPs are forced to confirm the latest decrementing-`nSequence`.
+
+So much for revocation.
+
+Let us now turn to the Spilman Complex and how to force the LSPs to publish the latest state.  For the Ursula-sourced Spilman channel, this is already handled: if the LSPs do not publish ***any*** state, Ursula gets the funds in it, due to the “CSV && Ursula” branch that Spilman has as part of itself.  If the LSPs publish old state, well, that has more funds to Ursula than the latest state, because of unidirectionality.
+
+The issue is with the LSP-sourced Spilman channels.  Unfortunately, those have to have endogenous fees, meaning the LSP has to keep a reserve fund (fortunately, Ursula does not need a reserve fund).  The Spilman-exit transactions given by the LSP to Ursula then spend that reserve fund as fees, to allow Ursula to get it confirmed. (I actually considered another revocation scheme here, but ran out of brainspace and started thrashing swap so I aborted the processing, falling back on endogenous fees).  The feerate for this can be fixed by protocol, so that it always propagates, and also have a P2A so that the LSP can, out of the goodness of its heart, get that confirmed.  Finally, any state other than the first has an output that Ursula can claim outright (either an HTLC (et al) where Ursula knows the preimage, or a plain Ursula-only output).  If that output is significant, Ursula can pay fees from that output directly; if the output is insignificant, Ursula would probably lose it in onchain fees anyway and can just tombstone it with an `OP_RETURN`.
+
+-------------------------
+

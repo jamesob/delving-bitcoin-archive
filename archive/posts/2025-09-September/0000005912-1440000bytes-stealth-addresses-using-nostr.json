@@ -13,9 +13,9 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 16.8,
   "yours": false,
   "topic_id": 1816,
   "topic_slug": "stealth-addresses-using-nostr",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Yes A and B are keys used as npub on nostr. Its not necessary to send it and would entirely depend on the protocol if someone uses this for stealth addresses.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Yes A and B are keys used as npub on nostr. Its not necessary to send it and would entirely depend on the protocol if someone uses this for stealth addresses.",
   "truncated": true,
   "post_url": "/t/stealth-addresses-using-nostr/1816/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
