@@ -128,3 +128,36 @@ https://github.com/bitcoin/bitcoin/blob/1444ed855f438f1270104fca259ce61b99ed5cdb
 
 -------------------------
 
+danielabrozzoni | 2025-09-18 15:17:12 UTC | #4
+
+[quote="1440000bytes, post:2, topic:1989"]
+Some of them might be running version older than [2016](https://github.com/bitcoin/bitcoin/pull/7542) so they cannot send feefilter or disabled fee filter using a version older than 2021 with [`-feefilter`](https://github.com/bitcoin/bitcoin/pull/21992) config option.
+
+[/quote]
+
+That’s what I initially thought too :slight_smile: However, the majority of the nodes that didn’t send a reply are running Core 27.x:
+
+```txt
+Feefilter None - 2135 nodes (7.6%)
+User agents:
+1040 nodes /Satoshi:27.0.0/
+255 nodes /Satoshi:27.1.0/
+221 nodes /Satoshi:29.0.0/
+96 nodes /Satoshi:28.1.0/
+51 nodes /Satoshi:28.0.0/
+...
+```
+
+[quote="0xB10C, post:3, topic:1989"]
+so they should return a feefilter of `9170997`. Maybe the nodes were in IBD when you connected to them?
+
+[/quote]
+
+Thanks a lot for the detailed explanation! Somehow it didn’t occur to me to simply `git grep 9170997` in the codebase :) 
+
+Yes, those nodes were in IBD when I initially connected to them, I just checked the logs.
+
+This also explains why some nodes replied with `9170997`, but didn't have `9170997` as `minfeefilter` when I later connected to them with Core to double-check. Thanks again!
+
+-------------------------
+
