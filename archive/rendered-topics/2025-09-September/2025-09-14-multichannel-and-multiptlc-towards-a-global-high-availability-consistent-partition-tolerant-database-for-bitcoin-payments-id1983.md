@@ -860,3 +860,9 @@ ZmnSCPxj | 2025-09-18 16:32:29 UTC | #8
 
 -------------------------
 
+t-bast | 2025-09-19 14:05:48 UTC | #9
+
+It seems to me that something equivalent to MultiPTLC is somewhat trivial to achieve by simply building on top of trampoline, isn’t it?
+
+-------------------------
+
