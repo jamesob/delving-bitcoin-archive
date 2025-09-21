@@ -235,3 +235,37 @@ We are not in that situation now. I think it is in the best interest of your nod
 
 -------------------------
 
+AdamISZ | 2025-09-21 13:42:09 UTC | #4
+
+Reading both yours and @mechanic ‘s points here (though forgive me I have not read *all* of your post yet!) is helpful to me, thanks.
+
+[quote="cguida, post:1, topic:1991"]
+Put more simply: bitcoin’s identity as money cannot be enforced at the consensus layer. Therefore, the only way to ensure that bitcoin stays money is if we enforce its usage as money at the social/mempool layer. The only reason bitcoin has stayed money thus far is because of its protective “bitcoin maximalist” culture, which ensures that its #1 priority is always to be the best money, and that other use cases are severely discouraged.
+
+[/quote]
+
+
+> Yes, this is precisely why the consensus rules are useless for making sure bitcoin stays money, and why we must react at the policy level rather than the consensus level. Only the most popular formats, which by definition are easily-identifiable, need to be filtered.
+
+This helps clarify it a bit better for me (and I see you expand on the same point elsewhere, too). So you are saying that something that is not definable with a fixed static ruleset needs to essentially be “policed” by nodes, with the filters acting as a warning mechanism. Perhaps the biggest difference of opinion we have is that I see this as not only impractical but actually dangerous to Bitcoin as money, more so than spam itself. I’ll explain first abstractly and then with a couple of examples:
+
+* the core essential property of bitcoin is that others cannot tell me what transactions I am and am not allowed to make (yeah, I know, heard it all before :slight_smile: )
+* Concretely, let’s start with this trivial example: breach transactions in Lightning publish hashes on chain. That is data, it is not a payment (not a destination, not an amount). Same with submarine/coin swaps, often. Stupid example? Sure, but …
+* What if it was like Lightning as a general offchain payment mechanism, but required 5 hash preimages onchain, not 1? What if it required 200, spread across 20 transactions?
+* The above is made up, of course, but as I’m sure you know, there are proposals for fraud proof based systems that *tend* to use quite a lot of onchain transactions (I think flavors of BitVM though that field is moving way too fast to say anything specific)
+* There are probably people who think that “souped up” L2 systems (e.g. “rollups”) are either not going to happen, or for some reason are a bad idea, but if you could do properly trustless exchanges with near-infinite bandwidth, 100x cheaper and 100x better privacy than onchain, are you advocating against that if the data it puts on chain is not “financial”?
+* You might reasonably answer all the above with “of course I’m not against L2s and as long as the data they put onchain is reasonable; that is effectively financial, even if not literally; that isn’t part of what I’m advocating policing with our nodes”, but what about an L2 that both offers fast cheap private payments, and also lets people mint jpegs? And because it’s private, you don’t know from the random 32 byte strings onchains, whether the activity was “financial/payments” or not?
+* Notice I didn’t even appeal to the obvious (and historical, and practical) example of data embedded in pubkeys, nor to the real world of today with data embedded in scripts. 
+
+But why such a strong statement as “dangerous to Bitcoin as money” though? Because it isn’t just wrong-headed to try to police transactions at the network layer, it’s anathema to Bitcoin’s central purpose. If Bitcoin’s p2p network is actively attacking Bitcoin (the protocol) itself (certainly not the case now because it’s not homogeneous, and long may that last! Including, yes, I think it’s great that Knots, and others, exist as a plausible alternative) because it becomes a police force on what transactions are allowed, it may fail under that weight, because if it still existed at all, it would do so with small groups of miners talking to each other secretly.
+
+Another way to look at it is: if the p2p network becomes properly homogeneous in that imagined scenario, **and could fully agree on a specific type of transaction to be banned**, then they could and should simply soft fork in the restriction. Like ban, or limit, OP_RETURN for example.
+
+But I think your response to that is: “you’re missing the point! the bad actors shift around and so a simple static rule can’t ban them.” Well, that means it’s also completely impractical to police them. Are node runners going to get together every week and review the patterns of “bad” transactions that have been happening? The whole point of Bitcoin is that is not a *community* based money, such things completely fail to scale, and also the point of Bitcoin is not to take power away from a central group and give it to the people, it’s to take power away from the central group and give it to **no one at all**. Having a committee decide what kinds of transactions to filter out this week is, I’m sure you agree, not realistic.
+
+Obviously the picture I painted there of “police gone wild” is hyperbolic - I don’t think that will happen! I’m just saying nodes policing the network to enforce rules that are not in the software is somewhere between incoherent and actively dangerous because of the centralization pressure it creates.
+
+(This is more personal opinion, but I think Bitcoin’s long term success will depend on more wide usage, which in turn will depend on finding the right way to do what Peter Todd likes to call client side validation with ZKP techniques, because the usability barriers won’t be overcome-able otherwise at scale; notice how client-side-validation as a paradigm really doesn’t fit with what you’re saying. But this is parenthesized because it’s not a necessary part of the discussion).
+
+-------------------------
+
