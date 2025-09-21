@@ -501,9 +501,11 @@ Ofc we can also decide that the UTXO set was a premature optimization that backf
 
 -------------------------
 
-moonsettler | 2025-09-21 20:07:29 UTC | #35
+moonsettler | 2025-09-21 20:35:32 UTC | #35
 
 Want to add: based on my recent experiments with syncing on ramdisk (which basically removes most of the the IO cost) I have to conclude that syncing - when enough RAM is available - is largely CPU (and ofc network) bound in practice. Because of the serious lack of parallelization it doesn’t really matter if there are many cores available, on average only 1 will be fully utilized at a time. Especially below assumevalid height with default settings.
+
+edit: In this context Utreexo only helps with capping the RAM required for expedient validation, while can possibly hinder improved parallelization. Opportunistic write-through memory caching from OS explains why the sync is mainly CPU bound while the UTXO set fits into the unused RAM while nodes not clearly benefiting from larger dbcache settings in practice.
 
 -------------------------
 
