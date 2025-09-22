@@ -866,3 +866,12 @@ It seems to me that something equivalent to MultiPTLC is somewhat trivial to ach
 
 -------------------------
 
+ZmnSCPxj | 2025-09-22 14:50:02 UTC | #10
+
+My understanding is that trampoline would have to select one of the LSPs, though? The key part of the MultiPTLC is that it is offered to all the LSPs, not just one of them, and the LSPs can then compete to route to the receiver.  This competition is done via a modified RAFT algorithm, where the random timeout involved in leader selection is implemented using proof-of-work (there being no other proof possible in a relativistic universe where “global event ordering” is meaningless), and LSPs can only run for leadership if they can present a proof that the receiver is requesting the receiver-can-pay scalar from them.
+
+On the other hand, see: https://delvingbitcoin.org/t/a-decker-wattenhofer-multichannel-for-reduced-inter-lsp-trust/1994#p-5910-ursula-to-lsp-payment-hop-7
+In the linked section, I pointed out that Spilman channels are ***truly*** unidirectional. meaning a failed HTLC ***cannot*** be returned to the sender; we need to update state at the decrementing-`nSequence` layer to remove the failed HTLC. Thus, my proposal is to simply have the LSPs do probing ***first***, then show the results of probing to the user Ursula, who can then dedicate the HTLC to a ***single*** LSP, with a good chance that the HTLC will neither fail nor get stuck.  Since this is a single hop anyway, I think there is no real need for the forwarding to use trampoline in that case?
+
+-------------------------
+
