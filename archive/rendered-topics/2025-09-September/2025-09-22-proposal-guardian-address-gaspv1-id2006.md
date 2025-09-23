@@ -1,8 +1,8 @@
 # [Proposal] Guardian Address + GASPv1
 
-guardian | 2025-09-22 16:45:52 UTC | #1
+guardian | 2025-09-23 12:10:00 UTC | #1
 
-I’ve already submitted this as 2 \* draft PR BIPs and announced it on the mailing list (though I believe it’s in moderation). I’m posting here to open up the discussion to a wider audience and get more detailed technical feedback.
+I’ve already submitted this as 2 \* draft PR BIPs and proposed it on the mailing list (though I believe it’s in moderation). I’m posting here to open up the discussion to a wider audience and get more detailed technical feedback.
 
 \*\*Overview\*\*
 
@@ -12,7 +12,7 @@ We propose two Bitcoin Improvement Proposals to address the growing threat of th
 
 This proposal introduces the concept of a Guardian Address and defines a standard signalling mechanism that allows bitcoin wallets to become locked in response to an activation event. A single external control address triggers a security lockdown across one or more unrelated wallets without requiring any on-chain linkage between them. The goal is to prevent theft of bitcoin by enabling users to broadcast a standardized on-chain lock that causes cooperating wallets to enter a restricted mode, disabling the ability to spend UTXOs under duress.
 
-The design allows a separation of key material between the user's spending wallet and a Guardian Address; a discrete identity that signals lock state changes via a transaction embedding data in an \`OP_RETURN\`. This enables emergency responders, user level software, and wallet applications to recognize a distress signal without exposing user spending address(es) or balances.
+The design allows a separation of key material between the user’s spending wallet and a Guardian Address; a discrete identity that signals lock state changes via a transaction embedding data in an \`OP_RETURN\`. This enables emergency responders, user level software, and wallet applications to recognize a distress signal without exposing user spending address(es) or balances.
 
 Adoption requires minimal overhead for wallet developers. This approach does not alter spending rules. It is a voluntary signalling protocol that requires adoption by wallet and custodial software to be effective. BIP compliant wallets will be able to offer this security mechanism without compromising privacy or usability. These standards are intended to be optional and without breaking compatibility for existing wallets or nodes.
 
@@ -24,7 +24,7 @@ Bitcoin users are increasingly the targets of physical threats including robbery
 
 \- In the case that the attacker does not know the wallet opened is a decoy wallet, the attack still results in the loss of bitcoin for the user.
 
-Current self-custody solutions do not provide a safe way to respond under physical duress without risking loss of funds. In addition, participants in the Bitcoin ecosystem commonly use both self-hosted and centralized services\[^3\]. There's no mechanism that currently exists that can act as a self-sovereign "kill switch" for both user scenarios of a self-hosted wallet or a user with a self-hosted and centralized wallet.
+Current self-custody solutions do not provide a safe way to respond under physical duress without risking loss of funds. In addition, participants in the Bitcoin ecosystem commonly use both self-hosted and centralized services\[^3\]. There’s no mechanism that currently exists that can act as a self-sovereign “kill switch” for both user scenarios of a self-hosted wallet or a user with a self-hosted and centralized wallet.
 
 This proposal introduces an interoperable mechanism to:
 
