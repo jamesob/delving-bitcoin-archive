@@ -478,3 +478,9 @@ If EC is not vulnerable then P2QRH is the NUMS point feature of P2TR in function
 
 -------------------------
 
+vazertuche | 2025-09-23 20:48:55 UTC | #30
+
+P2TR with a NUMS point is not quantum resistant. A CRQC can break the tweaked key on chain whether it is aware the primary path is using a NUMS point or not. Interestingly enough, if a quantum computer did this, it would provide cryptographically provable evidence that a quantum computer exist and has stolen these funds. (or that EC crypto is broken) The user who’s wallet was stolen would simply need to reveal a valid script path spend along with the NUMS point and any outside observer should be fully convinced a quantum computer broke the tweaked key and stole the funds.
+
+-------------------------
+
