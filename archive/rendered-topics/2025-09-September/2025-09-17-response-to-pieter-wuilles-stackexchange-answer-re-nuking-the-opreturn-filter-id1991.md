@@ -384,3 +384,85 @@ Totally agree with the first half, for the second half it’s nuanced to me: I c
 
 -------------------------
 
+cguida | 2025-09-24 19:32:19 UTC | #7
+
+\>so you have I guess 4 rules here, size of data, high fees caused, utxo bloat, bitcoin vs non-bitcoin
+
+Yes. Each of these things is a somewhat blurry line, but I think a use case that objectively violates all four (eg brc-20) can be said to be objectively harmful, whereas things that violate none can be said to be objectively harmless. Again, there is a large gray zone, but there are use cases that are objectively harmful and it makes zero sense for a payment network to prioritize these over, eg, Lightning channel opens and closes.
+
+\>On size someone has a to make a rule about how big is/is not OK
+
+Yes, 80 bytes has been the limit for over a decade now. If people want to reopen this discussion that’s fine, but it should be a discussion, not a unilateral decision.
+
+\>I think the difficulty with that that makes consensus difficult is, as we’ve all seen, data just tends to move around to wherever it can’t be ejected easily, and is cheapest
+
+Yes, and whenever harmful use cases emerge, we should attempt to restrict them.
+
+\>On utxo bloat I guess I agree, except for the points earlier made by others, ad nauseam, that it’s incredibly difficult to ban data from utxos
+
+It’s not actually. Knots has filters for inscriptions (which [directly caused \~7GB of new utxoset growth](https://statoshi.info/d/000000009/unspent-transaction-output-set?orgId=1&refresh=10m&viewPanel=8&from=1588309200000&to=now), which is over half the current utxoset). Citrea’s watchtower challenge transactions are [also trivially filterable](https://youtu.be/J9bRVIXOhm0?t=12555).
+
+Data transactions tend to be harmful in direct proportion to how easy to detect they are. So we don’t need to try to eliminate *all* data transactions; just restricting the most harmful formats is more than sufficient.
+
+\>albeit it will never be the cheapest option for the spammer.
+
+Spammers don’t seem to be particularly fee-sensitive. BRC-20 is a case-in-point. Again, data use cases have infinitely more demand for block space than payment use cases, so if we don’t bias payments at all, then data use cases will inevitably dominate.
+
+\>“Filtering” has no purpose if it is not with the intention of censoring (you are trying to stop the activity), and “spam” is not something you will ever be able to objectively define at the level of bitcoin transactions (the purpose of my somewhat awkward examples
+
+I think “makes bitcoin worse money” is a good starting point for a definition of spam. Obviously there is an infinite amount of negotiation over what precisely this means; but I think most of us can probably agree that BRC-20 fits this definition.
+
+I would love to understand how the anti-filter crowd defines “censorship” as this seems to be a persistent point of misunderstanding in these interactions. It sounds like you consider all spam filtration and all attempts at spam filtration to be censorship; is that correct? For example, do you consider email spam filters to be “censorship”?
+
+\>Coinjoins
+
+I think it’s pretty clear that coinjoins don’t meet the definition of spam (as long as they don’t use excessive data, bloat the utxoset, or cause excessive high fees).
+
+Coinjoins’ purpose is to use bitcoin as permissionless money and they obviously increase its utility as such. I don’t think anyone would ever argue that they are spam. Of course noderunners are free to refuse to relay them if they wish, but I find it very dubious that a significant portion of the network would decide to do so.
+
+\>client-side validation
+
+Yes, all L2s and apps do some degree of this. Again, I’m fine with such use cases as long as they stay within 40 bytes (and 80 bytes is the quasi-consensus limit). Opreturn was specifically introduced for such things, and the limit was set to 40 bytes to accommodate a hash and an 8-byte identifier. If people need more space than this, then they should reopen the conversation and get bitcoiners’ consent rather than just unilaterally shoving data into the blockchain. The former is peaceful; the latter is hostile.
+
+\>So I’m really just making the same point again, that you can’t easily, or sometimes at all, distinguish monetary uses, and at the highest level, it’s fundamentally impossible because the whole *point* of using an L2 is to provide privacy and scalability *by removing the per-transaction semantics from the base blockchain*
+
+I understand and appreciate your point that “spam” is not something that can be formally specified in such a way as to be reliable for the rest of time. I had to come to terms with this recently myself when trying to imagine a set of consensus rules that would always be able to reject data spam as invalid while always allowing payment use cases as valid. We agree 100% here. This is precisely the reason I am not advocating for a consensus change; since it is [not even theoretically possible](https://blog.bitmex.com/the-unstoppable-jpg-in-private-keys/) to detect and filter all data use cases, attempting to formalize such things is a fool’s errand.
+
+The fact that spam is not something that can be formally defined is precisely the reason why such things can only be countered at the social/mempool layer rather than the consensus layer, and it is precisely the reason why the protective bitcoin maximalist culture \[and the filters its proponents run\] will always be vital to bitcoin’s survival and success.
+
+*However*, it is *not* the case that, since spam cannot be formally specified, we necessarily need to give up all efforts to bias payments over data. Yes, there is a large gray area as I’ve already acknowledged; but there are also transaction formats that are *only* abused for data. BRC-20 is the worst offender here, and, again, it is trivially easy to identify. It *objectively, permanently* harmed bitcoin and thus is *objectively spam and should be discouraged*.
+
+There is no *general* formula for spam, but we know *100% without a doubt* that BRC-20 *specifically* is spam, and it is very likely that all inscriptions are spam, especially those that violate the datacarriersize setting (80 bytes on a majority of nodes).
+
+\>So I think your position that we can police usage is only fully compatible with fixed format, public and unscalable payments on the base layer (and tbh, imo, not even compatible with that!).
+
+I am not following your train of reasoning to this conclusion. I am not saying that we can make a general filter that has no false positives; I am saying we can filter specific formats we \*know\* are data spam. Mempool filters are the ideal mechanism for this as they can adapt quickly to counter evolving spam threats.
+
+\>Our inability to bias is a feature, not a bug.
+
+No such “inability” exists. See again the [99% decrease in large opreturns](https://x.com/oomahq/status/1931856202511888465) the opreturn filter causes. We have been biasing bitcoin towards payments since the days of Satoshi, and we should continue doing so for as long as we can.
+
+\>In fact it might be the main reason Bitcoin still exists 16+ years after inception.
+
+I disagree. Yes, censorship resistance is a primary reason bitcoin has been successful, but plenty of shitcoins are “censorship resistant” too, and yet they are not money. Censorship resistance is necessary, but not sufficient, for bitcoin to be successful in the long run. We must also make sure that data use cases are de-prioritized as much as we can. It is bitcoin’s maximalist culture and its hostility to scammy/spammy use cases (as well as its censorship-resistant architecture) that has led to bitcoin’s success.
+
+Again, Ethereum is just as “censorship resistant” as bitcoin, and yet it is not as successful and cannot make as strong a claim to being “money” as bitcoin. The difference between Ethereum and bitcoin is this “bias” towards good money, and this bias is a *cultural* (rather than *consensus*) phenomenon because *it has to be*, for the reasons outlined above.
+
+If we break with 16 years of precedent and remove this bias, there is *nothing* stopping bitcoin from becoming \[something very much like\] Ethereum, full stop. (You can easily see this effect on chains like BSV and BCH, which have devolved into shitcoin casinos, having given up on being permissionless money long ago.)
+
+\>The thing is, I do (I think) understand your basically opposite position: that on the contrary, Bitcoin is threatened with not existing by the ability to fill it with non-monetary data. I disagree. Perhaps I’ll expand elsewhere, this will get too long otherwise.
+
+I would love to hear your full rationale, and I can’t really think of a better venue for such discussion than here on Delving.
+
+\>Totally agree with the first half, for the second half it’s nuanced to me: I certainly don’t want to be able to *force* people not to run filters, but that’s not quite the same as not *wanting* people to not run filters - there is a reason to want it not to happen, namely the centralization pressure on miners that Pieter and others have gone into. But hey, obviously it’s nuanced.
+
+Yes, it’s definitely nuanced. I think this conflict is likely never to resolve to anyone’s satisfaction, because the flipside of attempting to prevent users from submitting certain transactions is attempting to prevent users from deciding which transactions they are able to refuse to announce to their peers, which is arguably a matter of free speech and the right to remain silent. I’m sure you would agree that forcing someone to say something against their will is bad; it could be considered compelled speech. Forcing nodes to relay transactions they don’t want to relay is the same thing.
+
+\[1\] To nerd out for a moment, signing on pubkeys in utxos is the only idea I know to stop utxo spam, and it’s clearly a scalability nightmare. It’s also extremely unpleasant security wise having a signature onchain immediately with every new coin, although I’m speaking theoretically there; I know of no practical security impact (and I’m not considering the quantum threat practical!). An interesting technical question is whether there might still be a way to embed data if scriptpubkeys are (P, (R, s)). I remember looking into it but not finding one, at least not if we speak specifically of Schnorr pubkey-prefixed signatures, and specifically that the (implicit) message signed includes the pubkey P. Of course you can always grind some bytes into a validly generated pubkey, but that’s not really worth considering (vanity etc.).
+
+Completely agreed, which is why, again, consensus is not the proper place to fight spam. Mempool policy is much better suited to this purpose.
+
+It’s likely that key grinding (or hiding data in privkeys as the BitMex article shows) would defeat pretty much any consensus-level filter. It is much more cost-effective to filter specific spam tx formats at the mempool level than to try to predict all possible future spam formats and enshrine those in consensus (which would obviously stifle innovation).
+
+-------------------------
+
