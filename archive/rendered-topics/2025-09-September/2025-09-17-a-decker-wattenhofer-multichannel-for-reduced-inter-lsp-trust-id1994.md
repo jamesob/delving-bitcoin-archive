@@ -715,3 +715,16 @@ The issue is with the LSP-sourced Spilman channels.  Unfortunately, those have t
 
 -------------------------
 
+ZmnSCPxj | 2025-09-24 11:48:53 UTC | #4
+
+I should note that fundamentally speaking, the construction shown in this post ***is*** in fact a Burchert-Decker-Wattenhofer channel factory, with the hosted channels being unidirectional Spilman channels.
+
+However, there are important facts:
+
+* There are only N channels hosted in the factory, not the (N \* (N - 1))/2 potential maximum a “true” factory can host.
+  * The goal is availability for Ursula.  An “extra” channel between Alice and Bob is useless in terms of availability for Ursula since that channel would be down if ***either*** of Alice or Bob is down; what Ursula wants is to be able to increase its chances of routing, and that does not really help since if Alice is up, Ursula can just hop straight to Alice instead of using Ursula→Bob→Alice (and vice versa).  If Alice is down, then the Bob→Alice channel is unuseable anyway.  Far more efficient liquidity-wise to ***not*** have an Alice-Bob channel and just put the liquidity that would have been placed there to point at Ursula.
+* The channel sourced from Ursula has the receiving end be a k-of-n of the LSPs.  You can plausibly argue that it is ***this*** channel that is the true core MultiChannel, and the decrementing-`nSequence` layers are actually a channel factory, and the other channels sourced from the LSPs are “only” Spilman 2-party Channels, and that would be an acceptable point-of-view.
+  * The point here is that the MultiChannel is a ***single*** pool of funds that Ursula can use to send to ***any***  of the LSPs, a one-to-many mapping, whereas a “true” channel factory allows Ursula to have ***multiple*** pools of funds to ***multiple*** LSPs, backed by a single onchain UTXO, but ultimately ***only*** a one-to-one mapping.  The innovation here is the possibility of a one-to-many mapping; that is the true innovation of MultiChannel and MultiPTLC.
+
+-------------------------
+

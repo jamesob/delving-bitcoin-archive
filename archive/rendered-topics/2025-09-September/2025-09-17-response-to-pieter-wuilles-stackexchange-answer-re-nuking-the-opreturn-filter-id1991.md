@@ -335,3 +335,52 @@ Can you elaborate on this point? I’m not immediately understanding.
 
 -------------------------
 
+AdamISZ | 2025-09-24 12:46:00 UTC | #6
+
+[quote="cguida, post:5, topic:1991"]
+There are 3 reasons why this is acceptable:
+
+[/quote]
+
+(on your counters to my toy examples): so you have I guess 4 rules here, size of data, high fees caused, utxo bloat, bitcoin vs non-bitcoin. On size someone has a to make a rule about how big is/is not OK. I think the difficulty with that that makes consensus difficult is, as we’ve all seen, data just tends to move around to wherever it can’t be ejected easily, and is cheapest. On high fees I have no comment, it’s kind of just related to the others. On utxo bloat I guess I agree, except for the points earlier made by others, ad nauseam, that it’s incredibly difficult to ban data from utxos, albeit it will never be the cheapest option for the spammer. \[1\]
+
+I think your point 3 about “bitcoin vs not bitcoin” is the one I’d like to delve into the most, but see below for my points around “client side validation”.
+
+[quote="cguida, post:5, topic:1991"]
+You are conflating spam filtration with censorship here.
+
+[/quote]
+
+I am indeed! That’s probably my central point. “Filtering” has no purpose if it is not with the intention of censoring (you are trying to stop the activity), and “spam” is not something you will ever be able to objectively define at the level of bitcoin transactions (the purpose of my somewhat awkward examples. Btw I thought of another, though it’s kind of off the wall - coinjoins. Coinjoins do not transfer money from one party to another (thinking basic old style equal-output) and *objectively* take up a lot of space on the blockchain for non-financial transactions. They are really spam, in that sense; as silly as this example might seem, it relates to something in the next point). 
+
+[quote="cguida, post:5, topic:1991"]
+> notice how client-side-validation as a paradigm really doesn’t fit with what you’re saying
+
+Can you elaborate on this point? I’m not immediately understanding.
+
+[/quote]
+
+Sure. It’s a bit difficult to find clear explanations of the general “client side validation” idea (though, I just found [this](https://docs.rgb.info/distributed-computing-concepts/client-side-validation) which is pretty good!). I’m guessing you already have a (perhaps vague, like mine) understanding, but for anyone who doesn’t: the core idea is that the individual users are validating, offchain, a history defined in terms other than L1, while using L1 as anti-double-spend through committing to some kind of “summary” of the history (think, merkle tree roots e.g.). Essentially it’s just a fancier and grander vision of commonly understood L2. Rollups in Ethereum land (and planned in various experimental ways on Bitcoin) are another example, notwithstanding there’s sleight of hand centralization happening there with quorums and sequencers and whatnot.
+
+So I’m really just making the same point again, that you can’t easily, or sometimes at all, distinguish monetary uses, and at the highest level, it’s fundamentally impossible because the whole *point* of using an L2 is to provide privacy and scalability *by removing the per-transaction semantics from the base blockchain*. So I think your position that we can police usage is only fully compatible with fixed format, public and unscalable payments on the base layer (and tbh, imo, not even compatible with that!).
+
+[quote="cguida, post:5, topic:1991"]
+And I’m saying that some amount of this is inevitable, due to the inability of the consensus rules *by themselves* to guarantee that bitcoin stays money if we don’t bias payments above data somehow.
+
+[/quote]
+
+Our inability to bias is a feature, not a bug. In fact it might be the main reason Bitcoin still exists 16+ years after inception.
+
+The thing is, I do (I think) understand your basically opposite position: that on the contrary, Bitcoin is threatened with not existing by the ability to fill it with non-monetary data. I disagree. Perhaps I’ll expand elsewhere, this will get too long otherwise.
+
+[quote="cguida, post:5, topic:1991"]
+You’re never going to be able to force people *not* to run filters, and I don’t know why anyone would want this.
+
+[/quote]
+
+Totally agree with the first half, for the second half it’s nuanced to me: I certainly don’t want to be able to *force* people not to run filters, but that’s not quite the same as not *wanting* people to not run filters - there is a reason to want it not to happen, namely the centralization pressure on miners that Pieter and others have gone into. But hey, obviously it’s nuanced.
+
+\[1\] To nerd out for a moment, signing on pubkeys in utxos is the only idea I know to stop utxo spam, and it’s clearly a scalability nightmare. It’s also extremely unpleasant security wise having a signature onchain immediately with every new coin, although I’m speaking theoretically there; I know of no practical security impact (and I’m not considering the quantum threat practical!). An interesting technical question is whether there might still be a way to embed data if scriptpubkeys are (P, (R, s)). I remember looking into it but not finding one, at least not if we speak specifically of Schnorr pubkey-prefixed signatures, and specifically that the (implicit) message signed includes the pubkey P. Of course you can always grind some bytes into a validly generated pubkey, but that’s not really worth considering (vanity etc.).
+
+-------------------------
+

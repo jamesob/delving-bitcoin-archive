@@ -881,3 +881,19 @@ I will sketch out here the RAFT-inspired MultiPTLC competition algorithm.  I thi
 
 -------------------------
 
+ZmnSCPxj | 2025-09-24 12:22:28 UTC | #12
+
+I was reminiscing about the good old days before Bitcoin ossified, and anyway — my initial design here was actually ***not*** to have a k-of-n trust requirement on the LSP side for its fellow LSPs.  Instead, each participant (though the really only important participant is Ursula) can offer to ***any*** of the other participants by using a pseudo-Spilman scheme with their “self” outputs signable using a single-use-seal.
+
+The single-use-seal can be implemented with `OP_CAT`; briefly, the “self” output of Ursula (et al) would have a branch where Ursula (et al) can sign unilaterally ***but*** the `R` is fixed constant in the script, which can then be reconstituted to a complete signature with `OP_CAT`; we could also spend an `OP_SUCCESS` on a new `OP_CHECKSEPARATEDSIG` where `R` is a separate stack item from `s`.  This is a “single-use-seal” because if Ursula tries to sign that output again, the same `R` will leak the private key and potentially cause Ursula to lose funds.
+
+(I was desperate enough for a single-use-seal that I had to go look up the Lamport signatures scheme by Jeremy Rubin, but that is technically an `OP_CHECKSIGFROMSTACK` which cannot commit to any transaction details except `nLockTime` and `nSequence` via `OP_CHECKLOCKTIMEVERIFY` and `OP_CHECKSEQUENCEVERIFY` respectively. Sigh.)
+
+A Pseudo-Spilman is that instead of ***replacing*** the transaction, we build up a chain of transactions instead.  It has all the drawbacks of Spilman (unidirectionality) and all the drawbacks of onchain (long chains of big transactions).  However, there would be an outer, hosting Decker-Russel-Osuntokun n-of-n mechanism that hosts each of the per-participant outputs here, which would let us clean up the Pseudo-Spilman channels when all participants are online.
+
+Then, Ursula can offer a MultiPTLC (or alternatively, ask LSPs to probe separately, and pick a winning route and offer a plain PTLC or HTLC for that route, which is technically less reliable but may be reliable-enough-in-practice-and-simpler-too) by signing ***just by itself***.  Thus, the uptime of the other participants becomes immaterial.  The other participants can then rely on the single-use-seal scheme to ensure that Ursula cannot walk it back without Ursula risking monetary loss.
+
+With this scheme, none of the LSPs even have to trust each other, though everyone does have reduced security for claimed funds from fulfilled MultiPTLC (et al): if the public transaction relay becomes utterly useless due to incoherent local mempool management heuristics, then participants in this mechanism can submit directly to miners, who would now have no incentive to participate in public transaction relay, and the single-use-seal of UTXO deletion trumps the single-use-seal of `R` reuse.  However, once everyone is online, they can then upgrade the security back to pristine Lightning security by updating the hosting mechanism to clean up the pseudo-Spilman mechanisms, thus time-bounding their risk in practice.
+
+-------------------------
+
