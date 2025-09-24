@@ -269,3 +269,69 @@ Obviously the picture I painted there of “police gone wild” is hyperbolic - 
 
 -------------------------
 
+cguida | 2025-09-23 21:47:13 UTC | #5
+
+Hi Adam, I appreciate your throughtful response, you brought up several great questions :slight_smile: 
+
+\>Concretely, let’s start with this trivial example: breach transactions in Lightning publish hashes on chain. That is data, it is not a payment (not a destination, not an amount). Same with submarine/coin swaps, often. Stupid example? Sure, but …
+
+There are 3 reasons why this is acceptable:
+
+1) **It doesn’t use excessive data**. The size of the data fits into 40 bytes, so it is considered standard by \~all nodes
+
+2) **It doesn’t cause high fees or bloat the utxoset**. Shitcoin metaprotocols (such as brc20 and runes), in contrast, are guilty of damaging bitcoin in these ways.
+
+3) **Lightning is a bitcoin L2 and not an app**, so we should treat it as more vital to bitcoin than an app. HTLC resolution transactions are required for the proper operation of Lightning, a unilateral-exit L2 that bitcoin cannot succeed without. We did 3 forks in order to enable Lightning; it deserves to be treated as a vital part of bitcoin at this point and not some sideshow. There are lots of other potential unilateral-exit L2s, like Ark, and these should also be considered bitcoin as such, and not applications, since they do not require trust in order to exit to L1.
+
+Citrea uses excessive data (144 bytes for its watchtower challenge txs and apparently a lot of inscription data as well) and is not an L2 because it does not have unilateral exit (having opted instead for a 1-of-n trust model, so it should be considered an app, and not bitcoin as such). However, I don’t expect Citrea watchtower challenge transactions to cause utxoset bloat or high fees (though the other data Citrea plans to post on-chain may do so).
+
+\>are you advocating against that if the data it puts on chain is not “financial”?
+
+No, I’m saying that we should not be making extreme changes to bitcoin’s social contract (that it should be used primarily for money; lifting the opreturn limit makes this much harder to achieve) to accommodate a non-unilateral-exit app. I don’t care if people build these things as long as they fit within the arb data constraints and don’t cause excessive fees or utxoset bloat.
+
+\>And because it’s private, you don’t know from the random 32 byte strings onchains, whether the activity was “financial/payments” or not?
+
+Well no, we don’t need to know what the actual use case is; we only need to know whether that specific format is causing high-volume spam that drives high fees and/or utxoset bloat. That information is sufficient to both identify such transaction formats as spam and to detect and refuse to relay them.
+
+\>But why such a strong statement as “dangerous to Bitcoin as money” though? Because it isn’t just wrong-headed to try to police transactions at the network layer, it’s anathema to Bitcoin’s central purpose.
+
+I disagree; bitcoin’s central purpose is to be permissionless money. If we pivot to data storage, there is no way to avoid data storage becoming so dominant that it destroys the payment use case.
+
+\>If Bitcoin’s p2p network is actively attacking Bitcoin (the protocol) itself (certainly not the case now because it’s not homogeneous, and long may that last!
+
+I’m not quite understanding this statement
+
+\>Including, yes, I think it’s great that Knots, and others, exist as a plausible alternative) because it becomes a police force on what transactions are allowed
+
+I don’t think it does. You are conflating spam filtration with censorship here. Censoring bitcoin is not possible because any miner with enough PoW to mine a block can confirm your transaction. You don’t need the relay network to help you with this; you can simply submit your tx directly to a miner. This is the real mechanism that keeps bitcoin censorship resistant; the relay network has nothing to do with it.
+
+\>Well, that means it’s also completely impractical to police them.
+
+It’s completely practical. I am happy with the 99% reduction in large opreturns the opreturn filter currently causes. A *100%* reduction is not practical; I completely agree. But that is not necessary.
+
+\>Are node runners going to get together every week and review the patterns of “bad” transactions that have been happening?
+
+[I don’t see why not](https://github.com/bitcoinknots/bitcoin/pull/119), if that’s what it takes to make sure bitcoin stays money and doesn’t become a general-purpose database that is impossible to use for money. Of course modular filters can be developed, vetted, and distributed in a decentralized way, and obviously noderunners are free to run them or not.
+
+\>The whole point of Bitcoin is that is not a *community* based money, such things completely fail to scale, and also the point of Bitcoin is not to take power away from a central group and give it to the people, it’s to take power away from the central group and give it to **no one at all**
+
+I agree; I don’t see how allowing noderunners to decide which transactions to relay changes this in any way.
+
+\>Having a committee decide what kinds of transactions to filter out this week is, I’m sure you agree, not realistic.
+
+Of course not, and again, I don’t see why that would be necessary. Just let anyone write, audit, distribute, and run whatever filters they want. You’re never going to be able to force people *not* to run filters, and I don’t know why anyone would want this.
+
+\>Obviously the picture I painted there of “police gone wild” is hyperbolic - I don’t think that will happen!
+
+Me neither! But even if it does, again, we have direct miner submission so it makes little difference.
+
+\>I’m just saying nodes policing the network to enforce rules that are not in the software is somewhere between incoherent and actively dangerous because of the centralization pressure it creates.
+
+And I’m saying that some amount of this is inevitable, due to the inability of the consensus rules *by themselves* to guarantee that bitcoin stays money if we don’t bias payments above data somehow.
+
+\>notice how client-side-validation as a paradigm really doesn’t fit with what you’re saying
+
+Can you elaborate on this point? I’m not immediately understanding.
+
+-------------------------
+

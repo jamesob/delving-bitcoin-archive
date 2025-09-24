@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "incoming_link_count": 2,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 27.6,
   "yours": false,
   "topic_id": 2009,
   "topic_slug": "revisiting-multi-commitments",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "# Revisiting Multi-Commitments\n\nBased on my conversations with @JeremyRubin, @salvatoshi and @reardencode this is an attempt to sum up the perceived tradeoffs of different approaches to proposed multi-commitments in bitcoin script.\n\n* `OP_CAT`: `<x1> <x2> OP_CAT`\n* `OP_PAIRCOMMIT`: `<x1> <x2> OP_PAIRCOMMIT`\n* `OP_VECTORCOMMIT`: `<x1> .. <xn> <n> OP_VECTORCOMMIT`\n* `OP_TWEAKADD`: `<t> <pub> OP_TWEAKADD` (counts as SigOp)\n* `OP_SHA256TAGGED`: `<msg> <tag> OP_SHA256TAGGED`\n* `OP_SHA256STREAM`: `OP_SHA256INIT <x1> OP_SHA256STREAM .. <xn> OP_SHA256STREAM OP_SHA256FINALIZE`\n\n## In a world where script is restored (GSR):\n\n* `OP_CAT` we naturally have, so all the concerns regarding introspection are already moot, big drawback is the witness malleability often requiring additional inefficiency introduced to scripts using it\n\nPreferred:\n\n* `OP_TWEAKADD` is pretty evidently useful. `OP_CAT` already enables state carrying with caboose, this would make it much neater (unlocks [MATT](https://merkle.fun)). `OP_TWEAKADD` necessarily counts as a SigOp and as a multi-commitment has worse witness malleability (as per [BIP](https://github.com/bitcoin/bips/pull/1944)) issues than `OP_CAT`.\n* `OP_SHA256STREAM` makes certain `OP_CAT` and `OP_SHA256` heavy scripts more streamlined, does not suffer from stack element size limit for overall message length, post GSR the execution cost assigned to all operations ensures safety.\n\nNeutral:\n\n* `OP_SHA256TAGGED` is a minor optimization of `<msg> <tag> OP_SHA256 OP_DUP OP_CAT OP_CAT OP_SHA256` where tagged midstates can be pre-computed or cached for efficiency.\n\nBad fit:\n\n* `OP_PAIRCOMMIT` and\n* `OP_VECTORCOMMIT` are built around the assumption that consensus on `OP_CAT` can not be reached due to it being computationally complete with the other opcodes; thus making it hard to reason about second order effects.\n\n## In a world without CAT (no state carrying):\n\nPreferred:\n\n* `OP_PAIRCOMMIT` does not enable\n  * fine-grained introspection\n  * state-carrying covenants\n  * bigint operations\n  * new arithmetic capabilities using lookup tables\n  * manipulation of the taptree\n\nNeutral:\n\n* `OP_VECTORCOMMIT` more general form, provides optimization over multiple calls of `OP_PAIRCOMMIT`, for larger number of smaller pieces the cost benefits are more significant\n* `OP_SHA256TAGGED` in the absence of `OP_TWEAKADD` and `OP_CAT` this opcode serves as a mildly less efficient but adequate pair-commitment \n\nBad fit:\n\n* `OP_SHA256STREAM` would introduce a lot if not most of the capabilities (or shenanigans) that serve as rationale for not activating `OP_CAT`, trivially allows for transaction and parent transaction introspection via [CAT tricks I](https://medium.com/blockstream/cat-and-schnorr-tricks-i-faf1b59bd298) and [CAT tricks II](https://medium.com/blockstream/cat-and-schnorr-tricks-ii-2f6ede3d7bb5)\n\n## In a world without CAT (but with MATT):\n\nPreferred:\n\n* `OP_TWEAKADD` and \n* `OP_VECTORCOMMIT` are the basic building primitives for [MATT](https://merkle.fun), vector state carrying can also be achieved with multiple calls to `OP_TWEAKADD` but witness malleability could be a problem as per [BIP](https://github.com/bitcoin/bips/pull/1944) and complicate scripts unnecessarily.\n\nNeutral:\n\n* `OP_PAIRCOMMIT` in @salvatoshi\u2019s opinion MATT is expected to carry a more complex state than 2 elements\n* `OP_SHA256TAGGED` while it sounds more generally helpful, does not really enable the inspection or manipulation of the taproot script tree paired with `OP_TWEAKADD` due to lack of internal concatenation on the message part, still it is an adequate substitute for `OP_PAIRCOMMIT` and `OP_VECTORCOMMIT`\n\nBad fit:\n\n* `OP_SHA256STREAM` same rationale for all cases without `OP_CAT`\n\nFeedback and preferences or corrections and alternative suggestions are welcome!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a name=\"p-5955-revisiting-multi-commitments-1\" class=\"anchor\" href=\"#p-5955-revisiting-multi-commitments-1\"></a>Revisiting Multi-Commitments\nBased on my conversations with <a class=\"mention\" href=\"/u/jeremyrubin\">@JeremyRubin</a>, <a class=\"mention\" href=\"/u/salvatoshi\">@salvatoshi</a> and <a class=\"mention\" href=\"/u/reardencode\">@reardencode</a> this is an attempt to sum up the perceived tradeoffs of different approaches to proposed multi-commitments in bitcoin script. \n\nOP_CAT: &lt;x1&gt; &lt;x2&gt; OP_CAT\nOP_PAIRCOMMIT: &lt;x1&gt; &lt;x2&gt; OP_PAIRCOMMIT\nOP_VE&hellip;",
   "truncated": true,
   "post_url": "/t/revisiting-multi-commitments/2009/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
