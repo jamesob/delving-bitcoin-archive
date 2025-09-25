@@ -466,3 +466,18 @@ It’s likely that key grinding (or hiding data in privkeys as the BitMex articl
 
 -------------------------
 
+AdamISZ | 2025-09-25 01:14:21 UTC | #8
+
+[quote="cguida, post:7, topic:1991"]
+It’s likely that key grinding (or hiding data in privkeys as the BitMex article shows) would defeat pretty much any consensus-level filter. It is much more cost-effective to filter specific spam tx formats at the mempool level than to try to predict all possible future spam formats and enshrine those in consensus (which would obviously stifle innovation).
+
+[/quote]
+
+Oh I hadn’t seen that recent [article](https://blog.bitmex.com/the-unstoppable-jpg-in-private-keys/) by Bitmex Research, very interesting that they came up with the same idea I had a while back in May on the mailing list, [here](https://groups.google.com/g/bitcoindev/c/d6ZO7gXGYbQ/m/Y8BfxMVxAAAJ)  ; quote:
+
+> The question is, what is the arbitrary data channel that you refer to, that remains, when doing this? The R-value is ofc arbitrary but it's still a "image" not "preimage" (x-coord for the nonce secret \* G). As I write this, one answer occurs to me, that if you used the same R value twice you leak the nonce and the secret key, which in this weird setup means you are "broadcasting" 2 32 byte values that are random, in 2 outputs, which I guess is the same embedding ratio? A horrible idea in practice given you lose control of the outputs; I know that at least some schemes that embed data in utxos deliberately do so to keep them in the utxo set permanently. So I somehow feel that that's not what you meant ...
+
+I dismissed this partly on the grounds that it has a 50% embedding rate (in non-witness ofc), but also as noted, there is a funnier objection to the idea: we are specifically worried about utxo bloat, but specifically because these outputs are globally spendable, they don’t have to stay in the utxo set! Perhaps we have a need for a janitorial team even if not a police force.
+
+-------------------------
+
