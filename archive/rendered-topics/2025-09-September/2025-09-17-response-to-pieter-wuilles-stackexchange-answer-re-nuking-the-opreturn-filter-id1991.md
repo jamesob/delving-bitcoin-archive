@@ -269,19 +269,19 @@ Obviously the picture I painted there of “police gone wild” is hyperbolic - 
 
 -------------------------
 
-cguida | 2025-09-23 21:47:13 UTC | #5
+cguida | 2025-09-25 22:55:08 UTC | #5
 
-Hi Adam, I appreciate your throughtful response, you brought up several great questions :slight_smile: 
+Hi Adam, I appreciate your thoughtful response, you brought up several great questions :slight_smile:
 
 \>Concretely, let’s start with this trivial example: breach transactions in Lightning publish hashes on chain. That is data, it is not a payment (not a destination, not an amount). Same with submarine/coin swaps, often. Stupid example? Sure, but …
 
 There are 3 reasons why this is acceptable:
 
-1) **It doesn’t use excessive data**. The size of the data fits into 40 bytes, so it is considered standard by \~all nodes
+1. **It doesn’t use excessive data**. The size of the data fits into 40 bytes, so it is considered standard by \~all nodes
 
-2) **It doesn’t cause high fees or bloat the utxoset**. Shitcoin metaprotocols (such as brc20 and runes), in contrast, are guilty of damaging bitcoin in these ways.
+2. **It doesn’t cause high fees or bloat the utxoset**. Shitcoin metaprotocols (such as brc20 and runes), in contrast, are guilty of damaging bitcoin in these ways.
 
-3) **Lightning is a bitcoin L2 and not an app**, so we should treat it as more vital to bitcoin than an app. HTLC resolution transactions are required for the proper operation of Lightning, a unilateral-exit L2 that bitcoin cannot succeed without. We did 3 forks in order to enable Lightning; it deserves to be treated as a vital part of bitcoin at this point and not some sideshow. There are lots of other potential unilateral-exit L2s, like Ark, and these should also be considered bitcoin as such, and not applications, since they do not require trust in order to exit to L1.
+3. **Lightning is a bitcoin L2 and not an app**, so we should treat it as more vital to bitcoin than an app. HTLC resolution transactions are required for the proper operation of Lightning, a unilateral-exit L2 that bitcoin cannot succeed without. We did 3 forks in order to enable Lightning; it deserves to be treated as a vital part of bitcoin at this point and not some sideshow. There are lots of other potential unilateral-exit L2s, like Ark, and these should also be considered bitcoin as such, and not applications, since they do not require trust in order to exit to L1.
 
 Citrea uses excessive data (144 bytes for its watchtower challenge txs and apparently a lot of inscription data as well) and is not an L2 because it does not have unilateral exit (having opted instead for a 1-of-n trust model, so it should be considered an app, and not bitcoin as such). However, I don’t expect Citrea watchtower challenge transactions to cause utxoset bloat or high fees (though the other data Citrea plans to post on-chain may do so).
 
@@ -478,6 +478,16 @@ Oh I hadn’t seen that recent [article](https://blog.bitmex.com/the-unstoppable
 > The question is, what is the arbitrary data channel that you refer to, that remains, when doing this? The R-value is ofc arbitrary but it's still a "image" not "preimage" (x-coord for the nonce secret \* G). As I write this, one answer occurs to me, that if you used the same R value twice you leak the nonce and the secret key, which in this weird setup means you are "broadcasting" 2 32 byte values that are random, in 2 outputs, which I guess is the same embedding ratio? A horrible idea in practice given you lose control of the outputs; I know that at least some schemes that embed data in utxos deliberately do so to keep them in the utxo set permanently. So I somehow feel that that's not what you meant ...
 
 I dismissed this partly on the grounds that it has a 50% embedding rate (in non-witness ofc), but also as noted, there is a funnier objection to the idea: we are specifically worried about utxo bloat, but specifically because these outputs are globally spendable, they don’t have to stay in the utxo set! Perhaps we have a need for a janitorial team even if not a police force.
+
+-------------------------
+
+cguida | 2025-09-25 23:01:27 UTC | #9
+
+Yes, it’s a cool mechanism for sure!
+
+\>we are specifically worried about utxo bloat, but specifically because these outputs are globally spendable, they don’t have to stay in the utxo set! Perhaps we have a need for a janitorial team even if not a police force
+
+Unfortunately the utxoset bloat from brc20s is also technically “spendable”, but my understanding is that because of the incentives of their Ponzi protocol, very few of these outputs will ever be spent.
 
 -------------------------
 
