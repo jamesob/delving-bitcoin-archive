@@ -47,3 +47,9 @@ And the long-term solution, is to stop broadcasting transactions in plaintext. I
 
 -------------------------
 
+micah541 | 2025-09-26 17:44:40 UTC | #3
+
+Setting aside the technicalities of including data, I’m a little confused how the long-term storage model is supposed to work.  I run a pruned node, so I don’t keep older blocks, but I understand that if were to go out and ask for, say block 467,000, somebody would provide it to me.  Obviously, I would need to get that from somewhere if I were to sync from genesis.  So unless we want to change the model to some checkpointing thing,  someone out there has to be ready to provide any block on demand, and if that block has something very clearly offensive in it, who is going to be willing to provide that?   Are we just hoping that someone in some untouchable jurisdiction is providing that?
+
+-------------------------
+
