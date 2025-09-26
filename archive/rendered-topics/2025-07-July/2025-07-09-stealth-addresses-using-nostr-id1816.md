@@ -306,3 +306,45 @@ I’m not deep in the weeds on nostr’s recent developments on private messagin
 
 -------------------------
 
+1440000bytes | 2025-09-26 14:34:32 UTC | #7
+
+[quote="setavenger, post:6, topic:1816"]
+How would you make sure that no transactions are “lost”? As nostr has no global state, several scenarios come to mind where somehow a notification is “lost” or missed.
+[/quote]
+
+1. Notifications don't need to be saved forever by the relays. Once received by the wallet, it can be saved offline.
+
+2. If multiple relays are used by the sender and recipient, they are unlikely to get lost. One of them could be run by the wallet developer.
+
+[quote="setavenger, post:6, topic:1816"]
+It’s inherent to nostr that if Alice and Bob don’t share a relay Bob will not see notes broadcasted by Alice. So some prior agreement on which relays to use would be needed?
+[/quote]
+
+Some common relays would exist if they are using the same wallet. Other wallets may agree on using the same list of relays.
+
+[quote="setavenger, post:6, topic:1816"]
+If a relay deletes a note and before Bob has seen the note he will never know of the payment either. I guess one could solve this with a confirmation message. Alice could rebroadcast the notification note until Bob confirms receiving the notification. But this would only work if relay sets have an overlap.
+[/quote]
+
+There is no incentive for a relay to delete the event although broadcasting the event to multiple relays would avoid this. Confirmation message could also be used in the protocol.
+
+[quote="setavenger, post:6, topic:1816"]
+Another worry I’d have are malicious actors flooding the receiver with fake notifications. Silent Payments in it’s “base case” checks Transactions accepted by a node, which has protection (e.g. PoW for confirmed txs) against transaction flooding.
+[/quote]
+
+Fake notifications can be managed by normal spam filtering used in other nostr clients and relays.
+
+[quote="setavenger, post:6, topic:1816"]
+I’m not deep in the weeds on nostr’s recent developments on private messaging without leaking metadata. It seems though that pairing your idea with silent payments could be quite interesting. i.e. I could see nostr notifications as an easy way to notify receivers of new Silent Payments. They could always fallback to a full chain scan if necessary (e.g. Bob suspects a missed transaction). My worries for nostr notifications were/are always the metadata leakage but I think some efforts were made to reduce that issue. Would be interested in hearing your opinions on the risk of metadata leakage when notifying receivers.
+[/quote]
+
+
+1. Pairing the idea with silent payments sounds interesting and I had discussed it with @moonsettler.
+2. Metadata leaks are fixed and only exist in NIP 4.
+
+---
+
+Note: Electrum wallet already uses nostr relays in the wallet. So it will be easier to implement this as a plugin.
+
+-------------------------
+

@@ -491,3 +491,14 @@ Unfortunately the utxoset bloat from brc20s is also technically “spendable”,
 
 -------------------------
 
+AdamISZ | 2025-09-26 11:45:11 UTC | #10
+
+[quote="cguida, post:9, topic:1991"]
+Unfortunately the utxoset bloat from brc20s is also technically “spendable”, but my understanding is that because of the incentives of their Ponzi protocol, very few of these outputs will ever be spent.
+
+[/quote]
+
+I see. But specifically the point i was raising about the private key broadcast case is that it’s globally spendable (hence “janitors”, anyone can be the cleaner there). But overall I’m guessing there’s a can of worms here: depending on the data-embedding protocol itself, you might have dusty output sizes or otherwise uneconomical-to-spend outputs, which interacts with the janitor idea (which *only* applies in those cases where the output is freely spendable by anyone) in that the janitor may have a \~ zero salary …
+
+-------------------------
+
