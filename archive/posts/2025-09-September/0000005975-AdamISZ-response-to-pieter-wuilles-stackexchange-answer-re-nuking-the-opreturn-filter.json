@@ -13,9 +13,9 @@
   "reply_to_post_number": 9,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"cguida, post:9, topic:1991\"]\nUnfortunately the utxoset bloat from brc20s is also technically \u201cspendable\u201d, but my understanding is that because of the incentives of their Ponzi protocol, very few of these outputs will ever be spent.\n\n[/quote]\n\nI see. But specifically the point i was raising about the private key broadcast case is that it\u2019s globally spendable (hence \u201cjanitors\u201d, anyone can be the cleaner there). But overall I\u2019m guessing there\u2019s a can of worms here: depending on the data-embedding protocol itself, you might have dusty output sizes or otherwise uneconomical-to-spend outputs, which interacts with the janitor idea (which *only* applies in those cases where the output is freely spendable by anyone) in that the janitor may have a \\~ zero salary \u2026",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I see. But specifically the point i was raising about the private key broadcast case is that it\u2019s globally spendable (hence \u201cjanitors\u201d, anyone can be the cleaner there). But overall I\u2019m guessing there\u2019s a can of worms here: depending on the data-embedding protocol itself, you might have dusty outpu&hellip;",
   "truncated": true,
   "post_url": "/t/response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter/1991/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
