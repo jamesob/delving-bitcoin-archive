@@ -1,0 +1,767 @@
+# Fee-Based Spam Prevention For Lightning
+
+JohnLaw | 2025-03-14 23:58:49 UTC | #1
+
+TL;DR
+=====
+* Jager [1][2] and Teinturier [8][9] proposed Upfront Fees and Time-Dependent Reverse Hold Fees to prevent spam on the Lightning Network (LN).
+  - Their protocols charged fees that paid for all significant routing costs.
+  - However, routers could steal fees from others.
+* This post extends their protocols by adding:
+  - secrets that prove a payment reached a given routing node, and
+  - burn outputs (as proposed by Riard and Naumenko [6][7]) to prevent theft and encourage cooperation.
+* The resulting protocols charge fees for all significant routing costs and those fees cannot be stolen.
+  - As a result, they should reduce spam and increase the efficiency of the LN.
+
+Paper
+=====
+A more complete description (including figures, packet details, related work and security analysis) is given in a paper [5].
+
+Fee Types
+=========
+The protocols presented here collect 3 types of fees:
+  * an Upfront Fee paid by the sender to the downstream node in each channel which updates the channel state to include an HTLC for the sender's Lightning payment,
+  * a Hold Fee paid by any node that delays the payment to each upstream node that they delay, and
+  * a Success Fee paid by the sender to each node that helps deliver a successful Lightning payment.
+
+The Upfront Fee pays for:
+  * the computation and communication costs of routing the payment,
+  * the cost of allocating a Commitment transaction output ("slot") to the payment,
+  * the cost of allocating channel funds to the payment for the seconds that can be required for a non-delayed payment,
+  * the risk of not fulfilling the HTLC with one's upstream partner despite one's downstream partner having fulfilled their HTLC,
+  * the risk of having to pay a Hold Fee (as described below), and
+  * the risk of burning funds (as described below).
+
+Before routing or receiving a Lightning payment, each node publishes its hold_grace_period_delta_msec parameter giving the minimum time they can take without having to pay for delaying a Lightning payment.
+If a router or the destination delays a Lightning payment beyond its grace period, it pays a Hold Fee to each of the upstream nodes for:
+  * the cost of their capital held for the length of the delay, and
+  * the inconvenience imposed on the sender for the length of the delay.
+
+The Success Fee pays for the service of successfully completing a payment.
+As a result, it motivates the routers and the destination to make the payment attempt succeed.
+
+Fee Collection
+==============
+As in the current Lightning protocol, the Success Fee is paid by increasing the size of each HTLC in order to include fees for the downstream node in the current channel and in all later channels.
+As a result, any node that participates in a successful payment will be rewarded with a Success Fee.
+
+The collection of Upfront and Hold Fees relies on the addition of a burn output to the Lightning channel's transactions.
+The burn output can be spent by anyone after a 20-year delay (so the burn output will be claimed by a miner 20 years in the future).
+Both parties in a Lightning channel put some of their funds in the burn output, and when the payment's HTLC is resolved the protocol determines how the burn output's funds are divided between the channel partners.
+The protocol allows both parties to calculate the same division of the burn output's funds, and the fact that those funds will be burned unless the parties agree on their division incentivizes cooperation.
+
+Calculating Upfront Fees
+========================
+This post presents two protocols for calculating Upfront Fees.
+In both protocols, the upstream node in each channel stakes (by adding them to the burn output) Upfront Fee funds that are sufficient to pay Upfront Fees to all of the nodes that are downstream of it along the payment's path.
+The staked Upfront Fees are then divided according to how far the payment is routed.
+
+Let n denote the number of payment hops, with node 0 being the sender and node n being the destination.
+For 0 < k <= n, a payment "stops" at node k if node k is a downstream node in the last channel which updated its state to include an HTLC for the given payment.
+
+In both protocols the channel partners create a contract for transferring Upfront Fee funds to the downstream node if that node provides a required secret before the contract's expiry.
+As a result, the contract for transferring Upfront funds is similar to an HTLC, but with multiple cases based on which secret is provided by the downstream node.
+These different secrets correspond to different nodes at which the payment could stop.
+
+Preimage Per Stopping Node
+--------------------------
+The first protocol uses secrets that are hash preimages, with a separate preimage per stopping node.
+
+The hop payload of the onion packet received by node i includes the secret X_i.
+
+The update_add_htlc packet sent to node i includes the list of pairs (Y_i, t_{i,i}), (Y_{i+1}, t_{i,i+1}) ... (Y_n, t_{i,n}) where for each k, Y_k = hash(X_k).
+The value t_{i,k} equals the sum of the Upfront Fees for nodes i through k, so t_{i,k} is the amount of Upfront Fees transferred (via the burn output) from node i-1 to node i for a payment that stops at node k.
+
+When node i-1 sends an update_add_htlc packet to node i, both nodes update the channel state to include the given HTLC.
+In addition, node i-1 stakes t_{i,n} funds (which is the maximum possible transfer of Upfront Fees to node i) to the burn output, and both nodes contribute a fixed fraction of t_{i,n} funds (called "matching funds") to the burn output.
+
+When the payment stops at some node k, node k includes the secret X_k in the update_fulfill_htlc or update_fail_htlc packet that it sends to its upstream partner.
+Each node i, 0 < i < k, then includes this same secret X_k in the update_fulfill_htlc or update_fail_htlc packet that it sends to its upstream partner.
+
+Nodes i-1 and i then update their channel state to reflect the resolution of the HTLC and the division of the Upfront funds.
+Specifically, nodes i-1 and i determine the value of k such that Y_k = hash(X_k), transfer t_{i,k} Upfront funds from the burn output to node i, refund the remaining staked Upfront funds to node i-1, and refund the matching funds to both nodes.
+
+This simple protocol allows each node to receive its correct Upfront Fee, but it reduces privacy because two routers can use the list of pairs in the update_add_htlc packet to determine they are routing the same payment.
+
+Discrete Logarithms
+-------------------
+The second protocol uses discrete logarithms of points (rather than hash preimages) in order to eliminate this loss of privacy.
+
+Let u_i denote the Upfront Fee paid to node i if the payment reaches node i.
+Let f_i denote the amount of Upfront Fees staked by node i-1 for potential transfer to node i.
+
+For each i, 0 < i <= n, node i-1 includes the Upfront stake amount f_i and a list of points P_{i,i}, P_{i,i+1} ... P_{i,n} in the update_add_htlc packet that it sends to node i.
+
+Nodes i-1 and i create the following contract:
+  * node i-1 stakes f_i Upfront funds for potential transfer to node i, and
+  * if node i includes a discrete log p_{i,k} in the update_fulfill_htlc or update_fail_htlc packet it sends to node i-1, where:
+    * p_{i,k}*G = P_{i,k} for some k <= n,
+    * t_{i,k} is the value of the 32 most significant bits of p_{i,k}, and
+    * t_{i,k} <= f_i,
+then node i-1 will transfer t_{i,k} Upfront funds to node i.
+
+The onion payload for node i provides two types of secret.
+
+First, it provides the discrete log p_{i,i} where p_{i,i}*G = P_{i,i} and the most significant 32 bits of p_{i,i} equal u_i.
+Therefore, p_{i,i} is the discrete log that node i gives node i-1 if the payment stops at node i.
+
+Second, if i < n the onion payload provides delta values d_{i,k}, i < k <= n, which are the differences between the discrete log of P_{i,k} and the discrete log of P_{i+1,k} (where P_{i+1,k} is a point in the list of points in the update_add_htlc packet sent to node i+1).
+While the onion payload does not allow node i to determine the discrete log of P_{i,k}, it does allow node i to determine that P_{i,k} = P_{i+1,k} + d_{i,k}*G.
+Therefore, d_{i,k} is the difference between the discrete log of P_{i+1,k} and the discrete log of P_{i,k}, so if node i+1 gives node i the discrete log of P_{i+1,k}, node i will be able to calculate the discrete log of P_{i,k}.
+Furthermore, the most significant 32 bits of d_{i,k} are a lower bound on the difference between t_{i,k} (the Upfront transfer to node i from node i-1) and t_{i+1,k} (the Upfront transfer from node i to node i+1) [5].
+As a result, node i can verify that it will receive a sufficiently large net Upfront transfer of t_{i,k} - t_{i+1,k} by examining the most significant 32 bits of each d_{i,k}.
+
+When the payment stops at some node k, node k includes the discrete log p_{k,k} in the update_fulfill_htlc or update_fail_htlc packet that it sends to its upstream partner.
+Each node i, 0 < i < k, then takes the discrete log p_{i+1,k} that it received from its downstream partner and determines k using the formula p_{i+1,k}*G = P_{i+1,k}.
+Next, each node i, 0 < i < k, calculates the discrete log p_{i,k} to include in the update_fulfill_htlc or update_fail_htlc packet that it sends to its upstream partner using the formula p_{i,k} = p_{i+1,k} + d_{i,k} [5].
+Nodes i-1 and i then update their channel state to reflect the resolution of the HTLC and the division of the Upfront funds.
+Specifically, nodes i-1 and i calculate t_{i,k} equals the 32 most significant bits of p_{i,k}, verify that t_{i,k} <= f_i, transfer t_{i,k} Upfront funds from the burn output to node i, refund the remaining staked Upfront funds to node i-1, and refund the matching funds to both nodes.
+
+While the above protocol allows the nodes to calculate the correct division of Upfront Fees, including the delta values d_{i,k}, i < k <= n, in the onion payload would force the onion size to grow quadratically in n.
+Instead, the actual protocol uses hash functions to eliminate this quadratic growth.
+The full details are given in the paper [5].
+
+Calculating Hold Fees
+=====================
+Hold Fees are paid by nodes to all upstream nodes that are delayed beyond the payment's hold grace period.
+The downstream node in each channel stakes the maximum Hold Fee it could transfer by putting those funds in the burn output.
+In addition, both nodes add matching funds to the burn output that are a fixed fraction of the staked Hold Fee funds.
+If the downstream node provides an update_fulfill_htlc or update_fail_htlc packet to its upstream partner after the payment's hold grace period expires, the downstream node makes a transfer of Hold Fee funds that is the product of the downstream node's hold_usat_per_hour value and the number of hours by which the payment was delayed, regardless of whether or not the downstream node was the cause of the delay.
+
+The update_add_htlc packet sent to each node i includes:
+  * the grace period expiry g_i and
+  * the stake amount h_i.
+  
+When it receives an update_add_htlc packet, node i calculates h_i divided by the maximum delay possible at node i (which is the difference between the expiry of the HTLC offered to node i and the grace period expiry g_i) to obtain y_i (which is the rate at which node i transfers Hold Fee funds to its upstream partner).
+If i < n, node i also calculates y_{i+1} and verifies that y_{i+1} - y_i (which is the rate at which node i is paid a net Hold Fee for the cost of delaying its use of its capital) is sufficiently large.
+Node i also verifies that its hold grace period, g_i - g_{i+1}, is sufficiently long.
+
+The Hold funds that are staked in the burn output by node i have to be divided according to how quickly the HTLC offered to node i is resolved.
+If that HTLC is resolved by g_i, then all of those funds are refunded to node i.
+However, if the HTLC is resolved after g_i, node i calculates the length of the delay, d_i, and transfers d_i * y_i Hold funds to its upstream partner and refunds the remaining staked Hold funds to itself.
+In addition, the matching funds are returned to both nodes.
+The full details are given in the paper [5].
+
+Risk Of Burning Funds
+=====================
+There are four ways in which a party that follows the protocol can be forced to burn funds.
+
+First, one may have to put a Commitment transaction with a burn output on-chain in order to resolve an HTLC.
+For example, this can happen when using the current Lightning protocol.
+However, this possibility can be eliminated by using a separate Payment transaction [5], a factory-optimized channel protocol [5][3], or the Off-chain Payment Resolution protocol [5][4].
+
+Second, if one's channel partner fails and cannot update the channel state for a very long time (e.g., months), one may have to close the channel unilaterally by putting their channel state transactions with a burn output on-chain.
+The amount of time one is willing to wait is based on the likelihood of their partner becoming responsive versus the cost of the channel's capital, and is independent of the lengths of the HTLCs' expiries.
+
+Third, a dishonest channel partner can put channel state transactions with a burn output on-chain in order to grief their partner (while also griefing themselves).
+In this case, the griefer loses (at least) their matching funds, which are set high enough to discourage most or all such griefing attacks.
+Specifically, if each party devotes a fraction m of the amount staked for Upfront and Hold Fees as matching funds, the griefer must lose at least m/(1+m) as many funds as their partner loses.
+
+Fourth, if both parties are honest but they fail in such a way that they don't agree on the determination of Upfront and Hold Fees, they will be forced to burn those fees and their matching funds.
+Fortunately, there are many techniques that reduce the likelihood of such failures, including:
+  * adding buffers for clock skew and maximum packet transmission times when determining when the downstream partner sent the payment's update_fulfill_htlc or update_fail_htlc packet,
+  * synchronizing the channel partners' clocks by exchanging frequent time stamp messages,
+  * maintaining a nonvolatile log of when all update_fulfill_htlc or update_fail_htlc packets are sent or received, and
+  * sending multiple encrypted copies of update_fulfill_htlc or update_fail_htlc packets via independent third-parties.
+  
+If all of the multiple copies are sent but fail to reach the offerer, it is likely there was either a complete loss of communication by the offeree or a failure of the offerer.
+These cases can be differentiated by looking at the nonvolatile logs for the nodes' other channels.
+For example, if a node has 20 channels with different partners and stops receiving time-stamped messages from just one of those partners, they can conclude that the failure was likely caused by that partner.
+On the other hand, if the node stops receiving messages on all 20 channels, the node can conclude that it's likely the cause of the failures (and as a result, it should agree with its partner's division of the burn output funds).
+
+Finally, a party can lose funds if they can be psychologically manipulated to allow their partner to steal from them.
+For example, if Alice and Bob should each receive two thousand sats from the burn output, Bob could refuse to update the channel state unless he gets three thousand sats from the burn output (and Alice could agree in order to at least get the remaining one thousand sats).
+This type of bullying attack can be prevented by ensuring that all channel updates are performed automatically, rather than under human control.
+
+Conclusions
+===========
+This post presents protocols for assigning and collecting fees for Lightning services.
+These protocols force the parties to pay for all significant costs that they impose on others and the fees they charge cannot be stolen by self-interested parties.
+It's hoped these protocols will be used to both reduce spam and improve the efficiency of the Lightning Network.
+
+References
+==========
+
+[1] Jager, "Hold fees: 402 Payment Required for Lightning itself", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02080.html
+
+[2] Jager, "Hold fee rates as DoS protection (channel spamming and jamming)", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02212.html
+
+[3] Law, "Factory Optimized Protocols For Lightning", https://github.com/JohnLaw2/ln-factory-optimized
+
+[4] Law, "A Fast, Scalable Protocol For Resolving Lightning Payments", https://github.com/JohnLaw2/ln-opr
+
+[5] Law, "Fee-Based Spam Prevention For Lightning", https://github.com/JohnLaw2/ln-spam-prevention
+
+[6] Riard, "Unjamming lightning (new research paper)", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02996.html
+
+[7] Riard and Naumenko, "Lightning Jamming Book", https://jamming-dev.github.io/book/
+
+[8] Teinturier, "Re: Hold fees: 402 Payment Required for Lightning itself", https://www.mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02106.html
+
+[9] Teinturier, "Spam Prevention", https://github.com/t-bast/lightning-docs/blob/398a1b78250f564f7c86a414810f7e87e5af23ba/spam-prevention.md
+
+-------------------------
+
+harding | 2025-03-18 15:11:31 UTC | #2
+
+I don't think this proposal addresses the main criticism of past proposals.  [Quoting](https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2023-July/004033.txt) @ClaraShk:
+
+> [T]he ?holy grail? is indeed charging fees as a
+function of the time the HTLC was held. As for now, we are not aware of a
+reasonable way to do this. There is no universal clock, and there is no way
+for me to prove that a message was sent to you, and you decided to pretend
+you didn't. It can easily happen that the fee for a two-week unresolved
+HTLC is higher than the fee for a quickly resolving one.
+
+Specifically, what stops a downstream node from ignoring an incoming HTLC and thus forcing its upstream peer to pay hold fees until they broadcast a force close transaction and get it confirmed to a certain depth?
+
+For example, Bob forwards a half-signed HTLC to Mallory (with burn output).  Mallory doesn't reply with either acceptance or rejection.  Now Bob can't safely cancel the HTLC unless he force closes the channel.  Bob will probably need to pay onchain transaction fees to force close the channel, so he'll be incentivized to wait a bit and to use a non-urgent fee estimation---but until the channel confirms to a depth he finds sufficient to prevent double spending, he'll be liable for hold fees.
+
+In this situation, Bob gains an upfront fee (presumably small compared to 6+ blocks of hold fees), he pays hold fees to his upstream node (which might be controlled by Mallory), and he loses onchain transaction fees to close the channel.  He does not earn a success fee.
+
+A more specific example includes two nodes controlled by Mallory (M0, M1) and Bob's node.  M0 forwards funds through Bob to M1.  M0 pays Bob an upfront fee, Bob pays M0 a hold fee that's greater than than the upfront fee, and Bob pays the onchain transaction fee to force close.
+
+M1 may have had to pay an onchain transaction fee to open the channel with Bob, but that could have been inexpensive compared to amount of money M0 will earn from several blocks of hold fees---and potentially _very_ inexpensive compared to Bob's total losses as victim of this attack.
+
+I'll also note that any sort of hold fees seems fraught if LSPs continue offering [JIT channels](https://bitcoinops.org/en/topics/jit-channels/).  Mallory can forward a payment through an LSP to a fake customer, who neither accepts nor rejects the HTLC.  The LSP is liable for paying hold fees to Mallory until they can double spend the channel opening transaction and it confirms to a sufficient depth.  Mallory's only cost in this case is upfront fee.
+
+-------------------------
+
+JohnLaw | 2025-03-21 21:08:20 UTC | #3
+
+Dave,
+
+Thanks for your thoughtful response.
+
+You're right that there's a problem with the Hold Fee if the downstream node ignores an offered HTLC.
+
+I believe the fix is to update the downstream node's Commitment transaction in two separate steps:
+* increase the burn funds to include Upfront and Hold Fees (plus matching funds) for the offered HTLC, and
+* add the HTLC output to the downstream node's Commitment transaction.
+
+The downstream node performs the first step (increasing burn funds), and revokes its previous Commitment transaction, before the second step is performed.
+It's safe for the downstream node to commit to the first update (with increased burn funds), as the this update includes the upstream node's matching funds (and its Upfront funds).
+
+From the Bolt 02 spec, the current flow for adding an HTLC goes through the following states:
+
+* pending on the receiver
+* in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the update is pending on the sender
+* ... and in the sender's latest commitment transaction
+* ... and the sender's previous commitment transaction has been revoked
+
+In order to fix the bug you found, we need to change this to:
+
+* pending on the receiver
+* increased burn funds (but no HTLC output) in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the update is pending on the sender
+* ... and increased burn funds and HTLC output in the sender's latest commitment transaction
+* ... and the sender's previous commitment transaction has been revoked
+* ... and increased burn funds and HTLC output in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction (with the increased burn amount but no HTLC output) has been revoked
+
+Thus the upstream node sends an update_add_htlc packet and then a commitment_signed packet, where the new signatures cover the increased burn funds for the new HTLC (but not a new HTLC output).
+Then, once the downstream node has sent a revoke_and_ack committing to the increased burn amount, the next commitment_signed transaction sent by the upstream node includes new increased burn funds and the new HTLC output.
+
+Note that there's still just one update to the upstream node's Commitment transaction that adds both the increased burn funds and the HTLC output.
+It's only the downstream node's Commitment transaction that needs to be updated in two steps.
+
+The downstream node commits to paying the Hold fee for the new HTLC when it commits to the increased burn funds by revoking its previous Commitment transaction (that did not have the increased burn funds).
+
+If the downstream node hasn't revoked its previous Commitment transaction before the new HTLC's grace period expires, the upstream node fails the HTLC by never updating the downstream node's Commitment transaction to include an output for the HTLC.
+In this case, the upstream node can fail the HTLC with its upstream partner prior to the HTLC's grace period in that channel, so it doesn't have to pay any Hold Fees.
+
+For example, Bob offers an HTLC to Mallory by signing a new Commitment transaction for Mallory that increases the burn funds for the new HTLC (but doesn't include a new HTLC output).
+If Mallory fails to revoke his previous Commitment transaction prior to the HTLC's grace period in the channel with Bob, Bob fails the HTLC with Alice (Bob's upstream partner) prior to the HTLC's grace period in that channel.
+As a result, Bob doesn't owe any Hold Fees to Alice.
+
+Also, note that Bob doesn't run the risk of having to pay the HTLC to Mallory, as Bob still has a Commitment transaction without the HTLC (and without increased burn funds).
+Thus, if Mallory never wakes up, Bob can close the channel by putting that transaction on-chain.
+If Mallory does wake up before the channel is closed, Bob and Mallory resolve blame for the failure of the latest HTLC as described in the post and the paper (e.g., using nonvolalite logs, timestampted messages, etc.).
+
+Please let me know if you agree that this fixes the bug.
+If so, there's still work to do in defining the exact set of changes to the protocol for updating the channel state.
+It's probably possible to define these changes while supporting asynchronous updates to both parties' Commitment transactions.
+However, I believe Rusty proposed simplifying the protocol to eliminate races between updates to the parties' Commitment transations.
+It should be much easier to implement the 2-stage update to the downstream party's Commitment transaction in such a race-free channel.
+
+Regarding the "holy grail" of charging fees as a function of how long the HTLC was held, I believe using a burn output (with matching funds) provides the missing ingredient.
+In particular, once both nodes have devoted funds to a burn output, they each individually want to determine the correct division of those funds so that they won't be burned.
+This is what gets around the need to "prove" to one's partner that a message was sent.
+
+I acknowledge that there are some limitations to using burn outputs, such as the risk of having one's partner fail completely, in which case the funds in the burn output are lost.
+However, this proposal (with the fix described above) does charge fees that depend on how long an HTLC was held, and it does so in a way that prevents the theft of those fees.
+
+-------------------------
+
+harding | 2025-03-25 06:09:28 UTC | #4
+
+Hi John,
+
+AFAICT, your solution does eliminate the immediate issue.  However, it
+seems to significantly increase link-layer latency, as described below.
+
+> From the Bolt 02 spec [...]
+
+I think we can simplify by ignoring `update_add_htlc` messages and
+assuming that the commitment transaction is symmetric.  In that version
+of the current protocol:
+
+1. Alice sends Bob a new half-signed commitment transaction containing a
+   new HTLC.
+
+2. Bob replies with his half of the signature and his revocation secret
+   for the previous commitment transaction.
+
+3. Alice replies with her revocation secret for the previous commitment
+   transaction.
+
+Besides simplification, phrasing it this way showcases one of the
+advantages of the current commitment protocol: even though the full
+process requires 1.5 network round-trip time (RTT), Bob receives
+everything he needs in Step 1 to be able to safely able to forward the
+HTLC to the next hop after just 0.5 RTT.  So for an _n_-hop payment, the
+best-case forwarding time can be said to be `n*0.5` RTT.
+
+> In order to fix the bug you found, we need to change this to:
+
+Using the simplification described above, I think this is what you're
+proposing:
+
+1. Alice sends Bob a new half-signed commitment transaction committing
+funds from both of them to a burn output.
+
+2. Bob replies his half of the signature for Step 1 and his revocation
+secret for the previous commitment transaction.
+
+3. Alice sends Bob her revocation secret for the previous commitment
+transaction and a new half-signed commitment transaction containing
+the new HTLC.
+
+4. Bob replies with his half of the signature for Step 3 and his
+revocation for the commitment transaction created in Step 1.
+
+5. Alice replies with her revocation secret for the transaction created
+in Step 1.
+
+We immediately see that the proposed protocol increases full resolution
+time to 2.5 RTT.  That's not concerning AFAIK, but what's notable is
+that the critical path increases to 1.5 RTT.  That's potentially a 3x
+slow down in LN payments as seen by the ultimate receiver.  Proof of
+payment in both the current and proposed protocols takes an additional
+`n*0.5` RTT, so the spender-observed slow down is 2x.
+
+More generally, although I still feel uneasy about MAD-based OPR-style
+protocols, I do clearly see the benefits of hold fees.
+Although described here for spam mitigation (something for which other
+solutions might work roughly as well), I think there could additionally
+be significant demand for [not-immediately-settled
+payments](https://bitcoinops.org/en/topics/hold-invoices/)---but that's
+something we can only encourage if forwarding nodes are fairly
+compensated for the delay.
+
+-------------------------
+
+JohnLaw | 2025-04-05 19:42:07 UTC | #5
+
+Hi Dave,
+
+Thanks for pointing out the benefits of time-dependent Hold Fees for not-immediately-settled payments.
+
+Regarding the increase in latency, I agree that the bug fix (which increases the burn funds before it adds the HTLC output) adds one round-trip time (RTT).
+However, I believe this is a 1.67x increase (rather than a 3x increase) as the downstream node has to wait for the revocation of the upstream node's commitment transaction that doesn't include the HTLC output (step 3 in your description of the current protocol and step 5 in your description of the protocol with the bug fix).
+Thus, the latency goes from 1.5 RTTs to 2.5 RTTs.
+
+Fortunately, I think it's possible to eliminate this latency penalty while implementing time-dependent Hold Fees with the bug fix.
+
+The idea is to increase burn funds before adding the HTLC output (as in the high-latency bug fix), but to allow the downstream node to provide signatures for both of these updates consecutively (without a RTT in between).
+
+If the downstream node committed to the increase burn funds (by revoking their previous commitment transaction) *during* the grace period, the upstream node can commit to the addition of the HTLC output (by revoking all earlier commitment transactions).
+Then the upstream node gives the downstream node a signature for a commitment transaction with the HTLC output.
+At this point, the downstream node is guaranteed to be able to get payment for the HTLC if they get the hash preimage in time, so the downstream node can offer the HTLC in the payment's next channel.
+Note that the overall latency is just 1.5 RTTs.
+
+On the other hand, if the downstream node committed to the increased burn funds *after* the grace period, the upstream node does not have to commit to the addition of the HTLC output.
+Instead, it sends an update_remove_htlc packet to the downstream node, followed by a revocation of only the commitment transaction that precedes the one with increased burn funds.
+As a result, the upstream node still has an unrevoked commitment transaction without the HTLC output that it can put on-chain if needed.
+The downstream node responds with a signature for a new commitment transaction without the increased burn funds or HTLC output and the upstream node revokes all commitment transactions that precede this latest one.
+This flow uses 2.5 RTTs, but it only occurs when there's a failure to propagate the payment within the grace period.
+As a result, the payment fails without having to wait beyond the grace period.
+
+This improved protocol requires the upstream node to have up to 3 current (signed and not revoked) transactions at a time.
+Therefore, the rules for providing pc_points and pc_secrets have to be modified.
+In particular, the current revoke_and_ack packet includes pc_secret_x and pc_point_(x+2) (for an arbitrary value of x).
+To make this new low-latency spam-prevention protocol work, we have to change the revoke_and_ack packet to include pc_secret_x and pc_point_(x+3).
+In addition, the funding_locked packet is changed to include pc_point_1 and pc_point_2 (rather than just pc_point_1).
+
+The detailed protocol is presented below.
+If no one finds any problems with it, I'll update the paper to include it.
+
+Current Protocol
+================
+
+Terminology, Notation and Packet Definitions
+--------------------------------------------
+* Alice is sender
+* Bob is receiver
+* A_i is Alice's commitment transaction using pc_point_i
+* B_j is Bob's commitment transaction using pc_point_j
+* open_channel packet includes pc_point_0
+* accept_channel packet includes pc_point_0
+* funding_locked packet includes pc_point_1
+* revoke_and_ack_x packet includes pc_secret_x and pc_point_(x+2)
+* commitment_signed_x is commitment_signed message providing a signature for the commitment transaction which uses pc_point_x
+* commitment transaction x is:
+  - "signed" if commitment_signed_x has been received, "unsigned" otherwise
+  - "revoked" if revoke_and_ack_x has been received
+  - "current" if it is signed and not revoked
+
+Flow for adding an HTLC
+-----------------------
+* pending on the receiver
+* ... in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the update is pending on the sender
+* ... and in the sender's latest commitment transaction
+* ... and the sender's previous commitment transaction has been revoked
+
+Detailed Protocol
+-----------------
+* a1  update_add_htlc to receiver
+  * HTLC output pending on the receiver
+  * Bob has 1 current commitment transaction
+    - HTLC output is not in Bob's current commitment transaction
+* a2  commitment_signed_j to receiver
+  * ... and the HTLC output is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(j-1) and B_j
+    - HTLC output is not in B_(j-1)
+    - HTLC output is in B_j
+* a3  revoke_and_ack_(j-1) to sender
+  * ... and the receiver's previous commitment transaction has been revoked, and the HTLC output is pending on the sender
+  * Bob has 1 current commitment transaction: B_j
+    - HTLC output is in B_j
+* a4  commitment_signed_i to sender
+  * ... and the HTLC output is in the sender's latest commitment transaction
+  * Alice has 2 current commitment transactions: A_(i-1) and A_i
+    - HTLC output is not in A_(i-1)
+    - HTLC output is in A_i
+* a5  revoke_and_ack_(i-1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked
+  * Alice has 1 current commitment transaction: A_i
+    - HTLC output is in A_i
+
+and eventually:
+
+* a6  update_fulfill_htlc or update_fail_htlc to sender
+  * ... and the HTLC resolution is pending on the sender
+* a7  commitment_signed_x to sender
+  * ... and the HTLC resolution is in the sender's latest commitment transaction
+  * Alice has 2 current commitment transactions: A_(x-1) and A_x
+    - HTLC output is in A_(x-1)
+    - resolved HTLC (without HTLC output) is in A_x
+* a8  revoke_and_ack_(x-1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked, and the HTLC resolution is pending on the receiver
+  * Alice has 1 current commitment transactions: A_x
+    - resolved HTLC (without HTLC output) is in A_x
+a9  commitment_signed_y to receiver
+  * ... and the HTLC resolution is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(y-1) and B_y
+    - HTLC output is in B_(y-1)
+    - resolved HTLC (without HTLC output) is in B_y
+* a10 revoke_and_ack_(y-1) to sender
+  * ... and the receiver's previous commitment transaction has been revoked
+  * Bob has 1 current commitment transactions: B_y
+    - resolved HTLC (without HTLC output) is in B_y
+
+HTLC Propagation Latency
+------------------------
+* receiver can send update_add_htlc in next channel after receiving a5
+* 1.5 RTTs:
+  * a1/a2
+  * a3/a4
+  * a5
+
+
+Spam Prevention Protocol Without Increased Latency
+==================================================
+
+Terminology, Notation and Packet Definitions
+--------------------------------------------
+* Alice is sender
+* Bob is receiver
+* A_i is Alice's commitment transaction using pc_point_i
+* B_j is Bob's commitment transaction using pc_point_j
+* open_channel packet includes pc_point_0
+* accept_channel packet includes pc_point_0
+* funding_locked packet includes pc_point_1 and pc_point_2
+* revoke_and_ack_x packet includes pc_secret_x and pc_point_(x+3)
+* commitment_signed_x is commitment_signed message providing a signature for the commitment transaction which uses pc_point_x
+* commitment transaction x is:
+  - "signed" if commitment_signed_x has been received, "unsigned" otherwise
+  - "revoked" if revoke_and_ack_x has been received
+  - "current" if it is signed and not revoked
+
+Case 1: Receiver commits to increased burn amount *during* grace period
+======================================================================
+
+Flow for adding an HTLC
+-----------------------
+* increased burn amount is pending on the receiver
+* ... and the increased burn amount is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+* ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+* ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+* ... and the sender's earliest current commitment transaction has been revoked
+* ... and the sender's previous commitment transaction has been revoked, and the HTLC output is pending on the receiver
+* ... and the HTLC output is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked
+
+
+Detailed Protocol
+-----------------
+* d1  update_add_htlc to receiver
+  * increased burn amount pending on the receiver
+  * Bob has 1 current commitment transaction
+    - increased burn amount is not in Bob's current commitment transaction
+* d2  commitment_signed_j to receiver
+  * ... and the increased burn amount is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(j-1) and B_j
+    - increased burn amount is not in B_(j-1)
+    - increased burn amount is in B_j
+* d3  revoke_and_ack_(j-1) to sender during grace period
+  * ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+  * Bob has 1 current commitment transaction: B_j
+    - increased burn amount is in B_j
+* d4  commitment_signed_i to sender
+  * ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+  * Alice has 2 current commitment transactions: A_(i-1) and A_i
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i
+* d5  commitment_signed_(i+1) to sender
+  * ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+  * Alice has 3 current commitment transactions: A_(i-1), A_i and A_(i+1)
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* d6  revoke_and_ack_(i-1) to receiver
+  * ... and the sender's earliest current commitment transaction has been revoked
+  * Alice has 2 current commitment transaction: A_i and A_(i+1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* d7  revoke_and_ack_i to receiver
+  * ... and the sender's previous commitment transaction has been revoked, and the HTLC output is pending on the receiver
+  * Alice has 1 current commitment transaction: A_(i+1)
+    - increased burn amount and HTLC output are in A_(i+1)
+* d8  commitment_signed_(j+1) to receiver
+  * ... and the HTLC output is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_j and B_(j+1)
+    - increased burn amount is in B_j, HTLC output is not in B_j
+    - increased burn amount and HTLC output are in B_(j+1)
+* d9  revoke_and_ack_j to sender
+  * ... and the receiver's previous commitment transaction has been revoked
+  * Bob has 1 current commitment transaction: B_(j+1)
+    - increased burn amount and HTLC output are in B_(j+1)
+
+and eventually:
+
+* d10 update_fulfill_htlc or update_fail_htlc to sender
+  * ... and the HTLC resolution is pending on the sender
+* d11 commitment_signed_x to sender
+  * ... and the HTLC resolution is in the sender's latest commitment transaction
+  * Alice has 2 current commitment transactions: A_(x-1) and A_x
+    - increased burn amount and HTLC output are in A_(x-1)
+    - resolved HTLC (without increased burn amount or HTLC output) is in A_x
+* d12 revoke_and_ack_(x-1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked, and the HTLC resolution is pending on the receiver
+  * Alice has 1 current commitment transactions: A_x
+    - resolved HTLC (without increased burn amount or HTLC output) is in A_x
+* d13 commitment_signed_y to receiver
+  * ... and the HTLC resolution is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(y-1) and B_y
+    - increased burn amount and HTLC output are in B_(y-1)
+    - resolved HTLC (without increased burn amount or HTLC output) is in B_y
+* d14 revoke_and_ack_(y-1) to sender
+  * ... and the receiver's previous commitment transaction has been revoked
+  * Bob has 1 current commitment transactions: B_y
+    - resolved HTLC (without increased burn amount or HTLC output) is in B_y
+
+
+HTLC Propagation Latency
+------------------------
+* receiver can send update_add_htlc in next channel after receiving d8
+* 1.5 RTTs:
+  * d1/d2
+  * d3/d4/d5
+  * d6/d7/d8
+
+
+Case 2: Receiver commits to increased burn amount *after* grace period
+=====================================================================
+
+Flow for adding an HTLC
+-----------------------
+* increased burn amount is pending on the receiver
+* ... and the increased burn amount is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+* ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+* ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+* ... and the failed HTLC (without increased burn amount or HTLC output) is pending on the receiver
+* ... and the sender's earliest current commitment transaction has been revoked
+* ... and the failed HTLC (without increased burn amount or HTLC output) is in the receiver's latest commitment transaction
+* ... and the receiver's previous commitment transaction has been revoked, and the failed HTLC (without increased burn amount or HTLC output) is pending on the sender
+* ... and the failed HTLC (without increased burn amount or HTLC output) is in the sender's latest commitment transaction
+* ... and the sender's earliest current commitment transaction has been revoked
+* ... and the sender's previous commitment transaction has been revoked
+
+
+
+Detailed Protocol
+-----------------
+* e1  update_add_htlc to receiver
+  * increased burn amount pending on the receiver
+  * Bob has 1 current commitment transaction
+    - increased burn amount is not in Bob's current commitment transactions
+* e2  commitment_signed_j to receiver
+  * ... and the increased burn amount is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_(j-1) and B_j
+    - increased burn amount is not in B_(j-1)
+    - increased burn amount is in B_j
+* e3  revoke_and_ack_(j-1) to sender after grace period
+  * ... and the receiver's previous commitment transaction has been revoked, and the increased burn amount is pending on the sender
+  * Bob has 1 current commitment transaction: B_j
+    - increased burn amount is in B_j
+* e4  commitment_signed_i to sender
+  * ... and the increased burn amount is in the sender's latest commitment transaction, and the HTLC output is pending on the sender
+  * Alice has 2 current commitment transactions: A_(i-1) and A_i
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i
+* e5  commitment_signed_(i+1) to sender
+  * ... and the increased burn amount and HTLC output are in the sender's latest commitment transaction
+  * Alice has 3 current commitment transactions: A_(i-1), A_i and A_(i+1)
+    - increased burn amount is not in A_(i-1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* e6  update_remove_htlc to receiver
+  * ... and the failed HTLC (without increased burn amount or HTLC output) is pending on the receiver
+* e7  revoke_and_ack_(i-1) to receiver
+  * ... and the sender's earliest current commitment transaction has been revoked
+  * Alice has 2 current commitment transaction: A_i and A_(i+1)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+* e8  commitment_signed_(j+1) to receiver
+  * ... and the failed HTLC (without increased burn amount or HTLC output) is in the receiver's latest commitment transaction
+  * Bob has 2 current commitment transactions: B_j and B_(j+1)
+    - increased burn amount is in B_j, HTLC output is not in B_j
+    - failed HTLC (without increased burn amount or HTLC output) is in B_(j+1)
+* e9  revoke_and_ack_j to sender
+  * ... and the receiver's previous commitment transaction has been revoked, and the failed HTLC (without increased burn amount or HTLC output) is pending on the sender
+  * Bob has 1 current commitment transaction: B_(j+1)
+    - failed HTLC (without increased burn amount or HTLC output) is in B_(j+1)
+* e10 commitment_signed_(i+2) to sender
+  * ... and the failed HTLC (without increased burn amount or HTLC output) is in the sender's latest commitment transaction
+  * Alice has 3 current commitment transaction: A_i, A_(i+1) and A_(i+2)
+    - increased burn amount is in A_i, HTLC output is not in A_i
+    - increased burn amount and HTLC output are in A_(i+1)
+    - failed HTLC (without increased burn amount or HTLC output) is in A_(i+2)
+* e11 revoke_and_ack_i to receiver
+  * ... and the sender's earliest current commitment transaction has been revoked
+  * Alice has 2 current commitment transactions: A_(i+1) and A_(i+2)
+    - increased burn amount and HTLC output are in A_(i+1)
+    - failed HTLC (without increased burn amount or HTLC output) is in A_(i+2)
+* e12 revoke_and_ack_(i+1) to receiver
+  * ... and the sender's previous commitment transaction has been revoked
+  * Alice has 1 current commitment transaction: A_(i+2)
+    - failed HTLC (without increased burn amount or HTLC output) is in A_(i+2)
+
+
+Allowed Flows For Spam Prevention Protocol With Low Latency
+===========================================================
+
+Terminology and Notation
+------------------------
+* an HTLC is "speculative" at the sender/offerer until the receiver/offeree has been given a signature for their corresponding HTLC output
+* a state is "failed" if it includes an HTLC output for a speculative HTLC which cannot be used because the receiver failed to commit to the increased burn amount during the grace period
+* a failed state will be indicated with an exclamation mark
+
+* Configuration 1: 1 current state (not failed)
+  * x
+
+* Configuration 2: 2 current states (neither failed)
+  * x
+  * x+1
+
+* Configuration 3: 3 current states (none failed)
+  * x
+  * x+1
+  * x+2
+
+* Configuration 4: 3 current states (only last one failed)
+  * x
+  * x+1
+  * x+2!
+
+* Configuration 5: 2 current states (only last one failed)
+  * x
+  * x+1!
+
+* Configuration 6: 3 current states (only second one failed)
+  * x
+  * x+1!
+  * x+2
+
+* Configuration 7: 2 current states (only first one failed)
+  * x!
+  * x+1
+
+Note: One's partner knows exactly which configuration one has, except they can't distinguish 3 from 4.
+
+Allowed Flows:
+-------------
+* State update without adding a speculative HTLC
+  * 1->2->1
+* State update adding a successful speculative HTLC
+  * 1->2->3->2->1
+* State update adding a failed speculative HTLC
+  * 1->2->4->5->6->7->1
+
+-------------------------
+
+ClaraShk | 2025-04-15 15:55:25 UTC | #6
+
+Hi,
+
+I’m trying to better understand the suggestion—could you clarify a couple of points?
+
+1. Is the idea that each channel with capacity of $m$ sats would also lock an additional $m$ sats solely as collateral to mitigate jamming attacks? Do you have any estimates of the associated costs, such as the opportunity cost of locking up these funds?
+
+2. Regarding channel closure and the distribution of the extra funds: as I understand it, both parties would need to agree, or else the funds are lost. Have you considered behavioral dynamics, such as those studied in experiments like the ultimatum game? These may suggest that real-world outcomes could diverge from the theoretically optimal ones.
+
+I think a numerical example that explores different waiting times could be very helpful in understanding the tradeoffs.
+
+-------------------------
+
+JohnLaw | 2025-04-25 21:17:55 UTC | #7
+
+[quote="ClaraShk, post:6, topic:1524"]
+Is the idea that each channel with capacity of $m$ sats would also lock an additional $m$ sats solely as collateral to mitigate jamming attacks? Do you have any estimates of the associated costs, such as the opportunity cost of locking up these funds?
+[/quote]
+
+No, there is no need to devote am amount equal lto the channel capacity as collateral to mitigate jamming. That would be very inefficient!
+
+The amount that one has to stake for Upfront and Hold fees is just the maximum amount of those fees that would be required for the currently-outstanding HTLCs (plus some frixed fraction in matching funds, where the amount of matching funds is a function of the maximum possible Upfront and Hold fees, not the channel capacity).
+
+Yes I've definitely thought about the behavioral dynamics. The general principle is that one doesn't like to lose one's own funds, so one is generally unlikely to do so. The ultimatum game captures one of the few cases where people are sometimes willing to give up their own funds (or at least not maximize them), namely when they feel they are bing taken advantage of. In fact, that desire to "not be a sucker" is discussed in the related OPR paper. In that paper, the main way to prevent being taken advantage of is to rely on programmatic control. However, as the utlimatum game shows, even if one gets to make a human decision, allowing oneself to be ripped off if the one time when one may be willing to forego wealth. This is required to avoid a "bullying" attack, as described in the OPR paper.
+
+Thanks for your suggestion to include a numeric example, I'll work one up.
+
+-------------------------
+
+JohnLaw | 2025-04-25 21:20:40 UTC | #8
+
+I have uploaded a revised version of the paper (version 1.1) to:
+
+https://github.com/JohnLaw2/ln-spam-prevention
+
+It includes a full specification of the lower-latency version of the bug fix described in an earlier post.
+
+-------------------------
+
