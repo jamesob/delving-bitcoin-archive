@@ -53,3 +53,27 @@ Setting aside the technicalities of including data, I’m a little confused how 
 
 -------------------------
 
+garlonicon | 2025-09-27 10:05:51 UTC | #4
+
+> if were to go out and ask for, say block 467,000, somebody would provide it to me
+
+It is the case today, but it doesn’t have to be in the future. If you ask any node about any transaction or block, that node can always say: “I don’t have it, ask someone else”. And if all nodes are pruned, or if you are connected only with pruned nodes, and none of them can give you what you want, then well, you won’t have access to a given transaction or block in plaintext.
+
+And you can easily confirm it in regtest: just enable pruning, produce a lot of data, and try to connect to your own node on localhost, and ask about past transactions or blocks. They won’t be there, and nobody will give you that data, if nobody saved it anywhere.
+
+And then, you will have a choice: enable pruning, accept given proofs, and move forward, by building things on the same chain, or switch to a different coin.
+
+> Obviously, I would need to get that from somewhere if I were to sync from genesis.
+
+Again, this is true only today. But there is no consensus rule, which would require you to download everything, to perform Initial Blockchain Download. In the future, it can be done in a different way, and if the chain will be too big to handle by many nodes, then they will need other solutions. And then, the only question is, if decentralized ones will be available, or if users will use more centralized ones, like copy-pasting already synced data from their peers, when nothing better will be there.
+
+> and if that block has something very clearly offensive in it, who is going to be willing to provide that?
+
+Only someone, who is Tor node operator, or someone like that. Because if regular users will be sued, then they will just enable pruning, to be safe, and trust their peers.
+
+> Are we just hoping that someone in some untouchable jurisdiction is providing that?
+
+Yes, the current implementation simply assumes, that there will be at least one full archival node, which won’t enable pruning, and which will serve everything to the whole network. But as the chain will grow, and as some users will switch to more centralized solutions, I think it is a good idea, to think about having an option to sync a new node in a more lightweight way, just because other solutions will be even more centralized, so we will need something simpler, to convince users to run any full nodes at all, even in pruning mode, and to let others sync the chain from another pruned peer in a trustless way.
+
+-------------------------
+
