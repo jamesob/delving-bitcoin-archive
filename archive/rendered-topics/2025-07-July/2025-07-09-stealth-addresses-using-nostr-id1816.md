@@ -426,3 +426,30 @@ General opinionated ideas for improving the Stealth Address protocol
 
 -------------------------
 
+setavenger | 2025-09-29 20:21:58 UTC | #9
+
+I think I have addressed most of your points in the write up. One thing I’m currently not super convinced on is a wallet mainly based on nostr. More specifically a wallet that stores critical data within nostr without any sort of reliable fallback. I have heard of Cashu wallets doing something like that but have also heard of relays intentionally nuking their dbs.
+
+[quote="1440000bytes, post:7, topic:1816"]
+There is no incentive for a relay to delete the event although broadcasting the event to multiple relays would avoid this. Confirmation message could also be used in the protocol.
+
+[/quote]
+
+There is also no incentive to not delete. Maybe I would even argue that storage requirements incentivize the deletion of notes (especially old ones).
+
+[quote="1440000bytes, post:7, topic:1816"]
+Metadata leaks are fixed and only exist in NIP 4.
+
+[/quote]
+
+Is there any information on that. I have never heard of NIP-17 seeing big adoption. If the NIP is mainly used for Stealth Addresses this would be a form of metadata leak.
+
+[quote="1440000bytes, post:7, topic:1816"]
+Some common relays would exist if they are using the same wallet. Other wallets may agree on using the same list of relays.
+
+[/quote]
+
+I guess one could further argue that if Alice finds the npub of Bob and feels like sending to Bob there must have been some common hop between them to begin with.
+
+-------------------------
+
