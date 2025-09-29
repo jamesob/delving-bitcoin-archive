@@ -348,3 +348,81 @@ Note: Electrum wallet already uses nostr relays in the wallet. So it will be eas
 
 -------------------------
 
+setavenger | 2025-09-29 19:49:26 UTC | #8
+
+I tried to make a little write up to structure what was discussed above. It might help others to better understand the idea presented here. I took the liberty to make some small changes or annotations where I believe some improvements could be made. I marked those with `(*)`. Maybe some of the things were implied, marking them nonetheless.
+
+### Definitions
+
+Sender: Alice (nsec: `a` npub: `A`)
+
+Receiver Bob (nsec: `b` npub: `B`)
+
+(\*) Hash_tagged(x): `SHA256(SHA256("stealth") || SHA256("stealth") || x)` (Tagged hash like Bip340)
+
+Counter: `i`, counter starting from 0. +1 for every pubkey Alice generates when sending to Bob
+
+### Crypto
+
+Shared Secret (`S`): `a * B` or `b * A` (remember that parity matters here and the nostr protocol implies even parity for it's keys)
+
+Stealth component (`c`): `Hash_tagged(S || i)`
+
+Stealth Address Pubkey: `P = B + c * G`
+
+Stealth Secret Seckey: `p = (b + c) mod n` (where n is the curve order)
+
+Alice encodes P to a taproot script and sends to it. `Address = "5120 + P"` where P is a 32 byte x-only pubkey.
+
+### Communication
+
+Communication starts after Alice has already made the transaction
+
+1. Alice: notifies Bob of the transaction. The message needs to at least include the counter. But more information can/should be given to make finding the actual outpoint easier
+
+2. (\*) Bob: upon receiving the notification should validate the utxo and store the pubkey
+
+3. (\*) Bob: if (2) was successful send a simple confirmation message - could include the counter to avoid confusion with potential other transactions which Alice made to Bob
+
+4. (\*) Alice: until receiving the confirmation message with a counter `i` should periodically rebroadcast the notification message
+
+### Backup (\*)
+
+Note: As a general statement: Bob has no option to find out whether all transactions made to him have been seen by him
+
+Recovering from scratch:
+
+* **nsec-only:** Bob is dependant on relays still having all the relevant notification messages available to find his transactions
+
+* **nsec + backup file:** A simple list mapping sender npubs and the respective highest counters
+
+### Additional Notes
+
+General opinionated ideas for improving the Stealth Address protocol
+
+* Signaling of receive support:
+
+  * Alice must not send to Bob if Bob does not signal support for the protocol anywhere. Ignoring this will most definitely lead to lost funds some time or another unless combined with the below point of reclaiming utxos considered unredeemed
+
+* Reclaim branch:
+
+  * I'm imagining a simple block delay after which Alice can reclaim coins she believes to be unredeemed. Something like 3 months would give Bob plenty of time to claim and move the coins. Alice could get back the coins if she thinks they were "lost". She can obviously always decide to not move the coins f she thinks Bob has heard of the coins and still has the ability to spend them
+
+  * e.g. Alice can use a script path spend to send the coins back to an address she controls if it should turn out that Bob does not support Stealth Addresses or never received the notification and Alice has no other way of notifying Bob
+
+* Use Silent Payments logic instead of new stealth address specific logic
+
+  * The above protocol can easily be redefined to using Silent Payments for the underlying crypto part
+
+  * The notification message could contain the tweak of the transaction made to Bob. So Alice would send a Txid and optionally the tweak (`input_hash * A`) and/or the computed pubkeys for the transaction she made. Bob's scanning effort would be minimal to zero (only validation of information Alice sent)
+
+  * Bob can always fallback to scanning the entire chain if he believes that a notification message was lost. Silent Payments only use on-chain available data to derive the pubkeys for Bob. As long as Bob somehow has access to blockchain he can find everything which was sent to him
+
+  * Added benefit: wallets would be more interoperable
+
+  * Swapping in the silent payment logic for pubkey derivation and combining it with nostr notifications would basically remove a lot of the potential footguns with Stealth Addresses as I currently see them. It would still achieve the goal of a reduced scanning effort and the added benefit of not yet another way for deriving keys
+
+  * One thing I almost forgot. Technically the spend and scan secret keys for Silent Payments don't have to be created using the key derivation paths. A nostr specific way could be thought of to make this also more compatible in a nostr case
+
+-------------------------
+
