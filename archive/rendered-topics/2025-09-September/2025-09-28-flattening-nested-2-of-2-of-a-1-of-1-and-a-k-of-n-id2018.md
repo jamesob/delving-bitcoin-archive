@@ -166,3 +166,22 @@ the total new number of shares for the flattened group:
 
 -------------------------
 
+AdamISZ | 2025-09-29 13:00:20 UTC | #2
+
+Thanks for the writeup.
+
+A refreshing piece of pure logic instead of that dirty cryptography and coding stuff :slight_smile: 
+
+I agree with your formulas. It’s fairly simple in hindsight, but I’d guess a lot of people might never think of looking for it.
+
+I guess it’s worth mentioning that we are not so fortunate for any other structure, like “A of B and C of D” generalized (the thresholds overlap so you can’t get it to cover all possibilities), or “1 of 1 or A of B” (unless I missed something these are impossible to flatten). As you point out, this particular structure is actually practically useful.
+
+[quote="ZmnSCPxj, post:1, topic:2018"]
+Against this, no amount of invoking the ghost of TEE can protect end users against recovery of old backups of supposedly-deleted keys. Literally my first job was an underpaid third-world engineer at just-above-minimum-wage …
+
+[/quote]
+
+Interesting anecdotes. I am against TEEs in principle, you apparently have literally dirtied your hands on the topic, so I guess I’m glad to see you agree. In the absence of such (dirty or otherwise) hands-on, I’ll just keep going with my airy fairy abstract principles and say I don’t really trust hardware wallets not because they’re constructed with physical circuits but because they’re bitcoin specific devices, basically … with or without 1-round cut and choose :laughing:
+
+-------------------------
+
