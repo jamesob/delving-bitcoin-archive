@@ -372,3 +372,11 @@ The drawback of sponsorring and stacking using TXSIGHASH is the overhead of crea
 
 -------------------------
 
+ademan | 2025-09-30 20:25:10 UTC | #2
+
+This is possibly a dumb question, but why does your stacking protocol not keep outputs contiguous? If I’m reading the TXHASH BIP correctly, you could also commit to output indices (-2, -1, 0), (-1, 0, +1), (0, +1, +2), (+1, +2, +3), (+2, +3, +4) for instance.
+
+It’s not immediately clear to me if either approach should be successful more often, though I suspect they should be similar. Keeping outputs contiguous was the “obvious” approach to me so I’m wondering if I am missing an obvious problem with it.
+
+-------------------------
+
