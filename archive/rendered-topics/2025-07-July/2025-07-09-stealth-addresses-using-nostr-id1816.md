@@ -453,3 +453,34 @@ I guess one could further argue that if Alice finds the npub of Bob and feels li
 
 -------------------------
 
+1440000bytes | 2025-10-01 10:17:44 UTC | #10
+
+[quote="setavenger, post:9, topic:1816"]
+I think I have addressed most of your points in the write up.
+[/quote]
+
+Thanks for the write up. 
+
+
+[quote="setavenger, post:9, topic:1816"]
+One thing I’m currently not super convinced on is a wallet mainly based on nostr. More specifically a wallet that stores critical data within nostr without any sort of reliable fallback.
+[/quote]
+
+It doesn't have to be a wallet based on nostr. You just need some relays in the settings that could be used for several things. Electrum uses it for [submarine swaps](https://x.com/ElectrumWallet/status/1933909910011453631).
+
+![image|552x418, 100%](upload://xJXyrKzMpLzVfHkeOqT0sKYxhbS.png)
+
+[quote="setavenger, post:9, topic:1816"]
+Is there any information on that. I have never heard of NIP-17 seeing big adoption. If the NIP is mainly used for Stealth Addresses this would be a form of metadata leak.
+[/quote]
+
+I am not sure about the adoption however I use it in amethyst often. It has solved the metada leak issues. 
+
+Whitenoise uses NIP-EE or MLS that you may find interesting: https://github.com/nostr-protocol/nips/blob/master/EE.md
+
+---
+
+I will work on an electrum plugin which can be used to test this concept with a bitcoin wallet. I would call them [color addresses](https://x.com/1440000bytes/status/1971888952249606437) that uses colors as HRP instead of npub.
+
+-------------------------
+
