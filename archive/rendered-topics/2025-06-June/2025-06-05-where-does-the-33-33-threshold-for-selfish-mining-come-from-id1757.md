@@ -453,3 +453,13 @@ Stale blocks have increased from 1 per 1300 blocks 1 per 1000 in the past four m
 
 -------------------------
 
+ajtowns | 2025-10-01 11:30:53 UTC | #12
+
+[quote="zawy, post:11, topic:1757"]
+but it’s in keeping with the view that knots is preventing a consistent view of the mempool, slowing block relay down
+[/quote]
+
+I think, given the timing, that's far more likely to be due to miners including significant numbers of sub-1sat/vb transactions in blocks, which affects all nodes that haven't either changed their default configuration or updated to v29.1 (or later). I think that impacted a majority of both nodes and blocks over most of that timeframe, so an observable impact seems expected.
+
+-------------------------
+
