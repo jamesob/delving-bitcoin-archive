@@ -453,7 +453,7 @@ I guess one could further argue that if Alice finds the npub of Bob and feels li
 
 -------------------------
 
-1440000bytes | 2025-10-01 10:19:10 UTC | #10
+1440000bytes | 2025-10-01 10:24:16 UTC | #10
 
 [quote="setavenger, post:9, topic:1816"]
 I think I have addressed most of your points in the write up.
@@ -476,7 +476,7 @@ Is there any information on that. I have never heard of NIP-17 seeing big adopti
 
 I am not sure about the adoption however I use it in amethyst often. It has solved the metada leak issues. 
 
-Whitenoise uses NIP-EE or MLS that you may find interesting: https://github.com/nostr-protocol/nips/blob/master/EE.md
+Whitenoise uses NIP-EE or MLS that you may find interesting: https://github.com/nostr-protocol/nips/blob/b516adbf423a120045e07adf5358ae69f190f3c8/EE.md
 
 ---
 
