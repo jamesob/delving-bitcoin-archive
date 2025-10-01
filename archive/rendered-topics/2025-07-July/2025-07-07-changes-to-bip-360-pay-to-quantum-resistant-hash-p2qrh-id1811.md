@@ -484,3 +484,16 @@ P2TR with a NUMS point is not quantum resistant. A CRQC can break the tweaked ke
 
 -------------------------
 
+moonsettler | 2025-10-01 18:58:43 UTC | #31
+
+[quote="sipa, post:28, topic:1811"]
+If EC is disabled, P2QRH being available independently of PQC locks seems irrelevant to me, because nobody should be using it without PQC locks.
+
+[/quote]
+
+You can use cheaper script paths till Q-day. makes sense to me to have optionality, but also have a backup plan. It’s early migration without the massive negative consequences.
+
+edit: Want to add that I like this new approach a hell of a lot more than the original 360 proposal. I like the direction this is going! I would personally move forward and beyond the Great Script Restoration direction and make script capable enough to implement PQ schemes in script efficiently enough, but I can see why that would be more controversial.
+
+-------------------------
+
