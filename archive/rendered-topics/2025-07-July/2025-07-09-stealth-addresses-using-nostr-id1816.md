@@ -453,7 +453,7 @@ I guess one could further argue that if Alice finds the npub of Bob and feels li
 
 -------------------------
 
-1440000bytes | 2025-10-01 10:17:44 UTC | #10
+1440000bytes | 2025-10-01 10:19:01 UTC | #10
 
 [quote="setavenger, post:9, topic:1816"]
 I think I have addressed most of your points in the write up.
@@ -480,7 +480,7 @@ Whitenoise uses NIP-EE or MLS that you may find interesting: https://github.com/
 
 ---
 
-I will work on an electrum plugin which can be used to test this concept with a bitcoin wallet. I would call them [color addresses](https://x.com/1440000bytes/status/1971888952249606437) that uses colors as HRP instead of npub.
+I will work on an electrum plugin that can be used to test this concept with a bitcoin wallet. I would call them [color addresses](https://x.com/1440000bytes/status/1971888952249606437) that use colors as HRP instead of npub.
 
 -------------------------
 
