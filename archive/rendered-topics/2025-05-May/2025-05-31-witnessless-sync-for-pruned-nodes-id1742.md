@@ -32,3 +32,11 @@ FWIW just using a more efficient serialization for transactions can reduce bandw
 
 -------------------------
 
+JoseSK999 | 2025-10-02 19:49:14 UTC | #3
+
+Some interesting (but unsurprising) findings: for the last 4 years, witnesses account for \~53% of all block data.
+
+![IMG_9873|690x426](upload://jKS5GaSBhcUlIlS9x0v6drUpnxj.png)
+
+-------------------------
+

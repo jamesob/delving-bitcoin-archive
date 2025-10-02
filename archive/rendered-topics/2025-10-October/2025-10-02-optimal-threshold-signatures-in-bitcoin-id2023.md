@@ -146,3 +146,14 @@ Read more about this research at: https://www.arxiv.org/pdf/2509.25408
 
 -------------------------
 
+pyth | 2025-10-02 17:02:33 UTC | #2
+
+[quote="sindurasaraswathi, post:1, topic:2023"]
+Degraded multisignature has a special implementation in Bitcoin that the 2021 Taproot upgrade enabled.
+
+[/quote]
+
+it’s also possible with segwit (v0) btw, taproot is just better fee/privacy wise
+
+-------------------------
+
