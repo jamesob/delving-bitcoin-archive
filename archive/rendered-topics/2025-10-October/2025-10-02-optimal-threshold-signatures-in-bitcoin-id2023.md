@@ -172,3 +172,20 @@ Edit: ah I actually got to the end and saw there is a paper :slight_smile: You f
 
 -------------------------
 
+sindurasaraswathi | 2025-10-03 18:30:21 UTC | #4
+
+[quote="AdamISZ, post:3, topic:2023"]
+Edit: ah I actually got to the end and saw there is a paper :slight_smile: You footnote in the paper that there may be a dependence “if the attacker knows something about the user’s behavior”. But aren’t p and q related in a more fundamental way, like p represents how likely I am to “break in” to my own system, q represents how likely “someone else” is (but “someone else” needs to be formalized pretty carefully in threshold systems!); isn’t it obvious that they’re not independent, even if they are radically different probabilities?
+[/quote]
+
+
+That's a good point! Yes, as we mentioned in our paper, strictly speaking $p(\tau)$ and $q(\tau)$ are not independent. For example, if some factor reduces the user probability, it could either increase or decrease the attacker probability. More fundamentally, both probabilities are defined over the same underlying threshold system, so they are naturally linked even in the absence of attacker knowledge. For simplicity, however, we assume these probabilities are independent in this work. We acknowledge the fact that taking into account the correlation between these probabilities would provide a more realistic model and we view it as an important future direction. 
+
+
+[quote="AdamISZ, post:3, topic:2023"]
+I do like the idea of a statistical analysis here, seems like a very good idea (btw did you find any earlier literature on the problem? I feel like there have definitely been papers that discussed multisignature and thresholds in various ways, but I don’t remember much).
+[/quote]
+Several studies have explored threshold signature schemes, focusing on their design and security analysis. To the best of our knowledge, none of these works focuses on statistically determining the optimal threshold for an existing threshold signature scheme to improve both security and usability for the user.
+
+-------------------------
+
