@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Some interesting (but unsurprising) findings: for the last 4 years, witnesses account for \\~53% of all block data.\n\n![IMG_9873|690x426](upload://jKS5GaSBhcUlIlS9x0v6drUpnxj.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Some interesting (but unsurprising) findings: for the last 4 years, witnesses account for ~53% of all block data. \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/8/8a75b6bcde8d3d56aca0f372741d63f9b1f17305.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/8a75b6bcde8d3d56aca0f372741d63f9b1f17305\" title=\"IMG_9873\">[IMG_9873]</a>",
   "truncated": true,
   "post_url": "/t/witnessless-sync-for-pruned-nodes/1742/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
