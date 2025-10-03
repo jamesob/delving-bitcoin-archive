@@ -157,3 +157,18 @@ it’s also possible with segwit (v0) btw, taproot is just better fee/privacy wi
 
 -------------------------
 
+AdamISZ | 2025-10-03 12:31:13 UTC | #3
+
+[quote="sindurasaraswathi, post:1, topic:2023"]
+For simplicity, let’s assume $p(\\tau)$ and $q(\\tau)$ are independent.
+
+[/quote]
+
+I do like the idea of a statistical analysis here, seems like a very good idea (btw did you find any earlier literature on the problem? I feel like there have definitely been papers that discussed multisignature and thresholds in various ways, but I don’t remember much).
+
+But about the quoted text: I was already wondering this myself, before I got to that sentence :slight_smile: Do you think it’s actually true? It seems intuitively that it shouldn’t be.
+
+Edit: ah I actually got to the end and saw there is a paper :slight_smile: You footnote in the paper that there may be a dependence “if the attacker knows something about the user’s behavior”. But aren’t p and q related in a more fundamental way, like p represents how likely I am to “break in” to my own system, q represents how likely “someone else” is (but “someone else” needs to be formalized pretty carefully in threshold systems!); isn’t it obvious that they’re not independent, even if they are radically different probabilities?
+
+-------------------------
+
