@@ -502,3 +502,139 @@ I see. But specifically the point i was raising about the private key broadcast 
 
 -------------------------
 
+sipa | 2025-10-07 18:17:50 UTC | #11
+
+[quote="cguida, post:1, topic:1991"]
+I did not post this response to StackExchange as it is designed for exactly the kind of 1-question-1-answer dynamic I am trying to avoid).
+[/quote]
+
+Thanks for posting this here; I agree this is a better place for discussion.
+
+[quote="cguida, post:1, topic:1991"]
+I think this is where we disagree. Greg Maxwell argued[1] in 2015 that “Demand for cheap highly-replicated perpetual storage is unbounded”. I agree with Greg.
+[/quote]
+
+Yes, I agree demand for **cheap** highly-replicated perpetual storage is unbounded. As in, as the price per byte goes to zero, the demand goes to infinity (I can't speak for 2015 Greg, but I believe that's what he was trying to say here). If it costs nothing, why wouldn't people just put their backups there? This is the reason for having block weight limits: so that unbounded demand can't impose unbounded costs on node runners.
+
+But that's not what we're talking about here. As a Bitcoin network user trying to get a transaction confirmed, you're not competing with all hypothetical demand for block space, only with demand that is willing to pay a higher fee per weight than yourself- and at any given feerate value, that demand is finite.
+
+[quote="cguida, post:1, topic:1991"]
+If we do not impose any additional costs on people trying to use bitcoin as a general-purpose database, such use will *absolutely* drown out payment use cases, especially merchant Lightning nodes which, at the moment, are bitcoin’s most important payment use case.
+[/quote]
+
+I don't know if this is what you believe, but if it is the case that demand for the data-storage use case will always be **willing to pay a higher price per byte** than the payment use case, then I believe Bitcoin simply never had a chance, and a very fundamentally different design is needed. However, I don't think this is the case: there is no rational reason why someone would want their data replicated *precisely* to all Bitcoin nodes and nothing else if it's not data relevant for bitcoin, if it comes at the cost of competing with those who do actually need that - bitcoin payment data.
+
+As for imposing additional costs - I do think that's possible in theory, through consensus rule changes, but only up to a small constant factor, as any data publishing can be encoded in ways that are indistinguishable from normal payment data. Assuming you're talking about policy, I do not believe that it's possible for policy to impose extra *cost*. It can add a burden to deployment, but not in operating cost. There is no reason why, given enough demand, direct submission to miners ought to be any more expensive than having the node network relay it for you - centralized systems are inherently more efficient after all, so it might even be cheaper. The best we can hope for is make it so the advantages of direct relay are sufficiently negligible to not warrant the cost of deploying them at scale (they exist already of course, but only provide a tiny amount of mining income right now).
+
+[quote="cguida, post:1, topic:1991"]
+I think filters make it *look like* there is no demand for large opreturns, just as the fence around your house makes it *look like* there is no demand for trespassing on your property. Deterrents are often misunderstood, because you can’t see all the attempts that never happened, *precisely because of the deterrent*.
+[/quote]
+
+Of course, deterrents can work. I think it's pretty clear that historically, policy-based discouragement of large OP_RETURNs has worked. But as stated, deterrents like this are just adding a burden to development, not a long-term cost increase. I think of it as similar to the [smart cow problem](https://en.wikipedia.org/wiki/Smart_cow_problem), where the fence stops being effective as soon as a single person does the work of figuring out how to bypass it. And I think it's clear this has happened; just look at the [flood of sub-1-sat/vb transactions](https://mainnet.observer/charts/fees-sub-1-sat-vbyte-transactions/) that are making it into blocks, long before *any* client (even LibreRelay!) relayed these by default.
+
+I don't think there is a reason to expect demand for very large data-storage OP_RETURNs, as using witness data is cheaper and equally useful for this purpose. I do expect demand for medium sized ones (above 80 bytes), for publication purposes. This is a distinct use case, and likely much more monetary in nature. For example, Lightning HTLCs require the publishing of a preimage on chain without which a transaction cannot go through. The goal here isn't replicated data storage, it's guaranteeing that the other side learns the preimage atomically, together with the funds being taken. Lightning puts this inside a script, but alternative systems may want to put it elsewhere. And inscription-style witness data is undesirable here, as it needs a second transaction, losing the atomicity, or adding significant complication.
+
+This all ignores the fact that the reasons for discouragement have changed. I believe that historically, in the fledgling Bitcoin economy, before blocks were consistently full, there was much more potential harm to the ecosystem from data storage, as it risked accelerating bandwidth usage, chain growth (it predated pruning), and block propagation (it predated compact blocks). With regular organically-full blocks and software developments, there just isn't as much impact on node operators, with or without data-storage transactions (and especially `OP_RETURN`-style data storage has about *the lowest* resource impact on nodes). To be clear, even then, there was the possibility for out-of-band relay to emerge if there had been sufficient demand. That didn't happen back then, but is clearly happening now.
+
+[quote="cguida, post:1, topic:1991"]
+I’m not sure what you mean here by “they likely won’t persist with changing economics”… if your assertion is that altcoin Ponzis will magically stop happening *just* because of on-chain fees… I don’t think that’s likely true at all; one look at the “crypto industry” outside bitcoin should be sufficient to explain why. But maybe that’s not what you were saying?
+[/quote]
+
+I don't believe that wildly speculative behavior like that will go away entirely no. It almost seems human nature that causes appetite for it.
+
+My belief is that, over time - and it may be a long time - if Bitcoin is successful, on-chain fee pressure *on Bitcoin* will price out all or most inappropriate uses of the technology, causing them to move elsewhere. Either to other chains, or ideally, to other technology entirely. That includes things like silly token minting, JPEG storage, and various other things, which just inherently don't require replication specifically to all Bitcoin nodes. I consider the desire to use the Bitcoin blockchain for these purposes to be dumb and irrational, but of course the market can stay irrational for a long time.
+
+To be clear, I don't consider the presence of these changing temporary irrational demand hype cycles to be a threat to Bitcoin anymore, even if they never really go away.
+
+[quote="cguida, post:1, topic:1991"]
+Put more simply: bitcoin’s identity as money cannot be enforced at the consensus layer. Therefore, the only way to ensure that bitcoin stays money is if we enforce its usage as money at the social/mempool layer.
+[/quote]
+
+Ok, I very fundamentally disagree here. I believe Bitcoin's identity as money is a result of it being technology that is primarily useful for that. If somehow demand for competing use cases is inherently stronger, then no mempool/relay design is going to stop that: the demand will result in the development of an alternative relay mechanism, centralized or not, that bypasses those node runners entirely.
+
+Moreover, if Bitcoin's survival relies on node runners on a regular basis coming to agreement on what transactions are acceptable, based on the transactions' intent, then it just seems entirely uninteresting technology to me. 
+
+I liked how @AdamISZ put it:
+
+[quote="AdamISZ, post:4, topic:1991"]
+The whole point of Bitcoin is that is not a *community* based money, such things completely fail to scale, and also the point of Bitcoin is not to take power away from a central group and give it to the people, it’s to take power away from the central group and give it to **no one at all**.
+[/quote]
+
+I saw your response that your goal here isn't censorship but discouragement to curb "abuse". I don't think that changes much: it remains the case that your hope is that node runners have a power to decide which transactions are good, and which are bad, and take action that incentivizes or disincentivizes creators of such transactions.
+
+This isn't to say that data-storage is an intended, and much less desirable, goal of the design. Bitcoin is clearly designed for supporting the bitcoin currency. But it also has programmability, and flexibility for building systems on top whose design wasn't originally known. Data storage is a byproduct of that flexibility.
+
+[quote="cguida, post:1, topic:1991"]
+If our mitigations don’t work, we will continue escalating until the spammers leave.”
+[/quote]
+
+Do you mean including consensus rule changes? Because apart from that, this is the equivalent of writing an angry letter. Nobody has to care.
+
+[quote="cguida, post:1, topic:1991"]
+If you are implying that fees are the only “economic incentives” miners pay attention to, this can be easily disproven by considering the result of the block size war; larger blocks promised *much* larger fee revenues for miners than small blocks (and presumably number-go-up in the short-term because of perceived “scaling”), and yet the small blockers were victorious.
+[/quote]
+
+No, miners care about (1) creating valid blocks (incl. the subsidy that gains them) and (2) transaction fees (and probably (1.5) not being shut down by regulators e.g. if they're identifiable). Node runners (at least economically relevant ones) have - through their ability to jointly set consensus rules - power over (1), which is what mattered in the block size war. It doesn't matter what fees a miner might have hoped to have gotten from larger blocks, if their blocks would be considered invalid by the ecosystem. This is also why I say that in the presence of transactions the ecosystem actually considers damaging, consensus rule changes are really the only power node runners have.
+
+But node runners' impact on (2) is very limited, because wallets and miners are not required to use the node runner network to relay transactions.
+
+[quote="cguida, post:1, topic:1991"]
+Miners were forced to concede that a bitcoin with smaller blocks and segwit would be much more economically valuable in the free market than a bitcoin with large blocks and no Lightning Network.
+[/quote]
+
+I'm not sure I agree here. Miners might as well have been in total agreement that a bitcoin with larger blocks would be more valuable for everyone, they still had no choice but adopting the rules that the ecosystem demanded of them. Miners are "contractors" to the network. The network sets the rules of what blocks they'll accept, and miners order transactions into those blocks, and in return, the network pays them (through subsidy, and the ability to charge fees) for that service. If the network decides to change the rules of the game, miners have to follow or they will stop being paid.
+
+[quote="cguida, post:1, topic:1991"]
+No, at best the spammers *leave bitcoin entirely* and go to other chains, as they did in 2014 (again, see [2]). We won the cat-and-mouse game last time; why assume we would lose this time? 
+[/quote]
+
+I don't need to assume: I can already see that a large amount of transactions make it into the chain despite not being relayed by the most common node implementations. It's baffling to me that you keep asserting relay-based discouragement works and will continue to work, despite blatant evidence that at least in some cases, it is trivially bypassed.
+
+[quote="cguida, post:1, topic:1991"]
+The opreturn filter is performing this role admirably, as can be seen by the 99% reduction in large opreturns[3][4] it causes.
+[/quote]
+
+How do you explain that this appears to be the case for OP_RETURNs, and does not appear to be the case for sub-1sat/vb transactions? I think a more likely explanation is that either (1) those with demand for larger OP_RETURNs haven't yet developed the infrastructure to bypass common node implementations yet or (2) there just isn't that much demand for them because there are cheaper ways to do data storage.
+
+To be clear, I don't think it really matters to what extent that is the case or why, as I don't think today large OP_RETURNs, or other data storage demand is in itself harmful to nodes or Bitcoin at large. I think for data-storage use cases this is misguided, dumb, silly, and/or irrational, but me holding that opinion isn't going to change anyone's mind. The market, over time, may.
+
+[quote="cguida, post:1, topic:1991"]
+This argument doesn’t make sense to me. You just argued that users can always submit transactions directly to a miner. So bitcoin is still censorship resistant, even if the relay network is entirely hostile nodes, entirely blocksonly nodes, or even if the relay network doesn’t exist at all. So I don’t see how a supermajority of noderunners running filters does anything to change bitcoin’s censorship resistance. Bitcoin is censorship resistant, period. So spam filtration is an entirely different matter from censorship.
+[/quote]
+
+Fair enough; this needs more nuance.
+
+Direct submission to miners works for **transactions that both sides consent to** (transaction creators and miners). The P2P node network can assist or not, but there is little it can do to intervene - all it needs is for the transaction data to make it to the right place, with or without their help.
+
+But what makes it so that miners will generally accept all transactions that pay a competitive fee - the property we actually want for censorship resistance? It's not too hard to imagine a world where there are just a few large mining pools, which are heavily regulated, and thus not beyond influence from those who might actually want to block or stifle certain transactions. The answer is that anyone can join the set of miners without asking for permission. **This is the entire reason why proof-of-work exists.** If we would be okay with an immutable set of miners, we could give them some signing keys each, say that every block needs to be signed by a majority, and get rid of the wastefulness of proof of work. We don't do that because the ability for anyone to enter the mining market, for economic reasons, or more importantly because they don't like what existing miners are doing, is what fundamentally provides censorship resistance. Miners don't censor fee-paying transactions, because if they did, someone else could pop up to mine those transactions anyway. Sure, they need hardware, and electricity, and network connectivity, but beyond that, they don't need to ask, or even tell anyone. They could do so anonymously, from anywhere in the world. The fact that today's miners choose to largely identity themselves seems weird to me, but apparently the publicity is worth it to them. In any case, they're not required to keep doing that.
+
+However, for this to work, it must also be possible for miners to get competitive access to fee-paying transactions anonymously. If direct-to-miners payment rails to miners develop and get used to the point that they form a substantial portion of mining income, this stops being the case, because nobody will bother submitting to a small-scale newcomer miner with a tiny percentage of the hashrate. Companies might pop up that manage pools of unconfirmed transactions and turn them into block templates for miners. An anonymous miner may well need to do without access to these, and their fee income might be restricted to just the ideological transactions others refuse (or are coerced not to) mine - needing to mine at a loss otherwise.
+
+**This is what I see as the largest threat to Bitcoin in the short to medium term:** the marketplace for block space moving out of the public P2P network, and into centralized channels where they are ripe for censorship. This isn't exactly a [theoretical concern](https://arxiv.org/abs/2509.16052v1).
+
+[quote="cguida, post:1, topic:1991"]
+Again, if we require consensus changes in order to prevent spam, we will obviously lose to the spammers. There is no way consensus rules can keep up with rapidly evolving threats from Ponzi scammers. But modular filters[6] can easily keep up with such threats.
+[/quote]
+
+You're saying node runners will get together on a regular basis, and come to an agreement as to what types of transactions are going to get the seal of approval for P2P relay? And you think this will get the 90%+ agreement and adoption rate needed for transaction relay to become unreliable? And that those who disagree won't run their own nodes with different policies, or just develop alternative systems that bypass the P2P network? This seems ludicrous to me, and also doesn't result in what I'd find interesting.
+
+[quote="cguida, post:1, topic:1991"]
+The change of the default is the important feature of this discussion. The fact that the control was left in is not significant in comparison.
+[/quote]
+
+I agree, but I still felt it was worth correcting the misconception that the option is removed.
+
+[quote="cguida, post:1, topic:1991"]
+Doesn’t the risk of having a spam-filled block orphaned because of slow propagation cancel out the risk that the miner will [accidentally] perform a selfish mining attack? This is another place where I’d love to see some actual numbers.
+[/quote]
+
+Larger miners benefit from having their blocks being slow to propagate, smaller miners suffer. This is easy to confirm with simulations. It is also intuitive I think: larger miners have a larger probability of finding two blocks in a row, and don't suffer a propagation delay between them.
+
+[quote="cguida, post:1, topic:1991"]
+Also, blockreconstructionextratxn helps here.
+[/quote]
+
+Only to nodes which have peers whose relay policy matches that of miners. It seems highly hypocritical to me to not want to relay certain transactions yourself, but still rely on having peers that do relay those transactions to you so your reconstruction speed is fast. Put otherwise, the extra pool only helps with policy divergence in situations which more or less correspond to the filtered transactions propagating well anyway.
+
+-------------------------
+
