@@ -638,3 +638,9 @@ Only to nodes which have peers whose relay policy matches that of miners. It see
 
 -------------------------
 
+RandyMcMillan | 2025-10-08 00:10:48 UTC | #12
+
+He will be here next week saying nobody is addressing his questions or concerns.
+
+-------------------------
+
