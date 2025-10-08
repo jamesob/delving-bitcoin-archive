@@ -1,6 +1,6 @@
 # CSAM is the elephant in the room
 
-zawy | 2025-10-08 10:15:08 UTC | #1
+zawy | 2025-10-08 10:31:48 UTC | #1
 
 It could affect my wife's employment if I hold bitcoin and it becomes common knowledge that it makes no effort to stop CSAM. My family would turn an eye of disgust towards anyone holding it. Not being able to stop it doesn't matter as much as not trying. Miners better choose to not mine on top of blocks that contain it "in the open". OFAC isn't a big concern. CSAM is important because it's about about public perception. The nodes, devs, miners, and governments don't matter. Public opinion is what pays the bills for PoW. 
 
@@ -11,6 +11,8 @@ As soon as a new encoding method for objectionable non-transactional data is dis
 Blocking encoding schemes (imperfect cat and mouse) is very different from allowing images in a field. Look at the extreme: if a distributor of CSAM used random data from old blocks as a one-time pad to encode images, no one would place blame on the blockchain. He has to transmit what looks like random data, a block height, and an encoding scheme (which he wouldn't need to change). If he includes image data in a block, miners could collude to ignore blocks that use a known encoding scheme and decodes to objectionable material (detectable with A.I.), a CSAM distributor has to develop and distribute a new encoding scheme each time the material is discovered. This is closer to the extreme case that wouldn't have fault. This is an ugly, awful, and/or unworkable "solution" but the important point is to try.
 
 If a government doesn't like bitcoin, it only needs to start including images to kill it. I believe Szabo is correct in his legal takes that unencoded OP_RETURN is different, but public opinion is also important.  Caving in to public opinion is more important than being right. PoW isn't autistic. It's based on public opinion.
+
+https://x.com/NickSzabo4/status/1973502865143636151
 
 -------------------------
 
