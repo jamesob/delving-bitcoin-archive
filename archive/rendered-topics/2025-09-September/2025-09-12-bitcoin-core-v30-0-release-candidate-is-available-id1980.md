@@ -65,3 +65,11 @@ What should work and seems much easier is taking an already synced, new version 
 
 -------------------------
 
+fanquake | 2025-10-08 09:33:06 UTC | #4
+
+A third release candidate is now available: https://bitcoincore.org/bin/bitcoin-core-30.0/test.rc3/ .
+
+Release notes are being finalised in: https://github.com/bitcoin/bitcoin/pull/33559.
+
+-------------------------
+
