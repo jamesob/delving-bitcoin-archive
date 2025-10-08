@@ -658,3 +658,15 @@ It is a solution (w/ some trade-offs) without introducing another [p2p message](
 
 -------------------------
 
+sipa | 2025-10-08 16:22:33 UTC | #14
+
+[quote="1440000bytes, post:13, topic:1991"]
+It is a solution (w/ some trade-offs) without introducing another [p2p message](https://delvingbitcoin.org/t/sharing-block-templates/1906) or expecting every node to use the same policy. Every node has `125` `maxconnections` by default and it is reasonable to expect some divergence in mempool polices of a decentralized network.
+[/quote]
+
+I am not saying the extra pool for block reconstruction is a bad idea, or that it doesn't help in the presence of mempool variance (whether that's caused by policy divergence, or other reasons). It is great.
+
+I am saying it is hypocritical to bring it up in this discussion, because it only helps with reconstruction rates when mined transactions already propagate well. If your goal is making a certain class of transactions relay so badly across the P2P network that it becomes unreliable as OP seems to want, then obviously you can't expect your node to hear about those transactions anymore, and the extra pool won't help you.
+
+-------------------------
+

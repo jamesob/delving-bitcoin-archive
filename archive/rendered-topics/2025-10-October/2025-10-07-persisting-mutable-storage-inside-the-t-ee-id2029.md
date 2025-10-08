@@ -767,3 +767,41 @@ getting reapplied is idempotent).
 
 -------------------------
 
+ZmnSCPxj | 2025-10-08 16:13:19 UTC | #3
+
+An objection against this scheme is: why would you even do this?
+
+For instance, instead of having n storage devices and building against failure of n - k devices, why not just have a k-of-n signer, with n “T”EEs running signer code and using ephemeral keys?
+
+The reason for preferring this scheme is: What are the reasons for you to bring down a running “T”EE?
+
+Now, the more things a piece of code does, the more likely we need to stop it in order to update it.
+
+And in the case of a simple storage “T”EE program, there is very little it does:
+
+1. Validate that request comes from an authorized main program (e.g. if it is a Lightning node, it could sign all requests with the node key; the model being that exfiltration of the node key would be total loss of funds anyway)
+   1. This public key can be hardcoded so that it is part of the PCR attested to when the main program first mounts the array.
+2. Read sector
+3. Write sector
+4. (if we optimize) copy sector
+5. (if we are paranoid about key deletion) trim/`memset(buf, 0, sizeof(buf))` sector
+
+The sheer simplicity of this means there is little reason to ever update the storage “T”EE program, and thus, to ever have to stop it and restart it.
+
+In addition, the “T”EE program itself does not have any private keys of its own.  If the main application itself needs to store keys, and is paranoid about sidechannels in the remote storage “T”EE letting the keys be exfiltrated because it has been running for several years on old hardware with old microcode that lets sidechannels exist, it can encrypt the keys (using the same key it uses to authorize itself as a reader/writer to the “T”EE disks) while still able to restart and migrate to new hardware with fixed microcode itself, since the persistent layer is separate from the business logic layer.
+
+Thus the model is:
+
+* The main program is stateless except for the private key it holds (wave hands about how it gets into the enclave; see ACINQ setup if you want an example).
+  * It can be restarted at any time, and the software updated.
+  * Operator is responsible for ensuring the updated software is trustworthy enough to hand over the private keys to (e.g. see how it is done for ACINQ setup, they basically have a number of responsible developers sign off on each version that they allow to run in the “T”EE, and the loader component that is fixed validates the developer signatures before running the main program and giving it the private key via a `tmpfs` mount)
+* The storage programs are always kept running at very high uptime, with no real expectation to be restarted.
+  * Even if new sidechannel attacks on their old hardware arise, the storage programs hold NO private keys of their own.  They only validate the commands sent by the purported main program via the hardcoded public key.
+  * Without their own private key (not even an ephemeral one) the “T”EE storage program cannot establish an encrypted tunnel with the main program!  But:
+    * The main program array-managing code can encrypt the data it puts in the sectors, and place the MAC elsewhere such as in a validation tree of sectors (like how ZFS does its checksums, because ZFS is ***awesome***).  Then, as far as the storage programs are concerned, the data it receives from the main program in the “write sector” command, and thus stores in its “persistent” memory, is “plaintext”, even though the array-managing code is actually encrypting the data before handing over to the “T”EE storage program.  That way, there is no need to establish an encrypted tunnel (which would require that the “T”EE storage program hold an ephemeral private key for purposes of establishing encrypted tunnels via ECDH), because the array-managing code has already encrypted the data that will be put remotely, and the “plaintext” commands contain ciphertexts already.  Integrity is still preserved by the requirement that commands be signed by the authorized main program, thus any change in the data in-transit will be detectable by failing the signature.
+    * If you think about it, persistent storage is just a messaging system between your past self and your future self, and thus, you only need to encrypt data from your past self to your future self, with the persistent storage not requiring its own dedicated encrypted tunnel; your encrypted tunnel goes from your past self to your future self.
+    * What about rollback attacks, which do not require that attackers be able to decrypt, only that they have an old copy of the ciphertext? Well, on each “read sector” command, the “T”EE storage program also creates a remote hardware attestation, committing to the sector read plus a challenge nonce from the main program, and thus assuring the main program that the “T”EE storage program with ***no*** rollback code is the one responding with the latest data for that sector, and not old data inserted by a MITM (the challenge nonce means old responses cannot be replayed, and the attestation key is something you already trust to not be exfiltrated, ever, because that would allow the “T”EE to be virtualized sufficiently that the program giving attestations can be different from the program you signed and checked the PCRs of).
+  * You could even use standard LUKS, with the Lightning node key, or the statechain operator signing key, as the password to the LUKS volume, so that the array-managing code is just emulating a disk and presenting it to LUKS as the mountable disk, which simplifies your array manager so that the necessary MACs are handled by the LUKS layer.  OR just use ZFS with encryption on top, though that may be problematic for the statechain signer case as ZFS naturally does copy-on-write and may retain old “deleted” keys — at least LUKS itself presents just a disk as well, and you can use a non-journalled EXT4 to avoid the issue of multiple copies of stored disk, or manage the deletable keys yourself in a separate partition and put a proper filesystem like ZFS on the rest of the storage.
+
+-------------------------
+
