@@ -483,3 +483,287 @@ sector containing the to-be-deleted keys.
 
 -------------------------
 
+ZmnSCPxj | 2025-10-08 11:29:24 UTC | #2
+
+# RAID5 Write Hole, Really Fixed
+
+This is an amendment.
+
+Unfortunately, the proposed fix for the RAID5 write hole does
+not in fact work.
+
+To see why it does not work, let us review the RAID5 write hole.
+
+For simplicity, let us consider minimal disks that can only
+store one bit.
+We consider a setup with 2 storage disks, A and B, and 1 parity
+disk, P, initially with the following data stored:
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  0  |  |  0  |  |  0  |
++-----+  +-----+  +-----+
+```
+
+Now, we want to change the bit stored in B from 0 to a 1.
+That involves writing to both B and P, so that `P = A ^ B`
+as per the erasure coding we use.
+
+However, suppose we were able to only write to B, but we
+crashed before we could write to P.
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  0  |  |  1  |  |  0  |
++-----+  +-----+  +-----+
+```
+
+And on recovery, it turns out the reason *why* we crashed
+was because of a major electrical fault which totally fried
+the disk A:
+
+```
++-----+  +-----+  +-----+
+|XXXXX|  |  B  |  |  P  |
+|XXXXX|  +-----+  +-----+
+|XXXXX|  |  1  |  |  0  |
++-----+  +-----+  +-----+
+```
+
+No biggie, we can recover, right?
+Except that in order to recover, we calculate `A = B ^ P`
+as per the erasure coding we use, and end up with:
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  1  |  |  1  |  |  0  |
++-----+  +-----+  +-----+
+```
+
+The problem is that before the crash we only intended to
+write a 1 to B, but not to A.
+Thus, the RAID5 write hole.
+
+The solution in the post, unfortunately, does *not* fix
+the write hole above.
+
+Let us re-run the same scenario with our "T"EE storage
+disks.
+We start with this:
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  0  |  |  0  |  |  0  |
++-----+  +-----+  +-----+
+```
+
+We intend to change B to 1, and send a provisional write
+to B and P to change their bits to 1.
+Unfortunately, we are able to send the provisional write
+to B, but not to P, before we crash.
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  0  |  |  0  |  |  0  |
++-----+  +-----+  +-----+
+         |  1  |
+         |(new)|
+         +-----+
+```
+
+And it turns out the *reason* we crashed is because there was
+an AWS region outage, and it happens that A is on the same
+region as we were, totally trashing A as well:
+
+```
++-----+  +-----+  +-----+
+|XXXXX|  |  B  |  |  P  |
+|XXXXX|  +-----+  +-----+
+|XXXXX|  |  0  |  |  0  |
++-----+  +-----+  +-----+
+         |  1  |
+         |(new)|
+         +-----+
+```
+
+Both the new and old states for B are plausible, in the absence
+of A, and thus this does not in fact completely close the RAID5
+write hole.
+But if we select the new state for B, then we would get an
+incorrect recovery for A.
+
+We cannot, in general, determine if the state is before or
+after all writes were posted to all modified stores, and that
+is the core problem of the RAID5 write hole.
+In particular, we cannot simply always roll back the change in
+B — because what if instead the original situation had been:
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  1  |  |  0  |  |  1  |
++-----+  +-----+  +-----+
+```
+
+Then we post provisional writes successfully to both B and P:
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  1  |  |  0  |  |  1  |
++-----+  +-----+  +-----+
+         |  1  |  |  0  |
+         |(new)|  |(new)|
+         +-----+  +-----+
+```
+
+Then we tell B and P to commit, but only the commit command
+to P gets through before we crash:
+
+```
++-----+  +-----+  +-----+
+|  A  |  |  B  |  |  P  |
++-----+  +-----+  +-----+
+|  1  |  |  0  |  |  0  |
++-----+  +-----+  +-----+
+         |  1  |
+         |(new)|
+         +-----+
+```
+
+And A is trashed because it was an AWS region outage:
+
+```
++-----+  +-----+  +-----+
+|XXXXX|  |  B  |  |  P  |
+|XXXXX|  +-----+  +-----+
+|XXXXX|  |  0  |  |  0  |
++-----+  +-----+  +-----+
+         |  1  |
+         |(new)|
+         +-----+
+```
+
+What we need to be able to do is to figure out what the
+original state actually was.
+
+## The Real Write Hole Solution
+
+The correct solution is to ensure true atomicity.
+
+For example, we can use what in filesystems is traditionally
+called a journal, and in databases is traditionally called a
+write-ahead-log.
+Both are actually the same thing.
+
+The array-management code reserves a journal area on all the
+disks, and stores the journal RAID1 replicated to all disks.
+
+The journal area has a version number as well, so that if
+multiple disks have different journals, the array treats the
+one with highest version number as the winner.
+
+In the imagined scenario, the array code would write to the
+journal “I will write 1 to B and 1 to P”, together with the
+next higher journal version, and replicate that across all
+the disks.
+Once at least `num_of_parities + 1` disks have responded to
+the writes to the journal, the array code can report success
+to higher layers, but would still need to apply the
+journalled writes to the disks — this would delay future
+writes until the previously-journalled writes were known to
+be committed to the actual storage areas, but at least would
+allow parallelism between the higher layers and the array
+code, if the higher layers have other things it needs to do
+(such as sending `revoke_and_ack` after synching to disk).
+
+On restarts, the array code would simply read the journal
+area and always apply the journal entry with highest
+version before signalling that the array has been mounted.
+
+With this, the "T"EE storage disk program is now simpler,
+as it no longer has to maintain provisional writes — the
+array-management code gets the extra complexity of
+maintaining a RAID1 journal in an area of the disks that
+it reserves.
+
+An optimization we can have is to add a “copy sector”
+command, where the "T"EE storage disk program simply copies
+the contents of one stored sector over the contents of a
+different stored sector.
+Then, when applying the latest journal entry, the array
+does not need to read the journalled sector and then
+re-send it to the destination disk; if the disk has the
+latest journal entry the array can simply tell the disk to
+copy the journalled sector into the final destination
+sector, saving network bandwidth.
+
+Once applied, the journal entry does not need to be
+deleted; on restart the array will see the journal
+entry again and re-apply it, but its application is safely
+idempotent.
+This reduces the network bandwidth in the expected common
+case where we are not crashing the array-management code
+all the time.
+
+Alternately, if this is being used for a statechain signer, we could have a “trim” command that sets the sector to all 0s, and use that to delete the journalled sectors after the journal entry has been applied. This would assure us that data in the journal can be removed after the array knows the journal entry has been applied, and removes the possibility that old “deleted” keys may have been stored in the journal area of one of the disks and not overwritten.
+
+As the journal gets overwritten, and involves multiple
+sectors of data (a journal entry stores the change in the
+storage sector plus all the changes in the parity sectors),
+we need to ensure atomicity of the journal entry getting
+written.
+The journal area size would then have one sector for each
+disk in the array (so that the journal has space to store a
+full stripe write) plus an additional sector that stores
+the version number of the journal entry and the destinations
+for the journalled sectors.
+We can make the additional, versioned, sector, the atomicity
+sector.
+It would not only store the version number, as well as the
+destinations for the journalled data sectors, but also
+include *checksums* (MACs) of the journalled data sectors.
+
+Then, when the array knows it has applied the previous
+journal entry, and wants to make a new one for a new write,
+the array first writes the atomicity sector with the new
+version, destination, and checksums, and then writes the
+journalled data sectors.
+These processes can be done in parallel for each of the
+disks (with the requirement that the journal first ensures
+a response from the write to the atomicity sector before
+sending out write commands for the journalled data sectors).
+
+On restart, the array looks for the highest-versioned
+atomicity sector.
+Then it checks for whether the corresponding journalled
+data sectors match the checksums.
+If the data sectors do not match, then it means the
+latest journal entry was not successfully completely
+written, and the array should simply not apply the
+journal entry (the fact that it had a half-written
+journal entry at version V means that it already
+knew that the journal entry at version V - 1 was
+already fully applied, and thus there is no need to
+apply anything; the mismatching checksums imply that
+the journal entry at V - 1 was deleted because it was
+already known to be applied).
+If the data sectors DO match the checksums, the journal
+entry was fully written and the array thus always
+applies it (this is benign as the latest journal entry
+getting reapplied is idempotent).
+
+-------------------------
+

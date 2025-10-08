@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 2,
-  "incoming_link_count": 327,
-  "reads": 31,
-  "readers_count": 30,
-  "score": 1716.0,
+  "incoming_link_count": 501,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 2671.8,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 10
+      "count": 11
     }
   ],
   "moderator": false,
@@ -69,10 +69,15 @@
       "id": "heart",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 10,
+  "reaction_users_count": 11,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
