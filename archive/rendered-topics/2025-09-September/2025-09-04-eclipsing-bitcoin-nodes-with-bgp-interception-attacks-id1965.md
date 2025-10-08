@@ -570,3 +570,31 @@ Previously this post mistakenly mentioned that 0.5% of node prefixes are covered
 
 -------------------------
 
+fjahr | 2025-10-07 22:18:45 UTC | #8
+
+Thanks for the answers and sorry for the late reply!
+
+[quote="cedarctic, post:7, topic:1965"]
+This sounds interesting, what kind of probing do you have in mind?
+
+[/quote]
+
+Basically, I was thinking of using fingerprinting attacks to gain knowledge of which nodes may be behind which IP/address on different networks as well as mapping the topology of the network to find which nodes might be particularly vulnerable due to multiple connected peers being on the same AS path for example. Both of these attacks have had a lot of research attention and I am not sure what is currently considered state of the are for each of these. But on the topic of fingerprinting there was [this very recent post](https://delvingbitcoin.org/t/fingerprinting-nodes-via-addr-requests/1786) here on delving and I remember [this paper](https://hal.science/hal-04208864/file/s41109-023-00591-2.pdf) from a bitdevs. On topology [this one](https://arxiv.org/abs/1812.00942) is fairly well known and I remember [this](https://repositum.tuwien.at/handle/20.500.12708/154417) and [this](https://repositum.tuwien.at/handle/20.500.12708/193929?mode=full) again from bitdevs. There are many more papers on these topics that came out over the years but I don’t know which ones stand out in terms of quality and which ones still apply. But I am pretty convinced that attackers can make their lives easier by exploiting these first and only then switching over to the AS-level attack targeting the victims that seem most promising.
+
+[quote="cedarctic, post:7, topic:1965"]
+Agreed, this is important and immediately actionable. Have there been any similar efforts in raising awareness in bitcoin optech that I can look into?
+
+[/quote]
+
+There have been a few educational efforts by Optech over the years and I might not remember all of them but there were the [Schnorr/Taproot Workshops](https://bitcoinops.org/en/schnorr-taproot-workshop/) in [2019 and a few others on additional topics](https://bitcoinops.org/en/workshops/), there are the [field reports](https://bitcoinops.org/en/blog/) and particularly the [Waiting for Confirmation series](https://bitcoinops.org/en/blog/waiting-for-confirmation/). I feel like I am missing something else but maybe those were other organizations/contexts.
+
+I think there is an opportunity for anything in that range from blog posts to workshops (online or in person) to teach a better understand of network level attacks to Node runners as well as Lightning Network operators. This could highlight existing features like ASMap and teach and/or give tools to the participants to identify if they are with an ISP/hoster that is protecting them as well possible and then give them actionable advice on how to improve their situation, i.e. ask their ISP to fix things like adopting RPKI if they haven’t or ask if they have at least additional protective measures in place.
+
+I am mentioning Lightning Network as well because I just came back from the Bitcoin++ Lightning conference and @tnull gave a Lightning privacy presentation which explicitly discussed network level attacks, particularly the [Revelio paper](https://ieeexplore.ieee.org/document/10190502). While this is maybe not directly related to your research here, but all Lightning operators are also Bitcoin node runners (hopefully) and so I think it would be great if the educational effort could feature a Lightning module, too.
+
+Aside from purely educational content (in writing or interactive workshop) there could be a tool/script that could be run on the node servers and tells admin where their ISP has room for improvement in a privacy preserving way. Or there could be a public website with a dataset with that information where node runners can look up their node or their ISP/hoster to get this information.
+
+I think this is really an interesting project that several people would be excited to support, so I will reach out to optech and ask them to weigh in on this idea Based on feedback on the previous efforts they should be able to give hints which path would best.
+
+-------------------------
+
