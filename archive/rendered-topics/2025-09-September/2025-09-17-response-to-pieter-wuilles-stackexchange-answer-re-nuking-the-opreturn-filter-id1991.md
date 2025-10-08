@@ -644,3 +644,17 @@ He will be here next week saying nobody is addressing his questions or concerns.
 
 -------------------------
 
+1440000bytes | 2025-10-08 15:49:40 UTC | #13
+
+[quote="sipa, post:11, topic:1991"]
+[quote="cguida, post:1, topic:1991"]
+Also, blockreconstructionextratxn helps here.
+[/quote]
+
+Only to nodes which have peers whose relay policy matches that of miners. It seems highly hypocritical to me to not want to relay certain transactions yourself, but still rely on having peers that do relay those transactions to you so your reconstruction speed is fast. Put otherwise, the extra pool only helps with policy divergence in situations which more or less correspond to the filtered transactions propagating well anyway.
+[/quote]
+
+It is a solution (w/ some trade-offs) without introducing another [p2p message](https://delvingbitcoin.org/t/sharing-block-templates/1906) or expecting every node to use the same policy. Every node has `125` `maxconnections` by default and it is reasonable to expect some divergence in mempool polices of a decentralized network.
+
+-------------------------
+
