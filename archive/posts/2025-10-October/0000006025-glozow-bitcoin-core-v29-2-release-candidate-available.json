@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 10,
   "readers_count": 9,
-  "score": 1.8,
+  "score": 17.0,
   "yours": false,
   "topic_id": 2036,
   "topic_slug": "bitcoin-core-v29-2-release-candidate-available",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "Binaries for Bitcoin Core version v29.2rc2 are available from:\n\nhttps://bitcoincore.org/bin/bitcoin-core-29.2/test.rc2/\n\nSource code can be found in git under the signed tag\n\nhttps://github.com/bitcoin/bitcoin/tree/v29.2rc2\n\nThis is a release candidate for a new minor version release.\n\nPreliminary release notes for the release can be found here:\n\nhttps://github.com/bitcoin/bitcoin/blob/v29.2rc2/doc/release-notes.md\n\nRelease candidates are test versions for releases.\nWhen no critical problems are found, this release candidate\nwill be tagged as v29.2.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Binaries for Bitcoin Core version v29.2rc2 are available from: \n\n\nSource code can be found in git under the signed tag \n\n\nThis is a release candidate for a new minor version release. \nPreliminary release notes for the release can be found here: \n\n\nRelease candidates are test versions for releases.\nW&hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-core-v29-2-release-candidate-available/2036/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
