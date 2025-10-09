@@ -155,47 +155,13 @@ Therefore, we can establish that a "Hayek" must exist under perfect capital mark
 
 -------------------------
 
-josh | 2025-09-01 03:05:37 UTC | #4
+micah541 | 2025-10-09 17:51:27 UTC | #9
 
-Assumptions should be applied consistently.
+The problem with these sort of arguments is that if you assert that Bitcoin is somehow inevitable or unique as a Schelling point, this actually breaks the rest of the game theory of Bitcoin.  
 
--------------------------
+If Bitcoin were to ever become a “generally agreed upon unit of account” that we could rely on to remain that unit of account, it’s almost immediate that a coalition would form to monopolize it. Power is a coordination game, and the years or decades of coordination getting folks to agree that Bitcoin is THE unit of account would not be undone by a much smaller group of miners, world leaders and VCs quickly coordinating to monopolize it.  Some people fantasize this might lead to a “hash war” or something, but such a hash war would not last long, as a hash war is not a stable equilibrium; coalitional game theory suggests this would end almost immediately with some 51% coalition taking the prize. 
 
-josh | 2025-09-03 15:15:45 UTC | #5
-
-The Hayek reveals information.
-
-Therefore, the Hayek must exist.
-
-QED.
-
--------------------------
-
-josh | 2025-09-03 15:16:53 UTC | #6
-
-Wealth. Not Capital.
-
-What’s the difference?
-
--------------------------
-
-josh | 2025-09-03 15:18:12 UTC | #7
-
-Describe the physics of the perfect capital market.
-
-Describe the black hole.
-
-Prove its existence.
-
--------------------------
-
-josh | 2025-09-03 15:19:51 UTC | #8
-
-Start with this paper.
-
-Kevin Kaiser, game theoretic proof of valuation, under perfect game theoretic assumptions.
-
-Bankruptcy.
+This is the paradox of hyperbitcoinization:  If Bitcoin becomes inevitable it becomes vulnerable. As long as Bitcoin can fail, there’s less incentive to attack it.
 
 -------------------------
 
