@@ -1,6 +1,6 @@
 # Bitcoin Core v29.2 release candidate available
 
-glozow | 2025-10-08 16:10:09 UTC | #1
+glozow | 2025-10-09 06:18:36 UTC | #1
 
 Binaries for Bitcoin Core version v29.2rc2 are available from:
 
@@ -14,7 +14,7 @@ This is a release candidate for a new minor version release.
 
 Preliminary release notes for the release can be found here:
 
-https://github.com/bitcoin/bitcoin/blob/398c176ea82a7692f074a574a4b990f6995c499d/doc/release-notes.md
+https://github.com/bitcoin/bitcoin/blob/v29.2rc2/doc/release-notes.md
 
 Release candidates are test versions for releases.
 When no critical problems are found, this release candidate
