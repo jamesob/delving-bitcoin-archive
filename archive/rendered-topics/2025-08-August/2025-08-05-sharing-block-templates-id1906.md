@@ -374,3 +374,26 @@ Presumably you want something like that now, if you want to prevent early relay 
 
 -------------------------
 
+ajtowns | 2025-10-10 02:46:06 UTC | #23
+
+[quote="ajtowns, post:5, topic:1906"]
+Draft BIP text:
+[/quote]
+
+This is published as [BIN25-2](https://github.com/bitcoin-inquisition/binana/blob/613ac5228846b6fa3b8422707a827e75803f3d6e/2025/BIN-2025-0002.md) now. That only describes the basic protocol, not how to best use it, which is something still to be figured out. It also doesn't allow for any sort of delta-encoding as discussed in this thread.
+
+I've now done some very limited experimentation on mainnet with it, just between two peers running similar mempool policies. With that setup, I'd expect very few out-of-mempool txs to appear in the templates being shared. The ones I am seeing seem to take the form:
+
+ * this tx was just RBFed, but the template was generated beforehand
+ * this tx was confirmed in the previous block, but a new template hasn't been created since that block came in
+
+The just-confirmed txs seem like they might take a little too long to deal with (I'm seeing ~0.3ms each, but when they happen, it can be 3000 txs all at once so that's still 1s of total processing that doesn't really achieve any useful progress). But we already have a map of the last block's transactions, so just using that to quickly move on seems like it might be fine.
+
+The just-RBFed case could perhaps also be cached and skipped over, though I  like the idea of reconsidering recently RBFed top-of-mempool transactions as a way of mitigating Riard's replacement cycling attacks, so it might have the potential to be beneficial. In any event there aren't that many of them and they and easily resolved, so aren't much of a problem. 
+
+Still haven't figured out a decent way of covering templates from honest inbound peers that works well in the presence of adversarial inbound peers.
+
+On the other hand, one thing that occurred to me is that I think if you requested a template from feeler peers before disconnecting and attempted to add any novel txs they had to your mempool, that would provide a fairly good way of increasing relay connectivity to get around attempted relay censorship, without adding much of an ongoing burden.
+
+-------------------------
+
