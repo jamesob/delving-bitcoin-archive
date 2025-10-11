@@ -36,3 +36,23 @@ Have you reviewed this miniscript?
 
 -------------------------
 
+ilghan | 2025-10-11 18:15:40 UTC | #3
+
+their system doesn’t solve the problem of the loss of the keys in non-custodial .
+
+If my B-SSL system holds true, that’s a clear breakthrough for Bitcoin’s future !
+
+![image|690x386](upload://ovvioHdOoonyrW1cuBWrWQUrxHw.png)
+
+Its premises are outstanding:
+
+* **mint-005** = *joint custody coordination* → ideal for institutions sharing funds.
+
+* **B-SSL** = *sovereign vault + human fail-safes* → ideal for individuals and companies wanting to **never lose control nor keys**.
+
+> 🔒 **B-SSL uniquely achieves total key-loss resilience while preserving 100 % user sovereignty.**
+
+Let me know if any of you here are able to crack it
+
+-------------------------
+
