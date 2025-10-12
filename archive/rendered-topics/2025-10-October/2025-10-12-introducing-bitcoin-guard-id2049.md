@@ -1,6 +1,6 @@
 # Introducing Bitcoin Guard
 
-guardian | 2025-10-12 11:29:40 UTC | #1
+guardian | 2025-10-12 16:09:04 UTC | #1
 
 **What is Bitcoin Guard?**
 
@@ -89,7 +89,7 @@ An interactive prototype is available to try at https://bitcoinguardian.github.i
 
 Bitcoin Guard Desktop is an application to abstract the protocol implementation and manage the Guardian Address. It runs locally on the user’s machine and supports hardware wallet connectivity.
 
-![bitcoinguarddesktop|690x468](upload://eDfOSFdzBjv68acYG7PPTYvPLJ0.png)
+![bitcoinguardhome|690x466](upload://gVpFJJjzUDyDIS7EXFjUpEBuSSQ.png)
 
 Full Guardian lifecycle operations are supported, from setup to signals. Each operation has UI prompts that explain to the user what happens when each signal is sent. The user clicks the button, approves in the hardware wallet, and broadcasts the transaction.
 
