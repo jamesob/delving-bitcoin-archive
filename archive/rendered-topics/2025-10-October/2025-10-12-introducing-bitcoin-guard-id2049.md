@@ -1,6 +1,6 @@
 # Introducing Bitcoin Guard
 
-guardian | 2025-10-12 07:48:15 UTC | #1
+guardian | 2025-10-12 11:29:40 UTC | #1
 
 **What is Bitcoin Guard?**
 
@@ -27,7 +27,7 @@ Please note all features are in active development and may be subject to change.
 
 **Bitcoin Guard Mobile**
 
-The mobile app is where many of the security features are configured and used.
+When the Guardian is locked, monitoring wallets prohibit spending. The mobile app is where many of the security features are configured and used.
 
 ![bitcoinguardmobile|288x500](upload://i5FabHyHOE0GNQPOVvFQLKTetA.jpeg)
 
