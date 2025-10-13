@@ -1,6 +1,6 @@
 # Bitcoin Core v30.0 Released
 
-fanquake | 2025-10-12 09:19:26 UTC | #1
+fanquake | 2025-10-13 10:26:40 UTC | #1
 
 Bitcoin Core version v30.0 is now available from:
 
@@ -18,7 +18,7 @@ To receive security and update notifications, please subscribe to:
   <https://bitcoincore.org/en/list/announcements/join/>
 
 With the release of this new major version, versions `27.x` and
-older are at "Maintenance End" and will no longer receive updates.
+older are at "End of Life" and will no longer receive updates.
 
 In accordance with the security policy, we will in two weeks disclose:
 
