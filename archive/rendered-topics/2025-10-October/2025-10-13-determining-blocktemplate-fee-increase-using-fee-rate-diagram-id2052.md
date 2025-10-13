@@ -1,6 +1,6 @@
 # Determining BlockTemplate Fee Increase Using Fee Rate Diagram
 
-ismaelsadeeq | 2025-10-13 14:51:45 UTC | #1
+ismaelsadeeq | 2025-10-13 15:36:36 UTC | #1
 
 #### Motivation and Background
 
@@ -189,7 +189,7 @@ This approach does not account for bin-packing effects at the block template tai
 
 [0] [Proposal for a new mempool design](https://github.com/bitcoin/bitcoin/issues/27677)
 
-[1] [Cluster Mempool](https://github.com/bitcoin/bitcoin/issues/27677)
+[1] [Cluster Mempool](https://github.com/bitcoin/bitcoin/issues/28676)
 
 [2] [Package-Aware Fee Estimator Post Cluster Mempool](https://delvingbitcoin.org/t/package-aware-fee-estimator-post-cluster-mempool/312)
 
