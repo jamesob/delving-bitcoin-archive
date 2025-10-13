@@ -221,3 +221,10 @@ My idea would be to allow the block template waiting code to install a callback 
 
 -------------------------
 
+ismaelsadeeq | 2025-10-13 15:18:01 UTC | #3
+
+Nice, this is better it removes the need to maintain a list of removed chunks!
+The reason I wanted the process to be independent of the mempool and `txgraph` is to avoid adding additional computational requirements after each commit to the txgraph main, as well as when the lower or upper bounds change.
+
+-------------------------
+
