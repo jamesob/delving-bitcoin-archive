@@ -1,6 +1,6 @@
 # Determining BlockTemplate Fee Increase Using Fee Rate Diagram
 
-ismaelsadeeq | 2025-10-13 15:36:36 UTC | #1
+ismaelsadeeq | 2025-10-13 18:42:54 UTC | #1
 
 #### Motivation and Background
 
@@ -195,7 +195,7 @@ This approach does not account for bin-packing effects at the block template tai
 
 [3] [Bin Packing Problem](https://en.wikipedia.org/wiki/Bin_packing_problem)
 
-_Original post https://delvingbitcoin.org/t/determining-block-template-fee-increase-using-fee-rate-diagram/2051 deleted mistakenly sorry for the noice_
+_Original post https://delvingbitcoin.org/t/determining-block-template-fee-increase-using-fee-rate-diagram/2051 deleted mistakenly sorry for the noise_
 
 -------------------------
 
