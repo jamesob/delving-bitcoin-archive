@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I think the same estimate is possible without actually maintaining the template set $R$, even incrementally.\n\nInside `TxGraph` (the internal component abstracting away the cluster linearization complexity from the mempool), we currently maintain an index of all chunks, sorted by descending feerate. This index is totally ordered, and is used for block building and eviction, but can be used for more than that.\n\nThe idea would be to maintain an *implicit* block template, consisting of all chunks in `TxGraph` from the beginning of the index, up to but excluding a non-fitting chunk $c_\\mathrm{nf}$, so $F = \\sum_{c=0}^{c < c_\\mathrm{nf}} \\mathrm{fee}(c)$, and $S = \\sum_{c=0}^{c < c_\\mathrm{nf}} \\mathrm{size}(c)$. The non-fitting chunk $c_\\mathrm{nf}$ is such that $S \\leq 3992000$, but $S + \\mathrm{size}(c_\\mathrm{nf}) > 39920000$. `TxGraph` stores $F$, $S$, and a pointer to $c_\\mathrm{nf}$. \n\nAfter any operation that modifies `TxGraph`, these variables can be updated. If a chunk $c$ is removed for which $c < c_\\mathrm{nf}$, subtract it from $(F, S)$. If a chunk $c$ is added for which $c < c_\\mathrm{nf}$, add it to $(F, S)$. If the pointed-to chunk itself is removed, move the pointer up, $c_\\mathrm{nf} := c_\\mathrm{nf} + 1$. If at the end $S + \\mathrm{size}(c_\\mathrm{nf}) \\leq 3992000$, add it to $(F, S)$ and move the pointer up. If at the end $S > 3992000$, subtract from $(F, S)$ and move the pointer down.\n\nThese operations are all $\\mathcal{O}(n)$ in the number of modified chunks, so don't change any internal complexity, and they only need $\\mathcal{O}(1)$ memory ($F$, $S$, and one pointer).\n\nAnd with these variables, we can associate two block fee estimates:\n* A conservative lower bound: $F$.\n* A conservative upper bound: $F + \\frac{\\mathrm{fee}(c_\\mathrm{nf})}{\\mathrm{size}(c_\\mathrm{nf})} \\cdot (3992000 - S)$.\n\nA combination of the two could be used as approximation.\n\nMy idea would be to allow the block template waiting code to install a callback function into `TxGraph`, which would get called any time the lower/upper bound change. The callback function could then decide whether the increase since the last computed block template is significant enough to trigger a full block templating building.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I think the same estimate is possible without actually maintaining the template set R, even incrementally. \nInside TxGraph (the internal component abstracting away the cluster linearization complexity from the mempool), we currently maintain an index of all chunks, sorted by descending feerate. This&hellip;",
   "truncated": true,
   "post_url": "/t/determining-blocktemplate-fee-increase-using-fee-rate-diagram/2052/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
