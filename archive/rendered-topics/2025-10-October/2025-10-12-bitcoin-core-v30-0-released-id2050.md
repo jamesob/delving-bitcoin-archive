@@ -449,3 +449,34 @@ As well as to everyone that helped with translations on
 
 -------------------------
 
+jsarenik | 2025-10-14 07:55:44 UTC | #2
+
+I did not notice any mention in the release notes, but were there any changes to handling of the chainstate?
+
+I see size difference in gigabytes and the size of the chainstate directory was never temporarily changing so fast in older versions.
+
+Compare
+
+* disk usage (`du`) lines before upgrade stored in https://web.archive.org/web/20251009055032/https://ln.anyone.eu.org/bitcoin.txt
+* with the current https://anyone.eu.org/bitcoin.txt
+
+-------------------------
+
+jsarenik | 2025-10-14 07:59:08 UTC | #3
+
+Oops, looks back to normal (10.6G) already. Noise.
+
+```
+$ du -h -d1 .bitcoin/
+1.5G	.bitcoin/testnet4
+11.6G	.bitcoin/indexes
+3.4G	.bitcoin/signet
+43.1M	.bitcoin/wallets
+97.6G	.bitcoin/blocks
+18.6M	.bitcoin/regtest
+10.6G	.bitcoin/chainstate
+125.0G	.bitcoin/
+```
+
+-------------------------
+
