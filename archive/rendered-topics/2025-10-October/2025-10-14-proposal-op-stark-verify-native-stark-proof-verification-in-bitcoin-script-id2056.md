@@ -1,6 +1,6 @@
 # Proposal: OP_STARK_VERIFY - Native STARK Proof Verification in Bitcoin Script
 
-Abdel | 2025-10-14 10:49:25 UTC | #1
+Abdel | 2025-10-14 10:54:55 UTC | #1
 
 # Proposal: OP_STARK_VERIFY - Native STARK Proof Verification in Bitcoin Script
 
@@ -21,7 +21,9 @@ There is increasing interest in enabling zero-knowledge proof verification withi
 
 This post proposes a native opcode, OP_STARK_VERIFY, to directly verify [STARK (Scalable Transparent ARgument of Knowledge) proofs](https://eprint.iacr.org/2018/046.pdf) in Bitcoin Script. This aims to provide efficient, on-chain verification without the drawbacks of indirect methods.
 
-The proposal focuses on vanilla STARKs, as implemented in [Stone](https://github.com/starkware-libs/stone-prover), due to their established understanding, production use, and formal properties. Newer variants like Circle STARKs (used in the successor Stwo prover) offer substantial improvements in terms of speed and overall efficiency but are less mature and understood. The choice of Stone is driven by its battle-tested nature, formal verification, and suitability for integration into Bitcoin Core.
+The proposal focuses on vanilla STARKs, as implemented in [Stone](https://github.com/starkware-libs/stone-prover), due to their established understanding, production use, and formal properties. Newer variants like Circle STARKs (used in the successor Stwo prover) offer substantial improvements in terms of speed and overall efficiency but are less mature and understood. The choice of Stone is driven by its battle-tested nature, formal verification, and suitability for integration into Bitcoin Core. Validity proof is what is popularly referred to as ZK even if the formal aspect of zero knowledge is not always there.
+
+> Note: I mention in the proposal multiple times ZK verification / ZK proof, sometimes it should be called validity proofs instead, as the ZK (Zero Knowledge) aspect is not necessarily true depending on the implementation of the prover and verifier.
 
 ## Motivation
 
