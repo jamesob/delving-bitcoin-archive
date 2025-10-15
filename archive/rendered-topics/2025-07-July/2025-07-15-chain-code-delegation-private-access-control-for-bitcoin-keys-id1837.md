@@ -173,3 +173,11 @@ interesting, that super neat. I wasn’t aware of that until today. thank you fo
 
 -------------------------
 
+jurvis | 2025-10-15 03:40:34 UTC | #6
+
+put up a BIP draft for this idea: https://github.com/bitcoin/bips/pull/2004
+
+ptal!
+
+-------------------------
+
