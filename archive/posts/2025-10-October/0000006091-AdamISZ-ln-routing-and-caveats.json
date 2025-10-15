@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"garlonicon\" data-post=\"3\" data-topic=\"2003\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/g/278dde/48.png\" class=\"avatar\"> garlonicon:</div>\n<blockquote>\n<p>So, LN can help you, if you want to make a lot of transactions, between participants, which are almost always online, and where you don\u2019t want to change network topology too much (which means, that the same amounts are constantly flying in both directions between similar participants, so you don\u2019t have liquidity problems, and you can delay going on-chain forever, and do almost everything off-chain). If your business doesn\u2019t meet this definition, then using LN may be more expensive, if you will be forced to go on-chain anyway, and then pay on-chain fees, and off-chain fees, instead of moving fractions of satoshis purely off-chain.</p>\n</blockquote>\n</aside>\n<p>I think your characterization is much too pessimistic here. There are people using Lightning, while keeping self-custody, but not needing a node (see e.g. Phoenix), able to reliably pay bills with it (failure rates basically zero) for years now.</p>\n<p>There are lots of merchants accepting bitcoin that succeed in adding Lightning as \u201cjust another payment option\u201d. The infrastructure is there now, even if the mindshare isn\u2019t (certainly outside of bitcoiners, it isn\u2019t!).</p>\n<p>(Apologies for the relatively irrelevant to the OP commentary)</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2025-10-15T11:23:50.525Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 22.4,
   "yours": false,
   "topic_id": 2003,
   "topic_slug": "ln-routing-and-caveats",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"garlonicon, post:3, topic:2003\"]\nSo, LN can help you, if you want to make a lot of transactions, between participants, which are almost always online, and where you don\u2019t want to change network topology too much (which means, that the same amounts are constantly flying in both directions between similar participants, so you don\u2019t have liquidity problems, and you can delay going on-chain forever, and do almost everything off-chain). If your business doesn\u2019t meet this definition, then using LN may be more expensive, if you will be forced to go on-chain anyway, and then pay on-chain fees, and off-chain fees, instead of moving fractions of satoshis purely off-chain.\n\n[/quote]\n\nI think your characterization is much too pessimistic here. There are people using Lightning, while keeping self-custody, but not needing a node (see e.g. Phoenix), able to reliably pay bills with it (failure rates basically zero) for years now.\n\nThere are lots of merchants accepting bitcoin that succeed in adding Lightning as \u201cjust another payment option\u201d. The infrastructure is there now, even if the mindshare isn\u2019t (certainly outside of bitcoiners, it isn\u2019t!).\n\n(Apologies for the relatively irrelevant to the OP commentary)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I think your characterization is much too pessimistic here. There are people using Lightning, while keeping self-custody, but not needing a node (see e.g. Phoenix), able to reliably pay bills with it (failure rates basically zero) for years now. \nThere are lots of merchants accepting bitcoin that s&hellip;",
   "truncated": true,
   "post_url": "/t/ln-routing-and-caveats/2003/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

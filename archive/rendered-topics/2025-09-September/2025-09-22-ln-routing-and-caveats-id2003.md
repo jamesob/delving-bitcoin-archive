@@ -95,3 +95,25 @@ There are lots of merchants accepting bitcoin that succeed in adding Lightning a
 
 -------------------------
 
+garlonicon | 2025-10-15 16:15:38 UTC | #5
+
+> see e.g. Phoenix
+
+Been there, done that.
+
+On-chain fees when using Bitcoin Core: 1 sat/vB (and now, 0.1 sat/vB, if you can wait)
+
+On-chain fees when using Phoenix: 20 sat/vB for channel creation or closing (around 3k sats deducted, or 0.1% of a given amount, which means, that putting something bigger than 0.01 BTC into LN-channel was not practical, when on-chain fees were lower, than Phoenix 0.1% fees)
+
+> (Apologies for the relatively irrelevant to the OP commentary)
+
+It is relevant. The main problem of Lightning Network, is that you cannot send coins between all LN participants directly. This is the main reason, why many people prefer sidechains instead: because then, they can move coins into some second layer once, and then send the full amount they have, in any way they want, between all other people, who also joined the same network.
+
+Normally, I would put more coins into Lightning Network, but why should I? Why pay LN fees and on-chain fees, when I can pay only on-chain fees instead, and it can be cheaper, than 20 sat/vB, suggested by Phoenix last time, when I used it?
+
+Also, why should I put for example 1 BTC into LN, and pay 100k satoshis (0.1% fee), when I can pay a few hundreds of satoshis at most, and transfer the same 1 BTC anywhere, without being limited only to the people, where I have an opened channel, and enough liquidity?
+
+For me, LN barriers are strictly technical: fees, liquidity, ability to send coins anywhere, and things like that. If LN would solve these problems, it could be great. But if not, then things like sidechains would be simply better, because of being able to do, what LN cannot, without touching on-chain coins.
+
+-------------------------
+
