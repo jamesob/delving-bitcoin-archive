@@ -107,3 +107,16 @@ https://github.com/bitcoin/bitcoin/blob/40e7d4cd0d7f1d922b92b0c640d3d89eef059411
 
 -------------------------
 
+AdamISZ | 2025-10-15 15:55:05 UTC | #6
+
+[quote="1440000bytes, post:5, topic:2064"]
+I don’t think this is true for several policies used in bitcoin core.
+
+[/quote]
+
+You are talking about the purpose of certain policies. That doesn’t contradict what I’m saying about the point of the mempool. Those are two different things.
+
+Still you’re right to point out that simply “you might want to change things because you’re resource constrained” is overly simplistic. The various anti-DOS measures aren’t *quite* that trivial, but still I don’t think any of that changes the fundamental point I was making about decentralization and the purpose of mempools.
+
+-------------------------
+
