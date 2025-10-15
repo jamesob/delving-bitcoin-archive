@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks! I\u2019ll review these in the morning. I just read Greg\u2019s wall of text and I\u2019m now exhausted.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 5,
   "updated_at": "2025-10-15T04:58:34.974Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "incoming_link_count": 1,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 27.2,
   "yours": false,
   "topic_id": 2064,
   "topic_slug": "proposal-pluggable-filter-framework",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks! I\u2019ll review these in the morning. I just read Greg\u2019s wall of text and I\u2019m now exhausted.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks! I\u2019ll review these in the morning. I just read Greg\u2019s wall of text and I\u2019m now exhausted.",
   "truncated": true,
   "post_url": "/t/proposal-pluggable-filter-framework/2064/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

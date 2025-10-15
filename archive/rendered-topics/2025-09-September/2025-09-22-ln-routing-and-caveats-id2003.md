@@ -80,3 +80,18 @@ So, LN can help you, if you want to make a lot of transactions, between particip
 
 -------------------------
 
+AdamISZ | 2025-10-15 11:23:50 UTC | #4
+
+[quote="garlonicon, post:3, topic:2003"]
+So, LN can help you, if you want to make a lot of transactions, between participants, which are almost always online, and where you don’t want to change network topology too much (which means, that the same amounts are constantly flying in both directions between similar participants, so you don’t have liquidity problems, and you can delay going on-chain forever, and do almost everything off-chain). If your business doesn’t meet this definition, then using LN may be more expensive, if you will be forced to go on-chain anyway, and then pay on-chain fees, and off-chain fees, instead of moving fractions of satoshis purely off-chain.
+
+[/quote]
+
+I think your characterization is much too pessimistic here. There are people using Lightning, while keeping self-custody, but not needing a node (see e.g. Phoenix), able to reliably pay bills with it (failure rates basically zero) for years now.
+
+There are lots of merchants accepting bitcoin that succeed in adding Lightning as “just another payment option”. The infrastructure is there now, even if the mindshare isn’t (certainly outside of bitcoiners, it isn’t!).
+
+(Apologies for the relatively irrelevant to the OP commentary)
+
+-------------------------
+
