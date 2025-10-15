@@ -15,7 +15,7 @@
   "incoming_link_count": 3,
   "reads": 16,
   "readers_count": 15,
-  "score": 18.2,
+  "score": 33.2,
   "yours": false,
   "topic_id": 2056,
   "topic_slug": "proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for the writeup! I appreciate the level of detail and caveats that help me understand some of the tradeoffs existing in this space. FWIW my interests currently are very high level, thinking about practical resource usage.\n\n[quote=\"Abdel, post:1, topic:2056\"]\nProof sizes are typically in the range of hundreds of KB to 1 MB uncompressed, but compression (e.g., bzip2) could reduce them below 100 KB in many cases.\n\n[/quote]\n\nThese sized may end up being problematic as enshrining a proof system with >400kB proof sizes would make decentralized block building, and make decentralized relay difficult due to inability to predict when things will be mined. \n\n[quote=\"Abdel, post:1, topic:2056\"]\nOn-chain verification time would be in the order of 10s of milliseconds on standard hardware\n\n[/quote]\n\nA single proof seems to eat up on the order(or two) of the verification \u201cbudget\u201d of an entire block if we\u2019re targeting something like 100ms per block in the average case. Granted, this threshold is \u201cmade up\u201d, but it would be important to talk about what the underlying target would be for an \u201caverage\u201d block using these consistently.\n\nWhat would the Circle STARK look like as far as resources both in proof sizes and verification time? \n\n[quote=\"Abdel, post:1, topic:2056\"]\nFeasible and demonstrated for Circle STARKs, but extremely inefficient and intricate; pushes complexity into Script.\n\n[/quote]\n\nSame question but Circle STARKs within Bitcoin Script using CAT? What about with Simplicity with currently defined JETs?\n\nWould be nice to have a high level understanding of how much is bought by making a \u201cJET\u201d of exactly the specific STARK prover beyond \u201clow/medium-high/high\u201d labels in the table.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for the writeup! I appreciate the level of detail and caveats that help me understand some of the tradeoffs existing in this space. FWIW my interests currently are very high level, thinking about practical resource usage. \n\nThese sized may end up being problematic as enshrining a proof system&hellip;",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
