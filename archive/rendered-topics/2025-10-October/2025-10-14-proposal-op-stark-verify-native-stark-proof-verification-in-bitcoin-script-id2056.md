@@ -142,3 +142,34 @@ The exploratory implementation could integrate the Stone verifier, a univariate 
 
 -------------------------
 
+instagibbs | 2025-10-14 16:09:26 UTC | #2
+
+Thanks for the writeup! I appreciate the level of detail and caveats that help me understand some of the tradeoffs existing in this space. FWIW my interests currently are very high level, thinking about practical resource usage.
+
+[quote="Abdel, post:1, topic:2056"]
+Proof sizes are typically in the range of hundreds of KB to 1 MB uncompressed, but compression (e.g., bzip2) could reduce them below 100 KB in many cases.
+
+[/quote]
+
+These sized may end up being problematic as enshrining a proof system with >400kB proof sizes would make decentralized block building, and make decentralized relay difficult due to inability to predict when things will be mined. 
+
+[quote="Abdel, post:1, topic:2056"]
+On-chain verification time would be in the order of 10s of milliseconds on standard hardware
+
+[/quote]
+
+A single proof seems to eat up on the order(or two) of the verification “budget” of an entire block if we’re targeting something like 100ms per block in the average case. Granted, this threshold is “made up”, but it would be important to talk about what the underlying target would be for an “average” block using these consistently.
+
+What would the Circle STARK look like as far as resources both in proof sizes and verification time? 
+
+[quote="Abdel, post:1, topic:2056"]
+Feasible and demonstrated for Circle STARKs, but extremely inefficient and intricate; pushes complexity into Script.
+
+[/quote]
+
+Same question but Circle STARKs within Bitcoin Script using CAT? What about with Simplicity with currently defined JETs?
+
+Would be nice to have a high level understanding of how much is bought by making a “JET” of exactly the specific STARK prover beyond “low/medium-high/high” labels in the table.
+
+-------------------------
+

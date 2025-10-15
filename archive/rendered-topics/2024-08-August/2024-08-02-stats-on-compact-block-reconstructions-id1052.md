@@ -906,3 +906,9 @@ Nice work! Any idea what might have caused this?
 
 -------------------------
 
+1440000bytes | 2025-10-14 17:49:26 UTC | #42
+
+I tested compact block relay using knots: https://uncensoredtech.substack.com/p/compact-block-relay-with-extra-pool
+
+-------------------------
+

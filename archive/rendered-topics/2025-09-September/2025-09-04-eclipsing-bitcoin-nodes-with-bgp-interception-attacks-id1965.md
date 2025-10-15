@@ -598,3 +598,39 @@ I think this is really an interesting project that several people would be excit
 
 -------------------------
 
+cedarctic | 2025-10-14 19:28:07 UTC | #9
+
+Thanks for all the information, and apologies for being late in my replies!
+
+[quote="fjahr, post:8, topic:1965"]
+Basically, I was thinking of using fingerprinting attacks to gain knowledge
+
+[/quote]
+
+Thanks for the fingerprinting / topology inference references  - I checked them out plus some other ones ([Biryukov et al.](https://dl.acm.org/doi/abs/10.1145/2660267.2660379), [Miller et al.](https://www.cs.umd.edu/projects/coinscope/coinscope.pdf), [Neudecker et al.](https://ieeexplore.ieee.org/abstract/document/7816866/), [Grundmann et al.](https://link.springer.com/chapter/10.1007/978-3-662-58820-8_9)). I agree, a network attacker like the one I describe would benefit from doing some “homework” before targeting a node by figuring out its networks and its direct neighbors. Btw I was looking into TxProbe but have not been able to figure out if it has been mitigated / patched out. Please let me know if you have any clues.
+
+To make the threat model more complete and work on relevant mitigations, I am making a list of specific attacks one could do (e.g targeting mining pool gateways to suppress blocks). Let me know if you have any thoughts on such examples.
+
+[quote="fjahr, post:8, topic:1965"]
+There have been a few educational efforts by Optech
+
+[/quote]
+
+Thank you for the links! These all seem interesting. I would be happy to help develop written / workshop material on this topic.
+
+[quote="fjahr, post:8, topic:1965"]
+it would be great if the educational effort could feature a Lightning module, too.
+
+[/quote]
+
+This is a good point. I’ll look more into what is relevant to Lightning in particular.
+
+[quote="fjahr, post:8, topic:1965"]
+a tool/script that could be run on the node servers
+
+[/quote]
+
+That’s a good idea. I have some tools that I wrote for carrying out this research which can be repurposed for informing node operators of their circumstances and how to go about tightening their network security from a routing perspective.
+
+-------------------------
+
