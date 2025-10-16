@@ -173,3 +173,32 @@ Would be nice to have a high level understanding of how much is bought by making
 
 -------------------------
 
+Abdel | 2025-10-16 16:45:25 UTC | #3
+
+Thanks for the very spot on questions / comments.
+
+For the context, as it applies to all potential STARK on Bitcoin avenues we explore.
+
+We can tune proving system params to either improve proving speed (at the cost of larger proof/slower verification) or reducing proof size (at the cost of slower proving/higher machine specs, specifically RAM).
+
+Typically we use a multistage pipeline where:
+- Fast proving is used for payload jobs (e.g. rollup blocks)
+- Fast proving is used for recursive proof folding (to get a single proof for multiple jobs)
+- Last several steps are used to compress the proof as much as possible and make it verifier friendly (depending on particular settlement layer)
+    - Typically we switch hash function here
+    - Adjust parameters to slow proving/fast verification mode
+    - Use different proving systems if necessary
+
+When we measure proof size and verification time, we are talking about the very last stage of the pipeline.
+
+Here are the variants of proof compression pipelines (we are using Stwo for leaf jobs and recursive folding for all schemes so will omit it here):
+1. Stwo — single step compression (the fastest option, suitable for offchain verification), ~500KB proof size (bzip2), ~25ms verification time
+2. Stwo -> Stone -> Stone — multi-step compression (the one we plan for production), ~50KB proof size (bzip2), ~30ms verification time
+3. Stwo -> ... -> Stwo — multi-layer compression optimized for Bitcoin script, ~100KB proof size
+
+Regarding the onchain costs:
+- Proof settlement via OP_CAT verifier looks like 175 transactions of total size ~7.3MB
+- Current Simplicity implementation is ~2.5 MB script; it is not yet compatible with the proving pipeline (3) output + there will be an overhead from splitting it into multiple transactions, so the total cost should be comparable to OP_CAT
+
+-------------------------
+
