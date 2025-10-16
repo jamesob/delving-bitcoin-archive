@@ -912,3 +912,13 @@ I tested compact block relay using knots: https://uncensoredtech.substack.com/p/
 
 -------------------------
 
+ajtowns | 2025-10-16 05:04:28 UTC | #43
+
+[quote="gmaxwell, post:30, topic:1052"]
+Prefilling is just a flawed part of the design, it was kinda tossed in because it was very easy to add and harmless if not used. After compact blocks were deployed I did a bunch of testing and was unable to make it do anything but harm.
+[/quote]
+
+Looking at recent block reconstruction, I'm seeing a fair few blocks that need between 100-4000 bytes of tx data. Including perhaps 5 FEC chunks at 1152 bytes each seems like it could catch most of those blocks without a round trip, and if you don't try to merge chunks from different peers, there's no complexity about dealing with mixed honest/adversarial inputs. I guess it depends on how scattered the missing transactions are on whether that actually works -- six missings txs could easily only be 1000B but still hit 6 different FEC chunks.
+
+-------------------------
+
