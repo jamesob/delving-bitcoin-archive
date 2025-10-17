@@ -202,3 +202,21 @@ Regarding the onchain costs:
 
 -------------------------
 
+ftw2100 | 2025-10-17 14:38:17 UTC | #4
+
+Thank you for the detailed proposal. This is a fascinating exploration of native ZK verification on Bitcoin.
+
+An alternative approach worth considering is to build this functionality as a layer on top of Bitcoin first, rather than modifying the base protocol.
+
+Instead of introducing a new opcode, one could leverage existing witness space to embed STARK proofs. Open-source indexers can then parse this on-chain data, verify the proofs, and maintain the state of the system off-chain. This metaprotocol approach offers several advantages:
+
+1. **Risk Mitigation**: It avoids introducing a complex, specific cryptographic primitive into the consensus-critical base layer, sidestepping the risks of implementation bugs or unforeseen economic incentives.
+2. **Market-Driven Adoption**: It allows the concept to be tested and validated in a real-world environment. We can gauge actual market demand and allow social consensus to form organically around a specific STARK implementation without a contentious soft fork.
+3. **Flexibility**: This model allows different proof systems to compete and evolve. If a superior technology emerges, the ecosystem can adapt without being locked into a single, enshrined protocol.
+
+If a metaprotocol for STARK verification gains significant traction and proves its utility and safety, the community would then have a much stronger, data-driven basis for considering its native integration into Bitcoin Script.
+
+For a deeper look into the possibilities of building on Bitcoin without script changes, you might find the vision outlined at `wtf.rich/w.pdf` insightful. It provides a good overview of what can be achieved with current protocol rules.
+
+-------------------------
+
