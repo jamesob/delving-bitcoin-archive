@@ -56,3 +56,38 @@ Let me know if any of you here are able to crack it
 
 -------------------------
 
+marathon-gary | 2025-10-17 16:56:09 UTC | #4
+
+> **mint-005** = *joint custody coordination* → ideal for institutions sharing funds.
+
+
+Your AI generated response misses nuance that the referenced miniscript could be done with oneself with distributed keys.
+
+-------------------------
+
+ilghan | 2025-10-17 18:40:47 UTC | #5
+
+I don’t think if you distribute the keys to yourself you can ever solve the problem of the loss of said keys , for the simple fact that one person who controls everything can very well lose everything .
+
+Breakthrough like this rarely happen , a trustless key recovery system is the missing piece for self-custody to become for everyone, given the major blocker is undoubtedly the fear of losing the keys.
+
+B-SSL marks the end between non-custodial and custodial because thanks to it everything will be non-custodial. The only task custodians will have is to hold the keys of the users while getting paid for it , except they can never ever steal the funds.
+
+It’s a gift of freedom for every user who would otherwise never self-custody because of the fear of losing the keys (like, 80% of the world population?!) and I’m so blessed to have conceived it after 1y of hard work .
+
+Ad maiora
+
+-------------------------
+
+scoresby | 2025-10-17 19:01:58 UTC | #6
+
+Could you describe a little more how the primary spending path works? 
+
+If a user wants to spend coins, they sign with key A and they need C to sign as well, correct? How are you implementing the CSV timelock on this spend path? 
+
+Let’s pretend that the user set this timelock to 1 day. The timelock will expire if their coins are in the wallet for more than one day, at which point, A and C can just sign with no delay. So what is the purpose this timelock serves? 
+
+I always imagined a vault was where a user sends coins to their wallet and can leave their coins in that wallet for an unspecified length of time and then enforce a delay when spending out of that wallet (usually by spending to an intermediate address), but I don’t think the construction you propose creates this effect, unless I’m misunderstanding something.
+
+-------------------------
+

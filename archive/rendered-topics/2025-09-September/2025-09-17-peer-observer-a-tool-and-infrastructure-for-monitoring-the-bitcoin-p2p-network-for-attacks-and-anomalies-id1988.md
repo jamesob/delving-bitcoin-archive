@@ -36,3 +36,11 @@ In other news, I've recently added a Knots node called `nico` to my infrastructu
 
 -------------------------
 
+0xB10C | 2025-10-17 16:22:08 UTC | #3
+
+I've set up a demo instance of peer-observer on [demo.peer.observer](https://demo.peer.observer) with two nodes `hal` and `len` and opened it up for full public access. Feel free to explore! Huge thanks to https://lclhost.org/ for sponsoring the servers!
+
+The NixOS infra definition can be found in [https://github.com/0xB10C/peer-observer-infra-demo](https://github.com/0xB10C/peer-observer-infra-demo) which uses https://github.com/0xB10C/peer-observer-infra-library under the hood.
+
+-------------------------
+
