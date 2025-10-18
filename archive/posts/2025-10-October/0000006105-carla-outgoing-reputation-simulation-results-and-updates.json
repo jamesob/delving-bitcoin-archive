@@ -15,7 +15,7 @@
   "incoming_link_count": 2,
   "reads": 10,
   "readers_count": 9,
-  "score": 12.0,
+  "score": 27.0,
   "yours": false,
   "topic_id": 2069,
   "topic_slug": "outgoing-reputation-simulation-results-and-updates",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "This post will report on simulation results for our updated reputation algorithm, based on the discussion in [this post](https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147). It assumes understanding of the scheme, so please see the [BOLT PR](https://github.com/lightning/bolts/pull/1280) for details.\n\n#### Simulation Results\n\nWe have re-run both the [resource](https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147#p-3212-resource-attacks-3) and [sink](https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147#p-3212-manipulation-sink-attack-9) attacks outlined in the original post [1], finding that:\n\n* Protection against resource attacks remains intact; the amount paid to build reputation to jam channels compensates the targeted node.\n* With outgoing reputation, attacking nodes running a sink attack are quickly cut off when they start to misbehave.\n* When a honeypot is created to passively build reputation with a target node, the amount it earns from new traffic is greater than the damage that can be done by abusing the \u201cfreely earned\u201d reputation.\n\n<details> <summary>Exact numbers for the attacks we ran are available here.</summary>\n\nThe table below shows for each attack the change in the targeted node\u2019s revenue (compared to its revenue in times of peace), and the cost to the attacker.\n\n|                                   Attack | Target Peacetime Revenue | Target Attacktime Revenue | Channel Opens for Attack |   Attacker Reputation Prepay | General Jammed Channels\\* |\n| ---------------------------------------: | -----------------------: | ------------------------: | -----------------------: | ---------------------------: | ------------------------: |\n|      Resource Attack / Slow Slot Jamming |                  835,448 |               247,946,078 |                        3 |                  247,269,056 |                         1 |\n| Resource Attack / Slow Liquidity Jamming |                  835,448 |             3,240,062,877 |                        3 |                3,240,385,855 |                         1 |\n|                              Sink Attack |            8,405,842,914 |            15,453,671,671 |                        6 | No prepay, passive forwarder |                        16 |\n\n\n*Our simulation has a helper to general jam channels. In reality, this would require opening in expectation 50 channels or finding 40 unique paths through the network per channel general jammed.\n\n</details>\n\nIt\u2019s worth pointing out that if an attacker builds reputation then [targets a chain of nodes](https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147/8#p-4312-path-length-attack-multiplier-1), only the last is compensated [2]. While compensation isn\u2019t distributed along the chain, there is a significant cost to an attacker to build reputation to attack multiple nodes.\n\n#### General Bucket Usage\n\nThe general bucket limitations introduced prevent trivial, costless attacks that would crowd out honest usage. Inspired by Bitcoin Core's addrman, we aim to impose restrictions on attackers without hindering honest payments.\n\nThe main concern is whether slot/liquidity allocation suffices for honest traffic lacking reputation. Previous data collected shows slot-count issues are unlikely (few HTLCs typically in flight). We validated liquidity resources by simulating on a mainnet graph snapshot, comparing payment success rates with/without mitigation for mean payment amount of $10 and $100 and found no significant change in payment failure rates.\n\n#### Next\n\nWe think that this mitigation has reached the stage where it is good enough\u2122\ufe0f. If you disagree, our simulator is [here](https://github.com/carlaKC/jam-ln) to try out some attacks!\n\nOur next step is to sanity check the following against real world data:\n\n* Are node peers able to gain reputation?\n* Will restrictions on general resources impact payment reliability?\n* What are sane defaults for resource bucket sizes?\n\n<details> <summary>Footnotes.</summary>\n\n[1] To adjust to the changes in our mitigation, reputation in attacks is not built in the outgoing direction. General resources are also less trivially filled, so we count the requirement to jam them towards the cost of the attack.\n\n[2] This is an unavoidable characteristic of local-only solutions, as they can\u2019t take a look at the bigger picture.\n\n</details>\n\n:heart: in collaboration with @ClaraShk and @elnosh",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "This post will report on simulation results for our updated reputation algorithm, based on the discussion in <a href=\"https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147\">this post</a>. It assumes understanding of the scheme, so please see the <a href=\"https://github.com/lightning/bolts/pull/1280\" rel=\"noopener nofollow ugc\">BOLT PR</a> for details. \n<a name=\"p-6105-simulation-results-1\" class=\"anchor\" href=\"#p-6105-simulation-results-1\"></a>Simulation Results\nWe have re-run both the <a href=\"https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147#p-3212-resource-attacks-3\">resource</a> and <a href=\"https://delvingbitcoin.org/t/hybrid-jamming-mitigation-results-and-updates/1147#p-3212-manipulation-sink-attack-9\">sink</a> attacks outlined in the original post [&hellip;",
   "truncated": true,
   "post_url": "/t/outgoing-reputation-simulation-results-and-updates/2069/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
