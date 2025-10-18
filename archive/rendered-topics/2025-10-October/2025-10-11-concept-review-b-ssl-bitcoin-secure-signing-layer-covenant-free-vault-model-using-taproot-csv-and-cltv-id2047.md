@@ -97,3 +97,23 @@ The purpose of signer C is to enforce time delay. While CSV starts to tick after
 
 -------------------------
 
+scoresby | 2025-10-18 16:28:06 UTC | #8
+
+Thank you for your reply. 
+
+> This environment will start counting time delay from the moment it receives spending transaction and will co-sign only when time delay has passed.
+
+So if a user sets their CSV timelock to 15 days, that timer begins as soon as they send coins into the wallet and at this point key C cannot sign transactions because of the CSV timelock. But if more than 15 days pass, the CSV timelock expires and key C *can* sign. However, it sounds like key C will still not sign because key C is controlled by the CS which only begins counting down its time delay when it sees a transaction spending funds *out* of the vault.
+
+If this is the case, why bother with the CSV timelock at all? I don’t believe I understand the purpose of the CSV timelock. Most users presumably would like to keep their coins in the vault for more than 15 days.
+
+-------------------------
+
+ilghan | 2025-10-18 18:20:02 UTC | #9
+
+I invite you to focus on the end goal which is how to avoid two custodians to collude and then to assess the system in its entirety, if you analyze it part by part by not looking at the bigger picture then it could be difficult to make sense of it.  If you want to join the Bitcoin Optech audio recap discussion by next Tue, maybe it could help  :
+
+[https://x.com/bitcoinoptech/status/1979146810200301740](https://x.com/bitcoinoptech/status/1979146810200301740)
+
+-------------------------
+
