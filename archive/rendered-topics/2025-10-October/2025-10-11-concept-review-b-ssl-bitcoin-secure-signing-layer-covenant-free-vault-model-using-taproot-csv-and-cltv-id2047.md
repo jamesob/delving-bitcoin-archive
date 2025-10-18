@@ -91,3 +91,9 @@ I always imagined a vault was where a user sends coins to their wallet and can l
 
 -------------------------
 
+ilghan | 2025-10-18 06:45:22 UTC | #7
+
+The purpose of signer C is to enforce time delay. While CSV starts to tick after transaction was received, the Convenience Service (which holds signer C) enforces time delay off-chain. Think of it as a secure environment that you can only interact for cosigning purposes. This environment will start counting time delay from the moment it receives spending transaction and will co-sign only when time delay has passed.
+
+-------------------------
+
