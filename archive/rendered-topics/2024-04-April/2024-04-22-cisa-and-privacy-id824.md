@@ -184,3 +184,11 @@ This affects not just privacy but existing coin selection algorithms.
 
 -------------------------
 
+1440000bytes | 2025-10-19 12:49:21 UTC | #8
+
+Didn't notice any significant increase in the coinjoin volume for joinmarket with 10x reduced fees (minrelaytxfee):
+
+![image (2)|681x466](upload://mJj6wyBScCH40VFv90CGBUMy9zO.png)
+
+-------------------------
+

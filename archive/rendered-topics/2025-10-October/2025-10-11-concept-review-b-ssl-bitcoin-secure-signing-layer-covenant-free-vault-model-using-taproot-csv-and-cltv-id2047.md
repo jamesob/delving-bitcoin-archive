@@ -109,11 +109,15 @@ If this is the case, why bother with the CSV timelock at all? I don’t believe 
 
 -------------------------
 
-ilghan | 2025-10-18 18:20:02 UTC | #9
+ilghan | 2025-10-19 11:11:38 UTC | #9
 
 I invite you to focus on the end goal which is how to avoid two custodians to collude and then to assess the system in its entirety, if you analyze it part by part by not looking at the bigger picture then it could be difficult to make sense of it.  If you want to join the Bitcoin Optech audio recap discussion by next Tue, maybe it could help  :
 
 [https://x.com/bitcoinoptech/status/1979146810200301740](https://x.com/bitcoinoptech/status/1979146810200301740)
+
+*Francesco Madonna* 
+
+*Founder,CEO @ [https://www.bitvault.sv/](https://www.bitvault.sv/)*
 
 -------------------------
 
