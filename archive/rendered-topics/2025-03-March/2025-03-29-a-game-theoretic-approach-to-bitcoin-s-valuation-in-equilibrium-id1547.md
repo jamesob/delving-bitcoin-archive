@@ -165,3 +165,29 @@ This is the paradox of hyperbitcoinization:  If Bitcoin becomes inevitable it be
 
 -------------------------
 
+jal | 2025-10-20 02:50:00 UTC | #10
+
+[quote="josh, post:1, topic:1547"]
+Game-theoretically, economic actors should converge on some finite-supply, inert, fungible, digital asset to serve as a unit of relative wealth, reflecting the totality of all other economic utility.
+
+[/quote]
+
+You just started ur sentence with the phrase “game-theoretically” and then asserted “should”.  That’s not game theory and thats not how logic and reason work.
+
+> This analysis provides a game-theoretic approach to bitcoin’s adoption as money and its appropriate final valuation. Bitcoin’s properties make it the leading candidate to serve as a generally agreed upon unit of relative wealth, reflecting the totality of all other economic utility.
+
+Ur just stating that the conclusion you started with is true.  Why is it “game-theoretic”?  Its the opposite of what Nash’s proposal (and Hayek’s) conclude based on John Nash’s game theory and economic philosophy on the subject. How did that happen?
+
+-------------------------
+
+jal | 2025-10-20 02:48:05 UTC | #11
+
+[quote="josh, post:3, topic:1547"]
+It is incorrect in my opinion to invoke Gresham’s law to explain bitcoin’s lack of usage as a currency. Gresham’s law is only relevant to *physical* currencies where people accept payment in two or more “coins” with the same *nominal* value.
+
+[/quote]
+
+Thats an assertion again. Ur just saying something is true.  The idea that people will spend fiat and hoard bitcoin is not only strongly intuitive but observable and widely held as a phenomenon that is Gresham’s observation called Gresham’s law.
+
+-------------------------
+

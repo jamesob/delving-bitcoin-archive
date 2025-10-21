@@ -69,3 +69,24 @@ And to reach better spam resistance, you can simply make your node more pruned, 
 
 -------------------------
 
+jal | 2025-10-20 03:19:18 UTC | #6
+
+Spam is OBVIOUSLY COMPLETELY subjective. And the first thing the complainer is going to say in their complaint is ‘We all agree on what spam is…” which is a PERFECT genetic fingerprint to Roger Vers sybil attack on the protocol.
+
+We DON’T agree which is why bitcoin, which is primarily a consensus mechanism, exists in the first place.
+
+And this OP does NOT belong in the economics section.
+
+-------------------------
+
+moonsettler | 2025-10-20 12:05:53 UTC | #7
+
+[quote="jal, post:6, topic:1692"]
+And this OP does NOT belong in the economics section.
+
+[/quote]
+
+If you don’t understand the economic problem outlined in OP, maybe you should sit this one out.
+
+-------------------------
+

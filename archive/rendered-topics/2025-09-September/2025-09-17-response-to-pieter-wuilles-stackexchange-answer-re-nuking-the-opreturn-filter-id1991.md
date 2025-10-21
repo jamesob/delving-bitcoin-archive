@@ -670,3 +670,327 @@ I am saying it is hypocritical to bring it up in this discussion, because it onl
 
 -------------------------
 
+jal | 2025-10-20 02:44:53 UTC | #15
+
+> Put more simply: bitcoin’s identity as money cannot be enforced at the consensus layer.
+
+Nothing can be enforced and bitcoin has no such identify.
+
+> Therefore, the only way to ensure that bitcoin stays money is if we enforce its usage as money at the social/mempool layer.
+
+That is an absurd and baseless statement and the “therefore” is non sequitur. 
+
+> The only reason bitcoin has stayed money…
+
+The definition of money is EXTREMELY ambiguous and historically ephemeral. And “the only reason” wtf are you talking about? 
+
+It would be generous to call you super disingenuous. You OBVIOUSLY have hidden motives and you don’t understand money or the role of bitcoin’s consensus layer thats clear. 
+
+I don’t know why you get the time of day from these people.
+
+-------------------------
+
+cguida | 2025-10-20 19:00:34 UTC | #16
+
+Hi Pieter - thanks for the thorough response, I really appreciate it.
+
+>Yes, I agree demand for **cheap** highly-replicated perpetual storage is unbounded. As in, as the price per byte goes to zero, the demand goes to infinity (I can’t speak for 2015 Greg, but I believe that’s what he was trying to say here). If it costs nothing, why wouldn’t people just put their backups there? This is the reason for having block weight limits: so that unbounded demand can’t impose unbounded costs on node runners.
+
+You are probably correct that this is what Greg was specifically referring to, but I think the statement is still applicable now, because [the cost per month goes to zero as the time the data is hosted goes to infinity](https://groups.google.com/g/bitcoindev/c/G10fR8-mnIA/m/A3_O_YTlAAAJ):
+
+>Data spam pays an upfront fee, then enjoys bulletproof integrity and availability guarantees for the rest of eternity. A finite quantity (the upfront fee) divided by an infinite quantity (the amount of time the data is hosted) is zero. This is why payment txs can never fairly compete with data txs.
+
+Data storage may not be as cheap as it was in 2015, but it’s actually pretty close now, since on-chain traffic is low and we just lowered the default minrelaytxfee.
+
+>But that’s not what we’re talking about here. As a Bitcoin network user trying to get a transaction confirmed, you’re not competing with all hypothetical demand for block space, only with demand that is willing to pay a higher fee per weight than yourself- and at any given feerate value, that demand is finite.
+
+Again, even with a very high upfront fee, the utility to the user of (for example) 1kB of block space is much greater than the utility of the same amount of block space to someone trying to open a Lightning channel; say, for example, a merchant trying to set up Lightning payments to accept bitcoin in a shop. As many have often explained, notably [Andreas Antonopoulos](https://x.com/cguida6/status/1977015055331078538), it's very important to bitcoin's success that bitcoin be conducive to direct p2p commerce, otherwise it will be impossible for the bitcoin standard to replace the fiat standard.
+
+Shitcoin metaprotocol marketers explicitly use the fact that bitcoin has credibly censorship-resistant, perpetual data storage to trick their victims into thinking these fungible token schemes have value, which causes them to throw much more money away on fees than a rational actor otherwise would.
+
+It's a bit odd to me that core devs' response to this situation is "just use bitcoin more", when it's largely because of bitcoin core being difficult to use for non-technical merchants that bitcoiners tend to avoid spending their bitcoin.
+
+(For details on merchants' struggles, see this [email I sent to the bitcoindev ML](https://x.com/cguida6/status/1976003362723336410), which was inexplicably censored by the ML mods.)
+
+But there is also a general cultural reluctance to spend bitcoin directly, which I agree is harmful.
+
+> I don’t know if this is what you believe, but if it is the case that demand for the data-storage use case will always be **willing to pay a higher price per byte** than the payment use case, then I believe Bitcoin simply never had a chance, and a very fundamentally different design is needed.
+
+Yes, I really do believe this, and no, I don't think bitcoin needs to be redesigned.
+
+It is not possible to define bitcoin as money in the consensus rules; this is merely a [very strong] social contract, only enforceable at the social/cultural/policy layer. This means that no matter what changes we make to the consensus rules, there will always be [little hacks and workarounds](https://blog.bitmex.com/the-unstoppable-jpg-in-private-keys/) to store data in the blockchain.
+
+However, as long as bitcoin's social layer is committed to always making bitcoin better money, and we demonstrate that we are committed to going tit-for-tat with the spammers whenever they discover workarounds, they will eventually [give up and flee to other chains](https://x.com/cguida6/status/1970171927831683095), which have much more spam-friendly social layers.
+
+Yes, policy is leaky, but together with consensus changes and the political will to use both, we have more than enough firepower to repel the spammers indefinitely.
+
+As I and others have stated repeatedly, it's not necessary to prevent *all* spam; it's only necessary to target specific use cases that are objectively known to cause harm, such as shitcoin metaprotocols like brc20 and runes.
+
+> However, I don’t think this is the case: there is no rational reason why someone would want their data replicated *precisely* to all Bitcoin nodes and nothing else if it’s not data relevant for bitcoin, if it comes at the cost of competing with those who do actually need that - bitcoin payment data.
+
+This just strikes me as magical thinking. It's like saying "people will only use the park for good things because people who use the park for bad things have to compete with the people who use it for good things".
+
+No. The people who use the park for bad things mess it up for everyone (including themselves!), and the same is true of bitcoin.
+
+>As for imposing additional costs - I do think that’s possible in theory, through consensus rule changes, but only up to a small constant factor, as any data publishing can be encoded in ways that are indistinguishable from normal payment data.
+
+Again, the easily detectable spam (shitcoin metaprotocols, unencrypted contiguous CSAM, etc) is the most harmful kind of spam. We can eliminate 90% of the harm by targeting only 10% of use cases. (For the record, a consensus rule change is probably best to counter contiguous CSAM).
+
+Imposing costs on spammers via policy is not only possible; it's been [wildly successful historically](https://x.com/OrangeSurfBTC/status/1963339476257718764).
+
+> Assuming you’re talking about policy, I do not believe that it’s possible for policy to impose extra *cost*. It can add a burden to deployment, but not in operating cost.
+
+I think it self-evidently increases costs, especially on the most harmful kinds of spam. Otherwise, why would we see a 3-4-order-of-magnitude decrease in large opreturns because of the filter as the data linked above show?
+
+The "cost" is not necessarily direct; most of the cost for shitcoin metaprotocols comes in the form of risk. If noderunners are talking about filtering (or already filtering) a transaction format you're thinking of using for your shitcoin metaprotocol, you're probably not going to raise as much money from shitcoin VCs as if you design your protocol on top of a standard format.
+
+The biggest risk, of course, is that you raise a ton of money thinking you're in the clear and then noderunners *suddenly* start filtering your protocol, at which point everyone loses their investment (or your team has to scramble to redesign the protocol to use a different format, which will probably just get filtered too.. and *then* you lose your investment).
+
+>There is no reason why, given enough demand, direct submission to miners ought to be any more expensive than having the node network relay it for you
+
+For high-volume spam, any tx format that is not accepted by 100% of hashpower has a higher average cost/vB than standard txs (due to a lower supply of available block space), and any tx format that is accepted by a *majority* of hashpower can be considered effectively standard (if it's not harmful), or we need to fork in order to disable said transaction format (if it *is* harmful).
+
+So nonstandard txs will always have a higher *average* cost than standard ones (meaning standardness rules work), and if the cost delta is not sufficient, *then* we can tighten consensus rules. Presumably miners will understand that the standardness rule is a boundary they should not cross if they want bitcoiners to consider them honest rather than hostile.
+
+Also, in practice, we've seen that, even with direct submission, the opreturn filter still reduces the frequency of large opreturns by at least 3 orders of magnitude, so it must be doing something to drastically increase costs, or reduce benefits (otherwise we would not see a reduction at all). I think it is fairly clear what the increased costs are: not wanting to harm bitcoin, not having the knowledge or motivation to seek out alternative submission methods, not wanting to wait several blocks before the mining pool you chose to hit a block, etc.
+
+But again, I think the most obvious costs are on shitcoin metaprotocol *creators*, and not on the *users* of said metaprotocols. There are strong disincentives to creating shitcoin metaprotocols on top of a nonstandard tx format, and I think this is the primary reason large opreturn usage has stayed low for over a decade. (Of course, removing the opreturn filter eliminates these disincentives.)
+
+>The best we can hope for is make it so the advantages of direct relay are sufficiently negligible to not warrant the cost of deploying them at scale (they exist already of course, but only provide a tiny amount of mining income right now).
+
+I don't think that's necessarily true. We could boycott miners who abuse direct submission APIs to solicit harmful transactions (perhaps using something like [memcooler](https://github.com/gudnuf/memcooler), perhaps with a web of trust to disincentivize cheaters). I imagine miners such as Mara and F2Pool would think twice about confirming large quantities of objectively harmful tx formats like brc20 if they knew it would drive fees from normal payment txs to their competitors.
+
+>Of course, deterrents can work. I think it’s pretty clear that historically, policy-based discouragement of large OP_RETURNs has worked.
+
+Fantastic! You are one of the few core devs I've talked to who is intellectually honest enough to admit that filters can work under some circumstances. I think it's been harmful to the discourse that almost all core supporters say "filters don't work", when the historical data trivially refute this claim.
+
+Here is a [chart of opreturn data from September](https://x.com/OrangeSurfBTC/status/1977582697506897961) (capped at 100, so data for large opreturns is visible):
+
+![photo_2025-10-15_14-08-06|690x388](upload://7UOO8uuZJxABlmmVxjRDZlBE6Il.jpeg)
+
+"Filters work in some circumstances and not in others" should be an obvious point of agreement between the two "sides" in this debate. The fact that very few core supporters can admit this is contributing to the perception that the core side is being dishonest. So again, I appreciate the honesty, and I think the more interesting part of the conversation, which is *when* filters work and *how* we can make that happen, can now take place.
+
+>But as stated, deterrents like this are just adding a burden to development, not a long-term cost increase
+
+But again, we are seeing (at least) a 3-order-of-magnitude reduction of large opreturns, *because of the opreturn filter*. So even though the filter does not block *all* large opreturns, it functions well for its intended purpose, which is to *severely rate limit* spam.
+
+> I think of it as similar to the [smart cow problem](https://en.wikipedia.org/wiki/Smart_cow_problem), where the fence stops being effective as soon as a single person does the work of figuring out how to bypass it
+
+An excellent analogy! I agree that filters are somewhat like a gate with a latch that can be opened by a "smart cow". The question then becomes: how can we close the gate and make it harder to open again next time? The farmer does not just sit there and watch while a giant herd of cows invades his land.
+
+> And I think it’s clear this has happened; just look at the [flood of sub-1-sat/vb transactions](https://mainnet.observer/charts/fees-sub-1-sat-vbyte-transactions/) that are making it into blocks, long before *any* client (even LibreRelay!) relayed these by default.
+
+I think it's clear that this happened *for subsat txs*, not for filters *in general*. I suspect that the "subsat summer" was a coordinated effort to create a data point specifically for this conversation. I think someone looked at all the filters and thought to themselves "which of these would be the easiest and cheapest to subvert?". Filling a block with 0.1sat/vB txs costs 100,000 sats, which is about US$112 currently (assuming my math is correct). Together with the same Libre Relay subnet activists that brought you standard mempoolfullrbf, this was clearly the easiest way to "prove" that "filters don't work". (These activists are obviously well aware of how to change their relay policy manually.)
+
+But obviously the opreturn filter is a different beast from the 0.1-1sat/vB filter. The benefits of large opreturns are much less certain than the benefits of cheap txs, while the costs are much larger. Also, large opreturns are just much more expensive fee-wise, so generating a large volume of them in order to incentivize miners to drop the filter is much more costly (especially because it is more likely to fail).
+
+Why not let the Libre Relay subnet attempt to subvert the opreturn filter, same as before? Why do their job for them by *pre-emptively* removing the filter in core's defaults? It makes no sense.
+
+>I don’t think there is a reason to expect demand for very large data-storage OP_RETURNs, as using witness data is cheaper and equally useful for this purpose.
+
+I don't know why anyone who is aware of the brc20 attack during 2023-4 would possibly think this. It is clear that if we give shitcoin spammers a novel way to embed their data, they will abuse it to the maximum extent possible.
+
+>I do expect demand for medium sized ones (above 80 bytes), for publication purposes. This is a distinct use case, and likely much more monetary in nature. For example, Lightning HTLCs require the publishing of a preimage on chain without which a transaction cannot go through. The goal here isn’t replicated data storage, it’s guaranteeing that the other side learns the preimage atomically, together with the funds being taken. Lightning puts this inside a script, but alternative systems may want to put it elsewhere. And inscription-style witness data is undesirable here, as it needs a second transaction, losing the atomicity, or adding significant complication.
+
+Yes, @AdamISZ brought up HTLCs and I responded above. I agree that such use can be legitimate; however, I think that Citrea should have either made their data fit into 80 bytes, which is a long-established norm for datacarrying transactions, or they should have asked consent from the bitcoin network to violate this norm. Just charging ahead using a tx format everyone is well aware is abusive is the act of a hostile entity, and appeasing such behavior will only encourage more of the same.
+
+Obviously if PR#32406 had raised the limit to 145 or so, that would have been much less controversial than simply removing the filter entirely.
+
+>This all ignores the fact that the reasons for discouragement have changed. I believe that historically, in the fledgling Bitcoin economy, before blocks were consistently full, there was much more potential harm to the ecosystem from data storage, as it risked accelerating bandwidth usage, chain growth (it predated pruning), and block propagation (it predated compact blocks).
+
+This is a good point; it is certainly true that spam is less harmful now than it was a decade ago. But as I said above, no matter how much we improve bitcoin's tech, the threat from [network-level DoS from shitcoin spam](https://x.com/AnitaPosch/status/1732722398359638414) will always exist, and the most efficient way to fight such rapidly-evolving threats is in policy (and *then* consensus, if policy is insufficient). It makes little sense to artificially suppress filtering, because then we can't even collect data as to which miners and what percentage of hashpower would flout the filters and are thus openly hostile.
+
+> With regular organically-full blocks and software developments, there just isn’t as much impact on node operators, with or without data-storage transactions (and especially `OP_RETURN`-style data storage has about *the lowest* resource impact on nodes).
+
+Well no, the thing that has caused the biggest impact to node operators is the [more than doubling of the utxoset by the brc20 attack](https://statoshi.info/d/000000009/unspent-transaction-output-set?orgId=1&refresh=10m&viewPanel=8&from=1588309200000&to=now). This attack occurred despite the arb data for brc20 being stored in the witness, which does not go in the utxoset. So "large opreturns cannot cause utxoset bloat" is not a valid claim. Degens can keep designing inefficient, harmful protocols much longer than we can stay solvent, unless we discourage them somehow.
+
+>To be clear, even then, there was the possibility for out-of-band relay to emerge if there had been sufficient demand. That didn’t happen back then, but is clearly happening now.
+
+Okay, but the simple fact that it's *possible* to submit txs out of band to miners does not mean that filtering is always bad and that we have no choice but to allow whatever spam pays a high enough fee. That is an incredibly dubious jump in reasoning. The reasonable reaction is not "well, slipstream exists, so I guess the spammers win." The reasonable reaction is:
+
+- Okay, they are going around the filters. What can be done about this, if indeed anything needs to be done?
+- At first glance, the fact that direct APIs exists does not seem to be weakening the opreturn filter much. It is still extremely effective (it has achieved more than a 3 order-of-magnitude reduction in large opreturns), so maybe the tradeoff is worth it.
+- Can we provide social pressure on hostile mining pools to get them to reconsider their abusive behavior? (This has worked many times in the past).
+- Can we provide financial pressure by boycotting them? (See memcooler for a way to accomplish this).
+
+...etc. We should not just throw up our hands and say "okay, hostile mining pools, you win"
+. That is clearly a terrible precedent.
+
+>I don’t believe that wildly speculative behavior like that will go away entirely no. It almost seems human nature that causes appetite for it.
+
+Yes, and the fiat money printer encourages a lot more of it than would be normal.
+
+>My belief is that, over time - and it may be a long time - if Bitcoin is successful, on-chain fee pressure *on Bitcoin* will price out all or most inappropriate uses of the technology, causing them to move elsewhere.
+
+What evidence do you have for this belief? How do we expect people to increasingly adopt trustless utxo-sharing schemes like Lightning and Ark (I assume this is what you mean by "on-chain fee pressure [from payments] will price out [data spam]") if there are huge spam attacks that prevent merchants from opening and closing Lightning channels for months at a time?
+
+This belief seems to be based purely on faith. We have to make it happen, or it won't happen.
+
+>I consider the desire to use the Bitcoin blockchain for these purposes to be dumb and irrational, but of course the market can stay irrational for a long time.
+
+As explained above, the value proposition of storing data on-chain is obvious. It is *especially* effective for shitcoin metaprotocols, which rely on bitcoin's bulletproof persistence/censorship resistance guarantees to trick users into thinking the tokens built on such schemes have value, and this will never stop being the case unless we do something to make the guarantees less bulletproof for this type of abuse.
+
+>To be clear, I don’t consider the presence of these changing temporary irrational demand hype cycles to be a threat to Bitcoin anymore, even if they never really go away.
+
+Right, I guess this is where we disagree. It seems obvious to me that if we stop being hostile to spam, we are inviting the entire shitcoin industry to set up shop on bitcoin, and then there will be no important differentiators between bitcoin and the rest of crypto. Our hostility to the spam is the deterrent. Once the deterrent is gone, the demand for spammy metaprotocols will go to infinity, as demand for harmful use cases is only held in check by our hostility toward it.
+
+>I believe Bitcoin’s identity as money is a result of it being technology that is primarily useful for that
+
+It's primarily useful for money because [*bitcoiners are hostile to non-monetary use cases*](https://blog.bitmex.com/dapps-or-only-bitcoin-transactions-the-2014-debate/). If we stop being hostile to non-monetary use cases, it will no longer be the case that data storage has lower demand than payments. See literally any altcoin for examples of what happens to a coin that otherwise looks like bitcoin technically but does not have a monetary maximalist culture.
+
+I have provided evidence that refutes your claim. What evidence do you have that supports it?
+
+>If somehow demand for competing use cases is inherently stronger, then no mempool/relay design is going to stop that: the demand will result in the development of an alternative relay mechanism, centralized or not, that bypasses those node runners entirely.
+
+Again, we only need to do what worked in 2014, which was to *convince the spammers that we intend to escalate until they go away*. It seems silly not to at least try something that was demonstrably very effective every other time it was tried. If for some reason it doesn't work this time, we can simply escalate by changing the consensus rules.
+
+If demand for block space for data is inherently higher than demand for block space for payments (I don't see any evidence that it's not), and we do nothing to correct this bias, then bitcoin dies. If your belief is "well then bitcoin isn't interesting/was never going to work anyway", then I think you are being too utopian.
+
+Bitcoin as a decentralized money with a decentralized maximalist culture that defends its moneyness can potentially improve the incentive structure of the world to such a degree that we could ignite a new Renaissance. I don't think there are any methods of human organization that just "run themselves", indefinitely, with no regard to the honesty of the participants. Anyway bitcoin itself, whose consensus mechanism relies on 51% honest hashpower, is certainly *not* such a system. Let's not let perfect be the enemy of good.
+
+>Moreover, if Bitcoin’s survival relies on node runners on a regular basis coming to agreement on what transactions are acceptable, based on the transactions’ intent, then it just seems entirely uninteresting technology to me.
+
+1) No one is suggesting that nodes "come to agreement on a regular basis on which transactions are acceptable based on the transactions' intent". I'm just suggesting that we keep doing what we are doing with large opreturns, which causes the aforementioned 3-order-of-magnitude drop. (Again, no censorship, just ratelimiting. As it has been for over a decade.)
+2) There are transactions that are *objectively harmful*, based on their format, not their intent. brc20 is one such format. We don't need a committee to decide not to relay these. We just need noderunners to decide for themselves which transactions not to relay, and the ones that are the most harmful will have the least nodes relaying them, and will thus be the most difficult to get confirmed. As it should be.
+
+>I don’t think that changes much: it remains the case that your hope is that node runners have a power to decide which transactions are good, and which are bad, and take action that incentivizes or disincentivizes creators of such transactions.
+
+There is nothing we can do to take this power away from nodes, so trying to make it so that noderunners cannot refuse to relay certain tx formats is "fighting the market" just as much as filtering itself. So your desire to limit the types of filters noderunners can run is just as ill-advised as filtering itself, by your own standards.
+
+>This isn’t to say that data-storage is an intended, and much less desirable, goal of the design. Bitcoin is clearly designed for supporting the bitcoin currency. But it also has programmability, and flexibility for building systems on top whose design wasn’t originally known. Data storage is a byproduct of that flexibility.
+
+Sure, but to the extent possible, we should make sure that such flexibility does not undermine important properties of the system. For example, I doubt that you yourself would advocate for getting rid of the dust filter, or limits on transaction sizes, etc.
+
+>Do you mean including consensus rule changes? Because apart from that, this is the equivalent of writing an angry letter. Nobody has to care.
+
+Yes of course! But it's very irrational to suggest that we should just fork, without trying filtering first. Again, filtering has worked literally every time we've tried it (for tx formats that are objectively harmful). It makes no sense to escalate directly from "all spam is fine" to "FORK!" This is like doing nothing and pretending not to notice as someone repeatedly does something that bothers you, then suddenly punching them in the face with no warning. This is the strategy of a bad actor. A good actor says "hey, please stop that", then escalates proportionally until the request is complied with.
+
+If we default to filtering a certain tx format and miners *still* can't take a hint, *then* it makes sense to fork. But the fork is always there as a threat, which is a significant reason why filtering alone can work: because miners know there are harsher fallback methods.
+
+>No, miners care about (1) creating valid blocks (incl. the subsidy that gains them)
+
+Yes, but miners also have influence over which blocks are valid. My point is that merchant nodes have *more* influence over this, and the block size war proves this. When the rest of the ecosystem says "hey miners, you're making bitcoin worth less", miners are forced to listen, even if they normally ignore long-term concerns in favor of short-term profits.
+
+In the case of spam, we can achieve this by filtering (and implicitly threatening a fork), or by forking. Ultimately the miners are forced to listen to the capital/merchant nodes, because they want to end up on the "correct" chain. This is very much an "economic incentive".
+
+>It doesn’t matter what fees a miner might have hoped to have gotten from larger blocks, if their blocks would be considered invalid by the ecosystem. This is also why I say that in the presence of transactions the ecosystem actually considers damaging, consensus rule changes are really the only power node runners have.
+
+This is like saying that words have no power but punching has power. The words have power *because* the punching has power, and thus we can usually settle our differences using only words. The same is true of filtering.
+
+>But node runners’ impact on (2) is very limited, because wallets and miners are not required to use the node runner network to relay transactions.
+
+There are plenty of ways to disincentivize miners from mining objectively harmful tx formats. I have already suggested several. Filtering by default in bitcoin core (which carries the threat of a fork in the event the filters are ignored) is the most efficient way. Boycotting hostile miners would also be straightforward to implement.
+
+>Miners might as well have been in total agreement that a bitcoin with larger blocks would be more valuable for everyone, they still had no choice but adopting the rules that the ecosystem demanded of them
+
+Exactly; it doesn't matter what miners want; it matters what the market determines is the best version of bitcoin. It's obvious to me that a spam-resistant bitcoin is much more valuable in the free market than a bitcoin filled with spam (just see any altcoin for proof).
+
+>Miners are “contractors” to the network. The network sets the rules of what blocks they’ll accept, and miners order transactions into those blocks, and in return, the network pays them (through subsidy, and the ability to charge fees) for that service. If the network decides to change the rules of the game, miners have to follow or they will stop being paid.
+
+Exactly; we just need to make our wishes known to the miners; it's obvious which fork would win in a fork war between a spam-filled fork vs a spam-resistant one, so miners may as well just stop mining spam now. This is the "economic incentive" I was referring to.
+
+>I don’t need to assume: I can already see that a large amount of transactions make it into the chain despite not being relayed by the most common node implementations.
+
+1) Yes, because core has suddenly decided to submit to the mining industry rather than trying to advise it, so miners have started seeing themselves as the arbiters of which tx formats are harmful, rather than core.
+2) Again, for the thousandth time, the goal of spam filtration is not to prevent *every single* spam tx. The goal is to drastically rate-limit spam, which the opreturn filter demonstrably does.
+
+>It’s baffling to me that you keep asserting relay-based discouragement works and will continue to work, despite blatant evidence that at least in some cases, it is trivially bypassed.
+
+I really wish you would show me what evidence you're looking at. Again, the evidence I'm looking at says that filters reduce spam by at least 3 orders of magnitude. And again, the fact that a few spam txs slip through here and there is completely normal and fine. You wouldn't eliminate your spam filter just because a few spam emails slip into your inbox. This line of reasoning is quite absurd, yet I keep hearing it from the core side.
+
+>How do you explain that this appears to be the case for OP_RETURNs, and does not appear to be the case for sub-1sat/vb transactions?
+
+1) ">1-sat/vB transactions" are still much more popular than subsat txs. So the filter is still working. Not as well as the opreturn filter is, but
+2) cheap txs are not inherently harmful. minrelaytxfee was probably due for a reduction anyway
+3) the 0.1-sat/vB-1-sat/vB filter is the cheapest filter to intentionally use as a demonstration that "filters don't work", and I suspect this "subsat summer" thing was done intentionally to act as a rhetorical device in this conversation. It is really nothing more than that, though. The situation with the opreturn filter is very different, which is why the same attack would not have worked if attempted against that filter, and the filter instead needed to be *pre-emptively removed* in the core repo.
+
+>I think a more likely explanation is that either (1) those with demand for larger OP_RETURNs haven’t yet developed the infrastructure to bypass common node implementations yet
+
+Opreturns are just a lot more expensive; that's sufficient to explain the difference. Though, notably, now that core has eliminated filter for txs 0.1-1sat/vB, attacking the opreturn filter will be much cheaper.
+
+The other notable difference, of course, is that there would be backlash against miners for confirming high-volume (or illegal-content) opreturn spam, whereas cheap txs are not inherently harmful (though there would be a backlash against abuse of subsat txs as well).
+
+>or (2) there just isn’t that much demand for them because there are cheaper ways to do data storage
+
+There isn't much demand for large opreturns because *there is a very popular filter that filters them*, so *any shitcoin metaprotocol designer would have to be insane to use large opreturns as the tx format*. As soon as this filter is eliminated, demand will inevitably skyrocket.
+
+>To be clear, I don’t think it really matters to what extent that is the case or why, as I don’t think today large OP_RETURNs, or other data storage demand is in itself harmful to nodes or Bitcoin at large.
+
+Are you not concerned that IBD was made measurably more expensive during the 2023-4 spam attacks, and that utxoset growth was only 3.5GB/year during that attack, while the limit is ~52GB/year? It seems to me that all that is necessary for bitcoin nodes to continue to become more and more expensive to run is for more and more spam attacks like brc20, which seems to be exactly what removing the opreturn filter will do.
+
+And even if we fix utxoset scaling (libbitcoin is promising here), there will always be the threat of high-fee data spam drowning out payments. It's very concerning to me that core devs do not seem to acknowledge the danger of either of these obvious attack vectors.
+
+>I think for data-storage use cases this is misguided, dumb, silly, and/or irrational, but me holding that opinion isn’t going to change anyone’s mind.
+
+I don't think it's irrational, especially while the world is on a fiat standard; again see above for my rationale.
+
+>The market, over time, may.
+
+I think this is purely wishful thinking.
+
+>Fair enough; this needs more nuance. Direct submission to miners works for **transactions that both sides consent to** (transaction creators and miners). The P2P node network can assist or not, but there is little it can do to intervene - all it needs is for the transaction data to make it to the right place, with or without their help.
+
+Sure, but as stated above, we have mechanisms for exerting pressure on hostile miners who repeatedly confirm transactions the rest of the network considers objectively harmful. You seem to be ignoring the concept of negative externalities here, or denying that they exist on bitcoin, which they very much do.
+
+And there's no incentive for me to relay garbage through my node, so even if others don't run the same filters as me, I still don't think there's a convincing argument that I must relay garbage (or run blocksonly, which I'm confused as to why core devs keep recommending, since it surely has the same effects as filtering, but to an even greater degree).
+
+> But what makes it so that miners will generally accept all transactions that pay a competitive fee - the property we actually want for censorship resistance? It’s not too hard to imagine a world where there are just a few large mining pools, which are heavily regulated, and thus not beyond influence from those who might actually want to block or stifle certain transactions. The answer is that anyone can join the set of miners without asking for permission. **This is the entire reason why proof-of-work exists.**
+
+Yes of course, we agree. This is the entire reason spam filters cannot be used for censorship.
+
+>If we would be okay with an immutable set of miners, we could give them some signing keys each, say that every block needs to be signed by a majority, and get rid of the wastefulness of proof of work. We don’t do that because the ability for anyone to enter the mining market, for economic reasons, or more importantly because they don’t like what existing miners are doing, is what fundamentally provides censorship resistance. Miners don’t censor fee-paying transactions, because if they did, someone else could pop up to mine those transactions anyway. Sure, they need hardware, and electricity, and network connectivity, but beyond that, they don’t need to ask, or even tell anyone. They could do so anonymously, from anywhere in the world. The fact that today’s miners choose to largely identity themselves seems weird to me, but apparently the publicity is worth it to them. In any case, they’re not required to keep doing that.
+
+Yep, again, no disagreement from me here.
+
+>However, for this to work, it must also be possible for miners to get competitive access to fee-paying transactions anonymously.
+
+Yep, memcooler can do this, by sending the tx only to the owner of a particular bitcoin address, or many miners who own many bitcoin addresses.
+
+>If direct-to-miners payment rails to miners develop and get used to the point that they form a substantial portion of mining income, this stops being the case, because nobody will bother submitting to a small-scale newcomer miner with a tiny percentage of the hashrate
+
+Again, unless you can submit txs to lots of miners at once. It would be possible to use a web-of-trust both to punish miners that cheat, and to be reasonably confident new miners won't cheat.
+
+There are solutions to all of these things if we just think outside of the box. Even just discussing these ideas could be sufficient to convince miners to knock it off, and prevent their needing to be implemented. But this attitude of "well there's nothing we can do" will certainly do nothing to dissuade miners from misbehaving.
+
+>Companies might pop up that manage pools of unconfirmed transactions and turn them into block templates for miners. An anonymous miner may well need to do without access to these, and their fee income might be restricted to just the ideological transactions others refuse (or are coerced not to) mine - needing to mine at a loss otherwise.
+
+>**This is what I see as the largest threat to Bitcoin in the short to medium term:** the marketplace for block space moving out of the public P2P network, and into centralized channels where they are ripe for censorship. This isn’t exactly a [theoretical concern](https://arxiv.org/abs/2509.16052v1).
+
+Okay, thanks for the link, I will try to read it soon. Thank you for finally stating a rationale for [PR 32406](https://github.com/bitcoin/bitcoin/pull/32406) that sounds plausible; no other core dev I've spoken to has raised concern for any "disease" that justifies this "cure". "Bitcoin could turn into something like Ethereum" is precisely my concern here, so we definitely agree that this is a valid concern that should be avoided at all costs.
+
+Are you stating for the record that avoiding the centralization we see on Ethereum is your primary justification for supporting the removal of the opreturn limit?
+
+If so, why do you expect Citrea's 144-byte-arb-data transactions to cause this centralization of template construction (they are never expected to occur)? (If not, then we're back to square one.)
+
+And why not advocate raising the limit to 160 instead of 100,000? You have already stated that you don't think there's any demand for large opreturns, so why remove the filter entirely and create demand that otherwise would not exist?
+
+>You’re saying node runners will get together on a regular basis, and come to an agreement as to what types of transactions are going to get the seal of approval for P2P relay?
+
+I'm not saying that, no. I'm just advocating what we already do, which is recommend that noderunners and miners run certain defaults, which has worked splendidly for all filters except for a couple of overly restrictive examples (fullrbf and subsat).
+
+>And you think this will get the 90%+ agreement and adoption rate needed for transaction relay to become unreliable?
+
+Yes? This is already what's happening *right now* with the opreturn filter, as stated repeatedly.
+
+>And that those who disagree won’t run their own nodes with different policies, or just develop alternative systems that bypass the P2P network? This seems ludicrous to me, and also doesn’t result in what I’d find interesting.
+
+No, I never said that. If ~10-20% of the network is relaying a tx format, that tx format will be reliably mined. But if 20% agree to relay a particular format, said format is probably not that harmful.
+
+Alternative submission methods can all be countered. Libre Relay can be countered by large numbers of [Garbageman](https://groups.google.com/g/bitcoindev/c/bmV1QwYEN4k/m/k203AfdWAwAJ) nodes, and hostile miners with direct submission APIs can be countered by boycotting these miners.
+
+All of this will only work for the *most objectively harmful* tx formats, like brc20. I don't see any reason to expect miners to continue accepting brc20s once the entire network is filtering them, and demonstrating a willingness to continue escalating until they knock it off.
+
+>Larger miners benefit from having their blocks being slow to propagate, smaller miners suffer. This is easy to confirm with simulations. It is also intuitive I think: larger miners have a larger probability of finding two blocks in a row, and don’t suffer a propagation delay between them.
+
+I don't find this claim at all intuitive, but I am open to looking at data or hearing rationales that convince me otherwise. To me it seems like large miners always have some nonzero incentive to selfish-mine, but I'm not immediately seeing how slow block propagation from filtering makes this incentive significantly larger, especially because such an attack can backfire, whether accidental or intentional.
+
+But if it's true that propagation delays are always centralizing, and that the opreturn filter is causing this centralizing force to be significantly worse than otherwise, then of course I'm open to revising my position. But I'm just not seeing it, especially since you yourself claim that large opreturns have no demand.
+
+>>Also, blockreconstructionextratxn helps here.
+
+>Only to nodes which have peers whose relay policy matches that of miners. It seems highly hypocritical to me to not want to relay certain transactions yourself, but still rely on having peers that do relay those transactions to you so your reconstruction speed is fast. Put otherwise, the extra pool only helps with policy divergence in situations which more or less correspond to the filtered transactions propagating well anyway.
+
+Yes, but if I don't have *any* peers that propagate a particular transaction, then isn't the probability of that tx being mined much lower anyway?
+
+-------------------------
+

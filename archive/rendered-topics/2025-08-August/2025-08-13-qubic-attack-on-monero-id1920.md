@@ -12,3 +12,11 @@ Selfish mining was part of the Monero attack, but it isn't a threat to Bitcoin a
 
 -------------------------
 
+jungly | 2025-10-21 07:17:29 UTC | #2
+
+Isn’t it the case that there is a balance in all such arguments?
+
+Can one spin a counter argument saying that if we depend on ASIC chips, we are exposed to a vulnerability that some states collude to take over the ASIC production facilities, and that once the states have done so, we will struggle to unseat the state-miners?
+
+-------------------------
+
