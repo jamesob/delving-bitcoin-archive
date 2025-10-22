@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
+  "reads": 11,
+  "readers_count": 10,
   "score": 2.0,
   "yours": false,
   "topic_id": 1920,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Isn\u2019t it the case that there is a balance in all such arguments?\n\nCan one spin a counter argument saying that if we depend on ASIC chips, we are exposed to a vulnerability that some states collude to take over the ASIC production facilities, and that once the states have done so, we will struggle to unseat the state-miners?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Isn\u2019t it the case that there is a balance in all such arguments? \nCan one spin a counter argument saying that if we depend on ASIC chips, we are exposed to a vulnerability that some states collude to take over the ASIC production facilities, and that once the states have done so, we will struggle to&hellip;",
   "truncated": true,
   "post_url": "/t/qubic-attack-on-monero/1920/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
