@@ -7,7 +7,7 @@
   "cooked": "<p>People seem to be fighting for the idea that every single person in the world runs a node.  I don\u2019t think many people will or will want to.</p>\n<p>A lot of people on the internet seem to be arguing about node policy.  I have never had a single one answer my question:  Why should you be running a node?</p>\n<p>I think any answers don\u2019t really have any merit or bearing on one\u2019s own security.</p>\n<p>What does one get in regard to security or any other benefit from running a node?</p>\n<p>If this thread lies empty\u2026my point stands\u2026.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 2,
   "updated_at": "2025-10-23T19:06:16.125Z",
   "reply_count": 0,
   "reply_to_post_number": null,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "People seem to be fighting for the idea that every single person in the world runs a node.  I don\u2019t think many people will or will want to.  \n\nA lot of people on the internet seem to be arguing about node policy.  I have never had a single one answer my question:  Why should you be running a node? \n\nI think any answers don\u2019t really have any merit or bearing on one\u2019s own security.  \n\nWhat does one get in regard to security or any other benefit from running a node? \n\nIf this thread lies empty\u2026my point stands\u2026.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "People seem to be fighting for the idea that every single person in the world runs a node.  I don\u2019t think many people will or will want to. \nA lot of people on the internet seem to be arguing about node policy.  I have never had a single one answer my question:  Why should you be running a node? \nI &hellip;",
   "truncated": true,
   "post_url": "/t/what-is-the-importance-of-running-a-node/2079/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
