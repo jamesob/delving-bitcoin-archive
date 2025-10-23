@@ -49,3 +49,15 @@ Good life.
 
 -------------------------
 
+jal | 2025-10-23 20:00:56 UTC | #5
+
+Centralization is not a word that means “always bad”.  The use of it in regard to money comes from Hayek’s work and Hayek explains that there is sometimes systems that are important to be centralized for security sakes. 
+
+Fiat is also not intrinsically bad.  
+
+Making these assumption is your error and its a genetic fingerprint that is the hallmark of bchashers, bigblockers, and proponents of Satoshi’s vision. 
+
+To you bitcoin is centralized because you can’t control it.
+
+-------------------------
+
