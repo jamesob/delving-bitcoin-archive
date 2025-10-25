@@ -36,3 +36,14 @@ Because in general, if you have a fractional reserve system, you can be left wit
 
 -------------------------
 
+jal | 2025-10-24 22:47:38 UTC | #3
+
+[quote="garlonicon, post:2, topic:2079"]
+To know, that the coin you use, is really Bitcoin, and not something else.
+
+[/quote]
+
+No as a user you can just rely on a trusted node like an exchange for this.  What is the benefit of running your own node? It’s pointless.
+
+-------------------------
+
