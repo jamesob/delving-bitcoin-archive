@@ -47,3 +47,30 @@ No as a user you can just rely on a trusted node like an exchange for this.  Wha
 
 -------------------------
 
+garlonicon | 2025-10-25 07:12:05 UTC | #4
+
+> you can just rely on a trusted node like an exchange for this
+
+If you can rely on a trusted third party, then you can just use Signet. Or USD. Or anything, that existed before Bitcoin.
+
+> What is the benefit of running your own node?
+
+The benefit is to trustlessly verify, that the chain is correct. If you don’t need that property, then you can trust systems, that existed years before Bitcoin. For example: [chaumean e-cash](https://en.bitcoin.it/wiki/Bitcoin_is_not_ruled_by_miners#Efficiency)
+
+> If you are OK with 10 or so individuals controlling the currency, then you can design a much better system than Bitcoin. For example, you can design a system using [chaumean e-cash](http://groups.csail.mit.edu/mac/classes/6.805/articles/money/nsamint/nsamint.htm) with the following properties:
+>
+> * 20 independent entities are designated as signers.
+> * As long as a majority of signers are honest, the system remains secure.
+> * The system has perfect anonymity. The signers cannot know anything about the flow of money.
+> * Transactions are instant, requiring only communication with the signers and a small amount of computation.
+>
+> If you want to preserve the mining mechanism, you can create a simple proof-of-work block chain which simply determines the current signers and creates coins. Users of the system would look at the most recent blocks only to determine the public keys and IP addresses of the current signers, and then use the system as previously described.
+>
+> This system would be **better** than Bitcoin in several ways. But the point of Bitcoin is to be decentralized, so Satoshi rejected this idea (which has been well-known for over 20 years) and created Bitcoin instead.
+
+So, if you want to trust exchanges, then simply make a signet, where “signet challenge“ could mean “1-of-N multisig of all exchanges“, and that should make things tick. Also, if you want to simply trust exchanges, then you probably need just a simple UI, like in banks, where there is no blockchain.
+
+Also note, that centralized systems can exist on top of Bitcoin. Which means, that if you create a Bitcoin address with 20-of-20 multisig, and use it as a base for your off-chain transactions, then your “trusted signers“ can interact with the Bitcoin blockchain, and all of your users could simply trust these signers. Because any Signet can run on top of Bitcoin, it is just a matter of turning “signet challenge“ into a proper on-chain address.
+
+-------------------------
+
