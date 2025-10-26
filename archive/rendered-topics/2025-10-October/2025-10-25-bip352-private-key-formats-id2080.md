@@ -24,9 +24,3 @@ Thoughts? I apologize if this has been brought up.
 
 -------------------------
 
-junderw | 2025-10-25 02:16:33 UTC | #2
-
-(post deleted by author)
-
--------------------------
-
