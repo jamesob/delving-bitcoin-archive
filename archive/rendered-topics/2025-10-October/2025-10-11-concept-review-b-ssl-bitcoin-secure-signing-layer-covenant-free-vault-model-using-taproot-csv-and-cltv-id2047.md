@@ -121,3 +121,17 @@ I invite you to focus on the end goal which is how to avoid two custodians to co
 
 -------------------------
 
+Bicaru20 | 2025-10-25 22:40:46 UTC | #10
+
+**Hi,**
+
+If I understand correctly, the main goal is to prevent key loss from being permanent and to provide a way for the user to recover the funds. However, I’m struggling to see how this achieves that because:
+
+* If the user loses **Key A** (the primary key), the only way to recover the funds is through **Path 3** after a long delay (e.g., 3 years). This effectively means trusting custodians who hold shares like B1 and C.
+
+* On the other hand, if the user doesn’t lose **Key A**, why would they use **Path 1** or **Path 2**, since they still have full control of the private key?
+
+I think I am missing something :sweat_smile:
+
+-------------------------
+

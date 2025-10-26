@@ -74,3 +74,21 @@ Also note, that centralized systems can exist on top of Bitcoin. Which means, th
 
 -------------------------
 
+ftw2100 | 2025-10-25 22:11:32 UTC | #5
+
+I think the purpose of a node is mainly for professional.
+
+If you want a high availability and custom txs options or program using Bitcoin then you’ll need to have a node to be efficient.
+
+The topic is well positioned into Philosophy. For simple user, not as dev neither as company it’s only to support the network and understand a bit better how Bitcoin works. As individual the only thing you can earn is privacy by linking your Sparrow wallet or some lightning features for channels or electrum access. When you start into electrum (especially cli) I think that you are or becoming a dev on Bitcoin. So you fall into dev category for which it can useful.
+
+Also if you want to run ord or simplicity indexer you’ll need to have a Bitcoin node.
+
+Some devices hosting nodes (like umbrel home for example) offer apps on top of Bitcoin which can be useful for individual (non technical).
+
+More Bitcoin will be developed more the users will have options and apps that can require a node to be fully functional. In some sense we can say that it’s a bet on the future to be more familiar with the future Bitcoin-app ecosystem.
+
+Happy to have your feedback on this take.
+
+-------------------------
+
