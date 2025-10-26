@@ -135,3 +135,86 @@ I think I am missing something :sweat_smile:
 
 -------------------------
 
+ilghan | 2025-10-26 11:32:35 UTC | #11
+
+Hi,
+
+The main **goal** **of** **B-SSL** is to **make total key loss non-fatal** while keeping the user *fully sovereign* and *on-chain verifiable*.
+It achieves this with **timed Taproot spending paths** — not trusted intermediaries — all enforced by Bitcoin consensus rules.
+
+---
+
+**Vault Architecture**
+
+* **Path 1 — `(A or A₁) + C after 2 h – 15 d (CSV)`**
+  → everyday spending path with a short, configurable delay (2 hours – 15 days).
+  Adds protection against hacks, coercion, or hasty moves.
+
+* **Path 2 — `A + B after 1 y (CLTV)`**
+  → **annual self-rotation path.**
+  The user pre-signs a one-year transaction when the vault is created.
+  If they’re active, they cancel and re-sign it yearly.
+  This rotation (which can also be automated before recurring to the manual broadcasting) , keeps the vault “alive,” continually resetting all long-term delays —
+  so effectively, the vault *renews itself every ≈2 years* and funds roll into a fresh vault.
+
+* **Path 3 — `(B or B₁) + C after 3 y (CLTV)`**
+  → **disaster-recovery / inheritance path.**
+  Triggered only if the user has disappeared entirely.
+  Custodians cannot act before 3 years — the delay is enforced on-chain.
+
+If the user wants to bypass the legal framework for disaster recovery (although the incentive of the custodians is actually to comply), there are some adjustments which can be made:
+
+  **Adjustment:**
+  The *pre-signed transaction* for Path 3 doesn’t release funds.
+  It sends them into a **new B-SSL vault**, effectively *rebuilding the vault structure on-chain*.
+  This way, even in a disaster, custodians can only **re-lock the coins** into the next vault, or freezing the funds by refusing to broadcast the PSBT, but never redirect or steal them.
+
+---
+
+**Chained Vaults — Continuous Safety**
+
+Users can create a **chain of vaults** (V₁ → V₂ → V₃ → V₄…), each with its own key set (A,A₁,B,B₁,C). - in batches of two vaults each time (this not to complicate the setup too much), so that once one vault expires , it creates a new one.
+At any time, coins flow into the *next vault*, keeping security continuous and reducing the chance of irreversible loss to near zero.
+
+If the user disappears after year 2 and **Path 2** cannot be broadcast because A and B are missing:
+
+**→ There are only two outcomes:**
+
+1. **Legal route:** If the user doesn't create PSBT for path 3--> the two custodians (holding B₁ and C) can release funds only after verification of ownership or inheritance, under legal supervision.
+2. **Cryptographic route:** the user does create a PSBT for path 3--> **Path 3** activates after 3 years — a **deadman-switch recovery path** that rebuilds the vault automatically.
+
+In case the user goes for the cryptographic route (2) , **malicious custodians can’t steal funds**:
+
+* Before 3 years → impossible (consensus lock), visibility of the unsuccessful attempts (thanks to the 3y timelock)
+* After 3 years → any collusion only results in **frozen funds**, not theft, since the PSBT destination is fixed and they can’t change it.
+
+---
+
+**Security Outcomes**
+
+* As long as the user holds A/A₁ + B, they’re fully sovereign.
+* Losing all keys isn’t fatal — funds can recover through Path 3.
+**Custodians gain nothing from bad behavior: they can only freeze funds, not take them.**
+* The vault chain ensures perpetual safety and recoverability — all on-chain.
+
+
+---
+
+ **Summary**
+
+B-SSL makes key loss *recoverable*, spending *delay-protected*, and recovery *trust-minimized*.
+After 2 years, the user either regains control legally or through the **3-year deadman-switch rebuild path**,
+ensuring that **no custodian can ever steal** — only protect, cooperate, or freeze (but freezing isn't an option for them, they can only harm their reputation thereby ending their business, as nobody will trust them anymore. However, funds are still locked, they cannot steal, so they have no inceantive to behave badly and, in any case, they can be sued and forced to move)
+
+I think both the outcomes (1) and (2) are gold if compared to the fact that today if you lose the quorum of the keys the funds are gone, and as a result of B-SSL, **with this system,  it makes no sense for the user to hand over the ownership of the funds to a custodian, moreover to pay him for that service, when the user can only hand over to them the keys, but not the ability to steal , lose, or re-hypothecate funds.**
+
+-------------------------
+
+ilghan | 2025-10-26 11:57:22 UTC | #12
+
+![image|690x274](upload://3RJxVpv8TF1emTReouB9q3AfAjT.png)
+
+This means **B-SSL preserves absolute sovereignty during life** and **controlled recoverability after death or loss**. Worst case scenario is freezing which is a neutral state and only harms the custodian's reputation, while the user has unlimited time to take legal actions.
+
+-------------------------
+
