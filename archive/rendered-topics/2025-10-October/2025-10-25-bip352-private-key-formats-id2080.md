@@ -24,13 +24,13 @@ Thoughts? I apologize if this has been brought up.
 
 -------------------------
 
-nymius | 2025-10-27 17:34:19 UTC | #3
+nymius | 2025-10-27 20:20:28 UTC | #3
 
 There is a transcript of a previous discussion related to descriptors that has similar ideas on encoding: [Bitcoin Core Dev Tech 2024: Silent Payment Descriptors](https://btctranscripts.com/bitcoin-core-dev-tech/2024-04/silent-payment-descriptors).
 
 For (3), let me add that `b_scan` and `b_spend` are not enough to spend outputs by themselves, as they require the tweak material from the original transaction creating the output. Shouldn’t we also consider a format for “self contained” spending material for individual outputs? like `tweak` + `b_spend` , where `tweak` = `label + b_scan + shared secret` or even `b_scan + b_m + shared secret`.
 
-For (2), it may also be useful to encode a range or limit for the number of derivable labels on the string itself.
+For (2), it may also be useful to encode a range or limit for the number of applicable labels on the string itself.
 
 -------------------------
 
