@@ -92,3 +92,9 @@ Happy to have your feedback on this take.
 
 -------------------------
 
+REDBaron | 2025-10-27 12:06:17 UTC | #6
+
+Purpose of node is individiual self sovereign. Run your own node. ALWAYS !
+
+-------------------------
+
