@@ -72,3 +72,38 @@ https://github.com/bitcoin/bitcoin/issues/33713
 
 -------------------------
 
+1440000bytes | 2025-10-27 16:05:57 UTC | #2
+
+[quote="REDBaron, post:1, topic:2081"]
+**CoinJoin** requires trust and coordination, and is increasingly being de-anonymized by advanced chain analysis. i cant imagine when Government Ai computing power in play with KYC.
+[/quote]
+
+It doesn't require trust if you are using joinmarket or joinstr. The coordination will be reduced further with covenants. I don't know how AI or KYC is related to coinjoin.
+
+[quote="REDBaron, post:1, topic:2081"]
+The ongoing Core vs. Knots debate over censorship is not an isolated event; it is a symptom of a fatal cancer growing within Bitcoin.
+[/quote]
+
+1. The debate isn't about censorship.
+2. This has been observed on other chains as well.
+3. Privacy is unrelated to OP_RETURN.
+
+https://github.com/monero-project/monero/pull/8733
+https://github.com/monero-project/monero/issues/6668
+
+-------------------------
+
+REDBaron | 2025-10-27 19:00:40 UTC | #3
+
+The data-storage debate (`OP_RETURN`) is related directly with a monetary property debate (fungibility).
+
+SPAM kills the fungibility of Bitcoin.
+
+On Bitcoin, a chainanalysis tag is **permanent spam** on your UTXO. It cannot be removed. It pollutes the coin forever.
+
+Grin mimblewimble blockchain does NOT allow this. Design **prevents the metadata from being created in the first place.** There are no addresses, no amounts on blockchain.. You cant embed CSAM or monkey jpeg on blockchain. 
+
+So OP_RETURN - problem is solved. The blockchain bloat is off the table and  utility P2P protected.
+
+-------------------------
+
