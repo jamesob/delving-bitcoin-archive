@@ -107,3 +107,27 @@ So OP_RETURN - problem is solved. The blockchain bloat is off the table and  uti
 
 -------------------------
 
+garlonicon | 2025-10-28 07:51:38 UTC | #4
+
+> Are we sure our btc wont be confiscated as the time we deposited to a CEX or swap ?
+
+We are never sure. But chains like Grin or Monero could be harmed in a similar way. Also, weak keys can be used on any chain. As well as things like “brainwallets”.
+
+Which means, that if a given regulator would say: “only keys signed by our key are clean”, then it can be done in Monero, Grin, Bitcoin, or every other chain.
+
+Because note that the split between “clear” and “dirty” coins is not enforced as a consensus rule. It is enforced on centralized entities, like exchanges. However, regular users can ignore it altogether, and their transactions will be processed as “valid”, when confirmed in a block, even if they are blocked, when they are relayed.
+
+> It is the defection of miners and nodes who censor transactions under regulatory pressure.
+
+Monero or Grin transactions could be also censored by regulators. So far, there was simply not enough incentive, or regulators didn’t have enough skills, to perform more serious attacks. But it is trivial to set up an exchange, which would accept only deposits, approved by some regulator, and rejecting everything else. For example: if you apply weak view keys in Monero, then the whole traffic will be as crystal-clear, as it is in Bitcoin, it would then only take more bytes, to do exactly the same things.
+
+The same with Grin: to put any data in a given order, all you need, is just a bit of grinding, and some miner on your side. If you have 64k elements, and you want to put them in any order, then for each element, you can sacrifice two bytes, grind 2^16 values, and then, after 2^32 computations (which is doable on a CPU), you will have MimbleWimble data, set in a given order, and if you use weak public keys or signatures, then all of that can be easily decoded. And then, to make the transfer safe, if a miner is on attacker’s side, then everything can be sent as fees, and collected in the coinbase transaction.
+
+By the way: note that if you would have a Monero miner, which would include only transactions with 100% fees, then such blocks would be fully transparent.
+
+> Grin mimblewimble blockchain does NOT allow this.
+
+Show me a chain, where weak private keys or signatures are invalid, by consensus rules.
+
+-------------------------
+
