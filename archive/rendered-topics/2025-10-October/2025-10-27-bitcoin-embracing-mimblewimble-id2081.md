@@ -131,3 +131,29 @@ Show me a chain, where weak private keys or signatures are invalid, by consensus
 
 -------------------------
 
+REDBaron | 2025-10-28 18:07:55 UTC | #5
+
+The point is **Deleting Data and Preventing "Spam"**
+
+***Bitcoin and Monero blockchains store data forever.***
+
+Mimblewimble different blockchain- dont store metadata, erases history with compact design.
+
+* **No Data Spam,** It is impossible to "spam" the Grin blockchain with JPEGs or other data because the protocol simply doesn't allow it. There is no equivalent to `OP_RETURN`.
+
+* **Compact Blockchain;** The Grin blockchain is extremely small and efficient compared to Bitcoin. It grows much more slowly because it's constantly "forgetting" unnecessary intermediate data. And blockchain stays extremely small, easy to run nodes.
+
+% 40 almost already non financial data on bitcoin blockchain. 
+
+![37 non financial data|690x393](upload://nby6bVy0evf8q3ti111DmsQCECr.jpeg)
+
+There is a wresting for power and profit-money. Organizations like banks, governments, and regulators want value networks to be easy to track, manageable, and to include KYC (know-your-customer) or some kind of regulation. Developers are profit oriented also mostly.
+
+if Bitcoin is money, the network should serve only value transfer.
+
+Now be prepared for **ON-Chain KYC.** it is at the door for Bitcoin.
+
+https://protos.com/bitcoins-op_return-war-just-went-nuclear-a-chain-fork-proposal/
+
+-------------------------
+
