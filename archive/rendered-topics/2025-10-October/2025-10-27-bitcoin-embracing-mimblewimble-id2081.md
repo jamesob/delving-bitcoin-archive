@@ -157,3 +157,9 @@ https://protos.com/bitcoins-op_return-war-just-went-nuclear-a-chain-fork-proposa
 
 -------------------------
 
+vazertuche | 2025-10-29 20:02:51 UTC | #6
+
+I believe Shielded CSV will be the answer for privacy on Bitcoin. Its far superior to MimbleWimble and even Monero and Zcash. Robin Linus is already working on it with some others and the client should be released soon to start testing. He implemented BitVM2 and BitVM3 primary just to allow this to be possible. So exciting times are ahead for those of us who still want Bitcoin to be private money.
+
+-------------------------
+
