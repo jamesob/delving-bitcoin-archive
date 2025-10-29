@@ -108,3 +108,21 @@ I think a node have a lot of purposes but for business first. Maybe some users c
 
 -------------------------
 
+cmp_ancp | 2025-10-29 18:26:06 UTC | #8
+
+Do you want the benefits for yourself or for the network as a whole?
+
+For the network, you help with decentralization. The vast majority of users don’t run a node, but everyone needs to connect to a node in order to get info from the chain. This creates a scenario where you have dozens of users connected and depending on few nodes, spending bandwidth and processing power. Remember, a node is aways receiving and broadcasting blocks and txs, from connected users and peers.
+
+If nodes eventually become too expensive to run by plebs, we could have a doom scenario where the network implodes: people stop running nodes, making users depend on fewer nodes, making running nodes more expensive, making people stop running nodes.
+
+For yourself, you get privacy. When you depend on a third party node, you need to tell them which info do you need. In a classic electrum style wallet, you will literally say “hey, do you have any UTXO on this adress, please?”, totally doxxing yourself if you don’t use something like Tor.
+
+There are alternatives, like neutrino, where you send some clever filters that tells the third party to send a subset of the blocks, and so you search for txs in these blocks. In that way, the third party don’t know for sure your txs, but we have very few wallets implementing neutrino.
+
+Another doom scenario I can imagine is the one you need to KYC yourself in order to connect to a node and get wallet info. Running your own node makes you sovereign.
+
+At the end, I don’t think we need a world where everyone runs a node, but the **possibility** to run a node and a healthy users/nodes ratio is essential.
+
+-------------------------
+
