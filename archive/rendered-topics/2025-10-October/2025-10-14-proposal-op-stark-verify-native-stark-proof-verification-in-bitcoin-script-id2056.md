@@ -220,3 +220,14 @@ For a deeper look into the possibilities of building on Bitcoin without script c
 
 -------------------------
 
+Abdel | 2025-10-29 13:49:36 UTC | #5
+
+hey hey, thanks for your time and suggestions.
+I will be honest, i am not a fan of metaprotocols.
+that been said, all your arguments here make sense.
+For risk mitigation and market driven adoption I would probably counter argument by saying that Starknet for example, which is an L2 built using the STARK proofs scheme I am proposing here for instance, has been running in production for years, and the proving system used by it has processed nearly 1 billion transactions, secured over $1 trillion of cumulative volume etc.
+Yes it's not on Bitcoin but would be the same for a meta protocol technically. In fact, factually speaking, a meta protocol would be infinitely less secure than Starknet today.
+Again, the arguments are valid and make sense. But just wanted to give a contrasted perspective on the matter given the history of this specific tech in practice, not on paper.
+
+-------------------------
+
