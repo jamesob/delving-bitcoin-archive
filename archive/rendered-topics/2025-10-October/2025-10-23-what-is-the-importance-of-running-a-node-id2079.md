@@ -98,3 +98,13 @@ Purpose of node is individiual self sovereign. Run your own node. ALWAYS !
 
 -------------------------
 
+ftw2100 | 2025-10-29 15:38:12 UTC | #7
+
+lol self sovereign of what? Bitcoin blocks? 
+
+You do think that people will make their tx from cli and feel sovereign? 
+
+I think a node have a lot of purposes but for business first. Maybe some users can have an ideological interest but real use cases are for Business and dev first.
+
+-------------------------
+
