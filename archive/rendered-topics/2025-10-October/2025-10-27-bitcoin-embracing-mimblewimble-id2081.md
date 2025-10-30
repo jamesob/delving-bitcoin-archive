@@ -169,7 +169,7 @@ Any link to a Shielded CSV technical paper?
 
 -------------------------
 
-REDBaron | 2025-10-30 10:01:59 UTC | #8
+REDBaron | 2025-10-30 10:02:53 UTC | #8
 
 [Shielded Csv](https://blog.blockstream.com/bitcoins-shielded-csv-protocol-explained/) is an bad copy of zcash style **optional privacy**. *Optional privacy is useless.* It is just an overlay for Bitcoin. 
 
@@ -181,11 +181,11 @@ A profit oriented development scheme for blockstream, and again this peter todd 
 
 So we all know france, USA, Germany, Blackrock and wallstreet instutions, SAylor  dive in bitcoin strategic reserve.
 
-So those central banks and instutions needs to move their Bitcoin **legally**, transact legally,account principle etc  ??a
+So those central banks and instutions needs to move their Bitcoin **legally**, transact legally,account principle etc  ??
 
-so 
+and so 
 
-***ON CHAIN KYC***** is coming to Bitcoin ? knots or coreV30 both, no matter.**
+***ON CHAIN KYC*** is coming to Bitcoin ? knots or coreV30 both, no matter.
 
 -------------------------
 
