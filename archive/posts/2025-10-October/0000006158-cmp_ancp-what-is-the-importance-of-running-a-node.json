@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
+  "reads": 9,
+  "readers_count": 8,
   "score": 1.6,
   "yours": false,
   "topic_id": 2079,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Do you want the benefits for yourself or for the network as a whole?\n\nFor the network, you help with decentralization. The vast majority of users don\u2019t run a node, but everyone needs to connect to a node in order to get info from the chain. This creates a scenario where you have dozens of users connected and depending on few nodes, spending bandwidth and processing power. Remember, a node is aways receiving and broadcasting blocks and txs, from connected users and peers.\n\nIf nodes eventually become too expensive to run by plebs, we could have a doom scenario where the network implodes: people stop running nodes, making users depend on fewer nodes, making running nodes more expensive, making people stop running nodes.\n\nFor yourself, you get privacy. When you depend on a third party node, you need to tell them which info do you need. In a classic electrum style wallet, you will literally say \u201chey, do you have any UTXO on this adress, please?\u201d, totally doxxing yourself if you don\u2019t use something like Tor.\n\nThere are alternatives, like neutrino, where you send some clever filters that tells the third party to send a subset of the blocks, and so you search for txs in these blocks. In that way, the third party don\u2019t know for sure your txs, but we have very few wallets implementing neutrino.\n\nAnother doom scenario I can imagine is the one you need to KYC yourself in order to connect to a node and get wallet info. Running your own node makes you sovereign.\n\nAt the end, I don\u2019t think we need a world where everyone runs a node, but the **possibility** to run a node and a healthy users/nodes ratio is essential.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Do you want the benefits for yourself or for the network as a whole? \nFor the network, you help with decentralization. The vast majority of users don\u2019t run a node, but everyone needs to connect to a node in order to get info from the chain. This creates a scenario where you have dozens of users conn&hellip;",
   "truncated": true,
   "post_url": "/t/what-is-the-importance-of-running-a-node/2079/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
