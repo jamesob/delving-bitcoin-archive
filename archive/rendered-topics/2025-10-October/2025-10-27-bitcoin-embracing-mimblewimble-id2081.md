@@ -163,3 +163,9 @@ I believe Shielded CSV will be the answer for privacy on Bitcoin. Its far superi
 
 -------------------------
 
+VigSeth | 2025-10-30 03:22:50 UTC | #7
+
+Any link to a Shielded CSV technical paper?
+
+-------------------------
+
