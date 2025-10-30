@@ -195,3 +195,29 @@ No its not a bad copy and while it can be optional, it doesn’t have to be. You
 
 -------------------------
 
+REDBaron | 2025-10-30 15:54:59 UTC | #11
+
+ Same guys bitvm, defi stuff, and others who wants to turn Bitcoin to ethereum shit. Just look at their fancy, X company accounts..
+
+
+![Screenshot 2025-10-30 at 17-40-33 Shielded CSV Private and Efficient Client-Side Validation|690x306](upload://a6RbmK61cCPuyrAxf7zgpKtNlKG.png)
+
+[Alpen](https://x.com/AlpenLabs/status/1978861549922951629) is the same mind.
+These are applied anywhere? 
+ Battletested ? 
+ Just a complex layer (god knows how many attack vectors and vulnerabilities)
+
+ Only cryptographic ideas on paper, funded by VC like never ending lightning network. 
+ How is it superior to MimbleWimble??, it has been implemented various projects.
+
+ Mimblewimble is simple and elegant, *it is math.*
+ **Math > Cryptography.**
+ Which is secure ? Which one is crackable ?
+
+*The point is embedding data on blockchain, opening the door for legal disputes.* 
+Bitcoin cant have **privacy** with additional layers. 
+
+But hey maybe you are right, those VC are all  goverment cypherpunks, want to save bitcoin :slight_smile:
+
+-------------------------
+
