@@ -169,3 +169,23 @@ Any link to a Shielded CSV technical paper?
 
 -------------------------
 
+REDBaron | 2025-10-30 10:01:59 UTC | #8
+
+[Shielded Csv](https://blog.blockstream.com/bitcoins-shielded-csv-protocol-explained/) is an bad copy of zcash style **optional privacy**. *Optional privacy is useless.* It is just an overlay for Bitcoin. 
+
+* Still you can embed jpeg, CSAM or *KYC on chain*
+* Bitcoin base layer still transparent.
+* Still traceable, since  *adress and amounts on blockchain stored in-out with optional privacy.*
+
+A profit oriented development scheme for blockstream, and again this peter todd guy :melting_face: 
+
+So we all know france, USA, Germany, Blackrock and wallstreet instutions, SAylor  dive in bitcoin strategic reserve.
+
+So those central banks and instutions needs to move their Bitcoin **legally**, transact legally,account principle etc  ??a
+
+so 
+
+***ON CHAIN KYC***** is coming to Bitcoin ? knots or coreV30 both, no matter.**
+
+-------------------------
+
