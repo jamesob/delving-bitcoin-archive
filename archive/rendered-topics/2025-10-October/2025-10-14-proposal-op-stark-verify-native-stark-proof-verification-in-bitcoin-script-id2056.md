@@ -231,3 +231,14 @@ Again, the arguments are valid and make sense. But just wanted to give a contras
 
 -------------------------
 
+instagibbs | 2025-10-31 15:44:02 UTC | #6
+
+[quote="Abdel, post:3, topic:2056"]
+Proof settlement via OP_CAT verifier looks like 175 transactions of total size \~7.3MB
+
+[/quote]
+
+That’s the other dimension of my question: If the computation can be split in steps and separated into discrete transactions, that is also less problematic for bin packing / relay / anti-DoS pov.
+
+-------------------------
+
