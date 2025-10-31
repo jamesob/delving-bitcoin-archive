@@ -922,3 +922,24 @@ Looking at recent block reconstruction, I'm seeing a fair few blocks that need b
 
 -------------------------
 
+0xB10C | 2025-10-31 13:52:53 UTC | #44
+
+Some recent stats again!
+
+![image|366x500](upload://kRAyv8Eblbqtzo9hJXUbEjI8JR9.png)
+
+![image|366x500](upload://2VvQQZR9HfcaHIk7cryBRWBS6oO.png)
+
+
+[quote="0xB10C, post:39, topic:1052"]
+As part of my 30.0rc1 [testing](https://github.com/bitcoin/bitcoin/issues/33368#issuecomment-3291550859), the nodes now all run with the defaults decreased by 33106.
+[/quote]
+
+As mentioned above, on 2025-09-17, I switched the nodes to run with a lowered minrelayfee. That's also visible in both the reconstruction rate getting better and having to request a lot less data from peers for the cases where we can't reconstruct. Bob was running with lowered a lowered minrelayfee since 2025-08-22. In hindsight, it would probably have been better to not update all nodes and keep a few on v29 to see how big the difference is (but these nodes aren't solely for measuring block reconstruction, also for testing release candidates, which I felt was more important).
+
+I've also been running a v29.1 Bitcoin Knots node `nico` with the default configuration. This node doesn't include the logging added in https://github.com/bitcoin/bitcoin/pull/32582, so no data on requested transaction size.
+
+I haven't looked into what could caused the low reconstruction rates on `bob`, `dave`, `luke` and `nico` on 2025-10-18.
+
+-------------------------
+

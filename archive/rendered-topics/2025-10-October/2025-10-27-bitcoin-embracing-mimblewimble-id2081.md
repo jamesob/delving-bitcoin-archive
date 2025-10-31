@@ -221,3 +221,11 @@ But hey maybe you are right, those VC are all  goverment cypherpunks, want to sa
 
 -------------------------
 
+el_mcmurphy | 2025-10-31 14:57:42 UTC | #12
+
+Brilliant analysis! I feel you captured exactly how Bitcoin is failing. Also, what you describe as a needed already exists. Epic Cash implements Mimblewimble at the base layer, so no addresses, no taint, no permission, while maintaining Bitcoin’s emission and decentralization goals, being accesible to mine to over 7 billion CPUs and GPUs. And, it’s not about creating an altcoin, it’s about preserving the original game theory that made Bitcoin valuable. Imo, Epic is what Bitcoin would have evolved into if it had stayed true to its vision: peer-to-peer electronic cash.
+
+Take a look if you’re interested: https://epiccash.com
+
+-------------------------
+

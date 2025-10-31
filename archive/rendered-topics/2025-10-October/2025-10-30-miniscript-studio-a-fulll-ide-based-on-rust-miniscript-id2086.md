@@ -32,3 +32,20 @@ Feedback is much appreciated :folded_hands:
 
 -------------------------
 
+bruno | 2025-10-31 11:54:23 UTC | #2
+
+Super helpful, nice project. Is it open-source?
+
+-------------------------
+
+adys | 2025-10-31 12:14:03 UTC | #3
+
+Thanks! 
+
+Sure, it has a link in the upper right corner of the page.
+Here’s the repo:
+
+[https://github.com/adyshimony/miniscript-studio](https://github.com/adyshimony/miniscript-studio)
+
+-------------------------
+

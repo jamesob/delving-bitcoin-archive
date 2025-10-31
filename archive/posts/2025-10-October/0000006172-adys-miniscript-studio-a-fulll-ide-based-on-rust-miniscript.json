@@ -7,15 +7,15 @@
   "cooked": "<p>I built an online <strong>Miniscript Studio</strong>, a full IDE powered by the Rust Miniscript crate, with a strong emphasis on learning.</p>\n<p><a href=\"https://adys.dev/miniscript\" rel=\"noopener nofollow ugc\">https://adys.dev/miniscript</a></p>\n<p>Started it at BTC++ hackathon just for better error handling on my Miniscript expressions, but it snowballed into packing in all the features I ever dreamed of:</p>\n<ul>\n<li>Policy &amp; Miniscript editors: indenting, clearing, syntax highlighting, and more;</li>\n<li>Script area: resulting scripts/addresses across contexts (Legacy/SegWit/Taproot), testnet/mainnet support;</li>\n<li>Key Variables: auto-generate from hex, or map keys to custom names;</li>\n<li>HD Wallet Descriptors: xpubs/tpubs, range descriptors;</li>\n<li>Lift Functionality: from raw Script to Miniscript, and from Miniscript to Policy;</li>\n<li>Taproot Support: x-only keys, multi-branch policies, script/key paths;</li>\n<li>Spending cost analysis (worst case);</li>\n<li>Compile debug info display;</li>\n<li>Packed with examples &amp; detailed descriptions.</li>\n</ul>\n<p>Plus a settings section to customize your experience; Policy/Miniscript references; save/load/share expressions; tips section and more.</p>\n<p>Full details in my blog post: <a href=\"https://adys.dev/blog/miniscript-studio-intro\" rel=\"noopener nofollow ugc\">https://adys.dev/blog/miniscript-studio-intro</a></p>\n<p>Here is a Miniscript expression from Liana wallet:\n<div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/0/052d75993e4a35d8b1b531f595824c01ad086cc0.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/052d75993e4a35d8b1b531f595824c01ad086cc0\" title=\"\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/0/052d75993e4a35d8b1b531f595824c01ad086cc0_2_585x500.png\" alt=\"\" data-base62-sha1=\"JNMAanoN2fjSNPnSnZt4mytomk\" width=\"585\" height=\"500\" role=\"presentation\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/0/052d75993e4a35d8b1b531f595824c01ad086cc0_2_585x500.png, https://delvingbitcoin.org/uploads/default/optimized/2X/0/052d75993e4a35d8b1b531f595824c01ad086cc0_2_877x750.png 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/0/052d75993e4a35d8b1b531f595824c01ad086cc0_2_1170x1000.png 2x\" data-dominant-color=\"2F544B\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\"></span><span class=\"informations\">1185\u00d71012 169 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>Try it in Studio:\n<a href=\"https://adys.dev/miniscript#example=miniscript-liana_wallet\" rel=\"noopener nofollow ugc\">https://adys.dev/miniscript#example=miniscript-liana_wallet</a></p>\n<p>Feedback is much appreciated <img src=\"https://delvingbitcoin.org/images/emoji/twitter/folded_hands.png?v=14\" title=\":folded_hands:\" class=\"emoji\" alt=\":folded_hands:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 3,
   "updated_at": "2025-10-31T00:31:15.736Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 24,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 121.4,
+  "incoming_link_count": 32,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 177.2,
   "yours": false,
   "topic_id": 2086,
   "topic_slug": "miniscript-studio-a-fulll-ide-based-on-rust-miniscript",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I built an online **Miniscript Studio**, a full IDE powered by the Rust Miniscript crate, with a strong emphasis on learning.\n\n[https://adys.dev/miniscript](https://adys.dev/miniscript)\n\nStarted it at BTC++ hackathon just for better error handling on my Miniscript expressions, but it snowballed into packing in all the features I ever dreamed of:\n\n* Policy & Miniscript editors: indenting, clearing, syntax highlighting, and more;\n* Script area: resulting scripts/addresses across contexts (Legacy/SegWit/Taproot), testnet/mainnet support;\n* Key Variables: auto-generate from hex, or map keys to custom names;\n* HD Wallet Descriptors: xpubs/tpubs, range descriptors;\n* Lift Functionality: from raw Script to Miniscript, and from Miniscript to Policy;\n* Taproot Support: x-only keys, multi-branch policies, script/key paths;\n* Spending cost analysis (worst case);\n* Compile debug info display;\n* Packed with examples & detailed descriptions.\n\nPlus a settings section to customize your experience; Policy/Miniscript references; save/load/share expressions; tips section and more.\n\nFull details in my blog post: [https://adys.dev/blog/miniscript-studio-intro](https://adys.dev/blog/miniscript-studio-intro)\n\nHere is a Miniscript expression from Liana wallet:\n![|585x500, 100%](upload://JNMAanoN2fjSNPnSnZt4mytomk.png)\n\nTry it in Studio:\n[https://adys.dev/miniscript#example=miniscript-liana_wallet](https://adys.dev/miniscript#example=miniscript-liana_wallet)\n\nFeedback is much appreciated :folded_hands:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I built an online Miniscript Studio, a full IDE powered by the Rust Miniscript crate, with a strong emphasis on learning. \n<a href=\"https://adys.dev/miniscript\" rel=\"noopener nofollow ugc\">https://adys.dev/miniscript</a> \nStarted it at BTC++ hackathon just for better error handling on my Miniscript expressions, but it snowballed into packing in all the features I ever&hellip;",
   "truncated": true,
   "post_url": "/t/miniscript-studio-a-fulll-ide-based-on-rust-miniscript/2086/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

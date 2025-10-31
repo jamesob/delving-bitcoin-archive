@@ -101,3 +101,9 @@ The only caveat with this script is if someone updates an old post (older than a
 
 -------------------------
 
+0xB10C | 2025-10-31 11:52:01 UTC | #7
+
+I've opened https://github.com/jamesob/delving-bitcoin-archive/pull/1 to check how big the diff of https://github.com/jamesob/delving-bitcoin-archive to a fresh archival would be. Some diff is expected (e.g. number of likes, JSON fields only added in newer discourse versions, ...), but I also noticed some posts and topics that were never archived.
+
+-------------------------
+
