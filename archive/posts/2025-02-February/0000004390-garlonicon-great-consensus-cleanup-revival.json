@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\">\n<blockquote>\n<p>I am not aware of any reason why this would be a problem, but I have not seen it documented anywhere.</p>\n</blockquote>\n</aside>\n<p>See this testnet4 transaction: f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\n</p><aside class=\"onebox allowlistedgeneric\" data-onebox-src=\"https://mempool.space/testnet4/tx/f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\">\n  <header class=\"source\">\n      <img src=\"https://delvingbitcoin.org/uploads/default/original/1X/3cad9479ebd69fe74b8e5f63926dc248d3c902e2.png\" class=\"site-icon\" data-dominant-color=\"52719F\" width=\"32\" height=\"32\">\n\n      <a href=\"https://mempool.space/testnet4/tx/f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\" target=\"_blank\" rel=\"noopener nofollow ugc\">mempool.space</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <div class=\"aspect-image\" style=\"--aspect-ratio:690/344;\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/1X/0978637aeb68411d200cf39a6b7667fc1123a8c9_2_690x345.jpeg\" class=\"thumbnail\" data-dominant-color=\"2B2539\" width=\"690\" height=\"345\"></div>\n\n<h3><a href=\"https://mempool.space/testnet4/tx/f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\" target=\"_blank\" rel=\"noopener nofollow ugc\">The Mempool Open Source Project\u00ae</a></h3>\n\n  <p>Explore the full Bitcoin ecosystem with The Mempool Open Source Project\u00ae. See the real-time status of your transactions, get network info, and more.</p>\n\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>The message wrapped in OP_RETURN says: \u201cWithout this OP_RETURN, sending to tb1pfees will result in 64-byte transaction.\u201d</p>\n<p>So, in general, when you want to send from Segwit to Anchor, or from Anchor to Anchor, then you need a dummy OP_RETURN (or anything else) to make it valid.</p>",
   "post_number": 74,
   "post_type": 1,
+  "posts_count": 85,
   "updated_at": "2025-02-27T14:16:59.858Z",
   "reply_count": 0,
   "reply_to_post_number": 73,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "incoming_link_count": 160,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 822.2,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 193,
     "username": "Chris_Stewart_5",
     "name": "Chris Stewart",
     "avatar_template": "/user_avatar/delvingbitcoin.org/chris_stewart_5/{size}/296_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "See this testnet4 transaction: f1572558fed009ab9d247da85be221e3d8f98c80b66ce9c2ada3a25cba0d797a\n \n\nThe message wrapped in OP_RETURN says: \u201cWithout this OP_RETURN, sending to tb1pfees will result in 64-byte transaction.\u201d \nSo, in general, when you want to send from Segwit to Anchor, or from Anchor to&hellip;",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/74",
   "reactions": [
     {
       "id": "eyes",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

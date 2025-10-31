@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"3\" data-topic=\"1106\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>Curiously LNhance enables both covenants with <code>CTV</code> and <code>CSFS</code> and multi-commitments with <code>PAIRCOMMIT</code>. Yet it does not give us functional STARK proofs as far as I know. I am intrigued by the crucial piece missing. Is it the simple act of concatenation in the end?</p>\n</blockquote>\n</aside>\n<p>For STARK proof verification, we need three things:</p>\n<ol>\n<li>Carry data between transactions (to split the verifier into multiple transactions). This is because working with a 1000-element size stack is very limiting</li>\n<li>Being able to Merkle-decommit data and perform algebraic checks on it</li>\n<li>Derive randomness from a Fiat-Shamir hash accumulation</li>\n</ol>\n<p>I think PAIRCOMMIT doesn\u2019t give you item 2, but maybe it\u2019s fine if you store only 4 bytes of elements per leaf. Even then, I am not sure how to use it to achieve item 3 (because the hash, which is a large element, is used to derive other data for the rest of the protocol)</p>\n<p>Regarding item 1, I am not sure how to achieve this with CTV+CSFS alone</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 8,
   "updated_at": "2025-04-27T12:48:37.275Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.2,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 23.8,
   "yours": false,
   "topic_id": 1106,
   "topic_slug": "the-path-to-general-computation-on-bitcoin-with-op-cat",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"moonsettler, post:3, topic:1106, full:true\"]\n\n\nCuriously LNhance enables both covenants with `CTV` and `CSFS` and multi-commitments with `PAIRCOMMIT`. Yet it does not give us functional STARK proofs as far as I know. I am intrigued by the crucial piece missing. Is it the simple act of concatenation in the end?\n[/quote]\n\n\n\nFor STARK proof verification, we need three things:\n1. Carry data between transactions (to split the verifier into multiple transactions). This is because working with a 1000-element size stack is very limiting\n2. Being able to Merkle-decommit data and perform algebraic checks on it\n3. Derive randomness from a Fiat-Shamir hash accumulation\n\nI think PAIRCOMMIT doesn't give you item 2, but maybe it's fine if you store only 4 bytes of elements per leaf. Even then, I am not sure how to use it to achieve item 3 (because the hash, which is a large element, is used to derive other data for the rest of the protocol)\n\nRegarding item 1, I am not sure how to achieve this with CTV+CSFS alone",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "For STARK proof verification, we need three things: \n\nCarry data between transactions (to split the verifier into multiple transactions). This is because working with a 1000-element size stack is very limiting\nBeing able to Merkle-decommit data and perform algebraic checks on it\nDerive randomness f&hellip;",
   "truncated": true,
   "post_url": "/t/the-path-to-general-computation-on-bitcoin-with-op-cat/1106/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

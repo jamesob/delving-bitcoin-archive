@@ -7,14 +7,15 @@
   "cooked": "<p>It\u2019s okay, but I\u2019m looking for opinions on the way these pieces are hashed, specifically from a security and efficiency pov.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-10-25T21:50:45.243Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "incoming_link_count": 1,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 27.0,
   "yours": false,
   "topic_id": 1216,
   "topic_slug": "op-paircommit-as-a-candidate-for-addition-to-lnhance",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 247,
     "username": "1440000bytes",
     "name": "/dev/fd0",
     "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png"
   },
   "bookmarked": false,
   "raw": "It's okay, but I'm looking for opinions on the way these pieces are hashed, specifically from a security and efficiency pov.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "It\u2019s okay, but I\u2019m looking for opinions on the way these pieces are hashed, specifically from a security and efficiency pov.",
+  "truncated": true,
+  "post_url": "/t/op-paircommit-as-a-candidate-for-addition-to-lnhance/1216/7",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

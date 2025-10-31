@@ -13,9 +13,9 @@
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 23.4,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 23.8,
   "yours": false,
   "topic_id": 1703,
   "topic_slug": "on-the-possibility-of-evil-covenants-and-implications-for-soft-fork-proposals",
@@ -74,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

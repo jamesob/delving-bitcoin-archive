@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"AntoineP\" data-post=\"44\" data-topic=\"1509\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<aside class=\"quote no-group\" data-username=\"jamesob\" data-post=\"42\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/jamesob/48/271_2.png\" class=\"avatar\"> jamesob:</div>\n<blockquote>\n<p>the CEO of Bitcoin\u2019s only custodial insurance product saying <a href=\"https://x.com/Rob1Ham/status/1897781338796966103\" rel=\"noopener nofollow ugc\">he wants vaults</a>, and</p>\n</blockquote>\n</aside>\n<p>This post does not mention <code>OP_CTV</code> either. Also, AnchorWatch is great but it\u2019s a company that launched less than 3 months ago.</p>\n</blockquote>\n</aside>\n<p>Making my first post at Delving (only because I\u2019m specifically referenced, I just lurk otherwise) to say the post does not mention <code>OP_CTV</code> specifically, but the need to make a commitment to a future transaction like the primitive of what <code>OP_CTV</code> enables would be a necessary part of the vaulting structure from my view.</p>\n<p>Most of my reading of <code>OP_VAULT</code> is from the official <a href=\"https://github.com/bitcoin/bips/blob/00c13baff0dc4a3a250d9725129b0d2c8d0be6a9/bip-0345.mediawiki\" rel=\"noopener nofollow ugc\">BIP 345</a> which makes several references to <code>OP_CTV</code>.</p>\n<p>I\u2019m in support of CTV + CSFS.</p>",
   "post_number": 49,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-15T17:32:28.964Z",
   "reply_count": 1,
   "reply_to_post_number": 44,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 26,
-  "readers_count": 25,
-  "score": 40.2,
+  "reads": 60,
+  "readers_count": 59,
+  "score": 62.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -55,14 +56,21 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "This post does not mention OP_CTV either. Also, AnchorWatch is great but it\u2019s a company that launched less than 3 months ago. \n\n\nMaking my first post at Delving (only because I\u2019m specifically referenced, I just lurk otherwise) to say the post does not mention OP_CTV specifically, but the need to ma&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/49",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

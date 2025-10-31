@@ -7,14 +7,15 @@
   "cooked": "<p>Some clarifications:</p>\n<ul>\n<li>There is no need for steps 1 and 2.  Alice knows a public key controlled by Bob, namely, the node ID of Bob.  Alice can generate its own keypair.  The Alice pubkey is expected to be made by some form of BIP32 (HD derivation).  The reason for not asking for a swap address is that it allows Alice to implement a watch-only onchain wallet using only BIP32 HD derivation.</li>\n<li>Not announced yet, but the current swap-in-pointentiam detailed draft spec already uses channel opening flow instead of an onchain-to-offchain swap: <a href=\"https://github.com/ZmnSCPxj-jr/swap-in-potentiam/blob/cf7b11476ee5ad7a85edb5482d05f17ff625feb4/doc/swap-in-potentiam.md#opening-0-conf-lightning-channels-backed-by-swap-in-potentiam\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">swap-in-potentiam/doc/swap-in-potentiam.md at cf7b11476ee5ad7a85edb5482d05f17ff625feb4 \u00b7 ZmnSCPxj-jr/swap-in-potentiam \u00b7 GitHub</a> This spec is based on <a href=\"https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/68e498ebc278dcd4ab6188d12e93ea2e91c5d882/LSPS0/README.md\" rel=\"noopener nofollow ugc\">LSPS0</a>, but is an extension that is not yet in discussion with the LSPS standards group.\n<ul>\n<li>IMPORTANT: all inputs to the funding transaction MUST be those with the same LSP-as-Bob.  The Alice keys can differ.  For this reason, PSBT is specifically not used, instead this sub-protocol sends the inputs and the order of the outputs in a bespoke format.  This also allows this sub-protocol to use MuSig2 path as current PSBT has no MuSig2 support yet.</li>\n<li>For general onchain-to-onchain spends, PSBT is used.  This allows swap-in-potentiam wallets to implement PayJoin, which uses PSBT.  The hope is that at some point in the future we can get MuSig2 support on PSBT, but the explicit 2-of-2 tapleaf path still exists so that we can uses no-MuSig2 PSBTs as they exist today.</li>\n</ul>\n</li>\n<li>The whole point of swap-in-potentiam is that it is an onchain address, with onchain address rules (including miniimum confirmation depth), that can be magically spent in Lightning (<em>after</em> minimum confirmation depth).  The inputs to the transaction should be swap-in-potentiam addresses, not outputs.\n<ul>\n<li>The use-case is that the client generates its swap-in-potentiam address, then sends the address to somebody else (e.g. post it in the footer of their website, or in their platform-formerly-known-as-Twitter bio, or in an email with somebody, or in their forum sig), then the client goes to sleep.  Then somebody else funds the swap-in-potentiam.  When the client wakes up, hopefully the received funds are already confirmed to minimum confirmation depth. then the client can spend the funds to Lightning immediately, <em><strong>without</strong></em> incurring an additional wait to move from their onchain to offchain.</li>\n<li>i.e. <em><strong>somebody else</strong></em> (<em>NOT</em> Alice!) funds the swap-in-potentiam address.  That somebody else might not even know who the Bob is.</li>\n</ul>\n</li>\n</ul>\n<p>The secret sauce of swap-in-potentiam addresses  is that sending an ordinary onchain transaction to it is actually a (non-Lightning!) channel open, specifically a modified <code>OP_CLTV</code>/<code>OP_CSV</code> Spilman channel (<code>OP_CSV</code> in this case).  This is unlike LN channel opens where the participants MUST participate during setup to exchange initial signatures \u2014 the channel open can be initiated by either party without participation of the other party, or even by a third party making what it thinks is an ordinary onchain-to-onchain transaction.  Onchain confirmation is still required \u2014 but it is between the third-party and Alice, no <strong>additional</strong> waiting is needed between Alice and Bob.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-03-30T00:06:01.726Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.8,
+  "incoming_link_count": 2,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 37.8,
   "yours": false,
   "topic_id": 749,
   "topic_slug": "payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 6,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Some clarifications:\n\n* There is no need for steps 1 and 2.  Alice knows a public key controlled by Bob, namely, the node ID of Bob.  Alice can generate its own keypair.  The Alice pubkey is expected to be made by some form of BIP32 (HD derivation).  The reason for not asking for a swap address is that it allows Alice to implement a watch-only onchain wallet using only BIP32 HD derivation.\n* Not announced yet, but the current swap-in-pointentiam detailed draft spec already uses channel opening flow instead of an onchain-to-offchain swap: https://github.com/ZmnSCPxj-jr/swap-in-potentiam/blob/cf7b11476ee5ad7a85edb5482d05f17ff625feb4/doc/swap-in-potentiam.md#opening-0-conf-lightning-channels-backed-by-swap-in-potentiam This spec is based on [LSPS0](https://github.com/BitcoinAndLightningLayerSpecs/lsp/blob/68e498ebc278dcd4ab6188d12e93ea2e91c5d882/LSPS0/README.md), but is an extension that is not yet in discussion with the LSPS standards group.\n  * IMPORTANT: all inputs to the funding transaction MUST be those with the same LSP-as-Bob.  The Alice keys can differ.  For this reason, PSBT is specifically not used, instead this sub-protocol sends the inputs and the order of the outputs in a bespoke format.  This also allows this sub-protocol to use MuSig2 path as current PSBT has no MuSig2 support yet.\n  * For general onchain-to-onchain spends, PSBT is used.  This allows swap-in-potentiam wallets to implement PayJoin, which uses PSBT.  The hope is that at some point in the future we can get MuSig2 support on PSBT, but the explicit 2-of-2 tapleaf path still exists so that we can uses no-MuSig2 PSBTs as they exist today.\n* The whole point of swap-in-potentiam is that it is an onchain address, with onchain address rules (including miniimum confirmation depth), that can be magically spent in Lightning (*after* minimum confirmation depth).  The inputs to the transaction should be swap-in-potentiam addresses, not outputs.\n  * The use-case is that the client generates its swap-in-potentiam address, then sends the address to somebody else (e.g. post it in the footer of their website, or in their platform-formerly-known-as-Twitter bio, or in an email with somebody, or in their forum sig), then the client goes to sleep.  Then somebody else funds the swap-in-potentiam.  When the client wakes up, hopefully the received funds are already confirmed to minimum confirmation depth. then the client can spend the funds to Lightning immediately, ***without*** incurring an additional wait to move from their onchain to offchain.\n  * i.e. ***somebody else*** (*NOT* Alice!) funds the swap-in-potentiam address.  That somebody else might not even know who the Bob is.\n\nThe secret sauce of swap-in-potentiam addresses  is that sending an ordinary onchain transaction to it is actually a (non-Lightning!) channel open, specifically a modified `OP_CLTV`/`OP_CSV` Spilman channel (`OP_CSV` in this case).  This is unlike LN channel opens where the participants MUST participate during setup to exchange initial signatures --- the channel open can be initiated by either party without participation of the other party, or even by a third party making what it thinks is an ordinary onchain-to-onchain transaction.  Onchain confirmation is still required --- but it is between the third-party and Alice, no **additional** waiting is needed between Alice and Bob.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Some clarifications: \n\nThere is no need for steps 1 and 2.  Alice knows a public key controlled by Bob, namely, the node ID of Bob.  Alice can generate its own keypair.  The Alice pubkey is expected to be made by some form of BIP32 (HD derivation).  The reason for not asking for a swap address is th&hellip;",
+  "truncated": true,
+  "post_url": "/t/payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction/749/3",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

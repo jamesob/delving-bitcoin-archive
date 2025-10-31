@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"1\" data-topic=\"1275\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>With flexible coin earmarks, this becomes much simpler: layered commitments are just updating the earmarks, and state updates are just wholesale replacement of the earmarks. Neither of these change the coin\u2019s balance, and nor do they split the coin.</p>\n</blockquote>\n</aside>\n<p>I think years ago we called this \u201cmagical eltoo\u201d <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-11-25T19:06:50.318Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 3.6,
+  "reads": 42,
+  "readers_count": 41,
+  "score": 23.2,
   "yours": false,
   "topic_id": 1275,
   "topic_slug": "flexible-coin-earmarks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:1, topic:1275\"]\nWith flexible coin earmarks, this becomes much simpler: layered commitments are just updating the earmarks, and state updates are just wholesale replacement of the earmarks. Neither of these change the coin\u2019s balance, and nor do they split the coin.\n[/quote]\n\nI think years ago we called this \"magical eltoo\" :slight_smile:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I think years ago we called this \u201cmagical eltoo\u201d :slight_smile:",
+  "truncated": true,
+  "post_url": "/t/flexible-coin-earmarks/1275/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

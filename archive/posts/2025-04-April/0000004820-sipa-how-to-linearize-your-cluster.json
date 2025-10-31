@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"murch\" data-post=\"69\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/murch/48/139_2.png\" class=\"avatar\"> murch:</div>\n<blockquote>\n<p>I\u2019m confused, I thought that CSS basically starts from the Ancestor Set Sort result, or it is guaranteed to be as good as Ancestor Set Sort by merging. If you have to do an Ancestor Set Sort to achieve at least Ancestor Set Sort quality, wouldn\u2019t it be fair to do Ancestor Set Sort first and let SFL start with the result of Ancestor Set Sort?</p>\n</blockquote>\n</aside>\n<p>There are multiple ways of combining things, but that is not how it\u2019s currently implemented. The important part is that in practice, we have a linearization for every cluster at all times, and want to exploit that knowledge. So the input linearization to LIMO/CSS is the earlier, existing, linearization for the cluster, not a pure ancestor sort based linearization. This input linearization can be great (if it was a hard cluster that was linearized before, and only a trivial change made to it), but it may also be terrible (say two clusters got merged, so we combine their linearizations naively, but the transactions interact a lot).</p>\n<p>The ancestor sort mixing-in happens inside, which means that each candidate set search can be bootstrapped from it, and LIMO\u2019d with it.</p>\n<p>The LIMO/CSS as implemented now, is roughly:</p>\n<ul>\n<li>Linearize(cluster, input_lin):\n<ul>\n<li>While cluster is not empty:\n<ul>\n<li>Find anc, the best ancestor set in cluster</li>\n<li>Find pre, the best prefix of input_lin in what remains of cluster.</li>\n<li>Set best = higher feerate of anc and pre</li>\n<li>Update best = CSS(cluster, best), starting with best as initial candidate.</li>\n<li>Update best to be the highest-feerate prefix of the intersection between best and input_lin (this is the LIMO step, guaranteeing that the result will be as good as input_lin).</li>\n<li>Output best, and remove it from cluster</li>\n</ul>\n</li>\n</ul>\n</li>\n</ul>\n<p>This mixing/bootstrapping with ancestor sets in addition to existing prefixes doesn\u2019t actually guarantee anything (in particular, it does <em>not</em> guarantee that the output is as good as pure ancestor set sort, though in practice it\u2019ll usually beat it easily), but it\u2019s a relatively fast way to have a good initial thing to start with, in particular when the input linearization is terrible.</p>\n<p>And it\u2019s this incremental mixing in of various sources of candidate sets (whether that\u2019s ancestor sets or CSS or something else) that I don\u2019t know how to map to SFL. It can start with an input linearization, but I think it\u2019s more important to use the existing cluster linearization for that. However, unless we really think that this ancestor-set mixing has some specifically useful properties, I don\u2019t think we care. The normal SFL steps seem to make the output linearization very quickly better, and in practice, optimal within 10s of microseconds.</p>",
   "post_number": 70,
   "post_type": 1,
-  "posts_count": 71,
+  "posts_count": 78,
   "updated_at": "2025-04-18T01:21:40.897Z",
   "reply_count": 1,
   "reply_to_post_number": 69,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 26.2,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"murch, post:69, topic:303\"]\nI\u2019m confused, I thought that CSS basically starts from the Ancestor Set Sort result, or it is guaranteed to be as good as Ancestor Set Sort by merging. If you have to do an Ancestor Set Sort to achieve at least Ancestor Set Sort quality, wouldn\u2019t it be fair to do Ancestor Set Sort first and let SFL start with the result of Ancestor Set Sort?\n[/quote]\n\nThere are multiple ways of combining things, but that is not how it's currently implemented. The important part is that in practice, we have a linearization for every cluster at all times, and want to exploit that knowledge. So the input linearization to LIMO/CSS is the earlier, existing, linearization for the cluster, not a pure ancestor sort based linearization. This input linearization can be great (if it was a hard cluster that was linearized before, and only a trivial change made to it), but it may also be terrible (say two clusters got merged, so we combine their linearizations naively, but the transactions interact a lot).\n\nThe ancestor sort mixing-in happens inside, which means that each candidate set search can be bootstrapped from it, and LIMO'd with it.\n\nThe LIMO/CSS as implemented now, is roughly:\n* Linearize(cluster, input_lin):\n  * While cluster is not empty:\n    * Find anc, the best ancestor set in cluster\n    * Find pre, the best prefix of input_lin in what remains of cluster.\n    * Set best = higher feerate of anc and pre\n    * Update best = CSS(cluster, best), starting with best as initial candidate.\n    * Update best to be the highest-feerate prefix of the intersection between best and input_lin (this is the LIMO step, guaranteeing that the result will be as good as input_lin).\n    * Output best, and remove it from cluster\n\nThis mixing/bootstrapping with ancestor sets in addition to existing prefixes doesn't actually guarantee anything (in particular, it does *not* guarantee that the output is as good as pure ancestor set sort, though in practice it'll usually beat it easily), but it's a relatively fast way to have a good initial thing to start with, in particular when the input linearization is terrible.\n\nAnd it's this incremental mixing in of various sources of candidate sets (whether that's ancestor sets or CSS or something else) that I don't know how to map to SFL. It can start with an input linearization, but I think it's more important to use the existing cluster linearization for that. However, unless we really think that this ancestor-set mixing has some specifically useful properties, I don't think we care. The normal SFL steps seem to make the output linearization very quickly better, and in practice, optimal within 10s of microseconds.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "There are multiple ways of combining things, but that is not how it\u2019s currently implemented. The important part is that in practice, we have a linearization for every cluster at all times, and want to exploit that knowledge. So the input linearization to LIMO/CSS is the earlier, existing, lineariza&hellip;",
   "truncated": true,
   "post_url": "/t/how-to-linearize-your-cluster/303/70",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Some clarifications for readers:</p>\n<ul>\n<li><code>n</code> is a uniformly random value provided by the host wallet app</li>\n<li><code>vector_commit</code> is a cryptographically strong hash of the concatenation of the values - this can be either standard across both bip340 and ecdsa with moon\u2019s proposal or match other hashes commonly used in each signing variant (e.g. tagged hash for bip340 and double sha256 for ecdsa)</li>\n<li>this scheme has echoes of the double nonce scheme used in MuSig2 and FROST but because the host has no need to hide its secret value, the secret can be directly sent to the hardware signer. This simplifies the nonce commitment and combination process and allows this nonce combination to be used directly in ECDSA (because the signer knows the combined secret nonce) where in MuSig2-style nonce aggregation the full secret nonce is never known by either party</li>\n</ul>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2024-08-20T15:26:52.208Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 32.6,
+  "incoming_link_count": 2,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 47.6,
   "yours": false,
   "topic_id": 1081,
   "topic_slug": "non-interactive-anti-exfil-airgap-compatible",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Some clarifications for readers: \n\nn is a uniformly random value provided by the host wallet app\nvector_commit is a cryptographically strong hash of the concatenation of the values - this can be either standard across both bip340 and ecdsa with moon\u2019s proposal or match other hashes commonly used in &hellip;",
+  "truncated": true,
+  "post_url": "/t/non-interactive-anti-exfil-airgap-compatible/1081/2",
   "reactions": [
     {
       "id": "heart",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -1,6 +1,6 @@
 # Bitcoin Inquisition 29.1
 
-ajtowns | 2025-09-30 07:27:09 UTC | #1
+ajtowns | 2025-10-04 12:40:30 UTC | #1
 
 Bitcoin Inqusition 29.1 is now available from
 
@@ -15,7 +15,7 @@ This includes support for the following proposed consensus changes:
  * [BIN-24-3](https://github.com/bitcoin-inquisition/binana/blob/3477736b354a8523615695971c6250cc4f98d452/2024/BIN-2024-0003.md) aka BIP 348 OP_CHECKSIGFROMSTACK ([PR#87](https://github.com/bitcoin-inquisition/bitcoin/pull/87))
  * [BIN-24-4](https://github.com/bitcoin-inquisition/binana/blob/3477736b354a8523615695971c6250cc4f98d452/2024/BIN-2024-0004.md) aka BIP 349 OP_INTERNALKEY ([PR#86](https://github.com/bitcoin-inquisition/bitcoin/pull/86))
 
-The first two of these have been active on the default signet since block 106704 (2022-09-06), the third since block 193536 (2024-04-30), and the fourth and fifth have been triggered for activation so should be active at block 275792, due in a bit under a week.
+The first two of these have been active on the default signet since block 106704 (2022-09-06), the third since block 193536 (2024-04-30), and the fourth and fifth have been triggered for activation so should be active at block 272592, due in a bit under a week.
 
 Note that transactions making use of any of these new features will not be relayed by nodes that don't support these features, so if you'd like your transaction to get to a miner, you'll need to peer with other inquisition nodes. An easy way to do this is to specify `addnode=inquisition.bitcoin-signet.net`. By default, Bitcoin Inquisition nodes will advertise themselves via the subversion string, which can be viewed with `bitcoin-cli -netinfo 3`. See the [23.0 announcement](https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-December/021275.html) for more details.
 

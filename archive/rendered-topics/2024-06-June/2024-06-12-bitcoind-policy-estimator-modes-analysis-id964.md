@@ -1,6 +1,6 @@
 # Bitcoind Policy Estimator modes Analysis
 
-ismaelsadeeq | 2024-06-12 15:32:49 UTC | #1
+ismaelsadeeq | 2024-06-24 10:29:51 UTC | #1
 
 This analysis examines the fee estimation data from Block `846887` to `847322`, covering a total of `435` blocks, to analyze the difference between estimates from [Bitcoind Policy Estimator](https://johnnewbery.com/an-intro-to-bitcoin-core-fee-estimation/) `conservative` and `economical` modes.
 

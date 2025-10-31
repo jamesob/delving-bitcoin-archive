@@ -7,15 +7,15 @@
   "cooked": "<p>I think your questions were already addressed in OP. See <a href=\"https://delvingbitcoin.org/t/addressing-community-concerns-and-objections-regarding-my-recent-proposal-to-relax-bitcoin-cores-standardness-limits-on-op-return-outputs/1697\">this section</a>. The legality of stored data does not depend of its encoding. Even if it did, it is trivial to get a large <code>OP_RETURN</code> output mined today regardless of the Bitcoin Core policy change. Assuming an attacker cannot pay a couple dollars premium or is unable to simply use a website is an uninteresting threat model. This risk is fundamental to Bitcoin, the proposed Bitcoin Core policy change does not materially affect this concern. What does make a difference and could put node runners at risk is fear mongerers trying to draw more public attention to this already existing issue.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 9,
   "updated_at": "2025-09-08T14:23:41.718Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 8.6,
+  "incoming_link_count": 2,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 37.2,
   "yours": false,
   "topic_id": 1697,
   "topic_slug": "addressing-community-concerns-and-objections-regarding-my-recent-proposal-to-relax-bitcoin-cores-standardness-limits-on-op-return-outputs",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "I think your questions were already addressed in OP. See [this section](https://delvingbitcoin.org/t/addressing-community-concerns-and-objections-regarding-my-recent-proposal-to-relax-bitcoin-cores-standardness-limits-on-op-return-outputs/1697). The legality of stored data does not depend of its encoding. Even if it did, it is trivial to get a large `OP_RETURN` output mined today regardless of the Bitcoin Core policy change. Assuming an attacker cannot pay a couple dollars premium or is unable to simply use a website is an uninteresting threat model. This risk is fundamental to Bitcoin, the proposed Bitcoin Core policy change does not materially affect this concern. What does make a difference and could put node runners at risk is fear mongerers trying to draw more public attention to this already existing issue.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "I think your questions were already addressed in OP. See <a href=\"https://delvingbitcoin.org/t/addressing-community-concerns-and-objections-regarding-my-recent-proposal-to-relax-bitcoin-cores-standardness-limits-on-op-return-outputs/1697\">this section</a>. The legality of stored data does not depend of its encoding. Even if it did, it is trivial to get a large OP_RETURN output mined today regardless of the Bitcoin Core policy change. Assuming an attacker cannot pay a couple dollars&hellip;",
   "truncated": true,
   "post_url": "/t/addressing-community-concerns-and-objections-regarding-my-recent-proposal-to-relax-bitcoin-cores-standardness-limits-on-op-return-outputs/1697/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

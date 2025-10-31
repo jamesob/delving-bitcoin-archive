@@ -7,14 +7,15 @@
   "cooked": "<p>sipa\u2019s linked approach is similar but not identical to <code>s2</code>, as in his version the argument of <code>unspend()</code> alters the <em>chaincode</em>, while in the version described in my notes above I was instead generating a different pubkey.</p>\n<p>They are identical in terms of security properties, but I think sipa\u2019s approach is better as it\u2019s more straightforward to verify that one such xpub is unspendable (just look at the pubkey), while in the approach in <code>s2</code> one has to explicitly redo the computation to verify how the xpub is generated.</p>\n<p>Anyway, my current thinking is that sipa\u2019s approach is probably the cleanest for descriptors, while wallet policies (now in the process of being finalized as <a href=\"https://github.com/bitcoin/bips/pull/1389\" rel=\"noopener nofollow ugc\">BIP-0388</a>) could add a deterministic way of computing the <code>HEXCHAINCODE</code> from the remaining keys, as suggested above by <a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a>.</p>",
   "post_number": 20,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2023-12-28T16:38:10.719Z",
   "reply_count": 0,
   "reply_to_post_number": 19,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "incoming_link_count": 10,
+  "reads": 59,
+  "readers_count": 58,
+  "score": 76.8,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,26 +38,45 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 182,
     "username": "wydengyre",
     "name": "Matt Leon",
     "avatar_template": "/user_avatar/delvingbitcoin.org/wydengyre/{size}/226_2.png"
   },
   "bookmarked": false,
   "raw": "sipa's linked approach is similar but not identical to `s2`, as in his version the argument of `unspend()` alters the *chaincode*, while in the version described in my notes above I was instead generating a different pubkey.\n\nThey are identical in terms of security properties, but I think sipa's approach is better as it's more straightforward to verify that one such xpub is unspendable (just look at the pubkey), while in the approach in `s2` one has to explicitly redo the computation to verify how the xpub is generated.\n\n Anyway, my current thinking is that sipa's approach is probably the cleanest for descriptors, while wallet policies (now in the process of being finalized as [BIP-0388](https://github.com/bitcoin/bips/pull/1389)) could add a deterministic way of computing the `HEXCHAINCODE` from the remaining keys, as suggested above by @AntoineP.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 81,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "sipa\u2019s linked approach is similar but not identical to s2, as in his version the argument of unspend() alters the chaincode, while in the version described in my notes above I was instead generating a different pubkey. \nThey are identical in terms of security properties, but I think sipa\u2019s approach &hellip;",
+  "truncated": true,
+  "post_url": "/t/unspendable-keys-in-descriptors/304/20",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>using something like OpenTimestamps</p>\n</blockquote>\n<p>They put their proofs inside OP_RETURN. New protocols should probably commit things directly into ECDSA signature instead, by tweaking R-value of the signature. Then, transaction size will be smaller, and it will be harder to detect, if someone attached any commitment or not.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2025-03-25T06:58:42.766Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 23.4,
+  "incoming_link_count": 1,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 31.8,
   "yours": false,
   "topic_id": 1537,
   "topic_slug": "is-there-a-social-approach-to-the-quantum-problem",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "using something like OpenTimestamps \n\nThey put their proofs inside OP_RETURN. New protocols should probably commit things directly into ECDSA signature instead, by tweaking R-value of the signature. Then, transaction size will be smaller, and it will be harder to detect, if someone attached any com&hellip;",
+  "truncated": true,
+  "post_url": "/t/is-there-a-social-approach-to-the-quantum-problem/1537/2",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

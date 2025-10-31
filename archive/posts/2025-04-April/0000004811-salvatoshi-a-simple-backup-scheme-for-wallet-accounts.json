@@ -7,15 +7,15 @@
   "cooked": "<p>Hi <a class=\"mention\" href=\"/u/josh\">@josh</a>, thanks for the comments! Somehow I missed your previous post, my bad.</p>\n<aside class=\"quote no-group\" data-username=\"josh\" data-post=\"3\" data-topic=\"1607\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josh/48/95_2.png\" class=\"avatar\"> josh:</div>\n<blockquote>\n<p>If the encrypted descriptor is stored publicly or on a compromised server, an attacker who gains access to one secret gains knowledge of the existence of the multisig. This is not ideal if a user wants to protect themselves with a decoy single-sig wallet.</p>\n</blockquote>\n</aside>\n<p>I would say in my scheme there is no distinction between an attacker and \u2018someone who knows a secret\u2019, as it\u2019s designed to give knowledge of the descriptor precisely to the people who know at least one of the xpubs (or a subset of them, if desired). So if someone has the backup <em>and</em> knows an xpub, they are expected to be able to decrypt.</p>\n<aside class=\"quote no-group\" data-username=\"josh\" data-post=\"3\" data-topic=\"1607\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josh/48/95_2.png\" class=\"avatar\"> josh:</div>\n<blockquote>\n<p>The scheme I\u2019m using makes one significant change. In a <span class=\"math\">k</span>-of-<span class=\"math\">n</span> multisig descriptor, the secret <span class=\"math\">s</span> is split into <span class=\"math\">n</span> shares using shamir secret sharing, where <span class=\"math\">k</span> shares are needed to recover. Each share is then encrypted with one xpub, so that <span class=\"math\">k</span> xpubs are needed to decrypt.</p>\n</blockquote>\n</aside>\n<p>Shamir secret sharing, apart from adding at least <em>some</em> (arguably manageable) complexity, does not generalize well to wallet setups more complex than multisig. For example, in a setup where there is a time-locked recovery partner that can help retrieve the funds if the primary spending path became inaccessible, you want them to be able to decrypt the backup even with the single xpub.</p>\n<p>If you don\u2019t want to enable some party to decode the backup, I think what will work better in practice is to have redundant copies of the backup, but do not give access to the backup to this third party (therefore, not posting it in a public place). Only if the primary spending path becomes lost, then they will be sent the encrypted backup.</p>\n<aside class=\"quote no-group\" data-username=\"josh\" data-post=\"3\" data-topic=\"1607\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josh/48/95_2.png\" class=\"avatar\"> josh:</div>\n<blockquote>\n<p>The other minor difference is that I leave the derivation paths in plaintext, so that a user knows how to derive their xpubs. Only the sensitive data is encrypted (the xpubs and master fingerprints).</p>\n</blockquote>\n</aside>\n<p>This is a great idea; even just a list of all the derivation paths that appear in the key-origin information (without attribution to specific keys) would reduce the search space to at most <span class=\"math\">n</span> xpubs when attempting decryption.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 31,
   "updated_at": "2025-04-16T17:47:43.736Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.4,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 40.0,
   "yours": false,
   "topic_id": 1607,
   "topic_slug": "a-simple-backup-scheme-for-wallet-accounts",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi @josh, thanks for the comments! Somehow I missed your previous post, my bad.\n\n[quote=\"josh, post:3, topic:1607\"]\nIf the encrypted descriptor is stored publicly or on a compromised server, an attacker who gains access to one secret gains knowledge of the existence of the multisig. This is not ideal if a user wants to protect themselves with a decoy single-sig wallet.\n[/quote]\n\nI would say in my scheme there is no distinction between an attacker and 'someone who knows a secret', as it's designed to give knowledge of the descriptor precisely to the people who know at least one of the xpubs (or a subset of them, if desired). So if someone has the backup _and_ knows an xpub, they are expected to be able to decrypt.\n\n[quote=\"josh, post:3, topic:1607\"]\nThe scheme I\u2019m using makes one significant change. In a $k$-of-$n$ multisig descriptor, the secret $s$ is split into $n$ shares using shamir secret sharing, where $k$ shares are needed to recover. Each share is then encrypted with one xpub, so that $k$ xpubs are needed to decrypt.\n[/quote]\n\nShamir secret sharing, apart from adding at least *some* (arguably manageable) complexity, does not generalize well to wallet setups more complex than multisig. For example, in a setup where there is a time-locked recovery partner that can help retrieve the funds if the primary spending path became inaccessible, you want them to be able to decrypt the backup even with the single xpub.\n\nIf you don't want to enable some party to decode the backup, I think what will work better in practice is to have redundant copies of the backup, but do not give access to the backup to this third party (therefore, not posting it in a public place). Only if the primary spending path becomes lost, then they will be sent the encrypted backup.\n\n[quote=\"josh, post:3, topic:1607\"]\nThe other minor difference is that I leave the derivation paths in plaintext, so that a user knows how to derive their xpubs. Only the sensitive data is encrypted (the xpubs and master fingerprints).\n[/quote]\n\nThis is a great idea; even just a list of all the derivation paths that appear in the key-origin information (without attribution to specific keys) would reduce the search space to at most $n$ xpubs when attempting decryption.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Hi <a class=\"mention\" href=\"/u/josh\">@josh</a>, thanks for the comments! Somehow I missed your previous post, my bad. \n\nI would say in my scheme there is no distinction between an attacker and \u2018someone who knows a secret\u2019, as it\u2019s designed to give knowledge of the descriptor precisely to the people who know at least one of the xpubs (or&hellip;",
   "truncated": true,
   "post_url": "/t/a-simple-backup-scheme-for-wallet-accounts/1607/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

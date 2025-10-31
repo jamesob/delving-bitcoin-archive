@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"t-bast\" data-post=\"6\" data-topic=\"1453\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/t-bast/48/98_2.png\" class=\"avatar\"> t-bast:</div>\n<blockquote>\n<p>the second pre-signed HTLC-success transaction, modified to also spend the shared anchor, with the mobile wallet adding a <code>SIGHASH_ALL</code> signature</p>\n</blockquote>\n</aside>\n<p>That LGTM.  Thanks for writing it out in detail!</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2025-02-19T15:14:08.326Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 20.6,
   "yours": false,
   "topic_id": 1453,
   "topic_slug": "zero-fee-commitments-for-mobile-wallets",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That LGTM.  Thanks for writing it out in detail!",
+  "truncated": true,
+  "post_url": "/t/zero-fee-commitments-for-mobile-wallets/1453/7",
   "reactions": [
     {
       "id": "heart",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.6,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 19.4,
   "yours": false,
   "topic_id": 1907,
   "topic_slug": "solutions-for-this-new-centralization-inside-bitcoin",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Centralization is not a word that means \u201calways bad\u201d.  The use of it in regard to money comes from Hayek\u2019s work and Hayek explains that there is sometimes systems that are important to be centralized for security sakes. \n\nFiat is also not intrinsically bad.  \n\nMaking these assumption is your error and its a genetic fingerprint that is the hallmark of bchashers, bigblockers, and proponents of Satoshi\u2019s vision. \n\nTo you bitcoin is centralized because you can\u2019t control it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Centralization is not a word that means \u201calways bad\u201d.  The use of it in regard to money comes from Hayek\u2019s work and Hayek explains that there is sometimes systems that are important to be centralized for security sakes. \nFiat is also not intrinsically bad. \nMaking these assumption is your error and &hellip;",
   "truncated": true,
   "post_url": "/t/solutions-for-this-new-centralization-inside-bitcoin/1907/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

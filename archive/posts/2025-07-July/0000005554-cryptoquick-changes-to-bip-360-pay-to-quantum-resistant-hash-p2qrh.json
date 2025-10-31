@@ -7,15 +7,15 @@
   "cooked": "<p>\u201cGiven that, the current proposal achieves nothing in my mind. No quantum protection is achieved until DL spending is disabled through a separate consensus change, and it can disable that for P2TR just as well as inside BIP360 scripts.\u201d</p>\n<p>That\u2019s not quite true though, right? P2TR is vulnerable to long exposure attack via the key path spend. P2QRH disables that, making TapScript safe to use for committing to PQ PKHs. This then gives wallet users the <em>option</em> to spend their coins with either ECC or PQC, depending on which script path they choose. P2QRH makes Taproot useful in a PQ context. Right now it simply isn\u2019t. And if CRQCs never manifest, it\u2019s good that we still have the ECC path.</p>\n<p>The alternative is to disable key path spends in P2TR, which could confiscate funds. Personally I\u2019d be very against breaking people\u2019s existing usage of bitcoin even if a quantum threat were active or imminent. There\u2019s not as many coins using P2TR yet anyway in comparison to coins held in P2PKs or reused addresses\u2026 150K vs. 1.7M.</p>",
   "post_number": 26,
   "post_type": 1,
-  "posts_count": 25,
+  "posts_count": 30,
   "updated_at": "2025-07-24T21:26:47.836Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 26.0,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -45,13 +45,18 @@
   },
   "bookmarked": false,
   "raw": "\"Given that, the current proposal achieves nothing in my mind. No quantum protection is achieved until DL spending is disabled through a separate consensus change, and it can disable that for P2TR just as well as inside BIP360 scripts.\"\n\nThat's not quite true though, right? P2TR is vulnerable to long exposure attack via the key path spend. P2QRH disables that, making TapScript safe to use for committing to PQ PKHs. This then gives wallet users the *option* to spend their coins with either ECC or PQC, depending on which script path they choose. P2QRH makes Taproot useful in a PQ context. Right now it simply isn't. And if CRQCs never manifest, it's good that we still have the ECC path.\n\nThe alternative is to disable key path spends in P2TR, which could confiscate funds. Personally I'd be very against breaking people's existing usage of bitcoin even if a quantum threat were active or imminent. There's not as many coins using P2TR yet anyway in comparison to coins held in P2PKs or reused addresses... 150K vs. 1.7M.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 65,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -60,8 +65,18 @@
   "excerpt": "\u201cGiven that, the current proposal achieves nothing in my mind. No quantum protection is achieved until DL spending is disabled through a separate consensus change, and it can disable that for P2TR just as well as inside BIP360 scripts.\u201d \nThat\u2019s not quite true though, right? P2TR is vulnerable to lon&hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/26",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

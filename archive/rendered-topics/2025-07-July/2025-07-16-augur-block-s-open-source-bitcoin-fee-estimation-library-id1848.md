@@ -1,6 +1,6 @@
 # Augur: Block’s Open Source Bitcoin Fee Estimation Library
 
-lauren | 2025-07-16 22:04:13 UTC | #1
+lauren | 2025-07-24 20:29:33 UTC | #1
 
 # Augur: Block's Open Source Bitcoin Fee Estimation Library
 
@@ -76,7 +76,7 @@ More benchmarking results can be found in Block's engineering blog [post](https:
 | WhatTheFee | 14.0% | 18.7% | 16.1% |
 | Mempool.space | 24.4% | 21.7% | 16.4% |
 | Bitcoiner.Live | **3.6%** | **65.5%** | 63.2% |
-| Blockstream (Bitcoin Core) | 18.7% | 44.2% | 35.9% |
+| Blockstream | 18.7% | 44.2% | 35.9% |
 
 
 Bitcoiner.live achieved its low miss rate by **massive overpayment**—users paid over 65% more than necessary. Augur, by contrast, struck a better balance between reliability and cost, delivering acceptable success rates at roughly **1/4 the cost**.
@@ -91,6 +91,11 @@ We're building an **open-source version** of our benchmarking tool to enable the
 * Contribute improvements to Augur or build their own estimators
 
 We'll share the benchmarking tool here once it's ready. In the meantime, feel free to check out [Augur](https://github.com/block/bitcoin-augur) and its [reference implementation](https://github.com/block/bitcoin-augur-reference). @zpv and I welcome any questions or feedback in our posts and repos.
+
+## Addendum
+In our original post we discussed our benchmarking results against various providers and we incorrectly used the label "Blockstream (Bitcoin Core)" instead of "Blockstream". To clarify, we used the publicly available Blockstream API when retrieving fee estimates and we can't speak to the underlying algorithms or versions that provide these estimates.
+
+We did not explicitly benchmark Augur against Bitcoin Core but we would like to do that, time permitting, in the future, and add it to our [open-source benchmarking tool](https://github.com/block/bitcoin-augur-benchmarking) that is now available. Thanks to @ismaelsadeeq for pointing out that if we do, we should use v28.0+ for its default economical mode.
 
 -------------------------
 

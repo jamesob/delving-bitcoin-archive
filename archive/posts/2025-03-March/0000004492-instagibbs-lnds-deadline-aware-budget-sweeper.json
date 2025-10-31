@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"morehouse\" data-post=\"1\" data-topic=\"1512\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/df705f/48.png\" class=\"avatar\"> morehouse:</div>\n<blockquote>\n<p>By setting fee budgets in proportion to HTLC values, LND\u2019s new sweeper is able to provide much stronger guarantees that any replacement cycling attacks will be uneconomical.</p>\n</blockquote>\n</aside>\n<p>Glad to see this common-sense approach which also is additional defense against HTLC expiry bribe attacks. \u201cminer harvesting\u201d is a thing, but so is bribing miners via a timeout tx; you need to make it worth it for a miner one way or another.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2025-03-12T18:54:19.443Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 18.8,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 22.6,
   "yours": false,
   "topic_id": 1512,
   "topic_slug": "lnds-deadline-aware-budget-sweeper",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Glad to see this common-sense approach which also is additional defense against HTLC expiry bribe attacks. \u201cminer harvesting\u201d is a thing, but so is bribing miners via a timeout tx; you need to make it worth it for a miner one way or another.",
+  "truncated": true,
+  "post_url": "/t/lnds-deadline-aware-budget-sweeper/1512/2",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

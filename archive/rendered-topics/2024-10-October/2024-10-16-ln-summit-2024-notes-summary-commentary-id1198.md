@@ -845,15 +845,6 @@ everythingSats | 2024-10-16 11:26:07 UTC | #2
 
 -------------------------
 
-ariard | 2024-10-17 22:09:00 UTC | #3
-
-Make technical comments here:
-https://github.com/lightning/bolts/issues/1204
-
-I’m still waiting, and I guess more people in the community too,  some TheBlueMatt comments (https://github.com/lightning/bolts/issues/1201) on the organization of this so-called LN dev summit. After all, consensus topics are discussed at this type of “closed-doors” meetings, and I don’t wish freely to accuse Lightning Labs and Block Inc to more or less make a cartel to hijack bitcoin consensus development. This is not like that Lightning Labs’s style of development of complex codebases have many times, be it in 2020 or more recently showing shortcomings: https://delvingbitcoin.org/t/non-disclosure-of-a-consensus-bug-in-btcd/1177/6
-
--------------------------
-
 benthecarman | 2024-10-17 23:37:44 UTC | #5
 
 Was there any leanings for the two PTLC directions? People have been saying these two different alternatives for awhile now but haven't seen any movement in either direction.

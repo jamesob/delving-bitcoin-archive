@@ -7,14 +7,15 @@
   "cooked": "<p>Remember the attacker is paying for each of these stalls, similar to a replacement cycling attack, but bound to one bid per block if you have no mempool knowledge.</p>\n<p>I\u2019ve always found this attack pretty weak personally since the attack can be driven to negative EV pretty easily, at relatively minor cost to the defender, even being mempool-blind</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2025-01-07T14:20:15.500Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "incoming_link_count": 1,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 26.4,
   "yours": false,
   "topic_id": 1364,
   "topic_slug": "broken-multi-party-eltoo-with-bounded-settlement",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 103,
     "username": "cdecker",
     "name": "Christian Decker",
     "avatar_template": "/user_avatar/delvingbitcoin.org/cdecker/{size}/99_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Remember the attacker is paying for each of these stalls, similar to a replacement cycling attack, but bound to one bid per block if you have no mempool knowledge. \nI\u2019ve always found this attack pretty weak personally since the attack can be driven to negative EV pretty easily, at relatively minor c&hellip;",
+  "truncated": true,
+  "post_url": "/t/broken-multi-party-eltoo-with-bounded-settlement/1364/7",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -2,19 +2,20 @@
   "id": 550,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2023-12-03T12:14:11.259Z",
   "cooked": "<p>That doesn\u2019t work \u2013 if you can solve the discrete log, you just spend via the key path without ever revealing that the internal pubkey was G.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2023-12-03T12:14:11.259Z",
   "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 8,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 61.6,
+  "reads": 46,
+  "readers_count": 45,
+  "score": 69.2,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That doesn\u2019t work \u2013 if you can solve the discrete log, you just spend via the key path without ever revealing that the internal pubkey was G.",
+  "truncated": true,
+  "post_url": "/t/lamport-signatures-and-other-cat-tricks/236/4",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

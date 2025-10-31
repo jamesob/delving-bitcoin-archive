@@ -7,15 +7,15 @@
   "cooked": "<p>I don\u2019t think spam is usually a useful word in the context of Bitcoin.</p>\n<p>The normal usage, spam email, is an unsolicited message sent to you that you don\u2019t want.  You are successful in defeating it if you don\u2019t see it. The sender paid nothing or infinitesimally close to nothing to send it.  It doesn\u2019t matter if your computer, or your ISPs computer or your ISPs ISPs computer, or the sender\u2019s ISPs\u2026 whatever sees it, stores it, etc.  If your juicy meat optics don\u2019t see it, you win.   You still win if you spent more computing power not seeing it than the spammer spent sending it so long as your cost is still infinitesimal.  It doesn\u2019t matter to you if <em>other</em> people see the spam, you still win if you don\u2019t see it.</p>\n<p>Most of the time in Bitcoin the thing people calling spam is activity from a consenting party, to a consenting party, mined into the blockchain by a consenting miner (who got paid handsomely by the sender for their help).  It was fairly expensive for the sender to send.   The thing that distinguishes it from any other usage is that they\u2019re using Bitcoin for some collateral purpose. They want to achieve some side effect other than sending bitcoin from one person to another subject to conditions. The anti-spammer loses unless they keep this transaction out of the blockchain, and there is no mechanism to prevent a miner from adding a transaction short of it being invalid according to the consensus rules.</p>\n<p>I think there is some cultural inertia from years ago when it was incredibly <em>cheap</em> to dump data into Bitcoin, practically free, and when it literally could be less expensive to \u201cstore\u201d data that way rather than in a commercial service.  In that case, there were obvious incentives towards abuse. But today the Bitcoin price and competition for space is such that it\u2019s something like a hundred thousand times more expensive to store data in Bitcoin then a model price for \u201camazon s3 forever\u201d.  Since storage is very cheap it doesn\u2019t take completely outrageous fees to drive that usage off. So then if it expensive why is there any collateral use at all?</p>\n<p>For the remaining activity that people are complaining about it appears to be that space in Bitcoin is a scarce commodity that they can turn into a non-bitcoin \u201cvaluable\u201d asset through the magic of seigniorage.  It should be obvious, but this particular use much less or even <em>negative</em> response to increasing costs or otherwise restricting resources.   But it\u2019s also utterly unlike and kind of spam something like nostr would get.</p>\n<p>In nostr I suspect the problem you have is that most messages have at most infinitesimal value, so you can\u2019t impose more than infinitesimal costs. And so pricing out unwanted traffic doesn\u2019t work there-- but it does work in Bitcoin, it just doesn\u2019t price out seigniorage because it doesn\u2019t care or even likes the constraints.</p>\n<p>One solution to seigniorage is to explode its scarcity. Early in Bitcoin there was a wave of people copying the bitcoin code to create altcoins and then behaving kind of abusively towards the Bitcoin community to promote their altcoin.  One community member just created a website where anyone could push a button and create an altcoin\u2026 eventually it was bought for 10 BTC by an altcoin producer only to shut it down, but its work was done and altcoins that were <em>just</em> a copy of bitcoin were less of an issue.</p>\n<p>The same kind of thing might work for the seigniorage but that depends on how much the demand for the tokens is real vs the whole thing just being a cover for money laundering (clean account issues/obtains tokens, dirty money account buys them at crazy prices).</p>\n<p>There does exist an analog of email spam in Bitcoin,  \u201cdusting\u201d \u2026 but it\u2019s seldom discussed.  And there are obvious countermeasures possible to reduce it (e.g .wallets should hide really tiny payments, wallets should avoid showing any kind of \u201csending address\u201d, etc).</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 7,
   "updated_at": "2025-05-16T11:47:38.122Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 17.6,
+  "incoming_link_count": 58,
+  "reads": 53,
+  "readers_count": 52,
+  "score": 355.4,
   "yours": false,
   "topic_id": 1692,
   "topic_slug": "the-spam-problem-of-bitcoin-and-unpermissioned-broadcast-networks-in-general",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

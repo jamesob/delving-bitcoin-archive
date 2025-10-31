@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 6,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 32.8,
+  "incoming_link_count": 75,
+  "reads": 45,
+  "readers_count": 44,
+  "score": 379.0,
   "yours": false,
   "topic_id": 1867,
   "topic_slug": "new-paper-on-proof-of-usable-work",
@@ -57,5 +57,10 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

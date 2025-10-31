@@ -2,19 +2,20 @@
   "id": 516,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2023-11-29T23:01:43.227Z",
   "cooked": "<p>Nice, and it seems you\u2019ve discovered something too (<a href=\"https://github.com/sipa/miniscript/issues/140\" class=\"inline-onebox\">bug: `pk()()` is considered a valid policy \u00b7 Issue #140 \u00b7 sipa/miniscript \u00b7 GitHub</a>)!</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2023-11-29T23:01:43.227Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "incoming_link_count": 2,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 42.2,
   "yours": false,
   "topic_id": 208,
   "topic_slug": "differential-fuzzing-of-bitcoin-implementations",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Nice, and it seems you've discovered something too (https://github.com/sipa/miniscript/issues/140)!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,14 +56,31 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Nice, and it seems you\u2019ve discovered something too (<a href=\"https://github.com/sipa/miniscript/issues/140\" class=\"inline-onebox\">bug: `pk()()` is considered a valid policy \u00b7 Issue #140 \u00b7 sipa/miniscript \u00b7 GitHub</a>)!",
+  "truncated": true,
+  "post_url": "/t/differential-fuzzing-of-bitcoin-implementations/208/2",
   "reactions": [
     {
       "id": "rocket",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

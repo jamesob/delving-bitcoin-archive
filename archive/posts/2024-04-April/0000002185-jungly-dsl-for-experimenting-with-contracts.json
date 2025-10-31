@@ -7,14 +7,15 @@
   "cooked": "<p>Hi David,</p>\n<p>Thanks for looking into my other work.</p>\n<p>TLA+ is a different beast from this DSL. The goals of the two systems are pretty different with TLA+ being just so much more powerful - but slightly harder to pick up.</p>\n<h3><a name=\"tla-1\" class=\"anchor\" href=\"#tla-1\"></a>TLA+</h3>\n<p>With TLA+ you define a system state and possible transitions. TLA+ can then run a \u201cmodel checker\u201d that goes off and explores all possible reachable states. Once all the possible states have been generated, it asserts that certain properties that we define remain valid in all reachable states. If in any state, our properties are not satisfied, it can produce a trace showing which state transitions lead to that bad state. As you can see, this really helps debug concurrent protocols - just like Bitcoin and LN. I really think specing LN network communication protocols in TLA+ will help a lot. Anyway, I digress.</p>\n<h3><a name=\"bitcoin-dsl-2\" class=\"anchor\" href=\"#bitcoin-dsl-2\"></a>Bitcoin DSL</h3>\n<p>In contrast, the DSL requires developers to write all state transitions themselves and script their execution - this is similar to writing unit/functional tests for any code. The plus side of the DSL is that it runs your code on regtest, so you really know your scripts will result in real world system transitions. Which I find really helpful personally. I also found it very helpful to learn about various contract constructions - the DSL could be a nice teaching aid.</p>\n<h3><a name=\"status-of-my-tla-work-3\" class=\"anchor\" href=\"#status-of-my-tla-work-3\"></a>Status of my TLA+ work</h3>\n<p>I am currently <a href=\"https://blog.opdup.com/specification.html\" rel=\"noopener nofollow ugc\">using TLA+ to specify the protocols used in Braidpool</a>. It really helps capture error in our thinking before we write code. I am hoping this will help Braidpool be more robust to human error <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>I used <a href=\"https://github.com/pool2win/bitcoin-contracts-tlaplus/blob/794ccf6e9dd9bdd323aa18d3a09648849a066411/LNContractsUsingBitcoinTransactions.tla\" rel=\"noopener nofollow ugc\">TLA+ to capture commitment and breach transactions protocol for LN</a> last year. I kind of lost focus as I was still working part time on all of this. My goal there was to first define a <a href=\"https://github.com/pool2win/bitcoin-contracts-tlaplus/blob/794ccf6e9dd9bdd323aa18d3a09648849a066411/BitcoinTransactions.tla\" rel=\"noopener nofollow ugc\">model for Bitcoin using TLA+</a> and then use that for defining the state transitions resulting from LN contract executions.</p>\n<p>I took a quick look at <a class=\"mention\" href=\"/u/dgpv\">@dgpv</a>\u2019s atomic swap contract. It is pretty serious effort. It will be nice to decompose such contracts into multiple modules.</p>\n<ol>\n<li>Bitcoin blockchain - this captures the chain state and state transitions possible. It is kind of on the back burner atm. I\u2019ll get back to it soon.</li>\n<li>A module of functions to help build contracts - this kind of explodes in complexity, but we can start small and write functions for the most common use cases.</li>\n<li>Communication between parties - I believe this should be left to vanilla TLA+ or pluscal.</li>\n</ol>\n<p><a class=\"mention\" href=\"/u/dgpv\">@dgpv</a> - as you can see, I dream of a TLA+ modules library like the <a href=\"https://github.com/tlaplus/CommunityModules\" rel=\"noopener nofollow ugc\">TLA+ Community Modules</a>.</p>\n<p>-kp</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-04-09T09:08:16.861Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 78.0,
+  "incoming_link_count": 4,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 102.4,
   "yours": false,
   "topic_id": 748,
   "topic_slug": "dsl-for-experimenting-with-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 6,
     "username": "harding",
     "name": "David A. Harding",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
   },
   "bookmarked": false,
   "raw": "Hi David,\n\nThanks for looking into my other work.\n\nTLA+ is a different beast from this DSL. The goals of the two systems are pretty different with TLA+ being just so much more powerful - but slightly harder to pick up.\n\n### TLA+\n\nWith TLA+ you define a system state and possible transitions. TLA+ can then run a \"model checker\" that goes off and explores all possible reachable states. Once all the possible states have been generated, it asserts that certain properties that we define remain valid in all reachable states. If in any state, our properties are not satisfied, it can produce a trace showing which state transitions lead to that bad state. As you can see, this really helps debug concurrent protocols - just like Bitcoin and LN. I really think specing LN network communication protocols in TLA+ will help a lot. Anyway, I digress.\n\n### Bitcoin DSL \nIn contrast, the DSL requires developers to write all state transitions themselves and script their execution - this is similar to writing unit/functional tests for any code. The plus side of the DSL is that it runs your code on regtest, so you really know your scripts will result in real world system transitions. Which I find really helpful personally. I also found it very helpful to learn about various contract constructions - the DSL could be a nice teaching aid.\n\n### Status of my TLA+ work\n\nI am currently [using TLA+ to specify the protocols used in Braidpool](https://blog.opdup.com/specification.html). It really helps capture error in our thinking before we write code. I am hoping this will help Braidpool be more robust to human error :slight_smile: \n\nI used [TLA+ to capture commitment and breach transactions protocol for LN](https://github.com/pool2win/bitcoin-contracts-tlaplus/blob/794ccf6e9dd9bdd323aa18d3a09648849a066411/LNContractsUsingBitcoinTransactions.tla) last year. I kind of lost focus as I was still working part time on all of this. My goal there was to first define a [model for Bitcoin using TLA+](https://github.com/pool2win/bitcoin-contracts-tlaplus/blob/794ccf6e9dd9bdd323aa18d3a09648849a066411/BitcoinTransactions.tla) and then use that for defining the state transitions resulting from LN contract executions.\n\nI took a quick look at @dgpv's atomic swap contract. It is pretty serious effort. It will be nice to decompose such contracts into multiple modules.\n\n1. Bitcoin blockchain - this captures the chain state and state transitions possible. It is kind of on the back burner atm. I'll get back to it soon.\n2. A module of functions to help build contracts - this kind of explodes in complexity, but we can start small and write functions for the most common use cases.\n3. Communication between parties - I believe this should be left to vanilla TLA+ or pluscal.\n\n@dgpv - as you can see, I dream of a TLA+ modules library like the [TLA+ Community Modules](https://github.com/tlaplus/CommunityModules).\n\n-kp",
@@ -53,12 +56,15 @@
   "staff": false,
   "user_id": 102,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hi David, \nThanks for looking into my other work. \nTLA+ is a different beast from this DSL. The goals of the two systems are pretty different with TLA+ being just so much more powerful - but slightly harder to pick up. \n<a name=\"tla-1\" class=\"anchor\" href=\"#tla-1\"></a>TLA+\nWith TLA+ you define a system state and possible transitions. TLA+ can then&hellip;",
+  "truncated": true,
+  "post_url": "/t/dsl-for-experimenting-with-contracts/748/12",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

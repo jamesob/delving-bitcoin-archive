@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"AntoineP\" data-post=\"1\" data-topic=\"1222\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>Libbitcoin will skip transaction validation besides checking they were properly committed, i.e. no malleation of either transactions or witnesses (note this means in particular inputs existence isn\u2019t checked). This is in my opinion a similar threat model to Bitcoin Core\u2019s <code>-assumevalid</code>.</p>\n</blockquote>\n</aside>\n<p>I think this edit helps, but is still a bit confusing in that the term \u201ctransaction validation\u201d is overloaded. Later in the post, you define \u201cValidation\u201d and \u201cConfirmability\u201d as two separate things, i.e., \u201cValidation\u201d is all verification checks <em>except</em> \u201cConfirmability\u201d and \u201cConfirmability\u201d is only verifying prevouts exist and are unspent. I think the OP would be more clear if it explicitly mentions that for blocks under the milestone, both \u201cValidation\u201d and \u201cConfirmability\u201d checks are skipped. I think this also makes it more clear where the differences with Core\u2019s architecture are: while this is conceptually a similar threat model, Core <em>does</em> need to check that inputs exist and are unspent because this is necessary for maintaining a \u201cUTXO set\u201d (in that we must know what inputs are being spent so that they can be deleted from the UTXO set before continuing).</p>",
   "post_number": 10,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-11-05T10:23:56.088Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 19.2,
+  "reads": 82,
+  "readers_count": 81,
+  "score": 46.4,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think this edit helps, but is still a bit confusing in that the term \u201ctransaction validation\u201d is overloaded. Later in the post, you define \u201cValidation\u201d and \u201cConfirmability\u201d as two separate things, i.e., \u201cValidation\u201d is all verification checks except \u201cConfirmability\u201d and \u201cConfirmability\u201d is only v&hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/10",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

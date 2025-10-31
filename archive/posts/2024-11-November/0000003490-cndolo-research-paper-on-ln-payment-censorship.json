@@ -7,14 +7,15 @@
   "cooked": "<p>Dear all,</p>\n<p>In a recent paper <a href=\"https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2024.12\" rel=\"noopener nofollow ugc\">1</a>, we explored the threat of censorship by a network-level\nadversary, such as an autonomous system (AS), in the Lightning network.\nI would like to summarise the contributions in this post, while inviting\ncomments and discussions on the subject from the broader LN community.</p>\n<h2><a name=\"p-3490-background-1\" class=\"anchor\" href=\"#p-3490-background-1\"></a>Background</h2>\n<p>A relatively recent paper <a href=\"https://ieeexplore.ieee.org/document/10190502\" rel=\"noopener nofollow ugc\">2</a> presented a comprehensive attack on privacy in the\nLN that exploits the fact that P2P messages can be identified using\nnetwork-level information, i.e., TCP headers, despite encryption.\nWhen combined with the sequence of messages, it is possible for an adversary\nobserving network traffic to determine what application messages are\nbeing exchanged by nodes.\nBased on collected packet traces, the authors showed that they can trivially\nclassify application messages which serves as the foundation for the further\nattack.\nThe fact that the network layer is quite centralised makes the potential impact\neven greater, as most channels are hosted at just a handful of ASs.</p>\n<h2><a name=\"p-3490-censorship-2\" class=\"anchor\" href=\"#p-3490-censorship-2\"></a>Censorship</h2>\n<p>Motivated by the network-level centralisation, we studied the LN\u2019s vulnerability\nto censorship.\nWe maintain the same attacker model as <a href=\"https://ieeexplore.ieee.org/document/10190502\" rel=\"noopener nofollow ugc\">2</a>, which is a powerful but malicious\nnetwork-level attacker such as an AS.\nHowever, our attacker is keen on imposing censorship on <strong>only</strong> \u201ctheir\u201d nodes\nwhile going undetected so as to maintain a certain degree of plausible\ndeniability.\nTo this end, the adversary only imposes censorship on payments in the LN and\ndoes not interfere with any other LN operations or the greater network.</p>\n<p>Assuming the adversary is monitoring traffic exchanged between to/from one of\ntheir nodes, the basic steps they may follow can be summarised as follows:</p>\n<ol>\n<li>Identify TCP segments related to LN payments. Anything else besides such\nsegments is not of interest/relevance to the adversary.\nThis is typically accomplished by identifying an <code>update_add_htlc</code> message.</li>\n<li>Interfere with the payment by dropping the first outgoing <code>revoke_and_ack</code>\nmessage that is sent by the initiator. The specific message is not a\nrequirement but was selected due its terminal position as it affords the\nattacker time to confirm that a payment is underway.</li>\n<li>Drop every subsequent <code>revoke_and_ack</code> message that will be transmitted by\nthe initiator until the timeout eventually expires.</li>\n</ol>\n<p>In doing so, the affected nodes are still able to open channels, send gossip\netc. which supports the adversary\u2019s goal of remaining undetected.\nClearly, a single node operator is technically able to execute these same steps,\nhowever, the impact is related to the number of affected channels.\nIn the paper, we discuss how and show that the adversary can refine their attack\nby determining the node\u2019s role in the payment path.\nSimilarly, this is achieved using only the information available at the network\nlayer.</p>\n<p>In summary, these are some the key points from our analysis:</p>\n<ol>\n<li>We implemented classification rules (using message size, direction and\nsequence) in XDP and netfilter programs which we deployed to test\nnetworks.\nComplementary to <a href=\"https://ieeexplore.ieee.org/document/10190502\" rel=\"noopener nofollow ugc\">2</a>, we showed that such classification is trivially\nand efficiently possible on the fly.</li>\n<li>As a result, it is feasible to execute the described censorship attack,\nand will remain to be so unless the currently-estimated throughput\nincreases significantly.</li>\n<li>Perhaps unsurprisingly, the network-level centralisation increases the\npotential magnitude of the attack.\nSimulations, however, showed this varies greatly based on the attacking\nAS and/or exact censorship strategy.</li>\n</ol>\n<h2><a name=\"p-3490-mitigation-3\" class=\"anchor\" href=\"#p-3490-mitigation-3\"></a>Mitigation</h2>\n<p>The authors of <a href=\"https://ieeexplore.ieee.org/document/10190502\" rel=\"noopener nofollow ugc\">2</a> already discussed some countermeasures that may be\nimplemented such as deviating from the default port or using Tor.\nWhile the former is likely not effective enough, the latter can be generalised\nto the use of length-hiding schemes such as padding.\nHowever, as we argue in our paper, selecting an adequate form of padding is not\ntrivial.\nFor one, an adversary is likely to be able to defeat simple padding mechanisms\nsuch as constant-length messages using knowledge of the LN protocol and timing.\nOn the other hand, the introduced overhead may not be negligible and should thus\nbe taken into consideration.</p>\n<p>There is a lot of related work in the area of website fingerprinting defences\nthat we can likely make use of here.\nFor instance, adaptive padding mechanisms such as WTF-Pad <a href=\"https://arxiv.org/pdf/1512.00524\" rel=\"noopener nofollow ugc\">3</a> et al. or defence\nframeworks such as Maybenot <a href=\"https://dl.acm.org/doi/pdf/10.1145/3603216.3624953\" rel=\"noopener nofollow ugc\">4</a> come to mind.</p>\n<p>Alternatively (or perhaps, alongside) exploring the above, addressing the\nnetwork-level centralisation on the application layer, e.g., by taking AS\ninformation during pathfinding into consideration, may also be worth looking at.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 1,
   "updated_at": "2024-11-05T11:57:11.703Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 210,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 1002.2,
+  "incoming_link_count": 408,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 2108.2,
   "yours": false,
   "topic_id": 1248,
   "topic_slug": "research-paper-on-ln-payment-censorship",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -54,11 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Dear all, \nIn a recent paper <a href=\"https://drops.dagstuhl.de/entities/document/10.4230/LIPIcs.AFT.2024.12\" rel=\"noopener nofollow ugc\">1</a>, we explored the threat of censorship by a network-level\nadversary, such as an autonomous system (AS), in the Lightning network.\nI would like to summarise the contributions in this post, while inviting\ncomments and discussions on the subject from the broader LN communi&hellip;",
+  "truncated": true,
+  "post_url": "/t/research-paper-on-ln-payment-censorship/1248/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     },
     {
       "id": "heart",
@@ -67,6 +72,11 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

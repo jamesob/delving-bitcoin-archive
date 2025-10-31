@@ -7,15 +7,15 @@
   "cooked": "<p>Hi,</p>\n<p>I\u2019m trying to better understand the suggestion\u2014could you clarify a couple of points?</p>\n<ol>\n<li>\n<p>Is the idea that each channel with capacity of <span class=\"math\">m</span> sats would also lock an additional <span class=\"math\">m</span> sats solely as collateral to mitigate jamming attacks? Do you have any estimates of the associated costs, such as the opportunity cost of locking up these funds?</p>\n</li>\n<li>\n<p>Regarding channel closure and the distribution of the extra funds: as I understand it, both parties would need to agree, or else the funds are lost. Have you considered behavioral dynamics, such as those studied in experiments like the ultimatum game? These may suggest that real-world outcomes could diverge from the theoretically optimal ones.</p>\n</li>\n</ol>\n<p>I think a numerical example that explores different waiting times could be very helpful in understanding the tradeoffs.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 19,
   "updated_at": "2025-04-15T15:55:25.988Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 12.4,
   "yours": false,
   "topic_id": 1524,
   "topic_slug": "fee-based-spam-prevention-for-lightning",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 279,
     "username": "JohnLaw",
     "name": null,
     "avatar_template": "/letter_avatar_proxy/v4/letter/j/58956e/{size}.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

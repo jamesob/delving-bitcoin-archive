@@ -7,15 +7,15 @@
   "cooked": "<p>We have been <a href=\"https://x.com/2ndbtc/status/1926309267142832641\" rel=\"noopener nofollow ugc\">thinking</a> about a similar approach using Ark.</p>\n<p>The key advantage of this approach is that we can reduce the transaction-cost. A small miner that operates in the scheme above will receive a clunky set of many small VTXOs.</p>\n<p>I don\u2019t want to hi-jack this post and make it about Ark. However, a short summary won\u2019t hurt anyone.</p>\n<p>The mining pool can use OP_CTV to pay into a <a href=\"https://docs.second.tech/protocol/intro/#utxo-sharing-using-transaction-trees\" rel=\"noopener nofollow ugc\">transaction tree</a>. The leaf of this tree is called a VTXO. A miner can hold on to their VTXO\u2019s for a while until they have collected a good amount of VTXO\u2019s and offboard all funds at once.</p>\n<p>This saves costs.</p>\n<p>A small miner will not end up with 100 UTXO\u2019s of 0.0001 BTC.\nInstead, they can offboard 100 VTXOs of 0.0001 BTC. Only a single UTXO worth 0.01 BTC will hit the chain.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 17,
   "updated_at": "2025-06-05T07:35:37.012Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 4,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 68.8,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 93.6,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "heart",
@@ -72,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

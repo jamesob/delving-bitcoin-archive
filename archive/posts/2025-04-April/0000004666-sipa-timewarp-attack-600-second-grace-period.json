@@ -7,14 +7,15 @@
   "cooked": "<p>What practically goes wrong if you try to pull of the scheme exactly as described by Sjors, is the following, I think.</p>\n<p>As an attacker you have a certain hashrate, so you will find blocks sometimes faster, sometimes slower. From time to time, you will find a block <span class=\"math\">2016k</span> at time before <span class=\"math\">(1+k)P</span>. You can now do three things:</p>\n<ul>\n<li>Use the real clock time instead, in which case the scheme turns into <a href=\"https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32\">this one</a>, where your own block rate is affected by the difficulty reduction, and has no compounding.</li>\n<li>Wait. Give the block exactly timestamp <span class=\"math\">(1+k)P</span>, and when you find it, you just turn off your equipment until the time comes to start looking for the next block. Now the \u201cattack\u201d has literally turned into attackers choosing to reduce their hashrate.</li>\n<li>Start secretly mining the next block. Give the block exactly timestamp <span class=\"math\">(1+k)</span>, and when you find it, just start working on the block after that one. This is actually equivalent to just waiting, because due to the difficulty adjustment, if you\u2019d mine the entire time you\u2019d find blocks at a higher that the scheme allows, so you <em>have to</em> slow down.</li>\n</ul>",
   "post_number": 42,
   "post_type": 1,
+  "posts_count": 43,
   "updated_at": "2025-04-01T15:56:08.908Z",
   "reply_count": 0,
   "reply_to_post_number": 41,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.0,
+  "reads": 21,
+  "readers_count": 20,
+  "score": 9.2,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 711,
     "username": "Jonny1000",
     "name": "Jonny1000",
     "avatar_template": "/letter_avatar_proxy/v4/letter/j/4bbf92/{size}.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "What practically goes wrong if you try to pull of the scheme exactly as described by Sjors, is the following, I think. \nAs an attacker you have a certain hashrate, so you will find blocks sometimes faster, sometimes slower. From time to time, you will find a block 2016k at time before (1+k)P. You ca&hellip;",
+  "truncated": true,
+  "post_url": "/t/timewarp-attack-600-second-grace-period/1326/42",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

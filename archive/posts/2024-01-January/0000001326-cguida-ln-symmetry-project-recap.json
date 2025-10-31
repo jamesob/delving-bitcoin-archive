@@ -7,14 +7,15 @@
   "cooked": "<p>If anyone wants to try out instagibbs\u2019 CLN implementation, I was able successfully force close a channel on inquisition signet using this method:</p>\n<aside class=\"onebox githubgist\" data-onebox-src=\"https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a\">\n  <header class=\"source\">\n\n      <a href=\"https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a\" target=\"_blank\" rel=\"noopener nofollow ugc\">gist.github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h4><a href=\"https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a</a></h4>\n\n  <h5>ln-symmetry-demo.md</h5>\n  <pre><code class=\"Markdown\">The following is one way to broadcast an LN-symmetry (formerly `eltoo`) settlement tx on inquisition signet, using instagibbs' original APO eltoo implementation on CLN.\n\n1) build and install inquisition signet, you will need this fork of bitcoind for support of APO, ephemeral anchors, and taproot annex blobs\n```\ngit clone https://github.com/bitcoin-inquisition/bitcoin\ncd bitcoin\n./autogen.sh\n./configure\nmake -j$(( $(nproc) - 1))\nsudo make install</code></pre>\n    This file has been truncated. <a href=\"https://gist.github.com/chrisguida/43e482e684727daa618423e52a14d09a\" target=\"_blank\" rel=\"noopener nofollow ugc\">show original</a>\n\n<p>\n</p>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>Let me know if it works/breaks for you!</p>\n<p>Edit: here\u2019s the entire thing in markdown!</p>\n<p>The following is one way to broadcast an LN-symmetry (formerly <code>eltoo</code>) settlement tx on inquisition signet, using instagibbs\u2019 original APO eltoo implementation on CLN.</p>\n<ol>\n<li>build and install inquisition signet, you will need this fork of bitcoind for support of APO, ephemeral anchors, and taproot annex blobs</li>\n</ol>\n<pre><code class=\"lang-auto\">git clone https://github.com/bitcoin-inquisition/bitcoin\ncd bitcoin\n./autogen.sh\n./configure\nmake -j$(( $(nproc) - 1))\nsudo make install\n</code></pre>\n<ol start=\"2\">\n<li>build and install instagibbs\u2019 <code>eltoo_support</code> branch of CLN</li>\n</ol>\n<pre><code class=\"lang-auto\">cd ..\ngit clone https://github.com/instagibbs/lightning -b eltoo_support\ncd lightning\n./configure --enable-developer --enable-experimental-features\nmake -j$(( $(nproc) - 1))\nsudo make install\n</code></pre>\n<ol start=\"3\">\n<li>launch bitcoind on signet and make sure it connects to ajtowns\u2019 inquisition node</li>\n</ol>\n<pre><code class=\"lang-auto\">bitcoind -signet -daemon -server -txindex=1 -addnode=inquisition.bitcoin-signet.net\n</code></pre>\n<ol start=\"4\">\n<li>get some signet coins</li>\n</ol>\n<pre><code class=\"lang-auto\">bitcoin-cli -signet createwallet default\nbitcoin-cli -signet loadwallet default\nbitcoin-cli -signet getnewaddress\n</code></pre>\n<ul>\n<li>Go to <a href=\"https://signetfaucet.com/\" rel=\"noopener nofollow ugc\">https://signetfaucet.com/</a> for up to 0.01 sbtc at a time</li>\n<li>You can also try <code>contrib/signet/getcoins.py</code></li>\n<li>If nothing else works you can ask for signet coins on IRC in <span class=\"hashtag-raw\">#bitcoin-signet</span></li>\n</ul>\n<ol start=\"5\">\n<li>wait for IBD to complete, then launch 2 inquisition nodes using <code>startup_regtest.sh</code></li>\n</ol>\n<pre><code class=\"lang-auto\">sed -i 's/regtest/signet/g' contrib/startup_regtest.sh\nsource contrib/startup_regtest.sh\nstart_ln\n</code></pre>\n<p>Note: this branch of CLN does not support restarting the node, so you will have to nuke your node and start over if your node stops for any reason. So make sure you send all signet coins out of the node before stopping it, or your coins will be lost.</p>\n<ol start=\"6\">\n<li>Send some coins to Node 1</li>\n</ol>\n<pre><code class=\"lang-auto\">l1-cli newaddr\nbt-cli sendtoaddress &lt;addr&gt;\n</code></pre>\n<ol start=\"7\">\n<li>Wait for the deposit to confirm, then open a 100k-sat channel from Node 1 to Node 2</li>\n</ol>\n<pre><code class=\"lang-auto\">l2-cli getinfo\nl1-cli connect &lt;node-2-id@127.0.0.1:7272&gt;\nl1-cli fundchannel &lt;node-2-id&gt; 100000sat\n</code></pre>\n<ol start=\"8\">\n<li>Wait a few confirmations for the channel to become active, then optionally pay a 10k-sat invoice from Node 1 to Node 2:</li>\n</ol>\n<pre><code class=\"lang-auto\">l2-cli invoice 10000000 test test\nl1-cli pay &lt;bolt11&gt;\n</code></pre>\n<p>Now let\u2019s force close the channel! (This implementation doesn\u2019t support mutual closes, so don\u2019t try or your funds will get stuck)</p>\n<ol start=\"9\">\n<li>Get the raw last_update_tx from the <code>listpeers</code> call:</li>\n</ol>\n<pre><code class=\"lang-auto\">l1-cli listpeers\n</code></pre>\n<ol start=\"10\">\n<li>Broadcast it:</li>\n</ol>\n<pre><code class=\"lang-auto\">bt-cli sendrawtransaction &lt;last_update_tx&gt;\n</code></pre>\n<p>The tx will get stuck in your node\u2019s mempool because it has an ephemeral anchor, which must be spent in order for the tx to be relayed.</p>\n<ol start=\"11\">\n<li>CPFP using the ephemeral anchor. Take note of the txid of both the ephemeral anchor and one of our bitcoind wallet\u2019s UTXOs. We\u2019ll also need a new address to receive our CPFP:</li>\n</ol>\n<pre><code class=\"lang-auto\">bt-cli decoderawtransaction &lt;last_update_tx&gt;\nbt-cli listunpsent\nbt-cli getnewaddress\n</code></pre>\n<ol start=\"12\">\n<li>Construct a new tx that spends both outputs back to our bitcoind wallet. I used 1,000 sats for the fee, probably a bit overkill, but this is fake money anyway:</li>\n</ol>\n<pre><code class=\"lang-auto\">bt-cli createrawtransaction '[{\"txid\":\"&lt;update-tx-txid&gt;\", \"vout\": &lt;ephemeral-anchor-vout&gt;}, {\"txid\":\"&lt;bitcoind-wallet-UTXO-txid&gt;\", \"vout\":&lt;bitcoind-wallet-UTXO-vout&gt;}]' '{\"&lt;bitcoind-wallet-address&gt;\":\"&lt;UTXO-BTC-amount-minus-0.00001000&gt;\"}'\n</code></pre>\n<ol start=\"13\">\n<li>Sign and broadcast it</li>\n</ol>\n<pre><code class=\"lang-auto\">bt-cli signrawtransactionwithwallet &lt;new-cpfp-unsigned-tx&gt;\nbt-cli sendrawtransaction &lt;new-cpfp-signed-tx&gt;\n</code></pre>\n<ol start=\"14\">\n<li>Check to make sure the update tx has been relayed:</li>\n</ol>\n<pre><code class=\"lang-auto\">bt-cli getmempoolentry &lt;update-txid&gt;\n</code></pre>\n<p>If it says <code>\"unbroadcast\": false</code>, you\u2019re good to go.</p>\n<p>Once it gets confirmed in a block, you should be able to see the update tx at <a href=\"https://mempool.space/signet/tx/update-txid\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">mempool - Bitcoin Explorer</a>. If both txs say doesn\u2019t show up in the next block, reach out to <span class=\"hashtag-raw\">#bitcoin-signet</span> and see if there\u2019s anything wrong with inquisition relay.</p>\n<ol start=\"15\">\n<li>Wait a few blocks for the challenge period to end, then grab the settlement tx and broadcast it too:</li>\n</ol>\n<pre><code class=\"lang-auto\">l1-cli listpeers\nbt-cli sendrawtransaction &lt;last_settlement_tx&gt;\n</code></pre>\n<ol start=\"16\">\n<li>Make sure you CPFP this tx as well, as above, as it also has an ephemeral anchor.</li>\n<li>Wait for the settlement tx to confirm. Find it on mempool.space as before.</li>\n<li>To save your coins, wait 100 blocks for the channel to be forgotten, then sweep all funds from CLN back into bitcoind. Now you can safely stop your CLN nodes.</li>\n</ol>\n<p>Congratulations, you\u2019ve just force closed your first LN-symmetry channel on inqusition signet!</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-01-25T14:42:33.212Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 52.6,
+  "incoming_link_count": 16,
+  "reads": 65,
+  "readers_count": 64,
+  "score": 168.0,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -48,20 +50,27 @@
   "staff": false,
   "user_id": 140,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "If anyone wants to try out instagibbs\u2019 CLN implementation, I was able successfully force close a channel on inquisition signet using this method: \n\n\nLet me know if it works/breaks for you! \nEdit: here\u2019s the entire thing in markdown! \nThe following is one way to broadcast an LN-symmetry (formerly elt&hellip;",
+  "truncated": true,
+  "post_url": "/t/ln-symmetry-project-recap/359/12",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

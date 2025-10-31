@@ -13,9 +13,9 @@
   "reply_to_post_number": 11,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 26.6,
   "yours": false,
   "topic_id": 1877,
   "topic_slug": "paralel-bitcoin-only-for-conscious-living-individuals",
@@ -40,7 +40,7 @@
   "reply_to_user": {
     "id": 874,
     "username": "davidtaubmann",
-    "name": "David Taubmann",
+    "name": "David Taubmann (david.qro.mx)",
     "avatar_template": "/user_avatar/delvingbitcoin.org/davidtaubmann/{size}/1439_2.png"
   },
   "bookmarked": false,
@@ -74,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

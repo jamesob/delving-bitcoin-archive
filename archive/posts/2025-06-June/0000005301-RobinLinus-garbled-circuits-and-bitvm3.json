@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 39,
-  "readers_count": 38,
-  "score": 24.2,
+  "incoming_link_count": 208,
+  "reads": 69,
+  "readers_count": 68,
+  "score": 1108.8,
   "yours": false,
   "topic_id": 1773,
   "topic_slug": "garbled-circuits-and-bitvm3",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -68,5 +68,10 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

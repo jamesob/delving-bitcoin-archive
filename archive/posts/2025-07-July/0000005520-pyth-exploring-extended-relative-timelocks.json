@@ -7,15 +7,15 @@
   "cooked": "<p>an other pain point I see with using absolutes timelock is it\u2019s very likely you\u2019ll not be able to spend several inputs with a different timelocks in a same transaction in a safe way with some (or maybe all?) signing devices actually supporting miniscript: as this outputs are paying to a script generated from different descriptors, some inputs will be seen by the devices as an non-owned input whereas they are indeed owned\u2026</p>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 15,
+  "posts_count": 25,
   "updated_at": "2025-07-19T00:58:18.827Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.4,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 22.0,
   "yours": false,
   "topic_id": 1818,
   "topic_slug": "exploring-extended-relative-timelocks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "an other pain point I see with using absolutes timelock is it's very likely you'll not be able to spend several inputs with a different timelocks in a same transaction in a safe way with some (or maybe all?) signing devices actually supporting miniscript: as this outputs are paying to a script generated from different descriptors, some inputs will be seen by the devices as an non-owned input whereas they are indeed owned...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "an other pain point I see with using absolutes timelock is it\u2019s very likely you\u2019ll not be able to spend several inputs with a different timelocks in a same transaction in a safe way with some (or maybe all?) signing devices actually supporting miniscript: as this outputs are paying to a script gener&hellip;",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/15",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

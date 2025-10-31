@@ -7,15 +7,15 @@
   "cooked": "<p>Reading both yours and <a class=\"mention\" href=\"/u/mechanic\">@mechanic</a> \u2018s points here (though forgive me I have not read <em>all</em> of your post yet!) is helpful to me, thanks.</p>\n<aside class=\"quote no-group\" data-username=\"cguida\" data-post=\"1\" data-topic=\"1991\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/c/87869e/48.png\" class=\"avatar\"> cguida:</div>\n<blockquote>\n<p>Put more simply: bitcoin\u2019s identity as money cannot be enforced at the consensus layer. Therefore, the only way to ensure that bitcoin stays money is if we enforce its usage as money at the social/mempool layer. The only reason bitcoin has stayed money thus far is because of its protective \u201cbitcoin maximalist\u201d culture, which ensures that its <span class=\"hashtag-raw\">#1</span> priority is always to be the best money, and that other use cases are severely discouraged.</p>\n</blockquote>\n</aside>\n<blockquote>\n<p>Yes, this is precisely why the consensus rules are useless for making sure bitcoin stays money, and why we must react at the policy level rather than the consensus level. Only the most popular formats, which by definition are easily-identifiable, need to be filtered.</p>\n</blockquote>\n<p>This helps clarify it a bit better for me (and I see you expand on the same point elsewhere, too). So you are saying that something that is not definable with a fixed static ruleset needs to essentially be \u201cpoliced\u201d by nodes, with the filters acting as a warning mechanism. Perhaps the biggest difference of opinion we have is that I see this as not only impractical but actually dangerous to Bitcoin as money, more so than spam itself. I\u2019ll explain first abstractly and then with a couple of examples:</p>\n<ul>\n<li>the core essential property of bitcoin is that others cannot tell me what transactions I am and am not allowed to make (yeah, I know, heard it all before <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=14\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"> )</li>\n<li>Concretely, let\u2019s start with this trivial example: breach transactions in Lightning publish hashes on chain. That is data, it is not a payment (not a destination, not an amount). Same with submarine/coin swaps, often. Stupid example? Sure, but \u2026</li>\n<li>What if it was like Lightning as a general offchain payment mechanism, but required 5 hash preimages onchain, not 1? What if it required 200, spread across 20 transactions?</li>\n<li>The above is made up, of course, but as I\u2019m sure you know, there are proposals for fraud proof based systems that <em>tend</em> to use quite a lot of onchain transactions (I think flavors of BitVM though that field is moving way too fast to say anything specific)</li>\n<li>There are probably people who think that \u201csouped up\u201d L2 systems (e.g. \u201crollups\u201d) are either not going to happen, or for some reason are a bad idea, but if you could do properly trustless exchanges with near-infinite bandwidth, 100x cheaper and 100x better privacy than onchain, are you advocating against that if the data it puts on chain is not \u201cfinancial\u201d?</li>\n<li>You might reasonably answer all the above with \u201cof course I\u2019m not against L2s and as long as the data they put onchain is reasonable; that is effectively financial, even if not literally; that isn\u2019t part of what I\u2019m advocating policing with our nodes\u201d, but what about an L2 that both offers fast cheap private payments, and also lets people mint jpegs? And because it\u2019s private, you don\u2019t know from the random 32 byte strings onchains, whether the activity was \u201cfinancial/payments\u201d or not?</li>\n<li>Notice I didn\u2019t even appeal to the obvious (and historical, and practical) example of data embedded in pubkeys, nor to the real world of today with data embedded in scripts.</li>\n</ul>\n<p>But why such a strong statement as \u201cdangerous to Bitcoin as money\u201d though? Because it isn\u2019t just wrong-headed to try to police transactions at the network layer, it\u2019s anathema to Bitcoin\u2019s central purpose. If Bitcoin\u2019s p2p network is actively attacking Bitcoin (the protocol) itself (certainly not the case now because it\u2019s not homogeneous, and long may that last! Including, yes, I think it\u2019s great that Knots, and others, exist as a plausible alternative) because it becomes a police force on what transactions are allowed, it may fail under that weight, because if it still existed at all, it would do so with small groups of miners talking to each other secretly.</p>\n<p>Another way to look at it is: if the p2p network becomes properly homogeneous in that imagined scenario, <strong>and could fully agree on a specific type of transaction to be banned</strong>, then they could and should simply soft fork in the restriction. Like ban, or limit, OP_RETURN for example.</p>\n<p>But I think your response to that is: \u201cyou\u2019re missing the point! the bad actors shift around and so a simple static rule can\u2019t ban them.\u201d Well, that means it\u2019s also completely impractical to police them. Are node runners going to get together every week and review the patterns of \u201cbad\u201d transactions that have been happening? The whole point of Bitcoin is that is not a <em>community</em> based money, such things completely fail to scale, and also the point of Bitcoin is not to take power away from a central group and give it to the people, it\u2019s to take power away from the central group and give it to <strong>no one at all</strong>. Having a committee decide what kinds of transactions to filter out this week is, I\u2019m sure you agree, not realistic.</p>\n<p>Obviously the picture I painted there of \u201cpolice gone wild\u201d is hyperbolic - I don\u2019t think that will happen! I\u2019m just saying nodes policing the network to enforce rules that are not in the software is somewhere between incoherent and actively dangerous because of the centralization pressure it creates.</p>\n<p>(This is more personal opinion, but I think Bitcoin\u2019s long term success will depend on more wide usage, which in turn will depend on finding the right way to do what Peter Todd likes to call client side validation with ZKP techniques, because the usability barriers won\u2019t be overcome-able otherwise at scale; notice how client-side-validation as a paradigm really doesn\u2019t fit with what you\u2019re saying. But this is parenthesized because it\u2019s not a necessary part of the discussion).</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 16,
   "updated_at": "2025-09-21T13:42:09.859Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 28,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 173.0,
+  "incoming_link_count": 493,
+  "reads": 79,
+  "readers_count": 78,
+  "score": 2455.6,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -7,15 +7,15 @@
   "cooked": "<p>It seems to me that sendtemplate is just transaction relay with extra steps. I don\u2019t see the point, we should just focus on transaction relay instead, by increasing the size of the orphan pool, for instance.</p>\n<p>A template (without using weak blocks) is costless to generate so is just an \u201cextra step\u201d. There\u2019s also no way to know whether the sender is actually a miner and trying to mine the block. If I want to fill your orphan pool with junk that wouldn\u2019t normally be relayed, I\u2019ll just send all my peers templates with the junk txs. I think we need to think harder about relay policies against DoS, and instead using a (very) large orphan pool and <code>blockreconstructionextratxn</code>.</p>\n<p>I posted [some comments on the PR](<a href=\"https://github.com/ajtowns/bips/pull/7#issuecomment-3258608404\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">bip-ajtowns-sendtemplate by ajtowns \u00b7 Pull Request #7 \u00b7 ajtowns/bips \u00b7 GitHub</a>) that I doubt anyone read. and since learned about <code>blockreconstructionextratxn</code>\u2026</p>",
   "post_number": 18,
   "post_type": 1,
-  "posts_count": 21,
+  "posts_count": 24,
   "updated_at": "2025-09-11T16:30:35.810Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 12.8,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 32.6,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "It seems to me that sendtemplate is just transaction relay with extra steps. I don\u2019t see the point, we should just focus on transaction relay instead, by increasing the size of the orphan pool, for instance.\n\nA template (without using weak blocks) is costless to generate so is just an \u201cextra step\u201d. There\u2019s also no way to know whether the sender is actually a miner and trying to mine the block. If I want to fill your orphan pool with junk that wouldn\u2019t normally be relayed, I\u2019ll just send all my peers templates with the junk txs. I think we need to think harder about relay policies against DoS, and instead using a (very) large orphan pool and `blockreconstructionextratxn`.\n\nI posted \\[some comments on the PR\\](https://github.com/ajtowns/bips/pull/7#issuecomment-3258608404) that I doubt anyone read. and since learned about `blockreconstructionextratxn`\u2026",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "It seems to me that sendtemplate is just transaction relay with extra steps. I don\u2019t see the point, we should just focus on transaction relay instead, by increasing the size of the orphan pool, for instance. \nA template (without using weak blocks) is costless to generate so is just an \u201cextra step\u201d. &hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/18",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

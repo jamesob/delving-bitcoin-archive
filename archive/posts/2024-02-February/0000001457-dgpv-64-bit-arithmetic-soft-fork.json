@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"42\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/3_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>you have to strip those zeroes before you can do any maths on that hash</p>\n</blockquote>\n</aside>\n<p>if there is <code>FROMFIXNUM</code> opcode that takes the size of fixed-size integer as one argument and byte blob of that size as another argument and turns it into a variable-size integer it will be easy (and also <code>BYTEREV</code> to deal with endianness)</p>",
   "post_number": 43,
   "post_type": 1,
+  "posts_count": 52,
   "updated_at": "2024-02-04T07:44:12.309Z",
   "reply_count": 0,
   "reply_to_post_number": 42,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 47.4,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 53.8,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "if there is FROMFIXNUM opcode that takes the size of fixed-size integer as one argument and byte blob of that size as another argument and turns it into a variable-size integer it will be easy (and also BYTEREV to deal with endianness)",
+  "truncated": true,
+  "post_url": "/t/64-bit-arithmetic-soft-fork/397/43",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

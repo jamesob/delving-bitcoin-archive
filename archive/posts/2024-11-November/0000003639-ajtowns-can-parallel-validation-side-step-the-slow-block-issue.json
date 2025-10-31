@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"sjors\" data-post=\"1\" data-topic=\"1288\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sjors/48/59_2.png\" class=\"avatar\"> sjors:</div>\n<blockquote>\n<p>Does the large miner advantage stay in place even if their blocks are at increased risk of reorg?</p>\n</blockquote>\n</aside>\n<p>Arguably, it\u2019s an advantage to have mined the block, because at that point you know it\u2019s valid and can mine on top of it immediately; meanwhile others have to wait until the block propagates and validates. If you\u2019re mining empty blocks as soon as the header propagates, you might only be losing fees and adding a mild risk of building on an invalid block, but that\u2019s still some advantage for the original miner.</p>\n<p>I think making sure core could still quickly do compact block relay (of missing transactions) while the block was being validating, would improve things a bunch. Having a well connected FIBRE relay network would also probably help (as it relays things just based on PoW and doesn\u2019t block on validation, aiui); afaik there isn\u2019t a public FIBRE network these days. At the moment, I\u2019d expect block relay to be pretty severely impacted by slow validation.</p>\n<p>Would be interesting to see the maths on race to first validation; reorging to fastest to validate seems like it would favour empty blocks and perhaps add a little instability (if different hardware validates blocks at inconsistent speeds eg) which doesn\u2019t seem super desirable.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-11-29T03:45:38.031Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 32.4,
   "yours": false,
   "topic_id": 1288,
   "topic_slug": "can-parallel-validation-side-step-the-slow-block-issue",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Arguably, it\u2019s an advantage to have mined the block, because at that point you know it\u2019s valid and can mine on top of it immediately; meanwhile others have to wait until the block propagates and validates. If you\u2019re mining empty blocks as soon as the header propagates, you might only be losing fees&hellip;",
+  "truncated": true,
+  "post_url": "/t/can-parallel-validation-side-step-the-slow-block-issue/1288/7",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

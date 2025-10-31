@@ -7,14 +7,15 @@
   "cooked": "<p>Recently there has been a bumper crop of new BIP proposals for soft forks and other major core changes, and much discussion, such as OP_TXHASH, OP_CAT, Arithmetic Opcodes, OP_INTERNALKEY, OP_CSFS, V3/Ephemeral Anchors, Cluster Mempool, and probably more I\u2019m missing.</p>\n<p>I wanted to remind everyone that for CTV I helped to create <a href=\"http://bipbounty.org\" rel=\"noopener nofollow ugc\">bipbounty.org</a>, a 501c3 designed to support protocol research and development by allowing easy creation of bug bounty targets for new ideas, covering both code and spec. Donors are able to select which BIPBounty they want their funds to be associated with or send them to the general fund. Really, the name \u201cBIPBounty\u201d is maybe a bit too specific, anything Bitcoin related that could benefit from a bug bounty should be elligible. Generally author of BIP or upgrade is preferred, but someone else can run it if the author prefers not to BIP numbers assignment not required for submission.</p>\n<p><a href=\"https://bipbounty.org/submit-bip\" rel=\"noopener nofollow ugc\">submit your BIPs!</a></p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 1,
   "updated_at": "2024-01-19T13:53:42.672Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 25,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 174.2,
+  "incoming_link_count": 189,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 1129.6,
   "yours": false,
   "topic_id": 441,
   "topic_slug": "bipbounty-org-is-open-for-your-bips",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 12
     }
   ],
   "moderator": false,
@@ -48,25 +50,38 @@
   "staff": false,
   "user_id": 224,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 3,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Recently there has been a bumper crop of new BIP proposals for soft forks and other major core changes, and much discussion, such as OP_TXHASH, OP_CAT, Arithmetic Opcodes, OP_INTERNALKEY, OP_CSFS, V3/Ephemeral Anchors, Cluster Mempool, and probably more I\u2019m missing. \nI wanted to remind everyone that&hellip;",
+  "truncated": true,
+  "post_url": "/t/bipbounty-org-is-open-for-your-bips/441/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 8
     },
     {
       "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 12,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

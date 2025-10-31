@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 9.6,
   "yours": false,
   "topic_id": 1694,
   "topic_slug": "bitcointap-an-strace-like-tool-for-bitcoin-ebpf-usdt-tracepoints",
@@ -57,5 +57,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

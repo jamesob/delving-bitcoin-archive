@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>So let\u2019s just assume that every person on earth will only ever open ONE channel and never will close it. That means it will take 7 YEARS to onboard everyone onto lightning?</p>\n</blockquote>\n<p>Yes. If we double the block size it will still take 3.5 years according to your numbers. Meanwhile the utxoset has <a href=\"https://statoshi.info/d/000000009/unspent-transaction-output-set?orgId=1&amp;refresh=5s&amp;from=now-5y&amp;to=now&amp;viewPanel=8\" rel=\"noopener nofollow ugc\">exploded from 5GB to 11GB</a> in just the past year. Utxoset growth is dramatically outpacing Moore\u2019s Law, with affordable low-resource hardware becoming more and more difficult to sync. The 1MB non-witness block size limit is the only thing keeping this from expanding even faster.</p>\n<p>We need small merchants to be able to run their own nodes, otherwise the notion of \u201ceconomic nodes\u201d being a check on mining pool power is a complete LARP.</p>\n<p>Raising the block size is an unserious solution to scaling. We don\u2019t need incremental improvements; we need <em>fundamental</em> improvements, such as the new tech covenants enable. Let\u2019s focus on real solutions, not these \u201cscrew our future selves for a momentary reprieve\u201d ideas.</p>",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 26,
   "updated_at": "2024-06-04T17:38:17.336Z",
   "reply_count": 1,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 23.8,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 47.8,
   "yours": false,
   "topic_id": 941,
   "topic_slug": "is-it-time-to-increase-the-blocksize-cap",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 458,
     "username": "myles",
     "name": "",
     "avatar_template": "/letter_avatar_proxy/v4/letter/m/779978/{size}.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "So let\u2019s just assume that every person on earth will only ever open ONE channel and never will close it. That means it will take 7 YEARS to onboard everyone onto lightning? \n\nYes. If we double the block size it will still take 3.5 years according to your numbers. Meanwhile the utxoset has <a href=\"https://statoshi.info/d/000000009/unspent-transaction-output-set?orgId=1&amp;refresh=5s&amp;from=now-5y&amp;to=now&amp;viewPanel=8\" rel=\"noopener nofollow ugc\">exploded &hellip;</a>",
+  "truncated": true,
+  "post_url": "/t/is-it-time-to-increase-the-blocksize-cap/941/15",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

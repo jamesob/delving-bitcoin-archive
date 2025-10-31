@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>I disagree. The people and the process are largely the same. The only significant difference is that the stakes are higher.</p>\n</blockquote>\n<p>That difference is why we\u2019re having this conversation. I would like to point out that ephemeral anchors or cluster mempool proposals never escaped the dev conversation circle because, frankly, their impact to the every day user is inconsequential. This conversation is about Bitcoin\u2019s inability of making a change with intent that affects every day users.</p>\n<p>Updates with minimal impact fly under the radar, and thus don\u2019t get lost in the void of \u201crough consensus\u201d.</p>\n<blockquote>\n<p>That\u2019s insane. If miners signaled that they were only going to include OFAC-compliant transactions, would you have us all accept that as a new part of Bitcoin\u2019s consensus rules?</p>\n</blockquote>\n<p>The lack of activation clients do not prevent this outcome in the slightest. It does, however, maintain the status quo by stifling user input.</p>",
   "post_number": 24,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-02-14T22:52:05.913Z",
   "reply_count": 0,
   "reply_to_post_number": 9,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 18.0,
+  "incoming_link_count": 2,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 36.0,
   "yours": false,
   "topic_id": 334,
   "topic_slug": "on-consensus-changes-in-bitcoin-2024",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 6,
     "username": "harding",
     "name": "David A. Harding",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
   },
   "bookmarked": false,
   "raw": "> I disagree. The people and the process are largely the same. The only significant difference is that the stakes are higher.\n\nThat difference is why we're having this conversation. I would like to point out that ephemeral anchors or cluster mempool proposals never escaped the dev conversation circle because, frankly, their impact to the every day user is inconsequential. This conversation is about Bitcoin's inability of making a change with intent that affects every day users.\n\nUpdates with minimal impact fly under the radar, and thus don't get lost in the void of \"rough consensus\".\n\n> That\u2019s insane. If miners signaled that they were only going to include OFAC-compliant transactions, would you have us all accept that as a new part of Bitcoin\u2019s consensus rules?\n\nThe lack of activation clients do not prevent this outcome in the slightest. It does, however, maintain the status quo by stifling user input.",
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I disagree. The people and the process are largely the same. The only significant difference is that the stakes are higher. \n\nThat difference is why we\u2019re having this conversation. I would like to point out that ephemeral anchors or cluster mempool proposals never escaped the dev conversation circl&hellip;",
+  "truncated": true,
+  "post_url": "/t/on-consensus-changes-in-bitcoin-2024/334/24",
   "reactions": [
     {
       "id": "+1",
@@ -73,5 +79,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

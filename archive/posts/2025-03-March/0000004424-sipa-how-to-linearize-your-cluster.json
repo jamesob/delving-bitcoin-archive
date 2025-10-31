@@ -2,19 +2,20 @@
   "id": 4424,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2025-03-07T04:02:17.839Z",
   "cooked": "<aside class=\"quote no-group\" data-username=\"stefanwouldgo\" data-post=\"51\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stefanwouldgo/48/664_2.png\" class=\"avatar\"> stefanwouldgo:</div>\n<blockquote>\n<p>I\u2019d even argue that we don\u2019t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough.</p>\n</blockquote>\n</aside>\n<p>That is probably true. Even if cluster sizes are limited to 4 MWU, and feerates are limited to ~10000 sat/vB, <span class=\"math\">M = 461</span> can be used, which suffices to separate chunks whose feerate are just <span class=\"math\">0.004</span> sat/vB apart.</p>\n<p>That said, I think the cost of 128-bit vs 64-bit arithmetic is probably close to negligible. There is one division per chunk, and a few multiplications per transaction per chunk. Everything else (the bulk of min-cut itself) is just comparisons, additions, and subtractions. I expect the bulk of the runtime cost to come from iterating over nodes and edges, and maintaining the data structures for them.</p>\n<hr>\n<p>Unrelatedly, the <a href=\"https://sci-hub.se/10.1137/0218072\">paper</a> that introduced the <span class=\"math\">\\mathcal{O}(n^2 \\sqrt{m})</span> bound for max-height push-relabel also looks interesting. It appears to contain recipes for building worst cases for which that complexity is actually reached. This may be useful for us for benchmarking worst cases.</p>",
   "post_number": 52,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-03-07T04:03:46.090Z",
   "reply_count": 0,
   "reply_to_post_number": 51,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 16.4,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 116.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 5
     }
   ],
   "moderator": false,
@@ -55,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That is probably true. Even if cluster sizes are limited to 4 MWU, and feerates are limited to ~10000 sat/vB, M = 461 can be used, which suffices to separate chunks whose feerate are just 0.004 sat/vB apart. \nThat said, I think the cost of 128-bit vs 64-bit arithmetic is probably close to negligibl&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/52",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 5
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

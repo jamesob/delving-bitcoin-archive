@@ -7,14 +7,15 @@
   "cooked": "<p>Not sure what good you think will come of promoting rationales you think are bad. It\u2019s already easy to do a sybil attack against a more-or-less permissionless wiki page; if you\u2019re going to do anything with it, it\u2019s better to promote whatever signal there is to be found there rather than the noise.</p>",
   "post_number": 22,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2025-01-03T07:34:05.495Z",
   "reply_count": 1,
   "reply_to_post_number": 21,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "incoming_link_count": 5,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 53.0,
   "yours": false,
   "topic_id": 1257,
   "topic_slug": "ctv-apo-cat-activity-on-signet",
@@ -37,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 247,
     "username": "1440000bytes",
     "name": "/dev/fd0",
     "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png"
   },
   "bookmarked": false,
   "raw": "Not sure what good you think will come of promoting rationales you think are bad. It's already easy to do a sybil attack against a more-or-less permissionless wiki page; if you're going to do anything with it, it's better to promote whatever signal there is to be found there rather than the noise.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -55,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Not sure what good you think will come of promoting rationales you think are bad. It\u2019s already easy to do a sybil attack against a more-or-less permissionless wiki page; if you\u2019re going to do anything with it, it\u2019s better to promote whatever signal there is to be found there rather than the noise.",
+  "truncated": true,
+  "post_url": "/t/ctv-apo-cat-activity-on-signet/1257/22",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

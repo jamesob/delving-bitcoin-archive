@@ -7,14 +7,15 @@
   "cooked": "<p>Right. Exactly setting the timestamps isn\u2019t something a computationally-bounded miner can do because it is still a Poisson process.</p>\n<p>If you try to adapt <a href=\"https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/37\">Sjors\u2019 scheme</a> to a real algorithm for deciding timestamps, I think you exactly get the scheme I posted <a href=\"https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32\">above</a>. And we simulated that: it has no compounding effect because the attackers\u2019 block production rate is affected by the difficulty adjustment they caused, providing negative feedback. But, again, even if there was a compounding effect it would not be a concern, as mentioned above, because it\u2019s at worst equivalent to attackers just choosing to reduce their hashrate.</p>",
   "post_number": 40,
   "post_type": 1,
+  "posts_count": 43,
   "updated_at": "2025-04-01T15:16:54.918Z",
   "reply_count": 0,
   "reply_to_post_number": 39,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 17.2,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 19.6,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 12,
     "username": "AntoineP",
     "name": "Antoine Poinsot",
     "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Right. Exactly setting the timestamps isn\u2019t something a computationally-bounded miner can do because it is still a Poisson process. \nIf you try to adapt <a href=\"https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/37\">Sjors\u2019 scheme</a> to a real algorithm for deciding timestamps, I think you exactly get the scheme I posted <a href=\"https://delvingbitcoin.org/t/timewarp-attack-600-second-grace-period/1326/32\">above</a>. And we simulated that: it has no comp&hellip;",
+  "truncated": true,
+  "post_url": "/t/timewarp-attack-600-second-grace-period/1326/40",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

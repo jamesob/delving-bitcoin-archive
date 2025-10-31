@@ -7,14 +7,15 @@
   "cooked": "<p>I\u2019ve recently been asked about some numbers on orphanage overflows of my nodes. In Bitcoin Core, <a href=\"https://github.com/bitcoin/bitcoin/blob/33932d30e382d1296be438ec5365fa0a56cf0864/src/txorphanage.cpp#L123\"><code>LimitOrphans()</code></a> is <a href=\"https://github.com/bitcoin/bitcoin/blob/33932d30e382d1296be438ec5365fa0a56cf0864/src/node/txdownloadman_impl.cpp#L431\">called</a> every time we add an orphan to the orphanage. Next to removing expired orphans from time to time, <code>LimitOrphans()</code> will remove (usually) one random orphan from the orphanage if it\u2019s larger than the maximum orphanage size (default 100; controlled with <code>-maxorphantx=n</code>). This is logged with <code>orphanage overflow, removed 1 tx</code>.</p>\n<p>I analyzed the debug.logs of some of my nodes, which all have the default maximum orphanage size of 100.</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/e/e97745900f14eb11bd67dce615cd14e67c7c215f.jpeg\" data-download-href=\"https://delvingbitcoin.org/uploads/default/e97745900f14eb11bd67dce615cd14e67c7c215f\" title=\"image|100%\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/e/e97745900f14eb11bd67dce615cd14e67c7c215f_2_113x500.jpeg\" alt=\"image|100%\" data-base62-sha1=\"xjkMVmwC03Cg7pwsL5VelspjPMX\" width=\"113\" height=\"500\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/e/e97745900f14eb11bd67dce615cd14e67c7c215f_2_113x500.jpeg, https://delvingbitcoin.org/uploads/default/optimized/2X/e/e97745900f14eb11bd67dce615cd14e67c7c215f_2_169x750.jpeg 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/e/e97745900f14eb11bd67dce615cd14e67c7c215f_2_226x1000.jpeg 2x\" data-dominant-color=\"CDBC89\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image|100%</span><span class=\"informations\">983\u00d74317 560 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2025-02-05T14:48:07.439Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 63.8,
+  "incoming_link_count": 176,
+  "reads": 51,
+  "readers_count": 50,
+  "score": 935.0,
   "yours": false,
   "topic_id": 1421,
   "topic_slug": "stats-on-orphanage-overflows",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I\u2019ve recently been asked about some numbers on orphanage overflows of my nodes. In Bitcoin Core, <a href=\"https://github.com/bitcoin/bitcoin/blob/33932d30e382d1296be438ec5365fa0a56cf0864/src/txorphanage.cpp#L123\">LimitOrphans()</a> is <a href=\"https://github.com/bitcoin/bitcoin/blob/33932d30e382d1296be438ec5365fa0a56cf0864/src/node/txdownloadman_impl.cpp#L431\">called</a> every time we add an orphan to the orphanage. Next to removing expired orphans from time to time, LimitOrphans() will remove (usually) one random orphan from the orphanage if it\u2019&hellip;",
+  "truncated": true,
+  "post_url": "/t/stats-on-orphanage-overflows/1421/1",
   "reactions": [
     {
       "id": "eyes",
@@ -64,5 +68,10 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

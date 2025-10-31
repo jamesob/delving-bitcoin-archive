@@ -7,15 +7,15 @@
   "cooked": "<p>Hi all,</p>\n<p>Over the past several months, <a class=\"mention\" href=\"/u/jesseposner\">@jesseposner</a> and I have been exploring a new approach to collaborative custody called Chain Code Delegation. By withholding BIP-32 chain codes and sharing only scalar tweaks at signing time, this technique allows custodians to enforce certain policies like spending velocity controls without ever possesing an XPUB; granting them full view of a key\u2019s entire key tree. Below, we lay out the core concepts behind this design.</p>\n<h1><a name=\"p-5469-introduction-1\" class=\"anchor\" href=\"#p-5469-introduction-1\"></a>Introduction</h1>\n<p>When sending a transaction with Script, the multisig redeem script contains all public keys associated with the quorum. Therefore, the predominant key arrangement for collaborative custodian services gives the custodian substantial visibility into the transaction history of its counterparties. For example, with a 2-of-3 multisig script, with public key A, public key B, and public key C, if a transaction signs for A and B, the redemption script will also include C, despite there not being a signature for C. Thus, a collaborative custodian can monitor the blockchain for any transactions that include their public keys to identify transactions that have been spent by their counterparties, regardless of whether or not they participated in the transaction.</p>\n<p>One solution to this problem is to forgo the use of Script and instead use multiparty computation (MPC), such as with FROST, as described by Nick Farrow [0]. Another solution is to use disjoint spending paths with Tapscript. For example, a 2-of-3 can be expressed in a Tapscript with a branch for each 2-of-2 combination of the 3 keys. Spending from 1 of the branches would not reveal the public keys associated with the other branches. However, neither of these approaches work with ECDSA.</p>\n<p>Another approach that requires neither Tapscript nor MPC, is to deprive the collaborative custodian of a chain code, and instead provide the custodian with BIP-32 scalar tweaks as needed for signing. In BIP-32 hierarchical wallets, an extended key pairs a standard key with a 32-byte chain code, which together enable derivation of an entire child-key tree. By withholding the chain code, the custodian only ever holds a non-extended keypair. When a transaction needs signing, the counterparty computes the required scalar tweak and shares only that tweak. Lacking the chain code, the custodian cannot derive any other child keys or spot public keys in redeem scripts they didn\u2019t sign \u2013 so they only learn about the transactions they are explicitly given.</p>\n<p>In addition to its privacy benefits, chain code delegation limits security blast radius: without the chain code (or undisclosed tweaks), the custodian\u2019s key is effectively unspendable for any UTXOs they haven\u2019t already signed. Tweaks are only revealed when a transaction is about to spend its associated UTXOs, which means those outputs are often consumed immediately. Even if the custodian\u2019s systems are compromised or a tweak is leaked, an attacker then has only a very narrow window to race and sign that spend. Once the transaction confirms, the tweak is exhausted and becomes useless for any future signing.</p>\n<p>This technique can be extended to other settings for enforcing access control policies relating both to information access for a key as well as the scope of UTXOs for which a key can sign.</p>\n<h1><a name=\"p-5469-setup-2\" class=\"anchor\" href=\"#p-5469-setup-2\"></a>Setup</h1>\n<p>In a typical setup, the collaborative custodian derives a child key from a BIP32 seed and sends the xpub to their counterparty. Then, the counterparty uses the xpub to derive addresses from multisig scripts, each with distinct child keys derived from the xpub. However, with chain code delegation, the collaborative custodian instead generates a standard (i.e. non-extended) key pair and provides the public key to the counterparty.</p>\n<p>The custodian does not generate a chain code. Instead, the counterparty generates a chain code on behalf of the collaborative custodian, but does not disclose the chain code to the custodian. By combining the chain code and the custodian\u2019s public key, the counterparty is able to construct an xpub for the custodian.</p>\n<h1><a name=\"p-5469-signing-3\" class=\"anchor\" href=\"#p-5469-signing-3\"></a>Signing</h1>\n<p>When the counterparty requests that the collaborative custodian sign a transaction, it derives the BIP32 scalar tweak from the xpub (i.e. the value <code>parse_256(I_L)</code> from BIP32) and provides it to the custodian:</p>\n<pre><code class=\"lang-auto\"># Inputs:\n#   chain_code : 32-byte chain code (hidden from custodian)\n#   P_par      : custodian\u2019s parent public key (compressed)\n#   i          : child index for spending\n\nI   = HMAC-SHA512(key = chain_code,\n                 data = serP(P_par) || ser32(i))\nI_L = I[0:32]            # left half\nt_i = parse256(I_L)      # scalar tweak mod n\n</code></pre>\n<p>Then, to sign for the child key, the custodian computes the child public key by adding the tweak to the custodian\u2019s public key, and computes the child private key by adding the tweak to the custodian\u2019s private key:</p>\n<pre><code class=\"lang-auto\"># Counterparty \u2192 Custodian: send t_i\n# EC context:\n#   G         = curve generator\n#   point_add = EC point addition\n#   scalar_mul= EC scalar multiplication\n#   n         = curve order\n\n# 2a. Child public key\nP_i = point_add(P_par, scalar_mul(G, t_i))\n\n# 2b. Child private key\nk_i = (k_par + t_i) mod n\n</code></pre>\n<p>With the child private key k_i, the custodian produces a standard signature (e.g. Schnorr or ECDSA) over the transaction\u2019s sighash:</p>\n<pre><code class=\"lang-auto\"># Compute the digest to sign:\nmsg_hash = compute_sighash(unsigned_tx, utxo_set, sighash_flag)\n\n# Produce signature:\nsig = sign(k_i, msg_hash)\n</code></pre>\n<p>By partitioning tweak derivation (off-chain) from key usage (on-device), chain code delegation lets the custodian sign exactly when needed\u2014while never gaining the ability to derive or observe any other child keys or transactions.</p>\n<h1><a name=\"p-5469-change-output-validation-4\" class=\"anchor\" href=\"#p-5469-change-output-validation-4\"></a>Change Output Validation</h1>\n<p>To enforce spending limits, a collaborative custodian must verify that change outputs are being sent back to their counterparty. This is typically done by providing the custodian with a descriptor during setup so that the custodian can derive change addresses and match them against the change outputs. However, with chain code delegation, the custodian doesn\u2019t have access to any chain codes, and hence does not have access to xpubs or a descriptor.</p>\n<p>Therefore, at signing time, the counterparty would need to supply a list of scalar tweaks, <span class=\"math\">{t_i}</span>, one per signer at index i.</p>\n<p>For each change output, the counterparty computes:</p>\n<pre><code class=\"lang-auto\"># Input:\n#   chain_code: 32-byte chain code withheld from custodian\n#   P_par:      parent public key (compressed)\n#   i:          child index (e.g. change output index)\n\n# 1. Compute HMAC-SHA512 pseudo-random data\nI   = HMAC-SHA512(key = chain_code,\n                 data = serP(P_par) \u2016 ser32(i))\nI_L = I[0:32]        # left 32 bytes\n\n# 2. Parse tweak scalar\nt_i = parse256(I_L)  # integer mod n\n</code></pre>\n<p>Then, with the received tweak <code>t_i</code>, and parent key <code>P_par</code>, the custodian computes:</p>\n<pre><code class=\"lang-auto\">P_i = point_add(P_par, scalar_mul(G, t_i))\n</code></pre>\n<p>Which would yield the exact child public key <code>P_i</code> that should appear in the change output.</p>\n<p>Then, it would build the expected scriptPubKey:</p>\n<p><code>change_script_i = OP_0 || SHA256( sorted_multi(P_1, P_2, P_3, \u2026) )</code></p>\n<p>And verify that it matches the output script pub key it sees in the transaction.</p>\n<p>This works because during setup, the custodian is provided the non-extended parent public keys for the change keys, such that it can use those parent keys to validate change outputs by reference to the scalar tweaks that were used to derive the change child keys used in the change outputs.</p>\n<h1><a name=\"p-5469-privacy-5\" class=\"anchor\" href=\"#p-5469-privacy-5\"></a>Privacy</h1>\n<p>Without the chain code, the custodian only learns about transactions that it has signed. For privacy sensitive transactions, the counterparty can purposely sign without the custodian, and the custodian will not be able to detect those transactions merely by reference to its key material.</p>\n<p>For full privacy, in which the custodian doesn\u2019t even learn about transactions that it has signed, blind Schnorr signatures can be used in conjunction with chain code delegation. With this technique, the counterparty can apply the BIP32 tweak to the signature it receives from the custodian. We can do this because of Schnorr\u2019s linear form:</p>\n<div class=\"math\">\n\\begin{align*}\ns &amp;= r + c * x \\\\\ns + c * t_i &amp;= r + c(x + t_i)\n\\end{align*}\n</div>\n<p>For custodians that enforce policies when signing, predicate blind signatures [1] can be used in conjunction with blind Schnorr signatures, such that zero-knowledge proofs assert any arbitrary predicate about the transaction being signed.</p>\n<h1><a name=\"p-5469-security-6\" class=\"anchor\" href=\"#p-5469-security-6\"></a>Security</h1>\n<p>The custodian\u2019s key cannot be used to sign for any UTXOs without the chain code or a scalar tweak. This substantially reduces the blast radius of a compromised custodian key.</p>\n<p>As the custodian learns of scalar tweaks, it is signing transactions that spend the associated UTXOs, which quickly limits the usefulness of the child keys that the tweak derives. If a custodian\u2019s systems are fully compromised, at most an attacker would be able to race the counterparty to sign for UTXOs as scalar tweaks are disclosed. Of course, in addition to the custodian key, such an attacker would also need to have compromised sufficient keys to sign for the multisig script.</p>\n<p>This mechanism is also useful for limiting the blast radius of a key in other contexts. For example, if a bitcoin user has a signing key that they store on a mobile phone, such a user might wish to limit the power of that key because of the large attack surface of the execution environment. A specialized device, such as a hardware wallet, could be used to generate a chain code for the mobile phone\u2019s key, and then selectively disclose scalar tweaks. The mobile phone would only be able to spend UTXOs for which it has received tweaks, allowing the user to determine the UTXOs the mobile phone has access to at any given time, for both past and future UTXOs.</p>\n<hr>\n<p>References</p>\n<ul>\n<li>[0] Private Collaborative Custody with FROST: <a href=\"https://gist.github.com/nickfarrow/4be776782bce0c12cca523cbc203fb9d/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Private Collaborative Custody with FROST \u00b7 GitHub</a></li>\n<li>[1] Concurrently Secure Blind Schnorr Signatures: <a href=\"https://eprint.iacr.org/2022/1676\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Concurrently Secure Blind Schnorr Signatures</a></li>\n</ul>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 6,
   "updated_at": "2025-07-15T00:41:07.310Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 288,
-  "reads": 37,
-  "readers_count": 36,
-  "score": 1387.2,
+  "incoming_link_count": 830,
+  "reads": 84,
+  "readers_count": 83,
+  "score": 4141.8,
   "yours": false,
   "topic_id": 1837,
   "topic_slug": "chain-code-delegation-private-access-control-for-bitcoin-keys",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 9
     }
   ],
   "moderator": false,
@@ -50,7 +50,7 @@
   "staff": false,
   "user_id": 160,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -63,10 +63,25 @@
     {
       "id": "+1",
       "type": "emoji",
+      "count": 7
+    },
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 9,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

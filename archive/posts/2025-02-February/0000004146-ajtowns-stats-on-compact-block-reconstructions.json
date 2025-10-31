@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"glozow\" data-post=\"16\" data-topic=\"1052\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/glozow/48/261_2.png\" class=\"avatar\"> glozow:</div>\n<blockquote>\n<p>If most of the reconstructions are orphans, then perhaps we should consider iterating through the whole orphanage in addition to the vextra buffer.</p>\n</blockquote>\n</aside>\n<p>I\u2019m not sure if adding orphans would do much to help avoid round trips \u2013 you\u2019re missing the parent and the parent will need to be in the block, after all.</p>\n<p>One thing that could be worth looking into is doing a better job of populating prefilledtxns \u2013 ie, \u201cI\u2019m pretty sure my peers don\u2019t know about these txs in the block, so I\u2019ll send them straight away\u201d. Though maybe it would be more useful to just spend that time on bringing the FIBRE patch set up to date, and having some public servers running again.</p>",
   "post_number": 18,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2025-02-02T03:30:20.192Z",
-  "reply_count": 1,
+  "reply_count": 3,
   "reply_to_post_number": 16,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 22.2,
+  "incoming_link_count": 7,
+  "reads": 66,
+  "readers_count": 65,
+  "score": 88.2,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -55,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I\u2019m not sure if adding orphans would do much to help avoid round trips \u2013 you\u2019re missing the parent and the parent will need to be in the block, after all. \nOne thing that could be worth looking into is doing a better job of populating prefilledtxns \u2013 ie, \u201cI\u2019m pretty sure my peers don\u2019t know about t&hellip;",
+  "truncated": true,
+  "post_url": "/t/stats-on-compact-block-reconstructions/1052/18",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

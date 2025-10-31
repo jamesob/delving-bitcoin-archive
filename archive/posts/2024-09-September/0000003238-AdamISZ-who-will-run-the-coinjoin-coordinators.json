@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"real-or-random\" data-post=\"14\" data-topic=\"934\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/real-or-random/48/413_2.png\" class=\"avatar\"> real-or-random:</div>\n<blockquote>\n<p>Okay, I didn\u2019t have CoinShuffle in mind when I commented above. CoinShuffle(++) is not much better: when it comes to communication, it still relies on a coordinator (or strictly speaking, a \u201cbulletin board\u201d because the only functionality is receiving messages and broadcasting them). Moreover, you still need a way to assign participants into sessions. So it suffers from all the hard practical issues with CoinJoin\u2026</p>\n</blockquote>\n</aside>\n<p>Yes, my bad, my thinking is fuzzy there: you\u2019re solving centralized coordination of one coinjoin, but (and yes I remember your \u2018bulletin board\u2019 definition there) you\u2019re not actually claiming to solve communication centralization (which matters even more for those other implementations like Wasabi, Samurai) because the only type of bulletin board we know of that can\u2019t be selectively censored is the blockchain and that\u2019s not a practical option. Maybe ham radio? <img src=\"https://delvingbitcoin.org/images/emoji/twitter/smile.png?v=12\" title=\":smile:\" class=\"emoji\" alt=\":smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 23,
   "updated_at": "2024-09-20T15:23:05.543Z",
   "reply_count": 0,
   "reply_to_post_number": 14,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "incoming_link_count": 3,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 37.2,
   "yours": false,
   "topic_id": 934,
   "topic_slug": "who-will-run-the-coinjoin-coordinators",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "\n[quote=\"real-or-random, post:14, topic:934\"]\nOkay, I didn\u2019t have CoinShuffle in mind when I commented above. CoinShuffle(++) is not much better: when it comes to communication, it still relies on a coordinator (or strictly speaking, a \u201cbulletin board\u201d because the only functionality is receiving messages and broadcasting them). Moreover, you still need a way to assign participants into sessions. So it suffers from all the hard practical issues with CoinJoin\u2026\n[/quote]\n\nYes, my bad, my thinking is fuzzy there: you're solving centralized coordination of one coinjoin, but (and yes I remember your 'bulletin board' definition there) you're not actually claiming to solve communication centralization (which matters even more for those other implementations like Wasabi, Samurai) because the only type of bulletin board we know of that can't be selectively censored is the blockchain and that's not a practical option. Maybe ham radio? :smile:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Yes, my bad, my thinking is fuzzy there: you\u2019re solving centralized coordination of one coinjoin, but (and yes I remember your \u2018bulletin board\u2019 definition there) you\u2019re not actually claiming to solve communication centralization (which matters even more for those other implementations like Wasabi, &hellip;",
+  "truncated": true,
+  "post_url": "/t/who-will-run-the-coinjoin-coordinators/934/15",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

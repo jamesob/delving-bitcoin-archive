@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 9,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "incoming_link_count": 5,
+  "reads": 40,
+  "readers_count": 39,
+  "score": 47.8,
   "yours": false,
   "topic_id": 1886,
   "topic_slug": "changing-the-minimum-relay-feerate",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "[quote=\"davidgumberg, post:12, topic:1886\"]\nLooking at inter-release USD/BTC changes, using the same figures as I did [above](https://delvingbitcoin.org/t/changing-the-minimum-relay-feerate/1886/9), you can divide 3,600 by the USD/BTC conversion[\\[1\\]](#footnote-5694-1), to get the approximate network relay cost, for the last few releases of Bitcoin Core:\n\n[/quote]\n\nI don\u2019t think policy defaults should be changed with the price of bitcoin (in USD) if they protect the p2p network from DoS. I agree with Matt Corallo\u2019s [tweet](https://x.com/TheBlueMatt/status/1953115648101613619) that the cost of attack should keep increasing over time.\n\nUSD has [devalued](https://i.ibb.co/4wzZdyNY/fredgraph.png) and [average salaries](https://i.ibb.co/nspxp4pd/LT-Wages.png) have increased significantly over the last 10 years. So these calculations would never be appropriate for bitcoin p2p network. The adversaries for networks like bitcoin could remain unaffected even with an increase in the cost of attack.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -62,13 +67,18 @@
   "post_url": "/t/changing-the-minimum-relay-feerate/1886/13",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "-1",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

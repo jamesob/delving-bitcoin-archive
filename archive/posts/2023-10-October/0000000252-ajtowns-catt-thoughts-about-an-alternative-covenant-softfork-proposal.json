@@ -2,19 +2,20 @@
   "id": 252,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2023-10-02T09:32:28.930Z",
   "cooked": "<p>You\u2019re certainly welcome to cross-port OP_CAT and OP_CHECKSIGFROMSTACK to <a href=\"https://github.com/bitcoin-inquisition/bitcoin/pulls\">inquisition</a>; I\u2019m skeptical that it\u2019ll be reasonably feasible to do anything useful with them in script (as opposed to handwaving on a blog / mailing list), but I\u2019d love to be proved wrong. Could specify the behaviour on the wiki (eg <a href=\"https://github.com/bitcoin-inquisition/bitcoin/wiki/Relay-Policies\" class=\"inline-onebox\">Relay Policies \u00b7 bitcoin-inquisition/bitcoin Wiki \u00b7 GitHub</a>) if you didn\u2019t want to write up a proper BIP yet.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2023-10-02T09:32:28.930Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 22.2,
+  "incoming_link_count": 1,
+  "reads": 45,
+  "readers_count": 44,
+  "score": 34.0,
   "yours": false,
   "topic_id": 125,
   "topic_slug": "catt-thoughts-about-an-alternative-covenant-softfork-proposal",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,14 +56,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "You\u2019re certainly welcome to cross-port OP_CAT and OP_CHECKSIGFROMSTACK to <a href=\"https://github.com/bitcoin-inquisition/bitcoin/pulls\">inquisition</a>; I\u2019m skeptical that it\u2019ll be reasonably feasible to do anything useful with them in script (as opposed to handwaving on a blog / mailing list), but I\u2019d love to be proved wrong. Could specify the behaviour on the wi&hellip;",
+  "truncated": true,
+  "post_url": "/t/catt-thoughts-about-an-alternative-covenant-softfork-proposal/125/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

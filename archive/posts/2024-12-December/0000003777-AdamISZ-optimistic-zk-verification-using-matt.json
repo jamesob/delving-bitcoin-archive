@@ -7,14 +7,15 @@
   "cooked": "<p>From a very high level view and a quick read, this seems like an extremely promising direction. Can you expand a bit on the necessity for OP_CAT and covenants? At the end of the writeup it notes</p>\n<blockquote>\n<p>\" and use Bitcoin Script to verify its execution. In order to achieve this we need a covenant like <code>OP_CHECKCONTRACTVERIFY</code> to carry state across transactions.\"</p>\n</blockquote>\n<p>Why is that needed? Is it needed in a model using fraud proofs? (I\u2019m vaguely remembering the basic idea of bitvm and earlier optimistic rollups etc). Apologies for the slightly uneducated question <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-12-15T16:06:16.862Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 12.6,
+  "incoming_link_count": 3,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 35.6,
   "yours": false,
   "topic_id": 1050,
   "topic_slug": "optimistic-zk-verification-using-matt",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "From a very high level view and a quick read, this seems like an extremely promising direction. Can you expand a bit on the necessity for OP_CAT and covenants? At the end of the writeup it notes\n\n>\" and use Bitcoin Script to verify its execution. In order to achieve this we need a covenant like `OP_CHECKCONTRACTVERIFY` to carry state across transactions.\"\n\nWhy is that needed? Is it needed in a model using fraud proofs? (I'm vaguely remembering the basic idea of bitvm and earlier optimistic rollups etc). Apologies for the slightly uneducated question :)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "From a very high level view and a quick read, this seems like an extremely promising direction. Can you expand a bit on the necessity for OP_CAT and covenants? At the end of the writeup it notes \n\n&quot; and use Bitcoin Script to verify its execution. In order to achieve this we need a covenant like OP_C&hellip;",
+  "truncated": true,
+  "post_url": "/t/optimistic-zk-verification-using-matt/1050/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

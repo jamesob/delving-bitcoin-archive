@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks for sharing this work!</p>\n<p>Could you share a few more details about the suggested fee estimation?\nIs it the latest median <span class=\"math\">\\times</span> 0.9 or 1.1, depending on whether the fees are expected to decrease or increase?\nHow often does it miss the next block or overpays?</p>\n<aside class=\"quote no-group\" data-username=\"renepickhardt\" data-post=\"12\" data-topic=\"703\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/renepickhardt/48/7_2.png\" class=\"avatar\"> renepickhardt:</div>\n<blockquote>\n<p>Median or average Fee as a feature?</p>\n</blockquote>\n</aside>\n<p>The downside of both is that it might be too high of a goal, leading to overpaying. In an ideal world, you want to be the last transaction in the block.\nHave you considered the average of the lower half, or something like that?</p>\n<aside class=\"quote no-group\" data-username=\"renepickhardt\" data-post=\"12\" data-topic=\"703\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/renepickhardt/48/7_2.png\" class=\"avatar\"> renepickhardt:</div>\n<blockquote>\n<p>Assuming no sudden demand change this means that the fees would be declining.</p>\n</blockquote>\n</aside>\n<p>Were you able to quantify the decline/increase?</p>\n<aside class=\"quote no-group\" data-username=\"renepickhardt\" data-post=\"12\" data-topic=\"703\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/renepickhardt/48/7_2.png\" class=\"avatar\"> renepickhardt:</div>\n<blockquote>\n<p>What about using option pricing via Black Scholes</p>\n</blockquote>\n</aside>\n<p>Black-Scholes is a very interesting idea, but doesn\u2019t it need the stock to have a fixed expiration time? If we are willing to assume 10 minutes, we could also use it in a simpler model of time from the previous block.</p>",
   "post_number": 13,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2024-04-09T15:00:56.110Z",
   "reply_count": 0,
   "reply_to_post_number": 12,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 8.4,
+  "incoming_link_count": 22,
+  "reads": 45,
+  "readers_count": 44,
+  "score": 134.0,
   "yours": false,
   "topic_id": 703,
   "topic_slug": "mempool-based-fee-estimation-on-bitcoin-core",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,20 +39,38 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for sharing this work!\n\nCould you share a few more details about the suggested fee estimation?\nIs it the latest median $\\times$ 0.9 or 1.1, depending on whether the fees are expected to decrease or increase?\nHow often does it miss the next block or overpays?\n\n[quote=\"renepickhardt, post:12, topic:703\"]\nMedian or average Fee as a feature?\n[/quote]\nThe downside of both is that it might be too high of a goal, leading to overpaying. In an ideal world, you want to be the last transaction in the block.\nHave you considered the average of the lower half, or something like that?\n\n\n[quote=\"renepickhardt, post:12, topic:703\"]\nAssuming no sudden demand change this means that the fees would be declining.\n[/quote]\nWere you able to quantify the decline/increase?\n\n[quote=\"renepickhardt, post:12, topic:703\"]\nWhat about using option pricing via Black Scholes\n[/quote]\nBlack-Scholes is a very interesting idea, but doesn't it need the stock to have a fixed expiration time? If we are willing to assume 10 minutes, we could also use it in a simpler model of time from the previous block.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 310,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Thanks for sharing this work! \nCould you share a few more details about the suggested fee estimation?\nIs it the latest median \\times 0.9 or 1.1, depending on whether the fees are expected to decrease or increase?\nHow often does it miss the next block or overpays? \n\nThe downside of both is that it mi&hellip;",
+  "truncated": true,
+  "post_url": "/t/mempool-based-fee-estimation-on-bitcoin-core/703/13",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

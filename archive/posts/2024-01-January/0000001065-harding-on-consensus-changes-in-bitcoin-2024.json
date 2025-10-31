@@ -2,19 +2,20 @@
   "id": 1065,
   "name": "David A. Harding",
   "username": "harding",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png",
   "created_at": "2024-01-11T03:04:16.191Z",
   "cooked": "<blockquote>\n<p>Reaching consensus on changes to bits of software around bitcoin, even bitcoin core, is in almost no way similar to reaching consensus on changes to the consensus rules.</p>\n</blockquote>\n<p>I disagree.  The people and the process are largely the same.  The only significant difference is that the stakes are higher.</p>\n<blockquote>\n<p>an activation client that uses LOT=false, which has approximately no risk of a chain split.</p>\n</blockquote>\n<p>This is wildly wrong.  Miners have false signaled in the past leading to chain splits, e.g. the 4 July 2015 chain splits: <a href=\"https://en.bitcoin.it/wiki/July_2015_chain_forks\" class=\"inline-onebox\">July 2015 chain forks - Bitcoin Wiki</a></p>\n<p>That was an accident, but in a situation where many people aren\u2019t running a particular client, miners could false signal to steal money from people.</p>\n<blockquote>\n<p>I believe it fairly likely that the only way for bitcoin tor each consensus on consensus rule changes is be to publish activation clients and let users lobby miners on which bits they want set.</p>\n</blockquote>\n<p>That\u2019s insane.  If miners signaled that they were only going to include OFAC-compliant transactions, would you have us all accept that as a new part of Bitcoin\u2019s consensus rules?</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-01-11T03:04:16.191Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 48.6,
+  "incoming_link_count": 21,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 184.8,
   "yours": false,
   "topic_id": 334,
   "topic_slug": "on-consensus-changes-in-bitcoin-2024",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 30,
     "username": "reardencode",
     "name": "Brandon Black",
     "avatar_template": "/user_avatar/delvingbitcoin.org/reardencode/{size}/27_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Reaching consensus on changes to bits of software around bitcoin, even bitcoin core, is in almost no way similar to reaching consensus on changes to the consensus rules. \n\nI disagree.  The people and the process are largely the same.  The only significant difference is that the stakes are higher. \n\n&hellip;",
+  "truncated": true,
+  "post_url": "/t/on-consensus-changes-in-bitcoin-2024/334/9",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

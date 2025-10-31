@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>implementation complexity of anything that doesn\u2019t involve funding output conversion is very manageable</p>\n</blockquote>\n<p><img src=\"https://delvingbitcoin.org/images/emoji/twitter/+1.png?v=12\" title=\":+1:\" class=\"emoji only-emoji\" alt=\":+1:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<blockquote>\n<p>First, the Dynamic Commitments proposal, as specified today, permits channel upgrades without a funding output spend if the channel types share the same funding output script. If you believe it doesn\u2019t read that way, I encourage you to leave commentary on the proposal about what part of that is confusing so I can clarify it.</p>\n</blockquote>\n<p>Not at all, the spec is nice and clear! Just in the specific case of STC/that comparison table, it doesn\u2019t upgrade without funding output changes.</p>\n<blockquote>\n<p>Finally, the question of whether we need STCs to get to PTLCs is definitely a discussion we should have but it comes down to the appetite for maintaining another hybrid channel type</p>\n</blockquote>\n<p>Def. Given that most implementations have splicing almost done (<img src=\"https://delvingbitcoin.org/images/emoji/twitter/tm.png?v=12\" title=\":tm:\" class=\"emoji\" alt=\":tm:\" loading=\"lazy\" width=\"20\" height=\"20\">) and PTLCs are a ways out, I would imagine that they\u2019d pursue splice-to-upgrade (with a fee-cognizant heuristic or manual upgrade to decide when to go to chain) after taproot gossip is out. Likewise interested to hear how everyone is going to approach this.</p>\n<p>Assuming we upgrade our funding output <em>somehow</em> (via splicing or dyn commits), we can then just upgrade to PTLCs/V3 using dyn commitments to change our commitment format.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-05-24T15:10:07.937Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 27.8,
   "yours": false,
   "topic_id": 881,
   "topic_slug": "upgrading-existing-lightning-channels",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": ">  implementation complexity of anything that doesn\u2019t involve funding output conversion is very manageable\n\n:+1: \n\n> First, the Dynamic Commitments proposal, as specified today, permits channel upgrades without a funding output spend if the channel types share the same funding output script. If you believe it doesn\u2019t read that way, I encourage you to leave commentary on the proposal about what part of that is confusing so I can clarify it.\n\nNot at all, the spec is nice and clear! Just in the specific case of STC/that comparison table, it doesn't upgrade without funding output changes.\n\n> Finally, the question of whether we need STCs to get to PTLCs is definitely a discussion we should have but it comes down to the appetite for maintaining another hybrid channel type\n\nDef. Given that most implementations have splicing almost done (:tm:) and PTLCs are a ways out, I would imagine that they'd pursue splice-to-upgrade (with a fee-cognizant heuristic or manual upgrade to decide when to go to chain) after taproot gossip is out. Likewise interested to hear how everyone is going to approach this. \n\nAssuming we upgrade our funding output _somehow_ (via splicing or dyn commits), we can then just upgrade to PTLCs/V3 using dyn commitments to change our commitment format.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "implementation complexity of anything that doesn\u2019t involve funding output conversion is very manageable \n\n:+1: \n\nFirst, the Dynamic Commitments proposal, as specified today, permits channel upgrades without a funding output spend if the channel types share the same funding output script. If you bel&hellip;",
+  "truncated": true,
+  "post_url": "/t/upgrading-existing-lightning-channels/881/6",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

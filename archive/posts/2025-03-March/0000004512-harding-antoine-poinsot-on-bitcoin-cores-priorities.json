@@ -7,14 +7,15 @@
   "cooked": "<p>Thank you for your reply, <a class=\"mention\" href=\"/u/thecharlatan\">@TheCharlatan</a>.  I\u2019ve learned a lot from you\nand <a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> about how you view the project as contributors and I\u2019ll\ntry to contemplate it carefully before I (as a non-contributor) write\nfurther about the main subject.  However, I did want to immediately\naddress one misunderstanding:</p>\n<blockquote>\n<p>a symptom of the current group of developers being less well suited\nthan previous [developers]</p>\n</blockquote>\n<p>I\u2019m sorry if my comments were interpreted as an attack on the current\ndevelopment team.  In 11 years of writing Bitcoin documentation, I\u2019ve\nhad the pleasure of working with several generations of Bitcoin Core\ndevelopers and I find the current cohort to be just as capable as\nprevious teams.  I also recognize that the job of improving a piece of\nsoftware can only get harder over time as all of the easy wins are taken\nand what remains are either increasingly difficult challenges, less\nsubstantial payoffs, or (as is often the case) a squeeze at both ends as\nthe challenges are more difficult than before for payoffs that are also\nless significant than before.  With an established project, the natural\ndirection is backwards: bitrot breaks what already exists and paying off\ntechnical debt saps forward momentum.  The current team consistently\novercoming all of these obstacles and making significant progress with\neach major release is a clear sign of both competence and diligence.</p>\n<p>I\u2019m impressed by the current development team, and I apologize to anyone\nwho thought I felt otherwise.</p>",
   "post_number": 22,
   "post_type": 1,
+  "posts_count": 20,
   "updated_at": "2025-03-13T14:33:28.033Z",
   "reply_count": 0,
   "reply_to_post_number": 21,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 63.6,
+  "incoming_link_count": 3,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 114.8,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 596,
     "username": "TheCharlatan",
     "name": "TheCharlatan",
     "avatar_template": "/user_avatar/delvingbitcoin.org/thecharlatan/{size}/885_2.png"
@@ -46,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 4
+      "count": 6
     }
   ],
   "moderator": false,
@@ -60,19 +62,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thank you for your reply, <a class=\"mention\" href=\"/u/thecharlatan\">@TheCharlatan</a>.  I\u2019ve learned a lot from you\nand <a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> about how you view the project as contributors and I\u2019ll\ntry to contemplate it carefully before I (as a non-contributor) write\nfurther about the main subject.  However, I did want to immediately\naddress one misunderst&hellip;",
+  "truncated": true,
+  "post_url": "/t/antoine-poinsot-on-bitcoin-cores-priorities/1470/22",
   "reactions": [
     {
       "id": "heart",
       "type": "emoji",
-      "count": 3
+      "count": 4
     },
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

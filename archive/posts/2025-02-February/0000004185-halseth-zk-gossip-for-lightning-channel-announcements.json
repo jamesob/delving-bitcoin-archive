@@ -7,14 +7,15 @@
   "cooked": "<p>Aha, I get what you are saying. Using a different UTXO than the channel output as the \u201canti-spam cost\u201d.</p>\n<p>However, I\u2019m not sure if it give us anything (in a non-ZK scenario it obviously could):</p>\n<ul>\n<li>Since channel counterparties <em>have to</em> create a multisig output in order to open a channel between them, you already have a utxo available for this purpose. (if we wanted to allow channels not backed by a real utxo this would not be the case of course\u2026)</li>\n<li>Channels are often created between non-trusted parties. Who would put up a utxo in that scenario? If both had to that would be less scalable of course.</li>\n</ul>",
   "post_number": 22,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2025-02-05T16:46:45.483Z",
   "reply_count": 1,
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 29,
+  "readers_count": 28,
+  "score": 10.8,
   "yours": false,
   "topic_id": 1407,
   "topic_slug": "zk-gossip-for-lightning-channel-announcements",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 343,
     "username": "AdamISZ",
     "name": "Adam Gibson",
     "avatar_template": "/user_avatar/delvingbitcoin.org/adamisz/{size}/418_2.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Aha, I get what you are saying. Using a different UTXO than the channel output as the \u201canti-spam cost\u201d. \nHowever, I\u2019m not sure if it give us anything (in a non-ZK scenario it obviously could): \n\nSince channel counterparties have to create a multisig output in order to open a channel between them, yo&hellip;",
+  "truncated": true,
+  "post_url": "/t/zk-gossip-for-lightning-channel-announcements/1407/22",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

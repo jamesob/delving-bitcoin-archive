@@ -7,15 +7,15 @@
   "cooked": "<p>Initially, peer-observer did only extract data from the tracing / eBPF interface. The <a href=\"https://github.com/0xB10C/peer-observer/tree/master/extractors/ebpf\">ebpf-extractor</a> hooks into the tracepoints and passes the events on to tools which then process these events (e.g. create prometheus metrics, publish them as JSON via a websocket for web visualizations, \u2026 ). This works well for everything that needs realtime events.</p>\n<p>To supplement the real-time event data, I <a href=\"https://github.com/0xB10C/peer-observer/pull/191\">added</a> an <a href=\"https://github.com/0xB10C/peer-observer/tree/master/extractors/rpc\">RPC-extractor</a> in August with <code>getpeerinfo</code> have staleful data about the connected peers that we can\u2019t get from the tracepoints alone. For example:</p>\n<ul>\n<li>how many connections to spy nodes or nodes on a banlist does the node have?</li>\n<li>what share of connections are connected via BIP324 v2 transport connections?</li>\n<li>how does the mean/median Bitcoin protocol ping to my connections change over time?</li>\n<li>how many peers <a href=\"https://github.com/0xB10C/peer-observer/issues/243\">relay sub-1sat/vbyte transactions</a>?</li>\n<li>\u2026</li>\n</ul>\n<p>While only <code>getpeerinfo</code> is implemented for now, there are a bunch of other RPCs that would be useful to have in there. A few examples are listed in <a href=\"https://github.com/0xB10C/peer-observer/issues/199\" class=\"inline-onebox\">rpc-extractor: add more RPC (uptime, getmemoryinfo, ...) \u00b7 Issue #199 \u00b7 0xB10C/peer-observer \u00b7 GitHub</a> and I also want to explore how to add WIP <code>getpeerinfo</code> fields like <code>cpu_load</code> in there <a href=\"https://github.com/0xB10C/peer-observer/issues/200\" class=\"inline-onebox\">rpc-extractor: explore adding temporary fields and RPCs like `cpu_load` from bitcoin/bitcoin #31672 \u00b7 Issue #200 \u00b7 0xB10C/peer-observer \u00b7 GitHub</a>.</p>\n<p>Recently, I\u2019ve been thinking about how to effectively detect P2P DoS attacks or anomalies (i.e. bugs). While I run a <a href=\"https://github.com/ncabatoff/process-exporter\">process-exporter</a> to collect data on how much time is spent in e.g. the <code>b-msghand</code> thread, an alternative might to also track the time it takes for the node to respond to a ping via the P2P network (<a href=\"https://github.com/0xB10C/peer-observer/issues/212\" class=\"inline-onebox\">metrics tool: track time it takes for us to respond to an inbound ping with a pong \u00b7 Issue #212 \u00b7 0xB10C/peer-observer \u00b7 GitHub</a>). This has been a good DoS indicator in <a href=\"https://b10c.me/observations/15-inv-to-send-queue/#effect\" class=\"inline-onebox\">Notes on 'DoS due to inv-to-send sets growing too large' from May 2023</a> since pings are handled in queue with all other messages. It measures processing backlog and network latency. For this, I\u2019ve started working on a p2p-extractor that frequently pings the node from localhost (to minimize network latency) and publishes the time it takes for a pong to arrive. This can then be used in alerting.</p>\n<p>As part of <a href=\"https://github.com/0xB10C/peer-observer/issues/141\" class=\"inline-onebox\">Implement more extractors \u00b7 Issue #141 \u00b7 0xB10C/peer-observer \u00b7 GitHub</a>, I\u2019ve also been thinking about a log-extractor similar to the one used in <a href=\"https://github.com/chaincodelabs/bmon\">bmon</a>. However, I\u2019ll probably first explore an IPC-based extractor - that might possibly even replace the ebpf / tracing extractor as it should resolve some of the painpoints of the eBPF based tracing interface (see <a href=\"https://github.com/bitcoin-core/libmultiprocess/issues/185\" class=\"inline-onebox\">Tracepoint-like interface via libmultiprocess and IPC communication \u00b7 Issue #185 \u00b7 bitcoin-core/libmultiprocess \u00b7 GitHub</a> and <a href=\"https://github.com/bitcoin/bitcoin/pull/32898\" class=\"inline-onebox\">POC: IPC tracing interface by ryanofsky \u00b7 Pull Request #32898 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>).</p>\n<hr>\n<p>In other news, I\u2019ve recently added a Knots node called <code>nico</code> to my infrastructure (the others are all Bitcoin Core). Since people are using it, it  makes sense to include it in the monitoring too.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-09-17T12:48:29.330Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.2,
+  "incoming_link_count": 12,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 111.8,
   "yours": false,
   "topic_id": 1988,
   "topic_slug": "peer-observer-a-tool-and-infrastructure-for-monitoring-the-bitcoin-p2p-network-for-attacks-and-anomalies",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Initially, peer-observer did only extract data from the tracing / eBPF interface. The [ebpf-extractor](https://github.com/0xB10C/peer-observer/tree/master/extractors/ebpf) hooks into the tracepoints and passes the events on to tools which then process these events (e.g. create prometheus metrics, publish them as JSON via a websocket for web visualizations, ... ). This works well for everything that needs realtime events.\n\nTo supplement the real-time event data, I [added](https://github.com/0xB10C/peer-observer/pull/191) an [RPC-extractor](https://github.com/0xB10C/peer-observer/tree/master/extractors/rpc) in August with `getpeerinfo` have staleful data about the connected peers that we can't get from the tracepoints alone. For example:\n- how many connections to spy nodes or nodes on a banlist does the node have?\n- what share of connections are connected via BIP324 v2 transport connections?\n- how does the mean/median Bitcoin protocol ping to my connections change over time?\n- how many peers [relay sub-1sat/vbyte transactions](https://github.com/0xB10C/peer-observer/issues/243)?\n- ...\n\nWhile only `getpeerinfo` is implemented for now, there are a bunch of other RPCs that would be useful to have in there. A few examples are listed in https://github.com/0xB10C/peer-observer/issues/199 and I also want to explore how to add WIP `getpeerinfo` fields like `cpu_load` in there https://github.com/0xB10C/peer-observer/issues/200.\n\nRecently, I've been thinking about how to effectively detect P2P DoS attacks or anomalies (i.e. bugs). While I run a [process-exporter](https://github.com/ncabatoff/process-exporter) to collect data on how much time is spent in e.g. the `b-msghand` thread, an alternative might to also track the time it takes for the node to respond to a ping via the P2P network (https://github.com/0xB10C/peer-observer/issues/212). This has been a good DoS indicator in https://b10c.me/observations/15-inv-to-send-queue/#effect since pings are handled in queue with all other messages. It measures processing backlog and network latency. For this, I've started working on a p2p-extractor that frequently pings the node from localhost (to minimize network latency) and publishes the time it takes for a pong to arrive. This can then be used in alerting.\n\n\nAs part of https://github.com/0xB10C/peer-observer/issues/141, I've also been thinking about a log-extractor similar to the one used in [bmon](https://github.com/chaincodelabs/bmon). However, I'll probably first explore an IPC-based extractor - that might possibly even replace the ebpf / tracing extractor as it should resolve some of the painpoints of the eBPF based tracing interface (see https://github.com/bitcoin-core/libmultiprocess/issues/185 and https://github.com/bitcoin/bitcoin/pull/32898).\n\n---\n\nIn other news, I've recently added a Knots node called `nico` to my infrastructure (the others are all Bitcoin Core). Since people are using it, it  makes sense to include it in the monitoring too.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,25 @@
   "excerpt": "Initially, peer-observer did only extract data from the tracing / eBPF interface. The <a href=\"https://github.com/0xB10C/peer-observer/tree/master/extractors/ebpf\">ebpf-extractor</a> hooks into the tracepoints and passes the events on to tools which then process these events (e.g. create prometheus metrics, publish them as JSON via a websocket for web visualizations, \u2026 ). This wo&hellip;",
   "truncated": true,
   "post_url": "/t/peer-observer-a-tool-and-infrastructure-for-monitoring-the-bitcoin-p2p-network-for-attacks-and-anomalies/1988/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

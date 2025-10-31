@@ -7,14 +7,15 @@
   "cooked": "<p>I mostly did ff\u2019s because I realized I couldn\u2019t do 0\u2019s\u2026</p>\n<p>bc10feespdsrh8 (0fees)\nbc1z9gfqhanchr (anchr)\nbc1zfeesuqhy82 (zfees)</p>\n<p>I\u2019m glad we\u2019re discussing the real questions left.</p>\n<p>good point we\u2019ll probably want it obvious in with any checksum due to network/address differences.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2023-11-02T19:51:15.616Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 1.8,
+  "reads": 66,
+  "readers_count": 65,
+  "score": 28.2,
   "yours": false,
   "topic_id": 160,
   "topic_slug": "segwit-ephemeral-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I mostly did ff's because I realized I couldn't do 0's....\n\nbc10feespdsrh8 (0fees)\nbc1z9gfqhanchr (anchr)\nbc1zfeesuqhy82 (zfees)\n\nI'm glad we're discussing the real questions left.\n\ngood point we'll probably want it obvious in with any checksum due to network/address differences.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I mostly did ff\u2019s because I realized I couldn\u2019t do 0\u2019s\u2026 \nbc10feespdsrh8 (0fees)\nbc1z9gfqhanchr (anchr)\nbc1zfeesuqhy82 (zfees) \nI\u2019m glad we\u2019re discussing the real questions left. \ngood point we\u2019ll probably want it obvious in with any checksum due to network/address differences.",
+  "truncated": true,
+  "post_url": "/t/segwit-ephemeral-anchors/160/3",
+  "reactions": [
+    {
+      "id": "laughing",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

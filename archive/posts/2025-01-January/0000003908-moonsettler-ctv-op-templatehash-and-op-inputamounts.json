@@ -7,14 +7,15 @@
   "cooked": "<p><code>OP_INPUTAMOUNTS</code> would return up to total supply cap. Now if it does it in a compact form or always 64 bits padded with 0, is an open design decision. The former would allow for amount arithmetic in the sub 42 btc TX size. Which some might like, others might not like.</p>\n<p><code>OP_TEMPLATEHASH</code> would accept amounts up to 64 bits. And would generally accept all numeric inputs in compact int form.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-01-01T00:19:49.539Z",
   "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 6.6,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 10.0,
   "yours": false,
   "topic_id": 1344,
   "topic_slug": "ctv-op-templatehash-and-op-inputamounts",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 6,
     "username": "harding",
     "name": "David A. Harding",
     "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "OP_INPUTAMOUNTS would return up to total supply cap. Now if it does it in a compact form or always 64 bits padded with 0, is an open design decision. The former would allow for amount arithmetic in the sub 42 btc TX size. Which some might like, others might not like. \nOP_TEMPLATEHASH would accept am&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-op-templatehash-and-op-inputamounts/1344/5",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

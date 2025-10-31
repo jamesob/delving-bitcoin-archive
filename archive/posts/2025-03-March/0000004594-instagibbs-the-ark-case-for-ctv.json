@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"stevenroose\" data-post=\"4\" data-topic=\"1528\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stevenroose/48/1087_2.png\" class=\"avatar\"> stevenroose:</div>\n<blockquote>\n<p>A user can \u201cexit\u201d this reduced trust model by refreshing their VTXO during a round. A VTXO that is the direct result of a round does not have such reduced trust assumption.</p>\n</blockquote>\n</aside>\n<p>Ah I see, users can \u201csend to self\u201d aka refresh, but not send to others. I can see why that is possibly attractive; you only have to get self-sending right for the client <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2025-03-24T14:32:20.830Z",
   "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 28.4,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 33.2,
   "yours": false,
   "topic_id": 1528,
   "topic_slug": "the-ark-case-for-ctv",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Ah I see, users can \u201csend to self\u201d aka refresh, but not send to others. I can see why that is possibly attractive; you only have to get self-sending right for the client :slight_smile:",
+  "truncated": true,
+  "post_url": "/t/the-ark-case-for-ctv/1528/6",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

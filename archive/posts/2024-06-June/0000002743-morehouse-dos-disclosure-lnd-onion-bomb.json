@@ -7,14 +7,15 @@
   "cooked": "<p>LND versions prior to 0.17.0 are vulnerable to a DoS attack where malicious onion packets cause the node to instantly run out of memory (OOM) and crash. If you are running an LND release older than this, your funds are at risk! Update to at least <a href=\"https://github.com/lightningnetwork/lnd/releases/tag/v0.17.0-beta\" rel=\"noopener nofollow ugc\">0.17.0</a> to protect your node.</p>\n<h2><a name=\"the-vulnerability-1\" class=\"anchor\" href=\"#the-vulnerability-1\"></a>The Vulnerability</h2>\n<p>When decoding onion payloads, LND did not do proper bounds checking on the decoded length of the payload.  The sender of the onion payload could set a length of up to 4 GB, and LND would allocate that much memory to decode the rest of the payload.</p>\n<p>By sending multiple malicious onion payloads, an attacker could cause LND nodes to OOM crash within seconds.  Due to onion routing, the source of the attack would be trivially concealed.</p>\n<h2><a name=\"protecting-your-node-2\" class=\"anchor\" href=\"#protecting-your-node-2\"></a>Protecting Your Node</h2>\n<p>Update to at least LND <a href=\"https://github.com/lightningnetwork/lnd/releases/tag/v0.17.0-beta\" rel=\"noopener nofollow ugc\">0.17.0</a>, which added a bounds check on onion payload lengths.</p>\n<h2><a name=\"more-details-3\" class=\"anchor\" href=\"#more-details-3\"></a>More Details</h2>\n<p>For more details about the vulnerability, root causes, and prevention, see my <a href=\"https://morehouse.github.io/lightning/lnd-onion-bomb/\" rel=\"noopener nofollow ugc\">blog post</a>.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 4,
   "updated_at": "2024-06-18T17:48:35.668Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 170,
-  "reads": 31,
-  "readers_count": 30,
-  "score": 865.4,
+  "incoming_link_count": 662,
+  "reads": 57,
+  "readers_count": 56,
+  "score": 3406.4,
   "yours": false,
   "topic_id": 979,
   "topic_slug": "dos-disclosure-lnd-onion-bomb",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 7
     }
   ],
   "moderator": false,
@@ -54,14 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "LND versions prior to 0.17.0 are vulnerable to a DoS attack where malicious onion packets cause the node to instantly run out of memory (OOM) and crash. If you are running an LND release older than this, your funds are at risk! Update to at least <a href=\"https://github.com/lightningnetwork/lnd/releases/tag/v0.17.0-beta\" rel=\"noopener nofollow ugc\">0.17.0</a> to protect your node. \n<a name=\"the-vulnerability-1\" class=\"anchor\" href=\"#the-vulnerability-1\"></a>The Vulnerability\nWhen &hellip;",
+  "truncated": true,
+  "post_url": "/t/dos-disclosure-lnd-onion-bomb/979/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     },
     {
       "id": "clap",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
       "type": "emoji",
       "count": 1
     },
@@ -72,6 +82,11 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 7,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

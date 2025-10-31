@@ -7,14 +7,15 @@
   "cooked": "<p>I have no plans on dropping ephemeral anchor work. 0-satoshi outputs have a number of important use cases outside of LN.</p>\n<blockquote>\n<p>I don\u2019t think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them?</p>\n</blockquote>\n<p>You could use a single shared-key(slightly larger) at 330 sats.</p>\n<p>General sibling eviction would also allow an anchor to be completely removed, in certain scenarios where balance outputs are completely unencumbered(and no HTLCs exist?).</p>\n<p>You\u2019d need an anchor in many situations however.</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-01-25T17:03:34.088Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 23.0,
+  "incoming_link_count": 1,
+  "reads": 40,
+  "readers_count": 39,
+  "score": 47.8,
   "yours": false,
   "topic_id": 472,
   "topic_slug": "sibling-eviction-for-v3-transactions",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 101,
     "username": "t-bast",
     "name": "Bastien Teinturier",
     "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I have no plans on dropping ephemeral anchor work. 0-satoshi outputs have a number of important use cases outside of LN. \n\nI don\u2019t think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment &hellip;",
+  "truncated": true,
+  "post_url": "/t/sibling-eviction-for-v3-transactions/472/8",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

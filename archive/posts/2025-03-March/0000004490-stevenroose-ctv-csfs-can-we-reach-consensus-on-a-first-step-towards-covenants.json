@@ -7,14 +7,15 @@
   "cooked": "<p>My purpose with this thread is to avoid doing an independent activation client which will undoubtedly upset people, but instead hear everyone out and see if we can gather enough momentum to get some version of these changes deployed through the regular Core release process.</p>",
   "post_number": 21,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-12T18:14:51.673Z",
-  "reply_count": 1,
+  "reply_count": 0,
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 30,
-  "readers_count": 29,
-  "score": 71.0,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 74.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 247,
     "username": "1440000bytes",
     "name": "/dev/fd0",
     "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "My purpose with this thread is to avoid doing an independent activation client which will undoubtedly upset people, but instead hear everyone out and see if we can gather enough momentum to get some version of these changes deployed through the regular Core release process.",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/21",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 4,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

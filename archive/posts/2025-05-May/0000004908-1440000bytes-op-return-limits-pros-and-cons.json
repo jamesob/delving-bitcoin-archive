@@ -7,15 +7,15 @@
   "cooked": "<p>A solution proposed by Warren Togami:</p>\n<blockquote>\n<p>Now I propose adding an additional expectation of fee for each output where the value is \u201csmall\u201d. For example a shitcoin in 2011 added 1,000 penalty bytes to the fee expected by MempoolAccept for each output that was too small. I always thought that was a good idea that would benefit Bitcoin because it would make any UTXO set expansion extra costly. I first proposed this for Bitcoin ~2014 because I was very angry about SatoshiDice spam. I still think charging for too-small outputs would have been better than the dust limit.</p>\n</blockquote>\n<p>Link: <a href=\"https://x.com/wtogami/status/1917289539703280006\" rel=\"noopener nofollow ugc\">https://x.com/wtogami/status/1917289539703280006</a></p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 6,
   "updated_at": "2025-05-01T09:35:53.925Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 2.6,
+  "incoming_link_count": 2,
+  "reads": 59,
+  "readers_count": 58,
+  "score": 36.8,
   "yours": false,
   "topic_id": 1645,
   "topic_slug": "op-return-limits-pros-and-cons",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "A solution proposed by Warren Togami: \n\n> Now I propose adding an additional expectation of fee for each output where the value is \"small\". For example a shitcoin in 2011 added 1,000 penalty bytes to the fee expected by MempoolAccept for each output that was too small. I always thought that was a good idea that would benefit Bitcoin because it would make any UTXO set expansion extra costly. I first proposed this for Bitcoin ~2014 because I was very angry about SatoshiDice spam. I still think charging for too-small outputs would have been better than the dust limit.\n\nLink: https://x.com/wtogami/status/1917289539703280006",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "A solution proposed by Warren Togami: \n\nNow I propose adding an additional expectation of fee for each output where the value is \u201csmall\u201d. For example a shitcoin in 2011 added 1,000 penalty bytes to the fee expected by MempoolAccept for each output that was too small. I always thought that was a good&hellip;",
   "truncated": true,
   "post_url": "/t/op-return-limits-pros-and-cons/1645/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

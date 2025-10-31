@@ -7,14 +7,15 @@
   "cooked": "<p>Hey <a class=\"mention\" href=\"/u/valuedmammal\">@valuedmammal</a>, it\u2019s not clear to me what your chart shows.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2024-08-19T08:21:15.409Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 23.6,
+  "reads": 42,
+  "readers_count": 41,
+  "score": 43.4,
   "yours": false,
   "topic_id": 1077,
   "topic_slug": "casual-research-on-running-mempoolfullrbf",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hey <a class=\"mention\" href=\"/u/valuedmammal\">@valuedmammal</a>, it\u2019s not clear to me what your chart shows.",
+  "truncated": true,
+  "post_url": "/t/casual-research-on-running-mempoolfullrbf/1077/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

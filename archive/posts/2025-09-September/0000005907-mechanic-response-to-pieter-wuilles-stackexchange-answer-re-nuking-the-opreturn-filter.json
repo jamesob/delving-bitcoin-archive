@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks for taking the time to write this. As I mentioned on Nostr, I think concerns around fee estimation have been misrepresented. You can never know what a miner will include in their next block and trying to make any aspect of Bitcoin function in a way that relies on the premise that you can is a fool\u2019s errand.</p>\n<p>Even with near-complete mempool homogeneity, the next block can just take 30 minutes instead of 10 minutes at which point your didn\u2019t pay a high enough fee.</p>\n<p>Further, some miners run non-Core filters. If you want to go mempool-only with your fee estimation that means you\u2019re competing with imaginary transactions that don\u2019t exist to some miners rather than looking at what\u2019s actually making it into the chain.</p>\n<p>In the former scenario you\u2019re overpaying for no reason which is unfixable. If filtering results in accidental <em>underpayment</em> then you can just RBF. It makes no sense to invoke fee estimation as a reason to try to imagine you can accurately predict what Antpool\u2019s next block is going to contain. You must use a network-wide approximation that comes from far more subtle heuristics that assume mining can become decentralized along with relay policy.</p>\n<p>The push to make all mempools as identical as possible along with trying to anticipate miner-behaviour is resignation to a status quo that ultimately leaves Bitcoin censorship prone due to extreme centralization.</p>\n<p>Bitcoiners must get comfortable with the fact that mempools will contain what their user allows, not what Core developers \u201cforce\u201d upon them by virtue of crazy defaults.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 16,
   "updated_at": "2025-09-17T17:50:38.543Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 31,
-  "readers_count": 30,
-  "score": 34.6,
+  "incoming_link_count": 6,
+  "reads": 80,
+  "readers_count": 79,
+  "score": 80.8,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,

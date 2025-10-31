@@ -7,15 +7,15 @@
   "cooked": "<p>I thought I\u2019d share this tool I put together, based off of <a class=\"mention\" href=\"/u/0xb10c\">@0xB10C</a> 's peer_observer project. bitcointap is a rust library and cli tool for tapping into bitcoin-core\u2019s ebpf-usdt tracepoints. I have a demo video here to show how it works:</p>\n          <div class=\"onebox video-onebox\">\n            <video width=\"100%\" height=\"100%\" controls=\"\">\n              <source src=\"https://cdn.jb55.com/s/bitcointap-demo.mp4\">\n              <a href=\"https://cdn.jb55.com/s/bitcointap-demo.mp4\" rel=\"noopener\">https://cdn.jb55.com/s/bitcointap-demo.mp4</a>\n            </video>\n          </div>\n\n<aside class=\"onebox githubrepo\" data-onebox-src=\"https://github.com/jb55/bitcointap\">\n  <header class=\"source\">\n\n      <a href=\"https://github.com/jb55/bitcointap\" target=\"_blank\" rel=\"noopener\">github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <div class=\"github-row\" data-github-private-repo=\"false\">\n  <img width=\"690\" height=\"344\" src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/e/e2f37fecab0065c51b2f0a2de851e3cc3e73a5d4_2_690x344.png\" class=\"thumbnail\" data-dominant-color=\"EFEBE9\">\n\n  <h3><a href=\"https://github.com/jb55/bitcointap\" target=\"_blank\" rel=\"noopener\">GitHub - jb55/bitcointap: A tool for tapping into bitcoin-core tracepoints...</a></h3>\n\n    <p><span class=\"github-repo-description\">A tool for tapping into bitcoin-core tracepoints to extract data in realtime</span></p>\n</div>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>If you\u2019re new to tracing in core I suggest checking out the tracing docs:</p>\n<aside class=\"onebox githubblob\" data-onebox-src=\"https://github.com/bitcoin/bitcoin/blob/8309a9747a8df96517970841b3648937d05939a3/doc/tracing.md\">\n  <header class=\"source\">\n\n      <a href=\"https://github.com/bitcoin/bitcoin/blob/8309a9747a8df96517970841b3648937d05939a3/doc/tracing.md\" target=\"_blank\" rel=\"noopener\">github.com/bitcoin/bitcoin</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h4><a href=\"https://github.com/bitcoin/bitcoin/blob/8309a9747a8df96517970841b3648937d05939a3/doc/tracing.md\" target=\"_blank\" rel=\"noopener\">doc/tracing.md</a></h4>\n\n<div class=\"git-blob-info\">\n  <a href=\"https://github.com/bitcoin/bitcoin/blob/8309a9747a8df96517970841b3648937d05939a3/doc/tracing.md\" rel=\"noopener\"><code>8309a9747</code></a>\n</div>\n\n\n      <pre><code class=\"lang-md\"># User-space, Statically Defined Tracing (USDT) for Bitcoin Core\n\nBitcoin Core includes statically defined tracepoints to allow for more\nobservability during development, debugging, code review, and production usage.\nThese tracepoints make it possible to keep track of custom statistics and\nenable detailed monitoring of otherwise hidden internals. They have\nlittle to no performance impact when unused.\n\n```\neBPF and USDT Overview\n======================\n\n                \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510            \u250c\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2510\n                \u2502 tracing script   \u2502            \u2502 bitcoind     \u2502\n                \u2502==================\u2502      2.    \u2502==============\u2502\n                \u2502  eBPF  \u2502 tracing \u2502      hooks \u2502              \u2502\n                \u2502  code  \u2502 logic   \u2502      into\u250c\u2500\u2524\u25batracepoint 1\u2500\u253c\u2500\u2500\u2500\u2510 3.\n                \u2514\u2500\u2500\u2500\u2500\u252c\u2500\u2500\u2500\u2534\u2500\u2500\u25b2\u2500\u2500\u2500\u2500\u2500\u2500\u2518          \u251c\u2500\u2524\u25batracepoint 2 \u2502   \u2502 pass args\n            1.       \u2502      \u2502 4.              \u2502 \u2502 ...          \u2502   \u2502 to eBPF\n    User    compiles \u2502      \u2502 pass data to    \u2502 \u2514\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2500\u2518   \u2502 program\n</code></pre>\n\n\n\n  This file has been truncated. <a href=\"https://github.com/bitcoin/bitcoin/blob/8309a9747a8df96517970841b3648937d05939a3/doc/tracing.md\" target=\"_blank\" rel=\"noopener\">show original</a>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>Let us know what traces you would find useful so we can start making this tool more powerful!</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 3,
   "updated_at": "2025-05-13T17:43:50.573Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 139,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 693.2,
+  "incoming_link_count": 288,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 1476.8,
   "yours": false,
   "topic_id": 1694,
   "topic_slug": "bitcointap-an-strace-like-tool-for-bitcoin-ebpf-usdt-tracepoints",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I thought I'd share this tool I put together, based off of @0xB10C 's peer_observer project. bitcointap is a rust library and cli tool for tapping into bitcoin-core's ebpf-usdt tracepoints. I have a demo video here to show how it works:\n\nhttps://cdn.jb55.com/s/bitcointap-demo.mp4\n\nhttps://github.com/jb55/bitcointap\n\nIf you're new to tracing in core I suggest checking out the tracing docs:\n\nhttps://github.com/bitcoin/bitcoin/blob/8309a9747a8df96517970841b3648937d05939a3/doc/tracing.md\n\nLet us know what traces you would find useful so we can start making this tool more powerful!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,19 @@
   "excerpt": "I thought I\u2019d share this tool I put together, based off of <a class=\"mention\" href=\"/u/0xb10c\">@0xB10C</a> &#39;s peer_observer project. bitcointap is a rust library and cli tool for tapping into bitcoin-core\u2019s ebpf-usdt tracepoints. I have a demo video here to show how it works: \n          \n\n\n\nIf you\u2019re new to tracing in core I suggest check&hellip;",
   "truncated": true,
   "post_url": "/t/bitcointap-an-strace-like-tool-for-bitcoin-ebpf-usdt-tracepoints/1694/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

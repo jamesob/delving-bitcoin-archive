@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"portlandhodl\" data-post=\"2\" data-topic=\"1906\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/portlandhodl/48/1453_2.png\" class=\"avatar\"> portlandhodl:</div>\n<blockquote>\n<p>I love the idea; but combined with GETDATA this would allow for someone to obtain transactions a miner has deemed to valuable enough even with bad prop to be private.</p>\n</blockquote>\n</aside>\n<p>\u2026 that seems like a good thing?</p>\n<p>But more realistically, whatever mechanism they have to prevent those transactions from being relayed currently could equally be used to prevent them from being included in the template responses proposed here.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 24,
   "updated_at": "2025-08-06T12:29:34.302Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 64.0,
+  "incoming_link_count": 1,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 95.0,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

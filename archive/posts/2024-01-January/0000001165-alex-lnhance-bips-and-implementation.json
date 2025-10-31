@@ -7,14 +7,15 @@
   "cooked": "<p>Jeremy Rubin\u2019s <a href=\"https://utxos.org/uses/\" rel=\"noopener nofollow ugc\">uxos.org</a> is still a great resource for CTV-related applications</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-01-17T14:51:04.886Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 19.6,
+  "reads": 86,
+  "readers_count": 85,
+  "score": 47.2,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 31,
     "username": "instagibbs",
     "name": "Gregory Sanders",
     "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Jeremy Rubin\u2019s <a href=\"https://utxos.org/uses/\" rel=\"noopener nofollow ugc\">uxos.org</a> is still a great resource for CTV-related applications",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/11",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

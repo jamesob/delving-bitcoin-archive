@@ -7,15 +7,15 @@
   "cooked": "<h2><a name=\"p-5638-background-on-simplicity-1\" class=\"anchor\" href=\"#p-5638-background-on-simplicity-1\"></a>Background on Simplicity</h2>\n<p>Simplicity is a low-level programming language and computational model designed for blockchain smart contracts. Its design is minimal, simple enough that the core semantics fit on a T-shirt, and it\u2019s formally verifiable. But that simplicity does not make it easy to use. Simplicity is functional and low-level, and writing it feels more like writing assembly than something like Java or Python. It is powerful, but not ergonomic for everyday development.</p>\n<p>Simplicity was recently activated on the Liquid mainnet, making it now possible to write and deploy contracts using this language in production environments.</p>\n<h2><a name=\"p-5638-simplicityhl-2\" class=\"anchor\" href=\"#p-5638-simplicityhl-2\"></a>SimplicityHL</h2>\n<p>SimplicityHL is a high-level language for writing smart contracts on Elements, and Liquid. It looks and feels a lot like Rust. Just as Rust compiles down to machine code, SimplicityHL compiles down to Simplicity bytecode. You write SimplicityHL. Full nodes execute Simplicity.</p>\n<p>I am not actively working on SimplicityHL at the moment, but I wanted to share an example to show what working with the language actually looks like.</p>\n<p>The goal is to show how SimplicityHL makes Simplicity development accessible. This is not a language tour, a discussion about how Simplicity could be added to Bitcoin, or a dive into formal semantics. It is just a practical example of writing a real contract with real behavior.</p>\n<h2><a name=\"p-5638-a-real-example-non-interactive-fee-bumping-3\" class=\"anchor\" href=\"#p-5638-a-real-example-non-interactive-fee-bumping-3\"></a>A Real Example: Non-Interactive Fee Bumping</h2>\n<p>Bitcoin fee estimation is hard. If your transaction fee is too low, it can sit unconfirmed in the mempool for hours or days. Solutions like RBF, CPFP, anchors, and proposed sponsor transactions all exist, but they require coordination from the sender or a third party to replace or attach another transaction that bumps the fee.</p>\n<h2><a name=\"p-5638-a-different-approach-4\" class=\"anchor\" href=\"#p-5638-a-different-approach-4\"></a>A Different Approach</h2>\n<p>In this example, the fee bumping logic is embedded directly into the script. The longer a transaction remains unmined, the more fee it permits. A miner can reduce the change output or increase the fee output and include the transaction in a block. No user action or third-party help is needed.</p>\n<p>This works because SimplicityHL gives full flexibility to express spend conditions as functions over the transaction\u2019s data. In this case, we enforce a linear function: as nLockTime increases, the allowed fee increases proportionally. But the same framework can support more complex functions over inputs, outputs, values, and metadata. You are writing a program that evaluates whether a transaction is authorized, and you get full control over that logic.</p>\n<h2><a name=\"p-5638-the-code-5\" class=\"anchor\" href=\"#p-5638-the-code-5\"></a>The Code</h2>\n<p>Below is a complete SimplicityHL program that enforces a base fee plus 1 satoshi per second after a fixed broadcast time.</p>\n<pre data-code-wrap=\"rust\"><code class=\"lang-rust\">/*\n * NON-INTERACTIVE FEE BUMPING\n *\n * Anyone, including miners, can increase the fee by reducing the change amount,\n * based on a rule that adds 1 satoshi per second after broadcast.\n *\n * Allowed changes:\n * - nLockTime can increase\n * - change/fee outputs can be modified\n *\n * No need for RBF, CPFP, anchors, or sponsor transactions.\n */\n\nfn sighash_tx_nifb() -&gt; u256 {\n    let ctx: Ctx8 = jet::sha_256_ctx_8_init();\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_4(ctx, jet::version());\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_32(ctx, jet::inputs_hash());\n\n    // Include the non-change output (index 0)\n    let ctx: Ctx8 = match jet::output_hash(0) {\n        Some(sighash: u256) =&gt; jet::sha_256_ctx_8_add_32(ctx, sighash),\n        None =&gt; panic!(),\n    };\n\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_32(ctx, jet::output_scripts_hash());\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_32(ctx, jet::input_utxos_hash());\n    jet::sha_256_ctx_8_finalize(ctx)\n}\n\nfn sighash_nifb() -&gt; u256 {\n    let ctx: Ctx8 = jet::sha_256_ctx_8_init();\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_32(ctx, jet::genesis_block_hash());\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_32(ctx, sighash_tx_nifb());\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_32(ctx, jet::tap_env_hash());\n    let ctx: Ctx8 = jet::sha_256_ctx_8_add_4(ctx, jet::current_index());\n    jet::sha_256_ctx_8_finalize(ctx)\n}\n\nfn check_neg(v: bool) {\n    let v1: u1 = &lt;bool&gt;::into(v);\n    let v2: u64 = &lt;u1&gt;::into(v1);\n    assert!(jet::eq_8(v2, 0));\n}\n\n// Enforces a linear fee increase over time\nfn total_fee_check() {\n    let curr_time: u32 = jet::tx_lock_time();\n    let fee_asset: ExplicitAsset = 0x0000000000000000000000000000000000000000000000000000000000000000;\n    let fees: u64 = jet::total_fee(fee_asset);\n\n    let time_at_broadcast: u32 = 1734967235; // Dec 23, ~8:33am PST\n    let (carry, time_elapsed): (bool, u32) = jet::subtract_32(curr_time, time_at_broadcast);\n    check_neg(carry);\n\n    let base_fee: u64 = 1000;\n    let (carry, max_fee): (bool, u64) =\n        jet::add_64(base_fee, jet::left_pad_low_32_64(time_elapsed));\n    check_neg(carry);\n\n    assert!(jet::lt_64(fees, max_fee));\n}\n\nfn main() {\n    let sighash: u256 = sighash_nifb();\n    total_fee_check();\n    let alice_pk: Pubkey = 0x9bef8d556d80e43ae7e0becb3a7e6838b95defe45896ed6075bb9035d06c9964;\n    jet::bip_0340_verify((alice_pk, sighash), witness::ALICE_SIGNATURE);\n}\n</code></pre>\n<h2><a name=\"p-5638-final-thoughts-6\" class=\"anchor\" href=\"#p-5638-final-thoughts-6\"></a>Final Thoughts</h2>\n<p>If you are familiar with Rust, most of this will feel straightforward. You do not need to understand Simplicity\u2019s internal encoding or read through its formal semantics to get started. You can inspect the available jets, write logic around them, and compile.</p>\n<p>Simplicity gives you a strong foundation for secure and auditable smart contracts. SimplicityHL gives you a way to actually build them.</p>\n<p>This post focuses only on writing logic in SimplicityHL. It does not cover how this might affect miners incentives for this fee bumping model, how wallets might index these scripts, how this integrates with descriptors, or how it could be supported across the stack. These are important questions but separate from the programming model itself.</p>\n<p>The goal here is to highlight that writing these types of contracts is possible today.</p>\n<h3><a name=\"p-5638-resources-7\" class=\"anchor\" href=\"#p-5638-resources-7\"></a>Resources:</h3>\n<ul>\n<li>SimplicityHL: <a href=\"https://github.com/BlockstreamResearch/SimplicityHL\" class=\"inline-onebox\">GitHub - BlockstreamResearch/SimplicityHL: Rust-like high-level language that compiles down to Simplicity bytecode. Work in progress.</a></li>\n<li>rust-simplicity: <a href=\"https://github.com/BlockstreamResearch/rust-simplicity\" class=\"inline-onebox\">GitHub - BlockstreamResearch/rust-simplicity</a></li>\n</ul>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 7,
   "updated_at": "2025-08-04T19:21:46.121Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 251,
-  "reads": 39,
-  "readers_count": 38,
-  "score": 1322.8,
+  "incoming_link_count": 408,
+  "reads": 69,
+  "readers_count": 68,
+  "score": 2158.8,
   "yours": false,
   "topic_id": 1900,
   "topic_slug": "writing-simplicity-programs-with-simplicityhl",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 4
+      "count": 8
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 4
+      "count": 8
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 8,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 5,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 33.2,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 33.6,
   "yours": false,
   "topic_id": 2047,
   "topic_slug": "concept-review-b-ssl-bitcoin-secure-signing-layer-covenant-free-vault-model-using-taproot-csv-and-cltv",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "**Hi,**\n\nIf I understand correctly, the main goal is to prevent key loss from being permanent and to provide a way for the user to recover the funds. However, I\u2019m struggling to see how this achieves that because:\n\n* If the user loses **Key A** (the primary key), the only way to recover the funds is through **Path 3** after a long delay (e.g., 3 years). This effectively means trusting custodians who hold shares like B1 and C.\n\n* On the other hand, if the user doesn\u2019t lose **Key A**, why would they use **Path 1** or **Path 2**, since they still have full control of the private key?\n\nI think I am missing something :sweat_smile:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Hi, \nIf I understand correctly, the main goal is to prevent key loss from being permanent and to provide a way for the user to recover the funds. However, I\u2019m struggling to see how this achieves that because: \n\n\nIf the user loses Key A (the primary key), the only way to recover the funds is through P&hellip;",
   "truncated": true,
   "post_url": "/t/concept-review-b-ssl-bitcoin-secure-signing-layer-covenant-free-vault-model-using-taproot-csv-and-cltv/2047/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

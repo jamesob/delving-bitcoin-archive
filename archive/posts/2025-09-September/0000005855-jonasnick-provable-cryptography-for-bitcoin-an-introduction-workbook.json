@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 209,
-  "reads": 43,
-  "readers_count": 42,
-  "score": 1358.2,
+  "incoming_link_count": 622,
+  "reads": 81,
+  "readers_count": 80,
+  "score": 3566.2,
   "yours": false,
   "topic_id": 1974,
   "topic_slug": "provable-cryptography-for-bitcoin-an-introduction-workbook",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 19
+      "count": 30
     }
   ],
   "moderator": false,
@@ -63,22 +63,22 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 8
+      "count": 12
     },
     {
       "id": "+1",
       "type": "emoji",
-      "count": 4
+      "count": 9
     },
     {
       "id": "rocket",
       "type": "emoji",
-      "count": 4
+      "count": 5
     },
     {
       "id": "clap",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "tada",
@@ -87,7 +87,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 19,
+  "reaction_users_count": 30,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

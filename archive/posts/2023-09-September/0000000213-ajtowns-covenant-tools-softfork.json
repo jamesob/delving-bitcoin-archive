@@ -2,19 +2,20 @@
   "id": 213,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2023-09-29T20:22:41.891Z",
   "cooked": "<p>Oh, also: ln-symmetry likely needs work on package relay and fees paid via ephemeral transactions and ways to avoid pinning (which may also need consensus changes, if done via an assertion \u201cthis signature is invalid if the tx is larger than X vbytes\u201d)</p>",
   "post_number": 10,
   "post_type": 1,
+  "posts_count": 25,
   "updated_at": "2023-09-29T20:22:41.891Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 9,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "incoming_link_count": 7,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 71.0,
   "yours": false,
   "topic_id": 98,
   "topic_slug": "covenant-tools-softfork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 3,
     "username": "ajtowns",
     "name": "Anthony Towns",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
   },
   "bookmarked": false,
   "raw": "Oh, also: ln-symmetry likely needs work on package relay and fees paid via ephemeral transactions and ways to avoid pinning (which may also need consensus changes, if done via an assertion \"this signature is invalid if the tx is larger than X vbytes\")",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Oh, also: ln-symmetry likely needs work on package relay and fees paid via ephemeral transactions and ways to avoid pinning (which may also need consensus changes, if done via an assertion \u201cthis signature is invalid if the tx is larger than X vbytes\u201d)",
+  "truncated": true,
+  "post_url": "/t/covenant-tools-softfork/98/10",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

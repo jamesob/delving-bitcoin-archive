@@ -2,19 +2,20 @@
   "id": 4207,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2025-02-06T19:17:47.921Z",
   "cooked": "<p>Woah, <img src=\"https://delvingbitcoin.org/images/emoji/twitter/exploding_head.png?v=12\" title=\":exploding_head:\" class=\"emoji\" alt=\":exploding_head:\" loading=\"lazy\" width=\"20\" height=\"20\">.</p>\n<p>The <s>GGT algorithm</s> min-cut based algorithms are effectively finding a subset <span class=\"math\">x</span> which maximizes</p>\n<div class=\"math\">\n\\operatorname{fee}_x - \\lambda \\operatorname{size}_x\n</div>\n<p>for a given existing solution <span class=\"math\">S</span> with feerate <span class=\"math\">\\lambda</span>. In order words, it maximizes</p>\n<div class=\"math\">\n\\operatorname{fee}_x - \\frac{\\operatorname{fee}_S}{\\operatorname{size}_S} \\operatorname{size}_x\n</div>\n<p>which, given that <span class=\"math\">\\operatorname{size}_S</span> is a constant in this context, is the same as maximizing</p>\n<div class=\"math\">\n\\operatorname{fee}_x\\operatorname{size}_S - \\operatorname{fee}_S\\operatorname{size}_x\n</div>\n<p>Which is what I\u2019ve called <span class=\"math\">q(x, S)</span> in the spanning-forest writeup, the quantity being maximized when performing chunk splits\u2026</p>",
   "post_number": 27,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-06T21:00:39.102Z",
   "reply_count": 1,
   "reply_to_post_number": 26,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 72.6,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 76.8,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "Woah, :exploding_head:.\n\nThe ~~GGT algorithm~~ min-cut based algorithms are effectively finding a subset $x$ which maximizes\n$$\n\\operatorname{fee}_x - \\lambda \\operatorname{size}_x\n$$\nfor a given existing solution $S$ with feerate $\\lambda$. In order words, it maximizes\n$$\n\\operatorname{fee}_x - \\frac{\\operatorname{fee}_S}{\\operatorname{size}_S} \\operatorname{size}_x\n$$\nwhich, given that $\\operatorname{size}_S$ is a constant in this context, is the same as maximizing\n$$\n\\operatorname{fee}_x\\operatorname{size}_S - \\operatorname{fee}_S\\operatorname{size}_x\n$$\n\nWhich is what I've called $q(x, S)$ in the spanning-forest writeup, the quantity being maximized when performing chunk splits...",
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Woah, :exploding_head:. \nThe GGT algorithm min-cut based algorithms are effectively finding a subset x which maximizes \n\n\\operatorname{fee}_x - \\lambda \\operatorname{size}_x\n\nfor a given existing solution S with feerate \\lambda. In order words, it maximizes \n\n\\operatorname{fee}_x - \\frac{\\operatorna&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/27",
   "reactions": [
     {
       "id": "+1",
@@ -74,5 +79,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

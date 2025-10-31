@@ -74,18 +74,6 @@ If on the other hand users are signalling readiness, then inclusion in a block i
 
 -------------------------
 
-1440000bytes | 2024-08-21 12:13:03 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
-1440000bytes | 2024-08-21 12:12:41 UTC | #7
-
-(post deleted by author)
-
--------------------------
-
 1440000bytes | 2024-08-22 00:35:17 UTC | #8
 
 [quote="sjors, post:4, topic:1078"]

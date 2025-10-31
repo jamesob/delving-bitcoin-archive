@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"sjors\" data-post=\"10\" data-topic=\"710\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sjors/48/59_2.png\" class=\"avatar\"> sjors:</div>\n<blockquote>\n<p>It would be, but that\u2019s a hard-fork - that\u2019ll have to wait for 2106 <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p><a href=\"https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0320.mediawiki\">BIP 320</a> makes some more header bits available for nonce-like grinding. I\u2019m not sure how widely used it is, and IIUC Stratum v2 takes advantage of it. In any case that doesn\u2019t require a (soft) fork.</p>\n</blockquote>\n</aside>\n<p>Over the last 10k blocks (828299 to 838299), 9404 blocks have bip320 bits set (matching <code>/[23]...[02468ace]00[04]/</code> while 597 blocks don\u2019t (matching <code>/2000000[04]/</code>), so at least ~94% of hashrate has adopted BIP320 (as compared to reserving all bits for signalling per BIP9). That percentage could be an underestimate if ASICs are grinding through the all-zeroes case as well.</p>\n<p>The 4 at the end in both cases is to catch the ~216 blocks that are still signalling for taproot for whatever reason, which I think are all <a href=\"https://twitter.com/ajtowns/status/1777324742149554295\">SBI Crypto</a>.</p>\n<p>Reproducer if anyone cares: <code>$ for a in $(seq 828299 838299); do bitcoin-cli getblockheader $(bitcoin-cli getblockhash $a) | jq -j '.height, \" \", .versionHex, \"\\n\"'; done | sed 's/ 2000000[04]/ bip9/;s/ [23]...[02468ace]00[04]/ bip320/' | cut -d\\  -f2 | sort | uniq -c</code></p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 85,
   "updated_at": "2024-04-08T13:27:39.027Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "incoming_link_count": 2,
+  "reads": 95,
+  "readers_count": 94,
+  "score": 74.0,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": true,
@@ -54,7 +56,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Over the last 10k blocks (828299 to 838299), 9404 blocks have bip320 bits set (matching /[23]...[02468ace]00[04]/ while 597 blocks don\u2019t (matching /2000000[04]/), so at least ~94% of hashrate has adopted BIP320 (as compared to reserving all bits for signalling per BIP9). That percentage could be an&hellip;",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/16",
   "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
     {
       "id": "heart",
       "type": "emoji",
@@ -62,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

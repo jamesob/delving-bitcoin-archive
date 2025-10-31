@@ -7,14 +7,15 @@
   "cooked": "<p>Progress update, the DSL now supports taproot outputs - both to create outputs and spending them.</p>\n<p>Other updates</p>\n<ol>\n<li>New <a href=\"https://github.com/pool2win/bitcoin-dsl/pkgs/container/bitcoin-dsl\" rel=\"noopener nofollow ugc\">release</a> is out with smaller docker image size and number of notebooks related bug fixes.</li>\n<li>Support for <a href=\"https://opdup.com/bitcoin-dsl/dev/reference.html#reorganise-chain\" rel=\"noopener nofollow ugc\">reorganising chain</a> to a given height, block hash or back up to a block to unconfirm a given transaction.</li>\n</ol>\n<pre><code class=\"lang-auto\">reorg_chain height: 95\n\nreorg_chain blockhash: @blockhash\n\nreorg_chain unconfirm_tx: @reorg_to_tx\n</code></pre>\n<ol start=\"2\">\n<li>Fixed broken links in the <a href=\"https://opdup.com/bitcoin-dsl/index.html\" rel=\"noopener nofollow ugc\">documentation</a> pages.</li>\n</ol>\n<h1><a name=\"taproot-example-1\" class=\"anchor\" href=\"#taproot-example-1\"></a>Taproot example</h1>\n<p>New <a href=\"https://opdup.com/bitcoin-dsl/examples/taproot.html\" rel=\"noopener nofollow ugc\">documentation section on taproot</a> transaction discusses the choice of using object notation for specifying taproot outputs and script sigs.</p>\n<p>Here\u2019s a quick example to show how to generate and spend taproot outputs on regtest.</p>\n<h2><a name=\"create-a-taproot-output-2\" class=\"anchor\" href=\"#create-a-taproot-output-2\"></a>Create a Taproot Output</h2>\n<pre data-code-wrap=\"ruby\"><code class=\"lang-ruby\">transaction inputs: [\n              { tx: @coinbase_tx,\n                    vout: 0,\n                    script_sig: 'sig:wpkh(@alice)' }\n                ],\n             outputs: [\n                  {\n                    taproot: { internal_key: @bob,\n                               leaves: ['pk(@carol)', 'pk(@alice)'] },\n                    amount: 49.999.sats\n                  }\n                ]\nbroadcast @taproot_output_tx\n</code></pre>\n<h2><a name=\"spending-using-a-script-path-3\" class=\"anchor\" href=\"#spending-using-a-script-path-3\"></a>Spending Using a Script Path</h2>\n<pre data-code-wrap=\"ruby\"><code class=\"lang-ruby\">transaction inputs: [\n                  { tx: @taproot_output_tx,\n                    vout: 0,\n                    script_sig: { leaf_index: 0,\n                                  sig: 'sig:@carol' },\n                    sighash: :all }\n                ],\n             outputs: [\n                  { descriptor: 'wpkh(@carol)',\n                    amount: 49.998.sats }\n                ]\nbroadcast @spend_taproot_output_tx\n</code></pre>",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-04-23T13:53:27.996Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.2,
+  "incoming_link_count": 2,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 30.4,
   "yours": false,
   "topic_id": 748,
   "topic_slug": "dsl-for-experimenting-with-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Progress update, the DSL now supports taproot outputs - both to create outputs and spending them. \nOther updates \n\nNew <a href=\"https://github.com/pool2win/bitcoin-dsl/pkgs/container/bitcoin-dsl\" rel=\"noopener nofollow ugc\">release</a> is out with smaller docker image size and number of notebooks related bug fixes.\nSupport for <a href=\"https://opdup.com/bitcoin-dsl/dev/reference.html#reorganise-chain\" rel=\"noopener nofollow ugc\">reorganising chain</a> to a given height, block hash or back up to a block to unconf&hellip;",
+  "truncated": true,
+  "post_url": "/t/dsl-for-experimenting-with-contracts/748/15",
   "reactions": [
     {
       "id": "heart",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

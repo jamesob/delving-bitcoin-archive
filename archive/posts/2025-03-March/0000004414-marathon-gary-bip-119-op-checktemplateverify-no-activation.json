@@ -7,14 +7,15 @@
   "cooked": "<p>A thread for general/conceptual discussion for Bitcoin Core PR <span class=\"hashtag-raw\">#31989</span> outside of the PR review thread.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2025-03-05T17:21:57.602Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 27,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 139.4,
+  "incoming_link_count": 126,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 654.4,
   "yours": false,
   "topic_id": 1494,
   "topic_slug": "bip-119-op-checktemplateverify-no-activation",
@@ -38,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "A thread for general/conceptual discussion for Bitcoin Core PR #31989 outside of the PR review thread.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "A thread for general/conceptual discussion for Bitcoin Core PR #31989 outside of the PR review thread.",
+  "truncated": true,
+  "post_url": "/t/bip-119-op-checktemplateverify-no-activation/1494/1",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

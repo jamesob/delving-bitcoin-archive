@@ -7,15 +7,15 @@
   "cooked": "<p>Here is an idea for how to add a few simple opcodes to Bitcoin Script which would allow for recursive covenants to implemented in a natural and straightforward way:</p>\n<p>The opcodes needed are as follows:</p>\n<p>To allow incremental sha256: OP_SHA256_START OP_SHA256_UPDATE, and OP_SHA256_DIGEST which do the same things as they do in all cryptography libraries, putting the intermediate state of sha256 on the stack.</p>\n<p>To make the above easier to quine with: OP_IN_REVERSE, which is required to be the very first opcode in the whole script and makes it so the rest of the script is parsed from the end of the file backwards</p>\n<p>To make it easier for scripts to do anything: OP_ASSERT_OUTPUT which takes a hash of a Bitcoin Script and an amount and requires that an output corresponding to that be in the transaction.</p>\n<p>The ethos of this is that quining generally involves concatenation and then hashing, so it\u2019s more efficient to skip the concatenation part and jump directly to the end. All but the last opcode could be replaced with OP_CAT and the same thing could still be done but it would make scripts twice as large.</p>\n<p>To write a quine-like thing which outputs its own sha256 hash you do the following: First write a portion which assumes the intermediate state of applying sha256 to some program encoded in reverse is already written onto its stack. It takes that program hash and prepends to it Bitcoin Script commands to push that same value onto its own stack. You then take that program, calculate the intermediate state of hashing it, and then prepend a command to push that value onto the stack. Presto, a hashquine.</p>\n<p>Let\u2019s consider a simple recursive covenant which people might want to actually use: A vault which has two keys, one hot and one cold, both of which can be used to spend but the hot one is subject to a rate limit and the cold one is not. The core of the Bitcoin Script to enable this knows the identities of the hot and cold keys and assumes that already on its stack are a self hash and its own amount. The scriptpubkey specifies whether the hot or cold key is used. If it\u2019s the cold key then the script asserts the witness contains a signature to that key and that\u2019s it. If it\u2019s a hot key then the scriptpubkey further specifies the size of the new TXO. The script makes sure that the size of the new TXO doesn\u2019t drop by too much, enforces a relative timelock necessary to be allowed to spend that much, and requires a witness with a signature from the hot key. It further requires an output whose size is the new amount and whose script is the self script with pushing the self hash and new amount onto the stack prepended. (The size can also go up with no timelock, to allow the vault to take in more funds).</p>\n<p>This example shows a practical and useful script can be enabled using no more complex trickery than needing to quine. It\u2019s best to simply admit that quining is something which recursive covenant authors are going to have to be aware of.</p>\n<p>It would of course be useful when making more complex smart coins to have a loop construct available in Bitcoin Script but it isn\u2019t necessary for the above example and other simple ones. In some sense it does enable loops, but they require a UTXO spend for every jump back.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 5,
   "updated_at": "2025-05-02T23:23:13.633Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 197,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 992.6,
+  "incoming_link_count": 364,
+  "reads": 51,
+  "readers_count": 50,
+  "score": 1855.2,
   "yours": false,
   "topic_id": 1655,
   "topic_slug": "a-simple-approach-to-allowing-recursive-covenants-by-enabling-quines",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

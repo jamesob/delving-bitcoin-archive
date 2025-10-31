@@ -7,14 +7,15 @@
   "cooked": "<p>That makes sense to me. For example, if we do reactivate CAT similar PoW proofs could be done with plain hashes.</p>\n<pre><code class=\"lang-auto\">stack: &lt;nonce&gt; &lt;hash_prefix&gt;\nscript: &lt;required_hash_suffix&gt; CAT SWAP &lt;preimage_suffix&gt; CAT SHA256 EQUALVERIFY\n</code></pre>\n<p>(probably missing some details in ^ by allowing any length nonce, but it\u2019s the general idea)</p>\n<p>In short there are better ways to achieve this than ECDSA (which matches my gut reaction).</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-01-25T23:40:42.439Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 6,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 48.4,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 49.0,
   "yours": false,
   "topic_id": 438,
   "topic_slug": "op-checksigfromstackverify-ecdsa-useful",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 6,
     "username": "harding",
     "name": "David A. Harding",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
   },
   "bookmarked": false,
   "raw": "That makes sense to me. For example, if we do reactivate CAT similar PoW proofs could be done with plain hashes.\n\n```\nstack: <nonce> <hash_prefix>\nscript: <required_hash_suffix> CAT SWAP <preimage_suffix> CAT SHA256 EQUALVERIFY\n```\n\n(probably missing some details in ^ by allowing any length nonce, but it's the general idea)\n\nIn short there are better ways to achieve this than ECDSA (which matches my gut reaction).",
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That makes sense to me. For example, if we do reactivate CAT similar PoW proofs could be done with plain hashes. \nstack: &lt;nonce&gt; &lt;hash_prefix&gt;\nscript: &lt;required_hash_suffix&gt; CAT SWAP &lt;preimage_suffix&gt; CAT SHA256 EQUALVERIFY\n\n(probably missing some details in ^ by allowing any length nonce, but it\u2019s &hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checksigfromstackverify-ecdsa-useful/438/6",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

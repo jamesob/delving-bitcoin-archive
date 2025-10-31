@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"0xB10C\" data-post=\"2\" data-topic=\"1965\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/0xb10c/48/15_2.png\" class=\"avatar\"> 0xB10C:</div>\n<blockquote>\n<p>Thanks for posting this!</p>\n<p>I was wondering if you have a suggestion of how an attack like this can be detected through monitoring and what metrics would be useful to keep track of. [\u2026]</p>\n</blockquote>\n</aside>\n<p>Based on the data that I collected, I think keeping track of the following metrics is a good idea:</p>\n<ol>\n<li>\n<p>Number of connection path changes: since paths to a specific destination remain mostly stable (same ASes and routers on path - Insight <span class=\"hashtag-raw\">#4</span>), if many or all of our connections\u2019 paths change to be routed through a common AS, that is a sign of this attack. The attacker can tamper with traceroute traffic that goes through their AS but not before it - this allows us to observe a common path on which connections will consolidate to if this attack takes place.</p>\n</li>\n<li>\n<p>Connection churn rate for non reachable nodes: the attacker wants to minimize the number of prefix hijacks they maintain in order to reduce the traffic they forward, and increase their chances of remaining unnoticed. Thus the attacker prefers to reset inbound connections to the victim and occupy their slots with connections of their own. A high churn rate of non reachable nodes can be an indicator of this attack.</p>\n</li>\n</ol>\n<p>I might be missing some candidate metrics though - happy to discuss other ideas.</p>\n<aside class=\"quote no-group\" data-username=\"gmaxwell\" data-post=\"3\" data-topic=\"1965\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/g/fbc32d/48.png\" class=\"avatar\"> gmaxwell:</div>\n<blockquote>\n<p>If/when countersign is ever implement such attacks should be readily detectable from even a small number of nodes using authentication, particularly because the attacker wouldn\u2019t be able to simply distinguish auth using and auth-not-using connections in order to successfully avoid MITM the authenticated ones.</p>\n<p>Absent that, if you do know some of your peers you can manually compare session IDs today.</p>\n</blockquote>\n</aside>\n<p>Authentication would help in preventing the attacker from impersonating unauthenticated connections or MITM-ing new ones during the handshake. For existing authenticated connections, the attacker can still intercept them, but not inspect their traffic, using this attack.</p>\n<aside class=\"quote no-group\" data-username=\"gmaxwell\" data-post=\"3\" data-topic=\"1965\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/g/fbc32d/48.png\" class=\"avatar\"> gmaxwell:</div>\n<blockquote>\n<p>Also having another internet connection would be extremely valuable, and while that\u2019s kind of costly in much of the world you can put in a satellite feed receiver for the blockstream satellite to get another view.</p>\n</blockquote>\n</aside>\n<p>Multi-homing a node is probably one of the best countermeasures against routing-based attacks.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 9,
   "updated_at": "2025-09-06T08:02:28.989Z",
   "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 2,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "incoming_link_count": 1,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 34.6,
   "yours": false,
   "topic_id": 1965,
   "topic_slug": "eclipsing-bitcoin-nodes-with-bgp-interception-attacks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:2, topic:1965\"]\nThanks for posting this!\n\nI was wondering if you have a suggestion of how an attack like this can be detected through monitoring and what metrics would be useful to keep track of. \\[\u2026\\]\n\n[/quote]\n\nBased on the data that I collected, I think keeping track of the following metrics is a good idea:\n\n1. Number of connection path changes: since paths to a specific destination remain mostly stable (same ASes and routers on path - Insight #4), if many or all of our connections\u2019 paths change to be routed through a common AS, that is a sign of this attack. The attacker can tamper with traceroute traffic that goes through their AS but not before it - this allows us to observe a common path on which connections will consolidate to if this attack takes place.\n\n2. Connection churn rate for non reachable nodes: the attacker wants to minimize the number of prefix hijacks they maintain in order to reduce the traffic they forward, and increase their chances of remaining unnoticed. Thus the attacker prefers to reset inbound connections to the victim and occupy their slots with connections of their own. A high churn rate of non reachable nodes can be an indicator of this attack.\n\nI might be missing some candidate metrics though - happy to discuss other ideas.\n\n[quote=\"gmaxwell, post:3, topic:1965\"]\nIf/when countersign is ever implement such attacks should be readily detectable from even a small number of nodes using authentication, particularly because the attacker wouldn\u2019t be able to simply distinguish auth using and auth-not-using connections in order to successfully avoid MITM the authenticated ones.\n\nAbsent that, if you do know some of your peers you can manually compare session IDs today.\n\n[/quote]\n\nAuthentication would help in preventing the attacker from impersonating unauthenticated connections or MITM-ing new ones during the handshake. For existing authenticated connections, the attacker can still intercept them, but not inspect their traffic, using this attack.\n\n[quote=\"gmaxwell, post:3, topic:1965\"]\nAlso having another internet connection would be extremely valuable, and while that\u2019s kind of costly in much of the world you can put in a satellite feed receiver for the blockstream satellite to get another view.\n\n[/quote]\n\nMulti-homing a node is probably one of the best countermeasures against routing-based attacks.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Based on the data that I collected, I think keeping track of the following metrics is a good idea: \n\n\nNumber of connection path changes: since paths to a specific destination remain mostly stable (same ASes and routers on path - Insight #4), if many or all of our connections\u2019 paths change to be rou&hellip;",
   "truncated": true,
   "post_url": "/t/eclipsing-bitcoin-nodes-with-bgp-interception-attacks/1965/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

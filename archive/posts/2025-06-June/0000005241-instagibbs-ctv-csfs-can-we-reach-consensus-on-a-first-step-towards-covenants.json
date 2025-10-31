@@ -7,15 +7,15 @@
   "cooked": "<p>I\u2019ve come to see this capability of CTV (committing to other prevouts in very round-about way) as an anti-feature, an unexpected capability that is so sharp-edged that if it\u2019s something we want we should explicitly design for it instead to discourage such bizarre usage.</p>\n<p>Alternatively we could remove the capability by making non-empty scriptSigs fail the script execution. This of course only makes sense in a post-segwit world only which I\u2019ve already advocated above as a taproot-only push opcode.</p>",
   "post_number": 70,
   "post_type": 1,
-  "posts_count": 70,
+  "posts_count": 81,
   "updated_at": "2025-06-06T11:47:46.354Z",
   "reply_count": 1,
   "reply_to_post_number": 69,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 59.0,
+  "reads": 60,
+  "readers_count": 59,
+  "score": 82.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -69,10 +69,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

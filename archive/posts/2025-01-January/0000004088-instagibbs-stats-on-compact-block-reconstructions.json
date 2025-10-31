@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"jungly\" data-post=\"10\" data-topic=\"1052\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/jungly/48/289_2.png\" class=\"avatar\"> jungly:</div>\n<blockquote>\n<p>I think libbitcoin does not delete any received transactions, ever.</p>\n</blockquote>\n</aside>\n<p>This opens up some barn-door sized DoS vectors that graduate bandwidth waste to disk filling. If you\u2019re ever out of step with miner\u2019s policies, or someone partitions miner\u2019s mempools with pins, you\u2019ll fill your disk for free. And you\u2019d still be taking round-trips for those blocks.</p>\n<p>It also makes the amount of disk required per time period only bounded by gossip rate limiting.</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2025-01-23T14:46:08.743Z",
   "reply_count": 2,
   "reply_to_post_number": 10,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 28.0,
+  "reads": 67,
+  "readers_count": 66,
+  "score": 38.2,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "This opens up some barn-door sized DoS vectors that graduate bandwidth waste to disk filling. If you\u2019re ever out of step with miner\u2019s policies, or someone partitions miner\u2019s mempools with pins, you\u2019ll fill your disk for free. And you\u2019d still be taking round-trips for those blocks. \nIt also makes th&hellip;",
+  "truncated": true,
+  "post_url": "/t/stats-on-compact-block-reconstructions/1052/11",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

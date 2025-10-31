@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"2\" data-topic=\"1465\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>I think a \u201cbid\u201d of that form would be unpleasant if passed all the way through to miners \u2013 accepting the bid but still including transaction W that interacts with smart contract Z means (in general) modifying transaction W to spend an output of Y (or perhaps some child of Y), and potentially updating the witness data of W to deal with the difference in value of Y\u2019s output vs Z\u2019s output.</p>\n</blockquote>\n</aside>\n<p>Mmm, this is a good point, and I had mostly been thinking of this in the context of things like CSV (and CSV-based rollup) protocols, where this likely doesn\u2019t apply (at least if they\u2019re EVM-like). However,</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"2\" data-topic=\"1465\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>Would it be plausible to make the \u201cmevpool marketplace\u201d operate solely on packages of transactions, that is:</p>\n</blockquote>\n</aside>\n<p>Yea, sorry, somewhat shorthand here this is indeed how I\u2019ve been thinking about bids. A proposer would be able to submit one or more transactions in a single bid, and indeed would be able to do what you describe here.</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"2\" data-topic=\"1465\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>For sealed bids, I think you could reveal with utxos the package spends, the txids and wtids, and the total sigops, weight, and fee, and then either rely on trusting the marketplace to reveal the tx contents or a trusted execution environment in a similar way.</p>\n</blockquote>\n</aside>\n<p>Yep, though you can pass this all the way through to miners just as well. Basically you\u2019d move bids to always be \u201cthe full set of transactions which interact with a contract\u201d rather than ever being a subset of them (for contracts that rely on state passed via UTXOs) and then you can send the whole tx bundle through to the miner\u2019s TEE (or, indeed, just reveal the metadata if you\u2019re using a trusted marketplace).</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"2\" data-topic=\"1465\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>This assumes miners can do package RBF in a fairly optimal manner</p>\n</blockquote>\n</aside>\n<p>Indeed, though luckily this is somewhat simplified in that the miner is required to only either include or not-include the whole package, they cant split it into parts. They just have to be able to compare that to their existing mempool, which is hard but if we\u2019re talking about a server-class processor with SGX you can throw some CPU at it and get close enough to optimal that I\u2019m not worried :).</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"2\" data-topic=\"1465\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>Revealing the utxos that sealed txs are spending might be something of a give away to competitors, but seems unavoidable if you want miners to be building the block templates.</p>\n</blockquote>\n</aside>\n<p>This is part of the reason for the TEE - if we can take the whole block building logic and shove it in SGX, we can run it locally at the miner but also send it Sealed transaction (packages) which can be considered for the block template but won\u2019t be extractable (at least for reasonable cost).</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2025-02-20T19:23:29.487Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 48.8,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 70.8,
   "yours": false,
   "topic_id": 1465,
   "topic_slug": "best-worst-case-mevil-response",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -55,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Mmm, this is a good point, and I had mostly been thinking of this in the context of things like CSV (and CSV-based rollup) protocols, where this likely doesn\u2019t apply (at least if they\u2019re EVM-like). However, \n\nYea, sorry, somewhat shorthand here this is indeed how I\u2019ve been thinking about bids. A pr&hellip;",
+  "truncated": true,
+  "post_url": "/t/best-worst-case-mevil-response/1465/4",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>PLA+</p>\n</blockquote>\n<p>It\u2019s TLA+ (for \u201cTemporal Logic of Actions\u201d)</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-04-06T20:43:12.923Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 16.8,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 37.8,
   "yours": false,
   "topic_id": 748,
   "topic_slug": "dsl-for-experimenting-with-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,7 +56,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "PLA+ \n\nIt\u2019s TLA+ (for \u201cTemporal Logic of Actions\u201d)",
+  "truncated": true,
+  "post_url": "/t/dsl-for-experimenting-with-contracts/748/11",
   "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
     {
       "id": "heart",
       "type": "emoji",
@@ -62,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

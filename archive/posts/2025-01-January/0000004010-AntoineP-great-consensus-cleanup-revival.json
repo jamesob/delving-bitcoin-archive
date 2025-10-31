@@ -4,17 +4,18 @@
   "username": "AntoineP",
   "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png",
   "created_at": "2025-01-07T15:24:23.147Z",
-  "cooked": "<p>Hi, i\u2019d like to update this thread with the outcome of the discussions in the <a href=\"https://delvingbitcoin.org/t/worst-block-validation-time-inquiry/711\">private one</a> on the topic of improving the worst case validation time.</p>\n<p>Shortly after posting the details of the worst block, i realized i could adapt it to bypass the <a href=\"https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki#specification\">mitigations originally proposed</a> in 2019. This opened up an almost year long discussion about possible mitigations and their tradeoffs in terms of impact, confiscatory surface and complexity. Thanks to everyone who participated and in particular to Anthony Towns for his contributions, corrections and the helpful discussions.</p>\n<p>After studying the various options i believe the best way forward is to introduce a 2\u2019500 per-transaction limit on the number of legacy (both bare and P2SH) input sigops. This provides a 40x decrease in the worst case validation time with a straightforward and flexible rule minimizing the confiscatory surface. A further 7x decrease is possible by combining it with another rule, which is in my opinion not worth the additional confiscatory surface.</p>",
+  "cooked": "<p>Hi, i\u2019d like to update this thread with the outcome of the discussions in the <a href=\"https://delvingbitcoin.org/t/worst-block-validation-time-inquiry/711\">private one</a> on the topic of improving the worst case validation time.</p>\n<p>Shortly after posting the details of the worst block, i realized i could adapt it to be valid under the <a href=\"https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki#specification\">mitigations originally proposed</a> in 2019. From there we reconsidered possible mitigations and their tradeoffs in terms of impact, confiscatory surface and complexity. Thanks to everyone who participated and in particular to Anthony Towns for his contributions, corrections and the helpful discussions.</p>\n<p>After studying the various options i believe the best way forward is to introduce a 2\u2019500 per-transaction limit on the number of legacy (both bare and P2SH) input sigops. This provides a 40x decrease in the worst case validation time with a straightforward and flexible rule minimizing the confiscatory surface. A further 7x decrease is possible by combining it with another rule, which is in my opinion not worth the additional confiscatory surface.</p>",
   "post_number": 64,
   "post_type": 1,
-  "updated_at": "2025-01-07T15:24:23.147Z",
-  "reply_count": 0,
+  "posts_count": 85,
+  "updated_at": "2025-01-09T18:44:45.425Z",
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "incoming_link_count": 71,
+  "reads": 53,
+  "readers_count": 52,
+  "score": 385.6,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -29,7 +30,7 @@
   "flair_color": "",
   "flair_group_id": 43,
   "badges_granted": [],
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -38,8 +39,13 @@
   "user_title": "Regular",
   "title_is_group": false,
   "bookmarked": false,
-  "raw": "Hi, i'd like to update this thread with the outcome of the discussions in the [private one](https://delvingbitcoin.org/t/worst-block-validation-time-inquiry/711?u=antoinep) on the topic of improving the worst case validation time.\n\nShortly after posting the details of the worst block, i realized i could adapt it to bypass the [mitigations originally proposed](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki#specification) in 2019. This opened up an almost year long discussion about possible mitigations and their tradeoffs in terms of impact, confiscatory surface and complexity. Thanks to everyone who participated and in particular to Anthony Towns for his contributions, corrections and the helpful discussions.\n\nAfter studying the various options i believe the best way forward is to introduce a 2'500 per-transaction limit on the number of legacy (both bare and P2SH) input sigops. This provides a 40x decrease in the worst case validation time with a straightforward and flexible rule minimizing the confiscatory surface. A further 7x decrease is possible by combining it with another rule, which is in my opinion not worth the additional confiscatory surface.",
-  "actions_summary": [],
+  "raw": "Hi, i'd like to update this thread with the outcome of the discussions in the [private one](https://delvingbitcoin.org/t/worst-block-validation-time-inquiry/711?u=antoinep) on the topic of improving the worst case validation time.\n\nShortly after posting the details of the worst block, i realized i could adapt it to be valid under the [mitigations originally proposed](https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki#specification) in 2019. From there we reconsidered possible mitigations and their tradeoffs in terms of impact, confiscatory surface and complexity. Thanks to everyone who participated and in particular to Anthony Towns for his contributions, corrections and the helpful discussions.\n\nAfter studying the various options i believe the best way forward is to introduce a 2'500 per-transaction limit on the number of legacy (both bare and P2SH) input sigops. This provides a 40x decrease in the worst case validation time with a straightforward and flexible rule minimizing the confiscatory surface. A further 7x decrease is possible by combining it with another rule, which is in my opinion not worth the additional confiscatory surface.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -51,8 +57,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Hi, i\u2019d like to update this thread with the outcome of the discussions in the <a href=\"https://delvingbitcoin.org/t/worst-block-validation-time-inquiry/711\">private one</a> on the topic of improving the worst case validation time. \nShortly after posting the details of the worst block, i realized i could adapt it to be valid under the <a href=\"https://github.com/TheBlueMatt/bips/blob/7f9670b643b7c943a0cc6d2197d3eabe661050c2/bip-XXXX.mediawiki#specification\">mitigations originally proposed</a> in 2019. From t&hellip;",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/64",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

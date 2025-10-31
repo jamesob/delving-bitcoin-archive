@@ -2,19 +2,20 @@
   "id": 1010,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-01-08T04:58:48.145Z",
   "cooked": "<aside class=\"quote no-group\" data-username=\"RobinLinus\" data-post=\"5\" data-topic=\"370\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/robinlinus/48/130_2.png\" class=\"avatar\"> RobinLinus:</div>\n<blockquote>\n<p>The goal was rather to explore what\u2019s possible with CAT.</p>\n</blockquote>\n</aside>\n<p>Sure. Just feels like asking a handyman \u201cIf you could only have one tool to do your job, what would it be? A knife, a hammer, a screwdriver or a handsaw?\u201d Fun thing to debate over beers or whatever, but seems a crazy limitation to apply in reality?</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-01-08T04:58:48.145Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.2,
+  "incoming_link_count": 3,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 96.0,
   "yours": false,
   "topic_id": 370,
   "topic_slug": "emulating-curve-point-scalar-multiplication-with-op-cat",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 5
     }
   ],
   "moderator": true,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Sure. Just feels like asking a handyman \u201cIf you could only have one tool to do your job, what would it be? A knife, a hammer, a screwdriver or a handsaw?\u201d Fun thing to debate over beers or whatever, but seems a crazy limitation to apply in reality?",
+  "truncated": true,
+  "post_url": "/t/emulating-curve-point-scalar-multiplication-with-op-cat/370/6",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 5
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

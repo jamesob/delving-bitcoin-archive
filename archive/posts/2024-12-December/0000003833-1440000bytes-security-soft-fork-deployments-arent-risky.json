@@ -7,14 +7,15 @@
   "cooked": "<p>Soft forks with bug fixes surely have less deployment risk.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-12-18T20:57:54.014Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 16.8,
+  "incoming_link_count": 1,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 26.4,
   "yours": false,
   "topic_id": 1328,
   "topic_slug": "security-soft-fork-deployments-arent-risky",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 193,
     "username": "Chris_Stewart_5",
     "name": "Chris Stewart",
     "avatar_template": "/user_avatar/delvingbitcoin.org/chris_stewart_5/{size}/296_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Soft forks with bug fixes surely have less deployment risk.",
+  "truncated": true,
+  "post_url": "/t/security-soft-fork-deployments-arent-risky/1328/4",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

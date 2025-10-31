@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 9,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 48.4,
+  "incoming_link_count": 15,
+  "reads": 26,
+  "readers_count": 25,
+  "score": 90.2,
   "yours": false,
   "topic_id": 2070,
   "topic_slug": "the-nashian-orientation-of-bitcoin",
@@ -39,13 +39,18 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "My works in regard to the Nashian Orientation of Bitcoin has two paths to traverse-the simpler explanation and the more complex.  The former is 6 essays ( https://github.com/jalToorey/IdealMoney/wiki ):\n\n[Introduction to Ideal Money and the Value Thereof](https://github.com/jalToorey/IdealMoney/wiki/Introduction-to-Ideal-Money-and-the-Value-Thereof)\n\n[details=\"Summary\"]\nThis introduction begins to define what an Ideal Money scenario refers to which is the (re-)levation of a politically held global standard for money comparison. Furthermore, using Nick Szabo\u2019s formalization of Adam Smith, it introduces the formalization of the efficiency gains from such a global setting as well as highlights the natural and favorable effects of a global money standard on long term contract formation.\n\n[/details]\n\n[The ICPI and Bitcoin as an Ideal Money Basis](https://github.com/jalToorey/IdealMoney/wiki/The-ICPI-and-Bitcoin-as-an-Ideal-Money-Basis)\n\n[details=\"Summary\"]\nThis writing explains the purpose of invoking the concept of what Nash calls the ICPI and dispels the misconceptions of it perpetuated by those notably including Adam Back, George Selgin, and Saifedean Ammous. The concept of the ICPI as an extension of a gold standard helps us philosophically paint the concept of a vector of quality for money that is otherwise difficulty to describe or point to in dialogue. It is from this philosophical view that we are able to derive an implementable path to Ideal Money.\n\n[/details]\n\n[Hal Finney's Theory of Bitcoin Backed Banks](https://github.com/jalToorey/IdealMoney/wiki/Hal-Finney's-Theory-of-Bitcoin-Backed-Banks)\n\n[details=\"Summary\"]\nThis writing explores the reference Hal Finney made to George Selgin which lead Finney to his theory of Bitcoin Backed Banks. It also introduces new lexicon into the crypto-community in order for people to better understand and reference Hal\u2019s extension of Selgin\u2019s work. This framework is helpful for not only understanding the nature of the evolving digital money realm that Satoshi birthed but also for understanding how digital money might affect our legacy currency systems. It is often thought that the lightning network innovation precludes the theory of bitcoin backed banks-this writing argues otherwise.\n\n[/details]\n\n[The Theory of Bitcoin Backed Central Banks](https://github.com/jalToorey/IdealMoney/wiki/The-Theory-of-Bitcoin-Backed-Central-Banks)\n\n[details=\"Summary\"]\nThis writing explores the early limitations implicit in bitcoin\u2019s code and why they might exist. It then extends the theory of bitcoin backed banks to observations on how central banking might evolve in a world where bitcoin plays a significant high value settlement role in the global economy.\n\n[/details]\n\n[The Nashian Orientation of Bitcoin: A Theory of Bitcoin and Money](https://github.com/jalToorey/IdealMoney/wiki/The-Nashian-Orientation-of-Bitcoin-A-Theory-of-Bitcoin-and-Money)\n\n[details=\"Summary\"]\nThis writing extends Nick Szabo\u2019s theory of \u2018collectibles\u2019 and their quality of \u2018unforgeable costliness\u2019 and compares this quality of a money to the vector of quality Nash highlights with his ICPI concept. From this viewpoint and comparison we can understand how bitcoin might be ideally suited to play the role of quality comparator for existing major currencies.\n\n[/details]\n\n[Ergo, Bitcoin is Nash's Ideal Money](https://github.com/jalToorey/IdealMoney/wiki/Ergo,-Bitcoin-is-Nash's-Ideal-Money)\n\n[details=\"Summary\"]\nIn conclusion, this writing extends Nick Szabo\u2019s bitgold concept to Satoshi\u2019s bitgold implementation through a basic process control solution and shows how this solution and implementation match the formal definition of Nash\u2019s (asymptotically) Ideal Money.\n\n[/details]\n\nThe latter is 15 essays and far more in depth and complex as it demonstrates a technique for traversing complex socially held inter-subjective truths (using a tool I dubbed \u201cSzabonian Deconstruction\u201d):\n\n 1. [Bitcoin Most Certainly Violates Mises Regression Theorem and This Fact Compels Clarification or Re\u2010Solution from the Mises Institute; And An Introduction to Szabonian Deconstruction](https://github.com/jalToorey/IdealMoney/wiki/Bitcoin-Most-Certainly-Violates-Mises-Regression-Theorem-and-This-Fact-Compels-Clarification-or-Re%E2%80%90Solution-from-the-Mises-Institute;-And-An-Introduction-to-Szabonian-Deconstruction)\n\n 2. [Of The Fatal Inconsistencies In Saifedean Ammous' Bitcoin Standard](https://github.com/jalToorey/IdealMoney/wiki/Of-The-Fatal-Inconsistencies-In-Saifedean-Ammous'-Bitcoin-Standard)\n\n 3. [On Terminating Bitcoin's Violation of Mises Regression Theorem With Games as Pre\u2010Market Commodity Valuators](https://github.com/jalToorey/IdealMoney/wiki/On-Terminating-Bitcoin's-Violation-of-Mises-Regression-Theorem-With-Games-as-Pre%E2%80%90Market-Commodity-Valuators)\n\n 4. [On the Szabonian Deconstruction of Money and Gresham's Law](https://github.com/jalToorey/IdealMoney/wiki/On-the-Szabonian-Deconstruction-of-Money-and-Gresham's-Law)\n\n 5. [The Bitcoin Community is a Sybil Attack On Bitcoin](https://github.com/jalToorey/IdealMoney/wiki/The-Bitcoin-Community-is-a-Sybil-Attack-On-Bitcoin)\n\n 6. [On The Satoshi Complex](https://github.com/jalToorey/IdealMoney/wiki/On-The-Satoshi-Complex)\n\n 7. [On Cantillon and the Szabonian Deconstruction of the Cantillon Effect](https://github.com/jalToorey/IdealMoney/wiki/On-Cantillon-and-the-Szabonian-Deconstruction-of-the-Cantillon-Effect)\n\n 8. [Understanding Hayek Via Our Szabonian Deconstruction of Cantillon](https://github.com/jalToorey/IdealMoney/wiki/Understanding-Hayek-Via-Our-Szabonian-Deconstruction-of-Cantillon)\n\n 9. [On the Tools and Metaphors Necessary To Properly Traverse Hayek\u2019s Denationalization of Money In the Face and Light of Bitcoin](https://github.com/jalToorey/IdealMoney/wiki/On-the-Tools-and-Metaphors-Necessary-To-Properly-Traverse-Hayek%E2%80%99s-Denationalization-of-Money-In-the-Face-and-Light-of-Bitcoin)\n\n10. [On the Sharpening of the Tools Necessary As a Computational Shortcut for Understanding Hayek\u2019s Proposal The Denationalization of Money in The Context of the Existence of Bitcoin](https://github.com/jalToorey/IdealMoney/wiki/On-the-Sharpening-of-the-Tools-Necessary-As-a-Computational-Shortcut-for-Understanding-Hayek%E2%80%99s-Proposal-The-Denationalization-of-Money-in-The-Context-of-the-Existence-of-Bitcoin)\n\n11. [Our Tool for Szabonian Deconstruction of Highly Evolved Religions](https://github.com/jalToorey/IdealMoney/wiki/Our-Tool-for-Szabonian-Deconstruction-of-Highly-Evolved-Religions)\n\n12. [Thought Systems As Inputs For Turing Machines\u2010Our Tool For Framing Metaphors Of Intersubjective Truths](https://github.com/jalToorey/IdealMoney/wiki/Thought-Systems-As-Inputs-For-Turing-Machines%E2%80%90Our-Tool-For-Framing-Metaphors-Of-Intersubjective-Truths)\n\n13. [On the Szabonian Metaphorical Framework For Objectively Traversing the Complex History of Mankind](https://github.com/jalToorey/IdealMoney/wiki/On-the-Szabonian-Metaphorical-Framework-For-Objectively-Traversing-the-Complex-History-of-Mankind)\n\n14. [On the Synthesis and Formalization of Hayek, Nash, And Szabo\u2019s Proposals For The Optimization of The Existing Global Legacy Currency Systems](https://github.com/jalToorey/IdealMoney/wiki/On-the-Synthesis-and-Formalization-of-Hayek,-Nash,-And-Szabo%E2%80%99s-Proposals-For-The-Optimization-of-The-Existing-Global-Legacy-Currency-Systems)\n\n15. [On The Re\u2010Solution of Central Banking and Hayekian Landscapes](https://github.com/jalToorey/IdealMoney/wiki/On-The-Re%E2%80%90Solution-of-Central-Banking-and-Hayekian-Landscapes)\n\nHere I read the 15 numerated essays aloud posted on X: https://x.com/Soaker_Patoshi/status/1956163331917582720\n\nAnd the same playlist on youtube: https://www.youtube.com/playlist?list=PL_VzRSPfA1fvllWWum1lU-EqBXt1kCqSk",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 955,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -54,9 +59,15 @@
   "excerpt": "My works in regard to the Nashian Orientation of Bitcoin has two paths to traverse-the simpler explanation and the more complex.  The former is 6 essays ( <a href=\"https://github.com/jalToorey/IdealMoney/wiki\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Home \u00b7 jalToorey/IdealMoney Wiki \u00b7 GitHub</a> ): \n<a href=\"https://github.com/jalToorey/IdealMoney/wiki/Introduction-to-Ideal-Money-and-the-Value-Thereof\" rel=\"noopener nofollow ugc\">Introduction to Ideal Money and the Value Thereof</a> \n\u25b6 \nSummary\n<a href=\"https://github.com/jalToorey/IdealMoney/wiki/The-ICPI-and-Bitcoin-as-an-Ideal-Money-Basis\" rel=\"noopener nofollow ugc\">The ICPI and Bitcoin as an Ideal Money &hellip;</a>",
   "truncated": true,
   "post_url": "/t/the-nashian-orientation-of-bitcoin/2070/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

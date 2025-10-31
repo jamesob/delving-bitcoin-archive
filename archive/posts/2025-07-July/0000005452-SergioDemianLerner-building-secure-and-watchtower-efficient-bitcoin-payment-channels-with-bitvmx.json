@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 13.4,
+  "incoming_link_count": 18,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 94.4,
   "yours": false,
   "topic_id": 1830,
   "topic_slug": "building-secure-and-watchtower-efficient-bitcoin-payment-channels-with-bitvmx",
@@ -57,5 +57,10 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

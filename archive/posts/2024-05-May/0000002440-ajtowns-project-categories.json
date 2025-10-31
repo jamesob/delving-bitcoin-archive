@@ -7,14 +7,15 @@
   "cooked": "<p>(Created <a class=\"hashtag-cooked\" href=\"/c/protocol-design/wg-silent-payments/12\" data-type=\"category\" data-slug=\"wg-silent-payments\" data-id=\"12\" data-ref=\"protocol-design:wg-silent-payments\"><span class=\"hashtag-icon-placeholder\"><svg class=\"fa d-icon d-icon-square-full svg-icon svg-node\"><use href=\"#square-full\"></use></svg></span><span>wg-silent-payments</span></a> after discussing offline)</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2024-05-17T10:59:05.049Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 31.8,
+  "incoming_link_count": 1,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 41.0,
   "yours": false,
   "topic_id": 162,
   "topic_slug": "project-categories",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 92,
     "username": "josibake",
     "name": "josie",
     "avatar_template": "/user_avatar/delvingbitcoin.org/josibake/{size}/83_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "(Created <a class=\"hashtag-cooked\" href=\"/c/protocol-design/wg-silent-payments/12\" data-type=\"category\" data-slug=\"wg-silent-payments\" data-id=\"12\" data-ref=\"protocol-design:wg-silent-payments\"><span class=\"hashtag-icon-placeholder\"></span>wg-silent-payments</span></a> after discussing offline)",
+  "truncated": true,
+  "post_url": "/t/project-categories/162/7",
   "reactions": [
     {
       "id": "heart",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -1,6 +1,6 @@
 # Bitcoin OP_CAT Use Cases Series #1: Covenants
 
-sCrypt-ts | 2024-06-25 22:35:27 UTC | #1
+sCrypt-ts | 2024-07-01 00:19:44 UTC | #1
 
 # Bitcoin OP_CAT Use Cases Series #1: Covenants
 
@@ -116,6 +116,18 @@ Let us implement a simple function:
 If the code execution succeeds, it leaves us with a verified preimage of ***e***, i.e., variable *shPreimage*. Line 4 enforeces ***e*** ending with 0x01.
 
 We then retrieve the *hashOutputs* field from *shPreimage*, which allows us to constrain the spending transactions’ outputs.
+
+-------------------------
+
+system | 2024-06-29 12:22:11 UTC | #2
+
+
+
+-------------------------
+
+system | 2024-07-01 00:19:44 UTC | #3
+
+
 
 -------------------------
 

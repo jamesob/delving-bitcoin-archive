@@ -7,15 +7,15 @@
   "cooked": "<p>That is my understanding.</p>\n<p>But in between the two extremes (1 being ~everyone+miners running the same policy, 2 being ~everyone running the same policy but miners another one), there is an intermediate situation, where there are a number of diverging policies on the network, one of which matches closely what miners do, and they\u2019re sufficiently widespread that many network participants are connected to some peers with a miner-matching policy. It\u2019s in such a scenario that the approach here has the most benefit.</p>",
   "post_number": 11,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 24,
   "updated_at": "2025-08-19T20:45:19.700Z",
   "reply_count": 1,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 24.2,
+  "reads": 63,
+  "readers_count": 62,
+  "score": 47.6,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -69,11 +69,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

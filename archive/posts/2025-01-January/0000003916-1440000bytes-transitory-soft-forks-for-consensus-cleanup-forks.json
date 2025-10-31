@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"5\" data-topic=\"1333\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/925_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>I\u2019ve spent the almost three years since making the transitory proposal wondering if I\u2019m the only person whose concerns about CTV and other proposals would be addressed by a trial run.</p>\n</blockquote>\n</aside>\n<p>What are these concerns? IIRC, it has something to do with the idea that nobody would need CTV anymore if other ways to implement covenants are introduced. However, it\u2019s not really a concern if we are moving in the TXHASH direction and plan to upgrade CTV later.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-01-02T14:08:06.216Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 17.6,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 19.0,
   "yours": false,
   "topic_id": 1333,
   "topic_slug": "transitory-soft-forks-for-consensus-cleanup-forks",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "What are these concerns? IIRC, it has something to do with the idea that nobody would need CTV anymore if other ways to implement covenants are introduced. However, it\u2019s not really a concern if we are moving in the TXHASH direction and plan to upgrade CTV later.",
+  "truncated": true,
+  "post_url": "/t/transitory-soft-forks-for-consensus-cleanup-forks/1333/7",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

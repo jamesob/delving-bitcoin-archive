@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.2,
+  "incoming_link_count": 1,
+  "reads": 26,
+  "readers_count": 25,
+  "score": 25.2,
   "yours": false,
   "topic_id": 850,
   "topic_slug": "satoshi-style-message-signing",
@@ -38,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 423,
     "username": "satsie",
     "name": "Stacie Waleyko",
     "avatar_template": "/user_avatar/delvingbitcoin.org/satsie/{size}/546_2.png"
   },
   "bookmarked": false,
   "raw": "It is also used in [Blockstream's puzzle](https://blockstream.com/puzzle/) where they call it \"old Bitcoin Armory style\". Thank you all! I really appreciate this!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -59,8 +65,18 @@
   "excerpt": "It is also used in <a href=\"https://blockstream.com/puzzle/\" rel=\"noopener nofollow ugc\">Blockstream\u2019s puzzle</a> where they call it \u201cold Bitcoin Armory style\u201d. Thank you all! I really appreciate this!",
   "truncated": true,
   "post_url": "/t/satoshi-style-message-signing/850/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

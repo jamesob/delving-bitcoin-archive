@@ -7,14 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/moonsettler\">@moonsettler</a> hmm whoa, I hadn\u2019t thought of that scenario\u2026</p>\n<p><a class=\"mention\" href=\"/u/instagibbs\">@instagibbs</a> is the scenario Moon mentioned applicable here?</p>",
   "post_number": 13,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2025-01-13T19:35:32.453Z",
   "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 9.0,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 10.0,
   "yours": false,
   "topic_id": 1353,
   "topic_slug": "contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a class=\"mention\" href=\"/u/moonsettler\">@moonsettler</a> hmm whoa, I hadn\u2019t thought of that scenario\u2026 \n<a class=\"mention\" href=\"/u/instagibbs\">@instagibbs</a> is the scenario Moon mentioned applicable here?",
+  "truncated": true,
+  "post_url": "/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/13",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

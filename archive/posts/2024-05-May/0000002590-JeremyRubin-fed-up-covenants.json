@@ -7,14 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/adamisz\">@AdamISZ</a> the deleting/editing is kind of confusing. But I think one other point to consider is normal signing federations have to actively sign this stuff, ongoing trust concern.</p>\n<p>Whereas with FE\u2019d Up Covenants, it\u2019s a one-time compiler build for all eternity (until quantum computers tell us we can\u2019t have fun ever again?).</p>\n<p>My spookchains writeup is\u2026 spookily similar to this kind of setup, so maybe worth reading for a more thorough discussion (end section \" Commentary on Trust and Covenantiness\") <a href=\"https://rubin.io/bitcoin/2022/09/14/drivechain-apo/\" class=\"inline-onebox\">Spookchains: Drivechain Analog with Trusted Setup &amp; APO \u00b7 Jeremy Rubin</a></p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-05-31T19:04:37.497Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 18.0,
+  "incoming_link_count": 4,
+  "reads": 50,
+  "readers_count": 49,
+  "score": 45.0,
   "yours": false,
   "topic_id": 929,
   "topic_slug": "fed-up-covenants",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a class=\"mention\" href=\"/u/adamisz\">@AdamISZ</a> the deleting/editing is kind of confusing. But I think one other point to consider is normal signing federations have to actively sign this stuff, ongoing trust concern. \nWhereas with FE\u2019d Up Covenants, it\u2019s a one-time compiler build for all eternity (until quantum computers tell us we can\u2019&hellip;",
+  "truncated": true,
+  "post_url": "/t/fed-up-covenants/929/8",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

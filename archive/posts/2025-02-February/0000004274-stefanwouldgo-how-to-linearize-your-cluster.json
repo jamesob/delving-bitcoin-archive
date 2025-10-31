@@ -7,14 +7,15 @@
   "cooked": "<p>That\u2019s an interesting idea, but the result doesn\u2019t appear very convincing. The algorithm should at least look at every node and edge once.</p>\n<p>But of course my estimation may be far off, there are probably large additive constants in effect.</p>",
   "post_number": 39,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-10T19:26:16.236Z",
   "reply_count": 0,
   "reply_to_post_number": 38,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.6,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 7.8,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "That\u2019s an interesting idea, but the result doesn\u2019t appear very convincing. The algorithm should at least look at every node and edge once.\n\nBut of course my estimation may be far off, there are probably large additive constants in effect.",
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That\u2019s an interesting idea, but the result doesn\u2019t appear very convincing. The algorithm should at least look at every node and edge once. \nBut of course my estimation may be far off, there are probably large additive constants in effect.",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/39",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

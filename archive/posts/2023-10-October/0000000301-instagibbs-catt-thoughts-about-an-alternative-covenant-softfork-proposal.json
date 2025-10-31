@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>which exactly 1 appears to have a detailed use case with code. 1 other has a potential use case once certain policy/relay changes are made, and 1 more has a vague description of how it can be used with PTLCs</p>\n</blockquote>\n<p>Can you be more specific which uses-cases you\u2019re referring to? I have guesses, but making references without citations makes it hard to judge your judgment of the maturity of the ideas. Thanks!</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2023-10-10T15:25:13.908Z",
   "reply_count": 0,
   "reply_to_post_number": 11,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "incoming_link_count": 1,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 25.6,
   "yours": false,
   "topic_id": 125,
   "topic_slug": "catt-thoughts-about-an-alternative-covenant-softfork-proposal",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 30,
     "username": "reardencode",
     "name": "Brandon Black",
     "avatar_template": "/user_avatar/delvingbitcoin.org/reardencode/{size}/27_2.png"
   },
   "bookmarked": false,
   "raw": "> which exactly 1 appears to have a detailed use case with code. 1 other has a potential use case once certain policy/relay changes are made, and 1 more has a vague description of how it can be used with PTLCs\n\nCan you be more specific which uses-cases you're referring to? I have guesses, but making references without citations makes it hard to judge your judgment of the maturity of the ideas. Thanks!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "which exactly 1 appears to have a detailed use case with code. 1 other has a potential use case once certain policy/relay changes are made, and 1 more has a vague description of how it can be used with PTLCs \n\nCan you be more specific which uses-cases you\u2019re referring to? I have guesses, but making&hellip;",
+  "truncated": true,
+  "post_url": "/t/catt-thoughts-about-an-alternative-covenant-softfork-proposal/125/12",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
