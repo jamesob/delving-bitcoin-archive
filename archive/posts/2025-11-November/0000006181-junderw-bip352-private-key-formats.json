@@ -7,7 +7,7 @@
   "cooked": "<p>For 2 and 3 regarding labels and per-tx info (aggregate pubkey and smallest outpoint)</p>\n<p>Per-tx info requiring a scan action is already stated in the BIP, so the assumption should be that the wallet will start a scan on import. Perhaps 2 and 3 should encode a block number for their \u201cbirthday\u201d which would be the key asserting \u201cno need to check below this block\u201d</p>\n<p>For labels, this could definitely be encoded, like an array of labels at the end. But I do think that even with no label the \u201c0\u201d (change) label should be checked.</p>\n<p>If a wallet restores from BIP39 then the birthday should be assumed to be the latest block at the time which the BIP was published, and the only label should be the change label 0.</p>\n<p>just some ideas. Might submit a PR to modify the BIP with the new encoding.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2025-11-01T03:50:00.461Z",
   "reply_count": 0,
   "reply_to_post_number": null,

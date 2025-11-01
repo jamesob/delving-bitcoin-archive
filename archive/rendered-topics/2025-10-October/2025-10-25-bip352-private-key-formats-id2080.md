@@ -48,3 +48,9 @@ just some ideas. Might submit a PR to modify the BIP with the new encoding.
 
 -------------------------
 
+junderw | 2025-11-01 05:26:14 UTC | #5
+
+I have created a BIP PR to get the ball rolling: https://github.com/bitcoin/bips/pull/2026
+
+-------------------------
+
