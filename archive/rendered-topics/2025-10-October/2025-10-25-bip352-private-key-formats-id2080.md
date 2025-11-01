@@ -34,3 +34,17 @@ For (2), it may also be useful to encode a range or limit for the number of appl
 
 -------------------------
 
+junderw | 2025-11-01 03:50:00 UTC | #4
+
+For 2 and 3 regarding labels and per-tx info (aggregate pubkey and smallest outpoint)
+
+Per-tx info requiring a scan action is already stated in the BIP, so the assumption should be that the wallet will start a scan on import. Perhaps 2 and 3 should encode a block number for their “birthday” which would be the key asserting “no need to check below this block”
+
+For labels, this could definitely be encoded, like an array of labels at the end. But I do think that even with no label the “0” (change) label should be checked.
+
+If a wallet restores from BIP39 then the birthday should be assumed to be the latest block at the time which the BIP was published, and the only label should be the change label 0.
+
+just some ideas. Might submit a PR to modify the BIP with the new encoding.
+
+-------------------------
+
