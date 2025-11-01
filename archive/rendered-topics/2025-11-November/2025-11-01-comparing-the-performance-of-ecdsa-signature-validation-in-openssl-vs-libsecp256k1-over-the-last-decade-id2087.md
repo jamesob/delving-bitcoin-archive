@@ -1,6 +1,6 @@
 # Comparing the performance of ECDSA signature validation in OpenSSL vs. libsecp256k1 over the last decade
 
-theStack | 2025-11-01 03:08:02 UTC | #1
+theStack | 2025-11-01 09:18:07 UTC | #1
 
 ## Introduction
 
@@ -25,6 +25,7 @@ API remained stable since the beginning (though being deprecated now for while),
 ## Demo
 
 The source code is available on GitHub: https://github.com/theStack/secp256k1-plugbench, you can see a quick demo of it being in action here:
+
 [![asciicast](upload://3Ga3nQyzyiTPaDEJ504LDV6PlXy.svg)](https://asciinema.org/a/752929)
 
 (Note that building all the library versions took significantly longer than shown; that preparation part in the recording has been speed up by ~30x using [https://github.com/suzuki-shunsuke/asciinema-trim](https://asciinema-trim)).
