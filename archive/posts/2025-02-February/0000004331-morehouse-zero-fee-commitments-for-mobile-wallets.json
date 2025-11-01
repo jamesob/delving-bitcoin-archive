@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"t-bast\" data-post=\"6\" data-topic=\"1453\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/t-bast/48/98_2.png\" class=\"avatar\"> t-bast:</div>\n<blockquote>\n<p>I proposed also signing a second version of that HTLC-success transaction:</p>\n<ul>\n<li>one input (the corresponding 20 000 sat HTLC output from the commitment transaction)</li>\n<li>one output with amount 17 500 sat (or a different value based on the feerate chosen)</li>\n<li>it is still signed with <code>SIGHASH_SINGLE | SIGHASH_ANYONECANPAY</code></li>\n</ul>\n</blockquote>\n</aside>\n<p>We would want to sign this new variant with <code>SIGHASH_ALL</code>.</p>\n<p>The only reason to do <code>SIGHASH_SINGLE | SIGHASH_ANYONECANPAY</code> is so the mobile user can add their own input and output to pay fees, which we\u2019re trying to avoid here.  And allowing the user to add their own outputs means that they can claim any excess mining fees for <em>themselves</em> when broadcasting a revoked commitment+HTLC package.</p>\n<p>In the above example, the wallet user could broadcast the revoked package and claim some portion of the 2500 sat intended for fees.  Depending on the size of the channel and whether the LSP allows zero-reserve, it shouldn\u2019t be difficult for the user to profit from this.</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2025-02-19T16:11:27.993Z",
   "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 22.2,
+  "incoming_link_count": 1,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 30.6,
   "yours": false,
   "topic_id": 1453,
   "topic_slug": "zero-fee-commitments-for-mobile-wallets",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "We would want to sign this new variant with SIGHASH_ALL. \nThe only reason to do SIGHASH_SINGLE | SIGHASH_ANYONECANPAY is so the mobile user can add their own input and output to pay fees, which we\u2019re trying to avoid here.  And allowing the user to add their own outputs means that they can claim any&hellip;",
+  "truncated": true,
+  "post_url": "/t/zero-fee-commitments-for-mobile-wallets/1453/8",
   "reactions": [
     {
       "id": "clap",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

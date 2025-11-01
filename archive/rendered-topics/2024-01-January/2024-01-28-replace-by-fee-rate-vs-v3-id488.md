@@ -44,7 +44,7 @@ I'll let people dive into the precise arguments themselves, but it's important t
 
 -------------------------
 
-glozow | 2024-01-30 10:35:57 UTC | #3
+glozow | 2024-02-06 14:24:26 UTC | #3
 
 First of all, there is an "alternatives" section of the v3 BIP. It describes common suggestions and why they do not work, are good ideas but can only be applied to limited topologies (which is what v3 is for), are only feasible to implement generally after cluster mempool (which is a step after v3), or are not conflicting with this proposal.
 
@@ -72,7 +72,7 @@ Some major problems with this include:
 
 One advantage of cluster mempool is being able to calculate things like miner score and incentive compatibility across the mempool. Similarly, one advantage of v3 is being able to do this before cluster mempool because of restricted topology. Before people took on the challenge of designing and implementing cluster mempool, I had been [framing](https://bitcoincore.reviews/25038) v3 as "cluster limits" without having to implement cluster limits, as it's one of the only ways to codify a cluster limit (count=2) using existing package limits (anc=2, desc=2. Once you go up to 3, you can have infinite clusters again). Another advantage of v3 is that it helps unblock cluster mempool, which is imo a no-brainer.
 
-In summary, I don't think the One-Shot Replace by Feerate proposal works (i.e. doesn't have a free relay problem and is feasible to implement accurately). The path of upgrades proposed (v3 package RBF, v3 sibling eviction, 1p1c package relay, cluster mempool) is the most complete solution by far. V3 is simple (and perhaps that leads people to think it is not well thought out?) and useful both as a building block and for solving specific problems in general.
+In summary, I don't think the One-Shot Replace by Feerate proposal works (i.e. doesn't have a free relay problem) and is feasible to implement accurately. The path of upgrades proposed (v3 package RBF, v3 sibling eviction, 1p1c package relay, cluster mempool) is the most complete solution by far. V3 is simple (and perhaps that leads people to think it is not well thought out?) and useful both as a building block and for solving specific problems in general.
 
 -------------------------
 

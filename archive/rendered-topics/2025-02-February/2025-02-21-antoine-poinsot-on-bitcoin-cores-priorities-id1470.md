@@ -498,12 +498,6 @@ Thank you for the opportunity to discuss this subject.
 
 -------------------------
 
-jsarenik | 2025-03-07 08:47:24 UTC | #20
-
-Is there a recording of the mentioned Coredev meetup  presentation available?
-
--------------------------
-
 TheCharlatan | 2025-03-08 22:48:53 UTC | #21
 
 > Rather than prioritize the production of bug-free software, I think it would be great to see the project prioritize getting (say) a million users to validate their wallet transactions with their own full nodes (hopefully along a path that’s still reasonably good at minimizing the number of bugs).

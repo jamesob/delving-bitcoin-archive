@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"1\" data-topic=\"1257\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>APO as an overridable CTV in the second quarter of 2023, with a script of the form <code>&lt;sig&gt; 1 OP_CHECKSIG</code></p>\n</blockquote>\n</aside>\n<p>These were testing the <a href=\"https://github.com/nbd-wtf/soma\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - nbd-wtf/soma: a spacechain on signet with anyprevout</a>, a spacechain toy implementation for transferring NFTs (the simplest example of blockchain I could come up with). These transactions correspond to blind merged-mining events (paid out of band with signet lightning) that would each yield a different spacechain block, as you can see they have an OP_RETURN with the hash of corresponding spacechain block.</p>\n<p>The broken key path free spending part was a stupid vulnerability due to an overlooked detail. Please ignore, it was just a demo.</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-12-10T02:18:08.314Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 68.2,
+  "incoming_link_count": 1,
+  "reads": 51,
+  "readers_count": 50,
+  "score": 95.0,
   "yours": false,
   "topic_id": 1257,
   "topic_slug": "ctv-apo-cat-activity-on-signet",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "These were testing the <a href=\"https://github.com/nbd-wtf/soma\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - nbd-wtf/soma: a spacechain on signet with anyprevout</a>, a spacechain toy implementation for transferring NFTs (the simplest example of blockchain I could come up with). These transactions correspond to blind merged-mining events (paid out of band with signet lightning)&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-apo-cat-activity-on-signet/1257/11",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

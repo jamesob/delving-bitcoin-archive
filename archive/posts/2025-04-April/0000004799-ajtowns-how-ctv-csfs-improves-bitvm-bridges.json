@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"RobinLinus\" data-post=\"1\" data-topic=\"1591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/robinlinus/48/130_2.png\" class=\"avatar\"> RobinLinus:</div>\n<blockquote>\n<p>The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express \u201cinputA is spendable only together with inputB\u201d.</p>\n<ol>\n<li>Define inputB to be a (legacy) P2SH output.</li>\n<li>Presign a signature using sighash [<code>NONE|ANYONECANPAY</code>], effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB\u2019s scriptSig.</li>\n</ol>\n</blockquote>\n</aside>\n<p>I don\u2019t think this works? As I understand it, with this setup you have something like:</p>\n<pre data-code-wrap=\"txt\"><code class=\"lang-txt\">utxo A:   10 BTC, p2tr: ... &lt;H&gt; CTV\nutxo B:  500 sats, p2sh: &lt;P&gt; CHECKSIG\n</code></pre>\n<p>with the idea being that you spend utxo A via the CTV with:</p>\n<pre data-code-wrap=\"txt\"><code class=\"lang-txt\">input 1: utxo A, witness reveals CTV path and any other conditions, no scriptSig\ninput 2: utxo B, scriptSig = \"&lt;S;NONE|ANYONECANPAY&gt;\" \"&lt;P&gt; CHECKSIG\"\noutput: whatever\n</code></pre>\n<p>where <code>&lt;H&gt;</code> locks in where the output goes to, and input 2\u2019s scriptSig. But because H is only committing to the second input\u2019s scriptSig, then it\u2019s easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey <code>OP_2DROP OP_TRUE</code>:</p>\n<pre data-code-wrap=\"txt\"><code class=\"lang-txt\">utxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE\n\ninput 1: utxo A, no witness/scriptSig\ninput 2: utxo C, scriptSig = \"&lt;S;NONE|ANYONECANPAY&gt;\" \"&lt;P&gt; CHECKSIG\"\noutput: whatever\n</code></pre>\n<p>That allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you\u2019re trying to enforce.</p>\n<p>(I\u2019m assuming in a real example utxo B\u2019s spend condition is more complicated than <code>&lt;P&gt; CHECKSIG</code>, as otherwise the availability of a NONE|ANYONECANPAY signature means it can be spent immediately, so a griefer could fairly easily prevent the happy path from ever being taken)</p>\n<aside class=\"quote no-group\" data-username=\"RobinLinus\" data-post=\"1\" data-topic=\"1591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/robinlinus/48/130_2.png\" class=\"avatar\"> RobinLinus:</div>\n<blockquote>\n<p>These commitments are one-way: <strong>inputA</strong> commits to <strong>inputB</strong>, but not vice versa. Two-way commitment would ideally be desirable but is impossible due to hash cycles (even with <code>TXHASH</code> or introspection opcodes).</p>\n<p>For our bridge it would be sufficient to constrain <strong>inputB</strong> to always be burned. But that too is unachievable with CTV\u2014its template hash would have to commit to its own <code>scriptSig</code>, which already commits to <strong>inputB</strong>, and therefore its TXID\u2014creating a hash cycle.</p>\n</blockquote>\n</aside>\n<p>I believe this sort of setup would actually be fairly simple to achieve with generic introspection opcodes: you first construct all your outputs simultaneously in a single transaction, eg:</p>\n<pre data-code-wrap=\"txt\"><code class=\"lang-txt\">output 1: 10 BTC, collateral\noutput 2: 500 sats, assertion output\noutput 3: 500 sats, challenge output\n</code></pre>\n<p>then you can setup \u201coutput 1\u201d with a \u201chappy path\u201d script that checks that the second input has the same txid as this input, and spends the third output of that tx, and conversely for that output 3 has a happy path script where the first input has the same txid and spends the first output of that tx. Because a generic introspection opcode lets you just query an input\u2019s txid, that doesn\u2019t create any cryptographically intractable loops, and you can apply equivalent logic for each output.</p>\n<p>In bllsh, you could write that as:</p>\n<pre><code class=\"lang-auto\">(all (= (tx 11) (tx '(11 . 1))) (= (+ (tx '(12 . 1))) 2))\n</code></pre>\n<p>where <code>(tx 11)</code> takes the current input\u2019s prevout\u2019s txid; <code>(tx '(11 . 1))</code> takes the prevout\u2019s txid for the input at position 1 (ie, the second input); <code>(tx '(12 . 1))</code> takes that prevout\u2019s index; and then it checks that the index is numerically 2, and the txid\u2019s are the same. Executable example in the <a href=\"https://github.com/ajtowns/bllsh/blob/5c981a57607452be8cb6dc4d83cb8bae7842cf99/examples/test-sibling-prevout\">repo</a>.</p>\n<p>If you can\u2019t construct all the inputs simultaneously, it gets a lot uglier, since you probably have to prove ancestry, which is <a href=\"https://delvingbitcoin.org/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/1\">another thread entirely</a>\u2026</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 22,
   "updated_at": "2025-04-16T09:48:04.727Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 4,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 53.8,
+  "incoming_link_count": 54,
+  "reads": 69,
+  "readers_count": 68,
+  "score": 348.8,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": true,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

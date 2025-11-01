@@ -7,14 +7,15 @@
   "cooked": "<p>As you already know i believe it\u2019s entirely premature to talk about activation of anything, that said i don\u2019t think anyone working on a soft fork proposal should be concerned about the \u201cremaining number of script flags\u201d whatsoever.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 5,
   "updated_at": "2025-01-13T00:00:36.709Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 28,
-  "readers_count": 27,
-  "score": 65.6,
+  "incoming_link_count": 1,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 72.8,
   "yours": false,
   "topic_id": 1382,
   "topic_slug": "what-happens-after-we-run-out-of-script-flags",
@@ -56,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "As you already know i believe it\u2019s entirely premature to talk about activation of anything, that said i don\u2019t think anyone working on a soft fork proposal should be concerned about the \u201cremaining number of script flags\u201d whatsoever.",
+  "truncated": true,
+  "post_url": "/t/what-happens-after-we-run-out-of-script-flags/1382/4",
   "reactions": [
     {
       "id": "+1",
@@ -70,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -10,9 +10,3 @@ You can check the CLI here: https://github.com/sigma0-xyz/zkbitcoin
 
 -------------------------
 
-22388o | 2024-01-23 11:51:50 UTC | #2
-
-(post deleted by author)
-
--------------------------
-

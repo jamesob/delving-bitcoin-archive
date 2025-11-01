@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"8\" data-topic=\"1409\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/925_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>Prohibitive for who? If the data can be mostly computed, transmitted, and verified in advance, then it might be possible to use CPU and bandwidth that would otherwise sit idle.</p>\n</blockquote>\n</aside>\n<p>My default assumption is that you\u2019d need to rerun the protocol for every randomized-HTLC every time you update your commitment tx, which I think would start eating up significant cpu/bandwidth pretty quickly (ie, every channel performs like it\u2019s running over tor). It also seems like it\u2019d be kind-of \u201chot path\u201d in that you need to perform it everytime you forward a payment, before you can forward a payment. But, I mean, I could be completely wrong \u2013 super early to be trying to thinking about things like that!</p>\n<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"8\" data-topic=\"1409\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/925_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>However, I\u2019m not sure probabilistic HTLCs would only be useful for tiny values. Imagine Alice and Bob are channel partners deep within a channel factory. They want to relay a $100 HTLC, but the cost of fanning out their part of the factory onchain would be $1,000 in transaction fees.</p>\n</blockquote>\n</aside>\n<p>$1000 in tx fees at 100sat/vb at $100k/BTC means 10k vbytes, or about 40kB of witness data, which seems large \u2013 if you can walk through a merkle tree of 2**n entries with 50 witness bytes a step, then a factory with a billion participants would still be only 1.5kB of witness data, for maybe about 530 vbytes or $53 at 100sat/vb at $100k/BTC. So for me, I think it makes more sense to work on <a href=\"https://delvingbitcoin.org/t/flexible-coin-earmarks/1275\">improving the fan out technology</a>, and to continue thinking of the probabilistic stuff as only relevant for dusty outputs (where they don\u2019t pay enough to justify their own appearance on-chain).</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-02-11T03:25:02.878Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 17.0,
+  "incoming_link_count": 4,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 63.6,
   "yours": false,
   "topic_id": 1409,
   "topic_slug": "emulating-op-rand",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -55,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "My default assumption is that you\u2019d need to rerun the protocol for every randomized-HTLC every time you update your commitment tx, which I think would start eating up significant cpu/bandwidth pretty quickly (ie, every channel performs like it\u2019s running over tor). It also seems like it\u2019d be kind-of&hellip;",
+  "truncated": true,
+  "post_url": "/t/emulating-op-rand/1409/9",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

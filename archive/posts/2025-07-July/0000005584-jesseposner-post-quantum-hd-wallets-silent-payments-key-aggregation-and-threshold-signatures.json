@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 9.0,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 11.4,
   "yours": false,
   "topic_id": 1854,
   "topic_slug": "post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures",
@@ -63,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

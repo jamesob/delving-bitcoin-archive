@@ -7,15 +7,15 @@
   "cooked": "<p>Great work, thanks for doing this salvatoshi.</p>\n<p>Assuming we want all keys to form the secret, one way to \u201cprevent\u201d someone to be able to access it would be to simply to not generate their <em>c</em><sub>i</sub>. Might be useful for some use-cases.</p>\n<p>I\u2019m also pondering if the <em>c</em><sub>i</sub> should not use a different entropy, maybe a different path (standard, this time), from the same device. The major drawback is that all devices need to provide their second key for the backup to be performed, instead of just any person in the setup being able to create the encrypted backup.\nThe advantage is to not have to deal with unknown paths (let\u2019s not create a descriptor of the descriptor backup?), possibly even allowing hardware manufacturers to later on add security features to this specific path (confirm on screen to share it?), without breaking compatibility now.</p>\n<p>Lastly, I feel like these files would benefit strongly from an <strong>error correction mechanism.</strong>\nI obviously don\u2019t like the idea of sending it to the chain, so I assume most users won\u2019t have large number of replications.\nIn the case of Liana, assuming it\u2019s for disaster recovery or inheritance, it might be just one copy easily accessible. You want that one to be correct.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 31,
   "updated_at": "2025-04-23T19:29:50.865Z",
   "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 8.2,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 17.8,
   "yours": false,
   "topic_id": 1607,
   "topic_slug": "a-simple-backup-scheme-for-wallet-accounts",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 81,
     "username": "salvatoshi",
     "name": "salvatoshi",
     "avatar_template": "/user_avatar/delvingbitcoin.org/salvatoshi/{size}/72_2.png"
@@ -50,7 +51,7 @@
   "staff": false,
   "user_id": 754,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

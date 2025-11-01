@@ -7,15 +7,15 @@
   "cooked": "<p>Hi Chris,</p>\n<p>Thanks for exploring the combination of amount opcodes with covenant opcodes - I think it\u2019s interesting and there is some potential synergy.</p>\n<p>However, I think removing the amount semantic from <code>CCV</code> (or <code>VAULT</code>) is problematic.</p>\n<ol>\n<li>It only works for cases where the structure of the transaction (that is, \u201cwhat inputs will be spent together\u201d) is known in advance and can be hardcoded in Script. This might be true for some use cases, but is certainly false for ergonomic vaults. You might receive a number of transactions to a vault address, and then at spending time (<em>trigger</em> transaction) you\u2019ll want to select which of the vault UTXOs you want use as part of the withdrawal. The number and the position of those UTXOs can\u2019t be known in advance when their script is defined. In order to avoid having to hardcode these bitmaps, you\u2019d need some cross-input logic to somehow make sure that all those inputs are using compatible bitmaps. I believe this is in fact the most interesting part of the amount logic of <code>CCV</code> (inspired from <code>VAULT</code> rather than from the original applications of <code>CCV</code> to MATT and fraud proofs). To the best of my understanding, this is not implemented in your demo.</li>\n<li>Assuming that a clean solution to (1) is found, since all the related inputs that are being aggregated need to have a matching bitmap, the trivial implementation would require to report this same bitmap for all the inputs. This has <span class=\"math\">O(n^2)</span> cost both in terms of space occupation and computational cost. While <span class=\"math\">O(n^2)</span> bits and <span class=\"math\">O(n^2)</span> additions might not be a huge deal for many common use cases, it seems rather unsatisfactory to do in <span class=\"math\">O(n^2)</span> cost something that can be done optimally in <span class=\"math\">O(n)</span> cost. Without a real, embedded cross-input logic, the only way to achieve the optimal <span class=\"math\">O(n)</span> cost seems to be something like <a href=\"https://brqgoo.medium.com/emulating-op-vault-with-elements-opcodes-bdc7d8b0fe71\" rel=\"noopener nofollow ugc\">this demo from burak</a> <small>(TL;DR: one special input performs all the amount checks, while the other inputs merely check the presence of the special input)</small>, which is not exactly ergonomic.</li>\n</ol>\n<p>More generally, any covenant opcode that constrains the destination seems to be pointless if the covenant opcode itself doesn\u2019t <em>also</em> enforce the <em>presence</em> of the amount logic, whether embedded in the same opcode or enforced via some other mechanism. This is something I also <a href=\"https://delvingbitcoin.org/t/op-checkcontractverify-and-its-amount-semantic/1527/7\">commented about darosior\u2019s approach using the annex</a>, and I strongly believe that some amount of redundancy is unavoidable for any mechanism that extracts the amount logic out of the covenant opcode.</p>\n<p>Because of these reasons, I\u2019m not convinced that ejecting the amount logic leads to improved outcomes or better scripts.</p>\n<p>Note that I believe that opcodes like <code>OP_OUT_AMOUNT</code> would be very useful in combination with <code>OP_CCV</code>, particularly with the <code>DEDUCT</code> mode: by simply having equality checks for outputs, one could avoid explicit arithmetic over 64-bit amounts in a Script that performs a withdrawal of one or several users from a shared UTXO.</p>\n<p><code>OP_IN_AMOUNT</code> and 64-bit arithmetic might of course also be useful for some applications - for example to implement constructions with velocity limits.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 9,
   "updated_at": "2025-05-08T14:09:29.385Z",
   "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 6.6,
+  "incoming_link_count": 1,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 14.4,
   "yours": false,
   "topic_id": 549,
   "topic_slug": "op-inout-amount",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 193,
     "username": "Chris_Stewart_5",
     "name": "Chris Stewart",
     "avatar_template": "/user_avatar/delvingbitcoin.org/chris_stewart_5/{size}/296_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

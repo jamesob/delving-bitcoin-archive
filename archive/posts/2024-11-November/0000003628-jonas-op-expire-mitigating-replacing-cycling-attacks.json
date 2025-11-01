@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"mpch\" data-post=\"3\" data-topic=\"1282\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/0ea827/48.png\" class=\"avatar\"> mpch:</div>\n<blockquote>\n<p>That\u2019s a great insight. I think this is really LN script oriented problem. I haven\u2019t found any Warnet for LN itself to deploy this.</p>\n</blockquote>\n</aside>\n<p>The <a href=\"https://github.com/bitcoin-dev-project/warnet\" rel=\"noopener nofollow ugc\">warnet</a> team would be happy to support this. We had LN support but temporarily disabled it for our recent refactor. We\u2019ll have feature parity in 2 weeks\u2122. Happy to start the conversation now though.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2024-11-28T01:44:47.139Z",
   "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 38.0,
+  "incoming_link_count": 5,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 128.2,
   "yours": false,
   "topic_id": 1282,
   "topic_slug": "op-expire-mitigating-replacing-cycling-attacks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -54,11 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The <a href=\"https://github.com/bitcoin-dev-project/warnet\" rel=\"noopener nofollow ugc\">warnet</a> team would be happy to support this. We had LN support but temporarily disabled it for our recent refactor. We\u2019ll have feature parity in 2 weeks\u2122. Happy to start the conversation now though.",
+  "truncated": true,
+  "post_url": "/t/op-expire-mitigating-replacing-cycling-attacks/1282/4",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     },
     {
       "id": "heart",
@@ -67,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

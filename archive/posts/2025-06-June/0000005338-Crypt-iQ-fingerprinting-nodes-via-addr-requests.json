@@ -7,15 +7,15 @@
   "cooked": "<p>Nice work, I find ADDR relay fascinating because it\u2019s free unlike TX relay. The suggestion to remove timestamps from ADDR sounds interesting.</p>\n<p>I ran some tests a few years ago and came to the conclusion that if an attacker constructs ADDR messages with  &lt;= 10 addresses, makes them all unique (i.e. <code>60.99.x.x</code>), and sends them to a target node, the attacker can connect to many other nodes on the network to see if they receive any of the \u201cattacker\u201d addresses from other nodes. Depending on the time elapsed from 1) the initial send to the target node and 2) the receipt from the non-target node, an attacker can guess how connected these two nodes are. The attacker can repeat this indefinitely to try to guess network topology a little bit better.</p>\n<p>I think the introduction of the ADDR rate-limit might make things a little more complex. I also think there are some quirks of how ADDR-relay works (different networks, fiddling with the timestamp so the ADDR doesn\u2019t travel too far, etc) that can even leak more information. I think a warnet simulation could measure how likely it is an attacker can fingerprint a node.</p>\n<p>EDIT: This <a href=\"https://proceedings.neurips.cc/paper_files/paper/2017/file/6c3cf77d52820cd0fe646d38bc2145ca-Paper.pdf\" rel=\"noopener nofollow ugc\">paper</a> about de-anonymization using TX relay might be relevant for ADDR relay. I believe the math is different since ADDR relay does not flood the network, but it accounts for the Poisson timer (called \u201cdiffusion\u201d in the paper).</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 12,
   "updated_at": "2025-06-24T11:35:42.325Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 19.6,
+  "incoming_link_count": 7,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 77.0,
   "yours": false,
   "topic_id": 1786,
   "topic_slug": "fingerprinting-nodes-via-addr-requests",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -64,9 +64,18 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

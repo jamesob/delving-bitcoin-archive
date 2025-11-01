@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"cedarctic\" data-post=\"4\" data-topic=\"1965\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/c/3d9bf3/48.png\" class=\"avatar\"> cedarctic:</div>\n<blockquote>\n<p>Authentication would help in preventing the attacker from impersonating unauthenticated connections or MITM-ing new ones during the handshake. For existing authenticated connections, the attacker can still intercept them, but not inspect their traffic, using this attack.</p>\n</blockquote>\n</aside>\n<p>The key point of countersign, vs any authentication scheme proposed elsewhere that I\u2019m aware of is that a would-be MITM can\u2019t detect if the parties are authenticating or not.  This means that once its deployed and reaches some small threshold of use the MITM must either choose between being detected or not MITMing any meaningful amount of traffic at all.</p>\n<p>Now for the attacks discussed here maybe we could imagine that the attackers wouldn\u2019t bother MITMing anyways, they\u2019d just sever links to selectively partition the network at a time of their choosing.  For example, carve off a majority hashpower to carry their reversal transaction and partition their target with a minority to confirm a payment to be reversed.</p>\n<p>But if they\u2019re actively that should be detectable through connection loss.</p>\n<p>When we were thinking about countersign we imagined that a transacting node with good security practices would establish a couple peers that were authenticated\u2013 then have their wallet treat transactions without a lot of depth as unconfirmed if too many of their authenticated peers were unreachable.</p>\n<p>Regarding diversity, there are perhaps other ways to accomplish that.  For example, if many people ran observation points and published signed messages of the chain tip(s) they think are leading\u2026 then these observations would give you a diverse view.   Unfortunately I don\u2019t think mechanisms like this can actively be used in consensus (e.g. to pick your own chain tip) without creating vulnerabilities like those signers censoring some participants blocks.  But they presumably can be used to cause something to fail safer (e.g. regarding things as unconfirmed without recent observations or observations that suggest a better chain may exist).</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 9,
   "updated_at": "2025-09-06T08:25:15.030Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 28.0,
   "yours": false,
   "topic_id": 1965,
   "topic_slug": "eclipsing-bitcoin-nodes-with-bgp-interception-attacks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"cedarctic, post:4, topic:1965\"]\nAuthentication would help in preventing the attacker from impersonating unauthenticated connections or MITM-ing new ones during the handshake. For existing authenticated connections, the attacker can still intercept them, but not inspect their traffic, using this attack.\n\n[/quote]\n\nThe key point of countersign, vs any authentication scheme proposed elsewhere that I\u2019m aware of is that a would-be MITM can\u2019t detect if the parties are authenticating or not.  This means that once its deployed and reaches some small threshold of use the MITM must either choose between being detected or not MITMing any meaningful amount of traffic at all.\n\nNow for the attacks discussed here maybe we could imagine that the attackers wouldn\u2019t bother MITMing anyways, they\u2019d just sever links to selectively partition the network at a time of their choosing.  For example, carve off a majority hashpower to carry their reversal transaction and partition their target with a minority to confirm a payment to be reversed.\n\nBut if they\u2019re actively that should be detectable through connection loss.\n\nWhen we were thinking about countersign we imagined that a transacting node with good security practices would establish a couple peers that were authenticated\u2013 then have their wallet treat transactions without a lot of depth as unconfirmed if too many of their authenticated peers were unreachable.\n\nRegarding diversity, there are perhaps other ways to accomplish that.  For example, if many people ran observation points and published signed messages of the chain tip(s) they think are leading\u2026 then these observations would give you a diverse view.   Unfortunately I don\u2019t think mechanisms like this can actively be used in consensus (e.g. to pick your own chain tip) without creating vulnerabilities like those signers censoring some participants blocks.  But they presumably can be used to cause something to fail safer (e.g. regarding things as unconfirmed without recent observations or observations that suggest a better chain may exist).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "The key point of countersign, vs any authentication scheme proposed elsewhere that I\u2019m aware of is that a would-be MITM can\u2019t detect if the parties are authenticating or not.  This means that once its deployed and reaches some small threshold of use the MITM must either choose between being detecte&hellip;",
   "truncated": true,
   "post_url": "/t/eclipsing-bitcoin-nodes-with-bgp-interception-attacks/1965/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

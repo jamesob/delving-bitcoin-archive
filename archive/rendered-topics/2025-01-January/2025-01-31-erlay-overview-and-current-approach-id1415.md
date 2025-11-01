@@ -1,6 +1,6 @@
 # Erlay: Overview and current approach
 
-sr-gi | 2025-01-31 21:15:29 UTC | #1
+sr-gi | 2025-02-05 20:50:30 UTC | #1
 
 Earlier last year I started working on a second attempt to implement Erlay into Bitcoin Core, a process that started from convincing myself that the theoretical improvements were achievable in practice, followed by a research-oriented approach where multiple protocol choices need to be simulated and that will hopefully conclude with a well though implementation that satisfies the original goals.
 
@@ -54,13 +54,13 @@ We have two options here, either on the transaction relay schedule (when **trans
 
 The main motivation for choosing peers at scheduling time is being able to more easily reason about transaction dependencies, that is, how to exchange a given transaction if some of their ancestors are already being scheduled for exchange. Being inconsistent on how dependent transactions are exchanged between peers can hurt **orphan transaction** rates. 
 
-> :test_tube: **This is the approach we are currently following**. Simulation results will be posted on a separate post and linked here after.
+> :test_tube: **This is the approach we are currently following**. Check https://delvingbitcoin.org/t/erlay-select-fanout-candidates-at-relay-time-instead-of-at-relay-scheduling-time/1418  for more context.
 
 ### Choosing fanout peers at transaction relay time
 
 Choosing peers at relay time has a better effect on being effective when selecting peers for fanout. The main downside of **deciding at scheduling time** is that it **is not reactive to what may happen between the selection and the actual relay**, that is, a peer that is selected for fanout for a given transaction may announce it to us before our announcement timer goes off, meaning that we will skip that announcement to them when the time comes, effectively reducing the amount of peers we fanout that transaction to. However, **deciding at relay time has the downside of not being reactive enough to things that happen during the fanout selection process**, such as the previous ancestors example, but also if we have already selected enough peers to fanout to, but suddenly we cannot reconcile the given transaction with the remaining of our peers (e.g. the transaction has a collision with an existing one in their set [^6], their reconciliation sets are full, …) we would end up having a **higher fanout rate** than intended, and we would not be able to compensate with some of the peers that we have already decided for, given those messages would have already been sent.
 
-> :test_tube: **This is a valid alternative approach**. Simulation results will be posted on a separate post and linked here after.
+> :test_tube: **This is a valid alternative approach**. Check https://delvingbitcoin.org/t/erlay-select-fanout-candidates-at-relay-time-instead-of-at-relay-scheduling-time/1418  for more context.
 
 ### Making transactions available for fanout/reconciliation
 
@@ -111,6 +111,9 @@ Simulations will be presented in independent posts, but I'll be linking them her
 
 ### Completed
 - https://delvingbitcoin.org/t/erlay-filter-fanout-candidates-based-on-transaction-knowledge/1416
+- https://delvingbitcoin.org/t/erlay-select-fanout-candidates-at-relay-time-instead-of-at-relay-scheduling-time/1418
+- https://delvingbitcoin.org/t/erlay-find-acceptable-target-number-of-peers-to-fanout-to/1420
+- https://delvingbitcoin.org/t/erlay-define-fanout-rate-based-on-the-transaction-reception-method/1422
 
 # Acknowledgements
 

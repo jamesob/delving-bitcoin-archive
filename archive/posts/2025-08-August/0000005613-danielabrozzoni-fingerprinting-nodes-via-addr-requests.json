@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 12,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.6,
+  "incoming_link_count": 3,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 35.4,
   "yours": false,
   "topic_id": 1786,
   "topic_slug": "fingerprinting-nodes-via-addr-requests",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "After giving it more thought, I realized the phrasing \"Removing timestamps\" was too broad, and it can be broken down into three distinct approaches:\n- Stop using `nTime` in addrman: this would mean using a differrent metric to determine if an address is terrible. This isn't directly linked to our fingerprinting issue, it's more of a follow-up task, something we might consider if the fingerprinting fix makes `nTime` less meaningful, and we want addrman to use a better metric.\n- Restructure the `ADDR` message to exclude the `nTime` field: As @mzumsande pointed out, this isn't feasible for gossip relay. For `GETADDR` responses, it would require designing new message formats, which to me is a lot of work for effectively zero benefit, as there are simpler ways to fix the fingerprinting.\n- Use a `nTime` in `GETADDR` responses that is unrelated to our addrman, and sharing no information about the timestamps in our addrman.(This is what solutions 2, 3, and 4 below are trying to do.)\n\nBased on that breakdown, here's a summary of the solutions we're considering:\n\n1. Randomizing `nTime` by a few days: as Naiyoma pointed out above, we would need to figure out if the messages could still be fingerprintable. Given this uncertainty, I'm leaning towards disregarding this solution completely, in favor of solutions that can't be fingerprinted\n2. Setting the `nTime` to 0: Receiving nodes would insert the address into their addrman with a timestamp of 5 days in the past (https://github.com/bitcoin/bitcoin/blob/4f27e8ca4d2a31b685b91e70b0542c0077a944b2/src/net_processing.cpp#L3919).\n3. As @mzumsande suggested, setting the timestamp to a randomized but fixed value in the past\n4. Setting the `nTime` to `now()` at the time of the request: I think this is nice, and the nTime would automatically represent \"last time I saw this address (either on the P2P network, or I connected to it)\". However... This might make no sense, but I wonder if there's an edge case where a node clock is so out of sync, that its responses are still fingerprintable.\n\n[quote=\"naiyoma, post:12, topic:1786\"]\nOne possible issue is a synchronized pattern where batches of addresses are marked as \u2018Terrible\u2019 at the same time and are therefore at risk of being filtered out simultaneously.\n[/quote]\n\nThis would apply for solutions 2/3/4 above. I wonder if this would be the case, or since we refresh timestamps, it would never happen that a set of addresses that we got from the same ADDR message expire all at the same time.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "After giving it more thought, I realized the phrasing \u201cRemoving timestamps\u201d was too broad, and it can be broken down into three distinct approaches: \n\nStop using nTime in addrman: this would mean using a differrent metric to determine if an address is terrible. This isn\u2019t directly linked to our fing&hellip;",
   "truncated": true,
   "post_url": "/t/fingerprinting-nodes-via-addr-requests/1786/13",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

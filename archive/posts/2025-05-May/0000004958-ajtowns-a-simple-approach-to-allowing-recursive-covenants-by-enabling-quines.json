@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 11.4,
   "yours": false,
   "topic_id": 1655,
   "topic_slug": "a-simple-approach-to-allowing-recursive-covenants-by-enabling-quines",
@@ -57,5 +57,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

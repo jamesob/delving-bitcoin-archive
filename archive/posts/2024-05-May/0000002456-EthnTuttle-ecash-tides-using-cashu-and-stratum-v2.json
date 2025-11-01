@@ -7,14 +7,15 @@
   "cooked": "<p>I understand this makes complexity and trade off decisions that vary from other ways to do similar things, but please be explicit if you see any technical reason the protocol/implementation/cryptography/etc is unsound or does not work?</p>\n<p>While I do understand and consider the trade offs, I am interested in understanding applied cryptography and this is one of my first documented attempts. How can this protocol be gamed or broken? Where does it break? Why does it break? technically speaking.</p>",
   "post_number": 17,
   "post_type": 1,
+  "posts_count": 35,
   "updated_at": "2024-05-19T00:53:41.633Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 16.6,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 37.0,
   "yours": false,
   "topic_id": 870,
   "topic_slug": "ecash-tides-using-cashu-and-stratum-v2",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I understand this makes complexity and trade off decisions that vary from other ways to do similar things, but please be explicit if you see any technical reason the protocol/implementation/cryptography/etc is unsound or does not work? \nWhile I do understand and consider the trade offs, I am interes&hellip;",
+  "truncated": true,
+  "post_url": "/t/ecash-tides-using-cashu-and-stratum-v2/870/17",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

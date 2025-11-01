@@ -7,14 +7,15 @@
   "cooked": "<p>First, thanks for splitting this out, because indeed it was getting a like sidetracked.</p>\n<aside class=\"quote no-group\" data-username=\"stefanwouldgo\" data-post=\"1\" data-topic=\"1548\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stefanwouldgo/48/664_2.png\" class=\"avatar\"> stefanwouldgo:</div>\n<blockquote>\n<p>Now IIUC, the argument against requiring chunkings</p>\n</blockquote>\n</aside>\n<p>There are other reasons too, such as bandwidth wasting. In probably 99.9% of the time the hints won\u2019t be required, so deciding when and what to send is an open question.</p>\n<aside class=\"quote no-group\" data-username=\"stefanwouldgo\" data-post=\"1\" data-topic=\"1548\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stefanwouldgo/48/664_2.png\" class=\"avatar\"> stefanwouldgo:</div>\n<blockquote>\n<p>Now recall that I only argue for requiring linearizations when replacing existing txs using RBF, because it seems to me that this is the only scenario where we are time limited during relay.</p>\n</blockquote>\n</aside>\n<p>I don\u2019t believe that\u2019s correct; a better linearization could cause it to avoid eviction, or cause it to be mined faster. Perhaps the issues aren\u2019t as severe as with RBF, but they still exist.</p>\n<aside class=\"quote no-group\" data-username=\"stefanwouldgo\" data-post=\"1\" data-topic=\"1548\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stefanwouldgo/48/664_2.png\" class=\"avatar\"> stefanwouldgo:</div>\n<blockquote>\n<p>the attacker can keep me from relaying any RBF tx in this cluster, because I don\u2019t even get to know all the versions I would have to improve upon</p>\n</blockquote>\n</aside>\n<p>In general we cannot assume a \u201cwallet\u201d knows anything about mempool contents, and that a specific mempool is remotely consistent with another mempool.</p>\n<p>You don\u2019t have to \u201cknow\u201d all the possible variants, you just have to relay a package with linearization information which ends up dominating in the diagram check.</p>\n<p>The trick is finding a fix that isn\u2019t \u201csend entire clusters redundantly\u201d and is still useful for the &lt;&lt;0.1% of the time it\u2019s actually needed.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2025-03-31T19:47:44.102Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 23.2,
+  "incoming_link_count": 2,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 32.4,
   "yours": false,
   "topic_id": 1548,
   "topic_slug": "cluster-mempool-partitioning-attacks",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "First, thanks for splitting this out, because indeed it was getting a like sidetracked. \n\nThere are other reasons too, such as bandwidth wasting. In probably 99.9% of the time the hints won\u2019t be required, so deciding when and what to send is an open question. \n\nI don\u2019t believe that\u2019s correct; a bett&hellip;",
+  "truncated": true,
+  "post_url": "/t/cluster-mempool-partitioning-attacks/1548/2",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

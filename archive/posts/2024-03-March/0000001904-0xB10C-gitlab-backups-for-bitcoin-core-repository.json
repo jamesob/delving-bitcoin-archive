@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>I don\u2019t expect a lot of people to want to look at the data before we actually need it.</p>\n</blockquote>\n<p>The mirroring and using that mirror is part of my process to make sure the backups work. My <a href=\"https://mirror.b10c.me/bitcoin-bitcoin\">bitcoin-bitcoin mirror</a> is my go to place on mobile to check when wanting to stay up to date with new PRs and issues. A script should also work, yes.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2024-03-15T08:07:32.947Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 21.6,
+  "incoming_link_count": 2,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 32.4,
   "yours": false,
   "topic_id": 624,
   "topic_slug": "gitlab-backups-for-bitcoin-core-repository",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 205,
     "username": "fjahr",
     "name": "Fabian",
     "avatar_template": "/letter_avatar_proxy/v4/letter/f/ea5d25/{size}.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I don\u2019t expect a lot of people to want to look at the data before we actually need it. \n\nThe mirroring and using that mirror is part of my process to make sure the backups work. My <a href=\"https://mirror.b10c.me/bitcoin-bitcoin\">bitcoin-bitcoin mirror</a> is my go to place on mobile to check when wanting to stay up to date with new PRs and issues. A&hellip;",
+  "truncated": true,
+  "post_url": "/t/gitlab-backups-for-bitcoin-core-repository/624/5",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

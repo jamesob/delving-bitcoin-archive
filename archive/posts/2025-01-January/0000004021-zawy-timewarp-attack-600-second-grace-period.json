@@ -7,14 +7,15 @@
   "cooked": "<p>OK, now I see. It\u2019s not that an adjustment for both Erlang and \u201c2015 hole\u201d aren\u2019t needed, it\u2019s that 600 seconds before the previous block isn\u2019t a 600 second lie, it\u2019s a 1200 second lie because we expected a timestamp 600 seconds after it.</p>",
   "post_number": 33,
   "post_type": 1,
+  "posts_count": 43,
   "updated_at": "2025-01-08T17:04:51.668Z",
   "reply_count": 1,
   "reply_to_post_number": 32,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 98.6,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 100.0,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "OK, now I see. It's not that an adjustment for both Erlang and \"2015 hole\" aren't needed, it's that 600 seconds before the previous block isn't a 600 second lie, it's a 1200 second lie because we expected a timestamp 600 seconds after it.",
@@ -54,12 +56,15 @@
   "staff": false,
   "user_id": 502,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "OK, now I see. It\u2019s not that an adjustment for both Erlang and \u201c2015 hole\u201d aren\u2019t needed, it\u2019s that 600 seconds before the previous block isn\u2019t a 600 second lie, it\u2019s a 1200 second lie because we expected a timestamp 600 seconds after it.",
+  "truncated": true,
+  "post_url": "/t/timewarp-attack-600-second-grace-period/1326/33",
   "reactions": [
     {
       "id": "+1",
@@ -74,5 +79,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 4,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
