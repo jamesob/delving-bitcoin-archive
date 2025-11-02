@@ -90,11 +90,17 @@ Sebastian
 
 -------------------------
 
-sipa | 2025-11-02 15:33:09 UTC | #2
+sipa | 2025-11-02 15:49:38 UTC | #2
 
 I ran your script on a Ryzen 5950X CPU, with 500000 iterations (as I saw a decent amount of variance between runs with lower numbers), showing a speed ratio of 8.5 currently.
 
 ![secp256k1_5950x|690x230](upload://ckNAeCSoatUJzmwLvF0FxtI3tLE.png)
+
+Interestingly, in these numbers there does not appear to be any speed grain in bc-22.0 (in fact, a 3.6% slowdown!) from the safegcd code, but there is an 8% speed up in bc-27.0, presumably due to the removal(!) of x86_64 assembly in https://github.com/bitcoin-core/secp256k1/pull/1446 (libsecp256k1 v0.4.1).
+
+I think it's also important to be aware of some biases exhibited by these numbers:
+* We're benchmarking them all (necessarily for fairness) on the same identical hardware, but the efforts that went into creating this code were informed by benchmarks on hardware available at the time. This holds both for different systems within the same (e.g. x86_64) architecture, and popularity of architecture over time (e.g. aarch64 is much more popular and relevant now than 10 years ago).
+* We're benchmarking them all with the same compiler, but historical efforts aimed at improving performance for compilers that existed at the time. For example, the x86_64 field assembly code was better than machine code generated from pure C code 10 years ago, but there is barely a difference with modern compilers (which is why 0.4.1 removed it).
 
 -------------------------
 
