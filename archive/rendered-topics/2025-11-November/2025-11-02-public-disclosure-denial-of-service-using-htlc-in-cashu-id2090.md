@@ -1,6 +1,6 @@
 # Public Disclosure: Denial of Service using HTLC in Cashu
 
-1440000bytes | 2025-11-02 02:18:31 UTC | #1
+1440000bytes | 2025-11-02 06:27:53 UTC | #1
 
 ## Vulnerability
 
@@ -36,7 +36,7 @@ https://uncensoredtech.substack.com/p/denial-of-service-using-htlc-in-cashu
 
 ## Fix
 
-It was fixed by *lollerfirs*t in https://github.com/cashubtc/nutshell/pull/803
+It was fixed by *lollerfirst* in https://github.com/cashubtc/nutshell/pull/803
 
 ## Timeline
 
@@ -51,7 +51,7 @@ It was fixed by *lollerfirs*t in https://github.com/cashubtc/nutshell/pull/803
 
 Some mints have still not updated nutshell. They should backup the database and run the mint with v0.18.0. Reach out to Cashu dev team if you experience any issues while updating the mint.
 
-Users should check the version of the mint with `https://<mint_url>/v1/info` and stop using the mint if it supports NUT-14 and running nutshell version older than 0.18.0.
+Users should check the version of the mint with `https://<mint_url>/v1/info`. Stop using the mint if it supports NUT-14 and running nutshell version older than 0.18.0.
 
 -------------------------
 
