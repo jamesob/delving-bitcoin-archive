@@ -90,3 +90,11 @@ Sebastian
 
 -------------------------
 
+sipa | 2025-11-02 15:33:09 UTC | #2
+
+I ran your script on a Ryzen 5950X CPU, with 500000 iterations (as I saw a decent amount of variance between runs with lower numbers), showing a speed ratio of 8.5 currently.
+
+![secp256k1_5950x|690x230](upload://ckNAeCSoatUJzmwLvF0FxtI3tLE.png)
+
+-------------------------
+
