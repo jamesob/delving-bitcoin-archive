@@ -104,3 +104,9 @@ I think it's also important to be aware of some biases exhibited by these number
 
 -------------------------
 
+sipa | 2025-11-02 15:59:40 UTC | #3
+
+@theStack What do you think about making a graph which puts date/time (release/commit date?) on the X axis, and perhaps a log scale on the Y axis (so that the same % improvement shows as the same distance on the graph)? That would make it less bad to add more versions to the graph as well.
+
+-------------------------
+
