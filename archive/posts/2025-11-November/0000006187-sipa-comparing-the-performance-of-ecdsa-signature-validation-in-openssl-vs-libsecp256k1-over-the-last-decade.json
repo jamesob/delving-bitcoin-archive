@@ -7,15 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/thestack\">@theStack</a> What do you think about making a graph which puts date/time (release/commit date?) on the X axis, and perhaps a log scale on the Y axis (so that the same % improvement shows as the same distance on the graph)? That would make it less bad to add more versions to the graph as well.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2025-11-02T15:59:40.401Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 38.2,
   "yours": false,
   "topic_id": 2087,
   "topic_slug": "comparing-the-performance-of-ecdsa-signature-validation-in-openssl-vs-libsecp256k1-over-the-last-decade",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@theStack What do you think about making a graph which puts date/time (release/commit date?) on the X axis, and perhaps a log scale on the Y axis (so that the same % improvement shows as the same distance on the graph)? That would make it less bad to add more versions to the graph as well.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/thestack\">@theStack</a> What do you think about making a graph which puts date/time (release/commit date?) on the X axis, and perhaps a log scale on the Y axis (so that the same % improvement shows as the same distance on the graph)? That would make it less bad to add more versions to the graph as well.",
   "truncated": true,
   "post_url": "/t/comparing-the-performance-of-ecdsa-signature-validation-in-openssl-vs-libsecp256k1-over-the-last-decade/2087/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

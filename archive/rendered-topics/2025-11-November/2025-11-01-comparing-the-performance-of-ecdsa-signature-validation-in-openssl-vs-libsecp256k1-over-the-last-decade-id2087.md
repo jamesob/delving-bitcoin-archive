@@ -110,3 +110,9 @@ sipa | 2025-11-02 15:59:40 UTC | #3
 
 -------------------------
 
+theStack | 2025-11-03 12:50:14 UTC | #4
+
+That sounds like a great idea! To prepare for that, I've [pushed a commit](https://github.com/theStack/secp256k1-plugbench/commit/202d6358e48c31afcbee094992b617088be3d75d) to include a "date" column with the release date (in format yyyy-mm-dd, i.e. ISO 8601) in the generated .csv file for each benchmarked version; having that it should be relatively easy to make such a graph. I haven't adapted plot.py yet to make use of that new column, will look into that later that week. If you or anyone else is eager to give it a shot already (my plotting skills are close to zero, the code is largely derived from ChatGPT interaction), feel free :)
+
+-------------------------
+
