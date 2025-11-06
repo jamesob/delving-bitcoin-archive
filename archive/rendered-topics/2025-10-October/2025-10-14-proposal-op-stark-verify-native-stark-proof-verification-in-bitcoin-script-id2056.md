@@ -242,3 +242,14 @@ That’s the other dimension of my question: If the computation can be split in 
 
 -------------------------
 
+moonsettler | 2025-11-05 22:39:58 UTC | #7
+
+[quote="Abdel, post:1, topic:2056"]
+Binding to the spend *is left to Script authors* (e.g., require a Schnorr signature over a message that includes a commitment to the proof in the locking script when the UTXO is created).
+
+[/quote]
+
+How does this make a covenant? Generally one would expect that the shape of the transaction is somehow restricted by the ZKP. This either implies some form of introspection or the STARK verifier should be able to receive a signature as additional input.
+
+-------------------------
+
