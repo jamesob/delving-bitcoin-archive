@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Love to see this written up!\n\nAs written, the proof doesnt seem to be bound to a specific transaction. This could be problematic if you wanted to build permissionless exits from a multiparty system where (for example) a participant in an L2 proves that they control some coins and havent exited yet, and are able to spend from a bridge-owned utxo with just the proof. You would need to have the public parameters of the proof include the users pubkey, so that you could then do a checksig in the same script. Or you could have the proof cover a signature made over the transaction with G as the pubkey (essentially the schnorr trick used with CAT, but we dont have to construct the signature on the stack; just have it covered by the STARK and then do checksig on it with G as the pubkey).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Love to see this written up! \nAs written, the proof doesnt seem to be bound to a specific transaction. This could be problematic if you wanted to build permissionless exits from a multiparty system where (for example) a participant in an L2 proves that they control some coins and havent exited yet, &hellip;",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
