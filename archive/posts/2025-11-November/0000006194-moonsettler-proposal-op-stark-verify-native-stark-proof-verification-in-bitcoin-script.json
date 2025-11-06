@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"Abdel, post:1, topic:2056\"]\nBinding to the spend *is left to Script authors* (e.g., require a Schnorr signature over a message that includes a commitment to the proof in the locking script when the UTXO is created).\n\n[/quote]\n\nHow does this make a covenant? Generally one would expect that the shape of the transaction is somehow restricted by the ZKP. This either implies some form of introspection or the STARK verifier should be able to receive a signature as additional input.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "How does this make a covenant? Generally one would expect that the shape of the transaction is somehow restricted by the ZKP. This either implies some form of introspection or the STARK verifier should be able to receive a signature as additional input.",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
