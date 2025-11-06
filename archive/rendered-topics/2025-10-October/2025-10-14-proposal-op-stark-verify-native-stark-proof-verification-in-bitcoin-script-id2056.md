@@ -253,3 +253,11 @@ How does this make a covenant? Generally one would expect that the shape of the 
 
 -------------------------
 
+rijndael | 2025-11-06 00:37:18 UTC | #8
+
+Love to see this written up!
+
+As written, the proof doesnt seem to be bound to a specific transaction. This could be problematic if you wanted to build permissionless exits from a multiparty system where (for example) a participant in an L2 proves that they control some coins and havent exited yet, and are able to spend from a bridge-owned utxo with just the proof. You would need to have the public parameters of the proof include the users pubkey, so that you could then do a checksig in the same script. Or you could have the proof cover a signature made over the transaction with G as the pubkey (essentially the schnorr trick used with CAT, but we dont have to construct the signature on the stack; just have it covered by the STARK and then do checksig on it with G as the pubkey).
+
+-------------------------
+

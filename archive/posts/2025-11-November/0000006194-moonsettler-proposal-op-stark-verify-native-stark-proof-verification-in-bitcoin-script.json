@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"Abdel\" data-post=\"1\" data-topic=\"2056\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/abdel/48/1579_2.png\" class=\"avatar\"> Abdel:</div>\n<blockquote>\n<p>Binding to the spend <em>is left to Script authors</em> (e.g., require a Schnorr signature over a message that includes a commitment to the proof in the locking script when the UTXO is created).</p>\n</blockquote>\n</aside>\n<p>How does this make a covenant? Generally one would expect that the shape of the transaction is somehow restricted by the ZKP. This either implies some form of introspection or the STARK verifier should be able to receive a signature as additional input.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 8,
   "updated_at": "2025-11-05T22:39:58.538Z",
   "reply_count": 0,
   "reply_to_post_number": null,
