@@ -253,11 +253,13 @@ How does this make a covenant? Generally one would expect that the shape of the 
 
 -------------------------
 
-rijndael | 2025-11-06 00:43:27 UTC | #8
+rijndael | 2025-11-06 00:44:27 UTC | #8
 
 Love to see this written up!
 
 As written, the proof doesnt seem to be bound to a specific transaction. This could be problematic if you wanted to build permissionless exits from a multiparty system where (for example) a participant in an L2 proves that they control some coins and havent exited yet, and are able to spend from a bridge-owned utxo with just the proof. As written, I think someone could re-use a proof in a different transaction with different outputs (either in-mempool replacing the same original transaction, or in a subsequent transaction, or against a different UTXO encumbered with the same script). I think you would want to have the public parameters of the proof include either the sighash of the transaction and then do some assertion that it matches the current transaction, or re-use the schnorr trick we do in CAT scripts: make a signature over the transaction using 1 as the private key, and then you can do `CHECKSIG` against the transaction using `G` as the pubkey. This would provide a generic way to cover the transaction with the STARK, so that proofs can't be use out of context to authorize unintended transactions.
+
+**edit**: I missed moonsettlers comment: I think he's hitting the same point
 
 -------------------------
 
