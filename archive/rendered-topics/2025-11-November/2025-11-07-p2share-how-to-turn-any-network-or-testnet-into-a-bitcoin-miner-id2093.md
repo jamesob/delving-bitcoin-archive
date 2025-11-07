@@ -169,3 +169,23 @@ Maybe there is some game theory which would indicate that it is in the best inte
 
 -------------------------
 
+garlonicon | 2025-11-07 09:30:26 UTC | #2
+
+> A consequence of having a deterministic share supply is that the internal unit of account of the sharechain network will not be 1:1 with bitcoin.
+
+It could be, if there is a need to do so. It is all about proportions: in Lightning Network, there are separate units called “millisatoshis”, that can exist only there, but still, every satoshi has 1:1000 coverage. If in this network, there will be different “millisatoshis”, and they will represent some different, internal splitting of amounts between all participants, then it could still work, and be covered with real coins. Because after all, it is all about presigned transactions, in that way or another, which will settle all of that on-chain.
+
+> Is what is described above an “altcoin”?
+
+As long as it is compatible with Bitcoin, and you work on the same chain, then it is not an altcoin. If the implementation will not make it an altcoin, then it will be just yet another usage of Bitcoin.
+
+> Will bitcoin mainnet miners want to 51% attack the sharechain networks?
+
+It can be prevented, if mining a sharechain block will be as hard, as mining a Bitcoin block (or harder). It is possible to make a network, where attacking the sharechain would be comparable to attacking Lightning Network, and for example confirming old state of the channel on-chain. Also, penalty transactions, and other things, which LN invented, can be used as an additional protection, if needed.
+
+> Why such a long time between blocks?
+
+Well, 10 minutes per block is not “long”. For some use cases, even longer block times could be desired, for example for DNS records. Also, if someone wants for example 30 seconds per block, then things like P2Pool can be built on top of such system, so it is not a problem, if the main implementation will require 10 minutes or more per block.
+
+-------------------------
+
