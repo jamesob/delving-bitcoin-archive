@@ -189,7 +189,7 @@ Well, 10 minutes per block is not “long”. For some use cases, even longer bl
 
 -------------------------
 
-VzxPLnHqr | 2025-11-07 16:24:14 UTC | #3
+VzxPLnHqr | 2025-11-07 20:17:25 UTC | #3
 
 Thanks for reading and for your reply. 
 
@@ -207,6 +207,8 @@ The problem I am currently unable to solve (which is why I post it here in case 
 **In a MW-like sharechain network, how can we pseudorandom-uniformly select a shareholder's public key?**
 
 Selection of the public key of a random shareholder (weighted by number of shares) is easy in a UTXO system like bitcoin's where amounts are publicly associated with UTXOs. This was demonstrated in the above p2share writeup. However, recovering this criteria for a sharechain with MW-like semantics, without stripping MW of its privacy benefits, is non-trivial.
+
+EDIT: for MW-like semantics, I believe the answer to this is "no." However we could perhaps imagine a sharechain with consensus rules such that each transaction output is required to be of equal amount, and coinbases are required to also have multiple outputs, each of equal amount. Then all sharechain transactions, from a blockchain analysis standpoint, will appear as sharejoins (i.e. coinjoins, but shares).
 
 -------------------------
 
