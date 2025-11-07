@@ -189,3 +189,24 @@ Well, 10 minutes per block is not “long”. For some use cases, even longer bl
 
 -------------------------
 
+VzxPLnHqr | 2025-11-07 16:24:14 UTC | #3
+
+Thanks for reading and for your reply. 
+
+> A consequence of having a deterministic share supply is that the internal unit of account of the sharechain network will not be 1:1 with bitcoin.
+>> It could be, if there is a need to do so. It is all about proportions: in Lightning Network, there are separate units called “millisatoshis”, that can exist only there, but still, every satoshi has 1:1000 coverage. If in this network, there will be different “millisatoshis”, and they will represent some different, internal splitting of amounts between all participants, then it could still work, and be covered with real coins. Because after all, it is all about presigned transactions, in that way or another, which will settle all of that on-chain.
+
+I think there may be a misunderstanding. Nothing in the p2share design, as currently presented, has anything to do with presigned transactions. That being said, I think you may be suggesting something different?
+
+### favorite p2share idea: privacy as a mining pool (mimblewimble anyone?)
+
+A p2share network which I think would be very useful for bitcoiners would be one which implements a privacy layer. In such a design, the sharechain would have mimblewimble-like semantics. Then privacy could easily be achieved, without leaving the bitcoin ecosystem, via atomic swaps between mainchain btc and the sharechain.
+
+The problem I am currently unable to solve (which is why I post it here in case anyone here knows how):
+
+**In a MW-like sharechain network, how can we pseudorandom-uniformly select a shareholder's public key?**
+
+Selection of the public key of a random shareholder (weighted by number of shares) is easy in a UTXO system like bitcoin's where amounts are publicly associated with UTXOs. This was demonstrated in the above p2share writeup. However, recovering this criteria for a sharechain with MW-like semantics, without stripping MW of its privacy benefits, is non-trivial.
+
+-------------------------
+
