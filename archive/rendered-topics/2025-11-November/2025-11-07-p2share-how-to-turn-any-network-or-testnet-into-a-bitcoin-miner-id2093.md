@@ -230,3 +230,17 @@ That is, this scheme might end up just being solo-mining-with-extra-steps.
 
 -------------------------
 
+cmp_ancp | 2025-11-09 14:44:47 UTC | #5
+
+I really found out this idea of a “pool sidechain” very elegant, though don’t know exactly how it would work. That is, the idea of a blockchain is itself a way to coordinate multiple nodes in a descentralized manner, and thinking in that way, a descentralized pool could be based on it.
+
+Maybe we could have miners that are mining BTC blocks, but these blocks are, at the same time, commiting to a sidechain. Maybe the commiting part could be at the nonce, or in the coinbase. Actually, the miner could commit to a Merkle tree of multiple values.
+
+Even if a miner fails on finding a block, maybe he could share weak blocks to the sidechain, prooving that he is indeed spending power. These sidechain commits could also serve as a proof that his templates send the coinbase to the pool.
+
+The sidechain could have faster blocks, and could also be a lattice, I don’t know. Miners don’t need to sync to the entire sidechain, once the commits would be available on the BTC chain.
+
+Just gathering a bunch of ideas, don’t really know how these could glue together, but at least I think someome smarter than me could have an insight lmao. Also, if this were to be glued together, there must be a way to limit bandwidth usage or unecessary computation. The system overall cannot be a burden to the miner, to the point of making mining with this pool disadvantageous.
+
+-------------------------
+
