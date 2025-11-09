@@ -212,3 +212,21 @@ Selection of the public key of a random shareholder (weighted by number of share
 
 -------------------------
 
+ZmnSCPxj | 2025-11-09 06:07:07 UTC | #4
+
+[quote="VzxPLnHqr, post:1, topic:2093"]
+A value `q` is determined using a function similar to:
+
+`q = sha256("q selector" || sharechain_blockheader_i) mod n`
+
+where $n$ is the total number of shares outstanding at block `i`.
+[/quote]
+
+Note that the probability of getting the reward on the Bitcoin blockchain is proportional to the number of shares I own on the share network.  In particular, we should note that it is quite possible for a grinding attack to be performed, where I ensure that, when I am mining sharechain blockheader i + 1, I make sure that sharechain blockheader i + 2 will be be paid to me (and so forth in future mines).  If I secretly own much of the shares *and* more than 50% of the hashrate on the share-network, I can induce minor miners who join the share-network to effectively contribute all mining rewards to me, effectively taking over their hashrate.  This leads to a bootstrapping problem: why would anyone actually want to mine on the share-network I started, when it is entirely possible that I secretly own most of the shares and most of the hashrate?  And if there is not enough *other* people who want to join this new share-network, then there is no way to actually move from "the starting operator is in a position to steal all hashrate of all new joining miners" to "the shares are distributed enough that it is a non-issue" because nobody *else* will rationally mine on this.
+
+In my opinion, the central error of proof-of-stake is the assumption that you cannot grind  the random selection of the winning staker, and this scheme evokes the same error; the above hash you show ***can*** be ground, especially as `n` will start out small, to always go to some target participant; this of course converts proof-of-stake to proof-of-work-with-extra-steps, which is undesirable. The more complex things become, the more it is possible that there is some hidden optimization that can massively disrupt the mining industry (the way ASICBOOST was disruptive and was implicated in the delay of SegWit activation).
+
+That is, this scheme might end up just being solo-mining-with-extra-steps.
+
+-------------------------
+
