@@ -244,3 +244,19 @@ Just gathering a bunch of ideas, don’t really know how these could glue togeth
 
 -------------------------
 
+ZmnSCPxj | 2025-11-09 15:45:50 UTC | #6
+
+The concept is a revival of the old "P2Pool" design, which has a separate "sharechain".  By my memory (it may be inaccurate) the coinbase committed to multiple low-difficulty shares, i.e. actual full blocks whose block difficulty was lower than the difficulty of Bitcoin, but higher than the P2Pool share difficulty.  The innovation of ***this*** OP is to randomly select a lucky shareholder, instead of having one output per shareholder as in the original P2Pool.
+
+The problem with ***this*** OP is that the whole point of a pool is precisely to manage luck: instead of some enormous windfall going to some miner, a bunch of cooperating miners pool their hashpower and divide the large block reward amongst themselves via some policy (some measure of their contributed hashpower).  So it does not quite provide the desired properties needed for a true pool.
+
+P2Pool could not scale up because each hasher who contributed in the last N shares to the pool had to have an output on the coinbase, which was untenable.
+
+In a non-P2Pool pool, typically the issue is that there is a central coordinator.  The central coordinator aggregates the multiple tiny shares that each hasher provides, and pays out to them as larger aggregated payments.  The problem is that the central coordinator can discredit the share that a hasher provides if the central coordinator wants to censor some transaction that the hasher submits in their work --- i.e. the new Stratum is insufficient as the central coordinator can always deny paying for the work submitted by a hasher after it discovers that the hasher has included censored transactions (and the coordinator still gets the coinbase rewards anyway).
+
+What we ***actually*** need is a Lightning-like construction to aggregate the multiple small payments that a P2Pool-like pool builds, but we cannot use HTLCs; instead, we need a SCRIPT with comparison of large 256-bit numbers (difficulty comparison), ***and*** some way to ensure that the committed transactions in a block (which would need to be some kind of ZK-proof, or else the pool coordinator can inspect the block of the hasher before paying out --- we need the requirement that the pool coordinator pays out only if the hasher includes valid transactions, but cannot learn the transactions until after it has paid out, similar to how HTLC preimages work in Lightning: once the hasher has given out the transactions to the coordinator, the coordinator cannot "take back" the amount, in much the same way that once the preimage of an HTLC has been published, the HTLC-offeror cannot "take back" the HTLC).  Unfortunately, we cannot compare 256-bit numbers (`OP_GREATERTHAN` et al only work on 32-bit numbers) and in any case, the validity check cannot be performed (though it may be possible to generate a BitVM for it? Not sure: the big issue with BitVM is that in practice its logic is the inverse of what we want, i.e. it is a "get paid if invalid, until a timeout" system, not a "get paid if valid, until a timeout" system).
+
+Probably the above would require changes to Bitcoin.  Unfortunately, large custodians already have much of the economic majority in Bitcoin --- and centralized non-P2Pool pool coordinators ***are*** custodians, full stop, because they hold the money that hashers have rightfully earned, which allows them undue power over the hashers --- and there is no incentive for custodians to allow non-custodial uses that would erode their use (which explains why there are astroturfed disinformation and distraction campaigns that prioritize other things over noncustodial-supporting changes like `OP_CTV`).
+
+-------------------------
+
