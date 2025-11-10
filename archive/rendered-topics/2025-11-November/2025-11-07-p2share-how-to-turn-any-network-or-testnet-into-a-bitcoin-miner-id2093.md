@@ -260,3 +260,86 @@ Probably the above would require changes to Bitcoin.  Unfortunately, large custo
 
 -------------------------
 
+VzxPLnHqr | 2025-11-09 21:11:28 UTC | #7
+
+Thank you for reading and for your replies. I was actually hesitant to tag this thread as mining, because, to me at least this is less about mining and more about the overarching economic and philosophical consequences (if any). You seem to have gleaned that too, so thank you!
+
+> The concept is a revival of the old “P2Pool” design, which has a separate “sharechain”. By my memory (it may be inaccurate) the coinbase committed to multiple low-difficulty shares, i.e. actual full blocks whose block difficulty was lower than the difficulty of Bitcoin, but higher than the P2Pool share difficulty. 
+
+I think your memory is correct here with regard to how P2Pool functioned. The concept presented here of of paying out to a random shareholder to save mainchain blockspace and thereby maximize fee revenue might have bought P2Pool some more time, but it is probably more nuanced than that ...
+
+> The innovation of ***this*** OP is to randomly select a lucky shareholder, instead of having one output per shareholder as in the original P2Pool.
+
+I think there are a couple subtle things that are worth mentioning:
+
+First, P2Pool did not (to my memory at least) have transferable "shares." Adding this feature into the mix, coupled with a fixed schedule of *fair*[^fair_issuance] share issuance, is what may provide for the sharechain network to be longer lived itself.
+
+Second, if you have a longer lived sharechain network(s) which is symbiotic with bitcoin, then such a network would be a great testing ground for new features, uses, services, etc -- basically anything for which bitcoiners may have demand for, but for which mainnet bitcoin is not suitable. 
+
+Whether the shares themselves are able to obtain and maintain any "value" greater than `0.00000.... sats/share`, is currently an unknown. 
+
+Yet, it is important to remember that many of the arguments we may come up with for why there is no value here, are almost identical to what could have been said about bitcoin itself. Now, I am not suggesting that any of these sharechains, if they existed, would or even could eclipse bitcoin.
+
+Rather, if such mining networks existed, and even a small fraction of overall bitcoin hashrate was directed through such networks (and rewarded commensurately via the p2share mechanism contemplated here), then the value of those shares relative to bitcoin and those shares relative to one another (assuming multiple networks) does have at least _some_ information signal which is relevant to the bitcoin ecosystem.
+
+> If I secretly own much of the shares *and* more than 50% of the hashrate ... this of course converts proof-of-stake to proof-of-work-with-extra-steps, which is undesirable
+
+This actually gets to the crux of the issue, and why I posted here in the first place. While I agree with you in spirit here, I am not sure exactly why it is undesirable, especially if we extend your definition of "proof-of-stake" here to include "any non-bitcoin-denominated investments" (including equity investments wall street companies), then why would we _not_ want to convert those things into our beloved bitcoin-compatible proof of work?
+
+Of course, we can argue that all those types of investments/investors need to just eventually learn the hard way and ultimately obtain bitcoin directly somehow which, outside of theft or gifts, leaves only two options: mine it or buy it. This doesn't change that. 
+
+
+> ... That is, this scheme might end up just being solo-mining-with-extra-steps.
+
+This is a good thing. Well, the extra-steps is perhaps annoying. However, the argument I am trying (and quite likely failing!) to make here is that this is the feature. The fact that it, in expectation, the p2share model economically degrade down to solo mining (albeit with some extra steps) is exactly why this concept is interesting:
+
+**p2share gives bitcoin hodlers a (very risky! but trustless!) mechanism to buy "equity" (shares) which represent future mining earnings, if any, of a given p2share bitcoin-compatible mining network.** 
+
+So, at least in theory, rather than buy wallstreet shares of wallstreet companies which are purporting to help bitcoin, but really only help wallstreet, and the fiat mindset, this is a way to keep it all in our dysfunctionally resilient bitcoin ecosystem.
+
+> What we ***actually*** need is a Lightning-like construction to aggregate the multiple small payments that a P2Pool-like pool builds, but we cannot use HTLCs; instead, we need a SCRIPT with comparison of large 256-bit numbers (difficulty comparison),
+
+I too came to this conclusion back when I was exploring worklocks [^sigpow]. It is ironic that bitcoin is itself distributed via guarded PoW (i.e. proof of work is the first pass, but success is also guarded by other criteria such as timestamps, ...), yet it is not trivial to do try to do the same thing within bitcoin itself (namely distribute a UTXOs sats to unknown ultimate beneficiaries, but with a possibly different set of guarding criteria -- at least without requiring an upgrade to Bitcoin).
+
+> Probably the above would require changes to Bitcoin. Unfortunately, large custodians already have much of the economic majority in Bitcoin ...
+
+Precisely why something like p2share may be helpful/useful? No changes to Bitcoin necessary.
+
+### on p2share incentives
+
+If we set aside the bootstrapping problem for a moment. I am not sure how such a network is bootstrapped. Maybe it is luck, or benevolence, or something else. Incidentally, I believe nonce grinding would only be an issue while the sharechain network difficulty is low, and here we are explicitly skipping that phase of the contemplated sharechain's history and teleporting to a period where difficulty is high enough and competition for shares is tough enough that the extra grinding is not worth it. That may be too unrealistic a simplification, but let us go with it for now.
+
+A first-pass analysis hunch says that:
+
+1. _if_ participants value their bitcoin and Bitcoin's future _and_ have determined that p2share is one way to try to bolster that future (i.e. so they buy shares of various sharechain(s) with features they desire/use/agree with, and direct their mining power to such sharechain(s))
+2. _then_ a sharechain miner will likely want to obtain/maintain a balance of shares which is commensurate with the her hashrate relative to the _sharechain_ -- in other words, the "extra steps" she takes are simply to protect herself from diluation.
+
+In some ways, such a sharechain miner might be lauded for this behavior since:
+   * she is actively securing the bitcoin network and protecting its future
+   * she is doing it in a trustless and decentralized way but (presumably, by her choice of sharechain(s)) with a set of like-minded participants, thereby sending a signal to mainchain of their desired future features..
+   * her behavior is similar to someone who tries to obtain mainchain bitcoin (via buying or mining) and continues to accumulate -- so it gracefully degrades to a behavior we generally want to encourage.
+
+But this all very informal so far and **maybe the p2share concept is a dead end?**
+
+[^fair_issuance]: The reference escapes me, but I think there is a paper somewhere which proves that, at least for certain reasonable notions of fairness, issuance via proof-of-work is the optimal issuance mechanism.
+
+[^sigpow]: https://github.com/VzxPLnHqr/sig-pow (note: there are some flaws in the code/construtcion, it was just an exploration)
+
+-------------------------
+
+ZmnSCPxj | 2025-11-09 23:15:13 UTC | #8
+
+> then such a network would be a great testing ground for new features, uses, services, etc – basically anything for which bitcoiners may have demand for, but for which mainnet bitcoin is not suitable.
+
+IMO if a feature cannot get into mainnet Bitcoin anyway, it is largely pointless to fantasize about it or "test" it.  First we have to demonstrate that Bitcoin has ***not*** ossified yet; then there is non-zero value in having a testing ground (and more specifically, *another* testing ground).
+
+> Yet, it is important to remember that many of the arguments we may come up with for why there is no value here, are almost identical to what could have been said about bitcoin itself
+
+The big advantage of Bitcoin was that it existed prior to any Bitcoin existing, and for much of its early days, people involved in it were doing FAFO on what was basically valueless tokens.  Nowadays you have to somehow displace the position of Bitcoin.
+
+It appears to be non-obvious that when the whitepaper says "longest chain of proof-of-work wins" it cuts across even incompatible rules and so-called "altcoins"; there can only be really one Bitcoin, at least in the local space (dunno about spaces distant enough that even speed-of-light transmission has massive latency).
+
+With that said --- it would theoretically be possible that miners of Bitcoin can follow additional rules that they impose on themselves and some certain other participants in some sub-network, but which they do not impose on participants outside of the sub-network (but which are still participants in the existing public Bitcoin mining network).  This is in principle something like a "softer" version of a softfork ("softerfork" tightening of rules on self and sub-network of the entire network, but not on the network as a whole, compared to "softfork" tightening of rules on the entire network), and such a "softerfork" would probably be able to implement what you have in mind (i.e. Bitcoin blocks of miners participating in this p2share sub-network commit to an extra non-Bitcoin block that transacts a different currency, the "share", that has different semantics).
+
+-------------------------
+
