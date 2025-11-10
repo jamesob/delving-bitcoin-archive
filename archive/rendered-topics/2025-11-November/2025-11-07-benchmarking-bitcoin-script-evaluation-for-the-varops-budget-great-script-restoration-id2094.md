@@ -128,3 +128,83 @@ Those compare to current varops figures of constant=0, per byte=10, I believe. I
 
 -------------------------
 
+Julian | 2025-11-10 20:57:20 UTC | #3
+
+Hi aj, thanks for taking the time,
+
+[quote="ajtowns, post:2, topic:2094"]
+Probably want to specify the build options more completely if you want benchmark results to be comparable? (`CMAKE_BUILD_TYPE` as something other than `Debug` in particular)
+
+[/quote]
+
+Yes I have been using the default `CMAKE_BUILD_TYPE=RelWithDebInfo`, since this is probably what most use. I am not sure if the binaries on bitcoincore.org are built in release instead, anyways the performance difference between the two seems to be negligible.
+
+[quote="ajtowns, post:2, topic:2094"]
+Probably should provide a git repo to add the CSV’s to via PR?
+
+[/quote]
+
+That’s a great idea, I have opened a repo here and will update the post: https://github.com/jmoik/varopsData
+
+[quote="ajtowns, post:2, topic:2094"]
+I’m seeing errors, which look like they lead to useless data, fwiw:
+
+```
+
+```
+
+[/quote]
+
+The script errors are expected for some benchmarks and can be ignored since they produce a time of 0 seconds and we are interested only in the worst times, but you are correct, I will add more specific stacks/scripts to benchmark OP_DIV / OP_MOD properly.
+
+[quote="ajtowns, post:2, topic:2094"]
+Capping at 100% varops budget seems to make the data less useful in evaluating whether the varops ratios are accurate, than if no capping was in place? eg these XOR tests:
+
+```
+
+```
+
+[/quote]
+
+With 20.8 B compute units, the scripts are already fairly long, so you don’t gain much from not capping here, of course you lose the reference on how many ops were executed and larger stack element sizes might be cut of early and therefore the time / input bytes might be shifted downwards slightly.
+
+If no capping was in place, some scripts would run extremely long.
+
+If we want to measure performance relative to input bytes, we don’t need to call EvalScript() at all and remove all the noise from restoring the stack and the rest of the script interpreter (duplicating a large stack element is quite slow).
+
+This benchmark is not designed to measure time / input size, I wanted to ensure that the budget is sufficient for any input size and having similar values for those XOR script tells me that the XOR cost scales appropriately.
+
+[quote="ajtowns, post:2, topic:2094"]
+I would have expected to be able to use the data generated either to produce per-hardware calculations of the constant-and-per-byte factors for each opcode (and thus review the hardcoded varops factors)
+
+[/quote]
+
+If we take the 5,200 compute units per weight as constant or renormalize this is interesting indeed, but there are too many free variables, the 5,200 was initially derived from the 10x hashing factor (520 bytes for a single script element x 10, such that one hashing opcode could always pay for a current max size element).
+
+Therefore, I assumed the 10x for hashing (as well as the other costs) as constant and kept the 5,200 as the free parameter.
+
+[quote="ajtowns, post:2, topic:2094"]
+Those compare to current varops figures of constant=0, per byte=10, I believe. I’m surprised that ripemd seems to be faster than sha256 for me.
+
+[/quote]
+
+Yes that seems reasonable, although a bit slow, did you get those values through a linear fit of the different input sizes? I am also surprised, on my machine RIPEMD is the slowest hashing algorithm by far and the slowest script overall, the only one going above 80,000 Schnorrs. But unlike SHA, RIPEMD is still limited to 520 bytes in tapscript v2, maybe your machine is very slow with SHA on large inputs?
+
+I don’t think we want to assign different costs to different hashing algorithms, since this is highly dependent on the implementation.
+
+[quote="ajtowns, post:2, topic:2094"]
+FWIW DUP/DROP benchmarks seems to imply figures of 276 compute units per operation plus 0.05 compute units per byte for me (as opposed to 0 + 1 per byte).
+
+[/quote]
+
+I have also experimented with a flat cost for each operation, since we do have interpreter overhead and acting on an empty input is obviously more expensive than zero, but it does not seem to be that important since we do have the block size limit.
+
+[quote="ajtowns, post:2, topic:2094"]
+Or normalized from “seconds per block over-filled with repeating script” to “schnorr ops per op”, perhaps:
+
+[/quote]
+
+We have actually worked with this normalization initially and it is helpful when there is no varops limit, but felt like it is simpler to discuss these benchmarks by using the block sized script and comparing it to the known time of 80,000 Schnorrs.
+
+-------------------------
+
