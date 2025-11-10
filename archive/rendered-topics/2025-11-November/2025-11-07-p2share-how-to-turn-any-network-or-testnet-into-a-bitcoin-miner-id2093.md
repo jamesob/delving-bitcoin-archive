@@ -343,3 +343,17 @@ With that said --- it would theoretically be possible that miners of Bitcoin can
 
 -------------------------
 
+jungly | 2025-11-10 05:29:55 UTC | #9
+
+Interesting ideas here. What we are doing at P2Poolv2 is less revolutionary. Dropping a line here for completion.
+
+1. More or less replicate the p2pool design.
+2. There are three big changes though:
+   1. use weak compact blocks as shares to avoid the transaction broadcasting that p2pool had to do in the original implementation.
+   2. Instead of a linear chain use uncle blocks to scale the pool to larger number of miners.
+   3. Add bitcoin Script, coinbase and transaction system to sharechain. This allows coinbase of constant size to support a larger number of users. 20 large miners get paid in the coinbase, the other smaller ones trade their shares with the large miners or market makers using atomic swap between sharechain and bitcoin. The market makers or the larger miners buy the smaller miner’s share at a discount, and the market pricing takes care of the discount amount.
+
+We have published some gists as the design evolved, but we’ll soon share a proper write up once the code has reached MVP. A lot of decisions slightly change when we actually write the implementation. Meanwhile you can follow the development here: https://github.com/p2poolv2/p2poolv2/
+
+-------------------------
+
