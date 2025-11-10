@@ -116,3 +116,11 @@ That sounds like a great idea! To prepare for that, I've [pushed a commit](https
 
 -------------------------
 
+theStack | 2025-11-10 18:56:25 UTC | #5
+
+Following up on the proposed x-date/y-log-runtime graph idea, I played around a bit and created a branch that implements this, emitting a line plot: https://github.com/theStack/secp256k1-plugbench/tree/plot-xtime-ylog. On my machine (arm64, the same that was used to create the bar plot in the opening post) it currently looks like this:
+![openssl_libsecp256k1_bench_results_log|690x345](upload://sTK5LQMDgNshXHdltKoPK92CKAs.png)
+Interesting indeed that on arm64 the speedup from v0.20 to v22.0 is so much higher compared to x86-64 (negative according to https://delvingbitcoin.org/t/comparing-the-performance-of-ecdsa-signature-validation-in-openssl-vs-libsecp256k1-over-the-last-decade/2087/2?u=thestack, ~16% according to report https://github.com/theStack/secp256k1-plugbench/issues/2). Would be nice to see plots running this on 32-bit machines for comparison, if anyone here still has one.
+
+-------------------------
+
