@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 4,
   "readers_count": 3,
-  "score": 0.6,
+  "score": 0.8,
   "yours": false,
   "topic_id": 2087,
   "topic_slug": "comparing-the-performance-of-ecdsa-signature-validation-in-openssl-vs-libsecp256k1-over-the-last-decade",
