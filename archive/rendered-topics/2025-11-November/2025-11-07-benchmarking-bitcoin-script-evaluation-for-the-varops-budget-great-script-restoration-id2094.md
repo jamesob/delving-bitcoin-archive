@@ -1,6 +1,6 @@
 # Benchmarking Bitcoin Script Evaluation for the Varops Budget (Great Script Restoration)
 
-Julian | 2025-11-07 15:14:37 UTC | #1
+Julian | 2025-11-10 20:59:13 UTC | #1
 
 Hello everyone interested in Great Script Restoration and the Varops Budget,
 
@@ -22,19 +22,25 @@ To construct and execute such a large script, it must be looped until one of the
 
 For simple operations like hashing (1 in → 1 out), we create a loop like:
 
-    OP_SHA256 OP_DROP OP_DUP (repeated)
+```
+OP_SHA256 OP_DROP OP_DUP (repeated)
+```
 
 Other operations have different restoration patterns. For bit operations (2 in → 1 out):
 
-    OP_DUP OP_AND OP_DROP OP_DUP (repeated)
+```
+OP_DUP OP_AND OP_DROP OP_DUP (repeated)
+```
 
-These scripts act on initial stack elements of various sizes. The initial elements are placed onto the stack "for free" for simplicity and to make the budget more conservative. In reality, these elements would need to be pushed onto the stack first, consuming additional space and varops budget.
+These scripts act on initial stack elements of various sizes. The initial elements are placed onto the stack “for free” for simplicity and to make the budget more conservative. In reality, these elements would need to be pushed onto the stack first, consuming additional space and varops budget.
 
 === Baseline: Signature Validation ===
 
 Currently, the theoretical limit for sigops in one block is:
 
-    4M weight units / 50 weight units per sig = 80,000 signature checks per block
+```
+4M weight units / 50 weight units per sig = 80,000 signature checks per block
+```
 
 Using nanobench, we measure how long it takes to execute pubkey.VerifySchnorr(sighash, sig) 80,000 times. On a modern CPU, this takes between one and two seconds.
 
@@ -48,15 +54,15 @@ To collect more data, we would like to run benchmarks on various machines. You c
 
 1\. Checking out the GSR prototype implementation branch:
 
-   https://github.com/jmoik/bitcoin/tree/gsr
+https://github.com/jmoik/bitcoin/tree/gsr
 
 2\. Compiling with benchmarks enabled (-DBUILD_BENCH=ON)
 
 3\. Running the benchmark:
 
-   ./build/bin/bench_varops --file bench_varops_data.csv
+./build/bin/bench_varops --file bench_varops_data.csv
 
-This will store the results in a csv and predict a maximum value for the varops budget specifically for your machine depending on your Schnorr checksig times and the slowest varops limited script. It would be very helpful if you shared your results so we can analyze the data across different systems and verify if the budget is working well or has to be adjusted!
+This will store the results in a csv and predict a maximum value for the varops budget specifically for your machine depending on your Schnorr checksig times and the slowest varops limited script. It would be very helpful if you shared your results by opening a PR [here](https://github.com/jmoik/varopsData) so we can analyze the data across different systems and verify if the budget is working well or has to be adjusted!
 
 Cheers
 

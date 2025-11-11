@@ -357,3 +357,42 @@ We have published some gists as the design evolved, but we’ll soon share a pro
 
 -------------------------
 
+VzxPLnHqr | 2025-11-10 21:26:38 UTC | #10
+
+> It appears to be non-obvious that when the whitepaper says “longest chain of proof-of-work wins” it cuts across even incompatible rules and so-called “altcoins” ...
+
+Yes, I agree this is non-obvious to many people. It is also why I want to be careful to point out that in the p2share model described here, the work applied to a sharechain is, by definition, work applied to mainchain bitcoin.
+
+> With that said — it would theoretically be possible that miners of Bitcoin can follow additional rules  ...
+
+I believe what you just described here is isomorphic to the underlying concept of p2share. So, if we think about the abstract notion of a "softerfork" (I like the term!), then I currently am, hesitantly, positing that the "select a random shareholder" rule might be the closest concrete instantiation of that abstract concept which (bootstrapping problem aside) approaches incentive compatibility.
+
+Though, I think we should also clarify that it need not be existing bitcoin miners who come together to launch a softerfork (using p2share semantics or otherwise). Even if the sharechain only comprises an extremely small portion of mainchain hashrate, a group of dedicated bitcoiners with minimal collective hashpower could launch one. 
+
+For the same reason that it is non-trivial to answer question, "why would someone ever want to mine on sharechain rather than solo mine mainchain directly?," it is also difficult to answer, **"why would existing, or otherwise larger, miners want to attack the sharechain?"** 
+
+If larger miners wanted to just troll sharechain and cause a bunch of reorgs, well, at least unlike proof-of-stake, sharechain is in fact still a proof-of-work chain, so the attack still has an irreversible external cost. Further, each hash applied to attack the sharechain (thereby abiding by the sharechain consensus) _could have in fact been applied to mainchain_.
+
+Unfortunately there probably are trolls in the world who would spend resources just to regularly wreak havoc (reorg) the sharechain. However, stalwart shareholders and prudent sharechain design parameters might still weather such storms. The best part is that even in this circumstance the trolls/attackers are still securing mainchain bitcoin throughout each and every attack! 
+
+Now, for larger miners who are not trolls but merely trying to maximize their profits in whatever units of measurements their hearts desire, even if such miners are not interested in the sharechain initially, they may become interested if, by some bizarre aligning of moons, there are ever market arbitrage opportunities between shares and mainchain btc large enough to justify the "extra steps" of capturing (and thereby closing) those opportunities.
+
+Knowing the above behavior is looming, it seems the price per share (in sats of course!) is naturally bounded on the upside. As such we need not worry about  sharechain(s) ever "overtaking" bitcoin. Sharechains might gobble up some hash rate from the centralized pools, but that is not a bad thing.
+
+It still begs the question of whether a "softerfork" sharechain with p2share-like semantics will ever have sustained price per share greater than `0.000000... sats/share`.
+
+> What we are doing at P2Poolv2 is less revolutionary. ... This allows coinbase of constant size to support a larger number of users. 20 large miners get paid in the coinbase, the other smaller ones trade their shares with the large miners or market makers using atomic swap between sharechain and bitcoin. The market makers or the larger miners buy the smaller miner’s share at a discount, and the market pricing takes care of the discount amount.
+
+
+@jungly Thanks for chiming in! In the OP I linked to your repo so that people might also be aware that there is at least some attempts to revitalize (some of) the original P2Pool concepts.
+
+I have some questions about your most recent design iteration, ~~but I will ask them in a different thread so that we can keep this one a little bit less implementation-specific (for now at least!).~~ (edit: could not find an existing thread for your p2poolv2):
+
+1. Is it still custodial in the sense of using a FROST federation or similar? Asking because one reason why I am interested in alternative designs is specifically for them to remain non-custodial, which is in fact possible, as demonstrated here with p2share.
+
+2. What are the motivations for a market maker or large miner to buy the smaller shares? What is the opportunity cost to them if they do not buy the smaller shares?
+
+3. Does this mean that the shares in your current design are long-lived such that a small miner can obtain shares and then come back in the far future and try to sell those shares to a larger miner? or do the shares in your current design somehow expire?
+
+-------------------------
+
