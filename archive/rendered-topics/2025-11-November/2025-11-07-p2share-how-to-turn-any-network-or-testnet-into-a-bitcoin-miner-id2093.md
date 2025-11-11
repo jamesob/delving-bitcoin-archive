@@ -396,3 +396,44 @@ I have some questions about your most recent design iteration, ~~but I will ask 
 
 -------------------------
 
+jungly | 2025-11-11 07:59:21 UTC | #11
+
+[quote="VzxPLnHqr, post:10, topic:2093"]
+could not find an existing thread for your p2poolv2
+
+[/quote]
+
+We haven’t discussed it here yet. I’ll start something once I have an MVP ready to show.
+
+Thanks for looking through and raising very relevant questions.
+
+[quote="VzxPLnHqr, post:10, topic:2093"]
+Is it still custodial in the sense of using a FROST federation or similar? Asking because one reason why I am interested in alternative designs is specifically for them to remain non-custodial, which is in fact possible, as demonstrated here with p2share.
+
+[/quote]
+
+No. The idea is top 20 miners in any PPLNS window get rewards directly in the bitcoin coinbase. The other, smaller, miners have a coinbase on the sharechain that they sell to the larger miners / market makers using atomic swaps. To support such transactions, and any other future constructions using Ark/Spark/.\* we support Script based transactions in the sharechain.
+
+[quote="VzxPLnHqr, post:10, topic:2093"]
+What are the motivations for a market maker or large miner to buy the smaller shares? What is the opportunity cost to them if they do not buy the smaller shares?
+
+[/quote]
+
+There are a couple of motivations for the large miners.
+
+1. They can buy the shares from smaller miners at a discount. The discount is determined by the market.
+2. The other motivation is to stay in the top 20 and get it a payout directly from the coinbase, which has it’s benefits.
+
+The risk they take on is that they buy some shares for a PPLNS window and p2pool doesn’t find a block for that PPLNS window.
+
+[quote="VzxPLnHqr, post:10, topic:2093"]
+Does this mean that the shares in your current design are long-lived such that a small miner can obtain shares and then come back in the far future and try to sell those shares to a larger miner? or do the shares in your current design somehow expire?
+
+[/quote]
+
+Yes, they expire. This is because a share is valid only for a PPLNS window. Once a share is past the PPLNS window it won’t be accounted for in the PPLNS reward payout by the pool.
+
+This makes the cost clear for the market maker, they have to bet on the pool’s hashrate and decide the discount they want for specific shares, given the probability of finding a block in any given PPLNS window. This risk reduces with increase in the pool’s hashrate and also with increase in the size of the PPLNS window. The original p2pool used a PPLNS window of about three days. We are considering making this as large as a week. Not set in stone yet, need to run some analysis.
+
+-------------------------
+

@@ -7,7 +7,7 @@
   "cooked": "<p>Interesting ideas here. What we are doing at P2Poolv2 is less revolutionary. Dropping a line here for completion.</p>\n<ol>\n<li>More or less replicate the p2pool design.</li>\n<li>There are three big changes though:\n<ol>\n<li>use weak compact blocks as shares to avoid the transaction broadcasting that p2pool had to do in the original implementation.</li>\n<li>Instead of a linear chain use uncle blocks to scale the pool to larger number of miners.</li>\n<li>Add bitcoin Script, coinbase and transaction system to sharechain. This allows coinbase of constant size to support a larger number of users. 20 large miners get paid in the coinbase, the other smaller ones trade their shares with the large miners or market makers using atomic swap between sharechain and bitcoin. The market makers or the larger miners buy the smaller miner\u2019s share at a discount, and the market pricing takes care of the discount amount.</li>\n</ol>\n</li>\n</ol>\n<p>We have published some gists as the design evolved, but we\u2019ll soon share a proper write up once the code has reached MVP. A lot of decisions slightly change when we actually write the implementation. Meanwhile you can follow the development here: <a href=\"https://github.com/p2poolv2/p2poolv2/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - p2poolv2/p2poolv2: P2Poolv2 - Rebooting P2Pool for Bitcoin</a></p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 11,
   "updated_at": "2025-11-10T05:29:55.984Z",
   "reply_count": 0,
   "reply_to_post_number": null,
