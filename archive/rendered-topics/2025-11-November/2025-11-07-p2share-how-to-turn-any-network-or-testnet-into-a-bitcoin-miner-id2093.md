@@ -437,3 +437,59 @@ This makes the cost clear for the market maker, they have to bet on the pool’s
 
 -------------------------
 
+VzxPLnHqr | 2025-11-11 19:37:16 UTC | #12
+
+Thanks for providing some more details regarding your current design parameters. Here are some not-very-formal thoughts. I hope they are helpful:
+
+> The discount is determined by the market....
+
+The total discount factor `d`, a number in the range [0,1], can be broken into two components `d = d_time*d_params`:
+1. `d_time`: time-value-of-money considerations -- sats available now (via atomic swap) are worth more than sats which are (expected to be) available later. 
+
+2. `d_params`: protocol-specific constraints/parameters such as PPLNS window size, share expiry, etc.
+
+Ideally we want a market which will price at `d = 1.0` which basically would mean that large miners and market makers would pay essentially full price to scoop up the shares of the smaller shareholders. Since time is inescapable, it is likely that `d_time` will almost always be less than `1.0`. That being said, with a strong track record, good future prospects, and ample liquidity, `d_time` may approach `1.0`, and that would be great. That is what we want.
+
+However, if we choose the parameters incorrectly (note: I am not saying you are choosing them incorrectly here, mostly just trying to brainstorm with you), we run the risk of the effect being that `d_params` is going to max out at some value less than 1.0.
+
+You already indicated that you believe PPLNS window size and share expiry will adversely affect the discount. So, what happens if we look at it in limit (unbounded window, no expiry)?
+
+In the limit, I think you basically end up recovering the p2share design, but with a tweak: you are paying out only to the top 20 shareholders, rather than (in the p2share design) paying out to a randomly selected single shareholder. 
+
+Of course we could expand p2share to randomly select 20 shareholders. But what I am trying to point out is that it is precisely the random selection process which pushes towards incentive alignment. It implies a risk that, even if you are a large shareholder, you _might not be selected immediately_, yet mitigates that risk because you can have confidence that _even the smallest shareholders will be selected eventually_ (so long as there is hashrate[^future_hashrate]). Therefore, it naturally enforces a 1 share = 1 share mentality, regardless of when the shares were originally earned. And that is why profit maximizing p2share miners have at least some motivation, but not the obligation, to also buy up other shares, especially when they come across price dislocations.
+
+I am concerned that in your current design, the large shareholders and would-be market-makers are somehow being assumed to have the obligation to buy shares from the smaller miners, but the obligation is (of course!) unenforceable.
+
+Attempting to think it through: 
+* say your top 20 miners represent `p%` of your hash rate, but `q%` of outstanding shares (in the current PPLNS window). We cannot directly measure `p` (which is why shares exist in the first place!), so we want `q` to, in expectation, equal `p`.
+* as I currently understand it, your current design will allocate `100%` of the mainchain reward to those top 20 shareholders _irrespective_ of whether/how/if those shareholders bought up shares from the smaller players
+
+Now imagine you are contemplating being a miner/market maker for this. The problem (as I see it) is that if, through your trading actions, you cannot become one of those top 20 before the window closes, then all your hashes/trades affecting that window will irrecoverable losses. This is a result of the chosen parameters, and therefore is a cause of `d_params` being less than 1.0. 
+
+A more ideal design:
+1. for the top 20 shareholders which represent `q%` of shares outstanding would only be allocated `q%` of the mainchain bitcoin reward.
+2. those shareholder's shares would be destroyed (because they have now been redeemed) and the remaining `(1-q)%` of the mainchain bitcoin reward would be paid out to the bottom `(1-q)%` of shareholders using some sort of off-chain mechanism.
+
+Alas, I cannot figure out how to do the above without mainchain covenants and without some sort of custodial mechanism, and for both of those reasons I currently consider it a dead end. However you can probably see where this is going now: **can we approximate the above ideal design without requiring any changes to mainchain bitcoin and staying non-custodial?**
+
+It may not fully or faithfully approximate it, but I do wonder whether randomly selected shareholders, non-expiring shares, and an unbounded PPLNS window (which is just another name for "deterministic share issuance schedule, coupled with difficulty adjustment algorithm"), might get the closest to recovering the desired ideal, and hence maximizing the marketability of the shares while remaining non-custodial and no-mainchain-upgrade-required.
+
+### speaking of design parameters
+
+@ZmnSCPxj While writing this post, it occurred to me that the OP which delineates the overall design of p2share does not explicitly state that when a payout happens (i.e. when that lucky shareholder is allocated the entire mainchain bitcoin reward), that the shareholder's shares are destroyed. 
+
+Rather, in the OP I presented it more similar to a distribution of profits rather than a share buyback. The buyback/redemption model is probably the better model. However, I remember now why I arrived at the distributional design. It was because I could not solve the following problem cleanly: 
+
+To actually implement the buyback model, the sharechain would need to carry, as part of its state, the current "price per share." This is so sharechain nodes can calculate how many of the selected shareholder's shares to buyback (destroy). Even if this calculation is somehow possible in an objective oracle-free manner (a tough, maybe impossible challenge in it of itself!), it triggers some other issues:
+
+1. Overflow - what if the selected shareholder does not have enough shares to "sell" back? Where does the excess btc reward go then? Since we want to remain non-custodial, one idea would be to randomly select a second shareholder and buy their shares back, and so on, until the reward has been exhausted. With each new selected shareholder the mainchain coinbase output set grows, so we start losing our precious blockspace and we end up back at the original P2Pool bloated coinbase problem.
+
+2. Market depth - even if we could have the sharechain objectively converge on a price per share and use it for these buybacks, it should also characterize market depth, and so then now we have to somehow emulate an entire order book inside sharechain...
+
+That is when I stopped and switched to the "just distribute the entire reward to the randomly selected shareholder" model. But I suppose there is an unexplored third model of, "choose one lucky shareholder and buy/destroy all the shares in that share output, and assign that shareholder the entire mainchain reward." Naturally large shareholders would then split their share holding across multiple outputs. This would not affect their probability of being selected, but it would minimize how many shares they sell if they are selected. This behavior likely puts downward pressure on the share price (assuming there is any such price at all!), not to mention unnecessarily bloats the sharechain utxo set. Nevertheless, maybe there is something here.
+
+---
+[^future_hashrate]: whether there will be future hashrate, and how much, is accounted for in the `d_time` discount factor. It is a statement or expectation about the future, and hence about the time value of money.
+
+-------------------------
+
