@@ -54,3 +54,9 @@ I have created a BIP PR to get the ball rolling: https://github.com/bitcoin/bips
 
 -------------------------
 
+pyth | 2025-11-12 10:41:23 UTC | #6
+
+is this format intented to be used as output descriptor?
+
+-------------------------
+
