@@ -408,3 +408,44 @@ operations --- would, today, be using ECDSA.)
 
 -------------------------
 
+ZmnSCPxj | 2025-11-12 00:15:13 UTC | #2
+
+Shared-spending Inter-Protocol Framework
+==
+
+A high-quality ***general*** Bitcoin-management (a.k.a. "wallet") implementation can implement the following software interface as a framework by which additional code can implement protocols that are capable of sufficient flexibility to allow arbitrarily adding new transaction inputs and new transaction outputs.
+
+As a concrete example, any protocol that uses Private Key Handover as described in the main text above can integrate with the below-described inter-protocol framework in order to create batched, RBFed transactions.
+
+The framework maintains a (possibly empty) set of requested commands.  A "command" in this context is either (1) a request to spend an input before some timeout or (2) a request to fund some address before some timeout.
+
+In particular, end-users can simply call `fund_output` one-at-a-time and the framework will, if feasible, batch the outputs into a single transaction, i.e. instead of requiring end-user code to call into a `send_multi`-equivalent command (so that end-user code has to decide to batch before calling into the Bitcoin-management framework), the end-user code calls multiple `fund_output` commands, and the framework automatically batches them, using RBF to replace any broadcasted transactions.
+
+The framework implicitly assumes that all inputs are some SegWit version, and thus have a non-malleable `txid` independent of signing.  The framework simply bans non-SegWit inputs outright.
+
+The framework has two entry points: `fund_output` and `spend_input`.  Both accept one or more callbacks, which the framework uses to coordinate with the actual protocols.
+
+* `fund_output(amount, timeout, requesterAddressCallback, requesterReadyCallback, requesterDoneCallback)` - Tell the framework that it has to make a transaction that sends out an `amount`, targeting the transaction to be confirmed before the `timeout` blockheight.
+  * The `requesterAddressCallback` is called whenever the framework has decided on some number of owned UTXOs, plus any pending spend-an-input requests, and a feerate to use.  It is given the feerate the framework has decided on.  It should return either a destination address for the amount, or a request to cancel itself and remove its request to fund the output.
+    * For example, consider the LN BOLT `openv1` protocol, where this might be used to initiate a new `open_channel`, and thus generate a new address from the replied `accept_channel` (i.e. this callback would send `open_channel` and wait for a corresponding `accept_channel`).
+    * The framework may call this at any time, as long as the request has not been cancelled, for example if it decides to RBF.
+  * The `requesterReadyCallback` is called whenever the framework has already called `requesterAddressCallback` on all `fund_output` commands, and has created, but not signed, the transaction.  It is given the stable `txid` of the transaction and the output index of that transaction where it is created, as well as the corresponding address.  It returns either an `ok`, or a request to cancel the transaction and remove its request to fund the output.
+    * For example, consider the LN BOLT `openv1` protocol, where this would be used to send `funding_created` and wait for a `funding_signed` (and if it times out waiting for `funding_signed`, to cancel the request instead of continuing).
+    * The framework will not sign and broadcast the transaction until after all `requesterReadyCallback`s return `ok`.  If any do not return `ok`, the framework will remove that output and then restart its loop starting with calling `requesterAddressCallback` on all unremoved output requests.
+  *  The `requesterDoneCallback` is called when some transaction that has funded the output has been confirmed (possibly to some depth determined by policy).  This is given the specific txout and address.
+     * For example, consider the LN BOLT `openv1` protocol, where this would be used to send `funding_locked` / `channel_ready`.
+* `spend_input(txin, amount, timeout, requesterSignCallback)` - Tell the framework that some specific transaction `txin` (a stable `txid` + `outnum`) must be spent before the given `timeout` blockheight.  `amount` is given here but depending on implementation it may be possible to remove it from the interface (in principle a full UTXO-map would store the `amount` and spending conditions, but that is not trivially exposed by e.g. bitcoin-core).
+  * If the framework currently has no `fund_output` requests, the funds (minus fees) should go to an address that the framework wallet unilaterally controls.
+  * The `requesterSignCallback` is called whenever the framework has already decided to sign and broadcast some transaction that includes this input.  It is given a PSBT, and it must return a PSBT with the corresponding input having the required witness filled in.
+    * For example, consider the LN BOLT `revocation` protocol, where the only requirement is to sign with the `revocationpubkey`, and the transaction can spend to anything.
+
+For a simple "send to an address" base usecase, you can call `fund_output` with the amount to be sent, with trivial callbacks where `requesterAddressCallback` returns the target address, `requesterReadyCallback` trivially returns `ok`, and `requesterDoneCallback` notifies the user UI.  The magic here is that if the human operator performs multiple "send to an address" commands in sequence, the wallet framework automatically batches them (it can delay its decision loop to wait for new commands to reduce the number of times it RBFs, but it can always RBF newer transactions for each new "send to an address" request).  In addition, in case of a sudden surge in fees, the wallet framework can automatically RBF without further human operator input; further, the human operator can specify some maximum feerate, and then `requesterAddressCallback` can fail the request automatically if the feerate is higher than the maximum set by the human operator.
+
+For the proposed "Private Key Handover", any protocol that implements Private Key Handover proposed in the original post can call into `spend_input`, and provide a `requesterSignCallback` that uses the handed-over private key to sign the input it is claiming.
+
+Of note is that obviously the framework needs to continue operating across restarts.  Thus, the actual callbacks would not be some kind of in-memory representation of a function; instead, you would need to pre-register some set of protocols that can use this framework, with some kind of per-protocol name or identifier that is stable across restarts (for example, it can be a versioned string, such as `simple_send_to_addr_v1`).  This registration for protocols that would call into `fund_output` could provide the function addresses for all the callbacks needed, so that the ***actual*** `fund_output` call accepts only the registered name.
+
+The framework would store the pending requests on persistent storage, and on restart, would load and look for any pending requests, and check the stored protocol names against the pre-registered protocols (and abort the restart if the in-storage string does not match any pre-registered protocols).  This make the framework a little harder to use, but makes it robust against restarts; the framework can record exactly where in its processing it has completed (e.g. if it has called some callback for some particular request).  This may require that individual requests also have an identifier (such as a UUID) across restarts.
+
+-------------------------
+
