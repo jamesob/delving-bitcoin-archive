@@ -80,3 +80,28 @@ It seems reasonable to follow the same approach for SP descriptors; allowing som
 
 -------------------------
 
+junderw | 2025-11-12 15:56:16 UTC | #9
+
+Thanks for the comment, Pieter.
+
+Re-reading the BTC Transcripts link from earlier in this topic…
+
+It seems like my proposal modification is essentially number 3. except without using descriptors and sppub/spprv. Also I add a birthday and a max label value.
+
+I agree that including UTXO info and ECDH info to speed up recovery is overkill for a descriptor. But I think birthday and max label should be included as a hint to aide in scanners.
+
+Whether the serialization is a descriptor or not is not a big issue for me, however, I think that wallets MUST output a standardized version and not have some wallets output sp(xprv/352h/0h,xpub/352h/0h,birthday,maxlabel) and some output sp(spprv,sppub,birthday,maxlabel)…
+
+Whether core wants to accept all those as input for deserialization is fine, but I don’t think we should encourage wallet devs to choose their own combinations of keys. It will confuse users, and I can see a “smarter than the average guy” type that shoots themself in the foot by swapping an xpub without thinking it through.
+
+In contrast, sppub or spscan or something like that is pretty obvious to the end user that “this is one logical unit of encoded info, don’t try and swap the internal bits around with other similar looking (xpub) data from other wallets” should prevent more accidents.
+
+I feel like the scan and spend coupling is something that should be strongly coupled (discourage swapping parts by making the scan+spend keys (prv+pub and prv+prv) into one bech32m encoded string, then comma separated birthday block and max label as an integer. Since it would be possible and reasonable to tell a user that “increasing the birthday will make initial scan faster but maybe miss some UTXOs etc.
+
+1. Thoughts on birthday and maxlabel?
+2. Thoughts on encoding scan+spend into one unit while leaving birthday and maxlabel as ints?
+
+I’m still very early in my thoughts on this. My initial thought was that birthday and maxlabel should be discouraged from being modified by end user, but I’m starting to think the opposite now if we’re going to move toward descriptors.
+
+-------------------------
+
