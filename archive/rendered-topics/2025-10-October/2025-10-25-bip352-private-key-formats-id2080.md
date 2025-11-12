@@ -70,3 +70,13 @@ without the information contained in the scanned transactions, we cannot describ
 
 -------------------------
 
+sipa | 2025-11-12 14:49:16 UTC | #8
+
+It's true that SP descriptors can't really encode outputs, but this is orthogonal to the question of private vs public. It's already the case that (public) SP descriptors work in kind of a meta way where the corresponding scriptPubKey is still a function of the actual transaction inputs, not just the contents of the descriptor string.
+
+If we accept that meta-aspect, it's a very small leap to permit private keys too. In all other settings, output descriptors with private key material (whether that's WIP or xprv) are seen as effectively syntactic sugar for the corresponding public-only variant (hex pubkey instead of WIF, xpub instead of xprv) + also conveying the private key for it as additional out-of-band information.
+
+It seems reasonable to follow the same approach for SP descriptors; allowing some encoding that includes private key material, permitting it in descriptors, and treating it as equivalent to the corresponding public version, but also conveying the included private keys.
+
+-------------------------
+
