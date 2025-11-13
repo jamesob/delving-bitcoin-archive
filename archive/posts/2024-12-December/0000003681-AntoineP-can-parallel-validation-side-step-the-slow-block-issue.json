@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"evoskuil\" data-post=\"6\" data-topic=\"1288\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/evoskuil/48/391_2.png\" class=\"avatar\"> evoskuil:</div>\n<blockquote>\n<p>This seems to assume that all blocks of the same height have the same amount of work.</p>\n</blockquote>\n</aside>\n<p>All blocks with the same parent will always have the same amount of work.</p>\n<aside class=\"quote no-group\" data-username=\"evoskuil\" data-post=\"2\" data-topic=\"1288\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/evoskuil/48/391_2.png\" class=\"avatar\"> evoskuil:</div>\n<blockquote>\n<p>Concurrent validation of competing blocks would only make sense if they had the same amount of work. I\u2019m have no idea how common this is.</p>\n</blockquote>\n</aside>\n<p><a href=\"https://fork.observer/\">Fork.observer</a> says there has been 23 1-block reorgs since block height <a href=\"https://blockstream.info/block/000000000000000000034231f368448e06b644716fc11e28b4aa23005b3f0cdd\">845,625 (2024-05-29)</a>.</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"7\" data-topic=\"1288\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>At the moment, I\u2019d expect block relay to be pretty severely impacted by slow validation.</p>\n</blockquote>\n</aside>\n<p>This is also what i would expect and is confirmed by the couple basic experiments i ran on Warnet. Since the transaction in the block wasn\u2019t previously announced the propagation time to a node is the validation time times the number of nodes on the shorter path between it and the emitter.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-12-02T18:39:59.963Z",
   "reply_count": 2,
   "reply_to_post_number": 6,
   "quote_count": 3,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 73.2,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 76.6,
   "yours": false,
   "topic_id": 1288,
   "topic_slug": "can-parallel-validation-side-step-the-slow-block-issue",
@@ -28,6 +29,7 @@
   "flair_bg_color": "",
   "flair_color": "",
   "flair_group_id": 43,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -55,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "All blocks with the same parent will always have the same amount of work. \n\n<a href=\"https://fork.observer/\">Fork.observer</a> says there has been 23 1-block reorgs since block height <a href=\"https://blockstream.info/block/000000000000000000034231f368448e06b644716fc11e28b4aa23005b3f0cdd\">845,625 (2024-05-29)</a>. \n\nThis is also what i would expect and is confirmed by the couple basic experiments i ran on Warnet. Since the transaction in the &hellip;",
+  "truncated": true,
+  "post_url": "/t/can-parallel-validation-side-step-the-slow-block-issue/1288/12",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

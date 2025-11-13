@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"35\" data-topic=\"553\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>I\u2019m pretty sure we\u2019re now measuring 0.8% of \u201cNever Happens\u201d though. This doesn\u2019t seem to be the kind of thing that happens much by accident, but only as a result of deliberate attack. And that won\u2019t happen in the scenario where 50% of miners are doing this?</p>\n</blockquote>\n</aside>\n<p>Ah, but we don\u2019t have 50% of miners doing this now; we have ~100% of miners requiring a 100% increased absolute fee. Those miners are in different pools though, which is a different constraint. For the first pool to defect from requiring 100% absolute fee, I think the numbers look like:</p>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>pool hash rate</th>\n<th>7 blocks</th>\n<th>10</th>\n<th>20</th>\n<th>50</th>\n<th>100</th>\n<th>135</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>0.1%</td>\n<td>12.54%</td>\n<td>9.14%</td>\n<td>4.81%</td>\n<td>2.01%</td>\n<td>1.04%</td>\n<td>0.79%</td>\n</tr>\n<tr>\n<td>1%</td>\n<td>12.94%</td>\n<td>9.55%</td>\n<td>5.26%</td>\n<td>2.49%</td>\n<td>1.57%</td>\n<td>1.34%</td>\n</tr>\n<tr>\n<td>5%</td>\n<td>14.86%</td>\n<td>11.60%</td>\n<td>7.58%</td>\n<td>5.39%</td>\n<td>5.03%</td>\n<td>5.00%</td>\n</tr>\n<tr>\n<td>10%</td>\n<td>17.56%</td>\n<td>14.57%</td>\n<td>11.23%</td>\n<td>10.05%</td>\n<td>10.00%</td>\n<td>10.00%</td>\n</tr>\n<tr>\n<td>20%</td>\n<td>24.03%</td>\n<td>21.88%</td>\n<td>20.19%</td>\n<td>20.00%</td>\n<td>20.00%</td>\n<td>20.00%</td>\n</tr>\n<tr>\n<td>30%</td>\n<td>31.84%</td>\n<td>30.61%</td>\n<td>30.02%</td>\n<td>30.00%</td>\n<td>30.00%</td>\n<td>30.00%</td>\n</tr>\n<tr>\n<td>50%</td>\n<td>50.20%</td>\n<td>50.02%</td>\n<td>50.00%</td>\n<td>50.00%</td>\n<td>50.00%</td>\n<td>50.00%</td>\n</tr>\n<tr>\n<td>70%</td>\n<td>70.00%</td>\n<td>70.00%</td>\n<td>70.00%</td>\n<td>70.00%</td>\n<td>70.00%</td>\n<td>70.00%</td>\n</tr>\n<tr>\n<td>100%</td>\n<td>100.00%</td>\n<td>100.00%</td>\n<td>100.00%</td>\n<td>100.00%</td>\n<td>100.00%</td>\n<td>100.00%</td>\n</tr>\n</tbody>\n</table>\n</div><p>(Formula here is <span class=\"math\">x \\ge \\frac{h}{1-(1-h)^{n+1}}</span> \u2013 if you keep doing what everyone else is doing, you\u2019re expected revenue is <span class=\"math\">h \\cdot f</span> where <span class=\"math\">f</span> is the original fee, if you accept a replacement then either you\u2019ll mine it if you get a block, or the original will be mined by someone else at block <span class=\"math\">n+1</span>, so your expected revenue is <span class=\"math\">(1-(1-h)^{n+1}) \\cdot xf</span> where the replacement is paying a total fee of <span class=\"math\">xf</span>. Accepting the replacement has higher expected value when <span class=\"math\">x</span> satisfies the formula above. I think that table keeps working for the second defector and so on, provided all the defectors stick to their own optimal settings)</p>\n<p>The question is \u201cI\u2019m writing an app that wants to urgently replace some transaction, and I have to choose a fee for that. Obviously I\u2019m going to choose a high feerate because otherwise it definitely won\u2019t get mined soon, but do I have to boost that feerate even higher than the bottom-of-the-top-block feerate, and if so, by how much?\u201d</p>\n<p>At the moment, the answer is very much yes \u2013 you need to make sure your total fee is strictly greater than what you\u2019re replacing.</p>\n<p>If we change that rule, we need to figure out a new answer to the conflict between what miners would like (more fees better!) and what users want (less fees better!). But miners are getting the final choice as to whether to use the replacement or not, so it\u2019s likely that their decision matters most.</p>\n<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"35\" data-topic=\"553\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>So I think you\u2019ve convinced me that it will come down to whatever\u2019s simplest to implement?</p>\n</blockquote>\n</aside>\n<p>Simpler is always better, but the simplest solution is always to stick with what we\u2019ve already got.</p>\n<p>The good thing is that, going by the tables above and previously, what we\u2019ve already got <strong>isn\u2019t</strong> optimal for either miners (they\u2019d be better off to accept some replacements paying a lower absolute fee both today with competing pools, and even in a stratum v2 world with a ~100% pool) or users (less fees good!), so there\u2019s some concrete justification for change.</p>\n<p>I think the above table implies that for any tx that\u2019s 5MvB deep in the mempool or more, and is being replaced by a tx with a mining score that will put it in the next block, then we could reduce the total fee requirement to only need to pay 40% of the total fees of the replaced txs, and that would be a win for any pool with less than 40% hashrate. Probably still requires cluster mempool first in order to efficiently estimate mempool depth and next block feerate, but otherwise might be reasonably simple.</p>",
   "post_number": 36,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2024-03-20T01:08:26.651Z",
   "reply_count": 0,
   "reply_to_post_number": 35,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "incoming_link_count": 5,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 76.4,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": true,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Ah, but we don\u2019t have 50% of miners doing this now; we have ~100% of miners requiring a 100% increased absolute fee. Those miners are in different pools though, which is a different constraint. For the first pool to defect from requiring 100% absolute fee, I think the numbers look like: \n\n\n\n\npool h&hellip;",
+  "truncated": true,
+  "post_url": "/t/mempool-incentive-compatibility/553/36",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

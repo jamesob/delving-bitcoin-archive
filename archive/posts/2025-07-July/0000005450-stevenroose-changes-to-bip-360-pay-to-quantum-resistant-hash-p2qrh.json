@@ -7,15 +7,15 @@
   "cooked": "<p>If you\u2019re going the route of adding post-quantum crypto as just opcodes, then I would strongly suggest renaming the p2qrh soft-fork simply pay-to-tapscript or pay-to-mast. It\u2019s not quantum-specific and there is definitely demand from other parts of the ecosystem for something like p2ts.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 13,
+  "posts_count": 30,
   "updated_at": "2025-07-14T09:31:50.262Z",
-  "reply_count": 2,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 63.6,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 81.2,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

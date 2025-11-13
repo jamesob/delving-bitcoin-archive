@@ -7,14 +7,15 @@
   "cooked": "<p>I think its far easier to create fake stats on signet than fake evaluations on wiki.</p>\n<aside class=\"onebox twitterstatus\" data-onebox-src=\"https://x.com/stevenroose3/status/1862231147851243760\">\n  <header class=\"source\">\n\n      <a href=\"https://x.com/stevenroose3/status/1862231147851243760\" target=\"_blank\" rel=\"noopener nofollow ugc\">x.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <img src=\"https://delvingbitcoin.org/uploads/default/original/1X/45e18056484ed7df824ba77e4e544f9d9e2030bf.jpeg\" class=\"thumbnail onebox-avatar\" data-dominant-color=\"48678A\" width=\"200\" height=\"200\">\n<h4><a href=\"https://x.com/stevenroose3/status/1862231147851243760\" target=\"_blank\" rel=\"noopener nofollow ugc\">Steven Roose (@stevenroose3) on X</a></h4>\n<div class=\"twitter-screen-name\"><a href=\"https://x.com/stevenroose3/status/1862231147851243760\" target=\"_blank\" rel=\"noopener nofollow ugc\">@stevenroose3</a></div>\n\n<div class=\"tweet\">\n  <span class=\"tweet-description\">@ercwl If an Ark would be deployed on inquisition, you'd also barely see any CTV txs confirm, because they stay off-chain. This is a bad metric for usage/interest. Also trivially inflatable.</span>\n</div>\n\n<div class=\"date\">\n  <a href=\"https://x.com/stevenroose3/status/1862231147851243760\" class=\"timestamp\" target=\"_blank\" rel=\"noopener nofollow ugc\"></a>\n\n\n</div>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
   "post_number": 23,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2025-01-03T08:27:55.123Z",
   "reply_count": 0,
   "reply_to_post_number": 22,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 17.6,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 23.6,
   "yours": false,
   "topic_id": 1257,
   "topic_slug": "ctv-apo-cat-activity-on-signet",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 3,
     "username": "ajtowns",
     "name": "Anthony Towns",
     "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think its far easier to create fake stats on signet than fake evaluations on wiki.",
+  "truncated": true,
+  "post_url": "/t/ctv-apo-cat-activity-on-signet/1257/23",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

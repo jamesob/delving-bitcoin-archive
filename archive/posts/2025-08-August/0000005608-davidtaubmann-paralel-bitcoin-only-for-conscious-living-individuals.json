@@ -1,6 +1,6 @@
 {
   "id": 5608,
-  "name": "David Taubmann",
+  "name": "David Taubmann (david.qro.mx)",
   "username": "davidtaubmann",
   "avatar_template": "/user_avatar/delvingbitcoin.org/davidtaubmann/{size}/1439_2.png",
   "created_at": "2025-08-01T03:11:22.795Z",
@@ -13,16 +13,16 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 8.0,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 11.6,
   "yours": false,
   "topic_id": 1877,
   "topic_slug": "paralel-bitcoin-only-for-conscious-living-individuals",
   "topic_title": "Paralel Bitcoin only for conscious living individuals",
   "topic_html_title": "Paralel Bitcoin only for conscious living individuals",
   "category_id": 6,
-  "display_username": "David Taubmann",
+  "display_username": "David Taubmann (david.qro.mx)",
   "primary_group_name": null,
   "flair_name": null,
   "flair_url": null,
@@ -36,7 +36,7 @@
   "can_recover": false,
   "can_see_hidden_post": false,
   "can_wiki": false,
-  "user_title": null,
+  "user_title": "",
   "reply_to_user": {
     "id": 794,
     "username": "danoprey",
@@ -63,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

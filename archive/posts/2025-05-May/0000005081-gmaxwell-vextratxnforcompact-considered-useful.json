@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 9.0,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 9.6,
   "yours": false,
   "topic_id": 1716,
   "topic_slug": "vextratxnforcompact-considered-useful",
@@ -63,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

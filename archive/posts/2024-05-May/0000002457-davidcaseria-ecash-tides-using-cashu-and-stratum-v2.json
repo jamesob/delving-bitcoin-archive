@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"EthnTuttle\" data-post=\"3\" data-topic=\"870\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ethntuttle/48/26_2.png\" class=\"avatar\"> EthnTuttle:</div>\n<blockquote>\n<p>This is the trickiest part of the proposal and it <em>might</em> be solved as follows. I do hope others will ponder this aspect for other ways to \u2018reuse\u2019 ecash.</p>\n</blockquote>\n</aside>\n<p>I don\u2019t fully understand your statement here because I believe that ecash can\u2019t be reused by its nature.</p>\n<p>I think I understand your idea at a high level: redeem the ehash for the reward and also receive another ehash to be redeemed later. How do you track how often an ehash has been issued for the original share? Is there a way to link an ehash to a share? How would this work if an ehash is split into representations of less difficult shares?</p>",
   "post_number": 18,
   "post_type": 1,
+  "posts_count": 35,
   "updated_at": "2024-05-19T15:43:33.538Z",
   "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 6.4,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 27.2,
   "yours": false,
   "topic_id": 870,
   "topic_slug": "ecash-tides-using-cashu-and-stratum-v2",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"EthnTuttle, post:3, topic:870\"]\nThis is the trickiest part of the proposal and it *might* be solved as follows. I do hope others will ponder this aspect for other ways to \u2018reuse\u2019 ecash.\n[/quote]\n\nI don't fully understand your statement here because I believe that ecash can't be reused by its nature.\n\nI think I understand your idea at a high level: redeem the ehash for the reward and also receive another ehash to be redeemed later. How do you track how often an ehash has been issued for the original share? Is there a way to link an ehash to a share? How would this work if an ehash is split into representations of less difficult shares?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I don\u2019t fully understand your statement here because I believe that ecash can\u2019t be reused by its nature. \nI think I understand your idea at a high level: redeem the ehash for the reward and also receive another ehash to be redeemed later. How do you track how often an ehash has been issued for the &hellip;",
+  "truncated": true,
+  "post_url": "/t/ecash-tides-using-cashu-and-stratum-v2/870/18",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

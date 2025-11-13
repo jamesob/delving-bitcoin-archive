@@ -7,15 +7,15 @@
   "cooked": "<p>Has the spam problem of bitcoin ever been formally defined in quasi-mathematical terms?</p>\n<p>My intuition is that p2p value transfers inherently are at a motivation disadvantage compared to spammers who wish to reach millions or billions of people with their content. Broadcast networks simply do not provide the same value bye-per-byte to someone that wishes to transmit information person to person, probably not even in the same magnitude. In the past many people may have made the mistake of thinking about spam as self gratifying \u201cgraffiti\u201d that nobody will see anyhow. I don\u2019t think that is true anymore. Nor do I think that \u201cpricing out\u201d spammers is going to work as well as people have assumed in the past. The more likely outcome seems to be that p2p value transfers will largely abandon bitcoin before spammers do.</p>\n<p>Other currently unpermissioned networks like nostr that work with sort of broadcast principles have similar problems. Imposing cost on a per post basis is not going to be a successful deterrent, if the value derived from spam (for the spammer) is higher than the value derived form sharing thoughts in a social media setting. While nostr or a future social media network can easily adopt a different strategy for propagation than dumb broadcast, bitcoin is for better or worse stuck with it on layer-1.</p>\n<p>Generally the internet has largely chosen to identify the users (impose a cost on identity) and impose sanctions on misbehaving instead of imposing cost on user actions to deal with spam. However this path is contrary to the principles and ethos of bitcoin. It has also led to catastrophic consequences to privacy via the extension of the surveillance state through big-tech.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 7,
   "updated_at": "2025-05-14T10:25:42.907Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "incoming_link_count": 60,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 300.8,
   "yours": false,
   "topic_id": 1692,
   "topic_slug": "the-spam-problem-of-bitcoin-and-unpermissioned-broadcast-networks-in-general",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Has the spam problem of bitcoin ever been formally defined in quasi-mathematical terms?\n\nMy intuition is that p2p value transfers inherently are at a motivation disadvantage compared to spammers who wish to reach millions or billions of people with their content. Broadcast networks simply do not provide the same value bye-per-byte to someone that wishes to transmit information person to person, probably not even in the same magnitude. In the past many people may have made the mistake of thinking about spam as self gratifying \"graffiti\" that nobody will see anyhow. I don't think that is true anymore. Nor do I think that \"pricing out\" spammers is going to work as well as people have assumed in the past. The more likely outcome seems to be that p2p value transfers will largely abandon bitcoin before spammers do.\n\nOther currently unpermissioned networks like nostr that work with sort of broadcast principles have similar problems. Imposing cost on a per post basis is not going to be a successful deterrent, if the value derived from spam (for the spammer) is higher than the value derived form sharing thoughts in a social media setting. While nostr or a future social media network can easily adopt a different strategy for propagation than dumb broadcast, bitcoin is for better or worse stuck with it on layer-1.\n\nGenerally the internet has largely chosen to identify the users (impose a cost on identity) and impose sanctions on misbehaving instead of imposing cost on user actions to deal with spam. However this path is contrary to the principles and ethos of bitcoin. It has also led to catastrophic consequences to privacy via the extension of the surveillance state through big-tech.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,19 @@
   "excerpt": "Has the spam problem of bitcoin ever been formally defined in quasi-mathematical terms? \nMy intuition is that p2p value transfers inherently are at a motivation disadvantage compared to spammers who wish to reach millions or billions of people with their content. Broadcast networks simply do not pro&hellip;",
   "truncated": true,
   "post_url": "/t/the-spam-problem-of-bitcoin-and-unpermissioned-broadcast-networks-in-general/1692/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

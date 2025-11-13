@@ -7,14 +7,15 @@
   "cooked": "<p>That\u2019s a good point, I think you\u2019re right!</p>\n<p>The only issue is that people today backup descriptors and not wallet policies, so the discrepancy is a UX problem at registration time.</p>\n<p>I think people should backup wallet policies to represent <em>accounts</em> in software wallets, except for the exotic use cases where wallet policies don\u2019t work.</p>",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2023-12-19T15:40:22.958Z",
   "reply_count": 0,
   "reply_to_post_number": 13,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.6,
+  "reads": 62,
+  "readers_count": 61,
+  "score": 27.4,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,26 +38,45 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 12,
     "username": "AntoineP",
     "name": "Antoine Poinsot",
-    "avatar_template": "/letter_avatar_proxy/v4/letter/a/8e8cbc/{size}.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png"
   },
   "bookmarked": false,
   "raw": "That\u2019s a good point, I think you\u2019re right!\n\nThe only issue is that people today backup descriptors and not wallet policies, so the discrepancy is a UX problem at registration time.\n\nI think people should backup wallet policies to represent *accounts* in software wallets, except for the exotic use cases where wallet policies don\u2019t work.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 81,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "That\u2019s a good point, I think you\u2019re right! \nThe only issue is that people today backup descriptors and not wallet policies, so the discrepancy is a UX problem at registration time. \nI think people should backup wallet policies to represent accounts in software wallets, except for the exotic use case&hellip;",
+  "truncated": true,
+  "post_url": "/t/unspendable-keys-in-descriptors/304/15",
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

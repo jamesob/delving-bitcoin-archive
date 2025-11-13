@@ -7,14 +7,15 @@
   "cooked": "<p>From the prelimiary spec, where PC fits in LN-Symmetry:</p>\n<h3><a name=\"p-3402-vector-commitments-1\" class=\"anchor\" href=\"#p-3402-vector-commitments-1\"></a>Vector Commitments</h3>\n<p><code>OP_PAIRCOMMIT</code> can be used to commit to a vector of stack elements in a way that\nis not vulnerable to various forms of witness malleability especially when used\nin conjunction with <code>OP_CHECKSIGFROMSTACK</code> and <code>OP_INTERNALKEY</code>,\nsince SHA256 implicitly commits to size of the stack elements, making the script\ncleaner, and simpler. If <code>OP_CAT</code> was used naively, the contract could be easily\nbroken since <code>OP_CHECKTEMPLATEVERIFY</code>is only defined for 32 byte parameters.</p>\n<pre><code class=\"lang-plaintext\"># S = 500000000\n# IK -&gt; A+B\n&lt;sig&gt; &lt;state-n-recovery-data&gt; &lt;state-n-hash&gt; | CTV PC IK CSFSV &lt;S+1&gt; CLTV\n</code></pre>\n<p>before funding sign first state template:</p>\n<pre><code class=\"lang-plaintext\"># state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }\n# settlement-n-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }\n# state-n-recovery-data { settlement-n-hash or state-n-balance }\n\n# contract for state n &lt; m\nIF\n  &lt;sig&gt; &lt;state-m-recovery-data&gt; &lt;state-m-hash&gt; | CTV PC IK CSFSV &lt;S+n+1&gt; CLTV\nELSE\n  &lt;settlement-n-hash&gt; CTV\nENDIF\n</code></pre>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-10-25T14:38:37.937Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "incoming_link_count": 2,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 37.8,
   "yours": false,
   "topic_id": 1216,
   "topic_slug": "op-paircommit-as-a-candidate-for-addition-to-lnhance",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "From the prelimiary spec, where PC fits in LN-Symmetry:\n\n### Vector Commitments\n\n`OP_PAIRCOMMIT` can be used to commit to a vector of stack elements in a way that\nis not vulnerable to various forms of witness malleability especially when used\nin conjunction with `OP_CHECKSIGFROMSTACK` and `OP_INTERNALKEY`,\nsince SHA256 implicitly commits to size of the stack elements, making the script\ncleaner, and simpler. If `OP_CAT` was used naively, the contract could be easily\nbroken since `OP_CHECKTEMPLATEVERIFY`is only defined for 32 byte parameters.\n\n```text\n# S = 500000000\n# IK -> A+B\n<sig> <state-n-recovery-data> <state-n-hash> | CTV PC IK CSFSV <S+1> CLTV\n```\nbefore funding sign first state template:\n```text\n# state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }\n# settlement-n-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }\n# state-n-recovery-data { settlement-n-hash or state-n-balance }\n\n# contract for state n < m\nIF\n  <sig> <state-m-recovery-data> <state-m-hash> | CTV PC IK CSFSV <S+n+1> CLTV\nELSE\n  <settlement-n-hash> CTV\nENDIF\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "From the prelimiary spec, where PC fits in LN-Symmetry: \n<a name=\"p-3402-vector-commitments-1\" class=\"anchor\" href=\"#p-3402-vector-commitments-1\"></a>Vector Commitments\nOP_PAIRCOMMIT can be used to commit to a vector of stack elements in a way that\nis not vulnerable to various forms of witness malleability especially when used\nin conjunction with OP_CHECKSIGFROMSTACK and OP_INTERNALKEY,\nsin&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-paircommit-as-a-candidate-for-addition-to-lnhance/1216/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

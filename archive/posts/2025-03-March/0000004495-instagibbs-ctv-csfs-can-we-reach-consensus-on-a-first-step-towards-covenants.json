@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"jamesob\" data-post=\"24\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/jamesob/48/271_2.png\" class=\"avatar\"> jamesob:</div>\n<blockquote>\n<p>I\u2019ve spoken to two Blockstream engineers</p>\n</blockquote>\n</aside>\n<p>For the sake of discussion getting these things on the record by the claimants somewhere public with details is helpful. I think I know the upsides/downsides of the approach but without details it\u2019s hard to engage.</p>",
   "post_number": 25,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-12T21:24:45.577Z",
   "reply_count": 2,
   "reply_to_post_number": 24,
   "quote_count": 1,
-  "incoming_link_count": 8,
-  "reads": 27,
-  "readers_count": 26,
-  "score": 70.4,
+  "incoming_link_count": 23,
+  "reads": 69,
+  "readers_count": 68,
+  "score": 153.8,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "For the sake of discussion getting these things on the record by the claimants somewhere public with details is helpful. I think I know the upsides/downsides of the approach but without details it\u2019s hard to engage.",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/25",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

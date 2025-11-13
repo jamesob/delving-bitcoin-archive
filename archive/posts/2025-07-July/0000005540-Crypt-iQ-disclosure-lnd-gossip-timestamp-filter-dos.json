@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 2,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 72.8,
+  "incoming_link_count": 3,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 110.6,
   "yours": false,
   "topic_id": 1859,
   "topic_slug": "disclosure-lnd-gossip-timestamp-filter-dos",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 4
+      "count": 6
     }
   ],
   "moderator": false,
@@ -63,15 +63,19 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

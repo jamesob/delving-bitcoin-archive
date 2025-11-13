@@ -7,14 +7,15 @@
   "cooked": "<p>Changing the utreexo hash function to using SHA-256 (which has a Risc0 precompile) reduces proving time to 22s using this approach:</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/b/b4ffa89fe591ebeec1f2f9db7d282949bed240e1.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/b4ffa89fe591ebeec1f2f9db7d282949bed240e1\" title=\"Screenshot 2025-02-20 at 11.02.04\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/b/b4ffa89fe591ebeec1f2f9db7d282949bed240e1_2_690x154.png\" alt=\"Screenshot 2025-02-20 at 11.02.04\" data-base62-sha1=\"pPbGPOfhwT7T9OfIO6mYvuuk6Dn\" width=\"690\" height=\"154\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/b/b4ffa89fe591ebeec1f2f9db7d282949bed240e1_2_690x154.png, https://delvingbitcoin.org/uploads/default/optimized/2X/b/b4ffa89fe591ebeec1f2f9db7d282949bed240e1_2_1035x231.png 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/b/b4ffa89fe591ebeec1f2f9db7d282949bed240e1_2_1380x308.png 2x\" data-dominant-color=\"D2CFC5\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">Screenshot 2025-02-20 at 11.02.04</span><span class=\"informations\">1914\u00d7429 85 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>Now again the two EC multiplications (blinding the key and creating the taproot output key) dominates (in addition to ZKVM serde).</p>",
   "post_number": 29,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2025-02-20T16:04:59.299Z",
   "reply_count": 0,
   "reply_to_post_number": 28,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.2,
+  "incoming_link_count": 1,
+  "reads": 26,
+  "readers_count": 25,
+  "score": 25.2,
   "yours": false,
   "topic_id": 1407,
   "topic_slug": "zk-gossip-for-lightning-channel-announcements",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 163,
     "username": "halseth",
     "name": "Johan T. Halseth",
     "avatar_template": "/user_avatar/delvingbitcoin.org/halseth/{size}/198_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Changing the utreexo hash function to using SHA-256 (which has a Risc0 precompile) reduces proving time to 22s using this approach: \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/b/b4ffa89fe591ebeec1f2f9db7d282949bed240e1.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/b4ffa89fe591ebeec1f2f9db7d282949bed240e1\" title=\"Screenshot 2025-02-20 at 11.02.04\">[Screenshot 2025-02-20 at 11.02.04]</a> \nNow again the two EC multiplications (blinding the key and creating the taproot output key) dominates (in addition to ZKVM serde)&hellip;",
+  "truncated": true,
+  "post_url": "/t/zk-gossip-for-lightning-channel-announcements/1407/29",
   "reactions": [
     {
       "id": "eyes",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

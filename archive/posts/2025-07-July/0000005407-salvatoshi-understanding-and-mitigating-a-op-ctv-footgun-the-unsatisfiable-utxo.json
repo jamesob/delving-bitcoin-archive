@@ -7,15 +7,15 @@
   "cooked": "<p>To the best of my understanding, it is in general true that for (future) Script-based covenants based on programmatic restriction on the outputs (as opposed to restrictions obtained via presigned transactions), stability of txids doesn\u2019t seem to be useful. Therefore a simplified version of CTV that only commits to the outputs would allow greater flexibility, at no cost. Vaults constructed with CCV+CTV (essentially the same as VAULT+CTV) are an example.</p>\n<p>In constructions with such expressive covenants, CSFS might also be used as a means of enabling certain spending paths without depending on stable txids, by signing a message instead.</p>\n<p>However, <em>connector outputs</em> seem to be somewhat of an exception in that I am not aware of an equally easy <em>covenant-y</em> replacement for this primitive. Generalizations not based on presigned transactions do exist (see <a href=\"https://delvingbitcoin.org/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353\">ancestry proofs/singletons</a>) and it would be interesting to further explore what opcodes would enable the cleanest implementation.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 12,
   "updated_at": "2025-07-05T07:03:01.499Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.4,
+  "incoming_link_count": 2,
+  "reads": 29,
+  "readers_count": 28,
+  "score": 50.8,
   "yours": false,
   "topic_id": 1809,
   "topic_slug": "understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "To the best of my understanding, it is in general true that for (future) Script-based covenants based on programmatic restriction on the outputs (as opposed to restrictions obtained via presigned transactions), stability of txids doesn't seem to be useful. Therefore a simplified version of CTV that only commits to the outputs would allow greater flexibility, at no cost. Vaults constructed with CCV+CTV (essentially the same as VAULT+CTV) are an example.\n\nIn constructions with such expressive covenants, CSFS might also be used as a means of enabling certain spending paths without depending on stable txids, by signing a message instead.\n\nHowever, *connector outputs* seem to be somewhat of an exception in that I am not aware of an equally easy *covenant-y* replacement for this primitive. Generalizations not based on presigned transactions do exist (see [ancestry proofs/singletons](https://delvingbitcoin.org/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353)) and it would be interesting to further explore what opcodes would enable the cleanest implementation.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,23 @@
   "excerpt": "To the best of my understanding, it is in general true that for (future) Script-based covenants based on programmatic restriction on the outputs (as opposed to restrictions obtained via presigned transactions), stability of txids doesn\u2019t seem to be useful. Therefore a simplified version of CTV that &hellip;",
   "truncated": true,
   "post_url": "/t/understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo/1809/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
