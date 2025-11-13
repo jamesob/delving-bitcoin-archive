@@ -545,3 +545,32 @@ Have you considered also implementing the Anti-exfil protocol in secp256k1 libra
 
 -------------------------
 
+nymius | 2025-11-13 20:42:06 UTC | #31
+
+I would like to resurrect this post to talk about silent payment spending, something that was left out of the currently proposed specifications, although initially mentioned.
+
+On PSBTs, when spending non silent payment outputs, one can rely on the `PSBT_IN_BIP32_DERIVATION` or any of the allowed `PSBT_IN_TAP_*` combinations available to get the right private keys to sign for each input.
+
+To spend silent payment outputs, one has to combine the private key with the tweak derived from the transaction corpus.
+
+Before proceeding with any specification, I would like to have a strong rationale for this.
+
+I’ve been researching other related BIPs: 370 (PSBTv2), 371 (Taproot PSBT fields), 340 (Schnorr signatures) and 373 (MuSig2 PSBT Fields), and these are the relevant notes I considered:
+
+* It is possible to spend using a `PSBT_IN_PROPRIETARY` type, but BIP 352 is not tied to a single implementation, and different applications using the protocol may want to interoperate with each other. This approach is too brittle and will require synchronization, which may eventually (or initially as I’m proposing here) involve specifying a new PSBT field.
+
+* `PSBT_IN_TAP_MERKLE_ROOT` field is the semantically closest to the purpose seek here, as it’s also the input for a taproot tweak, but can’t be used either because of the tagged hash used for tweaking: *TapTweak*.
+
+  A change of the hash tag used for silent payments to *TapTweak* or something compatible with taproot tweaking is not impossible. It would not break domain compartmentalization, as the data from which each hash is computed is different.
+  There are also no concerns here in relation to change verification as silent payment change does not depend of any taproot tree.
+  The issue is it will require changes to the current BIP 352, which is not feasible, at least under this spec.
+  One unanswered question along this line of reasoning is why `PSBT_IN_TAP_MERKLE_ROOT` wasn’t considered to be just a `PSBT_IN_TAP_TWEAK`? Including directly `hash("TapTweak", <pubkey>, merkle_root>)` into the PSBT.
+  If it would have been like this, adding silent payment tweaks would be trivial.
+  Assuming the use of raw tweaks is not exclusive of the silent payment protocol, and that other protocols alike may need to create raw tweaks for their own purposes. If the intermediate tagged hash step is not a requirement, we may not need to scope the field just for silent payments.
+
+* Spend public keys are 33 bytes, but by dropping the first byte it fits inside `PSBT_IN_TAP_INTERNAL_KEY` at the cost of having to check the matching with the public key before signing. The gain here would be to not have to add another field, or encode extra data into the field.
+
+Any ideas or corrections on this matter?
+
+-------------------------
+
