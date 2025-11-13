@@ -125,3 +125,26 @@ I think keys shoud be represented as separated `Key Expression` as defined in [B
 
 -------------------------
 
+craigraw | 2025-11-13 09:06:49 UTC | #11
+
+> Thoughts on birthday and maxlabel?
+
+While no doubt useful for scanning, I think it may be disturbing for users to see their “xpub” or output descriptor change if they change their wallet birthday. The same is true for adding a label. That said, I believe the the use case of labels (publishing multiple SP addresses that differentiate incoming payments but trivially identify as the same entity) is limited to specialised applications like exchanges. Wallets should in general rather use SP keys derived from different BIP32 accounts.
+
+> Thoughts on encoding scan+spend into one unit while leaving birthday and maxlabel as ints?
+
+I think there is merit to the idea of encoding the sp_version+scan_key+spend_key into a single unit. While it would have been possible to list a chaincode and key separately, xpubs have proven to be a useful convenience, and they eliminate “swapping” of keys as you suggest. As to leaving birthday and maxlabel as ints in an output descriptor format, I think these would be useful but suggest making them optional, where reasonable defaults (block height 842579 and one change label) are assumed if not supplied.
+
+> I think we can reasonably assume that scanning with default quite hight value (100? 1000? 10_000?) cames at with nearly no noticeable performance cost
+
+I don’t believe this is true. Each additional label means at minimum an EC point addition and comparison against all eligible outputs for each transaction scanned. Here is are some benchmarking figures using [Frigate](https://github.com/sparrowwallet/frigate) on an 8x RTX 3060 GPU machine testing over a 64 week period:
+
+|  | Time (ms) | Tx/sec |
+|----|----|----|
+| No label | 16,949 | 4,199,074 |
+| Change label | 17,042 | 4,176,159 |
+| 10 labels | 19,334 | 3,681,086 |
+| 30 labels | 25,109 | 2,834,446 |
+
+-------------------------
+
