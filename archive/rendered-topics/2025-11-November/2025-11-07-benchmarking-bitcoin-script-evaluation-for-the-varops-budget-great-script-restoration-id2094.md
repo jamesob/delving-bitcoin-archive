@@ -214,3 +214,24 @@ We have actually worked with this normalization initially and it is helpful when
 
 -------------------------
 
+instagibbs | 2025-11-13 16:25:14 UTC | #4
+
+[quote="Julian, post:1, topic:2094"]
+Using nanobench, we measure how long it takes to execute pubkey.VerifySchnorr(sighash, sig) 80,000 times. On a modern CPU, this takes between one and two seconds.
+
+[/quote]
+
+TIL it was that slow. I worry that benchmarking against the *worst case* as the new “average” is the wrong goal as this may potentially become the average way of interacting with Bitcoin (unlike using lots of signatures, which seems rare). Basically we should expect \~every block to approach that level of verification cost, so I’d expect we would target something we would be happy with for IBD or at tip with relatively turbulent mempools. *waving wildly* On the order of 100ms?
+
+edit: Or maybe I’m wrong and the average GSR block would be significantly faster, just like now with sigops. :person_shrugging: Might be harder to predict what will actually be deemed useful vs “more sigops” which seem to have marginal utility?
+
+-------------------------
+
+Julian | 2025-11-13 16:33:51 UTC | #5
+
+Since the limit of the computational budget is fairly high I don’t expect the average block to come close to this budget at all, so fully validating the block should be way faster than the worst case, probably not quite on the order of 100ms, doing some benchmarks on real blocks would be interesting.
+
+But also I am not sure how much we should worry about IBD times, to my understanding the default IBD in core uses assumevalid with very recent checkpoint blocks, so the average user does not even fully validate \~99% of scripts.
+
+-------------------------
+

@@ -148,3 +148,14 @@ I don’t believe this is true. Each additional label means at minimum an EC poi
 
 -------------------------
 
+pyth | 2025-11-13 16:03:55 UTC | #12
+
+[quote="craigraw, post:11, topic:2080"]
+I don’t believe this is true. Each additional label means at minimum an EC point addition and comparison against all eligible outputs for each transaction scanned. Here is are some benchmarking figures using [Frigate](https://github.com/sparrowwallet/frigate) on an 8x RTX 3060 GPU machine testing over a 64 week period:
+
+[/quote]
+
+Thanks for this numbers proving me wrong!
+
+-------------------------
+
