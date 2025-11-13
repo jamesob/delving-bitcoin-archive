@@ -7,15 +7,15 @@
   "cooked": "<p>It\u2019s true that SP descriptors can\u2019t really encode outputs, but this is orthogonal to the question of private vs public. It\u2019s already the case that (public) SP descriptors work in kind of a meta way where the corresponding scriptPubKey is still a function of the actual transaction inputs, not just the contents of the descriptor string.</p>\n<p>If we accept that meta-aspect, it\u2019s a very small leap to permit private keys too. In all other settings, output descriptors with private key material (whether that\u2019s WIP or xprv) are seen as effectively syntactic sugar for the corresponding public-only variant (hex pubkey instead of WIF, xpub instead of xprv) + also conveying the private key for it as additional out-of-band information.</p>\n<p>It seems reasonable to follow the same approach for SP descriptors; allowing some encoding that includes private key material, permitting it in descriptors, and treating it as equivalent to the corresponding public version, but also conveying the included private keys.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 9,
   "updated_at": "2025-11-12T14:49:16.312Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 2080,
   "topic_slug": "bip352-private-key-formats",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "It's true that SP descriptors can't really encode outputs, but this is orthogonal to the question of private vs public. It's already the case that (public) SP descriptors work in kind of a meta way where the corresponding scriptPubKey is still a function of the actual transaction inputs, not just the contents of the descriptor string.\n\nIf we accept that meta-aspect, it's a very small leap to permit private keys too. In all other settings, output descriptors with private key material (whether that's WIP or xprv) are seen as effectively syntactic sugar for the corresponding public-only variant (hex pubkey instead of WIF, xpub instead of xprv) + also conveying the private key for it as additional out-of-band information.\n\nIt seems reasonable to follow the same approach for SP descriptors; allowing some encoding that includes private key material, permitting it in descriptors, and treating it as equivalent to the corresponding public version, but also conveying the included private keys.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "It\u2019s true that SP descriptors can\u2019t really encode outputs, but this is orthogonal to the question of private vs public. It\u2019s already the case that (public) SP descriptors work in kind of a meta way where the corresponding scriptPubKey is still a function of the actual transaction inputs, not just th&hellip;",
   "truncated": true,
   "post_url": "/t/bip352-private-key-formats/2080/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

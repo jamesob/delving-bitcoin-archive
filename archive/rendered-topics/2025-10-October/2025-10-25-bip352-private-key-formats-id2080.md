@@ -105,3 +105,23 @@ I’m still very early in my thoughts on this. My initial thought was that birth
 
 -------------------------
 
+pyth | 2025-11-13 03:59:38 UTC | #10
+
+[quote="junderw, post:9, topic:2080"]
+But I think birthday and max label should be included as a hint to aide in scanners.
+
+[/quote]
+
+afaik others commonly used descriptors types don’t convey these informations (birthday & look_ahead/gap_limit), while often also (not strictly) necessary, I think it could be interesting to find a way that fit w/ all descriptors types rather having it as a special case for SP.
+
+Also, these informations are not strictly necessary in SP context, their purpose is to rescan faster, and about max_label, I think we can reasonably assume that scanning with default quite hight value (100? 1000? 10_000?) cames at with nearly no noticeable performance cost.
+
+[quote="junderw, post:9, topic:2080"]
+Thoughts on encoding scan+spend into one unit while leaving birthday and maxlabel as ints?
+
+[/quote]
+
+I think keys shoud be represented as separated `Key Expression` as defined in [BIP-0380](%EF%BF%BC) (in descriptor context)
+
+-------------------------
+
