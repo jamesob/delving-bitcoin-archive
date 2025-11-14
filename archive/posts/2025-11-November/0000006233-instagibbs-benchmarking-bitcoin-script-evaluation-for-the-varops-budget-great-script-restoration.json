@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"Julian\" data-post=\"1\" data-topic=\"2094\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/j/74df32/48.png\" class=\"avatar\"> Julian:</div>\n<blockquote>\n<p>Using nanobench, we measure how long it takes to execute pubkey.VerifySchnorr(sighash, sig) 80,000 times. On a modern CPU, this takes between one and two seconds.</p>\n</blockquote>\n</aside>\n<p>TIL it was that slow. I worry that benchmarking against the <em>worst case</em> as the new \u201caverage\u201d is the wrong goal as this may potentially become the average way of interacting with Bitcoin (unlike using lots of signatures, which seems rare). Basically we should expect ~every block to approach that level of verification cost, so I\u2019d expect we would target something we would be happy with for IBD or at tip with relatively turbulent mempools. <em>waving wildly</em> On the order of 100ms?</p>\n<p>edit: Or maybe I\u2019m wrong and the average GSR block would be significantly faster, just like now with sigops. <img src=\"https://delvingbitcoin.org/images/emoji/twitter/person_shrugging.png?v=14\" title=\":person_shrugging:\" class=\"emoji\" alt=\":person_shrugging:\" loading=\"lazy\" width=\"20\" height=\"20\"> Might be harder to predict what will actually be deemed useful vs \u201cmore sigops\u201d which seem to have marginal utility?</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2025-11-13T16:25:14.315Z",
   "reply_count": 2,
   "reply_to_post_number": null,

@@ -257,3 +257,28 @@ Doing benchmarks on the more powerful logic new opcodes enable might be more int
 
 -------------------------
 
+instagibbs | 2025-11-14 15:27:00 UTC | #7
+
+[quote="Julian, post:5, topic:2094"]
+Since the limit of the computational budget is fairly high I don’t expect the average block to come close to this budget at all, so fully validating the block should be way faster than the worst case,
+
+[/quote]
+
+I think in that case, the budget should be lowered to whatever worst case target we would have in mind.
+
+[quote="Julian, post:5, topic:2094"]
+But also I am not sure how much we should worry about IBD times, to my understanding the default IBD in core uses assumevalid with very recent checkpoint blocks, so the average user does not even fully validate \~99% of scripts.
+
+[/quote]
+
+We should not justify new resource requirements based on practical hacks to get around the historical issues, imo.
+
+[quote="ajtowns, post:6, topic:2094"]
+Doing benchmarks on the more powerful logic new opcodes enable might be more interesting
+
+[/quote]
+
+Agreed!
+
+-------------------------
+
