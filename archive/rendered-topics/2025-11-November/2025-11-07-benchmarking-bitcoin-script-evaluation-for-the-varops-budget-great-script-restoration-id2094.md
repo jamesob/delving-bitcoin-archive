@@ -235,13 +235,13 @@ But also I am not sure how much we should worry about IBD times, to my understan
 
 -------------------------
 
-ajtowns | 2025-11-13 22:22:48 UTC | #6
+ajtowns | 2025-11-14 17:00:33 UTC | #6
 
 [quote="instagibbs, post:4, topic:2094"]
 TIL it was that slow. I worry that benchmarking against the *worst case* as the new “average” is the wrong goal
 [/quote]
 
-Signatures are also cached, meaning that if we have seen the tx recently, re-verifying the signature for the block is much faster; whereas all the other logic isn't cached (there is a script cache, but that is only reused mempool-to-mempool and block-to-block, eg in a reorg, not mempool-to-block). So a high budget for non-signature operations likely has a worst impact on average validation time than a nominally-equivalent budget for signature operations.
+Signatures are also cached, meaning that if we have seen the tx recently, re-verifying the signature for the block is much faster; ~~whereas all the other logic isn't cached~~ (there is a script cache, but that is only reused mempool-to-mempool and block-to-block, eg in a reorg, ~~not mempool-to-block). So a high budget for non-signature operations likely has a worst impact on average validation time than a nominally-equivalent budget for signature operations.~~ EDIT: wrong, just wrong
 
 Also, you can only have ~62k distinct signatures in 4MB of witness data, so using the full budget would presumably mean ~22% of your operations should/could be cache hits even if none of the data had been seen before.
 
