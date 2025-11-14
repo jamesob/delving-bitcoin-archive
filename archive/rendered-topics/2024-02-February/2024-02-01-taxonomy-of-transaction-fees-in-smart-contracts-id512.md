@@ -1,6 +1,6 @@
 # Taxonomy of Transaction Fees in Smart Contracts
 
-instagibbs | 2024-02-01 16:52:08 UTC | #1
+instagibbs | 2024-02-05 15:23:48 UTC | #1
 
 We're going to take a look through many of the common
 fee tropes that wallets and smart contracts use and hopefully
@@ -21,6 +21,10 @@ to pay fees for them.
 
 In the below diagrams, green
 arrows indicate where fees are "coming from".
+Squares are bitcoin transactions, circles are outputs.
+Filled in orange implies the minimal set of transactions
+that require RBF, so 2+ would imply package
+RBF is required.
 
 # Endogenous fees, single transaction RBF
 
@@ -29,9 +33,12 @@ which also happens to be a single Bitcoin transaction.
 
 ```mermaid height=450,auto
 flowchart TD
-    Pi4([state_i]) -.->|conflicted| P4[Endo fees, Single RBF]
-    P4 --> Po4([state_i+1])
+    Pc([contract]) --> P4:::rbf
+    Pc --> Pi4
+    Pi4[Pay to state y] <-.->|conflicts| P4[Pay to state x\nEndo fees, Single RBF]
+    P4 --> Po4([state x balance minus fees])
     
+    classDef rbf fill:#f96
     linkStyle 0 stroke-width:4px,stroke:green
     linkStyle 1 stroke-width:4px,stroke:green
 ```
@@ -48,13 +55,16 @@ it within a single Bitcoin transaction.
 
 ```mermaid height=450,auto
 flowchart TD
-    Pi5([state_i]) -.->|conflicted| P5[Exo fees, Single RBF]
+    Pc([contract]) --> P5:::rbf
+    Pc --> Pi5
+    Pi5[Pay to state y] <-.->|conflicts| P5[Pay to state x\nExo fees, Single RBF]
     Pi5_2([fee input])--> P5
-    P5 --> Po5([state_i+1])
+    P5 --> Po5([state x balance])
     P5 --> Co5([change])
     
-    linkStyle 1 stroke-width:4px,stroke:green
+    classDef rbf fill:#f96
     linkStyle 3 stroke-width:4px,stroke:green
+    linkStyle 5 stroke-width:4px,stroke:green
 ```
 
 Typically seen with `SIGHASH_SINGLE | ANYONCANPAY` arrangements.
@@ -82,11 +92,15 @@ input set.
 
 ```mermaid height=450,auto
 flowchart TD
-    Pi3([state_i]) --> P3[parent]
-    P3 --> Po3([state_i+1])
-    Po3 --> C3[Endo fees, CPFP]
-    C3 --> Co3([change])
+    Pi3([contract])
+    Pi3 --> Pc[Pay to state y]
+    Pc --> Po3([contract state x])
+    Po3 --> C3[Endo fees, CPFP]:::rbf
+    C3 --> Co3([state x balance minus fees])
     
+    classDef rbf fill:#f96
+    linkStyle 0 stroke-width:4px,stroke:green
+    linkStyle 1 stroke-width:4px,stroke:green
     linkStyle 2 stroke-width:4px,stroke:green
     linkStyle 3 stroke-width:4px,stroke:green
 ```
@@ -115,12 +129,13 @@ or other factors.
 
 ```mermaid height=450,auto
 flowchart TD
-    Pi([state_i]) --> P[parent]
-    P --> Po([state_i+1])
-    Po --> C[Exo fees, CPFP]
+    Pi([contract]) --> P[Pay to state x]
+    P --> Po([state x])
+    Po --> C[Exo fees, CPFP]:::rbf
     fee([fee input]) --> C
-    C --> Co([change])
+    C --> Co([change plus state x balance])
     
+    classDef rbf fill:#f96
     linkStyle 3 stroke-width:4px,stroke:green
     linkStyle 4 stroke-width:4px,stroke:green
 ```
@@ -138,15 +153,19 @@ for the parent's conflict.
 If the smart contract's outputs are otherwise
 unencumbered, fees can be paid for endogenously.
 
-```mermaid height=450,auto
+```mermaid height=519,auto
 flowchart TD
-    Pi6([state_i]) -.->|conflicted| P6[parent]
-    P6 --> Po6([state_i+1])
-    Po6 --> C6[Endo fees, package RBF]
-    C6 --> Co6([change])
+    Pi3([contract]) --> P3[Pay to state x]:::rbf
+    Pi3 --> Pc[Pay to state y] <-.->|conflicts| P3
+    P3 --> Po3([contract state x])
+    Po3 --> C3[Endo fees, CPFP]:::rbf
+    C3 --> Co3([state x balance minus fees])
     
-    linkStyle 2 stroke-width:4px,stroke:green
+    classDef rbf fill:#f96
+    linkStyle 0 stroke-width:4px,stroke:green
     linkStyle 3 stroke-width:4px,stroke:green
+    linkStyle 4 stroke-width:4px,stroke:green
+    linkStyle 5 stroke-width:4px,stroke:green
 ```  
 
 Currently this is unavailable to Bitcoin's
@@ -159,16 +178,18 @@ unencumbered by a one block relative timelock.
 
 # Exogenous fees, Package RBF
 
-```mermaid height=432,auto
+```mermaid height=519,auto
 flowchart TD
-    Pi2([state_i]) -.->|conflicted| P2[parent]
-    P2 --> Po2([state_i+1])
-    Po2 --> C2[Exo fees, package RBF]
-    fee2([fee input]) --> C2
-    C2 --> Co2([change])
+    Pi([contract]) --> P[Pay to state x]:::rbf
+    Pi --> Pc[Pay to state y] <-.->|conflicts| P
+    P --> Po([state x])
+    Po --> C[Exo fees, CPFP]:::rbf
+    fee([fee input]) --> C
+    C --> Co([change plus state x balance])
     
-    linkStyle 3 stroke-width:4px,stroke:green
-    linkStyle 4 stroke-width:4px,stroke:green
+    classDef rbf fill:#f96
+    linkStyle 5 stroke-width:4px,stroke:green
+    linkStyle 6 stroke-width:4px,stroke:green
 ```
 
 Today's LN anchor channels is the primary example.
@@ -386,6 +407,28 @@ Haha, I suggested the same approach when @instagibbs drew these on the whiteboar
 instagibbs | 2024-02-02 15:00:12 UTC | #11
 
 @ajtowns you're on the hook for redrawing all of them now
+
+-------------------------
+
+VzxPLnHqr | 2025-11-14 20:06:12 UTC | #12
+
+Sorry to necropost here. From the original OP:
+
+>  ... this is important as we should be looking to support what users are attempting to make, where reasonable, to avoid out-of-band fee solutions.
+
+This conversation is largely around fee inputs (whether exogenous or endogenous). However, there may be another type of transaction fee which we may need to consider: **explicit fee outputs**.
+
+I am referring to a fee paid to a miner where the fee is represented as a separate output in the transaction. Let us call such fee outputs "explicit" fees, as opposed to usual "implicit" fees (` = sum of inputs - sum of outputs`).
+
+Of course, transactions with explicit fee outputs take up more block space, so the explicit fee must account for the miner's opportunity cost.
+
+But _why_ are out-of-band explicit-fee outputs bad? I think one reason which is often not considered by non-experts is that out-of-band explicit fee outputs are not, unless carefully constructed, subject to the coinbase maturity restrictions.
+
+The coinbase maturity is actually a crucial component of Bitcoin's security. We should naturally want as many of the block's **fee** sats as possible flowing into those coinbase (or equivalently locked -- see below) outputs.
+
+I wonder whether, in a post-subsidy bitcoin world, or a world where the chain is being re-organized more than usual, users (especially receivers) may find themselves needing to adopt explicit `anyone_can_spend` fee outputs which emulate the coinbase maturity semantics. Maybe a simple output script of something like `100 op_csv`.
+
+In such a world, I suppose a receiver could use CPFP to attach such an output to their inbound transactions.
 
 -------------------------
 
