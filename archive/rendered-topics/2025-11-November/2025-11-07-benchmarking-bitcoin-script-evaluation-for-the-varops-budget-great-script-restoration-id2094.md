@@ -235,3 +235,25 @@ But also I am not sure how much we should worry about IBD times, to my understan
 
 -------------------------
 
+ajtowns | 2025-11-13 22:22:48 UTC | #6
+
+[quote="instagibbs, post:4, topic:2094"]
+TIL it was that slow. I worry that benchmarking against the *worst case* as the new “average” is the wrong goal
+[/quote]
+
+Signatures are also cached, meaning that if we have seen the tx recently, re-verifying the signature for the block is much faster; whereas all the other logic isn't cached (there is a script cache, but that is only reused mempool-to-mempool and block-to-block, eg in a reorg, not mempool-to-block). So a high budget for non-signature operations likely has a worst impact on average validation time than a nominally-equivalent budget for signature operations.
+
+Also, you can only have ~62k distinct signatures in 4MB of witness data, so using the full budget would presumably mean ~22% of your operations should/could be cache hits even if none of the data had been seen before.
+
+(80k sigops is, of course, the figure from segwit v0/BIP141 which is 4x the original number of sigops per block. Taproot/BIP340-342 preserves that figure pretty closely, so that I think you could get about 79,988 BIP340 verify ops in a block, though it also introduces the potential for combining sig operations into a single validation to reduce computation time)
+
+(Also, there's probably a difference between single-core cpu time and wall-clock time when multiple validatation threads are in operation, at least for average blocks (versus worst-case blocks where all the work is in a single 4MB witness script). 1000ms of cpu time, divided between 4 or 8 threads is already perhaps 150ms-300ms of wall clock time, after all)
+
+[quote="Julian, post:5, topic:2094"]
+doing some benchmarks on real blocks would be interesting
+[/quote]
+
+Doing benchmarks on the more powerful logic new opcodes enable might be more interesting; eg the [OP_CAT based zkp verifier](https://bitcoinmagazine.com/technical/a-zero-knowledge-proof-is-verified-on-bitcoin-for-the-first-time-in-history)? How many zkps (implemented that way) could we verify in a block, if 100ms (or whatever) of cpu time were the only constraint? Seems to have some 223k operations per script, 30k ADD/DUP, 20k IF/ENDIF/SUB, 10k SWAP/LESSTHAN/TOALT/FROMALT, 400 CAT/1SUB/DEPTH/SHA256, 1 CHECKSIG, etc.
+
+-------------------------
+
