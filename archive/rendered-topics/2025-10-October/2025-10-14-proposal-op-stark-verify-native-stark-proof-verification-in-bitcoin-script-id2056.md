@@ -287,3 +287,9 @@ A more prudent path, consistent with Bitcoin's design, is to keep such complexit
 
 -------------------------
 
+Nuh | 2025-11-15 01:04:33 UTC | #10
+
+@Abdel It is not communicated well enough, but ZKVMs seem to be impossible or impractical to formally prove, and thus frameworks like Risc Zero seem to depend on an upgradable smart contract on Ethereum to react to provable bugs … that is much less likely to fly in Bitcoin, so my question is basically; does Cairo and STARK proofs used by Starknet offer more assurance than what ZKVMs do? or will we still need an upgrade mechanism if we can’t formally prove that we don’t have under constrains or other forms of bugs?
+
+-------------------------
+
