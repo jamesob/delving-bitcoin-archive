@@ -32,3 +32,51 @@ I'm also investigating how this raw data could be published so others can perfor
 
 -------------------------
 
+jonhbit | 2025-11-14 21:48:21 UTC | #2
+
+A related subject is how we could switch the LN P2P network from message flooding to something closer to the design outlined in the Erlay paper and BIP. Some observations:
+
+- Latency / propagation delay is much less important for LN gossip; implementations will allow slightly outdated fees to apply to their channel, for example.
+
+- Gossip messages are signed by the sender, and are intended to be public. So the propagation method does not need to conceal information about the sender's position nor connections in the LN P2P graph.
+
+There has been some existing work on this subject:
+
+<https://endothermic.dev/p/magical-minisketch>
+
+### Adapting Minisketch to LN Gossip
+
+A key detail is how to map gossip messages to Minisketch set elements. This mapping should be collision-resistant, and ideally the elements are short, since reconciliation time is quadratic wrt. element length.
+
+In the Erlay design, collisions are avoided by generating a salt for each peer connection, and using that and the TXID as input to a fast non-cryptographic collision-resistant hash like SipHash. This means that the total amount of hashing operations needed scales with the number of peer connections, but having a shorter (32-bit) set element greatly reduces the compute needed for set construction and reconciliation.
+
+Alternatively, set elements could be computed from a channel's short channel ID (64 bits), plus the block height included in the gossip message. However, there are some issues with this approach.
+
+One is that the components of a short channel ID (channel open block height, transaction index, and output index) don't have a lot of entropy. For example, in a full block, one could have ~36000 1-in 1-out P2TR TXs of 111 vB, or 1 TX with 1 input and 93020 outputs with weight ~3999900 vB. In either case, the entropy of the TX + output index is only ~17 bits. Mixing in block heights does not add much to the total entropy, since a message can only use a block height from the last two weeks (~2016 possible values, 11 bits of entropy).
+
+In addition, we would need a different mapping for node_announcement messages.
+
+Given that LN nodes already store some per-peer state on connection (re)establishment, I'm in favor of borrowing the Erlay approach and using a per-peer salt + a hash like SipHash to generate short Minisketch set elements for each gossip message.
+
+### Gossip v1.5 message format
+
+Another detail is that the gossip 1.5 proposal allows for optional fields in gossip messages, which is not possible with current gossip messages:
+
+<https://github.com/lightning/bolts/pull/1059>
+
+However, I think peers can decide which fields to send to their peer based on their announced feature bits.
+
+### Other considerations
+
+Compared to the Erlay design, I don't think LN implementations would need to perform any message flooding at all. Combining limited flooding and set reconciliation is useful for reducing total propagation delay, but the LN gossip propagation delay is so large that it could be maintained through set reconciliation alone. This should greatly simplify implementation complexity as well.
+
+With respect to implementation, one problem would be different nodes filtering messages with different policies. This would lead to persistent set differences, which would waste bandwidth and, in the worst case, cause reconciliations to fail. I suspect that these filtering policies are either legacy behavior, or adaptions to quirks in existing gossip behavior, and could largely be removed if we move to set reconciliation.
+
+### Future Work
+
+In parallel to the gossip monitoring work, I'd like to get feedback from LN implementers on which designs could work for them. Is the per-peer state a significant drawback or source of complexity? Would there be an issue with more frequent (every 30 seconds?) set reconciliation and gossip message handling? Are there other issues that haven't been considered?
+
+I'll update this thread if/when I have a more concrete proposal or draft BIP.
+
+-------------------------
+
