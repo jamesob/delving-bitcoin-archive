@@ -293,3 +293,14 @@ Nuh | 2025-11-15 01:04:33 UTC | #10
 
 -------------------------
 
+Abdel | 2025-11-16 12:47:17 UTC | #11
+
+It is an excellent question!
+And the answer is: YES!
+
+https://hackmd.io/@AbdelStark/cairo-vs-riscv-zkvms
+
+Answered to similar questions in the zcash community forum also: https://forum.zcashcommunity.com/t/why-cairo-starks-for-ztarknet-and-stark-verify-tze/
+
+-------------------------
+

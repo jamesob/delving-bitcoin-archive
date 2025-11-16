@@ -7,15 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/abdel\">@Abdel</a> It is not communicated well enough, but ZKVMs seem to be impossible or impractical to formally prove, and thus frameworks like Risc Zero seem to depend on an upgradable smart contract on Ethereum to react to provable bugs \u2026 that is much less likely to fly in Bitcoin, so my question is basically; does Cairo and STARK proofs used by Starknet offer more assurance than what ZKVMs do? or will we still need an upgrade mechanism if we can\u2019t formally prove that we don\u2019t have under constrains or other forms of bugs?</p>",
   "post_number": 10,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 11,
   "updated_at": "2025-11-15T01:04:33.320Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 37.0,
   "yours": false,
   "topic_id": 2056,
   "topic_slug": "proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@Abdel It is not communicated well enough, but ZKVMs seem to be impossible or impractical to formally prove, and thus frameworks like Risc Zero seem to depend on an upgradable smart contract on Ethereum to react to provable bugs \u2026 that is much less likely to fly in Bitcoin, so my question is basically; does Cairo and STARK proofs used by Starknet offer more assurance than what ZKVMs do? or will we still need an upgrade mechanism if we can\u2019t formally prove that we don\u2019t have under constrains or other forms of bugs?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/abdel\">@Abdel</a> It is not communicated well enough, but ZKVMs seem to be impossible or impractical to formally prove, and thus frameworks like Risc Zero seem to depend on an upgradable smart contract on Ethereum to react to provable bugs \u2026 that is much less likely to fly in Bitcoin, so my question is basical&hellip;",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
