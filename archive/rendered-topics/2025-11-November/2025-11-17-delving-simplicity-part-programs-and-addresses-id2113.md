@@ -1,6 +1,6 @@
 # Delving Simplicity Part Ⅴ: Programs and Addresses
 
-roconnor-blockstream | 2025-11-17 19:57:25 UTC | #1
+roconnor-blockstream | 2025-11-17 20:02:33 UTC | #1
 
 In [Part Ⅳ](https://delvingbitcoin.org/t/delving-simplicity-part-two-side-effects/2091) of this series, we discussed the side effects that Simplicity expressions can have. In particular, for Bitcoin and Liquid applications, Simplicity expressions can have a Reader effect, which provides read-only access to the transaction data and the Failure effect, which determines whether a transaction is successful or not.
 
@@ -125,13 +125,13 @@ Then we need to compute the Taproot output key by tweaking our internal public k
 | = |
 | `lift_x(0x2cb0c20acd7340b4d4b65f6a60e2888d0d64e3267261f3b3cf7290e5af3f9e09)` |
 
-Next, we need to convert this x-only output public key into [Bech32](https://github.com/bitcoin/bips/blob/master/bip-0173.mediawiki)’s alphabet:
+Next, we need to convert this x-only output public key into [Bech32](https://github.com/bitcoin/bips/blob/66a41d32bf9c4dfecd80a81f1165dd3f59b5374b/bip-0173.mediawiki)’s alphabet:
 <div align="center">
 
 `9jcvyzkdwdqtf49kta4xpc5g35xkfcexwfsl8v70w2gwttelncys`
 </div>
 
-We prefix this string with a `p`, indicating this is a Segwit V1 address, and then we add a Bech32 prefix. For the Liquid testnet, this prefix is `tex1`. Then we append the [Bech32m](https://github.com/bitcoin/bips/blob/master/bip-0350.mediawiki) checksum. In this example, the checksum is `hxjk56`.
+We prefix this string with a `p`, indicating this is a Segwit V1 address, and then we add a Bech32 prefix. For the Liquid testnet, this prefix is `tex1`. Then we append the [Bech32m](https://github.com/bitcoin/bips/blob/66a41d32bf9c4dfecd80a81f1165dd3f59b5374b/bip-0350.mediawiki) checksum. In this example, the checksum is `hxjk56`.
 
 Finally, we have the address for our little Simplicity program:
 <div align="center">
