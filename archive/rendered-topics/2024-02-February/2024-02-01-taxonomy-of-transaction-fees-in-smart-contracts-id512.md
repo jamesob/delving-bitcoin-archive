@@ -432,3 +432,33 @@ In such a world, I suppose a receiver could use CPFP to attach such an output to
 
 -------------------------
 
+instagibbs | 2025-11-17 18:53:09 UTC | #13
+
+What particular problem are you solving with explicit fee outputs? I think Pay2Anchor and their legacy emulations P2SH(OP_TRUE) count as that, with money “free for the taking”, but in practice is burned to fees by a child transaction.
+
+-------------------------
+
+VzxPLnHqr | 2025-11-17 19:39:15 UTC | #14
+
+[quote="instagibbs, post:13, topic:512"]
+What particular problem are you solving with explicit fee outputs?
+[/quote]
+
+Thanks for your reply. It is not a problem yet, at least not so far as I am aware. I will try to illustrate a contrived example:
+
+1. Receiver uses CPFP to consume the Pay2Anchor and, rather than implicitly burning to fees, instead pays a miner directly via an explicit output.
+
+3. The reason the miner likes this is that she does not need to wait 100 blocks to spend those fees.
+
+4. The reason the Receiver likes this is that he gets his transaction confirmed faster. 
+
+I can imagine a world where the receiver just creates a bunch of these CPFP transactions and submits one to each mining pool's accelerator.
+
+The problem is that if blocks are full and if for some bizarre reason this becomes the "normal" way of doing things, I fear that the receiver will have a false sense of security.
+
+I think it probably only becomes an issue, if ever, when total miner fees in this "explicit output" form significantly exceed the block subsidy and implicit fees for a given block.
+
+Then, in that situation at block height H, miners of the blocks near the tip (blocks H-1, H-2, H-3, ...,) may have more incentive to reorg than they do in our current circumstances.
+
+-------------------------
+

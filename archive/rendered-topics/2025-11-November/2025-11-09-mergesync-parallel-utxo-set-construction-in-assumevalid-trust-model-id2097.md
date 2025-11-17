@@ -46,3 +46,11 @@ To obtain a full UTXO-set in a usable format, additional metadata (such as amoun
 
 -------------------------
 
+murch | 2025-11-17 19:14:27 UTC | #2
+
+Hey, thanks for sharing your idea. It seems to me that implementing this would suffer from the same problem that you mention in your motivation: we would need to write out all UTXO data and additionally all inputs’ outpoints. It’s not clear to me why you would expect this to reduce the I/O compared to the Bitcoin Core’s current approach.
+Compared to SwiftSync which uses the hints to compress the checking of all spent UTXOs to a single accumulator (which can also be parallelized), this feels like a regression.
+Perhaps I’m overlooking something. Could you clarify what the novel contribution here is?
+
+-------------------------
+
