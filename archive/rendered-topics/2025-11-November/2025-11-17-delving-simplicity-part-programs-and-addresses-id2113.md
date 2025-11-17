@@ -1,6 +1,6 @@
 # Delving Simplicity Part Ⅴ: Programs and Addresses
 
-roconnor-blockstream | 2025-11-17 20:02:33 UTC | #1
+roconnor-blockstream | 2025-11-17 20:32:26 UTC | #1
 
 In [Part Ⅳ](https://delvingbitcoin.org/t/delving-simplicity-part-two-side-effects/2091) of this series, we discussed the side effects that Simplicity expressions can have. In particular, for Bitcoin and Liquid applications, Simplicity expressions can have a Reader effect, which provides read-only access to the transaction data and the Failure effect, which determines whether a transaction is successful or not.
 
@@ -87,8 +87,7 @@ Using this tag, we can compute the CMR for the `unit` expression.
 | = |
 | SHA-256-midstate $(tag_{unit} \parallel tag_{unit})$ |
 | = |
-| SHA-256-midstate(`0xd723083cff3c75e29f296707ecf2750338f100591c86e0c71717f807ff3cf69d`
-∥`0xd723083cff3c75e29f296707ecf2750338f100591c86e0c71717f807ff3cf69d`) |
+| SHA-256-midstate(`0xd723083cff3c75e29f296707ecf2750338f100591c86e0c71717f807ff3cf69d`&#x2028;∥`0xd723083cff3c75e29f296707ecf2750338f100591c86e0c71717f807ff3cf69d`) |
 | = |
 | `0xc40a10263f7436b4160acbef1c36fba4be4d95df181a968afeab5eac247adff7` |
 
@@ -110,8 +109,7 @@ In this example, our TapTree will only have this one leaf, so we won’t be intr
 The next step is to compute the tweaked hash of this public key with our TapLeaf hash.
 | <!-- --> |
 |---|
-| $hash_{TapTweak/elements}$(`0x50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0`
-∥ `0x44cc38311ec7e5dfb7b573baf38449496ecd334eb5509cfed1b4fd30da8dd41c`) |
+| $hash_{TapTweak/elements}$(`0x50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0`&#x2028;∥ `0x44cc38311ec7e5dfb7b573baf38449496ecd334eb5509cfed1b4fd30da8dd41c`) |
 | = |
 | `0xb3bef172389b0937d7e5a8b15cfa41e776777f13f2f659cb06220a6ff0658285` |
 
@@ -120,10 +118,9 @@ Then we need to compute the Taproot output key by tweaking our internal public k
 |---|
 | *output_pk* |
 | = |
-| lift_x(`0x50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0)`
-⊕ `0xb3bef172389b0937d7e5a8b15cfa41e776777f13f2f659cb06220a6ff0658285`·G |
+| lift_x(`0x50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0`) &#x2028;⊕ `0xb3bef172389b0937d7e5a8b15cfa41e776777f13f2f659cb06220a6ff0658285`·G |
 | = |
-| `lift_x(0x2cb0c20acd7340b4d4b65f6a60e2888d0d64e3267261f3b3cf7290e5af3f9e09)` |
+| lift_x(`0x2cb0c20acd7340b4d4b65f6a60e2888d0d64e3267261f3b3cf7290e5af3f9e09`) |
 
 Next, we need to convert this x-only output public key into [Bech32](https://github.com/bitcoin/bips/blob/66a41d32bf9c4dfecd80a81f1165dd3f59b5374b/bip-0173.mediawiki)’s alphabet:
 <div align="center">
