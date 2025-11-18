@@ -172,3 +172,9 @@ The actual impact on the network is hard to judge esp post compact blocks stales
 
 -------------------------
 
+moneyball | 2025-11-18 03:42:54 UTC | #3
+
+Related benchmarking https://stratumprotocol.org/blog/hashlabs
+
+-------------------------
+
