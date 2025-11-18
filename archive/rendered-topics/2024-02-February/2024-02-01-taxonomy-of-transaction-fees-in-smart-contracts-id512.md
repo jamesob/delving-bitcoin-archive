@@ -472,3 +472,15 @@ This would not work to incentivize a miner to include your transaction, since th
 
 -------------------------
 
+VzxPLnHqr | 2025-11-18 19:58:37 UTC | #16
+
+[quote="AntoineP, post:15, topic:512"]
+This would not work to incentivize a miner to include your transaction
+[/quote]
+
+Yes, you are of course correct for the example I gave. I should have made it more clear that there I was referring to the situation where a receiver submits a transaction to each miner (or mining pool) for acceleration and has in the transaction an explicit fee output paying that miner.
+
+So the actual explicit output would have been something like (pseudocode) `100 op_csv <miner pubkey> op_checksigverify`.  Good catch!
+
+-------------------------
+
