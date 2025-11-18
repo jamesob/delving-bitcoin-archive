@@ -495,3 +495,15 @@ The largest systemic drawback would be that this makes mining permissioned in th
 
 -------------------------
 
+VzxPLnHqr | 2025-11-18 20:50:25 UTC | #18
+
+[quote="instagibbs, post:17, topic:512"]
+The largest systemic drawback would be that this makes mining permissioned in the sense that fees cannot be obtained without wallets knowing about them (and giving them a copy)
+[/quote]
+
+Exactly! Thankfully so long as the presence of a robust market for _implicit_ fees exists and such implicit fees outweigh what could be obtained by this strange permissioned _explicit_ fee stuff, then we hopefully have nothing to worry about. 
+
+For an (albeit hopefully very unlikely!) world where blocks are completely full most of the time and where the `subsidy + implicit_fees` is much less than the revenue available from these (permissioned) `explicit_fees`, I merely wanted to raise it here as a possible edge case with a potential adverse side-effect.
+
+-------------------------
+
