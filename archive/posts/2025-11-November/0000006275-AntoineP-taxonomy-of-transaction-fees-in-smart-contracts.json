@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"VzxPLnHqr\" data-post=\"12\" data-topic=\"512\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/vzxplnhqr/48/121_2.png\" class=\"avatar\"> VzxPLnHqr:</div>\n<blockquote>\n<p>Maybe a simple output script of something like <code>100 op_csv</code>.</p>\n</blockquote>\n</aside>\n<p>This would not work to incentivize a miner to include your transaction, since they are not guaranteed to find the 100th block after the one containing your transaction. You would need more Script expressiveness to make the output first anyonecanspend but also \u201ccarry forward\u201d this condition so it applies to the \u201csecond stage\u201d spender. This logic is exactly what <a class=\"mention\" href=\"/u/salvatoshi\">@salvatoshi</a>\u2019s OP_CCV enables: <a href=\"https://delvingbitcoin.org/t/op-checkcontractverify-and-its-amount-semantic/1527\" class=\"inline-onebox\">OP_CHECKCONTRACTVERIFY and its amount semantic</a>.</p>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 16,
+  "posts_count": 17,
   "updated_at": "2025-11-18T15:48:35.039Z",
   "reply_count": 1,
   "reply_to_post_number": 12,

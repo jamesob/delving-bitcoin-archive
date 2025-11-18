@@ -484,3 +484,14 @@ So the actual explicit output would have been something like (pseudocode) `100 o
 
 -------------------------
 
+instagibbs | 2025-11-18 20:27:24 UTC | #17
+
+[quote="VzxPLnHqr, post:16, topic:512"]
+So the actual explicit output would have been something like (pseudocode) `100 op_csv <miner pubkey> op_checksigverify`. Good catch!
+
+[/quote]
+
+The largest systemic drawback would be that this makes mining permissioned in the sense that fees cannot be obtained without wallets knowing about them (and giving them a copy)
+
+-------------------------
+
