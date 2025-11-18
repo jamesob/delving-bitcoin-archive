@@ -332,3 +332,9 @@ yeah sorry you are completely right both. i missed that part. will update with m
 
 -------------------------
 
+Nuh | 2025-11-18 11:09:47 UTC | #16
+
+@Abdel You can find my Email, Matrix and Signal accounts here https://nuh.dev/
+
+-------------------------
+
