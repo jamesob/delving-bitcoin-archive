@@ -162,3 +162,13 @@ When considering a change in the P2P network, it is hard to evaluate the impact 
 
 -------------------------
 
+gmaxwell | 2025-11-17 22:07:46 UTC | #2
+
+Average revenue isn’t the right model, the reality is much worse–  much of that $91m will go to power costs, right?  So the miner’s net profits is increased by a much larger factor.
+
+The actual impact on the network is hard to judge esp post compact blocks stales are much less visible.  Ideally the protocol would get some new “STALEHEADER” message for relaying headers that connect near the best chain tip\*– without implying an ability to serve the block–, for stats purposes.
+
+\*(e.g. relay along any stale header that connects to a block within 10 of  the tip, or to one of the last 10 accepted stale headers, so it also lets you view large invalid forks– so long a POW validity and difficulty logic are enforced it shouldn’t have any DOS risk, assuming it’s only activated once the chain has met minimum chain work)
+
+-------------------------
+

@@ -80,3 +80,18 @@ I'll update this thread if/when I have a more concrete proposal or draft BIP.
 
 -------------------------
 
+gmaxwell | 2025-11-17 21:51:45 UTC | #3
+
+[quote="jonhbit, post:2, topic:2105"]
+Compared to the Erlay design, I don’t think LN implementations would need to perform any message flooding at all. Combining limited flooding and set reconciliation is useful for reducing total propagation delay,
+
+[/quote]
+
+Minisketch has superlinear decoding costs, so decoding huge sketches will burn up a lot of CPU.   One could reconcile more often to try to fight this, but every reconcile will imply some communication overheads since you’ll overshoot the unknown needed amount for a reconstruction.
+
+The flooding in the erlay has the advantage that takes the bulk of the load off the sketch and lets the sketch fill in the small omissions which it’s good at doing.
+
+If you were to use reconciliation only you might be better off using iblt instead of minisketch (maybe plus a very small minisketch to unjam stuck IBLT decodes).   The overheads of iblt are much worse but that may be less significant if you’re running all the traffic through it.
+
+-------------------------
+
