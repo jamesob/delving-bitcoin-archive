@@ -304,11 +304,13 @@ Answered to similar questions in the zcash community forum also: https://forum.z
 
 -------------------------
 
-Nuh | 2025-11-18 05:34:09 UTC | #12
+Nuh | 2025-11-18 05:38:28 UTC | #12
 
 Thanks for answering.
 
-Starkware has the resources and reputation that would allow it to emulate `OP_STARK_VERIFY` and any other opcodes deemed necessary for secure bridging to side systems, by cosigning transparent scripts tucked in an `OP_FALSE OP_IF <..> OP_ENDIF`, so why don’t you start offering that public service for people to experiment with until a soft fork, which would be much easier to argue for when there is a live transparent system in the works with significant amount of money at stake?
+Starkware has the resources and reputation that would allow it to emulate `OP_STARK_VERIFY` and any other opcodes deemed necessary for secure bridging to side systems, by cosigning transparent scripts tucked in an `OP_FALSE OP_IF <..> OP_ELSE <committee multisig> OP_ENDIF`, so why don’t you start offering that public service for people to experiment with until a soft fork, which would be much easier to argue for when there is a live transparent system in the works with significant amount of money at stake?
+
+If you replace `OP_FALSE` with `OP_FALSE OP_NOPX` the soft fork may automatically take over without permission from the committee cosigning the emulation, by making the `OP_NOPX` switch `OP_FALSE` to `OP_TRUE`
 
 -------------------------
 
