@@ -314,3 +314,9 @@ If you replace `OP_FALSE` with `OP_FALSE OP_NOPX` the soft fork may automaticall
 
 -------------------------
 
+Abdel | 2025-11-18 10:20:12 UTC | #13
+
+this is an extremely interesting suggestion actually! Love it. Hmmm. Let me think more about it. Can we connect somewhere to discuss it further ?
+
+-------------------------
+
