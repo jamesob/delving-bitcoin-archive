@@ -178,3 +178,15 @@ Related benchmarking https://stratumprotocol.org/blog/hashlabs
 
 -------------------------
 
+AntoineP | 2025-11-18 15:17:51 UTC | #4
+
+[quote="gmaxwell, post:2, topic:2110"]
+Average revenue isn’t the right model, the reality is much worse– much of that $91m will go to power costs, right? So the miner’s net profits is increased by a much larger factor.
+[/quote]
+
+Right, but profit is a function of revenue. Since i did not have a model for this function i just let the "raw" revenues.
+
+But yes maybe it's worth expliciting: mining is a thin margins business. A 0.05% drop in revenue may well be a 5% drop in profits.
+
+-------------------------
+
