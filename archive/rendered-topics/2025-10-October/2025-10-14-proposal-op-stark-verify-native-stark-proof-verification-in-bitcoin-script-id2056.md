@@ -326,3 +326,9 @@ you are right. does not make it a covenant. will add more details about this par
 
 -------------------------
 
+Abdel | 2025-11-18 10:39:56 UTC | #15
+
+yeah sorry you are completely right both. i missed that part. will update with more details about it and options. would love your feedback then
+
+-------------------------
+
