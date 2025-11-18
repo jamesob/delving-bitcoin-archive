@@ -462,3 +462,13 @@ Then, in that situation at block height H, miners of the blocks near the tip (bl
 
 -------------------------
 
+AntoineP | 2025-11-18 15:48:35 UTC | #15
+
+[quote="VzxPLnHqr, post:12, topic:512"]
+Maybe a simple output script of something like `100 op_csv`.
+[/quote]
+
+This would not work to incentivize a miner to include your transaction, since they are not guaranteed to find the 100th block after the one containing your transaction. You would need more Script expressiveness to make the output first anyonecanspend but also "carry forward" this condition so it applies to the "second stage" spender. This logic is exactly what @salvatoshi's OP_CCV enables: https://delvingbitcoin.org/t/op-checkcontractverify-and-its-amount-semantic/1527.
+
+-------------------------
+
