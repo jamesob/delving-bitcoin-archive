@@ -7,7 +7,7 @@
   "cooked": "<p>Thanks for answering.</p>\n<p>Starkware has the resources and reputation that would allow it to emulate <code>OP_STARK_VERIFY</code> and any other opcodes deemed necessary for secure bridging to side systems, by cosigning transparent scripts tucked in an <code>OP_FALSE OP_IF &lt;..&gt; OP_ELSE &lt;committee multisig&gt; OP_ENDIF</code>, so why don\u2019t you start offering that public service for people to experiment with until a soft fork, which would be much easier to argue for when there is a live transparent system in the works with significant amount of money at stake?</p>\n<p>If you replace <code>OP_FALSE</code> with <code>OP_FALSE OP_NOPX</code> the soft fork may automatically take over without permission from the committee cosigning the emulation, by making the <code>OP_NOPX</code> switch <code>OP_FALSE</code> to <code>OP_TRUE</code></p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 13,
+  "posts_count": 14,
   "updated_at": "2025-11-18T05:38:28.037Z",
   "reply_count": 1,
   "reply_to_post_number": 11,

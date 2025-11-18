@@ -320,3 +320,9 @@ this is an extremely interesting suggestion actually! Love it. Hmmm. Let me thin
 
 -------------------------
 
+Abdel | 2025-11-18 10:27:00 UTC | #14
+
+you are right. does not make it a covenant. will add more details about this part. thanks for bringing it.
+
+-------------------------
+
