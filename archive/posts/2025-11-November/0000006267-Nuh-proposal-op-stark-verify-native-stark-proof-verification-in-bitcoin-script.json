@@ -13,8 +13,8 @@
   "reply_to_post_number": 11,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0.4,
   "yours": false,
   "topic_id": 2056,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks for answering.\n\nStarkware has the resources and reputation that would allow it to emulate `OP_STARK_VERIFY` and any other opcodes deemed necessary for secure bridging to side systems, by cosigning transparent scripts tucked in an `OP_FALSE OP_IF <..> OP_ELSE <committee multisig> OP_ENDIF`, so why don\u2019t you start offering that public service for people to experiment with until a soft fork, which would be much easier to argue for when there is a live transparent system in the works with significant amount of money at stake?\n\nIf you replace `OP_FALSE` with `OP_FALSE OP_NOPX` the soft fork may automatically take over without permission from the committee cosigning the emulation, by making the `OP_NOPX` switch `OP_FALSE` to `OP_TRUE`",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks for answering. \nStarkware has the resources and reputation that would allow it to emulate OP_STARK_VERIFY and any other opcodes deemed necessary for secure bridging to side systems, by cosigning transparent scripts tucked in an OP_FALSE OP_IF &lt;..&gt; OP_ELSE &lt;committee multisig&gt; OP_ENDIF, so why&hellip;",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
