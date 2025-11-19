@@ -1,6 +1,6 @@
 # Generalizing RBF under Cluster Mempool
 
-josh | 2025-11-19 00:51:03 UTC | #1
+josh | 2025-11-19 03:43:48 UTC | #1
 
 Hi all,
 
@@ -54,7 +54,7 @@ Third, given these considerations, defining $P_{min}$ as `min-relay-feerate` * $
 
 Finally, we need to prevent the repeated use of the same set of filling txids to make an unprofitable replacement. Otherwise, users could replace $T$ with a $T_r$ that would otherwise not be profitable, by replacing $T$ multiple times.
 
-A potential solution is to modify $\Delta B$ and $\Delta F$ to account for $B_C$ and $F_C$ of the previous replacement. Let $B_{prev} = 0$ and $F_{prev} = 0$ initially, and let $\Delta B = B - B_r + B_{prev}$ and $\Delta F = F - F_r + F_{prev}$. Upon obtaining a replacement with a satisfying set of filling transactions, we update $B_{prev} = B_C$ and $F_{prev} = F_C$. This has a minimal additional storage cost of two integers per replaced transaction, but the cost is effectively covered by the additional fee from relaying the txids.
+A potential solution is to use $\Delta B = B_{orig} - B_r$ and $\Delta F = F_{orig} - F_r$, storing $B_{orig}$ and $F_{orig}$ after the first replacement requiring filling transactions. This has a minimal storage cost of two integers per replaced transaction, but the cost is effectively covered by the additional fee from relaying the txids.
 
 ### Incentive Compatible?
 

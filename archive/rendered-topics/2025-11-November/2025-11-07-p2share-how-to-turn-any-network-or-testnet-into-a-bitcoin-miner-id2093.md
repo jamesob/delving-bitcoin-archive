@@ -493,3 +493,38 @@ That is when I stopped and switched to the "just distribute the entire reward to
 
 -------------------------
 
+VzxPLnHqr | 2025-11-19 01:54:33 UTC | #13
+
+## on incentive compatibility (updated share issuance mechanism)
+
+On further reflection, rather than tie sharechain issuance to a shrinking-pie schedule like Bitcoin (as proposed in the original p2share example above), we might be able to **recover incentive compatibility by simply issuing a constant number of shares per unit work.**
+
+Bitcoin's base "unit of work" is 2^32 sha256d attempts. Now, given that in 2025 we have sha256d available ASICS right out of the gate, we should probably raise sharechain's "unit of work" to something higher. The actual value is not important, but a reasonable choice could be found empirically.
+
+With this modification, the sharechain ledger will represent all contributed work over time. It is a fair  accounting because the sharechain still has its own difficulty adjustment algorithm.
+
+The "select a random shareholder" technique from the original design remains unchained.
+
+For concreteness, let the share `S` issuance per sharechain block be something like `S = c*D_sharechain`, for some constant `c` which is set at genesis. 
+
+As hash rate of the sharechain grows, the issuance of shares grows too, so there is inflation from a share supply standpoint. However, there is still always a chance that one of your early shares (from back when hash rate was small) will be the randomly selected share.
+
+Similarly, when the hash rate of the sharechain drops, the number of shares issued per block will drop accordingly. 
+
+Now, let us imagine a scenario where the sharechain hash rate grows 100x (say this happens across multiple difficulty adjustments even), and then stays there for some time, only to eventually drop down to the orignal 1x. Because the number of shares being issued is proportional to difficulty, the number of shares which were issued in the "high difficulty" period will _vastly_ out number the number which are issued during the "low difficulty" period.
+
+However, individual miners aren't being disproportionately rewarded; the system is just scaling issuance to match the collective effort. It is a pure representation[^representation] of the notion of proportional fairness.[^proportional]
+
+This might in fact recover incentive compatibility such that it is "just as rational" to mine bitcoin indirectly by mining on a p2share chain as it would be to mine bitcoin directly (solo or via pool). 
+
+As @ZmnSCPxj elegantly put it earlier, this is "mining bitcoin with extra steps," but if it degenerates to an acceptable notion of incentive compatibility (in expectation), while remaining trustless and decentralized, then perhaps the extra steps may be worth it for many?
+
+
+---
+
+[^representation]: speaking of representations: yes, this does mean that if the sharechain starts at difficulty 1 and grows exponentially over time, that we might need larger than 64-bits to represent sharechain amounts. But it is also not 2009 anymore, so that is probably not too much of an issue.
+
+[^proportional]: admittedly, not everyone agrees that proportional fairness is the "correct" notion of fairness in all circumstances. However, in a trustless, decentralized system like bitcoin, or this p2share mechanism, we can argue that it is the correct notion of fairness.
+
+-------------------------
+
