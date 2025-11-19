@@ -80,3 +80,17 @@ Thanks for taking a look at the cluster mempool proposal.  I wrote up a longer p
 
 -------------------------
 
+josh | 2025-11-19 20:43:23 UTC | #3
+
+@sdaftuar I missed that post, thanks for the link! I feel I have a much better understanding now of cluster mempool, and what it means for a replacement to be incentive compatible.
+
+After reading, I find myself more sympathetic to the approach of maximizing the total fees of the mempool, rather than the total fee of a block containing the transaction $T$. As you point out in that thread, if a mining pool is large enough, it can become profitable to maximize fees over multiple blocks, rather than just one.
+
+This has me thinking that proving RBFr-like profitability might be impossible, absent information about the market structure of mining. If the optimal mining strategy depends on the size of the mining pool, and mining pools vary over time in size and number, can we ever really prove the profitability of a replacement, where the fee rate increases but total fees decline?
+
+The strategy I describe above could theoretically be extended so that filling clusters may not come from within $N$ blocks of transaction $T$, rather than $N=1$, but at the limit where mining is completely cooperative (i.e. a single pool), the existing cluster mempool RBF strategy seems to be optimal.
+
+Thanks again for the reply and the link! It's a fascinating problem, and it seems like cluster mempool is close to the theoretical solution.
+
+-------------------------
+
