@@ -1,6 +1,6 @@
 # Generalizing RBF under Cluster Mempool
 
-josh | 2025-11-18 21:58:15 UTC | #1
+josh | 2025-11-19 00:43:49 UTC | #1
 
 Hi all,
 
@@ -50,7 +50,11 @@ One solution is to push the cost of search and selection onto the user, by requi
 
 A second potential issue is that an ignorant or irrational miner could mine transactions in clusters $i \geq 0$ without mining $T$ or $T_r$, such that $T_r$ is no longer more profitable than $T$. Presumably, the risk of this happening would be low, but it is worth acknowledging. What perhaps matters most is that the replacement is sufficiently profitable in expectation, providing the same DOS protection for relaying nodes as existing RBF.
 
-Finally, given these considerations, defining $P_{min}$ as `min-relay-feerate` * $B_r$ may not be costly enough. We should also account for the cost of relaying the filling txids. This would make $P_{min}$ equal to `min-relay-feerate` * $(B_r + 32 \cdot N)$, where $N$ is the number of filling txids.
+Third, given these considerations, defining $P_{min}$ as `min-relay-feerate` * $B_r$ may not be costly enough. We should also account for the cost of relaying the filling txids. This would make $P_{min}$ equal to `min-relay-feerate` * $(B_r + 32 \cdot N)$, where $N$ is the number of filling txids.
+
+Finally, we need to prevent the repeated use of the same set of filling txids to make an unprofitable replacement. Otherwise, users could replace $T$ with a $T_r$ that would otherwise not be profitable, by replacing $T$ multiple times.
+
+A potential solution is to modify $\Delta B$ and $\Delta F$ to account for $B_C$ and $F_C$ of the previous replacement. Let $B_{prev} = 0$ and $F_{prev} = 0$ initially, and let $\Delta B = B - B_r + B_{prev}$ and $\Delta F = F - F_r + F_{prev}$. Upon obtaining a replacement with a satisfying set of filling transactions, we update $B_{prev} = B_C$ and $F_{prev} = F_C$. This has a minimal additional storage cost of two integers per replaced transaction, but the cost is effectively covered by the additional relay fee from the txids.
 
 ### Incentive Compatible?
 
