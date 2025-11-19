@@ -72,3 +72,11 @@ Appreciate feedback on this concept, and looking forward to seeing cluster mempo
 
 -------------------------
 
+sdaftuar | 2025-11-19 15:29:46 UTC | #2
+
+Hi,
+
+Thanks for taking a look at the cluster mempool proposal.  I wrote up a longer post on [incentive compatibility](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553) that may be of interest – I think it addresses many of the questions you’ve raised, and there is some discussion that followed that seems relevant to your suggestions as well.
+
+-------------------------
+
