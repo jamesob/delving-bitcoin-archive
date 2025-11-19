@@ -1,6 +1,6 @@
 # Generalizing RBF under Cluster Mempool
 
-josh | 2025-11-18 20:41:14 UTC | #1
+josh | 2025-11-18 21:58:15 UTC | #1
 
 Hi all,
 
@@ -58,9 +58,9 @@ This approach to a generalized RBF is an attempt on my part to better understand
 
 In summary, what I currently think is incentive compatible appears to differ slightly from the current approach of the cluster mempool:
 
-> **Current approach:** Incentive compatibility maximizes the total fees over the mempool, at all mempool sizes.
+> **Current approach:** Incentive-compatible RBF maximizes the total fees over the mempool, at all mempool sizes.
 
-> **Alternative approach:** Incentive compatibility maximizes the total fee of any block that contains transaction $T$.
+> **Alternative approach:** Incentive-compatible RBF maximizes the total fee of any block that contains transaction $T$.
 
 These two approaches unify in the edge case where the block size is unbounded, making the second approach perhaps a generalization of the first.
 
