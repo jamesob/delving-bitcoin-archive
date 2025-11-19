@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "you are right. does not make it a covenant. will add more details about this part. thanks for bringing it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "you are right. does not make it a covenant. will add more details about this part. thanks for bringing it.",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/14",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
