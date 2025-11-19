@@ -528,3 +528,9 @@ As @ZmnSCPxj elegantly put it earlier, this is "mining bitcoin with extra steps,
 
 -------------------------
 
+jungly | 2025-11-19 07:44:17 UTC | #14
+
+It seems like the end result will be the same as PPLNS. Can you point out how it will be different, I might be failing to see some subtlety.
+
+-------------------------
+
