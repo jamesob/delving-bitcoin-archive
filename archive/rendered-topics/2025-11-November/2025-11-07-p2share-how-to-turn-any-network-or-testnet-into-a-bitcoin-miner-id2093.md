@@ -493,7 +493,7 @@ That is when I stopped and switched to the "just distribute the entire reward to
 
 -------------------------
 
-VzxPLnHqr | 2025-11-19 01:54:33 UTC | #13
+VzxPLnHqr | 2025-11-19 16:58:08 UTC | #13
 
 ## on incentive compatibility (updated share issuance mechanism)
 
@@ -503,7 +503,7 @@ Bitcoin's base "unit of work" is 2^32 sha256d attempts. Now, given that in 2025 
 
 With this modification, the sharechain ledger will represent all contributed work over time. It is a fair  accounting because the sharechain still has its own difficulty adjustment algorithm.
 
-The "select a random shareholder" technique from the original design remains unchained.
+The "select a random shareholder" technique from the original design remains unchanged.
 
 For concreteness, let the share `S` issuance per sharechain block be something like `S = c*D_sharechain`, for some constant `c` which is set at genesis. 
 
@@ -531,6 +531,56 @@ As @ZmnSCPxj elegantly put it earlier, this is "mining bitcoin with extra steps,
 jungly | 2025-11-19 07:44:17 UTC | #14
 
 It seems like the end result will be the same as PPLNS. Can you point out how it will be different, I might be failing to see some subtlety.
+
+-------------------------
+
+VzxPLnHqr | 2025-11-19 17:01:50 UTC | #15
+
+[quote="jungly, post:14, topic:2093"]
+end result will be the same as PPLNS.
+[/quote]
+
+Good observation! I believe the answer is mostly yes, but it is subtle:
+
+If the `N` in "pay per last N shares" includes all shares ever issued _and_ there is a difficulty adjustment algorithm happening regularly _within_ the window so that each share represents the same amount of work, then yes I believe it will be the same, in expectation, as PPLNS.
+
+This is a good thing. PPLNS broadly, in my understanding, is currently the most common mining protocol in use, and given that there are real costs to mining, we can infer that the continued use of PPLNS is the most incentive-compatible.
+
+Some important differences here though, which, in my opinion are features of this model:
+
+1. Without affecting mainchain Bitcoin we can smuggle in almost any desired extra functionality on the p2share sharechain network(s). This is made possible because sharechain rewards (shares) are transferable and long-lived.
+
+2. The sharechain networks are, after all, valid bitcoin miners. Consensus changes within a given sharechain network can manifest directly, or indirectly, as mainchain miner signalling. This may be helpful for mainchain upgrade coordination while remaining more true to the spirit and practice of trustless decentralization.
+
+    In practice in times when these sharechains account for only a trivial portion of Bitcoin's hash rate, the signals will likely be ignored/discounted. However, if these sharechains proliferate such that eventually the collection of sharechain networks represent a non-trivial portion of Bitcoin's hash rate, these signals may be worthwhile to consider.
+
+### Some outstanding challenges and notes ### 
+
+Open questions about the p2share model as it is currently being contemplated:
+
+1. What to do about spam on the sharechain?
+
+    Given that shares are long-lived just like regular bitcoin, a sharechain may suffer and have to overcome similar challenges that Bitcoin has to overcome. 
+
+    The good news is that, by design, these p2share sharechains can themselves serve as testing grounds for trying out anti-spam mechanisms which are acceptable to the sharechain nodes.
+
+    A sharechain with a track record of reckless features requiring hard-forks (of the sharechain) to fix might appeal to some, but not others. Whichever is the case, we can expect it will be reflected in the price (in sats), if any, that people are willing to pay to atomically swap in/out of those shares.
+
+    A sharechain with a track record of pushing Bitcoin forward in a consistent fashion may experience some level of price stability and market liquidity for its shares. In other words, a sharechain which is consistently a good steward to its shareholders and to Bitcoin may enjoy a price premium for its shares relative to other sharechains.
+
+4. What about ephemeral, purely speculative, sharechains?
+    
+    Why not? It is still Bitcoin mining and therefore still has real costs. Maybe the speculative sharechain is trying to explore a cutting edge feature and has no other way to do it and wants to remain within the Bitcoin ecosystem? Or maybe the people doing it are crazy. I suppose we can here speculate ourselves that the shares of such sharechains will be nearly, if not entirely, worthless -- until when/if they are somehow not.
+
+5. Sharechain mergers?
+
+    Suppose a speculative or otherwise ephemeral sharechain ends up demonstrating a feature which may be valuable to other sharechains?
+
+    So long as the units of work are compatible, then it feels like it may be possible for one sharechain to absorb another (i.e. for the absorbing chain to hard-fork and recognize the work/shares of the absorbed chain). 
+
+   Perhaps as part of the contemplated merger, the developers of the feature(s) of the speculative sharechain provide/backport an implementation of the feature(s) to the absorbing chain _and_ the merger is contingent upon the activation of that feature.
+
+   Feels like a logistical nightmare, but still might be doable. At least Bitcoin itself can usually remain blissfully unaware of these things, yet these innovations can happen within the Bitcoin ecosystem (via these sharechains) rather than elsewhere.
 
 -------------------------
 
