@@ -162,3 +162,25 @@ Just be careful with figures from papers they tend to be rather asymptotic.  IBL
 
 -------------------------
 
+jonhbit | 2025-11-20 16:18:51 UTC | #6
+
+[quote="gmaxwell, post:5, topic:2105, full:true"]
+Just be careful with figures from papers they tend to be rather asymptotic.  IBLT like schemes usually start with \~32-bits per difference in overhead for a checksum which is pretty bad when otherwise 30-bit members are fine
+[/quote]
+
+Fair; their main benchmarks are using 32-byte members and 8-byte checksums. I think the claimed overhead depends on the ratio between these two? Which would be worse for this application.
+
+They do mention that you can shorten the checksum for small sets, but it definitely isn't benchmarked. I _think_ that is acceptable if the set members are already sufficiently collision resistant.
+
+[quote="gmaxwell, post:5, topic:2105, full:true"]
+(FWIW, you can use minisketch in a kind of quasi rateless way by just dynamically sending more until the other side could recover– almost all the computation from a partial one can be conserved, as you don’t get to the expensive and non-reusable root finding step until you’re almost certain to have a correct decode, so long as you’re willing to take one or two extra elements overhead)
+[/quote]
+
+Ah, I didn't fully realize that this was the tradeoff for bisection / sketch reuse from the original paper nor notes on the repo :sweat_smile: But I see it listed as a TODO. That seems like the best option then; having more than one communication round for bisection is also more acceptable for LN than Bitcoin TX broadcast.
+
+I don't have a real estimate nor intuition for how many differences to expect; I may be able to estimate that by looking at real-world traffic, but it seems like this also depends on the flooding timer skew across all of your peers? Perhaps that is another option for reducing differences. Eventually I'll replay real-world traffic in simulation for a proper estimate.
+
+Related, one simple adjustment to reduce differences would be to flood messages your node generates to your direct peers, instead of waiting for the reconciliation timer.
+
+-------------------------
+
