@@ -338,7 +338,7 @@ Nuh | 2025-11-18 11:09:47 UTC | #16
 
 -------------------------
 
-m-kus | 2025-11-20 20:13:08 UTC | #17
+m-kus | 2025-11-20 20:16:25 UTC | #17
 
 These are really good points, thank you for the feedback!
 
@@ -351,10 +351,13 @@ Actually the verifier is quite a lean program, such impression is common because
 > The validation cost (CPU/memory) of a STARK proof is not proportional to its byte size
 
 It actually is, but the proportion is not always linear.
-Most of verifier’s work is checking Merkle proofs and doing arithmetics in a specific group. A proof consists of many Merkle openings, their number is determined by fixed parameters (determined by security requirements). Proof size depends on the execution trace size: 
+Most of verifier’s work is checking Merkle proofs and doing arithmetics in a specific group. A proof consists of many Merkle openings, their number is determined by fixed parameters (determined by security requirements). Proof size depends on the execution trace size:
 
 * logarithmic to the trace length (which is roughly how much computation you are compressing)
 * linear to the trace width (which depends on the number/implementation of accelerators that are used to reduce the trace length)
+
+The larger the trace, the larger the Merkle proofs => verifier does more hashing
+The wider the trade, the more the number of decommitted values => verifier does more arithmetics
 
 We can address DoS attack vector by introducing hard limits on both trace length and width. A good heuristic can be the cost of a recursive verification circuit:
 
