@@ -338,3 +338,39 @@ Nuh | 2025-11-18 11:09:47 UTC | #16
 
 -------------------------
 
+m-kus | 2025-11-20 20:13:08 UTC | #17
+
+These are really good points, thank you for the feedback!
+
+I generally agree with most of it, here are some comments:
+
+> OP_STARK_VERIFY would introduce a complex “black box” of tens of thousands of lines of code
+
+Actually the verifier is quite a lean program, such impression is common because most codebases contain the code for both prover and verifier, where the verifier inevitably reuse shared components. To give you a perspective, a pure Simplicity rewrite of Stwo (our latest prover) is 3k lines (1k without tests, comments, and empty lines). I think you can get even less in C, and the only dependency would be sha2 (which is not a new for Bitcoin core). So it is comparable with or even smaller than other cryptography primitives, like ECDSA/Schnorr.
+
+> The validation cost (CPU/memory) of a STARK proof is not proportional to its byte size
+
+It actually is, but the proportion is not always linear.
+Most of verifier’s work is checking Merkle proofs and doing arithmetics in a specific group. A proof consists of many Merkle openings, their number is determined by fixed parameters (determined by security requirements). Proof size depends on the execution trace size: 
+
+* logarithmic to the trace length (which is roughly how much computation you are compressing)
+* linear to the trace width (which depends on the number/implementation of accelerators that are used to reduce the trace length)
+
+We can address DoS attack vector by introducing hard limits on both trace length and width. A good heuristic can be the cost of a recursive verification circuit:
+
+* any computation can be recursively verified by it, so it’s safe to claim you won’t need anything beyond that
+* it’s typically very narrow, so proof size/input size ratio behaviour is close to logarithmic which would allow fair opcode pricing
+
+> Enshrining a specific version of STARKs, even a mature one, locks Bitcoin into a technology that will inevitably become obsolete
+
+This is true, although there’s an [opinion](https://vitalik.eth.limo/general/2024/07/23/circlestarks.html) that most of the significant optimisations in STARKs have already been realised and the frontiers will move to the arithmetization level (given the recursive flow it does not affect the last verification step).
+
+> A more prudent path, consistent with Bitcoin’s design, is to keep such complexity at higher layers or, if necessary, consider introducing generic, composable primitives rather than monolithic, application-specific solutions.
+
+Agree, but unfortunately that would require much more opcodes to be reenabled/introduced.
+Something like GSR+CTV would do the job, although the costs would still be quite high.
+
+Personally, I’m a Simplicity fan :smiley:
+
+-------------------------
+
