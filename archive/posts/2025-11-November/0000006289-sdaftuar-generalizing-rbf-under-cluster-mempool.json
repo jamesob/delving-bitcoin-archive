@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 23.2,
   "yours": false,
   "topic_id": 2115,
   "topic_slug": "generalizing-rbf-under-cluster-mempool",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi,\n\nThanks for taking a look at the cluster mempool proposal.  I wrote up a longer post on [incentive compatibility](https://delvingbitcoin.org/t/mempool-incentive-compatibility/553) that may be of interest \u2013 I think it addresses many of the questions you\u2019ve raised, and there is some discussion that followed that seems relevant to your suggestions as well.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Hi, \nThanks for taking a look at the cluster mempool proposal.  I wrote up a longer post on <a href=\"https://delvingbitcoin.org/t/mempool-incentive-compatibility/553\">incentive compatibility</a> that may be of interest \u2013 I think it addresses many of the questions you\u2019ve raised, and there is some discussion that followed that seems relevant to your suggestions as well.",
   "truncated": true,
   "post_url": "/t/generalizing-rbf-under-cluster-mempool/2115/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

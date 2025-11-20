@@ -32,7 +32,7 @@ I'm also investigating how this raw data could be published so others can perfor
 
 -------------------------
 
-jonhbit | 2025-11-14 21:48:21 UTC | #2
+jonhbit | 2025-11-19 21:31:53 UTC | #2
 
 A related subject is how we could switch the LN P2P network from message flooding to something closer to the design outlined in the Erlay paper and BIP. Some observations:
 
@@ -53,6 +53,8 @@ In the Erlay design, collisions are avoided by generating a salt for each peer c
 Alternatively, set elements could be computed from a channel's short channel ID (64 bits), plus the block height included in the gossip message. However, there are some issues with this approach.
 
 One is that the components of a short channel ID (channel open block height, transaction index, and output index) don't have a lot of entropy. For example, in a full block, one could have ~36000 1-in 1-out P2TR TXs of 111 vB, or 1 TX with 1 input and 93020 outputs with weight ~3999900 vB. In either case, the entropy of the TX + output index is only ~17 bits. Mixing in block heights does not add much to the total entropy, since a message can only use a block height from the last two weeks (~2016 possible values, 11 bits of entropy).
+
+[Edit 19.11.25: I forgot about the max standard TX weight of 400k WU; so a full block could have 10 TXs with ~3600 outputs each. That doesn't really change the total entropy of (TX index + output index) I think.]
 
 In addition, we would need a different mapping for node_announcement messages.
 
@@ -92,6 +94,71 @@ Minisketch has superlinear decoding costs, so decoding huge sketches will burn u
 The flooding in the erlay has the advantage that takes the bulk of the load off the sketch and lets the sketch fill in the small omissions which it’s good at doing.
 
 If you were to use reconciliation only you might be better off using iblt instead of minisketch (maybe plus a very small minisketch to unjam stuck IBLT decodes).   The overheads of iblt are much worse but that may be less significant if you’re running all the traffic through it.
+
+-------------------------
+
+jonhbit | 2025-11-19 22:36:32 UTC | #4
+
+[quote="gmaxwell, post:3, topic:2105, full:true"]
+Minisketch has superlinear decoding costs, so decoding huge sketches will burn up a lot of CPU.   One could reconcile more often to try to fight this, but every reconcile will imply some communication overheads since you’ll overshoot the unknown needed amount for a reconstruction.
+
+The flooding in the erlay has the advantage that takes the bulk of the load off the sketch and lets the sketch fill in the small omissions which it’s good at doing.
+[/quote]
+
+I missed that benefit of the flooding in Erlay on my previous reads of the paper; that makes sense.
+
+[quote="gmaxwell, post:3, topic:2105, full:true"]
+If you were to use reconciliation only you might be better off using iblt instead of minisketch (maybe plus a very small minisketch to unjam stuck IBLT decodes).   The overheads of iblt are much worse but that may be less significant if you’re running all the traffic through it.
+[/quote]
+
+This opened a rabbit hole that actually led me to a very recent paper proposing an IBLT-based set reconciliation protocol, that may be well-suited for this use case.
+
+Firstly, the CPISync implementation used for benchmarks in the Minisketch repo has moved and expanded to include some new protocols:
+
+https://github.com/nislab/gensync
+
+There is a related paper that explores some of the tradeoffs of sync with Cuckoo filters vs. CPI vs. IBLT:
+
+https://arxiv.org/abs/2303.17530
+
+Cuckoo filters looked interesting, but IIUC don't fit our use case well since a participant learns which elements their counterparty is missing, not the opposite (which elements they should request). The bandwidth used also seems to have a high floor. Outside of that, the benchmarks focus on much larger sets than what's relevant in the LN Gossip (or Erlay) setting.
+
+I never looked at the MET-IBLT paper; it seems like a better IBLT sync scheme, but with no benefits compared to RIBLT.
+
+Looking into cuckoo filters eventually led me to this paper, Rateless IBLT (RIBLT):
+
+https://arxiv.org/abs/2402.02668
+
+Which seems very promising. They even used the Minisketch library in their benchmarks! _And_ there is a public implementation in Golang (+ impls in C++ and Rust linked in the README):
+
+https://github.com/yangl1996/riblt
+
+The main math & explanation is in Section 4, with comparison to alternatives in Section 7.
+
+As a tl;dr:
+
+- To make an IBLT rateless / an infinite stream of coded symbols, we can extend a mostly-normal IBLT s.t. later coded symbols map to fewer and fewer inputs. If we have an efficient function to compute the indices of coded symbols an input must contribute to, we can encode our table efficiently even as the set size grows.
+- - We can also extend the table incrementally, and send extensions until decoding succeeds, so we don't need to estimate the set difference nor regenerate the IBLT if decode fails (similar to extending a Minisketch) (the paper doesn't comment much on partial recovery, but Figure 6 has some simulation results related to this).
+
+- The bandwidth overhead seems to have a ceiling of ~1.75, even for sets with very few differences; it converges to ~1.35 as differences increase past 100, which seems significantly better than standard IBLT? (Figure 5).
+
+- For both large and small set differences (1-1000), encoding cost grows linearly (Figure 8) This also holds for total set size (FIgure 10). Worth noting that the ratio (set_differences)/(set_size) is quite small in most of their benchmarks.
+
+- Most of their benchmarks use an element size of 64 bits. IIUC the bandwidth overhead could be significantly reduced if an implementation was optimized for small sets and smaller elements; there are some relevant notes in Sections 7.1 and 7.2.
+
+If these performance properties hold up, I agree that mixing frequent IBLT-based syncs + infrequent Minisketch usage is appealing. It may also be worth skipping Minisketch entirely and trade bandwidth overhead for the CPU savings; I'm not sure how LN implementations feel about that tradeoff tbh. 
+
+Another consideration is that the elements we want to exchange are very small (average message size <275 bytes), so there isn't much room to add bandwidth overhead. These messages will still be small with gossip v2.
+
+Being able to have larger (64+ bit) elements with only a small increased CPU cost (FIgure 11) may be a very significant benefit; I'll take a look at these implementations soon and report back.
+
+-------------------------
+
+gmaxwell | 2025-11-19 23:43:49 UTC | #5
+
+Just be careful with figures from papers they tend to be rather asymptotic.  IBLT like schemes usually start with \~32-bits per difference in overhead for a checksum which is pretty bad when otherwise 30-bit members are fine >100% overhead before you even get to the overheads needed to achieve correct reconstruction.  :smiley:  Some papers simply leave this overhead out of their figures, though I don’t recall if the rateless paper did that.
+
+(FWIW, you can use minisketch in a kind of quasi rateless way by just dynamically sending more until the other side could recover– almost all the computation from a partial one can be conserved, as you don’t get to the expensive and non-reusable root finding step until you’re almost certain to have a correct decode, so long as you’re willing to take one or two extra elements overhead)
 
 -------------------------
 
