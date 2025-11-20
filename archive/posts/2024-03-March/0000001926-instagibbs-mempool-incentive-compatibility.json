@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"27\" data-topic=\"553\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>But it does effect a general stackable-txs case, which is where we\u2019re headed eventually, so must be considered. Sigh, ok</p>\n</blockquote>\n</aside>\n<p>The stackable case is interesting in that an attacker can easily coordinate with itself to pin 100 channels, but collective action to outbid it might be prohibitive in terms of interactivity. So even if a miner \u201cknows\u201d it would pairwise not take the pin-evicting txs, it might err on the side of taking it anyways, excluding DoS concerns.</p>\n<p>My ideal is if we had some future discounting, and we applied it to diagram checks, we could make all diagrams comparable during these checks. With that in hand, incentives and DoS checks would be two completely separate concerns. From there we can think about alternative anti-DoS measures with a bit more clarity.</p>",
   "post_number": 28,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2024-03-18T18:16:36.993Z",
   "reply_count": 1,
   "reply_to_post_number": 27,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 23.2,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 41.2,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The stackable case is interesting in that an attacker can easily coordinate with itself to pin 100 channels, but collective action to outbid it might be prohibitive in terms of interactivity. So even if a miner \u201cknows\u201d it would pairwise not take the pin-evicting txs, it might err on the side of tak&hellip;",
+  "truncated": true,
+  "post_url": "/t/mempool-incentive-compatibility/553/28",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

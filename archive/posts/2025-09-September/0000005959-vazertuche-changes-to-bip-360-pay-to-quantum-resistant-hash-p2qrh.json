@@ -7,15 +7,15 @@
   "cooked": "<p>P2TR with a NUMS point is not quantum resistant. A CRQC can break the tweaked key on chain whether it is aware the primary path is using a NUMS point or not. Interestingly enough, if a quantum computer did this, it would provide cryptographically provable evidence that a quantum computer exist and has stolen these funds. (or that EC crypto is broken) The user who\u2019s wallet was stolen would simply need to reveal a valid script path spend along with the NUMS point and any outside observer should be fully convinced a quantum computer broke the tweaked key and stole the funds.</p>",
   "post_number": 30,
   "post_type": 1,
-  "posts_count": 29,
+  "posts_count": 30,
   "updated_at": "2025-09-23T20:48:55.551Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 19.0,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -45,13 +45,18 @@
   },
   "bookmarked": false,
   "raw": "P2TR with a NUMS point is not quantum resistant. A CRQC can break the tweaked key on chain whether it is aware the primary path is using a NUMS point or not. Interestingly enough, if a quantum computer did this, it would provide cryptographically provable evidence that a quantum computer exist and has stolen these funds. (or that EC crypto is broken) The user who\u2019s wallet was stolen would simply need to reveal a valid script path spend along with the NUMS point and any outside observer should be fully convinced a quantum computer broke the tweaked key and stole the funds.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 449,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -60,9 +65,15 @@
   "excerpt": "P2TR with a NUMS point is not quantum resistant. A CRQC can break the tweaked key on chain whether it is aware the primary path is using a NUMS point or not. Interestingly enough, if a quantum computer did this, it would provide cryptographically provable evidence that a quantum computer exist and h&hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/30",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"18\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>I\u2019ve found this use-case the least compelling part, especially at the cost of having to reason about legacy scripting. If it\u2019s really important one idea I\u2019d suggest it be included it as a new segwit output type as a separate feature that lives and dies in a proposal on its own merits. I ended up doing this with P2A for the exact same two reasons.</p>\n</blockquote>\n</aside>\n<p>My technical suggestion for a post-segwit/taproot world:</p>\n<ol>\n<li>switch to OP_SUCCESSx CTV that pushes to stack (tascript++ only)</li>\n<li>P2CTV softfork which is defined as a spk of exactly:<br>\na) &lt;32 bytes data&gt; &lt;OP_NOP5&gt; # for upgrade hook ensuring no one intended to use this otherwise, no corresponding address. Or it could be any other non-segwit template.<br>\nb) OR &lt;2&gt; &lt;32 bytes data&gt; # unknown witness version, has address</li>\n</ol>\n<p>Either one would be required to have empty witness data / scriptSig on spend and does otherwise identical hashing checks on spending tx.</p>\n<p>Either bare CTV is important or it\u2019s not; it would be pretty trivial to do (2.b)\nand allows the reviewer to never think about legacy script opcodes at all.</p>",
   "post_number": 39,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-14T17:01:34.406Z",
   "reply_count": 1,
   "reply_to_post_number": 18,
   "quote_count": 1,
-  "incoming_link_count": 4,
-  "reads": 30,
-  "readers_count": 29,
-  "score": 76.0,
+  "incoming_link_count": 5,
+  "reads": 65,
+  "readers_count": 64,
+  "score": 88.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "My technical suggestion for a post-segwit/taproot world: \n\nswitch to OP_SUCCESSx CTV that pushes to stack (tascript++ only)\nP2CTV softfork which is defined as a spk of exactly: \na) &lt;32 bytes data&gt; &lt;OP_NOP5&gt; # for upgrade hook ensuring no one intended to use this otherwise, no corresponding address.&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/39",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +73,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

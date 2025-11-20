@@ -7,15 +7,15 @@
   "cooked": "<p>More interesting if other optimizations move bandwidth to being decisively the limit for more nodes-- there are recent proposals that seem to.</p>\n<p>Also more interesting if the number of limited-only nodes wasn\u2019t so tiny, but perhaps that\u2019s a bit chicken and egg with reducing the bandwidth.</p>\n<p>FWIW just using a more efficient serialization for transactions can reduce bandwidth (and storage, if you use it there too) on the order of 1/3rd.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-05-31T20:19:40.088Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 27,
-  "readers_count": 26,
-  "score": 5.2,
+  "incoming_link_count": 4,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 44.8,
   "yours": false,
   "topic_id": 1742,
   "topic_slug": "witnessless-sync-for-pruned-nodes",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "More interesting if other optimizations move bandwidth to being decisively the limit for more nodes-- there are recent proposals that seem to.\n\nAlso more interesting if the number of limited-only nodes wasn't so tiny, but perhaps that's a bit chicken and egg with reducing the bandwidth. \n\nFWIW just using a more efficient serialization for transactions can reduce bandwidth (and storage, if you use it there too) on the order of 1/3rd.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "More interesting if other optimizations move bandwidth to being decisively the limit for more nodes-- there are recent proposals that seem to. \nAlso more interesting if the number of limited-only nodes wasn\u2019t so tiny, but perhaps that\u2019s a bit chicken and egg with reducing the bandwidth. \nFWIW just u&hellip;",
   "truncated": true,
   "post_url": "/t/witnessless-sync-for-pruned-nodes/1742/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>if you want to do it without screwing over the normal users of bitcoin, and only make disproportionate use of witness space less competitive:</p>\n<p><code>WUtx = 4\u00b7size(tx_data|segwit_data) - 3\u00b7min(3\u00b7size(tx_data), size(segwit_data))</code></p>\n<p>however most of the spam is brc-20 and that already would not be significantly affected. in the future alternative assets likely will be either using runes or rgb. they can get a lot more efficient with block space. you won\u2019t likely achieve anything with this approach.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 26,
   "updated_at": "2023-12-30T17:47:32.037Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "incoming_link_count": 6,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 65.0,
   "yours": false,
   "topic_id": 327,
   "topic_slug": "bug-spammers-get-bitcoin-blockspace-at-discounted-price-lets-fix-it",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,20 +39,38 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "if you want to do it without screwing over the normal users of bitcoin, and only make disproportionate use of witness space less competitive:\n\n`WUtx = 4\u00b7size(tx_data|segwit_data) - 3\u00b7min(3\u00b7size(tx_data), size(segwit_data))`\n\nhowever most of the spam is brc-20 and that already would not be significantly affected. in the future alternative assets likely will be either using runes or rgb. they can get a lot more efficient with block space. you won't likely achieve anything with this approach.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 48,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "if you want to do it without screwing over the normal users of bitcoin, and only make disproportionate use of witness space less competitive: \nWUtx = 4\u00b7size(tx_data|segwit_data) - 3\u00b7min(3\u00b7size(tx_data), size(segwit_data)) \nhowever most of the spam is brc-20 and that already would not be significantl&hellip;",
+  "truncated": true,
+  "post_url": "/t/bug-spammers-get-bitcoin-blockspace-at-discounted-price-lets-fix-it/327/3",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

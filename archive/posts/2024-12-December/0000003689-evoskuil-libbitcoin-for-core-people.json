@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"andrewtoth\" data-post=\"32\" data-topic=\"1222\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/andrewtoth/48/576_2.png\" class=\"avatar\"> andrewtoth:</div>\n<blockquote>\n<p>I don\u2019t see how this requires no order though. If the transaction which contains the prevout has not been stored yet then this check will fail even if it does exist.</p>\n</blockquote>\n</aside>\n<p>It only requires that the previous output has been downloaded. That\u2019s a partial ordering requirement. That\u2019s why <span class=\"hashtag-raw\">#3</span> cannot be performed in block.check.</p>\n<p>The important observation is that it does not require a total ordering by block. That constraint is only imposed by the need to populate a utxo store.</p>",
   "post_number": 33,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-02T20:20:15.682Z",
   "reply_count": 1,
   "reply_to_post_number": 32,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "reads": 50,
+  "readers_count": 49,
+  "score": 30.0,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"andrewtoth, post:32, topic:1222\"]\nI don\u2019t see how this requires no order though. If the transaction which contains the prevout has not been stored yet then this check will fail even if it does exist.\n[/quote]\n\nIt only requires that the previous output has been downloaded. That's a partial ordering requirement. That's why #3 cannot be performed in block.check.\n\nThe important observation is that it does not require a total ordering by block. That constraint is only imposed by the need to populate a utxo store.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "It only requires that the previous output has been downloaded. That\u2019s a partial ordering requirement. That\u2019s why #3 cannot be performed in block.check. \nThe important observation is that it does not require a total ordering by block. That constraint is only imposed by the need to populate a utxo st&hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/33",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>Hard disagree with most of your points.</p>\n<blockquote>\n<p>I think the whole OP_RETURN debate is missing one important part: a communication link between the developers and the users.</p>\n</blockquote>\n<p>I don\u2019t see a lack of communication avenues between users and developers. We have the mailing list, GitHub issues and even the pull request comments for constructive criticisms of proposed changes (not brigading and repeating already addressed arguments).</p>\n<blockquote>\n<p>However, it is important that there is mutual respect and trust between users and devs. Right now, trust is pretty broken.</p>\n</blockquote>\n<p>No, it is not. Bitcoin Core developers and maintainers are doing an excellent job, as evidenced e.g. by around 95% of the network choosing Bitcoin Core as their node implementation, despite multiple alternatives being available.</p>\n<blockquote>\n<p>It\u2019s a big change that came out of nowhere</p>\n</blockquote>\n<p>It\u2019s not a big change, it just allows people to send transactions through the network that they are already submitting directly to miners. It also didn\u2019t come out of nowhere, lifting the OP_RETURN limits has been talked about for ages and especially since people started putting arbitrary data into witnesses instead (which was over 2 years ago).</p>\n<blockquote>\n<p>One protocol is mentioned that would benefit from this change</p>\n</blockquote>\n<p>The protocol mentioned would not really benefit from this change, rather everyone else would benefit if this protocol could switch from unspendable UTXOs to OP_RETURN outputs.</p>\n<blockquote>\n<p>and then an investor ACKs the PR. Someone points out a potential conflict of interest, and their comment gets hidden. That\u2019s shady, no denying it.</p>\n</blockquote>\n<p>Conflict of interest doesn\u2019t really matter here. If a change is proposed that would hurt Bitcoin at someone\u2019s benefit, it can just as well be rejected on the basis of hurting Bitcoin alone. Changes can also be proposed pseudonymously, so there\u2019s really no hope of policing conflicts of interest in the first place. Lastly, pull request comments are meant for reviewing the proposed changes, which is why the comment was hidden as off-topic.</p>\n<blockquote>\n<p>It\u2019s a \u201c\u201ctechnocracy\u201d\u201d, where devs have all the power in their hands and can decide where the protocol goes, while completely dismissing users\u2019 concerns.</p>\n</blockquote>\n<p>No, they cannot. Devs only write the code, it is up to the users to choose to run it. Devs can decide to make any changes they want, but without users running their code they have no power.</p>\n<blockquote>\n<p>But their concerns are dismissed, their comments deleted or hidden, they\u2019re treated like \u201cbullies\u201d that devs should ignore, devs should \u201cmerge Todd\u2019s PR and call it a day\u201d.</p>\n</blockquote>\n<p>As far as I can tell, all the arguments (that is, the few that actually had merit) against lifting OP_RETURN limits have been adequately addressed, in which case it\u2019s indeed fine to merge the PR.</p>\n<blockquote>\n<p>users freaking out and holding core developers accountable and flooding Github is a feature, not a bug</p>\n</blockquote>\n<p>There is no need to hold developers accountable. You either run the software they provide to you (for free, at that), or you don\u2019t. Brigading pull request comments only wastes everyone\u2019s time and definitely contributes to the divide you seem to be so keen on resolving.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2025-05-02T15:29:21.824Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 14.8,
+  "incoming_link_count": 16,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 102.2,
   "yours": false,
   "topic_id": 1650,
   "topic_slug": "behind-the-op-return-drama",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hard disagree with most of your points.\n\n> I think the whole OP_RETURN debate is missing one important part: a communication link between the developers and the users.\n\nI don't see a lack of communication avenues between users and developers. We have the mailing list, GitHub issues and even the pull request comments for constructive criticisms of proposed changes (not brigading and repeating already addressed arguments).\n\n> However, it is important that there is mutual respect and trust between users and devs. Right now, trust is pretty broken.\n\nNo, it is not. Bitcoin Core developers and maintainers are doing an excellent job, as evidenced e.g. by around 95% of the network choosing Bitcoin Core as their node implementation, despite multiple alternatives being available.\n\n> It\u2019s a big change that came out of nowhere\n\nIt's not a big change, it just allows people to send transactions through the network that they are already submitting directly to miners. It also didn't come out of nowhere, lifting the OP_RETURN limits has been talked about for ages and especially since people started putting arbitrary data into witnesses instead (which was over 2 years ago).\n\n> One protocol is mentioned that would benefit from this change\n\nThe protocol mentioned would not really benefit from this change, rather everyone else would benefit if this protocol could switch from unspendable UTXOs to OP_RETURN outputs.\n\n> and then an investor ACKs the PR. Someone points out a potential conflict of interest, and their comment gets hidden. That\u2019s shady, no denying it.\n\nConflict of interest doesn't really matter here. If a change is proposed that would hurt Bitcoin at someone's benefit, it can just as well be rejected on the basis of hurting Bitcoin alone. Changes can also be proposed pseudonymously, so there's really no hope of policing conflicts of interest in the first place. Lastly, pull request comments are meant for reviewing the proposed changes, which is why the comment was hidden as off-topic.\n\n> It\u2019s a \u201c\u201ctechnocracy\u201d\u201d, where devs have all the power in their hands and can decide where the protocol goes, while completely dismissing users\u2019 concerns.\n\nNo, they cannot. Devs only write the code, it is up to the users to choose to run it. Devs can decide to make any changes they want, but without users running their code they have no power.\n\n> But their concerns are dismissed, their comments deleted or hidden, they\u2019re treated like \u201cbullies\u201d that devs should ignore, devs should \u201cmerge Todd\u2019s PR and call it a day\u201d.\n\nAs far as I can tell, all the arguments (that is, the few that actually had merit) against lifting OP_RETURN limits have been adequately addressed, in which case it's indeed fine to merge the PR.\n\n> users freaking out and holding core developers accountable and flooding Github is a feature, not a bug\n\nThere is no need to hold developers accountable. You either run the software they provide to you (for free, at that), or you don't. Brigading pull request comments only wastes everyone's time and definitely contributes to the divide you seem to be so keen on resolving.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Hard disagree with most of your points. \n\nI think the whole OP_RETURN debate is missing one important part: a communication link between the developers and the users. \n\nI don\u2019t see a lack of communication avenues between users and developers. We have the mailing list, GitHub issues and even the pull&hellip;",
   "truncated": true,
   "post_url": "/t/behind-the-op-return-drama/1650/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "clap",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

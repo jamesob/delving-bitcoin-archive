@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"bruno\" data-post=\"6\" data-topic=\"1470\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/bruno/48/60_2.png\" class=\"avatar\"> bruno:</div>\n<blockquote>\n<p>What makes BDK evolves so fast compared to Bitcoin Core?</p>\n</blockquote>\n</aside>\n<p>I think language indeed plays a role. I\u2019m less sure about project organisation (Discord, meetings, \u2026). It\u2019s also the case that it\u2019s more fun to \u201crewrite X from scratch\u201d than work on a project with a bunch of legacy code. Having a clear set of goals for what they are trying to achieve surely helps maintain focus, too. It also solves the coordination problem to be able to actually make progress (similar to the working groups idea for Core, \u201cif i invest 1 month implementing and polishing this, has it decent chances of making it in?\u201d) which certainly makes it more fun to work on the project. Finally, i think the bar is generally higher to get changes in the Bitcoin Core wallet than in BDK. Being more fun with a general direction and ability to make progress in turn helps bring and retain contributors.</p>\n<p>Splitting the wallet into its own repo won\u2019t automagically bring all of these benefits but i do think there is an opportunity to get some of them. For instance lowering the bar for review temporarily would adjust to the current reality of the number of contributors there and make it easier to make progress. Having it in its own project would let contributors focus exclusively on the wallet, and coupled with <a href=\"https://lclhost.org\">other factors</a> could let contributors coordinate on a clear set of goals for the project to advance toward.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 20,
   "updated_at": "2025-02-25T14:40:45.694Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 34.8,
+  "incoming_link_count": 3,
+  "reads": 83,
+  "readers_count": 82,
+  "score": 61.6,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -56,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think language indeed plays a role. I\u2019m less sure about project organisation (Discord, meetings, \u2026). It\u2019s also the case that it\u2019s more fun to \u201crewrite X from scratch\u201d than work on a project with a bunch of legacy code. Having a clear set of goals for what they are trying to achieve surely helps m&hellip;",
+  "truncated": true,
+  "post_url": "/t/antoine-poinsot-on-bitcoin-cores-priorities/1470/7",
   "reactions": [
     {
       "id": "+1",
@@ -65,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

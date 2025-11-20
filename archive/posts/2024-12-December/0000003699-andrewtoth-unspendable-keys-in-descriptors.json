@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"salvatoshi\" data-post=\"24\" data-topic=\"304\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/salvatoshi/48/72_2.png\" class=\"avatar\"> salvatoshi:</div>\n<blockquote>\n<p>Finally, a wallet policy might have the same <code>@i</code> multiple times (especially on taproot); in your version you\u2019d either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.</p>\n</blockquote>\n</aside>\n<p>If we would like an unspendable internal xpub to be standardized between descriptors and wallet policies, then we must remove duplicates. I think sorting and removing duplicates of all xpubs, then concatenating and SHA256 hashing the result would be the simplest to implement.</p>\n<p>We would also have to restrict all xpubs to <code>xpub/&lt;0;1&gt;/*</code> with no allowance for <a href=\"https://github.com/bitcoin/bips/blob/532c4c10f2e04b3dca7d39ce1b1a4bdbf0c88e52/bip-0388.mediawiki#optional-derivation-paths\" rel=\"noopener nofollow ugc\">optional derivation paths</a>. I think that\u2019s ok because that allowance is for legacy wallets, who would not have taproot support anyways.</p>",
   "post_number": 28,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2024-12-03T03:33:40.002Z",
   "reply_count": 1,
   "reply_to_post_number": 24,
   "quote_count": 1,
-  "incoming_link_count": 5,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 42.6,
+  "incoming_link_count": 8,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 67.4,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "If we would like an unspendable internal xpub to be standardized between descriptors and wallet policies, then we must remove duplicates. I think sorting and removing duplicates of all xpubs, then concatenating and SHA256 hashing the result would be the simplest to implement. \nWe would also have to&hellip;",
+  "truncated": true,
+  "post_url": "/t/unspendable-keys-in-descriptors/304/28",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"1\" data-topic=\"1344\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<ul>\n<li><code>n = 0</code> return the SUM of all input amounts with same script</li>\n<li><code>n &lt; 0</code> return the SUM of last abs(n) input amounts including current input</li>\n<li><code>n &gt; 0</code> return the SUM of first n input amounts of the transaction</li>\n</ul>\n</blockquote>\n</aside>\n<p>Does <code>OP_INPUTAMOUNTS</code> return values over 31 bits (~21 BTC)?  Does <code>OP_TEMPLATEHASH</code> accept input amounts over 31 bits?</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2024-12-31T20:04:34.026Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 21.6,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 24.4,
   "yours": false,
   "topic_id": 1344,
   "topic_slug": "ctv-op-templatehash-and-op-inputamounts",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Does OP_INPUTAMOUNTS return values over 31 bits (~21 BTC)?  Does OP_TEMPLATEHASH accept input amounts over 31 bits?",
+  "truncated": true,
+  "post_url": "/t/ctv-op-templatehash-and-op-inputamounts/1344/4",
   "reactions": [
     {
       "id": "heart",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

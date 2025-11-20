@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"15\" data-topic=\"553\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>And while v3 is a useful hack for CPFP,</p>\n</blockquote>\n</aside>\n<p>Without derailing this excellent conversation happening too much, V3 in its current form I\u2019d argue is useful for a number of the fee tropes, just not for single tx exogenous fees specifically, which of course is a bit of a shame, but it\u2019s not just for CPFP!</p>\n<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"16\" data-topic=\"553\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>Fees go up, you get evicted, you win a Free Relay.</p>\n</blockquote>\n</aside>\n<p>I might be reading this game wrong, but if it\u2019s evicted, we attempt to make subsequent txs \u201cpay for it\u201d by increasing minfee by incremental rate. So it\u2019s limited in scope and by time(similar to how we allow free relay for transactions that sat in mempool for 2 weeks and time out). Strictly weaker than harvesting the fees directly of course.</p>",
   "post_number": 17,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2024-02-26T15:09:35.021Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 15,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "reads": 42,
+  "readers_count": 41,
+  "score": 33.4,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Without derailing this excellent conversation happening too much, V3 in its current form I\u2019d argue is useful for a number of the fee tropes, just not for single tx exogenous fees specifically, which of course is a bit of a shame, but it\u2019s not just for CPFP! \n\nI might be reading this game wrong, but&hellip;",
+  "truncated": true,
+  "post_url": "/t/mempool-incentive-compatibility/553/17",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +73,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

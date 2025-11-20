@@ -7,14 +7,15 @@
   "cooked": "<p>For what it\u2019s worth, Chia recently enabled these sorts of reverse timelocks; see <a href=\"https://github.com/Chia-Network/chips/blob/ace05086365fd9b5d9c9cb18e93bd2025aae6887/CHIPs/chip-0014.md\">CHIP 14</a> (or the <a href=\"https://github.com/Chia-Network/chips/pull/59\">proposal PR</a> or the <a href=\"https://github.com/Chia-Network/chia-blockchain/pull/14733\">activation PR</a>). The <a href=\"https://www.chia.net/2023/02/22/2023-investing-in-what-sets-us-apart/\">announcement</a> mostly describes it as being useful for decentralised exchanges rather than payment channels per se:</p>\n<blockquote>\n<p>Expanding the Offers primitive, we\u2019re proposing a <a href=\"https://github.com/Chia-Network/chips/pull/59\">CHIP</a>, \u201c<a href=\"https://roadmap.chia.net/c/67-assert-before-condition-code\">Assert Before</a>,\u201d a soft fork to add new Chialisp conditions that enable Offers to expire. We expect this to dramatically improve the liquidity and depth of digital asset trading on Chia DEXs; while providing a superior model to centralized exchanges (CEX) and automated market makers.</p>\n</blockquote>\n<p>I couldn\u2019t find much in the way of background technical discussion; mostly I think they decided that the complexity around reorgs (small/accidental reorgs likely won\u2019t hit a transaction block anyway?) and mempool management (mostly empty anyway?) just wasn\u2019t that big of a deal. So not sure there\u2019s anything much to be learnt from there\u2026</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 14,
   "updated_at": "2024-03-14T13:00:12.989Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 20.6,
   "yours": false,
   "topic_id": 581,
   "topic_slug": "op-checkmaxtimeverify",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 58,
     "username": "murch",
     "name": "Murch",
     "avatar_template": "/user_avatar/delvingbitcoin.org/murch/{size}/139_2.png"
   },
   "bookmarked": false,
   "raw": "For what it's worth, Chia recently enabled these sorts of reverse timelocks; see [CHIP 14](https://github.com/Chia-Network/chips/blob/ace05086365fd9b5d9c9cb18e93bd2025aae6887/CHIPs/chip-0014.md) (or the [proposal PR](https://github.com/Chia-Network/chips/pull/59) or the [activation PR](https://github.com/Chia-Network/chia-blockchain/pull/14733)). The [announcement](https://www.chia.net/2023/02/22/2023-investing-in-what-sets-us-apart/) mostly describes it as being useful for decentralised exchanges rather than payment channels per se:\n\n> Expanding the Offers primitive, we\u2019re proposing a [CHIP](https://github.com/Chia-Network/chips/pull/59), \u201c[Assert Before](https://roadmap.chia.net/c/67-assert-before-condition-code),\u201d a soft fork to add new Chialisp conditions that enable Offers to expire. We expect this to dramatically improve the liquidity and depth of digital asset trading on Chia DEXs; while providing a superior model to centralized exchanges (CEX) and automated market makers.\n\nI couldn't find much in the way of background technical discussion; mostly I think they decided that the complexity around reorgs (small/accidental reorgs likely won't hit a transaction block anyway?) and mempool management (mostly empty anyway?) just wasn't that big of a deal. So not sure there's anything much to be learnt from there...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,8 +62,21 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "For what it\u2019s worth, Chia recently enabled these sorts of reverse timelocks; see <a href=\"https://github.com/Chia-Network/chips/blob/ace05086365fd9b5d9c9cb18e93bd2025aae6887/CHIPs/chip-0014.md\">CHIP 14</a> (or the <a href=\"https://github.com/Chia-Network/chips/pull/59\">proposal PR</a> or the <a href=\"https://github.com/Chia-Network/chia-blockchain/pull/14733\">activation PR</a>). The <a href=\"https://www.chia.net/2023/02/22/2023-investing-in-what-sets-us-apart/\">announcement</a> mostly describes it as being useful for decentralised exchanges rather than payment channels per se: \n\nExpanding the Offers primitive, we\u2019re proposing &hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checkmaxtimeverify/581/11",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

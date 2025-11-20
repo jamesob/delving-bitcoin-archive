@@ -7,14 +7,15 @@
   "cooked": "<p>Ultimately you can boil down the innovation in this post to the single idea: it is possible to create a proof-of-low-fees by forcing a miner to include an artificially-enlarged transaction in its block in order to recover its bonded funds.</p>\n<p>Your target as stated seems to not fit the above \u2014 what you seem to want is someone is able to loan out to funds to some business, which then promises to pay back from its earnings. This probably requires real-world force and some kind of legal system.</p>\n<p>Less generally, once a miner has established itself, it can smoothen out its incoming cashflow using this mechanism to offer high-fee insurance to users.  In case of low fees, it earns more, and in case of high fees, it earns less.  If there is enough competition and the miner is able to track well with its competitors, I expect that MC=MR is reached and none of the miners will actually earn more total from this mechanism, but <em><strong>will</strong></em> get smoothened continuous cashflow, which helps reduce its uncertainties (e.g. grid balancing) which would still be beneficial to actual miner implementations.</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-02-22T10:47:04.198Z",
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "incoming_link_count": 3,
+  "reads": 29,
+  "readers_count": 28,
+  "score": 35.8,
   "yours": false,
   "topic_id": 547,
   "topic_slug": "an-onchain-implementation-of-mining-feerate-futures",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,26 +38,45 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 307,
     "username": "quantobasta",
     "name": "",
     "avatar_template": "/letter_avatar_proxy/v4/letter/q/ce73a5/{size}.png"
   },
   "bookmarked": false,
   "raw": "Ultimately you can boil down the innovation in this post to the single idea: it is possible to create a proof-of-low-fees by forcing a miner to include an artificially-enlarged transaction in its block in order to recover its bonded funds.\n\nYour target as stated seems to not fit the above --- what you seem to want is someone is able to loan out to funds to some business, which then promises to pay back from its earnings. This probably requires real-world force and some kind of legal system.\n\nLess generally, once a miner has established itself, it can smoothen out its incoming cashflow using this mechanism to offer high-fee insurance to users.  In case of low fees, it earns more, and in case of high fees, it earns less.  If there is enough competition and the miner is able to track well with its competitors, I expect that MC=MR is reached and none of the miners will actually earn more total from this mechanism, but ***will*** get smoothened continuous cashflow, which helps reduce its uncertainties (e.g. grid balancing) which would still be beneficial to actual miner implementations.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 104,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Ultimately you can boil down the innovation in this post to the single idea: it is possible to create a proof-of-low-fees by forcing a miner to include an artificially-enlarged transaction in its block in order to recover its bonded funds. \nYour target as stated seems to not fit the above \u2014 what you&hellip;",
+  "truncated": true,
+  "post_url": "/t/an-onchain-implementation-of-mining-feerate-futures/547/8",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

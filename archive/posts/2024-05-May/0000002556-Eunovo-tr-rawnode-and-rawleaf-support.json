@@ -7,14 +7,15 @@
   "cooked": "<p>Makes sense. I didn\u2019t see it that way. Thanks! <a class=\"mention\" href=\"/u/sipa\">@sipa</a></p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2024-05-28T17:37:26.121Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 63.0,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 82.0,
   "yours": false,
   "topic_id": 901,
   "topic_slug": "tr-rawnode-and-rawleaf-support",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,16 +38,17 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "Makes sense. I didn't see it that way. Thanks! @sipa",
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Makes sense. I didn\u2019t see it that way. Thanks! <a class=\"mention\" href=\"/u/sipa\">@sipa</a>",
+  "truncated": true,
+  "post_url": "/t/tr-rawnode-and-rawleaf-support/901/4",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
