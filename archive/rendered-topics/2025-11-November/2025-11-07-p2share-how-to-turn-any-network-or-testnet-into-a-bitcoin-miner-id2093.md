@@ -584,3 +584,46 @@ Open questions about the p2share model as it is currently being contemplated:
 
 -------------------------
 
+VzxPLnHqr | 2025-11-20 01:43:27 UTC | #16
+
+After re-reading this thread, it is clear that it would be difficult for a newcomer to fully come up to speed with what is being discussed here. Additionally, some of the design parameters have been refined. Below is an attempt to distill things into a more intuitive picture which is consistent with my current thinking about it.
+
+_[Disclaimer: I used an LLM to help create this summary, but spent a lot of time carefully reviewing and editing it before posting here.]_
+
+## The Story So Far
+
+P2Share is a decentralized mining framework that builds on the legacy of P2Pool, enabling Bitcoin miners and non-miners to form symbiotic sub-networks called sharechains. These sharechains operate as valid Bitcoin mining pools from the perspective of the mainnet, contributing hash power to Bitcoin's security while introducing their own internal unit of account -- ransferable "shares." Unlike traditional altcoins or forks that dilute Bitcoin's proof-of-work (PoW) by splitting thermodynamic effort, sharechains align fully with Bitcoin's consensus, ensuring **all work bolsters mainnet security without requiring any changes to Bitcoin itself.**
+
+### Core Mechanism of Sharechains
+At its heart, a sharechain is a separate blockchain that miners participate in to collectively mine Bitcoin blocks. Miners submit low-difficulty shares to the sharechain, which adjusts its own difficulty independently. 
+
+The hash of the sharechain blockheader is inserted within mainchain block template. The template is constructed by the sharechain miner in accordance with both sharechain consensus and Bitcoin consensus. Sharechain consensus specifies what the miner is to place in the bitcoin block's coinbase output (more on this later). Sharechain consensus also requires that the bitcoin block be valid according to Bitcoin consensus in every way except for possibly not meeting the Bitcoin difficulty requirement.
+
+Within the bitcoin block, a sharechain miner is free to choose and include whichever bitcoin transactions she wants, so long as they are valid according to Bitcoin consensus. Within the sharechain, in addition to assigning herself the share reward, she is also free to choose and include whichever sharechain transactions she wants, so long as those transactions are valid according to sharechain consensus.
+
+When the sharechain's combined effort eventually produces a valid Bitcoin block, the Bitcoin reward (subsidy plus fees) is assigned not pro-rata to all participants, but _to a single pseudorandomly selected shareholder._ At sharechain height `i`, sharechain miners are working to find sharechain block `i+1`. The selection for which share is chosen is derived from the sharechain's most recently mined block, using a mechanism like `q(i+1) = sha256("q selector" || sharechain_blockheader_i) mod total_shares_outstanding`. In expectation, this is equivalent to proportional distribution, as the probability of selection scales with shares owned.
+
+To minimize Bitcoin mainnet block space usage, which was a key limitation of original P2Pool design, the coinbase transaction outputs to just one address: that of the selected shareholder. This maximizes room for fee-paying transactions, enhancing overall revenue potential. Shares themselves are minted and distributed via the sharechain's PoW, and they can be traded trustlessly via atomic swaps with Bitcoin, potentially establishing a market price in satoshis.
+
+### Incentive-Compatible Share Issuance
+The design aims for incentive compatibility by issuing a constant number of shares per unit of work, rather than following a fixed halving schedule like Bitcoin. Specifically, share issuance per block is `S = c * D_sharechain`, where `c` is an emperically determined genesis constant and `D_sharechain` is the current sharechain difficulty. This ties issuance directly to contributed work, creating inflation in share supply as hash rate grows, but preserving proportional fairness across all historical work.
+
+- **Why this recovers incentive compatibility**: Each share represents a consistent unit of PoW effort, adjusted for difficulty changes. Early shares retain value because the random selection draws from the entire ledger, giving them ongoing chances at Bitcoin rewards even as the network scales. In scenarios of hash rate fluctuations (e.g., a 100x increase followed by a drop), issuance scales accordingly, ensuring no disproportionate rewards; miners are compensated based on collective effort over time.
+
+- **Alignment with existing models**: This mirrors Pay-Per-Last-N-Shares (PPLNS) in expectation, where `N` encompasses all shares ever issued, and difficulty adjustments normalize work per share. PPLNS is widely used in mining pools due to its proven rationality, balancing real costs like electricity with predictable payouts. Here, miners rationally participate if their share holdings match their hash rate contribution, protecting against dilution while mining Bitcoin indirectly.
+
+- **Nodes set and enforce sharechain consensus**: Just as with Bitcoin, not all sharechain nodes need be mining nodes. Just as with Bitcoin, consensus is set and enforced by the nodes collectively, and only a subset of those nodes are mining nodes. _A fully validating sharechain node is also, by definition, a fully validating Bitcoin node._ Notably, however, because any sharechain node with a nonzero share balance has a chance to receive the Bitcoin reward, there is a modicum of incentive to run a sharechain node.
+
+This setup degrades gracefully to solo mining "with extra steps," but the extras provide trustless decentralization: miners avoid custodial risks of centralized pools, and there is incentive to hold shares as "equity" in future earnings. This is somewhat akin to buying equity in a Bitcoin-aligned venture, but more transparent, borderless, and argubably just plain better -- but still risky! Shares are merely a probabilistic claim on the future Bitcoin earnings of the sharechain, if any. This is not very different from equity in a startup.
+
+### Benefits for the Bitcoin Ecosystem
+Sharechains enhance Bitcoin without threatening its conservative core. They serve as testing grounds for innovative features, such as new scripting, anti-spam measures, or L2 integrations that might not suit mainnet, yet information about which may be nonetheless helpful. Consensus changes within a sharechain can signal preferences and/or readiness to Bitcoin via miner commitments, fostering decentralized coordination. There is also information in relative sharechain prices. For instance, multiple sharechains could emerge with distinct rules, and their relative share prices (realized via atomic swaps) would reflect market demand, thereby providing valuable signals without taking any hash power away from Bitcoin.
+
+Ephemeral or speculative sharechains are viable too, as they still contribute PoW to Bitcoin at real cost. Successful innovations could lead to mergers, where one chain absorbs another's shares and features via a hard fork, backporting value while keeping everything within the Bitcoin ecosystem. Spam is managed internally, with reckless chains likely facing devalued shares, rewarding prudent stewardship.
+
+From a game-theoretic view, sharechains deter attacks: 51% attempts on a sharechain cost attackers mainnet revenue, and Bitcoin-friendly miners may defend them to preserve overall security. Grinding attacks (e.g., nonce manipulation to self-assign rewards) become uneconomical at equilibrium difficulty, as the extra work outweighs benefits.
+
+In essence, P2Share offers a fair, efficient path to decentralize mining further, channel experimental energy back into Bitcoin, and convert potentially wasted PoW into additive security, **all while remaining fully compatible and incentive-aligned with Bitcoin.** This could empower Bitcoiners to innovate symbiotically, strengthening the network's resilience without compromise.
+
+-------------------------
+
