@@ -13,9 +13,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 2.2,
   "yours": false,
   "topic_id": 2056,
   "topic_slug": "proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "These are really good points, thank you for the feedback!\n\nI generally agree with most of it, here are some comments:\n\n> OP_STARK_VERIFY would introduce a complex \u201cblack box\u201d of tens of thousands of lines of code\n\nActually the verifier is quite a lean program, such impression is common because most codebases contain the code for both prover and verifier, where the verifier inevitably reuse shared components. To give you a perspective, a pure Simplicity rewrite of Stwo (our latest prover) is 3k lines (1k without tests, comments, and empty lines). I think you can get even less in C, and the only dependency would be sha2 (which is not a new for Bitcoin core). So it is comparable with or even smaller than other cryptography primitives, like ECDSA/Schnorr.\n\n> The validation cost (CPU/memory) of a STARK proof is not proportional to its byte size\n\nIt actually is, but the proportion is not always linear.\nMost of verifier\u2019s work is checking Merkle proofs and doing arithmetics in a specific group. A proof consists of many Merkle openings, their number is determined by fixed parameters (determined by security requirements). Proof size depends on the execution trace size:\n\n* logarithmic to the trace length (which is roughly how much computation you are compressing)\n* linear to the trace width (which depends on the number/implementation of accelerators that are used to reduce the trace length)\n\nThe larger the trace, the larger the Merkle proofs => verifier does more hashing\nThe wider the trade, the more the number of decommitted values => verifier does more arithmetics\n\nWe can address DoS attack vector by introducing hard limits on both trace length and width. A good heuristic can be the cost of a recursive verification circuit:\n\n* any computation can be recursively verified by it, so it\u2019s safe to claim you won\u2019t need anything beyond that\n* it\u2019s typically very narrow, so proof size/input size ratio behaviour is close to logarithmic which would allow fair opcode pricing\n\n> Enshrining a specific version of STARKs, even a mature one, locks Bitcoin into a technology that will inevitably become obsolete\n\nThis is true, although there\u2019s an [opinion](https://vitalik.eth.limo/general/2024/07/23/circlestarks.html) that most of the significant optimisations in STARKs have already been realised and the frontiers will move to the arithmetization level (given the recursive flow it does not affect the last verification step).\n\n> A more prudent path, consistent with Bitcoin\u2019s design, is to keep such complexity at higher layers or, if necessary, consider introducing generic, composable primitives rather than monolithic, application-specific solutions.\n\nAgree, but unfortunately that would require much more opcodes to be reenabled/introduced.\nSomething like GSR+CTV would do the job, although the costs would still be quite high.\n\nPersonally, I\u2019m a Simplicity fan :smiley:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "These are really good points, thank you for the feedback! \nI generally agree with most of it, here are some comments: \n\nOP_STARK_VERIFY would introduce a complex \u201cblack box\u201d of tens of thousands of lines of code \n\nActually the verifier is quite a lean program, such impression is common because most &hellip;",
   "truncated": true,
   "post_url": "/t/proposal-op-stark-verify-native-stark-proof-verification-in-bitcoin-script/2056/17",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
