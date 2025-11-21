@@ -54,9 +54,9 @@ Perhaps I’m overlooking something. Could you clarify what the novel contributi
 
 -------------------------
 
-RubenSomsen | 2025-11-21 15:46:06 UTC | #3
+RubenSomsen | 2025-11-21 15:47:35 UTC | #3
 
-Effectively, this is assumevalid SwiftSync minus the hints file and (consequently) the hash aggregate. Rather than keeping track of a single 32 byte value, you’re tracking everything and removing duplicates via sorting. This means your memory footprint will scale with the number of (U)TXOs, similar to a regular full node, particularly since you need to keep track of more than just the outpoints in order to arrive at the actual UTXO set.
+Effectively, this is assumevalid [SwiftSync](https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd) minus the hints file and (consequently) the hash aggregate. Rather than keeping track of a single 32 byte value, you’re tracking everything and removing duplicates via sorting. This means your memory footprint will scale with the number of (U)TXOs, similar to a regular full node, particularly since you need to keep track of more than just the outpoints in order to arrive at the actual UTXO set.
 
 While not needing a hints file (\~80MB compressed) is an upside, the significant memory footprint (and subsequent need for sorting or lookups) is a big downside. The inability to disable assumevalid and do full signature validation is also unfortunate.
 
