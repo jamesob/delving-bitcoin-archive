@@ -388,3 +388,9 @@ did you mean verifier here?
 
 -------------------------
 
+m-kus | 2025-11-21 20:03:02 UTC | #19
+
+Right! I meant Stwo as the name of the proving system, but yeah, it is the verifier that was implemented in Simplicity.
+
+-------------------------
+
