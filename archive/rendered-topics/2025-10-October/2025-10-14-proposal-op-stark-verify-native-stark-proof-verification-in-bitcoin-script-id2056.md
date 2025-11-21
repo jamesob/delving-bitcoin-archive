@@ -377,3 +377,14 @@ Personally, I’m a Simplicity fan :smiley:
 
 -------------------------
 
+instagibbs | 2025-11-21 19:09:43 UTC | #18
+
+[quote="m-kus, post:17, topic:2056"]
+(our latest prover)
+
+[/quote]
+
+did you mean verifier here?
+
+-------------------------
+
