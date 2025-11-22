@@ -388,12 +388,6 @@ did you mean verifier here?
 
 -------------------------
 
-m-kus | 2025-11-21 20:03:30 UTC | #19
-
-(post deleted by author)
-
--------------------------
-
 m-kus | 2025-11-21 20:04:38 UTC | #20
 
 Correct! It is the verifier that was implemented (Stwo is the name of the proving system)
