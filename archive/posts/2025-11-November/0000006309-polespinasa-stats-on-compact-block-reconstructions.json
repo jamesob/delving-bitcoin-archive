@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hope this stats can be helpful.\n\nI\u2019ve been logging from block 918234 to block 924597 (~6 weeks) transactions rejected by my mempool that were requested later during block reconstruction.\n\nThe log messages I am taking into account for this are:\n\n```\n2025-08-28T22:45:05Z [cmpctblock] Reconstructed block 0000000ed028eada29fc462f406fa783077948b0255206001091007b37853b62 required tx 6116f45769698bdf1fa07deebffc5eb17290db999111ba30a810ecfd45ebc45d\n```\n\n```\n#2025-08-28T23:01:08Z [mempoolrej] d92185c34f804047a9b58d5279ef0009f3bf06a4c9b32ef19544f7698498a8d7 (wtxid=d92185c34f804047a9b58d5279ef0009f3bf06a4c9b32ef19544f7698498a8d7) from peer=6 was not accepted: bad-txns-inputs-missingorspent\n```\n\nNote that code has been modified to log all requested transactions for block reconstruction. By default core only logs them if we miss less than 5 transactions.\n\nThe node runs a fork of master on top of commit \"084fd68fda2c604a873f0f54c0c3723850509019\". Where the new min feerate policy was already applied.\nIt runs only on clearnet and has everything by default.\n\nThe results I have are:\n```\nFirst block in log: 000000000000000000002edea05decf1f5a1254b997b8e71a603d7c8a35248e3 \nLast block in log:  0000000000000000000047d48ba177fefa4ef2cd2bff814c82381bb34ff3571d \n---------------------------------------- \n--- Transaction Reason Counts (Grouped) --- \nbad-txns-inputs-missingorspent: 1376 \ninsufficient fee: 1130 \ntxn-same-nonwitness-data-in-mempool: 54 \nnon-BIP68-final: 49 \nmin relay fee not met: 20 \ntoo-long-mempool-chain: 12 \nreplacement-adds-unconfirmed: 9 \ntoo many potential replacements: 9 \ndust, tx with dust output must be 0-fee: 3 \ntxn-already-known: 2\n \n```\n\nNote that insufficient fee means insufficient fee for replacement.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Hope this stats can be helpful. \nI\u2019ve been logging from block 918234 to block 924597 (~6 weeks) transactions rejected by my mempool that were requested later during block reconstruction. \nThe log messages I am taking into account for this are: \n2025-08-28T22:45:05Z [cmpctblock] Reconstructed block 0&hellip;",
   "truncated": true,
   "post_url": "/t/stats-on-compact-block-reconstructions/1052/48",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
