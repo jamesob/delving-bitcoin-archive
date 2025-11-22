@@ -1407,3 +1407,47 @@ I agree, with a protocol change where you give your HB peers a hint about which 
 
 -------------------------
 
+polespinasa | 2025-11-21 21:50:29 UTC | #48
+
+Hope this stats can be helpful.
+
+I’ve been logging from block 918234 to block 924597 (~6 weeks) transactions rejected by my mempool that were requested later during block reconstruction.
+
+The log messages I am taking into account for this are:
+
+```
+2025-08-28T22:45:05Z [cmpctblock] Reconstructed block 0000000ed028eada29fc462f406fa783077948b0255206001091007b37853b62 required tx 6116f45769698bdf1fa07deebffc5eb17290db999111ba30a810ecfd45ebc45d
+```
+
+```
+#2025-08-28T23:01:08Z [mempoolrej] d92185c34f804047a9b58d5279ef0009f3bf06a4c9b32ef19544f7698498a8d7 (wtxid=d92185c34f804047a9b58d5279ef0009f3bf06a4c9b32ef19544f7698498a8d7) from peer=6 was not accepted: bad-txns-inputs-missingorspent
+```
+
+Note that code has been modified to log all requested transactions for block reconstruction. By default core only logs them if we miss less than 5 transactions.
+
+The node runs a fork of master on top of commit "084fd68fda2c604a873f0f54c0c3723850509019". Where the new min feerate policy was already applied.
+It runs only on clearnet and has everything by default.
+
+The results I have are:
+```
+First block in log: 000000000000000000002edea05decf1f5a1254b997b8e71a603d7c8a35248e3 
+Last block in log:  0000000000000000000047d48ba177fefa4ef2cd2bff814c82381bb34ff3571d 
+---------------------------------------- 
+--- Transaction Reason Counts (Grouped) --- 
+bad-txns-inputs-missingorspent: 1376 
+insufficient fee: 1130 
+txn-same-nonwitness-data-in-mempool: 54 
+non-BIP68-final: 49 
+min relay fee not met: 20 
+too-long-mempool-chain: 12 
+replacement-adds-unconfirmed: 9 
+too many potential replacements: 9 
+dust, tx with dust output must be 0-fee: 3 
+txn-already-known: 2
+ 
+```
+
+Note that insufficient fee means insufficient fee for replacement.
+
+-------------------------
+
