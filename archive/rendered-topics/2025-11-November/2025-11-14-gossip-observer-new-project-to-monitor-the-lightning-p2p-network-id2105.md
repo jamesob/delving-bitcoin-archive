@@ -212,3 +212,9 @@ Oh, we added a “total entries" counter to each message, which gives a clue as 
 
 -------------------------
 
+rustyrussell | 2025-11-23 00:28:57 UTC | #8
+
+(post deleted by author)
+
+-------------------------
+
