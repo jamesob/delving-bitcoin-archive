@@ -184,3 +184,31 @@ Related, one simple adjustment to reduce differences would be to flood messages 
 
 -------------------------
 
+rustyrussell | 2025-11-22 22:48:46 UTC | #7
+
+Sorry to join the conversation late, and I haven’t worked on this for years so my memory could be stale, but here’s a brain dump of our conclusions.
+
+1. Short channel ids have a lot of bits to squeeze. Ultimate would be to refer to outputs by their index in the blockchain (i.e. the 123456th output), but you can easily use fewer than 64 bits for blocknum/txnum/outnum.
+2. You maintain three minisketches. We tried a single, but it costs encoding bits, complexity and hits the O(N^2) harder.
+3. Channel minisketch is just the scids. Importantly, you send your blockheight with the sketch, because that informs the failure case.
+4. Channel update minisketch is compacted scid + direction bit + height. Note that height takes 10 or 11 bits, IIRC, since you don’t send expired ones. You can only reliably decode this once you have reconciled the channels sketch.
+5. Node announce sketch is uses the same encoding, using the oldest channel attached to the node as its key. Again this assumes you reconciled the channels sketch first.
+
+If you cannot encode an scid compactly, just send it as a series of  “raw" entries. IIRC creating such an scid requires an exceptional number of txs in a block or exceptional output count.
+
+With this scheme, you simply send the sketches every 60 seconds (like now), and your peer sends you what you’re missing.
+
+Note that you can truncate the set you send if you want to save bandwidth, but really the cost is in the set maintenance, so maybe this is silly. My memory is that minisketch is *fast* in practice though, even if you keep a 64k (8k element) set which is our max message size anyway.
+
+If reconstruction fails, there are several things you can do:
+
+1. If block height differs, ignore. Time will sort it. Maybe include block hash here?
+2. Enlarge your own set (or, send more of your set). If this allows your peer to reconstruct, it will learn that you cannot reconstruct, and it knows to send its largest set if it wasn’t already.
+3. Wait for other peers. You might close the gap.
+4. Existing gossip queries for recent changes (assuming a pile of old changes haven’t suddenly appeared).  You know if you need announcements, updates or node anns.
+5. Query for everything.
+
+Oh, we added a “total entries" counter to each message, which gives a clue as well: if your peer has far fewer entries, it’s a cry for help :slight_smile:
+
+-------------------------
+
