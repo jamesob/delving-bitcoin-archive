@@ -1451,3 +1451,14 @@ Note that insufficient fee means insufficient fee for replacement.
 
 -------------------------
 
+instagibbs | 2025-11-23 19:37:44 UTC | #49
+
+[quote="polespinasa, post:48, topic:1052"]
+`bad-txns-inputs-missingorspent: 1376 `
+
+[/quote]
+
+these are likely just orphans, did you look at what happens later in the orphanage?
+
+-------------------------
+
