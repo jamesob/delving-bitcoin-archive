@@ -218,3 +218,18 @@ rustyrussell | 2025-11-23 00:28:57 UTC | #8
 
 -------------------------
 
+rustyrussell | 2025-11-23 00:35:19 UTC | #9
+
+[quote="jonhbit, post:6, topic:2105"]
+I don’t have a real estimate nor intuition for how many differences to expect; I may be able to estimate that by looking at real-world traffic
+
+[/quote]
+
+50,000 public channels means 100,000 updates per block maximum, so roughly 10,000 a minute.
+
+In an ideal situation with two peers and you space out the updates so that they are 30 seconds apart, you can just handle that with a 64kb set (8k entries). 
+
+Of course not every channel updates at the maximum rate, and behaviour will definitely be bursty, but this was the back of envelope calculation that convinced me that this approach can work.
+
+-------------------------
+
