@@ -7,14 +7,15 @@
   "cooked": "<p>Don\u2019t want to delete threads/replies unless they\u2019re spam/non-constructive; probably not going to archive things in general. If you want to open a new topic, that\u2019s fine. I think it\u2019s best to approach this as a conversation/presentation rather than a new edition of a book \u2013 ie, \u201cam I saying something new that\u2019s interesting and worthwhile\u201d, rather than \u201cwhoops, I made a few errors, and would like to update a section, better republish the whole thing\u201d. If you want somewhere so you can say \u201chere\u2019s the current comprehensive doc\u201d better to publish things as a BIP/BINANA, a gist, or in the docs/ directory on your repo, I think?</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-10-29T10:52:30.693Z",
   "reply_count": 1,
   "reply_to_post_number": 10,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 22.6,
+  "incoming_link_count": 1,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 46.6,
   "yours": false,
   "topic_id": 1216,
   "topic_slug": "op-paircommit-as-a-candidate-for-addition-to-lnhance",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Don\u2019t want to delete threads/replies unless they\u2019re spam/non-constructive; probably not going to archive things in general. If you want to open a new topic, that\u2019s fine. I think it\u2019s best to approach this as a conversation/presentation rather than a new edition of a book \u2013 ie, \u201cam I saying something&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-paircommit-as-a-candidate-for-addition-to-lnhance/1216/11",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

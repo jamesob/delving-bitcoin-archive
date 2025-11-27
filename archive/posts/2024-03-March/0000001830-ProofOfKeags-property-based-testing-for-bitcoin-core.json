@@ -2,19 +2,20 @@
   "id": 1830,
   "name": "ProofOfKeags",
   "username": "ProofOfKeags",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/proofofkeags/{size}/156_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/proofofkeags/{size}/813_2.png",
   "created_at": "2024-03-07T18:58:56.345Z",
   "cooked": "<p>In my view, property testing is more of a strategy/philosophy than anything else. It can be conducted at all layers. The point is that the values are randomized (ideally intelligently to try and detect boundary conditions), and the invariants are expressed at the API level without punching through the vail of the APIs privacy boundary. In the case of Core I\u2019d say the total API surface area is the peer network layer and the RPC layer. We may want to synthesize random messages, of these types and sequence them in random orders. Ideally we should have a long list of conditions we expect to hold without exception. The less concise those conditions are, the worse the design is overall. Due to the consensus nature of Bitcoin many of the uglier conditions we will have to live with til The End Of Time but on a go forward basis it\u2019d be nice to have a set of concise properties we expect to hold.</p>\n<p>The strategy is extremely powerful no matter where you apply it, provided you can land on these <em>true invariants</em>. I think the observation you make about applying it to inner layers is really an observation of the fact that the smaller the component/system, the better we understand it, which shouldn\u2019t be surprising. However, regardless of the scope we apply it to, any tests we can create using a property construction give us <em>far better assurances</em> than a corresponding single-point unit test.</p>\n<p>So I think applying this strategy to any layer that they are interested in applying it to ought to be enthusiastically supported <img src=\"https://delvingbitcoin.org/images/emoji/twitter/grin.png?v=12\" title=\":grin:\" class=\"emoji\" alt=\":grin:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-03-07T18:58:56.345Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 2.4,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 6.2,
   "yours": false,
   "topic_id": 640,
   "topic_slug": "property-based-testing-for-bitcoin-core",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 193,
     "username": "Chris_Stewart_5",
     "name": "Chris Stewart",
     "avatar_template": "/user_avatar/delvingbitcoin.org/chris_stewart_5/{size}/296_2.png"
@@ -54,8 +57,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "In my view, property testing is more of a strategy/philosophy than anything else. It can be conducted at all layers. The point is that the values are randomized (ideally intelligently to try and detect boundary conditions), and the invariants are expressed at the API level without punching through t&hellip;",
+  "truncated": true,
+  "post_url": "/t/property-based-testing-for-bitcoin-core/640/8",
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

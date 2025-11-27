@@ -7,14 +7,15 @@
   "cooked": "<p>Yep that\u2019s another possibility but it\u2019s a much more limited anon set and it\u2019s kind of a different model to the usual taproot one; with taproot the idea is that a utxo has (better, might have) a locking script that you don\u2019t see on chain.</p>\n<p>That\u2019s in the category like \u201canon set of all the users of <em>this</em> protocol\u201d; for that you might want to do things very differently. E.g. \"all lightning network nodes that are choosing to engage in this protocol publish a key (somewhere, somehow) and a locking script for their utxo and then all the other members can accept a request to participate that attaches a ring sig or ZKP that proves that they own one of the keys+timelocked scripts that \u201cregistered\u201d.</p>\n<p>The aut-ct thing is geared around the other extreme of \u201canon set of all taproot utxo pubkeys that satisfy a public filter\u201d so much larger anon set but much more limited on the conditionality. Hope that makes sense.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2024-05-15T01:25:28.838Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 18.2,
+  "incoming_link_count": 2,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 34.4,
   "yours": false,
   "topic_id": 862,
   "topic_slug": "anonymous-usage-tokens-from-curve-trees-or-autct",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 247,
     "username": "1440000bytes",
     "name": "/dev/fd0",
     "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png"
@@ -53,12 +56,15 @@
   "staff": false,
   "user_id": 343,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Yep that\u2019s another possibility but it\u2019s a much more limited anon set and it\u2019s kind of a different model to the usual taproot one; with taproot the idea is that a utxo has (better, might have) a locking script that you don\u2019t see on chain. \nThat\u2019s in the category like \u201canon set of all the users of thi&hellip;",
+  "truncated": true,
+  "post_url": "/t/anonymous-usage-tokens-from-curve-trees-or-autct/862/5",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

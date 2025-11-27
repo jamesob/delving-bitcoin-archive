@@ -7,14 +7,15 @@
   "cooked": "<p>Hi all,</p>\n<p>I just wanted to update this topic with a link to some research I did on the effect of the v3 rules on transactions that my datalogging node saw on the network last year.</p>\n<p>See <a href=\"https://delvingbitcoin.org/t/analysis-of-attempting-to-imbue-ln-commitment-transaction-spends-with-v3-semantics/527/1\" class=\"inline-onebox\">Analysis of attempting to imbue LN commitment transaction spends with v3 semantics</a>.</p>\n<p>One interesting element of the data is that very few anchor spends are large \u2013 see the histogram at the end of the post. I think this raises the question of whether a smaller value than 1000vbytes should be chosen as the max v3 child size, which reduces the amount of additional tx size that might need to be paid for when doing an RBF of another v3 child.</p>\n<p>Any thoughts <a class=\"mention\" href=\"/u/t-bast\">@t-bast</a> <a class=\"mention\" href=\"/u/mattcorallo\">@MattCorallo</a> ?  Ultimately I think the choice of that parameter is driven by the LN wallet use case (for other use cases involving v3, I think that having no children is even better, so it\u2019s just a tradeoff between utility of being able to create larger cpfp transactions and pinning costs that come from that).</p>",
   "post_number": 36,
   "post_type": 1,
+  "posts_count": 41,
   "updated_at": "2024-02-08T13:51:30.983Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "incoming_link_count": 2,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 37.4,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi all,\n\nI just wanted to update this topic with a link to some research I did on the effect of the v3 rules on transactions that my datalogging node saw on the network last year.  \n\nSee https://delvingbitcoin.org/t/analysis-of-attempting-to-imbue-ln-commitment-transaction-spends-with-v3-semantics/527/1.\n\nOne interesting element of the data is that very few anchor spends are large -- see the histogram at the end of the post. I think this raises the question of whether a smaller value than 1000vbytes should be chosen as the max v3 child size, which reduces the amount of additional tx size that might need to be paid for when doing an RBF of another v3 child.  \n\nAny thoughts @t-bast @MattCorallo ?  Ultimately I think the choice of that parameter is driven by the LN wallet use case (for other use cases involving v3, I think that having no children is even better, so it's just a tradeoff between utility of being able to create larger cpfp transactions and pinning costs that come from that).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Hi all, \nI just wanted to update this topic with a link to some research I did on the effect of the v3 rules on transactions that my datalogging node saw on the network last year. \nSee <a href=\"https://delvingbitcoin.org/t/analysis-of-attempting-to-imbue-ln-commitment-transaction-spends-with-v3-semantics/527/1\" class=\"inline-onebox\">Analysis of attempting to imbue LN commitment transaction spends with v3 semantics</a>. \nOne interesting element of the&hellip;",
+  "truncated": true,
+  "post_url": "/t/v3-transaction-policy-for-anti-pinning/340/36",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

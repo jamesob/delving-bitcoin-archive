@@ -2,19 +2,20 @@
   "id": 3984,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2025-01-06T16:45:01.124Z",
   "cooked": "<p>I asked Andrew. Apparently it was just a <a href=\"https://bitcointalk.org/index.php?topic=98314.msg1075701#msg1075701\">bitcointalk post</a> post, and later referenced in the <a href=\"https://eprint.iacr.org/2020/1101.pdf\">NC-Max paper</a>.</p>",
   "post_number": 20,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2025-01-06T16:45:01.124Z",
   "reply_count": 0,
   "reply_to_post_number": 19,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 17.0,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 21.2,
   "yours": false,
   "topic_id": 1331,
   "topic_slug": "fastest-possible-pow-via-simple-dag",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 628,
     "username": "pmn",
     "name": null,
     "avatar_template": "/user_avatar/delvingbitcoin.org/pmn/{size}/971_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I asked Andrew. Apparently it was just a <a href=\"https://bitcointalk.org/index.php?topic=98314.msg1075701#msg1075701\">bitcointalk post</a> post, and later referenced in the <a href=\"https://eprint.iacr.org/2020/1101.pdf\">NC-Max paper</a>.",
+  "truncated": true,
+  "post_url": "/t/fastest-possible-pow-via-simple-dag/1331/20",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

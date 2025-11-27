@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"11\" data-topic=\"1052\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>This opens up some barn-door sized DoS vectors that graduate bandwidth waste to disk filling.</p>\n</blockquote>\n</aside>\n<p>For the purposes of avoiding round trips on block relay, I think you could probably restrict that pretty easily \u2013 only keep txs that were in the mempool within the last 20 minutes, only keep the most recent 20MB of txs. If you also limited it to txs that were near the top of the mempool (either accurately via cluster mempool, or approximately by estimating a top of mempool feerate and comparing that to ancestor feerate and keeping their ancestors) I think that could work pretty okay, and probably just be done in memory, without being persisted to disk.</p>",
   "post_number": 13,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2025-01-23T21:00:49.186Z",
   "reply_count": 1,
   "reply_to_post_number": 11,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 22.8,
+  "incoming_link_count": 2,
+  "reads": 68,
+  "readers_count": 67,
+  "score": 43.4,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "For the purposes of avoiding round trips on block relay, I think you could probably restrict that pretty easily \u2013 only keep txs that were in the mempool within the last 20 minutes, only keep the most recent 20MB of txs. If you also limited it to txs that were near the top of the mempool (either acc&hellip;",
+  "truncated": true,
+  "post_url": "/t/stats-on-compact-block-reconstructions/1052/13",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

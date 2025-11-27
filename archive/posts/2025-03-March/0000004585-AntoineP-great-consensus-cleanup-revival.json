@@ -4,17 +4,18 @@
   "username": "AntoineP",
   "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png",
   "created_at": "2025-03-21T19:24:52.524Z",
-  "cooked": "<p>Ugh, thanks. I mixed up the binaries in my testing (had more than one <code>bitcoind</code> in my build directory, ran the one that did not enforce the check).</p>",
+  "cooked": "<p>Ugh, thanks. I mixed up the binaries in my testing (due to a <a href=\"https://github.com/bitcoin/bitcoin/pull/31161\">recent change</a> in the location of binaries i had more than one <code>bitcoind</code> in my build directory, ran the one that did not enforce the check).</p>",
   "post_number": 82,
   "post_type": 1,
-  "updated_at": "2025-03-21T19:24:52.524Z",
+  "posts_count": 85,
+  "updated_at": "2025-03-27T21:05:34.604Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 37.6,
+  "incoming_link_count": 140,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 730.8,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -29,7 +30,7 @@
   "flair_color": "",
   "flair_group_id": 43,
   "badges_granted": [],
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -38,7 +39,7 @@
   "user_title": "Regular",
   "title_is_group": false,
   "bookmarked": false,
-  "raw": "Ugh, thanks. I mixed up the binaries in my testing (had more than one `bitcoind` in my build directory, ran the one that did not enforce the check).",
+  "raw": "Ugh, thanks. I mixed up the binaries in my testing (due to a [recent change](https://github.com/bitcoin/bitcoin/pull/31161) in the location of binaries i had more than one `bitcoind` in my build directory, ran the one that did not enforce the check).",
   "actions_summary": [
     {
       "id": 2,
@@ -56,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Ugh, thanks. I mixed up the binaries in my testing (due to a <a href=\"https://github.com/bitcoin/bitcoin/pull/31161\">recent change</a> in the location of binaries i had more than one bitcoind in my build directory, ran the one that did not enforce the check).",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/82",
   "reactions": [
     {
       "id": "+1",
@@ -65,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>As i\u2019m finalizing the BIP, <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> suggested to me a neat idea.</p>\n<p>In addition to mandating the <code>nLockTime</code> of coinbase transactions be set to the block height minus 1, we could also require their <code>nSequence</code> not be final. This would make it so the timelock is enforced.</p>\n<p>Once (and if) the Consensus Cleanup is activated and its activation height buried, this would give us the following property: \u201cBIP30 validation is never necessary after CC activation height\u201d.</p>\n<p>Note we don\u2019t otherwise necessarily have this property. Technically now that we removed checkpoints<sup class=\"footnote-ref\"><a href=\"#footnote-4577-1\" id=\"footnote-ref-4577-1\">[1]</a></sup>, Bitcoin Core could validate a chain containing a coinbase transaction before BIP34 activation height such that it committed, according to both BIP34 and CC, to a block height post CC activation. In this case, it would be necessary to resume BIP30 validation or a duplicate coinbase could be let in.</p>\n<p>But mandating the coinbase\u2019s <code>nSequence</code> never be final, by leveraging that timelocks are also checked on coinbase transactions, makes it so it cannot be possible for a previous transaction to have the very same txid.</p>\n<p>Of course it does not matter for any practical purpose. But it\u2019s pretty neat. Thoughts?</p>\n<hr class=\"footnotes-sep\">\n\n<ol class=\"footnotes-list\">\n<li id=\"footnote-4577-1\" class=\"footnote-item\"><p>EDIT: <a class=\"mention\" href=\"/u/sipa\">@sipa</a> pointed out that actually it was also possible when checkpoints were still in place, provided that the node never saw the checkpointed block past BIP34 activation! <a href=\"#footnote-ref-4577-1\" class=\"footnote-backref\">\u21a9\ufe0e</a></p>\n</li>\n</ol>",
   "post_number": 79,
   "post_type": 1,
+  "posts_count": 85,
   "updated_at": "2025-03-19T17:36:04.501Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 6,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 94.0,
+  "incoming_link_count": 245,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 1311.0,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -42,7 +43,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -56,14 +57,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "As i\u2019m finalizing the BIP, <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> suggested to me a neat idea. \nIn addition to mandating the nLockTime of coinbase transactions be set to the block height minus 1, we could also require their nSequence not be final. This would make it so the timelock is enforced. \nOnce (and if) the Consensus Clean&hellip;",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/79",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

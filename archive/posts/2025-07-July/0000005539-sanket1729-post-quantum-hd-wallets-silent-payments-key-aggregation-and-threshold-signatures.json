@@ -7,15 +7,15 @@
   "cooked": "<p>Awesome. It is great to know that there is nothing conceptually blocking these technologies in PQ world.</p>\n<p>Have you had time to investigate each scheme\u2019s pros and cons compared to today\u2019s ECDSA options? Maybe some of them might not be practical or some of them might be even more attractive than ECDSA alternatives. For example, it seems like Musig/Frost equivalent is only 1 round signing instead of 2 rounds which is big deal</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-07-22T18:55:36.563Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 4.2,
+  "incoming_link_count": 2,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 39.6,
   "yours": false,
   "topic_id": 1854,
   "topic_slug": "post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Awesome. It is great to know that there is nothing conceptually blocking these technologies in PQ world. \n\nHave you had time to investigate each scheme\u2019s pros and cons compared to today\u2019s ECDSA options? Maybe some of them might not be practical or some of them might be even more attractive than ECDSA alternatives. For example, it seems like Musig/Frost equivalent is only 1 round signing instead of 2 rounds which is big deal",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Awesome. It is great to know that there is nothing conceptually blocking these technologies in PQ world. \nHave you had time to investigate each scheme\u2019s pros and cons compared to today\u2019s ECDSA options? Maybe some of them might not be practical or some of them might be even more attractive than ECDSA&hellip;",
   "truncated": true,
   "post_url": "/t/post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures/1854/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

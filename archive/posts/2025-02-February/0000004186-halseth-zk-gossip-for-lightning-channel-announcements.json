@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks!</p>\n<p>I have not tried the algebraic functions, but it is on my list of optimizations to try!</p>\n<p>Great to hear that rustreexo has it available already, that will make it a lot easier to test out <img src=\"https://delvingbitcoin.org/images/emoji/twitter/smile.png?v=12\" title=\":smile:\" class=\"emoji\" alt=\":smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 23,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2025-02-05T16:48:23.979Z",
   "reply_count": 0,
   "reply_to_post_number": 21,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 5.6,
   "yours": false,
   "topic_id": 1407,
   "topic_slug": "zk-gossip-for-lightning-channel-announcements",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 74,
     "username": "Davidson",
     "name": "Davidson",
     "avatar_template": "/letter_avatar_proxy/v4/letter/d/9d8465/{size}.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thanks! \nI have not tried the algebraic functions, but it is on my list of optimizations to try! \nGreat to hear that rustreexo has it available already, that will make it a lot easier to test out :smile:",
+  "truncated": true,
+  "post_url": "/t/zk-gossip-for-lightning-channel-announcements/1407/23",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

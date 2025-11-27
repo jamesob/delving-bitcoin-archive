@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"18\" data-topic=\"418\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>Hm right, I guess this would only matter if the revoked commit tx <em>gets confirmed</em>. In that case you may have to compete with the HTLC output spend, which is why <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged.</p>\n</blockquote>\n</aside>\n<p>I still don\u2019t get where the issue is in that scenario. Let\u2019s say that Bob broadcasts a revoked commitment which then confirms. Bob is the attacker here, we don\u2019t care about him getting his transactions pinned.</p>\n<p>Alice tries spending the HTLC outputs using the revocation path on the commitment transaction. Alice can use a low feerate here (at that point, Bob cannot immediately sweep those funds).</p>\n<p>Bob may use its HTLC-x transactions to create a pinning vector for Alice\u2019s transactions. But it\u2019s ok, Alice isn\u2019t in any rush to see them confirm! If Bob\u2019s HTLC-x transaction confirms, Bob will have a <code>to_self_delay</code> CSV to sweep the output of that HTLC-x transaction. Also, Bob will have paid fees to get that transaction mined. Meanwhile, Alice will be able to sweep the output of that HTLC-x transaction through its revocation path, so all is well?</p>",
   "post_number": 19,
   "post_type": 1,
+  "posts_count": 23,
   "updated_at": "2024-01-18T15:06:13.751Z",
   "reply_count": 1,
   "reply_to_post_number": 18,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 28.0,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 32.6,
   "yours": false,
   "topic_id": 418,
   "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I still don\u2019t get where the issue is in that scenario. Let\u2019s say that Bob broadcasts a revoked commitment which then confirms. Bob is the attacker here, we don\u2019t care about him getting his transactions pinned. \nAlice tries spending the HTLC outputs using the revocation path on the commitment transa&hellip;",
+  "truncated": true,
+  "post_url": "/t/lightning-transactions-with-v3-and-ephemeral-anchors/418/19",
   "reactions": [
     {
       "id": "rocket",
@@ -68,5 +73,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

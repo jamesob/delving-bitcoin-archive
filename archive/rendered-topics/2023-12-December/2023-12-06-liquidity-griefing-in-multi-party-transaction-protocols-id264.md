@@ -305,7 +305,7 @@ Just a sketch at this point, but something to consider if you're already thinkin
 
 -------------------------
 
-morehouse | 2023-12-22 21:52:24 UTC | #8
+morehouse | 2024-01-25 18:05:00 UTC | #8
 
 [quote="instagibbs, post:7, topic:264"]
 The future post-cluster mempool scheme I have in mind is pretty simple: v3 would be relaxed to on the order of “must be in top block to enter mempool”. This makes pinning essentially impossible unless the attacker somehow knows the top-rate backlog is going to get bad shortly in the future, and should protect against witness inflation and the like. Would allow for pin-resistant batch CPFP, would mean you don’t necessarily need no unconfirmed ancestors, should make ANYONECANPAY usage more safe(like HTLC second stage txns) etc.

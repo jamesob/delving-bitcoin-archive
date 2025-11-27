@@ -7,14 +7,15 @@
   "cooked": "<p>one reason would be to support it for any organization that relies on ECDSA MPC as a vetted established practice. if you have an audited process, libraries and tools that work, for an entity like Coinbase or other large custodians, you won\u2019t just switch to a \u201cbrand new\u201d cryptography and libraries and tools.</p>\n<p>even tho Schnorr has cryptographic proof of being secure construction, and generally makes sense to switch to it long term, the MPC stuff like MuSig and FROST are still barely out of development. i can see how certain entities would be in no rush to switch.</p>\n<p>as i remember it was even hard and excruciatingly slow to get exchanges to properly support P2TR outputs for withdrawals. and that\u2019s basically nothing in comparison.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-01-19T13:45:27.207Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 5,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 42.8,
+  "incoming_link_count": 7,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 55.4,
   "yours": false,
   "topic_id": 438,
   "topic_slug": "op-checksigfromstackverify-ecdsa-useful",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "one reason would be to support it for any organization that relies on ECDSA MPC as a vetted established practice. if you have an audited process, libraries and tools that work, for an entity like Coinbase or other large custodians, you won\u2019t just switch to a \u201cbrand new\u201d cryptography and libraries an&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checksigfromstackverify-ecdsa-useful/438/2",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"reardencode\" data-post=\"12\" data-topic=\"1353\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/reardencode/48/27_2.png\" class=\"avatar\"> reardencode:</div>\n<blockquote>\n<p>I think settlement can be made immediate on the last allowed update in an <a class=\"mention\" href=\"/u/ademan\">@ademan</a> channel</p>\n</blockquote>\n</aside>\n<p>That\u2019s right. For simplicity the last update follows the same format as the previous ones right now, but I think you could even \u201cinline\u201d the settlement transaction into the last update. For N=2 this looks a lot like Daric actually (probably not coincidentally).</p>\n<p>I think this strategy gives you a <code>(N - 1) * shared_delay</code> at best, since every party still needs a chance to update in the worst case.</p>",
   "post_number": 17,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2025-01-14T14:38:30.196Z",
   "reply_count": 0,
   "reply_to_post_number": 12,
   "quote_count": 1,
-  "incoming_link_count": 3,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 48.6,
+  "incoming_link_count": 4,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 54.4,
   "yours": false,
   "topic_id": 1353,
   "topic_slug": "contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That\u2019s right. For simplicity the last update follows the same format as the previous ones right now, but I think you could even \u201cinline\u201d the settlement transaction into the last update. For N=2 this looks a lot like Daric actually (probably not coincidentally). \nI think this strategy gives you a (N&hellip;",
+  "truncated": true,
+  "post_url": "/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/17",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +73,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

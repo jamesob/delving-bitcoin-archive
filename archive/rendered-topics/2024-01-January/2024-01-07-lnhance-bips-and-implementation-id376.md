@@ -240,16 +240,22 @@ https://github.com/bitcoin-inquisition/binana/pull/8
 
 -------------------------
 
-moonsettler | 2024-11-24 15:13:09 UTC | #19
+moonsettler | 2024-11-25 23:35:38 UTC | #19
 
 I heard some claims that `CTV` needs 3 other opcodes to do LN-Symmtery. That's wrong.
 
 LNhance is `CTV` + `CSFS` at it's core and that is enough to do LN-Symmetry.
-IKEY and PC are tiny composable pieces that optimize the use of `CTV` and `CSFS` for LN-Symmetry.
+`IKEY` and `PC` are tiny composable pieces that optimize the use of `CTV` and `CSFS` for LN-Symmetry.
 
 There are several ways to solve the data availability problem, some don't even require a consensus change. Some don't even require a relay policy change.
 
 LNhance is just the best way of doing it that we know of.
+
+**edit:**
+
+One way to think about the 3 opcodes (`CSFS`, `IKEY`, `PC`) is we decompose a `CSFS` variant that can use 1 byte pubkey (internal key) and can commit to a vector of stack elements as message. They thus become more generally useful, but to a limited degree without additional opcodes.
+
+Detailed introspection opcodes would also need vector commitments with `CSFS`, and it would also be useful for `OP_CHECKCONTRACTVERIFY` aka `CCV`.
 
 -------------------------
 

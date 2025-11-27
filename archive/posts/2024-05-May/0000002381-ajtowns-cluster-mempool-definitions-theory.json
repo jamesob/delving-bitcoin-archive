@@ -7,14 +7,15 @@
   "cooked": "<p>Guide sounds fine. \u201cHow do I order my transactions? Please, give me some guidance!\u201d</p>",
   "post_number": 17,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-05-07T13:07:29.401Z",
   "reply_count": 1,
   "reply_to_post_number": 16,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 27.0,
   "yours": false,
   "topic_id": 202,
   "topic_slug": "cluster-mempool-definitions-theory",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "Guide sounds fine. \"How do I order my transactions? Please, give me some guidance!\"",
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Guide sounds fine. \u201cHow do I order my transactions? Please, give me some guidance!\u201d",
+  "truncated": true,
+  "post_url": "/t/cluster-mempool-definitions-theory/202/17",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

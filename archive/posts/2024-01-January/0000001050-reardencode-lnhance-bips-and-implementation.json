@@ -7,14 +7,15 @@
   "cooked": "<p>Here\u2019s a new one, <a href=\"https://twitter.com/jxpcsnmz/status/1744780287136137276\" rel=\"noopener nofollow ugc\">Oracle slashing</a> (just proposed).</p>\n<p>That relates closely to <a href=\"https://mailmanlists.org/pipermail/dlc-dev/2022-January/000102.html\" rel=\"noopener nofollow ugc\">simplified DLCs with CTV</a>.</p>\n<p><a href=\"https://github.com/JohnLaw2/ln-scaling-covenants/blob/386736fa15cdda3c0f24f17a31b6ad608d338b08/scalingcovenants_v1.3.pdf\" rel=\"noopener nofollow ugc\">Timeout Trees</a>, pretty well specified.</p>\n<p>LN-Symmetry, as written by <a class=\"mention\" href=\"/u/instagibbs\">@instagibbs</a>, ports directly to LNHANCE (probably all of uses for <code>SIGHASH_ANYPREVOUTANYSCRIPT|SIGHASH_ALL</code>).</p>\n<p><a href=\"https://arkdev.info\" rel=\"noopener nofollow ugc\">Ark</a>, as originally proposed by Burak, and depending on ephemeral anchors.</p>\n<p><a href=\"https://rubin.io/bitcoin/2021/12/10/advent-13/\" rel=\"noopener nofollow ugc\">Simple coin pools</a> (with n-n signing required to advance the state of the pool) simple to implement, only useful for small (e.g. family) groups.</p>\n<p><a href=\"https://github.com/jamesob/simple-ctv-vault\" rel=\"noopener nofollow ugc\">Simple CTV Vaults</a> implemented, but somewhat hard to use.</p>\n<p>edit to add: Didn\u2019t mention the basic ability of CSFS to be used in delegation. This is often not the best method, but can be useful. Script like <code>&lt;pubkey&gt; SWAP IF 2DUP CSFSV DROP ENDIF CHECKSIG</code>.</p>\n<p>And many many many more that I don\u2019t have immediate links to.</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-01-09T20:34:43.479Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "incoming_link_count": 20,
+  "reads": 99,
+  "readers_count": 98,
+  "score": 119.8,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 4,
   "can_edit": false,
   "can_delete": false,
@@ -49,8 +51,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Here\u2019s a new one, <a href=\"https://twitter.com/jxpcsnmz/status/1744780287136137276\" rel=\"noopener nofollow ugc\">Oracle slashing</a> (just proposed). \nThat relates closely to <a href=\"https://mailmanlists.org/pipermail/dlc-dev/2022-January/000102.html\" rel=\"noopener nofollow ugc\">simplified DLCs with CTV</a>. \n<a href=\"https://github.com/JohnLaw2/ln-scaling-covenants/blob/386736fa15cdda3c0f24f17a31b6ad608d338b08/scalingcovenants_v1.3.pdf\" rel=\"noopener nofollow ugc\">Timeout Trees</a>, pretty well specified. \nLN-Symmetry, as written by <a class=\"mention\" href=\"/u/instagibbs\">@instagibbs</a>, ports directly to LNHANCE (probably all of uses for SIGHASH_ANYPREVOUTANYSCRIPT|SIGHASH_ALL). \n<a href=\"https://arkdev.info\" rel=\"noopener nofollow ugc\">Ark</a>, as originally prop&hellip;",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/9",
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

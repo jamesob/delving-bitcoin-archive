@@ -7,15 +7,15 @@
   "cooked": "<p>There are also other non-GGT algorithms in the literature with similar worst case complexity.  Perhaps one of them may even be (a variation of) SFL.</p>\n<p>The factor of 2 is interesting to me, since that\u2019s also what GGT loses from having to run both forward and backward to save a factor of N in the worst case-- right?  If so leaving that out would leave it competitive with SFL in average performance but still better than SFL\u2019s conjectured worst case.</p>\n<p>I confess that I\u2019m happy to see you seemingly leaning towards SFL because GGT\u2019s arithmetic struck me as particularly ugly.</p>\n<p>Preferring linearizations with smaller chunks first among options with equivalent feerate diagrams sounds pretty attractive particularly absent any kind of just in time space constrained linearization.  But how often does it even matter historically?  My WAG is that it\u2019s almost always the case in practice that the optimal diagram is unique unless transactions are the same sizes.</p>",
   "post_number": 71,
   "post_type": 1,
-  "posts_count": 71,
+  "posts_count": 78,
   "updated_at": "2025-04-18T05:53:27.859Z",
   "reply_count": 1,
   "reply_to_post_number": 70,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 11.2,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

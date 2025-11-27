@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"kravens\" data-post=\"1\" data-topic=\"934\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/kravens/48/534_2.png\" class=\"avatar\"> kravens:</div>\n<blockquote>\n<p>Now there is still the alternative <a href=\"https://jamdocs.org/philosophy/03-joinmarket/\" rel=\"noopener nofollow ugc\">JoinMarket with Jam</a> as an improved user-interface that works without a central coordinator, but has a more complex setup process than the previously mentioned wallets.</p>\n</blockquote>\n</aside>\n<p>Alternative that does not require complex setup: <a href=\"https://joinstr.xyz\" rel=\"noopener nofollow ugc\">joinstr.xyz</a></p>\n<blockquote>\n<p>Who will run the Coinjoin coordinators?</p>\n</blockquote>\n<p>Nobody needs to run a coordinator for joinstr as exsiting nostr relays are used to communicate between peers. Relays don\u2019t really \u201ccoordinate\u201d coinjoin in the same way as they do in wabisabi and whirlpool. They are just used to read/write pool information publicly and PSBT in encrypted channels.</p>\n<p>NIP: <a href=\"https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md\" rel=\"noopener nofollow ugc\">https://gitlab.com/1440000bytes/joinstr/-/blob/main/NIP.md</a></p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 23,
   "updated_at": "2024-06-02T15:23:09.812Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 28,
-  "readers_count": 27,
-  "score": 30.6,
+  "incoming_link_count": 15,
+  "reads": 114,
+  "readers_count": 113,
+  "score": 137.8,
   "yours": false,
   "topic_id": 934,
   "topic_slug": "who-will-run-the-coinjoin-coordinators",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,7 +56,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Alternative that does not require complex setup: <a href=\"https://joinstr.xyz\" rel=\"noopener nofollow ugc\">joinstr.xyz</a> \n\nWho will run the Coinjoin coordinators? \n\nNobody needs to run a coordinator for joinstr as exsiting nostr relays are used to communicate between peers. Relays don\u2019t really \u201ccoordinate\u201d coinjoin in the same way as they do in wabisabi and&hellip;",
+  "truncated": true,
+  "post_url": "/t/who-will-run-the-coinjoin-coordinators/934/2",
   "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    },
     {
       "id": "tada",
       "type": "emoji",
@@ -62,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

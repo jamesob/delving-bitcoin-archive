@@ -7,15 +7,15 @@
   "cooked": "<p>Hi everyone,</p>\n<p>I took the liberty of implementing this idea <a href=\"https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py\" rel=\"noopener nofollow ugc\">in the python test harness</a> to familiarize myself with OP_CTV and make things a little more concerete in this thread. Hopefully this can help others that are learning about OP_CTV or be used to hack on other interesting OP_CTV projects. You will find direct links to the test cases embedded in the blog post</p>\n<aside class=\"quote no-group\" data-username=\"RobinLinus\" data-post=\"1\" data-topic=\"1591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/robinlinus/48/130_2.png\" class=\"avatar\"> RobinLinus:</div>\n<blockquote>\n<p>The key idea is to use the fact that CTV commits to the scriptSig of all inputs. Say we want to express \u201cinputA is spendable only together with inputB\u201d.</p>\n<ol>\n<li>Define inputB to be a (legacy) P2SH output.</li>\n<li>Presign a signature using sighash <code>SINGLE|NONE</code>, effectively signing only inputB. This signature commits to inputB and since P2SH is not SegWit the signature will be in inputB\u2019s scriptSig.</li>\n<li>Define inputA to be a P2TR output and contain a CTV condition with a template hash that commits to the scriptSigs, including the signature for inputB.</li>\n</ol>\n<p>The result: <strong>inputA</strong> commits to the signature for <strong>inputB</strong>, which itself commits to <strong>inputB</strong>. So <strong>inputA</strong> becomes spendable only in conjunction with <strong>inputB</strong>.</p>\n</blockquote>\n</aside>\n<p>I first implemented the original idea by Robin Linus, you can find the test case <a href=\"https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L234\" rel=\"noopener nofollow ugc\">here</a></p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"8\" data-topic=\"1591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>I don\u2019t think this works? As I understand it, with this setup you have something like:</p>\n<pre><code class=\"lang-auto\">utxo A:   10 BTC, p2tr: ... &lt;H&gt; CTV\nutxo B:  500 sats, p2sh: &lt;P&gt; CHECKSIG\n</code></pre>\n<p>with the idea being that you spend utxo A via the CTV with:</p>\n<pre><code class=\"lang-auto\">input 1: utxo A, witness reveals CTV path and any other conditions, no scriptSig\ninput 2: utxo B, scriptSig = \"&lt;S;NONE|ANYONECANPAY&gt;\" \"&lt;P&gt; CHECKSIG\"\noutput: whatever\n</code></pre>\n<p>where <code>&lt;H&gt;</code> locks in where the output goes to, and input 2\u2019s scriptSig. But because H is only committing to the second input\u2019s scriptSig, then it\u2019s easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey <code>OP_2DROP OP_TRUE</code>:</p>\n<pre><code class=\"lang-auto\">utxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE\n\ninput 1: utxo A, no witness/scriptSig\ninput 2: utxo C, scriptSig = \"&lt;S;NONE|ANYONECANPAY&gt;\" \"&lt;P&gt; CHECKSIG\"\noutput: whatever\n</code></pre>\n<p>That allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you\u2019re trying to enforce.</p>\n</blockquote>\n</aside>\n<p>I implemented this logic in a test case <a href=\"https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L249\" rel=\"noopener nofollow ugc\">here</a>. It seems AJ is correct about the limitations of Robin\u2019s original scheme.</p>\n<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"9\" data-topic=\"1591\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>The scriptSig could include the <code>CHECKSIG</code> opcode directly, contra standardness rules. <img src=\"https://delvingbitcoin.org/images/emoji/twitter/grimacing.png?v=14\" title=\":grimacing:\" class=\"emoji\" alt=\":grimacing:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>In the original idea, a p2sh redeemscript is just pushes, so the spk could just be blank and it would pass, since cleanstack isn\u2019t consensus anyways.</p>\n</blockquote>\n</aside>\n<p>Finally, I took a <a href=\"https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L288\" rel=\"noopener nofollow ugc\">crack at implementing this</a>. This is a little more tricky than it appears. I believe this would theoretically work, but requires a lot of hacking around producing valid signatures for the scriptSig OP_CHECKSIG operation.</p>\n<p>It is my understanding that the scriptcodes are different for the digital signature to satisfy the redeem script and the OP_CHECKSIG embedded in the scriptSignature.</p>\n<p>Here is where I believe they are defined</p>\n<ol>\n<li><a href=\"https://github.com/bitcoin/bitcoin/blob/ad654a4807cd584be9ffcd8640f628ab40cb5170/src/script/interpreter.cpp#L1975\" rel=\"noopener nofollow ugc\">Input scriptcode (i.e. the script signature including the redeem script?)</a></li>\n<li><a href=\"https://github.com/bitcoin/bitcoin/blob/ad654a4807cd584be9ffcd8640f628ab40cb5170/src/script/interpreter.cpp#L1980\" rel=\"noopener nofollow ugc\">The output scriptcode (i.e. the p2sh script)</a>.</li>\n</ol>\n<p>I attempted to produce the 2 digital signatures. The p2sh output script was no problem of course as its a standardized script type. <a href=\"https://github.com/Christewart/bitcoin/blob/c3431957a9d6dfcf68e00ceb3c5e02c3fdcdc6dc/test/functional/feature_bitvmctvcsfs_bridge.py#L144\" rel=\"noopener nofollow ugc\">Here</a> is where I attempted to produce the scriptSignature\u2019s OP_CHECKSIG operation. Unfortunately, the <a href=\"https://github.com/bitcoin/bitcoin/blob/ad654a4807cd584be9ffcd8640f628ab40cb5170/src/rpc/rawtransaction.cpp#L710\" rel=\"noopener nofollow ugc\"><code>signrawtransactionwithkey</code></a> RPC will not just give you the digital signature back that it produced (this would have saved me a lot of time <img src=\"https://delvingbitcoin.org/images/emoji/twitter/joy.png?v=14\" title=\":joy:\" class=\"emoji\" alt=\":joy:\" loading=\"lazy\" width=\"20\" height=\"20\">). It attempts to place the digital signature in the transaction which only works for standardized transactions that the solver is aware of :/.</p>\n<p>Since this is a very nonstandard transaction, it doesn\u2019t give me back anything useful at all - just an the same transaction that you passed to the RPC. I do think this workaround will theoretically work, but the practical barriers in this code base are just too high to continue at this time.</p>\n<p>Let me know if you see anything wrong with this analysis or have other use cases you would like to see prototyped with OP_{CTV,CSFS}</p>",
   "post_number": 25,
   "post_type": 1,
-  "posts_count": 24,
+  "posts_count": 22,
   "updated_at": "2025-06-25T19:39:15.940Z",
-  "reply_count": 1,
+  "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 3,
-  "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 38.6,
+  "incoming_link_count": 37,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 232.4,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

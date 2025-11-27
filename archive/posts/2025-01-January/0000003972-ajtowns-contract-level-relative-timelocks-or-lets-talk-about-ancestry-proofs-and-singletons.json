@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"salvatoshi\" data-post=\"8\" data-topic=\"1353\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/salvatoshi/48/72_2.png\" class=\"avatar\"> salvatoshi:</div>\n<blockquote>\n<p>reading \u2018inside\u2019 a txid is trickier (perhaps not crazily so, though).</p>\n</blockquote>\n</aside>\n<p>Reading inside a txid is a lot more annoying, since you have to provide the entire (witness-stipped) tx, and correctly parse it in order to get the specific bit of data you want (either the prevout txid, or an output). Making the singleton be a 1-in/2-out tx where you use the first output holds the singleton, and the second output is a pay-to-anchor address whose spender can use the singleton might work though.</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2025-01-06T06:55:17.757Z",
   "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 23.8,
+  "incoming_link_count": 2,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 37.4,
   "yours": false,
   "topic_id": 1353,
   "topic_slug": "contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Reading inside a txid is a lot more annoying, since you have to provide the entire (witness-stipped) tx, and correctly parse it in order to get the specific bit of data you want (either the prevout txid, or an output). Making the singleton be a 1-in/2-out tx where you use the first output holds the&hellip;",
+  "truncated": true,
+  "post_url": "/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/9",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

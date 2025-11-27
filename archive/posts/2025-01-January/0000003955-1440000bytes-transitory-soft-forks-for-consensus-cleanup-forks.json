@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"10\" data-topic=\"1333\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/925_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>Every year, dozens of new Bitcoin-related products are launched with the hope of attracting enough users to support continued development, and dozens of other Bitcoin-related products from previous years are discontinued because they failed to attract enough paying/donating users.</p>\n</blockquote>\n</aside>\n<p>Opcodes are not products though. Is OP_CLTV a product?</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-01-04T00:07:12.157Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 4.0,
   "yours": false,
   "topic_id": 1333,
   "topic_slug": "transitory-soft-forks-for-consensus-cleanup-forks",
@@ -50,7 +51,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "user_suspended": true,
+  "excerpt": "Opcodes are not products though. Is OP_CLTV a product?",
+  "truncated": true,
+  "post_url": "/t/transitory-soft-forks-for-consensus-cleanup-forks/1333/11",
   "reactions": [
     {
       "id": "-1",
@@ -60,5 +63,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

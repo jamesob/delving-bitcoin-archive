@@ -7,15 +7,15 @@
   "cooked": "<p>yeah it does seem you\u2019d need two independent signatures, unless <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> had a trick in mind of codeseps.</p>",
   "post_number": 13,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 22,
   "updated_at": "2025-04-16T20:02:02.814Z",
   "reply_count": 0,
   "reply_to_post_number": 12,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 3.0,
+  "incoming_link_count": 1,
+  "reads": 57,
+  "readers_count": 56,
+  "score": 16.4,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 12,
     "username": "AntoineP",
     "name": "Antoine Poinsot",
     "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

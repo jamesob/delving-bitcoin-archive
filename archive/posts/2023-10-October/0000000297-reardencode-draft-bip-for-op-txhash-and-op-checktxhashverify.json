@@ -7,14 +7,15 @@
   "cooked": "<p>This is super cool <a class=\"mention\" href=\"/u/stevenroose\">@stevenroose</a>! It\u2019s nice to see a concrete full TXHASH proposal as something to think about.</p>\n<p>A few comments (some of which we\u2019ve already discussed offline, but I wanted to put into a public forum as well):</p>\n<ol>\n<li>Given that BIP119 has working code and is already ready already, why not make OP_CHECKTXHASHVERIFY an upgrade path for non-32-byte hashes on OP_CHECKTEMPLATEVERIFY?</li>\n<li>I wonder whether this OP_TXHASH + OP_CHECKSIGFROMSTACKVERIFY is more likely to get merged (and/or more useful) than adding these same OP_TXHASH modes as the sighash for a new Tapscript key type/version (a la APO).</li>\n<li>With the above in mind, it seems like these modes are <em>mostly</em> useful with at least 2 bytes of flags, so perhaps it would be worthwhile to reserve 1-byte flags for some pre-determined modes (possibly similar to Template Key). Then we would have an OP_TXHASH with 1-byte modes or multi-byte flags, OP_CHECKTEMPLATEVERIFY with 32, 33, or &gt; 33-byte hashes, and Tapscript 33-byte keys with 64, 65 or &gt; 66-byte signatures all sharing the same basic set of hash modes and flags.</li>\n</ol>\n<p>Thanks!</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2023-10-09T20:14:58.362Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 21.4,
+  "incoming_link_count": 1,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 31.4,
   "yours": false,
   "topic_id": 121,
   "topic_slug": "draft-bip-for-op-txhash-and-op-checktxhashverify",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,14 +56,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "This is super cool <a class=\"mention\" href=\"/u/stevenroose\">@stevenroose</a>! It\u2019s nice to see a concrete full TXHASH proposal as something to think about. \nA few comments (some of which we\u2019ve already discussed offline, but I wanted to put into a public forum as well): \n\nGiven that BIP119 has working code and is already ready already, why not &hellip;",
+  "truncated": true,
+  "post_url": "/t/draft-bip-for-op-txhash-and-op-checktxhashverify/121/8",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
