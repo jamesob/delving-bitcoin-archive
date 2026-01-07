@@ -1462,3 +1462,60 @@ these are likely just orphans, did you look at what happens later in the orphana
 
 -------------------------
 
+polespinasa | 2025-12-02 06:33:59 UTC | #50
+
+[quote="instagibbs, post:49, topic:1052"]
+these are likely just orphans, did you look at what happens later in the orphanage?
+[/quote]
+
+Yes they are mostly orphans.
+
+I checked a few of those txs randomly and they are in the orphanage until the block reconstruction happens, but they are not used for it. We are re-requesting transactions that we already have.
+
+I am not really familiar on how the orphanage and extrapool interact between them but seems that it could be interesting to not store orphanages in the extrapool and iterate the orphanage also on blockreconstruction?
+
+<details>
+<summary>Log example for one transaction</summary>
+
+```
+2025-10-21T17:20:32Z [net] got inv: tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8  new peer=46406
+2025-10-21T17:20:33Z [net] got inv: wtx 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe  new peer=47613
+2025-10-21T17:20:35Z [net] Requesting wtx 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe peer=47613
+2025-10-21T17:20:35Z [mempoolrej] 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe) from peer=47613 was not accepted: bad-txns-inputs-missingorspent
+2025-10-21T17:20:35Z [txpackages] added peer=47613 as a candidate for resolving orphan 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe
+2025-10-21T17:20:35Z [txpackages] stored orphan tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe), weight: 558 (mapsz 1508 outsz 336)
+2025-10-21T17:20:35Z [txpackages] added peer=46406 as a candidate for resolving orphan 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe
+2025-10-21T17:20:35Z [txpackages] added peer=46406 as announcer of orphan tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe)
+2025-10-21T17:20:37Z [txpackages] added peer=29197 as a candidate for resolving orphan 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe
+2025-10-21T17:20:37Z [txpackages] added peer=29197 as announcer of orphan tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe)
+2025-10-21T17:20:37Z [net] got inv: wtx 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe  have peer=29197
+2025-10-21T17:20:39Z [net] Requesting tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 peer=46406
+2025-10-21T17:20:39Z [net] Requesting tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 peer=47613
+2025-10-21T17:20:41Z [net] Requesting tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 peer=29197
+2025-10-21T17:20:50Z [txpackages] added peer=47326 as a candidate for resolving orphan 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe
+2025-10-21T17:20:50Z [txpackages] added peer=47326 as announcer of orphan tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe)
+2025-10-21T17:20:50Z [net] got inv: wtx 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe  have peer=47326
+2025-10-21T17:20:52Z [net] Requesting tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 peer=47326
+2025-10-21T17:21:00Z [txpackages] added peer=29051 as a candidate for resolving orphan 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe
+2025-10-21T17:21:00Z [txpackages] added peer=29051 as announcer of orphan tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe)
+2025-10-21T17:21:00Z [net] got inv: wtx 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe  have peer=29051
+2025-10-21T17:21:06Z [net] Requesting tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 peer=29051
+2025-10-21T17:32:07Z [cmpctblock] Reconstructed block 0000000000000000000005d578e2ed197675684b0e9d57e19081b18879179804 required tx 8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe
+2025-10-21T17:32:08Z [txpackages] removed orphan tx 78f62ba425eaf69f0195f155beef4cf009a3c3674c8a63abbf49b1097bbadce8 (wtxid=8e1072d4bd2eb852407776ea5facf631f005e28bb7d93f4628e6ae14eabad3fe) (5 announcements)
+```
+</details>
+
+-------------------------
+
+ajtowns | 2025-12-02 11:51:51 UTC | #51
+
+[quote="polespinasa, post:50, topic:1052"]
+checked a few of those txs randomly and they are in the orphanage until the block reconstruction happens, but they are not used for it.
+[/quote]
+
+If they're in the orphanage, then that means we don't have its parent. If it's also in a block, that means the parent is in the block, and since we don't have it, a round-trip is necessary anyway. You might get a small reduction in bandwidth by not getting an additional copy of the orphan, but likely don't save much actual time.
+
+(Unless there's a bug in the orphanage, and we do have the parent; or perhaps the parent was also recently replaced but is still in extra txns, so available for block reconstruction but not orphan resolution)
+
+-------------------------
+

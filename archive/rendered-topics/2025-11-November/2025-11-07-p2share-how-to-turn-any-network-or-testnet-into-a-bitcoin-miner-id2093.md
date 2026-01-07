@@ -627,3 +627,274 @@ In essence, P2Share offers a fair, efficient path to decentralize mining further
 
 -------------------------
 
+VzxPLnHqr | 2025-11-25 01:46:55 UTC | #17
+
+It may have already been clear to others, but the whole idea can be reasonably generalized. Though, at this point what is being discussed may be more appropriate for the #philosophy or #economics forums? 
+
+Regardless, I tried to work up a concise but somewhat plausible example to demonstrate:
+
+### Share Issuance as a Tool for Bitcoin Alignment
+
+#### Example: Hard Money Coffee
+
+Different choices of the issuance function `S(D_sharechain)` which may even depend on other inputs so long as they are "consensus observable" from the perspective of a sharechain node, can be experimented with on a per-sharechain or per-project basis, without impacting Bitcoin consensus. Such endeavors need only **publicly commit to a simple policy such as: all net profits will be used to either (a) mine-then-burn or (b) buy-then-burn shares of that sharechain.**
+
+This policy is then enforced indirectly via market mechanisms around the sharechain ecosystem, which is a subset of the Bitcoin ecosystem.
+
+As a concrete example, imagine a global decentralized coffee phenomenon, **Hard Money Coffee** ("HMC"), launching its own sharechain. At genesis, a large block of shares which are, initially, ineligible for the "select a random share" mechanism, could be created and assigned to a multi-sig “operations” address controlled by founders and/or stewards. These “operations shares” would function much like startup equity: they could be pledged as collateral to obtain working capital (ideally in sats of course, but also potentially as machinery, leases, or other contributions), while ongoing PoW mining creates a separate stream of newly issued shares according to the chosen `S(D_sharechain)`. The ongoing mining of the sharechain as well as atomic swaps to/from Bitcoin provide a real time and globally accessible information signal about the HMC phenomenon.
+
+Founders or stewards of HMC might still want, for liability or operational reasons, to create one or more traditional legal entities—e.g., **HMC Inc., a Delaware corporation**. They can capitalize such an entity with sharechain shares (so that HMC Inc. can sign contracts, pledge collateral, lease property, hire employees, etc.), while remaining bound by a public commitment such as: “HMC Inc. will use its net profits to mine/buy-then-burn HMC sharechain shares.” The legal entity then looks and acts conventional to courts and counterparties, but economically it is just a steward that channels value back into the sharechain according to this commitment. From the perspective of the sharechain protocol, however, HMC Inc. is just one node among many: it controls some share addresses and may contribute hash rate, but it has no special consensus privileges.
+
+HMC Inc. never custodies anyone else’s sharechain shares and does not maintain any off-chain register of “anonymous” beneficial owners; ownership and transfers are tracked natively on the sharechain itself. Because the HMC sharechain is a p2share sharechain, even the occasional Bitcoin block rewards it earns are automatically and non-custodially distributed on-chain to the selected share, never touching HMC Inc.’s balance sheet, which is win‑win‑win for incentive alignment, operational efficiency, and keeping the necessary “backward compatibility” surface with legacy legal/compliance systems as small and simple as possible.
+
+The presence of such entities does not break the model, because market pricing of sharechain shares continuously reflects the perceived probability that stewards will honor their commitments. If there is even a hint that HMC Inc.’s stewards are going rogue—for example, diverting profits away from mining or buying-and-burning shares—the market will start discounting sharechain shares. Since HMC Inc.’s balance sheet is largely composed of pre-mined, not-yet-eligible sharechain shares (plus whatever other assets it has accumulated), this discount directly erodes its apparent net worth and indirectly pressures its other assets, founders, and stewards, in addition to the reputational damage. The p2share mechanism thus gives maximal flexibility to interoperate with legacy legal structures, while preserving bitcoin-aligned incentives and providing clear, on-chain signals for detection and evaluation of risk and reward.
+
+Crucially, those pre-mined operations shares can be made **ineligible** for the “select a random share” mechanism at first, via consensus rules that simply exclude them from the eligible set. A later, consensus-enforced upgrade could then make some or all of them eligible, but only once Hard Money Coffee has reached a level of profitability where it is actually following through on its public commitment to mine/buy-then-burn shares out of business profits. It is natural to expect markets to price this path-dependence: so long as the enterprise’s success and honesty are uncertain, operations shares should trade at a steep discount; as evidence mounts that the venture is profitable and is indeed burning shares as promised, the discount should narrow, with the eligibility upgrade itself likely treated as a major priced-in milestone.
+
+Over time, if the HMC sharechain becomes widely held, heavily used, and HMC Inc. (and others) are reliably buying and burning shares out of real‑world profits, the protocol need not keep issuing large amounts of new shares. In fact, `S(D_sharechain)` can be designed from genesis to taper issuance toward zero as the chain matures, without relying on any discretionary off‑chain judgment about HMC Inc.’s fortunes. In such a steady state, miners are compensated primarily by fees, while buy‑and‑burn activity supports the share price and thus the value of those fees. HMC Inc. remains, from the protocol’s perspective, just one sharechain node among many that happens to hold shares and perform work; it has no special authority over issuance rules beyond what is mechanically encoded in consensus.
+
+-------------------------
+
+cmp_ancp | 2025-11-25 03:31:51 UTC | #18
+
+I want to point some problems I think we need to solve in order to the system to stand up.
+
+* How much should we decrease the share of the winner? The winner (i.e., the selected owner that receives the fees on BTC onchain) should have some of its shares burnt, otherwise, they would just gather shares forever. Should we burn it all? Or is there a calculatable proportion? Some actor may find out sometimes that they have a lot of shares, and if they try to mine more sharecoin blocks, they may be spending more than it is valuable from a BTC block revenue (assuming they burn all accumulated shares). In that situation, it is prefereable to they to stop mining and wait untill some block is mined in their name. Maybe a solution would be to sell their shares in order to remain in a sustainable position.
+* How frequent should be the sharecoin block issuance? And how should its difficulty vary? If the difficulty is always too high, small miners would never receive fair shares to their wasted energy. In that case, we should make the blocks more frequent. However, if blocks are too frequent, we may face propagation issues and flooding in the network, making not worthy to participate.
+* How many txs should we be able to put on a sharecoin block? And how complex would be the scripts (if it was based on scripts at all)? This touches in the previous point, the propagation issues and cost to sustain it.
+
+Being optimistic, at least new miners shouldn’t necessarily sync to all chain history. BTC mainchain is already prooved by work, and sharecoin state is dependent on BTC state. We could commit to actual state in found blocks, and new miners would need to sync to the last checkpoint, behind that, they could trust the previous state prooved on mainchain.
+
+Throwing away part of syncing and storage problems, the sharecoin chain could grow in a faster pace, everything from one or two checkpoints behind could be prunned. Maybe the pace itself could vary from epochs, depending on number of miners and number of shares issued.
+
+We should tune all of that in order to maintain some goals. Should we be small miner friendly? The ideia is to have a single sharecoin pool, or multiple ones, focused on different miner sizes, each one with its own difficulty? I think we need to be attractive to big miners in order to make a change in centralization, but small miner friendness is also important to decentralization.
+
+-------------------------
+
+VzxPLnHqr | 2025-11-25 05:08:28 UTC | #19
+
+Thanks for your reply.
+
+[quote="cmp_ancp, post:18, topic:2093"]
+How much should we decrease the share of the winner? The winner (i.e., the selected owner that receives the fees on BTC onchain) should have some of its shares burnt
+[/quote]
+
+I alluded to this problem in a [prior post](https://delvingbitcoin.org/t/p2share-how-to-turn-any-network-or-testnet-into-a-bitcoin-miner/2093/12). There are some technical challenges with trying to do what (I think) you are suggesting, but I also do not think it is necessary. Yes, the same share on the sharechain might, in the long run, happen to be the winner of multiple bitcoin block rewards. That is fine. The market can price that in.
+
+[quote="cmp_ancp, post:18, topic:2093"]
+How frequent should be the sharecoin block issuance? And how should its difficulty vary?
+...
+How many txs should we be able to put on a sharecoin block?
+[/quote]
+
+The p2share design is extremely general in the sense that all of these parameters can of course be tuned. Additionally, depending on the underlying goal/purpose of the specific sharechain, even the issuance schedule and eligibility-for-random-selection of the shares can be tuned (see my prior post about the hypothetical "Hard Money Coffee" sharechain).
+
+Naturally a sharechain can itself have its own lightning-like channels. As such, atomic swaps between between Bitcoin and a sharechain would be instant since both sides could use lightning.
+
+[quote="cmp_ancp, post:18, topic:2093"]
+Should we be small miner friendly?
+[/quote]
+
+Like Bitcoin itself, I think it probably makes the most sense to keep the operational costs of running a fully validating sharechain node (which is also, by definition, a Bitcoin node) minimal. 
+
+
+[quote="cmp_ancp, post:18, topic:2093"]
+The ideia is to have a single sharecoin pool, or multiple
+[/quote]
+
+Multiple, competing on everything from feature sets (per the original post) to more exotic endeavors (per the "Hard Money Coffee" example).
+
+-------------------------
+
+cmp_ancp | 2025-11-25 18:15:12 UTC | #20
+
+[quote="VzxPLnHqr, post:19, topic:2093"]
+I alluded to this problem in a [prior post](https://delvingbitcoin.org/t/p2share-how-to-turn-any-network-or-testnet-into-a-bitcoin-miner/2093/12). There are some technical challenges with trying to do what (I think) you are suggesting, but I also do not think it is necessary. Yes, the same share on the sharechain might, in the long run, happen to be the winner of multiple bitcoin block rewards. That is fine. The market can price that in.
+
+[/quote]
+
+I’ve read the linked post, and I got confused by what you are saying. The post aludes to burning all the shares of an account (and it has an interesting case, pointing out to the possibility of dividing shares in different accounts in order to remain profitable), but now, you say about the same share winning multiple times. Maybe it is a name confusion, what is a share? Is it different from an account? Is the share the “coin” or the “account”?
+
+In any case, I am really pro bruning the selected account shares. That’s because, if large miners doesn’t get your shares burnt, we could have a centralization of shares to fewer hands, and those miners would win all the time. If the winner is always burnt, the small miner that isn’t selected could, in theory, on the long run, accumulate shares untill it is a valid candidate to be selected.
+
+Inflation is also somewhat of a problem. If, in the long run, sharecoins are always devaluated, shares of small miners could be outpriced and never paid. Sure, if the small miner, on the long run, is contributing little to the total hash as a whole, it is fair that the reward would shrink until the next found block.
+
+I should also point to the possibility of large miners pulverizing their shares on multiple accounts. That would totally break the incentives, once the miner doesn’t diminish its probability on being chosen, while they guarantee to burn little to no share. Maybe we can make an account only elegible to selection after some threshold, and miners with less shares would profit by selling them to the elegible ones. Or maybe UTXOs could only be consolidated, never broken down, or frequently refreshed? It’s concerning that, even in that situation, large miners could generate multiple small sized shares and never consolidate them. Maybe the probability on being chosen could grow exponentially with share size rather than linear, so \[p(s1+s2) > p(s1) + p(s2)\], setting a penalty to pulverization.
+
+Another cool feature that could be managed by sharecoin is coordination to onchain txs. Imagine some ark style payout tree, instead of needing a coordinator to manage the signatures, the sidechain itself could be a place to cordination. Multiple parties could commit asynchronously to signatures to construct such thing, using the faster pace the sidechain grows and the ephemerity of the state (nodes doesn’t need to store all history), maybe signature commitments could have some expire time for the coordination to be complete? In that way, nodes could get rid of them after some time.
+
+PS: re-read the linked post, and now understood that you were proposing different paying models lmao. Sorry, I’m working today, early in the morning, my mind isn’t fully focused yet (and english isn’t my native language). But I remain with my point: if shares are never burnt, then we can have a centralization and smaller miners could never get paid. Also, i think the exponential probability based on share quantity is a clever way out, we could scale down the exponentiability in order to not get an explosion. Maybe something like \[x log(x)\] can suffice, we only need the proposition \[p(s1+s2) > p(s1) + p(s2)\] to be true.
+
+-------------------------
+
+VzxPLnHqr | 2025-11-25 19:14:25 UTC | #21
+
+Part of the confusion here is my fault. The original post presented a less generalized version of p2share but where the share issuance was more similar to Bitcoin's (shrinking-pie model). Then, later in the thread I presented a more refined version which, I believe, is equivalent to PPLNS in expectation. Then, to confuse things more, I presented the most general version where the "parameters" (shape of the share issuance schedule, block time, difficulty adjustment algorithm, etc) can all be fine tuned.
+
+Now, to get on the same page with regard to nomenclature, when I refer to "shares" I am here referring to the sharechain's unit of account. You can imagine a sharechain as its own network which operates similar to bitcoin, and just like bitcoin has output amounts (sats) in its utxos, a sharechain has output amounts (shares) in its utxos. 
+
+Due to the "select a random shareholder" mechanism of p2share, _unlike_ bitcoin itself, these shares possess an equity-like property that we might associate with more traditional for-profit enterprises. That is why I am calling them shares. Though, of course, it is important to remember that a sharechain is not itself any sort of "legal structure" in the traditional sense. In this manner it _is_ like Bitcoin.
+
+You seem to be imagining a sharechain shareholder having an "account" more similar to how some networks use an account-based methodology for tracking amounts rather than a utxo methodology. While it might be possible or even preferable to use that sort of mechanism within the sharechain, that is a technical detail that, in my opinion, does not really matter right now in our discussion.
+
+[quote="cmp_ancp, post:20, topic:2093"]
+In any case, I am really pro bruning the selected account shares.
+[/quote]
+
+I am not sure if this is where you are getting confused or not, but we are not necessarily selecting an "account." We are randomly selecting a specific share. That specific share will (in a utxo model) be located in a certain utxo which will have a certain public key associated with it. That is all we, as sharechain nodes, know. Conveniently, that is also all we need to know.
+
+Sure, we could "burn" the entire utxo which contains that share, but that suffers from a number of problems, some of which you have pointed out. A miner can easily minimize her number of burned shares by pulverizing her shares across many outputs.
+
+Set all the technical concerns aside for a moment and assume that the sharechain has solved a Bitcoin block and the reward (subsidy + fees, in sats) is `R`. Let's assume we _could_ randomly select and "burn" `R` sats worth of shares, in exchange for distributing the `R` bitcoin to those shareholders. This is nearly equivalent to what happens in a share buyback in the traditional equity markets. 
+
+However, mathematically the buyback method is equivalent, in expectation, to the much more simple, and also conveniently tractable/implementable: _"select a single share at random and distribute the entire reward `R` to the owner of that share."_
+
+A major advantage of the above simplification is that we need only select a single share at random. Whereas with what you want to do, we would need to select a set of shares and the set of shares selected is necessarily a function of `R` and some sort of price signal getting smuggled into the sharechain (otherwise we would not know how many shares to "burn"). This is an unnecessary complication, and may not even be possible, yet the simple model of selecting and distributing the reward to a single share _achieves the same result,_ and we can let the exogenous market just price things accordingly.
+
+[quote="cmp_ancp, post:20, topic:2093"]
+Inflation is also somewhat of a problem. If, in the long run, sharecoins are always devaluated,
+[/quote]
+
+Again, this depends on the chosen parameters around share issuance. In the linear model where each share issued is always tied to a constant amount of work, then even though there is an ever-growing supply of shares, the difficulty adjustment algorithm takes care of this problem for us. Say difficulty grows by 100x on the sharechain, then sure there will be 100x more shares issued. And yes, in such a scenario, the new "high difficulty" shareholders would have a much higher liklihood of being randomly selected for the bitcoin reward. However, they also paid (in work) for those shares. Similarly, the "low difficulty" (earlier) shareholders _still_ have a non-zero chance of being selected. This is why, in expectation, everything works out just fine. In the linear issuance model, even though supply of shares tends to infinity (note: it will, of course never actually get there), everyone is fairly accounted for. This is the beauty of a difficulty adjustment algorithm tied to thermodynamic work. 
+
+[quote="cmp_ancp, post:20, topic:2093"]
+Another cool feature that could be managed by sharecoin is coordination to onchain txs. Imagine some ark style payout tree
+[/quote]
+
+Sure, there are a lot of interesting things which might be tried by a sharechain, all without affecting mainchain bitcoin. I am less focused on the specifics here though and right now just want to explore the general p2share framework to ensure that it is sound and properly Bitcoin-aligned.
+
+Markets, especially of the open, permission-less, and unhampered kind, are very good at solving these sorts of problems. Sharechains with features or issuance models which are reckless will not do well in the atomic swap market. Nobody will want to part ways with their precious sats for those garbage shares, and those sharechains will lose hashrate (or never even achieve it in the first place) because of it. Sharechains with solid, but differentiated, feature sets and fair issuance have a much better chance of success.
+
+-------------------------
+
+cmp_ancp | 2025-11-25 22:46:20 UTC | #22
+
+Hi
+
+I want to point out what I judge to be the key ideas I presented on my last post, because I think it deserves more debate over the final architecture.
+
+[quote="VzxPLnHqr, post:21, topic:2093"]
+You seem to be imagining a sharechain shareholder having an “account” more similar to how some networks use an account-based methodology for tracking amounts rather than a utxo methodology. While it might be possible or even preferable to use that sort of mechanism within the sharechain, that is a technical detail that, in my opinion, does not really matter right now in our discussion.
+
+[/quote]
+
+Yes, I think it doesn’t matter *now*, at this point of discussion (even though I think that an account model would be easier to save a checkpoint at mainchain). When I spoke about account, you could read “UTXO” as you like (I was indeed thinking on an UTXO model).
+
+[quote="VzxPLnHqr, post:21, topic:2093"]
+Sure, we could “burn” the entire utxo which contains that share, but that suffers from a number of problems, some of which you have pointed out. A miner can easily minimize her number of burned shares by pulverizing her shares across many outputs.
+
+[/quote]
+
+I really think we cannot runaway from burning the entire UTXO. I’ll explain:
+
+I pointed out to inflation and small miner friendliness, but there is another aspect: how much time the miner has contributed to the pool. If we don’t burn, the old miners would have a gigantic amount of shares, at a point that new miners couldn’t even compete. The conclusion would be a pool for little, where new miners couldn’t enter, and even the old miners would eventually leave because of the total pool size plateau.
+
+Also, that system wouldn’t be fair, because miners would be double paid. When a miner is selected to receive the revenue, he’s getting paid by its work, but if he doesn’t lose shares, the amount of work spent one time would be valued multiple times.
+
+[quote="VzxPLnHqr, post:21, topic:2093"]
+Whereas with what you want to do, we would need to select a set of shares and the set of shares selected is necessarily a function of `R` and some sort of price signal getting smuggled into the sharechain (otherwise we would not know how many shares to “burn”)
+
+[/quote]
+
+I think I didn’t express myself very well. In an UTXO model, I think the selected UTXO would be the one that is burnt entirely, in an account based, the account would be burnt. That way, we don’t need to insert shares-to-BTC exchange rates, it’s all or nothing.
+
+BUT, the main point, and waht I think is the final solution to all incentives problems: the above linear probability function.
+
+Imagine an exponential probability function based on amount of shares. In that way, doubling the amount of shares would more than double the probability of being selected. That is, \[p(s1+s2) > p(s1) + p(s2)\]
+
+[quote="VzxPLnHqr, post:21, topic:2093"]
+A miner can easily minimize her number of burned shares by pulverizing her shares across many outputs.
+
+[/quote]
+
+In an an above linear probability system, that would be severely penalized, that’s because it is far more desirable to have a single big UTXO instead of many small UTXOs. Big miners would severely undervaluate their energy spents by pulverizing shares.
+
+[quote="VzxPLnHqr, post:21, topic:2093"]
+Sharechains with features or issuance models which are reckless will not do well in the atomic swap market. Nobody will want to part ways with their precious sats for those garbage shares
+
+[/quote]
+
+That’s another incentive gain from the above linear solution: shares have different values in the hands of different actors. The shares of the small miners are much more valuable on the hands of bigger miners, because at their point on the probability curve, the marginal increment of shares have more impact. That’s the solution for small miners, big miners and entities are incentivized to buy shares.
+
+We could think that this would lead to centralization, and we need for sure run some simulations on that. But, looking by another angle, knowing that the selected share (either in an UTXO or an account) would be burnt, even the big miners go down to position 0. In theory, some long running small miner could eventually have an enormous amount of shares and be selected. That’s because the concurrent miners would eventually go back to 0.
+
+[quote="VzxPLnHqr, post:21, topic:2093"]
+Sure, there are a lot of interesting things which might be tried by a sharechain, all without affecting mainchain bitcoin. I am less focused on the specifics here though and right now just want to explore the general p2share framework to ensure that it is sound and properly Bitcoin-aligned.
+
+[/quote]
+
+I just pointed out the cordination because that could be another mean of getting paid. Miners could cordinate inside the pool on order to “join their shares” and distribute it onchain by a cordinated payout tree. The sidechain would be a cordination point by itself, as a data availability medium, and dealing with miners, they would certanly be more frequently online.
+
+-------------------------
+
+VzxPLnHqr | 2025-11-25 23:45:57 UTC | #23
+
+[quote="cmp_ancp, post:22, topic:2093"]
+If we don’t burn, the old miners would have a gigantic amount of shares, at a point that new miners couldn’t even compete.
+[/quote]
+
+This is not correct, at least not in a linear "will work-for-shares" issuance model. It it only correct if you assume that shares are issued in a some other manner which gives early sharechain miners an "advantage" with regard to required work (expected # hashes) per share they receive. That is what Bitcoin itself did, and that is fine for Bitcoin (without it, we could never even contemplate the p2share model!). However, part of the confusion is that the original post _did_ present such an issuance model where shares were issued non-linearly in the shrinking-pie Bitcoin-like way. 
+
+However, the more refined linear model I proposed, coupled with a suitable difficulty adjustment algorithm, explicitly fixes that objection. 
+
+[quote="cmp_ancp, post:22, topic:2093"]
+he’s getting paid by its work, but if he doesn’t lose shares, the amount of work spent one time would be valued multiple times.
+[/quote]
+
+The “paid multiple times for the same work” concern doesn’t apply in the linear issuance model.
+
+Every new unit of work adds new shares and proportionally dilutes *all* existing shares. Because selection is random over all shares, every share, regardless of when it was created, has the same expected value. There is no persistent extra advantage from “early” work; it’s continuously diluted by later work.
+
+To describe behavior cleanly, fold difficulty into expected value per hash:
+
+- Let `EV_sc` be the expected sats per unit hash on the sharechain (this already accounts for sharechain difficulty and share price).
+- Let `EV_mc` be the expected sats per unit hash on mainchain.
+- Let `P*` be the share price at which `EV_sc = EV_mc`.
+
+Then miners simply arbitrage:
+
+**1. Mining decision (where to point hash):**
+
+| Condition                    | Mining action      |
+|-----------------------------|--------------------|
+| `EV_sc > EV_mc` | Mine on sharechain |
+| `EV_sc < EV_mc` | Mine on mainchain  |
+| `EV_sc ≈ EV_mc` | Indifferent        |
+
+**2. Trading decision (what to do with shares):**
+
+| Market share price          | Trading action                          |
+|----------------------------|------------------------------------------|
+| `Price > P*` (“too high”)  | Sell shares (including newly mined)     |
+| `Price < P*` (“too low”)   | Buy shares (if you want more exposure)  |
+| `Price ≈ P*` (“just right”)| Indifferent; no strong trade implied    |
+
+So all shares have the same expected value, and the “right” behavior is just: point hash where `EV` per hash is higher, and trade shares when their market price deviates from the fair `P*`.
+
+-------------------------
+
+coinjoinkillua | 2025-12-26 22:11:17 UTC | #24
+
+Have you taken a look at this yet?
+
+https://github.com/braidpool/braidpool/blob/8d3c5198593d691f50ae5238cdaee215f4213cda/docs/overview.md
+
+-------------------------
+
+VzxPLnHqr | 2025-12-28 05:09:37 UTC | #25
+
+Thanks for your reply. 
+
+[quote="coinjoinkillua, post:24, topic:2093"]
+Have you taken a look at this [braidpool] yet?
+[/quote]
+
+It has been a while since I looked at Braidpool. What they mean by shares in their documentation is subtly different than what I am exploring in this thread (and in a more economic-focused fashion over in [this thread](https://delvingbitcoin.org/t/bmax-pricing-sats-now-vs-sats-later-via-a-mining-sharechain-no-l1-changes-no-custodians-no-oracles/2165).
+
+From Braidpool's readme:
+> Custody of accumulated coinbase rewards and fees is performed by a large multi-sig among miners who have recently mined blocks using the [FROST Schnorr signature algorithm](https://glossary.blockstream.com/frost/). Consensus rules on the network ensure that only a payout properly paying all miners can be signed and no individual miner or small group of colluding miners can steal the rewards.
+
+I have not yet fully been able to grasp how they intend to have the above claim be true. So one of the focuses of my reserach is to not introduce such a signing aspect and instead use game theory and random share selection to keep it entirely non-custodial.
+
+-------------------------
+

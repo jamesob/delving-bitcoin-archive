@@ -509,3 +509,38 @@ edit: In this context Utreexo only helps with capping the RAM required for exped
 
 -------------------------
 
+simul | 2025-12-09 21:33:48 UTC | #36
+
+perhaps it’s not acceptable for everything because the incentive to attack the chain over a 1 year re-org (unlikely) is greater if the attacker can confiscate everything vs dust
+
+-------------------------
+
+Claire | 2025-12-09 23:49:04 UTC | #37
+
+Hi Robin,
+
+I really like the idea you’ve outlined here. I’m working on a proposal that addresses dust by targeting dust created for clearly non-monetary purposes. I believe it’s superior to a blanket dust removal because, rather than touching all dust, it only acts on dust that can be **deterministically** shown to be spamming the network in support of non-monetary activity external to Bitcoin’s monetary function. This has the added benefit of also removing the financial incentives that drive much of this spam in the first place.
+
+According to my analysis so far, at least \~40% of Bitcoin Core’s current UTXO set consists of dust under 1,000 satoshis that can be deterministically shown to match the classification rules for spam created by Ordinals (a type of Bitcoin spam) alone.
+
+I also find your method of shifting the burden onto the user a very clever way of avoiding any confiscation risk. I’d love to explore whether something similar could be adapted to my proposal, although I’m not yet sure it’s compatible, since a key goal is also to reduce the incentive to continue this behavior going forward.
+
+-------------------------
+
+AdamISZ | 2025-12-14 13:24:26 UTC | #38
+
+[quote="Claire, post:37, topic:1707"]
+it only acts on dust that can be **deterministically** shown to be spamming the network in support of non-monetary activity external to Bitcoin’s monetary function.
+
+[/quote]
+
+I’m curious about what you mean by “deterministic” here. I guess you mean something like, if you pass the dust utxo through a spam-checking-function f it *always* returns true, not just sometimes? Obviously in a very general sense you have no fully objective deciding function, but maybe you are trying to emphasize that it’s reliable for some subset? (To be clear I don’t believe anything like this makes sense, but I’m curious to understand the exact line of thought implied by that word).
+
+-------------------------
+
+Claire | 2025-12-15 18:09:40 UTC | #39
+
+Yes, you got it. The classification rules are specific and objective. They apply to on-chain data and can be verified by anyone using the same rules to produce the exact same set of transactions with no errors.
+
+-------------------------
+

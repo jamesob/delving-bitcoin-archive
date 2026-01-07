@@ -282,3 +282,121 @@ Agreed!
 
 -------------------------
 
+Julian | 2025-12-05 14:43:09 UTC | #8
+
+[quote="ajtowns, post:6, topic:2094"]
+Doing benchmarks on the more powerful logic new opcodes enable might be more interesting; eg the [OP_CAT based zkp verifier](https://bitcoinmagazine.com/technical/a-zero-knowledge-proof-is-verified-on-bitcoin-for-the-first-time-in-history)? How many zkps (implemented that way) could we verify in a block, if 100ms (or whatever) of cpu time were the only constraint? Seems to have some 223k operations per script, 30k ADD/DUP, 20k IF/ENDIF/SUB, 10k SWAP/LESSTHAN/TOALT/FROMALT, 400 CAT/1SUB/DEPTH/SHA256, 1 CHECKSIG, etc.
+
+[/quote]
+
+Unfortunately it seems that this implementation won’t run properly due to the new number type used in GSR, we use an unsigned arbitrary length integer instead of the current signed 32bit int. The new stack limits and OP_MUL should also drastically reduce the number of transactions needed and probably also reduce their validation time.
+
+[quote="instagibbs, post:4, topic:2094"]
+TIL it was that slow. I worry that benchmarking against the *worst case* as the new “average” is the wrong goal as this may potentially become the average way of interacting with Bitcoin (unlike using lots of signatures, which seems rare). Basically we should expect \~every block to approach that level of verification cost, so I’d expect we would target something we would be happy with for IBD or at tip with relatively turbulent mempools. *waving wildly* On the order of 100ms?
+
+[/quote]
+
+We benchmark a large collection of possible scripts and extract the worst case as the slowest execution time, this does not mean that it will be the new average, the 15 opcodes were disabled due to paranoia of nodes being DDoSed, as in an attacker trying to construct a block that causes memory overflows or extremely slow execution times.
+
+As seen in the benchmark, almost every script is much faster and only uses a small fraction of the varops budget. But we are interested in the worst cases and those worst cases are only reached when hashing (which you can do right now without any restrictions and produce blocks much slower than 100ms) and arithmetic on very large numbers.
+
+I don’t think we can or should predict what the average block with GSR will look like, we only want to make sure there is a reasonable upper bound for script validation times, the purpose of the benchmark is to establish this upper bound.
+
+If 80,000 sig ops is too slow, why was it preserved in Taproot/BIP340-342? Varops really just wants to generalize this limit to all operations, without introducing a new worst case script.
+
+-------------------------
+
+instagibbs | 2025-12-05 15:26:54 UTC | #9
+
+[quote="Julian, post:8, topic:2094"]
+If 80,000 sig ops is too slow, why was it preserved in Taproot/BIP340-342?
+
+[/quote]
+
+All else aside I don’t think we’re bound to make the same decisions going forward.
+
+-------------------------
+
+AntoineP | 2025-12-05 16:46:28 UTC | #10
+
+I agree with that, and for the record i don't think maxing out the number of signatures is the worst case in Taproot. Last time i checked `3DUP RIPEMD160 DROP RIPEMD160 DROP RIPEMD160 DROP` a maximum size stack element over and over was the highest validation time per witness byte i could get. ~~Now with the GSR there is certainly a pretty efficient way of evading the signature cache (using `CAT`), so the worst case may be to max out the 80k sigops with different signatures, and then padding the witness size using repeating hashing of a maximum size element.~~ To @instagibbs' point, this is only possible because the hash operations in Tapscript do not count toward the sigop budget, i think they should have.
+
+EDIT: actually you can't just create signatures with `CAT` like this since in Tapscript by consensus they must either be valid or the empty vector. This greatly constrains the cost an attacker can impose.
+
+-------------------------
+
+Julian | 2025-12-05 17:09:23 UTC | #11
+
+[quote="AntoineP, post:10, topic:2094"]
+Last time i checked `3DUP RIPEMD160 DROP RIPEMD160 DROP RIPEMD160 DROP` a maximum size stack element over and over was the highest validation time per witness byte i could get.
+
+[/quote]
+
+Yes RIPEMD160 of 520 byte elements is often the worst case (depends on the machine), this is why it also stays limited to 520 byte arguments in the new tapleaf version.
+
+-------------------------
+
+ajtowns | 2025-12-09 18:23:55 UTC | #12
+
+[quote="instagibbs, post:9, topic:2094, full:true"]
+[quote="Julian, post:8, topic:2094"]
+If 80,000 sig ops is too slow, why was it preserved in Taproot/BIP340-342?
+[/quote]
+
+All else aside I don’t think we’re bound to make the same decisions going forward.
+[/quote]
+
+As I understand it, the [logic for tapscript](https://github.com/bitcoin/bips/blob/6ce21f4eaeb4a73373688e99d7ea74a6c0413f22/bip-0342.mediawiki#cite_note-11) was just "keep it roughly the same as segwit", [the logic for segwit](https://github.com/bitcoin/bips/blob/6ce21f4eaeb4a73373688e99d7ea74a6c0413f22/bip-0141.mediawiki#user-content-Sigops) was "we're expanding the blocksize by a factor of up to 4, and that should apply to both the bytes and sigop limits", and that brings us back to the [original block size limit introduction](https://github.com/bitcoin/bitcoin/commit/f1e1fb4bdef878c8fc1564fa418d44e7541a7e83#diff-608d8de3fba954c50110b6d7386988f27295de845e9d7174e40095ba5efcf1bbR1419-R1427):
+
+```
++    // Check size
++    if (nHeight > 79400 && ::GetSerializeSize(*this, SER_NETWORK) > MAX_BLOCK_SIZE)
++        return error("AcceptBlock() : over size limit");
++
++    // Check that it's not full of nonstandard transactions
++    if (nHeight > 79400 && GetSigOpCount() > MAX_BLOCK_SIGOPS)
++        return error("AcceptBlock() : too many nonstandard transactions");
+```
+
+which seems to have just been limiting the DoS surface.
+
+So I think there's plenty of potential for making a more informed decision now, rather than just assuming what we've already got is sensible.
+
+-------------------------
+
+Julian | 2025-12-10 11:02:20 UTC | #13
+
+> So I think there’s plenty of potential for making a more informed decision now, rather than just assuming what we’ve already got is sensible.
+
+Since the BIPs propose to leave the existing sigversions unchanged and instead aim to add a new sigversion (through a new tapscript leaf), which adheres to the varops budget and potentially implements GSR, it will not have any impact on those existing sigversions including the current base tapscript leaf.
+
+Therefore, it is reasonable to construct a computational budget with parameters, such that the worst case script with GSR activated, is no slower than the current worst case for most or all machines.
+
+From the DoS viewpoint, an attacker can choose any sigversion, so constraining the computational budget in a new sigversion further than the worst case in other sigversions, would not have any benefits, it would constrain the new sigversion unnecessarily.
+
+Maybe you are arguing that the varops budget should also be added to the existing sigversions? That would be a completely different discussion imo.
+
+-------------------------
+
+ajtowns | 2025-12-18 00:56:31 UTC | #14
+
+[quote="Julian, post:13, topic:2094"]
+Therefore, it is reasonable to construct a computational budget with parameters, such that the worst case script with GSR activated, is no slower than the current worst case for most or all machines.
+[/quote]
+
+That might be reasonable, but I don't think it's good enough: there's a difference between "you can waste X resources doing this silly pattern that serves no purpose except as an attack" and "you can now waste X resources with arbitrary logic". In the former case, you're only vulnerable to deliberate attackers; the latter case you're vulnerable to everyone who comes up with new logic they want to deploy. It was easy to make 4MB blocks as soon as segwit was active; but until inscriptions came along, there was no real reason to do that. We don't want to have GSR result in a similar state change from "it's possible to make slow blocks" to "it's profitable to make slow blocks", if you see what I mean.
+
+Limiting the worst case GSR execution costs to the equivalent of a block full of fairly normal transactions would be very safe, by contrast. I think that would be something on the order of ~13k signature operations per block rather than 80k (based on filling a block with ~3300 2-in, 2-out 2-of-3 multisig p2wsh transactions).
+
+Targeting a validation time of perhaps one or two microseconds per vbyte (so one or two seconds per block) or so would be a better target, I think, though obviously that would require picking some baseline hardware as a minimum standard.
+
+[quote="Julian, post:13, topic:2094"]
+Maybe you are arguing that the varops budget should also be added to the existing sigversions? That would be a completely different discussion imo.
+[/quote]
+
+Restricting existing script functionality is a different discussion, definitely, because it potentially confiscates coins. It can still be worth having that discussion, either because we might be able to design restrictions that are only likely to restrict attacks (cf BIP 54), or because we might be able to figure out other improvements to avoid the need to restrict things at all (eg [PR#16902](https://github.com/bitcoin/bitcoin/pull/16902) or [CVS-2025-46598](https://bitcoincore.org/en/2025/10/24/disclose-cve-2025-46598/)).
+
+But the easiest chance we have to do better is when introducing new functionality, so if we've got a better means of analysing the potential costs (which the varops budgets is!) then also thinking about the limits from a fundamental perspective rather than just cargo culting what we've had in the past.
+
+-------------------------
+

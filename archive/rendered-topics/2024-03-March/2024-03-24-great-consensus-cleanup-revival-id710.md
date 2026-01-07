@@ -1567,3 +1567,36 @@ That's enough for devices up to 280 TH/s. Beyond that devices could roll their t
 
 -------------------------
 
+AntoineP | 2025-11-27 22:29:06 UTC | #87
+
+Extensive test vectors for BIP 54 were recently merged in the bips repository. You can find them [here](https://github.com/bitcoin/bips/tree/master/bip-0054/test_vectors). An implementation for Bitcoin Inquisition is available [here](https://github.com/bitcoin-inquisition/bitcoin/pull/99).
+
+-------------------------
+
+ajtowns | 2025-12-03 11:40:55 UTC | #88
+
+[quote="sjors, post:86, topic:710"]
+To repeat the response I had there: why not just use a `scriptPubKey`? Since a coinbase doesn’t have input signatures that commit to outputs, there’d be no extra hashing either.
+[/quote]
+
+If your coinbase tx (ignoring the witness) is N bytes, then appending a 0 sat output of the form `OP_RETURN OP_PUSH[4+X] <X bytes padding> <4B nonce>` where `X=max(0,16-(N+23)%64)` allows you to update the 4B nonce with only the final sha256 round, at a cost of between 15 to 31 bytes of additional coinbase data, achieving essentially the same benefit as using the coinbase nlocktime as a nonce (which requires between 0 and 12 bytes of padding for alignment anyway). If you're already doing extranonce work via an OP_RETURN output, then there's only 0-4 bytes of additional overhead to align the end of the final OP_RETURN data compared to aligning the nlocktime field in the first place.
+
+32b of extra nonce in addition to 32b nNonce and 16b from BIP 320 and rolling nTime once per second gives 1200 zettahash/second (1.2 trillion TH/s), so about 1000x the total current hashrate.
+
+-------------------------
+
+sjors | 2025-12-04 14:33:42 UTC | #89
+
+[quote="ajtowns, post:88, topic:710"]
+a cost of between 15 to 31 bytes of additional coinbase data
+
+[/quote]
+
+Keep in mind that Bitcoin Core block templates reserve 8000 weight units by default for coinbase (and header). Afaik miners rarely push this to the limit (\`-blockreservedweight\` has a minimum of 2000, but patching can of course take it lower).
+
+Ocean Pool uses extra large coinbases and Datum users are instructed ( https://github.com/OCEAN-xyz/datum_gateway?tab=readme-ov-file#node-configuration ) to set `blockmaxweight=3985000` which means 15 kWu is reserved. In practice their coinbase transactions ( https://mempool.space/nl/mining/pool/ocean ) vary wildly in size, e.g. recently I saw one that was 3 kWu and another 9.4.
+
+Perhaps in the future miners are going to be more concerned about squeezing every last byte out of a block, but at the moment 15 to 31 extra bytes would just eat into the existing safety margin and have no revenue effect.
+
+-------------------------
+

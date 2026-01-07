@@ -994,3 +994,17 @@ Yes, but if I don't have *any* peers that propagate a particular transaction, th
 
 -------------------------
 
+coinjoinkillua | 2025-12-15 12:53:07 UTC | #17
+
+> I very much doubt that a supermajority of noderunners could be convinced to filter OFAC transactions, for example. But again, if that does somehow happen, there’s always direct-to-miner submission APIs (and other more decentralized solutions such as gudnuf’s hackathon project, memcooler\[5\]).
+
+I agree 💯
+
+I believe in this so strongly that I think it will be trivial for you to convince a supermajority to filter "spam".
+
+The core client should not have arbitrary filters enabled by default and It should not reinforce the social stratum or any subjective aspect of the protocol, Because this sets a dangerous precedent, while users cannot be forced to accept OFAC rules, developers do not have that same privilege, especially if they create a precedent. 
+
+I think that solves everything, you're right, you're just looking for a shortcut and using the wrong means to achieve an end.
+
+-------------------------
+

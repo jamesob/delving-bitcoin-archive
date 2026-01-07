@@ -1,0 +1,91 @@
+{
+  "id": 6499,
+  "name": "Gregory Sanders",
+  "username": "instagibbs",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png",
+  "created_at": "2025-12-31T13:55:37.281Z",
+  "cooked": "<p>I\u2019ve been interested in this direction for a little under a year and have been doing exploratory work towards this recently.</p>\n<p>My focus is under the assumption that routing nodes are already highly provisioned, but end-nodes such as mobile clients and related make LSP economics difficult at best due to inbound liquidity requirements, which could be highly optimized by layering it on Ark. Given my focus on LSP+mobile client style arrangements, this also lets me punt on the gossip/routing question for now.</p>\n<p>This is essentially a Timeout Tree with the ability to \u201cteleport\u201d the end-channels between trees, at the cost of the additional wait at the leaf\u2019s \u201cforfeit\u201d stage to ensure the ASP isn\u2019t being double-spent (which imo is immaterial to user incentives).</p>\n<p>With the hash-based Ark (hArk), I think this architecture becomes quite plausible with a lightly modified variant of today\u2019s LN:</p>\n<ol>\n<li>Normal channel operation in a tree</li>\n<li>Client+LSP request refresh to new tree</li>\n<li>Tree with refreshed vtxo is generated / confirmed (can even be done predictively before 2!)</li>\n<li>Client+LSP quiesce old channel</li>\n<li>Client+LSP do new tree vtxo channel setup (clone channel)</li>\n<li>Client+LSP sign forfeit tx \u2190 Old channel revoked, new channel can only be claimed if revoke spent</li>\n<li>ASP sends hash preimage \u2190 new channel under control of Client+LSP</li>\n<li>Client-LSP unquiesce channel in new tree, continue operation</li>\n</ol>\n<p>Note that with predictive tree generation and confirmation, this results in the client being able to refresh their channel nearly instantaneously, even if they only unlock their mobile phone once before old tree expiry.</p>\n<p>Note that connector-based Ark would make the interactivity story significantly more daunting, or force significant channel downtime during round refreshes.</p>\n<p>There are lots of details to sort out clearly, but I just wanted to sketch out what this could practically look like with no consensus or mempool changes, nor major BOLT rewrites.</p>\n<blockquote>\n<p>Since Lightning already requires on-chain confirmations for such changes, Ark does not worsen latency from this perspective as ark rounds could eventually take place in every block</p>\n</blockquote>\n<p>One UX consideration here is that with today\u2019s LN, 0-conf channels allow the client to see the fully signed transaction right away, while if you were waiting for batching rounds, this is another step removed. The LSP is promising that that ASP will emit a transaction with the appropriate structure to generate a new channel vtxo.</p>",
+  "post_number": 2,
+  "post_type": 1,
+  "posts_count": 8,
+  "updated_at": "2025-12-31T13:55:37.281Z",
+  "reply_count": 0,
+  "reply_to_post_number": null,
+  "quote_count": 0,
+  "incoming_link_count": 5,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 137.2,
+  "yours": false,
+  "topic_id": 2179,
+  "topic_slug": "ark-as-a-channel-factory-compressed-liquidity-management-for-improved-payment-feasibility",
+  "topic_title": "Ark as a Channel Factory: Compressed Liquidity Management for Improved Payment Feasibility",
+  "topic_html_title": "Ark as a Channel Factory: Compressed Liquidity Management for Improved Payment Feasibility",
+  "category_id": 7,
+  "display_username": "Gregory Sanders",
+  "primary_group_name": null,
+  "flair_name": null,
+  "flair_url": null,
+  "flair_bg_color": null,
+  "flair_color": null,
+  "flair_group_id": null,
+  "badges_granted": [],
+  "version": 1,
+  "can_edit": false,
+  "can_delete": false,
+  "can_recover": false,
+  "can_see_hidden_post": false,
+  "can_wiki": false,
+  "user_title": null,
+  "bookmarked": false,
+  "raw": "I\u2019ve been interested in this direction for a little under a year and have been doing exploratory work towards this recently.\n\nMy focus is under the assumption that routing nodes are already highly provisioned, but end-nodes such as mobile clients and related make LSP economics difficult at best due to inbound liquidity requirements, which could be highly optimized by layering it on Ark. Given my focus on LSP+mobile client style arrangements, this also lets me punt on the gossip/routing question for now.\n\nThis is essentially a Timeout Tree with the ability to \u201cteleport\u201d the end-channels between trees, at the cost of the additional wait at the leaf\u2019s \u201cforfeit\u201d stage to ensure the ASP isn\u2019t being double-spent (which imo is immaterial to user incentives).\n\nWith the hash-based Ark (hArk), I think this architecture becomes quite plausible with a lightly modified variant of today\u2019s LN:\n\n1. Normal channel operation in a tree\n2. Client+LSP request refresh to new tree\n3. Tree with refreshed vtxo is generated / confirmed (can even be done predictively before 2!)\n4. Client+LSP quiesce old channel\n5. Client+LSP do new tree vtxo channel setup (clone channel)\n6. Client+LSP sign forfeit tx \u2190 Old channel revoked, new channel can only be claimed if revoke spent\n7. ASP sends hash preimage \u2190 new channel under control of Client+LSP\n8. Client-LSP unquiesce channel in new tree, continue operation\n\nNote that with predictive tree generation and confirmation, this results in the client being able to refresh their channel nearly instantaneously, even if they only unlock their mobile phone once before old tree expiry.\n\nNote that connector-based Ark would make the interactivity story significantly more daunting, or force significant channel downtime during round refreshes.\n\nThere are lots of details to sort out clearly, but I just wanted to sketch out what this could practically look like with no consensus or mempool changes, nor major BOLT rewrites.\n\n> Since Lightning already requires on-chain confirmations for such changes, Ark does not worsen latency from this perspective as ark rounds could eventually take place in every block\n\nOne UX consideration here is that with today\u2019s LN, 0-conf channels allow the client to see the fully signed transaction right away, while if you were waiting for batching rounds, this is another step removed. The LSP is promising that that ASP will emit a transaction with the appropriate structure to generate a new channel vtxo.",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 7
+    }
+  ],
+  "moderator": false,
+  "admin": false,
+  "staff": false,
+  "user_id": 31,
+  "hidden": false,
+  "trust_level": 3,
+  "deleted_at": null,
+  "user_deleted": false,
+  "edit_reason": null,
+  "can_view_edit_history": true,
+  "wiki": false,
+  "excerpt": "I\u2019ve been interested in this direction for a little under a year and have been doing exploratory work towards this recently. \nMy focus is under the assumption that routing nodes are already highly provisioned, but end-nodes such as mobile clients and related make LSP economics difficult at best due &hellip;",
+  "truncated": true,
+  "post_url": "/t/ark-as-a-channel-factory-compressed-liquidity-management-for-improved-payment-feasibility/2179/2",
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
+  "current_user_reaction": null,
+  "reaction_users_count": 7,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
+}

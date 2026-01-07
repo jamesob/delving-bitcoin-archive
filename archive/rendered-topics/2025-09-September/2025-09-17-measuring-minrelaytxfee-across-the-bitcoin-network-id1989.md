@@ -162,3 +162,87 @@ This also explains why some nodes replied with `9170997`, but didn't have `91709
 
 -------------------------
 
+0xB10C | 2025-11-24 10:59:27 UTC | #5
+
+Might be interesting to run this again and see what the feefilter distribution is now.
+
+-------------------------
+
+danielabrozzoni | 2025-12-18 14:31:07 UTC | #6
+
+Thanks for the idea @0xB10C!
+
+I crawled the network again on 17/12/2025.
+
+Compared to the September measurements, many more nodes now accept a low feefilter. The share increased from 2.0 percent on 10/09 and 3.9 percent on 15/09, to 27.7 percent in the latest crawl. Most of this increase comes from i2p and onion nodes, while IPv4 and IPv6 show a smaller but still clear increase.
+
+Distribution of minrelayfee across all nodes:
+
+![res_histogram_total|690x410](upload://lWbYavYwKVsxdMuYyMPD2x7zZtr.png)
+
+Distribution of minrelayfee by network:
+
+![histogram_by_net_four_figs|690x435](upload://vievCbln3dpiJpyJO6lqzIBB0MO.png)
+
+
+Here's the complete data:
+
+## Networks covered
+
+
+| Network | Nodes 10/09 | Nodes 15/09 | Nodes 17/12 |
+|----|----|----|----|
+| i2p | 2,980 (10.6%) | 3,081 (10.8%) | 3,578 (10.8%) |
+| ipv4 | 9,020 (32.0%) | 8,681 (30.4%) | 11,506 (34.6%) |
+| ipv6 | 2,002 (7.1%) | 2,008 (7.0%) | 2,105 (6.3%) |
+| onion_v3 | 14,216 (50.4%) | 14,769 (51.8%) | 16,072 (48.3%) |
+
+
+## Reported minimum relay fees
+
+| MinRelayFee | Nodes 10/09 | Nodes 15/09 | Nodes 17/12 |
+|----|----|----|----|
+| 1000 | 25,125 (89.0%) | 24,695 (86.5%) | 21,493 (64.6%) |
+| No FEEFILTER sent | 2,135 (7.6%) | 2,331 (8.2%) | 2,045 (6.1%) |
+| 100 | 569 (2.0%) | 1,105 (3.9%) | 9,217 (27.7%) |
+| 9170997 | 84 (0.3%) | 73 (0.3%) | 73 (0.2%) |
+| 1 | 81 (0.3%) | 91 (0.3%) | 113 (0.3%) |
+
+(Because categories with very few nodes were excluded, the percentages do not add up to exactly 100%.)
+
+### Network-by-Network Breakdown
+
+#### i2p
+
+| MinRelayFee | Nodes 10/09 | Nodes 15/09 | Nodes 17/12 |
+|----|----|----|----|
+| 1000 | 2,862 (96.0%) | 2,844 (93.6%) | 1,671 (46.7%) |
+| 100 | 61 (2.0%) | 143 (4.6%) | 1,821 (50.9%) |
+| No FEEFILTER sent | 20 (0.7%) | 21 (0.7%) | 31 (0.9%) |
+
+#### IPv4
+
+| MinRelayFee | Nodes 10/09 | Nodes 15/09 | Nodes 17/12 |
+|----|----|----|----|
+| 1000 | 6,879 (76.3%) | 6,295 (72.5%) | 7,709 (67.0%) |
+| No FEEFILTER sent | 1,758 (19.5%) | 1,924 (22.2%) | 1,681 (14.6%) |
+| 100 | 223 (2.5%) | 307 (3.5%) | 1,937 (16.8%) |
+
+#### IPv6
+
+| MinRelayFee | Nodes 10/09 | Nodes 15/09 | Nodes 17/12 |
+|----|----|----|----|
+| 1000 | 1,685 (84.2%) | 1,639 (81.6%) | 1,459 (69.3%) |
+| No FEEFILTER sent | 221 (11.0%) | 239 (11.9%) | 167 (7.9%) |
+| 100 | 59 (2.9%) | 69 (3.4%) | 425 (20.2%) |
+
+#### onion_v3
+
+| MinRelayFee | Nodes 10/09 | Nodes 15/09 | Nodes 17/12 |
+|----|----|----|----|
+| 1000 | 13,699 (96.4%) | 13,877 (94.0%) | 10,654 (66.3%) |
+| 100 | 226 (1.6%) | 586 (4.0%) | 5,034 (31.3%) |
+| No FEEFILTER sent | 136 (1.0%) | 147 (1.0%) | 166 (1.0%) |
+
+-------------------------
+

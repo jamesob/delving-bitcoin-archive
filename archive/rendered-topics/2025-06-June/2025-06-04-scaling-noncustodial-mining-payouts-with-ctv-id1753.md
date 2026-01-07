@@ -368,3 +368,9 @@ I agree that the part about sigops + blocksize budget is relatively trivial, and
 
 -------------------------
 
+coinjoinkillua | 2025-12-20 17:48:33 UTC | #18
+
+You are assuming that all hashers prefer a custodian with slightly more reward fees than self sovereignty with less, which would need to be proven. In most cases you are right, but there are hashers who are in favor of decentralizing mining and wouldn't mind a little less fees, and I believe it is a significant number
+
+-------------------------
+

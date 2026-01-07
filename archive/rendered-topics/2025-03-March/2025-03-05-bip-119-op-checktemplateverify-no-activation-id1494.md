@@ -39,3 +39,14 @@ Personally, I'm an investor in bitcoin the hard currency, though only a reasonab
 
 -------------------------
 
+moonsettler | 2025-12-02 01:24:28 UTC | #4
+
+[quote="ariard, post:3, topic:1494"]
+I think this is not true, as soon as you combine it with other primitives, such as OP_CSFS.
+
+[/quote]
+
+This is way too vague. Can we see the contract that can be used to incentivize miners not to include someone else’s transaction with said primitives?
+
+-------------------------
+

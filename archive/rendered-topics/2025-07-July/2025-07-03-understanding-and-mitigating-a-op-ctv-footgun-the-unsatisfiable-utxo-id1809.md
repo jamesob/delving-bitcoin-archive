@@ -161,3 +161,64 @@ Since MuHash is already implemented in Bitcoin Core for `assumeUTXO`, this would
 
 -------------------------
 
+simul | 2025-12-19 18:47:13 UTC | #13
+
+Wait, so if i find your op_ctv template, i can just spam it with small amounts and freeze your funds?
+
+-------------------------
+
+ZmnSCPxj | 2025-12-20 13:25:35 UTC | #14
+
+The small-amount UTXOs **you** spammed are frozen, but my ***other*** large-amount funds remain spendable with the `OP_CTV` script, so at least this is not an attack vector.  The problem being raised is largely operator error / floating-point-roundoff (pro tip: ***never*** use floating-point for money; it's a display format, use a `u64` in satoshis or millisatoshis for calculation instead. Even modern JavaScript has `BigInt` these days).
+
+-------------------------
+
+simul | 2025-12-21 16:40:55 UTC | #15
+
+cool, makes sense thanks!
+
+-------------------------
+
+gmaxwell | 2025-12-21 19:36:50 UTC | #16
+
+I pointed this out to the authors years ago as yet another example why the CTV approach is simply a bad design. 
+
+If you want an absolute spec on things then sure, you’re going to have some footguns.  But the actual covenants people want are almost always far more specific and limited and don’t imply such a footgun.  But CTV forces any usage to be footgunny, because it doesn’t allow for a less expansive covenant.
+
+One mistake made in the development of the segwit address standards is that we didn’t reserve any of the witness ID range for values that couldn’t be encoded as addresses –  as it would be preferable, I think, for any scripts that will likely lose ‘random’ funds sent to them to just not have an address encoding at all so as to make accidental sends much harder. … or at least have that as an option for users when they author their scripts.
+
+-------------------------
+
+1440000bytes | 2025-12-21 20:20:31 UTC | #17
+
+[quote="gmaxwell, post:16, topic:1809"]
+I pointed this out to the authors years ago as yet another example why the CTV approach is simply a bad design.
+
+If you want an absolute spec on things then sure, you’re going to have some footguns. But the actual covenants people want are almost always far more specific and limited and don’t imply such a footgun. But CTV forces any usage to be footgunny, because it doesn’t allow for a less expansive covenant.
+[/quote]
+
+I think some of these concerns were answered in this bitcointalk thread: [https://bitcointalk.org/index.php?topic=5220520.msg53710072#msg53710072](https://bitcointalk.org/index.php?topic=5220520.msg53710072#msg53710072)
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20251221201913/https://delvingbitcoin.org/t/understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo/1809/17
+
+</details>
+
+-------------------------
+
+gmaxwell | 2025-12-21 20:51:12 UTC | #18
+
+The word you want is dismissed, not answered.
+
+-------------------------
+
+reardencode | 2025-12-30 19:06:26 UTC | #19
+
+The CTV (or `OP_TEMPLATEHASH`) style of covenant is indeed not well suited for direct address publication, but rather within more complex script constructions like those used in Arks or `OP_CHECKCONTRACTVERIFY` (CCV) vaults.
+
+Now that [BIP443](https://github.com/bitcoin/bips/blob/fc00f51c229088c447b3694cca9bf14ace0e1a96/bip-0443.mediawiki) is published, I think it would be prudent to add it to the LNHANCE and THIKCS/FISHSTICK opcode combination proposals to move away from the idea of using CTV `scriptPubKey`s directly for vaulting or similar use cases. With CCV, these proposals would closely match @jamesob ‘s previous work on the [CovTools](https://github.com/bitcoin/bitcoin/pull/28550) soft fork in capability.
+
+-------------------------
+

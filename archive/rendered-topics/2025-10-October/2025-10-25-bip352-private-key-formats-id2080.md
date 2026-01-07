@@ -159,3 +159,11 @@ Thanks for this numbers proving me wrong!
 
 -------------------------
 
+craigraw | 2025-12-03 11:19:23 UTC | #13
+
+Although I like many of the ideas in the PR referenced above, I feel an output descriptor format is both necessary and a better fit for some of the information. As such I’ve proposed an alternative as a new BIP defining the `sp()` output descriptor format in the following PR:
+
+[Add sp() output descriptor format for BIP352 Silent Payments](https://github.com/bitcoin/bips/pull/2047)
+
+-------------------------
+

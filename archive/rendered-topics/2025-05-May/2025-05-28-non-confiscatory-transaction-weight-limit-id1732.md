@@ -127,3 +127,74 @@ Even if true, i think there is still a cause for concerns. Even if there is not 
 
 -------------------------
 
+ajtowns | 2025-12-11 23:37:47 UTC | #10
+
+[quote="sipa, post:8, topic:1732"]
+I’m not convinced about the approach suggested here - it feels like it should lead to similar problems still, but thinking practically I can’t really see many issues. At least the “only 1 large transaction + coinbase in a block” rule is effectively equivalent to “treat every transaction as if it had ~1 MvB in size”,
+[/quote]
+
+Having every tx greater than 100kvB be treated as being ~1000kvB seems like it would encourage stuffing -- "I need a 120kvB tx, but I have to pay for 880kvB extra anyway, so might as well find some garbage to fill that up with". Perhaps you could tweak this somewhat so that other people's txs could still what's used to fill up the block. Rough idea:
+
+## Consensus rules
+
+ * both the coinbase and the last tx in a block can be arbitrarily large, but every other tx must have a weight less than 400000
+ * if the last tx in a block has weight more than 400,000:
+   * it cannot spend an output that was created in the block (ie, it's treated as if it had an relative lock time of 1 block)
+   * its weight is rounded up to 5000 below the next multiple of 100k, ie $w' \equiv 95000 \pmod{100000}$. This makes the max tx size 3,995,000 weight units or 998,750vB.
+
+## Mempool acceptance, storage
+
+When accepting large txs to the mempool, they cannot have in-mempool ancestors or descendants, so always have a cluster size of one.
+
+Because their weights are rounded up for consensus purposes, each large tx in the mempool can be put into one of 36 buckets matching its rounded up weight (495,000 weight units through 3,995,000), and only the highest fee tx in each of those buckets needs to be considered at any point in time. Further, if the best tx in a higher weight unit bucket has lower fee than the best tx in a lower weight unit bucket, it can be ignored. Keep track of these ~36 non-ignored txs.
+
+## Mining
+
+When mining, take the ~36 non-ignored large txs from your mempool ordered from largest to smallest, put them in a `large_buckets` list, and run something like this algorithm:
+
+```python
+    block = []
+    ignored_txs = 0
+    large_bucket = 0
+    while ignored_txs < 1000:
+        chunk = mempool.get_next_chunk()
+        if not chunk: break
+        if block.weight() + chunk.weight() > MAX_WEIGHT:
+            mempool.ignored_chunk()
+            ignored_txs += 1
+            continue
+        while large_bucket < large_buckets.size()
+            if block.weight() + chunk.weight() + large_buckets[large_bucket].weight() > MAX_WEIGHT:
+                large_buckets[large_bucket].block = block.copy()
+                large_bucket += 1
+            else:
+                break
+        block.add(chunk)
+        mempool.accepted_chunk()
+        ignored_txs = 0
+    if large_bucket < large_buckets.size():
+        large_buckets[large_bucket].block = block.copy()
+    for large_bucket in range(large_buckets):
+        if not lb.block: break
+        lb = large_buckets[large_bucket]
+        if lb.block.fee + lb.tx.fee > block.fee:
+             block = lb.block + lb.tx
+    return block
+```
+
+That misses out on getting the best possible final 25kvB into a block that includes a large tx, but otherwise seems fairly feasible?
+
+-------------------------
+
+murch | 2025-12-12 17:58:55 UTC | #11
+
+I haven’t reread the whole thread, but I just had a quick thought skimming AJ’s comment: if a large transaction is pre-signed and low feerate, limiting it to a cluster of one would mean that it cannot be CPFPed. So I was wondering whether it would be reasonable to limit it to a cluster of two transactions instead, where the second transaction is similarly limited as the child in TRUC transactions. Otherwise, the only way to get a low feerate pre-signed large transaction mined would be an out-of-band payment.
+
+-------------------------
+
+ajtowns | 2025-12-13 00:14:53 UTC | #12
+
+You could RBF it, if you were a signer of it, of course.
+
+-------------------------
+

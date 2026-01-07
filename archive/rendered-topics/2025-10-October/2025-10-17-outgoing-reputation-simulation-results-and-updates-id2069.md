@@ -57,3 +57,11 @@ Our next step is to sanity check the following against real world data:
 
 -------------------------
 
+ClaraShk | 2025-12-01 14:50:24 UTC | #2
+
+A [concern](https://github.com/lightning/bolts/pull/1280#discussion_r2297895412) was raised that an attacker might game the reputation system by replying within the 90‑second window while forcing the next hop, due to natural network delays, to respond after 90 seconds. In such a scenario, the honest node's reputation would drop while the attacker's remains intact.  
+The key insight is that to meaningfully damage a node's reputation, the attacker has to outcompete the natural flow of honest payments through the channel, which is difficult, and, under upfront fees, also costly. In a generous back-of-the-envelope estimate (granting the attacker the unrealistic ability to push 500 HTLCs through a single channel and ignoring several parts of our mitigation), we assumed the node processes around 85 honest payments a day. Even under these favorable assumptions, the attacker can only reduce the node's reputation by less than 2%, while paying over 3× that amount in fees.  
+Our conclusion is that this attack is not practically feasible. It resembles the quick jamming strategy, which upfront fees are explicitly designed to make prohibitively expensive. You can explore the numbers yourself [here](https://docs.google.com/spreadsheets/d/1V0h7rrnEgrLbFvwq1DeLP0--pB9_DkWpKkg-3lfx_9Q/edit?usp=sharing).
+
+-------------------------
+

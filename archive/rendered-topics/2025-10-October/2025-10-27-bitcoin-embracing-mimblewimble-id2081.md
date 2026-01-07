@@ -229,3 +229,33 @@ Take a look if you’re interested: https://epiccash.com
 
 -------------------------
 
+coinjoinkillua | 2025-12-10 13:13:55 UTC | #13
+
+> If a miner/node tries to censor a Bitcoin transaction, the user can seamlessly and trustlessly atomic-swap their value into the Mimblewimble (Grin)How do you perform an atomic swap if the miners are censoring you?
+
+How do you perform an atomic swap if the miners are censoring you? This would require your transaction to be mined, Sherlock
+
+-------------------------
+
+REDBaron | 2025-12-18 10:48:40 UTC | #14
+
+ 
+Already some major ones censoring transactions, OFAC related. Not all miners censor **(for now)**  smart Sherlock.
+ Before censorship becomes defacto majority, before network getz zombied.
+
+
+
+![image|690x428](upload://ylOburLwzxhiCLCwrVPkx3jTDD4.jpeg)
+
+https://x.com/0xB10C/status/1726964430460588201
+
+https://x.com/Pledditor/status/1727326051339264063
+
+-------------------------
+
+evd0kim | 2025-12-22 08:58:45 UTC | #15
+
+It is known that since then multiple entities mined transactions from /to OFAC addresses. Miners who could censor transactions is not news but rather the entire situation suggests that everything works as expected.
+
+-------------------------
+
