@@ -95,3 +95,11 @@ Thanks!
 
 -------------------------
 
+Nuh | 2026-01-07 17:00:27 UTC | #2
+
+This is an interesting alternative to Simplicity, at least less disruptive.
+
+I wonder how would the very hacky things necessary for STARK proofs using OP_CAT look like using this compiler instead, same for transaction introspection with OP_CAT with Schnorr tricks.
+
+-------------------------
+
