@@ -45,3 +45,9 @@ I hope this resource proves useful for anyone looking to deepen their understand
 
 -------------------------
 
+marathon-gary | 2026-01-07 15:08:08 UTC | #2
+
+Just noting here another resource I encountered recently along the same topic but not specifically bitcoin focused: https://joyofcryptography.com/
+
+-------------------------
+
