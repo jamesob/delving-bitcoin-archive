@@ -248,3 +248,9 @@ With CCV, this would look like a standard vault construct with the exception of 
 
 -------------------------
 
+simul | 2026-01-08 12:16:09 UTC | #3
+
+What nums point?  Proposal does not rely on NUMS.  The escape hatch is *back to the original construction*.  Attacker can only grief.  Not spend.
+
+-------------------------
+
