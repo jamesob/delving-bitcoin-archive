@@ -1600,3 +1600,15 @@ Perhaps in the future miners are going to be more concerned about squeezing ever
 
 -------------------------
 
+AntoineP | 2026-01-07 22:04:28 UTC | #90
+
+I got forwarded the following feedback. In a `CHECKMULTISIG(VERIFY)`, put a ceiling on the number of BIP54-sigops accounted for at 6.
+
+My understanding is this is because the scriptCode is constant throughout the signature checks within a single `CHECKMULTISIG(VERIFY)` operation, and the 6 possible signature hashes could be cached. This cache is actually implemented in Bitcoin Core since version 30.0 (see [#32473](https://github.com/bitcoin/bitcoin/pull/32473)).
+
+This is clever, and worth considering. But i wonder how much it matters in practice, as it's only relevant to users of large transactions involving large legacy multisigs, which aren't used anymore. Another downside is that it would complicate the implementation, since we wouldn't be able to just reuse BIP16's [`GetSigOpCount`](https://github.com/bitcoin/bitcoin/blob/cd6e4c9235f763b8077cece69c2e3b2025cc8d0f/src/script/script.cpp#L183-L205) as-is anymore. Of course the upside is that it would more accurately budget the use of `CHECKMULTISIG(VERIFY)` in legacy Script to match validation cost, instead of overshooting.
+
+I'll put together a list of historical transactions that would have been valid according to this adapted rule but not according to today's BIP54. Any opinions on the desirability of this change?
+
+-------------------------
+
