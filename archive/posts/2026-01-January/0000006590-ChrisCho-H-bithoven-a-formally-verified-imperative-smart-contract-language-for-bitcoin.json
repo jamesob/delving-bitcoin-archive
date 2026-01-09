@@ -13,8 +13,8 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
+  "reads": 6,
+  "readers_count": 5,
   "score": 1.0,
   "yours": false,
   "topic_id": 2189,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Currently, Bithoven v0.0.1 targets strict mainnet safety (SegWit/Taproot), so experimental opcodes like `OP_CAT` are disabled.\n\n**On Merkle Paths:** I plan to overload the `+` operator so that it compiles to `OP_ADD` for integers but switches to `OP_CAT` when operands are bytes/strings(if `OP_CAT` enabled on mainnet). This would allow users to verify Merkle paths naturally (e.g., `sha256(a + b)`) without managing the stack manually.\n\n**On Schnorr Introspection:** While I haven't implemented that specific introspection pattern yet, it would likely be handled similarly\u2014using the compiler to manage the byte concatenation and stack cleanup. If you have a raw script snippet for the introspection logic you are using, I\u2019d love to see it! It would be a great test case for the compiler's experimental branch.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Currently, Bithoven v0.0.1 targets strict mainnet safety (SegWit/Taproot), so experimental opcodes like OP_CAT are disabled. \nOn Merkle Paths: I plan to overload the + operator so that it compiles to OP_ADD for integers but switches to OP_CAT when operands are bytes/strings(if OP_CAT enabled on main&hellip;",
   "truncated": true,
   "post_url": "/t/bithoven-a-formally-verified-imperative-smart-contract-language-for-bitcoin/2189/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
