@@ -254,3 +254,9 @@ What nums point?  Proposal does not rely on NUMS.  The escape hatch is *back to 
 
 -------------------------
 
+reardencode | 2026-01-09 04:06:31 UTC | #4
+
+Perhaps I misunderstood. Are you intending this script to operate in P2TR or P2TSH? If the TXHASH or CTV locks are in P2TR, there must be a NUMS point for the internal key which is then tweaked to become the P2TR key, and which the quantum adversary can attack. If this is intended to depend on P2TSH then I retract that comment.
+
+-------------------------
+

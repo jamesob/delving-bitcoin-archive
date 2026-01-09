@@ -103,3 +103,13 @@ I wonder how would the very hacky things necessary for STARK proofs using OP_CAT
 
 -------------------------
 
+ChrisCho-H | 2026-01-09 03:04:28 UTC | #3
+
+Currently, Bithoven v0.0.1 targets strict mainnet safety (SegWit/Taproot), so experimental opcodes like `OP_CAT` are disabled.
+
+**On Merkle Paths:** I plan to overload the `+` operator so that it compiles to `OP_ADD` for integers but switches to `OP_CAT` when operands are bytes/strings(if `OP_CAT` enabled on mainnet). This would allow users to verify Merkle paths naturally (e.g., `sha256(a + b)`) without managing the stack manually.
+
+**On Schnorr Introspection:** While I haven't implemented that specific introspection pattern yet, it would likely be handled similarly—using the compiler to manage the byte concatenation and stack cleanup. If you have a raw script snippet for the introspection logic you are using, I’d love to see it! It would be a great test case for the compiler's experimental branch.
+
+-------------------------
+
