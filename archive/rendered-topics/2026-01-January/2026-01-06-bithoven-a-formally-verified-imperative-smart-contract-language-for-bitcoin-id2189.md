@@ -113,3 +113,12 @@ Currently, Bithoven v0.0.1 targets strict mainnet safety (SegWit/Taproot), so ex
 
 -------------------------
 
+ftw2100 | 2026-01-09 13:28:04 UTC | #4
+
+Hello, 
+
+As it was said, very interesting to have a simplicity alternative to formalise covenant. 
+My question is: how do you provide introspection? Do you avoid some access (as the witness in simplicity)?
+
+-------------------------
+

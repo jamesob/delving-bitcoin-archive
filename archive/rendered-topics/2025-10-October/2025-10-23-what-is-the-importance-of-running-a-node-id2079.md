@@ -136,3 +136,19 @@ You will that day understand what it means- **RUN YOUR OWN NODE**!
 
 -------------------------
 
+ftw2100 | 2026-01-09 13:41:47 UTC | #10
+
+[quote="cmp_ancp, post:8, topic:2079"]
+If nodes eventually become too expensive to run by plebs,
+[/quote]
+
+[Worst case scenario, with completely filled 4 MB blocks](https://x.com/w_s_bitcoin/status/1985764515103781035?s=20)
+
+This is a fallacious argument cause it grows lineraly 
+
+[quote="REDBaron, post:9, topic:2079"]
+run nodes and censor your tx & confiscate you with address blacklisting
+[/quote]
+
+-------------------------
+
