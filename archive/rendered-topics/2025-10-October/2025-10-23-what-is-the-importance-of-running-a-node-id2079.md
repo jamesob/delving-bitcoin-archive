@@ -152,3 +152,13 @@ run nodes and censor your tx & confiscate you with address blacklisting
 
 -------------------------
 
+cmp_ancp | 2026-01-09 15:24:24 UTC | #11
+
+You didn't get my point. I never pointed to storage costs, I pointed to bandwidth costs.
+
+You need to relay blocks and txs for all your peers, and that costs bamdwidth.
+
+Users that don't run nodes represent costs to users that actually run nodes, imagine the extreme scenario where a single node serves millions of users that don’t run nodes and are always asking for blockchain state.
+
+-------------------------
+
