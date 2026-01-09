@@ -152,13 +152,39 @@ run nodes and censor your tx & confiscate you with address blacklisting
 
 -------------------------
 
-cmp_ancp | 2026-01-09 15:24:24 UTC | #11
+cmp_ancp | 2026-01-09 18:46:55 UTC | #11
 
-You didn't get my point. I never pointed to storage costs, I pointed to bandwidth costs.
+You didn’t get my point. I never pointed to storage costs, I pointed to bandwidth costs.
 
-You need to relay blocks and txs for all your peers, and that costs bamdwidth.
+You need to relay blocks and txs for all your peers, and that costs bandwidth.
 
-Users that don't run nodes represent costs to users that actually run nodes, imagine the extreme scenario where a single node serves millions of users that don’t run nodes and are always asking for blockchain state.
+Users that don’t run nodes represent costs to users that actually run nodes, imagine the extreme scenario where a single node serves millions of users that don’t run nodes and are always asking for blockchain state.
+
+-------------------------
+
+GaloisField2718 | 2026-01-09 17:00:27 UTC | #12
+
+(post deleted by author)
+
+-------------------------
+
+ftw2100 | 2026-01-09 17:00:55 UTC | #13
+
+It depends obviously of the use case for your node but as far as I know, Bitcoin software links 8 peers together everytime.
+
+So in fact, public instances can handle high requests but private node instances won’t serve millions of users. Btw a node well configured should be fully able to serve such demands
+
+-------------------------
+
+cmp_ancp | 2026-01-09 18:45:00 UTC | #14
+
+Bitcoin nodes can have hundreds of peers in total. There are the “inbound peers” and “outbound peers”, the outbound peers are the ones your node intentionally seek to have, and those are standardized to maximum 8, the inbound peers are the ones that seek to create a connection to you.
+
+From memory I cannot remember the limit of inbound peers, but I know for sure that could exceed a hundred.
+
+Other from that, AFAIK, your node treats both types equally reguarding broadcasting of blocks and txs. For sure you could set your node to accept or reject inbound connections from wallets, but to accept those would be beneficial to the network as a whole. Centralized hubs of wallet connections could be seized or start to censor users.
+
+They also centralize where transactions emerge in the network before being broadcast. If a malicious agent finds out the node that emmited a tx, we could seek the node owner and correlate server logs with wallet data.
 
 -------------------------
 
