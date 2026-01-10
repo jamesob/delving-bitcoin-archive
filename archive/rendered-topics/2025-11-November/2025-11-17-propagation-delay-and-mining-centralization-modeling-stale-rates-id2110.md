@@ -1,6 +1,6 @@
 # Propagation Delay and Mining Centralization: Modeling Stale Rates
 
-AntoineP | 2025-11-17 14:18:31 UTC | #1
+AntoineP | 2026-01-09 22:14:57 UTC | #1
 
 A few months ago i posted a [detailed analysis of Selfish Mining](https://delvingbitcoin.org/t/where-does-the-33-33-threshold-for-selfish-mining-come-from/1757). "Selfish" Mining is a strategy
 whereby a sufficiently large minority miner can maximize its revenues by selectively publishing
@@ -47,9 +47,8 @@ Given a hashrate distribution similar to [that of the past 3 months](https://mai
 First, the stale rate of each pool in function of propagation time:
 ![stale_rates|690x358](upload://xyJ0ITr0ioEaUNdCVnhlCrviCkx.png)
 
-Consequently, the net benefit of each pool in function of propagation time (% change between share of network hashrate and share of blocks found):
-![net_benefits|690x358](upload://8CBScOvRA6QE2hF3c0JFp0NAU1o.png)
-
+Consequently, the change in revenue of each pool in function of propagation time:
+![net_benefits|690x358](upload://uXqAF36NKbhkHvG7a1y6N5YYHQI.png)
 
 I think it's important to underline here that even a few basis points translate to material gains. Consider for instance the case of a mining operation controlling 5EH/s (about 0.5% of the [network hashrate](https://bitcoin.sipa.be/)) choosing which mining pool to connect to. With an average block reward of 3.16BTC and an average USD/BTC rate of $110k, this operation can expect to generate about $91M in mining revenue over a year. If blocks took 10 seconds to propagate, choosing to mine on the largest pool rather than the smallest one would increase their revenue by $100k.
 
@@ -193,6 +192,14 @@ Ideally the protocol would get some new “STALEHEADER” message for relaying h
 [/quote]
 
 I discussed this with other Bitcoin developers a week ago and this came up. I think this makes sense and should be pretty straightforward.
+
+-------------------------
+
+AntoineP | 2026-01-09 22:28:32 UTC | #5
+
+I updated the second graph in OP following a suggestion from Bitcoin Core contributor @stickies-v that i present the **proportional** change in revenue for each miner in function of block propagation time, rather than the **absolute** change in share of blocks found for each miner in function of block propagation time.
+
+Note this may be slightly confusing because the absolute value itself was presented as a percentage (the difference in the share of total blocks found). The corresponding code change in the script generating the graphs is available [here](https://github.com/darosior/miningsimulation/commit/bf828b34833b11d1181497b4e5f8b607b6acf309). Thank you for the review @stickies-v!
 
 -------------------------
 
