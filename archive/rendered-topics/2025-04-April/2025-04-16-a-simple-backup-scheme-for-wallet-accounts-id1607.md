@@ -503,3 +503,13 @@ pyth | 2025-09-04 07:27:27 UTC | #31
 
 -------------------------
 
+pyth | 2026-01-10 08:18:17 UTC | #32
+
+cross posting from the BIP draft PR to here:
+
+> In the meantime, I've "played" with a C implementation of this BIP draft, I wanted to check how hard it should be to implement in bitcoin core and I figure out something: it seems there is actually no dependency in core for AES-GCM-256, while there is already usage of CHACHA20 so i'm wondering if we should not use CHACHA20 as default encryption algo? (I'll cross-post to delving)
+
+I’d like to get feedback about changing the default encryption algo from AES-GCM => CHACHA20, I’m really thinking having this implemented in core  should be a trong plus, and I dant think it worth to add new dependencies only for that purpose.
+
+-------------------------
+
