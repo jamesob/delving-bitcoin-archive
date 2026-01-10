@@ -162,12 +162,6 @@ Users that don’t run nodes represent costs to users that actually run nodes, i
 
 -------------------------
 
-GaloisField2718 | 2026-01-09 17:00:27 UTC | #12
-
-(post deleted by author)
-
--------------------------
-
 ftw2100 | 2026-01-09 17:00:55 UTC | #13
 
 It depends obviously of the use case for your node but as far as I know, Bitcoin software links 8 peers together everytime.
