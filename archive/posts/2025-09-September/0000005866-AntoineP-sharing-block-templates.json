@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"mcelrath\" data-post=\"20\" data-topic=\"1906\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/mcelrath/48/521_2.png\" class=\"avatar\"> mcelrath:</div>\n<blockquote>\n<p>\u2026is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in <strong>exactly</strong> the same way.</p>\n</blockquote>\n</aside>\n<p>I find it surprising you\u2019d simply assume AJ didn\u2019t think about that. Under this proposal you maintain <a href=\"https://github.com/ajtowns/bitcoin/commit/ee12518a4a5e8932175ee57c8f1ad116f675d089#diff-6875de769e90cec84d2e8a9c1b962cdbcda44d870d42e4215827e599e11e90e3R239-R259\">a template per peer</a>, so one peer cannot evict other peers\u2019 transactions. It can at worst waste a bounded amount of your memory.</p>",
   "post_number": 21,
   "post_type": 1,
-  "posts_count": 21,
+  "posts_count": 24,
   "updated_at": "2025-09-12T13:22:41.990Z",
   "reply_count": 0,
   "reply_to_post_number": 20,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 1.8,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 52.4,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"mcelrath, post:20, topic:1906\"]\n\u2026is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in **exactly** the same way.\n[/quote]\n\nI find it surprising you'd simply assume AJ didn't think about that. Under this proposal you maintain [a template per peer](https://github.com/ajtowns/bitcoin/commit/ee12518a4a5e8932175ee57c8f1ad116f675d089#diff-6875de769e90cec84d2e8a9c1b962cdbcda44d870d42e4215827e599e11e90e3R239-R259), so one peer cannot evict other peers' transactions. It can at worst waste a bounded amount of your memory.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "I find it surprising you\u2019d simply assume AJ didn\u2019t think about that. Under this proposal you maintain <a href=\"https://github.com/ajtowns/bitcoin/commit/ee12518a4a5e8932175ee57c8f1ad116f675d089#diff-6875de769e90cec84d2e8a9c1b962cdbcda44d870d42e4215827e599e11e90e3R239-R259\">a template per peer</a>, so one peer cannot evict other peers\u2019 transactions. It can at worst waste a bounded amount of your memory.",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/21",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

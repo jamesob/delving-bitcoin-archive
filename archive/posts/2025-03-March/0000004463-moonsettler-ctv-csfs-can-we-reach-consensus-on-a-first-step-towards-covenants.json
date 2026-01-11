@@ -7,14 +7,15 @@
   "cooked": "<p>If I wanted to arrive there I would probably go with:</p>\n<ol>\n<li>CTV + CSFS + IKEY [+ PC]</li>\n<li>TXHASH + CCV [+ CAT]</li>\n<li>GSR + ECops</li>\n</ol>\n<p>TXHASH and CCV together make it extremely unlikely that CAT would be used for wonky inefficient introspection.</p>\n<p>If you have PC you can delay CAT, but you need multi-commitments and Merkle stuff eventually. Alternatively you can go for CAT in step 2.</p>\n<p>STARKs become a possibility at step 2 with CAT and afaik pretty much a certainty at step 3.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-10T23:35:27.440Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 35,
-  "readers_count": 34,
-  "score": 22.0,
+  "incoming_link_count": 14,
+  "reads": 107,
+  "readers_count": 106,
+  "score": 106.4,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "If I wanted to arrive there I would probably go with: \n\nCTV + CSFS + IKEY [+ PC]\nTXHASH + CCV [+ CAT]\nGSR + ECops\n\nTXHASH and CCV together make it extremely unlikely that CAT would be used for wonky inefficient introspection. \nIf you have PC you can delay CAT, but you need multi-commitments and Merk&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/3",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

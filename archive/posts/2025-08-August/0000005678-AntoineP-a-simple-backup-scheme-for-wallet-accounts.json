@@ -7,15 +7,15 @@
   "cooked": "<p>Related to the topic of this thread, the Bitcoin Core wallet is about to add an RPC to backup a wallet\u2019s descriptors and related information. See <a href=\"https://github.com/bitcoin/bitcoin/pull/32489\">https://github.com/bitcoin/bitcoin/pull/32489</a>. I\u2019m unsure how much overlap there is with this effort, but it\u2019s about achieving the same goal: backing up all private-but-not-secret information related to the wallet of a user.</p>",
   "post_number": 30,
   "post_type": 1,
-  "posts_count": 30,
+  "posts_count": 31,
   "updated_at": "2025-08-08T17:37:10.432Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 1.8,
+  "incoming_link_count": 4,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 40.6,
   "yours": false,
   "topic_id": 1607,
   "topic_slug": "a-simple-backup-scheme-for-wallet-accounts",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "Related to the topic of this thread, the Bitcoin Core wallet is about to add an RPC to backup a wallet\u2019s descriptors and related information. See https://github.com/bitcoin/bitcoin/pull/32489. I\u2019m unsure how much overlap there is with this effort, but it\u2019s about achieving the same goal: backing up all private-but-not-secret information related to the wallet of a user.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "Related to the topic of this thread, the Bitcoin Core wallet is about to add an RPC to backup a wallet\u2019s descriptors and related information. See <a href=\"https://github.com/bitcoin/bitcoin/pull/32489\">https://github.com/bitcoin/bitcoin/pull/32489</a>. I\u2019m unsure how much overlap there is with this effort, but it\u2019s about achieving the same goal: backing up a&hellip;",
   "truncated": true,
   "post_url": "/t/a-simple-backup-scheme-for-wallet-accounts/1607/30",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

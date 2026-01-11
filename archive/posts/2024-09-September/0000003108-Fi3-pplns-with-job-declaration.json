@@ -7,14 +7,15 @@
   "cooked": "<p>We only look at total fee payed by the mined<sup class=\"footnote-ref\"><a href=\"#footnote-3108-1\" id=\"footnote-ref-3108-1\">[1]</a></sup> job, respect to the jobs in the same slice. So we will not penalize anything we can say that pool take an agnostic approach.</p>\n<hr class=\"footnotes-sep\">\n\n<ol class=\"footnotes-list\">\n<li id=\"footnote-3108-1\" class=\"footnote-item\"><p>job for which we received the share. <a href=\"#footnote-ref-3108-1\" class=\"footnote-backref\">\u21a9\ufe0e</a></p>\n</li>\n</ol>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 55,
   "updated_at": "2024-09-06T07:22:02.886Z",
   "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 7.8,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 12.8,
   "yours": false,
   "topic_id": 1099,
   "topic_slug": "pplns-with-job-declaration",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 249,
     "username": "plebhash",
     "name": "plebhash",
     "avatar_template": "/user_avatar/delvingbitcoin.org/plebhash/{size}/302_2.png"
@@ -54,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "We only look at total fee payed by the mined<a href=\"#footnote-3108-1\" id=\"footnote-ref-3108-1\">[1]</a> job, respect to the jobs in the same slice. So we will not penalize anything we can say that pool take an agnostic approach. \n\n\n\njob for which we received the share. <a href=\"#footnote-ref-3108-1\" class=\"footnote-backref\">\u21a9\ufe0e</a>",
+  "truncated": true,
+  "post_url": "/t/pplns-with-job-declaration/1099/4",
   "reactions": [
     {
       "id": "sob",
@@ -63,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

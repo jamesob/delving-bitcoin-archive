@@ -7,15 +7,15 @@
   "cooked": "<p>Binaries for Bitcoin Core version v29.1rc2 are available from:\n<a href=\"https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/\">https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc2/</a></p>\n<p>Source code can be found in git under the signed tag\n<a href=\"https://github.com/bitcoin/bitcoin/tree/v29.1rc2\">https://github.com/bitcoin/bitcoin/tree/v29.1rc2</a></p>\n<p>Preliminary release notes for the release can be found here:\n<a href=\"https://github.com/bitcoin/bitcoin/blob/v29.1rc2/doc/release-notes.md\">https://github.com/bitcoin/bitcoin/blob/027a60d218e7d4e1d50a30cee1188614252f3837/doc/release-notes.md</a></p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-08-29T13:47:12.343Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.0,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 40.4,
   "yours": false,
   "topic_id": 1881,
   "topic_slug": "bitcoin-core-v29-1-release-candidate-available",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

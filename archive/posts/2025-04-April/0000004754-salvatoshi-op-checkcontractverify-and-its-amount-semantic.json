@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks for the explanation. I would consider that a design flaw in CLTV (although there was probably no sane way of repurposing a transaction-level field like nLockTime without such \u2018bug\u2019, other than <em>not</em> using it for both block height and wall time).</p>\n<p>I think CCV doesn\u2019t have any such pathological situation: the only case when inputs cannot be spent together is when they violate the conditions on the output script or amounts as stipulated in the opcode itself.</p>\n<p>CCV <em>does</em> of course allows you to design UTXOs that can\u2019t be spent in the same transaction (e.g. a UTXO that requires the first output to be X, together with another UTXO that requires the first output to be Y != X) - but that\u2019s explicitly stipulated in the script, and can be avoided (if desired) by writing scripts with more flexible output indexes. (This situation is anyway not related to the cross-input logic)</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 13,
   "updated_at": "2025-04-13T10:13:16.240Z",
   "reply_count": 0,
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.6,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 5.4,
   "yours": false,
   "topic_id": 1527,
   "topic_slug": "op-checkcontractverify-and-its-amount-semantic",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 193,
     "username": "Chris_Stewart_5",
     "name": "Chris Stewart",
     "avatar_template": "/user_avatar/delvingbitcoin.org/chris_stewart_5/{size}/296_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

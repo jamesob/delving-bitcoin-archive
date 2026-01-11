@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "incoming_link_count": 29,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 164.6,
   "yours": false,
   "topic_id": 1548,
   "topic_slug": "cluster-mempool-partitioning-attacks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"stefanwouldgo, post:5, topic:1548\"]\nWhat are wallets required to decide for others?\n[/quote]\n\nGood linearizations for other's mempools.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Good linearizations for other\u2019s mempools.",
   "truncated": true,
   "post_url": "/t/cluster-mempool-partitioning-attacks/1548/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>Nice. A reverse dutch auction for fees on a transaction is such a neat idea.</p>\n<p>This is my first time really looking at a simplicityHL contract, and it\u2019s surprising me how much it resembles \u201cnormal code\u201d.</p>\n<p>Am I right in reading this as including a custom sighash implementation? That\u2019s a neat trick.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 7,
   "updated_at": "2025-08-05T15:32:01.444Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 27,
-  "readers_count": 26,
-  "score": 15.4,
+  "incoming_link_count": 3,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 46.2,
   "yours": false,
   "topic_id": 1900,
   "topic_slug": "writing-simplicity-programs-with-simplicityhl",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Nice. A reverse dutch auction for fees on a transaction is such a neat idea. \n\nThis is my first time really looking at a simplicityHL contract, and it's surprising me how much it resembles \"normal code\". \n\nAm I right in reading this as including a custom sighash implementation? That's a neat trick.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Nice. A reverse dutch auction for fees on a transaction is such a neat idea. \nThis is my first time really looking at a simplicityHL contract, and it\u2019s surprising me how much it resembles \u201cnormal code\u201d. \nAm I right in reading this as including a custom sighash implementation? That\u2019s a neat trick.",
   "truncated": true,
   "post_url": "/t/writing-simplicity-programs-with-simplicityhl/1900/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

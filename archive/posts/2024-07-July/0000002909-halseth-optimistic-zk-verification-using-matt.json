@@ -7,14 +7,15 @@
   "cooked": "<p>Earlier I posted about <a href=\"https://github.com/halseth/elftrace\" rel=\"noopener nofollow ugc\">Elftrace</a>, a tool for creating Bitcoin Scripts to verify RISC-V execution: <a href=\"https://delvingbitcoin.org/t/verification-of-risc-v-execution-using-op-ccv/313\" class=\"inline-onebox\">Verification of RISC-V execution using OP_CCV</a></p>\n<p>Since then it has had some updates, and I wanted to share that the toolchain has had some additions making it easier to compile Rust without having to write custom assembly for every new program. It now also support doing input/output to the program using standard IO.</p>\n<p>With this in place we are able to compile the <strong>Winterfell STARK library</strong> as a dependency, making it possible to <em>verify-the-verification</em> of  ZK proofs in Bitcoin Script (this still requires CAT and a covenant).</p>\n<p>A more detailed writeup is here, with example code: <a href=\"https://github.com/halseth/elftrace/blob/831f537bc1509bd45c350e103f7fc73aa818f7dd/docs/zk_verifier.md\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">elftrace/docs/zk_verifier.md at 831f537bc1509bd45c350e103f7fc73aa818f7dd \u00b7 halseth/elftrace \u00b7 GitHub</a></p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-07-31T12:54:53.365Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 5,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 57.6,
+  "incoming_link_count": 137,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 815.8,
   "yours": false,
   "topic_id": 1050,
   "topic_slug": "optimistic-zk-verification-using-matt",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 8
     }
   ],
   "moderator": false,
@@ -54,19 +56,32 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Earlier I posted about <a href=\"https://github.com/halseth/elftrace\" rel=\"noopener nofollow ugc\">Elftrace</a>, a tool for creating Bitcoin Scripts to verify RISC-V execution: <a href=\"https://delvingbitcoin.org/t/verification-of-risc-v-execution-using-op-ccv/313\" class=\"inline-onebox\">Verification of RISC-V execution using OP_CCV</a> \nSince then it has had some updates, and I wanted to share that the toolchain has had some additions making it easier to compile Rust without having to write&hellip;",
+  "truncated": true,
+  "post_url": "/t/optimistic-zk-verification-using-matt/1050/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 6
     },
     {
       "id": "eyes",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 8,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

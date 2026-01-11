@@ -7,15 +7,15 @@
   "cooked": "<p>I have uploaded a revised version of the paper (version 1.1) to:</p>\n<aside class=\"onebox githubrepo\" data-onebox-src=\"https://github.com/JohnLaw2/ln-spam-prevention\">\n  <header class=\"source\">\n\n      <a href=\"https://github.com/JohnLaw2/ln-spam-prevention\" target=\"_blank\" rel=\"noopener nofollow ugc\">github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <div class=\"github-row\" data-github-private-repo=\"false\">\n  <img width=\"690\" height=\"344\" src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/f/f4469222b2d46533dd1e44b5707d376aaf68c2bf_2_690x344.png\" class=\"thumbnail\" data-dominant-color=\"F7F7F6\">\n\n  <h3><a href=\"https://github.com/JohnLaw2/ln-spam-prevention\" target=\"_blank\" rel=\"noopener nofollow ugc\">GitHub - JohnLaw2/ln-spam-prevention: Fee-based protocols for preventing spam on the...</a></h3>\n\n    <p><span class=\"github-repo-description\">Fee-based protocols for preventing spam on the Bitcoin Lightning Network</span></p>\n</div>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>It includes a full specification of the lower-latency version of the bug fix described in an earlier post.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 19,
   "updated_at": "2025-04-25T21:20:40.305Z",
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.2,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 7.0,
   "yours": false,
   "topic_id": 1524,
   "topic_slug": "fee-based-spam-prevention-for-lightning",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 279,
     "username": "JohnLaw",
     "name": null,
     "avatar_template": "/letter_avatar_proxy/v4/letter/j/58956e/{size}.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

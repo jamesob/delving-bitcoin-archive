@@ -7,14 +7,15 @@
   "cooked": "<p>I think you are missing my point: someone needs to mine this competing block you want to optimize for.</p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-12-06T14:31:08.526Z",
   "reply_count": 0,
   "reply_to_post_number": 15,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.0,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 20.6,
   "yours": false,
   "topic_id": 1288,
   "topic_slug": "can-parallel-validation-side-step-the-slow-block-issue",
@@ -28,6 +29,7 @@
   "flair_bg_color": "",
   "flair_color": "",
   "flair_group_id": 43,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,13 +39,19 @@
   "user_title": "Regular",
   "title_is_group": false,
   "reply_to_user": {
+    "id": 71,
     "username": "sjors",
     "name": "Sjors Provoost",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sjors/{size}/59_2.png"
   },
   "bookmarked": false,
   "raw": "I think you are missing my point: someone needs to mine this competing block you want to optimize for.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +63,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I think you are missing my point: someone needs to mine this competing block you want to optimize for.",
+  "truncated": true,
+  "post_url": "/t/can-parallel-validation-side-step-the-slow-block-issue/1288/16",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

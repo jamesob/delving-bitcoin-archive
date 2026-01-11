@@ -7,14 +7,15 @@
   "cooked": "<p>Proof of Partial Work (PoPW) refers to the concept of shares contributed by miners in a mining pool. In the context of mining pools, shares are submitted by miners to demonstrate the work they\u2019ve done, even if that work hasn\u2019t yet resulted in finding a block. These shares are essentially proof of partial work, as they show that the miner has contributed effort</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-09-13T14:58:08.469Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 17.2,
+  "incoming_link_count": 1,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 25.0,
   "yours": false,
   "topic_id": 1128,
   "topic_slug": "fork-withholding-attack",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Proof of Partial Work (PoPW) refers to the concept of shares contributed by miners in a mining pool. In the context of mining pools, shares are submitted by miners to demonstrate the work they\u2019ve done, even if that work hasn\u2019t yet resulted in finding a block. These shares are essentially proof of pa&hellip;",
+  "truncated": true,
+  "post_url": "/t/fork-withholding-attack/1128/3",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

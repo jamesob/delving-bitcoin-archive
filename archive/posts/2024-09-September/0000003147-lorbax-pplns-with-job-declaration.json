@@ -7,14 +7,15 @@
   "cooked": "<p>There is a typo. There should be <span class=\"math\">0=k_0&lt;k_1&lt;\\dots &lt; k_t = N</span>, where <span class=\"math\">N</span> is the number of shares in the PPLNS window such that the <span class=\"math\">m</span>-slice contains the shares <span class=\"math\">s_{k_{m-1}+1}, \\dots , s_{k_{m}}</span>. Recall that, by Remark 5 in Section 3.2, if <span class=\"math\">S</span> is a slice,  we have that\n<span class=\"math\"> \\sum_{s \\in S} score_f(s) =1.</span>\nHence</p>\n<div class=\"math\">\n\\sum_{j=k_0+1}^{k_1} score_f(s_j) + ... + \\sum_{j=k_{t-1}+1}^{k_t} score_f(s_j) = 1+\\dots +1  =t\n</div>\n",
   "post_number": 32,
   "post_type": 1,
+  "posts_count": 55,
   "updated_at": "2024-09-09T11:29:59.905Z",
   "reply_count": 0,
   "reply_to_post_number": 30,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 29,
+  "readers_count": 28,
+  "score": 20.8,
   "yours": false,
   "topic_id": 1099,
   "topic_slug": "pplns-with-job-declaration",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,26 +38,45 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 249,
     "username": "plebhash",
     "name": "plebhash",
     "avatar_template": "/user_avatar/delvingbitcoin.org/plebhash/{size}/302_2.png"
   },
   "bookmarked": false,
   "raw": "There is a typo. There should be $0=k_0<k_1<\\dots < k_t = N$, where $N$ is the number of shares in the PPLNS window such that the $m$-slice contains the shares $s_{k_{m-1}+1}, \\dots , s_{k_{m}}$. Recall that, by Remark 5 in Section 3.2, if $S$ is a slice,  we have that \n$ \\sum_{s \\in S} score_f(s) =1.$\nHence\n$$\n\\sum_{j=k_0+1}^{k_1} score_f(s_j) + ... + \\sum_{j=k_{t-1}+1}^{k_t} score_f(s_j) = 1+\\dots +1  =t\n$$",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 527,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "There is a typo. There should be 0=k_0&lt;k_1&lt;\\dots &lt; k_t = N, where N is the number of shares in the PPLNS window such that the m-slice contains the shares s_{k_{m-1}+1}, \\dots , s_{k_{m}}. Recall that, by Remark 5 in Section 3.2, if S is a slice,  we have that\n \\sum_{s \\in S} score_f(s) =1.\nHence \n\n\\&hellip;",
+  "truncated": true,
+  "post_url": "/t/pplns-with-job-declaration/1099/32",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

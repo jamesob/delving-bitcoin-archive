@@ -2,19 +2,20 @@
   "id": 783,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2023-12-18T02:43:32.230Z",
   "cooked": "<aside class=\"quote no-group\" data-username=\"amiti\" data-post=\"1\" data-topic=\"294\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/a/e5b9ba/48.png\" class=\"avatar\"> amiti:</div>\n<blockquote>\n<ul>\n<li>we would want to observe the impact of introducing txs into the network at different rates, as well as being confirmed into blocks at different rates</li>\n<li>transactions and blocks should come from varied nodes on the network</li>\n<li>bonus would be observing impact of RBF transactions, esp with current mainnet patterns</li>\n</ul>\n</blockquote>\n</aside>\n<p>I was thinking something like this.</p>\n<ol>\n<li>have three parameters:\n<ul>\n<li>size of the network (100 nodes total, 90 listening, 10 non-listening)</li>\n<li>tx creation rate (5tx/s to 70tx/s)</li>\n<li>tx confirmation rate (3.75tx/s, 7.5tx/s, 15tx/s)</li>\n</ul>\n</li>\n<li>start the nodes\n<ul>\n<li>run 26.0 out of the box consistently everywhere</li>\n<li>start each node with its own wallet</li>\n<li>maybe reduce <code>MAX_OUTBOUND_FULL_RELAY_CONNECTIONS</code> from 8 to 5 (to simulate the greater distance between nodes in a network of 10k-100k nodes, despite only having 100 nodes)</li>\n<li>set <code>-blockmaxweight</code> to 999000, 1998000 or 3996000 depending on the target tx confirmation rate</li>\n</ul>\n</li>\n<li>start mining blocks\n<ul>\n<li>every 10 minutes, select a random peer, mine a block</li>\n<li>once a block reward matures, create a tx splitting the reward into 0.1 BTC outputs at a 500sat/vb feerate</li>\n</ul>\n</li>\n<li>generate small txs at the nominated rate:\n<ul>\n<li>1-in, 1-out taproot tx is 111 vbytes. if signatures are annoyingly slow, make it p2wsh where the script is \u201c&lt;61B push&gt; OP_DROP OP_TRUE\u201d, which should also be 111 vbytes</li>\n<li>1-in, 0-out tx to burn funds: ie, just an 0-value 32 byte OP_RETURN output when the input amount is below 0.05 BTC perhaps?</li>\n<li>output should just be a new change address</li>\n<li>fee rate should <code>estimatesmartfee 5</code> multiplied by <code>exp(random()*0.2-0.1)</code></li>\n<li>do this randomly amongst all peers, eg get 5tx/s overall by having 100 nodes generate 1tx every 20s</li>\n</ul>\n</li>\n</ol>\n<p>The easiest thing to report is the performance of compact block relay, so run with <code>debug=cmpctblock</code> look at the \u201cSuccessfully reconstructed block\u201d lines, eg:</p>\n<pre><code class=\"lang-plaintext\">2023-12-18T02:01:46.628563Z [cmpctblock] Successfully reconstructed block\n   00000000000000000001083bc8296739b4a65f1264f69104a52f16962a24af5b\n   with 1 txn prefilled, 3513 txn from mempool (incl at least 9 from extra pool)\n   and 7 txn requested\n</code></pre>\n<p>In particular, my expectation is that if you increase the sustained tx creation rate above 18 tx/s you\u2019ll start to get inconsistent mempools and the \u201ctxn requested\u201d number may rise. Having those inconsistencies appear at the top of the mempool probably requires you to be doing RBF or to have chains of unconfirmed transactions, particularly involving CPFP.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2023-12-18T02:43:32.230Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 17.4,
+  "incoming_link_count": 4,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 109.6,
   "yours": false,
   "topic_id": 294,
   "topic_slug": "warnet-increase-tx-relay-rate",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": true,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I was thinking something like this. \n\nhave three parameters:\n\nsize of the network (100 nodes total, 90 listening, 10 non-listening)\ntx creation rate (5tx/s to 70tx/s)\ntx confirmation rate (3.75tx/s, 7.5tx/s, 15tx/s)\n\n\nstart the nodes\n\nrun 26.0 out of the box consistently everywhere\nstart each node &hellip;",
+  "truncated": true,
+  "post_url": "/t/warnet-increase-tx-relay-rate/294/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

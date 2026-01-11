@@ -160,11 +160,35 @@ This approach requires no consensus changes, not even OP_CAT, so can be applied 
 
 -------------------------
 
-garlonicon | 2025-07-22 06:20:48 UTC | #6
+garlonicon | 2025-07-31 10:39:22 UTC | #6
 
 Update: Now, there is an incentive, to claim these coins on mainnet: [url=https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801]aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801[/url]
 
 Which means, that now, any user can append Proof of Work challenge to any output script.
+
+Edit: Surprisingly, it is possible to lock coins on Proof of Work in a way, where solver would have a choice: to reveal its own private key on-chain, or to grind the solution, and spend coins, while keeping that key secret. Here is how it can be done:
+
+`OP_SIZE 60 OP_LESSTHAN OP_VERIFY <victimPubkey> OP_CHECKSIG`
+
+And then, the private key can be revealed by sharing DER signature:
+
+```
+30380215
+3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63
+021f
+71f6c818ee75fa6bab255a8ca7331d8a70a17dec1c823fca742eb4f0855f94
+01
+```
+
+Or, it can remain hidden, if some grinding will be done, and if r-value and s-value will have 49 leading zero bits. Then, by doing around 2^50 computations, a victim can keep its key safe:
+
+```
+3038021a
+71f6c818ee3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63
+021a
+75fa6bab255a8ca7331d8a70a17dec1c823fca742eb4f0855f94
+01
+```
 
 -------------------------
 

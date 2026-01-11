@@ -7,14 +7,15 @@
   "cooked": "<p>Simple unidirectional NIC (non-interactive channel) that that is immune to TXID malleability and can be natural part of pool vTXOs (virtual UTXOs) from user <code>Alice</code> where you have a coordinator <code>Bob</code> that acts as an LSP:</p>\n<pre><code class=\"lang-auto\">&lt;sigBob&gt;\n&lt;sigAlice&gt;\n&lt;template&gt;\n---\nCHECKTEMPLATEVERIFY\n&lt;pubAlice&gt;\nOP_CHECKSIGFROMSTACKVERIFY\n&lt;pubBob&gt;\nOP_CHECKSIGVERIFY\n</code></pre>\n<p>You would have an alternative spending branch with a 24h timelock and <code>Alice</code> single sig. also have a 2-of-2 musig keyspend naturally.</p>\n<p><code>Alice</code> can keep giving <code>Bob</code> newer more favorable distributions. <code>Bob</code> gates them with his single sig.</p>\n<p>What <code>Alice</code> would do is give <code>Bob</code> a new <code>&lt;sigAlice&gt; &lt;template&gt;</code> pairs and the new outputs that hash to the template to move funds to <code>Alice</code>. outputs can include HTLCs and then their updated settlement.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-01-07T20:48:53.197Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 26,
-  "readers_count": 25,
-  "score": 25.2,
+  "incoming_link_count": 296,
+  "reads": 111,
+  "readers_count": 110,
+  "score": 1497.2,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Simple unidirectional NIC (non-interactive channel) that that is immune to TXID malleability and can be natural part of pool vTXOs (virtual UTXOs) from user Alice where you have a coordinator Bob that acts as an LSP: \n&lt;sigBob&gt;\n&lt;sigAlice&gt;\n&lt;template&gt;\n---\nCHECKTEMPLATEVERIFY\n&lt;pubAlice&gt;\nOP_CHECKSIGFROMS&hellip;",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/6",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

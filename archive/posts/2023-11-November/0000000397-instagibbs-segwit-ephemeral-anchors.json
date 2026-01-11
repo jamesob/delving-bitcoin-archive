@@ -7,14 +7,15 @@
   "cooked": "<p>couple of confusions:</p>\n<ol>\n<li>bip141 requires two byte push to 40.</li>\n<li>OP_TRUE==OP_1</li>\n</ol>\n<p>I\u2019ll cleanup my branch to refer to OP_1 since it\u2019s more clear what we\u2019re going for.</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2023-11-13T15:57:43.826Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 15.6,
+  "reads": 50,
+  "readers_count": 49,
+  "score": 30.0,
   "yours": false,
   "topic_id": 160,
   "topic_slug": "segwit-ephemeral-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 76,
     "username": "stevenroose",
     "name": "Steven Roose",
-    "avatar_template": "/letter_avatar_proxy/v4/letter/s/8edcca/{size}.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/stevenroose/{size}/1087_2.png"
   },
   "bookmarked": false,
   "raw": "couple of confusions:\n\n1) bip141 requires two byte push to 40.\n2) OP_TRUE==OP_1\n\nI'll cleanup my branch to refer to OP_1 since it's more clear what we're going for.",
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "couple of confusions: \n\nbip141 requires two byte push to 40.\nOP_TRUE==OP_1\n\nI\u2019ll cleanup my branch to refer to OP_1 since it\u2019s more clear what we\u2019re going for.",
+  "truncated": true,
+  "post_url": "/t/segwit-ephemeral-anchors/160/9",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"sipa\" data-post=\"11\" data-topic=\"1991\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/1100_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<aside class=\"quote no-group\" data-username=\"cguida\" data-post=\"1\" data-topic=\"1991\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/c/87869e/48.png\" class=\"avatar\"> cguida:</div>\n<blockquote>\n<p>Also, blockreconstructionextratxn helps here.</p>\n</blockquote>\n</aside>\n<p>Only to nodes which have peers whose relay policy matches that of miners. It seems highly hypocritical to me to not want to relay certain transactions yourself, but still rely on having peers that do relay those transactions to you so your reconstruction speed is fast. Put otherwise, the extra pool only helps with policy divergence in situations which more or less correspond to the filtered transactions propagating well anyway.</p>\n</blockquote>\n</aside>\n<p>It is a solution (w/ some trade-offs) without introducing another <a href=\"https://delvingbitcoin.org/t/sharing-block-templates/1906\">p2p message</a> or expecting every node to use the same policy. Every node has <code>125</code> <code>maxconnections</code> by default and it is reasonable to expect some divergence in mempool polices of a decentralized network.</p>",
   "post_number": 13,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 16,
   "updated_at": "2025-10-08T15:49:40.142Z",
   "reply_count": 1,
   "reply_to_post_number": 11,
   "quote_count": 2,
-  "incoming_link_count": 2,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 19.8,
+  "incoming_link_count": 4,
+  "reads": 51,
+  "readers_count": 50,
+  "score": 49.8,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:11, topic:1991\"]\n[quote=\"cguida, post:1, topic:1991\"]\nAlso, blockreconstructionextratxn helps here.\n[/quote]\n\nOnly to nodes which have peers whose relay policy matches that of miners. It seems highly hypocritical to me to not want to relay certain transactions yourself, but still rely on having peers that do relay those transactions to you so your reconstruction speed is fast. Put otherwise, the extra pool only helps with policy divergence in situations which more or less correspond to the filtered transactions propagating well anyway.\n[/quote]\n\nIt is a solution (w/ some trade-offs) without introducing another [p2p message](https://delvingbitcoin.org/t/sharing-block-templates/1906) or expecting every node to use the same policy. Every node has `125` `maxconnections` by default and it is reasonable to expect some divergence in mempool polices of a decentralized network.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Only to nodes which have peers whose relay policy matches that of miners. It seems highly hypocritical to me to not want to relay certain transactions yourself, but still rely on having peers that do relay those transactions to you so your reconstruction speed is fast. Put otherwise, the extra pool&hellip;",
   "truncated": true,
   "post_url": "/t/response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter/1991/13",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
