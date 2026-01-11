@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
+  "reads": 8,
+  "readers_count": 7,
   "score": 1.4,
   "yours": false,
   "topic_id": 2110,
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "I updated the second graph in OP following a suggestion from Bitcoin Core contributor @stickies-v that i present the **proportional** change in revenue for each miner in function of block propagation time, rather than the **absolute** change in share of blocks found for each miner in function of block propagation time.\n\nNote this may be slightly confusing because the absolute value itself was presented as a percentage (the difference in the share of total blocks found). The corresponding code change in the script generating the graphs is available [here](https://github.com/darosior/miningsimulation/commit/bf828b34833b11d1181497b4e5f8b607b6acf309). Thank you for the review @stickies-v!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "I updated the second graph in OP following a suggestion from Bitcoin Core contributor <a class=\"mention\" href=\"/u/stickies-v\">@stickies-v</a> that i present the proportional change in revenue for each miner in function of block propagation time, rather than the absolute change in share of blocks found for each miner in function of block propa&hellip;",
   "truncated": true,
   "post_url": "/t/propagation-delay-and-mining-centralization-modeling-stale-rates/2110/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
