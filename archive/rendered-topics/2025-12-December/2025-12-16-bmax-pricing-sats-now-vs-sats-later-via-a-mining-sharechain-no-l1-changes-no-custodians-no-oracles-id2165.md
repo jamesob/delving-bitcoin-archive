@@ -488,3 +488,9 @@ The BMAX design needs to be robust to aptly raised concerns like this. Thank you
 
 -------------------------
 
+coinjoinkillua | 2026-01-14 18:49:01 UTC | #8
+
+So, have you refined the idea based on the points raised? I'd really like to see how your idea is progressing if you have any links or update
+
+-------------------------
+
