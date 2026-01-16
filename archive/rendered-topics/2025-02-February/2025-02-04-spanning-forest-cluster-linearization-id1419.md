@@ -407,3 +407,13 @@ typo, 'algorithm --> ' 'variable'
 
 -------------------------
 
+blockchainhao | 2026-01-16 15:21:23 UTC | #11
+
+[quote="sipa, post:1, topic:1419"]
+The simplex algorithm then maintains a set of n-1 ***free* variables**, which are chosen to be zero. All other variables (the ***basic* variables**) can be computed from the free variables using the m+2 equations.
+[/quote]
+
+I think here $g$ as the optimization target shouldn't be seen as a variable and $g = \sum_i t_i \mathrm{fee}$ as the goal function shouldn't be seen as an equation. So it's better to say: the $m + 1$ basic variables can be computed from the free variables using the $m + 1$ equations
+
+-------------------------
+
