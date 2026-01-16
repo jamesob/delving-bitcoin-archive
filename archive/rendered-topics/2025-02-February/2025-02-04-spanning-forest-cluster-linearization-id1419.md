@@ -397,3 +397,13 @@ When running this on the replayed 2023 data, it appears that out of 24693846 clu
 
 -------------------------
 
+blockchainhao | 2026-01-16 09:28:23 UTC | #10
+
+[quote="sipa, post:1, topic:1419"]
+while a basic algorithm is chosen to become free
+[/quote]
+
+typo, 'algorithm --> ' 'variable'
+
+-------------------------
+

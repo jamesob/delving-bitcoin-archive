@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 5.4,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 20.8,
   "yours": false,
   "topic_id": 1816,
   "topic_slug": "stealth-addresses-using-nostr",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@1440000bytes I have come up with a starting point for a spec which i eluded to in my comments. It melts your idea of notifications via Nostr with the standard Silent Payments protocol. Commenting in case this is still interesting for you.\n\nhttps://delvingbitcoin.org/t/silent-payments-notifications-via-nostr/2203",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/1440000bytes\">@1440000bytes</a> I have come up with a starting point for a spec which i eluded to in my comments. It melts your idea of notifications via Nostr with the standard Silent Payments protocol. Commenting in case this is still interesting for you.",
   "truncated": true,
   "post_url": "/t/stealth-addresses-using-nostr/1816/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
