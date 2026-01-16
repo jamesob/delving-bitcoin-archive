@@ -484,3 +484,11 @@ I will work on an electrum plugin that can be used to test this concept with a b
 
 -------------------------
 
+setavenger | 2026-01-15 23:29:44 UTC | #11
+
+@1440000bytes I have come up with a starting point for a spec which i eluded to in my comments. It melts your idea of notifications via Nostr with the standard Silent Payments protocol. Commenting in case this is still interesting for you.
+
+https://delvingbitcoin.org/t/silent-payments-notifications-via-nostr/2203
+
+-------------------------
+
