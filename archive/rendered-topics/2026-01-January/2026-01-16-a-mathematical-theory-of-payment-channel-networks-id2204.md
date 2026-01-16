@@ -1,6 +1,6 @@
 # A Mathematical Theory of Payment Channel Networks
 
-renepickhardt | 2026-01-16 00:49:30 UTC | #1
+renepickhardt | 2026-01-16 00:54:38 UTC | #1
 
 Dear fellow lightning network developers
 
@@ -27,9 +27,9 @@ These insights directly motivated the [recent Delving Bitcoin article, which exp
 
 https://delvingbitcoin.org/t/ark-as-a-channel-factory-compressed-liquidity-management-for-improved-payment-feasibility/2179
 
-The paper also analyzes [mitigation strategies for depletion](https://delvingbitcoin.org/t/mitigating-channel-depletion-in-the-lightning-network-a-survey-of-potential-solutions/1640?u=renepickhardt) such as symmetric fees, [convex/tiered fee schedules](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/paper/Limits%20of%20two%20party%20channels/Effect%20of%20Convex%20Fee%20Functions%20on%20Flow%20Control%20and%20Channel%20Depletion.ipynb), and [coordinated off-chain replenishment](https://delvingbitcoin.org/t/research-update-a-geometric-approach-for-optimal-channel-rebalancing/1768) while explaining why some of these are difficult to deploy under today’s source-routing model.
+The paper also analyzes [mitigation strategies for depletion](https://delvingbitcoin.org/t/mitigating-channel-depletion-in-the-lightning-network-a-survey-of-potential-solutions/1640?u=renepickhardt) such as symmetric fees, [convex/tiered fee schedules](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/603a167af04c8d526e1c8d4b5c9e8db3d368dedd/Limits%20of%20two%20party%20channels/Effect%20of%20Convex%20Fee%20Functions%20on%20Flow%20Control%20and%20Channel%20Depletion.ipynb), and [coordinated off-chain replenishment](https://delvingbitcoin.org/t/research-update-a-geometric-approach-for-optimal-channel-rebalancing/1768) while explaining why some of these are difficult to deploy under today’s source-routing model.
 
-For readers interested in simulations and executable intuition, much of the reasoning [was developed alongside code and notebooks](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/main/README.md), which are collected here:
+For readers interested in simulations and executable intuition, much of the reasoning [was developed alongside code and notebooks](https://github.com/renepickhardt/Lightning-Network-Limitations/blob/924bfaa3c730ce1f0998f2ec23e7bde3d0c6ea22/README.md), which are collected here:
 
 https://github.com/renepickhardt/Lightning-Network-Limitations/blob/main/README.md
 
