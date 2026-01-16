@@ -574,3 +574,16 @@ Any ideas or corrections on this matter?
 
 -------------------------
 
+nymius | 2026-01-16 13:40:24 UTC | #32
+
+I have been working on a BIP Draft for the above changes.
+
+You can have a look in:
+
+* [github gist: PSBT_IN_SP_TWEAK for spending silent payment outputs](https://gist.github.com/nymius/b3dd0b8a08c6735d617e6216b73c4260)
+* [mailing list post: \[BIP Proposal\] Add PSBT_IN_SP_TWEAK field](https://groups.google.com/g/bitcoindev/c/Kap7NMwzl2k)
+
+Feedback is welcome.
+
+-------------------------
+
