@@ -49,3 +49,15 @@ T♯
 
 -------------------------
 
+jsarenik | 2026-01-17 18:04:48 UTC | #2
+
+Reading about it at https://hornetnode.org/overview.html but can’t find any source code (repository) yet.
+
+Another note is that I see bitcoin.pdf being mentioned but I couldn't find word “mempool” mentioned Hornet-wise yet. Satoshi’s paper says in section 5. Network that “1) New transactions are broadcast to all nodes.” (which is another way of writing about what's known today as mempool).
+
+Thanks for sharing!
+
+PS: For loading Bitcoin Core nodes with current mempool (dumped every 15 seconds for months now) on fresh start without any locally persisted `mempool.dat` I use https://anyone.eu.org/mymempool-log.txt and feel free to get the data there, too. HTH
+
+-------------------------
+
