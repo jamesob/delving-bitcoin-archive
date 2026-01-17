@@ -203,12 +203,14 @@ The coin has become unrecoverable without the tweak information from the notific
 
 -------------------------
 
-RubenSomsen | 2026-01-16 00:25:04 UTC | #2
+RubenSomsen | 2026-01-17 01:00:32 UTC | #2
 
 [quote="setavenger, post:1, topic:2203"]
 Bad implementations sending incorrect tweaks
 
-\[…\]
+$$
+…
+$$
 
 Now Bob has two options:
 
@@ -216,7 +218,7 @@ Now Bob has two options:
 
 That’s all accurate, but I think you might still be overlooking something important.  For every payment Bob will need to determine whether the tweak data etc. was correct, which requires more data (especially if the exact block isn’t known) and is not trivial.
 
-And if you’re going to be second guessing all the data Alice is sending you, this calls into question whether she should even send it at all. This is why you may either want to go with the “absolutely minimal” message (or go the opposite route and “maximize DoS resistance”) as described in my [previous reply](https://gist.github.com/setavenger/a0cd7e71b47ded9fca9c99085130cf2a?permalink_comment_id=5931734#gistcomment-5931734).
+And if you’re going to be second guessing all the data Alice is sending you, this calls into question whether she should even send it at all. This is why you may want to go with the “absolutely minimal” message (or go the opposite route and “maximize DoS resistance”) as described in my [previous reply](https://gist.github.com/setavenger/a0cd7e71b47ded9fca9c99085130cf2a?permalink_comment_id=5931734#gistcomment-5931734).
 
 -------------------------
 
