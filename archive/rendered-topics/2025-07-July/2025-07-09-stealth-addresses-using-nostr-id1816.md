@@ -492,9 +492,9 @@ https://delvingbitcoin.org/t/silent-payments-notifications-via-nostr/2203
 
 -------------------------
 
-1440000bytes | 2026-01-17 05:44:00 UTC | #12
+1440000bytes | 2026-01-17 05:45:26 UTC | #12
 
-Thanks for the update and using nostr for notifications in silent payments. I have created an electrum plugin to test the idea shared in this thread: https://gitlab.com/1440000bytes/color-address
+Thanks for the update and the use of nostr for notifications in silent payments. I have created an electrum plugin to test the idea shared in this thread: https://gitlab.com/1440000bytes/color-address
 
 Demo: https://video.nostr.build/9ac082eab8512b43c14c75f219584c9ec5cd4b5f260bdff711577ee5f5261ad9.mp4
 
