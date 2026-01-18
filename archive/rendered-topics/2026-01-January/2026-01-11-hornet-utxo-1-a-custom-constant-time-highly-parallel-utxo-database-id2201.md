@@ -61,3 +61,17 @@ PS: For loading Bitcoin Core nodes with current mempool (dumped every 15 seconds
 
 -------------------------
 
+setavenger | 2026-01-18 16:11:54 UTC | #3
+
+Reading through the Hornet Node page, it seems like it's an entirely separate Node implementation. I find that very interesting and would love to read more about it and get my hands on the source code. I was also not able to find it after a brief search. From that a couple questions arise:
+
+- How was the comparison structured? Was it Bitcoin Core vXX.X vs Hornet Node with Hornet UTXO(1) as a DB engine? Or were the 15min achieved by somehow porting the DB to Bitcoin Core?
+- Have you made the same or a similar comparison to libbitcoin? The validation speed on that implementation was also quite astounding and was discussed on Delving Bitcoin as well.
+- Generally speaking can the DB be somehow used for other purposes like an indexer or similar use cases, or is it constrained as a db engine for Hornet Node?
+
+If I can get my hands on the source code I can give some more feedback and more qualified questions.
+
+Cheers!
+
+-------------------------
+

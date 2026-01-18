@@ -222,3 +222,21 @@ And if you’re going to be second guessing all the data Alice is sending you, t
 
 -------------------------
 
+setavenger | 2026-01-18 17:01:15 UTC | #3
+
+Thank you for clarifying. The minimal approach would be to only send a txid (if Alice does not wait for confirmation) or a with a block hash + merkle proof for DoS protection.
+
+Thinking out loud here but I think this can be seen through different lenses. Keeping in mind that we separate the Silent Payments layer and the Nostr layer. Moreover, not all wallets will be designed in the same way when it comes to their data backend and scanning logic.
+
+We can establish that if Bob receives a notification from an unknown and un-trusted source that he should not trust any information in that message. He has to make sure he can fail as early as possible with the least amount of computation wasted in the process.
+
+I think the only reason the tweak field is still interesting here is if Bob receives the tweak from his friend Alice. Or even in general someone in his Web of Trust where the DoS probability is generally low. Then Bob only needs to pull the tx from anywhere he trusts. He does not need to be served the scripts of the inputs as he already has the tweak. He then does the typical last steps of a light client who has a tweak and outputs to match against. The kind of additional data Bob needs to find is a lot more standardised. It's just transaction data.
+
+Having the tweak can make a good scenario a lot easier and brings more flexibility to client design. I don't think all light clients will look the same in the end. I alone have tried several approaches with BlindBit and I'm sure others have tried many other approaches as well. Bob can always discard/ignore the tweak if his client does not need or trust it. But with a tweak available it is enough for Bob to get the simple txhex and do the last mile computation to find a match.
+
+I think if we keep it a bit agnostic with regards to how the wallets might handle data serving (some might not even serve data - think Frigate style external scanning) and the involved communication channels the tweak should be allowed in. Maybe only in an optional capacity where it can be discarded if Bob or his wallet don't trust it. The txid would be mandatory as the "absolute minimal" component.
+
+Let me add one question that can steer the further design as well: **Do we expect Alice to wait for the transaction to confirm before she sends the notification message?** If she waits she has a lot more targeted information available that she can send to Bob. Light clients which only rely on filters + pulling blocks will have a difficult time looking up a specific transaction only by its txid (at least without risking privacy degradation). Other wallet designs (e.g. Electrum based) will probably have an easier time making due with only a tweak and a txid. They could benefit of a tweak field in the message.
+
+-------------------------
+

@@ -7,7 +7,7 @@
   "cooked": "<p>Reading about it at <a href=\"https://hornetnode.org/overview.html\" rel=\"noopener nofollow ugc\">https://hornetnode.org/overview.html</a> but can\u2019t find any source code (repository) yet.</p>\n<p>Another note is that I see bitcoin.pdf being mentioned but I couldn\u2019t find word \u201cmempool\u201d mentioned Hornet-wise yet. Satoshi\u2019s paper says in section 5. Network that \u201c1) New transactions are broadcast to all nodes.\u201d (which is another way of writing about what\u2019s known today as mempool).</p>\n<p>Thanks for sharing!</p>\n<p>PS: For loading Bitcoin Core nodes with current mempool (dumped every 15 seconds for months now) on fresh start without any locally persisted <code>mempool.dat</code> I use <a href=\"https://anyone.eu.org/mymempool-log.txt\" rel=\"noopener nofollow ugc\">https://anyone.eu.org/mymempool-log.txt</a> and feel free to get the data there, too. HTH</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-01-17T18:04:48.840Z",
   "reply_count": 0,
   "reply_to_post_number": null,
