@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 32.2,
   "yours": false,
   "topic_id": 2201,
   "topic_slug": "hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Reading through the Hornet Node page, it seems like it's an entirely separate Node implementation. I find that very interesting and would love to read more about it and get my hands on the source code. I was also not able to find it after a brief search. From that a couple questions arise:\n\n- How was the comparison structured? Was it Bitcoin Core vXX.X vs Hornet Node with Hornet UTXO(1) as a DB engine? Or were the 15min achieved by somehow porting the DB to Bitcoin Core?\n- Have you made the same or a similar comparison to libbitcoin? The validation speed on that implementation was also quite astounding and was discussed on Delving Bitcoin as well.\n- Generally speaking can the DB be somehow used for other purposes like an indexer or similar use cases, or is it constrained as a db engine for Hornet Node?\n\nIf I can get my hands on the source code I can give some more feedback and more qualified questions.\n\nCheers!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Reading through the Hornet Node page, it seems like it\u2019s an entirely separate Node implementation. I find that very interesting and would love to read more about it and get my hands on the source code. I was also not able to find it after a brief search. From that a couple questions arise: \n\nHow was&hellip;",
   "truncated": true,
   "post_url": "/t/hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database/2201/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
