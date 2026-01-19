@@ -69,3 +69,21 @@ OK, got it! I was thinking of hash based checksums (clearly the wrong approach h
 
 -------------------------
 
+conduition | 2026-01-19 01:03:07 UTC | #7
+
+I really like this! I have always felt that a balance could be struck between stateful and stateless hash-based signing, and SHRINCS does that very neatly. Also as a side effect, SHRINCS discourages address reuse because transactions get more expensive the more you reuse an address. 
+
+I think users could accept the possibility of the highly-expensive stateless SPHINCS signature, provided it is only a fallback in the event they lose their wallet state.
+
+I do see some pitfalls though, common to any stateful scheme. A fault injection attack could be disastrous. For example, if a host computer could cause a hardware wallet to accidentally reset its state by strategic power-cycling, then the wallet might sign a message with a reused XMSS leaf, permitting forgery. Or consider cases where users duplicate the same wallet seed onto different devices. It'd be easy for them to accidentally sign and publish two different transactions with the same XMSS leaf.
+
+These aren't intractable, just novel for bitcoiners to contend with. Perhaps wallet devs would gladly grapple these dragons if it means offering low-cost transactions.  
+
+----------
+
+Another way to frame SHRINCS would be to standardize two schemes in tapscript: SPHINCS (or a variant), and WOTS, and let wallets decide which to use and how to structure them inside script trees. After all, an XMSS tree structure is more or less the same as taproot's script trees, except that taproot tree nodes are lexi-sorted before hashing, and lack the context-specific hash-tweaking that XMSS typically has.
+
+Although not as pretty or unified as a single signing scheme, this would be more modular, and thus easier to standardize as BIPs. We can adopt one or the other piecemeal by redefining opcodes, instead of fully committing to both at once.
+
+-------------------------
+
