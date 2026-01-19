@@ -180,3 +180,11 @@ In case you are looking for more opinions, financially incentivizing address reu
 
 -------------------------
 
+conduition | 2026-01-19 16:06:51 UTC | #15
+
+For what it's worth, i think this could be of use as a sibling proposal to Tadge's OP_CIV, as a poor-man's signature aggregation scheme for post quantum signatures. 
+
+Though, unlike OP_CIV or [my proposed alternative](https://groups.google.com/g/bitcoindev/c/oFbEQb_DB3I/m/jnrgEsixAgAJ), OP_CC requires committing publicly to the exact same address for it to be used when spending. I think if you were gonna go this route, you'd want to at least offer users privacy until spending time, when they select which UTXOs to associate by the common-owner-input heuristic.
+
+-------------------------
+

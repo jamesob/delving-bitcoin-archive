@@ -87,3 +87,25 @@ Although not as pretty or unified as a single signing scheme, this would be more
 
 -------------------------
 
+jonasnick | 2026-01-19 17:14:29 UTC | #8
+
+Thanks @conduition for the feedback.
+
+> Or consider cases where users duplicate the same wallet seed onto different devices.
+
+Just to clarify the intended SHRINCS functionality as currently described: when a device imports a wallet seed, it must always use the stateless signing path. Only the device that originally generated the seed is permitted to use the stateful path. This is definitely a restriction which would need to be relaxed to allow fully offline seed generation, for example.
+
+> host computer could cause a hardware wallet to accidentally reset its state by strategic power-cycling
+
+I agree that there are still pitfalls like this. It would be very interesting to hear from hardware wallet developers about how feasible it is in practice to keep state securely.
+
+> Another way to frame SHRINCS would be to standardize two schemes in tapscript and let wallets decide which to use and how to structure them inside script trees
+
+So this would effectively introduce `OP_SPHINCS` and `OP_WOTS` rather than a single `OP_SHRINCS`, and let wallets implement the `SHRINCS` scheme via the Taproot tree. I agree this is a valid approach.
+
+I also think a standalone `OP_SPHINCS` could be valuable on its own, since some wallets may want to use a hash-based signature scheme but cannot keep state at all. Are there other use cases you have in mind that would particularly benefit from this modularity?
+
+One downside of letting wallets decide the tree structure is that it can leave fingerprints on the blockchain that are harmful to privacy. It's also slightly less efficient compared to `OP_SHRINCS` (because of the 16-byte hashes at NIST level one, compared to 32-byte hashes in the Taproot tree).
+
+-------------------------
+
