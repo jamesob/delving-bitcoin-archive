@@ -13,9 +13,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 2158,
   "topic_slug": "shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Quick second thought: If we do deploy XMSS as an opcode instead of using taproot+WOTS, then the XMSS merkle branches should be directionless (lexi-sorted before hashing) like taproot trees. The reason is succinctness and privacy. \n\nVanilla XMSS must reveal the path of the WOTS leaf in the tree which, besides wasting blockspace, means that if you know the tree structure, you also know how many signatures that key has previously issued, and how many it has left.\n\nA directionless balanced XMSS tree obscures that information, or at least makes it ambiguous. An observer who sees a merkle proof for this tree, can't tell for sure without external data (like previous signatures) whether the signature they're looking at is the first signature from this key, or the last, or any in between, even if they know the XMSS tree height.\n\nFor an unbalanced XMSS tree like in SHRINCS, simply seeing the merkle path length reveals the signature count. But it's also impossible to tell a balanced directionless XMSS tree from an unbalanced one as an observer. Verifiers don't need to know, as long as the WOTS signature and authentication path recompute into the correct root hash. \n\nWallets and users would be free to choose the XMSS tree height and structure on their own, but the final on-chain fingerprint will be mostly indistinguishable from case to case. A directionless XMSS signature from a balanced height=2 tree looks the same as the second signature from an unbalanced tree.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Quick second thought: If we do deploy XMSS as an opcode instead of using taproot+WOTS, then the XMSS merkle branches should be directionless (lexi-sorted before hashing) like taproot trees. The reason is succinctness and privacy. \nVanilla XMSS must reveal the path of the WOTS leaf in the tree which,&hellip;",
   "truncated": true,
   "post_url": "/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

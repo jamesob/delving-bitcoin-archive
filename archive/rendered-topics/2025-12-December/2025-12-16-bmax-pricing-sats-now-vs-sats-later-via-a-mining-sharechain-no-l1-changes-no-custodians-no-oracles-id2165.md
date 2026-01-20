@@ -494,3 +494,27 @@ So, have you refined the idea based on the points raised? I'd really like to see
 
 -------------------------
 
+coinjoinkillua | 2026-01-20 17:57:12 UTC | #9
+
+In this proposal you didn’t mention the FIFO queue, did you remove it?
+
+You’re talking about token issuance being proportional to the sharechain difficulty? I think you’re wrong, it should be proportional to the BTC difficulty, not the sharechain difficulty, so tokens mined at different times would have the same energy cost.
+
+I didn’t like the idea as it is because it no longer looks like a pool; in practice it’s just solo mining, but I liked some of the updates you made and I think you would benefit from some changes.
+
+**Some things I didn’t like are:**
+
+You don’t burn shares, which makes the system inflationary and generates data bloat. Burning shares would increase the demand to produce and buy more shares, as well as prevent the utxoset from growing indefinitely.
+
+Currently, this looks like just solo mining, which has low demand, but it would still be good because the extra steps create an interesting market. If you maintain the FIFO queue or something similar to pool mining and burn these chosen shares, it would be better in my opinion; you end up attracting more miners.
+
+It seems to me that in practice it is unfeasible to maintain a database with all the shares that will be raffled off if they grow infinitely and are not burned.
+
+Instead of random payment, you can pay the 10 largest shareholders, creating an incentive for the top 10 to buy as many shares as possible, and those outside the top 10 will have an incentive to sell as many shares as possible.
+
+Using the FIFO queue with burning of “tickets” is also a good option to solve the problems I mentioned, or a hybrid with random payout + FIFO
+
+Creating transferable shares is not trivial and may add a lot of complexity, but if the payment is made to those who have the most shares, the incentive is to have the minimum number of addresses/utxos possible to guarantee winning and being paid on Coinbase. Having a random draw mechanism encourages the fragmentation of the “utxoset,” but having the feature to attract solo miners makes me think it’s worthwhile.
+
+-------------------------
+

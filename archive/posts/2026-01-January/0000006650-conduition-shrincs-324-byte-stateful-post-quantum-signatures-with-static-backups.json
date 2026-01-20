@@ -12,10 +12,10 @@
   "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 6.4,
+  "incoming_link_count": 1,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 26.6,
   "yours": false,
   "topic_id": 2158,
   "topic_slug": "shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> Just to clarify the intended SHRINCS functionality as currently described: when a device imports a wallet seed, it must always use the stateless signing path.\n\nUnfortunately wallet software can't always be 100% certainty whether its seed is in use on multiple devices. Users can copy wallet data files between computers, or even do so accidentally, such as when cloning an entire operating system during a recovery from full-disk backup. As a real-world case-study, consider the unfortunate souls who've lost coins to punishment transactions, as a result of restoring outdated states for lightning channels.\n\nUnlike with lightning though, a SHRINCS wallet may have _some_ indication that state has been lost or corrupted. E.g. the wallet comes online and sees 10 new outgoing transactions created _after_ the wallet was last opened. The wallet would probably have a chance to react before any grave errors are made.\n\nAnother thing to consider is that state management only matters for keys which may have issued XMSS signatures. If state gets corrupted or the seed is imported, hot-wallets could heuristically guess things like: \"this address never received any coins before, so we probably have never signed any messages with its XMSS key. Should be safe to use XMSS for this address if we ever end up with UTXOs there\". Obviously this is fraught with risky assumptions on user behavior... but still, neat to have engineering options.\n\n> One downside of letting wallets decide the tree structure is that it can leave fingerprints on the blockchain that are harmful to privacy. It\u2019s also slightly less efficient compared to `OP_SHRINCS` (because of the 16-byte hashes at NIST level one, compared to 32-byte hashes in the Taproot tree).\n\nFair point. Simple solution for that: Instead of OP_WOTS, deploy OP_XMSS, and set the XMSS protocol to use NIST-1 length hashes with proper tweaking. Though i'm unsure if the savings would be worthwhile given that most wallets should be effectively incentivized to avoid address reuse either way.\n\n> Are there other use cases you have in mind that would particularly benefit from this modularity?\n\nNot particularly. It's an aesthetic/organizational preference from my PoV: Why introduce an opcode which is basically `OR(unbalanced_xmss_key, sphincs_key)`, if we already have tools to handle such binary logic for payment conditions already?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Just to clarify the intended SHRINCS functionality as currently described: when a device imports a wallet seed, it must always use the stateless signing path. \n\nUnfortunately wallet software can\u2019t always be 100% certainty whether its seed is in use on multiple devices. Users can copy wallet data fi&hellip;",
   "truncated": true,
   "post_url": "/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
