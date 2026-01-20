@@ -109,3 +109,37 @@ One downside of letting wallets decide the tree structure is that it can leave f
 
 -------------------------
 
+conduition | 2026-01-20 01:32:00 UTC | #9
+
+> Just to clarify the intended SHRINCS functionality as currently described: when a device imports a wallet seed, it must always use the stateless signing path.
+
+Unfortunately wallet software can't always be 100% certainty whether its seed is in use on multiple devices. Users can copy wallet data files between computers, or even do so accidentally, such as when cloning an entire operating system during a recovery from full-disk backup. As a real-world case-study, consider the unfortunate souls who've lost coins to punishment transactions, as a result of restoring outdated states for lightning channels.
+
+Unlike with lightning though, a SHRINCS wallet may have _some_ indication that state has been lost or corrupted. E.g. the wallet comes online and sees 10 new outgoing transactions created _after_ the wallet was last opened. The wallet would probably have a chance to react before any grave errors are made.
+
+Another thing to consider is that state management only matters for keys which may have issued XMSS signatures. If state gets corrupted or the seed is imported, hot-wallets could heuristically guess things like: "this address never received any coins before, so we probably have never signed any messages with its XMSS key. Should be safe to use XMSS for this address if we ever end up with UTXOs there". Obviously this is fraught with risky assumptions on user behavior... but still, neat to have engineering options.
+
+> One downside of letting wallets decide the tree structure is that it can leave fingerprints on the blockchain that are harmful to privacy. It’s also slightly less efficient compared to `OP_SHRINCS` (because of the 16-byte hashes at NIST level one, compared to 32-byte hashes in the Taproot tree).
+
+Fair point. Simple solution for that: Instead of OP_WOTS, deploy OP_XMSS, and set the XMSS protocol to use NIST-1 length hashes with proper tweaking. Though i'm unsure if the savings would be worthwhile given that most wallets should be effectively incentivized to avoid address reuse either way.
+
+> Are there other use cases you have in mind that would particularly benefit from this modularity?
+
+Not particularly. It's an aesthetic/organizational preference from my PoV: Why introduce an opcode which is basically `OR(unbalanced_xmss_key, sphincs_key)`, if we already have tools to handle such binary logic for payment conditions already?
+
+-------------------------
+
+conduition | 2026-01-20 01:54:05 UTC | #10
+
+Quick second thought: If we do deploy XMSS as an opcode instead of using taproot+WOTS, then the XMSS merkle branches should be directionless (lexi-sorted before hashing) like taproot trees. The reason is succinctness and privacy. 
+
+Vanilla XMSS must reveal the path of the WOTS leaf in the tree which, besides wasting blockspace, means that if you know the tree structure, you also know how many signatures that key has previously issued, and how many it has left.
+
+A directionless balanced XMSS tree obscures that information, or at least makes it ambiguous. An observer who sees a merkle proof for this tree, can't tell for sure without external data (like previous signatures) whether the signature they're looking at is the first signature from this key, or the last, or any in between, even if they know the XMSS tree height.
+
+For an unbalanced XMSS tree like in SHRINCS, simply seeing the merkle path length reveals the signature count. But it's also impossible to tell a balanced directionless XMSS tree from an unbalanced one as an observer. Verifiers don't need to know, as long as the WOTS signature and authentication path recompute into the correct root hash. 
+
+Wallets and users would be free to choose the XMSS tree height and structure on their own, but the final on-chain fingerprint will be mostly indistinguishable from case to case. A directionless XMSS signature from a balanced height=2 tree looks the same as the second signature from an unbalanced tree.
+
+-------------------------
+
