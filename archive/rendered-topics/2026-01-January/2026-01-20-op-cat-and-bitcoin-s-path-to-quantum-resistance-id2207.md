@@ -98,9 +98,9 @@ Quantum readiness should look like this: boring, incremental, and reversible. OP
 
 -------------------------
 
-jsarenik | 2026-01-21 11:19:03 UTC | #2
+jsarenik | 2026-01-21 20:29:51 UTC | #2
 
-Cryptography is not enough and Bitcoin proves it ever since its inception. There are practical questions to think about and although I’ve never seen anyone asking these yet, here are some:
+[Cryptography is not enough](https://dergigi.com/2022/09/10/cryptography-is-not-enough/) and Bitcoin proves it ever since its inception. There are practical questions to think about and although I’ve never seen anyone asking these yet, here are some:
 
 * How long would it take to start a quantum computer and bring it to state ready to return the eliptic curve secp256k1 private key on output?
 * How long would the operation of getting that key take, receiving only a corresponding public key on input?
