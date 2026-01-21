@@ -240,3 +240,42 @@ Let me add one question that can steer the further design as well: **Do we expec
 
 -------------------------
 
+RubenSomsen | 2026-01-21 10:41:07 UTC | #4
+
+[quote="setavenger, post:3, topic:2203"]
+The minimal approach would be to only send a txid
+
+[/quote]
+
+[quote="setavenger, post:3, topic:2203"]
+Light clients which only rely on filters + pulling blocks will have a difficult time looking up a specific transaction only by its txid
+
+[/quote]
+
+Your latter sentence is why I suggested the taproot output for the minimal approach rather than the txid. This gives you something to scan for using regular block filters. Though txid filters are theoretically possible too, of course.
+
+[quote="setavenger, post:3, topic:2203"]
+Web of Trust where the DoS probability is generally low. Then Bob only needs to pull the tx from anywhere he trusts. He does not need to be served the scripts of the inputs as he already has the tweak
+
+[/quote]
+
+I’m not convinced there is a safe enough middle ground where we only partially check stuff. Either we trust the sender or we don’t. If we trust the sender then we don’t have to fetch any data from other sources at all. The sender can just provide everything that is needed to spend the output (see the last paragraph of [my post](https://gist.github.com/setavenger/a0cd7e71b47ded9fca9c99085130cf2a?permalink_comment_id=5931734#gistcomment-5931734)).
+
+[quote="setavenger, post:3, topic:2203"]
+brings more flexibility to client design
+
+[/quote]
+
+Perhaps, but I suspect it may be a little early to start considering where to be flexible. In order to come up with a good protocol we’ll inevitably have to first form a reasonably well-informed opinion about what the client design might look like. Or at least that’s the only way to stay reasonably lean.
+
+Opinions can differ, but I’m not very optimistic about Web of Trust reliance, for instance. If we had a well-functioning and reliable WoT to slot this all into then great, but today we do not.
+
+[quote="setavenger, post:3, topic:2203"]
+Do we expect Alice to wait for the transaction to confirm before she sends the notification message?
+
+[/quote]
+
+The easy part of this question is that not waiting is clearly preferable to Alice. How I’d approach the rest of the question is by figuring out what protocol we end up with when we answer this with both a yes and a no and seeing how practical the end result is for Bob.
+
+-------------------------
+
