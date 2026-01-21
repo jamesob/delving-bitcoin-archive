@@ -98,3 +98,20 @@ Quantum readiness should look like this: boring, incremental, and reversible. OP
 
 -------------------------
 
+jsarenik | 2026-01-21 11:19:03 UTC | #2
+
+Cryptography is not enough and Bitcoin proves it ever since its inception. There are practical questions to think about and although I’ve never seen anyone asking these yet, here are some:
+
+* How long would it take to start a quantum computer and bring it to state ready to return the eliptic curve secp256k1 private key on output?
+* How long would the operation of getting that key take, receiving only a corresponding public key on input?
+* How much would these steps cost?
+* How probable it would be to get the private key in time while the transaction is still in the mempool to have it replaced with another one?
+
+I think that if anyone is stacking sats in small amounts and never reusing addresses, it may not be worth even to start up a quantum computer to find a private key from the public key seen merely at the moment of broadcasting a transaction which reveals the public key.
+
+Let’s say it was a $25 worth of sats bought 5 years ago. The transaction may be just sending all of the sats to a yet another never-used-before bech32 address. It can be mined anytime and if the quantum computer was started already, by the time it is operational the transaction may be already mined in a block.
+
+I hope OP_CAT is eventually coming back to mainnet. But in the meantime anyone can play with OP_CAT already on the signet testing network where it’s enabled. Just run a Bitcoin Inquisition node with signet.
+
+-------------------------
+
