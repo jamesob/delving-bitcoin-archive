@@ -143,3 +143,35 @@ Wallets and users would be free to choose the XMSS tree height and structure on 
 
 -------------------------
 
+jonasnick | 2026-01-21 07:53:06 UTC | #11
+
+> Users can copy wallet data files between computers, or even do so accidentally, such as when cloning an entire operating system during a recovery from full-disk backup.
+
+Yes, this is why I mentioned "assume key generation happens on a signing device that is able to keep state securely." in the original post. It follows that the main deployment target for SHRINCS is dedicated signing devices where users do not have the ability to interfere with the state (intentionally or accidentally).
+
+Thinking out lout (half-baked idea follows): To use SHRINCS wallet on a desktop wallet it seems to be sufficient to find some place to store state that cannot be accidentally backed up. This is not my area of expertise, but it seems like a storage slot on the TPM could potentially be used for that. It provides the following functionality:
+
+- `Initialize(secret)`: Initializes the slot such that it can only be read or written to when the secret is presented.
+- `Write(secret, data)`
+- `Read(secret) -> data`
+
+For security, we require that that the slot can really only be read/written with the secret. Thus, the data won't be part of a disk backup. Additionally, a `Read` will never return data that has been written to the slot before the last `Write`. For efficiency, we want that the slot is persistent (e.g., across reboots).
+
+On my Intel CPU, this sort of slot appears to be relatively easy to instantiate after installing `tpm2-tools`:
+- `tpm2_nvdefine "$NV_INDEX" -C o -s "$MAX_SIZE" -a "authread|authwrite|no_da" -p "$AUTH_VALUE"` initializes the slot at `$NV_INDEX` such that the string `$AUTH_VALUE` is required to read/write.
+- `echo -n "$DATA_TO_WRITE" | tpm2_nvwrite "$NV_INDEX" -C "$NV_INDEX" -P "$AUTH_VALUE" -i -` writes the data.
+- `tpm2_nvread "$NV_INDEX" -C "$NV_INDEX" -P "$AUTH_VALUE" -o "$OUTPUT_FILE"` reads the data.
+
+On NixOS, running the tool from a non-root user requires the user to be in the `tss` group.
+
+Using the secure slot, the software wallet could work as follows:
+
+- `Initialize()`: The wallet runs `(seed, pk, state) <- SHRINCS.KeyGen()`, draws an authentication token `t` for the secure slot, runs `Slot.Initialize(t)`, `Slot.Write(t, hash(state))` and stores `(seed, pk, state, t)` on disk.
+- `Sign(m) -> sig`: Read `(seed, pk, state, t)` from disk.
+  - If `state != LOST`: Read `h' <- Slot.Read(t)`. If `h' != hash(state)`, write `state := LOST` to disk and rerun `Sign(m)`. Otherwise, run `(state', sig) <- SHRINCS.Sign(seed, state, m)`, write `hash(state') to the slot, write the updated `state'` to disk and return the signature.
+  - Else, return SHRINCS.Sign(seed, state, m).
+
+Unfortunately, this isn't really secure, because the user may run `Wallet.Sign` in parallel with different messages. Without some sort of lock, both invocations may load the same state from disk and get the same result from the slot.
+
+-------------------------
+
