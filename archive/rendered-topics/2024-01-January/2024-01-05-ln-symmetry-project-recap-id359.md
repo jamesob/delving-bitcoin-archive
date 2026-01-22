@@ -385,3 +385,39 @@ The update tx commits to the settlement tx in the tapscript path, but that means
 
 -------------------------
 
+instagibbs | 2026-01-22 19:09:37 UTC | #17
+
+Bit of an update: Was learning to use Claude and got the branch rebased, with a few key updates and bug fixes in roughly a week of back and forth.
+
+https://github.com/instagibbs/bolts/tree/eltoo_trucd
+
+https://github.com/instagibbs/lightning/tree/2026-01-eltoo_rebased
+
+What’s in this branch:
+
+1. Rebased on latest master
+
+2. Works out of the box on bitcoin-inquisition 29.x on signet with TRUC/eph dust/P2A/1p1c package relay. Does automated anchor bumping for real unlike before (I migrated to a op_return commitment vs annex usage as well)
+
+3. Support for restarting your node without crashing (lol)
+
+4. Support co-op close (protocol a little jank similarly to legacy close but enough for testing)
+
+5. Significantly more test coverage, though still PoC level
+
+6. Probably a lot more
+
+So unlike last time, the UX should kinda work ok.
+
+Sample unilateral close update tx: https://mempool.space/signet/tx/97b8925c1261f47fed5b2bd0d419a05b626db9364eb0d7d347bb3cfbf7dca73e
+
+Sample unilateral close settle tx: https://mempool.space/signet/tx/b35b3549835931360106f2fc21c8f1782ac285c6136be7204636dde8594378c7#vin=0
+
+Sample cooperative close tx: https://mempool.space/signet/tx/cb1990dd1de3a219ff1f30ab7cca2374dbb4616837a1eac7abbfb64b3a8570be
+
+Beyond this I had Claude migrate from APO to OP_TEMPLATEHASH+OP_CSFS+IK, both the BOLT draft (with some gentle corrections) https://github.com/instagibbs/bolts/tree/2026-01-eltoo_th then a one-shotted implementation https://github.com/instagibbs/lightning/commits/2026-01-eltoo_templatehash OP_TEMPLATEHASH isn’t live on inquisition, so it can only be tested in regtest for now.
+
+If people are interested, please try it out on signet on bitcoin-inquisition, the cost of maintaining this *PoC* is basically zero now.
+
+-------------------------
+

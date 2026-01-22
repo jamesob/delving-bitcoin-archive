@@ -89,3 +89,11 @@ Correct, I was thinking of that. However, as generally this is a fire-and-forget
 
 -------------------------
 
+arminsdev | 2026-01-22 17:00:01 UTC | #5
+
+> hiding the real time of transaction creation
+
+What is the intended use case here, and is there any privacy benefit? My understanding is that an adversary would still be able to observe the same P2P communication patterns, even if you delay broadcasting your own transactions.
+
+-------------------------
+
