@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 17.2,
   "yours": false,
   "topic_id": 2201,
   "topic_slug": "hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> Reading through the Hornet Node page, it seems like it\u2019s an entirely separate Node implementation.\n\nThat's correct, although the focus is on spec-based consensus, validation, and IBD. There is so far no mempool behavior, although maybe that will be added later.\n\n> I find that very interesting and would love to read more about it \n\nThe most complete documentation is here:\n\n[Hornet Node Overview](https://hornetnode.org/overview.html) \\\n[Hornet Node Executable Declarative Specification](https://hornetnode.org/paper.html)\n\nThe Hornet UTXO(1) database is the latest addition to this workstream.\n\n> and get my hands on the source code.\n\nI'm not widely sharing the code yet, although I'm planning to do so once this IBD phase is complete. I'd be happy to give a presentation or demo too if you would like to connect via email. \n\n> How was the comparison structured? Was it Bitcoin Core vXX.X vs Hornet Node with Hornet UTXO(1) as a DB engine? Or were the 15min achieved by somehow porting the DB to Bitcoin Core?\n\nBitcoin Core v30.0 vs Hornet Node, yes. Bitcoin Core was run with the -assume-valid option to skip signature and script validation, so that the main cost is the UTXO database construction and querying. \n\n> Have you made the same or a similar comparison to libbitcoin? The validation speed on that implementation was also quite astounding and was discussed on Delving Bitcoin as well.\n\nI haven't but I agree that would be interesting. Is that something you can assist with? My expectation is that libbitcoin beats Core but Hornet wins due to parallelism. \n\n> Generally speaking can the DB be somehow used for other purposes like an indexer or similar use cases, or is it constrained as a db engine for Hornet Node?\n\nIt could be extended to index transactions and addresses etc. if desired. It's just low level code so anything's possible. My initial priority though was just to discover what performance I could get for initial block download.\n\nThanks,\nT#",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Reading through the Hornet Node page, it seems like it\u2019s an entirely separate Node implementation. \n\nThat\u2019s correct, although the focus is on spec-based consensus, validation, and IBD. There is so far no mempool behavior, although maybe that will be added later. \n\nI find that very interesting and w&hellip;",
   "truncated": true,
   "post_url": "/t/hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database/2201/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

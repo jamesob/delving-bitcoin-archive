@@ -109,11 +109,11 @@ One downside of letting wallets decide the tree structure is that it can leave f
 
 -------------------------
 
-conduition | 2026-01-20 01:32:00 UTC | #9
+conduition | 2026-01-22 14:40:47 UTC | #9
 
 > Just to clarify the intended SHRINCS functionality as currently described: when a device imports a wallet seed, it must always use the stateless signing path.
 
-Unfortunately wallet software can't always be 100% certainty whether its seed is in use on multiple devices. Users can copy wallet data files between computers, or even do so accidentally, such as when cloning an entire operating system during a recovery from full-disk backup. As a real-world case-study, consider the unfortunate souls who've lost coins to punishment transactions, as a result of restoring outdated states for lightning channels.
+Unfortunately wallet software can't always be 100% certain whether its seed is in use on multiple devices. Users can copy wallet data files between computers, or even do so accidentally, such as when cloning an entire operating system during a recovery from full-disk backup. As a real-world case-study, consider the unfortunate souls who've lost coins to punishment transactions, as a result of restoring outdated states for lightning channels.
 
 Unlike with lightning though, a SHRINCS wallet may have _some_ indication that state has been lost or corrupted. E.g. the wallet comes online and sees 10 new outgoing transactions created _after_ the wallet was last opened. The wallet would probably have a chance to react before any grave errors are made.
 
@@ -172,6 +172,20 @@ Using the secure slot, the software wallet could work as follows:
   - Else, return SHRINCS.Sign(seed, state, m).
 
 Unfortunately, this isn't really secure, because the user may run `Wallet.Sign` in parallel with different messages. Without some sort of lock, both invocations may load the same state from disk and get the same result from the slot.
+
+-------------------------
+
+conduition | 2026-01-22 14:59:35 UTC | #12
+
+> assume key generation happens on a signing device that is able to keep state securely
+
+Ahhhhh I didn't realize that assumption included keeping state secure _from the user_ too. 
+
+Clever idea with the TPM, though I would simplify it a little. Don't store the full state in the TPM - Store only a decryption key in the TPM, and store the state on-disk, but encrypted under that key. If the encrypted state is backed up, it will be missing the TPM's key, making state decryption impossible. Read/write locking on the encrypted state files can then be managed by the application layer.
+
+Alternatively, store the XMSS key's seed itself in the TPM. This makes backed-up state files non-toxic, because after restoring the files, it's impossible to accidentally sign anything. The user would need to input their seed phrase to fully restore the wallet. Wallet devs would have some choice as to how to proceed from there. 
+
+Feels weird to engineer a system that makes it *harder* to recover files.
 
 -------------------------
 
