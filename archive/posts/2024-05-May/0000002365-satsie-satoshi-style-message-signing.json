@@ -7,14 +7,15 @@
   "cooked": "<p>Wow!! Thank you for such a fast and detailed reply <a class=\"mention\" href=\"/u/sipa\">@sipa</a>! That list of steps is exactly the clarification I was trying to find. But there goes the idea of calling it \u201cSatoshi format\u201d (I swear I didn\u2019t make that up!)</p>\n<p>Thanks for digging up those resources <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a>! I will assign myself the task of updating the wiki. This is really great information that should be shared.</p>\n<p>Mystery solved <img src=\"https://delvingbitcoin.org/images/emoji/twitter/blush.png?v=12\" title=\":blush:\" class=\"emoji\" alt=\":blush:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 5,
   "updated_at": "2024-05-04T11:53:20.411Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 32.2,
+  "incoming_link_count": 1,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 111.2,
   "yours": false,
   "topic_id": 850,
   "topic_slug": "satoshi-style-message-signing",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 6
     }
   ],
   "moderator": false,
@@ -48,13 +50,21 @@
   "staff": false,
   "user_id": 423,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Wow!! Thank you for such a fast and detailed reply <a class=\"mention\" href=\"/u/sipa\">@sipa</a>! That list of steps is exactly the clarification I was trying to find. But there goes the idea of calling it \u201cSatoshi format\u201d (I swear I didn\u2019t make that up!) \nThanks for digging up those resources <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a>! I will assign myself the task of up&hellip;",
+  "truncated": true,
+  "post_url": "/t/satoshi-style-message-signing/850/4",
   "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    },
     {
       "id": "heart",
       "type": "emoji",
@@ -62,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

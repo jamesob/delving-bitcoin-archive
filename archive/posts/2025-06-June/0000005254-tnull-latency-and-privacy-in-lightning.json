@@ -13,9 +13,9 @@
   "reply_to_post_number": 40,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 32.8,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 35.0,
   "yours": false,
   "topic_id": 1723,
   "topic_slug": "latency-and-privacy-in-lightning",
@@ -68,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

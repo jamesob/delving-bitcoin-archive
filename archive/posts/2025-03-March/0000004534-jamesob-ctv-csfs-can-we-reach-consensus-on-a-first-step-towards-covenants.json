@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ariard\" data-post=\"40\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/a/c67d28/48.png\" class=\"avatar\"> ariard:</div>\n<blockquote>\n<p>we\u2019re more or less doing circles as there is not real convergence on the use-case worthiness, that are improved by covenants.</p>\n</blockquote>\n</aside>\n<p>Except that in the last week, we\u2019ve had</p>\n<ul>\n<li>2 Blockstream engineers go on record as saying CTV would be valuable for Liquid,</li>\n<li>the CEO of one of Bitcoin\u2019s most popular hardware wallets saying <a href=\"https://x.com/nvk/status/1899918763728003420\">he\u2019d implement vaults</a>,</li>\n<li>the CEO of Bitcoin\u2019s only custodial insurance product saying <a href=\"https://x.com/Rob1Ham/status/1897781338796966103\">he wants vaults</a>, and</li>\n<li>a prototype of Ark based on CTV passing tests and showing a substantial reduction in the interactivity required (mentioned above).</li>\n</ul>\n<p>I wouldn\u2019t call that \u201cdoing circles!\u201d</p>",
   "post_number": 42,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-14T18:28:01.399Z",
-  "reply_count": 2,
+  "reply_count": 3,
   "reply_to_post_number": 40,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 29.4,
+  "reads": 58,
+  "readers_count": 57,
+  "score": 41.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Except that in the last week, we\u2019ve had \n\n2 Blockstream engineers go on record as saying CTV would be valuable for Liquid,\nthe CEO of one of Bitcoin\u2019s most popular hardware wallets saying <a href=\"https://x.com/nvk/status/1899918763728003420\">he\u2019d implement vaults</a>,\nthe CEO of Bitcoin\u2019s only custodial insurance product saying <a href=\"https://x.com/Rob1Ham/status/1897781338796966103\">he wants vaults</a>, and\na prot&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/42",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

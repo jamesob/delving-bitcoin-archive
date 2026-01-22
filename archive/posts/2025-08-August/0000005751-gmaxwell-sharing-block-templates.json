@@ -7,15 +7,15 @@
   "cooked": "<p>That said, the extrapool does (or at least <em>can</em> if it\u2019s size is large enough) substantially solve \u201cone hop divergence\u201d all on its own.</p>\n<p>At least what I observe is that one hop is not enough.</p>\n<p>It\u2019s a little hard to give concrete measurements though because the big policy divergence right now has been minfee related and fee filter messes up the ability of the extrapool to address it.</p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 24,
   "updated_at": "2025-08-19T21:42:50.827Z",
   "reply_count": 0,
   "reply_to_post_number": 11,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 4.0,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 27.8,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "That said, the extrapool does (or at least *can* if it\u2019s size is large enough) substantially solve \u201cone hop divergence\u201d all on its own.\n\nAt least what I observe is that one hop is not enough.\n\nIt\u2019s a little hard to give concrete measurements though because the big policy divergence right now has been minfee related and fee filter messes up the ability of the extrapool to address it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "That said, the extrapool does (or at least can if it\u2019s size is large enough) substantially solve \u201cone hop divergence\u201d all on its own. \nAt least what I observe is that one hop is not enough. \nIt\u2019s a little hard to give concrete measurements though because the big policy divergence right now has been &hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

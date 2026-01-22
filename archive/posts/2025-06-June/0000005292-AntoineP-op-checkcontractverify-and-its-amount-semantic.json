@@ -13,9 +13,9 @@
   "reply_to_post_number": 12,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 1.8,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 4.0,
   "yours": false,
   "topic_id": 1527,
   "topic_slug": "op-checkcontractverify-and-its-amount-semantic",
@@ -58,5 +58,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

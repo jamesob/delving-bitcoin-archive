@@ -7,14 +7,15 @@
   "cooked": "<p>I like the style of v3.1 and v4.1c, i.e. \u201cyou have restricted topology unless you\u2019re creating something that\u2019s \u2018top block.\u2019\u201d I think it\u2019s a good example of what relaxations can happen: from \u201cyou want to be in the fast lane so you can\u2019t be too complex/big because then we don\u2019t know if you\u2019re still fast\u201d to \u201cyou want to be in the fast lane so you can only be complex/big if you\u2019re still fast\u201d.</p>\n<p>I am concerned about the (in)ability to support sibling eviction in 3.1, though. From previous discussion, it seems pretty intractable trying to support it for &gt;2 clusters.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-02-07T17:16:12.397Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 12.8,
+  "incoming_link_count": 6,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 57.2,
   "yours": false,
   "topic_id": 523,
   "topic_slug": "v3-and-some-possible-futures",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "I like the style of v3.1 and v4.1c, i.e. \"you have restricted topology unless you're creating something that's 'top block.'\" I think it's a good example of what relaxations can happen: from \"you want to be in the fast lane so you can't be too complex/big because then we don't know if you're still fast\" to \"you want to be in the fast lane so you can only be complex/big if you're still fast\".\n\nI am concerned about the (in)ability to support sibling eviction in 3.1, though. From previous discussion, it seems pretty intractable trying to support it for >2 clusters.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I like the style of v3.1 and v4.1c, i.e. \u201cyou have restricted topology unless you\u2019re creating something that\u2019s \u2018top block.\u2019\u201d I think it\u2019s a good example of what relaxations can happen: from \u201cyou want to be in the fast lane so you can\u2019t be too complex/big because then we don\u2019t know if you\u2019re still fa&hellip;",
+  "truncated": true,
+  "post_url": "/t/v3-and-some-possible-futures/523/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

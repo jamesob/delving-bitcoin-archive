@@ -7,14 +7,15 @@
   "cooked": "<p>Sorry, you are right.\nAnyway, is the following trivial? Is there a proof for it?</p>\n<blockquote>\n<p>the transactions in <span class=\"math\">pot</span> that do not belong to <span class=\"math\">inc</span> must have a feerate at least as high as can be achieved by <em>any</em> set that includes <span class=\"math\">inc</span> and excludes <span class=\"math\">exc</span></p>\n</blockquote>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-01-06T18:59:43.223Z",
   "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "incoming_link_count": 1,
+  "reads": 58,
+  "readers_count": 57,
+  "score": 21.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "Sorry, you are right.\nAnyway, is the following trivial? Is there a proof for it?\n\n>the transactions in $pot$ that do not belong to $inc$ must have a feerate at least as high as can be achieved by *any* set that includes $inc$ and excludes $exc$",
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Sorry, you are right.\nAnyway, is the following trivial? Is there a proof for it? \n\nthe transactions in pot that do not belong to inc must have a feerate at least as high as can be achieved by any set that includes inc and excludes exc",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/6",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

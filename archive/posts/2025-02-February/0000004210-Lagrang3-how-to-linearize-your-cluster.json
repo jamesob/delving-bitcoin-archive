@@ -4,17 +4,18 @@
   "username": "Lagrang3",
   "avatar_template": "/user_avatar/delvingbitcoin.org/lagrang3/{size}/377_2.png",
   "created_at": "2025-02-06T20:47:07.498Z",
-  "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"sipa\" data-post=\"27\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/102_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>The GGT algorithm is effectively finding a subset xxx which maximizes</p>\n<p>\\operatorname{fee}_x - \\lambda \\operatorname{size}_x</p>\n<p>feex\u2212\u03bbsizex</p>\n</blockquote>\n</aside>\n<p>That, I think is not accurate to say. For a fixed <span class=\"math\">\\lambda</span> finding a subset that maximizes <span class=\"math\">\\mathrm{fee}_x - \\lambda \\mathrm{size}_x</span> simply transforms to the \u201cmaximum weight closure problem\u201d that can be solved with any min-cut finding algorithm. The \u201cmax. weight closure problem\u201d is a subproblem of your original \u201cmaximum feerate closure problem\u201d. The novelty of GGT is that you don\u2019t need to do bisection to solve the \u201cmaximum feerate closure\u201d and the computation complexity of the feerate problem stays the same as the computational complexity of a single \u201cmax. weight closure\u201d.</p>",
+  "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"sipa\" data-post=\"27\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/1100_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>The GGT algorithm is effectively finding a subset xxx which maximizes</p>\n<p>\\operatorname{fee}_x - \\lambda \\operatorname{size}_x</p>\n<p>feex\u2212\u03bbsizex</p>\n</blockquote>\n</aside>\n<p>That, I think is not accurate to say. For a fixed <span class=\"math\">\\lambda</span> finding a subset that maximizes <span class=\"math\">\\mathrm{fee}_x - \\lambda \\mathrm{size}_x</span> simply transforms to the \u201cmaximum weight closure problem\u201d that can be solved with any min-cut finding algorithm. The \u201cmax. weight closure problem\u201d is a subproblem of your original \u201cmaximum feerate closure problem\u201d. The novelty of GGT is that you don\u2019t need to do bisection to solve the \u201cmaximum feerate closure\u201d and the computation complexity of the feerate problem stays the same as the computational complexity of a single \u201cmax. weight closure\u201d.</p>",
   "post_number": 28,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-06T20:47:07.498Z",
   "reply_count": 1,
   "reply_to_post_number": 27,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 37.6,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 41.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That, I think is not accurate to say. For a fixed \\lambda finding a subset that maximizes \\mathrm{fee}_x - \\lambda \\mathrm{size}_x simply transforms to the \u201cmaximum weight closure problem\u201d that can be solved with any min-cut finding algorithm. The \u201cmax. weight closure problem\u201d is a subproblem of yo&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/28",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

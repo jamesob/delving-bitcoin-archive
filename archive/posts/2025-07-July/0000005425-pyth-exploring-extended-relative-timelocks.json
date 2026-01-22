@@ -7,15 +7,15 @@
   "cooked": "<p>I\u2019ve been discussing about feedbacks from Liana users with some folks at Wizardsardine about Bitcoin\u2019s 65535-block limit for relative timelocks. Some users are curious why this limit exists and have expressed interest in longer timelocks. I\u2019ve been experimenting with an idea to extend timelocks and would love your thoughts\u2014<em>not</em> advocating for a soft fork, just exploring the concept to gauge its feasibility and implications.</p>\n<h2><a name=\"p-5425-context-and-experiment-1\" class=\"anchor\" href=\"#p-5425-context-and-experiment-1\"></a>Context and Experiment</h2>\n<p>I looked into extending relative timelocks to ~10 years by:</p>\n<ul>\n<li>Using bit 21 in <code>nSequence</code> to signal a \u201clong\u201d timelock.</li>\n<li>If bit 21 is set and bit 22 is unset, the timelock unit is interpreted as 8 blocks, multiplying the duration by 8.</li>\n<li>This seems to require minimal changes to Bitcoin Core (though I\u2019m not deeply familiar with the Core codebase, so I could be missing complexities). It would be a soft fork, as older nodes would ignore the flag and enforce a timelock 8 times shorter.</li>\n</ul>\n<p>I also created a tool to craft addresses and transactions for a simple \u201canyone can spend after timelock\u201d policy to test this. you can check out the experimental code and tool here:</p>\n<ul>\n<li>Code change: <a href=\"https://github.com/bitcoin/bitcoin/commit/a9187117ccf7224297a74f3dfebc2354ad9fe6e2\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">concept_csv2 \u00b7 bitcoin/bitcoin@a918711 \u00b7 GitHub</a></li>\n<li>Tool: <a href=\"https://github.com/pythcoiner/csv2\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - pythcoiner/csv2: A tool to experiment the possibility to extend BIP68 relative locktime max value</a></li>\n</ul>\n<h2><a name=\"p-5425-discussion-points-2\" class=\"anchor\" href=\"#p-5425-discussion-points-2\"></a>Discussion Points</h2>\n<ul>\n<li><strong>Use cases</strong>: Are there compelling use cases for ~10-years timelocks?</li>\n<li><strong>Risks</strong>: What risks or edge cases might arise? Are there consensus or compatibility concerns I\u2019m overlooking?</li>\n<li><strong>Alternatives</strong>: Can we address the (potential) need for longer relative timelocks without a soft fork ?</li>\n<li><strong>Implementation</strong>: Does the bit 21 flag with 8-block units seem reasonable, or are there better ways to do this?</li>\n</ul>\n<p>To be clear, I\u2019m not pushing for a soft fork\u2014just curious about the community\u2019s take on this idea. I don\u2019t have extensive knowledge of the Bitcoin Core codebase, so I\u2019d especially appreciate feedback on the technical side. Thanks for any insights you can share!</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 25,
   "updated_at": "2025-07-10T04:50:02.872Z",
-  "reply_count": 0,
+  "reply_count": 3,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 70,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 353.4,
+  "incoming_link_count": 258,
+  "reads": 59,
+  "readers_count": 58,
+  "score": 1381.8,
   "yours": false,
   "topic_id": 1818,
   "topic_slug": "exploring-extended-relative-timelocks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "\nI\u2019ve been discussing about feedbacks from Liana users with some folks at Wizardsardine about Bitcoin\u2019s 65535-block limit for relative timelocks. Some users are curious why this limit exists and have expressed interest in longer timelocks. I\u2019ve been experimenting with an idea to extend timelocks and would love your thoughts\u2014*not* advocating for a soft fork, just exploring the concept to gauge its feasibility and implications.\n\n## Context and Experiment\nI looked into extending relative timelocks to ~10 years by:\n- Using bit 21 in `nSequence` to signal a \"long\" timelock.\n- If bit 21 is set and bit 22 is unset, the timelock unit is interpreted as 8 blocks, multiplying the duration by 8.\n- This seems to require minimal changes to Bitcoin Core (though I\u2019m not deeply familiar with the Core codebase, so I could be missing complexities). It would be a soft fork, as older nodes would ignore the flag and enforce a timelock 8 times shorter.\n\nI also created a tool to craft addresses and transactions for a simple \"anyone can spend after timelock\" policy to test this. you can check out the experimental code and tool here:\n- Code change: https://github.com/bitcoin/bitcoin/commit/a9187117ccf7224297a74f3dfebc2354ad9fe6e2\n- Tool: https://github.com/pythcoiner/csv2\n\n## Discussion Points\n- **Use cases**: Are there compelling use cases for ~10-years timelocks?\n- **Risks**: What risks or edge cases might arise? Are there consensus or compatibility concerns I\u2019m overlooking?\n- **Alternatives**: Can we address the (potential) need for longer relative timelocks without a soft fork ?\n- **Implementation**: Does the bit 21 flag with 8-block units seem reasonable, or are there better ways to do this?\n\nTo be clear, I\u2019m not pushing for a soft fork\u2014just curious about the community\u2019s take on this idea. I don\u2019t have extensive knowledge of the Bitcoin Core codebase, so I\u2019d especially appreciate feedback on the technical side. Thanks for any insights you can share!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 5
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,29 @@
   "excerpt": "I\u2019ve been discussing about feedbacks from Liana users with some folks at Wizardsardine about Bitcoin\u2019s 65535-block limit for relative timelocks. Some users are curious why this limit exists and have expressed interest in longer timelocks. I\u2019ve been experimenting with an idea to extend timelocks and &hellip;",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

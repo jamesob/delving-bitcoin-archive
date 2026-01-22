@@ -7,15 +7,15 @@
   "cooked": "<p>That sounds like it\u2019s trying to undo the privacy advantage that Taproot was intended to provide: incentivizing having a cooperative everyone-agrees key path option, which is cheaper to use than anything else.</p>\n<p>If you feel that it\u2019s unreasonable to effectively impose a penalty on using the script path option, which is not there due to any resource being consumed, but simply due to not providing the possibility of having just a script path, consider the following.</p>\n<p>Imagine a proposal to add account balances to the UTXO set, which can be incremented and decremented, Ethereum-style. It would simplify some things, complicate other things, but due to the removal of a need for change outputs, it would also make things cheaper for users in general. However, it would do so at the cost of incentivizing non-private behavior, equivalent to address reuse today. You could argue that the option of fresh balances per transaction still exists, at a cost, for those who care about it. But privacy is a common good - it doesn\u2019t work if only those who need it get it. Thus, I think such a proposal would not get much traction, because the protocol shouldn\u2019t incentivize non-private behavior.</p>\n<p>I feel this is similar. Yes, it\u2019s technically possible to provide a cheaper option. But it\u2019s better for everyone if it\u2019s not available for anyone. I understand that (in the context of this thread) there may be other reasons to consider a non-tweaked Merkle root of scripts outputs. But arguing for this because of a desire to avoid a cost only born by protocols that can\u2019t be made to use a cooperative key path spends, seems like an anti-feature to me.</p>",
   "post_number": 11,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 30,
   "updated_at": "2025-07-15T01:13:12.060Z",
   "reply_count": 1,
   "reply_to_post_number": 9,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 24.6,
+  "incoming_link_count": 12,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 119.6,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -69,10 +69,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

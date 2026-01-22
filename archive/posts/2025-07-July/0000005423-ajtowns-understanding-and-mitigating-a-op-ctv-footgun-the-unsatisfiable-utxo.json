@@ -13,9 +13,9 @@
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 23.6,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 24.8,
   "yours": false,
   "topic_id": 1809,
   "topic_slug": "understanding-and-mitigating-a-op-ctv-footgun-the-unsatisfiable-utxo",
@@ -68,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

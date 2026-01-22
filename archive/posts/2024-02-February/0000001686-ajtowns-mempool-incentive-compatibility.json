@@ -2,19 +2,20 @@
   "id": 1686,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-02-24T06:33:02.619Z",
   "cooked": "<p>It should be 1000 vb or 1 kvb; it\u2019s only evicting <span class=\"math\">A_{1000}</span> from the top block which is also 1k vb.</p>",
   "post_number": 13,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2024-02-24T06:33:02.619Z",
   "reply_count": 0,
   "reply_to_post_number": 12,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 32.4,
+  "reads": 45,
+  "readers_count": 44,
+  "score": 39.0,
   "yours": false,
   "topic_id": 553,
   "topic_slug": "mempool-incentive-compatibility",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 137,
     "username": "rustyrussell",
     "name": "Rusty Russell",
     "avatar_template": "/user_avatar/delvingbitcoin.org/rustyrussell/{size}/154_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "It should be 1000 vb or 1 kvb; it\u2019s only evicting A_{1000} from the top block which is also 1k vb.",
+  "truncated": true,
+  "post_url": "/t/mempool-incentive-compatibility/553/13",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

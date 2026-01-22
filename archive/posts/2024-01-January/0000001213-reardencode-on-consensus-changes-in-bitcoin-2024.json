@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"michaelfolkson\" data-post=\"14\" data-topic=\"334\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/90db22/48.png\" class=\"avatar\"> michaelfolkson:</div>\n<blockquote>\n<p>If you weren\u2019t around for it then perhaps you can read about it <a href=\"https://www.amazon.com/Blocksize-War-Control-Bitcoins-Protocol/dp/B096CLR1SS/\" rel=\"noopener nofollow ugc\">here </a> but the block size war was not an enjoyable, productive time to work on software projects.</p>\n</blockquote>\n</aside>\n<p>I believe we\u2019ve both been around bitcoin for around the same length of time (the first concrete evidence that I was running bitcoin is from May, 2011). My involvement was less direct during the blocksize war, but I remember it well.</p>\n<p>You seem to have a very specific view of how changes to bitcoin should proceed (community consensus, code merge, activation signaling). I understand that perspective, especially in the light of what happened with the NYA and such; but that doesn\u2019t mean it is the only acceptable path or that your personal view is the only acceptable one to hold.</p>\n<p>Are you willing to consider that nearly a decade later things may be different in bitcoin today than they were during the blocksize war? There are not currently moneyed interests trying to push change on bitcoin; instead there are moneyed players whose interests are exactly in preventing any further evolution of the protocol because they earn their revenue through custodial services and regulatory capture.</p>\n<p>If the threats to bitcoin today are somewhat different than the threats during the blocksize war then the response of bitcoin\u2019s immune system may also need to be different.</p>\n<p>That\u2019s the conversation I think we should be having and the one which I attempted to open with this post.</p>\n<hr>\n<p>I hear from you and <a class=\"mention\" href=\"/u/harding\">@harding</a> and <a class=\"mention\" href=\"/u/mattcorallo\">@MattCorallo</a> that publishing signaling and activation clients as a way of measuring user consensus (via the resulting miner signals that are IMO driven by the users) has risks that you are not comfortable with.</p>\n<p>For now, I stand by my original claim that we do not currently have another mechanism for establishing consensus in the absence of anointed leaders or trusted chairs. <a class=\"mention\" href=\"/u/harding\">@harding</a> disagrees with this claim and I\u2019m open to being proven wrong on it. I\u2019ve certainly learned a lot as I\u2019ve moved from a primarily passive observer of the core / protocol development process to a participant over the past year.</p>\n<hr>\n<p>I, for one, am not worried about the risks of minority soft forks. Bitcoin is a network of risk management and participants can (and should) make their own risk assessments of the software they run, the flags they set, and the signals they advocate for. If a soft fork client is published and many people run it, and 95% of miners signal to activate that fork, the runners of the fork client can still make their own educated decision on whether to trust the forked in features at any given point. They can still switch clients if they observe a transaction that contradicts their fork propagating or being mined. These are acceptable risks and not something that some defenders of bitcoin need to guard the network against.</p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-01-18T22:46:22.075Z",
-  "reply_count": 1,
+  "reply_count": 0,
   "reply_to_post_number": 14,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 54.0,
+  "incoming_link_count": 3,
+  "reads": 68,
+  "readers_count": 67,
+  "score": 103.4,
   "yours": false,
   "topic_id": 334,
   "topic_slug": "on-consensus-changes-in-bitcoin-2024",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 5
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I believe we\u2019ve both been around bitcoin for around the same length of time (the first concrete evidence that I was running bitcoin is from May, 2011). My involvement was less direct during the blocksize war, but I remember it well. \nYou seem to have a very specific view of how changes to bitcoin s&hellip;",
+  "truncated": true,
+  "post_url": "/t/on-consensus-changes-in-bitcoin-2024/334/16",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 5
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -2,19 +2,20 @@
   "id": 224,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2023-09-30T12:00:57.963Z",
   "cooked": "<p>I think liking/reacting to posts/comments counts too? <img src=\"https://delvingbitcoin.org/images/emoji/twitter/man_shrugging.png?v=12\" title=\":man_shrugging:\" class=\"emoji\" alt=\":man_shrugging:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 4,
   "updated_at": "2023-09-30T12:00:57.963Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 16.0,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.2,
   "yours": false,
   "topic_id": 103,
   "topic_slug": "new-user-link-limitation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 29,
     "username": "EthnTuttle",
     "name": "Ethan Tuttle",
     "avatar_template": "/user_avatar/delvingbitcoin.org/ethntuttle/{size}/26_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think liking/reacting to posts/comments counts too? :man_shrugging:",
+  "truncated": true,
+  "post_url": "/t/new-user-link-limitation/103/4",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

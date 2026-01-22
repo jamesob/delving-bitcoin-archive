@@ -7,15 +7,15 @@
   "cooked": "<p>There are two privacy downsides to it:</p>\n<ul>\n<li>Unless you require that even in the MAST root case the output must look like a valid point on the curve, this creates outputs that are distinguishable (because only ~half of 32-byte values are valid X coordinates).</li>\n<li>In either case, spending a MAST root output reveals that no key path ever existed in the output.</li>\n</ul>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 16,
+  "posts_count": 30,
   "updated_at": "2025-07-15T15:35:18.444Z",
   "reply_count": 0,
   "reply_to_post_number": 14,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 18.8,
+  "reads": 45,
+  "readers_count": 44,
+  "score": 39.0,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -69,10 +69,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

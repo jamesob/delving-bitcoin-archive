@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"MattCorallo\" data-post=\"3\" data-topic=\"494\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/e47c2d/48.png\" class=\"avatar\"> MattCorallo:</div>\n<blockquote>\n<p>Mmm, that\u2019s a good point, though that is still a relatively simpler chain that we could still analyze assuming no additional unconfirmed inputs, no?</p>\n</blockquote>\n</aside>\n<p>I\u2019m not sure it is, because each splice may have a change output, so you end up with arbitrary trees of transactions\u2026</p>\n<aside class=\"quote no-group\" data-username=\"MattCorallo\" data-post=\"3\" data-topic=\"494\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/e47c2d/48.png\" class=\"avatar\"> MattCorallo:</div>\n<blockquote>\n<p>All of the v3 discussion assumes cluster mempool <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n</blockquote>\n</aside>\n<p>That\u2019s not the way I understood it, the plan is currently to deploy v3 before cluster mempool to have a good enough solution to mitigate most pinning vectors. And then v3 can become more powerful once cluster mempool happens.</p>\n<aside class=\"quote no-group\" data-username=\"MattCorallo\" data-post=\"3\" data-topic=\"494\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/e47c2d/48.png\" class=\"avatar\"> MattCorallo:</div>\n<blockquote>\n<p>I think we should strive, if at all possible, to have splice bumps be RBF, not CPFP. Seems nuts to prefer CPFP, no?</p>\n</blockquote>\n</aside>\n<p>But we don\u2019t have a choice, if we use 0-conf, we just can\u2019t use RBF safely, we have to use CPFP unfortunately. Otherwise there are trivial attacks that lets the other peer steal funds.</p>\n<aside class=\"quote no-group\" data-username=\"MattCorallo\" data-post=\"3\" data-topic=\"494\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/e47c2d/48.png\" class=\"avatar\"> MattCorallo:</div>\n<blockquote>\n<p>Sure, but if we\u2019re rethinking how we do mempool policy, we should probably think through these things so that we try to get as close as possible and don\u2019t end up with a v4 <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n</blockquote>\n</aside>\n<p>That\u2019s true! But I don\u2019t think we\u2019d need any kind of v4, if v3 starts with a restrictive package topology and later relaxes it (while still using v3), that\u2019s ok? That\u2019s why I\u2019d lean towards a first deployment of v3 for very simple packages that makes our lives easier sooner rather than later, and gets even better over time.</p>\n<aside class=\"quote no-group\" data-username=\"morehouse\" data-post=\"4\" data-topic=\"494\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/df705f/48.png\" class=\"avatar\"> morehouse:</div>\n<blockquote>\n<p>Without complicating the current v3 proposal, we could achieve similar results by making 0-conf funding transactions v3 and adding a shared anchor to them. Then either party can CPFP in an emergency.</p>\n</blockquote>\n</aside>\n<p>The issue with this is that we cannot create chains of unconfirmed splices anymore (because v3 can have only one unconfirmed child right now), which in practice is quite limiting.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2024-01-31T07:30:44.084Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 2,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 17.2,
+  "incoming_link_count": 1,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 26.4,
   "yours": false,
   "topic_id": 494,
   "topic_slug": "0conf-ln-channels-and-v3-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I\u2019m not sure it is, because each splice may have a change output, so you end up with arbitrary trees of transactions\u2026 \n\nThat\u2019s not the way I understood it, the plan is currently to deploy v3 before cluster mempool to have a good enough solution to mitigate most pinning vectors. And then v3 can beco&hellip;",
+  "truncated": true,
+  "post_url": "/t/0conf-ln-channels-and-v3-anchors/494/6",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

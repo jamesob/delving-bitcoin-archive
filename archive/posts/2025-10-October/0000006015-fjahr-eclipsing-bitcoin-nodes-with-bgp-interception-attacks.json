@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks for the answers and sorry for the late reply!</p>\n<aside class=\"quote no-group\" data-username=\"cedarctic\" data-post=\"7\" data-topic=\"1965\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/c/3d9bf3/48.png\" class=\"avatar\"> cedarctic:</div>\n<blockquote>\n<p>This sounds interesting, what kind of probing do you have in mind?</p>\n</blockquote>\n</aside>\n<p>Basically, I was thinking of using fingerprinting attacks to gain knowledge of which nodes may be behind which IP/address on different networks as well as mapping the topology of the network to find which nodes might be particularly vulnerable due to multiple connected peers being on the same AS path for example. Both of these attacks have had a lot of research attention and I am not sure what is currently considered state of the are for each of these. But on the topic of fingerprinting there was <a href=\"https://delvingbitcoin.org/t/fingerprinting-nodes-via-addr-requests/1786\">this very recent post</a> here on delving and I remember <a href=\"https://hal.science/hal-04208864/file/s41109-023-00591-2.pdf\">this paper</a> from a bitdevs. On topology <a href=\"https://arxiv.org/abs/1812.00942\">this one</a> is fairly well known and I remember <a href=\"https://repositum.tuwien.at/handle/20.500.12708/154417\">this</a> and <a href=\"https://repositum.tuwien.at/handle/20.500.12708/193929?mode=full\">this</a> again from bitdevs. There are many more papers on these topics that came out over the years but I don\u2019t know which ones stand out in terms of quality and which ones still apply. But I am pretty convinced that attackers can make their lives easier by exploiting these first and only then switching over to the AS-level attack targeting the victims that seem most promising.</p>\n<aside class=\"quote no-group\" data-username=\"cedarctic\" data-post=\"7\" data-topic=\"1965\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/c/3d9bf3/48.png\" class=\"avatar\"> cedarctic:</div>\n<blockquote>\n<p>Agreed, this is important and immediately actionable. Have there been any similar efforts in raising awareness in bitcoin optech that I can look into?</p>\n</blockquote>\n</aside>\n<p>There have been a few educational efforts by Optech over the years and I might not remember all of them but there were the <a href=\"https://bitcoinops.org/en/schnorr-taproot-workshop/\">Schnorr/Taproot Workshops</a> in <a href=\"https://bitcoinops.org/en/workshops/\">2019 and a few others on additional topics</a>, there are the <a href=\"https://bitcoinops.org/en/blog/\">field reports</a> and particularly the <a href=\"https://bitcoinops.org/en/blog/waiting-for-confirmation/\">Waiting for Confirmation series</a>. I feel like I am missing something else but maybe those were other organizations/contexts.</p>\n<p>I think there is an opportunity for anything in that range from blog posts to workshops (online or in person) to teach a better understand of network level attacks to Node runners as well as Lightning Network operators. This could highlight existing features like ASMap and teach and/or give tools to the participants to identify if they are with an ISP/hoster that is protecting them as well possible and then give them actionable advice on how to improve their situation, i.e. ask their ISP to fix things like adopting RPKI if they haven\u2019t or ask if they have at least additional protective measures in place.</p>\n<p>I am mentioning Lightning Network as well because I just came back from the Bitcoin++ Lightning conference and <a class=\"mention\" href=\"/u/tnull\">@tnull</a> gave a Lightning privacy presentation which explicitly discussed network level attacks, particularly the <a href=\"https://ieeexplore.ieee.org/document/10190502\">Revelio paper</a>. While this is maybe not directly related to your research here, but all Lightning operators are also Bitcoin node runners (hopefully) and so I think it would be great if the educational effort could feature a Lightning module, too.</p>\n<p>Aside from purely educational content (in writing or interactive workshop) there could be a tool/script that could be run on the node servers and tells admin where their ISP has room for improvement in a privacy preserving way. Or there could be a public website with a dataset with that information where node runners can look up their node or their ISP/hoster to get this information.</p>\n<p>I think this is really an interesting project that several people would be excited to support, so I will reach out to optech and ask them to weigh in on this idea Based on feedback on the previous efforts they should be able to give hints which path would best.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 9,
   "updated_at": "2025-10-07T22:18:45.760Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 7.8,
+  "incoming_link_count": 2,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 34.6,
   "yours": false,
   "topic_id": 1965,
   "topic_slug": "eclipsing-bitcoin-nodes-with-bgp-interception-attacks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for the answers and sorry for the late reply!\n\n[quote=\"cedarctic, post:7, topic:1965\"]\nThis sounds interesting, what kind of probing do you have in mind?\n\n[/quote]\n\nBasically, I was thinking of using fingerprinting attacks to gain knowledge of which nodes may be behind which IP/address on different networks as well as mapping the topology of the network to find which nodes might be particularly vulnerable due to multiple connected peers being on the same AS path for example. Both of these attacks have had a lot of research attention and I am not sure what is currently considered state of the are for each of these. But on the topic of fingerprinting there was [this very recent post](https://delvingbitcoin.org/t/fingerprinting-nodes-via-addr-requests/1786) here on delving and I remember [this paper](https://hal.science/hal-04208864/file/s41109-023-00591-2.pdf) from a bitdevs. On topology [this one](https://arxiv.org/abs/1812.00942) is fairly well known and I remember [this](https://repositum.tuwien.at/handle/20.500.12708/154417) and [this](https://repositum.tuwien.at/handle/20.500.12708/193929?mode=full) again from bitdevs. There are many more papers on these topics that came out over the years but I don\u2019t know which ones stand out in terms of quality and which ones still apply. But I am pretty convinced that attackers can make their lives easier by exploiting these first and only then switching over to the AS-level attack targeting the victims that seem most promising.\n\n[quote=\"cedarctic, post:7, topic:1965\"]\nAgreed, this is important and immediately actionable. Have there been any similar efforts in raising awareness in bitcoin optech that I can look into?\n\n[/quote]\n\nThere have been a few educational efforts by Optech over the years and I might not remember all of them but there were the [Schnorr/Taproot Workshops](https://bitcoinops.org/en/schnorr-taproot-workshop/) in [2019 and a few others on additional topics](https://bitcoinops.org/en/workshops/), there are the [field reports](https://bitcoinops.org/en/blog/) and particularly the [Waiting for Confirmation series](https://bitcoinops.org/en/blog/waiting-for-confirmation/). I feel like I am missing something else but maybe those were other organizations/contexts.\n\nI think there is an opportunity for anything in that range from blog posts to workshops (online or in person) to teach a better understand of network level attacks to Node runners as well as Lightning Network operators. This could highlight existing features like ASMap and teach and/or give tools to the participants to identify if they are with an ISP/hoster that is protecting them as well possible and then give them actionable advice on how to improve their situation, i.e. ask their ISP to fix things like adopting RPKI if they haven\u2019t or ask if they have at least additional protective measures in place.\n\nI am mentioning Lightning Network as well because I just came back from the Bitcoin++ Lightning conference and @tnull gave a Lightning privacy presentation which explicitly discussed network level attacks, particularly the [Revelio paper](https://ieeexplore.ieee.org/document/10190502). While this is maybe not directly related to your research here, but all Lightning operators are also Bitcoin node runners (hopefully) and so I think it would be great if the educational effort could feature a Lightning module, too.\n\nAside from purely educational content (in writing or interactive workshop) there could be a tool/script that could be run on the node servers and tells admin where their ISP has room for improvement in a privacy preserving way. Or there could be a public website with a dataset with that information where node runners can look up their node or their ISP/hoster to get this information.\n\nI think this is really an interesting project that several people would be excited to support, so I will reach out to optech and ask them to weigh in on this idea Based on feedback on the previous efforts they should be able to give hints which path would best.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for the answers and sorry for the late reply! \n\nBasically, I was thinking of using fingerprinting attacks to gain knowledge of which nodes may be behind which IP/address on different networks as well as mapping the topology of the network to find which nodes might be particularly vulnerable d&hellip;",
   "truncated": true,
   "post_url": "/t/eclipsing-bitcoin-nodes-with-bgp-interception-attacks/1965/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

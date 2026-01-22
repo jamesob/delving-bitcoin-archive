@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 3.0,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 6.2,
   "yours": false,
   "topic_id": 1670,
   "topic_slug": "withdrawing-op-vault-bip-345",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 71,
     "username": "sjors",
     "name": "Sjors Provoost",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sjors/{size}/59_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

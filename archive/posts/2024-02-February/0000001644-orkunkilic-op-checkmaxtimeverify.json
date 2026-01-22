@@ -7,14 +7,15 @@
   "cooked": "<p>I don\u2019t have a concrete idea, but I wonder about the MEV implications of this potential change. Right now, PSBTs are off-chain, so MEV is solved off-chain, but moving this on-chain may introduce it.</p>\n<p>I need to think about the implications of CSV versus CMTV. If scripts unlock at some point, you can spend whenever you want. However, if scripts become unspendable at some point, there might be incentives for miners to censor.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 14,
   "updated_at": "2024-02-20T12:12:48.309Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 22.6,
+  "reads": 50,
+  "readers_count": 49,
+  "score": 30.0,
   "yours": false,
   "topic_id": 581,
   "topic_slug": "op-checkmaxtimeverify",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I don\u2019t have a concrete idea, but I wonder about the MEV implications of this potential change. Right now, PSBTs are off-chain, so MEV is solved off-chain, but moving this on-chain may introduce it. \nI need to think about the implications of CSV versus CMTV. If scripts unlock at some point, you can &hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checkmaxtimeverify/581/4",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

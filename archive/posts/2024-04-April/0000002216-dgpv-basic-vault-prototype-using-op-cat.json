@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"dgpv\" data-post=\"8\" data-topic=\"576\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/dgpv/48/75_2.png\" class=\"avatar\"> dgpv:</div>\n<blockquote>\n<p>There could also be other complications on the \u2018complete withdrawal\u2019 phase, but I did not analyze it yet</p>\n</blockquote>\n</aside>\n<p>the \u2018complete withdrawal\u2019 case must enforce <code>input index = 0</code>, too \u2013 otherwise you can take two input utxo that are in \u2018trigger withdrawal\u2019 state and use one as \u2018contract input\u2019 and second one as \u2018fee-paying input\u2019, and they can be from different vaults. The second utxo can then be drained to the miner as the fee.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-04-12T17:47:47.050Z",
   "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 22.0,
+  "incoming_link_count": 1,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 33.6,
   "yours": false,
   "topic_id": 576,
   "topic_slug": "basic-vault-prototype-using-op-cat",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "the \u2018complete withdrawal\u2019 case must enforce input index = 0, too \u2013 otherwise you can take two input utxo that are in \u2018trigger withdrawal\u2019 state and use one as \u2018contract input\u2019 and second one as \u2018fee-paying input\u2019, and they can be from different vaults. The second utxo can then be drained to the min&hellip;",
+  "truncated": true,
+  "post_url": "/t/basic-vault-prototype-using-op-cat/576/12",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

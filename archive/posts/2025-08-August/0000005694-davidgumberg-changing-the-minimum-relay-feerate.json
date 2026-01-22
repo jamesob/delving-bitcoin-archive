@@ -7,15 +7,15 @@
   "cooked": "<blockquote>\n<p>The <a href=\"https://github.com/bitcoin/bitcoin/blob/273e600e65c2e31a6e9a0bd72b40672aaa503b08/contrib/devtools/headerssync-params.py#L24\" rel=\"noopener nofollow ugc\">headerssync parameters</a> depend on specs of modern processors (the speed a \u201cRyzen 5950X CPU thread can hash headers\u201c), the length of the chain, and the release sunset date.</p>\n</blockquote>\n<blockquote>\n<p>Values like network size and approximate computation/bandwidth costs change very gradually, certainly slower than the pace at which other parts of the software are modernized/fixed.</p>\n</blockquote>\n<p>I am not objecting to hardcoded values being included in releases in general, I agree that hashrate of generally available computer hardware, Bitcoin network size, and the absolute cost of network bandwidth tend to move slowly and monotonically, but can\u2019t changes in blockspace demand and the conversion rate between BTC and network bandwidth swing by orders of magnitude in either direction between release cycles?</p>\n<p>I guess that blockspace demand can be disregarded since Bitcoin Core\u2019s minimum relay feerate is primarily an anti-DoS mechanism and not a mechanism to set a price floor for transaction feerates.</p>\n<p>Looking at inter-release USD/BTC changes, using the same figures as I did <a href=\"https://delvingbitcoin.org/t/changing-the-minimum-relay-feerate/1886/9\">above</a>, you can divide 3,600 by the USD/BTC conversion<sup class=\"footnote-ref\"><a href=\"#footnote-5694-1\" id=\"footnote-ref-5694-1\">[1]</a></sup>, to get the approximate network relay cost, for the last few releases of Bitcoin Core:</p>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>Version</th>\n<th>Date</th>\n<th>USD/BTC</th>\n<th>Network Relay Cost (sats/vB)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>master</td>\n<td>08/12/25</td>\n<td>118707.94</td>\n<td>0.0303</td>\n</tr>\n<tr>\n<td>29.0</td>\n<td>04/15/25</td>\n<td>84539.7</td>\n<td>0.0426</td>\n</tr>\n<tr>\n<td>28.0</td>\n<td>08/05/24</td>\n<td>58110.3</td>\n<td>0.0620</td>\n</tr>\n<tr>\n<td>27.0</td>\n<td>04/16/24</td>\n<td>63419.3</td>\n<td>0.0568</td>\n</tr>\n<tr>\n<td>26.0</td>\n<td>12/07/23</td>\n<td>43769.13</td>\n<td>0.0822</td>\n</tr>\n<tr>\n<td>25.0</td>\n<td>05/26/23</td>\n<td>26474.18</td>\n<td>0.1360</td>\n</tr>\n<tr>\n<td>24.0</td>\n<td>12/12/22</td>\n<td>17102.5</td>\n<td>0.2105</td>\n</tr>\n<tr>\n<td>23.0</td>\n<td>04/25/22</td>\n<td>39472.61</td>\n<td>0.0912</td>\n</tr>\n<tr>\n<td>22.0</td>\n<td>09/14/21</td>\n<td>44960.05</td>\n<td>0.0801</td>\n</tr>\n<tr>\n<td>21.0</td>\n<td>01/15/21</td>\n<td>39156.71</td>\n<td>0.0919</td>\n</tr>\n<tr>\n<td>20.0</td>\n<td>06/03/20</td>\n<td>9533.76</td>\n<td>0.3776</td>\n</tr>\n<tr>\n<td>19.0</td>\n<td>11/24/19</td>\n<td>7398.63</td>\n<td>0.4866</td>\n</tr>\n<tr>\n<td>18.0</td>\n<td>05/18/19</td>\n<td>7341.66</td>\n<td>0.4904</td>\n</tr>\n</tbody>\n</table>\n</div><p>I think this table suggests that I\u2019m wrong, and conversion rates <strong>have</strong> moved slowly enough historically to make hardcoding minimum relay feerates viable, and a situation like the one we have today won\u2019t recur as long as someone remembers to check and update the minimum relay feerate every once in a while as you are suggesting.</p>\n<hr>\n<blockquote>\n<p>It is set dynamically, because after filling the whole mempool (which is 300 MB by default), transactions with lower fee rates are automatically dropped.</p>\n</blockquote>\n<p>Bitcoin Core has a minimum relay feerate and does not simply rely on the lowest feerate transaction in the mempool to protect against DoS. If there was no minimum relay feerate, any time the mempool clears, an attacker could DoS the network cheaply by broadcasting very low feerate transactions that they bump out of the mempool (with no conflicts) with incremental feerate increases.</p>\n<hr class=\"footnotes-sep\">\n\n<ol class=\"footnotes-list\">\n<li id=\"footnote-5694-1\" class=\"footnote-item\"><p><span class=\"math\">9 * 10^{-2} \\frac{\\text{USD}}{\\text{GB}} * 10^{-9} \\frac{\\text{GB}}{\\text{Bytes}} * 4 \\frac{\\text{Bytes}}{\\text{vB}} * 10^8 \\frac{\\text{sats}}{\\text{BTC}} * 10^5 = 3600 \\frac{\\text{USD} * \\text{sats}}{\\text{BTC}*{\\text{vB}}}</span> <a href=\"#footnote-ref-5694-1\" class=\"footnote-backref\">\u21a9\ufe0e</a></p>\n</li>\n</ol>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2025-08-13T00:48:40.417Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 10,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 3.4,
+  "incoming_link_count": 2,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 39.4,
   "yours": false,
   "topic_id": 1886,
   "topic_slug": "changing-the-minimum-relay-feerate",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> The [headerssync parameters](https://github.com/bitcoin/bitcoin/blob/273e600e65c2e31a6e9a0bd72b40672aaa503b08/contrib/devtools/headerssync-params.py#L24) depend on specs of modern processors (the speed a \u201cRyzen 5950X CPU thread can hash headers\u201c), the length of the chain, and the release sunset date.\n\n> Values like network size and approximate computation/bandwidth costs change very gradually, certainly slower than the pace at which other parts of the software are modernized/fixed. \n\nI am not objecting to hardcoded values being included in releases in general, I agree that hashrate of generally available computer hardware, Bitcoin network size, and the absolute cost of network bandwidth tend to move slowly and monotonically, but can't changes in blockspace demand and the conversion rate between BTC and network bandwidth swing by orders of magnitude in either direction between release cycles?\n\nI guess that blockspace demand can be disregarded since Bitcoin Core's minimum relay feerate is primarily an anti-DoS mechanism and not a mechanism to set a price floor for transaction feerates.\n\nLooking at inter-release USD/BTC changes, using the same figures as I did [above](https://delvingbitcoin.org/t/changing-the-minimum-relay-feerate/1886/9), you can divide 3,600 by the USD/BTC conversion^[$9 * 10^{-2} \\frac{\\text{USD}}{\\text{GB}} * 10^{-9} \\frac{\\text{GB}}{\\text{Bytes}} * 4 \\frac{\\text{Bytes}}{\\text{vB}} * 10^8 \\frac{\\text{sats}}{\\text{BTC}} * 10^5 = 3600 \\frac{\\text{USD} * \\text{sats}}{\\text{BTC}*{\\text{vB}}}$], to get the approximate network relay cost, for the last few releases of Bitcoin Core:\n\n|Version | Date | USD/BTC | Network Relay Cost (sats/vB)|\n|--- | --- | --- | ---|\n|master | 08/12/25 | 118707.94 | 0.0303|\n|29.0 | 04/15/25 | 84539.7 | 0.0426|\n|28.0 | 08/05/24 | 58110.3 | 0.0620|\n|27.0 | 04/16/24 | 63419.3 | 0.0568|\n|26.0 | 12/07/23 | 43769.13 | 0.0822|\n|25.0 | 05/26/23 | 26474.18 | 0.1360|\n|24.0 | 12/12/22 | 17102.5 | 0.2105|\n|23.0 | 04/25/22 | 39472.61 | 0.0912|\n|22.0 | 09/14/21 | 44960.05 | 0.0801|\n|21.0 | 01/15/21 | 39156.71 | 0.0919|\n|20.0 | 06/03/20 | 9533.76 | 0.3776|\n|19.0 | 11/24/19 | 7398.63 | 0.4866|\n|18.0 | 05/18/19 | 7341.66 | 0.4904|\n\nI think this table suggests that I'm wrong, and conversion rates **have** moved slowly enough historically to make hardcoding minimum relay feerates viable, and a situation like the one we have today won't recur as long as someone remembers to check and update the minimum relay feerate every once in a while as you are suggesting.\n\n----\n\n>It is set dynamically, because after filling the whole mempool (which is 300 MB by default), transactions with lower fee rates are automatically dropped.\n\nBitcoin Core has a minimum relay feerate and does not simply rely on the lowest feerate transaction in the mempool to protect against DoS. If there was no minimum relay feerate, any time the mempool clears, an attacker could DoS the network cheaply by broadcasting very low feerate transactions that they bump out of the mempool (with no conflicts) with incremental feerate increases.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "The <a href=\"https://github.com/bitcoin/bitcoin/blob/273e600e65c2e31a6e9a0bd72b40672aaa503b08/contrib/devtools/headerssync-params.py#L24\" rel=\"noopener nofollow ugc\">headerssync parameters</a> depend on specs of modern processors (the speed a \u201cRyzen 5950X CPU thread can hash headers\u201c), the length of the chain, and the release sunset date. \n\n\nValues like network size and approximate computation/bandwidth costs change very gradually, certainly slower than the pac&hellip;",
   "truncated": true,
   "post_url": "/t/changing-the-minimum-relay-feerate/1886/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
