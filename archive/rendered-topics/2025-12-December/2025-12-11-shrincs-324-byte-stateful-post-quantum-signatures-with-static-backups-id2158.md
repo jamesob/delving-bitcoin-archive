@@ -175,13 +175,13 @@ Unfortunately, this isn't really secure, because the user may run `Wallet.Sign` 
 
 -------------------------
 
-conduition | 2026-01-22 14:59:35 UTC | #12
+conduition | 2026-01-22 15:01:18 UTC | #12
 
 > assume key generation happens on a signing device that is able to keep state securely
 
 Ahhhhh I didn't realize that assumption included keeping state secure _from the user_ too. 
 
-Clever idea with the TPM, though I would simplify it a little. Don't store the full state in the TPM - Store only a decryption key in the TPM, and store the state on-disk, but encrypted under that key. If the encrypted state is backed up, it will be missing the TPM's key, making state decryption impossible. Read/write locking on the encrypted state files can then be managed by the application layer.
+Clever idea with the TPM, though I would simplify it a little. Store only a decryption key in the TPM, and store the state on-disk, but encrypted under that key. If the encrypted state is backed up, it will be missing the TPM's key, making state decryption impossible. Read/write locking on the encrypted state files can then be managed by the application layer.
 
 Alternatively, store the XMSS key's seed itself in the TPM. This makes backed-up state files non-toxic, because after restoring the files, it's impossible to accidentally sign anything. The user would need to input their seed phrase to fully restore the wallet. Wallet devs would have some choice as to how to proceed from there. 
 
