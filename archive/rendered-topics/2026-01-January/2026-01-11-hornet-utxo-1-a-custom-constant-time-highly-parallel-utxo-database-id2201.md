@@ -124,3 +124,21 @@ T#
 
 -------------------------
 
+optout | 2026-01-22 06:33:21 UTC | #6
+
+[quote="tobysharp, post:1, topic:2201"]
+On my 32-core dev workstation, these are like-for-like results for re-validating the whole mainnet chain without script or signature validation:
+
+* Bitcoin Core: **167 minutes**
+* Hornet UTXO(1): **15 minutes**
+
+[/quote]
+
+Impressive results!
+Could you also share the details on the memory/storage:
+- the RAM/swap/storage of the HW (hdd/ssd/nvme…)
+- is the Hornet UTXO DB in-memory, on-disk, disk-backed memory, cached disk, etc.
+thx
+
+-------------------------
+
