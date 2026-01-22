@@ -75,3 +75,52 @@ Cheers!
 
 -------------------------
 
+tobysharp | 2026-01-22 04:46:31 UTC | #4
+
+> Reading through the Hornet Node page, it seems like it’s an entirely separate Node implementation.
+
+That's correct, although the focus is on spec-based consensus, validation, and IBD. There is so far no mempool behavior, although maybe that will be added later.
+
+> I find that very interesting and would love to read more about it 
+
+The most complete documentation is here:
+
+[Hornet Node Overview](https://hornetnode.org/overview.html) \
+[Hornet Node Executable Declarative Specification](https://hornetnode.org/paper.html)
+
+The Hornet UTXO(1) database is the latest addition to this workstream.
+
+> and get my hands on the source code.
+
+I'm not widely sharing the code yet, although I'm planning to do so once this IBD phase is complete. I'd be happy to give a presentation or demo too if you would like to connect via email. 
+
+> How was the comparison structured? Was it Bitcoin Core vXX.X vs Hornet Node with Hornet UTXO(1) as a DB engine? Or were the 15min achieved by somehow porting the DB to Bitcoin Core?
+
+Bitcoin Core v30.0 vs Hornet Node, yes. Bitcoin Core was run with the -assume-valid option to skip signature and script validation, so that the main cost is the UTXO database construction and querying. 
+
+> Have you made the same or a similar comparison to libbitcoin? The validation speed on that implementation was also quite astounding and was discussed on Delving Bitcoin as well.
+
+I haven't but I agree that would be interesting. Is that something you can assist with? My expectation is that libbitcoin beats Core but Hornet wins due to parallelism. 
+
+> Generally speaking can the DB be somehow used for other purposes like an indexer or similar use cases, or is it constrained as a db engine for Hornet Node?
+
+It could be extended to index transactions and addresses etc. if desired. It's just low level code so anything's possible. My initial priority though was just to discover what performance I could get for initial block download.
+
+Thanks,
+T#
+
+-------------------------
+
+tobysharp | 2026-01-22 04:52:34 UTC | #5
+
+> Another note is that I see bitcoin.pdf being mentioned but I couldn’t find word “mempool” mentioned Hornet-wise yet.
+
+Indeed, so far Hornet is focused on the consensus aspects of the protocol: creating a pure, declarative, executable specification of consensus rules; and demonstrating a novel engineering design for fast and memory-efficient validation and sync.
+
+Hornet has a layered design where consensus is separated from mempool and policy.
+
+Thanks for your interest,
+T#
+
+-------------------------
+
