@@ -97,3 +97,13 @@ What is the intended use case here, and is there any privacy benefit? My underst
 
 -------------------------
 
+optout | 2026-01-23 15:32:50 UTC | #6
+
+The main motivation is privacy indeed.
+
+There are several levels of onchain information sources: information readily available e.g. from a chain explorer, information available from a full node, information available from several scattered probing nodes. Each level requires more resources, is more difficult to achieve, but adds more information, such as first-seen times or triangulated origin.
+
+A typical use case to think about is transfer of multiple UTXOs from a wallet to another, in separate transactions (in order to avoid linking them). If it’s done at almost the same time, the fact that those transactions happen very close in time, combined with some other heuristics (similar structure, similar propagation, potentially some already linked, etc). can be used to link them with high probability. A random delay can help a lot here. But doing that manually is quite cumbersome; this feature would alleviate that.
+
+-------------------------
+
