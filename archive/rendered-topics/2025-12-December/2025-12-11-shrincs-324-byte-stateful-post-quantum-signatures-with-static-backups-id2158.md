@@ -189,3 +189,9 @@ Feels weird to engineer a system that makes it *harder* to recover files.
 
 -------------------------
 
+jonasnick | 2026-01-22 22:07:38 UTC | #13
+
+That would be a nice simplification indeed, but if you restore a disk backup (with an old wallet state) on the same machine, the TPM would still have the decryption key or XMSS key. What would prevent reusing that old state for signing?
+
+-------------------------
+

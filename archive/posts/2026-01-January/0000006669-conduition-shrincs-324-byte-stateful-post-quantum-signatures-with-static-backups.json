@@ -7,7 +7,7 @@
   "cooked": "<blockquote>\n<p>assume key generation happens on a signing device that is able to keep state securely</p>\n</blockquote>\n<p>Ahhhhh I didn\u2019t realize that assumption included keeping state secure <em>from the user</em> too.</p>\n<p>Clever idea with the TPM, though I would simplify it a little. Store only a decryption key in the TPM, and store the state on-disk, but encrypted under that key. If the encrypted state is backed up, it will be missing the TPM\u2019s key, making state decryption impossible. Read/write locking on the encrypted state files can then be managed by the application layer.</p>\n<p>Alternatively, store the XMSS key\u2019s seed itself in the TPM. This makes backed-up state files non-toxic, because after restoring the files, it\u2019s impossible to accidentally sign anything. The user would need to input their seed phrase to fully restore the wallet. Wallet devs would have some choice as to how to proceed from there.</p>\n<p>Feels weird to engineer a system that makes it <em>harder</em> to recover files.</p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-01-22T15:01:18.193Z",
   "reply_count": 0,
   "reply_to_post_number": 11,
