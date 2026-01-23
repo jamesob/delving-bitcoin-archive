@@ -15,7 +15,7 @@
   "incoming_link_count": 28,
   "reads": 18,
   "readers_count": 17,
-  "score": 203.4,
+  "score": 218.6,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 4
+      "count": 5
     }
   ],
   "moderator": false,
@@ -61,18 +61,18 @@
   "post_url": "/t/ln-symmetry-project-recap/359/17",
   "reactions": [
     {
-      "id": "+1",
+      "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
-      "id": "heart",
+      "id": "+1",
       "type": "emoji",
       "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
+  "reaction_users_count": 5,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
