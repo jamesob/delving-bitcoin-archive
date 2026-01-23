@@ -142,3 +142,17 @@ thx
 
 -------------------------
 
+tobysharp | 2026-01-23 05:44:53 UTC | #7
+
+> the RAM/swap/storage of the HW (hdd/ssd/nvme…)
+
+128 GB RAM, 1 TB NVMe.
+
+> is the Hornet UTXO DB in-memory, on-disk, disk-backed memory, cached disk, etc. thx
+
+The pk script, amount, and funding details of transaction outputs are flushed to an append-only disk file as the chain grows. When these are required for validation, they are fetched using high queue depth async reads (io_uring on linux).
+
+Meanwhile, the index entry containing the txid, output index, height and some bit flags are held in memory (48 bytes each, one entry for each unspent output). I've designed this so that the index could instead be stored on disk, at the cost of some query performance, but for now the server-class hardware seemed the more interesting case than the consumer-class hardware.
+
+-------------------------
+

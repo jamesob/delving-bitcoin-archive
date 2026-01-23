@@ -7,7 +7,7 @@
   "cooked": "<blockquote>\n<p>Another note is that I see bitcoin.pdf being mentioned but I couldn\u2019t find word \u201cmempool\u201d mentioned Hornet-wise yet.</p>\n</blockquote>\n<p>Indeed, so far Hornet is focused on the consensus aspects of the protocol: creating a pure, declarative, executable specification of consensus rules; and demonstrating a novel engineering design for fast and memory-efficient validation and sync.</p>\n<p>Hornet has a layered design where consensus is separated from mempool and policy.</p>\n<p>Thanks for your interest,\nT#</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-01-22T04:52:34.333Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
