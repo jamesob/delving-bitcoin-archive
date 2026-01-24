@@ -7,7 +7,7 @@
   "cooked": "<blockquote>\n<p>hiding the real time of transaction creation</p>\n</blockquote>\n<p>What is the intended use case here, and is there any privacy benefit? My understanding is that an adversary would still be able to observe the same P2P communication patterns, even if you delay broadcasting your own transactions.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-01-22T17:00:01.020Z",
   "reply_count": 1,
   "reply_to_post_number": 4,

@@ -107,3 +107,13 @@ A typical use case to think about is transfer of multiple UTXOs from a wallet to
 
 -------------------------
 
+ArmchairCryptologist | 2026-01-24 09:09:58 UTC | #7
+
+I think the biggest gotcha here is that nLockTime will leak the time of transaction creation time with high confidence. For Core in particular, there is a 10% chance that transactions have a nLockTime set to a random value within 100 blocks of the current height (see DiscourageFeeSniping in wallet/spend.cpp), but that still leaves a 90% chance for a transaction to reveal the true block height at the time it was created, and you will generally be able to tell it’s a delayed transaction if nLockTime is older than 17 hours or so. So I’m not sure this really is more useful than just doing `sleep 3600; ./bitcoin-cli sendrawtransaction…`
+
+I suppose you could set nLockTime to 0 for any transactions you want to do this for, or set it to the block height you want to send the transaction at. Unfortunately, Bitcoin Core does not provide this functionality in most transaction creation functions, which makes this somewhat complicated - I believe you need to use `createrawtransaction` or `walletcreatefundedpsbt`to do that.
+
+I could see this being useful if a) it was easier to create a transaction with a provided nLockTime, and b) the schedule function had the ability to send the transaction at the corresponding block height rather than (or in addition to) at a given time.
+
+-------------------------
+
