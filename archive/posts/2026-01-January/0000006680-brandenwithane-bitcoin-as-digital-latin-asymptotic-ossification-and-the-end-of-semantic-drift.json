@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 2.2,
   "yours": false,
   "topic_id": 2214,
   "topic_slug": "bitcoin-as-digital-latin-asymptotic-ossification-and-the-end-of-semantic-drift",
@@ -54,9 +54,15 @@
   "excerpt": "<a name=\"p-6680-summary-1\" class=\"anchor\" href=\"#p-6680-summary-1\" aria-label=\"Heading link\"></a>Summary\nWe misunderstand dead languages. We treat them as failures. Civilizations that stalled. Languages that fell out of use. That reading is backwards. In systems meant to endure, death is not decay. Death is stabilization. \nThis post introduces two memetic concepts meant to stick in the Bitcoin &hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-as-digital-latin-asymptotic-ossification-and-the-end-of-semantic-drift/2214/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
