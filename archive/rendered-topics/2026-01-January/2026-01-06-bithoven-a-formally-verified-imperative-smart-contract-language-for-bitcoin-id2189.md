@@ -130,3 +130,47 @@ We are using categorical models (following Nester's Ledger Structures) to prove 
 
 -------------------------
 
+ChrisCho-H | 2026-01-26 05:53:45 UTC | #6
+
+Bithoven doesn't avoid access to witness, and the witness data can be declared by user with less restriction than Simplicity. However, we don't allow user to manually manage stack opcodes, and also do static analysis for the safety which might make the introspection a bit complicated or blocked. I'm not fully understanding the detailed semantics of introspection yet, but could be implemented like below experimentally(not supported yet).
+
+```solidity
+pragma bithoven version 0.0.1;
+pragma bithoven target experimental;
+
+// Input Definitions
+(
+    tx_version: string, locktime: string, prevouts: string, outputs: string,
+    sig_alice: signature
+)
+{
+    // INTROSPECTION
+    verify checksig((
+        // R (32 bytes)
+        "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798" + 
+        
+        // s (32 bytes) = e + 1
+        (++(sha256(
+            // Tag + Tag
+            "7bb52d7a9fef58323eb1bf7a407db382d2f3f2d81bb1224f49fe518f6d48d37c" +
+            "7bb52d7a9fef58323eb1bf7a407db382d2f3f2d81bb1224f49fe518f6d48d37c" +
+            // R + P
+            "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798" +
+            "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798" +
+            // Message
+            tx_version + locktime + prevouts + outputs
+        )))), 
+        
+        // Check against P = G
+        "79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798"
+    );
+
+    // OWNERSHIP
+    return checksig(sig_alice, "0245a6b3f8eeab8e88501a9a25391318dce9bf35e24c377ee82799543606bf5212");
+}
+```
+
+I'm still learning the introspection protocol, but I assume it has the static semantics with the purpose to read the context of transaction. Therefore, I think it could be implemented simply by adding new syntax in bithoven(e.g. `introspect(tx_data)`), rather than requiring above script hack code.
+
+-------------------------
+
