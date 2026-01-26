@@ -400,3 +400,37 @@ But the easiest chance we have to do better is when introducing new functionalit
 
 -------------------------
 
+rustyrussell | 2026-01-26 03:52:44 UTC | #15
+
+[quote="ajtowns, post:14, topic:2094"]
+That might be reasonable, but I don’t think it’s good enough: there’s a difference between “you can waste X resources doing this silly pattern that serves no purpose except as an attack” and “you can now waste X resources with arbitrary logic”. In the former case, you’re only vulnerable to deliberate attackers; the latter case you’re vulnerable to everyone who comes up with new logic they want to deploy. It was easy to make 4MB blocks as soon as segwit was active; but until inscriptions came along, there was no real reason to do that. We don’t want to have GSR result in a similar state change from “it’s possible to make slow blocks” to “it’s profitable to make slow blocks”, if you see what I mean.
+
+[/quote]
+
+This is an important subtlety that I obviously didn’t convey clearly in the BIP.  
+
+There’s a large gap between the worst case, and the average case, and we spec for the worst case.  In particular:
+
+Timings are done the largest possible objects (eg. 2MB objects for OP_ADD, since to do it repeatedly we need to DUP).  This doesn’t seem like it will be typical usage for anything, and my initial benchmarking showed how absurdly fast the cases of 10k object was: significantly faster.  Hard to tell in practice with the current benchmarks, since we start getting dominated by script interpretation time, not the actual ops.
+
+Addition also assumes worst case: that we overflow and have to reallocate and thus copy the entire array (so we add 50% to the add cost).  This is rarely true: even if we do overflow, the allocator usually doesn’t have to copy.
+
+Multiplication, division and modulus build on this add assumption, and create more: in particular, we assume the miss case in the divide guess, which is really hard to hit except by deliberate attempt.  Again, this means gross overcharging in the divide: I can’t come close to the worst case varops cost with any numbers I tried.
+
+The result is a much more conservative approach for real usage.   But there’s more, for complex operations which may conceivably reach these limits:
+
+The implementation is fairly optimal (treating things as 64-bit numbers, in particular), but it’s also naive, to simplify evaluation and finding the worst case.  It uses a simple schoolbook multiply (and thus, divide), which can be fairly easily optimized using Karatsuba or Toom Cook, let alone the zoo of hyperspeed functions in libGMP.  Going further, optimizing the script interpreter is also possible.
+
+[quote="ajtowns, post:14, topic:2094"]
+Limiting the worst case GSR execution costs to the equivalent of a block full of fairly normal transactions would be very safe, by contrast. I think that would be something on the order of \~13k signature operations per block rather than 80k (based on filling a block with \~3300 2-in, 2-out 2-of-3 multisig p2wsh transactions).
+
+Targeting a validation time of perhaps one or two microseconds per vbyte (so one or two seconds per block) or so would be a better target, I think, though obviously that would require picking some baseline hardware as a minimum standard.
+
+[/quote]
+
+To be concrete: 80,000 signature checks takes 1.9 seconds on my laptop (i7-1280P, 2023). I know this has sped up since Schnorr was added: I tried to benchmark 0.13.1, to measure the original implementation, but I backed away after realizing that would need an old boost library, etc…
+
+This is an important sanity check!  Even if the worst case becomes common, we’re still under 2 seconds for a modern machine, which seems reasonable.
+
+-------------------------
+

@@ -36,3 +36,15 @@ Comments and suggestions welcome! I’m especially interested in hearing from wa
 
 -------------------------
 
+ajtowns | 2026-01-26 04:46:10 UTC | #2
+
+[quote="bubb1es, post:1, topic:2215"]
+The transaction only needs to be greater than the minimum relay size of 82 bytes
+[/quote]
+
+The minimum relay size is 65 bytes since [Bitcoin Core 25.0](https://bitcoincore.org/en/releases/25.0/). Here's [a mainnet example of a 75 byte tx](https://mempool.space/tx/cdaf44120c3dd94aae3771e90dcb0059a0c556e82abf9f9c741565275aa68f7a) (13 bytes of which is OP_RETURN data).
+
+Doing an `ANYONECANPAY|ALL` signature spending to a single 0 sat, 3-byte OP_RETURN output of `"ash"` ("ashes to ashes, dust to dust"?) would be enough to ensure you avoid going below the 65 byte limit, and also would allow txs to be combined, for a slight saving in blockspace (23 bytes per input) and a matching slight increase in feerate.
+
+-------------------------
+
