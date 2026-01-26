@@ -117,3 +117,18 @@ I could see this being useful if a) it was easier to create a transaction with a
 
 -------------------------
 
+optout | 2026-01-26 08:27:33 UTC | #8
+
+In the target use case here the transaction is not created by BitcoinCore, but a wallet application connected to BitcoinCore. If a wallet knows about the scheduling, and if it sets nLocktime, it can set it to around the scheduled time (not created time). So I don’t see a real concern here.
+
+[quote="ArmchairCryptologist, post:7, topic:2148"]
+So I’m not sure this really is more useful than just doing `sleep 3600; ./bitcoin-cli sendrawtransaction…`
+
+[/quote]
+
+Yes, that’s the purpose of this feature, to achieve that, but in a way usable when the user does not want to have a running process for the period, nor he has access to RPC directly.
+
+The option to specify the target time in block height (not physical time) is certainly possible, though it doesn’t really make much difference (the two are quite interchangeable in the few-hours-to-few-days range).
+
+-------------------------
+
