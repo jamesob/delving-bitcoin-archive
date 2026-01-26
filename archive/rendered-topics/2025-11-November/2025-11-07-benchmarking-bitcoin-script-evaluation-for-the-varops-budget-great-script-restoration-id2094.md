@@ -434,3 +434,31 @@ This is an important sanity check!  Even if the worst case becomes common, we’
 
 -------------------------
 
+ajtowns | 2026-01-26 05:31:22 UTC | #16
+
+[quote="rustyrussell, post:15, topic:2094"]
+Timings are done the largest possible objects (eg. 2MB objects for OP_ADD,
+[/quote]
+
+[quote="rustyrussell, post:15, topic:2094"]
+The implementation is fairly optimal (treating things as 64-bit numbers, in particular),
+[/quote]
+
+Argh, for some reason I had in my head that GSR was targeting 64-bit maths (like elements), not bignum maths. (Calling it "val64" wasn't super helpful there...)
+
+[quote="rustyrussell, post:15, topic:2094"]
+1.9 seconds on my laptop (i7-1280P, 2023)
+[/quote]
+
+That seems too slow to me, fwiw (in an ideal world, anyway); taking the 13k vs 80k ratio would bring that down to ~300ms which seems more appropriate for ~current generation, high-end, consumer hardware. I think you'd want to get 1s-2s even from a cheap VPS or a refurbished celeron/i3/i5 minipc -- ie the sort of thing a random datum/stratumv2 miner might decide to use for block construction.
+
+That presumably also means an single standard tx could take 190ms to verify (assuming the 400k weight standardness vs 4M weight consensus ratio dominates), which also feels high, and potentially usable as DoS vector to delay block propagation (by crafting invalid txs that take roughly as long to (in)validate as the worst case valid, standard tx takes to validate; though validating blocks/txs in parallel, or having a way for blocks to bypass the tx validation queue would mostly mitigate that).
+
+[quote="rustyrussell, post:15, topic:2094"]
+I tried to benchmark 0.13.1, to measure the original implementation
+[/quote]
+
+I guess making a regtest chain with a block with max sig checks, and feeding it into the [release binary](https://bitcoincore.org/bin/bitcoin-core-0.13.1/) might work without requiring dev environment archeology. I guess a deboostrap'ed chroot for xenial ought to allow building it though?
+
+-------------------------
+
