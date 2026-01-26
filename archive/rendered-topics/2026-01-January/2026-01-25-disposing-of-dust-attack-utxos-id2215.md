@@ -56,3 +56,18 @@ My only real concern is that people are careful about publishing their dust spen
 
 -------------------------
 
+AdamISZ | 2026-01-26 19:13:32 UTC | #4
+
+[quote="remyers, post:3, topic:2215"]
+It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time.
+
+[/quote]
+
+You make a very good point, but I guess it’s worth mentioning that there’s a big difference between doing this from a full node vs not. Albeit the normal question about spy nodes trying to triangulate applies, right, but then it’d be worth observing that if someone is able to “get through” the full node defence \[1\] and if you’re choosing to use a home, or in any case fixed, IP, you don’t have any strategy to not couple your utxos anyway … again, *if* that attack is active and it works, big if!
+
+(And of course, Tor exists).
+
+\[1\] i don’t know the state of the art on this, I only know that such attacks were outlined, hypothesized, and I vaguely recall, evidenced in the past. We don’t have dandelion but we have other things, right.. not sure but I guess p2p encryption doesn’t really change the threat much.
+
+-------------------------
+
