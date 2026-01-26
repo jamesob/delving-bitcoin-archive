@@ -48,3 +48,11 @@ Doing an `ANYONECANPAY|ALL` signature spending to a single 0 sat, 3-byte OP_RETU
 
 -------------------------
 
+remyers | 2026-01-26 15:49:40 UTC | #3
+
+I like the idea! I can’t think of any way to make it more fee efficient than what @ajtowns suggested.
+
+My only real concern is that people are careful about publishing their dust spends in a way that ensures privacy. It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time. The same caution must be exercised as for regular spends from dusted addresses.
+
+-------------------------
+
