@@ -71,7 +71,7 @@ You make a very good point, but I guess it’s worth mentioning that there’s a
 
 -------------------------
 
-bubb1es | 2026-01-27 00:16:40 UTC | #5
+bubb1es | 2026-01-27 00:51:18 UTC | #5
 
 Thanks for the relay size correction and sighash and OP_RETURN data suggestions. I love giving users de-dusting their wallets the option to help others by combining higher fee-rate de-dusting txs with lower rate de-dusting txs.
 
@@ -80,23 +80,26 @@ I’ve created a simple [“ddust” CLI app](https://github.com/bubb1es71/ddust
 I also fixed (I hope) my tx size and fee rate estimates:
 
 Scenario 1: P2WPKH
-base size: 65 B = 10 B (overhead) + 41 B (P2WPKH input) + 14 B (OP_RETURN output, “ash” data)
-witness data: 108 B
-virtual size: 92.5 vB
-294, 300, 325 sats input, fee rate is \~ 3.16, 3.23, 3.49 sats/vB
-[example (signet) ddust tx](https://mempool.space/signet/tx/d1fa15a5f8f3b535682270a83ab7d5fcd9e580065754184147152e6c73c90029)
 
-Scenario 2: P2SH 2-of-3 multisig
-base size: 315 B = 10 B + 295 B + 10 B (OP_RETURN output, no data)
-witness data: 0
-virtual size: 315 vB
-294, 300, 325 sats input, fee rate is \~ 0.93, 0.95, 1.03 sats/vB
+* base size: 65 B = 10 B (overhead) + 41 B (P2WPKH input) + 14 B (OP_RETURN output, “ash” data)
+* witness data: 108 B
+* virtual size: 92.5 vB
+* 294, 300, 325 sats input, fee rate is \~ 3.16, 3.23, 3.49 sats/vB
+* [example (signet) ddust tx](https://mempool.space/signet/tx/d1fa15a5f8f3b535682270a83ab7d5fcd9e580065754184147152e6c73c90029)
+
+Scenario 2: P2SH 2-of-3 multisite
+
+* base size: 315 B = 10 B + 295 B + 10 B (OP_RETURN output, no data)
+* witness data: 0
+* virtual size: 315 vB
+* 294, 300, 325 sats input, fee rate is \~ 0.93, 0.95, 1.03 sats/vB
 
 Scenario 3: P2WSH 2-of-3 multisig
-base size: 65 B = 10 B + 41 B + 14 B (OP_RETURN output, “ash” data)
-witness data: 255 B
-virtual size: 129.25 vB
-294, 300, 325 sats input, fee rate is \~ 2.28, 2.33, 2.52 sats/vB
+
+* base size: 65 B = 10 B + 41 B + 14 B (OP_RETURN output, “ash” data)
+* witness data: 255 B
+* virtual size: 129.25 vB
+* 294, 300, 325 sats input, fee rate is \~ 2.28, 2.33, 2.52 sats/vB
 
 -------------------------
 
