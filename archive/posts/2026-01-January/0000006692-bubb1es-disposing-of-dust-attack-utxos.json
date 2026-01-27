@@ -7,7 +7,7 @@
   "cooked": "<p>Thanks for the relay size correction and sighash and OP_RETURN data suggestions. I love giving users de-dusting their wallets the option to help others by combining higher fee-rate de-dusting txs with lower rate de-dusting txs.</p>\n<p>I\u2019ve created a simple <a href=\"https://github.com/bubb1es71/ddust\" rel=\"noopener nofollow ugc\">\u201cddust\u201d CLI app</a> that demonstrates how to create these sort of de-dusting transactions. If there\u2019s interest I\u2019ll add the logic to combine unconfirmed de-dust txs.</p>\n<p>I also fixed (I hope) my tx size and fee rate estimates:</p>\n<p>Scenario 1: P2WPKH\nbase size: 65 B = 10 B (overhead) + 41 B (P2WPKH input) + 14 B (OP_RETURN output, \u201cash\u201d data)\nwitness data: 108 B\nvirtual size: 92.5 vB\n294, 300, 325 sats input, fee rate is ~ 3.16, 3.23, 3.49 sats/vB\n<a href=\"https://mempool.space/signet/tx/d1fa15a5f8f3b535682270a83ab7d5fcd9e580065754184147152e6c73c90029\" rel=\"noopener nofollow ugc\">example (signet) ddust tx</a></p>\n<p>Scenario 2: P2SH 2-of-3 multisig\nbase size: 315 B = 10 B + 295 B + 10 B (OP_RETURN output, no data)\nwitness data: 0\nvirtual size: 315 vB\n294, 300, 325 sats input, fee rate is ~ 0.93, 0.95, 1.03 sats/vB</p>\n<p>Scenario 3: P2WSH 2-of-3 multisig\nbase size: 65 B = 10 B + 41 B + 14 B (OP_RETURN output, \u201cash\u201d data)\nwitness data: 255 B\nvirtual size: 129.25 vB\n294, 300, 325 sats input, fee rate is ~ 2.28, 2.33, 2.52 sats/vB</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2026-01-27T00:16:40.218Z",
   "reply_count": 0,
   "reply_to_post_number": 2,

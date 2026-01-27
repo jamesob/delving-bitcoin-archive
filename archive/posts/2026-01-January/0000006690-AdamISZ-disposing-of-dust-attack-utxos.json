@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"remyers\" data-post=\"3\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/remyers/48/159_2.png\" class=\"avatar\"> remyers:</div>\n<blockquote>\n<p>It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time.</p>\n</blockquote>\n</aside>\n<p>You make a very good point, but I guess it\u2019s worth mentioning that there\u2019s a big difference between doing this from a full node vs not. Albeit the normal question about spy nodes trying to triangulate applies, right, but then it\u2019d be worth observing that if someone is able to \u201cget through\u201d the full node defence [1] and if you\u2019re choosing to use a home, or in any case fixed, IP, you don\u2019t have any strategy to not couple your utxos anyway \u2026 again, <em>if</em> that attack is active and it works, big if!</p>\n<p>(And of course, Tor exists).</p>\n<p>[1] i don\u2019t know the state of the art on this, I only know that such attacks were outlined, hypothesized, and I vaguely recall, evidenced in the past. We don\u2019t have dandelion but we have other things, right.. not sure but I guess p2p encryption doesn\u2019t really change the threat much.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2026-01-26T19:13:32.455Z",
   "reply_count": 0,
   "reply_to_post_number": 3,

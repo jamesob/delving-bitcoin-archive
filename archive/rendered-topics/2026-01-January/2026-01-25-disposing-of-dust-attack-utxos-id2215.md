@@ -100,3 +100,11 @@ virtual size: 129.25 vB
 
 -------------------------
 
+bubb1es | 2026-01-27 00:24:53 UTC | #6
+
+Thanks! For the tx broadcasting I agree it’s a risk but as @AdamISZ notes broadcast one of these de-dusting tx from a full-node is no worse for privacy than for sending any other transaction. 
+
+In my example [ddust](https://github.com/bubb1es71/ddust) tool I provide an option to broadcast with your (required) local bitcoind node.
+
+-------------------------
+
