@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks for the relay size correction and sighash and OP_RETURN data suggestions. I love giving users de-dusting their wallets the option to help others by combining higher fee-rate de-dusting txs with lower rate de-dusting txs.\n\nI\u2019ve created a simple [\u201cddust\u201d CLI app](https://github.com/bubb1es71/ddust) that demonstrates how to create these sort of de-dusting transactions. If there\u2019s interest I\u2019ll add the logic to combine unconfirmed de-dust txs.\n\nI also fixed (I hope) my tx size and fee rate estimates:\n\nScenario 1: P2WPKH\n\n* base size: 65 B = 10 B (overhead) + 41 B (P2WPKH input) + 14 B (OP_RETURN output, \u201cash\u201d data)\n* witness data: 108 B\n* virtual size: 92.5 vB\n* 294, 300, 325 sats input, fee rate is \\~ 3.16, 3.23, 3.49 sats/vB\n* [example (signet) ddust tx](https://mempool.space/signet/tx/d1fa15a5f8f3b535682270a83ab7d5fcd9e580065754184147152e6c73c90029)\n\nScenario 2: P2SH 2-of-3 multisite\n\n* base size: 315 B = 10 B + 295 B + 10 B (OP_RETURN output, no data)\n* witness data: 0\n* virtual size: 315 vB\n* 294, 300, 325 sats input, fee rate is \\~ 0.93, 0.95, 1.03 sats/vB\n\nScenario 3: P2WSH 2-of-3 multisig\n\n* base size: 65 B = 10 B + 41 B + 14 B (OP_RETURN output, \u201cash\u201d data)\n* witness data: 255 B\n* virtual size: 129.25 vB\n* 294, 300, 325 sats input, fee rate is \\~ 2.28, 2.33, 2.52 sats/vB",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks for the relay size correction and sighash and OP_RETURN data suggestions. I love giving users de-dusting their wallets the option to help others by combining higher fee-rate de-dusting txs with lower rate de-dusting txs. \nI\u2019ve created a simple <a href=\"https://github.com/bubb1es71/ddust\" rel=\"noopener nofollow ugc\">\u201cddust\u201d CLI app</a> that demonstrates how to create t&hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

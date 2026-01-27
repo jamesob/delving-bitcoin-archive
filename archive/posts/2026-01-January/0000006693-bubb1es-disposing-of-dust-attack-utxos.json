@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks! For the tx broadcasting I agree it\u2019s a risk but as @AdamISZ notes broadcast one of these de-dusting tx from a full-node is no worse for privacy than for sending any other transaction. \n\nIn my example [ddust](https://github.com/bubb1es71/ddust) tool I provide an option to broadcast with your (required) local bitcoind node.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks! For the tx broadcasting I agree it\u2019s a risk but as <a class=\"mention\" href=\"/u/adamisz\">@AdamISZ</a> notes broadcast one of these de-dusting tx from a full-node is no worse for privacy than for sending any other transaction. \nIn my example <a href=\"https://github.com/bubb1es71/ddust\" rel=\"noopener nofollow ugc\">ddust</a> tool I provide an option to broadcast with your (required) local bitcoind node.",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

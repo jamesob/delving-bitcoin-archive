@@ -1,6 +1,6 @@
 # BLISK: Boolean circuit Logic Integrated into the Single Key
 
-olkurbatov | 2026-01-26 23:23:43 UTC | #1
+olkurbatov | 2026-01-27 14:56:39 UTC | #1
 
 Hello everyone,
 
@@ -41,7 +41,9 @@ What this means for Bitcoin:
 References:
 
 Paper: [https://eprint.iacr.org/2026/088.pdf](https://eprint.iacr.org/2026/088.pdf)
+
 Blog explainer: [https://hackmd.io/@olkurbatov/HJm5h0JH-l](https://hackmd.io/@olkurbatov/HJm5h0JH-l)
+
 Not a production-ready framework: https://github.com/zero-art-rs/blisk
 
 Thanks!
