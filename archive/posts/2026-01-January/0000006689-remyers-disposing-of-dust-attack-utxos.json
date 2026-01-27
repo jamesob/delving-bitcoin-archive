@@ -7,7 +7,7 @@
   "cooked": "<p>I like the idea! I can\u2019t think of any way to make it more fee efficient than what <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> suggested.</p>\n<p>My only real concern is that people are careful about publishing their dust spends in a way that ensures privacy. It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time. The same caution must be exercised as for regular spends from dusted addresses.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-01-26T15:49:40.339Z",
   "reply_count": 1,
   "reply_to_post_number": null,
