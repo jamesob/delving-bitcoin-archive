@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"remyers, post:3, topic:2215\"]\nIt would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time.\n\n[/quote]\n\nYou make a very good point, but I guess it\u2019s worth mentioning that there\u2019s a big difference between doing this from a full node vs not. Albeit the normal question about spy nodes trying to triangulate applies, right, but then it\u2019d be worth observing that if someone is able to \u201cget through\u201d the full node defence \\[1\\] and if you\u2019re choosing to use a home, or in any case fixed, IP, you don\u2019t have any strategy to not couple your utxos anyway \u2026 again, *if* that attack is active and it works, big if!\n\n(And of course, Tor exists).\n\n\\[1\\] i don\u2019t know the state of the art on this, I only know that such attacks were outlined, hypothesized, and I vaguely recall, evidenced in the past. We don\u2019t have dandelion but we have other things, right.. not sure but I guess p2p encryption doesn\u2019t really change the threat much.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "You make a very good point, but I guess it\u2019s worth mentioning that there\u2019s a big difference between doing this from a full node vs not. Albeit the normal question about spy nodes trying to triangulate applies, right, but then it\u2019d be worth observing that if someone is able to \u201cget through\u201d the full&hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

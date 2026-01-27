@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "I like the idea! I can\u2019t think of any way to make it more fee efficient than what @ajtowns suggested.\n\nMy only real concern is that people are careful about publishing their dust spends in a way that ensures privacy. It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time. The same caution must be exercised as for regular spends from dusted addresses.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I like the idea! I can\u2019t think of any way to make it more fee efficient than what <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> suggested. \nMy only real concern is that people are careful about publishing their dust spends in a way that ensures privacy. It would be counter productive to clean up your dust outputs and then broadcast the&hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
