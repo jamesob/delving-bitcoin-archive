@@ -195,3 +195,11 @@ That would be a nice simplification indeed, but if you restore a disk backup (wi
 
 -------------------------
 
+conduition | 2026-01-27 06:38:55 UTC | #14
+
+Ah you're right, that would be a bad footgun. Maybe one could force the issue by rotating the TPM auth value or decryption key after every new signature, making old disk backups completely invalid? But then we're back to the same synchronization issue as with [your first approach](https://delvingbitcoin.org/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158/11), where two parallel requests would result in a race condition when writing to the TPM. So might as well just use your state commitments idea.
+
+Come to think of it, is there anything special about a TPM in this context besides its isolation from the hard drive? If all you need is an independent authenticated CRUD interface to commit to some  state, that interface could be almost anything... a webserver, a database, a nostr relay, a thumb drive, heck maybe you could even use OP_RETURN. Certainly many options to explore here...
+
+-------------------------
+
