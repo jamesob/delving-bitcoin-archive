@@ -50,3 +50,16 @@ Thanks!
 
 -------------------------
 
+evd0kim | 2026-01-28 10:30:50 UTC | #2
+
+Thanks for this post.
+There is a policy in the example:
+
+```
+let policy_str = "(policy my_policy (and (or A B) (or C D)))";
+```
+
+However, only A and C are co-signers in Musig2 which spends onchain. I guess B or D could not authorize any spending alone. Does policy signer resolves Musig2 setup and generates valid partial signature instead?
+
+-------------------------
+
