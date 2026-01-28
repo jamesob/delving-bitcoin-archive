@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.4,
+  "incoming_link_count": 1,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 2217,
   "topic_slug": "blisk-boolean-circuit-logic-integrated-into-the-single-key",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "The policy `(and (or A B) (or C D))` has exactly 4 coalitions that can produce a valid signature: $\\{A,C\\}, \\{A,D\\}, \\{B,C\\}, \\{B,D\\}$.\n\nWe can represent this policy in the form of the following PK tree:\n\n![Screenshot 2026-01-28 at 17.07.28|690x259, 100%](upload://shU4e3PImM1jTVW5bd0YyvkvIHI.png)\n\nThe verification key `P` is **not** a MuSig2 aggregation of all four parties. Instead, it's a MuSig2 aggregation of `P_left` and `P_right`, where:\n\n```\n\nP_left = hash(ECDH(P_A, P_B)) * G\n\nP_right = hash(ECDH(P_C, P_D)) * G\n\n```\n\nso `P = MuSig2_KeyAgg(P_left, P_right)`.\n\nTo produce a valid under `P` signature, we need two parties who can access `ECDH(P_A, P_B)` and `ECDH(P_C, P_D)`, respectively. Either A or B can compute the left ECDH (using their private key with the other's public key), and either C or D can compute the right one. So, the set $\\{B,D\\}$ **can** produce a valid signature, but $\\{A,B\\}$ **cannot** because they both belong to the same `P_left ` branch, leaving the right branch unsatisfied.\n\n[quote=\"evd0kim, post:2, topic:2217\"]\n\nHowever, only A and C are co-signers in Musig2, which spends on-chain.\n\n[/quote]\n\nIn the code example, Alice and Carol are the active signers, but this is just one of the four valid coalitions. Bob and Dave (or any other valid pair) can sign in exactly the same way.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "The policy (and (or A B) (or C D)) has exactly 4 coalitions that can produce a valid signature: \\{A,C\\}, \\{A,D\\}, \\{B,C\\}, \\{B,D\\}. \nWe can represent this policy in the form of the following PK tree: \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/c/c642fddf2284fd31baee92c10e98300196ecd92e.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/c642fddf2284fd31baee92c10e98300196ecd92e\" title=\"Screenshot 2026-01-28 at 17.07.28\">[Screenshot 2026-01-28 at 17.07.28]</a> \nThe verification key P is not a MuSig2 aggregation of all fou&hellip;",
   "truncated": true,
   "post_url": "/t/blisk-boolean-circuit-logic-integrated-into-the-single-key/2217/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

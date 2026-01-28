@@ -260,3 +260,13 @@ Perhaps I misunderstood. Are you intending this script to operate in P2TR or P2T
 
 -------------------------
 
+simul | 2026-01-28 18:20:01 UTC | #5
+
+In general, because of the secret-reveal sequence, it doesn’t matter if the attacker breaks the signature.   P2TR or P2TSH are both acceptable.   Without the revealed secret, the covenants won’t allow a spend to anything but the required shape.   Indeed, the signature isn’t needed at all.   A “spend any” would work too, however, that would make griefing free for anyone… allowing MEV attacks.   So we use the signature still, forcing an attacker to work to grief.
+
+Shape 1 (happy path): Anchor TX is added to a block, requiring secret-reveal to move, locking in a destination, and the spender reveals the secret (destination is locked in).
+
+Shape 2: (attacker breaks nums): Spender sees that nums was broken and a bad anchor-tx was mined.   Secret is never revealed.   The only other valid spending path that doesn’t require a secret is “back to original”.  Fees are lost (grief!).  Miners profit, attacker gets nothing.
+
+-------------------------
+

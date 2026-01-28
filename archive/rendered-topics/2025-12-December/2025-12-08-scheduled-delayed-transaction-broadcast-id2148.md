@@ -132,3 +132,16 @@ The option to specify the target time in block height (not physical time) is cer
 
 -------------------------
 
+ArmchairCryptologist | 2026-01-28 19:32:07 UTC | #9
+
+[quote="optout, post:8, topic:2148"]
+The option to specify the target time in block height (not physical time) is certainly possible, though it doesn’t really make much difference (the two are quite interchangeable in the few-hours-to-few-days range).
+
+[/quote]
+
+It does not make much difference in the few-days range since it averages out, but it is quite significant in the few-hours range, more than you might expect. I did some quick log parsing on one of my nodes to see how often time-based scheduling would have been off by an hour or more for a three-hour delay, compared to the expected average of 18 blocks. Since Oct 24th, aligned to the start of each hour, there were 199 separate hours where the next three-hour period had 24 or more blocks, and 255 separate hours where the next three-hour period had 12 or fewer blocks.
+
+An observer can make a reasonable guess that the transaction was pre-signed/delayed if it is sent too late, but it would fail to broadcast entirely if it is sent too early, unless there is a retry mechanism. As such, while the option remains to set nLockTime to 0 if the sending wallet supports it, I would still maintain that time-based transaction scheduling would in general be better off based on block height than raw time.
+
+-------------------------
+

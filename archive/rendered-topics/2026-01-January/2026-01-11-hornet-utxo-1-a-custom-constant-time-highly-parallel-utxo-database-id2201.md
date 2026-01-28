@@ -156,3 +156,42 @@ Meanwhile, the index entry containing the txid, output index, height and some bi
 
 -------------------------
 
+stickies-v | 2026-01-28 17:01:22 UTC | #8
+
+Thanks for your continued work on this, Toby! Looking forward to the day you’re releasing the code so I can have a better look. This looks promising.
+
+Is my understanding correct that you have on-disk TXO database (since it’s append-only, I suspect it contains both spent and unspent TXOs?) and an in-memory UTXO index (which as per your latest comment could also be migrated to being on-disk)? Roughly how big are the database and the index, at the current chaintip (or whichever height you’re using)? I suppose pruning spent TXOs from the disk database is not something you plan on supporting, given the focus on server-class hardware and related architecture choices?
+
+-------------------------
+
+tobysharp | 2026-01-28 18:08:36 UTC | #9
+
+Hi stickies-v. Thanks for reading the post so carefully and for your questions :) 
+
+> Is my understanding correct that you have on-disk TXO database (since it’s append-only, I suspect it contains both spent and unspent TXOs?) and an in-memory UTXO index (which as per your latest comment could also be migrated to being on-disk)?
+
+Yes, that's exactly correct.
+
+> Roughly how big are the database and the index, at the current chaintip (or whichever height you’re using)?
+
+That's a great question, I should have included this info. 
+
+The index is 48 bytes per UTXO, and this number looks unlikely to change. Even if I trimmed the structure to 44 bytes of data, I think 48 bytes would likely still be needed for nice alignment. At 175M UTXOs (an approximate count) that's 7.8 GiB which is fine atm for my hardware. 
+
+If the UTXO count were to substantially increase, then I would be looking to store the index on disk, and pay one I/O page read per query, and hide all the additional latency in IBD with parallelism. I think this would put me in a good spot where decent RAM is not critical for the performance. 
+
+The on-disk TXO database currently appears to be 134 GiB. However, I haven't yet written the code to withhold unspendable outputs like OP_RETURN: currently these are included in that total. I also haven't made much effort to compress this storage yet, although it's also not clear that such efforts would be necessary or fruitful.
+
+As you correctly point out, this ends up largely being spent transaction data that no longer needs to be fetched for validating future blocks. 
+
+> I suppose pruning spent TXOs from the disk database is not something you plan on supporting, given the focus on server-class hardware and related architecture choices?
+
+It's something I've considered. I think the sensible plan there would be to blast through the whole IBD to tip, and then create a new table on disk that only includes the unspent outputs to that point: essentially a compaction step. This could be optional, or it could be also be a process that's user-invoked when the user wants to defrag storage.
+
+So the options exist to improve the storage efficiency for hardware with smaller resources. However, my assumption was that it's the workstation- / server-class hardware that particularly benefits from this parallel approach. Do you agree?
+
+Thanks again,
+T#
+
+-------------------------
+
