@@ -81,19 +81,13 @@ I think it should end in the word Hash because it helps communicate quantum resi
 
 -------------------------
 
-sipa | 2026-01-28 20:15:00 UTC | #8
+sipa | 2026-01-28 20:44:36 UTC | #8
 
 I'm going to be blunt here. I realize it's petty to criticize just the name of a proposal, but I'm pretty annoyed here because I feel you're not understanding my comments.
 
 BIP-360 as [written](https://github.com/cryptoquick/bips/blob/c7b11d7b3753bc6984c2e12b1ddf212610aa8947/bip-0360.mediawiki) in the open PR is essentially "all of BIP-341, but remove taproot". Why do you want the keep the name "tap"/"taproot" in there? It's exactly **not** taproot.
 
 BIP-342 defines "tapscript": the specific variant of Bitcoin Script that is used in BIP-341 script tree leaves with leaf version 0xc0. My understanding is that BIP-360 intends(*) to inherit **all** semantics from the BIP-341 script tree - whether that's the BIP-342 semantics for 0xc0 leaves, or any future script semantics added separately. For that reason, I think invoking the name "tapscript" here is just **wrong**: it's not paying to "tapscript", it's paying to a tree of scripts which include any and all script types (even though tapscript is currently the only one defined). If your intent is to *only* allow paying to BIP-342 tapscript, that is not clear at all.
-
-(*) I note that BIP-360 just copies the line
-
-> Execute the script, according to the applicable script rules, using the witness stack elements excluding the script *s*, the control block *c*, and the annex *a* if present, as initial stack.
-
-From BIP-341, but then never defines what the applicable script rules are. Since BIP-342 specifically only says it applies to BIP-341 output spending rules, and BIP-360 outputs are not that, technically there just aren't any applicable spending rules according to the current writing, and any leaf is an anyone-can-spend?
 
 ---
 
@@ -122,6 +116,14 @@ Sigh, ok.
 I think it's highly misleading, and you're doing the ecosystem a disservice by letting aesthetics guide things.
 
 If you insist on having "hash" at the end, at least "pay to script tree hash" wouldn't be misleading.
+
+---
+
+(*) I note that BIP-360 just copies the line
+
+> Execute the script, according to the applicable script rules, using the witness stack elements excluding the script *s*, the control block *c*, and the annex *a* if present, as initial stack.
+
+... from BIP-341, but then never defines what the applicable script rules are. Since BIP-342 specifically only says it applies to BIP-341 output spending rules, and BIP-360 outputs are not that, technically there just aren't any applicable spending rules according to the current writing, and any leaf is an anyone-can-spend. I assume that's not what you meant, but it's worth addressing too.
 
 -------------------------
 
