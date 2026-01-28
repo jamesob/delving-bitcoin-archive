@@ -81,7 +81,7 @@ I think it should end in the word Hash because it helps communicate quantum resi
 
 -------------------------
 
-sipa | 2026-01-28 20:12:17 UTC | #8
+sipa | 2026-01-28 20:15:00 UTC | #8
 
 I'm going to be blunt here. I realize it's petty to criticize just the name of a proposal, but I'm pretty annoyed here because I feel you're not understanding my comments.
 
@@ -113,9 +113,15 @@ Fair enough.
 
 ...
 
+> I think it should end in the word Hash because it helps communicate quantum resistance.
+
+Sigh, ok.
+
 > And while naming is subjective and difficult and imperfect, I think P2TSH works well in the context of what’s currently in Bitcoin now.
 
 I think it's highly misleading, and you're doing the ecosystem a disservice by letting aesthetics guide things.
+
+If you insist on having "hash" at the end, at least "pay to script tree hash" wouldn't be misleading.
 
 -------------------------
 
