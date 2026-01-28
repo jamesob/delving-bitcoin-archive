@@ -63,3 +63,35 @@ However, only A and C are co-signers in Musig2 which spends onchain. I guess B o
 
 -------------------------
 
+olkurbatov | 2026-01-28 15:25:28 UTC | #3
+
+The policy `(and (or A B) (or C D))` has exactly 4 coalitions that can produce a valid signature: $\{A,C\}, \{A,D\}, \{B,C\}, \{B,D\}$.
+
+We can represent this policy in the form of the following PK tree:
+
+![Screenshot 2026-01-28 at 17.07.28|690x259, 100%](upload://shU4e3PImM1jTVW5bd0YyvkvIHI.png)
+
+The verification key `P` is **not** a MuSig2 aggregation of all four parties. Instead, it's a MuSig2 aggregation of `P_left` and `P_right`, where:
+
+```
+
+P_left = hash(ECDH(P_A, P_B)) * G
+
+P_right = hash(ECDH(P_C, P_D)) * G
+
+```
+
+so `P = MuSig2_KeyAgg(P_left, P_right)`.
+
+To produce a valid under `P` signature, we need two parties who can access `ECDH(P_A, P_B)` and `ECDH(P_C, P_D)`, respectively. Either A or B can compute the left ECDH (using their private key with the other's public key), and either C or D can compute the right one. So, the set $\{B,D\}$ **can** produce a valid signature, but $\{A,B\}$ **cannot** because they both belong to the same `P_left ` branch, leaving the right branch unsatisfied.
+
+[quote="evd0kim, post:2, topic:2217"]
+
+However, only A and C are co-signers in Musig2, which spends on-chain.
+
+[/quote]
+
+In the code example, Alice and Carol are the active signers, but this is just one of the four valid coalitions. Bob and Dave (or any other valid pair) can sign in exactly the same way.
+
+-------------------------
+
