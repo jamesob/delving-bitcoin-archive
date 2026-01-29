@@ -127,3 +127,15 @@ If you insist on having "hash" at the end, at least "pay to script tree hash" wo
 
 -------------------------
 
+ajtowns | 2026-01-29 00:56:22 UTC | #9
+
+[quote="sipa, post:8, topic:2170"]
+If you insist on having “hash” at the end, at least “pay to script tree hash” wouldn’t be misleading.
+[/quote]
+
+"Pay to script tree hash" / p2sth seems pretty decent to me as a name for a new address class whose scriptPubKey holds the merkle root of a tree of scripts (and much better than the alternatives).
+
+I reserve the right to pronounce "p2sth" as "pay-to-something", though :slight_smile:
+
+-------------------------
+
