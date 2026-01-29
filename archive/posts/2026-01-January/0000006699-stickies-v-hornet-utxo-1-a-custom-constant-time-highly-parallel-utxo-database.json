@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 12,
   "readers_count": 11,
-  "score": 7.2,
+  "score": 22.4,
   "yours": false,
   "topic_id": 2201,
   "topic_slug": "hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for your continued work on this, Toby! Looking forward to the day you\u2019re releasing the code so I can have a better look. This looks promising.\n\nIs my understanding correct that you have on-disk TXO database (since it\u2019s append-only, I suspect it contains both spent and unspent TXOs?) and an in-memory UTXO index (which as per your latest comment could also be migrated to being on-disk)? Roughly how big are the database and the index, at the current chaintip (or whichever height you\u2019re using)? I suppose pruning spent TXOs from the disk database is not something you plan on supporting, given the focus on server-class hardware and related architecture choices?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for your continued work on this, Toby! Looking forward to the day you\u2019re releasing the code so I can have a better look. This looks promising. \nIs my understanding correct that you have on-disk TXO database (since it\u2019s append-only, I suspect it contains both spent and unspent TXOs?) and an in&hellip;",
   "truncated": true,
   "post_url": "/t/hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database/2201/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
