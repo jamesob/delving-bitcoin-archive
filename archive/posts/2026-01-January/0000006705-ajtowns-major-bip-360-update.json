@@ -13,9 +13,9 @@
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 37.4,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 53.0,
   "yours": false,
   "topic_id": 2170,
   "topic_slug": "major-bip-360-update",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": true,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
