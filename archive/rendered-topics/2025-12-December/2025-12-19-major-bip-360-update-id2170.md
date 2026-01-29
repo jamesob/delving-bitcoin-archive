@@ -81,7 +81,7 @@ I think it should end in the word Hash because it helps communicate quantum resi
 
 -------------------------
 
-sipa | 2026-01-28 20:44:36 UTC | #8
+sipa | 2026-01-28 22:26:36 UTC | #8
 
 I'm going to be blunt here. I realize it's petty to criticize just the name of a proposal, but I'm pretty annoyed here because I feel you're not understanding my comments.
 
@@ -123,7 +123,7 @@ If you insist on having "hash" at the end, at least "pay to script tree hash" wo
 
 > Execute the script, according to the applicable script rules, using the witness stack elements excluding the script *s*, the control block *c*, and the annex *a* if present, as initial stack.
 
-... from BIP-341, but then never defines what the applicable script rules are. Since BIP-342 specifically only says it applies to BIP-341 output spending rules, and BIP-360 outputs are not that, technically there just aren't any applicable spending rules according to the current writing, and any leaf is an anyone-can-spend. I assume that's not what you meant, but it's worth addressing too.
+... from BIP-341, but then never defines what the applicable script rules are. Since BIP-342 specifically says it only applies when spending BIP-341 outputs, and BIP-360 outputs are not that, technically there just aren't any applicable spending rules according to the current writing, and any leaf is an anyone-can-spend. I assume that's not what you meant, but it's worth addressing too.
 
 -------------------------
 
