@@ -95,3 +95,17 @@ In the code example, Alice and Carol are the active signers, but this is just on
 
 -------------------------
 
+nkohen | 2026-01-30 20:39:16 UTC | #4
+
+Cool construction!
+
+I've been thinking about it for a bit and I think I'm a little confused as to why the ECDH and attached ZKPs are necessary? Would it not be sufficient to designate one party from each disjunction subtree in the CNF to generate a secret for that subtree at random and to share it with all of the other members of the subtree (and then each member signs the public key and all parties, in the subree or not, verify these signatures and ensure that all members used the same key)? If I'm understanding correctly, during the ECDH-based setup you do have to store the aggregate secret for a disjunction subtree since you cannot non-interactively recompute it, and at that point it isn't stateless so why not just store a randomly generated/unstructured secret? Is there a benefit to ECDH-based key agreement over private broadcast?
+
+Regardless of how the key agreement happens, so long as all parties agree on aggregate disjunction keys during setup, no adversary will be able to stop an honest qualified set from signing, and no adversary will be able to sign if they have only corrupted a non-qualified set (since they will be missing one fully-honest secret from a disjunction they are not a part of). This should still lead to a direct reduction to the security of MuSig.
+
+I believe the idea of writing a policy in CNF where each disjunction subtree corresponds to a group of people who hold some replicated secret is called Replicated Secret Sharing (RSS). My understanding is that normally a RSS DKG is very simple and consists of just sharing some secrets and verifying everyone has the same secret using authentication.
+
+If I'm not mistaken, it is also possible to do key rotation within RSS without needing ZKPs, though I don't know much in detail about this.
+
+-------------------------
+
