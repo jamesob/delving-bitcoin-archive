@@ -115,9 +115,9 @@ I hope OP_CAT is eventually coming back to mainnet. But in the meantime anyone c
 
 -------------------------
 
-jsarenik | 2026-01-30 10:26:26 UTC | #3
+jsarenik | 2026-01-30 11:21:32 UTC | #3
 
-This is also known as a “short-range” attack. It helped me to formulate it here first. Thanks!
+This is also known as a “short-range” attack but I didn't know. It helped me to formulate it here first. Thanks!
 
 -------------------------
 
