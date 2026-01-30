@@ -111,3 +111,34 @@ In my example [ddust](https://github.com/bubb1es71/ddust) tool I provide an opti
 
 -------------------------
 
+bubb1es | 2026-01-30 16:03:43 UTC | #7
+
+:waving_hand: @0xB10C I'm also trying to determine the nature and number of obvious dust attack UTXOs, do you know if there’s anyone in your new NOC group also looking into this?
+
+-------------------------
+
+0xB10C | 2026-01-30 18:20:30 UTC | #8
+
+I'm not aware of anyone looking into it, no. Congratulations, you are now the person looking into it! :slight_smile: 
+
+
+You can use the `dumptxoutset` RPC and e.g. this script
+
+https://github.com/bitcoin/bitcoin/blob/01651324f4e540f6b96cff31e89752c3f9417293/contrib/utxo-tools/utxo_to_sqlite.py 
+
+to export the current UTXO set. From there, it's probably just a few SQL queries to figure out how many close-to-dust UTXOs remain and when they were created.
+
+There is also a PR for a utxo to CSV script open. If you end up using it, feedback on the PR is surely welcome.
+
+https://github.com/bitcoin/bitcoin/pull/34324
+
+-------------------------
+
+bubb1es | 2026-01-30 19:17:09 UTC | #9
+
+Thanks for the vote of confidence! I’ve written my own [tool](https://github.com/bubb1es71/dusts) to parse the utxodump data and already have some preliminary results. Hope this stimulates some interest and discussion on the topic.
+
+![dusts-data|640x480](upload://idyDTjt1KeUbANbNyWaCQDqXimx.png)
+
+-------------------------
+
