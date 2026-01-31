@@ -139,3 +139,21 @@ I reserve the right to pronounce "p2sth" as "pay-to-something", though :slight_s
 
 -------------------------
 
+josh | 2026-01-31 03:56:18 UTC | #10
+
+> I reserve the right to pronounce “p2sth” as “pay-to-something”, though :slight_smile:
+
+"Pay-to-something" is such a great name. That being said...
+
+> I think it should end in the word Hash because it helps communicate quantum resistance.
+
+Honestly, “hash” is redundant, if not misleading. To pay to a script tree is to pay to the tree’s root. There is no other way to pay to a tree of scripts.
+
+On the other hand, to pay to a script tree hash implies you are hashing the root. That’s clearly not what is going on, and if it were, it would only make sense if you hashed the root with a different algorithm than what is used to construct the tree (for hypothetical security reasons).
+
+Pay-to-Script-Tree (P2ST) would be more accurate in my opinion than P2STH. To include the word “hash” purely for marketing reasons is hardly justifiable, especially when the alternative is fewer syllables, easier to say, and technically more precise.
+
+(Big fan of this work by the way @cryptoquick! I see no reason why semantics should get in the way of adoption. Hopefully we can reach consensus on naming and then move on to the technical merits)
+
+-------------------------
+
