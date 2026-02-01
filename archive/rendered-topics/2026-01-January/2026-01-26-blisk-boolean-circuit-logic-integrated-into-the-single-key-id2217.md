@@ -109,3 +109,25 @@ If I'm not mistaken, it is also possible to do key rotation within RSS without n
 
 -------------------------
 
+olkurbatov | 2026-02-01 20:57:29 UTC | #5
+
+Thanks for the feedback!
+
+Your intuition is right, we can realize CNF-by-clauses using replicated secrets: pick a per-clause secret, privately distribute it to all members of that OR-subtree, and then ensure everyone agrees on the resulting clause public key (via signatures, for example). If all parties agree on the clause keys, we still get the “qualified set can sign / non-qualified set can’t”.
+
+But, I think the BLISK approach has some additional advantages:
+
+1. **It avoids storing new secret material**. With RSS/private broadcast, every member stores extra clause secrets (one per clause they belong to), and you need secure authenticated channels (or a private broadcast primitive) plus a verifiable key rotation for those secrets (which might be difficult). BLISK’s OR-gate approach aims to keep the only long-term secrets as the parties’ existing keys and to make clause material *derivable* via key agreement rather than *distributed*.
+[quote="nkohen, post:4, topic:2217"]
+If I’m understanding correctly, during the ECDH-based setup you do have to store the aggregate secret for a disjunction subtree since you cannot non-interactively recompute it
+[/quote]
+Quoting this: no, you don't have to store the aggregated (to be more precise, **shared**) secret, the secret for the clause is derived based on your secret and public values in the path. So, there is a state (and it's fair to call it stateful construction), but the state is shared among all participants, it can't be corrupted (only lost), and it's literally the set of public keys (representing nodes). 
+
+2. **Prevent OR-gate cheating without requiring everyone in the clause to co-sign the resolution.** If a “resolver” can publish an arbitrary public key for an OR node, they can pick a key known only to them, breaking liveness/semantics for other authorized members (even if the unforgeability of MuSig remains intact). With RSS, your “everyone signs the clause pubkey” approach fixes this, but it changes the coordination/liveness model: now clause resolution requires collecting endorsements from the entire clause (or some approval rule), which can be painful for large/overlapping clauses or partially offline participants. BLISK instead aims for "any eligible member can resolve", and everyone else can verify correctness non-interactively. 
+3. **Rotation is where the ZK verifiability really matters.**
+In an RSS design, rotation generally means re-sharing/re-distributing clause secrets (interactive + authenticated private channels) or running a fresh DKG-like step per affected clause. In BLISK, we pay proof costs so that updating/resolving internal-node keys remains publicly checkable without re-running a distribution protocol. When one party is updating their key: 1) public keys of all other participants remain the same; 2) but they need to verify proofs and update a common state with the new version.
+
+So I agree ECDH isn’t “cryptographically necessary” in principle; it’s a concrete way to get the local-derivability property (“any authorized member can derive the OR secret”) without introducing fresh replicated secrets. And the ZKPs are there to enforce the well-formedness/consistency of OR resolutions without requiring all clause members to participate in the policy setup (and while allowing individual keys to be updated by their owners non-interactively).
+
+-------------------------
+
