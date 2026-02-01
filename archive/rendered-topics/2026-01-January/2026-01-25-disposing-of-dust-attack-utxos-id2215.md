@@ -134,11 +134,17 @@ https://github.com/bitcoin/bitcoin/pull/34324
 
 -------------------------
 
-bubb1es | 2026-01-30 19:17:09 UTC | #9
+bubb1es | 2026-01-31 22:51:19 UTC | #9
 
 Thanks for the vote of confidence! I’ve written my own [tool](https://github.com/bubb1es71/dusts) to parse the utxodump data and already have some preliminary results. Hope this stimulates some interest and discussion on the topic.
 
 ![dusts-data|640x480](upload://idyDTjt1KeUbANbNyWaCQDqXimx.png)
+
+EDIT:
+
+The cumulative graph by script type is more interesting.
+
+![dusts-data|640x480](upload://5oCZEJ4i4R3G7IZpQvZhLwMQxkg.png)
 
 -------------------------
 
