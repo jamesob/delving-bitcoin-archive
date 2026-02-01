@@ -157,3 +157,13 @@ Pay-to-Script-Tree (P2ST) would be more accurate in my opinion than P2STH. To in
 
 -------------------------
 
+ajtowns | 2026-02-01 03:09:37 UTC | #11
+
+[quote="josh, post:10, topic:2170"]
+Honestly, “hash” is redundant, if not misleading. To pay to a script tree is to pay to the tree’s root. There is no other way to pay to a tree of scripts.
+[/quote]
+
+If you didn't do hashing at all, you could pay to a bare scriptPubKey of all the leafs in your tree, separating them by "IF/ELSE" in some form. Taproot's merkle root is fundamentally just a hash generated from a particular priority ordering of a set of leaves.
+
+-------------------------
+

@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Cool construction!\n\nI've been thinking about it for a bit and I think I'm a little confused as to why the ECDH and attached ZKPs are necessary? Would it not be sufficient to designate one party from each disjunction subtree in the CNF to generate a secret for that subtree at random and to share it with all of the other members of the subtree (and then each member signs the public key and all parties, in the subree or not, verify these signatures and ensure that all members used the same key)? If I'm understanding correctly, during the ECDH-based setup you do have to store the aggregate secret for a disjunction subtree since you cannot non-interactively recompute it, and at that point it isn't stateless so why not just store a randomly generated/unstructured secret? Is there a benefit to ECDH-based key agreement over private broadcast?\n\nRegardless of how the key agreement happens, so long as all parties agree on aggregate disjunction keys during setup, no adversary will be able to stop an honest qualified set from signing, and no adversary will be able to sign if they have only corrupted a non-qualified set (since they will be missing one fully-honest secret from a disjunction they are not a part of). This should still lead to a direct reduction to the security of MuSig.\n\nI believe the idea of writing a policy in CNF where each disjunction subtree corresponds to a group of people who hold some replicated secret is called Replicated Secret Sharing (RSS). My understanding is that normally a RSS DKG is very simple and consists of just sharing some secrets and verifying everyone has the same secret using authentication.\n\nIf I'm not mistaken, it is also possible to do key rotation within RSS without needing ZKPs, though I don't know much in detail about this.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Cool construction! \nI\u2019ve been thinking about it for a bit and I think I\u2019m a little confused as to why the ECDH and attached ZKPs are necessary? Would it not be sufficient to designate one party from each disjunction subtree in the CNF to generate a secret for that subtree at random and to share it w&hellip;",
   "truncated": true,
   "post_url": "/t/blisk-boolean-circuit-logic-integrated-into-the-single-key/2217/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
