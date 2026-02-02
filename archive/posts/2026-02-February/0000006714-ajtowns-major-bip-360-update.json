@@ -13,8 +13,8 @@
   "reply_to_post_number": 10,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
+  "reads": 12,
+  "readers_count": 11,
   "score": 2.0,
   "yours": false,
   "topic_id": 2170,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"josh, post:10, topic:2170\"]\nHonestly, \u201chash\u201d is redundant, if not misleading. To pay to a script tree is to pay to the tree\u2019s root. There is no other way to pay to a tree of scripts.\n[/quote]\n\nIf you didn't do hashing at all, you could pay to a bare scriptPubKey of all the leafs in your tree, separating them by \"IF/ELSE\" in some form. Taproot's merkle root is fundamentally just a hash generated from a particular priority ordering of a set of leaves.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "If you didn\u2019t do hashing at all, you could pay to a bare scriptPubKey of all the leafs in your tree, separating them by \u201cIF/ELSE\u201d in some form. Taproot\u2019s merkle root is fundamentally just a hash generated from a particular priority ordering of a set of leaves.",
   "truncated": true,
   "post_url": "/t/major-bip-360-update/2170/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
