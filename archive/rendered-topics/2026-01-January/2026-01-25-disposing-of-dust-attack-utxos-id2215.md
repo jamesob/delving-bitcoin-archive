@@ -193,3 +193,19 @@ I’m not sure how you mean “in general across the network” to be an improve
 
 -------------------------
 
+sipa | 2026-02-02 20:49:23 UTC | #13
+
+[quote="andrewtoth, post:12, topic:2215"]
+I don’t see how they’re orthogonal. They both have the same goal of removing the link between a transaction and the originator’s IP (or persistent Tor/I2P address). Is there another goal that we wish to achieve that I am missing?
+[/quote]
+
+No, you're right. In my mind Dandelion had privacy advantages beyond hiding transaction origin, but reading material from the time it was proposed, that doesn't seem to be the case.
+
+> If the first hop is done through a private broadcast, then it achieves the above goal.
+
+If that's available and reliable, yes. But I don't think that's true in general. Tor/I2P may not be available in all environments, or desirable as it relies on somewhat centralized directories. I2P doesn't have those, but the hidden-service-only model means it's relatively cheap to Sybil attack (spining up tons of I2P Bitcoin nodes cheaply which don't relay transactions might be enough to make I2P-private-broadcast unreliable).
+
+I didn't mean to suggest that Dandelion is better, or even a worthwhile thing to pursue in addition to private broadcast; I think its [DoS concerns](https://bitcoin.stackexchange.com/a/81504/208) mostly make it a non-starter. I was just a bit triggered by your implication that transaction privacy problems are solved with private broadcast, while I wouldn't say that for something that is still opt-in with trade-offs. I may have jumped the gun in reading that much into your claim, though.
+
+-------------------------
+

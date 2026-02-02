@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"andrewtoth\" data-post=\"10\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/andrewtoth/48/576_2.png\" class=\"avatar\"> andrewtoth:</div>\n<blockquote>\n<p>It solves this privacy issue, obviating the need for dandelion.</p>\n</blockquote>\n</aside>\n<p>I think that\u2019s an exaggeration, and while they\u2019re both privacy improvements, they\u2019re also partially orthogonal. Dandelion improves transaction relay privacy in general across the network. Private broadcast only improves the first hop, and does so by relying on privacy networks, which may not be accessible to everyone, and bring their own trade-offs.</p>",
   "post_number": 11,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-02-02T16:16:58.410Z",
   "reply_count": 1,
   "reply_to_post_number": 10,

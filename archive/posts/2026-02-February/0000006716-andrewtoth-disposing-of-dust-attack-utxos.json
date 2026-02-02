@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"remyers\" data-post=\"3\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/remyers/48/159_2.png\" class=\"avatar\"> remyers:</div>\n<blockquote>\n<p>It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time.</p>\n</blockquote>\n</aside>\n<aside class=\"quote no-group\" data-username=\"AdamISZ\" data-post=\"4\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/adamisz/48/418_2.png\" class=\"avatar\"> AdamISZ:</div>\n<blockquote>\n<p>We don\u2019t have dandelion</p>\n</blockquote>\n</aside>\n<p>Just wanted to point out that Private Broadcast (<a href=\"https://github.com/bitcoin/bitcoin/pull/29415\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Broadcast own transactions only via short-lived Tor or I2P connections by vasild \u00b7 Pull Request #29415 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>) will be released in Bitcoin Core v31. It solves this privacy issue, obviating the need for dandelion.</p>",
   "post_number": 10,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-02-02T15:52:36.468Z",
   "reply_count": 1,
   "reply_to_post_number": null,
