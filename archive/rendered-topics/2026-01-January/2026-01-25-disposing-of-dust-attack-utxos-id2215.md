@@ -148,3 +148,19 @@ The cumulative graph by script type is more interesting.
 
 -------------------------
 
+andrewtoth | 2026-02-02 15:52:36 UTC | #10
+
+[quote="remyers, post:3, topic:2215"]
+It would be counter productive to clean up your dust outputs and then broadcast them from your home IP all at the same time.
+
+[/quote]
+
+[quote="AdamISZ, post:4, topic:2215"]
+We don’t have dandelion
+
+[/quote]
+
+Just wanted to point out that Private Broadcast (https://github.com/bitcoin/bitcoin/pull/29415) will be released in Bitcoin Core v31. It solves this privacy issue, obviating the need for dandelion.
+
+-------------------------
+
