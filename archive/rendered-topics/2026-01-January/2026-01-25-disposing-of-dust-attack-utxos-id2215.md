@@ -164,3 +164,32 @@ Just wanted to point out that Private Broadcast (https://github.com/bitcoin/bitc
 
 -------------------------
 
+sipa | 2026-02-02 16:16:58 UTC | #11
+
+[quote="andrewtoth, post:10, topic:2215"]
+It solves this privacy issue, obviating the need for dandelion.
+[/quote]
+
+I think that's an exaggeration, and while they're both privacy improvements, they're also partially orthogonal. Dandelion improves transaction relay privacy in general across the network. Private broadcast only improves the first hop, and does so by relying on privacy networks, which may not be accessible to everyone, and bring their own trade-offs.
+
+-------------------------
+
+andrewtoth | 2026-02-02 17:58:28 UTC | #12
+
+[quote="sipa, post:11, topic:2215"]
+they’re also partially orthogonal
+
+[/quote]
+
+I don’t see how they’re orthogonal. They both have the same goal of removing the link between a transaction and the originator’s IP (or persistent Tor/I2P address). Is there another goal that we wish to achieve that I am missing?
+
+[quote="sipa, post:11, topic:2215"]
+Dandelion improves transaction relay privacy in general across the network. Private broadcast only improves the first hop
+
+[/quote]
+
+If the first hop is done through a private broadcast, then it achieves the above goal.
+I’m not sure how you mean “in general across the network” to be an improvement. Dandelion requires multiple hops and other nodes to be honest throughout the hops to achieve the same goal.
+
+-------------------------
+
