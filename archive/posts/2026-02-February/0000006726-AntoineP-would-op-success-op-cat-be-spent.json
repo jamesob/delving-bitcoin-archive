@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 4,
   "readers_count": 3,
-  "score": 0.4,
+  "score": 0.8,
   "yours": false,
   "topic_id": 2223,
   "topic_slug": "would-op-success-op-cat-be-spent",
@@ -46,7 +46,12 @@
   },
   "bookmarked": false,
   "raw": "The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs.\n\nOf course i don't think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends. But i wanted to call out this practice early because default mining/relay policy is a brittle mechanism (as i hope the past few years have demonstrated) that makes it a lot safer (i.e. all other things equal likelier) to deploy soft forks.\n\nLack of interest from others could well be the reason BIP 347 is not activated, but that's not a reason to pile on top practical reasons for not activating it. Besides, i don't think apathy from miners is relevant here: a soft fork is a change of the consensus rules enforced by Bitcoin users, not a vote by miners.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -61,9 +66,15 @@
   "excerpt": "The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs. \nOf course i don\u2019t think &hellip;",
   "truncated": true,
   "post_url": "/t/would-op-success-op-cat-be-spent/2223/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
