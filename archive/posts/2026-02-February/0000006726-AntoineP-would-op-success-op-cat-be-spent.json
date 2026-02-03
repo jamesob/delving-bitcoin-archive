@@ -4,11 +4,11 @@
   "username": "AntoineP",
   "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png",
   "created_at": "2026-02-03T20:07:58.362Z",
-  "cooked": "<p>The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs.</p>\n<p>Of course i don\u2019t think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends. But i wanted to call out this practice early because default mining/relay policy is a brittle mechanism (as i hope the past few years have demonstrated) that makes it a lot safer (i.e. all other things equal likelier) to deploy soft forks.</p>\n<p>Lack of interest from others could well be the reason BIP 347 is not activated, but that\u2019s not a reason to pile on top practical reasons for not activating it. Besides, i don\u2019t think apathy from miners is relevant here: a soft fork is a change of the consensus rules enforced by Bitcoin users, not a vote by miners.</p>",
+  "cooked": "<p>The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and the perfect proxy for an attacker to cheaply create deep reorgs.</p>\n<p>Of course i don\u2019t think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends. But i wanted to call out this practice early because default mining/relay policy is a brittle mechanism (as i hope the past few years have demonstrated) that makes it a lot safer (i.e. all other things equal likelier) to deploy soft forks.</p>\n<p>Lack of interest from others could well be the reason BIP 347 is not activated, but that\u2019s not a reason to pile on top practical reasons for not activating it. Besides, i don\u2019t think apathy from miners is relevant here: a soft fork is a change of the consensus rules enforced by Bitcoin users, not a vote by miners.</p>",
   "post_number": 5,
   "post_type": 1,
   "posts_count": 5,
-  "updated_at": "2026-02-03T20:13:44.090Z",
+  "updated_at": "2026-02-03T20:27:46.454Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 0,
@@ -30,7 +30,7 @@
   "flair_color": "",
   "flair_group_id": 43,
   "badges_granted": [],
-  "version": 2,
+  "version": 3,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -45,7 +45,7 @@
     "avatar_template": "/user_avatar/delvingbitcoin.org/nuh/{size}/1201_2.png"
   },
   "bookmarked": false,
-  "raw": "The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs.\n\nOf course i don't think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends. But i wanted to call out this practice early because default mining/relay policy is a brittle mechanism (as i hope the past few years have demonstrated) that makes it a lot safer (i.e. all other things equal likelier) to deploy soft forks.\n\nLack of interest from others could well be the reason BIP 347 is not activated, but that's not a reason to pile on top practical reasons for not activating it. Besides, i don't think apathy from miners is relevant here: a soft fork is a change of the consensus rules enforced by Bitcoin users, not a vote by miners.",
+  "raw": "The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and the perfect proxy for an attacker to cheaply create deep reorgs.\n\nOf course i don't think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends. But i wanted to call out this practice early because default mining/relay policy is a brittle mechanism (as i hope the past few years have demonstrated) that makes it a lot safer (i.e. all other things equal likelier) to deploy soft forks.\n\nLack of interest from others could well be the reason BIP 347 is not activated, but that's not a reason to pile on top practical reasons for not activating it. Besides, i don't think apathy from miners is relevant here: a soft fork is a change of the consensus rules enforced by Bitcoin users, not a vote by miners.",
   "actions_summary": [
     {
       "id": 2,
@@ -63,7 +63,7 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "excerpt": "The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs. \nOf course i don\u2019t think &hellip;",
+  "excerpt": "The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and the perfect proxy for an attacker to cheaply create deep reorgs. \nOf course i don\u2019t &hellip;",
   "truncated": true,
   "post_url": "/t/would-op-success-op-cat-be-spent/2223/5",
   "reactions": [

@@ -37,9 +37,9 @@ I apologize for any inconvenience to the authors, but my impression is that what
 
 -------------------------
 
-AntoineP | 2026-02-03 20:13:44 UTC | #5
+AntoineP | 2026-02-03 20:27:46 UTC | #5
 
-The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs.
+The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and the perfect proxy for an attacker to cheaply create deep reorgs.
 
 Of course i don't think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends. But i wanted to call out this practice early because default mining/relay policy is a brittle mechanism (as i hope the past few years have demonstrated) that makes it a lot safer (i.e. all other things equal likelier) to deploy soft forks.
 
