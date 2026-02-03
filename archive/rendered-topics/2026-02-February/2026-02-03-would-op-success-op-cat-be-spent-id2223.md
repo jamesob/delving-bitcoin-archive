@@ -37,3 +37,11 @@ I apologize for any inconvenience to the authors, but my impression is that what
 
 -------------------------
 
+AntoineP | 2026-02-03 20:07:58 UTC | #5
+
+The point of upgrade hooks is to provide a risk-minimized way of rolling out upgrades on the network. If miners included such transactions, any soft fork that gives them meaning would make them trivially DoSable and a the perfect proxy for an attacker to create deep reorgs.
+
+Lack of interest from others could well be the reason BIP 347 is not activated, but that's not a reason to pile on top practical reasons for not activating it. Besides, i don't think apathy from miners is relevant here: a soft fork is a change of the consensus rules enforced by Bitcoin users, not a vote by miners.
+
+-------------------------
+
