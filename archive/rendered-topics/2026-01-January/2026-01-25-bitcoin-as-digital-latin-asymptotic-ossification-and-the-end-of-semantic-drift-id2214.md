@@ -71,3 +71,15 @@ Bitcoin does not win by staying alive. It wins by becoming **Digital Latin**. An
 
 -------------------------
 
+ZmnSCPxj | 2026-02-03 11:18:24 UTC | #2
+
+This largely matches my intuition.  At some point, Bitcoin **will** ossify.  I just hoped it would not ossify in this halvening, hoping it would be the next halvening.
+
+The reasons are obvious: as upper layers start to become more complex, lower layers must remain stable.  Just as the DNA for basic proteins used by multiple dependents can no longer evolve, at some point, lower layers which are dependencies of upper layers must become unchangeable.
+
+Indeed, we already have a strong reason for LN operators to be strongly wary of any  change: any change that risks a chainsplit and contentious fork will be resisted, because such an event would potentially cause material financial losses to LN forwarding nodes.  An LN node that follows one chainsplit can have pre-chainsplit channels be unilaterally closed by their peers, which would disburse funds valid on both chainsplits.  A savvy counterparty can then make up a new identity, open a new channel using funds only from one chainsplit, forward to a channel created pre-chainsplit, then unilaterally close the pre-chainsplit channel, getting funds on both sides of the chainsplit in exchange for funds on only one side of the chainsplit.  Even if the victim were to follow the chainsplit that has 99% of the value, that still represents a loss of 1% from the minority chainsplit --- and forwarding fee earnings are far less than 1% per month (that's nearer to per annum), making this a material loss that would require the proposed consensus change (the one that risks a chainsplit in the first place) to give LN node operators a significant boost in earned fees to compensate.  Merely enabling Decker-Russell-Osuntokun would be insufficient!  LN node operators would oppose any change that does not give them an order-of-magnitude increase in fee earnings, and if the change still pushes through regardless (ignoring that major LN node operators would be a massive economic bloc) then LN node operators would mass-close their channels to ensure their channels only exist on their preferred chainsplit, an event that would greatly disrupt the Lightning Network.
+
+Cassandra was cursed: she knew the future, and knew that she would be hated for speaking the future.
+
+-------------------------
+

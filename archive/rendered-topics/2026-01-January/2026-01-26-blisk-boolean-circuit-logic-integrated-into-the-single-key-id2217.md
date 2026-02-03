@@ -131,3 +131,11 @@ So I agree ECDH isn’t “cryptographically necessary” in principle; it’s a
 
 -------------------------
 
+ZmnSCPxj | 2026-02-03 10:59:53 UTC | #6
+
+Correct me if I am wrong, but I believe MuSig-in-MuSig (e.g. `A ^ (B ^ C)`) has no security proof yet?
+
+Or do you flatten them into a single level on compilation?  Your description, especially with regards to using ECDH for OR gates, seems to imply that you retain the structure at all levels of the expression tree?
+
+-------------------------
+
