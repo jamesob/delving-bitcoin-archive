@@ -13,8 +13,8 @@
   "reply_to_post_number": 11,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
+  "reads": 9,
+  "readers_count": 8,
   "score": 6.6,
   "yours": false,
   "topic_id": 2215,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sipa, post:11, topic:2215\"]\nthey\u2019re also partially orthogonal\n\n[/quote]\n\nI don\u2019t see how they\u2019re orthogonal. They both have the same goal of removing the link between a transaction and the originator\u2019s IP (or persistent Tor/I2P address). Is there another goal that we wish to achieve that I am missing?\n\n[quote=\"sipa, post:11, topic:2215\"]\nDandelion improves transaction relay privacy in general across the network. Private broadcast only improves the first hop\n\n[/quote]\n\nIf the first hop is done through a private broadcast, then it achieves the above goal.\nI\u2019m not sure how you mean \u201cin general across the network\u201d to be an improvement. Dandelion requires multiple hops and other nodes to be honest throughout the hops to achieve the same goal.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I don\u2019t see how they\u2019re orthogonal. They both have the same goal of removing the link between a transaction and the originator\u2019s IP (or persistent Tor/I2P address). Is there another goal that we wish to achieve that I am missing? \n\nIf the first hop is done through a private broadcast, then it achie&hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
