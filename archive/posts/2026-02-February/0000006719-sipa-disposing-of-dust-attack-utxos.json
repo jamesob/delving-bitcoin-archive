@@ -13,9 +13,9 @@
   "reply_to_post_number": 12,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"andrewtoth, post:12, topic:2215\"]\nI don\u2019t see how they\u2019re orthogonal. They both have the same goal of removing the link between a transaction and the originator\u2019s IP (or persistent Tor/I2P address). Is there another goal that we wish to achieve that I am missing?\n[/quote]\n\nNo, you're right. In my mind Dandelion had privacy advantages beyond hiding transaction origin, but reading material from the time it was proposed, that doesn't seem to be the case.\n\n> If the first hop is done through a private broadcast, then it achieves the above goal.\n\nIf that's available and reliable, yes. But I don't think that's true in general. Tor/I2P may not be available in all environments, or desirable as it relies on somewhat centralized directories. I2P doesn't have those, but the hidden-service-only model means it's relatively cheap to Sybil attack (spining up tons of I2P Bitcoin nodes cheaply which don't relay transactions might be enough to make I2P-private-broadcast unreliable).\n\nI didn't mean to suggest that Dandelion is better, or even a worthwhile thing to pursue in addition to private broadcast; I think its [DoS concerns](https://bitcoin.stackexchange.com/a/81504/208) mostly make it a non-starter. I was just a bit triggered by your implication that transaction privacy problems are solved with private broadcast, while I wouldn't say that for something that is still opt-in with trade-offs. I may have jumped the gun in reading that much into your claim, though.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "No, you\u2019re right. In my mind Dandelion had privacy advantages beyond hiding transaction origin, but reading material from the time it was proposed, that doesn\u2019t seem to be the case. \n\nIf the first hop is done through a private broadcast, then it achieves the above goal. \n\nIf that\u2019s available and re&hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/13",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
