@@ -47,3 +47,25 @@ Lack of interest from others could well be the reason BIP 347 is not activated, 
 
 -------------------------
 
+Nuh | 2026-02-03 20:38:58 UTC | #6
+
+Thank you for the feedback…
+
+> any soft fork that gives them meaning would make them trivially DoSable and the perfect proxy for an attacker to cheaply create deep reorgs.
+
+I don’t suspect you are wrong, I am just not sure I understand this attack. Either OP_SUCCESS is valid or it isn’t, and its behavior is only restricted after an objective signaling threshold, why would a reorg happen?
+
+Especially when miners can preemptively censor OP_SUCCESS unless it follows restrictions, just like they currently seem to censor them entirely.
+
+> Of course i don’t think your 19,031 sats utxo alone will incentivize pools to start mining OP_SUCCESS spends.
+
+It doesn’t need to be pools though does it?
+
+Also, I would very much like to figure out what is the threshold after which miners start caring.
+
+I don’t mean to be disruptive, but I am not convinced that this is disruptive at all.
+
+Thanks again for responding regardless.
+
+-------------------------
+
