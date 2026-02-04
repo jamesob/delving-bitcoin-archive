@@ -1,6 +1,6 @@
 # Would OP_SUCCESS (OP_CAT) be spent?
 
-Nuh | 2026-02-04 01:18:43 UTC | #1
+Nuh | 2026-02-04 07:59:57 UTC | #1
 
 I was wondering if miners would actually steal a utxo locked with OP_SUCCESS or would they honor the intent behind it …
 
@@ -12,6 +12,8 @@ The utxo is confirmed at `26af7ad831751354e600d3c4b373b02b6fafe1277adaec9d4a79a2
 I tried to spend it with Mara’s Slipstream service, but even they seem to respect that OP_SUCCESSx should not be spent until a soft fork.
 
 I am writing here to try make this a bit more public, and see if any miner would spend it, and if they did, would they at least pretend to follow the OP_CAT rules by providing a valid witness.
+
+You can watch the balance and any withdrawals to this address [bc1p22kppn826lx9qtluelwqdvq4fuupnwmrtx060aanpgpdanmphddstsg5vc](https://mempool.space/address/bc1p22kppn826lx9qtluelwqdvq4fuupnwmrtx060aanpgpdanmphddstsg5vc) , or maybe send funds to it if you want to contribute to this experiment.
 
 -------------------------
 
