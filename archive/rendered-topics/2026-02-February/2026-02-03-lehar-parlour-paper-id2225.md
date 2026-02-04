@@ -37,3 +37,11 @@ So, I don't find the conclusions about what miners are doing in practice to be w
 
 -------------------------
 
+micah541 | 2026-02-04 18:16:44 UTC | #3
+
+Thanks!  Seems like some important mechanics to miss.  It appears then that their observations are completely in line with a null hypothesis.
+
+Is there an easy explanation for all the empty blocks that appear several minutes or more since the previous block?
+
+-------------------------
+

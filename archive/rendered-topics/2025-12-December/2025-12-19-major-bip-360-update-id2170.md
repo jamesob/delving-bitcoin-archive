@@ -167,3 +167,18 @@ If you didn't do hashing at all, you could pay to a bare scriptPubKey of all the
 
 -------------------------
 
+cryptoquick | 2026-02-04 16:22:48 UTC | #12
+
+I appreciate your concerns and your honesty, Pieter, as I have always appreciated your generosity when I’ve asked you questions on certain things in the past on libsecp256k1 and also on Bitcoin StackExchange.
+
+I have consulted with my co-authors and we have come up with two names we would be happy with:
+
+* P2MR - Pay-to-Merkle-Root
+* P2QB - Pay-to-QuBit
+
+Curious to hear your thoughts. I would also like to give the community a week to also chime in. As this will be the third name for the BIP, it might help to allow others to contribute their thoughts as well. Ultimately, the name doesn’t matter as much as in the grander scheme of things. What matters is that we can lay the foundation for spend script optionality, which was in part pioneered with your work, and for that we owe you a great deal.
+
+One thing I would also like to clarify; is the only thing you dislike of the BIP just the name and the lack of clarity in spending rules? Happy to address all concerns.
+
+-------------------------
+

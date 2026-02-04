@@ -160,3 +160,45 @@ It's certainly possible that apathy is a factor that is getting in the way of yo
 
 -------------------------
 
+Nuh | 2026-02-04 17:36:54 UTC | #10
+
+Thank you @sipa for your feedback.
+
+It seems though that miners are currently censoring me using OP_SUCCESSx as defined by consensus, even though I didn’t notice any ecosystem agreement. I admit I might be ignorant, but from my point of view, I see much more explicit support for almost every soft-fork proposal, including BIP-110, than censoring OP_SUCCESS… the only privilege OP_SUCCESS censoring has, is being the standard behavior of Bitcoin Core.
+
+The purpose of this exercise, is just verifying:
+1. If miners are indeed motivated with extracting as much value as possible, or are they too scared to anger the “ecosystem”.
+2. Are miners actively censoring valid, and well-paying transactions.
+3. What happens when we “have a real case of censorship”, will anyone care? or is censorship (and the centralization necessary for it) is actually built-in in people’s assumptions, for things like “alignment” and filtering “bad content” out of the blockchain.
+
+If we are taking that censorship for granted, but refuse to acknowledge it, I would like to know that.
+
+-------------------------
+
+Nuh | 2026-02-04 18:17:50 UTC | #11
+
+@sipa I also want to ask another question… what is so wrong about *this type* of censorship?
+
+To be clear, an oracle emulating an op_code or an entire different type of locking predicate, is censorship, not enforced by the entire network, but by a specific predetermined group of signers.
+
+Now, what is wrong with current PoW majority, enforcing some “censorship” over a very specific pattern that is impossible for anyone to be using without opting-in that behavior?
+
+Put another way, why is this ok to be enforced by oracles\[1\]:
+`<INPUT> <PROGRAM> OP_2DROP <oracle_1_pk> OP_CHECKSIG`
+
+But this is not ok to be enforced by miners:
+`<INPUT> <hash(PROGRAM)> OP_NOP10 OP_2DROP OP_1`
+where `<hash(PROGRAM)> OP_NOP10` is basically used as an ad-hoc (yet only opt-in) `OP_CHECKPROGRAMVERIFY`
+
+Would that censorship be any cause of concern? And if not, who other than miners (persuaded by a minority of users interested in such use-case) are supposed to be involved in that “agreement”.
+
+Now if that \_is\_ acceptable arrangement, if only risk for the users trusting miners (just as it is risky for users to trust oracles), does that mean the only problem with using `OP_SUCCESS126` is the scarcity of `OP_SUCCESSS` codes?
+
+Are miners then allowed to signal their intent to censor transactions (and blocks) that doesn’t respect a specific program’s hash? Or is that considered an attack on Bitcoin, because a broader “ecosystem agreement” hasn’t been reached? Of course other miners are affected, and will be required to react, but so would they in the case of an OP_SUCCESS soft fork. The rest of the ecosystem need not concern itself, no?
+
+Thanks again for engaging with this.
+
+\[1\] A more detailed example of how oracle-based emulation can be done that makes more sense than the script above https://github.com/Nuhvi/sake
+
+-------------------------
+
