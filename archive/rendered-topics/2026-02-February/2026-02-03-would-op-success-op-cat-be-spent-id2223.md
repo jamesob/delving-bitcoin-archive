@@ -69,3 +69,80 @@ Thanks again for responding regardless.
 
 -------------------------
 
+AntoineP | 2026-02-03 21:12:39 UTC | #7
+
+[quote="Nuh, post:6, topic:2223"]
+why would a reorg happen?
+[/quote]
+
+If a miner includes OP_SUCCESS spends, they may include a transaction that is invalid according to a future soft fork they are not aware of. In this case they would create an invalid block, and other unupgraded miners may build on top even though they themselves do not include OP_SUCCESS spends in their blocks.
+
+[quote="Nuh, post:6, topic:2223"]
+Especially when miners can preemptively censor OP_SUCCESS unless it follows restrictions
+[/quote]
+
+So that would be miners essentially enforcing proposed soft forks by standardness. That's a different thing from just mining all valid transactions, and i think presents at least three types of challenges:
+- scaling: which proposals should a mining pool implement? When should it stop enforcing each? How closely should it monitor progress on each (see next point)?
+- DoS risks to the miners and the network: what if a proposal is updated? Any change in semantics can be exploited as per the above.
+- incentive: once you open the pandora box, why would a miner collect fees only for transactions that respect the proposal? They are all consensus valid anyways and would not lead to its blocks being rejected.
+
+[quote="Nuh, post:6, topic:2223"]
+It doesn’t need to be pools though does it?
+[/quote]
+
+Right, any miner.
+
+[quote="Nuh, post:6, topic:2223"]
+Also, I would very much like to figure out what is the threshold after which miners start caring.
+[/quote]
+
+I'd rather not find out. :slight_smile:
+
+[quote="Nuh, post:6, topic:2223"]
+I don’t mean to be disruptive, but I am not convinced that this is disruptive at all.
+[/quote]
+
+I don't think your isolated instance is really disruptive. But we've seen in recent years that it's easy to kickstart a trend to disrespect widely-enforced standardness rules on the network. That has the potential of becoming disruptive very quickly. And as much as i didn't care too much about having to increase the size of standard `OP_RETURN`s or decreasing the minimum relay feerate, i would very much like that we be able to rely on upgrade hooks for at least a little longer.
+
+-------------------------
+
+Nuh | 2026-02-03 21:41:12 UTC | #8
+
+[quote="AntoineP, post:7, topic:2223"]
+scaling: which proposals should a mining pool implement? When should it stop enforcing each? How closely should it monitor progress on each (see next point)?
+
+[/quote]
+
+Seems to me a limitation in signaling mechanism more than anything else. It can be solved by changing the activation mechanism to require a more obvious signaling than flipping bits that are often flipped for grinding in PoW (I hear).
+
+Wouldn’t an explicit signaling of BIP number + OP_SUCCESS code, make it suddenly clear to oblivious miners that there is an increasing signaling for limiting an OP_SUCCESS behavior? in which case miners (or their software) can choose to not mine any transaction using that opcode, and favor building on top of blocks that don’t have it.
+
+[quote="AntoineP, post:7, topic:2223"]
+* DoS risks to the miners and the network: what if a proposal is updated? Any change in semantics can be exploited as per the above.
+
+[/quote]
+
+Again the signaling seems the solution here, a commitment to an exact release / implementation / commit prefix can be sufficient.
+
+[quote="AntoineP, post:7, topic:2223"]
+incentive: once you open the pandora box, why would a miner collect fees only for transactions that respect the proposal? They are all consensus valid anyways and would not lead to its blocks being rejected.
+
+[/quote]
+
+If signaling is explicit enough, they are free to choose whether or not risk it.
+
+In the absence of explicit signaling, I imagine miners already try avoid OP_SUCCESS altogether for the reasons you explained, and probably would favor building on top of blocks that aren’t including OP_SUCCESS.
+
+I am just saying this is not that concerning, and even if it was, the solution isn’t “calling it out”, the solution is miners doing what the need to do for their own sake, and maybe we should do a better job at signaling soft-forks unambiguously. 
+
+[quote="AntoineP, post:7, topic:2223"]
+i would very much like that we be able to rely on upgrade hooks for at least a little longer.
+
+[/quote]
+
+I would very much like to see a soft-fork before I die :’D… all jokes aside, I am mostly ignorant, but maybe my suggestion about clearer signaling method is the way to achieve that safer upgrade hooks.
+
+Because, as it stands, miners are totally checked out, signaling absolutely nothing, maybe you think that is because nothing is worth signaling for (in which case why do you care for upgrade hooks?), or maybe there is something else needs fixing about the process.
+
+-------------------------
+

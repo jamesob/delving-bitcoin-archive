@@ -139,3 +139,27 @@ Or do you flatten them into a single level on compilation?  Your description, es
 
 -------------------------
 
+olkurbatov | 2026-02-03 22:51:03 UTC | #7
+
+BLISK restricts policies to CNF: a single top-level AND over OR clauses, because the only MuSig2 KeyAgg happens at the top.
+
+So an expression like `A ∧ (B ∧ C)` is compiled/normalized to `A ∧ B ∧ C` (three 1-literal clauses), i.e., just standard MuSig2 3-of-3,  no additional security proof is required beyond ordinary MuSig2 for that part.
+
+-------------------------
+
+ZmnSCPxj | 2026-02-03 23:48:24 UTC | #8
+
+I see.  I believe even complex nested AND / OR sequences should be convertible to an equivalent CNF (admittedly it has been a long while since I did digital logic, I kinda wonder at NOT gates, which have no true equivalent in Bitcoin, but if the original expression has no NOT gates and IF gates then the CNF should not have NOT gates either?).
+
+On the other hand, I suppose the MuSig-in-MuSig stuff matters for the use-case where one of the participants is secretly a multisignature (or more generally, itself has a complicated but hidden Boolean-gate policy), which would then not fit in this framework, which seems to require that the entire policy be revealed up front, then compiled to CNF.
+
+In practice the secrecy may not be needed for privacy, but for protocol simpllfication --- you just say `A ^ B` where you are `A` and the other side `B` is free to use a simple singlesig or a complex Boolean-gate policy without having to bother you with TMI.
+
+-------------------------
+
+ZmnSCPxj | 2026-02-03 23:51:58 UTC | #9
+
+On the other hand if we have a generic standardized Boolean-policy-to-CNF compiler, maybe we can have a BOLT spec where you just say "`A ^ B` is the base policy for the channel, both sides are then free to replace their term with another Boolean policy that they reveal to the counterparty, then compile the policy to CNF and use Blisk".
+
+-------------------------
+
