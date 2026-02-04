@@ -1,6 +1,6 @@
 # Would OP_SUCCESS (OP_CAT) be spent?
 
-Nuh | 2026-02-03 19:40:20 UTC | #1
+Nuh | 2026-02-04 01:18:43 UTC | #1
 
 I was wondering if miners would actually steal a utxo locked with OP_SUCCESS or would they honor the intent behind it …
 
