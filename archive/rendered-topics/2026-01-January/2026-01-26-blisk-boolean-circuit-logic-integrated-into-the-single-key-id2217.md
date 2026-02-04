@@ -163,3 +163,17 @@ On the other hand if we have a generic standardized Boolean-policy-to-CNF compil
 
 -------------------------
 
+olkurbatov | 2026-02-04 14:44:56 UTC | #10
+
+[quote="ZmnSCPxj, post:8, topic:2217"]
+On the other hand, I suppose the MuSig-in-MuSig stuff matters for the use-case where one of the participants is secretly a multisignature
+[/quote]
+Yes, it would be very useful! The main limitation is that we can't (or at least I don't know how yet) have a multisignature public key as a child of an OR gate; ECDH doesn't work in this case. 
+
+[quote="ZmnSCPxj, post:9, topic:2217, full:true"]
+On the other hand if we have a generic standardized Boolean-policy-to-CNF compiler, maybe we can have a BOLT spec where you just say “`A ^ B` is the base policy for the channel, both sides are then free to replace their term with another Boolean policy that they reveal to the counterparty, then compile the policy to CNF and use Blisk”.
+[/quote]
+Wow, that's another great idea, I didn't think about it from this side. So, for instance, two organizations can create a channel based on their internal policies and make a cooperative close only if the policies of both are satisfied? Need only to think about how to do BLISK-based HTLCs.
+
+-------------------------
+

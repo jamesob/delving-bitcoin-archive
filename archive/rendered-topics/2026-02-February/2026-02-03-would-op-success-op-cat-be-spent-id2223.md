@@ -148,3 +148,15 @@ Because, as it stands, miners are totally checked out, signaling absolutely noth
 
 -------------------------
 
+sipa | 2026-02-04 14:50:01 UTC | #9
+
+Soft forks, or consensus changes in general, are not a popularity contest by miners. They are transitions of the entire ecosystem to a new set of rules, and then demanding that miners enforce those rules (or risk having their blocks being considered invalid by the ecosystem).
+
+Signalling is a mechanism to get everyone to agree on the point in time **when** this enforcement will start, because things are better for everyone if this happens in a clean, coordinated, manner. But signalling isn't about determining **whether** a soft fork will happen - that is decided by Bitcoin users (of which miners are a part, but don't have a privileged position). If miners were to enforce consensus rules *without* ecosystem agreement, we'd have a real case of censorship.
+
+I admit I have not been following this discussion too closely, as I'm trying not to be involved in Bitcoin consensus changes anymore (I've had my fair share...), but as of right now, as far as I can tell, there aren't any proposed changes that have widespread agreement from the development community and user ecosystem at large. This is something that would translate to having full node software out there *and deployed* that is ready to trigger when activation thresholds are met. Absent those, soft fork signalling is just virtue signalling without effect.
+
+It's certainly possible that apathy is a factor that is getting in the way of your favorite consensus change becoming reality. But it's not apathy by miners: they only come into play *after* the ecosystem has agreement that a change is to happen.
+
+-------------------------
+

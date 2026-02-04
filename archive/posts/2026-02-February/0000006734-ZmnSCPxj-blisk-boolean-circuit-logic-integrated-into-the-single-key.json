@@ -7,15 +7,15 @@
   "cooked": "<p>On the other hand if we have a generic standardized Boolean-policy-to-CNF compiler, maybe we can have a BOLT spec where you just say \u201c<code>A ^ B</code> is the base policy for the channel, both sides are then free to replace their term with another Boolean policy that they reveal to the counterparty, then compile the policy to CNF and use Blisk\u201d.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 10,
   "updated_at": "2026-02-03T23:51:58.830Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 8,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "incoming_link_count": 1,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 27.2,
   "yours": false,
   "topic_id": 2217,
   "topic_slug": "blisk-boolean-circuit-logic-integrated-into-the-single-key",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "On the other hand if we have a generic standardized Boolean-policy-to-CNF compiler, maybe we can have a BOLT spec where you just say \"`A ^ B` is the base policy for the channel, both sides are then free to replace their term with another Boolean policy that they reveal to the counterparty, then compile the policy to CNF and use Blisk\".",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "On the other hand if we have a generic standardized Boolean-policy-to-CNF compiler, maybe we can have a BOLT spec where you just say \u201cA ^ B is the base policy for the channel, both sides are then free to replace their term with another Boolean policy that they reveal to the counterparty, then compil&hellip;",
   "truncated": true,
   "post_url": "/t/blisk-boolean-circuit-logic-integrated-into-the-single-key/2217/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
