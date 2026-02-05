@@ -216,3 +216,14 @@ Just wanted to chime in here since it appears relevant for this discussion, but 
 
 -------------------------
 
+juja256 | 2026-02-05 15:35:23 UTC | #14
+
+[quote="ZmnSCPxj, post:12, topic:2217"]
+Also this scheme of “flatten to CNF form and then Blisk” may be considered a generalization of this technique: https://delvingbitcoin.org/t/flattening-nested-2-of-2-of-a-1-of-1-and-a-k-of-n
+
+[/quote]
+
+Hey! It’s literally how our [reference implementation](https://github.com/zero-art-rs/blisk) works. For any input S-expression policy drawn in monotone boolean functions (only OR, AND gates) and not necessary in CNF the compiler compiles it to CNF under the hood. Moreover the compiler supports keywords that express precompiled policies: e.g.  `(threshold 3 A B C D E)` compiles to 3-of-5 threshold policy in CNF. I think it’s one of the most amazing features in BLISK: it could handle merely any monotone policy (even a large one such as 11-of-15 threshold Liquid federation policy). You could try out by writing some S-expressions, compiling them, resolving and enduring MuSig2 session as described in the [example](https://github.com/zero-art-rs/blisk/blob/master/src/signer.rs).
+
+-------------------------
+

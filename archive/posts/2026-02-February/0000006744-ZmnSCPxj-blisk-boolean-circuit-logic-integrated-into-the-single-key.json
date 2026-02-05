@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"olkurbatov\" data-post=\"10\" data-topic=\"2217\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/olkurbatov/48/299_2.png\" class=\"avatar\"> olkurbatov:</div>\n<blockquote>\n<p>Need only to think about how to do BLISK-based HTLCs.</p>\n</blockquote>\n</aside>\n<p>This seems trivial?  An HTLC is just <code>(A &amp; preimage) || (B &amp; blockheight)</code> and you can just compile the individual policies for <code>A</code> and <code>B</code> and compile them into two single pubkey point, and just use tapleaves for <code>(policy-A &amp;  preimage)</code> and <code>(policy-B &amp; blockheight)</code>?  You kinda need SCRIPT for hashlocks anyway.  An optimization is to also add a <code>policy(A &amp; B)</code> keypath spend.</p>",
   "post_number": 11,
   "post_type": 1,
-  "posts_count": 13,
+  "posts_count": 14,
   "updated_at": "2026-02-05T00:29:43.224Z",
   "reply_count": 0,
   "reply_to_post_number": 10,

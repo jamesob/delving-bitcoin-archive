@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ZmnSCPxj\" data-post=\"6\" data-topic=\"2217\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/z/ee7513/48.png\" class=\"avatar\"> ZmnSCPxj:</div>\n<blockquote>\n<p>Correct me if I am wrong, but I believe MuSig-in-MuSig (e.g. <code>A ^ (B ^ C)</code>) has no security proof yet?</p>\n</blockquote>\n</aside>\n<p>Just wanted to chime in here since it appears relevant for this discussion, but I have a paper titled \u201cNested MuSig2\u201d that should be appearing on the ePrint Archive within a few days detailing a secure way to nest MuSig2 keys! This should provide more flexibility in how private sub-AND clauses want to be.</p>",
   "post_number": 13,
   "post_type": 1,
-  "posts_count": 13,
+  "posts_count": 14,
   "updated_at": "2026-02-05T15:24:09.333Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
