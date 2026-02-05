@@ -187,7 +187,7 @@ This seems trivial?  An HTLC is just `(A & preimage) || (B & blockheight)` and y
 
 -------------------------
 
-ZmnSCPxj | 2026-02-05 00:27:29 UTC | #12
+ZmnSCPxj | 2026-02-05 00:28:17 UTC | #12
 
 The goal here is to have a generic k-of-n Lightning Network node.  Channels require a `A & B` between the channel parties, and for this "k-of-n LN node" future, either of `A` or `B` or both may actually be a k-of-n.
 
@@ -200,7 +200,7 @@ Now the issues here for a k-of-n LN node are two-fold:
 * Creating a new channel state basically requires a partial signature from the other side, but without the full signature being generated on our side --- the point is that the full signature can only be safely generated on unilateral closure.  The CNF at the Blisk level may require the creation of the FULL signature, which is unsafe --- storing the full signature is unsafe as old state can now be posted by anyone who gets access to your stored full signatures.  I would need to look more deeply into this to see if this is actually safe; my intuition is that there will be at least one term in the CNF that is controlled only by signatories of one side, which would serve as the decision-makers for when to do a unilateral close later (and create the full signature).
 * After creating a new channel state, we need to invalidate old state.  There is simply no way to do this that still respects the shachain requirement of BOLT, so we should "just" drop the shachain requirement.  Without the shachain requirement, the public key for the revocation key can be generated using flatten-to-CNF-then-Blisk and then at revocation time, the same calculations are done on private keys this time, then the resulting private key is the revocation private key that you hand over to the other party to revoke your old state.
 
-Both the above can be sidestepped by switching to Decker-Wattenhofer, BTW: each state change both creates the new state and invalidate old state in a single atomic step of creating the FULL signature3 under Decker-Wattenhofer.  And Decker-Wattenhofer, unlike Decker-Russell-Osuntokun, does not require a consensus change.
+Both the above can be sidestepped by switching to Decker-Wattenhofer, BTW: each state change both creates the new state and invalidate old state in a single atomic step of creating the FULL signature under Decker-Wattenhofer.  And Decker-Wattenhofer, unlike Decker-Russell-Osuntokun, does not require a consensus change.
 
 Also this scheme of "flatten to CNF form and then Blisk" may be considered a generalization of this technique: https://delvingbitcoin.org/t/flattening-nested-2-of-2-of-a-1-of-1-and-a-k-of-n
 
