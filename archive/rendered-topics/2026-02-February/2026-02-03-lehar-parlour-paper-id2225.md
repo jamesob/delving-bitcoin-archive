@@ -364,3 +364,9 @@ The highest difference in timestamp is from empty block 375,153 that is close an
 
 -------------------------
 
+AntoineP | 2026-02-05 14:44:30 UTC | #5
+
+@0xB10C added an [empty blocks dashboard](https://mainnet.observer/charts/blocks-empty/) to mainnet.observer. It also links to this [2017 post](https://www.bitmex.com/blog/empty-block-data-by-mining-pool) from Bitmex Research, which surfaces another hypothesis for the "long" empty blocks circa 2015-2016: a covert ASIC boost optimisation from Bitmain.
+
+-------------------------
+
