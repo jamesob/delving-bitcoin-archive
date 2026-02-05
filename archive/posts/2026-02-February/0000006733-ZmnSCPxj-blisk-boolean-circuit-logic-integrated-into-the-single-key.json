@@ -7,7 +7,7 @@
   "cooked": "<p>I see.  I believe even complex nested AND / OR sequences should be convertible to an equivalent CNF (admittedly it has been a long while since I did digital logic, I kinda wonder at NOT gates, which have no true equivalent in Bitcoin, but if the original expression has no NOT gates and IF gates then the CNF should not have NOT gates either?).</p>\n<p>On the other hand, I suppose the MuSig-in-MuSig stuff matters for the use-case where one of the participants is secretly a multisignature (or more generally, itself has a complicated but hidden Boolean-gate policy), which would then not fit in this framework, which seems to require that the entire policy be revealed up front, then compiled to CNF.</p>\n<p>In practice the secrecy may not be needed for privacy, but for protocol simpllfication \u2014 you just say <code>A ^ B</code> where you are <code>A</code> and the other side <code>B</code> is free to use a simple singlesig or a complex Boolean-gate policy without having to bother you with TMI.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-02-03T23:48:24.029Z",
   "reply_count": 2,
   "reply_to_post_number": 7,

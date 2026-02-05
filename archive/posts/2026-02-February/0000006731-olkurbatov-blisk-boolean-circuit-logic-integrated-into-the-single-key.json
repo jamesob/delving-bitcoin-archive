@@ -7,7 +7,7 @@
   "cooked": "<p>BLISK restricts policies to CNF: a single top-level AND over OR clauses, because the only MuSig2 KeyAgg happens at the top.</p>\n<p>So an expression like <code>A \u2227 (B \u2227 C)</code> is compiled/normalized to <code>A \u2227 B \u2227 C</code> (three 1-literal clauses), i.e., just standard MuSig2 3-of-3,  no additional security proof is required beyond ordinary MuSig2 for that part.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-02-03T22:51:03.612Z",
   "reply_count": 1,
   "reply_to_post_number": 6,
