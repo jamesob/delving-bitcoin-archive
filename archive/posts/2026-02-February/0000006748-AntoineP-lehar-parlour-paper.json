@@ -7,15 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/0xb10c\">@0xB10C</a> added an <a href=\"https://mainnet.observer/charts/blocks-empty/\">empty blocks dashboard</a> to mainnet.observer. It also links to this <a href=\"https://www.bitmex.com/blog/empty-block-data-by-mining-pool\">2017 post</a> from Bitmex Research, which surfaces another hypothesis for the \u201clong\u201d empty blocks circa 2015-2016: a covert ASIC boost optimisation from Bitmain.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2026-02-05T14:44:30.896Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 2225,
   "topic_slug": "lehar-parlour-paper",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "@0xB10C added an [empty blocks dashboard](https://mainnet.observer/charts/blocks-empty/) to mainnet.observer. It also links to this [2017 post](https://www.bitmex.com/blog/empty-block-data-by-mining-pool) from Bitmex Research, which surfaces another hypothesis for the \"long\" empty blocks circa 2015-2016: a covert ASIC boost optimisation from Bitmain.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/0xb10c\">@0xB10C</a> added an <a href=\"https://mainnet.observer/charts/blocks-empty/\">empty blocks dashboard</a> to mainnet.observer. It also links to this <a href=\"https://www.bitmex.com/blog/empty-block-data-by-mining-pool\">2017 post</a> from Bitmex Research, which surfaces another hypothesis for the \u201clong\u201d empty blocks circa 2015-2016: a covert ASIC boost optimisation from Bitmain.",
   "truncated": true,
   "post_url": "/t/lehar-parlour-paper/2225/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

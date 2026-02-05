@@ -370,3 +370,9 @@ AntoineP | 2026-02-05 14:44:30 UTC | #5
 
 -------------------------
 
+micah541 | 2026-02-05 17:55:25 UTC | #6
+
+Yikes, that chart really shows a picture about the frequency of empty blocks.
+
+-------------------------
+
