@@ -206,3 +206,13 @@ Also this scheme of "flatten to CNF form and then Blisk" may be considered a gen
 
 -------------------------
 
+nkohen | 2026-02-05 15:24:09 UTC | #13
+
+[quote="ZmnSCPxj, post:6, topic:2217"]
+Correct me if I am wrong, but I believe MuSig-in-MuSig (e.g. `A ^ (B ^ C)`) has no security proof yet?
+[/quote]
+
+Just wanted to chime in here since it appears relevant for this discussion, but I have a paper titled "Nested MuSig2" that should be appearing on the ePrint Archive within a few days detailing a secure way to nest MuSig2 keys! This should provide more flexibility in how private sub-AND clauses want to be.
+
+-------------------------
+
