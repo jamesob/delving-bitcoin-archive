@@ -7,7 +7,7 @@
   "cooked": "<p>On the other hand if we have a generic standardized Boolean-policy-to-CNF compiler, maybe we can have a BOLT spec where you just say \u201c<code>A ^ B</code> is the base policy for the channel, both sides are then free to replace their term with another Boolean policy that they reveal to the counterparty, then compile the policy to CNF and use Blisk\u201d.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 10,
+  "posts_count": 11,
   "updated_at": "2026-02-03T23:51:58.830Z",
   "reply_count": 1,
   "reply_to_post_number": 8,

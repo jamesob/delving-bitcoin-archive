@@ -177,3 +177,13 @@ Wow, that's another great idea, I didn't think about it from this side. So, for 
 
 -------------------------
 
+ZmnSCPxj | 2026-02-04 21:46:09 UTC | #11
+
+[quote="olkurbatov, post:10, topic:2217"]
+Need only to think about how to do BLISK-based HTLCs.
+[/quote]
+
+This seems trivial?  An HTLC is just `(A & preimage) || (B & blockheight)` and you can just compile the individual policies for `A` and `B` and compile them into two single pubkey point, and just use tapleaves for `(policy-A &  preimage)` and `(policy-B & blockheight)`?  An optimization is to also add a `policy(A & B)` keypath spend.
+
+-------------------------
+
