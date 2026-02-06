@@ -182,3 +182,15 @@ One thing I would also like to clarify; is the only thing you dislike of the BIP
 
 -------------------------
 
+alex | 2026-02-06 03:48:07 UTC | #13
+
+Another name to toss in: **P2TR-** (Pay-to-Taproot-minus)
+
+* Self-descriptive: it immediately tells you what the output type *is* - taproot with the key path removed.
+
+* Sets correct expectations: the minus signals that it can do *most* of what P2TR can do, but not all of it.
+
+* Zero learning curve for anyone already familiar with taproot.
+
+-------------------------
+
