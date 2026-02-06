@@ -194,13 +194,13 @@ Another name to toss in: **P2TR-** (Pay-to-Taproot-minus)
 
 -------------------------
 
-sipa | 2026-02-06 20:05:36 UTC | #14
+sipa | 2026-02-06 20:06:28 UTC | #14
 
 [quote="cryptoquick, post:12, topic:2170"]
 I have consulted with my co-authors and we have come up with two names we would be happy with:
 [/quote]
 
-Of those two, I think P2MR is the most accurate one. P2QB may relate to the BIP's intent, but I don't think it describes the actual behavior, as BIP-360 (as written in the PR) doesn't outlaw EC opcodes inside.
+Of those two, I think P2MR is the more accurate one. P2QB may relate to the BIP's intent, but I don't think it describes the actual behavior, as BIP-360 (as written in the PR) doesn't outlaw EC opcodes inside.
 
 [quote="cryptoquick, post:12, topic:2170"]
 One thing I would also like to clarify; is the only thing you dislike of the BIP just the name and the lack of clarity in spending rules?
