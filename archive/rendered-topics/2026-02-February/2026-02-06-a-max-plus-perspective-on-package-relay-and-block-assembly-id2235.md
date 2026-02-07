@@ -124,3 +124,22 @@ Of course, they may not be a transaction to fit in the space– but that’s usu
 
 -------------------------
 
+GaloisField2718 | 2026-02-07 20:53:40 UTC | #3
+
+Thanks for the clarification.
+
+I agree that in practice today, most of the small amount of leftover space we
+observe is explained by GBT/coinbase sizing and template construction details.
+That’s a well-known limitation of the current interface, and not something the
+post was meant to dispute.
+
+The point I was trying to make is a narrower one: leftover space, *by itself*,
+is not sufficient evidence of non-optimal miner behavior, because block
+assembly is driven by marginal trade-offs. That statement is logical rather
+than empirical, and remains true regardless of the specific implementation
+details that dominate in practice today.
+
+If that distinction wasn’t clear, that’s on me.
+
+-------------------------
+
