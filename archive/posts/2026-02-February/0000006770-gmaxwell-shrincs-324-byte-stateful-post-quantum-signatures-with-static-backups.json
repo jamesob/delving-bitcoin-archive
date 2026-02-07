@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
+  "reads": 5,
+  "readers_count": 4,
   "score": 0.8,
   "yours": false,
   "topic_id": 2158,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Random thought:  many distinct shrincs keys could share a single recovery key, and consensus rules could be written such that only signature with the recovery key is required for multiple inputs (e.g. like cross signature aggregation).    The case where the recovery key is used should be a one time operation that sweeps all outputs.  One might prefer to not do them all at once for privacy reasons, but since it is rare I don\u2019t think a less private way would be a public health limit\u2026 and lots of users would sweep at the same time regardless.  This would dramatically reduce the on chain cost of using the recovery in practice, though it would remain expensive and unattractive overall (so little risk of encouraging unprivate use generally), I think.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Random thought:  many distinct shrincs keys could share a single recovery key, and consensus rules could be written such that only signature with the recovery key is required for multiple inputs (e.g. like cross signature aggregation).    The case where the recovery key is used should be a one time &hellip;",
   "truncated": true,
   "post_url": "/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158/15",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
