@@ -109,3 +109,18 @@ Block assembly and package relay already follow a coherent optimization logic. M
 
 -------------------------
 
+gmaxwell | 2026-02-07 17:52:55 UTC | #2
+
+[quote="GaloisField2718, post:1, topic:2235"]
+It is **revealed**, not computed
+
+[/quote]
+
+All that is revealed here is your use of AI to waste people’s time with a low value and outdated post.
+
+The reason blocks are not essentially completely full is usually a product of the flawed design of the GBT interface resulting in createnewblock not having any idea how big the coinbase transaction will be and just making a conservative guess.  This is a long known flaw that has been preserved in the protocol due to abuse of abusive and anti-competitive conduct by Luke-jr basically making it unattractive for anyone to touch GBT.
+
+Of course, they may not be a transaction to fit in the space– but that’s usually not the case.  The slope of fee rate in the feerate ordered mempool around the block limit is usually pretty flat, and so there is usually no problem with packing the block very close to completely full.
+
+-------------------------
+

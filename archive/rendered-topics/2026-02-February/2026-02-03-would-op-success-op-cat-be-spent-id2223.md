@@ -202,3 +202,19 @@ Thanks again for engaging with this.
 
 -------------------------
 
+1440000bytes | 2026-02-07 18:00:00 UTC | #12
+
+[quote="Nuh, post:4, topic:2223"]
+I apologize for any inconvenience to the authors, but my impression is that what is actually killing all these soft-forks is pure apathy, especially from miners.
+[/quote]
+
+Most users look for miners signaling in a soft fork, even though it is said that miners only signal readiness and that it’s not a vote.
+
+You can look at this donut chart to understand who should be contacted:
+
+![image|690x366](upload://dkRnxfsH3wZF8aVDJAP9bLx1bZJ.png)
+
+Note: These mining pools (foundry, antpool, f2pool) also influence default relay policy in core.
+
+-------------------------
+

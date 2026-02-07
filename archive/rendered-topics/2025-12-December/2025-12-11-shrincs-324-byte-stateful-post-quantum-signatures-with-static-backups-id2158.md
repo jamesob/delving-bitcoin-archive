@@ -203,3 +203,9 @@ Come to think of it, is there anything special about a TPM in this context besid
 
 -------------------------
 
+gmaxwell | 2026-02-07 17:12:10 UTC | #15
+
+Random thought:  many distinct shrincs keys could share a single recovery key, and consensus rules could be written such that only signature with the recovery key is required for multiple inputs (e.g. like cross signature aggregation).    The case where the recovery key is used should be a one time operation that sweeps all outputs.  One might prefer to not do them all at once for privacy reasons, but since it is rare I don’t think a less private way would be a public health limit… and lots of users would sweep at the same time regardless.  This would dramatically reduce the on chain cost of using the recovery in practice, though it would remain expensive and unattractive overall (so little risk of encouraging unprivate use generally), I think.
+
+-------------------------
+
