@@ -188,3 +188,13 @@ Though, unlike OP_CIV or [my proposed alternative](https://groups.google.com/g/b
 
 -------------------------
 
+CubicEarth | 2026-02-07 13:48:48 UTC | #16
+
+Sipa - this is very well put.
+
+But isn’t a small blocksize at odds with privacy? It encourages people to be judicious with their transactions, and generally everything to be very efficient. In a sense, it encourages high signal with minimal noise, which makes the signal easier to trace. “Noise” could be things as simple as mixing transactions, or not consolidating UTXOs, or just adding hops to increase plausible deniability.
+
+Whatever the blocksize, there are tradeoffs. I hope people consider one benefit to larger blocks is that they facilitate better privacy for all.
+
+-------------------------
+
