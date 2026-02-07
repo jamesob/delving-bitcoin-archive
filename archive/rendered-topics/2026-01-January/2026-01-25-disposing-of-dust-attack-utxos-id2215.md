@@ -209,3 +209,17 @@ I didn't mean to suggest that Dandelion is better, or even a worthwhile thing to
 
 -------------------------
 
+bubb1es | 2026-02-07 04:33:08 UTC | #14
+
+I’m happy to see this thread included in the recent Optech newsletter! My plans going forward are:
+
+1. continue to gather feedback on this approach (or any others) for disposing of dust
+2. gather more on-chain data to improve my estimates of how big a problem this is
+3. try to implement combining dust spend tx found in the mempool (as proposed by @ajtowns)
+4. if a safe and effective approach is found to dispose of dust draft a BIP for it
+5. reach out to wallet developers and see if they’d like to incorporate the feature
+
+Call to action is for help on any of the above. :folded_hands:
+
+-------------------------
+
