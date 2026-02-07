@@ -210,3 +210,11 @@ Those were the comments I had, as I think clarity is important for the ecosystem
 
 -------------------------
 
+billymcbip | 2026-02-06 22:21:14 UTC | #15
+
+> Why do you want the keep the name “tap”/“taproot” in there? It’s exactly **not** taproot.
+
+To be fair, BIP360 still uses the "TapLeaf" and "TapBranch" tags so including "tap" in the name isn't unreasonable. That said, I still prefer Pay-to-Script-Tree.
+
+-------------------------
+

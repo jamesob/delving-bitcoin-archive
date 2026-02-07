@@ -180,3 +180,17 @@ Absolutely! If you give me more details, I would try to follow up.
 
 -------------------------
 
+ftw2100 | 2026-02-06 23:07:35 UTC | #8
+
+Thanks, that clarifies things.
+
+So if I understand correctly, Bithoven does not currently aim to support
+advanced or general-purpose introspection, and this is a deliberate design
+choice to preserve strong static analysis guarantees.
+
+That helps position Bithoven more clearly in terms of the expressiveness vs.
+analyzability trade-off, even if it means some covenant-style use cases remain
+out of scope for now.
+
+-------------------------
+
