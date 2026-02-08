@@ -229,3 +229,15 @@ https://github.com/petertodd/dust-b-gone
 
 -------------------------
 
+bubb1es | 2026-02-08 10:25:38 UTC | #16
+
+Wow this is great prior work and supports the axiom there are no new ideas in bitcoin! or at least the obvious ones were written about in the first epoch.
+
+I see some pros and cons to Peter’s approach. It’s certainly more efficient and avoids making timing data publicly available by consolidating and broadcasting dust spend transactions through his server. But even if you connect via Tor it could be logging and collecting timing data to associate your dust. And having multiple people running these servers doesn’t help since you wouldn’t know which are run by the same entity.
+
+I prefer my proposed approach of leaving it up to the users to privately broadcast via their nodes and possibly coordinate grouping adhoc by finding others in the mempool you can spend with.  Wallet software should be able to put in some safeguards to prevent disposing of multiple dust UTXOs at the same time.
+
+Thank you for sharing this and I’ll dig a bit more into his implementation to see if I’ve missed anything.
+
+-------------------------
+

@@ -7,7 +7,7 @@
   "cooked": "<p>I\u2019m happy to see this thread included in the recent Optech newsletter! My plans going forward are:</p>\n<ol>\n<li>continue to gather feedback on this approach (or any others) for disposing of dust</li>\n<li>gather more on-chain data to improve my estimates of how big a problem this is</li>\n<li>try to implement combining dust spend tx found in the mempool (as proposed by <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a>)</li>\n<li>if a safe and effective approach is found to dispose of dust draft a BIP for it</li>\n<li>reach out to wallet developers and see if they\u2019d like to incorporate the feature</li>\n</ol>\n<p>Call to action is for help on any of the above. <img src=\"https://delvingbitcoin.org/images/emoji/twitter/folded_hands.png?v=15\" title=\":folded_hands:\" class=\"emoji\" alt=\":folded_hands:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 14,
   "post_type": 1,
-  "posts_count": 15,
+  "posts_count": 16,
   "updated_at": "2026-02-07T04:33:08.134Z",
   "reply_count": 0,
   "reply_to_post_number": null,
