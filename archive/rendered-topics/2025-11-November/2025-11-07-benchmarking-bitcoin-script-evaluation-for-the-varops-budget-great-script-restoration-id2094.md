@@ -462,3 +462,18 @@ I guess making a regtest chain with a block with max sig checks, and feeding it 
 
 -------------------------
 
+Julian | 2026-02-08 15:07:23 UTC | #17
+
+[quote="ajtowns, post:6, topic:2094"]
+Doing benchmarks on the more powerful logic new opcodes enable might be more interesting; eg the [OP_CAT based zkp verifier](https://bitcoinmagazine.com/technical/a-zero-knowledge-proof-is-verified-on-bitcoin-for-the-first-time-in-history)? How many zkps (implemented that way) could we verify in a block, if 100ms (or whatever) of cpu time were the only constraint? Seems to have some 223k operations per script, 30k ADD/DUP, 20k IF/ENDIF/SUB, 10k SWAP/LESSTHAN/TOALT/FROMALT, 400 CAT/1SUB/DEPTH/SHA256, 1 CHECKSIG, etc.
+
+[/quote]
+
+Coming back to this: The OP_CAT based zkp verifier implemented here is extremely lightweight, it has around 3m ops in total but it mostly uses cheap instructions like OP_ADD, OP_DUP, OP_PICK, OP_SWAP, it seems that the only expensive op OP_SHA256 accounts for only 0.4% of all operations. Furthermore, the QM31 elements (and their hashes) are at most 36 bytes so hashing them is also very fast.
+
+All 72 transactions together use about 88% of block space while using only 6.6 million varops (0.03% of the block limit) and all scripts are evaluated in only \~10ms on my machine.
+
+So while this is a super interesting application of OP_CAT, it does not really matter in terms of compute, it seems that Starknet is focusing on OP_CAT only, but we could have much more efficient and potentially compute heavy implementations using OP_MUL and larger stack element limits. I would be happy to benchmark these too but they don’t seem to be available.
+
+-------------------------
+
