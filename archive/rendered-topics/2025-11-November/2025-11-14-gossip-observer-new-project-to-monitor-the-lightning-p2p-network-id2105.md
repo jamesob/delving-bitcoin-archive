@@ -776,3 +776,29 @@ Another influence I looked at (plotted as “with deduplication”) is the stagg
 
 -------------------------
 
+fabian.kraus | 2026-02-09 12:49:11 UTC | #22
+
+Hello everyone,
+
+I have been following the discussions on improving the gossip protocol and wanted to contribute some empirical data. I participated at [Summer-of-Bitcoin 2025](https://www.summerofbitcoin.org/)  and worked together with [René Pickhardt](https://www.rene-pickhardt.de/) to build the tool: [https://ln-history.info](https://ln-history.info) to monitor, analyse and persist the gossip messages of the Lightning Network. 
+
+I run two Core Lightning nodes (*Alice* and *Bob*) in *default* *configuration*, meaning \~10 peers to receive gossip from. Every gossip messages that is appended to the `gossip_store file` gets timestamped and saved in a database. 
+
+Here are some observations for the period: `2026-01-14` to `2026-02-08`
+
+1. Delay between the message’s internal timestamp and the time it reached the collector node.
+
+   ![propagation-lag|427x500](upload://pIPryiBIqxKkHIFD0oRScGDCTT0.png)
+
+2. Comparison of the unique message sets of the two nodes: Do both nodes see the same network?
+
+   ![daily-gossip-overlap|690x342](upload://6TzlbVTfNtbZzRYKtFhlaqsXdv0.png)
+
+3. I tracked the session duration for every peer the collector node has received gossip messages from. Core Lightning chooses the peers. 
+
+   ![peer-session-distribution|690x411](upload://jCMzbE8TxRpoodOAFnh0fAxW7lW.png)
+
+The platform is running quite stable now. If you’re working on gossip-v2 or sync improvements and have a specific question or a query you would like me to run against this data, please let me know → I am happy to help analyse it!
+
+-------------------------
+
