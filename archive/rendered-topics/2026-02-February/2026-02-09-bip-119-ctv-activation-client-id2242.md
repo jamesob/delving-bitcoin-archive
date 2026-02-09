@@ -1,6 +1,6 @@
 # BIP 119 CTV activation client
 
-1440000bytes | 2026-02-09 20:23:05 UTC | #1
+1440000bytes | 2026-02-09 20:27:15 UTC | #1
 
 Since there were no objections to the activation parameters shared in the [last email][0], I have updated the [website][1] with the repository link for activation client and added some FAQs.
 
@@ -20,6 +20,13 @@ Cc: @simul @JeremyRubin
 
 [0]: https://groups.google.com/g/bitcoindev/c/HC2bn4QOR-M/m/TF8qJidzAAAJ
 [1]: https://ctv-activation.github.io/
+
+<details>
+<summary>Archive</summary>
+
+https://archive.is/o6QgT
+
+</details>
 
 -------------------------
 
