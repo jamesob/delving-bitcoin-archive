@@ -13,9 +13,9 @@
   "reply_to_post_number": 6,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 46.8,
   "yours": false,
   "topic_id": 2094,
   "topic_slug": "benchmarking-bitcoin-script-evaluation-for-the-varops-budget-great-script-restoration",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:6, topic:2094\"]\nDoing benchmarks on the more powerful logic new opcodes enable might be more interesting; eg the [OP_CAT based zkp verifier](https://bitcoinmagazine.com/technical/a-zero-knowledge-proof-is-verified-on-bitcoin-for-the-first-time-in-history)? How many zkps (implemented that way) could we verify in a block, if 100ms (or whatever) of cpu time were the only constraint? Seems to have some 223k operations per script, 30k ADD/DUP, 20k IF/ENDIF/SUB, 10k SWAP/LESSTHAN/TOALT/FROMALT, 400 CAT/1SUB/DEPTH/SHA256, 1 CHECKSIG, etc.\n\n[/quote]\n\nComing back to this: The OP_CAT based zkp verifier implemented here is extremely lightweight, it has around 3m ops in total but it mostly uses cheap instructions like OP_ADD, OP_DUP, OP_PICK, OP_SWAP, it seems that the only expensive op OP_SHA256 accounts for only 0.4% of all operations. Furthermore, the QM31 elements (and their hashes) are at most 36 bytes so hashing them is also very fast.\n\nAll 72 transactions together use about 88% of block space while using only 6.6 million varops (0.03% of the block limit) and all scripts are evaluated in only \\~10ms on my machine.\n\nSo while this is a super interesting application of OP_CAT, it does not really matter in terms of compute, it seems that Starknet is focusing on OP_CAT only, but we could have much more efficient and potentially compute heavy implementations using OP_MUL and larger stack element limits. I would be happy to benchmark these too but they don\u2019t seem to be available.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Coming back to this: The OP_CAT based zkp verifier implemented here is extremely lightweight, it has around 3m ops in total but it mostly uses cheap instructions like OP_ADD, OP_DUP, OP_PICK, OP_SWAP, it seems that the only expensive op OP_SHA256 accounts for only 0.4% of all operations. Furthermor&hellip;",
   "truncated": true,
   "post_url": "/t/benchmarking-bitcoin-script-evaluation-for-the-varops-budget-great-script-restoration/2094/17",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
