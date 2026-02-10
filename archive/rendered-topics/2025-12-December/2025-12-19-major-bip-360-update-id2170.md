@@ -218,3 +218,27 @@ To be fair, BIP360 still uses the "TapLeaf" and "TapBranch" tags so including "t
 
 -------------------------
 
+cryptoquick | 2026-02-09 21:15:06 UTC | #16
+
+The problem with calling it Script Tree is that locks us into an implementation detail that might become more ambiguous someday if things like Simplicity do catch on.
+
+But if sipa wills it, it is done. You have to understand, I have it on good authority that sipa is the sole S-tier influencer in the bitcoin governance process, and so if he wants us to change the name, we change the name!
+
+-------------------------
+
+sipa | 2026-02-09 21:26:03 UTC | #17
+
+[quote="cryptoquick, post:16, topic:2170"]
+The problem with calling it Script Tree is that locks us into an implementation detail that might become more ambiguous someday if things like Simplicity do catch on.
+[/quote]
+
+I don't understand this. If Simplicity were added as a new leaf version, there would still be a script tree above it (unless you imagine it as an independent output type, which isn't unreasonable, but then it's unrelated to BIP-360 or BIP-341 anyway).
+
+[quote="cryptoquick, post:16, topic:2170"]
+You have to understand, I have it on good authority that sipa is the sole S-tier influencer in the bitcoin governance process, and so if he wants us to change the name, we change the name!
+[/quote]
+
+And you have to understand that my goal is explicitly to not have this kind of influence, which is why I'm not commenting on whether the consensus change itself is desirable. But you also shouldn't change a name because I don't like it - you should pick the name that you believe is most clear to everyone, after weighing all comments about it (including mine, if it convinces you).
+
+-------------------------
+
