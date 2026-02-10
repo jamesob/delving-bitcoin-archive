@@ -132,13 +132,9 @@ Even the overall structure is mostly from my first draft.
 
 -------------------------
 
-ademan | 2026-02-10 19:17:47 UTC | #2
+ademan | 2026-02-10 20:12:58 UTC | #2
 
-All that editing and I don't even have a single line in there about how *using* the oracle commitments would work.
-
-Hopefully obvious, but the script witness would include the oracle signature(s), the commitment merkle root, and each piece of introspected data along with a merkle path from the data to the commitment root. The script would need to validate the oracle signature is valid for the commitment, and that the signature is from a trusted oracle, and that each piece of introspected data is valid, by checking the merkle paths.
-
-I'll amend the OP in a bit...
+(post deleted by author)
 
 -------------------------
 
