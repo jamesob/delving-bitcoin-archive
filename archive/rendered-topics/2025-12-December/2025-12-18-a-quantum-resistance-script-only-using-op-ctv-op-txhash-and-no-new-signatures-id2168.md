@@ -270,3 +270,9 @@ Shape 2: (attacker breaks nums): Spender sees that nums was broken and a bad anc
 
 -------------------------
 
+simul | 2026-02-11 07:26:23 UTC | #6
+
+As noted: a new SegWit version is also needed: “key spend allowed only if no script tree” or “script tree only”
+
+-------------------------
+
