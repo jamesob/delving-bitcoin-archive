@@ -209,3 +209,11 @@ Random thought:  many distinct shrincs keys could share a single recovery key, a
 
 -------------------------
 
+EthanHeilman | 2026-02-11 23:11:18 UTC | #16
+
+How expensive would it be to implement SHRINCS with CAT?
+
+Is there a way to combine SHRINCS with covenants such that the state is passed as state to the next transaction? Limiting the damage from state confusion leakage
+
+-------------------------
+

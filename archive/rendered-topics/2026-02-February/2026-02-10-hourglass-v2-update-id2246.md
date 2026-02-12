@@ -26,12 +26,6 @@ In that time, there would be massive competition between legitimate holders to t
 
 -------------------------
 
-theblackmarble | 2026-02-10 22:15:36 UTC | #3
-
-(post deleted by author)
-
--------------------------
-
 theblackmarble | 2026-02-10 22:17:00 UTC | #4
 
 
