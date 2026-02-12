@@ -242,3 +242,13 @@ And you have to understand that my goal is explicitly to not have this kind of i
 
 -------------------------
 
+leishman | 2026-02-12 03:25:31 UTC | #18
+
+> In other words, we believe users' fear of quantum computers may be worth addressing regardless of CRQC viability. Given these concerns, we think it's worth considering simple low risk changes that create options for using Bitcoin in a quantum-resistant way.
+
+It’s possible that the convo has been had elsewhere but it’s unclear to me how this proposal does anything to actually address QC concerns. Nothing proposed here improves the quantum security posture for Bitcoin, it only “fixes” a potential weakness in taproot.
+
+Specifically, I think the BIP fails to answer the question: Why go through the effort of a soft fork to make a change that won’t actually make bitcoin any more QC resistant? Why not instead focus on adding a QC secure signature op code?
+
+-------------------------
+
