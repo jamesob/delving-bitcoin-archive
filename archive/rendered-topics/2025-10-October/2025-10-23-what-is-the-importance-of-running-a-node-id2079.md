@@ -182,3 +182,13 @@ They also centralize where transactions emerge in the network before being broad
 
 -------------------------
 
+AdamISZ | 2026-02-12 13:22:50 UTC | #15
+
+The principal reason to run a node is when you are receiving bitcoin: you can verify that the thing that you received, is actually real bitcoin.
+
+The alternative is to rely on a third party’s attestation that the bitcoin you received is real; which, as we all know, “works” fine most of the time, but it’s not the same thing. An example where it became very concrete: in late 2017 there was a substantive split with Bitcoin Cash, and every person using a non-full-node client had to ask and investigate the developer of their wallet software “which chain are you supporting?”. I don’t have data on to what extent people lost money from this, but that split in general certainly did cause people to lose money from the confusion over “what is bitcoin”. If you run a node, you have full control over this question yourself.
+
+Other reasons are secondary, even if some of them might be super-important in your specific situation. (examples: broadcasting spends is much more private, querying addresses for balances is totally private, which is perhaps the most important thing for privacy.)
+
+-------------------------
+

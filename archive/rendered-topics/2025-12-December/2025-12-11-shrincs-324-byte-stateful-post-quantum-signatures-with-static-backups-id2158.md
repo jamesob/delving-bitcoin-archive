@@ -217,3 +217,19 @@ Is there a way to combine SHRINCS with covenants such that the state is passed a
 
 -------------------------
 
+MikKud | 2026-02-12 14:08:57 UTC | #17
+
+Why do we need to hide the iteration of a signature? Is not it visible on the chain anyways?
+
+Is not it possible to distinguish the unbalanced version from XMSS from balanced through the authentication path length?
+
+-------------------------
+
+MikKud | 2026-02-12 14:17:20 UTC | #18
+
+It is important to mention that the state that the user needs to handle will grow. As new wallets’ addresses are generated, new states are generated as well. For each address that the user is planning to use in the future the state must be kept. As we don’t know which addresses are planed for reuse, we should keep all(?) states. Or we should discard the state after some threshold? If we discard the state, that would cost the user more to send a transaction via stateless path. How many states can we handle in parallel? If we retrieve the state from somewhere, should we retrieve all states (decrypt from a file) or just this specific one.
+
+So another question to discuss, how to manage growing number of states, if we are considering SHRINCS.
+
+-------------------------
+
