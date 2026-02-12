@@ -203,3 +203,14 @@ Note this may be slightly confusing because the absolute value itself was presen
 
 -------------------------
 
+0xbrito | 2026-02-12 06:09:37 UTC | #6
+
+[quote="gmaxwell, post:2, topic:2110"]
+Ideally the protocol would get some new “STALEHEADER” message for relaying headers that connect near the best chain tip\*
+
+[/quote]
+
+I’ve started to work on a PoC implementation of this as part of Chaincode’s BOSS. Any considerations should I be aware of?
+
+-------------------------
+
