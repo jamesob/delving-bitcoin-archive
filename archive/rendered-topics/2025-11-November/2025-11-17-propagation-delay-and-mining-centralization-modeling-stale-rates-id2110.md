@@ -226,3 +226,19 @@ Cool! let me look into it
 
 -------------------------
 
+ajtowns | 2026-02-13 04:30:01 UTC | #9
+
+[quote="0xB10C, post:7, topic:2110, full:true"]
+@ajtowns has been looking into it too. Here’s a [BIP draft](https://github.com/ajtowns/bips/blob/f25fa67b03fc0ebbf994aca62d96c1990da8fd9d/bip-staletip.md) and [vibe-coded implementation](https://github.com/ajtowns/bitcoin/tree/202601-staletips-vibes).
+[/quote]
+
+Hey, I sent you that in confidence! How am I supposed to take credit for claude's code now??
+
+[quote="0xbrito, post:8, topic:2110, full:true"]
+Cool! let me look into it
+[/quote]
+
+I think the BIP is pretty sound; but I haven't tried out the code on any real data. Whether sharing stale blocks (rather than just headers) is actually a smart idea is questionable as well.
+
+-------------------------
+

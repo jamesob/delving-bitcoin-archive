@@ -194,3 +194,11 @@ out of scope for now.
 
 -------------------------
 
+ChrisCho-H | 2026-02-13 01:58:32 UTC | #9
+
+Correct. Bithoven is a general-purpose language for Bitcoin Script, not limited to specific use cases like covenants. Our primary goal is to provide developer flexibility without compromising core consensus compatibility.
+
+However, future support is definitely on the roadmap. Once covenants are activated on mainnet, I will be prioritizing their integration into Bithoven.
+
+-------------------------
+
