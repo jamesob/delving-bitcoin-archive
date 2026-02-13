@@ -261,3 +261,31 @@ Overall, PIPE v2 demonstrates that expressive, verifiable spending conditions ca
 
 -------------------------
 
+AdamISZ | 2026-02-13 15:30:32 UTC | #2
+
+Fascinating, thank you for publishing this.
+
+I find myself very interested in one particular line of reasoning in this post:
+
+[quote="nemothenoone, post:1, topic:2249"]
+This fully characterizes the available design space. Any spending rule that works **without changing Bitcoin’s consensus rules** must ultimately boil down to a single question:
+
+> Can a valid signature under this public key be produced or not?
+
+There is no other hook available to enforce authorization.
+
+The key insight behind PIPEs is to treat this constraint not as a limitation, but as the design surface.
+
+[/quote]
+
+On a first read through, I found this convincing: let’s consider how one can gate spending via any privileged knowledge status: we only have (a) signatures and (b) hashlocks, available in Script. Even the ECC equivalent of hashlocks is not available: pubkeys can only be matched against signatures, not private keys, in Script.
+
+So the obvious problem with hashlocks is part of the sort of “Bitcoin 101” that we all looked at on the wiki back in the day - “locking” a utxo to the preimage of a sha2 hash is non-functional because once you publish the unlocking script anyone can read it and replace your destination address. Which seems to reinforce your point: a *signature* is the only way to authorize *a particular payment*.
+
+But two counterpoints spring up:
+
+* The “canonical” solution to the hashlock enforcement problem is, of course, seen in HTLC and similar: you *can* attach specific identities, *additional* to the hashlock: still a signature, but an additional “gate” that needn’t be related to the witness encryption. Also interesting in this context may be that, through a combination of taproot structures and plain old Script, you can make some kind of large OR condition (one of these pubkeys and the hashlock)
+* Most interesting is that you are using witness encryption *not* to enforce authorization of specific transfers but to enable full control of the utxo. You call this “binary covenant” but I feel like the bitcoin research community has taken up the word “covenant” as specifically restricting the manner of spending - and that’s even setting aside @ajtowns imo very valid point that “covenant” is a terrible name for this. But meh, forget about names. Your system decrypting to the private key, not to a specific authorization, means that the distinction between the value of a hashlock, and the value of a signature, doesn’t apply, right? Is WE for hashlock preimages a possible alternative in the design space? (I have zero clue whether it would be easier, harder, or just not functional; I’m just reacting to the statement that the design space is *only* signatures).
+
+-------------------------
+
