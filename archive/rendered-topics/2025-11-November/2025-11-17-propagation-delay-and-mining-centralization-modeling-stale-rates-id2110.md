@@ -214,3 +214,15 @@ I’ve started to work on a PoC implementation of this as part of Chaincode’s 
 
 -------------------------
 
+0xB10C | 2026-02-12 21:08:35 UTC | #7
+
+@ajtowns has been looking into it too. Here's a [BIP draft](https://github.com/ajtowns/bips/blob/f25fa67b03fc0ebbf994aca62d96c1990da8fd9d/bip-staletip.md) and [vibe-coded implementation](https://github.com/ajtowns/bitcoin/tree/202601-staletips-vibes).
+
+-------------------------
+
+0xbrito | 2026-02-12 21:18:41 UTC | #8
+
+Cool! let me look into it
+
+-------------------------
+
