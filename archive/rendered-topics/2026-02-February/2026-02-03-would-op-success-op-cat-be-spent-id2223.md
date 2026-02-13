@@ -262,3 +262,15 @@ I am confident that a sufficiently attractive soft fork can be deployed. The abs
 
 -------------------------
 
+Nuh | 2026-02-13 20:17:27 UTC | #16
+
+A sufficiently attractive proposal to whom? because there is nothing I personally want more than a trustless bridge to escape this nightmare into a metaprotocol that is turing complete already, and enjoy things like vaults, shielded CSV, and bridges to scalable L2s. All of that is demonstrably possible with OP_CAT, so that is sufficiently attractive to me.
+
+If I don’t matter, who does? how many do? If you don’t have an answer to that, then by default the answer is we will never have anything sufficiently attractive.
+
+Also, objectively, the only proof that something is sufficiently attractive, is if their proponents are willing to exert pressure on miners to “censor” invalid transactions, so any action no matter how aggressive or insulting to the sensibility of some, would be more productive than spending years arguing with people with no skin in the game who can just say “NACK” or “Shitcoiner” and be taken seriously as a veto.
+
+That being said, I wouldn’t push this any further, because the internet is full of weirdos as Gloria just realized, and it is way easier to just trust multisig federations.
+
+-------------------------
+
