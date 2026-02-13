@@ -42,3 +42,58 @@ Finally, all those points raised during the meeting are about direct costs (is i
 
 -------------------------
 
+AntoineP | 2026-02-13 17:58:59 UTC | #2
+
+In my opinion, we should center the discussion around support for existing Bitcoin Core wallet users.
+
+It is [obvious](https://antoinep.com/posts/stating_the_obvious/) to me that if Bitcoin Core never had any wallet or GUI, it would be ridiculous to suggest that Core contributors take some time off maintaining the software underpinning a trillion-dollars network to develop and maintain yet-another Bitcoin wallet/GUI. Of course, this is not to say that those have not been historically important components, material to Bitcoin's success. But Bitcoin is very different now than when they were introduced. There are now superior alternatives to both, and the mission of maintaining the node has become critical, with orders of magnitude more people (and value) that depend on it, and this is where our focus should be.
+
+That said, precisely because Bitcoin Core has shipped with a wallet and a GUI for so long, such a shift can't happen overnight. So i agree on the goal, but i am not sure about the timeline. I agree with marking it as deprecated ASAP, if only to set expectations for users that it does not meet the bar we set for ourselves and may be removed in the future. But there is currently no reasonable replacement to manage a Bitcoin Core wallet. So to buy into the complete removal timeline i would like to first be convinced that the burden of keeping the GUI around is a higher cost than its users being unable to upgrade their node and their wallet past version 34.
+
+Let me also try and propose and alternative plan. My main issue with the proposed timeline is that it may lead to part of our users being stuck on version 34, and not be able to get security updates for their full nodes nor their wallet. Of course if nobody is willing to maintain this component anymore, we can't force them to keep doing it, and users will have to move to a different wallet or use the CLI. That's not the end of the world, but i hope we can offer a smoother transition, whereby users may not update their GUI until there is interest in developing it, but may still be able to receive security updates for their full node and wallet.
+
+What i'm suggesting is to:
+1. Let go of the sunk cost fallacy of the update to QML for the time being. Clearly this is not happening, or at least not until the GUI is cleanly split off from the main Bitcoin Core project and people can more easily iterate.
+2. Release the existing GUI only as a separate process that talks to the node and the wallet through the IPC interface.
+3. Split off the GUI into its own project, released at its own schedule.
+
+I had previously heard that QT widget would be deprecated, but turns out it [will not](https://www.erisian.com.au/bitcoin-core-dev/log-2026-02-12.html#l-420). So that seems reasonable to focus on the existing GUI than the forever-1-year-away one.
+
+We have as a project already chosen to bear most of the cost of multiprocess (additional dependencies), so we may as well reap all the benefits and include the remaining interfaces. Of course that's still a lot of work. Off the top of my head we'd need to:
+- Merge the remaining interfaces;
+- Merge process spawning logic;
+- Figure out Windows support for multiprocess;
+- Figure out some stability guarantees for the interface that would be used by the GUI.
+
+There would also be costs associated with a split, notably in terms of some code and build system logic duplication. That's a non-trivial amount of work (though most items have been implemented already), but not more than building an entirely new GUI, and in my opinion preferable to stopping to release a GUI altogether when no alternative is available. This also enables the competition between alternative GUIs talked about in the gist, if anybody becomes interested in taking part in that. Delivering this for version 34, as per the original timeline, seems achievable.
+
+Now i'll try to answer the specific questions i asked everyone in OP.
+
+[quote="AntoineP, post:1, topic:2253"]
+What should be our quality threshold for software we release? What should we do if we are unable to meet that threshold?
+[/quote]
+
+Inertia is always a strong force, and i think especially so in leaderless structures such as ours where there is noone to call the shots and impose hard (but sometimes necessary) choices. If we believe that a piece of software we release is significantly less vetted than others, it is paramount that we let users know. Stopping to ship it is a more difficult tradeoff, as discussed above, but making more information available comes with little downsides. In practice i think this could translate into a warning included on our download page.
+
+[quote="AntoineP, post:1, topic:2253"]
+they disagreed with the assessment. That seems like a **good starting point** for a discussion. If we can’t agree on whether the GUI is in a shippable state
+[/quote]
+
+I cannot talk to the quality of the code in the GUI because i am not familiar with it (like, i think, the vast majority of contributors). Development is certainly slow ([20 merged PR created in the past year](https://github.com/bitcoin-core/gui/pulls?q=is%3Apr+is%3Amerged+created%3A%3E%3D2025-02-13+)), but not dead to the point of raising a red flag. A bit more concerning is the number of reported issues that go unfixed for years (for instance just [search for "crash"](https://github.com/bitcoin-core/gui/issues?q=is%3Aissue%20state%3Aopen%20crash) on the issue tracker), or the fact that [it is half-broken in some circumstances which may introduce more risks than it solves problems](https://www.erisian.com.au/bitcoin-core-dev/log-2025-09-19.html#l-76), so somewhat of an orange flag here.
+
+Overall i do not think this software is in such a bad shape that it would be irresponsible for us to ship, as long as we make it clear to users it does not receive the same level or review as the rest of Bitcoin Core. In my view the issue with the GUI are more on the indirect cost it imposes on the project, more on that below.
+
+[quote="AntoineP, post:1, topic:2253"]
+do we believe that shipping it is still the least bad option in practice, because it would otherwise lead to users not being able to upgrade?
+[/quote]
+
+I think there are two suboptimal paths we want to avoid. These are 1) breaking compatibility for unsuspecting users too soon 2) not be able to deprecate the GUI and eventually split if off to focus on maintaining the Bitcoin network. Unfortunately we don't have any obviously-good, simple solution, and currently i think my suggestion from above is the least bad option but i am happy to be convinced otherwise by either side of this argument.
+
+[quote="AntoineP, post:1, topic:2253"]
+indirect costs and risks
+[/quote]
+
+As i have previously shared at length in previous posts and in person, i think this is the major issue with mission creep. Small, dispersed, costs that accumulate over time and across contributors. Trying to do everything in one software invites code churn that risks impacting every single Bitcoin user, only to potentially benefit a tiny portion thereof. In the case of the GUI, for instance it could be [code or build system updates of the main project](https://github.com/bitcoin/bitcoin/pulls?q=is%3Apr+in%3Abody+qt+OR+gui) for GUI purposes, or GUI related changes [hindering](https://github.com/bitcoin/bitcoin/pull/33494#issuecomment-3380876967) development [of](https://github.com/bitcoin/bitcoin/pull/33511#issuecomment-3360247170) the [node](https://github.com/bitcoin/bitcoin/pull/32998#issuecomment-3082011233). These happen all the time, but another one worth mentioning is when [a multiprocess bugfix](https://github.com/bitcoin/bitcoin/pull/33511#issuecomment-3360247170) for the node could not be applied, because it broke the GUI, so the GUI had to be unbroken before the full node could be fixed.
+
+-------------------------
+

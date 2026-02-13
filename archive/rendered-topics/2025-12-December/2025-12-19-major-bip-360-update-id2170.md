@@ -263,3 +263,21 @@ It specifically fixes the low-hanging vulnerability where P2TR implicitly expose
 
 -------------------------
 
+leishman | 2026-02-13 18:20:41 UTC | #20
+
+> It specifically fixes the low-hanging vulnerability where P2TR implicitly exposes a public key through the key-path spend
+
+Yes I think the BIP does a good job at making that clear, but we already have a fix that doesn’t require any changes: You can just use P2WSH and get the same security guarantees with no change to the protocol. So this proposed change is specifically adding more complexity to solve the problem of “I want to use tapscript but am worried about quantum” and I personally don’t see why this is the problem to be focusing on (and it’s very possible I’m wrong).
+
+The BIP website says this is “**a proposed first step in advancing Bitcoin quantum resistance”,** but the BIP provides no argument for why THIS, out of a multitude of alternatives, should be the first step in advancing Bitcoin’s quantum resistance. Is there an assumption that all future quantum resistant work (like adding hash-based signatures) will be done under this P2TSH umbrella?
+
+My specific feedback for the author is: make the case clearer for why this specific change should be the first step we take towards quantum security.
+
+-------------------------
+
+murch | 2026-02-13 18:40:03 UTC | #21
+
+My understanding is that the authors of BIP 360 anticipate that a post-quantum signature scheme will be added to Tapscript by redefining an OP_SUCCESS opcode next to the introduction of P2MR.
+
+-------------------------
+

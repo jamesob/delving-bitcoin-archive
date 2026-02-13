@@ -202,7 +202,7 @@ Thanks again for engaging with this.
 
 -------------------------
 
-1440000bytes | 2026-02-07 18:00:00 UTC | #12
+1440000bytes | 2026-02-09 12:31:58 UTC | #12
 
 [quote="Nuh, post:4, topic:2223"]
 I apologize for any inconvenience to the authors, but my impression is that what is actually killing all these soft-forks is pure apathy, especially from miners.
@@ -215,6 +215,50 @@ You can look at this donut chart to understand who should be contacted:
 ![image|690x366](upload://dkRnxfsH3wZF8aVDJAP9bLx1bZJ.png)
 
 Note: These mining pools (foundry, antpool, f2pool) also influence default relay policy in core.
+
+<details>
+<summary>Archive</summary>
+
+https://archive.is/cldLr
+
+</details>
+
+-------------------------
+
+murch | 2026-02-13 18:32:12 UTC | #13
+
+What you are doing equates to building up a bounty for miners to start disrespecting upgrade hooks.
+
+[quote="Nuh, post:4, topic:2223"]
+What if that utxo is never spent, doesn’t that tell us something interesting?
+
+[/quote]
+
+It’s a gentlemen’s agreement that miners respect upgrade hooks. It’s absurd to expect that they’d honor the intent of an OP_SUCCESS redefinition they probably have never even heard about. You will not be able to use the opcode in your intended manner, because miners will not follow your hypothetical rules. They will ignore the OP_SUCCESS-laden scripts until there is enough money for someone to go to the trouble of starting to take it instead.
+
+If your goal is to see more soft forks, you are self-sabotaging: bribing miners into disrespect upgrade hooks will make it messier and therefore harder to deploy soft forks.
+
+Please find a more positive approach to push for protocol improvements than torching common goods.
+
+-------------------------
+
+Nuh | 2026-02-13 19:15:29 UTC | #14
+
+Thanks for your elaboration. 
+
+Saying that the upgrade hooks are a common good worth caring about assumes that upgrades are actually feasible, I see no evidence on that whatsoever.
+
+Moreover, I believe that the threshold everyone seems to demand “ecosystem agreement” *otherwise miners are considered attackers* is clearly impossible, and it doesn’t apply to any previous soft fork, except because Bitcoin had a core of influential developers that were acting not-unlike Ethereum Foudnation or Rootstock Labs etc.., To their extreme credit, these developers have recognized that and stepped aside, even before the stakeholders outgrew their influence.
+
+If one agrees that we only have between 0-1 soft-forks in our future, and the only way to get that is to dare everyone to spend a utxo wrong and risk a fork, then OP_CAT might be the best option for that dare, because I don’t think GSR will be here soon.
+
+Still, I won’t put any more funds in that address, because I might be wrong, but I hope others try this aggressive approach, or we can just be happy with Rootstock-like merge mining and ugly BitVM bridges, because we won’t have anything else ever, if we wait for the mythical ecosystem to mythically reach an agreement.
+
+-------------------------
+
+murch | 2026-02-13 19:42:33 UTC | #15
+
+I am confident that a sufficiently attractive soft fork can be deployed. The absence of such a proposal at this time doesn’t prove a negative.
 
 -------------------------
 

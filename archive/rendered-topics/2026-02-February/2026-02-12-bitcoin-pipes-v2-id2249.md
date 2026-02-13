@@ -289,3 +289,11 @@ But two counterpoints spring up:
 
 -------------------------
 
+cmp_ancp | 2026-02-13 18:06:17 UTC | #3
+
+Using a schematic with a counterparty operator, if a tx is required to have a 3-3 musig2 signature, being one key in possession of the operator, one in possession of the user and the third hidden behind WE, we can actually enforce a covenant-like tx format.
+
+The user couldn’t form an abitrary tx, because it requires the operator signature. Even if the operator is malicious during the setup comittee, he couldn’t steal funds because of the user signature.
+
+-------------------------
+

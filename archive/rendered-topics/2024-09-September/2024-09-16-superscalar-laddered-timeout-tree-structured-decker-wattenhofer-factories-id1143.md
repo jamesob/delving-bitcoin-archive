@@ -1510,3 +1510,19 @@ the maximum number of bitcoins, that can be used to pay the fees, I don't see ho
 
 -------------------------
 
+8144225309 | 2026-02-13 16:11:40 UTC | #33
+
+Hey **[ZmnSCPxj](https://delvingbitcoin.org/u/zmnscpxj)**, I decided to attempt an implementation of superscalar to see how far I could push it. Any input greatly appreciated as I could not find a doc or spec. Please let me know if this should be renamed so as not to conflict with any other implementation or design being worked on elsewhere.
+
+https://github.com/8144225309/Decker-Wattenhofer-prototype
+
+-------------------------
+
+ZmnSCPxj | 2026-02-13 16:30:38 UTC | #34
+
+To my knowledge this is not being worked on by anyone else anywhere, not even myself, so feel free to continue implementing this.
+
+A thing I would suggest would be to remove shachain completely, in favor of simply storing all the revocation keys.  The issue is that to my knowledge, there is no multi-participant method of creating shachain (by which I mean, one channel endpoint or the other may be composed of multiple signers, and, without having to reveal this information that the endpoint may or may not be composed of multiple signers, can we calculate a single shachain for one endpoint (actually has multiple signers) without losing the important part of multisig: multiple devices must be compromised for financial loss to occur (so that, for example, having a single device perform the shachain in full is not truly multisignature in this sense)).
+
+-------------------------
+
