@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 2,
-  "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "incoming_link_count": 1,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 2110,
   "topic_slug": "propagation-delay-and-mining-centralization-modeling-stale-rates",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:7, topic:2110, full:true\"]\n@ajtowns has been looking into it too. Here\u2019s a [BIP draft](https://github.com/ajtowns/bips/blob/f25fa67b03fc0ebbf994aca62d96c1990da8fd9d/bip-staletip.md) and [vibe-coded implementation](https://github.com/ajtowns/bitcoin/tree/202601-staletips-vibes).\n[/quote]\n\nHey, I sent you that in confidence! How am I supposed to take credit for claude's code now??\n\n[quote=\"0xbrito, post:8, topic:2110, full:true\"]\nCool! let me look into it\n[/quote]\n\nI think the BIP is pretty sound; but I haven't tried out the code on any real data. Whether sharing stale blocks (rather than just headers) is actually a smart idea is questionable as well.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Hey, I sent you that in confidence! How am I supposed to take credit for claude\u2019s code now?? \n\nI think the BIP is pretty sound; but I haven\u2019t tried out the code on any real data. Whether sharing stale blocks (rather than just headers) is actually a smart idea is questionable as well.",
   "truncated": true,
   "post_url": "/t/propagation-delay-and-mining-centralization-modeling-stale-rates/2110/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
