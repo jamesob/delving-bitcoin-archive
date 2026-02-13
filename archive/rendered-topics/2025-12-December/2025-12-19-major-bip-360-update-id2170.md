@@ -252,3 +252,14 @@ Specifically, I think the BIP fails to answer the question: Why go through the e
 
 -------------------------
 
+ArmchairCryptologist | 2026-02-13 08:38:14 UTC | #19
+
+[quote="leishman, post:18, topic:2170"]
+It’s possible that the convo has been had elsewhere but it’s unclear to me how this proposal does anything to actually address QC concerns. Nothing proposed here improves the quantum security posture for Bitcoin, it only “fixes” a potential weakness in taproot.
+
+[/quote]
+
+It specifically fixes the low-hanging vulnerability where P2TR implicitly exposes a public key through the key-path spend, which makes it vulnerable to CRQCs due to long-term public key exposure. So it does make Bitcoin more quantum-resistant, for taproot specifically, which may be an important stop-gap while the addition of PQC signatures is worked out. Though it should probably be emphasized that the new address format is not *more* quantum-resistant than the other modern address types, and is still vulnerable to short-exposure attacks, should they become feasible.
+
+-------------------------
+
