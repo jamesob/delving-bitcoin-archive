@@ -97,3 +97,9 @@ As i have previously shared at length in previous posts and in person, i think t
 
 -------------------------
 
+neonrooks | 2026-02-14 09:17:15 UTC | #3
+
+I use the Bitcoin Core gui (bitcoin-qt) exclusively because it is more convenient for me. I’m concerned about one day not being able to update after the gui is depracated. Is there a solution for non-technical users?
+
+-------------------------
+
