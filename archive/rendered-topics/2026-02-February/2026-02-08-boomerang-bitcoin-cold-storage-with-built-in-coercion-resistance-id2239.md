@@ -66,114 +66,57 @@ bitryonix
 
 -------------------------
 
-bitryonix | 2026-02-09 05:36:52 UTC | #2
+bitryonix | 2026-02-14 12:54:11 UTC | #3
 
-**Duress Mechanism in the Boomerang Protocol: Protecting Users Under Coercion**
+Here I have tried to present a high-level overview of the protocol. Your comments are highly appreciated. Thank you all.
 
-Hey everyone, diving deeper into the Boomerang protocol's security features, here's a detailed breakdown of the duress mechanism. This is a system designed to let users signal distress discreetly during withdrawals, without alerting an attacker. It leverages memorized "consent sets" based on countries, encrypted communications, and integration with Search and Rescue (SAR) entities to trigger help if needed. The goal is to make coercion risky for attackers while maintaining plausible deniability.
-I'll cover the core concepts, setup, runtime usage (e.g., during withdrawals), security assumptions, and how it handles adversaries. This is based on the protocol's design docs and diagrams. Please feel free to ask for clarifications!
+### What is Boomerang?
 
-**What is the Duress Mechanism?**
-The duress system allows users to signal coercion (e.g., being forced to sign a transaction) by entering a non-standard input during "duress checks." These checks happen at key points like committing to a withdrawal or randomly during the process. If duress is signaled, the system silently sends a payload to SARs (trusted rescuers) to decrypt and use "doxing data" (personal info for location/recovery) to initiate a rescue, without changing observable behavior to tip off the attacker.
-Key actors:
+Imagine you have a lot of bitcoins - maybe for a company or personal savings - and you’re worried not just about hackers, but about real-world threats like someone kidnapping you or threatening you to hand over the money. Regular “cold storage” (like keeping your keys offline on a hardware wallet) is great against online thieves, but it doesn’t help if an attacker forces you to sign a transaction right away. That’s where Boomerang comes in: it’s a system designed to make stealing bitcoins through force way harder and riskier for bad guys.
 
-* **User**: Creates doxing data and a password; memorizes a "consent set" of 5 countries.
+### Why Does Boomerang Exist?
 
-* **SAR (Search and Rescue Entity)**: Holds encrypted doxing data; Once received a payload created after a positive duress signal, can decrypt and act on duress signals.
+* **The Problem**: Big bitcoin holders (like businesses with millions in bitcoin) often have a few key people who control the ultimate access. Hackers can’t easily get in, but a **“wrench attack”** - basically, physically forcing those people to transfer the money - works because normal systems let you send funds quickly and reliably.
+* **The Goal**: Boomerang flips the script. It turns the withdrawal process into something unpredictable in timing during a certain period, with built-in ways to securely signal duress. Attackers can’t count on getting the money in a set timeframe (or without risks), so they’re less likely to try. Importantly, you can always withdraw eventually if everything’s legit. It’s just not instant or predictable at first, and becomes straightforward after a set time.
 
-* **Adversary**: Can capture/observe the user but can't break crypto or hardware security.
+It’s like hiding your treasure in a vault that takes a random, unknown, but within a wide range (selected by you privately), amount of time to open, and you can secretly hit a panic button without the attacker detecting if you have done such thing during the process. After a milestone (like 2 years), the vault can be opened normally and deterministically.
 
+### How Does It Work?
 
-**Doxing Data: The Rescue Payload**
-Doxing data helps SAR locate and rescue the user:
+Boomerang isn’t for everyday spending. It’s for long-term storage where you rarely need to touch the funds. Here’s the basics:
 
-* **Static Data**: Fixed info like name, ID, addresses, phone numbers, and trusted contacts (encrypted with doxing_key = SHA256(doxing_password)). Sent to SAR during setup.
+1. **Setup Basics**:
 
-* **Dynamic Data**: Real-time feeds (e.g., phone location) encrypted and updated continuously.
+   * You split control among a small group (e.g., 5 trusted people or “peers”).
+   * Each person uses special hardware devices (like secure cards or apps) to hold parts of the keys.
+   * You also connect to neutral “watchtowers” (services that help coordinate) and “search and rescue services” (that can alert help if things go wrong).
+   * You provide encrypted personal info (like your location) to the rescue service, locked with a secret password only you know.
+   * Each peer privately sets their own range for how many “steps” (rounds of checks) their part of the process might take; say, a minimum and maximum number, like 6 months to 1 year worth of steps (tied to Bitcoin’s blockchain timing). The group doesn’t share these ranges; each person’s device (Boomlet) randomly picks a number within their own private range when needed.
+   * The group agrees on a future “milestone block 1” (a specific point on the Bitcoin blockchain, e.g., in 2 years) after which withdrawals become fast and predictable; no more randomness.
+   * Prior to the milestone, the withdrawal is non-deterministic and the duress protection is in place. After that milestone, it is just a plain normal spending condition in a taproot address.
 
-On duress, Boomlet (hardware wallet) sends the doxing_key (encrypted for SAR) in message payloads. SAR decrypts, hashes to identify the user, and starts rescue ops.
+2. **Withdrawing Money**:
 
-**Core Concepts**
+   * To move bitcoins, everyone in the group has to approve through a back-and-forth process.
+   * In the boomerang period (before the milestone mentioned earlier, like the first 2 years), it involves multiple rounds of checks (the “digging game”). The exact number of steps for each peer’s part is randomly picked by their Boomlet within their own private min-max range. No one (not even the group) knows the others’ ranges or picks upfront, creating overall uncertainty in total time - so neither do attackers. This makes it hard for bad guys to plan around the timing, giving potential victims time (e.g., months) to be rescued if coerced.
+   * During approvals, you can secretly signal “I’m under duress” (e.g., by choosing certain options in a quiz-like interface on a device). This looks normal to attackers but triggers the rescue service.
+   * If anything seems off (like missed duress checks or messed up responses), the process just… stops. No money moves. But if all’s good, it completes - you just don’t know exactly how long it’ll take ahead of time.
+   * After the milestone block (e.g., 2 years in), you enter a “normal era” where everything is quick and deterministic, like regular cold storage.
 
-* **Consent Set**: 5 unique countries (no order) chosen by the user during setup. Matching this set means "no duress"; any other combination signals duress.
+3. **Duress Protection**:
 
-* **Country Mapping**: Based on 195 countries (UN-like list) sorted alphabetically (1 = Afghanistan, ..., 195 = Zimbabwe).
+   * The “secret signal” is easy: You memorize a set of 5 countries during setup as the consent set. Later, the system shows lists of countries, and your choices either confirm “all good” by entering the consent set or scream “help!” by entering any other combination of countries without obvious signs or stopping the ceremony. You signal the duress but the attacker observe no change compared to the non-duress situation.
+   * If duress is signaled, the rescue service gets your info and can start a “search and rescue” - like contacting authorities or trusted contacts.
 
-* **Duress Checks**: Boomlet generates 5 random lists of 1-195 numbers; ST (Secure Terminal) maps to countries and displays as columns. User selects one per column.
+The whole thing uses encryption and anonymous networks (like Tor) to keep communications hidden. It’s not foolproof against everything, but it makes coercion a bad bet for attackers: too uncertain in duration and too risky.
 
-* **Plausible Deniability**: Under torture, user can reveal any 5 countries as the "consent set"—attacker can't verify without risking a real duress signal.
+### Who Is It For?
 
-Probability of random guess succeeding: \~3.73e-12 (1 in 267 billion), making blind attacks infeasible.
+* **Big Holders**: Companies or wealthy individuals with bitcoin they don’t need to access often (e.g., long-term reserves).
+* **High-Risk Situations**: Places where physical threats are real, like in unstable regions.
+* **Not For**: Casual users or quick trades; it’s too slow and complicated for that.
 
-**Setup Process**
-Done via isolated devices (Iso, Boomlet, ST) with QR codes for secure, air-gapped comms:
-
-* Boomlet and ST exchange identity pubkeys via Iso/QR to establish shared ECDH key (AES encryption).
-
-* Boomlet generates random list \[1-195\], encrypts, sends via Iso/QR to ST.
-
-* ST decrypts, maps to countries (alphabetical), displays list.
-
-* User selects 5 countries via joystick (memorizes names); ST records indices, encrypts, sends back via QR/Iso.
-
-* Boomlet decrypts, extracts numbers as consent_set.
-
-* Confirmation: Boomlet sends 5 new random lists; user re-selects to match consent_set. Mismatch? Retry or restart.
-
-After setup, user only remembers 5 country names; system stores numbers securely.
-
-**Runtime Process (e.g., During Withdrawal)**
-Checks triggered by Boomlet (at commitment or PRNG-based random intervals):
-
-* Boomlet generates 5 random \[1-195\] lists, encrypts, sends via Niso/QR to ST.
-
-* ST decrypts, maps to country columns, displays on small monitor.
-
-* User selects one country per column via joystick (hidden from observer).
-
-* ST encrypts indices, sends back via QR/Niso to Boomlet.
-
-* Boomlet decrypts, extracts numbers, compares to consent_set:
-
-  * Match = No duress: Encrypts all-zeroes payload for SAR.
-
-  * Mismatch = Duress: Encrypts doxing_key for SAR.
-
-* Payload embedded in next withdrawal message to Watchtower (WT).
-
-* WT forwards payload to SAR.
-
-* SAR decrypts:
-
-  * All zeroes? Ignore (no duress).
-
-  * Else? Hash to doxing_identifier, search database, decrypt doxing data, start rescue.
-
-  * Malformed? Increment counter; if threshold hit, halt protocol.
-
-* SAR signs/acknowledges back to WT/Boomlet for verification.
-
-Once duress is signaled, all future messages carry it. Persistent alert.
-
-**Security Features and Attacker Assumptions**
-Covers forced transactions or continued signing under compromise. Resistant to:
-
-* Replay attacks (fresh random lists each time).
-
-* Typos (set-based, order-insensitive).
-
-* Observation (ST's small screen + hidden input).
-
-Attacker can:
-
-* Capture/observe user, read plain messages, act as user, destroy hardware.
-
-But cannot:
-
-* Break JavaCard security, crypto, or observe ST input without seeing screen + hands simultaneously.
-
-
-Consequences: No observable changes on duress (plausible deniability); withdrawal proceeds normally but SAR is alerted.
+In short, Boomerang is like a bitcoin safe with a randomized time-delay lock and a hidden alarm during the boomerang phase, switching to normal access after a milestone. It prioritizes ultimate protection over convenience, making it tougher for anyone to force you out of your bitcoin. If you’re curious about setting it up or the costs, it involves hardware, fees for services, and coordinating with others.
 
 -------------------------
 

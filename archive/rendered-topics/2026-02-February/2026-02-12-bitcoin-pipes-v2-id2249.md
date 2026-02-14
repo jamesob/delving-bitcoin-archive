@@ -297,3 +297,16 @@ The user couldn’t form an abitrary tx, because it requires the operator signat
 
 -------------------------
 
+AdamISZ | 2026-02-14 12:15:51 UTC | #4
+
+[quote="cmp_ancp, post:3, topic:2249"]
+Using a schematic with a counterparty operator, if a tx is required to have a 3-3 musig2 signature, being one key in possession of the operator, one in possession of the user and the third hidden behind WE, we can actually enforce a covenant-like tx format.
+
+The user couldn’t form an abitrary tx, because it requires the operator signature. Even if the operator is malicious during the setup comittee, he couldn’t steal funds because of the user signature.
+
+[/quote]
+
+Assuming this is answering my quibble about “is covenant a good term for this?” above, then: well but any multisig setup with a third party could do the same, couldn’t it? If the WE gates access to the private key itself, then in itself it doesn’t do any covenant-like behaviour. The restriction on the tx structure is purely from the operator in this setup, isn’t it?
+
+-------------------------
+

@@ -13,9 +13,9 @@
   "reply_to_post_number": 19,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 12.4,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 27.6,
   "yours": false,
   "topic_id": 2170,
   "topic_slug": "major-bip-360-update",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> It specifically fixes the low-hanging vulnerability where P2TR implicitly exposes a public key through the key-path spend\n\nYes I think the BIP does a good job at making that clear, but we already have a fix that doesn\u2019t require any changes: You can just use P2WSH and get the same security guarantees with no change to the protocol. So this proposed change is specifically adding more complexity to solve the problem of \u201cI want to use tapscript but am worried about quantum\u201d and I personally don\u2019t see why this is the problem to be focusing on (and it\u2019s very possible I\u2019m wrong).\n\nThe BIP website says this is \u201c**a proposed first step in advancing Bitcoin quantum resistance\u201d,** but the BIP provides no argument for why THIS, out of a multitude of alternatives, should be the first step in advancing Bitcoin\u2019s quantum resistance. Is there an assumption that all future quantum resistant work (like adding hash-based signatures) will be done under this P2TSH umbrella?\n\nMy specific feedback for the author is: make the case clearer for why this specific change should be the first step we take towards quantum security.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "It specifically fixes the low-hanging vulnerability where P2TR implicitly exposes a public key through the key-path spend \n\nYes I think the BIP does a good job at making that clear, but we already have a fix that doesn\u2019t require any changes: You can just use P2WSH and get the same security guarante&hellip;",
   "truncated": true,
   "post_url": "/t/major-bip-360-update/2170/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

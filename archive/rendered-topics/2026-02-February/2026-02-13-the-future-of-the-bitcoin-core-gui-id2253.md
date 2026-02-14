@@ -103,3 +103,26 @@ I use the Bitcoin Core gui (bitcoin-qt) exclusively because it is more convenien
 
 -------------------------
 
+1440000bytes | 2026-02-14 13:36:11 UTC | #4
+
+(post deleted by author)
+
+-------------------------
+
+1440000bytes | 2026-02-14 13:41:24 UTC | #5
+
+[quote="neonrooks, post:3, topic:2253, full:true"]
+I use the Bitcoin Core gui (bitcoin-qt) exclusively because it is more convenient for me. I’m concerned about one day not being able to update after the gui is depracated. Is there a solution for non-technical users?
+[/quote]
+
+I think the node could have a web UI like i2p router web console. Not sure about the wallet.
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20260214133933/https://delvingbitcoin.org/t/the-future-of-the-bitcoin-core-gui/2253/5
+
+</details>
+
+-------------------------
+
