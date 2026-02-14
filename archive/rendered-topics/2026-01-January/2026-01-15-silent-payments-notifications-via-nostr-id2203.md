@@ -279,3 +279,35 @@ The easy part of this question is that not waiting is clearly preferable to Alic
 
 -------------------------
 
+setavenger | 2026-02-14 15:45:15 UTC | #5
+
+[quote="RubenSomsen, post:4, topic:2203"]
+Your latter sentence is why I suggested the taproot output for the minimal approach rather than the txid. This gives you something to scan for using regular block filters. Though txid filters are theoretically possible too, of course.
+[/quote]
+
+How would that look in practice? If Bob only receives an output, he has to go through all block filters until he finds the output - every time. A heuristic to speed up this process would be to go backwards from chain tip. But this still seems impractical to me. A timestamp as a hint could make this more feasible to limit the probable range.
+
+[quote="RubenSomsen, post:4, topic:2203"]
+I’m not convinced there is a safe enough middle ground where we only partially check stuff. Either we trust the sender or we don’t. If we trust the sender then we don’t have to fetch any data from other sources at all. The sender can just provide everything that is needed to spend the output (see the last paragraph of [my post](https://gist.github.com/setavenger/a0cd7e71b47ded9fca9c99085130cf2a?permalink_comment_id=5931734#gistcomment-5931734)).
+[/quote]
+
+Why would a wallet need to go to either extreme? There are two aspects we are discussing. One being DoS resistance and the other being validation of the message. The latter is generally required in my opinion. A wallet cannot just take a notification and blindly trust that this output is spendable, or even exists. The most basic check is: "Does this output still exist and did I already receive this notification". Most or all wallets are most likely able to run the scanning logic for that transaction at the same time. I don't see a good reason, yet, to skip this validation. My assumption here is that during any basic validation the wallet would use it's default backend which would be "other sources".
+
+Bob, despite trusting Alice, blindly adding the notification's output as an input in a new transaction sounds like a UX nightmare to me. One just needs to consider an RBF-Scenario where the transaction's inputs changed, consequently changing all SP outputs. Alice did not defraud Bob and can be trusted. But two notifications exist of which the first one does not point to valid transaction or output. I guess this is somewhat what you were eluding to in your previous reply to the Gist.
+
+[quote="RubenSomsen, post:4, topic:2203"]
+Perhaps, but I suspect it may be a little early to start considering where to be flexible. In order to come up with a good protocol we’ll inevitably have to first form a reasonably well-informed opinion about what the client design might look like. Or at least that’s the only way to stay reasonably lean.
+[/quote]
+
+I directionally agree with this. I would say, though, that for very standard data, like the tweak, I don't see a problem at all. I'd be more critical if we were talking about fringe or edge case data. The tweak is standard information which every sender has and every receiver needs. Trust assumptions referenced above.
+
+Also about adding a tweak. I think it mainly becomes an issue if a wallet has a bad trade-off or handles a notification in a way which creates weird UX cases.
+
+[quote="RubenSomsen, post:4, topic:2203"]
+Opinions can differ, but I’m not very optimistic about Web of Trust reliance, for instance. If we had a well-functioning and reliable WoT to slot this all into then great, but today we do not.
+[/quote]
+
+Let me rephrase/clarify. I meant Web of Trust in the wider sense not the Nostr scoring system. If I receive this notification via something like Signal or E-Mail from somebody with whom I have had a previous relationship, I have to take less protective measures compared to a completely open and unchecked input channel like random Nostr DMs.
+
+-------------------------
+
