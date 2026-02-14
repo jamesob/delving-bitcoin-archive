@@ -520,3 +520,20 @@ https://archive.is/yXlQe
 
 -------------------------
 
+1440000bytes | 2026-02-14 16:41:10 UTC | #13
+
+I don't see any option to reply on your thread https://delvingbitcoin.org/t/silent-payments-notifications-via-nostr/2203 (no surprise)
+
+However, there are people looking to use nostr for notifications: https://xcancel.com/francispouliot_/status/2019219267322015931
+
+Cc: @setavenger
+
+<details>
+<summary>Archive</summary>
+
+https://archive.is/v2oHW
+
+</details>
+
+-------------------------
+
