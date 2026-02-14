@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"cmp_ancp\" data-post=\"3\" data-topic=\"2249\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/c/b3f665/48.png\" class=\"avatar\"> cmp_ancp:</div>\n<blockquote>\n<p>Using a schematic with a counterparty operator, if a tx is required to have a 3-3 musig2 signature, being one key in possession of the operator, one in possession of the user and the third hidden behind WE, we can actually enforce a covenant-like tx format.</p>\n<p>The user couldn\u2019t form an abitrary tx, because it requires the operator signature. Even if the operator is malicious during the setup comittee, he couldn\u2019t steal funds because of the user signature.</p>\n</blockquote>\n</aside>\n<p>Assuming this is answering my quibble about \u201cis covenant a good term for this?\u201d above, then: well but any multisig setup with a third party could do the same, couldn\u2019t it? If the WE gates access to the private key itself, then in itself it doesn\u2019t do any covenant-like behaviour. The restriction on the tx structure is purely from the operator in this setup, isn\u2019t it?</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-02-14T12:15:51.330Z",
   "reply_count": 0,
   "reply_to_post_number": null,

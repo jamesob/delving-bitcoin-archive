@@ -310,3 +310,11 @@ Assuming this is answering my quibble about “is covenant a good term for this?
 
 -------------------------
 
+nemothenoone | 2026-02-14 15:06:07 UTC | #5
+
+I agree btw, that to emulate a post-covenant (what you're calling "to enforce the transaction structure") cryptographically without a 3-of-3 multisig usage we need FE-based PIPEs (effectively it is what PIPEs v1 were about). But we haven't got yet to being able to run the v1 practically yet (we only know how to do that with WE for now), so the only thing we can do without a 3-of-3 multisig is to do a PIPEs v2-based pre-covenant (or a binary-predicate covenant).
+
+There is also a bit of a consideration that in fact, a PIPEs v2-based covenant can be of whatever complexity (let's say, you can define any type of pre-condition for a transaction through zkVM/zkLLVM). So, maybe additional restriction can be enforced in there through a circuit design.
+
+-------------------------
+
