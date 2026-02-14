@@ -281,3 +281,9 @@ My understanding is that the authors of BIP 360 anticipate that a post-quantum s
 
 -------------------------
 
+cmp_ancp | 2026-02-13 23:02:28 UTC | #22
+
+I hardly think anyone would push to activate this BIP alone, but rather in a post quantum bundle. It's just matter of separation of concerns, we use a BIP to define the structure beneath and another defining the signature schemes per se.
+
+-------------------------
+

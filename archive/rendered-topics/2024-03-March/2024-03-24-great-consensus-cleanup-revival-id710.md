@@ -1727,3 +1727,9 @@ For these reasons i don't plan to adopt the suggestion and will stick with the s
 
 -------------------------
 
+AntoineP | 2026-02-13 21:31:59 UTC | #92
+
+BIP 54 (Consensus Cleanup) is now [active on Bitcoin Inquisition](https://delvingbitcoin.org/t/bitcoin-inqusition-29-2/2236?u=antoinep), since block 291168.
+
+-------------------------
+
