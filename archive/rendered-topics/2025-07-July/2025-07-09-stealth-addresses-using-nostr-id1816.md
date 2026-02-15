@@ -551,3 +551,14 @@ Also nice work on the plugin. I’m still trying to find the time to properly lo
 
 -------------------------
 
+ArmchairCryptologist | 2026-02-15 19:22:02 UTC | #16
+
+[quote="setavenger, post:14, topic:1816"]
+I’m not sure why you wouldn’t be able to reply on my delving thread, I have already received replies. Are there any hidden settings?
+
+[/quote]
+
+I believe you need to join the [Silent Payments Working Group](https://delvingbitcoin.org/g/wg-silent-payments) to post in that category; see [pinned thread](https://delvingbitcoin.org/t/about-the-wg-silent-payments-category/876).
+
+-------------------------
+
