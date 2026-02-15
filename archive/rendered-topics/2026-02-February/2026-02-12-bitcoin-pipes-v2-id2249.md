@@ -320,3 +320,13 @@ We're looking (and welcoming any help!) into which other BIPs PIPEs (v1 or v2) c
 
 -------------------------
 
+cmp_ancp | 2026-02-15 04:50:51 UTC | #6
+
+The trust balance is totally different.
+
+Imagine we have a tx that need to have a certain format and could only be executed in a certain situation. In the simple 2-2 musig scenario, you need to trust the operator that they would give you the half signed tx when the condition is met, if the operator is mallicious and wants to censor you, he could only don't share the tx.
+
+In the 3-3 musig + WE, the half signed tx is shared with the user beforehand, right after setup. The operator knows that the tx could only be spend if a certain condition is met, that the tx will have a certain format, and the user knows that operator could not possibly double spend even if they’re mallicious.
+
+-------------------------
+
