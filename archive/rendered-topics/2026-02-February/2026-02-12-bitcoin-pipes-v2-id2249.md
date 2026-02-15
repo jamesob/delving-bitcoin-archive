@@ -320,13 +320,27 @@ We're looking (and welcoming any help!) into which other BIPs PIPEs (v1 or v2) c
 
 -------------------------
 
-cmp_ancp | 2026-02-15 04:50:51 UTC | #6
+cmp_ancp | 2026-02-15 11:32:49 UTC | #6
 
 The trust balance is totally different.
 
-Imagine we have a tx that need to have a certain format and could only be executed in a certain situation. In the simple 2-2 musig scenario, you need to trust the operator that they would give you the half signed tx when the condition is met, if the operator is mallicious and wants to censor you, he could only don't share the tx.
+Imagine we have a tx that need to have a certain format and could only be executed in a certain situation. In the simple 2-2 musig scenario, you need to trust the operator that they would give you the half signed tx when the condition is met, if the operator is mallicious and wants to censor you, he could simply don’t share the tx.
 
-In the 3-3 musig + WE, the half signed tx is shared with the user beforehand, right after setup. The operator knows that the tx could only be spend if a certain condition is met, that the tx will have a certain format, and the user knows that operator could not possibly double spend even if they’re mallicious.
+In the 3-3 musig + WE, the half signed tx is shared with the user beforehand, right after setup. The operator knows that the tx could only be spend if a certain condition is met, that the tx will have a certain format, and the user knows the operator could not possibly double spend even if they’re mallicious.
+
+-------------------------
+
+AdamISZ | 2026-02-15 12:24:53 UTC | #7
+
+OK, I understand better. I think? :
+
+The WE locks the private key to some external condition (a fraud proof; a certificate of something that unlocks a vault, etc. - your various examples) being proved true. Then with the multisig component the spending transaction’s structure can be defined/controlled by a third party.
+
+So the idea is that, by combining the two, you get a sort of “mix” of two desirable properties: the covenant-like behaviour is enforced by the 3rd party *at any time* (so as you say, early, at “setup” will be especially convenient), while that third party is *not* responsible for checking the spending condition or gate (such as the fraud proof being valid), that part is done automatically with WE.
+
+So I guess I do see why you think the term ‘covenant’ makes sense here.
+
+I guess the only unfortunate thing is that even if it is done in an early “setup” phase, this construction does require the user to be funding into a multisig in that setup phase. Depending on the use case that could be completely normal or not.
 
 -------------------------
 

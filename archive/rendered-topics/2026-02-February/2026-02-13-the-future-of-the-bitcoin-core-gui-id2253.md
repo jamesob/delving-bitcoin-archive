@@ -103,12 +103,6 @@ I use the Bitcoin Core gui (bitcoin-qt) exclusively because it is more convenien
 
 -------------------------
 
-1440000bytes | 2026-02-14 13:36:11 UTC | #4
-
-(post deleted by author)
-
--------------------------
-
 1440000bytes | 2026-02-14 13:41:24 UTC | #5
 
 [quote="neonrooks, post:3, topic:2253, full:true"]
@@ -123,6 +117,30 @@ I think the node could have a web UI like i2p router web console. Not sure about
 https://web.archive.org/web/20260214133933/https://delvingbitcoin.org/t/the-future-of-the-bitcoin-core-gui/2253/5
 
 </details>
+
+-------------------------
+
+janb84 | 2026-02-15 14:59:35 UTC | #6
+
+**Thanks for this write‑up.**
+
+First of all, I want to say I’m a big proponent of having choices and competition.
+
+I would suggest marking the GUI as being in **“maintenance mode,”** which would accurately represent its current state of development (it’s missing new features, etc.). This would also give GUI users an honest picture of its status without deprecating it outright. Stating that the GUI is in “maintenance mode” also gives people who aren’t following day‑to‑day development an option to respond. They can step up and help bring the GUI to a point where we can remove the “maintenance mode” designation or, if no meaningful response emerges, move toward deprecation. AKA **“use it or lose it.”**
+
+Directly **deprecating** the GUI could trigger a negative reaction from those who don’t track daily development (with all the consequences that entails). I would like to prevent that. 
+
+Regarding your suggestions, here are my reactions:
+
+1. **“Let go of the sunk‑cost fallacy of the update to QML … to iterate more easily.”**
+   Yes, this feels unlikely to land. I would say we “remove” it from the project but feel free to work on it anyway. It’s not a goal of bitcoin core anymore.
+   **(1.b)** Mark the current GUI as being in “maintenance mode.”
+
+2. **“Release the existing GUI only as a separate process that talks to the node and the wallet through the IPC interface.”**
+   Yes, this seems the best way forward to create options and allow interaction with Bitcoin Core without tight coupling. If this has to be IPC or RPC? idk.
+
+3. **“Split off the GUI into its own project, released on its own schedule.”**
+   In time, perhaps. The downside is that “the project” would no longer have direct control over quality, and the GUI could become just “one of many.” if that’s a bad thing ? IDK.
 
 -------------------------
 
