@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
+  "reads": 8,
+  "readers_count": 7,
   "score": 1.4,
   "yours": false,
   "topic_id": 2253,
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "**Thanks for this write\u2011up.**\n\nFirst of all, I want to say I\u2019m a big proponent of having choices and competition.\n\nI would suggest marking the GUI as being in **\u201cmaintenance mode,\u201d** which would accurately represent its current state of development (it\u2019s missing new features, etc.). This would also give GUI users an honest picture of its status without deprecating it outright. Stating that the GUI is in \u201cmaintenance mode\u201d also gives people who aren\u2019t following day\u2011to\u2011day development an option to respond. They can step up and help bring the GUI to a point where we can remove the \u201cmaintenance mode\u201d designation or, if no meaningful response emerges, move toward deprecation. AKA **\u201cuse it or lose it.\u201d**\n\nDirectly **deprecating** the GUI could trigger a negative reaction from those who don\u2019t track daily development (with all the consequences that entails). I would like to prevent that. \n\nRegarding your suggestions, here are my reactions:\n\n1. **\u201cLet go of the sunk\u2011cost fallacy of the update to QML \u2026 to iterate more easily.\u201d**\n   Yes, this feels unlikely to land. I would say we \u201cremove\u201d it from the project but feel free to work on it anyway. It\u2019s not a goal of bitcoin core anymore.\n   **(1.b)** Mark the current GUI as being in \u201cmaintenance mode.\u201d\n\n2. **\u201cRelease the existing GUI only as a separate process that talks to the node and the wallet through the IPC interface.\u201d**\n   Yes, this seems the best way forward to create options and allow interaction with Bitcoin Core without tight coupling. If this has to be IPC or RPC? idk.\n\n3. **\u201cSplit off the GUI into its own project, released on its own schedule.\u201d**\n   In time, perhaps. The downside is that \u201cthe project\u201d would no longer have direct control over quality, and the GUI could become just \u201cone of many.\u201d if that\u2019s a bad thing ? IDK.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for this write\u2011up. \nFirst of all, I want to say I\u2019m a big proponent of having choices and competition. \nI would suggest marking the GUI as being in \u201cmaintenance mode,\u201d which would accurately represent its current state of development (it\u2019s missing new features, etc.). This would also give GUI&hellip;",
   "truncated": true,
   "post_url": "/t/the-future-of-the-bitcoin-core-gui/2253/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
