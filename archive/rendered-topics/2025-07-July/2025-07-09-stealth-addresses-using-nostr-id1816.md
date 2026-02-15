@@ -537,3 +537,17 @@ https://archive.is/v2oHW
 
 -------------------------
 
+setavenger | 2026-02-15 08:04:07 UTC | #14
+
+I am roughly aware of the linked project. It goes into a similar direction. 
+
+I’m not sure why you wouldn’t be able to reply on my delving thread, I have already received replies. Are there any hidden settings?
+
+-------------------------
+
+setavenger | 2026-02-15 08:05:10 UTC | #15
+
+Also nice work on the plugin. I’m still trying to find the time to properly look through it…
+
+-------------------------
+
