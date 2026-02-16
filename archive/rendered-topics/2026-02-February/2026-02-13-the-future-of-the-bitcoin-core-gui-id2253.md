@@ -144,3 +144,9 @@ Regarding your suggestions, here are my reactions:
 
 -------------------------
 
+redundant | 2026-02-16 01:52:29 UTC | #7
+
+Changing the GUI to run as a separate process with IPC communication sounds like a good next step. It’s impossible to get a hard count on the number of users who rely on the GUI for interacting with their bitcoin so I don’t think it should be dropped just yet. My long-term preference is to keep it packaged with Bitcoin Core but have it maintained as a separate repository (like secp256k1). That way maintenance doesn’t have to be in the hands of those who don’t want to work on it, while there would still be an ‘official’ Bitcoin Core GUI.
+
+-------------------------
+

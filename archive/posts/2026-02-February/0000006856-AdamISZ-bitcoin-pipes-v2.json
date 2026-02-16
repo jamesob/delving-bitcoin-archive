@@ -13,9 +13,9 @@
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 2249,
   "topic_slug": "bitcoin-pipes-v2",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "OK, I understand better. I think? :\n\nThe WE locks the private key to some external condition (a fraud proof; a certificate of something that unlocks a vault, etc. - your various examples) being proved true. Then with the multisig component the spending transaction\u2019s structure can be defined/controlled by a third party.\n\nSo the idea is that, by combining the two, you get a sort of \u201cmix\u201d of two desirable properties: the covenant-like behaviour is enforced by the 3rd party *at any time* (so as you say, early, at \u201csetup\u201d will be especially convenient), while that third party is *not* responsible for checking the spending condition or gate (such as the fraud proof being valid), that part is done automatically with WE.\n\nSo I guess I do see why you think the term \u2018covenant\u2019 makes sense here.\n\nI guess the only unfortunate thing is that even if it is done in an early \u201csetup\u201d phase, this construction does require the user to be funding into a multisig in that setup phase. Depending on the use case that could be completely normal or not.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "OK, I understand better. I think? : \nThe WE locks the private key to some external condition (a fraud proof; a certificate of something that unlocks a vault, etc. - your various examples) being proved true. Then with the multisig component the spending transaction\u2019s structure can be defined/controll&hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-pipes-v2/2249/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

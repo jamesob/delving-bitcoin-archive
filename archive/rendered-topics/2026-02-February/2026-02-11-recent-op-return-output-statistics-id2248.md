@@ -26,3 +26,11 @@ layout:
 
 -------------------------
 
+ajtowns | 2026-02-16 01:04:10 UTC | #2
+
+@orangesurf has done a report on this as well, published via mempool.space: https://research.mempool.space/opreturn-report/ (Also on [twitter](https://x.com/OrangeSurfBTC/status/2023094750019264757))
+
+@murch has also done a similar analysis, results on [twitter](https://x.com/murchandamus/status/2022930707820269670), data on [dune](https://dune.com/murchandamus/opreturn-counts).
+
+-------------------------
+
