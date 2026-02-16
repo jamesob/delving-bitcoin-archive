@@ -120,7 +120,7 @@ https://web.archive.org/web/20260214133933/https://delvingbitcoin.org/t/the-futu
 
 -------------------------
 
-janb84 | 2026-02-15 14:59:35 UTC | #6
+janb84 | 2026-02-16 10:39:56 UTC | #6
 
 **Thanks for this write‑up.**
 
@@ -128,9 +128,9 @@ First of all, I want to say I’m a big proponent of having choices and competit
 
 I would suggest marking the GUI as being in **“maintenance mode,”** which would accurately represent its current state of development (it’s missing new features, etc.). This would also give GUI users an honest picture of its status without deprecating it outright. Stating that the GUI is in “maintenance mode” also gives people who aren’t following day‑to‑day development an option to respond. They can step up and help bring the GUI to a point where we can remove the “maintenance mode” designation or, if no meaningful response emerges, move toward deprecation. AKA **“use it or lose it.”**
 
-Directly **deprecating** the GUI could trigger a negative reaction from those who don’t track daily development (with all the consequences that entails). I would like to prevent that. 
+Directly **deprecating** the GUI could trigger a negative reaction from those who don’t track daily development (with all the consequences that entails). I would like to prevent that.
 
-Regarding your suggestions, here are my reactions:
+Regarding your suggestions:
 
 1. **“Let go of the sunk‑cost fallacy of the update to QML … to iterate more easily.”**
    Yes, this feels unlikely to land. I would say we “remove” it from the project but feel free to work on it anyway. It’s not a goal of bitcoin core anymore.
