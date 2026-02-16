@@ -7,15 +7,15 @@
   "cooked": "<p>The trust balance is totally different.</p>\n<p>Imagine we have a tx that need to have a certain format and could only be executed in a certain situation. In the simple 2-2 musig scenario, you need to trust the operator that they would give you the half signed tx when the condition is met, if the operator is mallicious and wants to censor you, he could simply don\u2019t share the tx.</p>\n<p>In the 3-3 musig + WE, the half signed tx is shared with the user beforehand, right after setup. The operator knows that the tx could only be spend if a certain condition is met, that the tx will have a certain format, and the user knows the operator could not possibly double spend even if they\u2019re mallicious.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 8,
   "updated_at": "2026-02-15T11:32:49.001Z",
   "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 23.2,
   "yours": false,
   "topic_id": 2249,
   "topic_slug": "bitcoin-pipes-v2",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "The trust balance is totally different.\n\nImagine we have a tx that need to have a certain format and could only be executed in a certain situation. In the simple 2-2 musig scenario, you need to trust the operator that they would give you the half signed tx when the condition is met, if the operator is mallicious and wants to censor you, he could simply don\u2019t share the tx.\n\nIn the 3-3 musig + WE, the half signed tx is shared with the user beforehand, right after setup. The operator knows that the tx could only be spend if a certain condition is met, that the tx will have a certain format, and the user knows the operator could not possibly double spend even if they\u2019re mallicious.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "The trust balance is totally different. \nImagine we have a tx that need to have a certain format and could only be executed in a certain situation. In the simple 2-2 musig scenario, you need to trust the operator that they would give you the half signed tx when the condition is met, if the operator &hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-pipes-v2/2249/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

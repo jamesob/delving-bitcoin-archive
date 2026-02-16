@@ -344,3 +344,13 @@ I guess the only unfortunate thing is that even if it is done in an early “set
 
 -------------------------
 
+cmp_ancp | 2026-02-16 14:40:55 UTC | #8
+
+Well, if we ponder about it, all L2 applications of covenants require interactivity between parties (even though, with covenants in script, we have less interaction), and a musig is almost always present. Depending on situation, other spending paths could be set in tapleafs.
+
+But about the trust assumptions stated earlier, many L2 protocols have steps where the parties only act and sign txs when they have proof that won’t be fooled. E.g., people will engage in atomic operations when the passive party already have a HTLC to theirself by the active party. In that way, the early reveal of the 3-3 musig by the operator may be the trigger to the protocol procedure.
+
+Without this schematic, in the simple musig 2-2, the operator would need to share the half signed tx only when the condition is met, the user doesn’t have a 100% certain proof that won't be fooled. Maybe we could think in an exit path without interaction at all.
+
+-------------------------
+
