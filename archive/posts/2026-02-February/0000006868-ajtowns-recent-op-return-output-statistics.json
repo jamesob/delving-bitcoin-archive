@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.8,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 22.0,
   "yours": false,
   "topic_id": 2248,
   "topic_slug": "recent-op-return-output-statistics",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@orangesurf has done a report on this as well, published via mempool.space: https://research.mempool.space/opreturn-report/ (Also on [twitter](https://x.com/OrangeSurfBTC/status/2023094750019264757))\n\n@murch has also done a similar analysis, results on [twitter](https://x.com/murchandamus/status/2022930707820269670), data on [dune](https://dune.com/murchandamus/opreturn-counts).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/orangesurf\">@orangesurf</a> has done a report on this as well, published via mempool.space: <a href=\"https://research.mempool.space/opreturn-report/\" class=\"inline-onebox\">OP_RETURN Report</a> (Also on <a href=\"https://x.com/OrangeSurfBTC/status/2023094750019264757\">twitter</a>) \n<a class=\"mention\" href=\"/u/murch\">@murch</a> has also done a similar analysis, results on <a href=\"https://x.com/murchandamus/status/2022930707820269670\">twitter</a>, data on <a href=\"https://dune.com/murchandamus/opreturn-counts\">dune</a>.",
   "truncated": true,
   "post_url": "/t/recent-op-return-output-statistics/2248/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
