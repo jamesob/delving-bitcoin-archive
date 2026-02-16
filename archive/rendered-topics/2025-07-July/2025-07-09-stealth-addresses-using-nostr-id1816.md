@@ -520,7 +520,7 @@ https://archive.is/yXlQe
 
 -------------------------
 
-1440000bytes | 2026-02-16 10:13:56 UTC | #13
+1440000bytes | 2026-02-16 10:16:39 UTC | #13
 
 I don't see any option to reply on your thread https://delvingbitcoin.org/t/silent-payments-notifications-via-nostr/2203
 
@@ -531,7 +531,7 @@ Cc: @setavenger
 <details>
 <summary>Archive</summary>
 
-https://archive.is/v2oHW
+https://archive.is/DK3HX
 
 </details>
 
