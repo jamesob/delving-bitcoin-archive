@@ -1,6 +1,6 @@
 # Bitcoin PIPEs v2
 
-nemothenoone | 2026-02-12 16:56:49 UTC | #1
+nemothenoone | 2026-02-16 10:03:52 UTC | #1
 
 # Bitcoin PIPEs v2: Covenants and ZKPs on the Bitcoin L1 via Witness Encryption.
 
@@ -74,7 +74,7 @@ During signing, a party that has such a witness tries to recover the private key
   * Bitcoin verifies the resulting Schnorr signature under $pk$ as usual.
   * No statement, witness, or auxiliary data appears on-chain.
 
-> **Research Status:** At \[\[alloc\] init\], we are leading ongoing research on the cryptographic core of PIPE v2, with a particular focus on witness encryption. In addition to the abstract PIPE construction, we investigate how witness encryption can be instantiated in a way that is both analyzable and scalable. To this end, we introduce a withness encryption scheme based of Adaptive Arithmetic Determinant Programs (AADP) \[3\].
+> **Research Status:** At \[\[alloc\] init\], we are leading ongoing research on the cryptographic core of PIPE v2, with a particular focus on witness encryption. In addition to the abstract PIPE construction, we investigate how witness encryption can be instantiated in a way that is both analyzable and scalable. To this end, we introduce a witness encryption scheme based of Adaptive Arithmetic Determinant Programs (AADP) \[3\].
 > Alongside this, we systematically analyze prior and contemporary witness-encryption constructions.
 
 ## Covenant Semantics: What PIPEs Enforce (and What They Don’t)
@@ -109,7 +109,7 @@ This model naturally captures a wide range of useful conditions whose outcome is
 
 In all cases, the covenant enforced by PIPEs answers a single question: *is the condition satisfied or not?* If yes, the funds become spendable; if no, they remain locked.
 
-> This tradeoff is intentional. **PIPE v1** \[1\] already achieves non-interactivity and consensus compatibility, and serves as a proof of principle for cryptographic enforcement of spending conditions on Bitcoin. However, it relies on highly expressive cryptographic machinery (e.g., Functional Encryption, Indistinguishable Obfuscation) that is difficult to instantiate efficiently with current techniques. **PIPE v2** \[2\]deliberately narrows the scope to one-time, binary authorization conditions. This simplification reduces cryptographic complexity while preserving the core guarantee: spending is possible if and only if a specified condition is satisfied.
+> This tradeoff is intentional. **PIPE v1** \[1\] already achieves non-interactivity and consensus compatibility, and serves as a proof of principle for cryptographic enforcement of spending conditions on Bitcoin. However, it relies on highly expressive cryptographic machinery (e.g., Functional Encryption, Indistinguishable Obfuscation) that is difficult to instantiate efficiently with current techniques. **PIPE v2** \[2\] deliberately narrows the scope to one-time, binary authorization conditions. This simplification reduces cryptographic complexity while preserving the core guarantee: spending is possible if and only if a specified condition is satisfied.
 
 ## **Why Binary Authorization Is Often Enough**
 
