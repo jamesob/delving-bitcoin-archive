@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Also nice work on the plugin. I\u2019m still trying to find the time to properly look through it\u2026",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Also nice work on the plugin. I\u2019m still trying to find the time to properly look through it\u2026",
   "truncated": true,
   "post_url": "/t/stealth-addresses-using-nostr/1816/15",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
