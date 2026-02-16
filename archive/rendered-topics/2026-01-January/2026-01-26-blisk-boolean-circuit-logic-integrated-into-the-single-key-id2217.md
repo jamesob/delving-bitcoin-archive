@@ -227,3 +227,47 @@ Hey! It’s literally how our [reference implementation](https://github.com/zero
 
 -------------------------
 
+olkurbatov | 2026-02-16 20:53:40 UTC | #15
+
+We can also extend BLISK with DLC-style adaptor points. Precisely, we can perform adaptor/condition-dependent compilation.
+
+## The Idea
+Consider the policy $A\land(B \lor C)$ - Alice is required, plus one of Bob or Carol. Now suppose we want a fallback: if some external condition is met (a price change, timeout, etc.), Bob or Carol can spend without Alice.
+
+We can do this by wrapping Alice's input node in a disjunction with an adaptor point $T_a$ derived from an oracle's pre-committed parameters:
+$$T_a = R_i + \mathcal{H}(P_O, R_i, e)\cdot P_O,$$
+where $P_O$ is the oracle's long-term public key, $R_i$ is a pre-committed nonce for attestation slot $i$, and $e$ is the event descriptor (e.g., encoded price or timestamp).
+
+Before the oracle signs $e$, nobody knows $\mathsf{dlog}(T_a)$. After attestation, the oracle publishes 
+$$s_i = r_i + \mathcal{H}(P_O, R_i, e)\cdot sk_O,$$
+which is exactly the secret key for $T_a$.
+
+The modified policy becomes $(A\lor T_a)\land(B \lor C)$. After we compile this policy, we receive a single root key (like in a classic BLISK). 
+
+> An important part here is a proof-carrying compilation: when the $(A\lor T_a)$
+OR gate is compiled, Alice must prove $T_a$ and $\mathsf{ECDH}(A, T_a)$ were correctly constructed from the agreed oracle parameters $(R_i, P_O, e)$. Without this proof, Alice could substitute a point with a known discrete log and keep her veto forever, while the fallback is silently dead. The mentioned $\Pi.\mathsf{Prove}$ step handles this; it just gets a slightly richer relation.
+
+After the oracle signed an appropriate event, Bob or Carol extracts $sk_{T_a} \gets s_i$ from the oracle's public signature, derives the OR-gate shared secret via $\mathcal{H}(sk_{T_a} \cdot P_A)$, and signs. In other words, the policy collapses to $B \lor C$. The verifier still checks one signature against the same root key; no difference is visible.
+
+Pros:
+- If the oracle signs a defined event properly, the adaptor unlocks, and the access structure changes automatically with no participant interaction
+- The oracle follows a standard DLC attestation protocol and doesn't even know that some policies depend on it (for the timelock case, imagine the server (it can be MPC or your own time server), which signs a new timestamp every 1000 ms)
+- Different gates can reference different oracles and events* (we can apply DLC to the entire circuit, to some subtree, or even to a single user or key)
+- The existence of oracle conditions, trigger events, and policy structure remains hidden
+
+> *If we have a condition logic like:
+> ```
+> if (e == 1) then A
+> else if (e == 2) then A + B
+> ...
+> else if (e == n) then A + B + ... + N
+> ```
+> it can still be compressed to a single key after BLISK compilation
+
+Limitations and caveats:
+- Liveness of the oracle and the need to monitor it
+- Irreversibility: once attested, $T_a$ is permanently unlocked
+- Each adaptor point is bound to a specific $(R_i, e)$ pair. Nonce reuse breaks security; the usage of a different nonce from the committed one breaks the adaptor
+
+-------------------------
+
