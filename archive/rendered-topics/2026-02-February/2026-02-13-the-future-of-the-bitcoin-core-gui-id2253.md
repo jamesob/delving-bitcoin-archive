@@ -150,3 +150,25 @@ Changing the GUI to run as a separate process with IPC communication sounds like
 
 -------------------------
 
+adys | 2026-02-17 01:20:54 UTC | #8
+
+I believe removing the GUI will negatively impact node adoption and create significant security risks by forcing users toward third party alternatives. If Bitcoin Core includes a wallet, it needs a UX.
+
+I think Core should provide a full solution. In an era where malicious interfaces are so easy to generate, providing a UX that carries the same trust level as the underlying node is vital for user safety.
+
+We often underestimate the power of a good UX to attract users. If the interface is great, more people will use it, and we all want more people to run nodes.
+
+The GUI is actually how I got my start in Bitcoin.
+
+-------------------------
+
+andyschroder | 2026-02-17 02:50:30 UTC | #9
+
+I haven’t read through all the arguments, but I’m generally in favor of removing the GUI. I feel like inter process communication might be too tight of a coupling through. I feel like if some of the issues within
+
+https://github.com/bitcoin/bitcoin/issues/29183
+
+could be fixed and we could have better pruned node support that can take efficiently take advantage of watching only wallets like Sparrow Wallet does through the already existent RPC. Sparrow is a killer UI and the main reason I think it doesn’t encourage connecting to a local instance of bitcoin core (or even bundling it with Sparrow) is because wallet rescan is too slow and difficult to manage when nodes are pruned. I think a lot of people can deal with a one time 1-2 day wait to do full validation if they don’t need to use much disk space after that and can do a rescan more quickly for any new wallet that needs to be added. If that barrier were eliminated, I think there could be a lot more Sparrow Wallet users running bitcoin core locally and more wallets that are built that have a similar way that they interact with bitcoin core (and potentially bundle it) as Sparrow Wallet does.
+
+-------------------------
+
