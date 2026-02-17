@@ -172,3 +172,69 @@ could be fixed and we could have better pruned node support that can take effici
 
 -------------------------
 
+AntoineP | 2026-02-17 16:26:49 UTC | #10
+
+Thanks everyone for the feedback. It's good to hear from "power" users[^1]. I hope to hear from more contributors to the Bitcoin Core project too.
+
+[quote="neonrooks, post:3, topic:2253"]
+Is there a solution for non-technical users?
+[/quote]
+
+That is what this thread aims to figure out. I hope we can find a solution that is not leaving existing GUI users unable to upgrade their node (and wallet internals), but also isn't continuing to take resources from supporting all Bitcoin users in order to benefit a minority thereof (those using Bitcoin through the Bitcoin Core GUI). This is the motivation for [my proposal](https://delvingbitcoin.org/t/the-future-of-the-bitcoin-core-gui/2253/2?u=antoinep) above.
+
+[quote="janb84, post:6, topic:2253"]
+I would suggest marking the GUI as being in **“maintenance mode,”** which would accurately represent its current state of development (it’s missing new features, etc.). This would also give GUI users an honest picture of its status without deprecating it outright.
+[/quote]
+
+I think deprecating would be preferable as i don't see how it could be the long term goal of the Bitcoin Core project to maintain a GUI. I guess the counter to that is deprecating without a clear timeline could be confusing to users.
+
+I am fine with starting by marking it in "maintenance mode" if that is more consensual among contributors to the project.
+
+[quote="janb84, post:6, topic:2253"]
+They can step up and help bring the GUI to a point where we can remove the “maintenance mode” designation
+[/quote]
+
+That is where i disagree. We have been doing that for the past 5 years, with the result that we are seeing now. I think maintenance mode should be as much an acceptation of the reality as a statement from the project, that the only purpose of the GUI is to support existing users of the wallet. If you want a modern GUI with new features, there are existing better alternatives for it. If someone wants to build a modern GUI for the Bitcoin Core wallet, this should be a separate project, possibly IPC-based, but more straightforwardly RPC-based.
+
+[quote="janb84, post:6, topic:2253"]
+Yes, this seems the best way forward to create options and allow interaction with Bitcoin Core without tight coupling. If this has to be IPC or RPC? idk.
+[/quote]
+
+The chain and wallet IPC interfaces are probably worth it regardless of someone building a Core wallet GUI, so it doesn't matter too much with regard to making a decision. I guess one could build it on top of IPC to do like the cool kids, but if what they want is a pragmatic GUI that just works for everyday people then RPC is just fine and will be compatible with existing Bitcoin Core releases as well.
+
+[quote="janb84, post:6, topic:2253"]
+In time, perhaps. The downside is that “the project” would no longer have direct control over quality, and the GUI could become just “one of many.” if that’s a bad thing ? IDK.
+[/quote]
+
+Many are attached to the idea that Bitcoin Core should ship a GUI. As long as it is not tied to the full node, and users are informed it does not receive the same amount of vetting as the full node software does, as you could expect of a standalone GUI software vs a full node software, then i think it's fine for Bitcoin Core to keep shipping it on its own schedule.
+
+[quote="redundant, post:7, topic:2253"]
+My long-term preference is to keep it packaged with Bitcoin Core but have it maintained as a separate repository (like secp256k1). That way maintenance doesn’t have to be in the hands of those who don’t want to work on it, while there would still be an ‘official’ Bitcoin Core GUI.
+[/quote]
+
+What really matters is releases not Github repositories. The GUI is already in [its own Github repository](https://github.com/bitcoin-core/gui) at the moment, but still shares code, build system, CI, and release schedules with the [main project](https://github.com/bitcoin/bitcoin). In order to be completely separated, it needs to be split off from the release, and the sources, of the node.
+
+[quote="adys, post:8, topic:2253"]
+I believe removing the GUI will negatively impact node adoption and create significant security risks by forcing users toward third party alternatives.
+[/quote]
+
+All other things equal, sure. But we should not overstate how much bitcoin-qt contributes to adoption nowadays. Someone introduced to Bitcoin today and want to use a full node, they won't (and probably shouldn't) create a no-mnemonics hot wallet on bitcoin-qt. Instead, they use a signing device that they connect to a modern wallet, and connect that to their bitcoind.
+
+[quote="adys, post:8, topic:2253"]
+I think Core should provide a full solution. [...] a UX that carries the same trust level as the underlying node is vital for user safety.
+[/quote]
+
+Two things.
+
+First, you seem to be arguing from a position of ignoring all the costs. Of course if we ignore all the downsides, anybody agrees that the upsides are worth it! The subset of Bitcoin Core contributors that argues for removing, or separating, the GUI from the full node are not cold-hearted engineered that hate users, but they consider that we should not overlook the dispersed costs to all Bitcoin users of only looking at the concentrated benefits to a minority of Bitcoin users.
+
+It may well be that the benefits of shipping a GUI outweigh the associated costs, but you are not going to convince anybody who thinks the opposite by insistently pointing at the upsides with superlatives, as if the person was unaware.
+
+Secondly, i think it is an unreasonable expectation to set on the Bitcoin Core project, certainly as things stand but also in general, to be providing every single piece of software the vast majority of Bitcoin users interface with. Maintaining and improving the full node that underpins a trillion dollars network is no easy task, and i think we should focus all our resources on making it more robust and reducing the risk of a fuckup that would indirectly affect every single user of the Bitcoin network.
+
+It was useful for some time to have one big monolith that does everything. But this does not scale, and i think we should move towards an ecosystem of software that do one thing, and do it well.
+
+[^1]: I say "power" users because i expect Bitcoin Core users that are aware of the Delving forum, tracking posts there and even replying, to be among the most informed users.
+
+-------------------------
+
