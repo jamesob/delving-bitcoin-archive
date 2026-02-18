@@ -311,3 +311,13 @@ What will be your dream option given unlimited resource?
 
 -------------------------
 
+ArmchairCryptologist | 2026-02-18 18:47:16 UTC | #14
+
+Speaking as someone who used it as a wallet back when it was still named Bitcoin-Qt, but has mostly used the CLI for the last ten years or so, I do think the GUI as it is today has somewhat played out its role. Where we are today, I don’t even think casual users *should* be encouraged to run Bitcoin Core as a wallet, seeing as it is both far more simple and far more secure (as far as preventing loss of funds go) to install something like Electrum or Sparrow and link it up with a Trezor or whichever hardware wallet they prefer. Hell, even a smartphone wallet is significantly more secure than running one on your average insecure desktop. Is it less private? Definitely. Will they be second-class citizens as far as transaction validation and overall network security goes? Yup. But at least some random malware cannot just trivially nab their coins; it has to at the very least go through the trouble of tricking the user to cough up their seed phrase.
+
+On the other hand, I’m sure some power users and system administrators would very much like a basic graphical UI for checking the status of the node, and doing basic tasks like simply shutting it down. Most of the problems you are listing seem to be involving the wallet integration, so I’m curious if it would not solve most of your issues if you simply stripped that out in its entirely, and left intact a barebones UI for status readouts and basic node control?
+
+(Just to clarify, I’m not suggesting stripping out the wallet from the node, only the GUI parts of it.)
+
+-------------------------
+
