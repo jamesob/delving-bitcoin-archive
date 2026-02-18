@@ -238,3 +238,35 @@ It was useful for some time to have one big monolith that does everything. But t
 
 -------------------------
 
+adys | 2026-02-18 00:50:35 UTC | #11
+
+Hi Antoine, I am a new contributor. 
+ 
+[quote="AntoineP, post:10, topic:2253"]
+All other things equal, sure. But we should not overstate how much bitcoin-qt contributes to adoption nowadays. Someone introduced to Bitcoin today and want to use a full node, they won’t (and probably shouldn’t) create a no-mnemonics hot wallet on bitcoin-qt. Instead, they use a signing device that they connect to a modern wallet, and connect that to their bitcoind.
+[/quote]
+
+I think (and know for a fact from our local community node workshops) that most new users (and not only) struggle to connect wallets to a node. It is often not trivial, even for technical people, and leads many to  abandon the idea of running a node. For us its so trivial to run shell commands, but most users will find it scary. 
+
+I’m not suggesting that the current bitcoin-qt is helping adoption, but I do believe a full solution (node + wallet + UX) does. Isn't the fundamental value of a full node the ability to install, sync, and transact independently of any other third party software? If a user must download a second software just to interface with the first, we’ve added a dependency that many beginners aren't ready to manage.
+
+To clarify, I am fully in favor of IPC and the move toward a new UX; I just believe that this UX should remain an official, integrated part of the Bitcoin Core project. 
+ 
+[quote="AntoineP, post:10, topic:2253"]
+Two things.
+
+First, you seem to be arguing from a position of ignoring all the costs. Of course if we ignore all the downsides, anybody agrees that the upsides are worth it! The subset of Bitcoin Core contributors that argues for removing, or separating, the GUI from the full node are not cold-hearted engineered that hate users, but they consider that we should not overlook the dispersed costs to all Bitcoin users of only looking at the concentrated benefits to a minority of Bitcoin users.
+
+It may well be that the benefits of shipping a GUI outweigh the associated costs, but you are not going to convince anybody who thinks the opposite by insistently pointing at the upsides with superlatives, as if the person was unaware.
+
+Secondly, i think it is an unreasonable expectation to set on the Bitcoin Core project, certainly as things stand but also in general, to be providing every single piece of software the vast majority of Bitcoin users interface with. Maintaining and improving the full node that underpins a trillion dollars network is no easy task, and i think we should focus all our resources on making it more robust and reducing the risk of a fuckup that would indirectly affect every single user of the Bitcoin network.
+
+It was useful for some time to have one big monolith that does everything. But this does not scale, and i think we should move towards an ecosystem of software that do one thing, and do it well.
+[/quote]
+
+True, I was speaking from an ideal functional perspective without accounting the maintenance costs for now. I’m not trying to argue, just sharing my opinion 🙂
+
+I believe we should first define the ideal solution and then see how much of it we can achieve with available resources.
+
+-------------------------
+

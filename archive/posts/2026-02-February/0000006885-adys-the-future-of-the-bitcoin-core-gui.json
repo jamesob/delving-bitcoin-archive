@@ -7,7 +7,7 @@
   "cooked": "<p>I believe removing the GUI will negatively impact node adoption and create significant security risks by forcing users toward third party alternatives. If Bitcoin Core includes a wallet, it needs a UX.</p>\n<p>I think Core should provide a full solution. In an era where malicious interfaces are so easy to generate, providing a UX that carries the same trust level as the underlying node is vital for user safety.</p>\n<p>We often underestimate the power of a good UX to attract users. If the interface is great, more people will use it, and we all want more people to run nodes.</p>\n<p>The GUI is actually how I got my start in Bitcoin.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 10,
   "updated_at": "2026-02-17T01:20:54.851Z",
   "reply_count": 2,
   "reply_to_post_number": null,
