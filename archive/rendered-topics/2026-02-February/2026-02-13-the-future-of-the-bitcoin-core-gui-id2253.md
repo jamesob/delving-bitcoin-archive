@@ -270,3 +270,23 @@ I believe we should first define the ideal solution and then see how much of it 
 
 -------------------------
 
+AntoineP | 2026-02-18 14:36:55 UTC | #12
+
+[quote="adys, post:11, topic:2253"]
+Hi Antoine, I am a new contributor.
+[/quote]
+
+Welcome!
+
+[quote="adys, post:11, topic:2253"]
+I think (and know for a fact from our local community node workshops) that most new users (and not only) struggle to connect wallets to a node. It is often not trivial, even for technical people, and leads many to abandon the idea of running a node. For us its so trivial to run shell commands, but most users will find it scary.
+[/quote]
+
+Yes, i'm well aware. Based on my own experience onboarding new users, i would never advise a non-technical person to create a hot, non-BIP39, wallet for any substantial amount.
+
+I agree with you any decent GUI should make the connection to the full node as simple as possible. What we did for [Liana](https://github.com/wizardsardine/liana) is to give the option to a user to install a pruned Bitcoin Core locally with a single click. The bitcoind binary is downloaed from bitcoincore.org and verified, IBD is performed with a progress bar on the Liana GUI, and once finished a watchonly wallet is created to track coins. That's not rocket science and does not require anything else from Bitcoin Core besides maybe a more complete prune support as @andyschroder points out.
+
+That said, for better or for worse, many technical users have now been used to think a full node as a physical thing, due to the success of node-in-a-box solutions. In this situation, these users "connect their wallet to their nodes" (usually through an exposed Electrum interface). Surprisingly, many non-technical users are actually more comfortable with that, and resist having their wallet just run the full node locally on their machine if they already have their node-in-a-box thing at home.
+
+-------------------------
+
