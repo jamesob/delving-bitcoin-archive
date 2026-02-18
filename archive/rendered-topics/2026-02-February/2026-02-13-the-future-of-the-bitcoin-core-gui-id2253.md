@@ -290,3 +290,24 @@ That said, for better or for worse, many technical users have now been used to t
 
 -------------------------
 
+adys | 2026-02-18 15:03:46 UTC | #13
+
+[quote="AntoineP, post:12, topic:2253"]
+Welcome!
+
+[/quote]
+
+Thank you :)
+
+
+[quote="AntoineP, post:12, topic:2253"]
+I agree with you any decent GUI should make the connection to the full node as simple as possible. What we did for [Liana](https://github.com/wizardsardine/liana) is to give the option to a user to install a pruned Bitcoin Core locally with a single click. The bitcoind binary is downloaed from [bitcoincore.org](http://bitcoincore.org) and verified, IBD is performed with a progress bar on the Liana GUI, and once finished a watchonly wallet is created to track coins. That’s not rocket science and does not require anything else from Bitcoin Core besides maybe a more complete prune support as @andyschroder points out.
+[/quote]
+Yes that is great, I wish more wallets do that. 
+Off topic you guys really pushed Miniscript to adoption with Liana :raising_hands:
+
+
+What will be your dream option given unlimited resource?
+
+-------------------------
+
