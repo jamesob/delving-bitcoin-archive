@@ -321,11 +321,19 @@ On the other hand, I’m sure some power users and system administrators would v
 
 -------------------------
 
-Fiach-Dubh | 2026-02-19 00:37:11 UTC | #15
+Fiach-Dubh | 2026-02-19 01:47:15 UTC | #15
 
 Hebasto should collaborate with other devs and step aside if he can no longer find ways to develop the GUI as is, others may have a better idea on how to intervene without castrating the client entirely. Him hitting a brick wall is not a reason to immediately deprecate the GUI within one release cycle with no fallback solutions.
 
 This proposal on it’s face seems like a huge foot gun.
+
+-------------------------
+
+neonrooks | 2026-02-19 01:15:48 UTC | #16
+
+Bitcoin nodes should be accessible to anyone without the hassle of learning commands or a unix terminal. 
+
+Also, why are we conflating gui with the wallet? Being able to see the block height, what kind of peers you are connected to, and node configuration at a glance is an experience that should be promoted as accessibility for money for everyone, and celebrated as the technical achievement that it is. Running Bitcoin is not just for technical users, or am I wrong here?
 
 -------------------------
 

@@ -193,3 +193,19 @@ If the stars align right, we can get that before a quantum threat really does be
 
 -------------------------
 
+Francus | 2026-02-19 02:44:16 UTC | #10
+
+I know much more about marketing than crypto technology, so I am not sure if I understood all details of what you wrote, but I feel the direction you point may help.
+
+Either you like it or not, Bitcoin level reached finance mainstream. These people want long term security  or, at least and secure clear path to long term security.
+
+The advantage of your post  @vazertuche  is  that it may easily get wider acceptance in a short time, because the main problem is procrastinated, but the same what you propose seems a secure clear path to long term security. I am not in condition to understand if this is real or not, but it seems.
+
+If this is confirmed by peers, it is an important momentary solution to a serious Bitcoin marketing problem, because it shows that Bitcoin is driven in a  serious responsible way and so it is worth responsible investment by pension funds and the like.
+
+So I solicit who fully understand it to express if this approach is real, as it is described, or if there are hidden unforeseen traps.
+
+Best
+
+-------------------------
+
