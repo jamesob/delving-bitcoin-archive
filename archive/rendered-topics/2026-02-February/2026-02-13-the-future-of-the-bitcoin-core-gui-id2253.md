@@ -321,9 +321,11 @@ On the other hand, I’m sure some power users and system administrators would v
 
 -------------------------
 
-Fiach-Dubh | 2026-02-19 00:33:20 UTC | #15
+Fiach-Dubh | 2026-02-19 00:34:38 UTC | #15
 
-Hebasto should step aside if he can no longer find ways to develop the GUI as is. Him hitting a brick wall is not a reason to deprecate the GUI.
+Hebasto should step aside if he can no longer find ways to develop the GUI as is. Him hitting a brick wall is not a reason to immediately deprecate the GUI within one release cycle with no fallback solutions.
+
+This proposal on it’s face seems like a huge foot gun.
 
 -------------------------
 
