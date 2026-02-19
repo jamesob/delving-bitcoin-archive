@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 33.2,
   "yours": false,
   "topic_id": 2253,
   "topic_slug": "the-future-of-the-bitcoin-core-gui",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Re.:\n\n> On the other hand, I\u2019m sure some power users and system administrators would very much like a basic graphical UI for checking the status of the node, and doing basic tasks like simply shutting it down. Most of the problems you are listing seem to be involving the wallet integration, so I\u2019m curious if it would not solve most of your issues if you simply stripped that out in its entirely, and left intact a barebones UI for status readouts and basic node control?\n\nand\n\n> Also, why are we conflating gui with the wallet? Being able to see the block height, what kind of peers you are connected to, and node configuration at a glance is an experience that should be promoted as accessibility for money for everyone, and celebrated as the technical achievement that it is. Running Bitcoin is not just for technical users, or am I wrong here?\n\nI ~ agree. And I don't think doing so would be particularly difficult.\n\nRe-reading [bitcoin Issue#29912](https://github.com/bitcoin/bitcoin/issues/29912) where @rodarmor had fleshed out a rough approach to describe the RPC api, I tweaked the approach a little bit in [this branch](https://github.com/bitcoin/bitcoin/compare/master...willcl-ark:bitcoin:json-rpc-schema) to generate an [openrpc spec file](https://raw.githubusercontent.com/willcl-ark/bitcoin/8eb8112c66d5d79158394ba3f6677473c57f7d87/doc/openrpc.json), which I was able to trivially give to a chatbot to develop a dynamic webkit-based \"RPC GUI\", based off the formal spec, in about 20 minutes.\n\nOf course, this would come with many of the UX downsides vs native GUI (rpc timeouts, lack of callbacks/needing polling etc. etc.), but in terms of being able to deliver a \"frontend for our RPC interface\", it was all incredibly easy, once a spec was available.\n\nI think that the future should be a capnproto (IPC)-based gui (and wallet), but in the interim, providing an rpc spec might be something we want to consider, to allow ourselves and other to build on top of it. If/when we find out some RPCs suck, we will be more motivated to fix them. There are [plenty](https://github.com/bitcoin/bitcoin/issues?q=is%3Aissue%20state%3Aopen%20rpc%20label%3ARPC%2FREST%2FZMQ) of RPC-related issues open for example.\n\nI'm sure it is possible to build an even more minimal client than the one [claude built for me](https://github.com/willcl-ark/bitcoin-rpc-web). If so, and depending on requirements, we might even want to consider shipping a super-minimal one ourselves if we deprecate the Qt GUI before any IPC replacement is ready.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,20 @@
   "excerpt": "Re.: \n\nOn the other hand, I\u2019m sure some power users and system administrators would very much like a basic graphical UI for checking the status of the node, and doing basic tasks like simply shutting it down. Most of the problems you are listing seem to be involving the wallet integration, so I\u2019m cu&hellip;",
   "truncated": true,
   "post_url": "/t/the-future-of-the-bitcoin-core-gui/2253/17",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

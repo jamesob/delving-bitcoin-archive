@@ -251,3 +251,13 @@ Please let me know if this aligns with your plans. For context, i intend to work
 
 -------------------------
 
+bubb1es | 2026-02-19 18:06:14 UTC | #18
+
+@harris yes I’d be happy to collaborate with you (and anyone else) on improving the `ddust` tool and/or further exploring mitigations for this issue.
+
+As for attack detection logic the tool already finds any dust size UTXOs in your (pub key descriptor) wallet. And it should work with any hardware signers that can sign a PSBT, but I haven’t done much testing on that front. 
+
+Figuring out how to combine unconfirmed dust disposal transactions is my current focus so we can start there. First try building and testing the [project](https://github.com/bubb1es71/ddust) with a regtest `bitcoind` node. Then I recommend getting to know how the [`bdk_wallet`](https://crates.io/crates/bdk_wallet) and [`bdk_bitcoind_rpc`](https://crates.io/crates/bdk_bitcoind_rpc) rust crates work, they do most of the heavy lifting.
+
+-------------------------
+
