@@ -337,3 +337,25 @@ Also, why are we conflating gui with the wallet? Being able to see the block hei
 
 -------------------------
 
+willcl-ark | 2026-02-19 13:02:36 UTC | #17
+
+Re.:
+
+> On the other hand, I’m sure some power users and system administrators would very much like a basic graphical UI for checking the status of the node, and doing basic tasks like simply shutting it down. Most of the problems you are listing seem to be involving the wallet integration, so I’m curious if it would not solve most of your issues if you simply stripped that out in its entirely, and left intact a barebones UI for status readouts and basic node control?
+
+and
+
+> Also, why are we conflating gui with the wallet? Being able to see the block height, what kind of peers you are connected to, and node configuration at a glance is an experience that should be promoted as accessibility for money for everyone, and celebrated as the technical achievement that it is. Running Bitcoin is not just for technical users, or am I wrong here?
+
+I ~ agree. And I don't think doing so would be particularly difficult.
+
+Re-reading [bitcoin Issue#29912](https://github.com/bitcoin/bitcoin/issues/29912) where @rodarmor had fleshed out a rough approach to describe the RPC api, I tweaked the approach a little bit in [this branch](https://github.com/bitcoin/bitcoin/compare/master...willcl-ark:bitcoin:json-rpc-schema) to generate an [openrpc spec file](https://raw.githubusercontent.com/willcl-ark/bitcoin/8eb8112c66d5d79158394ba3f6677473c57f7d87/doc/openrpc.json), which I was able to trivially give to a chatbot to develop a dynamic webkit-based "RPC GUI", based off the formal spec, in about 20 minutes.
+
+Of course, this would come with many of the UX downsides vs native GUI (rpc timeouts, lack of callbacks/needing polling etc. etc.), but in terms of being able to deliver a "frontend for our RPC interface", it was all incredibly easy, once a spec was available.
+
+I think that the future should be a capnproto (IPC)-based gui (and wallet), but in the interim, providing an rpc spec might be something we want to consider, to allow ourselves and other to build on top of it. If/when we find out some RPCs suck, we will be more motivated to fix them. There are [plenty](https://github.com/bitcoin/bitcoin/issues?q=is%3Aissue%20state%3Aopen%20rpc%20label%3ARPC%2FREST%2FZMQ) of RPC-related issues open for example.
+
+I'm sure it is possible to build an even more minimal client than the one [claude built for me](https://github.com/willcl-ark/bitcoin-rpc-web). If so, and depending on requirements, we might even want to consider shipping a super-minimal one ourselves if we deprecate the Qt GUI before any IPC replacement is ready.
+
+-------------------------
+
