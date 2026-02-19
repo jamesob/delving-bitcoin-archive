@@ -241,3 +241,13 @@ Thank you for sharing this and I’ll dig a bit more into his implementation to 
 
 -------------------------
 
+harris | 2026-02-19 10:43:14 UTC | #17
+
+@bubb1es Thanks for reviving the issue of dust attack and thanks for your Rust based dedust cli tool. I read through the discussion here and it is interesting to know that this problem actually exists and it is not a new idea at all and there have been attempts to address it. I am interested in taking the project further and collaborating on improving the solution. I was wondering if you are still active on the dedust Rust cli and if so, I would be happy to get involved and start contributing.
+
+Proposals would be e.g. dust attack detection logic, Combining transactions using ANYONECANPAY (ajtowns' suggestion) and finally we can include a PSBT workflow for hardware wallets.
+
+Please let me know if this aligns with your plans. For context, i intend to work on this as a portfolio project for the BOSS Challenge 2026.
+
+-------------------------
+
