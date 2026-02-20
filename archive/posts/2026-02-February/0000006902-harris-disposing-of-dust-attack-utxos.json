@@ -7,7 +7,7 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/bubb1es\">@bubb1es</a> Thanks for reviving the issue of dust attack and thanks for your Rust based dedust cli tool. I read through the discussion here and it is interesting to know that this problem actually exists and it is not a new idea at all and there have been attempts to address it. I am interested in taking the project further and collaborating on improving the solution. I was wondering if you are still active on the dedust Rust cli and if so, I would be happy to get involved and start contributing.</p>\n<p>Proposals would be e.g. dust attack detection logic, Combining transactions using ANYONECANPAY (ajtowns\u2019 suggestion) and finally we can include a PSBT workflow for hardware wallets.</p>\n<p>Please let me know if this aligns with your plans. For context, i intend to work on this as a portfolio project for the BOSS Challenge 2026.</p>",
   "post_number": 17,
   "post_type": 1,
-  "posts_count": 18,
+  "posts_count": 19,
   "updated_at": "2026-02-19T10:43:14.974Z",
   "reply_count": 1,
   "reply_to_post_number": null,
