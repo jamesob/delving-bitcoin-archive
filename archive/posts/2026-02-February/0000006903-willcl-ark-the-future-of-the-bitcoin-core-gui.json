@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 19,
   "readers_count": 18,
-  "score": 33.6,
+  "score": 48.8,
   "yours": false,
   "topic_id": 2253,
   "topic_slug": "the-future-of-the-bitcoin-core-gui",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "heart",
@@ -72,7 +72,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
