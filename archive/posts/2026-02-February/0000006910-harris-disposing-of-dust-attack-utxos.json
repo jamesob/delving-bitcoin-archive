@@ -13,9 +13,9 @@
   "reply_to_post_number": 18,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks, lets collaborate then. I will go through the project, test it and given an update here",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks, lets collaborate then. I will go through the project, test it and given an update here",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/19",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

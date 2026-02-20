@@ -1,8 +1,12 @@
 # Stateless VTXO Verification: Decoupling Custody from Implementation-Specific Stacks
 
-jgmcalpine | 2026-02-18 20:03:07 UTC | #1
+jgmcalpine | 2026-02-20 13:43:45 UTC | #1
 
-## **I. Introduction: Bifurcated Custody and the “Half-Key” Problem**
+#### **Author's Note / Update:**
+
+*Following constructive feedback from the Second team, I want to acknowledge that the original framing in this post—specifically the use of terms like "proprietary environments" and "Implementation-Coupled Custody"—is inaccurate and overly adversarial. Bark (and the wider Ark ecosystem) is fully open-source, and exit paths are verifiable from off-chain data alone without vendor lock-in. My intent was to highlight the friction of "Client-Stack Dependency" in constrained no_std environments, but the original vocabulary missed the mark. I have left the text below as originally written so that the context for the replies is preserved. I highly encourage readers to read the comments below for a more accurate representation of the technical realities, particularly regarding open-source verifiability and mempool policy.***
+
+I. Introduction: Bifurcated Custody and the “Half-Key” Problem**
 
 As the VTXO ecosystem evolves, lead implementations are diverging to optimize for different throughput and latency profiles. While this flexibility is beneficial, it creates a “Verification Gap.” In the VTXO model, custody is bifurcated into what we call the **Half-Key Problem**: spending authority requires both a private key and the specific off-chain transaction context (the “Map”). Unlike the L1 UTXO model, where this context is a public good preserved on-chain, VTXO context is ephemeral and off-chain.
 
@@ -16,17 +20,17 @@ In developing **libvpack-rs**, a stateless `no_std` verifier, we observed signif
 
 #### 1. Indexing Standards
 
-\*   **Ark Labs** treats the VTXO as being synonymous with the **Virtual Transaction** itself. Their 32-byte ID commits to the entire transaction (assuming the user occupies the primary output).
+\*   **Arkade (by Ark Labs)** treats the VTXO as being synonymous with the **Virtual Transaction** itself. Their 32-byte ID commits to the entire transaction (assuming the user occupies the primary output).
 
-\*   **Second Tech** treats the VTXO as a **distinct output** within a potentially multi-output transaction. Their 36-byte ID (OutPoint) allows for a more flexible topology where a single virtual transaction might create multiple VTXOs (e.g., in a batched payment).
+\*   **Bark (by Second)** treats the VTXO as a **distinct output** within a potentially multi-output transaction. Their 36-byte ID (OutPoint) allows for a more flexible topology where a single virtual transaction might create multiple VTXOs (e.g., in a batched payment).
 
 #### **2. The nSequence Signal**
 
 We observed divergent uses of the `nSequence` field in pre-signed exit trees:
 
-\*   **Ark Labs:** Utilizing `0xFFFFFFFE` to signal RBF compatibility within the constraints of TRUC (BIP-431) policies.
+\*   **Arkade:** Utilizing `0xFFFFFFFE` to signal RBF compatibility within the constraints of TRUC (BIP-431) policies.
 
-\*   **Second Tech**: Exploring `0x00000000` to leverage BIP-68 relative timelocks.
+\*   **Bark**: Exploring `0x00000000` to leverage BIP-68 relative timelocks.
 
 These choices change the `SIGHASH` of every transaction in the tree. An independent verifier must “know the dialect” to prove that a signature is valid.
 
@@ -106,6 +110,20 @@ The diversity in current Ark implementations is a sign of a healthy protocol. Ou
 nwoodfine | 2026-02-20 05:30:05 UTC | #2
 
 Neil from Second here! Great proposal, getting more diverse ways of verifying validity of VTXOs can only be a good thing. [More elaborate responses on our forum](https://community.second.tech/t/announcing-v-pack-independent-verification-and-visualization-for-the-vtxo-ecosystem/183/5), but two things worth correcting here: Bark (our Ark implementation) is fully open source and exit paths are verifiable from the output data alone, so the “proprietary environment” / “Implementation-Coupled Custody” framing is not a fair description of the situation. And mempool policy shouldn’t be a major challenge thanks to Bark’s adoption of package relay + CPFP in emergency exits.
+
+-------------------------
+
+jgmcalpine | 2026-02-20 13:38:34 UTC | #3
+
+Hi Neil, thanks for taking the time to read through the proposal and for the feedback. 
+
+You are completely right to call out the framing, and I own that misrepresentation. Using the phrase "proprietary environment" was simply the wrong terminology. I know Bark is fully open-source and that all exit paths are cryptographically verifiable from the off-chain data alone.
+
+My intent was to highlight the friction of Client-Stack Dependency in highly constrained, `no_std` environments. Even with open-source node software, a hardware wallet can't easily import a heavy, implementation-specific software stack just to parse a VTXO and verify an exit path. The goal of vpack is to act as a neutral, lightweight translation layer so hardware wallets can verify that data without needing to "know" the entire Bark or Arkade codebase. I let the wording drift into an adversarial tone ("Implementation-Coupled Custody"), which doesn't reflect the open nature of what your team is building. I appreciate you checking me on that and am pivoting the V-PACK documentation to focus on **Implementation-Agnostic Verification** rather than 'custody' to better reflect these technical realities.
+
+Regarding the mempool policy: that is an excellent point. I painted the TRUC depth limit as a universal "Policy Trap," but Bark’s adoption of package relay and CPFP for emergency exits is exactly the kind of robust engineering that solves this. An independent verifier needs to correctly recognize Bark's specific CPFP architecture so it doesn't falsely warn a user about a policy trap that your implementation has already neutralized.
+
+I'm looking forward to digging deeper into the Bark architecture to ensure the `VtxoIngredient` schema accurately accommodates your package relay designs. Thanks again for the constructive pushback!
 
 -------------------------
 
