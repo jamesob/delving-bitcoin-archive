@@ -103,3 +103,9 @@ The diversity in current Ark implementations is a sign of a healthy protocol. Ou
 
 -------------------------
 
+nwoodfine | 2026-02-20 05:30:05 UTC | #2
+
+Neil from Second here! Great proposal, getting more diverse ways of verifying validity of VTXOs can only be a good thing. [More elaborate responses on our forum](https://community.second.tech/t/announcing-v-pack-independent-verification-and-visualization-for-the-vtxo-ecosystem/183/5), but two things worth correcting here: Bark (our Ark implementation) is fully open source and exit paths are verifiable from the output data alone, so the “proprietary environment” / “Implementation-Coupled Custody” framing is not a fair description of the situation. And mempool policy shouldn’t be a major challenge thanks to Bark’s adoption of package relay + CPFP in emergency exits.
+
+-------------------------
+
