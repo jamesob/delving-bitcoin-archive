@@ -260,19 +260,23 @@ Perhaps I misunderstood. Are you intending this script to operate in P2TR or P2T
 
 -------------------------
 
-simul | 2026-01-28 18:20:01 UTC | #5
+simul | 2026-02-20 18:52:07 UTC | #5
 
-In general, because of the secret-reveal sequence, it doesn’t matter if the attacker breaks the signature.   P2TR or P2TSH are both acceptable.   Without the revealed secret, the covenants won’t allow a spend to anything but the required shape.   Indeed, the signature isn’t needed at all.   A “spend any” would work too, however, that would make griefing free for anyone… allowing MEV attacks.   So we use the signature still, forcing an attacker to work to grief.
-
-Shape 1 (happy path): Anchor TX is added to a block, requiring secret-reveal to move, locking in a destination, and the spender reveals the secret (destination is locked in).
-
-Shape 2: (attacker breaks nums): Spender sees that nums was broken and a bad anchor-tx was mined.   Secret is never revealed.   The only other valid spending path that doesn’t require a secret is “back to original”.  Fees are lost (grief!).  Miners profit, attacker gets nothing.
+(post deleted by author)
 
 -------------------------
 
-simul | 2026-02-11 07:26:23 UTC | #6
+simul | 2026-02-20 18:52:17 UTC | #6
 
-As noted: a new SegWit version is also needed: “key spend allowed only if no script tree” or “script tree only”
+(post deleted by author)
+
+-------------------------
+
+simul | 2026-02-20 18:54:04 UTC | #7
+
+As noted by @reardencode , this construction requires a new Segwit witness version that eliminates key-path spending entirely and enforces script-only evaluation. The goal is to make signature forgery irrelevant by removing the NUMS/key fallback path. This can be introduced as a soft fork by defining a new witness version whose semantics are enforced only by upgraded nodes.
+
+a modified version of this using CCV instead of TXHASH could resolve fee issues. CCV can enforce value flow and embed and extract the CTV reveal spend at spend time rather than creation time, and it can also be used to enforce the escape spend with value flexibility.
 
 -------------------------
 

@@ -127,3 +127,9 @@ I'm looking forward to digging deeper into the Bark architecture to ensure the `
 
 -------------------------
 
+ErikDeSmedt | 2026-02-20 16:52:30 UTC | #4
+
+Would be happy to see you playing with it. Really happy to get some thorough feedback on how exits of vtxos are implemented. We try to do our best but getting in depth external review is super helpful.
+
+-------------------------
+
