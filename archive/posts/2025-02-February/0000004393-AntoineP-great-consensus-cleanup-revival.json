@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"AntoineP\" data-post=\"75\" data-topic=\"710\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>(But also it\u2019s not necessary to make the point it wouldn\u2019t freeze anyone\u2019s coins, for the same reason.)</p>\n</blockquote>\n</aside>\n<p>Actually this is incorrect. P2SH requires the scriptSig to be pushonly.</p>\n<aside class=\"quote no-group\" data-username=\"Chris_Stewart_5\" data-post=\"76\" data-topic=\"710\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/chris_stewart_5/48/296_2.png\" class=\"avatar\"> Chris_Stewart_5:</div>\n<blockquote>\n<p>I\u2019m getting caught up on this, if you have a link handy to the discussion it would be much appreciated.</p>\n</blockquote>\n</aside>\n<p>See the thread for <a href=\"https://delvingbitcoin.org/t/segwit-ephemeral-anchors/160\">segwit ephemeral anchor</a>. It contains no direct mention of 64 bytes transactions though.</p>",
   "post_number": 77,
   "post_type": 1,
+  "posts_count": 85,
   "updated_at": "2025-02-27T19:19:33.230Z",
   "reply_count": 0,
   "reply_to_post_number": 76,
   "quote_count": 2,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "incoming_link_count": 1,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 28.6,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -56,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Actually this is incorrect. P2SH requires the scriptSig to be pushonly. \n\nSee the thread for <a href=\"https://delvingbitcoin.org/t/segwit-ephemeral-anchors/160\">segwit ephemeral anchor</a>. It contains no direct mention of 64 bytes transactions though.",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/77",
   "reactions": [
     {
       "id": "+1",
@@ -65,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

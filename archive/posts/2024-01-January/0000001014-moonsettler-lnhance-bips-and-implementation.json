@@ -4,17 +4,18 @@
   "username": "moonsettler",
   "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png",
   "created_at": "2024-01-08T10:21:44.597Z",
-  "cooked": "<p>indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won\u2019t do everything APO can, and that\u2019s on purpose. just the most important things that are highly desired.</p>",
+  "cooked": "<p>indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won\u2019t do everything APO can, and that\u2019s on purpose. just the most important things that are highly desired.</p>\n<p>edit:</p>\n<pre><code class=\"lang-plaintext\"># S = 500000000\n# IK -&gt; A+B\n&lt;sig&gt; &lt;state-n-hash&gt; | CTV IK CSFSV &lt;S+1&gt; CLTV\n</code></pre>\n<p>before funding sign first state template:</p>\n<pre><code class=\"lang-plaintext\"># state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }\n# settlement-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }\n\n# contract for state n &lt; m\nIF\n  &lt;sig&gt; &lt;state-m-hash&gt; | CTV IK CSFSV &lt;S+n+1&gt; CLTV\nELSE\n  &lt;settlement-hash&gt; CTV\nENDIF\n</code></pre>\n<p><code>CLTV</code> ensures only a larger <code>nLockTime</code> transaction can spend the current on-chain state, the relative timelock for the last co-signed state\u2019s <code>CTV</code> distribution is committed to in the <code>settlement-hash</code></p>",
   "post_number": 8,
   "post_type": 1,
-  "updated_at": "2024-01-08T10:21:44.597Z",
+  "posts_count": 19,
+  "updated_at": "2024-01-21T23:24:01.933Z",
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 6,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 27.6,
+  "incoming_link_count": 1328,
+  "reads": 104,
+  "readers_count": 103,
+  "score": 6675.8,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,7 +29,8 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 1,
+  "badges_granted": [],
+  "version": 7,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 190,
     "username": "urza",
     "name": "Urza",
     "avatar_template": "/user_avatar/delvingbitcoin.org/urza/{size}/234_2.png"
   },
   "bookmarked": false,
-  "raw": "indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won't do everything APO can, and that's on purpose. just the most important things that are highly desired.",
-  "actions_summary": [],
+  "raw": "indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won't do everything APO can, and that's on purpose. just the most important things that are highly desired.\n\nedit:\n\n```text\n# S = 500000000\n# IK -> A+B\n<sig> <state-n-hash> | CTV IK CSFSV <S+1> CLTV\n```\nbefore funding sign first state template:\n```text\n# state-n-hash { nLockTime(S+n), out(contract, amount(A)+amount(B)) }\n# settlement-hash { nSequence(2w), out(A, amount(A)), out(B, amount(B)) }\n\n# contract for state n < m\nIF\n  <sig> <state-m-hash> | CTV IK CSFSV <S+n+1> CLTV\nELSE\n  <settlement-hash> CTV\nENDIF\n```\n`CLTV` ensures only a larger `nLockTime` transaction can spend the current on-chain state, the relative timelock for the last co-signed state's `CTV` distribution is committed to in the `settlement-hash`",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "indeed. LN-symmetry is an other big thing it enables. (will try to dig up the contract, pretty sure someone already laid it out) it won\u2019t do everything APO can, and that\u2019s on purpose. just the most important things that are highly desired. \nedit: \n# S = 500000000\n# IK -&gt; A+B\n&lt;sig&gt; &lt;state-n-hash&gt; | C&hellip;",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/8",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

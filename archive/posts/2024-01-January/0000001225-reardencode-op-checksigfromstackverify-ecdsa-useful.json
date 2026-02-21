@@ -7,14 +7,15 @@
   "cooked": "<p>Super Testnet on X mentioned DER encoded ECDSA signature length as a form of proof of work as a reason to include ECDSA signing in all script types:\n<a href=\"https://twitter.com/super_testnet/status/1748370856814715015\" class=\"onebox\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://twitter.com/super_testnet/status/1748370856814715015</a></p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-01-19T17:36:46.423Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.4,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 10.0,
   "yours": false,
   "topic_id": 438,
   "topic_slug": "op-checksigfromstackverify-ecdsa-useful",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 30,
     "username": "reardencode",
     "name": "Brandon Black",
     "avatar_template": "/user_avatar/delvingbitcoin.org/reardencode/{size}/27_2.png"
@@ -54,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Super Testnet on X mentioned DER encoded ECDSA signature length as a form of proof of work as a reason to include ECDSA signing in all script types:\n<a href=\"https://twitter.com/super_testnet/status/1748370856814715015\" class=\"onebox\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://twitter.com/super_testnet/status/1748370856814715015</a>",
+  "truncated": true,
+  "post_url": "/t/op-checksigfromstackverify-ecdsa-useful/438/4",
   "reactions": [
     {
       "id": "thinking",
@@ -63,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

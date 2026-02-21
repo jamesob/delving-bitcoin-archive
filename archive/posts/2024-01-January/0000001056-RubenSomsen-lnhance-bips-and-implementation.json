@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"urza\" data-post=\"7\" data-topic=\"376\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/urza/48/234_2.png\" class=\"avatar\"> urza:</div>\n<blockquote>\n<p>Would this also allow construction of other things that APO would? Namely channel factories and Spacechains?</p>\n</blockquote>\n</aside>\n<p>Spacechains are already possible without covenants, but yes, just about any covenant proposal that lets you pre-commit the next tx would be useful for spacechains.</p>",
   "post_number": 10,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-01-10T15:30:30.263Z",
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 1,
-  "incoming_link_count": 2,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 58.0,
+  "incoming_link_count": 5,
+  "reads": 94,
+  "readers_count": 93,
+  "score": 133.8,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 6
     }
   ],
   "moderator": true,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Spacechains are already possible without covenants, but yes, just about any covenant proposal that lets you pre-commit the next tx would be useful for spacechains.",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/10",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 6
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

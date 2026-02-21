@@ -7,15 +7,15 @@
   "cooked": "<p>This is a great observation. I\u2019m not sure how useful it will be since it seems to imply that we\u2019d have to replace each edge within N1 and N2 by an edge between those two sets. <a href=\"https://www.cs.cmu.edu/~jonderry/maxflow.pdf#page28\" rel=\"noopener nofollow ugc\">This paper </a> points to a balancing algorithm for bipartite graphs that is typically faster than GGT, but worse on adversarially chosen instances, which is probably not what we want unless we can require chunkings to be broadcast.</p>",
   "post_number": 67,
   "post_type": 1,
-  "posts_count": 66,
+  "posts_count": 78,
   "updated_at": "2025-04-14T07:23:36.741Z",
   "reply_count": 0,
   "reply_to_post_number": 65,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "incoming_link_count": 4,
+  "reads": 37,
+  "readers_count": 36,
+  "score": 27.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 314,
     "username": "Lagrang3",
     "name": "Lagrang3",
     "avatar_template": "/user_avatar/delvingbitcoin.org/lagrang3/{size}/377_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Backing up a bit:</p>\n<p>How is this decentralization argument not generalizable to any BringYourOwnFunds(BYOF) scheme?</p>\n<p>For example, presigned HTLC-X transactions?</p>\n<p>These are batchable. They are cheaper to be paid out of band.</p>\n<p>Are we really arguing against all exogenous fees in smart contracts? I reject the premise entirely.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 41,
   "updated_at": "2024-01-05T21:22:26.201Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 8,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 47.4,
+  "incoming_link_count": 11,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 100.8,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Backing up a bit:\n\nHow is this decentralization argument not generalizable to any BringYourOwnFunds(BYOF) scheme?\n\nFor example, presigned HTLC-X transactions?\n\nThese are batchable. They are cheaper to be paid out of band.\n\nAre we really arguing against all exogenous fees in smart contracts? I reject the premise entirely.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Backing up a bit: \nHow is this decentralization argument not generalizable to any BringYourOwnFunds(BYOF) scheme? \nFor example, presigned HTLC-X transactions? \nThese are batchable. They are cheaper to be paid out of band. \nAre we really arguing against all exogenous fees in smart contracts? I reject&hellip;",
+  "truncated": true,
+  "post_url": "/t/v3-transaction-policy-for-anti-pinning/340/12",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

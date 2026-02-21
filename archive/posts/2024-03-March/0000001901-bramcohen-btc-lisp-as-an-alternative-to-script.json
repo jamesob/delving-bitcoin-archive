@@ -7,14 +7,15 @@
   "cooked": "<p>Bitcoin scripts already have a mechanism for communication, which is the transaction they\u2019re a part of. You could have multiple smart UTXOs all expect to have their spends be aggregated into a single bigger transaction and use free-form statements made there as a place of common understanding. They can also use the list of inputs to enforce capabilities. Likely you\u2019d want to have special opcodes for talking about these things, but they\u2019re entirely doable.</p>\n<p>A significant different in approach between Chia and Bitcoin is that in Chia the running of a script literally can\u2019t make reference to anything external whatsoever and can only return things so they return conditions while Bitcoin can make some limited direct references to the outside world in the form of assertions, basically covering the same things as Chia conditions do. The two approaches have their pluses and minuses, but it may be that continuing the tradition of Bitcoin scripts making direct assertions about their transaction and birthday is the best way to go for BTC Lisp</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2024-03-14T23:44:37.805Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 47.8,
+  "incoming_link_count": 1,
+  "reads": 52,
+  "readers_count": 51,
+  "score": 75.2,
   "yours": false,
   "topic_id": 682,
   "topic_slug": "btc-lisp-as-an-alternative-to-script",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -48,20 +50,27 @@
   "staff": false,
   "user_id": 331,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Bitcoin scripts already have a mechanism for communication, which is the transaction they\u2019re a part of. You could have multiple smart UTXOs all expect to have their spends be aggregated into a single bigger transaction and use free-form statements made there as a place of common understanding. They &hellip;",
+  "truncated": true,
+  "post_url": "/t/btc-lisp-as-an-alternative-to-script/682/6",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

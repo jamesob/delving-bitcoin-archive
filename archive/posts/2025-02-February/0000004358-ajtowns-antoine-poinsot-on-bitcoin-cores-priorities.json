@@ -7,14 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> wrote three interesting blog posts on Bitcoin Core:</p>\n<ul>\n<li><a href=\"https://antoinep.com/posts/core_project_direction/\" class=\"inline-onebox\">Antoine Poinsot - Bitcoin Core project direction</a>\n<ul>\n<li><em>\u201cI think we are in this situation where everybody is working on their own thing and there is no broad agreement about what the scope of the project should even be. As a consequence, year after year we keep piling up more code, more features, more RPCs, etc\u2026 with at best a constant amount of competent reviewers\u2019 time. This is not tenable, as a focus which gets further dispersed will inevitably lead to reduced overall software quality.\u201d</em></li>\n</ul>\n</li>\n<li><a href=\"https://antoinep.com/posts/stating_the_obvious/\" class=\"inline-onebox\">Antoine Poinsot - Stating the obvious</a>\n<ul>\n<li><em>\u201cWhen you consider that Bitcoin Core\u2019s userbase is indirectly all Bitcoin users, how to prioritise development becomes quite clear. Bitcoin Core should be a robust backbone for the Bitcoin network, balancing between securing the Bitcoin Core software and implementing new features to strengthen and improve the Bitcoin network.\u201d</em></li>\n</ul>\n</li>\n<li><a href=\"https://antoinep.com/posts/bitcoin_core_scope/\" class=\"inline-onebox\">Antoine Poinsot - Bitcoin Core scope, concretely</a>\n<ul>\n<li><em>\u201cThe multiprocess project presents an opportunity in this regard. Separate <code>bitcoin-node</code>, <code>bitcoin-wallet</code> and <code>bitcoin-gui</code> binaries communicating through well-defined interfaces open the door to splitting the current project into 3. The contributors at <a href=\"https://github.com/bitcoin/bitcoin\">github.com/bitcoin/bitcoin</a> would focus on the Bitcoin Core node and release a <code>bitcoin-node</code> program, exposing JSONRPC and IPC interfaces. The contributors at <a href=\"https://antoinep.com/posts/bitcoin_core_scope/github.com/bitcoin-core/wallet\">github.com/bitcoin-core/wallet</a> would work on the <code>bitcoin-wallet</code> process. The Bitcoin Core wallet releases would contain both the wallet and node processes, presumably with a wrapper to make it transparent to users. This project would release the equivalent of today\u2019s <code>bitcoind</code>. Finally, the contributors at <a href=\"https://github.com/bitcoin-core/gui\">github.com/bitcoin-core/gui</a> would develop and release the <code>bitcoin-gui</code> program, which would ship with the node and wallet.\u201d</em></li>\n</ul>\n</li>\n</ul>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 20,
   "updated_at": "2025-02-21T16:47:25.808Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 39.2,
+  "incoming_link_count": 412,
+  "reads": 113,
+  "readers_count": 112,
+  "score": 2127.6,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": true,
@@ -55,14 +56,27 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> wrote three interesting blog posts on Bitcoin Core: \n\n<a href=\"https://antoinep.com/posts/core_project_direction/\" class=\"inline-onebox\">Antoine Poinsot - Bitcoin Core project direction</a>\n\n\u201cI think we are in this situation where everybody is working on their own thing and there is no broad agreement about what the scope of the project should even be. As a consequence, year&hellip;",
+  "truncated": true,
+  "post_url": "/t/antoine-poinsot-on-bitcoin-cores-priorities/1470/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

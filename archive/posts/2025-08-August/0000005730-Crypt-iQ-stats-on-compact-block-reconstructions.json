@@ -7,15 +7,15 @@
   "cooked": "<p>Nice work on this <a class=\"mention\" href=\"/u/davidgumberg\">@davidgumberg</a>, this is very helpful. I have a few questions.</p>\n<blockquote>\n<p>Within DoS limits (maybe a limit of 4 MiB per valid header), temporarily store a per-block cache of prefilled transactions you hear about, increasing the chances that you successfully reconstruct without having to wait for an RTT.</p>\n</blockquote>\n<p>Is this because we have 3 HB peers and we want to combine prefills across them to try and reconstruct?</p>\n<blockquote>\n<p>So far, I have assumed perfectly reliable networks and this isn\u2019t always the case, packets get lost, and in TCP that means waiting for a timeout, and then retransmitting</p>\n</blockquote>\n<p>I think it would be helpful to run this experiment where one of the nodes is on the other side of the world (maybe China?) to see what packet loss looks like and how that affects reconstruction times with/without prefilling.</p>\n<p>For the \u201cScatter plot of Missing Bytes/Reconstruction Time for a node whose peers don\u2019t prefill\u201d, some of the points have &gt; 1 MiB missing and have reconstruction times at ~100ms. Do you know if these points are with peers with large window sizes? I would think that if that much data has to be sent across and the window sizes are ~14480, reconstruction times would be a bit higher\u2026 I\u2019m wondering if you have any ideas on why the reconstruction times are low in those cases?</p>\n<p>Edit: For the latency formulas, should they include the cost of transmitted data needed to reconstruct in the failure case? I know they are just to form an intuition, but I was also curious about that.</p>",
   "post_number": 36,
   "post_type": 1,
-  "posts_count": 35,
+  "posts_count": 42,
   "updated_at": "2025-08-17T17:07:38.096Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 3.0,
+  "incoming_link_count": 1,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 29.4,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Nice work on this @davidgumberg, this is very helpful. I have a few questions.\n\n> Within DoS limits (maybe a limit of 4 MiB per valid header), temporarily store a per-block cache of prefilled transactions you hear about, increasing the chances that you successfully reconstruct without having to wait for an RTT.\n\nIs this because we have 3 HB peers and we want to combine prefills across them to try and reconstruct?\n\n> So far, I have assumed perfectly reliable networks and this isn\u2019t always the case, packets get lost, and in TCP that means waiting for a timeout, and then retransmitting\n\nI think it would be helpful to run this experiment where one of the nodes is on the other side of the world (maybe China?) to see what packet loss looks like and how that affects reconstruction times with/without prefilling.\n\nFor the \u201cScatter plot of Missing Bytes/Reconstruction Time for a node whose peers don\u2019t prefill\u201d, some of the points have > 1 MiB missing and have reconstruction times at \\~100ms. Do you know if these points are with peers with large window sizes? I would think that if that much data has to be sent across and the window sizes are \\~14480, reconstruction times would be a bit higher\u2026 I\u2019m wondering if you have any ideas on why the reconstruction times are low in those cases?\n\nEdit: For the latency formulas, should they include the cost of transmitted data needed to reconstruct in the failure case? I know they are just to form an intuition, but I was also curious about that.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Nice work on this <a class=\"mention\" href=\"/u/davidgumberg\">@davidgumberg</a>, this is very helpful. I have a few questions. \n\nWithin DoS limits (maybe a limit of 4 MiB per valid header), temporarily store a per-block cache of prefilled transactions you hear about, increasing the chances that you successfully reconstruct without having to wait &hellip;",
   "truncated": true,
   "post_url": "/t/stats-on-compact-block-reconstructions/1052/36",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

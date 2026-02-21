@@ -7,14 +7,15 @@
   "cooked": "<p>The notation there confuses me (if <code>e1</code> is <code>H(k1*G,pubkey,m1)</code>, then you can\u2019t choose <code>k1</code> depending on it, eg). On the offchance that anyone else also find it confusing, I\u2019d write the \u201cDark Smoothie\u201d approach as:</p>\n<pre><code class=\"lang-auto\">HMAC(s) = sha256(attacker secret, s)\nsecret = 256 bit wallet seed, encrypted to attacker\n\nr1 = HMAC(pubkey, m1)*privkey\nr2 = secret\n\ns1 = r1 + H(r1*G, pubkey, m1)*privkey\ns2 = r2 + H(r2*G, pubkey, m2)*privkey\n</code></pre>\n<p><code>(r1*G, s1, pubkey, m1)</code> and <code>(r2*G, s2, pubkey, m2)</code> are valid Schnorr signatures.</p>\n<p>The attacker can quickly check that <code>r1*G</code> matches <code>HMAC(pubkey, m1)*pubkey</code>, to work out which transactions are providing secrets. This first signature allows the attacker to determine <code>privkey</code>:</p>\n<pre><code class=\"lang-auto\">s1 = r1 + H(r1*G, pubkey, m1)*privkey\ns1 = (HMAC(pubkey, m1) + H(r1*G, pubkey, m1))*privkey\nprivkey = s1 / (HMAC(pubkey, m1) + H(r1*G, pubkey, m1))\n</code></pre>\n<p>But that might be a hardened privkey from a HD wallet, so to compromise the entire wallet you want the seed, for which we use the second signature, and the fact that we already know the privkey:</p>\n<pre><code class=\"lang-auto\">s2 = r2 + H(r2*G, pubkey, m2)*privkey\ns2 = secret + H(r2*G, pubkey, m2)*privkey\nsecret = H(r2*G, pubkey, m2)*privkey - s2\nseed = decrypt secret\n</code></pre>",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2024-09-04T03:39:06.312Z",
   "reply_count": 1,
   "reply_to_post_number": 14,
   "quote_count": 0,
-  "incoming_link_count": 5,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 46.4,
+  "incoming_link_count": 7,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 58.8,
   "yours": false,
   "topic_id": 1081,
   "topic_slug": "non-interactive-anti-exfil-airgap-compatible",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The notation there confuses me (if e1 is H(k1*G,pubkey,m1), then you can\u2019t choose k1 depending on it, eg). On the offchance that anyone else also find it confusing, I\u2019d write the \u201cDark Smoothie\u201d approach as: \nHMAC(s) = sha256(attacker secret, s)\nsecret = 256 bit wallet seed, encrypted to attacker\n\nr&hellip;",
+  "truncated": true,
+  "post_url": "/t/non-interactive-anti-exfil-airgap-compatible/1081/15",
   "reactions": [
     {
       "id": "heart",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

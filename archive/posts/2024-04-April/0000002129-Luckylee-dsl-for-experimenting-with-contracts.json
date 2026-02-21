@@ -7,14 +7,15 @@
   "cooked": "<p>We currently use Rust macros at <a href=\"https://github.com/BitVM/rust-bitcoin-script/tree/script_macro\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - BitVM/rust-bitcoin-script at script_macro</a> to work with Rust Bitcoin\u2019s Script.\nNew scripts and opcodes can be composed and there is some syntactic sugar like loops. Looks like this:</p>\n<pre><code class=\"lang-auto\">fn script_from_func() -&gt; ScriptBuf {\n    return script! { OP_ADD };\n}\n\nlet script = script! {\n    for i in 0..3 {\n        for k in 0..(3 as u32) {\n        OP_ADD\n        if k == i {\n            OP_SUB\n        } else {\n            script_from_func\n        }\n        { i * 42 }\n        { k + 42}\n        }\n    }\n    OP_ADD\n};\n</code></pre>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-04-02T08:42:43.055Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.6,
+  "incoming_link_count": 3,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 38.8,
   "yours": false,
   "topic_id": 748,
   "topic_slug": "dsl-for-experimenting-with-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 102,
     "username": "jungly",
     "name": "jungly",
     "avatar_template": "/user_avatar/delvingbitcoin.org/jungly/{size}/289_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "We currently use Rust macros at <a href=\"https://github.com/BitVM/rust-bitcoin-script/tree/script_macro\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - BitVM/rust-bitcoin-script at script_macro</a> to work with Rust Bitcoin\u2019s Script.\nNew scripts and opcodes can be composed and there is some syntactic sugar like loops. Looks like this: \nfn script_from_func() -&gt; ScriptBuf {\n    return script! { OP_ADD };\n}\n\nlet sc&hellip;",
+  "truncated": true,
+  "post_url": "/t/dsl-for-experimenting-with-contracts/748/8",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

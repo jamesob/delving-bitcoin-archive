@@ -7,15 +7,15 @@
   "cooked": "<p>Time per \u2018cost\u2019 might be an interesting graph-- given that dependencies add transaction size.  I had previously wondered if it might make sense for the limit to actually be in terms of dependencies rather than transactions in a cluster (e.g. set the limit to tx+dep &lt; 512 or something).</p>",
   "post_number": 74,
   "post_type": 1,
-  "posts_count": 73,
+  "posts_count": 78,
   "updated_at": "2025-04-24T09:31:56.050Z",
   "reply_count": 0,
   "reply_to_post_number": 73,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 2.8,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 6.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

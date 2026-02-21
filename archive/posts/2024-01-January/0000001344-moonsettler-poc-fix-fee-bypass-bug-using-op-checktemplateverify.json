@@ -7,14 +7,15 @@
   "cooked": "<p>like i mentioned HH could use a 3-of-4 FROST on the taproot keyspend where HH has 2 keys, and have 4 alternative script spends:</p>\n<pre><code class=\"lang-plaintext\">&lt;hhPub&gt; CHECKSIGVERIFY &lt;completeTemplate&gt; CHECKTEMPLATEVERIFY\n\n&lt;hhPub&gt; CHECKSIGVERIFY &lt;refundTemplate&gt; CHECKTEMPLATEVERIFY\n\n&lt;sellerPub+buyerPub&gt; CHECKSIGVERIFY &lt;t+2w&gt; CLTV\n\n&lt;1&gt; &lt;sellerPub&gt; &lt;buyerPub&gt; &lt;2&gt; CHECKMULTISIGVERIFY &lt;t+2m&gt; CLTV\n</code></pre>\n<p>so HH could settle one way or the other with a single sig, after 2 weeks the buyer and seller can cooperate to settle any dispute, after 2 months the buyer and seller can compete for he funds if they can\u2019t agree.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 2,
   "updated_at": "2024-01-25T23:04:19.058Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 11,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 74.2,
+  "incoming_link_count": 14,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 106.2,
   "yours": false,
   "topic_id": 478,
   "topic_slug": "poc-fix-fee-bypass-bug-using-op-checktemplateverify",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 3,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "like i mentioned HH could use a 3-of-4 FROST on the taproot keyspend where HH has 2 keys, and have 4 alternative script spends: \n&lt;hhPub&gt; CHECKSIGVERIFY &lt;completeTemplate&gt; CHECKTEMPLATEVERIFY\n\n&lt;hhPub&gt; CHECKSIGVERIFY &lt;refundTemplate&gt; CHECKTEMPLATEVERIFY\n\n&lt;sellerPub+buyerPub&gt; CHECKSIGVERIFY &lt;t+2w&gt; CLTV&hellip;",
+  "truncated": true,
+  "post_url": "/t/poc-fix-fee-bypass-bug-using-op-checktemplateverify/478/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 18,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 139.6,
+  "incoming_link_count": 159,
+  "reads": 57,
+  "readers_count": 56,
+  "score": 921.4,
   "yours": false,
   "topic_id": 1902,
   "topic_slug": "delving-simplicity-part-three-fundamental-ways-of-combining-computations",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 8
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 8
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 8,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

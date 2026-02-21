@@ -7,14 +7,15 @@
   "cooked": "<p>To truly mitigate pinning against lightning channels, we need to force all commitment transactions and all preimage-claim transactions to use TRUC (see discussions <a href=\"https://github.com/lightning/bolts/issues/1221#issuecomment-2621162542\" rel=\"noopener nofollow ugc\">here</a> and <a href=\"https://delvingbitcoin.org/t/lightning-transactions-with-v3-and-ephemeral-anchors/418/12\">here</a>).  <a class=\"mention\" href=\"/u/t-bast\">@t-bast</a> has outlined how we can do this for <a href=\"https://delvingbitcoin.org/t/lightning-transactions-with-v3-and-ephemeral-anchors/418\">commitment transactions</a>, but some extra work is needed for preimage claims.</p>\n<h1><a name=\"p-4126-local-commitment-preimage-claims-1\" class=\"anchor\" href=\"#p-4126-local-commitment-preimage-claims-1\"></a>Local commitment preimage claims</h1>\n<p>We already use presigned HTLC-Success transactions for this case.  The only change needed is to presign these transactions as v3.</p>\n<h1><a name=\"p-4126-remote-commitment-preimage-claims-2\" class=\"anchor\" href=\"#p-4126-remote-commitment-preimage-claims-2\"></a>Remote commitment preimage claims</h1>\n<p>Currently these claims are not presigned, which means we currently can\u2019t force them to use TRUC.  We need to start presigning these claims as v3.</p>\n<p>In order to presign these transactions, we need to exchange signatures for them during the commitment update flow.</p>\n<h2><a name=\"p-4126-adding-a-half-round-trip-3\" class=\"anchor\" href=\"#p-4126-adding-a-half-round-trip-3\"></a>Adding a half round-trip</h2>\n<p><a class=\"mention\" href=\"/u/t-bast\">@t-bast</a> has <a href=\"https://github.com/lightning/bolts/issues/1221#issuecomment-2626983064\" rel=\"noopener nofollow ugc\">suggested</a> that we need to add half a round-trip to the protocol for this, similar to his draft protocol for <a href=\"https://github.com/t-bast/lightning-docs/blob/398a1b78250f564f7c86a414810f7e87e5af23ba/taproot-updates.md#point-time-locked-contracts\" rel=\"noopener nofollow ugc\">PTLCs</a>.  That would look something like this:</p>\n<pre><code class=\"lang-auto\"> Alice                      Bob\n   |   commitment_proposed   |\n   |------------------------&gt;|\n   |    commitment_signed    |\n   |&lt;------------------------|\n   |     revoke_and_ack      |\n   |------------------------&gt;|\n</code></pre>\n<ol>\n<li>When Alice is ready to update her commitment transaction, she sends <code>commitment_proposed</code> with signatures for the HTLC-Remote-Success transactions Bob needs to claim HTLCs via preimage from Alice\u2019s new commitment transaction.</li>\n<li>Bob sends the usual <code>commitment_signed</code> message with the HTLC-Success, HTLC-Timeout, and commitment signatures Alice needs to spend from her new commitment transaction.</li>\n<li>Alice sends <code>revoke_and_ack</code> to revoke her previous commitment.</li>\n</ol>\n<h3><a name=\"p-4126-signing-flow-race-4\" class=\"anchor\" href=\"#p-4126-signing-flow-race-4\"></a>Signing flow race</h3>\n<p>This change increases complexity due to a new race in the signing flow:</p>\n<ul>\n<li>Alice must now initiate the signing flow for her own commitment transaction by sending <code>commitment_proposed</code> with whatever HTLCs she has pending on her commitment.</li>\n<li>Bob may still be sending updates when he receives Alice\u2019s <code>commitment_proposed</code>.</li>\n<li>Thus when Bob receives Alice\u2019s <code>commitment_proposed</code> he doesn\u2019t immediately know which HTLCs need to be included in Alice\u2019s new commitment. Bob must check Alice\u2019s HTLC-Remote-Success signatures against every possible intermediate commitment transaction to figure out which one he should use for his <code>commitment_signed</code> message.</li>\n</ul>\n<h2><a name=\"p-4126-minimal-alternative-5\" class=\"anchor\" href=\"#p-4126-minimal-alternative-5\"></a>Minimal alternative</h2>\n<p>AFAICT, we don\u2019t need to add a half round-trip or introduce a new message at all.  We can simply attach HTLC-Remote-Success signatures to the <code>revoke_and_ack</code> message:</p>\n<pre><code class=\"lang-auto\"> Alice                      Bob\n   |    commitment_signed    |\n   |&lt;------------------------|\n   |     revoke_and_ack      |\n   |------------------------&gt;|\n</code></pre>\n<ol>\n<li>When Bob is ready to update Alice\u2019s commitment transaction, he sends <code>commitment_signed</code> as usual.</li>\n<li>Alice sends <code>revoke_and_ack</code> to revoke her previous commitment, while also sending signatures for Bob\u2019s HTLC-Remote-Success transactions.</li>\n</ol>\n<p>At no point during this exchange are either Alice\u2019s nor Bob\u2019s funds at risk.</p>\n<ul>\n<li><strong>Before <code>commitment_signed</code></strong>: Alice and Bob both hold a single valid commitment transaction and all necessary HTLC transactions.</li>\n<li><strong>After <code>commitment_signed</code> but before <code>revoke_and_ack</code></strong>: Alice now holds a second valid commitment transaction, from which Bob cannot claim any HTLCs via preimage.  This is fine because the funds locked up in that HTLC are <em>Alice\u2019s</em>, not Bob\u2019s, and Alice can still recover those funds via HTLC-Timeout once the CLTV expires.  Since Bob wouldn\u2019t forward the HTLC anyway until he receives Alice\u2019s <code>revoke_and_ack</code> and subsequent <code>commitment_signed</code>, he has no risk of losing funds.</li>\n<li><strong>After <code>revoke_and_ack</code></strong>: Alice and Bob both hold a single valid commitment transaction and all necessary HTLC transactions.  Note that if Alice sends invalid HTLC-Remote-Success signatures, Bob can simply send an error and close the channel.</li>\n</ul>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2025-01-31T19:19:09.535Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 32.8,
+  "incoming_link_count": 55,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 285.6,
   "yours": false,
   "topic_id": 1414,
   "topic_slug": "minimal-signing-flow-changes-for-truc-channels",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "To truly mitigate pinning against lightning channels, we need to force all commitment transactions and all preimage-claim transactions to use TRUC (see discussions <a href=\"https://github.com/lightning/bolts/issues/1221#issuecomment-2621162542\" rel=\"noopener nofollow ugc\">here</a> and <a href=\"https://delvingbitcoin.org/t/lightning-transactions-with-v3-and-ephemeral-anchors/418/12\">here</a>).  <a class=\"mention\" href=\"/u/t-bast\">@t-bast</a> has outlined how we can do this for <a href=\"https://delvingbitcoin.org/t/lightning-transactions-with-v3-and-ephemeral-anchors/418\">commitment transactions</a>, but some extra work is needed for preimage claims. &hellip;",
+  "truncated": true,
+  "post_url": "/t/minimal-signing-flow-changes-for-truc-channels/1414/1",
   "reactions": [
     {
       "id": "eyes",
@@ -64,5 +68,10 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Binaries for Bitcoin Core version v27.1rc1 are available from:</p>\n<pre><code>https://bitcoincore.org/bin/bitcoin-core-27.1/test.rc1/\n</code></pre>\n<p>Source code can be found in git under the signed tag</p>\n<pre><code>https://github.com/bitcoin/bitcoin/tree/v27.1rc1\n</code></pre>\n<p>This is a release candidate for a new minor version release.</p>\n<p>Preliminary release notes for the release can be found here:</p>\n<pre><code>https://github.com/bitcoin/bitcoin/blob/fccd32efe6e2950b2c74fdec2ade54040ca32a2c/doc/release-notes.md\n</code></pre>\n<p>Release candidates are test versions for releases. When no critical problems are found, this release candidate will be tagged as v27.1.</p>\n<p>Please test! If you run into issues, please report them to <a href=\"https://github.com/bitcoin/bitcoin/issues\" class=\"inline-onebox\">Issues \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>.</p>\n<p>I\u2019ll keep this thread updated with further release candidates (if any).</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 1,
   "updated_at": "2024-06-01T01:11:11.655Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 4,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 82.8,
+  "incoming_link_count": 26,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 256.8,
   "yours": false,
   "topic_id": 930,
   "topic_slug": "bitcoin-core-27-1rc1-is-now-available",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 3,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 6
     }
   ],
   "moderator": false,
@@ -54,14 +56,27 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Binaries for Bitcoin Core version v27.1rc1 are available from: \nhttps://bitcoincore.org/bin/bitcoin-core-27.1/test.rc1/\n\nSource code can be found in git under the signed tag \nhttps://github.com/bitcoin/bitcoin/tree/v27.1rc1\n\nThis is a release candidate for a new minor version release. \nPreliminary r&hellip;",
+  "truncated": true,
+  "post_url": "/t/bitcoin-core-27-1rc1-is-now-available/930/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 5
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

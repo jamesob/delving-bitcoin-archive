@@ -7,14 +7,15 @@
   "cooked": "<p>There is also this fully working (with rough edges) Spacechain (with the actual parallel blockchain code too and not only the Bitcoin-BMM part) that works on signet: <a href=\"https://github.com/fiatjaf/soma\" rel=\"noopener nofollow ugc\">https://github.com/fiatjaf/soma</a> (although there are no nodes online anymore anyone can always start a new chain).</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 25,
   "updated_at": "2023-09-29T13:44:59.865Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 68.8,
+  "incoming_link_count": 2,
+  "reads": 68,
+  "readers_count": 67,
+  "score": 98.6,
   "yours": false,
   "topic_id": 98,
   "topic_slug": "covenant-tools-softfork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,16 +38,17 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 9,
     "username": "jamesob",
     "name": "James O'Beirne",
-    "avatar_template": "/letter_avatar_proxy/v4/letter/j/958977/{size}.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/jamesob/{size}/271_2.png"
   },
   "bookmarked": false,
   "raw": "There is also this fully working (with rough edges) Spacechain (with the actual parallel blockchain code too and not only the Bitcoin-BMM part) that works on signet: [https://github.com/fiatjaf/soma](https://github.com/fiatjaf/soma) (although there are no nodes online anymore anyone can always start a new chain).",
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -53,20 +56,27 @@
   "staff": false,
   "user_id": 21,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "There is also this fully working (with rough edges) Spacechain (with the actual parallel blockchain code too and not only the Bitcoin-BMM part) that works on signet: <a href=\"https://github.com/fiatjaf/soma\" rel=\"noopener nofollow ugc\">https://github.com/fiatjaf/soma</a> (although there are no nodes online anymore anyone can always start a new chain).",
+  "truncated": true,
+  "post_url": "/t/covenant-tools-softfork/98/5",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

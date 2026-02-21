@@ -7,14 +7,15 @@
   "cooked": "<p>Yea, that paper is cool, sadly it doesn\u2019t actually make an argument for there being a \u201cDoS threat\u201d from onion messages, it just assumes there is one and then addresses mitigations. It is the case that we should probably reduce the ability for OMs to route-loop, which is the main focus of the paper, however. Still, more formal analysis of what the actual DoS risk is is needed, as well as analysis of the \u201cbackpressure\u201d mitigation that lightning developers had agreed to implement if/when this becomes an issue.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 2,
   "updated_at": "2024-08-09T15:23:02.537Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "incoming_link_count": 10,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 86.2,
   "yours": false,
   "topic_id": 1058,
   "topic_slug": "onion-messaging-dos-threat-mitigations",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Yea, that paper is cool, sadly it doesn't actually make an argument for there being a \"DoS threat\" from onion messages, it just assumes there is one and then addresses mitigations. It is the case that we should probably reduce the ability for OMs to route-loop, which is the main focus of the paper, however. Still, more formal analysis of what the actual DoS risk is is needed, as well as analysis of the \"backpressure\" mitigation that lightning developers had agreed to implement if/when this becomes an issue.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Yea, that paper is cool, sadly it doesn\u2019t actually make an argument for there being a \u201cDoS threat\u201d from onion messages, it just assumes there is one and then addresses mitigations. It is the case that we should probably reduce the ability for OMs to route-loop, which is the main focus of the paper, &hellip;",
+  "truncated": true,
+  "post_url": "/t/onion-messaging-dos-threat-mitigations/1058/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

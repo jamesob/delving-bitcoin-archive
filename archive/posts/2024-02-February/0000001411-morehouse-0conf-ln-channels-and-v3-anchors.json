@@ -7,14 +7,15 @@
   "cooked": "<h2><a name=\"current-situation-1\" class=\"anchor\" href=\"#current-situation-1\"></a>Current situation</h2>\n<p>In an emergency, the funding transaction can be confirmed using the commitment + anchor spend to CPFP.  Alternatively, if either party has a change output on the funding transaction, they can use it to CPFP directly.</p>\n<p>However, any of these CPFP methods can be defeated by pinning the funding transaction.</p>\n<h2><a name=\"future-solution-2\" class=\"anchor\" href=\"#future-solution-2\"></a>Future solution</h2>\n<p>Piecing together some ideas I\u2019ve heard from <a class=\"mention\" href=\"/u/instagibbs\">@instagibbs</a>.</p>\n<p>If we have:</p>\n<ul>\n<li>cluster mempool</li>\n<li>package relay</li>\n<li>v3 policy becomes a \u201c<a href=\"https://delvingbitcoin.org/t/opt-in-transaction-policies-for-anti-pinning/159#transaction-priority-opt-in-5\">priority opt-in</a>\u201d, with no ancestor restrictions and no 1-child limit</li>\n</ul>\n<p>then we can make funding transactions v3, and I think this problem is largely solved.</p>\n<p>The funding transaction can be CPFP\u2019d by either party using the commitment + anchor spend package.  Pinning is largely mitigated, since the priority fee rate must be used for all descendants of the funding transaction.</p>\n<p>The only scenario where the funding transaction couldn\u2019t be confirmed in a timely manner is when (1) the cluster limit is reached and then (2) mempool fee rates spike.  An attacker would need to cause (1) preemptively, costing them considerable fees (cluster limit * priority fee rate), and only benefiting them on the rare chance that (2) occurs.  Therefore, such an attack is probably not a realistic concern.</p>\n<h2><a name=\"v3-only-solution-3\" class=\"anchor\" href=\"#v3-only-solution-3\"></a>v3-only solution</h2>\n<p>During the v3 transition period (before cluster mempool et al.), maybe the best we can do is to keep the status quo.</p>\n<p>To allow either party to CPFP the funding transaction in an emergency, we can add a shared anchor to the funding transaction and keep it non-v3.  This would also allow arbitrary ancestor topologies (e.g., splice trees) for the funding transaction.</p>\n<p>Pinning can still defeat the shared anchor, but that is no worse than our current situation.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2024-02-01T22:58:04.876Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "incoming_link_count": 7,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 55.6,
   "yours": false,
   "topic_id": 494,
   "topic_slug": "0conf-ln-channels-and-v3-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a name=\"current-situation-1\" class=\"anchor\" href=\"#current-situation-1\"></a>Current situation\nIn an emergency, the funding transaction can be confirmed using the commitment + anchor spend to CPFP.  Alternatively, if either party has a change output on the funding transaction, they can use it to CPFP directly. \nHowever, any of these CPFP methods can be defeated by pinning th&hellip;",
+  "truncated": true,
+  "post_url": "/t/0conf-ln-channels-and-v3-anchors/494/7",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +73,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

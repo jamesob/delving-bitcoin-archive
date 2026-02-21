@@ -7,14 +7,15 @@
   "cooked": "<p>That\u2019s an interesting idea but I don\u2019t believe it\u2019s quite that easy. The weight <span class=\"math\">fee-\\lambda size</span> is positive for some nodes and negative for others, so setting it to 0 doesn\u2019t seem to preserve monotonicity in general.</p>",
   "post_number": 17,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-01T18:06:59.299Z",
   "reply_count": 2,
   "reply_to_post_number": 16,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 31.8,
+  "reads": 42,
+  "readers_count": 41,
+  "score": 38.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "That\u2019s an interesting idea but I don\u2019t believe it\u2019s quite that easy. The weight $fee-\\lambda size$ is positive for some nodes and negative for others, so setting it to 0 doesn\u2019t seem to preserve monotonicity in general.",
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That\u2019s an interesting idea but I don\u2019t believe it\u2019s quite that easy. The weight fee-\\lambda size is positive for some nodes and negative for others, so setting it to 0 doesn\u2019t seem to preserve monotonicity in general.",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/17",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

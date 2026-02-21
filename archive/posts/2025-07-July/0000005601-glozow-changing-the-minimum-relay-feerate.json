@@ -7,15 +7,15 @@
   "cooked": "<p>Yoohoo, big summer blowout - 90% off cheap transactions!!!</p>\n<p>Here\u2019s a PR to Bitcoin Core to lower the minimum relay feerate from 1000sat/kvB to 100sat/vB: <a href=\"https://github.com/bitcoin/bitcoin/pull/33106\" class=\"inline-onebox\">[WIP] policy: lower the default blockmintxfee, incrementalrelayfee, minrelaytxfee by glozow \u00b7 Pull Request #33106 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>\nThere\u2019s a bit of a writeup there, but a lot of it is Bitcoin Core-specific. Let\u2019s use this thread for discussion that is more conceptual or applicable to the wider ecosystem.</p>\n<p>This is motivated by the <a href=\"https://x.com/mononautical/status/1949452586391855121\">recent trend</a> of sub-1sat/vB transactions being relayed and mined and a <a href=\"https://github.com/bitcoin/bitcoin/pull/32959\">PR</a> opened to Bitcoin Core. Blocks with lots of sub-1sat/vB transactions don\u2019t propagate as quickly to nodes that rejected or didn\u2019t hear about those transactions earlier.</p>\n<p>I think we should try to avoid block relay problems, but also shouldn\u2019t make it too cheap for an attacker to use a huge amount of network resources. Sending 1 valid transaction means tens of thousands of nodes using bandwidth to download/broadcast it.</p>\n<p>The minimum relay feerate is a DoS protection rule, representing a price per unit bandwidth on this network-wide resource. The incremental relay feerate is similar: it\u2019s used to make replacement transactions pay \u201cnew fees\u201d for relaying themselves. It\u2019s also used to set the dynamic mempool minimum feerate, which is like making new transactions cover the cost of the evicted ones, even though they aren\u2019t replacements.</p>\n<p>Since the feerate represents a ratio between tx fees and real world resources, I think it\u2019s not entirely crazy to look at the price of BTC in USD. For example, the rationale given <a href=\"https://github.com/bitcoin/bitcoin/pull/32959#issuecomment-3095260286\">here</a> makes sense to me:</p>\n<blockquote>\n<p>1kB of data across 100k nodes is at least 100MB of data, at 10c/GB (contemporary ec2 bandwidth pricing) is 1c total; and 1000sats at $250/BTC 0.25c total. Today, ec2 prices don\u2019t seem much different, and node counts aren\u2019t much higher, so at current prices, paying for relay would be closer to 0.01sat/vb. A rate of 0.1sat/vb would cover growing the node count to 1M nodes, and 1sat/vb would cover growing the node count to 10M nodes. So from a \u201cfree relay\u201d perspective, I think 0.1 sat/vb is likely fine, both for min-fee and min-incremental-fee. If the p2p network grows to much more than 1M nodes, that might not be true though.</p>\n</blockquote>\n<p>Curious whether others have thoughts on how the minimum feerates are used, what the minimum feerate should be, how to formalize this, what wallets/applications are using, etc.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 13,
   "updated_at": "2025-07-31T20:07:11.135Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 21,
-  "reads": 33,
-  "readers_count": 32,
-  "score": 141.6,
+  "incoming_link_count": 549,
+  "reads": 100,
+  "readers_count": 99,
+  "score": 2765.0,
   "yours": false,
   "topic_id": 1886,
   "topic_slug": "changing-the-minimum-relay-feerate",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

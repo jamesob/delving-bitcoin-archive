@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"roasbeef\" data-post=\"3\" data-topic=\"1602\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/roasbeef/48/160_2.png\" class=\"avatar\"> roasbeef:</div>\n<blockquote>\n<p>After this fragment, there\u2019s no further mention of CSFS until the very end of the post. What exactly is the message being signed here? If the message isn\u2019t constructed carefully, replays may be possible.</p>\n</blockquote>\n</aside>\n<p>What is signed in the CTV hash of the tx. Not committing to inputs, but committing to nb of inputs and input index. These refund txs are in some sense replayable, but since the output guarantees that the user receives the value of his vtxo, that is not a problem. In the perpetual refresh scheme, we use timelocks to prevent the server from applying all sequential refund txs (though as we mention that will likely be uneconomical anyway).</p>\n<aside class=\"quote no-group\" data-username=\"roasbeef\" data-post=\"3\" data-topic=\"1602\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/roasbeef/48/160_2.png\" class=\"avatar\"> roasbeef:</div>\n<blockquote>\n<p>Don\u2019t the users still need to interact in order to send to each other in a round? IIUC, they still need to:</p>\n</blockquote>\n</aside>\n<p>Yeah we struggled to find the best term to describe the type of interaction where users have to do something synchronously and the bad actions of certain users will affect all other users. This is the type of user interactions we eliminate for Erk and hArk.</p>\n<p>It is true that</p>\n<ul>\n<li>senders have to learn receiver pubkeys</li>\n<li>senders should inform receivers about their new vtxo</li>\n</ul>\n<p>In the Erk case, additionally, the receiver should indeed sign it\u2019s incoming refund tx, which requires additional interaction. However, this interaction can happen at any point in time before they submit their payment request for the round; and also, hArk is strictly better for in-round payments than Erk, while Erk makes more sense for send-to-self refreshes.</p>\n<p>There are no connectors anymore for Erk and hArk, but when the sender informs the receiver about their new vtxo, it should include the secret for the hArk case.</p>\n<p>We do however think that arkoor payments still make more sense for payments, after which the receiver can decide to either refresh with hArk or sign an Erk refund to have his vtxo auto-refreshed before expiry.</p>\n<aside class=\"quote no-group\" data-username=\"roasbeef\" data-post=\"3\" data-topic=\"1602\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/roasbeef/48/160_2.png\" class=\"avatar\"> roasbeef:</div>\n<blockquote>\n<p>Even if CTV is used, until the round is constructed the \u201croot\u201d CTV hash isn\u2019t known. That can only be known once all participants provide their parameters (keys timeouts, amts, etc). As a result, users must remain online until all other users have committed to parameters, as they need to sign their leaf to ensure they can exit.</p>\n</blockquote>\n</aside>\n<p>You\u2019re confused here. In Ark, Erk and hArk, no leaves need to be signed. All the leaves are committed to using CTV. The user can just submit their \u201crequest\u201d for inclusion in the round, the server can then create the entire round tree, and fund a CTV output that commits to it, and users can come back online any time after the round to be informed about their inclusion in the round.</p>\n<aside class=\"quote no-group\" data-username=\"roasbeef\" data-post=\"3\" data-topic=\"1602\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/roasbeef/48/160_2.png\" class=\"avatar\"> roasbeef:</div>\n<blockquote>\n<p>How can they sign for this new exit tx if it doesn\u2019t yet exist, and has a txid that can\u2019t be known until <em>new</em> exit tree (which is dependent on the participants) is created? For NO_INPUT/APO, this is possible as you don\u2019t sign the outpoint, so there\u2019s no dependency other than the script.</p>\n</blockquote>\n</aside>\n<p>We are indeed using NO_INPUT/APO rebindable signatures. We emulate them using CTV+CSFS.</p>\n<aside class=\"quote no-group\" data-username=\"roasbeef\" data-post=\"3\" data-topic=\"1602\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/roasbeef/48/160_2.png\" class=\"avatar\"> roasbeef:</div>\n<blockquote>\n<p>Is the deducted fee known to the user ahead of time? If not, how can they pre-sign this new vtxo exit if they don\u2019t know the fee (assuming <code>SIGHASH_ALL</code>)?</p>\n</blockquote>\n</aside>\n<p>Yes it has to be known ahead of time, because this knowledge is needed to sign the refund tx. The fee can either be fixed, or the server can inform the user during the interaction they have when signing up for the round.</p>\n<aside class=\"quote no-group\" data-username=\"roasbeef\" data-post=\"3\" data-topic=\"1602\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/roasbeef/48/160_2.png\" class=\"avatar\"> roasbeef:</div>\n<blockquote>\n<p>Related to the question above, how can the user pre-sign the refund tx if they don\u2019t yet know what the new second input is (the new round txn, which hasn\u2019t been created yet).</p>\n</blockquote>\n</aside>\n<p>Since it is an APO signature (using CTV+CSFS), the signature only signs the outputs. The refund tx then guarantees that if there ever exists a vtxo for key <span class=\"math\">A</span> and a vtxo for key <span class=\"math\">A'</span> at the same time, the server can consolidate them into <em>just</em> the <span class=\"math\">A'</span> vtxo.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 7,
   "updated_at": "2025-04-16T09:22:29.709Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 18.2,
+  "incoming_link_count": 2,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 51.0,
   "yours": false,
   "topic_id": 1602,
   "topic_slug": "evolving-the-ark-protocol-using-ctv-and-csfs",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -61,12 +61,21 @@
   "post_url": "/t/evolving-the-ark-protocol-using-ctv-and-csfs/1602/4",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Sure, but that\u2019s cumulative to sync time. It\u2019s not really a fix it just amortizes the cost.</p>\n<p>Flush to disk and destruct of an object model is far more costly than flush from mmap. Not only is mmap flush simple but it is paged in the background. Even with 32GB of RAM fully loaded during/after a full sync (with no explicit/periodic flush during sync), flushing the RAM takes around 10 seconds at shutdown.</p>\n<p>If not already implemented, it might help Core\u2019s flush time to use a custom linear memory allocator. That effectively eliminates the destruct cost. This can be very high if the objects are passed between threads (another consideration if the cache was to become threadsafe).</p>",
   "post_number": 43,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-05T19:52:23.918Z",
   "reply_count": 1,
   "reply_to_post_number": 42,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 13.4,
+  "incoming_link_count": 3,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 46.0,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 438,
     "username": "andrewtoth",
     "name": "Andrew Toth",
     "avatar_template": "/user_avatar/delvingbitcoin.org/andrewtoth/{size}/576_2.png"
   },
   "bookmarked": false,
   "raw": "Sure, but that's cumulative to sync time. It's not really a fix it just amortizes the cost.\n\nFlush to disk and destruct of an object model is far more costly than flush from mmap. Not only is mmap flush simple but it is paged in the background. Even with 32GB of RAM fully loaded during/after a full sync (with no explicit/periodic flush during sync), flushing the RAM takes around 10 seconds at shutdown.\n\nIf not already implemented, it might help Core's flush time to use a custom linear memory allocator. That effectively eliminates the destruct cost. This can be very high if the objects are passed between threads (another consideration if the cache was to become threadsafe).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Sure, but that\u2019s cumulative to sync time. It\u2019s not really a fix it just amortizes the cost. \nFlush to disk and destruct of an object model is far more costly than flush from mmap. Not only is mmap flush simple but it is paged in the background. Even with 32GB of RAM fully loaded during/after a full &hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/43",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>There was a time I would have been amiable to expiring near dust UTXOs or to introduce a \u201cUTXO rot\u201d, but since then we have alternative node designs proposed that either entirely remove the burden of maintaining a UTXO set or just simply ditch the UTXO set.</p>\n<p>Currently I lean towards the UTXO set being the problem we should do away with not something we have to protect from bloating. Therefore this seems like something of no long term importance for the time being. The considerations we would also have to make are related to the future block size and parallelization of- and various technical bottlenecks in validation.</p>\n<p>If I understand the tradeoffs correctly, Utreexo removes the need to involve IO in the validation / sync process as it can be performed in memory and if blocks stay at this size, then lack of parallelization is not a major concern. <strong>If</strong> sync is mainly IO bound and not CPU bound and also network speeds will be no obstacle, then the accumulators solve our problem in syncing up nodes with full validation without the barbarous disk murder ritual.</p>",
   "post_number": 32,
   "post_type": 1,
-  "posts_count": 32,
+  "posts_count": 33,
   "updated_at": "2025-05-23T16:58:53.268Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 31,
-  "readers_count": 30,
-  "score": 11.2,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 29.2,
   "yours": false,
   "topic_id": 1707,
   "topic_slug": "dust-expiry-clean-the-utxo-set-from-spam",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "There was a time I would have been amiable to expiring near dust UTXOs or to introduce a \"UTXO rot\", but since then we have alternative node designs proposed that either entirely remove the burden of maintaining a UTXO set or just simply ditch the UTXO set.\n\nCurrently I lean towards the UTXO set being the problem we should do away with not something we have to protect from bloating. Therefore this seems like something of no long term importance for the time being. The considerations we would also have to make are related to the future block size and parallelization of- and various technical bottlenecks in validation.\n\nIf I understand the tradeoffs correctly, Utreexo removes the need to involve IO in the validation / sync process as it can be performed in memory and if blocks stay at this size, then lack of parallelization is not a major concern. **If** sync is mainly IO bound and not CPU bound and also network speeds will be no obstacle, then the accumulators solve our problem in syncing up nodes with full validation without the barbarous disk murder ritual.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "There was a time I would have been amiable to expiring near dust UTXOs or to introduce a \u201cUTXO rot\u201d, but since then we have alternative node designs proposed that either entirely remove the burden of maintaining a UTXO set or just simply ditch the UTXO set. \nCurrently I lean towards the UTXO set bei&hellip;",
   "truncated": true,
   "post_url": "/t/dust-expiry-clean-the-utxo-set-from-spam/1707/32",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

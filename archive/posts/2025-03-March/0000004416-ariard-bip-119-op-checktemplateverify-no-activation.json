@@ -7,14 +7,15 @@
   "cooked": "<p>See comments on the mailing list (pending) for any combination of CTV + another primitive, as it proposed by Bitcoin Core PR <span class=\"hashtag-raw\">#31989</span>, afaict.</p>\n<p>If we go to discuss the merits of BIP-119, we should discuss of its <em>technical</em> merits alone. By design, it was very restraint to avoid OP_EVAL style of issue, again.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2025-03-05T22:59:10.884Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 8.4,
+  "incoming_link_count": 3,
+  "reads": 46,
+  "readers_count": 45,
+  "score": 39.2,
   "yours": false,
   "topic_id": 1494,
   "topic_slug": "bip-119-op-checktemplateverify-no-activation",
@@ -38,20 +39,38 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "See comments on the mailing list (pending) for any combination of CTV + another primitive, as it proposed by Bitcoin Core PR #31989, afaict.\n\nIf we go to discuss the merits of BIP-119, we should discuss of its *technical* merits alone. By design, it was very restraint to avoid OP_EVAL style of issue, again.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 5,
   "hidden": false,
-  "trust_level": 3,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "See comments on the mailing list (pending) for any combination of CTV + another primitive, as it proposed by Bitcoin Core PR #31989, afaict. \nIf we go to discuss the merits of BIP-119, we should discuss of its technical merits alone. By design, it was very restraint to avoid OP_EVAL style of issue, &hellip;",
+  "truncated": true,
+  "post_url": "/t/bip-119-op-checktemplateverify-no-activation/1494/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

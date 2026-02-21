@@ -12,10 +12,10 @@
   "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 1,
-  "incoming_link_count": 2,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "incoming_link_count": 5,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 51.2,
   "yours": false,
   "topic_id": 1632,
   "topic_slug": "betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sCrypt, post:4, topic:1632\"]\nNote OP_SUCCESSx (such as OP_SUCCESS126, i.e., OP_CAT after activation) only makes a script immediately succeeds if **EXECUTED**.\n[/quote]\n\nThis is incorrect. The mere *presence* of an `OP_SUCCESSx` opcode in a BIP 342 tapscript makes it automatically evaluate to true. Quoting [BIP 342](https://github.com/bitcoin/bips/blob/757e15e56883b754963dff732dde01a425f9cec6/bip-0342.mediawiki), emphasis mine:\n\n> The script as defined in BIP341 (i.e., the penultimate witness stack element after removing the optional annex) is called the tapscript and **is decoded into opcodes**, one by one:\n> 1. ...\n> 2. If any opcode numbered *80, 98, 126-129, 131-134, 137-138, 141-142, 149-153, 187-254* **is encountered, validation succeeds (none of the rules below apply)**. This is true even if later bytes in the tapscript would fail to decode otherwise. These opcodes are renamed to `OP_SUCCESS80`, ..., `OP_SUCCESS254`, and collectively known as `OP_SUCCESSx`.\n> 3. ...\n> 4. **The tapscript is executed** according to the rules in the following section, with the initial stack as input.\n\nI think the scheme works, but only if you split the branches into separate script leaves.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "This is incorrect. The mere presence of an OP_SUCCESSx opcode in a BIP 342 tapscript makes it automatically evaluate to true. Quoting <a href=\"https://github.com/bitcoin/bips/blob/757e15e56883b754963dff732dde01a425f9cec6/bip-0342.mediawiki\">BIP 342</a>, emphasis mine: \n\nThe script as defined in BIP341 (i.e., the penultimate witness stack element after removing the optional annex) is called the tapscript and&hellip;",
   "truncated": true,
   "post_url": "/t/betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation/1632/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

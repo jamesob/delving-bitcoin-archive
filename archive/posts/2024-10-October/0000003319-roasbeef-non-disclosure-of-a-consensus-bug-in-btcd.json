@@ -7,14 +7,15 @@
   "cooked": "<p>I thought it would be useful to add some additional context here. It is the case that\nwe wanted to further delay the disclosure, as we felt that disclosing just 3\nmonths after a patch landed was too soon. Particularly given existing\nprecedence set by other full node implementations to delay disclosure of\nsufficiently critical issues well beyond the 6 months we requested between patch\nand disclosure (observe some of the timelines carried out for the recent set of\n<a href=\"https://bitcoincore.org/en/security-advisories/\" rel=\"noopener nofollow ugc\">bitcoind security disclosures\nhere</a>).</p>\n<p>Ultimately, Niklas and AntoineP <em>refused</em> to delay an extra 3 months (to bring\nthe total age of the release to 6 months), instead deciding to prematurely\ndisclose themselves against the wishes of the <code>btcd</code> maintainers.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-10-03T20:00:20.743Z",
-  "reply_count": 2,
+  "reply_count": 4,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 16,
-  "reads": 32,
-  "readers_count": 31,
-  "score": 111.2,
+  "incoming_link_count": 57,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 365.0,
   "yours": false,
   "topic_id": 1177,
   "topic_slug": "non-disclosure-of-a-consensus-bug-in-btcd",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I thought it would be useful to add some additional context here. It is the case that\nwe wanted to further delay the disclosure, as we felt that disclosing just 3\nmonths after a patch landed was too soon. Particularly given existing\nprecedence set by other full node implementations to delay disclosu&hellip;",
+  "truncated": true,
+  "post_url": "/t/non-disclosure-of-a-consensus-bug-in-btcd/1177/3",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

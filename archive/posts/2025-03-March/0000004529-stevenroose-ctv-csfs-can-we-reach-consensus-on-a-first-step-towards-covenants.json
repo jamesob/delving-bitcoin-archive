@@ -7,14 +7,15 @@
   "cooked": "<p>Jeremy has not at all participated in this discussion and you are the first one to bring up both him and the BIP text. Or even CTV history in general. Most other comments to focus on the actual technical merit of the proposal, whether it be evidence or lack of evidence thereof.</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"37\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>has been continually used to block discussion of other comparable approaches in this design space</p>\n</blockquote>\n</aside>\n<p>You are the only one bringing up historical artifacts and calling them \u201cblockers\u201d.</p>\n<p>I am aware I said I wouldn\u2019t be pointing fingers, but I tried to start a discussion here that focuses on where we are right now and how we want to move forward and I don\u2019t appreciate attempts to derail the conversation into old fights that have been fought before and add absolutely no value to the topic.</p>\n<p>Let\u2019s yield the space so others have a chance to weigh in\u2026</p>",
   "post_number": 38,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-14T14:55:01.363Z",
   "reply_count": 1,
   "reply_to_post_number": 37,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 32,
-  "readers_count": 31,
-  "score": 11.4,
+  "reads": 63,
+  "readers_count": 62,
+  "score": 32.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -38,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Jeremy has not at all participated in this discussion and you are the first one to bring up both him and the BIP text. Or even CTV history in general. Most other comments to focus on the actual technical merit of the proposal, whether it be evidence or lack of evidence thereof. \n\n[quote=\"ajtowns, post:37, topic:1509\"]\nhas been continually used to block discussion of other comparable approaches in this design space\n[/quote]\n\nYou are the only one bringing up historical artifacts and calling them \"blockers\".\n\nI am aware I said I wouldn't be pointing fingers, but I tried to start a discussion here that focuses on where we are right now and how we want to move forward and I don't appreciate attempts to derail the conversation into old fights that have been fought before and add absolutely no value to the topic.\n\nLet's yield the space so others have a chance to weigh in...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Jeremy has not at all participated in this discussion and you are the first one to bring up both him and the BIP text. Or even CTV history in general. Most other comments to focus on the actual technical merit of the proposal, whether it be evidence or lack of evidence thereof. \n\nYou are the only on&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/38",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

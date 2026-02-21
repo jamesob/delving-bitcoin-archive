@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"vincenzopalazzo\" data-post=\"6\" data-topic=\"1046\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/vincenzopalazzo/48/11_2.png\" class=\"avatar\"> vincenzopalazzo:</div>\n<blockquote>\n<p>However, I\u2019m not sure I fully understand the use case for Option 2. Why do you think a user might need a per-contact <code>invreq_payer_id</code>?</p>\n</blockquote>\n</aside>\n<p>The main reason is domain separation: it\u2019s safer from both a privacy and security aspect to use different keys when talking to different nodes, especially since those keys are repeatedly used for cryptographic signatures.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-09-06T11:35:02.270Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.0,
+  "incoming_link_count": 1,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 25.4,
   "yours": false,
   "topic_id": 1046,
   "topic_slug": "bolt-12-trusted-contacts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The main reason is domain separation: it\u2019s safer from both a privacy and security aspect to use different keys when talking to different nodes, especially since those keys are repeatedly used for cryptographic signatures.",
+  "truncated": true,
+  "post_url": "/t/bolt-12-trusted-contacts/1046/7",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

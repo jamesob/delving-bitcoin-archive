@@ -7,14 +7,15 @@
   "cooked": "<p>What has been put to rest is that two highly qualified Liquid devs have said, \u201cyeah, we\u2019d use CTV for Liquid.\u201d</p>",
   "post_number": 34,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-13T18:25:04.875Z",
   "reply_count": 1,
   "reply_to_post_number": 33,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 28,
-  "readers_count": 27,
-  "score": 15.6,
+  "reads": 63,
+  "readers_count": 62,
+  "score": 37.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -37,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 52,
     "username": "moneyball",
     "name": "Steve Lee",
     "avatar_template": "/letter_avatar_proxy/v4/letter/m/f6c823/{size}.png"
   },
   "bookmarked": false,
   "raw": "What has been put to rest is that two highly qualified Liquid devs have said, \"yeah, we'd use CTV for Liquid.\"",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +62,21 @@
   "edit_reason": "Automatically removed quote of whole previous post.",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "What has been put to rest is that two highly qualified Liquid devs have said, \u201cyeah, we\u2019d use CTV for Liquid.\u201d",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/34",
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

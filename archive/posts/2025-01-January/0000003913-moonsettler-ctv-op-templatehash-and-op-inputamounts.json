@@ -7,14 +7,15 @@
   "cooked": "<p>I also don\u2019t think we have another instance in bitcoin where some feature works for small amounts but not for large amounts. It would be weird to say the least. But it could also be useful and we would need to put an explicit effort into preventing it.</p>\n<p>I would be okay with either decision, personally I think if we want amount arithmetic we should add support for bigint math in script! It could also be achieved later with GSR.</p>\n<p>For now in first evaluation I would recommend ignoring the possibility of using OP_ADD &amp; OP_SUB and maybe revisit that later on.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-01-01T14:55:09.849Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 16.4,
+  "incoming_link_count": 1,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 24.8,
   "yours": false,
   "topic_id": 1344,
   "topic_slug": "ctv-op-templatehash-and-op-inputamounts",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 6,
     "username": "harding",
     "name": "David A. Harding",
     "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I also don\u2019t think we have another instance in bitcoin where some feature works for small amounts but not for large amounts. It would be weird to say the least. But it could also be useful and we would need to put an explicit effort into preventing it. \nI would be okay with either decision, personal&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-op-templatehash-and-op-inputamounts/1344/7",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Hi <a class=\"mention\" href=\"/u/halseth\">@halseth</a> ;</p>\n<p>First thanks for publishing this, super interesting. I\u2019ll read up on it.</p>\n<p>Second, on:</p>\n<blockquote>\n<p>The difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output.</p>\n</blockquote>\n<p>The structure is more flexible than that; indeed, I\u2019ve just written a <a href=\"https://reyify.com/blog/privacy-preserving-proof-of-taproot-assets\" rel=\"noopener nofollow ugc\">blog post</a> (code impl. and paper are linked in there), concretely illustrating how you can use the same techniques to not only prove statements about individual utxos with certain properties (age, size) but also, statements about aggregates over groups (so that one is \u201cproof that N utxos have total sats value in range x to y\u201d).</p>\n<p>To state the perhaps obvious, the way to do that is just to add other constraints into the bulletproofs that you are using to proof membership in the curve tree.</p>\n<p>Obviously that work is very speculative in its details, but I think the basic principle is pretty clear.</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-09-18T17:34:41.535Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 25,
-  "readers_count": 24,
-  "score": 17.8,
+  "incoming_link_count": 1,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 35.8,
   "yours": false,
   "topic_id": 1142,
   "topic_slug": "proving-utxo-set-inclusion-in-zero-knowledge",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 163,
     "username": "halseth",
     "name": "Johan T. Halseth",
     "avatar_template": "/user_avatar/delvingbitcoin.org/halseth/{size}/198_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hi <a class=\"mention\" href=\"/u/halseth\">@halseth</a> ; \nFirst thanks for publishing this, super interesting. I\u2019ll read up on it. \nSecond, on: \n\nThe difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output. \n\nThe structure is more flexible than that; indeed, I\u2019ve just writt&hellip;",
+  "truncated": true,
+  "post_url": "/t/proving-utxo-set-inclusion-in-zero-knowledge/1142/9",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

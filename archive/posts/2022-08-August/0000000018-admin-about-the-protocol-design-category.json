@@ -4,17 +4,18 @@
   "username": "admin",
   "avatar_template": "/user_avatar/delvingbitcoin.org/admin/{size}/5_2.png",
   "created_at": "2022-08-24T08:48:32.064Z",
-  "cooked": "<p>Bitcoin-related protocol proposals, or analysis or discussion thereof. For example, new P2P messages, new wallet techniques, methods for coinjoins or payment channels, etc.</p>\n<p>Try to keep things accessible to developers \u2013 so don\u2019t use formal academic terminology that you\u2019d write in a paper, when your could write things more simply.</p>\n<p>If you want to use maths, you can use LaTeX (mathjax) markup by surrounding inline formulas with <code>$</code>, for example: <code>$ 1+1=2 $</code> gives <span class=\"math\"> 1+1=2 </span>, or surrounding a standalone block with <code>$$</code>:</p>\n<div class=\"math\">\n1+1=2\n</div>\n",
+  "cooked": "<p>Bitcoin-related protocol proposals, or analysis or discussion thereof. For example, new P2P messages, new wallet techniques, methods for coinjoins or payment channels, etc.</p>\n<hr>\n<p>Try to keep things accessible to developers \u2013 so don\u2019t use formal academic terminology that you\u2019d write in a paper, when your could write things more simply.</p>\n<p>If you want to use maths, you can use LaTeX (mathjax) markup by surrounding inline formulas with <code>$</code>, for example: <code>$ 1+1=2 $</code> gives <span class=\"math\"> 1+1=2 </span>, or surrounding a standalone block with <code>$$</code>:</p>\n<div class=\"math\">\n1+1=2\n</div>\n<p>If you want to include diagrams, then <a href=\"https://mermaid.js.org/\">mermaid diagrams</a> are available, in particular <a href=\"https://mermaid.js.org/syntax/flowchart.html\">flowcharts</a> and <a href=\"https://mermaid.js.org/syntax/sequenceDiagram.html\">sequence diagrams</a>. If you want to describe transactions in detail <a href=\"https://mermaid.js.org/syntax/classDiagram.html\">class diagrams</a> may work okay to separate inputs from outputs if you include brackets when naming the outputs (eg <code>p2pkh(A)</code>) but not the inputs (eg \u201csigA\u201d).</p>\n<pre data-code-height=\"59\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">flowchart LR\n    A ---&gt; B &lt;---&gt; C o---o D\n</code></pre>",
   "post_number": 1,
   "post_type": 1,
-  "updated_at": "2022-08-24T12:09:34.970Z",
+  "posts_count": 1,
+  "updated_at": "2024-02-22T07:49:42.761Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "incoming_link_count": 11,
+  "reads": 80,
+  "readers_count": 79,
+  "score": 101.0,
   "yours": false,
   "topic_id": 15,
   "topic_slug": "about-the-protocol-design-category",
@@ -28,7 +29,8 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 2,
+  "badges_granted": [],
+  "version": 3,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -36,8 +38,13 @@
   "can_wiki": false,
   "user_title": "",
   "bookmarked": false,
-  "raw": "Bitcoin-related protocol proposals, or analysis or discussion thereof. For example, new P2P messages, new wallet techniques, methods for coinjoins or payment channels, etc.\n\nTry to keep things accessible to developers -- so don't use formal academic terminology that you'd write in a paper, when your could write things more simply.\n\nIf you want to use maths, you can use LaTeX (mathjax) markup by surrounding inline formulas with `$`, for example: `$ 1+1=2 $` gives $ 1+1=2 $, or surrounding a standalone block with `$$`:\n\n$$\n1+1=2\n$$",
-  "actions_summary": [],
+  "raw": "Bitcoin-related protocol proposals, or analysis or discussion thereof. For example, new P2P messages, new wallet techniques, methods for coinjoins or payment channels, etc.\n\n---\n\nTry to keep things accessible to developers -- so don't use formal academic terminology that you'd write in a paper, when your could write things more simply.\n\nIf you want to use maths, you can use LaTeX (mathjax) markup by surrounding inline formulas with `$`, for example: `$ 1+1=2 $` gives $ 1+1=2 $, or surrounding a standalone block with `$$`:\n\n$$\n1+1=2\n$$\n\nIf you want to include diagrams, then [mermaid diagrams](https://mermaid.js.org/) are available, in particular [flowcharts](https://mermaid.js.org/syntax/flowchart.html) and [sequence diagrams](https://mermaid.js.org/syntax/sequenceDiagram.html). If you want to describe transactions in detail [class diagrams](https://mermaid.js.org/syntax/classDiagram.html) may work okay to separate inputs from outputs if you include brackets when naming the outputs (eg `p2pkh(A)`) but not the inputs (eg \"sigA\").\n\n```mermaid height=59,auto\nflowchart LR\n    A ---> B <---> C o---o D\n```",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": true,
   "staff": true,
@@ -49,8 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Bitcoin-related protocol proposals, or analysis or discussion thereof. For example, new P2P messages, new wallet techniques, methods for coinjoins or payment channels, etc. \n\nTry to keep things accessible to developers \u2013 so don\u2019t use formal academic terminology that you\u2019d write in a paper, when your&hellip;",
+  "truncated": true,
+  "post_url": "/t/about-the-protocol-design-category/15/1",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

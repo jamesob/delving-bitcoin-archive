@@ -7,14 +7,15 @@
   "cooked": "<p>You\u2019re the one saying you\u2019re putting things to rest. I\u2019m curious to learn of the magnitude of the advantage.</p>",
   "post_number": 35,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-13T18:57:58.037Z",
   "reply_count": 0,
   "reply_to_post_number": 34,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 29,
-  "readers_count": 28,
-  "score": 5.8,
+  "reads": 63,
+  "readers_count": 62,
+  "score": 12.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 9,
     "username": "jamesob",
     "name": "James O'Beirne",
     "avatar_template": "/user_avatar/delvingbitcoin.org/jamesob/{size}/271_2.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "You\u2019re the one saying you\u2019re putting things to rest. I\u2019m curious to learn of the magnitude of the advantage.",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/35",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

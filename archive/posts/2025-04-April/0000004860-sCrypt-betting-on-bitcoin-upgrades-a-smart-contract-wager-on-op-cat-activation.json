@@ -13,9 +13,9 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 10.4,
   "yours": false,
   "topic_id": 1632,
   "topic_slug": "betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 73,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 6.8,
+  "incoming_link_count": 175,
+  "reads": 26,
+  "readers_count": 25,
+  "score": 865.2,
   "yours": false,
   "topic_id": 113,
   "topic_slug": "the-unsuitability-of-presigned-transactions-for-vaults",
@@ -63,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

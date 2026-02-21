@@ -7,15 +7,15 @@
   "cooked": "<p>yeah that seems correct \u2013 inputA and inputB must be separate txs, or you entail a hash cycle.</p>\n<p>interestingly, for this case, you <em>can</em> do both sides with (a variant of txhash), by doing a constraint check that they both have the same txid and the correct vout\u2026</p>\n<p>e.g.</p>\n<p>input 0: GETTXIDOFINPUT(0) == GETTXIDOFINPUT(1) &amp;&amp; GETCURRENTINDEX == 0\ninput 1: GETTXIDOFINPUT(0) == GETTXIDOFINPUT(1) &amp;&amp; GETCURRENTINDEX == 1</p>\n<p>where txid is known to have two outputs (or else do some other checks).</p>\n<p>I\u2019m not sure this is relevant, or even interesting, since there\u2019s marginal difference between two inputs that must be spent together from the same tx, and one input that contains the value for both(, or can be split in two after some delay, optionally).</p>",
   "post_number": 24,
   "post_type": 1,
-  "posts_count": 21,
+  "posts_count": 22,
   "updated_at": "2025-04-29T18:10:29.459Z",
   "reply_count": 0,
   "reply_to_post_number": 23,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 17.2,
+  "reads": 46,
+  "readers_count": 45,
+  "score": 24.2,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 131,
     "username": "RobinLinus",
     "name": "Robin Linus",
     "avatar_template": "/user_avatar/delvingbitcoin.org/robinlinus/{size}/130_2.png"
@@ -73,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

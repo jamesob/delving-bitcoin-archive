@@ -7,15 +7,15 @@
   "cooked": "<p>Gotcha, Thanks. Yes, later I realize that The after adding another tx to INCnew, then there may be more anc(p) (p belongs to POTnew, all of anc(p) belongs to POTnew) that can be added to INCnew.(Sorry for the text format here)\nBTW, will GGT and SFL both be applied to the code base (or they are already in there)</p>",
   "post_number": 77,
   "post_type": 1,
-  "posts_count": 77,
+  "posts_count": 78,
   "updated_at": "2025-05-11T12:11:09.694Z",
   "reply_count": 1,
   "reply_to_post_number": 76,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.6,
+  "incoming_link_count": 1,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 15.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

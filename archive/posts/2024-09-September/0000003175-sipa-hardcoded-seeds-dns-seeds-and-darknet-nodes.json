@@ -2,19 +2,20 @@
   "id": 3175,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2024-09-12T21:47:52.189Z",
   "cooked": "<p>You\u2019d need some encoding that lets you reconstruct the order, because recursive resolvers may change the order of entries in a response.</p>",
   "post_number": 10,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2024-09-12T21:47:52.189Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 9,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.6,
+  "incoming_link_count": 1,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 31.6,
   "yours": false,
   "topic_id": 1123,
   "topic_slug": "hardcoded-seeds-dns-seeds-and-darknet-nodes",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 91,
     "username": "virtu",
     "name": "",
     "avatar_template": "/user_avatar/delvingbitcoin.org/virtu/{size}/540_2.png"
   },
   "bookmarked": false,
   "raw": "You'd need some encoding that lets you reconstruct the order, because recursive resolvers may change the order of entries in a response.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "You\u2019d need some encoding that lets you reconstruct the order, because recursive resolvers may change the order of entries in a response.",
+  "truncated": true,
+  "post_url": "/t/hardcoded-seeds-dns-seeds-and-darknet-nodes/1123/10",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

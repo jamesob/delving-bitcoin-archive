@@ -7,15 +7,15 @@
   "cooked": "<p>It would, but it would also reveal the number of participants.</p>\n<p>I think it\u2019s better to have a (non-mandatory) predictable derivation, and just recommend using a fresh account number when reusing a device in more than one setup. During recovery, trying a few different account numbers shouldn\u2019t be too bad.</p>",
   "post_number": 20,
   "post_type": 1,
-  "posts_count": 20,
+  "posts_count": 31,
   "updated_at": "2025-06-02T09:44:03.984Z",
   "reply_count": 0,
   "reply_to_post_number": 19,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 2.6,
+  "incoming_link_count": 1,
+  "reads": 46,
+  "readers_count": 45,
+  "score": 29.2,
   "yours": false,
   "topic_id": 1607,
   "topic_slug": "a-simple-backup-scheme-for-wallet-accounts",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "It would, but it would also reveal the number of participants.\n\nI think it's better to have a (non-mandatory) predictable derivation, and just recommend using a fresh account number when reusing a device in more than one setup. During recovery, trying a few different account numbers shouldn't be too bad.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,18 @@
   "excerpt": "It would, but it would also reveal the number of participants. \nI think it\u2019s better to have a (non-mandatory) predictable derivation, and just recommend using a fresh account number when reusing a device in more than one setup. During recovery, trying a few different account numbers shouldn\u2019t be too&hellip;",
   "truncated": true,
   "post_url": "/t/a-simple-backup-scheme-for-wallet-accounts/1607/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

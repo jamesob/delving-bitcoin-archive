@@ -2,19 +2,20 @@
   "id": 552,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2023-12-03T15:06:34.064Z",
   "cooked": "<p>Key path spends don\u2019t reveal the tweak at all. They\u2019re just BIP340 signatures for the key in the output (which is typically the tweaked key), nothing more.</p>\n<p>If you want to retain security if DL is no longer assumed to be hard, you need to disable key path spends, no way around it. As long as SHA256 remains preimage resistant, script path spends remain secure (obviously only under the assumption the script itself isn\u2019t vulnerable to a DL break).</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2023-12-03T15:09:21.396Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 22.8,
+  "incoming_link_count": 4,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 63.8,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Key path spends don\u2019t reveal the tweak at all. They\u2019re just BIP340 signatures for the key in the output (which is typically the tweaked key), nothing more. \nIf you want to retain security if DL is no longer assumed to be hard, you need to disable key path spends, no way around it. As long as SHA256 &hellip;",
+  "truncated": true,
+  "post_url": "/t/lamport-signatures-and-other-cat-tricks/236/6",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>I was thinking about IBD / initial sync done via Utreexo style accumulators in memory. This ofc requires aid from nodes that can serve the blocks in that enriched form. However this just means the blockchain is validated in memory without involving IO not that you absolutely have to prune it. It becomes a smooth download and write to disk once kind of experience.</p>\n<p>Once the node synced, it can switch to a standalone full archiving node or even Utreexo server depending on configuration. It can also just hang on to the Utreexo forest roots and header chain (few hundred megabytes). The point is the size of the UTXO set no longer would be a detriment to low powered node hardware to do full validating initial sync.</p>\n<p>Ofc we can also decide that the UTXO set was a premature optimization that backfired and go with an alternative node design like libbitcoin. That has it\u2019s own tradeoffs again.</p>",
   "post_number": 34,
   "post_type": 1,
-  "posts_count": 32,
+  "posts_count": 33,
   "updated_at": "2025-05-24T16:48:09.885Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 33,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 30,
-  "readers_count": 29,
-  "score": 6.0,
+  "incoming_link_count": 2,
+  "reads": 45,
+  "readers_count": 44,
+  "score": 38.8,
   "yours": false,
   "topic_id": 1707,
   "topic_slug": "dust-expiry-clean-the-utxo-set-from-spam",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I was thinking about IBD / initial sync done via Utreexo style accumulators in memory. This ofc requires aid from nodes that can serve the blocks in that enriched form. However this just means the blockchain is validated in memory without involving IO not that you absolutely have to prune it. It becomes a smooth download and write to disk once kind of experience.\n\nOnce the node synced, it can switch to a standalone full archiving node or even Utreexo server depending on configuration. It can also just hang on to the Utreexo forest roots and header chain (few hundred megabytes). The point is the size of the UTXO set no longer would be a detriment to low powered node hardware to do full validating initial sync.\n\nOfc we can also decide that the UTXO set was a premature optimization that backfired and go with an alternative node design like libbitcoin. That has it's own tradeoffs again.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,18 @@
   "excerpt": "I was thinking about IBD / initial sync done via Utreexo style accumulators in memory. This ofc requires aid from nodes that can serve the blocks in that enriched form. However this just means the blockchain is validated in memory without involving IO not that you absolutely have to prune it. It bec&hellip;",
   "truncated": true,
   "post_url": "/t/dust-expiry-clean-the-utxo-set-from-spam/1707/34",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

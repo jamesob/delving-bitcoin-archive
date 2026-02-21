@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"23\" data-topic=\"340\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>resulting in the eviction of both fee bumps and the anchored tx from the mempools.</p>\n</blockquote>\n</aside>\n<p>I think you\u2019re mostly describing the \u201ccycle attack\u201d, where the child is RBF\u2019d out of the mempool, and the new child no longer spends the ephemeral anchor, causing the parent transaction to be evicted.</p>\n<p><a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/021999.html\" class=\"onebox\" target=\"_blank\" rel=\"noopener\">https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/021999.html</a></p>\n<p>Mitigation is, in general, to aggressively re-broadcast, since each cycle costs the attacker fees(unlike pins).</p>\n<p>You can think of it in another, imo more principled way: Someone is paying toe censor you, but they have to continuously bid block on block(and inbetween blocks if you\u2019re doing it right + mempool synchrony assumptions), where you only pay once at the end of the game at most, and at your expected rate.</p>\n<p>I don\u2019t want to get too deep into cycle discussion though; it\u2019s been done to death.</p>",
   "post_number": 25,
   "post_type": 1,
+  "posts_count": 41,
   "updated_at": "2024-01-08T16:26:01.476Z",
   "reply_count": 0,
   "reply_to_post_number": 23,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 18.8,
+  "reads": 46,
+  "readers_count": 45,
+  "score": 24.2,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think you\u2019re mostly describing the \u201ccycle attack\u201d, where the child is RBF\u2019d out of the mempool, and the new child no longer spends the ephemeral anchor, causing the parent transaction to be evicted. \n<a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/021999.html\" class=\"onebox\" target=\"_blank\" rel=\"noopener\">https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2023-October/021999.html</a> \nMitigation is, &hellip;",
+  "truncated": true,
+  "post_url": "/t/v3-transaction-policy-for-anti-pinning/340/25",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

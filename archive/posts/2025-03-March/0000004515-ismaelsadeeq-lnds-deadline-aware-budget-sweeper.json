@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>Generally LN nodes want the transaction to confirm within n blocks but they don\u2019t want to pay more fees than necessary. Confirming ASAP is generally not needed, unless deadlines are getting close.</p>\n</blockquote>\n<blockquote>\n<p>But fundamentally, estimators are still estimators and cannot guarantee that transactions confirm before deadlines, especially when directed attacks are in play (pinning, censorship, etc.). In such situations a naive budget-based fee bumping strategy is much more reliable.</p>\n</blockquote>\n<p>Then in this case instead of using the fee function for fee bumping immediately at n-1,  you can give it a grace period of say up to int(n/2) + 1 before fee bumping using the output of the new budget based fee function. (More economical)</p>\n<p>Towards the end when deadline is really close, you can combine both approaches take the maximum between the output of the fee function and ASAP fee rate estimate to increase the chances. (But when their is a fee spike towards the end of the deadline you might pay above budget using this method).</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2025-03-13T16:11:31.211Z",
   "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 38.2,
+  "incoming_link_count": 189,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 981.2,
   "yours": false,
   "topic_id": 1512,
   "topic_slug": "lnds-deadline-aware-budget-sweeper",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 47,
     "username": "morehouse",
     "name": "Matt Morehouse",
     "avatar_template": "/letter_avatar_proxy/v4/letter/m/df705f/{size}.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Generally LN nodes want the transaction to confirm within n blocks but they don\u2019t want to pay more fees than necessary. Confirming ASAP is generally not needed, unless deadlines are getting close. \n\n\nBut fundamentally, estimators are still estimators and cannot guarantee that transactions confirm b&hellip;",
+  "truncated": true,
+  "post_url": "/t/lnds-deadline-aware-budget-sweeper/1512/5",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

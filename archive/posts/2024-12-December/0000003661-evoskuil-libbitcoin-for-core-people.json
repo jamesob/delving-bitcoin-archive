@@ -7,14 +7,15 @@
   "cooked": "<p>Comments above regarding where Libbitcoin achieves its performance advantage are not correct. The major performance advantage comes as a consequence of massive parallelism.</p>\n<p>Milestone and assume valid are from a logical and security standpoint the exact same feature. Libbitcoin does not perform unnecessary checks under milestone. Core must build a utxo store even under assume valid, and this ordered building of the utxo set imposes strict ordering - preventing parallelism. It also operates as spend checks, but those unnecessary checks cannot be avoided due to the need to build the utxo set.</p>",
   "post_number": 21,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-01T14:40:35.174Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 19.0,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 44.0,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Comments above regarding where Libbitcoin achieves its performance advantage are not correct. The major performance advantage comes as a consequence of massive parallelism. \nMilestone and assume valid are from a logical and security standpoint the exact same feature. Libbitcoin does not perform unne&hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/21",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> you\u2019re on the hook for redrawing all of them now</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2024-02-02T15:00:12.757Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 20.4,
   "yours": false,
   "topic_id": 512,
   "topic_slug": "taxonomy-of-transaction-fees-in-smart-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "@ajtowns you're on the hook for redrawing all of them now",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "<a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> you\u2019re on the hook for redrawing all of them now",
+  "truncated": true,
+  "post_url": "/t/taxonomy-of-transaction-fees-in-smart-contracts/512/11",
+  "reactions": [
+    {
+      "id": "laughing",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

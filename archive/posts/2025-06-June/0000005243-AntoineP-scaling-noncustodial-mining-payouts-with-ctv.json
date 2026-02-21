@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks for the detailed writeup. I do not see how what you describe scales non-custodial mining payouts (the title of this post), or maximizes fee revenues (as you claim in your list of benefits of the scheme). It actually does the opposite as it increases the block space required for non-custodial payouts.</p>\n<p>At best this is a congestion control claim, in that in a high fee period the marginal feerate earned by the pool for including non-payout transactions is so high that it can reasonably expect to maximize fee revenues by delaying the inclusion of payout outputs. But this is not a viable strategy under normal circumstances, where you would expect that increasing your block space usage would work against maximizing your fee revenues.</p>\n<p>Using Ark for payouts instead introduces some additional assumptions but at least does make sense from a scalability perspective (as Erik points out), since you could reasonably expect the happy case to be more likely and payouts to actually end up using less block space on average. And CTV does help here in that it can <a href=\"https://nehanarula.org/2025/05/20/ark.html#ctv\">make the Ark payouts non-interactive</a>: now the coordinator (the pool?) doesn\u2019t need a roundtrip with every single hasher to presign the payout tree beforehand.</p>\n<p>If the intention of this post was to motivate a CTV soft fork, i think you should focus on how Ark could be used to scale mining pool payouts and how CTV (+CSFS) would improve it, rather than congestion control which was the original flagship usecase for CTV that failed at convincing people it\u2019s worth changing Bitcoin for.</p>\n<aside class=\"quote no-group\" data-username=\"vnprc\" data-post=\"1\" data-topic=\"1753\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/vnprc/48/983_2.png\" class=\"avatar\"> vnprc:</div>\n<blockquote>\n<p>history has shown that it is, in fact, easier to change bitcoin than to change Bitmain hardware or firmware. (Shoutout gmax! <img src=\"https://delvingbitcoin.org/images/emoji/twitter/goat.png?v=14\" title=\":goat:\" class=\"emoji\" alt=\":goat:\" loading=\"lazy\" width=\"20\" height=\"20\">ed.)</p>\n</blockquote>\n</aside>\n<p>Side note: if your goal is to provide motivation for a CTV (+CSFS) soft fork, i would suggest you keep out unrealistic wild claims that twist reality to fit a certain narrative. There is an unlimited amount of interesting things to be thinking about, and your doing that may be used as a heuristic by the very people you are trying to convince to spend time on these other things rather than your ideas.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 17,
   "updated_at": "2025-06-06T14:01:07.820Z",
-  "reply_count": 0,
+  "reply_count": 3,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "incoming_link_count": 1,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 43.2,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "Thanks for the detailed writeup. I do not see how what you describe scales non-custodial mining payouts (the title of this post), or maximizes fee revenues (as you claim in your list of benefits of the scheme). It actually does the opposite as it increases the block space required for non-custodial payouts.\n\nAt best this is a congestion control claim, in that in a high fee period the marginal feerate earned by the pool for including non-payout transactions is so high that it can reasonably expect to maximize fee revenues by delaying the inclusion of payout outputs. But this is not a viable strategy under normal circumstances, where you would expect that increasing your block space usage would work against maximizing your fee revenues.\n\nUsing Ark for payouts instead introduces some additional assumptions but at least does make sense from a scalability perspective (as Erik points out), since you could reasonably expect the happy case to be more likely and payouts to actually end up using less block space on average. And CTV does help here in that it can [make the Ark payouts non-interactive](https://nehanarula.org/2025/05/20/ark.html#ctv): now the coordinator (the pool?) doesn't need a roundtrip with every single hasher to presign the payout tree beforehand.\n\nIf the intention of this post was to motivate a CTV soft fork, i think you should focus on how Ark could be used to scale mining pool payouts and how CTV (+CSFS) would improve it, rather than congestion control which was the original flagship usecase for CTV that failed at convincing people it's worth changing Bitcoin for.\n\n[quote=\"vnprc, post:1, topic:1753\"]\nhistory has shown that it is, in fact, easier to change bitcoin than to change Bitmain hardware or firmware. (Shoutout gmax! :goat:ed.)\n[/quote]\n\nSide note: if your goal is to provide motivation for a CTV (+CSFS) soft fork, i would suggest you keep out unrealistic wild claims that twist reality to fit a certain narrative. There is an unlimited amount of interesting things to be thinking about, and your doing that may be used as a heuristic by the very people you are trying to convince to spend time on these other things rather than your ideas.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -57,12 +62,21 @@
   "post_url": "/t/scaling-noncustodial-mining-payouts-with-ctv/1753/3",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "-1",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

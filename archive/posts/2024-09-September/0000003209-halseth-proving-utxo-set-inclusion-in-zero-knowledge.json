@@ -7,14 +7,15 @@
   "cooked": "<p>aut-ct is much faster and succint AFAIK (~kB proof instead of ~MB proof, seconds to prove instead of minutes).</p>\n<p>The difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output.</p>\n<p>utxozkp is based on a more general proof of computation model, so you can choose to reveal more about the output (e.g. that the output holds at least 1 BTC) (note: not yet implemented).</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-09-17T08:34:23.889Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.0,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 31.2,
   "yours": false,
   "topic_id": 1142,
   "topic_slug": "proving-utxo-set-inclusion-in-zero-knowledge",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 247,
     "username": "1440000bytes",
     "name": "/dev/fd0",
     "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "aut-ct is much faster and succint AFAIK (~kB proof instead of ~MB proof, seconds to prove instead of minutes). \nThe difference is that aut-ct only works on sets of public keys, so you cannot selectively reveal anything else about the output. \nutxozkp is based on a more general proof of computation m&hellip;",
+  "truncated": true,
+  "post_url": "/t/proving-utxo-set-inclusion-in-zero-knowledge/1142/5",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

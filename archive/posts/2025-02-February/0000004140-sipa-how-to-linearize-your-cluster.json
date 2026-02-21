@@ -2,19 +2,20 @@
   "id": 4140,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2025-02-01T18:20:49.545Z",
   "cooked": "<p>How about just leaving the capacity at <span class=\"math\">f - \\lambda_1 s</span> once chunk <span class=\"math\">1</span> has been found, etc. (meaning its combined capacity remains at 0 for the whole chunk).</p>",
   "post_number": 18,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-01T18:23:07.915Z",
   "reply_count": 1,
   "reply_to_post_number": 17,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 21.6,
+  "reads": 42,
+  "readers_count": 41,
+  "score": 28.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 479,
     "username": "stefanwouldgo",
     "name": "Stefanwouldgo",
     "avatar_template": "/user_avatar/delvingbitcoin.org/stefanwouldgo/{size}/664_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "How about just leaving the capacity at f - \\lambda_1 s once chunk 1 has been found, etc. (meaning its combined capacity remains at 0 for the whole chunk).",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/18",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

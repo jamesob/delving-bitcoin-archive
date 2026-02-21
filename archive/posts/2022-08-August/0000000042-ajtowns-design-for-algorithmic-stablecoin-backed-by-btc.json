@@ -2,19 +2,20 @@
   "id": 42,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2022-08-24T12:41:48.821Z",
-  "cooked": "<p>The idea is to have an on-chain market maker that issues two tokens, <em><strong>STB</strong></em> (a stablecoin) whose value is automatically backed by BTC, and <em><strong>VOL</strong></em> which captures any excess value from the backing BTC. If successful, this allows a stablecoin to be purely on-chain, without requiring assets to be stored externally, allowing greater auditability and automation.</p>\n<p>The market is parameterized with two variables, <span class=\"math\">p</span> representing the current target value of 1 BTC in STB tokens, and <span class=\"math\">m</span> which gives a slowly changing prediction of the lowest expected future value for <span class=\"math\">p</span>. The market maker then aims to ensure that <span class=\"math\">p</span> STB tokens can be traded for 1 BTC, at least provided that <span class=\"math\">p \\ge m</span>, and that <span class=\"math\">m</span> does not decrease. Further, if those assumptions are violated, failure should be graceful rather than catastrophic.</p>\n<p>At any point in time, we will denote the number of BTC held backing the issued STB and VOL tokens as <span class=\"math\">b</span>, the number of issued STB tokens as <span class=\"math\">s</span> and the number of issued VOL tokens as <span class=\"math\">v</span>. Call the price of 1 STB token <span class=\"math\">\\alpha</span> BTC (thus the goal is <span class=\"math\">\\alpha = p^{-1}</span>), and the price of 1 VOL token <span class=\"math\">\\beta</span> BTC. This then gives the budget constraint:</p>\n<div class=\"math\">\nb = \\alpha s + \\beta v\n</div>\n<p>since selling all the issued STB and VOL tokens at the current price in BTC should give you exactly the value of all the backing BTC.</p>\n<p>We define two constraints: the ceiling for <span class=\"math\">\\alpha</span> should be <span class=\"math\">\\frac{1}{p}</span> and the floor for <span class=\"math\">\\beta</span> should be some constant <span class=\"math\">\\bar{\\beta}</span> and at all times one or both of these conditions should be met. This gives two cases:</p>\n<div class=\"math\">\n\\alpha, \\beta =\n\\begin{cases}\np^{-1}, \\frac{b-sp^{-1}}{v} &amp; \\text{if } b \\ge sp^{-1} + v \\bar{\\beta} \\\\\n\\frac{b - v\\bar{\\beta}}{s}, \\bar{\\beta} &amp; \\text{otherwise}\n\\end{cases}\n</div>\n<p>When <span class=\"math\">b \\ge sp^{-1} + v\\bar{\\beta}</span> we say the peg holds, and when that is not the case, we say the peg is broken. Note that when the peg is broken, <span class=\"math\">\\alpha \\lt p^{-1}</span>, and hence selling STB will net a payment of less than the target price.</p>\n<p>Now that we know the prices at which tokens might be traded, to determine when a trade should be allowed we need to take into account possible changes in the price <span class=\"math\">p</span>. In particular, at this point we start to make use of <span class=\"math\">m</span> and set the goal <span class=\"math\">b \\ge sm^{-1} + v\\bar{\\beta}</span>.</p>\n<p>We setup two scoring rules:</p>\n<div class=\"math\">\n\\begin{align}\n\\gamma_p &amp;= b - sp^{-1} - v\\bar{\\beta} \\\\\n\\gamma_m &amp;= b - sm^{-1} - v\\bar{\\beta}\n\\end{align}\n</div>\n<p>Note the following properties:</p>\n<ul>\n<li>\n<p>The peg holds precisely when <span class=\"math\">\\gamma_p \\ge 0</span></p>\n</li>\n<li>\n<p>Provided <span class=\"math\">m \\lt p</span>, <span class=\"math\">\\gamma_m \\lt \\gamma_p</span>, and conversely.</p>\n</li>\n<li>\n<p>When the peg holds:</p>\n<ul>\n<li>buying VOL with BTC increases <span class=\"math\">\\gamma_p</span> and <span class=\"math\">\\gamma_m</span>\n</li>\n<li>trading STB for BTC does not change <span class=\"math\">\\gamma_p</span>,</li>\n<li>provided <span class=\"math\">m \\lt p</span>, buying STB with BTC decreases <span class=\"math\">\\gamma_m</span>\n</li>\n</ul>\n</li>\n<li>\n<p>When the peg is broken:</p>\n<ul>\n<li>trading VOL for BTC does not change <span class=\"math\">\\gamma_p</span> or <span class=\"math\">\\gamma_m</span>.</li>\n<li>buying STB with BTC decreases <span class=\"math\">\\gamma_p</span>\n</li>\n<li>if <span class=\"math\">\\gamma_m \\lt 0</span>, then buying STB with BTC decreases <span class=\"math\">\\gamma_m</span>\n</li>\n</ul>\n</li>\n</ul>\n<p>The peg can only be broken directly by external movements in <span class=\"math\">p</span>, but such movements are expected.<br>\nIn order to maintain the peg, we limit trades that may weaken the peg indirectly:</p>\n<ul>\n<li>We block trades that would cause <span class=\"math\">\\gamma_m</span> to become negative (some purchases of STB or sales of VOL while the peg holds)</li>\n<li>We block trades that would cause <span class=\"math\">\\gamma_p</span> to become more negative (purchases of STB while the peg is broken)</li>\n</ul>\n<p>This concept is mostly due to discussions with Rusty Russell, and is obviously similar to the Dai stablecoin.</p>",
+  "cooked": "<p>The idea is to have an on-chain market maker that issues two tokens, <em><strong>STB</strong></em> (a stablecoin) whose value is automatically backed by BTC, and <em><strong>VOL</strong></em> which captures any excess value from the backing BTC. If successful, this allows a stablecoin to be purely on-chain, without requiring assets to be stored externally, allowing greater auditability and automation.</p>\n<p>The market is parameterized with two variables, <span class=\"math\">p</span> representing the current target value of 1 BTC in STB tokens, and <span class=\"math\">m</span> which gives a slowly changing prediction of the lowest expected future value for <span class=\"math\">p</span>. The market maker then aims to ensure that <span class=\"math\">p</span> STB tokens can be traded for 1 BTC, at least provided that <span class=\"math\">p \\ge m</span>, and that <span class=\"math\">m</span> does not decrease. Further, if those assumptions are violated, failure should be graceful rather than catastrophic.</p>\n<p>At any point in time, we will denote the number of BTC held backing the issued STB and VOL tokens as <span class=\"math\">b</span>, the number of issued STB tokens as <span class=\"math\">s</span> and the number of issued VOL tokens as <span class=\"math\">v</span>. Call the price of 1 STB token <span class=\"math\">\\alpha</span> BTC (thus the goal is <span class=\"math\">\\alpha = p^{-1}</span>), and the price of 1 VOL token <span class=\"math\">\\beta</span> BTC. This then gives the budget constraint:</p>\n<div class=\"math\">\nb = \\alpha s + \\beta v\n</div>\n<p>since selling all the issued STB and VOL tokens at the current price in BTC should give you exactly the value of all the backing BTC.</p>\n<p>We define two constraints: the ceiling for <span class=\"math\">\\alpha</span> should be <span class=\"math\">\\frac{1}{p}</span> and the floor for <span class=\"math\">\\beta</span> should be some constant <span class=\"math\">\\bar{\\beta}</span> and at all times one or both of these conditions should be met. This gives two cases:</p>\n<div class=\"math\">\n\\alpha, \\beta =\n\\begin{cases}\np^{-1}, \\frac{b-sp^{-1}}{v} &amp; \\text{if } b \\ge sp^{-1} + v \\bar{\\beta} \\\\\n\\frac{b - v\\bar{\\beta}}{s}, \\bar{\\beta} &amp; \\text{otherwise}\n\\end{cases}\n</div>\n<p>When <span class=\"math\">b \\ge sp^{-1} + v\\bar{\\beta}</span> we say the peg holds, and when that is not the case, we say the peg is broken. Note that when the peg is broken, <span class=\"math\">\\alpha \\lt p^{-1}</span>, and hence selling STB will net a payment of less than the target price.</p>\n<p>Now that we know the prices at which tokens might be traded, to determine when a trade should be allowed we need to take into account possible changes in the price <span class=\"math\">p</span>. In particular, at this point we start to make use of <span class=\"math\">m</span> and set the goal <span class=\"math\">b \\ge sm^{-1} + v\\bar{\\beta}</span>.</p>\n<p>We setup two scoring rules:</p>\n<div class=\"math\">\n\\begin{align}\n\\gamma_p &amp;= b - sp^{-1} - v\\bar{\\beta} \\\\\n\\gamma_m &amp;= b - sm^{-1} - v\\bar{\\beta}\n\\end{align}\n</div>\n<p>Note the following properties:</p>\n<ul>\n<li>\n<p>The peg holds precisely when <span class=\"math\">\\gamma_p \\ge 0</span></p>\n</li>\n<li>\n<p>Provided <span class=\"math\">m \\lt p</span>, <span class=\"math\">\\gamma_m \\lt \\gamma_p</span>, and conversely.</p>\n</li>\n<li>\n<p>When the peg holds:</p>\n<ul>\n<li>buying VOL with BTC increases <span class=\"math\">\\gamma_p</span> and <span class=\"math\">\\gamma_m</span></li>\n<li>trading STB for BTC does not change <span class=\"math\">\\gamma_p</span>,</li>\n<li>provided <span class=\"math\">m \\lt p</span>, buying STB with BTC decreases <span class=\"math\">\\gamma_m</span></li>\n</ul>\n</li>\n<li>\n<p>When the peg is broken:</p>\n<ul>\n<li>trading VOL for BTC does not change <span class=\"math\">\\gamma_p</span> or <span class=\"math\">\\gamma_m</span>.</li>\n<li>buying STB with BTC decreases <span class=\"math\">\\gamma_p</span></li>\n<li>if <span class=\"math\">\\gamma_m \\lt 0</span>, then buying STB with BTC decreases <span class=\"math\">\\gamma_m</span></li>\n</ul>\n</li>\n</ul>\n<p>The peg can only be broken directly by external movements in <span class=\"math\">p</span>, but such movements are expected.\nIn order to maintain the peg, we limit trades that may weaken the peg indirectly:</p>\n<ul>\n<li>We block trades that would cause <span class=\"math\">\\gamma_m</span> to become negative (some purchases of STB or sales of VOL while the peg holds)</li>\n<li>We block trades that would cause <span class=\"math\">\\gamma_p</span> to become more negative (purchases of STB while the peg is broken)</li>\n</ul>\n<p>This concept is mostly due to discussions with Rusty Russell, and is obviously similar to the Dai stablecoin.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 4,
   "updated_at": "2022-08-24T12:41:48.821Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 22.8,
+  "incoming_link_count": 45,
+  "reads": 76,
+  "readers_count": 75,
+  "score": 270.2,
   "yours": false,
   "topic_id": 20,
   "topic_slug": "design-for-algorithmic-stablecoin-backed-by-btc",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -54,14 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The idea is to have an on-chain market maker that issues two tokens, STB (a stablecoin) whose value is automatically backed by BTC, and VOL which captures any excess value from the backing BTC. If successful, this allows a stablecoin to be purely on-chain, without requiring assets to be stored exter&hellip;",
+  "truncated": true,
+  "post_url": "/t/design-for-algorithmic-stablecoin-backed-by-btc/20/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

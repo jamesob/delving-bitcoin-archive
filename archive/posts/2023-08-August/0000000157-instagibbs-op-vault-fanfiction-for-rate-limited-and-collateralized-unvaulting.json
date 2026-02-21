@@ -7,14 +7,15 @@
   "cooked": "<p>I wrote up these thoughts more explicitly in BIP PR form <a href=\"https://github.com/jamesob/bips/pull/4\">here</a></p>\n<p>edit: also added some last-minute MVP changes to demonstrate how %-based rate-limiting and collateral could work. Very small changes; a little hacky, just demonstrating what can be done</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 5,
   "updated_at": "2023-09-05T14:15:58.494Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "incoming_link_count": 1,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 8.0,
   "yours": false,
   "topic_id": 55,
   "topic_slug": "op-vault-fanfiction-for-rate-limited-and-collateralized-unvaulting",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 31,
     "username": "instagibbs",
     "name": "Gregory Sanders",
     "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png"
@@ -54,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I wrote up these thoughts more explicitly in BIP PR form <a href=\"https://github.com/jamesob/bips/pull/4\">here</a> \nedit: also added some last-minute MVP changes to demonstrate how %-based rate-limiting and collateral could work. Very small changes; a little hacky, just demonstrating what can be done",
+  "truncated": true,
+  "post_url": "/t/op-vault-fanfiction-for-rate-limited-and-collateralized-unvaulting/55/5",
   "reactions": [
     {
       "id": "heart",
@@ -63,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

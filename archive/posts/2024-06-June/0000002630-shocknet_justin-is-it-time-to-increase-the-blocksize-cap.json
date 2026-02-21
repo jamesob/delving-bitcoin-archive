@@ -7,14 +7,15 @@
   "cooked": "<p>Never.</p>\n<p>A batch open of 50 channels takes ~2k vbytes</p>\n<p>A day has 144k vbytes</p>\n<p>Thus we could open 3M channels a day, or 1BN channels <strong>per year</strong></p>\n<p>Nodes willing to wait days for a channel batch may get them <strong>nearly free</strong> as they\u2019re subsidized by larger and high time preference ones</p>\n<p>Undoubtedly closures will cost more than opens, but that\u2019s also optimal from an incentives perspective</p>\n<blockquote>\n<p>are a handful of developers</p>\n</blockquote>\n<p>Seems you have no idea how any of this works, good luck changing the network with a handful of developers</p>\n<blockquote>\n<p>Bitcoin as a tool for human rights</p>\n</blockquote>\n<p>Sound money is a human right, everything else is downstream of that.</p>\n<blockquote>\n<p>a $5 per week family</p>\n</blockquote>\n<p>Bitcoin being better money doesn\u2019t help people that <strong>don\u2019t have money</strong>, it does however help them earn it permissionlessly.</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 26,
   "updated_at": "2024-06-04T15:35:40.240Z",
   "reply_count": 3,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 38.8,
+  "incoming_link_count": 2,
+  "reads": 72,
+  "readers_count": 71,
+  "score": 69.4,
   "yours": false,
   "topic_id": 941,
   "topic_slug": "is-it-time-to-increase-the-blocksize-cap",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -48,20 +50,27 @@
   "staff": false,
   "user_id": 460,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Never. \nA batch open of 50 channels takes ~2k vbytes \nA day has 144k vbytes \nThus we could open 3M channels a day, or 1BN channels per year \nNodes willing to wait days for a channel batch may get them nearly free as they\u2019re subsidized by larger and high time preference ones \nUndoubtedly closures wil&hellip;",
+  "truncated": true,
+  "post_url": "/t/is-it-time-to-increase-the-blocksize-cap/941/8",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

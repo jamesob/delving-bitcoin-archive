@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"sjors\" data-post=\"22\" data-topic=\"1818\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sjors/48/59_2.png\" class=\"avatar\"> sjors:</div>\n<blockquote>\n<p>Why not just do that and include bit 16?</p>\n</blockquote>\n</aside>\n<p>Because Lightning already uses these bits to store obfuscated commitment transaction numbers. The nSequence bits with no consensus meaning are i think in practice lost as an upgrade hook. I think that if someone wanted to work on extending relative timelocks they should use the Taproot annex, and why not also bundle per-input absolute timelocks under a single \u201cimproved timelocks\u201d proposal.</p>",
   "post_number": 23,
   "post_type": 1,
-  "posts_count": 24,
+  "posts_count": 25,
   "updated_at": "2025-08-04T16:05:38.162Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 22,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "incoming_link_count": 17,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 115.0,
   "yours": false,
   "topic_id": 1818,
   "topic_slug": "exploring-extended-relative-timelocks",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"sjors, post:22, topic:1818\"]\nWhy not just do that and include bit 16?\n[/quote]\n\nBecause Lightning already uses these bits to store obfuscated commitment transaction numbers. The nSequence bits with no consensus meaning are i think in practice lost as an upgrade hook. I think that if someone wanted to work on extending relative timelocks they should use the Taproot annex, and why not also bundle per-input absolute timelocks under a single \"improved timelocks\" proposal.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +60,18 @@
   "excerpt": "Because Lightning already uses these bits to store obfuscated commitment transaction numbers. The nSequence bits with no consensus meaning are i think in practice lost as an upgrade hook. I think that if someone wanted to work on extending relative timelocks they should use the Taproot annex, and w&hellip;",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/23",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

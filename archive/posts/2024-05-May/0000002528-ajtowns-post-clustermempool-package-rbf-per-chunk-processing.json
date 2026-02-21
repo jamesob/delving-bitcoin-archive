@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"sdaftuar\" data-post=\"14\" data-topic=\"190\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/s/0ea827/48.png\" class=\"avatar\"> sdaftuar:</div>\n<blockquote>\n<p>There\u2019s a potential pinning issue introduced by using feerate diagram comparisons alone as our RBF tool, which I wanted to describe so we don\u2019t forget this when we get to doing general package RBF.</p>\n</blockquote>\n</aside>\n<p>I think this is really two things: (1) it\u2019s a pre-existing pinning issue, where you wouldn\u2019t replace low-feerate E with high-feerate V, and (2) a \u201cnew\u201d issue where you <strong>would</strong>  replace high-feerate V with low-feerate E, despite that being something RBF rules are designed to prevent. I don\u2019t think we should be concerned about the pinning part of this (ie, (1)) \u2013 if D and E made it into the mempool first in this case, it\u2019s a deliberate decision to reject V.</p>\n<p>I\u2019m a bit inclined to suspect that while we accept pinning at all, we\u2019ll always end up with edge cases where some complicated behaviour can cause us to evict a high-feerate tx, then accept a low-feerate conflict, and end up pinned.</p>\n<p>I think there\u2019s a few ways to address this case:</p>\n<ul>\n<li>smarter RBF behaviour, where we go to more effort to realise that some better linearisation of <code>V+blah+D</code> isn\u2019t strictly worse than <code>blah+D+E</code></li>\n<li>smarter linearisation by miners, where block template creators devote more effort to linearisation in general, so they\u2019re likely to discover the better linearisation of blah before they even see D</li>\n<li>distributed linearisation \u2013 better linearisations get propagated over p2p, so that one node randomly trying to improve complicated clusters improves everyones linearisation, and that happens fast enough that propagating D+E is too late</li>\n<li>small TRUCs so that E\u2019s fee is constrained (size is small, so low feerate times small size gives a relatively low overall fee), and V doesn\u2019t have to be bumped by very much in order to have higher feerate and higher fee</li>\n</ul>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-05-23T22:40:30.168Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "incoming_link_count": 1,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 29.8,
   "yours": false,
   "topic_id": 190,
   "topic_slug": "post-clustermempool-package-rbf-per-chunk-processing",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sdaftuar, post:14, topic:190\"]\nThere\u2019s a potential pinning issue introduced by using feerate diagram comparisons alone as our RBF tool, which I wanted to describe so we don\u2019t forget this when we get to doing general package RBF.\n[/quote]\n\nI think this is really two things: (1) it's a pre-existing pinning issue, where you wouldn't replace low-feerate E with high-feerate V, and (2) a \"new\" issue where you **would**  replace high-feerate V with low-feerate E, despite that being something RBF rules are designed to prevent. I don't think we should be concerned about the pinning part of this (ie, (1)) -- if D and E made it into the mempool first in this case, it's a deliberate decision to reject V.\n\nI'm a bit inclined to suspect that while we accept pinning at all, we'll always end up with edge cases where some complicated behaviour can cause us to evict a high-feerate tx, then accept a low-feerate conflict, and end up pinned.\n\nI think there's a few ways to address this case:\n * smarter RBF behaviour, where we go to more effort to realise that some better linearisation of `V+blah+D` isn't strictly worse than `blah+D+E`\n * smarter linearisation by miners, where block template creators devote more effort to linearisation in general, so they're likely to discover the better linearisation of blah before they even see D\n * distributed linearisation -- better linearisations get propagated over p2p, so that one node randomly trying to improve complicated clusters improves everyones linearisation, and that happens fast enough that propagating D+E is too late\n * small TRUCs so that E's fee is constrained (size is small, so low feerate times small size gives a relatively low overall fee), and V doesn't have to be bumped by very much in order to have higher feerate and higher fee",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I think this is really two things: (1) it\u2019s a pre-existing pinning issue, where you wouldn\u2019t replace low-feerate E with high-feerate V, and (2) a \u201cnew\u201d issue where you would  replace high-feerate V with low-feerate E, despite that being something RBF rules are designed to prevent. I don\u2019t think we &hellip;",
+  "truncated": true,
+  "post_url": "/t/post-clustermempool-package-rbf-per-chunk-processing/190/16",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

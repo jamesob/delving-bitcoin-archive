@@ -13,9 +13,9 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 5.4,
   "yours": false,
   "topic_id": 1490,
   "topic_slug": "bitcoin-node-p2p-traffic-analysis",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 438,
     "username": "andrewtoth",
     "name": "Andrew Toth",
     "avatar_template": "/user_avatar/delvingbitcoin.org/andrewtoth/{size}/576_2.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

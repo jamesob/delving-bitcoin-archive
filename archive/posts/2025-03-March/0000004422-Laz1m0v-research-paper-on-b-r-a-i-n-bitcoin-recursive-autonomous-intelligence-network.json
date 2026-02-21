@@ -7,14 +7,15 @@
   "cooked": "<p>\u201cB.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network - A Novel Framework for Self-Custodial Yield Generation via Cryptographic Time-Locked Contracts\u201d</p>\n<p>Dear Colleagues,</p>\n<p>I am pleased to announce the publication of our research paper titled \u201cB.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network,\u201d which introduces a novel protocol for implementing autonomous agent systems directly on the Bitcoin blockchain utilizing native script primitives.</p>\n<p>Abstract</p>\n<p>This paper presents a decentralized framework for autonomous financial operations on Bitcoin\u2019s UTXO model without requiring custodial intermediaries or cross-chain bridges. We demonstrate the theoretical foundations and practical implementation of recursive transaction structures that enable programmatic capital allocation while maintaining cryptographic guarantees of ownership through the entire execution lifecycle.</p>\n<p>Key Contributions:</p>\n<ul>\n<li>Formalization of a recursive UTXO state management system with provable termination properties</li>\n<li>Implementation of non-interactive zero-knowledge verification mechanisms for yield attestation without oracle dependencies</li>\n<li>Novel application of Merkle path verification for secure inter-agent communication while preserving transaction graph privacy</li>\n<li>Empirical analysis of transaction fee economics demonstrating viability under varying network conditions</li>\n</ul>\n<p>Our experimental implementations on Bitcoin\u2019s signet testing environment have demonstrated annualized yield of approximately 3.8% while maintaining full node verification capabilities and complete sovereignty preservation.</p>\n<p>Full paper: <a href=\"https://github.com/Laz1mov/hxmt/blob/6d6b3e5a04912271404b16d2bf17668dd0a80098/brain.pdf\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">hxmt/brain.pdf at 6d6b3e5a04912271404b16d2bf17668dd0a80098 \u00b7 Laz1mov/hxmt \u00b7 GitHub</a></p>\n<p>I welcome rigorous peer review, particularly regarding the temporal security assumptions in our timelock cascade implementation and potential attack vectors in the agent communication protocol. Critical examination of our cryptographic proofs would be especially valuable.</p>\n<p>This work builds upon foundational research by Nakamoto (2008), Maxwell\u2019s Confidential Transactions (2015), and recent advances in Bitcoin script optimization techniques following the Taproot activation.</p>\n<p>Respectfully submitted,\nLaz1m0v</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 1,
   "updated_at": "2025-03-07T00:36:04.207Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 25,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 87.2,
+  "incoming_link_count": 115,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 616.8,
   "yours": false,
   "topic_id": 1497,
   "topic_slug": "research-paper-on-b-r-a-i-n-bitcoin-recursive-autonomous-intelligence-network",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -55,14 +56,22 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "\u201cB.R.A.I.N.: Bitcoin Recursive Autonomous Intelligence Network - A Novel Framework for Self-Custodial Yield Generation via Cryptographic Time-Locked Contracts\u201d \nDear Colleagues, \nI am pleased to announce the publication of our research paper titled \u201cB.R.A.I.N.: Bitcoin Recursive Autonomous Intellige&hellip;",
+  "truncated": true,
+  "post_url": "/t/research-paper-on-b-r-a-i-n-bitcoin-recursive-autonomous-intelligence-network/1497/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

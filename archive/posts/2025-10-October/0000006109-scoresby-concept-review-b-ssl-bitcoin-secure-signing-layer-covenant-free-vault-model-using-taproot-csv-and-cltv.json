@@ -7,15 +7,15 @@
   "cooked": "<p>Thank you for your reply.</p>\n<blockquote>\n<p>This environment will start counting time delay from the moment it receives spending transaction and will co-sign only when time delay has passed.</p>\n</blockquote>\n<p>So if a user sets their CSV timelock to 15 days, that timer begins as soon as they send coins into the wallet and at this point key C cannot sign transactions because of the CSV timelock. But if more than 15 days pass, the CSV timelock expires and key C <em>can</em> sign. However, it sounds like key C will still not sign because key C is controlled by the CS which only begins counting down its time delay when it sees a transaction spending funds <em>out</em> of the vault.</p>\n<p>If this is the case, why bother with the CSV timelock at all? I don\u2019t believe I understand the purpose of the CSV timelock. Most users presumably would like to keep their coins in the vault for more than 15 days.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 12,
   "updated_at": "2025-10-18T16:28:06.353Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 6.6,
+  "incoming_link_count": 2,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 34.8,
   "yours": false,
   "topic_id": 2047,
   "topic_slug": "concept-review-b-ssl-bitcoin-secure-signing-layer-covenant-free-vault-model-using-taproot-csv-and-cltv",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thank you for your reply. \n\n> This environment will start counting time delay from the moment it receives spending transaction and will co-sign only when time delay has passed.\n\nSo if a user sets their CSV timelock to 15 days, that timer begins as soon as they send coins into the wallet and at this point key C cannot sign transactions because of the CSV timelock. But if more than 15 days pass, the CSV timelock expires and key C *can* sign. However, it sounds like key C will still not sign because key C is controlled by the CS which only begins counting down its time delay when it sees a transaction spending funds *out* of the vault.\n\nIf this is the case, why bother with the CSV timelock at all? I don\u2019t believe I understand the purpose of the CSV timelock. Most users presumably would like to keep their coins in the vault for more than 15 days.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thank you for your reply. \n\nThis environment will start counting time delay from the moment it receives spending transaction and will co-sign only when time delay has passed. \n\nSo if a user sets their CSV timelock to 15 days, that timer begins as soon as they send coins into the wallet and at this p&hellip;",
   "truncated": true,
   "post_url": "/t/concept-review-b-ssl-bitcoin-secure-signing-layer-covenant-free-vault-model-using-taproot-csv-and-cltv/2047/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

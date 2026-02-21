@@ -7,14 +7,15 @@
   "cooked": "<p>I believe <a class=\"mention\" href=\"/u/ademan\">@ademan</a> 's multi-party penalty(optional) rebindable channels also have a solution for this. Because his proposal limits the number of updates to the number of channel participants, each update is identifiable by its order, which means that the settlement delay can be reduced with each update.</p>\n<p>Details fuzzy, but I think settlement can be made immediate on the last allowed update in an <a class=\"mention\" href=\"/u/ademan\">@ademan</a> channel. This means that for 2-party <a class=\"mention\" href=\"/u/ademan\">@ademan</a> channels HTLCs only need to tolerate 1 settlement delay.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 17,
   "updated_at": "2025-01-06T15:18:45.813Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "incoming_link_count": 43,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 256.6,
   "yours": false,
   "topic_id": 1353,
   "topic_slug": "contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -55,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I believe <a class=\"mention\" href=\"/u/ademan\">@ademan</a> &#39;s multi-party penalty(optional) rebindable channels also have a solution for this. Because his proposal limits the number of updates to the number of channel participants, each update is identifiable by its order, which means that the settlement delay can be reduced with each upda&hellip;",
+  "truncated": true,
+  "post_url": "/t/contract-level-relative-timelocks-or-lets-talk-about-ancestry-proofs-and-singletons/1353/12",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

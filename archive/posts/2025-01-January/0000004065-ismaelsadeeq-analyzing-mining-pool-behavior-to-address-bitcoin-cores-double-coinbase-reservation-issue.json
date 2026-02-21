@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>Can you clarify F2Pool\u2019s min and max coinbase weights? In the table above the min is larger than max.</p>\n</blockquote>\n<p>This inconsistency is due to a mix-up when compiling the data.\nAlso, I meant the minimum block weight coinbase weight, not the minimum coinbase weight. I\u2019ve separated the coinbase weight stats from the block weight stats and update the coinbase chart.</p>\n<blockquote>\n<ul>\n<li>For block 779729 with the max block weight of 3,998,554, a coinbase weight of \u200e1588 WU and 332 WU for header+tx_count leaves me with a default of 3,996,634 WU. That seems to be an odd number to use as a custom <code>-blockmaxweight</code> (and only possible with patches to Bitcoin Core).</li>\n</ul>\n</blockquote>\n<blockquote>\n<p>If you have the data, it might be interesting to calculate <code>block weight - coinbase weight - header weight</code> for the F2Pool blocks to get a better feeling about the weight they reserve.</p>\n</blockquote>\n<p>I think we are a certain that F2Pool is using a patch of Bitcoin Core after <a href=\"https://github.com/bitcoin/bitcoin/pull/31384#issuecomment-2593329870\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">mining: bugfix: Fix duplicate coinbase tx weight reservation by ismaelsadeeq \u00b7 Pull Request #31384 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a></p>\n<p>However, it would be useful to review the data for confirmation.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2025-01-16T18:43:50.295Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 24.2,
+  "incoming_link_count": 3,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 37.0,
   "yours": false,
   "topic_id": 1351,
   "topic_slug": "analyzing-mining-pool-behavior-to-address-bitcoin-cores-double-coinbase-reservation-issue",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 16,
     "username": "0xB10C",
     "name": "0xB10C",
     "avatar_template": "/user_avatar/delvingbitcoin.org/0xb10c/{size}/15_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Can you clarify F2Pool\u2019s min and max coinbase weights? In the table above the min is larger than max. \n\nThis inconsistency is due to a mix-up when compiling the data.\nAlso, I meant the minimum block weight coinbase weight, not the minimum coinbase weight. I\u2019ve separated the coinbase weight stats fr&hellip;",
+  "truncated": true,
+  "post_url": "/t/analyzing-mining-pool-behavior-to-address-bitcoin-cores-double-coinbase-reservation-issue/1351/7",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

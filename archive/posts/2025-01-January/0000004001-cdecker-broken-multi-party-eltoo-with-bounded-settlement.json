@@ -7,14 +7,15 @@
   "cooked": "<p>Makes sense, thanks AJ for the explanation.</p>\n<p>I wonder however if it is worthwhile to even consider cases in which an attacker can keep things published but hidden from a specific victim, as that is quite the rabbithole, and I\u2019m not sure it is that easy to pull off.</p>\n<p>As you mention yourself the threat of a watchtower should be enough to keep the chances of succeeding to a minumum. Notice that if the hidden TX is discovered before being mined by the victim, then they can queue a reaction for the same block, forcing the attacker to add more funds to retry with a new commitment, hence why I talk about game theoretic threats despite there not being a direct penalty for attempting to cheat.</p>\n<p>The added complexity for penalizing and/or forcing a sequence may outweigh the benefit.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2025-01-07T11:57:23.058Z",
   "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 26.4,
   "yours": false,
   "topic_id": 1364,
   "topic_slug": "broken-multi-party-eltoo-with-bounded-settlement",
@@ -37,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 3,
     "username": "ajtowns",
     "name": "Anthony Towns",
     "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
   },
   "bookmarked": false,
   "raw": "Makes sense, thanks AJ for the explanation.\n\nI wonder however if it is worthwhile to even consider cases in which an attacker can keep things published but hidden from a specific victim, as that is quite the rabbithole, and I'm not sure it is that easy to pull off.\n\nAs you mention yourself the threat of a watchtower should be enough to keep the chances of succeeding to a minumum. Notice that if the hidden TX is discovered before being mined by the victim, then they can queue a reaction for the same block, forcing the attacker to add more funds to retry with a new commitment, hence why I talk about game theoretic threats despite there not being a direct penalty for attempting to cheat.\n\nThe added complexity for penalizing and/or forcing a sequence may outweigh the benefit.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Makes sense, thanks AJ for the explanation. \nI wonder however if it is worthwhile to even consider cases in which an attacker can keep things published but hidden from a specific victim, as that is quite the rabbithole, and I\u2019m not sure it is that easy to pull off. \nAs you mention yourself the threa&hellip;",
+  "truncated": true,
+  "post_url": "/t/broken-multi-party-eltoo-with-bounded-settlement/1364/6",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

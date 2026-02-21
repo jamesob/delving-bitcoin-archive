@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"AntoineP\" data-post=\"44\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>The post you are linking to mentions <code>OP_VAULT</code>. It seems inappropriate to use as motivation for a proposal, a statement in favour of a separate proposal.</p>\n</blockquote>\n</aside>\n<p>A prerequisite for any vault is unambiguously locking the coins to a certain destination during the trigger stage. CTV is the most basic way of doing this; in fact, anything that is capable of accomplishing this is either CTV or a generalization. So an argument for the value of vaults is in essence an argument for CTV (or something more general that encompasses it as one mode).</p>\n<aside class=\"quote no-group quote-modified\" data-username=\"AntoineP\" data-post=\"44\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>Meanwhile Bob McElrath <a href=\"https://x.com/BobMcElrath/status/1900445574626693258\">stated</a> \u2026</p>\n</blockquote>\n</aside>\n<p>One (or three) custodians saying \u201cI\u2019m not going to use taproot, it doesn\u2019t make sense for me\u201d isn\u2019t an argument against taproot. Especially if you have a number of other custodians (who are more current and not working on competing products) saying, \u201cyes, I\u2019d really like this, it would make a difference for my business.\u201d</p>",
   "post_number": 45,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-14T21:37:02.353Z",
   "reply_count": 1,
   "reply_to_post_number": 44,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 24.2,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 32.2,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "A prerequisite for any vault is unambiguously locking the coins to a certain destination during the trigger stage. CTV is the most basic way of doing this; in fact, anything that is capable of accomplishing this is either CTV or a generalization. So an argument for the value of vaults is in essence&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/45",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

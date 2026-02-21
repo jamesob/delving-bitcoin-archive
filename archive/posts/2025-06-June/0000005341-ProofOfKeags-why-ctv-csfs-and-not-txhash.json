@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 3.4,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 23.6,
   "yours": false,
   "topic_id": 1781,
   "topic_slug": "why-ctv-csfs-and-not-txhash",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "TXHASH does not obviate the need for CSFS. It is a full-replacement for CTV, though.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "TXHASH does not obviate the need for CSFS. It is a full-replacement for CTV, though.",
   "truncated": true,
   "post_url": "/t/why-ctv-csfs-and-not-txhash/1781/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

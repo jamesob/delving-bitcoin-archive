@@ -7,15 +7,15 @@
   "cooked": "<p>hey josh, big fan of this idea, i\u2019m working on a fork of bitcoinkernel which adds covenant support linked below.</p>\n<p>So far i have added op_ctv, op_csfs and op_cat.</p>\n<p>il continue to add more op_codes and i agree it would be very cool to add simplicity support so i will look at that at some point.</p>\n<p>thanks!</p>\n<aside class=\"onebox githubfolder\" data-onebox-src=\"https://github.com/stutxo/rust-bitcoinkernel-covenants/tree/covenants_enabled\">\n  <header class=\"source\">\n      <img src=\"https://github.githubassets.com/favicons/favicon.svg\" class=\"site-icon\" alt=\"\" width=\"32\" height=\"32\">\n\n      <a href=\"https://github.com/stutxo/rust-bitcoinkernel-covenants/tree/covenants_enabled\" target=\"_blank\" rel=\"noopener nofollow ugc\">github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h3><a href=\"https://github.com/stutxo/rust-bitcoinkernel-covenants/tree/covenants_enabled\" target=\"_blank\" rel=\"noopener nofollow ugc\">GitHub - stutxo/rust-bitcoinkernel-covenants at covenants_enabled</a></h3>\n\n  <p><a href=\"https://github.com/stutxo/rust-bitcoinkernel-covenants/tree/covenants_enabled\" target=\"_blank\" rel=\"noopener nofollow ugc\">covenants_enabled</a></p>\n\n  <p><span class=\"label1\">Rust bindings for the bitcoin kernel library. Contribute to stutxo/rust-bitcoinkernel-covenants development by creating an account on GitHub.</span></p>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2025-08-18T02:37:52.830Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 33.6,
+  "incoming_link_count": 1,
+  "reads": 42,
+  "readers_count": 41,
+  "score": 78.4,
   "yours": false,
   "topic_id": 1918,
   "topic_slug": "confidential-script-emulate-soft-forks-using-stateless-tees",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -69,11 +69,11 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

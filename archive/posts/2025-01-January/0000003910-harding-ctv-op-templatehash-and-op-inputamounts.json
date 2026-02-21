@@ -7,14 +7,15 @@
   "cooked": "<p>Allowing amount arithmetic for a limited range of values seems unergonomic in the best case (wallet devs have to write code to prevent overflows) and a footgun in the worst case (wallet devs don\u2019t write correct code addressing overflows and money can be stolen by <a href=\"https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2020-September/002796.txt\">fee siphoning</a> attacks or destroyed by accident).</p>\n<p>Although I take no position on the desirability of these opcodes, if they are to be added, I would favor a design that either doesn\u2019t allow arithmetic or which is compatible with a previously or simultaneously activated soft fork adding 64-bit operators.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-01-01T02:39:58.581Z",
   "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 21.4,
+  "incoming_link_count": 4,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 44.8,
   "yours": false,
   "topic_id": 1344,
   "topic_slug": "ctv-op-templatehash-and-op-inputamounts",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Allowing amount arithmetic for a limited range of values seems unergonomic in the best case (wallet devs have to write code to prevent overflows) and a footgun in the worst case (wallet devs don\u2019t write correct code addressing overflows and money can be stolen by <a href=\"https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2020-September/002796.txt\">fee siphoning</a> attacks or destroyed b&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-op-templatehash-and-op-inputamounts/1344/6",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

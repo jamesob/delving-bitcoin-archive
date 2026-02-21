@@ -12,10 +12,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 13.0,
+  "incoming_link_count": 5,
+  "reads": 26,
+  "readers_count": 25,
+  "score": 50.2,
   "yours": false,
   "topic_id": 883,
   "topic_slug": "bitcoin-inquisition-27-0",
@@ -39,13 +39,18 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hello, \n\nI have a question: what is exactly Bitcoin inquisition? \nI\u2019ve seen binana which seems to be some BIPs but I don\u2019t understand the point of Bitcoin inquisition. Seems to have OP_CAT integrated but seems as well to be Bitcoin core.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 549,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -54,8 +59,18 @@
   "excerpt": "Hello, \nI have a question: what is exactly Bitcoin inquisition?\nI\u2019ve seen binana which seems to be some BIPs but I don\u2019t understand the point of Bitcoin inquisition. Seems to have OP_CAT integrated but seems as well to be Bitcoin core.",
   "truncated": true,
   "post_url": "/t/bitcoin-inquisition-27-0/883/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

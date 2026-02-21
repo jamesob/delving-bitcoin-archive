@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 67.8,
+  "incoming_link_count": 2,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 74.6,
   "yours": false,
   "topic_id": 202,
   "topic_slug": "cluster-mempool-definitions-theory",
@@ -68,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Hi all,</p>\n<p><span class=\"mention\">@7d5x9</span> and I spent some time thinking about what the best we can do in response to a future where MEVil on Bitcoin proliferates and recently posted our results at [1]. Basically, we propose an extension of the PBS direction ethereum went down where instead of proposers proposing full block templates they only bid for individual (or group) transaction inclusion with constraints (like \u201cI want to be the first transaction included which interacts with the DEX identifiable by transactions which include the string X\u201d). This ensures that the public mempool continues to be a reliable way to get a transaction included (as miners would fill the their block from both the public mempool and any private orders), providing censorship resistance similar to today, while still allowing MEVil-extraction experts to pay miners for specific transaction inclusion.</p>\n<p>We also propose that the marketplaces offer private transaction inclusion by either having miners trust the marketplaces or by using TEEs to \u201cencrypt\u201d transactions such that they can only be read after a valid block meeting the constraints has been found. Interestingly, this also allows users of MEV-exposed systems to submit their transactions directly to miners for inclusion, reducing their exposure to frontrunning and other MEV issues.</p>\n<p>Obviously this design is highly centralizing compared to today\u2019s bitcoin, and a reasonable response might be \u201cwe should strive for a world where we don\u2019t need this garbage\u201d, but IMO we should be clear-eyed about what a bitcoin looks like if MEVil becomes a major part of the mining process, and build for that outcome just in case it comes to pass.</p>\n<p>Let us know what you think.</p>\n<p>[1] <a href=\"https://github.com/mevpool/mevpool/blob/0550f5d85e4023ff8ac7da5193973355b855bcc8/mevpool-marketplace.md\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">mevpool/mevpool-marketplace.md at 0550f5d85e4023ff8ac7da5193973355b855bcc8 \u00b7 mevpool/mevpool \u00b7 GitHub</a></p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2025-02-20T16:08:54.704Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 69.6,
+  "incoming_link_count": 184,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 989.0,
   "yours": false,
   "topic_id": 1465,
   "topic_slug": "best-worst-case-mevil-response",
@@ -55,6 +56,9 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hi all, \n@7d5x9 and I spent some time thinking about what the best we can do in response to a future where MEVil on Bitcoin proliferates and recently posted our results at [1]. Basically, we propose an extension of the PBS direction ethereum went down where instead of proposers proposing full block &hellip;",
+  "truncated": true,
+  "post_url": "/t/best-worst-case-mevil-response/1465/1",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,10 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

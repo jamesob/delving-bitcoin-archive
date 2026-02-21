@@ -7,14 +7,15 @@
   "cooked": "<p>The <code>_</code> placeholder would be a wallet policy feature, so expecting to have the wallet policy seems a natural assumption, and I don\u2019t think the standard should be optimized for \u201cnot having it\u201d.</p>\n<p>Other orders push code complexity to the hardware signer, that will now have to add more code to parse the \u201cdescriptor template\u201d just to find the right order of keys.</p>\n<p>Finally, a wallet policy might have the same <code>@i</code> multiple times (especially on taproot); in your version you\u2019d either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.</p>",
   "post_number": 24,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2024-01-16T15:02:53.929Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 23,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 16.6,
+  "incoming_link_count": 90,
+  "reads": 50,
+  "readers_count": 49,
+  "score": 475.0,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 12,
     "username": "AntoineP",
     "name": "Antoine Poinsot",
-    "avatar_template": "/letter_avatar_proxy/v4/letter/a/8e8cbc/{size}.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/antoinep/{size}/483_2.png"
   },
   "bookmarked": false,
   "raw": "The `_` placeholder would be a wallet policy feature, so expecting to have the wallet policy seems a natural assumption, and I don't think the standard should be optimized for \"not having it\".\n\nOther orders push code complexity to the hardware signer, that will now have to add more code to parse the \"descriptor template\" just to find the right order of keys.\n\nFinally, a wallet policy might have the same `@i` multiple times (especially on taproot); in your version you'd either be concatenating the corresponding pubkey multiple times, or would need a stateful parser to skip the ones that have been seen already.",
@@ -53,12 +56,15 @@
   "staff": false,
   "user_id": 81,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The _ placeholder would be a wallet policy feature, so expecting to have the wallet policy seems a natural assumption, and I don\u2019t think the standard should be optimized for \u201cnot having it\u201d. \nOther orders push code complexity to the hardware signer, that will now have to add more code to parse the \u201c&hellip;",
+  "truncated": true,
+  "post_url": "/t/unspendable-keys-in-descriptors/304/24",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

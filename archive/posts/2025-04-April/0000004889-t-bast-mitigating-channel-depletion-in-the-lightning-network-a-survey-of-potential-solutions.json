@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"renepickhardt\" data-post=\"1\" data-topic=\"1640\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/renepickhardt/48/7_2.png\" class=\"avatar\"> renepickhardt:</div>\n<blockquote>\n<p>Semantics of Control valve using <code>htlc_maximum_msat</code> are not agreed upon and is thus not supported by node software.</p>\n</blockquote>\n</aside>\n<p>Can you detail that a bit more? We\u2019ve been using <code>htlc_maximum_msat</code> in eclair as a control valve like you suggested a few years ago, and it seems to be working quite nicely (I\u2019m not sure how exactly we could quantify that \u201cit works\u201d, but at least we\u2019ve implemented the mechanism and haven\u2019t seen any specific issues with it).</p>\n<p>I don\u2019t know if other implementations have done it, but it\u2019s nice because it doesn\u2019t require any protocol changes: you only need to update your implementation, and other nodes on the network will respect the <code>htlc_maximum_msat</code> value you dynamically set. It creates a bit of a (reasonable) <code>channel_update</code> spam though.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 7,
   "updated_at": "2025-04-29T08:37:42.765Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 2,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 48.4,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 96.8,
   "yours": false,
   "topic_id": 1640,
   "topic_slug": "mitigating-channel-depletion-in-the-lightning-network-a-survey-of-potential-solutions",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -69,9 +69,18 @@
       "id": "heart",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

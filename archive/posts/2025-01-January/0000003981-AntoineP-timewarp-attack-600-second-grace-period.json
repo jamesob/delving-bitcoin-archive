@@ -7,14 +7,15 @@
   "cooked": "<p>Yes, that\u2019s why i started with \u201cin theory\u201d. In practice i think any of the discussed values for the grace period make extreme drops in difficulty completely unlikely.</p>",
   "post_number": 25,
   "post_type": 1,
+  "posts_count": 43,
   "updated_at": "2025-01-06T15:02:40.400Z",
   "reply_count": 1,
   "reply_to_post_number": 24,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 6.6,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 10.0,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -38,6 +39,7 @@
   "user_title": "Regular",
   "title_is_group": false,
   "reply_to_user": {
+    "id": 502,
     "username": "zawy",
     "name": "Zawy",
     "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png"
@@ -56,8 +58,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Yes, that\u2019s why i started with \u201cin theory\u201d. In practice i think any of the discussed values for the grace period make extreme drops in difficulty completely unlikely.",
+  "truncated": true,
+  "post_url": "/t/timewarp-attack-600-second-grace-period/1326/25",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

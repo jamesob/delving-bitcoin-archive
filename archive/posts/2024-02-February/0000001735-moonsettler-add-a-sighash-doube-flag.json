@@ -7,14 +7,15 @@
   "cooked": "<p>why not SIGHASH_BUNDLESTART/SIGHASH_INBUNDLE?</p>\n<p><a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-April/015862.html\" class=\"onebox\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-April/015862.html</a></p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 4,
   "updated_at": "2024-02-29T00:19:03.927Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 25.6,
   "yours": false,
   "topic_id": 619,
   "topic_slug": "add-a-sighash-doube-flag",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "why not SIGHASH_BUNDLESTART/SIGHASH_INBUNDLE? \n<a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-April/015862.html\" class=\"onebox\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2018-April/015862.html</a>",
+  "truncated": true,
+  "post_url": "/t/add-a-sighash-doube-flag/619/2",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

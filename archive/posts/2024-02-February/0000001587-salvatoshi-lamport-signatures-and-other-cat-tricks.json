@@ -7,14 +7,15 @@
   "cooked": "<p>It\u2019s definitely going to be <em>painful</em> to implement, but still it seems <em>feasible</em>.</p>\n<p>Binary operations are going to be the annoying part, but it should be fairly straightforward to obtain them with arithmetic operations working bit-by-bit, and possibly more efficiently with smarter tricks like <a href=\"https://github.com/coins/bitcoin-scripts/blob/405f3b0dbf64115eab7035482397b322822c6d19/op_lookup.md\" rel=\"noopener nofollow ugc\">lookup tables</a>.</p>",
   "post_number": 20,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-02-16T12:50:10.556Z",
   "reply_count": 1,
   "reply_to_post_number": 19,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "incoming_link_count": 1,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 14.0,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
@@ -48,12 +51,15 @@
   "staff": false,
   "user_id": 81,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "It\u2019s definitely going to be painful to implement, but still it seems feasible. \nBinary operations are going to be the annoying part, but it should be fairly straightforward to obtain them with arithmetic operations working bit-by-bit, and possibly more efficiently with smarter tricks like <a href=\"https://github.com/coins/bitcoin-scripts/blob/405f3b0dbf64115eab7035482397b322822c6d19/op_lookup.md\" rel=\"noopener nofollow ugc\">lookup tab&hellip;</a>",
+  "truncated": true,
+  "post_url": "/t/lamport-signatures-and-other-cat-tricks/236/20",
   "reactions": [
     {
       "id": "heart",
@@ -63,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

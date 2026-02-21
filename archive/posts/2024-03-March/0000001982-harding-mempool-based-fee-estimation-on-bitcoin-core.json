@@ -2,19 +2,20 @@
   "id": 1982,
   "name": "David A. Harding",
   "username": "harding",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png",
   "created_at": "2024-03-21T17:33:00.972Z",
   "cooked": "<p>If you haven\u2019t seen it before, you may want to check out Kalle Alm\u2019s previous research on this subject, e.g. as presented at Scaling Bitcoin 2017:</p>\n<ul>\n<li><a href=\"https://scalingbitcoin.org/stanford2017/Day2/Scaling-2017-Optimizing-fee-estimation-via-the-mempool-state.pdf\">Slides</a></li>\n<li><a href=\"https://btctranscripts.com/scalingbitcoin/stanford-2017/optimizing-fee-estimation-via-mempool-state/\">Transcript</a></li>\n<li><a href=\"https://www.youtube.com/watch?v=QkYXPJMqBNk&amp;t=2052s\">Video</a></li>\n</ul>\n<p>One of his points I recall finding particularly insightful was that, for anyone in a position to RBF, we can simply choose a feerate that is <code>min(confirmed_estimate,mempool_estimate)</code> where <code>confirmed_estimate</code> is based on non-gameable data (like the existing Bitcoin Core estimatesmartfee) and <code>mempool_estimate</code> is based on mempool stats like you describe (which has the risk of potentially being gameable and might also break accidentally, such as after a soft fork).</p>\n<p>Using the minimum of the two returned values allows the feerate to adapt downwards very quickly without introducing any new risk that feerates could be manipulated upwards by miners or other third parties.  If people only use the enhanced estimation for cases where they can RBF, then they can always fee bump if they end up underpaying.  (Though it\u2019s worth noting that RBFing has non-financial costs: it typically leaks which output is the change output and it requires the fee bumper either be online to bump or create presigned incremental fee bumps.)</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2024-03-21T17:33:00.972Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 39.2,
+  "incoming_link_count": 194,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 1040.0,
   "yours": false,
   "topic_id": 703,
   "topic_slug": "mempool-based-fee-estimation-on-bitcoin-core",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -54,11 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "If you haven\u2019t seen it before, you may want to check out Kalle Alm\u2019s previous research on this subject, e.g. as presented at Scaling Bitcoin 2017: \n\n<a href=\"https://scalingbitcoin.org/stanford2017/Day2/Scaling-2017-Optimizing-fee-estimation-via-the-mempool-state.pdf\">Slides</a>\n<a href=\"https://btctranscripts.com/scalingbitcoin/stanford-2017/optimizing-fee-estimation-via-mempool-state/\">Transcript</a>\n<a href=\"https://www.youtube.com/watch?v=QkYXPJMqBNk&amp;t=2052s\">Video</a>\n\nOne of his points I recall finding particularly insightful was that, for anyone in a position to RBF, we can simply choose a f&hellip;",
+  "truncated": true,
+  "post_url": "/t/mempool-based-fee-estimation-on-bitcoin-core/703/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     },
     {
       "id": "rocket",
@@ -67,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

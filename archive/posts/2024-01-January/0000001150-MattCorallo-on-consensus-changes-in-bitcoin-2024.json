@@ -7,14 +7,15 @@
   "cooked": "<p>I think what I wrote in 2020 is just as true today as it was then: <a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-January/017547.html\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">[bitcoin-dev] Modern Soft Fork Activation</a>. There\u2019s a set of goals we must define, and I think the 5 listed there basically summarize what the goals for the Bitcoin system should be (it doesn\u2019t mention how this implicates Bitcoin Core at all). One of the key themes here is that we should avoid, in all the ways we can, chain splits and losing hashpower onto one fork or another. Its impossible to avoid in a general sense, but all the technical design decisions that go into the fork should attempt to ensure we do not lose hash power or users onto a fork where a decision can be made to do so.</p>\n<p>This also implies that ideas like \u201cjust ship code that lets users make uninformed decisions resulting in a fork\u201d are right out. This also implies we must rely on users having upgraded by the time any activation happens, and have very high confidence that a vast majority of users will be using the new consensus logic by the time any activation happens. Miner signaling is useful, but as <a class=\"mention\" href=\"/u/harding\">@harding</a> points out, it is very, very far from sufficient.</p>\n<p>There\u2019s a ton of ideas on philosophy out there on what roles different parties can or should take, but we shouldn\u2019t lose sight of the fact that this is a production network protecting billions of dollars of other peoples\u2019 money in a naive attempt to achieve some philosophically perfect outcome.</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-01-16T23:05:10.299Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 9.0,
+  "incoming_link_count": 5,
+  "reads": 68,
+  "readers_count": 67,
+  "score": 73.4,
   "yours": false,
   "topic_id": 334,
   "topic_slug": "on-consensus-changes-in-bitcoin-2024",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 4,
   "can_edit": false,
   "can_delete": false,
@@ -37,20 +39,38 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I think what I wrote in 2020 is just as true today as it was then: https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-January/017547.html. There's a set of goals we must define, and I think the 5 listed there basically summarize what the goals for the Bitcoin system should be (it doesn't mention how this implicates Bitcoin Core at all). One of the key themes here is that we should avoid, in all the ways we can, chain splits and losing hashpower onto one fork or another. Its impossible to avoid in a general sense, but all the technical design decisions that go into the fork should attempt to ensure we do not lose hash power or users onto a fork where a decision can be made to do so.\n\nThis also implies that ideas like \"just ship code that lets users make uninformed decisions resulting in a fork\" are right out. This also implies we must rely on users having upgraded by the time any activation happens, and have very high confidence that a vast majority of users will be using the new consensus logic by the time any activation happens. Miner signaling is useful, but as @harding points out, it is very, very far from sufficient.\n\nThere's a ton of ideas on philosophy out there on what roles different parties can or should take, but we shouldn't lose sight of the fact that this is a production network protecting billions of dollars of other peoples' money in a naive attempt to achieve some philosophically perfect outcome.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 50,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I think what I wrote in 2020 is just as true today as it was then: <a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2020-January/017547.html\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">[bitcoin-dev] Modern Soft Fork Activation</a>. There\u2019s a set of goals we must define, and I think the 5 listed there basically summarize what the goals for the Bitcoin system should be (it doesn\u2019t mention how this implicates Bitcoin Core&hellip;",
+  "truncated": true,
+  "post_url": "/t/on-consensus-changes-in-bitcoin-2024/334/11",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

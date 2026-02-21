@@ -7,15 +7,15 @@
   "cooked": "<blockquote>\n<p>what transactions your peers think are likely to be mined</p>\n</blockquote>\n<p>\u2026is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in <strong>exactly</strong> the same way.</p>\n<p>Anyone can put anything into a Merkle tree, that doesn\u2019t mean it\u2019s \u201clikely to be mined\u201d.</p>",
   "post_number": 20,
   "post_type": 1,
-  "posts_count": 21,
+  "posts_count": 24,
   "updated_at": "2025-09-12T10:08:39.803Z",
   "reply_count": 1,
   "reply_to_post_number": 19,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.0,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 27.6,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> what transactions your peers think are likely to be mined\n\n\u2026is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in **exactly** the same way.\n\nAnyone can put anything into a Merkle tree, that doesn't mean it's \u201clikely to be mined\u201d.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "what transactions your peers think are likely to be mined \n\n\u2026is simply false, and an attack surface identical to those you point out, just with extra steps. There is no way to know that the template sender is a miner and not just stuffing your tx DB in exactly the same way. \nAnyone can put anything&hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

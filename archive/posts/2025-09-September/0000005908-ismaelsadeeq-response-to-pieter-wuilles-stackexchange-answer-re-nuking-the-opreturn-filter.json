@@ -7,15 +7,15 @@
   "cooked": "<p>I think your assumption about Bitcoin Core fee estimation is not accurate. We do not rely solely on mempool transaction data for fee estimation, as you imply.</p>\n<p>We use transactions that your node has seen in its mempool that have been confirmed. If your node\u2019s policy rules diverge from the majority of the network and prevent it from seeing a significant number of transactions, this can negatively affect the <code>estimatesmartfee</code> algorithm.</p>\n<p>Even proposals for mempool-based fee estimation do not use mempool data blindly; they apply metrics and verify that a node\u2019s policy aligns with the majority of the network\u2019s hashrate before estimating fees using unconfirmed mempool transactions.</p>\n<p>If only a small fraction of miners filter differently than your node, the effect is negligible: your node will still see most transactions and should estimate fees accurately.</p>\n<p>The problem arises when a large percentage of the hashrate is filtering. In that case, Wuille has proposed <a href=\"https://github.com/bitcoin/bitcoin/issues/27995\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Improving fee estimation accuracy \u00b7 Issue #27995 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a> ignoring transactions that a node expects to confirm that are not actually confirming when making a fee-rate estimate. This prevents overpaying when filtered transactions pay higher fees and mitigates adversarial scenarios where a miner controlling a majority of hashrate broadcasts high-fee transactions without confirming them to try to trick the network into paying more.</p>\n<p>We are not in that situation now. I think it is in the best interest of your node\u2019s mempool to reflect the policy of the majority of the network\u2019s hashrate; if it does not, it will harm the node\u2019s ability to predict competitive transaction fees for its transaction.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 16,
   "updated_at": "2025-09-17T18:43:39.064Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 30,
-  "readers_count": 29,
-  "score": 44.6,
+  "incoming_link_count": 4,
+  "reads": 85,
+  "readers_count": 84,
+  "score": 96.8,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -69,11 +69,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

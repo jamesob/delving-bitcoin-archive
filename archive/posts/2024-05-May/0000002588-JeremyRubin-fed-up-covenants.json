@@ -7,14 +7,15 @@
   "cooked": "<p>yes this is correct understanding, and I think your decrypt function looks correct.</p>\n<p>I think it\u2019s more intuitive to think of Decrypt as just the actual function call, but the normal FE papers don\u2019t do this for various reasons.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-05-31T18:57:22.401Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 18.0,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 24.8,
   "yours": false,
   "topic_id": 929,
   "topic_slug": "fed-up-covenants",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 343,
     "username": "AdamISZ",
     "name": "Adam Gibson",
     "avatar_template": "/user_avatar/delvingbitcoin.org/adamisz/{size}/418_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "yes this is correct understanding, and I think your decrypt function looks correct. \nI think it\u2019s more intuitive to think of Decrypt as just the actual function call, but the normal FE papers don\u2019t do this for various reasons.",
+  "truncated": true,
+  "post_url": "/t/fed-up-covenants/929/6",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -1,6 +1,6 @@
 # Bitcoin Core 27.0 released
 
-fanquake | 2024-04-17 16:33:39 UTC | #1
+fanquake | 2024-04-27 02:03:09 UTC | #1
 
 Bitcoin Core version v27.0 is now available from:
 

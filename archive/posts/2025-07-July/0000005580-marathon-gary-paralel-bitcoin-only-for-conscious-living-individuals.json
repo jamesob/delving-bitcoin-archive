@@ -7,15 +7,15 @@
   "cooked": "<p>I would recommend looking into the term \u201cfungible\u201d in your exploration of why this idea makes no sense.</p>\n<p>Additionally, why would you want to limit internet use to just \u201cliving individuals\u201d. There is a robust and established use case for bitcoin it\u2019s layers for the machine payable web.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 13,
   "updated_at": "2025-07-28T13:48:08.024Z",
   "reply_count": 2,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 29,
-  "readers_count": 28,
-  "score": 15.8,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 19.8,
   "yours": false,
   "topic_id": 1877,
   "topic_slug": "paralel-bitcoin-only-for-conscious-living-individuals",
@@ -40,7 +40,7 @@
   "reply_to_user": {
     "id": 874,
     "username": "davidtaubmann",
-    "name": "David Taubmann",
+    "name": "David Taubmann (david.qro.mx)",
     "avatar_template": "/user_avatar/delvingbitcoin.org/davidtaubmann/{size}/1439_2.png"
   },
   "bookmarked": false,
@@ -63,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

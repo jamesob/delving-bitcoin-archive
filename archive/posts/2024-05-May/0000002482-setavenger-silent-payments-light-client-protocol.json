@@ -7,14 +7,15 @@
   "cooked": "<p>During the development of a couple light clients I jotted down some notes and created a very early draft for a <a href=\"https://github.com/setavenger/BIP0352-light-client-specification\" rel=\"noopener nofollow ugc\">Light Client Specification</a>. The appendix of the SP BIP was used as a basis for this. The specification was designed with two goals in mind. (1) Reduce the computational burden for light clients, and (2) Minimise the bandwidth requirements. Both goals have to be achieved without compromising privacy for the user. The protocol is designed such that a light client can connect to any public indexing server without giving out more information than \u201cI\u2019m interested in this block\u201d.</p>\n<p>There have been a couple short discussions around this Light Client Protocol. Now that an early draft exists I would like to get more people involved in the process. The draft can be found here: <a href=\"https://github.com/setavenger/BIP0352-light-client-specification\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - setavenger/BIP0352-light-client-specification: This repo has the goal to define a spec for a BIP0352 Silent Payment light client</a></p>\n<p>The computational burden is reduced by generating a tweak index. To further reduce the required computations (and also bandwidth) we can apply cut-through to the transactions. So pruning tweaks for transactions where all taproot UTXOs are spent. Bandwidth is reduced through various measures which mainly revolve around only providing the data necessary for a light client to find and spend a UTXO.</p>\n<p>The basic flow for a client to receive is as follows:</p>\n<p>Per block:</p>\n<ol>\n<li>Fetch the tweaks (possibly filtered for dust limit)</li>\n<li>Compute the possible pubKeys for n = 0</li>\n<li>Fetch taproot-only filter (BIP 158)</li>\n<li>Compare the pubKeys against a taproot-only filter\n<ul>\n<li>If no match: go to 1. with block_height + 1</li>\n<li>Else: continue with 5.</li>\n</ul>\n</li>\n<li>Fetch simplified UTXOs</li>\n<li>Scan according to the BIP (one could reuse pubKeys from 2. here)</li>\n<li>Collect all matched UTXOs and add to wallet</li>\n<li>Go to 1. with block_height + 1</li>\n</ol>\n<p>As mentioned in the specification a scriptPubKey that has already received funds should be tracked as well. The reasoning can be found in the specification.</p>",
   "post_number": 1,
   "post_type": 1,
-  "updated_at": "2024-05-21T09:15:50.167Z",
-  "reply_count": 1,
+  "posts_count": 16,
+  "updated_at": "2024-05-23T10:04:49.381Z",
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 56,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 319.8,
+  "incoming_link_count": 560,
+  "reads": 76,
+  "readers_count": 75,
+  "score": 2915.2,
   "yours": false,
   "topic_id": 891,
   "topic_slug": "silent-payments-light-client-protocol",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -48,17 +50,20 @@
   "staff": false,
   "user_id": 435,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "During the development of a couple light clients I jotted down some notes and created a very early draft for a <a href=\"https://github.com/setavenger/BIP0352-light-client-specification\" rel=\"noopener nofollow ugc\">Light Client Specification</a>. The appendix of the SP BIP was used as a basis for this. The specification was designed with two goals in mind. (1) Reduce the computational burden for light cli&hellip;",
+  "truncated": true,
+  "post_url": "/t/silent-payments-light-client-protocol/891/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     },
     {
       "id": "heart",
@@ -67,6 +72,11 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

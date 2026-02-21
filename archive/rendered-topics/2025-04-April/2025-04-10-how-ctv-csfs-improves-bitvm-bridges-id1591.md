@@ -535,15 +535,3 @@ Let me know if you see anything wrong with this analysis or have other use cases
 
 -------------------------
 
-1440000bytes | 2025-06-25 21:13:08 UTC | #26
-
-(post deleted by author)
-
--------------------------
-
-1440000bytes | 2025-06-25 21:12:02 UTC | #27
-
-(post deleted by author)
-
--------------------------
-

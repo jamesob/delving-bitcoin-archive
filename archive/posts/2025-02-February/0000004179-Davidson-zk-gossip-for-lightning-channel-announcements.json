@@ -7,14 +7,15 @@
   "cooked": "<p>Hi <a class=\"mention\" href=\"/u/halseth\">@halseth</a> thanks for the impressive work you\u2019ve been putting on this zk prover.</p>\n<p>One major advantage I can think of using this approach, is that it works out-of-the-box with extremely lightweight nodes like <a href=\"https://github.com/vinteumorg/Floresta\" rel=\"noopener nofollow ugc\">floresta</a> and <a href=\"https://github.com/utreexo/utreexod\" rel=\"noopener nofollow ugc\">utreexod</a>, since the utreexo state is all context you need to verify the proof. This would be beneficial for resource-constrained lightning nodes, as they may not have full access to the UTXO set.</p>\n<p>Just out of curiosity: have you benchmarked this using an algebraic hash function? <code>rustreexo</code> now (since October last year to be precise) lets you choose your custom hash function, and algebraic hashes are waaaayyy lighter when running inside a prover. I wonder how much proving time is due to utreexo proofs.</p>\n<p>I see you\u2019re using my bridge node for proof generation, it supports Poseidon 2 as hash function and puts everything in a nice json format intended for provers (this was developed for the folks at starkware for their bitcoin zk prover), just need to toggle the <code>shinigami</code> feature (it won\u2019t build the API tho).</p>",
   "post_number": 21,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2025-02-05T00:35:23.038Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 23.2,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 31.4,
   "yours": false,
   "topic_id": 1407,
   "topic_slug": "zk-gossip-for-lightning-channel-announcements",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hi <a class=\"mention\" href=\"/u/halseth\">@halseth</a> thanks for the impressive work you\u2019ve been putting on this zk prover. \nOne major advantage I can think of using this approach, is that it works out-of-the-box with extremely lightweight nodes like <a href=\"https://github.com/vinteumorg/Floresta\" rel=\"noopener nofollow ugc\">floresta</a> and <a href=\"https://github.com/utreexo/utreexod\" rel=\"noopener nofollow ugc\">utreexod</a>, since the utreexo state is all context you need to verify the proof.&hellip;",
+  "truncated": true,
+  "post_url": "/t/zk-gossip-for-lightning-channel-announcements/1407/21",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

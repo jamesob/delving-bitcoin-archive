@@ -7,15 +7,15 @@
   "cooked": "<p>Hi everyone. I recently wrote an analysis about the security of skipping <code>assumed-valid</code> witness downloads for pruned nodes. This possibility was first mentioned in <a href=\"https://bitcoincore.org/en/2016/01/26/segwit-benefits/#efficiency-gains-when-not-verifying-signatures\" rel=\"noopener nofollow ugc\">Segregated Witness Benefits</a>, but at the time <code>assume-valid</code> didn\u2019t exist. Then, two years ago, after <a href=\"https://bitcoin.stackexchange.com/questions/117057/why-is-witness-data-downloaded-during-ibd-in-prune-mode\" rel=\"noopener nofollow ugc\">this BSE question</a>, <a href=\"https://github.com/bitcoin/bitcoin/pull/27050\" rel=\"noopener nofollow ugc\">a PR</a> was opened in Bitcoin Core to gather feedback on this, but there were some concerns about this being a security reduction.</p>\n<p>This witnessless sync for pruned nodes would reduce bandwidth usage by more than 40%, which translates to hundreds of GBs saved during IBD. These network savings compound nicely with <code>assume-valid</code>, as the bottleneck is less likely to be the CPU, and now also the bandwidth. As shown in the PR, implementing this was relatively straightforward.</p>\n<p>Below I will summarize what I found, but you can read the full writeup here: <a href=\"https://gist.github.com/JoseSK999/df0a2a014c7d9b626df1e2b19ccc7fb1\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Witnessless Sync: Why Pruned Nodes Can Skip Witness Downloads for Assume-Valid Blocks \u00b7 GitHub</a></p>\n<p>The main concern about Witnessless Sync was that we don\u2019t check the witness data availability before syncing (as we skip downloading it, for <code>assume-valid</code> blocks), but I argue it is already implicitly checked by <code>assume-valid</code>:</p>\n<ol>\n<li>If you use <code>assume-valid</code> you trust that the scripts are valid.</li>\n<li>In order for the scripts to be valid, the witnesses must have been available. Missing witness data means script evaluation fails, which we assume not to be the case because of 1.</li>\n<li>Hence, you <strong>do</strong> know the witnesses were available at some point, because it is a premise of <code>assume-valid</code>.</li>\n</ol>\n<p>Then, using this fact, you can see how Witnessless Sync follows the same data-availability model as a regular pruned node. Pruned nodes only need a one-time data availability check, performed during IBD. After that, they aren\u2019t required to download the same blocks after x months/years to verify the data is still available.</p>\n<p>Since our Witnessless Sync node already has this one-time past availability check covered by <code>assume-valid</code>, downloading witnesses is actually checking availability twice. AFAIK this is not required for pruned nodes, even if the data availability check (IBD) was performed many years ago.</p>\n<p>This is why I believe this change is as safe as a long-running pruned node (you know data was available at some point in the past, and that\u2019s enough). I\u2019d love to hear any thoughts or criticisms you might have!</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-05-31T16:19:33.254Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 18,
-  "reads": 31,
-  "readers_count": 30,
-  "score": 51.0,
+  "incoming_link_count": 152,
+  "reads": 53,
+  "readers_count": 52,
+  "score": 785.6,
   "yours": false,
   "topic_id": 1742,
   "topic_slug": "witnessless-sync-for-pruned-nodes",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi everyone. I recently wrote an analysis about the security of skipping `assumed-valid` witness downloads for pruned nodes. This possibility was first mentioned in [Segregated Witness Benefits](https://bitcoincore.org/en/2016/01/26/segwit-benefits/#efficiency-gains-when-not-verifying-signatures), but at the time `assume-valid` didn't exist. Then, two years ago, after [this BSE question](https://bitcoin.stackexchange.com/questions/117057/why-is-witness-data-downloaded-during-ibd-in-prune-mode), [a PR](https://github.com/bitcoin/bitcoin/pull/27050) was opened in Bitcoin Core to gather feedback on this, but there were some concerns about this being a security reduction.\n\nThis witnessless sync for pruned nodes would reduce bandwidth usage by more than 40%, which translates to hundreds of GBs saved during IBD. These network savings compound nicely with `assume-valid`, as the bottleneck is less likely to be the CPU, and now also the bandwidth. As shown in the PR, implementing this was relatively straightforward.\n\nBelow I will summarize what I found, but you can read the full writeup here: https://gist.github.com/JoseSK999/df0a2a014c7d9b626df1e2b19ccc7fb1\n\nThe main concern about Witnessless Sync was that we don't check the witness data availability before syncing (as we skip downloading it, for `assume-valid` blocks), but I argue it is already implicitly checked by `assume-valid`:\n\n1. If you use `assume-valid` you trust that the scripts are valid.\n2. In order for the scripts to be valid, the witnesses must have been available. Missing witness data means script evaluation fails, which we assume not to be the case because of 1.\n3. Hence, you **do** know the witnesses were available at some point, because it is a premise of `assume-valid`.\n\nThen, using this fact, you can see how Witnessless Sync follows the same data-availability model as a regular pruned node. Pruned nodes only need a one-time data availability check, performed during IBD. After that, they aren't required to download the same blocks after x months/years to verify the data is still available.\n\nSince our Witnessless Sync node already has this one-time past availability check covered by `assume-valid`, downloading witnesses is actually checking availability twice. AFAIK this is not required for pruned nodes, even if the data availability check (IBD) was performed many years ago.\n\nThis is why I believe this change is as safe as a long-running pruned node (you know data was available at some point in the past, and that's enough). I'd love to hear any thoughts or criticisms you might have!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,19 @@
   "excerpt": "Hi everyone. I recently wrote an analysis about the security of skipping assumed-valid witness downloads for pruned nodes. This possibility was first mentioned in <a href=\"https://bitcoincore.org/en/2016/01/26/segwit-benefits/#efficiency-gains-when-not-verifying-signatures\" rel=\"noopener nofollow ugc\">Segregated Witness Benefits</a>, but at the time assume-valid didn\u2019t exist. Then, two years ago, after <a href=\"https://bitcoin.stackexchange.com/questions/117057/why-is-witness-data-downloaded-during-ibd-in-prune-mode\" rel=\"noopener nofollow ugc\">this BSE question</a>, <a href=\"https://github.com/bitcoin/bitcoin/pull/27050\" rel=\"noopener nofollow ugc\">a PR</a> was opened in &hellip;",
   "truncated": true,
   "post_url": "/t/witnessless-sync-for-pruned-nodes/1742/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

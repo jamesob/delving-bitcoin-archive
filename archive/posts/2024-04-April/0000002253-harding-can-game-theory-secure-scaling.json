@@ -2,19 +2,20 @@
   "id": 2253,
   "name": "David A. Harding",
   "username": "harding",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png",
   "created_at": "2024-04-17T15:13:15.924Z",
   "cooked": "<p>This item seems unaddressed in your document:</p>\n<blockquote>\n<p>Risk that the counterparty is also a huge individual miner and can steal some funds (in case of receiver) or even all the funds (in case of UTXO owner/initial sender)</p>\n</blockquote>\n<p>In general, I think it\u2019s worth comparing this to LN-Symmetry (eltoo).  In that protocol, the worst case for an honest party is that they\u2019ll lose transaction fees putting the latest state onchain,<sup class=\"footnote-ref\"><a href=\"#footnote-2253-1\" id=\"footnote-ref-2253-1\">[1]</a></sup> which can be a very small percentage of a high-value channel.</p>\n<p>In your proposal, an honest party will lose a significant fraction of their funds in order to penalize a dishonest party.</p>\n<ul>\n<li>\n<p>For the receiver Bob, that means he may only accept such a UTXO from Alice under a discount compared to cheaper-to-enforce mechanisms, e.g. Alice_BTC will be worth less than regular onchain BTC.</p>\n</li>\n<li>\n<p>For the spender Alice, that means she may only be interested in offering such a UTXO if she can earn a risk premium on it above the market rate for other less-risky investments.</p>\n</li>\n</ul>\n<p>If either or both of those values significantly diverge from 0%, it\u2019s unlikely that there will be a market match.</p>\n<p>LN works well because the expected loss to an honest party is small, so neither side is requesting a premium or a discount.  I\u2019m not sure a system with a high risk of loss can work as well, unless everyone can be absolutely sure that the game theory nearly perfectly predicts that no one will defect from the cooperative strategy.</p>\n<hr class=\"footnotes-sep\">\n\n<ol class=\"footnotes-list\">\n<li id=\"footnote-2253-1\" class=\"footnote-item\"><p>Assuming mining remains uncensored.  If there\u2019s enough collusion between miners to censor transactions, then a miner colluding with an malicious counterparty can confirm an old state. <a href=\"#footnote-ref-2253-1\" class=\"footnote-backref\">\u21a9\ufe0e</a></p>\n</li>\n</ol>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-04-17T15:13:15.924Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "incoming_link_count": 1,
+  "reads": 21,
+  "readers_count": 20,
+  "score": 29.2,
   "yours": false,
   "topic_id": 797,
   "topic_slug": "can-game-theory-secure-scaling",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This item seems unaddressed in your document:\n\n> Risk that the counterparty is also a huge individual miner and can steal some funds (in case of receiver) or even all the funds (in case of UTXO owner/initial sender)\n\nIn general, I think it's worth comparing this to LN-Symmetry (eltoo).  In that protocol, the worst case for an honest party is that they'll lose transaction fees putting the latest state onchain,[^1] which can be a very small percentage of a high-value channel.\n\nIn your proposal, an honest party will lose a significant fraction of their funds in order to penalize a dishonest party.\n\n- For the receiver Bob, that means he may only accept such a UTXO from Alice under a discount compared to cheaper-to-enforce mechanisms, e.g. Alice_BTC will be worth less than regular onchain BTC.\n\n- For the spender Alice, that means she may only be interested in offering such a UTXO if she can earn a risk premium on it above the market rate for other less-risky investments.\n\nIf either or both of those values significantly diverge from 0%, it's unlikely that there will be a market match.\n\nLN works well because the expected loss to an honest party is small, so neither side is requesting a premium or a discount.  I'm not sure a system with a high risk of loss can work as well, unless everyone can be absolutely sure that the game theory nearly perfectly predicts that no one will defect from the cooperative strategy.\n\n[^1]: Assuming mining remains uncensored.  If there's enough collusion between miners to censor transactions, then a miner colluding with an malicious counterparty can confirm an old state.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "This item seems unaddressed in your document: \n\nRisk that the counterparty is also a huge individual miner and can steal some funds (in case of receiver) or even all the funds (in case of UTXO owner/initial sender) \n\nIn general, I think it\u2019s worth comparing this to LN-Symmetry (eltoo).  In that prot&hellip;",
+  "truncated": true,
+  "post_url": "/t/can-game-theory-secure-scaling/797/7",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

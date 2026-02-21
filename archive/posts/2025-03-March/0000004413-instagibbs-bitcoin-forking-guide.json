@@ -7,14 +7,15 @@
   "cooked": "<p>Under this framework, I guess I\u2019d park my <a href=\"https://delvingbitcoin.org/t/ln-symmetry-project-recap/359\" class=\"inline-onebox\">LN-Symmetry Project Recap</a> work under \u201cPower User Exploration\u201d.</p>\n<p>My intentions were, for APO at least to push forward the three goals of that phase:</p>\n<blockquote>\n<p>The main goals of progressing through this phase are:</p>\n</blockquote>\n<blockquote>\n<ul>\n<li>Making sure your idea can actually be implemented as conceived</li>\n<li>Testing your idea in practice to find unexpected flaws</li>\n<li>Having a ready-to-use implementation to present to industry participants</li>\n</ul>\n</blockquote>\n<p>Obviously some of this work can be retooled to validate other proposals like CTV+CSFS / TXHASH+CSFS or similar, assuming the work to actually retool is done by whoever is pushing it forward.</p>\n<p>The trickier part to me is I think we can\u2019t be too protocol-focused on whatever we are attempting to do, as requirements/goals change for each project over time, even ignoring paradigm shifts in L2 architectures.</p>\n<p>A set of proposals coming out of research stage being seemingly inapplicable to actual usage / L2s in practice is a signal that\u2019s something is off, but it\u2019s not entirely clear to me what that relationship be, aside from the fact that we should tend to err on the side of composability, at the expense of some additional vbytes (but how much?).</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2025-03-04T21:21:58.631Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 16.8,
+  "incoming_link_count": 2,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 30.8,
   "yours": false,
   "topic_id": 1451,
   "topic_slug": "bitcoin-forking-guide",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Under this framework, I guess I\u2019d park my <a href=\"https://delvingbitcoin.org/t/ln-symmetry-project-recap/359\" class=\"inline-onebox\">LN-Symmetry Project Recap</a> work under \u201cPower User Exploration\u201d. \nMy intentions were, for APO at least to push forward the three goals of that phase: \n\nThe main goals of progressing through this phase are: \n\n\n\nMaking sure your idea can actually be implemented &hellip;",
+  "truncated": true,
+  "post_url": "/t/bitcoin-forking-guide/1451/3",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

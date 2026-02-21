@@ -7,14 +7,15 @@
   "cooked": "<p>I could help with the implementation of a min-cut algorithm from scratch.\nGiven the fact that clusters are expected to be small, I would stick to simpler implementations\nso the Bisection search would be my pick (E.L. Lawler mentioned above).\nAlso a tailored implementation could exploit the problem\u2019s specific characteristics, eg. that\nall arcs besides those connecting s and t, have unlimited capacity and that the cluster\ndoesn\u2019t have cycles.</p>\n<p>It would be nice to have some test cases, like the typical worst case clusters one might expect\nand such, for benchmarks.</p>",
   "post_number": 22,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-02T09:01:18.795Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 21,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 1.6,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 18.2,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "I could help with the implementation of a min-cut algorithm from scratch.\nGiven the fact that clusters are expected to be small, I would stick to simpler implementations\nso the Bisection search would be my pick (E.L. Lawler mentioned above).\nAlso a tailored implementation could exploit the problem's specific characteristics, eg. that\nall arcs besides those connecting s and t, have unlimited capacity and that the cluster\ndoesn't have cycles.\n\nIt would be nice to have some test cases, like the typical worst case clusters one might expect\nand such, for benchmarks.",
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I could help with the implementation of a min-cut algorithm from scratch.\nGiven the fact that clusters are expected to be small, I would stick to simpler implementations\nso the Bisection search would be my pick (E.L. Lawler mentioned above).\nAlso a tailored implementation could exploit the problem\u2019s&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/22",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

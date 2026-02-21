@@ -7,14 +7,15 @@
   "cooked": "<p>In principle, it is possible to analyze non-static <code>&lt;n&gt;</code> for <code>ROLL</code> or <code>PICK</code> to some degree.</p>\n<p>I\u2019m not sure how practical it is, though, and if it is worth it putting the effort to allow this.</p>\n<p>Each value of <code>&lt;n&gt;</code> for <code>ROLL</code> will require its own execution path. <code>bsst</code> could put some upper limit on <code>&lt;n&gt;</code>, generate that many execution paths, analyze them one by one, and then show them in the report as \u2018branches\u2019 with conditions like <code>&lt;n&gt; = 1</code>, <code>&lt;n&gt; = 2</code>, etc.</p>\n<p>But if <code>&lt;n&gt;</code> could happen to be above this limit, the analysis will be incomplete. The report can show a warning, something like \u201cargument for PICK can be above the limit, analysis is incomplete\u201d. This warning will be shown in each execution path generated for each value of <code>&lt;n&gt;</code>.</p>\n<p>If there are more than one such place in the script with non-static arg for <code>PICK</code> or <code>ROLL</code>, you will get a <em>lot</em> of execution paths in the report :-). I guess there needs to be an upper limit for the number of exec paths, too.</p>\n<p>Can you give some examples of the <em>practical</em> scripts with non-static arg for <code>PICK</code> or <code>ROLL</code> ?</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2023-10-13T13:15:11.468Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 66.6,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 84.8,
   "yours": false,
   "topic_id": 137,
   "topic_slug": "bsst-plugins-for-covenant-opcodes",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -48,20 +50,27 @@
   "staff": false,
   "user_id": 85,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 3,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "In principle, it is possible to analyze non-static &lt;n&gt; for ROLL or PICK to some degree. \nI\u2019m not sure how practical it is, though, and if it is worth it putting the effort to allow this. \nEach value of &lt;n&gt; for ROLL will require its own execution path. bsst could put some upper limit on &lt;n&gt;, generate&hellip;",
+  "truncated": true,
+  "post_url": "/t/bsst-plugins-for-covenant-opcodes/137/3",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

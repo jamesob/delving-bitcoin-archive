@@ -7,14 +7,15 @@
   "cooked": "<p>I agree with Ruben here that address1 should be whatever the receiver is comfortable will be compatible and cheaper for them to accept.  I previously worked at Bitrefill building a bit part of the payment experience, we moved to using segwit bec32 addresses and have not seen any issues and wouldn\u2019t necessarily want to default to a more expensive but more backward compatible address.</p>\n<p>One thing we would have liked would be to to be able to set a taproot address so wallets that do support it can opt in to send to that instead.</p>",
   "post_number": 20,
   "post_type": 1,
+  "posts_count": 20,
   "updated_at": "2024-04-26T20:36:49.983Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "incoming_link_count": 1,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 26.6,
   "yours": false,
   "topic_id": 630,
   "topic_slug": "revisiting-bip21",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 2,
     "username": "RubenSomsen",
     "name": "Ruben Somsen",
     "avatar_template": "/user_avatar/delvingbitcoin.org/rubensomsen/{size}/188_2.png"
   },
   "bookmarked": false,
   "raw": "I agree with Ruben here that address1 should be whatever the receiver is comfortable will be compatible and cheaper for them to accept.  I previously worked at Bitrefill building a bit part of the payment experience, we moved to using segwit bec32 addresses and have not seen any issues and wouldn't necessarily want to default to a more expensive but more backward compatible address.\n\nOne thing we would have liked would be to to be able to set a taproot address so wallets that do support it can opt in to send to that instead.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I agree with Ruben here that address1 should be whatever the receiver is comfortable will be compatible and cheaper for them to accept.  I previously worked at Bitrefill building a bit part of the payment experience, we moved to using segwit bec32 addresses and have not seen any issues and wouldn\u2019t &hellip;",
+  "truncated": true,
+  "post_url": "/t/revisiting-bip21/630/20",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

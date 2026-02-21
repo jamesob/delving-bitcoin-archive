@@ -7,14 +7,15 @@
   "cooked": "<p>I think the modal hack is awkward, and mildly prefer a new set of opcodes, but I prefer them to be general rather than require conversion codes. This can be done most simply by having new opcodes only deal with unsigned numbers.</p>\n<p>I also have a preference for larger precision: 64 bits can be limiting (though not as limiting as 31 in a protocol with larger amounts!).</p>\n<p>Finally, it\u2019s worth considering carefully what interactions would occur with reenabling MUL, LSHIFT, SUBSTR and the like.</p>\n<p>In case you missed it, please consider: <a href=\"https://rusty.ozlabs.org/2023/12/30/arithmetic-opcodes.html\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Arithmetic Opcodes: What Could They Look Like? | Rusty Russell\u2019s Quiet Corner of The Internet</a></p>",
   "post_number": 19,
   "post_type": 1,
+  "posts_count": 52,
   "updated_at": "2024-01-12T16:22:29.735Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 33.6,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 52.8,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think the modal hack is awkward, and mildly prefer a new set of opcodes, but I prefer them to be general rather than require conversion codes. This can be done most simply by having new opcodes only deal with unsigned numbers. \nI also have a preference for larger precision: 64 bits can be limiting&hellip;",
+  "truncated": true,
+  "post_url": "/t/64-bit-arithmetic-soft-fork/397/19",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

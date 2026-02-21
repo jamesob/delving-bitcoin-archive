@@ -7,15 +7,15 @@
   "cooked": "<p>The algebraic structure of lattices suggests that HD wallets, silent\u2011payment\u2013style addresses, key aggregation, and threshold signatures can be built on post\u2011quantum primitives and could, in principle, align with the current draft BIP\u2011360 (P2QRH) and ML\u2011DSA (Dilithium, FIPS 204).</p>\n<ul>\n<li>\n<p><strong>HD wallets &amp; stealth addresses</strong><br>\n<em>\u201c<a href=\"https://www.sciencedirect.com/science/article/pii/S0304397524002895?via%3Dihub\" rel=\"noopener nofollow ugc\">A Secure Hierarchical Deterministic Wallet with Stealth Address from Lattices</a>\u201d</em> proposes a deterministic tree based on basis\u2011delegation and a static public identifier from which any sender can derive a one\u2011time address.</p>\n</li>\n<li>\n<p><strong>Key aggregation (MuSig\u2011like)</strong><br>\n<em>\u201c<a href=\"https://link.springer.com/chapter/10.1007/978-3-030-51938-4_14\" rel=\"noopener nofollow ugc\">Round\u2011Optimal Secure Multisignature Schemes from Lattices with Public Key Aggregation and Signature Compression</a>\u201d</em> shows that multiple lattice public keys can be aggregated into a single pk and signature. A more efficient follow\u2011up is <em>\u201c<a href=\"https://academic.oup.com/comjnl/article-abstract/65/9/2421/6289877?redirectedFrom=fulltext\" rel=\"noopener nofollow ugc\">Efficient Multi\u2011Signature Scheme Using Lattice</a>\u201d</em>.</p>\n</li>\n<li>\n<p><strong>Threshold signatures (FROST\u2011like)</strong><br>\n<em>\u201c<a href=\"https://eprint.iacr.org/2025/872\" rel=\"noopener nofollow ugc\">Finally! A Compact Lattice\u2011Based Threshold Signature</a>\u201d</em> gives a t\u2011of\u2011n protocol (t \u2264 8) whose final signature is the same size as a single Dilithium sig.</p>\n</li>\n</ul>\n<p>Taken together, these papers indicate there is nothing inherently blocking lattice\u2011based post\u2011quantum replacements for BIP\u201132, BIP\u2011352 silent payments, MuSig, or FROST.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 3,
   "updated_at": "2025-07-20T18:33:40.534Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 76,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 373.0,
+  "incoming_link_count": 282,
+  "reads": 53,
+  "readers_count": 52,
+  "score": 1535.6,
   "yours": false,
   "topic_id": 1854,
   "topic_slug": "post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 8
     }
   ],
   "moderator": false,
@@ -50,7 +50,7 @@
   "staff": false,
   "user_id": 860,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
@@ -63,15 +63,20 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 6
     },
     {
       "id": "heart",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 8,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Sounds like you might refer to</p>\n<p><em>Miller, Andrew, and Joseph J. LaViola Jr. \u201cAnonymous byzantine consensus from moderately-hard puzzles: A model for bitcoin.\u201d <em>Available on line: <a href=\"http://nakamotoinstitute.org/research/anonymous-byzantine-consensus\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Anonymous Byzantine Consensus from Moderately-Hard Puzzles: A Model for Bitcoin | Satoshi Nakamoto Institute</a></em> (2014).</em></p>",
   "post_number": 19,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2025-01-05T11:36:35.625Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 1.8,
+  "incoming_link_count": 1,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 31.0,
   "yours": false,
   "topic_id": 1331,
   "topic_slug": "fastest-possible-pow-via-simple-dag",
@@ -37,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "Sounds like you might refer to \n\n*Miller, Andrew, and Joseph J. LaViola Jr. \"Anonymous byzantine consensus from moderately-hard puzzles: A model for bitcoin.\" *Available on line: http://nakamotoinstitute.org/research/anonymous-byzantine-consensus* (2014).*",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Sounds like you might refer to \nMiller, Andrew, and Joseph J. LaViola Jr. \u201cAnonymous byzantine consensus from moderately-hard puzzles: A model for bitcoin.\u201d Available on line: <a href=\"http://nakamotoinstitute.org/research/anonymous-byzantine-consensus\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Anonymous Byzantine Consensus from Moderately-Hard Puzzles: A Model for Bitcoin | Satoshi Nakamoto Institute</a> (2014).",
+  "truncated": true,
+  "post_url": "/t/fastest-possible-pow-via-simple-dag/1331/19",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

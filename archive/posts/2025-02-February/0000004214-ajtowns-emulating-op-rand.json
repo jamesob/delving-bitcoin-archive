@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"olkurbatov\" data-post=\"1\" data-topic=\"1409\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/olkurbatov/48/299_2.png\" class=\"avatar\"> olkurbatov:</div>\n<blockquote>\n<p>And we can go to the final stage when Alice takes her coins. For that Alice spends the first output, so publishes <span class=\"math\">P_a + A_1</span> value.</p>\n<p>If the secret key <span class=\"math\">h_1 + sk_b</span> satisfies the address <span class=\"math\">\\mathsf{addr}_b</span>, Bob can take 10 BTC , locked on the second output. If not \u2014 Alice can spend them after the timelock.</p>\n</blockquote>\n</aside>\n<p>Why wouldn\u2019t Alice sit on the <span class=\"math\">P_a+A_1</span> output until the <span class=\"math\">\\mathsf{addr}_b</span> timelock expires, even if Bob guessed correctly? I would have expected an extra setup tx, like:</p>\n<pre data-code-height=\"328\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">classDiagram\n    class Alice{\n        AliceFunds\n        Pa+A1()\n    }\n    class ChallengeTx{\n        Pa+A1 [pubkey reveal + sig]\n        BobFunds\n        BobWinsOrAliceTimeout()\n    }\n    Alice&lt;|--ChallengeTx\n</code></pre>\n<p>where Alice can only complete the challenge tx to publish it by revealing <span class=\"math\">P_a+A_1</span>.</p>\n<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"2\" data-topic=\"1409\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/925_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>Only if the channel is forced closed does the probabilistic payment happen. Is that possible with your scheme?</p>\n</blockquote>\n</aside>\n<p>I don\u2019t think this quite works \u2013 you\u2019d need the force-closer to take the challenger role (because they\u2019re publishing the tx), but you also need the recipient of the HTLC to take the acceptor role (because they\u2019re the one that gets the 1-in-1000 chance of a win, with the challenger getting the remaining 999-in-1000 chance), so if the force-closer is the recipient of the probabilistic payment, you\u2019ve got a problem. Might be recoverable with tweaks to the protocol though?</p>\n<p>Having to transmit 1000 hashed pubkeys and a zkp for every dusty-HTLC for every update is also probably prohibitive.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-02-07T04:36:44.490Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 2,
-  "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 38.4,
+  "incoming_link_count": 48,
+  "reads": 52,
+  "readers_count": 51,
+  "score": 305.4,
   "yours": false,
   "topic_id": 1409,
   "topic_slug": "emulating-op-rand",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": true,
@@ -55,11 +56,14 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Why wouldn\u2019t Alice sit on the P_a+A_1 output until the \\mathsf{addr}_b timelock expires, even if Bob guessed correctly? I would have expected an extra setup tx, like: \nclassDiagram\n    class Alice{\n        AliceFunds\n        Pa+A1()\n    }\n    class ChallengeTx{\n        Pa+A1 [pubkey reveal + sig]\n &hellip;",
+  "truncated": true,
+  "post_url": "/t/emulating-op-rand/1409/3",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     },
     {
       "id": "thinking",
@@ -68,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

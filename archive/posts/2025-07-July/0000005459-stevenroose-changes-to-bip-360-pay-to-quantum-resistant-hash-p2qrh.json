@@ -7,15 +7,15 @@
   "cooked": "<p>Allow me to give some reasons of why I disagree here. Note that it\u2019s just naming though, arguably not the most important part of a technical proposal..</p>\n<ul>\n<li>The quantum threat might never materialize and a p2tr-like output type can still be useful without it. If this proposal is advertised as a solution for the quantum threat, it might not get any attention until that threat exists, which might be never.</li>\n<li>The name \u201cpay-to-quantum-resistant-hash\u201d is confusing as it breaks with the convention of output types, that describe what you\u2019re paying into. \u201cpubkey-hash\u201d being the hash of a pubkey, that can sign to spend, \u201cscript-hash\u201d being the hash of a script, that should be fulfilled to spend. No \u201cquantum resistant [thing]\u201d is hashed here, so it sounds like you\u2019re just paying to a hash, as if spending would be done by simply providing the preimage.</li>\n<li>\u201cquantum resistant hash\u201d also sounds like you\u2019re using some better more quantum-resistant hash function, but from reading the BIP it seems like you\u2019re proposing to re-use SHA256 which in my limited QC understanding is quantum-safe? Can be seen as misleading.</li>\n<li>Addresses are to be read by the sender and the sender doesn\u2019t really care if the receiver\u2019s wallet is quantum-resistant. Using letters in the address to convey information also sets a bad UX precedent as they\u2019re not intended to be used that way.</li>\n<li>In the scenario where a quantum threat is imminent or already passed and we are in a post-quantum world, I hope we don\u2019t need address letters or output naming for developers to know what outputs they should be using.</li>\n<li>Also, in such a world, any additional new feature we add to bitcoin will hopefully also be quantum resistant and I hope we won\u2019t be naming every new output type as \u201cpay to quantum resistant something\u201d. Even other new features might be added before. Will we add OP_QUANTUMRESISTANTTXHASH, OP_CHECKQUANTUMRESISTANTCONTRACTVERIFY, etc?</li>\n</ul>\n<p>TL;DR: I think pay-to-tapscript is useful outside of the QC context and association with it might delay interest until QC seems more relevant.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 30,
   "updated_at": "2025-07-14T18:26:10.923Z",
   "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 54.4,
+  "incoming_link_count": 4,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 95.8,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -69,10 +69,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

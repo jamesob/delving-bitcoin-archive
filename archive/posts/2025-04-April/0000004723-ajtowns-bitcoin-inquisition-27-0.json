@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 33.6,
+  "incoming_link_count": 1,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 39.6,
   "yours": false,
   "topic_id": 883,
   "topic_slug": "bitcoin-inquisition-27-0",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 549,
     "username": "GaloisField2718",
     "name": "Galois Field",
     "avatar_template": "/user_avatar/delvingbitcoin.org/galoisfield2718/{size}/824_2.png"
@@ -73,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

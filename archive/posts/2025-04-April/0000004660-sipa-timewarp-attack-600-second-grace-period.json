@@ -7,14 +7,15 @@
   "cooked": "<p>That\u2019s fair, I think this may work, but even if it does, I don\u2019t believe this is a problem.</p>\n<p>Given that the end-of-window time (which is bounded by the current time) goes up by <span class=\"math\">P</span> per block, it means the real-time block production rate in your scheme is exactly <span class=\"math\">P</span> per window, exactly the intended rate. So, from the perspective of validating nodes, there is no resource consumption attack.</p>\n<p>And beyond that, indeed, this allows miners to reduce the difficulty while keeping the block rate constant. But a colluding group of miners is always able to do that: they can just <strong>agree to all reduce their hashrate</strong>, for any difficulty reduction they\u2019d like. But, all that achieves is making it easier/cheaper for a competing miner who doesn\u2019t follow the scheme to take over.</p>",
   "post_number": 38,
   "post_type": 1,
+  "posts_count": 43,
   "updated_at": "2025-04-01T15:12:06.955Z",
   "reply_count": 0,
   "reply_to_post_number": 37,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 22.2,
+  "incoming_link_count": 2,
+  "reads": 23,
+  "readers_count": 22,
+  "score": 29.6,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 71,
     "username": "sjors",
     "name": "Sjors Provoost",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sjors/{size}/59_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "That\u2019s fair, I think this may work, but even if it does, I don\u2019t believe this is a problem. \nGiven that the end-of-window time (which is bounded by the current time) goes up by P per block, it means the real-time block production rate in your scheme is exactly P per window, exactly the intended rate&hellip;",
+  "truncated": true,
+  "post_url": "/t/timewarp-attack-600-second-grace-period/1326/38",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

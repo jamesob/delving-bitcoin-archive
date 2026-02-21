@@ -7,15 +7,15 @@
   "cooked": "<p>Use xor as the aggregator.  The low characteristic field is less secure for a subset sum attack, but since the attacker doesn\u2019t know the salt they can\u2019t make any meaningful progress anyways.  The important property from the hash is its collision resistance with an unknown salt.</p>\n<p>To be the most tidy and paranoid the user\u2019s seed should be a secret function of the blockhash at the AV height (or whatever height the hints are at, if it\u2019s not the AV height.).  The system must not leak any collision information along the way, so no checking for collisions! (which would be slow regardless) It should sync all the way to AV height, and then only if all the chain data it received actually matched AV height should it check the accumulator, don\u2019t check the other way around.  If the system is rerun on the same blockhash it should use the same seed.  If the system tries to sync with a different AV blockhash it should use a different seed.  The point is that an attacker should only get one try per node.  (doing the exact same chain over again isn\u2019t another try so long as the seed stays the same).  So I would suggest that you have some per node random number (maybe there is one saved with the address database already? I forget) and just hash that with the AV blockhash to get your seed.</p>\n<p>This kind of paranoia isn\u2019t necessary for sha256, but I think it\u2019s free to design it that way and would make it safer if deployed with a weaker hash function.</p>\n<p>The requirements here are extraordinarily low because an attacker also has to do chainwork to get the user to adopt a tampered chain\u2026 but I think using a weaker non-cryptographic hash function would not be a good use of development time right now.  With this in place the bottlenecks have to move to things like network, block serialization, validation parallelism overheads\u2026   Development time would be better spent on optimizing those than producing confidence that a non-cryptographic hash is sufficient.  Also hardware with SHA-NI sha256 will be competitive-ish in performance with \u2018fast\u2019 hash functions.</p>\n<aside class=\"quote no-group\" data-username=\"l0rinc\" data-post=\"13\" data-topic=\"1562\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/l0rinc/48/859_2.png\" class=\"avatar\"> l0rinc:</div>\n<blockquote>\n<p>I find skipping amount validation more concerning (potential inflation bugs)</p>\n</blockquote>\n</aside>\n<p>It\u2019s basically free so it should do that for sure.  That said, there are so many lost/abandoned coins that if miners (with developer collusion) create a chain that unjustly rewards them, they\u2019ll just steal coins rather than inflate.</p>\n<p>There are probably a number of tests that are still free to perform that might be getting skipped in your changes without some refactoring, probably worth going and rescuing them.  Like nLocktime can be checked against the block height, sadly CSV can\u2019t be tested.</p>\n<aside class=\"quote no-group\" data-username=\"RubenSomsen\" data-post=\"14\" data-topic=\"1562\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rubensomsen/48/188_2.png\" class=\"avatar\"> RubenSomsen:</div>\n<blockquote>\n<p>Batch validation of Schnorr signatures is an interesting one to reduce CPU load (for the non-assumevalid version).</p>\n</blockquote>\n</aside>\n<p>There is still a significant portion of validation past the AV point, like six months to a year of chain. So even with AV signature validation is in important part of IBD esp if the AV part is made much faster. Keeping that part fast is also good for avoiding any pressure to set AV closer to the tip.</p>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 16,
+  "posts_count": 18,
   "updated_at": "2025-05-03T02:01:24.685Z",
   "reply_count": 1,
   "reply_to_post_number": 13,
   "quote_count": 2,
-  "incoming_link_count": 20,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 123.2,
+  "incoming_link_count": 58,
+  "reads": 67,
+  "readers_count": 66,
+  "score": 338.4,
   "yours": false,
   "topic_id": 1562,
   "topic_slug": "swiftsync-speeding-up-ibd-with-pre-generated-hints-poc",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

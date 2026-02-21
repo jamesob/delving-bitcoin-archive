@@ -7,14 +7,15 @@
   "cooked": "<p>fwiw I found these diagrams easier to understand</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2024-02-02T14:57:16.511Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 20.0,
   "yours": false,
   "topic_id": 512,
   "topic_slug": "taxonomy-of-transaction-fees-in-smart-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": "",
   "reply_to_user": {
+    "id": 3,
     "username": "ajtowns",
     "name": "Anthony Towns",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
   },
   "bookmarked": false,
   "raw": "fwiw I found these diagrams easier to understand",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "fwiw I found these diagrams easier to understand",
+  "truncated": true,
+  "post_url": "/t/taxonomy-of-transaction-fees-in-smart-contracts/512/9",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

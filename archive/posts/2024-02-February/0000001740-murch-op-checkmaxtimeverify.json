@@ -7,14 +7,15 @@
   "cooked": "<p>The biggest issue that comes to mind is that such an expiration mechanism would introduce another source of confusion about the finality of a transaction. Especially if a transaction were included in the ultimate permitted block, this could incentivize reorging out that block instead of working on the next block.</p>\n<p>Another issue would be that it would enable attacks to waste bandwidth, e.g. you could publish a transaction that may only be included in the next block, but give it a feerate that is short of the transaction being attractive for the next block.</p>\n<p>One way of expiring a transaction in an incentive-compatible manner would be to create a conflicting transaction that is timelocked to the expiration time but pays a higher fee and feerate. When the conflicting transaction becomes valid for block inclusion, it would be more attractive for miners to include the conflict than the original transaction which then makes the original invalid.</p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 14,
   "updated_at": "2024-02-29T19:29:30.553Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 67.8,
+  "reads": 40,
+  "readers_count": 39,
+  "score": 93.0,
   "yours": false,
   "topic_id": 581,
   "topic_slug": "op-checkmaxtimeverify",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": "",
   "reply_to_user": {
+    "id": 304,
     "username": "EvanWinget",
     "name": "Evan Winget",
     "avatar_template": "/user_avatar/delvingbitcoin.org/evanwinget/{size}/365_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The biggest issue that comes to mind is that such an expiration mechanism would introduce another source of confusion about the finality of a transaction. Especially if a transaction were included in the ultimate permitted block, this could incentivize reorging out that block instead of working on t&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checkmaxtimeverify/581/6",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

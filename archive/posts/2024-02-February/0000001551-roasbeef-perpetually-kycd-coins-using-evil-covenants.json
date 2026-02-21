@@ -7,14 +7,15 @@
   "cooked": "<p>Yep, there\u2019re around half a dozen different ways we know how to introduce maximally expressive transaction introspection.</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-02-13T23:13:17.260Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 19.4,
+  "incoming_link_count": 1,
+  "reads": 81,
+  "readers_count": 80,
+  "score": 36.2,
   "yours": false,
   "topic_id": 556,
   "topic_slug": "perpetually-kycd-coins-using-evil-covenants",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 292,
     "username": "QcMrHyde",
     "name": null,
     "avatar_template": "/letter_avatar_proxy/v4/letter/q/c37758/{size}.png"
@@ -59,6 +62,9 @@
   "edit_reason": "Automatically removed quote of whole previous post.",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Yep, there\u2019re around half a dozen different ways we know how to introduce maximally expressive transaction introspection.",
+  "truncated": true,
+  "post_url": "/t/perpetually-kycd-coins-using-evil-covenants/556/11",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

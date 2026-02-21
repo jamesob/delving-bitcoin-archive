@@ -7,15 +7,15 @@
   "cooked": "<p>Thanks! No, I haven\u2019t yet deployed this in a TEE, but that\u2019s definitely the next step that I\u2019m working towards. I\u2019d also welcome attempts by others to use this library in a TEE. There are many possible deployments, and I expect that others may have more experience in that area than myself.</p>\n<p>Separately, it would be really valuable to fork <code>rust-bitcoinkernel</code> to add support for the soft forks the community is interested in (<code>OP_CAT</code>,  <code>OP_CTV</code>, <code>OP_CCV</code>, Simplicity, etc.). Having all desired functionality in a single kernel would mean that you could deploy a single TEE to support them all, rather than have separate deployments for each.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 6,
   "updated_at": "2025-08-16T02:51:53.063Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.6,
+  "incoming_link_count": 1,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 33.2,
   "yours": false,
   "topic_id": 1918,
   "topic_slug": "confidential-script-emulate-soft-forks-using-stateless-tees",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks! No, I haven't yet deployed this in a TEE, but that's definitely the next step that I'm working towards. I'd also welcome attempts by others to use this library in a TEE. There are many possible deployments, and I expect that others may have more experience in that area than myself.\n\nSeparately, it would be really valuable to fork `rust-bitcoinkernel` to add support for the soft forks the community is interested in (`OP_CAT`,  `OP_CTV`, `OP_CCV`, Simplicity, etc.). Having all desired functionality in a single kernel would mean that you could deploy a single TEE to support them all, rather than have separate deployments for each.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks! No, I haven\u2019t yet deployed this in a TEE, but that\u2019s definitely the next step that I\u2019m working towards. I\u2019d also welcome attempts by others to use this library in a TEE. There are many possible deployments, and I expect that others may have more experience in that area than myself. \nSeparate&hellip;",
   "truncated": true,
   "post_url": "/t/confidential-script-emulate-soft-forks-using-stateless-tees/1918/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

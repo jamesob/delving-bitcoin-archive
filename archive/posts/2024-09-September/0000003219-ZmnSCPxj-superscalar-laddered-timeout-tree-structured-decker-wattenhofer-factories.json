@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>I don\u2019t see how that works: to add on-chain funds, the LSP needs to modify the root transaction to add more funds to it, right?</p>\n</blockquote>\n<p>No, I mean the LSP takes <em>other</em> LSP-single-sig funds outside of the mechanism and then adds a JIT channel to the client.</p>\n<blockquote>\n<ul>\n<li>B, C and D have been exited, which means they now have a \u201cplain\u201d lightning channels whose funding output is confirmed on-chain: this is fine, they can enroll into a new factory using a splice on that existing channel?</li>\n<li>E, F, G and H are still in a factory that is one level smaller than the previous one and consists of the subtree with those 4 nodes: the number of available state transitions has been reduced (since we lost one level of the tree), but apart from that nothing has changed for them?</li>\n</ul>\n</blockquote>\n<p>Both are correct.</p>\n<blockquote>\n<p>It seems to me that there are non-trivial synchronization issues when moving liquidity inside the factory. If A wants liquidity and B isn\u2019t online, the LSP may reach out to C and D to use their leaf node. If that happens, we still need B to come online as well to exchange all the signature needed to complete the liquidity allocation, right?</p>\n</blockquote>\n<p>Yes, in that case LSP does <strong>not</strong> reach out to <code>C</code> or <code>D</code>, but does an onchain fallback (i.e. open a JIT channel with onchain LSP-single-sig funds).</p>\n<blockquote>\n<p>While we\u2019re waiting for one of those nodes to come online, we may have other, conflicting liquidity allocation requests happening.</p>\n</blockquote>\n<p>A simple heuristic is that if the client leaf partner is offline, the LSP just falls back to opening an onchain JIT channel.  Similarly, if <code>A</code> and <code>B</code> are online but the leaf has depleted the <code>L</code> liquidity, try to wake up <code>C</code> and <code>D</code> and take the <code>L</code> liquidity from their leaf, but if that fails due to offlineness of <code>C</code> or <code>D</code> then just fall back to opening an onchain JIT channel.</p>\n<p>A more sophisticated \u201cwaiting\u201d strategy can probably use research on e.g. optimistic locking implementations of transactional memory.  Basically, every deferred decision to give more liquidity to some client will decide on some set of clients it needs to \u201clock\u201d, and some scheduler can decide the order of client locking using similar implementations to transactional memory.  Once you have locked a client (i.e. checked it is online and reserved its participation in this transfer) you can then check if you can do the liquidity movement using those clients, then once the needed signatures have been provided by the clients you can release the locks on those clients so that other requests can continue.  Most requests will only lock a client and its leaf partner, so this will have high concurrency.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 31,
   "updated_at": "2024-09-18T16:17:04.470Z",
   "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 22.8,
+  "reads": 41,
+  "readers_count": 40,
+  "score": 28.2,
   "yours": false,
   "topic_id": 1143,
   "topic_slug": "superscalar-laddered-timeout-tree-structured-decker-wattenhofer-factories",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 101,
     "username": "t-bast",
     "name": "Bastien Teinturier",
     "avatar_template": "/user_avatar/delvingbitcoin.org/t-bast/{size}/98_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I don\u2019t see how that works: to add on-chain funds, the LSP needs to modify the root transaction to add more funds to it, right? \n\nNo, I mean the LSP takes other LSP-single-sig funds outside of the mechanism and then adds a JIT channel to the client. \n\n\nB, C and D have been exited, which means they &hellip;",
+  "truncated": true,
+  "post_url": "/t/superscalar-laddered-timeout-tree-structured-decker-wattenhofer-factories/1143/7",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

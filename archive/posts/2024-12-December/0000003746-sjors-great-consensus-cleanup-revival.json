@@ -7,14 +7,15 @@
   "cooked": "<p>Discussing and/or improving OpenTimeStamps seems out of scope for this discussion, maybe open a new topic for it?</p>",
   "post_number": 61,
   "post_type": 1,
+  "posts_count": 85,
   "updated_at": "2024-12-09T05:56:29.305Z",
   "reply_count": 1,
   "reply_to_post_number": 60,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 28.0,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 37.2,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 502,
     "username": "zawy",
     "name": "Zawy",
     "avatar_template": "/user_avatar/delvingbitcoin.org/zawy/{size}/750_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Discussing and/or improving OpenTimeStamps seems out of scope for this discussion, maybe open a new topic for it?",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/61",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

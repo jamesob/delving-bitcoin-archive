@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"1\" data-topic=\"1216\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>The idea is that the number of SHA256 iterations should be minimized in the most likely use case we can optimize for, which is LN-Symmetry.</p>\n</blockquote>\n</aside>\n<p>Not really seeing that as particularly important to minimise, personally; the difference between hashing 64 bytes and 256 bytes is pretty minor, compared to the checksig operation(s) you also have. I\u2019d just write <code>[BAL] [CTVHASH] SHA256 SWAP SHA256 CAT SHA256</code>.</p>\n<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"1\" data-topic=\"1216\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>In case of a 7 byte balance commitment + 32 byte CTV hash (no HTLCs in-flight), the total preimage size is 55 bytes. Which should make it fit into a single block with the SHA256 length commitment.</p>\n</blockquote>\n</aside>\n<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"1\" data-topic=\"1216\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>It\u2019s a particular concern for LN-Symmetry with CTV that the concatenation of the two preimages allows for length redistribution attacks, because CTV is only defined for 32 byte templates and will act as NOP for different template sizes for upgradeability.</p>\n</blockquote>\n</aside>\n<p>This seems as much an argument against doing upgradeability that way as anything else; but if you do want that, and want to minimise hashing as well for whatever reason, then writing <code>[BAL] [CTVHASH] SIZE 32 EQUALVERIFY CAT SHA256</code> seems like it would solve the problem.</p>\n<p>If you want to support CTV upgradeability prior to knowing what that upgradeability will do, you could do <code>[BAL] [CTVHASH] SIZE DUP VERIFY DUP 127 LESSTHANOREQUAL VERIFY SWAP CAT SWAP CAT SHA256</code> to construct <code>sha256(1B: &lt;size(CTVHASH)&gt;; 0B-127B: &lt;CTVHASH&gt;; &lt;BAL&gt;)</code>. (Having CTV error if the hash is 0 bytes would let you avoid the <code>DUP VERIFY</code> step and might be a reasonable update to the BIP)</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-10-28T11:16:51.953Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 5,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 47.4,
+  "incoming_link_count": 15,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 102.2,
   "yours": false,
   "topic_id": 1216,
   "topic_slug": "op-paircommit-as-a-candidate-for-addition-to-lnhance",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Not really seeing that as particularly important to minimise, personally; the difference between hashing 64 bytes and 256 bytes is pretty minor, compared to the checksig operation(s) you also have. I\u2019d just write [BAL] [CTVHASH] SHA256 SWAP SHA256 CAT SHA256. \n\n\nThis seems as much an argument again&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-paircommit-as-a-candidate-for-addition-to-lnhance/1216/8",
   "reactions": [
     {
       "id": "heart",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

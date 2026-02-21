@@ -7,14 +7,15 @@
   "cooked": "<h1>CISA: Cross-Input Signature Aggregation</h1>\n<p>Signature aggregation allows aggregating a set of signatures into a single signature which reduces transaction weight and fees.</p>\n<p>Research and Development: <a href=\"https://github.com/BlockstreamResearch/cross-input-aggregation\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - BlockstreamResearch/cross-input-aggregation: Thoughts on cross-input (signature) aggregation for Bitcoin</a><br>\nPlayground: <a href=\"https://github.com/fjahr/cisa-playground\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - fjahr/cisa-playground</a></p>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th></th>\n<th>savings</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>half aggregation</td>\n<td>7.6%</td>\n</tr>\n<tr>\n<td>full aggregation</td>\n<td>9.6%</td>\n</tr>\n<tr>\n<td>max</td>\n<td>15.2%</td>\n</tr>\n</tbody>\n</table>\n</div><h2>Observations</h2>\n<p>Consider an example in which Alice has 3 UTXOs (A1, A2 and A3) in her wallet that could be used separately to pay Bob, Carol and Dave in different transactions. Normally, she would pay them separately and some of these transactions could have change although inputs remain different.</p>\n<p>Without CISA:</p>\n<pre data-code-height=\"146\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">    graph TD;\n    A1--&gt;B;\n    A2--&gt;C;\n    A3--&gt;D;\n</code></pre>\n<p>If Alice gets some discount on weight and fees by aggregating signatures, she would prefer to use all inputs in the same transaction and pay them.</p>\n<p>With CISA:</p>\n<pre data-code-height=\"146\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">    flowchart\n         A1,A2,A3 --&gt; B,C,D\n</code></pre>\n<blockquote>\n<p>Apart from incentivizing users to harm their privacy, it requires a <strong>new address format</strong> and new taproot key type. So these transactions would be easy to differentiate on chain and make chain analysis easier.</p>\n</blockquote>\n<h2>Conclusion</h2>\n<p>CISA encourages practices that are bad for privacy and introduces lot of complexity for marginal fee savings.</p>\n<hr>\n<p>This post is not related to recent research <a href=\"https://hrf.org/hrf-announces-cisa-research-fellowship/\" rel=\"noopener nofollow ugc\">fellowship announced by HRF</a> although I hope it helps others who apply for it.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-04-22T21:24:52.155Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 26,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 133.4,
+  "incoming_link_count": 141,
+  "reads": 74,
+  "readers_count": 73,
+  "score": 719.6,
   "yours": false,
   "topic_id": 824,
   "topic_slug": "cisa-and-privacy",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -49,14 +51,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "CISA: Cross-Input Signature Aggregation\nSignature aggregation allows aggregating a set of signatures into a single signature which reduces transaction weight and fees. \nResearch and Development: <a href=\"https://github.com/BlockstreamResearch/cross-input-aggregation\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - BlockstreamResearch/cross-input-aggregation: Thoughts on cross-input (signature) aggregation for&hellip;</a>",
+  "truncated": true,
+  "post_url": "/t/cisa-and-privacy/824/1",
   "reactions": [
     {
       "id": "-1",
       "type": "emoji",
-      "count": 1
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -13,9 +13,9 @@
   "reply_to_post_number": 7,
   "quote_count": 2,
   "incoming_link_count": 1,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 23.0,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 25.8,
   "yours": false,
   "topic_id": 1732,
   "topic_slug": "non-confiscatory-transaction-weight-limit",
@@ -69,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Good call-out. I\u2019ll add length checks on the next iteration <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 6,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-04-10T17:23:10.037Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "incoming_link_count": 1,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 29.6,
   "yours": false,
   "topic_id": 576,
   "topic_slug": "basic-vault-prototype-using-op-cat",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 85,
     "username": "dgpv",
     "name": "",
     "avatar_template": "/user_avatar/delvingbitcoin.org/dgpv/{size}/75_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Good call-out. I\u2019ll add length checks on the next iteration :slight_smile:",
+  "truncated": true,
+  "post_url": "/t/basic-vault-prototype-using-op-cat/576/6",
   "reactions": [
     {
       "id": "heart",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

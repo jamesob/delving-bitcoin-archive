@@ -7,15 +7,15 @@
   "cooked": "<p>We\u2019ve just released a new report in collaboration with <a class=\"mention\" href=\"/u/deadmanoz\">@deadmanoz</a> on the potential impact of quantum computing on Bitcoin and possible paths forward for the ecosystem.</p>\n<p>You can read the full report here: <a href=\"https://chaincode.com/bitcoin-post-quantum.pdf\" rel=\"noopener nofollow ugc\">https://chaincode.com/bitcoin-post-quantum.pdf</a></p>\n<p>The main conclusions are below for a quick overview.</p>\n<p>We\u2019d love to hear your thoughts!</p>\n<blockquote>\n<ol>\n<li>\n<p><strong>CRQC Timeline Assessment</strong> Experts believe that CRQCs capable of breaking Bitcoin\u2019s ECC foundations could first emerge between 2030-2035, aligning with government directives to deprecate vulnerable cryptography by 2030 and disallow it by 2035. This projected timeline provides a crucial window for preparation, given the unpredictable nature of technological breakthroughs, it is essential to account for both the expected trajectory and the possibility of a significantly accelerated timeline.</p>\n</li>\n<li>\n<p><strong>Scope of Vulnerable Funds</strong> Approximately 20-50% of all Bitcoin in circulation (4-10 million BTC) is potentially vulnerable to CRQC attacks. Long-range attacks target inherently vulnerable script types (P2PK, P2MS, P2TR) and addresses with previously exposed public keys (via address reuse), allowing attackers unbounded time to derive private keys from public information already available on the blockchain. Short-range attacks, which affect all Bitcoin script types, exploit the vulnerability window between transaction broadcast and confirmation (or shortly thereafter) when public keys are temporarily exposed, requiring attackers to act within a timeframe of minutes to hours. Address re-use by exchanges and institutions has created a concentration of vulnerable coins in a small number of addresses - high-value targets that would likely be prioritized by quantum attackers. These holdings, however, represent a manageable quantum vulnerability, as owners retain the ability to transfer these funds to quantum-resistant script types when necessary, or can cease the practice of address reuse. This is in contrast to Satoshi-era and inaccessible quantum-vulnerable coins, which are permanently exposed to quantum attack as they cannot be moved by their owners to quantum-resistant script types.</p>\n</li>\n<li>\n<p><strong>Immediate Protective Measures</strong> High-value Bitcoin holdings represent the most attractive targets for quantum attackers, particularly those of exchanges and institutions where address reuse practices have exposed public keys. While this creates a concentration of easily identifiable, valuable targets, the risk remains manageable through proactive measures. Since owners retain control of the private keys, vulnerable funds can be immediately migrated to somewhat quantum-resistant address types (P2PKH, P2SH, P2WPKH, or P2WSH). Simultaneously eliminating address reuse practices will prevent future exposure to long-range quantum attacks.</p>\n</li>\n<li>\n<p><strong>Considerations for Bitcoin Mining</strong> The quantum threat to Bitcoin mining via Grover\u2019s algorithm appears limited by physical and economic constraints. Quantum miners would face disadvantages including longer computation times, limited parallelization benefits, and substantially higher capital costs. Research indicates that quantum mining would remain economically impractical even with significant advances in quantum hardware, as the theoretical speedup from Grover\u2019s algorithm is insufficient to overcome the efficiency gap and lack of parallelization compared to specialized classical ASICs. This suggests mining security may prove significantly more resilient to quantum advances than transaction signature security. If quantum mining does become viable, however, there\u2019s the potential for correlated fork events if quantum miners adopt aggressive mining strategies, which could lead to attackers with less than half of the network\u2019s hash rate being in a position to execute 51% attacks. And if quantum mining becomes the dominant means of mining on the network, the quantum superlinearity problem could drive extreme centralization, concentrating mining power among just a few operators.</p>\n</li>\n<li>\n<p><strong>Burn vs. Steal Dilemma</strong> Perhaps the most significant challenge is not technical but philosophical: whether to \u201cburn\u201d vulnerable coins or leave them susceptible to being \u201cstolen\u201d by entities with CRQCs. This decision touches on Bitcoin\u2019s fundamental principles regarding property rights, censorship resistance, and immutability. The economic impact of either choice is substantial, with the potential for significant wealth redistribution or effective supply reduction. This is a polarizing issue, with strong opinions held by many on each side of the argument.</p>\n</li>\n<li>\n<p><strong>Migration Pathways</strong> The Bitcoin ecosystem\u2019s transition to quantum-resistant scripts faces significant technical and coordination challenges. Proposed migration mechanisms include the conservative commit-delay-reveal protocol that allows users to securely move their funds from nonquantum-resistant outputs to those adhering to a quantum-resistant signature scheme, the more assertive QRAMP protocol that would enforce migration deadlines after which vulnerable UTXOs become unspendable, and the hourglass strategy, which rate-limits vulnerable UTXO spending. Successful migration necessitates unprecedented collective action by all ecosystem 45participants - individual users, institutions, exchanges, and miners - with extensive preparation including education campaigns, migration tools, and regulatory engagement and compliance. The complexity of this transition demands establishing a shared vision and clear communication channels well before quantum threats materialize, as even the best technical solution will fail without effective cooperation among Bitcoin\u2019s diverse stakeholders.</p>\n</li>\n<li>\n<p><strong>Strategy for Action</strong> We propose that Bitcoin\u2019s quantum resistance strategy for action adopts a dual-track approach: contingency measures delivering minimal but functional protection against CRQCs completed in ~2 years, and a comprehensive path allowing thorough exploration of the problem space and the development of a full-featured approach to take ~7 years. This dualtrack strategy balances immediate security needs with rigorous research and development of optimal quantum-resistant solutions, ensuring Bitcoin can respond appropriately regardless of how CRQC capabilities evolve.</p>\n</li>\n<li>\n<p><strong>Ongoing Efforts &amp; Future Directions</strong> Several technical approaches have emerged to address the potential for a CRQC to derive private keys and forge signatures. Each approach is of varying maturity, and there\u2019s currently no consensus on which direction to take. All current approaches also propose using PQC schemes that have combined public key and signature sizes that are many times larger than the combined size of existing ECC-based public keys and signatures. Given the strong focus on post-quantum cryptography within the broader cryptographic community, continued advancements are likely over time, offering the potential for more refined solutions as the f ield progresses. Several leading cryptographers and Bitcoin developers who have contributed significantly to Bitcoin have begun working on quantum readiness strategies, joined by a number of new and enthusiastic contributors. While there\u2019s a vast solution space to explore, and the path forward remains uncertain, the community\u2019s ongoing efforts as outlined in this report should inspire confidence that Bitcoin will adapt to the post-quantum landscape in time. These efforts aim not only to meet projected timelines, but also to ensure readiness in the event of a sudden and significant leap in quantum computing capabilities.</p>\n</li>\n</ol>\n</blockquote>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2025-05-28T14:25:32.907Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 96,
-  "reads": 43,
-  "readers_count": 42,
-  "score": 252.6,
+  "incoming_link_count": 228,
+  "reads": 68,
+  "readers_count": 67,
+  "score": 1213.6,
   "yours": false,
   "topic_id": 1730,
   "topic_slug": "bitcoin-and-quantum-computing",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

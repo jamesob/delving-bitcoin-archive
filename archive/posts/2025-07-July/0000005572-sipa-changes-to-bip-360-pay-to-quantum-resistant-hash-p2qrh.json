@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"cryptoquick\" data-post=\"26\" data-topic=\"1811\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/cryptoquick/48/977_2.png\" class=\"avatar\"> cryptoquick:</div>\n<blockquote>\n<p>That\u2019s not quite true though, right? P2TR is vulnerable to long exposure attack via the key path spend</p>\n</blockquote>\n</aside>\n<p>Yes. And I don\u2019t think it\u2019s all that relevant that individual users can <em>choose</em> to migrate their coins if there is no expectation that everyone will (all assuming a CRQC actalually appears). And without widespread agreement that EC spending will be disabled (for P2TR, but much more for the many other types of outputs whose pubkeys are known), I cannot imagine that enough coin owners (many of whom are dormant) will.</p>\n<p>Millions of BTC likely will remain in EC-protected outputs even if the option of migrating to something else is possible. In such a situation, nobody\u2019s (value of their) holdings are safe until such time that (nearly) <em>all</em> EC spending is disabled.</p>",
   "post_number": 27,
   "post_type": 1,
-  "posts_count": 28,
+  "posts_count": 30,
   "updated_at": "2025-07-28T02:28:27.465Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 26,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 18.0,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 41.2,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

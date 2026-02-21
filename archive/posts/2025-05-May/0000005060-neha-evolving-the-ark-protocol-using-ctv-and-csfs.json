@@ -7,15 +7,15 @@
   "cooked": "<p>I did my own writeup for Ark to try to understand it. It includes the benefits of CTV+CSFS and compares it a bit to Lightning/rollups. Might be helpful for those who come across this post to try to understand Ark variants:</p>\n<aside class=\"onebox allowlistedgeneric\" data-onebox-src=\"https://nehanarula.org/2025/05/20/ark.html\">\n  <header class=\"source\">\n\n      <a href=\"https://nehanarula.org/2025/05/20/ark.html\" target=\"_blank\" rel=\"noopener nofollow ugc\">nehanarula.org</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    \n\n<h3><a href=\"https://nehanarula.org/2025/05/20/ark.html\" target=\"_blank\" rel=\"noopener nofollow ugc\">Neha's Writings</a></h3>\n\n  <p>Neha Narula</p>\n\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2025-05-20T21:02:39.814Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 24.0,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 72.8,
   "yours": false,
   "topic_id": 1602,
   "topic_slug": "evolving-the-ark-protocol-using-ctv-and-csfs",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "heart",
@@ -72,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

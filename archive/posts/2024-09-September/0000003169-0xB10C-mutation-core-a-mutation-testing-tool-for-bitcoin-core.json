@@ -7,14 +7,15 @@
   "cooked": "<p>Cool!</p>\n<p>I was wondering how this compares to the mutation testing done by <a href=\"https://corecheck.dev\">https://corecheck.dev</a>?</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-09-12T08:51:38.837Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 27.0,
   "yours": false,
   "topic_id": 1119,
   "topic_slug": "mutation-core-a-mutation-testing-tool-for-bitcoin-core",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Cool! \n\nI was wondering how this compares to the mutation testing done by https://corecheck.dev?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Cool! \nI was wondering how this compares to the mutation testing done by <a href=\"https://corecheck.dev\">https://corecheck.dev</a>?",
+  "truncated": true,
+  "post_url": "/t/mutation-core-a-mutation-testing-tool-for-bitcoin-core/1119/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

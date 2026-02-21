@@ -7,14 +7,15 @@
   "cooked": "<p>This is a Bitcoin Core implementation detail. The script flags mechanism itself is not consensus critical. A larger integer or another mechanism altogether could be used to instruct the script interpreter what validation should be performed.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 5,
   "updated_at": "2025-01-12T23:08:56.517Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 29,
-  "readers_count": 28,
-  "score": 25.8,
+  "reads": 40,
+  "readers_count": 39,
+  "score": 28.0,
   "yours": false,
   "topic_id": 1382,
   "topic_slug": "what-happens-after-we-run-out-of-script-flags",
@@ -56,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "This is a Bitcoin Core implementation detail. The script flags mechanism itself is not consensus critical. A larger integer or another mechanism altogether could be used to instruct the script interpreter what validation should be performed.",
+  "truncated": true,
+  "post_url": "/t/what-happens-after-we-run-out-of-script-flags/1382/2",
   "reactions": [
     {
       "id": "+1",
@@ -65,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

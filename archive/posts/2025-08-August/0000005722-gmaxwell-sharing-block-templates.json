@@ -7,15 +7,15 @@
   "cooked": "<p>Minisketch complexity is quadratic in the set difference, so what matters is the consistency not the size of the queue.  I\u2019ve implemented it and lab tested for block relay and it was highly efficient for it.</p>\n<p>Before coming up with the ideas behind erlay my thinking was actually centered on continually reconciling the entire mempool. But the issue I ran into with that was that when there was a policy difference or a conflict race there would be a continual bandwidth loss until mining resolved it.  Reconciling announcements avoids the issue.  But except for the persistent difference problem reconciliation of the mempool and invs should otherwise take the same bandwidth and decoding cost.</p>\n<p>But you are absolutely right about the preferable alternates: if you have a recent template from the same peer it\u2019s better to just construct an edit\u2013 the edit is small and fast to construct, and should be compact on existing data.</p>\n<p>One can also use minisketch to make predictable edits easier to communicate, but it may not be worth it (e.g. by using setrecon on the edits). Or may only be worth it periodically, like the first update or first update after a new block.</p>\n<p>I think it\u2019s worth considering avoiding salted shortids in further reconciliation protocols (deltas are a reconciliation protocol too!).  We had to use them in compact blocks because making the short IDs very short was essential to making it efficient, and without the salting we\u2019d probably want at least 128bit ids which would have put compact blocks consistently outside of TCP window sizes.  But hashing the mempool results in a fairly large portion of the total reconstruction time particularly when you\u2019ve missed txn and must hash the whole thing.  Any scheme that mostly avoids sending IDs can probably get away with using 128 bit wtxids.</p>\n<p>I think my general thinking is that in the future nodes should just maintain a clone of a small (say 4-8) peers\u2019 \u201ctop two blocks\u201d (or three blocks) of mempool via deltas and(/or) reconciliation with absolutely no policy restrictions (though if the peer exposes and <em>invalid</em> txn they should be disconnected).  E.g. these little alternative mempools would even allow txn that conflicted with transactions in your own mempool.</p>\n<p>So each peer would have in memory a 2-3 block mempool tip which is the last one they shared with other peers, plus one for each of a couple peers they\u2019ve picked to remember.   When a block comes in it can be relayed from or to any peer with a remembered template using highly efficient means.</p>\n<p>This should largely eliminate policy differences and even conflict-announcement-announcement races as a significant source of block propagation delay.  Memory usage would be moderate, costing at worst a hand full of megabytes per selected peer, but likely much less due to sharing the tx objects.</p>",
   "post_number": 8,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 24,
   "updated_at": "2025-08-15T21:15:37.150Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.0,
+  "incoming_link_count": 3,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 52.8,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Minisketch complexity is quadratic in the set difference, so what matters is the consistency not the size of the queue.  I\u2019ve implemented it and lab tested for block relay and it was highly efficient for it.\n\nBefore coming up with the ideas behind erlay my thinking was actually centered on continually reconciling the entire mempool. But the issue I ran into with that was that when there was a policy difference or a conflict race there would be a continual bandwidth loss until mining resolved it.  Reconciling announcements avoids the issue.  But except for the persistent difference problem reconciliation of the mempool and invs should otherwise take the same bandwidth and decoding cost.\n\nBut you are absolutely right about the preferable alternates: if you have a recent template from the same peer it\u2019s better to just construct an edit\u2013 the edit is small and fast to construct, and should be compact on existing data.\n\nOne can also use minisketch to make predictable edits easier to communicate, but it may not be worth it (e.g. by using setrecon on the edits). Or may only be worth it periodically, like the first update or first update after a new block.\n\nI think it\u2019s worth considering avoiding salted shortids in further reconciliation protocols (deltas are a reconciliation protocol too!).  We had to use them in compact blocks because making the short IDs very short was essential to making it efficient, and without the salting we\u2019d probably want at least 128bit ids which would have put compact blocks consistently outside of TCP window sizes.  But hashing the mempool results in a fairly large portion of the total reconstruction time particularly when you\u2019ve missed txn and must hash the whole thing.  Any scheme that mostly avoids sending IDs can probably get away with using 128 bit wtxids.\n\nI think my general thinking is that in the future nodes should just maintain a clone of a small (say 4-8) peers\u2019 \u201ctop two blocks\u201d (or three blocks) of mempool via deltas and(/or) reconciliation with absolutely no policy restrictions (though if the peer exposes and *invalid* txn they should be disconnected).  E.g. these little alternative mempools would even allow txn that conflicted with transactions in your own mempool.\n\nSo each peer would have in memory a 2-3 block mempool tip which is the last one they shared with other peers, plus one for each of a couple peers they\u2019ve picked to remember.   When a block comes in it can be relayed from or to any peer with a remembered template using highly efficient means.\n\nThis should largely eliminate policy differences and even conflict-announcement-announcement races as a significant source of block propagation delay.  Memory usage would be moderate, costing at worst a hand full of megabytes per selected peer, but likely much less due to sharing the tx objects.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Minisketch complexity is quadratic in the set difference, so what matters is the consistency not the size of the queue.  I\u2019ve implemented it and lab tested for block relay and it was highly efficient for it. \nBefore coming up with the ideas behind erlay my thinking was actually centered on continual&hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

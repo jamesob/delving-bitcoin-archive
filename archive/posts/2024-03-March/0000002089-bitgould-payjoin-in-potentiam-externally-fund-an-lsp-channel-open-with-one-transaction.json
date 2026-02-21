@@ -2,19 +2,20 @@
   "id": 2089,
   "name": "Dan Gould",
   "username": "bitgould",
-  "avatar_template": "/letter_avatar_proxy/v4/letter/b/ac91a4/{size}.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/bitgould/{size}/482_2.png",
   "created_at": "2024-03-29T20:49:14.664Z",
   "cooked": "<h1><a name=\"payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction-1\" class=\"anchor\" href=\"#payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction-1\"></a>Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction</h1>\n<p>As stated by Jesse Posner and ZmnSCPxj, \u201cmoving funds from an onchain-only address to Lightning Network is slow, especially if you desire trust-minimization,\u201d opening their <a href=\"https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-January/003810.html\" rel=\"noopener nofollow ugc\">Swap-in-Potentiam proposal</a>.</p>\n<p>That proposal involves a contract between two parties, Alice (the funds owner) and Bob (a potential swap partner), with the contract having two branches: one for onchain/channel transactions and another with a time lock for Alice. The protocol requires cooperation from a Lightning Service Provider (LSP) and is particularly useful for mobile wallet users who want to efficiently transfer funds from the blockchain layer to the Lightning layer without waiting for additional confirmations. For a detailed explanation and sequence, please refer to the original discussion on the Lightning-dev mailing list\u200b\u200b.</p>\n<p>Swap-in-potentiam execution requires two transactions:</p>\n<ol>\n<li>Funds a swap address</li>\n<li>Opens the lightning channel from funds in that address</li>\n</ol>\n<p>Payjoin interaction enables the external funds to directly fund a channel opening from the LSP without a swap output address ever being posted on chain. Instead, the first transaction funding a swap address is replaced using payjoin output substitution so only the combined result is ever posted to the blockchain.</p>\n<h2><a name=\"payjoin-in-potentiam-2\" class=\"anchor\" href=\"#payjoin-in-potentiam-2\"></a>Payjoin in Potentiam</h2>\n<p>The swap-in-potentiam proposal requires a commitment transaction to the swap-in-potentiam LSP address, after which the LSP has unilateral ability to open the channel or the funder can claw back after a timeout. If instead of broadcasting a transaction to such an address a funder first sends the transaction as a PSBT to the LSP, the LSP replaces the swap-in-potentiam address in the original PSBT for a channel opening address in a payjoin PSBT via <a href=\"https://github.com/bitcoin/bips/blob/b3701faef2bdb98a0d7ace4eedbeefa2da4c89ed/bip-0078.mediawiki#user-content-span_idoutputsubstitutionspanPayment_output_substitution\" rel=\"noopener nofollow ugc\">payment output substitution</a>* to actualize the swap-in in a single transaction. The payjoin PSBT containing the funder input and the channel open output is returned to the funder, who then signs and broadcasts the transaction.</p>\n<p>In the case the transaction is not sign and broadcast, the LSP can still broadcast the original PSBT\u2019s transaction with the swap-in-potentiam address output and proceed in that protocol to open a channel, or otherwise Alice could claw back funds after a timeout. This shares approximately the same flow with an earlier <a href=\"https://lists.linuxfoundation.org/pipermail/bitcoin-dev/2022-November/021180.html\" rel=\"noopener nofollow ugc\">Lightning payjoin idea</a> but has an LSP open the channel rather than an edge node itself.</p>\n<p>* BIP 78 payjoin output substitution recommends a match between input and output script types, but I see this as an undesirable fingerprint that should be avoided and have campaigned for this change in the spec.</p>\n<h2><a name=\"swap-in-potentiam-sequence-diagram-3\" class=\"anchor\" href=\"#swap-in-potentiam-sequence-diagram-3\"></a>Swap-in-Potentiam Sequence Diagram</h2>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/1X/4e5fd810e839a3087eab9cbc332a3468aee0aaf2.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/4e5fd810e839a3087eab9cbc332a3468aee0aaf2\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/original/1X/4e5fd810e839a3087eab9cbc332a3468aee0aaf2.png\" alt=\"image\" data-base62-sha1=\"bbkAqu3S4NTCVCiwvi0tYWjCRN0\" width=\"690\" height=\"375\" data-dominant-color=\"222222\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">717\u00d7390 9.88 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<details>\n<summary>\nSwap-in-Potentiam Diagram ASCII</summary>\n<pre>Source of Funds           Alice (Node)              Bob (LSP)      Blockchain\n|                             |                         |                   |\n|                        (Swap Address derived from Bob's Pubkey)           |\n|                             |                         |                   |\n| &lt;-- 1. Swap Address ------- |                         |                   |\n|                             |                         |                   |\n| --- 2. Tx to Swap Address-----------------------------------------------&gt; |\n|                             |                         |                   |\n|                             |                         |  3. Confirmation  |\n|                             |                         |                   |\n|                             | &lt;- 4. Negotiate Open -&gt; |                   |\n|                             |                         |                   |\n|                             |                 5. Sign and Broadcast Tx -&gt; |\n|                             |                         |                   |\n|                             |                         |  6. Confirmation  |\n|                             |                         |                   |</pre>\n</details>\n<ol>\n<li>Alice sends a swap-in-potentiam address derived from Alice and Bob keys to source of funds.</li>\n<li>Bob funds the Swap Address.</li>\n<li>The transaction funding the Swap Address is confirmed.</li>\n<li>Alice and Bob derive a lightning channel open address.</li>\n<li>Bob signs and broadcast the channel opening tx spending the swap address.</li>\n<li>The transaction is confirmed by the blockchain, completing the channel open between Alice and Bob</li>\n</ol>\n<h2><a name=\"payjoin-in-potentiam-sequence-diagram-4\" class=\"anchor\" href=\"#payjoin-in-potentiam-sequence-diagram-4\"></a>Payjoin-in-Potentiam Sequence Diagram</h2>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/1X/b0807caaf0aa306829438f665356bfe7903160d7.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/b0807caaf0aa306829438f665356bfe7903160d7\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/original/1X/b0807caaf0aa306829438f665356bfe7903160d7.png\" alt=\"image\" data-base62-sha1=\"pbpjE83zOrvufWgDzFkw6TCgFIb\" width=\"690\" height=\"334\" data-dominant-color=\"232323\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">844\u00d7409 14.3 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<details>\n<summary>\nPayjoin-in-Potentiam Diagram ASCII</summary>\n<pre>Source of Funds         Alice (Node)                         Bob (LSP)             Blockchain\n|                               |                                |                          |\n|                             (Swap Address derived from Bob's Pubkey)                      |\n|                               |                                |                          |\n| &lt;-- 1. Swap Address URI------ |                                |                          |\n|                               |                                |                          |\n| --- 2. Original PSBT ----------------------------------------&gt; |                          |\n|                               |                                |                          |\n|                               | &lt;---- 3. Negotiate Open -----&gt; |                          |\n|                               |                                |                          |\n| &lt;------------------------------------ 4. Output Substitution payjoin PSBT                 |\n|                                         (Swap Address to Lightning Channel Address)       |\n|                               |                                |                          |\n| --- 5. Signed payjoin to channel -------------------------------------------------------&gt; |\n|                               |                                |                          |\n|                               |                                |      6. Confirmation     |\n|                               |                                |                          |\n</pre>\n</details>\n<ol>\n<li>Alice sends a swap-in-potentiam address derived from Alice and Bob keys to source of funds in a bip21 payjoin URI.</li>\n<li>The Source funds the swap-in-potentiam address in a finalized original PSBT which he sends to Bob.</li>\n<li>Alice and Bob derive a lightning channel open address.</li>\n<li>Bob performs output substitution, replacing the swap-in-potentiam address with a Lightning channel address in the PSBT and sending the result to the Source.</li>\n<li>The Source of Funds checks that the payjoin PSBT doesn\u2019t overspend its inputs, signs, and broadcasts the payjoin.</li>\n<li>The transaction is confirmed by the blockchain, completing the channel open between Alice and Bob.</li>\n</ol>\n<p>In the optimistic case that both nodes are able to communicate in a timely fashion, only one transaction is broadcast to the same effect as swap-in-potentiam. If not, there is a safe fallback.</p>\n<p>Swap-in-potentiam already assumes a cooperating LSP. In the case they\u2019re not cooperative, funds are locked for some time. If the sender goes offline or otherwise does not broadcast the payjoin the original PSBT can be broadcast to open a channel via swap-in-potentiam.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-03-30T17:16:39.385Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 64,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 337.2,
+  "incoming_link_count": 351,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 1823.6,
   "yours": false,
   "topic_id": 749,
   "topic_slug": "payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 5,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 4
     }
   ],
   "moderator": false,
@@ -54,14 +56,27 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a name=\"payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction-1\" class=\"anchor\" href=\"#payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction-1\"></a>Payjoin-in-Potentiam: Externally fund an LSP channel open with one transaction\nAs stated by Jesse Posner and ZmnSCPxj, \u201cmoving funds from an onchain-only address to Lightning Network is slow, especially if you desire trust-minimization,\u201d opening their <a href=\"https://lists.linuxfoundation.org/pipermail/lightning-dev/2023-January/003810.html\" rel=\"noopener nofollow ugc\">Swap-in-Potentiam proposal</a>. \nThat proposal invol&hellip;",
+  "truncated": true,
+  "post_url": "/t/payjoin-in-potentiam-externally-fund-an-lsp-channel-open-with-one-transaction/749/1",
   "reactions": [
     {
       "id": "heart",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "+1",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

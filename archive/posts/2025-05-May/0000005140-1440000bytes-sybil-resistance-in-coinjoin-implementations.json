@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 14.6,
+  "incoming_link_count": 13,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 70.0,
   "yours": false,
   "topic_id": 1728,
   "topic_slug": "sybil-resistance-in-coinjoin-implementations",
@@ -57,5 +57,10 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

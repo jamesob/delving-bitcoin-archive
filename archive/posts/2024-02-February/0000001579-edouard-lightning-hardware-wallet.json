@@ -7,14 +7,15 @@
   "cooked": "<p>Hello,</p>\n<p>Thank you for bringing the subject, I am also interested in hardware wallet development and usage for the new bitcoin layers.</p>\n<p>I am jumping on this thread to talk to you about our lord and savior <a href=\"https://github.com/LedgerHQ/vanadium\" rel=\"noopener nofollow ugc\">Vanadium</a>. Joke aside, this is again one very smart idea from Salvatore Ingala and Ledger engineers.</p>\n<p>States, policies, every information can be stored client side and verified by commitment of Merkle Tree roots and hardware wallet signatures. Actually with the current bitcoin ledger app, miniscript descriptors are not stored in device memory but uploaded by the client on request with a hmac. Vanadium (previously app-streaming) concept goes way further by abstracting the whole computing part into a RISC VM that could run any application by making usage of the client memory.</p>\n<blockquote>\n<p>There are also a lot of \u201cbackground\u201d operations happening all the time that require signatures (on-the-fly splicing, commitment fee updates, etc). You\u2019ll need to implement a lot of the lightning channel state machine logic <em>inside</em> the hardware device to properly analyze and authorize those without user input. You may end up re-writing a whole lightning implementation inside the hardware wallet, which is a tedious and complex task.</p>\n</blockquote>\n<p>Rust-Lightning SDK could be a good help here, and rust tooling is better every day.\nOnce compiled in RISC-V, your application could be use by any hardware wallet running the vanadium VM. (It also allows you to use rust std lib, memory being not a limit anymore).</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-02-15T11:23:59.626Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 21.8,
+  "incoming_link_count": 3,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 56.0,
   "yours": false,
   "topic_id": 555,
   "topic_slug": "lightning-hardware-wallet",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -48,20 +50,27 @@
   "staff": false,
   "user_id": 300,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hello, \nThank you for bringing the subject, I am also interested in hardware wallet development and usage for the new bitcoin layers. \nI am jumping on this thread to talk to you about our lord and savior <a href=\"https://github.com/LedgerHQ/vanadium\" rel=\"noopener nofollow ugc\">Vanadium</a>. Joke aside, this is again one very smart idea from Salvatore Ingala and Ledger enginee&hellip;",
+  "truncated": true,
+  "post_url": "/t/lightning-hardware-wallet/555/5",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

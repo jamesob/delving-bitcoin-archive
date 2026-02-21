@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 5,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 27.2,
+  "incoming_link_count": 80,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 310.6,
   "yours": false,
   "topic_id": 2069,
   "topic_slug": "outgoing-reputation-simulation-results-and-updates",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,11 +63,16 @@
     {
       "id": "+1",
       "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

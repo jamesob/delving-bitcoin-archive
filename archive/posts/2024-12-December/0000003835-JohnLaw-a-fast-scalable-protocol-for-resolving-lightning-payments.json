@@ -7,14 +7,15 @@
   "cooked": "<p>Matt and Dave,</p>\n<p>Thanks again for your feedback.</p>\n<p>I\u2019ve re-written the paper based on it.\nVersion 1.1 is available at <a href=\"https://github.com/JohnLaw2/ln-opr\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - JohnLaw2/ln-opr: A fast, scalable protocol for resolving Lightning payments</a>.</p>\n<p>The new version focuses on the speed and scalability gains from the OPR protocol.\nThe security of the OPR protocol is shown to be analagous to the security of the current Lightning protocol when making small payments.\nIn both cases, parties follow the protocol in order to maintain their long-term reputation.\nIn both cases, following the protocol prevents thefts.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-12-19T19:21:30.092Z",
   "reply_count": 0,
   "reply_to_post_number": 11,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.6,
+  "incoming_link_count": 6,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 51.2,
   "yours": false,
   "topic_id": 1233,
   "topic_slug": "a-fast-scalable-protocol-for-resolving-lightning-payments",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 279,
     "username": "JohnLaw",
     "name": null,
     "avatar_template": "/letter_avatar_proxy/v4/letter/j/58956e/{size}.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Matt and Dave, \nThanks again for your feedback. \nI\u2019ve re-written the paper based on it.\nVersion 1.1 is available at <a href=\"https://github.com/JohnLaw2/ln-opr\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - JohnLaw2/ln-opr: A fast, scalable protocol for resolving Lightning payments</a>. \nThe new version focuses on the speed and scalability gains from the OPR protocol.\nThe security of&hellip;",
+  "truncated": true,
+  "post_url": "/t/a-fast-scalable-protocol-for-resolving-lightning-payments/1233/12",
   "reactions": [
     {
       "id": "heart",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

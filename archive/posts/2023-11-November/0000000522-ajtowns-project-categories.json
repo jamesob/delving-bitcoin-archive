@@ -2,19 +2,20 @@
   "id": 522,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2023-11-30T08:22:42.178Z",
   "cooked": "<p>We\u2019ve also had <a class=\"hashtag-cooked\" href=\"/c/implementation/wg-cluster-mempool/9\" data-type=\"category\" data-slug=\"wg-cluster-mempool\" data-id=\"9\" data-ref=\"implementation:wg-cluster-mempool\"><span class=\"hashtag-icon-placeholder\"><svg class=\"fa d-icon d-icon-square-full svg-icon svg-node\"><use href=\"#square-full\"></use></svg></span><span>wg-cluster-mempool</span></a> going for a little while now; previously it was private to the group members; it\u2019s now public, but read-only if you\u2019re not a group member. Happy to setup variations of this for other groups, if there\u2019s interest.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2023-11-30T08:22:42.178Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "incoming_link_count": 1,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 32.6,
   "yours": false,
   "topic_id": 162,
   "topic_slug": "project-categories",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "We've also had #implementation:wg-cluster-mempool going for a little while now; previously it was private to the group members; it's now public, but read-only if you're not a group member. Happy to setup variations of this for other groups, if there's interest.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "We\u2019ve also had <a class=\"hashtag-cooked\" href=\"/c/implementation/wg-cluster-mempool/9\" data-type=\"category\" data-slug=\"wg-cluster-mempool\" data-id=\"9\" data-ref=\"implementation:wg-cluster-mempool\"><span class=\"hashtag-icon-placeholder\"></span>wg-cluster-mempool</span></a> going for a little while now; previously it was private to the group members; it\u2019s now public, but read-only if you\u2019re not a group member. Happy to setup variations of this for other groups, if there\u2019s interest.",
+  "truncated": true,
+  "post_url": "/t/project-categories/162/5",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

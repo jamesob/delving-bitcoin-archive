@@ -7,14 +7,15 @@
   "cooked": "<p>Cleaned up the commits and opened <a href=\"https://github.com/bitcoin/bitcoin/pull/30243\" rel=\"noopener nofollow ugc\">Tr partial descriptors by Eunovo \u00b7 Pull Request #30243 \u00b7 bitcoin/bitcoin (github.com)</a> <a class=\"mention\" href=\"/u/josibake\">@josibake</a> <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a></p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2024-06-07T18:04:51.599Z",
   "reply_count": 0,
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 5,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 42.2,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 150.0,
   "yours": false,
   "topic_id": 901,
   "topic_slug": "tr-rawnode-and-rawleaf-support",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 92,
     "username": "josibake",
     "name": "josie",
     "avatar_template": "/user_avatar/delvingbitcoin.org/josibake/{size}/83_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 6
     }
   ],
   "moderator": false,
@@ -59,14 +62,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Cleaned up the commits and opened <a href=\"https://github.com/bitcoin/bitcoin/pull/30243\" rel=\"noopener nofollow ugc\">Tr partial descriptors by Eunovo \u00b7 Pull Request #30243 \u00b7 bitcoin/bitcoin (github.com)</a> <a class=\"mention\" href=\"/u/josibake\">@josibake</a> <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a>",
+  "truncated": true,
+  "post_url": "/t/tr-rawnode-and-rawleaf-support/901/9",
   "reactions": [
     {
       "id": "+1",
+      "type": "emoji",
+      "count": 5
+    },
+    {
+      "id": "tada",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

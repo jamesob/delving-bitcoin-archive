@@ -2,19 +2,20 @@
   "id": 1712,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-02-27T06:27:47.378Z",
   "cooked": "<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"15\" data-topic=\"359\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>If they play an old update, you spend it with the new update? Wasn\u2019t that the entire trick? Obviously I\u2019m missing something (I\u2019m guessing some Taproot detail?)</p>\n</blockquote>\n</aside>\n<p>The update tx commits to the settlement tx in the tapscript path, but that means that spending the update tx means you have to know the settlement tx even if you want to do some other spend than the settlement tx, either in order to reconstruct the tapscript that includes the settlement commitment, or to reconstruct the merklepath to some other tapscript (since the merkleroot commits to the script that commits to the settlement tx) or to do a key path signature (since you need to tweak the internal key signature via the merkle root which commits to the script that commits to the settlement tx).</p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-02-27T06:27:47.378Z",
   "reply_count": 0,
   "reply_to_post_number": 15,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 17.0,
+  "incoming_link_count": 6,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 71.2,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The update tx commits to the settlement tx in the tapscript path, but that means that spending the update tx means you have to know the settlement tx even if you want to do some other spend than the settlement tx, either in order to reconstruct the tapscript that includes the settlement commitment,&hellip;",
+  "truncated": true,
+  "post_url": "/t/ln-symmetry-project-recap/359/16",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

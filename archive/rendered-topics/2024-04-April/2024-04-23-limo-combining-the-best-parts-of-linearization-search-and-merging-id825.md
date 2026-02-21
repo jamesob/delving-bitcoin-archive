@@ -163,12 +163,12 @@ Huh, much simpler construction that also seems to work:
 
 -------------------------
 
-sipa | 2024-05-02 17:06:23 UTC | #7
+sipa | 2024-05-18 12:11:26 UTC | #7
 
 A few updates:
 
 * **The bad news.** @sdaftuar convinced me that the Double-LIMO workflow does not actually address the issue in the introduction: if you start with an arbitrary linearization, and then Double-LIMO it (with $S_1 =$ best remaining ancestor set, $S_2 =$ bounded search), the result may still be incomparable or even strictly worse than a pure ancestor set based linearization. If the *input* is at least as good as a pure ancestor set based linearization, the output will be too. This could also be accomplished by merging a fresh ancestor set sort with the input, but LIMO lets us linearize and merge at the same time.
-* **The somewhat redeeming insight.** We probably do not actually care about guaranteeing that all our linearization are strictly as good as the **diagram** of pure ancestor sort, because that is not what is required for CPFP, nor is it what the network currently implements. The current (as of 27.0) Bitcoin Core block builder implementation guarantees a quality of ancestor-based sort *without* chunking, and LIMO achieves that too (~~but, so does bounded search with ancestor set-based presplitting~~ EDIT: that's not true; LIMO with best remaining ancestor set as one of the function, or merging with a pure ancestor set are the only options left to guarantee that).
+* **The somewhat redeeming insight.** We probably do not actually care about guaranteeing that all our linearization are strictly as good as the **diagram** of pure ancestor sort, because that is not what is required for CPFP, nor is it what the network currently implements. The current (as of 27.0) Bitcoin Core block builder implementation guarantees a quality of ancestor-based sort *without* chunking, and LIMO achieves that too (~~but, so does bounded search with ancestor set-based presplitting~~ EDIT: that's not true; ~~LIMO with best remaining ancestor set as one of the function, or~~ merging with a pure ancestor set is the only option left to guarantee that).
 * **The good news.** I believe I have a proof that the new simplified Double (and Triple) LIMO "works" (where "works" doesn't imply "as good as directly linearizing using each individual subset finding algorithm", but means "at least as good as the input, and transactions included in each step are not incompatible with reaching the fee/size point of the $S_1$ and $S_2$ found within that same step"). Bigger post coming up for that.
 
 -------------------------
@@ -333,7 +333,7 @@ In fact, this can be done dynamically, which may be desirable for larger numbers
 
 -------------------------
 
-sipa | 2024-05-04 14:55:55 UTC | #9
+sipa | 2024-05-18 12:12:32 UTC | #9
 
 Actually, there is an even simpler formulation of this. If you want to find a subset $S$ that, which when moved to the front is not incompatible with reaching the cumulative size/fee point corresponding to each set of transactions $P = \{p_1, p_2, \ldots, p_n\}$, then $S$ needs to have a feerate at least as high as every $p_i$, and no intersection $S \cap p_i$ can have a higher feerate.
 
@@ -350,6 +350,8 @@ Then there always exists a linearization $L$ of $G$ for which:
 * For all $i$, $\operatorname{diag}_L(\operatorname{size}(p_i)) \geq \operatorname{fee}(p_i)$
 
 Such an $S$ necessarily exists, e.g. the highest-feerate subset of all combinations of intersections between the $p_i$ sets, though more efficient approaches exist.
+
+EDIT: expanded on these ideas more in https://delvingbitcoin.org/t/cluster-mempool-definitions-theory/202/14.
 
 -------------------------
 

@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"pyth\" data-post=\"1\" data-topic=\"1818\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/p/e99b99/48.png\" class=\"avatar\"> pyth:</div>\n<blockquote>\n<ul>\n<li>It would be a soft fork, as older nodes would ignore the flag and enforce a timelock 8 times shorter.</li>\n</ul>\n</blockquote>\n</aside>\n<p>Already answered by Pyth, but just to clarify:\nTimelocks aren\u2019t really used to lock coins, but to add different conditions in Script that become valid only in the future.\nTypically:</p>\n<ul>\n<li>collaborative spend with no timelock</li>\n<li>unilateral spend with timelock\nfor multiparty constructions</li>\n</ul>\n<p>or, in the case of Liana:</p>\n<ul>\n<li>regular spend condition without timelock (let\u2019s say a 2-of-2 multisig)</li>\n<li>backup spend condition with a timelock (let\u2019s say a 2-of-3 with a 3rd party key, or even a single sig key agent)</li>\n</ul>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 19,
+  "posts_count": 25,
   "updated_at": "2025-07-21T09:22:39.376Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 3.4,
+  "incoming_link_count": 1,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 27.0,
   "yours": false,
   "topic_id": 1818,
   "topic_slug": "exploring-extended-relative-timelocks",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "[quote=\"pyth, post:1, topic:1818\"]\n* It would be a soft fork, as older nodes would ignore the flag and enforce a timelock 8 times shorter.\n[/quote]\n\nAlready answered by Pyth, but just to clarify:\nTimelocks aren't really used to lock coins, but to add different conditions in Script that become valid only in the future.\nTypically:\n- collaborative spend with no timelock\n- unilateral spend with timelock\nfor multiparty constructions\n\nor, in the case of Liana:\n- regular spend condition without timelock (let's say a 2-of-2 multisig)\n- backup spend condition with a timelock (let's say a 2-of-3 with a 3rd party key, or even a single sig key agent)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,18 @@
   "excerpt": "Already answered by Pyth, but just to clarify:\nTimelocks aren\u2019t really used to lock coins, but to add different conditions in Script that become valid only in the future.\nTypically: \n\ncollaborative spend with no timelock\nunilateral spend with timelock\nfor multiparty constructions\n\nor, in the case o&hellip;",
   "truncated": true,
   "post_url": "/t/exploring-extended-relative-timelocks/1818/16",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

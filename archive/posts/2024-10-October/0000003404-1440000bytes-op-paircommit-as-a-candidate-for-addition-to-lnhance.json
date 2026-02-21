@@ -7,14 +7,15 @@
   "cooked": "<p>I am sorry but these new opcodes added to proposals will only delay or cancel them forever. I understand you like 2 things combined on the stack, OP_CAT etc. but this brings a lot of complexity in something that needs to be kept simple.</p>\n<p>If we ever get OP_CAT, maybe this could be possible with OP_SHA256 and OP_CAT at that moment.</p>\n<p>Its better if we get OP_CTV activated first instead of trying to build the next Great Covenant Proposal.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-10-25T17:57:14.444Z",
   "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "incoming_link_count": 72,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 387.6,
   "yours": false,
   "topic_id": 1216,
   "topic_slug": "op-paircommit-as-a-candidate-for-addition-to-lnhance",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 48,
     "username": "moonsettler",
     "name": "moonsettler",
     "avatar_template": "/user_avatar/delvingbitcoin.org/moonsettler/{size}/38_2.png"
   },
   "bookmarked": false,
   "raw": "I am sorry but these new opcodes added to proposals will only delay or cancel them forever. I understand you like 2 things combined on the stack, OP_CAT etc. but this brings a lot of complexity in something that needs to be kept simple.\n\nIf we ever get OP_CAT, maybe this could be possible with OP_SHA256 and OP_CAT at that moment.\n\nIts better if we get OP_CTV activated first instead of trying to build the next Great Covenant Proposal.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I am sorry but these new opcodes added to proposals will only delay or cancel them forever. I understand you like 2 things combined on the stack, OP_CAT etc. but this brings a lot of complexity in something that needs to be kept simple. \nIf we ever get OP_CAT, maybe this could be possible with OP_SH&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-paircommit-as-a-candidate-for-addition-to-lnhance/1216/3",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

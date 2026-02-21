@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.6,
+  "incoming_link_count": 69,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 360.4,
   "yours": false,
   "topic_id": 1912,
   "topic_slug": "krux-kef-encryption-format",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Good evening,\n\nAt project krux, work to extend an existing encryption scheme is near completion.  Before getting further along (release is near, this is already in beta), I'm sharing KEF_Specifications.\n\nMore eyes and any feedback would be much appreciated.\n\nTo avoid a long wall of text in this forum, I'll include only the \"Motivation\" section and a link below.\n\nEnjoy your weekend.\n\n---\n\nKEF Encryption Format \u2013 Specification\n\n\u2026`The K stands for \"KEF\"` --anon\n\n## 1. Motivation\n\nIn the autumn of 2023, during the lead-up to [krux release 23.09.0](https://github.com/selfcustody/krux/releases/tag/v23.09.0), contributors proposed a method of encrypting bip39 mnemonics that could be stored in SPI-flash, on sdcard, and/or exported to QR as specified in [krux documentation](https://selfcustody.github.io/krux/getting-started/features/encrypted-mnemonics/#encrypted-qr-codes-data-and-parsing).  Regarding the encrypted-mnemonic QR format: the layout proposed was interesting as an extensible, lite-weight, self-describing envelope that has been appreciated by users ever since.\n\n\u2026`\"Wen passphrases, output descriptors, PSBTs, and notes?\"` --plebs\n\nThis specification, and its accompanying implementation and test-suite are the result of months of exploration into improvements meant to better define, test, and extend the original encryption format that we\u2019ll refer to as KEF.  It proposes ten new versions, extending its usefulness to more than mnemonics, targeting variable-length strings up to moderately sized PSBTs, flexibility to choose among four AES modes of operation, with-or-without compression, and versions optimized to result in a smaller envelope.\n\nAbove all, this specification aims to be supported by as many projects as would consider adopting it, so that users are not \u201clocked\u201d into a particular project when recovering their secrets.  Corrections and refinement to, and scrutiny of this specification are appreciated. Proposals for more `versions` are welcome, provided they offer \u201cvalue\u201d to the user and fit within the scope of this system.  Once released, because it cannot be known how many KEF envelopes may exist in-the-wild, changes to any particular version must remain backwards compatible for decryption.  Adopting implementations are free to support any KEF versions they wish to support, for decryption-only or for both encryption and decryption \u2013 with the expectation that claims-of-support made are clear and precise about what is supported.\n\n[External link to KEF_Specifications on github](https://github.com/selfcustody/krux/blob/733483665b09506099921c0e61d75d965295c759/docs/getting-started/features/KEF_Specifications.md)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Good evening, \nAt project krux, work to extend an existing encryption scheme is near completion.  Before getting further along (release is near, this is already in beta), I\u2019m sharing KEF_Specifications. \nMore eyes and any feedback would be much appreciated. \nTo avoid a long wall of text in this foru&hellip;",
   "truncated": true,
   "post_url": "/t/krux-kef-encryption-format/1912/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

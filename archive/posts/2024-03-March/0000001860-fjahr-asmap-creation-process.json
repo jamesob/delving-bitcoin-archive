@@ -7,14 +7,15 @@
   "cooked": "<p>I have suggested another scheduled launch for this Thursday 2PM GMT: <a href=\"https://github.com/fjahr/asmap-data/issues/11\" class=\"inline-onebox\">Collaborative Launch 1710424800 (Thursday, March 14, 2024 2:00:00 PM GMT) \u00b7 Issue #11 \u00b7 fjahr/asmap-data \u00b7 GitHub</a></p>\n<p>If anyone new wants to join and has trouble setting up/testing everything works, please ping me!</p>\n<p>Generally, I plan to schedule a new creation process at the same date/time as the first bitcoin core IRC meeting of the month. I think monthly is a reasonable rhythm and that time was specifically chosen to maximize the number of people that can be in front of their screen at that time (although that is not even necessary for kartograf to launch). Please let me know if that rationale doesn\u2019t make sense to anyone!</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 2,
   "updated_at": "2024-03-12T18:47:04.244Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 32.8,
+  "incoming_link_count": 15,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 111.0,
   "yours": false,
   "topic_id": 548,
   "topic_slug": "asmap-creation-process",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,26 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I have suggested another scheduled launch for this Thursday 2PM GMT: <a href=\"https://github.com/fjahr/asmap-data/issues/11\" class=\"inline-onebox\">Collaborative Launch 1710424800 (Thursday, March 14, 2024 2:00:00 PM GMT) \u00b7 Issue #11 \u00b7 fjahr/asmap-data \u00b7 GitHub</a> \nIf anyone new wants to join and has trouble setting up/testing everything works, please ping me! \nGenerally, I plan &hellip;",
+  "truncated": true,
+  "post_url": "/t/asmap-creation-process/548/2",
   "reactions": [
     {
       "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "rocket",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

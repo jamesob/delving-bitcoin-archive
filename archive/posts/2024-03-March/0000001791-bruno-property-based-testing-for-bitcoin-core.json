@@ -7,14 +7,15 @@
   "cooked": "<p>I just want to share some initial experiments I\u2019ve done regarding property-based testing for Core.</p>\n<p>Property-based tests are <strong>designed to test the aspects of a property that should always be true</strong> . They allow for a range of inputs to be programmed and tested within a single test rather than writing a different test for every value you want to test.</p>\n<p>First, let\u2019s check a Bitcoin Core\u2019s functional test that tests resource exhaustion. See:</p>\n<pre data-code-wrap=\"py\"><code class=\"lang-py\">def test_resource_exhaustion(self):\n        self.log.info(\"Test node stays up despite many large junk messages\")\n        conn = self.nodes[0].add_p2p_connection(P2PDataStore())\n        conn2 = self.nodes[0].add_p2p_connection(P2PDataStore())\n        msg_at_size = msg_unrecognized(str_data=\"b\" * VALID_DATA_LIMIT)\n        assert len(msg_at_size.serialize()) == MAX_PROTOCOL_MESSAGE_LENGTH\n\n        self.log.info(\"(a) Send 80 messages, each of maximum valid data size (4MB)\")\n        for _ in range(80):\n            conn.send_message(msg_at_size)\n\n        # Check that, even though the node is being hammered by nonsense from one\n        # connection, it can still service other peers in a timely way.\n        self.log.info(\"(b) Check node still services peers in a timely way\")\n        for _ in range(20):\n            conn2.sync_with_ping(timeout=2)\n\n        self.log.info(\"(c) Wait for node to drop junk messages, while remaining connected\")\n        conn.sync_with_ping(timeout=400)\n\n        # Despite being served up a bunch of nonsense, the peers should still be connected.\n        assert conn.is_connected\n        assert conn2.is_connected\n        self.nodes[0].disconnect_p2ps()\n</code></pre>\n<p>By looking at this function, some questions were raised on my mind:</p>\n<ul>\n<li>What if the node had more than two connections?</li>\n<li>What if connections happen at different times?</li>\n<li>What if one of the connections sent more or less than 80 messages?</li>\n<li>What if other connections/disconnections happen during the path?</li>\n</ul>\n<p>Well, there are a lot of probabilities, but it seems a perfect scenario for a property-based test. Since Bitcoin Core has its test framework and it is written in Python, I used it to draft a property-based test using <a href=\"https://github.com/agroce/tstl\">TSTL</a>.</p>\n<blockquote>\n<p>TSTL is a domain-specific language (DSL) and set of tools to support automated generation of tests for software. This implementation targets Python. You define (in Python) a set of components used to build up a test, and any properties you want to hold for the tested system, and TSTL generates tests for your system. TSTL supports test replay, test reduction, and code coverage analysis, and includes push-button support for some sophisticated test-generation methods. In other words, TSTL is a <em>property-based testing</em> tool.</p>\n</blockquote>\n<p>I wrote a TSTL file to replicate the idea of the resource exhaustion test from <code>p2p_invalid_messages.py</code>. See:</p>\n<pre><code class=\"lang-auto\">...\ninit: TestShell().setup(num_nodes=1, setup_clean_chain=True)\nfinally: TestShell().shutdown()\npool: &lt;connection&gt; 100\npool: &lt;node&gt; 1\npool: &lt;int&gt; 1\n\n&lt;int&gt; := &lt;[80..200]&gt;\n&lt;node&gt; := TestShell().nodes[0]\n&lt;connection&gt; := &lt;node&gt;.add_p2p_connection(P2PDataStore())\n\nfor _ in range(&lt;int&gt;): conn = &lt;connection&gt;; conn.send_message(msg_at_size); conn.sync_with_ping(timeout=400)\n&lt;connection&gt;.sync_with_ping(timeout=2)\n\nproperty: &lt;connection&gt;.is_connected\n</code></pre>\n<p>It has a pool of 100 possible connections, one node, and one integer value (from 80 to 200). TSTL will create different scenarios with different amounts of messages being sent, different orders of connections, synchronization, and other stuff. Regardless of all this, we must ensure that any disconnection will happen.</p>\n<p>TSTL is able to create scenarios with more than 1000 actions from this simple script.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2024-03-05T14:28:23.326Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 21,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 139.4,
+  "incoming_link_count": 140,
+  "reads": 53,
+  "readers_count": 52,
+  "score": 770.6,
   "yours": false,
   "topic_id": 640,
   "topic_slug": "property-based-testing-for-bitcoin-core",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -54,14 +56,27 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I just want to share some initial experiments I\u2019ve done regarding property-based testing for Core. \nProperty-based tests are designed to test the aspects of a property that should always be true . They allow for a range of inputs to be programmed and tested within a single test rather than writing a&hellip;",
+  "truncated": true,
+  "post_url": "/t/property-based-testing-for-bitcoin-core/640/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
+    },
+    {
+      "id": "tada",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 43.2,
+  "incoming_link_count": 11,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 107.6,
   "yours": false,
   "topic_id": 1848,
   "topic_slug": "augur-block-s-open-source-bitcoin-fee-estimation-library",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -61,6 +61,11 @@
   "post_url": "/t/augur-block-s-open-source-bitcoin-fee-estimation-library/1848/5",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "rocket",
       "type": "emoji",
       "count": 1
@@ -72,6 +77,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

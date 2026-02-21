@@ -7,14 +7,15 @@
   "cooked": "<p>Note that you aren\u2019t stuck with one format. You could reasonably consider p2a when the anchor is 0-value, and keyed otherwise.</p>\n<p>re:miner \u201cstealing\u201d the funds, I\u2019m not sure that\u2019s bad at all? The main new weirdness is counterparty may be tempted to ramp up the trimmed amount and take it themselves, even though in the end miners will probably do well to snipe that entire value.</p>\n<p>Alternatively, as soon as the output gets large enough to not be considered dust, you can go right back to inserting the remaining trimmed value into the commitment transaction fee, since it no longer has to be 0-fee.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 14,
   "updated_at": "2025-01-31T15:58:28.246Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "incoming_link_count": 37,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 229.8,
   "yours": false,
   "topic_id": 1412,
   "topic_slug": "which-ephemeral-anchor-script-should-lightning-use",
@@ -38,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Note that you aren't stuck with one format. You could reasonably consider p2a when the anchor is 0-value, and keyed otherwise.\n\nre:miner \"stealing\" the funds, I'm not sure that's bad at all? The main new weirdness is counterparty may be tempted to ramp up the trimmed amount and take it themselves, even though in the end miners will probably do well to snipe that entire value.\n\nAlternatively, as soon as the output gets large enough to not be considered dust, you can go right back to inserting the remaining trimmed value into the commitment transaction fee, since it no longer has to be 0-fee.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Note that you aren\u2019t stuck with one format. You could reasonably consider p2a when the anchor is 0-value, and keyed otherwise. \nre:miner \u201cstealing\u201d the funds, I\u2019m not sure that\u2019s bad at all? The main new weirdness is counterparty may be tempted to ramp up the trimmed amount and take it themselves, e&hellip;",
+  "truncated": true,
+  "post_url": "/t/which-ephemeral-anchor-script-should-lightning-use/1412/2",
+  "reactions": [
+    {
+      "id": "clap",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"14\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>When I looked into this, <a href=\"https://x.com/ajtowns/status/1856635064941166753\" rel=\"noopener nofollow ugc\">as far as I could tell</a> Ark has been built based on the elements introspection opcodes and on pre-signed transactions, but there has been no practical exploration into actually using it with CTV. For something that was announced as being implementable either with BIP 118 (APO) or BIP 119 (CTV), never having actually done that comes across as a huge red flag for me, particularly when people are willing to implement crazy things like the \u201cpurrfect\u201d vaults.</p>\n</blockquote>\n</aside>\n<aside class=\"onebox allowlistedgeneric\" data-onebox-src=\"https://codeberg.org/ark-bitcoin/bark/src/branch/ctv\">\n  <header class=\"source\">\n      <img src=\"https://codeberg.org/assets/img/favicon.svg\" class=\"site-icon\" width=\"16\" height=\"16\">\n\n      <a href=\"https://codeberg.org/ark-bitcoin/bark/src/branch/ctv\" target=\"_blank\" rel=\"noopener nofollow ugc\">Codeberg.org</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <div class=\"aspect-image\" style=\"--aspect-ratio:690/344;\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/3/3754d2e4959392c75ee703a49a0e6e889c47fad1_2_690x345.png\" class=\"thumbnail\" data-dominant-color=\"F7F1F0\" width=\"690\" height=\"345\"></div>\n\n<h3><a href=\"https://codeberg.org/ark-bitcoin/bark/src/branch/ctv\" target=\"_blank\" rel=\"noopener nofollow ugc\">bark</a></h3>\n\n  <p>A Rust implementation of the Ark protocol on bitcoin</p>\n\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-12T03:32:38.781Z",
   "reply_count": 1,
   "reply_to_post_number": 14,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 9.8,
+  "incoming_link_count": 25,
+  "reads": 68,
+  "readers_count": 67,
+  "score": 153.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -38,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:14, topic:1509\"]\nWhen I looked into this, [as far as I could tell](https://x.com/ajtowns/status/1856635064941166753) Ark has been built based on the elements introspection opcodes and on pre-signed transactions, but there has been no practical exploration into actually using it with CTV. For something that was announced as being implementable either with BIP 118 (APO) or BIP 119 (CTV), never having actually done that comes across as a huge red flag for me, particularly when people are willing to implement crazy things like the \u201cpurrfect\u201d vaults.\n[/quote]\n\nhttps://codeberg.org/ark-bitcoin/bark/src/branch/ctv",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,7 +56,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/15",
   "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
     {
       "id": "-1",
       "type": "emoji",
@@ -58,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

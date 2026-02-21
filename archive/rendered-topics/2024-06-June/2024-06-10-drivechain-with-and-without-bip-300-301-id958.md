@@ -232,9 +232,3 @@ to play the devil's advocate: there is also the issue of people not wanting to u
 
 -------------------------
 
-1440000bytes | 2024-08-21 12:14:41 UTC | #7
-
-(post deleted by author)
-
--------------------------
-
