@@ -152,3 +152,18 @@ Obviously I’m biased, but I think the paradigm of “state change + cpfp” is
 
 -------------------------
 
+jgmcalpine | 2026-02-21 16:20:44 UTC | #7
+
+[quote="instagibbs, post:6, topic:2267"]
+Obviously I’m biased, but I think the paradigm of “state change + cpfp” is pretty clearly mapped onto vtxo structure?
+
+[/quote]
+
+Thanks for the response! You're entirely right, and the 'state change + cpfp' paradigm is exactly what VTXOs should cleanly map onto. The '20 levels deep' example was admittedly an exaggerated hypothetical to illustrate the divergence between consensus-validity and policy-validity.
+
+My main point regarding the Policy Auditor is about client-side enforcement, the 'Trust, but Verify' aspect of that paradigm. While protocol designers understand how to map L2 exits to modern mempool policy, a user receiving a VTXO 'Map' from an ASP shouldn't have to blindly trust that the off-chain state was constructed such that it will actually translate into strictly compliant mempool packages.
+
+If a buggy, malicious, or divergent ASP hands a user a VTXO that subtly violates TRUC limits (e.g., accidentally creating a 3-level deep dependency by including an intermediate unroll tx, or improperly sharing a fee anchor that violates TRUC's 'one unconfirmed child' rule), the user might think they have a valid exit when they are actually pinned. So I completely agree the paradigm is clear. vpack aims to give the client an automated, independent way to mathematically verify that the ASP handed them a VTXO that strictly adheres to it.
+
+-------------------------
+

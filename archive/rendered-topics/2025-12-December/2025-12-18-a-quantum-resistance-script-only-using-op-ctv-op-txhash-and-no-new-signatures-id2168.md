@@ -260,18 +260,6 @@ Perhaps I misunderstood. Are you intending this script to operate in P2TR or P2T
 
 -------------------------
 
-simul | 2026-02-20 18:52:07 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
-simul | 2026-02-20 18:52:17 UTC | #6
-
-(post deleted by author)
-
--------------------------
-
 simul | 2026-02-20 18:54:04 UTC | #7
 
 As noted by @reardencode , this construction requires a new Segwit witness version that eliminates key-path spending entirely and enforces script-only evaluation. The goal is to make signature forgery irrelevant by removing the NUMS/key fallback path. This can be introduced as a soft fork by defining a new witness version whose semantics are enforced only by upgraded nodes.

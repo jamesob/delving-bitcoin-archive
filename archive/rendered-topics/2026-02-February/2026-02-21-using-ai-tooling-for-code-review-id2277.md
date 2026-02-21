@@ -89,3 +89,41 @@ In general, asking LLMs *verifiable* things is the biggest gain, so things like 
 
 -------------------------
 
+1440000bytes | 2026-02-21 18:53:06 UTC | #3
+
+[quote="ajtowns, post:1, topic:2277"]
+Anyway, thought I’d share. Anyone else trying something similar?
+[/quote]
+
+I found this interesting: [https://github.com/spaceraccoon/vulnerability-spoiler-alert](https://github.com/spaceraccoon/vulnerability-spoiler-alert)
+
+Reasons: 
+
+1. It's not easy to fix the vulnerabilities in open source projects like bitcoin core.
+
+    https://xcancel.com/fanquake/status/1977396233237864530
+    https://xcancel.com/christine_dkim/status/1978121490336796945
+
+2. The results in this experiment look good enough based on some of the repositories it scans everyday.
+
+![image|690x158](upload://fIxY6kCj45DZUuVmRXkAYcwzpmZ.png)
+
+https://github.com/spaceraccoon/vulnerability-spoiler-alert/issues/25
+
+Questions:
+
+1. How would this affect bitcoin core and other open source bitcoin projects?
+2. Has there ever been an incident in bitcoin core where a vulnerability was exploited before a release because it was easy to spot the fix in the commits?
+
+---
+Note: Such reviews can also be used to find bugs in the commits and not just the bug fix.
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20260221184740/https://delvingbitcoin.org/t/using-ai-tooling-for-code-review/2277/3
+
+</details>
+
+-------------------------
+
