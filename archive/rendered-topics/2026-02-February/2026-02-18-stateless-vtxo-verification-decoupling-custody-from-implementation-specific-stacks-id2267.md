@@ -141,3 +141,14 @@ The feedback regarding path *exclusivity* (vs existence) has been critical. Base
 
 -------------------------
 
+instagibbs | 2026-02-21 13:24:45 UTC | #6
+
+[quote="jgmcalpine, post:1, topic:2267"]
+For example, an Ark tree 20 levels deep is valid on-chain, but BIP-431 (TRUC) limits mempool packages to a depth of 2. If a user is not aware of this “Policy Trap,” they may believe they have a valid exit when they actually have a “pinned” or un-relayable transaction. We are exploring how `vpack` can include a **Policy Auditor** to warn users if their VTXO “Map” is structurally sound but policy-invalid.
+
+[/quote]
+
+Obviously I’m biased, but I think the paradigm of “state change + cpfp” is pretty clearly mapped onto vtxo structure?
+
+-------------------------
+

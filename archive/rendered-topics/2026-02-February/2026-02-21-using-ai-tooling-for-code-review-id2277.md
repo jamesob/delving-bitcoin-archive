@@ -81,3 +81,11 @@ Anyway, thought I'd share. Anyone else trying something similar?
 
 -------------------------
 
+instagibbs | 2026-02-21 13:06:35 UTC | #2
+
+FWIW I’ve been heavily using Claude Code for review as well. I love your quiz idea which I have not tried. re:SFL review, I found the biggest gains was in its ability to quickly make (counter) examples for diagrams, since I am pretty bad at making examples in general. So when I hit a conditional I don’t quite understand, I can just ask and it seems to nail it 100% of the time (maybe after long backtracking thought strings where it realizes the examples don’t hold, but it gets there!).
+
+In general, asking LLMs *verifiable* things is the biggest gain, so things like counter-examples fit in really nicely in that paradigm.
+
+-------------------------
+
