@@ -133,3 +133,11 @@ Would be happy to see you playing with it. Really happy to get some thorough fee
 
 -------------------------
 
+jgmcalpine | 2026-02-21 02:14:38 UTC | #5
+
+Thanks, Erik.
+
+The feedback regarding path *exclusivity* (vs existence) has been critical. Based on this, I am updating the verification logic to enforce full Taproot tree reconstruction. This ensures the library actually provides the depth of review required to be useful.
+
+-------------------------
+
