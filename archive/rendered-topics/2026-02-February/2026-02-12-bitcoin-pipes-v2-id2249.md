@@ -354,3 +354,14 @@ Without this schematic, in the simple musig 2-2, the operator would need to shar
 
 -------------------------
 
+AdamISZ | 2026-02-22 12:58:04 UTC | #9
+
+[quote="nemothenoone, post:1, topic:2249"]
+One structural difference between GC-based BitVM and BitVM-PIPE concerns the timing at which the operator’s witness is fixed. In BitVM, the garbling, label-commitments, and the zk-consistency proof can be generated without knowing the actual input *w*; the setup phase is witness-agnostic. In BitVM-PIPE, by contrast, the PIPE instance includes the value h = Hash(w), so the operator must know *w* at setup time. This distinction does not affect the optimistic-verification or dispute logic.
+
+[/quote]
+
+Can I ask for a bit of clarification on this? Isn’t part of the BitVM “idea” that they emulate covenants by pre-signing transactions and then deleting the keys, but here, because w is not known in advance, the signing committee has to cooperate in co-signing per operator update? Or did I misunderstand something?
+
+-------------------------
+

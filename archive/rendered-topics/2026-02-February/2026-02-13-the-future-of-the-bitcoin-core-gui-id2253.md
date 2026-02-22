@@ -359,3 +359,18 @@ I'm sure it is possible to build an even more minimal client than the one [claud
 
 -------------------------
 
+janb84 | 2026-02-22 13:52:14 UTC | #18
+
+
+[quote="willcl-ark, post:17, topic:2253"]
+Re-reading [bitcoin Issue#29912](https://github.com/bitcoin/bitcoin/issues/29912) where @rodarmor had fleshed out a rough approach to describe the RPC api, I tweaked the approach a little bit in [this branch](https://github.com/bitcoin/bitcoin/compare/master...willcl-ark:bitcoin:json-rpc-schema) to generate an [openrpc spec file](https://raw.githubusercontent.com/willcl-ark/bitcoin/8eb8112c66d5d79158394ba3f6677473c57f7d87/doc/openrpc.json), which I was able to trivially give to a chatbot to develop a dynamic webkit-based “RPC GUI”, based off the formal spec, in about 20 minutes.
+
+[/quote]
+
+Using this openrpc spec I (with some help from claude) have created a basic  [bitcoin-tui](https://github.com/janb84/bitcoin-tui)  for some experimentation with what is possible with just calling the RPC. 
+Quite promising !
+
+![Bitcoin TUI|690x412](upload://8LGmaSjq8r3SCms5rvgjtQ3t71C.jpeg)
+
+-------------------------
+
