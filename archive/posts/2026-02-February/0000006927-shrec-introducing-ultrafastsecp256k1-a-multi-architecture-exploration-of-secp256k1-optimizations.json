@@ -12,9 +12,9 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 5,
-  "readers_count": 4,
+  "incoming_link_count": 2,
+  "reads": 6,
+  "readers_count": 5,
   "score": 5.8,
   "yours": false,
   "topic_id": 2280,
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "**Introduction**\nHello everyone. I\u2019ve been developing a high-throughput  implementation called **UltrafastSecp256k1**. The project, which was open-sourced on February 11th, 2026, started as an exploration of how modern hardware features (SHA-NI, AVX2, ARM64 Assembly) can be leveraged to push the limits of ECC performance across diverse platforms\u2014from high-end x86 servers to resource-constrained IoT devices like ESP32-S3 and RISC-V boards.\n\nThe goal is to create a highly portable, constant-time, and branchless library that is accessible through multiple language bindings (12+ languages including Rust, Go, Swift, and Dart). I am reaching out to this community for a technical audit, feedback on the cryptographic primitives, and suggestions on our constant-time implementation.\n\n### **Architecture & Core Optimizations**\n\nThe library is built on a \u201cZero-Allocation\u201d hot-path contract, ensuring no heap overhead during critical operations. Key technical pillars include:\n\n* **Field Representation**: We transitioned to a  field representation for Point internals, enabling `__int128` lazy reduction across constant-time (CT) operations.\n* **Constant-Time Field Inversion**: Implemented using the **SafeGCD (divsteps)** algorithm, specifically optimized for different architectures (e.g.,  divsteps for robustness).\n* **Scalar Multiplication**: Leverages **GLV Endomorphism** via -decomposition combined with interleaved double-and-add, significantly reducing the cycle count for .\n* **Hardware Acceleration**: We use **SHA-NI (Intel/AMD SHA Extensions)** for high-speed hashing dispatching and **AVX2 CT table lookups** for secure, constant-time scans.\n* **I-Cache Efficiency**: We utilize `noinline` on large functions like `jac52_add_mixed_inplace` to prevent instruction cache pollution, resulting in a \\~59% reduction in I-cache misses.\n\n### **Platform-Specific Implementation & Benchmarks**\n\nWe have focused on making the library performant where it\u2019s needed most:\n\n* **x86_64**: Utilizing **Comb precomputation tables** (teeth=6, blocks=43) to optimize  operations, achieving significant speedups over standard implementations.\n* **ARM64 (Android/Linux)**: Hand-tuned  multiply/square bypasses directly calling assembly, optimized for Cortex-A76 and newer cores.\n* **Embedded & Emerging**: Current support for **ESP32-S3** and upcoming optimizations for **RISC-V (Milk-V Mars)**.\n\n**Current State (v3.10.x):**\nThe library currently passes over 12,000 consistency tests across x86 and ARM64 platforms. The ecosystem includes full bindings for **NPM (Node.js/React Native)** and **NuGet (.NET)**, making it ready for high-level integration.\n\n### **Request for Review & Technical Discussion**\n\nI am specifically looking for feedback on:\n\n1. **Constant-Time Integrity**: Review of our  assembly bypasses for potential side-channel leaks.\n2. **Algorithm Selection**: Evaluation of our **H-Product Serial Inversion** and **SafeGCD** implementation details.\n3. **Branchless Logic**: Suggestions for further removing branches in the point-normalization and signing flows to improve security.\n\nThe project is fully open-source, and I believe that peer review from the Delving Bitcoin community is vital to ensure this tool remains both fast and secure for the wider ecosystem.\n\n**GitHub Repository:** [https://github.com/shrec/UltrafastSecp256k1](https://github.com/shrec/UltrafastSecp256k1)\n\n**Technical Changelog:**[https://github.com/shrec/UltrafastSecp256k1/blob/c649f6dfd80b1611b17f606206b156e3c2e6a058/CHANGELOG.md](https://github.com/shrec/UltrafastSecp256k1/blob/main/CHANGELOG.md)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Introduction\nHello everyone. I\u2019ve been developing a high-throughput  implementation called UltrafastSecp256k1. The project, which was open-sourced on February 11th, 2026, started as an exploration of how modern hardware features (SHA-NI, AVX2, ARM64 Assembly) can be leveraged to push the limits of E&hellip;",
   "truncated": true,
   "post_url": "/t/introducing-ultrafastsecp256k1-a-multi-architecture-exploration-of-secp256k1-optimizations/2280/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
