@@ -13,9 +13,9 @@
   "reply_to_post_number": 11,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 1.0,
   "yours": false,
   "topic_id": 1419,
   "topic_slug": "spanning-forest-cluster-linearization",
@@ -40,7 +40,7 @@
   "reply_to_user": {
     "id": 780,
     "username": "blockchainhao",
-    "name": "bitcoinlover",
+    "name": "HowHsu",
     "avatar_template": "/user_avatar/delvingbitcoin.org/blockchainhao/{size}/1246_2.png"
   },
   "bookmarked": false,
