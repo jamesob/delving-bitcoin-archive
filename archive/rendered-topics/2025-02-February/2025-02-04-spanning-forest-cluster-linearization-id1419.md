@@ -417,3 +417,9 @@ I think here $g$ as the optimization target shouldn't be seen as a variable and 
 
 -------------------------
 
+sipa | 2026-02-22 15:05:58 UTC | #12
+
+Update: SFL ([PR 32545](https://github.com/bitcoin/bitcoin/pull/32545), [PR 34259](https://github.com/bitcoin/bitcoin/pull/34259), [PR 34023](https://github.com/bitcoin/bitcoin/pull/34023)) has been merged into Bitcoin Core's master branch, and is planned to be in the upcoming [31.0 release](https://github.com/bitcoin/bitcoin/issues/33607).
+
+-------------------------
+
