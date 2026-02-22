@@ -1865,3 +1865,9 @@ I have opened a [pull request](https://github.com/bitcoin/bitcoin/pull/32545) to
 
 -------------------------
 
+sipa | 2026-02-22 15:11:20 UTC | #80
+
+Update: SFL ([PR 32545](https://github.com/bitcoin/bitcoin/pull/32545), [PR 34259](https://github.com/bitcoin/bitcoin/pull/34259), [PR 34023](https://github.com/bitcoin/bitcoin/pull/34023)) has been merged into Bitcoin Core's master branch, and is planned to be in the upcoming [31.0 release](https://github.com/bitcoin/bitcoin/issues/33607).
+
+-------------------------
+
