@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 33.4,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 48.6,
   "yours": false,
   "topic_id": 2277,
   "topic_slug": "using-ai-tooling-for-code-review",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -61,13 +61,18 @@
   "post_url": "/t/using-ai-tooling-for-code-review/2277/1",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
