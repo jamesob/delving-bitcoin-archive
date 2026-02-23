@@ -44,3 +44,11 @@ The project is fully open-source, and I believe that peer review from the Delvin
 
 -------------------------
 
+shrec | 2026-02-23 00:28:19 UTC | #2
+
+Just finished the **RISC-V** optimization sprint for **Milk-V Mars (SiFive U74)**. Using U74-specific in-order scheduling gave us a **34% boost** in verification speed. This is part of the **v3.11** roadmap to make **UltrafastSecp256k1** the go-to library for resource-constrained IoT devices. Cycles don't lie! 🚀
+
+![Capture|680x372](upload://xLyTacVUiIpZxmqPTvsVZkYupJi.png)
+
+-------------------------
+
