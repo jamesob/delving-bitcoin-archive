@@ -365,3 +365,13 @@ Can I ask for a bit of clarification on this? Isn’t part of the BitVM “idea�
 
 -------------------------
 
+nemothenoone | 2026-02-23 14:08:38 UTC | #10
+
+True, BitVM folks do covenant emulation via pre-signed txs which get unlocked upon a certain even happens within an interactive protocol. 
+
+With PIPEs, the primary difference is that there is no pre-defined operator set and the decryption condition is (1) non-interactive and (2) can be anything you can express in a circuit (i.e. anything you can prove with a zkVM or a circuit compiler, no pre-defined protocol logic in here).
+
+This is basically why PIPEs are suitable for certain type of covenants in general, not only for bridging or a strictly-defined protocol workflow.
+
+-------------------------
+
