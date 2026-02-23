@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 1,
   "readers_count": 0,
-  "score": 0,
+  "score": 0.2,
   "yours": false,
   "topic_id": 2280,
   "topic_slug": "introducing-ultrafastsecp256k1-a-multi-architecture-exploration-of-secp256k1-optimizations",
