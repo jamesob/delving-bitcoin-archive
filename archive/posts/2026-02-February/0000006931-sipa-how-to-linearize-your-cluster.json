@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -67,6 +67,11 @@
   "post_url": "/t/how-to-linearize-your-cluster/303/80",
   "reactions": [
     {
+      "id": "clap",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "rocket",
       "type": "emoji",
       "count": 1
@@ -78,7 +83,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
