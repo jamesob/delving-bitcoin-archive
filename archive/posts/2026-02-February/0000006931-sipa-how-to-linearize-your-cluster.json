@@ -13,9 +13,9 @@
   "reply_to_post_number": 79,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Update: SFL ([PR 32545](https://github.com/bitcoin/bitcoin/pull/32545), [PR 34259](https://github.com/bitcoin/bitcoin/pull/34259), [PR 34023](https://github.com/bitcoin/bitcoin/pull/34023)) has been merged into Bitcoin Core's master branch, and is planned to be in the upcoming [31.0 release](https://github.com/bitcoin/bitcoin/issues/33607).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Update: SFL (<a href=\"https://github.com/bitcoin/bitcoin/pull/32545\">PR 32545</a>, <a href=\"https://github.com/bitcoin/bitcoin/pull/34259\">PR 34259</a>, <a href=\"https://github.com/bitcoin/bitcoin/pull/34023\">PR 34023</a>) has been merged into Bitcoin Core\u2019s master branch, and is planned to be in the upcoming <a href=\"https://github.com/bitcoin/bitcoin/issues/33607\">31.0 release</a>.",
   "truncated": true,
   "post_url": "/t/how-to-linearize-your-cluster/303/80",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

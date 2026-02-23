@@ -89,7 +89,7 @@ In general, asking LLMs *verifiable* things is the biggest gain, so things like 
 
 -------------------------
 
-1440000bytes | 2026-02-21 18:53:06 UTC | #3
+1440000bytes | 2026-02-22 22:55:10 UTC | #3
 
 [quote="ajtowns, post:1, topic:2277"]
 Anyway, thought I’d share. Anyone else trying something similar?
