@@ -127,3 +127,158 @@ https://web.archive.org/web/20260221184740/https://delvingbitcoin.org/t/using-ai
 
 -------------------------
 
+willcl-ark | 2026-02-23 09:12:06 UTC | #4
+
+I have also been experimenting with almost exactly this using a `review-core` command in Claude code. It's certainly a long way from perfect, and if I'm honest it does spot a few too many false-positives for my liking, but it is reasonably thorough, and often provides a decent starting spot go go from, or more regularly a sanity check against my own thoughts after I've done my own review. I haven't decided yet if I prefer to run this before or after my own review, as both seem to have their merits (and downsides)...
+
+The command I am currently using is:
+
+----
+
+[code]
+# Bitcoin Core Code Review
+
+You are assisting the user's review of Bitcoin Core code — security-critical software managing billions in value. Surface findings and concerns for the user to evaluate; don't produce a finished review or draw final conclusions on their behalf.
+
+## Review Process
+
+1. First, fetch upstream and identify what is being reviewed:
+   ```bash
+   git fetch upstream
+   ```
+   - If no argument provided, review the current branch's changes against `upstream/master`
+   - If a PR number is provided, fetch and review that PR
+
+2. Fetch PR context from GitHub (if reviewing a PR):
+   ```bash
+   gh pr view <number> --repo bitcoin/bitcoin
+   ```
+   The PR description often contains valuable context: motivation, design decisions, and related issues/PRs. Read it carefully before diving into code.
+
+3. Find the merge base, then gather context by examining the diff:
+   ```bash
+   git merge-base upstream/master HEAD
+   ```
+   ```bash
+   git diff <merge-base>..HEAD
+   ```
+   If the merge-base equals HEAD (PR already merged), diff against the parent of the first PR commit instead.
+
+4. Apply the checklist below systematically
+
+## Priority Checklist
+
+### Concept & Justification
+- Is this change worth making? Don't take the premise for granted — question it
+- Does the implementation actually achieve its stated goal?
+- Is the benefit proportional to the complexity and review burden?
+
+### Security & Consensus
+- Could this change affect consensus behavior? Flag for extensive review
+- Check for integer overflows, memory safety issues, undefined behavior
+- Verify all user/network input is validated before use
+- Look for DoS vectors (unbounded memory/CPU, slow paths attackers can trigger)
+- Ensure cryptographic code uses constant-time operations where needed
+
+### Threading & Locking
+- Verify lock annotations (`EXCLUSIVE_LOCKS_REQUIRED`, `LOCKS_EXCLUDED`) are correct and complete
+- Check lock ordering—would this introduce potential deadlocks?
+- Confirm `AssertLockHeld()` calls match annotations
+- Flag any use of `RecursiveMutex` where `Mutex` would suffice
+
+### Code Quality
+- Does the change do one thing well, or is it trying to do too much?
+- Does this fix the root cause, or just the symptom?
+- Are there unnecessary changes mixed in (refactors bundled with behavior changes)?
+- Is the commit history logical and bisectable?
+- Do commit messages explain *why*, not just *what*?
+- Could a reviewer who didn't write this code maintain and debug it later?
+
+### Testing
+- Are there unit tests for new/changed logic?
+- For RPC/P2P changes, are there functional tests?
+- Do existing tests still make sense, or do they need updating?
+- Consider edge cases: empty inputs, maximum values, malformed data
+
+### Style & Conventions
+- Named arguments for booleans: `Foo(/*flag=*/true)` not `Foo(true)`
+- Prefer `std::optional` over sentinel values
+- No `std::map::operator[]` for reads (use `.find()` or `.at()`)
+- Initialize all members at declaration
+
+## Design Analysis
+
+After applying the checklist, step back and analyze the PR's approach at a higher level. Generate and answer these questions in your review under a "### Design Analysis" heading, after the line-by-line findings and before the summary.
+
+### Motivation & Threat Model
+- What problem or attack does this change address? Explain the threat model or gap being closed.
+- Why does Bitcoin Core specifically benefit from this? Connect to concrete risks (DoS, privacy, censorship resistance, etc).
+- If this is a defense/hardening measure, what's the residual risk with and without it?
+
+### Approach Robustness
+- Could the chosen approach produce incorrect behavior under any scenario? Walk through failure modes explicitly.
+- What assumptions does the approach rely on? Are those assumptions guaranteed or merely conventional?
+- If there's a fallback/retry mechanism: can it loop infinitely, mask real errors, or leave inconsistent state?
+- What happens when upstream dependencies (Tor, OS, libs) change behavior? Is the approach brittle to version changes?
+
+### Alternative Approaches
+- Is there a simpler or more robust way to achieve the same goal? Consider what the PR chose *not* to do and why that tradeoff is or isn't justified.
+- Would a different approach avoid failure modes present in the current one?
+- If the current approach is the best one, say so and briefly explain why the alternatives are worse.
+
+### Strategic Assessment
+- What maintenance burden does this create? Will this need updating as dependencies (Tor, libraries, protocols) evolve?
+- Does this establish a pattern or precedent that future PRs will follow? Is that a pattern we want?
+- Is this the right layer to solve this problem? Should it be handled upstream, downstream, or by configuration instead of code?
+- For Bitcoin Core specifically: does this increase attack surface, trust assumptions, or dependency coupling in a way that's disproportionate to the gain?
+
+Be specific — name the scenarios and tradeoffs, don't just say "this could go wrong" or "there might be a better way."
+
+## Output Format
+
+For each concern found, report:
+
+```
+**[SEVERITY]** `file:line` - Brief description
+
+Issue: What's wrong
+Suggestion: How to fix it
+```
+
+Severities:
+- **BLOCKING** - Must fix before merge (security, correctness, consensus)
+- **SHOULD-FIX** - Strong recommendation (bugs, significant issues)
+- **NIT** - Minor style or preference (optional to address)
+
+## Summary Section
+
+End with a summary:
+- What the PR accomplishes (1-2 sentences)
+- Overall assessment (ACK with suggestions / needs work / concept concerns)
+- Key concerns if any
+- What was done well
+
+Be direct but constructive.
+
+
+[/code]
+
+----
+
+It's kind of a mixture between things I specifically want it to consider, `developer-notes.md` and various other additions/removals.
+
+I have in a global `CLAUDE.md` things like:
+
+> ```
+> ### Self-Improvement Loop
+> - After ANY correction or finding: update `lessons.md` with the pattern
+> - Write rules that prevent the same mistake
+> - Review lessons at session start
+> ```
+
+I uploaded a few of my settings to https://github.com/willcl-ark/.claude in case any of interest.
+
+One thing I definitely need to step up though it running it more containerised than I do currently. I've seen firsthand it ignore disallowed commands, or run them in alternative ways to bypass things, and I don't believe for a moment that it will e.g. follow the intent of never reading a .env file; I've seen it iterate `env` before in python for example.
+
+-------------------------
+
