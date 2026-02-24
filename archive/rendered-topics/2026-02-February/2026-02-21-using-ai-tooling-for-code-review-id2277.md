@@ -282,3 +282,13 @@ One thing I definitely need to step up though it running it more containerised t
 
 -------------------------
 
+ajtowns | 2026-02-24 04:35:39 UTC | #5
+
+[quote="instagibbs, post:2, topic:2277"]
+I love your quiz idea which I have not tried.
+[/quote]
+
+I like it. I think it probably ought to be possible (and relatively easy once you figure out how) to setup a set of background info and prompts that you could stick in an .md file on github, and have claude/chatgpt act as an automatic pr-review-club with 24-7 availability, possibly even just claude/chatgpt on the web without any local setup, maybe even usable via a free tier? I keep finding other things to work on, so haven't tried this yet.
+
+-------------------------
+
