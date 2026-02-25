@@ -380,3 +380,11 @@ It’s not immediately clear to me if either approach should be successful more 
 
 -------------------------
 
+stevenroose | 2026-02-25 16:14:01 UTC | #3
+
+Tbh those are optimization problems where various strategies can exist and work.
+
+Providing “current” is cheaper than an index. And eventually the optimization problem will be to minimize the total number of different signatures required from the users. There is probably space for more naive algorithms that required slightly more signatures and smarter algorithms that require less.
+
+-------------------------
+
