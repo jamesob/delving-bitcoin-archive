@@ -306,3 +306,14 @@ https://www.theatlantic.com/technology/2026/02/ai-math-terrance-tao/686107/?gift
 
 -------------------------
 
+instagibbs | 2026-02-25 15:20:07 UTC | #7
+
+[quote="mzumsande, post:6, topic:2277"]
+My usual approach is not to give it an elaborate generic CLAUDE.md
+
+[/quote]
+
+I don’t think claude file really helps for review at all. Seems like more value for coding.
+
+-------------------------
+
