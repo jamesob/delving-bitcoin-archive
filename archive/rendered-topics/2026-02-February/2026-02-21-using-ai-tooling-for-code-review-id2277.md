@@ -292,3 +292,17 @@ I like it. I think it probably ought to be possible (and relatively easy once yo
 
 -------------------------
 
+mzumsande | 2026-02-25 13:20:05 UTC | #6
+
+I have also been using Claude for code review for the last \~6 months. In my opinion, it is extremely good on technical, localized issues but still limited when it comes to more global issues.
+
+My usual approach is not to give it an elaborate generic CLAUDE.md, but to have a highly interactive session, usually going commit by commit: When I just ask it to review a PR carefully, there are many types of issues it won’t find - but when I combine it with my own knowledge and intuition to nudge it towards certain areas (which is very PR dependent), even if I can’t formulate it very well, it gets much deeper into things and will usually work out the details on its own and get to a solid assessment whether there is an actual issue with the code.
+
+So my experience with code review is similar to what Terence Tao just said about using AI for math problems:
+
+> Additionally, a lot of AI companies have this obsession with push-of-a-button, completely autonomous workflows where you give your task to the AI, and then you just go have a coffee, and you come back and the problem is solved. That’s actually not ideal. With difficult problems, you really want a conversation between humans and AI.
+
+https://www.theatlantic.com/technology/2026/02/ai-math-terrance-tao/686107/?gift=owbznqD5LqUtMPlu8Pn3Il5RDZFm_BP_B8pMqDSLDJU
+
+-------------------------
+
