@@ -375,3 +375,17 @@ This is basically why PIPEs are suitable for certain type of covenants in genera
 
 -------------------------
 
+ZmnSCPxj | 2026-02-25 23:56:01 UTC | #11
+
+[quote="nemothenoone, post:1, topic:2249"]
+At current cloud services pricing, renting such infrastructure amounts to approximately $100-200 per covenant execution
+[/quote]
+
+My primary use-case for covenants is the improvement in multiparty offchain cryptocurrency systems, i.e. payment channels and their ilk. Having to pay 150,000 sats for a state transition for a high-frequency cryptocurrency transfer system is still too expensive.
+
+However, if we consider things like SuperScalar and channel factories, perhaps it is more palatable?  Have a more classic 2-party mechanism at the leaves that performs detailed payments, and have a more rarely-updated higher layer that may acceptably require 150,000 sats for a single rare batched liquidity management action.
+
+I am quite curious about how no party gets to learn *`sk`*, so setup is multiparty?  How expensive is setup? Does it require all parties to be online simultaneously? Simultaneously online setup is what covenant opcodes ***avoids*** (i.e. you generally can just give separate pubkeys for each interested party, solicited by some online actuary that does not require everyone to be online simultaneously, just that all parties have given a public key once), so any requirement for setup to have every interested party interactively online would not sufficiently replace covenant opcodes.
+
+-------------------------
+
