@@ -8,3 +8,11 @@ https://robinlinus.com/binohash.pdf
 
 -------------------------
 
+garlonicon | 2026-02-26 09:37:53 UTC | #2
+
+`OP_SIZE <60 - n > OP_EQUALVERIFY < pubkey > OP_CHECKSIGVERIFY`
+
+Instead of `OP_EQUALVERIFY`, `OP_LESSTHAN OP_VERIFY` can be used. Then, smaller signatures are also accepted. Also, `OP_CHECKSEQUENCEVERIFY` or `OP_CHECKLOCKTIMEVERIFY` can provide an incentive, to produce the smallest signature in a given time, and then, broadcast a valid transaction earlier, than other competing miners.
+
+-------------------------
+

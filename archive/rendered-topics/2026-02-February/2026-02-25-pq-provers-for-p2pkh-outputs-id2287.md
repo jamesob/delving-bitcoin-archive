@@ -74,3 +74,15 @@ We got carried away and also benchmarked STARK proofs for post-quantum signature
 
 -------------------------
 
+light | 2026-02-26 06:10:12 UTC | #2
+
+[quote="olkurbatov, post:1, topic:2287"]
+* Proof sizes. Our early (pre-optimization) benchmarks show the proof size ranged from 5.6 MB (STWO-Cairo) to 10 MB (SP1) for P2PKH-related proofs. These are fine for off-chain registries but far too large for anything on-chain.
+
+[/quote]
+
+
+Isn’t proof aggregation a solution here? I see in your table that the RISC Zero proof is 2 MB, which would fit inside a current bitcoin block, albeit in a nonstandard way. Although I would propose that an implementation of this should create a new datacarrier (or “proofcarrier”) “sidecar” to each block for aggregated proofs, similar to what @EthanHeilman has proposed with BitZip, published [here](https://delvingbitcoin.org/t/post-quantum-signatures-and-scaling-bitcoin-with-starks/1584) and presented (by me) [here](https://www.youtube.com/watch?v=OYaI3fXMUwM).
+
+-------------------------
+

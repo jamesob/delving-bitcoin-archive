@@ -7,15 +7,15 @@
   "cooked": "<p><strong>Abstract.</strong> We present Binohash, a collision-resistant hash function for Bitcoin Script that enables limited transaction introspection without consensus changes. By exploiting the FindAndDelete quirk in legacy OP_CHECKMULTISIG combined with proof-of-work signature grinding, Binohash creates a transaction digest directly readable in Script. This enables covenant-like functionality for trustless chain introspection for protocols like BitVM bridges.</p>\n<aside class=\"onebox pdf\" data-onebox-src=\"https://robinlinus.com/binohash.pdf\">\n  <header class=\"source\">\n\n      <a href=\"https://robinlinus.com/binohash.pdf\" target=\"_blank\" rel=\"noopener nofollow ugc\">robinlinus.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <a href=\"https://robinlinus.com/binohash.pdf\" target=\"_blank\" rel=\"noopener nofollow ugc\"><span class=\"pdf-onebox-logo\"></span></a>\n\n<h3><a href=\"https://robinlinus.com/binohash.pdf\" target=\"_blank\" rel=\"noopener nofollow ugc\">binohash.pdf</a></h3>\n\n  <p class=\"filesize\">841.99 KB</p>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 2,
   "updated_at": "2026-02-25T16:55:26.831Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 6,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 34.2,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 49.8,
   "yours": false,
   "topic_id": 2288,
   "topic_slug": "binohash-transaction-introspection-without-softforks",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "**Abstract.** We present Binohash, a collision-resistant hash function for Bitcoin Script that enables limited transaction introspection without consensus changes. By exploiting the FindAndDelete quirk in legacy OP_CHECKMULTISIG combined with proof-of-work signature grinding, Binohash creates a transaction digest directly readable in Script. This enables covenant-like functionality for trustless chain introspection for protocols like BitVM bridges.\n\nhttps://robinlinus.com/binohash.pdf",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Abstract. We present Binohash, a collision-resistant hash function for Bitcoin Script that enables limited transaction introspection without consensus changes. By exploiting the FindAndDelete quirk in legacy OP_CHECKMULTISIG combined with proof-of-work signature grinding, Binohash creates a transact&hellip;",
   "truncated": true,
   "post_url": "/t/binohash-transaction-introspection-without-softforks/2288/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
