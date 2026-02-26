@@ -195,3 +195,17 @@ T#
 
 -------------------------
 
+shrec | 2026-02-26 16:59:32 UTC | #10
+
+Clang 21.1.0, i7-11700, single core, pinned:
+
+![image|690x465](upload://1yYBsau9JLB0ifGIan7Ok5hJEqU.png)
+
+-------------------------
+
+shrec | 2026-02-26 17:02:07 UTC | #11
+
+this benchmark is from my dev machine that is already loaded by dev tools.
+
+-------------------------
+

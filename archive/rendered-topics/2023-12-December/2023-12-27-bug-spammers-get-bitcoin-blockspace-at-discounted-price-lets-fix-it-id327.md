@@ -378,3 +378,9 @@ Explanatory note: the author - David Bailey - has been promoting the spam commer
 
 -------------------------
 
+GregTonoski | 2026-02-26 18:47:40 UTC | #28
+
+There will be the impact of the problem limited thanks to the Bitcoin Improvement Proposal 110 (BIP-110) that is being activated later this year: https://github.com/bitcoin/bips/blob/bd564167864ab293a41f3dad0bb029f5ea9b4467/bip-0110.mediawiki.
+
+-------------------------
+

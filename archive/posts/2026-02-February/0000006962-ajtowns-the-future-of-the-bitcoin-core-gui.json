@@ -13,9 +13,9 @@
   "reply_to_post_number": 20,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 2253,
   "topic_slug": "the-future-of-the-bitcoin-core-gui",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"willcl-ark, post:20, topic:2253\"]\nIt could be argued that so long as this was not used over the internet (WAN), this is as secure as interacting with the wallet via `bitcoin-cli`.\n[/quote]\n\nSorry -- I just meant that the prototype there doesn't actually implement any wallet-related features.\n\n[quote=\"willcl-ark, post:20, topic:2253\"]\nstill needs configuration on both server and client, and would therefore fail the \u201cstraight-forward\u201d\n[/quote]\n\nI think you could make the gui launch / manage the daemon -- ie supply the datadir and bitcoin.conf file that configures the RPC port and access controls -- and have it end up being straightforward as far as users are concerned.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Sorry \u2013 I just meant that the prototype there doesn\u2019t actually implement any wallet-related features. \n\nI think you could make the gui launch / manage the daemon \u2013 ie supply the datadir and bitcoin.conf file that configures the RPC port and access controls \u2013 and have it end up being straightforward&hellip;",
   "truncated": true,
   "post_url": "/t/the-future-of-the-bitcoin-core-gui/2253/21",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
