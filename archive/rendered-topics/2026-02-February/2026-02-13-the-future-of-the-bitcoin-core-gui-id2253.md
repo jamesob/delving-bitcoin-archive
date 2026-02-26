@@ -374,3 +374,53 @@ Quite promising !
 
 -------------------------
 
+ajtowns | 2026-02-26 12:39:51 UTC | #19
+
+[quote="janb84, post:18, topic:2253"]
+a basic [bitcoin-tui](https://github.com/janb84/bitcoin-tui)
+[/quote]
+
+That's pretty cool. Seems like you could potentially do things like turn it into a mini block/mempool explorer which would be nice, and tracking soft-fork deployments via `getdeploymentinfo` could also get a nice display. Having some "control" ability in addition to the "view" stuff would probably be nice ("stop", "setnetworkactive", "addnode", "disconnectnode", "setban") though.
+
+I think it still misses some roles that bitcoin-qt fills, though. Namely:
+
+ * providing safe access to bitcoin core's wallet functionality. I don't think there's any reason this wouldn't be possible though; you could have a file chooser to load/save psbts I think?
+ * making it straight-forward to run a bitcoin node in a Windows / MacOS environment without being a developer/power-user. I feel like you need either an actual GUI or possibly a web UI for that?
+
+Maybe node management and wallet usage should have two independent user interfaces? Being able to browse txs in the blockchain/mempool would likely be useful for both node management and wallet users, though. Exposing wallet functionality over a web UI seems like it might be a can of worms.
+
+Perhaps you could have a thin GUI launcher app for Windows/MacOS environments that just automatically launches both the daemon and the tui, and acts as a display widget for the tui? That might get 95% of the convenience features for both devs (less code to write/maintain) and users (just click the icon and stuff works), with the main disadvantage being just that it's not very pretty. But if it's all done over RPC, then making prettier alternatives that are equally functional is a relatively easy option for other people to take up as an independent project...
+
+-------------------------
+
+willcl-ark | 2026-02-26 14:20:28 UTC | #20
+
+> I think it still misses some roles that bitcoin-qt fills, though. Namely:
+>
+>   - providing safe access to bitcoin core’s wallet functionality. I don’t think there’s any reason this wouldn’t be possible though; you could have a file chooser to load/save psbts I think?
+
+
+It could be argued that so long as this was not used over the internet (WAN), this is as secure as interacting with the wallet via `bitcoin-cli`. Though this is still not as secure as a fully-integrated Bitcoin-qt is...
+
+>   - making it straight-forward to run a bitcoin node in a Windows / MacOS environment without being a developer/power-user. I feel like you need either an actual GUI or possibly a web UI for that?
+
+[This branch](https://github.com/willcl-ark/bitcoin-rpc-web/tree/iced) of my previous link switches the gui from webkit to a native gui (Rust's `iced`), but it still needs configuration on both server and client, and would therefore fail the "straight-forward" challenge. Which is where your "GUI launcher" idea might come into play.
+
+-------------------------
+
+ajtowns | 2026-02-26 14:31:12 UTC | #21
+
+[quote="willcl-ark, post:20, topic:2253"]
+It could be argued that so long as this was not used over the internet (WAN), this is as secure as interacting with the wallet via `bitcoin-cli`.
+[/quote]
+
+Sorry -- I just meant that the prototype there doesn't actually implement any wallet-related features.
+
+[quote="willcl-ark, post:20, topic:2253"]
+still needs configuration on both server and client, and would therefore fail the “straight-forward”
+[/quote]
+
+I think you could make the gui launch / manage the daemon -- ie supply the datadir and bitcoin.conf file that configures the RPC port and access controls -- and have it end up being straightforward as far as users are concerned.
+
+-------------------------
+
