@@ -7,15 +7,15 @@
   "cooked": "<p><strong>4.88 M ECDSA signs/s</strong> * <strong>2.44 M ECDSA verifies/s</strong> * <strong>3.66 M Schnorr signs/s</strong> * <strong>2.82 M Schnorr verifies/s</strong> \u2013 single GPU (RTX 5060 Ti) this is GPU benchmark</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 8,
   "updated_at": "2026-02-26T08:41:36.550Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 7.2,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 27.6,
   "yours": false,
   "topic_id": 2286,
   "topic_slug": "ultrafastsecp256k1-v3-14-0",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "**4.88 M ECDSA signs/s** \\* **2.44 M ECDSA verifies/s** \\* **3.66 M Schnorr signs/s** \\* **2.82 M Schnorr verifies/s** -- single GPU (RTX 5060 Ti) this is GPU benchmark",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "4.88 M ECDSA signs/s * 2.44 M ECDSA verifies/s * 3.66 M Schnorr signs/s * 2.82 M Schnorr verifies/s \u2013 single GPU (RTX 5060 Ti) this is GPU benchmark",
   "truncated": true,
   "post_url": "/t/ultrafastsecp256k1-v3-14-0/2286/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

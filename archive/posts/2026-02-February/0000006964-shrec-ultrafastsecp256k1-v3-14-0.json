@@ -7,15 +7,15 @@
   "cooked": "<p>Clang 21.1.0, i7-11700, single core, pinned:</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/0/0af65cd22ddd004893d471442eeafab8f4320e2c.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/0af65cd22ddd004893d471442eeafab8f4320e2c\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/original/2X/0/0af65cd22ddd004893d471442eeafab8f4320e2c.png\" alt=\"image\" data-base62-sha1=\"1yYBsau9JLB0ifGIan7Ok5hJEqU\" width=\"690\" height=\"465\" data-dominant-color=\"1F1F1F\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">736\u00d7497 12.5 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 8,
   "updated_at": "2026-02-26T17:00:52.050Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.6,
   "yours": false,
   "topic_id": 2286,
   "topic_slug": "ultrafastsecp256k1-v3-14-0",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Clang 21.1.0, i7-11700, single core, pinned:\n\n![image|690x465](upload://1yYBsau9JLB0ifGIan7Ok5hJEqU.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Clang 21.1.0, i7-11700, single core, pinned: \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/0/0af65cd22ddd004893d471442eeafab8f4320e2c.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/0af65cd22ddd004893d471442eeafab8f4320e2c\" title=\"image\">[image]</a>",
   "truncated": true,
   "post_url": "/t/ultrafastsecp256k1-v3-14-0/2286/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
