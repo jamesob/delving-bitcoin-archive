@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "![image|690x433](upload://wGiOjuUXrKtqByhAb2JwQIvcN8B.png)\n\nIn the world of blockchain infrastructure, speed is not just a luxury\u2014it\u2019s a security requirement. After 12 days of intensive development, the UltrafastSecp256k1 v3.14.0 has reached a milestone that redefines performance expectations for cryptographic libraries.\n\n\ud83d\udcca The Numbers (i7-11700 @ Single Core)\nThese benchmarks were taken on a standard development machine under typical load. In a dedicated, headless Linux environment, we expect even higher throughput due to reduced OS jitter.\n\n\ud83d\udee0\ufe0f Why This Matters for Node Operators\nThe primary bottleneck for any new node is the Initial Block Download (IBD). Validating billions of historical signatures is a massive task.\n\nMassive Scalability: Validating \\~1.35 billion signatures takes just 1.5 hours on 8 cores.\n\nPeak Efficiency: At \\~32,000 ECDSA tx/sec per core, this library is ready for the next generation of high-throughput networks.\n\nHardware Optimized: The field multiplication (field_mul) completes in just 56 cycles, showing deep low-level optimization.\n\n\ud83d\udee1\ufe0f Built-in Security & Auditability\nSpeed means nothing without correctness. This project maintains a \"Zero-Bug\" status through a centralized, AI-driven testing core.\n\n641,194 Audit Checks: Every mathematical edge case is covered.\n\nSecurity Suite: Integrated with CodeQL, Clang-Tidy, and SonarCloud\u2014all currently in PASSING status.\n\n[https://github.com/shrec/UltrafastSecp256k1](https://github.com/shrec/UltrafastSecp256k1)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/e/e50dc1615d7969a5f70df0aa1d0766aaba4d7be9.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/e50dc1615d7969a5f70df0aa1d0766aaba4d7be9\" title=\"image\">[image]</a> \nIn the world of blockchain infrastructure, speed is not just a luxury\u2014it\u2019s a security requirement. After 12 days of intensive development, the UltrafastSecp256k1 v3.14.0 has reached a milestone that redefines performance expectations for cryptographic libraries. \n:bar_chart: The Numbers (i&hellip;",
   "truncated": true,
   "post_url": "/t/breaking-the-speed-of-light-secp256k1-optimization-in-12-days/2290/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "clap",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
