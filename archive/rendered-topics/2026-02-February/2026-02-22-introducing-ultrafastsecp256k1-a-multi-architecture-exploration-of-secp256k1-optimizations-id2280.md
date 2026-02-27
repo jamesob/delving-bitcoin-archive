@@ -65,3 +65,24 @@ My main piece of feedback is that the license is not a good fit for the Bitcoin 
 
 -------------------------
 
+shrec | 2026-02-27 11:46:58 UTC | #4
+
+Thank you for the candid feedback — I appreciate it.
+
+You're absolutely right regarding the license friction. After reflecting on your comment and the broader ecosystem norms, I’ve decided to switch the project to the MIT license to better align with Bitcoin Core and related projects.
+
+My intention was never to create adoption barriers. The goal is to build a portable, zero-dependency secp256k1 engine that can be evaluated and integrated freely.
+
+I understand that a full manual review of a large cryptographic codebase is unrealistic without structured audit scope. I’m currently working on:
+
+• A clear threat model document
+• A minimized audit surface breakdown
+• Reproducible apples-to-apples benchmark harness
+• Cross-implementation comparison vs libsecp256k1
+
+Any targeted feedback on specific subsystems (e.g., scalar arithmetic, field layer, constant-time strategy) would already be extremely valuable.
+
+Thanks again for taking the time to respond.
+
+-------------------------
+
