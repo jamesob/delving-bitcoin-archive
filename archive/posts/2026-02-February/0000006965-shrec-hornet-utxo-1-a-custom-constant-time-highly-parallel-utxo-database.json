@@ -7,15 +7,15 @@
   "cooked": "<p>this benchmark is from my dev machine that is already loaded by dev tools.</p>",
   "post_number": 11,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 13,
   "updated_at": "2026-02-26T17:02:07.264Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.6,
   "yours": false,
   "topic_id": 2201,
   "topic_slug": "hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "this benchmark is from my dev machine that is already loaded by dev tools.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "this benchmark is from my dev machine that is already loaded by dev tools.",
   "truncated": true,
   "post_url": "/t/hornet-utxo-1-a-custom-constant-time-highly-parallel-utxo-database/2201/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

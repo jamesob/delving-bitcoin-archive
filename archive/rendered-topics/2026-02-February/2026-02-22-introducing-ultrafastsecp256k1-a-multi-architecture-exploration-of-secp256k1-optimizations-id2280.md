@@ -52,3 +52,16 @@ Just finished the **RISC-V** optimization sprint for **Milk-V Mars (SiFive U74)*
 
 -------------------------
 
+real-or-random | 2026-02-27 10:52:17 UTC | #3
+
+[quote="shrec, post:1, topic:2280"]
+I am reaching out to this community for a technical audit, feedback on the cryptographic primitives, and suggestions on our constant-time implementation.
+
+[/quote]
+
+I wonder what your expectation is. If it is that someone here will make the effort of reading and reasoning about [more than 150 000 lines of cryptographic code](https://github.com/shrec/UltrafastSecp256k1/graphs/contributors), then I deem that the probability that this happens is negligible.
+
+My main piece of feedback is that the license is not a good fit for the Bitcoin system ecosystem. Almost everything in the ecosystem uses the MIT license. Picking the AGPL means that essentially no projects will be able to use your code, even if they wanted to.
+
+-------------------------
+

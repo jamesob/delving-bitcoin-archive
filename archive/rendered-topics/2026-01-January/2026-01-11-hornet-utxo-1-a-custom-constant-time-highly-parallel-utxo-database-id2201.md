@@ -1,6 +1,6 @@
 # Hornet UTXO(1): A custom, constant-time, highly parallel UTXO database
 
-tobysharp | 2026-01-11 21:25:57 UTC | #1
+tobysharp | 2026-02-27 10:52:09 UTC | #1
 
 Hi all,
 
@@ -75,7 +75,7 @@ Cheers!
 
 -------------------------
 
-tobysharp | 2026-01-22 04:46:31 UTC | #4
+tobysharp | 2026-02-27 10:50:56 UTC | #4
 
 > Reading through the Hornet Node page, it seems like it’s an entirely separate Node implementation.
 
@@ -164,7 +164,7 @@ Is my understanding correct that you have on-disk TXO database (since it’s app
 
 -------------------------
 
-tobysharp | 2026-01-28 18:08:36 UTC | #9
+tobysharp | 2026-02-27 10:51:23 UTC | #9
 
 Hi stickies-v. Thanks for reading the post so carefully and for your questions :) 
 
@@ -206,6 +206,18 @@ Clang 21.1.0, i7-11700, single core, pinned:
 shrec | 2026-02-26 17:02:07 UTC | #11
 
 this benchmark is from my dev machine that is already loaded by dev tools.
+
+-------------------------
+
+system | 2026-02-27 06:05:49 UTC | #12
+
+
+
+-------------------------
+
+system | 2026-02-27 10:52:09 UTC | #13
+
+
 
 -------------------------
 
