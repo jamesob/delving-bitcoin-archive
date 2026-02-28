@@ -802,7 +802,7 @@ The platform is running quite stable now. If you’re working on gossip-v2 or sy
 
 -------------------------
 
-jonhbit | 2026-02-28 00:38:04 UTC | #23
+jonhbit | 2026-02-28 00:40:56 UTC | #23
 
 Thanks all for the interest on this subject! Since December, I have my new version of gossip-observer running and collecting data, so I can reply with some insights informed by preliminary results from that system.
 
@@ -898,7 +898,7 @@ The rightmost plot, 'Observer', is for messages sent from the gossip-observer no
 Comparison of the unique message sets of the two nodes: Do both nodes see the same network?
 [/quote]
 
-Good to see high overlap here! I think a good next question is to dig into that overlap and see if it's always for the same parts of the graph, message types, etc. I'll try to do the same.
+Good to see high-ish overlap here! I think a good next question is to dig into that non-overlapping data and see if it's always for the same parts of the graph, message types, message contents, etc. I'll try to do the same.
 
 It would be interesting to see your stats on messages I'm generating / that we have a known origin location and time for - as I'm running a custom version of LDK node, I'm not sure how other implementations, with stock settings, may be seeing my channels.
 
