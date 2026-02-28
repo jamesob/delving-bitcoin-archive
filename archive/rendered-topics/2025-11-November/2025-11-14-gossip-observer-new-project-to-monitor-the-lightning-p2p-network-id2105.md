@@ -802,7 +802,7 @@ The platform is running quite stable now. If you’re working on gossip-v2 or sy
 
 -------------------------
 
-jonhbit | 2026-02-28 00:40:56 UTC | #23
+jonhbit | 2026-02-28 00:45:32 UTC | #23
 
 Thanks all for the interest on this subject! Since December, I have my new version of gossip-observer running and collecting data, so I can reply with some insights informed by preliminary results from that system.
 
@@ -903,6 +903,8 @@ Good to see high-ish overlap here! I think a good next question is to dig into t
 It would be interesting to see your stats on messages I'm generating / that we have a known origin location and time for - as I'm running a custom version of LDK node, I'm not sure how other implementations, with stock settings, may be seeing my channels.
 
 I'll think more about interesting queries as well - I'm still refining that myself tbh.
+
+_P.S.Thank you to emzy and SchroedingersCat for accepting my low-value channel open requests. Hat-tip to Megalithic for running a routing node specifically for smaller-value channels._
 
 -------------------------
 
