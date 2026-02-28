@@ -802,3 +802,107 @@ The platform is running quite stable now. If you’re working on gossip-v2 or sy
 
 -------------------------
 
+jonhbit | 2026-02-28 00:38:04 UTC | #23
+
+Thanks all for the interest on this subject! Since December, I have my new version of gossip-observer running and collecting data, so I can reply with some insights informed by preliminary results from that system.
+
+Replying in order:
+
+[quote="endothermicdev, post:20, topic:2105"]
+I’m assuming if you have 5 peers, you’ll send your sketch to them at roughly even intervals - in this case, 12s. That keeps the diff of each set smaller, which means a smaller sketch capacity needs to be encoded and the decoding time is faster. In this case, you should have your sketch updated with your previous peer’s responses before the next round starts. With a sufficient number of gossip peers, that may not hold true, but than would require a large number of peers and it’s still a vast improvement over naive flood propagation.
+[/quote]
+
+Makes sense to me :+1: I agree just keeping the sketch up to date is likely best.
+
+Related, since we have the blocknumber suffix for the set key of a message, we could indeed skip the GETDATA round trip, since both peers can compute which peer has the newer message for a specific channel (all fields would match, but blocknumber would differ). I think this matches what Rusty suggested upthread.
+
+[quote="endothermicdev, post:20, topic:2105"]
+If you can encode the gossip message into the sketch element (without hashing it) this becomes easier because you can update your sketch with the message you’re already in the process of retrieving. If the message is encoded into the sketch with SCID + blockheight, this becomes easy.
+[/quote]
+
+IIUC basically all of the messages are too big to be used as a sketch element directly? Just due to sigs and keys basically. And I think the use of TLV will make the new messages slightly bigger. Maybe I'm misunderstanding the suggestion here?
+
+[quote="endothermicdev, post:20, topic:2105"]
+As a side note, there are a bunch of tradeoffs in any design here, and we have implicit assumptions about number of gossip peers, and the relative availability of sketch encoding compute vs bandwidth. It might be worthwhile to state some design goals and hardware limitations. As a starting point, I would assume a similar number of channels and updates as are broadcast today, and that the sketch encoding/decoding could be accomplished by a Raspberry Pi 5 with 10 peers (CLN current gossiper default) each getting a single round per minute.
+[/quote]
+
+Agreed - I'll start to work in this direction of initial benchmarking. I have an ARM SBC similar to a Pi 4 that I can use for benchmarking Minisketch operations for the set and difference sizes we're thinking about here.
+
+[quote="jpjuni0r, post:21, topic:2105"]
+Since you are talking about neighborhoods, do you think that the gossip graph is partitioned? I think that three random gossip syncers should be enough that there is only a single partition, though that assumes that every node works reliably.
+[/quote]
+
+Mm, not exactly - moreso that some groups of nodes may either have issues propagating their messages, or that they receive new messages with a large delay compared to the average across the network.
+
+After reviewing some implementation code further, I'm _more_ convinced that the P2P network is unlikely to be partitioned. In the worst case, nodes may miss messages via normal gossip flooding, but they can receive messages via 'catchup' behavior like the requesting data via timestampfilter messages, or just requesting the full graph. Combined with random rotation of peers, I think that should be sufficient. We should be able to test this hypothesis with gossip graph snapshots, similar to Fabian's 2nd figure below.
+
+[quote="jpjuni0r, post:21, topic:2105"]
+Still, even when ignoring the private nodes, I find that it is not ideal that there are nodes in the network that are not reachable, and it raises the question, whether they are able to process payments. That number of 4,859 nodes that recently created a new gossip message also was unexpected for me. For a typical channel, I find that they typically create a new channel update at least every 24 hours.
+[/quote]
+
+I agree, and I found something similar - for a channel, if one peer is offline, (IIUC) the second peer would still rebroadcast the channel_announcement, and the channel_update for their side of the channel. So this channel would still be known to the network. However, if the channel_update for the other direction of the channel is stale or missing, then a payment (in either direction) would likely fail. In practice, I think implementations 'prune' channels missing fee info for one side of the channel from their graph view when performing pathfinding.
+
+I found that many channels are in this state, but I need to refine my methodology there.
+
+[quote="jpjuni0r, post:21, topic:2105"]
+Another related point to your goal minimizing bandwidth: I found that there is a small minority of nodes that are very “chatty”. Those frequently create redundant channel updates or node announcements, that differ only in their timestamp and signature fields. In once case, there is a node creating a new node announcement every 30 sec.
+[/quote]
+
+I see the same behavior, at least for channel updates (02/05-02/12):
+
+![scid_msg_count|690x497](upload://faw4ebn7NxzqHKryCud6K5Cbu9G.jpeg)
+
+This is only comparing the 'outer' message with its signature and timestamp; I haven't yet compared the same data for the 'inner' fields as you suggested, to see how many messages are just 'refreshes' of the same content.
+
+[quote="jpjuni0r, post:21, topic:2105"]
+What exactly do you mean by “different positions” in the P2P network? Is that just a different selection of gossip syncers?
+[/quote]
+
+I meant positions in the sense of [detected communities](https://en.wikipedia.org/wiki/Community_structure). Rephrased: "Does a node's position in the payment channel network affect its view of the network state, which is constructed from the gossip messages it receives over time?"
+
+I used [stochastic block modelling](https://skewed.de/lab/posts/modularity-harmful/) with the edge capacities as an extra parameter to perform community detection, and got this result:
+
+![graph_communities_1|690x450](upload://vgYzxySFVwAXziBWl0KEVRELaWa.jpeg)
+
+I'll dive into this more on a deep-dive post on the BNOC forum later this week, but the tl;dr is that I found 21 communities, and 9 communities-of-communities.
+
+A massive portion of the node count is attributable to this entity, [Lightning Network Token](btclnt.com/). They sell preconfigured nodes that seem to open a very small public channel to their hub node. This is the 4 communities on the far left; a total of ~2000 nodes.
+
+The grey community is mostly Tor-only nodes that only have 1-3 channels to the network 'core', specifically nodes that accept low-capacity channels such as 1ML or CoinGate. That's ~5600 nodes.
+
+For these communities, since they have very few payment channels, _and_ with the assumption that massive hub nodes like 1ML aren't actually forwarding all gossip traffic to all channel peers (since it's a lot of traffic and system load), those nodes may lag behind in their network view. With random gossip peer selection, the odds of the selected peer having very few payment channels is high.
+
+Gossip-observer has one LDK node connected to each community shown here, and I'm collecting snapshots of the gossip graph of each node every few hours. So from that I should be able to validate this hypothesis.
+
+[quote="jpjuni0r, post:21, topic:2105"]
+Looking forward to your investigation! I can also share that analysis based on my dataset (below), where there are only two peaks: One around 0 and the other one around the number of average peers that the node had. Though I did not include all messages received in the results, but made two methodological adjustments:
+[/quote]
+
+The notes on your methodology were very useful, thanks again for that! I should be able to perform similar deduplication for my collected data and cross-check with your results. I also don't have an explanation for why there is a peak around 0 / some messages not being widely received. But we may be able to get some hints from the message contents.
+
+[quote="fabian.kraus, post:22, topic:2105"]
+run two Core Lightning nodes (*Alice* and *Bob*) in *default* *configuration*, meaning ~10 peers to receive gossip from. Every gossip messages that is appended to the `gossip_store file` gets timestamped and saved in a database.
+[/quote]
+
+Good to see you on this thread! My results for propagation delay are quite similar, so that's good :slight_smile: 
+
+![prop_delay_outer|611x500](upload://Avb9ovpBCHuzhKv6wy47s4pVF7l.jpeg)
+
+This was for `2026-02-05` to `2026-02-12`. I haven't re-run this on the data collected since the 12th.
+
+The box plots are for P05, P25, P50, P75, P95. I was puzzled by the large difference in P50 across message types, but I think LND actually processes announcements before updates, so they may be forwarded with different delays as well.
+
+The rightmost plot, 'Observer', is for messages sent from the gossip-observer nodes. I opened 7 channels, and I'm sending random channel updates on an interval for each to generate new messages. I think the lower P50 is just due to knowing the time of message creation, vs. the expected one-hop propagation delay of a gossip message of 30 seconds (from the 60 second batching timer).
+
+[quote="fabian.kraus, post:22, topic:2105"]
+Comparison of the unique message sets of the two nodes: Do both nodes see the same network?
+[/quote]
+
+Good to see high overlap here! I think a good next question is to dig into that overlap and see if it's always for the same parts of the graph, message types, etc. I'll try to do the same.
+
+It would be interesting to see your stats on messages I'm generating / that we have a known origin location and time for - as I'm running a custom version of LDK node, I'm not sure how other implementations, with stock settings, may be seeing my channels.
+
+I'll think more about interesting queries as well - I'm still refining that myself tbh.
+
+-------------------------
+
