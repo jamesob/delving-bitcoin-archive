@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
+  "reads": 23,
+  "readers_count": 22,
   "score": 3.4,
   "yours": false,
   "topic_id": 2311,
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "Hi, in the past 3 days you've created 4 threads about your library. I don't think it's necessary to create a new topic for every update.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "Hi, in the past 3 days you\u2019ve created 4 threads about your library. I don\u2019t think it\u2019s necessary to create a new topic for every update.",
   "truncated": true,
   "post_url": "/t/license-update-ultrafastsecp256k1-mit/2311/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
