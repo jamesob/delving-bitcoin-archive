@@ -7,7 +7,7 @@
   "cooked": "<p>I think it would be helpful and meaningful if you showed like-for-like comparative performance between your optimized library and the baseline libsecp256k1 implementation used by Bitcoin Core for instance. A useful metric would be number of ECDSA verifications per second, and then some discussion of where performance gains were made and where the remaining bottlenecks are for bandwidth.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 9,
   "updated_at": "2026-02-27T07:05:48.181Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
