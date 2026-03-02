@@ -13,8 +13,8 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
+  "reads": 20,
+  "readers_count": 19,
   "score": 3.8,
   "yours": false,
   "topic_id": 2286,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I think it would be helpful and meaningful if you showed like-for-like comparative performance between your optimized library and the baseline libsecp256k1 implementation used by Bitcoin Core for instance. A useful metric would be number of ECDSA verifications per second, and then some discussion of where performance gains were made and where the remaining bottlenecks are for bandwidth.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "I think it would be helpful and meaningful if you showed like-for-like comparative performance between your optimized library and the baseline libsecp256k1 implementation used by Bitcoin Core for instance. A useful metric would be number of ECDSA verifications per second, and then some discussion of&hellip;",
   "truncated": true,
   "post_url": "/t/ultrafastsecp256k1-v3-14-0/2286/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
