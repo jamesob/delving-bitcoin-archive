@@ -1526,13 +1526,13 @@ A thing I would suggest would be to remove shachain completely, in favor of simp
 
 -------------------------
 
-8144225309 | 2026-03-04 00:49:37 UTC | #35
+8144225309 | 2026-03-04 00:51:09 UTC | #35
 
 Built a proof-of-concept implementation to better understand the design.
 
 https://github.com/8144225309/SuperScalar
 
-Thanks @ZmnSCPxj for the design and the revocation key guidance — went with that approach.
+Thanks @ZmnSCPxj for the design and the revocation key guidance.
 
 Current state:
 
@@ -1546,8 +1546,7 @@ Current state:
 
 Prototype written in C. Running on regtest, signet, and testnet.
 
-Next steps are improving documentation and working toward a formal spec. Testers and reviewers welcome — open an issue on the repo or reply here
-with questions/suggestions.
+Next steps are improving documentation and working toward a formal spec. Testers and reviewers welcome: open an issue on the repo or reply here with questions/suggestions.
 
 -------------------------
 
