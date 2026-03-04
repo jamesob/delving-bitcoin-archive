@@ -1526,3 +1526,28 @@ A thing I would suggest would be to remove shachain completely, in favor of simp
 
 -------------------------
 
+8144225309 | 2026-03-04 00:49:37 UTC | #35
+
+Built a proof-of-concept implementation to better understand the design.
+
+https://github.com/8144225309/SuperScalar
+
+Thanks @ZmnSCPxj for the design and the revocation key guidance — went with that approach.
+
+Current state:
+
+* Decker-Wattenhofer invalidation trees with alternating kickoff/state layers
+* Timeout-signature trees (N-of-N MuSig2 key-path + CLTV fallback)
+* Poon-Dryja channels at leaves with HTLC and PTLC support
+* MuSig2 (BIP-327) and Schnorr adaptor signatures
+* LSP + N clients in a single funding UTXO
+* Watchtower breach detection with penalty broadcasting
+* 402 tests (359 unit, 43 integration)
+
+Prototype written in C. Running on regtest, signet, and testnet.
+
+Next steps are improving documentation and working toward a formal spec. Testers and reviewers welcome — open an issue on the repo or reply here
+with questions/suggestions.
+
+-------------------------
+
