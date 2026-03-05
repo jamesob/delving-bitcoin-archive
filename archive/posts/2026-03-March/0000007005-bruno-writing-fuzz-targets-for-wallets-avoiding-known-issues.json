@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 6,
-  "reads": 19,
-  "readers_count": 18,
+  "reads": 20,
+  "readers_count": 19,
   "score": 93.8,
   "yours": false,
   "topic_id": 2316,
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 4
+      "count": 5
     }
   ],
   "moderator": false,
@@ -64,10 +64,15 @@
       "id": "+1",
       "type": "emoji",
       "count": 4
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
+  "reaction_users_count": 5,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
