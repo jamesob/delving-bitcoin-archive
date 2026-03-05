@@ -245,3 +245,19 @@ It’s clear that CPU cycles are the bottleneck but I wonder if there is any val
 
 -------------------------
 
+bruno | 2026-03-05 19:49:03 UTC | #3
+
+[quote="benalleng, post:2, topic:2316"]
+Not exactly wallet specific but I’m curious if you have explored any “process” improvements on your fuzzing workflow, whether through engine choice or cycle adjustments?
+[/quote]
+
+One thing that helped in some way is doing ensemble fuzzing. It means fuzzing with different fuzzers (AFL++, libfuzzer, honggfuzz) at same time and same inputs.
+
+[quote="benalleng, post:2, topic:2316"]
+As an example I have read in some fuzzing forums about novel ways to minimize the corpus to try and increase coverage more quickly like simply randomly culling some percentage of the corpus as opposed to using the standard cmin tool built in to most fuzzing engines to force some additional variance into the fuzzer.
+[/quote]
+
+I have not tried yet but I've heard that preiodically culling some inputs of the corpus might be helpful. I know some people prefer to not use some projects' corpora and having their own corpus which could means different inputs but same coverage at all.
+
+-------------------------
+
