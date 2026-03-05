@@ -235,3 +235,13 @@ Wallet fuzzing is not just about throwing random bytes at wallet APIs. In my exp
 
 -------------------------
 
+benalleng | 2026-03-05 12:46:24 UTC | #2
+
+Not exactly wallet specific but I’m curious if you have explored any “process” improvements on your fuzzing workflow, whether through engine choice or cycle adjustments?
+
+As an example I have read in some fuzzing forums about novel ways to minimize the corpus to try and increase coverage more quickly like simply randomly culling some percentage of the corpus as opposed to using the standard cmin tool built in to most fuzzing engines to force some additional variance into the fuzzer.
+
+It’s clear that CPU cycles are the bottleneck but I wonder if there is any value in trying to get better map density and count coverage per average cycle? Or maybe it’s all a wash with enough CPU hours.
+
+-------------------------
+
