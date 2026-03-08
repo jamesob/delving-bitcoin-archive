@@ -39,3 +39,11 @@ Hi, in the past 3 days you've created 4 threads about your library. I don't thin
 
 -------------------------
 
+shrec | 2026-03-08 18:27:33 UTC | #3
+
+Update: UltrafastSecp256k1 v3.21 released.
+
+This release focuses on constant‑time hardening and performance improvements including SafeGCD scalar inversion and improved signing performance.
+
+-------------------------
+
