@@ -86,3 +86,22 @@ Thanks again for taking the time to respond.
 
 -------------------------
 
+shrec | 2026-03-08 21:44:38 UTC | #5
+
+Cumulative release: v3.14.0 → v3.21.0
+120+ commits
+ABI compatible
+No breaking changes — drop-in upgrade from v3.14.x
+
+Highlights:
+• Bernstein‑Yang SafeGCD constant‑time scalar inverse
+• 6.4× faster ct::scalar_inverse
+• \~43% faster constant‑time ECDSA signing
+• RISC‑V constant‑time timing leak fixes
+• strict BIP‑340 parsing
+• expanded audit infrastructure
+• reproducible Docker CI
+• cross‑platform benchmarks on x86‑64, ARM64, RISC‑V and ESP32
+
+-------------------------
+
