@@ -321,14 +321,6 @@ On the other hand, I’m sure some power users and system administrators would v
 
 -------------------------
 
-Fiach-Dubh | 2026-02-19 01:47:15 UTC | #15
-
-Hebasto should collaborate with other devs and step aside if he can no longer find ways to develop the GUI as is, others may have a better idea on how to intervene without castrating the client entirely. Him hitting a brick wall is not a reason to immediately deprecate the GUI within one release cycle with no fallback solutions.
-
-This proposal on it’s face seems like a huge foot gun.
-
--------------------------
-
 neonrooks | 2026-02-19 01:15:48 UTC | #16
 
 Bitcoin nodes should be accessible to anyone without the hassle of learning commands or a unix terminal. 
@@ -421,6 +413,18 @@ still needs configuration on both server and client, and would therefore fail th
 [/quote]
 
 I think you could make the gui launch / manage the daemon -- ie supply the datadir and bitcoin.conf file that configures the RPC port and access controls -- and have it end up being straightforward as far as users are concerned.
+
+-------------------------
+
+janb84 | 2026-03-09 19:01:05 UTC | #22
+
+[quote="ajtowns, post:19, topic:2253"]
+That’s pretty cool. Seems like you could potentially do things like turn it into a mini block/mempool explorer which would be nice, and tracking soft-fork deployments via `getdeploymentinfo` could also get a nice display. Having some “control” ability in addition to the “view” stuff would probably be nice (“stop”, “setnetworkactive”, “addnode”, “disconnectnode”, “setban”) though.
+
+[/quote]
+
+Version 0.7.0 has soft-fork tracking, and options to add-, disconnect- and ban nodes. I’m slowly adding options to the TUI. 
+My plan is to experiment with some wallet option next.
 
 -------------------------
 

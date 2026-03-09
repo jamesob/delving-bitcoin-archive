@@ -38,3 +38,25 @@ CSFS, CTV, and INTERNALKEY experiments next.
 
 -------------------------
 
+AntoineP | 2026-03-09 17:10:16 UTC | #3
+
+[quote="AaronZhang, post:2, topic:2236"]
+The two networks fork at the first block containing a new-opcode spend. Expected
+[/quote]
+
+No, not expected! BIP 347 is a soft fork. Fortunately the spend tx [does show up](https://mempool.space/signet/tx/00072d4aa354b5987eb8f2ffec440db7467b0581c5e845a6a0ef6999b2d05656?showDetails=true) on Signet explorers. Presumably you actually checked *before* the spend was included in a block? It would not show up then because regular Signet nodes consider it non-standard and won't accept it in their mempool.
+
+-------------------------
+
+AaronZhang | 2026-03-09 18:34:21 UTC | #4
+
+Thanks for the correction, Antoine — and for prompting a deeper look.
+
+Verified on mempool.space/signet: the spend tx is there with 3600+ confirmations. You were right.
+
+Your correction pushed me to think more carefully about why. Non-upgrade nodes accept the block not because they understand the new rule, but because OP_CAT is an unknown opcode in Tapscript — OP_SUCCESS under old semantics. The "network fork" I thought I observed was just a timing artifact: the tx never entered regular nodes' mempools (non-standard), so it was invisible before block inclusion.
+
+CSFS, CTV, and INTERNALKEY experiments coming next — this time I'll reason from first principles before drawing conclusions.
+
+-------------------------
+
