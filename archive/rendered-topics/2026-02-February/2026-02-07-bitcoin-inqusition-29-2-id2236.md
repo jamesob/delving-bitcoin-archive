@@ -24,3 +24,17 @@ BIP 54 activation has ~~not yet been signalled for on the default signet network
 
 -------------------------
 
+AaronZhang | 2026-03-09 08:50:59 UTC | #2
+
+I've been running experiments on the Bitcoin Inquisition signet, starting with OP_CAT. For this first round I built a witness-locked script: data lives in the witness, the script only verifies the hash — only the holder of part_a/part_b can spend.
+
+Commit tx `084d5a9c6a8c176c24edc0a8b7ce54ed65808a326367d8a9299b4460ecaada09` → Spend tx `00072d4aa354b5987eb8f2ffec440db7467b0581c5e845a6a0ef6999b2d05656`
+
+Code and full transaction details: https://github.com/aaron-recompile/inquisition-experiments
+
+One observation: commit transactions show up on both standard signet explorers (mempool.space) and Inquisition nodes, but reveal/spend transactions only appear on Inquisition nodes — standard nodes reject the block entirely. The two networks fork at the first block containing a new-opcode spend. Expected, but worth noting for anyone trying to verify via public explorers.
+
+CSFS, CTV, and INTERNALKEY experiments next.
+
+-------------------------
+
