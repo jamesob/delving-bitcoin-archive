@@ -7,7 +7,7 @@
   "cooked": "<p>Cumulative release: v3.14.0 \u2192 v3.21.0\n120+ commits\nABI compatible\nNo breaking changes \u2014 drop-in upgrade from v3.14.x</p>\n<p>Highlights:\n\u2022 Bernstein\u2011Yang SafeGCD constant\u2011time scalar inverse\n\u2022 6.4\u00d7 faster ct::scalar_inverse\n\u2022 ~43% faster constant\u2011time ECDSA signing\n\u2022 RISC\u2011V constant\u2011time timing leak fixes\n\u2022 strict BIP\u2011340 parsing\n\u2022 expanded audit infrastructure\n\u2022 reproducible Docker CI\n\u2022 cross\u2011platform benchmarks on x86\u201164, ARM64, RISC\u2011V and ESP32</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 7,
   "updated_at": "2026-03-08T21:44:38.299Z",
   "reply_count": 0,
   "reply_to_post_number": null,
