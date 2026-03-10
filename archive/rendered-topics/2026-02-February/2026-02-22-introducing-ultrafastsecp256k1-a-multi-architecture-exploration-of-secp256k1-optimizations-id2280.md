@@ -117,11 +117,11 @@ shrec | 2026-03-10 19:57:45 UTC | #7
 
 -------------------------
 
-shrec | 2026-03-10 20:03:19 UTC | #8
+shrec | 2026-03-10 20:08:23 UTC | #8
 
 more benchmaks can be found here:
 
-https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/BENCHMARKS.md
+https://github.com/shrec/UltrafastSecp256k1/blob/a7780970eec9c47611594a7ccf9942dd3c3289ac/docs/BENCHMARKS.md
 
 -------------------------
 
