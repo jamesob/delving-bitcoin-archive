@@ -317,3 +317,33 @@ I don’t think claude file really helps for review at all. Seems like more valu
 
 -------------------------
 
+l0rinc | 2026-03-11 12:28:55 UTC | #8
+
+I have also been experimenting with making GitHub review slightly less painful.
+
+For the past few weeks I’ve been building ACKtopus (https://github.com/l0rinc/ACKtopus), a fairly opinionated Tampermonkey browser userscript specialized for Bitcoin Core PR review:
+
+![Screenshot 2026-03-11 at PM 12.15.21|690x375](upload://6btTT7jtIO7BUMnt0tmchwSrhaP.png)
+
+The goal is mostly to patch over the most annoying GitHub review friction, plus add Bitcoin-Core-specific workflow helpers and some LLM-assisted tools:
+
+* copying the latest hash for ACKing
+* copy command to run only modified tests/benchmarks or range diff
+* copying PR commit/comment context for external LLMs
+* show inline commit/PR summaries and explanations
+* selection-based explain/fact-check/proofread actions
+* pending-review helpers
+* range-diff/re-review helpers
+* auto-collapsing unrelated files after force-push compares
+* commit-hash prefixes in draft review comments
+* llm questions about comments with navigation.
+
+![image|292x319](upload://cI6DRZzlhY57UL5oQc7JRVqgmtb.png)
+
+It’s far from stable and I would not recommend relying on it for review judgment, but for me, it is mainly a review accelerator and a way to reduce GitHub friction.
+I’m sharing it because some of the individual features may still be useful to others, even if only as ideas to copy into their own setup rather than using the whole thing.
+
+Given how scarce review is (and how capable LLMs have become), I think it makes sense to use every tool available to make review easier and safer.
+
+-------------------------
+
