@@ -347,3 +347,15 @@ Given how scarce review is (and how capable LLMs have become), I think it makes 
 
 -------------------------
 
+johnny9 | 2026-03-11 19:01:12 UTC | #9
+
+I’ve been having success the last two weeks using openclaw to assist in managing PR reviews. I’ve since setup an agent for each of my open source projects.
+
+This agent specifically is responsible for giving me alerts when PRs I am interested in need my attention. It also proactively provides me a thorough review of the changes since I last commented on the PR so that I am prepared when pulling up github. It saves what it’s reviewed and the latest commit hashes in memory so that everytime it does its scan it can give me intelligent updates.
+
+Additionally, I have the agent setup to automatically rebase my commits whenever there is a new conflict. I am having a lot of success with that. It can accurately rebase and update the PR and add a comment that a rebase was completed. I did learn to make it clear that it can never delete tests that are in conflict and to always validate through building and running all relevant tests.
+
+This is very much a WIP and I would like to hear if others are having similar successes with openclaw/codex automations. I will be trying to slim down my AGENT.md, SOUL.md, and the cron job prompt as I discover what the most effective versions of each are. Designing these files seems more art than a science right now but I’m going to try to integrate the things you all have mentioned here as well.
+
+-------------------------
+
