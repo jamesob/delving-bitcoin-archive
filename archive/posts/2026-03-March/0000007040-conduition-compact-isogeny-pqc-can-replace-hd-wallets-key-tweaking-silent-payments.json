@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 1.0,
   "yours": false,
   "topic_id": 2324,
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "Other posts here have explored some of the bleeding-edge of lattice-based crypto: https://delvingbitcoin.org/t/post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures/1854\n\n...But even at their best, lattice crypto schemes require several kilobytes of key+sig. Isogeny crypto is much more compact at less than 300 bytes of key+sig, does not accumulate errors, and can be used to do much of the same stuff.\n\nhttps://conduition.io/cryptography/isogenies-intro/\n\nI published this article just yesterday after spending the last few months researching isogenies. I'm still learning, so there may be some inaccuracies, it's a difficult subject. I gave my best shot at making it approachable to bitcoin engineers who are already familiar with classical ECC.\n\nHere's a short version to give you a taste.\n\n- Isogenies are functions that map points between different elliptic curves.\n- _Endomorphisms_ are isogenies that map points on a curve to itself, e.g. scalar multiplication is an endomorphism.\n- Given two curves $E_1$ and $E_2$, we believe it is a hard problem to find an isogeny between them. This is called the \"supersingular isogeny path problem\" (SIPP).\n- For every elliptic curve $E$ there exists a mathematical object called the \"endomorphism ring\" of $E$, denoted $\\text{End}(E)$, which is the ring of all endomorphisms on $E$.\n- Finding $\\text{End}(E)$ given only $E$ is a hard problem, called the \"endomorphism ring problem\" (ERP).\n- Some supersingular elliptic curves have well-known and friendly endomorphism rings. One such curve is $E_0: y^2 = x^3 + x$\n- The SIPP has been proven equivalent to the ERP. Namely:\n    - Given curves $E_1$ and $E_2$ and their endomorphism rings $\\text{End}(E_1)$, $\\text{End}(E_2)$, we can efficiently compute an isogeny $\\varphi : E_1 \\rightarrow E_2$ (or $E_2 \\rightarrow E_1$).\n    - Given curves $E_1$ and $E_2$, one endomorphism ring $\\text{End}(E_1)$ and an isogeny $\\varphi : E_1 \\rightarrow E_2$, we can efficiently compute the endomorphism ring $\\text{End}(E_2)$.\n\nFor cryptography, we typically generate a secret isogeny $\\varphi : E_0 \\rightarrow E$, and use our knowledge of $\\text{End}(E_0)$ to compute $\\text{End}(E)$. Our secret key is either $\\varphi$ or equivalently $\\text{End}(E)$. \n\nNow we have some new powers which nobody else in the universe, hopefully even quantum-enabled attackers, can do:\n\n- if given an isogeny $\\phi_1: E \\rightarrow E'$, we can efficiently compute an isogeny $\\psi_1: E_0 \\rightarrow E'$\n- if given an isogeny $\\phi_2: E_0 \\rightarrow E'$, we can efficiently compute an isogeny $\\psi_2: E \\rightarrow E'$\n\nWe can use these abilities to instantiate signature schemes - see [this section of the article](https://conduition.io/cryptography/isogenies-intro/#Naive-Unsafe-Signing). But mainly i want to show you how, given these simple rules, we get unhardened BIP32 key derivation. \n\nAll we need to do is generate a pseudorandom isogeny $\\psi: E \\rightarrow E'$ which maps the public key to some new uniformly-random curve $E'$. This has been done before by existing schemes in a different context (e.g. producing challenge isogenies in SQIsign). The keyholder can recompute $\\psi$ and then use their knowledge of $\\text{End}(E)$ to find $\\text{End}(E')$, and voila, they've updated their secret key. If needed the keyholder can use the publicly-known constant $\\text{End}(E_0)$ to find an updated secret isogeny $\\varphi' : E_0 \\rightarrow E'$. \n\n<img src=\"upload://85Y7pw2t65y5TB6iq9vpgM4L9Kr.svg\">\n\nThis same approach can be reused to recreate silent payments and taproot-style key tweaking (commitment inside a pubkey).\n\nMultisignature isogeny schemes that can compete with SQIsign and PRISM for compactness are unfortunately still lacking, but I hope that by drawing attention to this topic, I can convince more bitcoin devs to start researching this subject and contribute to it the same way we've contributed to multisignature schemes in the domain of classical ECC.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Other posts here have explored some of the bleeding-edge of lattice-based crypto: <a href=\"https://delvingbitcoin.org/t/post-quantum-hd-wallets-silent-payments-key-aggregation-and-threshold-signatures/1854\" class=\"inline-onebox\">Post-Quantum HD-Wallets, Silent Payments, Key Aggregation, and Threshold Signatures</a> \n\u2026But even at their best, lattice crypto schemes require several kilobytes of key+sig. Isogeny crypto is much more compact at less tha&hellip;",
   "truncated": true,
   "post_url": "/t/compact-isogeny-pqc-can-replace-hd-wallets-key-tweaking-silent-payments/2324/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
