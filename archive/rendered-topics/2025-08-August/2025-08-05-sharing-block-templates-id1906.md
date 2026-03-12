@@ -416,3 +416,26 @@ One way to reduce the RBF hits might be to change it so that rather than sending
 
 -------------------------
 
+ajtowns | 2026-03-12 03:10:03 UTC | #25
+
+[quote="ajtowns, post:23, topic:1906"]
+I’ve now done some very limited experimentation on mainnet with it,
+[/quote]
+
+After some more mainnet experimentation (updated spec and code linked [here](https://github.com/bitcoin/bitcoin/issues/33691#issuecomment-3982430106)), I'm a little bit disappointed at the amount of traffic it's using:
+
+| node | direction | inv | tx | tmplt | tmplttxn |
+| - | - | - | - | - | - |
+| nodeA | sent to | inv=35M | tx=4M | tmplt=16M | tmplttxn=9M |
+| nodeA | recv from | inv=15M | tx=15M | tmplt=16M | tmplttxn=4M |
+| nodeB | sent to | inv=19M | tx=138M | tmplt=6M | tmplttxn=13M |
+| nodeB | recv from | inv=7M | tx=3M | tmplt=6M | tmplttxn=461K |
+
+That feels a bit too close to an additional peer's worth of INV traffic to me, which is probably manageable, but I was hoping for better, and as a result I'm exploring using minisketch to reduce it.
+
+Current theory is to use 46-bit short ids (since per the [minisketch docs](https://github.com/bitcoin-core/minisketch/blob/d1bd01e189e745cd1828707e0a7004b6a6909650/README.md) that hits a sweet-spot with the CLMUL implementation, and it gives low odds of false positives with thousands of entries comparing against a full mempool), and use a bisection approach over 8 sketches with 256 capacity -- so a single sketch at ~1500 bytes gives you perfect recovery if you've got fewer than a couple hundred differences, 4 sketches gives you good odds of recovery if you have fewer than ~1000 differences, and you only communicate a full set of shortids if you don't catch it with 8 sketches, and have over ~2000 differences.
+
+Anyway, plan is to try to get that working and see how it performs -- I'm pretty optimistic that many cases will only need a single sketch to get fully resolved, which I think will be fine. But if not, we could probably do smaller (32 byte?) shortids, by adding a second small sketch over (part of) the actual wtxids to catch the small number of false positives that sneak through.
+
+-------------------------
+
