@@ -31,3 +31,30 @@ That's a great point! I will follow-up after I dig in deeper to understand all t
 
 -------------------------
 
+conduition | 2026-03-12 17:57:03 UTC | #4
+
+Nice finds Jesse. My first major issue is that some of these articles are paywalled so I can't read them in totality. For those that I can read, i have some critiques.
+
+*“[A Secure Hierarchical Deterministic Wallet with Stealth Address from Lattices](https://www.sciencedirect.com/science/article/pii/S0304397524002895?via%3Dihub)”*
+
+- This paper is paywalled except for the introduction section. My opinions are entirely based on the introduction section.
+- They state: _"note that even the above effort we made, we recognize that the size of signature and key in our scheme is far from practical for the blockchain system, even in the cryptocurrency. Constructing an efficient post-quantum one is the future work."_ I don't know how big the actual signatures are, because paywall, but i'm guessing they ran into the same problem [these guys](https://eprint.iacr.org/2026/380) did - namely that adding the necessary algebraic structure necessitates including the full matrix $A$ in the pubkey, rather than a pseudorandom seed as ML-DSA does.
+- They state: _"In order to realize the unlinkability, that, the extended public key related information cannot be obtained from the derived public verification key 
+, we just need the payee and the payer to know and have the same secret information. Therefore, we need to use a Public Key Encryption (PKE) scheme to encrypt the secret information."_ This will add a lot of complexity and additional security requirements beyond standard models. 
+
+
+https://link.springer.com/chapter/10.1007/978-3-030-51938-4_14
+
+- This paper doesn't give concrete parameters and so we can't say how big the keys and signatures would actually be. Based on their table in page 3, $|\text{apk}| = |\text{msig}| = \tilde{\mathcal{O}}(n^2)$, so signatures plus pubkeys would be $2 n^2$ units. I assume they mean bits, but the paper is vague. By the way if you're wondering what $\tilde{\mathcal{O}}$ means: https://www.johndcook.com/blog/2019/01/17/big-o-tilde-notation/
+- They define $n = \mathcal{O}(\lambda)$ where $\lambda$ is the security parameter, e.g. 128, 192, 256. So without concrete parameters or units i'm left to assume $n^2 \approx 128^2 \approx 16384$, thus key+sig size would be at least $2n^2/8 \approx 4096$ bytes, only a few hundred bytes larger than ML-DSA.
+- In page 4 they say: _"In our MS construction, a trusted third party
+generates the public parameter set Y that contains a public matrix A."_ They don't elaborate on why this trusted third party is needed or what happens if they collude or misbehave.
+- The follow-up paper is paywalled so I can't seek clarity from it.
+
+https://eprint.iacr.org/2025/872
+
+- See page 5 for sizes. Signature + pubkey for this scheme (5.2kb) is around 1400 bytes larger than ML-DSA (3.7kb). They bragged a lot on how their signatures are comparable to ML-DSA, but their pubkeys are twice as big.
+- Other than the pubkey size, this scheme looks very clever.
+
+-------------------------
+

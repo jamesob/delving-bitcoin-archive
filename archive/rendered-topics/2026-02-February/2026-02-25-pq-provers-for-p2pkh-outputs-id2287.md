@@ -86,3 +86,60 @@ Isn’t proof aggregation a solution here? I see in your table that the RISC Zer
 
 -------------------------
 
+conduition | 2026-03-12 16:53:00 UTC | #3
+
+You can simplify the circuit. Executing full ECDSA verification inside of the circuit is unnecessary. If you're considering a world where the verifier of a transaction can parse ZK proofs, you may as well do away with that step, and instead implement simple key-generation inside of the circuit, which proves the same statement and doesn't require as many secp256k1 operations. You need only a single EC point multiplication and a single SHA256 call. 
+
+One way to do this would be:
+
+- Witness: $(sk, m')$ (seckey, actual message)
+- Public signal $(h, m)$ (pubkey hash, expected message)
+- Circuit computes $pk = sk \cdot G$
+- Circuit computes $h' = \text{SHA256}(pk)$
+- Circuit verifies $m = m'$ and $h = h'$
+
+-------------------------
+
+conduition | 2026-03-12 16:56:44 UTC | #4
+
+[quote="olkurbatov, post:1, topic:2287"]
+we’ve been benchmarking PQ proof systems for proving ownership of a Bitcoin P2PKH address, without revealing the public key.
+[/quote]
+
+Seems like this would preclude viability for a soft fork upgrade, as old clients will always need to see the public key and verify an ECDSA signature, correct?
+
+To be soft-fork compatible, you'd need the verifier to require a proof of BIP32 hardened key derivation at least. If the verifier accepts proof of public key knowledge (plus an ECDSA signature), this would be vulnerable to CRQC if instantiated as a soft fork. As soon as the pubkey is revealed any CRQC could forge the same proof and signature.
+
+-------------------------
+
+olkurbatov | 2026-03-12 18:11:50 UTC | #5
+
+[quote="conduition, post:3, topic:2287"]
+You can simplify the circuit.
+[/quote]
+
+Yes, that's true, but the main idea was to separate the proving device from the device that controls the secret key. For instance, you manage the key in the secure enclave/HW wallet/HSM, and exporting the private key can be difficult or risky. With the approach we benchmarked, you can produce the signature of the predefined string (by this secure device) and delegate the proving of the signature correctness to another machine without compromising $sk$.
+
+-------------------------
+
+olkurbatov | 2026-03-12 18:44:28 UTC | #6
+
+When we considered this option, an idea was to create a kind of registry with the following relation:
+```
+addr(P2PKH) :: PQ_PK :: proof
+```
+In this scenario, the user:
+1. Generates the set of new PQ keys $\{\mathsf{pk}_i, \mathsf{sk}_i\}_{i\in \mathsf{SLH\text{-}DSA, ML\text{-}DSA, etc}}$ for different PQ signatures' algorithms $i$
+2. Forms a message $m = \mathcal{H}_{sha256}(\mathsf{tagPQ}, \{\mathsf{pk}_i, \mathsf{sk}_i\},tx\_id, index)$
+3. Signs the message with the ECDSA key behind a P2PKH address: $\sigma \gets  \mathsf{SigGen}(m, sk_{\mathsf{ECDSA}})$
+4. Generates the proof $\pi_{\mathsf{p2pkh}}$ for the relation:
+[quote="olkurbatov, post:1, topic:2287"]
+The witness is `(pk, sigma)` and the statement is `(pk_hash, hm)`. Inside the proof:
+1. ECDSA signature verification over secp256k1
+2. SHA-256 hash of the public key (we could implement SHA-256 + RIPEMD-160 in circuits but we simplify the proving and leave `ripemd-160(.)` calculation public)
+[/quote]
+
+If we have a secure timestamping service (like Opentimestamps), the user can commit $(m, \pi_{\mathsf{p2pkh}})$ before the day Q (to be able to prove in the future the connection between P2PKH address and PQ keys).
+
+-------------------------
+
