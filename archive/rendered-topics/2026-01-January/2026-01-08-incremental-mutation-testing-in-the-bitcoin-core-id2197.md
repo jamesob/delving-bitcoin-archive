@@ -79,3 +79,24 @@ One example we recently had on Bitcoin Core is a PR that improves the `coin_cont
 
 -------------------------
 
+blockrotator | 2026-03-13 11:17:29 UTC | #2
+
+## **The Oracle Gap**
+
+Jain et al. \[2\] introduced the *oracle gap* as the difference between coverage and mutation score:
+
+gap(f,T)=cov(f,T)−mut(f,T)gap(*f*,*T*)=cov(*f*,*T*)−mut(*f*,*T*)
+
+where f*f* is a file and T*T* its test suite. They further defined the *covered oracle gap* using mutation score on only covered lines:
+
+gapcov(f,T)=cov(f,T)−mutcov(f,T)gapcov​(*f*,*T*)=cov(*f*,*T*)−mutcov​(*f*,*T*)
+
+Jain et al. found that fuzzing adds only 2% to mutation score in reviewing Bitcoin core. 
+
+—
+K. Jain, G. T. Kalburgi, C. Le Goues, and A. Groce. Mind the gap: The difference between coverage and mutation score can guide testing efforts. In *ISSRE*, 2023.
+
+A. Groce, K. Jain, R. van Tonder, G. T. Kalburgi, and C. Le Goues. Looking for lacunae in Bitcoin Core's fuzzing efforts. In *ICSE-SEIP*, 2022.
+
+-------------------------
+
