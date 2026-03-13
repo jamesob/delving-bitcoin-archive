@@ -428,3 +428,17 @@ My plan is to experiment with some wallet option next.
 
 -------------------------
 
+Christoph | 2026-03-13 07:25:14 UTC | #23
+
+Just curious if there’s awareness of the Bitcoin Core App project, which intends to replace the QT GUI with a QML-based one? A lot of design and development work has been done already, and while moving slowly, it is inching closer to a possible experimental release. You can learn more about it at this these links:
+
+https://bitcoin.design/guide/case-studies/bitcoin-core-app/
+
+
+
+https://bitcoincore.app
+
+Generally people are excited about it when we show or present it (like at last year’s BTC Prague conference).
+
+-------------------------
+
