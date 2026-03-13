@@ -143,3 +143,21 @@ If we have a secure timestamping service (like Opentimestamps), the user can com
 
 -------------------------
 
+conduition | 2026-03-12 21:26:22 UTC | #7
+
+> the main idea was to separate the proving device from the device that controls the secret key.
+
+That makes more sense! Still, if you can reprogram the HW/HSM/enclave/whatever, it would make more sense to switch it to a Schnorr signature, and not necessarily BIP340 because the extra two bytes it saves isn't worth the complexity. Verification is much simpler for uncompressed Schnorr than for ECDSA, so your prover should become faster and proofs will be smaller. 
+
+Given a full uncompressed signature $(R, s)$ and pubkey $P$, your prover circuit can compute $e = \text{SHA256}(R, P, m) \mod n$ and verify that $sG = R + e P$. This costs a total of 1 hash call, 1 point addition, and two point multiplications, whereas ECDSA-verify requires all that plus a field inversion mod $n$, two scalar multiplications, and computing a `lift_x` call (i.e. quadratic residue mod $p$).
+
+[quote="olkurbatov, post:6, topic:2287"]
+If we have a secure timestamping service (like Opentimestamps), the user can commit $(m, \pi_{\mathsf{p2pkh}})$ before the day Q (to be able to prove in the future the connection between P2PKH address and PQ keys).
+[/quote]
+
+You're talking about a commit/reveal protocol that also uses ZKPs. There have been a number of discussions on the mailing list about commit/reveal for quantum rescue, though usually the motivation of using commit/reveal in the first place is *to avoid ZKPs*. I personally like commit/reveal over ZKPs for this task, because they have a much smaller on-chain footprint, and no reliance on heavy machinery. 
+
+Commit/reveal also has the nice property that we can support more than just BIP32 wallets in a soft-forked rescue path. The true keyholder only needs knowledge of some preimage which the CRQC doesn't have, and some means to anchor that preimage to a block mined well before spending time. The down-side of commit/reveal is that it is very easy to goof up, and hard to design securely. UX is also an issue. IMO the space and efficiency savings are worth it.
+
+-------------------------
+

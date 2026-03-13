@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"olkurbatov\" data-post=\"1\" data-topic=\"2287\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/olkurbatov/48/299_2.png\" class=\"avatar\"> olkurbatov:</div>\n<blockquote>\n<p>we\u2019ve been benchmarking PQ proof systems for proving ownership of a Bitcoin P2PKH address, without revealing the public key.</p>\n</blockquote>\n</aside>\n<p>Seems like this would preclude viability for a soft fork upgrade, as old clients will always need to see the public key and verify an ECDSA signature, correct?</p>\n<p>To be soft-fork compatible, you\u2019d need the verifier to require a proof of BIP32 hardened key derivation at least. If the verifier accepts proof of public key knowledge (plus an ECDSA signature), this would be vulnerable to CRQC if instantiated as a soft fork. As soon as the pubkey is revealed any CRQC could forge the same proof and signature.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-03-12T16:56:44.294Z",
   "reply_count": 1,
   "reply_to_post_number": null,

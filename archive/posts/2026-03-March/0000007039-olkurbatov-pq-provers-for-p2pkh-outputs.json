@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"conduition\" data-post=\"3\" data-topic=\"2287\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/conduition/48/384_2.png\" class=\"avatar\"> conduition:</div>\n<blockquote>\n<p>You can simplify the circuit.</p>\n</blockquote>\n</aside>\n<p>Yes, that\u2019s true, but the main idea was to separate the proving device from the device that controls the secret key. For instance, you manage the key in the secure enclave/HW wallet/HSM, and exporting the private key can be difficult or risky. With the approach we benchmarked, you can produce the signature of the predefined string (by this secure device) and delegate the proving of the signature correctness to another machine without compromising <span class=\"math\">sk</span>.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-03-12T18:11:50.598Z",
   "reply_count": 0,
   "reply_to_post_number": 3,

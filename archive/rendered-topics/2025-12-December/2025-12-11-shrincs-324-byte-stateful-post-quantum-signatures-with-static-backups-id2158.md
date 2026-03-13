@@ -233,3 +233,31 @@ So another question to discuss, how to manage growing number of states, if we ar
 
 -------------------------
 
+conduition | 2026-03-12 21:55:38 UTC | #19
+
+[quote="MikKud, post:17, topic:2158"]
+Is not it possible to distinguish the unbalanced version from XMSS from balanced through the authentication path length?
+[/quote]
+
+If we have directionless XMSS, all a verifier sees is a WOTS signature, plus an array of hashes (the merkle authentication path). The auth path does not reveal the merkle tree structure, only a lower bound for its maximum height.
+
+It's directly analagous to taproot. Seeing a taproot script spend with 2 hashes tells you nothing about the internal structure of the script tree. It only tells you that at least one leaf node exists at height 2.
+
+Another way to think of it: The 2nd signature from an unbalanced XMSS tree (as in SHRINCS) looks the same as _any_ signature from a _balanced_ XMSS tree of height 2. The 3rd unbalanced signature is indistinguishable  from a _balanced_ signature from a tree of height 3, and so on in general for the $n$-th signature. This assumes the verifier is given no other information about the tree structure. 
+
+
+
+[quote="MikKud, post:17, topic:2158"]
+Why do we need to hide the iteration of a signature? Is not it visible on the chain anyways?
+[/quote]
+
+It is not visible on-chain definitively if we use directionless XMSS. If an observer sees signatures from a SHRINCS key, it could count the merkle authentication path length to estimate how many signatures that key has made before, but the observer has no way of knowing the actual structure of the remainder of the tree. If say, the merkle path was 3 hashes long, then it's a good guess that this is an unbalanced XMSS key with three prior signatures under its belt. OR it could be a balanced XMSS key with at most 7 previous signatures. Or it could be from a completely different tree structure.
+
+The ambiguity makes on-chain surveillance harder and makes it more difficult for attackers to reason about using things like [replacement cycling attacks](https://groups.google.com/g/bitcoindev/c/ZspZzO4sBys) to exhaust the victim's signature supply. 
+
+-------------
+
+The problem with directionless XMSS that I've since started to worry about is that we cannot create tweaked hash functions unique to each node in the merkle tree, like SPHINCS uses. We can at best have one tweaked hash function _per layer_ in the XMSS tree. I worry this may weaken the security proof.
+
+-------------------------
+

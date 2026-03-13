@@ -7,7 +7,7 @@
   "cooked": "<p>You can simplify the circuit. Executing full ECDSA verification inside of the circuit is unnecessary. If you\u2019re considering a world where the verifier of a transaction can parse ZK proofs, you may as well do away with that step, and instead implement simple key-generation inside of the circuit, which proves the same statement and doesn\u2019t require as many secp256k1 operations. You need only a single EC point multiplication and a single SHA256 call.</p>\n<p>One way to do this would be:</p>\n<ul>\n<li>Witness: <span class=\"math\">(sk, m')</span> (seckey, actual message)</li>\n<li>Public signal <span class=\"math\">(h, m)</span> (pubkey hash, expected message)</li>\n<li>Circuit computes <span class=\"math\">pk = sk \\cdot G</span></li>\n<li>Circuit computes <span class=\"math\">h' = \\text{SHA256}(pk)</span></li>\n<li>Circuit verifies <span class=\"math\">m = m'</span> and <span class=\"math\">h = h'</span></li>\n</ul>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-03-12T16:53:00.672Z",
   "reply_count": 1,
   "reply_to_post_number": null,
