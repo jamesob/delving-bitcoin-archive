@@ -311,3 +311,21 @@ Let me rephrase/clarify. I meant Web of Trust in the wider sense not the Nostr s
 
 -------------------------
 
+1440000bytes | 2026-03-14 12:54:17 UTC | #6
+
+![image|521x500, 50%](upload://gV46g6EQghd02PcEdgQ9MM7O17u.jpeg)
+![image|521x500, 50%](upload://zTAKEuK1VXgrD3I0wM7sEz9ttf8.jpeg)
+
+https://gist.github.com/BoltTouring/5376f9cf02b6949252cd17c2f41b453f
+
+https://github.com/BoltTouring/sparrow
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20260314125251/https://delvingbitcoin.org/t/silent-payments-notifications-via-nostr/2203/6
+
+</details>
+
+-------------------------
+
