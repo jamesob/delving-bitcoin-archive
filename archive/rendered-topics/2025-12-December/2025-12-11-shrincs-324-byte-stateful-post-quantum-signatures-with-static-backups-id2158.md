@@ -261,7 +261,7 @@ The problem with directionless XMSS that I've since started to worry about is th
 
 -------------------------
 
-olkurbatov | 2026-03-16 15:27:16 UTC | #20
+olkurbatov | 2026-03-16 15:32:19 UTC | #20
 
 ## SHRINCS-L. On-Liquid Performance Report
 
@@ -270,7 +270,7 @@ We have designed and benchmarked a version of SHRINCS optimized for Liquid (the 
 - SHRINCS: ~222,000 kWU (stateless)
 - SHRINCS-L: ~92,500 kWU (stateless) and ~37,800+ kWU (stateful)
 
-The specification and parameters for an initial and -L versions can be found [here](https://github.com/BlockstreamResearch/shrincs-simplicity-verifier/blob/main/docs/shrincs_spec/main.pdf).
+The specification and parameters for an initial and -L versions can be found [here](https://github.com/BlockstreamResearch/shrincs-simplicity-verifier/blob/9c00294cb306999f2e13f673a8bba0c5f4d613df/docs/shrincs_spec/main.pdf).
 
 ```
 General params: n=16, w=4, l=64, S_wn=140, h_sf=207, h_sl=24, d=2, k=6, a=22, R_SIZE=32
