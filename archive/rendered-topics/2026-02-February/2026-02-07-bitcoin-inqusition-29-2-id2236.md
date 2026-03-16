@@ -60,3 +60,38 @@ CSFS, CTV, and INTERNALKEY experiments coming next — this time I'll reason fro
 
 -------------------------
 
+AaronZhang | 2026-03-16 05:01:11 UTC | #5
+
+Following up on my earlier OP_CAT note, I ran CSFS and CTV experiments on Bitcoin Inquisition and tracked timing end-to-end.
+
+CSFS pair:
+
+* Commit: 96df453d9e9ce50fdfca063528b03e3310033c3a61818bbe30e7fab5c61133e3
+* Reveal (final, RBF replacement): 32fa307f3a570cfe93ebf7c101dba9ee8f289a5ca926dfed8baca92bb196e36b
+
+CTV pair:
+
+* Commit: 2378642548c7f86472d3998a0fcb2d364084783e487dd87c1e1020684aed51de
+* Reveal: 9ccbce8ad87f0f94632119245a42537c9fbd2c8f706621f76f513339f220d55c
+
+What I learned:
+
+1. Visibility is layered (policy vs consensus).
+   Before confirmation, reveal spends may be missing from standard signet mempools due to policy.
+   After mining, they are visible on public explorers. So “not seen yet” != network fork.
+
+2. Confirmation latency is the real variable.
+   In my runs, commit->reveal was short, but reveal->confirm dominated and reached \~3.9 days.
+
+3. Acceleration depends on script constraints.
+
+* CSFS: a higher-fee replacement reveal confirmed quickly (\~113s after replacement broadcast).
+* CTV: parent template constraints make direct replacement less flexible; CPFP is the practical accelerator.
+
+4. Methodologically, recording reveal->confirm is essential.
+   If we only record tx creation times, we miss the most interesting behavior.
+
+Happy to share raw RPC snapshots / watch logs if others want to compare miner policy behavior.
+
+-------------------------
+
