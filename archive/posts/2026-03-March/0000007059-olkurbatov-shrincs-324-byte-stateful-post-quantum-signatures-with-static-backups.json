@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0,
   "yours": false,
   "topic_id": 2158,
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "## SHRINCS-L. On-Liquid Performance Report\n\nWe have designed and benchmarked a version of SHRINCS optimized for Liquid (the [signature verifier](https://github.com/BlockstreamResearch/shrincs-simplicity-verifier) is written on Simplicity). It has the same building blocks as an original SHRINCS, but trades the signature size for the number of hash operations required to verify the signature. For comparison, Simplicity verifiers for different signature instances:\n- SLH-DSA: ~770,000 kWU\n- SHRINCS: ~222,000 kWU (stateless)\n- SHRINCS-L: ~92,500 kWU (stateless) and ~37,800+ kWU (stateful)\n\nThe specification and parameters for an initial and -L versions can be found [here](https://github.com/BlockstreamResearch/shrincs-simplicity-verifier/blob/9c00294cb306999f2e13f673a8bba0c5f4d613df/docs/shrincs_spec/main.pdf).\n\n```\nGeneral params: n=16, w=4, l=64, S_wn=140, h_sf=207, h_sl=24, d=2, k=6, a=22, R_SIZE=32\n\nKeys size:\n\n    Seed (backup):  48 bytes\n    Secret key:     96 bytes\n    Public key:     32 bytes\n\nStateful signature:\n\n    |  q, count | size, bytes | witness, vBytes | hash ops |   kWU   |  fee, $  | sat/vB |\n    --------------------------------------------------------------------------------------\n    |   1       |    1092     |      9439       |    55    |  37.755 |    0.6   |  0.11  |\n    --------------------------------------------------------------------------------------\n    |   2       |    1108     |      9444       |    56    |  37.774 |   0.82   |  0.13  |\n    --------------------------------------------------------------------------------------\n    |  10       |    1236     |      9612       |    64    |  38.445 |   0.68   |  0.10  |\n    --------------------------------------------------------------------------------------\n    | 100       |    2676     |     11337       |   154    |  45.345  |  0.89   |  0.11  |\n\nStateless signature:\n\n    | size, bytes | witness, vBytes | hash ops |    kWU   |  fee, $  | sat/vB |\n    --------------------------------------------------------------------------\n    |    4396     |      23113      |    247   |  92.450  |   1.59   |  0.10  |\n\nSigning and verification time:\n\n    Stateful signing time:                  3742.92 ms\n    Stateful verification time (local):     0.015506 ms\n    Stateless signing time:                 17974.8 ms\n    Stateless verification time (local):    0.073762 ms\n\nMachine: Intel Core i5, 16 GB RAM (one thread, w/o parallelization)\n```\nMainnet transactions: [(`q=1`)](https://blockstream.info/liquid/tx/e079f31c58655e7b37477c6bb8f23aafaa942a86fe8c47f2970840a2c0829239), [(`q=2`)](https://blockstream.info/liquid/tx/eb0ccf008d06b6f5154180dd2c752af814be00c6d994ed4324341a27b0d20f8c), [(`q=10`)](https://blockstream.info/liquid/tx/f7062c49aeff73409183f1de36c07aa79b8a1b2eb0f1a742c494d3df98ad98f3), [(`q=100`)](https://blockstream.info/liquid/tx/375ebd818b7ec093e59f2a94d2e4277d6b9a260c0f09743c839120dcc0dc1cb5), [(`stateless`)](https://blockstream.info/liquid/tx/f4a108b362392f18627f008bd752010ee00bb215a83ccc2b59ca5b690e54d1c2)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a name=\"p-7059-shrincs-l-on-liquid-performance-report-1\" class=\"anchor\" href=\"#p-7059-shrincs-l-on-liquid-performance-report-1\" aria-label=\"Heading link\"></a>SHRINCS-L. On-Liquid Performance Report\nWe have designed and benchmarked a version of SHRINCS optimized for Liquid (the <a href=\"https://github.com/BlockstreamResearch/shrincs-simplicity-verifier\" rel=\"noopener nofollow ugc\">signature verifier</a> is written on Simplicity). It has the same building blocks as an original SHRINCS, but trades the signature size for the number of hash operations required to ve&hellip;",
   "truncated": true,
   "post_url": "/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
