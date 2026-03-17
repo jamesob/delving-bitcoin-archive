@@ -513,3 +513,20 @@ I’d like to get feedback about changing the default encryption algo from AES-G
 
 -------------------------
 
+mr21free | 2026-03-17 11:24:15 UTC | #33
+
+The secret vs private distinction is a great framing and I think it's going to change how people think about descriptor backup burden.
+
+However, I still think about two things:
+
+The availability problem feels not addressed. Google deletes inactive accounts. Nostr relays drop data whenever they feel like it. Email providers get acquired. The person who stored 5 copies at wallet creation has no way to know any of them survived without actively checking, which most people won't do. Confidentiality and durability are separate properties and only one of them is solved here.
+
+The inheritance path also seems to assume the heir holds an xpub, which means they were a cosigner or the owner handed them key material before dying, which is kind of the hard part of inheritance anyway. The dead man switch email workaround is honest about this gap but reintroduces exactly the centralised dependencies the encryption scheme eliminates elsewhere.
+
+Questions I don't have an answer to are:
+
+- Is there a way to provide durability guarantees that are enforced by something other than user discipline?
+- What's the right primitive for heirs who hold no key material at all?
+
+-------------------------
+
