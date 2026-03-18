@@ -13,9 +13,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 2280,
   "topic_slug": "introducing-ultrafastsecp256k1-a-multi-architecture-exploration-of-secp256k1-optimizations",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "https://github.com/shrec/bench_bip352 benchmark repo",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "<a href=\"https://github.com/shrec/bench_bip352\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - shrec/bench_bip352: BIP-352 Standalone Benchmark \u00b7 GitHub</a> benchmark repo",
   "truncated": true,
   "post_url": "/t/introducing-ultrafastsecp256k1-a-multi-architecture-exploration-of-secp256k1-optimizations/2280/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

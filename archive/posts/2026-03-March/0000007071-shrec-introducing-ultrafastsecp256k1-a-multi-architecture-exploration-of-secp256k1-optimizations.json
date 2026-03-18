@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 6.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 22.2,
   "yours": false,
   "topic_id": 2280,
   "topic_slug": "introducing-ultrafastsecp256k1-a-multi-architecture-exploration-of-secp256k1-optimizations",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[Ultrafastsecp256k1 and BIP352 with i5cpu and Nvidia 5060ti](https://stacker.news/items/1456060)\n\n![image|640x131](upload://e1hKfEKiChz5RZJzx58cyNi97gU.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a href=\"https://stacker.news/items/1456060\" rel=\"noopener nofollow ugc\">Ultrafastsecp256k1 and BIP352 with i5cpu and Nvidia 5060ti</a> \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/6/6243a8205924c31f2d6a4906200445a16cb8e36c.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/6243a8205924c31f2d6a4906200445a16cb8e36c\" title=\"image\">[image]</a>",
   "truncated": true,
   "post_url": "/t/introducing-ultrafastsecp256k1-a-multi-architecture-exploration-of-secp256k1-optimizations/2280/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
