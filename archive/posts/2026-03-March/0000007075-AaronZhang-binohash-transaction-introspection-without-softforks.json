@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
+  "reads": 8,
+  "readers_count": 7,
   "score": 1.4,
   "yours": false,
   "topic_id": 2288,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Ran empirical parameter sweeps on the (n,t) subset grinding mechanism (#4.5) on Bitcoin Core regtest. FindAndDelete and legacy sighash were cross-checked against python-bitcoinlib. 50 trials per group:\n\n* B (10,5), bits=10, C=252: success_rate=26%, avg_attempts_all=223\n* D (12,6), bits=10, C=924: success_rate=44%, avg_attempts_all=688\n* E (14,7), bits=10, C=3432: success_rate=98%, avg_attempts_all=921\n* F (14,7), bits=14, C=3432: success_rate=14%, avg_attempts_all=3253\n* G (16,8), bits=14, C=12870: success_rate=56%, avg_attempts_all=8731\n\n\\> verify(success)=100% across all groups.\n\nResults support the E\u2248W2 tradeoff empirically: at bits=10, E\u22483432 reaches \\~98%; raising bits to 14 at the same space drops to \\~14%; increasing space by 3.75x (G) recovers to \\~56%.\n\nCode and raw logs: github.com/aaron-recompile/binohash-experiments",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Ran empirical parameter sweeps on the (n,t) subset grinding mechanism (#4.5) on Bitcoin Core regtest. FindAndDelete and legacy sighash were cross-checked against python-bitcoinlib. 50 trials per group: \n\nB (10,5), bits=10, C=252: success_rate=26%, avg_attempts_all=223\nD (12,6), bits=10, C=924: succe&hellip;",
   "truncated": true,
   "post_url": "/t/binohash-transaction-introspection-without-softforks/2288/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
