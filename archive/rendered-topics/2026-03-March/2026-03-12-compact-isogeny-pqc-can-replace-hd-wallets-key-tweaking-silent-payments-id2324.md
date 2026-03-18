@@ -41,3 +41,39 @@ Multisignature isogeny schemes that can compete with SQIsign and PRISM for compa
 
 -------------------------
 
+AdamISZ | 2026-03-18 19:36:26 UTC | #2
+
+Thanks for the effort in writing this article! I agree it’s great to introduce people (including me) to some newer ideas that might actually end up being important down the line.
+
+I found it interesting in reading your discursive lead-through from “naive” to “SQI-sign” that you are showing an instantiation of what looks to me like the general Schnorr-like protocol. Having said that, there are obviously going to be differences.
+
+But to explain what I'm even talking about: the general meta-argument goes something like: given **any** one-way mapping with a "homomorphism" between "groups", one can construct a zero knowledge proof of knowledge.
+
+(scare quotes because the pattern is even more general than that).
+
+Back in ECDL land, you’d write the reasoning as: to build a zkpok (which a signature scheme is just a trivial extension of by appending a message, basically), start with an instance of the “language”, that is: a public key $P$ and its corresponding private key $x$. The map from private to public is what must have the aforementioned two properties: one way (computationally), and also possessing the homomorphism (i.e. that $x_1 + x_2$ has pubkey $P_1 + P_2$), take the secret (privkey) and then bind it to a challenge value which hashes-in the public key and the message. i.e. just respond with privkey $\times$ challenge.
+
+Except, whoops, that only binds, it does not hide (so no ZK). Hiding is trivially removed by division, because the challenge is public.
+
+To create the ZK effect, create *another instance of the language* just for one time use: in ECDL land we do $R = kG$. Blind the response with that by applying the homomorphism again: the privkey of $R + $ challenge $\times P$ is ($k$ + challenge $\times x$).
+
+Once you grok the meta-pattern you can apply it to anything more (even,  much more) complicated, in ECDL land. A good example: Pedersen commitments take the form $C = xG + rH$. They are one way and they have a homomorphism (check what happens when you add two such commitments $C_1, C_2$), so you can build a commit-challenge-response protocol and get a signature out of them. your "other instance of the language" here is no longer $R = kG$ but an $R$ which is itself a Pedersen commitment. Etc.
+
+The argument that such "zero knowledge proofs of knowledge" are sound, i.e. can't be forged, is that with rewinding, you can actually extract the secret by replaying with the same "commitment" (the $R$ part). But notice that that requires inverses in the field ($x = \frac{(s_2 - s_1)}{(e_2 - e_1)}$).
+
+Is it all "the same" with isogenies? Presumably not :grinning_face_with_smiling_eyes:. But I'm curious how much maps over, since obviously I don't know much of anything about this field:
+
+Here:
+
+* the one-way function is from isogeny $\phi$ to a curve $E_{pk}$
+* the "homomorphism" is not actually a homomorphism, but it's some kind of "composable map". It's function (isogeny) composition, right? Which isn't commutative for example (i.e. it's nothing like doing a $\circ$ b in an abelian group). But if I understood your post correctly, there is a thing analogous to inverses: the "dual" you mention, $\widehat{\phi}$. I just asked an LLM if I'm right that they're analogous and it said something like no, not really, the right analog is "invertibility of ideals in the quaternion algebra", so I stopped there for now :grinning_face_with_smiling_eyes:
+* Then the solution for ZK is, as you refer to in the post, exactly the same as our familiar "nonce": it's the commit step in commit-challenge-response $\Sigma$-protocols. There's a "nonce" isogeny $\phi_{Comm}$ and its corresponding curve $E_{Comm}$.
+
+Are the proofs of soundness and zk-ness similar to the Schnorr ones? Do we use rewinding for the first, and transcript simulation for the latter?
+
+But back to your article, which again, I very much appreciate. I have a strong gut instinct to agree with you that we are not yet paying sufficient attention to whether the primitives we end up using for a PQ algo have "nice" properties beside being at all workable for generating and verifying signatures. You focused first on the 'rerandomization' property, very natural. I tend to think 'aggregatable' and 'batch verifiable' might be the most important ones. (and iiuc you're saying that unfortunately aggregation is not easy, here). Also the NUMS thing is very unfortunate but yeah we could maybe accept it if everything else is good.
+
+Another concern might be, if the rest of industry ends up focused on hash based signatures because they have a different priority set than Bitcoin, then we might be stuck with too limited practical support and experience. With EC we could rely on deployment that already existed by 2009.
+
+-------------------------
+

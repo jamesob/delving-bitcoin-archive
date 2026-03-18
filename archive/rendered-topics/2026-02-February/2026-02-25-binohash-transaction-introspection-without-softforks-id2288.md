@@ -16,3 +16,21 @@ Instead of `OP_EQUALVERIFY`, `OP_LESSTHAN OP_VERIFY` can be used. Then, smaller 
 
 -------------------------
 
+AaronZhang | 2026-03-18 17:35:11 UTC | #3
+
+Ran empirical parameter sweeps on the (n,t) subset grinding mechanism (#4.5) on Bitcoin Core regtest. FindAndDelete and legacy sighash were cross-checked against python-bitcoinlib. 50 trials per group:
+
+* B (10,5), bits=10, C=252: success_rate=26%, avg_attempts_all=223
+* D (12,6), bits=10, C=924: success_rate=44%, avg_attempts_all=688
+* E (14,7), bits=10, C=3432: success_rate=98%, avg_attempts_all=921
+* F (14,7), bits=14, C=3432: success_rate=14%, avg_attempts_all=3253
+* G (16,8), bits=14, C=12870: success_rate=56%, avg_attempts_all=8731
+
+\> verify(success)=100% across all groups.
+
+Results support the E≈W2 tradeoff empirically: at bits=10, E≈3432 reaches \~98%; raising bits to 14 at the same space drops to \~14%; increasing space by 3.75x (G) recovers to \~56%.
+
+Code and raw logs: github.com/aaron-recompile/binohash-experiments
+
+-------------------------
+
