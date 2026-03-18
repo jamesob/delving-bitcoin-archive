@@ -329,3 +329,9 @@ https://web.archive.org/web/20260314125251/https://delvingbitcoin.org/t/silent-p
 
 -------------------------
 
+setavenger | 2026-03-18 06:17:17 UTC | #7
+
+Thanks for linking this! From briefly skimming the write-up, it seems to only cover the “happy” case. Will dig deeper to see if there are any DoS mitigations or validations of correct information. It says that no checks against the chain are made which would indicate no validation for correctness is made.
+
+-------------------------
+
