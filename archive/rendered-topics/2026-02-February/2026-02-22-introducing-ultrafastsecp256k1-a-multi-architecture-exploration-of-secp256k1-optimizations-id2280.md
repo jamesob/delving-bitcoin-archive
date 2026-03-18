@@ -125,3 +125,17 @@ https://github.com/shrec/UltrafastSecp256k1/blob/a7780970eec9c47611594a7ccf9942d
 
 -------------------------
 
+shrec | 2026-03-17 21:43:17 UTC | #9
+
+[Ultrafastsecp256k1 and BIP352 with i5cpu and Nvidia 5060ti](https://stacker.news/items/1456060)
+
+![image|640x131](upload://e1hKfEKiChz5RZJzx58cyNi97gU.png)
+
+-------------------------
+
+shrec | 2026-03-17 21:47:33 UTC | #10
+
+https://github.com/shrec/bench_bip352 benchmark repo
+
+-------------------------
+
