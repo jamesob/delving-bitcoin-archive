@@ -121,3 +121,27 @@ Full details: [tsua0002/btsl-standard: Bitcoin Transaction Schema Language (BTSL
 
 -------------------------
 
+Tsua00021 | 2026-03-19 13:56:33 UTC | #2
+
+**Update: Interactive Playground Available**
+
+I’ve published a client-side playground that implements the **Maker pipeline** from the BTSL v1.0 specification:
+
+**Live demo:** https://btsl-playground.vercel.app/
+
+**Source:** [github.com/tsua0002/btsl-playground](https://github.com/tsua0002/btsl-playground)
+
+The playground walks through the full construction pipeline: 
+
+Schema Input → Parameter Binding → Code Generation → PSBT Output. It runs entirely in the browser — no server, no private keys.
+
+Built-in examples cover the five normative use cases from the spec: simple payment via `From(@PUBKEY)`, TRI-COUNT shared settlement, P2WSH multisig (1-of-2, 2-of-2), OP_RETURN embedding, and the timelocked Taproot vault workflow with `DEPENDS_ON`.
+
+You can paste any BTSL schema, bind parameters against live mainnet UTXOs (Blockstream API) and fee rates (Mempool.space), then export the unsigned PSBT for signing in Sparrow, Coldcard, bitcoin-cli, or any BIP174-compatible tool.
+
+This is a **preview release** covering the Maker (construction) side. The **Validator pipeline** — with Zero-Trust UTXO restoration and independent ASSERT replay — is under active development and will be added shortly.
+
+Feedback welcome, particularly on the developer experience and any edge cases you encounter with the examples.
+
+-------------------------
+
