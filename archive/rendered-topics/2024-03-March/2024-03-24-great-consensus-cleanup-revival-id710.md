@@ -1733,3 +1733,17 @@ BIP 54 (Consensus Cleanup) is now [active on Bitcoin Inquisition](https://delvin
 
 -------------------------
 
+AntoineP | 2026-03-19 16:45:48 UTC | #93
+
+I have been reminded that i never publicly shared updated numbers on the worst case block validation time.
+
+The worst case block i could come up with takes about 10 minutes to validate on my machine ([12th Gen Core i5-12500H](https://www.intel.com/content/www/us/en/products/sku/96141/intel-core-i512500h-processor-18m-cache-up-to-4-50-ghz/specifications.html) with 32GiB of RAM). If you'd like to see a demo i think @portlandhodl [presented](https://www.youtube.com/watch?v=m2V0fghHiCA) pretty much the same block at the OP_NEXT conference last year. From the logs at the end of his talk, looks like it took his machine 29 minutes to validate (with a [Xeon 2620 v3](https://www.intel.com/content/www/us/en/products/sku/83352/intel-xeon-processor-e52620-v3-15m-cache-2-40-ghz/specifications.html)).
+
+It's important to contextualize those numbers. To reach the figures presented above, one needs a non-trivial amount of preparation blocks, and anyone-can-spend preparation UTxOs. Using secure preparation UTxOs reduces the impact by about 40%.
+
+Furthermore, discussing the worst case is interesting for considering what an externally-motivated attacker can achieve, but only that. It is equally -if not more- important to consider what an economically-motivated attacker can achieve. That is, could it be profitable for a miner to give up some fees to include preparation transactions and possibly delay its competition by a dozen of seconds every 3 blocks it finds? My research shows that yes, under some conditions it may be profitable for a miner to attempt to leverage this vulnerability and turn a profit. This scenario makes for less sensational figures, but is in my opinion more concerning.
+
+All these considerations went into the design of the mitigation included in BIP 54, that attempts to 1) cap the worst case to protect against externally-motivated attackers, 2) make it uneconomical for miners to attack each other with slow blocks and 3) do this while minimizing the "confiscatory surface" (making sure to pin point the harmful behaviour and not disable non-pathological transactions).
+
+-------------------------
+

@@ -34,3 +34,23 @@ Code and raw logs: github.com/aaron-recompile/binohash-experiments
 
 -------------------------
 
+AaronZhang | 2026-03-19 17:06:34 UTC | #4
+
+From these experiments, another observation:
+
+Binohash doesn’t give introspection in the usual sense — the script can’t read tx data.
+
+But it seems to get close:
+
+```plaintext
+mutation → commitment → verification
+```
+
+Instead of read-access to tx fields, we get sighash mutation via subset selection, committed through CHECKSIG.
+
+This feels like a form of pseudo-introspection.
+
+Is that a useful way to think about it?
+
+-------------------------
+
