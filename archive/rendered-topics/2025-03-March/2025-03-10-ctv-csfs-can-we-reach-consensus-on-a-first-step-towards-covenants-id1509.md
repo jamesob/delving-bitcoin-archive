@@ -1885,3 +1885,37 @@ Hoping for further feedback.
 
 -------------------------
 
+AaronZhang | 2026-03-20 00:27:28 UTC | #86
+
+First time posting here.
+
+I’ve been trying to understand how far CSFS-style script constructions can go
+in terms of adaptor-like behavior at the execution level.
+
+I put together a small A/B/C experiment:
+
+https://github.com/aaron-recompile/csfs-binding-experiments
+
+Roughly:
+
+a structured reveal → extract relation (r = s - e, r·G == R) can be constructed,
+it’s mutation-sensitive, and has fairly clear failure boundaries.
+
+What I tested is a CSFS-based structured construction where
+explicit-message verification passes and an adaptor-like reveal/extract
+relation holds.
+
+One thing worth noting upfront: in this harness, the adaptor scalar and the
+Schnorr signature are computed in separate paths. So this is an
+execution-structure result, not a cryptographic coupling proof.
+
+The more interesting point shows up in Checkpoint C (Boundary 3):
+
+without a uniquely pre-committed R, multiple (s, R) pairs can satisfy
+the relation.
+
+This suggests the binding behavior here is a property of execution
+structure, not of the signature scheme itself.
+
+-------------------------
+
