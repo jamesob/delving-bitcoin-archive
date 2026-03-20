@@ -77,3 +77,69 @@ Another concern might be, if the rest of industry ends up focused on hash based 
 
 -------------------------
 
+conduition | 2026-03-20 19:19:24 UTC | #3
+
+[quote="AdamISZ, post:2, topic:2324"]
+* the one-way function is from isogeny $\phi$ to a curve $E_{pk}$
+[/quote]
+
+Kind of, though there are caveats. In more rigor, it'd be better to say the one-way function we rely on is the mapping of an isogeny $\varphi : E_0 \rightarrow E$ to its codomain curve $E$. The base curve $E_0$ is quite important because $\text{End}(E_0)$ is a known constant. You can't use any old isogeny as a secret key, because you need to be able to compute (and hide) the endomorphism ring $\text{End}(E)$. 
+
+[quote="AdamISZ, post:2, topic:2324"]
+the “homomorphism” is not actually a homomorphism, but it’s some kind of “composable map”. It’s function (isogeny) composition, right?
+[/quote]
+
+In a way, you're on the money here. For two isogenies $\varphi: E_0 \rightarrow E_1$ and $\psi: E_1 \rightarrow E_2$ you can compose them into $\psi \circ \varphi: E_0 \rightarrow E_2$. The resulting composed isogeny will have degree $\deg \varphi \cdot \deg \psi$, so it's much more complex to represent, but it does exist, and you can condense it to a lower-degree isogeny with some work.
+
+However, there is no way (AFAIK) to "compose" elliptic curves like you can add points in classical ECC, so the analogy falls apart there.
+
+<details>
+<summary><b>Aside on homomorphisms</b></summary>
+
+Interestingly, isogenies are actually _group homomorphisms:_ for an isogeny $\varphi: E \rightarrow E'$ we always have $\varphi(P) + \varphi(Q) = \varphi(P + Q)$. However, in my limited experience this doesn't actually come up much in practice and it's more of a structural requirement, a necessary property for any isogeny.
+</details>
+
+[quote="AdamISZ, post:2, topic:2324"]
+Which isn’t commutative for example (i.e. it’s nothing like doing a \circ b in an abelian group).
+[/quote]
+
+Correct. In my above example, you could not compose $\varphi \circ \psi$, because what does it even mean to evaluate $\varphi$ on a point in $E_2$? It's undefined.
+
+CSIDH gets around this: It implements a commutative group action where an _oriented_ isogeny can produce some _commutative action_ on any elliptic curve, mapping it to another one. From this, non-interactive DH key exchange kinda falls into our lap. 
+
+SQIsign and PRISM work in a more general way, with no orientations. Their performance is much faster and more compact as a result, but they are way less flexible than CSIDH. This is probably why all existing isogeny multisig schemes I know of are built on top of CSIDH. 
+
+<details>
+<summary><b>Aside about SIDH</b></summary>
+
+SIDH used unoriented isogenies for key-exchange by abusing a neat fact: If you have isogenies $\varphi: E_0 \rightarrow E_a$ and $\psi: E_0 \rightarrow E_b$, with kernels $\ker \varphi$ and $\ker \psi$ then you can compute something called a _pushforward_ isogeny $\varphi * \psi$. This is the isogeny you get if you (1) take $\ker \psi$ and "push" it through $\varphi$, and then (2) convert the resulting image $\varphi(\ker \psi) \subset E_1$ into a new isogeny which has that image as its kernel (e.g. by using Velu's formulas). More precisely, $\ker(\varphi * \psi) = \{ \varphi(P) : P \in E_0 \text{ s.t. } \psi(P) = \infty \}$.
+
+Seems weird to do this, but after computing the converse pushforward $\psi * \varphi$ as well, it just so happens that the (output curve) codomain $E_{ab}$ of $\psi * \varphi$ is the same as that of $\varphi * \psi$. This is how SIDH achieved key agreement, but now we know because of Kani's lemma that way we _compute_ the pushforward always ends up revealing the isogenies involved, so it's not a secure key exchange.
+</details>
+
+[quote="AdamISZ, post:2, topic:2324"]
+But if I understood your post correctly, there is a thing analogous to inverses: the “dual” you mention, $\widehat{\phi}$.
+[/quote]
+
+Very apt analogy, yes. Given any isogeny $\varphi: E \rightarrow E'$, it's easy to compute its dual $\widehat \varphi: E' \rightarrow E$. The dual is not exactly an inverse, because for complicated math reasons, $\widehat \varphi(\varphi(P)) = P \cdot \deg \varphi$. But for the purposes of solving the isogeny path problem and finding endo-rings, that doesn't actually matter much. 
+
+Since isogenies all have an obvious and unique dual, they turn the set of all supersingular elliptic curves into vertices on a graph, where each edge is an isogeny. A good chunk of the theory work on IBC is done in terms of "the supersingular isogeny graph", because we can reason about the security properties of schemes using graph theory, which is pretty cool. 
+
+[quote="AdamISZ, post:2, topic:2324"]
+Are the proofs of soundness and zk-ness similar to the Schnorr ones? Do we use rewinding for the first, and transcript simulation for the latter?
+[/quote]
+
+They are indeed quite similar. BIP340 Schnorr and SQIsign are both a fiat-shamir transform of some sigma protocol, so in both cases we can prove security by proving (1) correctness, (2) special soundness, and (3) honest-verifier zero-knowledge, which the SQIsign authors have done using special-degree isogeny oracles. PRISM is different since it doesn't have any commitment, so its security proof is less tight (though still plausibly valid if their assumptions are correct).
+
+[quote="AdamISZ, post:2, topic:2324"]
+But back to your article, which again, I very much appreciate. I have a strong gut instinct to agree with you that we are not yet paying sufficient attention to whether the primitives we end up using for a PQ algo have “nice” properties beside being at all workable for generating and verifying signatures. You focused first on the ‘rerandomization’ property, very natural. I tend to think ‘aggregatable’ and ‘batch verifiable’ might be the most important ones. (and iiuc you’re saying that unfortunately aggregation is not easy, here)
+[/quote]
+
+Thank you! I focused mostly on rerandomization because it was an easy consequence of the structure of IBC, and surprisingly few other researchers seem to have noticed it, and none have thought of applying it to bitcoin.
+
+I don't know whether signature aggregation or batch verification are possible or easy in IBC, i certainly haven't heard of any concrete schemes. But this is exactly why i wrote the article: aggregation and batch verification are things the wider cryptographic world often doesn't care so much about - They are solutions to problems which only blockchains tend to encounter. Most of the rest of the world only cares if signatures and pubkeys fit neatly in a TLS certificate and don't take too long to verify. If we want these features, we'll need to apply ourselves to the task. If we do, i'm sure we can discover analogues to MuSig, DahLIAS, or other cool things, though they will probably have steep tradeoffs at first.
+
+I suspect if it is possible to achieve signature aggregation or batch verification on PRISM or SQIsign, it would be by a recursive application of Kani's lemma on some carefully built (very convoluted) set of high-dimensional (HD) isogenies. In general, HD isogenies have this neat property of allowing you to "aggregate" isogenies, though with very strict rules. IDK if we could do that yet, still learning. Take a look at the variant [SQIsignHD](https://eprint.iacr.org/2023/436) to see how they used this technique to compress sigs down to 109 bytes, at the cost of verifier performance.
+
+-------------------------
+
