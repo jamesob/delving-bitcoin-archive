@@ -530,3 +530,21 @@ Questions I don't have an answer to are:
 
 -------------------------
 
+salvatoshi | 2026-03-21 08:42:31 UTC | #34
+
+You are correct on both points: this scheme makes no attempt to solve the availability problem, nor guaranteeing the correct key discipline for inheritance and other use cases. I think those have to be addressed on other layers.
+
+I would disagree that the availability problem is hard to solve, though. Computers are really good at storing and copying things. While it's true they aren't very good at holding on to things for a very long time, that problem is solved with enough redundancy.<br>
+People seem to disagree and proposed solutions like OP_RETURNs or inscriptions as a guaranteed backup – but i don't think that's necessary, and ultimately it will likely become too expensive anyway.
+
+Ensuring correct key management from the involved cosigners (especially heirs) is definitely the hardest nut to crack for adoption.
+
+[quote="mr21free, post:33, topic:1607"]
+* Is there a way to provide durability guarantees that are enforced by something other than user discipline?
+* What’s the right primitive for heirs who hold no key material at all?
+[/quote]
+
+For non-technical people, I tend to think that 'assisted self-custody with custodial fallback' is the most reasonable and technologically approachable solution. That is, they are in self-custody (and during that time, a non-custodial service can provide reminders about coin refresh and key management); but if all else fails, after a long enough time-frame, some moderately-trusted third party gets access to the funds. At least trust is only required in case of complete failure, rather than in the normal scenario.
+
+-------------------------
+
