@@ -143,3 +143,19 @@ I suspect if it is possible to achieve signature aggregation or batch verificati
 
 -------------------------
 
+AdamISZ | 2026-03-21 14:54:33 UTC | #4
+
+[quote="conduition, post:3, topic:2324"]
+Interestingly, isogenies are actually *group homomorphisms:* for an isogeny \varphi: E \rightarrow E' we always have \varphi(P) + \varphi(Q) = \varphi(P + Q). However, in my limited experience this doesn’t actually come up much in practice and it’s more of a structural requirement, a necessary property for any isogeny.
+[/quote]
+
+I'm confused about this one in particular: I must have some mischaracterization in my head, because I thought this is the basic property we need for a zkpok: we need a one way function with a homomorphism, so the latter part here is exactly the formula you wrote above?
+
+Another question from the part below that: we talked about duals being inverses (or rather, not) and we talked about soundness proofs: but the most specific reason I thought about inverses here is because you need inverses to make a soundness proof go through (specifically special soundness or even more specifically 2-special-soundness, here).
+
+OK, I took the time to look at [this](https://arxiv.org/abs/2603.09899) doc, and I can see it's exactly there, on p 19, as I'd expect: the soundness proof uses duals "just like" (kinda, heh) you use an inverse in a soundness proof in DL based crypto.
+
+One last comment or question, though it may not be something that has any specific answer. In your article you address the core question of PQ-ness: "As far as we know, there is no efficient quantum algorithm to solve this problem efficiently." What's the sort of general thinking behind the confidence that this will remain hard? For hash-based stuff it's "hashes break all the algebraic structure" right. We still get Grover, but that's not enough of an "exploit" to break the fundamental exponential hardness, it just "softens" it. So for this isogeny stuff, is it that, we're not using simple group properties like discrete log, which get exposed to cycle finding and whatnot, but instead we're doing something more like graph search?
+
+-------------------------
+

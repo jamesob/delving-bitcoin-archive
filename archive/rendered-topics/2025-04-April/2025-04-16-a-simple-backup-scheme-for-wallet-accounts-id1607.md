@@ -548,3 +548,13 @@ For non-technical people, I tend to think that 'assisted self-custody with custo
 
 -------------------------
 
+mr21free | 2026-03-21 13:28:50 UTC | #35
+
+Fair point. Tools already exist to automate replication across multiple providers, and if that gets built into standard software it probably handles most of the availability problem without needing dedicated infrastructure.
+
+Where I keep landing is one step further though. Even with perfect replication, the heir still has to find and access those copies under stress, possibly years after the owner's accounts went inactive. I think that's a coordination problem on the recovery side that feels separate from the storage side.
+
+Is the custodial fallback your answer to that too, or do you see that as a different layer entirely?
+
+-------------------------
+
