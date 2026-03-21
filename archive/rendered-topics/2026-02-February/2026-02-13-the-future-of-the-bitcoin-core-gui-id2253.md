@@ -458,3 +458,15 @@ Other projects can provide applications on top of it, be it a nice Swift UI over
 
 -------------------------
 
+KurtisStirling | 2026-03-21 16:48:55 UTC | #25
+
+Going for a headless architecture makes sense for 3 reasons I think:
+
+1. better UX available from 3rd party UIs
+
+2. focuses dev effort on the core product
+
+3. AI makes CLI use trivial now (the “but non-technical users” argument gets weaker and weaker every day)
+
+-------------------------
+
