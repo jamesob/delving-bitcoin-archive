@@ -442,3 +442,19 @@ Generally people are excited about it when we show or present it (like at last y
 
 -------------------------
 
+TheCharlatan | 2026-03-21 10:55:47 UTC | #24
+
+Something that I think has not been adequately laid out here is how much effort is being spent on providing basic maintenance to the current GUI while holding it to the same standard as the rest of the components of Bitcoin Core. Take for example this [recent PR](https://github.com/bitcoin/bitcoin/pull/34650). Just making Qt compatible with the most recent gcc version took seven upstream patches, significant changes to the existing build recipe, remediation of a reproducible builds issue and ended up involving four maintainers and three very active contributors, This kind of effort is recurring too. Every release cycle, compiler version bump, and new feature addition similar problems require fixing specifically for the GUI. 
+
+My very first Bitcoin Core contributions were updating the Qt dependency to its long term support version and adding support for GUI arm builds. `bitcoin-qt` has been valuable to me in the past and I understand intimately how it still provides value to people and how it can attract new developers. I have enjoyed this work, but it increasingly feels disproportional.
+
+Bitcoin Core maintains a standard for shipping its binaries: reproducible, cross-platform, and with as few dependencies as possible. Doing this for a UI is a massive challenge. I don’t know many other projects capable of shipping this to the extent Bitcoin Core is. Lowering this standard for the GUI alone is equally unthinkable for me given the nature of Bitcoin and this project.
+
+Recreating the existing GUI off the existing RPC and ZMQ interfaces without having to operate on these standards is probably easy at this point. My guess is that in a month of effort a developer can  ship something more pleasing than the existing UI for all the current platforms we support. This makes me question whether the effort being spent on it currently sufficiently translates to users. The fact that this has not been seriously attempted before is indication that the demand for a GUI in general is low. I’m unsure if the [gui-qml](https://github.com/bitcoin-core/gui-qml) is going to be in higher demand. From what I can tell gui-qml has also not demonstrated integration with Bitcoin Core’s deployment. My prior experience is that shipping a reproducible, cross-platform QML app is a very significant challenge.
+
+From all the opinions I have read here, I think mine falls somewhere between Jan’s suggestion of clearly marking the GUI as being in some form of “maintenance mode” and removing it. I do still get a bit of joy out of knowing it still has some long time users. With the current resources available, it has become clear to me over the past five years that anything beyond that is not realistic. Instead I’d like Bitcoin Core to focus on providing better interfaces to its data and validation methods, be it through IPC, RPC, ZMQ, or even the kernel library.
+
+Other projects can provide applications on top of it, be it a nice Swift UI over the kernel library to bring a [node to iOS](https://github.com/Sjors/kernel-i-node), the TUI Jan shared above, or a QML desktop application. This model has been successful for other large open source projects. Git has a host of popular third party graphical interfaces (while also having its own bare bones GUI that most developers probably have never seen). Qbittorrent is based off the popular libtorrent library. My impression is that our current approach is likely stifling progress.
+
+-------------------------
+
