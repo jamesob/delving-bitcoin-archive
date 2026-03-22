@@ -1,14 +1,20 @@
 # Eddy: Free Cooperative Circular Rebalancing
 
-wactario | 2026-03-21 22:49:44 UTC | #1
+wactario | 2026-03-22 03:18:42 UTC | #1
 
 # The Problem
 
-Circular rebalancing has a free rider problem. The initiator pays the routing fees, so everyone else waits for someone else to go first. A cycle might exist that benefits every node along the path, but nobody wants to be the one paying for it. And when someone does initiate a rebalance, they might be shifting other nodes’ balances in directions those nodes don’t want.
+In René Pickhardt’s magnum opus, [“A Mathematical Theory of Payment Channel Networks”](https://arxiv.org/pdf/2601.04835), he proved that, even in a perfectly circular economy, asymmetric channel fees will make the network more expensive and less reliable over time. 
 
 # The Solution
 
-Eddy is a daemon that runs alongside LND. Each node gossips their channels’ surplus outbound to peers using LND’s custom P2P messages. Simultaneously, each node watches the gossip it receives and looks for cycles of channels where every node would benefit from liquidity moving in the same direction.
+One of the mitigation strategies René listed is coordinated replenishment.
+
+The optimal version of this requires a central coordinator with full knowledge of every node’s balances. In practice, any circulation decomposes into simple cycles, and each cycle can be executed independently. That’s what eddy does.
+
+# How it works
+
+eddy is a daemon that runs alongside LND. Each node gossips their channels’ surplus outbound to peers using LND’s custom P2P messages. Simultaneously, each node watches the gossip it receives and looks for cycles of channels where every node would benefit from liquidity moving in the same direction.
 When a node detects a cycle and it has the lowest pubkey in that cycle (tiebreaker to prevent multiple nodes from proposing the same cycle), it proposes the rebalance to the other nodes. They agree or reject. If everyone agrees, the initiator executes the rebalance. If anything fails, the payment fails atomically. No central coordinator. No trust. No additional risk introduced.
 
 # ResumeModified
