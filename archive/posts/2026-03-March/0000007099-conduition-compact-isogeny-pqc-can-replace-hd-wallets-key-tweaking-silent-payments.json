@@ -13,9 +13,9 @@
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 2324,
   "topic_slug": "compact-isogeny-pqc-can-replace-hd-wallets-key-tweaking-silent-payments",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"AdamISZ, post:4, topic:2324\"]\nI must have some mischaracterization in my head, because I thought this is the basic property we need for a zkpok: we need a one way function with a homomorphism, so the latter part here is exactly the formula you wrote above?\n\n[/quote]\n\nIsogenies aren\u2019t one-way functions though. Given $\\varphi(P)$, if you know how to compute $\\varphi$, you can invert it with $P = (\\deg \\varphi)^{-1} \\cdot \\widehat \\varphi(\\varphi(P))$.\n\nInstead, I would suggest you consider the function $\\mathsf{codomain}(\\varphi)$, which returns the output curve of $\\varphi$. Assuming SIPP is hard, then $\\mathsf{codomain}$ is a one-way function: Given the output $E \\leftarrow \\mathsf{codomain}(\\varphi)$, you can\u2019t find $\\varphi$.\n\nHowever, it is not a homomorphism. Sure, we can add two isogenies $\\varphi + \\psi$ together (they are basically polynomials), but AFAIK this is only defined and meaningful if their output curve is the same.\n\n$$\n\\mathsf{codomain}(\\varphi + \\psi) = \\mathsf{codomain}(\\varphi) = \\mathsf{codomain}(\\psi)\n$$\n\nWe can also compose isogenies as functions if their domains and codomains align, e.g. $(\\phi_2 \\circ \\phi_1)(P) = \\phi_2(\\phi_1(P))$. But again the $\\mathsf{codomain}$ function cannot act homomorphically on isogeny composition, becase what does it mean to \u201ccompose\u201d elliptic curves $E_2 \\circ E_1$? I have not seen any way to do this, and I believe it would be infeasible because \u201ccomposing\u201d two arbitrary curves in any way that connects them through an isogeny path **would be literally solving the SIPP.** You need secret data to do this, like in a key-exchange where both parties know their own curve\u2019s endomorphism ring.\n\nMy intuition is that this lack of abelian structure between curves is precisely what makes isogenies hard for quantum computers to attack. Though I have no concrete reasoning for this yet.\n\n---\n\nA more general way of analogizing is in terms of [sigma identification protocols](https://65610.csail.mit.edu/2023/rec/rec5.pdf), of which Schnorr and SQIsign both are instances, where we prove knowledge of a *witness* for some *statement* by running (a fiat shamir transform of) a 3-step interactive protocol: commit, challenge, response.\n\nThe sigma relation for SQIsign is more or less the $\\mathsf{codomain}(\\cdot)$ function where $\\varphi$ is the witness and $\\mathsf{codomain}(\\varphi)$ is the statement. PRISM and most other isogeny-based sig schemes prove the exact same relation, though by different means and with different parameters.\n\nHere\u2019s a side-by-side comparison of Schnorr and SQIsign\u2019s sigma protocols:\n\n|  | Schnorr | SQIsign |\n|----|----|----|\n| Relation = (witness, statement) | $(x, P  = xG)$ | $(\\varphi, E_{pk} = \\mathsf{codomain}(\\varphi))$ |\n| Commitment | Another statement $R = rG$ | Another statement $E_\\text{com} = \\mathsf{codomain}(\\varphi_\\text{com})$ |\n| Challenge | A random witness $c \\leftarrow \\mathbb Z$ that commits to $R$ and $P$ | A random witness $\\varphi_\\text{chl}: E_{pk} \\rightarrow E_\\text{chl}$ that commits to $E_\\text{com}$ and $E_{pk}$ |\n| Response | A witness $s = r + cx$ | A witness $\\varphi_\\text{rsp}: E_\\text{com} \\rightarrow E_\\text{chl}$ |\n\n[quote=\"AdamISZ, post:4, topic:2324\"]\nWhat\u2019s the sort of general thinking behind the confidence that this will remain hard?\n\n[/quote]\n\nFantastic question. I think the most succinct way to answer it is: Shor\u2019s (generalized) algorithm solves the [finding-hidden-subgroups](https://en.wikipedia.org/wiki/Hidden_subgroup_problem) problem, but in isogenies, there are no hidden subgroups to find.\n\nAs for why it should be hard for any algorithms in general - classical or quantum - i\u2019m not sure I have the knowledge to adequately answer at the moment. Basically we think it\u2019s hard because if it weren\u2019t, then other \u201chard\u201d problems like the endomorphism ring problem and the quaternion path problem would be solved as well, and these are well-studied. I might refer you to [a paper which more tightly reduces SIPP to other problems](https://eprint.iacr.org/2024/1569). Also see [this list of unsolved problems in the world of isogenies](https://isogeni.es/problems).\n\nA much bigger concern for me is the extra assumptions added by schemes on top of SIPP/ERP when proving security, like how SIDH added the assumption about torsion point images not revealing any information turned out to be very wrong. Right now the hot-topic questions i see for SQIsign and PRISM are (1) can isogenies of arbitrary degree be generated easily, and if not, (2) do they leak information about the (co)domain curve\u2019s endomorphism ring.\n\nFor example, SQIsign cannot reduce tightly to SIPP/ERP, they need extra \u201chints\u201d for the HVZK simulator, which means, as per [this modern security proof for the updated SQIsign V2](https://eprint.iacr.org/2025/379):\n\n> In essence, the hint provides the simulator with a response isogeny and auxiliary isogeny\n> sampled from the correct distribution. Without knowledge of the endomorphism ring of $E_{pk}$, we only know how to efficiently sample random isogenies of smooth degree.\n> \n> The only information the hints provide to the adversary is the efficient representation of\nsome isogenies of non-smooth degree. Informally, we do not expect these to provide any help in solving the EndRing problem: non-smooth degree isogenies do not provide any additional information compared to smooth-degree isogenies.\n\nOn the other hand, PRISM requires an assumption that generating large-prime-degree isogenies is hard, and that revealing such isogenies does not leak information. So their security proofs are almost inversely related. \n\nIf there is going to be a big cryptanalytic breakthrough in the near future for SQIsign and PRISM, i suspect this will be it: Some algorithm, classical or quantum, which generates isogenies of arbitrary degree. Or a proof of impossibility thereof.\n\n* If generating isogenies of arbitrary degree is easy: SQIsign is secure, PRISM is broken.\n* If generating isogenies of arbitrary degree is hard: PRISM is secure, SQIsign is weakened. \n\nAttacking foundational SIPP and ERP directly seems to me like a challenge with much higher stakes, but is also much less surmountable.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Isogenies aren\u2019t one-way functions though. Given \\varphi(P), if you know how to compute \\varphi, you can invert it with P = (\\deg \\varphi)^{-1} \\cdot \\widehat \\varphi(\\varphi(P)). \nInstead, I would suggest you consider the function \\mathsf{codomain}(\\varphi), which returns the output curve of \\varp&hellip;",
   "truncated": true,
   "post_url": "/t/compact-isogeny-pqc-can-replace-hd-wallets-key-tweaking-silent-payments/2324/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
