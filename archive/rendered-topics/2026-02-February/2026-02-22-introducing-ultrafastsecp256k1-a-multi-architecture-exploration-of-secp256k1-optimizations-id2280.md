@@ -139,3 +139,153 @@ https://github.com/shrec/bench_bip352 benchmark repo
 
 -------------------------
 
+shrec | 2026-03-23 13:09:07 UTC | #11
+
+Hi all,
+
+I’ve been experimenting with BIP324 v2 encrypted transport and wanted to share some measurements around its performance characteristics, focusing on throughput, latency, and batching effects.
+
+The goal was not to propose changes, but to better understand where the actual costs are and how they scale under different execution models.
+
+---
+
+Setup
+
+* Full BIP324 v2 stack implemented (ChaCha20-Poly1305 AEAD, HKDF-SHA256, ElligatorSwift, session management)
+
+* CPU: x86-64, clang-19, -O3
+
+* GPU: RTX 5060 Ti (CUDA), batch-oriented execution model
+
+* Measurements use median of multiple runs (RTDSCP timing)
+
+---
+
+CPU baseline (single-thread)
+
+Mixed traffic profile:
+
+* \~715K packets/sec
+
+* \~221 MB/s goodput
+
+* \~5.5% protocol overhead
+
+Selected primitives:
+
+* ChaCha20: \~780–840 MB/s
+
+* Poly1305: \~1.5–2.2 GB/s
+
+* AEAD encrypt: \~265–580 MB/s
+
+* AEAD decrypt: \~232–587 MB/s
+
+One-time operations:
+
+* HKDF (extract+expand): \~286 ns
+
+* ElligatorSwift create: \~53 µs
+
+* ElligatorSwift XDH: \~30 µs
+
+* Full handshake (both sides): \~172 µs
+
+---
+
+GPU offload (batch processing)
+
+With batching (128K packets):
+
+* \~12.78M packets/sec
+
+* \~3.9 GB/s goodput
+
+* \~17–18x throughput increase vs CPU
+
+After optimizations (state reuse, instruction-level tuning, memory layout):
+
+* \~21.37M packets/sec
+
+* \~6.6 GB/s goodput
+
+* \~30x throughput vs CPU
+
+Overhead remains roughly the same (\~5.5–5.6%).
+
+---
+
+Latency vs batching
+
+A key observation is the strong dependence on batch size:
+
+* 1 packet: \~17.6 µs (launch + transfer dominated)
+
+* 64 packets: \~0.5 µs/packet
+
+* 1024+ packets: \~63 ns/packet
+
+This suggests:
+
+> GPU behaves as a throughput engine, not a latency engine.
+
+Small workloads are dominated by launch and transfer overhead, while large batches amortize these costs effectively.
+
+---
+
+PCIe / data movement effects
+
+End-to-end profiling shows:
+
+* Kernel execution: \~55–58% of total time
+
+* PCIe transfer: \~42–45%
+
+Effective end-to-end throughput stabilizes around:
+
+* \~3.2–3.6 GB/s
+
+This indicates that once crypto is sufficiently optimized, **data movement becomes the dominant bottleneck**, not the cryptographic primitives themselves.
+
+---
+
+Additional observations
+
+* Decoy traffic overhead is relatively small on GPU:
+  \~20% decoy rate results in only \~1.4% throughput drop
+
+* Multi-stream execution (overlapping copy + compute):
+  \~1.37x improvement vs single stream
+
+* Optimal batch size appears to be in the 4K–16K packet range for this setup
+
+---
+
+Takeaways
+
+1. BIP324 cryptographic overhead on CPU is measurable but not extreme (\~5–6%)
+
+2. Throughput can scale significantly with parallel execution (30x in this setup)
+
+3. Latency and throughput behave very differently depending on batching
+
+4. Once crypto is fast enough, **transport becomes memory/IO bound**
+
+5. Batch size and execution model are critical factors in performance
+
+---
+
+Open questions
+
+* Are there realistic node-level scenarios where large batch sizes naturally occur?
+
+* Would transport-level batching be compatible with current peer/message handling models?
+
+* How relevant are throughput optimizations vs latency in real-world node deployments?
+
+---
+
+I’m happy to share more details or run additional measurements if useful.
+
+-------------------------
+
