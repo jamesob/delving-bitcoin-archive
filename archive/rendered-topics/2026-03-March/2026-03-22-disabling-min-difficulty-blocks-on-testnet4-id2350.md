@@ -45,3 +45,29 @@ Bitcointalk: https://bitcointalk.org/index.php?topic=5569103.msg66199834#msg6619
 
 -------------------------
 
+garlonicon | 2026-03-23 08:05:08 UTC | #2
+
+> Is height 201,600 (epoch 100) the right fork height, or should it be adjusted?
+
+It is just some arbitrary value, as usual. It doesn’t matter that much, which number would you pick. What matters more, is how many users, miners and developers you will have on your side.
+
+Currently, there is no deployed client with your version, which means 0% adoption. If some people will start using your version, and start producing some blocks, then it is a matter of importing it later into Bitcoin Core.
+
+Because initially, testnet4 produced around 40k blocks, before it was included into Bitcoin Core. But well, mempool.space adopted it, some users started using it, some mining pools put some real hashrate into that, and that’s how testnet4 was created. And later, after all of these blocks, it was simply included into Bitcoin Core.
+
+So, in your case, it could be similar. Pick some number, get some support on that, and then, the only question would be “is it better than unmodified testnet4?”. Because now, you are on “where can I see it deployed?” stage.
+
+I assume if it is a hard-fork, then just deploy something, and use it. If it will be better than what we have now, then it will be accepted. And if it won’t be accepted, then still: you, as a user, will benefit from using a better testnet, if your network will be better than testnet4.
+
+By the way: you didn’t have to change things from block 151,200 to 201,600. If you are waiting for some centralized approval, then you are doing it wrong. Just deploy something, see, how it goes, and ask for including it, when it will be up and running.
+
+> Does this change warrant a BIP, given that it modifies testnet4 consensus rules?
+
+Well, it brings back the old rules from the mainnet, so maybe not necessarily. Also because your network is roughly equivalent to running signet with OP_TRUE as a signet challenge, and with 201,600 blocks of premine.
+
+> Are there concerns about the temporary \~1-hour block intervals during the difficulty normalization period?
+
+Currently, ASIC blocks are the ones confirming any transactions, made by users. So, it wouldn’t be worse, if CPU blocks would be eliminated. It would only affect mining, not usage.
+
+-------------------------
+
