@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 4,
   "readers_count": 3,
-  "score": 0.6,
+  "score": 0.8,
   "yours": false,
   "topic_id": 1750,
   "topic_slug": "rust-descriptor-encrypt-encrypt-any-descriptor-such-that-only-authorized-spenders-can-decrypt",
