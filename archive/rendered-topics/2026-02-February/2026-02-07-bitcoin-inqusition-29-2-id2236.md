@@ -95,3 +95,35 @@ Happy to share raw RPC snapshots / watch logs if others want to compare miner po
 
 -------------------------
 
+AaronZhang | 2026-03-25 03:10:26 UTC | #6
+
+Following up on my earlier CAT/CSFS/CTV runs, I tested an **IK + CSFS** composition on Bitcoin Inquisition.
+
+This uses OP_INTERNALKEY to source the pubkey from Taproot execution context rather than witness.
+
+Commit:
+[9930e922…0ea8](https://mempool.space/signet/tx/9930e922036a80d04a96a4b08f15838bcb880ce2a4be91da0b24af1484e10ea8?showDetails=true)
+
+Reveal:
+[8d0b2156…dd8f](https://mempool.space/signet/tx/8d0b2156e9425afe64cabf3c906da255b6b86c51cb8968f828d5253fc261dd8f?showDetails=true)
+
+Script:
+OP_INTERNALKEY OP_CHECKSIGFROMSTACK (cbcc)
+
+Witness:
+\[sig, message\] — no pubkey in witness
+
+Observation:
+
+* Pubkey is no longer caller-supplied
+* It is sourced from Taproot execution context (internal key)
+
+This shifts authorization from “who provides a key” to “who created the UTXO”.
+
+However, since the message is fixed, the (sig, message) pair is replayable across UTXOs with the same internal key.
+
+Full breakdown (stack / control block / derivation):
+details: https://medium.com/@aaron.recompile/op-internalkey-op-checksigfromstack-on-signet-identity-bound-authorization-04f0440557bc
+
+-------------------------
+
