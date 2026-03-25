@@ -90,3 +90,15 @@ Really interesting work. Makes sense to leave the storage question out of scope 
 
 -------------------------
 
+josh | 2026-03-25 18:32:24 UTC | #4
+
+> Where do you see these encrypted blobs actually living long term, especially in an inheritance scenario?
+
+Conceivably, descriptors encrypted with this library could be stored alongside each seed phrase, as you might today. The primary benefit is that the activity and balance of the wallet would remain hidden from a thief or an heir who cannot unilaterally spend the funds.
+
+Alternatively, I expect encrypted descriptors to be stored online, ideally in a public well-recognized location. The latter is important so that heirs can find descriptors using only seed phrases, without needing additional details for how to look them up.
+
+In my opinion, a standard protocol that allows a user to locally import master extended public keys and recover all funds controlled by those keys is the ideal user experience (it requires no technical knowledge beyond seed phrases and hardware devices). This would require a data availability layer and an open source indexer, which allows users to find their encrypted descriptors. While I tend to think that the Bitcoin itself is the only data availability layer that users would accept as an industry standard, I could be wrong, and I'd be interested in seeing other solutions.
+
+-------------------------
+
