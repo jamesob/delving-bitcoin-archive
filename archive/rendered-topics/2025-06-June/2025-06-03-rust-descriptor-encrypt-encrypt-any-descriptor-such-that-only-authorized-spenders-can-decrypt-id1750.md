@@ -84,3 +84,9 @@ So modest. 😮‍💨 You mentioned the hackathon but didn't mention you won �
 
 -------------------------
 
+mr21free | 2026-03-25 11:13:10 UTC | #3
+
+Really interesting work. Makes sense to leave the storage question out of scope for the library itself. I am curious what your vision is for the storage layer though. Where do you see these encrypted blobs actually living long term, especially in an inheritance scenario?
+
+-------------------------
+
