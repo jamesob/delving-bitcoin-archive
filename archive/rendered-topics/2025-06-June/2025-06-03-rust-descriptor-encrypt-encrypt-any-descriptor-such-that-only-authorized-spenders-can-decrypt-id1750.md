@@ -102,3 +102,13 @@ In my opinion, a standard protocol that allows a user to locally import master e
 
 -------------------------
 
+mr21free | 2026-03-26 08:14:30 UTC | #5
+
+Actually, I tried your solution already. I encoded my descriptor using your library and put together a small script that bundles a local copy of the web interface. An heir just runs it on Linux or Mac, a local web server spins up, they paste in the public keys and get the descriptor back. Bundling locally removes the dependency on your domain or GitHub still being there in 10 years.
+
+Works well as a practical interim solution. The ideal end state in my opinion is wallet software handling this natively - import the encoded descriptor, connect hardware devices, recover the wallet in a few clicks. No command line, no technical knowledge required beyond the seed phrases.
+
+On the data availability layer, the property one might actually need is findability from the keys, durability over decades, and no single company dependency. Bitcoin provides that but at the cost of chain bloat and permanent data exposure. An off-chain network with Bitcoin-anchored economics, e.g. where nodes stake BTC to guarantee availability and lose it if they don't, could satisfy the same requirements without touching the chain. Curious whether you'd consider that a viable alternative or whether Bitcoin's finality is load-bearing for you.
+
+-------------------------
+

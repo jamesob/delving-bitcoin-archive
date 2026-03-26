@@ -7,7 +7,7 @@
   "cooked": "<p>Really interesting work. Makes sense to leave the storage question out of scope for the library itself. I am curious what your vision is for the storage layer though. Where do you see these encrypted blobs actually living long term, especially in an inheritance scenario?</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-03-25T11:13:10.157Z",
   "reply_count": 1,
   "reply_to_post_number": null,
