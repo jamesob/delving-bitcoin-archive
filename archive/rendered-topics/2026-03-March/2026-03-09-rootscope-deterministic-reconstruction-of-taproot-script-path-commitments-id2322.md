@@ -78,3 +78,20 @@ Aaron Zhang
 
 -------------------------
 
+AaronZhang | 2026-03-25 22:30:14 UTC | #2
+
+One interesting use case that came up in later experiments:
+
+In a recent IK + CSFS run on Bitcoin Inquisition:
+
+https://delvingbitcoin.org/t/bitcoin-inqusition-29-2/2236/6
+
+I realized that OP_INTERNALKEY implicitly assumes that **the internal key is trusted.**
+
+In practice, this trust comes from the control block verification — reconstructing the Taproot commitment chain and ensuring that P → Q holds for the given UTXO.
+
+From this perspective, reconstruction is **not just a debugging aid,**
+but a prerequisite for reasoning about **identity-bound authorization**.
+
+-------------------------
+
