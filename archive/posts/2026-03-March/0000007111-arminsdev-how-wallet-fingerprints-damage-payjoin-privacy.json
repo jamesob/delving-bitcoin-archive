@@ -7,15 +7,15 @@
   "cooked": "<p>I wrote up an analysis of how wallet fingerprints can be used to partition Payjoin transaction inputs and outputs by owner, potentially recovering the payment amount and undermining the privacy benefits.</p>\n<p>The takeaway: Payjoin privacy depends on fingerprint uniformity between sender and receiver. When wallets diverge on any observable dimension, that divergence becomes a partition signal.</p>\n<p>Full post: <a href=\"https://payjoin.org/blog/2026/03/25/wallet-fingerprints-payjoin-privacy/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">How Wallet Fingerprints Damage Payjoin Privacy | Payjoin</a></p>\n<p>Interested in feedback on the methodology, additional fingerprint dimensions worth exploring, or cases where this analysis would fail.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 2,
   "updated_at": "2026-03-26T15:06:13.274Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 28.4,
+  "reads": 21,
+  "readers_count": 20,
+  "score": 44.0,
   "yours": false,
   "topic_id": 2354,
   "topic_slug": "how-wallet-fingerprints-damage-payjoin-privacy",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "heart",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
