@@ -261,9 +261,41 @@ Figuring out how to combine unconfirmed dust disposal transactions is my current
 
 -------------------------
 
-harris | 2026-02-20 05:54:45 UTC | #19
+harris | 2026-02-23 05:19:48 UTC | #19
 
-Thanks, lets collaborate then. I will go through the project, test it and given an update here
+Thanks, lets collaborate then. I will go through the project, test it and give an update here
+
+-------------------------
+
+bubb1es | 2026-03-27 18:50:29 UTC | #20
+
+A quick update on this project:
+
+Thanks to @harris the `ddust` tool now 1) batches new dust inputs with unconfirmed dust disposal txs it finds in the mempool and 2) has a regtest integration test framework and initial tests.
+
+* https://github.com/bubb1es71/ddust/pull/5
+* https://github.com/bubb1es71/ddust/pull/17
+
+@harris and I have also created a draft BIP specification for the protocol described in this thread and implemented in the `ddust` tool.
+
+* https://github.com/bubb1es71/ddust/pull/20
+
+We’d love to get feedback from the community on the latest updates to the tool and on the draft BIP.
+
+We’d especially like to hear from anyone who has written or reviewed BIPs to make sure this is a good draft before we submit a PR to the bips repo. And also from wallet (or wallet lib) maintainers on if this is a feature/spec you’d consider implementing, or if not why.
+
+If you’d like get get involved on the [ddust](https://github.com/bubb1es71/ddust)  project a few top of mind ideas are:
+
+* testing with popular hardware wallets to confirm they can sign the PSBTs created by `ddust`
+* more tests for different types of P2SH, P2WSH, P2TR dust inputs (ie. 3-5, tap script, others?)
+* tests for batching combinations of `ddust` transactions, adding dust inputs to unconfirmed multi-input txs
+* add a feature to batch unconfirmed ddust transactions without contributing any inputs
+
+Or on the [dusts](https://github.com/bubb1es71/dusts) dust stats project:
+
+* what is the distribution of existing dust amounts
+* what is the distribution of utxo amounts that have been subjected to a dust attack
+* how have the dust or victim utxo amounts changed over time
 
 -------------------------
 
