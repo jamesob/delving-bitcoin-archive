@@ -7,15 +7,15 @@
   "cooked": "<p><em>(crossposted from birdland)</em></p>\n<p>Maybe it\u2019s worth being explicit: in my eyes, OP_VAULT (BIP-345) has been essentially replaced by <a class=\"mention\" href=\"/u/salvatoshi\">@salvatoshi</a>\u2019s OP_CHECKCONTRACTVERIFY (CCV) (<a href=\"https://t.co/yjvcmOw9TA\">https://github.com/bitcoin/bips/pull/1793</a>).</p>\n<p>CCV is basically a more general version of the VAULT design and inherits some of its features, like the amount modes and some form of deferred (cross-input) checks. But CCV allows you to replace multiple tapleaves instead of just one, and it has a smaller interface and implementation in the script interpreter.</p>\n<p>You can still create all the VAULT-style vaults that you know and love using CCV. One good outcome of VAULT is that it set a concrete \u201cuse benchmark\u201d for competing proposals to evolve towards.</p>\n<p>The one deficit of CCV that has kept me from making this proclamation to date is that some of the supporting documentation and tooling hasn\u2019t emerged yet. Salvatoshi\u2019s been working on the BIP, but it isn\u2019t fully complete yet. However the implementation and vault testcases have recently been well fleshed out, so CCV is definitely progressing.</p>\n<p>The other minor hold-out I had was the prospect of possible VAULT-decorator opcodes, adding the ability to for example necessitate collateral lockup for unvaulting, or adding some rate-limiting behavior (see <a href=\"https://delvingbitcoin.org/t/op-vault-fanfiction-for-rate-limited-and-collateralized-unvaulting/55\" class=\"inline-onebox\">OP_VAULT fanfiction for rate-limited and collateralized unvaulting</a>), which is impossible to do without either 64 bit math happening in the script interpreter (read: probably not anytime soon), or shelling out to the C++ implementation with some kind of <code>OP_VAULT_RATELIMIT</code> decorator opcode.</p>\n<p>But I think CCV is still the superior base to build on, and if we need vaulting-specific \u201cdecorator\u201d opcodes, they aren\u2019t out of the question. Congrats to <a class=\"mention\" href=\"/u/salvatoshi\">@salvatoshi</a> for finding a better design, and please consider VAULT more or less archived. It\u2019s still a workable change that would be a nice addition to bitcoin script, but having CCV would probably be better.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 4,
   "updated_at": "2025-05-06T15:51:58.387Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 19,
-  "reads": 25,
-  "readers_count": 24,
-  "score": 109.2,
+  "incoming_link_count": 167,
+  "reads": 62,
+  "readers_count": 61,
+  "score": 977.4,
   "yours": false,
   "topic_id": 1670,
   "topic_slug": "withdrawing-op-vault-bip-345",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 9
     }
   ],
   "moderator": false,
@@ -63,10 +63,20 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 7
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 9,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

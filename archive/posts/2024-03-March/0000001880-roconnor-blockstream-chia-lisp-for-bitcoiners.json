@@ -7,14 +7,15 @@
   "cooked": "<p>Ah, that is very clever.  Yes, something like that likely could be adapted to Simplicity since Simplicity does have a notion of subexpressions that return nil (in Simplicity terms it would return the value of unit type).  I\u2019d have to think about it some more to make sure there are no issues with pruning, or delegation or type inference, but I don\u2019t foresee any problems.</p>\n<p>This is very good because finding a soft-fork solution was a problem that I hadn\u2019t yet found a good solution for.  The first version deployed on Liquid will probably have no upgrade mechanism, and instead a subsequent version of Simplicity (perhaps one with this soft forking mechanism) would simply be deployed under another tapleaf version (of which there are currently plenty).</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2024-03-13T20:07:16.892Z",
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 1.8,
+  "incoming_link_count": 3,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 112.2,
   "yours": false,
   "topic_id": 636,
   "topic_slug": "chia-lisp-for-bitcoiners",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,32 +38,50 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 3,
     "username": "ajtowns",
     "name": "Anthony Towns",
     "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png"
   },
   "bookmarked": false,
   "raw": "Ah, that is very clever.  Yes, something like that likely could be adapted to Simplicity since Simplicity does have a notion of subexpressions that return nil (in Simplicity terms it would return the value of unit type).  I'd have to think about it some more to make sure there are no issues with pruning, or delegation or type inference, but I don't foresee any problems.\n\nThis is very good because finding a soft-fork solution was a problem that I hadn't yet found a good solution for.  The first version deployed on Liquid will probably have no upgrade mechanism, and instead a subsequent version of Simplicity (perhaps one with this soft forking mechanism) would simply be deployed under another tapleaf version (of which there are currently plenty).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 4
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 351,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Ah, that is very clever.  Yes, something like that likely could be adapted to Simplicity since Simplicity does have a notion of subexpressions that return nil (in Simplicity terms it would return the value of unit type).  I\u2019d have to think about it some more to make sure there are no issues with pru&hellip;",
+  "truncated": true,
+  "post_url": "/t/chia-lisp-for-bitcoiners/636/8",
   "reactions": [
     {
       "id": "rocket",
+      "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "+1",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

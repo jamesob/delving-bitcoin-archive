@@ -7,14 +7,15 @@
   "cooked": "<p>I think this is a logical fallacy: A is not B, but product P does A &amp; B, so A = B?</p>\n<p>Just because you have classical LN channels, as well as hosted channels, does not make the hosted channels normal channels. That\u2019s what I wanted to point our in my comment. Tony\u2019s channels <em>are</em> LN channels, we just assign a different interpretation to the numeric values in the channel. Hosted channels <em>are not</em> classical LN channels, since they cannot be settled on-chain (the best you can hope for in hosted channels is a proof of misbehavior, but unlike LN there is no automatic dispute mechanism via the blockchain).</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-08-11T10:26:23.542Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 17.6,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 36.8,
   "yours": false,
   "topic_id": 875,
   "topic_slug": "stable-channels-peer-to-peer-dollar-balances-on-lightning",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 275,
     "username": "cryptorevue",
     "name": "cryptorevue",
     "avatar_template": "/letter_avatar_proxy/v4/letter/c/278dde/{size}.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think this is a logical fallacy: A is not B, but product P does A &amp; B, so A = B? \nJust because you have classical LN channels, as well as hosted channels, does not make the hosted channels normal channels. That\u2019s what I wanted to point our in my comment. Tony\u2019s channels are LN channels, we just as&hellip;",
+  "truncated": true,
+  "post_url": "/t/stable-channels-peer-to-peer-dollar-balances-on-lightning/875/11",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

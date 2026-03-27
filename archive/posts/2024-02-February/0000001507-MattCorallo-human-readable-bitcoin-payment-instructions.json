@@ -7,14 +7,15 @@
   "cooked": "<p>Various Bitcoin and other cryptocurrency applications have developed human-readable names for payment instructions over time, with marketplace adoption signaling strong demand for it from users. Having a standard way to resolve a human-readable name into Bitcoin payment instructions is a very useful primitive. I\u2019ve written up (and implemented) a draft BIP to do this using DNSSEC at <a href=\"https://github.com/TheBlueMatt/bips/blob/d46a29ff4b4ac27210bc81474ae18e4802141324/bip-XXXX.mediawiki\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">bips/bip-XXXX.mediawiki at d46a29ff4b4ac27210bc81474ae18e4802141324 \u00b7 TheBlueMatt/bips \u00b7 GitHub</a> which has a number of advantages over the existing LN Address as well as being generic for all Bitcoin payment forms (see the rationale section for more info).</p>\n<p>By resolving DNS names to bitcoin: URIs, it is also highly extensible - any Bitcoin payment scheme that defines a bitcoin: URI query parameter doesn\u2019t have to do anything and can support this resolution scheme (as long as they have a static invoice format, so no BOLT11).</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2024-02-11T01:16:06.253Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 73.4,
+  "incoming_link_count": 285,
+  "reads": 69,
+  "readers_count": 68,
+  "score": 1488.8,
   "yours": false,
   "topic_id": 542,
   "topic_slug": "human-readable-bitcoin-payment-instructions",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -54,11 +56,19 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Various Bitcoin and other cryptocurrency applications have developed human-readable names for payment instructions over time, with marketplace adoption signaling strong demand for it from users. Having a standard way to resolve a human-readable name into Bitcoin payment instructions is a very useful&hellip;",
+  "truncated": true,
+  "post_url": "/t/human-readable-bitcoin-payment-instructions/542/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     },
     {
       "id": "rocket",
@@ -67,6 +77,11 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>We made the following changes to <a href=\"https://github.com/bitcoin/bips/pull/1670\" rel=\"noopener nofollow ugc\">BIP-360 (Pay to Quantum Resistant Hash) PR</a>:</p>\n<ul>\n<li>P2QRH (Pay to Quantum Resistant Hash) is now taproot (P2TR) but with the quantum vulnerable key-spend path removed.</li>\n<li>PQ signatures have been moved to a future BIP (coming soon).</li>\n<li>The plan for PQ signatures is to redefine OP_SUCCESSx opcodes: OP_CHECKMLSIG</li>\n</ul>\n<p>Below we go into these changes one by one, see BIP-360 PR for full details (<a href=\"https://github.com/bitcoin/bips/blob/77dbeee502b606fda2006ae53f4014cef612aacd/README.mediawiki\" rel=\"noopener nofollow ugc\">BIP-360 mediawiki render as of 7/7/2025</a>).</p>\n<p>P2QRH is now script-spend only P2TR (taproot), i.e. no quantum vulnerable key-spend. P2QRH outputs commit directly to the tapleaf merkle root computed by taproot.</p>\n<p>The scriptPubKey for a P2QRH output is:</p>\n<p>OP_PUSHNUM_3 OP_PUSHBYTES_32 </p>\n<p>Advantages of this approach</p>\n<ol>\n<li>We can reuse taproot code, but just skip taptweak steps.</li>\n<li>Everyone who understands P2TR, already understands P2QRH.</li>\n<li>By supporting tapscript and tapleaf, it supports everything that supports tapscript.</li>\n<li>P2QRH protects tapscript outputs against long-exposure attacks. This is a big win because long-exposure attacks will be practical before short-exposure attacks. Note: protecting against short-exposure attacks requires PQ signatures.</li>\n<li>P2QRH gives us similar functionality as the much discussed option of disabling key-spends in P2TR on Q-Day (when quantum attacks become practical), but with the added benefit that the ecosystem can upgrade well before Q-Day. This removes the risks of attempting a consensus change during an emergency or acting too late.</li>\n</ol>\n<p>We moved PQ signatures specification out of BIP-360 so that P2QRH can be debated independently of the debate over PQ signature algorithms. This allows us to move forward on P2QRH without forcing a commitment to any particular algorithm.</p>\n<p>BIP-360 includes a purely informational plan for adding PQ signature algorithms to tapscript. This plan to add tapscript PQ signature verification opcodes for ML-DSA (CRYSTALS-Dilithium) and SLH-DSA (SPHINCS+) via OP_SUCCESSx. This allows separate activation of PQ signature algorithms if desired and provides a pattern for adding new signature algorithms in the future. No new tapleaf version needed. The full specification will be given in a new BIP.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 30,
   "updated_at": "2025-07-07T16:01:15.275Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 64,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 243.6,
+  "incoming_link_count": 215,
+  "reads": 74,
+  "readers_count": 73,
+  "score": 1084.8,
   "yours": false,
   "topic_id": 1811,
   "topic_slug": "changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "We made the following changes to [BIP-360 (Pay to Quantum Resistant Hash) PR](https://github.com/bitcoin/bips/pull/1670):\n\n* P2QRH (Pay to Quantum Resistant Hash) is now taproot (P2TR) but with the quantum vulnerable key-spend path removed.\n* PQ signatures have been moved to a future BIP (coming soon).\n* The plan for PQ signatures is to redefine OP_SUCCESSx opcodes: OP_CHECKMLSIG\n\nBelow we go into these changes one by one, see BIP-360 PR for full details ([BIP-360 mediawiki render as of 7/7/2025](https://github.com/bitcoin/bips/blob/77dbeee502b606fda2006ae53f4014cef612aacd/README.mediawiki)).\n\nP2QRH is now script-spend only P2TR (taproot), i.e. no quantum vulnerable key-spend. P2QRH outputs commit directly to the tapleaf merkle root computed by taproot.\n\nThe scriptPubKey for a P2QRH output is:\n\nOP_PUSHNUM_3 OP_PUSHBYTES_32 <tapleaf merkle root>\n\nAdvantages of this approach\n\n1. We can reuse taproot code, but just skip taptweak steps.\n2. Everyone who understands P2TR, already understands P2QRH.\n3. By supporting tapscript and tapleaf, it supports everything that supports tapscript.\n4. P2QRH protects tapscript outputs against long-exposure attacks. This is a big win because long-exposure attacks will be practical before short-exposure attacks. Note: protecting against short-exposure attacks requires PQ signatures.\n5. P2QRH gives us similar functionality as the much discussed option of disabling key-spends in P2TR on Q-Day (when quantum attacks become practical), but with the added benefit that the ecosystem can upgrade well before Q-Day. This removes the risks of attempting a consensus change during an emergency or acting too late.\n\nWe moved PQ signatures specification out of BIP-360 so that P2QRH can be debated independently of the debate over PQ signature algorithms. This allows us to move forward on P2QRH without forcing a commitment to any particular algorithm.\n\nBIP-360 includes a purely informational plan for adding PQ signature algorithms to tapscript. This plan to add tapscript PQ signature verification opcodes for ML-DSA (CRYSTALS-Dilithium) and SLH-DSA (SPHINCS+) via OP_SUCCESSx. This allows separate activation of PQ signature algorithms if desired and provides a pattern for adding new signature algorithms in the future. No new tapleaf version needed. The full specification will be given in a new BIP.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,24 @@
   "excerpt": "We made the following changes to <a href=\"https://github.com/bitcoin/bips/pull/1670\" rel=\"noopener nofollow ugc\">BIP-360 (Pay to Quantum Resistant Hash) PR</a>: \n\nP2QRH (Pay to Quantum Resistant Hash) is now taproot (P2TR) but with the quantum vulnerable key-spend path removed.\nPQ signatures have been moved to a future BIP (coming soon).\nThe plan for PQ signatures is to redefine OP&hellip;",
   "truncated": true,
   "post_url": "/t/changes-to-bip-360-pay-to-quantum-resistant-hash-p2qrh/1811/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

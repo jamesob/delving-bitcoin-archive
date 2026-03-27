@@ -7,15 +7,15 @@
   "cooked": "<p>New whirlpool coordinator with some red flags and vulnerabilities: <a href=\"https://bitcointalk.org/index.php?topic=5547639.0\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">New ashigaru whirlpool coordinator can de-anonymize users</a></p>",
   "post_number": 24,
   "post_type": 1,
-  "posts_count": 22,
+  "posts_count": 23,
   "updated_at": "2025-06-24T00:46:03.504Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.6,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 20.0,
   "yours": false,
   "topic_id": 934,
   "topic_slug": "who-will-run-the-coinjoin-coordinators",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "New whirlpool coordinator with some red flags and vulnerabilities: https://bitcointalk.org/index.php?topic=5547639.0",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "New whirlpool coordinator with some red flags and vulnerabilities: <a href=\"https://bitcointalk.org/index.php?topic=5547639.0\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">New ashigaru whirlpool coordinator can de-anonymize users</a>",
   "truncated": true,
   "post_url": "/t/who-will-run-the-coinjoin-coordinators/934/24",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

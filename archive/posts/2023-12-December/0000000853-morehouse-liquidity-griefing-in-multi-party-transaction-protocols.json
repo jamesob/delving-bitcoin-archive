@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"7\" data-topic=\"264\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>The future post-cluster mempool scheme I have in mind is pretty simple: v3 would be relaxed to on the order of \u201cmust be in top block to enter mempool\u201d. This makes pinning essentially impossible unless the attacker somehow knows the top-rate backlog is going to get bad shortly in the future, and should protect against witness inflation and the like. Would allow for pin-resistant batch CPFP, would mean you don\u2019t necessarily need no unconfirmed ancestors, should make ANYONECANPAY usage more safe(like HTLC second stage txns) etc.</p>\n</blockquote>\n</aside>\n<p>Indeed, an opt-in top block policy seems to prevent witness inflation (and other pinning attacks).</p>\n<p>But even with such a policy, there still remains the issue of conflicting transactions, which don\u2019t have to follow any opt-in rules.  At the end of the joint transaction negotiation, an attacker can broadcast a low feerate conflicting transaction that opts out of the top block policy and pin it with low feerate descendants up to the cluster limit.  With good timing and connectivity, the attacker can partition mempools such that the victim is unaware of the conflicting transaction, yet the honest joint transaction cannot propagate.</p>\n<p>In the worst case, the victim\u2019s liquidity is locked up until the conflicting transaction confirms.  In the better case, the victim can reduce the severity of the griefing by unlocking UTXOs if confirmation is taking much longer than expected.  Unfortunately, the victim still has their liquidity locked up until the timeout occurs, and they will need to pay a small RBF penalty fee to get any double-spend transaction accepted into their own mempool if the conflicting transaction hasn\u2019t confirmed.</p>\n<p>We already have this problem with opt-in RBF, with the eventual solution being mandatory RBF (full RBF).  I\u2019m not sure we want do the same with the top block policy, though.</p>",
   "post_number": 8,
   "post_type": 1,
-  "updated_at": "2023-12-22T21:52:24.874Z",
-  "reply_count": 0,
+  "posts_count": 9,
+  "updated_at": "2024-01-25T18:05:00.597Z",
+  "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 21.6,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 45.6,
   "yours": false,
   "topic_id": 264,
   "topic_slug": "liquidity-griefing-in-multi-party-transaction-protocols",
@@ -28,7 +29,8 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
-  "version": 1,
+  "badges_granted": [],
+  "version": 3,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -48,20 +50,27 @@
   "staff": false,
   "user_id": 47,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Indeed, an opt-in top block policy seems to prevent witness inflation (and other pinning attacks). \nBut even with such a policy, there still remains the issue of conflicting transactions, which don\u2019t have to follow any opt-in rules.  At the end of the joint transaction negotiation, an attacker can &hellip;",
+  "truncated": true,
+  "post_url": "/t/liquidity-griefing-in-multi-party-transaction-protocols/264/8",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

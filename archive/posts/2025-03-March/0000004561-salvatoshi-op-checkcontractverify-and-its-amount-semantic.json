@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"2\" data-topic=\"1527\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<ol>\n<li>OP_IN_AMOUNT: pushes input amount on stack</li>\n<li>CCV with value introspection: takes value off stack (can be &gt;4 bytes), allocates to an output, and pushes residual of input back on stack, where residual is always the full amount minus the specified amount</li>\n</ol>\n</blockquote>\n</aside>\n<p>Interesting approach, I\u2019ll think more about it. Although, having worked with it, I consider the opt-out semantic quite natural and enjoyable to work with, and it works for most cases.</p>\n<p>I tend to think that bringing amount on the stack is too error prone to bring in without bignums, especially since you can start with 4-byte amounts and aggregate up to 5-byte ones.</p>\n<p>If my conjecture is true that \u201cequality checks is all you need\u201d beyond CCV, you avoid doing math altogether.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2025-03-17T18:25:33.005Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 22.2,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 28.6,
   "yours": false,
   "topic_id": 1527,
   "topic_slug": "op-checkcontractverify-and-its-amount-semantic",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Interesting approach, I\u2019ll think more about it. Although, having worked with it, I consider the opt-out semantic quite natural and enjoyable to work with, and it works for most cases. \nI tend to think that bringing amount on the stack is too error prone to bring in without bignums, especially since&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checkcontractverify-and-its-amount-semantic/1527/4",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

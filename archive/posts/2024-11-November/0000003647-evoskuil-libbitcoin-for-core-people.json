@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"AntoineP\" data-post=\"13\" data-topic=\"1222\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>Bitcoin Core may parallelize requests but block processing is still sequential.</p>\n</blockquote>\n</aside>\n<p>The Core parallel download is very limited, and really operates as just a read-ahead cache. Libbitcoin downloads, checks, stores, and indexes concurrently on all available (or configured) threads. The full chain can be concurrently downloading, though we generally narrow the window to 50k blocks or less to improve data locality and prevent extended gaps while validating. The store is fully write-concurrent and the overall design is lock-free (proactor pattern).</p>\n<p>When fully validating, Libbitcoin also validates blocks concurrently on all available (or configured) threads - not just scripts, all accept/connect checks, and not limited to one block. A concurrent download window of about 50k blocks generally ensures that the validator threads are rarely starved.</p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-11-30T07:02:50.536Z",
   "reply_count": 0,
   "reply_to_post_number": 13,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "incoming_link_count": 1,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 62.8,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"AntoineP, post:13, topic:1222\"]\nBitcoin Core may parallelize requests but block processing is still sequential.\n[/quote]\n\nThe Core parallel download is very limited, and really operates as just a read-ahead cache. Libbitcoin downloads, checks, stores, and indexes concurrently on all available (or configured) threads. The full chain can be concurrently downloading, though we generally narrow the window to 50k blocks or less to improve data locality and prevent extended gaps while validating. The store is fully write-concurrent and the overall design is lock-free (proactor pattern).\n\nWhen fully validating, Libbitcoin also validates blocks concurrently on all available (or configured) threads - not just scripts, all accept/connect checks, and not limited to one block. A concurrent download window of about 50k blocks generally ensures that the validator threads are rarely starved.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "The Core parallel download is very limited, and really operates as just a read-ahead cache. Libbitcoin downloads, checks, stores, and indexes concurrently on all available (or configured) threads. The full chain can be concurrently downloading, though we generally narrow the window to 50k blocks or&hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/16",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

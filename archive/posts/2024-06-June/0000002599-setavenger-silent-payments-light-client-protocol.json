@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"josibake\" data-post=\"10\" data-topic=\"891\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josibake/48/83_2.png\" class=\"avatar\"> josibake:</div>\n<blockquote>\n<p>The two benefits I see for providing outputs grouped by txidtxidtxid are reduced bandwidth and less computation for the client in the event an output is found</p>\n</blockquote>\n</aside>\n<p>No doubt there.</p>\n<aside class=\"quote no-group\" data-username=\"josibake\" data-post=\"10\" data-topic=\"891\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josibake/48/83_2.png\" class=\"avatar\"> josibake:</div>\n<blockquote>\n<p>if every client will end up grouping it seems better to do the work one time on the server</p>\n</blockquote>\n</aside>\n<p>This is a valid statement. I was coming from a perspective of doing these transformations on-the-fly per request. As of now the BB Oracle architecture would require on-the-fly mapping. The reason being that UTXOs need to be updated individually to change the spent state. Grouping UTXOs in storage would probably generate some overhead for sync times. Might be negligible though.</p>\n<aside class=\"quote no-group\" data-username=\"josibake\" data-post=\"10\" data-topic=\"891\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josibake/48/83_2.png\" class=\"avatar\"> josibake:</div>\n<blockquote>\n<p>It\u2019s not immediately clear to what the additional fields are for, i.e. block hash, block number, timestamp. In the case of block info, seems like we could use block hash or block number, depending on what the wallet needs it for?</p>\n</blockquote>\n</aside>\n<p>It\u2019s just an optional metadata field. <code>block_height</code> or <code>block_hash</code> should suffice if the wallet does extra requests to get block meta data. <code>timestamp</code> seemed like an obvious use case. The optional fields are not very refined yet and just ideas I threw out there. None of these fields are technically required to spend the outputs which is why I put them in optional to begin with.\nIf included it does make sense to not have them repeated in every output and rather aggregate on a higher level.</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-06-02T13:07:30.186Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 17.0,
+  "incoming_link_count": 1,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 25.6,
   "yours": false,
   "topic_id": 891,
   "topic_slug": "silent-payments-light-client-protocol",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "No doubt there. \n\nThis is a valid statement. I was coming from a perspective of doing these transformations on-the-fly per request. As of now the BB Oracle architecture would require on-the-fly mapping. The reason being that UTXOs need to be updated individually to change the spent state. Grouping &hellip;",
+  "truncated": true,
+  "post_url": "/t/silent-payments-light-client-protocol/891/11",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

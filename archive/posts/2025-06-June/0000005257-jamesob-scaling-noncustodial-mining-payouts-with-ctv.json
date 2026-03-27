@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"AntoineP\" data-post=\"6\" data-topic=\"1753\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/antoinep/48/483_2.png\" class=\"avatar\"> AntoineP:</div>\n<blockquote>\n<p>No, it can just include payouts in the block directly.</p>\n</blockquote>\n</aside>\n<p>This steals fee revenue from otherwise revenue-generating blockspace (unless the pool constituents are paying the miner fees somehow), especially for large numbers of pool participants.</p>\n<p>Using a CTV payout allows the pool to collect maximum fee revenue in the moment, and then allows each pool constituent to individually decide how much they\u2019re willing to pay in fees (and when) to take receipt of the payout.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 17,
   "updated_at": "2025-06-09T15:22:36.742Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 36.2,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,10 +63,14 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

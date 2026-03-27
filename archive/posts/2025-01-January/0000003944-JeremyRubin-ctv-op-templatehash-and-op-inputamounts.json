@@ -7,14 +7,15 @@
   "cooked": "<p>OP_TEMPLATEHASH actually seems pretty nice to work with on the whole. It \u201cprobably\u201d gives you something like OP_PAIRCOMMIT if you were to abuse e.g. the outputs field\u2026 but I don\u2019t think that\u2019s the most interesting way to consider it.</p>\n<p>I think it\u2019s more interesting to compare this to e.g. working with TXHASH or OP_CAT, and it seems like it\u2019s pretty ergonomic! I would maybe consider enabling a way to pass a sha256 midstate in for the sequence and output (maybe a negative index means n-more after midstate?), because then you can do more compact stuff\u2026</p>\n<p>I would also consider an OP_PUSHTEMPLATE and OP_TEMPLATEHASH which would decrease txn size, rather than needing to replicate the entire tx on the witness stack.</p>\n<p>(less sure about the input amount opcode, holding comment for now)/</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 11,
   "updated_at": "2025-01-03T15:39:46.034Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 22.0,
+  "incoming_link_count": 1,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 29.4,
   "yours": false,
   "topic_id": 1344,
   "topic_slug": "ctv-op-templatehash-and-op-inputamounts",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "OP_TEMPLATEHASH actually seems pretty nice to work with on the whole. It \u201cprobably\u201d gives you something like OP_PAIRCOMMIT if you were to abuse e.g. the outputs field\u2026 but I don\u2019t think that\u2019s the most interesting way to consider it. \nI think it\u2019s more interesting to compare this to e.g. working wit&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-op-templatehash-and-op-inputamounts/1344/8",
   "reactions": [
     {
       "id": "heart",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

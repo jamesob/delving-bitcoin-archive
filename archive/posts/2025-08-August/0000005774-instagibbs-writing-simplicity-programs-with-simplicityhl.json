@@ -13,9 +13,9 @@
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 19.4,
   "yours": false,
   "topic_id": 1900,
   "topic_slug": "writing-simplicity-programs-with-simplicityhl",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Compiling that example from the SimplicityHL repo, it gives me what I think would amount to 447WU for the program, without witness data.\n\nNot a SimplicityHL question per se but one question I\u2019ve had is how much the serialization of the Simplicity code itself can be compressed without violating the actual costing of the underlying JET operations, since f.e. [output amount](https://docs.rs/simfony-as-rust/latest/simfony_as_rust/jet/transaction/fn.output_amount.html) is only 298mWU but the serialized version of that script will be a couple order of magnitudes larger (15WU if I\u2019m doing this right).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Compiling that example from the SimplicityHL repo, it gives me what I think would amount to 447WU for the program, without witness data. \nNot a SimplicityHL question per se but one question I\u2019ve had is how much the serialization of the Simplicity code itself can be compressed without violating the a&hellip;",
   "truncated": true,
   "post_url": "/t/writing-simplicity-programs-with-simplicityhl/1900/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

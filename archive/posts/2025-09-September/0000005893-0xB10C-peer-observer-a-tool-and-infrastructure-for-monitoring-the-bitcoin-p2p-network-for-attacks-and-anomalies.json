@@ -7,15 +7,15 @@
   "cooked": "<p>I\u2019ve written about my peer-observer project in <a href=\"https://b10c.me/projects/024-peer-observer/\" class=\"inline-onebox\">peer-observer: A tool and infrastructure for monitoring the Bitcoin P2P network for attacks and anomalies</a> and post about it here for me to share project updates, enable discussion about the project, and for readers to leave ideas further monitoring ideas.</p>\n<p>Since the project relies on  \u201choneypot nodes\u201d, the actual web front end isn\u2019t publicly accessible (though I\u2019ve set up accounts for a bunch of people over the last years) as the data would make the nodes identifiable. On <a href=\"https://public.peer.observer\">public.peer.observer</a> a list of the nodes and their configurations can be found. Similarly, the fork-observer instance connected to the nodes is also <a href=\"https://public.peer.observer/forks/\">publicly reachable</a>.</p>\n<p>I do however plan to set up a separate demo instance with public dashboards and data (and thus IPs, accepting the fact that some people might see this as invitation to mess with the nodes) soon.</p>\n<p>As for code, the tooling can be found on <a href=\"https://github.com/0xB10C/peer-observer\">github.com/0xB10C/peer-observer</a>, and I have a NixOS package and module in <a href=\"https://github.com/0xb10c/nix/\">github.com/0xb10c/nix</a> that I use to run the tooling. The (opinionated) infrastructure configuration for deploying, managing and connecting the tools to e.g. a Prometheus and Grafana instance, debug.log rotation, addrman-observer, \u2026 isn\u2019t public yet, but I hope to publish this with or after the demo set up to enable others to run their own set up similar to mine (to be clear: running this yourself is entirely possible right now, but publishing my infrastructure configuration should make it easier to replicate my setup elsewhere).</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2025-09-17T12:08:29.329Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 29,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 162.6,
+  "incoming_link_count": 75,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 427.2,
   "yours": false,
   "topic_id": 1988,
   "topic_slug": "peer-observer-a-tool-and-infrastructure-for-monitoring-the-bitcoin-p2p-network-for-attacks-and-anomalies",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,11 +63,16 @@
     {
       "id": "+1",
       "type": "emoji",
+      "count": 3
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

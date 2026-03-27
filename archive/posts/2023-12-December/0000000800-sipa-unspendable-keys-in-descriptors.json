@@ -2,19 +2,20 @@
   "id": 800,
   "name": "Pieter Wuille",
   "username": "sipa",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png",
   "created_at": "2023-12-19T15:24:44.282Z",
   "cooked": "<aside class=\"quote no-group\" data-username=\"josibake\" data-post=\"9\" data-topic=\"304\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josibake/48/83_2.png\" class=\"avatar\"> josibake:</div>\n<blockquote>\n<p>More of a fingerprint than the script itself? My thinking here is that in these protocols that require a provably unspendable keypath, the scripts themselves are likely sufficiently complex to be a fingerprint and must be revealed with every spend, anyways.</p>\n</blockquote>\n</aside>\n<p>I can certainly imagine specific use cases where this will be the case, and revealing that the key path was unspendable isn\u2019t an additional privacy loss over revealing the script itself.</p>\n<p>But I also don\u2019t think this is universally true. Maybe the script is just covering some combination of participants unable to MuSig sign a key path. Maybe there are very distinguishable scripts in the script tree, but there are others which aren\u2019t. And I hope you\u2019d agree that we shouldn\u2019t adopt a standard that <em>forces</em> participants to reveal their key path was unspendable.</p>\n<p>FWIW, even with the <span class=\"math\">P = H+rG</span> approach mentioned in BIP341 (with secret <span class=\"math\">r</span>) you can prove to contract participants that the key is unspendable, even without revealing <span class=\"math\">r</span> (by producing a BIP340 signature for key <span class=\"math\">P-H</span>, which has private key <span class=\"math\">r</span>).</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 30,
   "updated_at": "2023-12-19T15:30:02.012Z",
   "reply_count": 1,
   "reply_to_post_number": 9,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.6,
+  "incoming_link_count": 15,
+  "reads": 67,
+  "readers_count": 66,
+  "score": 108.4,
   "yours": false,
   "topic_id": 304,
   "topic_slug": "unspendable-keys-in-descriptors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"josibake, post:9, topic:304\"]\nMore of a fingerprint than the script itself? My thinking here is that in these protocols that require a provably unspendable keypath, the scripts themselves are likely sufficiently complex to be a fingerprint and must be revealed with every spend, anyways.\n[/quote]\n\nI can certainly imagine specific use cases where this will be the case, and revealing that the key path was unspendable isn't an additional privacy loss over revealing the script itself.\n\nBut I also don't think this is universally true. Maybe the script is just covering some combination of participants unable to MuSig sign a key path. Maybe there are very distinguishable scripts in the script tree, but there are others which aren't. And I hope you'd agree that we shouldn't adopt a standard that *forces* participants to reveal their key path was unspendable.\n\nFWIW, even with the $P = H+rG$ approach mentioned in BIP341 (with secret $r$) you can prove to contract participants that the key is unspendable, even without revealing $r$ (by producing a BIP340 signature for key $P-H$, which has private key $r$).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I can certainly imagine specific use cases where this will be the case, and revealing that the key path was unspendable isn\u2019t an additional privacy loss over revealing the script itself. \nBut I also don\u2019t think this is universally true. Maybe the script is just covering some combination of particip&hellip;",
+  "truncated": true,
+  "post_url": "/t/unspendable-keys-in-descriptors/304/11",
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

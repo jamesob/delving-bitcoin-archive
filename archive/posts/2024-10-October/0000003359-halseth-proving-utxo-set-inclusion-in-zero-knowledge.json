@@ -7,14 +7,15 @@
   "cooked": "<p>The repo has been updated to do the schnorr signature verification in the ZK environment. This lets us avoid the blinding of the public key (since we are just proving that we have a valid signature for some public key that exists in the UTXO set, without revealing the key).</p>\n<p>Together with an optimized library for schnorr signatures, this reduces proving time to ~50 sec on my machine: <a href=\"https://github.com/halseth/utxozkp?tab=readme-ov-file#benchmarks-apple-m1-max\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - halseth/utxozkp</a></p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-10-14T13:03:27.411Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 22.2,
+  "incoming_link_count": 2,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 30.4,
   "yours": false,
   "topic_id": 1142,
   "topic_slug": "proving-utxo-set-inclusion-in-zero-knowledge",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The repo has been updated to do the schnorr signature verification in the ZK environment. This lets us avoid the blinding of the public key (since we are just proving that we have a valid signature for some public key that exists in the UTXO set, without revealing the key). \nTogether with an optimiz&hellip;",
+  "truncated": true,
+  "post_url": "/t/proving-utxo-set-inclusion-in-zero-knowledge/1142/16",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

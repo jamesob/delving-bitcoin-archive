@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"sjors\" data-post=\"12\" data-topic=\"1222\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sjors/48/59_2.png\" class=\"avatar\"> sjors:</div>\n<blockquote>\n<p>Will libbitcoin do it in 20 minutes?</p>\n</blockquote>\n</aside>\n<p>The benchmarks we\u2019ve published are based on a 2.3Gbps (down, 40Mbps up, measured speed) Internet connection. It would not be possible to download to block 850k in 20 minutes in this case. The theoretical limit is around 40 minutes and we hit closer to 60. However with a 5 Gbps connection I suspect it would be close to 30 mins.</p>",
   "post_number": 14,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-11-30T06:49:18.169Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 12,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.4,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 47.8,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sjors, post:12, topic:1222\"]\nWill libbitcoin do it in 20 minutes?\n[/quote]\n\nThe benchmarks we've published are based on a 2.3Gbps (down, 40Mbps up, measured speed) Internet connection. It would not be possible to download to block 850k in 20 minutes in this case. The theoretical limit is around 40 minutes and we hit closer to 60. However with a 5 Gbps connection I suspect it would be close to 30 mins.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "The benchmarks we\u2019ve published are based on a 2.3Gbps (down, 40Mbps up, measured speed) Internet connection. It would not be possible to download to block 850k in 20 minutes in this case. The theoretical limit is around 40 minutes and we hit closer to 60. However with a 5 Gbps connection I suspect &hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/14",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

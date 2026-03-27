@@ -7,14 +7,15 @@
   "cooked": "<p>The other take away points from GGT is that the same preflow-push algorithm can be extended to parametric problems (like the maximum-rate-closure problem that we are interested in) and still keep the same runtime complexity of <span class=\"math\">O(n^3)</span>\nfor our FIFO-preflow-push case.</p>\n<p>There is another interesting point to remember, which is the fact that we are interested in the min-cut set and not on the maxflow itself. So we may stop the algorithm execution earlier and possibly save half of the running time by doing so.</p>",
   "post_number": 31,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-09T10:45:52.984Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 22.4,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 26.4,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The other take away points from GGT is that the same preflow-push algorithm can be extended to parametric problems (like the maximum-rate-closure problem that we are interested in) and still keep the same runtime complexity of O(n^3)\nfor our FIFO-preflow-push case. \nThere is another interesting poin&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/31",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

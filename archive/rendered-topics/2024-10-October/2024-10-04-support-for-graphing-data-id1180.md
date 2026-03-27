@@ -1,6 +1,6 @@
 # Support for graphing data
 
-ajtowns | 2024-10-04 06:45:12 UTC | #1
+ajtowns | 2024-10-07 13:50:52 UTC | #1
 
 One thing I've been wishing for is support for graphing data in a traditional x-y plot with just text markup and not having to generate a png externally or similar. Eventually I gave up and wrote my own [discourse component](https://github.com/ajtowns/discourse-plotly-theme-component) based on [plotly.js](https://github.com/plotly/plotly.js/), which I've now enabled here.
 
@@ -17,6 +17,10 @@ data:
     name: New mempool
 layout:
   title: Feerate Diagram
+  xaxis:
+    title: "size"
+  yaxis:
+    title: "fees"
 ```
 
 You can have a look at the source used to generate that graph via the "Raw Post" link at the bottom of this post, hidden behind the "...". One thing I like about it is that you can hover over the points on the graph to see their actual values; but you can also zoom in and pan around which might also be useful.
@@ -34,7 +38,8 @@ data:
     name: New mempool
 layout:
   title: Feerate Diagram
-  yaxis: { type: log, autorange: true }
+  xaxis: { title: size }
+  yaxis: { type: log, autorange: true, title: fees }
 ```
 
 (Log axes work remarkably poorly if you have datapoints with a value of zero or less, of course...)

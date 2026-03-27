@@ -13,9 +13,9 @@
   "reply_to_post_number": 6,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.0,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.2,
   "yours": false,
   "topic_id": 1106,
   "topic_slug": "the-path-to-general-computation-on-bitcoin-with-op-cat",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "[quote=\"moonsettler, post:6, topic:1106, full:true\"]\nHeard this mentioned before, what exactly can you do with 4 bytes? Is this related to the M31 field? But how do these 4 byte elements relate to something like a distribution of funds? I keep getting stuck on that one would need to construct a CTV hash or a hash of a signature on stack somewhere along the line. (ofc this is trivial with CAT)\n[/quote]\nAndrew Poelstra coined the terms \"Small Script\" and \"Big Script\" for this. With Small Script (4 byte elements), you can do arithmetic and comparisons such as OP_GREATERTHAN, meaning you can have arbitrary logic. In contrast, in Big Script, you can't make any comparisons beyond OP_EQUAL, but you have native access to hashing and signature opcodes. so CAT gives you a way to bridge the gap between these two domains.\n\nWe wrote a fairly detailed documentation of Big Script vs Small Script in section 2.2.3 here: https://eprint.iacr.org/2024/1802.pdf\n\n\n[quote=\"moonsettler, post:6, topic:1106, full:true\"]\nIf I understand correctly, CAT is actually used for SPLIT, to cut an arithmetically useful sized chunk off of a cryptographic hash?\n[/quote]\nYou need both combining and splitting. Splitting is used to perform arbitrary logic (as mentioned above), and combining is used for native hash/signature operations. You can achieve both with either CAT or SUBSTR.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Andrew Poelstra coined the terms \u201cSmall Script\u201d and \u201cBig Script\u201d for this. With Small Script (4 byte elements), you can do arithmetic and comparisons such as OP_GREATERTHAN, meaning you can have arbitrary logic. In contrast, in Big Script, you can\u2019t make any comparisons beyond OP_EQUAL, but you hav&hellip;",
   "truncated": true,
   "post_url": "/t/the-path-to-general-computation-on-bitcoin-with-op-cat/1106/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

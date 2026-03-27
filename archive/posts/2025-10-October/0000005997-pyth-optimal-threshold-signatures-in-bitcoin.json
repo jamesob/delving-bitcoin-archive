@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 3.2,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 22.2,
   "yours": false,
   "topic_id": 2023,
   "topic_slug": "optimal-threshold-signatures-in-bitcoin",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"sindurasaraswathi, post:1, topic:2023\"]\nDegraded multisignature has a special implementation in Bitcoin that the 2021 Taproot upgrade enabled.\n\n[/quote]\n\nit\u2019s also possible with segwit (v0) btw, taproot is just better fee/privacy wise",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "it\u2019s also possible with segwit (v0) btw, taproot is just better fee/privacy wise",
   "truncated": true,
   "post_url": "/t/optimal-threshold-signatures-in-bitcoin/2023/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

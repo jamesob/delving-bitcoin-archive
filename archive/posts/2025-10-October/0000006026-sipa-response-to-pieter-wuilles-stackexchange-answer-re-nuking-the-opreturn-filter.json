@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"1440000bytes\" data-post=\"13\" data-topic=\"1991\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/1440000bytes/48/301_2.png\" class=\"avatar\"> 1440000bytes:</div>\n<blockquote>\n<p>It is a solution (w/ some trade-offs) without introducing another <a href=\"https://delvingbitcoin.org/t/sharing-block-templates/1906\">p2p message</a> or expecting every node to use the same policy. Every node has <code>125</code> <code>maxconnections</code> by default and it is reasonable to expect some divergence in mempool polices of a decentralized network.</p>\n</blockquote>\n</aside>\n<p>I am not saying the extra pool for block reconstruction is a bad idea, or that it doesn\u2019t help in the presence of mempool variance (whether that\u2019s caused by policy divergence, or other reasons). It is great.</p>\n<p>I am saying it is hypocritical to bring it up in this discussion, because it only helps with reconstruction rates when mined transactions already propagate well. If your goal is making a certain class of transactions relay so badly across the P2P network that it becomes unreliable as OP seems to want, then obviously you can\u2019t expect your node to hear about those transactions anymore, and the extra pool won\u2019t help you.</p>",
   "post_number": 14,
   "post_type": 1,
-  "posts_count": 14,
+  "posts_count": 16,
   "updated_at": "2025-10-08T16:22:33.389Z",
   "reply_count": 0,
   "reply_to_post_number": 13,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 39.4,
+  "incoming_link_count": 6,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 85.6,
   "yours": false,
   "topic_id": 1991,
   "topic_slug": "response-to-pieter-wuilles-stackexchange-answer-re-nuking-the-opreturn-filter",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -7,14 +7,15 @@
   "cooked": "<p>Doing a very surface-level readthrough of current softfork proposals, a good amount of narrative seems to be \u201cX is better than Y because\u2026\u201d implying a mutually exclusive predicament, that we have to choose one proposal over another. Without picking a side of whether that\u2019s true or not, I\u2019d like to at least understand the philosophical arguments on both sides.</p>\n<p>Some initial thoughts:</p>\n<ul>\n<li>Needing to maintain more code. In some cases where the op_code is trivial like OP_CAT this seems inconsequential, in other cases like Simplicity it\u2019s a very substantive point.</li>\n<li>Attack / bugs / vulnerability surface area, not always correlated with lines of code.</li>\n<li>Limited number of op_code \u201cslots\u201d available to take.</li>\n<li>Activation politics, bundling could increase contention but separating might exhaust participants\u2019 energy too.</li>\n<li>Ecosystem complexity, multiple similar options to accomplish the same outcome.</li>\n</ul>\n<p>I just philosophically like the idea of letting developers and users opt in to the op_code they want even if there\u2019s a 90% overlap between two different op_codes. They might find one easier to grok or have a very particular use case. As long as node resource usage limits are respected and protocol maintainers are not overwhelmed, it seems fairly innocuous. Interested in hearing your thoughts!</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-05-21T03:35:59.869Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 9,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 54.2,
+  "incoming_link_count": 111,
+  "reads": 60,
+  "readers_count": 59,
+  "score": 612.0,
   "yours": false,
   "topic_id": 890,
   "topic_slug": "mutual-exclusiveness-of-op-codes",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Doing a very surface-level readthrough of current softfork proposals, a good amount of narrative seems to be \"X is better than Y because...\" implying a mutually exclusive predicament, that we have to choose one proposal over another. Without picking a side of whether that's true or not, I'd like to at least understand the philosophical arguments on both sides. \n\nSome initial thoughts:\n\n* Needing to maintain more code. In some cases where the op_code is trivial like OP_CAT this seems inconsequential, in other cases like Simplicity it's a very substantive point. \n* Attack / bugs / vulnerability surface area, not always correlated with lines of code. \n* Limited number of op_code \"slots\" available to take.\n* Activation politics, bundling could increase contention but separating might exhaust participants' energy too.\n* Ecosystem complexity, multiple similar options to accomplish the same outcome.                                                                                                                                                                                                      \n\nI just philosophically like the idea of letting developers and users opt in to the op_code they want even if there's a 90% overlap between two different op_codes. They might find one easier to grok or have a very particular use case. As long as node resource usage limits are respected and protocol maintainers are not overwhelmed, it seems fairly innocuous. Interested in hearing your thoughts!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Doing a very surface-level readthrough of current softfork proposals, a good amount of narrative seems to be \u201cX is better than Y because\u2026\u201d implying a mutually exclusive predicament, that we have to choose one proposal over another. Without picking a side of whether that\u2019s true or not, I\u2019d like to at&hellip;",
+  "truncated": true,
+  "post_url": "/t/mutual-exclusiveness-of-op-codes/890/1",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"fjahr\" data-post=\"6\" data-topic=\"1906\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/f/ea5d25/48.png\" class=\"avatar\"> fjahr:</div>\n<blockquote>\n<p>I am curious if usage of set reconciliation has been discussed in this context.</p>\n</blockquote>\n</aside>\n<p>Good question, that\u2019s been asked a few times now. I had a look at using minisketch / <a href=\"https://github.com/bitcoin/bips/blob/9a55a542cc5efc8fe1884dcb4d839623fcdd8ace/bip-0330.mediawiki\">BIP330</a> for it.</p>\n<p>I think there\u2019s two immediate challenges:</p>\n<ul>\n<li>BIP330\u2019s still <a href=\"https://github.com/bitcoin/bitcoin/issues/30249\">in progress</a> so just reusing an existing implementation isn\u2019t possible</li>\n<li>minisketch has <span class=\"math\">O(n^2)</span> scaling for computation as the capacity increases, and the number of transactions in a block template is often much larger than the number of transactions in the INV queue. So when trying to figure out a new peer\u2019s template, it might not be very suitable/efficient.</li>\n</ul>\n<p>As far as updating a template goes, I\u2019m not sure complicated set reconciliation is needed though \u2013 the sending peer knows what template they last sent to each peer, so could probably just send a diff if that template is recent enough to still be in memory: ie tell the receiving peer to drop these txs by position, then add these txs by short id and new position. That would probably reduce the template message from 20kB (3000 6-byte shortids) to 2.5kB (250 2-byte positions plus 250 6-byte short ids/2-byte positions).</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 24,
   "updated_at": "2025-08-14T21:52:52.753Z",
   "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "incoming_link_count": 15,
+  "reads": 67,
+  "readers_count": 66,
+  "score": 108.4,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"fjahr, post:6, topic:1906\"]\nI am curious if usage of set reconciliation has been discussed in this context.\n[/quote]\n\nGood question, that's been asked a few times now. I had a look at using minisketch / [BIP330](https://github.com/bitcoin/bips/blob/9a55a542cc5efc8fe1884dcb4d839623fcdd8ace/bip-0330.mediawiki) for it.\n\nI think there's two immediate challenges:\n\n * BIP330's still [in progress](https://github.com/bitcoin/bitcoin/issues/30249) so just reusing an existing implementation isn't possible\n * minisketch has $O(n^2)$ scaling for computation as the capacity increases, and the number of transactions in a block template is often much larger than the number of transactions in the INV queue. So when trying to figure out a new peer's template, it might not be very suitable/efficient.\n\nAs far as updating a template goes, I'm not sure complicated set reconciliation is needed though -- the sending peer knows what template they last sent to each peer, so could probably just send a diff if that template is recent enough to still be in memory: ie tell the receiving peer to drop these txs by position, then add these txs by short id and new position. That would probably reduce the template message from 20kB (3000 6-byte shortids) to 2.5kB (250 2-byte positions plus 250 6-byte short ids/2-byte positions).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Good question, that\u2019s been asked a few times now. I had a look at using minisketch / <a href=\"https://github.com/bitcoin/bips/blob/9a55a542cc5efc8fe1884dcb4d839623fcdd8ace/bip-0330.mediawiki\">BIP330</a> for it. \nI think there\u2019s two immediate challenges: \n\nBIP330\u2019s still <a href=\"https://github.com/bitcoin/bitcoin/issues/30249\">in progress</a> so just reusing an existing implementation isn\u2019t possible\nminisketch has O(n^2) scaling for computation as the capacity increas&hellip;",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

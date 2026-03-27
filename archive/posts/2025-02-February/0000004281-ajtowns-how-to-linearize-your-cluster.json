@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"stefanwouldgo\" data-post=\"43\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/stefanwouldgo/48/664_2.png\" class=\"avatar\"> stefanwouldgo:</div>\n<blockquote>\n<p>In this case the weights are 100-50=50 for A, 3980-2500=1480 for B, and 920-2450=-1530 for C. So the min-cut will pick AB as first subset/chunk.</p>\n</blockquote>\n</aside>\n<p>Oh, I think I follow now; I was missing something super basic just as I thought. So you have the network:</p>\n<pre data-code-height=\"330\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">flowchart TB\n         s --50--&gt; A\n         s --1480--&gt; B\n         C --1530--&gt; t\n         subgraph txs\n         C --\u221e--&gt; B --\u221e--&gt; A\n         end\n</code></pre>\n<p>and your max flow is 0, which means the residual network is the same as the original network, and the min cut sets are {s,A,B} (the nodes reachable from the source) and {C,t} (the nodes that can reach the sink). With a less trivial example you might have some flow from s to B to A to t (where B pays for its parent A whose feerate is below <span class=\"math\">\\lambda</span>) in which case you\u2019d do some actual work.</p>\n<p>So\u2026 is the essence of the idea really just:</p>\n<ul>\n<li>take your collection of txs, and its overall feerate <span class=\"math\">\\lambda</span></li>\n<li>calculate a min cut of <span class=\"math\">S</span> (higher feerate) and <span class=\"math\">T</span> (lower feerate) on a network with <span class=\"math\">n+m</span> edges using <span class=\"math\">f-\\lambda s</span> and <span class=\"math\">\\infty</span> as the capacities</li>\n<li>repeat the algorithm on both <span class=\"math\">S</span> and <span class=\"math\">T</span> to further improve things, prioritising <span class=\"math\">S</span></li>\n<li>run the algorithm at most <span class=\"math\">2k-1</span> times where <span class=\"math\">k</span> is the final/optimal number of chunks \u2013 each run will either split a chunk into two, or tell us we no longer need to do any more processing of that chunk</li>\n</ul>\n<p>And I guess that means the different variants are simply about reusing info from the previous step (eg of ABC with <span class=\"math\">\\lambda_0=50</span>) to make the next step (eg of AB with <span class=\"math\">\\lambda_1=80</span>) faster than doing it from scratch, since the nature of the network is really restricted \u2013 all you\u2019re doing is changing the value of <span class=\"math\">\\lambda</span> and getting either a subset of S as you increase it, or a subset of T as you decrease it?</p>",
   "post_number": 44,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-02-11T15:48:05.020Z",
   "reply_count": 0,
   "reply_to_post_number": 43,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 22.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Oh, I think I follow now; I was missing something super basic just as I thought. So you have the network: \nflowchart TB\n         s --50--&gt; A\n         s --1480--&gt; B\n         C --1530--&gt; t\n         subgraph txs\n         C --\u221e--&gt; B --\u221e--&gt; A\n         end\n\nand your max flow is 0, which means the residua&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/44",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

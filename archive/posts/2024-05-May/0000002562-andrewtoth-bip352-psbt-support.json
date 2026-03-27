@@ -7,14 +7,15 @@
   "cooked": "<p>I took a look at Musig2 PSBT BIP draft, and unless I\u2019m mistaken it only has fields for inputs, i.e. spending support. So I don\u2019t think it would be useful for sending support.</p>\n<p>If we can\u2019t have a running proof sum, the PSBT will have worst case inputs * outputs number of proofs. This could be too much data for coinjoins, but should be fine for regular transactions.</p>\n<p>A workflow could look like this:</p>\n<p>Signer gets a PSBT with no output scripts generated yet.</p>\n<p>Case 1: Signer has private keys to all inputs and wallet trusts the signer. The signer generates the outputs itself and signs.</p>\n<p>Case 2: Signer has private keys to all silent payment eligible inputs, but other inputs that are ignored by silent payment outputs are present or the wallet does not trust the signer. The signer generates the outputs, but also the ECDH sum and proof for all eligible inputs for each output and attaches one ECDH sum/proof to each output. The other signers that can sign for the non-silent payment eligible inputs use the proofs to verify the silent payment outputs before signing their inputs, or the wallet verifies the proof before broadcasting.</p>\n<p>Case 3: Signer has some private keys to silent payment eligible inputs. It creates a ECDH share of the sum of all inputs it knows for each output, and attaches that along with the proof to each output, with the set of indexes that the proof corresponds to as the key data and the proofs as the value data. If all other shares and proofs for unknown inputs are already attached to the outputs, it can verify the proofs and generate the outputs using the other shares and sign. If some shares and proofs from other inputs are missing, it cannot sign yet and must receive the PSBT back after they are added by other signers, making this a 2-round step for this signer.</p>\n<p>Edit - reading this again, all cases can be encompassed by case <span class=\"hashtag-raw\">#3</span>, and if the wallet trusts the signer then the proofs can just be omitted.</p>",
   "post_number": 8,
   "post_type": 1,
+  "posts_count": 28,
   "updated_at": "2024-05-29T13:51:12.405Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "incoming_link_count": 4,
+  "reads": 43,
+  "readers_count": 42,
+  "score": 48.6,
   "yours": false,
   "topic_id": 877,
   "topic_slug": "bip352-psbt-support",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 5,
   "can_edit": false,
   "can_delete": false,
@@ -36,26 +38,45 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 92,
     "username": "josibake",
     "name": "josie",
     "avatar_template": "/user_avatar/delvingbitcoin.org/josibake/{size}/83_2.png"
   },
   "bookmarked": false,
   "raw": "I took a look at Musig2 PSBT BIP draft, and unless I'm mistaken it only has fields for inputs, i.e. spending support. So I don't think it would be useful for sending support.\n\nIf we can't have a running proof sum, the PSBT will have worst case inputs * outputs number of proofs. This could be too much data for coinjoins, but should be fine for regular transactions.\n\nA workflow could look like this:\n\nSigner gets a PSBT with no output scripts generated yet.\n\nCase 1: Signer has private keys to all inputs and wallet trusts the signer. The signer generates the outputs itself and signs.\n\nCase 2: Signer has private keys to all silent payment eligible inputs, but other inputs that are ignored by silent payment outputs are present or the wallet does not trust the signer. The signer generates the outputs, but also the ECDH sum and proof for all eligible inputs for each output and attaches one ECDH sum/proof to each output. The other signers that can sign for the non-silent payment eligible inputs use the proofs to verify the silent payment outputs before signing their inputs, or the wallet verifies the proof before broadcasting.\n\nCase 3: Signer has some private keys to silent payment eligible inputs. It creates a ECDH share of the sum of all inputs it knows for each output, and attaches that along with the proof to each output, with the set of indexes that the proof corresponds to as the key data and the proofs as the value data. If all other shares and proofs for unknown inputs are already attached to the outputs, it can verify the proofs and generate the outputs using the other shares and sign. If some shares and proofs from other inputs are missing, it cannot sign yet and must receive the PSBT back after they are added by other signers, making this a 2-round step for this signer.\n\nEdit - reading this again, all cases can be encompassed by case #3, and if the wallet trusts the signer then the proofs can just be omitted.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 438,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I took a look at Musig2 PSBT BIP draft, and unless I\u2019m mistaken it only has fields for inputs, i.e. spending support. So I don\u2019t think it would be useful for sending support. \nIf we can\u2019t have a running proof sum, the PSBT will have worst case inputs * outputs number of proofs. This could be too muc&hellip;",
+  "truncated": true,
+  "post_url": "/t/bip352-psbt-support/877/8",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

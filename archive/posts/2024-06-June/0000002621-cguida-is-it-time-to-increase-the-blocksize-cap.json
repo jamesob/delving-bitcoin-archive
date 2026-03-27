@@ -7,14 +7,15 @@
   "cooked": "<p>NACK.</p>\n<p>Anyone advocating for raising the block size is either ignoring the existence of Lightning or has never run a Lightning node on low-resource hardware.</p>\n<p>We need to lower the block size instead.</p>\n<p>See <a href=\"https://www.youtube.com/watch?v=CqNEQS80-h4\" rel=\"noopener nofollow ugc\">https://www.youtube.com/watch?v=CqNEQS80-h4</a> for a strong argument as to why lowering the block size would be beneficial.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 26,
   "updated_at": "2024-06-03T21:33:46.546Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 26,
-  "readers_count": 25,
-  "score": 25.2,
+  "incoming_link_count": 1,
+  "reads": 89,
+  "readers_count": 88,
+  "score": 57.8,
   "yours": false,
   "topic_id": 941,
   "topic_slug": "is-it-time-to-increase-the-blocksize-cap",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "NACK. \nAnyone advocating for raising the block size is either ignoring the existence of Lightning or has never run a Lightning node on low-resource hardware. \nWe need to lower the block size instead. \nSee <a href=\"https://www.youtube.com/watch?v=CqNEQS80-h4\" rel=\"noopener nofollow ugc\">https://www.youtube.com/watch?v=CqNEQS80-h4</a> for a strong argument as to why lowering the block &hellip;",
+  "truncated": true,
+  "post_url": "/t/is-it-time-to-increase-the-blocksize-cap/941/5",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

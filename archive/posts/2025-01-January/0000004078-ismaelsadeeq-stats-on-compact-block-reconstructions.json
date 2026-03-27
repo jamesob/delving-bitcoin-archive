@@ -7,14 +7,15 @@
   "cooked": "<p>One possible way to get this insight is to target blocks with low numbers to check how many of the requested transactions are non-standard. If they are much in all blocks with low numbers, it is most likely due to out-of-band prioritized transactions causing the issue; otherwise, it maybe inconsistent eviction.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2025-01-19T15:21:50.002Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 4.4,
+  "incoming_link_count": 2,
+  "reads": 78,
+  "readers_count": 77,
+  "score": 25.4,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -37,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/102_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
   },
   "bookmarked": false,
   "raw": "One possible way to get this insight is to target blocks with low numbers to check how many of the requested transactions are non-standard. If they are much in all blocks with low numbers, it is most likely due to out-of-band prioritized transactions causing the issue; otherwise, it maybe inconsistent eviction.",
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "One possible way to get this insight is to target blocks with low numbers to check how many of the requested transactions are non-standard. If they are much in all blocks with low numbers, it is most likely due to out-of-band prioritized transactions causing the issue; otherwise, it maybe inconsiste&hellip;",
+  "truncated": true,
+  "post_url": "/t/stats-on-compact-block-reconstructions/1052/7",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>Binaries for Bitcoin Core version v29.1rc1 are available from:\n</p><aside class=\"onebox allowlistedgeneric\" data-onebox-src=\"https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc1/\">\n  <header class=\"source\">\n\n      <a href=\"https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc1/\" target=\"_blank\" rel=\"noopener\">bitcoincore.org</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    \n\n<h3><a href=\"https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc1/\" target=\"_blank\" rel=\"noopener\">Index of /bin/bitcoin-core-29.1/test.rc1/</a></h3>\n\n\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>Source code can be found under the signed tag\n</p><aside class=\"onebox githubfolder\" data-onebox-src=\"https://github.com/bitcoin/bitcoin/tree/v29.1rc1\">\n  <header class=\"source\">\n      <img src=\"https://github.githubassets.com/favicons/favicon.svg\" class=\"site-icon\" width=\"32\" height=\"32\">\n\n      <a href=\"https://github.com/bitcoin/bitcoin/tree/v29.1rc1\" target=\"_blank\" rel=\"noopener\">github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h3><a href=\"https://github.com/bitcoin/bitcoin/tree/v29.1rc1\" target=\"_blank\" rel=\"noopener\">GitHub - bitcoin/bitcoin at v29.1rc1</a></h3>\n\n  <p><a href=\"https://github.com/bitcoin/bitcoin/tree/v29.1rc1\" target=\"_blank\" rel=\"noopener\">v29.1rc1</a></p>\n\n  <p><span class=\"label1\">Bitcoin Core integration/staging tree. Contribute to bitcoin/bitcoin development by creating an account on GitHub.</span></p>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>This is a release candidate for a new minor version release.</p>\n<p>Preliminary release notes for the release can be found here:\n</p><aside class=\"onebox githubblob\" data-onebox-src=\"https://github.com/bitcoin/bitcoin/blob/565af03c37d8262632543a078b2d8d29459d0b91/doc/release-notes.md\">\n  <header class=\"source\">\n\n      <a href=\"https://github.com/bitcoin/bitcoin/blob/565af03c37d8262632543a078b2d8d29459d0b91/doc/release-notes.md\" target=\"_blank\" rel=\"noopener\">github.com/bitcoin/bitcoin</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h4><a href=\"https://github.com/bitcoin/bitcoin/blob/565af03c37d8262632543a078b2d8d29459d0b91/doc/release-notes.md\" target=\"_blank\" rel=\"noopener\">doc/release-notes.md</a></h4>\n\n<div class=\"git-blob-info\">\n  <a href=\"https://github.com/bitcoin/bitcoin/blob/565af03c37d8262632543a078b2d8d29459d0b91/doc/release-notes.md\" rel=\"noopener\"><code>565af03c3</code></a>\n</div>\n\n\n      <pre><code class=\"lang-md\">Bitcoin Core version 29.1rc1 is now available from:\n\n  &lt;https://bitcoincore.org/bin/bitcoin-core-29.1/test.rc1/&gt;\n\nThis release includes various bug fixes and performance\nimprovements, as well as updated translations.\n\nPlease report bugs using the issue tracker at GitHub:\n\n  &lt;https://github.com/bitcoin/bitcoin/issues&gt;\n\nTo receive security and update notifications, please subscribe to:\n\n  &lt;https://bitcoincore.org/en/list/announcements/join/&gt;\n\nHow to Upgrade\n==============\n\nIf you are running an older version, shut it down. Wait until it has completely\nshut down (which might take a few minutes in some cases), then run the\n</code></pre>\n\n\n\n  This file has been truncated. <a href=\"https://github.com/bitcoin/bitcoin/blob/565af03c37d8262632543a078b2d8d29459d0b91/doc/release-notes.md\" target=\"_blank\" rel=\"noopener\">show original</a>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>Release candidates are test versions for releases. When no critical problems are found, this release candidate will be tagged as v29.1.\nPlease test! If you run into issues, please report them via the Github issue tracker: <a href=\"https://github.com/bitcoin/bitcoin/issues\" class=\"inline-onebox\">GitHub \u00b7 Where software is built</a></p>\n<p>I will update this post if we have further release candidates.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 3,
   "updated_at": "2025-07-28T19:16:27.695Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 4,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 54.8,
+  "incoming_link_count": 34,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 254.6,
   "yours": false,
   "topic_id": 1881,
   "topic_slug": "bitcoin-core-v29-1-release-candidate-available",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 5
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 5
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

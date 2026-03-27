@@ -7,15 +7,15 @@
   "cooked": "<p>Awesome work <a class=\"mention\" href=\"/u/davidgumberg\">@davidgumberg</a>. I haven\u2019t gotten to dig into it deeper yet.</p>\n<p>Just some brief updated stats on reconstructions over the past months since I also posted them in <a href=\"https://github.com/bitcoin/bitcoin/pull/33106#issuecomment-3155627414\" class=\"inline-onebox\">policy: lower the default blockmintxfee, incrementalrelayfee, minrelaytxfee by glozow \u00b7 Pull Request #33106 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>.</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/2/248a6ef1317618b83bc5a37ecdc909db05193a89.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/248a6ef1317618b83bc5a37ecdc909db05193a89\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/2/248a6ef1317618b83bc5a37ecdc909db05193a89_2_366x500.png\" alt=\"image\" data-base62-sha1=\"5dfMqobUOqoYuhBawJE1BjO1Bz3\" width=\"366\" height=\"500\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/2/248a6ef1317618b83bc5a37ecdc909db05193a89_2_366x500.png, https://delvingbitcoin.org/uploads/default/optimized/2X/2/248a6ef1317618b83bc5a37ecdc909db05193a89_2_549x750.png 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/2/248a6ef1317618b83bc5a37ecdc909db05193a89_2_732x1000.png 2x\" data-dominant-color=\"D7E19C\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">983\u00d71341 313 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>Since <a href=\"https://github.com/bitcoin/bitcoin/pull/32582\" class=\"inline-onebox\">log: Additional compact block logging by davidgumberg \u00b7 Pull Request #32582 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a>, we log the the size of the requested transactions. Here, I plot the average size of the requested transactions per block per day.</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/c/cb325ef16a58e92a9ea8e80c85fd531794f51bc8.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/cb325ef16a58e92a9ea8e80c85fd531794f51bc8\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/c/cb325ef16a58e92a9ea8e80c85fd531794f51bc8_2_366x500.png\" alt=\"image\" data-base62-sha1=\"sZyQqsXR68OJLHeEaTVd4SJBjte\" width=\"366\" height=\"500\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/c/cb325ef16a58e92a9ea8e80c85fd531794f51bc8_2_366x500.png, https://delvingbitcoin.org/uploads/default/optimized/2X/c/cb325ef16a58e92a9ea8e80c85fd531794f51bc8_2_549x750.png 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/c/cb325ef16a58e92a9ea8e80c85fd531794f51bc8_2_732x1000.png 2x\" data-dominant-color=\"7BB07A\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">983\u00d71342 214 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>In early June we were requesting less than 10kB per block were we needed to request something (about 40-50% of blocks) on average. Currently, we are requesting close to 800kB of transactions on average for 70% (30% of the blocks need no requests) of the blocks.</p>",
   "post_number": 35,
   "post_type": 1,
-  "posts_count": 34,
+  "posts_count": 42,
   "updated_at": "2025-08-05T15:27:54.849Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 14.2,
+  "incoming_link_count": 73,
+  "reads": 58,
+  "readers_count": 57,
+  "score": 431.6,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Awesome work @davidgumberg. I haven't gotten to dig into it deeper yet.\n\nJust some brief updated stats on reconstructions over the past months since I also posted them in https://github.com/bitcoin/bitcoin/pull/33106#issuecomment-3155627414. \n\n![image](upload://5dfMqobUOqoYuhBawJE1BjO1Bz3.png)\n\n\nSince https://github.com/bitcoin/bitcoin/pull/32582, we log the the size of the requested transactions. Here, I plot the average size of the requested transactions per block per day.\n\n![image](upload://sZyQqsXR68OJLHeEaTVd4SJBjte.png)\n\nIn early June we were requesting less than 10kB per block were we needed to request something (about 40-50% of blocks) on average. Currently, we are requesting close to 800kB of transactions on average for 70% (30% of the blocks need no requests) of the blocks.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 4
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -56,12 +61,31 @@
   "post_url": "/t/stats-on-compact-block-reconstructions/1052/35",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "sob",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "thinking",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

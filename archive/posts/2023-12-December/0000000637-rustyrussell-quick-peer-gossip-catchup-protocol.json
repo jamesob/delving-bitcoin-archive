@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>TBH I\u2019d really rather we Just Do Minisketch and move on rather than trying to keep applying bandaids to the current gossip.</p>\n</blockquote>\n<p>Sure, but you need gossip v1.5 for minisketch.  And you still might want this for catchup, if you only have a few peers (i.e. one peer!).</p>\n<p>Meanwhile, I thought \u201cno, your proposal is just like gossip_timestamp_filter which we\u2019re moving away from\u201d, but actually, /it\u2019s different/, being based on the gossip time, not the timestamps.</p>\n<p>If you record the timestamp when you commit the gossip, assuming 60 second relay, you\u2019re pretty close.  If the peer reports when they last received gossip you can subtract 120 seconds and probably do a pretty good job.</p>\n<p>It turns out, we even have a field in our gossip_store header \u201ctimestamp\u201d, which is redundant (it used to be a copy of the update timestamp, used for easy timestamp filter when we supported that).  We use that without a format change.</p>\n<p>We\u2019d still need to keep some offset markers to avoid having to sweep the entire file when asked for a specific time, but that\u2019s actually extremely implementable\u2026</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 5,
   "updated_at": "2023-12-06T05:06:18.586Z",
   "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 7.8,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 26.4,
   "yours": false,
   "topic_id": 251,
   "topic_slug": "quick-peer-gossip-catchup-protocol",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 50,
     "username": "MattCorallo",
     "name": "Matt Corallo",
     "avatar_template": "/letter_avatar_proxy/v4/letter/m/e47c2d/{size}.png"
   },
   "bookmarked": false,
   "raw": "> TBH I\u2019d really rather we Just Do Minisketch and move on rather than trying to keep applying bandaids to the current gossip.\n\nSure, but you need gossip v1.5 for minisketch.  And you still might want this for catchup, if you only have a few peers (i.e. one peer!).\n\nMeanwhile, I thought \"no, your proposal is just like gossip_timestamp_filter which we're moving away from\", but actually, /it's different/, being based on the gossip time, not the timestamps.\n\nIf you record the timestamp when you commit the gossip, assuming 60 second relay, you're pretty close.  If the peer reports when they last received gossip you can subtract 120 seconds and probably do a pretty good job.\n\nIt turns out, we even have a field in our gossip_store header \"timestamp\", which is redundant (it used to be a copy of the update timestamp, used for easy timestamp filter when we supported that).  We use that without a format change.\n\nWe'd still need to keep some offset markers to avoid having to sweep the entire file when asked for a specific time, but that's actually extremely implementable...",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "TBH I\u2019d really rather we Just Do Minisketch and move on rather than trying to keep applying bandaids to the current gossip. \n\nSure, but you need gossip v1.5 for minisketch.  And you still might want this for catchup, if you only have a few peers (i.e. one peer!). \nMeanwhile, I thought \u201cno, your pro&hellip;",
+  "truncated": true,
+  "post_url": "/t/quick-peer-gossip-catchup-protocol/251/3",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

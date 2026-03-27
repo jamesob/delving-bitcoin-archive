@@ -2,19 +2,20 @@
   "id": 1112,
   "name": "Anthony Towns",
   "username": "ajtowns",
-  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/3_2.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-01-15T04:22:58.226Z",
-  "cooked": "<aside class=\"quote no-group\" data-username=\"sipa\" data-post=\"6\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/102_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>But I don\u2019t think there is anything weird with the existing encoding though, it\u2019s minimal-length big endian, which for literals inside the script has the advantage of being more compact than forcing a full length constant.</p>\n</blockquote>\n</aside>\n<p>I don\u2019t understand this comment \u2013 <code>CScriptNum</code> is little endian in the first place, isn\u2019t it? Both my understanding of <a href=\"https://github.com/bitcoin/bitcoin/blob/3ba8de1b704d590fa4e1975620bd21d830d11666/src/script/script.h#L357-L361\">the code</a> and <a href=\"https://en.wikipedia.org/wiki/Endianness\">definition</a> suggests it is, and the <a href=\"https://en.bitcoin.it/wiki/Script\">wiki</a> seems to agree, at least.</p>\n<p>The differences between <code>CScriptNum</code> and this proposal aiui are fixed vs variable length encoding, and using twos-complement vs a sign bit to handle negative numbers.</p>",
+  "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"sipa\" data-post=\"6\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/1100_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>But I don\u2019t think there is anything weird with the existing encoding though, it\u2019s minimal-length big endian, which for literals inside the script has the advantage of being more compact than forcing a full length constant.</p>\n</blockquote>\n</aside>\n<p>I don\u2019t understand this comment \u2013 <code>CScriptNum</code> is little endian in the first place, isn\u2019t it? Both my understanding of <a href=\"https://github.com/bitcoin/bitcoin/blob/3ba8de1b704d590fa4e1975620bd21d830d11666/src/script/script.h#L357-L361\">the code</a> and <a href=\"https://en.wikipedia.org/wiki/Endianness\">definition</a> suggests it is, and the <a href=\"https://en.bitcoin.it/wiki/Script\">wiki</a> seems to agree, at least.</p>\n<p>The differences between <code>CScriptNum</code> and this proposal aiui are fixed vs variable length encoding, and using twos-complement vs a sign bit to handle negative numbers.</p>",
   "post_number": 26,
   "post_type": 1,
+  "posts_count": 52,
   "updated_at": "2024-01-15T04:22:58.226Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.2,
+  "incoming_link_count": 17,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 127.2,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I don\u2019t understand this comment \u2013 CScriptNum is little endian in the first place, isn\u2019t it? Both my understanding of <a href=\"https://github.com/bitcoin/bitcoin/blob/3ba8de1b704d590fa4e1975620bd21d830d11666/src/script/script.h#L357-L361\">the code</a> and <a href=\"https://en.wikipedia.org/wiki/Endianness\">definition</a> suggests it is, and the <a href=\"https://en.bitcoin.it/wiki/Script\">wiki</a> seems to agree, at least. \nThe differences between CScriptNum and this proposal aiui are fixed vs variable length encoding, and u&hellip;",
+  "truncated": true,
+  "post_url": "/t/64-bit-arithmetic-soft-fork/397/26",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

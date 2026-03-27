@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"jamesob\" data-post=\"24\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/jamesob/48/271_2.png\" class=\"avatar\"> jamesob:</div>\n<blockquote>\n<p>that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.</p>\n</blockquote>\n</aside>\n<p>I am skeptical of this claim.</p>\n<p>First of all, it\u2019s vague. What does \u201cdrastically improve\u201d even means, concretely? Following <a href=\"https://docs.liquid.net/docs/technical-overview#emergency-recovery-procedure\">Liquid\u2019s documentation</a>, i assume you are talking about the peg-in script. TL;DR for everyone here: Bitcoin users who want to onboard to the Liquid sidechain can pay to this Script. Coins sent to this Script by users onboarding may later be spent by 2/3 of the Liquid watchmen (custodians) when a Liquid users wants to peg-out to Bitcoin. This Script contains a timelock clause, such that those coins may be spent using three emergency keys <a href=\"https://help.blockstream.com/hc/en-us/articles/900001408623-How-does-Liquid-Bitcoin-L-BTC-work\">after 4032 blocks</a>.</p>\n<p>Using such a timelocked spending path directly in the receiving Script presents the same trade-off as for Liana: if they don\u2019t want the emergency recovery to become available then the Liquid watchmen need to spend every coin within 28 days (4032 blocks) of its reception. This presents an inescapable trade-off between funds availability in case the recovery is needed and the security margin to avoid the weaker spending path from being available unless absolutely necessary.</p>\n<p>More <a href=\"https://delvingbitcoin.org/t/using-op-vault-for-recovery/150\">interesting covenants provide a way out of this</a>, by delaying the timelock to only be triggered through a second stage similar to that of vault constructions. I think claiming <code>CTV</code> can achieve as much is misleading, as in this case you would have to commit to the second-stage transaction at the time of receiving the coins. Since the receiver crafts the address to request funds on, this means the Liquid watchmen would need to both 1) know the amount before giving away the address and 2) trust that the user will for sure use the <strong>exact same amount</strong> they said they would in the previous round of communication, or the funds may be <strong>locked forever</strong> or have the excess burned to fees. In addition they need to trust the address will never be reused with a different in the future, something that is infamously hard to get users to do.</p>\n<p>This scheme would probably do (much) more harm than good, and this is why i\u2019m skeptical either Liquid or Liana engineers would ever put such a footgun in the hand of their users. Therefore, i do not think it is a valid motivation for a CTV soft fork.</p>",
   "post_number": 26,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-12T22:34:34.731Z",
   "reply_count": 3,
   "reply_to_post_number": 24,
   "quote_count": 1,
-  "incoming_link_count": 2,
-  "reads": 25,
-  "readers_count": 24,
-  "score": 45.0,
+  "incoming_link_count": 3,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 59.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -56,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I am skeptical of this claim. \nFirst of all, it\u2019s vague. What does \u201cdrastically improve\u201d even means, concretely? Following <a href=\"https://docs.liquid.net/docs/technical-overview#emergency-recovery-procedure\">Liquid\u2019s documentation</a>, i assume you are talking about the peg-in script. TL;DR for everyone here: Bitcoin users who want to onboard to the Liquid sidechain can pay to this Scr&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/26",
   "reactions": [
     {
       "id": "+1",
@@ -65,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

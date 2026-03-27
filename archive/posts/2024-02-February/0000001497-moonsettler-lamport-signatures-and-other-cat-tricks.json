@@ -7,14 +7,15 @@
   "cooked": "<p>no, perfectly fair question! my bad for not explaining.</p>\n<p>so the issue is, when the channel coins are moved by your peer to a new address, and that is not the final state that you recognize, you need to have all the non-deterministic pieces of the script to reconstruct it and be able to spend with the latest state you kept.</p>\n<p>a lot can be reconstructed from the nLockTime to which CTV commits to so it\u2019s not alterable. that gives you precisely which state are you looking at. but the final settlement hash depends on the balance between the peers and the HTLCs if there are any.</p>\n<p>so you can boil it down, to having to know the time locked settlement CTV template hash.</p>\n<p>one goal of LN-symmetry is to have leaner channel state and better backup and recovery assumptions. therefore the critical data for recovery needs to be retrievable from the transaction that spends to an intermediate state.</p>\n<p>OP_RETURN output can be used for this, but that is 4x more expensive than SegWit space.</p>\n<p><strong>other possible options are:</strong></p>\n<ul>\n<li>CTV committing to the taproot annex, and annex being enabled in relay policy (APO approach)</li>\n<li>VECTORCOMMIT opcode, hash(hash(m1)|hash(m2)|\u2026|hash(m16)), where hash is taggedSha256 purposfully made to be incompatible with SIGHASHING to avoid \u2018sneaky CAT\u2019</li>\n<li>nCSFS/V where you can optionally commit to multiple messages (integrated VECTORCOMMIT into CSFS/V)\n\u2026</li>\n</ul>",
   "post_number": 13,
   "post_type": 1,
+  "posts_count": 21,
   "updated_at": "2024-02-09T11:24:28.710Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 12,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "incoming_link_count": 1,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 16.0,
   "yours": false,
   "topic_id": 236,
   "topic_slug": "lamport-signatures-and-other-cat-tricks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 6,
     "username": "harding",
     "name": "David A. Harding",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/6_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/harding/{size}/925_2.png"
   },
   "bookmarked": false,
   "raw": "no, perfectly fair question! my bad for not explaining.\n\nso the issue is, when the channel coins are moved by your peer to a new address, and that is not the final state that you recognize, you need to have all the non-deterministic pieces of the script to reconstruct it and be able to spend with the latest state you kept.\n\na lot can be reconstructed from the nLockTime to which CTV commits to so it's not alterable. that gives you precisely which state are you looking at. but the final settlement hash depends on the balance between the peers and the HTLCs if there are any.\n\nso you can boil it down, to having to know the time locked settlement CTV template hash.\n\none goal of LN-symmetry is to have leaner channel state and better backup and recovery assumptions. therefore the critical data for recovery needs to be retrievable from the transaction that spends to an intermediate state.\n\nOP_RETURN output can be used for this, but that is 4x more expensive than SegWit space.\n\n**other possible options are:**\n\n- CTV committing to the taproot annex, and annex being enabled in relay policy (APO approach)\n- VECTORCOMMIT opcode, hash(hash(m1)|hash(m2)|...|hash(m16)), where hash is taggedSha256 purposfully made to be incompatible with SIGHASHING to avoid 'sneaky CAT'\n- nCSFS/V where you can optionally commit to multiple messages (integrated VECTORCOMMIT into CSFS/V)\n...",
@@ -54,6 +57,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "no, perfectly fair question! my bad for not explaining. \nso the issue is, when the channel coins are moved by your peer to a new address, and that is not the final state that you recognize, you need to have all the non-deterministic pieces of the script to reconstruct it and be able to spend with th&hellip;",
+  "truncated": true,
+  "post_url": "/t/lamport-signatures-and-other-cat-tricks/236/13",
   "reactions": [
     {
       "id": "heart",
@@ -63,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

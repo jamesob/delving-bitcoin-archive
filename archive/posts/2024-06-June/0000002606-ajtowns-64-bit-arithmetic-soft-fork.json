@@ -4,17 +4,18 @@
   "username": "ajtowns",
   "avatar_template": "/user_avatar/delvingbitcoin.org/ajtowns/{size}/417_2.png",
   "created_at": "2024-06-02T23:29:04.768Z",
-  "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"40\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>you get an overflow indicator in every result</p>\n</blockquote>\n</aside>\n<p>FWIW, the big concern I have with this is people writing scripts where they don\u2019t think an overflow is possible, so they just do an OP_DROP for the overflow indicator, and then someone thinks a bit harder, and figures out how to steal money via an overflow, and then they do exactly that. That\u2019s arguably easily mitigated: just use <code>OP_VERIFY</code> to guarantee there wasn\u2019t an overflow, but I noticed that an example script in <a href=\"https://bitcoincore.reviews/29221#l-86\">review club</a> used the more obvious DROP:</p>\n<pre><code class=\"lang-auto\">&lt;Chris_Stewart_5&gt; Script: 0x000e876481700000 0x000e876481700000 OP_ADD64 OP_DROP OP_LE64TOSCRIPTNUM OP_SIZE OP_8 OP_EQUALVERIFY OP_SCRIPTNUMTOLE64 0x001d0ed902e00000 OP_EQUAL\n</code></pre>\n<p>Worries me a bit when the obvious way of doing something (\u201cthis won\u2019t ever overflow, so just drop it\u201d) is risky.</p>\n<p>You could imagine introducing two opcodes: \u201cOP_ADD64\u201d and \u201cOP_ADD64VERIFY\u201d the latter of which does an implicit VERIFY, and hence fails the script if there was overflow; but that would effectively be the existing behaviour of OP_ADD. So I guess what I\u2019m saying is: maybe consider an approach along the lines that sipa suggested:</p>\n<aside class=\"quote no-group\" data-username=\"sipa\" data-post=\"15\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/102_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>I was suggesting not changing any semantics at all; only changing the acceptable range of inputs to existing opcodes.</p>\n</blockquote>\n</aside>\n<p>where you change ADD to work with 64bit numbers (in whatever format), and add a new <code>ADD_OF</code>, <code>MUL_OF</code> (here OF implies \u201cflag on stack\u201d instead of \u201clink in bio\u201d)</p>",
+  "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"40\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>you get an overflow indicator in every result</p>\n</blockquote>\n</aside>\n<p>FWIW, the big concern I have with this is people writing scripts where they don\u2019t think an overflow is possible, so they just do an OP_DROP for the overflow indicator, and then someone thinks a bit harder, and figures out how to steal money via an overflow, and then they do exactly that. That\u2019s arguably easily mitigated: just use <code>OP_VERIFY</code> to guarantee there wasn\u2019t an overflow, but I noticed that an example script in <a href=\"https://bitcoincore.reviews/29221#l-86\">review club</a> used the more obvious DROP:</p>\n<pre><code class=\"lang-auto\">&lt;Chris_Stewart_5&gt; Script: 0x000e876481700000 0x000e876481700000 OP_ADD64 OP_DROP OP_LE64TOSCRIPTNUM OP_SIZE OP_8 OP_EQUALVERIFY OP_SCRIPTNUMTOLE64 0x001d0ed902e00000 OP_EQUAL\n</code></pre>\n<p>Worries me a bit when the obvious way of doing something (\u201cthis won\u2019t ever overflow, so just drop it\u201d) is risky.</p>\n<p>You could imagine introducing two opcodes: \u201cOP_ADD64\u201d and \u201cOP_ADD64VERIFY\u201d the latter of which does an implicit VERIFY, and hence fails the script if there was overflow; but that would effectively be the existing behaviour of OP_ADD. So I guess what I\u2019m saying is: maybe consider an approach along the lines that sipa suggested:</p>\n<aside class=\"quote no-group\" data-username=\"sipa\" data-post=\"15\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/1100_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>I was suggesting not changing any semantics at all; only changing the acceptable range of inputs to existing opcodes.</p>\n</blockquote>\n</aside>\n<p>where you change ADD to work with 64bit numbers (in whatever format), and add a new <code>ADD_OF</code>, <code>MUL_OF</code> (here OF implies \u201cflag on stack\u201d instead of \u201clink in bio\u201d)</p>",
   "post_number": 50,
   "post_type": 1,
+  "posts_count": 52,
   "updated_at": "2024-06-02T23:30:11.093Z",
   "reply_count": 1,
   "reply_to_post_number": 40,
   "quote_count": 2,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 22.6,
+  "incoming_link_count": 21,
+  "reads": 36,
+  "readers_count": 35,
+  "score": 147.2,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": true,
@@ -54,7 +56,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "FWIW, the big concern I have with this is people writing scripts where they don\u2019t think an overflow is possible, so they just do an OP_DROP for the overflow indicator, and then someone thinks a bit harder, and figures out how to steal money via an overflow, and then they do exactly that. That\u2019s arg&hellip;",
+  "truncated": true,
+  "post_url": "/t/64-bit-arithmetic-soft-fork/397/50",
   "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
     {
       "id": "laughing",
       "type": "emoji",
@@ -62,6 +72,10 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

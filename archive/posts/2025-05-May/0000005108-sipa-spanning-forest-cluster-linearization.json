@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 3.4,
+  "incoming_link_count": 2,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 14.0,
   "yours": false,
   "topic_id": 1419,
   "topic_slug": "spanning-forest-cluster-linearization",
@@ -57,5 +57,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

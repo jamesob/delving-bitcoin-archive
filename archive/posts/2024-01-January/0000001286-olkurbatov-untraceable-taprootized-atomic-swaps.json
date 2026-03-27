@@ -7,14 +7,15 @@
   "cooked": "<h1><a name=\"taprootized-atomic-swaps-1\" class=\"anchor\" href=\"#taprootized-atomic-swaps-1\"></a>Taprootized Atomic Swaps</h1>\n<p>Taprootized Atomic Swaps (TAS) is an extension for Atomic Swaps that presumes the untraceability of transactions related to a particular swap. Based on Schnorr signatures, Taproot technology, and zero-knowledge proofs, the taprootized atomic swaps hide swap transactions under regular payments.</p>\n<h2><a name=\"intro-2\" class=\"anchor\" href=\"#intro-2\"></a>Intro</h2>\n<p>Atomic swap is an incredible approach to cross-chain exchanges without mediators. However, one of the disadvantages of its implementation in the classical form is the \u201cdigital trail\u201d \u2014 any party can make a matching between transactions in the blockchains in which the exchange took place and find out both the participants in the exchange and the proportion in which assets were exchanged.</p>\n<p>On the other hand, atomic swaps is a technology that initially assumed the involvement of only two parties and a \u201cmathematical contract\u201d between them directly. That is, an ideal exchange presupposes two conditions:</p>\n<ol>\n<li>Only counterparties participate in the exchange (works by default)</li>\n<li>Only counterparties know about the fact of the exchange (it would be nice to ensure)</li>\n</ol>\n<p>This paper will provide a concept of taprootized atomic swaps that allow hiding the swap\u2019s very fact. To an external auditor, transactions to initiate and execute atomic swaps will be indistinguishable from regular Bitcoin payments. In the other accounting system involved in the transfer, more information is disclosed (the fact of exchange can be traced). Still, it is impossible to link this to the corresponding Bitcoin transactions (without additional context from the involved parties).</p>\n<h2><a name=\"protocol-3\" class=\"anchor\" href=\"#protocol-3\"></a>Protocol</h2>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/1X/161acdec5a28c9f318d7e08fbff81370e5ce7aaa.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/161acdec5a28c9f318d7e08fbff81370e5ce7aaa\" title=\"Screenshot 2024-01-22 at 20.29.06\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/1X/161acdec5a28c9f318d7e08fbff81370e5ce7aaa_2_529x500.png\" alt=\"Screenshot 2024-01-22 at 20.29.06\" data-base62-sha1=\"39xVOtrwCWLpMSXdc33xY02jUnM\" width=\"529\" height=\"500\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/1X/161acdec5a28c9f318d7e08fbff81370e5ce7aaa_2_529x500.png, https://delvingbitcoin.org/uploads/default/original/1X/161acdec5a28c9f318d7e08fbff81370e5ce7aaa.png 1.5x, https://delvingbitcoin.org/uploads/default/original/1X/161acdec5a28c9f318d7e08fbff81370e5ce7aaa.png 2x\" data-dominant-color=\"FBFBFB\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">Screenshot 2024-01-22 at 20.29.06</span><span class=\"informations\">763\u00d7720 32.3 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>The protocol includes the following steps:</p>\n<ol>\n<li>Alice (skA, PKA) and Bob (skB, PKB) have their keypairs and know each other\u2019s public keys.</li>\n<li>Alice generates a random <em><strong>k</strong></em> and calculates the public value <em><strong>K = k * G</strong></em></li>\n<li>Alice forms the alternative spending path <em><strong>Script = sig(skA) + Locktime</strong></em> in the form of Bitcoin Script</li>\n<li>Alice calculates an escrow public key as <em><strong>PKEsc = K + PKB + hash((K + PKB) || Script) * G</strong></em> (here, escrow is just a public key, formed using Taproot technology)\n<ol>\n<li>The signature <em><strong>sig(skEsc)</strong></em>, verified by the <em><strong>PKEsc</strong></em>, can be generated only with the knowledge of <em><strong>k</strong></em>, <em><strong>skB</strong></em>, and <em><strong>Script</strong></em></li>\n</ol>\n</li>\n<li>Alice calculates <em><strong>h</strong></em> as a hash value of <em><strong>k</strong></em> (zk-friendly hash function is recommended to use)</li>\n<li>Alice forms the funding transactions with the following conditions of how it can be spent:\n<ol>\n<li>Signature of <em><strong>skEsc</strong></em>: Bob, with knowledge of <em><strong>k</strong></em> and <em><strong>skB</strong></em> can spend the output</li>\n<li>Signature of <em><strong>skA + Locktime</strong></em>: Alice, with knowledge of <em><strong>skA</strong></em> can spend the output, but only after some point in time <em><strong>t1</strong></em> (the <em><strong>Script</strong></em> itself)</li>\n</ol>\n</li>\n<li>Alice sends the transaction to the Bitcoin network</li>\n<li>Alice generates the zero-knowledge proof that includes (for the same <em><strong>k</strong></em>):\n<ol>\n<li>The proof of knowledge of <em><strong>k</strong></em> that satisfies <strong><em>k</em>G == K</strong>*</li>\n<li>The proof of knowledge of <em><strong>k</strong></em> that satisfies <em><strong>zkHash(k) == h</strong></em></li>\n</ol>\n</li>\n<li>Alice provides the set of data to Bob:\n<ol>\n<li><em><strong>h</strong></em></li>\n<li><em><strong>K</strong></em></li>\n<li><em><strong>Script</strong></em></li>\n<li><em><strong>proof</strong></em></li>\n</ol>\n</li>\n<li>Bob calculates <em><strong>PKEsc</strong></em> as <em><strong>K + PKB + hash((K + PKB) || Script) * G</strong></em> and finds the transaction locked BTC (verifies if it exists). Then Bob performs the following verifications:\n<ol>\n<li>Verifies that Alice knows <em><strong>k</strong></em> that satisfies <strong><em>k</em>G == K</strong>* and <em><strong>zkHash(k) == h</strong></em>, it means that Bob can access the output <em><strong>PKEsc</strong></em> if he receives <em><strong>k</strong></em></li>\n<li>Verifies that the <em><strong>Script</strong></em> is correct and includes only the required alternative path.</li>\n</ol>\n</li>\n<li>If verifications are passed, Bob forms the transaction that locks his funds on the following conditions:\n<ol>\n<li>Publishing of <em><strong>k</strong></em> and the signature of <em><strong>skA</strong></em>: only Alice can spend it if she reveals <em><strong>k</strong></em> (hash preimage)</li>\n<li>Signature of <em><strong>skB + Locktime</strong></em>: Bob, with knowledge of <em><strong>skB</strong></em>, can spend the output, but only after some point in time t2</li>\n</ol>\n</li>\n<li>Bob sends the transaction to the Ethereum network (or any other that supports zkHash())</li>\n<li>Alice sees the locking conditions defined by Bob and publishes the <em><strong>k</strong></em> and the signature generated by her <em><strong>skA</strong></em>. As a result \u2014 Alice spent funds locked by Bob.\n<ol>\n<li>If Alice doesn\u2019t publish the relevant <em><strong>k</strong></em>, Bob can return funds after <em><strong>t2</strong></em> is reached</li>\n</ol>\n</li>\n<li>If Alice publishes a transaction with <em><strong>k</strong></em>, Bob can recognize it and extract the <em><strong>k</strong></em> value</li>\n<li>Bob calculates the needed <em><strong>skEsc</strong></em> as <em><strong>skEsc = k + skB + hash((K + PKB) || Script)</strong></em></li>\n<li>Bob sends the transaction with the signature generated by the <em><strong>skEsc</strong></em> and spends funds locked by Alice</li>\n</ol>\n<h2><a name=\"implementation-notes-4\" class=\"anchor\" href=\"#implementation-notes-4\"></a>Implementation notes</h2>\n<ol>\n<li>As an approach for escrow public key forming, the MuSig aggregation mechanism is preferable [1].</li>\n<li>All conditions described in step 5 (Protocol section) can be put into a P2TR address. The formed address will not differ from the regular Bitcoin address (single or multisig) formed using the P2TR method [2].</li>\n<li>As a zk-friendly hash function, we can use Poseidon [3].</li>\n<li>For zk operations with EC points, we can use the 0xPARC library [4].</li>\n</ol>\n<h2><a name=\"links-5\" class=\"anchor\" href=\"#links-5\"></a>Links</h2>\n<p>[1] <a href=\"https://bitcoinops.org/en/topics/musig/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">MuSig | Bitcoin Optech</a></p>\n<p>[2] <a href=\"https://github.com/bitcoin/bips/blob/deae64bfd31f6938253c05392aa355bf6d7e7605/bip-0341.mediawiki\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">bips/bip-0341.mediawiki at deae64bfd31f6938253c05392aa355bf6d7e7605 \u00b7 bitcoin/bips \u00b7 GitHub</a></p>\n<p>[3] <a href=\"https://github.com/iden3/circomlib/blob/cff5ab6288b55ef23602221694a6a38a0239dcc0/circuits/poseidon.circom\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">circomlib/circuits/poseidon.circom at cff5ab6288b55ef23602221694a6a38a0239dcc0 \u00b7 iden3/circomlib \u00b7 GitHub</a></p>\n<p>[4] <a href=\"https://github.com/0xPARC/circom-ecdsa/blob/d87eb7068cb35c951187093abe966275c1839ead/circuits/secp256k1.circom\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">circom-ecdsa/circuits/secp256k1.circom at d87eb7068cb35c951187093abe966275c1839ead \u00b7 0xPARC/circom-ecdsa \u00b7 GitHub</a></p>\n<p>P.S. The original doc is here <a href=\"https://docs.google.com/document/d/1mVMElv5smDalqD67D9zniwfFfmSg2badeAIZwgW-0kU/edit#heading=h.nikv26elm71x\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Taprootized Atomic Swaps - Google Docs</a></p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-01-22T18:35:27.133Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 20,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 118.4,
+  "incoming_link_count": 90,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 467.8,
   "yours": false,
   "topic_id": 458,
   "topic_slug": "untraceable-taprootized-atomic-swaps",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -54,14 +56,27 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a name=\"taprootized-atomic-swaps-1\" class=\"anchor\" href=\"#taprootized-atomic-swaps-1\"></a>Taprootized Atomic Swaps\nTaprootized Atomic Swaps (TAS) is an extension for Atomic Swaps that presumes the untraceability of transactions related to a particular swap. Based on Schnorr signatures, Taproot technology, and zero-knowledge proofs, the taprootized atomic swaps hide swap transactions unde&hellip;",
+  "truncated": true,
+  "post_url": "/t/untraceable-taprootized-atomic-swaps/458/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }
