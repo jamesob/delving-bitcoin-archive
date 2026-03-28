@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Following up on my earlier CAT/CSFS/CTV runs, I tested a **CAT + CSFS** composition on Bitcoin Inquisition.\n\nThis combines OP_CAT, OP_SHA256 and OP_CHECKSIGFROMSTACK.\n\nCommit: [926c40c1\u2026008f](https://mempool.space/signet/tx/926c40c1b72edb904a3bb7bf96795f351a6be597fc1aeab1390c15e0133b008f?showDetails=true)\n\nReveal: [75db54de\u202665ca2](https://mempool.space/signet/tx/75db54dea1f125174699710bd5b517ae13b6e09b3293a0b0f463ea5561a65ca2?showDetails=true)\n\nScript: OP_CAT OP_SHA256 <oracle_pubkey> OP_CHECKSIGFROMSTACK (7ea820\u2026cc)\n\nWitness: \\[sig, part1, part2\\] \u2014 message not provided directly\n\nObservation:\n\n* Message is no longer provided as a single item\n  It is assembled on-chain via OP_CAT (part1 || part2)\n* Signature is over SHA256(part1 || part2)\n  but concatenation happens during execution\n* Signature does not commit to transaction data\n* The (sig, part1, part2) tuple is replayable\n  across UTXOs with the same script (same oracle pubkey)\n\nFull breakdown (stack / witness / tapscript / control block):\nhttps://medium.com/@aaron.recompile/op-cat-op-checksigfromstack-on-signet-dynamic-message-oracle-authorization-8c73e1ef5353",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Following up on my earlier CAT/CSFS/CTV runs, I tested a CAT + CSFS composition on Bitcoin Inquisition. \nThis combines OP_CAT, OP_SHA256 and OP_CHECKSIGFROMSTACK. \nCommit: <a href=\"https://mempool.space/signet/tx/926c40c1b72edb904a3bb7bf96795f351a6be597fc1aeab1390c15e0133b008f?showDetails=true\" rel=\"noopener nofollow ugc\">926c40c1\u2026008f</a> \nReveal: <a href=\"https://mempool.space/signet/tx/75db54dea1f125174699710bd5b517ae13b6e09b3293a0b0f463ea5561a65ca2?showDetails=true\" rel=\"noopener nofollow ugc\">75db54de\u202665ca2</a> \nScript: OP_CAT OP_SHA256 &lt;oracle_pubkey&gt; OP_CHECKSIGFROMSTACK (7ea820\u2026cc) \nWitness: [sig,&hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-inqusition-29-2/2236/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
