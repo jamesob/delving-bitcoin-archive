@@ -127,3 +127,32 @@ details: https://medium.com/@aaron.recompile/op-internalkey-op-checksigfromstack
 
 -------------------------
 
+AaronZhang | 2026-03-27 22:58:37 UTC | #7
+
+Following up on my earlier CAT/CSFS/CTV runs, I tested a **CAT + CSFS** composition on Bitcoin Inquisition.
+
+This combines OP_CAT, OP_SHA256 and OP_CHECKSIGFROMSTACK.
+
+Commit: [926c40c1…008f](https://mempool.space/signet/tx/926c40c1b72edb904a3bb7bf96795f351a6be597fc1aeab1390c15e0133b008f?showDetails=true)
+
+Reveal: [75db54de…65ca2](https://mempool.space/signet/tx/75db54dea1f125174699710bd5b517ae13b6e09b3293a0b0f463ea5561a65ca2?showDetails=true)
+
+Script: OP_CAT OP_SHA256 <oracle_pubkey> OP_CHECKSIGFROMSTACK (7ea820…cc)
+
+Witness: \[sig, part1, part2\] — message not provided directly
+
+Observation:
+
+* Message is no longer provided as a single item
+  It is assembled on-chain via OP_CAT (part1 || part2)
+* Signature is over SHA256(part1 || part2)
+  but concatenation happens during execution
+* Signature does not commit to transaction data
+* The (sig, part1, part2) tuple is replayable
+  across UTXOs with the same script (same oracle pubkey)
+
+Full breakdown (stack / witness / tapscript / control block):
+https://medium.com/@aaron.recompile/op-cat-op-checksigfromstack-on-signet-dynamic-message-oracle-authorization-8c73e1ef5353
+
+-------------------------
+
