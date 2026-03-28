@@ -7,15 +7,15 @@
   "cooked": "<p>Great post!</p>\n<p>While reading, I stumbled over this part in <a href=\"https://payjoin.org/blog/2026/03/25/wallet-fingerprints-payjoin-privacy/#example-1-samourai-payjoin\">Example 1: Samourai Payjoin</a>:</p>\n<blockquote>\n<p>Input 0\u2019s DER-encoded signature is <strong>71 bytes</strong>. The r-value is 32 bytes with no leading zero pad, meaning r &lt; 2^255. This is a grinded, low-R signature. Input 1\u2019s signature is <strong>72 bytes</strong> (the r-value requires a leading <code>0x00</code> pad, meaning r \u2265 2^255). This is an ungrinded, high-R signature. A single wallet running a consistent signing policy would either grind all signatures or grind none. Observing one of each is a strong signal that two different signing implementations contributed inputs.</p>\n</blockquote>\n<p>I don\u2019t think this is correct. Today, around 60% of the ECDSA signatures on-chain are 71 bytes (<a href=\"https://mainnet.observer/charts/bitcoin-script-ecdsa-length/\" class=\"inline-onebox\">Length of ECDSA Signatures</a>) and 60% have a low-r value (<a href=\"https://mainnet.observer/charts/bitcoin-script-ecdsa-r-value/\" class=\"inline-onebox\">r-values in ECDSA Signatures</a>). If no wallet would be grinding, it would be 50%. This is because a wallet that does not grind still has a 50% chance to produce a signature that is low-r. I think the only thing you can infer from a transaction with a high-r / 72 byte signature is that it\u2019s not been produced by the Bitcoin Core wallet (or Electrum, who also grind). This doesn\u2019t hold in the payjoin case though: Just because you see a 71 byte and 72 byte signature, it does not tell you that it were two wallets producing these. It could have been one wallet where it randomly used a low-r and a high-r value.</p>\n<p>You might find the PR description of <a href=\"https://github.com/bitcoin/bitcoin/pull/13666\" class=\"inline-onebox\">Always create signatures with Low R values by achow101 \u00b7 Pull Request #13666 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a> interesting too.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-03-27T09:52:01.502Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 3.0,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 18.8,
   "yours": false,
   "topic_id": 2354,
   "topic_slug": "how-wallet-fingerprints-damage-payjoin-privacy",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Great post! \n\nWhile reading, I stumbled over this part in [Example 1: Samourai Payjoin](https://payjoin.org/blog/2026/03/25/wallet-fingerprints-payjoin-privacy/#example-1-samourai-payjoin): \n\n> Input 0's DER-encoded signature is **71 bytes**. The r-value is 32 bytes with no leading zero pad, meaning r < 2^255. This is a grinded, low-R signature. Input 1's signature is **72 bytes** (the r-value requires a leading `0x00` pad, meaning r \u2265 2^255). This is an ungrinded, high-R signature. A single wallet running a consistent signing policy would either grind all signatures or grind none. Observing one of each is a strong signal that two different signing implementations contributed inputs.\n\nI don't think this is correct. Today, around 60% of the ECDSA signatures on-chain are 71 bytes (https://mainnet.observer/charts/bitcoin-script-ecdsa-length/) and 60% have a low-r value (https://mainnet.observer/charts/bitcoin-script-ecdsa-r-value/). If no wallet would be grinding, it would be 50%. This is because a wallet that does not grind still has a 50% chance to produce a signature that is low-r. I think the only thing you can infer from a transaction with a high-r / 72 byte signature is that it's not been produced by the Bitcoin Core wallet (or Electrum, who also grind). This doesn't hold in the payjoin case though: Just because you see a 71 byte and 72 byte signature, it does not tell you that it were two wallets producing these. It could have been one wallet where it randomly used a low-r and a high-r value.\n\nYou might find the PR description of https://github.com/bitcoin/bitcoin/pull/13666 interesting too.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Great post! \nWhile reading, I stumbled over this part in <a href=\"https://payjoin.org/blog/2026/03/25/wallet-fingerprints-payjoin-privacy/#example-1-samourai-payjoin\">Example 1: Samourai Payjoin</a>: \n\nInput 0\u2019s DER-encoded signature is 71 bytes. The r-value is 32 bytes with no leading zero pad, meaning r &lt; 2^255. This is a grinded, low-R signature. Input 1\u2019s signature is 72 bytes (the r-value requires a leadin&hellip;",
   "truncated": true,
   "post_url": "/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 22.2,
+  "incoming_link_count": 2,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 43.8,
   "yours": false,
   "topic_id": 2355,
   "topic_slug": "shrimps-2-5-kb-post-quantum-signatures-across-multiple-stateful-devices",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -61,13 +61,18 @@
   "post_url": "/t/shrimps-2-5-kb-post-quantum-signatures-across-multiple-stateful-devices/2355/1",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
       "id": "heart",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

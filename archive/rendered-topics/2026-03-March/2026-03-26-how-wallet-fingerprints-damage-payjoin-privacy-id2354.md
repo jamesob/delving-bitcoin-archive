@@ -26,3 +26,19 @@ You might find the PR description of https://github.com/bitcoin/bitcoin/pull/136
 
 -------------------------
 
+AdamISZ | 2026-03-28 12:52:17 UTC | #3
+
+Great to see someone flagging this and it getting some attention.
+
+It was discussed a fair bit, here and there, when payjoin first became a "thing".
+
+The problem is only obvious once you think about it: unlike the existing onchain privacy-enhancing protocol of coinjoin, this one actually *tries* to mix into the crowd of non-collaborative transactions, and so suddenly these fingerprints are a problem.
+
+A fair counterpoint is, they are *already* a big problem! As they aid blockchain tracing considerably.
+
+There probably should have been an effort to address this in the wallet developer community already, except for the nasty reality: it conflicts, sometimes dramatically so, with the entire purpose of many wallet development projects. A nice example of this is to look into how Green wallet was originally conceived and developed by Lawrence Nahum. Though you could easily find 10 other examples. And an even simpler example is: try to convince wallets that they should "standardize" fees in any ways, and the users, let alone the developers, will tell you to shove it :grinning_face_with_smiling_eyes: . The point is, you cannot realistically expect wallets to remove fingerprints, and while they could try to "80% remove fingerprints" the nature of set intersection analysis is such that, well, that doesn't reduce the problem by 80% ...
+
+In that framing, this is a just a side note, but: there's a fascinating argument to be had about randomize fingerprints or standardize them? I tend to side with randomizing just because it's less brittle. Like nLockTime being not just one value but smeared out, for example. The story of the (non)-adoption of BIP69 is particularly interesting here.
+
+-------------------------
+

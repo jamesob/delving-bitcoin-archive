@@ -145,3 +145,37 @@ Feedback welcome, particularly on the developer experience and any edge cases yo
 
 -------------------------
 
+Tsua00021 | 2026-03-28 12:05:26 UTC | #3
+
+**Update — Validator in the playground + spec revision (BTSL v1.0)**
+
+A short follow-up: the **Validator / Checker path** described in the spec is now implemented in the same client-side app alongside Maker.
+
+**Playground** (`https://btsl-playground.vercel.app/`, repo `github.com/tsua0002/btsl-playground`)
+
+* **Maker** (unchanged in intent): schema → bind **PARAMS** (including `.params`-style paste / file) → generate → export **unsigned PSBT** (base64/hex + QR).
+* **Validator**: reuse the **same schema and confirmed PARAMS**, paste a PSBT — chain-backed checks, `calc` replay, and `ASSERT` evaluation (spec §9.3-style workflow).
+* **Onboarding / examples**: curated examples stay **always available** (collapsible panel); demo **PARAMS** fixtures are called out explicitly; derived inputs using **`From(@PUBKEY)`** trigger **automatic UTXO resolution** after a valid pubkey is set (debounced), so the “simple payment” path is faster without extra clicks.
+
+**Specification** (normative source in the standard repo, e.g. `btsl-spec-v1.0.md` + aligned `btsl-implementation-guide-v1.0.md`)
+
+For implementers and reviewers, the v1.0 text on `master` is brought up to date with:
+
+* **Lexer — `:`**: Normative split between **`SECTION_OPEN`** (colon that opens an indented block) vs **`COLON`** elsewhere; **exception**: after a numeric **input / output / `ASSERT` index**, the colon is always **`COLON`**, even when an indented line follows — removes ambiguity with `utxo:`, `witness_data:`, etc.
+* **Outputs**: Positional rules for `output_type` / `amount` / `address_ref`; bare `snake_case_id` in first address position rejected outside `alias_ref`; lexer note on residual `IDENTIFIER` in `address_ref`.
+* **`calc` / expressions**: Explicit arithmetic precedence (`*` `/` before `+` `-`); in **`primary`**, **`alias_ref` vs `value`** disambiguation with **single-token lookahead** on `.`.
+* **`CONST`**: **Global (file)** vs **local (`PSBT_SCHEMA`)** scope; shadowing → **`BTSL_WARN_09`**; same-scope redeclaration → **`BTSL_ERR_00`**; §3.1 table and “one block per nesting level” guidance.
+* **`witness_data` vs `witness:` (P2TR paths with a `witness:` block)**: **Name, order, and case** must match placeholders → **`BTSL_ERR_10`** on mismatch; **no** nominal `witness_data` check for P2WSH/P2SH paths **without** `witness:` placeholders; example **§6.4** (vault) aligned with that binding model.
+* **§8 implementation checklist**: Updated (including P2TR witness rules and full **`BTSL_ERR_00`–`BTSL_ERR_10`** / **`BTSL_WARN_01`–`BTSL_WARN_09`** tables in §5.3–5.4).
+* **Examples / fixtures** in the reference tree are tightened so they work as **repro and test vectors** where applicable.
+
+I consider this **my finalized v1.0 spec pass** for public review; further changes would be explicit revisions / errata, not silent drift.
+
+Feedback still welcome on edge cases, especially around Validator vs your own PSBT constructions and any parser ambiguities you hit with real schemas.
+
+---
+
+*Spec: `github.com/tsua0002/btsl-standard` · Playground: `github.com/tsua0002/btsl-playground`*
+
+-------------------------
+
