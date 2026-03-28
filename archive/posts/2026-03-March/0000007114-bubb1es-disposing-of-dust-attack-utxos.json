@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
+  "reads": 14,
+  "readers_count": 13,
   "score": 2.6,
   "yours": false,
   "topic_id": 2215,
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "A quick update on this project:\n\nThanks to @harris the `ddust` tool now 1) batches new dust inputs with unconfirmed dust disposal txs it finds in the mempool and 2) has a regtest integration test framework and initial tests.\n\n* https://github.com/bubb1es71/ddust/pull/5\n* https://github.com/bubb1es71/ddust/pull/17\n\n@harris and I have also created a draft BIP specification for the protocol described in this thread and implemented in the `ddust` tool.\n\n* https://github.com/bubb1es71/ddust/pull/20\n\nWe\u2019d love to get feedback from the community on the latest updates to the tool and on the draft BIP.\n\nWe\u2019d especially like to hear from anyone who has written or reviewed BIPs to make sure this is a good draft before we submit a PR to the bips repo. And also from wallet (or wallet lib) maintainers on if this is a feature/spec you\u2019d consider implementing, or if not why.\n\nIf you\u2019d like get get involved on the [ddust](https://github.com/bubb1es71/ddust)  project a few top of mind ideas are:\n\n* testing with popular hardware wallets to confirm they can sign the PSBTs created by `ddust`\n* more tests for different types of P2SH, P2WSH, P2TR dust inputs (ie. 3-5, tap script, others?)\n* tests for batching combinations of `ddust` transactions, adding dust inputs to unconfirmed multi-input txs\n* add a feature to batch unconfirmed ddust transactions without contributing any inputs\n\nOr on the [dusts](https://github.com/bubb1es71/dusts) dust stats project:\n\n* what is the distribution of existing dust amounts\n* what is the distribution of utxo amounts that have been subjected to a dust attack\n* how have the dust or victim utxo amounts changed over time",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "A quick update on this project: \nThanks to <a class=\"mention\" href=\"/u/harris\">@harris</a> the ddust tool now 1) batches new dust inputs with unconfirmed dust disposal txs it finds in the mempool and 2) has a regtest integration test framework and initial tests. \n\n<a href=\"https://github.com/bubb1es71/ddust/pull/5\" rel=\"noopener nofollow ugc\">https://github.com/bubb1es71/ddust/pull/5</a>\n<a href=\"https://github.com/bubb1es71/ddust/pull/17\" rel=\"noopener nofollow ugc\">https://github.com/bubb1es71/ddus&hellip;</a>",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
