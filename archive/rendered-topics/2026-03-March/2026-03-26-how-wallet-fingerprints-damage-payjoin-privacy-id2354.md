@@ -42,3 +42,31 @@ In that framing, this is a just a side note, but: there's a fascinating argument
 
 -------------------------
 
+bitgould | 2026-03-29 06:47:21 UTC | #4
+
+[quote="AdamISZ, post:3, topic:2354"]
+The point is, you cannot realistically expect wallets to remove fingerprints
+
+[/quote]
+
+I agree with this in practice. It seems tenable to expect transaction producers to make overlapping or sufficiently ambiguous fingerprints in my experience, which may be sufficient to address the core issue, like the 71/72 byte problem @0xB10C brought up in this post’s first comment.
+
+-------------------------
+
+1440000bytes | 2026-03-29 07:14:47 UTC | #5
+
+[quote="arminsdev, post:1, topic:2354"]
+Interested in feedback on the methodology, additional fingerprint dimensions worth exploring, or cases where this analysis would fail.
+[/quote]
+
+I had built a tool for spoofing wallet fingerprint in 2023 which could be improved further to fix wallet fingerprinting: [https://gitlab.com/1440000bytes/goldfish](https://gitlab.com/1440000bytes/goldfish)
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20260329071213/https://delvingbitcoin.org/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/5
+
+</details>
+
+-------------------------
+
