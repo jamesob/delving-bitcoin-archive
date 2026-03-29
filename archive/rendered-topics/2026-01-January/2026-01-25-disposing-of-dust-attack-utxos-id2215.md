@@ -299,3 +299,9 @@ Or on the [dusts](https://github.com/bubb1es71/dusts) dust stats project:
 
 -------------------------
 
+bubb1es | 2026-03-29 20:26:38 UTC | #21
+
+Link to latest revision of draft BIP is: https://github.com/bubb1es71/ddust/blob/main/docs/bip-dust-disposal.md
+
+-------------------------
+
