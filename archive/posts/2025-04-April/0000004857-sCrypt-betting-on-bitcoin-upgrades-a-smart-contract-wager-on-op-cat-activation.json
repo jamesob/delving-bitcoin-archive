@@ -7,15 +7,15 @@
   "cooked": "<p>Note OP_SUCCESSx (such as OP_SUCCESS126, i.e., OP_CAT after activation) only makes a script immediately succeeds if <strong>EXECUTED</strong>.</p>\n<p>For example, the script will <strong>not automatically succeed</strong> just because <code>OP_SUCCESS3</code> is in the code \u2014 it only triggers success if actually run. If this script is evaluated with <code>OP_FALSE</code> on the stack, the <code>OP_IF</code> branch with <code>OP_SUCCESS3</code> is <strong>not executed</strong>, so the <code>ELSE</code> branch runs instead.</p>\n<pre><code class=\"lang-auto\">OP_FALSE\nOP_IF\n  OP_SUCCESS3\nOP_ELSE\n  OP_CHECKSIG\nOP_ENDIF\n</code></pre>\n<p>Similarly, in our case, branching condition at Line 16 ensures only Bob can get OP_SUCCESS126 executed (i.e., when OP_CAT is still disabled), thus succeed. Alice cannot trigger OP_SUCCESS126, which is what we want.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 8,
   "updated_at": "2025-04-22T18:50:56.557Z",
   "reply_count": 2,
   "reply_to_post_number": 2,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 22.2,
+  "incoming_link_count": 3,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 31.2,
   "yours": false,
   "topic_id": 1632,
   "topic_slug": "betting-on-bitcoin-upgrades-a-smart-contract-wager-on-op-cat-activation",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 224,
     "username": "JeremyRubin",
     "name": "Jeremy Rubin",
     "avatar_template": "/user_avatar/delvingbitcoin.org/jeremyrubin/{size}/264_2.png"
@@ -68,5 +69,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

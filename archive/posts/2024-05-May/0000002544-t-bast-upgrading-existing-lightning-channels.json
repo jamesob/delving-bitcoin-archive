@@ -7,14 +7,15 @@
   "cooked": "<blockquote>\n<p>I guess the question I have is whether or not people want to see DynComms broken up into two proposals: the part with the funding output conversion, and the part without.</p>\n</blockquote>\n<p>Yes, I\u2019d love to see that. As I stated in other posts, I believe we should use splicing for upgrades that require spending the current funding output (since splicing exists and does spend the funding output, it would be adding unnecessary complexity to have yet another protocol that achieves almost the same thing).</p>\n<p>But for all other upgrades that don\u2019t spend the funding output, we definitely need a different protocol, and dynamic commitments seem to be a good fit <img src=\"https://delvingbitcoin.org/images/emoji/twitter/+1.png?v=12\" title=\":+1:\" class=\"emoji\" alt=\":+1:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-05-27T08:15:40.633Z",
   "reply_count": 0,
   "reply_to_post_number": 7,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 33.6,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 36.4,
   "yours": false,
   "topic_id": 881,
   "topic_slug": "upgrading-existing-lightning-channels",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,9 +38,10 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 138,
     "username": "ProofOfKeags",
     "name": "ProofOfKeags",
-    "avatar_template": "/user_avatar/delvingbitcoin.org/proofofkeags/{size}/156_2.png"
+    "avatar_template": "/user_avatar/delvingbitcoin.org/proofofkeags/{size}/813_2.png"
   },
   "bookmarked": false,
   "raw": "> I guess the question I have is whether or not people want to see DynComms broken up into two proposals: the part with the funding output conversion, and the part without.\n\nYes, I'd love to see that. As I stated in other posts, I believe we should use splicing for upgrades that require spending the current funding output (since splicing exists and does spend the funding output, it would be adding unnecessary complexity to have yet another protocol that achieves almost the same thing).\n\nBut for all other upgrades that don't spend the funding output, we definitely need a different protocol, and dynamic commitments seem to be a good fit :+1:",
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I guess the question I have is whether or not people want to see DynComms broken up into two proposals: the part with the funding output conversion, and the part without. \n\nYes, I\u2019d love to see that. As I stated in other posts, I believe we should use splicing for upgrades that require spending the&hellip;",
+  "truncated": true,
+  "post_url": "/t/upgrading-existing-lightning-channels/881/9",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"MattCorallo\" data-post=\"3\" data-topic=\"494\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/m/e47c2d/48.png\" class=\"avatar\"> MattCorallo:</div>\n<blockquote>\n<p>All of the v3 discussion assumes cluster mempool <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n</blockquote>\n</aside>\n<p>V3 pre-dates cluster mempool, we can likely do significantly better afterwards.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2024-01-30T21:13:29.571Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.6,
+  "incoming_link_count": 2,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 31.0,
   "yours": false,
   "topic_id": 494,
   "topic_slug": "0conf-ln-channels-and-v3-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"MattCorallo, post:3, topic:494\"]\nAll of the v3 discussion assumes cluster mempool :slight_smile:\n[/quote]\n\nV3 pre-dates cluster mempool, we can likely do significantly better afterwards.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "V3 pre-dates cluster mempool, we can likely do significantly better afterwards.",
+  "truncated": true,
+  "post_url": "/t/0conf-ln-channels-and-v3-anchors/494/5",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

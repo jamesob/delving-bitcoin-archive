@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"0xB10C\" data-post=\"3\" data-topic=\"1786\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/0xb10c/48/15_2.png\" class=\"avatar\"> 0xB10C:</div>\n<blockquote>\n<p>Did you look into nodes that have different IPv4 addresses, but return the same addr responses? I.e. IPv4\u2013IPv4 node pairs? This could be an indicator for Sybil nodes / nodes listening on multiple IPv4 addresses.</p>\n</blockquote>\n</aside>\n<p>We initially considered ipv4&lt;&gt;ipv4 pairs, but decided not to include in this post, as it was long enough already <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=14\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>I quickly run the numbers and found 801 IPv4 nodes that gave the exact same replies as some other nodes. They didn\u2019t all give the same reply, but instead, there are ~30 clusters of nodes that gave identical replies within each group.</p>\n<p>However, all of these ipv4 nodes gave ipv4-only responses, so they were already filtered:</p>\n<aside class=\"quote no-group\" data-username=\"danielabrozzoni\" data-post=\"1\" data-topic=\"1786\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/danielabrozzoni/48/1300_2.png\" class=\"avatar\"> danielabrozzoni:</div>\n<blockquote>\n<p>While analyzing the node responses, we noticed that 85% of the IPv4 nodes and 30% of Tor nodes only returned addresses from their own network - for example, IPv4 nodes responding exclusively with IPv4 addresses. We are assuming that these nodes are operating on a single network, and as such, we excluded them from further analysis.</p>\n</blockquote>\n</aside>\n<hr>\n<aside class=\"quote no-group\" data-username=\"mzumsande\" data-post=\"5\" data-topic=\"1786\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/mzumsande/48/145_2.png\" class=\"avatar\"> mzumsande:</div>\n<blockquote>\n<p>The challenge with randomization is that timestamp of GETADDR results are spread over a large time (30 days), so just adding a slight random delay of a few hours probably won\u2019t change too much.</p>\n</blockquote>\n</aside>\n<p>Agreed, from a very quick first glance, it seemed to me that randomizing by a few hours wouldn\u2019t do much, while a few days was more effective.</p>\n<aside class=\"quote no-group\" data-username=\"mzumsande\" data-post=\"5\" data-topic=\"1786\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/mzumsande/48/145_2.png\" class=\"avatar\"> mzumsande:</div>\n<blockquote>\n<p>Timestamps are also used in gossip relay (a separate mechanism from GETADDR) of node announcements.</p>\n</blockquote>\n</aside>\n<p>Ah yes, right. I think it should be possible to \u201cremove\u201d timestamps from GETADDR responses (i.e.: setting them all to zero, or to the current time), but keeping them in the gossip relay. Although, this isn\u2019t too different from your suggestion of setting <code>nTime</code> to a fixed time in the past.</p>\n<p>Although\u2026 the <a href=\"https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2020-10-20#409126;\" rel=\"noopener nofollow ugc\">IRC meeting</a> specifically talks about \u201cRemoving timestamps from ADDR messages\u201d, so I wonder if there\u2019s a way of maintaining gossip relay even without timestamps\u2026</p>\n<aside class=\"quote no-group\" data-username=\"Crypt-iQ\" data-post=\"6\" data-topic=\"1786\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/crypt-iq/48/306_2.png\" class=\"avatar\"> Crypt-iQ:</div>\n<blockquote>\n<p>I think this may instead be due to the ability of nTime to be <a href=\"https://github.com/mzumsande/bitcoin/blob/458720e5e98c6e9103aea1fdfcd39bafc26c27bb/src/addrman.cpp#L566\" rel=\"noopener nofollow ugc\">refreshed</a>?</p>\n</blockquote>\n</aside>\n<p>Yes, I think it\u2019s a combination of <code>nTime</code>s getting refreshed, plus the network caches getting created at slightly different times.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 12,
   "updated_at": "2025-06-25T17:06:47.039Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 4,
-  "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 3.6,
+  "incoming_link_count": 1,
+  "reads": 54,
+  "readers_count": 53,
+  "score": 30.6,
   "yours": false,
   "topic_id": 1786,
   "topic_slug": "fingerprinting-nodes-via-addr-requests",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:3, topic:1786\"]\nDid you look into nodes that have different IPv4 addresses, but return the same addr responses? I.e. IPv4\u2013IPv4 node pairs? This could be an indicator for Sybil nodes / nodes listening on multiple IPv4 addresses.\n[/quote]\n\nWe initially considered ipv4<>ipv4 pairs, but decided not to include in this post, as it was long enough already :)\n\nI quickly run the numbers and found 801 IPv4 nodes that gave the exact same replies as some other nodes. They didn\u2019t all give the same reply, but instead, there are ~30 clusters of nodes that gave identical replies within each group.\n\nHowever, all of these ipv4 nodes gave ipv4-only responses, so they were already filtered:\n[quote=\"danielabrozzoni, post:1, topic:1786\"]\nWhile analyzing the node responses, we noticed that 85% of the IPv4 nodes and 30% of Tor nodes only returned addresses from their own network - for example, IPv4 nodes responding exclusively with IPv4 addresses. We are assuming that these nodes are operating on a single network, and as such, we excluded them from further analysis.\n[/quote]\n\n---\n\n[quote=\"mzumsande, post:5, topic:1786\"]\nThe challenge with randomization is that timestamp of GETADDR results are spread over a large time (30 days), so just adding a slight random delay of a few hours probably won\u2019t change too much.\n[/quote]\n\n\nAgreed, from a very quick first glance, it seemed to me that randomizing by a few hours wouldn't do much, while a few days was more effective.\n\n[quote=\"mzumsande, post:5, topic:1786\"]\nTimestamps are also used in gossip relay (a separate mechanism from GETADDR) of node announcements.\n[/quote]\n\nAh yes, right. I think it should be possible to \"remove\" timestamps from GETADDR responses (i.e.: setting them all to zero, or to the current time), but keeping them in the gossip relay. Although, this isn\u2019t too different from your suggestion of setting `nTime` to a fixed time in the past.\n\nAlthough... the [IRC meeting](https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2020-10-20#409126;) specifically talks about \"Removing timestamps from ADDR messages\", so I wonder if there's a way of maintaining gossip relay even without timestamps...\n\n[quote=\"Crypt-iQ, post:6, topic:1786\"]\nI think this may instead be due to the ability of nTime to be [refreshed](https://github.com/mzumsande/bitcoin/blob/458720e5e98c6e9103aea1fdfcd39bafc26c27bb/src/addrman.cpp#L566)?\n[/quote]\n\nYes, I think it's a combination of `nTime`s getting refreshed, plus the network caches getting created at slightly different times.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "We initially considered ipv4&lt;&gt;ipv4 pairs, but decided not to include in this post, as it was long enough already :slight_smile: \nI quickly run the numbers and found 801 IPv4 nodes that gave the exact same replies as some other nodes. They didn\u2019t all give the same reply, but instead, there are ~30 c&hellip;",
   "truncated": true,
   "post_url": "/t/fingerprinting-nodes-via-addr-requests/1786/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

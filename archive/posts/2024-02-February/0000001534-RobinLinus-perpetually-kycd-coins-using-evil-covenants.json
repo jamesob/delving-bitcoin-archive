@@ -7,14 +7,15 @@
   "cooked": "<h1><a name=\"perpetually-kycd-coins-using-evil-covenants-1\" class=\"anchor\" href=\"#perpetually-kycd-coins-using-evil-covenants-1\"></a>Perpetually KYC\u2019d Coins Using Evil Covenants</h1>\n<p>Some governments, such as the EU, are working hard on crippling Bitcoin with <a href=\"https://www.coindesk.com/learn/mica-eus-comprehensive-new-crypto-regulation-explained/\" rel=\"noopener nofollow ugc\">excessive KYC laws</a>. This also means that protocol updates could be abused to introduce a \u2018perpetual KYC\u2019 contract. Financial institutions would likely tend to welcome such a mechanism as it simplifies regulatory clarity while preserving the advantages they care about, e.g., quick international settlement and a limited supply.</p>\n<p>Adversarial thinking is what keeps bitcoin secure. So we should explore and become aware of the different ways to implement \u201cevil covenants\u201d. For example, combining the opcodes <code>OP_CTV</code>, <code>OP_CSFS</code>, <code>OP_CAT</code>, and <code>OP_EXPIRE</code> enables such a perpetual KYC contract:</p>\n<ol>\n<li>Every two weeks the government signs the Merkle root of their whitelist. Additionally, that signature signs the current date</li>\n<li>The contract checks the government\u2019s signature using <code>OP_CSFS</code></li>\n<li>The contract verifies the inclusion proof for the recipient\u2019s address using <code>OP_CAT</code></li>\n<li>The contract enforces the covenant using <code>OP_CTV</code></li>\n<li>The contract uses <code>OP_EXPIRE</code> to ensure that the government\u2019s signature is at most 2 weeks old</li>\n</ol>\n<h2><a name=\"features-2\" class=\"anchor\" href=\"#features-2\"></a>Features</h2>\n<ul>\n<li>The whitelist can be updated without having to change the contracts of existing UTXOs</li>\n<li>The government does not have to run a cosigning server</li>\n<li>The government does not have to use a hot key. It can sign offline using air-gapped devices</li>\n<li>The government can add addresses to the whitelist at any time</li>\n<li>The government can remove addresses from the whitelist every two weeks</li>\n<li>The government has to publish only the updates to the list and their new signature on static file servers</li>\n<li>The contract can tighten (or relax) spending limits. E.g., send at most $1000 to non-KYC\u2019d addresses. Or receiving more than $50000 could require more strict KYC processes.</li>\n<li>Self custody becomes much safer as attackers cannot steal KYC\u2019d coins</li>\n<li>The government can force users to update their contracts</li>\n<li>The government can revoke its control of BTC held under this policy by whitelisting some non-covenant address</li>\n</ul>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-02-13T17:10:40.381Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 321,
-  "reads": 43,
-  "readers_count": 42,
-  "score": 1633.6,
+  "incoming_link_count": 1139,
+  "reads": 119,
+  "readers_count": 118,
+  "score": 5763.8,
   "yours": false,
   "topic_id": 556,
   "topic_slug": "perpetually-kycd-coins-using-evil-covenants",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -48,20 +50,33 @@
   "staff": false,
   "user_id": 131,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "<a name=\"perpetually-kycd-coins-using-evil-covenants-1\" class=\"anchor\" href=\"#perpetually-kycd-coins-using-evil-covenants-1\"></a>Perpetually KYC\u2019d Coins Using Evil Covenants\nSome governments, such as the EU, are working hard on crippling Bitcoin with <a href=\"https://www.coindesk.com/learn/mica-eus-comprehensive-new-crypto-regulation-explained/\" rel=\"noopener nofollow ugc\">excessive KYC laws</a>. This also means that protocol updates could be abused to introduce a \u2018perpetual KYC\u2019 contract. Financial institutions would likely tend to welcome such a mech&hellip;",
+  "truncated": true,
+  "post_url": "/t/perpetually-kycd-coins-using-evil-covenants/556/1",
   "reactions": [
     {
       "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "open_mouth",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

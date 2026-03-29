@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"andrewtoth\" data-post=\"35\" data-topic=\"1222\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/andrewtoth/48/576_2.png\" class=\"avatar\"> andrewtoth:</div>\n<blockquote>\n<p>Looking at a flamegraph of Bitcoin Core IBD, the majority of time is spent looking up input prevouts. That\u2019s why parallelizing that provides a nice speedup. Skipping it entirely though is not possible since we would not have a utxo set at the end, which is not a constraint that libbitcoin has.</p>\n</blockquote>\n</aside>\n<p>I\u2019m sure it could be a material improvement.</p>",
   "post_number": 38,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-02T20:41:46.507Z",
   "reply_count": 0,
   "reply_to_post_number": 35,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 3.2,
+  "reads": 48,
+  "readers_count": 47,
+  "score": 24.6,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"andrewtoth, post:35, topic:1222\"]\nLooking at a flamegraph of Bitcoin Core IBD, the majority of time is spent looking up input prevouts. That\u2019s why parallelizing that provides a nice speedup. Skipping it entirely though is not possible since we would not have a utxo set at the end, which is not a constraint that libbitcoin has.\n[/quote]\n\nI'm sure it could be a material improvement.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I\u2019m sure it could be a material improvement.",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/38",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

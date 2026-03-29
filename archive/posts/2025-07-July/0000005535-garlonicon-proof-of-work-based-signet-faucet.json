@@ -4,18 +4,18 @@
   "username": "garlonicon",
   "avatar_template": "/letter_avatar_proxy/v4/letter/g/278dde/{size}.png",
   "created_at": "2025-07-22T06:20:48.426Z",
-  "cooked": "<p>Update: Now, there is an incentive, to claim these coins on mainnet: <a href=\"https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801\" data-bbcode=\"true\" rel=\"noopener nofollow ugc\">aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801</a></p>\n<p>Which means, that now, any user can append Proof of Work challenge to any output script.</p>",
+  "cooked": "<p>Update: Now, there is an incentive, to claim these coins on mainnet: <a href=\"https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801\" data-bbcode=\"true\" rel=\"noopener nofollow ugc\">aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801</a></p>\n<p>Which means, that now, any user can append Proof of Work challenge to any output script.</p>\n<p>Edit: Surprisingly, it is possible to lock coins on Proof of Work in a way, where solver would have a choice: to reveal its own private key on-chain, or to grind the solution, and spend coins, while keeping that key secret. Here is how it can be done:</p>\n<p><code>OP_SIZE 60 OP_LESSTHAN OP_VERIFY &lt;victimPubkey&gt; OP_CHECKSIG</code></p>\n<p>And then, the private key can be revealed by sharing DER signature:</p>\n<pre><code class=\"lang-auto\">30380215\n3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\n021f\n71f6c818ee75fa6bab255a8ca7331d8a70a17dec1c823fca742eb4f0855f94\n01\n</code></pre>\n<p>Or, it can remain hidden, if some grinding will be done, and if r-value and s-value will have 49 leading zero bits. Then, by doing around 2^50 computations, a victim can keep its key safe:</p>\n<pre><code class=\"lang-auto\">3038021a\n71f6c818ee3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\n021a\n75fa6bab255a8ca7331d8a70a17dec1c823fca742eb4f0855f94\n01\n</code></pre>",
   "post_number": 6,
   "post_type": 1,
   "posts_count": 6,
-  "updated_at": "2025-07-22T06:20:48.426Z",
+  "updated_at": "2025-07-31T10:39:22.872Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 2.8,
+  "incoming_link_count": 2,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 31.4,
   "yours": false,
   "topic_id": 937,
   "topic_slug": "proof-of-work-based-signet-faucet",
@@ -30,7 +30,7 @@
   "flair_color": null,
   "flair_group_id": null,
   "badges_granted": [],
-  "version": 1,
+  "version": 2,
   "can_edit": false,
   "can_delete": false,
   "can_recover": false,
@@ -44,8 +44,13 @@
     "avatar_template": "/letter_avatar_proxy/v4/letter/g/278dde/{size}.png"
   },
   "bookmarked": false,
-  "raw": "Update: Now, there is an incentive, to claim these coins on mainnet: [url=https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801]aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801[/url]\n\nWhich means, that now, any user can append Proof of Work challenge to any output script.",
-  "actions_summary": [],
+  "raw": "Update: Now, there is an incentive, to claim these coins on mainnet: [url=https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801]aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801[/url]\n\nWhich means, that now, any user can append Proof of Work challenge to any output script.\n\nEdit: Surprisingly, it is possible to lock coins on Proof of Work in a way, where solver would have a choice: to reveal its own private key on-chain, or to grind the solution, and spend coins, while keeping that key secret. Here is how it can be done:\n\n`OP_SIZE 60 OP_LESSTHAN OP_VERIFY <victimPubkey> OP_CHECKSIG`\n\nAnd then, the private key can be revealed by sharing DER signature:\n\n```\n30380215\n3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\n021f\n71f6c818ee75fa6bab255a8ca7331d8a70a17dec1c823fca742eb4f0855f94\n01\n```\n\nOr, it can remain hidden, if some grinding will be done, and if r-value and s-value will have 49 leading zero bits. Then, by doing around 2^50 computations, a victim can keep its key safe:\n\n```\n3038021a\n71f6c818ee3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\n021a\n75fa6bab255a8ca7331d8a70a17dec1c823fca742eb4f0855f94\n01\n```",
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -57,11 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "excerpt": "Update: Now, there is an incentive, to claim these coins on mainnet: <a href=\"https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801\" data-bbcode=\"true\" rel=\"noopener nofollow ugc\">aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801</a> \nWhich means, that now, any user can append Proof of Work challenge to any output script.",
+  "excerpt": "Update: Now, there is an incentive, to claim these coins on mainnet: <a href=\"https://mempool.space/tx/aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801\" data-bbcode=\"true\" rel=\"noopener nofollow ugc\">aba3c2ae442aa20150996ee68f9aa4da83b57a4312891078be0c2e68c50b2801</a> \nWhich means, that now, any user can append Proof of Work challenge to any output script. \nEdit: Surprisingly, it is possible to lock coins on Proof of Work in a way,&hellip;",
   "truncated": true,
   "post_url": "/t/proof-of-work-based-signet-faucet/937/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

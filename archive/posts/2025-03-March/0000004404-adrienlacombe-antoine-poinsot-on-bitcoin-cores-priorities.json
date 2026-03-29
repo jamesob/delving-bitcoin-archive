@@ -7,14 +7,15 @@
   "cooked": "<p>thank you <a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> <a class=\"mention\" href=\"/u/ariard\">@ariard</a></p>",
   "post_number": 16,
   "post_type": 1,
+  "posts_count": 20,
   "updated_at": "2025-03-03T06:51:12.395Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 3.8,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 24.4,
   "yours": false,
   "topic_id": 1470,
   "topic_slug": "antoine-poinsot-on-bitcoin-cores-priorities",
@@ -38,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "thank you @AntoineP @ariard",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "thank you <a class=\"mention\" href=\"/u/antoinep\">@AntoineP</a> <a class=\"mention\" href=\"/u/ariard\">@ariard</a>",
+  "truncated": true,
+  "post_url": "/t/antoine-poinsot-on-bitcoin-cores-priorities/1470/16",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

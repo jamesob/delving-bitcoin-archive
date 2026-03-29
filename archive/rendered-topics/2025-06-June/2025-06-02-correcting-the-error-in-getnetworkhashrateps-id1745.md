@@ -548,7 +548,7 @@ I had mentioned my preference for ```sum(work in window) / (window duration)``` 
 
 -------------------------
 
-zawy | 2025-08-16 13:01:43 UTC | #32
+zawy | 2025-08-17 09:43:01 UTC | #32
 
 I believe this is the best-possible estimate of _current_ hashrate for an arbitrarily-small fixed time period t when given only the lowest hash seen in t. 
 
@@ -568,7 +568,7 @@ $h = \text{height of t time segments}$
 
 $W_{h} = W_{h-1} \cdot e^{-\frac{E}{N}}$
 
-$\text{Stdev} \approx \frac{W}{\sqrt{2N}}$
+$\text{Stdev} \approx \frac{W}{\sqrt{2N}}$ (if hashrate is constant and initial $W_0$ is correct.
 
 $W$ and $L$ in my lambda are at $h -1$
 

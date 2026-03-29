@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"vnprc\" data-post=\"1\" data-topic=\"1753\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/vnprc/48/983_2.png\" class=\"avatar\"> vnprc:</div>\n<blockquote>\n<p>At btc++ last month I attended this <a href=\"https://www.youtube.com/watch?v=EKQvDfmQkt8&amp;t=8910s\" rel=\"noopener nofollow ugc\">excellent talk</a> on the design of the DATUM protocol and I was very surprised to learn how difficult it is for Ocean to provide these noncustodial fanout transactions. <strong>The vast majority of the problem is Antminer firmware restrictions on the size of the coinbase.</strong></p>\n<p>In order to work around this limitation Ocean not only has to fingerprint miner hardware and keep track of multiple work templates per account but they are also unable to tightly control the coinbase of the blocks their miners produce. Open source ASIC firmware like Bitaxe\u2019s <a href=\"https://github.com/bitaxeorg/ESP-Miner\" rel=\"noopener nofollow ugc\">ESP-miner</a> allows a very large coinbase transaction, limited only by the available memory on the ESP. <strong>But Antminer firmware is the most restrictive, allowing just over a dozen outputs in the coinbase.</strong></p>\n</blockquote>\n</aside>\n<p>Thanks for writing this post. I have added Coinbase Playground in <a href=\"https://en.bitcoin.it/wiki/Covenants_Uses\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Covenants Uses - Bitcoin Wiki</a></p>\n<p>IIUC this solves 2 problems without involving ASP:</p>\n<ol>\n<li>Antminer <a href=\"https://x.com/GrassFedBitcoin/status/1832473863537717308\" rel=\"noopener nofollow ugc\">coinbase size limit</a></li>\n<li>Leaves room to add more transactions in block (i.e. more fees)</li>\n</ol>\n<p>Note: Miners can use <a href=\"https://docs.second.tech/getting-started/barking-on-signet/advanced/\" rel=\"noopener nofollow ugc\">ark on-chain</a> addresses as payout addresses.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 17,
   "updated_at": "2025-06-06T18:11:31.526Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 27.6,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"vnprc, post:1, topic:1753\"]\nAt btc++ last month I attended this [excellent talk](https://www.youtube.com/watch?v=EKQvDfmQkt8&t=8910s) on the design of the DATUM protocol and I was very surprised to learn how difficult it is for Ocean to provide these noncustodial fanout transactions. **The vast majority of the problem is Antminer firmware restrictions on the size of the coinbase.**\n\nIn order to work around this limitation Ocean not only has to fingerprint miner hardware and keep track of multiple work templates per account but they are also unable to tightly control the coinbase of the blocks their miners produce. Open source ASIC firmware like Bitaxe\u2019s [ESP-miner](https://github.com/bitaxeorg/ESP-Miner) allows a very large coinbase transaction, limited only by the available memory on the ESP. **But Antminer firmware is the most restrictive, allowing just over a dozen outputs in the coinbase.**\n[/quote]\n\nThanks for writing this post. I have added Coinbase Playground in https://en.bitcoin.it/wiki/Covenants_Uses\n\nIIUC this solves 2 problems without involving ASP:\n\n1. Antminer [coinbase size limit](https://x.com/GrassFedBitcoin/status/1832473863537717308)\n2. Leaves room to add more transactions in block (i.e. more fees)\n\nNote: Miners can use [ark on-chain](https://docs.second.tech/getting-started/barking-on-signet/advanced/) addresses as payout addresses.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Thanks for writing this post. I have added Coinbase Playground in <a href=\"https://en.bitcoin.it/wiki/Covenants_Uses\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">Covenants Uses - Bitcoin Wiki</a> \nIIUC this solves 2 problems without involving ASP: \n\nAntminer <a href=\"https://x.com/GrassFedBitcoin/status/1832473863537717308\" rel=\"noopener nofollow ugc\">coinbase size limit</a>\nLeaves room to add more transactions in block (i.e. more fees)\n\nNote: Miners can use <a href=\"https://docs.second.tech/getting-started/barking-on-signet/advanced/\" rel=\"noopener nofollow ugc\">ark on-chain</a> addresses as payout ad&hellip;",
   "truncated": true,
   "post_url": "/t/scaling-noncustodial-mining-payouts-with-ctv/1753/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Hi! Do you have a short list of the well-understood constructs that can be built using these, along with their relative idea maturity(your estimate is fine <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=12\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"> )?</p>\n<p>I think it\u2019d be useful to make it clear what you\u2019re getting. E.g., PTLCs are definitely possible today, but APO-like construction is certainly leaps nicer!</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-01-07T20:31:47.999Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 25,
-  "readers_count": 24,
-  "score": 50.0,
+  "incoming_link_count": 855,
+  "reads": 106,
+  "readers_count": 105,
+  "score": 4361.2,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 4
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hi! Do you have a short list of the well-understood constructs that can be built using these, along with their relative idea maturity(your estimate is fine :slight_smile: )? \nI think it\u2019d be useful to make it clear what you\u2019re getting. E.g., PTLCs are definitely possible today, but APO-like construc&hellip;",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/5",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 4
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

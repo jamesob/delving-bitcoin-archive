@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"19\" data-topic=\"340\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>is there a reason to necessarily allow more than 1 unconfirmed ancestor for an ephemeral anchor type fee bump transaction?</p>\n</blockquote>\n</aside>\n<p>I mean, it\u2019d be nice for batched CPFP! There are no known designs to do that that are pin-resistant though.</p>\n<aside class=\"quote no-group\" data-username=\"moonsettler\" data-post=\"19\" data-topic=\"340\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/moonsettler/48/38_2.png\" class=\"avatar\"> moonsettler:</div>\n<blockquote>\n<p>if only the anchor itself is unconfirmed, what mempool pinning tactics are possible?</p>\n</blockquote>\n</aside>\n<p>not entirely sure what the question is, mind rewording?</p>",
   "post_number": 20,
   "post_type": 1,
+  "posts_count": 41,
   "updated_at": "2024-01-07T20:27:40.566Z",
   "reply_count": 1,
   "reply_to_post_number": 19,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 22.4,
+  "reads": 60,
+  "readers_count": 59,
+  "score": 32.0,
   "yours": false,
   "topic_id": 340,
   "topic_slug": "v3-transaction-policy-for-anti-pinning",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I mean, it\u2019d be nice for batched CPFP! There are no known designs to do that that are pin-resistant though. \n\nnot entirely sure what the question is, mind rewording?",
+  "truncated": true,
+  "post_url": "/t/v3-transaction-policy-for-anti-pinning/340/20",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

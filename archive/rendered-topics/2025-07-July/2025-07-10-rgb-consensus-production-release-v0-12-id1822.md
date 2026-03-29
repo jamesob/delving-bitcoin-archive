@@ -1,6 +1,6 @@
 # RGB consensus production release v0.12
 
-dr-orlovsky | 2025-07-10 13:50:13 UTC | #1
+dr-orlovsky | 2025-07-16 16:48:24 UTC | #1
 
 The LNP/BP Standards Association is excited to announce **the final production-ready release of the RGB smart contracts consensus layer (v0.12)!**
 

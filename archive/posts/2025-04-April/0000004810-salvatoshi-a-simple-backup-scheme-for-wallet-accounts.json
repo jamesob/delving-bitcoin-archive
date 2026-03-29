@@ -7,15 +7,15 @@
   "cooked": "<p>Good point, I added a note to mention to not use it with such descriptors.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 31,
   "updated_at": "2025-04-16T17:28:51.370Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 2.2,
+  "reads": 69,
+  "readers_count": 68,
+  "score": 28.8,
   "yours": false,
   "topic_id": 1607,
   "topic_slug": "a-simple-backup-scheme-for-wallet-accounts",
@@ -38,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 247,
     "username": "1440000bytes",
     "name": "/dev/fd0",
     "avatar_template": "/user_avatar/delvingbitcoin.org/1440000bytes/{size}/301_2.png"
   },
   "bookmarked": false,
   "raw": "Good point, I added a note to mention to not use it with such descriptors.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -59,8 +65,18 @@
   "excerpt": "Good point, I added a note to mention to not use it with such descriptors.",
   "truncated": true,
   "post_url": "/t/a-simple-backup-scheme-for-wallet-accounts/1607/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks <a class=\"mention\" href=\"/u/amiti\">@amiti</a> for the detailed answer.</p>\n<p>Regarding the random fee, I have implemented the fee calculation as suggested by AJ: <code>estimatesmartfee 5</code> multiplied by <code>exp(random()*0.2-0.1)</code> so it will not be completely random but will be estimatesmartfee \u00b1 10% for a small amount of variability.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 12,
   "updated_at": "2024-01-31T12:43:52.567Z",
   "reply_count": 0,
   "reply_to_post_number": 11,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 46.8,
+  "incoming_link_count": 2,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 60.6,
   "yours": false,
   "topic_id": 294,
   "topic_slug": "warnet-increase-tx-relay-rate",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 4,
     "username": "amiti",
     "name": "",
     "avatar_template": "/letter_avatar_proxy/v4/letter/a/e5b9ba/{size}.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thanks <a class=\"mention\" href=\"/u/amiti\">@amiti</a> for the detailed answer. \nRegarding the random fee, I have implemented the fee calculation as suggested by AJ: estimatesmartfee 5 multiplied by exp(random()*0.2-0.1) so it will not be completely random but will be estimatesmartfee \u00b1 10% for a small amount of variability.",
+  "truncated": true,
+  "post_url": "/t/warnet-increase-tx-relay-rate/294/12",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,15 +7,15 @@
   "cooked": "<p>Addenda:</p>\n<p>this approach doesn\u2019t actually require OP_CODESEPARATOR at all it seems, as if you have the DUP contained in both scriptsig and scriptPubKey, following the signature, the FindAndDelete behavior will run more or less identically.</p>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 16,
+  "posts_count": 22,
   "updated_at": "2025-04-20T21:24:17.688Z",
   "reply_count": 0,
   "reply_to_post_number": 15,
   "quote_count": 0,
-  "incoming_link_count": 8,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 74.6,
+  "incoming_link_count": 9,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 86.0,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 224,
     "username": "JeremyRubin",
     "name": "Jeremy Rubin",
     "avatar_template": "/user_avatar/delvingbitcoin.org/jeremyrubin/{size}/264_2.png"
@@ -78,5 +79,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

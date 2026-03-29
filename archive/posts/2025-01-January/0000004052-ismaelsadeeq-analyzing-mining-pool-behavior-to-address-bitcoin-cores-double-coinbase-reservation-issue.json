@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks so much for looking into this in depth</p>\n<aside class=\"quote no-group\" data-username=\"0xB10C\" data-post=\"3\" data-topic=\"1351\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/0xb10c/48/15_2.png\" class=\"avatar\"> 0xB10C:</div>\n<blockquote>\n<p>I was surprised by this.</p>\n</blockquote>\n</aside>\n<p>Same, but unfortunately, I did not account for the block header size.\nIt all makes sense now.</p>\n<p>I\u2019ll strike that through and note that the small increase is due to the size of the block headers.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2025-01-13T20:21:16.934Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 1,
-  "incoming_link_count": 14,
-  "reads": 27,
-  "readers_count": 26,
-  "score": 85.2,
+  "incoming_link_count": 78,
+  "reads": 35,
+  "readers_count": 34,
+  "score": 402.0,
   "yours": false,
   "topic_id": 1351,
   "topic_slug": "analyzing-mining-pool-behavior-to-address-bitcoin-cores-double-coinbase-reservation-issue",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 16,
     "username": "0xB10C",
     "name": "0xB10C",
     "avatar_template": "/user_avatar/delvingbitcoin.org/0xb10c/{size}/15_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thanks so much for looking into this in depth \n\nSame, but unfortunately, I did not account for the block header size.\nIt all makes sense now. \nI\u2019ll strike that through and note that the small increase is due to the size of the block headers.",
+  "truncated": true,
+  "post_url": "/t/analyzing-mining-pool-behavior-to-address-bitcoin-cores-double-coinbase-reservation-issue/1351/5",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

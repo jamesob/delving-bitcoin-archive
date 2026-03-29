@@ -64,7 +64,7 @@ I will be happy for feedback since I have never heard any complaint other than `
 
 -------------------------
 
-jsarenik | 2025-05-12 16:22:22 UTC | #2
+jsarenik | 2025-05-13 15:10:29 UTC | #2
 
 In extension to this anecdotal thought I would like to say that a witness of any SHA256 hash consisting of two octets (two bytes, 0xFFFF maximum) can be easily put into the locktime of a transaction. This does not influence the raw transaction size.
 
@@ -103,7 +103,7 @@ The SHA256 of above preformatted plaintext obtained on the command line with `sh
    ak:   7.15 c.
 ```
 
-Here is a Testnet4 example transaction:
+Here is a Testnet4 example transaction (note its Locktime; 0x7015=28693)
 
 https://mempool.space/testnet4/tx/6a955b1e60ab64473f38b6dbc8355e7eb42c32bcf0c45e8d4c14f6a490167bab?mode=details
 

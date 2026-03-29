@@ -7,15 +7,15 @@
   "cooked": "<p>I think the <a class=\"mention\" href=\"/u/robinlinus\">@RobinLinus</a> and <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> interactions on the BitVM &amp; CTV+CSFS thread illustrates the subtle foot guns that come with OP_CTV as an OP_NOP and OP_SUCCESS. I don\u2019t think I would have caught this subtle vulnerability that comes with supporting legacy Script.</p>\n<p>This interaction occurred after the posts on this thread arguing about OP_NOP support, so I feel like its worthwhile to highlight it here.</p>\n<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"8\" data-topic=\"1591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"><a href=\"https://delvingbitcoin.org/t/how-ctv-csfs-improves-bitvm-bridges/1591/8\">How CTV+CSFS improves BitVM bridges</a></div>\n<blockquote>\n<p>where <code>&lt;H&gt;</code> locks in where the output goes to, and input 2\u2019s scriptSig. But because H is only committing to the second input\u2019s scriptSig, then it\u2019s easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey <code>OP_2DROP OP_TRUE</code>:</p>\n<pre><code class=\"lang-auto\">utxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE\n\ninput 1: utxo A, no witness/scriptSig\ninput 2: utxo C, scriptSig = \"&lt;S;NONE|ANYONECANPAY&gt;\" \"&lt;P&gt; CHECKSIG\"\noutput: whatever\n</code></pre>\n<p>That allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you\u2019re trying to enforce.</p>\n<p>(I\u2019m assuming in a real example utxo B\u2019s spend condition is more complicated than <code>&lt;P&gt; CHECKSIG</code>, as otherwise the availability of a NONE|ANYONECANPAY signature means it can be spent immediately, so a griefer could fairly easily prevent the happy path from ever being taken)</p>\n</blockquote>\n</aside>\n<p>It seems like this could be worked around since OP_CTV does commit to the scriptSig according to instagibbs</p>\n<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"9\" data-topic=\"1591\" data-full=\"true\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"><a href=\"https://delvingbitcoin.org/t/how-ctv-csfs-improves-bitvm-bridges/1591/9\">How CTV+CSFS improves BitVM bridges</a></div>\n<blockquote>\n<p>The scriptSig could include the <code>CHECKSIG</code> opcode directly, contra standardness rules. <img src=\"https://delvingbitcoin.org/images/emoji/twitter/grimacing.png?v=14\" title=\":grimacing:\" class=\"emoji\" alt=\":grimacing:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>In the original idea, a p2sh redeemscript is just pushes, so the spk could just be blank and it would pass, since cleanstack isn\u2019t consensus anyways.</p>\n</blockquote>\n</aside>\n<p>However this seems rather unpleasant.</p>\n<p>I think Jeremy Rubin is conceding the point that at least for p2sh OP_CTV is broken?</p>\n<aside class=\"quote no-group\" data-username=\"JeremyRubin\" data-post=\"11\" data-topic=\"1591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/jeremyrubin/48/264_2.png\" class=\"avatar\"><a href=\"https://delvingbitcoin.org/t/how-ctv-csfs-improves-bitvm-bridges/1591/11\">How CTV+CSFS improves BitVM bridges</a></div>\n<blockquote>\n<p>This is an interesting point; without some sort of \u201cstack sentinel\u201d that guarantees a specific script type, using CTV as a gadget for any P2SH type seems broken, as you can replace it with a legacy script that does something else. This is \u201cconfusing\u201d because you cannot replace it with a p2sh script that does something else. I can make an effort to better document this issue\u2026</p>\n</blockquote>\n</aside>\n<p>Which leaves us with only spending \u201craw\u201d/\u201cbare\u201d outputs to be able to commit to meaningful data in the scriptSig with CTV.</p>\n<p>Is the juice really worth the squeeze for committing to scriptSig data?</p>",
   "post_number": 69,
   "post_type": 1,
-  "posts_count": 70,
+  "posts_count": 81,
   "updated_at": "2025-06-05T21:47:46.280Z",
   "reply_count": 1,
   "reply_to_post_number": 41,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 9.4,
+  "incoming_link_count": 1,
+  "reads": 63,
+  "readers_count": 62,
+  "score": 37.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I think the @RobinLinus and @ajtowns interactions on the BitVM & CTV+CSFS thread illustrates the subtle foot guns that come with OP_CTV as an OP_NOP and OP_SUCCESS. I don't think I would have caught this subtle vulnerability that comes with supporting legacy Script. \n\nThis interaction occurred after the posts on this thread arguing about OP_NOP support, so I feel like its worthwhile to highlight it here.\n\n[quote=\"ajtowns, post:8, topic:1591\"]\nwhere `<H>` locks in where the output goes to, and input 2\u2019s scriptSig. But because H is only committing to the second input\u2019s scriptSig, then it\u2019s easy to construct another utxo that can be used instead, eg one with the (non-standard) scriptPubKey `OP_2DROP OP_TRUE`:\n\n```\nutxo C:  500 sats, scriptPubKey: OP_2DROP OP_TRUE\n\ninput 1: utxo A, no witness/scriptSig\ninput 2: utxo C, scriptSig = \"<S;NONE|ANYONECANPAY>\" \"<P> CHECKSIG\"\noutput: whatever\n```\n\nThat allows utxo A to be spent via the CTV path independently of whether utxo B has already been spent/burnt, which, as far as I can see, breaks the protocol you\u2019re trying to enforce.\n\n(I\u2019m assuming in a real example utxo B\u2019s spend condition is more complicated than `<P> CHECKSIG`, as otherwise the availability of a NONE|ANYONECANPAY signature means it can be spent immediately, so a griefer could fairly easily prevent the happy path from ever being taken)\n[/quote]\n\nIt seems like this could be worked around since OP_CTV does commit to the scriptSig according to instagibbs\n\n[quote=\"instagibbs, post:9, topic:1591, full:true\"]\nThe scriptSig could include the `CHECKSIG` opcode directly, contra standardness rules. :grimacing:\n\nIn the original idea, a p2sh redeemscript is just pushes, so the spk could just be blank and it would pass, since cleanstack isn\u2019t consensus anyways.\n[/quote]\n\nHowever this seems rather unpleasant. \n\nI think Jeremy Rubin is conceding the point that at least for p2sh OP_CTV is broken? \n\n[quote=\"JeremyRubin, post:11, topic:1591\"]\nThis is an interesting point; without some sort of \u201cstack sentinel\u201d that guarantees a specific script type, using CTV as a gadget for any P2SH type seems broken, as you can replace it with a legacy script that does something else. This is \u201cconfusing\u201d because you cannot replace it with a p2sh script that does something else. I can make an effort to better document this issue\u2026\n[/quote]\n\nWhich leaves us with only spending \"raw\"/\"bare\" outputs to be able to commit to meaningful data in the scriptSig with CTV.\n\nIs the juice really worth the squeeze for committing to scriptSig data?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,18 @@
   "excerpt": "I think the <a class=\"mention\" href=\"/u/robinlinus\">@RobinLinus</a> and <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> interactions on the BitVM &amp; CTV+CSFS thread illustrates the subtle foot guns that come with OP_CTV as an OP_NOP and OP_SUCCESS. I don\u2019t think I would have caught this subtle vulnerability that comes with supporting legacy Script. \nThis interaction occurred after &hellip;",
   "truncated": true,
   "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/69",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

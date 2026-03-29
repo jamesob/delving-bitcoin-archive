@@ -7,14 +7,15 @@
   "cooked": "<p>When we receive a transaction that would bust a mempool transaction\u2019s descendant limits, we usually reject it (unless it is eligible for CPFP carve out).</p>\n<p>An alternative approach (e.g. when this transaction is very high feerate and it\u2019d be a shame to let it go) is to consider evicting the least incentive compatible descendant in favor of this new transaction. That way we don\u2019t compromise on our anti-DoS-motivated descendant limit (like we do with CPFP carve out), but don\u2019t need to be stuck with the one we received earlier.</p>\n<p>Let\u2019s define <strong>sibling eviction</strong> as triggering the eviction of a <em>non-conflicting</em> descendant of your ancestor based on incentive compatibility. It is similar to RBF, but an important distinction is that you don\u2019t spend conflicting inputs.</p>\n<p>Ephemeral Anchors emulates sibling eviction by having a \u201cmust spend\u201d anchor to basically force all children to conflict with each other (general idea credit to instagibbs who suggested this at that LN meeting in 2022).</p>\n<p>A few concerns then were:\n(1) This is full-rbf-y (what if the sibling didn\u2019t signal RBF? What if wallets aren\u2019t expecting any possible replacements?)\n(2) It\u2019s very complex to choose which descendant(s) to evict. There are many possible combinations especially if the problem is that we hit the descendant vsize limit. This transaction might also have multiple ancestors. Short of cluster mempool / feerate diagram tools, this problem seemed intractable.\n(3) Is this incentive compatible?</p>\n<p>Problems (1) and (2) are easy to fix with v3. V3 transactions all signal replaceability, so the \u201cfull-rbf-iness\u201d shouldn\u2019t be a concern. And (2) is trivial in v3, since there is only 1 possible descendant and this child cannot have multiple ancestors (credit to sdaftuar for pointing this out to me, leading me to try to implement it).</p>\n<p>One way of looking at (3) is that if we had just received these two descendants in the opposite order, we would have kept the other one. With the framework that our descendant limit is the maximum we can handle before we have DoS and pinning problems, we should just be trying to get the most incentive compatible set of transactions that fits in that limit.</p>\n<p>An implementation: <a href=\"https://github.com/bitcoin/bitcoin/pull/29306\" class=\"inline-onebox\">policy: enable sibling eviction for v3 transactions by glozow \u00b7 Pull Request #29306 \u00b7 bitcoin/bitcoin \u00b7 GitHub</a></p>\n<p>We apply the RBF rules to these sibling evictions, not just because we get to reuse all the code, but because there are similar requirements wrt incentive compatibility increase and limiting the bandwidth/validation cost. For example, we don\u2019t want to allow 2 siblings to evict each other over and over again with 1 additional sat each time.</p>\n<h3><a name=\"benefits-1\" class=\"anchor\" href=\"#benefits-1\"></a>Benefits:</h3>\n<p>(1) We can easily do the imbued v3 logic for existing LN commitment transactions, even though they have 2 anchors.</p>\n<p>There was a <a href=\"https://delvingbitcoin.org/t/lightning-transactions-with-v3-and-ephemeral-anchors/418/2\">suggestion</a> to pattern-match LN commitment transactions and automatically enroll them under the v3 policy rules if it takes a while for LN to switch to using v3.</p>\n<p>One obstacle is the fact that, currently, commitment transactions have two anchors, while v3 only supports a 1-parent-1-child topology. What about implementations that try to bump remote transactions in mempool? Even if everyone stops doing that, what if your remote broadcasts and spends your tx with a low-feerate child (thus blocking you from bumping yours)?</p>\n<p>With sibling eviction, local and remote\u2019s CPFPs (each no more than 1000vB) can evict each other. We wouldn\u2019t need to roll a new 1p2c or v3+carveout topology.</p>\n<p>(2) It makes v3 work nicely for transactions shared between n&gt;2 parties who might want to CPFP without a dedicated anchor. Imagine e.g. a v3 coinjoin - if somebody wants to CPFP, they can do so using their output, evicting somebody else\u2019s child if they lowballed their bump.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-01-25T09:43:22.914Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 9,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 64.2,
+  "incoming_link_count": 233,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 1201.0,
   "yours": false,
   "topic_id": 472,
   "topic_slug": "sibling-eviction-for-v3-transactions",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -54,7 +56,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "When we receive a transaction that would bust a mempool transaction\u2019s descendant limits, we usually reject it (unless it is eligible for CPFP carve out). \nAn alternative approach (e.g. when this transaction is very high feerate and it\u2019d be a shame to let it go) is to consider evicting the least ince&hellip;",
+  "truncated": true,
+  "post_url": "/t/sibling-eviction-for-v3-transactions/472/1",
   "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 2
+    },
     {
       "id": "+1",
       "type": "emoji",
@@ -67,6 +77,11 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 4,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

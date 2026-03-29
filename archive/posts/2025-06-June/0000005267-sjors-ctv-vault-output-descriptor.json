@@ -7,15 +7,15 @@
   "cooked": "<p>Given the <a href=\"https://groups.google.com/g/bitcoindev/c/KJF6A55DPJ8/m/ZWhVgOm7AQAJ\">renewed effort</a> to prioritise <code>OP_CTV</code> (<a href=\"https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0119.mediawiki\">BIP 119</a>) over other soft forks that can enable vaults (e.g. <code>OP_CCV</code>) and the <a href=\"https://delvingbitcoin.org/t/withdrawing-op-vault-bip-345/1670\">withdrawal of OP_VAULT</a>, it\u2019s useful to revisit how one can build vaults with OP_CTV.</p>\n<p><a class=\"mention\" href=\"/u/jamesob\">@jamesob</a> designed such a vault a few years ago:</p>\n<aside class=\"onebox githubrepo\" data-onebox-src=\"https://github.com/jamesob/simple-ctv-vault\">\n  <header class=\"source\">\n\n      <a href=\"https://github.com/jamesob/simple-ctv-vault\" target=\"_blank\" rel=\"noopener\">github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <div class=\"github-row\" data-github-private-repo=\"false\">\n  <img width=\"690\" height=\"344\" src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/9/9066ba3c0b0bd15d3dcf1cf268455ef910e754b8_2_690x344.png\" class=\"thumbnail\" data-dominant-color=\"E8E9EB\">\n\n  <h3><a href=\"https://github.com/jamesob/simple-ctv-vault\" target=\"_blank\" rel=\"noopener\">GitHub - jamesob/simple-ctv-vault: A simple vault structure using OP_CTV</a></h3>\n\n    <p><span class=\"github-repo-description\">A simple vault structure using OP_CTV</span></p>\n</div>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<blockquote>\n<p>OP_CTV allows the vault strategy to be used without the need to maintain critical presigned transaction data for the lifetime of the vault, as in the case of earlier vault implementations. This approach is much simpler operationally, since all relevant data aside from key material can be regenerated algorithmically. This makes vaulting more practical at any scale.</p>\n</blockquote>\n<p>It could be modernised to make use of ephemeral (dust) anchors (see <a href=\"https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0431.mediawiki\">BIP 341</a>), and to use taproot script paths rather than <code>OP_IF</code>.</p>\n<p>But for any vault construction to be useful in wallets, it needs to either fit in the existing <a href=\"https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0380.mediawiki\">BIP 380</a> output descriptor paradigm or develop an alternative.</p>\n<p>In the context of <code>OP_CHECKCONTRACTVERIFY</code> (<code>OP_CCV</code>, <a href=\"https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0443.mediawiki\">BIP 443</a>) <a class=\"mention\" href=\"/u/salvatoshi\">@salvatoshi</a> <a href=\"https://github.com/bitcoin/bips/pull/1793#issuecomment-2749295131\">wrote</a>:</p>\n<blockquote>\n<p>My general take is that descriptors are the wrong tool for this purpose: a spend from UTXO X to UTXO Y where f(Y) = X needs to somehow encode the relation between X and Y as a <em>predicate</em> . While you could do that (every program is a predicate, and every program expressible in Script is a predicate that can be expressed in a tree structure like miniscript\u2026) it quickly becomes unmanageable.</p>\n</blockquote>\n<p>Perhaps this reasoning applies to <code>OP_CTV</code> as well. But given that it\u2019s less powerful, perhaps for a simple use case like vaults it can still work? It would be more likely to gain adoption given existing infrastructure.</p>\n<p>Let\u2019s take a simple 2-of-2 multisig, where after an N block delay either party can spend the coins.</p>\n<p>This can already be done, e.g. with Alice (<code>A</code>) and Bob (<code>B</code>):</p>\n<p><code>tr(musig(A, B), {and_v(pk(A), older(N)),...})</code></p>\n<p>However this requires Alice and Bob to move their coins at least every <code>N</code> blocks. Higher values of <span class=\"math\">N</span> means fewer such movements, but also a slower recovery time. Additionally <a href=\"https://github.com/bitcoin/bips/blob/dbb9617e5f2c3e99d2d07f0b82dbb4ad861ad06e/bip-0068.mediawiki#compatibility\">BIP 68</a> limits relative time and height locks to about a year, so coins have to be rotated at least that often.</p>\n<p>This is where a (CTV) vault can come in handy.</p>\n<p>The key path remains <code>musig(A, B)</code>, but the script paths allow either party, e.g. Alice, to move coins into a vault. After N blocks Alice can move the coins using a pre-determined key under her control (e.g. just <code>A</code>).</p>\n<p>If Alice believes her key was compromised, or if Bob didn\u2019t actually lose his key, either of them can immediately and without a signature send the coins back. Back <em>where</em> though?</p>\n<p>With CCV the vault could be recursive, but afaik not with CTV. That\u2019s ok because we wouldn\u2019t want to go in circles anyway. Instead the fallback could be the design we started out with: <code>tr(musig(A, B), {and_v(pk(A), older(N)),...})</code>. That gives both parties N blocks time to sort things out between them, after which either side can move the coins. Including the delay of the vault itself, they have <code>2 * N</code> blocks time.</p>\n<p>So what would this look like as descriptor? How about:</p>\n<p><code>tr(musig(A, B),{and_v(pk(A),ctv(musig(A, B), {unvault_cold, unvault_hot}), ...})</code></p>\n<p>Where:</p>\n<ul>\n<li><code>unvault_hot</code> is <code>and_v(older(N), pk(A))</code></li>\n<li><code>unvault_cold</code> is <code>ctv(musig(A, B), {and_v(pk(A), older(N)),...})</code></li>\n</ul>\n<p>Unvaulting back to cold can be done without any signature, hence the nested <code>ctv()</code>, which is good when Alice and/or Bob are racing an attacker. But if they have some extra time, they could double-spend the unsigned unvault using the <code>musig(A,B)</code> keypath and send coins straight to where they want it (even back to the original vault).</p>\n<p>The <code>ctv</code> fragment has the same syntax as the <code>tr()</code> descriptor and would have very limited functionality here. It\u2019s just the key path and list of script paths that the committed transaction must send to. Perhaps it should be called <code>vault()</code>.</p>\n<p>Assuming the above makes any sense, it\u2019d love to see someone implement it\u2026</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 9,
   "updated_at": "2025-06-10T12:12:07.538Z",
   "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 8,
-  "reads": 25,
-  "readers_count": 24,
-  "score": 85.0,
+  "incoming_link_count": 89,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 511.0,
   "yours": false,
   "topic_id": 1766,
   "topic_slug": "ctv-vault-output-descriptor",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -63,10 +63,15 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.0,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 2.0,
   "yours": false,
   "topic_id": 1672,
   "topic_slug": "path-queries-addressing-payment-reliability-and-routing-limitations",
@@ -57,5 +57,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

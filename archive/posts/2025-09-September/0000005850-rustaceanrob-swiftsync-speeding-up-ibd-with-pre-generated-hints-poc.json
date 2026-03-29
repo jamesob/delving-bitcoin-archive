@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 108.8,
+  "incoming_link_count": 3,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 187.6,
   "yours": false,
   "topic_id": 1562,
   "topic_slug": "swiftsync-speeding-up-ibd-with-pre-generated-hints-poc",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 6
+      "count": 9
     }
   ],
   "moderator": false,
@@ -66,6 +66,11 @@
       "count": 3
     },
     {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 3
+    },
+    {
       "id": "clap",
       "type": "emoji",
       "count": 2
@@ -77,7 +82,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 6,
+  "reaction_users_count": 9,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

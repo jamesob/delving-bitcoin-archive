@@ -13,9 +13,9 @@
   "reply_to_post_number": 15,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 17.8,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 19.8,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -74,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

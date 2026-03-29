@@ -2,19 +2,20 @@
   "id": 195,
   "name": "James O'Beirne",
   "username": "jamesob",
-  "avatar_template": "/letter_avatar_proxy/v4/letter/j/958977/{size}.png",
+  "avatar_template": "/user_avatar/delvingbitcoin.org/jamesob/{size}/271_2.png",
   "created_at": "2023-09-28T18:33:29.993Z",
   "cooked": "<p>I\u2019d like to propose a softfork deployment that activates the consensus changes outlined in</p>\n<ul>\n<li><a href=\"https://github.com/bitcoin/bips/blob/7004ad1a825a0422b78bbf1a96bf748d5e380569/bip-0118.mediawiki\">BIP-118</a> (<code>SIGHASH_ANYPREVOUT</code> for Taproot Scripts)</li>\n<li><a href=\"https://github.com/bitcoin/bips/blob/7004ad1a825a0422b78bbf1a96bf748d5e380569/bip-0119.mediawiki\">BIP-119</a> (<code>CHECKTEMPLATEVERIFY</code>)</li>\n<li><a href=\"https://github.com/jamesob/bips/blob/4aae726be9610a675b362e66f539ce0d5f903a5f/bip-0345.mediawiki\">BIP-345</a> (<code>OP_VAULT</code>)</li>\n</ul>\n<p>These changes make possible a number of use-cases that are broadly beneficial to users of Bitcoin, including</p>\n<ul>\n<li><a href=\"https://bitcoinops.org/en/topics/vaults/\">vaults</a> (reactive custodial security),</li>\n<li><a href=\"https://bitcoinops.org/en/topics/eltoo/\">LN-Symmetry</a>,</li>\n<li>efficient implementations of <a href=\"https://bitcoinops.org/en/topics/discreet-log-contracts/\">DLCs</a>,</li>\n<li><a href=\"https://utxos.org/uses/non-interactive-channels/\">non-interactive channel openings</a>,</li>\n<li><a href=\"https://utxos.org/uses/scaling/\">congestion control</a>,</li>\n<li>decentralized mining pools (via <a href=\"https://utxos.org/uses/miningpools/\">CTV compression in coinbase payouts</a>),</li>\n<li>various <a href=\"https://twitter.com/roasbeef/status/1692589689939579259\">Lightning efficiency improvements</a>,</li>\n<li>using <a href=\"https://bitcoinops.org/en/newsletters/2023/09/27/\">covenant based timeout-trees</a> to scale Lightning, and more generally enabling <a href=\"https://bitcoinops.org/en/topics/channel-factories/\">channel factories</a>.</li>\n</ul>\n<p>We also see that many speculative scaling solutions (e.g. <a href=\"https://arkpill.me\">Ark</a>, <a href=\"https://gist.github.com/RubenSomsen/c9f0a92493e06b0e29acced61ca9f49a#spacechains\">Spacechains</a>) require locking coins to be spent to a particular set of outputs without any additional authorization (i.e. CTV, or APO\u2019s emulation of it).</p>\n<hr>\n<p>The patches for BIP-118 and BIP-119 have long been stable and well scrutinized; they each haven\u2019t changed in some time.</p>\n<p>BIP-345 (OP_VAULT) is the newest of the three by a good margin, and originally I was going to exclude it from this proposal. But after a number of discussions, it became clear that BIP-345 may be the most immediately usable of the three in terms of a major use-case:</p>\n<ul>\n<li>LN-symmetry (the major use of ANYPREVOUT) will require a good amount of time to coordinate deployment, and</li>\n<li>CTV, while an important primitive, has mostly niche direct uses (DLC efficiency, possible decentralized mining pools, congestion control, \u2026) outside of BIP-345-style vaults.</li>\n</ul>\n<p>Vaults with BIP-345, on the other hand, would be delayed only by the speed of wallet implementers. <a href=\"https://github.com/jamesob/opvault-demo/\">Example wallet implementations</a> already exist, and the appetite for safer modes of custody is almost universally present among both industrial and individual users.</p>\n<p>The implementation for these consensus changes is only about <a href=\"https://github.com/bitcoin/bitcoin/compare/master...jamesob:bitcoin:2023-09-covtools-softfork?\">7,000 lines</a>, and that includes comprehensive testing. The limited nature of these changes relative to the last two softforks that we\u2019ve had in Bitcoin give me some comfort in proposing the relatively young code for BIP-345 \u2013 with focused effort, the limited line count and tight scope will make it a tractable deployment to review.</p>\n<p>I will be opening this branch as a draft PR in the Core repo.</p>\n<p>The activation mechanism is currently drafted as the same modified version of BIP-9 <a href=\"https://en.bitcoin.it/wiki/BIP_0341#Deployment\">described in BIP-341</a>, but I am agnostic in this department. There is currently no signaling period specified - we will wait until further indications of consensus before choosing specific dates.</p>\n<p>What do you think?</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 25,
   "updated_at": "2023-09-28T18:38:38.957Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 280,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 1414.8,
+  "incoming_link_count": 673,
+  "reads": 93,
+  "readers_count": 92,
+  "score": 3498.6,
   "yours": false,
   "topic_id": 98,
   "topic_slug": "covenant-tools-softfork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 5
     }
   ],
   "moderator": false,
@@ -54,14 +56,22 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I\u2019d like to propose a softfork deployment that activates the consensus changes outlined in \n\n<a href=\"https://github.com/bitcoin/bips/blob/7004ad1a825a0422b78bbf1a96bf748d5e380569/bip-0118.mediawiki\">BIP-118</a> (SIGHASH_ANYPREVOUT for Taproot Scripts)\n<a href=\"https://github.com/bitcoin/bips/blob/7004ad1a825a0422b78bbf1a96bf748d5e380569/bip-0119.mediawiki\">BIP-119</a> (CHECKTEMPLATEVERIFY)\n<a href=\"https://github.com/jamesob/bips/blob/4aae726be9610a675b362e66f539ce0d5f903a5f/bip-0345.mediawiki\">BIP-345</a> (OP_VAULT)\n\nThese changes make possible a number of use-cases that are broadly beneficial to users of Bitcoin, including &hellip;",
+  "truncated": true,
+  "post_url": "/t/covenant-tools-softfork/98/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 5
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 5,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

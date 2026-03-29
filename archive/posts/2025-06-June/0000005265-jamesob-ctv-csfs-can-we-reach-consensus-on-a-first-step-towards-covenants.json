@@ -7,15 +7,15 @@
   "cooked": "<p>Another more practical point in favor of making CTV available in witness v0 is that many (or most?) HSMs do not yet natively support Schnorr signatures - and for existing installations, may never. There is likely overlap between companies who currently use such HSMs (making witness v0 the default) and companies who would like to make use of CTV vaults.</p>",
   "post_number": 76,
   "post_type": 1,
-  "posts_count": 74,
+  "posts_count": 81,
   "updated_at": "2025-06-10T01:10:30.094Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 26,
-  "readers_count": 25,
-  "score": 10.2,
+  "incoming_link_count": 20,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 162.2,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Another more practical point in favor of making CTV available in witness v0 is that many (or most?) HSMs do not yet natively support Schnorr signatures - and for existing installations, may never. There is likely overlap between companies who currently use such HSMs (making witness v0 the default) and companies who would like to make use of CTV vaults.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Another more practical point in favor of making CTV available in witness v0 is that many (or most?) HSMs do not yet natively support Schnorr signatures - and for existing installations, may never. There is likely overlap between companies who currently use such HSMs (making witness v0 the default) a&hellip;",
   "truncated": true,
   "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/76",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 3
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

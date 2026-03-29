@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"amiti\" data-post=\"1\" data-topic=\"194\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/a/e5b9ba/48.png\" class=\"avatar\"> amiti:</div>\n<blockquote>\n<p>this graph shows memory usage broken down by max &amp; current, for connections with relay enabled or not. <em>y axis: number of bytes, x axis: different nodes.</em></p>\n</blockquote>\n</aside>\n<p>Thanks for sharing this! I think the labels for <code>max_no_relay</code> and <code>cur_no_relay</code> are mixed up (max is lower than current memory usage). If I\u2019m reading this correctly it\u2019s just below 1 MB per full-relay peer?</p>\n<aside class=\"quote no-group\" data-username=\"amiti\" data-post=\"1\" data-topic=\"194\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/a/e5b9ba/48.png\" class=\"avatar\"> amiti:</div>\n<blockquote>\n<p>When <a href=\"https://b10c.me/observations/06-linkinglion/\">LinkingLion</a> is on the prowl, there is high churn of inbound connections. How much memory does each short-lived connections use?</p>\n</blockquote>\n</aside>\n<p>Curious about this too! I\u2019m seeing more than a 100 connections per minute to a few of my nodes. I\u2019m wondering when the memory allocations are made. When the peer connects or during connection lifetime. I think observing memory usage over time would be interesting here too!</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 4,
   "updated_at": "2023-11-16T07:05:19.389Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 28.2,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 47.8,
   "yours": false,
   "topic_id": 194,
   "topic_slug": "per-peer-memory-usage",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -55,14 +57,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thanks for sharing this! I think the labels for max_no_relay and cur_no_relay are mixed up (max is lower than current memory usage). If I\u2019m reading this correctly it\u2019s just below 1 MB per full-relay peer? \n\nCurious about this too! I\u2019m seeing more than a 100 connections per minute to a few of my nod&hellip;",
+  "truncated": true,
+  "post_url": "/t/per-peer-memory-usage/194/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

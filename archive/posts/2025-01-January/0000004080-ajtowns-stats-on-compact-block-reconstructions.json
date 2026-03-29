@@ -7,14 +7,15 @@
   "cooked": "<p>Doing a better job of requesting parents of orphan txs from other peers that offered us the orphan tx might help here too? See <a href=\"https://github.com/bitcoin/bitcoin/pull/31397\">https://github.com/bitcoin/bitcoin/pull/31397</a> merged in master a couple of days ago.</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2025-01-20T14:43:27.958Z",
   "reply_count": 0,
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 18.8,
+  "reads": 67,
+  "readers_count": 66,
+  "score": 28.2,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 16,
     "username": "0xB10C",
     "name": "0xB10C",
     "avatar_template": "/user_avatar/delvingbitcoin.org/0xb10c/{size}/15_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Doing a better job of requesting parents of orphan txs from other peers that offered us the orphan tx might help here too? See <a href=\"https://github.com/bitcoin/bitcoin/pull/31397\">https://github.com/bitcoin/bitcoin/pull/31397</a> merged in master a couple of days ago.",
+  "truncated": true,
+  "post_url": "/t/stats-on-compact-block-reconstructions/1052/9",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

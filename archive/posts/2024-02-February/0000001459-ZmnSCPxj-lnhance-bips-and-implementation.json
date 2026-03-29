@@ -7,14 +7,15 @@
   "cooked": "<p>I have been thinking as well about mechanisms with internal fees, i.e. the funds that will be used to pay onchain fees in case of unilateral exit are inside the mechanism, instead of requiring an additional UTXO to be kept onchain to pay for unilateral exits.  This allows for reduced blockspace use by not requiring anchor outputs and a CPFP-ing transaction, at the cost of requiring funds to be reserved per mechanism for the onchain fee in case of unilateral exit. Here is an attempt to design an extension for <code>OP_CHECKTEMPLATEVERIFY</code> for this: <a href=\"https://delvingbitcoin.org/t/sighash-outputdeltabounds/504/2\" class=\"inline-onebox\">`sighash_outputdeltabounds` - #2 by ZmnSCPxj</a></p>",
   "post_number": 15,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-02-04T12:27:13.569Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 3.4,
+  "incoming_link_count": 3,
+  "reads": 75,
+  "readers_count": 74,
+  "score": 45.0,
   "yours": false,
   "topic_id": 376,
   "topic_slug": "lnhance-bips-and-implementation",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,20 +39,38 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I have been thinking as well about mechanisms with internal fees, i.e. the funds that will be used to pay onchain fees in case of unilateral exit are inside the mechanism, instead of requiring an additional UTXO to be kept onchain to pay for unilateral exits.  This allows for reduced blockspace use by not requiring anchor outputs and a CPFP-ing transaction, at the cost of requiring funds to be reserved per mechanism for the onchain fee in case of unilateral exit. Here is an attempt to design an extension for `OP_CHECKTEMPLATEVERIFY` for this: https://delvingbitcoin.org/t/sighash-outputdeltabounds/504/2?u=zmnscpxj",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 104,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I have been thinking as well about mechanisms with internal fees, i.e. the funds that will be used to pay onchain fees in case of unilateral exit are inside the mechanism, instead of requiring an additional UTXO to be kept onchain to pay for unilateral exits.  This allows for reduced blockspace use &hellip;",
+  "truncated": true,
+  "post_url": "/t/lnhance-bips-and-implementation/376/15",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

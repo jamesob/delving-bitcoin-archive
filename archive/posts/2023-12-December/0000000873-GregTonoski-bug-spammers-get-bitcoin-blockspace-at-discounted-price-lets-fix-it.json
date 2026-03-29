@@ -7,14 +7,15 @@
   "cooked": "<p>Blockspace price for data of a simple transaction is higher than the one for data of other (\u201ccomplex\u201d) transactions, e.g.</p>\n<p>3=616 weight / 205 bytes <a href=\"https://mempool.space/tx/aabbcce67f2aa71932f789cac5468d39e3d2224d8bebb7ca2c3bf8c41d567cdd\" rel=\"noopener nofollow ugc\">aabbcce67f2aa71932f789cac5468d39e3d2224d8bebb7ca2c3bf8c41d567cdd</a></p>\n<p>vs</p>\n<p>1.49=1140 weight / 767 bytes <a href=\"https://mempool.space/tx/1c35521798dde4d1621e9aa5a3bacac03100fca40b6fb99be546ec50c1bcbd4a\" rel=\"noopener nofollow ugc\">1c35521798dde4d1621e9aa5a3bacac03100fca40b6fb99be546ec50c1bcbd4a</a>.</p>\n<p>As a result, there are incentives distorted and critical inefficiencies/vulnerabilities (e.g. misallocation of block space, blockspace value destruction, disincentivised simple transaction, centralization around complex transactions composers).</p>\n<p><strong>Blockspace price shouldn\u2019t be higher for a simple transaction (price discrimination against simple txs)</strong>\nPrice of blockspace should be the same for any data (1 byte = 1 byte, irrespectively of location inside or outside of witness), e.g. 205/205 bytes in the example above.</p>\n<p>Perhaps, the solution (the same price, \u201cweight\u201d of any byte of data in a transaction) could be introduced as part of the next version of Segwit transactions.</p>\n<p>Do you agree?</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 26,
   "updated_at": "2023-12-27T20:54:30.891Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 18.0,
+  "incoming_link_count": 144,
+  "reads": 87,
+  "readers_count": 86,
+  "score": 752.4,
   "yours": false,
   "topic_id": 327,
   "topic_slug": "bug-spammers-get-bitcoin-blockspace-at-discounted-price-lets-fix-it",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -37,20 +39,39 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Blockspace price for data of a simple transaction is higher than the one for data of other (\"complex\") transactions, e.g.\n \n3=616 weight / 205 bytes [aabbcce67f2aa71932f789cac5468d39e3d2224d8bebb7ca2c3bf8c41d567cdd](https://mempool.space/tx/aabbcce67f2aa71932f789cac5468d39e3d2224d8bebb7ca2c3bf8c41d567cdd)\n\nvs\n\n1.49=1140 weight / 767 bytes [1c35521798dde4d1621e9aa5a3bacac03100fca40b6fb99be546ec50c1bcbd4a](https://mempool.space/tx/1c35521798dde4d1621e9aa5a3bacac03100fca40b6fb99be546ec50c1bcbd4a).\n\nAs a result, there are incentives distorted and critical inefficiencies/vulnerabilities (e.g. misallocation of block space, blockspace value destruction, disincentivised simple transaction, centralization around complex transactions composers).\n\n**Blockspace price shouldn't be higher for a simple transaction (price discrimination against simple txs)**\nPrice of blockspace should be the same for any data (1 byte = 1 byte, irrespectively of location inside or outside of witness), e.g. 205/205 bytes in the example above. \n\nPerhaps, the solution (the same price, \"weight\" of any byte of data in a transaction) could be introduced as part of the next version of Segwit transactions.\n\nDo you agree?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 180,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 1,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Blockspace price for data of a simple transaction is higher than the one for data of other (\u201ccomplex\u201d) transactions, e.g. \n3=616 weight / 205 bytes <a href=\"https://mempool.space/tx/aabbcce67f2aa71932f789cac5468d39e3d2224d8bebb7ca2c3bf8c41d567cdd\" rel=\"noopener nofollow ugc\">aabbcce67f2aa71932f789cac5468d39e3d2224d8bebb7ca2c3bf8c41d567cdd</a> \nvs \n1.49=1140 weight / 767 bytes <a href=\"https://mempool.space/tx/1c35521798dde4d1621e9aa5a3bacac03100fca40b6fb99be546ec50c1bcbd4a\" rel=\"noopener nofollow ugc\">1c35521798dde4d1621e9aa5a3bacac03100fca40b6fb99be546e&hellip;</a>",
+  "truncated": true,
+  "post_url": "/t/bug-spammers-get-bitcoin-blockspace-at-discounted-price-lets-fix-it/327/1",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

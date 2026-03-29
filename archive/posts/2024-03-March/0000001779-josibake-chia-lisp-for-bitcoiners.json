@@ -7,14 +7,15 @@
   "cooked": "<p>This is a really cool idea, thanks for the detailed writeup! From the linked discussions, this point resonated with me:</p>\n<blockquote>\n<p>A particular advantage of lisp-like approaches is that they treat code\nand data exactly the same \u2013 so if we\u2019re trying to leave the option open\nfor a transaction to supply some unexpected code on the witness stack,\nthen lisp handles that really naturally: you were going to include data\non the stack anyway, and code and data are the same, so you don\u2019t have\nto do anything special at all</p>\n</blockquote>\n<p>Its also really nice to already have real-world usage, devtooling, known bugs, etc with chialisp.</p>\n<p>Would we be able to take advantage of Formal Verification tooling that exists for LISP? You mention \u201clisp-variant,\u201d which makes me feel like the answer is no, but figured I\u2019d mention it.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 9,
   "updated_at": "2024-03-04T12:51:37.350Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 19.0,
+  "incoming_link_count": 5,
+  "reads": 63,
+  "readers_count": 62,
+  "score": 57.6,
   "yours": false,
   "topic_id": 636,
   "topic_slug": "chia-lisp-for-bitcoiners",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This is a really cool idea, thanks for the detailed writeup! From the linked discussions, this point resonated with me:\n\n> A particular advantage of lisp-like approaches is that they treat code\nand data exactly the same -- so if we're trying to leave the option open\nfor a transaction to supply some unexpected code on the witness stack,\nthen lisp handles that really naturally: you were going to include data\non the stack anyway, and code and data are the same, so you don't have\nto do anything special at all\n\nIts also really nice to already have real-world usage, devtooling, known bugs, etc with chialisp.\n\nWould we be able to take advantage of Formal Verification tooling that exists for LISP? You mention \"lisp-variant,\" which makes me feel like the answer is no, but figured I'd mention it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "This is a really cool idea, thanks for the detailed writeup! From the linked discussions, this point resonated with me: \n\nA particular advantage of lisp-like approaches is that they treat code\nand data exactly the same \u2013 so if we\u2019re trying to leave the option open\nfor a transaction to supply some un&hellip;",
+  "truncated": true,
+  "post_url": "/t/chia-lisp-for-bitcoiners/636/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

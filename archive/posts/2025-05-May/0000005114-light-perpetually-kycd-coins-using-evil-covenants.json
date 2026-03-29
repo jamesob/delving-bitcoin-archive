@@ -13,9 +13,9 @@
   "reply_to_post_number": 16,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 9.6,
+  "reads": 29,
+  "readers_count": 28,
+  "score": 10.8,
   "yours": false,
   "topic_id": 556,
   "topic_slug": "perpetually-kycd-coins-using-evil-covenants",
@@ -57,5 +57,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

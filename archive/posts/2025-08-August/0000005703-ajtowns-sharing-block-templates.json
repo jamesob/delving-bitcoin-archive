@@ -7,15 +7,15 @@
   "cooked": "<p>Draft BIP text:</p>\n<aside class=\"onebox githubblob\" data-onebox-src=\"https://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md\">\n  <header class=\"source\">\n\n      <a href=\"https://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md\" target=\"_blank\" rel=\"noopener\">github.com/ajtowns/bips</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h4><a href=\"https://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md\" target=\"_blank\" rel=\"noopener\">bip-ajtowns-sendtemplate.md</a></h4>\n\n<div class=\"git-blob-info\">\n  <a href=\"https://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md\" rel=\"noopener\"><code>a89b30349</code></a>\n</div>\n\n\n      <pre><code class=\"lang-md\">```\n  BIP: TBD\n  Layer: Peer Services\n  Title: Sharing Block Templates with Peers\n  Author: Anthony Towns &lt;aj@erisian.com.au&gt;\n  Comments-Summary: No comments yet.\n  Comments-URI: https://github.com/bitcoin/bips/wiki/Comments:BIP-TBD\n  Status: Draft\n  Type: Standards Track\n  Created: 2025-08-08\n  License: BSD-3-Clause\n```\n\n## Abstract\n\nThis BIP describes the use of [BIP-152 compact blocks][BIP-152] enccoding\nfor sharing block templates (ie, the next block's predicted transactions)\nwith peers.\n\n## Motivation\n</code></pre>\n\n\n\n  This file has been truncated. <a href=\"https://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md\" target=\"_blank\" rel=\"noopener\">show original</a>\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n<p>Comments/review can be made here or <a href=\"https://github.com/ajtowns/bips/pull/7\">on this PR</a>.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 24,
   "updated_at": "2025-08-14T01:45:43.132Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.6,
+  "incoming_link_count": 2,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 44.0,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Draft BIP text:\n\nhttps://github.com/ajtowns/bips/blob/a89b30349217728e6ff1c6690c909180376007c3/bip-ajtowns-sendtemplate.md\n\nComments/review can be made here or [on this PR](https://github.com/ajtowns/bips/pull/7).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Draft BIP text: \n\n\nComments/review can be made here or <a href=\"https://github.com/ajtowns/bips/pull/7\">on this PR</a>.",
   "truncated": true,
   "post_url": "/t/sharing-block-templates/1906/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

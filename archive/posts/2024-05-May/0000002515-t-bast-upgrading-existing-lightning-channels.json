@@ -7,14 +7,15 @@
   "cooked": "<p>Why is that an elephant in the room? It\u2019s just an implementation detail and is not at all hard to handle? The upgrade to v3 will simply have additional constraints around the <code>max_accepted_htlcs</code> parameter.</p>",
   "post_number": 4,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-05-23T08:45:23.695Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 3,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 17.4,
+  "incoming_link_count": 1,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 48.8,
   "yours": false,
   "topic_id": 881,
   "topic_slug": "upgrading-existing-lightning-channels",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 444,
     "username": "williamsthe59th",
     "name": "Williamsthe59th",
     "avatar_template": "/user_avatar/delvingbitcoin.org/williamsthe59th/{size}/583_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Why is that an elephant in the room? It\u2019s just an implementation detail and is not at all hard to handle? The upgrade to v3 will simply have additional constraints around the max_accepted_htlcs parameter.",
+  "truncated": true,
+  "post_url": "/t/upgrading-existing-lightning-channels/881/4",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

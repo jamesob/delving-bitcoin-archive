@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"hebasto\" data-post=\"17\" data-topic=\"393\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/hebasto/48/366_2.png\" class=\"avatar\"> hebasto:</div>\n<blockquote>\n<p>Considering a transaction with no ancestors, which has the number of outputs that exceeds the cluster size limit, only first <code>max_cluster_size - 1</code> participants will be able to spend their outputs, no?</p>\n</blockquote>\n</aside>\n<p>Just to be clear, only the first <code>max_cluster_size - 1</code> participants will be able to spend their outputs in separate transactions <em>before the parent transaction is confirmed</em>, but yes that is correct.</p>\n<p>Note that today, the descendant count limit (25 transactions by default) already imposes a restriction on unconfirmed spends of outputs from a single transaction.  While we haven\u2019t finalized a proposed cluster size limit yet, my hope is that we\u2019ll be able to support a number that is bigger than 25 (in my draft PR, this number is set to 100 for now).</p>",
   "post_number": 18,
   "post_type": 1,
+  "posts_count": 24,
   "updated_at": "2024-02-18T15:43:27.168Z",
   "reply_count": 0,
   "reply_to_post_number": 17,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 32.2,
+  "incoming_link_count": 1,
+  "reads": 49,
+  "readers_count": 48,
+  "score": 59.8,
   "yours": false,
   "topic_id": 393,
   "topic_slug": "an-overview-of-the-cluster-mempool-proposal",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 3,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Just to be clear, only the first max_cluster_size - 1 participants will be able to spend their outputs in separate transactions before the parent transaction is confirmed, but yes that is correct. \nNote that today, the descendant count limit (25 transactions by default) already imposes a restrictio&hellip;",
+  "truncated": true,
+  "post_url": "/t/an-overview-of-the-cluster-mempool-proposal/393/18",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

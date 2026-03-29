@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"niftynei\" data-post=\"2\" data-topic=\"1900\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/n/c77e96/48.png\" class=\"avatar\"> niftynei:</div>\n<blockquote>\n<p>Am I right in reading this as including a custom sighash implementation? That\u2019s a neat trick.</p>\n</blockquote>\n</aside>\n<p>The current version of SimplicityHL requires committing to programs at the time of address creation. However, it is also possible to implement this behavior using a sighash check, which allows the signer to make this choice at signing time instead of during address setup. This approach is enabled by a Simplicity extension called <em>delegation</em>. Currently, SimplicityHL programs do not utilize the <a href=\"https://blog.blockstream.com/simplicity-taproot-and-universal-sighashes/\">universal sighash</a> mode described below. While there are no technical barriers to implementing this as a more flexible sighash based check, it has not been implemented yet.</p>\n<blockquote>\n<p>The key insight is that sighash modes, unlike any other aspect of Bitcoin\u2019s Script, allow the user to decide what gets signed <em>at signing time</em> rather than at <em>address generation time</em> . In Bitcoin, this signing-time ability is limited to setting the sighash mode, but with careful use of Simplicity\u2019s disconnect combinator, we can go much further. We can enable the signer to do much more than fixing various parts of the transaction data. He could fix arbitrary transaction parts not only to specific values, but to certain ranges or subsets, and conditional these restrictions on timelocks being satisfied, external data being signed \u2014 or any arbitrary computation! Further, he could delegate these decisions to alternate (sets of) public keys.</p>\n</blockquote>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 7,
   "updated_at": "2025-08-06T22:37:56.383Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "reads": 47,
+  "readers_count": 46,
+  "score": 44.4,
   "yours": false,
   "topic_id": 1900,
   "topic_slug": "writing-simplicity-programs-with-simplicityhl",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"niftynei, post:2, topic:1900\"]\nAm I right in reading this as including a custom sighash implementation? That\u2019s a neat trick.\n[/quote]\n\nThe current version of SimplicityHL requires committing to programs at the time of address creation. However, it is also possible to implement this behavior using a sighash check, which allows the signer to make this choice at signing time instead of during address setup. This approach is enabled by a Simplicity extension called *delegation*. Currently, SimplicityHL programs do not utilize the [universal sighash](https://blog.blockstream.com/simplicity-taproot-and-universal-sighashes/) mode described below. While there are no technical barriers to implementing this as a more flexible sighash based check, it has not been implemented yet.\n\n\n> The key insight is that sighash modes, unlike any other aspect of Bitcoin\u2019s Script, allow the user to decide what gets signed *at signing time* rather than at *address generation time* . In Bitcoin, this signing-time ability is limited to setting the sighash mode, but with careful use of Simplicity\u2019s disconnect combinator, we can go much further. We can enable the signer to do much more than fixing various parts of the transaction data. He could fix arbitrary transaction parts not only to specific values, but to certain ranges or subsets, and conditional these restrictions on timelocks being satisfied, external data being signed \u2014 or any arbitrary computation! Further, he could delegate these decisions to alternate (sets of) public keys.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "The current version of SimplicityHL requires committing to programs at the time of address creation. However, it is also possible to implement this behavior using a sighash check, which allows the signer to make this choice at signing time instead of during address setup. This approach is enabled b&hellip;",
   "truncated": true,
   "post_url": "/t/writing-simplicity-programs-with-simplicityhl/1900/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

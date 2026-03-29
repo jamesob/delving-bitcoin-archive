@@ -7,14 +7,15 @@
   "cooked": "<p>The FIBRE code is <a href=\"https://github.com/bitcoinfibre/bitcoinfibre/blob/65e12faf7c5516757476b9b9f227b9bd497ab8cb/src/fec.cpp\">AGPL licensed</a> so would presumably need a rewrite/relicense to be included in bitcoin p2p.</p>\n<p>Not sure what it would look like in a decentralised model; maybe just the ability to select some peer(s) as ultra-high-bandwidth compact block relay, and have them stream an FEC-encoded version of the block contents at you immediately after the compact block announcement? Not sure if it would make sense to have that open to random peers, or just restricted to whitelisted peers.</p>",
   "post_number": 20,
   "post_type": 1,
+  "posts_count": 42,
   "updated_at": "2025-02-04T07:44:49.984Z",
   "reply_count": 1,
   "reply_to_post_number": 19,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "reads": 71,
+  "readers_count": 70,
+  "score": 34.2,
   "yours": false,
   "topic_id": 1052,
   "topic_slug": "stats-on-compact-block-reconstructions",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 31,
     "username": "instagibbs",
     "name": "Gregory Sanders",
     "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "The FIBRE code is <a href=\"https://github.com/bitcoinfibre/bitcoinfibre/blob/65e12faf7c5516757476b9b9f227b9bd497ab8cb/src/fec.cpp\">AGPL licensed</a> so would presumably need a rewrite/relicense to be included in bitcoin p2p. \nNot sure what it would look like in a decentralised model; maybe just the ability to select some peer(s) as ultra-high-bandwidth compact block relay, and have them stream an FEC-encoded versi&hellip;",
+  "truncated": true,
+  "post_url": "/t/stats-on-compact-block-reconstructions/1052/20",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks <a class=\"mention\" href=\"/u/mplsgrant\">@mplsgrant</a> ! I\u2019ll check them out.\nI\u2019ll ping you over your PRs if something comes up.</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 7,
   "updated_at": "2024-12-01T19:36:02.473Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 18.2,
+  "reads": 31,
+  "readers_count": 30,
+  "score": 21.2,
   "yours": false,
   "topic_id": 1282,
   "topic_slug": "op-expire-mitigating-replacing-cycling-attacks",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 272,
     "username": "mplsgrant",
     "name": "mplsgrant",
     "avatar_template": "/user_avatar/delvingbitcoin.org/mplsgrant/{size}/333_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thanks <a class=\"mention\" href=\"/u/mplsgrant\">@mplsgrant</a> ! I\u2019ll check them out.\nI\u2019ll ping you over your PRs if something comes up.",
+  "truncated": true,
+  "post_url": "/t/op-expire-mitigating-replacing-cycling-attacks/1282/7",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

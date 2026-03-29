@@ -7,14 +7,15 @@
   "cooked": "<p>I like this proposal.</p>\n<p>LN needs to be both private and fast/cheap/reliable, but it seems to me that the two aspects are mutually exclusive. However, it should be possible for the user to select whether they want payments to be fast/cheap/reliable on one hand, or private on the other hand, and different routes on the same network could serve different purposes.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2025-02-10T19:04:45.378Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "incoming_link_count": 7,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 56.8,
   "yours": false,
   "topic_id": 1438,
   "topic_slug": "highly-available-lightning-channels-revisited-route-or-out",
@@ -38,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I like this proposal.\n\nLN needs to be both private and fast/cheap/reliable, but it seems to me that the two aspects are mutually exclusive. However, it should be possible for the user to select whether they want payments to be fast/cheap/reliable on one hand, or private on the other hand, and different routes on the same network could serve different purposes.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -50,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I like this proposal. \nLN needs to be both private and fast/cheap/reliable, but it seems to me that the two aspects are mutually exclusive. However, it should be possible for the user to select whether they want payments to be fast/cheap/reliable on one hand, or private on the other hand, and differ&hellip;",
+  "truncated": true,
+  "post_url": "/t/highly-available-lightning-channels-revisited-route-or-out/1438/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

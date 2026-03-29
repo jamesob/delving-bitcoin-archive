@@ -7,14 +7,15 @@
   "cooked": "<p>I don\u2019t see how checking if an input exists could be done without chain context.</p>\n<aside class=\"quote no-group\" data-username=\"evoskuil\" data-post=\"29\" data-topic=\"1222\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/evoskuil/48/391_2.png\" class=\"avatar\"> evoskuil:</div>\n<blockquote>\n<p>However you are referring to lookup of previous outputs, not inputs. I was asking why there is an input fetch.</p>\n</blockquote>\n</aside>\n<p>It is fetching the previous outputs of the inputs.</p>",
   "post_number": 30,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-02T20:03:17.998Z",
   "reply_count": 1,
   "reply_to_post_number": 29,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 8.2,
+  "reads": 52,
+  "readers_count": 51,
+  "score": 30.4,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I don't see how checking if an input exists could be done without chain context.\n\n[quote=\"evoskuil, post:29, topic:1222\"]\nHowever you are referring to lookup of previous outputs, not inputs. I was asking why there is an input fetch.\n[/quote]\n\nIt is fetching the previous outputs of the inputs.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "I don\u2019t see how checking if an input exists could be done without chain context. \n\nIt is fetching the previous outputs of the inputs.",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/30",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

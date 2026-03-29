@@ -7,14 +7,15 @@
   "cooked": "<p>I think the approach in the Oct 2021 thread addressed this by having two parts to the commitment tx: an output containing Alice\u2019s balance and the HTLCs from Alice to Bob, and another with the same but for Bob. That way you have 0.5 RTT updates to either output, with signatures from just one party, without invalidating the signatures from the other party on the latest spend of the other output.</p>\n<p>Note: when you want to update the underlying commitment (to reshuffle the balances once payments have succeeded), that still requires 1.5 round trips, but can be done in a quiet period, or just less frequently.</p>\n<p>So the txs look like:</p>\n<pre data-code-height=\"598\" data-code-wrap=\"mermaid\"><code class=\"lang-mermaid\">classDiagram\n    class Commitment{\n        FundingTx\n        Alice()\n        Bob()\n        anchor()\n    }\n    class AliceCmt{\n        Commitment.Alice\n        AliceBal()\n        HTLC-X()\n        anchor()\n    }\n    class HTLC-X-Claim{\n        AliceCmt.HTLC-X[Preimage]\n        Bob()\n        anchor()\n    }\n    class HTLC-X-Refund{\n        AliceCmt.HTLC-X[Timeout]\n        Alice()\n    }\n    Commitment &lt;|-- AliceCmt\n    AliceCmt  &lt;|--HTLC-X-Claim\n    AliceCmt  &lt;|--HTLC-X-Refund\n</code></pre>\n<p>at which point you can have the preimage path for HTLC-X-Claim require both Alice\u2019s and Bob\u2019s signature and commit to being v3, but the refund path requires just Alice\u2019s signature and a timeout, and does not commit to being v3. If Bob updates BobCmt, that doesn\u2019t affect the signatures here, so that\u2019s fine.</p>\n<p>(If these are for PTLCs instead of HTLCs, the claim tx needs to be signed by both Alice and Bob in order to force Bob to reveal the PTLC preimage, which was the original motivation for this setup)</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 8,
   "updated_at": "2025-02-04T05:58:35.383Z",
   "reply_count": 1,
   "reply_to_post_number": 6,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 37.6,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 38.6,
   "yours": false,
   "topic_id": 1414,
   "topic_slug": "minimal-signing-flow-changes-for-truc-channels",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 31,
     "username": "instagibbs",
     "name": "Gregory Sanders",
     "avatar_template": "/user_avatar/delvingbitcoin.org/instagibbs/{size}/28_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think the approach in the Oct 2021 thread addressed this by having two parts to the commitment tx: an output containing Alice\u2019s balance and the HTLCs from Alice to Bob, and another with the same but for Bob. That way you have 0.5 RTT updates to either output, with signatures from just one party, w&hellip;",
+  "truncated": true,
+  "post_url": "/t/minimal-signing-flow-changes-for-truc-channels/1414/7",
   "reactions": [
     {
       "id": "+1",
@@ -74,5 +79,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

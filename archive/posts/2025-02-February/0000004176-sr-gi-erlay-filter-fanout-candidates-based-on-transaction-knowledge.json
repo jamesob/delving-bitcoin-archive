@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"harding\" data-post=\"2\" data-topic=\"1416\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/harding/48/925_2.png\" class=\"avatar\"> harding:</div>\n<blockquote>\n<p>I\u2019m having a hard time understanding this entire post and I think it\u2019s because I don\u2019t understand the opening paragraphs. It sounds to me like Alice\u2019s node has a transaction and Bob\u2019s node sent her an <code>inv</code> or a sketch with the wtxid, so Alice knows Bob has a validated copy of the transaction. Given that, a particular instance of the general question you seem to be asking is, \u201cshould Alice send Bob an <code>inv</code> for that transaction?\u201d</p>\n</blockquote>\n</aside>\n<p>You\u2019re right, I took this from my notes and some context was dropped, making it hard to follow.</p>\n<p>Alice has a transaction <code>t</code> and she is to decide what peers to fanout it to, and reconcile with the rest. Before making the decision, Bob announces <code>t</code>, making Alice aware that Bob already knows about it. The question here is: should Alice consider this when selecting fanout candidates, or should Bob be a potential candidate, even if that announcement would never be sent?</p>\n<p>Regardless of the decision, <code>t</code> will not be announced to Bob. However, filtering means that Alice will maintain a constant fanout rate while the candidate pool is big enough, and afterward, the rate will drop to 0. Not filtering may have a smoother fanout rate reduction effect.</p>\n<p>I\u2019ve re-worded the thesis section to reflect this more clearly. I hope it is easier to follow now.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2025-02-04T15:33:09.601Z",
   "reply_count": 0,
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 16.8,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 1416,
   "topic_slug": "erlay-filter-fanout-candidates-based-on-transaction-knowledge",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "You\u2019re right, I took this from my notes and some context was dropped, making it hard to follow. \nAlice has a transaction t and she is to decide what peers to fanout it to, and reconcile with the rest. Before making the decision, Bob announces t, making Alice aware that Bob already knows about it. T&hellip;",
+  "truncated": true,
+  "post_url": "/t/erlay-filter-fanout-candidates-based-on-transaction-knowledge/1416/3",
   "reactions": [
     {
       "id": "heart",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

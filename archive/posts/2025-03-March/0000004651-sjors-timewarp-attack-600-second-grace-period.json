@@ -7,14 +7,15 @@
   "cooked": "<p>I\u2019m still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above):</p>\n<ul>\n<li>Period 0: [<span class=\"math\">0</span>, <span class=\"math\">0</span>, <span class=\"math\">0</span>, \u2026, <span class=\"math\">0</span>, <span class=\"math\">0</span>, <span class=\"math\">P</span>].</li>\n<li>Period 1: [<span class=\"math\">P-G</span>, <span class=\"math\">P-G</span>, \u2026, <span class=\"math\">P-G</span>, <span class=\"math\">2P</span>].</li>\n<li>Period 2: [<span class=\"math\">2P-G</span>, \u2026, <span class=\"math\">3P</span>].</li>\n<li>Period 3: [<span class=\"math\">3P-G</span>, \u2026, <span class=\"math\">4P</span>],</li>\n<li>\u2026</li>\n<li>Period <span class=\"math\">k</span>: [<span class=\"math\">kP-G</span>, \u2026, <span class=\"math\">(1+k)P</span>].</li>\n</ul>\n<p>So each period is stretched by <span class=\"math\">G</span>, causing the difficulty to drop every time. For <span class=\"math\">G</span> = 2 hours, this would be 0.6% per retarget period. That translates to about 15% per year.</p>\n<hr>\n<p>Note that any difficulty decrease accumulation can be reset by an honest miner finding the last block of any retarget period.</p>",
   "post_number": 37,
   "post_type": 1,
+  "posts_count": 43,
   "updated_at": "2025-03-31T16:19:09.870Z",
   "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 38,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 217.6,
+  "incoming_link_count": 72,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 389.4,
   "yours": false,
   "topic_id": 1326,
   "topic_slug": "timewarp-attack-600-second-grace-period",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I\u2019m still trying to understand whether the difficulty decrease compounds. Take the following (same MTP simplification as above): \n\nPeriod 0: [0, 0, 0, \u2026, 0, 0, P].\nPeriod 1: [P-G, P-G, \u2026, P-G, 2P].\nPeriod 2: [2P-G, \u2026, 3P].\nPeriod 3: [3P-G, \u2026, 4P],\n\u2026\nPeriod k: [kP-G, \u2026, (1+k)P].\n\nSo each period is st&hellip;",
+  "truncated": true,
+  "post_url": "/t/timewarp-attack-600-second-grace-period/1326/37",
   "reactions": [
     {
       "id": "thinking",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

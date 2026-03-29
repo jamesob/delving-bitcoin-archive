@@ -7,14 +7,15 @@
   "cooked": "<p>I have added the link to this post as \u2018rationale\u2019 in the covenants support wiki page for your row.</p>\n<p><a href=\"https://en.bitcoin.it/w/index.php?title=Covenants_support&amp;diff=prev&amp;oldid=70610\" class=\"onebox\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://en.bitcoin.it/w/index.php?title=Covenants_support&amp;diff=prev&amp;oldid=70610</a></p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-10T22:58:38.433Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 34,
-  "readers_count": 33,
-  "score": 46.8,
+  "incoming_link_count": 9,
+  "reads": 106,
+  "readers_count": 105,
+  "score": 96.2,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I have added the link to this post as \u2018rationale\u2019 in the covenants support wiki page for your row. \n<a href=\"https://en.bitcoin.it/w/index.php?title=Covenants_support&amp;diff=prev&amp;oldid=70610\" class=\"onebox\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://en.bitcoin.it/w/index.php?title=Covenants_support&amp;diff=prev&amp;oldid=70610</a>",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/2",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

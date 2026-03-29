@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"anons191\" data-post=\"4\" data-topic=\"1707\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/anons191/48/1324_2.png\" class=\"avatar\"> anons191:</div>\n<blockquote>\n<p>protocol-level confiscation</p>\n</blockquote>\n</aside>\n<p>The improved protocol doesn\u2019t confiscate any UTXOs.</p>\n<p>Also mind that even in the first protocol, a UTXO which is worth $5 today would remain untouched for +200 years.</p>\n<p>This proposal targets only those dust outputs which make up half of the UTXO set.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 32,
+  "posts_count": 33,
   "updated_at": "2025-05-20T06:04:12.130Z",
   "reply_count": 0,
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 62,
-  "readers_count": 61,
-  "score": 32.2,
+  "reads": 80,
+  "readers_count": 79,
+  "score": 51.0,
   "yours": false,
   "topic_id": 1707,
   "topic_slug": "dust-expiry-clean-the-utxo-set-from-spam",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -64,9 +64,18 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

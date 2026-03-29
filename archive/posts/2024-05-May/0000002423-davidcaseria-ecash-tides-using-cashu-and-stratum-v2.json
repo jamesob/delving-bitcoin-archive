@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"1440000bytes\" data-post=\"4\" data-topic=\"870\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/1440000bytes/48/301_2.png\" class=\"avatar\"> 1440000bytes:</div>\n<blockquote>\n<p>LN privacy is debatable however use of Cashu to achieve privacy comes with the below trade-offs:</p>\n<ul>\n<li>Custodial</li>\n<li>Makes the mining pool vulnerable to regulatory actions or use of KYC/AML</li>\n</ul>\n</blockquote>\n</aside>\n<p>Mining pools are already custodial and vulnerable to state action, such as enforcing KYC requirements (which some do).</p>\n<p>The possibility of immediate liquidity of mining rewards is self-evidently beneficial.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 35,
   "updated_at": "2024-05-16T01:25:28.001Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 4,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 24.2,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 37.2,
   "yours": false,
   "topic_id": 870,
   "topic_slug": "ecash-tides-using-cashu-and-stratum-v2",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Mining pools are already custodial and vulnerable to state action, such as enforcing KYC requirements (which some do). \nThe possibility of immediate liquidity of mining rewards is self-evidently beneficial.",
+  "truncated": true,
+  "post_url": "/t/ecash-tides-using-cashu-and-stratum-v2/870/5",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

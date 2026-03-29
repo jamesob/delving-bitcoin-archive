@@ -7,14 +7,15 @@
   "cooked": "<p>CLN versions between <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.02\" rel=\"noopener nofollow ugc\">23.02</a> and <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.05.2\" rel=\"noopener nofollow ugc\">23.05.2</a> are susceptible to a DoS attack involving the exploitation of a race condition during channel opens.\nIf you are running any version in this range, your funds may be at risk!\nUpdate to at least CLN <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.08\" rel=\"noopener nofollow ugc\">23.08</a> to help protect your node.</p>\n<h1><a name=\"the-vulnerability-1\" class=\"anchor\" href=\"#the-vulnerability-1\"></a>The Vulnerability</h1>\n<p>The vulnerability arises from a race condition between two different flows in CLN: the channel open flow and the peer connection flow.  When the race occurs, CLN attempts to launch a <code>channeld</code> daemon twice, triggering an assertion failure and a crash.</p>\n<p>The crash can be reliably triggered in 30 seconds using a <a href=\"https://morehouse.github.io/lightning/fake-channel-dos/\" rel=\"noopener nofollow ugc\">fake channel DoS attack</a>.</p>\n<h1><a name=\"protecting-your-node-2\" class=\"anchor\" href=\"#protecting-your-node-2\"></a>Protecting Your Node</h1>\n<p>Update your node to at least <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.08\" rel=\"noopener nofollow ugc\">v23.08</a> to prevent it from crashing due to the race.</p>\n<h1><a name=\"more-details-3\" class=\"anchor\" href=\"#more-details-3\"></a>More Details</h1>\n<p>For a full discussion about the vulnerability, its root causes, and how it could have been prevented, see my <a href=\"https://morehouse.github.io/lightning/cln-channel-open-race/\" rel=\"noopener nofollow ugc\">blog post</a> about it.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 1,
   "updated_at": "2024-01-08T19:01:42.512Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 6,
-  "reads": 19,
-  "readers_count": 18,
-  "score": 78.4,
+  "incoming_link_count": 260,
+  "reads": 40,
+  "readers_count": 39,
+  "score": 1368.0,
   "yours": false,
   "topic_id": 385,
   "topic_slug": "dos-disclosure-channel-open-race-in-cln",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -48,25 +50,38 @@
   "staff": false,
   "user_id": 47,
   "hidden": false,
-  "trust_level": 1,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "CLN versions between <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.02\" rel=\"noopener nofollow ugc\">23.02</a> and <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.05.2\" rel=\"noopener nofollow ugc\">23.05.2</a> are susceptible to a DoS attack involving the exploitation of a race condition during channel opens.\nIf you are running any version in this range, your funds may be at risk!\nUpdate to at least CLN <a href=\"https://github.com/ElementsProject/lightning/releases/tag/v23.08\" rel=\"noopener nofollow ugc\">23.08</a> to help protect your node. \n<a name=\"the-vulnerability-1\" class=\"anchor\" href=\"#the-vulnerability-1\"></a>The Vulnerability\nThe vulnerab&hellip;",
+  "truncated": true,
+  "post_url": "/t/dos-disclosure-channel-open-race-in-cln/385/1",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 3
+      "count": 4
     },
     {
       "id": "clap",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 4,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 6,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

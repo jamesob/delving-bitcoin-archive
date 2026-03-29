@@ -7,14 +7,15 @@
   "cooked": "<ol>\n<li>I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers. Minimal encodings may be somewhat cumbersome to deal with, but they\u2019re there for a reason!</li>\n<li>The only thing worse than dealing with one weird encoding is having to implement another one alongside it. <code>CScriptNum</code> parsing will probably always be a part of wallet software, if not just to validate legacy scripts.</li>\n</ol>",
   "post_number": 27,
   "post_type": 1,
+  "posts_count": 52,
   "updated_at": "2024-01-16T17:43:34.637Z",
-  "reply_count": 0,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 17.8,
+  "incoming_link_count": 1,
+  "reads": 61,
+  "readers_count": 60,
+  "score": 72.2,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I think it would be a (potentially big) waste of chainspace to move from minimally encoded numbers to fixed-length 64 bit numbers. Minimal encodings may be somewhat cumbersome to deal with, but they\u2019re there for a reason!\nThe only thing worse than dealing with one weird encoding is having to implem&hellip;",
+  "truncated": true,
+  "post_url": "/t/64-bit-arithmetic-soft-fork/397/27",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

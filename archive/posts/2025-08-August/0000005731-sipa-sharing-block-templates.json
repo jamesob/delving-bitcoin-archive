@@ -7,15 +7,15 @@
   "cooked": "<p>For this purpose, the order of transactions in the template doesn\u2019t actually matter (at least until compact blocks, or some other block relay protocol, can make use of pre-sent orderings). This means there is a nice additional bandwidth saving possible.</p>\n<p>Sort the set of all short ids (interpreted as 48-bit integers), and only send the differences, using Golomb-Rice coding, like BIP158 does. For a block with 4000 entries, the <a href=\"https://github.com/sipa/writeups/tree/main/minimizing-golomb-filters\">math</a> I get that this only needs ~37.8 bits per element, rather than 48.</p>\n<p>Of course, using an edit encoding w.r.t. the previous template can be a much bigger win, but that too can benefit from using some canonical encoding of the transactions (like the sorted shortids from above; there is no need for it to be topologically valid in this context).</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 9,
+  "posts_count": 24,
   "updated_at": "2025-08-18T00:41:33.343Z",
   "reply_count": 0,
   "reply_to_post_number": 8,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 18.6,
+  "incoming_link_count": 20,
+  "reads": 58,
+  "readers_count": 57,
+  "score": 136.6,
   "yours": false,
   "topic_id": 1906,
   "topic_slug": "sharing-block-templates",
@@ -48,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -69,11 +69,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

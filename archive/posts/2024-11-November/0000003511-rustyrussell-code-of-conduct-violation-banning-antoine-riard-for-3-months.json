@@ -7,14 +7,15 @@
   "cooked": "<p>Hi all,</p>\n<p>After ongoing harassment, under the CoC, we have decided to remove Antoine Riard (<a class=\"mention\" href=\"/u/ariard\">@ariard</a>) from the GitHub lightning organization, and blocked contributions to the repository for 3 months.</p>\n<p>I generally believe in a broad tent and tolerance, but if you produce more harm then benefit to a group you will be asked, then told, to leave.  Doing this clearly is a net win for everyone, including Antoine, who can now find something more useful to do.</p>\n<p>The initial Lightning IRC channel had a simple base topic: \u201cBe excellent to each other\u201d.  I\u2019ve been proud to see you all uphold that!</p>\n<p>Thank you,<br>\nRusty &amp; Vincenzo.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 4,
   "updated_at": "2024-11-13T03:10:29.411Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 20,
-  "reads": 33,
-  "readers_count": 32,
-  "score": 100.6,
+  "incoming_link_count": 328,
+  "reads": 117,
+  "readers_count": 116,
+  "score": 1633.4,
   "yours": false,
   "topic_id": 1254,
   "topic_slug": "code-of-conduct-violation-banning-antoine-riard-for-3-months",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi all,\n\nAfter ongoing harassment, under the CoC, we have decided to remove Antoine Riard (@ariard) from the GitHub lightning organization, and blocked contributions to the repository for 3 months.\n\nI generally believe in a broad tent and tolerance, but if you produce more harm then benefit to a group you will be asked, then told, to leave.  Doing this clearly is a net win for everyone, including Antoine, who can now find something more useful to do.\n\nThe initial Lightning IRC channel had a simple base topic: \"Be excellent to each other\".  I've been proud to see you all uphold that!\n\nThank you,<br>\nRusty & Vincenzo.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Hi all, \nAfter ongoing harassment, under the CoC, we have decided to remove Antoine Riard (<a class=\"mention\" href=\"/u/ariard\">@ariard</a>) from the GitHub lightning organization, and blocked contributions to the repository for 3 months. \nI generally believe in a broad tent and tolerance, but if you produce more harm then benefit to a gro&hellip;",
+  "truncated": true,
+  "post_url": "/t/code-of-conduct-violation-banning-antoine-riard-for-3-months/1254/1",
+  "reactions": [
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

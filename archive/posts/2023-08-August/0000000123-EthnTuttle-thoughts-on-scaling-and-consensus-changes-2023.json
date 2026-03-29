@@ -7,14 +7,15 @@
   "cooked": "<p>It seems that there will be a market that could develop around \u201cL1 insurance\u201d. Where a large capital allocator collects on \u201cinsurance\u201d and promises you exit support during times of congestion/high fees where an average user cannot afford to exit from one of the aforementioned \u201cbitcoin banks\u201d.</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2023-08-22T20:21:05.873Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 2.2,
+  "incoming_link_count": 9,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 74.0,
   "yours": false,
   "topic_id": 32,
   "topic_slug": "thoughts-on-scaling-and-consensus-changes-2023",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,20 +39,38 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "It seems that there will be a market that could develop around \"L1 insurance\". Where a large capital allocator collects on \"insurance\" and promises you exit support during times of congestion/high fees where an average user cannot afford to exit from one of the aforementioned \"bitcoin banks\".",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
   "user_id": 29,
   "hidden": false,
-  "trust_level": 0,
+  "trust_level": 2,
   "deleted_at": null,
   "user_deleted": false,
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "It seems that there will be a market that could develop around \u201cL1 insurance\u201d. Where a large capital allocator collects on \u201cinsurance\u201d and promises you exit support during times of congestion/high fees where an average user cannot afford to exit from one of the aforementioned \u201cbitcoin banks\u201d.",
+  "truncated": true,
+  "post_url": "/t/thoughts-on-scaling-and-consensus-changes-2023/32/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

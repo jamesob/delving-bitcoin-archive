@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"13\" data-topic=\"359\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>AFAICT you only need two, assuming you wait for a reply before sending another update? You would always fast-forward to the latest update tx.</p>\n</blockquote>\n</aside>\n<p>Might be talking past each other, but the counter-party may play an old update state to which you\u2019ve forgotten the opening of the taproot commitment to your update. You could remember O(n) fields rather than use the annex, of course.</p>\n<aside class=\"quote no-group\" data-username=\"rustyrussell\" data-post=\"13\" data-topic=\"359\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rustyrussell/48/154_2.png\" class=\"avatar\"> rustyrussell:</div>\n<blockquote>\n<p>Adapter signatures is nicer, BUT note that CTV is more optimal than adapter signatures here! However, neither is actually ideal (requiring another tx for fees): what we <em>want</em> is a commitment scheme which lets the spender extract fee from its own output, and/or bring their own fee input.</p>\n</blockquote>\n</aside>\n<p>I like CTV-like approach for another reason: it trivially generalized to multi-party channels. That said, yeah optimally we\u2019d have some sort of TXHASH-like construct for settlement that would allow single tx endo/exo fees depending on how much is locked up in HTLCs and the like.</p>",
   "post_number": 14,
   "post_type": 1,
+  "posts_count": 16,
   "updated_at": "2024-02-26T14:57:10.543Z",
   "reply_count": 1,
   "reply_to_post_number": 13,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 22.4,
+  "incoming_link_count": 1,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 36.2,
   "yours": false,
   "topic_id": 359,
   "topic_slug": "ln-symmetry-project-recap",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Might be talking past each other, but the counter-party may play an old update state to which you\u2019ve forgotten the opening of the taproot commitment to your update. You could remember O(n) fields rather than use the annex, of course. \n\nI like CTV-like approach for another reason: it trivially gener&hellip;",
+  "truncated": true,
+  "post_url": "/t/ln-symmetry-project-recap/359/14",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
