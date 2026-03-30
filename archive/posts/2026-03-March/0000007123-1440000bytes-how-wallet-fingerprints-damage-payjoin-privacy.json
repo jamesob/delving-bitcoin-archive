@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"arminsdev\" data-post=\"1\" data-topic=\"2354\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/arminsdev/48/253_2.png\" class=\"avatar\"> arminsdev:</div>\n<blockquote>\n<p>Interested in feedback on the methodology, additional fingerprint dimensions worth exploring, or cases where this analysis would fail.</p>\n</blockquote>\n</aside>\n<p>I had built a tool for spoofing wallet fingerprint in 2023 which could be improved further to fix wallet fingerprinting: <a href=\"https://gitlab.com/1440000bytes/goldfish\" rel=\"noopener nofollow ugc\">https://gitlab.com/1440000bytes/goldfish</a></p>\n<details>\n<summary>Archive</summary>\n<aside class=\"onebox discoursetopic\" data-onebox-src=\"https://web.archive.org/web/20260329071213/https://delvingbitcoin.org/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/5\">\n  <header class=\"source\">\n      <img src=\"https://delvingbitcoin.org/uploads/default/original/1X/863d31b22a9d4d4072777bffb9b9ded86a1638bc.svg\" class=\"site-icon\" alt=\"\" data-dominant-color=\"\" width=\"500\" height=\"500\">\n\n      <a href=\"https://web.archive.org/web/20260329071213/https://delvingbitcoin.org/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/5\" target=\"_blank\" rel=\"noopener nofollow ugc\" title=\"07:10AM - 29 March 2026\">Delving Bitcoin \u2013 29 Mar 26</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <img src=\"https://delvingbitcoin.org/uploads/default/original/1X/863d31b22a9d4d4072777bffb9b9ded86a1638bc.svg\" class=\"thumbnail onebox-avatar\" width=\"500\" height=\"500\">\n\n<div class=\"title-wrapper\">\n  <h3><a href=\"https://web.archive.org/web/20260329071213/https://delvingbitcoin.org/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/5\" target=\"_blank\" rel=\"noopener nofollow ugc\">How wallet fingerprints damage Payjoin privacy</a></h3>\n  <div class=\"topic-category\">\n      <span class=\"badge-wrapper bullet\">\n        <span class=\"badge-category-bg\" style=\"background-color: #F7941D;\"></span>\n        <span class=\"badge-category clear-badge\">\n          <span class=\"category-name\">Implementation</span>\n        </span>\n      </span>\n    <div class=\"topic-header-extra\">\n      <div class=\"list-tags\">\n        <div class=\"discourse-tags\">\n          <svg class=\"fa d-icon d-icon-tag svg-icon svg-string\"><use href=\"#tag\"></use></svg>\n            <span class=\"discourse-tag simple\">privacy</span>\n            <span class=\"discourse-tag simple\">wallet</span>\n        </div>\n      </div>\n    </div>\n  </div>\n</div>\n\n  <p>I had built a tool for spoofing wallet fingerprint in 2023 which could be improved further to fix wallet fingerprinting: https://gitlab.com/1440000bytes/goldfish</p>\n\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n\n</details>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2026-03-29T07:14:47.092Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 22.8,
   "yours": false,
   "topic_id": 2354,
   "topic_slug": "how-wallet-fingerprints-damage-payjoin-privacy",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"arminsdev, post:1, topic:2354\"]\nInterested in feedback on the methodology, additional fingerprint dimensions worth exploring, or cases where this analysis would fail.\n[/quote]\n\nI had built a tool for spoofing wallet fingerprint in 2023 which could be improved further to fix wallet fingerprinting: [https://gitlab.com/1440000bytes/goldfish](https://gitlab.com/1440000bytes/goldfish)\n\n<details>\n<summary>Archive</summary>\n\nhttps://web.archive.org/web/20260329071213/https://delvingbitcoin.org/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/5\n\n</details>",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I had built a tool for spoofing wallet fingerprint in 2023 which could be improved further to fix wallet fingerprinting: <a href=\"https://gitlab.com/1440000bytes/goldfish\" rel=\"noopener nofollow ugc\">https://gitlab.com/1440000bytes/goldfish</a> \n\u25b6 Archive",
   "truncated": true,
   "post_url": "/t/how-wallet-fingerprints-damage-payjoin-privacy/2354/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

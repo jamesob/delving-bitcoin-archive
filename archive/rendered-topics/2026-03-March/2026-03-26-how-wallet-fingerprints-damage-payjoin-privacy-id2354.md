@@ -70,3 +70,9 @@ https://web.archive.org/web/20260329071213/https://delvingbitcoin.org/t/how-wall
 
 -------------------------
 
+arminsdev | 2026-03-30 12:43:50 UTC | #6
+
+You're correct. A single low-r/high-r pair isn't conclusive and the language here is definitive. However, the signal could compound across the graph. If we traverse the graph and observe a skewed distribution of low-r signatures between the two candidate partitions, this could be evidence for one assignment over the other. Will have to reword this section, thanks.
+
+-------------------------
+
