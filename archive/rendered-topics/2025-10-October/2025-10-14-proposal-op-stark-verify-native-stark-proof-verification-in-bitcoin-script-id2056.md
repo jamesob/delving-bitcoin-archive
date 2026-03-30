@@ -1,6 +1,6 @@
 # Proposal: OP_STARK_VERIFY - Native STARK Proof Verification in Bitcoin Script
 
-Abdel | 2025-10-14 10:55:51 UTC | #1
+AbdelStark | 2025-11-25 14:42:45 UTC | #1
 
 # Proposal: OP_STARK_VERIFY - Native STARK Proof Verification in Bitcoin Script
 
@@ -173,7 +173,7 @@ Would be nice to have a high level understanding of how much is bought by making
 
 -------------------------
 
-Abdel | 2025-10-16 16:45:25 UTC | #3
+AbdelStark | 2025-11-25 14:47:58 UTC | #3
 
 Thanks for the very spot on questions / comments.
 
@@ -220,7 +220,7 @@ For a deeper look into the possibilities of building on Bitcoin without script c
 
 -------------------------
 
-Abdel | 2025-10-29 13:49:36 UTC | #5
+AbdelStark | 2025-11-25 14:49:15 UTC | #5
 
 hey hey, thanks for your time and suggestions.
 I will be honest, i am not a fan of metaprotocols.
@@ -293,7 +293,7 @@ Nuh | 2025-11-15 01:04:33 UTC | #10
 
 -------------------------
 
-Abdel | 2025-11-16 12:47:17 UTC | #11
+AbdelStark | 2025-11-25 14:50:23 UTC | #11
 
 It is an excellent question!
 And the answer is: YES!
@@ -314,19 +314,19 @@ If you replace `OP_FALSE` with `OP_FALSE OP_NOPX` the soft fork may automaticall
 
 -------------------------
 
-Abdel | 2025-11-18 10:20:12 UTC | #13
+AbdelStark | 2025-11-25 14:51:18 UTC | #13
 
 this is an extremely interesting suggestion actually! Love it. Hmmm. Let me think more about it. Can we connect somewhere to discuss it further ?
 
 -------------------------
 
-Abdel | 2025-11-18 10:27:00 UTC | #14
+AbdelStark | 2025-11-25 14:51:32 UTC | #14
 
 you are right. does not make it a covenant. will add more details about this part. thanks for bringing it.
 
 -------------------------
 
-Abdel | 2025-11-18 10:39:56 UTC | #15
+AbdelStark | 2025-11-25 14:51:48 UTC | #15
 
 yeah sorry you are completely right both. i missed that part. will update with more details about it and options. would love your feedback then
 
@@ -391,6 +391,14 @@ did you mean verifier here?
 m-kus | 2025-11-21 20:04:38 UTC | #20
 
 Correct! It is the verifier that was implemented (Stwo is the name of the proving system)
+
+-------------------------
+
+josh | 2026-03-30 19:36:21 UTC | #23
+
+Thanks for this writeup! Can you comment on protocols like [STIR](https://eprint.iacr.org/2024/390) and [WHIR](https://eprint.iacr.org/2024/1586.pdf) and sum-check protocols in general? It seems like promising research, especially for proof size and verification speed.
+
+I might be hesitant to commit to an opcode for a specific ZK protocol, which is not provably optimal across all dimensions, but if there exists a basic primitive, like [batch polynomial evaluation](https://eprint.iacr.org/2026/448), which is lightweight and independent of any specific protocol, it might be easier to build consensus for it within the Bitcoin community.
 
 -------------------------
 
