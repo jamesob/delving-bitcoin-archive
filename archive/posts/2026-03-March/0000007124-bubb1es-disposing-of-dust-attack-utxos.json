@@ -13,8 +13,8 @@
   "reply_to_post_number": 20,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
+  "reads": 10,
+  "readers_count": 9,
   "score": 1.8,
   "yours": false,
   "topic_id": 2215,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Link to latest revision of draft BIP is: https://github.com/bubb1es71/ddust/blob/253705442ceddc11d6db6ea3df97b6b16e660d3e/docs/bip-dust-disposal.md",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Link to latest revision of draft BIP is: <a href=\"https://github.com/bubb1es71/ddust/blob/253705442ceddc11d6db6ea3df97b6b16e660d3e/docs/bip-dust-disposal.md\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">ddust/docs/bip-dust-disposal.md at 253705442ceddc11d6db6ea3df97b6b16e660d3e \u00b7 bubb1es71/ddust \u00b7 GitHub</a>",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/21",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
