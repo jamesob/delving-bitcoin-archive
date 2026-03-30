@@ -305,3 +305,17 @@ Link to latest revision of draft BIP is: https://github.com/bubb1es71/ddust/blob
 
 -------------------------
 
+nothingmuch | 2026-03-30 20:06:53 UTC | #22
+
+The details seem a bit tailored to Bitcoin Core’s current policy.
+
+`SIGHASH_NONE|SIGHASH_ANYONECANPAY` would allow 1 input, `ash OP_RETURN` output transactions to be constructed and then aggregated by a third party into a transaction with an empty `OP_RETURN` output. However, this also allows miners or third party aggregators to add txouts. As far as I can tell that makes no difference, i.e. does not increase DoS concern.
+
+Alternatively, if `OP_RETURN ash` was always required (i.e. not allowing empty `OP_RETURN`), then there would be just one class of such transactions that can always be aggregated into a valid transaction, with 3 virtual bytes of shared overhead even when that is unnecessary. The rationale section for `SIGHASH_ALL|SIGHASH_ANYONECANPAY` only discusses the `ANYONECANPAY` part and not `ALL` vs `NONE`.
+
+However, it seems to me like a policy carveout for single input, empty `OP_RETURN` output transactions would be even better? This allows the smallest single output txs, and does not present any more of DoS concern than what is already allowed.
+
+Furthermore, if every dust input was relayed separately in a standalone minimal transaction, and always aggregated in the mempool using deterministic sorting rules, this would effectively be a carveout for the entire space of aggregate transactions, removing the need for any replacement logic for such transactions, which is asymptotically optimal bandwidth per output destroyed and maximizes revenues. This is backwards compatible in that peers that do not understand aggregation at all could simply enforce current standardness rules and replacement rules while still relaying 1 input 1 output transactions that could be aggregated by miners etc, but that requires either the 3 vbyte overhead of `ash` or `SIGHASH_NONE` to be blockspace optimal.
+
+-------------------------
+
