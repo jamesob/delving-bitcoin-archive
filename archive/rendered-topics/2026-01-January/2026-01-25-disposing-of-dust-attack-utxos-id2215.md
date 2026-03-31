@@ -319,3 +319,46 @@ Furthermore, if every dust input was relayed separately in a standalone minimal 
 
 -------------------------
 
+bubb1es | 2026-03-31 01:54:17 UTC | #23
+
+Thanks for these helpful insights. I will address them in order.
+
+[quote="nothingmuch, post:22, topic:2215"]
+The details seem a bit tailored to Bitcoin Core’s current policy.
+
+[/quote]
+
+Yes, part of the motivation for this proposal was the ability of Bitcoin Core 30.0+ to relay sub 1 sat/vb fee-rate txs. But I see your point that we don’t need to specify a specific fee rates in the proposal since the standard min fee rate could change over time (up or down). I’ll see if I can remove unnecessary restrictions that tailor it for Bitcoin Core’s current policy.
+
+[quote="nothingmuch, post:22, topic:2215"]
+`SIGHASH_NONE|SIGHASH_ANYONECANPAY` would allow 1 input, `ash OP_RETURN` output transactions to be constructed and then aggregated by a third party into a transaction with an empty `OP_RETURN` output. However, this also allows miners or third party aggregators to add txouts. As far as I can tell that makes no difference, i.e. does not increase DoS concern.
+
+[/quote]
+
+My original concern with `SIGHASH_NONE|SIGHASH_ANYONECANPAY` was that dust disposal tx with high enough amounts would get poached into transactions with a regular output and take up more space on-chain. But I think you’re correct, allowing batching to remove the “ash” marker is more important. If someone is able to poach these dust inputs into a tx with other types of outputs they still need to follow the RBF rules so this isn’t a spam vector. If @harris and other’s agree I’m good with this change, and will add these thoughts to the rationale section of the draft BIP.
+
+[quote="nothingmuch, post:22, topic:2215"]
+Alternatively, if `OP_RETURN ash` was always required (i.e. not allowing empty `OP_RETURN`), then there would be just one class of such transactions that can always be aggregated into a valid transaction, with 3 virtual bytes of shared overhead even when that is unnecessary. The rationale section for `SIGHASH_ALL|SIGHASH_ANYONECANPAY` only discusses the `ANYONECANPAY` part and not `ALL` vs `NONE`.
+
+[/quote]
+
+I’m now leaning towards your `SIGHASH_NONE|SIGHASH_ANYONECANPAY` approach. 
+
+[quote="nothingmuch, post:22, topic:2215"]
+However, it seems to me like a policy carveout for single input, empty `OP_RETURN` output transactions would be even better? This allows the smallest single output txs, and does not present any more of DoS concern than what is already allowed.
+
+[/quote]
+
+I agree that even with `SIGHASH_NONE|SIGHASH_ANYONECANPAY` original disposal tx should never have the `OP_RETURN` “ash” if not needed. I expect many/most disposal tx won’t get batched or poached so need to make them as efficient as possible.
+
+[quote="nothingmuch, post:22, topic:2215"]
+Furthermore, if every dust input was relayed separately in a standalone minimal transaction, and always aggregated in the mempool using deterministic sorting rules, this would effectively be a carveout for the entire space of aggregate transactions, removing the need for any replacement logic for such transactions, which is asymptotically optimal bandwidth per output destroyed and maximizes revenues. This is backwards compatible in that peers that do not understand aggregation at all could simply enforce current standardness rules and replacement rules while still relaying 1 input 1 output transactions that could be aggregated by miners etc, but that requires either the 3 vbyte overhead of `ash` or `SIGHASH_NONE` to be blockspace optimal.
+
+[/quote]
+
+Are you talking about mempool signature aggregation here? 
+
+Anyway I don’t want to rely on any mempool or dedicated third-parties batching/aggregating disposal tx inputs in a certain way. I think it will be more reliable (even if less efficient) to let any wallets do it opportunistically when they find other dust disposal txs in the mempool at the same time they are creating their dust disposal tx. This is how @harris implemented it in the `ddust` reference client. But still even with opportunistic client batching I favor using `SIGHASH_NONE` over always padding with `ash`.
+
+-------------------------
+
