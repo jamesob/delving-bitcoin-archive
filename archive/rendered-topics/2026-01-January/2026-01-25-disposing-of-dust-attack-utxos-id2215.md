@@ -362,3 +362,51 @@ Anyway I don’t want to rely on any mempool or dedicated third-parties batching
 
 -------------------------
 
+nothingmuch | 2026-03-31 14:27:22 UTC | #24
+
+
+[quote="bubb1es, post:23, topic:2215"]
+My original concern with `SIGHASH_NONE|SIGHASH_ANYONECANPAY` was that dust disposal tx with high enough amounts would get poached into transactions with a regular output and take up more space on-chain.
+
+[/quote]
+
+it seems to me like miners can do this at their discretion, i.e. they equally “unpoach” any such inputs that have been poached, or choose to include such inputs with 0 overhead into other transactions that already have `ANYONECANPAY` effectively removing the full overhead (i.e. locktime version etc, as well as the cost of an empty `OP_RETURN`), so it seems like this is a potential net increase in efficiency, and i couldn’t think of anything that is made concretely worse by removing this additional restriction
+
+[quote="bubb1es, post:23, topic:2215"]
+I’m now leaning towards your `SIGHASH_NONE|SIGHASH_ANYONECANPAY` approach.
+
+[/quote]
+
+fwiw this isn’t my approach, IIRC it’s how dustbgone was implemented
+
+[quote="bubb1es, post:23, topic:2215"]
+[quote="nothingmuch, post:22, topic:2215"]
+However, it seems to me like a policy carveout for single input, empty `OP_RETURN` output transactions would be even better? This allows the smallest single output txs, and does not present any more of DoS concern than what is already allowed.
+
+[/quote]
+
+I agree that even with `SIGHASH_NONE|SIGHASH_ANYONECANPAY` original disposal tx should never have the `OP_RETURN` “ash” if not needed. I expect many/most disposal tx won’t get batched or poached so need to make them as efficient as possible.
+
+[/quote]
+
+i don’t think there’s a conflict between your approach and pursuing a policy carveout, the former can have a positive impact right now whereas the latter will take at least a release cycle and can impact the former positively on that longer time frame
+
+[quote="bubb1es, post:23, topic:2215"]
+Are you talking about mempool signature aggregation here?
+
+[/quote]
+
+not signature aggregation, but yes mempool, specifically my point is about the DoS surface and sub-optimality of relying on transaction replacement policy.
+
+given $n$ dust outputs for which an `ANYONECANPAY` signature is known, anyone can produce a total of $2^n -1= \sum_{k=1}^n {n \choose k}$ and for each size $k$ and for each subset of size $k$ there are $k!$ possible orderings, so $\sum_{k=1}^n k! {n \choose k}$ possible transactions with `SIGHASH_ALL`. with `SIGHASH_NONE`, the outputs of the transaction is completely unrestricted. let’s ignore ordering ([edit: because it has no effect on payoffs] suppose inputs are always ordered by effective value descending, with lexicographical ordering of outpoint for tie breaking), and the output side (since that isn’t costless, for a given set of dust inputs the feerate of a poaching transaction will always be strictly lower, and miners can always omit or substitute such outputs), this still leaves just $2^k-1$ choices.
+
+the problem i see with this is that there is path dependence in this exponential sized space. suppose there are dust outputs $a, b, c$ and one user broadcast $\{a, b\}$ and another attempts to broadcast $\{b, c\}$ or $\{a, b, c\}$. this may not be possible if output $c$ ’s effective value insufficient for these transactions to be considered valid replacements for the one spending $\{a, b\}$. an attacker may strategically choose to construct such transactions, and even for small $n$ be able to produce $O(2^n)$ conflicting transactions that it can then broadcast to different mempools, each of which is a local maxima, in order to attempt to impede not just the broadcast of other such transactions, but to cause block propagation delays as well.
+
+while i haven’t worked out the details of how bad this could get, my point is just that if you assume miners will always combine dust input spends into a single bulk dust removal transaction with just one `OP_RETURN` (or arbitrary outputs of their choice, which if it’s a miner doesn’t matter), then a policy carveout for 1 input transaction and policy restriction on multi input transactions will enforce that only $n$ distinct transactions are ever actually broadcast instead of $O(2^n)$ potential ones. RBF is no longer an issue, as the batch transactions are replaced implicitly. modulu eviction, every peer will spend at most a fixed amount of bandwidth per dust input, as opposed to per potential combination of dust inputs, but the theoretical minimum blockspace required to spend these outputs is still accessible to miners without needing to relax relay policy. if replacement rules were just relaxed and larger and larger combinations of transactions were repeatedly broadcast as new dust outputs are spent, the minimum blockspace transactions be available, but the bandwidth cost would scale exponentially in the worst case.
+
+or put more simply, the DoS surface is substantially reduced if the rule is that dust spends are only relayed as 1 input transactions, even though these can be freely aggregated by anyone. compact block relay could also be extended to take this special case into account.
+
+again i don’t think there is a conflict between client side aggregation in the near term and designing for something like this in the long term, it just seemed notable that a policy carveout could simultaneously reduce DoS risks and remove restrictions on how efficient such batching could get.
+
+-------------------------
+
