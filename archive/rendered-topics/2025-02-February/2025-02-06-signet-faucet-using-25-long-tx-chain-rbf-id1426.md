@@ -1,6 +1,6 @@
 # Signet faucet using 25-long-tx-chain & RBF
 
-jsarenik | 2025-04-02 05:26:46 UTC | #1
+jsarenik | 2025-04-24 06:39:46 UTC | #1
 
 The same Signet faucet is now available at
 
@@ -8,7 +8,7 @@ The same Signet faucet is now available at
 * https://signetfaucet.bublina.eu.org
 * https://signet25.bublina.eu.org
 
-Its git repository resides at https://github.com/jsarenik/bitcoin-faucet-shell since Nov 2021 but the recent 25-long-tx-chain and RBF features were implemented in the beginning of 2025 along with added usage of Cloudflare Turnstile which significantly impoved humanness of the faucet.
+Its git repository resides at https://github.com/jsarenik/bitcoin-faucet-shell since Nov 2021 but the recent 25-long-tx-chain and RBF features were implemented in the beginning of 2025 along with added usage of Cloudflare Turnstile which significantly improved humanness of the faucet.
 
 The faucet pays just the minimal increment of sats (`vsize`) for its fee to replace the previous transaction whenever possible or matches fee-rate when adding minimal increment is not enough. It even [shows on mempool.space](https://mempool.space/signet/address/tb1p4tp4l6glyr2gs94neqcpr5gha7344nfyznfkc8szkreflscsdkgqsdent4) like if the new sat/vB fee-rate was the same as in the just-replaced transaction.
 
@@ -34,6 +34,12 @@ Thank you for reading this far.
 jsarenik | 2025-04-01 09:03:48 UTC | #2
 
 Hoping the clustermempool would still live nice together with signet25 - see https://delvingbitcoin.org/t/post-clustermempool-package-rbf-per-chunk-processing/190/10?u=jsarenik 😇
+
+-------------------------
+
+jsarenik | 2026-03-31 16:01:30 UTC | #3
+
+Alt Signet Faucet works and is now ready for Cluster Mempool’s limit of 64 ancestors. Not used yet but ready. Running on Bitcoin Core 31.0rc2 at the moment and enforcing the legacy limit of 25 ancestors until signet blocks are mined on a Cluster Mempool-high-limit node.
 
 -------------------------
 
