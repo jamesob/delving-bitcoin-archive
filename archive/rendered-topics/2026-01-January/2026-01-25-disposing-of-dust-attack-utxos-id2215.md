@@ -446,3 +446,13 @@ i think the rationale there could be improved to discuss how privatebroadcast ch
 
 -------------------------
 
+harris | 2026-04-01 07:20:23 UTC | #27
+
+Thanks nothingmuch and bubb1es. Lots of interesting details over here. After reading through this new discussion, i agree to `SIGHASH_NONE|SIGHASH_ANYONECANPAY` suggestion and relaying of every dust input separately in a standalone transaction, and finally the miner performing the aggregation locally.
+
+I think the “single input, single output“ pattern tx is important to prevent introducing another **DoS surface** of batching at relay level(the current approach) as already described by nothingmuch. This way, relying on standard min fee rate is also not needed. We could preserve relay-level batching while avoiding the 2^n explosion by enforcing an append-only rule - i.e. a batched dust transaction can only be replaced by one that contains all the same inputs plus additional ones, with inputs always in a deterministic order(No removing inputs, no alternative subsets). This would make the replacement space linear i.e. at most n replacements to go from 1 input to n inputs.
+
+But even with this constraint, it still doesn’t beat the cleaner approach of single-input relay + miner aggregation
+
+-------------------------
+
