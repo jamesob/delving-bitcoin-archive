@@ -118,37 +118,35 @@ Dathon Ohm
 
 -------------------------
 
-ariard | 2026-04-01 20:32:40 UTC | #2
+ariard | 2026-04-01 20:33:45 UTC | #2
 
 From the [mailing list](https://groups.google.com/g/bitcoindev/c/nOZim6FbuF8/m/kXtE07UEAwAJ).
 
-> \> as for anyone who is following the work of the Electronic Frontier Foundation from
-> > times to times, there is a pending case in front of the US Supreme Court, Cox
-> > Communications, Inc vs. Sony Music Entertainment specifically on the liability of Internet service providers.
+> \> as for anyone who is following the work of the Electronic Frontier Foundation from times to times, there is a pending case in front of the US Supreme Court, Cox Communications, Inc vs. Sony Music Entertainment specifically on the liability of Internet service providers.
 
-For the one who are following this kind of topic, in Cox vs Sony [the decision](https://www.supremecourt.gov/opinions/25pdf/24-171_bq7d.pdf) has been yield over the last weeks, where the USC has withheld a lack of liability for internet service provider in the context of copyright infringement ("*This Court has repeatedly made clear that mere knowledge that a service will be used to infringe is insufficient to establish the required intent to infringe*"). I'll leave the details to the US constitutional law specialists, of which I’m not as a I never clerked for a justice, but the concurrent opinion is also interesting as it's analyzing distributed peer-to-peer software and for a wider scope.
+For the one who are following this kind of topic, in Cox vs Sony [the decision](https://www.supremecourt.gov/opinions/25pdf/24-171_bq7d.pdf) has been yield over the last weeks, where the USC has withheld a lack of liability for internet service providers in the context of copyright infringement (“*This Court has repeatedly made clear that mere knowledge that a service will be used to infringe is insufficient to establish the required intent to infringe*”). I’ll leave the details to the US constitutional law specialists, of which I’m not as a I never clerked for a justice, but the concurrent opinion is also interesting as it’s analyzing distributed peer-to-peer software and for a wider scope.
 
-In my view, in the light of this novel jurisprudence, I think the legal worries of the BIP110 proponent have been far overblown. In its current state, [the current BIP110 text](https://raw.githubusercontent.com/bitcoin/bips/refs/heads/master/bip-0110.mediawiki)is still indirectly mentioning those legal worries half-word (i.e "*The problem becomes even worse when the data is objectionable to node operators*"). Might I suggest to edit the BIP in a sense to completely remove this mention, as with now there is more legal clarity on the matter ("objectionable" is a terminology directly coming from US administrative law doctrine on communication broadcast).
+In my view, in the light of this novel jurisprudence, I think the legal worries of the BIP110 proponent have been far overblown. In its current state, [the current BIP110 text](https://raw.githubusercontent.com/bitcoin/bips/refs/heads/master/bip-0110.mediawiki) is still indirectly mentioning those legal worries half-word (i.e “*The problem becomes even worse when the data is objectionable to node operators*”). Might I suggest to edit the BIP in a sense to completely remove this mention, as with now there is more legal clarity on the matter (“objectionable” is a terminology directly coming from US administrative law doctrine on communication broadcast).
 
-In my opinion, in some measure, we shouldn't as protocol developers consider "exogenous" reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.
+In my opinion, in some measure, we shouldn’t as protocol developers consider “exogenous” reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.
 
-I do not wish to sound too much dismissive of the BIP110 legal concerns (anyone is free to go to read the USC's latest decision to make its own opinion, or the equivalent EU's jurisprudence fwiw). Indeed zero legal risk can never be a thing, though here I can only share [the measured and considered take](https://www.eff.org/pages/legal-faq-tor-relay-operators) of the EFF on running Tor nodes.
+I do not wish to sound too much dismissive of the BIP110 legal concerns (anyone is free to go to read the USC’s latest decision to make its own opinion, or the equivalent EU’s jurisprudence fwiw). Indeed zero legal risk can never be a thing, though here I can only share [the measured and considered take](https://www.eff.org/pages/legal-faq-tor-relay-operators) of the EFF on running Tor nodes.
 
 Excerpt:
 
-“*Can EFF promise that I won't get in trouble for running a Tor relay*?”
+“*Can EFF promise that I won’t get in trouble for running a Tor relay*?”
 
 ”*No. All new technologies create legal uncertainties, and Tor is no exception. We cannot guarantee that you will never face any legal liability as a result of running a Tor relay*”.
 
-In my opinion, in some measure, we shouldn't as protocol developers consider "exogenous" reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.
+In my opinion, in some measure, we shouldn’t as protocol developers consider “exogenous” reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.
 
-In my since belief, the public debate among the community on the adoption or not of BIP110 would be of a far higher intellectual quality if wasn't repeatedly poisoned by ungrounded legal claims on factual elements that said BIP110 proponents wish to be take in account for the evolution of technical consensus rules. Such attitude, in my personal opinion, can only lead any reasonable observer to doubt if they have real technical arguments after all or if it's not an attempt to influence the public debate with deceptive tactics.
+In my since belief, the public debate among the community on the adoption or not of BIP110 would be of a far higher intellectual quality if wasn’t repeatedly poisoned by ungrounded legal claims on factual elements that said BIP110 proponents wish to be take in account for the evolution of technical consensus rules. Such attitude, in my personal opinion, can only lead any reasonable observer to doubt if they have real technical arguments after all or if it’s not an attempt to influence the public debate with deceptive tactics.
 
 For clarity, I do not support BIP110, less for the technical issues it aims to address, and more because I think the peer-to-peer network stability is a valuable end goal in itself. We are not building a stronger ecosystem by bothering and burdening the wallet developers to have to adapt their stuff, or even forcing them to have to go through the myriad of BIP110 restrictions just to be sure that their wallets softwares, even if there are wallets only for simple funds transfers, do not have to be changed.
 
-Discussing the categories of use-cases, the chain ressources consumptions, if we should favor or deprioritize some with weight penalties, etc all sounds legit technical discussions to have in my belief. After all, there are some unanswered real technical problems, e.g  what we do if in the future the "vaults" off-chain transactions are over-bidding the blockspace at the very same time there is a massive closure of lightning chans.
+Discussing the categories of use-cases, the chain ressources consumptions, if we should favor or deprioritize some with weight penalties, etc all sounds legit technical discussions to have in my belief. After all, there are some unanswered real technical problems, e.g  what we do if in the future the “vaults” off-chain transactions are over-bidding the blockspace at the very same time there is a massive closure of lightning chans.
 
-The discussions can only be better if they are made on qualitative and quantitative arguments on adequate public forums where not only developers and maintainers are respected in the exercise of their (difficult) janitorial roles, but also where "exogenous" considerations like half-baked legal worries have been structurally ruled out.
+The discussions can only be better if they are made on qualitative and quantitative arguments on adequate public forums where not only developers and maintainers are respected in the exercise of their (difficult) janitorial roles, but also where “exogenous” considerations like half-baked legal worries have been structurally ruled out.
 
 Those considerations, if followed, in my humble view, can only favor a more serene and courteous public conversation.
 
