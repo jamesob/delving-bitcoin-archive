@@ -456,3 +456,36 @@ But even with this constraint, it still doesn’t beat the cleaner approach of s
 
 -------------------------
 
+bubb1es | 2026-04-01 13:48:49 UTC | #28
+
+[quote="nothingmuch, post:26, topic:2215"]
+BTW one last nitpick (and this really is a nitpick) about the proposed BIP text itself, the requirement to not aggregate coins originating from a single wallet seems a bit too strong,
+
+[/quote]
+
+I see how technically with `-privatebroadcast=1` a client wallet could simulate a third-party batching their dust while doing it all themselves. And doing this could be a bit more block space efficient and relay efficient. But I’m more concerned that in an environment where dust disposal tx are few and far between an attacker could easily correlate dust UTXOs confirmed and/or broadcast around the same time. For convenience I’d rather see wallets pre-sign dust disposal txs and then broadcast them at random times, and/or when they see some others in the mempool they can batch with.
+
+I’ll try to improve the rational section of the proposal around this point.
+
+-------------------------
+
+nothingmuch | 2026-04-01 14:50:19 UTC | #29
+
+[quote="harris, post:27, topic:2215"]
+I think the “single input, single output“ pattern tx is important to prevent introducing another **DoS surface** of batching at relay level(the current approach) as already described by nothingmuch. This way, relying on standard min fee rate is also not needed. We could preserve relay-level batching while avoiding the 2^n explosion by enforcing an append-only rule - i.e. a batched dust transaction can only be replaced by one that contains all the same inputs plus additional ones, with inputs always in a deterministic order(No removing inputs, no alternative subsets). This would make the replacement space linear i.e. at most n replacements to go from 1 input to n inputs.
+[/quote]
+
+Note that a miner aggregating this way can always choose to omit inputs that are less lucrative, so the replacement space can't be enforced linear without some form of consistent broadcast. That said the fact that it's still $O(2^n)$ is no more of a problem than block contents being an arbitrary choice of the mempool, especially since totally ordering the 1-in-1-out txs is trivial.
+
+From this point of view `ANYONECANPAY` aggregation can just be modeled as a weight discount on the 1-in-1-out txs. If at least one such transaction is included then it would not be discounted, but penalized with an additional virtual byte for worst case nIns compact size increase (i believe this is the only non-linearity), and then every additional one could be counted as if its weight is just that of its `TxIn`.
+
+Miners can already do this, so I think the right question to ask is why haven't they? If i understood the charts @bubb1es shared above suggests in an upper bound of about 4 btc of revenue in the best case. ddust seems like a good way of strengthening this incentive.
+
+[quote="bubb1es, post:28, topic:2215"]
+But I’m more concerned that in an environment where dust disposal tx are few and far between an attacker could easily correlate dust UTXOs confirmed and/or broadcast around the same time.
+[/quote]
+
+You're right I think that's the bigger concern
+
+-------------------------
+
