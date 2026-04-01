@@ -1,6 +1,6 @@
 # SHRIMPS: 2.5 KB post-quantum signatures across multiple stateful devices
 
-jonasnick | 2026-03-27 21:57:32 UTC | #1
+jonasnick | 2026-03-30 07:19:40 UTC | #1
 
 **Abstract**: [SHRINCS](https://delvingbitcoin.org/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158) achieves very small hash-based signatures using a stateful signer while still allowing for static backups. However, its efficient stateful path requires transferring state to any new device, which is error-prone, so in practice any restored or secondary device will typically fall back to large stateless signatures. SHRIMPS removes this single-device constraint. In settings where each key is used for only a small number of signatures (as is typical in Bitcoin), a static seed backup can be loaded into many independent stateful signing devices, each producing a ~2564-byte signature at 128-bit security. The construction requires an upper bound on the number of device initializations; with a conservative bound of $n_\text{dev} = 2^{10}$, SHRIMPS signatures are up to three times smaller than SLH-DSA (7872 bytes). SHRIMPS can be combined with SHRINCS: the primary device produces ~324-byte signatures, while any backup device produces signatures under 3 KB.
 
@@ -82,7 +82,15 @@ A comparison of key generation costs is left to future work. The parameter sets 
 
 ---
 
-*Thanks to Mikhail Kudinov and Oleksandr Kudinov for the discussions that led to SHRIMPS and their feedback on earlier versions of this post.*
+*Thanks to Mikhail Kudinov and Oleksandr Kurbatov for the discussions that led to SHRIMPS and their feedback on earlier versions of this post.*
+
+-------------------------
+
+niklaus | 2026-04-01 19:12:10 UTC | #2
+
+SLH-DSA signatures under the SLH-DSA-{SHA2|SHAKE}-128s parameter sets are 7,856 bytes (not 7,872).
+
+Is there any reason you don’t use the optimizations (e.g. WOTS+C, PORS+FP) in the fallback SPHINCS+ instance but you do use it in the compact path?
 
 -------------------------
 
