@@ -13,9 +13,9 @@
   "reply_to_post_number": 25,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"bubb1es, post:25, topic:2215\"]\nMy more immediate concern is having a spec wallets can implement that is safe and effective before the problem gets any worse.\n[/quote]\n\nMakes sense! For what it's worth if this was my project the way i would probably go about this is:\n\n1. demonstrate interest in fixing this, as you are already doing\n2. if `SIGHASH_NONE` proves problematic with increased adoption, advocate for very narrow policy careveout just to eliminate the empty vs. 3 vbyte `OP_RETURN` consideration\n3. very long term, try to integrate my implicit aggregation suggestion into mempool code, since this makes the wallet implementation trivial (always just broadcast 1 input txs), makes it easier for optimal blockspace cost to be achieved and removes the DoS concern of replacement logic. this is very long term because, assuming there's even any buy in or sufficient demand, it would be a pretty involved change likely to take years to actually land\n\nBTW one last nitpick (and this really is a nitpick) about the proposed BIP text itself, the requirement to not aggregate coins originating from a single wallet seems a bit too strong, since by relying on PR #29415 (`-privatebroadcast=1`, already mentioned in this thread) a node could arguably reliably simulate aggregation by multiple independent parties (broadcast a tx spending the first input, then reuse the exact same signature in a tx spending another), but in the absence of `-privatebroadcast=1` or when Tor daemon is unavailable, an adversary model for dust attacks (which used to be a much bigger problem with the old rebroadcast behavior) where the adversary is monitoring for (re)broadcast of received dust transactions is arguably still a concern for these spending transactions, and disallowing direct submission to 3rd party aggregators seems to be motivated by such leaks.\n\ni think the rationale there could be improved to discuss how privatebroadcast changes the threat model, as well as the issue with spending dust coins with more than one distinct address being contingent on the adversary being able to observe the *absence* of a prior transaction that only spends from one distinct address. in fact, if a third party aggregator buffers such spends before broadcasting a batch spend, and the adversary then concludes that this suggests that those coins are related similarly to the common input ownership heuristic, this can poison clustering data with counterfactual information, (\"cluster collapse\", c.f. MtGoxAndOthers supercluster on wallet explorer for example), which is arguably beneficial for privacy and fungibility.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Makes sense! For what it\u2019s worth if this was my project the way i would probably go about this is: \n\ndemonstrate interest in fixing this, as you are already doing\nif SIGHASH_NONE proves problematic with increased adoption, advocate for very narrow policy careveout just to eliminate the empty vs. 3 &hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/26",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
