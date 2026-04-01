@@ -410,3 +410,39 @@ again i don’t think there is a conflict between client side aggregation in the
 
 -------------------------
 
+bubb1es | 2026-03-31 21:12:45 UTC | #25
+
+[quote="nothingmuch, post:24, topic:2215"]
+fwiw this isn’t my approach, IIRC it’s how dustbgone was implemented
+
+[/quote]
+
+I double checked and yes you are correct, in `dustbgone` Peter [constructs a tx with  `NONE|ANYONECANPAY` inputs](https://github.com/petertodd/dust-b-gone/blob/95020b4d0280d5ad2c8973b2e981e5dd966e2315/dust-b-gone.py#L79) and a single empty `OP_RETURN` output. So very much like this BIP proposal in those regards. 
+
+[quote="nothingmuch, post:24, topic:2215"]
+or put more simply, the DoS surface is substantially reduced if the rule is that dust spends are only relayed as 1 input transactions, even though these can be freely aggregated by anyone. compact block relay could also be extended to take this special case into account.
+
+[/quote]
+
+Thanks for the details, I understand the DoS issue better now and why the policy carveout would help. I certainly hope we eventually see enough dust UTXOs being disposed this way that a policy carveout is needed. My more immediate concern is having a spec wallets can implement that is safe and effective before the problem gets any worse.
+
+-------------------------
+
+nothingmuch | 2026-03-31 22:32:18 UTC | #26
+
+[quote="bubb1es, post:25, topic:2215"]
+My more immediate concern is having a spec wallets can implement that is safe and effective before the problem gets any worse.
+[/quote]
+
+Makes sense! For what it's worth if this was my project the way i would probably go about this is:
+
+1. demonstrate interest in fixing this, as you are already doing
+2. if `SIGHASH_NONE` proves problematic with increased adoption, advocate for very narrow policy careveout just to eliminate the empty vs. 3 vbyte `OP_RETURN` consideration
+3. very long term, try to integrate my implicit aggregation suggestion into mempool code, since this makes the wallet implementation trivial (always just broadcast 1 input txs), makes it easier for optimal blockspace cost to be achieved and removes the DoS concern of replacement logic. this is very long term because, assuming there's even any buy in or sufficient demand, it would be a pretty involved change likely to take years to actually land
+
+BTW one last nitpick (and this really is a nitpick) about the proposed BIP text itself, the requirement to not aggregate coins originating from a single wallet seems a bit too strong, since by relying on PR #29415 (`-privatebroadcast=1`, already mentioned in this thread) a node could arguably reliably simulate aggregation by multiple independent parties (broadcast a tx spending the first input, then reuse the exact same signature in a tx spending another), but in the absence of `-privatebroadcast=1` or when Tor daemon is unavailable, an adversary model for dust attacks (which used to be a much bigger problem with the old rebroadcast behavior) where the adversary is monitoring for (re)broadcast of received dust transactions is arguably still a concern for these spending transactions, and disallowing direct submission to 3rd party aggregators seems to be motivated by such leaks.
+
+i think the rationale there could be improved to discuss how privatebroadcast changes the threat model, as well as the issue with spending dust coins with more than one distinct address being contingent on the adversary being able to observe the *absence* of a prior transaction that only spends from one distinct address. in fact, if a third party aggregator buffers such spends before broadcasting a batch spend, and the adversary then concludes that this suggests that those coins are related similarly to the common input ownership heuristic, this can poison clustering data with counterfactual information, ("cluster collapse", c.f. MtGoxAndOthers supercluster on wallet explorer for example), which is arguably beneficial for privacy and fungibility.
+
+-------------------------
+
