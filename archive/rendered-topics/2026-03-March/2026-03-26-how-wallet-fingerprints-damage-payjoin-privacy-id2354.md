@@ -76,11 +76,11 @@ You're correct. A single low-r/high-r pair isn't conclusive and the language her
 
 -------------------------
 
-ZmnSCPxj | 2026-04-02 00:38:03 UTC | #7
+ZmnSCPxj | 2026-04-02 00:39:05 UTC | #7
 
 It strikes me that all your examples also refer to the round-number heuristic.
 
-As PayJoin is already a multi-round negotiation, it strikes me that both parties can partially break the round-number heuristic by running a lottery for, say, up to +/-1% of the value to be transferred: both exchange hashes of entropy, then exchange their entropy and validate that the received entropy from remote matches the hash, then XOR (or more generally any group addition operation) their entropies, then feed the sum of entropies into a CSPRNG that determines how the 1% division goes one way or the other (such as by extracting a large 256-bit number then just doing a simple modulo division by 2% of the value and subtracting 1% of the value; there's a bias there, but a large 256-bit number would have fairly hard-to-detect bias no matter what the divisor is).
+As PayJoin is already a multi-round negotiation, it strikes me that both parties can partially break the round-number heuristic by running a lottery for, say, up to +/-1% of the value to be transferred: both exchange hashes of entropy, then exchange their entropy and validate that the received entropy from remote matches the hash, then XOR (or more generally any group addition operation) their entropies, then feed the sum of entropies into a CSPRNG that determines how the 1% lottery goes one way or the other (such as by extracting a large 256-bit number then just doing a simple modulo division by 2% of the value and subtracting 1% of the value; there's a bias there, but a large 256-bit number would have fairly hard-to-detect bias no matter what the divisor is).  Then the amount transferred from the payer to the payee is adjusted by the result of this lottery.
 
 It's not a perfect solution, as anything within 1% of a round number would still be suspect, and while 10% would be better I doubt that would be so easily acceptable to end-users.
 
