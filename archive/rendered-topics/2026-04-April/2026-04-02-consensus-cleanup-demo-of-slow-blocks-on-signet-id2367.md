@@ -23,9 +23,9 @@ If you are not able to run a Signet node yourself, you should still be able to o
 
 -------------------------
 
-shinobi | 2026-04-02 19:03:08 UTC | #2
+shinobi | 2026-04-02 20:58:49 UTC | #2
 
-Just wanted to suggest vibe coding a basic GUI/display to pull from the logs and display to a user to display validation times as the blocks come in. I think without an easy visual component their isn’t much to hook many users to directly spin up a signet node and participate with their own node.
+Just wanted to suggest vibe coding a basic GUI/display to pull from the logs and display to a user validation times as the blocks come in. I think without an easy visual component there isn’t much to hook many users to directly spin up a signet node and participate with their own node.
 
 -------------------------
 
