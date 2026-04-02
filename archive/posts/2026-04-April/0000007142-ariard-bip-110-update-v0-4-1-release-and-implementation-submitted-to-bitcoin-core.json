@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "From the [mailing list](https://groups.google.com/g/bitcoindev/c/nOZim6FbuF8/m/kXtE07UEAwAJ).\n\n> \\> as for anyone who is following the work of the Electronic Frontier Foundation from times to times, there is a pending case in front of the US Supreme Court, Cox Communications, Inc vs. Sony Music Entertainment specifically on the liability of Internet service providers.\n\nFor the one who are following this kind of topic, in Cox vs Sony [the decision](https://www.supremecourt.gov/opinions/25pdf/24-171_bq7d.pdf) has been yield over the last weeks, where the USC has withheld a lack of liability for internet service providers in the context of copyright infringement (\u201c*This Court has repeatedly made clear that mere knowledge that a service will be used to infringe is insufficient to establish the required intent to infringe*\u201d). I\u2019ll leave the details to the US constitutional law specialists, of which I\u2019m not as a I never clerked for a justice, but the concurrent opinion is also interesting as it\u2019s analyzing distributed peer-to-peer software and for a wider scope.\n\nIn my view, in the light of this novel jurisprudence, I think the legal worries of the BIP110 proponent have been far overblown. In its current state, [the current BIP110 text](https://raw.githubusercontent.com/bitcoin/bips/refs/heads/master/bip-0110.mediawiki) is still indirectly mentioning those legal worries half-word (i.e \u201c*The problem becomes even worse when the data is objectionable to node operators*\u201d). Might I suggest to edit the BIP in a sense to completely remove this mention, as with now there is more legal clarity on the matter (\u201cobjectionable\u201d is a terminology directly coming from US administrative law doctrine on communication broadcast).\n\nIn my opinion, in some measure, we shouldn\u2019t as protocol developers consider \u201cexogenous\u201d reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.\n\nI do not wish to sound too much dismissive of the BIP110 legal concerns (anyone is free to go to read the USC\u2019s latest decision to make its own opinion, or the equivalent EU\u2019s jurisprudence fwiw). Indeed zero legal risk can never be a thing, though here I can only share [the measured and considered take](https://www.eff.org/pages/legal-faq-tor-relay-operators) of the EFF on running Tor nodes.\n\nExcerpt:\n\n\u201c*Can EFF promise that I won\u2019t get in trouble for running a Tor relay*?\u201d\n\n\u201d*No. All new technologies create legal uncertainties, and Tor is no exception. We cannot guarantee that you will never face any legal liability as a result of running a Tor relay*\u201d.\n\nIn my opinion, in some measure, we shouldn\u2019t as protocol developers consider \u201cexogenous\u201d reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.\n\nIn my since belief, the public debate among the community on the adoption or not of BIP110 would be of a far higher intellectual quality if wasn\u2019t repeatedly poisoned by ungrounded legal claims on factual elements that said BIP110 proponents wish to be take in account for the evolution of technical consensus rules. Such attitude, in my personal opinion, can only lead any reasonable observer to doubt if they have real technical arguments after all or if it\u2019s not an attempt to influence the public debate with deceptive tactics.\n\nFor clarity, I do not support BIP110, less for the technical issues it aims to address, and more because I think the peer-to-peer network stability is a valuable end goal in itself. We are not building a stronger ecosystem by bothering and burdening the wallet developers to have to adapt their stuff, or even forcing them to have to go through the myriad of BIP110 restrictions just to be sure that their wallets softwares, even if there are wallets only for simple funds transfers, do not have to be changed.\n\nDiscussing the categories of use-cases, the chain ressources consumptions, if we should favor or deprioritize some with weight penalties, etc all sounds legit technical discussions to have in my belief. After all, there are some unanswered real technical problems, e.g  what we do if in the future the \u201cvaults\u201d off-chain transactions are over-bidding the blockspace at the very same time there is a massive closure of lightning chans.\n\nThe discussions can only be better if they are made on qualitative and quantitative arguments on adequate public forums where not only developers and maintainers are respected in the exercise of their (difficult) janitorial roles, but also where \u201cexogenous\u201d considerations like half-baked legal worries have been structurally ruled out.\n\nThose considerations, if followed, in my humble view, can only favor a more serene and courteous public conversation.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "From the <a href=\"https://groups.google.com/g/bitcoindev/c/nOZim6FbuF8/m/kXtE07UEAwAJ\" rel=\"noopener nofollow ugc\">mailing list</a>. \n\n&gt; as for anyone who is following the work of the Electronic Frontier Foundation from times to times, there is a pending case in front of the US Supreme Court, Cox Communications, Inc vs. Sony Music Entertainment specifically on the liability of Internet service providers. \n\nF&hellip;",
   "truncated": true,
   "post_url": "/t/bip-110-update-v0-4-1-release-and-implementation-submitted-to-bitcoin-core/2360/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
