@@ -188,3 +188,28 @@ Thank you for your time.
 
 -------------------------
 
+ArmchairCryptologist | 2026-04-02 09:04:42 UTC | #4
+
+[quote="dathonohm, post:1, topic:2360"]
+The activation client has proven immensely popular, and now comprises over [8% of listening nodes](https://bitnodes.io/nodes/?q=BIP110) after just 2 months.
+
+[/quote]
+
+Even disregarding all the deficiencies with BIP110 which have been thoroughly elaborated upon elsewhere, I have no faith whatsoever in those numbers being representative of anything but a handful of people spinning up nodes to pad the numbers.
+
+First of all, of the 1905 nodes registered on Bitnodes that advertise BIP110, more than 1300 are onion nodes. Creating an unlimited amount of onion addresses and pointing them at a node, then submitting that address to Bitnodes, is effectively free. As such, if anyone were to accept use Bitnodes stats for arguments of node distribution - and that’s a big if - the only meaningful number would be counting the nodes that have some semblance of cost, which would limit it to IPv4 nodes. Which would bring the number down to \~420 out of 7242, or 5.7%
+
+Secondly, even those numbers do not at all match the distribution of subver strings that connect to my four public listening nodes. As of right now, I’m seeing:
+
+* 1026 nodes running Core
+* 141 nodes running Knots without BIP110
+* 16 nodes running Knots with BIP110
+
+So 16 out of 1167 nodes are advertising BIP110 in the subver, or 1.4%. Assuming that all nodes have an equal number of outgoing connections and an equal chance to connect to any of my nodes, this statistically gives a greater than 99% confidence that the real number is between 0.5% and 2.3%.
+
+I put a [raw data dump on pastebin](https://pastebin.com/KdSGnqKR) for anyone interested. I filtered out all subvers without “Satoshi” in the string, which mostly limits it to Core and Knots nodes.
+
+There is a reason soft forks are activated by mining power alone; node listen counts will always be suspect, and unlike node sockpuppeting, mining power cannot be falsified.
+
+-------------------------
+

@@ -7,15 +7,15 @@
   "cooked": "<p>Before supporting changes to Bitcoin - especially at consensus level - I would like to get some clarification about the \u201cdesirable effects\u201d of BIP-110.</p>\n<aside class=\"quote no-group\" data-username=\"dathonohm\" data-post=\"1\" data-topic=\"2360\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/d/f05b48/48.png\" class=\"avatar\"> dathonohm:</div>\n<blockquote>\n<p>Reducing demand for arbitrary data storage</p>\n</blockquote>\n</aside>\n<p>What gain to users is achieved whether blocks are full or not? The current rules allow for only a maximum growth of the blockchain at a linear rate.</p>\n<aside class=\"quote no-group\" data-username=\"dathonohm\" data-post=\"1\" data-topic=\"2360\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/d/f05b48/48.png\" class=\"avatar\"> dathonohm:</div>\n<blockquote>\n<p>Bringing consensus and policy back into closer alignment</p>\n</blockquote>\n</aside>\n<p>Who decides which policies to uphold? This should be the decision of each node by its own mempool policy, no?</p>\n<aside class=\"quote no-group\" data-username=\"dathonohm\" data-post=\"1\" data-topic=\"2360\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/d/f05b48/48.png\" class=\"avatar\"> dathonohm:</div>\n<blockquote>\n<p>Protecting the decentralization of the node network by eliminating unnecessary costs and (in some cases, extreme) risks introduced by making arbitrary data storage an officially supported function of Bitcoin</p>\n</blockquote>\n</aside>\n<p>Can you define the unneccessary costs and risks of running a node in this scenario? We should be clearly informed of these issues.</p>\n<aside class=\"quote no-group\" data-username=\"dathonohm\" data-post=\"1\" data-topic=\"2360\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/d/f05b48/48.png\" class=\"avatar\"> dathonohm:</div>\n<blockquote>\n<p>Making Bitcoin better money by preventing Bitcoin payments from having to compete at an unfair disadvantage against gamified data spam</p>\n</blockquote>\n</aside>\n<p>Can you demonstrate an example of payments being unfairly disadvantaged?</p>\n<p>Thank you for your time.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2026-04-02T05:39:31.630Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 15.8,
   "yours": false,
   "topic_id": 2360,
   "topic_slug": "bip-110-update-v0-4-1-release-and-implementation-submitted-to-bitcoin-core",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Before supporting changes to Bitcoin - especially at consensus level - I would like to get some clarification about the \u201cdesirable effects\u201d of BIP-110.\n\n[quote=\"dathonohm, post:1, topic:2360\"]\nReducing demand for arbitrary data storage\n\n[/quote]\n\nWhat gain to users is achieved whether blocks are full or not? The current rules allow for only a maximum growth of the blockchain at a linear rate.\n\n[quote=\"dathonohm, post:1, topic:2360\"]\nBringing consensus and policy back into closer alignment\n\n[/quote]\n\nWho decides which policies to uphold? This should be the decision of each node by its own mempool policy, no?\n\n[quote=\"dathonohm, post:1, topic:2360\"]\nProtecting the decentralization of the node network by eliminating unnecessary costs and (in some cases, extreme) risks introduced by making arbitrary data storage an officially supported function of Bitcoin\n\n[/quote]\n\nCan you define the unneccessary costs and risks of running a node in this scenario? We should be clearly informed of these issues.\n\n[quote=\"dathonohm, post:1, topic:2360\"]\nMaking Bitcoin better money by preventing Bitcoin payments from having to compete at an unfair disadvantage against gamified data spam\n\n[/quote]\n\nCan you demonstrate an example of payments being unfairly disadvantaged?\n\nThank you for your time.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Before supporting changes to Bitcoin - especially at consensus level - I would like to get some clarification about the \u201cdesirable effects\u201d of BIP-110. \n\nWhat gain to users is achieved whether blocks are full or not? The current rules allow for only a maximum growth of the blockchain at a linear rat&hellip;",
   "truncated": true,
   "post_url": "/t/bip-110-update-v0-4-1-release-and-implementation-submitted-to-bitcoin-core/2360/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
