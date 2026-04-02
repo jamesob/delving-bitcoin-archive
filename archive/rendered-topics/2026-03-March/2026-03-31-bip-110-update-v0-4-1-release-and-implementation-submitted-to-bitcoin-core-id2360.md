@@ -152,3 +152,39 @@ Those considerations, if followed, in my humble view, can only favor a more sere
 
 -------------------------
 
+neonrooks | 2026-04-02 05:39:31 UTC | #3
+
+Before supporting changes to Bitcoin - especially at consensus level - I would like to get some clarification about the “desirable effects” of BIP-110.
+
+[quote="dathonohm, post:1, topic:2360"]
+Reducing demand for arbitrary data storage
+
+[/quote]
+
+What gain to users is achieved whether blocks are full or not? The current rules allow for only a maximum growth of the blockchain at a linear rate.
+
+[quote="dathonohm, post:1, topic:2360"]
+Bringing consensus and policy back into closer alignment
+
+[/quote]
+
+Who decides which policies to uphold? This should be the decision of each node by its own mempool policy, no?
+
+[quote="dathonohm, post:1, topic:2360"]
+Protecting the decentralization of the node network by eliminating unnecessary costs and (in some cases, extreme) risks introduced by making arbitrary data storage an officially supported function of Bitcoin
+
+[/quote]
+
+Can you define the unneccessary costs and risks of running a node in this scenario? We should be clearly informed of these issues.
+
+[quote="dathonohm, post:1, topic:2360"]
+Making Bitcoin better money by preventing Bitcoin payments from having to compete at an unfair disadvantage against gamified data spam
+
+[/quote]
+
+Can you demonstrate an example of payments being unfairly disadvantaged?
+
+Thank you for your time.
+
+-------------------------
+
