@@ -7,15 +7,15 @@
   "cooked": "<p>SLH-DSA signatures under the SLH-DSA-{SHA2|SHAKE}-128s parameter sets are 7,856 bytes (not 7,872).</p>\n<p>Is there any reason you don\u2019t use the optimizations (e.g. WOTS+C, PORS+FP) in the fallback SPHINCS+ instance but you do use it in the compact path?</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-04-01T19:12:10.508Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 12.2,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 28.0,
   "yours": false,
   "topic_id": 2355,
   "topic_slug": "shrimps-2-5-kb-post-quantum-signatures-across-multiple-stateful-devices",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "SLH-DSA signatures under the SLH-DSA-{SHA2|SHAKE}-128s parameter sets are 7,856 bytes (not 7,872).\n\nIs there any reason you don\u2019t use the optimizations (e.g. WOTS+C, PORS+FP) in the fallback SPHINCS+ instance but you do use it in the compact path?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "SLH-DSA signatures under the SLH-DSA-{SHA2|SHAKE}-128s parameter sets are 7,856 bytes (not 7,872). \nIs there any reason you don\u2019t use the optimizations (e.g. WOTS+C, PORS+FP) in the fallback SPHINCS+ instance but you do use it in the compact path?",
   "truncated": true,
   "post_url": "/t/shrimps-2-5-kb-post-quantum-signatures-across-multiple-stateful-devices/2355/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

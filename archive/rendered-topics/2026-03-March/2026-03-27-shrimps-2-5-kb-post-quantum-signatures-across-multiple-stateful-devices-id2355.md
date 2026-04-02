@@ -94,3 +94,25 @@ Is there any reason you don’t use the optimizations (e.g. WOTS+C, PORS+FP) in 
 
 -------------------------
 
+conduition | 2026-04-02 16:26:45 UTC | #3
+
+Cool idea @jonasnick.
+
+@niklaus I think Jonas is not suggesting necessarily that we should mix SLH-DSA with SPHINCS+C - just that either are options. His proposal is more about the structure: Combining two SPHINCS keys, one with low $q_s$ as a primary, and one with high $q_s$ as fallback.
+
+@jonasnick I have a concern about your assumption here: 
+
+[quote="jonasnick, post:1, topic:2355"]
+With key derivation (similar to BIP-32) from a single seed, each derived key is a separate SHRIMPS instance. The device must maintain this state for every derived key, or store a single bit per key indicating that the fallback path should be used.
+[/quote]
+
+If we want to have efficient wallet standards which provide drop-in replacement for BIP32, this actually can't be the case, since hash-based keys cannot be rerandomized. See [this mailing list post](https://groups.google.com/g/bitcoindev/c/5tLKm8RsrZ0).
+
+If someday we are using hash-based signatures for everyday transactions (a pretty bleak future) then sure, this might hold - In that world, unhardened derivation wouldn't exist, and every change and receiving address would use a fresh hardened child key.
+
+However, for the purposes of providing fallback quantum security to some primary scheme like ECC, this probably would not hold. 
+
+How would you see SHRIMPS being used in that context?
+
+-------------------------
+
