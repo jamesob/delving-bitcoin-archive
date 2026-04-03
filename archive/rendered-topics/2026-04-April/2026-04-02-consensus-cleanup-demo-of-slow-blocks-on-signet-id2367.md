@@ -46,3 +46,27 @@ Maybe adding this to the OP makes sense too.
 
 -------------------------
 
+AntoineP | 2026-04-03 16:47:41 UTC | #4
+
+I guess this is also a good occasion for testing Bitcoin Core's latest release candidate. If you are joining the demo and comfortable with running Bitcoin Core already, consider using [the binaries from the latest "rc" for 31.0](https://bitcoincore.org/bin/bitcoin-core-31.0/).
+
+-------------------------
+
+ajtowns | 2026-04-03 18:08:34 UTC | #5
+
+[quote="shinobi, post:2, topic:2367"]
+a basic GUI/display to pull from the logs and display to a user validation times as the blocks come in.
+[/quote]
+
+Here's a patch for bitcoin-tui that people might find interesting to try:
+
+https://github.com/janb84/bitcoin-tui/pull/25
+
+This is what a 5-block reorg looks like in it (without any of the blocks being slow):
+
+![tui-slow-blocks|690x459](upload://pMfcvaF4GvFukmM5Qk0CGq4gwxJ.png)
+
+Enabling `-debug=cmpctblock` and `-debug=bench` logging are good and not very expensive and are required to fill out some of the columns; enabling `-debug=net` logging as well might also gather some interesting info.
+
+-------------------------
+
