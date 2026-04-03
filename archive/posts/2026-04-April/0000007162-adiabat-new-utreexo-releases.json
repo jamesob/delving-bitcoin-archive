@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
+  "reads": 6,
+  "readers_count": 5,
   "score": 0.6,
   "yours": false,
   "topic_id": 2371,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Announcing the release of Utreexod v0.5, with new Proofless IBD, powered by SwiftSync\\[tm\\] technology, and Floresta 0.9\n\nUtreexod is based on btcd and is a full node which supports all utreexo node types:\n\n* Archive: stores block proofs for IBD (though this mode will be later removed)\n* Bridge: stores the entire Merkle forest and can create inclusion proofs for any valid transaction seen in it\u2019s mempool\n* CSN or Compact State Node: stores only the roots of the Merkle forest, and relies on inclusion proofs from peers to\n  validate incoming transactions\n\nFloresta is a minimal CSN implementation with focus on versatility. It can embedded into other applications or used as a standalone daemon. It comes with an integrated Electrum Personal Server that keeps track of your balance and can be used with any electrum-enabled wallet. By default it uses assumeutreexo to make the node ready-to-use in a few minutes, optionally backfilling old blocks. Floresta can be built as an embeddable library, allowing existing applications to ship it along with their own binary. This simplifies the process of integrating a wallet and node and can remove dependence on external servers for wallets currently using public APIs.\n\nThe big change in this release is that it uses techniques from SwiftSync (the cryptographic aggregator) to remove the need for nodes do download and verify accumulator inclusion proofs during IBD.  In the worst case scenario (with no caching) this reduces the extra data downloaded from 1.4TB to around 200GB (essentially the rev0000.dat files in bitcoin core\u2019s blocks directory).  That rev data can also be cached, to be reduced further.\n\nThis new IBD strategy is a significant change and is not yet reflected in the utreexo BIPs (181, 182, 183).  Our goal is to test this new functionality out with utreexod and floresta before updating the specification in the BIPs to reflect the new \u201cproofless\u201d IBD.  After that utreexod will remove support for the old IBD strategy.\n\nAs there are still significant changes happening in utreexo, we\u2019re not recommending people put all their coins into these wallets just yet.  But we are inviting developers to try out the wallet integrations, as those interfaces should be stable.  Let us know how integrating utreexo works with wallets, we\u2019d love to hear feedback.\n\nUtreexod [here](https://github.com/utreexo/utreexod) \n\nFloresta [here](https://github.com/getfloresta/floresta)\n\nSpecial thanks to Vinteum for hosting the utreexo summit, and Ruben Somsen for the joining and helping figure out how to use SwiftSync and Utreexo together.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Announcing the release of Utreexod v0.5, with new Proofless IBD, powered by SwiftSync[tm] technology, and Floresta 0.9 \nUtreexod is based on btcd and is a full node which supports all utreexo node types: \n\nArchive: stores block proofs for IBD (though this mode will be later removed)\nBridge: stores t&hellip;",
   "truncated": true,
   "post_url": "/t/new-utreexo-releases/2371/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
