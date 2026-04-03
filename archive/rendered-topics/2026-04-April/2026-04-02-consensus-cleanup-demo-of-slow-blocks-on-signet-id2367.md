@@ -1,15 +1,15 @@
 # Consensus Cleanup: demo of slow blocks on Signet
 
-AntoineP | 2026-04-02 18:49:48 UTC | #1
+AntoineP | 2026-04-03 14:12:36 UTC | #1
 
-We are going to do a demo of long-to-validate blocks on Signet. Here are instructions on how you can join.
+We are going to do a demo of long-to-validate blocks on Signet on Wednesday. Here are instructions on how you can join.
 
 The goal of this demo is to let end users see for themselves the impact of hard to validate blocks. We have crafted a series of 6 blocks that are hard to validate, but [not too much](https://groups.google.com/g/bitcoindev/c/wOVjJoLDWfA/m/zWcDG7_7CQAJ). Each should take between a handful of seconds and one minute to validate, depending on the hardware. @ajtowns is going to mine the six blocks in a row and then reorg them out, so that anyone running a Signet node at the time would see them, but they would not impose a cost to IBD forever.
 
 We are going to do three runs of the demo so everyone has a chance to join live:
-- Wednesday April 8th at **2pm UTC** (7am SF / 10am NY / 4pm Paris / 1am Sydney)
-- Wednesday April 8th at **10pm UTC** (3pm SF / 6pm NY / midnight Paris / 9am Sydney)
-- Thursday April 9th at **9am UTC** (2am SF / 5am NY / 11am Paris / 8pm Sydney)
+1. [date=2026-04-08 time=14:00:00 timezone=Etc/UTC]
+2. [date=2026-04-08 time=22:00:00 timezone=Etc/UTC]
+3. [date=2026-04-09 time=09:00:00 timezone=Etc/UTC]
 
 ## How to join the demo live
 
