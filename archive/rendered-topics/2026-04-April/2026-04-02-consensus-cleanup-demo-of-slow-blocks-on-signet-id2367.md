@@ -29,3 +29,20 @@ Just wanted to suggest vibe coding a basic GUI/display to pull from the logs and
 
 -------------------------
 
+0xB10C | 2026-04-02 22:52:22 UTC | #3
+
+[quote="AntoineP, post:1, topic:2367"]
+* Wednesday April 8th at **2pm UTC** (7am SF / 10am NY / 4pm Paris / 1am Sydney)
+* Wednesday April 8th at **10pm UTC** (3pm SF / 6pm NY / midnight Paris / 9am Sydney)
+* Thursday April 9th at **9am UTC** (2am SF / 5am NY / 11am Paris / 8pm Sydney)
+[/quote]
+
+In your timezone, this is:
+1. [date=2026-04-08 time=14:00:00 timezone=Etc/UTC]
+2. [date=2026-04-08 time=22:00:00 timezone=Etc/UTC]
+3. [date=2026-04-09 time=09:00:00 timezone=Etc/UTC]
+
+Maybe adding this to the OP makes sense too.
+
+-------------------------
+

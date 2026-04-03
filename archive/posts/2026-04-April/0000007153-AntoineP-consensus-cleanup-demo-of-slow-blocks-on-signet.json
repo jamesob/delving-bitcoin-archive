@@ -7,15 +7,15 @@
   "cooked": "<p>We are going to do a demo of long-to-validate blocks on Signet. Here are instructions on how you can join.</p>\n<p>The goal of this demo is to let end users see for themselves the impact of hard to validate blocks. We have crafted a series of 6 blocks that are hard to validate, but <a href=\"https://groups.google.com/g/bitcoindev/c/wOVjJoLDWfA/m/zWcDG7_7CQAJ\">not too much</a>. Each should take between a handful of seconds and one minute to validate, depending on the hardware. <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> is going to mine the six blocks in a row and then reorg them out, so that anyone running a Signet node at the time would see them, but they would not impose a cost to IBD forever.</p>\n<p>We are going to do three runs of the demo so everyone has a chance to join live:</p>\n<ul>\n<li>Wednesday April 8th at <strong>2pm UTC</strong> (7am SF / 10am NY / 4pm Paris / 1am Sydney)</li>\n<li>Wednesday April 8th at <strong>10pm UTC</strong> (3pm SF / 6pm NY / midnight Paris / 9am Sydney)</li>\n<li>Thursday April 9th at <strong>9am UTC</strong> (2am SF / 5am NY / 11am Paris / 8pm Sydney)</li>\n</ul>\n<h2><a name=\"p-7153-how-to-join-the-demo-live-1\" class=\"anchor\" href=\"#p-7153-how-to-join-the-demo-live-1\" aria-label=\"Heading link\"></a>How to join the demo live</h2>\n<p>All you need to join the demo is run a Bitcoin Core node on Signet. You would be able to observe how long it took your own node to validate each block, and compare arrival time with other participants. Feel free to share your results in this thread!</p>\n<p>Your Signet node needs to be fully-synced. The historical block chain is still pretty small, you would need about 30GiB of disk space. If necessary, you can also run in <code>-prune</code> mode. It will not affect your ability to participate in the demo.</p>\n<p>If you are not able to run a Signet node yourself, you should still be able to observe the blocks as they arrive on <a href=\"https://mempool.space/signet\">mempool.space</a> and the fork dynamics at the <a href=\"https://signet.peer.observer/forks/\">temporary peer.observer instance</a> for Signet.</p>\n<p><em>Later i may add detailed instructions here on how to run a Signet node and inspect the logs for various end-user platforms.</em></p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-04-02T18:49:48.469Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 22.2,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "We are going to do a demo of long-to-validate blocks on Signet. Here are instructions on how you can join.\n\nThe goal of this demo is to let end users see for themselves the impact of hard to validate blocks. We have crafted a series of 6 blocks that are hard to validate, but [not too much](https://groups.google.com/g/bitcoindev/c/wOVjJoLDWfA/m/zWcDG7_7CQAJ). Each should take between a handful of seconds and one minute to validate, depending on the hardware. @ajtowns is going to mine the six blocks in a row and then reorg them out, so that anyone running a Signet node at the time would see them, but they would not impose a cost to IBD forever.\n\nWe are going to do three runs of the demo so everyone has a chance to join live:\n- Wednesday April 8th at **2pm UTC** (7am SF / 10am NY / 4pm Paris / 1am Sydney)\n- Wednesday April 8th at **10pm UTC** (3pm SF / 6pm NY / midnight Paris / 9am Sydney)\n- Thursday April 9th at **9am UTC** (2am SF / 5am NY / 11am Paris / 8pm Sydney)\n\n## How to join the demo live\n\nAll you need to join the demo is run a Bitcoin Core node on Signet. You would be able to observe how long it took your own node to validate each block, and compare arrival time with other participants. Feel free to share your results in this thread!\n\nYour Signet node needs to be fully-synced. The historical block chain is still pretty small, you would need about 30GiB of disk space. If necessary, you can also run in `-prune` mode. It will not affect your ability to participate in the demo.\n\nIf you are not able to run a Signet node yourself, you should still be able to observe the blocks as they arrive on [mempool.space](https://mempool.space/signet) and the fork dynamics at the [temporary peer.observer instance](https://signet.peer.observer/forks/) for Signet.\n\n*Later i may add detailed instructions here on how to run a Signet node and inspect the logs for various end-user platforms.*",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "We are going to do a demo of long-to-validate blocks on Signet. Here are instructions on how you can join. \nThe goal of this demo is to let end users see for themselves the impact of hard to validate blocks. We have crafted a series of 6 blocks that are hard to validate, but <a href=\"https://groups.google.com/g/bitcoindev/c/wOVjJoLDWfA/m/zWcDG7_7CQAJ\">not too much</a>. Each shoul&hellip;",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

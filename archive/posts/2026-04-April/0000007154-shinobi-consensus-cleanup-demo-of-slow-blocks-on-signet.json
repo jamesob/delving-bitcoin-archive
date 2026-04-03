@@ -7,15 +7,15 @@
   "cooked": "<p>Just wanted to suggest vibe coding a basic GUI/display to pull from the logs and display to a user validation times as the blocks come in. I think without an easy visual component there isn\u2019t much to hook many users to directly spin up a signet node and participate with their own node.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-04-02T20:58:49.418Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 16.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 32.0,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
