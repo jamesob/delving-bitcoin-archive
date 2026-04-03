@@ -116,3 +116,15 @@ How would you see SHRIMPS being used in that context?
 
 -------------------------
 
+jonasnick | 2026-04-03 15:08:57 UTC | #4
+
+> SLH-DSA signatures under the SLH-DSA-{SHA2|SHAKE}-128s parameter sets are 7,856 bytes (not 7,872).
+
+Fixed, thanks!
+
+> Is there any reason you don’t use the optimizations (e.g. WOTS+C, PORS+FP) in the fallback SPHINCS+ instance but you do use it in the compact path?
+
+No particular reason. There's quite a range of parameters that you could use for the fallback. If $q_s = 2^{30}$  is fine for your application, you can get 3440 byte signatures (WOTS+C, PORS+FP).
+
+-------------------------
+
