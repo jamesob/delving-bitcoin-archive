@@ -7,15 +7,15 @@
   "cooked": "<p>Announcing the release of Utreexod v0.5, with new Proofless IBD, powered by SwiftSync[tm] technology, and Floresta 0.9</p>\n<p>Utreexod is based on btcd and is a full node which supports all utreexo node types:</p>\n<ul>\n<li>Archive: stores block proofs for IBD (though this mode will be later removed)</li>\n<li>Bridge: stores the entire Merkle forest and can create inclusion proofs for any valid transaction seen in it\u2019s mempool</li>\n<li>CSN or Compact State Node: stores only the roots of the Merkle forest, and relies on inclusion proofs from peers to\nvalidate incoming transactions</li>\n</ul>\n<p>Floresta is a minimal CSN implementation with focus on versatility. It can embedded into other applications or used as a standalone daemon. It comes with an integrated Electrum Personal Server that keeps track of your balance and can be used with any electrum-enabled wallet. By default it uses assumeutreexo to make the node ready-to-use in a few minutes, optionally backfilling old blocks. Floresta can be built as an embeddable library, allowing existing applications to ship it along with their own binary. This simplifies the process of integrating a wallet and node and can remove dependence on external servers for wallets currently using public APIs.</p>\n<p>The big change in this release is that it uses techniques from SwiftSync (the cryptographic aggregator) to remove the need for nodes do download and verify accumulator inclusion proofs during IBD.  In the worst case scenario (with no caching) this reduces the extra data downloaded from 1.4TB to around 200GB (essentially the rev0000.dat files in bitcoin core\u2019s blocks directory).  That rev data can also be cached, to be reduced further.</p>\n<p>This new IBD strategy is a significant change and is not yet reflected in the utreexo BIPs (181, 182, 183).  Our goal is to test this new functionality out with utreexod and floresta before updating the specification in the BIPs to reflect the new \u201cproofless\u201d IBD.  After that utreexod will remove support for the old IBD strategy.</p>\n<p>As there are still significant changes happening in utreexo, we\u2019re not recommending people put all their coins into these wallets just yet.  But we are inviting developers to try out the wallet integrations, as those interfaces should be stable.  Let us know how integrating utreexo works with wallets, we\u2019d love to hear feedback.</p>\n<p>Utreexod <a href=\"https://github.com/utreexo/utreexod\">here</a></p>\n<p>Floresta <a href=\"https://github.com/getfloresta/floresta\">here</a></p>\n<p>Special thanks to Vinteum for hosting the utreexo summit, and Ruben Somsen for the joining and helping figure out how to use SwiftSync and Utreexo together.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 2,
   "updated_at": "2026-04-03T15:13:20.153Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 52.6,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 83.2,
   "yours": false,
   "topic_id": 2371,
   "topic_slug": "new-utreexo-releases",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 5
     }
   ],
   "moderator": false,
@@ -61,18 +61,23 @@
   "post_url": "/t/new-utreexo-releases/2371/1",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
+    {
       "id": "rocket",
       "type": "emoji",
       "count": 2
     },
     {
-      "id": "+1",
+      "id": "eyes",
       "type": "emoji",
       "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 5,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

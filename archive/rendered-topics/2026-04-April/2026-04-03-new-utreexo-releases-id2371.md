@@ -27,3 +27,31 @@ Special thanks to Vinteum for hosting the utreexo summit, and Ruben Somsen for t
 
 -------------------------
 
+Laz1m0v | 2026-04-03 21:51:48 UTC | #2
+
+Congratulations on the release :sunflower:  SwiftSync and proofless IBD are impressive milestones.
+
+I wanted to ask a question about a use case we are currently exploring: **running Utreexo inside a Trusted Execution Environment.**
+
+We are building an autonomous Bitcoin wallet architecture ([PRECOP](https://github.com/BitcoinWorldTrustFoundation/precop)) where an AWS Nitro Enclave runs a Simplicity Bit Machine to enforce spending constraints before producing BIP-341 Schnorr signatures. Because TEEs have very tight constraints (\~256MB RAM, no persistent storage, stateless restarts), running a full node inside the enclave is not practical.
+
+Today the enclave receives PSBTs from an external bridge process and recomputes the sighash internally after overriding `witness_utxo`. However the enclave still cannot independently verify that the input UTXOs actually exist in the current UTXO set.
+
+Utreexo seems like a clean solution here. The idea would be:
+
+* The enclave keeps only the Utreexo forest roots in memory (a few KB, updated with each block header)
+
+* The bridge provides inclusion proofs for every PSBT input
+
+* The enclave verifies the proofs against its local roots before running the Simplicity policy engine and signing
+
+This would allow the enclave to verify UTXO existence with something close to full-node assurance while staying within a small memory footprint.
+
+**My question:** is the `rustreexo` accumulator library stable enough to embed as a crate in a constrained environment?
+
+Specifically we would only need the `verify` and `update` roots paths (not proving or deletion). Are those components well-tested independently of the full utreexod / Floresta node implementations?
+
+Utreexo looks like a very natural primitive for trust-minimized signing environments.
+
+-------------------------
+

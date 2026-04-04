@@ -144,3 +144,21 @@ Code: [github.com/aaron-recompile/btcaaron](https://github.com/aaron-recompile/b
 
 -------------------------
 
+Laz1m0v | 2026-04-03 22:00:41 UTC | #3
+
+This discussion around RCA / UHPO state aggregation is very interesting.
+
+In our research group we have been exploring a related approach for modeling continuous-state UTXO machines without consensus covenants, by moving the enforcement to the signing layer.
+
+The architecture we are experimenting with encodes the evolving state algebraically into a Taproot key tweak (what we call the Astrolabe pattern), while a local Simplicity VM evaluates the covenant logic before a Schnorr signature is produced.
+
+In other words, the covenant is enforced client-side at signing time rather than by the network.
+
+Obviously this does not provide the same trust model as consensus covenants or ANYPREVOUT, but it allowed us to experiment with continuous-state machines (CDPs, AMMs, etc.) on signet/mainnet without pre-signing large transaction trees.
+
+I’m curious whether something like this could be useful as a research testbed for Braidpool-style payout orchestration before consensus primitives are available.
+
+Would a “soft covenant” approach at the signing layer provide any useful insights for RCA/UHPO design, or do you see fundamental limitations that would make it irrelevant for this class of protocol?
+
+-------------------------
+

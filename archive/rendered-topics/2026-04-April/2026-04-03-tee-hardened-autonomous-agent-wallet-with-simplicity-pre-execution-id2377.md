@@ -1,6 +1,6 @@
 # TEE-Hardened Autonomous Agent Wallet with Simplicity Pre-Execution
 
-Laz1m0v | 2026-04-03 19:03:02 UTC | #1
+Laz1m0v | 2026-04-03 23:35:00 UTC | #1
 
 Hello everyone,
 
@@ -40,9 +40,9 @@ The private key never leaves the Enclave memory. The agent cannot sign independe
 
 ### 1.1 The Trust Anchor (Addressing the TEE Objection)
 
-We are fully aware that this is client-side covenant execution. The global Bitcoin network does not enforce the Simplicity logic today. If an attacker forks the agent binary, disables the TEE checks, and obtains the key material (which requires compromising AWS Nitro's physical security or KMS), they could sign transactions that violate the covenant rules and the network would accept them.
+We are fully aware that this is client-side covenant execution. The global Bitcoin network does not enforce the Simplicity logic today. If an attacker forks the agent binary, disables the TEE checks, and obtains the key material (which requires compromising AWS Nitro’s physical security or KMS), they could sign transactions that violate the covenant rules and the network would accept them.
 
-The covenant currently exists as a **local defense mechanism** protecting the agent's UTXOs from its own failures and from external compromise of the host. It is not a consensus-level guarantee. The mitigation for TEE failure is a `OP_CHECKSEQUENCEVERIFY` timelock fallback (144 blocks ≈ 24h) that degrades control to a multisig quorum of human administrators.
+The covenant currently exists as a **local defense mechanism** protecting the agent’s UTXOs from its own failures and from external compromise of the host. It is not a consensus-level guarantee. The mitigation for TEE failure is a `OP_CHECKSEQUENCEVERIFY` timelock fallback (144 blocks ≈ 24h) that degrades control to a multisig quorum of human administrators.
 
 ### 1.2 Relationship to DLCs
 
@@ -61,7 +61,7 @@ By generating valid **5-Leaf MAST structures** where each leaf is a compiled Sim
 | Regime | Enforcement | Trust Assumption |
 |----|----|----|
 | **Today: Soft Covenant** | TEE evaluates Simplicity locally before signing | AWS Nitro physical security + KMS |
-| **Future: Hard Covenant** | Bitcoin consensus evaluates Simplicity at spend time | Bitcoin's consensus rules (no additional trust) |
+| **Future: Hard Covenant** | Bitcoin consensus evaluates Simplicity at spend time | Bitcoin’s consensus rules (no additional trust) |
 
 The transition requires zero code changes. This is not an approximation: the Enclave links the same `simplicity-unchained` crate that would be embedded in a consensus node. The `.simf` sources compile to the same CMR hashes via `simc`. The MAST topology is identical. The only variable is *who* evaluates the Simplicity program today, the Enclave; after activation, every validating node. Any behavioral divergence between these two regimes would constitute a bug in `simplicity-unchained` itself, not in PRECOP.
 
@@ -100,7 +100,7 @@ Q_t    = P + tweak · G
 
 **Why this is not OP_RETURN.** Traditional approaches store protocol state in OP_RETURN payloads data that any node or indexer is free to ignore, that bloats the UTXO set with unspendable outputs, and that has no cryptographic binding to the spending conditions. The Astrolabe Pattern is fundamentally different: the state is physically integrated into the Taproot address itself. The address *is* the state. Every state transition produces a new output key Q\_{t+1}, which means the UTXO rotates to a fresh address you cannot replay an old state against a new address, because the tweak will not match. The covenant, the state, and the destination are fused into a single cryptographic object.
 
-A PRECOP vault is indistinguishable from a standard P2TR single-key transfer until a state transition reveals the script path. The contract's complexity never bloats the global UTXO set.
+A PRECOP vault is indistinguishable from a standard P2TR single-key transfer until a state transition reveals the script path. The contract’s complexity never bloats the global UTXO set.
 
 ---
 
@@ -108,7 +108,7 @@ A PRECOP vault is indistinguishable from a standard P2TR single-key transfer unt
 
 The Astrolabe Pattern (Section 3) encodes *what state a UTXO represents*. But encoding state is only half the problem. The covenant must also **verify the spending transaction itself**  confirming that the correct recipients receive the correct amounts at the correct output indices. This is **transaction introspection**, and it is the core capability that makes TUSM enforcement possible.
 
-In traditional Bitcoin Script, a spending script can verify signatures and timelocks, but it cannot examine the outputs of its own transaction. It is blind to where the funds are going. Simplicity removes this limitation. The Bit Machine provides native jets that read the spending transaction's outputs at evaluation time:
+In traditional Bitcoin Script, a spending script can verify signatures and timelocks, but it cannot examine the outputs of its own transaction. It is blind to where the funds are going. Simplicity removes this limitation. The Bit Machine provides native jets that read the spending transaction’s outputs at evaluation time:
 
 * `jet::output_script_pubkey_hash(n)` returns the SHA-256 hash of the `scriptPubKey` at output index `n`.
 
@@ -129,13 +129,13 @@ jet::output_script_pubkey_hash(3) == EXPECTED_JSON_HASH   // OP_RETURN metadata 
 
 All five checks execute within a single Simplicity program evaluation. If any condition fails, the Bit Machine returns `FALSE` and the transaction is rejected (by the TEE today; by consensus after activation).
 
-**Why this matters.** Without introspection, enforcing "output 2 must pay the treasury exactly 3%" would require pre-signing every possible fee amount  the same combinatorial explosion that makes DLC-style CET enumeration impractical for continuous-state machines. Simplicity introspection collapses this into a single algebraic verification: `jet::ge_128(jet::multiply_64(treasury_out, 100), jet::multiply_64(total, 3))`. 
+**Why this matters.** Without introspection, enforcing “output 2 must pay the treasury exactly 3%” would require pre-signing every possible fee amount  the same combinatorial explosion that makes DLC-style CET enumeration impractical for continuous-state machines. Simplicity introspection collapses this into a single algebraic verification: `jet::ge_128(jet::multiply_64(treasury_out, 100), jet::multiply_64(total, 3))`.
 
 The covenant computes the constraint at spend time rather than pre-committing to every possible outcome.
 
 This is the mechanism that connects the Astrolabe state encoding (Section 3) to the MAST covenant topology (Section 5): the state tells the covenant *what should happen*, and introspection lets the covenant *verify that it did*.
 
-**The covenant as the sole arbiter.** The combination of Astrolabe state encoding, Simplicity introspection, and curried SPK hashes produces an important architectural property: the Simplicity program inside the Taproot leaf is the sole and final authority over whether a state transition is valid. Neither the oracle, nor the user's signature, nor any off-chain indexer can override a covenant that evaluates to `FALSE`. The user authenticates the transaction (Schnorr signature), the oracle provides exogenous data (price attestation), but only the covenant *enforces* ; it verifies the math, checks the routing, and either permits or rejects the spend. Under Soft Covenant enforcement (TEE), this authority is local. Under Hard Covenant enforcement (consensus activation), it becomes global. The logic is identical in both regimes.
+**The covenant as the sole arbiter.** The combination of Astrolabe state encoding, Simplicity introspection, and curried SPK hashes produces an important architectural property: the Simplicity program inside the Taproot leaf is the sole and final authority over whether a state transition is valid. Neither the oracle, nor the user’s signature, nor any off-chain indexer can override a covenant that evaluates to `FALSE`. The user authenticates the transaction (Schnorr signature), the oracle provides exogenous data (price attestation), but only the covenant *enforces* ; it verifies the math, checks the routing, and either permits or rejects the spend. Under Soft Covenant enforcement (TEE), this authority is local. Under Hard Covenant enforcement (consensus activation), it becomes global. The logic is identical in both regimes.
 
 ---
 
@@ -191,12 +191,12 @@ where `52,560,000 = 144 × 365 × 1000` is the Block Year Factor.
 
 The DEX implements perfect bid/ask symmetry across two MAST leaves with identical output topology:
 
-| Output | Content | Verification Jet |
+| **Output** | **Content** | **Verification Jet** |
 |----|----|----|
-| 0 | Buyer receives asset (546 sats) | `jet::output_script_pubkey_hash(0)` |
-| 1 | Seller receives BTC (97%) | `jet::output_amount(1)` |
-| 2 | Treasury fee (3%) | `jet::output_script_pubkey_hash(2)` |
-| 3 | OP_RETURN metadata | `jet::output_script_pubkey_hash(3)` |
+| **0** | **OP_RETURN metadata** | `jet::output_script_pubkey_hash(0)` |
+| **1** | **Asset Receiver (Buyer)** (546 sats) | `jet::output_script_pubkey_hash(1)` |
+| **2** | **BTC Receiver (Seller)** (97%) | `jet::output_amount(2)` |
+| **3** | **Treasury fee** (3%) | `jet::output_script_pubkey_hash(3)` |
 
 Both engines enforce the 97/3 split via identical 128-bit cross-multiplication. The treasury SPK hash is curried into the TapLeaf at MAST construction time output hijacking requires inverting tagged SHA-256.
 
@@ -239,7 +239,7 @@ The Openclaw extension adds mitigations:
 
 * **Asset Oracle:** Heuristic fingerprinting of marketplace witnesses (UniSat, Magic Eden) for BRC-20/Runes VWAP zero API reliance, but dependent on marketplace volume.
 
-**This is the weakest layer of the protocol, and we are explicit about it.** It provides a "good enough" signal for testing the state machine. We are actively investigating alternatives (commitment schemes, median-of-medians across multiple extraction windows).
+**This is the weakest layer of the protocol, and we are explicit about it.** It provides a “good enough” signal for testing the state machine. We are actively investigating alternatives (commitment schemes, median-of-medians across multiple extraction windows).
 
 ### 6.2 Attestation Security: Binohash PoW Sealing
 
@@ -260,7 +260,7 @@ Attack is irrational when:
 
 ```
 
-where `S_btc` is the oracle's slashable BTC stake (enforced by `stake_enf`, leaf 4, opcode 0x0C).
+where `S_btc` is the oracle’s slashable BTC stake (enforced by `stake_enf`, leaf 4, opcode 0x0C).
 
 The oracle message uses bitwise concatenation via `sha256_ctx_8_add_8`, not arithmetic addition  injective encoding eliminates temporal replay.
 
@@ -288,7 +288,7 @@ These numbers depend on hardware assumptions and will require periodic recalibra
 
 ## 7. Parallelization: Creator Dust Pools
 
-To avoid the "Hot UTXO" bottleneck, genesis transactions create N identical UTXOs locked under Q_0, each provisioned with exactly 330 sats (TOKEN_DUST_SATS). This enables parallel state mutations within a single block epoch. Empirical testing on Mutinynet demonstrated 20× trade parallelization.
+To avoid the “Hot UTXO” bottleneck, genesis transactions create N identical UTXOs locked under Q_0, each provisioned with exactly 330 sats (TOKEN_DUST_SATS). This enables parallel state mutations within a single block epoch. Empirical testing on Mutinynet demonstrated 20× trade parallelization.
 
 Recursive state settlement (δ^k) aggregates k intents into a single atomic transaction. The Simplicity evaluator performs a recursive fold  if any δ\_j fails its invariant, the entire sequence is invalidated.
 
@@ -299,7 +299,6 @@ Recursive state settlement (δ^k) aggregates k intents into a single atomic tran
 Precopscan (v40.35, Next.js 14 / TypeScript) is an ephemeral, stateless observer that reconstructs the complete protocol state from raw Esplora API data at every page load. No database, no cache.
 
 ![image|690x412](upload://ibUYp51GELy8tBqgEoRAzIXYDo8.jpeg)
-
 
 The discovery model anchors on **six fixed Taproot P2TR probe addresses** that every PRECOP settlement transaction is cryptographically forced to touch (because the `vault_covenant` TapLeaf commits the treasury SPK_HASH into the Merkle root).
 
@@ -345,7 +344,7 @@ Layer 0: Bitcoin L1 UTXO Set (Nakamoto, 2008)
 
 ```
 
-Each layer provides a strictly isolated guarantee. No layer's correctness depends on the internal implementation of any other.
+Each layer provides a strictly isolated guarantee. No layer’s correctness depends on the internal implementation of any other.
 
 ---
 
@@ -382,6 +381,8 @@ We are publishing this architecture primarily as a **covenant research platform*
 6. **Precopscan completeness:** Could batching, CoinJoin, or non-standard change output patterns produce valid covenant transactions that bypass all six probe addresses?
 
 7. **Covenant emulation value:** As a testing ground for future L1 covenants, what specific financial primitives (beyond CDPs and AMMs) would be most valuable to simulate and stress-test within this TEE/Simplicity hybrid environment?
+
+8. **Utreexo integration for TEE UTXO validation:** Our Enclave currently trusts the external bridge for `witness_utxo` data (mitigated by internal sighash recalculation). With the recent release of `utreexod` v0.5 and Floresta 0.9, we are investigating feeding Utreexo inclusion proofs alongside the PSBT, allowing the Enclave to verify UTXO existence against internally maintained accumulator roots achieving full-node-equivalent validation within the TEE’s memory constraints (\~50 MB). We would welcome feedback on this integration path from anyone familiar with the Utreexo proof format.
 
 We look forward to your technical critiques.
 
