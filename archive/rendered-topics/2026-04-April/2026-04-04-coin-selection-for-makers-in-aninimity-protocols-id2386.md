@@ -1,6 +1,6 @@
 # Coin selection for makers in aninimity protocols
 
-cmp_ancp | 2026-04-04 20:47:32 UTC | #1
+cmp_ancp | 2026-04-05 18:55:32 UTC | #1
 
 # Introduction
 
@@ -30,7 +30,7 @@ Taker → A → B → C → Taker
 
 Where A, B and C are makers that earn fees on swap hop.
 
-My main concern is that, if the makers simply consolidates received UTXOs with the change from the operacion, we could deanonimize the entire swap. The taker is the only one that gives up an entire UTXO when swapping, A, B and C have UTXOs with different amounts, and therefore create change.
+My main concern is that, if the maker simply consolidates received UTXOs with the change from the operation, we could deanonimize the entire swap. The taker is the only one that gives up an entire UTXO when swapping, A, B and C have UTXOs with different amounts, and therefore create change.
 
 If it is known that a cluster belongs to a maker (by cluster I mean, a set of UTXOs and transaction history, that could be associated together as own by the same user), and the new UTXO enters the same cluster from the fund sent in that swap circuit, we could associate the inflow and outflow as being part of the same operation, and if all makers commit this same sin, we could trace the entire circuit.
 
