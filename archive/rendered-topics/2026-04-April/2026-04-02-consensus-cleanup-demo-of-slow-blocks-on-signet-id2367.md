@@ -236,9 +236,9 @@ I also added instructions on how to join using Umbrel with screenshots, courtesy
 
 -------------------------
 
-AntoineP | 2026-04-06 20:43:01 UTC | #7
+AntoineP | 2026-04-06 20:43:11 UTC | #7
 
-Openoms just shared instructions on how to join using Raspiblitz (https://x.com/openoms/status/2041254429555339502, [Telegram](https://t.me/raspiblitz/153788#)). I'll update OP with the instructions.
+Openoms just shared instructions on how to join using Raspiblitz ([X](https://x.com/openoms/status/2041254429555339502), [Telegram](https://t.me/raspiblitz/153788#)). I'll update OP with the instructions.
 
 -------------------------
 
