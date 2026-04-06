@@ -128,3 +128,9 @@ No particular reason. There's quite a range of parameters that you could use for
 
 -------------------------
 
+jonasnick | 2026-04-06 08:30:15 UTC | #5
+
+@conduition Sorry, I don't understand the concern. I am merely stating the fact that you need to store state for each keypair you derive from the seed. To clarify, "similar to BIP-32" was just referring to the general pattern of deriving multiple keys from a single seed, not claiming compatibility with unhardened derivation.
+
+-------------------------
+
