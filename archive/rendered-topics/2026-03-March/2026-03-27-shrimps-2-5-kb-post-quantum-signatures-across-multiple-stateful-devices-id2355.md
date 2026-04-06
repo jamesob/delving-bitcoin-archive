@@ -134,3 +134,28 @@ jonasnick | 2026-04-06 08:30:15 UTC | #5
 
 -------------------------
 
+conduition | 2026-04-06 15:14:17 UTC | #6
+
+apologies, I did a leap of logic there which I failed to properly explain. My concern is about the viability of the design for our use cases, not about the design of the scheme itself. After thinking about it, I realized it applies to SHRINCS as well, though it is not as severely in that case. 
+
+Let me rephrase and elaborate: 
+
+First, note SHRIMPS' signature size savings are only meaningful relative to SPHINCS if a keypair is used at most once (disregarding restored wallets for the moment), because after the first signature a signer _must_ switch to the stateless SPHINCS key. On the other hand, SHRINCS' signature savings are still meaningful if reused, but degrade linearly with usage.
+
+Second, note most wallets receive more than one UTXO using distinct addresses, and if you want to spend $n$ UTXOs, you need $n$ distinct signatures (unless we add something new to consensus). Therefore, we should expect when and if SHRIMPS is needed - when ECC becomes vulnerable - a single wallet that uses SHRIMPS as a fallback will likely need to "rescue" multiple UTXOs by creating _multiple_ SHRIMPS signatures. 
+
+Now for my concern, which is about viability as a fallback signature scheme with the above two properties in mind. 
+
+By designing SHRIMPS (and to some degree, SHRINCS) with the optimistic assumption that a signing wallet will need to sign with a SHRIMPS (or SHRINCS) keypair **only once** under most use-cases, then we imply the assumption that every address in that wallet must commit to a unique SHRIMPS (or SHRINCS) pubkey. This hobbles our ability to create wallets which support some quantum-resistant version of unhardened key derivation. 
+
+More materially, wallets will have a hard desgn choice to make:
+
+- If we want to support unhardened key derivation with a hash-based fallback key, then we'd likely need to reuse a SHRIMPS keypair to spend many UTXOs, which mostly nullifies the performance savings of SHRIMPS.
+- If we want smaller signatures, then we must commit each address in our wallet to a unique SHRIMPS public key, which necessarily forbids unhardened derivation of those addresses.
+
+Interestingly, there's no reason we can't do both in different circumstances. E.g: a watch-only wallet needs unhardened derivation to work, which they take at the cost of PQ signature size, where as a software wallet which has private keys in memory can do hardened derivation all the time, and create a unique SHRIMPS key per address.
+
+@jonasnick What's your take on the tradeoffs here?
+
+-------------------------
+
