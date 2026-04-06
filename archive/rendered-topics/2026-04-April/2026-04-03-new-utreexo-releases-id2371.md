@@ -55,3 +55,21 @@ Utreexo looks like a very natural primitive for trust-minimized signing environm
 
 -------------------------
 
+Davidson | 2026-04-06 16:10:14 UTC | #3
+
+Thanks for taking interest in using `rustreexo`.
+
+> the `rustreexo` accumulator library stable enough to embed as a crate in a constrained environment?
+
+I would say so. It is being used by `floresta` for the last few years without major hiccups, the `stump` data structure (the one representing a forest in the most compact way) is pretty battle-tested. `rustreexo` only depends on `bitcoin-hashes` and works fine in `no-std` environments (we only need an extra dependency on `hashbrown`), my guess is that it works fine inside secure enclaves as well. If you find any compatibility problem, please report and we can work on it.
+
+> Specifically we would only need the `verify` and `update` roots paths (not proving or deletion).
+
+Could you clarify what do you mean by not using deletions here? You need to delete the STXOs, otherwise people may try to prove already-spent txos.
+
+> Are those components well-tested independently of the full utreexod / Floresta node implementations?
+
+Yes! There are even other projects (e.g. ^[ https://github.com/halseth/output-zero]^[https://github.com/LayerTwo-Labs/thunder-rust]) that used it completely outside `floresta`.
+
+-------------------------
+
