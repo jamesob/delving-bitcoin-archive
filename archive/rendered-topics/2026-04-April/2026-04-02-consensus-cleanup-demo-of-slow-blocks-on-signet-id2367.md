@@ -1,6 +1,6 @@
 # Consensus Cleanup: demo of slow blocks on Signet
 
-AntoineP | 2026-04-06 18:22:17 UTC | #1
+AntoineP | 2026-04-06 20:45:42 UTC | #1
 
 We are going to do a demo of long-to-validate blocks on Signet on Wednesday. Here are instructions on how you can join.
 
@@ -176,6 +176,34 @@ Then you can for instance poll latest events using `tail -f /data/bitcoin/debug.
 ![image|690x388](upload://59I7ptqkX0GvbQxJGyCxACaiukK.jpeg)
 
 Alternately, if you are looking for a past event, you can use the `less` command and search through the file by hitting `/`, typing the search query and hitting enter (hit `n` to jump to the next match).
+
+</details>
+
+<details>
+
+<summary>Joining the demo using a Raspiblitz node</summary>
+
+*h/t Openoms*
+
+Syncing signet on an RPi5 should take less than an hour (but allow a little more time just in case).
+
+You can start the signet bitcoind instance on a Raspiblitz by running:
+```
+config.scripts/bitcoin.install.sh on signet
+```
+
+You will have these aliases set in terminal for easy monitoring and configuration:
+```
+alias sbitcoin-cli="sudo -u bitcoin /usr/local/bin/bitcoin-cli -rpcport=38332"
+alias sbitcoinlog="sudo -u bitcoin tail -n 30 -f /mnt/hdd/app-data/bitcoin/signet/debug.log"
+alias bitcoinconf="sudo nano /mnt/hdd/app-data/bitcoin/bitcoin.conf"
+```
+
+The systemd service is called: `sbitcoind` so can check and restart with:
+```
+systemctl status sbitcoind
+sudo systemctl restart sbitcoind
+```
 
 </details>
 
