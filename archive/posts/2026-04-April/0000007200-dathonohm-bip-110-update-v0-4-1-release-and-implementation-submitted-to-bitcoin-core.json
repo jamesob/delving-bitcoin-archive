@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 6.4,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 7.4,
   "yours": false,
   "topic_id": 2360,
   "topic_slug": "bip-110-update-v0-4-1-release-and-implementation-submitted-to-bitcoin-core",
@@ -60,9 +60,15 @@
   "excerpt": "Greetings <a class=\"mention\" href=\"/u/neonrooks\">@neonrooks</a>. \n\nWhat gain to users is achieved whether blocks are full or not? The current rules allow for only a maximum growth of the blockchain at a linear rate. \n\nArbitrary data impacts full validation by rapid expansion of the UTXO set which, as demonstrated in the recent spam waves, do&hellip;",
   "truncated": true,
   "post_url": "/t/bip-110-update-v0-4-1-release-and-implementation-submitted-to-bitcoin-core/2360/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -282,3 +282,9 @@ If you’re already synced to a different signet and don’t want to lose your d
 
 -------------------------
 
+AntoineP | 2026-04-07 14:41:19 UTC | #10
+
+It's fair to plug your PR since it could have been useful in this context, but i think for a non-Bitcoin-Core-contributor a better instruction is to use the `-datadir` option rather than compiling your branch.
+
+-------------------------
+

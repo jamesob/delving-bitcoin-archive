@@ -179,3 +179,30 @@ Feedback still welcome on edge cases, especially around Validator vs your own PS
 
 -------------------------
 
+Tsua00021 | 2026-04-07 12:57:42 UTC | #4
+
+**Update — BTSL v1.0 specification marked FINAL (checker completeness)**
+
+Following the March update, I’ve **closed the remaining normative gaps on the Checker side** so an external verifier has an explicit, testable contract: not only replay of `calc` / `ASSERT`, but also **shape fast-fail**, **strict prevout value verification**, **outpoint binding** (parameters and workflow parent), **output `scriptPubKey` cross-check**, and a **complete `BTSL_ERR_00`…`BTSL_ERR_13`** mapping aligned with **§9.3.1** in `btsl-spec-v1.0.md`.
+
+**Repository (normative source):** https://github.com/tsua0002/btsl-standard
+**Anchored revision:** https://github.com/tsua0002/btsl-standard/commit/1e48a0a0fa91b1a18081e2d9df5a24844a8b8593 *(spec README: Reference Specification \[FINAL\])*
+
+**Summary for implementers / reviewers:**
+
+* **§9.3.1** — Predicate set **S-1…A-5** with phase order: parse → **shape (S-1/S-2 → `BTSL_ERR_13`)** → field-level (**I-1…I-4**, **O-1**, **O-2**) → algebraic (**A-1…A-5**).
+* **I-3 / zero-trust** — **`BTSL_ERR_11`** if PSBT-declared input amount ≠ independently chain-fetched value for that outpoint.
+* **I-2** — **`BTSL_ERR_12`** for bound-parameters outpoint mismatch (**Case A**) and for confirmed workflow parent vs wrong PSBT prevout (**Case C**, **§9.4**); **`BTSL_ERR_05`** when the parent is unavailable.
+* **`BTSL_ERR_06`** — Explicitly includes **O-2** (PSBT output amounts vs `calc` / schema), not only ASSERT / implicit balance.
+* **`From()`** — **§9.1.1** binding persistence (Level 1) for handoff to an external Checker.
+* **`btsl-implementation-guide-v1.0.md`** — Checker steps reordered so **shape precedes** per-input chain work (consistent with §9.3.1).
+* **`btsl-checker-predicates-v1.0.md`** — Consolidated predicate/error reference annex (normative text remains **§9.3.1**).
+
+Further changes to v1.0 should be **explicit errata or a numbered revision**, not silent drift.
+
+**Playground:** the public app remains a separate implementation; I am **aligning the client-side Validator** with this FINAL **§9.3.1** predicate set and will note when that release is tagged.
+
+Feedback still welcome from wallet / PSBT implementers—especially real coordinator flows and **`.params` interoperability** across Maker and Checker builds.
+
+-------------------------
+
