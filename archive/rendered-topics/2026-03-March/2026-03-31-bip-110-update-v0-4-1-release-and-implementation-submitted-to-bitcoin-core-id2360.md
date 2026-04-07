@@ -213,3 +213,99 @@ There is a reason soft forks are activated by mining power alone; node listen co
 
 -------------------------
 
+dathonohm | 2026-04-07 03:29:28 UTC | #5
+
+Greetings, @ariard.
+
+I am aware that many developers do not consider toxic data to be a serious threat to Bitcoin. However, as you may be aware, there are many developers, lawyers, and other Bitcoiners who disagree. For example, [the researchers who actually studied the topic](https://fc18.ifca.ai/preproceedings/6.pdf) concluded that "We thus believe that future blockchain designs must proactively cope with objectionable content. Peers can, e.g., filter incoming transactions or revert content-holding transactions, but this must be scalable and transparent."
+
+Bitcoiners have always engaged in adversarial thinking in order to anticipate novel attacks before they happen. This was the basis for rejecting a hardfork to a larger block size in 2017, for example. Many "Big Blockers" considered large blocks to be harmless, and criticized the "Small Blockers" for overestimating the concern. But since Bitcoin is conservative and does not unnecessarily impose risks on itself, it is simply common sense to reject the standardization of arbitrary data storage, just as it was common sense to reject a hardfork to a larger block size. The risk, as it turns out, is the same in both situations: that fewer people will operate nodes.
+
+It does not require much imagination to envision Bitcoin dangerously centralizing due to becoming a popular method of storing toxic data. Most of humanity consists of moral actors and is repulsed (if not frightened) by the idea of aiding in the distribution of such content. Officially embracing arbitrary data storage, as Core 30 has done, makes node operators complicit in this activity because if arbitrary data is an official use case of Bitcoin, then by operating a node, users are *explicitly opting into* a system where anyone can store any file up to 100 kilobytes, completely unencrypted and impossible to delete without compromising the node operator's entire motivation for operating a node, which is independent verification of the transaction history. (On the other hand, if we activate BIP-110 to reject arbitrary data storage, it can easily be argued that node operators are not complicit, because the content must, by consensus, be hidden from the user by disguising it as financial data.)
+
+In light of this, it is incredibly reckless to move forward with embracing data storage as an official use case. As you are aware, very few Bitcoin users actually operate nodes, and this is an existential problem for Bitcoin. Why make their lives even harder by forcing them to participate in activity *completely unrelated to money*, that they most likely consider immoral and/or dangerous, in order to use Bitcoin without a trusted intermediary? The inevitable result of this will be centralization, because only the tiny minority of humanity with no moral scruples will even be *candidate* node operators.
+
+It is abundantly clear, both from recent spam waves and from the threat of toxic data, that arbitrary data poses at least a serious risk to Bitcoin's decentralized node network and its proper functioning as money, and at most a fatal risk. We don't know the exact level of risk because Bitcoin never officially supported arbitrary data storage before the release of Core 30 (and it arguably still doesn't because the BIP-110 movement began immediately thereafter).
+
+But even in the absence of a fatal threat from toxic data, BIP-110 would still be worth activating because it is such a simple, safe measure, which nevertheless achieves the important goal of making arbitrary data storage officially unsupported on the network.
+
+>Might I suggest to edit the BIP in a sense to completely remove this mention, as with now there is more legal clarity on the matter (“objectionable” is a terminology directly coming from US administrative law doctrine on communication broadcast).
+
+I am not sure why you think only citizens of the United States find certain kinds of content objectionable. Indeed, the researchers who authored the paper linked above are German, and used the term "objectionable content" many times. I don't think you will find a single country whose citizens don't broadly find abhorrent the type of content examined by the German researchers.
+
+>In my opinion, in some measure, we shouldn’t as protocol developers consider “exogenous” reasons in the design and development of consensus rules. Notably, among others reasons, to avoid introducing security bugs in the network due to ill-written legal texts.
+
+Can you clarify this vague reference to "security bugs in the network" that BIP-110 supposedly introduces? Would you consider a desire to avoid centralizing the network via discouragement of node operation to be an "exogenous" motivation?
+
+As for Tor, operating a Tor relay is not at all similar to operating a Bitcoin node. The purpose of Tor is anonymous information sharing, while the purpose of Bitcoin is to be money. In the case of Tor, the relay operator cannot see any of the data that flows across her relay, whereas with Bitcoin, everyone can see all of the data, unencrypted, and no one can ever delete or modify it, and indeed all Bitcoin node operators are forced to continue distributing it on-demand, until the end of time.
+
+It very much makes sense that Tor relay operators are both protected from intent (since they cannot see the data and it does not persist even if they could), and that they understand the risks and accept them in order to participate in the Tor network (since information sharing is Tor's purpose).
+
+Conversely, Bitcoin node operators are neither protected from intent (since everyone can see the data), nor do they consent to the risks of operating an uncensorable, public file server (that must accept and distribute on-demand, any data posted to it, for free forever), since Bitcoin's purpose is to be money and has nothing to do with file storage.
+
+Bitcoin is not Tor. Bitcoin is money.
+
+>I do not support BIP110, less for the technical issues it aims to address, and more because I think the peer-to-peer network stability is a valuable end goal in itself
+
+BIP-110, if anything, improves network stability, by discouraging non-payment spam.
+
+>We are not building a stronger ecosystem by bothering and burdening the wallet developers to have to adapt their stuff, or even forcing them to have to go through the myriad of BIP110 restrictions just to be sure that their wallets softwares, even if there are wallets only for simple funds transfers, do not have to be changed.
+
+While I can sympathise with wallet developers burdened with needing to update to support BIP-110, the node operators must take precedence. Again, Bitcoin must remain decentralized. Wallet devs also needed to upgrade in order to support Segwit, and supporting BIP-110 is *much* simpler than that.
+
+Further, there is only one wallet developer, Nunchuk, that even allows its users to create wallets that might be affected by BIP-110, so when you say that BIP-110 is burdening wallet developers, you are really only referring to this one wallet project. And even Nunchuk's users will likely be able to withdraw their funds after activation because of UTXO grandfathering. Failing that, they will be able to withdraw their funds when BIP-110 expires. The number of known users who will have their funds frozen during BIP-110's one-year deployment so far is zero, and BIP-110 has been publicly discussed in technical circles for over 5 months now.
+
+I think it is safe to say that one wallet developer having to do a little extra work leading up to BIP-110's activation is worth it in order for Bitcoin to remain sustainably decentralized and sustainably money. Indeed, if Bitcoin becomes widely used for file storage and stops being money, what use are wallets, anyway?
+
+In any case, all of this discussion is somewhat moot. The point of my post is not to rehash the conceptual discussion which has already taken place uncountably many times over the past several months, but to update users and developers on the steady progress BIP-110 is making towards activation, and to solicit code review on the Core version of the activation client, since Core will eventually need to merge this code.
+
+-------------------------
+
+dathonohm | 2026-04-07 03:52:35 UTC | #6
+
+Greetings @neonrooks.
+
+>What gain to users is achieved whether blocks are full or not? The current rules allow for only a maximum growth of the blockchain at a linear rate.
+
+Arbitrary data impacts full validation by rapid expansion of the UTXO set which, as demonstrated in the recent spam waves, does not necessarily grow linearly. Disk space is also a concern, though secondary.
+
+>Who decides which policies to uphold? This should be the decision of each node by its own mempool policy, no?
+
+Consensus is "decided" by 100% of nodes.
+
+>Can you define the unneccessary costs and risks of running a node in this scenario? We should be clearly informed of these issues.
+
+These are outlined in [the BIP document](https://github.com/bitcoin/bips/blob/805c9b54f6d38f644d1f9c3ce871e2ea3df1f7d8/bip-0110.mediawiki). Please read it if you would like to understand BIP-110 more deeply. I have also just reiterated them in my [reponse to ariard](https://delvingbitcoin.org/t/bip-110-update-v0-4-1-release-and-implementation-submitted-to-bitcoin-core/2360/5?u=dathonohm). Please let me know if anything is unclear.
+
+>Can you demonstrate an example of payments being unfairly disadvantaged?
+
+Yes, during the recent spam waves, transaction fees often went so high that most monetary use became impractical, due to non-payment spam pricing out payments. This situation is nonsensical for a payment network.
+
+>Thank you for your time.
+
+My pleasure. Feel free to reach out to me [on X](https://x.com/dathon_ohm) if you need any further clarification.
+
+-------------------------
+
+dathonohm | 2026-04-07 04:09:06 UTC | #7
+
+Greetings @ArmchairCryptologist.
+
+>Even disregarding all the deficiencies with BIP110 which have been thoroughly elaborated upon elsewhere
+
+No one has yet brought up a reasonable technical objection to BIP-110.
+
+>I have no faith whatsoever in those numbers being representative of anything but a handful of people spinning up nodes to pad the numbers.
+
+While it is true that support is difficult to gauge *only* from node counts, it would be foolish to claim that node counts don't matter at all, especially given BIP-110's overwhelming popularity among node operators, who have taken to social media in droves to post claims, and often screenshots, of their operation of the activation client. The fact that 4 BIP110-signaling blocks were mined in March alone is also a strong indicator that BIP-110 is rapidly gaining support.
+
+>So 16 out of 1167 nodes are advertising BIP110 in the subver, or 1.4%. Assuming that all nodes have an equal number of outgoing connections and an equal chance to connect to any of my nodes, this statistically gives a greater than 99% confidence that the real number is between 0.5% and 2.3%.
+
+All of the services I know of that count different node software have much higher estimates than this. Forgive me if I am skeptical of your statistics here, especially since you are openly opposed to BIP-110.
+
+>There is a reason soft forks are activated by mining power alone; node listen counts will always be suspect, and unlike node sockpuppeting, mining power cannot be falsified.
+
+Miners are not in charge of Bitcoin, as was demonstrated during the 2017 block size war. The nodes are in charge, and node operators are speaking in favor of BIP-110. I expect BIP-110 to activate early via the threshold, following Segwit's 2017 example.
+
+-------------------------
+
