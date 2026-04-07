@@ -270,3 +270,15 @@ Openoms just shared instructions on how to join using Raspiblitz ([X](https://x.
 
 -------------------------
 
+shinobi | 2026-04-06 22:20:40 UTC | #8
+
+Seems to be working perfectly.
+
+-------------------------
+
+ekzyis | 2026-04-06 23:15:13 UTC | #9
+
+If you’re already synced to a different signet and don’t want to lose your datadir when switching to the default signet, you could check out [my PR](https://github.com/bitcoin/bitcoin/pull/34566).
+
+-------------------------
+
