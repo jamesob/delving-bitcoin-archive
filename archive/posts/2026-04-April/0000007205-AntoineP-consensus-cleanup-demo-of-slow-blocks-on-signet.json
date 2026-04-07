@@ -13,9 +13,9 @@
   "reply_to_post_number": 9,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -46,7 +46,12 @@
   },
   "bookmarked": false,
   "raw": "It's fair to plug your PR since it could have been useful in this context, but i think for a non-Bitcoin-Core-contributor a better instruction is to use the `-datadir` option rather than compiling your branch.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -61,9 +66,15 @@
   "excerpt": "It\u2019s fair to plug your PR since it could have been useful in this context, but i think for a non-Bitcoin-Core-contributor a better instruction is to use the -datadir option rather than compiling your branch.",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
