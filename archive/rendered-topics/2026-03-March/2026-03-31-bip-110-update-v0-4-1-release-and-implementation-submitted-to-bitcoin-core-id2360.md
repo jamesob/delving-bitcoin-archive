@@ -309,3 +309,59 @@ Miners are not in charge of Bitcoin, as was demonstrated during the 2017 block s
 
 -------------------------
 
+ArmchairCryptologist | 2026-04-07 07:08:26 UTC | #8
+
+[quote="dathonohm, post:7, topic:2360"]
+No one has yet brought up a reasonable technical objection to BIP-110.
+
+[/quote]
+
+There is a [whole thread](https://groups.google.com/g/bitcoindev/c/nOZim6FbuF8/m/fk30wcgJAwAJ) of technical objections on the mailing list, and even more on your [pull request](https://github.com/bitcoin/bips/pull/2017), which you are well aware of. But to sum it up for new readers, the BIP does not accomplish its stated objective since the restrictions are easily bypassed by people who are looking to insert data, so it ends up doing nothing but cause disruption and uncertainty for legitimate usage - i.e., people who actually program their money.
+
+[quote="dathonohm, post:7, topic:2360"]
+it would be foolish to claim that node counts don’t matter at all
+
+[/quote]
+
+Which no one has claimed. But fact remains that nodes can be easily spun up in large numbers at little cost, especially in the case of onion nodes, so all claims of community support that are backed by node counts must be taken with a massive dump truck of salt. Again, there are very good reasons for why Bitcoin operates on Proof-of-Work as opposed to Proof-of-Nodes or Proof-of-Tweets.
+
+[quote="dathonohm, post:7, topic:2360"]
+All of the services I know of that count different node software have much higher estimates than this. Forgive me if I am skeptical of your statistics here, especially since you are openly opposed to BIP-110.
+
+[/quote]
+
+Accusing people of forging data to dispute a claim is not a reasonable way to garner buy-in for your proposal.
+
+[quote="dathonohm, post:7, topic:2360"]
+Miners are not in charge of Bitcoin, as was demonstrated during the 2017 block size war. The nodes are in charge, and node operators are speaking in favor of BIP-110. I expect BIP-110 to activate early via the threshold, following Segwit’s 2017 example.
+
+[/quote]
+
+Widespread community consensus is required for sure, but if a small minority of nodes insist on following rules that are not enforced by a majority of miners, the best they can hope for is that they’ll end up on a minority chain, as opposed to a dead one.
+
+-------------------------
+
+neonrooks | 2026-04-07 08:05:09 UTC | #9
+
+[quote="dathonohm, post:6, topic:2360"]
+Arbitrary data impacts full validation by rapid expansion of the UTXO set which, as demonstrated in the recent spam waves, does not necessarily grow linearly. Disk space is also a concern, though secondary.
+
+[/quote]
+
+I asked about blocks; the UTXO set is another matter. 
+
+![utxo1|600x500](upload://2uO2rf8c0Nb1RKVRInjHmz7VuVj.png)
+
+Above is a 3 year chart of the UTXO count, which is currently at 165,086,123 (verified by my own node at block height 944021), down from a high of over 180 million. It appears that the “rapid expansion” has already ended. If we take a conservative estimate of each user controlling just 2 UTXOs, we have at best \~80 million users in the Bitcoin network. Are we to propose changes to Bitcoin once we reach 100 million users? Or 200 million users? Is having many UTXOs harming Bitcoin?
+
+[quote="dathonohm, post:6, topic:2360"]
+Yes, during the recent spam waves, transaction fees often went so high that most monetary use became impractical, due to non-payment spam pricing out payments. This situation is nonsensical for a payment network.
+
+[/quote]
+
+The Bitcoin network has faced this many times in the past and will again in the future. Part of a permissionless system is allowing users to waste their money on whatever transactions they choose. Pricing out payments does not make sense - this implies you have the right to confirmed transactions at any time for any fee rate. It is nonsensical to ignore a dynamic fee market for transactions.
+
+Transaction fees are currently low, which can only mean the “spam waves” have ended long before BIP-110. I don’t see a reason for change based on the lack of evidence.
+
+-------------------------
+
