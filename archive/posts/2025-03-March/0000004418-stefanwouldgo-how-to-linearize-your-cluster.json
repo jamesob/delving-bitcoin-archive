@@ -4,17 +4,18 @@
   "username": "stefanwouldgo",
   "avatar_template": "/user_avatar/delvingbitcoin.org/stefanwouldgo/{size}/664_2.png",
   "created_at": "2025-03-06T08:50:04.401Z",
-  "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"sipa\" data-post=\"50\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/102_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p><a href=\"https://www.cs.cmu.edu/~jonderry/maxflow.pdf\" rel=\"noopener nofollow ugc\">This paper</a> suggests a simpler alternative: multiply the flows and capacities by a <em>fixed</em> constant (the same for the entire GGT problem, including subproblems) and represent them as <em>rounded</em> integer multiples. It argued that as long as this multiplier MMM is such that all distinct breakpoints (in our context: chunk feerates) multiplied by MMM are at least 2 apart, the found min-cuts will be exactly correct. No two chunk feerates can differ by less than 1/(S^2 - S)1/(S2\u2212S)1/(S^2 - S), so picking M=2S^2M=2S2M=2S^2 would suffice for exact results. This involves \\mathcal{O}(S^3 F)O(S3F)\\mathcal{O}(S^3 F) multiplication results internally, but 128-bit integers should more than suffice in practice</p>\n</blockquote>\n</aside>\n<p>This approach seems appropriate. I\u2019d even argue that we don\u2019t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough.</p>\n<p>Maybe these considerations are also another hint that calculating one breakpoint at a time using a simple min-cut algorithm is preferable for our small instances.</p>",
+  "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"sipa\" data-post=\"50\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/1100_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p><a href=\"https://www.cs.cmu.edu/~jonderry/maxflow.pdf\" rel=\"noopener nofollow ugc\">This paper</a> suggests a simpler alternative: multiply the flows and capacities by a <em>fixed</em> constant (the same for the entire GGT problem, including subproblems) and represent them as <em>rounded</em> integer multiples. It argued that as long as this multiplier MMM is such that all distinct breakpoints (in our context: chunk feerates) multiplied by MMM are at least 2 apart, the found min-cuts will be exactly correct. No two chunk feerates can differ by less than 1/(S^2 - S)1/(S2\u2212S)1/(S^2 - S), so picking M=2S^2M=2S2M=2S^2 would suffice for exact results. This involves \\mathcal{O}(S^3 F)O(S3F)\\mathcal{O}(S^3 F) multiplication results internally, but 128-bit integers should more than suffice in practice</p>\n</blockquote>\n</aside>\n<p>This approach seems appropriate. I\u2019d even argue that we don\u2019t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough.</p>\n<p>Maybe these considerations are also another hint that calculating one breakpoint at a time using a simple min-cut algorithm is preferable for our small instances.</p>",
   "post_number": 51,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-03-06T08:50:04.401Z",
   "reply_count": 1,
   "reply_to_post_number": 50,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 21.6,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 40.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -55,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "This approach seems appropriate. I\u2019d even argue that we don\u2019t much care for exact breakpoints if they are very close, so 64-bit arithmetic might be good enough. \nMaybe these considerations are also another hint that calculating one breakpoint at a time using a simple min-cut algorithm is preferable&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/51",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

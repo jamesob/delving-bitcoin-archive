@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks for the write-up! Parts of the BIP itself could also benefit from a more clear description, to better describe what the consensus changes are.</p>\n<p>I agree that the changes here should be kept both simple and as uncontroversial as possible, because otherwise it slows down the process exponentially.</p>\n<p>One potential way to mitigate the harm of slow validation, without / before a soft fork, is for nodes to validate competing tips in parallel. The node keeps an eye on alternative headers while block validation is in progress. If a second header arrives at the same height, it would validate it in parallel. Whichever candidate is validated first is announced to the network. The slower side would be fully validated (<code>valid-fork</code> in the <code>getchaintips</code> RPC of Bitcoin Core), so it can be switched to very quickly if needed.</p>\n<p>This is only a small deviation from the current logic of preferring the first <em>seen</em> header. But implementation wise it may not be easy.</p>\n<p>If regular node runners and pools run that, it strongly increases the probability for the attacker block to go stale. But only if other pools actually <em>try</em> to produce a competing block. That happens automatically if they <em>don\u2019t</em> SPV mine.</p>\n<p>Pools that <em>do</em> SPV mine (in the period between seeing a header and validating the full block) could use some heuristic to decide the most profitable strategy here, taking into account how much time <em>other</em> pools likely need to validate the block.</p>\n<p>But without a soft fork I\u2019m worried that if an attack takes places, especially if people see it coming, there\u2019s an incentive for pool operators to hop on a phone call and coordinate what to do about it. Such phone calls are not healthy in the long run.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 85,
   "updated_at": "2024-03-25T14:35:18.420Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 24,
-  "readers_count": 23,
-  "score": 9.6,
+  "incoming_link_count": 11,
+  "reads": 139,
+  "readers_count": 138,
+  "score": 112.8,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for the write-up! Parts of the BIP itself could also benefit from a more clear description, to better describe what the consensus changes are.\n\nI agree that the changes here should be kept both simple and as uncontroversial as possible, because otherwise it slows down the process exponentially.\n\nOne potential way to mitigate the harm of slow validation, without / before a soft fork, is for nodes to validate competing tips in parallel. The node keeps an eye on alternative headers while block validation is in progress. If a second header arrives at the same height, it would validate it in parallel. Whichever candidate is validated first is announced to the network. The slower side would be fully validated (`valid-fork` in the `getchaintips` RPC of Bitcoin Core), so it can be switched to very quickly if needed.\n\nThis is only a small deviation from the current logic of preferring the first _seen_ header. But implementation wise it may not be easy.\n\nIf regular node runners and pools run that, it strongly increases the probability for the attacker block to go stale. But only if other pools actually _try_ to produce a competing block. That happens automatically if they _don't_ SPV mine.\n\nPools that _do_ SPV mine (in the period between seeing a header and validating the full block) could use some heuristic to decide the most profitable strategy here, taking into account how much time _other_ pools likely need to validate the block.\n\nBut without a soft fork I'm worried that if an attack takes places, especially if people see it coming, there's an incentive for pool operators to hop on a phone call and coordinate what to do about it. Such phone calls are not healthy in the long run.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Thanks for the write-up! Parts of the BIP itself could also benefit from a more clear description, to better describe what the consensus changes are. \nI agree that the changes here should be kept both simple and as uncontroversial as possible, because otherwise it slows down the process exponentiall&hellip;",
+  "truncated": true,
+  "post_url": "/t/great-consensus-cleanup-revival/710/3",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

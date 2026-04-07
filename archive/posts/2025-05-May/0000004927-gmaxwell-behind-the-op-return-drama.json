@@ -7,15 +7,15 @@
   "cooked": "<p>Always ask yourself,  \u201cWhat do I (think) I know and why do I know it?\u201d</p>\n<p>I\u2019ve been reading the public discussions-- it\u2019s how I\u2019m aware of this issue at all.  I\u2019m seeing an awful lot of wookie defense.    Bitcoin is important. Spam is bad. Apple pie is delicious, and that\u2019s why this change is destroying bitcoin!</p>\n<p>If you feel like you\u2019re not seeing a response to an argument it can be because it\u2019s a non-sequitur and there just isn\u2019t anything to respond to.</p>\n<p>But don\u2019t let me create yet another \u2018dismissive\u2019 response.  You say here that this is a big change,  why do you think it is?   I think it is a very small change which should be of no interest to users generally.</p>\n<blockquote>\n<p>PRs take so long to get merged,</p>\n</blockquote>\n<p>Most don\u2019t.</p>\n<blockquote>\n<p>(Maybe there was, but behind closed doors?)</p>\n</blockquote>\n<p>I doubt it. I saw it, and recognized that it was obviously the right thing to do, and if anything it is significantly overdue.  I would have acked it but I\u2019m not currently involved in development.  It\u2019s worth mentioning that I happily defended putting in that limit in the first place.</p>\n<p>There is perhaps a bit of an inverse chestertons fence here-- you know the idea that you shouldn\u2019t remove a fence without understanding why it was there?  It\u2019s probably a bad idea to assume bad faith when the people who put in a fence go to take it down. <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=14\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>I had no discussion with anyone about it before seeing the public discussion except for over a year ago I became aware of poor 0.5RTT block reconstruction rates (partially caused by the lack of this change) and nagged a few people along the lines of WTF is no one doing anything about this??? (and then proceeded to be disappointed while nothing was done).</p>\n<aside class=\"quote no-group\" data-username=\"pandacute\" data-post=\"1\" data-topic=\"1650\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/p/47e85d/48.png\" class=\"avatar\"> pandacute:</div>\n<blockquote>\n<p>Users do have concerns\u2014lots of them.</p>\n</blockquote>\n</aside>\n<p>Please ask about them then!</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2025-05-03T02:47:55.629Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 7,
-  "reads": 22,
-  "readers_count": 21,
-  "score": 39.4,
+  "incoming_link_count": 79,
+  "reads": 57,
+  "readers_count": 56,
+  "score": 426.4,
   "yours": false,
   "topic_id": 1650,
   "topic_slug": "behind-the-op-return-drama",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Always ask yourself,  \"What do I (think) I know and why do I know it?\"\n\nI've been reading the public discussions-- it's how I'm aware of this issue at all.  I'm seeing an awful lot of wookie defense.    Bitcoin is important. Spam is bad. Apple pie is delicious, and that's why this change is destroying bitcoin!   \n\nIf you feel like you're not seeing a response to an argument it can be because it's a non-sequitur and there just isn't anything to respond to.\n\nBut don't let me create yet another 'dismissive' response.  You say here that this is a big change,  why do you think it is?   I think it is a very small change which should be of no interest to users generally.\n\n>  PRs take so long to get merged, \n\nMost don't.  \n\n>  (Maybe there was, but behind closed doors?)\n\nI doubt it. I saw it, and recognized that it was obviously the right thing to do, and if anything it is significantly overdue.  I would have acked it but I'm not currently involved in development.  It's worth mentioning that I happily defended putting in that limit in the first place.\n\nThere is perhaps a bit of an inverse chestertons fence here-- you know the idea that you shouldn't remove a fence without understanding why it was there?  It's probably a bad idea to assume bad faith when the people who put in a fence go to take it down. :slight_smile: \n\nI had no discussion with anyone about it before seeing the public discussion except for over a year ago I became aware of poor 0.5RTT block reconstruction rates (partially caused by the lack of this change) and nagged a few people along the lines of WTF is no one doing anything about this???? (and then proceeded to be disappointed while nothing was done).\n\n[quote=\"pandacute, post:1, topic:1650\"]\nUsers do have concerns\u2014lots of them.\n[/quote]\n\nPlease ask about them then!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,18 @@
   "excerpt": "Always ask yourself,  \u201cWhat do I (think) I know and why do I know it?\u201d \nI\u2019ve been reading the public discussions-- it\u2019s how I\u2019m aware of this issue at all.  I\u2019m seeing an awful lot of wookie defense.    Bitcoin is important. Spam is bad. Apple pie is delicious, and that\u2019s why this change is destroyi&hellip;",
   "truncated": true,
   "post_url": "/t/behind-the-op-return-drama/1650/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

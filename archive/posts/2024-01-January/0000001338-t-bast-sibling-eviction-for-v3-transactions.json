@@ -7,14 +7,15 @@
   "cooked": "<p>If I\u2019m understanding this correctly, I\u2019d say that yes, this is very desirable and should be simple enough to add for v3 transactions, since the v3 rules make it easy to evaluate which sibling is the best one to keep.</p>\n<p>I don\u2019t think this would change what we plan to do for lightning commitment transactions though, it is still better to use a single ephemeral anchor (which makes the commitment transaction slightly smaller) than use two of them?</p>\n<p>Or is the goal to get rid entirely of the ephemeral anchor (and rely on other outputs of the commitment transaction to do CPFP)? That could be interesting, but I\u2019d need to make sure that this works safely in all cases\u2026</p>",
   "post_number": 7,
   "post_type": 1,
+  "posts_count": 10,
   "updated_at": "2024-01-25T16:47:34.033Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 23.0,
+  "incoming_link_count": 1,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 32.6,
   "yours": false,
   "topic_id": 472,
   "topic_slug": "sibling-eviction-for-v3-transactions",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "If I\u2019m understanding this correctly, I\u2019d say that yes, this is very desirable and should be simple enough to add for v3 transactions, since the v3 rules make it easy to evaluate which sibling is the best one to keep. \nI don\u2019t think this would change what we plan to do for lightning commitment transa&hellip;",
+  "truncated": true,
+  "post_url": "/t/sibling-eviction-for-v3-transactions/472/7",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

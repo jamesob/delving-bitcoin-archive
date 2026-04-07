@@ -7,14 +7,15 @@
   "cooked": "<p>Thanks for this proposal. I\u2019ve read it several times and I have some questions (maybe more to come):</p>\n<ol>\n<li>What problem is this proposal intending to solve? Scaling, privacy, or something else?</li>\n<li>Who are all of these parties in the exchange? Alice seems to be paying Eve, so that makes some sense, but are the other the equivalent of money brokers/Hawaladars? Is their reputation backing up the ecash in some way for this protocol?</li>\n<li>In step 1 and 2 you mention the \u201credeemer\u2019s\u201d pubkey, but there are four redeemers: Bob, Carol, Dave and Eve. Is this some kind of MPC-type pubkey construction, or is it a pubkey for which they all know the private key?</li>\n</ol>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 3,
   "updated_at": "2024-01-26T21:25:44.124Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 22.0,
+  "incoming_link_count": 3,
+  "reads": 32,
+  "readers_count": 31,
+  "score": 41.4,
   "yours": false,
   "topic_id": 466,
   "topic_slug": "meow-mint-ecash-on-will",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Thanks for this proposal. I\u2019ve read it several times and I have some questions (maybe more to come): \n\nWhat problem is this proposal intending to solve? Scaling, privacy, or something else?\nWho are all of these parties in the exchange? Alice seems to be paying Eve, so that makes some sense, but are &hellip;",
+  "truncated": true,
+  "post_url": "/t/meow-mint-ecash-on-will/466/2",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

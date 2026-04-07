@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "incoming_link_count": 1,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 23.6,
   "yours": false,
   "topic_id": 1259,
   "topic_slug": "channel-depletion-ln-topology-cycles-and-rational-behavior-of-nodes",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thank you for your work, Ren\u00e9.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thank you for your work, Ren\u00e9.",
   "truncated": true,
   "post_url": "/t/channel-depletion-ln-topology-cycles-and-rational-behavior-of-nodes/1259/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

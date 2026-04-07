@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"t-bast\" data-post=\"17\" data-topic=\"418\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/t-bast/48/98_2.png\" class=\"avatar\"> t-bast:</div>\n<blockquote>\n<p>Can you describe that in more details?</p>\n</blockquote>\n</aside>\n<p>Hm right, I guess this would only matter if the revoked commit tx <em>gets confirmed</em>. In that case you may have to compete with the HTLC output spend, which is why <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged.</p>\n<p>edit: I\u2019m wrong and tbast is right, look at reply</p>\n<aside class=\"quote no-group\" data-username=\"t-bast\" data-post=\"17\" data-topic=\"418\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/t-bast/48/98_2.png\" class=\"avatar\"> t-bast:</div>\n<blockquote>\n<p>Yes, that is a very nice benefit of the v3 change! Being able to pay the on-chain fees directly from the channel balance is a very important but often overlooked improvement in my opinion.</p>\n</blockquote>\n</aside>\n<p><a href=\"https://github.com/instagibbs/bips/blob/d33cdbd0777700f4fc488d54b90a8795d2c33639/bip-ephemeralanchors.mediawiki#expected-use-cases\">Remove all the <code>1 OP_CHECKSEQUENCEVERIFY OP_DROP</code> please!</a></p>\n<p>You could also use any non-pre-signed HTLC paths for fees as well. e.g., Bob could sweep Alice\u2019s offered HLTCs with preimage and use those towards fees.</p>",
   "post_number": 18,
   "post_type": 1,
+  "posts_count": 23,
   "updated_at": "2024-01-18T17:24:12.326Z",
   "reply_count": 1,
   "reply_to_post_number": 17,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 23.2,
+  "incoming_link_count": 9,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 72.8,
   "yours": false,
   "topic_id": 418,
   "topic_slug": "lightning-transactions-with-v3-and-ephemeral-anchors",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 3,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hm right, I guess this would only matter if the revoked commit tx gets confirmed. In that case you may have to compete with the HTLC output spend, which is why <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> is suggesting an additional relative delay for SINGLE/ACP usage, at the cost of more signatures exchanged. \nedit: I\u2019m wrong and tb&hellip;",
+  "truncated": true,
+  "post_url": "/t/lightning-transactions-with-v3-and-ephemeral-anchors/418/18",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

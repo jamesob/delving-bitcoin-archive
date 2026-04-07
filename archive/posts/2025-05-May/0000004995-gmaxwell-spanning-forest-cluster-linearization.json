@@ -7,15 +7,15 @@
   "cooked": "<p>So far all looping states are extraordinarily likely to be immediately exited, and so probably have no effect on the runtime.   No one complains when they look at RNG code and see something like a while(res==0)res=random_number();   That\u2019s the kind of \u2018unbounded\u2019  operation that is (apparently) rarely possible for SFL.   Though it\u2019s existence probably makes it inordinately hard to prove anything about its runtime.  (Sadly, also that there don\u2019t exist ones that are more like while(res)res=random_number();  <img src=\"https://delvingbitcoin.org/images/emoji/twitter/frowning.png?v=14\" title=\":frowning:\" class=\"emoji\" alt=\":frowning:\" loading=\"lazy\" width=\"20\" height=\"20\"> )</p>\n<p>Even if it were possible for an attacker to construct an inescapable loop, this code is always run with a time limit-- and it\u2019s a limit that is low enough that for large inputs totally ordinary non-looping inputs would hit it too.  And since SFL is generally so much faster than alternatives for non-trivial inputs, <em>and</em> easily randomized I think it\u2019s likely less vulnerable to being forced into an unfair conclusion in spite of the potential for loop states.</p>\n<p>One should also keep in mind that given the complexity of these algorithms I wouldn\u2019t be shocked if real implementations of the proven worst case bound algorithms could also loop, either because the proof was just wrong or (more likely) implementation errors.  Consider, it\u2019s common for programmers to get bisection wrong and its a much simpler algorithm that any closure problem solver.. and it\u2019s much easier to detect that bisection gets the boundary wrong than to detect some failures in these algorithms.  It\u2019s likely people here are applying much more scrutiny, both because computing power has become very cheap and just the culture around Bitcoin Core.  (I wouldn\u2019t be surprised if it took more computing power to casually find one counter example to max-q than had been spent on all computation in the history of mankind  back in the mid 1960s when these algorithms were first being explored).  So don\u2019t be too hard on the rare failures here. <img src=\"https://delvingbitcoin.org/images/emoji/twitter/slight_smile.png?v=14\" title=\":slight_smile:\" class=\"emoji\" alt=\":slight_smile:\" loading=\"lazy\" width=\"20\" height=\"20\"></p>\n<p>[Aside, I found several more loop states, which are pending validation by Sipa]</p>\n<p>That said, I think it may be worth giving <a href=\"https://onlinelibrary.wiley.com/doi/10.1002/net.1012\">https://onlinelibrary.wiley.com/doi/10.1002/net.1012</a>  a read as it discusses a 1960\u2019s algorithm which has been preferred by industry over GGT in spite of the latter\u2019s theoretical benefits (perhaps for the same reasons we\u2019ve seen for SFL over GGT), and the paper goes on to make small modifications to give it O(n^3 log n) class worst case bound.  The algorithm is flowless and sounds (to my lay ears) at least somewhat morally similar to SFL\u2026 and so some of the techniques there may be of use even if the algorithm itself isn\u2019t.</p>\n<p>A good worst case complexity bound is a nice thing to optimize for, but given that for larger problem even the best available will not run to termination, I don\u2019t know if its really relevant.  And as we\u2019ve seen from sipa\u2019s GGT implementation (and from comments in the literature, suggesting that it\u2019s not just sipa) there are substantial constant factor differences that easily dominate at the sizes of interest here.</p>",
   "post_number": 7,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 9,
   "updated_at": "2025-05-12T21:42:32.834Z",
   "reply_count": 0,
   "reply_to_post_number": 6,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 31.8,
+  "incoming_link_count": 1,
+  "reads": 22,
+  "readers_count": 21,
+  "score": 54.4,
   "yours": false,
   "topic_id": 1419,
   "topic_slug": "spanning-forest-cluster-linearization",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
@@ -47,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 2
+      "count": 3
     }
   ],
   "moderator": false,
@@ -69,9 +70,18 @@
       "id": "+1",
       "type": "emoji",
       "count": 2
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

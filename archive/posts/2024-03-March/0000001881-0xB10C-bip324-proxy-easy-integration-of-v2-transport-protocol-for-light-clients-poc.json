@@ -7,14 +7,15 @@
   "cooked": "<p>Cool project!</p>\n<aside class=\"quote no-group quote-modified\" data-username=\"theStack\" data-post=\"1\" data-topic=\"678\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/thestack/48/420_2.png\" class=\"avatar\"> theStack:</div>\n<blockquote>\n<p>The remote peer address is determined from the incoming first VERSION message which conveniently contains this information in the <code>addr_recv</code> field.</p>\n</blockquote>\n</aside>\n<p>There are P2P clients that don\u2019t put their address in <code>addr_recv</code>. They put, e.g. <code>127.0.0.1</code>, <code>0.0.0.0</code>, or whatever in there. Would this be a problem?</p>\n<aside class=\"quote no-group\" data-username=\"theStack\" data-post=\"1\" data-topic=\"678\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/thestack/48/420_2.png\" class=\"avatar\"> theStack:</div>\n<blockquote>\n<p>The plan is to do an efficient rewrite in Rust.</p>\n</blockquote>\n</aside>\n<p>I haven\u2019t seen anyone working on a BIP324 implementation in Rust. Might fit well in the excellent <a href=\"https://github.com/rust-bitcoin/rust-bitcoin\">rust-bitcoin</a> library or some other place in their ecosystem (e.g. rust-bitcoin/bip324).</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 19,
   "updated_at": "2024-03-14T01:28:33.503Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 23.0,
+  "incoming_link_count": 19,
+  "reads": 67,
+  "readers_count": 66,
+  "score": 158.4,
   "yours": false,
   "topic_id": 678,
   "topic_slug": "bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -40,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 3
     }
   ],
   "moderator": false,
@@ -54,14 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Cool project! \n\nThere are P2P clients that don\u2019t put their address in addr_recv. They put, e.g. 127.0.0.1, 0.0.0.0, or whatever in there. Would this be a problem? \n\nI haven\u2019t seen anyone working on a BIP324 implementation in Rust. Might fit well in the excellent <a href=\"https://github.com/rust-bitcoin/rust-bitcoin\">rust-bitcoin</a> library or some other pl&hellip;",
+  "truncated": true,
+  "post_url": "/t/bip324-proxy-easy-integration-of-v2-transport-protocol-for-light-clients-poc/678/2",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 3,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

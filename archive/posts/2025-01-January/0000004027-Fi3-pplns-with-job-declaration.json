@@ -7,14 +7,15 @@
   "cooked": "<p>committing the share_index and also return it to the miner is a nightmare to implement right and efficiently. If the only reason to have it is to avoid the pool to lie about share indexes in slice (when challenged) we can remove it since the path is enough to know the index of a leaf and the pool already have to provide the path.</p>",
   "post_number": 55,
   "post_type": 1,
+  "posts_count": 55,
   "updated_at": "2025-01-09T11:16:34.306Z",
   "reply_count": 0,
   "reply_to_post_number": 22,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 22.8,
+  "incoming_link_count": 4,
+  "reads": 19,
+  "readers_count": 18,
+  "score": 38.8,
   "yours": false,
   "topic_id": 1099,
   "topic_slug": "pplns-with-job-declaration",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 262,
     "username": "Fi3",
     "name": "Fi3",
     "avatar_template": "/user_avatar/delvingbitcoin.org/fi3/{size}/316_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "committing the share_index and also return it to the miner is a nightmare to implement right and efficiently. If the only reason to have it is to avoid the pool to lie about share indexes in slice (when challenged) we can remove it since the path is enough to know the index of a leaf and the pool al&hellip;",
+  "truncated": true,
+  "post_url": "/t/pplns-with-job-declaration/1099/55",
   "reactions": [
     {
       "id": "+1",
@@ -74,5 +79,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 2,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -7,14 +7,15 @@
   "cooked": "<p>Hi all!  I\u2019ve been reworking CLN\u2019s gossip daemon, and it is clear that we can fairly easy save a little information on a per-peer basis and send them all the gossip which we\u2019ve received since they disconnected (minus a little bit, probably).</p>\n<p>I\u2019m thinking of it as a new feature \u201coption_serves_gossip_catchup\u201d.  The peer would send the gossip_timestamp_filter with an odd TLV field indicating it wanted gossip since last time, though I suspect we\u2019ll want a new message to say \u201ccannot serve from last time\u201d if (say) the peer doesn\u2019t have a channel, or dataloss; in this case just stream gossip from now on, if they want the entire gossip then they simply re-send gossip_timestamp_filter with 0 as time.</p>\n<p>Implementing this for us simply means tracking the last gossip_store offset we sent, and adjusting it when we compact (on restart).  This requires some work and storage per peer, so we may want to restrict it to those which have channels with us.</p>\n<p>As an addition, we could prioritize \u201cimportant\u201d gossip (new channels of significance), though that\u2019s harder to specify.</p>",
   "post_number": 1,
   "post_type": 1,
+  "posts_count": 5,
   "updated_at": "2023-12-05T03:22:20.997Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 7.4,
+  "incoming_link_count": 51,
+  "reads": 38,
+  "readers_count": 37,
+  "score": 277.6,
   "yours": false,
   "topic_id": 251,
   "topic_slug": "quick-peer-gossip-catchup-protocol",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi all!  I've been reworking CLN's gossip daemon, and it is clear that we can fairly easy save a little information on a per-peer basis and send them all the gossip which we've received since they disconnected (minus a little bit, probably).\n\nI'm thinking of it as a new feature \"option_serves_gossip_catchup\".  The peer would send the gossip_timestamp_filter with an odd TLV field indicating it wanted gossip since last time, though I suspect we'll want a new message to say \"cannot serve from last time\" if (say) the peer doesn't have a channel, or dataloss; in this case just stream gossip from now on, if they want the entire gossip then they simply re-send gossip_timestamp_filter with 0 as time.\n\nImplementing this for us simply means tracking the last gossip_store offset we sent, and adjusting it when we compact (on restart).  This requires some work and storage per peer, so we may want to restrict it to those which have channels with us.\n\nAs an addition, we could prioritize \"important\" gossip (new channels of significance), though that's harder to specify.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,22 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Hi all!  I\u2019ve been reworking CLN\u2019s gossip daemon, and it is clear that we can fairly easy save a little information on a per-peer basis and send them all the gossip which we\u2019ve received since they disconnected (minus a little bit, probably). \nI\u2019m thinking of it as a new feature \u201coption_serves_gossip&hellip;",
+  "truncated": true,
+  "post_url": "/t/quick-peer-gossip-catchup-protocol/251/1",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

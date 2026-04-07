@@ -1,6 +1,6 @@
 # Linearization post-processing (O(n^2) fancy chunking)
 
-sipa | 2023-11-18 19:11:20 UTC | #1
+sipa | 2024-02-22 03:32:12 UTC | #1
 
 ### Cluster processing overview
 

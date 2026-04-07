@@ -7,15 +7,15 @@
   "cooked": "<p>Capabilities offered in <a href=\"https://github.com/bitcoin/bips/pull/1500\" class=\"inline-onebox\">BIP346: OP_TXHASH and OP_CHECKTXHASHVERIFY by stevenroose \u00b7 Pull Request #1500 \u00b7 bitcoin/bips \u00b7 GitHub</a> which is a spiritual successor to GROUP in some ways would trivially do this, as you can selectively choose to commit to prevouts, or whatever you like.</p>",
   "post_number": 20,
   "post_type": 1,
-  "posts_count": 20,
+  "posts_count": 22,
   "updated_at": "2025-04-28T13:51:17.995Z",
   "reply_count": 0,
   "reply_to_post_number": 19,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 7.8,
   "yours": false,
   "topic_id": 1591,
   "topic_slug": "how-ctv-csfs-improves-bitvm-bridges",
@@ -38,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 541,
     "username": "niftynei",
     "name": "nifty",
     "avatar_template": "/letter_avatar_proxy/v4/letter/n/c77e96/{size}.png"
@@ -62,5 +63,9 @@
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

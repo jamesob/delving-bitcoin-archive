@@ -7,14 +7,15 @@
   "cooked": "<p>Ah, correct. I was thinking in the context of a single <span class=\"math\">B_{scan}</span>, but indeed if each output was to a separate silent payment output and each signer signs for only one input, then it becomes <span class=\"math\">inputs \\cdot outputs</span>. Perhaps a better way to think of it would be <span class=\"math\">n_{proofs} = recipients \\cdot signers</span>, since each signer can provide a proof which covers multiple inputs and each recipient can have more than one output?</p>",
   "post_number": 11,
   "post_type": 1,
+  "posts_count": 28,
   "updated_at": "2024-06-02T08:44:37.010Z",
   "reply_count": 0,
   "reply_to_post_number": 10,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 17.0,
+  "incoming_link_count": 2,
+  "reads": 39,
+  "readers_count": 38,
+  "score": 32.8,
   "yours": false,
   "topic_id": 877,
   "topic_slug": "bip352-psbt-support",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 438,
     "username": "andrewtoth",
     "name": "Andrew Toth",
     "avatar_template": "/user_avatar/delvingbitcoin.org/andrewtoth/{size}/576_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Ah, correct. I was thinking in the context of a single B_{scan}, but indeed if each output was to a separate silent payment output and each signer signs for only one input, then it becomes inputs \\cdot outputs. Perhaps a better way to think of it would be n_{proofs} = recipients \\cdot signers, since&hellip;",
+  "truncated": true,
+  "post_url": "/t/bip352-psbt-support/877/11",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

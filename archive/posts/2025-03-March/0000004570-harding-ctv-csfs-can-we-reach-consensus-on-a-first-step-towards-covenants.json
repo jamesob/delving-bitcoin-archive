@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"53\" data-topic=\"1509\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>I believe for the very understandable reason that it was prior to the taproot BIP being written.</p>\n</blockquote>\n</aside>\n<p>I believe the original idea was indeed developed before publication of the taproot and tapscript BIPs, but drafts of those BIPs were <a href=\"https://gnusha.org/pi/bitcoindev/CAPg+sBg6Gg8b7hPogC==fehY3ZTHHpQReqym2fb4XXWFpMM-pQ@mail.gmail.com/\">published</a> about two weeks before <a href=\"https://mailing-list.bitcoindevs.xyz/bitcoindev/CAD5xwhgHyR5qdd09ikvA_vgepj4o+Aqb0JA_T6FuqX56ZNe1RQ@mail.gmail.com/\">OP_COSHV</a>, the predecessor for CTV.  Versions of both the\n<a href=\"https://github.com/JeremyRubin/bips-archive/blob/87ae732da28346515be9049ea2d2b548f81812e8/bip-coshv.mediawiki#deployment\">COSHV</a> and <a href=\"https://github.com/JeremyRubin/bips-archive/blob/e2b34bd59986bd2b173a89ac969b4728170fa8fa/bip-secure-the-bag.mediawiki#deployment\">STB</a> BIPs linked to the draft Tapscript BIP and depended on it making <code>OP_RESERVED1</code> (0x89) opcode into an <code>OP_SUCCESSx</code> in tapscript.</p>",
   "post_number": 55,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-18T15:59:31.117Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 53,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 23.8,
+  "reads": 58,
+  "readers_count": 57,
+  "score": 51.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -55,14 +56,21 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I believe the original idea was indeed developed before publication of the taproot and tapscript BIPs, but drafts of those BIPs were <a href=\"https://gnusha.org/pi/bitcoindev/CAPg+sBg6Gg8b7hPogC==fehY3ZTHHpQReqym2fb4XXWFpMM-pQ@mail.gmail.com/\">published</a> about two weeks before <a href=\"https://mailing-list.bitcoindevs.xyz/bitcoindev/CAD5xwhgHyR5qdd09ikvA_vgepj4o+Aqb0JA_T6FuqX56ZNe1RQ@mail.gmail.com/\">OP_COSHV</a>, the predecessor for CTV.  Versions of both the\n<a href=\"https://github.com/JeremyRubin/bips-archive/blob/87ae732da28346515be9049ea2d2b548f81812e8/bip-coshv.mediawiki#deployment\">COSHV</a> and <a href=\"https://github.com/JeremyRubin/bips-archive/blob/e2b34bd59986bd2b173a89ac969b4728170fa8fa/bip-secure-the-bag.mediawiki#deployment\">STB</a> BIPs linked to the draft Tapscript BIP and depended on it maki&hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/55",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

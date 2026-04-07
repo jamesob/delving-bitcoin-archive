@@ -7,14 +7,15 @@
   "cooked": "<p>Performance at the chain \u201ctip\u201d (we refer to \u201ctop\u201d, since the linearizarion of the block tree is a stack) is a reasonable consideration. However this is really about compact blocks. Interestingly previous comments about block serialization work in reverse here.</p>\n<p>Core stores whole confirmed blocks, so it must gather up all transactions from its memory pool, validate, and then serialize the block, and update the utxo store. This is an <em>extra</em> cost imposed by its data model, in a time-critical phase.</p>\n<p>Libbitcoin does not have to construct or serialize a block, and does not have a utxo store to update. That alone gives it a large advantage.</p>\n<p>But also, unconfirmed txs are validated and stored in the same table as block txs. So under compact blocks there is no need to validate or store any known txs. The block is constructed from unconfirmed tx metadata only, retained in memory. Validation of the block from this tx metadata is trivial. So this is likely to be significantly faster than Core, not despite the storage model, but because of it.</p>\n<p>Finally, this data model effectively eliminates the \u201cmempool\u201d overflow issues with which Core continues to struggle.</p>",
   "post_number": 23,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-01T15:05:36.079Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 19.2,
+  "incoming_link_count": 1,
+  "reads": 66,
+  "readers_count": 65,
+  "score": 48.2,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 92,
     "username": "josibake",
     "name": "josie",
     "avatar_template": "/user_avatar/delvingbitcoin.org/josibake/{size}/83_2.png"
@@ -45,7 +48,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -59,14 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Performance at the chain \u201ctip\u201d (we refer to \u201ctop\u201d, since the linearizarion of the block tree is a stack) is a reasonable consideration. However this is really about compact blocks. Interestingly previous comments about block serialization work in reverse here. \nCore stores whole confirmed blocks, so&hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/23",
   "reactions": [
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

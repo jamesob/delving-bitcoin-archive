@@ -7,14 +7,15 @@
   "cooked": "<p>Paul has described the process in this podcast: <a href=\"https://podcasters.spotify.com/pod/show/stewart-mackenzie-indaba/episodes/The-Stewart-Mackenzie-Indaba-39-Paul-Sztorc-e2dtf88\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">The Stewart Mackenzie Indaba #39 Paul Sztorc by The Stewart Mackenzie Indaba</a></p>\n<p>It uses 2 tools:</p>\n<ol>\n<li><a href=\"https://github.com/LayerTwo-Labs/bip300_monitor\" rel=\"noopener nofollow ugc\">Monitor</a> scans blocks and see if any block breaks BIP 300 rules</li>\n<li><a href=\"https://github.com/LayerTwo-Labs/enforcer\" rel=\"noopener nofollow ugc\">Enforcer</a> uses <code>invalidateblock</code> RPC to reject blocks</li>\n</ol>\n<p>It can be considered an external way to do user activated soft fork without preparing a UASF client by forking bitcoin core.</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 6,
   "updated_at": "2024-06-10T12:22:21.176Z",
   "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 17,
-  "readers_count": 16,
-  "score": 23.4,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 28.8,
   "yours": false,
   "topic_id": 958,
   "topic_slug": "drivechain-with-and-without-bip-300-301",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -36,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 49,
     "username": "ursuscamp",
     "name": "Ryan Breen",
     "avatar_template": "/user_avatar/delvingbitcoin.org/ursuscamp/{size}/39_2.png"
@@ -59,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Paul has described the process in this podcast: <a href=\"https://podcasters.spotify.com/pod/show/stewart-mackenzie-indaba/episodes/The-Stewart-Mackenzie-Indaba-39-Paul-Sztorc-e2dtf88\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">The Stewart Mackenzie Indaba #39 Paul Sztorc by The Stewart Mackenzie Indaba</a> \nIt uses 2 tools: \n\n<a href=\"https://github.com/LayerTwo-Labs/bip300_monitor\" rel=\"noopener nofollow ugc\">Monitor</a> scans blocks and see if any block breaks BIP 300 rules\n<a href=\"https://github.com/LayerTwo-Labs/enforcer\" rel=\"noopener nofollow ugc\">Enforcer</a> uses invalidateblock RPC to reject blocks\n\nIt can be considered an external way to &hellip;",
+  "truncated": true,
+  "post_url": "/t/drivechain-with-and-without-bip-300-301/958/3",
   "reactions": [
     {
       "id": "+1",
@@ -68,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

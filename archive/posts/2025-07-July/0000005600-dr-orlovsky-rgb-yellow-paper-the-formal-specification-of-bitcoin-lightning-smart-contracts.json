@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 12.8,
+  "incoming_link_count": 59,
+  "reads": 34,
+  "readers_count": 33,
+  "score": 301.8,
   "yours": false,
   "topic_id": 1885,
   "topic_slug": "rgb-yellow-paper-the-formal-specification-of-bitcoin-lightning-smart-contracts",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Glad to inform the community that we have finished our work on the formal specification for the RGB consensus layer. The paper can be found here: https://github.com/RGB-WG/yellowpaper/blob/4c18a6ac346a4dd379766f0bf2fcc02a3ca7e722/rgb-yellowpaper.pdf",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,19 @@
   "excerpt": "Glad to inform the community that we have finished our work on the formal specification for the RGB consensus layer. The paper can be found here: <a href=\"https://github.com/RGB-WG/yellowpaper/blob/4c18a6ac346a4dd379766f0bf2fcc02a3ca7e722/rgb-yellowpaper.pdf\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">yellowpaper/rgb-yellowpaper.pdf at 4c18a6ac346a4dd379766f0bf2fcc02a3ca7e722 \u00b7 RGB-WG/yellowpaper \u00b7 GitHub</a>",
   "truncated": true,
   "post_url": "/t/rgb-yellow-paper-the-formal-specification-of-bitcoin-lightning-smart-contracts/1885/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

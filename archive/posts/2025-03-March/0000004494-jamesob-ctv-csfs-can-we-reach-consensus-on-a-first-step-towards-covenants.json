@@ -7,14 +7,15 @@
   "cooked": "<p>Oh, and I forgot to mention on the subject of vaults/presigned-txns: I\u2019ve spoken to two Blockstream engineers in the past couple months who both say that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply to Liana as well.</p>",
   "post_number": 24,
   "post_type": 1,
+  "posts_count": 81,
   "updated_at": "2025-03-12T19:57:23.206Z",
   "reply_count": 2,
   "reply_to_post_number": 23,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 28,
-  "readers_count": 27,
-  "score": 30.6,
+  "incoming_link_count": 30,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 189.0,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 9,
     "username": "jamesob",
     "name": "James O'Beirne",
     "avatar_template": "/user_avatar/delvingbitcoin.org/jamesob/{size}/271_2.png"
@@ -60,6 +62,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Oh, and I forgot to mention on the subject of vaults/presigned-txns: I\u2019ve spoken to two Blockstream engineers in the past couple months who both say that CTV could be used to drastically improve the Liquid timelock-fallback script that requires coins to be rolled on a periodic basis. This may apply &hellip;",
+  "truncated": true,
+  "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/24",
   "reactions": [
     {
       "id": "+1",
@@ -69,5 +74,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

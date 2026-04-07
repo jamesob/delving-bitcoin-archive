@@ -7,14 +7,15 @@
   "cooked": "<p>Output Scripts in CCV-based state machines are more often than not completely unrelated scripts; however, you can obtain \u201csame script as the input\u201d by combining CCV on the input with CCV on the output; I use this for example in vaults for the partial revault).</p>\n<p>So I think the answer is yes for all the variations you mentioned - except that in the <em>Fan-out</em> case, for it to make sense, you\u2019d probably still need to introspect the various output amounts.</p>\n<aside class=\"quote no-group\" data-username=\"Chris_Stewart_5\" data-post=\"3\" data-topic=\"1527\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/chris_stewart_5/48/296_2.png\" class=\"avatar\"> Chris_Stewart_5:</div>\n<blockquote>\n<p>In the case where you have a transaction that takes a single OP_CCV input and a single OP_CCV output, how is fee handling expected to work? Is the idea that you just add an anchor output and the CPFP the parent?</p>\n</blockquote>\n</aside>\n<p>CCV doesn\u2019t put any limitation on the inputs/outputs that it doesn\u2019t introspect, so you can have separate input just for the fees, and a separate output just for the change. Or you could also use anchor outputs, package relay, or whatever is compatible with the relay policies.</p>\n<aside class=\"quote no-group\" data-username=\"Chris_Stewart_5\" data-post=\"3\" data-topic=\"1527\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/chris_stewart_5/48/296_2.png\" class=\"avatar\"> Chris_Stewart_5:</div>\n<blockquote>\n<p>Or can you use the \u201cdeduct\u201d feature to slice off a portion of the OP_CCV amount to use for a fee?</p>\n</blockquote>\n</aside>\n<p>The amount you can use for fees is by definition not bound by the covenant restrictions, so I think either exogenous fees or anchors are inherent with any covenant construction.</p>",
   "post_number": 5,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2025-03-17T18:49:16.589Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 17.2,
+  "reads": 44,
+  "readers_count": 43,
+  "score": 23.8,
   "yours": false,
   "topic_id": 1527,
   "topic_slug": "op-checkcontractverify-and-its-amount-semantic",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Output Scripts in CCV-based state machines are more often than not completely unrelated scripts; however, you can obtain \u201csame script as the input\u201d by combining CCV on the input with CCV on the output; I use this for example in vaults for the partial revault). \nSo I think the answer is yes for all t&hellip;",
+  "truncated": true,
+  "post_url": "/t/op-checkcontractverify-and-its-amount-semantic/1527/5",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

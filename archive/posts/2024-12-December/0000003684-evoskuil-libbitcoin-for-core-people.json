@@ -7,14 +7,15 @@
   "cooked": "<p>These are two distinct block rules. (1) no forward references, (2) no double spends. Rule 1 is pointless, likely just an implementation artifact. Rule 2 is just a check for duplicate points within a block.</p>\n<p>These are context free, they do not require a utxo store or any chain context. Rule 1 requires order, rule 2 does not. Libbitcoin splits these two rules and evaluates them independently. This allows the second to be evaluated using concurrency.</p>\n<p>However, concurrency for such a fast algorithm with a bounded set size proved counterproductive - especially since it is part of block.check and is therefore evaluated concurrently across blocks.</p>\n<p>Given the need to populate and depopulate a utxo store, these checks become tied to it. However you are referring to lookup of previous outputs, not inputs. I was asking why there is an input fetch.</p>",
   "post_number": 29,
   "post_type": 1,
+  "posts_count": 45,
   "updated_at": "2024-12-02T19:44:13.587Z",
   "reply_count": 1,
   "reply_to_post_number": 28,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 8.2,
+  "reads": 56,
+  "readers_count": 55,
+  "score": 31.2,
   "yours": false,
   "topic_id": 1222,
   "topic_slug": "libbitcoin-for-core-people",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -36,13 +38,19 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 438,
     "username": "andrewtoth",
     "name": "Andrew Toth",
     "avatar_template": "/user_avatar/delvingbitcoin.org/andrewtoth/{size}/576_2.png"
   },
   "bookmarked": false,
   "raw": "These are two distinct block rules. (1) no forward references, (2) no double spends. Rule 1 is pointless, likely just an implementation artifact. Rule 2 is just a check for duplicate points within a block.\n\nThese are context free, they do not require a utxo store or any chain context. Rule 1 requires order, rule 2 does not. Libbitcoin splits these two rules and evaluates them independently. This allows the second to be evaluated using concurrency.\n\nHowever, concurrency for such a fast algorithm with a bounded set size proved counterproductive - especially since it is part of block.check and is therefore evaluated concurrently across blocks.\n\nGiven the need to populate and depopulate a utxo store, these checks become tied to it. However you are referring to lookup of previous outputs, not inputs. I was asking why there is an input fetch.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +62,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "These are two distinct block rules. (1) no forward references, (2) no double spends. Rule 1 is pointless, likely just an implementation artifact. Rule 2 is just a check for duplicate points within a block. \nThese are context free, they do not require a utxo store or any chain context. Rule 1 require&hellip;",
+  "truncated": true,
+  "post_url": "/t/libbitcoin-for-core-people/1222/29",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

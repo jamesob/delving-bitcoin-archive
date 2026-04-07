@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"t-bast\" data-post=\"9\" data-topic=\"1453\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/t-bast/48/98_2.png\" class=\"avatar\"> t-bast:</div>\n<blockquote>\n<p>If the mobile wallet can actually leverage <code>SIGHASH_SINGLE | SIGHASH_ANYONECANPAY</code> by adding inputs to pay fees, they should use the default 0-fee HTLC transaction.</p>\n</blockquote>\n</aside>\n<p>One caveat is that without a flexible signature hash you cannot batch the incoming HTLC-success transactions. It may be the case that you have one fee-infused HTLC-Success transaction, and that is enough to pay for the whole package of commitment transaction and other HTLC-Success transactions.</p>\n<p>I suspect from average mobile wallets this isn\u2019t much of a concern or desire, but just noting.</p>\n<p>And if the mobile wallet has a utxo to use, they can still do the batching.</p>",
   "post_number": 12,
   "post_type": 1,
+  "posts_count": 13,
   "updated_at": "2025-02-21T14:35:52.953Z",
   "reply_count": 1,
   "reply_to_post_number": 9,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 22.2,
+  "reads": 24,
+  "readers_count": 23,
+  "score": 24.8,
   "yours": false,
   "topic_id": 1453,
   "topic_slug": "zero-fee-commitments-for-mobile-wallets",
@@ -55,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "One caveat is that without a flexible signature hash you cannot batch the incoming HTLC-success transactions. It may be the case that you have one fee-infused HTLC-Success transaction, and that is enough to pay for the whole package of commitment transaction and other HTLC-Success transactions. \nI &hellip;",
+  "truncated": true,
+  "post_url": "/t/zero-fee-commitments-for-mobile-wallets/1453/12",
   "reactions": [
     {
       "id": "+1",
@@ -64,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

@@ -4,17 +4,18 @@
   "username": "stefanwouldgo",
   "avatar_template": "/user_avatar/delvingbitcoin.org/stefanwouldgo/{size}/664_2.png",
   "created_at": "2025-01-29T08:43:44.710Z",
-  "cooked": "<p>Hi sipa, thanks for your great work on this.</p>\n<aside class=\"quote no-group\" data-username=\"sipa\" data-post=\"3\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/102_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>We don\u2019t have a proof that finding the optimal linearization (or finding the highest-feerate topologically-valid subset) is NP-hard, so it\u2019s possible a polynomial algorithm exist.</p>\n</blockquote>\n</aside>\n<p>I\u2019ve been thinking about this problem for some months now, alternating between looking for an algorithm and a reduction from some NP hard problem. It really is not obvious. However, DeepSeek R1 finally helped me find the surprising answer:</p>\n<p>Finding a highest-feerate topologically-valid subset is possible in <span class=\"math\">O(nm \\log (n^2/m))</span> time, and this has been shown in 1989 by Gallo, Grigoriadis and Tarjan (\u201cA FAST PARAMETRIC MAXIMUM FLOW ALGORITHM\nAND APPLICATIONS\u201d, SIAM J. COMPUT.\nVol. 18, No. 1, pp. 30-55, February 1989, you can find it on sci-hub). Actually, there have been even earlier algorithms for this, quoted in this article, though they are a little slower. For your reference, the problem is called maximum-ratio closure problem (p. 48), the only difference being the direction of the arrows in the graph.</p>\n<p>It requires a rather involved algorithm, where the graph is modified into a flow network whose capacities depend on a parameter <span class=\"math\">\\lambda</span> (standing for the target feerate) and a min-cut is calculated for several <span class=\"math\">\\lambda</span> until the optimum is found. Gallo, Grigoriadis and Tarjan solve this in the same asymptotic time that a single min-cut would take by modifying the Goldberg-Tarjan push-relabel algorithm to keep on working on the next <span class=\"math\">\\lambda</span> after finding the min-cut for the one before, and proving that under some conditions that hold here, there are only <span class=\"math\">O(n)</span> breakpoints at which we need to calculate the min-cut.</p>\n<p>This seems great news to me. It should mean that we can accomodate much larger clusters. The question is, how do we implement this? I haven\u2019t found an open source implementation of exactly this algorithm, but the repo at <a href=\"https://github.com/jonas-sauer/MonotoneParametricMinCut\" rel=\"noopener nofollow ugc\">https://github.com/jonas-sauer/MonotoneParametricMinCut</a> has several algorithms in C++ that solve very similar problems, are supposed to be even faster in practice, and might be modified for our purposes (MIT license). The alternative would be to write the push-relabel parameterized min-cut algorithm from scratch, but as I said, this is not trivial.</p>",
+  "cooked": "<p>Hi sipa, thanks for your great work on this.</p>\n<aside class=\"quote no-group\" data-username=\"sipa\" data-post=\"3\" data-topic=\"303\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/sipa/48/1100_2.png\" class=\"avatar\"> sipa:</div>\n<blockquote>\n<p>We don\u2019t have a proof that finding the optimal linearization (or finding the highest-feerate topologically-valid subset) is NP-hard, so it\u2019s possible a polynomial algorithm exist.</p>\n</blockquote>\n</aside>\n<p>I\u2019ve been thinking about this problem for some months now, alternating between looking for an algorithm and a reduction from some NP hard problem. It really is not obvious. However, DeepSeek R1 finally helped me find the surprising answer:</p>\n<p>Finding a highest-feerate topologically-valid subset is possible in <span class=\"math\">O(nm \\log (n^2/m))</span> time, and this has been shown in 1989 by Gallo, Grigoriadis and Tarjan (\u201cA FAST PARAMETRIC MAXIMUM FLOW ALGORITHM\nAND APPLICATIONS\u201d, SIAM J. COMPUT.\nVol. 18, No. 1, pp. 30-55, February 1989, you can find it on sci-hub). Actually, there have been even earlier algorithms for this, quoted in this article, though they are a little slower. For your reference, the problem is called maximum-ratio closure problem (p. 48), the only difference being the direction of the arrows in the graph.</p>\n<p>It requires a rather involved algorithm, where the graph is modified into a flow network whose capacities depend on a parameter <span class=\"math\">\\lambda</span> (standing for the target feerate) and a min-cut is calculated for several <span class=\"math\">\\lambda</span> until the optimum is found. Gallo, Grigoriadis and Tarjan solve this in the same asymptotic time that a single min-cut would take by modifying the Goldberg-Tarjan push-relabel algorithm to keep on working on the next <span class=\"math\">\\lambda</span> after finding the min-cut for the one before, and proving that under some conditions that hold here, there are only <span class=\"math\">O(n)</span> breakpoints at which we need to calculate the min-cut.</p>\n<p>This seems great news to me. It should mean that we can accomodate much larger clusters. The question is, how do we implement this? I haven\u2019t found an open source implementation of exactly this algorithm, but the repo at <a href=\"https://github.com/jonas-sauer/MonotoneParametricMinCut\" rel=\"noopener nofollow ugc\">https://github.com/jonas-sauer/MonotoneParametricMinCut</a> has several algorithms in C++ that solve very similar problems, are supposed to be even faster in practice, and might be modified for our purposes (MIT license). The alternative would be to write the push-relabel parameterized min-cut algorithm from scratch, but as I said, this is not trivial.</p>",
   "post_number": 9,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-01-29T13:09:02.447Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": 3,
   "quote_count": 1,
-  "incoming_link_count": 1,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 117.8,
+  "incoming_link_count": 273,
+  "reads": 70,
+  "readers_count": 69,
+  "score": 1599.0,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -41,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 12
     }
   ],
   "moderator": false,
@@ -55,19 +56,31 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "Hi sipa, thanks for your great work on this. \n\nI\u2019ve been thinking about this problem for some months now, alternating between looking for an algorithm and a reduction from some NP hard problem. It really is not obvious. However, DeepSeek R1 finally helped me find the surprising answer: \nFinding a hi&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/9",
   "reactions": [
     {
       "id": "open_mouth",
       "type": "emoji",
-      "count": 3
+      "count": 6
     },
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 3
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 12,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

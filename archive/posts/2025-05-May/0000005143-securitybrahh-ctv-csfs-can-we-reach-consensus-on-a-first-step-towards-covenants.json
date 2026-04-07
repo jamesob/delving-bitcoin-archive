@@ -7,15 +7,15 @@
   "cooked": "<p>lol, atleast let me run on some test net that we all can view through mempool space UI.</p>",
   "post_number": 66,
   "post_type": 1,
-  "posts_count": 70,
+  "posts_count": 81,
   "updated_at": "2025-05-28T10:08:00.425Z",
   "reply_count": 0,
   "reply_to_post_number": 65,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 26,
-  "readers_count": 25,
-  "score": 5.2,
+  "incoming_link_count": 1,
+  "reads": 58,
+  "readers_count": 57,
+  "score": 31.6,
   "yours": false,
   "topic_id": 1509,
   "topic_slug": "ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "lol, atleast let me run on some test net that we all can view through mempool space UI.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,8 +65,18 @@
   "excerpt": "lol, atleast let me run on some test net that we all can view through mempool space UI.",
   "truncated": true,
   "post_url": "/t/ctv-csfs-can-we-reach-consensus-on-a-first-step-towards-covenants/1509/66",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

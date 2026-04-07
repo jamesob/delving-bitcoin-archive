@@ -7,15 +7,15 @@
   "cooked": "<p>What are OP_RETURN limits?</p>\n<ul>\n<li>83 bytes per output</li>\n<li>Only one output per transaction</li>\n</ul>\n<table>\n  <tbody><tr>\n    <th></th>\n    <th>With limits</th>\n    <th>Without limits</th>\n  </tr>\n  <tr>\n    <td>UTXO set</td>\n    <td>\u26a0\ufe0f</td>\n    <td>\u2705</td>\n  </tr>\n  <tr>\n    <td>Fee estimates</td>\n    <td>\u26a0\ufe0f</td>\n    <td>\u2705</td>\n  </tr>\n  <tr>\n    <td>Compact block relay</td>\n    <td>\u2753</td>\n    <td>\u2705</td>\n  </tr>\n</tbody></table>\n<p>Since OP_RETURN limits exist, some users prefer other ways of storing data. Data is mostly required by protocols that use bitcoin. This affects UTXO set and the full nodes resource usage. If users directly submit transactions to mining pools without propagation they wont exist in other mempools hence fee estimates and compact block relay might be affected.</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/c/c9985b1b5d516601c56c8c9ec54b66d01368ebb7.jpeg\" data-download-href=\"https://delvingbitcoin.org/uploads/default/c9985b1b5d516601c56c8c9ec54b66d01368ebb7\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/c/c9985b1b5d516601c56c8c9ec54b66d01368ebb7_2_690x360.jpeg\" alt=\"image\" data-base62-sha1=\"sLookVyWwjJqK1AfYrcr6Yp8AdN\" width=\"690\" height=\"360\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/c/c9985b1b5d516601c56c8c9ec54b66d01368ebb7_2_690x360.jpeg, https://delvingbitcoin.org/uploads/default/optimized/2X/c/c9985b1b5d516601c56c8c9ec54b66d01368ebb7_2_1035x540.jpeg 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/c/c9985b1b5d516601c56c8c9ec54b66d01368ebb7_2_1380x720.jpeg 2x\" data-dominant-color=\"31414D\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">1920\u00d71003 56.9 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>Alternatives for users who support limits:</p>\n<ol>\n<li>Core w/ patch</li>\n<li>Older versions that include bug fixes</li>\n<li>Other implementations</li>\n</ol>\n<p>Alternatives for users who want to remove limits:</p>\n<ol>\n<li>Libre relay</li>\n<li>Slipstream</li>\n</ol>\n<p>Related mailing list thread: <a href=\"https://groups.google.com/g/bitcoindev/c/d6ZO7gXGYbQ\" rel=\"noopener nofollow ugc\">https://groups.google.com/g/bitcoindev/c/d6ZO7gXGYbQ</a></p>\n<p>Note: This post is inspired by a Github <a href=\"https://github.com/bitcoin/bitcoin/pull/32381#issuecomment-2840165283\" rel=\"noopener nofollow ugc\">comment</a>. I want to keep this post technical (not political) and I will add more relevant information based on my research, other posts, reviews etc.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 6,
   "updated_at": "2025-05-01T09:21:48.709Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 4,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 22.8,
+  "incoming_link_count": 80,
+  "reads": 64,
+  "readers_count": 63,
+  "score": 427.8,
   "yours": false,
   "topic_id": 1645,
   "topic_slug": "op-return-limits-pros-and-cons",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "What are OP_RETURN limits?\n\n- 83 bytes per output \n- Only one output per transaction\n\n\n<table border=\"1\" cellpadding=\"5\">\n  <tr>\n    <th></th>\n    <th>With limits</th>\n    <th>Without limits</th>\n  </tr>\n  <tr>\n    <td>UTXO set</td>\n    <td>\u26a0\ufe0f</td>\n    <td>\u2705</td>\n  </tr>\n  <tr>\n    <td>Fee estimates</td>\n    <td>\u26a0\ufe0f</td>\n    <td>\u2705</td>\n  </tr>\n  <tr>\n    <td>Compact block relay</td>\n    <td>\u2753</td>\n    <td>\u2705</td>\n  </tr>\n</table>\n\nSince OP_RETURN limits exist, some users prefer other ways of storing data. Data is mostly required by protocols that use bitcoin. This affects UTXO set and the full nodes resource usage. If users directly submit transactions to mining pools without propagation they wont exist in other mempools hence fee estimates and compact block relay might be affected.\n\n![image|690x360](upload://sLookVyWwjJqK1AfYrcr6Yp8AdN.jpeg)\n\n\nAlternatives for users who support limits: \n\n1. Core w/ patch\n2. Older versions that include bug fixes\n3. Other implementations\n\nAlternatives for users who want to remove limits:\n\n1. Libre relay\n2. Slipstream\n\nRelated mailing list thread: https://groups.google.com/g/bitcoindev/c/d6ZO7gXGYbQ\n\nNote: This post is inspired by a Github [comment](https://github.com/bitcoin/bitcoin/pull/32381#issuecomment-2840165283). I want to keep this post technical (not political) and I will add more relevant information based on my research, other posts, reviews etc.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,8 +59,19 @@
   "excerpt": "What are OP_RETURN limits? \n\n83 bytes per output\nOnly one output per transaction\n\n\n  \n    \n    With limits\n    Without limits\n  \n  \n    UTXO set\n    \u26a0\ufe0f\n    \u2705\n  \n  \n    Fee estimates\n    \u26a0\ufe0f\n    \u2705\n  \n  \n    Compact block relay\n    \u2753\n    \u2705\n  \n\nSince OP_RETURN limits exist, some users prefer other ways &hellip;",
   "truncated": true,
   "post_url": "/t/op-return-limits-pros-and-cons/1645/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 2,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

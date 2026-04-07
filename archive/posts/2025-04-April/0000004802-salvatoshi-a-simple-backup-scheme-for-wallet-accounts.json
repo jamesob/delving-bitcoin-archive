@@ -7,15 +7,15 @@
   "cooked": "<p>For any wallet account that is not single-signature, backing up the descriptor is crucial, as its loss is likely to be catastrophic and lead to lost funds - even if the seeds that are in theory sufficient for recovery are not lost. This is true even for simple multisig wallets, as losing the knowledge of just a single xpub might make recovery impossible.</p>\n<p>In lack of a standard, this led people to get creative with wallet backups schemes, with some even engraving the descriptor in metal.</p>\n<p>I believe <strong>this is a bad idea and should be discouraged</strong>. Descriptors are not seeds, and should be treated radically differently both in theory and in practice.</p>\n<p>In this post, I briefly introduce the context, and draft what I believe is the ideal structure for a <em>wallet account backup standard</em> that could be adopted by software wallets.</p>\n<h2><a name=\"p-4802-motivation-secrecy-vs-privacy-1\" class=\"anchor\" href=\"#p-4802-motivation-secrecy-vs-privacy-1\"></a>Motivation: secrecy vs privacy</h2>\n<p>The seed is <em><strong>secret</strong></em>, as it is what protects the key material that allows spending funds. Unauthorized access to the seed implies that attackers gain ownership of the funds (or at least the specific access controls that the keys are protecting). Hence, it is very valuable for an attacker to gain access to seed, and they will be willing to increase the cost and the sophistication of the attacks, because of the potential of high returns.</p>\n<p>Therefore, for <strong>seeds</strong>:</p>\n<ul>\n<li><strong>digital copies are a high risk</strong>: hardware signing devices have been built to keep the seeds in a secure enclave, separate from the machine the software wallet is running on.</li>\n<li><strong>redundant copies of the seed are a high risk</strong>: the seed has to be physically protected, and multiple copies in multiple places inherently make their protection harder.</li>\n</ul>\n<p>The descriptors (and their little brother <em>xpub</em>) is only <em><strong>private</strong></em>: unauthorized access allows an attacker, to spy on your funds. That is bad, but not nearly as valuable as taking your funds. Attackers might use this to get information about you, and to inform further attacks, but <em>will lose interest once attempting an attack becomes too costly</em> or sophisticate.</p>\n<p>For <strong>descriptors</strong>:</p>\n<ul>\n<li><strong>digital copies are unavoidable</strong>: each of parties using the account <em>will</em> necessarily have a digital copy in their software wallet.</li>\n<li>additional <strong>redundant copies are a very moderate risk</strong>.</li>\n</ul>\n<p>Therefore, having multiple copies of the descriptor, whether physical, digital, on your disk or on the cloud, is a valid mean to reduce the risk of loss of funds, unlike replicating the seed - which would incur a much higher risk.</p>\n<p>I recommend timelocked recovery mechanisms like <a href=\"https://github.com/wizardsardine/liana\" rel=\"noopener nofollow ugc\">liana</a> to effectively address the risk of loss of funds caused by mismanaging the seed.</p>\n<p>So how do we backup descriptors and wallet policies, <em>the right way</em>?</p>\n<p>Physical copies are easy - all you need is a printer. <em>Paper is fine when you have redundancy</em>.\nHere I\u2019m concerned with digital copies only.</p>\n<h2><a name=\"p-4802-desirable-properties-of-a-digital-backup-2\" class=\"anchor\" href=\"#p-4802-desirable-properties-of-a-digital-backup-2\"></a>Desirable properties of a digital backup</h2>\n<ul>\n<li><strong>Encrypted</strong>: this allows to outsource its storage to untrusted parties, for example, cloud providers, or even public forums.</li>\n<li>Has <strong>access control</strong>: decrypting it should only be available to the desired parties (typically, a subset of the cosigners)</li>\n<li><strong>Easy to implement</strong>: it should not require any sophisticated tools</li>\n<li><strong>Vendor-independent</strong>: ideally, it should be easy to implement using any hardware signing device.</li>\n<li><strong>Deterministic</strong>: the result of the backup is the same for the same payload.  Not crucial, but a nice-to-have.</li>\n</ul>\n<h2><a name=\"p-4802-a-simple-deterministic-encrypted-backup-scheme-draft-3\" class=\"anchor\" href=\"#p-4802-a-simple-deterministic-encrypted-backup-scheme-draft-3\"></a>A simple deterministic encrypted backup scheme (draft)</h2>\n<p>We could just encrypt the payload with each of the xpubs of the parties that we want to be able to decrypt it.</p>\n<p><em>Idea 1</em>:\nWe can do better: we generate a random 32-byte symmetric secret <span class=\"math\">s</span>, encrypt <span class=\"math\">s</span> with each of the public keys, and encrypt the payload with <span class=\"math\">s</span>. This reduces the backup size from <span class=\"math\">O(n \\cdot |data|)</span> to <span class=\"math\">O(n + |data|)</span> for <span class=\"math\">n</span> keys.</p>\n<p><em>Idea 2</em>:\nFor any party that knows the descriptor, there is nothing to protect. Therefore, <em>secrecy</em> is reduced to <em>secrecy for anyone who doesn\u2019t already have the descriptor</em>. We already have a key (the xpub) for each involved cosigner, so we can re-use the same key as the encryption key. However, using asymmetric encryption would require the private key for decryption. This is undesirable, as private keys might be kept in secure enclaves that might not be easily programmed with customized decryption logic. Instead, we reuse the entropy of the public key itself to generate a symmetric secret key, and use it to \u2018encrypt\u2019 the shared secret <span class=\"math\">s</span>. Therefore, for the party <span class=\"math\">i</span> with public key <span class=\"math\">p_i</span>, we derive its symmetric secret <span class=\"math\">s_i = \\operatorname{sha256}(``\\textrm{BACKUP_INDIVIDUAL_SECRET}\" \\| p_i)</span>. This avoids asymmetric encryption, and only requires access to the public key from the secure enclave - a functionality that all the signing devices for bitcoin already provide.</p>\n<p><em>Idea 3</em>:\nThe only randomness in the process is the shared secret <span class=\"math\">s</span>. In order to make it fully deterministic, we can use the combined entropy of the descriptor to derive a deterministic, shared secret known to anyone who knows the descriptor. Assuming that the different xpubs involved in the descriptor/wallet policy are <span class=\"math\">p_1, p_2, \\dots, p_n</span> (in lexicographical order), a simple choice is: <span class=\"math\">s = \\operatorname{sha256}(``\\textrm{BACKUP_DECRYPTION_SECRET}\" \\| p_1 \\| p_2 \\| \\dots \\| p_n)</span>.</p>\n<p>The next section puts these ideas together.</p>\n<h3><a name=\"p-4802-the-scheme-4\" class=\"anchor\" href=\"#p-4802-the-scheme-4\"></a>The scheme</h3>\n<p>In the following, the payload <span class=\"math\">data</span> that is being backed up is left unspecified, but it will include (at least) the descriptor or the <a href=\"https://github.com/bitcoin/bips/blob/c5220f8c3b43821efa3841a6c5e90af9ce5519e8/bip-0388.mediawiki\" rel=\"noopener nofollow ugc\">BIP388</a> wallet policy. The operator <span class=\"math\">\\oplus</span> refers to the bitwise XOR.</p>\n<ul>\n<li>Let <span class=\"math\">p_1, p_2, \\dots, p_n</span>, be the public keys in the descriptor/wallet policy, in increasing lexicographical order</li>\n<li>Let <span class=\"math\">s = \\operatorname{sha256}(``\\textrm{BACKUP_DECRYPTION_SECRET}\" \\| p_1 \\| p_2 \\| \\dots \\| p_n)</span></li>\n<li>Let <span class=\"math\">s_i = \\operatorname{sha256}(``\\textrm{BACKUP_INDIVIDUAL_SECRET}\" \\| p_i)</span></li>\n<li>Let <span class=\"math\">c_i = s \\oplus s_i </span></li>\n<li>encrypt the payload <span class=\"math\">data</span> using the symmetric key <span class=\"math\">s</span> using AES-GCM.</li>\n</ul>\n<p>The backup is the list of <span class=\"math\">c_i</span>, followed by the encryption of <span class=\"math\">data</span>.</p>\n<br>\n**Note**: this scheme should not be used with descriptors containing private keys (*xprv*). Most software wallets only include *xpubs*.\n<h3><a name=\"p-4802-decryption-5\" class=\"anchor\" href=\"#p-4802-decryption-5\"></a>Decryption</h3>\n<p>In order to decrypt the payload of a backup, the owner of a certain public key <span class=\"math\">p</span> computes <span class=\"math\">s =  \\operatorname{sha256}(``\\textrm{BACKUP_INDIVIDUAL_SECRET}\" \\| p)</span>, and attempt the decryption of the payload with the key <span class=\"math\">c_i \\oplus s</span> for each of the provided <span class=\"math\">c_i</span>.</p>\n<p>Decryption will succeed if and only if <span class=\"math\">p</span> was one of the keys in the descriptor/wallet policy.</p>\n<h3><a name=\"p-4802-security-considerations-6\" class=\"anchor\" href=\"#p-4802-security-considerations-6\"></a>Security considerations</h3>\n<p>A deterministic encryption, by definition, cannot satisfy the standard <em><a href=\"https://en.wikipedia.org/wiki/Semantic_security\" rel=\"noopener nofollow ugc\">semantic security</a></em> property commonly used in cryptography; however, in our context, it is safe to assume that the adversary does not have access to plaintexts, and no other plaintext will be encrypted with the same secret <span class=\"math\">s</span>.</p>\n<h2><a name=\"p-4802-further-work-7\" class=\"anchor\" href=\"#p-4802-further-work-7\"></a>Further work</h2>\n<p>I hope this serves as an inspiration for a more formal specification and implementation that software wallets can adopt.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 31,
   "updated_at": "2025-04-16T17:27:45.999Z",
-  "reply_count": 1,
+  "reply_count": 2,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 179,
-  "reads": 23,
-  "readers_count": 22,
-  "score": 984.6,
+  "incoming_link_count": 790,
+  "reads": 106,
+  "readers_count": 105,
+  "score": 4146.2,
   "yours": false,
   "topic_id": 1607,
   "topic_slug": "a-simple-backup-scheme-for-wallet-accounts",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 6
+      "count": 11
     }
   ],
   "moderator": false,
@@ -63,15 +63,25 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 4
+      "count": 7
     },
     {
       "id": "heart",
       "type": "emoji",
-      "count": 2
+      "count": 3
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 6,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 11,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null,
+  "can_vote": false
 }

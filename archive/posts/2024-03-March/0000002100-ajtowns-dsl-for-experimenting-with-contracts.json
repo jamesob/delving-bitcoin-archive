@@ -7,14 +7,15 @@
   "cooked": "<p>Looking at the lightning examples, it seems like it would be helpful to have a <code>reorg_chain</code> command along the lines of \u201cextend_chain\u201d that combines <code>invalidateblock</code> and <code>generate</code> and potentially replaces some previously confirmed transactions.</p>\n<p>You might consider differentiating keys and addresses \u2013 eg</p>\n<pre data-code-wrap=\"raw\"><code class=\"lang-raw\">@alice_key = key :new \n@alice_addr = address :wpkh(alice)\n@alice_to_self = transaction inputs: [\n                              { tx: @alice_coinbase_tx, vout: 0, script_sig: '@alice_addr' }\n                            ],\n                            outputs: [\n                              { to: '@alice_addr', amount: 49.99.sats }\n                            ]\n</code></pre>\n<p>Seeing if you can rewrite <a href=\"https://github.com/bitcoin/bitcoin/blob/61de64df6790077857faba84796bb874b59c5d15/test/functional/feature_block.py\">feature_block.py</a> might be worth doing \u2013 then the test case could perhaps easily be run on other node implementations, and perhaps it might be easier to add other tests, or easier to understand what the existing tests do if your DSL is actually a better way to describe these things?</p>\n<p>Just some ideas, feel free to ignore!</p>",
   "post_number": 2,
   "post_type": 1,
+  "posts_count": 15,
   "updated_at": "2024-03-30T18:44:58.745Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.8,
+  "incoming_link_count": 2,
+  "reads": 55,
+  "readers_count": 54,
+  "score": 36.0,
   "yours": false,
   "topic_id": 748,
   "topic_slug": "dsl-for-experimenting-with-contracts",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 2,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Looking at the lightning examples, it seems like it would be helpful to have a `reorg_chain` command along the lines of \"extend_chain\" that combines `invalidateblock` and `generate` and potentially replaces some previously confirmed transactions.\n\nYou might consider differentiating keys and addresses -- eg\n\n```raw\n@alice_key = key :new \n@alice_addr = address :wpkh(alice)\n@alice_to_self = transaction inputs: [\n                              { tx: @alice_coinbase_tx, vout: 0, script_sig: '@alice_addr' }\n                            ],\n                            outputs: [\n                              { to: '@alice_addr', amount: 49.99.sats }\n                            ]\n```\n\nSeeing if you can rewrite [feature_block.py](https://github.com/bitcoin/bitcoin/blob/61de64df6790077857faba84796bb874b59c5d15/test/functional/feature_block.py) might be worth doing -- then the test case could perhaps easily be run on other node implementations, and perhaps it might be easier to add other tests, or easier to understand what the existing tests do if your DSL is actually a better way to describe these things?\n\nJust some ideas, feel free to ignore!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -49,8 +56,21 @@
   "edit_reason": "Github link was replaced with a permanent link",
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "Looking at the lightning examples, it seems like it would be helpful to have a reorg_chain command along the lines of \u201cextend_chain\u201d that combines invalidateblock and generate and potentially replaces some previously confirmed transactions. \nYou might consider differentiating keys and addresses \u2013 eg &hellip;",
+  "truncated": true,
+  "post_url": "/t/dsl-for-experimenting-with-contracts/748/2",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

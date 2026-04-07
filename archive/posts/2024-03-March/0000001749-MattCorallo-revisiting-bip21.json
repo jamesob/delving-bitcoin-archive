@@ -7,14 +7,15 @@
   "cooked": "<p>At a high level I agree that BIP21 should be rewritten to just allow stuff in the parameters and no body, but we should simply require the type of the address as the key - ie if its a taproot address the key should be ta or tp, silent payment sp, BOLT12 b12, etc. Those names are shorter but also allow wallets to know where to go look for things they know how to pay, and also know what kind of thing they\u2019re dealing with (if, for example, someone came up with an address type that doesn\u2019t identify itself in a bech32 HRP to keep QR code sizes small, not that anyone should).</p>",
   "post_number": 3,
   "post_type": 1,
+  "posts_count": 20,
   "updated_at": "2024-03-01T14:47:51.494Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 20,
-  "readers_count": 19,
-  "score": 24.0,
+  "incoming_link_count": 4,
+  "reads": 66,
+  "readers_count": 65,
+  "score": 53.2,
   "yours": false,
   "topic_id": 630,
   "topic_slug": "revisiting-bip21",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -37,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "At a high level I agree that BIP21 should be rewritten to just allow stuff in the parameters and no body, but we should simply require the type of the address as the key - ie if its a taproot address the key should be ta or tp, silent payment sp, BOLT12 b12, etc. Those names are shorter but also allow wallets to know where to go look for things they know how to pay, and also know what kind of thing they're dealing with (if, for example, someone came up with an address type that doesn't identify itself in a bech32 HRP to keep QR code sizes small, not that anyone should).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -49,8 +56,21 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
-  "reactions": [],
+  "excerpt": "At a high level I agree that BIP21 should be rewritten to just allow stuff in the parameters and no body, but we should simply require the type of the address as the key - ie if its a taproot address the key should be ta or tp, silent payment sp, BOLT12 b12, etc. Those names are shorter but also all&hellip;",
+  "truncated": true,
+  "post_url": "/t/revisiting-bip21/630/3",
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "reaction_users_count": 1,
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

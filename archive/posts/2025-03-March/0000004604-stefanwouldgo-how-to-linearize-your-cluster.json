@@ -7,14 +7,15 @@
   "cooked": "<p>I don\u2019t think the clusters have to be identical. We just want the received linearization to beat any conflicting transactions or show the improvement by CPFP. Can you elaborate on a scenario where an attacker can do this in multiple ways? What would they gain? Would this enable free relay or prevent me from further improving the graph? I\u2019m having a hard time envisioning a concrete attack.</p>",
   "post_number": 58,
   "post_type": 1,
+  "posts_count": 78,
   "updated_at": "2025-03-25T16:29:27.367Z",
   "reply_count": 1,
   "reply_to_post_number": 57,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "reads": 33,
+  "readers_count": 32,
+  "score": 11.6,
   "yours": false,
   "topic_id": 303,
   "topic_slug": "how-to-linearize-your-cluster",
@@ -37,6 +38,7 @@
   "can_wiki": false,
   "user_title": null,
   "reply_to_user": {
+    "id": 96,
     "username": "sipa",
     "name": "Pieter Wuille",
     "avatar_template": "/user_avatar/delvingbitcoin.org/sipa/{size}/1100_2.png"
@@ -55,8 +57,15 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "I don\u2019t think the clusters have to be identical. We just want the received linearization to beat any conflicting transactions or show the improvement by CPFP. Can you elaborate on a scenario where an attacker can do this in multiple ways? What would they gain? Would this enable free relay or prevent&hellip;",
+  "truncated": true,
+  "post_url": "/t/how-to-linearize-your-cluster/303/58",
   "reactions": [],
   "current_user_reaction": null,
   "reaction_users_count": 0,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }

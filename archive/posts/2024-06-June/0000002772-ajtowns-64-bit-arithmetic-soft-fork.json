@@ -7,14 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"Chris_Stewart_5\" data-post=\"52\" data-topic=\"397\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img loading=\"lazy\" alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/chris_stewart_5/48/296_2.png\" class=\"avatar\"> Chris_Stewart_5:</div>\n<blockquote>\n<p>Perhaps there is a better way to implement this while avoiding using <code>__int128_t</code>. I\u2019m open to ideas.</p>\n</blockquote>\n</aside>\n<p>For comparison, crypto/muhash.h uses <code>__int128_t</code> conditionally.</p>\n<p>Could maybe use <code>uint64_t absval; bool negated;</code> instead, with various manual checks to see if things end up out of bounds? Otherwise, just doing a bignum class might make sense (like arith_uint256).</p>",
   "post_number": 53,
   "post_type": 1,
+  "posts_count": 52,
   "updated_at": "2024-06-20T16:25:30.164Z",
   "reply_count": 0,
   "reply_to_post_number": 52,
   "quote_count": 1,
-  "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 16.6,
+  "incoming_link_count": 68,
+  "reads": 30,
+  "readers_count": 29,
+  "score": 361.0,
   "yours": false,
   "topic_id": 397,
   "topic_slug": "64-bit-arithmetic-soft-fork",
@@ -28,6 +29,7 @@
   "flair_bg_color": null,
   "flair_color": null,
   "flair_group_id": null,
+  "badges_granted": [],
   "version": 1,
   "can_edit": false,
   "can_delete": false,
@@ -54,6 +56,9 @@
   "edit_reason": null,
   "can_view_edit_history": true,
   "wiki": false,
+  "excerpt": "For comparison, crypto/muhash.h uses __int128_t conditionally. \nCould maybe use uint64_t absval; bool negated; instead, with various manual checks to see if things end up out of bounds? Otherwise, just doing a bignum class might make sense (like arith_uint256).",
+  "truncated": true,
+  "post_url": "/t/64-bit-arithmetic-soft-fork/397/53",
   "reactions": [
     {
       "id": "+1",
@@ -63,5 +68,9 @@
   ],
   "current_user_reaction": null,
   "reaction_users_count": 1,
-  "current_user_used_main_reaction": false
+  "current_user_used_main_reaction": false,
+  "can_accept_answer": false,
+  "can_unaccept_answer": false,
+  "accepted_answer": false,
+  "topic_accepted_answer": null
 }
