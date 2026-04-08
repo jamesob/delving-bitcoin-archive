@@ -451,7 +451,9 @@ Under 3 seconds for each on my i9 laptop:
 
 -------------------------
 
-jaonoctus | 2026-04-08 15:55:59 UTC | #25
+jaonoctus | 2026-04-08 16:01:15 UTC | #25
+
+Running Core v30.2 / VM (QEMU/KVM) on AMD EPYC host 6 cores 2.0 GHz
 
 ```
 -----BEGIN PGP SIGNED MESSAGE-----
@@ -477,6 +479,139 @@ NADeAQDYJxAczHZbltdx1XrPalJgj11rhumbZ+5YLBg8VgCo+QEAn66on4M+3odh
 =XP+R
 -----END PGP SIGNATURE-----
 ```
+
+-------------------------
+
+guibressan | 2026-04-08 16:03:59 UTC | #26
+
+Running in an old laptop (Core i5-3337U)
+
+```
+btcd(CGO secp256k1 fork):
+2026-04-08 14:11:10.466 [DBG] SYNC: processed block 299177 0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b in 352245323324ns
+2026-04-08 14:17:10.793 [DBG] SYNC: processed block 299178 000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13 in 357830036109ns
+2026-04-08 14:23:10.134 [DBG] SYNC: processed block 299179 00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f in 357992482187ns
+2026-04-08 14:29:09.598 [DBG] SYNC: processed block 299180 00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444 in 359395937583ns
+2026-04-08 14:35:11.284 [DBG] SYNC: processed block 299181 00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb in 361630971097ns
+2026-04-08 14:41:13.978 [DBG] SYNC: processed block 299182 000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856 in 360412155103ns
+
+btcd(master):
+2026-04-08 14:11:06.372 [DBG] SYNC: processed block 299177 0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b in 352501623920ns
+[2026-04-08 14:17:05.635 [DBG] SYNC: processed block 299178 000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13 in 355806456969ns
+2026-04-08 14:23:06.752 [DBG] SYNC: processed block 299179 00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f in 357741226734ns
+2026-04-08 14:29:10.040 [DBG] SYNC: processed block 299180 00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444 in 360135046981ns
+2026-04-08 14:41:11.116 [DBG] SYNC: processed block 299181 00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb in 719982861243ns
+2026-04-08 14:47:41.621 [DBG] SYNC: processed block 299182 0000000d02c0b55daa763a8e5c31083e0d93a1f3927a74ced5a250d4e4bf259a in 388900151ns
+
+```
+
+-------------------------
+
+AntoineP | 2026-04-08 19:54:24 UTC | #27
+
+Here is for each block the delay between my node first saw the block hash and when it finally received the block content.
+
+| block hash | delay (seconds) |
+|----------------|-----------------------|
+| `0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b` | 2 |
+| `000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13` | 44 |
+| `00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f` | 43 |
+| `00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444` | 44 |
+| `00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb` | 43 |
+| `000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856` | 5 |
+
+Here is a vibecoded Python script that takes as argument the path to your debug.log and a list of block hashes and outputs the above.
+
+<details>
+
+<summary>See script</summary>
+
+```python
+#!/usr/bin/env python3
+import argparse
+import re
+from datetime import datetime, timezone
+
+
+HEADER_RE = re.compile(
+    r"Saw new (?:cmpctblock )?header hash=([0-9a-fA-F]+)"
+)
+RECEIVED_RE = re.compile(r"received: (?:blocktxn|block)\b")
+
+
+def parse_ts(line: str) -> datetime | None:
+    first = line.split(" ", 1)[0]
+    try:
+        return datetime.strptime(first, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=(
+            "For each given block hash, report the time difference between "
+            "'Saw new [cmpctblock] header hash=<hash>' and the first following "
+            "'received: blocktxn' or 'received: block' line."
+        )
+    )
+    parser.add_argument("logfile", help="Path to debug.log")
+    parser.add_argument("hashes", nargs="+", help="One or more block hashes")
+    args = parser.parse_args()
+
+    wanted = set(args.hashes)
+
+    # hash -> timestamp of matching header line
+    saw_times: dict[str, datetime] = {}
+
+    # hash -> timestamp of first following matching received line
+    recv_times: dict[str, datetime] = {}
+
+    # hashes currently waiting for a following received line
+    pending: dict[str, datetime] = {}
+
+    with open(args.logfile, "r", encoding="utf-8", errors="replace") as f:
+        for line in f:
+            ts = parse_ts(line)
+            if ts is None:
+                continue
+
+            m = HEADER_RE.search(line)
+            if m:
+                h = m.group(1)
+                if h in wanted and h not in saw_times:
+                    saw_times[h] = ts
+                    pending[h] = ts
+                continue
+
+            if RECEIVED_RE.search(line):
+                # assign this received line to all hashes currently pending
+                for h in list(pending):
+                    if h not in recv_times:
+                        recv_times[h] = ts
+                    del pending[h]
+
+                if len(recv_times) == len(wanted):
+                    break
+
+    for h in args.hashes:
+        saw = saw_times.get(h)
+        recv = recv_times.get(h)
+
+        if saw is None:
+            print(f"{h} missing:header")
+        elif recv is None:
+            print(f"{h} missing:received")
+        else:
+            delta = (recv - saw).total_seconds()
+            print(f"{h} {delta:.0f}")
+
+
+if __name__ == "__main__":
+    main()
+```
+
+</details>
 
 -------------------------
 

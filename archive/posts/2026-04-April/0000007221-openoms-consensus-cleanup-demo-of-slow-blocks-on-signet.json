@@ -7,15 +7,15 @@
   "cooked": "<p>Running Raspiblitz v1.12.1 with BItcoin Core 29.2.0 on a Raspberry Pi 5 booted from nvme ssd.</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/0/0a3848b8a354272171e158ccc8c414005e149291.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/0a3848b8a354272171e158ccc8c414005e149291\" title=\"image\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/0/0a3848b8a354272171e158ccc8c414005e149291_2_690x189.png\" alt=\"image\" data-base62-sha1=\"1spmusuKURMlooFY97OPclubsA1\" width=\"690\" height=\"189\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/0/0a3848b8a354272171e158ccc8c414005e149291_2_690x189.png, https://delvingbitcoin.org/uploads/default/optimized/2X/0/0a3848b8a354272171e158ccc8c414005e149291_2_1035x283.png 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/0/0a3848b8a354272171e158ccc8c414005e149291_2_1380x378.png 2x\" data-dominant-color=\"E9EAE8\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">image</span><span class=\"informations\">1540\u00d7424 137 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>\n<p>Have also put together a quick install intstruction to get the patched bitcoin-tui running:</p>\n<pre><code class=\"lang-auto\">git clone https://github.com/ajtowns/bitcoin-tui\ncd bitcoin-tui\ngit checkout 202604-bip54blocks\n\nsudo apt install cmake\n\ncmake -B build\ncmake --build build -j$(nproc)\n\nsudo cp ./build/bin/bitcoin-tui /usr/bin/\n\nbitcoin-tui --signet --user raspibolt --password PASSWORD_B\n</code></pre>",
   "post_number": 18,
   "post_type": 1,
-  "posts_count": 25,
+  "posts_count": 27,
   "updated_at": "2026-04-08T15:00:46.041Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 4,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 33.4,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 55.4,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -64,10 +64,15 @@
       "id": "+1",
       "type": "emoji",
       "count": 1
+    },
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
