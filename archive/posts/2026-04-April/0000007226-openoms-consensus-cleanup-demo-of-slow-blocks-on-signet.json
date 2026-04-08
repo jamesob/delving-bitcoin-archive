@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "And they are gone:\n![image|690x350](upload://puMUOwJbskZuXhIQ41zlzHEKRVw.jpeg)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "And they are gone:\n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/b/b2b15457f036a00f3abd8632ba8f9c895de65ab2.jpeg\" data-download-href=\"https://delvingbitcoin.org/uploads/default/b2b15457f036a00f3abd8632ba8f9c895de65ab2\" title=\"image\">[image]</a>",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/22",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
