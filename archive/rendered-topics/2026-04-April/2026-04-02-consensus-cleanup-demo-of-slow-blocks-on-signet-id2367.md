@@ -451,3 +451,32 @@ Under 3 seconds for each on my i9 laptop:
 
 -------------------------
 
+jaonoctus | 2026-04-08 15:55:59 UTC | #25
+
+```
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+2026-04-08T14:04:50Z Saw new cmpctblock header hash=0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b height=299177 peer=9
+2026-04-08T14:05:13Z [bench] - Connect block: 22224.25ms [32.59s (264.99ms/blk)]
+2026-04-08T14:06:20Z Saw new cmpctblock header hash=000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13 height=299178 peer=2
+2026-04-08T14:06:48Z [bench] - Connect block: 21880.74ms [54.48s (439.32ms/blk)]
+2026-04-08T14:07:09Z Saw new cmpctblock header hash=00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f height=299179 peer=2
+2026-04-08T14:07:34Z [bench] - Connect block: 21385.88ms [75.86s (606.89ms/blk)]
+2026-04-08T14:08:15Z Saw new cmpctblock header hash=00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444 height=299180 peer=2
+2026-04-08T14:08:41Z [bench] - Connect block: 22418.28ms [98.28s (779.99ms/blk)]
+2026-04-08T14:09:15Z Saw new cmpctblock header hash=00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb height=299181 peer=2
+2026-04-08T14:09:41Z [bench] - Connect block: 21803.17ms [120.08s (945.53ms/blk)]
+2026-04-08T14:10:41Z Saw new cmpctblock header hash=000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856 height=299182 peer=2
+2026-04-08T14:11:07Z [bench] - Connect block: 22332.90ms [142.42s (1112.62ms/blk)]
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQTru4F1HbgJ3lDdWMSsdchrbudDNAUCadZ6MwAKCRCsdchrbudD
+NADeAQDYJxAczHZbltdx1XrPalJgj11rhumbZ+5YLBg8VgCo+QEAn66on4M+3odh
+2WSxdMogdtva6KReACn2sIbz022vdgE=
+=XP+R
+-----END PGP SIGNATURE-----
+```
+
+-------------------------
+

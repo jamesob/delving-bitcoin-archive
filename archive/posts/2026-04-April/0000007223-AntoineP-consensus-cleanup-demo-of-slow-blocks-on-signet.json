@@ -7,7 +7,7 @@
   "cooked": "<p>Each block took around 5 seconds to validate on my laptop with a performant CPU. When has everyone first seen 1) the headers 2) the content of the blocks? Was anyone stuck with peers that took a few seconds to send the block content as they were still validating it?</p>",
   "post_number": 20,
   "post_type": 1,
-  "posts_count": 24,
+  "posts_count": 25,
   "updated_at": "2026-04-08T15:13:18.309Z",
   "reply_count": 0,
   "reply_to_post_number": null,
