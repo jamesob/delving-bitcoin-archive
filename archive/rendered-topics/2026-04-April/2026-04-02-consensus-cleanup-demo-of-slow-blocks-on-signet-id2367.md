@@ -1,6 +1,6 @@
 # Consensus Cleanup: demo of slow blocks on Signet
 
-AntoineP | 2026-04-06 20:45:42 UTC | #1
+AntoineP | 2026-04-07 21:29:17 UTC | #1
 
 We are going to do a demo of long-to-validate blocks on Signet on Wednesday. Here are instructions on how you can join.
 
@@ -157,6 +157,8 @@ less ~/.bitcoin/signet/debug.log
 
 <summary>Joining the demo using an Umbrel node</summary>
 
+**NOTE**: Running the Bitcoin app on Signet will stop your mainnet node.
+
 The Bitcoin Node app on Umbrel supports Signet. It can be configured in `Settings > Network Selection > Signet`.
 
 ![image|479x500](upload://8ZjDbHPdrOiMVReOtcxwdRX4Pzb.jpeg)
@@ -285,6 +287,12 @@ If you’re already synced to a different signet and don’t want to lose your d
 AntoineP | 2026-04-07 14:41:19 UTC | #10
 
 It's fair to plug your PR since it could have been useful in this context, but i think for a non-Bitcoin-Core-contributor a better instruction is to use the `-datadir` option rather than compiling your branch.
+
+-------------------------
+
+ariard | 2026-04-07 23:14:41 UTC | #11
+
+thanks for setting up the demo, will do my best to join / observe the Thursday session.
 
 -------------------------
 
