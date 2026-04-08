@@ -355,13 +355,13 @@ I got an additional slow block after those 6.
 
 -------------------------
 
-xyzconstant | 2026-04-08 15:17:57 UTC | #17
+xyzconstant | 2026-04-08 15:19:06 UTC | #17
 
-I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, Ubuntu 22.04.2 LTS aarch64):
-
-EDIT: forgot to mention I’m running Core \`31.0rc2\`
+I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, Ubuntu 22.04.2 LTS aarch64) with Core 31.0rc2:
 
 ![image|690x415](upload://6VDKE8iIPySzt4Hs2e2zcA52oVJ.jpeg)
+
+EDIT: forgot to mention I’m running Core 31.0rc2
 
 -------------------------
 
@@ -407,9 +407,9 @@ Each block took around 5 seconds to validate on my laptop with a performant CPU.
 
 -------------------------
 
-xyzconstant | 2026-04-08 15:18:34 UTC | #21
+xyzconstant | 2026-04-08 15:19:22 UTC | #21
 
-Running on Mac M3 pro, here are some results:
+Running on Mac M3 pro with Core 31.0rc2, here are some results:
 
 ![image|690x392](upload://54qzPDnqHNy0W4R7cpukU19gXJQ.jpeg)
 
