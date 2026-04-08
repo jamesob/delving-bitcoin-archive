@@ -159,3 +159,9 @@ Interestingly, there's no reason we can't do both in different circumstances. E.
 
 -------------------------
 
+instagibbs | 2026-04-08 15:46:40 UTC | #7
+
+I do wonder if some wallets would end up using the first SPHINCS+ instance only and hope users don’t use too many signatures on that same instance.
+
+-------------------------
+
