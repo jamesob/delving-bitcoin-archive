@@ -399,3 +399,9 @@ CPU: Intel Core i7-13650HX (13th Gen, 20 cores, up to 4.90 GHz)
 
 -------------------------
 
+AntoineP | 2026-04-08 15:13:18 UTC | #20
+
+Each block took around 5 seconds to validate on my laptop with a performant CPU. When has everyone first seen 1) the headers 2) the content of the blocks? Was anyone stuck with peers that took a few seconds to send the block content as they were still validating it?
+
+-------------------------
+
