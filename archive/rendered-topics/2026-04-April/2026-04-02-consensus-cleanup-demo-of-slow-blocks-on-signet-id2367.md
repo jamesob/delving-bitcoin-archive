@@ -417,3 +417,10 @@ EDIT: forgot to mention I’m running Core 31.0rc2
 
 -------------------------
 
+openoms | 2026-04-08 15:24:37 UTC | #22
+
+And they are gone:
+![image|690x350](upload://puMUOwJbskZuXhIQ41zlzHEKRVw.jpeg)
+
+-------------------------
+
