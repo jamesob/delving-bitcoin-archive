@@ -296,3 +296,94 @@ thanks for setting up the demo, will do my best to join / observe the Thursday s
 
 -------------------------
 
+0xB10C | 2026-04-08 13:52:56 UTC | #12
+
+I'm streaming the first run on YouTube: 
+
+
+https://youtube.com/live/Zx20r7QAtEM
+
+-------------------------
+
+Emzy | 2026-04-08 14:14:08 UTC | #13
+
+Running Bitcoin-TUI with the patch on a thin PC:
+
+![Screenshot 2026-04-08 at 16.12.17|690x465](upload://eY8rrTij5mPG1VneKJ4pvP13xlP.png)
+
+-------------------------
+
+AntoineP | 2026-04-08 14:20:08 UTC | #14
+
+The 6 slow blocks for the first run:
+- `0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b`
+- `000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13`
+- `00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f`
+- `00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444`
+- `00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb`
+- `000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856`
+
+Fork has started to be produced (first conflicting block is `0000000880318f1fabf0758f470564742b41652ad17e11af4d8a2df6930233e1`), should reorg in about an hour.
+![image|690x385](upload://i3IJVbSNVd2W7vCGrER4SlmCKTg.png)
+
+-------------------------
+
+svanstaa | 2026-04-08 14:33:55 UTC | #15
+
+Again Bitcoin-TUI with patch, but on a rather fast PC:
+
+![image|690x321](upload://dWWAeJmTrMyv8fb251NKdxFA4aB.png)
+
+-------------------------
+
+m3dwards | 2026-04-08 14:32:59 UTC | #16
+
+Times on a M1 Mac with core v30.2:
+
+I got an additional slow block after those 6.
+
+| Height | Block | Time | 
+|----|----|----|
+| 299177 | 0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b | 2.835s |
+| 299178 | 000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13 | 45.257s |
+| 299179 | 00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f | 4.552s |
+| 299180 | 00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444 | 3.836s |
+| 299181 | 00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb | 3.587s |
+| 299182 | 000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856 | 29.273 |
+| 299183 | 000000079e5f6f5376bd51b5d26fb2e27dd8762c4cac3936380647cc43377ac6 | 45.567s |
+| 299184 | 000000040a3cdd0a545322b1d08812bd9b251cc4a49afaf8dccdb9c1ff960f49 | 0.033s |
+
+-------------------------
+
+xyzconstant | 2026-04-08 14:42:38 UTC | #17
+
+I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, Ubuntu 22.04.2 LTS aarch64):
+
+![image|690x415](upload://6VDKE8iIPySzt4Hs2e2zcA52oVJ.jpeg)
+
+-------------------------
+
+openoms | 2026-04-08 14:56:19 UTC | #18
+
+Running Raspiblitz v1.12.1 with BItcoin Core 29.2.0 on a Raspberry Pi 5 booted from nvme ssd.
+
+![image|690x189](upload://1spmusuKURMlooFY97OPclubsA1.png)
+
+Have also put together a quick install intstructio to get the patched bitcoin-tui running:
+```
+git clone https://github.com/ajtowns/bitcoin-tui
+cd bitcoin-tui
+git checkout 202604-bip54blocks
+
+sudo apt install cmake
+
+cmake -B build
+cmake --build build -j$(nproc)
+
+sudo cp ./build/bin/bitcoin-tui /usr/bin/
+
+bitcoin-tui --signet --user raspibolt --password PASSWORD_B
+```
+
+-------------------------
+

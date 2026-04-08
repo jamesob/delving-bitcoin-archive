@@ -36,3 +36,18 @@ Hope this helps.
 
 -------------------------
 
+trevelyan | 2026-04-08 11:19:14 UTC | #3
+
+The best definition is from Hurwicz:
+
+> A process is defined as informationally decentralized when each economic unit (such as a consumer or firm) initially only has information about itself (its preferences, technology, or resources) but not about other units. The process then requires an exchange of signals (called messages) to attain objectives such as efficiency of the system as a whole.
+
+
+
+https://www.nobelprize.org/uploads/2018/06/hurwicz_lecture.pdf
+
+
+To this must be added the lack of a “credible enforcement anchor” – the lack of a central player who can coerce or compel participants to follow strategies they may not follow in the absence of credible enforcement.
+
+-------------------------
+
