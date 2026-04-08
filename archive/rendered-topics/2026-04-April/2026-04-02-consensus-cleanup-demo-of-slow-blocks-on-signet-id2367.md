@@ -355,11 +355,11 @@ I got an additional slow block after those 6.
 
 -------------------------
 
-xyzconstant | 2026-04-08 15:19:06 UTC | #17
+xyzconstant | 2026-04-08 15:21:17 UTC | #17
 
 I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, Ubuntu 22.04.2 LTS aarch64) with Core 31.0rc2:
 
-![image|690x415](upload://6VDKE8iIPySzt4Hs2e2zcA52oVJ.jpeg)
+![image|690x419](upload://kZF5WVdsjzes9RY5Sxc38MM7jis.jpeg)
 
 EDIT: forgot to mention I’m running Core 31.0rc2
 
