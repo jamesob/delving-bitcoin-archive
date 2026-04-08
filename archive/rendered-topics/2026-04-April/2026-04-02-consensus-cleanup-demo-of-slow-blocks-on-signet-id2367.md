@@ -363,13 +363,13 @@ I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, 
 
 -------------------------
 
-openoms | 2026-04-08 14:56:19 UTC | #18
+openoms | 2026-04-08 15:00:46 UTC | #18
 
 Running Raspiblitz v1.12.1 with BItcoin Core 29.2.0 on a Raspberry Pi 5 booted from nvme ssd.
 
 ![image|690x189](upload://1spmusuKURMlooFY97OPclubsA1.png)
 
-Have also put together a quick install intstructio to get the patched bitcoin-tui running:
+Have also put together a quick install intstruction to get the patched bitcoin-tui running:
 ```
 git clone https://github.com/ajtowns/bitcoin-tui
 cd bitcoin-tui
