@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, Ubuntu 22.04.2 LTS aarch64):\n\n![image|690x415](upload://6VDKE8iIPySzt4Hs2e2zcA52oVJ.jpeg)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I have taken this screenshot on the TUI connected to my signet node (NanoPC-T6, Ubuntu 22.04.2 LTS aarch64): \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/3/309114a3818458959ecee37f84d52fb5e1665f9b.jpeg\" data-download-href=\"https://delvingbitcoin.org/uploads/default/309114a3818458959ecee37f84d52fb5e1665f9b\" title=\"image\">[image]</a>",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/17",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

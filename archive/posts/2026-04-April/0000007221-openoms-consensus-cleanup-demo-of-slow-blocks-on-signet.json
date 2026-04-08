@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Running Raspiblitz v1.12.1 with BItcoin Core 29.2.0 on a Raspberry Pi 5 booted from nvme ssd.\n\n![image|690x189](upload://1spmusuKURMlooFY97OPclubsA1.png)\n\nHave also put together a quick install intstruction to get the patched bitcoin-tui running:\n```\ngit clone https://github.com/ajtowns/bitcoin-tui\ncd bitcoin-tui\ngit checkout 202604-bip54blocks\n\nsudo apt install cmake\n\ncmake -B build\ncmake --build build -j$(nproc)\n\nsudo cp ./build/bin/bitcoin-tui /usr/bin/\n\nbitcoin-tui --signet --user raspibolt --password PASSWORD_B\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Running Raspiblitz v1.12.1 with BItcoin Core 29.2.0 on a Raspberry Pi 5 booted from nvme ssd. \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/0/0a3848b8a354272171e158ccc8c414005e149291.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/0a3848b8a354272171e158ccc8c414005e149291\" title=\"image\">[image]</a> \nHave also put together a quick install intstruction to get the patched bitcoin-tui running: \ngit clone https://github.com/ajtowns/bitcoin-tui\ncd bitcoin-tui\ngit checkout 202604-bip54blocks\n\nsudo &hellip;",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/18",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
