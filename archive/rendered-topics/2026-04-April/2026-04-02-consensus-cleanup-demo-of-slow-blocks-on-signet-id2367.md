@@ -405,3 +405,11 @@ Each block took around 5 seconds to validate on my laptop with a performant CPU.
 
 -------------------------
 
+xyzconstant | 2026-04-08 15:16:19 UTC | #21
+
+Running on Mac M3 pro, here are some results:
+
+![image|690x392](upload://54qzPDnqHNy0W4R7cpukU19gXJQ.jpeg)
+
+-------------------------
+
