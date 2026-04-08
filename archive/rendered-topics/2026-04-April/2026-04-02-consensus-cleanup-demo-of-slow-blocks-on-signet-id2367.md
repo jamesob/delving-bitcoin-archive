@@ -433,3 +433,21 @@ AMD Ryzen 5 7640U
 
 -------------------------
 
+andrewtoth | 2026-04-08 15:38:12 UTC | #24
+
+Under 3 seconds for each on my i9 laptop:
+
+```
+2026-04-08T14:02:49Z [bench] - Connect block: 7.23ms [1.44s (13.11ms/blk)]
+2026-04-08T14:05:47Z [bench] - Connect block: 2709.97ms [4.15s (37.41ms/blk)]
+2026-04-08T14:06:42Z [bench] - Connect block: 2752.88ms [6.91s (61.65ms/blk)]
+2026-04-08T14:07:26Z [bench] - Connect block: 2689.89ms [9.60s (84.91ms/blk)]
+2026-04-08T14:08:32Z [bench] - Connect block: 2690.76ms [12.29s (107.77ms/blk)]
+2026-04-08T14:09:31Z [bench] - Connect block: 2709.28ms [15.00s (130.39ms/blk)]
+2026-04-08T14:10:59Z [bench] - Connect block: 2823.50ms [17.82s (153.61ms/blk)]
+2026-04-08T14:10:59Z [bench] - Connect block: 2.29ms [17.82s (152.32ms/blk)]
+
+```
+
+-------------------------
+
