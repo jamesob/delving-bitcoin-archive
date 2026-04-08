@@ -387,3 +387,15 @@ bitcoin-tui --signet --user raspibolt --password PASSWORD_B
 
 -------------------------
 
+ViniciusCestarii | 2026-04-08 15:08:57 UTC | #19
+
+Bitcoin Core version: Satoshi:29.1.0
+
+OS: Arch Linux
+
+CPU: Intel Core i7-13650HX (13th Gen, 20 cores, up to 4.90 GHz)
+
+![Screenshot From 2026-04-08 11-18-15|456x500](upload://9hnfJ2PWd62gUgK2LhloCOhemPB.png)
+
+-------------------------
+

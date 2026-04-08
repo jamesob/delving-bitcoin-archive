@@ -7,7 +7,7 @@
   "cooked": "<p>Times on a M1 Mac with core v30.2:</p>\n<p>I got an additional slow block after those 6.</p>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>Height</th>\n<th>Block</th>\n<th>Time</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>299177</td>\n<td>0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b</td>\n<td>2.835s</td>\n</tr>\n<tr>\n<td>299178</td>\n<td>000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13</td>\n<td>45.257s</td>\n</tr>\n<tr>\n<td>299179</td>\n<td>00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f</td>\n<td>4.552s</td>\n</tr>\n<tr>\n<td>299180</td>\n<td>00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444</td>\n<td>3.836s</td>\n</tr>\n<tr>\n<td>299181</td>\n<td>00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb</td>\n<td>3.587s</td>\n</tr>\n<tr>\n<td>299182</td>\n<td>000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856</td>\n<td>29.273</td>\n</tr>\n<tr>\n<td>299183</td>\n<td>000000079e5f6f5376bd51b5d26fb2e27dd8762c4cac3936380647cc43377ac6</td>\n<td>45.567s</td>\n</tr>\n<tr>\n<td>299184</td>\n<td>000000040a3cdd0a545322b1d08812bd9b251cc4a49afaf8dccdb9c1ff960f49</td>\n<td>0.033s</td>\n</tr>\n</tbody>\n</table>\n</div>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 18,
+  "posts_count": 19,
   "updated_at": "2026-04-08T14:32:59.935Z",
   "reply_count": 0,
   "reply_to_post_number": 14,
