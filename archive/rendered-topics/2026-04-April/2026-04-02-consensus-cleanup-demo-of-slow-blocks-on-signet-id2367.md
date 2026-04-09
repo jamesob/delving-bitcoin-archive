@@ -678,3 +678,110 @@ Core v30.2 AMD Ryzen 5 7640U
 
 -------------------------
 
+xstoicunicornx | 2026-04-09 00:21:44 UTC | #33
+
+raspberry pi 4 B - Bitcoin Core v30.2.0
+from when block was reconstructed to when tip was updated
+
+| block hash | delay (seconds) |
+|----|----|
+| `0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b` | 78 |
+| `000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13` | 77 |
+| `00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f` | 77 |
+| `00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444` | 77 |
+| `00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb` | 74 |
+| `000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856` | 76 |
+
+is there copy/paste-able list of second run hashes?
+
+[details="your script was broken for me so I tweaked it"]
+```python
+#!/usr/bin/env python3
+import argparse
+import re
+from datetime import datetime, timezone
+
+
+HEADER_RE = re.compile(
+    #r"Saw new (?:cmpctblock )?header hash=([0-9a-fA-F]+)"
+    r"Reconstructed block ([0-9a-fA-F]+)"
+
+)
+#RECEIVED_RE = re.compile(r"received: (?:blocktxn|block)\b")
+RECEIVED_RE = re.compile(r"UpdateTip: new best=([0-9a-fA-F]+)")
+
+def parse_ts(line: str) -> datetime | None:
+    first = line.split(" ", 1)[0]
+    try:
+        return datetime.strptime(first, "%Y-%m-%dT%H:%M:%SZ").replace(tzinfo=timezone.utc)
+    except ValueError:
+        return None
+
+
+def main() -> None:
+    parser = argparse.ArgumentParser(
+        description=(
+            "For each given block hash, report the time difference between "
+            "'Saw new [cmpctblock] header hash=<hash>' and the first following "
+            "'received: blocktxn' or 'received: block' line."
+        )
+    )
+    parser.add_argument("logfile", help="Path to debug.log")
+    parser.add_argument("hashes", nargs="+", help="One or more block hashes")
+    args = parser.parse_args()
+
+    wanted = set(args.hashes)
+
+    # hash -> timestamp of matching header line
+    saw_times: dict[str, datetime] = {}
+
+    # hash -> timestamp of first following matching received line
+    recv_times: dict[str, datetime] = {}
+
+    with open(args.logfile, "r", encoding="utf-8", errors="replace") as f:
+        for line in f:
+            ts = parse_ts(line)
+            if ts is None:
+                continue
+
+            m = HEADER_RE.search(line)
+            if m:
+                h = m.group(1)
+                if h in wanted and h not in saw_times:
+                    saw_times[h] = ts
+                continue
+
+            r = RECEIVED_RE.search(line)
+            if r:
+                # assign this received line to all hashes currently pending
+                h = r.group(1)
+                if h not in recv_times:
+                    recv_times[h] = ts
+
+                if len(recv_times) == len(wanted):
+                    break
+
+    print("| block hash | delay (seconds) |")
+    print("|------------|-----------------|")
+    for h in args.hashes:
+        saw = saw_times.get(h)
+        recv = recv_times.get(h)
+
+        if saw is None:
+            print(f"{h} missing:header")
+        elif recv is None:
+            print(f"{h} missing:received")
+        else:
+            delta = (recv - saw).total_seconds()
+            print(f"| `{h}` | {delta:.0f} |")
+
+
+if __name__ == "__main__":
+    main()
+
+```
+
+[/details]
+
+-------------------------
+
