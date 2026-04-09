@@ -823,3 +823,32 @@ v30.2 on an M1 Mac
 
 -------------------------
 
+xyzconstant | 2026-04-09 09:20:56 UTC | #35
+
+M3 pro with v31.0rc2 
+
+![image|690x415](upload://lEpVFGHdkpkVRyzh0kWrUdhERAR.jpeg)
+
+-------------------------
+
+0300dbdd1b | 2026-04-09 09:21:34 UTC | #36
+
+Core v30.2 AMD Ryzen 5 7640U
+
+![Screenshot from 2026-04-09 11-18-54|690x125](upload://oWVQZwZGqTLUcR6ziMrxlf53xA0.png)
+
+-------------------------
+
+xyzconstant | 2026-04-09 09:50:01 UTC | #37
+
+**Hardware:** FriendlyElec NanoPC-T6 (Rockchip RK3588)
+
+* CPU: 8-core ARM (4× Cortex-A76 @ 2.4 GHz + 4× Cortex-A55 @ 1.8 GHz), aarch64
+* RAM: 16 GB
+* OS: Ubuntu 22.04.2 LTS, kernel 5.10.110
+* Bitcoin Core: v31.0rc2 (built from source)
+
+![image|690x417](upload://3MPe5T102TpM1XtPz7MlXnjJQNC.jpeg)
+
+-------------------------
+
