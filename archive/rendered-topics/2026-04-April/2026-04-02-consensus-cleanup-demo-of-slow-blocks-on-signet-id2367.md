@@ -786,3 +786,40 @@ if __name__ == "__main__":
 
 -------------------------
 
+m3dwards | 2026-04-09 00:59:35 UTC | #34
+
+No idea why randomly my machine seems to spend a lot more time verifying. Some slow blocks take a few seconds and then I had one take 78 seconds. Not sure what can be gleaned but here are the logs:
+
+```shell
+2026-04-08T22:09:46Z Saw new header hash=000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 height=299232 peer=6
+2026-04-08T22:09:46Z [net] Requesting block 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 from  peer=6
+2026-04-08T22:09:46Z [net] sending getdata (37 bytes) peer=6
+2026-04-08T22:09:46Z [net] received: cmpctblock (358 bytes) peer=6
+2026-04-08T22:09:46Z [cmpctblock] Initializing PartiallyDownloadedBlock for block 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 using a cmpctblock of 358 bytes
+2026-04-08T22:09:46Z [cmpctblock] Initialized PartiallyDownloadedBlock for block 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 using a cmpctblock of 358 bytes
+2026-04-08T22:09:46Z [net] sending getblocktxn (34 bytes) peer=6
+2026-04-08T22:09:46Z [net] received: blocktxn (999590 bytes) peer=6
+2026-04-08T22:09:46Z [cmpctblock] Successfully reconstructed block 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 with 1 txn prefilled, 0 txn from mempool (incl at least 0 from extra pool) and 1 txn (999557 bytes) requested
+2026-04-08T22:09:46Z [cmpctblock] Reconstructed block 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 required tx ad98c0d37b53f21b4c549d7cb3c19b356c6b1d4cec0e094d2fb3732402699055
+2026-04-08T22:09:46Z [bench]   - Using cached block
+2026-04-08T22:09:46Z [bench]   - Load block from disk: 0.05ms
+2026-04-08T22:09:46Z [bench]     - Sanity checks: 0.01ms [0.00s (0.00ms/blk)]
+2026-04-08T22:09:47Z [bench]     - Fork checks: 302.56ms [1.18s (25.72ms/blk)]
+2026-04-08T22:10:06Z [bench]       - Connect 2 transactions: 19052.84ms (9526.418ms/tx, 47.513ms/txin) [19.86s (431.67ms/blk)]
+2026-04-08T22:11:05Z [bench]     - Verify 401 txins: 78439.78ms (195.610ms/txin) [96.80s (2104.26ms/blk)]
+2026-04-08T22:11:05Z [bench]     - Write undo data: 0.51ms [0.02s (0.39ms/blk)]
+2026-04-08T22:11:05Z [bench]     - Index writing: 0.01ms [0.00s (0.01ms/blk)]
+2026-04-08T22:11:05Z [net] sending sendcmpct (9 bytes) peer=6
+2026-04-08T22:11:05Z [bench]   - Connect total: 78743.01ms [98.00s (2130.43ms/blk)]
+2026-04-08T22:11:05Z [bench]   - Flush: 40.20ms [0.26s (5.55ms/blk)]
+2026-04-08T22:11:05Z [bench]   - Writing chainstate: 0.07ms [0.00s (0.02ms/blk)]
+2026-04-08T22:11:05Z UpdateTip: new best=000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 height=299232 version=0x20000000 log2_work=43.631489 tx=29156012 date='2026-04-08T22:07:50Z' progress=1.000000 cache=88.0MiB(628908txo)
+2026-04-08T22:11:05Z [bench]   - Connect postprocess: 0.06ms [0.75s (16.41ms/blk)]
+2026-04-08T22:11:05Z [bench] - Connect block: 78783.38ms [99.01s (2152.42ms/blk)]
+
+```
+
+v30.2 on an M1 Mac
+
+-------------------------
+
