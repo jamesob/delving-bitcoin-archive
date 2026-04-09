@@ -852,3 +852,22 @@ xyzconstant | 2026-04-09 09:50:01 UTC | #37
 
 -------------------------
 
+ajtowns | 2026-04-09 10:18:53 UTC | #38
+
+[quote="AntoineP, post:1, topic:2367"]
+@ajtowns is going to mine the six blocks in a row and then reorg them out, so that anyone running a Signet node at the time would see them, but they would not impose a cost to IBD forever.
+[/quote]
+
+For those interested in the behind the scenes (including, perhaps, future me; hi future me!) what I did was:
+
+ 1) stop the miner
+ 2) make sure the next scheduled block was 10+ minutes away so the backup miner wouldn't kick in too soon
+ 3) copy @AntoineP's proposed blocks into the custom-blocks dir targetting the next block heights (see [inq#111](https://github.com/bitcoin-inquisition/bitcoin/pull/111) for the code to support custom blocks)
+ 4) use just the core node to manually mine the next 6-8 blocks; 6 blocks of attack txs, then a couple of extra blocks with some tx spam so the mempool has something to do during reorg
+ 5) on the core node, run `invalidateblock` on the first attack block
+ 6) restart the normal miner, so that 7-9 blocks get mined over the course of about an hour to reorg the attack blocks out
+ 7) wait for my super-slow node to finish validating all the blocks (at ~5m per block, yikes. on the upside, great for catching performance regressions in normal usage!)
+ 8) run `invalidateblock` on `inquisition.bitcoin-signet.net` to ensure the reorg chain has good connectivity
+
+-------------------------
+
