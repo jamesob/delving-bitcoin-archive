@@ -7,15 +7,15 @@
   "cooked": "<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/1/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066\" title=\"Screenshot 2026-04-08 at 18.14.24\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/1/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066_2_690x233.png\" alt=\"Screenshot 2026-04-08 at 18.14.24\" data-base62-sha1=\"3iDfL9mNatL3J1oaTY9ZL31kLm6\" width=\"690\" height=\"233\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/1/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066_2_690x233.png, https://delvingbitcoin.org/uploads/default/original/2X/1/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066.png 1.5x, https://delvingbitcoin.org/uploads/default/original/2X/1/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066.png 2x\" data-dominant-color=\"323232\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">Screenshot 2026-04-08 at 18.14.24</span><span class=\"informations\">873\u00d7296 49.1 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>",
   "post_number": 31,
   "post_type": 1,
-  "posts_count": 38,
+  "posts_count": 41,
   "updated_at": "2026-04-08T22:16:09.566Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 21,
-  "readers_count": 20,
-  "score": 9.2,
+  "incoming_link_count": 2,
+  "reads": 27,
+  "readers_count": 26,
+  "score": 30.4,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "![Screenshot 2026-04-08 at 18.14.24|690x233](upload://3iDfL9mNatL3J1oaTY9ZL31kLm6.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/1/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/1721bb9e9c9b3d9c1a8d9fb2b1d5bb3fc3bc4066\" title=\"Screenshot 2026-04-08 at 18.14.24\">[Screenshot 2026-04-08 at 18.14.24]</a>",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/31",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -7,15 +7,15 @@
   "cooked": "<p>Core v30.2 AMD Ryzen 5 7640U</p>\n<p><div class=\"lightbox-wrapper\"><a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/a/aedd997c7ecb8dff057e9c4ea72fb93732ea8354.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/aedd997c7ecb8dff057e9c4ea72fb93732ea8354\" title=\"Screenshot from 2026-04-09 11-18-54\"><img src=\"https://delvingbitcoin.org/uploads/default/optimized/2X/a/aedd997c7ecb8dff057e9c4ea72fb93732ea8354_2_690x125.png\" alt=\"Screenshot from 2026-04-09 11-18-54\" data-base62-sha1=\"oWVQZwZGqTLUcR6ziMrxlf53xA0\" width=\"690\" height=\"125\" srcset=\"https://delvingbitcoin.org/uploads/default/optimized/2X/a/aedd997c7ecb8dff057e9c4ea72fb93732ea8354_2_690x125.png, https://delvingbitcoin.org/uploads/default/optimized/2X/a/aedd997c7ecb8dff057e9c4ea72fb93732ea8354_2_1035x187.png 1.5x, https://delvingbitcoin.org/uploads/default/optimized/2X/a/aedd997c7ecb8dff057e9c4ea72fb93732ea8354_2_1380x250.png 2x\" data-dominant-color=\"2B2F36\"><div class=\"meta\"><svg class=\"fa d-icon d-icon-far-image svg-icon\" aria-hidden=\"true\"><use href=\"#far-image\"></use></svg><span class=\"filename\">Screenshot from 2026-04-09 11-18-54</span><span class=\"informations\">2051\u00d7373 63.4 KB</span><svg class=\"fa d-icon d-icon-discourse-expand svg-icon\" aria-hidden=\"true\"><use href=\"#discourse-expand\"></use></svg></div></a></div></p>",
   "post_number": 36,
   "post_type": 1,
-  "posts_count": 38,
+  "posts_count": 41,
   "updated_at": "2026-04-09T09:21:34.407Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 19.0,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Core v30.2 AMD Ryzen 5 7640U\n\n![Screenshot from 2026-04-09 11-18-54|690x125](upload://oWVQZwZGqTLUcR6ziMrxlf53xA0.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Core v30.2 AMD Ryzen 5 7640U \n <a class=\"lightbox\" href=\"https://delvingbitcoin.org/uploads/default/original/2X/a/aedd997c7ecb8dff057e9c4ea72fb93732ea8354.png\" data-download-href=\"https://delvingbitcoin.org/uploads/default/aedd997c7ecb8dff057e9c4ea72fb93732ea8354\" title=\"Screenshot from 2026-04-09 11-18-54\">[Screenshot from 2026-04-09 11-18-54]</a>",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/36",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
