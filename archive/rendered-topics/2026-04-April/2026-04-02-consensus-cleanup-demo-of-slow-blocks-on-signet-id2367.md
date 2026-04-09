@@ -1272,3 +1272,51 @@ is there copy/paste-able list of second run hashes?
 
 -------------------------
 
+AntoineP | 2026-04-09 15:48:47 UTC | #42
+
+Someone DM'd me their validation times on a RPi 5 running Umbrel and Core 30.2.
+
+<details>
+<summary>First run</summary>
+
+```
+2026-04-08T14:05:16Z [bench] - Connect block: 22887.59ms [6818.44s (22.79ms/blk)]
+2026-04-08T14:06:47Z [bench] - Connect block: 21731.38ms [6840.17s (22.86ms/blk)]
+2026-04-08T14:07:33Z [bench] - Connect block: 21029.07ms [6861.20s (22.93ms/blk)]
+2026-04-08T14:08:40Z [bench] - Connect block: 21478.89ms [6882.68s (23.01ms/blk)]
+2026-04-08T14:09:41Z [bench] - Connect block: 23007.94ms [6905.69s (23.08ms/blk)]
+2026-04-08T14:11:08Z [bench] - Connect block: 23214.31ms [6928.90s (23.16ms/blk)]
+```
+
+</details>
+
+<details>
+<summary>Second run</summary>
+
+```
+2026-04-08T22:04:35Z [bench] - Connect block: 20975.20ms [6952.16s (23.23ms/blk)]
+2026-04-08T22:05:26Z [bench] - Connect block: 23250.04ms [6975.41s (23.31ms/blk)]
+2026-04-08T22:06:49Z [bench] - Connect block: 20488.56ms [6995.89s (23.38ms/blk)]
+2026-04-08T22:07:41Z [bench] - Connect block: 23458.84ms [7019.35s (23.46ms/blk)]
+2026-04-08T22:08:35Z [bench] - Connect block: 22032.76ms [7041.39s (23.53ms/blk)]
+2026-04-08T22:10:07Z [bench] - Connect block: 20499.21ms [7061.88s (23.60ms/blk)]
+```
+
+</details>
+
+<details>
+<summary>Third run</summary>
+
+```
+2026-04-09T09:03:14Z [bench] - Connect block: 22365.10ms [7086.41s (23.68ms/blk)]
+2026-04-09T09:04:43Z [bench] - Connect block: 22936.59ms [7109.35s (23.75ms/blk)]
+2026-04-09T09:05:37Z [bench] - Connect block: 22544.76ms [7131.89s (23.83ms/blk)]
+2026-04-09T09:06:47Z [bench] - Connect block: 22968.04ms [7154.86s (23.90ms/blk)]
+2026-04-09T09:08:20Z [bench] - Connect block: 21931.17ms [7176.79s (23.98ms/blk)]
+2026-04-09T09:10:11Z [bench] - Connect block: 22856.47ms [7199.65s (24.05ms/blk)]
+```
+
+</details>
+
+-------------------------
+
