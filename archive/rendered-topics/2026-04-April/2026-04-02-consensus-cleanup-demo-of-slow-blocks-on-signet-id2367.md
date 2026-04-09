@@ -451,7 +451,7 @@ Under 3 seconds for each on my i9 laptop:
 
 -------------------------
 
-jaonoctus | 2026-04-08 16:01:15 UTC | #25
+jaonoctus | 2026-04-08 22:32:46 UTC | #25
 
 Running Core v30.2 / VM (QEMU/KVM) on AMD EPYC host 6 cores 2.0 GHz
 
@@ -477,6 +477,31 @@ iHUEARYKAB0WIQTru4F1HbgJ3lDdWMSsdchrbudDNAUCadZ6MwAKCRCsdchrbudD
 NADeAQDYJxAczHZbltdx1XrPalJgj11rhumbZ+5YLBg8VgCo+QEAn66on4M+3odh
 2WSxdMogdtva6KReACn2sIbz022vdgE=
 =XP+R
+-----END PGP SIGNATURE-----
+```
+
+```
+-----BEGIN PGP SIGNED MESSAGE-----
+Hash: SHA512
+
+2026-04-08T22:03:53Z Saw new cmpctblock header hash=00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d height=299227 peer=6
+2026-04-08T22:04:16Z [bench] - Connect block: 22313.95ms [24.63s (482.99ms/blk)]
+2026-04-08T22:05:06Z Saw new header hash=000000037a35ebf60c59619042ece8ae71fecf4d3146098c966f820482d33955 height=299228 peer=9
+2026-04-08T22:05:29Z [bench] - Connect block: 22190.23ms [46.82s (900.44ms/blk)]
+2026-04-08T22:06:33Z Saw new cmpctblock header hash=0000001253d4dbf6b7b34079a70ef0357a7b12e83a38f29946effbc863f194f3 height=299229 peer=9
+2026-04-08T22:06:59Z [bench] - Connect block: 21997.81ms [68.82s (1298.50ms/blk)]
+2026-04-08T22:07:22Z Saw new cmpctblock header hash=0000000b4f9d1ba885832b1b9dd4f6183483a27a4762a48114c00a812f1b42dd height=299230 peer=9
+2026-04-08T22:07:47Z [bench] - Connect block: 21994.78ms [90.82s (1681.77ms/blk)]
+2026-04-08T22:08:10Z Saw new cmpctblock header hash=00000011240c362604a624fc4469413f36ff5cb823c0733d570d54c7916a913f height=299231 peer=9
+2026-04-08T22:08:36Z [bench] - Connect block: 22012.46ms [112.83s (2051.42ms/blk)]
+2026-04-08T22:09:51Z Saw new cmpctblock header hash=000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 height=299232 peer=9
+2026-04-08T22:10:16Z [bench] - Connect block: 21914.79ms [134.74s (2406.12ms/blk)]
+-----BEGIN PGP SIGNATURE-----
+
+iHUEARYKAB0WIQTru4F1HbgJ3lDdWMSsdchrbudDNAUCadbXZAAKCRCsdchrbudD
+NKwIAQCN3SxUjNYwssPcVZjddXCpttnQUUheNSXnuiHPxtWQSgEArZkybgTK8HaX
+CeWz5aAeAfKqfNCHTSHMxmE8mZfr2g0=
+=bhIT
 -----END PGP SIGNATURE-----
 ```
 
@@ -612,6 +637,44 @@ if __name__ == "__main__":
 ```
 
 </details>
+
+-------------------------
+
+AntoineP | 2026-04-08 21:40:46 UTC | #28
+
+Next run in 20 minutes!
+
+-------------------------
+
+0xB10C | 2026-04-08 21:44:50 UTC | #29
+
+Stream for 2nd and 3rd run is here:
+
+https://youtube.com/live/gHnrAlVA35A
+
+-------------------------
+
+instagibbs | 2026-04-08 22:22:23 UTC | #30
+
+time are announcement to receiving the block, and validation respectively. 
+
+11th Gen Intel(R) Core™ i7-1185G7 @ 3.00GHz
+
+![image|690x129](upload://rDstAAp1rrWyc2oz6LLRfv35jdl.png)
+
+-------------------------
+
+m3dwards | 2026-04-08 22:16:09 UTC | #31
+
+![Screenshot 2026-04-08 at 18.14.24|690x233](upload://3iDfL9mNatL3J1oaTY9ZL31kLm6.png)
+
+-------------------------
+
+0300dbdd1b | 2026-04-08 22:23:47 UTC | #32
+
+Core v30.2 AMD Ryzen 5 7640U
+
+![Screenshot from 2026-04-09 00-20-55|690x136](upload://k6WaYIr5qaqHXa3VqsGDJfhNrjC.png)
 
 -------------------------
 

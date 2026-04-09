@@ -7,15 +7,15 @@
   "cooked": "<p>Here is for each block the delay between my node first saw the block hash and when it finally received the block content.</p>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>block hash</th>\n<th>delay (seconds)</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td><code>0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b</code></td>\n<td>2</td>\n</tr>\n<tr>\n<td><code>000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13</code></td>\n<td>44</td>\n</tr>\n<tr>\n<td><code>00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f</code></td>\n<td>43</td>\n</tr>\n<tr>\n<td><code>00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444</code></td>\n<td>44</td>\n</tr>\n<tr>\n<td><code>00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb</code></td>\n<td>43</td>\n</tr>\n<tr>\n<td><code>000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856</code></td>\n<td>5</td>\n</tr>\n</tbody>\n</table>\n</div><p>Here is a vibecoded Python script that takes as argument the path to your debug.log and a list of block hashes and outputs the above.</p>\n<details>\n<summary>See script</summary>\n<pre data-code-wrap=\"python\"><code class=\"lang-python\">#!/usr/bin/env python3\nimport argparse\nimport re\nfrom datetime import datetime, timezone\n\n\nHEADER_RE = re.compile(\n    r\"Saw new (?:cmpctblock )?header hash=([0-9a-fA-F]+)\"\n)\nRECEIVED_RE = re.compile(r\"received: (?:blocktxn|block)\\b\")\n\n\ndef parse_ts(line: str) -&gt; datetime | None:\n    first = line.split(\" \", 1)[0]\n    try:\n        return datetime.strptime(first, \"%Y-%m-%dT%H:%M:%SZ\").replace(tzinfo=timezone.utc)\n    except ValueError:\n        return None\n\n\ndef main() -&gt; None:\n    parser = argparse.ArgumentParser(\n        description=(\n            \"For each given block hash, report the time difference between \"\n            \"'Saw new [cmpctblock] header hash=&lt;hash&gt;' and the first following \"\n            \"'received: blocktxn' or 'received: block' line.\"\n        )\n    )\n    parser.add_argument(\"logfile\", help=\"Path to debug.log\")\n    parser.add_argument(\"hashes\", nargs=\"+\", help=\"One or more block hashes\")\n    args = parser.parse_args()\n\n    wanted = set(args.hashes)\n\n    # hash -&gt; timestamp of matching header line\n    saw_times: dict[str, datetime] = {}\n\n    # hash -&gt; timestamp of first following matching received line\n    recv_times: dict[str, datetime] = {}\n\n    # hashes currently waiting for a following received line\n    pending: dict[str, datetime] = {}\n\n    with open(args.logfile, \"r\", encoding=\"utf-8\", errors=\"replace\") as f:\n        for line in f:\n            ts = parse_ts(line)\n            if ts is None:\n                continue\n\n            m = HEADER_RE.search(line)\n            if m:\n                h = m.group(1)\n                if h in wanted and h not in saw_times:\n                    saw_times[h] = ts\n                    pending[h] = ts\n                continue\n\n            if RECEIVED_RE.search(line):\n                # assign this received line to all hashes currently pending\n                for h in list(pending):\n                    if h not in recv_times:\n                        recv_times[h] = ts\n                    del pending[h]\n\n                if len(recv_times) == len(wanted):\n                    break\n\n    for h in args.hashes:\n        saw = saw_times.get(h)\n        recv = recv_times.get(h)\n\n        if saw is None:\n            print(f\"{h} missing:header\")\n        elif recv is None:\n            print(f\"{h} missing:received\")\n        else:\n            delta = (recv - saw).total_seconds()\n            print(f\"{h} {delta:.0f}\")\n\n\nif __name__ == \"__main__\":\n    main()\n</code></pre>\n</details>",
   "post_number": 27,
   "post_type": 1,
-  "posts_count": 27,
+  "posts_count": 32,
   "updated_at": "2026-04-08T19:54:24.521Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.2,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 18.4,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "Here is for each block the delay between my node first saw the block hash and when it finally received the block content.\n\n| block hash | delay (seconds) |\n|----------------|-----------------------|\n| `0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b` | 2 |\n| `000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13` | 44 |\n| `00000006d34037534a517f9e5809a34766f1540c0e6817eac91b1adfee50cb5f` | 43 |\n| `00000014a4cae4501f98539b45c76059c706a82b77f19a9adf365b3f5e989444` | 44 |\n| `00000003220437cb8b5a2edef6be828c5cdad114b1b642d724ac6f3caa7f12fb` | 43 |\n| `000000143c97bf0134c5cf0881dfd4ef458529b7388cacf43981ffe92fb96856` | 5 |\n\nHere is a vibecoded Python script that takes as argument the path to your debug.log and a list of block hashes and outputs the above.\n\n<details>\n\n<summary>See script</summary>\n\n```python\n#!/usr/bin/env python3\nimport argparse\nimport re\nfrom datetime import datetime, timezone\n\n\nHEADER_RE = re.compile(\n    r\"Saw new (?:cmpctblock )?header hash=([0-9a-fA-F]+)\"\n)\nRECEIVED_RE = re.compile(r\"received: (?:blocktxn|block)\\b\")\n\n\ndef parse_ts(line: str) -> datetime | None:\n    first = line.split(\" \", 1)[0]\n    try:\n        return datetime.strptime(first, \"%Y-%m-%dT%H:%M:%SZ\").replace(tzinfo=timezone.utc)\n    except ValueError:\n        return None\n\n\ndef main() -> None:\n    parser = argparse.ArgumentParser(\n        description=(\n            \"For each given block hash, report the time difference between \"\n            \"'Saw new [cmpctblock] header hash=<hash>' and the first following \"\n            \"'received: blocktxn' or 'received: block' line.\"\n        )\n    )\n    parser.add_argument(\"logfile\", help=\"Path to debug.log\")\n    parser.add_argument(\"hashes\", nargs=\"+\", help=\"One or more block hashes\")\n    args = parser.parse_args()\n\n    wanted = set(args.hashes)\n\n    # hash -> timestamp of matching header line\n    saw_times: dict[str, datetime] = {}\n\n    # hash -> timestamp of first following matching received line\n    recv_times: dict[str, datetime] = {}\n\n    # hashes currently waiting for a following received line\n    pending: dict[str, datetime] = {}\n\n    with open(args.logfile, \"r\", encoding=\"utf-8\", errors=\"replace\") as f:\n        for line in f:\n            ts = parse_ts(line)\n            if ts is None:\n                continue\n\n            m = HEADER_RE.search(line)\n            if m:\n                h = m.group(1)\n                if h in wanted and h not in saw_times:\n                    saw_times[h] = ts\n                    pending[h] = ts\n                continue\n\n            if RECEIVED_RE.search(line):\n                # assign this received line to all hashes currently pending\n                for h in list(pending):\n                    if h not in recv_times:\n                        recv_times[h] = ts\n                    del pending[h]\n\n                if len(recv_times) == len(wanted):\n                    break\n\n    for h in args.hashes:\n        saw = saw_times.get(h)\n        recv = recv_times.get(h)\n\n        if saw is None:\n            print(f\"{h} missing:header\")\n        elif recv is None:\n            print(f\"{h} missing:received\")\n        else:\n            delta = (recv - saw).total_seconds()\n            print(f\"{h} {delta:.0f}\")\n\n\nif __name__ == \"__main__\":\n    main()\n```\n\n</details>",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "Here is for each block the delay between my node first saw the block hash and when it finally received the block content. \n\n\n\n\nblock hash\ndelay (seconds)\n\n\n\n\n0000000eb552c9f26e712d546c71297fd0623890299b40e7ada81d2dc32f5d0b\n2\n\n\n000000002b3a132836666c18f5e1a9d93623d3797316a968ee54e47fb44c0c13\n44\n\n\n000&hellip;",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/27",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
