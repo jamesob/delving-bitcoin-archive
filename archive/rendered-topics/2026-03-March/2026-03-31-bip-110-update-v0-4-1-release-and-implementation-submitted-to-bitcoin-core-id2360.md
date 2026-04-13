@@ -365,3 +365,39 @@ Transaction fees are currently low, which can only mean the “spam waves” hav
 
 -------------------------
 
+ariard | 2026-04-10 01:18:35 UTC | #10
+
+Hi @dathonohm
+
+Thanks for your respectful answer.
+
+> For example, the researchers who actually studied the topic concluded that “We thus believe
+> that future blockchain designs must proactively cope with objectionable content. Peers can,
+> e.g., filter incoming transactions or revert content-holding transactions, but this must be scalable > and transparent.
+
+I had a cursory read on the linked paper. One has to observe it’s a paper that has been published by *computer scientists* at a *computer science* conference, where it most likely has been reviewed by a *committee made of computer scientists*, which are very likely competent in cryptography and security topics, albeit one can have a reasonable doubt on their competence and authority *in matters of law*, and if their *acceptance review of the paper* was really grounded. One can observe that the institution of origin of the authors is Aachen University. I believe it’s not Yale, Cambridge or the Humboldt, which have more a standing tradition for law. I won’t go through the whole paper and I’m going to circumvent my comments on one excerpt, as I think it’s what it’s interesting.
+
+"*Furthermore, users can be assumed to knowingly maintain control over such illegal content w.r.t. German law if sufficient media coverage causes the content’s existence to become public knowledge among Bitcoin users*” (reference 61).
+
+The source pointed by this sentence is an article of comparative law apparently made in a law journal. There is no excerpt of the quoted source in itself, the article is not widely available on the web, and there is no indication of the primary sources in German on which this article of doctrine is making its argumentation (be it jurisprudence, legal texts, penal practice, etc). Nor, afaict, the author herself or himself sounds to be a recognized name in the field of comparative law.
+
+So without having the legal texts or jurisprudences under the eyes (and in German to be sure there is no a misleading in the translation by the English author when he wrote the article), this is hard to see on what the claim is based on. Further on, the article is dated of 2004, i.e at a time where all the special law and jurisprudence Internet was in its infancy and when distributed systems like Tor, Bittorent or Bitcoin were barely existent or even non-existent at all.
+
+Now,  few points of German and European law on the issue you’re mentioning.
+
+In my understanding, you’re pointing out the worry of objectionable content on the bitcoin blockchain. The Karlsruhe’s Court has withheld in a landmark decision the right to informational self determination ([excerpt](http://www.datenschutzziele.de/pub/verschiedenes/1983_Volkszaehlungsurteil_BVerfG.pdf): “*Einschränkungen dieses Rechts auf “informationelle Selbstbestimmung” sind nur im überwiegenden Allgemeininteresse zulässig*”). While it’s concerning primarly one’s own data, that right to informational self determination is often intersecting with the freedom of expression.
+
+With in mind this right to informational self determination (which is a specificity of German constitutional law afaik), one can have a wonder weighting on one’s mind. Namely, that an illegal content can be encompassed as a religious blasphemy in let’s say some random jurisdiction and at the very same time this content be perfectly fine under German law. Filtering out this even could be even considered as a characterized encroachment of a German user’s right to informational self-determination.
+
+That your linked article is not very weighting this kind of conflict of interests, that court of justice are used to daily adjudicate and balance wisely, sounds in my view a reasonable hint, that it’s not been primarily written by legal minds. One can think about this difficultly of conflicts of interests, due to the fact that those laws have been inspired by different corpus of morale rules, when you raising concerns about morality.
+
+A second point of European law, here. The author to hold the claim that a media coverage might alter the validity of a legal text, or even introduce some kind of “presumption”. While there are indeed existent legal texts in some jurisdictions introducing presumptions for the possession of some class of forbidden materials, those texts are strictly bounded by superior legal norms (e.g to control their *proportionate application*). Going even further, in European jurisprudence there is a general principle that’s criminal law must be of **strict interpretation**, explicitly disparaging *reasoning by analogy* (what in my understanding the authors of your papers are doing). See [CEDH, 8 july. 1999, Başkaya and  Okçuoğluc. Turkey](https://hudoc.echr.coe.int/eng#%7B%22itemid%22:%5B%22001-58276%22%5D%7D). So a very imprecise allegation, which do not sounds to be grounded not specialized texts, is in my view, not a real legal concern.
+
+Even more, those concerns of illegal content are scoped under European law for Internet intermediaries or complementarily by national laws for which there is available jurisprudence (to be noted: in this precise context, i’m aiming to do a value-free judgement on the intrinsic quality of those texts w.r.t the Internet). Under those frameworks, media or news organizations have no special role, nor there is even legal meaning specially attached to their actions. Every time, if there is an action to be taken it’s the role of a formal public authority.
+
+May I say, respectfully, that you’re argumentation would be grounded in my eyes, if the research you’re citing would come from an established interdisciplinary studies center (e.g the Harvard’s Berkman Klein Center on Technology & Law). Here the linked paper, I fear it’s more a paper written by computer scientists in distributed systems, who were just seeking about a sophisticated justification to write more papers on technical modifications and proposed blockchains change.
+
+Now where I agree with you, it’s reasonable to talk and think about the legal risks surrounding node operators. Though in the present situation, the viewpoint expressed by the EFF’s FAQ about Tor nodes sounds appropriate, in my humble view. It’s a novel technology, and with all novel technology associated legal risks might come with. If there are legal arguments I have underlooked, feel free to highlight them, I will have a look. From a cursory read of your linked paper, so far I’m not convinced. Of course, laws can evolve in the future (be it favorable or unfavorably), though with the current legal sources we’re discussing and in the present state of things, I believe my viewpoint is a measured and reasonable opinion.
+
+-------------------------
+

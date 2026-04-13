@@ -456,7 +456,7 @@ But even with this constraint, it still doesn’t beat the cleaner approach of s
 
 -------------------------
 
-bubb1es | 2026-04-01 13:48:49 UTC | #28
+bubb1es | 2026-04-05 21:38:59 UTC | #28
 
 [quote="nothingmuch, post:26, topic:2215"]
 BTW one last nitpick (and this really is a nitpick) about the proposed BIP text itself, the requirement to not aggregate coins originating from a single wallet seems a bit too strong,
@@ -465,7 +465,7 @@ BTW one last nitpick (and this really is a nitpick) about the proposed BIP text 
 
 I see how technically with `-privatebroadcast=1` a client wallet could simulate a third-party batching their dust while doing it all themselves. And doing this could be a bit more block space efficient and relay efficient. But I’m more concerned that in an environment where dust disposal tx are few and far between an attacker could easily correlate dust UTXOs confirmed and/or broadcast around the same time. For convenience I’d rather see wallets pre-sign dust disposal txs and then broadcast them at random times, and/or when they see some others in the mempool they can batch with.
 
-I’ll try to improve the rational section of the proposal around this point.
+I’ll try to improve the rationale section of the proposal around this point.
 
 -------------------------
 
@@ -486,6 +486,27 @@ But I’m more concerned that in an environment where dust disposal tx are few a
 [/quote]
 
 You're right I think that's the bigger concern
+
+-------------------------
+
+ArmchairCryptologist | 2026-04-10 09:20:58 UTC | #30
+
+Since it has not been mentioned, I feel it should be brought up in the “Security Considerations” section that wallets SHOULD NOT enable such a dust disposal function for UTXOs if there are “real” unspent funds on the same address, especially if a) no funds have previously been spent from the address and b) it is an address type with a hashed public key.
+
+Rationale being that even if you don’t want to consolidate your real funds with the dust, disposing of said dust without moving the real funds first would reveal the public key for the address, which would make the real funds vulnerable in a hypothetical future where CRQCs capable of long-exposure attacks against 256-bit ECDLP public keys exist. In such a future, I could see attackers sending dust to wallets specifically to attempt tricking people into disposing of dust in order to reveal their public key, thus enabling such an attack.
+
+-------------------------
+
+bubb1es | 2026-04-10 18:10:22 UTC | #31
+
+[quote="ArmchairCryptologist, post:30, topic:2215"]
+Since it has not been mentioned, I feel it should be brought up in the “Security Considerations” section that wallets SHOULD NOT enable such a dust disposal function for UTXOs if there are “real” unspent funds on the same address, especially if a) no funds have previously been spent from the address and b) it is an address type with a hashed public key.
+
+[/quote]
+
+Good suggestion, I’ll update the proposed draft BIP “Security Considerations”.  I’ll also add an issue to update the `ddust` reference implementation to make this an optional (but default) feature when selecting dust UTXOs to dispose of.
+
+Beyond the quantum concern, spending non-dust UTXOs before the dust is also a good way to make sure large, non-dust UTXOs can never be accidentally signed as `NONE|ANYONECANPAY` inputs.
 
 -------------------------
 

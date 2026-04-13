@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"xstoicunicornx\" data-post=\"33\" data-topic=\"2367\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/letter_avatar_proxy/v4/letter/x/f9ae1b/48.png\" class=\"avatar\"> xstoicunicornx:</div>\n<blockquote>\n<p>is there copy/paste-able list of second run hashes?</p>\n</blockquote>\n</aside>\n<pre><code class=\"lang-auto\">00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d 000000037a35ebf60c59619042ece8ae71fecf4d3146098c966f820482d33955 0000001253d4dbf6b7b34079a70ef0357a7b12e83a38f29946effbc863f194f3 0000000b4f9d1ba885832b1b9dd4f6183483a27a4762a48114c00a812f1b42dd 00000011240c362604a624fc4469413f36ff5cb823c0733d570d54c7916a913f 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351\n</code></pre>",
   "post_number": 41,
   "post_type": 1,
-  "posts_count": 42,
+  "posts_count": 45,
   "updated_at": "2026-04-09T13:59:26.240Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 33,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 28,
+  "readers_count": 27,
+  "score": 55.0,
   "yours": false,
   "topic_id": 2367,
   "topic_slug": "consensus-cleanup-demo-of-slow-blocks-on-signet",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "[quote=\"xstoicunicornx, post:33, topic:2367\"]\nis there copy/paste-able list of second run hashes?\n[/quote]\n\n```\n00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d 000000037a35ebf60c59619042ece8ae71fecf4d3146098c966f820482d33955 0000001253d4dbf6b7b34079a70ef0357a7b12e83a38f29946effbc863f194f3 0000000b4f9d1ba885832b1b9dd4f6183483a27a4762a48114c00a812f1b42dd 00000011240c362604a624fc4469413f36ff5cb823c0733d570d54c7916a913f 000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 3
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,20 @@
   "excerpt": "00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d 000000037a35ebf60c59619042ece8ae71fecf4d3146098c966f820482d33955 0000001253d4dbf6b7b34079a70ef0357a7b12e83a38f29946effbc863f194f3 0000000b4f9d1ba885832b1b9dd4f6183483a27a4762a48114c00a812f1b42dd 00000011240c362604a624fc4469413f36ff5cb&hellip;",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/41",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 2
+    },
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 3,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

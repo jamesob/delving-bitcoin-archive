@@ -1519,3 +1519,20 @@ If they're in the orphanage, then that means we don't have its parent. If it's a
 
 -------------------------
 
+0xB10C | 2026-04-10 12:04:29 UTC | #52
+
+It's been a while! I generated some stats again from my debug.logs. Reconstruction rates are far from perfect, but also not horrible. For the most part, we're requesting tens of kB worth of transactions on average.
+
+Notes:
+- The binary on host `luke` has sanitizers enabled and is struggling a bit with high CPU usage.
+- The host `nico` is running Knots (yeah, I known, why isn't this one called `luke`...?)
+
+![image|187x500](upload://9QJl7Om1WMWDvgEL8Wk28BBa8rD.jpeg)
+
+![image|187x500](upload://izbqHF41HqevVOvAlYpKFn5pc8X.jpeg)
+
+
+Additionally, here's an explainer on my workflow to generate them. I don't suggest you use it. Rather, please vibecode your own. I might refactor/change mine, but since I'm currently only doing this every few months, I don't mind the e.g. multiple scripts. https://gist.github.com/0xB10C/8bce177505723c8979a03a8820ba5dc8
+
+-------------------------
+

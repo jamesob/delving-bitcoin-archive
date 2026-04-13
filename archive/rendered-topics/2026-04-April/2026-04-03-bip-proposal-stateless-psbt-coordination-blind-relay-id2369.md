@@ -32,3 +32,19 @@ Sean Carlin
 
 -------------------------
 
+scarlin90 | 2026-04-10 15:17:14 UTC | #2
+
+I have just realised v2.0.0 of signing room which has alot of great improvements and also has a drop in web component so anyone can integrate with one Html Tag.
+
+Full release notes here:
+
+https://github.com/scarlin90/signingroom/releases/tag/v2.0.0
+
+Let me know what you think.
+
+All the best,
+
+Sean Carlin
+
+-------------------------
+

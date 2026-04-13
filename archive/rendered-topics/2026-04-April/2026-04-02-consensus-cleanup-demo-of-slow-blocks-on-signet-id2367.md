@@ -1320,3 +1320,49 @@ Someone DM'd me their validation times on a RPi 5 running Umbrel and Core 30.2.
 
 -------------------------
 
+santochibtc | 2026-04-09 17:01:34 UTC | #43
+
+The second round with an i7 870 @ 2.93GHz and Bitcoin Core v30.2
+00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d 23
+000000037a35ebf60c59619042ece8ae71fecf4d3146098c966f820482d33955 17
+0000001253d4dbf6b7b34079a70ef0357a7b12e83a38f29946effbc863f194f3 26
+0000000b4f9d1ba885832b1b9dd4f6183483a27a4762a48114c00a812f1b42dd 15
+00000011240c362604a624fc4469413f36ff5cb823c0733d570d54c7916a913f 14
+000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351 25
+
+-------------------------
+
+octaviolucca | 2026-04-09 17:34:06 UTC | #44
+
+Intel i5-9500 @ 3.00GHz, 6 cores, 8GB RAM, bitcoind v30.0 on NixOS
+
+3rd round:
+
+![image|690x121](upload://8mxNk89pfsnViYg76wpdF0nl8WM.png)
+
+-------------------------
+
+xstoicunicornx | 2026-04-11 06:49:47 UTC | #45
+
+[quote="AntoineP, post:41, topic:2367"]
+`00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d`
+
+[/quote]
+
+second run
+
+raspberry pi 4 B - Bitcoin Core v30.2.0
+
+from when block was reconstructed to when tip was updated
+
+| block hash | delay (seconds) |
+|----|----|
+| `00000011ee1088ab58ade91da86761478799b685699b30bc649c83f13725bc6d` | 73 |
+| `000000037a35ebf60c59619042ece8ae71fecf4d3146098c966f820482d33955` | 74 |
+| `0000001253d4dbf6b7b34079a70ef0357a7b12e83a38f29946effbc863f194f3` | 77 |
+| `0000000b4f9d1ba885832b1b9dd4f6183483a27a4762a48114c00a812f1b42dd` | 76 |
+| `00000011240c362604a624fc4469413f36ff5cb823c0733d570d54c7916a913f` | 74 |
+| `000000065d332b249b5fc8068177776b3dddb073d308ae5b090147c41477e351` | 73 |
+
+-------------------------
+

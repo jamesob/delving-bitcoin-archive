@@ -49,3 +49,35 @@ See the construction here:：[https://delvingbitcoin.org/t/challenge-covenants-f
 
 -------------------------
 
+AaronZhang | 2026-04-09 20:39:36 UTC | #3
+
+Building on the framing above, one additional angle that became clearer to me:
+
+Ordinals/Brc20 look like message/data publication, but the reveal is not message-bound — it is ownership-bound.
+
+The data is fully exposed in the witness, but a third party still cannot front-run the reveal, because they cannot produce a valid signature for the committed UTXO.
+
+Also, the data envelope is not executed, but it is still committed via the TapLeaf. Changing even one byte breaks the reveal.
+
+So it seems to separate:
+
+• CHECKSIG → who can spend
+
+• TapLeaf → what is committed
+
+This may also explain why CSFS is not used here. CSFS would bind a message, But it seems these data-embedding constructions need to bind the right to publish the data, not just the data itself.
+
+One way I’m starting to think about this is as a spectrum:
+
+CSFS → message-bound (replayable)
+
+IK+CSFS → identity-influenced
+
+CHECKSIG → transaction-bound (not replayable)
+
+There’s a concrete Ordinals example here that helped me reason about this:
+
+[Ordinals and BRC-20 — Data Envelopes in Single-Leaf Script Paths](https://github.com/aaron-recompile/mastering-taproot/blob/e9067dbeebb60d3ac054ce503d1dfc0168adbba5/book/manuscript/Chapter%2009%20Ordinals%20and%20BRC-20%20-%20Data%20Envelopes%20in%20Single-Leaf%20Script%20Paths.md)
+
+-------------------------
+
