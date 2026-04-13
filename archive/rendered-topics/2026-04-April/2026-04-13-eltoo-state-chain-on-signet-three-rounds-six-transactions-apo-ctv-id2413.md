@@ -97,3 +97,9 @@ I don’t have anything smart to say, but I wanted to thank you for pushing forw
 
 -------------------------
 
+AaronZhang | 2026-04-13 15:47:57 UTC | #3
+
+Thanks, Christian — and for the eltoo work as well. This line of experiments was very much inspired by it. The CSV unilateral path is included but not exercised yet. Happy to extend the demo if you have thoughts on the timeout side.
+
+-------------------------
+
