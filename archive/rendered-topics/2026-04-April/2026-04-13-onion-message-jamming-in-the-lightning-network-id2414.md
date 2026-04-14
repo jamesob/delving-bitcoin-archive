@@ -164,3 +164,9 @@ I agree, the other proposals have a much higher cost in terms of complexity and 
 
 -------------------------
 
+erickcestari | 2026-04-14 13:41:24 UTC | #4
+
+I agree that the other approaches are far more complex and that a simple mitigation like backpressure would be preferable. Unfortunately, as I noted in the limitations and tradeoffs, the mechanism can be weaponized by the attacker and actually leave the network worse off than having no backpressure at all. It's worth exploring ways to harden the backpressure mechanism so it can't be weaponized by attackers. However, I can't think of a way to prevent this without breaking onion routing's anonymity and unlinkability guarantees.
+
+-------------------------
+
