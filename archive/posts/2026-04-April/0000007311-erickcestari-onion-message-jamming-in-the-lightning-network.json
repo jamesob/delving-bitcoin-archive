@@ -13,9 +13,9 @@
   "reply_to_post_number": 3,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 1.6,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 17.6,
   "yours": false,
   "topic_id": 2414,
   "topic_slug": "onion-message-jamming-in-the-lightning-network",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I agree that the other approaches are far more complex and that a simple mitigation like backpressure would be preferable. Unfortunately, as I noted in the limitations and tradeoffs, the mechanism can be weaponized by the attacker and actually leave the network worse off than having no backpressure at all. It's worth exploring ways to harden the backpressure mechanism so it can't be weaponized by attackers. However, I can't think of a way to prevent this without breaking onion routing's anonymity and unlinkability guarantees.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "I agree that the other approaches are far more complex and that a simple mitigation like backpressure would be preferable. Unfortunately, as I noted in the limitations and tradeoffs, the mechanism can be weaponized by the attacker and actually leave the network worse off than having no backpressure &hellip;",
   "truncated": true,
   "post_url": "/t/onion-message-jamming-in-the-lightning-network/2414/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

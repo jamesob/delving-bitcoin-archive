@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 27,
-  "readers_count": 26,
-  "score": 110.2,
+  "incoming_link_count": 8,
+  "reads": 29,
+  "readers_count": 28,
+  "score": 150.8,
   "yours": false,
   "topic_id": 2414,
   "topic_slug": "onion-message-jamming-in-the-lightning-network",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 6
+      "count": 7
     }
   ],
   "moderator": false,
@@ -64,10 +64,15 @@
       "id": "+1",
       "type": "emoji",
       "count": 6
+    },
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 6,
+  "reaction_users_count": 7,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
