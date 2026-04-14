@@ -144,3 +144,23 @@ In the worst case, a single onion message can fan out across **761 hops**, nearl
 
 -------------------------
 
+tnull | 2026-04-14 07:41:43 UTC | #2
+
+Thank you for putting together the survey and keeping the discussion going! With LND finalizing onion message forwarding support I concur that it’s about time that we find a way forward and start implementing further mitigations for potential OM spam attacks. 
+
+To me, Bastien’s backpressure proposal seems like a reasonable next step, in particular as 
+
+1) it’s likely not a enormous lift (making it unlikely all implementations actually adopt it in a reasonable timeframe)
+
+2) it’s somewhat backwards compatible and not super invasive to other parts of the protocol
+
+3) it doesn’t seem to conflict with further mitigation steps. So, in case we some time down the road we don’t deem it sufficient, we can still add any of the other mitigation strategies on top
+
+-------------------------
+
+t-bast | 2026-04-14 08:33:03 UTC | #3
+
+I agree, the other proposals have a much higher cost in terms of complexity and impact on honest users, so I’d prefer starting with the simple back-pressure algorithm and see what we learn from there. But it’s good to have other alternatives sketched out in case we need them!
+
+-------------------------
+
