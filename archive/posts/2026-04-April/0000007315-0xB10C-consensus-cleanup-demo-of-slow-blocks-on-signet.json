@@ -12,9 +12,9 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 14,
-  "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
+  "incoming_link_count": 1,
+  "reads": 4,
+  "readers_count": 3,
   "score": 0.4,
   "yours": false,
   "topic_id": 2367,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I ran a custom P2P client during last weeks slow blocks on Signet event that measured **block propgation duration** and **block validation duration**. I've written about my methodology and results in detail in https://bnoc.xyz/t/block-propagation-and-validation-duration-during-slow-to-validate-blocks-on-signet/117 - but wanted to share some of the findings here:\n\n- normal block propgation on signet is usally done in under 1s. 50th percentile has the block at about 200ms, and the 90th percentile is 600ms\n- the slow-to-validate blocks propagated a lot slower: 40s for 50th percentile and nearly 2 minutes until the 90th percentile has annouced the block. \n![image|690x363](upload://5TlbtImcSm7nZ58HDdwpxSpHMqO.jpeg)\n\n- obviously, the slow-to-validate blocks are slower than the normal blocks. This plot visualizes this: \n![image|690x340](upload://vRUa025RTE7lSktjKFBlZhkwcs4.png)\n- It takes the median node I was conencted to 176ms to validate a normal block, but nearly 20s to validate a slow block: \n![image|690x340](upload://e7q5C9Ni4Pmc1zIj6vE7sU8sm38.jpeg)\n- Looking at the nodes indiviually, the median node experiences a 160x slowdown on these blocks. An according to @AntoineP, these are far from the worst blocks one can construct: \n![image|690x409](upload://rK18FnsASQONVOyLFQtktkOIT3a.png)\n\n\n---\n\n[quote=\"0xB10C, post:39, topic:2367\"]\nSo something between 60s and 100s for each block on that host. I\u2019m happy to see that others had faster CPU\u2019s that seem to be mostly unaffected by this.\n[/quote]\n\nThe numbers put my host into perspective: It's probably close to the 90th percentile and a comparativly slow host. I forgot how old CPUs from 2019 are..\n\n[quote=\"Emzy, post:13, topic:2367\"]\nRunning Bitcoin-TUI with the patch on a thin PC:\n[/quote]\n\nWith around 53s, your thin-client is around the 80th percentile range. Maybe a bit above.\n\n[quote=\"svanstaa, post:15, topic:2367\"]\nAgain Bitcoin-TUI with patch, but on a rather fast PC:\n[/quote]\n\nWith about 2s, you are below the 5th percentile!\n\n[quote=\"xyzconstant, post:17, topic:2367\"]\nNanoPC-T6, Ubuntu 22.04.2 LTS aarch64\n[/quote]\n\nYour `NanoPC-T6` is probably somewhere around the 40th percentile with 16s.\n\n[quote=\"openoms, post:18, topic:2367\"]\nRaspberry Pi 5 booted from nvme ssd.\n[/quote]\n\nWith around 25s, you are a bit slower than the median. Probably 60th percentile.\n\n[quote=\"ViniciusCestarii, post:19, topic:2367\"]\nIntel Core i7-13650HX (13th Gen, 20 cores, up to 4.90 GHz)\n[/quote]\n\nProbably around 5th percentile at around 3s. Little bit slower than @svanstaa.\n\n[quote=\"xyzconstant, post:21, topic:2367\"]\nMac M3 pro with Core 31.0rc2,\n[/quote]\n\n[quote=\"xyzconstant, post:35, topic:2367\"]\nM3 pro with v31.0rc2\n[/quote]\n\n\nWith 55s, you are a tiny bit slower than the 80th percentile on that M3 Pro. @Emzy's thin-client is faster! Better stick with that `NanoPC-T6` for verifying slow-to-validate signet blocks.\n\n[quote=\"0300dbdd1b, post:23, topic:2367\"]\nAMD Ryzen 5 7640U\n[/quote]\n\nThat's around 15th percentile with close to 5s valdation time.\n\n[quote=\"andrewtoth, post:24, topic:2367\"]\nUnder 3 seconds for each on my i9 laptop:\n[/quote]\n\nI think that's about 4th percentile. Tiny bit faster than @ViniciusCestarii but slower than @svanstaa.\n\n[quote=\"jaonoctus, post:25, topic:2367\"]\nAMD EPYC host 6 cores 2.0 GHz\n[/quote]\n\nVery close to the median with 22s. A tiny bit slower.\n\n[quote=\"instagibbs, post:30, topic:2367\"]\n11th Gen Intel(R) Core\u2122 i7-1185G7 @ 3.00GHz\n[/quote]\n\nYou cut of the headings of your table, but it seems like your close to the 25th percentile with 9s. \n\n[quote=\"AntoineP, post:42, topic:2367\"]\nRPi 5 running Umbrel and Core 30.2\n[/quote]\n\nJust above median with 22s.\n\n[quote=\"octaviolucca, post:44, topic:2367\"]\nIntel i5-9500 @ 3.00GHz, 6 cores, 8GB RAM, bitcoind v30.0 on NixOS\n[/quote]\n\nProbably higher than 90th percentile with about 100s.\n\n---\n\nRemember, I measured this against listening nodes and I think many of the ones here aren't listening. The duration distribution might look different on the full network.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I ran a custom P2P client during last weeks slow blocks on Signet event that measured block propgation duration and block validation duration. I\u2019ve written about my methodology and results in detail in <a href=\"https://bnoc.xyz/t/block-propagation-and-validation-duration-during-slow-to-validate-blocks-on-signet/117\" class=\"inline-onebox\">Block propagation and validation duration during slow-to-validate blocks on Signet - Observations &hellip;</a>",
   "truncated": true,
   "post_url": "/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367/46",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
