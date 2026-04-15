@@ -1366,3 +1366,110 @@ from when block was reconstructed to when tip was updated
 
 -------------------------
 
+0xB10C | 2026-04-15 14:53:22 UTC | #46
+
+I ran a custom P2P client during last weeks slow blocks on Signet event that measured **block propgation duration** and **block validation duration**. I've written about my methodology and results in detail in https://bnoc.xyz/t/block-propagation-and-validation-duration-during-slow-to-validate-blocks-on-signet/117 - but wanted to share some of the findings here:
+
+- normal block propgation on signet is usally done in under 1s. 50th percentile has the block at about 200ms, and the 90th percentile is 600ms
+- the slow-to-validate blocks propagated a lot slower: 40s for 50th percentile and nearly 2 minutes until the 90th percentile has annouced the block. 
+![image|690x363](upload://5TlbtImcSm7nZ58HDdwpxSpHMqO.jpeg)
+
+- obviously, the slow-to-validate blocks are slower than the normal blocks. This plot visualizes this: 
+![image|690x340](upload://vRUa025RTE7lSktjKFBlZhkwcs4.png)
+- It takes the median node I was conencted to 176ms to validate a normal block, but nearly 20s to validate a slow block: 
+![image|690x340](upload://e7q5C9Ni4Pmc1zIj6vE7sU8sm38.jpeg)
+- Looking at the nodes indiviually, the median node experiences a 160x slowdown on these blocks. An according to @AntoineP, these are far from the worst blocks one can construct: 
+![image|690x409](upload://rK18FnsASQONVOyLFQtktkOIT3a.png)
+
+
+---
+
+[quote="0xB10C, post:39, topic:2367"]
+So something between 60s and 100s for each block on that host. I’m happy to see that others had faster CPU’s that seem to be mostly unaffected by this.
+[/quote]
+
+The numbers put my host into perspective: It's probably close to the 90th percentile and a comparativly slow host. I forgot how old CPUs from 2019 are..
+
+[quote="Emzy, post:13, topic:2367"]
+Running Bitcoin-TUI with the patch on a thin PC:
+[/quote]
+
+With around 53s, your thin-client is around the 80th percentile range. Maybe a bit above.
+
+[quote="svanstaa, post:15, topic:2367"]
+Again Bitcoin-TUI with patch, but on a rather fast PC:
+[/quote]
+
+With about 2s, you are below the 5th percentile!
+
+[quote="xyzconstant, post:17, topic:2367"]
+NanoPC-T6, Ubuntu 22.04.2 LTS aarch64
+[/quote]
+
+Your `NanoPC-T6` is probably somewhere around the 40th percentile with 16s.
+
+[quote="openoms, post:18, topic:2367"]
+Raspberry Pi 5 booted from nvme ssd.
+[/quote]
+
+With around 25s, you are a bit slower than the median. Probably 60th percentile.
+
+[quote="ViniciusCestarii, post:19, topic:2367"]
+Intel Core i7-13650HX (13th Gen, 20 cores, up to 4.90 GHz)
+[/quote]
+
+Probably around 5th percentile at around 3s. Little bit slower than @svanstaa.
+
+[quote="xyzconstant, post:21, topic:2367"]
+Mac M3 pro with Core 31.0rc2,
+[/quote]
+
+[quote="xyzconstant, post:35, topic:2367"]
+M3 pro with v31.0rc2
+[/quote]
+
+
+With 55s, you are a tiny bit slower than the 80th percentile on that M3 Pro. @Emzy's thin-client is faster! Better stick with that `NanoPC-T6` for verifying slow-to-validate signet blocks.
+
+[quote="0300dbdd1b, post:23, topic:2367"]
+AMD Ryzen 5 7640U
+[/quote]
+
+That's around 15th percentile with close to 5s valdation time.
+
+[quote="andrewtoth, post:24, topic:2367"]
+Under 3 seconds for each on my i9 laptop:
+[/quote]
+
+I think that's about 4th percentile. Tiny bit faster than @ViniciusCestarii but slower than @svanstaa.
+
+[quote="jaonoctus, post:25, topic:2367"]
+AMD EPYC host 6 cores 2.0 GHz
+[/quote]
+
+Very close to the median with 22s. A tiny bit slower.
+
+[quote="instagibbs, post:30, topic:2367"]
+11th Gen Intel(R) Core™ i7-1185G7 @ 3.00GHz
+[/quote]
+
+You cut of the headings of your table, but it seems like your close to the 25th percentile with 9s. 
+
+[quote="AntoineP, post:42, topic:2367"]
+RPi 5 running Umbrel and Core 30.2
+[/quote]
+
+Just above median with 22s.
+
+[quote="octaviolucca, post:44, topic:2367"]
+Intel i5-9500 @ 3.00GHz, 6 cores, 8GB RAM, bitcoind v30.0 on NixOS
+[/quote]
+
+Probably higher than 90th percentile with about 100s.
+
+---
+
+Remember, I measured this against listening nodes and I think many of the ones here aren't listening. The duration distribution might look different on the full network.
+
+-------------------------
+
