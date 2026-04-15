@@ -535,15 +535,29 @@ Let me know if you see anything wrong with this analysis or have other use cases
 
 -------------------------
 
-1440000bytes | 2025-06-25 21:13:08 UTC | #26
+AaronZhang | 2026-04-15 00:40:37 UTC | #28
 
-(post deleted by author)
+I think the key shift may be to stop treating SigMsg as an opaque blob, and instead treat it as a structured object.
 
--------------------------
+Most CSFS-based constructions operate at the level of shape inspection — they constrain the size or the form of the preimage, but don’t really look inside it.
 
-1440000bytes | 2025-06-25 21:12:02 UTC | #27
+we've been reading the envelope, not the letter.
 
-(post deleted by author)
+But SigMsg is not opaque. It has structure, and it has fields.
+
+And *sha_prevouts* looks like exactly the part that matters for UTXO-level constraints.
+
+So the question becomes:
+
+*Can we validate a specific field inside SigMsg, instead of only its overall shape?*
+
+A possible direction is to split the preimage along field boundaries, validate a chosen field like sha_prevouts, and then use CHECKSIG to anchor the same signature to the actual transaction.
+
+If this works, it might give a **Taproot-native way to express input / UTXO-level binding,** without relying on legacy scriptSig tricks.
+
+I’m still working through the details, so I’m not claiming this is complete.
+
+But I’d be very interested to know if this line of thinking is obviously broken.
 
 -------------------------
 
