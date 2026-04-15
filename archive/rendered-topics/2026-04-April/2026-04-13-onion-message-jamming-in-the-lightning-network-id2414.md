@@ -170,21 +170,21 @@ I agree that the other approaches are far more complex and that a simple mitigat
 
 -------------------------
 
-nothingmuch | 2026-04-15 01:18:36 UTC | #5
+nothingmuch | 2026-04-15 20:04:57 UTC | #5
 
 >  Coupling onion messages to the commitment dance means forwarding depends on channel liquidity and state machine availability, adding complexity to what is currently a stateless relay. This also makes the existing practice of only forwarding to channel peers a hard requirement, since peers without a channel cannot settle the fee.
 
 fees for onion traffic with good privacy can be instantiated using an optional e-cash mechanism that can be used to bypass any rate limiting/caps.
 
-the improvement over upfront fees as described here is that that would decouple onion forwarding from channel liquidity, and allow forwarding to non channel peers. it would still require stateful processing to detect double spending (though arguably some low probability of a false negative in double spend detection can be tolerated, relaxing the state consistency requirements).
+the improvement over upfront fees as described here is that that would decouple onion forwarding from channel liquidity, and allow forwarding to/from non channel peers. it would still require stateful processing to detect double spending (though arguably some low probability of a false negative in double spend detection can be tolerated, relaxing the state consistency requirements).
 
-the downside is that this increases complexity (cryptographic code, new type of node state, some engineering challenges). that said, it seems like this has potential to simplify as well, by removing some of the constraints on how this can be used, so i thought it's worth describing here.
+the downside is that this increases complexity (cryptographic code, new type of node state, some engineering challenges). that said, it seems like this has potential to simplify as well, by removing some of the constraints on where fees can be used, so i thought it's worth describing here.
 
-suppose alice has a channel to bob, bob has a channel to carol, carol has a channel to dave to whom alice wants to send an onion message
+suppose alice has a channel to bob, bob has a channel to carol, carol has a channel to dave to whom alice wants to send an onion message.
 
 alice makes a regular lightning payment to bob and in exchange he issues e-cash tokens redeemable only with him. note that in general bob doesn't have to share a channel with alice.
 
-alice has to trust that bob will allow her to redeem these. the total balance represented in e-cash should be minimized, on the order of a the expected fee cost of a handful of payments or some amount of onion traffic. if this is on the order of the dust threshold arguably this doesn't change the threat model significantly.
+alice has to trust that bob will honor redemptions. the total balance represented in e-cash should therefore be minimized, on the order of a the expected fee cost of a handful of payments or some small amount of onion traffic. if this below the dust threshold arguably this doesn't change the threat model significantly.
 
 with small amounts it's ok to assume these tokens cannot be converted back into channel funds, to avoid any custodial balances and the concerns they raise. that would make these tokens purely utility tokens, i.e. only usable for services with bob's node, like paying for onion bandwidth or locked up liquidity.
 
@@ -192,15 +192,15 @@ one such service would be purchasing of a neighboring node's e-cash tokens: alic
 
 with tokens from both bob and carol, alice can now pay bob to forward an onion message to carol, which then pays carol to forward the nested message to dave. there can be more than one carol-like hop (no direct connection to alice).
 
-there is no requirement to maintain a balance with more than a minimal set of nodes. tokens along a particular route can be obtained just in time. if some are left over, they can be used to purchase tokens in the backwards direction, so if alice has carol tokens left over, she could convert those back into bob tokens. note that this is more about efficiently managing liquidity and minimizing total outstanding token balance, it does not significantly reduce the trust assumption even though channel peers are likely to be more trustworthy.
+there is no requirement to maintain a balance with more than a minimal set of nodes. tokens along a particular route can be obtained just in time. if some are left over, they can be used to purchase tokens in the backwards direction, so if alice has carol tokens left over, she could convert those back into bob tokens. note that this is more about efficiently managing liquidity and minimizing total outstanding token balance, it does not significantly reduce the trust assumption even though channel peers are likely to be more trustworthy (alice still trusts carol to forward traffic or allow purchase of bob tokens effectively refunding).
 
 there are two concrete choices for the building blocks of such an e-cash protocol:
 
 1. blind signature or blind Diffie-Hellman (like cashu / privacy pass). if a single denomination is used, where 1 token = 1 message, that is very simple cryptography and also imposes no latency overhead since each token presented is simply fully redeemed. the cryptography involved here is fairly straightforward, using only basic sigma protocols.
 
-2. anonymous credentials and homomorphic value commitments. keyed verification anonymous credentials are the simplest choice, since the issuer is the verifier no publicly verifiable scheme is required. this increases latency, since "change" credentials must be issued. the cryptography needed for this is substantially higher due to the need for range proofs.
+2. anonymous credentials and homomorphic value commitments. keyed verification anonymous credentials are the simplest choice, since the issuer is the verifier no publicly verifiable scheme is required. this increases latency, since "change" credentials must be issued. the cryptography needed for this is substantially higher in complexity due to the need for range proofs.
 
-given the tradeoffs, a hybrid approach, where homomorphic value based e-cash denominated in msats could be used used to buy blind DH tokens that used more like stamps. this increase in complexity would allow both more flexible dynamic pricing, and minimum latency.
+given the tradeoffs, a hybrid approach, where homomorphic value based e-cash denominated in msats could be used used to blind DH tokens that used more like stamps is also possible. this increase in complexity would allow both more flexible dynamic pricing, and minimum latency.
 
 although using using multiple denominations for arbitrary balances with blind DH e-cash naively presents some challenges for privacy that homomorphic value commitments categorically avoid, these can be mostly be mitigated for this use case, so a hybrid approach could also be realized with just blind DH type e-cash (no scripting mechanism as in cashu is necessary or appropriate, nor publicly verifiable tokens based on blind signatures so this would be simpler than either cashu or privacy pass) by imposing some relatively simple constraints allowing the additional cryptographic complexity of anonymous credentials or homomorphic value commitments to be avoided. the downside of this variation is that it's more specialized for this use case, a homomorphic value commitment based (hybrid) approach could be reused (e.g. for encrypted storage, PIR blockchain queries, watchtowers, ...) so it may still be desirable.
 
