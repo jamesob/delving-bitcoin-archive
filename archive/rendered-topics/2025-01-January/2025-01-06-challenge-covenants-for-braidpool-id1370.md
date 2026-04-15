@@ -162,3 +162,209 @@ Would a “soft covenant” approach at the signing layer provide any useful ins
 
 -------------------------
 
+AaronZhang | 2026-04-15 19:38:51 UTC | #4
+
+**Challenge Follow up：Dynamic coinbase aggregation on Inquisition signet — multi-input APO with growing amounts (Braidpool RCA)**
+
+Picking up from **[my reply in the Braidpool covenants challenge thread](https://delvingbitcoin.org/t/challenge-covenants-for-braidpool/1370/2)** (where I walked through how the covenant stack could meet the pool’s constraints), I later posted an on-chain **[Eltoo state chain demo](https://delvingbitcoin.org/t/eltoo-state-chain-on-signet-three-rounds-six-transactions-apo-ctv/2413)** as a *closed* system: one input per round, amounts only moving downward. After the Eltoo demo, the next question that kept bothering me was what happens once new coinbase keeps arriving and the pool actually grows? This is the motivating shape of Braidpool’s rolling coinbase aggregation.
+
+I tried to answer that by actually constructing the transactions on-chain.
+
+## What changed
+
+Each aggregation round is now a **two-input** transaction:
+
+* Input 0: RCA state UTXO — APO script-path (BIP 118, 3-leaf TapTree)
+* Input 1: New coinbase — bare P2TR key-path (different address)
+
+## The chain
+
+Braidpool-realistic parameters (scale: 10,000 signet sats = 1 BTC; block subsidy 3.125 BTC):
+
+```
+Round 1: Miner A finds Block #1
+  coinbase 32,750 sats (3.275 BTC) -> RCA v1
+  UHPO v1: [A: 100%]
+
+Round 2: Miner B finds Block #2
+  coinbase 33,750 sats (3.375 BTC) + RCA v1 -> RCA v2   (2 inputs)
+  Pool: 63,500 sats (6.350 BTC)
+  UHPO v2: [A: 50%, B: 50%]
+
+Round 3: Miner C finds Block #3
+  coinbase 32,250 sats (3.225 BTC) + RCA v2 -> RCA v3   (2 inputs)
+  Pool: 92,750 sats (9.275 BTC)
+  UHPO v3: [A: 45%, B: 35%, C: 20%]
+
+Settlement: CTV spend RCA v3 -> 3 outputs
+  Miner A: 40,387 sats (4.039 BTC)
+  Miner B: 31,412 sats (3.141 BTC)
+  Miner C: 17,951 sats (1.795 BTC)
+```
+
+Same 31,250 sats subsidy every block; the three coinbase sizes above differ only by assumed per-block fees (1,500 / 2,500 / 1,000 sats).
+
+All transactions confirmed on Inquisition 28.2 signet:
+
+| Role | TxID | mempool.space |
+|----|----|----|
+| Block #1 coinbase fund | `7557c229...ea7f5f7c` | [link](https://mempool.space/signet/tx/7557c229f29771410307055fabf907e4263899c140ff1963a81868c2ea7f5f7c) |
+| Block #2 coinbase fund | `600b9c7f...dc5bf063` | [link](https://mempool.space/signet/tx/600b9c7f990ce09b7bfc06406d9f9e8d75696f44b86069974abb81b5dc5bf063) |
+| **Aggregation (R2)** | `094a8aa1...07d5ea9f` | [link](https://mempool.space/signet/tx/094a8aa1d572ac76d5f012ce6cb31f9cb9f4e982e9e90604e96b551c07d5ea9f) |
+| Block #3 coinbase fund | `1bac7966...a3e1ea0c` | [link](https://mempool.space/signet/tx/1bac796632961eb18f8e50db0b643862cf7c8f6923fe27068a29b760a3e1ea0c) |
+| **Aggregation (R3)** | `01a00ecb...b4193206` | [link](https://mempool.space/signet/tx/01a00ecba14dac6e60181f925bf2612dc9061d5791196a03270ccacfb4193206) |
+| **CTV settlement** | `7669e251...0800de5a` | [link](https://mempool.space/signet/tx/7669e2519776a6af8ac3317ba64324282d3c14188256c0ef64dac5500800de5a) |
+
+## Aggregation witness — byte-level analysis
+
+The star transaction is **R2** (`094a8aa1...`). Two inputs, one output:
+
+```
+Input 0: RCA v1 (32,750 sats)  —  APO script-path spend
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Witness stack (3 elements):
+
+  [0] Signature (65 bytes):
+      0d3cbaf6d96431f4b8c90bfc5bb02580e2a293468366
+      b8afe3de5bfa70b8b1d821ffe9a603f6b03dfd6ebe18
+      8ecc546028d31f60041709cdd54c35da1fec6854 41
+                                                 ^^
+                                    SIGHASH_ALL | SIGHASH_ANYPREVOUT (0x41)
+                                    This is BIP 118.
+
+  [1] Tapleaf script (35 bytes):
+      01 ff1f9fa326a9438227e6aa25030ccf89bcb8ce53db
+         4f78dbce6146499d9986b8 ac
+      ^^                        ^^
+      BIP118 key prefix         OP_CHECKSIG
+      (makes key APO-capable)
+
+      Decoded: OP_PUSHBYTES_33
+               01 ff1f9fa326a9438227...9d9986b8
+               OP_CHECKSIG
+
+  [2] Control block (97 bytes):
+      c1                                                   ← version 1 | odd parity
+      ff1f9fa326a9438227e6aa25030ccf89bcb8ce53db
+      4f78dbce6146499d9986b8                               ← internal key (32B)
+      b1a19aa6ef48350a32d697569b4a9dd05e17b76fb2
+      e23282ce9726ff83788c9d                               ← sibling: CTV leaf hash
+      2e97bfb37eb4707bb8c82a6afa241b4840b5dc5382
+      596fed89e1590ec3bc3eec                               ← sibling: CSV leaf hash
+
+      97 bytes = 1 (version) + 32 (key) + 32 + 32 = 3-leaf TapTree proof
+
+
+Input 1: Block #2 coinbase (33,750 sats)  —  bare P2TR key-path
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  Witness stack (1 element):
+
+  [0] Signature (64 bytes):
+      adaadef0832af80374c5f2e8796d0f6bd6342a2d1227
+      eefdd57826f0322ed6e5558c6107d7e145dda9488c0b
+      f0e52bb6e1662e88f97a83647501867fcd13ce68
+      (no sighash suffix → default SIGHASH_ALL, standard Schnorr)
+
+  Previous output: V1_P2TR (bare — no script tree)
+  Address: tb1pamm9wlachp9pdgp0t6wlshnl...mqcv7wfw
+
+
+Output: RCA v2 (63,500 sats)
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  Address: tb1pf86ekneawwfdq8u7e4tcjkw8qjp6qk8uudwcxcfw4n4uxawj3ppser0n8m
+  New 3-leaf TapTree → next round's state
+```
+
+## Cross-round control block evolution
+
+Between R2 and R3, what surprised me a bit is that the control block makes the state evolution very explicit — you can literally see which part changed across rounds:
+
+```
+R2: c1 ff1f9f...86b8  b1a19aa6...8c9d  2e97bfb3...3eec
+R3: c1 ff1f9f...86b8  fc07e219...f751  2e97bfb3...3eec
+    ^^                 ^^^^^^^^^^^^^^^^  ^^^^^^^^^^^^^^^^
+    same parity        CTV leaf CHANGED  CSV leaf SAME
+```
+
+| Element | R2 | R3 | Why |
+|----|----|----|----|
+| Version/parity | `c1` | `c1` | Both odd parity (coincidence of merkle root) |
+| Internal key | `ff1f9f...86b8` | same | Same signer across rounds |
+| Sibling 1 (CTV) | `b1a19a...8c9d` | `fc07e2...f751` | **Changed** — UHPO ratios evolved (50/50 → 45/35/20) |
+| Sibling 2 (CSV) | `2e97bf...3eec` | same | **Unchanged** — escape hatch is a protocol constant |
+
+As expected in hindsight, the CTV leaf hash changes every round as the payout template evolves. The CSV escape hatch, on the other hand, stays completely unchanged — which is exactly what you’d want from a protocol constant.
+
+## CTV settlement
+
+The final transaction (`7669e251...`) spends RCA v3 via the CTV leaf:
+
+```
+Input 0: RCA v3 (92,750 sats)  —  CTV script-path spend
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+  P2TR tapscript:
+      OP_PUSHBYTES_32 ee9a9088aecc7bd5df75a7dbe80d2031
+                      c1f02e87a84fa330d9d696ccb6d2b866
+      OP_NOP4
+      ^^^^^^^^^^^^
+      = OP_CHECKTEMPLATEVERIFY (opcode 0xb3)
+
+  nSequence: 0xffffffff  (CTV requires this)
+
+  The template hash commits to exactly 3 outputs at exactly these amounts.
+  Any deviation → script fails → transaction invalid.
+
+Output 0: 40,387 sats → Miner A  (45% of pool - fees)
+Output 1: 31,412 sats → Miner B  (35% of pool - fees)
+Output 2: 17,951 sats → Miner C  (20% of pool - fees)
+```
+
+## The sighash detail that matters
+
+BIP 118 Msg118 for input 0 includes `sha_amounts` and `sha_scriptpubkeys` covering **all** inputs — including the coinbase from a completely different address. If the coinbase input’s scriptPubKey is missing from the array, the sighash digest is wrong and the signature is invalid.
+
+I didn’t expect this at first, but dynamic aggregation turns out to be trickier than the single-input Eltoo case: every additional input changes the sighash context for the APO-signed input.
+
+## What this proves beyond the previous post
+
+| Property | Previous (Eltoo chain) | This experiment |
+|----|----|----|
+| Inputs per round | 1 (same address) | 2 (different addresses) |
+| Amount trend | Decreasing | Increasing |
+| Input scriptPubKeys | Homogeneous | Heterogeneous |
+| Pool pot | Static | Grows: 32k → 63k → 92k |
+| UHPO allocation | Fixed ratios | Evolving: 100% → 50/50 → 45/35/20 |
+| Braidpool applicability | LN-Symmetry analog | Dynamic coinbase aggregation |
+
+## What it doesn’t prove (yet)
+
+* 100-block coinbase maturity (wallet-funded proxies — addressed in follow-up)
+* Solo-mining fallback (no CSV leaf on coinbase — addressed in follow-up)
+* FROST federation threshold signing (single key in demo)
+* Pre-signing (APO allows it; demo signs sequentially)
+
+## Combined coverage for Braidpool’s covenant layer
+
+With the CSFS equivocation penalty from our previous experiment:
+
+| Building block | Opcode | On-chain |
+|----|----|----|
+| RCA Eltoo state chain | APO | yes |
+| Dynamic coinbase aggregation | APO | yes (this post) |
+| UHPO deterministic payout | CTV | yes |
+| Signer accountability bond | CSFS | yes |
+
+The unsolved parts of mcelrath’s [Braidpool challenge](https://delvingbitcoin.org/t/challenge-covenants-for-braidpool/1370/2) (maturity handling, emergency broadcast, solo-mining fallback) are protocol-layer constraints, not signing-primitive gaps. The covenant building blocks are individually validated.
+
+## Links
+
+* Previous: [BIP 118 signing from scratch — on-chain rebinding proof](https://delvingbitcoin.org/t/bip-118-signing-from-scratch-on-chain-rebinding-proof/2411)
+* Eltoo state chain: [Three rounds, six transactions (APO + CTV)](https://delvingbitcoin.org/t/eltoo-state-chain-on-signet-three-rounds-six-transactions-apo-ctv/1407)
+* Braidpool challenge: [Challenge: Covenants for Braidpool](https://delvingbitcoin.org/t/challenge-covenants-for-braidpool/1370/2)
+* Code: [btcaaron](https://github.com/aaron-recompile/btcaaron) | Experiment: `experiments/Braidpool/rca_dynamic_chain.py`
+
+-------------------------
+

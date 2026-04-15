@@ -100,3 +100,9 @@ A. Groce, K. Jain, R. van Tonder, G. T. Kalburgi, and C. Le Goues. Looking for l
 
 -------------------------
 
+naiyoma | 2026-04-15 17:21:15 UTC | #3
+
+I’ve enjoyed learning about mutation testing. I find it really useful, and I’d love to see a more comprehensive report on Corecheck. For example, it would be great to see mutants for net_processing, if that’s possible.
+
+-------------------------
+
