@@ -423,3 +423,11 @@ Update: SFL ([PR 32545](https://github.com/bitcoin/bitcoin/pull/32545), [PR 3425
 
 -------------------------
 
+isadofschi | 2026-04-16 16:02:02 UTC | #13
+
+I’ve been working on a Lean 4 formalization of the [Correctness proof](https://delvingbitcoin.org/t/spanning-forest-cluster-linearization/1419#p-4171-h-21-correctness-7) for the SFL algorithm. The complete proof is available at [isadofschi/cluster-mempool-formalization](https://github.com/isadofschi/cluster-mempool-formalization).
+
+Some parts of the Cluster mempool definitions & theory thread (such as feerate diagrams) are also formalized as part of the proof.
+
+-------------------------
+
