@@ -562,3 +562,11 @@ I believe you need to join the [Silent Payments Working Group](https://delvingbi
 
 -------------------------
 
+securitybrahh | 2026-04-16 07:15:07 UTC | #17
+
+This looks very interesting, I was trying to make an electrum plugin for sending and receiving via silent payments https://github.com/securitybrahh/silentpayments-electrum
+
+The main issues are currently the server spec https://github.com/securitybrahh/silentpayments-electrum/issues/1?issue=cake-tech|cake_wallet|2395
+
+-------------------------
+

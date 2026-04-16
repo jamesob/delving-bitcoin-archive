@@ -1,6 +1,6 @@
 # Active Sweeping of Vulnerable Outputs after Q-day
 
-show1225 | 2026-04-16 05:34:45 UTC | #1
+show1225 | 2026-04-16 06:26:04 UTC | #1
 
 The debate between protocol-level freezing (with seed phrase or xpriv recovery options) versus strict non-intervention (no confiscation) is heating up. Because this disagreement is rooted in fundamental philosophical differences(\*), there could be no easy solution.
 
@@ -25,7 +25,7 @@ How the trust works:
 
 Whether such a trust could successfully front-run rogue actors to sweep all insecure coins is uncertain. However, as an independent, voluntary initiative rather than an official protocol mandate, they would do their best.
 
-Let me clarify again that this is NOT the best solution, but forming such a white hat coalition just in case could also be a good thing.
+Let me clarify again that this is NOT the best solution, but forming such a white-hat coalition just in case could also be a good thing.
 
 SHO
 
