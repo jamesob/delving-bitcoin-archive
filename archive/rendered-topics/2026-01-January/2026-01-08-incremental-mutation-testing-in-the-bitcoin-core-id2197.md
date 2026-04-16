@@ -106,3 +106,9 @@ Iâ€™ve enjoyed learning about mutation testing. I find it really useful, and Iâ€
 
 -------------------------
 
+bruno | 2026-04-16 11:41:39 UTC | #4
+
+I'm planning to cover net_processing, however, it's a big file and depending on which function/part of code you're mutating we have to run a different test -- so I'm analyzing to better do it. Also, take a look at https://bitcoincore.space which currently has a more comprehensive report than corecheck.
+
+-------------------------
+
