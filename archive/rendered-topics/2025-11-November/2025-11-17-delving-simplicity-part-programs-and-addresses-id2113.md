@@ -188,3 +188,24 @@ In the next part, we will talk about jets, how their CMRs are constructed, and u
 
 -------------------------
 
+Laz1m0v | 2026-04-15 23:14:29 UTC | #2
+
+An excellent and timely breakdown of CMR construction and Taproot integration. This exact mathematical foundationspecifically the deterministic mapping from a 1 ⊢ 1 expression to a TapLeaf hash is precisely what underpins PRECOP’s Astrolabe Pattern for state-address fusion.
+
+
+
+Your clarification on the strict boundary between the Reader effect (transaction environment access) and Witness expressions perfectly highlights the frontier we are currently navigating. Because Witness data is excluded from the CMR and supplied at redemption time, relying on it for critical economic variables (e.g., passing spent UTXO values via a witness) inherently introduces an orchestrator dependency.
+
+
+
+As detailed in our recent PRECOP update on this forum, our push toward a "Sovereign Root" architecture is entirely about migrating logic out of Witness expressions and into the Reader effect. By upstreaming native Bitcoin introspection jets like TxInputValue and InputUtxosHash into [rust-simplicity (PR #359)](https://github.com/BlockstreamResearch/rust-simplicity/pull/359), our goal is to allow the CMR alone to dictate the strict state transitions and economic invariants of a UTXO, relying purely on the transaction environment.
+
+
+Thank you for this phenomenal and detailed series. We are eagerly looking forward to Part Ⅵ on Jets, as it directly intersects with our current upstreaming efforts to expand the BitMachine's native environment awareness.
+
+
+
+ laz1m0v
+
+-------------------------
+

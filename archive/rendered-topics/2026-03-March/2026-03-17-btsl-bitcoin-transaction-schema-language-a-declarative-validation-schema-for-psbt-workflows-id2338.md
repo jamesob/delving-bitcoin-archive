@@ -206,3 +206,19 @@ Feedback still welcome from wallet / PSBT implementers—especially real coordin
 
 -------------------------
 
+Laz1m0v | 2026-04-15 23:33:36 UTC | #5
+
+Hi Tsua. This is a highly relevant initiative. You have accurately identified one of the most significant vulnerabilities in multi-party PSBT workflows: the implicit trust placed in imperative coordinator logic.
+
+To answer your questions regarding prior or similar work at the validation layer: we have been tackling this exact problem space through the PRECOP (Predictive Covenant Oracle Protocol) framework, albeit from a covenant and oracle derivation perspective rather than a pure wallet UX perspective.
+
+While BTSL provides an excellent off-chain declarative schema for wallets, our recent work on PRECOP’s "Tier 1: Structural Enforcement" applies this exact philosophy to signing enclaves. We enforce a "Command-First Topology" (a strict output structure like [0: OP_RETURN, 1: Target, 2: Change, 3: Fee]) combined with exhaustive UTXO context hydration. If the PSBT deviates from this structural invariant, the oracle deterministically fails-closed and refuses to sign.
+
+Your premise of shifting from constructing transactions to specifying them is the only viable path forward for secure, deterministic workflows. BTSL looks like a fantastic standardization for the off-chain/hardware wallet side of this equation, while frameworks like PRECOP/Simplicity enforce those schemas at the L1 execution layer.
+
+We will be reviewing your EBNF grammar closely. Standardizing these schemas is a critical next step for the industry. Excellent work.
+
+ laz1m0v
+
+-------------------------
+

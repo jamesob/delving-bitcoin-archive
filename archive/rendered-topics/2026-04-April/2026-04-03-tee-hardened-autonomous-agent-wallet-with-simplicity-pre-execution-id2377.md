@@ -393,3 +393,46 @@ We look forward to your technical critiques.
 
 -------------------------
 
+Laz1m0v | 2026-04-15 21:57:04 UTC | #2
+
+**PRECOP Progress Update: From Secure Shell Mode to Sovereign Root**
+
+We are pleased to share a formal progress update on the PRECOP (Predictive Covenant Oracle Protocol) framework since our initial post. Our work has shifted from architectural design to the delivery of production-ready components, specifically targeting the resolution of two major industry bottlenecks: PSBT structural blindness and witness-context dependency.
+
+The v0.1.0-alpha whitepaper is now public. It formalizes the complete architecture: the Template-Enforced UTXO State Machine (TUSM), the Astrolabe Pattern for state-address fusion, the Command-First Topology, and the Canonical Transaction Derivation Engine.
+→ Whitepaper: [https://github.com/BitcoinWorldTrustFoundation/precop/blob/7dc1a7db719064219f8f9d108211bf59e8fa727d/precop_whitepaper.pdf](https://github.com/BitcoinWorldTrustFoundation/precop/blob/main/precop_whitepaper.pdf)
+
+### 1. Tier 1 – Structural Enforcement (simplicity-unchained)
+We have submitted the first production-grade security layer to harden the signing oracle against architectural manipulation:
+* **Command-First Topology:** Strict enforcement of output ordering `[0: OP_RETURN (metadata), 1: Primary Target, 2: Change, 3: Treasury Fee]`. Any reordering, injection, or index-shift triggers an immediate `TopologyViolation`. This eliminates fee-siphoning and output-injection attacks at the structural level.
+* **Context Hydration:** The engine now requires full `witness_utxo` awareness for every input. Missing context fails deterministically with `MissingUtxoContext` at the exact input index.
+
+These changes transform the oracle from a passive verifier into an active structural guardian.
+**PR (submitted / under review):** [https://github.com/BlockstreamResearch/simplicity-unchained/pull/16](https://github.com/BlockstreamResearch/simplicity-unchained/pull/16)
+
+### 2. Tier 2 – Toward Sovereign Root (rust-simplicity)
+To exit "Secure Shell Mode" and achieve full on-chain economic enforcement, we are contributing native Bitcoin introspection jets to the core language library:
+* **New jets implemented:** `NumInputs`, `NumOutputs`, `TxInputValue`, and `InputUtxosHash` (the critical first step toward complete `CovenantContext` / `spent_outputs`).
+* **Consensus Parity:** All jets respect the official CMR specification and produce bit-for-bit identical Commitment Merkle Roots to the C reference implementation.
+* **Deterministic Soundness:** This allows Simplicity contracts to validate economic invariants (fee ceiling, collateral ratios, supply caps) directly from the L1 transaction environment, removing the dependency on orchestrator-supplied witnesses.
+
+**PR (under review):** [https://github.com/BlockstreamResearch/rust-simplicity/pull/359](https://github.com/BlockstreamResearch/rust-simplicity/pull/359)
+
+### 3. Upcoming: The PRECOP Development Suite
+In the coming weeks, we will be publishing our comprehensive development repository. This standalone framework will unify the Astrolab Linker, the TUSM state machine, and our Simfony contract library into a single environment for developers to build L1-native, deterministic covenants. 
+
+The full execution flow is now clinical: `Policy -> Astrolab Linker -> BitMachine -> Derived Tx -> Sign (or Fail-Closed)`.
+
+### Next Steps
+* Complete the introspection jet suite and achieve full CMR stability.
+* Publish the unified PRECOP Development Suite.
+* Continue upstream contributions to ensure these jets become part of the canonical Simplicity distribution.
+
+We remain fully committed to the upstream philosophy: all changes are additive, non-breaking, and designed for eventual inclusion in the canonical Simplicity distribution. Technical review and feedback on both PRs are warmly welcomed, particularly from those familiar with the Bitcoin jets and BitMachine implementation.
+
+*Vires in Numeris.*
+
+ ***laz1m0v***. ¯\_(ツ)_/¯
+
+-------------------------
+
