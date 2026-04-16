@@ -1,6 +1,6 @@
 # Active Sweeping of Vulnerable Outputs after Q-day
 
-show1225 | 2026-04-16 05:30:40 UTC | #1
+show1225 | 2026-04-16 05:31:08 UTC | #1
 
 The debate between protocol-level freezing (with seed phrase or xpriv recovery options) versus strict non-intervention (no confiscation) is heating up. Because this disagreement is rooted in fundamental philosophical differences(\*), there could be no easy solution.
 
@@ -29,9 +29,7 @@ Let me clarify again that this is NOT the best solution, but forming such a whit
 
 SHO
 
-(\*)
-
-Proponents of “freezing” approach argue:
+(\*)Proponents of “freezing” approach argue:
 
 1. Although confiscation is a sad event, we should pursue maximum recovery by disabling insecure spending path and enabling a recovery method
 2. Dumping after mass stealing of dormant coins and the belief that such an event is inevitable will devalue everybody else’s coins (i.e. property rights)
