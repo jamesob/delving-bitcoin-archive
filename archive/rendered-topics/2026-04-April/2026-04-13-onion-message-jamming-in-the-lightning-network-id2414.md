@@ -226,3 +226,15 @@ For years now it's been widely accepted that upfront fees are the most promising
 
 -------------------------
 
+Abdulkbk | 2026-04-17 11:37:45 UTC | #7
+
+Excellent summary.
+
+The backpressure proposal seems like a reasonable next step to me, but as you rightly pointed out, it can be weaponized against victims of the bounce amplification attack. 
+
+One thing I kept coming back to is whether the `onion_message_drop` signal ever reaches the attacker in the bounce amplification scenario. I don’t think it does because each node stores only the last node_id per outgoing connection, and the bounce path is just V1 ↔ V2 repeating, the drop signal gets trapped in the same loop as the original message. V1 attributes the flood to V2, V2 attributes it to V1, and the signal never walks back to the attacker, who appears only at one of the very previous hops.
+
+One idea worth discussing: a stricter, separate rate limit on `onion_message_drop` signals per peer (e.g., 1/sec). This would cap mutual blame escalation between victims and prevent the drop loop from spiraling. The limitation is that the real damage, victims rate-limiting each other’s onion messages, occurs before any drop signals are sent, and the attacker remains unaffected.
+
+-------------------------
+
