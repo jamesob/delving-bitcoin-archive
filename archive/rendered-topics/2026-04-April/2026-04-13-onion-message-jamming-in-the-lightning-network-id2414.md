@@ -206,3 +206,23 @@ although using using multiple denominations for arbitrary balances with blind DH
 
 -------------------------
 
+morehouse | 2026-04-16 22:53:12 UTC | #6
+
+## Central Planning vs Market Pricing
+
+Fundamentally this is an economic problem.  Routing nodes expend resources (bandwidth, compute) to forward onion messages and currently are not compensated for those resources.
+
+We could use *central planning* to decide who gets to consume those resources -- rate limits, backpropagation, and other attempts at "fair" resource allocation.  But as with all rationing systems, there are inevitably inefficiencies: legitimate usage gets throttled, edge cases are penalized, and attackers find ways to game the arbitrary quotas.
+
+The alternative is to use *market pricing* to allocate these scarce resources -- upfront fees, blinded tokens, PoW, etc.  With this approach, protocol devs provide the mechanism for pricing and paying for onion forwarding and let the free market do the rest.
+
+I am very reluctant to go further down the central planning route.  It's very difficult to address all attack vectors that way, and we'll just end up delaying the proper market solution.
+
+## Dual Onion/Channel-Jamming Solution
+
+Onion jamming is conceptually identical to the "fast" channel jamming attack coined by @carla and @ClaraShk.  In fast channel jamming, the attacker sends lots of quickly-failing payments across the network, preventing honest traffic from using the available HTLC slots.  In onion jamming, the attacker sends lots of onion messages across the network, preventing honest traffic from using the available message quotas.
+
+For years now it's been widely accepted that upfront fees are the most promising mitigation for fast channel jamming.  Now we have another use case for them -- onion jamming.  Perhaps we finally have enough motivation to [implement](https://github.com/lightning/bolts/pull/1052) upfront fees and fix both of these problems!
+
+-------------------------
+
