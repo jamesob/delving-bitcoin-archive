@@ -222,3 +222,27 @@ We will be reviewing your EBNF grammar closely. Standardizing these schemas is a
 
 -------------------------
 
+Tsua00021 | 2026-04-18 15:21:44 UTC | #6
+
+Hi laz1m0v,
+
+Thanks for the detailed context — I read both PRECOP posts carefully and the Soft→Hard Covenant upgrade path via CMR-identical Simplicity programs is a genuinely elegant architectural property.
+
+One precision on the framing though. You write:
+
+> *“BTSL looks like a fantastic standardization for the off-chain/hardware wallet side of this equation, while frameworks like PRECOP/Simplicity enforce those schemas at the L1 execution layer.”*
+
+This presents them as parallel layers, but the relationship is sequential. BTSL’s Maker pipeline produces a validated, unsigned PSBT — which is exactly what your TEE consumes. The natural interface is:
+
+```
+BTSL Schema → validated PSBT → TEE (Simplicity evaluation) → BIP-341 signature
+```
+
+Your “Command-First Topology” is a concrete example of what a BTSL `OUTPUTS` block expresses — but hardcoded in your Rust binary. Whether a standardized declarative schema as the *specification layer* above the TEE policy has value is an open question worth considering.
+
+On agents: the daisy-chain batch loop produces 25 PSBTs that must each satisfy fixed structural invariants. A BTSL schema declared upfront gives the agent — and any external auditor — a single inspectable document for those invariants, independently of the enclave binary. The Master Mandate becomes more meaningful when it references something independently re-runnable, not just a JSON manifest.
+
+Curious whether the EBNF review surfaces anything on that front.
+
+-------------------------
+
