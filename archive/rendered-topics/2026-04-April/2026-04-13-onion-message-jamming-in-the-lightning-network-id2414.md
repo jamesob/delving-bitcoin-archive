@@ -238,3 +238,40 @@ One idea worth discussing: a stricter, separate rate limit on `onion_message_dro
 
 -------------------------
 
+AdamISZ | 2026-04-21 16:05:46 UTC | #8
+
+I'd just like to back this up.
+
+The more I've looked at this problem in a number of vaguely similar contexts - anonymous or pseudonymous participants, with payment desired to present DOS *and* the snooping that can come from DOS (in LN case, probing etc.) - the more I've come round to the idea that, while this "2 layer payment" system looks ugly in complexity, it's somehow the *right* way to do it. The separation of the buying event from the payment event afforded by these ecash credentials is exactly what you want, I think. It actually gives you more flexibility to use cryptographic primitives that suit this exact problem, rather than the ones in e.g. bitcoin (which LN inherits) which are not particularly suited to this problem.
+
+I do realize it looks heavy (per node economic relationship etc) but I suspect it's less so than it seems (as @nothingmuch already argued).
+
+-------------------------
+
+carla | 2026-04-21 19:07:44 UTC | #9
+
+Dropping in to add perspective from HTLC jamming. I haven't deeply reviewed sections 2-4.
+
+> avoiding separate anti-jamming systems for payments and messages.
+
+* AFAIK, one of the original design considerations of onion messages is that we *don't* have to go to disk every time we send them, so attaching an unconditional fee to each one defeats the point? 
+* *If* I'm right about that, we'd need to go with the batching approach you've suggested, which wouldn't be a good fit for HTLCs, where we'd just include the unconditional fee in `update_add_htlc`.
+* In this case, I'm pretty confident we'd need separate protocol mechanisms - while the concept of pushing funds unconditionally is the same, `update_add_htlc` vs some batching scheme would have separate messages/exchanges/state tracking.
+
+**On the relation to unconditional fees for HTLCs:**
+
+While both are subject to "type 1" spam, onion messages and HTLCs are quite different domains. With HTLCs, nodes have the incentive to forward the payload on in the hope that they'll earn the remaining "success case" fee if the payment succeeds. For onion messages, your counterparty can just just drop the message and pocket the fee because there's no future benefit to be earned [1].
+
+We also have a measurable loss when HTLCs are crowded out (other, fee paying payments) which makes it easier to understand how to set these policies. We don't have an "in-protocol" way to do this for OMs, so would likely have to shove this concern onto the end user and/or set a magical global default.
+
+Also a meta note: I think it's pretty easy to get lost in the details of how we'd implement an unconditional payment (staking/ecash/tokens etc.). I personally found it helpful to start with asking whether this is the right tool for the job and how it would be used in the protocol, and _then_ look at whether all the fun and fancy options that _aren't_ native lightning offer us an improvement that justifies the complexity.
+
+--- 
+
+To be clear, I'm definitely in favor of *less* trivial DOS vectors in the protocol, not more! But I do think it's important to look at unconditional fees specifically in the context of onion messages, rather than porting over conclusions from the context of HTLCs. 
+
+##### Footnotes
+[1] In theory, forwarding an onion message _could_ mean that in future you'll forward a HTLC related to the onion message that you previously forwarded but there's no guarantee of this. I also don't see people feeding onion message routing into payment pathfinding anytime soon (other than an online check), as our primary concern is liquidity.
+
+-------------------------
+

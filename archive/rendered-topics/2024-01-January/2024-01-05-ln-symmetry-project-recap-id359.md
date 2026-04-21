@@ -421,3 +421,27 @@ If people are interested, please try it out on signet on bitcoin-inquisition, th
 
 -------------------------
 
+AaronZhang | 2026-04-21 16:20:04 UTC | #18
+
+Following up on @instagibbs’s  January update, two related LN-Symmetry experiments on bitcoin-inquisition signet that may complement that direction:
+
+1. APO+CTV eltoo (3-round Alice/Bob/Carol scenario):
+   [Eltoo State Chain on Signet: Three Rounds, Six Transactions (APO + CTV)](https://delvingbitcoin.org/t/eltoo-state-chain-on-signet-three-rounds-six-transactions-apo-ctv/2413)
+
+2. CSFS+CTV eltoo ‚ same 3-round scenario, with a key-rebinding ladder.
+   In two transactions.
+   [Eltoo State Chain on Signet Again: Three Rounds, Two Transactions (CSFS + CTV, with rekey and ladder, no CAT)](https://delvingbitcoin.org/t/eltoo-state-chain-on-signet-again-three-rounds-two-transactions-csfs-ctv-with-rekey-and-ladder-no-cat/2430)
+   Spend TxID: [b96324dac3e7…8382de](https://mempool.space/signet/tx/b96324da612950339f564fbc88fe1d5c5751070e57bf796d32ee7171238382de?showDetails=true) (full TxID in the post)
+
+The CSFS+CTV variant lands close to the TEMPLATEHASH+CSFS migration
+branch in spirit‚ using the post-Taproot opcode set that Inquisition
+already activated, with on-chain TxIDs as the validation point. The
+constructions are implemented as standalone Python scripts against
+the inquisition bitcoind RPC, so they’re straightforward to re-run
+on the LNHANCE signet (where CTV and CSFS are also active).
+
+Happy to discuss any of the construction details, especially around
+the rebinding ladder.
+
+-------------------------
+
