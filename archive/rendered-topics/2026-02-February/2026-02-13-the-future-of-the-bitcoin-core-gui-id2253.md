@@ -470,3 +470,30 @@ Going for a headless architecture makes sense for 3 reasons I think:
 
 -------------------------
 
+ajtowns | 2026-04-22 04:04:59 UTC | #26
+
+[quote="ajtowns, post:19, topic:2253"]
+I think it still misses some roles that bitcoin-qt fills, though. Namely:
+
+* providing safe access to bitcoin core’s wallet functionality. I don’t think there’s any reason this wouldn’t be possible though; you could have a file chooser to load/save psbts I think?
+* making it straight-forward to run a bitcoin node in a Windows / MacOS environment without being a developer/power-user. I feel like you need either an actual GUI or possibly a web UI for that?
+[/quote]
+
+I think the tui is perhaps 80% of the way there for these things now:
+
+ * there's some rudimentary windows support so that you can just double-click the bitcoin-tui icon and have it talk to your bitcoind; having a "config" window so you could choose a different network, or rpc port etc without editing a config file directly would probably be useful as well though
+ * on Linux you can launch and stop bitcoind directly from the tui
+ * you can control the tui's access/risk-profile (via the tui's --allow-rpc or bitcoind's [rpcwhitelist](https://github.com/bitcoin/bitcoin/issues/12248))
+ * you can add custom monitoring via lua scripts, without needing to recompile (eg [slow block monitoring](https://delvingbitcoin.org/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367))
+ * you can do a decent job of [viewing your wallet](https://github.com/janb84/bitcoin-tui/pull/40)
+
+For me, it's already better than the qt gui, mainly due to these three features:
+
+ * I can connect/disconnect from a running daemon without interrupting it
+ * I can use it over an ssh connection to a remote daemon without it feeling slow
+ * I can very easily setup custom monitoring things where previously I used python or bitcoin-cli/jq and as well as being easier to do, the result is nicer.
+
+I guess in addition, the RPC boundary layer also makes it much easier to iterate on bitcoin-tui than it does on the GUI, because bugs in the tui code don't have any more possibility of corrupting consensus logic than misusing bitcoin-cli already did.
+
+-------------------------
+
