@@ -323,3 +323,21 @@ I'd expect onion message fees to be adjusted automatically.  If the node is gett
 
 -------------------------
 
+carla | 2026-04-22 14:11:11 UTC | #12
+
+[quote="morehouse, post:11, topic:2414"]
+I’d expect onion message fees to be adjusted automatically. If the node is getting overloaded with onion messages, it raises its fees. If it has unused capacity, it lowers its fees. No need for static magic defaults or for the end user to do this manually.
+[/quote]
+
+How would we communicate these fees? Assuming that it won't be via gossip, as we're moving to one update per block in taproot gossip which wouldn't be nearly reactive enough to protect against a sudden influx of traffic. Will we add proper error propagation for onion messages to be able to communicate your latest fee policy?
+
+This also sounds like something that could be abused by an attacker if we're not careful. I'd be interested in seeing an algorithm and some adversarial simulations that demonstrate how this would work!
+
+[quote="morehouse, post:11, topic:2414"]
+Why not? If an onion message couldn’t be routed across a path (tiny liquidity requirement, small resource usage), it seems highly unlikely that a payment could be routed on that path (larger liquidity requirement, larger resource usage, consumes a scarce HTLC slot).
+[/quote]
+
+I'd need to understand the details of the proposed scheme to answer this properly (specifically the above questions about dynamic fees). At the moment it's unclear to me whether an OM failure can always be interpreted as a liquidity failure, and if we allow different failure modes (like insufficient fees failures) how incentives for forwarding nodes to be honest play out. I'd also worry that feeding OM data into pathfinding could open up new channel jamming vectors.
+
+-------------------------
+
