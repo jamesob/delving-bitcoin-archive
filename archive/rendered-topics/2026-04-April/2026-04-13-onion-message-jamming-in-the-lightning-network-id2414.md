@@ -275,3 +275,51 @@ To be clear, I'm definitely in favor of *less* trivial DOS vectors in the protoc
 
 -------------------------
 
+ariard | 2026-04-21 21:17:41 UTC | #10
+
+See the Bitcoin Optech entry on staking credentials to solve jamming (https://bitcoinops.org/en/newsletters/2022/11/30/#reputation-credentials-proposal-to-mitigate-ln-jamming-attacks).The o’reilly p2p design book chapter on accountability (https://www.freehaven.net/doc/oreilly/accountability-ch16.html) is also a classic.
+
+I’m not going to comment more on the subject, but some kind of monetary credential protocol would be very useful for the btc ecosystem, and given I’m interested in it for some bitcoin backbone experiments, I’ll likely go to implement one anyway.
+
+-------------------------
+
+morehouse | 2026-04-21 22:43:43 UTC | #11
+
+[quote="carla, post:9, topic:2414"]
+* AFAIK, one of the original design considerations of onion messages is that we *don’t* have to go to disk every time we send them, so attaching an unconditional fee to each one defeats the point?
+[/quote]
+
+Is that an essential part of the original design though, or was it a DoS-mitigation mechanism?  If we instead mitigate DoS/jamming via a monetary solution, perhaps we don't need onion messages to be as lightweight.
+
+I'd also note that a completely jammed onion network also defeats the original point (to an even greater degree), so this may be a worthwhile tradeoff overall.
+
+[quote]
+* *If* I’m right about that, we’d need to go with the batching approach you’ve suggested, which wouldn’t be a good fit for HTLCs, where we’d just include the unconditional fee in `update_add_htlc`.
+[/quote]
+
+We *can* do batching, but I'd rather not if we don't have to.  There's less state to manage without batching, and the whole protocol becomes simpler (and overlaps more with up-front fees for HTLCs).
+
+[quote]
+**On the relation to unconditional fees for HTLCs:**
+
+While both are subject to “type 1” spam, onion messages and HTLCs are quite different domains. With HTLCs, nodes have the incentive to forward the payload on in the hope that they’ll earn the remaining “success case” fee if the payment succeeds. For onion messages, your counterparty can just just drop the message and pocket the fee because there’s no future benefit to be earned [1].
+[/quote]
+
+The future benefit is getting to route *more* onion messages in the future.  Nodes that drop messages will be routed around, leading to less fees in the long run.
+
+Also, as you mention in the footnote, sometimes the current onion message corresponds to a payment flow that will pay fees to the routing node in the *near* term.
+
+[quote]
+I also don’t see people feeding onion message routing into payment pathfinding anytime soon (other than an online check), as our primary concern is liquidity.
+[/quote]
+
+Why not?  If an onion message couldn't be routed across a path (tiny liquidity requirement, small resource usage), it seems highly unlikely that a payment could be routed on that path (larger liquidity requirement, larger resource usage, consumes a scarce HTLC slot).
+
+[quote]
+We also have a measurable loss when HTLCs are crowded out (other, fee paying payments) which makes it easier to understand how to set these policies. We don’t have an “in-protocol” way to do this for OMs, so would likely have to shove this concern onto the end user and/or set a magical global default.
+[/quote]
+
+I'd expect onion message fees to be adjusted automatically.  If the node is getting overloaded with onion messages, it raises its fees.  If it has unused capacity, it lowers its fees.  No need for static magic defaults or for the end user to do this manually.
+
+-------------------------
+
