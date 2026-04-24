@@ -81,3 +81,46 @@ There’s a concrete Ordinals example here that helped me reason about this:
 
 -------------------------
 
+AaronZhang | 2026-04-24 18:40:38 UTC | #4
+
+Adding a fifth row to the binding framework, now that I have
+on-chain results for both ladder rebinding and APO rebinding side-by-side.
+
+| Pattern | Binding target | Cross-prevout reusable? | Witness scaling |
+|----|----|----|----|
+| OP_CHECKSIGFROMSTACK | Message (stack-supplied) | Yes | O(1) |
+| OP_INTERNALKEY + OP_CHECKSIGFROMSTACK | Identity (internal key) | Yes (same key) | O(1) |
+| OP_CHECKSIG (default sighash) | Full transaction sighash | No | O(1) |
+| OP_CHECKSIG with APO (BIP-118) | Sighash minus prevouts | Yes (same script + amount) | O(1) |
+| CSFS rekey ladder (Post #5) | Delegated key chain | No (per-channel) | O(n) in state count |
+
+A few observations from the empirical side, just from staring at TxIDs:
+
+1. APO and the CSFS ladder both achieve eltoo-style state replacement,
+   but along different binding axes. APO loosens what the signature
+   commits to; the ladder threads authority through fresh keys derived
+   per state.
+2. The witness-scaling difference matters in practice. APO’s O(1)
+   keeps a long-running channel cheap regardless of state count; the
+   ladder’s O(n) makes it unattractive past roughly ten states. So the
+   ladder is a “primitives-first” alternative for short state chains,
+   not a structural replacement for APO in long-lived protocols.
+3. Cross-prevout reuse — APO’s distinguishing feature — is what lets
+   the same signature spend a fee-bumped funding tx variant without
+   re-signing. The ladder cannot do this because each ladder is anchored
+   to one channel’s funding outpoint at script creation time.
+   So if anything, the ladder strengthens the case for APO in the
+   “long-running, fee-volatile channel” use case, while showing that
+   short-state-chain eltoo can run today on already-activated opcodes.
+
+References:
+Post :APO+CTV eltoo, 6 txs:
+
+https://delvingbitcoin.org/t/eltoo-state-chain-on-signet-three-rounds-six-transactions-apo-ctv/2413
+
+Post: CSFS+CTV ladder, 2 txs:
+
+https://delvingbitcoin.org/t/eltoo-state-chain-on-signet-again-three-rounds-two-transactions-csfs-ctv-with-rekey-and-ladder-no-cat/2430
+
+-------------------------
+

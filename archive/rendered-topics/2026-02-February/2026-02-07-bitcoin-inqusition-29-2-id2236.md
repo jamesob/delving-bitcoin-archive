@@ -156,3 +156,35 @@ https://medium.com/@aaron.recompile/op-cat-op-checksigfromstack-on-signet-dynami
 
 -------------------------
 
+AaronZhang | 2026-04-24 17:55:14 UTC | #8
+
+Following up on my earlier CAT/CSFS/CTV/IK+CSFS/CAT+CSFS runs on Inquisition,
+I tested SIGHASH_ANYPREVOUT (BIP 118) the same way.
+
+Funding A: [4b64…344a](https://mempool.space/signet/tx/4b6451082fe4349fdb2acad6bf0964c6cfd8c9cbf5161806fc342b051dee344a?showDetails=true) (50,000 sats)
+
+Funding B: [543c…a5eb](https://mempool.space/signet/tx/543c97f777ea04624392f6a1547146d6e98996b38aec0794f6b79e3275f6a5eb?showDetails=true) (50,000 sats)
+
+Spend A:[03c0…f3a4](https://mempool.space/signet/tx/03c0577c1d47da32804d098187644d0eee18b448aded2f427cd02193c070f3a4?showDetails=true) (signed)
+
+Spend B: [4609…1a43](https://mempool.space/signet/tx/46091190c74d8fd4b39be67a2e945a19b021850e7f8d9e378f5eb11722ae1a43?showDetails=true) (same witness, no re-signing)
+
+Script: <0x01 || xonly_pubkey> OP_CHECKSIG (35 bytes)
+
+Witness on both: \[sig (65B with 0x41 sighash byte), leaf (35B), control_block (33B)\]
+
+Two observations:
+
+1. The 0x01 pubkey prefix is the only opt-in trigger. The Inquisition
+   node sees it and switches to Msg118 / Ext118 instead of standard
+   BIP 342 SigMsg. Existing tapscripts unaffected.
+2. Msg118 omits sha_prevouts, so cross-prevout reuse falls out of which
+   fields are missing. Same amount + same scriptPubKey → same digest →
+   same signature works. Under SIGHASH_ALL (0x41), sha_outputs is still
+   committed, so modifying outputs still fails verification.
+
+Full breakdown Blog:
+[https://medium.com/@aaron.recompile/sighash-anyprevout-on-signet-when-signatures-stop-binding-to-utxos-eed4fc475668](https://medium.com/@aaron.recompile/sighash-anyprevout-on-signet-when-signatures-stop-binding-to-utxos-eed4fc475668)
+
+-------------------------
+
