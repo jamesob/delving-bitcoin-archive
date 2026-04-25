@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 2236,
   "topic_slug": "bitcoin-inqusition-29-2",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Following up on my earlier CAT/CSFS/CTV/IK+CSFS/CAT+CSFS runs on Inquisition,\nI tested SIGHASH_ANYPREVOUT (BIP 118) the same way.\n\nFunding A: [4b64\u2026344a](https://mempool.space/signet/tx/4b6451082fe4349fdb2acad6bf0964c6cfd8c9cbf5161806fc342b051dee344a?showDetails=true) (50,000 sats)\n\nFunding B: [543c\u2026a5eb](https://mempool.space/signet/tx/543c97f777ea04624392f6a1547146d6e98996b38aec0794f6b79e3275f6a5eb?showDetails=true) (50,000 sats)\n\nSpend A:[03c0\u2026f3a4](https://mempool.space/signet/tx/03c0577c1d47da32804d098187644d0eee18b448aded2f427cd02193c070f3a4?showDetails=true) (signed)\n\nSpend B: [4609\u20261a43](https://mempool.space/signet/tx/46091190c74d8fd4b39be67a2e945a19b021850e7f8d9e378f5eb11722ae1a43?showDetails=true) (same witness, no re-signing)\n\nScript: <0x01 || xonly_pubkey> OP_CHECKSIG (35 bytes)\n\nWitness on both: \\[sig (65B with 0x41 sighash byte), leaf (35B), control_block (33B)\\]\n\nTwo observations:\n\n1. The 0x01 pubkey prefix is the only opt-in trigger. The Inquisition\n   node sees it and switches to Msg118 / Ext118 instead of standard\n   BIP 342 SigMsg. Existing tapscripts unaffected.\n2. Msg118 omits sha_prevouts, so cross-prevout reuse falls out of which\n   fields are missing. Same amount + same scriptPubKey \u2192 same digest \u2192\n   same signature works. Under SIGHASH_ALL (0x41), sha_outputs is still\n   committed, so modifying outputs still fails verification.\n\nFull breakdown Blog:\n[https://medium.com/@aaron.recompile/sighash-anyprevout-on-signet-when-signatures-stop-binding-to-utxos-eed4fc475668](https://medium.com/@aaron.recompile/sighash-anyprevout-on-signet-when-signatures-stop-binding-to-utxos-eed4fc475668)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Following up on my earlier CAT/CSFS/CTV/IK+CSFS/CAT+CSFS runs on Inquisition,\nI tested SIGHASH_ANYPREVOUT (BIP 118) the same way. \nFunding A: <a href=\"https://mempool.space/signet/tx/4b6451082fe4349fdb2acad6bf0964c6cfd8c9cbf5161806fc342b051dee344a?showDetails=true\" rel=\"noopener nofollow ugc\">4b64\u2026344a</a> (50,000 sats) \nFunding B: <a href=\"https://mempool.space/signet/tx/543c97f777ea04624392f6a1547146d6e98996b38aec0794f6b79e3275f6a5eb?showDetails=true\" rel=\"noopener nofollow ugc\">543c\u2026a5eb</a> (50,000 sats) \nSpend A:<a href=\"https://mempool.space/signet/tx/03c0577c1d47da32804d098187644d0eee18b448aded2f427cd02193c070f3a4?showDetails=true\" rel=\"noopener nofollow ugc\">03c0\u2026f3a4</a> (signed) \nSpend B: <a href=\"https://mempool.space/signet/tx/46091190c74d8fd4b39be67a2e945a19b021850e7f8d9e378f5eb11722ae1a43?showDetails=true\" rel=\"noopener nofollow ugc\">4609\u20261a43</a> (same witness, no re-signing) \nScript: &lt;0x01 || xo&hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-inqusition-29-2/2236/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
