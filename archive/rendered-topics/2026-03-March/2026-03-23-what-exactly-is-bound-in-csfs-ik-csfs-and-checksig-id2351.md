@@ -81,18 +81,18 @@ There’s a concrete Ordinals example here that helped me reason about this:
 
 -------------------------
 
-AaronZhang | 2026-04-24 18:40:38 UTC | #4
+AaronZhang | 2026-04-24 22:12:27 UTC | #4
 
 Adding a fifth row to the binding framework, now that I have
 on-chain results for both ladder rebinding and APO rebinding side-by-side.
 
-| Pattern | Binding target | Cross-prevout reusable? | Witness scaling |
-|----|----|----|----|
-| OP_CHECKSIGFROMSTACK | Message (stack-supplied) | Yes | O(1) |
-| OP_INTERNALKEY + OP_CHECKSIGFROMSTACK | Identity (internal key) | Yes (same key) | O(1) |
-| OP_CHECKSIG (default sighash) | Full transaction sighash | No | O(1) |
-| OP_CHECKSIG with APO (BIP-118) | Sighash minus prevouts | Yes (same script + amount) | O(1) |
-| CSFS rekey ladder (Post #5) | Delegated key chain | No (per-channel) | O(n) in state count |
+|Pattern | Binding target | Cross-prevout reusable? | Witness scaling|
+|--- | --- | --- | ---|
+|OP_CHECKSIGFROMSTACK | Message (stack-supplied) | Yes | O(1)|
+|OP_INTERNALKEY + OP_CHECKSIGFROMSTACK | Identity (internal key) | Yes (same key) | O(1)|
+|OP_CHECKSIG (default sighash) | Full transaction sighash | No | O(1)|
+|OP_CHECKSIG with APO (BIP-118) | Sighash minus prevouts | Yes (same script + amount) | O(1)|
+|CSFS rekey ladder  | Delegated key chain | No (per-channel) | O(n) in state count|
 
 A few observations from the empirical side, just from staring at TxIDs:
 
