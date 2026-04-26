@@ -33,3 +33,9 @@ Overall, this seems like a potentially low-coordination path to PQ migration tha
 
 -------------------------
 
+reardencode | 2026-04-26 00:04:06 UTC | #2
+
+How would someone prove the age of their pre-commitment? OTS or something?
+
+-------------------------
+
