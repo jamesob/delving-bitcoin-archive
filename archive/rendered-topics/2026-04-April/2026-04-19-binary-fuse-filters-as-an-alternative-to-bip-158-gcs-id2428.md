@@ -43,3 +43,15 @@ Csaba
 
 -------------------------
 
+rustaceanrob | 2026-04-26 07:54:02 UTC | #2
+
+First off, thanks for taking a look at new filter types. Great to see others are interested in this research. A few comments:
+
+The benchmark compares bandwidth but the false positive rates do not match, GCS has a false positive rate of `1/784931` whereas BF with 16-bit fingerprints is `1/65536`. To reach parody with the GCS false positive would be 20-bits. As a follow up, it could be interesting to build the index and measure a wallet rescan using varying fingerprint sizes. I might take this on.
+
+One simple “gotcha” for BF is how values are seeded and how the filter is constructed. To mitigate targeted hash collisions we would likely want to use the block hash as a seed/entropy. There is a possibility the algorithm fails in the case of BF, in the case where there is a cycle in the graph. I wonder how often this occurs in practice.
+
+Some general feedback I’ve gotten on using GCS for mobile is that the battery draw can make CBF unappealing for users. The reported numbers on CPU are promising. I can imagine a class of user that is willing to trade off higher bandwidth for faster queries and lower CPU expenditure, perhaps a mobile user on WiFi or high throughput data plan. For those running Bitcoin Core, I can see potential for speeding up wallet rescans with these as well.
+
+-------------------------
+
