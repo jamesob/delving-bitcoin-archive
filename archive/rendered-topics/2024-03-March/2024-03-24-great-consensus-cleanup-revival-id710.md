@@ -1747,3 +1747,9 @@ All these considerations went into the design of the mitigation included in BIP 
 
 -------------------------
 
+AntoineP | 2026-04-27 17:03:09 UTC | #94
+
+For your interest, forward compatibility of mining pools (setting BIP 54 compatible coinbase nLockTime/nSequence) is being discussed at BNOC in [this thread](https://bnoc.xyz/t/forward-compatible-coinbase-locktimes-for-bip-54/75).
+
+-------------------------
+
