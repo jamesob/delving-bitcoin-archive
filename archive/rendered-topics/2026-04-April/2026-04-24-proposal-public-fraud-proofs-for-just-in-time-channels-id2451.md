@@ -18,3 +18,11 @@ Thomas
 
 -------------------------
 
+tnull | 2026-04-27 09:57:20 UTC | #2
+
+Thanks for this interesting proposal! As mentioned elsewhere I have to admit I’m a bit skeptical regarding how much this would indeed gain us in practice, especially given the added complexity of this scheme.
+
+I also think the scheme as currently outlined in Section 3 has a griefing vector as, if I understand correctly, after step 2 Alice would have everything she needs to publish a fraud proof, but could then maliciously stall out the channel open itself, thereby grief Bob’s reputation? If I’m not mistaken this might however be fixable by reordering the steps so the whole flow (i.e., sending of the UTXO commitment in particular) is only conducted after Bob receives `funding_signed` from Alice, but of course before he broadcasts the funding transaction.
+
+-------------------------
+
