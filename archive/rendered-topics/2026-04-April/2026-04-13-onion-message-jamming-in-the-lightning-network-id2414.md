@@ -341,3 +341,21 @@ I'd need to understand the details of the proposed scheme to answer this properl
 
 -------------------------
 
+erickcestari | 2026-04-27 01:02:51 UTC | #13
+
+[quote="carla, post:12, topic:2414"]
+How would we communicate these fees? Assuming that it won’t be via gossip, as we’re moving to one update per block in taproot gossip which wouldn’t be nearly reactive enough to protect against a sudden influx of traffic. Will we add proper error propagation for onion messages to be able to communicate your latest fee policy?
+
+[/quote]
+
+Fair point. I expect it would be communicated similarly to upfront fees for channels, through the channel update message. I agree one update per block isn't ideal, since it forces a static-pricing defense rather than a reactive one, but if the baseline fee is set right, reactivity shouldn't matter much, and an attacker paying the static fee is fine. Since onion message jamming and quick channel jamming are closely related issues, I think it's reasonable to view this as a limitation for both, given that fees can't be adjusted dynamically to help mitigate the attack. Besides, do we really need to react quickly? If an attacker wants to burn sats trying to jam us, I'd be happy to receive them.
+
+[quote="carla, post:12, topic:2414"]
+I’d need to understand the details of the proposed scheme to answer this properly (specifically the above questions about dynamic fees). At the moment it’s unclear to me whether an OM failure can always be interpreted as a liquidity failure, and if we allow different failure modes (like insufficient fees failures) how incentives for forwarding nodes to be honest play out. I’d also worry that feeding OM data into pathfinding could open up new channel jamming vectors.
+
+[/quote]
+
+OM success could be a useful positive signal, but OM failure doesn't necessarily mean the path can't carry a payment, so penalizing it would punish nodes for having reasonable OM policies. Maybe it could be used asymmetrically (succeed-to-prioritize, never fail-to-eliminate), though I'm not sure the pathfinding gain would justify the added complexity.
+
+-------------------------
+
