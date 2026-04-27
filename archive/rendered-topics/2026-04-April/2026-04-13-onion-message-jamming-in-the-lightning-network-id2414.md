@@ -359,3 +359,34 @@ OM success could be a useful positive signal, but OM failure doesn't necessarily
 
 -------------------------
 
+carla | 2026-04-27 12:59:10 UTC | #14
+
+[quote="erickcestari, post:13, topic:2414"]
+Since onion message jamming and quick channel jamming are closely related issues, I think it’s reasonable to view this as a limitation for both, given that fees can’t be adjusted dynamically to help mitigate the attack.
+[/quote]
+
+Our scheme doesn't require dynamically adjusting fees, as unconditional fees are intended to be deployed along side other mitigations which: 1) limit the resources that attackers can consume 2) preserve the ability of peers with historically "good" behavior to make payments.
+
+[quote="erickcestari, post:13, topic:2414"]
+Besides, do we really need to react quickly? If an attacker wants to burn sats trying to jam us, I’d be happy to receive them.
+[/quote]
+
+I would have assumed that a dynamic scheme would have baseline low fees (so that honest parties aren't charged a high rate), and then adjust upwards if traffic increases? Which would mean you do need to adjust quickly. Again, unclear to me what the actual propose scheme is here so it's difficult to comment
+
+[quote="erickcestari, post:13, topic:2414"]
+OM success could be a useful positive signal, but OM failure doesn’t necessarily mean the path can’t carry a payment,
+[/quote]
+[quote="erickcestari, post:13, topic:2414"]
+though I’m not sure the pathfinding gain would justify the added complexity.
+[/quote]
+
+I agree, my original comment was that I don't think we'll be using OMs as input into pathfinding. 
+
+---
+
+I'd really like to emphasize that I think that effort here would be best spent on simulation of the proposed solution (or adapting [#1280](https://github.com/lightning/bolts/pull/1280/changes) for OMs) under adversarial conditions. That's where we learned the most with channel jamming. 
+
+Our [simulator](https://github.com/carlaKC/jam-ln) should be reasonably usable for these purposes. We didn't implement unconditional fees (just manually calculated them as 1% of total fees post-simulation), but would certainly welcome contributions there!
+
+-------------------------
+
