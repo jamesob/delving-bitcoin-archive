@@ -561,3 +561,38 @@ But I’d be very interested to know if this line of thinking is obviously broke
 
 -------------------------
 
+AaronZhang | 2026-04-28 16:11:10 UTC | #29
+
+Much of this thread has been about multi-input UTXO binding and
+transaction introspection. Earlier (#28) I asked: can we validate
+a specific field inside SigMsg, instead of only its overall shape?
+
+On-chain evidence on Inquisition signet says yes — by binding to
+sha_prevouts via same-signature binding (one Schnorr signature
+satisfying both OP_CHECKSIG and OP_CHECKSIGFROMSTACK).
+
+The script (\~196 bytes) hardcodes one outpoint, has the witness
+supply the other, and verifies their on-stack concatenation matches
+the sha_prevouts segment of a witness-supplied preimage. The
+signature ties that preimage to the real transaction.
+
+AJ’s substitution attack against the scriptSig path doesn’t apply:
+the binding target is a field the signature already commits to, not
+a byte-pattern in the script.
+
+Two confirmed Inquisition signet transactions:
+
+Spend (positive case): A + B accepted
+[https://mempool.space/signet/tx/b7959a71b74b8bbed69d52c22a9b3b90af176391be2d0b7f33eb1a6473304606](https://mempool.space/signet/tx/b7959a71b74b8bbed69d52c22a9b3b90af176391be2d0b7f33eb1a6473304606)
+
+Spend (different round): same construction
+[https://mempool.space/signet/tx/7311da6e30886fab6594b633bcb97e4436d49f02ecc244d4bc7c59cb1ea83558](https://mempool.space/signet/tx/7311da6e30886fab6594b633bcb97e4436d49f02ecc244d4bc7c59cb1ea83558)
+
+A + C (substituting a different second UTXO): rejected by
+testmempoolaccept with `Script failed an OP_EQUALVERIFY operation`
+
+Happy to discuss the construction or threat model with anyone
+interested.
+
+-------------------------
+
