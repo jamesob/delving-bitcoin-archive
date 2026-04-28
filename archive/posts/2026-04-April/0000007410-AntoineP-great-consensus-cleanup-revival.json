@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 62.4,
   "yours": false,
   "topic_id": 710,
   "topic_slug": "great-consensus-cleanup-revival",
@@ -40,7 +40,12 @@
   "title_is_group": false,
   "bookmarked": false,
   "raw": "For your interest, forward compatibility of mining pools (setting BIP 54 compatible coinbase nLockTime/nSequence) is being discussed at BNOC in [this thread](https://bnoc.xyz/t/forward-compatible-coinbase-locktimes-for-bip-54/75).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -55,9 +60,15 @@
   "excerpt": "For your interest, forward compatibility of mining pools (setting BIP 54 compatible coinbase nLockTime/nSequence) is being discussed at BNOC in <a href=\"https://bnoc.xyz/t/forward-compatible-coinbase-locktimes-for-bip-54/75\">this thread</a>.",
   "truncated": true,
   "post_url": "/t/great-consensus-cleanup-revival/710/94",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
