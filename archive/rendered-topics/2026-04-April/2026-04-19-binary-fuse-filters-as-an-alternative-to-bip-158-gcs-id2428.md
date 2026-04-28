@@ -55,3 +55,39 @@ Some general feedback I’ve gotten on using GCS for mobile is that the battery 
 
 -------------------------
 
+purszki | 2026-04-28 20:08:16 UTC | #3
+
+[quote="rustaceanrob, post:2, topic:2428"]
+The benchmark compares bandwidth but the false positive rates do not match, GCS has a false positive rate of `1/784931` whereas BF with 16-bit fingerprints is `1/65536`. To reach parody with the GCS false positive would be 20-bits.
+
+[/quote]
+
+Thank you for the review! I appreciate it a lot.
+
+I think the measured false-positive counts do match the expected rates, let me explain why.
+
+I also believe that the measures on 10 different wallet scenarios supports that Fuse16 is providing better bandwidth and CPU load than Fuse20, even though Fuse20’s FP rate is closer to GCS. It seems strange, but I believe my 50k mainnet dataset with 10 wallet scenarios do support this statement.  
+
+I agree with you, that F20 is closer to GCS on per query FP rate. But the benchmark is measuring something more practical: *filter bandwidth plus block downloads caused by false
+positives for multiple scripts*. This is what really matters because this is the real bandwidth we are using. Fuse20 has better FP rate, but also has a bigger filter size, so eventually Fuse16 is providing better practical results on my 50k blocks mainnet dataset.  
+
+I think that the measured false positive numbers do match the excepted rates. Here is why.
+
+Here you can find the actual false positive ratios of all the measured filters:
+
+ https://github.com/purszki/bitcoin_research_01/blob/fuse_filter_research/light_client_research/results/raspberry_pi5_wallet_benchmark_results_50000.txt 
+
+For example, for the simple_user wallet (24 scripts):
+GCS: matches=1037, FP=3
+F16: matches=1053, FP=19
+F18: matches=1041, FP=7
+F20: matches=1035, FP=1
+
+The ground truth has 1034 real matching blocks. For Fuse filters, 55 blocks are currently skipped because I have not handled the tiny-filter corner cases yet, so the number of negative blocks tested is: 50000 - 55 - 1034 = 48911
+
+What is the probability of a false positive block in case of a Fuse16 filter? It requires some calculations. The probability of a FP query of a single script: 1/65536. The probability that a query is non-false positive: 1-1/65536 = 65535/65536. We have 24 scripts in the simple_wallet test case, so the probability of a non-false positive block query for the wallet: (65535/65536)^24. The probability of a false positive block query: 1-(65535/65536)^24 = 0.00036614.  We had 48911 investigated blocks, so the expected value of the false positive hits is 48911\*0.00036614=17.9. We measured 19. I think it’s pretty close. 
+
+It’s also an interesting question that 50k block mainnet datasets and the example wallets are conclusive enough to tell that Fuse16 is better than Fuse20… I feel the dataset is huge enough, however I’m not sure about the wallet examples. I am not super-certain that the current wallet examples cover enough realistic wallet shapes.
+
+-------------------------
+
