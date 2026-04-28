@@ -55,7 +55,7 @@ Some general feedback I’ve gotten on using GCS for mobile is that the battery 
 
 -------------------------
 
-purszki | 2026-04-28 20:08:16 UTC | #3
+purszki | 2026-04-28 20:13:19 UTC | #3
 
 [quote="rustaceanrob, post:2, topic:2428"]
 The benchmark compares bandwidth but the false positive rates do not match, GCS has a false positive rate of `1/784931` whereas BF with 16-bit fingerprints is `1/65536`. To reach parody with the GCS false positive would be 20-bits.
@@ -75,7 +75,7 @@ I think that the measured false positive numbers do match the excepted rates. He
 
 Here you can find the actual false positive ratios of all the measured filters:
 
- https://github.com/purszki/bitcoin_research_01/blob/fuse_filter_research/light_client_research/results/raspberry_pi5_wallet_benchmark_results_50000.txt 
+ https://github.com/purszki/bitcoin_research_01/blob/9f4b6947c94cbf67d57b1136f0b8ea2a497414ac/light_client_research/results/raspberry_pi5_wallet_benchmark_results_50000.txt 
 
 For example, for the simple_user wallet (24 scripts):
 GCS: matches=1037, FP=3
