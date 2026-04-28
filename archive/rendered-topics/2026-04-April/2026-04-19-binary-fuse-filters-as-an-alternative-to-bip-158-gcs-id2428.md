@@ -91,3 +91,16 @@ It’s also an interesting question that 50k block mainnet datasets and the exam
 
 -------------------------
 
+purszki | 2026-04-28 20:11:49 UTC | #4
+
+[quote="rustaceanrob, post:2, topic:2428"]
+One simple “gotcha” for BF is how values are seeded and how the filter is constructed. To mitigate targeted hash collisions we would likely want to use the block hash as a seed/entropy. There is a possibility the algorithm fails in the case of BF, in the case where there is a cycle in the graph. I wonder how often this occurs in practice.
+
+[/quote]
+
+100% I agree, this is one of the open points in my write-up.
+
+My current intuition is that this should be solvable, but I didn’t work on the solution yet.
+
+-------------------------
+
