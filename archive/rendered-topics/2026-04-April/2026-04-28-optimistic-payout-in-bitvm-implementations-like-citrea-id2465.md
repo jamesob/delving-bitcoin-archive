@@ -37,3 +37,39 @@ I also haven't gotten as far as looking at various other rollup-ish designs that
 
 -------------------------
 
+ekrembal | 2026-04-28 21:07:41 UTC | #2
+
+Hi,
+
+Lead dev of Clementine here, and thank you for your interest.
+
+"No one else can get out invalidly" holds because signers verify the batch proof containing the withdrawal to be finalized on Bitcoin before signing any optimistic withdrawal.
+
+The main problem with doing a key-deletion covenant with BitVM bridges is that signers would need to have an authorization key with which they authorize their new key for each deposit. This creates the same problem: if all of the N-of-N authorization keys are compromised, an attacker can do fake deposits and drain the bridge.
+
+In other words, a similar attack is still possible even if signers delete their keys after presigning. But by not deleting keys, the optimistic withdrawals give great UX without changing any trust assumptions.
+
+-------------------------
+
+AdamISZ | 2026-04-28 22:09:25 UTC | #3
+
+[quote="ekrembal, post:2, topic:2465"]
+The main problem with doing a key-deletion covenant with BitVM bridges is that signers would need to have an authorization key with which they authorize their new key for each deposit. This creates the same problem: if all of the N-of-N authorization keys are compromised, an attacker can do fake deposits and drain the bridge.
+[/quote]
+
+Interesting. So the risk I see (pretty obvious from my post but I'm sure you already thought about it!) is the issue of continuous custody: if the signing keys are always available (according to honest protocol-following), attackers of any sort that can compromise all N can get the money.
+
+I see two scenarios: a large signing committee for each setup with minimum trust placed on any entity involved (a la toxic wasted trusted setup, though of course that's the extreme); e.g. 1 of 100 with at least quasi-open involvement. It's understood that however you slice it if all 100 are rogue you are screwed. Doing this repeatedly is of course not trivial.
+
+Other extreme is what you have: relatively small set that essentially don't even claim to give up custody as a group: the biggest difference is you aren't deleting the relevant signing keys, even if you're honest.
+
+Your point that each new deposit (each new setup) would need authorization: that seems to depend on your notion of what the verifier/signer role is. Considering the first of the above two alternatives, keys could be created afresh for each new setup and I as a user am not trusting that it's the "right" set of signers, I'm trusting that at least 1 of them isn't an attacker [1]. *If* my assumption is valid, then I don't suffer a continuous risk from external attackers. In the ideal extreme, I myself as a user could take part in that signing setup when and if I wanted to. With your other model of fixed entities and continuously available keys, I do suffer from that risk, even if my assumption is valid.
+
+> the optimistic withdrawals give great UX
+
+That's the thing, it depends on how you look at UX. In assessing the system from my point of view as a potential user, what I see there is actually a negative for my UX: I want a system that is not exposed to external attackers or regulatory pressure (notice: even though N of N is a high bar for a hack-attacker, that's less strong against state-level control vectors). This feature makes one thing easier (withdrawal) but exactly that ability makes me much more concerned about the possibility of systemic failure, making me much less enthusiastic about using it (whereas a somewhat delayed exit wouldn't really bother me).
+
+[1] Thinking about it, you could sign over that new key with your real-world identity, at the time of that setup, as a way of defending against the sybil problem, in the most extreme version of "anyone can take part", not that I'm arguing for one very specific way of doing it.
+
+-------------------------
+
