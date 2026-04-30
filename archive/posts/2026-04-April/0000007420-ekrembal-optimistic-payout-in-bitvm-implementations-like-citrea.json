@@ -7,7 +7,7 @@
   "cooked": "<p>Hi,</p>\n<p>Lead dev of Clementine here, and thank you for your interest.</p>\n<p>\u201cNo one else can get out invalidly\u201d holds because signers verify the batch proof containing the withdrawal to be finalized on Bitcoin before signing any optimistic withdrawal.</p>\n<p>The main problem with doing a key-deletion covenant with BitVM bridges is that signers would need to have an authorization key with which they authorize their new key for each deposit. This creates the same problem: if all of the N-of-N authorization keys are compromised, an attacker can do fake deposits and drain the bridge.</p>\n<p>In other words, a similar attack is still possible even if signers delete their keys after presigning. But by not deleting keys, the optimistic withdrawals give great UX without changing any trust assumptions.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2026-04-28T21:07:41.493Z",
   "reply_count": 1,
   "reply_to_post_number": null,

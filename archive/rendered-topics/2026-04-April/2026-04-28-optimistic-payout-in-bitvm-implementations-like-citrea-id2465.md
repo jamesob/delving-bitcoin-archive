@@ -73,3 +73,13 @@ That's the thing, it depends on how you look at UX. In assessing the system from
 
 -------------------------
 
+ekrembal | 2026-04-29 23:09:30 UTC | #4
+
+One thing to note: when a user makes a deposit, and later does a withdrawal, the UTXO used for that withdrawal is not the deposit UTXO the user originally created. Withdrawals are paid out like a  FIFO, the i-th withdrawal is paid from the i-th deposit.
+
+That's why all deposits need to be presigned with the same fixed set of signers, in order to preserve uniform trust assumptions across the bridge. A user withdrawing today might be paid from a deposit made a year ago, so the signers backing that older deposit are effectively the signers backing the user's withdrawal too. This is why solutions like "trust whoever is live during your deposit out of a set of 100 signers" don't actually help. (I am not sure if this is the first scenario you mentioned. Pls correct me if not.)
+
+We did initially consider designs with a fixed signer set that also allowed anyone to participate in the signing ceremony as a volunteer. But this turns out to be non-trivial and doesn't actually improve trust assumptions: griefing a MuSig2 signing ceremony is easy, and there's no way for the rollup to verify that all volunteer signers were actually included. So the attack I mentioned earlier is still possible.
+
+-------------------------
+
