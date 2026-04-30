@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 15,
-  "reads": 15,
-  "readers_count": 14,
-  "score": 78.0,
+  "reads": 17,
+  "readers_count": 16,
+  "score": 93.2,
   "yours": false,
   "topic_id": 2466,
   "topic_slug": "fingerprinting-nodes-possible-solutions",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "This is an update on the  [Addr fingerprinting attack](https://delvingbitcoin.org/t/fingerprinting-nodes-via-addr-requests/1786) and potential mitigation strategies. It\u2019s still a work in progress, so if you see any blind spots or have ideas on how to test these approaches, please let us know.\n\nTldr: Nodes that are reachable over multiple networks (e.g., IPv4 and Tor) can be fingerprinted by comparing ADDR responses across different connections. A correlation between addresses is created and further strengthened using shared timestamps.\n\nSince the previous post, we\u2019ve eliminated some solutions and identified others for consideration. We\u2019ve gained deeper insights into the network topology and identified new factors to consider.\n\nOne key factor is that AddrMan has a 30-day horizon for addresses; that is, how old an address can be before it is considered stale. A stale address is one whose timestamp hasn\u2019t been updated recently, meaning it hasn\u2019t been seen through a direct connection, received from a peer, or self-announced. Such an address is likely offline and no longer part of the network.\n\nThese old addresses are filtered out when:\n\n* Sending a GetAddr response.\n\n* Adding a received address (on collision, we evict a terrible address from the bucket) to our Addrman.\n\nThis filtering prevents old addresses from circulating indefinitely across the network. With this in mind, a good solution would prevent correlation while maintaining the usefulness of timestamps.\n\n**Note**:\n\nI made an attempt here https://github.com/bitcoin/bitcoin/pull/33498 , but closed it due to concerns that it could make old addresses appear newer https://github.com/bitcoin/bitcoin/pull/33498#pullrequestreview-3319680730\n\nThere are two factors to consider:\n\n* Refreshing old timestamps to newer ones may cause old addresses to be continuously gossiped.\n\n* Conversely, making timestamps older may cause addresses to stop being gossiped prematurely, as they would be filtered out.\n\n## **Possible Solutions**\n\n### **1. Simple Fuzzing (\u00b15 days)**\n\nThis solution applies random distortion to each address timestamp within a range of \\[-5 days, +5 days\\], and the result persists within the cache window.\n\n**Example:**\n\ngetaddr received from peer 1 (IPv4) \u2192 cache miss \u2192 build new cache\n\n* addr1:1776768979,timestamp + random(-5d, +5d) = timestamp + 2.3d \u2192 stored in cache\n\n* addr3:1776965871 timestamp + random(-5d, +5d) = timestamp + 1.7d \u2192 stored in cache\n\n* addr4: 1774102817timestamp + random(-5d, +5d) = timestamp - 4.2d \u2192 stored in cache\n\n**Concern:**\nThis may average out over time. However, it is difficult to reason about the average because timestamps are continuously updated.\n\n### **2. Fixed Timestamps Across Networks**\n\nWhen responding to a getaddr request, we preserve the real timestamps for addresses on the same network as the requester, and replace timestamps of addresses on other networks with a randomized value in the past (now - 8 to 13 days).\n\n**Example:**\n\nIf a clearnet (IPv4) peer sends getaddr:\n\n* IPv4 addresses retain real timestamps (age naturally and are evicted via IsTerrible() at 30 days)\n\n* Onion/IPv6/I2P addresses receive a fixed randomized timestamp\n\n**addrman response before change**\n\n* 1.1.1.1 | 5 days ago\n\n* 2.2.2.2 | 10 days ago\n\n* 3.3.3.3 | 8 days ago\n\n* abc. onion | 3 days ago\n\n* xyz. onion | 20 days ago\n\n* def. onion | 28 days ago\n\n**After applying the change above(only distorting timestamps from a different network**)\n\n* 1.1.1.1 | 5 days ago\n\n* 2.2.2.2 | 10 days ago\n\n* 3.3.3.3 | 8 days ago\n\n* abc. onion | 10 days ago -< fixed\n\n* xyz. onion | 10 days ago -< fixed\n\n* def. onion | 10 days ago-< fixed\n\n**Concern:**\n\nOld addresses might still remain in circulation longer than if we applied fixed timestamps. For example, an address that was 28 days old could become 10 days old and then be updated again and again.\n\n### **3. Fuzzing (Making Addresses Only Older)**\n\nWe could use a range \\[1, 10\\] and make the address older, never newer.\n\nFor example:\n\n* An address is 10 days old\n\n* One hop adds +10 days \u2192 now 20 days old\n\n* Next hop adds +8 days \u2192 now 28 days old\n\n**Concern:**\n\nAfter only two hops, the address is near the 30-day threshold and may soon be marked as \u201cterrible\u201d and stop being relayed.\nThis could reduce the number of addresses returned in getaddr responses over time, as many addresses may age out too quickly.\n\n### **4. Fuzzing (Aging-Biased Timestamp Noise)**\n\nWe choose a bounded range of \\[+4 days, -1 day\\]:\n\n* Maximum aging: +4 days\n\n* Maximum \u201cfreshening\u201d: \u22121 day\n\nThis ensures that addresses are mostly made older, with only a small chance of becoming newer.\n\n**Concern:**\n\nAddresses may still either circulate indefinitely or get stuck in addrman.\n\n### **5. Hybrid Approach**\n\nAnother option is to combine approaches, for example, merge solutions 2 and 3.\n\nAt the moment, the range suggested in the solutions above is based on intuition, aiming for a middle ground that avoids pushing timestamps too far into the future or making them too recent.\n\nI am currently testing solution 2 in my fork https://github.com/naiyoma/bitcoin/pull/16 , and also running an experiment on how getaddr/addr timestamps are updated. If these timestamps are updated frequently enough, then it would be easier to understand the range and the effects of the timestamp change.\n\nThoughts and feedback are welcome",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "This is an update on the  <a href=\"https://delvingbitcoin.org/t/fingerprinting-nodes-via-addr-requests/1786\">Addr fingerprinting attack</a> and potential mitigation strategies. It\u2019s still a work in progress, so if you see any blind spots or have ideas on how to test these approaches, please let us know. \nTldr: Nodes that are reachable over multiple networks (e.g., IPv4 and Tor) can be&hellip;",
   "truncated": true,
   "post_url": "/t/fingerprinting-nodes-possible-solutions/2466/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

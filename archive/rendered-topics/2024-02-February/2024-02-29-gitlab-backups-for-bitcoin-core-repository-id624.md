@@ -96,3 +96,9 @@ I should probably add the new metadata mirroring, as I'm still using the ancient
 
 -------------------------
 
+TheCharlatan | 2026-04-30 19:53:43 UTC | #10
+
+With github having constant outages lately, I have come to rely more on the mirror. It is useful for searching too: It collapses much less of the comment data, which makes my life easier when giving pull requests a last pass before merging. Thank you for keeping it running @0xB10C .
+
+-------------------------
+
