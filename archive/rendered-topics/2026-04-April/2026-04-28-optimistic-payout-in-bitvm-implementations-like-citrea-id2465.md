@@ -83,3 +83,36 @@ We did initially consider designs with a fixed signer set that also allowed anyo
 
 -------------------------
 
+AdamISZ | 2026-04-30 11:18:33 UTC | #5
+
+[quote="ekrembal, post:4, topic:2465"]
+One thing to note: when a user makes a deposit, and later does a withdrawal, the UTXO used for that withdrawal is not the deposit UTXO the user originally created. Withdrawals are paid out like a FIFO, the i-th withdrawal is paid from the i-th deposit.
+
+That’s why all deposits need to be presigned with the same fixed set of signers, in order to preserve uniform trust assumptions across the bridge. A user withdrawing today might be paid from a deposit made a year ago, so the signers backing that older deposit are effectively the signers backing the user’s withdrawal too. This is why solutions like “trust whoever is live during your deposit out of a set of 100 signers” don’t actually help. (I am not sure if this is the first scenario you mentioned. Pls correct me if not.)
+[/quote]
+
+Yes I'm aware of the disconnect in terms of who exits a coin. That doesn't affect my point about openness of signing committee, size, participation etc. The whole point of my OP is that my risk as a user is not only my own exit but others', too. Similarly, my defense, if I have one, is a broad enough participation in the covenant emulation that I can be convinced that 1 of n is strong enough. I think it is strong enough in practice in a one-time-then-delete scenario, *with* open participation. With both of those being false: not one-time-only signing rights, not open participation, I think it is orders of magnitude weaker and you may as well just use a multisig federation for everything (I might be convinced that's not literally true ... but it seems pretty close!).
+
+> We did initially consider designs with a fixed signer set that also allowed anyone to participate in the signing ceremony as a volunteer. But this turns out to be non-trivial and doesn’t actually improve trust assumptions: griefing a MuSig2 signing ceremony is easy, and there’s no way for the rollup to verify that all volunteer signers were actually included. So the attack I mentioned earlier is still possible.
+
+I mean, ROAST exists for this very reason. And I think (though I'd have to search a bit) there have been other proposals for similar robust co-signing protocols.
+
+You might say "ROAST is not battle tested/implemented" (I don't know), but that brings me to:
+
+Bear in mind: I am *not* saying that 'the absence of these other features is not OK' or 'the presence of this particular simplified safety valve is not OK'. There's a reason I opened my post with a reference from the Clementine whitepaper: it's your *design*, not only your current implementation, that says an always-live signing committee has the right to exit the coins at any time. (So in that sense the "implementation" section of this forum was the wrong one?). I don't understand why this design is interesting. The BitVM mechanics appear to be largely cosmetic; the system as a whole does not inherit trust from it because it can (and usually will) simply be bypassed.
+
+Back to some details:
+
+> there’s no way for the rollup to verify that all volunteer signers were actually included.
+
+That's not a good reason to remove openness imo. As I mentioned, you can have real world identities sign over participation; if you don't see enough evidence that the quorum is heterogeneous you can choose to stop participating. It's imperfect but it's vastly better than a closed set which is open to concentrated attack, targetting all coins, over arbitrarily long time.
+
+
+[quote="ekrembal, post:2, topic:2465"]
+“No one else can get out invalidly” holds because signers verify the batch proof containing the withdrawal to be finalized on Bitcoin before signing any optimistic withdrawal.
+[/quote]
+
+Also you wrote this in the earlier post. I didn't respond, but I should have: that doesn't address the question, surely: "signers verify" means you're trusting the signers. That's what we're discussing (what I'm saying is not really OK).
+
+-------------------------
+
