@@ -39,3 +39,9 @@ How would someone prove the age of their pre-commitment? OTS or something?
 
 -------------------------
 
+JeremyRubin | 2026-05-01 18:35:29 UTC | #3
+
+https://www.paradigm.xyz/2026/05/pacts-protecting-your-bitcoin-from-a-quantum-sunset >> seems like a similar idea; perhaps a bit more fleshed out.
+
+-------------------------
+

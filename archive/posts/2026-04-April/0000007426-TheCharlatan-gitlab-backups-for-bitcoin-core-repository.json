@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 7.6,
+  "incoming_link_count": 2,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 28.0,
   "yours": false,
   "topic_id": 624,
   "topic_slug": "gitlab-backups-for-bitcoin-core-repository",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "With github having constant outages lately, I have come to rely more on the mirror. It is useful for searching too: It collapses much less of the comment data, which makes my life easier when giving pull requests a last pass before merging. Thank you for keeping it running @0xB10C .",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "With github having constant outages lately, I have come to rely more on the mirror. It is useful for searching too: It collapses much less of the comment data, which makes my life easier when giving pull requests a last pass before merging. Thank you for keeping it running <a class=\"mention\" href=\"/u/0xb10c\">@0xB10C</a> .",
   "truncated": true,
   "post_url": "/t/gitlab-backups-for-bitcoin-core-repository/624/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

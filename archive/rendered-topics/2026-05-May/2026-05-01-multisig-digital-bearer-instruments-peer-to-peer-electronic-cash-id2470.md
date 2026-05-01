@@ -71,3 +71,21 @@ It also makes it quite difficult for a casual reader to reach the actual point o
 
 -------------------------
 
+keys | 2026-05-01 18:12:07 UTC | #4
+
+Apologies - it was my first post and acedemic paper and I was a little excited to share this and had moved pretty rapidly on building it since.. I’ll try to communicate a little clearer moving forward.
+
+The distinction is **\*\*threshold inversion\*\***. The bearer holds kB and kC, which together form the full key-path spend (\`MuSig2_sign(kB, kC)\`). The issuer holds only kA, which appears only in script-tree fallback leaves (2-of-3 OP_CHECKSIGADD and a CLTV recovery path), never in the key-path aggregate. kA is cryptographically irrelevant to spending. Even if kA is never deleted, the issuer cannot spend, cannot block a spend, and cannot be compelled to enable one. Deletion of kA is hygiene, not a security assumption.
+
+This is the inversion from other implementations where the issuer holds a key *\*at\** the spending threshold. MBI’s issuer holds a key *\*below\** it. No TEE or HSM is required. The issuer’s inability to spend is enforced by the Taproot output structure, where the MuSig2 aggregate commits only to KB and KC.
+
+For p2p this has the same property as any bearer instrument, physical or digital: the sender could attempt to race the receiver to spend. The difference is that this method gives the receiver a concrete verification path that other mints cannot: the receiver verifies the UTXO on two independent nodes, monitors the mempool for competing spends, and sweeps to their own address before the transfer is considered final. Once swept, the sender’s copy of the keys is worthless. For merchant settlement (where the KMS can be set to  immediately sweep on receipt), finality is seconds.
+
+The buyer-generated key issuance protocol (buyer generates kB+kC via BIP32 HD derivation, transmits only public keys KB+KC to the issuer) closes the malicious-issuer vector by ECDLP intractability. The issuer never possesses the bearer private keys at any point.
+
+One thing I did not mention above that is relevant to the deletion concern: the Nostr receipt mechanism. Before the sender deletes kB and kC, it requires a cryptographic proof from the receiver, specifically ECDSA Sig(kB, nonce) verified against KB. The sender only deletes after verifying that signature. So the sequencing is: receiver proves possession of kB cryptographically, then sender deletes. The receiver does not need to trust that deletion occurred because sweep provides the finality, but the receipt gives the sender a principled trigger for deletion rather than a timer or a trust assumption.
+
+The NC1 gate adds a second condition: on-chain UTXO confirmation must also pass before deletion occurs. A forged receipt for an unfunded address cannot trigger key deletion on the sender side. Both gates must pass independently.
+
+-------------------------
+
