@@ -244,3 +244,25 @@ hum, I’d say it’ll be a pain to maintain
 
 -------------------------
 
+scarlin90 | 2026-05-01 15:46:58 UTC | #4
+
+Hey @pyth, the structural flow here looks solid.
+
+I am currently developing Signingroom.io, which acts purely as a coordinator rather than a full software wallet. My focus is entirely on allowing signers to easily gather, communicate, and merge their signatures. Right now, I’m working on implementing fountain QRs to make that air-gapped multisig experience as frictionless as possible.
+
+While I haven’t dived deep into the Miniscript parsing side myself, I am very focused on the transport layer. From a coordinator’s perspective, where bandwidth is important, here is my feedback on the payloads:
+
+1. I strongly prefer Option B (Signatures only). As a coordinator, I already hold the state of the full PSBT. Returning the full PSBT (Option A) forces the hardware device to transmit kilobytes of redundant data, requiring a long, dense animated QR. Returning just the signatures drops the payload to a few hundred bytes, which can often be displayed as a single, static QR frame. One note on Option B: Since the coordinator might be managing multiple sessions, it would be highly useful to include a lightweight identifier in this payload (like the unsigned txid, a hash of the PSBT, or a simple session_id). This allows the coordinator to instantly verify the signatures belong to the correct active PSBT before attempting to merge them.
+
+
+2. I completely agree with @odudex regarding feature flags. As a coordinator, relying on model and version strings in the Get Xpubs payload forces maintenance of a centralized, constantly updating lookup table of every hardware device on the market. Swapping that out for a device-agnostic array (e.g., supported_features: \[“taproot”, “miniscript”\]) is much more scalable and future-proof.
+
+3. Relying on an optional error field feels a bit brittle too. Moving toward a standardized set of integer error codes would allow coordinators to programmatically route users to specific UI fixes rather than just dumping raw text on the screen. (Something similar to JSON-RPC error codes could be a great model here).
+
+Overall, this is a step in the right direction in my opinion. Once the proposal matures, I’d love to support this workflow and would be very open to collaborating on the transport/QR side of things once I get the traditional PSBT fountain QR codes implemented in signing room.
+
+All the best,
+Sean Carlin
+
+-------------------------
+
