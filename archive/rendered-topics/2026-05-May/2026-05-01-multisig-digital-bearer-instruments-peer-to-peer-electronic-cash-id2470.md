@@ -57,3 +57,17 @@ The paper at the DOI link above has been updated to reflect P2TR/MuSig2 as the p
 
 -------------------------
 
+AdamISZ | 2026-05-01 15:40:33 UTC | #3
+
+I don't understand why a protocol based on "transfer private key, then delete it" is interesting [1], since the receiver can never know for sure that it has indeed been deleted, and the sender is economically incented to save it somewhere.
+
+Of course with a TEE/HSM etc. you can always argue that arbitrary computation can be trusted (indeed, Mercury for example did that), and in this model you can do basically anything. It seems to fit more client-server than p2p though, as demanding every participant have such an HSM is not only impractical (isn't it?) but also a bad trust model (how do you know they are using it? Attestation I guess?). I'm a bit vague on this because I've always thought these models are dubious just in general, but that's arguable to be fair.
+
+I also don't understand why your paper spends the first several pages repeating in many, many different ways that Key A is deleted; it's a pretty simple concept! Honestly I'm not sure that having a third key adds that much, but, fair enough, it is an extra element you can use in an "Issuance" scenario.
+
+It also makes it quite difficult for a casual reader to reach the actual point of the protocol, which is that key B and key C are deleted, since this is what effects the transfer.
+
+[1] well, I mean basing transfer of actual ownership purely on that; there are fancy, complex protocols that have key deletion as part of their operation: a good example is emulating covenants with large scale setup ceremonies, doing Shamir secret sharing to produce an output, then you only need 1 of n people to honestly delete. And there are even fancier ideas that include key deletion .. but "you have my coins at this private key because I deleted it" is not such a thing.
+
+-------------------------
+
