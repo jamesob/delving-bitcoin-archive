@@ -7,15 +7,15 @@
   "cooked": "<p>Here\u2019s a writeup of a protocol for zero-conf transactions using a co-signing server trusted by the recipient.</p>\n<p>It\u2019s similar in spirit to the 2FA mechanism implemented in Blockstream Green, but uses a connector output so the recovery timelock only starts when unilateral exit is initiated. This means long-lived UTXOs don\u2019t need periodic timelock refreshes/redeposits.</p>\n<aside class=\"onebox githubgist\" data-onebox-src=\"https://gist.github.com/RobinLinus/b9fcbb0e5de19ec6b9a80aa848a94253\">\n  <header class=\"source\">\n\n      <a href=\"https://gist.github.com/RobinLinus/b9fcbb0e5de19ec6b9a80aa848a94253\" target=\"_blank\" rel=\"noopener nofollow ugc\">gist.github.com</a>\n  </header>\n\n  <article class=\"onebox-body\">\n    <h4><a href=\"https://gist.github.com/RobinLinus/b9fcbb0e5de19ec6b9a80aa848a94253\" target=\"_blank\" rel=\"noopener nofollow ugc\">https://gist.github.com/RobinLinus/b9fcbb0e5de19ec6b9a80aa848a94253</a></h4>\n\n  <h5>zeroconf.md</h5>\n  <pre><code class=\"Markdown\"># Protocol for Zero-Confirmation Bitcoin Payments\n\n## Overview\n\nThis protocol lets a Bitcoin user make zero-confirmation payments while retaining a trustless unilateral exit path if the co-signing server disappears or refuses to cooperate.\n\n- The user keeps funds in a confirmed `2-of-2` multisig with a co-signing server.\n- The co-signer enforces a policy of not signing conflicting spends.\n- Recipients can accept zero-confirmation payments if they trust the co-signer's policy.\n- The user receives a pre-signed unilateral exit transaction before depositing funds.</code></pre>\n   This file has been truncated. <a href=\"https://gist.github.com/RobinLinus/b9fcbb0e5de19ec6b9a80aa848a94253\" target=\"_blank\" rel=\"noopener nofollow ugc\">show original</a>\n\n\n  </article>\n\n  <div class=\"onebox-metadata\">\n    \n    \n  </div>\n\n  <div style=\"clear: both\"></div>\n</aside>\n",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 3,
   "updated_at": "2026-05-03T04:12:15.763Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 2,
-  "reads": 9,
-  "readers_count": 8,
-  "score": 11.8,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 18.0,
   "yours": false,
   "topic_id": 2475,
   "topic_slug": "protocol-for-zero-conf-transactions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Here\u2019s a writeup of a protocol for zero-conf transactions using a co-signing server trusted by the recipient.\n\nIt\u2019s similar in spirit to the 2FA mechanism implemented in Blockstream Green, but uses a connector output so the recovery timelock only starts when unilateral exit is initiated. This means long-lived UTXOs don\u2019t need periodic timelock refreshes/redeposits.\n\nhttps://gist.github.com/RobinLinus/b9fcbb0e5de19ec6b9a80aa848a94253",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Here\u2019s a writeup of a protocol for zero-conf transactions using a co-signing server trusted by the recipient. \nIt\u2019s similar in spirit to the 2FA mechanism implemented in Blockstream Green, but uses a connector output so the recovery timelock only starts when unilateral exit is initiated. This means &hellip;",
   "truncated": true,
   "post_url": "/t/protocol-for-zero-conf-transactions/2475/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
