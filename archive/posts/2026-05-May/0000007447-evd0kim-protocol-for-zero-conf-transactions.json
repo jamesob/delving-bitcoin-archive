@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2475,
   "topic_slug": "protocol-for-zero-conf-transactions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thank you bookmarked.\n\nI was thinking about connectors while working on draft ideas https://delvingbitcoin.org/t/zk-statechains-without-states/2166 and a prototype implementation https://delvingbitcoin.org/t/ciphera-a-bitcoin-zk-appchain-implementation/2285. While I choose to work on [Blind Vaults version](https://delvingbitcoin.org/t/building-a-vault-using-blinded-co-signers/2141)  - I also reused parts of the demo code - i was keeping in mind connectors might be very effective in revoking states, instead of schemes used in LN, but didn't have capacity to do this research. This post helps very much to fill gaps.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thank you bookmarked. \nI was thinking about connectors while working on draft ideas <a href=\"https://delvingbitcoin.org/t/zk-statechains-without-states/2166\" class=\"inline-onebox\">ZK-Statechains Without States</a> and a prototype implementation <a href=\"https://delvingbitcoin.org/t/ciphera-a-bitcoin-zk-appchain-implementation/2285\" class=\"inline-onebox\">Ciphera - a Bitcoin ZK Appchain Implementation</a>. While I choose to work on <a href=\"https://delvingbitcoin.org/t/building-a-vault-using-blinded-co-signers/2141\">Blind Vaults version</a>  - I also reused parts of the demo code - i was keeping in m&hellip;",
   "truncated": true,
   "post_url": "/t/protocol-for-zero-conf-transactions/2475/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
