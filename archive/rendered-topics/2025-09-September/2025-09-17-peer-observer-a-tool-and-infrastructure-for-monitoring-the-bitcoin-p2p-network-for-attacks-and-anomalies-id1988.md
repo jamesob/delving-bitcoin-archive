@@ -103,3 +103,13 @@ The current goal is to get a "version 1.0" out at some point with the above ment
 
 -------------------------
 
+0xB10C | 2026-05-04 12:01:47 UTC | #5
+
+On the infrastructure side I've been experimenting on running continues profiling on the hosts along with the node. This allows to see in which function the node is spending it's time. During an active DoS bug/attack, we can look what code paths are causing this. The data is stored for a few days and allows us to go back and can be inspected a for a certain time-range too. At the moment I'm using https://parca.dev for this as it integrates well with Grafana. I think https://github.com/anakryiko/wprof is also an option. It doesn't integrate with Grafana AFAIK, but stores tracing data as https://perfetto.dev/ files and can be stored and analyzed later. Yet another option would be to roll our own callstack-extractor only hooking into Bitcoin Core (not system wide) as described in https://github.com/peer-observer/peer-observer/issues/391 - more work on our side, but can be specialized for Bitcoin Core.
+
+The current Grafana-based parca flamegraph looks similar to this:
+
+![parca dev flamegraph of bitcoind visualized on Grafana|690x374](upload://otFYF7WiOve3oOLwHcTzYMH3IFp.jpeg)
+
+-------------------------
+
