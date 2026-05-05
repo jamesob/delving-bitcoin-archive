@@ -81,3 +81,9 @@ Whitepaper: https://github.com/dev865077/NITI/blob/ab9363f2d118f799a6d80e7751952
 
 -------------------------
 
+nkohen | 2026-05-05 14:46:05 UTC | #2
+
+Perhaps I'm missing something obvious, but I'm confused as to why you can't just have the parent CET act as the child funding tx, and then avoid all other complexity? Since the CET is locked using an adaptor signature I don't see why you would need to further use $s_x$ in locking the child DLC since it can already only be funded if the parent CET is unlocked.
+
+-------------------------
+
