@@ -115,3 +115,13 @@ Are you able to elaborate on what these corner cases are exactly? Was it the cas
 
 -------------------------
 
+purszki | 2026-05-05 16:15:00 UTC | #6
+
+Fuse filters require more than two elements in a set. For example, if a block contains only one element, an upper layer on top of the fuse filter must handle that case.
+
+This wasn’t critical for the benchmarking, so I just fidnt  implement this logic yet. It’s an easy fix.
+
+Regarding re-seeding: as far as I recall, it didn’t occur in the 50k mainnet dataset, but give me some time, I’ll need to verify once I have access to my laptop.
+
+-------------------------
+
