@@ -104,3 +104,14 @@ My current intuition is that this should be solvable, but I didn’t work on the
 
 -------------------------
 
+rustaceanrob | 2026-05-05 15:36:59 UTC | #5
+
+[quote="purszki, post:3, topic:2428"]
+For Fuse filters, 55 blocks are currently skipped because I have not handled the tiny-filter corner cases yet
+
+[/quote]
+
+Are you able to elaborate on what these are exactly? Was it the case that the construction algorithm failed and would need to be re-seeded?
+
+-------------------------
+
