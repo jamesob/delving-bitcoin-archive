@@ -13,9 +13,9 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 16.4,
   "yours": false,
   "topic_id": 2428,
   "topic_slug": "binary-fuse-filters-as-an-alternative-to-bip-158-gcs",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Fuse filters require more than two elements in a set. For example, if a block contains only one element, an upper layer on top of the fuse filter must handle that case.\n\nThis wasn\u2019t critical for the benchmarking, so I just fidnt  implement this logic yet. It\u2019s an easy fix.\n\nRegarding re-seeding: as far as I recall, it didn\u2019t occur in the 50k mainnet dataset, but give me some time, I\u2019ll need to verify once I have access to my laptop.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Fuse filters require more than two elements in a set. For example, if a block contains only one element, an upper layer on top of the fuse filter must handle that case. \nThis wasn\u2019t critical for the benchmarking, so I just fidnt  implement this logic yet. It\u2019s an easy fix. \nRegarding re-seeding: as &hellip;",
   "truncated": true,
   "post_url": "/t/binary-fuse-filters-as-an-alternative-to-bip-158-gcs/2428/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
