@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Perhaps I'm missing something obvious, but I'm confused as to why you can't just have the parent CET act as the child funding tx, and then avoid all other complexity? Since the CET is locked using an adaptor signature I don't see why you would need to further use $s_x$ in locking the child DLC since it can already only be funded if the parent CET is unlocked.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Perhaps I\u2019m missing something obvious, but I\u2019m confused as to why you can\u2019t just have the parent CET act as the child funding tx, and then avoid all other complexity? Since the CET is locked using an adaptor signature I don\u2019t see why you would need to further use s_x in locking the child DLC since i&hellip;",
   "truncated": true,
   "post_url": "/t/cascading-dlcs-chaining-bitcoin-contracts-with-oracle-attestation-scalars/2473/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
