@@ -510,3 +510,22 @@ Beyond the quantum concern, spending non-dust UTXOs before the dust is also a go
 
 -------------------------
 
+bubb1es | 2026-05-06 02:25:30 UTC | #32
+
+For those of you following along at home, some big new developments on this project.
+
+* The bitcoin/bips editors have assigned [BIP 451](https://github.com/bitcoin/bips/pull/2150) to our proposed “Dust UTXO Disposal Protocol”
+* @harris and I have updated the reference `ddust` tool to implement the revised BIP 451 spec. Notable changes include:
+  * All disposal transactions now use the same `OP_RETURN “ash”`output; transactions are slightly larger but have more opportunities to be batched
+  * Batching logic accurately follows RBF calculations for bitcoin core 31.0 cluster mempool
+  * By default (but optional) dust UTXOs will only be dispose of if there are no non-dust UTXOs using the same address; prevents prematurely revealing the address public key
+  * Tested with bitcoin core 31.0 and `-privatebroadcast`; improves privacy
+
+See all the [PRs details](https://github.com/bubb1es71/ddust/pulls?q=is%3Apr+is%3Aclosed).
+
+We’re still looking for feedback on the draft BIP if anyone has any new suggestions.
+
+A big thanks to everyone in this thread, the current spec is vastly better because of your constructive input.
+
+-------------------------
+
