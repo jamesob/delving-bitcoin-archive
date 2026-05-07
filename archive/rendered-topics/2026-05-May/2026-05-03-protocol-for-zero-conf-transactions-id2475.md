@@ -38,3 +38,9 @@ I was thinking about connectors while working on draft ideas https://delvingbitc
 
 -------------------------
 
+polespinasa | 2026-05-07 09:00:42 UTC | #4
+
+Haven't read the full write-up, but just for the tittle it remained me of https://link.springer.com/article/10.1007/s10207-018-0422-4, maybe you would like to take a look at it if you didn't know about it.
+
+-------------------------
+
