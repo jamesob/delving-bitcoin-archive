@@ -29,3 +29,15 @@ Code: [https://github.com/aaron-recompile/inquisition-experiments/blob/91ca2fcee
 
 -------------------------
 
+Laz1m0v | 2026-05-07 20:21:59 UTC | #2
+
+This is brilliant engineering for the Script era, Aaron. But manually stitching 212-byte preimages together with `OP_CAT` just to bind two inputs feels like using flint to start a fire inside a nuclear reactor.
+
+While you guys are doing stack gymnastics on Inquisition and praying for a 2030 soft fork, we are enforcing this exact topology directly in Simplicity (`.simf`) with a single mathematical assertion.
+
+In our TUSM architecture, we don't hack preimages to simulate binding. The state is locked into the Taproot address itself via pure SHA-256 streaming. Absolute L1 bivalence. Pass or Trap.
+
+Let `OP_CAT` rest in peace and come forge in the steel with us. The covenant *is* the consensus.
+
+-------------------------
+
