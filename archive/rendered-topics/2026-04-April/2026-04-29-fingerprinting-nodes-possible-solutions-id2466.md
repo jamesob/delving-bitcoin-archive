@@ -134,3 +134,19 @@ Thoughts and feedback are welcome
 
 -------------------------
 
+danielabrozzoni | 2026-05-07 14:54:27 UTC | #2
+
+Thanks for sharing the various solutions we've been considering :)
+
+Regarding fuzzing: I think it makes sense to only fuzz to make the timestamps older, never fresher. This means risking that addresses age too quickly, but the self announcements are hopefully enough to refresh the timestamps. The opposite problem, refreshing timestamps and potentially having departed nodes never leave addrman is far worse. (As linked in the post already, you can read how this can happen here: [#33498 (comment)](https://github.com/bitcoin/bitcoin/pull/33498#pullrequestreview-3319680730))
+
+I partially like solution 2 - I think the idea of sending different timestamps based on whether the requester and we are on the same network or not is very interesting, and a clean way to fix the fingerprinting. 
+
+I wonder whether, instead of implementing what you described, we could apply **fuzzing** only when the requester is on a different network, rather than using a fixed timestamp. This would essentially combine solutions 2 and 3:
+- same network: real timestamp
+- different network: real timestamp aged by random number of minutes between 1 and 10 days
+
+This would remove the concern you pointed out of refreshing timestamps.
+
+-------------------------
+
