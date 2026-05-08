@@ -381,3 +381,27 @@ The OP_RAND PoC: [https://github.com/distributed-lab/op_rand](https://github.com
 
 -------------------------
 
+pGerhart | 2026-05-08 08:56:38 UTC | #13
+
+Hi everyone,
+
+Great to see this work and the discussion here!
+
+I am Paul Gerhart, a PhD student at TU Wien. My recent work focuses on atomic swaps and payment channels, including formal foundations for adaptor signatures (ia.cr/2024/1809) and fair exchange protocols for blockchains (ia.cr/2025/388,ia.cr/2026/395).
+
+Jay, Aravind, and I have been working on a primitive called probabilistic swaps. A probabilistic swap is like an atomic swap, but one party's transfer is executed with a fixed, publicly verifiable probability. 
+
+You can find our paper here: https://arxiv.org/abs/2605.04975 .
+
+While working on this, we noticed that our work is motivated by the same goal as the OP_RAND proposal in this thread: enabling trustless randomized outcomes on Bitcoin. The key difference in our approach is that we use evaluation of oblivious pseudorandom functions (OPRFs) as-a-service to realize the probabilistic outcome. 
+
+This improves efficiency: only the dealer needs to send a zero-knowledge proof (NIZK), and the other party does not compute any proof at all. 
+
+We actually provide two instantiations of the well-formedness proof. The first uses Bulletproofs and achieves a proving time that is almost constant, regardless of the winning probability. The second instantiation is based on a cut-and-choose technique and avoids instantiating the random oracle entirely. For winning probabilities greater than 2^{-12} the cut-and-choose instantiation is, in fact, more efficient than the Bulletproof instantiation, making it the better choice in many practical settings. 
+
+We provide formal security definitions and proofs to support this, and demonstrate the protocol's practicality by deploying it on the Bitcoin testnet and in the Lightning Network.
+
+We would love to hear your thoughts and welcome any feedback or suggestions!
+
+-------------------------
+

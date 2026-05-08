@@ -150,3 +150,11 @@ This would remove the concern you pointed out of refreshing timestamps.
 
 -------------------------
 
+ArmchairCryptologist | 2026-05-08 09:36:15 UTC | #3
+
+I may be missing something obvious, but would it not be an option to restrict GETADDR to only return entries corresponding to the network the request arrives from?
+
+Obviously, this means a fresh node would have to connect to at least one IPv6 node to get more IPv6 node addresses and at least one Tor node to get more Tor node addresses (etc), so it has the drawback of relying more on the hardcoded seed nodes to get going initially, but making the returned address sets fully distinct should solve this type of cross-network fingerprinting.
+
+-------------------------
+
