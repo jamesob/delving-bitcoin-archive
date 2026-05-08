@@ -109,3 +109,23 @@ Echelon Labs Research
 
 -------------------------
 
+conduition | 2026-05-08 18:07:44 UTC | #2
+
+Hey there, I have a couple of questions:
+
+(1) Why introduce another new output type, distinct from P2MR? The proposed output type commits only to an ML-DSA key, and doesn't allow for script trees or other complex spending conditions. It's more comparable to P2WPKH in that respect, and shares the limitations thereof. Why go this way instead of enabling ML-DSA in tapscript so it can be used in P2MR?
+
+One observation of note is that by restricting the new output type to solely ML-DSA, we would willingly discard any cryptographic agility. Coins locked to this new witness program could _only_ be spent with ML-DSA, so if ML-DSA is broken in a way which permits in-flight attacks, those coins are vulnerable and would need a rescue protocol soft fork similar to what ECC-locked coins will need after Q-Day.
+
+(2) What's the logic for using ML-DSA-65 (192 bit security) instead of the smaller 128-bit security level parameter set, ML-DSA-44? In the BIP you hand-wave this choice away with the following statement:
+
+> Level 3 is the middle, and the middle is right.
+
+ML-DSA-44 has the same classical security level as secp256k1 (128 bits), and is significantly smaller. Why is 192 bits necessary? 
+
+(3) If we deploy ML-DSA with no additional witness discounts, we'd be reducing TPS massively. How do you plan to scale this proposal?
+
+(4) Why is this any better than adding SLH-DSA with smaller parameter sets? You can get 128-bit secure SLH-DSA with approximately the same or smaller key+signature size than ML-DSA by reducing parameter set size. You can get significantly smaller and faster signatures by using stateful hash-based schemes like XMSS (as small as a few hundred bytes). And hash-based signatures don't come with new cryptographic assumptions. What is the justification for ML-DSA over hash-based?
+
+-------------------------
+
