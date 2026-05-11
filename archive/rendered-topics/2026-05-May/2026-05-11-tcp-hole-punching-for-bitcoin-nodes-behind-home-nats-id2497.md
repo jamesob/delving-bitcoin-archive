@@ -1,6 +1,6 @@
 # TCP hole punching for Bitcoin nodes behind home NATs?
 
-0xB10C | 2026-05-11 07:55:30 UTC | #1
+0xB10C | 2026-05-11 13:26:22 UTC | #1
 
 While @willcl-ark and I were discussing 
 https://bnoc.xyz/t/did-the-number-of-reachable-nodes-in-residential-isps-increase-since-bitcoin-core-v30-0/122, which indicates that making `-natpmp=1` in Bitcoin Core might not have had the hoped effect yet of making more nodes behind a home router NAT reachable, it occurred to us that we might be able to use TCP hole punching to connect two otherwise unreachable home nodes together.
@@ -63,10 +63,11 @@ Additional, e.g. BIP-324 has the concept of a Initiator and Responder for encryp
 - Paper: Communication Across Network Address Translators: https://pdos.csail.mit.edu/papers/p2pnat.pdf
 - https://en.wikipedia.org/wiki/TCP_hole_punching
 - libp2p hole-punching https://libp2p.io/docs/hole-punching/ and dcutr (matchmaking via a relay, not coordinator) https://libp2p.io/docs/dcutr/
+- Paper: NAT Hole Punching Revisited: https://kops.uni-konstanz.de/server/api/core/bitstreams/29a35a1d-40f1-4290-9d03-dae21f2b9c36/content
 
 -------------------------
 
-0xB10C | 2026-05-11 10:58:07 UTC | #2
+0xB10C | 2026-05-11 12:10:23 UTC | #2
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -165,12 +166,83 @@ So IPv4 TCP hole punching would not work at home nor via phone hotspot due to be
 I would be interested in seeing results from others.
 
 
-| Who | IPv4 NAT | IPv6 NAT |
-|--- | --- | --- |
-| b10c at home & mobile hotspot | APDM | no NAT |
-|Obscura VPN | **EIM** | **EIM** |
-| sipa at home | **EIM** | no NAT |
-| sipa using conference wifi | **EIM** | no IPv6 |
+|Who and what| IPv4 NAT | IPv6 NAT|
+|--- | --- | ---|
+|b10c at home & mobile hotspot | APDM | no NAT|
+|Obscura VPN | **EIM** | **EIM**|
+|@sipa at home | **EIM** | no NAT|
+|@sipa using conference wifi | **EIM** | no IPv6|
+|@willcl-ark via starlink (business local priority) | **EIM** | no NAT |
+|@dunxen at home | **EIM** | no NAT |
+
+-------------------------
+
+willcl-ark | 2026-05-11 11:05:03 UTC | #3
+
+I also vibe-coded a "fun" holepunch program in python to test out the process a little bit, in case it's of interest to anyone else:
+
+https://github.com/willcl-ark/natcat/
+
+It has an optional `stun` command which will hit a [stuntman](https://stunprotocol.org/) server I am running to get your external IP address and port as viewed by a remote entity. (In bitcoin core we can get this info from our peers, if we don't already know it).
+
+Swapping this info with a friend (or second machine) and using the `peer` command at ~ the same time on both instances will attempt a simultaneous connection.
+
+`stdin` is sent to the other side, so you can send characters, files etc.
+
+We had pretty decent results in testing, although we occasionally had to wait a few seconds for router firewalls to forget about their mappings (when we changed ip addresses but not ports), and were thwarted by one hotel NAT configuration.
+
+As noted in the readme we also tried from within various types of containers, over starlink, through a VPN, and all of those chained together, and still saw success.
+
+-------------------------
+
+sipa | 2026-05-11 11:28:20 UTC | #4
+
+I also vibecoded a demo application: https://github.com/sipa/holeroulette
+
+A server is running, you can test with `./client.py 144.217.240.89` to be connected to a random other client.
+
+-------------------------
+
+dunxen | 2026-05-11 12:05:17 UTC | #5
+
+Thanks for this. It’s a topic I’ve also been interested in regarding node reachability although from having messed around with other hole-punching tech like Iroh.
+I’ll take some more time to read up, but just wanted to share the results running your script:
+
+On my home internet connection:
+IPv4: EIM;
+IPv6: no NAT
+
+-------------------------
+
+0xB10C | 2026-05-11 13:14:16 UTC | #6
+
+[quote="0xB10C, post:1, topic:2497"]
+There also was brief discussion on how to make this more private by not requiring a coordnator Carol. Can Alice and Bob, once they’ve figured out their public IP:port behind a EIM NAT, use a e.g. Tor connection to communicate their IP:port to establish a clearnet connection. A protocol without a coordinator makes it a lot easier to reason about the connection either being inbound or outbound, and is likely a lot easier to implement.
+[/quote]
+
+I've been thinking about this a bit and think something like this might work:
+
+A Bitcoin node run at home might not be reachable via clearnet due to NAT, however, many home nodes now support Tor and/or I2P, which allows inbound connections via Tor. It seems possible to coordinate TCP hole punching through Tor or I2P.
+
+A node might want to offer inbound slots via clearnet, but is not reachable. One way to work around this could be the following protocol with node A and node B both being nodes behind a EIM NAT, while also being connected to the Tor and/or I2P network.
+
+- Node A thinks it's unreachable (TBD how to figure this out reliably) but wants to offer clearnet inbound connections.
+- It first needs to figure out if it's behind a EIM NAT. It can do so by opening and establishing two (possibly feeler?) connections to other nodes using `SO_REUSEADDR`/`SO_REUSEPORT` on the socket and checking if the peers return the same port in the version message. This needs to be done only once per network, assuming the NAT configuration does not change.
+- Node A starts to listen on a **dedicated** hole-punch coordination Tor or I2P endpoint only for coordinating hole-punching. Address, transaction, or block relay is not supported on this endpoint. We don't link any other Tor or I2P endpoints that this node might have to this dedicated endpoint.
+- This coordination Tor or I2P endpoint is advertised via `addrv2` message on **clearnet only** (to not link clearnet and Tor/I2P address) with a (new) service flag: e.g. `NODE_HOLEPUNCH`(?). These addresses are relayed as a best effort, but not stored in addrman. This has the goal of them not being relayed after around 10 minutes and not using up space in addrman. The frequency we relay these is TBD. We don't need to self-announce them, if we don't want any more holepunch-inbound connections. This message could also be a new BIP-155 address type for hole punching which could include the Tor or I2P coordination endpoint and the clearnet address (coordinate on `abcdef.onion`  to connect with `203.0.113.24`) the nodes wants inbound connections on. This allows other nodes to filter by e.g. netgroup / AS without needing to make a connection to the coordination endpoint.
+- Node B receives such an announcement via an addrv2-message. It decides it wants to try to open an outbound connection to Node A. It has previously figured out that it's behind a EIM NAT.
+- Node B connects to node A's hole-punch coordination endpoint, and does a version handshake. As part of the connection to this hole-punch coordination endpoint, a request for a hole-punch connection is implicit.
+- Node A now opens a new outbound connection (e.g. a feeler?) to a known good address with `SO_REUSEADDR`/`SO_REUSEPORT` on the socket. The goal is to do a version handshake and learn the NAT `IP:port` of the socket. This likely requires some rate-limiting for some external party to cause Node A to make too many outbound connections.
+- Node B does the same.
+- Node A & B now have a EIM NAT mapped socket they can use to do the simultaneous TCP open and punch through their NATs.
+
+A few notes on how to make this easier, but not without introducing tradeoffs:
+
+- With EIM NATs, we might be able to predict our NAT port (it's often the same we bind on locally, at least from my limited observations). This might allow us to skip the outbound connections Node A and B need to make while already coordinating, making this a lot easier, faster, and causing less churn on the Bitcoin network. This will fail, when our NAT has already a mapping for the same port. The tradeoff here is possibly higher failure rates.
+- An alternative might be to have well-known, static, (and centralized!) Bitcoin-protocol-speaking-servers-but-not-nodes run on the P2P network that just do a version handshake returning the IP:port they see your NAT IP from and then close the connection. These might be run by community members, similar to the DNS seeds. They'd learn about who is trying to open a hole-punch connection, and a passive observer (ISP) would see you making connections to them.
+- Yet another alternative is that all nodes on the network would allow a special IPv4/IPv6 NAT check connection to them where it's implicit that the connection will be shut down right after the version handshake. No need for them to be centralized, but would basically require implementing a STUN service for the P2P network in node software (e.g. Bitcoin Core).
+
+Compared to the approach with a coordinator, this has the benefit of having clear inbound-outbound mechanics. Node B chooses Node A as an outbound. Node B is an inbound to A. The downside is that we need connectivity over Tor/I2P/(CJDNS). However, many node-in-a-box home nodes seem to ship with Tor / I2P on by default.
 
 -------------------------
 

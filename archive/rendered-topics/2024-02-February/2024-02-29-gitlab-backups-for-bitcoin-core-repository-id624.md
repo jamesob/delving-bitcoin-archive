@@ -102,3 +102,11 @@ With github having constant outages lately, I have come to rely more on the mirr
 
 -------------------------
 
+0xB10C | 2026-05-11 11:33:43 UTC | #11
+
+Thank you! I've had an LLM change to how the site is generated last month. It's now a Python script which does two passes over the backup: 1. build an index of all issues and PRs and 2. process each issue and PR individually.
+
+The previous [hugo](https://gethugo.io)-based mirror generation would need to load all issues and PRs into memory at once (could not generate the bitcoin/bitcoin mirror on 16GB RAM systems..) and was significantly slower. The Python version now allows to run this in e.g. GitHub Actions on the backup and host the HTML on GitHub pages. I plan to do this as an alternative to my mirror.
+
+-------------------------
+
