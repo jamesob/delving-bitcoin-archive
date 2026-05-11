@@ -13,9 +13,9 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 624,
   "topic_slug": "gitlab-backups-for-bitcoin-core-repository",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thank you! I've had an LLM change to how the site is generated last month. It's now a Python script which does two passes over the backup: 1. build an index of all issues and PRs and 2. process each issue and PR individually.\n\nThe previous [hugo](https://gethugo.io)-based mirror generation would need to load all issues and PRs into memory at once (could not generate the bitcoin/bitcoin mirror on 16GB RAM systems..) and was significantly slower. The Python version now allows to run this in e.g. GitHub Actions on the backup and host the HTML on GitHub pages. I plan to do this as an alternative to my mirror.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thank you! I\u2019ve had an LLM change to how the site is generated last month. It\u2019s now a Python script which does two passes over the backup: 1. build an index of all issues and PRs and 2. process each issue and PR individually. \nThe previous <a href=\"https://gethugo.io\">hugo</a>-based mirror generation would need to load all issues a&hellip;",
   "truncated": true,
   "post_url": "/t/gitlab-backups-for-bitcoin-core-repository/624/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

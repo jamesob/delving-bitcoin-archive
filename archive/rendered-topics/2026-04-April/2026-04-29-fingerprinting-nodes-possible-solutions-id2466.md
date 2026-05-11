@@ -158,3 +158,15 @@ Obviously, this means a fresh node would have to connect to at least one IPv6 no
 
 -------------------------
 
+danielabrozzoni | 2026-05-11 18:16:32 UTC | #4
+
+Hey @ArmchairCryptologist, I think that’s a very insightful question :) I realized that @murch asked us the same question during [Optech Podcast #360](https://bitcoinops.org/en/podcast/2025/07/01/#fingerprinting-nodes-using-addr-messages), and I didn’t have a great answer then, nor do I have one now...
+
+As Murch mentioned on the podcast, the idea is that having `GETADDR` responses including multiple networks makes it easier for smaller networks to see their addresses relayed, helping them find more peers more easily.
+
+Relatedly, there have been multiple occasions in the past where we had to slightly tweak address relay to ensure that smaller networks could still find peers reliably, see PRs [#22211](https://github.com/bitcoin/bitcoin/pull/22211), [#23077](https://github.com/bitcoin/bitcoin/pull/23077), and [#19728](https://github.com/bitcoin/bitcoin/pull/19728). Those changes relate to self-announcement relay rather than `GETADDR` responses directly, but the two mechanisms work together to propagate addresses throughout the network. As it stands today, we relay self-announcements to one or two peers even when the announcement originates from a network we cannot connect to.
+
+Given the effort that was made into improving propagation, and the fact that we saw some propagation problems over time, I suspect that restricting the `GETADDR` responses to a single network would be met with a lot of resistance. However, I would like to hear the opinion of someone that is more knowledgeable than me about this :)
+
+-------------------------
+

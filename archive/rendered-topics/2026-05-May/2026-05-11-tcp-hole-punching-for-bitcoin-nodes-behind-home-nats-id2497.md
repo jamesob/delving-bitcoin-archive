@@ -246,3 +246,22 @@ Compared to the approach with a coordinator, this has the benefit of having clea
 
 -------------------------
 
+davidgumberg | 2026-05-11 16:53:32 UTC | #7
+
+A description of a reasonable design (that others came up with) for the Bitcoin P2P part of the rendezvous protocol that is over clearnet and requires a third coordinating node, but that might get a real outbound rather than something mutual-inbound:
+
+1. Alice wants to receive inbound connections to her Bitcoin node but is behind NAT.
+2. Alice learns through her ADDRMAN that Charlie runs a node that offers RENDEZVOUS services and opens a RENDEZVOUS-only connection to Charlie.
+3. Alice uses a new ADDRv2 network type to advertise that she can be reached through Charlie.
+4. Bob is looking for nodes to make an outbound connection to and decides to connect to Alice via RENDEZVOUS with Charlie.
+5. All three use the procedure described [above](https://delvingbitcoin.org/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497#p-7486-tcp-hole-punching-1) to attempt a TCP-hole-punched connection from Bob to Alice.
+6. If Alice still has inbound slots available she reconnects to Charlie and awaits new connections.
+
+I am having a hard time reasoning about whether or not there is any trust assumption in Charlie, or if Charlie has any power he wouldn't have had otherwise. Since Charlie does get to decide whether or not Bob's connection to some chosen Alice succeeds iff Charlie is the rendezvous, Charlie seems to have some sway over Bob's outbounds, but how is this any different than if Charlie had advertised addresses that don't work?
+
+If there is some trust in Charlie, this can be avoided by treating all addresses `Charlie` or routable via `Charlie` as one address, so Bob will make a random choice of e.g. `Charlie` to connect to then a second choice randomly from the pool of `Charlie`+`Routable_via_charlie`. In this case `Bob` can treat the connection as a real outbound, this achieves the effect of increasing the number of inbound slots on the network, but I think that the number of independent parties `n` on the network that you have a 1-of-`n` assumption for when bootstrapping onto the network remains the same.
+
+And I think that the Tor/I2P approach described above is an idealized case of this where each node can serve as it's own `RENDEZVOUS`, but this would still have the problem that you have to be picking/trusting the tor/i2p rendezvous address, not the destination address, since an attacker could be spamming the network with fake/bad relays for real addresses.
+
+-------------------------
+
