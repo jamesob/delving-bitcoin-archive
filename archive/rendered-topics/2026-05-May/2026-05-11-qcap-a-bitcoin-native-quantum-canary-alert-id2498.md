@@ -122,3 +122,25 @@ Another part: you didn't mention how the multiparty secret generation algorithm 
 
 -------------------------
 
+garlonicon | 2026-05-12 08:30:35 UTC | #3
+
+[quote="qatkk, post:1, topic:2498"]
+Weaker curve (secp192r1):
+
+[/quote]
+
+There are four elliptic curves, which were generated at the same time, and which have similar properties: [secp160k1](https://std.neuromancer.sk/secg/secp160k1), [secp192k1](https://std.neuromancer.sk/secg/secp192k1), [secp224k1](https://std.neuromancer.sk/secg/secp224k1), and [secp256k1](https://std.neuromancer.sk/secg/secp256k1). If you calculate half of the generator, then you can see this:
+
+```
+secp160k1:         48ce563f89a0ed9414f5aa28ad0d96d6795f9c62
+secp192k1: 0554123b78ce563f89a0ed9414f5aa28ad0d96d6795f9c66
+secp224k1:       3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63
+secp256k1:       3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63
+```
+
+Currently, even secp160k1 was still not yet broken, so we probably should start from that. Maybe even there could be more curves, designed specifically as a challenge, for example something like that: https://github.com/vjudeu/curves1000/tree/master/bits
+
+Which means, that we could have 128-bit curve, then 129-bit curve, and so on, up to some 255-bit curve.
+
+-------------------------
+
