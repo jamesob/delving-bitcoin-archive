@@ -169,3 +169,9 @@ So, I think even preparing some code, which would allow attaching proofs for wha
 
 -------------------------
 
+AdamISZ | 2026-05-12 20:06:29 UTC | #6
+
+That's a very interesting point, that : proving in ZK that a given curve point/pubkey/address corresponds to a secret within a fixed range like 1..2^k and then also use a convincing protocol to avoid "the creator knows the key", are you achieving the *same* as doing what the OP suggests here, i.e. use a key chosen uniformly from a separate curve of order ~ 2^k and then do a DLEQAG, or is it different?
+
+-------------------------
+
