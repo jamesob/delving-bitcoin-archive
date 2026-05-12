@@ -67,7 +67,7 @@ Additional, e.g. BIP-324 has the concept of a Initiator and Responder for encryp
 
 -------------------------
 
-0xB10C | 2026-05-11 12:10:23 UTC | #2
+0xB10C | 2026-05-12 14:52:17 UTC | #2
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -166,14 +166,15 @@ So IPv4 TCP hole punching would not work at home nor via phone hotspot due to be
 I would be interested in seeing results from others.
 
 
-|Who and what| IPv4 NAT | IPv6 NAT|
+|Who and what | IPv4 NAT | IPv6 NAT|
 |--- | --- | ---|
 |b10c at home & mobile hotspot | APDM | no NAT|
 |Obscura VPN | **EIM** | **EIM**|
 |@sipa at home | **EIM** | no NAT|
 |@sipa using conference wifi | **EIM** | no IPv6|
-|@willcl-ark via starlink (business local priority) | **EIM** | no NAT |
-|@dunxen at home | **EIM** | no NAT |
+|@willcl-ark via starlink (business local priority) | **EIM** | no NAT|
+|@dunxen at home | **EIM** | no NAT|
+|@cedarctic at university campus | APDM | -|
 
 -------------------------
 
@@ -262,6 +263,41 @@ I am having a hard time reasoning about whether or not there is any trust assump
 If there is some trust in Charlie, this can be avoided by treating all addresses `Charlie` or routable via `Charlie` as one address, so Bob will make a random choice of e.g. `Charlie` to connect to then a second choice randomly from the pool of `Charlie`+`Routable_via_charlie`. In this case `Bob` can treat the connection as a real outbound, this achieves the effect of increasing the number of inbound slots on the network, but I think that the number of independent parties `n` on the network that you have a 1-of-`n` assumption for when bootstrapping onto the network remains the same.
 
 And I think that the Tor/I2P approach described above is an idealized case of this where each node can serve as it's own `RENDEZVOUS`, but this would still have the problem that you have to be picking/trusting the tor/i2p rendezvous address, not the destination address, since an attacker could be spamming the network with fake/bad relays for real addresses.
+
+-------------------------
+
+cedarctic | 2026-05-12 14:46:56 UTC | #8
+
+Reading up on the discussion here - hole punching seems like an interesting idea to increase network connectivity and robustness to network adversaries.
+
+[quote="0xB10C, post:2, topic:2497"]
+One can use [`nat-check.py`](https://github.com/0xB10C/tcp-nat-check/blob/15784f5d0897e5a3e38e9c9729fc39c60ef0d8fd/nat-check.py) to connect to these and get a classification of their NAT.
+
+[/quote]
+
+A campus network that I used for testing had APDM and varying external IP addresses. IPv6 was disabled.
+
+[quote="0xB10C, post:1, topic:2497"]
+Is there theoretical/academic research or P2P projects using this in the wild that we can learn from?
+
+[/quote]
+
+[This recent paper](https://arxiv.org/html/2604.12484v1#S3) claims a \~70% success rate with both TCP and QUIC (UDP-based transport) using libp2p’s DCUtR.
+
+Thinking ahead if UDP hole punching proves to be much more effective, has there been any discussion in implementing QUIC or a custom UDP-based transport in core?
+
+-------------------------
+
+janb84 | 2026-05-12 14:35:09 UTC | #9
+
+I wonder if this “hole punching” also works for VPN connections, making the node semi clear-net somewhat private.  (Proton has some [special NAT options](https://protonvpn.com/support/moderate-nat)) 
+
+[quote="0xB10C, post:6, topic:2497"]
+Compared to the approach with a coordinator, this has the benefit of having clear inbound-outbound mechanics. Node B chooses Node A as an outbound. Node B is an inbound to A.
+
+[/quote]
+
+I like this approach without a central  coordinator via TOR / I2C. Don’t think it’s the easiest option to get working.
 
 -------------------------
 
