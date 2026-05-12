@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Not sure how relevant, but one thing I\u2019ll add is that NATs with `EIM` may still have \u201cAddress and Port-Dependent Filtering\u201d (`APF`). Meaning that `EIM:APF \u2194 APM:APF` won\u2019t work.\n\nHere\u2019s a great piece on how the various combinations of mapping+filtering affect NAT traversability: https://educatedguesswork.org/posts/nat-part-2/#eim%3Aapf-\u2194-apm%3Aapf",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Not sure how relevant, but one thing I\u2019ll add is that NATs with EIM may still have \u201cAddress and Port-Dependent Filtering\u201d (APF). Meaning that EIM:APF \u2194 APM:APF won\u2019t work. \nHere\u2019s a great piece on how the various combinations of mapping+filtering affect NAT traversability: <a href=\"https://educatedguesswork.org/posts/nat-part-2/#eim%3Aapf-%E2%86%94-apm%3Aapf\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">How NATs Work, Part II: NA&hellip;</a>",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
