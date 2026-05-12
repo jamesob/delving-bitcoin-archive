@@ -13,8 +13,8 @@
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
+  "reads": 4,
+  "readers_count": 3,
   "score": 0.6,
   "yours": false,
   "topic_id": 2497,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"cedarctic, post:8, topic:2497\"]\nThinking ahead if UDP hole punching proves to be much more effective, has there been any discussion in implementing QUIC or a custom UDP-based transport in core?\n[/quote]\n\nA custom UDP-based transport sounds like a very ambitious task. The P2P protocol is inherently stateful in many little ways; there is no real reason why it would need to be, but right now it is, and changing the application layer to drop statefulness would be a huge undertaking. So, directly running the existing application protocol over UDP instead of TCP wouldn't work; duplicates, dropped messages, and out of order delivery would break things.\n\nThat means the options here are effectively either using QUIC, or a custom wrapper that reinvents it. I'm not familiar with how complicated the implementation of this is, but I suspect it wouldn't really be worth the trade-off.\n\nI'm somewhat hopeful that just TCP hole punching can give us a significant part of the benefits already though, knowing that it's more fragile and less supported than UDP hole punching.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "A custom UDP-based transport sounds like a very ambitious task. The P2P protocol is inherently stateful in many little ways; there is no real reason why it would need to be, but right now it is, and changing the application layer to drop statefulness would be a huge undertaking. So, directly runnin&hellip;",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
