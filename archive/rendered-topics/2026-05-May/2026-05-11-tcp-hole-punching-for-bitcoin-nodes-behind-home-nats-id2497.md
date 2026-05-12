@@ -315,3 +315,25 @@ I'm somewhat hopeful that just TCP hole punching can give us a significant part 
 
 -------------------------
 
+hodlinator | 2026-05-12 17:35:39 UTC | #11
+
+On @0xB10C‘s approach of pairing clearnet addresses with an externally reachable Tor service endpoint by the same node for establishing clearnet connections: it seems like it would be fine for nodes that do not also run a P2P Tor service. It makes me wonder if it could increase chances of an adversary in correlating addresses when a node which also runs a P2P Tor service shuts down though. Maybe it’s already bad. Having nodes create new Tor services at the same interval as the new ephemeral addr messages would maybe help.
+
+---
+
+Regarding building a TCP-like protocol over UDP as touched upon by @cedarctic & @sipa I agree it is a major undertaking, but probably a smaller lift than for example multiprocess support being worked on in Core. It still needs champions with a lot of grit though. Maybe the adversarial aspects is what makes people pessimistic? I’ve only seen such protocols used in less adversarial environments, in closed source.
+
+Having the ability to bypass strict ordering / stream semantics on a per packet basis would be at least somewhat beneficial for things like compact block propagation.
+
+Agree on attempting TCP hole punching first though. 🙂
+
+-------------------------
+
+dongcarl | 2026-05-12 19:19:40 UTC | #12
+
+Not sure how relevant, but one thing I’ll add is that NATs with `EIM` may still have “Address and Port-Dependent Filtering” (`APF`). Meaning that `EIM:APF ↔ APM:APF` won’t work.
+
+Here’s a great piece on how the various combinations of mapping+filtering affect NAT traversability: https://educatedguesswork.org/posts/nat-part-2/#eim%3Aapf-↔-apm%3Aapf
+
+-------------------------
+

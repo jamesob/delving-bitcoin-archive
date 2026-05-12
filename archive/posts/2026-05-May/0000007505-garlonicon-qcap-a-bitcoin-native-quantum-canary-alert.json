@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"qatkk\" data-post=\"1\" data-topic=\"2498\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/qatkk/48/1612_2.png\" class=\"avatar\"> qatkk:</div>\n<blockquote>\n<p>Weaker curve (secp192r1):</p>\n</blockquote>\n</aside>\n<p>There are four elliptic curves, which were generated at the same time, and which have similar properties: <a href=\"https://std.neuromancer.sk/secg/secp160k1\" rel=\"noopener nofollow ugc\">secp160k1</a>, <a href=\"https://std.neuromancer.sk/secg/secp192k1\" rel=\"noopener nofollow ugc\">secp192k1</a>, <a href=\"https://std.neuromancer.sk/secg/secp224k1\" rel=\"noopener nofollow ugc\">secp224k1</a>, and <a href=\"https://std.neuromancer.sk/secg/secp256k1\" rel=\"noopener nofollow ugc\">secp256k1</a>. If you calculate half of the generator, then you can see this:</p>\n<pre><code class=\"lang-auto\">secp160k1:         48ce563f89a0ed9414f5aa28ad0d96d6795f9c62\nsecp192k1: 0554123b78ce563f89a0ed9414f5aa28ad0d96d6795f9c66\nsecp224k1:       3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\nsecp256k1:       3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\n</code></pre>\n<p>Currently, even secp160k1 was still not yet broken, so we probably should start from that. Maybe even there could be more curves, designed specifically as a challenge, for example something like that: <a href=\"https://github.com/vjudeu/curves1000/tree/master/bits\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">curves1000/bits at master \u00b7 vjudeu/curves1000 \u00b7 GitHub</a></p>\n<p>Which means, that we could have 128-bit curve, then 129-bit curve, and so on, up to some 255-bit curve.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 5,
   "updated_at": "2026-05-12T08:30:35.029Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 14,
-  "readers_count": 13,
-  "score": 2.8,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 23.2,
   "yours": false,
   "topic_id": 2498,
   "topic_slug": "qcap-a-bitcoin-native-quantum-canary-alert",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"qatkk, post:1, topic:2498\"]\nWeaker curve (secp192r1):\n\n[/quote]\n\nThere are four elliptic curves, which were generated at the same time, and which have similar properties: [secp160k1](https://std.neuromancer.sk/secg/secp160k1), [secp192k1](https://std.neuromancer.sk/secg/secp192k1), [secp224k1](https://std.neuromancer.sk/secg/secp224k1), and [secp256k1](https://std.neuromancer.sk/secg/secp256k1). If you calculate half of the generator, then you can see this:\n\n```\nsecp160k1:         48ce563f89a0ed9414f5aa28ad0d96d6795f9c62\nsecp192k1: 0554123b78ce563f89a0ed9414f5aa28ad0d96d6795f9c66\nsecp224k1:       3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\nsecp256k1:       3b78ce563f89a0ed9414f5aa28ad0d96d6795f9c63\n```\n\nCurrently, even secp160k1 was still not yet broken, so we probably should start from that. Maybe even there could be more curves, designed specifically as a challenge, for example something like that: https://github.com/vjudeu/curves1000/tree/master/bits\n\nWhich means, that we could have 128-bit curve, then 129-bit curve, and so on, up to some 255-bit curve.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "There are four elliptic curves, which were generated at the same time, and which have similar properties: <a href=\"https://std.neuromancer.sk/secg/secp160k1\" rel=\"noopener nofollow ugc\">secp160k1</a>, <a href=\"https://std.neuromancer.sk/secg/secp192k1\" rel=\"noopener nofollow ugc\">secp192k1</a>, <a href=\"https://std.neuromancer.sk/secg/secp224k1\" rel=\"noopener nofollow ugc\">secp224k1</a>, and <a href=\"https://std.neuromancer.sk/secg/secp256k1\" rel=\"noopener nofollow ugc\">secp256k1</a>. If you calculate half of the generator, then you can see this: \nsecp160k1:         48ce563f89a0ed9414f5aa28ad0d96d6795f9c62\nsecp192k1: 0554123b78&hellip;",
   "truncated": true,
   "post_url": "/t/qcap-a-bitcoin-native-quantum-canary-alert/2498/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -144,3 +144,28 @@ Which means, that we could have 128-bit curve, then 129-bit curve, and so on, up
 
 -------------------------
 
+nebula-21 | 2026-05-12 16:45:20 UTC | #4
+
+The chosen curve was mainly selected because it has weaker security, and since we were aware that similar curves exist, this one had better support for the proof of concept implementation.
+
+The idea of having multiple canary addresses is a good one and was never discarded. However, there is also the issue of how much the reward would be split. If the idea does not gain enough traction, the canary bounty being split among multiple addresses might not be sufficient to trigger a CRQC.
+
+-------------------------
+
+garlonicon | 2026-05-12 18:51:30 UTC | #5
+
+> However, there is also the issue of how much the reward would be split.
+
+There are existing N-bit private keys on Bitcoin, for example: https://mempool.space/tx/08389f34c98c606322740c0be6a7125d9860bb8d5cb182c02f98461e5fa6cd15
+
+However, there are many issues with this setup:
+
+* Puzzles from 161 to 256 were [cleared, and moved to easier unsolved ones](https://mempool.space/tx/5d45587cfd1d5b0fb826805541da7d94c61fe432259e68ee26f4a04544384164), because the author thought, that going beyond 160-bit values doesn’t make sense. But it does, if keys are not hashed, so it was probably a mistake.
+* There is no proof, that private keys are weak. There are many examples, that it is probably the case, but even if the author could attach more proofs, by using weaker curves, he simply couldn’t have enough knowledge to do that.
+* The author can sweep all coins at any time. If you use for example secp160k1, then you know for sure, that all private keys are in range from 1 to `0x100000000000000000001b8fa16dfab9aca16b6b2`. And if you have a DLEQ proof, then you know, that the same key is used for a given Bitcoin address. It is mathematically possible to create N-bit puzzles, where everyone would need to solve it, to move them, including the puzzle creator.
+* The progress is not proven trustlessly to everyone, but only to the creator: everyone else has to trust, that the author is not simply sweeping next coins every few months or years, and the actual progress is being made.
+
+So, I think even preparing some code, which would allow attaching proofs for what we have today, would push us at least some steps forward. Because currently, we have just some examples, where people try to solve next puzzles, while heavily trusting the creator, that everything is prepared correctly. Which is far from ideal, but this is what we have here and now.
+
+-------------------------
+
