@@ -301,3 +301,17 @@ I like this approach without a central  coordinator via TOR / I2C. Don’t think
 
 -------------------------
 
+sipa | 2026-05-12 15:14:54 UTC | #10
+
+[quote="cedarctic, post:8, topic:2497"]
+Thinking ahead if UDP hole punching proves to be much more effective, has there been any discussion in implementing QUIC or a custom UDP-based transport in core?
+[/quote]
+
+A custom UDP-based transport sounds like a very ambitious task. The P2P protocol is inherently stateful in many little ways; there is no real reason why it would need to be, but right now it is, and changing the application layer to drop statefulness would be a huge undertaking. So, directly running the existing application protocol over UDP instead of TCP wouldn't work; duplicates, dropped messages, and out of order delivery would break things.
+
+That means the options here are effectively either using QUIC, or a custom wrapper that reinvents it. I'm not familiar with how complicated the implementation of this is, but I suspect it wouldn't really be worth the trade-off.
+
+I'm somewhat hopeful that just TCP hole punching can give us a significant part of the benefits already though, knowing that it's more fragile and less supported than UDP hole punching.
+
+-------------------------
+
