@@ -198,3 +198,11 @@ You could RBF it, if you were a signer of it, of course.
 
 -------------------------
 
+Malia00019 | 2026-05-13 20:36:58 UTC | #13
+
+Quiero que ingresen para uso diario. Y que lo hagan pronto 
+
+es una cantidad muy grande y no la  pueden ingresa
+
+-------------------------
+
