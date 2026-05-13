@@ -41,3 +41,45 @@ Let `OP_CAT` rest in peace and come forge in the steel with us. The covenant *is
 
 -------------------------
 
+AaronZhang | 2026-05-13 18:26:24 UTC | #3
+
+# Taproot-native output binding via sighash preimage decomposition — does this replace CTV?
+
+`sha_outputs` (bytes 138–170 of the BIP-341 SigMsg preimage) is `SHA256(serialized outputs)` — the same digest `OP_CHECKTEMPLATEVERIFY` commits to. Reading this field with the same chunked-witness pattern as the OP gives output binding semantically equivalent to CTV.
+
+### What was done
+
+The tapscript hardcodes the 32-byte expected `sha_outputs`. The witness supplies the preimage in chunks split along the field boundary:
+
+```
+preimage = pre_a || pre_b || pre_c || sha_outputs || post
+             46      46       46         32          42       (bytes)
+```
+
+Each chunk stays under 80 bytes for standardness. The script `OP_EQUALVERIFY`s the `sha_outputs` chunk against the hardcoded value, locks one chunk’s size with `OP_SIZE`, and lets same-signature binding anchor the rest — any shifted reassembly would require a SHA256 collision against the hardcoded value.
+
+The script then reassembles the full 212-byte preimage with `OP_CAT`, computes the TapSighash tagged hash on-stack, and runs `OP_CHECKSIGFROMSTACK` + `OP_CHECKSIG` against the same 64-byte Schnorr signature. If one signature passes both checks, the witness preimage must equal the real sighash — so the `sha_outputs` chunk that was verified is the real `sha_outputs` of this transaction.
+
+`OP_CAT` and `OP_CHECKSIGFROMSTACK` are both active on Bitcoin Inquisition signet, where the experiment runs.
+
+### Tested on Inquisition signet
+
+Fund A: [`05f9372d...`](https://mempool.space/signet/tx/05f9372dff7184ad736373165bc617ba100315bd2c187b0a4c893d796b2ca0cc) — 50,000 sats, output-binding tapscript hardcoding `sha_outputs = eb0fdcd005abb92861dfa7c7680c8a7b417e75c62c823b425615a0bee9082d7d`.
+
+Spend A with the bound output (positive case) — confirmed: [`2f345180...`](https://mempool.space/signet/tx/2f345180bc6654353a247a50559c0be42153707b2ca29b621e57671ed41f37e6) (block 300379). Witness item 5 of that spend is the hardcoded `sha_outputs` value, byte-for-byte.
+
+Attack: spend A with a different output (substituting amount or scriptPubKey) — rejected by `testmempoolaccept` with `Script failed an OP_EQUALVERIFY operation`. The substitution changes the real `sha_outputs`, the hardcoded check fails, and the spend never makes it into a block.
+
+### What this means — does this replace CTV?
+
+For output-binding semantics, yes: this construction enforces what CTV enforces. For deployment economics, no: the witness carries five preimage chunks plus the signature, and the script is larger than a single `OP_CTV` invocation. The point isn’t size or elegance — it’s that the capability sits on already-activated opcodes, alongside the OP’s `sha_prevouts` binding:
+
+* OP ([Post #1](https://delvingbitcoin.org/t/taproot-native-prevout-binding-via-sighash-preimage-decomposition/2483/1)): `sha_prevouts` — input binding (which UTXOs are spent, beyond CTV)
+* this reply: `sha_outputs` — output binding (where the funds go, CTV-equivalent)
+
+Same technique, different sighash field, dual covenant semantics.
+
+Happy to discuss.
+
+-------------------------
+
