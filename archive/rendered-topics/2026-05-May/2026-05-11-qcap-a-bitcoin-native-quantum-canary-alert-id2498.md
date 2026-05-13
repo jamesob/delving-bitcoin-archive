@@ -175,3 +175,17 @@ That's a very interesting point, that : proving in ZK that a given curve point/p
 
 -------------------------
 
+AdamISZ | 2026-05-13 11:36:00 UTC | #7
+
+To attempt to answer my own question:
+
+There's some depth here; at least two questions: is Shor, or a variant of it, in the QC scenario, proportionately easier for smaller discrete logs in 1 group? And: is solving a "small discrete log", size p, problem on a larger curve the same as solving a general discrete log problem on a smaller curve/group of order p?
+
+For the first question apparently [this](https://eprint.iacr.org/2016/1128) paper shows an algo that allows you to use Shor/quantum to solve discrete log proportionately more quickly for a shorter discrete log. Apparently there are follow up papers that address cases where the discrete log is shorter but not half as short (i.e. I think that paper only covers where d, the discrete log is less than sqrt(curve order), i.e. half bit length or less; I think later papers more or less generalize the result to larger bit lengths).
+
+For the second question I don't know, seems a little less clear? If the Ekera algo in the above paper tweaks vanilla Shor, so it's actually a different algo if admittedly still similar (period finding, aG + bP etc.; I don't know the details). So is it "the same" to solve a 192 bit secret on secp, as to solve a same-size secret on secp192r1? My guess would be it should be very similar, but strictly not the same.
+
+Given that lack of clarity on the last part, I'm not sure if there's really much of an argument for using DLEQAG vs just a range proof of the size of the secret; I don't see what it gains you?
+
+-------------------------
+
