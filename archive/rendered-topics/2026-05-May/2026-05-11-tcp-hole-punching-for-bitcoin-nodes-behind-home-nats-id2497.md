@@ -356,3 +356,12 @@ How common are EIM NATs and A(P)DM NATs?
 
 -------------------------
 
+Crypt-iQ | 2026-05-14 19:48:57 UTC | #14
+
+At home:
+IPv4 – EIM
+
+IPv6 – No NAT
+
+-------------------------
+
