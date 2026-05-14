@@ -339,18 +339,20 @@ Here’s a great piece on how the various combinations of mapping+filtering affe
 
 -------------------------
 
-m3dwards | 2026-05-14 15:22:12 UTC | #13
+m3dwards | 2026-05-14 15:27:13 UTC | #13
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
 [/quote]
 
-* Office internet on Mac - v4 EIM, v6 EIM
-* Docker desktop on Mac using bridged networking on office internet - v4 APDM, v6 failed to connect
-* Linux Laptop on office internet - v4 EIM, v6 failed to connect
-* Docker using bridged networking on Linux laptop on office internet - v4 EIM, v6 failed to connect
-* T-Mobile US hotspot - v4 EIM, v6 EIM
-* Home router (OPNSense) v4 APDM, v6 (no IPV6 is configured)
+| Test | V4 | V6 |
+|--- | --- | --- | 
+|Office internet on Mac | EIM | EIM |
+| Docker desktop on Mac using bridged networking on office internet | APDM | Failed to connect |
+| Linux Laptop on office internet  | EIM | Failed to connect |
+| Docker using bridged networking on Linux laptop on office internet | EIM | Failed to connect |
+| T-Mobile US hotspot  | EIM | EIM |
+| Home router (OPNSense) | APDM | No IPV6 is configured |
 
 -------------------------
 
