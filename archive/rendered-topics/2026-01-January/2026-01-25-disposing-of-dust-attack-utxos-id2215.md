@@ -529,3 +529,21 @@ A big thanks to everyone in this thread, the current spec is vastly better becau
 
 -------------------------
 
+bubb1es | 2026-05-14 13:48:56 UTC | #33
+
+Another update, we’ve created a new [bip451](https://github.com/bip451) GitHub org for the [ddust](https://github.com/bip451/ddust), [dusts](https://github.com/bip451/dusts) and any future related repos.  Please see or open issues and PRs at these new locations. 
+
+We are also making a small adjustment to the license on these repos to be `MIT or Apache 2.0`, at the users discretion, to ensure easier adoption for anyone who needs an explicit patent grant. 
+
+A few next steps on the road to moving BIP-451 from “draft” to “complete” and ultimately “deployed”:
+
+1. improve test coverage and fix any bugs in the reference `ddust` client and/or spec
+2. gather more on-chain data about dust attacks to better understand the scope of the issue 
+3. work with wallet and wallet lib projects to add BIP-451 support
+4. create a website to educate bitcoin users about BIP-451 and disposing of dust UTXOs
+5. track and report progress on disposing of main chain dust
+
+If you’re a wallet developer please reach out if you’d be interested in adding BIP-451 support to your project. :folded_hands:
+
+-------------------------
+
