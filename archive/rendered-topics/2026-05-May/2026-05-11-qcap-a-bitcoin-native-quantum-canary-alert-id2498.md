@@ -189,3 +189,19 @@ Given that lack of clarity on the last part, I'm not sure if there's really much
 
 -------------------------
 
+qatkk | 2026-05-14 05:56:27 UTC | #8
+
+>is solving a “small discrete log”, size p, problem on a larger curve the same as solving a general discrete log problem on a smaller curve/group of order p?
+
+This is a very interesting question, at the time of writing the proposal our assumption was that quantum computing algorithms for solving the discrete log for a "small discrete log", with size p, on a larger curve is not the same as solving it for a smaller curve with order p. Having this assumption in mind, it does make sense to provide challenges for different curves with different orders to have challenges with different difficulties.
+
+> For the first question apparently [this](https://eprint.iacr.org/2016/1128) paper shows an algo that allows you to use Shor/quantum to solve discrete log proportionately more quickly for a shorter discrete log. Apparently there are follow up papers that address cases where the discrete log is shorter but not half as short (i.e. I think that paper only covers where d, the discrete log is less than sqrt(curve order), i.e. half bit length or less; I think later papers more or less generalize the result to larger bit lengths).
+
+I just checked the paper and it does seem that the discrete log must be half the bit length of the original order of the curve for their algorithm to work. There are some follow-up papers, [this one](https://arxiv.org/pdf/2309.01754) being the last update. The paper claims to "solve the short DLP in groups of unknown order" with the success probability as high as $1−10^{-10}$ for any short d. It does need an extra post-processing using classical random-walk algorithms. 
+
+Although this seems to be more efficient than the vanilla Shor algorithm, I'm not sure how easier it might be or what the requirements are for the algorithm to "actually" work. 
+
+I’ll read the papers more carefully and share a summary in this thread once I understand the details better.
+
+-------------------------
+
