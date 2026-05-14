@@ -205,3 +205,13 @@ I’ll read the papers more carefully and share a summary in this thread once I 
 
 -------------------------
 
+qatkk | 2026-05-14 06:06:32 UTC | #9
+
+Agree with all the above, the creation of these puzzles are completely trusted. This won't serve in our scenario since the funds being moved from these addresses won't necessarily signal the arrival of cryptographic relevant quantum computers and could just be the owner moving them. 
+
+Other than the points mentioned above, if we assume that solving "smaller discrete logarithms" in a curve with bigger curve order (in our scenario secp256k1) requires the same effort as solving "bigger discrete logarithms" having addresses within a specific smaller range won't help us. In classical algorithms, we are searching within a range for the solution to discrete logarithm which will cause a smaller range to be easier to search than a bigger one, but that doesn't necessarily hold for quantum computers (at least not for Shor's algorithm and not to my knowledge).  
+
+As @AdamISZ mentioned, there are some papers suggesting that it could be easier, which I still need to read more carefully to fully understand.
+
+-------------------------
+
