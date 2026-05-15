@@ -210,11 +210,11 @@ As noted in the readme we also tried from within various types of containers, ov
 
 -------------------------
 
-sipa | 2026-05-11 11:28:20 UTC | #4
+sipa | 2026-05-15 10:21:10 UTC | #4
 
 I also vibecoded a demo application: https://github.com/sipa/holeroulette
 
-A server is running, you can test with `./client.py 144.217.240.89` to be connected to a random other client.
+A server is running, you can test with `./client.py 144.217.240.89` or `./client.py 2607:5300:201:3100::3b74` to be connected to a random other client.
 
 -------------------------
 
