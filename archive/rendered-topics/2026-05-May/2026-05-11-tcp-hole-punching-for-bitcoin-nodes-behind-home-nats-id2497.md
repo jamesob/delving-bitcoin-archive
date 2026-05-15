@@ -1,6 +1,6 @@
 # TCP hole punching for Bitcoin nodes behind home NATs?
 
-0xB10C | 2026-05-11 13:26:22 UTC | #1
+0xB10C | 2026-05-15 09:02:20 UTC | #1
 
 While @willcl-ark and I were discussing 
 https://bnoc.xyz/t/did-the-number-of-reachable-nodes-in-residential-isps-increase-since-bitcoin-core-v30-0/122, which indicates that making `-natpmp=1` in Bitcoin Core might not have had the hoped effect yet of making more nodes behind a home router NAT reachable, it occurred to us that we might be able to use TCP hole punching to connect two otherwise unreachable home nodes together.
@@ -38,6 +38,9 @@ Two approaches were discussed initially, but I feel like the design space is not
 
 2. Inbound handoff instead of eviction: An alternive approach is that both Alice and Bob connect to Charlie, but since Charlies inbound slots are full, it tells them it's going to hand them off to each other and the connection stops. Currently, when inbound slots are full and peers are evicted, we close the connection. Here, we offer them a way to retain a connection, but with a different node.
 
+![grafik|572x452](upload://pLvIbwiAKOrlZsqBS0RGowzyIsI.png)
+
+
 In both of these approaches, Charlie learns that Alice and Bob might now be connected, but not for how long. Alice learns that Bob and Charlie were connected. Bob learns that Alice and Charlie were connected. Both don't know how long they were connected for.
 
 There also was brief discussion on how to make this more private by not requiring a coordnator Carol. Can Alice and Bob, once they've figured out their public IP:port behind a EIM NAT, use a e.g. Tor connection to communicate their IP:port to establish a clearnet connection. A protocol without a coordinator makes it a lot easier to reason about the connection either being inbound or outbound, and is likely a lot easier to implement.
@@ -67,7 +70,7 @@ Additional, e.g. BIP-324 has the concept of a Initiator and Responder for encryp
 
 -------------------------
 
-0xB10C | 2026-05-13 11:52:06 UTC | #2
+0xB10C | 2026-05-15 09:20:30 UTC | #2
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -173,10 +176,19 @@ I would be interested in seeing results from others.
 |@sipa at home | **EIM** | no NAT|
 |@sipa using conference wifi | **EIM** | no IPv6 |
 |@sipa using hotel wifi | **EIM** | no IPv6|
+|@sipa using airport wifi | APDM | no IPv6|
+|@sipa using plane :airplane: wifi (Viasat) | **EIM** | no IPv6 |
 |@willcl-ark via starlink (business local priority) | **EIM** | no NAT|
 |@dunxen at home | **EIM** | no NAT |
 |@cedarctic at university campus | APDM | - |
 |anon using ProtonVPN (default NAT) | APDM | - |
+|@m3dwards using office internet on Mac | **EIM** | **EIM** |
+|@m3dwards using office internet on Linux | **EIM** | no IPv6 |
+|@m3dwards using Docker Desktop on Mac | APDM | no IPv6 |
+|@m3dwards using Docker on Linux | **EIM** | no IPv6 |
+|@m3dwards using T-Mobile US hotspot | **EIM** | **EIM** |
+|@m3dwards using Home router (OPNSense) | APDM | no IPv6 |
+|@Crypt-iQ using home internet | **EIM** | no NAT |
 
 -------------------------
 
@@ -217,7 +229,7 @@ IPv6: no NAT
 
 -------------------------
 
-0xB10C | 2026-05-11 13:14:16 UTC | #6
+0xB10C | 2026-05-15 08:50:41 UTC | #6
 
 [quote="0xB10C, post:1, topic:2497"]
 There also was brief discussion on how to make this more private by not requiring a coordnator Carol. Can Alice and Bob, once they’ve figured out their public IP:port behind a EIM NAT, use a e.g. Tor connection to communicate their IP:port to establish a clearnet connection. A protocol without a coordinator makes it a lot easier to reason about the connection either being inbound or outbound, and is likely a lot easier to implement.
@@ -238,6 +250,9 @@ A node might want to offer inbound slots via clearnet, but is not reachable. One
 - Node A now opens a new outbound connection (e.g. a feeler?) to a known good address with `SO_REUSEADDR`/`SO_REUSEPORT` on the socket. The goal is to do a version handshake and learn the NAT `IP:port` of the socket. This likely requires some rate-limiting for some external party to cause Node A to make too many outbound connections.
 - Node B does the same.
 - Node A & B now have a EIM NAT mapped socket they can use to do the simultaneous TCP open and punch through their NATs.
+
+![grafik|690x345](upload://60AQlEelcMezXAzJgjX7ZC6eADY.png)
+
 
 A few notes on how to make this easier, but not without introducing tradeoffs:
 
@@ -362,6 +377,16 @@ At home:
 IPv4 – EIM
 
 IPv6 – No NAT
+
+-------------------------
+
+b_5 | 2026-05-15 08:20:43 UTC | #15
+
+👋 all, first time poster, I work on iroh, a UDP-based holepunching library built on QUIC: https://github.com/n0-computer/iroh 
+
+Iroh has a 90%+ holepunching rate, and 99%+ connection rate, but uses federated relays similar to a webRTC STUN & TURN servers to achieve these numbers, which I’m assuming is not entirely appropriate for bitcoin. With that said, we’ve spent a lot of time on the topic, Including integrating with TOR, encrypting the exchange of candidate addresses, and employing novel techniques for holepunching itself.
+
+ill keep an eye on this thread & can try to pull in experience & figures where useful!
 
 -------------------------
 
