@@ -172,3 +172,11 @@ EDIT: I realized that we only store in addrman the addresses of nodes that we ca
 
 -------------------------
 
+naiyoma | 2026-05-15 10:01:36 UTC | #5
+
+
+
+Yeah, I like this approach as well. I think it’s possible that self-announcements might be enough to update the timestamps. I haven’t gotten to measure this yet, but will do so soon.
+
+-------------------------
+
