@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 1,
   "incoming_link_count": 1,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 22.2,
   "yours": false,
   "topic_id": 2497,
   "topic_slug": "tcp-hole-punching-for-bitcoin-nodes-behind-home-nats",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"0xB10C, post:1, topic:2497\"]\nHow common are EIM NATs and A(P)DM NATs?\n[/quote]\n\n| Test | V4 | V6 |\n|--- | --- | --- | \n|Office internet on Mac | EIM | EIM |\n| Docker desktop on Mac using bridged networking on office internet | APDM | Failed to connect |\n| Linux Laptop on office internet  | EIM | Failed to connect |\n| Docker using bridged networking on Linux laptop on office internet | EIM | Failed to connect |\n| T-Mobile US hotspot  | EIM | EIM |\n| Home router (OPNSense) | APDM | No IPV6 is configured |",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Test\nV4\nV6\n\n\n\n\nOffice internet on Mac\nEIM\nEIM\n\n\nDocker desktop on Mac using bridged networking on office internet\nAPDM\nFailed to connect\n\n\nLinux Laptop on office internet\nEIM\nFailed to connect\n\n\nDocker using bridged networking on Linux laptop on office internet\nEIM\nFailed to connect\n\n\nT-Mobile &hellip;",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/13",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
