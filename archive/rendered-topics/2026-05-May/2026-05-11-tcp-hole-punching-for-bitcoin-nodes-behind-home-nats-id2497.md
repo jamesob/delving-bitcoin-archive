@@ -70,7 +70,7 @@ Additional, e.g. BIP-324 has the concept of a Initiator and Responder for encryp
 
 -------------------------
 
-0xB10C | 2026-05-15 11:32:15 UTC | #2
+0xB10C | 2026-05-15 20:20:52 UTC | #2
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -182,11 +182,11 @@ I would be interested in seeing results from others.
 |@dunxen at home | **EIM** | **no NAT**|
 |@cedarctic at university campus | APDM | -|
 |anon using ProtonVPN (default NAT) | APDM | -|
-|@m3dwards using office internet on Mac | **EIM** | **EIM**|
+|@m3dwards using office internet on Mac | **EIM** | no IPv6|
 |@m3dwards using office internet on Linux | **EIM** | no IPv6|
 |@m3dwards using Docker Desktop on Mac | APDM | no IPv6|
 |@m3dwards using Docker on Linux | **EIM** | no IPv6|
-|@m3dwards using T-Mobile US hotspot | **EIM** | **EIM**|
+|@m3dwards using T-Mobile US hotspot | **EIM** | no IPv6|
 |@m3dwards using Home router (OPNSense) | APDM | no IPv6|
 |@Crypt-iQ using home internet | **EIM** | **no NAT**|
 
