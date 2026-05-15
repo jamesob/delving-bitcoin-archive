@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.2,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 2497,
   "topic_slug": "tcp-hole-punching-for-bitcoin-nodes-behind-home-nats",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "@0xB10C Perhaps it's overkill, but when applying the hole-punching technique to \"No NAT\" situations (incl. IPv6 where it seems somewhat common), connections look like they succeed as well. That's expected of course, but means hole punching could be used for those even when a firewall or other configuration issue prevents publicly opening a port. So I think you could show those as **bold** in the results table as well.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/0xb10c\">@0xB10C</a> Perhaps it\u2019s overkill, but when applying the hole-punching technique to \u201cNo NAT\u201d situations (incl. IPv6 where it seems somewhat common), connections look like they succeed as well. That\u2019s expected of course, but means hole punching could be used for those even when a firewall or other config&hellip;",
   "truncated": true,
   "post_url": "/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/16",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

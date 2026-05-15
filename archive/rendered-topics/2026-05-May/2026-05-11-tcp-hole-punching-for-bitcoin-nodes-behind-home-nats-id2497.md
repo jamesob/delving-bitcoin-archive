@@ -70,7 +70,7 @@ Additional, e.g. BIP-324 has the concept of a Initiator and Responder for encryp
 
 -------------------------
 
-0xB10C | 2026-05-15 09:20:30 UTC | #2
+0xB10C | 2026-05-15 11:32:15 UTC | #2
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -171,24 +171,26 @@ I would be interested in seeing results from others.
 
 |Who and what | IPv4 NAT | IPv6 NAT|
 |--- | --- | ---|
-|b10c at home & mobile hotspot | APDM | no NAT|
+|b10c at home & mobile hotspot | APDM | **no NAT**|
 |Obscura VPN | **EIM** | **EIM**|
-|@sipa at home | **EIM** | no NAT|
-|@sipa using conference wifi | **EIM** | no IPv6 |
+|@sipa at home | **EIM** | **no NAT**|
+|@sipa using conference wifi | **EIM** | no IPv6|
 |@sipa using hotel wifi | **EIM** | no IPv6|
 |@sipa using airport wifi | APDM | no IPv6|
-|@sipa using plane :airplane: wifi (Viasat) | **EIM** | no IPv6 |
-|@willcl-ark via starlink (business local priority) | **EIM** | no NAT|
-|@dunxen at home | **EIM** | no NAT |
-|@cedarctic at university campus | APDM | - |
-|anon using ProtonVPN (default NAT) | APDM | - |
-|@m3dwards using office internet on Mac | **EIM** | **EIM** |
-|@m3dwards using office internet on Linux | **EIM** | no IPv6 |
-|@m3dwards using Docker Desktop on Mac | APDM | no IPv6 |
-|@m3dwards using Docker on Linux | **EIM** | no IPv6 |
-|@m3dwards using T-Mobile US hotspot | **EIM** | **EIM** |
-|@m3dwards using Home router (OPNSense) | APDM | no IPv6 |
-|@Crypt-iQ using home internet | **EIM** | no NAT |
+|@sipa using plane :airplane: wifi (Viasat) | **EIM** | no IPv6|
+|@willcl-ark via starlink (business local priority) | **EIM** | **no NAT**|
+|@dunxen at home | **EIM** | **no NAT**|
+|@cedarctic at university campus | APDM | -|
+|anon using ProtonVPN (default NAT) | APDM | -|
+|@m3dwards using office internet on Mac | **EIM** | **EIM**|
+|@m3dwards using office internet on Linux | **EIM** | no IPv6|
+|@m3dwards using Docker Desktop on Mac | APDM | no IPv6|
+|@m3dwards using Docker on Linux | **EIM** | no IPv6|
+|@m3dwards using T-Mobile US hotspot | **EIM** | **EIM**|
+|@m3dwards using Home router (OPNSense) | APDM | no IPv6|
+|@Crypt-iQ using home internet | **EIM** | **no NAT**|
+
+As mentioned in this [comment](https://delvingbitcoin.org/t/tcp-hole-punching-for-bitcoin-nodes-behind-home-nats/2497/16?u=0xb10c) by sipa, it seems we could hole punch (through the firewall; not through NAT) for **no NAT** IPv6 too.
 
 -------------------------
 
@@ -354,7 +356,7 @@ Here’s a great piece on how the various combinations of mapping+filtering affe
 
 -------------------------
 
-m3dwards | 2026-05-14 15:27:13 UTC | #13
+m3dwards | 2026-05-15 14:25:55 UTC | #13
 
 [quote="0xB10C, post:1, topic:2497"]
 How common are EIM NATs and A(P)DM NATs?
@@ -362,12 +364,14 @@ How common are EIM NATs and A(P)DM NATs?
 
 | Test | V4 | V6 |
 |--- | --- | --- | 
-|Office internet on Mac | EIM | EIM |
+|Office internet on Mac | EIM | ~~EIM~~ |
 | Docker desktop on Mac using bridged networking on office internet | APDM | Failed to connect |
 | Linux Laptop on office internet  | EIM | Failed to connect |
 | Docker using bridged networking on Linux laptop on office internet | EIM | Failed to connect |
-| T-Mobile US hotspot  | EIM | EIM |
+| T-Mobile US hotspot  | EIM | ~~EIM~~ |
 | Home router (OPNSense) | APDM | No IPV6 is configured |
+
+*Update, there is no IPV6 at the office or on T mobile hotspot so the V6 results are wrong. I think Mac is being helpful and connecting over IPV4 as a fallback.
 
 -------------------------
 

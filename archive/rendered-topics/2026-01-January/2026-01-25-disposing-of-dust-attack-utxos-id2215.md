@@ -547,3 +547,22 @@ If you’re a wallet developer please reach out if you’d be interested in addi
 
 -------------------------
 
+AdamISZ | 2026-05-15 12:15:28 UTC | #34
+
+I'm curious about the section: https://github.com/bubb1es71/bips/blob/686c1b0ed7fc550ab567b2ec94f7e3f58b319e58/bip-0451.md#dust-selection
+
+From your previous post, you seem to be saying this is principally just about not revealing public keys (i.e. the second reason in the BIP draft): 
+
+> By default (but optional) dust UTXOs will only be dispose of if there are no non-dust UTXOs using the same address; prevents prematurely revealing the address public key
+
+I don't quite understand the logic: surely, in practice, it will be *extremely* common that there remain non-dust utxos at the address being dusted. Thus you'd be recommending people not to move a lot of the dust (even worse (imo) they might interpret it as "hurry up and spend your coins at dusted addresses!" which could be bad for various reasons, not least, creating another heuristic for onchain/metadata observers, possibly).
+
+The "problem" of exposed pubkeys already exists in every single wallet/address/bitcoin usage, you cannot redesign protocols for public key cryptography to avoid revealing public keys. Solving the theoretical quantum threat is orthogonal imo. I personally would remove any reference to that.
+
+(Edit: OK, fair enough, this is a special case of reuse which wouldn't exist without dusting. I still don't buy it as a good reason not to de-dust, except perhaps in case of exotic scripts existing "under" a taproot or script-hash address; that seems like a reasonable reason, that you don't want to expose it if there is no taproot override (external key signing) that could hide the business logic).
+
+
+But you wrote two cases, and the first of the two didn't mention hashed pubkeys (I presume you're referring to taproot, then?); is there another reason I'm not noticing?
+
+-------------------------
+
