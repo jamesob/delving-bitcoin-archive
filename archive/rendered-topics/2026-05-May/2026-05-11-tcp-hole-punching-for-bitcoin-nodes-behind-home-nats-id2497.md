@@ -390,3 +390,9 @@ ill keep an eye on this thread & can try to pull in experience & figures where u
 
 -------------------------
 
+sipa | 2026-05-15 10:45:08 UTC | #16
+
+@0xB10C Perhaps it's overkill, but when applying the hole-punching technique to "No NAT" situations (incl. IPv6 where it seems somewhat common), connections look like they succeed as well. That's expected of course, but means hole punching could be used for those even when a firewall or other configuration issue prevents publicly opening a port. So I think you could show those as **bold** in the results table as well.
+
+-------------------------
+

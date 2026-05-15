@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"0xB10C\" data-post=\"1\" data-topic=\"2497\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/0xb10c/48/15_2.png\" class=\"avatar\"> 0xB10C:</div>\n<blockquote>\n<p>How common are EIM NATs and A(P)DM NATs?</p>\n</blockquote>\n</aside>\n<div class=\"md-table\">\n<table>\n<thead>\n<tr>\n<th>Test</th>\n<th>V4</th>\n<th>V6</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>Office internet on Mac</td>\n<td>EIM</td>\n<td>EIM</td>\n</tr>\n<tr>\n<td>Docker desktop on Mac using bridged networking on office internet</td>\n<td>APDM</td>\n<td>Failed to connect</td>\n</tr>\n<tr>\n<td>Linux Laptop on office internet</td>\n<td>EIM</td>\n<td>Failed to connect</td>\n</tr>\n<tr>\n<td>Docker using bridged networking on Linux laptop on office internet</td>\n<td>EIM</td>\n<td>Failed to connect</td>\n</tr>\n<tr>\n<td>T-Mobile US hotspot</td>\n<td>EIM</td>\n<td>EIM</td>\n</tr>\n<tr>\n<td>Home router (OPNSense)</td>\n<td>APDM</td>\n<td>No IPV6 is configured</td>\n</tr>\n</tbody>\n</table>\n</div>",
   "post_number": 13,
   "post_type": 1,
-  "posts_count": 15,
+  "posts_count": 16,
   "updated_at": "2026-05-14T15:27:13.259Z",
   "reply_count": 0,
   "reply_to_post_number": null,

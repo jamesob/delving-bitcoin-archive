@@ -7,7 +7,7 @@
   "cooked": "<p><img src=\"https://delvingbitcoin.org/images/emoji/twitter/waving_hand.png?v=15\" title=\":waving_hand:\" class=\"emoji\" alt=\":waving_hand:\" loading=\"lazy\" width=\"20\" height=\"20\"> all, first time poster, I work on iroh, a UDP-based holepunching library built on QUIC: <a href=\"https://github.com/n0-computer/iroh\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - n0-computer/iroh: IP addresses break, dial keys instead. Modular networking stack in Rust. \u00b7 GitHub</a></p>\n<p>Iroh has a 90%+ holepunching rate, and 99%+ connection rate, but uses federated relays similar to a webRTC STUN &amp; TURN servers to achieve these numbers, which I\u2019m assuming is not entirely appropriate for bitcoin. With that said, we\u2019ve spent a lot of time on the topic, Including integrating with TOR, encrypting the exchange of candidate addresses, and employing novel techniques for holepunching itself.</p>\n<p>ill keep an eye on this thread &amp; can try to pull in experience &amp; figures where useful!</p>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 15,
+  "posts_count": 16,
   "updated_at": "2026-05-15T08:20:43.162Z",
   "reply_count": 0,
   "reply_to_post_number": null,
