@@ -180,3 +180,9 @@ Yeah, I like this approach as well. I think it’s possible that self-announceme
 
 -------------------------
 
+naiyoma | 2026-05-15 10:50:40 UTC | #6
+
+I think another side effect of filtering by network on the sender side is that we risk undershooting getaddr responses by a lot, and this creates a risk of filtering out addresses that could otherwise be stored in the receiver’s AddrMan.
+
+-------------------------
+
