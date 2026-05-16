@@ -566,3 +566,39 @@ But you wrote two cases, and the first of the two didn't mention hashed pubkeys 
 
 -------------------------
 
+bubb1es | 2026-05-16 14:54:48 UTC | #35
+
+[quote="AdamISZ, post:34, topic:2215"]
+The “problem” of exposed pubkeys already exists in every single wallet/address/bitcoin usage, you cannot redesign protocols for public key cryptography to avoid revealing public keys. Solving the theoretical quantum threat is orthogonal imo. I personally would remove any reference to that.
+
+(Edit: OK, fair enough, this is a special case of reuse which wouldn’t exist without dusting. I still don’t buy it as a good reason not to de-dust, except perhaps in case of exotic scripts existing “under” a taproot or script-hash address; that seems like a reasonable reason, that you don’t want to expose it if there is no taproot override (external key signing) that could hide the business logic).
+
+But you wrote two cases, and the first of the two didn’t mention hashed pubkeys (I presume you’re referring to taproot, then?); is there another reason I’m not noticing?
+
+[/quote]
+
+Perhaps we’re being overly cautious here by trying to avoid revealing the public key of an address that contains non-dust UTXOs. But one of the goals with disposing of dust is to avoid any potential reduction in wallet privacy or security just by disposing of the dust. 
+
+We did use the SHOULD language in dust selection part of the spec. since in our reference implementation gives users the option to spend dust that has unspent non-dust UTXOs. But does this cause a user fingerprinting issue? I have to think about that since unlike the quantum stuff it’s a real, non-hypothetical concern. 
+
+On the other hand you bring up another real issue that we don’t want to expose unique hidden tap script paths just to dispose of dust. 
+
+Overall I agree that we want to make disposing of dust as convenient as possible so it actually gets done. But we need to do our Hippocratic duty of first do no harm. I’d like to hear what you and others think about the relative importance of these potential risks:
+
+1. revealing public keys when spending dust
+2. fingerprinting the user/wallet by giving them dust selection options
+3. revealing tap script tree scripts when disposing of TR dust
+4. requiring non-dust UTXOs MUST be spent before disposing of dust for the same address
+
+The happy path dust disposal scenario I have in mind is:
+
+1. dust UTXOs are automatically locked when received (can’t be spent in normal coin selection)
+2. non-dust UTXOs are spent in the normal course of coin selection
+3. dust UTXOs becomes eligible for disposal 
+4. wallet creates & signs dust disposal txs when keys are available
+5. at random times the wallet broadcasts (and tries to batch) signed disposal txs
+
+This procedure applies as well to when someone migrates all their non-dust UTXOs to a new wallet keys/descriptor leaving behind the dust UTXOs.
+
+-------------------------
+
