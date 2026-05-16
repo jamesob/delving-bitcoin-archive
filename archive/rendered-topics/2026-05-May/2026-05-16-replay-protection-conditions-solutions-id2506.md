@@ -18,3 +18,11 @@ Is this summary correct?
 
 -------------------------
 
+garlonicon | 2026-05-16 16:41:03 UTC | #2
+
+> Is this summary correct?
+
+Yes. If you want to confirm it, then you can use regtest for that. By connecting two nodes on localhost, you can check, how the network could behave, and what exactly each node would see in a given circumstances.
+
+-------------------------
+
