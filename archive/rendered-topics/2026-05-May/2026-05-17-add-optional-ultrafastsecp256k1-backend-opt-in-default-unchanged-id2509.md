@@ -1,6 +1,6 @@
 # Add optional UltrafastSecp256k1 backend (opt-in, default unchanged)
 
-shrec | 2026-05-17 00:38:22 UTC | #1
+shrec | 2026-05-17 00:43:27 UTC | #1
 
 ## **Overview**
 
@@ -48,7 +48,7 @@ Shim API coverage:
 
 All numbers from `bench_bitcoin` (Bitcoin Core's native benchmark harness) on Intel i5-14400F, GCC 14.2.0, Release+LTO, `intel_pstate/no_turbo=1`, `taskset -c 0`, `nice -20`, 5 runs.
 
-Canonical artifact: [`docs/BITCOIN_CORE_BENCH_RESULTS.json`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/BITCOIN_CORE_BENCH_RESULTS.json)
+Canonical artifact: [`docs/BITCOIN_CORE_BENCH_RESULTS.json`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/BITCOIN_CORE_BENCH_RESULTS.json)
 
 **Transaction signing:**
 
@@ -75,7 +75,7 @@ Canonical artifact: [`docs/BITCOIN_CORE_BENCH_RESULTS.json`](https://github.com/
 | All Schnorr | 253.0 ms | 255.3 ms | **+0.9% faster** |
 | Mixed (2k Schnorr + 1k ECDSA) | 253.9 ms | 257.7 ms | **+1.5% faster** |
 
-> Without LTO: ConnectBlock is \~0.5–1.0% **slower** than libsecp256k1 due to i-cache pressure from a larger code footprint. LTO is required for Ultra to win the aggregate. This tradeoff is documented in [`docs/SHIM_KNOWN_DIVERGENCES.md`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/SHIM_KNOWN_DIVERGENCES.md).
+> Without LTO: ConnectBlock is \~0.5–1.0% **slower** than libsecp256k1 due to i-cache pressure from a larger code footprint. LTO is required for Ultra to win the aggregate. This tradeoff is documented in [`docs/SHIM_KNOWN_DIVERGENCES.md`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/SHIM_KNOWN_DIVERGENCES.md).
 
 **Bitcoin Core test suite: 749/749 passing** with Ultra backend (GCC 14.2.0, May 2026).
 
@@ -83,7 +83,7 @@ Canonical artifact: [`docs/BITCOIN_CORE_BENCH_RESULTS.json`](https://github.com/
 
 ## **Performance — Constant-Time Signing Primitives**
 
-From [`docs/bench_unified_2026-05-16_gcc14_x86-64.json`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/bench_unified_2026-05-16_gcc14_x86-64.json). CT-vs-CT co-measured in the same run (ratios are TSC-independent):
+From [`docs/bench_unified_2026-05-16_gcc14_x86-64.json`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/bench_unified_2026-05-16_gcc14_x86-64.json). CT-vs-CT co-measured in the same run (ratios are TSC-independent):
 
 | Operation | Ultra CT | libsecp256k1 | Ratio |
 |:---|:---|:---|:---|
@@ -114,7 +114,7 @@ Current state at v4.0.0:
 
 * **CAAS autonomy score: 100/100** (8/8 gates)
 
-Source: [`docs/SECURITY_AUTONOMY_KPI.json`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/SECURITY_AUTONOMY_KPI.json)
+Source: [`docs/SECURITY_AUTONOMY_KPI.json`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/SECURITY_AUTONOMY_KPI.json)
 
 Audit surfaces include: nonce reuse, side-channel timing (dudect), CT boundary verification, batch verify soundness, MuSig2/FROST protocol attacks, adaptor signatures, DER BIP-66 strict parsing, BIP-340/RFC-6979 known-answer tests, Wycheproof vectors, structure-aware fuzzing, differential testing vs libsecp256k1, and Python-based algebraic property testing.
 
@@ -207,13 +207,13 @@ python3 ci/verify_external_audit_bundle.py --allow-commit-mismatch
 
 Key documents:
 
-* [`docs/BITCOIN_CORE_BACKEND_EVIDENCE.md`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/BITCOIN_CORE_BACKEND_EVIDENCE.md) — full reviewer package
+* [`docs/BITCOIN_CORE_BACKEND_EVIDENCE.md`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/BITCOIN_CORE_BACKEND_EVIDENCE.md) — full reviewer package
 
-* [`docs/BENCHMARKS.md`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/BENCHMARKS.md) — benchmark methodology and raw data
+* [`docs/BENCHMARKS.md`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/BENCHMARKS.md) — benchmark methodology and raw data
 
-* [`docs/AUDIT_CHANGELOG.md`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/AUDIT_CHANGELOG.md) — security audit history
+* [`docs/AUDIT_CHANGELOG.md`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/AUDIT_CHANGELOG.md) — security audit history
 
-* [`docs/SHIM_KNOWN_DIVERGENCES.md`](https://github.com/shrec/UltrafastSecp256k1/blob/main/docs/SHIM_KNOWN_DIVERGENCES.md) — documented behavioral differences from libsecp256k1
+* [`docs/SHIM_KNOWN_DIVERGENCES.md`](https://github.com/shrec/UltrafastSecp256k1/blob/01164b75e38bf8565c9be7f595f97a60ba1decf6/docs/SHIM_KNOWN_DIVERGENCES.md) — documented behavioral differences from libsecp256k1
 
 ---
 
