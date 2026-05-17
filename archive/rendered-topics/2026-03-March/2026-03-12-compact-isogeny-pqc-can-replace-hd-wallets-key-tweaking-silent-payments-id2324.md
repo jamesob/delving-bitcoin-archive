@@ -225,3 +225,19 @@ Attacking foundational SIPP and ERP directly seems to me like a challenge with m
 
 -------------------------
 
+conduition | 2026-05-16 22:52:24 UTC | #6
+
+> Multisignature isogeny schemes that can compete with SQIsign and PRISM for compactness are unfortunately still lacking
+
+Some Korean researchers have just published a paper constructing threshold signatures with PRISM: 
+
+https://eprint.iacr.org/2026/945.pdf
+
+Mind you this was literally just published, and could well be insecure. 
+
+The TLDR is that isogenies can be composed, and can be passed through other isogenies (called a "pushforward"). A multisig isogeny key is just a chain of isogenies, and to create a PRISM signature you need only push a prime-degree isogeny from E_0 forward through that chain. If you do it right, the prime degree is preserved and the final pushforward isogeny is a valid PRISM signature. Most of the complexity of that paper seems to lie in turning this idea into a threshold scheme which appears to rely on a trusted dealer. 
+
+However, n-of-n thresholds could still be achieved without a trusted dealer, using a DKG ceremony to produce an isogeny chain. Each party generates a random isogeny starting from the codomain of the prior participant, and the final participant's codomain is the group's pubkey.
+
+-------------------------
+
