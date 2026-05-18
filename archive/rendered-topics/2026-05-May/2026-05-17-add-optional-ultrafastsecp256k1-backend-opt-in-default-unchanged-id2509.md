@@ -221,3 +221,30 @@ Key documents:
 
 -------------------------
 
+shrec | 2026-05-17 22:03:05 UTC | #2
+
+**Update (2026-05-17)**
+
+Two small things done since the original post:
+
+**1. Schnorr verify now accepts any `msglen`**
+
+`secp256k1_schnorrsig_verify` in the shim was previously restricted to `msglen == 32`. Updated to match libsecp256k1's behavior — any length is accepted, with the BIP-340 challenge computed as `H_BIP0340/challenge(R.x || P.x || msg[:msglen])`. The 32-byte path still uses the optimized fixed-length code.
+
+**2. CAAS suite validated against libsecp256k1 itself**
+
+As a sanity check on methodology, ran the CAAS Python audit scripts against bitcoin-core/libsecp256k1 directly using a thin reverse bridge shim:
+
+| Script | Result |
+|----|----|
+| Invalid input grammar (27 cases) | ✅ all pass |
+| RFC 6979 spec verifier (202 vectors) | ✅ all match |
+| Nonce bias detector (5,000 samples) | ✅ no bias (p=0.29) |
+| Semantic properties (2,800 checks) | ✅ all pass |
+
+libsecp256k1 passes everywhere it implements the feature. BIP-32 cases return advisory skip (rc=77) as expected — libsecp has no BIP-32 module.
+
+This confirms the audit suite is testing actual cryptographic properties rather than implementation-specific behavior. The same suite then passes on UltrafastSecp256k1.
+
+-------------------------
+
