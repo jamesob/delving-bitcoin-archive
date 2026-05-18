@@ -107,3 +107,9 @@ I've opened https://github.com/jamesob/delving-bitcoin-archive/pull/1 to check h
 
 -------------------------
 
+0xB10C | 2026-05-18 15:38:08 UTC | #8
+
+Note that the `discourse-archive` tool has an off-by-one bug and might miss some posts: https://github.com/jamesob/discourse-archive/pull/3
+
+-------------------------
+
