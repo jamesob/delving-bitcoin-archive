@@ -125,3 +125,47 @@ Regarding re-seeding: as far as I recall, it didn’t occur in the 50k mainnet d
 
 -------------------------
 
+purszki | 2026-05-18 16:17:58 UTC | #7
+
+First of all, thanks to Mike for bringing this topic to a wider audience on the Bitcoin Optech podcast, also thanks for the guys for reading the documents and for all the feedback.
+
+It seems that people are usually more concerned about the bandwidth usage of light clients than the CPU usage. My understanding is that this was also Rob’s earlier view, and also one of the points raised on the podcast.
+
+Binary Fuse filters are optimized for CPU speed, and I still think they are interesting because they are extremely fast and elegant.
+
+Based on the community feedback, I started to test other possible plug-and-play replacements for GCS. Early results for Ribbon and BuRR look promising.
+
+These are still very preliminary results from a quick prototype over the same 50k-block mainnet dataset. I will publish proper measurements before drawing strong conclusions.
+
+For now, the raw filter bandwidth looks like this:
+
+| Filter | Bandwidth over 50k blocks |
+|----|----|
+| GCS | 972.15 MB |
+| Binary Fuse 16 | 955.89 MB |
+| Ribbon 16 | 779.75 MB |
+| BuRR 16 | 771.38 MB |
+
+So, for raw filter bandwidth, Ribbon-16 and BuRR-16 are about 20% smaller than GCS.
+
+This does not directly mean 20% lower total bandwidth for a wallet, because total bandwidth also depends on block downloads. For larger wallets, block downloads  dominate the total cost. It’s also a question for me, if BIP158 does matter for huge wallets at all.
+
+Here are the false positive rates:
+Here are the false-positive counts for three example wallet sizes:
+
+| Wallet size | Scripts | GCS | Binary Fuse 16 | Ribbon 16 | BuRR 16 |
+|----|---:|---:|---:|---:|---:|
+| Small | 24 | 3 | 19 | 16 | 22 |
+| Medium | 120 | 3 | 79 | 81 | 77 |
+| Large | 480 | 9 | 136 | 137 | 147 |
+
+For huge wallets, the total download bandwidth is still better than with GCS. However, for large wallets, true-positive and false-positive block downloads dominate over the filter size.
+
+Data coming soon.
+
+I’d not bury Binary Fuse filters yet, because they are still very fast. BuRR and Ribbon are not as fast as Fuse filters, but definitely faster than GCS. I didn’t do the correct benchmarks yet.
+
+Thanks again for the feedback. Trying to show detailed results asap.
+
+-------------------------
+
