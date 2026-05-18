@@ -400,3 +400,15 @@ sipa | 2026-05-15 10:45:08 UTC | #16
 
 -------------------------
 
+willcl-ark | 2026-05-18 14:52:14 UTC | #17
+
+I wanted to see how a "sidecar" approach would feel and work based on @sipa's holeroulette server, to require no changes to bitcoin core, and vibe-coded up a simple-enough demo: https://github.com/willcl-ark/bitcoin/tree/tcp-sidecar/contrib/holepunch
+
+The sidecar script connects to the matchmaking server and will be matched with a peer by the server. one side is assigned initiator and one reciever. They then holepunch each other and initiator runs a `bitcoin-cli addnode` command (automatically or manually) to initiate the connection. The connection is proxied via the sidecar on both sides, so both nodes see a local (127.0.0.1) address.
+
+This seems to work pretty nicely, but is reliant on a 3rd party server for "matchmaking".
+
+The default server is running with a signet client connected, in case anyone wants to test it out (using something like `./contrib/holepunch/sidecar.py --cli-command "bitcoin-cli -signet" --bitcoind-host "127.0.0.1:38333" --network signet`).
+
+-------------------------
+
