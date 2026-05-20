@@ -113,3 +113,20 @@ Note that the `discourse-archive` tool has an off-by-one bug and might miss some
 
 -------------------------
 
+1440000bytes | 2026-05-19 21:52:23 UTC | #9
+
+I don't trust these archives (no offense to @jamesob and @ajtowns). One of my posts was deleted and it was important to get the CVE ID. I still managed to get it: https://nvd.nist.gov/vuln/detail/CVE-2025-65548 (9.1 critical).
+
+The post was censored on "bitcoin" dev mailing list.
+
+So, I archive my all posts and comments here. I use archive.org and [archive.is](https://archive.is/) for it.
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20260519215138/https://delvingbitcoin.org/t/public-archive-for-delving-bitcoin/87/9?u=1440000bytes
+
+</details>
+
+-------------------------
+
