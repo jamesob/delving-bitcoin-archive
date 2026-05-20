@@ -130,3 +130,11 @@ https://web.archive.org/web/20260519215138/https://delvingbitcoin.org/t/public-a
 
 -------------------------
 
+0xB10C | 2026-05-20 07:55:55 UTC | #10
+
+I think your comment is completly off-topic. You are obviously welcome to archive the posts yourself and host it on your own infrastructure. I'd even recommend you do - and hopefully others do too.
+
+An archive of this forum can only capture what's on this website at the time of archival. It can't capture a deleted post. Use [archive.org](http://archive.org) and [archive.is](https://archive.is/) if you fear your post is going to be deleted (that seems to be a moderation topic, not an archival topic), yes, but that's for individual posts, not a browsable version of topics and their comments.
+
+-------------------------
+
