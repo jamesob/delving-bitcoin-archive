@@ -169,3 +169,20 @@ Thanks again for the feedback. Trying to show detailed results asap.
 
 -------------------------
 
+rustaceanrob | 2026-05-21 13:02:24 UTC | #8
+
+I’d like to share my thoughts on the problem we are attempting to solve and some statistics I computed. Compact block filter clients are of course block-based sources of information for wallets. That would imply, even if the user is not opening the wallet, the amount of data they have to download is constantly linearly increasing with time. I have recommended to wallet developers that they sync block filters on a regular cadence, say once per week, via a background sync (when the user is on battery and wifi). During this sync, if the user has not opened the wallet, they *probably* won’t be expecting a payment, but we still have to check each block for a small handful of scripts to be sure. A low-bandwidth filter, with higher false positives, would allow app developers to conclude either: 1. we definitely don’t need to check the block range on next app open 2. we have to download X filters on startup. Minimizing the size of filters makes this check more practical, as the OS is less likely to kill the process for it’s running time and bandwidth use.
+
+Pieter has a [great post](https://wuille.net/posts/minimizing-golomb-filters/) on how to minimize the size of a GCS filter given a desired false positive rate. I used this to compute the potential index size for the block range of 480,000 to 940,000. Here are the results for a few parameters:
+
+```
+M: 1533, P: 10, size: 5.891254116 GB
+M: 6132, P: 12, size: 6.868467422 GB
+M: 49058, P: 15, size: 8.334467794 GB
+M: 784931, P: 19, size: 10.289143823 GB
+```
+
+After running this analysis I think a new “bandwidth limited” GCS filter could be interesting for users that know they only have one or a few scripts to query. The script I used to compute the index sizes is available [here](https://github.com/rustaceanrob/filter-analysis/tree/master)
+
+-------------------------
+
