@@ -29,3 +29,11 @@ Nikita
 
 -------------------------
 
+nkaretnikov | 2026-05-21 06:54:18 UTC | #2
+
+I also posted this to the bitcoindev mailing list, which generated some replies:
+
+https://groups.google.com/g/bitcoindev/c/nMO4hyEm5qc
+
+-------------------------
+

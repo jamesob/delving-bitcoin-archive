@@ -558,3 +558,13 @@ Is the custodial fallback your answer to that too, or do you see that as a diffe
 
 -------------------------
 
+salvatoshi | 2026-05-21 06:50:04 UTC | #36
+
+The LaTeX formulas - which worked before - are currently broken, and I'm not able to edit the original post.
+
+Here's a link to the raw content of this thread if anyone wants to read the formulas: https://delvingbitcoin.org/raw/1607
+
+It is probably superseded by @pyth's [BIP138](https://github.com/bitcoin/bips/pull/1951) anyway.
+
+-------------------------
+
