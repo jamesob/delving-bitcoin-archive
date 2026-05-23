@@ -390,3 +390,60 @@ Our [simulator](https://github.com/carlaKC/jam-ln) should be reasonably usable f
 
 -------------------------
 
+roasbeef | 2026-05-23 01:38:18 UTC | #15
+
+> Fundamentally this is an economic problem. Routing nodes expend resources (bandwidth, compute) to forward onion messages and currently are not compensated for those resources.
+
+Totally agree, [I've been on this train for many years now when it comes to onion messaging](https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-dev/linuxfoundation-pipermail/lightning-dev/2022-June/003623.txt?__goaway_challenge=meta-refresh&__goaway_id=c148e6df5eb2b6262ac486b47f796730&__goaway_referer=https%3A%2F%2Fgnusha.org%2F). 
+
+> Perhaps we finally have enough motivation to [implement](https://github.com/lightning/bolts/pull/1052) upfront fees and fix both of these problems!
+
+The simple reason why none of these base protocols have actually reached the threshold of wide spread deployment is that: when deployed unconditionally, they're bad for user experience. At the core, we find our selves wrangling with yet another security vs usability tradeoff. 
+
+For example, consider a future where all onion messaging unconditionally requires payment for transit. Now it's possbile to grief any sender by giving them a BOLT 12 invoice, but then purposefully never fulfilling a response. How much this costs the sender depends on implementation specific details w.r.t: retry cadence, the price of the route selected for message transmission, time outs, budget for fetching the invoice, etc. 
+
+Same goes for the naive constructions for upfront fees for normal payments. 
+
+IMO, the best way to address this cost/bootstrapping barrier is to make the payment conditional. Instead of always applying, the only apply when the network and/or a given node reaches some threshold of use/abuse/throughput that they consider to be spam/abuse. Only then do the fees apply. 
+
+
+
+Use of e-cash-like techniques were mentioned above. During the Zurich summit in 2021, [I sketched out an idea I called "Forwarding Passes"](https://mail-archive.com/lightning-dev@lists.linuxfoundation.org/msg02588.html) then that would enable a large portion of the "honest" network to continue operation in the case of an attack. If most of the network continues operation of routine payments (existing medium/long term users of the network), then I'd say that's a pretty good mitigation (ofc an attacker can themselves launch a long range attack, but they need to pay forwarding fees in each case): 
+[details="Forwarding Passes"]
+This text will be hidden until clicked.
+```
+The concept of a "forwarding" pass was introduced/discussed, which
+effectively is a per-node sort of rep currency created using symmetric
+crypto (think of it as a symmetrically encrypted metadata blob). In order
+to route through a node, one needs to first obtain a freebie pass which is
+passed back via the onion, which requires an initial failed payment or some
+sort of LSP bootstrapping mechanism. From there any successfully forwarded
+payments that include that forwarding pass (possibly to be re-randomized?)
+would accrue additional attributes/weight/reputation. Essentially you buy
+your way into the routing graces of a node with successful forwards over
+time and good behavior.
+
+The general idea is rather than (attempt) to punish individuals, one should
+attempt to ensure that the network is able to gracefully fallback to a sort
+of reduced operating mode is spam is rampant. As this is a per-node system
+(local), if a node is under high load, they can choose to only observe
+passes that are older than 3 weeks, or only those that have generated a
+certain amount of routings fees, etc. There would exist no global policy,
+but instead a local policy that nodes would use to restrict the set of
+permissible traffic sources.
+
+The downsides of this approach is that a forwarding node is able to
+correlate senders to a degree (since the pass it tied to the origin, but
+doesn't give away information like pub keys, it's a new pseudonymous
+identifier). Others also cited the similarity to the existing Bittorrent
+reputation system and the difficult of ensuring that a party isn't able to
+continually obtain "freebie" passes/reputation, thereby by passing the
+entire thing.
+```
+[/details]
+
+--- 
+Even with all that said, when it comes to the market based mechanism, what is the goldilocks zone w.r.t fees? Fees need to be high enough to discourage an attacker (what if they're very well funded?), while not overly discouraging honest traffic.
+
+-------------------------
+
