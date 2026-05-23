@@ -12,3 +12,17 @@ Best, Opus Lux !
 
 -------------------------
 
+murch | 2026-05-23 16:09:30 UTC | #2
+
+Hi opus-lux,
+thanks for sharing your idea. It sounds potentially interesting, but I don't understand your proposal well-enough, yet. Is there a more comprehensive description somewhere?
+
+[quote="opus-lux, post:1, topic:2525"]
+Each link in the Lamport authorization chain authorizes the upload of one Winternitz public key. Then the Winternitz public key can be used to verify the winternitz signature for the message.
+
+[/quote]
+
+I'm not sure I fully understand this part. Would output scripts based on this construction commit to exactly one Winternitz public key, or would they commit to the whole authorization chain? The former would be an issue, as we need to be able to produce more than one signature for an output script, e.g., when our first transaction attempt does not succeed, we want to be able to make a higher feerate transaction, or when we create transactions with inputs from multiple users and a participant defects.
+
+-------------------------
+

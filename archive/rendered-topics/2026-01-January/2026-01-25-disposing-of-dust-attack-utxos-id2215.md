@@ -602,3 +602,60 @@ This procedure applies as well to when someone migrates all their non-dust UTXOs
 
 -------------------------
 
+murch | 2026-05-23 16:22:16 UTC | #36
+
+[quote="AdamISZ, post:34, topic:2215"]
+I don't quite understand the logic: surely, in practice, it will be *extremely* common that there remain non-dust utxos at the address being dusted.
+
+[/quote]
+
+That doesn't match my understanding of what forced-address-reuse attacks are trying to achieve. The idea is to coax the wallet into using the dust UTXO in a new transaction that allows the observer to leverage the common-input-ownership heuristic to gain more information about the wallet cluster.
+If an existing UTXO is dusted, this should fail, because best practice is to spend all UTXOs corresponding to the one output script at once, and the forced-address-reuse produces no additional information.
+
+So, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction. If the additional dust input would cause an objectionable increase in fees, it should be disposed later. I don't see why the dust should ever be disposed alone first, if there are other UTXOs associated with the same output script.
+
+-------------------------
+
+AdamISZ | 2026-05-23 18:18:53 UTC | #37
+
+[quote="murch, post:36, topic:2215"]
+If an existing UTXO is dusted, this should fail, because best practice is to spend all UTXOs corresponding to the one output script at once, and the forced-address-reuse produces no additional information.
+[/quote]
+
+That's a fair point that I didn't consider. I'm not sure how universal that rule should be; it makes sense from a privacy maximizing point of view, but it wouldn't always make sense from an economic point of view, right?
+
+Indeed, if utxo selection policies were always ideal (best practice), I feel like no such attack can ever make sense: I think their point is to exploit non-sophisticated utxo selection techniques in wallets.
+
+[quote="murch, post:36, topic:2215"]
+So, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction. If the additional dust input would cause an objectionable increase in fees, it should be disposed later. I don’t see why the dust should ever be disposed alone first, if there are other UTXOs associated with the same output script.
+[/quote]
+
+Yes, I think I can't argue with that logic. It can always be after, not before, even when it's not economic to combine.
+
+-------------------------
+
+ArmchairCryptologist | 2026-05-23 19:00:10 UTC | #38
+
+[quote="AdamISZ, post:34, topic:2215"]
+The "problem" of exposed pubkeys already exists in every single wallet/address/bitcoin usage, you cannot redesign protocols for public key cryptography to avoid revealing public keys. Solving the theoretical quantum threat is orthogonal imo. I personally would remove any reference to that.
+
+[/quote]
+
+The main reason we should avoid adding mechanics that would reveal public keys prematurely is there will be significant urgency to move funds with exposed keys to a PQC (or even non-exposed) address if a CRQC ever materializes, and it seems counter-productive to add to this rush unnecessarily. Granted, this would really only matter in certain scenarios - specifically those where only "slow-clock" CRQCs are available, where the time required to break a key would be on the order of a few days to a couple of weeks, meaning there is little danger of a key being broken in the window between broadcast and mining.
+
+[quote="murch, post:36, topic:2215"]
+The idea is to coax the wallet into using the dust UTXO in a new transaction that allows the observer to leverage the common-input-ownership heuristic to gain more information about the wallet cluster.
+
+[/quote]
+
+There is another and (in my experience) more common reason to dust an existing UTXO: attempting to trick users into sending funds to an attacker's address, specifically by leveraging weaknesses in certain UIs combined with poor user practices of copying addresses from previous transactions. Such transactions will generally be sent from or have additional outputs to intermediate addresses that have been brute-forced to be superficially similar to the target address, say by starting and ending with the same four characters. These attacks will inevitably target addresses holding unspent UTXOs.
+
+[quote="murch, post:36, topic:2215"]
+So, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction.
+
+[/quote]
+
+You may not want to do that in certain situations, since to the potential "taint" can negatively affect KYC/AML source-of-funds type processes, especially since those are increasingly handled by AI. Whenever that is a concern, you would want to leave the dust UTXO behind and dispose of it in a separate transaction, just to avoid the headache of trying to explain to a machine that someone you don't know sent it to you.
+
+-------------------------
+
