@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 6.0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 6.2,
   "yours": false,
   "topic_id": 2514,
   "topic_slug": "bird-of-prey-2-non-malleable-schnorr-pq-signatures",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Thanks for flagging that.\n\nSeems like a pretty important paper.\n\nThe way I'm getting the gist here is: 'default' stuff out there, in industry, and NIST and whatnot, is doing hybrid by concat. And this makes sense when you care about EUF and not SUF. But some things require SUF and Bitcoin is one of them.\n\nSo \"nesting\" exists, but it's hard to get it to have the properties you want: if you *just* sign one scheme with the other, you don't get SUF from the fact that the  *outer* scheme is SUF. (To concretize: we're imagining: outer scheme is bip340 and inner scheme is something PQ).\n\nIn the paper they try to argue (probably right, I have no idea) that this problem can't really be avoided if you just treat the two sig schemes as black-box.\n\nSo the trick (in BOP-2 which is one of three different constructions here) is to *not* treat Schnorr as black-box. They treat it as an ID scheme (which it is) and make the challenge in such a way that the SUF property is inherited, even if the PQ scheme doesn't have it.\n\nDo I have that roughly right?\n\nAbout batch-verify, a couple of questions:\n\nHow crucial is batch verification, today, in Bitcoin?\n\nFor your point that it might just be not possible in the PQ regime: what about isogenies, I wonder. I guess hash-based is a non-starter, and lattices .. well there's some linearity there right? But from what I'm reading, no dice. And isogenies even if sound might not be performant enough for this stuff. Shrug, no idea :slight_smile: \n\nAbout including R or not: I think if I'm reading this right, we're publishing $\\sigma_{sch}$ and $\\sigma_{pq}$ so since the latter is the dominant element, does it matter?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for flagging that. \nSeems like a pretty important paper. \nThe way I\u2019m getting the gist here is: \u2018default\u2019 stuff out there, in industry, and NIST and whatnot, is doing hybrid by concat. And this makes sense when you care about EUF and not SUF. But some things require SUF and Bitcoin is one of &hellip;",
   "truncated": true,
   "post_url": "/t/bird-of-prey-2-non-malleable-schnorr-pq-signatures/2514/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

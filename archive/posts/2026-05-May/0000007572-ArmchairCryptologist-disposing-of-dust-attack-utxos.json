@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"AdamISZ\" data-post=\"34\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/adamisz/48/418_2.png\" class=\"avatar\"> AdamISZ:</div>\n<blockquote>\n<p>The \u201cproblem\u201d of exposed pubkeys already exists in every single wallet/address/bitcoin usage, you cannot redesign protocols for public key cryptography to avoid revealing public keys. Solving the theoretical quantum threat is orthogonal imo. I personally would remove any reference to that.</p>\n</blockquote>\n</aside>\n<p>The main reason we should avoid adding mechanics that would reveal public keys prematurely is there will be significant urgency to move funds with exposed keys to a PQC (or even non-exposed) address if a CRQC ever materializes, and it seems counter-productive to add to this rush unnecessarily. Granted, this would really only matter in certain scenarios - specifically those where only \u201cslow-clock\u201d CRQCs are available, where the time required to break a key would be on the order of a few days to a couple of weeks, meaning there is little danger of a key being broken in the window between broadcast and mining.</p>\n<aside class=\"quote no-group\" data-username=\"murch\" data-post=\"36\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/murch/48/139_2.png\" class=\"avatar\"> murch:</div>\n<blockquote>\n<p>The idea is to coax the wallet into using the dust UTXO in a new transaction that allows the observer to leverage the common-input-ownership heuristic to gain more information about the wallet cluster.</p>\n</blockquote>\n</aside>\n<p>There is another and (in my experience) more common reason to dust an existing UTXO: attempting to trick users into sending funds to an attacker\u2019s address, specifically by leveraging weaknesses in certain UIs combined with poor user practices of copying addresses from previous transactions. Such transactions will generally be sent from or have additional outputs to intermediate addresses that have been brute-forced to be superficially similar to the target address, say by starting and ending with the same four characters. These attacks will inevitably target addresses holding unspent UTXOs.</p>\n<aside class=\"quote no-group\" data-username=\"murch\" data-post=\"36\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/murch/48/139_2.png\" class=\"avatar\"> murch:</div>\n<blockquote>\n<p>So, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction.</p>\n</blockquote>\n</aside>\n<p>You may not want to do that in certain situations, since to the potential \u201ctaint\u201d can negatively affect KYC/AML source-of-funds type processes, especially since those are increasingly handled by AI. Whenever that is a concern, you would want to leave the dust UTXO behind and dispose of it in a separate transaction, just to avoid the headache of trying to explain to a machine that someone you don\u2019t know sent it to you.</p>",
   "post_number": 38,
   "post_type": 1,
-  "posts_count": 38,
+  "posts_count": 39,
   "updated_at": "2026-05-23T19:00:10.445Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 36,
   "quote_count": 2,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"AdamISZ, post:34, topic:2215\"]\nThe \"problem\" of exposed pubkeys already exists in every single wallet/address/bitcoin usage, you cannot redesign protocols for public key cryptography to avoid revealing public keys. Solving the theoretical quantum threat is orthogonal imo. I personally would remove any reference to that.\n\n[/quote]\n\nThe main reason we should avoid adding mechanics that would reveal public keys prematurely is there will be significant urgency to move funds with exposed keys to a PQC (or even non-exposed) address if a CRQC ever materializes, and it seems counter-productive to add to this rush unnecessarily. Granted, this would really only matter in certain scenarios - specifically those where only \"slow-clock\" CRQCs are available, where the time required to break a key would be on the order of a few days to a couple of weeks, meaning there is little danger of a key being broken in the window between broadcast and mining.\n\n[quote=\"murch, post:36, topic:2215\"]\nThe idea is to coax the wallet into using the dust UTXO in a new transaction that allows the observer to leverage the common-input-ownership heuristic to gain more information about the wallet cluster.\n\n[/quote]\n\nThere is another and (in my experience) more common reason to dust an existing UTXO: attempting to trick users into sending funds to an attacker's address, specifically by leveraging weaknesses in certain UIs combined with poor user practices of copying addresses from previous transactions. Such transactions will generally be sent from or have additional outputs to intermediate addresses that have been brute-forced to be superficially similar to the target address, say by starting and ending with the same four characters. These attacks will inevitably target addresses holding unspent UTXOs.\n\n[quote=\"murch, post:36, topic:2215\"]\nSo, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction.\n\n[/quote]\n\nYou may not want to do that in certain situations, since to the potential \"taint\" can negatively affect KYC/AML source-of-funds type processes, especially since those are increasingly handled by AI. Whenever that is a concern, you would want to leave the dust UTXO behind and dispose of it in a separate transaction, just to avoid the headache of trying to explain to a machine that someone you don't know sent it to you.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "The main reason we should avoid adding mechanics that would reveal public keys prematurely is there will be significant urgency to move funds with exposed keys to a PQC (or even non-exposed) address if a CRQC ever materializes, and it seems counter-productive to add to this rush unnecessarily. Gran&hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/38",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

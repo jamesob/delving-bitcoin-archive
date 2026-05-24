@@ -659,3 +659,9 @@ You may not want to do that in certain situations, since to the potential "taint
 
 -------------------------
 
+murch | 2026-05-23 22:34:36 UTC | #39
+
+Interesting point on the taint, I hadn't thought of that!
+
+-------------------------
+

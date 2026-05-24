@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"murch\" data-post=\"36\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/murch/48/139_2.png\" class=\"avatar\"> murch:</div>\n<blockquote>\n<p>If an existing UTXO is dusted, this should fail, because best practice is to spend all UTXOs corresponding to the one output script at once, and the forced-address-reuse produces no additional information.</p>\n</blockquote>\n</aside>\n<p>That\u2019s a fair point that I didn\u2019t consider. I\u2019m not sure how universal that rule should be; it makes sense from a privacy maximizing point of view, but it wouldn\u2019t always make sense from an economic point of view, right?</p>\n<p>Indeed, if utxo selection policies were always ideal (best practice), I feel like no such attack can ever make sense: I think their point is to exploit non-sophisticated utxo selection techniques in wallets.</p>\n<aside class=\"quote no-group\" data-username=\"murch\" data-post=\"36\" data-topic=\"2215\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/murch/48/139_2.png\" class=\"avatar\"> murch:</div>\n<blockquote>\n<p>So, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction. If the additional dust input would cause an objectionable increase in fees, it should be disposed later. I don\u2019t see why the dust should ever be disposed alone first, if there are other UTXOs associated with the same output script.</p>\n</blockquote>\n</aside>\n<p>Yes, I think I can\u2019t argue with that logic. It can always be after, not before, even when it\u2019s not economic to combine.</p>",
   "post_number": 37,
   "post_type": 1,
-  "posts_count": 38,
+  "posts_count": 39,
   "updated_at": "2026-05-23T18:18:53.885Z",
   "reply_count": 0,
   "reply_to_post_number": 36,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2215,
   "topic_slug": "disposing-of-dust-attack-utxos",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"murch, post:36, topic:2215\"]\nIf an existing UTXO is dusted, this should fail, because best practice is to spend all UTXOs corresponding to the one output script at once, and the forced-address-reuse produces no additional information.\n[/quote]\n\nThat's a fair point that I didn't consider. I'm not sure how universal that rule should be; it makes sense from a privacy maximizing point of view, but it wouldn't always make sense from an economic point of view, right?\n\nIndeed, if utxo selection policies were always ideal (best practice), I feel like no such attack can ever make sense: I think their point is to exploit non-sophisticated utxo selection techniques in wallets.\n\n[quote=\"murch, post:36, topic:2215\"]\nSo, if an existing UTXO is dusted, the dust UTXO should be spent along the other UTXOs associated with that output script, especially if the feerate makes it a net-benefit to the transaction. If the additional dust input would cause an objectionable increase in fees, it should be disposed later. I don\u2019t see why the dust should ever be disposed alone first, if there are other UTXOs associated with the same output script.\n[/quote]\n\nYes, I think I can't argue with that logic. It can always be after, not before, even when it's not economic to combine.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "That\u2019s a fair point that I didn\u2019t consider. I\u2019m not sure how universal that rule should be; it makes sense from a privacy maximizing point of view, but it wouldn\u2019t always make sense from an economic point of view, right? \nIndeed, if utxo selection policies were always ideal (best practice), I feel &hellip;",
   "truncated": true,
   "post_url": "/t/disposing-of-dust-attack-utxos/2215/37",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
