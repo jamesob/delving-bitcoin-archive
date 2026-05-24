@@ -142,3 +142,11 @@ Thanks for the update, Claude. :smiling_face_with_tear:
 
 -------------------------
 
+opus-lux | 2026-05-24 06:01:36 UTC | #7
+
+You are right about everything, including claude helping me with my reply to your last message.
+
+But I have been working on the solution and I think I have already found it. All of the problems you mention above can be solved by doing P2WOTS instead. I can completely get rid of the Lamport chains, the nullifiers and the core mistake the P2TR script path with P2WOTS. Introducing P2WOTS also solves the problem of multi user transactions, lightning network backward compatibility etc. The Lamport + Winternitz construction works flawlessly on the EVM because ethereum has an account based construction instead of UTXO. I am currently working on the full revision and will publish it tomorrow along with the C++ code for it. Once again I thank you for your constuctive critism and sense of humor! I look forward to your feeback on P2WOTS, the UTXO-based WOTS implementation. I hope to solve all of your concerns and provide a path forward for post quantum security on bitcoin! Thank you for your patience and understanding.
+
+-------------------------
+

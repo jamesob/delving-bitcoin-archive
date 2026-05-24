@@ -7,7 +7,7 @@
   "cooked": "<p>Hi opus-lux,\nthanks for sharing your idea. It sounds potentially interesting, but I don\u2019t understand your proposal well-enough, yet. Is there a more comprehensive description somewhere?</p>\n<aside class=\"quote no-group\" data-username=\"opus-lux\" data-post=\"1\" data-topic=\"2525\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/opus-lux/48/2071_2.png\" class=\"avatar\"> opus-lux:</div>\n<blockquote>\n<p>Each link in the Lamport authorization chain authorizes the upload of one Winternitz public key. Then the Winternitz public key can be used to verify the winternitz signature for the message.</p>\n</blockquote>\n</aside>\n<p>I\u2019m not sure I fully understand this part. Would output scripts based on this construction commit to exactly one Winternitz public key, or would they commit to the whole authorization chain? The former would be an issue, as we need to be able to produce more than one signature for an output script, e.g., when our first transaction attempt does not succeed, we want to be able to make a higher feerate transaction, or when we create transactions with inputs from multiple users and a participant defects.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-05-23T16:09:30.260Z",
   "reply_count": 0,
   "reply_to_post_number": null,
