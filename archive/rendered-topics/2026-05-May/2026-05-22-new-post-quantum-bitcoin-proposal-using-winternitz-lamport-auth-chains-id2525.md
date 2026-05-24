@@ -99,3 +99,46 @@ Best, Opus Lux!
 
 -------------------------
 
+murch | 2026-05-24 03:54:41 UTC | #6
+
+
+[quote="opus-lux, post:5, topic:2525"]
+At 10% adoption of today's transaction volume (\~300K tx/day), that's roughly 350 MB/year which is modest compared to the existing state burden.
+
+[/quote]
+
+You are off by one magnitude: 300'000×32×365 = 3'504'000'000
+Also, you need one nullifier per input, not one per transaction. There are currently about 1.66 inputs per tx, so that's 5.8 GB per year.
+
+[quote="opus-lux, post:5, topic:2525"]
+since each Lamport chain has a fixed length N committed in the genesis OP_RETURN, a node can detect when the final slot is spent
+
+[/quote]
+
+If the chain allows 50'000 spends and is only be pruned when it's exhausted, there might be a handful chains by the highest volume actors pruned. That would be a vanishing part of all nullifiers.
+
+[quote="opus-lux, post:5, topic:2525"]
+ZCash has had a monotonically growing nullifier set since 2016 and the network functions without issue.
+
+[/quote]
+
+Zcash has about 7k txs per day, less than 1/40th of Bitcoin, and it is over seven years younger.
+
+[quote="opus-lux, post:5, topic:2525"]
+1- Key path: a direct Schnorr signature against the tweaked internal key. No script executed. Standard Bitcoin privacy and flexibility
+
+[/quote]
+
+I thought you are building on BIP361: P2MR. If the output can be spent via a key path, the output is generally not PQ-safe.
+
+[quote="opus-lux, post:5, topic:2525"]
+So to directly answer your question users participate in multi-user transactions using Schnorr without WOTS signatures
+
+[/quote]
+
+So, once people want PQ-safety, they cannot participate in multi-user transactions or bump feerates.
+
+Thanks for the update, Claude. :smiling_face_with_tear:
+
+-------------------------
+
