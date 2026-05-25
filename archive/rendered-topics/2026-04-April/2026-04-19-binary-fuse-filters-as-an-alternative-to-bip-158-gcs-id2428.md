@@ -186,3 +186,21 @@ After running this analysis I think a new “bandwidth limited” GCS filter cou
 
 -------------------------
 
+purszki | 2026-05-25 20:47:00 UTC | #9
+
+Hi Rob,
+
+When I started looking into this topic for BOSS-2026, the first idea was exactly this: finding a GCS parameter set that would work over approx 1000 blocks as a prefilter.  I think it was based on your notes if I can recall. 
+
+
+At that time, however, I was optimizing for CPU rather than bandwidth, and I couldn't find a GCS parameter set that would be faster than BIP158. I also hadn't read Pieter's post back then.
+
+I can actually dig out the code and re-check, this time for bandwidth, using your findings. Let's see whether real-life measurements support the theory.
+
+Always the optimist, I recently measured that BuRR and Ribbon filters also look promising for small wallets. (xor filters, binary fuse filters, BuRR and Ribbon filters - they are super similar but using different construction ideas. I hope I haven't missed any others!). Let me try the following steps:
+
+1. Check 1000-block GCS prefilter with parameterization based on your notes.
+2. Check the same using BuRR and Ribbon filters.
+
+-------------------------
+
