@@ -22,3 +22,13 @@ Best, Opus Lux!
 
 -------------------------
 
+murch | 2026-05-26 19:29:57 UTC | #2
+
+Not a blocker, but the P2MR proposal (BIP360) is also using witness version 2.
+
+![image|336x500](upload://qD39fNW4hVC9iDn8VWtg878gFmt.png)
+
+Since your proposal commits to the nonce in the output script, this would still only allow signing a single time for each UTXO, but Bitcoin requires the ability to sign more than once for a UTXO without leaking the private key in case addresses are reused, users want to participate in multi-user transactions, or simply need to replace a prior spending attempt.
+
+-------------------------
+
