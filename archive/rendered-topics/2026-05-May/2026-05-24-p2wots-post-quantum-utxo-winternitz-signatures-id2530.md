@@ -32,3 +32,23 @@ Since your proposal commits to the nonce in the output script, this would still 
 
 -------------------------
 
+opus-lux | 2026-05-26 21:14:43 UTC | #3
+
+Thanks for the awesome reply Murch, you are correct.
+
+I should switch the proposal to target witness version 3 to avoid conflict.
+
+Also, excellent point that this proposal would still only allow signing a single time for each UTXO and you are correct about the mathematical limitation of WOTS. As far as I am aware of there are three main reasons that Bitcoin requires the ability to sign more than once for a UTXO. These three main reasons are address reuse, multi-user transactions and fee bumping / spending attempt retries. 
+
+I tried to address the address reuse concern with the utxo_index in this revised proposal. The utxo_index counter guarantees that each UTXO gets a unique wots_pk. The BIP already calls this a hard security requirement and attempts to address this issue. 
+
+As far as the mult-user transactions go the proposal explicitly states that the proposal is for a single signer only.
+
+Now for the fee bumping or spending attempt retries this is something that is very valid and needs to be addressed in my proposal in more detail. If users tried to bump their transaction's fee using RBF it would be dangerous because they would sign two different messages with the same key. I should make it explicitly clear that CPFP (child pays for parent) via a change output is the only safe way to adjust your fee after transaction broadcast. This is because CPFP allows users to bump their transaction fee without a second WOTS signature. I should update the proposal to explicitly state this limitation and include wallet guidance prohibiting RBF on P2WOTS inputs and recommending CPFP via a P2TR change output instead.
+
+Does this address your concerns with the one time nature of WOTS signatures? Is there something else that I missed or don't understand?
+
+Thanks again for your insightful reply!
+
+-------------------------
+
