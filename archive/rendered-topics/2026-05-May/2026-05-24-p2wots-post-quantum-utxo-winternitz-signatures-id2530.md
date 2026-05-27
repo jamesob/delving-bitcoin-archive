@@ -52,3 +52,16 @@ Thanks again for your insightful reply!
 
 -------------------------
 
+murch | 2026-05-27 16:44:01 UTC | #4
+
+[quote="opus-lux, post:3, topic:2530"]
+The utxo_index counter guarantees that each UTXO gets a unique wots_pk.
+
+[/quote]
+
+No, you generate the *output script* via the UTXO index. Address reuse occurs if someone sends to the same output script again. If an output script is paid twice, the recipient has the choice to leak his private key or forgo the second payment. This proposal does not mitigate the address reuse concern.
+
+I've raised the same issue multiple times now. That and the style of the answers make feel like I'm remote-prompting your LLM. I'm out, good luck.
+
+-------------------------
+
