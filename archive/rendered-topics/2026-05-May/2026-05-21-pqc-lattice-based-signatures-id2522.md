@@ -37,3 +37,14 @@ https://groups.google.com/g/bitcoindev/c/nMO4hyEm5qc
 
 -------------------------
 
+ion_minus | 2026-05-28 09:18:17 UTC | #3
+
+Dear Nikita,
+
+Thank you for bringing this up as I fully resonate with your consideration. At least in a high level perspective, lattices seem to be a clear winner for general post-quantum cryptography. It is not without some merit that 3 out of the 4 NIST finalists are based on lattices and are clearly stated as primary options, leaving the single hashed-based candidate as a back up. While I can understand that opting for hashed-based maintains the same security assumptions for Bitcoin, I find that the solid security proofs of lattices and the worst-case to average-case hardness reductions are very lucrative. But yet again, devil is in the details which makes the whole endeavor of upgrading to pqc quite interesting.
+
+Kind regards,
+ion-
+
+-------------------------
+

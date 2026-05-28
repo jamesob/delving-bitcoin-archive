@@ -65,3 +65,9 @@ I've raised the same issue multiple times now. That and the style of the answers
 
 -------------------------
 
+opus-lux | 2026-05-27 21:46:44 UTC | #5
+
+You are right Murch, I didn't fully understand the issue with each signature being one time only. I have now made a proper revision to my proposal to fix this issue. Each address now commits to a Merkle Key Tree, giving users 64 attempts at signing. The proposal website and github repository have been updated with this change. Is this a wide enough safety margin? Does this properly address your concern? Tell me where else I am wrong and I will try to fix it! I deeply appreciate your continued feedback on my idea!
+
+-------------------------
+
