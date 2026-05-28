@@ -1,6 +1,6 @@
 # CTV-only Vault Concept v0.1.0 release
 
-ademan | 2026-05-28 20:42:54 UTC | #1
+ademan | 2026-05-28 20:47:57 UTC | #1
 
 # Announcing MCCV v0.1.0
 
@@ -19,7 +19,7 @@ Because the timelock scales linearly with the amount withdrawn, the vault provid
 NOTE: This is experimental proof-of-concept software and should be used only on signet (or regtest).
 
 [The current implementation](https://github.com/LNHANCE-Expedition/mccv) is a working CLI proof of concept written in Rust using [BDK](https://github.com/bitcoindevkit) and [`rust-bitcoin`](https://github.com/rust-bitcoin/rust-bitcoin).
-It runs on regtest and signet using Bitcoin Inquisition v29, which provides support for [`OP_CHECKTEMPLATEVERIFY`](https://github.com/bitcoin/bips/blob/master/bip-0119.mediawiki), TRUC, and ephemeral anchors.
+It runs on regtest and signet using Bitcoin Inquisition v29, which provides support for [`OP_CHECKTEMPLATEVERIFY`](https://github.com/bitcoin/bips/blob/7f9434c9c81bb49825200a5be5ddb1ae53fd6dcc/bip-0119.mediawiki), TRUC, and ephemeral anchors.
 
 The implementation supports:
 
@@ -31,8 +31,8 @@ The implementation supports:
 * Recovering the entire vault to a cold recovery key
 
 * Github: https://github.com/LNHANCE-Expedition/mccv
-* User Guide: https://github.com/LNHANCE-Expedition/mccv/blob/user-guide/docs/user-guide.md
-* Protocol Specification (WIP): https://github.com/LNHANCE-Expedition/mccv/blob/user-guide/docs/protocol.md
+* User Guide: https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/user-guide.md
+* Protocol Specification (WIP): https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md
 
 # Features
 
@@ -97,7 +97,7 @@ This applies whether the watchtower is run by the user or a third party.
 
 # Protocol Overview
 
-I am currently working on a [detailed protocol specification](https://github.com/LNHANCE-Expedition/mccv/blob/user-guide/docs/protocol.md).
+I am currently working on a [detailed protocol specification](https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md).
 
 A vault is a massive DAG of precomputed transactions and transitions between them enforced by `OP_CHECKTEMPLATEVERIFY`.
 Vaults are configured with the following parameters:
