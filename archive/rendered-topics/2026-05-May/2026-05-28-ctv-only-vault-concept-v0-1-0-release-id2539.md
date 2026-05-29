@@ -197,3 +197,17 @@ It could allow powerful consumer hardware to generate vaults and proofs of their
 
 -------------------------
 
+reardencode | 2026-05-28 21:44:54 UTC | #2
+
+Just for posterity: It seems like this would work just as well with OP_TEMPLATEHASH. Do you see any problems with that claim?
+
+-------------------------
+
+ademan | 2026-05-28 21:58:17 UTC | #3
+
+No problems at all! In fact it's on The List (which is confusingly in the protocol doc for now). `OP_TEMPLATEHASH` should be a drop-in replacement, just replace `<hash> OP_CHECKTEMPLATEVERIFY OP_DROP` with `OP_TEMPLATEHASH <hash> OP_EQUALVERIFY`.
+
+https://github.com/LNHANCE-Expedition/mccv/blob/b737434b44a5c0f43f9b9a40186b87b7a5f687a5/docs/protocol.md#op_templatehash
+
+-------------------------
+

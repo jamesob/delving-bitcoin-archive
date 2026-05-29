@@ -71,3 +71,9 @@ You are right Murch, I didn't fully understand the issue with each signature bei
 
 -------------------------
 
+opus-lux | 2026-05-28 23:17:20 UTC | #6
+
+I have also been working on adding native multi sig and compatibility with the lightning network now that I fixed the main issue with my proposal. As far as I am aware of my 434 vbyte signing scheme is the most compact ever proposed. With the added multi-sig capability and lightning network stuff it will be compatible with all of the existing infrastructure, making it the strongest existing proposal for post quantum security on bitcoin. I will continue to revise my proposal until its unbreakable and can't be ignored.
+
+-------------------------
+
