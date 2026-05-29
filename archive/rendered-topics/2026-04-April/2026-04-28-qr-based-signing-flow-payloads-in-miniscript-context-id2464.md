@@ -266,3 +266,17 @@ Sean Carlin
 
 -------------------------
 
+benk10 | 2026-05-29 16:33:25 UTC | #5
+
+This is a very needed standard, and the proposal looks mostly good.
+
+I'm not totally sure about the feature flags point. I can see why it would be useful, but I also worry it could become messy unless the flags are very carefully defined.
+
+I do think adding a session id, or some other signing request id, is a good idea. This seems especially useful if the response can be signatures-only, so the coordinator can make sure the returned signatures belong to the right PSBT/signing flow before trying to merge them.
+
+One Miniscript-specific thing that may be worth making explicit is an optional spend-path selection per input. Maybe this can already be represented through PSBT fields or proprietary fields, but I think it would be useful to define the expected behavior. I don't think this needs to be present in the common case. But if the same device/key appears in multiple possible spending paths, and only one path or subset of paths is intended for this signing round, the coordinator could include a selection saying which policy keys/path should be signed.
+
+The signer should treat this as a constraint: verify it against the registered descriptor/policy and the PSBT, then only sign for that selected path. If no spend-path selection is passed, the signer can fall back to its default behavior. This seems most relevant for `wsh` Miniscript, where the PSBT may contain the script but not the intended satisfaction path, but it could also matter for TapMiniscript if multiple leaves or multiple satisfactions are present.
+
+-------------------------
+
