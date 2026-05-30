@@ -232,3 +232,9 @@ https://web.archive.org/web/20260530001627/https://delvingbitcoin.org/t/ctv-only
 
 -------------------------
 
+ademan | 2026-05-30 00:37:07 UTC | #5
+
+bah, thanks, they were pointing to the docs in a defunct branch. Should be good now.
+
+-------------------------
+
