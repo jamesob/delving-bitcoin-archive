@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ademan, post:1, topic:2539\"]\nProtocol Specification (WIP): https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md\n[/quote]\n\n[quote=\"ademan, post:1, topic:2539\"]\nI am currently working on a [detailed protocol specification](https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md).\n[/quote]\n\nThese links don't work.\n\n<details>\n<summary>Archive</summary>\n\nhttps://web.archive.org/web/20260530001627/https://delvingbitcoin.org/t/ctv-only-vault-concept-v0-1-0-release/2539/4\n\n</details>",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "These links don\u2019t work. \n\u25b6 Archive",
   "truncated": true,
   "post_url": "/t/ctv-only-vault-concept-v0-1-0-release/2539/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "open_mouth",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
