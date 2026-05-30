@@ -1,6 +1,6 @@
 # CTV-only Vault Concept v0.1.0 release
 
-ademan | 2026-05-28 20:47:57 UTC | #1
+ademan | 2026-05-30 00:36:12 UTC | #1
 
 # Announcing MCCV v0.1.0
 
@@ -31,8 +31,8 @@ The implementation supports:
 * Recovering the entire vault to a cold recovery key
 
 * Github: https://github.com/LNHANCE-Expedition/mccv
-* User Guide: https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/user-guide.md
-* Protocol Specification (WIP): https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md
+* User Guide: https://github.com/LNHANCE-Expedition/mccv/blob/master/docs/user-guide.md
+* Protocol Specification (WIP): https://github.com/LNHANCE-Expedition/mccv/blob/master/docs/protocol.md
 
 # Features
 
@@ -97,7 +97,7 @@ This applies whether the watchtower is run by the user or a third party.
 
 # Protocol Overview
 
-I am currently working on a [detailed protocol specification](https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md).
+I am currently working on a [detailed protocol specification](https://github.com/LNHANCE-Expedition/mccv/blob/master/docs/protocol.md).
 
 A vault is a massive DAG of precomputed transactions and transitions between them enforced by `OP_CHECKTEMPLATEVERIFY`.
 Vaults are configured with the following parameters:
