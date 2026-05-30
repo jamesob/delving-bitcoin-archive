@@ -211,3 +211,17 @@ https://github.com/LNHANCE-Expedition/mccv/blob/b737434b44a5c0f43f9b9a40186b87b7
 
 -------------------------
 
+1440000bytes | 2026-05-30 00:13:47 UTC | #4
+
+[quote="ademan, post:1, topic:2539"]
+Protocol Specification (WIP): https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md
+[/quote]
+
+[quote="ademan, post:1, topic:2539"]
+I am currently working on a [detailed protocol specification](https://github.com/LNHANCE-Expedition/mccv/blob/17ed3e3220b673f1e57746d0b4609448e8064609/docs/protocol.md).
+[/quote]
+
+These link don't work.
+
+-------------------------
+
