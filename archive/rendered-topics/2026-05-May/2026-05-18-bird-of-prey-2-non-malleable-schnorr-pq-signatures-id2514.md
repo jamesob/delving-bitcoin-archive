@@ -88,3 +88,37 @@ Curious if you have any thoughts on this @sipa?
 
 -------------------------
 
+sipa | 2026-06-01 03:08:47 UTC | #5
+
+[quote="conduition, post:4, topic:2514"]
+How important is SUF anyway, given that signatures no longer affect transaction IDs post-segwit?
+[/quote]
+
+That's a good question. It's definitely far less important post-segwit. I'd call it a nice-to-have, for reasons of not needing to mess with txins on malleation (segwit means that dependent transactions can be adapted if their parents are malleated, but someone still needs to do that adapting).
+
+[quote="conduition, post:4, topic:2514"]
+And unlike malleability in ECDSA or SQIsign, for instance, mutating a signature in the case of a hybrid scheme requires the signer to sign the same message multiple times with the same hybrid “key”
+[/quote]
+
+The concern here is that if either of the two constituent schemes are broken (perhaps secp256k1 by a CRQC, or the post-quantum scheme turns out to be classically broken), *anyone* can replace that part of the hybrid signature with another one (because they, like everyone, have the private key). I don't see how the scheme itself matters here, unless it's a unique signature scheme (i.e., every message/key pair only has one valid signature, like BLS).
+
+[quote="conduition, post:4, topic:2514"]
+it’s no different than a naive multisig script today in Bitcoin where one signer might swap their signature out for another on the same message.
+[/quote]
+
+Indeed, in a multisig setting you need to trust your co-signers not to re-sign. Adverserially, protection from malleation is only something that makes sense in the single-signer setting. The concern with a hybrid scheme where one of the two might be broken is that you now have to worry about anyone in the world malleating.
+
+[quote="conduition, post:4, topic:2514"]
+Honest signers can even opt out of this malleability issue entirely by using deterministic signing algorithms.
+[/quote]
+
+I do not understand this. Deterministic signing constrains honest signers, not adversaries. You cannot prevent adversaries who learn your private key (or the part thereof that corresponds to the broken scheme) from signing with whatever algorithm they like.
+
+[quote="conduition, post:4, topic:2514"]
+More generally, on the choice of “to hybridize or not to hybridize”, the more interesting factor for me is actually in the space-savings that may be possible in a unified hybrid scheme. Boris Nagaev here shows a way which would seem to let us implement BIP340 on top of a hash-based scheme with only 48 bytes of overhead:
+[/quote]
+
+I haven't read it in detail. It looks pretty similar to this, but applying to the public key, rather than the public nonce as done here? The scheme here needs 32 bytes extra in the public key (for $P$) and 32 bytes extra in the signature (for $s$).
+
+-------------------------
+

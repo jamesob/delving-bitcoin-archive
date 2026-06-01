@@ -113,28 +113,30 @@ Note that the `discourse-archive` tool has an off-by-one bug and might miss some
 
 -------------------------
 
-1440000bytes | 2026-05-19 21:52:23 UTC | #9
-
-I don't trust these archives (no offense to @jamesob and @ajtowns). One of my posts was deleted and it was important to get the CVE ID. I still managed to get it: https://nvd.nist.gov/vuln/detail/CVE-2025-65548 (9.1 critical).
-
-The post was censored on "bitcoin" dev mailing list.
-
-So, I archive my all posts and comments here. I use archive.org and [archive.is](https://archive.is/) for it.
-
-<details>
-<summary>Archive</summary>
-
-https://web.archive.org/web/20260519215138/https://delvingbitcoin.org/t/public-archive-for-delving-bitcoin/87/9?u=1440000bytes
-
-</details>
-
--------------------------
-
 0xB10C | 2026-05-20 07:55:55 UTC | #10
 
 I think your comment is completly off-topic. You are obviously welcome to archive the posts yourself and host it on your own infrastructure. I'd even recommend you do - and hopefully others do too.
 
 An archive of this forum can only capture what's on this website at the time of archival. It can't capture a deleted post. Use [archive.org](http://archive.org) and [archive.is](https://archive.is/) if you fear your post is going to be deleted (that seems to be a moderation topic, not an archival topic), yes, but that's for individual posts, not a browsable version of topics and their comments.
+
+-------------------------
+
+1440000bytes | 2026-06-01 04:46:36 UTC | #11
+
+[quote="0xB10C, post:10, topic:87"]
+I think your comment is completly off-topic.
+[/quote]
+
+No, its not off topic. This thread is related to public archive of delving bitcoin and my comment is about the **trust in such archive** if it will save the **complete history** or censor some posts. Example: My previous comment was hidden by "community" flags. Not sure if it will exist in the archives maintained on github or elsewhere.
+
+Although it will remain on archive.org: https://web.archive.org/web/20260519215138/https://delvingbitcoin.org/t/public-archive-for-delving-bitcoin/87/9?u=1440000bytes
+
+<details>
+<summary>Archive</summary>
+
+https://web.archive.org/web/20260601044536/https://delvingbitcoin.org/t/public-archive-for-delving-bitcoin/87/11
+
+</details>
 
 -------------------------
 
