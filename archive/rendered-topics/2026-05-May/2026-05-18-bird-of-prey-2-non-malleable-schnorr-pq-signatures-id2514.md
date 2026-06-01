@@ -74,3 +74,17 @@ Possibly not.
 
 -------------------------
 
+conduition | 2026-05-31 22:44:23 UTC | #4
+
+How important is SUF anyway, given that signatures no longer affect transaction IDs post-segwit? 
+
+And unlike malleability in ECDSA or SQIsign, for instance, mutating a signature in the case of a hybrid scheme requires the signer to sign the same message multiple times with the same hybrid "key", and it's no different than a naive multisig script today in Bitcoin where one signer might swap their signature out for another on the same message. Honest signers can even opt out of this malleability issue entirely by using deterministic signing algorithms.
+
+More generally, on the choice of "to hybridize or not to hybridize", the more interesting factor for me is actually in the space-savings that may be possible in a unified hybrid scheme. Boris Nagaev here shows a way which would seem to let us implement BIP340 on top of a hash-based scheme with only 48 bytes of overhead:
+
+https://groups.google.com/g/bitcoindev/c/nMO4hyEm5qc/m/8wy900TXBwAJ
+
+Curious if you have any thoughts on this @sipa?
+
+-------------------------
+
