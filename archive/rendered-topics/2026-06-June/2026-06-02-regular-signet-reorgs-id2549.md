@@ -1,0 +1,27 @@
+# Regular signet reorgs
+
+ajtowns | 2026-06-02 10:25:42 UTC | #1
+
+I've implemented some code on my signet miner to try creating regular automatic reorgs. Target is once a day, but the trigger is cryptographically random:
+
+```sh
+    HASH=$($CLI getbestblockhash)
+    if [ "$(( 0x$(echo $SECRET $HASH | sha256sum | cut -c1-4) % 144 == 0 ))" = 1 ]; then
+        # reorg this block
+        sleep 1
+        echo "**** REORGING BLOCK $H2 $HASH ****"
+        bitcoin-cli invalidateblock $HASH
+        bitcoin-inq invalidateblock $HASH
+        sleep 5
+        continue
+    fi
+```
+
+It managed to trigger on [block 307073](https://mempool.space/signet/block/00000006e627e02fe27eec8dbf1fc2a83839c8d92475ba807c99d3a118f035b4) which ended up being a two-block reorg.
+
+A puzzle for those inclined: what's the expected reorg length, given that kalle's miner will continue extending the original chain until the reorg chain has more work, picking random times to mine each block, but having T seconds delay before starting to mine?
+
+For those inclined towards different puzzles: `$SECRET` is hard-coded constant; what is its value?
+
+-------------------------
+
