@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 31.8,
   "yours": false,
   "topic_id": 2549,
   "topic_slug": "regular-signet-reorgs",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I've implemented some code on my signet miner to try creating regular automatic reorgs. Target is once a day, but the trigger is cryptographically random:\n\n```sh\n    HASH=$($CLI getbestblockhash)\n    if [ \"$(( 0x$(echo $SECRET $HASH | sha256sum | cut -c1-4) % 144 == 0 ))\" = 1 ]; then\n        # reorg this block\n        sleep 1\n        echo \"**** REORGING BLOCK $H2 $HASH ****\"\n        bitcoin-cli invalidateblock $HASH\n        bitcoin-inq invalidateblock $HASH\n        sleep 5\n        continue\n    fi\n```\n\nIt managed to trigger on [block 307073](https://mempool.space/signet/block/00000006e627e02fe27eec8dbf1fc2a83839c8d92475ba807c99d3a118f035b4) which ended up being a two-block reorg.\n\nA puzzle for those inclined: what's the expected reorg length, given that kalle's miner will continue extending the original chain until the reorg chain has more work, picking random times to mine each block, but having T seconds delay before starting to mine?\n\nFor those inclined towards different puzzles: `$SECRET` is hard-coded constant; what is its value?",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 2
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,20 @@
   "excerpt": "I\u2019ve implemented some code on my signet miner to try creating regular automatic reorgs. Target is once a day, but the trigger is cryptographically random: \n    HASH=$($CLI getbestblockhash)\n    if [ &quot;$(( 0x$(echo $SECRET $HASH | sha256sum | cut -c1-4) % 144 == 0 ))&quot; = 1 ]; then\n        # reorg this &hellip;",
   "truncated": true,
   "post_url": "/t/regular-signet-reorgs/2549/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    },
+    {
+      "id": "thinking",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
