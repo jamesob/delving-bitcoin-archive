@@ -98,3 +98,9 @@ Dont overlook stack exchange. Bitcoinops.org uses it as a source for their newsl
 
 -------------------------
 
+Tsua00021 | 2026-06-03 01:39:30 UTC | #3
+
+Definitely! All technicals aggregators like https://bitcoin.stackexchange.com/, https://bitcoinops.org, or bitcointalk if they want to participate are potential high level sources for training.
+
+-------------------------
+
