@@ -25,3 +25,13 @@ For those inclined towards different puzzles: `$SECRET` is hard-coded constant; 
 
 -------------------------
 
+0xB10C | 2026-06-02 22:09:11 UTC | #2
+
+I've reinstated the signet network on my fork-observer instance: [fork.observer/?network=3](https://fork.observer/?network=3). The two-block reorg on 307073 looks like this: 
+
+![two block reorg on signet at theight 307073|690x344](upload://aenAL4MzSDnFtWTkYbM3EQwGHQ9.png)
+
+It also picks up the coinbase tags of the miners. `signet-3 (inquisition)` seems to be yours and `signet-1` seems to be kalle's.
+
+-------------------------
+
