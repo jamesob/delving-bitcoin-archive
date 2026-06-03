@@ -35,3 +35,9 @@ It also picks up the coinbase tags of the miners. `signet-3 (inquisition)` seems
 
 -------------------------
 
+ajtowns | 2026-06-03 05:17:57 UTC | #3
+
+There's also "signet-2" which is mine if the inquisition node fails to build a block
+
+-------------------------
+
