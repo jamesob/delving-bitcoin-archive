@@ -82,3 +82,19 @@ The data is there. The tooling for fine-tuning is accessible. The missing piece 
 
 -------------------------
 
+sudocarlos | 2026-06-03 00:05:20 UTC | #2
+
+[quote="Tsua00021, post:1, topic:2550"]
+What would a minimal but meaningful benchmark look like?
+
+[/quote]
+
+[quote="Tsua00021, post:1, topic:2550"]
+Someone needs to produce (question, answer) pairs that exercise the capabilities above. This is the labor-intensive part, but it is also partially automatable: a capable general-purpose LLM can generate draft pairs from the raw corpus, which humans then verify.
+
+[/quote]
+
+Dont overlook stack exchange. Bitcoinops.org uses it as a source for their newsletters. All of their sources and their site, especially transcripts from the optech recap, would be great for training a model
+
+-------------------------
+
