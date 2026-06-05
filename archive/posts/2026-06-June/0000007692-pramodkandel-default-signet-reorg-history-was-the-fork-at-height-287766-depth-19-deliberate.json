@@ -7,7 +7,7 @@
   "cooked": "<p>Thank you! That clears things up : ) It\u2019s reassuring to know it was not a designed deep reorg.</p>\n<p>On that point \u2013 at least for our use case, it\u2019d be great to keep reorgs from getting too deep. Signet\u2019s appeal for us is that it mimics mainnet \u2013 predictable blocks and mainnet-like forks are basically why we picked it over Testnet4 \u2013 so occasional shallow reorgs are fine, but deep ones on the default net would defeat the point for us.</p>\n<p>We may want to test deep-reorg handling, but we\u2019d rather opt into it rather than have the shared default surprise us.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-06-05T14:27:28.386Z",
   "reply_count": 1,
   "reply_to_post_number": null,

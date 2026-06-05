@@ -7,7 +7,7 @@
   "cooked": "<p>That\u2019s a good point, but at least for really deep reorgs, which would not be Mainnet-like behavior, it would be nice to be able to opt-out. I like this idea (quoted from the email) -</p>\n<blockquote>\n<p>AJ proposed to allow SigNet users to opt-out of reorgs in case they\nexplicitly want to remain unaffected. This can be done by setting a\nto-be-reorged version bit flag on the blocks that won\u2019t end up in the\nmost work chain. Node operators could choose not to accept to-be-reorged\nSigNet blocks with this flag set via a configuration argument.</p>\n</blockquote>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-06-05T14:41:56.104Z",
   "reply_count": 0,
   "reply_to_post_number": 4,

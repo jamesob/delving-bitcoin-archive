@@ -7,7 +7,7 @@
   "cooked": "<p>We run a Bitcoin L2 and use the default signet as our primary testnet, so I\u2019m trying to understand how often and how deep the default signet reorgs.</p>\n<p>On a fork-observer instance I found a fork at common-ancestor height <strong>287766</strong> with a competing branch <strong>19 blocks deep</strong>, losing tip at height 287785 (<code>0000000024ff924ff932668d497bba7da9157559a68d9c87d2f28d22e5e4a001</code>).</p>\n<p>Questions:</p>\n<ol>\n<li>Was the 287766 reorg a deliberate exercise, or operational (e.g. concurrent signing instances reconciling)?</li>\n<li>Is there any historical record of default-signet reorgs anywhere \u2014 a log, a feed, a writeup \u2014 or is running one\u2019s own monitor the only way to capture them going forward?</li>\n<li>Should users treat periodic reorgs as expected behavior on the default signet?</li>\n</ol>\n<p>Mainly trying to figure out whether deep reorgs here are a designed feature, a rare incident, or something in between, so we can test our stack against a realistic worst case.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-06-05T11:46:26.276Z",
   "reply_count": 0,
   "reply_to_post_number": null,

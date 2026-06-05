@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"pramodkandel\" data-post=\"3\" data-topic=\"2591\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/pramodkandel/48/2109_2.png\" class=\"avatar\"> pramodkandel:</div>\n<blockquote>\n<p>We may want to test deep-reorg handling, but we\u2019d rather opt into it rather than have the shared default surprise us.</p>\n</blockquote>\n</aside>\n<p>A counter point might be: There could be a deep-ish reorg on mainnet anytime and you wouldn\u2019t have a chance to opt-in (or out) of that. So better to test these a little more frequently on Signet?</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-06-05T14:30:49.226Z",
   "reply_count": 2,
   "reply_to_post_number": null,

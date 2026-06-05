@@ -76,3 +76,14 @@ To make sure we're on the same page, I presume the border between "normal" and "
 
 -------------------------
 
+pramodkandel | 2026-06-05 15:50:49 UTC | #7
+
+[quote="ajtowns, post:6, topic:2591"]
+I presume the border between "normal" and "deep" reorgs is somewhere around 6-10 blocks?
+
+[/quote]
+
+That sounds about right. In our protocol, we assume 6.
+
+-------------------------
+
