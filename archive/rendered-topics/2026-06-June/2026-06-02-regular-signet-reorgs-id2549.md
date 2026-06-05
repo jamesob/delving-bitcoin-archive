@@ -41,3 +41,26 @@ There's also "signet-2" which is mine if the inquisition node fails to build a b
 
 -------------------------
 
+ajtowns | 2026-06-05 16:15:37 UTC | #4
+
+Okay, the logic I used above makes it too easy to go too far out of sync:
+
+```json
+[
+  {
+    "height": 307525,
+    "hash": "00000000ae6faa1ab0510c5c22bf6c3edb8f23c1800777ffa16631a9d9ae1c82",
+    "branchlen": 163,
+    "status": "valid-fork"
+  },
+  {
+    "height": 307510,
+    "hash": "000000085d2ea634de8d2cf13c03419f72876c4e811844bafbf8e44ea0c0a039",
+    "branchlen": 148,
+    "status": "valid-fork"
+  }
+]
+```
+
+-------------------------
+

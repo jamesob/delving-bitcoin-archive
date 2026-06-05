@@ -36,3 +36,11 @@ It looks like you're focusing on the "initial decision" for mining privately whi
 
 -------------------------
 
+micah541 | 2026-06-05 18:07:49 UTC | #4
+
+I modeled this in my book a few years back and it was quite involved.  I don't know if there's an easier way to do it.  See https://pages.uoregon.edu/micahw/bitcoin/double_spend.pdf  I didn't even bother writing out formulas for (5.24) and (5.25) because it was such a ginormous mess. 
+
+The underlying probability philosophy for comparing the "try to steal fee" versus "mine the tip" involves a coupling argument that the two underlying probability spaces are isomorphic thus you only need to subtract the situation win you lose the race, not when you win.
+
+-------------------------
+
