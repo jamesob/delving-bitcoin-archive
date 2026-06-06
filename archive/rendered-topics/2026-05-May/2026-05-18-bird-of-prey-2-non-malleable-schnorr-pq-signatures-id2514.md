@@ -169,3 +169,29 @@ But if hybrid schemes were considered, I think this idea is good basis to start 
 
 -------------------------
 
+conduition | 2026-06-06 15:11:00 UTC | #8
+
+[quote="sipa, post:7, topic:2514"]
+Well, BoP2 isn’t black-box either. I believe the BoP authors conjecture even that no scheme that uses both constituent schemes in a black-box fashion can be SUF-CMA.
+[/quote]
+
+I was referring to black-box compatibility with any SUF-CMA PQ signature scheme. Clearly BoP2 is not black-box compatible with any classical scheme, but that's not so important. From the paper:
+
+> We present the Bird-of-Prey class containing three strongly unforgeable signature combiners that ... make black-box use of any NIST-approved PQ signature resulting in FIPS compliance
+
+[quote="sipa, post:7, topic:2514"]
+Perhaps the use of very stateful schemes that could break down on misuse might be an argument in favor of hybrid schemes.
+[/quote]
+
+This was something we've talked about quite a bit in the SHRINCS working group. Unfortunately the extra security doesn't seem to be worth the complexity and forced addition of EC signatures in-perpetuity. But hybridization would provide a very good defensive strategy for signers who may make mistakes handling state, so perhaps if hash-based sigs are ever used on a daily basis, this will be the standard strategy to do so. Still I hope we never need to do that.
+
+[quote="sipa, post:7, topic:2514"]
+Longer term, if schemes based on other more novel assumptions were added (like lattices or isogenies) I think it would be entirely reasonable to consider them only in a hybrid form, so having a single opcode for checking against a hybrid EC+PQC scheme
+[/quote]
+
+I'd say for lattices sure - adding 64 bytes to an already-huge witness would mean very little. 
+
+For isogenies maybe not. Isogenies are so compact, by hybridizing with EC we'd increase their witness size by a factor ~1.3x. So someday if we do trust isogenies more readily (the ideal case), we'd need another soft-fork to trim the EC cruft. Or we'd have to design the scheme from the start to allow signers to opt in/out of hybridization.
+
+-------------------------
+
