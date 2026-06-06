@@ -122,3 +122,29 @@ I haven't read it in detail. It looks pretty similar to this, but applying to th
 
 -------------------------
 
+conduition | 2026-06-05 23:29:13 UTC | #6
+
+[quote="conduition, post:4, topic:2514"]
+Boris Nagaev here shows a way which would seem to let us implement BIP340 on top of a hash-based scheme with only 48 bytes of overhead:
+[/quote]
+
+After some further discussion offline, Jonas Nick pointed out we'd need to expand the hybrid PK.root to 32 bytes to avoid related-key collision attacks, so unfortunately Boris' hybrid scheme would only save 32 bytes off a naive concatenated signature. Combined with other factors like the lack of black-box compatibility, i'm pretty sure BoP2 would actually be a more solid contender if we were to construct a unified hybrid scheme.
+
+[quote="sipa, post:5, topic:2514"]
+I do not understand this. Deterministic signing constrains honest signers, not adversaries. You cannot prevent adversaries who learn your private key (or the part thereof that corresponds to the broken scheme) from signing with whatever algorithm they like.
+[/quote]
+
+[quote="sipa, post:5, topic:2514"]
+The concern here is that if either of the two constituent schemes are broken (perhaps secp256k1 by a CRQC, or the post-quantum scheme turns out to be classically broken), *anyone* can replace that part of the hybrid signature with another one (because they, like everyone, have the private key).
+[/quote]
+
+I hadn't considered the quantum-adversary might want to malleate signatures.
+
+I was thinking more specifically about the special case of classical adversaries, who could malleate a naive (concatenated) hybrid signature if the adversary sees multiple signatures on the same message, by simply mixing and matching signatures. This case can be handled by honest signers who only ever produce one unique signature per message (e.g. via determinism). But you're right that with a quantum adversary in the mix, we would need a unified scheme like BoP2 to avoid malleation.
+
+Still though, i don't think post-quantum EC signature malleation is really a big concern, and hybrid scripts will probably be rare, so I'm not super invested in the idea of a hybrid signing scheme. I think we could do it, but we should find compelling use-cases first. 
+
+If anything, the 32-byte savings is the more tempting argument.
+
+-------------------------
+
