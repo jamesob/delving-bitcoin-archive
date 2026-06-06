@@ -148,3 +148,24 @@ If anything, the 32-byte savings is the more tempting argument.
 
 -------------------------
 
+sipa | 2026-06-06 02:35:44 UTC | #7
+
+[quote="conduition, post:6, topic:2514"]
+Combined with other factors like the lack of black-box compatibility, i’m pretty sure BoP2 would actually be a more solid contender if we were to construct a unified hybrid scheme.
+[/quote]
+
+Well, BoP2 isn't black-box either. I believe the BoP authors conjecture even that no scheme that uses both constituent schemes in a black-box fashion can be SUF-CMA.
+
+
+[quote="conduition, post:6, topic:2514"]
+Still though, i don’t think post-quantum EC signature malleation is really a big concern, and hybrid scripts will probably be rare, so I’m not super invested in the idea of a hybrid signing scheme. I think we could do it, but we should find compelling use-cases first.
+[/quote]
+
+I think as long as the focus is hash-based schemes it doesn't matter much, because their security assumptions are so low. Perhaps the use of very stateful schemes that could break down on misuse might be an argument in favor of hybrid schemes.
+
+Longer term, if schemes based on other more novel assumptions were added (like lattices or isogenies) I think it would be entirely reasonable to consider them only in a hybrid form, so having a single opcode for checking against a hybrid EC+PQC scheme. Bitcoin holders might not be comfortable with the prospect of people at scale using a pure PQC scheme for protecting their coins if that scheme isn't very highly trusted. Of course, that might also be a reason not to adopt such PQC schemes at all.
+
+But if hybrid schemes were considered, I think this idea is good basis to start from.
+
+-------------------------
+
