@@ -265,3 +265,20 @@ Yes, this is correct.
 
 -------------------------
 
+sipa | 2026-06-07 14:09:27 UTC | #4
+
+[quote="starius, post:3, topic:2603"]
+If there is a tree with related EC keys `P` and `P' = P + t⋅G` in different leaves of the same tree and `e` does not commit to the control block (i.e. to the path in the tree), then it is possible to forge a signature for `P'` given a valid signature for `P`.
+[/quote]
+
+Right, nice catch.
+
+
+[quote="starius, post:3, topic:2603"]
+**UPD**. I assume that in the P2TR case in the table there is only a single script leaf, because the key path is the key spend, not a leaf. For a literal 2-leaf P2TR output, the **script spend** would be 32 bytes larger.
+[/quote]
+
+Yeah, I just meant an output that allows spending through either a key or a script path. Whether that's tweak-based of tree-based is an implementation detail of the scheme.
+
+-------------------------
+
