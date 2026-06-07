@@ -222,3 +222,46 @@ Does that sound right? So it recovers half of the happy-path benefit of P2TR, at
 
 -------------------------
 
+starius | 2026-06-07 07:12:14 UTC | #3
+
+Hi Pieter,
+
+Thanks for reviewing the proposal!
+
+> Do you see any practical attacks from not doing that? A tree which has the same public key in multiple leafs would allow malleation without it, but are there more severe issues?
+
+If there is a tree with related EC keys `P` and `P' = P + t⋅G` in different leaves of the same tree and `e` does not commit to the control block (i.e. to the path in the tree), then it is possible to forge a signature for `P'` given a valid signature for `P`.
+
+Assume we have an adversary who knows the tree structure, `P`, `P'`, and the tweak `t`. The adversary can query the signer for a signature under `P` on a transaction (`R`, `s`) and then forge a signature for key `P'` from another leaf:
+
+```
+s⋅G = R + e⋅P
+```
+
+The adversary computes:
+
+```
+s' = s + e⋅t
+```
+
+Then:
+
+```
+s'⋅G = s⋅G + e⋅t⋅G
+     = R + e⋅P + e⋅t⋅G
+     = R + e⋅(P + t⋅G)
+     = R + e⋅P'
+```
+
+So `(R, s')` verifies for `P'`. Note that `e` is the same in both signatures, since it does not commit to the control block.
+
+Thanks to Conduition for discovering this in-tree version of the related-key attack!
+
+> Does that sound right? So it recovers half of the happy-path benefit of P2TR, at the cost of batch validation and black-box usage of the signature scheme, but gains the ability to not reveal the public key until key path spend time.
+
+Yes, this is correct.
+
+**UPD**. I assume that in the P2TR case in the table there is only a single script leaf, because the key path is the key spend, not a leaf. For a literal 2-leaf P2TR output, the **script spend** would be 32 bytes larger.
+
+-------------------------
+
