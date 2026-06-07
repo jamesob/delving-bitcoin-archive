@@ -204,3 +204,21 @@ Thanks to Conduition for helping with this proposal, and in particular for findi
 
 -------------------------
 
+sipa | 2026-06-07 03:44:47 UTC | #2
+
+Thank you for writing this out in detail; I hadn't considered the possibility of using root + Merkle branch instead of the public key in the challenge. My intuition is that this works, and that security properties of BIP340 and script signatures in general will carry over. For more complex constructions built on top, like MuSig2, we'd need new security proofs though. I'm not actually convinced including the Merkle path in the challenge is necessary, though it definitely does not hurt. Do you see any practical attacks from not doing that? A tree which has the same public key in multiple leafs would allow malleation without it, but are there more severe issues?
+
+The downside of this approach is that it gives up the ability for batch validation, which we used as a design requirement in BIP 340-342. It can be debated how important that is, but without it, we could also have saved a byte in P2TR script path spends (the sign of the tweaked output point wouldn't need to be revealed).
+
+Ignoring the exact byte sencodings, and just counting hashes/keys as 32 and signatures as 64, for a 2-leaf output (1 key, 1 script), I believe we get:
+
+| Scheme | Key spend | Script spend |
+| --- | --- | --- |
+| P2TR | 64 | 32+script+inputs |
+| P2MR | 128 | 32+script+inputs |
+| This scheme | 96 | 32+script+inputs |
+
+Does that sound right? So it recovers half of the happy-path benefit of P2TR, at the cost of batch validation and black-box usage of the signature scheme, but gains the ability to not reveal the public key until key path spend time.
+
+-------------------------
+
