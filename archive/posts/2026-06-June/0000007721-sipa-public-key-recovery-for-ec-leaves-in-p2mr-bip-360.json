@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"starius\" data-post=\"3\" data-topic=\"2603\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/starius/48/2104_2.png\" class=\"avatar\"> starius:</div>\n<blockquote>\n<p>If there is a tree with related EC keys <code>P</code> and <code>P' = P + t\u22c5G</code> in different leaves of the same tree and <code>e</code> does not commit to the control block (i.e. to the path in the tree), then it is possible to forge a signature for <code>P'</code> given a valid signature for <code>P</code>.</p>\n</blockquote>\n</aside>\n<p>Right, nice catch.</p>\n<aside class=\"quote no-group\" data-username=\"starius\" data-post=\"3\" data-topic=\"2603\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/starius/48/2104_2.png\" class=\"avatar\"> starius:</div>\n<blockquote>\n<p><strong>UPD</strong>. I assume that in the P2TR case in the table there is only a single script leaf, because the key path is the key spend, not a leaf. For a literal 2-leaf P2TR output, the <strong>script spend</strong> would be 32 bytes larger.</p>\n</blockquote>\n</aside>\n<p>Yeah, I just meant an output that allows spending through either a key or a script path. Whether that\u2019s tweak-based of tree-based is an implementation detail of the scheme.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-06-07T14:09:27.256Z",
   "reply_count": 0,
   "reply_to_post_number": 3,
