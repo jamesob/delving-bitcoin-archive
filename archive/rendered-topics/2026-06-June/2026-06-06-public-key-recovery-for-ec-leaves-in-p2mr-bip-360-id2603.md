@@ -282,3 +282,19 @@ Yeah, I just meant an output that allows spending through either a key or a scri
 
 -------------------------
 
+ajtowns | 2026-06-08 07:05:10 UTC | #5
+
+It seems to me like any EC keys used in P2MR constructions like this should be hardened (so not derivable from an xpub), since revealing the pubkey to a quantum capable attacker negates the benefit of using P2MR in the first place.
+
+If you are doing hardened keys, then calculating `t` for the `P vs P'` case is only possible if you know the private keys for both public keys, in which case it's not really "forging" a signature for the other key. (Obviously you've solved that problem already though)
+
+[quote="sipa, post:2, topic:2603"]
+Does that sound right? So it recovers half of the happy-path benefit of P2TR, at the cost of batch validation and black-box usage of the signature scheme, but gains the ability to not reveal the public key until key path spend time.
+[/quote]
+
+Batch validation is potentially ~~a 20% performance improvement~~ per [secp256k1#1134](https://github.com/bitcoin-core/secp256k1/pull/1134/) while these spends are ~14% more expensive (65.5 vbytes per input vs 57.5 vbytes per input for a taproot keypath spend?), so I think that can already be considered roughly accounted for? Not having to calculate a taptweak for script path spends is a saving on the validation side as well, that might also be worth factoring in.
+
+EDIT: Oh, my bad -- more recent updates on that PR suggests 55%-80% improvements are viable. So if a batchable sig costs 50 weight units, then a non-batchable sig should cost perhaps 77.5 (+55%) to 90 (+80%) weight units, and these sigs are naturally 64 weight units and 96 weight units, so that's still arguable okay per the existing measures...
+
+-------------------------
+

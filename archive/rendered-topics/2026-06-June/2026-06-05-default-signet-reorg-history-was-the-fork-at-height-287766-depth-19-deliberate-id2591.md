@@ -87,3 +87,24 @@ That sounds about right. In our protocol, we assume 6.
 
 -------------------------
 
+pramodkandel | 2026-06-08 06:10:51 UTC | #8
+
+[quote="ajtowns, post:6, topic:2591"]
+I presume the border between "normal" and "deep" reorgs is somewhere around 6-10 blocks
+
+[/quote]
+
+On this, forgot to ask -- there were also some moderately deep (6-10) reorgs already on Signet. For example, these ones (one is 7, another is 9) --
+
+![image|690x229](upload://pIufeRrCE73Zf7222C3VNaOqE9x.png)
+
+Were these by design, or similar operational issue as the 19-block reorg incident?
+
+-------------------------
+
+ajtowns | 2026-06-08 06:55:43 UTC | #9
+
+Those were the bip54 test runs I'm pretty sure -- https://delvingbitcoin.org/t/consensus-cleanup-demo-of-slow-blocks-on-signet/2367
+
+-------------------------
+
