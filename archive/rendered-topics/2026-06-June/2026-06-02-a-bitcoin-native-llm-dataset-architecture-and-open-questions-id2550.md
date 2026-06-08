@@ -104,3 +104,13 @@ Definitely! All technicals aggregators like https://bitcoin.stackexchange.com/, 
 
 -------------------------
 
+l0rinc | 2026-06-07 21:02:13 UTC | #4
+
+I think this came up a few times before, would be really cool to see someone champion it.
+
+Besides the usual sources, I would also include Bitcoin Core PR review discussions, CoreDev transcripts, OpTech transcripts, Bitcoin Stack Exchange, technical books, Learn Me A Bitcoin, and similar.
+
+There often is no single final answer, just different experts arguing for different tradeoffs, so keeping attribution would matter a lot.
+
+-------------------------
+
