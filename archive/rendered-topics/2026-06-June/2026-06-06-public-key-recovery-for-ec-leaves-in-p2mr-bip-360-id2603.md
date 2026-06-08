@@ -310,11 +310,13 @@ Of course, using xpubs in this manner makes them practically equivalent to harde
 
 -------------------------
 
-RubenSomsen | 2026-06-08 15:58:43 UTC | #7
+RubenSomsen | 2026-06-08 19:09:48 UTC | #7
 
-Interesting observation that the hash pre-image of the pubkey is just as good as the pubkey itself for the Schnorr challenge and that this can salvage pubkey recovery. While we're talking about this in the context of P2MR, I'd say the observation is more general than that. In theory this could have been applied to taproot script paths when it was first conceived, or could be added with a new leaf version if deemed desirable (big if).
+Interesting observation that the hash of the pubkey is just as good as the pubkey itself for the Schnorr challenge and that this can salvage pubkey recovery. While we're talking about this in the context of P2MR, I'd say the observation is more general than that. In theory this could have been applied to taproot script paths when it was first conceived, or could be added with a new leaf version if deemed desirable (big if).
 
 While batch validation breaks, and this may warrant a weight unit increase, there is some nuance - you could still choose to download the pubkeys together with the block, giving you the option to do batch verification (and save CPU) at the cost of bandwidth. And of course at the tip (without blocksonly) you're not batch validating incoming transactions anyway.
+
+**Edit:** I have one additional observation, though I have yet to find a practical use case - since the outpoint is also a commitment to the pubkey and is readily available on the input side, you could use this in the challenge instead of the pubkey (assuming a segwit v2 soft fork), enabling pubkey recovery for taproot key path spends.
 
 -------------------------
 
