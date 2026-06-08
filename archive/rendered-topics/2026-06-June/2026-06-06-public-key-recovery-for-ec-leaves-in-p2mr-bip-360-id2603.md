@@ -298,7 +298,7 @@ EDIT: Oh, my bad -- more recent updates on that PR suggests 55%-80% improvements
 
 -------------------------
 
-sipa | 2026-06-08 10:50:53 UTC | #6
+sipa | 2026-06-08 11:59:49 UTC | #6
 
 [quote="ajtowns, post:5, topic:2603"]
 seems to me like any EC keys used in P2MR constructions like this should be hardened (so not derivable from an xpub), since revealing the pubkey to a quantum capable attacker negates the benefit of using P2MR in the first place.

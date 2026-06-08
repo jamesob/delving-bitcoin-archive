@@ -124,3 +124,13 @@ What do you mean by keeping attribution? Attribution of sources or LLM action or
 
 -------------------------
 
+l0rinc | 2026-06-08 11:41:38 UTC | #6
+
+> What do you mean by keeping attribution?
+
+I mostly meant attribution of arguments, not just sources. There often is not a central "truth" here, but different experts arguing for different tradeoffs. For example, in the AssumeUTXO discussion, one side argues that the hash is in the source code and therefore part of the same trust users already place in the software, while the other side argues that it is a separate trust-me-bro shortcut that temporarily accepts unvalidated state: https://github.com/bitcoin/bitcoin/pull/35054#issuecomment-4501781606
+
+So ideally a Bitcoin-native LLM would not just try to produce *the* answer, but preserve which expert argued what, in what context, and what assumptions or compromises each side is making.
+
+-------------------------
+
