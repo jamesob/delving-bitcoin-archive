@@ -114,3 +114,13 @@ There often is no single final answer, just different experts arguing for differ
 
 -------------------------
 
+Tsua00021 | 2026-06-08 10:03:14 UTC | #5
+
+Do you have links or discussions about this, previously made by Bitcoin devs? 
+
+Yes stackexchange was mentioned. Learn me a Bitcoin is definitely a good website to keep in mind for us to learn but most of common LLMs nowadays know what is into it. Maybe extracting as small papers and give them as RAG ressources could be interesting when you need advice. 
+
+What do you mean by keeping attribution? Attribution of sources or LLM action or do you have something else in mind?
+
+-------------------------
+
