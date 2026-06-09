@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"conduition, post:11, topic:2603\"]\nI\u2019m saying BIP32 specifically as a standard will need to be replaced one way or another. We can still use BIP39 seeds, we just need a new derivation standard that is aware of SHRINCS (or whatever other scheme we deploy).\n[/quote]\n\nI think that's too narrow, the problem isn't (just) BIP32. The concern is just how much of the ecosystem is built around processes that share public keys or xpubs. See my edit above for a non-exhaustive list.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I think that\u2019s too narrow, the problem isn\u2019t (just) BIP32. The concern is just how much of the ecosystem is built around processes that share public keys or xpubs. See my edit above for a non-exhaustive list.",
   "truncated": true,
   "post_url": "/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
