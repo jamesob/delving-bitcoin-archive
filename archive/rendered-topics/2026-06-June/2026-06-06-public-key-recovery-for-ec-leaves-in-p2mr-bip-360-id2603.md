@@ -433,3 +433,53 @@ But with the EC + hash-based addresses that we'll have in the near-term, it's a 
 
 -------------------------
 
+ajtowns | 2026-06-09 16:09:07 UTC | #14
+
+[quote="sipa, post:6, topic:2603"]
+It suffices to not reveal any (unhardened) xpubs with untrusted parties, and (as always in this setting) not reuse keys, I think? Using xpubs to derive the keys itself is fine if they are kept secret, because quantum attackers cannot discover the chaincode.
+
+Of course, using xpubs in this manner makes them practically equivalent to hardened derivation anyway I guess, if you need to guard the chaincode as much as you’d orherwise need to guard the public key?
+[/quote]
+
+Yeah, I mean it more in the "philosophical" sense in that you essentially have to treat any derivation sources as private, not public -- it just seems much easier to explain "you're familiar with xprv and xpub, these things are essentially xprvs", rather than saying "it's okay to use an xpub here just not in the ways you're familiar with, and if you do it wrong, it will probably actually be fine, unless there's a catastrophic event in which case it won't be, and of course you're only doing this in the first place because you're worried about the catastrophic event".
+
+Also, I think from a descriptor point-of-view you don't want to include the xpub there either (in case you're not keeping descriptors as secure as your private key seed), and would be better off having it appear as something like:
+
+```txt
+hpkh([deadbeef/0h/0h/0h]121c5dd3ae08612e2c4bcb958cc0bb6a12739246736fa09fa6d41f1b0d68780d)
+```
+
+where you provide the origin (so that you can figure out how to sign if you have the "deadbeef" private key) and the hash of the public key, rather than the public key itself. That sort of descriptor looks more reminiscent of hardened pubkeys to me (eg, no "/1/2" after the hash is possible).
+
+[quote="conduition, post:8, topic:2603"]
+If we banned depth-zero P2MR trees as I’ve suggested recently, this would prevent the mismatch.
+[/quote]
+
+Using P2MR addresses with no post-quantum signing path does seem fairly pointless...
+
+[quote="sipa, post:10, topic:2603"]
+I agree, but I also think this mostly destroys the appeal of P2MR. For most users, if they can’t use BIP32 (or substantially similar things), I am strongly of the opinion they just won’t migrate, or do it insecurely.
+[/quote]
+
+I think the use case here isn't really clear; I don't think switching the entire BTC ecosystem to something PQ secure is plausible as a single step. To my mind, there's perhaps three potential phases:
+
+ * people are afraid of quantum but there's no immediate threat: they'd like the ability to park some funds in quantum-safe addresses, and the ability to build tools to prepare for the threat materialising, but all day-to-day activity will continue working in the existing paradigm
+
+ * the quantum threat becomes real and imminent: almost everyone wants to move their coins to a secure address, even if that means, eg shutting down the entire lightning network, not being able to accept silent payments, not being able to easily query their balance or transaction history, etc. when the bombs are falling, you go to the bunker, even if it doesn't have the creature comforts you're used to.
+
+ * Q-day is in the past, and we're building the best things we can build in light of that, with whatever fancy new maths we've come up with in the meantime determining whether our glory days are in the past or the future
+
+Targeting large cold-ish wallets so that they can move into a "bunker" in the near future if desired, while leaving scripting hooks that can make the address format more featureful if/when ECC gets broken and good PQ solutions are found seems like a pretty fair balance to me. I think there is a lot of tooling to be built/updated for even that fairly limited scope of a project though.
+
+-------------------------
+
+AntoineP | 2026-06-09 17:55:58 UTC | #15
+
+[quote="ajtowns, post:14, topic:2603"]
+Targeting large cold-ish wallets so that they can move into a “bunker” in the near future if desired, while leaving scripting hooks that can make the address format more featureful if/when ECC gets broken and good PQ solutions are found seems like a pretty fair balance to me.
+[/quote]
+
+I think this is the wrong target. Large holders, because they have so much at stake, can be expected to react reasonably quickly during the second step you are describing. However migrating Bitcoin to PQ requires migrating the ~entirety of its current users to stop relying on EC crypto. So i think the target in the near future should be to provide a migration option to those users we expect to be the least reactive, such as we enter step 2 with as few users that haven't opted into a migration as possible.
+
+-------------------------
+

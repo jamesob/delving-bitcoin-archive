@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"RubenSomsen\" data-post=\"7\" data-topic=\"2603\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/rubensomsen/48/188_2.png\" class=\"avatar\"> RubenSomsen:</div>\n<blockquote>\n<p><strong>Edit:</strong> I have one additional observation, though I have yet to find a practical use case - since the outpoint is also a commitment to the pubkey and is readily available on the input side, you could use this in the challenge instead of the pubkey (assuming a segwit v2 soft fork), enabling pubkey recovery for taproot key path spends.</p>\n</blockquote>\n</aside>\n<p>Indeed!</p>\n<p>But it suffers from the same downsides as other uses of recovery shenanigans: no batch validation, and needing to break the abstraction around the signature scheme.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 13,
+  "posts_count": 15,
   "updated_at": "2026-06-08T23:39:06.377Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 6.8,
+  "reads": 13,
+  "readers_count": 12,
+  "score": 52.6,
   "yours": false,
   "topic_id": 2603,
   "topic_slug": "public-key-recovery-for-ec-leaves-in-p2mr-bip-360",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"RubenSomsen, post:7, topic:2603\"]\n**Edit:** I have one additional observation, though I have yet to find a practical use case - since the outpoint is also a commitment to the pubkey and is readily available on the input side, you could use this in the challenge instead of the pubkey (assuming a segwit v2 soft fork), enabling pubkey recovery for taproot key path spends.\n[/quote]\n\nIndeed!\n\nBut it suffers from the same downsides as other uses of recovery shenanigans: no batch validation, and needing to break the abstraction around the signature scheme.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Indeed! \nBut it suffers from the same downsides as other uses of recovery shenanigans: no batch validation, and needing to break the abstraction around the signature scheme.",
   "truncated": true,
   "post_url": "/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
