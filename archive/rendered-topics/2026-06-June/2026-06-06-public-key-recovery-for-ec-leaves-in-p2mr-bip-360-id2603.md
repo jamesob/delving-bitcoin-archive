@@ -320,3 +320,100 @@ While batch validation breaks, and this may warrant a weight unit increase, ther
 
 -------------------------
 
+conduition | 2026-06-08 23:37:25 UTC | #8
+
+Nice work @starius, very glad to see more eyes on this clever idea.
+
+[quote="ajtowns, post:5, topic:2603"]
+It seems to me like any EC keys used in P2MR constructions like this should be hardened (so not derivable from an xpub), since revealing the pubkey to a quantum capable attacker negates the benefit of using P2MR in the first place.
+
+If you are doing hardened keys, then calculating `t` for the `P vs P'` case is only possible if you know the private keys for both public keys, in which case it’s not really “forging” a signature for the other key. (Obviously you’ve solved that problem already though)
+[/quote]
+
+[quote="sipa, post:6, topic:2603"]
+It suffices to not reveal any (unhardened) xpubs with untrusted parties, and (as always in this setting) not reuse keys, I think? Using xpubs to derive the keys itself is fine if they are kept secret, because quantum attackers cannot discover the chaincode.
+[/quote]
+
+Once you start thinking about xpubs post-Q-day things will start getting complicated. Nothing about Boris' idea here has changed that: The security status-quo around related keys and quantum adversaries remains just as complex as it would've been without recoverable EC leaves. 
+
+We're going to have to completely rethink the concept of xpubs when it comes to hash-based signature schemes anyway, since we can't derive secure child keys from a hash-based pubkey. I have posted about this before [here](https://groups.google.com/g/bitcoindev/c/5tLKm8RsrZ0/m/WE-R3z85AAAJ) and I have [a rough sketch for what future xpubs may someday look like here](https://hackmd.io/@conduition/HkyM7uJtZg). But maybe it'd be better to discard the idea of xpubs and just provide batches of addresses to senders instead. This would be far safer because CRQC adversaries cannot crack open an individual address unless they learn the internal EC/HB pubkeys and scripts involved. This way receivers could generate unique hash-based keys for every address, making the quantum-fallback leaf more efficient (they can use unbalanced XMSS trees). 
+
+In any case, today's BIP32 standard should probably not be applied to EC keys in the context P2MR because of how risky/complex it is.
+
+[quote="ajtowns, post:5, topic:2603"]
+EDIT: Oh, my bad – more recent updates on that PR suggests 55%-80% improvements are viable. So if a batchable sig costs 50 weight units, then a non-batchable sig should cost perhaps 77.5 (+55%) to 90 (+80%) weight units, and these sigs are naturally 64 weight units and 96 weight units, so that’s still arguable okay per the existing measures…
+[/quote]
+
+Technically it could be possible under the current version of BIP360 for a recoverable EC leaf to compete with taproot's witness size using a depth-zero P2MR tree. If the P2MR root hash is just a hash of the recoverable EC pubkey, then you just need a 1-byte control block, plus the 64 byte signature as the witness. This is only a byte or two larger than P2TR's witness in that case, but you don't get any secondary spending paths (e.g. for a PQ leaf). Then the signature weight numbers you quoted might not match up so well.
+
+If we banned depth-zero P2MR trees as I've suggested recently, this would prevent the mismatch.
+
+[quote="RubenSomsen, post:7, topic:2603"]
+Interesting observation that the hash of the pubkey is just as good as the pubkey itself for the Schnorr challenge and that this can salvage pubkey recovery. While we’re talking about this in the context of P2MR, I’d say the observation is more general than that. In theory this could have been applied to taproot script paths when it was first conceived, or could be added with a new leaf version if deemed desirable (big if).
+[/quote]
+
+Very true. We could've designed a version of P2TR which commits $q = H(P)$ on-chain in the witness program, and the spender reveals either (1) a signature that allows the verifier to recover $P$ and thus $H(P)$, or (2) an internal key $\hat P$ and script $S$ s.t. $P = \hat P + H(\hat P\ \|\ S) \cdot G$.
+
+Originally Boris suggested a variant of this idea as a way to hybridize Schnorr and SHRINCS: 
+
+https://groups.google.com/g/bitcoindev/c/nMO4hyEm5qc/m/8wy900TXBwAJ
+
+It is a very flexible idea but you also have to be *very* careful about how you use it. 
+
+For example, Boris' construction currently defines the new leaf version using just the hash of a single compressed pubkey. But if we allowed a leaf to contain *multiple* EC pubkeys, this would allow related-key attacks: If two related EC keys are used inside the same leaf, then the challenge hash $e = H(R\ \|\ q\ \|\ \mathsf{ctrl\_block}\ \|\ m)$ would be the same for both keys and permit forgeries as @starius showed earlier.
+
+There will clearly be some new security notions needed to formally prove this technique secure. Intuitively, it seems like to avoid related-key attacks we must require $e$ to commit to a hash of the pubkey $q = H(P\ \|\  ...)$, but also $e$ must commit to the other commitment hash inputs (the $...$ part), or else the signature can be rebound to other constituent inputs of $q$.
+
+-------------------------
+
+sipa | 2026-06-08 23:39:06 UTC | #9
+
+[quote="RubenSomsen, post:7, topic:2603"]
+**Edit:** I have one additional observation, though I have yet to find a practical use case - since the outpoint is also a commitment to the pubkey and is readily available on the input side, you could use this in the challenge instead of the pubkey (assuming a segwit v2 soft fork), enabling pubkey recovery for taproot key path spends.
+[/quote]
+
+Indeed!
+
+But it suffers from the same downsides as other uses of recovery shenanigans: no batch validation, and needing to break the abstraction around the signature scheme.
+
+-------------------------
+
+sipa | 2026-06-08 23:50:04 UTC | #10
+
+[quote="conduition, post:8, topic:2603"]
+In any case, today’s BIP32 standard should probably not be applied to EC keys in the context P2MR because of how risky/complex it is.
+[/quote]
+
+I agree, but I also think this mostly destroys the appeal of P2MR. For most users, if they can't use BIP32 (or substantially similar things), I am strongly of the opinion they just won't migrate, or do it insecurely. It's already dubious even with the weakest of burdens to adoption (like P2TRv2), but basically an impossibility in my mind if we demand users simultaneously adopt entirely new concepts of what a "wallet" even is.
+
+I'm aware of my own bias here, having (co-)authored BIP32 and other wallet standards. Still, I don't think I am exaggerating when believing that a very significant portion of the ecosystem is effectively built around xpub and public key sharing (including all multisig, escrow services, software watchonly wallets based on descriptors, wallet indexing services, ...), and *none* of that is something one can use in EC-P2MR if one hopes to have their coins survive Q-day (without the expectation of an EC-disabling consensus change, which seems like the only reason to want it in the first place).
+
+-------------------------
+
+conduition | 2026-06-08 23:46:34 UTC | #11
+
+[quote="sipa, post:10, topic:2603"]
+I agree, but I also think this mostly destroys the appeal of P2MR. For most users, if they can’t use BIP32 (or substantially similar things), I am strongly of the opinion they just won’t migrate. It’s already dubious even with the weakest of burdens to adoption (like P2TRv2), but basically an impossibility in my mind if we demand users simultaneously adopt entirely new concepts of what a “wallet” even is.
+[/quote]
+
+I'm not saying we deprecate HD wallets. Those are still going to be universal. I'm saying BIP32 specifically as a standard will need to be replaced one way or another. We can still use BIP39 seeds, we just need a new derivation standard that is aware of SHRINCS (or whatever other scheme we deploy).
+
+[quote="sipa, post:2, topic:2603"]
+Does that sound right? So it recovers half of the happy-path benefit of P2TR, at the cost of batch validation and black-box usage of the signature scheme, but gains the ability to not reveal the public key until key path spend time.
+[/quote]
+
+
+Perhaps it is still plausible to treat the new recoverable signature scheme as a black box. Just think of it as regular non-key-prefixed Schnorr signature, but with extra data prepended to the message.
+
+-------------------------
+
+sipa | 2026-06-08 23:53:38 UTC | #12
+
+[quote="conduition, post:11, topic:2603"]
+I’m saying BIP32 specifically as a standard will need to be replaced one way or another. We can still use BIP39 seeds, we just need a new derivation standard that is aware of SHRINCS (or whatever other scheme we deploy).
+[/quote]
+
+I think that's too narrow, the problem isn't (just) BIP32. The concern is just how much of the ecosystem is built around processes that share public keys or xpubs. See my edit above for a non-exhaustive list.
+
+-------------------------
+
