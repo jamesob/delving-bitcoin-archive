@@ -13,8 +13,8 @@
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
+  "reads": 9,
+  "readers_count": 8,
   "score": 11.6,
   "yours": false,
   "topic_id": 2603,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"conduition, post:8, topic:2603\"]\nIn any case, today\u2019s BIP32 standard should probably not be applied to EC keys in the context P2MR because of how risky/complex it is.\n[/quote]\n\nI agree, but I also think this mostly destroys the appeal of P2MR. For most users, if they can't use BIP32 (or substantially similar things), I am strongly of the opinion they just won't migrate, or do it insecurely. It's already dubious even with the weakest of burdens to adoption (like P2TRv2), but basically an impossibility in my mind if we demand users simultaneously adopt entirely new concepts of what a \"wallet\" even is.\n\nI'm aware of my own bias here, having (co-)authored BIP32 and other wallet standards. Still, I don't think I am exaggerating when believing that a very significant portion of the ecosystem is effectively built around xpub and public key sharing (including all multisig, escrow services, software watchonly wallets based on descriptors, wallet indexing services, ...), and *none* of that is something one can use in EC-P2MR if one hopes to have their coins survive Q-day (without the expectation of an EC-disabling consensus change, which seems like the only reason to want it in the first place).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I agree, but I also think this mostly destroys the appeal of P2MR. For most users, if they can\u2019t use BIP32 (or substantially similar things), I am strongly of the opinion they just won\u2019t migrate, or do it insecurely. It\u2019s already dubious even with the weakest of burdens to adoption (like P2TRv2), b&hellip;",
   "truncated": true,
   "post_url": "/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
