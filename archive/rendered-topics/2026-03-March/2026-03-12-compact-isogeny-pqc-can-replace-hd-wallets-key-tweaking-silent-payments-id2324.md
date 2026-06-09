@@ -241,3 +241,13 @@ However, n-of-n thresholds could still be achieved without a trusted dealer, usi
 
 -------------------------
 
+conduition | 2026-06-09 20:50:44 UTC | #7
+
+A new paper from prominent isogeny researchers has since proven my rerandomization techniques secure: 
+
+https://eprint.iacr.org/2026/1169
+
+This isn't just a folklore idea anymore.
+
+-------------------------
+
