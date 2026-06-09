@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 1.6,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 17.0,
   "yours": false,
   "topic_id": 2550,
   "topic_slug": "a-bitcoin-native-llm-dataset-architecture-and-open-questions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "> What do you mean by keeping attribution?\n\nI mostly meant attribution of arguments, not just sources. There often is not a central \"truth\" here, but different experts arguing for different tradeoffs. For example, in the AssumeUTXO discussion, one side argues that the hash is in the source code and therefore part of the same trust users already place in the software, while the other side argues that it is a separate trust-me-bro shortcut that temporarily accepts unvalidated state: https://github.com/bitcoin/bitcoin/pull/35054#issuecomment-4501781606\n\nSo ideally a Bitcoin-native LLM would not just try to produce *the* answer, but preserve which expert argued what, in what context, and what assumptions or compromises each side is making.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "What do you mean by keeping attribution? \n\nI mostly meant attribution of arguments, not just sources. There often is not a central \u201ctruth\u201d here, but different experts arguing for different tradeoffs. For example, in the AssumeUTXO discussion, one side argues that the hash is in the source code and &hellip;",
   "truncated": true,
   "post_url": "/t/a-bitcoin-native-llm-dataset-architecture-and-open-questions/2550/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"ajtowns\" data-post=\"5\" data-topic=\"2603\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/ajtowns/48/417_2.png\" class=\"avatar\"> ajtowns:</div>\n<blockquote>\n<p>seems to me like any EC keys used in P2MR constructions like this should be hardened (so not derivable from an xpub), since revealing the pubkey to a quantum capable attacker negates the benefit of using P2MR in the first place.</p>\n</blockquote>\n</aside>\n<p>It suffices to not reveal any (unhardened) xpubs with untrusted parties, and (as always in this setting) not reuse keys, I think? Using xpubs to derive the keys itself is fine if they are kept secret, because quantum attackers cannot discover the chaincode.</p>\n<p>Of course, using xpubs in this manner makes them practically equivalent to hardened derivation anyway I guess, if you need to guard the chaincode as much as you\u2019d orherwise need to guard the public key?</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-06-08T11:59:49.376Z",
   "reply_count": 1,
   "reply_to_post_number": 5,

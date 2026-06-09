@@ -417,3 +417,19 @@ I think that's too narrow, the problem isn't (just) BIP32. The concern is just h
 
 -------------------------
 
+conduition | 2026-06-09 01:06:13 UTC | #13
+
+[quote="sipa, post:10, topic:2603"]
+I’m aware of my own bias here, having (co-)authored BIP32 and other wallet standards. Still, I don’t think I am exaggerating when believing that a very significant portion of the ecosystem is effectively built around xpub and public key sharing (including all multisig, escrow services, software watchonly wallets based on descriptors, wallet indexing services, …), and *none* of that is something one can use in EC-P2MR if one hopes to have their coins survive Q-day (without the expectation of an EC-disabling consensus change, which seems like the only reason to want it in the first place).
+[/quote]
+
+It'd be a hard pill to swallow but it's not the end of the world. I'm sure some use-cases would be fine with "just-a-pack-of-addresses", like maybe watch-only wallets or indexers. For escrow services, one might design non-interactive EC multisig scripts which don't require sharing bare EC pubkeys, but rather a hash of a pubkey. For instance, the good ol' P2PKH script pattern can be generalized to $n$ signers in a way that doesn't require sharing pubkeys before spending. 
+
+Other cases would be more difficult. MuSig2 for instance, which _requires_ participants to share their individual pubkeys. In those cases you just kinda have to trust that your cosigners aren't friends with a CRQC.
+
+i'm hopeful we can get isogenies prod-ready eventually. Isogeny schemes would let us replace BIP32 with a new drop-in standard. Maybe someone will come up with a good compact rerandomization scheme for lattices too at some point. 
+
+But with the EC + hash-based addresses that we'll have in the near-term, it's a non-starter. We're going to have to design any such new standards to encourage users *not to share* their extended keys, because those keys could lead to harvest-now-steal-later attacks, as you say (unless we disable EC spending after Q-day, which I'm all for if we can manage it).
+
+-------------------------
+
