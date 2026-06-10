@@ -158,3 +158,15 @@ It would indeed be nice to have something you could query which knew *every* one
 
 -------------------------
 
+0xB10C | 2026-06-10 20:12:08 UTC | #8
+
+There's also a GitHub issues and PR dump for a couple repositories that might be interesting to use:
+
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-bitcoin
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-core-secp256k1
+- https://github.com/bitcoin-data/github-metadata-backup-bitcoin-bips
+
+You can use https://github.com/0xb10c/github-metadata-mirror to generate input files as markdown, similar to e.g. https://mirror.b10c.me/bitcoin-bitcoin/35506/index.md.
+
+-------------------------
+
