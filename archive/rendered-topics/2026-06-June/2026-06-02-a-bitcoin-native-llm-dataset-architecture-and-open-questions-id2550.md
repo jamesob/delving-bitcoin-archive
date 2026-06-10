@@ -134,3 +134,27 @@ So ideally a Bitcoin-native LLM would not just try to produce *the* answer, but 
 
 -------------------------
 
+AdamISZ | 2026-06-10 10:51:15 UTC | #7
+
+Another useful source is the archives that exist for the old bitcoin-* IRC logs. A lot of discussion was there back in the day.
+
+There's gnusha.org and there's a few others, but with a caveat:
+
+ Here's Poelstra's archive of *-wizards:
+
+https://download.wpsoftware.net/bitcoin/wizards/
+
+this is AJ Towns' for #bitcoin-core-dev going back to 2015: 
+
+https://www.erisian.com.au/bitcoin-core-dev/
+
+The caveat is, I don't think any of these really go back much beyond 2014-15. However, this one is Kanzure's archive tarball (for #bitcoin-dev, #bitcoin-core-dev (which is later anyway) and #bitcoin-otc (for some reason) specifically):
+
+https://diyhpl.us/~bryan/irc/bitcoin/bitcoin-logs.2010-2018.tar.bz2
+
+... which *does* go back to 2010. It might be the only source for that (?).
+
+It would indeed be nice to have something you could query which knew *every* one of the historical conversations on technical topics. Not easy, but clearly LLM tech can partially help.
+
+-------------------------
+
