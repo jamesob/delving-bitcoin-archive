@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2324,
   "topic_slug": "compact-isogeny-pqc-can-replace-hd-wallets-key-tweaking-silent-payments",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "A new paper from prominent isogeny researchers has since proven my rerandomization techniques secure: \n\nhttps://eprint.iacr.org/2026/1169\n\nThis isn't just a folklore idea anymore.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "A new paper from prominent isogeny researchers has since proven my rerandomization techniques secure: \n\n\nThis isn\u2019t just a folklore idea anymore.",
   "truncated": true,
   "post_url": "/t/compact-isogeny-pqc-can-replace-hd-wallets-key-tweaking-silent-payments/2324/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
