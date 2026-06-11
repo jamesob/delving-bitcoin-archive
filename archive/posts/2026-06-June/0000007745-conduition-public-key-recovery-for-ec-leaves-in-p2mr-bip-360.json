@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2603,
   "topic_slug": "public-key-recovery-for-ec-leaves-in-p2mr-bip-360",
@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "The convo got a bit off topic, i'm gonna bring it back to the OP subject matter for a moment here. If we were to abstract @starius' idea into a standalone signature scheme outside of Bitcoin that we could prove secure on its own, this might be how we might abstract it. \n\nA secret key is a scalar $0 < p < n$ and auxiliary data $d$. The public key is a hash committing to $pG$ and $d$:\n\n$$ q = H(pG, d) $$\n\n(in the bitcoin context, the aux data $d$ is simply the P2MR control block)\n\nWhen signing, the signer constructs a Schnorr signature, prefixing the message with the public key $q$ and the auxiliary data $d$.\n\n$$\n\\begin{equation}\nr \\leftarrow \\mathbb Z_n \\\\\nR = rG \\\\\ne = H(R\\ \\|\\ q\\ \\|\\ d\\ \\|\\ m) \\\\\ns = r + ep \\\\\n\\end{equation}\n$$\n\nOne can view this as a fiat-shamir transform of a sigma protocol as with Schnorr. \n\n1. The prover publishes their public key $q$ and aux data $d$, and a commitment $R = rG$.\n2. The verifier samples a random challenge $e \\leftarrow \\mathbb Z_n$ and sends it to the prover.\n3. The prover responds with $s = r + ep$\n4. The verifier checks $q \\stackrel{?}{=} H(e^{-1}(sG - R), d)$\n\nHowever this treats the aux data $d$ as opaque data, so it doesn't capture the security notions of P2MR completely.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "The convo got a bit off topic, i\u2019m gonna bring it back to the OP subject matter for a moment here. If we were to abstract <a class=\"mention\" href=\"/u/starius\">@starius</a>\u2019 idea into a standalone signature scheme outside of Bitcoin that we could prove secure on its own, this might be how we might abstract it. \nA secret key is a scalar 0 &lt; &hellip;",
   "truncated": true,
   "post_url": "/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/16",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
