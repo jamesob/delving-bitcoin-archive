@@ -196,3 +196,31 @@ your are looking for datasets on technical Bitcoin discussion, I link to availab
 
 -------------------------
 
+Tsua00021 | 2026-06-11 13:13:35 UTC | #11
+
+Catching up on the last few replies, there's more here than I initially registered, so let me tie the threads together.
+
+@l0rinc, your point about attribution of *arguments* rather than just sources is, I think, the most important design constraint raised so far, and it directly reshapes the benchmark question from my original post. For contested topics (AssumeUTXO trust model, mempool policy, covenant proposals), a reference-answer QA benchmark is the wrong evaluation shape entirely. A meaningful benchmark would need two tiers: an objective tier (script validity, spending conditions, descriptor parsing -> mechanically verifiable) and a contested tier, where the question is whether the model reproduces the *structure* of a disagreement — who argued what, under which assumptions — rather than collapsing it into a single confident answer. That second tier is harder to score, but it's also what separates a protocol-reasoning model from a confidently hallucinating one. That two-tier structure seems like the right frame to develop.
+
+@AdamISZ, thanks. The pre-2015 IRC logs are exactly the kind of source nothing else covers, especially Kanzure's 2010-2018 tarball. The signal-to-noise ratio is lower than mailing list posts, but #bitcoin-wizards in particular contains design reasoning that predates its formalization in BIPs, which makes it valuable for "why" questions where the BIP only records the "what". Probably a corpus to filter aggressively rather than ingest wholesale.
+
+@0xB10C, my earlier reply was unnecessarily curt. Your pointer does answer my open question on existing datasets, and combined with l0rinc's earlier mention of PR review discussions, the bitcoin/bitcoin dump may be the highest-signal source on the list: it's the only corpus where technical claims are systematically adversarially reviewed and resolved against actual consensus code. One question to make it actionable: does github-metadata-backup preserve the anchoring of review comments to their diff hunks, or are they exported as flat threads? That determines whether the dump can yield (code, critique, resolution) triples directly, or needs re-alignment against the git history first.
+
+Updated source list so far: BIPs, ML/Delving archives, Core source + functional tests, GitHub issue/PR dumps (bitcoin, secp256k1, bips), Stack Exchange, OpTech transcripts, CoreDev transcripts, IRC archives (2010+), miniscript/descriptor generation. The raw-data question is essentially solved; the open problems are annotation and benchmark design.
+
+-------------------------
+
+Tsua00021 | 2026-06-11 14:27:09 UTC | #12
+
+Following up on my own question to @0xB10C: I inspected the dump directly, and the answer is better than I hoped.
+
+The backup preserves full anchoring. Each review comment in `pulls/{n}.json` carries `diff_hunk` (the exact code fragment under review), `path`, `line`, `commit_id`/`original_commit_id` (so the anchoring survives rebases and force-pushes), `in_reply_to_id` for reply threading, and `pull_request_review_id` for grouping by review session. PR-level `events` (commits, force-pushes, review submissions) are in the same file.
+
+I sampled PRs across the full history — 2014 (#5159), 2015 (#6312), 2016 (#8149, SegWit), 2018 (#15006), 2020 (#19988, ~540 review comments), 2023 (#28122, BIP352) — and every single review comment carries its diff hunk. The format is uniform across twelve years.
+
+Concretely, this means (code, critique, resolution) triples can be extracted directly from the JSON: `diff_hunk` gives the code, `body` the critique, and the resolution reconstructs from the reply thread plus subsequent commits in `events`. No re-alignment against git history needed. As a bonus, #35506 — the AssumeUTXO PR from @l0rinc's attribution example — is in there with the same structure, so the contested-topics angle is covered by the same corpus.
+
+This moves the bitcoin/bitcoin dump from "interesting source" to primary corpus candidate in my view. Thanks again for the pointer.
+
+-------------------------
+
