@@ -170,3 +170,29 @@ You can use https://github.com/0xb10c/github-metadata-mirror to generate input f
 
 -------------------------
 
+Tsua00021 | 2026-06-10 21:52:57 UTC | #9
+
+Hi @0xB10C 
+Your post sounds pretty self-promoting. 
+Do you want to add something precisely on the discussion?
+
+-------------------------
+
+0xB10C | 2026-06-10 22:18:39 UTC | #10
+
+[quote="Tsua00021, post:9, topic:2550, full:true"]
+Hi @0xB10C Your post sounds pretty self-promoting. Do you want to add something precisely on the discussion?
+[/quote]
+
+I'm not sure I understand your problem with my comment.
+
+[quote="Tsua00021, post:1, topic:2550"]
+* **Bitcoin mailing list and Delving threads** — years of high-signal technical discussion
+* **Bitcoin Core source annotations and functional tests** — ground truth for consensus behavior
+[/quote]
+
+
+your are looking for datasets on technical Bitcoin discussion, I link to available GitHub issue comment and PR review datasets containing these kinds of discussions. While I happen to provide these to the community for free (which seems to be well received e.g. https://delvingbitcoin.org/t/gitlab-backups-for-bitcoin-core-repository/624/10?u=0xb10c) and paying for the infrastructure to run them out of my pocket, I don't see the problem with suggesting to use these GitHub comments and reviews as a dataset for LLM training. But feel free to ignore and don't use them!
+
+-------------------------
+

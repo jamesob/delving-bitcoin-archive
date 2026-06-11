@@ -483,3 +483,35 @@ I think this is the wrong target. Large holders, because they have so much at st
 
 -------------------------
 
+conduition | 2026-06-10 22:35:37 UTC | #16
+
+The convo got a bit off topic, i'm gonna bring it back to the OP subject matter for a moment here. If we were to abstract @starius' idea into a standalone signature scheme outside of Bitcoin that we could prove secure on its own, this might be how we might abstract it. 
+
+A secret key is a scalar $0 < p < n$ and auxiliary data $d$. The public key is a hash committing to $pG$ and $d$:
+
+$$ q = H(pG, d) $$
+
+(in the bitcoin context, the aux data $d$ is simply the P2MR control block)
+
+When signing, the signer constructs a Schnorr signature, prefixing the message with the public key $q$ and the auxiliary data $d$.
+
+$$
+\begin{equation}
+r \leftarrow \mathbb Z_n \\
+R = rG \\
+e = H(R\ \|\ q\ \|\ d\ \|\ m) \\
+s = r + ep \\
+\end{equation}
+$$
+
+One can view this as a fiat-shamir transform of a sigma protocol as with Schnorr. 
+
+1. The prover publishes their public key $q$ and aux data $d$, and a commitment $R = rG$.
+2. The verifier samples a random challenge $e \leftarrow \mathbb Z_n$ and sends it to the prover.
+3. The prover responds with $s = r + ep$
+4. The verifier checks $q \stackrel{?}{=} H(e^{-1}(sG - R), d)$
+
+However this treats the aux data $d$ as opaque data, so it doesn't capture the security notions of P2MR completely.
+
+-------------------------
+
