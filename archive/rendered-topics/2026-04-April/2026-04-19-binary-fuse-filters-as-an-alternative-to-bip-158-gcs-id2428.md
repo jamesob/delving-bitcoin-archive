@@ -204,3 +204,24 @@ Always the optimist, I recently measured that BuRR and Ribbon filters also look 
 
 -------------------------
 
+optout | 2026-06-12 07:08:18 UTC | #10
+
+[quote="purszki, post:1, topic:2428"]
+I also have some ideas for hierarchical constructions to shave down the bandwidth further, but that introduces more complexity and potential privacy leaks that need a closer look.
+
+[/quote]
+
+Is the topic of hierarchical filters discussed somewhere? Could you briefly describe what is the basic idea? Is it Fuse-specific?
+
+-------------------------
+
+optout | 2026-06-12 07:19:51 UTC | #11
+
+A simple idea is to have 'large' filters for a range of blocks, e.g. one for every 2016 blocks, instead of one 'small' filter per block (as we have currently). A client first downloads the large filters, and if it finds a match, only then it downloads the individual filters from that range.
+
+However, a 'large' filter has to include all the elements from the sum of the 'small' filters, so the total size is not much smaller. The large filter has roughly the same information as the sum of the small filters.
+
+I did some measurements for the size of the large filter vs. the total size of the small filters (for a range of 2016 simulated blocks), and I got only 0.12% size saving, which is minimal. Probably too small to justify the extra complexity.
+
+-------------------------
+

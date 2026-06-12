@@ -13,9 +13,9 @@
   "reply_to_post_number": 10,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 6.4,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 7.0,
   "yours": false,
   "topic_id": 2550,
   "topic_slug": "a-bitcoin-native-llm-dataset-architecture-and-open-questions",
@@ -60,9 +60,15 @@
   "excerpt": "Catching up on the last few replies, there\u2019s more here than I initially registered, so let me tie the threads together. \n<a class=\"mention\" href=\"/u/l0rinc\">@l0rinc</a>, your point about attribution of arguments rather than just sources is, I think, the most important design constraint raised so far, and it directly reshapes the benchmark&hellip;",
   "truncated": true,
   "post_url": "/t/a-bitcoin-native-llm-dataset-architecture-and-open-questions/2550/11",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
