@@ -304,3 +304,9 @@ To add [AdamISZ](https://delvingbitcoin.org/u/adamisz) list of IRC backups
 
 -------------------------
 
+mattius459 | 2026-06-16 12:48:00 UTC | #14
+
+Hi there @Tsua00021 , if you can stand this up behind an L402 paywall, I'd happily serve it as a tool on my website PPQ.AI. We could drive genuine traffic to it and allow you to monetize it!
+
+-------------------------
+
