@@ -224,3 +224,83 @@ This moves the bitcoin/bitcoin dump from "interesting source" to primary corpus 
 
 -------------------------
 
+alexwaltz | 2026-06-16 08:02:53 UTC | #13
+
+My intuition, from using current models, is that 7B is probably too small for this to be genuinely useful, even in the narrower scope OP proposes. I would expect something more like >30B, though I could easily be wrong and this is exactly the kind of thing a benchmark should test.
+
+The thing is that in order to understand Bitcoin Scripting in consensus, you need quite a decent understanding of C++, I'm skeptical a 7B fine-tune is reliable on consensus edge cases without tools.
+
+Also, if the scope is purely to have a model that can work/understand scripting, I think there are quite a few model that if they have access to the right tools they can do that reliably. Frontier ones do for sure.
+
+Specifically on the scripting part, I don't think an LLM evaluating them(thinking natively in script) is a good idea, as LLM  are not sound/verifiable interpreters, we want some kinda of interpreter/compiler that the LLM knows how to use this.
+
+Feels like all Bitcoin problems we want an LLM to solve, can be done with tool calling. :slight_smile:
+
+**Cultural/Historical vs. Technical Knowledge**
+
+Thing is that a lot of early consensus decisions(2009-2011) have cultural reasons, so the model would need to know about these things and understand them, hence why I think the model would need to be more dense and have broader intelligence.
+
+# Sources
+
+[l0rinc](https://delvingbitcoin.org/u/l0rinc) makes a good point that attribution and sourcing is very important for this type of stuff, and I think some kinda of a RAG setup would definitely help in this regard.
+
+I can't help but think that maybe there is a more structured way to index the dataset than just embedding chunks: sources, authors, dates, threads, PRs, BIPs, commits, and maybe even "argument" metadata. Then the LLM could pull not only the relevant text, but also who said it and in what context.
+CONS: It needs to be maintained as data set grows.
+
+Internet search can help as a fallback, but I don't think it fully solves sourcing by itself. For this kind of model, stable attribution probably needs a curated/versioned corpus.
+
+# Benchmarks
+
+We should come up with a set of questions like the Humanity's Last Exam but bitcoin focused, this way we can see how good available models perform. Essentially we want this model to be the Bitcoin's last Wizard :stuck_out_tongue:
+
+Things like:
+
+1. Give all the examples where consensus rules were grandfathered in.
+2. Was SegWit a block increase?
+3. Were the following events hard or soft forks and why? Bitcoin releases 0.3.5 ; 0.8.0 ; 0.15.0 ; BIP30, SegWit?
+4. What are all the consensus consequences of the `OP_CHECKMULTISIG` ?
+5. What is peculiar about the G in secp256k1 and is this or not a problem?
+6. If you paste this TX ID `7ea1d2304f1f95fae773ed8ef67b51cfd5ab33ea8b6ab0a932ee3e248b7ba74c` in mempool.space and blockchain.com/explorer you get two different things. Why? Who is correct.
+
+I am very confident to say that frontier models(using tool calls ofc) at this point are bona fide Bitcoin Wizards. You can get them to stumble but you have to try pretty hard. (or at least I do)
+
+Actually I think focusing on this test would be a great first step, as its quite easy to produce and after it's done it offers a lot of information about where current models stand on this topic.
+
+# More data sets
+
+## IRC
+
+To add [AdamISZ](https://delvingbitcoin.org/u/adamisz) list of IRC backups
+
+### Bitcoin Core IRC meetings summaries
+
+* https://bitcoincore.org/en/meeting-summaries/
+
+### Searchable bitcoin-core-dev irc by chaincode(back 2016)
+
+* https://bitcoin-irc.chaincode.com/bitcoin-core-dev/2016-08-04
+
+### bitcoinstats.com(only web archive, manual navigation some)(\~2010)
+
+* https://web.archive.org/web/20131201222558/https://bitcoinstats.com/irc/bitcoin-dev/logs/2010/09/23
+
+### jonaschnelli.ch bitcoin-core-dev(2020 to 2024)
+
+* https://bitcoin.jonasschnelli.ch/ircmeetings/logs/bitcoin-core-dev/
+
+### bitcoin- wizards 2013 & 2014
+
+* [https://diyhpl.us/\~bryan/papers2/bitcoin/wizards/2013/03/](https://diyhpl.us/~bryan/papers2/bitcoin/wizards/2013/03/)
+
+### BuildingBitcoin.com iRC logs bitcoin-dev & bitcoin-core-dev(2010-09-22 to2014-12-31) & bitcoin-core-dev (2016-03-01 to 2018-06-30)
+
+* [https://buildingbitcoin.org/bitcoin-dev/](https://buildingbitcoin.org/bitcoin-dev/)
+
+* [https://buildingbitcoin.org/bitcoin-core-dev/](https://buildingbitcoin.org/bitcoin-core-dev/)
+
+# Books
+
+[Grokking Bitcoin](https://github.com/kallerosenbaum/grokkingbitcoin) and [Bitcoin: A Work in Progress](https://github.com/Sjors/nado-book) both are great additions.
+
+-------------------------
+
