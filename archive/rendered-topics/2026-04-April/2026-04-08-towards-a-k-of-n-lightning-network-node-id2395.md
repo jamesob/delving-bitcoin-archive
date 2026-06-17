@@ -772,7 +772,7 @@ It's still a very memory and CPU and time-intensive process, and remember, k-of-
 
 -------------------------
 
-ZmnSCPxj | 2026-06-17 10:06:07 UTC | #4
+ZmnSCPxj | 2026-06-17 10:09:09 UTC | #4
 
 So Rusty tweeted about using multiple shachains, so I sat a bit and thought about it.
 
@@ -814,6 +814,8 @@ For example, suppose we want a 3-of-5 policy.  By the above, that means 10 shach
 ```
 
 By the above we mean, that shachain # 0, the root is known by `A`, `B`, and `C`, and any of them can generate the entire shachain.  If that node is not compromised, they will only release the shachain index up to the  previous state only.
+
+Of note is that even if, say, `A` and `B` are compromised, and tell the entire shachain root to the remote node, then they will still be missing one of the shachain roots. They need a third signer to be compromised, which matches our requirement of 3-of-5, i.e. compromising 2 signers is not enough to learn the revocation key of the latest transaction.
 
 In particular, with current FROST, setting up k-of-n requires a multiparty computation to generate the shares.  During this setup, the participants can ALSO set up the 10 needed shachains.
 
