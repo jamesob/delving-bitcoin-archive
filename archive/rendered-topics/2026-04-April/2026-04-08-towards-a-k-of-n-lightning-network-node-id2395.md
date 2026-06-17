@@ -772,7 +772,7 @@ It's still a very memory and CPU and time-intensive process, and remember, k-of-
 
 -------------------------
 
-ZmnSCPxj | 2026-06-17 10:19:33 UTC | #4
+ZmnSCPxj | 2026-06-17 10:21:32 UTC | #4
 
 So Rusty tweeted about using multiple shachains, so I sat a bit and thought about it.
 
@@ -825,7 +825,7 @@ Thus, for practical usage of up to k-of-5, we need "only" 10 shachains.
 
 When revoking, that is just 10 x 32 keys, 320, which is tiny compared to MTU of IP.
 
-The FULL 64-lines shachain construction requires 2616 bytes.  It is a fair amount to write to disk at each revocation, which then gets multiplied by 10 (remember, we MUST `fsync` here, 26160 is about a half-dozen blocks). However, it might be possible to consider that state numbering will not, in practice, reach, say, 2^48, and we can always have the internal policy of auto-closing the channel once the state reaches 2^48 - 16 or thereabouts (so that we can `shutdown` the channel and start a graceful cooperative closure, letting HTLCs get removed from the channel, and just force-closing once it reaches state index 2^48 - 1).
+The FULL 64-lines shachain construction requires 2616 bytes.  It is a fair amount to write to disk at each revocation, which then gets multiplied by 10 (remember, we MUST `fsync` here, 26160 is about a half-dozen blocks). However, it might be possible to consider that state numbering will not, in practice, reach, say, 2^48, and we can always have the internal policy of auto-closing the channel once the state reaches 2^48 - 16 or thereabouts (so that we can `shutdown` the channel and start a graceful cooperative closure, letting HTLCs get removed from the channel, and just force-closing once it reaches state index 2^48 - 1).  This can let us shave about 20% of the data size.
 
 -------------------------
 
