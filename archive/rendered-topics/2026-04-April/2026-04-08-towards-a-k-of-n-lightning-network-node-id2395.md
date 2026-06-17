@@ -772,3 +772,54 @@ It's still a very memory and CPU and time-intensive process, and remember, k-of-
 
 -------------------------
 
+ZmnSCPxj | 2026-06-17 10:06:07 UTC | #4
+
+So Rusty tweeted about using multiple shachains, so I sat a bit and thought about it.
+
+Basically, what we can do is:
+
+* Make a rule that "we need some number S of shachains, and all of them must be known by the remote punisher side" i.e. the revocation keys are an s-of-s (meaning that even if we were k-of-n, the revocation keys can be trivially MuSig2ed) so that the remote punishing side can be assured of being able to punish our misbehavior.
+
+Now we need to figure out the number of S should be.
+
+While on the remote, punisher, side, all S must be known at a particular index, we need a different rule for the local, revoking side.
+
+* EACH of the S shachains must be known by at least enough signers that even if `n - k` of the signers are down, there must be some signer that still knows the shachain root for that shachain.  Thus, each shachain root must be known by `n - k + 1` signers (so that if `n - k` are down, there is still one living signer that can still calculate the shachain root and issue the revocation key for it).
+
+Thus, what we need is that, for each shachain, there are `n - k + 1`, of the `n` signers, who know the root of that shachain.
+
+That is, we need to take combination with non-repeating members, or "X choose Y".  In our specific case, we are chooosing `n - k + 1` signers among the `n` signers, also known as "`n` choose `n - k + 1`".
+
+"X choose Y" is computed by: `X! / (Y! * (X -Y)!)`  Substituting in the `n` and `n - k + 1`, we get:
+
+    s = n! / ((n - k + 1)! * (k - 1)!)
+
+As it happens, for all `k=3..4` and `n=5`, `s` is 10, while for `k=2`, `n=5`, `s` is 5.
+
+So if we support k-of-n for `n <= 5`, 10 shachains is enough.
+
+For example, suppose we want a 3-of-5 policy.  By the above, that means 10 shachains.
+
+```
+0 : A B C
+1 : A B D
+2 : A B E
+3 : A C D
+4 : A C E
+5 : A D E
+6 : B C D
+7 : B C E
+8 : B D E
+9 : C D E
+```
+
+By the above we mean, that shachain # 0, the root is known by `A`, `B`, and `C`, and any of them can generate the entire shachain.  If that node is not compromised, they will only release the shachain index up to the  previous state only.
+
+In particular, with current FROST, setting up k-of-n requires a multiparty computation to generate the shares.  During this setup, the participants can ALSO set up the 10 needed shachains.
+
+Thus, for practical usage of up to k-of-5, we need "only" 10 shachains.
+
+(As noted, on the onchain side of things, we can just use the MuSig2 of the public keys of the 10 shachain secrets at the state index, so onchain only requires one pubkey revelation and a signature; we can even include the public key of the remote, punisher, side. While the MuSig2 combination function is defined in terms of points, we should note that the operations are homomorphic to operations in terms of scalars, and it is trivial to derive the equivalent MuSig2 combination when using scalars instead of points).
+
+-------------------------
+
