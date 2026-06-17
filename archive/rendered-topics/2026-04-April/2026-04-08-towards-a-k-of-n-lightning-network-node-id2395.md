@@ -748,3 +748,27 @@ This sacrifices the availability side of 2-of-3, but it keeps the "k devices mus
 
 -------------------------
 
+ZmnSCPxj | 2026-06-17 09:42:34 UTC | #3
+
+[quote="starius, post:2, topic:2395"]
+It works quite fast (about 1.2s on my machine) and consumes ~770M of RAM per party.
+[/quote]
+
+The problem is that 1.2s is NOT fast.
+
+Each HTLC must be accepted first (1.2s delay) and then failed or fulfilled later (another 1.2s delay).
+
+This is the reason why I consider it infeasible, the time has to be in unit milliseconds at worst, not more than a second.
+
+(I *think* it should be safe to exchange `commitment_signed` first, then both sides can do the computation for revocation key simultaneously before exchanging `revoke_and_ack`)
+
+> A possible optimization is to run most of the MPC in advance and defer only the final output-reveal step to the hot path.
+
+As long as the final step requires all the minimuim k parties defined, that should be OK security-wise.
+
+However, even with doing this "in advance", I should note that k-of-n Lightning Network nodes are intended to be humongous forwarding nodes with tons of Bitcoin in channels.  If you need hundreds of cores running in parallel just to precompute revocation keys for thousands of channels forwarding at high rates, you would cut into the fee earnings of the node.  Running multiple cores also implies running 770Mb per core, too.
+
+It's still a very memory and CPU and time-intensive process, and remember, k-of-n Lightning Network nodes are expected to SCALE, because the point of k-of-n is to protect very large amounts of Bitcoin, meaning tons of channels, meaning tons of forwards-per-second coming in.
+
+-------------------------
+

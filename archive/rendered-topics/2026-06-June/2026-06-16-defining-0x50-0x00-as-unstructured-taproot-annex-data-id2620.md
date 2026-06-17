@@ -1,6 +1,6 @@
 # Defining 0x50 0x00 as unstructured taproot annex data
 
-0300dbdd1b | 2026-06-16 23:53:50 UTC | #1
+0300dbdd1b | 2026-06-17 08:05:42 UTC | #1
 
 Hi all,
 
@@ -68,8 +68,6 @@ https://github.com/ordinals/ord/issues/2405
 
 Best,
 LesLie (0300dbdd1b)
-
-*Note: I used an LLM to help correct grammar and punctuation. The content and opinions are mine.*
 
 -------------------------
 
