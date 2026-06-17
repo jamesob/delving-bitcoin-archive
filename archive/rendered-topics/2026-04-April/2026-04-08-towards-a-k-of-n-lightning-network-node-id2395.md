@@ -772,7 +772,7 @@ It's still a very memory and CPU and time-intensive process, and remember, k-of-
 
 -------------------------
 
-ZmnSCPxj | 2026-06-17 10:09:09 UTC | #4
+ZmnSCPxj | 2026-06-17 10:18:00 UTC | #4
 
 So Rusty tweeted about using multiple shachains, so I sat a bit and thought about it.
 
@@ -822,6 +822,8 @@ In particular, with current FROST, setting up k-of-n requires a multiparty compu
 Thus, for practical usage of up to k-of-5, we need "only" 10 shachains.
 
 (As noted, on the onchain side of things, we can just use the MuSig2 of the public keys of the 10 shachain secrets at the state index, so onchain only requires one pubkey revelation and a signature; we can even include the public key of the remote, punisher, side. While the MuSig2 combination function is defined in terms of points, we should note that the operations are homomorphic to operations in terms of scalars, and it is trivial to derive the equivalent MuSig2 combination when using scalars instead of points).
+
+The FULL 64-lines shachain construction requires 2616 bytes.  It is a fair amount to write to disk at each revocation, which then gets multiplied by 10. However, it might be possible to consider that state numbering will not, in practice, reach, say, 2^48, and we can always have the internal policy of auto-closing the channel once the state reaches 2^48 - 16 or thereabouts (so that we can `shutdown` the channel and start a graceful cooperative closure, letting HTLCs get removed from the channel, and just force-closing once it reaches state index 2^48 - 1).
 
 -------------------------
 
