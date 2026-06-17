@@ -712,3 +712,39 @@ for k-of-n multisignature here.
 
 -------------------------
 
+starius | 2026-06-17 05:41:56 UTC | #2
+
+> So, virtual-circuit schemes of multiparty computation are probably not feasible.
+
+I attempted to implement two-party shachain under malicious assumptions and want to share the progress: [shachain2pc](https://github.com/starius/shachain2pc).
+
+There is a tool that runs as a client and a server and makes it possible to generate a single shachain value using two private preimage shares:
+```
+# ALICE (listener) and BOB (connects to ALICE's IP):
+./.build/party 1 <port> ffffffffffff <aliceShareHex>
+./.build/party 2 <port> ffffffffffff <bobShareHex> <alice_ip>
+```
+
+(`ffffffffffff` is an example of the shachain index to derive. Derivation time depends on the number of one-bits in this value; this value has 48 one-bits and is the longest to derive.)
+
+Then both parties produce the same hash:
+```
+RESULT <shachain-output-hash>
+```
+
+It works quite fast (about 1.2s on my machine) and consumes ~770M of RAM per party. It stores the whole circuit in RAM and does not currently use offline precomputation. A possible optimization is to run most of the MPC in advance and defer only the final output-reveal step to the hot path.
+
+*Warning: this repository is AI-written demo / proof-of-concept code. It is not production-ready, has not received deep human cryptographic or Lightning security review, and must not be used to protect real funds without that review and substantial hardening.*
+
+> The problem is that it is the intermediate results of the shachain that are the revocation keys! It is immaterial that a virtual-circuit using homomorphic encryptions of 0 and 1 protects the root of the revocation keychain, when it must reveal intermediate results of the iteration, which are the sequence of revocation keys.
+
+I made a circuit for the whole shachain, all 48 levels, so intermediate hashes do not leak. Another important attack vector is the manipulation of the intermediate states by one of the parties. If we use a semi-honest MPC and just repeat SHA-256 MPC 48 times, there is a risk that one party can flip a bit in the intermediate value even without knowing it by swapping a share for that bit. Flipping a bit results in the shachain going to another path in the tree and revealing some revocation key for another index, potentially resulting in funds theft.
+
+My implementation relies on [emp-ag2pc](https://github.com/emp-toolkit/emp-ag2pc), the WRK17 protocol.
+
+This is not a 2-of-3 setup yet. There is an idea for how to use this approach in a 2-of-3 setup anyway. Make a 2-of-2 between the two most reliable of the 3 signers. One signer will be excluded. If one of the 2 reliable signers is lost, then close the channel.
+
+This sacrifices the availability side of 2-of-3, but it keeps the "k devices must be compromised to make my funds unSAFU" property for the active 2-of-2 pair: one hacked signer is still not enough to derive unauthorized revocation secrets.
+
+-------------------------
+
