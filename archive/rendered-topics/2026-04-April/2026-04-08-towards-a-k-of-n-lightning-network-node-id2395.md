@@ -829,3 +829,63 @@ The FULL 64-lines shachain construction requires 2616 bytes.  It is a fair amoun
 
 -------------------------
 
+ZmnSCPxj | 2026-06-18 06:35:17 UTC | #5
+
+Some more details.
+
+As noted, what we do is to use `s` shachains, where:
+
+    s = n choose (n - k + 1)
+    s = n! / ((n - k + 1)! * (k - 1)!)
+
+Let us make this notation: `revocation[i][N]`.
+
+The first index in `revocation[i]` ranges from `i = 0..s - 1` where `s` is the above number of shachains we need.
+
+The second index in `revocation[i][N]` is the state commitment index number.
+
+`revocation[i]` is the root secret for shachain at index `i`.  This root secret allows generation of the entire `revocation[i][0...UINT64_MAX]`, just as knowledge of `revocation[i][N]` lets you generate the sequence `revocation[i][0..N]`.
+
+As as simplified example, let us suppose a 2-of-3 is desired.
+Then the shachain knowledge would be:
+
+```
+0: A B
+1: A C
+2: B C
+```
+
+That is:
+
+* A knows `revocation[0]` and `revocation[1]`
+* B knows `revocation[0]` and `revocation[2]`
+* C knows `revocation[1]` and `revocation[2]`
+
+When preparing a commitment transaction, the remote side needs to know the equivalent of the `per_commitment_point` at state index `N`, which some quorum of signers needs to give to the remote node.
+
+In order to reduce the number of signatures onchain in case of a revocation, we take full advantage of Taproot / Schnorr and make the `per_commitment_point[N]` be:
+
+    MuSig2(revocation[0][N] * G, revocation[1][N] * G, revocation[2][N] * G, remote_key * G)
+
+The above point is calculable from public information.
+
+Note that MuSig2 is NECESSARY.
+
+Why is MuSig2 necessary? What does MuSig2 protect against?  MuSig2 protects against "key cancellation".  We must make it an inviolable rule that signer `A` cannot be fooled into approving a transaction where the funds can be stolen, unless k OTHER signers have already been compromised.
+
+Now, recall that `A` knows `revocation[0]` and `revocation[1]`, but that means it DOES NOT know `revocation[2]`.  IT has to get `revocation[2][N] * G` from some other signer, either `B` or `C`.
+
+We have two constraints:
+
+* `A` cannot be given `revocation[2]` or `revocation[2][N]` for any `N`.
+  * If `A` was compromised by the remote side, then once it learns `revocation[2][N]`, it can hand over `revocation[0][N]`, `revocation[1][[N]` and `revocation[2][N]` to the remote side, and the remote side can now revoke the LATEST commitment transaction, resulting in fund loss.
+*  `A` cannot validate that `revocation[2][N] * G` is the correct point.
+  * Suppose the other live signer is `B`.  `B` hands over some opaque point, claiming it is `revocation[2][N] * G`.   However, in secret, `B` actually gives `ecdh(b, R) * G`, MINUS the sum of the points `revocation[0][N] * G` and `revocation[1][N] * G`.
+  * If we used a simple summation of `revocation[i][N] * G` instead of a MuSig2, then `B` has arranged the total to cancel out the revocation keys known by `A`, meaning a compromnised single signer `B` has allowed funds theft.
+
+Thus, it is absolutely necessary to use MuSig2 here.
+
+And since we are going to MuSig2 anyway, we might as well include the remote side MuSig2 as well, so that a revocation only requires a single signature.
+
+-------------------------
+
