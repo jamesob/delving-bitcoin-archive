@@ -515,3 +515,15 @@ However this treats the aux data $d$ as opaque data, so it doesn't capture the s
 
 -------------------------
 
+ajtowns | 2026-06-18 04:57:56 UTC | #17
+
+[quote="starius, post:1, topic:2603"]
+The idea is to have a P2MR output with a cheap EC leaf and an expensive PQ leaf.
+[/quote]
+
+Have you considered "P2TRH" with pubkey recovery? If you take `Q=P + H(P; S)*G` as usual per taproot, but commit to H(Q) in the scriptPubKey, then a signature by Q allows recovering Q and comparing to H(Q), so you avoid the 32B cost, and while at-rest H(Q) should not reveal anything about Q to allow a CRQC to steal the coin.
+
+The drawback is that the script spend path requires you to reveal P, so in the event of Q-day occurring and spends in the mempool being vulnerable to attack, then your coins are frozen until keypath spends are disabled. But once they are, then revealing the pubkey P is fine, and the script paths become spendable again.
+
+-------------------------
+
