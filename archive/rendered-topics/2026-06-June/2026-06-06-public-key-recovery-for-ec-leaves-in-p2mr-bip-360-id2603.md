@@ -527,3 +527,13 @@ The drawback is that the script spend path requires you to reveal P, so in the e
 
 -------------------------
 
+sipa | 2026-06-18 11:13:35 UTC | #18
+
+[quote="ajtowns, post:17, topic:2603"]
+The drawback is that the script spend path requires you to reveal P, so in the event of Q-day occurring and spends in the mempool being vulnerable to attack, then your coins are frozen until keypath spends are disabled.
+[/quote]
+
+This means the output type cannot be used at all, post Q-day, before EC disabling, because the PQC paths are inside the scripts?
+
+-------------------------
+
