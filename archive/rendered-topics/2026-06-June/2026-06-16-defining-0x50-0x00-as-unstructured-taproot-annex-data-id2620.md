@@ -71,7 +71,7 @@ LesLie (0300dbdd1b)
 
 -------------------------
 
-ariard | 2026-06-17 20:55:54 UTC | #2
+ariard | 2026-06-17 20:59:21 UTC | #2
 
 Yeah I browsed again the joost pull request, somehow if you're going to use the annex in a multi-party transaction it's hard in practice to avoid inflation size and some kinds of mempools / fee-estimation games (e.g inflating the annex data tag to adversarially get txn stucking). Maybe encouraging people to do 1-input / 1-output transaction would simplify early deployment for now.
 
@@ -79,7 +79,7 @@ In practice, going to support this for any full-node mempool implementation, the
 
 I'm not going to comment on data embedding or whatever use case desirability. We have already the Satoshi whitepaper laying out a foundational analysis for the game-theory security of bitcoin and in addition all the security edge cases or structural gaps, that we as a community have learnt along the journey. If there are shortcomings and things to fix, we should go for consensus changes, relying on *policy consistency* will be always a weaker assumption.
 
-Back in 2021 I did organize a [IRC working group](https://bitcoinops.org/en/newsletters/2021/05/19/) on public communication channels to allow anyone in the world to be able to comment, collect ideas ad proposed improvements on proposed policy rules changes, among other things `mempoolfullrbf`. Between the time full-rbf as a change was proposed and the time a pull request was introduced, I did leave a year or two release cycles of `bitcoind`for people to come with substantial objections or migrate their softwares. Even that wasn't enough for some people (e.g for Muun wallets iirc).
+Back in 2021 I did organize a [IRC working group](https://bitcoinops.org/en/newsletters/2021/05/19/) on public communication channels to allow anyone in the world to be able to comment, collect ideas and propose improvements on proposed policy rules changes, among other things `mempoolfullrbf`. Between the time full-rbf as a change was proposed and the time a pull request was introduced, I did leave a year or two release cycles of `bitcoind`for people to come with substantial objections or migrate their softwares. Even that wasn't enough for some people (e.g for Muun wallets iirc).
 
 Retrospectively, I think those reliability relay workshops done in an open fashion were a good development practice. Defining unilaterally some software format doesn't work when you have softwares written by different folks that have to be inter-compatible for a "functionality" to work effectively I think you might encounter the same issue with a data-only `annex`if you wish to have it propagating reliably to miners, at least the question did arise with `mempoolfullrbf` to have a temporarily `NODE_FULL_RBF` node bit.
 
