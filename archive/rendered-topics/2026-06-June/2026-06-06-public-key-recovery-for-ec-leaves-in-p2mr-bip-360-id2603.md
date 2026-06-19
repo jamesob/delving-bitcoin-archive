@@ -537,3 +537,15 @@ This means the output type cannot be used at all, post Q-day, before EC disablin
 
 -------------------------
 
+ajtowns | 2026-06-18 21:26:16 UTC | #19
+
+[quote="sipa, post:18, topic:2603"]
+This means the output type cannot be used at all, post Q-day, before EC disabling, because the PQC paths are inside the scripts?
+[/quote]
+
+It can't be spent from**, yeah; it can still be "used" for holding funds while waiting though. Compared to P2TRv2 it's added safety if the EC disabling event is delayed vs Q-day; compared to P2MR it's fewer bytes on chain for the key-path prior to Q-day.
+
+**Ignoring the possibility of using a high-fee to get a quick confirm of a key-path spend and hoping the quantum attacker can't RBF/reorg your spend in the time between you broadcast your tx and it getting sufficient confirmations.
+
+-------------------------
+
