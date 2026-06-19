@@ -549,3 +549,25 @@ It can't be spent from**, yeah; it can still be "used" for holding funds while w
 
 -------------------------
 
+starius | 2026-06-19 01:02:59 UTC | #20
+
+Thanks for the idea, Anthony!
+
+I assume the Schnorr challenge would be changed to commit to `H(Q)` instead of `Q`, to make key recovery possible.
+
+I think this is really interesting! P2WPKH has a useful property which Taproot lacks: a held coin does not reveal an EC public key, so it cannot be stolen by a quantum computer until the owner tries to spend it. P2TRH brings a similar property to Taproot.
+
+Another idea to build on top of P2TRH is **relative expiry for the key spend**. After, say, 1 year of holding, a P2TRH coin becomes script-path-only (the key spend is disabled). In case of Q-day, the holder has a fallback without relying on the EC-disabling fork: wait until the EC path expires for that coin, then use PQ script path. This should be safe even if quantum adversaries are fast enough to steal from the mempool.
+
+-------------------------
+
+conduition | 2026-06-19 01:04:29 UTC | #21
+
+Neat idea, basically taproot but with a hash. Yeah that could be an option, but like @sipa points out, it would only be quantum-secure before the first spend. 
+
+This would essentially be trading standalone PQ safety for 32 bytes more efficient EC spending prior to Q-day. Arguably safer than P2TRv2 because at least it's safe if you stand perfectly still, but not actually usable after Q-day until EC spending is disabled by a soft-fork.
+
+Could be an interesting compromise between P2MR and P2TRv2?
+
+-------------------------
+
