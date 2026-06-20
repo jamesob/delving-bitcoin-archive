@@ -57,3 +57,15 @@ Needs a soft fork that supports building a trustless bridge (e.g. BIP-441) in or
 
 -------------------------
 
+cmp_ancp | 2026-06-20 20:54:41 UTC | #5
+
+There is an interesting project concerning coinjoin coordination in nostr, making it descentralized and avoiding regulatory pressures.
+
+joinstr https://share.google/MhV0i0CeMvv1x0RnB
+
+Also, you commented about LN superficially, but there are different concepts and protocols inside LN that aren't broad used or implemented today and can bring more privacy in the future. Taproot channels, PTLCs, maybe a gossip that doesn't doxx UTXOs, LN over Ark, blinded payments over BOLT12 (maybe the most important BOLT12 feature in respect to privacy and one of the least implemented among wallets), trampoline nodes, splices, LSP spec, neutrino and filter based sync tech, etc.
+
+LN over Ark may be the UX killer, resolving the inbound liquidity problem and cheapenning multiple channel maintanance (something that increases privacy).
+
+-------------------------
+

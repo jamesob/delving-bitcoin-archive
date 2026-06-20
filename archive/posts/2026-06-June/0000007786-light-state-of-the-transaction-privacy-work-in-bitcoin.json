@@ -7,7 +7,7 @@
   "cooked": "<p>Shielded CSV: <a href=\"https://eprint.iacr.org/2025/068\" rel=\"noopener nofollow ugc\">https://eprint.iacr.org/2025/068</a></p>\n<p>Needs a soft fork that supports building a trustless bridge (e.g. BIP-441) in order to be used trustlessly with BTC.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-06-20T20:24:25.106Z",
   "reply_count": 0,
   "reply_to_post_number": null,
