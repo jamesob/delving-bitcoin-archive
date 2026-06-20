@@ -20,3 +20,24 @@ Anything else with a realistic shot at adoption that I've missed?
 
 -------------------------
 
+nkaretnikov | 2026-06-20 19:58:17 UTC | #2
+
+It seems there's ongoing work on CoinSwap.
+
+Summary of the protocol:
+https://opensats.org/blog/developing-advancements-in-onchain-privacy
+https://opensats.org/topics/coinswap
+
+An actively developed implementation:
+https://github.com/citadel-tech/coinswap
+https://github.com/citadel-tech/coinswap/milestone/1
+
+Protocol spec:
+https://github.com/citadel-tech/Coinswap-Protocol-Specification
+https://bitcointalk.org/index.php?topic=321228.0
+
+An older PoC from Chris Belcher:
+https://github.com/bitcoin-teleport/teleport-transactions
+
+-------------------------
+

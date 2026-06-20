@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 9,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 46.6,
+  "incoming_link_count": 11,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 72.2,
   "yours": false,
   "topic_id": 2624,
   "topic_slug": "fountain-codes-a-way-to-reduce-blockchain-storage-costs",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Over the past few months, I have been conducting research on the application of Fountain Codes in Bitcoin, together with Vinteum.\n\nFountain codes allow the Bitcoin blockchain to be split into encoded fragments called droplets, such that any node can reconstruct the full blockchain by collecting and decoding a sufficient number of them. Each node only needs to store a fraction of this encoded data, reducing the storage burden per node.\n\nI wrote a blog post explaining the idea and covering the progress I've made in the research so far. You can read it at [https://lucasdbr05.com/posts/fountain-codes/](https://lucasdbr05.com/posts/fountain-codes/).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Over the past few months, I have been conducting research on the application of Fountain Codes in Bitcoin, together with Vinteum. \nFountain codes allow the Bitcoin blockchain to be split into encoded fragments called droplets, such that any node can reconstruct the full blockchain by collecting and &hellip;",
   "truncated": true,
   "post_url": "/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
