@@ -41,3 +41,11 @@ https://github.com/bitcoin-teleport/teleport-transactions
 
 -------------------------
 
+nkaretnikov | 2026-06-20 20:23:14 UTC | #3
+
+Physical devices that allow you to pass Bitcoin offline, like cash. Not a protocol, but worth mentioning.
+https://opendime.com/
+https://satscard.com/
+
+-------------------------
+
