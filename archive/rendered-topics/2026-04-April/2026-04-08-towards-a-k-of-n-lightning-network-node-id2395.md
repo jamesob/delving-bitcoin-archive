@@ -829,7 +829,7 @@ The FULL 64-lines shachain construction requires 2616 bytes.  It is a fair amoun
 
 -------------------------
 
-ZmnSCPxj | 2026-06-18 06:35:17 UTC | #5
+ZmnSCPxj | 2026-06-19 21:03:45 UTC | #5
 
 Some more details.
 
@@ -880,8 +880,8 @@ We have two constraints:
 * `A` cannot be given `revocation[2]` or `revocation[2][N]` for any `N`.
   * If `A` was compromised by the remote side, then once it learns `revocation[2][N]`, it can hand over `revocation[0][N]`, `revocation[1][[N]` and `revocation[2][N]` to the remote side, and the remote side can now revoke the LATEST commitment transaction, resulting in fund loss.
 *  `A` cannot validate that `revocation[2][N] * G` is the correct point.
-  * Suppose the other live signer is `B`.  `B` hands over some opaque point, claiming it is `revocation[2][N] * G`.   However, in secret, `B` actually gives `ecdh(b, R) * G`, MINUS the sum of the points `revocation[0][N] * G` and `revocation[1][N] * G`.
-  * If we used a simple summation of `revocation[i][N] * G` instead of a MuSig2, then `B` has arranged the total to cancel out the revocation keys known by `A`, meaning a compromnised single signer `B` has allowed funds theft.
+   * Suppose the other live signer is `B`.  `B` hands over some opaque point, claiming it is `revocation[2][N] * G`.   However, in secret, `B` actually gives `ecdh(b, R) * G`, MINUS the sum of the points `revocation[0][N] * G` and `revocation[1][N] * G`.
+   * If we used a simple summation of `revocation[i][N] * G` instead of a MuSig2, then `B` has arranged the total to cancel out the revocation keys known by `A`, meaning a compromnised single signer `B` has allowed funds theft.
 
 Thus, it is absolutely necessary to use MuSig2 here.
 
