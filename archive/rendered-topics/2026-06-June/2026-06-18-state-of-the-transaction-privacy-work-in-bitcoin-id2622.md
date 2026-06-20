@@ -49,3 +49,11 @@ https://satscard.com/
 
 -------------------------
 
+light | 2026-06-20 20:24:25 UTC | #4
+
+Shielded CSV: https://eprint.iacr.org/2025/068 
+
+Needs a soft fork that supports building a trustless bridge (e.g. BIP-441) in order to be used trustlessly with BTC.
+
+-------------------------
+
