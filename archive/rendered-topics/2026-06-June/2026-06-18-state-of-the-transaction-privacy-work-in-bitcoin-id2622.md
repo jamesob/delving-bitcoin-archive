@@ -77,7 +77,7 @@ https://github.com/AdamISZ/pathcoin-poc
 
 -------------------------
 
-Kruw | 2026-06-21 15:34:56 UTC | #7
+Kruw | 2026-06-21 16:30:00 UTC | #7
 
 [quote="nkaretnikov, post:1, topic:2622"]
 My perception is that it's all happening in sidechains, L2s, or requires wallet support. Examples: Confidential Transactions (sidechain), Silent Payments (wallet), PayJoin (wallet), CoinJoin (wallet).
@@ -92,7 +92,7 @@ Coinjoin is the only transaction type out of your list that provides full privac
 
 * Alice pays Bob's bc1paddressx123
 * Charlie payjoins with Bob, who reveals he previously received coins at bc1paddressx123
-* Bob now has bc1pxaddressx456 which is a consolidation of Alice and Charlie's payments
+* Bob now has bc1paddressx456 which is a consolidation of Alice and Charlie's payments
 * Charlie has now become a custodian of Bob's secret data (The origin address and value of Alice's payment)
 
 Worse, if Charlie is using an Electrum based mobile wallet to payjoin, Bob's common input ownership data also gets [harvested by third parties.](https://x.com/Kruwed/status/2062195325561938295)

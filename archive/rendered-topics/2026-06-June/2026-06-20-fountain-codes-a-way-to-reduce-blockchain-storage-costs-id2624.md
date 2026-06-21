@@ -62,3 +62,15 @@ I wonder what the impact of different serialization sizes of blocks is here: if 
 
 -------------------------
 
+gmaxwell | 2026-06-21 16:51:32 UTC | #3
+
+I made a prior development list post where I proposed using RS codes to divide partial nodes into a collection of flavors such that syncing required connecting to e.g. 8 distinct flavors.  I actively eschewed fountain codes in this proposal (in spite of the fact that we used them in Bitcoin Fibre and the satellite broadcast) for two reasons:
+
+Bitcoin has to be robust against actively malicious peers. If you get data from a bunch of different peers and some are malicious there didn't seem have anything short of exptime algorithms to find the set of malicious peers and successfully reconstruct the data in spite of them.  For an RS code you can decode in polytime using berlekamp once you have enough data (e.g. two extra good peers for each malicious peer) to correct errors and not just erasures.  Decoding absent malicious peers can still be very fast (even for big codes e.g. https://github.com/catid/leopard/ ).
+
+The other reason was that fingerprinting is a concern-- when a node changes network identity it is preferable if it is difficult to distinguish from other nodes, and many protocol decisions have been shaped by this, e.g. the fact that there is a single prune height advertised for limited nodes.  Because of this I think it makes sense to limit the number of distinct shards.  It does mean that distribution wouldn't be as perfectly uniform where you need literally *any* N peers to reconstruct but I think not making every partial node perfectly tracable over its whole lifetime is probably worth that limit.
+
+Sticking to a simpler code also has some potential IPR benefits.  ::shrugs::
+
+-------------------------
+
