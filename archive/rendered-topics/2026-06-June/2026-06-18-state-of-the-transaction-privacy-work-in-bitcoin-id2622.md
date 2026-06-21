@@ -69,3 +69,11 @@ LN over Ark may be the UX killer, resolving the inbound liquidity problem and ch
 
 -------------------------
 
+nkaretnikov | 2026-06-21 00:38:32 UTC | #6
+
+PathCoin:
+https://gist.github.com/AdamISZ/b462838cbc8cc06aae0c15610502e4da
+https://github.com/AdamISZ/pathcoin-poc
+
+-------------------------
+
