@@ -7,7 +7,7 @@
   "cooked": "<p>Over the past few months, I have been conducting research on the application of Fountain Codes in Bitcoin, together with Vinteum.</p>\n<p>Fountain codes allow the Bitcoin blockchain to be split into encoded fragments called droplets, such that any node can reconstruct the full blockchain by collecting and decoding a sufficient number of them. Each node only needs to store a fraction of this encoded data, reducing the storage burden per node.</p>\n<p>I wrote a blog post explaining the idea and covering the progress I\u2019ve made in the research so far. You can read it at <a href=\"https://lucasdbr05.com/posts/fountain-codes/\" rel=\"noopener nofollow ugc\">https://lucasdbr05.com/posts/fountain-codes/</a>.</p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 1,
+  "posts_count": 2,
   "updated_at": "2026-06-20T10:33:17.274Z",
   "reply_count": 0,
   "reply_to_post_number": null,
