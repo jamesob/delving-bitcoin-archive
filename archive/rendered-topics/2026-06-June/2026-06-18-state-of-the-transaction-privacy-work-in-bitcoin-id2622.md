@@ -77,3 +77,43 @@ https://github.com/AdamISZ/pathcoin-poc
 
 -------------------------
 
+Kruw | 2026-06-21 14:59:51 UTC | #7
+
+[quote="nkaretnikov, post:1, topic:2622"]
+My perception is that it's all happening in sidechains, L2s, or requires wallet support. Examples: Confidential Transactions (sidechain), Silent Payments (wallet), PayJoin (wallet), CoinJoin (wallet).
+
+[/quote]
+
+Coinjoin does not require wallet support in the same way as Silent Payments or Payjoins. Receivers of coinjoin payments can use any wallet, while SPs and PJs require software support for both the sender and receiver.
+
+Coinjoin is the only transaction type out of your list that provides full privacy. The others leak information:
+
+**- Payjoins only hide the common input ownership heuristic from third party observers.** It does not prevent the sender or receiver from tracking each other's addresses. Unfortunately, PJ actually introduces a privacy footgun: The receiver shares one of their existing UTXOs with the sender to merge with the payment. This gives additional data to the sender that would not necessarily be revealed in a later consolidation.
+
+* Alice pays Bob's bc1paddressx123
+* Charlie payjoins with Bob, who reveals he previously received coins at bc1paddressx123
+* Bob now has bc1pxaddressx456 which is a consolidation of Alice and Charlie's payments
+* Charlie has now become a custodian of Bob's secret data (The origin address and value of Alice's payment)
+
+Worse, if Charlie is using an Electrum based mobile wallet to payjoin, Bob's common input ownership data also gets [harvested by third parties.](https://x.com/Kruwed/status/2062195325561938295)
+
+**- Silent Payments just generate new receiver addresses automatically,** it's mainly a UX improvement for donations. Unfortunately, SP addresses actually introduce a new privacy footgun: A receiver who shares the same sp1... address with different senders leaks their common on chain identity with off chain data.
+
+* Alice pays Bob's sp1addressx123 (Robert's pseudonym)
+* Charlie pays Robert's sp1addressx123 (Bob's real name)
+
+Even if Bob is careful not to merge these inputs in future payments, Alice and Charlie can each compare the silent payment addresses they have previously sent to and reveal that Robert's pseudonym is actually Bob.
+
+Worse, this leak occurs passively if Alice and Charlie both use the same custodian. The custodian is able to correlate payment relationships between Alice, Bob, and Charlie even if Alice and Charlie don't know each other.
+
+**- Confidential Transactions only hide the value of coins being transferred.** It does not prevent the sender or receiver from tracking each other's addresses using common input ownership or change heuristics.
+
+[quote="nkaretnikov, post:1, topic:2622"]
+There is also related work, like Cross-Input Signature Aggregation, that would make CoinJoin cheaper, but isn't a privacy feature by itself.
+
+[/quote]
+
+Similarly, confidential transactions also decrease the relative cost of coinjoins compared to regular payments since even-denomination outputs no longer have to be created.
+
+-------------------------
+
