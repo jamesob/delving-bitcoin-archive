@@ -77,7 +77,7 @@ https://github.com/AdamISZ/pathcoin-poc
 
 -------------------------
 
-Kruw | 2026-06-21 15:33:34 UTC | #7
+Kruw | 2026-06-21 15:34:56 UTC | #7
 
 [quote="nkaretnikov, post:1, topic:2622"]
 My perception is that it's all happening in sidechains, L2s, or requires wallet support. Examples: Confidential Transactions (sidechain), Silent Payments (wallet), PayJoin (wallet), CoinJoin (wallet).
@@ -113,7 +113,7 @@ There is also related work, like Cross-Input Signature Aggregation, that would m
 
 [/quote]
 
-Similarly, confidential transactions also eliminates the higher relative cost of coinjoins compared to regular payments since even-denomination outputs no longer have to be created.
+Similarly, confidential transactions also eliminates the higher relative cost of coinjoins compared to regular payments since creation of even-denomination outputs would no longer be necessary.
 
 -------------------------
 
