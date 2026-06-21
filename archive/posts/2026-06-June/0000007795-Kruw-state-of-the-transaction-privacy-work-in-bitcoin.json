@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"nkaretnikov, post:1, topic:2622\"]\nMy perception is that it's all happening in sidechains, L2s, or requires wallet support. Examples: Confidential Transactions (sidechain), Silent Payments (wallet), PayJoin (wallet), CoinJoin (wallet).\n\n[/quote]\n\nCoinjoin does not require wallet support in the same way as Silent Payments or Payjoins. Receivers of coinjoin payments can use any wallet, while SPs and PJs require software support for both the sender and receiver.\n\nCoinjoin is the only transaction type out of your list that provides full privacy. The others leak information:\n\n**- Payjoins only hide the common input ownership heuristic from third party observers.** It does not prevent the sender or receiver from tracking each other's addresses. Unfortunately, PJ actually introduces a privacy footgun: The receiver shares one of their existing UTXOs with the sender to merge with the payment. This gives additional data to the sender that would not necessarily be revealed in a later consolidation.\n\n* Alice pays Bob's bc1paddressx123\n* Charlie payjoins with Bob, who reveals he previously received coins at bc1paddressx123\n* Bob now has bc1pxaddressx456 which is a consolidation of Alice and Charlie's payments\n* Charlie has now become a custodian of Bob's secret data (The origin address and value of Alice's payment)\n\nWorse, if Charlie is using an Electrum based mobile wallet to payjoin, Bob's common input ownership data also gets [harvested by third parties.](https://x.com/Kruwed/status/2062195325561938295)\n\n**- Silent Payments just generate new receiver addresses automatically,** it's mainly a UX improvement for donations. Unfortunately, SP addresses actually introduce a new privacy footgun: A receiver who shares the same sp1... address with different senders leaks their common on chain identity with off chain data.\n\n* Alice pays Bob's sp1addressx123 (Robert's pseudonym)\n* Charlie pays Robert's sp1addressx123 (Bob's real name)\n\nEven if Bob is careful not to merge these inputs in future payments, Alice and Charlie can each compare the silent payment addresses they have previously sent to and reveal that Robert's pseudonym is actually Bob.\n\nWorse, this leak occurs passively if Alice and Charlie both use the same custodian. The custodian is able to correlate payment relationships between Alice, Bob, and Charlie even if Alice and Charlie don't know each other.\n\n**- Confidential Transactions only hide the value of coins being transferred.** It does not prevent the sender or receiver from tracking each other's addresses using common input ownership or change heuristics.\n\n[quote=\"nkaretnikov, post:1, topic:2622\"]\nThere is also related work, like Cross-Input Signature Aggregation, that would make CoinJoin cheaper, but isn't a privacy feature by itself.\n\n[/quote]\n\nSimilarly, confidential transactions also eliminates the higher relative cost of coinjoins compared to regular payments since creation of even-denomination outputs would no longer be necessary.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Coinjoin does not require wallet support in the same way as Silent Payments or Payjoins. Receivers of coinjoin payments can use any wallet, while SPs and PJs require software support for both the sender and receiver. \nCoinjoin is the only transaction type out of your list that provides full privacy&hellip;",
   "truncated": true,
   "post_url": "/t/state-of-the-transaction-privacy-work-in-bitcoin/2622/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
