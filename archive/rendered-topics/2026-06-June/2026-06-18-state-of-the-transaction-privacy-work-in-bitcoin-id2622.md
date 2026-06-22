@@ -153,7 +153,7 @@ The word "just" makes it seem like a convenience feature. Making it easier to us
 
 -------------------------
 
-Kruw | 2026-06-21 23:58:51 UTC | #9
+Kruw | 2026-06-22 00:00:24 UTC | #9
 
 [quote="nkaretnikov, post:8, topic:2622"]
 "Full privacy" is an overstatement. CoinJoin is a mixing scheme. If the anonymity set is not good, then privacy is not good. It can be vulnerable to amount correlation, post-mix consolidation, address reuse, and timing/Sybil attacks.
@@ -162,7 +162,7 @@ Kruw | 2026-06-21 23:58:51 UTC | #9
 
 These issues are solvable when using the WabiSabi coinjoin protocol.
 
-Papers measuring the data can be found here, which show that the anonymity set continuously increases over time with remixes:
+Papers measuring coinjoin data can be found here, which shows that the anonymity set continuously increases over time from remixes:
 
 [Analysis of input-output mappings in coinjoin transactions with arbitrary values by Jiri Gavenda, Petr Svenda, Stanislav Bobon, and Vladimir Sedlacek (Masaryk University, Czechia)](https://arxiv.org/pdf/2510.17284)
 
