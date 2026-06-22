@@ -77,7 +77,7 @@ https://github.com/AdamISZ/pathcoin-poc
 
 -------------------------
 
-Kruw | 2026-06-21 16:30:00 UTC | #7
+Kruw | 2026-06-21 21:18:39 UTC | #7
 
 [quote="nkaretnikov, post:1, topic:2622"]
 My perception is that it's all happening in sidechains, L2s, or requires wallet support. Examples: Confidential Transactions (sidechain), Silent Payments (wallet), PayJoin (wallet), CoinJoin (wallet).
@@ -95,9 +95,9 @@ Coinjoin is the only transaction type out of your list that provides full privac
 * Bob now has bc1paddressx456 which is a consolidation of Alice and Charlie's payments
 * Charlie has now become a custodian of Bob's secret data (The origin address and value of Alice's payment)
 
-Worse, if Charlie is using an Electrum based mobile wallet to payjoin, Bob's common input ownership data also gets [harvested by third parties.](https://x.com/Kruwed/status/2062195325561938295)
+Worse, if Charlie is using an Electrum based mobile wallet to payjoin, Bob's linked address data also gets [harvested by third parties.](https://x.com/Kruwed/status/2062195325561938295)
 
-**- Silent Payments just generate new receiver addresses automatically,** it's mainly a UX improvement for donations. Unfortunately, SP addresses actually introduce a new privacy footgun: A receiver who shares the same sp1... address with different senders leaks their common on chain identity with off chain data.
+**- Silent Payments only generate new receiver addresses automatically,** it's mainly a UX improvement for donations. Unfortunately, SP addresses actually introduce a new privacy footgun: A receiver who shares the same sp1... address with different senders leaks their common on chain identity with off chain data.
 
 * Alice pays Bob's sp1addressx123 (Robert's pseudonym)
 * Charlie pays Robert's sp1addressx123 (Bob's real name)
@@ -114,6 +114,90 @@ There is also related work, like Cross-Input Signature Aggregation, that would m
 [/quote]
 
 Similarly, confidential transactions also eliminates the higher relative cost of coinjoins compared to regular payments since creation of even-denomination outputs would no longer be necessary.
+
+-------------------------
+
+nkaretnikov | 2026-06-21 21:24:14 UTC | #8
+
+I think there are some inaccuracies in what you said. Please correct me if I'm wrong.
+
+[quote="Kruw, post:7, topic:2622"]
+Coinjoin is the only transaction type out of your list that provides full privacy.
+[/quote]
+
+"Full privacy" is an overstatement. CoinJoin is a mixing scheme. If the anonymity set is not good, then privacy is not good. It can be vulnerable to amount correlation, post-mix consolidation, address reuse, and timing/Sybil attacks.
+
+[quote="Kruw, post:7, topic:2622"]
+Unfortunately, PJ actually introduces a privacy footgun: The receiver shares one of their existing UTXOs with the sender to merge with the payment.
+[/quote]
+
+This is a valid observation, but PayJoin still can be used to improve privacy if:
+- Bob uses a UTXO that doesn't deanonymize a different counterparty (e.g., Bob's own transfer from an exchange)
+- Bob uses a UTXO already associated with Charlie.
+
+This breaks the common-input-ownership heuristic, obscures the payment amount, and can mislead change-identification heuristics.
+
+The example you provide is the worst case example. It's not a PayJoin issue, but rather a UX issue with UTXO management and privacy. But it's a fair point for real world usage. So I'm glad you pointed it out.
+
+[quote="Kruw, post:7, topic:2622"]
+Worse, if Charlie is using an Electrum based mobile wallet to payjoin, Bob’s common input ownership data also gets [harvested by third parties.](https://x.com/Kruwed/status/2062195325561938295)
+[/quote]
+
+Not a PayJoin issue, but an important point for real world usage. Appreciate you mentioning this.
+
+[quote="Kruw, post:7, topic:2622"]
+**Silent Payments just generate new receiver addresses automatically,** it’s mainly a UX improvement for donations.
+[/quote]
+
+The word "just" makes it seem like a convenience feature. Making it easier to use the same address without linking transactions is huge for privacy. As a side effect, this also reduces public key exposure for unspent outputs. Exposed public keys can become an issue with quantum computers.
+
+-------------------------
+
+Kruw | 2026-06-21 23:58:51 UTC | #9
+
+[quote="nkaretnikov, post:8, topic:2622"]
+"Full privacy" is an overstatement. CoinJoin is a mixing scheme. If the anonymity set is not good, then privacy is not good. It can be vulnerable to amount correlation, post-mix consolidation, address reuse, and timing/Sybil attacks.
+
+[/quote]
+
+These issues are solvable when using the WabiSabi coinjoin protocol.
+
+Papers measuring the data can be found here, which show that the anonymity set continuously increases over time with remixes:
+
+[Analysis of input-output mappings in coinjoin transactions with arbitrary values by Jiri Gavenda, Petr Svenda, Stanislav Bobon, and Vladimir Sedlacek (Masaryk University, Czechia)](https://arxiv.org/pdf/2510.17284)
+
+[CoinJoin ecosystem insights for Wasabi 1.x, Wasabi 2.x and Whirlpool coordinator-based privacy mixers by Petr Svenda + Jiri Gavenda (Masaryk University, Czechia) and Vasilios Mavroudis + Chris Hicks (The Alan Turing Institute)](https://petsymposium.org/popets/2026/popets-2026-0061.pdf)
+
+[quote="nkaretnikov, post:8, topic:2622"]
+This is a valid observation, but PayJoin still can be used to improve privacy if: Bob uses a UTXO that doesn't deanonymize a different counterparty (e.g., Bob's own transfer from an exchange)
+
+[/quote]
+
+Changing Alice's name to MtGox in the example doesn't make any difference, an exchange is still a counterparty.
+
+[quote="nkaretnikov, post:8, topic:2622"]
+Bob uses a UTXO already associated with Charlie. This breaks the common-input-ownership heuristic, obscures the payment amount, and can mislead change-identification heuristics.
+
+[/quote]
+
+Those heuristics are broken from a third party perspective, but using Payjoin in this scenario doesn't make any difference for the conventional threat model: Bob can already consolidate these two UTXOs without revealing any new information to Charlie.
+
+[quote="nkaretnikov, post:8, topic:2622"]
+The word "just" makes it seem like a convenience feature. Making it easier to use the same address without linking transactions is huge for privacy.
+
+[/quote]
+
+Silent payments have no privacy advantages compared to a payment sent to a new address that was generated manually. It's strictly a convenience improvement that allows reuse in two specific scenarios:
+
+1. Receiving non-public donations
+2. Receiving multiple payments from the same entity.
+
+[quote="nkaretnikov, post:8, topic:2622"]
+As a side effect, this also reduces public key exposure for unspent outputs. Exposed public keys can become an issue with quantum computers.
+
+[/quote]
+
+This is incorrect. Silent payment outputs use Taproot keys, which are exposed onchain.
 
 -------------------------
 

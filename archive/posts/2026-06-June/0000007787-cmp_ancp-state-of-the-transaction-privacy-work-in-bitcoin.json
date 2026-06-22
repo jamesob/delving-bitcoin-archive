@@ -7,7 +7,7 @@
   "cooked": "<p>There is an interesting project concerning coinjoin coordination in nostr, making it descentralized and avoiding regulatory pressures.</p>\n<p>joinstr <a href=\"https://share.google/MhV0i0CeMvv1x0RnB\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">joinstr</a></p>\n<p>Also, you commented about LN superficially, but there are different concepts and protocols inside LN that aren\u2019t broad used or implemented today and can bring more privacy in the future. Taproot channels, PTLCs, maybe a gossip that doesn\u2019t doxx UTXOs, LN over Ark, blinded payments over BOLT12 (maybe the most important BOLT12 feature in respect to privacy and one of the least implemented among wallets), trampoline nodes, splices, LSP spec, neutrino and filter based sync tech, etc.</p>\n<p>LN over Ark may be the UX killer, resolving the inbound liquidity problem and cheapenning multiple channel maintanance (something that increases privacy).</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 9,
   "updated_at": "2026-06-20T20:54:41.084Z",
   "reply_count": 0,
   "reply_to_post_number": null,
