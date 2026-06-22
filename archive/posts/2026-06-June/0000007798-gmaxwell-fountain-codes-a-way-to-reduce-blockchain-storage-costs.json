@@ -7,15 +7,15 @@
   "cooked": "<p>I made a prior development list post where I proposed using RS codes to divide partial nodes into a collection of flavors such that syncing required connecting to e.g. 8 distinct flavors.  I actively eschewed fountain codes in this proposal (in spite of the fact that we used them in Bitcoin Fibre and the satellite broadcast) for two reasons:</p>\n<p>Bitcoin has to be robust against actively malicious peers. If you get data from a bunch of different peers and some are malicious there didn\u2019t seem have anything short of exptime algorithms to find the set of malicious peers and successfully reconstruct the data in spite of them.  For an RS code you can decode in polytime using berlekamp once you have enough data (e.g. two extra good peers for each malicious peer) to correct errors and not just erasures.  Decoding absent malicious peers can still be very fast (even for big codes e.g. <a href=\"https://github.com/catid/leopard/\" class=\"inline-onebox\">GitHub - catid/leopard: Leopard-RS : O(N Log N) MDS Reed-Solomon Block Erasure Code for Large Data \u00b7 GitHub</a> ).</p>\n<p>The other reason was that fingerprinting is a concern-- when a node changes network identity it is preferable if it is difficult to distinguish from other nodes, and many protocol decisions have been shaped by this, e.g. the fact that there is a single prune height advertised for limited nodes.  Because of this I think it makes sense to limit the number of distinct shards.  It does mean that distribution wouldn\u2019t be as perfectly uniform where you need literally <em>any</em> N peers to reconstruct but I think not making every partial node perfectly tracable over its whole lifetime is probably worth that limit.</p>\n<p>Sticking to a simpler code also has some potential IPR benefits.  ::shrugs::</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 7,
   "updated_at": "2026-06-21T16:51:32.891Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 7.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 27.4,
   "yours": false,
   "topic_id": 2624,
   "topic_slug": "fountain-codes-a-way-to-reduce-blockchain-storage-costs",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I made a prior development list post where I proposed using RS codes to divide partial nodes into a collection of flavors such that syncing required connecting to e.g. 8 distinct flavors.  I actively eschewed fountain codes in this proposal (in spite of the fact that we used them in Bitcoin Fibre and the satellite broadcast) for two reasons:\n\nBitcoin has to be robust against actively malicious peers. If you get data from a bunch of different peers and some are malicious there didn't seem have anything short of exptime algorithms to find the set of malicious peers and successfully reconstruct the data in spite of them.  For an RS code you can decode in polytime using berlekamp once you have enough data (e.g. two extra good peers for each malicious peer) to correct errors and not just erasures.  Decoding absent malicious peers can still be very fast (even for big codes e.g. https://github.com/catid/leopard/ ).\n\nThe other reason was that fingerprinting is a concern-- when a node changes network identity it is preferable if it is difficult to distinguish from other nodes, and many protocol decisions have been shaped by this, e.g. the fact that there is a single prune height advertised for limited nodes.  Because of this I think it makes sense to limit the number of distinct shards.  It does mean that distribution wouldn't be as perfectly uniform where you need literally *any* N peers to reconstruct but I think not making every partial node perfectly tracable over its whole lifetime is probably worth that limit.\n\nSticking to a simpler code also has some potential IPR benefits.  ::shrugs::",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I made a prior development list post where I proposed using RS codes to divide partial nodes into a collection of flavors such that syncing required connecting to e.g. 8 distinct flavors.  I actively eschewed fountain codes in this proposal (in spite of the fact that we used them in Bitcoin Fibre an&hellip;",
   "truncated": true,
   "post_url": "/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

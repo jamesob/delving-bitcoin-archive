@@ -74,3 +74,79 @@ Sticking to a simpler code also has some potential IPR benefits.  ::shrugs::
 
 -------------------------
 
+ajtowns | 2026-06-22 03:00:05 UTC | #4
+
+
+[quote="gmaxwell, post:3, topic:2624"]
+I made a prior development list post where I proposed using RS codes
+[/quote]
+
+I think this is that post:
+
+https://gnusha.org/pi/bitcoindev/CAAS2fgT5pJh68xufv_81+N8K0asxH16WdX7PLLXGjRPmJOkYFQ@mail.gmail.com/
+
+[quote="gmaxwell, post:3, topic:2624"]
+Bitcoin has to be robust against actively malicious peers. If you get data from a bunch of different peers and some are malicious there didn’t seem have anything short of exptime algorithms to find the set of malicious peers and successfully reconstruct the data in spite of them.
+[/quote]
+
+The blog post linked from the original message in this thread points at a [2019 paper](https://arxiv.org/pdf/1906.12140) that uses the header chain for solving this: you download a selection of "droplets" each represent an xor combination of 1-to-many blocks. You resolve the 1-block droplets immediately, and verify they're correctness versus the header-chain, then xor-those blocks out of the other droplets, reducing some of them down from an n-block droplet to an (n-1)-block droplet. Because you're only using validated data to affect droplets from other nodes, punishment is straightforward.
+
+[quote="gmaxwell, post:3, topic:2624"]
+The other reason was that fingerprinting is a concern-- when a node changes network identity it is preferable if it is difficult to distinguish from other nodes
+[/quote]
+
+That seems a fair criticism, particularly if the goal here is that every node (including non-listening ones) will eventually assist new nodes doing IBD. 
+
+[quote="gmaxwell, post:3, topic:2624"]
+Because of this I think it makes sense to limit the number of distinct shards. It does mean that distribution wouldn’t be as perfectly uniform where you need literally *any* N peers to reconstruct but I think not making every partial node perfectly tracable over its whole lifetime is probably worth that limit.
+[/quote]
+
+If you're just dividing non-archival nodes into N groups, then I think you'd just have each node in group k of N store any block whose height $h \equiv k \pmod{N}$, rather than doing anything more complex? With N=128, then that would mean storing ~6GB per node, and nodes who are happy to store ~44GB could store/serve $k, k+16, k+32, k+48, k+64, k+80, k+96, k+112$, while remaining indistinguishable amongst the 6.25% of nodes willing to store 44GB, ie the ones who chose the same k.
+
+-------------------------
+
+gmaxwell | 2026-06-22 03:15:46 UTC | #5
+
+IIRC the figures you get for share of nodes you need to DOS to block synchronization is much worse than if you use a code.
+
+-------------------------
+
+ajtowns | 2026-06-22 03:32:51 UTC | #6
+
+Presumably that only works if you have N anonymity groups, but only need to connect to $rN$ groups, with $r < 1$ (and you need a code to achieve that)? Then you need to DoS every node in $(1-r)N+1$ groups instead of just 1 group; though in either case you also need to DoS all the remaining full archival nodes as well, assuming there are any.
+
+-------------------------
+
+lucasdbr05 | 2026-06-22 04:14:00 UTC | #7
+
+> I think the idea was that peers would share the seed they use for working out what droplets they'll select, both to save a little bit of data, but also to help guarantee unbiased random selection?
+
+Yes. The peers share the seed used to generate the droplets in the respective epoch. In the post, where I talk about:
+
+> Each droplet carries information about which original blocks were combined to produce it. Using this information, the decoder builds a bipartite graph connecting droplets to their source blocks.
+
+this information might include the seed needed to rebuild the same bipartite graph on both nodes.
+
+---
+> So I think your storage is just the fraction 𝑠/𝑘 versus storing all blocks.
+
+Actually it's approximately $s/k$, because blocks don't have exactly the same size, so different encodings produce droplets with variable size.
+In the last paragraph you say that:
+
+> I wonder what the impact of different serialization sizes of blocks is here: if you have a droplet that's [208, 820] and 208 is full of inscriptions and 4MB while 820 is full of runestones and 1MB, I think the droplet has to be the full 4MB.
+
+That's one of the reasons the storage isn't exactly $s/k$ of the total blocks' data size.
+In a case where a difference like the one you showed occurs, could this be optimized by concatenating blocks up to a target size threshold, to avoid XORing a large block against a much smaller one, where most of the operation would just be canceling out the zero-padding on the smaller block.
+
+---
+> I think it would be reasonable to parameterize based on 𝑘 and 𝑟 =𝑠/𝑘 instead, with the potential for 𝑟 being a per-node setting.
+
+I agree with the above statement. The parameter $s$ being variable per node's storage capacity is really interesting. But I think using a fixed $k$ is important for node coordination.
+
+---
+> My first thought is that you'd disconnect and ban a peer that gave you bad data (so not request any additional droplets), but might keep the remaining droplets they gave you on the offchance any of them turned out to be useful.
+
+I also agree with this statement. The remaining droplets from a murky peer should still be processed by the decoder, which will naturally accept them if they pass the header and merkle root verification when they become singletons, or reject them otherwise.
+
+-------------------------
+
