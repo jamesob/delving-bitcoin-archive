@@ -153,7 +153,7 @@ The word "just" makes it seem like a convenience feature. Making it easier to us
 
 -------------------------
 
-Kruw | 2026-06-22 00:17:09 UTC | #9
+Kruw | 2026-06-22 00:19:42 UTC | #9
 
 [quote="nkaretnikov, post:8, topic:2622"]
 "Full privacy" is an overstatement. CoinJoin is a mixing scheme. If the anonymity set is not good, then privacy is not good. It can be vulnerable to amount correlation, post-mix consolidation, address reuse, and timing/Sybil attacks.
@@ -187,8 +187,7 @@ Not a PayJoin issue, but an important point for real world usage. Appreciate you
 
 [/quote]
 
-
-It is a Payjoin issue - If Bob accepts a regular payment from Charlie's mobile wallet instead of a payjoin, less data will end up in the hands of surveillance companies.
+It is a Payjoin issue - If Bob accepts a regular payment from Charlie's mobile wallet instead of a payjoin, less data will be revealed to Charlie (and end up in the hands of surveillance companies).
 
 [quote="nkaretnikov, post:8, topic:2622"]
 The word "just" makes it seem like a convenience feature. Making it easier to use the same address without linking transactions is huge for privacy.
