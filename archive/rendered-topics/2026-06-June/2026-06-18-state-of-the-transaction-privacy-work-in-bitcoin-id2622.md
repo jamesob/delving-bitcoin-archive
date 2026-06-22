@@ -313,3 +313,15 @@ Also, the downsides of payjoin are eliminated if both participants are using coi
 
 -------------------------
 
+AdamISZ | 2026-06-22 15:02:32 UTC | #12
+
+[quote="Kruw, post:11, topic:2622"]
+“Solvable” is not an overstatement imo, I tried to choose my words carefully here so I don’t spread too much optimism on a technical board.
+
+The claim “These issues are **solved** when using the WabiSabi coinjoin protocol” would be inaccurate since there’s still work to do on improving the current implementation.
+[/quote]
+
+Funnily enough I was about to write a much more agreeing-with-you post where I pointed out that you'd said "solvable" and not "solved" :laughing: ... before deciding that no, it's too pedantic and it ultimately is not realistic to say it's "in the process of being solved". Your counterpoints are noted - good information - but I still think you're significantly overstating with the term "solvable". Disagree.
+
+-------------------------
+
