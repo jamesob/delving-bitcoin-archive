@@ -325,3 +325,14 @@ Funnily enough I was about to write a much more agreeing-with-you post where I p
 
 -------------------------
 
+Kruw | 2026-06-22 15:24:01 UTC | #13
+
+[quote="AdamISZ, post:12, topic:2622"]
+Your counterpoints are noted - good information - but I still think you're significantly overstating with the term "solvable". Disagree.
+
+[/quote]
+
+Could you be more specific what your remaining concerns are? Are they privacy related or scaling related?
+
+-------------------------
+
