@@ -150,3 +150,42 @@ I also agree with this statement. The remaining droplets from a murky peer shoul
 
 -------------------------
 
+gmaxwell | 2026-06-22 06:00:50 UTC | #8
+
+[quote="ajtowns, post:6, topic:2624"]
+Presumably that only works if you have N anonymity groups, but only need to connect to rN groups, with r < 1 (and you need a code to achieve that)? Then you need to DoS every node in (1-r)N+1 groups instead of just 1 group; though in either case you also need to DoS all the remaining full archival nodes as well, assuming there are any.
+
+[/quote]
+
+Right, and slicing is on each block, so it doesn't matter that blocks are different in size.  Each block is encoded in say, 246 parts, such that you need any 10 parts to recover the block.  So to block reconstruction you must block reaching at least 96% of nodes (and all the archival nodes, if any exist).  And each node would need 1/10th the storage.  Discovery is not a big deal because just random selecting likely gives you 86% chance of getting all distinct selections even not having any idea what lane peers are in.
+
+I hadn't seen the 2019 paper, but a pure peeling code has some unattractive recovery properties, e.g. 30%+ overhead in terms of symbol counts. And the scheme you describe has poor locality... so I don't see how storage would be handled during recovery on a pruning node. I guess I need to look at some concrete numbers.  But I don't see the advantage vs striping at a block level.
+
+-------------------------
+
+ajtowns | 2026-06-22 06:15:11 UTC | #9
+
+[quote="ajtowns, post:6, topic:2624, full:true"]
+Presumably that only works if you have N anonymity groups, but only need to connect to rN groups, with r < 1 (and you need a code to achieve that)? Then you need to DoS every node in (1-r)N+1 groups instead of just 1 group; though in either case you also need to DoS all the remaining full archival nodes as well, assuming there are any.
+[/quote]
+
+So I think a way of combining these ideas might be something like this:
+
+ * Pick k=1008 blocks matching half a retarget interval
+ * Pick N=100 as your anonymity groups
+ * Pick 1.6% (1/63) as your storage reduction factor (~11GB total) for 16 droplets per interval (~32MB additional storage per week rather than ~2GB)
+ * Calculate in advance (hardcode) 1600 unique droplet compositions according to the Robust Soliton distribution with $c=0.06 , \delta=0.1$ (versus $c=0.1, \delta=0.01$) using some deterministic pseudo-random scheme. Order these by degree, so $\deg(d_1) = 1$,  $\deg(d_{1600}) = 57$
+ * Each node picks its anonymity set once from $\alpha \in 1..N$, and keeps droplet $d_i$ in each interval whenever $i \equiv \alpha \pmod{N}$.
+
+With that setup, I believe you need to connect to 76-80 honest peers across different anonymity groups to be ~certain of recovering all data, but you can calculate exactly 1008 droplets to download and peel to obtain all the blocks you want, so you don't pay too much of a bandwidth cose. Meanwhile you detect a dishonest peer essentially as soon as you download a single bad droplet from them.
+
+If you want to make $r$ be a per node parameter, then you could select $m \in \{1,2,5,10,20\}$ and multiplying your storage used by $m$ and storing droplet $d_i$ whenever $i \equiv \alpha \pmod{\frac{N}{m}}$.
+
+With a hardcoded set of 1600 droplet compositions you might be able to do something better than random, but I'm not sure what that would look like.
+
+I believe that needing 80 honest peers with distinct sets rather than 63 is the tradeoff between using an optimal encoding like Reed-Solomon versus being able to precisely detect who's responsible for introducing errors via the SeF-peeling scheme.
+
+In practice this would mean during IBD you're downloading 1008 blocks at once, then processing them all, then downloading the next set. Picking a smaller size for k might be appropriate if that means you can keep the sequence of resolved blocks in memory for peeling, rather than having to reread it repeatedly off disk; after all, if you're interleaving processing the last set of 1008 while downloading the next, then the block cache for peeling would compete for memory with the leveldb utxo cache which might be annoying for (very) low-memory systems. Unfortunately dropping from $k = 1008$ significantly increases the number of peers you need or the amount they need to store afaics.
+
+-------------------------
+
