@@ -7,9 +7,9 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"Kruw\" data-post=\"11\" data-topic=\"2622\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/kruw/48/915_2.png\" class=\"avatar\"> Kruw:</div>\n<blockquote>\n<p>\u201cSolvable\u201d is not an overstatement imo, I tried to choose my words carefully here so I don\u2019t spread too much optimism on a technical board.</p>\n<p>The claim \u201cThese issues are <strong>solved</strong> when using the WabiSabi coinjoin protocol\u201d would be inaccurate since there\u2019s still work to do on improving the current implementation.</p>\n</blockquote>\n</aside>\n<p>Funnily enough I was about to write a much more agreeing-with-you post where I pointed out that you\u2019d said \u201csolvable\u201d and not \u201csolved\u201d <img src=\"https://delvingbitcoin.org/images/emoji/twitter/laughing.png?v=15\" title=\":laughing:\" class=\"emoji\" alt=\":laughing:\" loading=\"lazy\" width=\"20\" height=\"20\"> \u2026 before deciding that no, it\u2019s too pedantic and it ultimately is not realistic to say it\u2019s \u201cin the process of being solved\u201d. Your counterpoints are noted - good information - but I still think you\u2019re significantly overstating with the term \u201csolvable\u201d. Disagree.</p>",
   "post_number": 12,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-06-22T15:02:32.597Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 11,
   "quote_count": 1,
   "incoming_link_count": 0,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"Kruw, post:11, topic:2622\"]\n\u201cSolvable\u201d is not an overstatement imo, I tried to choose my words carefully here so I don\u2019t spread too much optimism on a technical board.\n\nThe claim \u201cThese issues are **solved** when using the WabiSabi coinjoin protocol\u201d would be inaccurate since there\u2019s still work to do on improving the current implementation.\n[/quote]\n\nFunnily enough I was about to write a much more agreeing-with-you post where I pointed out that you'd said \"solvable\" and not \"solved\" :laughing: ... before deciding that no, it's too pedantic and it ultimately is not realistic to say it's \"in the process of being solved\". Your counterpoints are noted - good information - but I still think you're significantly overstating with the term \"solvable\". Disagree.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Funnily enough I was about to write a much more agreeing-with-you post where I pointed out that you\u2019d said \u201csolvable\u201d and not \u201csolved\u201d :laughing: \u2026 before deciding that no, it\u2019s too pedantic and it ultimately is not realistic to say it\u2019s \u201cin the process of being solved\u201d. Your counterpoints are note&hellip;",
   "truncated": true,
   "post_url": "/t/state-of-the-transaction-privacy-work-in-bitcoin/2622/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
