@@ -208,3 +208,108 @@ This is incorrect. Silent payment outputs use Taproot keys, which are exposed on
 
 -------------------------
 
+AdamISZ | 2026-06-22 11:21:16 UTC | #10
+
+[quote="Kruw, post:9, topic:2622"]
+These issues are solvable when using the WabiSabi coinjoin protocol.
+[/quote]
+
+Seems way overstated. I agree with @nkaretnikov . First, you cannot solve the problem with a central server: the central server has an unstoppable ability to near-fully Sybil you in any given join. It's true that that risk is not as bad as it seems at first glance, given all the "natural" circumstantial defenses that exist (in particular probing the server with anonymous entities), but it always exists to some extent or other.
+
+Then there's the fact that for actually *using* bitcoin, denomination matters. WabiSabi is a huge leap forward from Wasabi 1 in that respect, it's a great innovation, but, transactions that make actual payments are not close to fully solved with this denomination splitting [1].
+
+Then there's the fact that coinjoin at big anon sets simply does not scale (and at small anon sets does not give good anonymization ofc).
+
+Where I do think you have a very solid basis for the gist of your claim is: large enough anon sets (as we have seen with recent Wasabi) means you push outside feasible computation limits; the coinjoins do really become a black box (in general; there can always be specific failures ofc). That's an important observation but as per above (1) it can't scale far and (2) it doesn't remove the other problems (*) with onchain transactions, especially if people don't pay each other inside the joins.
+
+(*) timing correlation, amount correlation, wallet fingerprinting, network level trace and a bunch of other fingerprints, combined with the unreasonable effectiveness element from set-intersection, make it obviously false to claim any onchain privacy technique, even the best one, is going to let you say "solved".
+
+Offchain it's much more defensible to say "solved", I think.
+
+[1] Little side note: as many of us who studied coinjoin over the years, I became very interested in the 'one participant pays other inside the coinjoin' model; it counters the unscalability of 'useless extra transactions', it breaks surveillance of the flows etc. But it is not just ironic but telling, that exactly this model is the one where you lose the property you noted upthread: it means the receiver now *does* need new software.
+
+-------------------------
+
+Kruw | 2026-06-22 14:52:16 UTC | #11
+
+[quote="AdamISZ, post:10, topic:2622"]
+Seems way overstated.
+
+[/quote]
+
+"Solvable" is not an overstatement imo, I tried to choose my words carefully here so I don't spread too much optimism on a technical board.
+
+The claim "These issues are **solved** when using the WabiSabi coinjoin protocol" would be inaccurate since there's still work to do on improving the current implementation. The claim "These issues are solvable when **participating in a WabiSabi coinjoin transaction**" would also be inaccurate because a single transaction is not guaranteed to enhance privacy. Whales face a relative disadvantage compared to smaller participants, so they will need to pay for and wait for additional remixes.
+
+[quote="AdamISZ, post:10, topic:2622"]
+First, you cannot solve the problem with a central server: the central server has an unstoppable ability to near-fully Sybil you in any given join.
+
+[/quote]
+
+You are somewhat correct, WabiSabi assumes server availability as a premise:
+
+![575447450-81ba6df2-da81-4333-b87f-631a5e2feb9b|690x172](upload://ekWMrns7xJ8UhQaRyUqwJlO0Ka6.png)
+
+An unstable server can slowly partition users by dropping connections and preventing rounds from ever completing. Each failed round leaks some metadata off chain, and if the server disappears permanently then there's extra friction while users switch to a new coordinator.
+
+As the paper mentions, the incentives for clients and servers are already aligned since coordinators may profit from successful rounds: My coordinator server has a higher % uptime than both Zcash's Orchard pool and Litecoin's MWEB chain.
+
+However, I would argue that the WabiSabi protocol is uniquely resistant to Sybil attacks, for the exact  reason you mentioned:
+
+[quote="AdamISZ, post:10, topic:2622"]
+It's true that that risk is not as bad as it seems at first glance, given all the "natural" circumstantial defenses that exist (in particular probing the server with anonymous entities), but it always exists to some extent or other.
+
+[/quote]
+
+Expanding my above claim with a comparison to other coinjoin protocols:
+
+* Whirlpool is uniquely vulnerable to Sybil attacks: The coordinator chooses all inputs for the round.
+* JoinMarket defends takers against Sybil attacks with poodl.
+* WabiSabi coordinators can't execute a Sybil attack against a target input without being detected since the user would notice their other inputs are not included in the round. Excluded users would migrate their liquidity to a new coordinator, and the malicious one would die off.
+
+[quote="AdamISZ, post:10, topic:2622"]
+Then there's the fact that for actually *using* bitcoin, denomination matters. WabiSabi is a huge leap forward from Wasabi 1 in that respect, it's a great innovation, but, transactions that make actual payments are not close to fully solved with this denomination splitting \[1\].
+
+[/quote]
+
+Wasabi v2.8 is yet another huge leap forward over previous implementations of WabiSabi because it adds the Pay in Coinjoin feature to the GUI:
+
+![HKKAnF-WsAA9UEV|613x500](upload://78XANg6wZJghTe1BDKNUQ0Wimzs.png)
+
+This tactic eliminates multiple privacy concerns:
+
+* The age of the sender's inputs is not revealed
+* The number of inputs consolidated by the sender to make the payment is not revealed
+* The origin rounds of inputs consolidated by the sender are not revealed
+* The value of the sender's leftover change is not revealed
+* The sender can batch multiple payments without revealing a common origin
+
+Even newbies who don't understand the concept of UTXOs don't need any further instruction to use Bitcoin anonymously (pending UX issue[\*](https://github.com/WalletWasabi/WalletWasabi/issues/14664)).
+
+[quote="AdamISZ, post:10, topic:2622"]
+Then there's the fact that coinjoin at big anon sets simply does not scale
+
+[/quote]
+
+The base layer simply does not scale in general. Kukks made a prototype for sending anonymous coinjoin credentials directly to the end user, turning the coinjoin round into a non custodial ecash layer 2: [Kompaktor](https://github.com/Kukks/Kompaktor)
+
+[quote="AdamISZ, post:10, topic:2622"]
+That's an important observation but as per above (1) it can't scale far and (2) it doesn't remove the other problems (\*) with onchain transactions, especially if people don't pay each other inside the joins.
+
+[/quote]
+
+Even ignoring the potential benefits of CISA and CT, coinjoins can be scaled reasonably. My average coinjoin size over the past year was 270 inputs, 325 outputs, 30k vBytes. The largest coinjoin was 498 inputs, 51k vBytes. Considering the standard relay limit for individual transactions is 100k vBytes, there's relatively little room left for optimization.
+
+100k isn't the scaling limit though. After a round becomes full, coordinators optimize the liquidity by running two rounds simultaneously: One for whales, and one for smaller users. When clients sort themselves by relative value, you can squeeze out even more performance.
+
+[quote="AdamISZ, post:10, topic:2622"]
+\[1\] Little side note: as many of us who studied coinjoin over the years, I became very interested in the 'one participant pays other inside the coinjoin' model; it counters the unscalability of 'useless extra transactions', it breaks surveillance of the flows etc. But it is not just ironic but telling, that exactly this model is the one where you lose the property you noted upthread: it means the receiver now *does* need new software.
+
+[/quote]
+
+Yes, JoinMarket benefits strongly if the recipient is also a JoinMarket user. A trail of consecutive payjoin transactions also gradually decays possible analysis.
+
+Also, the downsides of payjoin are eliminated if both participants are using coinjoined outputs for their payjoin inputs.
+
+-------------------------
+
