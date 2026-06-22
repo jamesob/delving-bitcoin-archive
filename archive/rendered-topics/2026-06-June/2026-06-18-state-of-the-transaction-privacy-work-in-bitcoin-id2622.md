@@ -230,7 +230,7 @@ Offchain it's much more defensible to say "solved", I think.
 
 -------------------------
 
-Kruw | 2026-06-22 14:52:16 UTC | #11
+Kruw | 2026-06-22 19:36:26 UTC | #11
 
 [quote="AdamISZ, post:10, topic:2622"]
 Seems way overstated.
@@ -264,7 +264,7 @@ It's true that that risk is not as bad as it seems at first glance, given all th
 Expanding my above claim with a comparison to other coinjoin protocols:
 
 * Whirlpool is uniquely vulnerable to Sybil attacks: The coordinator chooses all inputs for the round.
-* JoinMarket defends takers against Sybil attacks with poodl.
+* JoinMarket defends takers against Sybil attacks with fidelity bonds.
 * WabiSabi coordinators can't execute a Sybil attack against a target input without being detected since the user would notice their other inputs are not included in the round. Excluded users would migrate their liquidity to a new coordinator, and the malicious one would die off.
 
 [quote="AdamISZ, post:10, topic:2622"]
