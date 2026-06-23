@@ -67,3 +67,19 @@ PQ stateless hash based signature transaction (1,446vB) will cost $36.15
 
 -------------------------
 
+cmp_ancp | 2026-06-23 16:01:49 UTC | #2
+
+I fear that any solution will face a strong resistance by the community, specially if the 21M cap is broken.
+
+Something I thought, reading your position on "hodlers paying a tax by using the hashrate", is to tax the oldest UTXOs on the set if the block fees don't beat a threshold. In that way, we can maintain the total supply, secure miners revenue and bring lost coins back to circulation. My only doubt would be on how to partially tax a UTXO and maintain its possession to the original owner. Maybe the UTXO could be consumed by a TX and a new UTXO is generated with the same spend script, however, that would break possible covenants constructions. A tax on oldest UTXOs would promote UTXO refreshes, wich also helps the network with fees.
+
+Anyway, I think no idea would have the public appeal on the short run. Maybe the community will change its mind after a few halvings, when we start to face the real impacts on the end of the subsidy. These impacts could be greater or lesser, depending on future adoption. In the best scenario, the increase in adoption would be sufficient for network security.
+
+-------------------------
+
+MrHash | 2026-06-23 16:48:47 UTC | #3
+
+Any inflation is arbitrary and mirrors the fiat system. If it is 2%, it can be 1%. If it is 1%, it can be 0.5%. Hence 0% is the only logically defensible position.
+
+-------------------------
+
