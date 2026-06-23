@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"craigraw\" data-post=\"14\" data-topic=\"2622\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/craigraw/48/1660_2.png\" class=\"avatar\"> craigraw:</div>\n<blockquote>\n<p>This is at best a confused analysis which misses the fact that it is trivial to create a second account (e.g. m/352\u2019/0\u2019/'1) with a second and unlinkable silent payments address for Bob.</p>\n</blockquote>\n</aside>\n<p>You seem even more confused: Generating a new unlinkable address is already the status quo for privacy, the point of a silent payment address is that <strong>you can reuse it.</strong> In practice, you can only reuse it for two specific scenarios:</p>\n<aside class=\"quote no-group\" data-username=\"Kruw\" data-post=\"9\" data-topic=\"2622\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/kruw/48/915_2.png\" class=\"avatar\"> Kruw:</div>\n<blockquote>\n<ol>\n<li>Receiving non-public donations</li>\n<li>Receiving multiple payments from the same entity.</li>\n</ol>\n</blockquote>\n</aside>",
   "post_number": 15,
   "post_type": 1,
-  "posts_count": 18,
+  "posts_count": 19,
   "updated_at": "2026-06-23T08:15:33.607Z",
   "reply_count": 1,
   "reply_to_post_number": 14,

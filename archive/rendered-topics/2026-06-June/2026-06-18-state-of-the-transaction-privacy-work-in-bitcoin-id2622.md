@@ -414,3 +414,21 @@ Well, of course if a single entity has a complete view of all the transaction hi
 
 -------------------------
 
+Kruw | 2026-06-23 10:47:50 UTC | #19
+
+[quote="craigraw, post:18, topic:2622"]
+This is just nonsense.
+
+[/quote]
+
+What is "nonsense"? You just spent the past 2 posts repeating that generating new addresses is trivial, and I agreed with you: It is trivial.
+
+[quote="craigraw, post:18, topic:2622"]
+Well, of course if a single entity has a complete view of all the transaction history for all parties they can see payment relationships.
+
+[/quote]
+
+Again, you are confused: Bob is not a user of the custodian in the scenario. If Bob uses regular addresses, the custodian does not know that Alice and Charlie sent payments to the same person. If Bob uses a silent payment address, the custodian learns this information.
+
+-------------------------
+
