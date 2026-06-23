@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I think I've got this sorted now: it'll only trigger a reorg if the previous block is already 25 minutes old, giving pretty good odds (based on the way the signet miner chooses block times) that the reorg block will get a child immediately and actually be the more-work chain. In the event that doesn't happen, my miner should reconsider the original block and any descendants a block or two later and rejoin consensus.\n\nI believe these reorgs are kicking txs out of my mempool but not that of other nodes, causing those txs not to be mined until I manually \"sendrawtransaction\" them. This is also affecting txs that are in active wallets on my mining nodes, which I don't really understand. This may also be impacting fee rate estimation, see [bitcoin#35507](https://github.com/bitcoin/bitcoin/issues/35507).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -60,9 +65,15 @@
   "excerpt": "I think I\u2019ve got this sorted now: it\u2019ll only trigger a reorg if the previous block is already 25 minutes old, giving pretty good odds (based on the way the signet miner chooses block times) that the reorg block will get a child immediately and actually be the more-work chain. In the event that doesn&hellip;",
   "truncated": true,
   "post_url": "/t/regular-signet-reorgs/2549/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
