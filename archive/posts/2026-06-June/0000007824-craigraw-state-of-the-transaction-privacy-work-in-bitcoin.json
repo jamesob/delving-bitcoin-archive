@@ -7,7 +7,7 @@
   "cooked": "<p>You are conflating two completely different things - having two entities with two static reusable addresses, and the status quo of needing a new onchain address for every payment to maintain privacy.</p>\n<p>If you go to the trouble of creating a pseudonym, creating a second unlinkable static address is a trivial step. That second static address can then privately receive an unlimited number of payments from any number of different entities. In order words, address reuse with privacy.</p>\n<p>I\u2019m not sure why you claim this is only useful for receiving multiple payments from the same entity. This is untrue.</p>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 17,
+  "posts_count": 18,
   "updated_at": "2026-06-23T09:40:30.136Z",
   "reply_count": 1,
   "reply_to_post_number": 15,

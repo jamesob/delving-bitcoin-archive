@@ -399,3 +399,18 @@ Worse, this leak occurs passively if Alice and Charlie both use the same custodi
 
 -------------------------
 
+craigraw | 2026-06-23 10:42:57 UTC | #18
+
+[quote="Kruw, post:17, topic:2622"]
+The fact that generating a new address is trivial is one that undermines the argument for silent payments, not strengthens it.
+
+[/quote]
+
+This is just nonsense.
+
+> Worse, this leak occurs passively if Alice and Charlie both use the same custodian.
+
+Well, of course if a single entity has a complete view of all the transaction history for all parties they can see payment relationships. Stating this as a risk for Silent Payments is nonsensical. If a single entity has all the transaction history for all parties using coinjoin wallets the same fact is true.
+
+-------------------------
+
