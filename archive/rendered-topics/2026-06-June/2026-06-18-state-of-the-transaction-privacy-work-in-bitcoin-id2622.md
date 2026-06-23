@@ -414,7 +414,7 @@ Well, of course if a single entity has a complete view of all the transaction hi
 
 -------------------------
 
-Kruw | 2026-06-23 10:47:50 UTC | #19
+Kruw | 2026-06-23 10:49:58 UTC | #19
 
 [quote="craigraw, post:18, topic:2622"]
 This is just nonsense.
@@ -428,7 +428,7 @@ Well, of course if a single entity has a complete view of all the transaction hi
 
 [/quote]
 
-Again, you are confused: Bob is not a user of the custodian in the scenario. If Bob uses regular addresses, the custodian does not know that Alice and Charlie sent payments to the same person. If Bob uses a silent payment address, the custodian learns this information.
+Again, you are confused: **Bob is not a user of the custodian in the scenario.** If Bob uses regular addresses, the custodian does not know that Alice and Charlie sent payments to the same person. If Bob uses a silent payment address, the custodian learns his common input ownership information immediately, even if the UTXOs are never consolidated in a later payment.
 
 -------------------------
 
