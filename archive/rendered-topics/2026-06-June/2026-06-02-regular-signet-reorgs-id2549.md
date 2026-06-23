@@ -72,3 +72,31 @@ I believe these reorgs are kicking txs out of my mempool but not that of other n
 
 -------------------------
 
+jsarenik | 2026-06-23 05:48:48 UTC | #6
+
+OK. I've noticed that already years ago on another custom signet network.
+
+Now rebroadcasting every 30 seconds.
+
+```
+~ $ cat bin/rebroadcast-all.sh
+#!/bin/sh
+
+lock=$PREFIX/tmp/${0##*/}-$(echo ${PWD} | md5sum | cut -b-8)
+test "$1" = "-c" && { rm -rf $lock; exit; }
+mkdir $lock >/dev/null 2>&1 || exit 1
+
+echo Rebroadcasting transactions from the mempool...
+{ grm.sh \
+  | grt.sh \
+  | sert.sh
+} >/dev/null 2>&1
+
+echo Rebroadcast done
+rmdir $lock
+```
+
+First it gets raw mempool (grm), then gets raw transactions and finally it sends them raw. One by one.
+
+-------------------------
+
