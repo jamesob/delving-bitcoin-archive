@@ -432,3 +432,123 @@ Again, you are confused: **Bob is not a user of the custodian in the scenario.**
 
 -------------------------
 
+craigraw | 2026-06-23 11:00:35 UTC | #20
+
+[quote="Kruw, post:19, topic:2622"]
+If Bob uses regular addresses, the custodian does not know that Alice and Charlie sent payments to the same person. If Bob uses a silent payment address, the custodian learns his common input ownership information immediately
+
+[/quote]
+
+Ah, I see your point more clearly now, but there is still a fundamental misunderstanding. The addresses that Bob receives on can be calculated locally by the wallet software running on Alice/Charlie's computer - there is no need for the custodian to have any record of the silent payments addresses.
+
+In any case, all this rather misses the point. Address reuse is currently near 70% because it's difficult to share/validate a new address for every payment. Silent Payments removes this problem, and if you can't see the difference between a new address for every payment and a new address for every persona, I don't think we are ever going to agree.
+
+-------------------------
+
+Kruw | 2026-06-23 11:11:06 UTC | #21
+
+[quote="craigraw, post:20, topic:2622"]
+The addresses that Bob receives on can be calculated locally by the wallet software running on Alice/Charlie's computer
+
+[/quote]
+
+Wouldn't this require the custodian to first share the UTXO(s) they will use for the silent payment with Alice/Charlie so they can calculate the end destination address?
+
+[quote="craigraw, post:20, topic:2622"]
+it's difficult to share/validate a new address for every payment.
+
+[/quote]
+
+This is the exact opposite of the claim you made multiple times:
+
+[quote="craigraw, post:14, topic:2622"]
+it is trivial to create a second account
+
+[/quote]
+
+[quote="craigraw, post:16, topic:2622"]
+creating a second unlinkable static address is a trivial step.
+
+[/quote]
+
+-------------------------
+
+craigraw | 2026-06-23 11:24:09 UTC | #22
+
+[quote="Kruw, post:21, topic:2622"]
+Wouldn't this require the custodian to first share the UTXO(s) they will use for the silent payment with Alice/Charlie so they can calculate the end destination address?
+
+[/quote]
+
+Indeed, that is necessary for wallet software to create a signed transaction.
+
+> This is the exact opposite of the claim you made multiple times:
+
+No, I said it is trivial to generate a new address. I did not say it is trivial to share it, or have the counterparty validate it as correct. This is the part you are missing. With Silent Payments, you can do this once per persona. With HD wallets, you have to do this once per payment - and that makes all the difference. This is borne out in the data - because it is so difficult/inconvenient, address reuse is prevalent. With 70% address reuse, the current reality of your example is that Alice and Charlie are sending to the same onchain address for Bob, creating a cryptographic link visible to everyone - strictly worse than the Silent Payments alternative.
+
+-------------------------
+
+Kruw | 2026-06-23 12:13:40 UTC | #23
+
+[quote="craigraw, post:22, topic:2622"]
+Indeed, that is necessary for wallet software to create a signed transaction.
+
+[/quote]
+
+I highly doubt any custodian would implement this since it is probing mechanism that worsens the custodian's privacy.
+
+[quote="craigraw, post:22, topic:2622"]
+I did not say it is trivial to share it, or have the counterparty validate it as correct.
+
+[/quote]
+
+With the exception of donations, you already have to be in contact with the counterparty to negotiate the terms of the transaction.
+
+Psychologically, I would hesitate more to send a donation to a SP address compared to a BTCPay generated address because I don't know if the recipient still has the keys for the SP address (which does not encode an expiration date).
+
+[quote="craigraw, post:22, topic:2622"]
+With Silent Payments, you can do this once per persona. With HD wallets, you have to do this once per payment - and that makes all the difference.
+
+[/quote]
+
+This functionality is already possible by just sharing a new xpub with each sender, it doesn't have to be a new SP address. Even still, this marginal UX benefit is risky compared to generating a new address for each payment: I personally check to see if my existing BTC is still in my wallet before accepting more coins. Things like automated weekly payroll are a disaster if the recipient's keys are stolen during the week.
+
+-------------------------
+
+craigraw | 2026-06-23 12:24:21 UTC | #24
+
+> With the exception of donations, you already have to be in contact with the counterparty to negotiate the terms of the transaction.
+
+Many (most?) transactions involve repeat payments where the amount is already determined. This is one of the reasons address reuse is so high - negotiating a new onchain address for each repeat payment is simply too inconvenient.
+
+> This functionality is already possible by just sharing a new xpub with each sender, it doesn't have to be a new SP address.
+
+Sharing an SP address per persona is much better than sharing an xpub per sender, both in terms of privacy and convenience. 
+
+[quote="Kruw, post:23, topic:2622"]
+Psychologically, I would hesitate more to send a donation to a SP address compared to a BTCPay generated address because I don't know if the recipient still has the keys for the SP address... Even still, the marginal benefit is still risky compared to generating a new address for each payment
+
+[/quote]
+
+These arguments remind me of the objections to HD wallets back in the day (xpub-as-total-exposure privacy problem, single-point-of-failure critique of the seed etc) and miss the fact that benefits vastly exceed the possible pitfalls. This is a privacy thread, and if you fail to acknowledge that the current approach is leading to high address reuse then you fail to acknowledge reality.
+
+-------------------------
+
+Kruw | 2026-06-23 12:49:19 UTC | #25
+
+[quote="craigraw, post:24, topic:2622"]
+Many (most?) transactions involve repeat payments where the amount is already determined.
+
+[/quote]
+
+...Citation? What data set exists to derive this estimation from?
+
+[quote="craigraw, post:24, topic:2622"]
+This is a privacy thread, and if you fail to acknowledge that the current approach is leading to high address reuse then you fail to acknowledge reality.
+
+[/quote]
+
+The reality is that a lot of people use Electrum based light wallets and every address gets completely exposed to chain surveillance anyway. Generating new addresses doesn't even begin to benefit the user unless their wallet is a BIP157/158 light client, or a full node.
+
+-------------------------
+

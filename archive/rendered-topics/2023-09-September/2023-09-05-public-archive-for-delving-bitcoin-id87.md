@@ -121,22 +121,16 @@ An archive of this forum can only capture what's on this website at the time of 
 
 -------------------------
 
-1440000bytes | 2026-06-01 04:46:36 UTC | #11
+0xB10C | 2026-06-23 14:22:30 UTC | #12
 
-[quote="0xB10C, post:10, topic:87"]
-I think your comment is completly off-topic.
-[/quote]
+I'm now running a delvingbitcoin.org mirror build from a `discourse-archive` archive on [https://mirror.b10c.me/delvingbitcoin-org/](https://mirror.b10c.me/delvingbitcoin-org/). The mirror tool can be found here: https://github.com/0xB10C/discourse-archive/blob/93061b09f9d5fbaaeaa0261300302e069563cc22/mirror.py.
 
-No, its not off topic. This thread is related to public archive of delving bitcoin and my comment is about the **trust in such archive** if it will save the **complete history** or censor some posts. Example: My previous comment was hidden by "community" flags. Not sure if it will exist in the archives maintained on github or elsewhere.
+An archive of this topic can be found here: https://mirror.b10c.me/delvingbitcoin-org/2023-09-05-public-archive-for-delving-bitcoin-id87.html
 
-Although it will remain on archive.org: https://web.archive.org/web/20260519215138/https://delvingbitcoin.org/t/public-archive-for-delving-bitcoin/87/9?u=1440000bytes
+The mirror is updated every few hours.
 
-<details>
-<summary>Archive</summary>
 
-https://web.archive.org/web/20260601044536/https://delvingbitcoin.org/t/public-archive-for-delving-bitcoin/87/11
-
-</details>
+The tool does not yet archive images contained in posts, but I plan to extend it to do so.
 
 -------------------------
 
