@@ -374,7 +374,7 @@ I'm not sure why you claim this is only useful for receiving multiple payments f
 
 -------------------------
 
-Kruw | 2026-06-23 09:56:34 UTC | #17
+Kruw | 2026-06-23 10:25:01 UTC | #17
 
 [quote="craigraw, post:16, topic:2622"]
 If you go to the trouble of creating a pseudonym, creating a second unlinkable static address is a trivial step.
@@ -390,7 +390,7 @@ I'm not sure why you claim this is only useful for receiving multiple payments f
 
 [/quote]
 
-It is true, I already explained why this is risky:
+It is true, I already explained why this behavior is risky:
 
 [quote="Kruw, post:7, topic:2622"]
 Worse, this leak occurs passively if Alice and Charlie both use the same custodian. The custodian is able to correlate payment relationships between Alice, Bob, and Charlie even if Alice and Charlie don't know each other.
