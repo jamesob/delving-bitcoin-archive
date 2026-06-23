@@ -36,3 +36,14 @@ Junhyuk Lee
 
 -------------------------
 
+show1225 | 2026-06-23 15:19:14 UTC | #2
+
+Dear Junhyuk Lee,
+
+Provoked by your post, I summarized my thoughts on a separate [post](https://delvingbitcoin.org/t/addressing-the-diminishing-block-subsidy/2640).
+While floor fee seems to be worth trying (as it is soft-forkable), an ultimate solution could be tail emission + EIP-1559 style fee burn and priority tipping in my opinion.
+
+SHO
+
+-------------------------
+
