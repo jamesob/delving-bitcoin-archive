@@ -1,6 +1,6 @@
 # Addressing the Diminishing Block Subsidy
 
-show1225 | 2026-06-23 15:16:23 UTC | #1
+show1225 | 2026-06-23 15:18:03 UTC | #1
 
 ## **Introduction: The Elephant in the Room**
 
@@ -8,7 +8,7 @@ As the block subsidy continues to diminish, we are hoping that transaction fees 
 
 While numerous studies have attempted to quantify an appropriate security budget for Bitcoin, there is no definitive consensus or mathematical formula. What is clear is that relying on current fee averages is dangerous post subsidy.
 
-A few sats/vB is only a few thousand dollars per block when block subsidy is gone: Current Bitcoin Cash's security level with much more value on the chain. Even if Bitcoin price goes up significantly over the coming decades, this budget : value proportion will remain (and hoping for an infinite BTC price appreciation is a risky bet).
+A few sats per vB is only a few thousand dollars per block when block subsidy is gone: Current Bitcoin Cash's security level with much more value on the chain. Even if Bitcoin price goes up significantly over the coming decades, this budget : value proportion will remain (and hoping for an infinite BTC price appreciation is a risky bet).
 As we do not know the right amount, it is prudent to secure the network with a (wide) margin of safety. We cannot afford to risk the network becoming functionally insecure or vulnerable to deep reorgs.
 
 In this article, I tentatively set **0.25 BTC per block** (roughly equivalent to 25 sats/vB without block subsidy) as a security budget since I am not intending to discuss the right level of security budget itself.
