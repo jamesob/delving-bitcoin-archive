@@ -72,9 +72,14 @@ I believe these reorgs are kicking txs out of my mempool but not that of other n
 
 -------------------------
 
-jsarenik | 2026-06-23 05:48:48 UTC | #6
+jsarenik | 2026-06-23 06:25:33 UTC | #6
 
-OK. I've noticed that already years ago on another custom signet network.
+[quote="ajtowns, post:5, topic:2549"]
+... causing those txs not to be mined until I manually "sendrawtransaction" them.
+
+[/quote]
+
+Yes, I've noticed that already years ago on another custom signet network.
 
 Now rebroadcasting every 30 seconds.
 

@@ -336,3 +336,66 @@ Could you be more specific about what your remaining concerns are? Are they priv
 
 -------------------------
 
+craigraw | 2026-06-23 06:05:26 UTC | #14
+
+[quote="Kruw, post:7, topic:2622"]
+**Silent Payments only generate new receiver addresses automatically,** it's mainly a UX improvement for donations... Alice pays Bob's sp1addressx123 (Robert's pseudonym), Charlie pays Robert's sp1addressx123 (Bob's real name)
+
+[/quote]
+
+This is at best a confused analysis which misses the fact that it is trivial to create a second account (e.g. m/352'/0'/'1) with a second and unlinkable silent payments address for Bob.
+
+-------------------------
+
+Kruw | 2026-06-23 08:15:33 UTC | #15
+
+[quote="craigraw, post:14, topic:2622"]
+This is at best a confused analysis which misses the fact that it is trivial to create a second account (e.g. m/352'/0'/'1) with a second and unlinkable silent payments address for Bob.
+
+[/quote]
+
+You seem even more confused: Generating a new unlinkable address is already the status quo for privacy, the point of a silent payment address is that **you can reuse it.** In practice, you can only reuse it for two specific scenarios:
+
+[quote="Kruw, post:9, topic:2622"]
+1. Receiving non-public donations
+2. Receiving multiple payments from the same entity.
+
+[/quote]
+
+-------------------------
+
+craigraw | 2026-06-23 09:40:30 UTC | #16
+
+You are conflating two completely different things - having two entities with two static reusable addresses, and the status quo of needing a new onchain address for every payment to maintain privacy.
+
+If you go to the trouble of creating a pseudonym, creating a second unlinkable static address is a trivial step. That second static address can then privately receive an unlimited number of payments from any number of different entities. In order words, address reuse with privacy.
+
+I'm not sure why you claim this is only useful for receiving multiple payments from the same entity. This is untrue.
+
+-------------------------
+
+Kruw | 2026-06-23 09:56:34 UTC | #17
+
+[quote="craigraw, post:16, topic:2622"]
+If you go to the trouble of creating a pseudonym, creating a second unlinkable static address is a trivial step.
+
+[/quote]
+
+The fact that generating a new address is trivial is one that undermines the argument for silent payments, not strengthens it. As I already said: The current status quo is that every transaction gets its own pseudonym.
+
+[quote="craigraw, post:16, topic:2622"]
+That second static address can then privately receive an unlimited number of payments from any number of different entities.
+...
+I'm not sure why you claim this is only useful for receiving multiple payments from the same entity. This is untrue.
+
+[/quote]
+
+It is true, I already explained why this is risky:
+
+[quote="Kruw, post:7, topic:2622"]
+Worse, this leak occurs passively if Alice and Charlie both use the same custodian. The custodian is able to correlate payment relationships between Alice, Bob, and Charlie even if Alice and Charlie don't know each other.
+
+[/quote]
+
+-------------------------
+
