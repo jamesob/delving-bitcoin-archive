@@ -64,3 +64,11 @@ Okay, the logic I used above makes it too easy to go too far out of sync:
 
 -------------------------
 
+ajtowns | 2026-06-23 01:14:18 UTC | #5
+
+I think I've got this sorted now: it'll only trigger a reorg if the previous block is already 25 minutes old, giving pretty good odds (based on the way the signet miner chooses block times) that the reorg block will get a child immediately and actually be the more-work chain. In the event that doesn't happen, my miner should reconsider the original block and any descendants a block or two later and rejoin consensus.
+
+I believe these reorgs are kicking txs out of my mempool but not that of other nodes, causing those txs not to be mined until I manually "sendrawtransaction" them. This is also affecting txs that are in active wallets on my mining nodes, which I don't really understand. This may also be impacting fee rate estimation, see [bitcoin#35507](https://github.com/bitcoin/bitcoin/issues/35507).
+
+-------------------------
+
