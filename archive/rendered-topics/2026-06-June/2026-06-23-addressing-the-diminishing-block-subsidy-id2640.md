@@ -1,6 +1,6 @@
 # Addressing the Diminishing Block Subsidy
 
-show1225 | 2026-06-23 15:18:03 UTC | #1
+show1225 | 2026-06-23 15:33:24 UTC | #1
 
 ## **Introduction: The Elephant in the Room**
 
@@ -15,7 +15,7 @@ In this article, I tentatively set **0.25 BTC per block** (roughly equivalent to
 
 ## **Proposed Solution: Tail Emission + EIP-1559 Style Fee Burn**
 
-To ensure a permanent security budget and incentivize transaction inclusion, I propose introducing a perpetual tail emission combined with an EIP-1559 style base fee burn and priority tipping model.
+To ensure a permanent security budget and incentivize transaction inclusion, I propose introducing a perpetual tail emission combined with an [EIP-1559](https://eips.ethereum.org/EIPS/eip-1559) style base fee burn and priority tipping model.
 
 Tail Emission: 0.25 BTC per block (equates to approximately 25 sats/vB)
 Activation Target: Year 2040 at block height 1,680,000, when the block reward is scheduled to halve from 0.390625 BTC to 0.1953125 BTC
