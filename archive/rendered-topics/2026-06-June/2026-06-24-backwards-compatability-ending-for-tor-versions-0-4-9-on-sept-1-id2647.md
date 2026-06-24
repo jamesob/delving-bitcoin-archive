@@ -1,10 +1,10 @@
 # Backwards compatability ending for Tor versions <0.4.9 on Sept 1
 
-Kruw | 2026-06-24 14:37:26 UTC | #1
+Kruw | 2026-06-24 15:02:29 UTC | #1
 
 Details: https://blog.torproject.org/sunsetting-tor-048/
 
-The first stable release in the 0.4.9.X series was released on Feb 12, 2026. So, all Bitcoin software that depends on Tor will presumably break if it has not upgraded in the past 4 months.
+The first stable version in the 0.4.9.X series was released on Feb 12, 2026. So, all Bitcoin software that depends on Tor will presumably break if it has not upgraded in the past 4 months.
 
 -------------------------
 
