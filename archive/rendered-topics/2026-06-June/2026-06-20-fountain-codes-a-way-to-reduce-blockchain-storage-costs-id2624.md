@@ -189,3 +189,13 @@ In practice this would mean during IBD you're downloading 1008 blocks at once, t
 
 -------------------------
 
+ajtowns | 2026-06-24 13:06:49 UTC | #10
+
+Okay so a sketch of the 246/10 system. You use GF(2^8) with 10-byte code words, padding each block to a multiple of 10 bytes. Each archival node effectively provides shards 0-9 directly, each sharded node can provide one shard from 10-255 for each block, and the sharded nodes are effectively divided into 246 anonymity sets, each storing 70GB of blockchain data rather than 700GB, growing at ~200MB a week.
+
+You connect to peers providing twelve different shards, perhaps [15, 25, 28, 36, 39, 130, 137, 138, 162, 176, 194, 222]. You ask ten of those nodes for their shard of block 420,004 which is 87,166 bytes each (after padding the block to the next multiple of 10 bytes). You put those shards together, and discover it doesn't give you the right hash, so someone's malicious/buggy. You ask the other two nodes for their shards, and try error-correction -- if that gives you the correct block, you re-generate the 10 original shards, and determine which peer is malicious and disconnect/ban them. If it doesn't, perhaps you add another two peers and repeat; or alternatively download the block from an honest archival node, and use that to determine which of your peers are giving you bad shards.
+
+That seems like it works okay to me, and allows you to connect to far fewer peers (10 or 12 rather than 80 or more), but as-specced does have a higher storage requirement (~90% saving rather than ~99% saving). The storage requirement is tighter, with no inflation due to combining small and large blocks together.
+
+-------------------------
+

@@ -180,3 +180,25 @@ Miners are making bloody efforts to optimize their profit. If they could squeeze
 
 -------------------------
 
+cmp_ancp | 2026-06-24 11:15:27 UTC | #10
+
+Raises in the BTC price may diminish the halving impact. If the BTC price doubles, then the halving is totally mitigated.
+
+However, that doesn't count for the last halving, when subsidy disappear as a whole, independent on BTC price.
+
+BTC price also doesn't help with raising the revenue. We should expect that, with BTC valuation, fees should fall, if the willingness of the users to spend value in tx fees stay the same. I mean, the raise in BTC price may value the revenue from yesterday if it was stored in BTC though.
+
+-------------------------
+
+sipa | 2026-06-24 13:38:08 UTC | #11
+
+[quote="show1225, post:8, topic:2640"]
+I would be very interested to hear your napkin-sketch ideas on how to address this problem.
+[/quote]
+
+I already gave you my answer: experiment with different inflation schedules (including tail emission) on in another currency, and compete with Bitcoin. It is very possible that in the long term it wins in the market.
+
+In fact, that is also what your proposal practically amounts to, because as an inevitably controversial hardfork, adopters of it will find themselves operating a different currency anyway (just one whose initial distribution is bootstrapped with a snapshot of Bitcoin's UTXO set at fork time).
+
+-------------------------
+
