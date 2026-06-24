@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"MrHash\" data-post=\"1\" data-topic=\"2641\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/mrhash/48/2158_2.png\" class=\"avatar\"> MrHash:</div>\n<blockquote>\n<p>Beyond the standard retention window a node may prune them individually or in bulk, so the storage cost falls on the operators who choose to keep the data rather than on everyone.</p>\n</blockquote>\n</aside>\n<p>I don\u2019t understand the goal here. Since you give it consensus meaning, any full node would have to process the new data structure and use up resources. After processing the data, the node would not have to keep it around, but this saves storage (the least expensive resource) at the expense of other more expensive resources.</p>\n<p>Alternatively, you could simply have the commitment but not give it consensus meaning through a soft fork. Essentially commit a Merkle root in an <code>OP_RETURN</code>. This is already possible, and <a href=\"https://opentimestamps.org/\">done</a>, today.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2026-06-23T17:29:08.255Z",
   "reply_count": 0,
   "reply_to_post_number": null,

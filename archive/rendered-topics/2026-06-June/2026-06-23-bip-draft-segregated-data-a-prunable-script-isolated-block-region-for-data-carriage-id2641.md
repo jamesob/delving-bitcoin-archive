@@ -86,3 +86,17 @@ I'm not sure I understand your question. SegData gives node operators the choice
 
 -------------------------
 
+AntoineP | 2026-06-24 20:56:16 UTC | #6
+
+[quote="MrHash, post:3, topic:2641"]
+the segdata is not required either by IBD or storage, and validation is skipped
+[/quote]
+
+[quote="MrHash, post:3, topic:2641"]
+I hope that answers the initial question. Please continue to press if there’s something i’m missing.
+[/quote]
+
+I believe there is. Either the data structure is part of consensus rules, and all full nodes need to process it, or it's not, and it's already possible today without a soft fork.
+
+-------------------------
+
