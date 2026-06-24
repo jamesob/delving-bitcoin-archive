@@ -161,3 +161,22 @@ I would expect that when that changes, miners will make more effort to optimise 
 
 -------------------------
 
+show1225 | 2026-06-24 06:40:37 UTC | #8
+
+Dear Pieter,
+
+I would be very interested to hear your napkin-sketch ideas on how to address this problem.
+
+
+While I fully support the community's effort to naturally drive up block space demand, given the fact that a low-fee environment has historically been the norm, we should have a plan.
+
+-------------------------
+
+show1225 | 2026-06-24 07:06:09 UTC | #9
+
+Dear Anthony,
+
+Miners are making bloody efforts to optimize their profit. If they could squeeze tens of thousands of dollars by optimizing fee revenue, they should have done so already (I am not a mining insider though).
+
+-------------------------
+

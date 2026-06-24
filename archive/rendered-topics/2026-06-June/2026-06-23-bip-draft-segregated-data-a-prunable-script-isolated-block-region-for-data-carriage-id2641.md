@@ -1,6 +1,6 @@
 # [BIP Draft] Segregated Data: a prunable, script-isolated block region for data carriage
 
-MrHash | 2026-06-23 16:40:23 UTC | #1
+MrHash | 2026-06-24 08:34:51 UTC | #1
 
 Dear all,
 
@@ -18,7 +18,7 @@ Two specific properties carry most of the weight:
 
 **Who migrates:**
 
-* **Can.** Data interpreted off-chain by indexers, such as application-layer assets, timestamping, and attestations. SegData carries the bytes, and a reference output binds them to the transaction. Current carriage is overwhelmingly in this category.
+* **Can.** Data no script needs to read, interpreted off-chain by indexers, such as application-layer assets, blobs, and content carried for timestamping or attestation. SegData carries the bytes, and a reference output binds them to the transaction. Current carriage is overwhelmingly in this category.
 
 * **Cannot.** Data a script must evaluate at spend time, such as covenant-style constructs. Script isolation forbids opcode access, and the price is the same, so nothing pulls it across.
 
@@ -36,9 +36,7 @@ Two specific properties carry most of the weight:
 
 Consensus BIP: https://github.com/MrHash/bips/blob/4eeeb0afbb9d256d264225801e635d2df1cc875f/bip-segdata.md
 
-
 Peer-services BIP: https://github.com/MrHash/bips/blob/4eeeb0afbb9d256d264225801e635d2df1cc875f/bip-segdata-peer-services.md
-
 
 Also announced on bitcoin-dev ML, but not passed moderation yet.
 
@@ -46,9 +44,7 @@ Happy to take detailed discussion here. I'm sure there will be many more questio
 
 Hash
 
-
 X: @hashamadeus
-
 
 Nostr: npub1tjfwajj3cfy25ujx02c7q3e7pzc27jasxakk9v0lsrkrewahpkesee5a0v
 
