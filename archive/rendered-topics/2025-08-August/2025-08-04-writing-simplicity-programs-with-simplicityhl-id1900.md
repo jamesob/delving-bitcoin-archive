@@ -209,3 +209,187 @@ Not a SimplicityHL question per se but one question I’ve had is how much the s
 
 -------------------------
 
+schoen | 2026-06-23 22:10:44 UTC | #8
+
+I'm happy to say that we now have a Discourse forum of our own for Simplicity. You can find it at https://community.simplicity-lang.org/.
+
+Simplicity has come a long way since @sanket1729 posted this background last year. We have more developer tools, better documentation, and some more example contracts (including a lending contract by some of our colleagues which enables lending at interest against collateral, especially relevant for Liquid where we have multiple asset types, so the loan principal and collateral can be different kinds of asset).
+
+One big technical addition since last summer is a state commitment mechanism, where the contract can store a state value in Taproot, thus affecting the contract's own on-chain address. The introspection mechanisms in Simplicity let a contract confirm that an assertion about its mutable state matches the committed state value in Taproot which in turn was used to derive the contract's address.
+
+I wrote a demo of this in the form of a covenant that requires three separate transactions in order to withdraw locked funds (with the state commitment counting how many prior transactions have taken place).
+
+```
+/*
+ * "Third Time's The Charm" covenant demonstrating Simplicity state management 
+ *
+ * This covenant requires three transactions in a row in order to release the
+ * locked counts. It counts how many of these transactions have been seen
+ * already using the witness::STATE value.
+ *
+ * State management:
+ * Computes the "State Commitment" — the expected Script PubKey (address) 
+ * for a specific state value.
+ *
+ * HOW IT WORKS:
+ * In Simplicity/Liquid, state is not stored in a dedicated database. Instead, 
+ * it is verified via a "Commitment Scheme" inside the Taproot tree of the UTXO.
+ *
+ * This function reconstructs the Taproot structure to validate that the provided 
+ * witness data (state_data) was indeed cryptographically embedded into the 
+ * transaction output that is currently being spent.
+ *
+ * LOGIC FLOW:
+ * 1. Takes state_data (passed via witness at runtime).
+ * 2. Hashes it as a non-executable TapData leaf.
+ * 3. Combines it with the current program's CMR (tapleaf_hash).
+ * 4. Derives the tweaked_key (Internal Key + Merkle Root).
+ * 5. Returns the final SHA256 script hash (SegWit v1).
+ *
+ * USAGE:
+ * - For load(), we verify: CalculatedHash(witness::STATE) == input_script_hash.
+ * - For store(), we verify: CalculatedHash(updated_state) == output_script_hash.
+ * - This assertion proves that the UTXO is "locked" not just by the code, 
+ *   but specifically by THIS instance of the state data. So the on-chain address
+ *   necessarily changes after each state-updating transaction in order to reflect
+ *   a cryptographic commitment to the appropriate state data.
+ *
+ * Surrounding context tracks the state_data, interpreting its low 64 bits as
+ * a counter. The counter can be updated by an "update" transaction sending
+ * value back to the same contract. When the counter is equal to 2 or more,
+ * the "withdraw" transaction is permitted, sending some or all value
+ * to an arbitrary output address instead of back to the contract. Both the
+ * "update" and "withdraw" transactions must include a valid signature by
+ * the authorized key (here hardcoded in check_sig() for demonstration
+ * purposes).
+ *
+ * When initially funding the contract, use witness::STATE = 0 and
+ * calculate the contract's initial address with state equal to
+ * 0000000000000000000000000000000000000000000000000000000000000000.
+ *
+ * For educational purposes, this implementation interprets the contents
+ * of the state commitment u256 directly as a numeric integer value. A
+ * more general best practice is to make the state commitment a SHA256
+ * hash of one or more stored values in some predetermined sequence
+ * or structure, including a hashed concatenated list or a Merkle
+ * root (representing commitments to multiple values as a Merkle tree
+ * is a ubiquitous practice in Bitcoin). The committed values needed
+ * to reconstruct the state commitment hash would be provided in the
+ * witness and the contract would perform whatever calculations are
+ * needed to confirm that the hash is correct. This is in addition to
+ * the hashing performed inside the script_hash_for_input_script(),
+ * which is needed at a lower layer of the state commitment mechanism.
+ */
+
+fn check_sig(sig: Signature) {
+    let authorized_key: Pubkey = 0x79be667ef9dcbbac55a06295ce870b07029bfcdb2dce28d959f2815b16f81798; // 1 * G
+    let msg: u256 = jet::sig_all_hash();
+    jet::bip_0340_verify((authorized_key, msg), sig);
+}
+
+fn script_hash_for_input_script(state_data: u256) -> u256 {
+    // This is the bulk of our "compute state commitment" logic from above.
+    let tap_leaf: u256 = jet::tapleaf_hash();
+    let state_ctx1: Ctx8 = jet::tapdata_init();
+    let state_ctx2: Ctx8 = jet::sha_256_ctx_8_add_32(state_ctx1, state_data);
+    let state_leaf: u256 = jet::sha_256_ctx_8_finalize(state_ctx2);
+    let tap_node: u256 = jet::build_tapbranch(tap_leaf, state_leaf);
+
+    // Compute a taptweak using this.
+    let bip0341_key: u256 = 0x50929b74c1a04954b78b4b6035e97a5e078a5a0f28ec96d547bfee9ace803ac0;
+    let tweaked_key: u256 = jet::build_taptweak(bip0341_key, tap_node);
+    
+    // Turn the taptweak into a script hash
+    let hash_ctx1: Ctx8 = jet::sha_256_ctx_8_init();
+    let hash_ctx2: Ctx8 = jet::sha_256_ctx_8_add_2(hash_ctx1, 0x5120); // Segwit v1, length 32
+    let hash_ctx3: Ctx8 = jet::sha_256_ctx_8_add_32(hash_ctx2, tweaked_key);
+    jet::sha_256_ctx_8_finalize(hash_ctx3)
+}
+
+fn load(state_data: u256) {
+    // Assert that the input state is correct, i.e. "load".
+    assert!(jet::eq_256(
+        script_hash_for_input_script(state_data),
+        unwrap(jet::input_script_hash(jet::current_index()))
+    ));
+}
+
+fn store(new_state: u256) {
+    // Assert that the output state is correct, i.e. "store".
+    assert!(jet::eq_256(
+        script_hash_for_input_script(new_state),
+        unwrap(jet::output_script_hash(jet::current_index()))
+    ));
+}
+
+fn update(sig: Signature, state_data: u256) {
+   // In this case, if the signature is correct, we approve the transaction
+   // if the destination is the same contract but with a correct internal
+   // state update that increases the count by 1.
+
+   // Check that the signature is correct.
+   check_sig(sig);
+
+   let (state1, state2, state3, count): (u64, u64, u64, u64) = <u256>::into(state_data);
+   let (carry, new_count): (bool, u64) = jet::increment_64(count);
+
+   // Check for overflow.
+   assert!(jet::eq_1(<bool>::into(carry), 0));
+
+   // Assert that the output is being sent to a correctly-updated copy of this
+   // specific program, i.e. "store".
+   let new_state: u256 = <(u64, u64, u64, u64)>::into((state1, state2, state3, new_count));
+   store(new_state);
+
+   // Assert that there are exactly two outputs in the
+   // currently-proposed transaction (corresponding to the new contract
+   // and the network fee payment). Without this logic, the updater
+   // could cause coins to leak out of the covenant by sending some of
+   // the input value to an uncontrolled output address that is not a
+   // copy of this contract.
+
+   assert!(jet::eq_32(jet::num_outputs(), 2));
+   assert!(unwrap(jet::output_is_fee(1)));
+
+   // (Even with this logic, the fee amount itself is not constrained
+   // here, and the updater could choose to give away some or all of
+   // the stored value to miners in the form of an excessive fee. It
+   // would be preferable as a matter of caution to assert that the
+   // output asset and amount of output 0 match the asset and amount of
+   // the current input. That rule would implicitly require the user
+   // constructing the spend transaction to pay the fee, instead of
+   // permitting the fee to be paid out of the contract's assets.)
+}
+
+fn withdraw(sig: Signature, state_data: u256) {
+   // In this case, if the signature is correct, and the count is
+   // already at least 2, we approve the transaction (allowing the
+   // destination(s) and amount(s) indicated by the proposer).
+
+   // Check that the signature is correct.
+   check_sig(sig);
+
+   // Assert that the count from the provided state is already at least 2.
+   let (_, _, _, count): (u64, u64, u64, u64) = <u256>::into(state_data);
+   assert!(jet::le_64(2, count));
+}
+
+fn main() {
+    let state_data: u256 = witness::STATE;
+
+    // Assert that the provided state_data is correct according to this
+    // program's cryptographic commitment.
+    load(state_data);
+
+    match witness::UPDATE_OR_WITHDRAW {
+        Left(sig: Signature) => update(sig, state_data),
+        Right(sig2: Signature) => withdraw(sig2, state_data),
+    }
+}
+
+```
+
+Anyway, I'm happy to talk about any aspect of Simplicity over on our new forum devoted to it!
+
+-------------------------
+

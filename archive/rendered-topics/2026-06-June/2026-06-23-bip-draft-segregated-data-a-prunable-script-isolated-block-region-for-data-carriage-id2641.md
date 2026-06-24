@@ -84,3 +84,9 @@ Why would bitcoin noderunners want to store nonmonetary data for free?
 
 -------------------------
 
+MrHash | 2026-06-23 22:09:06 UTC | #5
+
+I'm not sure I understand your question. SegData gives node operators the choice not to store data. Existing vectors offer no such choice.
+
+-------------------------
+

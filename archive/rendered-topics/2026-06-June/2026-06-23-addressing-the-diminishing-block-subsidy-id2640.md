@@ -83,3 +83,39 @@ Any inflation is arbitrary and mirrors the fiat system. If it is 2%, it can be 1
 
 -------------------------
 
+show1225 | 2026-06-23 22:43:27 UTC | #4
+
+Dear cmp_ancp,
+
+The only justifiable situation could be that we decide to deprecate ECC signature in the future and make use of P2PK coins which cannot be recovered with any rescue protocols (ZKP of BIP32 etc.).
+Sacrificing the eldest in the village to protect the virtue of 21M cap is far more unfair and grotesque than evenly tax everyone by inflation (possibly net zero or negative inflation).
+
+Speaking of PQ, maybe the transition to PQ signature will make the block space scarcer and we only need to smoothen volatile fee market by 2030s. In that sense, we should stay focused on the PQ transition for now and see what Bitcoin will look like after Q-day. Although any scaling solution or invention of lightweight PQ signature might nullify the elevated block space demand.
+
+
+I do agree that we have a long way to go to reach consensus on any solution. That is why we have to start thinking about it now.
+
+-------------------------
+
+show1225 | 2026-06-23 22:52:06 UTC | #5
+
+Dear MrHash, 
+
+Flaw of the fiat system is in its governance rather than inflation itself.
+
+Also, if there is a fair and nice solution without breaking the 21M cap, I am happy to discard my idea and support it. Is there any?
+
+-------------------------
+
+sipa | 2026-06-23 23:54:53 UTC | #6
+
+I consider this a complete non-starter.
+
+Not because tail inflation is inherently a bad idea. It may well be better, but we don't know. The right place to try this is in another currency, where it can compete fairly.
+
+Bitcoin started as an experiment for a novel type of money. It was designed with a very clearly stated and opinionated choice of a finite monetary supply. That is what every user, as far back as 2009, knew and signed up for. It made several such choices, and they made Bitcoin what it is today. I suspect that if Bitcoin had launched with permanent inflation from the start, maybe it wouldn't have taken off, and maybe cryptocurrency wouldn't exist at all today.
+
+What distinguishes Bitcoin from every other attempt at creating a currency, digital or otherwise, is not the optimality of those decisions, but confidence that its properties are reliable and beyond influence of any actors, malicious or not. This undermines that completely.
+
+-------------------------
+
