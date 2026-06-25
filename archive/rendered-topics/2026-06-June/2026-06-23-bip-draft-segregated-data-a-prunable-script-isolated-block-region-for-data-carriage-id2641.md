@@ -112,3 +112,29 @@ I understand the concern is resources, my argument is that segdata is net resour
 
 -------------------------
 
+AntoineP | 2026-06-25 14:55:47 UTC | #8
+
+[quote="MrHash, post:7, topic:2641"]
+All full nodes need to process at the tip (288 blocks).
+[/quote]
+
+I don't understand what you mean. Every full node always processes all blocks content, whether it is right after the block was created (what i believe you call "at tip", am i correct?), when it catches up after some downtime, or when it performs IBD.
+
+Adding a new data structure to consensus rules means every single full node will have to download and validate this data. (In this case as i understand it, download the SegData and verify the Merkle root commitment.)
+
+Furthermore, this additional data needs to be served by some nodes. If most reachable nodes do not serve it, this would impose significant load and reliance on the few that do.
+
+[quote="MrHash, post:7, topic:2641"]
+SegData adds no additional network or storage as the data is moved not added.
+[/quote]
+
+I am unconvinced that you can simply assume so, but let's take it for granted. This is still a block size limit increase, and because there is unlimited demand for free replicated storage, i think we can expect that space to be filled if it's made available.
+
+[quote="MrHash, post:7, topic:2641"]
+Smaller nodes (or otherwise) which validate beyond the retention window can opt out of bandwidth/cpu/storage.
+[/quote]
+
+That comes back to my previous point, but no: every node that wants to fully validate the state of the system will have to process any additional data structure introduced.
+
+-------------------------
+
