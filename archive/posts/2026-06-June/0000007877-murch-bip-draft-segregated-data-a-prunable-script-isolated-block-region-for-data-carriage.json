@@ -7,7 +7,7 @@
   "cooked": "<p>Since the SegData would cost the same as witness stuffing, but would result in reduced data availability, why would it be attractive to users that want to embed data?\nGiven that most people aren\u2019t interested in improving support for data embedding, I doubt anyone else would consider this worth the effort of a softfork, but if it\u2019s not even attractive for the would-be users, what\u2019s the point?</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-06-25T19:18:12.603Z",
   "reply_count": 1,
   "reply_to_post_number": null,

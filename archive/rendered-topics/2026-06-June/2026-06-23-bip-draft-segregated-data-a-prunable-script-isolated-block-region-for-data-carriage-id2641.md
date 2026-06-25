@@ -173,3 +173,9 @@ There is no IBD/validation requirement of the segdata portion, similar to assume
 
 -------------------------
 
+MrHash | 2026-06-25 20:32:36 UTC | #12
+
+Just to clarify a full node validates the whole chain, it's not a block or tx size increase, the extra cost is a few hashes. If that is too much then we have some bigger problems to address with script exec in bitcoin. An opting out node can skip IBD and storage of the segdata part, while validating the tip (again just a few hashes). The default mode is full validation and retention, there is no likely concern with availability pressure, whereas the benefit to a opting out node would be huge in this case.
+
+-------------------------
+
