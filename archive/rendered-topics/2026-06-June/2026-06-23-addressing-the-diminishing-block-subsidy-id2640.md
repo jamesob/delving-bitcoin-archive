@@ -202,3 +202,14 @@ In fact, that is also what your proposal practically amounts to, because as an i
 
 -------------------------
 
+show1225 | 2026-06-25 00:40:17 UTC | #12
+
+Dear Peter,
+
+I appreciate your replies.
+Yes. It will be a controversial hardfork and Bitcoin will be split into two if this kind of proposal gains a certain level of support.
+
+I wanted know if you have any soft-forkable idea to address the security budget problem. The only idea I could come up with is introducing a floor fee.
+
+-------------------------
+
