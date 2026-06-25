@@ -145,3 +145,21 @@ Given that most people aren't interested in improving support for data embedding
 
 -------------------------
 
+MrHash | 2026-06-25 20:02:53 UTC | #10
+
+Hi Murch
+
+The rationale does explain this in the BIP but I'll reiterate. 
+
+1. Availability is not guaranteed in Bitcoin anyway (pruning). 
+2. The default mode is archival, retention is effectively guaranteed, just not forced to everyone.
+3. Witness is now used because its cheaper than op_return. This is a side effect of pricing discount which segdata equals. There's no reason not to use it.
+4. Historical precedent, op_return was successful in mitigating fake address usage. SegData can draw data out of op_return and witness.
+5. There is no way for anyone putting data on the chain to not impose it on all nodes, this intent is not served at all at the moment. SegData allows proper structural treatment of data vs money.
+6. Not moving to SegData reveals intent.
+7. Having a dedicated data channel allows deprecation of existing vectors as happened with bare multisig.
+
+So I think there are lots of reasons to take this proposal seriously.
+
+-------------------------
+
