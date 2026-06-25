@@ -138,3 +138,10 @@ That comes back to my previous point, but no: every node that wants to fully val
 
 -------------------------
 
+murch | 2026-06-25 19:18:12 UTC | #9
+
+Since the SegData would cost the same as witness stuffing, but would result in reduced data availability, why would it be attractive to users that want to embed data?
+Given that most people aren't interested in improving support for data embedding, I doubt anyone else would consider this worth the effort of a softfork, but if it's not even attractive for the would-be users, what's the point?
+
+-------------------------
+

@@ -213,3 +213,13 @@ I wanted know if you have any soft-forkable idea to address the security budget 
 
 -------------------------
 
+statoshi | 2026-06-25 18:21:50 UTC | #13
+
+I've noodled a bit on this over the years and one of the fundamental reasons I think most schemes to address decreasing block subsidies are non-starters is because there is no way for Bitcoin as a system to know its own value. Some say that this is a "fiat approach" but fiat is merely one way to measure value because it's a unit of account. Point being, it's very hard to algorithmically change the revenue afforded to miners if you are targeting a given level of thermodynamic security that's measured in any standard unit of account.
+
+There is an alternative approach that I have thought about a bit and [gave a presentation](https://www.youtube.com/watch?v=cPPKok5luk4) about last year: introduce a dynamic block size that adjusts based upon the level of demand (fees paid) for block space. I lean more toward something like this that seeks to "kick start" the auction market for block space during periods when demand drops below available supply, causing the market rate for block space to crater to the fee floor. Though the devil would be in the details, of course.
+
+This would be easily soft forkable if you introduced a dynamic limit that only adjusted the maximum block size within the current allow range of block sizes. If you always wanted it to be able to increase available block space beyond the current ceiling, it would require a much more convoluted soft fork or a simpler hard fork.
+
+-------------------------
+
