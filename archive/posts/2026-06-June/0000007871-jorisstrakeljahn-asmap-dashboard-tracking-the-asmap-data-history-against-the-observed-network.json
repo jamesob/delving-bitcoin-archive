@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.2,
+  "incoming_link_count": 1,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 20.8,
   "yours": false,
   "topic_id": 2652,
   "topic_slug": "asmap-dashboard-tracking-the-asmap-data-history-against-the-observed-network",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi all,\n\nSharing an early version of an ASmap dashboard I've built as a Summer of Bitcoin project, mentored by fjahr and jurraca.\n\nLive: https://jorisstrakeljahn.github.io/asmap-dashboard/\n\nIt walks the full bitcoin-core/asmap-data history: how much address space drifts to a different operator each release, how the entry count and operator coverage grow over time and a diff explorer for exactly what changed between any two builds.\n\nThe part I'd most like eyes on is the Network tab. Instead of looking at the .dat files in isolation, it scores each build against actually observed nodes, so you can see how well a given build would have grouped the peers a node really meets  and how that decays as a build ages.\n\nI want to keep iterating, so feedback is very welcome:\n\n* Do the metrics make sense and feel useful?\n* Anything confusing, or a view/metric you'd want that's missing?\n* Any bugs?\n\nCredit for the node data goes to the KIT DSN group, b10c and the BitMEX Research team.\n\nThanks!",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Hi all, \nSharing an early version of an ASmap dashboard I\u2019ve built as a Summer of Bitcoin project, mentored by fjahr and jurraca. \nLive: <a href=\"https://jorisstrakeljahn.github.io/asmap-dashboard/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">ASmap Dashboard</a> \nIt walks the full bitcoin-core/asmap-data history: how much address space drifts to a different operator each release, how the entry count and ope&hellip;",
   "truncated": true,
   "post_url": "/t/asmap-dashboard-tracking-the-asmap-data-history-against-the-observed-network/2652/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
