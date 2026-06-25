@@ -163,3 +163,13 @@ So I think there are lots of reasons to take this proposal seriously.
 
 -------------------------
 
+MrHash | 2026-06-25 20:12:27 UTC | #11
+
+Antoine, the node does NOT require the SegData extended serialization of the block to perform sync validation beyond the tip (new blocks), it is done on the base serialization (no data paylaod) and validation is complete and BC. This is explained in detail in the peer services bip as well as the construction of blocks. The segdata portion can be reconstructed/requested by syncing segdata peers and validated in addition, which rehashes the entries to validate the reference hashes.
+
+It is NOT a block size limit increase, it conforms to existing block size and tx weight.
+
+There is no IBD/validation requirement of the segdata portion, similar to assumevalid but only for the data portion.
+
+-------------------------
+
