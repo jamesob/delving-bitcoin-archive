@@ -100,3 +100,15 @@ I believe there is. Either the data structure is part of consensus rules, and al
 
 -------------------------
 
+MrHash | 2026-06-24 22:42:09 UTC | #7
+
+All full nodes need to process at the tip (288 blocks). That cost is CPU cycles (essentially validating the hash of each entry) offset by whatever the cost of the existing vector cost is.
+
+SegData adds no additional network or storage as the data is moved not added.
+
+Smaller nodes (or otherwise) which validate beyond the retention window can opt out of bandwidth/cpu/storage. This is a forward reduction in network/storage requirement.
+
+I understand the concern is resources, my argument is that segdata is net resource cost negative for those opting out.
+
+-------------------------
+
