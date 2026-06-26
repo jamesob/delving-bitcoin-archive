@@ -13,8 +13,8 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 4,
-  "reads": 14,
-  "readers_count": 13,
+  "reads": 15,
+  "readers_count": 14,
   "score": 22.8,
   "yours": false,
   "topic_id": 2654,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "you're right about the math, no argument there. expected time to the next block is \\~10 min from now, doesn't matter how long it's been. memoryless.\n\nbut that's not what the timer is showing. it's not a forecast of the next block. it's where we are in the cadence.\n\n10 min is the protocol's target. difficulty retargets to hold that mean. so we start the clock at 10:00, the network's heartbeat, and show how far the current beat has run. once it passes 10:00 it just counts the delay.\n\nthe question i'm answering for the user is \"are we on time or running late,\" not \"when is the next block.\" that second one i won't predict, because you're right, you can't.\n\n**simplest honest read of the current status. that's the whole idea.**",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "you\u2019re right about the math, no argument there. expected time to the next block is ~10 min from now, doesn\u2019t matter how long it\u2019s been. memoryless. \nbut that\u2019s not what the timer is showing. it\u2019s not a forecast of the next block. it\u2019s where we are in the cadence. \n10 min is the protocol\u2019s target. di&hellip;",
   "truncated": true,
   "post_url": "/t/roast-our-real-time-bitcoin-explorer-built-for-everyday-bitcoin-users/2654/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
