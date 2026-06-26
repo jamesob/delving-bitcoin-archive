@@ -201,9 +201,9 @@ If all you want is to force nodes to store a *commitment* to some data, then tha
 
 -------------------------
 
-MrHash | 2026-06-26 00:04:56 UTC | #16
+MrHash | 2026-06-26 00:05:10 UTC | #16
 
-I don't think the broad assumption you're making is well considered, because we all store the data for free now, so yes lots of people will store the data, and it's also the default in this proposal. It gives the option to consent to sync/storage to those who can't or don't want it, in part or in full. That's a benefit to both decentralization as well as consent, two very good dimensions to consider the proposal on. Offchain hashes don't change, all other arbitrary data can move out of block and scripting vectors.
+I don't think the broad assumption you're making is well considered, because we all store the data for free now, so yes lots of people will store the data, and it's also the default in this proposal. It gives the option to consent to sync/storage to those who can't or don't want it, in part or in full. That's a benefit to both decentralization as well as consent, two very good dimensions to consider the proposal on. Offchain data hashes don't change, all other arbitrary data can move out of block and scripting vectors.
 
 -------------------------
 
