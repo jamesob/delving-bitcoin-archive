@@ -229,3 +229,49 @@ cmp_ancp | 2026-06-26 01:27:55 UTC | #19
 
 -------------------------
 
+MrHash | 2026-06-26 17:28:28 UTC | #20
+
+(post deleted by author)
+
+-------------------------
+
+MrHash | 2026-06-26 17:29:03 UTC | #21
+
+Apologies Pieter, I explained the conclusion without answering the exact question. The difference reduces to two properties.
+
+1. SegData entries are script-isolated, so they provably gate no spend
+
+2. they sit outside the tx structure, so data is identifiable
+
+Both together are the precondition for selective retention. SegData literally segregates data.
+
+-------------------------
+
+sipa | 2026-06-26 17:41:08 UTC | #22
+
+If full nodes do not require seeing the data to consider a block valid, then the data simply doesn't exist as far as Bitcoin is concerned. It is exactly equivalent to a marker "increase this transaction's data by X weight", for no purpose except wasting fees. The system cannot even prevent someone from committing to SegData that literally does not exist, so there is not even a possibility of reliability, even if all nodes were perfectly altruistic about it (a very dubious assumption). With that, I don't see why anyone would be interested in using it, and even less why the Bitcoin ecosystem would bother with its complexity.
+
+Never thought I'd end up agreeing with @cguida on matters of blockchain data storage, but here we are.
+
+-------------------------
+
+MrHash | 2026-06-26 18:29:01 UTC | #23
+
+Thank you for the reply. I think there are a few points I'd like to address before the proposal is overlooked.
+
+Within the retention window (288 blocks) full nodes require the data. Absent data cannot be accepted. Existence is enforced network-wide at inclusion, exactly as for witness. The optional part is re-validation after burial, the same trust model as assumevalid, except a SegData node can drop the entries rather than have to keep and skip them. They gate no spend, so are never needed for validation again. Consensus not needing the data is the point, and what makes the download-skip safe.
+
+Therefore you're right that there's no guarantee of perpetual retrievability, though under default archival that is a question of redundancy rather than availability. What is enforced in full is proof of publication at inclusion, which is exactly what witness gives you. SegData keeps that while removing only the obligation to retain.
+
+Carriage is already happening under the witness discount and will continue. The weight you call purposeless is weight a small node on a metered link must download during IBD and keep on a constrained disk today. This proposal (which i believe is less complex than segwit and follows in its design lineage) offers an alternative which lets this or any other node skip historical entries during sync and retain only the window, while still fully validating the chain and serving the monetary history. Pruning doesn't offer this. So a question arises, is whether requiring every node, including the smallest, to retain abritrary data forever is better than letting it drop it?
+
+I appreciate your time.
+
+-------------------------
+
+sipa | 2026-06-26 18:50:09 UTC | #24
+
+(post deleted by author)
+
+-------------------------
+
