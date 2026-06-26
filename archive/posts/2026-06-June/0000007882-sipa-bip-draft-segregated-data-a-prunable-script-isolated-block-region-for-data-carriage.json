@@ -7,7 +7,7 @@
   "cooked": "<p>How does this differ from the existing witness? It\u2019s equally discounted, and like all the rest of the block data not accessed anymore after validation (except for its effect on the UTXO set, which persists).</p>",
   "post_number": 13,
   "post_type": 1,
-  "posts_count": 17,
+  "posts_count": 18,
   "updated_at": "2026-06-25T21:06:46.363Z",
   "reply_count": 1,
   "reply_to_post_number": null,
