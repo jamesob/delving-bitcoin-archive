@@ -24,3 +24,11 @@ Thanks!
 
 -------------------------
 
+bruno | 2026-06-26 12:54:29 UTC | #2
+
+Nice dashboard, thanks for working on it! 
+
+I think a good metric to have on https://jorisstrakeljahn.github.io/asmap-dashboard/#diff (diff) is to track which ASNs was drastically moved. I mean, many moves are just big companies (Google, Amazon, etc) rearranging "internally". Is there a way to track "weird" moves?
+
+-------------------------
+

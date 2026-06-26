@@ -199,3 +199,32 @@ That seems like it works okay to me, and allows you to connect to far fewer peer
 
 -------------------------
 
+RubenSomsen | 2026-06-26 11:05:20 UTC | #11
+
+[quote="lucasdbr05, post:1, topic:2624"]
+Fountain Codes in Bitcoin
+
+[/quote]
+
+I saw the [original presentation](https://youtu.be/Uh6Ywxrobzw?t=4h7m25s) at the Scaling Bitcoin conference in 2019. We also revisited the topic in the [2140](https://www.2140.dev) office last year and I discussed it with people at last year's Floresta/utreexo retreat.
+
+I think it's academically interesting and appreciate that a fresh set of eyes is evaluating it, but in my view it's currently not worth pursuing.
+
+Reasons:
+
+* It seem to me that blockchain storage/serving is simply not an issue right now, even with space restricted nodes choosing to prune - a solution looking for a problem
+
+* We are primarily bandwidth bottlenecked (especially considering [SwiftSync](https://gist.github.com/RubenSomsen/a61a37d14182ccd78760e477c78133cd)) - the faster you can get the chain downloaded, the faster IBD will be, and this proposal makes that worse in multiple dimensions:
+
+  * The protocol requires you to download \~10% extra data to account for block recovery (slower IBD)
+     
+  * You need blocks from many different peers to successfully reconstruct the chain. At 1% retention per peer you need \~110 peers (also affecting memory). But you'll need significant redundancy - every peer can only send you \~1% of the needed data, so your fastest peers are first to lose their utility and you are likely to get stuck with a bunch of slower peers (again slower IBD)
+
+* You lose the ability to granularly download blocks and instead have to download sets of blocks in batches ("epochs"). This is restrictive in various ways. You lose the ability to request single blocks from the network (e.g. for BIP157/158 light clients), and it restricts certain IBD optimizations such as [sequentially validating the chain from multiple points in parallel](https://github.com/bitcoin/bips/pull/2152#discussion_r3473186072)
+
+Some of this may be improvable with hybrid networks where some peers do serve all blocks, but I suspect that will significantly blow up the complexity.
+
+I only briefly skimmed the rest of the conversation in this thread, but the concern about peer fingerprinting via their droplet choices stood out to me as another valid concern.
+
+-------------------------
+

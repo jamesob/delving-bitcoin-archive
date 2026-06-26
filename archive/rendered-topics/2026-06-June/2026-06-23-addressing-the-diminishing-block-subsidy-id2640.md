@@ -223,3 +223,30 @@ This would be easily soft forkable if you introduced a dynamic limit that only a
 
 -------------------------
 
+Choirzooh | 2026-06-26 14:25:50 UTC | #14
+
+Great topic and imo, I think the options are getting mixed together. Separating them might help the "what else is there?" question. There are really three categories here, not two:
+
+1. Change the issuance --- tail emission, taxing old UTXOs. sipa's point settles
+   this one: a contested hardfork just creates a different coin bootstrapped from
+   Bitcoin's UTXO set, so "go do it in another currency and compete" is what
+   these really amount to.
+
+2. Tweak the on-protocol fee market --- statoshi's dynamic block size, a floor
+   fee. These keep the fee auction going, but as statoshi says, they can't aim
+   at a specific security level --- and they add no new money, they just move the
+   fee side around.
+
+3. Pay miners from outside Bitcoin --- a reward in some other asset that doesn't
+   touch consensus and leaves the 21M cap alone. The thread keeps pointing at
+   this without naming it (it's exactly what "go compete in another currency"
+   describes), but never treats it as its own option. Merged mining is the one
+   accepted example --- small, but proof the category isn't empty.
+
+Here's why #3 is worth pulling out, and it follows from statoshi's own point: if Bitcoin can't measure its own value from the inside, then the only place that price can form is outside it. So an outside, market-set reward is the only kind that even gets at the problem --- but it pays for that by giving up consensus enforcement.
+
+What makes #3 worth taking seriously is that it's the only one of the three that needs no hardfork and no one's permission --- it doesn't change Bitcoin's rules or risk a chain split, and unlike fees it doesn't depend on a particular future showing up. Merged mining already shows the category works; it's small only because the chains doing it are small, not because the idea is capped --- the contribution scales with whatever market decides to fund it. The honest open questions are really about the ceiling: how much durable demand there is for funding security as its own thing (rather than it just flowing back into BTC), and whether a reward miners could in principle ignore actually moves their
+behaviour in practice. Thoughts?
+
+-------------------------
+
