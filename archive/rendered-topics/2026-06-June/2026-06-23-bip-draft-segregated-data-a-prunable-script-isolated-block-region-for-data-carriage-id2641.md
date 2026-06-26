@@ -217,6 +217,12 @@ Bitcoin does not operate on such thinking. Bitcoin operates on sound economic id
 
 -------------------------
 
+MrHash | 2026-06-26 09:08:19 UTC | #18
+
+Guida, you seem to have misunderstood. Let me spell it out for you agian, SegData doesn't require you to download or store data for free, the existing vectors do. As for me having communist ideas, you are mistaken, but if you would like to discuss that on social media, happy to do so there.
+
+-------------------------
+
 cmp_ancp | 2026-06-26 01:27:55 UTC | #19
 
 (post deleted by author)
