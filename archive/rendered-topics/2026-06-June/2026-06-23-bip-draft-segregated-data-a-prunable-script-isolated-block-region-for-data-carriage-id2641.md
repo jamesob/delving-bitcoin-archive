@@ -179,3 +179,25 @@ Just to clarify a full node validates the whole chain, it's not a block or tx si
 
 -------------------------
 
+sipa | 2026-06-25 21:06:46 UTC | #13
+
+How does this differ from the existing witness? It's equally discounted, and like all the rest of the block data not accessed anymore after validation (except for its effect on the UTXO set, which persists).
+
+-------------------------
+
+MrHash | 2026-06-25 22:05:58 UTC | #14
+
+Hi sipa, segdata differs from segwit in that segdata is unspendable, not required to be download at all during sync or to be retained if opted out of, without affecting block validity. Witness still imposes the IBD and unpruned storage burden. To quote the BIP:
+
+> Where SegWit separated signatures (validation data not needed once the containing block is buried) from transaction identity, SegData separates application payloads (arbitrary data not needed once the containing block is buried) from both transaction and witness regions.
+
+-------------------------
+
+cguida | 2026-06-25 23:23:44 UTC | #15
+
+What's the point if there's no requirement to store it? What bitcoin noderunner is going to store nonmonetary data having nothing to do with bitcoin, for free? Would you do that? I wouldn't. No one will store this data.
+
+If all you want is to force nodes to store a *commitment* to some data, then that's already been possible for a long time and requires no changes. Just stick a hash into a tweaked taproot key, or in an opreturn. Done.
+
+-------------------------
+
