@@ -13,8 +13,8 @@
   "reply_to_post_number": 21,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 9,
-  "readers_count": 8,
+  "reads": 10,
+  "readers_count": 9,
   "score": 6.8,
   "yours": false,
   "topic_id": 2641,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "If full nodes do not require seeing the data to consider a block valid, then the data simply doesn't exist as far as Bitcoin is concerned. It is exactly equivalent to a marker \"increase this transaction's data by X weight\", for no purpose except wasting fees. The system cannot even prevent someone from committing to SegData that literally does not exist, so there is not even a possibility of reliability, even if all nodes were perfectly altruistic about it (a very dubious assumption). With that, I don't see why anyone would be interested in using it, and even less why the Bitcoin ecosystem would bother with its complexity.\n\nNever thought I'd end up agreeing with @cguida on matters of blockchain data storage, but here we are.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "If full nodes do not require seeing the data to consider a block valid, then the data simply doesn\u2019t exist as far as Bitcoin is concerned. It is exactly equivalent to a marker \u201cincrease this transaction\u2019s data by X weight\u201d, for no purpose except wasting fees. The system cannot even prevent someone f&hellip;",
   "truncated": true,
   "post_url": "/t/bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage/2641/22",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
