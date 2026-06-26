@@ -250,3 +250,27 @@ behaviour in practice. Thoughts?
 
 -------------------------
 
+CubicEarth | 2026-06-26 20:35:33 UTC | #15
+
+[quote="Choirzooh, post:14, topic:2640"]
+Change the issuance --- tail emission, taxing old UTXOs. sipa's point settles this one: a contested hardfork just creates a different coin bootstrapped from Bitcoin's UTXO set, so "go do it in another currency and compete" is what these really amount to.
+
+[/quote]
+
+Well let's be clear here: A hard fork is not needed to do these things, or at least their functional economic equivalents, and therefore can't be relied on as the objection.
+
+For instance, a soft fork could freeze 50% of all balances permanently, and if that was repeated every 4 years, it would effectively force deflation while leaving the block rewards a constant size relative to the usable money supply. Hence tail emissions without a hard fork, at least for the next 100 years.
+
+A similarly aggressive soft fork could implement a transaction tax as a percentage of moved value. Now perhaps that would just push activity to layer 2s, and it might be a bad idea for other reason. But the point is it would only require a soft fork. 
+
+
+It is also interesting to recall that the 1 MB block size limit was itself a soft fork down from an effective limit of 32 MB. Later on, many people strongly advocated for keeping the size small as a way to force scarcity and thereby generate a robust fee market to pay for Bitcoin's security. Anyone who advanced that reasoning, IMO, has revealed that they are in fact willing to adjust Bitcoin's fundamental economic parameters to try to pay for security. 
+
+While I personally disagreed that very small blocks were the best way to maximize fee revenue (I think we choked off growth far too early and lost mindshare and economic activity to other coins), I think it is reasonable to use a political process to change the economic parameters to ensure Bitcoin's survival.
+
+The beauty of Satoshi's system was never because it was perfect from the start and and would survive forever without change, but rather because of the way it aligns incentives, cryptography, auditability and permissionlessness such that changes can't be forced from a minority onto a majority, and that everyone can verify and participate equally without any credentialing.
+
+But it is a market-majority system. Or perhaps market-supermajority. There is no reason we should let Bitcoin die if we discover something once worshipped is a flaw. The market can operate within and on Bitcoin too, not just by jumping to some other coin.
+
+-------------------------
+
