@@ -217,9 +217,9 @@ Bitcoin does not operate on such thinking. Bitcoin operates on sound economic id
 
 -------------------------
 
-MrHash | 2026-06-26 00:19:59 UTC | #18
+cmp_ancp | 2026-06-26 01:27:55 UTC | #19
 
-Sorry that's such an obnoxious and ignorant reply that it's not even worth responding to. You won't be able to bully me like that. You'll actually have to come up with some technical arguments against a proposal which aims to move data with consent rather than coercion which you seem to happy with.
+(post deleted by author)
 
 -------------------------
 
