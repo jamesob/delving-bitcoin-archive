@@ -207,3 +207,13 @@ I don't think the broad assumption you're making is well considered, because we 
 
 -------------------------
 
+cguida | 2026-06-26 00:15:20 UTC | #17
+
+Humans tend not to do things there is no incentive for them to do. This is a very basic economic principle.
+
+Communism is what results from thinking like yours, where everyone is expected to provide unlimited free services with nothing in return. Either the system falls apart because no one wants to provide services, or everyone is forced to provide them at the point of a gun (and then it falls apart anyway).
+
+Bitcoin does not operate on such thinking. Bitcoin operates on sound economic ideas, like paying people if you want them to do something.
+
+-------------------------
+
