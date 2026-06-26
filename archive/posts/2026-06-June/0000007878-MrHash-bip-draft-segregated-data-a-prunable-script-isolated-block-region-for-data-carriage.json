@@ -7,7 +7,7 @@
   "cooked": "<p>Hi Murch</p>\n<p>The rationale does explain this in the BIP but I\u2019ll reiterate.</p>\n<ol>\n<li>Availability is not guaranteed in Bitcoin anyway (pruning).</li>\n<li>The default mode is archival, retention is effectively guaranteed, just not forced to everyone.</li>\n<li>Witness is now used because its cheaper than op_return. This is a side effect of pricing discount which segdata equals. There\u2019s no reason not to use it.</li>\n<li>Historical precedent, op_return was successful in mitigating fake address usage. SegData can draw data out of op_return and witness.</li>\n<li>There is no way for anyone putting data on the chain to not impose it on all nodes, this intent is not served at all at the moment. SegData allows proper structural treatment of data vs money.</li>\n<li>Not moving to SegData reveals intent.</li>\n<li>Having a dedicated data channel allows deprecation of existing vectors as happened with bare multisig.</li>\n</ol>\n<p>So I think there are lots of reasons to take this proposal seriously.</p>",
   "post_number": 10,
   "post_type": 1,
-  "posts_count": 15,
+  "posts_count": 16,
   "updated_at": "2026-06-25T20:02:53.903Z",
   "reply_count": 0,
   "reply_to_post_number": 9,
