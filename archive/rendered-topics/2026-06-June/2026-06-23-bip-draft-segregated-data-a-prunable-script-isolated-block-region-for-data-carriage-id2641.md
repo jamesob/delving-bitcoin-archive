@@ -223,12 +223,6 @@ Guida, you seem to have misunderstood. Let me spell it out for you agian, SegDat
 
 -------------------------
 
-cmp_ancp | 2026-06-26 01:27:55 UTC | #19
-
-(post deleted by author)
-
--------------------------
-
 MrHash | 2026-06-26 17:28:28 UTC | #20
 
 (post deleted by author)
