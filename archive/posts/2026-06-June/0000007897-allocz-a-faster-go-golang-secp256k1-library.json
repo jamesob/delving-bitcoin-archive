@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 47.6,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 62.8,
   "yours": false,
   "topic_id": 2658,
   "topic_slug": "a-faster-go-golang-secp256k1-library",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": false,
@@ -63,7 +63,7 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 2
+      "count": 3
     },
     {
       "id": "rocket",
@@ -72,7 +72,7 @@
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
