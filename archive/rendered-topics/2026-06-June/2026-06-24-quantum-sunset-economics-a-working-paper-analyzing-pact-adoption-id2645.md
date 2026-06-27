@@ -72,3 +72,31 @@ Another point that I think has been mentioned elsewhere: xpubs are another vecto
 
 -------------------------
 
+ahmedraza | 2026-06-27 18:53:55 UTC | #4
+
+Hi @AdamISZ, 
+
+Thanks for the detailed read. I've incorporated your points into a v2 of the paper. The work surfaced a couple of empirical results worth sharing back.
+
+The P2SH and P2WSH classification you flagged got rewritten in Section 3.1. The exposed-when-used binary that the paper already applies to P2PKH and P2WPKH now also applies to script-hash address types: a P2SH or P2WSH address is exposed once it has produced an outgoing spend that reveals the redeem or witness script on-chain. Re-running the cohort analysis with this classification gives roughly 1.3 million BTC in newly classified exposed P2SH and 685,000 BTC in newly classified exposed P2WSH, for an additional 1.99 million BTC of exposed supply. The v1 headline of 25.30 percent moves to 35.30 percent in v2; the shift was larger than I expected when starting the revision.
+
+The double-counting footnote on Table 1 that you flagged as hard to parse has also been rewritten. The new version states the mechanic directly: the BigQuery output expansion counts multisig outputs once per constituent address rather than once per UTXO, which inflates the script-hash row totals by approximately 210,000 BTC. The reported headline exposed figure is unaffected.
+
+On the k-of-n weighting question, I went after this empirically and ran into a constraint worth flagging. The `bigquery-public-data.crypto_bitcoin` dataset does not expose witness data anywhere; it is not in the flat inputs table or in the nested inputs struct on the transactions table. The closest available signal is `inputs.required_signatures`, which the bitcoin-etl pipeline that builds this dataset populates as 1 for spends with single-key redeem or witness scripts (P2WPKH-in-P2SH wraps and analogous P2WSH single-key constructions) and as NULL for multisig or non-standard scripts. The exact k threshold for k-of-n multisig is not exposed. So what I can deliver is a binary classification, not a full k-by-k decomposition.
+
+That said, the binary result is itself informative. Across all exposed P2SH addresses (approximately 1.3 million BTC), 73.4 percent (about 955,000 BTC) falls into the multisig-or-other bucket and 26.6 percent (about 345,000 BTC) is single-key; the single-key fraction reads as P2WPKH-in-P2SH wrapping, consistent with how widespread that pattern became post-SegWit. Across all exposed P2WSH addresses (approximately 687,000 BTC), 99.5 percent is multisig-or-other and 0.5 percent is single-key; the lopsided split reads as Lightning channel funding outputs and institutional multisig wallets dominating the P2WSH cohort.
+
+Combined across both script-hash types, approximately 82.4 percent of the newly classified cohort (about 1.64 million BTC) is multisig-or-other and 17.6 percent (about 350,000 BTC) is single-key. Under a budget-constrained quantum-attack model where the marginal cost is dominated by the number of ECDLP-solves required, the single-key fraction would be drained before the multisig fraction. About 8.3 percent of total Bitcoin supply, the multisig portion of the newly classified cohort, costs the attacker at least two key compromises per UTXO rather than one.
+
+Precise k-by-k extraction for the multisig bucket is genuinely future work. It needs either witness data via a different ingest of the chain or a scriptSig push-walker that locates the embedded redeem script for each spend. Both are tractable but neither is in this revision.
+
+While I was thinking through what the multisig classification implies for the policy argument, I added a new Section 6.5 framing the multisig-protection horizon as regime-dependent. The short version: in an early-CRQC regime where compute is scarce and each ECDLP solve takes hours-to-days, the second solve required by 2-of-3 multisig is a meaningful cost and the budget-constrained attacker drains single-key targets first. In an industrialised-CRQC regime with parallel solves and cheap compute, the multisig advantage erodes. Multisig is therefore a useful interim defence but not a durable one, which actually strengthens rather than weakens the institutional-pooling argument: pooling converts a temporary multisig defence into a durable post-quantum one without requiring each holder to migrate their architecture individually.
+
+On the xpub-disclosure point, I added a new Section 3.8. The discussion argues that the on-chain headline is a lower bound on actual quantum-exposed value because publicly leaked or shared xpubs expose all derived addresses on the disclosed branch, including addresses that have never produced an outgoing spend. The new paragraph also connects the xpub-disclosure risk to the paper's central argument about institutional pooling: the cohort most exposed to xpub disclosure is precisely the cohort that would benefit most from an institutional commitment service, because the disclosure typically originates from the same custodial and reporting relationships that a pooling service would centralise.
+
+While I was in the revision, I also re-ran the P2TR alternative classification (the sensitivity that treats P2TR as effectively hashed rather than inherently exposed). The v2 alternative, with P2SH and P2WSH treated as exposed-when-used and P2TR treated as exposed-only-after-spend, is 6,854,421 BTC, or 34.57 percent of supply. This replaces a rough estimate I had been carrying with the chain-tip-precise figure.
+
+Thanks again for the engagement. Both points materially improved the analysis.
+
+-------------------------
+

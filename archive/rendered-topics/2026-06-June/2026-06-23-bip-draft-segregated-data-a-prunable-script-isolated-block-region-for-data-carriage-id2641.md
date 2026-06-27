@@ -223,12 +223,6 @@ Guida, you seem to have misunderstood. Let me spell it out for you agian, SegDat
 
 -------------------------
 
-MrHash | 2026-06-26 17:28:28 UTC | #20
-
-(post deleted by author)
-
--------------------------
-
 MrHash | 2026-06-26 17:29:03 UTC | #21
 
 Apologies Pieter, I explained the conclusion without answering the exact question. The difference reduces to two properties.
@@ -260,12 +254,6 @@ Therefore you're right that there's no guarantee of perpetual retrievability, th
 Carriage is already happening under the witness discount and will continue. The weight you call purposeless is weight a small node on a metered link must download during IBD and keep on a constrained disk today. This proposal (which i believe is less complex than segwit and follows in its design lineage) offers an alternative which lets this or any other node skip historical entries during sync and retain only the window, while still fully validating the chain and serving the monetary history. Pruning doesn't offer this. So a question arises, is whether requiring every node, including the smallest, to retain abritrary data forever is better than letting it drop it?
 
 I appreciate your time.
-
--------------------------
-
-sipa | 2026-06-26 18:50:09 UTC | #24
-
-(post deleted by author)
 
 -------------------------
 
