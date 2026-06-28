@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 5.2,
+  "reads": 4,
+  "readers_count": 3,
+  "score": 20.8,
   "yours": false,
   "topic_id": 2652,
   "topic_slug": "asmap-dashboard-tracking-the-asmap-data-history-against-the-observed-network",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Identifying a move as relevant to highlight (\"weird\") should also be looked at through the Bitcoin Network lens. If there is a move but no nodes are/were ever hosted in it, it's not that interesting probably. But if the change contains IPs which host nodes, especially a lot of them, then it should be more interesting to check out.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Identifying a move as relevant to highlight (\u201cweird\u201d) should also be looked at through the Bitcoin Network lens. If there is a move but no nodes are/were ever hosted in it, it\u2019s not that interesting probably. But if the change contains IPs which host nodes, especially a lot of them, then it should b&hellip;",
   "truncated": true,
   "post_url": "/t/asmap-dashboard-tracking-the-asmap-data-history-against-the-observed-network/2652/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
