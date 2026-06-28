@@ -257,3 +257,9 @@ I appreciate your time.
 
 -------------------------
 
+MrHash | 2026-06-27 22:48:59 UTC | #25
+
+For the record, some erroneous assumptions about the SegData design have been made. The inferrence from these errors has lead to a strange logical conclusion about free carriage. Perhaps it is my mistake for not making it clearer although i don't know how it can be clearer than "Within the retention window every node enforces all rules" and "it conforms to existing block size and tx weight". In any case, this proposal stands for the time being awaiting further discussion.
+
+-------------------------
+
