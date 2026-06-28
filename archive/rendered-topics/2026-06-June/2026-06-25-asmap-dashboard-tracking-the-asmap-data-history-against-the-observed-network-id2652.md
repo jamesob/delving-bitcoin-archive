@@ -60,3 +60,9 @@ That second one is trickier, since ASmap itself doesn't know which ASNs belong t
 
 -------------------------
 
+fjahr | 2026-06-28 10:45:37 UTC | #4
+
+Identifying a move as relevant to highlight ("weird") should also be looked at through the Bitcoin Network lens. If there is a move but no nodes are/were ever hosted in it, it's not that interesting probably. But if the change contains IPs which host nodes, especially a lot of them, then it should be more interesting to check out.
+
+-------------------------
+
