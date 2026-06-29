@@ -552,3 +552,9 @@ The reality is that a lot of people use Electrum based light wallets and every a
 
 -------------------------
 
+AdamISZ | 2026-06-29 15:15:47 UTC | #26
+
+Oh, I forgot to add in this thread: PathCoin is not relevant to the discussion, as it was only a theoretical concept that might push towards some interesting offline protocol (it *could* be relevant to privacy if it was practically usable, but it wasn't, it was no more than a "starting idea for future research", really).
+
+-------------------------
+
