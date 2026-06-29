@@ -294,3 +294,13 @@ I still have to mull over the other options you state here.
 
 -------------------------
 
+josh | 2026-06-29 20:17:57 UTC | #13
+
+[quote="instagibbs, post:12, topic:2667"]
+Ok I was referring to your now-deleted idea, which makes me think it was invalid.
+[/quote]
+
+My bad, yes it was definitely invalid. Thanks for the callout!
+
+-------------------------
+

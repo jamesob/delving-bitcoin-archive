@@ -7,7 +7,7 @@
   "cooked": "<p>An use case i find interesting is to cut steps on contracts and swaps.</p>\n<p>If a contract uses HTLCs and end up with a privkey handover, then the other party already have access to the musig, however, today we need a final tx in order to be certain that no HTLC will be published onchain in the future. With HTLC expiration, we can make swaps 1 tx long, something that can be useful in a high fee environment.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-06-29T11:54:45.741Z",
   "reply_count": 1,
   "reply_to_post_number": null,
