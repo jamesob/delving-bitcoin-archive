@@ -312,3 +312,27 @@ Mainnet transactions: [(`q=1`)](https://blockstream.info/liquid/tx/e079f31c58655
 
 -------------------------
 
+jonasnick | 2026-06-29 20:38:15 UTC | #21
+
+A small modification to the original SHRINCS scheme improves the user experience of losing state and initializing new signing devices: instead of backing up a fresh secret seed for every new device, the user backs up a single static seed once, plus a public per-device identifier.
+
+Suppose a user loses their original SHRINCS signing device. They can restore the seed on a new device, but that device can only spend through the inefficient stateless path because the signing state is missing. To get back to compact stateful signatures, the user has to migrate the coins to a fresh key pair. They run $\textsf{KeyGen}$ on the new device, which initializes the state needed for the efficient stateful path, back up the new seed, and hand out the new public key. After this, the device holds two seeds and two key pairs: the old one with only the stateless path, and the new one with both paths. The old seed can be deleted once the user is sure the old key pair is no longer needed.
+
+In summary, every time a device is initialized, a new secret seed has to be securely backed up to allow for compact stateful signing.
+
+With a small change to the scheme, each device initialization instead only requires backing up a public per-device $\mathit{id}$, while a single static $\mathit{master\_seed}$ is backed up once. The advantage is that $\mathit{id}$ does not need to be secret for the security of the signature scheme. It is, however, essential for deriving the device's key pair and producing signatures. That makes $\mathit{id}$ behave a lot like a descriptor. It can be backed up in many more places than a seed, including, if desired, the blockchain itself (though this is arguably a misuse of blockspace).
+
+The idea is that on initialization, the device draws $\mathit{id}$ uniformly at random and computes the SHRINCS seed as $\textsf{PRF}(\text{key} = \mathit{master\_seed}, \mathit{id})$, where $\textsf{PRF}$ is a pseudorandom function (built from a hash function, for example). The $\mathit{master\_seed}$ is secret, but on its own it is not enough to derive the SHRINCS seed. Deriving it also requires $\mathit{id}$. So $\mathit{id}$ can be public, yet it still has to be backed up.
+
+In more detail, the modified scheme has these algorithms (ignoring hardened derivation and the hybrid signature):
+
+- $\textsf{MasterSeedGen}() \rightarrow \mathit{master\_seed}$: generates a fresh, uniformly random byte string $\mathit{master\_seed}$.
+- $\textsf{KeyGen}(\mathit{master\_seed}) \rightarrow (\mathit{id}, \mathit{pk}, \mathit{state})$: draws a ~20-byte uniformly random $\mathit{id}$, computes the SHRINCS seed $\mathit{seed} = \textsf{PRF}(\text{key} = \mathit{master\_seed}, \mathit{id})$, derives the SHRINCS public key $\mathit{pk}$ from $\mathit{seed}$, and sets $\mathit{state}.\mathit{id} := \mathit{id}$ and $\mathit{state}.\textsf{SHRINCS}$ to the initial SHRINCS state.
+- $\textsf{Sign}(\mathit{master\_seed}, \mathit{id}, \mathit{state}, m) \rightarrow (\mathit{state}', \mathit{sig})$: computes the SHRINCS seed $\mathit{seed} = \textsf{PRF}(\text{key} = \mathit{master\_seed}, \mathit{id})$. If $\mathit{id} = \mathit{state}.\mathit{id}$, it returns $\textsf{SHRINCS.Sign}(\mathit{seed}, \mathit{state}, m)$. Otherwise, it returns $\textsf{SHRINCS.Sign}(\mathit{seed}, \textsf{LOST}, m)$.
+
+Unlike the original SHRINCS, $\textsf{MasterSeedGen}()$ does not have to run on any particular device and can be the result of, say, dice rolls.
+
+Thanks to @conduition, @EthanHeilman, @MikKud, and @theblackmarble for the discussions that led to this idea.
+
+-------------------------
+
