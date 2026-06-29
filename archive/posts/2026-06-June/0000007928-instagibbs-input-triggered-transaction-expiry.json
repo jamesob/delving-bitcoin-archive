@@ -7,7 +7,7 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/ademan\">@ademan</a></p>\n<aside class=\"quote no-group\" data-username=\"josh\" data-post=\"5\" data-topic=\"2667\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josh/48/95_2.png\" class=\"avatar\"> josh:</div>\n<blockquote>\n<p><code>CLTV</code> enforces a minimum <code>nLockTime</code>, so I don\u2019t believe this works. We need to enforce a maximum <code>nLockTime</code>. This is probably best accomplished with <code>nLockTime</code> introspection (ex: <code>OP_LOCKTIME</code>) and <code>OP_LESSTHAN</code>.</p>\n</blockquote>\n</aside>\n<p>I believe he meant in conjunction with <code>OP_TX</code> and math on the stack</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-06-29T17:08:21.117Z",
   "reply_count": 1,
   "reply_to_post_number": 5,

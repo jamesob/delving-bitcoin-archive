@@ -282,3 +282,17 @@ Using key tweaking and additional introspection, we can then propagate this kick
 
 -------------------------
 
+instagibbs | 2026-06-29 20:04:05 UTC | #12
+
+
+[quote="josh, post:11, topic:2667"]
+There are two Symmetry constructions that I find interesting, which require transaction expiry:
+
+[/quote]
+
+Ok I was referring to your now-deleted idea, which makes me think it was invalid.
+
+I still have to mull over the other options you state here.
+
+-------------------------
+

@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group quote-modified\" data-username=\"josh\" data-post=\"7\" data-topic=\"2667\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/josh/48/95_2.png\" class=\"avatar\"> josh:</div>\n<blockquote>\n<p>In <a href=\"https://gnusha.org/pi/bitcoindev/aOOq-Pw0ht_R0OAK@erisian.com.au/?__goaway_challenge=meta-refresh&amp;__goaway_id=9f2bb273b5b3e13e94f6a563ef49b7a1\">this post</a>, <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a> suggested that coin-height introspection could be used to solve the delay problem in LN-Symmetry. Below is what may be the absolute cleanest possible construction:</p>\n</blockquote>\n</aside>\n<p>The double-delay problem is when Alice, say, doesn\u2019t have the latest update tx fully signed (she sent her psig, waiting to hear back), and she needs to go on-chain. After U-1 blocks Bob then sends the final update tx, which in classical relative timelock ln-symmetry resets the timeout, resulting in a wait of <code>U*2</code> before settlement can occur. Does your proposed change allow Alice to immediately settle or otherwise mitigate? Am I thinking on the wrong layer?</p>\n<p>(I am genuinely very bad at reasoning about timelock semantics in bitcoin validation so bear with me)</p>\n<p>edit: good thread linked on the CSV-&gt;CLTV transformation, think I missed that one</p>",
   "post_number": 10,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 12,
   "updated_at": "2026-06-29T18:11:18.633Z",
   "reply_count": 1,
   "reply_to_post_number": 7,
