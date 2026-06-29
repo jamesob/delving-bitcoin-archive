@@ -263,3 +263,14 @@ For the record, some erroneous assumptions about the SegData design have been ma
 
 -------------------------
 
+murch | 2026-06-29 17:15:13 UTC | #26
+
+[quote="MrHash, post:23, topic:2641"]
+Within the retention window (288 blocks) full nodes require the data. Absent data cannot be accepted. Existence is enforced network-wide at inclusion, exactly as for witness. The optional part is re-validation after burial, the same trust model as assumevalid, except a SegData node can drop the entries rather than have to keep and skip them. They gate no spend, so are never needed for validation again. Consensus not needing the data is the point, and what makes the download-skip safe.
+
+[/quote]
+
+The question that is unclear is, if the SegData is not consensus relevant, how would the retention window be enforced?
+
+-------------------------
+

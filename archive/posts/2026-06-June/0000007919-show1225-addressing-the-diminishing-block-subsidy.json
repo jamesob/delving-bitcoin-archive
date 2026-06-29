@@ -7,15 +7,15 @@
   "cooked": "<p>Dear Jameson,</p>\n<p>My primary concern is misalignment between who pays for the network security and who benefit it in the post block subsidy era (considering subsidies as effective dilution / inflation).</p>\n<p>However, deploying less controversial idea like dynamic block size first and see how fee market changes seems more realistic.</p>\n<p>I do hope and would like to work to make this problem get more attention once quantum updates get settled. Quantum transition might change the whole land scape of the fee market anyway.</p>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 17,
+  "posts_count": 18,
   "updated_at": "2026-06-29T05:51:49.460Z",
   "reply_count": 0,
   "reply_to_post_number": 13,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 2.0,
+  "reads": 12,
+  "readers_count": 11,
+  "score": 17.4,
   "yours": false,
   "topic_id": 2640,
   "topic_slug": "addressing-the-diminishing-block-subsidy",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Dear Jameson,\n\nMy primary concern is misalignment between who pays for the network security and who benefit it in the post block subsidy era (considering subsidies as effective dilution / inflation).\n\nHowever, deploying less controversial idea like dynamic block size first and see how fee market changes seems more realistic.\n\nI do hope and would like to work to make this problem get more attention once quantum updates get settled. Quantum transition might change the whole land scape of the fee market anyway.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Dear Jameson, \nMy primary concern is misalignment between who pays for the network security and who benefit it in the post block subsidy era (considering subsidies as effective dilution / inflation). \nHowever, deploying less controversial idea like dynamic block size first and see how fee market cha&hellip;",
   "truncated": true,
   "post_url": "/t/addressing-the-diminishing-block-subsidy/2640/16",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

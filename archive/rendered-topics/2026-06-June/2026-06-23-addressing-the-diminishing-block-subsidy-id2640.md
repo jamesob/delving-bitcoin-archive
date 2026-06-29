@@ -297,3 +297,20 @@ While those efforts are fantastic and will help to keep the hashrate high even w
 
 -------------------------
 
+micah541 | 2026-06-29 17:58:09 UTC | #18
+
+Part of the issue in 2026 is that nobody has a good threat model.
+
+
+Even if the number was super low (image a universe where tomorrow the subsidy tenthened to 0.3125 btc) who would attack and how?  The most likely scenario would be massive miner consolidation which isn't an *attack* technically speaking but may result in outsized control by a few folks which would make people uncomfortable, but wouldn't be game over.  If someone tried to stockpile chips and then Goldfinger attack (to profit from a short or something) the natural response would be to circle the wagons and temporarily rely on some sort of miner whitelist (objectionable, but much preferable to letting the network die and the attackers win).  Same thing if a nation state attacked -- the actual stakeholders in Bitcoin would have no choice but to swallow some acrid medicine pro re nata in order to keep the network alive.
+
+Any attacker will have though a step ahead to this likelihood before investing 10s or 100s of millions in setting up an attack.
+
+My feeling is that we are going through some sort of inflection point over the next 2-5 years where the NGU/FOMO spirits play less of a role (also of course quantum) and we will be able to see more clearly what the economics are. 
+
+The biggest threat IMHO is not some rogue attacker but a drip of miner consolidations until some small cabal is effectively running everything - and it's unclear to me if this is a problem solved by more miner revenue. 
+
+It's completely possible that in Pieter's market experiment a centralized Bitcoin actual wins, if that's what the market wants.  We have no idea how the market would price centralized Bitcoin.
+
+-------------------------
+
