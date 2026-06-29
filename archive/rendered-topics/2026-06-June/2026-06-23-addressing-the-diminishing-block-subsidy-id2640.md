@@ -274,3 +274,15 @@ But it is a market-majority system. Or perhaps market-supermajority. There is no
 
 -------------------------
 
+show1225 | 2026-06-29 05:51:49 UTC | #16
+
+Dear Jameson,
+
+My primary concern is misalignment between who pays for the network security and who benefit it in the post block subsidy era (considering subsidies as effective dilution / inflation).
+
+However, deploying less controversial idea like dynamic block size first and see how fee market changes seems more realistic.
+
+I do hope and would like to work to make this problem get more attention once quantum updates get settled. Quantum transition might change the whole land scape of the fee market anyway.
+
+-------------------------
+
