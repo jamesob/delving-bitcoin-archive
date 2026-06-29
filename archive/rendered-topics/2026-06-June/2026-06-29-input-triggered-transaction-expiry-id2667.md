@@ -148,3 +148,11 @@ I don't see a strong argument for why the consensus-enforced minimum delay here 
 
 -------------------------
 
+cmp_ancp | 2026-06-29 11:54:45 UTC | #4
+
+An use case i find interesting is to cut steps on contracts and swaps.
+
+If a contract uses HTLCs and end up with a privkey handover, then the other party already have access to the musig, however, today we need a final tx in order to be certain that no HTLC will be published onchain in the future. With HTLC expiration, we can make swaps 1 tx long, something that can be useful in a high fee environment.
+
+-------------------------
+

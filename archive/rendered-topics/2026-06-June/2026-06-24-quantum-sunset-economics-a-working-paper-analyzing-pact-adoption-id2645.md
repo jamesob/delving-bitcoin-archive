@@ -100,3 +100,15 @@ Thanks again for the engagement. Both points materially improved the analysis.
 
 -------------------------
 
+AdamISZ | 2026-06-29 12:35:47 UTC | #5
+
+[quote="ahmedraza, post:4, topic:2645"]
+On the xpub-disclosure point, I added a new Section 3.8. The discussion argues that the on-chain headline is a lower bound on actual quantum-exposed value because publicly leaked or shared xpubs expose all derived addresses on the disclosed branch, including addresses that have never produced an outgoing spend. The new paragraph also connects the xpub-disclosure risk to the paper’s central argument about institutional pooling: the cohort most exposed to xpub disclosure is precisely the cohort that would benefit most from an institutional commitment service, because the disclosure typically originates from the same custodial and reporting relationships that a pooling service would centralise.
+[/quote]
+
+Yes that is an interesting/scary aspect, isn't it. At a deep level, the whole concept of "xpub" could be argued to have been flawed from the start: an xpub does indeed count as being on the "pub" side in the classic public vs private distinction from asymmetric cryptography, but it's a hybrid, and makes a convenience-safety tradeoff that was probably never acceptable (probably! that's very debatable). I remember many years ago, even before anyone mentioned quantum computers, wallet software (good software anyway!) printing warnings to users to not share xpubs. It was a bad privacy violation, as well as a security threat (because you can not reasonably expect users to understand the cross-privkey-leakage).
+
+Glad I could help with the analysis.
+
+-------------------------
+

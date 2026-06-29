@@ -111,3 +111,16 @@ Appreciate the feedback!
 
 -------------------------
 
+instagibbs | 2026-06-29 13:54:53 UTC | #2
+
+Thanks for the interesting idea! Not having to worry about free relay is a nice benefit.
+
+[quote="josh, post:1, topic:2663"]
+Unlike `OP_EXPIRE`, this approach does *not* prevent replacement cycling in the refund path. Instead, it eliminates the economic incentive to attack by guaranteeing an eventual refund in the absence of timely preimage publication. Either a routing node has sufficient opportunity to claim the inbound funds, or they have a guaranteed claim to a refund.
+
+[/quote]
+
+Took me a while to get the claim, probably should have started with this. Many implementations do no mempool monitoring at all, so I was confused what this was accomplishing. What the claim is is that with proper expiry, replacement cycling is a just a more time insensitive grief vector, which makes the mempool scanning some may do as a partial mitigation, like LND , completely unnecessary. Wtxid grinding and rebroacasting also become unnecessary at least in theory (I think there are valid reasons to do it anyway)
+
+-------------------------
+

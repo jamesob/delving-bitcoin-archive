@@ -7,15 +7,15 @@
   "cooked": "<p>I think the difference here is that normal \u201cexpiry\u201d proposals say \u201cthis transaction is invalid after X happens\u201d, whereas this approach says \u201cthis spending path is invalid if this transaction was confirmed after X\u201d.</p>\n<p>I think it\u2019s worth comparing this to a generic ability to introspect the confirmation height of the coin being spent; I proposed that in the <a href=\"https://gnusha.org/pi/bitcoindev/aOOq-Pw0ht_R0OAK@erisian.com.au/\">OP_TX thread on bitcoindev</a> 8 months or so ago.</p>\n<p>Introspecting commit height gives you roughly the same functionality in a straightforward way, instead of (nSequence R + bit21, nLockTime H) write the script (<code>&lt;TXSEL_HEIGHT&gt; OP_TX &lt;H-100&gt; LESSTHANOREQUAL VERIFY</code>).</p>\n<p>You can somewhat do parent height introspection with this feature, in that <code>100 CSV 900100 CLTV</code> will verify that the parent was mined prior to block 900000, if nSequence bit 21 is also set.</p>\n<p>I don\u2019t see a strong argument for why the consensus-enforced minimum delay here should be 100 blocks rather than 50, 20, 10, 6 or even 1 \u2013 for coinbase outputs that makes some sense; coinbases pay directly to miners who are ultimately responsible for whether we see extensive reorgs or not, but for individual transactions, I don\u2019t think this creates a significantly bigger risk in regards to reorgs than regular double-spends.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2026-06-29T03:47:18.704Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 17.8,
   "yours": false,
   "topic_id": 2667,
   "topic_slug": "input-triggered-transaction-expiry",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I think the difference here is that normal \"expiry\" proposals say \"this transaction is invalid after X happens\", whereas this approach says \"this spending path is invalid if this transaction was confirmed after X\".\n\nI think it's worth comparing this to a generic ability to introspect the confirmation height of the coin being spent; I proposed that in the [OP_TX thread on bitcoindev](https://gnusha.org/pi/bitcoindev/aOOq-Pw0ht_R0OAK@erisian.com.au/) 8 months or so ago.\n\nIntrospecting commit height gives you roughly the same functionality in a straightforward way, instead of (nSequence R + bit21, nLockTime H) write the script (`<TXSEL_HEIGHT> OP_TX <H-100> LESSTHANOREQUAL VERIFY`).\n\nYou can somewhat do parent height introspection with this feature, in that `100 CSV 900100 CLTV` will verify that the parent was mined prior to block 900000, if nSequence bit 21 is also set.\n\nI don't see a strong argument for why the consensus-enforced minimum delay here should be 100 blocks rather than 50, 20, 10, 6 or even 1 -- for coinbase outputs that makes some sense; coinbases pay directly to miners who are ultimately responsible for whether we see extensive reorgs or not, but for individual transactions, I don't think this creates a significantly bigger risk in regards to reorgs than regular double-spends.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "I think the difference here is that normal \u201cexpiry\u201d proposals say \u201cthis transaction is invalid after X happens\u201d, whereas this approach says \u201cthis spending path is invalid if this transaction was confirmed after X\u201d. \nI think it\u2019s worth comparing this to a generic ability to introspect the confirmatio&hellip;",
   "truncated": true,
   "post_url": "/t/input-triggered-transaction-expiry/2667/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
