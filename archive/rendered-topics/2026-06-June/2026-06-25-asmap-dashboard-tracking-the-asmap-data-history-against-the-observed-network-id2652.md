@@ -66,3 +66,14 @@ Identifying a move as relevant to highlight ("weird") should also be looked at t
 
 -------------------------
 
+sudocarlos | 2026-06-28 23:43:43 UTC | #5
+
+[quote="fjahr, post:4, topic:2652"]
+But if the change contains IPs which host nodes, especially a lot of them, then it should be more interesting to check out.
+
+[/quote]
+
+And further analysis of node software/version associated with such a move could also be interesting.
+
+-------------------------
+
