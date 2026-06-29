@@ -274,17 +274,9 @@ The question that is unclear is, if the SegData is not consensus relevant, how w
 
 -------------------------
 
-MrHash | 2026-06-29 20:12:56 UTC | #27
+MrHash | 2026-06-29 20:13:17 UTC | #27
 
-Apologies for being unclear earlier, let me state it more accurately.
-
-*Entry content* (the payload) is not consensus relevant since no opcode can read it, it gates no spend, and the UTXO set never depends on it. This is what allows entries to be discardable by design.
-
-*Entry presence* is subject to consensus within the retention window. A block is invalid unless its committed entries are present and match the commitment. This guarantees the committed data was correct at inclusion. No missing or incorrect payloads. Beyond the retention window that presence check is no longer required, so it's trusted to burial.
-
-The design is borrowing heavily from the witness+assumevalid pattern.
-
-One more clarification. When referring to prunability, i've been overloading the term. SegData extends pruning from whole blocks to any segdata part of blocks. The default is to not prune, it just offers a granular choice to the operator.
+(post deleted by author)
 
 -------------------------
 
