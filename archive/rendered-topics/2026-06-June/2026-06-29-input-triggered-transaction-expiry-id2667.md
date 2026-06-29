@@ -227,15 +227,13 @@ No, I just meant if this proposal were implemented, it would allow partial heigh
 
 -------------------------
 
-josh | 2026-06-29 17:27:40 UTC | #9
+josh | 2026-06-29 20:07:39 UTC | #9
 
 [quote="ajtowns, post:8, topic:2667, full:true"]
 No, I just meant if this proposal were implemented, it would allow partial height introspection (in that you could end up with 900,000 on the stack when spending a coin that was confirmed at height 900k or earlier).
 [/quote]
 
-My apologies, I think I understand better now what you were going for. You're correct, provided `nSequence` and `nLockTime` are stable.
-
-In applications that do not commit to `nSequence` or `nLockTime`, explicit `nSequence` and `nLockTime` introspection would achieve the partial height introspection you're looking for.
+My apologies, I think I understand better now what you were going for. For some reason, I misread your comment as enforcement of a coin-height floor, rather than a ceiling. The only thing I'd add is applications must explicitly commit to `nSequence` for your partial height introspection to be safe. This might motivate explicit sequence introspection, or a modification to `CSV`.
 
 -------------------------
 
