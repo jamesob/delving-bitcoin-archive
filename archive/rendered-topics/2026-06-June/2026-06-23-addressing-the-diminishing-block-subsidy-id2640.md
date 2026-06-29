@@ -286,3 +286,14 @@ I do hope and would like to work to make this problem get more attention once qu
 
 -------------------------
 
+show1225 | 2026-06-29 05:55:10 UTC | #17
+
+Dear Choirzooh,
+
+Miners are making a lot of efforts to squeeze profit from their business.
+What mentioned by the CEO of MARA in this [interview](https://www.youtube.com/watch?v=zmwaggpocFk&t=1082s) are also categorized as #3 in a broader sense. They make use of otherwise wasted electricity to mine. They couple AI computing with mining.
+
+While those efforts are fantastic and will help to keep the hashrate high even when block reward shrinks further (lower security budget), I still think we need to prepare a lifeboat to jump into in advance since any plan which tweaks Bitcoin's fee mechanism will be highly complex and will take many years to get adopted.
+
+-------------------------
+
