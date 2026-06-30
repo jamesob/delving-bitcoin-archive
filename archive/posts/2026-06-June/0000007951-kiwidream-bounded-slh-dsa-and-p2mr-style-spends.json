@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
+  "reads": 3,
+  "readers_count": 2,
   "score": 0,
   "yours": false,
   "topic_id": 2674,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hey all,\n\nI've been working on a functional bounded30 SLH-DSA/SHA2 implementation in a separate Bitcoin-derived UTXO codebase. This is not Bitcoin Core, but I'm linking the repo so the parameter choices and assumptions are easy to inspect: [https://github.com/Qbit-Org/qbit-libbitcoinpqc](https://github.com/Qbit-Org/qbit-libbitcoinpqc)\n\nThe current profile has 32-byte public keys and 3680-byte signatures. That comes from a `2^30` per-key signing bound and WOTS+C/FORS+C compression.\n\nIn the chain I'm working on, some of the wallet and policy issues can be handled by designing around this profile from the start. Bitcoin is a different problem because it has existing wallet behavior, descriptors, relay policy, fee bumping norms, hardware wallet assumptions, and migration constraints.\n\nSo the narrow question I'm trying to ask is: if a bounded hash-based signature profile like this were used as a P2MR/BIP-360-style spend path, what do you think is the first Bitcoin-specific assumption that would fail?\n\nIt's reasonable to assume is that the cryptography is only one part of the problem. I'm especially interested in criticism around this implementation itself, or consequences around validation cost, wallet semantics, and whether the `2^30` bound materially changes the discussion for Bitcoin compared to one-time or very-low-use hash-based schemes.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Hey all, \nI\u2019ve been working on a functional bounded30 SLH-DSA/SHA2 implementation in a separate Bitcoin-derived UTXO codebase. This is not Bitcoin Core, but I\u2019m linking the repo so the parameter choices and assumptions are easy to inspect: <a href=\"https://github.com/Qbit-Org/qbit-libbitcoinpqc\" rel=\"noopener nofollow ugc\">https://github.com/Qbit-Org/qbit-libbitcoinpqc</a> \nThe current &hellip;",
   "truncated": true,
   "post_url": "/t/bounded-slh-dsa-and-p2mr-style-spends/2674/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
