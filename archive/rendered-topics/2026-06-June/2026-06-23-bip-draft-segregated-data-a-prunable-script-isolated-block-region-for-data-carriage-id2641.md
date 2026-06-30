@@ -361,7 +361,13 @@ You can add extra rules/assumptions to try to avoid this -- eg, "but as long as 
 
 -------------------------
 
-MrHash | 2026-06-30 20:36:01 UTC | #30
+MrHash | 2026-06-30 20:36:15 UTC | #30
+
+(post deleted by author)
+
+-------------------------
+
+MrHash | 2026-06-30 20:36:41 UTC | #31
 
 Thanks for the reply and explanation. I understand the problem.
 
@@ -371,7 +377,7 @@ That moves entry validation out of consensus and into node policy. The coinbase 
 
 The only gap is availability, whether the committed data is ever provided. A miner could withhold data, but not even a majority can corrupt it, since all nodes can verify and integrity is replayable and preserved. Witholding data would simply be a pointless expense. Anyway nothing relies on the data so witholding it is not a risk, and that's also the point of the whole thing and what makes it prunable.
 
-Can you see any problem with this? Appreciate your time.
+Can you see a problem with this? Appreciate your time.
 
 -------------------------
 
