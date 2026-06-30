@@ -215,12 +215,6 @@ I believe he meant in conjunction with `OP_TX` and math on the stack
 
 -------------------------
 
-josh | 2026-06-29 18:02:35 UTC | #7
-
-(post deleted by author)
-
--------------------------
-
 ajtowns | 2026-06-29 17:12:49 UTC | #8
 
 No, I just meant if this proposal were implemented, it would allow partial height introspection (in that you could end up with 900,000 on the stack when spending a coin that was confirmed at height 900k or earlier).

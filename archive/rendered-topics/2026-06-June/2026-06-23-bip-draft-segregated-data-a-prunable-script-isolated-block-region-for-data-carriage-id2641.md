@@ -294,3 +294,76 @@ One more clarification. When referring to prunability, i've been overloading the
 
 -------------------------
 
+ajtowns | 2026-06-30 16:24:05 UTC | #29
+
+Suppose that you did this soft fork and it was successful, but some people decided they didn't like it and refuse to run it, instead either disabling the new rules or just running a fork of 31.x or 29.x or whatever. In that case, I think you're risking ~1000 block reorgs if miners don't really care about the rule. 
+
+Consider the case where a miner mines a block with missing segdata (red). Then the most-work block will be rejected by enforcing nodes, who'll keep their tip (green) pointing at the parent:
+
+```mermaid
+graph LR;
+
+x[...] --> 2000 --> 2001a*;
+
+classDef miss fill:red;
+class 2001a* miss;
+
+classDef tip fill:green;
+class 2000 tip;
+``` 
+
+If miners mess around, they may spend more work building on this rejected block, despite most nodes following the less work chain that's not missing data:
+
+```mermaid
+graph LR;
+
+x[...] --> 2000 --> 2001a* --> 2002a --> 2003a --> y[...] --> 2010a;
+
+2000 --> 2001b --> 2002b --> 2003b;
+
+classDef miss fill:red;
+class 2001a* miss;
+
+classDef tip fill:green;
+class 2003b tip;
+``` 
+
+However, what happens once the retention window passes? Consider a 100 block retention window, with 2x the work being applied to the missing-data branch. At block 2100a/2051b, as an enforcing node you're still following the less-work chain, because the missing-data block is still in the retention window (non-yellow):
+
+```mermaid
+graph LR;
+
+x[...] --> 2000 --> 2001a* --> 2002a --> y[...] --> 2099a --> 2100a;
+2000 --> 2001b --> z[...] --> 2051b;
+
+classDef oow fill:yellow;
+class x,2000 oow;
+
+classDef miss fill:red;
+class 2001a* miss;
+
+classDef tip fill:green;
+class 2051b tip;
+```  
+
+But a block later, the missing data no longer matters, and the block is now completely valid, so to stay in consensus with new nodes just coming online, you'll do a big reorg, backing out 51 blocks on the shorter chain and filling in 101 blocks on the more work chain:
+
+```mermaid
+graph LR;
+
+x[...] --> 2000 --> 2001a* --> 2002a --> y[...] --> 2100a --> 2101a;
+2000 --> 2001b --> z[...] --> 2051b;
+
+classDef oow fill:yellow;
+class x,2000,2001a* oow;
+
+classDef tip fill:green;
+class 2101a tip;
+```  
+
+That will cost the miners on the reorged-out chain all their rewards, which goes back to justifying why more hashrate would build on the "invalid" chain; bitcoin's model is eventual consensus, so if the most work chain will eventually be valid, extending that chain is the thing to do. As far as I can see that devolves to miners don't enforce the retention rules at all, so missing data blocks (eg from buggy or malicious low hashrate miners) aren't necessarily rare, and because they don't want to see rare but large reorgs or stalls as a result of such blocks, nodes don't enforce availability either, and the soft fork can't be maintained.
+
+You can add extra rules/assumptions to try to avoid this -- eg, "but as long as a majority of hashrate enforces availability, it's fine: the data-available chain will have more work". But the idea behind node enforcement is that it works even if a majority of hashrate violates the rules: their work just gets judged as invalid and ignored, with the most-work valid chain winning.
+
+-------------------------
+

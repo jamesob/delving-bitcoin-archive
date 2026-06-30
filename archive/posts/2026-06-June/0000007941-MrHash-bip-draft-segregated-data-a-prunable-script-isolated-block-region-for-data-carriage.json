@@ -7,15 +7,15 @@
   "cooked": "<p>Apologies for being unclear earlier, let me state it more accurately.</p>\n<p><em>Entry content</em> (the payload) is not consensus relevant since no opcode can read it, it gates no spend, and the UTXO set never depends on it. This is what allows entries to be discardable by design.</p>\n<p><em>Entry presence</em> is subject to consensus within the retention window. A block is invalid unless its committed entries are present and match the commitment. This guarantees the committed data was correct at inclusion. No incorrect payloads are possible. Beyond the retention window that presence check is no longer required, so it\u2019s trusted to burial.</p>\n<p>The design is borrowing heavily from the witness+assumevalid pattern.</p>\n<p>One more clarification. When referring to prunability, i\u2019ve been overloading the term. SegData extends pruning from whole blocks to any segdata part of blocks. The default is to not prune, it just offers a granular choice to the operator.</p>",
   "post_number": 28,
   "post_type": 1,
-  "posts_count": 25,
+  "posts_count": 26,
   "updated_at": "2026-06-29T20:14:34.322Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 26,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 16,
+  "readers_count": 15,
+  "score": 23.2,
   "yours": false,
   "topic_id": 2641,
   "topic_slug": "bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Apologies for being unclear earlier, let me state it more accurately.\n\n*Entry content* (the payload) is not consensus relevant since no opcode can read it, it gates no spend, and the UTXO set never depends on it. This is what allows entries to be discardable by design.\n\n*Entry presence* is subject to consensus within the retention window. A block is invalid unless its committed entries are present and match the commitment. This guarantees the committed data was correct at inclusion. No incorrect payloads are possible. Beyond the retention window that presence check is no longer required, so it's trusted to burial.\n\nThe design is borrowing heavily from the witness+assumevalid pattern.\n\nOne more clarification. When referring to prunability, i've been overloading the term. SegData extends pruning from whole blocks to any segdata part of blocks. The default is to not prune, it just offers a granular choice to the operator.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Apologies for being unclear earlier, let me state it more accurately. \nEntry content (the payload) is not consensus relevant since no opcode can read it, it gates no spend, and the UTXO set never depends on it. This is what allows entries to be discardable by design. \nEntry presence is subject to co&hellip;",
   "truncated": true,
   "post_url": "/t/bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage/2641/28",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
