@@ -274,12 +274,6 @@ The question that is unclear is, if the SegData is not consensus relevant, how w
 
 -------------------------
 
-MrHash | 2026-06-29 20:13:17 UTC | #27
-
-(post deleted by author)
-
--------------------------
-
 MrHash | 2026-06-29 20:14:34 UTC | #28
 
 Apologies for being unclear earlier, let me state it more accurately.
