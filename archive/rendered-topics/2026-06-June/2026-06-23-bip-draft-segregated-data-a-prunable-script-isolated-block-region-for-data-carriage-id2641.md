@@ -361,3 +361,17 @@ You can add extra rules/assumptions to try to avoid this -- eg, "but as long as 
 
 -------------------------
 
+MrHash | 2026-06-30 20:36:01 UTC | #30
+
+Thanks for the reply and explanation. I understand the problem.
+
+Consensus rules need to be deterministic, and the entry presence rules i defined aren't since their predicate can flip once a block buries. The pivot is the one Adam Back suggested (on X), reduce the consensus rule to the commitment weight check only. That predicate can't flip, so there's no reorg risk.
+
+That moves entry validation out of consensus and into node policy. The coinbase commits the entry hash and length L, so every node knows both and will accept at most L bytes and reject anything that doesn't match the committed root. Byte quantity is still bounded by weight, bandwidth, and storage, even against a hostile majority since the commitment is authoritative and the weight check is still consensus.
+
+The only gap is availability, whether the committed data is ever provided. A miner could withhold data, but not even a majority can corrupt it, since all nodes can verify and integrity is replayable and preserved. Witholding data would simply be a pointless expense. Anyway nothing relies on the data so witholding it is not a risk, and that's also the point of the whole thing and what makes it prunable.
+
+Can you see any problem with this? Appreciate your time.
+
+-------------------------
+
