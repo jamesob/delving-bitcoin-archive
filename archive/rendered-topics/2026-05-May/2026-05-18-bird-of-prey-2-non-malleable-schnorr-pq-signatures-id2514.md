@@ -195,3 +195,9 @@ For isogenies maybe not. Isogenies are so compact, by hybridizing with EC we'd i
 
 -------------------------
 
+sipa | 2026-06-30 13:28:33 UTC | #9
+
+Video of the presentation: https://www.youtube.com/watch?v=FbdbkOKby8c
+
+-------------------------
+
