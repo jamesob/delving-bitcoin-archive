@@ -381,3 +381,24 @@ Can you see a problem with this? Appreciate your time.
 
 -------------------------
 
+murch | 2026-06-30 22:36:14 UTC | #32
+
+A miner including the transactions but withholding the data would 1) collect the fees, 2) see the block propagate fine among unupgraded nodes, 3) use less bandwidth.
+Other nodes might propagate the data for their transaction seeing the block, but the block itself would not propagate with SegData, since nobody has the entire SegData. This would probably lead to reduced visibility of the SegData and reduced data availability. So, data embedders would be be incentivized to use witness data instead of SegData for the same cost which guarantees data availability.
+
+I just don't see how this proposal solves any problem for any party.
+
+-------------------------
+
+MrHash | 2026-06-30 23:39:12 UTC | #33
+
+I see you are challenging the incentives and that's fair but I'd like to counter the initial premise.
+
+Miners could only withhold their own out of band entries. All other entries are relayed between peers as part of transaction serialization and so are available for validation and reconstruction from compact blocks. In withholding their own data (or any other attack) block propagation would be slowed and so they lose any race. It's a pointless and expensive attack with no upside.
+
+Where segdata nodes are pruned in full, let's say 20% of the network doesn't serve, availability is still guaranteed, it's redundancy of the entries only that is reduced. Since pruning already exists, redundancy of blocks is already reduced.
+
+Coming to incentives, making SegData cheaper is an option but I don't think it's right. I'm also leaning on the op_return precedent as a carriage vector that drew data out of fake addresses. I don't think there was any real incentive to use it but people moved because its designated.
+
+-------------------------
+
