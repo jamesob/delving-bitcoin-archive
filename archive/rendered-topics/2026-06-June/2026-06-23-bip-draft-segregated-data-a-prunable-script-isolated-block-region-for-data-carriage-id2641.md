@@ -402,3 +402,15 @@ Coming to incentives, making SegData cheaper is an option but I don't think it's
 
 -------------------------
 
+murch | 2026-07-01 17:41:36 UTC | #34
+
+> In withholding their own data (or any other attack) block propagation would be slowed and so they lose any race.
+
+For someone to lose a race, there has to be have to be competing chaintips in the first place, and the effect of propagation delay is often overestimated.
+
+> I don't think there was any real incentive to use \[OP_RETURN\] but people moved because its designated.
+
+OP_RETURN was cheaper than embedding data into payment outputs. E.g., a P2PKH output takes 34 bytes of which the 20-byte hash could be used for data embedding. For a payload of `n` an OP_RETURN output takes `11+n` bytes with the original policy limiting `n` to 80 bytes. OP_RETURN has less overhead for any payload length.
+
+-------------------------
+
