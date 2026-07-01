@@ -361,12 +361,6 @@ You can add extra rules/assumptions to try to avoid this -- eg, "but as long as 
 
 -------------------------
 
-MrHash | 2026-06-30 20:36:15 UTC | #30
-
-(post deleted by author)
-
--------------------------
-
 MrHash | 2026-06-30 20:36:41 UTC | #31
 
 Thanks for the reply and explanation. I understand the problem.
