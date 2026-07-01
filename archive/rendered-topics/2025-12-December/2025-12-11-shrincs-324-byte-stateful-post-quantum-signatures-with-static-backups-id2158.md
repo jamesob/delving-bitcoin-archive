@@ -336,3 +336,15 @@ Thanks to @conduition, @EthanHeilman, @MikKud, and @theblackmarble for the discu
 
 -------------------------
 
+conduition | 2026-07-01 02:39:06 UTC | #22
+
+Very neat idea @jonasnick! The key observation that enables this is that, in order to safely use the stateful signing path of SHRINCS, the signer needs to be absolutely sure that nothing and nobody else has ever used the same stateful keys before. The only way to do that is to generate the keys yourself. Your idea here is that, instead of generating the master seed, the stateful signer software can content itself by deriving a pseudorandom child key, based on a salt (the "ID") that the signer software generates itself. For the purposes of ensuring "virgin state", this is just as good as generating a fresh master seed, provided the salt has enough entropy to ensure collisions are overwhelmingly improbable.
+
+The keys derived from the master seed are unlinkable without the master seed itself, so there is no privacy tradeoff here. Sounds like a strict improvement over the original scheme where to use the stateful path again, you'd need to rotate seed phrases anytime you recover from seed. With this change, you just need to back up the IDs.
+
+Since IDs are safe to share publicly, you could back them up pretty much anywhere: on-chain, Nostr, IPFS, dropbox, a git repo, whatever. As long as they exist _somewhere_ that you or your wallet software can find them later upon restore.
+
+Also worth noting that if we deploy SHRINCS in the real-world, each ID will represent an individual HD wallet, and so instead of just one keypair, a single ID can derive effectively unlimited SHRINCS keypairs, to use for different wallet addresses.
+
+-------------------------
+
