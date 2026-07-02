@@ -7,7 +7,7 @@
   "cooked": "<blockquote>\n<p>In withholding their own data (or any other attack) block propagation would be slowed and so they lose any race.</p>\n</blockquote>\n<p>For someone to lose a race, there has to be have to be competing chaintips in the first place, and the effect of propagation delay is often overestimated.</p>\n<blockquote>\n<p>I don\u2019t think there was any real incentive to use [OP_RETURN] but people moved because its designated.</p>\n</blockquote>\n<p>OP_RETURN was cheaper than embedding data into payment outputs. E.g., a P2PKH output takes 34 bytes of which the 20-byte hash could be used for data embedding. For a payload of <code>n</code> an OP_RETURN output takes <code>11+n</code> bytes with the original policy limiting <code>n</code> to 80 bytes. OP_RETURN has less overhead for any payload length.</p>",
   "post_number": 34,
   "post_type": 1,
-  "posts_count": 31,
+  "posts_count": 32,
   "updated_at": "2026-07-01T17:41:36.634Z",
   "reply_count": 1,
   "reply_to_post_number": 33,

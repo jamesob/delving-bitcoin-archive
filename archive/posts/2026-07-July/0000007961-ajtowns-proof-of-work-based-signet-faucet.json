@@ -13,9 +13,9 @@
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 16.8,
   "yours": false,
   "topic_id": 937,
   "topic_slug": "proof-of-work-based-signet-faucet",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I now have a variation of this that's compatible with stratumv1 ASIC mining. If anyone would like to point bitaxe-level hardware at inquisition.bitcoin-signet.net port 3333 with user set to a signet address (or tb1qr6lmcexy6285f3a04j2a75d39qvcdek739g8cz to send funds back to the mining wallet) for a day or two, you should get to see regular \"block\" solves, and start to received pooled payouts.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -60,9 +65,15 @@
   "excerpt": "I now have a variation of this that\u2019s compatible with stratumv1 ASIC mining. If anyone would like to point bitaxe-level hardware at <a href=\"http://inquisition.bitcoin-signet.net\">inquisition.bitcoin-signet.net</a> port 3333 with user set to a signet address (or tb1qr6lmcexy6285f3a04j2a75d39qvcdek739g8cz to send funds back to the mining wallet) for a&hellip;",
   "truncated": true,
   "post_url": "/t/proof-of-work-based-signet-faucet/937/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "eyes",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

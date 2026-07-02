@@ -439,3 +439,13 @@ Important follow up regarding the economic incentive, i ran the numbers and this
 
 -------------------------
 
+murch | 2026-07-02 16:49:37 UTC | #37
+
+Thanks for the reminder that the inscription envelope requires a commit-reveal output-input pair, and your proposal would be smaller because an output directly commits to the data.
+
+There is still something I don't understand. If the output only commits to the data amount and its hash, but the data is not consensus relevant and it's optional for nodes to keep, why should it count toward the block weight at all?
+I am much more pessimistic than you regarding the number of node operators that would participate in relay of this data. In that case, why change consensus at all?
+Instead, you could have the data be shared on an overlay network of participating nodes: the client would be a wrapper on Bitcoin Core that interprets OP_RETURN outputs with a specific prefix as data transaction announcements that the overlay nodes would retrieve, store, and share. You could cost it by requiring those OP_RETURN outputs to burn some amount of sats per byte (e.g., tied to the feerate of the transaction that created it?). How is your system an improvement over such an overlay network?
+
+-------------------------
+

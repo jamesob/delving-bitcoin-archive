@@ -571,3 +571,28 @@ Could be an interesting compromise between P2MR and P2TRv2?
 
 -------------------------
 
+sipa | 2026-07-02 19:18:21 UTC | #22
+
+I believe this summarizes the exact conditions under which the various schemes have CRQC protection:
+
+| Condition | P2TRv2 | P2TRH | P2MR | P2QR |
+| ---------------- | ------------ | ----------- | ---------- | --------- |
+| After deposit | 🟥 | 🟨 | 🟨 | 🟩 |
+| + PQC spend | 🟥 | 🟧 | 🟨 | 🟩 |
+| + ECC spend | 🟥 | 🟧 | 🟧 | ⬜️ |
+
+(If P2MR is used in a PQC-only mode, it is equivalent to P2QR)
+
+Where:
+* 🟥: only secure if EC was disabled, or no CRQC exists.
+* 🟧: also secure under the combination of (a) there is no address reuse, (b) there is no pubkey sharing, (c) no short-range CRQC exists, and (d) there is no collusion between CRQC and hashrate majority
+* 🟨: also secure under the combinaton of (a) no reuse and (b) no pubkey sharing, without the need for (c) or (d).
+* 🟩: CRQC is no threat
+* ⬜️: not possible
+
+---
+
+I'm not sure what to think about this. It's nice that it maintains the exact same incentive profile as P2TRv2, but the benefits are very thin and it's more complicated. I don't think we should consider :orange_square: interesting (as under it, even P2WSH remains secure, without any PQC opcodes or EC disabling), so the benefit is *just* no-spending deposit-security, and still only when limited to no-reuse no-sharing. I'm curious to what extent this would satisfy people who desire an ability to protect their own coins without relying on EC-disabling (as you know, I don't think it's very relevant, but I understand it sounds appealing).
+
+-------------------------
+

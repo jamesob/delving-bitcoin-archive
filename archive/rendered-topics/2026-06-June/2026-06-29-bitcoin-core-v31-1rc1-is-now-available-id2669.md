@@ -22,3 +22,11 @@ Please test! If you run into issues, please report them to https://github.com/bi
 
 -------------------------
 
+mercie-ux | 2026-07-02 19:30:34 UTC | #2
+
+I have tested v31.1rc1 on my pc ubuntu 22.04(jammy), kernel 6.8.0.124. Environment : Intel Core i5-7300U @ 2.60GHz (4 cores), 8GB RAM.
+
+Ran all the functional test suites(284/284 passed), manually verified (#35316) musig2 empty pubkey rejection, return a clean rpc error as expected. Therefore no issue found.
+
+-------------------------
+
