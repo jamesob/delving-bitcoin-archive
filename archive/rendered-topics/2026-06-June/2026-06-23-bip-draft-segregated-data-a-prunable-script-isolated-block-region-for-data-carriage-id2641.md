@@ -427,3 +427,15 @@ This is an honest attempt to propose a structural solution to reduce node/operat
 
 -------------------------
 
+MrHash | 2026-07-02 12:41:03 UTC | #36
+
+Important follow up regarding the economic incentive, i ran the numbers and this is what i get:
+
+| Payload | SegData | Witness Commit+Reveal | Saving | Saving % |
+|----|----|----|----|----|
+| 256 B | \~865 WU (216 vB) | \~1,210 WU (303 vB) | \~345 WU (86 vB) | \~28% |
+| 1 KB | \~1,633 WU (408 vB) | \~1,996 WU (499 vB) | \~363 WU (91 vB) | \~18% |
+| 10 KB | \~10,849 WU (2,712 vB) | \~11,266 WU (2,817 vB) | \~417 WU (104 vB) | \~4% |
+
+-------------------------
+
