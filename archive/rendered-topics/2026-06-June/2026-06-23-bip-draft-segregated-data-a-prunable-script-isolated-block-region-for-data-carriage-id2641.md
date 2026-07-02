@@ -408,3 +408,22 @@ OP_RETURN was cheaper than embedding data into payment outputs. E.g., a P2PKH ou
 
 -------------------------
 
+MrHash | 2026-07-01 23:25:23 UTC | #35
+
+I should point out after AJ's scenario i'm proposing the reduced consensus rule version of the proposal, although i have to update the BIP, assuming there's no deal breakers.
+
+[quote="murch, post:34, topic:2641"]
+For someone to lose a race, there has to be have to be competing chaintips in the first place, and the effect of propagation delay is often overestimated.
+
+[/quote]
+
+Right, racing is just one scenario. However the key point holds which is that withholding data isn't an attack, it's more of a miner footgun.
+
+> OP_RETURN was cheaper than embedding data into payment outputs
+
+Thanks for the correction. If it's purely economic incentivisation that is required then it is possible to discount deeper, it can be an open question. I discuss the scenarios somewhat in the bip.
+
+This is an honest attempt to propose a structural solution to reduce node/operator burden, without being coercive. I admit that through my own analysis, i'm making the assumption that it is beneficial to draw data out of op_return and witness into something like SegData which offers data prunability. Are there any other proposals i should look at which are addressing this at the moment, or am i completely off track?
+
+-------------------------
+
