@@ -405,3 +405,40 @@ We would love to hear your thoughts and welcome any feedback or suggestions!
 
 -------------------------
 
+AdamISZ | 2026-07-03 13:53:55 UTC | #14
+
+Very interesting paper, thanks @pGerhart !
+
+I've been investigating this myself, though restricting to the onchain case, to see if I could really flesh out how it could work in practice, especially in a taproot context.
+
+The first thing I want to mention is that the version in @olkurbatov 's [paper](https://arxiv.org/pdf/2501.16451) (which does include @ajtowns 's fix mentioned upthread, anyway pointing at the paper since otherwise it's unclear what I'm referring to) still has a security hole: it has B deposit their stake into the payout transaction (TX2), so the final step of the thimbles game shown (Algorithm 2, step 6 "Alice propagates both TX1 and TX2 to the network") is unsafe: TX2 is in Bob's mempool, so he can extract knowledge of whether he won or lost, and conditional on losing, attempt the double spend of his input to TX2.
+
+The obvious solution is that Bob funds the funding transaction, not the payout transaction.
+
+So on to your paper @pGerhart , first I have to note I have only done a very partial read at this stage, but I can already see that you've noted a few things that I noted in trying to a redesign, especially with taproot in mind, but you've added more things too (not *only*, but most importantly, because you are also considering offchain/LN stuff which I was not). My idea can be sketched out like this:
+
+1. Both parties fund a MuSig2 output (call it U1) and pre-sign a refund transaction before paying in. They'll actually fund a second output U2, the same way (in the same funding tx of course), for reasons that become clear later.
+2. Alice provides PoK of two points $H_1 , H_2$; the thimbles game as before, but our secrets are just the dlogs; no hashes involved.
+3. (this is the big difference) Bob **at this step** provides a destination address of form $K=P_b + H_c$ for $c \in 1,2$, with a PoK of $P_b$ and an OR condition that the address (taproot, so address == pubkey) is well-formed. Note that this $P_b$ is not shared in advance, but it is important to PoK it as part of this proof. Notice this ZKP is sigma-protocol only (plus CDS style OR or similar), it does not involve hashes.
+4. Both sides form the payout transaction as: both U1 and U2 pay into $K$ (and optionally other outputs of course).
+5. Alice gives Bob an adaptor on her partial signature spending U1, where the adaptor secret is $h_1$ or $h_2$. Except: no she doesn't ! That would reveal $H_1$ or $H_2$ in Bob's verifying the adaptor, and Bob is not allowed to know that yet. Instead she has to do something more complicated (AIUI, reading Section 3 of your paper reaches the same conclusion about what's needed here): create essentially an "encryption" of an adaptor signature and have it be verifiably correct with a ZKP. This was my reason for introducing a second input U2 to the payout transaction, with its own adaptor, call it to point $T_2$. Now, we have that $t_2$ is in fact the 'decryption key' for the adaptor $s'$ on the original utxo U1, and decrypt($t_2$, $s'$) will yield either $h_1$ or $h_2$. That's what the ZKP will prove. We use Chaum-Pedersen to do the encryption and use standard things like CDS for the OR part. I claim that all of that can be done *without* using hashes [1]. So, all ZKPs remain in $\Sigma-$ protocol land. So Alice sends a secondary adaptor $s'_2$ on U2's payout, along with this ZKP, and the ciphertext that will decrypt to $s'$.
+6. Bob verifies the ZKP and the adaptor on the second utxo U2, call it $s'_2$, against point $T_2$ which is in the ZKP. He's satisified that he will be able to extract one of $h_1, h_2$ if the transaction is published, and therefore sends his partials for spending both U1 and U2 into the payout transaction.
+7. Alice sees everything correct, completes both signatures, revealing the $t_2$ value and then via decryption of the ciphertext to $s'$, either $h_1$ or $h_2$. Notice that all through this, she was never able to see Bob's choice $H_c$ because she never knew the offset $P_b$.
+
+
+[1] Fleshing it out at least a little bit for the curious:  $H$ is NUMS as per usual, $B = \bar R + eP_{\textrm{agg}}$ to keep things shorter, that's the sum of the other terms in the signature. Proof is: $C = s'G + t_2 H$,  ciphertext $\mathrm{ct} = s'+ t_2$.
+She proves knowledge of $(s', t_2, c)$ with:
+
+  (i)   $C = s' G + t_2 H$
+  (ii)  $T_2 = t_2 G$
+  (iii) $\mathrm{ct}\cdot G = s' G + t_2 G$
+  (iv)  $\bigvee_{c=1,2}(s' G = B - H_c)$
+
+Payout transaction reveals $t_2$ via second adaptor (a standard adaptor); Bob then recovers
+$s'= \mathrm{ct} - t_2$ as a scalar, computes $h_c = s_{\mathrm{tot}} - s_{\mathrm{Bob}} - s'$,
+and claims iff $h_c G = H_y$.
+
+Edit: I forgot to mention, that I do understand, a $\Sigma-$ protocol approach like this is not valid for your case if you want a ton of different outcomes, not just 2, because it's linear, you do need something more sophisticated, so just in case anyone thinks I am claiming this is "better", I certainly am not. (Also btw I noticed that the term $C$ in the above footnoted-proof sketch is not needed, but that's a minor detail.)
+
+-------------------------
+

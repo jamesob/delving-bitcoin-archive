@@ -1,8 +1,9 @@
 # Empirical ML-DSA-87 data from a live SHA-256 PoW chain (relevant to BIP-360 / Witness V3 sizing discussion)
 
-geobees | 2026-07-03 05:29:02 UTC | #1
+geobees | 2026-07-03 12:43:43 UTC | #1
 
-We've been running ML-DSA-87 (NIST FIPS 204, Security Level 5) as the sole signature scheme on KVANTA5 (KV5), a SHA-256 proof-of-work chain, live on mainnet since June 1, 2026. To get concrete data on the input-count and witness-size questions raised in this thread, we ran a deliberate stress test on mainnet: fan a single input out to 4,000 P2QR outputs, then consolidate all 4,000 back into a single output paid to: kvqr1kj0dn9plgxxtewg44vm8ze3f899he22p27qev2xfmh6yt0498qgqx8gexh. Posting the real numbers below.
+We've been running ML-DSA-87 (NIST FIPS 204, Security Level 5) as the sole signature scheme on KVANTA5 (KV5), a SHA-256 proof-of-work chain, live on mainnet since June 1, 2026. To get concrete data on the input-count and witness-size questions raised in this thread, we ran a deliberate stress test on mainnet: fan a single input out to 4,000 P2QR outputs, then consolidate all 4,000 back into a single output paid to: kvqr1kj0dn9plgxxtewg44vm8ze3f899he22p27qev2xfmh6yt0498qgqx8gexh. 
+Posting the real numbers below.
 
 **## Background**
 
@@ -14,10 +15,10 @@ We've been running ML-DSA-87 (NIST FIPS 204, Security Level 5) as the sole signa
 
 **## Stress test: two stages, real mainnet blocks**
 
-**\*\*Stage 1 (Block** #21797**) --- fanout, 1 input -> 4,001 outputs\*\***
+**\*\*Stage 1 (Block** #21797\*\*) --- fanout, 1 input -> 4,001 outputs\*\*\*\*
 TXID \`804b8e7bcea43dbaebe62078f5f28e2df26ceb77a828102c231d598f5634e255\`. Size 179,323 bytes, vsize 179,323, weight 717,292. One P2SH Compatibility Address input spending out to 4,000 new P2QR outputs of 0.01 KV5 each plus one larger change-style output, confirmed under live PoW. Mined 6/18/2026, 1:29:13 AM.
 
-**\*\*Stage 2 (Block** #21798**) --- consolidation, 4,000 inputs -> 1 output\*\***
+**\*\*Stage 2 (Block** #21798\*\*) --- consolidation, 4,000 inputs -> 1 output\*\*\*\*
 TXID \`9d24c8669da9bcccf05b3eee6cf80a210873ed4a8b5d408da29c64a13c02dbca\`. This is the more relevant data point for the input-cost question this thread flags as open. Size **\*\*29,072,055 bytes (\~29MB)\*\***, vsize 29,072,055, weight **\*\*116,288,220\*\***, mined one block later at 1:30:02 AM. All 4,000 P2QR outputs from Stage 1 were spent back into a single 39 KV5 output, confirmed under real proof-of-work consensus --- a deliberate stress test, not organic traffic, but run on live mainnet rather than a testnet or simulator.
 
 Exact per-input size from these totals: 29,072,055 bytes / 4,000 inputs ≈ **\*\*7,268 bytes/input\*\*** average, consistent with ML-DSA-87's signature (4627 bytes) plus public key (2592 bytes) sizes plus scriptSig/varint overhead per input.
