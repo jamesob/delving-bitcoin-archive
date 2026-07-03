@@ -596,3 +596,18 @@ I'm not sure what to think about this. It's nice that it maintains the exact sam
 
 -------------------------
 
+ajtowns | 2026-07-03 05:28:52 UTC | #23
+
+That looks accurate. I think the spend costs are:
+
+|Spend Type | P2TRv2 | P2TRH | P2MR | P2MR+PKR | P2PQ |
+|--- | --- | --- | ---| --- | --- |
+|PQC Overhead | 32B | 32B  | 32B | 32B | 0B |
+|ECC Sig | 64B  | 64B (nb) | 128B | 96B (nb) | -- |
+
+Making an ECC path available adds a 32B (or 33B) overhead for accessing the PQ path in each case, I think; and for the ECC sig, the pubkey recovery requirement makes the signature verification unbatchable, and the P2MR approach adds a sibling reveal and a pubkey reveal.
+
+Hmm, if we increased the block size because of the larger size of PQ signatures by adding an extension block area for PQ signature data, we could also put the extra overhead for ECC spends of P2MR or P2MR+PKR in that same extension block space, and arbitrarily reduce the cost of that overhead; having the first 32B or 64B per-input be free would be manageable, I think, and might be sufficient to make P2MR ECC paths economically competitive with p2wpkh and p2tr, even without abandoning batching.
+
+-------------------------
+
