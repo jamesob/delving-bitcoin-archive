@@ -442,3 +442,16 @@ Edit: I forgot to mention, that I do understand, a $\Sigma-$ protocol approach l
 
 -------------------------
 
+AdamISZ | 2026-07-03 17:59:00 UTC | #15
+
+The above construction is broken, oops.
+
+Concretely: for the second adaptor, it's on the point $T_2$. If we are giving ciphertext ct and the point $T_2$, then Bob can at that point calculate $s' G = ct G - T_2$. And since he can pre-calculate (because nonces are negotiated) $s_{\textrm{Alice}} G$ as $R + H(R, P_{\textrm{agg}}, m) a_A P_A$, he can subtract to find the chosen point $H_c = s'_{\textrm{Alice}} G - s_{\textrm{Alice}} G$.
+
+Which is just another manifestation of why we use hashes here - Dlog hiding doesn't hide the choice.
+
+But I still think the above setup is interesting, for the case that interests me: you can make $ct=s′+H(t_2)$, and then the proof needs, in-circuit, one hash evaluation $H(t_2)$ plus a scalar-mult check binding that same $t_2$
+​ to the revealed adaptor point ( $t_2 G = T_2$ ​). I think that the most important difference is that this only works for enumerable/communicable sets (I am imagining a binary outcome, or maybe a few outcomes), whereas your OPRF stuff doesn't need to do that, and so can support a very large range of outcomes, but (I think?) pays a bit more inside the ZKPs.
+
+-------------------------
+

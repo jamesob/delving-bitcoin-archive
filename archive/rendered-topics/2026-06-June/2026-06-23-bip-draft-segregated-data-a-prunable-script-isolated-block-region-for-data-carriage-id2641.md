@@ -449,3 +449,13 @@ Instead, you could have the data be shared on an overlay network of participatin
 
 -------------------------
 
+MrHash | 2026-07-03 17:03:03 UTC | #38
+
+The SegData proposal is intended to decollectivise resource control on the declared intent of the carrier. It has to have a weight check otherwise people would be able to carry data for free, which is unacceptable. An overlay design is a different proposal, and such things exist already (OP_RETURN+IPFS, RGB, OpenTimestamps), and maybe they draw some traffic off-chain. Burns aren't adopted well in the market because they destroy coins and compensate no one, whereas fees are transfers and reusable. Even at zero participation SegData yields a priced, bounded, committed record, and an overlay would cost a similar OP_RETURN but yield limited availability.
+
+At low participation SegData might seem like an overlay but the question about participation isn't settled. SegData retention is the default, the majority of Bitcoin node operators are not pruning so it's not right to expect they would prune data in bulk either. The resource constrained or ideological can opt-out, but mostly the ideological grievance is based on values not resources. SegData just allows the protocol to treat data as a specific type which brings the pruning decision to the node, the only legitimate place for it. The other argument is, if everyone pruned blocks because of resource limits then block availability dies with much worse consequences, blocks are needed to sync, where SegData isn't, so the accepted case is actually the more dangerous one.
+
+If pruning is permissable then it is possible that pruning policies centralize, which could lead to redundancy attrition. Therefore prunability has to be priced appropriately and the risk of crowding out money uses addressed. SegData would probably need to be cheaper and so a region size cap may be required. I'd need to derive some numbers here, but the upside to that is it would be an effective block size reduction for opting-out nodes :face_with_raised_eyebrow:
+
+-------------------------
+
