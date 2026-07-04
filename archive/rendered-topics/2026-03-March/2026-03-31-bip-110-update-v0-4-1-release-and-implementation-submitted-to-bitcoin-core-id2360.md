@@ -413,3 +413,19 @@ I have started looking into the code. Thank you for your contribution,@dathonohm
 
 -------------------------
 
+dathonohm | 2026-07-04 03:26:56 UTC | #17
+
+Some of my replies were deleted from this thread. Does anyone know how to contact the forum moderators in order to restore them?
+
+Deleted post #1: 
+![deleted-delving-post-1|690x347](upload://gZm7I33xFWWHWN4Qzjq3kycB8QX.png)
+
+-------------------------
+
+dathonohm | 2026-07-04 03:27:34 UTC | #18
+
+Deleted post #2: 
+![deleted-delving-post-2|690x317](upload://9g06ZfwI9SnMRh3X7tYgotiOimm.jpeg)
+
+-------------------------
+
