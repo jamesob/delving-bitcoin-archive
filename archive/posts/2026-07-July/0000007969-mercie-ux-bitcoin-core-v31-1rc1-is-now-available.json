@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
+  "reads": 12,
+  "readers_count": 11,
   "score": 2.2,
   "yours": false,
   "topic_id": 2669,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I have tested v31.1rc1 on my pc ubuntu 22.04(jammy), kernel 6.8.0.124. Environment : Intel Core i5-7300U @ 2.60GHz (4 cores), 8GB RAM.\n\nRan all the functional test suites(284/284 passed), manually verified (#35316) musig2 empty pubkey rejection, return a clean rpc error as expected. Therefore no issue found.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I have tested v31.1rc1 on my pc ubuntu 22.04(jammy), kernel 6.8.0.124. Environment : Intel Core i5-7300U @ 2.60GHz (4 cores), 8GB RAM. \nRan all the functional test suites(284/284 passed), manually verified (#35316) musig2 empty pubkey rejection, return a clean rpc error as expected. Therefore no iss&hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-core-v31-1rc1-is-now-available/2669/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
