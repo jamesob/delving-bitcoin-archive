@@ -558,3 +558,19 @@ Oh, I forgot to add in this thread: PathCoin is not relevant to the discussion, 
 
 -------------------------
 
+nkaretnikov | 2026-07-06 17:28:49 UTC | #27
+
+On CISA:
+
+Fabian just posted a full-agg BIP draft: https://groups.google.com/g/bitcoindev/c/TF5mPfy58RQ/m/vAk1Mfg2AwAJ
+
+For more information on CISA, I recommend Fabian's HRF research report: https://hrf.org/latest/cisa-research-paper/
+
+-------------------------
+
+fjahr | 2026-07-06 18:46:53 UTC | #28
+
+And Half-agg received BIP number 454: https://github.com/bitcoin/bips/pull/2205 :)
+
+-------------------------
+
