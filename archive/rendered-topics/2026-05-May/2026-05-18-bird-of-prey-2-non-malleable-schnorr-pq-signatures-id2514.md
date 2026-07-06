@@ -201,3 +201,24 @@ Video of the presentation: https://www.youtube.com/watch?v=FbdbkOKby8c
 
 -------------------------
 
+geobees | 2026-07-05 23:11:23 UTC | #10
+
+**Empirical ML-DSA-87 sizing from a live SHA-256 PoW chain**
+
+On the signature size question — We've been running ML-DSA-87 as the *sole* signature scheme on a live SHA-256 PoW chain (no hybrid) and have some concrete numbers that may be useful context here.
+
+Per-input breakdown:
+
+* Signature: \~4,627 bytes
+* Public key: \~2,592 bytes
+* Overhead: \~41 bytes
+* **Total per input: \~7,260 bytes** (\~68× a P2WPKH input)
+
+At scale, a 715,001-output transaction weighed in at \~29MB for the Fan Out sweep. Construction + signing took \~1.15 hours on capable hardware (AMD EPYC-class). Fee rebump + full resign added \~10 minutes.
+
+This is consistent with sipa's observation that the PQ blob is "the dominant element" — the Schnorr R (32 bytes) is essentially rounding error at this scale. Whether that argues for or against hybridization probably depends on your threat model, but in terms of block space budgeting, the PQ signature is the entire conversation.
+
+Full sizing data and methodology posted here: [Empirical ML-DSA-87 data from a live SHA-256 PoW chain](https://delvingbitcoin.org/t/empirical-ml-dsa-87-data-from-a-live-sha-256-pow-chain-relevant-to-bip-360-witness-v3-sizing-discussion)
+
+-------------------------
+
