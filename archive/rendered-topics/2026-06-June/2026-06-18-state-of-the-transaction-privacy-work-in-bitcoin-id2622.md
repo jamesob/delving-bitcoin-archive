@@ -568,9 +568,11 @@ For more information on CISA, I recommend Fabian's HRF research report: https://
 
 -------------------------
 
-fjahr | 2026-07-06 18:46:53 UTC | #28
+fjahr | 2026-07-06 21:55:02 UTC | #28
 
-And Half-agg received BIP number 454: https://github.com/bitcoin/bips/pull/2205 :)
+And Half-agg received BIP number ~~454~~: https://github.com/bitcoin/bips/pull/2205 :slight_smile:
+
+Edit: The number changed to 458 to allow for consecutive numbers for the CISA proposal.
 
 -------------------------
 
