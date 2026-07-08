@@ -733,13 +733,13 @@ While eliminating all forms of EC public key exposure would of course be difficu
 
 -------------------------
 
-sipa | 2026-07-08 20:20:18 UTC | #30
+sipa | 2026-07-08 20:31:12 UTC | #30
 
 [quote="conduition, post:28, topic:2603"]
 * The additional complexity is worth the protection and efficiency it offers. The alternatives are (1) when Q-day arrives, nobody has anywhere safe to send money unless we somehow solve the tripwire problem, or (2) prior to Q-day all EC witnesses are \~35 bytes larger.
 [/quote]
 
-I think this needs important qualifications.
+I think this claim of additional protection has important qualifications.
 
 The restrictions on getting post-CRQC pre-EC-disabling security are in my view, very severe: no address reuse, no public key sharing, and no spending whatsoever. It's certainly possible to comply with that if convinced it's worth it and taking special effort, but it's not something that applies to the casual user. They, or their senders, might even be using software that isn't aware Q-day arrived. Convinced users who care about post-CRQC pre-EC-disabling security, and who are willing to adopt carefully chosen workflows that avoid the pitfalls, would just choose P2MR over P2TRv2 if both existed, in my view. Casual users will just keep reusing addresses etc., and thus not get the CRQC-resistance anyway, whether they use P2TRv2 or P2TRH.
 
@@ -761,7 +761,7 @@ No. It's useful for proof-of-reserve systems, and it has been [discussed](https:
 
 As you know, I believe this is pretty much a requirement regardless (not tripwire specifically, but timely EC disabling in general).
 
-But even ignoring the "what's left of Bitcoin if we have mass freeze or theft" concern, I believe the advantages of P2MR over P2TRv2, and even more so the advantages of P2TRH over P2TRv2, are mostly marketing. I certainly understand the *appeal*. If are you told you have the choice between two types of outputs, one is a bit cheaper and the other *may* remain secure post-Q-day, many will likely happily take the second option. But when adding that for that "may" to hold you also must strictly never reuse an address, not use Lightning, not share descriptors or xpubs, the advantages of (current designs for) hardware wallet over software wallets disappear, and post Q-day, you must instruct your software to only use the PQC path anymore (or in the case of P2TRH, not transact at all), and treating incoming transactions that use EC witnesses as not-yet-confirmed, I don't expect many users are going to follow all that.
+But even ignoring the "what's left of Bitcoin if we have mass freeze or theft" concern, I believe the advantages of P2MR over P2TRv2, and even more so the advantages of P2TRH over P2TRv2, are mostly marketing. I certainly understand the *appeal*. If are you told you have the choice between two types of outputs, one is a bit cheaper and the other *may* remain secure post-Q-day for, many will likely happily take the second option. But when adding that for that "may" to hold you also must strictly never reuse an address, not use Lightning, not share descriptors or xpubs, the advantages of (current designs for) hardware wallet over software wallets disappear, and post Q-day, you must instruct your software to only use the PQC path anymore (or in the case of P2TRH, not transact at all), and treating incoming transactions that use EC witnesses as not-yet-confirmed, I don't expect many users are going to follow all that.
 
 So if there are users who would be skeptical about P2TRv2 and wouldn't adopt it, but they would adopt P2TRH or P2MR, then that's perhaps a good reason to offer it (too). That's even the case when expecting that most of them will misuse it regardless and thus not actually get the benefit, but still be fine (in good outcomes) because they'll end up being protected by EC-disabling anyway. This feels like disingenuous marketing to me, but perhaps it's needed to get sufficiently wide adoption, I don't know.
 
@@ -769,7 +769,7 @@ So if there are users who would be skeptical about P2TRv2 and wouldn't adopt it,
 I don’t personally believe P2QR would see much uptake
 [/quote]
 
-That's fine, as far as I'm concerned, people shouldn't to adopt it until then. But some may insist to have some option for post-CRQC pre-EC-disabling security, and P2QR is IMO the only honest option to provide that.
+That's fine, as far as I'm concerned, people shouldn't to adopt it until then. But some may insist to have some option for post-CRQC pre-EC-disabling security, and P2QR is IMO the most honest option to provide that.
 
 [quote="ArmchairCryptologist, post:29, topic:2603"]
 While eliminating all forms of EC public key exposure would of course be difficult due to the use of xpubs for things like hardware wallets and auditing, this is still far less critical than on-chain exposure
