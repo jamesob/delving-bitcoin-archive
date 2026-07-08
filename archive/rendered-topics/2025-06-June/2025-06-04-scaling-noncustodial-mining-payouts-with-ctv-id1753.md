@@ -374,3 +374,9 @@ You are assuming that all hashers prefer a custodian with slightly more reward f
 
 -------------------------
 
+djh58 | 2026-07-08 18:37:31 UTC | #19
+
+I ended up implementing this on a chain that has CTV enabled, have a question I put in this thread: https://delvingbitcoin.org/t/fee-selection-for-ctv-based-mining-pool-fanouts/2698?u=djh58
+
+-------------------------
+

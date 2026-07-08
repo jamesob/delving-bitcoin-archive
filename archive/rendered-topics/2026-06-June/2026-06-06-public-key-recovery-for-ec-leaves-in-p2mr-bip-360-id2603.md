@@ -656,3 +656,80 @@ Reasonable counterpoints to this are that:
 
 -------------------------
 
+conduition | 2026-07-08 16:05:26 UTC | #26
+
+[quote="sipa, post:25, topic:2603"]
+It’s true, that’s possible. But I think this construction is mostly equivalent to having both a P2MR and P2TRv2 output type, and if that’s acceptable, it’s better to do just that.
+[/quote]
+
+It would be equivalent to deploying both P2MR and **P2TRH**. P2TRv2 is very different in that it is susceptible to long-exposure attacks.
+
+[quote="sipa, post:25, topic:2603"]
+If I understand it correctly, this would boil down to always revealing, at spend time, whether it was a P2MR-style commitment or a P2TRH-style commitment. So from a spending-policy-privacy perspective, they are distinguishable anyway and function as separate anonymity sets.
+[/quote]
+
+Unfortunately you're correct: it would effectively be two address formats packaged into one, at least from the perspective of chain analysts. To users the two formats would look identical, and one could argue that is a good or bad thing depending on perspective.
+
+After thinking about it some more, I'm inclined to agree that deploying two different output types would be equally useful, but more practical from an engineering perspective. Separate BIPs, simpler spec and code.
+
+[quote="sipa, post:25, topic:2603"]
+For what it’s worth, I think it’s worth considering actually having both P2MR and P2TRv2 type outputs, but I’d like to ask you to consider another combination too: P2QR + P2TRv2.
+[/quote]
+
+Why P2TRv2 and not P2TRH?
+
+-------------------------
+
+sipa | 2026-07-08 17:39:58 UTC | #27
+
+[quote="conduition, post:26, topic:2603"]
+It would be equivalent to deploying both P2MR and **P2TRH**. P2TRv2 is very different in that it is susceptible to long-exposure attacks.
+[/quote]
+
+Yes, there is. But I think the difference's relevance disappears when offering both (P2TRv2 or P2TRH) and P2MR, because the advantage (offering users the option to make coins CRQC-resistant without relying on ecosystem action) is offered (in a stronger form) by P2MR.
+
+As I noted in my comparison table [post above](https://delvingbitcoin.org/t/public-key-recovery-for-ec-leaves-in-p2mr-bip-360/2603/22), I think it's an advantage that comes with pretty serious restrictions (no reuse, no pubkey sharing, no spending, not even PQC spending, all until EC disabling), but I accept it's a distinction that some will probably find relevant. However, with P2MR also available, I don't see why anyone who feels strongly about that ability wouldn't use P2MR instead (which remains secure under post-Q-day pre-EC-disabling PQC spending at least).
+
+[quote="conduition, post:26, topic:2603"]
+Why P2TRv2 and not P2TRH?
+[/quote]
+
+P2TRH comes with additional complexity (new BIP340 signature variant) and lacks some features (like ring signatures for proofs of reserve / UTXO DoS resistance) that P2TRv2 doesn't have. As I said, I don't think these are dealbreakers, but with the advantage of P2TRH over P2TRv2 mostly gone, I don't see why not pick the most frictionless-to-adopt scheme possible.
+
+-------------------------
+
+conduition | 2026-07-08 18:18:38 UTC | #28
+
+
+> Why P2TRv2 and not P2TRH?
+
+Ah i see your earlier points now apply to this question:
+
+[quote="sipa, post:25, topic:2603"]
+* Additional complexity due to the need for a new BIP340 variant with keyhash-commitment and recovery.
+* Given up on batch validation.
+* Removed the advantage of simple ring signatures and other constructions that rely on direct public keys.
+[/quote]
+
+To that i say:
+- The additional complexity is worth the protection and efficiency it offers. The alternatives are (1) when Q-day arrives, nobody has anywhere safe to send money unless we somehow solve the tripwire problem, or (2) prior to Q-day all EC witnesses are ~35 bytes larger.
+- Batch verification still hasn't been merged into core, even now 7 years after P2TR was deployed. [The PR](https://github.com/bitcoin/bitcoin/pull/29491) has not been touched in 6 months AFAICT. It doesn't seem like anyone is in a hurry to get it working, so why sacrifice security for a feature we're not even using?
+- Can you cite real examples that make use of posting bare pubkeys in the SPK? I don't know of any myself
+
+-------------------------
+
+ArmchairCryptologist | 2026-07-08 19:01:51 UTC | #29
+
+[quote="sipa, post:25, topic:2603"]
+I think P2QR is actually better at providing the option of security regardless of ecosystem actions, because in practice, I think many of those who’d be inclined to use that will still reuse addresses (which may not even be under their control, but the sender’s), and share public keys because it’s so ingrained in workflows. P2QR offers security even when all that is allowed. It comes at a high cost of course, and is clearly not for everyone, but I think that’s ok with the option of P2TRv2 too.
+
+[/quote]
+
+If P2QR has no EC spending from inception, this does of course eliminate the risk of EC public key exposure, but it also means that P2MR has a different security advantage where, if a critical flaw is found in the chosen PQC algorithm before EC spending is disabled, you would still be able to migrate off it using the EC spending path.
+
+Unless there is a hefty discount for the PQ signature from day 1 that makes it not significantly more expensive than existing address types, I don't personally believe P2QR would see much uptake until there is a clear and imminent threat of CRQCs materializing in the very near future, or possibly not even before one has been proven to exist. Which I believe would be far too late. Ideally, most of the active coins should have migrated at that point, and the only way I see this happening is if the increase in cost of using it prior to day-QC is negligible.
+
+While eliminating all forms of EC public key exposure would of course be difficult due to the use of xpubs for things like hardware wallets and auditing, this is still far less critical than on-chain exposure, which should be manageable for P2MR for someone who is aware of the dangers.
+
+-------------------------
+
