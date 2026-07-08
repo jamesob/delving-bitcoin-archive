@@ -627,3 +627,32 @@ Thoughts?
 
 -------------------------
 
+sipa | 2026-07-08 02:30:18 UTC | #25
+
+It's true, that's possible. But I think this construction is mostly equivalent to having both a P2MR and P2TRv2 output type, and if that's acceptable, it's better to do just that.
+
+If I understand it correctly, this would boil down to always revealing, at spend time, whether it was a P2MR-style commitment or a P2TRH-style commitment. So from a spending-policy-privacy perspective, they are distinguishable anyway and function as separate anonymity sets.
+
+It is desirable to have as few such sets as possible, but in my view we'll need at least one new one anyway (to convey "ECC can be disabled in here without confiscation risk", and post-Q-day also inevitably due to the distinguishable use of PQC opcodes). I saw P2TRH as an attempt to get some of the properties of P2MR and some of the properties of P2TRv2 in a single set (at least as long as the key path is used, just like P2TR), at the cost of additional complexity.
+
+If this is overloaded further to provide both anyway, I feel we've gone full circle, given up on the single-set advantage, and created something with worse properties than both P2MR and P2TRv2 separately:
+
+* Additional complexity due to the need for a new BIP340 variant with keyhash-commitment and recovery.
+* Given up on batch validation.
+* Removed the advantage of simple ring signatures and other constructions that rely on direct public keys.
+
+I don't think any of the above are dealbreakers on their own, but taking them for just the benefit of no-spending-at-all security for those choosing P2TRH-style under very limited circumstances, and an output type that unifies the two before spending, seems like a bad trade-off to me.
+
+----
+
+For what it's worth, I think it's worth considering actually having both P2MR and P2TRv2 type outputs, but I'd like to ask you to consider another combination too: P2QR + P2TRv2.
+
+I think P2QR is actually better at providing the option of security regardless of ecosystem actions, because in practice, I think many of those who'd be inclined to use that will still reuse addresses (which may not even be under their control, but the sender's), and share public keys because it's so ingrained in workflows. P2QR offers security even when all that is allowed. It comes at a high cost of course, and is clearly not for everyone, but I think that's ok with the option of P2TRv2 too.
+
+Reasonable counterpoints to this are that:
+
+* users can always use P2MR in P2QR-style. I worry about correctly conveying "if you ever plan to reuse address or do anything funky, the promise of post-Q security without relying on ecosystem action disappears", however.
+* if ECC disabling happens as expected by P2TRv2, P2MR and P2QR become equivalent. My concern here is that relying on this feels disingenuous: it's hoping people adopt P2MR because of its promise of no-ecosystem-reliant security, but knowing that due to the arduous constraints many will get it wrong, but then expect the EC disabling to save them still.
+
+-------------------------
+
