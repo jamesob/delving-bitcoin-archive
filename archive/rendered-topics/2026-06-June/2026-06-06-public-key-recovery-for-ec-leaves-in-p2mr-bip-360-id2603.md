@@ -733,7 +733,7 @@ While eliminating all forms of EC public key exposure would of course be difficu
 
 -------------------------
 
-sipa | 2026-07-08 20:19:34 UTC | #30
+sipa | 2026-07-08 20:20:18 UTC | #30
 
 [quote="conduition, post:28, topic:2603"]
 * The additional complexity is worth the protection and efficiency it offers. The alternatives are (1) when Q-day arrives, nobody has anywhere safe to send money unless we somehow solve the tripwire problem, or (2) prior to Q-day all EC witnesses are \~35 bytes larger.
@@ -741,7 +741,7 @@ sipa | 2026-07-08 20:19:34 UTC | #30
 
 I think this needs important qualifications.
 
-The restrictions on getting post-CRQC pre-EC-disabling security are in my view, very severe: no address reuse, no public key sharing, and no spending whatsoever. It's certainly possible to comply with that if convinced it's worth it and taking special effort, but it's not something that applies to the casual user. They, or their senders, might even be using software that isn't aware Q-day arrived. Convinced users who are about post-CRQC pre-EC-disabling security, and who are willing to adopt carefully chosen workflows that avoid the pitfalls, would just choose P2MR over P2TRv2 if both existed, in my view. Casual users will just keep reusing addresses etc., and thus not get the CRQC-resistance anyway, whether they use P2TRv2 or P2TRH.
+The restrictions on getting post-CRQC pre-EC-disabling security are in my view, very severe: no address reuse, no public key sharing, and no spending whatsoever. It's certainly possible to comply with that if convinced it's worth it and taking special effort, but it's not something that applies to the casual user. They, or their senders, might even be using software that isn't aware Q-day arrived. Convinced users who care about post-CRQC pre-EC-disabling security, and who are willing to adopt carefully chosen workflows that avoid the pitfalls, would just choose P2MR over P2TRv2 if both existed, in my view. Casual users will just keep reusing addresses etc., and thus not get the CRQC-resistance anyway, whether they use P2TRv2 or P2TRH.
 
 [quote="conduition, post:28, topic:2603"]
 * Batch verification still hasn’t been merged into core, even now 7 years after P2TR was deployed. [The PR](https://github.com/bitcoin/bitcoin/pull/29491) has not been touched in 6 months AFAICT. It doesn’t seem like anyone is in a hurry to get it working, so why sacrifice security for a feature we’re not even using?
