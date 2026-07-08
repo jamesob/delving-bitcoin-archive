@@ -611,13 +611,13 @@ Hmm, if we increased the block size because of the larger size of PQ signatures 
 
 -------------------------
 
-conduition | 2026-07-07 17:44:46 UTC | #24
+conduition | 2026-07-08 15:36:11 UTC | #24
 
 It's possible to recover P2TRH as a special case of P2MR. In P2TRH, the key-spend path could be viewed as a depth-zero P2MR tree with a single recoverable EC leaf, which may or may not contain a commitment to a deeper (nested) script tree. 
 
 In other words, users could have either 
 - a P2MR tree with multiple script leaves which can use PQ or EC signatures.
-- a P2MR tree with one leaf which is a recoverable EC key. Spend with a single signature $(R,s)$ and verify by recovering the pubkey $P'$ and comparing $H(P')$ against the P2MR root. **Or** spend by revealing an internal key $P$, script $S$, and control block $b$ such that $P' = P + H(P\ \|\ \mathsf{RecomputeMerkleRoot}(H(S), b)) \cdot G$. Obviously also check the script executes correctly.
+- a P2MR tree with one leaf which is a recoverable EC key. Spend with a single signature $(R,s)$ and verify by recovering the pubkey $P'$ and comparing $H(P')$ against the P2MR root. **Or** spend by revealing an internal key $P$, script $S$, and control block $b$ such that $P' = P + H(P\ \|\ \mathsf{RecomputeMerkleRoot}(H(S), b)) \cdot G$ and $H(P')$ is the P2MR root. Obviously also check the script executes correctly.
 
 So there is one more option to add to the list. We could deploy P2MR with P2TRH as a special case. Then P2TRv2 proponents get their wish to keep the witness size overhead equivalent to P2TR, while P2MR proponents get their wish for full quantum-security without need for follow-ups.
 
