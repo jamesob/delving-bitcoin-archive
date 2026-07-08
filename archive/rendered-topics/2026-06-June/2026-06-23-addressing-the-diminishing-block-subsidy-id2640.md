@@ -314,3 +314,50 @@ It's completely possible that in Pieter's market experiment a centralized Bitcoi
 
 -------------------------
 
+show1225 | 2026-07-08 12:47:47 UTC | #19
+
+My estimation on an equilibrium point of the dynamic block size proposal.
+
+I categorized transactions by transaction types (Runes / not Runes) and sent amount (BTC) from block height 943,139 to 956,005 (April to June 2026):
+
+| Category | Tx Count | % of all | Tx count / block | Median Tx Size (vB) | Average Tx Size (vB) | Median Sent (BTC) | Average Sent (BTC) |
+|----|----|----|----|----|----|----|----|
+| Runes | 32,390,725 | 58.1% | 2517 | 140 | 143.6 | 0.00022330 | 0.00098012 |
+| ≤ 0.0001 BTC | 1,623,181 | 2.9% | 126 | 153 | 335.4 | 0.00000546 | 0.00002511 |
+| 0.0001 – 0.001 BTC | 4,251,173 | 7.6% | 330 | 141 | 179.7 | 0.00045576 | 0.00048786 |
+| 0.001 – 0.01 BTC | 7,745,101 | 13.9% | 602 | 142 | 207.2 | 0.00313992 | 0.00388373 |
+| 0.01 – 0.1 BTC | 5,462,800 | 9.8% | 425 | 153 | 298.3 | 0.0248835 | 0.03361019 |
+| 0.1 – 1 BTC | 2,595,252 | 4.7% | 202 | 184 | 703.3 | 0.29558826 | 0.37517733 |
+| \> 1 BTC | 1,692,181 | 3.0% | 132 | 206 | 794.8 | 4.37674230 | 39.21049520 |
+| Total | 55,760,413 | 100.0% | 4334 | 140 | 221.7 | 0.00064009 | 1.21183610 |
+
+Then, I applied various survival rates (\*) at 40 sat / vB fee level (Jameson's recommended fee level).
+(\*) Higher fees price out transactions. Tiny transactions will get most affected while larger transactions will be affected less.
+
+| Category | Current Tx count / block | Survival rate at 40 sat/vB | Tx count / block at 40 sat/vB | Average Tx Size (vB) | Current block foot print (vB) | Block footprint at 40 sat/vB (vB) |
+|----|----|----|----|----|----|----|
+| Runes | 2517 | 5% | 126 | 143.6 | 361,491 | 18,075 |
+| ≤ 0.0001 BTC | 126 | 5% | 6 | 335.4 | 42,311 | 2,116 |
+| 0.0001 – 0.001 BTC | 330 | 25% | 83 | 179.7 | 59,372 | 14,843 |
+| 0.001 – 0.01 BTC | 602 | 40% | 241 | 207.2 | 124,721 | 49,888 |
+| 0.01 – 0.1 BTC | 425 | 80% | 340 | 298.3 | 126,646 | 101,317 |
+| 0.1 – 1 BTC | 202 | 90% | 182 | 703.3 | 141,854 | 127,669 |
+| \> 1 BTC | 132 | 100% | 132 | 794.8 | 104,527 | 104,527 |
+| Total | 4334 | 25.6% | 1108 | 221.7 | 960,922 | 418,434 |
+
+=> 1MB block would shrink to 418KB (based on my rough assumption). Fees per block will be 418,434 vB \* 40 sat/vB = 0.167 BTC/block.
+
+**Runes**
+The biggest lever is price elasticity of Runes transactions, but I put a very(?) low survival rate. When transaction cost gets tens of times higher, minting lottery tickets randomly will become economically unjustifiable. Furthermore, Runes movement itself could be ephemeral.
+
+**PQ Signatures**
+If we all transition to a hash-based stateless PQ signature, transaction size would grow 61.4% on average. This will push survival rates slightly lower and the equilibrium point would be somewhere between 500KB to 600KB, which means fees per block will be 0.2 - 0.24 BTC/block .
+
+**Scaling solutions**
+Any scaling / aggregation solution will further decrease block demand. In the post subsidy world, we cannot purely celebrate clever scaling solutions if demand does not follow well  . 
+
+**BTC price**
+If BTC price gets higher, so do fees. Both users' transaction value and their willingness to pay fees are somewhat fiat-denominated. If BTC price soars, transaction demand could be dwarfed further in the long term. Security budget (fees per block) will not grow proportionally with Bitcoin's market cap.
+
+-------------------------
+
