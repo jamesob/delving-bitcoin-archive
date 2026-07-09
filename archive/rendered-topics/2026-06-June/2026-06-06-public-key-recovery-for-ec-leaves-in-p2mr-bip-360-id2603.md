@@ -779,3 +779,29 @@ I think this is a severe false sense of security.
 
 -------------------------
 
+starius | 2026-07-09 04:37:41 UTC | #31
+
+It seems the discussion is now mostly about P2TRv2+P2MR vs P2TRH+P2MR.
+
+I see two different use cases here: (1) regular wallets and (2) responsibly managed high-value storage.
+
+For responsibly managed high-value storage, P2MR looks like the better fit. Compared to P2QR it keeps cheap pre-Q-day EC spending, assuming the responsible operator can avoid EC key leaks. Compared to P2TRH it can be spent securely on Q-day before EC disabling.
+
+So the main question is what is better for regular wallets: P2TRv2 or P2TRH?
+
+The advantage of P2TRH is that a CRQC cannot steal from P2TRH if the EC public key has not been revealed on-chain or off-chain. P2TRv2 coins are vulnerable after Q-day and before EC disabling. With P2TRH at least some coins will still be safe, depending on user behavior. There will probably be a big run from P2TR(v2) to P2MR on Q-day. Some P2TRH owners (who did not leak their EC public keys) can wait. This is good for others who are under time pressure to migrate - a positive effect for the whole network.
+
+The advantages of P2TRv2 are simplicity, existing BIP-340 verification, batch validation, direct-pubkey constructions, and a clearer security model. P2TRH may produce a false sense of security for people who reuse addresses, while P2TRv2 is explicitly insecure after Q-day before the EC-disabling fork. On the other hand, people will run from P2TRv2 to P2MR on Q day creating a big spike of mempool fees.
+
+-------------------------
+
+conduition | 2026-07-09 04:48:08 UTC | #32
+
+Haha sorry for hijacking your thread @starius! We did get a bit off-topic from the OP. 
+
+I have more to say on P2TRv2, but for now I will hold my tongue and issue a request to proponents of P2TRv2: solve the EC-disabling timing problem, then let's circle back and reassess. Otherwise P2TRv2 is DOA, because it would be built on hope and not cryptography. Until then, I doubt further debate will be fruitful.
+
+As for the excellent OP idea, I look forward to getting this into P2MR :100:
+
+-------------------------
+

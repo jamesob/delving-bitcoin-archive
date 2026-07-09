@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 1.8,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 17.2,
   "yours": false,
   "topic_id": 1753,
   "topic_slug": "scaling-noncustodial-mining-payouts-with-ctv",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I ended up implementing this on a chain that has CTV enabled, have a question I put in this thread: https://delvingbitcoin.org/t/fee-selection-for-ctv-based-mining-pool-fanouts/2698?u=djh58",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I ended up implementing this on a chain that has CTV enabled, have a question I put in this thread: <a href=\"https://delvingbitcoin.org/t/fee-selection-for-ctv-based-mining-pool-fanouts/2698\" class=\"inline-onebox\">Fee Selection for CTV-Based Mining Pool Fanouts</a>",
   "truncated": true,
   "post_url": "/t/scaling-noncustodial-mining-payouts-with-ctv/1753/19",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

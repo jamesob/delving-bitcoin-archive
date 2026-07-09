@@ -24,3 +24,22 @@ Curious how others would weigh this, thanks in advance!
 
 -------------------------
 
+vnprc | 2026-07-09 02:01:53 UTC | #2
+
+[quote="djh58, post:1, topic:2698"]
+1. **No funded relayer.** Anyone holding the published artifact bytes can broadcast a fee-paying fanout at maturity, with no wallet, no capital, and no package relay. A zero-fee parent instead needs a funded broadcaster around for as long as any fanout is unclaimed.
+
+[/quote]
+
+It sounds like you are optimizing for the initial onboarding transaction over the steady state of payouts. This feels like a strange choice to me. Do you expect most miners to churn out after their first payout? I would expect the opposite and optimize for the 99.9% case instead of the 0.1% case. The downside of having users pay the fee to mine the fanout transaction doesn't seem that bad either. A miner who can't pay the fee can simply wait for someone else to fee bump the fanout transaction.
+
+My approach in the original design was to attach a 1sat/vb fee, funded from the coinbase output, and also an anchor output for users to fee bump if necessary. This way they can simply wait for the fanout to get mined during a low fee period or if someone is motivated enough to fee bump the whole fanout transaction they can pay to accelerate everyone's payouts. So low time preference miners always get paid eventually, high time preference miners are forced to subsidize the fee bump of everyone else in that fanout. Seems fair to me.
+
+I also ran into the standardness problem when building the fanout transaction. I limited it to 319 outputs due to one rule and a \~300 sat anchor output due to another rule. (This was before zero-fee anchors were implemented.) This is very frustrating for a mining pool because block producers don't need to follow standardness rules.
+
+Your pool can include non-standard payout transactions in the blocks it mines with zero problems. You only need to produce standard fanout transactions if you want every block producer to have a chance to mine those transactions.
+
+Standardness rules are not really bitcoin rules. They are an attempt to control (or censor 🤭) transactions that flow through the node network before they are mined. But, as Peter Todd has shown with Libre Relay, these rules are easy to loosen with a preferential peering subnet of nodes and as [slipstream](https://slipstream.mara.com/) has shown, they are not necessary at all to get your transaction mined.
+
+-------------------------
+
