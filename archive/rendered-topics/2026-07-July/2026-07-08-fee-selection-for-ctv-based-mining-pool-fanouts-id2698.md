@@ -43,3 +43,9 @@ Standardness rules are not really bitcoin rules. They are an attempt to control 
 
 -------------------------
 
+vnprc | 2026-07-09 12:12:32 UTC | #3
+
+Another thought occurred to me overnight. If you host the non-standard fanout transaction somewhere your miners can access them, probably via an API, the miners can simply attach their own fee to the 0-sat anchor and broadcast it to the mempool. Once the fee is attached the pair is now a standard 1p1c package that can be relayed across the node network.
+
+-------------------------
+
