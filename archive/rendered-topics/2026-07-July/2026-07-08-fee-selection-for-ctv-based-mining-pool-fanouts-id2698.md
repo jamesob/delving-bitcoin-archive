@@ -49,3 +49,11 @@ Another thought occurred to me overnight. If you host the non-standard fanout tr
 
 -------------------------
 
+vnprc | 2026-07-09 15:34:02 UTC | #4
+
+> Once the fee is attached the pair is now a standard 1p1c package that can be relayed across the node network.
+
+Shoutout to the core devs and maintainer who put in years of work to make this possible. Gone but not forgotten. :pouring_liquid:
+
+-------------------------
+
