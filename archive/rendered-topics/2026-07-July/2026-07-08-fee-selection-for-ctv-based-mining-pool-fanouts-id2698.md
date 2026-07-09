@@ -93,3 +93,15 @@ True, but I want every block producer able to mine these; settlement shouldn't d
 
 -------------------------
 
+vnprc | 2026-07-09 20:35:16 UTC | #6
+
+> It also opens up a Sybil-dust attack: someone mining small amounts from many addresses inflates the parent until bumping is cost-prohibitive for everyone else.
+
+This is why I am excited about ecash payouts for small miners. I haven't built it yet but it looks like this (in my head): the pool operator decides on a ceiling value `N` for how many payouts it will put in the coinbase transaction. When constructing the coinbase, the pool includes the largest `N-1` balances. The `N`th output is sent to an ecash mint to distribute payouts for all miners below the threshold. This is essentially how Ocean works today except the custodial balance is shifted to an ecash mint. It pushes the custodial trust and liveness guarantees to a different party, but does not eliminate them.
+
+You could use an ark service provider in place of the mint, which makes the solution more trustless (maybe), at a cost. This design disaggregates individual payouts from each other, so it solves the dust attack you mentioned, but like all trustless layer 2 solutions, you have to go on chain to get your money out. So if a tiny miner gets a tiny vtxo payout their only choices are to accrue a larger balance before going on chain or let on-chain fees eat up the majority of their earnings. If the vtxo amount is smaller than on-chain fees then you actually can't take custody. There is no unilateral exit anymore. We are right back at custodial balances.
+
+Ark replaces custodial trust with a much higher fee floor (MUCH higher in the post-quantum era!). The only way out of this trap is to loosen the trust requirements. In the long arc of history I think we will grow the adoption of trustless off-chain means of exchange. The best outcome is a world where miners can receive their earnings off-chain and spend them off-chain. If your balance is large enough, you can store value in a vtxo or lightning channel, but for the small fish their only option is custodial solutions. I don't see this ever changing. It is a fundamental limitation of blockchains.
+
+-------------------------
+
