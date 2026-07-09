@@ -57,3 +57,39 @@ Shoutout to the core devs and maintainer who put in years of work to make this p
 
 -------------------------
 
+djh58 | 2026-07-09 19:19:42 UTC | #5
+
+Appreciate the detailed feedback @vnprc! It means a lot
+
+[quote="vnprc, post:2, topic:2698"]
+It sounds like you are optimizing for the initial onboarding transaction over the steady state of payouts.
+
+[/quote]
+
+What I'm optimizing for is minimal trust and liveness assumptions in the pool software. Anyone can broadcast a CTV fanout once the coinbase matures: the bytes that unlock it are published over the API (a better data-availability story is a fair open question), and the release ships a daemon that broadcasts at maturity. Since the parent carries its own fee, no operator has to manage a funded wallet. Worth noting we're also pre-mainnet, so the 0.1% case is our 100% case for a while: mining is the initial coin distribution, and early miners will have no spendable coins.
+
+[quote="vnprc, post:2, topic:2698"]
+A miner who can’t pay the fee can simply wait for someone else to fee bump the fanout transaction.
+
+[/quote]
+
+One clarification first: a built-in-fee fanout is still CPFP-able without an anchor. Any recipient can spend their own payout output as a high-fee child while the fanout is unconfirmed. If the committed fee has fallen below the mempool floor instead, they can submit the pair as a 1p1c package. What the anchor adds is keyless bumping (someone with no payout in the fanout can sponsor it), not bumpability itself. On qbit we raised the TRUC child cap to 45,500 vB specifically so a child spending a \~3.7 kB post-quantum input is valid.
+
+That said, "wait for someone else" looks like a free-rider problem to me: most miners will wait, and bumping ends up depending on the pool and thus a funded relayer wallet. It also opens up a Sybil-dust attack: someone mining small amounts from many addresses inflates the parent until bumping is cost-prohibitive for everyone else. And the economics are rough for small miners regardless: the sponsor pays fees on the entire parent, and for a full \~43 kB fanout that's several times a floor-sized payout, so in practice only whales or the pool would ever bump. Building the fee in means the smallest miner's first payout confirms with no one's help.
+
+[quote="vnprc, post:3, topic:2698"]
+Once the fee is attached the pair is now a standard 1p1c package that can be relayed across the node network.
+
+[/quote]
+
+For a zero-fee parent, that's exactly how our anchored shape gets rescued today: artifact from the API, miner attaches the child. The caveat is it only works at zero fee, since ephemeral dust is a parent-level rule (a dust output is only legal on a transaction paying no fee) and package relay relaxes the fee-rate check, nothing else. So no child can standardize a fee-paying parent with a 0-sat anchor. The hybrid that is standard is your original design: a small built-in fee plus an anchor at the dust limit instead of 0 sats. If committed fees start going stale as the fee market matures, that's the shape I'd move to, and I'd happily take a spec or patch if you beat me to it.
+
+[quote="vnprc, post:2, topic:2698"]
+Your pool can include non-standard payout transactions in the blocks it mines with zero problems.
+
+[/quote]
+
+True, but I want every block producer able to mine these; settlement shouldn't depend on us winning another block.
+
+-------------------------
+

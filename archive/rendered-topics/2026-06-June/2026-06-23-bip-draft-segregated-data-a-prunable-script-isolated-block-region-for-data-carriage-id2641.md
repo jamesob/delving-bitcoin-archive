@@ -459,3 +459,16 @@ If pruning is permissable then it is possible that pruning policies centralize, 
 
 -------------------------
 
+murch | 2026-07-09 18:39:00 UTC | #39
+
+[quote="MrHash, post:38, topic:2641"]
+At low participation SegData might seem like an overlay but the question about participation isn’t settled. SegData retention is the default, the majority of Bitcoin node operators are not pruning so it’s not right to expect they would prune data in bulk either.
+
+[/quote]
+
+Having the whole blockchain enables bootstrapping other nodes and is useful for privately servicing your own light client’s needs. If node runners could selectively prune just data embedding without falling out of consensus, I firmly believe that the vast majority of node runners would do so, and that this may even be the default node behavior for implementations. Just because people realize that you can’t prevent data embedding in Bitcoin shouldn’t be misconstrued as people supporting or condoning it. In the end, just the people using SegData would keep it available, if those.
+
+Anyway, I don’t see this proposal having any runway.
+
+-------------------------
+

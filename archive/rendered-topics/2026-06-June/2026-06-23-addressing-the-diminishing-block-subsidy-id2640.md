@@ -361,3 +361,25 @@ If BTC price gets higher, so do fees. Both users' transaction value and their wi
 
 -------------------------
 
+treeforest | 2026-07-09 18:18:23 UTC | #20
+
+micah541,
+
+Hard for me to agree more when it comes to miner consolidation. We're seeing it now, in fact. Numerous stories over the past year or so are making that clear.
+
+Bitcoin is far too valuable to ignore this overarching problem - the problem being shrinking security budget and trend towards centralization.
+
+You mention not being sure about an additional miner subsidy / revenue helping solve this issue. I'm not sure there are any other solutions. At the end of the day, miners are what keep the network up and running. Or, to put it another way, the alternative (reduced miner revenue) is... well, a sort of decaying death.
+
+Edit:
+
+For what it's worth, there are some discussion happening on the topic on BitcoinTalk right now, too, if anyone is interested in taking part there.
+
+* https://bitcointalk.org/index.php?topic=5587984.0
+* https://bitcointalk.org/index.php?topic=5555069.msg66129646#msg66129646
+* https://bitcointalk.org/index.php?topic=5587016.0 (see most recent comments)
+
+Edit2: one more that just popped up: https://bitcointalk.org/index.php?topic=5587916.0 <----------- this one is VERY interesting
+
+-------------------------
+
