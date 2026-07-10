@@ -49,3 +49,98 @@ Wow. This is some rad innovation. I haven't been keeping up much with zk happeni
 
 -------------------------
 
+fabohax | 2026-07-10 01:34:03 UTC | #4
+
+Without an ownership/signing step, the current construction would only prove that *some* UTXOs exist in the snapshot and that their sum passes the threshold. A malicious prover could otherwise pick arbitrary UTXOs from the chain.
+
+So the design needs an explicit ownership binding step.
+
+The intended flow is:
+
+1. The verifier gives the prover a fresh challenge:
+
+```
+challenge = H(
+  "zkPoH-v1",
+  merkle_root,
+  threshold,
+  verifier_nonce,
+  expiry,
+  context
+)
+
+```
+
+2. The prover privately selects UTXOs from the committed snapshot.
+
+3. For each selected UTXO, the prover signs that challenge with the key controlling the output.
+
+For example, for a P2WPKH output:
+
+```
+sig_i = Sign(privkey_i, challenge)
+
+```
+
+Then the proof checks:
+
+```
+MerkleVerify(utxo_i, merkle_path_i, merkle_root) == true
+HASH160(pubkey_i) == scriptPubKey_pubkeyhash_i
+VerifySignature(pubkey_i, challenge, sig_i) == true
+sum(values_i) >= threshold
+
+```
+
+So the proof is not just:
+
+```
+“These UTXOs exist and sum to >= 1 BTC”
+
+```
+
+but:
+
+```
+“I know the keys that control hidden UTXOs in this snapshot, and their hidden values sum to >= 1 BTC.”
+
+```
+
+In the current PoC, this ownership step is not yet cleanly integrated into the Noir circuit. That should be clarified in the README. Right now, the circuit mainly demonstrates the Merkle inclusion + private threshold logic. The next step is to bind ownership signatures to the same challenge, snapshot root, and threshold.
+
+There are two possible versions:
+
+**v0 — off-circuit ownership check**
+Simpler to implement. The prover signs a challenge for each selected UTXO and the verifier checks those signatures separately. The downside is that this may reveal the UTXOs/pubkeys to the verifier, so it weakens the privacy model.
+
+**v1 — in-circuit ownership check**
+Better version. The prover keeps the selected UTXOs, pubkeys, signatures, and Merkle paths private. The circuit verifies internally that:
+
+* each UTXO belongs to the committed snapshot;
+
+* the prover knows the corresponding private keys or valid signatures;
+
+* the signatures are bound to the challenge;
+
+* the total value passes the threshold.
+
+The verifier only sees the public result:
+
+```
+valid proof
+snapshot root = X
+threshold >= 1 BTC
+challenge/context = Y
+
+```
+
+but not which UTXOs were used.
+
+For Taproot, this should ideally use Schnorr verification against the x-only output key. For broader Bitcoin script support, BIP-322-style message signing is probably the right direction, although proving arbitrary script satisfaction inside a ZK circuit is more complex.
+
+The Lightning use case is very interesting, but it also needs care. A channel funding output is usually not equivalent to a simple single-key UTXO. Depending on whether it is 2-of-2 multisig, MuSig2, Taproot key-path, etc., the proof may need to show either unilateral participation, cooperative control, or some channel-specific ownership condition without revealing the actual funding output.
+
+PoC needs to make ownership binding explicit, and the strongest version should verify that binding inside the ZK proof.
+
+-------------------------
+

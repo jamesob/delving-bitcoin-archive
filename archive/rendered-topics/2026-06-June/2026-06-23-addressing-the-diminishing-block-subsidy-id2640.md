@@ -361,7 +361,7 @@ If BTC price gets higher, so do fees. Both users' transaction value and their wi
 
 -------------------------
 
-treeforest | 2026-07-09 18:18:23 UTC | #20
+treeforest | 2026-07-10 01:40:32 UTC | #20
 
 micah541,
 
@@ -373,7 +373,7 @@ You mention not being sure about an additional miner subsidy / revenue helping s
 
 Edit:
 
-For what it's worth, there are some discussion happening on the topic on BitcoinTalk right now, too, if anyone is interested in taking part there.
+For what it's worth, there are some discussions happening on the topic on BitcoinTalk right now, too, if anyone is interested in taking part there.
 
 * https://bitcointalk.org/index.php?topic=5587984.0
 * https://bitcointalk.org/index.php?topic=5555069.msg66129646#msg66129646
