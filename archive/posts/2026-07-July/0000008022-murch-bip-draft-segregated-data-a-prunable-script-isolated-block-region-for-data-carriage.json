@@ -7,7 +7,7 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"MrHash\" data-post=\"38\" data-topic=\"2641\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/mrhash/48/2158_2.png\" class=\"avatar\"> MrHash:</div>\n<blockquote>\n<p>At low participation SegData might seem like an overlay but the question about participation isn\u2019t settled. SegData retention is the default, the majority of Bitcoin node operators are not pruning so it\u2019s not right to expect they would prune data in bulk either.</p>\n</blockquote>\n</aside>\n<p>Having the whole blockchain enables bootstrapping other nodes and is useful for privately servicing your own light client\u2019s needs. If node runners could selectively prune just data embedding without falling out of consensus, I firmly believe that the vast majority of node runners would do so, and that this may even be the default node behavior for implementations. Just because people realize that you can\u2019t prevent data embedding in Bitcoin shouldn\u2019t be misconstrued as people supporting or condoning it. In the end, just the people using SegData would keep it available, if those.</p>\n<p>Anyway, I don\u2019t see this proposal having any runway.</p>",
   "post_number": 39,
   "post_type": 1,
-  "posts_count": 35,
+  "posts_count": 36,
   "updated_at": "2026-07-09T18:39:00.964Z",
   "reply_count": 1,
   "reply_to_post_number": 38,

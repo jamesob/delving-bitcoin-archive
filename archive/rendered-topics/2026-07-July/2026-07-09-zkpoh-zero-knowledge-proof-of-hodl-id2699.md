@@ -37,12 +37,6 @@ Repo: github.com/fabohax/zkPoH
 
 -------------------------
 
-murch | 2026-07-09 18:17:42 UTC | #2
-
-(post deleted by author)
-
--------------------------
-
 treeforest | 2026-07-09 23:30:35 UTC | #3
 
 Wow. This is some rad innovation. I haven't been keeping up much with zk happenings in Bitcoin and am happy to see this.
@@ -141,6 +135,14 @@ For Taproot, this should ideally use Schnorr verification against the x-only out
 The Lightning use case is very interesting, but it also needs care. A channel funding output is usually not equivalent to a simple single-key UTXO. Depending on whether it is 2-of-2 multisig, MuSig2, Taproot key-path, etc., the proof may need to show either unilateral participation, cooperative control, or some channel-specific ownership condition without revealing the actual funding output.
 
 PoC needs to make ownership binding explicit, and the strongest version should verify that binding inside the ZK proof.
+
+-------------------------
+
+murch | 2026-07-10 18:42:13 UTC | #5
+
+@fabohax I should probably reintroduce the context. I had originally asked after reading your comment whether the UTXOs had to be owned by the prover (or similar), but then had taken another look at your repository, and saw the sections on signing UTXOs. That made me think that I had misconstrued what you had written and I deleted my comment. Thanks for taking the time to answer my question anyway.
+
+Your proposal reminded me of the discussion by Lightning protocol developers about whether it would be possible to have channels based on a proof of UTXO existence without revealing which UTXOs fund the channel. This was intended as a means to improve privacy of lightning channel owners. IIRC, the requirements were somewhat longer, but I don’t remember the details of the discussion. Presumably it would be nice if UTXOs couldn’t be used to prove multiple channels.
 
 -------------------------
 

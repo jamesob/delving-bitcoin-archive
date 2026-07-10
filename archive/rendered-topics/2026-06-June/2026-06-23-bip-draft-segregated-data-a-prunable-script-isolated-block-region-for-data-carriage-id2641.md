@@ -482,3 +482,11 @@ As for next steps, i will update the BIP with the changes as discussed here, and
 
 -------------------------
 
+murch | 2026-07-10 18:32:40 UTC | #41
+
+This discussion satisfies the "present and discuss your idea" criteria, so you could open a PR to the BIPs repository next, but I think it might be interesting to post the BIP draft also to the mailing list as the audience is somewhat different even if it has big overlaps.
+
+I feel like I haven’t been able to fully get my point across, but I’ll try again on the repository, if nobody else manages to state it more comprehensibly.
+
+-------------------------
+

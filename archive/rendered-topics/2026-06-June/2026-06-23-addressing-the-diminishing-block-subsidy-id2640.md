@@ -383,3 +383,11 @@ Edit2: one more that just popped up: https://bitcointalk.org/index.php?topic=558
 
 -------------------------
 
+micah541 | 2026-07-10 19:06:42 UTC | #21
+
+The reasoning for being unsure about subsidy solving the problem : there isn't a clear "steady-state" solution to Bitcoin that isn't vulnerable to possible consolidation. 
+
+In the long run, after all of the "supercycle" and "price discovery"  periods and Bitcoin becomes a more boring asset, miners will be hedging using futures and derivatives and things like that -  the expected profits are going to settle to a small and more predictable number.   If you add a subsidy, the total revenue is a little higher, the profits might compress slightly slower -  but if everything has settled down profits will compress and that's when consolidation becomes attractive.
+
+-------------------------
+
