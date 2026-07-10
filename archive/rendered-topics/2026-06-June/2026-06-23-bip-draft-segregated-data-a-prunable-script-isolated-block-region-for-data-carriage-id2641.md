@@ -472,3 +472,13 @@ Anyway, I don’t see this proposal having any runway.
 
 -------------------------
 
+MrHash | 2026-07-10 14:16:21 UTC | #40
+
+Thanks Murch appreciate the feedback
+
+The goal here isn't to condone or support data carriage in Bitcoin, although OP_RETURN does that despite being undercut by witness, but to simply acknowledge data exists and treat it accordingly as a structurally addressable region which transfers resource control to node operators as we have discussed. I understand your doubts that this will take off, and that's fine. If the debate continues, which i presume it will, this is available for further discussion until it is superceded by a better proposal, or the whole issue disappears forever.
+
+As for next steps, i will update the BIP with the changes as discussed here, and then make a PR to the bips repo? or widen the conversation to the mailing list?
+
+-------------------------
+
