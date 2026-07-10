@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Wow. This is some rad innovation. I haven't been keeping up much with zk happenings in Bitcoin and am happy to see this.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Wow. This is some rad innovation. I haven\u2019t been keeping up much with zk happenings in Bitcoin and am happy to see this.",
   "truncated": true,
   "post_url": "/t/zkpoh-zero-knowledge-proof-of-hodl/2699/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
