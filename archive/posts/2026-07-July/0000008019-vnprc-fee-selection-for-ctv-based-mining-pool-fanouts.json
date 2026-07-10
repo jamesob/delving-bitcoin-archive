@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "> Once the fee is attached the pair is now a standard 1p1c package that can be relayed across the node network.\n\nShoutout to the core devs and maintainer who put in years of work to make this possible. Gone but not forgotten. :pouring_liquid:",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Once the fee is attached the pair is now a standard 1p1c package that can be relayed across the node network. \n\nShoutout to the core devs and maintainer who put in years of work to make this possible. Gone but not forgotten. :pouring_liquid:",
   "truncated": true,
   "post_url": "/t/fee-selection-for-ctv-based-mining-pool-fanouts/2698/4",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
