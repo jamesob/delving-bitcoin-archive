@@ -228,3 +228,9 @@ I only briefly skimmed the rest of the conversation in this thread, but the conc
 
 -------------------------
 
+gmaxwell | 2026-07-10 20:50:28 UTC | #12
+
+the 10% extra data can be avoided by not using low density parity check codes, peer limit is why my comments had been limited to more miner sharing, etc. so I think I addressed all those points except the big one:  it's addressing a thing which is not the limiting factor.  And even without the bandwidth overhead computational overhead would slow it down.  So I don't disagree-- it's why the idea hadn't been pursued years ago.
+
+-------------------------
+
