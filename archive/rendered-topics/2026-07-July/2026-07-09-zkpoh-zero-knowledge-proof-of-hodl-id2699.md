@@ -43,3 +43,9 @@ murch | 2026-07-09 18:17:42 UTC | #2
 
 -------------------------
 
+treeforest | 2026-07-09 23:30:35 UTC | #3
+
+Wow. This is some rad innovation. I haven't been keeping up much with zk happenings in Bitcoin and am happy to see this.
+
+-------------------------
+
