@@ -391,3 +391,15 @@ In the long run, after all of the "supercycle" and "price discovery"  periods an
 
 -------------------------
 
+gmaxwell | 2026-07-10 21:12:56 UTC | #22
+
+I reject the premise that fee behavior does doesn't already show Satoshi's plan as viable.
+
+Bitcoin currently-- even now under an unfrothy market-- brings in more fees than inflation and fees combined in many altcoins (including the 'large block' spinoff BCH).   The amount of security provided by blocks is a free parameter and users can adapt to different levels of security (e.g. by require different amounts of confirmation) based on their own risk factors and needs.  But to even start with the argument I think you have to first demonstrate that bitcoin isn't radically over-secured in hashpower terms today given the existence of apparently usable alternative systems with a tiny fraction of the security spend. 
+
+This isn't to say that there might not need to be other measures that address capacity oversupply nor that none wouldn't be possible, I can't say-- but I agree with Sipa that these inflationary notions are a non-starter philosophically and morally.  Particularly because anyone can create their own cryptocurrency with whatever rules they think are superior, and if its good people are free to adopt it.  In such a world trying to impose such a radical change to the premise of Bitcoin would be inexcusable, and ultimately self defeating since if bitcoin doesn't even have durability of its monetary policy why does it exist at all?
+
+I'd add beyond that that none of these inflation proposals really address the fundamental problem with inflation (and economically equivalent schemes) is the cantillon effect: when you inflate the supply of money you enrich the recipients (and those economically proximal to them) at the expense of everyone else.  The fact that security is a good and necessary thing doesn't change this fact-- particularly when the scheme has no means to right size the security to a 'correct' value (a value that wouldn't even be the same network wide, since not all users have the same security sensitivity).
+
+-------------------------
+
