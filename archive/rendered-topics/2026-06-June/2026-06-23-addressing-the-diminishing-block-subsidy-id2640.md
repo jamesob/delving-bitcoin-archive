@@ -403,3 +403,21 @@ I'd add beyond that that none of these inflation proposals really address the fu
 
 -------------------------
 
+ajtowns | 2026-07-11 00:30:23 UTC | #23
+
+Fleshing out a couple of details I wondered about:
+
+[quote="gmaxwell, post:22, topic:2640"]
+I’d add beyond that that none of these inflation proposals really address the fundamental problem with inflation (and economically equivalent schemes) is the cantillon effect: when you inflate the supply of money you enrich the recipients (and those economically proximal to them) at the expense of everyone else.
+[/quote]
+
+I believe the cantillion effect here is ultimately to the benefit of ASIC manufacturers -- in steady state, additional inflation pays additional reward to miners compared to a world without tail inflation; but mining has free entry, so if there are excess profits that just encourages more mining to occur. More mining means more hashrate, which is only possible via more purchases of sha256d ASIC hardware, so that's what the inflation ends up paying for. Which is logical enough: "more security" is just another way of saying "more hashrate", so if the limiting factor in hashrate is ASICs (vs storage for Chia or GPUs/CPUs for some more compute heavy PoW scheme), then the providers of ASICs are who you'd expect to benefit.
+
+[quote="gmaxwell, post:22, topic:2640"]
+Bitcoin currently-- even now under an unfrothy market-- brings in more fees than inflation and fees combined in many altcoins (including the ‘large block’ spinoff BCH)
+[/quote]
+
+Fees on BCH seem to be essentially 0, so miner revenue is essentially just the subsidy which is about $745 USD, so call it 0.0116 BTC per block, or a bit above 1.16 sat/vb for a full block, so this checks out as far as I can see. Zcash is apparently ~$5700 per 10 minutes, so that would be a full block of 8.9 sat/vb txs, for whatever that's worth.
+
+-------------------------
+
