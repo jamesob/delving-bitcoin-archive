@@ -156,52 +156,6 @@ If a contract uses HTLCs and end up with a privkey handover, then the other part
 
 -------------------------
 
-josh | 2026-06-29 19:45:55 UTC | #5
-
-[quote="ajtowns, post:3, topic:2667"]
-I think it's worth comparing this to a generic ability to introspect the confirmation height of the coin being spent; I proposed that in the [OP_TX thread on bitcoindev](https://gnusha.org/pi/bitcoindev/aOOq-Pw0ht_R0OAK@erisian.com.au/) 8 months or so ago.
-[/quote]
-
-Thanks for sharing - I missed your post on the mailing list.
-
-Agreed. Coin-height introspection enables similar behavior and is a good comparison.
-
-Here are a few reasons why I think coin-height introspection is less-than-ideal:
-* **More powerful than needed**: The fundamental capability we care about is an absolute cap on an input's confirmation height. Coin-height introspection enables other behavior, like a minimum or exact confirmation height.
-
-* **Non-trivial implementation**: Whereas the described approach requires a single if-statement in `tx_verify.cpp`, coin-height introspection would be a much more involved change, which exposes new context to the script interpreter, with downstream implications for the kernel and kernel-dependent projects.
-   * *Comment:* I'd emphasize that the described approach uses the same design pattern as existing time-based validation. With an absolute timelock, the txid enforces a transaction min-height, and script enforces a minimum min-height. The analogy here is that the txid enforces an input height-cap. Using `nSequence` and `nLockTime` introspection, script can then enforce a maximum height-cap.
- 
-* **No cross-input introspection**: Bit 21 can enforce an expiry / height cap on any input, without introducing cross-input introspection in the script interpreter. Replicating this capability purely in script would require cross-input introspection.
-
-* **Scriptless enforcement:** With bit 21, we get scriptless enforcement, allowing usage in a presigned key-path spend or a `TEMPLATEHASH` / `CTV` commitment.
-
-[quote="ajtowns, post:3, topic:2667"]
-You can somewhat do parent height introspection with this feature, in that `100 CSV 900100 CLTV` will verify that the parent was mined prior to block 900000, if nSequence bit 21 is also set.
-[/quote]
-
-(Edited) That's correct, provided `nSequence` bit 21 is committed to outside of `CSV`.
-
-[quote="ajtowns, post:3, topic:2667"]
-I don’t see a strong argument for why the consensus-enforced minimum delay here should be 100 blocks rather than 50, 20, 10, 6 or even 1 – for coinbase outputs that makes some sense; coinbases pay directly to miners who are ultimately responsible for whether we see extensive reorgs or not, but for individual transactions, I don’t think this creates a significantly bigger risk in regards to reorgs than regular double-spends.
-[/quote]
-
-I'm open to removing the consensus-enforced minimum delay and enforcing a minimum delay in policy. Policy-only enforcement is sufficient to prevent free relay and can be adjusted if needed, depending on network conditions.
-
-The only reason I see to set a minimum delay in consensus is to proactively protect users from double spends. But it's not clear to me if that responsibility lies with the receiving user or with the protocol. I believe it lies with the user, since they are responsible for waiting for confirmations.
-
-[quote="cmp_ancp, post:4, topic:2667, full:true"]
-An use case i find interesting is to cut steps on contracts and swaps.
-
-If a contract uses HTLCs and end up with a privkey handover, then the other party already have access to the musig, however, today we need a final tx in order to be certain that no HTLC will be published onchain in the future. With HTLC expiration, we can make swaps 1 tx long, something that can be useful in a high fee environment.
-[/quote]
-
-Thanks for pointing this out. I agree, shorter HTLCs is an interesting primitive, which deserves exploration. This capability is contingent, however, on a reduced maturity rule (see comment above).
-
-The only thing I'd highlight is that you need to carefully design the HTLC so that the receiver is immune to replacement cycling (see [this construction](https://delvingbitcoin.org/t/expiring-htlcs-without-free-relay/2663#p-7907-use-case-htlcs-that-expire-without-preimage-publication-6)).
-
--------------------------
-
 instagibbs | 2026-06-29 17:08:21 UTC | #6
 
 @ademan
@@ -221,16 +175,6 @@ No, I just meant if this proposal were implemented, it would allow partial heigh
 
 -------------------------
 
-josh | 2026-06-29 20:07:39 UTC | #9
-
-[quote="ajtowns, post:8, topic:2667, full:true"]
-No, I just meant if this proposal were implemented, it would allow partial height introspection (in that you could end up with 900,000 on the stack when spending a coin that was confirmed at height 900k or earlier).
-[/quote]
-
-My apologies, I think I understand better now what you were going for. For some reason, I misread your comment as enforcement of a coin-height floor, rather than a ceiling. The only thing I'd add is applications must explicitly commit to `nSequence` for your partial height introspection to be safe. This might motivate explicit sequence introspection, or a modification to `CSV`.
-
--------------------------
-
 instagibbs | 2026-06-29 18:11:18 UTC | #10
 
 [quote="josh, post:7, topic:2667"]
@@ -243,34 +187,6 @@ The double-delay problem is when Alice, say, doesn't have the latest update tx f
 (I am genuinely very bad at reasoning about timelock semantics in bitcoin validation so bear with me)
 
 edit: good thread linked on the CSV->CLTV transformation, think I missed that one
-
--------------------------
-
-josh | 2026-06-29 19:32:54 UTC | #11
-
-[quote="instagibbs, post:10, topic:2667"]
-The double-delay problem is when Alice, say, doesn’t have the latest update tx fully signed (she sent her psig, waiting to hear back), and she needs to go on-chain. After U-1 blocks Bob then sends the final update tx, which in classical relative timelock ln-symmetry resets the timeout, resulting in a wait of `U*2` before settlement can occur. Does your proposed change allow Alice to immediately settle or otherwise mitigate? Am I thinking on the wrong layer?
-
-(I am genuinely very bad at reasoning about timelock semantics in bitcoin validation so bear with me)
-[/quote]
-
-There are two Symmetry constructions that I find interesting, which require transaction expiry:
-
-### (Pseudo) Contract-level relative timelock
-
-The basic idea is to construct a (pseudo) CLRT, where each channel update approves a large number of update transactions, which commit to the same state and settlement outputs but expire at different heights, depending on the height of the kickoff transaction (see [above](https://delvingbitcoin.org/t/input-triggered-transaction-expiry/2667#p-7915-construction-8)).
-
-Update transactions have no relative timelock. Instead, the settlement hash enforces an absolute timelock, equal to the expiry height plus a fixed timeout window.
-
-Once Alice broadcasts an update with expiry $H$, Bob can publish an update but must select a version that also has expiry $H$. All updates with expiry $H$ have a settlement hash spendable at $H+U$, where $U$ is the update window. This stops the double-delay problem you describe.
-
-*(While not strictly necessary, merkle tree verification is highly desirable in this construction, so that we can practically sign millions of update transactions at once, ensuring at least one remains unexpired)*.
-
-### Kickoff height propagation
-
-This is a significantly more complex construction, which is not immediately enabled by input expiry. However, with additional introspection and a dynamically set `nLockTime`, we can use input expiry to push a value on the stack that must be at least the input confirmation height. This lets us obtain a conservative value for the kickoff height.
-
-Using key tweaking and additional introspection, we can then propagate this kickoff height in each subsequent update transaction and read the value in the settlement script, enforcing an explicit CLRT.
 
 -------------------------
 
@@ -288,13 +204,55 @@ I still have to mull over the other options you state here.
 
 -------------------------
 
-josh | 2026-06-29 20:17:57 UTC | #13
+josh | 2026-07-12 02:25:58 UTC | #14
 
-[quote="instagibbs, post:12, topic:2667"]
-Ok I was referring to your now-deleted idea, which makes me think it was invalid.
+[quote="ajtowns, post:3, topic:2667"]
+I think the difference here is that normal “expiry” proposals say “this transaction is invalid after X happens”, whereas this approach says “this spending path is invalid if this transaction was confirmed after X”.
 [/quote]
 
-My bad, yes it was definitely invalid. Thanks for the callout!
+I might suggest an alternative framing. The difference here is that this approach establishes an invariant on `nLockTime`, such that **all timelocks expire by `nLockTime`** if every BIP68 input is height-based and enforces bit 21.
+
+This implies what you are suggesting. The transaction becomes invalid if the input transaction was not confirmed before some height.
+
+[quote="ajtowns, post:3, topic:2667"]
+I think it’s worth comparing this to a generic ability to introspect the confirmation height of the coin being spent; I proposed that in the [OP_TX thread on bitcoindev](https://gnusha.org/pi/bitcoindev/aOOq-Pw0ht_R0OAK@erisian.com.au/) 8 months or so ago.
+[/quote]
+
+I agree, and thank you for sharing. I was not previously aware of your post.
+
+As you allude to, script-based coin-height introspection is a legitimate alternative, but I would argue that this approach would be like using a hammer to push down a pin. Two drawbacks come straight to mind:
+
+1. **No scriptless expiry:** With the proposed approach, a scriptless spend can enforce input-triggered expiry. This is useful in presigned transactions, key-path spends, and (potential) bare output scripts enforcing a `TEMPLATEHASH` or `CTV` commitment.
+2. **More powerful than needed:** The fundamental capability we care about is an absolute cap on an input's confirmation height. Coin-height introspection enables other behavior, like a minimum or exact confirmation height, which may prove unwanted.
+
+Other less pressing but legitimate reasons to prefer the described approach include:
+
+3. **Transaction readability:** With bit 21, all time-related information remains visible in the txid-commitment. This is useful when displaying transactions to users to sign, creating PSBTs, or writing relay policies that require knowledge of expiry. Script-based enforcement would lack these properties by default.
+4. **Separation of concerns:** With the proposed approach, the existing separation of concerns between context validation and script validation would remain unchanged. Adding coin-height introspection to script would violate the existing separation of concerns, introduce new code paths, and demand a change in downstream projects like the kernel.
+
+[quote="ajtowns, post:3, topic:2667"]
+You can somewhat do parent height introspection with this feature, in that `100 CSV 900100 CLTV` will verify that the parent was mined prior to block 900000, if nSequence bit 21 is also set.
+[/quote]
+
+I am uncertain if the script you are suggesting works as you describe. `CLTV` enforces a minimum `nLockTime`, and the true `nLockTime` could be anywhere between that value and the current height. To get the behavior you desire, I think you would need a `NONE|ACP` presignature which commits to the `nSequence` and `nLockTime` values.
+
+For this reason, if script-based max-coin-height enforcement is a goal, I would probably suggest an explicit `OP_SEQUENCE` and `OP_LOCKTIME` introspection capability. You could then enforce bit 21 in script and set an explicit maximum value on `nLockTime` using `LESSTHAN`.
+
+[quote="ajtowns, post:3, topic:2667"]
+I don’t see a strong argument for why the consensus-enforced minimum delay here should be 100 blocks rather than 50, 20, 10, 6 or even 1 – for coinbase outputs that makes some sense; coinbases pay directly to miners who are ultimately responsible for whether we see extensive reorgs or not, but for individual transactions, I don’t think this creates a significantly bigger risk in regards to reorgs than regular double-spends.
+[/quote]
+
+I think you may be right. I felt it best to be conservative and stick with the same 100-block delay as the `OP_EXPIRE` proposal, but the more I think about it the more I come to the conclusion that the delay is unnecessary.
+
+I plan to write a dedicated follow-up on this issue.
+
+[quote="cmp_ancp, post:4, topic:2667, full:true"]
+An use case i find interesting is to cut steps on contracts and swaps.
+
+If a contract uses HTLCs and end up with a privkey handover, then the other party already have access to the musig, however, today we need a final tx in order to be certain that no HTLC will be published onchain in the future. With HTLC expiration, we can make swaps 1 tx long, something that can be useful in a high fee environment.
+[/quote]
+
+Short-duration HTLCs is definitely an interesting primitive, and it is good motivation for a shorter delay than the current 100-block minimum. See above.
 
 -------------------------
 
