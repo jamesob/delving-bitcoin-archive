@@ -124,3 +124,17 @@ Took me a while to get the claim, probably should have started with this. Many i
 
 -------------------------
 
+josh | 2026-07-12 00:46:55 UTC | #3
+
+[quote="instagibbs, post:2, topic:2663"]
+Took me a while to get the claim, probably should have started with this. Many implementations do no mempool monitoring at all, so I was confused what this was accomplishing. What the claim is is that with proper expiry, replacement cycling is a just a more time insensitive grief vector, which makes the mempool scanning some may do as a partial mitigation, like LND , completely unnecessary. Wtxid grinding and rebroacasting also become unnecessary at least in theory (I think there are valid reasons to do it anyway)
+[/quote]
+
+Thanks for clarifying the idea! I was under the impression that most implementations did mempool monitoring, so to hear otherwise is a surprise.
+
+As for grinding and rebroadcasting, I had hoped that this proposal would make those unnecessary, but my primary motivation was relay-safe expiry and the elimination of the time-sensitive replacement cycling attack.
+
+Lastly, I would add that [per](https://delvingbitcoin.org/t/input-triggered-transaction-expiry/2667/3?u=josh) @ajtowns, it may be reasonable to eliminate the 100 block delay entirely. I included it here to be conservative and match the 100 block delay in `OP_EXPIRE`, but consensus and relay may be unaffected by a substantially lower number. I plan to explore this in a future post.
+
+-------------------------
+
