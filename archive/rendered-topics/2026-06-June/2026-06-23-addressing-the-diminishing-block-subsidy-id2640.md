@@ -421,3 +421,11 @@ Fees on BCH seem to be essentially 0, so miner revenue is essentially just the s
 
 -------------------------
 
+xodn348 | 2026-07-11 21:11:11 UTC | #24
+
+I wrote the thesis about the diminishing block subsidy and its prospective solutions here!!
+
+https://arxiv.org/abs/2606.05503
+
+-------------------------
+

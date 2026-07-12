@@ -576,7 +576,7 @@ Edit: The number changed to 458 to allow for consecutive numbers for the CISA pr
 
 -------------------------
 
-nkaretnikov | 2026-07-11 20:56:01 UTC | #29
+nkaretnikov | 2026-07-11 21:01:07 UTC | #29
 
 A recent podcast episode with Dan Gould on the state of Payjoin.
 
@@ -585,7 +585,7 @@ https://stephanlivera.com/episode/753/
 The website has a transcript and a link to the video, my notes below:
 - Payjoin Foundation is a [non-profit](https://payjoin.org/blog/2026/02/12/payjoin-foundation-501c3) dedicated to supporting Payjoin 
 - [Payjoin Dev Kit](https://payjoindevkit.org) 1.0.0 release imminent (payjoin-1.0.0-rc.4 in [releases](https://github.com/payjoin/rust-payjoin/releases))
-- [BIP-77](https://github.com/bitcoin/bips/blob/master/bip-0077.md) (AKA Payjoin v2 / async Payjoin)
+- [BIP-77](https://github.com/bitcoin/bips/blob/c021a5f51ae9d3e71a41eac3dda6dc060fead35d/bip-0077.md) (AKA Payjoin v2 / async Payjoin)
 - Async Payjoin is available in Cake Wallet and Bull Bitcoin Mobile
 - Current focus: getting PDK 1.0.0 released, getting BIP-77 out of draft
 - Future work: addressing privacy problems, multi-party Payjoin
