@@ -146,3 +146,21 @@ Your proposal reminded me of the discussion by Lightning protocol developers abo
 
 -------------------------
 
+AdamISZ | 2026-07-12 20:56:58 UTC | #6
+
+I had implemented basically the same primitive (proof of ownership of X funds at N utxos) [here](https://delvingbitcoin.org/t/anonymous-usage-tokens-from-curve-trees-or-autct/862) and more specifically [in this blog post](https://reyify.com/blog/privacy-preserving-proof-of-taproot-assets/).
+
+You'll notice I deliberately included a range proof to avoid the obvious footgun of "my balance is exactly X" and then people enumerating 4 utxos that add up to X. I see you've also done that with your "at least" clause.
+
+The taproot limitation there is specifically related to attempts to create spontaneous anon sets (i.e. no cooperation) over public keys that are already on the blockchain, plus the fact that this allows pure EC-based ZKP techniques (think: Bulletproofs), specifically building algebraic Merkle trees using the secp/secq 2-cycle (all of that is "Curve Trees"). It can be very cheap when well optimized, including in proving time.
+
+Another closely related project with more a focus on utxo ownership for Lightning gossip applications, as @murch alluded to, was by @halseth here: https://delvingbitcoin.org/t/zk-gossip-for-lightning-channel-announcements/1407
+
+@halseth 's work is more closely aligned with what I gather you're describing here, since it was also using the more generalized ZKP techniques, which are certainly heavier than Curve Trees, but that's probably just necessary.
+
+At the very least I guess we can say all these ideas are closely related :smiley: 
+
+I'd earlier done work on ring-signature based proofs of ownership but that's much more limited because of the linear scaling. See "RIDDLE".
+
+-------------------------
+
