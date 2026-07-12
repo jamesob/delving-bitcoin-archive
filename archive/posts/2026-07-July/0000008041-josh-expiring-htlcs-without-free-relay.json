@@ -7,15 +7,15 @@
   "cooked": "<aside class=\"quote no-group\" data-username=\"instagibbs\" data-post=\"2\" data-topic=\"2663\">\n<div class=\"title\">\n<div class=\"quote-controls\"></div>\n<img alt=\"\" width=\"24\" height=\"24\" src=\"https://delvingbitcoin.org/user_avatar/delvingbitcoin.org/instagibbs/48/28_2.png\" class=\"avatar\"> instagibbs:</div>\n<blockquote>\n<p>Took me a while to get the claim, probably should have started with this. Many implementations do no mempool monitoring at all, so I was confused what this was accomplishing. What the claim is is that with proper expiry, replacement cycling is a just a more time insensitive grief vector, which makes the mempool scanning some may do as a partial mitigation, like LND , completely unnecessary. Wtxid grinding and rebroacasting also become unnecessary at least in theory (I think there are valid reasons to do it anyway)</p>\n</blockquote>\n</aside>\n<p>Thanks for clarifying the idea! I was under the impression that most implementations did mempool monitoring, so to hear otherwise is a surprise.</p>\n<p>As for grinding and rebroadcasting, I had hoped that this proposal would make those unnecessary, but my primary motivation was relay-safe expiry and the elimination of the time-sensitive replacement cycling attack.</p>\n<p>Lastly, I would add that <a href=\"https://delvingbitcoin.org/t/input-triggered-transaction-expiry/2667/3\">per</a> <a class=\"mention\" href=\"/u/ajtowns\">@ajtowns</a>, it may be reasonable to eliminate the 100 block delay entirely. I included it here to be conservative and match the 100 block delay in <code>OP_EXPIRE</code>, but consensus and relay may be unaffected by a substantially lower number. I plan to explore this in a future post.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 3,
+  "posts_count": 4,
   "updated_at": "2026-07-12T00:46:55.653Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 2,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 21.4,
   "yours": false,
   "topic_id": 2663,
   "topic_slug": "expiring-htlcs-without-free-relay",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"instagibbs, post:2, topic:2663\"]\nTook me a while to get the claim, probably should have started with this. Many implementations do no mempool monitoring at all, so I was confused what this was accomplishing. What the claim is is that with proper expiry, replacement cycling is a just a more time insensitive grief vector, which makes the mempool scanning some may do as a partial mitigation, like LND , completely unnecessary. Wtxid grinding and rebroacasting also become unnecessary at least in theory (I think there are valid reasons to do it anyway)\n[/quote]\n\nThanks for clarifying the idea! I was under the impression that most implementations did mempool monitoring, so to hear otherwise is a surprise.\n\nAs for grinding and rebroadcasting, I had hoped that this proposal would make those unnecessary, but my primary motivation was relay-safe expiry and the elimination of the time-sensitive replacement cycling attack.\n\nLastly, I would add that [per](https://delvingbitcoin.org/t/input-triggered-transaction-expiry/2667/3?u=josh) @ajtowns, it may be reasonable to eliminate the 100 block delay entirely. I included it here to be conservative and match the 100 block delay in `OP_EXPIRE`, but consensus and relay may be unaffected by a substantially lower number. I plan to explore this in a future post.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Thanks for clarifying the idea! I was under the impression that most implementations did mempool monitoring, so to hear otherwise is a surprise. \nAs for grinding and rebroadcasting, I had hoped that this proposal would make those unnecessary, but my primary motivation was relay-safe expiry and the &hellip;",
   "truncated": true,
   "post_url": "/t/expiring-htlcs-without-free-relay/2663/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

@@ -138,3 +138,14 @@ Lastly, I would add that [per](https://delvingbitcoin.org/t/input-triggered-tran
 
 -------------------------
 
+instagibbs | 2026-07-12 12:11:19 UTC | #4
+
+[quote="josh, post:3, topic:2663"]
+As for grinding and rebroadcasting, I had hoped that this proposal would make those unnecessary,
+
+[/quote]
+
+I still think it still would be a Good Idea for robustness and defense-in-depth to relay failures/games.
+
+-------------------------
+
