@@ -805,3 +805,11 @@ As for the excellent OP idea, I look forward to getting this into P2MR :100:
 
 -------------------------
 
+cryptoquick | 2026-07-13 08:12:14 UTC | #33
+
+First I'm seeing this!
+
+I love this idea and the work you did that inspired this approach might help solve another problem I've been worried about, something I call the laggards problem, but that's a separate discussion.
+
+-------------------------
+

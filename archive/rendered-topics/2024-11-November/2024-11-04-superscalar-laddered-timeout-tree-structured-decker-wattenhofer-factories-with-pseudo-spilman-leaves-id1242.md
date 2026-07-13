@@ -2181,3 +2181,11 @@ onchain funds that can be swept.
 
 -------------------------
 
+8144225309 | 2026-07-13 09:44:33 UTC | #3
+
+This design now has a working implementation. The report includes signet exhibits covering the factory lifecycle, the pseudo-Spilman leaves, old-state poisoning, and more:
+
+https://delvingbitcoin.org/t/superscalar-an-implementation-report/2705
+
+-------------------------
+
