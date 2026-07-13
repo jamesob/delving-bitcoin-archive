@@ -32,19 +32,22 @@ I think ECDSA signature can simply commit to the quantum one inside R-value. And
 
 -------------------------
 
-sipa | 2026-07-12 23:28:24 UTC | #3
+sipa | 2026-07-13 03:10:32 UTC | #3
 
 A more worked out version of this idea.
 
-* Abstractly, every transaction gains a per-txin witness style number (0 = segwit, 1 = pqdata, 2+ = future stuff)
-* Every style is associated with a protocol extension, so nodes can opt into receiving specific styles or not. A full node would be expected to receive all styles known to its consensus rules. The reason for having multiple styles is to allow each to have its own discount/costing function, as those might need to change over time depending on signature schemes that are adopted. To not impose a bound on future ones, they must be optional to fetch for those that don't have their cost rules known.
+* Abstractly, every transaction gains a per-txin witness style number (0 = segwit, 1 = pqdata, 2+ = future stuff).
+* Every style is associated with a P2P protocol extension, so nodes can opt into receiving specific styles or not. A full node would be expected to receive all styles known to its consensus rules. The reason for having multiple styles is to allow each to have its own discount/costing function, as those might need to change over time depending on signature schemes that are adopted. To not impose a bound on future ones, they must be optional to fetch for those that don't have their cost rules known.
 * Serialization:
   * Use flag byte 0x02 after the 0x00 marker (instead of flag 0x01 used by segwit) if at least one style>0 witness is present in the transaction.
-  * The encoding of witness data remains the same, except there is an additional style byte for every txin
-* For relay to nodes that don't support certain styles, they can be "collapsed" to style 0: replacing them with a witness stack consisting of a single element of 34 bytes, 0xff + style_byte + tagged_hash(stylenum, collapsed witness data).
+  * The encoding of witness data remains the same, except there is an additional style byte for every txin.
+* For relay to nodes that don't support certain styles, witnesses can be "collapsed" to style 0, by replacing them with a commitment to the full data. Specifically, with a witness stack consisting of a single element of 34 bytes, of the form 0xff + style_byte + tagged_hash(style_byte + serialized non-collapsed witness data).
 * The wtxid and txid of a transaction are defined as the normal segwit ones, after collapsing all styles > 0.
-* All existing witness output types (P2TR, P2WPKH, P2WSH) get a "input has style=0 witness" rule.
-* Transaction inputs with a single-element style=0 witness of 34 bytes whose first byte is 0xff, followed by a defined style number, are outlawed. This makes it possible to recognize "this is a downgraded witness for which I should have been given the full data", without needing access to the UTXO being spent, or performing full script validation. Violations of this kind are a "witness stripped" type of error, so they don't cause the block/tx it's in to be marked (permanently) invalid.
+* The weight of a transaction is defined as the that of the normal segwit one as well, plus any additions due to style-specific rules.
+* All existing witness output types (P2TR, P2WPKH, P2WSH) get an "input has style=0" consensus rule.
+* Transaction inputs with a single-element style=0 witness of 34 bytes whose first byte is 0xff, followed by a known style number, are outlawed. This makes it possible to recognize "this is a downgraded witness for which I should have been given the full data instead", without needing access to the UTXO being spent, or performing full script validation. Violations of this kind are a "witness stripped" type of error, so they don't cause the block/tx it's in to be marked (permanently) invalid.
+
+So instead of having a "naive" serialization with both the full witness data, and a commitment to it in the normal witness, this just treats the abstract transactions as having at most one of the two. The backward compatibility is achieved by adding a "collapse" operation instead of (the equivalent of) witness stripping.
 
 ---
 
