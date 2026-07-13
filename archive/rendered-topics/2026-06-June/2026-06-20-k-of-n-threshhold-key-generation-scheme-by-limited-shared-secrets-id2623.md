@@ -87,3 +87,9 @@ Further, it is also directly compatible with the multiple-shachains scheme being
 
 -------------------------
 
+nkohen | 2026-07-13 18:03:24 UTC | #2
+
+Is there any reason to do something like this over using Pseudo-random secret sharing/Replicated secret sharing like in [Arctic](https://eprint.iacr.org/2024/466)? It seems similar to the [BLISK](https://delvingbitcoin.org/t/blisk-boolean-circuit-logic-integrated-into-the-single-key/2217/15) concept but without the ZKPs which I saw as the primary justification for not just using replicated secret sharing.
+
+-------------------------
+

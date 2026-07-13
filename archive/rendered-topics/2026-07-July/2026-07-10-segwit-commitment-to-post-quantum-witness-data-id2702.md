@@ -55,3 +55,51 @@ So instead of having a "naive" serialization with both the full witness data, an
 
 -------------------------
 
+ajtowns | 2026-07-13 19:33:38 UTC | #4
+
+[quote="sipa, post:3, topic:2702"]
+* Abstractly, every transaction gains a per-txin witness style number (0 = segwit, 1 = pqdata, 2+ = future stuff).
+[/quote]
+
+Conceptually, I think this means "every input has authorisation data that gets a particular weight formula applied to it -- legacy has the original 1:1 weighting, segwit has the 1:4 weighting, pqdata and future things have new weightings".
+
+In particular, this implies that spending an input uses only one authorisation type; you don't have a taproot spend with a bip340 signature in segwit witness data and also an additional post-quantum signature via pqdata, eg. That prohibits the non-hard-fork "rescue protocol" method suggested in [this list post](https://gnusha.org/pi/bitcoindev/xXllZpuSNUfmizNVhO9lt8q7Wi-l5-7RsHBHnO2FmenEj52K8FF2hhoW1fg_UMRMkhYzzrXS9sGDsKaYfKxviiaQ3mIuesm-bfEII79EI8g=@proton.me/).
+
+For composite approaches like TRv2, I wonder if that approach is really what we want? If you spend a TRv2 coin via an bip340 path, should you get any "pqdata"-esque discounts? If you had a script that requires you to reveal 10kB worth of preimage data and also provide a signature, and provide (a) a 64 byte bip340 signature, or (b) a 3kB post-quantum signature, should you get pqdata-esque discounts at all in case (a)? Should you get a discount on the full 13kB in case (b) or just the 3kB?
+
+[quote="sipa, post:3, topic:2702"]
+* The encoding of witness data remains the same, except there is an additional style byte for every txin.
+[/quote]
+
+Seems like this might as well be a minimal CompactSize?
+
+[quote="sipa, post:3, topic:2702"]
+* ... witnesses can be “collapsed” to style 0, by replacing them with a commitment to the full data. Specifically, with a witness stack consisting of a single element of 34 bytes, of the form 0xff + style_byte + tagged_hash(style_byte + serialized non-collapsed witness data).
+[/quote]
+
+I wonder if this would be better specified as an annex entry?
+
+If we consider the annex as a place where we can extend the tx with additional "nSequence" and "nLockTime" like behaviours (eg, per-input locktimes, larger range relative locktimes, or block at height X has hash Y assertions), then it would probably be good to have those assertions be available independently of new transaction authorisation encodings/weightings, ie have the "collapsed" encoding includes the annex assertions (regarding locktimes, etc) still available, despite the other data being absent.
+
+If it was desirable to have witness data in multiple styles (ie 1:4 ratio for hash preimages and 1:6 ratio for pqdata used for post-quantum signatures), having an annex commitment could be a reasonable way to signal that, eg:
+
+ * tx encoding: `version / 0002 / inputs / outputs / witness-per-input / styled-witness-per-input`
+ * annex encoding: "50" then a sequence of length-tag-value entries, ordered by tag, with no duplicate tags; tag 0 is the witness-style commitment, the value is an array of style/sha256 hash pairs
+ * rules:
+   * every input with a styled-witness, must include an annex commitment of that styled-witness
+   * commitment of the styled-witness must
+   * non-segwit-inputs and p2wpkh ad p2wsh can't have a styled witness
+   * style-2 witness data can only be used for p2trv2 inputs, and can only be used for data that's read via CHECKPQSIG op
+
+So a 41-byte annex of `[50 22 00 02 [hash] 04 01 40420f]` could represent a pqdata commitment plus a per-input lockheight of 1,000,000 (tag 1, little-endian encoding), eg. The "22 00 02 [hash]" component is derivable from the `styled-witness-per-input` data, but the bandwidth saving probably wouldn't be worth the complexity, I guess?
+
+[quote="sipa, post:3, topic:2702"]
+* For relay to nodes that don’t support certain styles, witnesses can be “collapsed” to style 0, ...
+[/quote]
+
+It's necessary to do things this way because if you don't support the style, you not only don't know how to interpret it, you also don't know how much data you can accept in a block -- is 4MB okay? 28MB? 500PB? So you have to discard unknown styles entirely and just store the commitment.
+
+That also means that if anyone mines transactions with future/undefined witness styles, everyone will discard the associated data, so if a new style=3 pqdata2 is introduced one day, any blocks prior to the activation of that feature that has style=3 txs will be collapsed for everyone, not just nodes that haven't upgraded to support pqdata2.
+
+-------------------------
+
