@@ -137,11 +137,13 @@ Thank you for your opinion on my paper. By the way, the feedback is quite too lo
 
 -------------------------
 
-da2ce7 | 2026-07-14 17:09:53 UTC | #6
+da2ce7 | 2026-07-14 20:46:49 UTC | #6
 
-Well let’s me rewrite it in bullet points. (Of course I did read the AI output, and did comprehended every word of it, so alas).
+Hello Junhyuk,
 
-* Your paper makes fundamental assumptions that are not realistic of end-game game theory.
+Well let’s me rewrite it in bullet points. (Of course I did read the AI output, and did comprehended every word of it, so alas.)
+
+* Your paper makes fundamental assumptions that are not realistic of end-game game theory:
 * You assume a static model of mining. But this maximises cost and minimises security.
 * You assume that the secure is only from the difficulty of creating blocks. But this ignores the low cost of Sybil attack when the blocks are cheap to make.
 
