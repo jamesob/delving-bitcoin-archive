@@ -137,3 +137,24 @@ Thank you for your opinion on my paper. By the way, the feedback is quite too lo
 
 -------------------------
 
+da2ce7 | 2026-07-14 17:09:53 UTC | #6
+
+Well let’s me rewrite it in bullet points. (Of course I did read the AI output, and did comprehended every word of it, so alas).
+
+* Your paper makes fundamental assumptions that are not realistic of end-game game theory.
+* You assume a static model of mining. But this maximises cost and minimises security.
+* You assume that the secure is only from the difficulty of creating blocks. But this ignores the low cost of Sybil attack when the blocks are cheap to make.
+
+My recommendations are:
+
+1. Use a model where the stake of the system is a also a contributing factor to keeping it secure.
+2. Move to a dynamic model of mining capacity, with dark capacity that is used only as much and when is needed.
+3. Take into account that blocks will need to have two qualities to be considered confirmed in the late game:
+a. Costly to make.
+b  Known by your friends (no not trust blocks if you are cut off by Sybil).
+
+Kind Regards,
+Cameron.
+
+-------------------------
+

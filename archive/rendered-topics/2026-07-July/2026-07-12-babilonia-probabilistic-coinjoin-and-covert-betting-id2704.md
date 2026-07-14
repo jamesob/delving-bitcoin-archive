@@ -36,7 +36,7 @@ Welcome any thoughts on the cryptography, the protocol, applications, whatever.
 
 -------------------------
 
-AdamISZ | 2026-07-14 14:20:48 UTC | #2
+AdamISZ | 2026-07-14 18:44:37 UTC | #2
 
 A couple of addendums: first, about @pGerhart 's paper as noted above (well let's call it GTT 26 from now on, there are 3 authors). Second, about applying this specific protocol (i.e. Babilonia) to coinswap and not coinjoin; a topic I actually bothered to delve into yesterday after talking to one of the coinswap devs [1].
 
@@ -58,7 +58,7 @@ Next step is the reasoning "$f$ partially breaks amount correlation, but very po
 
 The Babilonia framework application would be: break the amount correlation not only by increasing the concrete values of $f$ in specific transactions, but by varying them an amount that is both (a) large and also (b) private and (c) statistically fair, i.e. $f + \delta$ where $\delta \gt f$ (not required to be $\gt$ but *can* be).
 
-In order to achieve this, the simple description is: make *two* distinct output transactions paying to Bob on Alice's branch, instead of 1. They pay to $K_i = W_{B,i} + A_i$ (in the notation of the paper), so when Bob collects his $ctxt$ as normal, knowing it will decrypt to $A_{c},\ c \in {1,2}$, he will be able to spend exactly one of the two presigned transactions, so he will broadcast that one. And of course one pays him $X - f - \delta$ while the other pays him $X - f + \delta$ (this can be arranged with change outputs and overfunding by Alice). The adaptor is as per Babilonia some $T$ s.t. $t$ decrypts the signature on *both* of these output transactions.
+In order to achieve this, the simple description is: make *two* distinct output transactions paying to Bob on Alice's branch, instead of 1. They pay to $K_i = W_{B,i} + A_i$ (in the notation of the paper), so when Bob collects his $ctxt$ as normal, knowing it will decrypt to $A_{c},\ c \in {1,2}$, he will be able to spend exactly one of the two presigned transactions, so he will broadcast that one. And of course one pays him $X - f - \delta$ while the other pays him $X - f + \delta$ (this can be arranged with change outputs and overfunding by Alice). The adaptor is as per Babilonia some $T$ s.t. $t$ decrypts the signature on *one of* of these output transactions.
 
 I got Claude to write some more details, more aimed at bitcoin engineers who don't want reams of cryptography; *maybe* it helps you understand, if you're curious: https://gist.github.com/AdamISZ/ebae2d5f547f56c6f8164db19f718795
 

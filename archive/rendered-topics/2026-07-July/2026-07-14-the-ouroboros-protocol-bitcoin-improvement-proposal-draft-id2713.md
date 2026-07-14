@@ -1,6 +1,6 @@
 # The Ouroboros Protocol - Bitcoin Improvement Proposal (draft)
 
-ricard | 2026-07-14 15:54:09 UTC | #1
+ricard | 2026-07-14 15:59:13 UTC | #1
 
 Hello everyone,
 
@@ -14,7 +14,7 @@ While the fee-market transition is the current plan, a strictly fee-dependent mo
 
 You can read the full Draft BIP on my GitHub repository here: 
 
-https://github.com/bip-proposer/bitcoin-infinity/blob/main/ouroboros.md
+https://github.com/bip-proposer/bitcoin-infinity/blob/5517fa9e5da1667c786dc46cfc11c72d4c0bfa77/ouroboros.md
 
 
 I look forward to your technical critiques and finding out where this mechanism might break or how it could be improved. Thank you for your time.
