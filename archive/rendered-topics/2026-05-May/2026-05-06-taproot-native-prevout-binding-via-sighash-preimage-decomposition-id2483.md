@@ -83,3 +83,60 @@ Happy to discuss.
 
 -------------------------
 
+AaronZhang | 2026-07-13 22:40:57 UTC | #4
+
+**Why CAT+CSFS must be able to replace CTV？**
+
+The two posts above were experiments. Only afterwards did I work out why they *had* to work — and the answer is about m.
+
+A signature, in its cryptographic definition, is a **proof of knowledge of x such that P = xG**. That's a knowledge proof; it has nothing to do with "authorization." Authorization comes from m — Fiat-Shamir sets the challenge to e = H(R ‖ P ‖ m), binding the proof to one specific message. Change one sat, m changes, the signature dies. **Authorization is a byproduct of that binding, not the essence of the signature.**
+
+And m isn't chosen by the signer. Consensus computes it: `m = f(tx)`.
+
+`f` is the BIP-341 SigMsg construction rule. **The spender can change tx. He cannot change f.**
+
+Now put every covenant proposal onto that equation:
+
+|  | what it touches |
+|----|----|
+| **CHECKSIG** | accepts consensus's f and m, just verifies. **No constraint on m** |
+| **CTV** | f unchanged, **constrains the value of m** (must equal a constant) |
+| **APO** | **modifies f** — drops the prevout field from the preimage |
+| **TXHASH** | **parameterizes f** — you pick which fields go into the preimage |
+
+They aren't answering the same question. They're **reaching into different positions of the same equation**.
+
+**So what does CSFS touch?**
+
+CSFS is the only signature-checking opcode that lets you **supply m yourself**. m stops being an opaque value handed down by consensus and becomes an ordinary stack item.
+
+And `OP_CAT` lets you assemble the preimage on the stack by hand — **which is to say, it lets you re-execute f inside the script.**
+
+> **CSFS + CAT don't give you a configuration of f. They give you f itself.**
+
+Once f lives in the script, the rest is corollary:
+
+* **Want CTV?** Compute f, compare against a constant.
+* **Want APO?** Omit the prevout field when assembling the preimage.
+* **Want TXHASH?** Only include the fields you want.
+
+(The CTV case has on-chain transactions above as proof. The latter two hold in terms of expressiveness; the exact semantic boundaries are worth discussing.)
+
+So:
+
+> **CTV isn't a new capability. It's a specialization of f — the most common constraint, frozen into a single opcode. APO is another specialization. TXHASH is another.**
+>
+> **They are all compile-time optimizations. CSFS+CAT is the general form being optimized.**
+
+Faster, cheaper, smaller scripts — but nothing that wasn't already there.
+
+The covenant proposal landscape finally takes shape: each opcode picks a spot on `m = f(tx)` and reaches in. CSFS+CAT sit at the root — they don't select a configuration of f. **They rewrite f.**
+
+The transactions above are the empirical half. This is the structural half.
+
+This also reframes an earlier thread of mine — [What exactly is bound in CSFS, IK+CSFS, and CHECKSIG?](https://delvingbitcoin.org/t/what-exactly-is-bound-in-csfs-ik-csfs-and-checksig/2351). That table catalogued *what* each pattern binds to; the `m = f(tx)` framing is the answer to *why* the catalogue looks the way it does. Worth a reread with that lens.
+
+This line of thinking is developed further in [Is CSFS+CAT already a general covenant primitive?](https://delvingbitcoin.org/t/is-csfs-cat-already-a-general-covenant-primitive-three-on-chain-demonstrations-and-an-observation-for-discussion/2659) — three on-chain demonstrations and an observation for discussion.
+
+-------------------------
+
