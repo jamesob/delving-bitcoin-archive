@@ -129,3 +129,11 @@ The paper convincingly establishes that a fee-only Bitcoin, secured by a static 
 
 -------------------------
 
+xodn348 | 2026-07-14 15:48:08 UTC | #5
+
+Howdy, Cameron.
+
+Thank you for your opinion on my paper. By the way, the feedback is quite too long and verbose because of AI. It would be convenient for me to read if the feedback comment. The comment looks like an plain AI's suggestion.
+
+-------------------------
+
