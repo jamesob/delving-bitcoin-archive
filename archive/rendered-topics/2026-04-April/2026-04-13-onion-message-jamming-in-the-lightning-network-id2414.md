@@ -447,3 +447,67 @@ Even with all that said, when it comes to the market based mechanism, what is th
 
 -------------------------
 
+GeorgeTsagk | 2026-07-14 11:13:36 UTC | #16
+
+ A few thoughts after reading through the thread (will skip the quoting part as discussion is pretty spread at this point):
+
+# Fast jamming: OMs vs HTLCs look alike but aren't
+
+The mechanics of flooding are similar in both cases, but they apply to fundamentally different objects. An HTLC is a monetary transaction that carries value, and with that comes built-in incentives and guarantees (fees, timeouts, the fact that the sender is committing real liquidity). An onion message is a one-off, fire-and-forget packet that a forwarding node keeps no state for and never tracks.
+
+So even though the attack rhymes, the defenses can't just be lifted across. The levers we rely on for HTLCs (skin-in-the-game, unconditional fees, reputation tied to routing revenue) don't have a natural analogue on a message that carries no value and leaves no trace.
+
+If we can't protect channels against DoS (channels give us way more puzzle pieces), then we definitely can't protect OMs (not a pessimist, we'll get there, just outlining the priority and/or feasibility comparison of the two).
+
+
+#  Forwarding Passes / e-cash
+
+They share the same wart: every node needs to acquire tokens/creds for every other node it may ever use. Credentials are per-issuer (a pass is encrypted under one node's key, a token redeemable only with its issuer), so there's no single credential that works network-wide.
+
+What I see as the biggest issue with the forwarding pass is the high initialization threshold. I need to acquire a credential with all routing nodes that I use, plus build a strong enough track record with each... It's definitely promising as the credential is tied to real undeniable value (forwarding fees) which is our only shot at solving any kind of DoS on the network level (our only solid difference when compared to uTorrent).
+Given the on-path adversary attacks outlined in [this paper](https://arxiv.org/pdf/2006.12143) I think the privacy trade-offs are not insignificant (a new stable pseudonym to profile you by).
+
+Tying e-cash to a real LN payment isn't free of downsides: it pulls a full payment flow into what was meant to be a lightweight message, which invites a lot of complexity and new attack vectors. For instance, can I trick someone into over-acquiring tokens they'll never use, effectively griefing them into spending sats on credentials that just sit there? What if I just walk away with the full Alice budget and never acquire downstream ecash (atomicity)? The acquisition step itself becomes something worth attacking.
+
+# If we do add errors/failures to OMs: reuse attributable failures
+
+It's designed precisely to pin blame to a specific hop when someone lies or misbehaves along the path, and that same signal could feed back into OM pathfinding, letting senders route around consistently-dropping or misbehaving nodes instead of retrying blind.
+
+The usual caveat still applies though: any return signal reintroduces per-message state and a new amplification surface (the bounce problem), so it'd need to be scoped carefully. Plus there's no strong incentive to return errors as a routing node, other than the future traffic that good behavior earns you.
+
+If we're going that far, it could also be used for proof-of-delivery (attributable-success).
+
+
+# If we have to bite the complexity bullet
+
+A lot of the mitigations here quietly push OMs toward being heavy: channel state-machine updates for fees, per-message tracking, return paths for errors. If that's the direction, we're giving up the cheap, stateless, fire-and-forget property that made OMs attractive in the first place.
+
+At that point we might as well do https://delvingbitcoin.org/t/reimagining-onion-messages-as-an-overlay-layer/1799 and metered connections. If we're paying the complexity cost anyway, an explicit overlay with authenticated links (require upfront payment or stream funds to buy bandwidth per link) gives a clean place to put DoS protection instead of retrofitting it onto every hop.
+
+# The common thread
+
+Any workable solution ties back to LN channels / sats, directly (buy bandwidth or credentials) or indirectly (reputation derived from real routing). Channels are the only structure that inherently costs something to create and maintain, so they're the only one that inherently carries DoS protection. Anything floating free of them is backed by nothing, and collapses back into "why can't the attacker just do this for free?"
+
+-------------------------
+
+AdamISZ | 2026-07-14 12:47:59 UTC | #17
+
+[quote="GeorgeTsagk, post:16, topic:2414"]
+Given the on-path adversary attacks outlined in [this paper](https://arxiv.org/pdf/2006.12143) I think the privacy trade-offs are not insignificant (a new stable pseudonym to profile you by).
+[/quote]
+
+I agree with some of your caveats about ecash, but what are you saying here? The whole point of Chaumian ecash is to delink issuance from spending. If the spending is unwrapped per hop it shouldn't need to reveal the originator; that's the whole point of it, right?
+
+-------------------------
+
+GeorgeTsagk | 2026-07-14 13:26:19 UTC | #18
+
+
+[quote="AdamISZ, post:17, topic:2414"]
+I agree with some of your caveats about ecash, but what are you saying here? The whole point of Chaumian ecash is to delink issuance from spending. If the spending is unwrapped per hop it shouldn’t need to reveal the originator; that’s the whole point of it, right?
+[/quote]
+
+Yes I agree on your points about ecash. The above was a concern about forwarding passes, which uses consistent pseudonyms.
+
+-------------------------
+

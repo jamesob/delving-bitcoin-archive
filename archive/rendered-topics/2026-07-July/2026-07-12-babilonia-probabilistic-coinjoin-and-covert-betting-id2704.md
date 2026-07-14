@@ -36,3 +36,37 @@ Welcome any thoughts on the cryptography, the protocol, applications, whatever.
 
 -------------------------
 
+AdamISZ | 2026-07-14 14:20:48 UTC | #2
+
+A couple of addendums: first, about @pGerhart 's paper as noted above (well let's call it GTT 26 from now on, there are 3 authors). Second, about applying this specific protocol (i.e. Babilonia) to coinswap and not coinjoin; a topic I actually bothered to delve into yesterday after talking to one of the coinswap devs [1].
+
+## About GTT 26
+
+I wrote here in a couple of places that it's a fundamentally more powerful construction. On closer inspection: I still think that's true, but I also think Babilonia gains something quite important from its simpler construction, in short: **it lets you do joins (one tx flow) and not only swaps (two separate flows)**.  In a nutshell, GTT 26  uses an OPRF that looks like $H(x, sk \cdot H_{G}(x))$ where $x$ is your input data, $H_G$ is a hash into the curve and $sk$ is the (dealer's) secret key. This lets the dealer make a secret choice of $x \in \mathbb{Z}_p$ and by passing it through the OPRF get a value $y_{win}$ that can be committed to in $Y_{win}$ as a group element (and therefore key). This means that the commitment the dealer publishes can be drawn from an exponentially sized set (i.e. $\mathbb{Z}_p$) which is the big advantage: you can represent very small probabilities this way.
+
+On the other hand, since this OPRF Evaluation function requires the dealer's secret key, we have to set up: 1/ that the player can blind their evaluation request (think about how Chaumian cash works; it's similar) and 2/ that they have to atomically pay the dealer for this evaluation using a swap structure - what they call "evaluation as a service". While in Babilonia the player gets (if guessed correctly) the required answer directly from $a_c = ctxt - f(t)$ without interaction. That seems to be the intrinsic difference between the two structures: one allows very low probabilities by drawing from an exponential set, and thus supporting e.g. lotteries (which could be super useful), the other does not, but allows a simpler "one transaction" design, because the player can calculate the result from the single adaptor produced in one spend event.
+
+TLDR: my current understanding is that *this* protocol (Babilonia) has advantages specifically related to coinjoin/payjoin/steganographic payment structures, keeping a betting function that is more limited (countable outcomes), but not realistically (at least, afaik) allowing a lottery-like function. [2]
+
+## Coinswap via Babilonia?
+
+I realized after some thinking that applying the same mechanism to private coinswap isn't trivially the same as the coinjoin construction presented in the paper, but at the same time it's not crazily different. Also note of course that GTT 26 as mentioned above, fits here.
+
+The 10000ft view is: Alice is maker, funds a tx that will pay out to Bob, the taker. Bob does the same in reverse. Alice as maker collects fee $f$, so Bob ends with $X - f$ and Alice ends with $X + f$ (ignoring network fee).
+
+Next step is the reasoning "$f$ partially breaks amount correlation, but very poorly: first, because it is inevitably small (less than 1% or 0.1% would be almost always true), and second because order books for the market are public."
+
+The Babilonia framework application would be: break the amount correlation not only by increasing the concrete values of $f$ in specific transactions, but by varying them an amount that is both (a) large and also (b) private and (c) statistically fair, i.e. $f + \delta$ where $\delta \gt f$ (not required to be $\gt$ but *can* be).
+
+In order to achieve this, the simple description is: make *two* distinct output transactions paying to Bob on Alice's branch, instead of 1. They pay to $K_i = W_{B,i} + A_i$ (in the notation of the paper), so when Bob collects his $ctxt$ as normal, knowing it will decrypt to $A_{c},\ c \in {1,2}$, he will be able to spend exactly one of the two presigned transactions, so he will broadcast that one. And of course one pays him $X - f - \delta$ while the other pays him $X - f + \delta$ (this can be arranged with change outputs and overfunding by Alice). The adaptor is as per Babilonia some $T$ s.t. $t$ decrypts the signature on *both* of these output transactions.
+
+I got Claude to write some more details, more aimed at bitcoin engineers who don't want reams of cryptography; *maybe* it helps you understand, if you're curious: https://gist.github.com/AdamISZ/ebae2d5f547f56c6f8164db19f718795
+
+Why does this matter? People doing swaps probably generally *don't* want to make bets, right? Well, I think it matters a lot: coinswap as a concept is almost crippled by amount correlation, and *without* amount correlation, it's almost ludicrously powerful. Amount splitting is not only expensive and complex, it's also a partial and brittle solution. This technique, while it has a cost (measurable stochastically, because the outcomes are fair) completely breaks amount correlation, because the delta between the two branches is negotiated in private, and represents an actual fund transfer.
+
+[1] Referring to the project at https://github.com/citadel-tech/coinswap 
+
+[2] There are of course other differences, weight of ZKP, onchain footprint, security reductions etc.
+
+-------------------------
+
