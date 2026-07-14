@@ -137,7 +137,7 @@ Thank you for your opinion on my paper. By the way, the feedback is quite too lo
 
 -------------------------
 
-da2ce7 | 2026-07-14 20:46:49 UTC | #6
+da2ce7 | 2026-07-14 20:49:39 UTC | #6
 
 Hello Junhyuk,
 
@@ -153,7 +153,7 @@ My recommendations are:
 2. Move to a dynamic model of mining capacity, with dark capacity that is used only as much and when is needed.
 3. Take into account that blocks will need to have two qualities to be considered confirmed in the late game:
 a. Costly to make.
-b  Known by your friends (no not trust blocks if you are cut off by Sybil).
+b  Known by your friends (i.e. do not trust blocks if you are cut off by Sybil).
 
 Kind Regards,
 Cameron.
