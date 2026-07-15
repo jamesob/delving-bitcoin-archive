@@ -325,3 +325,27 @@ It seems to do a good job of finding mailing list posts and text on BTC transcri
 
 -------------------------
 
+Tsua00021 | 2026-07-15 06:18:35 UTC | #16
+
+Good points on corpus size and the search index approach. I agree that fine-tuning is not the right first step for knowledge acquisition, and that bitcoinsearch plus an MCP layer is probably the fastest path to a usable retrieval setup.
+
+That said, retrieval only addresses half of the original goal. The target is not a model that can find what someone wrote about CSV semantics. It is a model that can perform the tasks a protocol engineer performs:
+
+1. **Script parsing and analysis.** Given a raw witness script from mainnet, return the spending conditions, the script class, relevant edge cases (malleability vectors, sighash interactions), and whether it matches a known construction. Retrieval cannot teach this. It is execution reasoning, not lookup.
+
+2. **PSBT auditing.** Verify that a PSBT actually implements what its descriptor claims before signing. This is a real professional task in custody and multisig coordination, currently done by hand or with ad hoc tooling.
+
+3. **UTXO graph reasoning.** Given actual node data rather than text about nodes, trace ancestry, identify structural patterns, and explain fee and CPFP dynamics against a live mempool.
+
+4. **Intent-to-script compilation.** Translate a custody requirement expressed in natural language into a correct miniscript or descriptor, with the tradeoffs made explicit.
+
+None of these are answerable from an index of mailing list posts. They require either targeted training on annotated on-chain data, or strong tool scaffolding over a real node (Core RPC, Electrs), and realistically both. The annotation cost is lower than it appears: scripts, PSBTs and descriptors can be paired with ground-truth explanations programmatically, since the chain itself is the label source. Corpus size stops being the constraint once the dataset is generative rather than archival.
+
+A concrete way to make this actionable: define the benchmark before arguing about architecture. A small public eval set, on the order of 200 tasks across the four categories above, with programmatically verifiable answers. Script parsing and descriptor compilation are directly checkable against Core. Anyone can then test their preferred approach: frontier model plus search index, frontier model plus node tools, fine-tuned 7B, or any combination.
+
+If a frontier model with good tooling passes, we skip fine-tuning and we have learned something. If it fails on script reasoning, which is my bet, we will know precisely where targeted training data is worth the effort.
+
+Happy to draft the benchmark structure if there is interest.
+
+-------------------------
+
