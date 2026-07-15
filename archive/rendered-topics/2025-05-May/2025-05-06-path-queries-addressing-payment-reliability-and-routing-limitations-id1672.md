@@ -320,3 +320,13 @@ I've created a draft PR in the BOLTs, which includes the updated proposal: https
 
 -------------------------
 
+brh28 | 2026-07-15 18:40:08 UTC | #6
+
+As discussed during a Lightning Spec meeting last year, the above PR more accurately belongs in the BLIPs repo. While doing this migration, I expanded on the wire format laid out in `Specification` and made significant revisions to the `Motivation` and `Rationale` sections. This includes addressing potential concerns and comparisons to related work, such as `Trampoline` (@t-bast  ) and `Probabilistic Pathfinding` (@renepickhardt ).
+
+As always, feedback is welcome. 
+
+https://github.com/lightning/blips/pull/73
+
+-------------------------
+
