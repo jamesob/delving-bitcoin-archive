@@ -310,7 +310,7 @@ Hi there @Tsua00021 , if you can stand this up behind an L402 paywall, I'd happi
 
 -------------------------
 
-davidgumberg | 2026-07-15 00:04:42 UTC | #15
+davidgumberg | 2026-07-15 00:05:10 UTC | #15
 
 I expect that the corpus of Bitcoin related text is relatively small compared to the corpuses that frontier models are trained on (at minimum all text on the internet + anna's archive) and the practical experience of many + literature indicates that domain specific finetuning is rarely worth the time and effort compared to building something general like RAG that you can just plug the latest frontier model into.
 
@@ -322,8 +322,6 @@ https://github.com/bitcoinsearch/bitcoinsearch-app
 
 
 It seems to do a good job of finding mailing list posts and text on BTC transcripts, but some stuff is missing from the crawlers: https://github.com/bitcoinsearch/scraper . I don't know hard it would be to add e.g. b10c's mirror of github content to it.
-
-That might be a good starting point.
 
 -------------------------
 
