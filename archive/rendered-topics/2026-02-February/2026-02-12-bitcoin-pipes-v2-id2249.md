@@ -407,3 +407,9 @@ I think the "arbitrary spending condition" goal is a mistake: any sufficiently c
 
 -------------------------
 
+nemothenoone | 2026-07-14 21:26:54 UTC | #13
+
+Speaking of "trustless non-simultaneously-online setup". I think PIPEs v2 achieve such a thing during the setup phase 'cause the DKG and/or a ciphertext creation procedure doesn't require everybody to be online in the same time. It only requires for everybody's respective shares to be generated honestly (with leftovers removed by at least one party) and available for grabs when needed by others.
+
+-------------------------
+

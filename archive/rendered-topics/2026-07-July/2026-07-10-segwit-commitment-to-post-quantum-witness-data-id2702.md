@@ -103,3 +103,37 @@ That also means that if anyone mines transactions with future/undefined witness 
 
 -------------------------
 
+sipa | 2026-07-14 22:40:16 UTC | #5
+
+[quote="ajtowns, post:4, topic:2702"]
+Conceptually, I think this means “every input has authorisation data that gets a particular weight formula applied to it – legacy has the original 1:1 weighting, segwit has the 1:4 weighting, pqdata and future things have new weightings”.
+[/quote]
+
+That's certainly the easiest approach, but it's not the only one. For example, the witness stack could be "typed" and different types of data can have different discounts, even within a single witness type. It's annoying because that may mean a need to track the types throughout the script execution logic too, but it's not infeasible. If more invasive changes to the scripting language are considered, you could have a design where the witness stack pretty much contains a sequence of *(pubkey,signature)* pairs (or just *signature* if the pubkey can be recovered from it) that are checked up front, and the script then contains assertions of the form "pubkey(hash) X signed".
+
+But maybe taking a step back: how should cost accounting occur, if we have the freedom to redesign it in abstract? I think it should be a per-txin monotonic function of (I/O costs, storage/bandwidth costs, CPU costs). The first is a constant (UTXO lookup). The second is proportional to the serialized size of the witness(es), and objectively speaking this is independent of how that data is used. The third is a function of executed opcodes.
+
+I could imagine a design where the witness stack consists of just (a) a declared computation budget number (used by the opcodes in the script) and (b) script input data. Each witness style is then a formula for mapping the (computation budget, script input size) to WU. Newly introduced opcodes can have new/different computation cost from existing one without needing a new witness style. It is only when the formula changes, so practically when the cost per script input byte changes, that a new style is needed. Perhaps with such a design, a single style per txin suffices?
+
+[quote="ajtowns, post:4, topic:2702"]
+Seems like this might as well be a minimal CompactSize?
+[/quote]
+
+Sure, why not.
+
+[quote="ajtowns, post:4, topic:2702"]
+I wonder if this would be better specified as an annex entry?
+
+If we consider the annex as a place where we can extend the tx with additional “nSequence” and “nLockTime” like behaviours (eg, per-input locktimes, larger range relative locktimes, or block at height X has hash Y assertions), then it would probably be good to have those assertions be available independently of new transaction authorisation encodings/weightings, ie have the “collapsed” encoding includes the annex assertions (regarding locktimes, etc) still available, despite the other data being absent.
+[/quote]
+
+That seems reasonable. I think we could also simplify things by just permitting multiple annexes per txin, avoiding the complexity of encoding it into a single witness. Witness style commitments could then be an annex, but they could also be just something else, very much like annexes, but with a different prefix byte. Maybe that's just a aesthetical difference; witness style commitments feel much more like a P2P/serialization thing, while annexes a script thing.
+
+[quote="ajtowns, post:4, topic:2702"]
+That also means that if anyone mines transactions with future/undefined witness styles, everyone will discard the associated data, so if a new style=3 pqdata2 is introduced one day, any blocks prior to the activation of that feature that has style=3 txs will be collapsed for everyone, not just nodes that haven’t upgraded to support pqdata2.
+[/quote]
+
+I don't think that's the case. The consensus rule that no style=0 commitments to a style=3 witness are allowed itself would activate along with the consensus change that gives meaning to style=3 data. Before that point, they'd just be style=0 witness data that happens to look like a commitment, but be relayed as style=0, and everyone would accept it without giving it special meaning.
+
+-------------------------
+
