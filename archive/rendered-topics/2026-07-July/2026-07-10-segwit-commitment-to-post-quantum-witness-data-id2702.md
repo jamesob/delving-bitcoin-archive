@@ -137,3 +137,44 @@ I don't think that's the case. The consensus rule that no style=0 commitments to
 
 -------------------------
 
+ajtowns | 2026-07-15 00:11:33 UTC | #6
+
+[quote="sipa, post:5, topic:2702"]
+For example, the witness stack could be “typed” and different types of data can have different discounts, even within a single witness type.
+[/quote]
+
+I think it would be a lot easier to deal with if different weighting rules were separated structurally? In that case the "type" is just the "style".
+
+[quote="sipa, post:5, topic:2702"]
+But maybe taking a step back: how should cost accounting occur, if we have the freedom to redesign it in abstract? I think it should be a per-txin monotonic function of (I/O costs, storage/bandwidth costs, CPU costs). The first is a constant (UTXO lookup).
+[/quote]
+
+I think you could have non-constant I/O costs by allowing multiple "UTXO" lookups per-input; eg looking up 7be22151bc96041932830d79c2af4472e40e9dedaa29018fff6757501e7855c6:0 could give you up to 10kB of script data in a pubkey, which if it were reused across multiple transactions might be more efficient than repeating the same snippet in multiple transactions.
+
+Perhaps it's better to think of this as a way of dealing with storage costs reducing over time, that doesn't involve (a) hard forks, (b) predicting the future and locking in a schedule in advance, (c) having regular soft forks to put in place a new temporary limit, where the risk is that if some soft fork fails, we don't have any reasonable limit at all?
+
+[quote="sipa, post:5, topic:2702"]
+The second is proportional to the serialized size of the witness(es), and objectively speaking this is independent of how that data is used.
+[/quote]
+
+It's not quite clear to me if "independent of how that data is used" is the right call here. It might be that the decision matrix is for the next decade should be something like:
+
+ * ideal block size if Q-day doesn't happen is 3.23MB -- that maximises decentralisation
+ * ideal block size if Q-day does happen is 12.76MB -- that trades off some losses in decentralisation, versus avoiding a significant decrease in transaction capacity
+
+If that's the case, then it might make sense to provide ~10MB of capacity in a "pqdata" area, but require as consensus that the pqdata area is only used for post-quantum signatures. That way if Q-day doesn't happen, people don't use the pqdata area and blocks stay closers to 3.23MB target (because a post-quantum signature uses a higher percentage of 10MB than an ECC signature does of 4MB), but if Q-day does happen, the additional capacity is already available.
+
+[quote="sipa, post:5, topic:2702"]
+Perhaps with such a design, a single style per txin suffices?
+[/quote]
+
+I think that's true provided you don't want to make tradeoffs like the above; but my impression is we probably do want to make tradeoffs like the above? That is, I think the ideal block size for TRv2 spends (eg) with current technology (node hardware, and post-quantum cryptosystems) is different before / after Q-day. I might be wrong ofc.
+
+[quote="sipa, post:5, topic:2702"]
+I don’t think that’s the case. The consensus rule that no style=0 commitments to a style=3 witness are allowed itself would activate along with the consensus change that gives meaning to style=3 data. Before that point, they’d just be style=0 witness data that happens to look like a commitment, but be relayed as style=0, and everyone would accept it without giving it special meaning.
+[/quote]
+
+I think your description there is just a different way of saying what I intended.
+
+-------------------------
+
