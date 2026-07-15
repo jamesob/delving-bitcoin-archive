@@ -213,3 +213,41 @@ Cam.
 
 -------------------------
 
+xodn348 | 2026-07-15 03:48:47 UTC | #8
+
+Howdy, Cameron.
+
+Thank you for your sincere comment.
+
+**I would say your critiques are fair enough and comprehensive approach.**
+
+Your suggestions are valuable and I would consider to have them in scope but I am not sure to have them right now because it could be too broad to deal with as a theoretical paper and not to be specialized. (Like your saying, it is specifically scoped within the scope of miner's profitability and followed conservative approach for intentionally not to be too broad.)
+
+**I would consider re-scoping(change the title, state that this is conservative approach. But the reader would know this is theoretical paper so not the 3)**
+
+The reason why I did not answer to AI's comment is that I am worries that there would be some material AI would miss if I let them summarize(I have no guarantee that my AI could summarize the comment perfectly).
+
+It would make misunderstanding or verbose comment of mine so I refused to answer it.
+
+**Regarding your comment :**
+
+* **Your paper makes fundamental assumptions that are not realistic of end-game game theory**
+
+\>> Could you elaborate more on end-game game theory in this context? 
+
+* **You assume a static model of mining. But this maximises cost and minimises security.**
+
+\>> I used record of network electricity cost using CBECI's methodology in general. Like your comment, considering variable hash rate(e.g. turn on/off rigs in Carlsten 2016) would give more flexibility to this model but I did not consider it since the elasticity of hash rate could change at any time. As a result, I could say this model is more conservative and theoretical than what you assume.
+
+* **You assume that the secure is only from the difficulty of creating blocks. But this ignores the low cost of Sybil attack when the blocks are cheap to make.**
+
+\>> I generally analyze the network's security with miner's profitability because they are the main security factor of the network. However, considering Sybil attack is realistic but I am not sure how to model the possibility of Sybil attack with proper measurement. 
+
+I know that there are general security model assuming adversaries without economic incentive(classic approach) and assuming adversaries with economic incentive(rational attackers in RPD). I chose RPD way to analyze the network's security because it is more recent theory and reasonable.(e.g. No one would spend $3 Million to attack BTC network for fun). Having Sybil attack in the model would be more comprehensive but it could be too general and wide scope of view. 
+
+Appreciate your time,
+
+Junhyuk.
+
+-------------------------
+
