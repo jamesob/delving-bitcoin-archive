@@ -266,3 +266,26 @@ Junhyuk.
 
 -------------------------
 
+da2ce7 | 2026-07-15 05:20:53 UTC | #9
+
+Hello Junhyuk,
+
+Thank you for your reply,
+
+[quote="xodn348, post:8, topic:2626"]
+**Regarding your comment :**
+
+* **Your paper makes fundamental assumptions that are not realistic of end-game game theory**
+
+\>> Could you elaborate more on end-game game theory in this context?
+[/quote]
+
+I completely agree that the AI didn’t make a good job of writing this part. It stated it as a conclusion: but blurred the rationale.
+
+Now the AI elaboration has been updated to make the limits of the game-theory analysis core to the formal reply. - if you need more detail or particular examples I am happy to provide!
+
+Kind Regards,
+Cameron.
+
+-------------------------
+
