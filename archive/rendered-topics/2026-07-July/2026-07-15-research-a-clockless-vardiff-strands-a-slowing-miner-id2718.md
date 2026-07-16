@@ -255,3 +255,36 @@ Instead of dropping hashrate to 0 why not drop it 99%? I think that's a more rea
 
 -------------------------
 
+gimballock | 2026-07-16 18:50:30 UTC | #3
+
+Testing recovery from a 99% hr drop is an important and distinct test independent of a 100% hashrate drop test. I would argue it is independent and on equal footing with the 100% scenario. Let me explain by first thinking about what actually disturbs a miner's hashrate from the perspective of the pool:
+
+Ordered by something like the "complexity/nature" of the disturbance. This ordering lets us build up confidence step-by-step because each one is observed through the ones below it:
+
+1. Measurement noise: shares are Poisson, so even a dead-steady miner looks jittery through the share stream. This is noise in what the pool sees, not in the hashrate itself.
+
+2. Thermal drift: chips slow as they heat and recover as they cool, so there's a real, roughly daily swing of a few percent. Gradual, and a genuine change the controller arguably should track.
+
+3. Firmware autotuning: DVFS, per-chip tuning, thermal throttling. The miner has its own control loop moving its hashrate independent of the pool. (These interact — the firmware is reacting to thermal in real time)
+
+4. Grid/power response: demand-response curtailment, real-time-pricing throttling. Deliberate, often scheduled. In reality this is almost always done discretely, machines are turned all the way off and then back on — which is worth noting, because it means the realistic curtailment case is frequently the 100% case. Zero isn't an artificial test; it's the common one.
+
+5. Operational/network events: reboots, a hashboard dropping, disconnects, congestion, which aren't hashrate changes at all but look like them at the pool (aggregate channel membership changes).
+
+To characterize a controller you climb this from the bottom, so lower-level effects don't confound the higher ones.
+
+Start at measurement noise. From the controller's perspective miners go silent all the time, and comeback from it all the time. At this level presence of absence of shares is a statement about observability of share stream more than it says anything physical about the device. So here we're characterizing how the controller behaves on informational evidence, and the questions are:
+
+* Does it correct on sparse evidence?
+* Does it correct when the evidence is zero, i.e., does it read the silence itself as a signal?
+* After a brief gap, does it correct on the new evidence, and, if the gap was a false alarm, does the correction cleanly undo itself when shares return?
+
+These are questions about convergence behavior of a static miner's state:
+Does repeated application of the vardiff drive the difficulty (and the share rate) to target. If the controller can zero the error for any possible static state the miner can be in, i'd call that decline-safe. And if it can't zero the error from some state, there's no point asking how fast it converges from there, we never established that it converges at all.
+
+To give more context the current Sv2 vardiff (that i want to replace) has a defect I'm calling 'entrenchment' whereby the longer a healthy channel is up the longer it takes for a disturbance in the hashrate to outweigh the accumulated window of evidence that the hashrate is stable. This phenomenon assumes convergence happens, eventually, its just a matter of how long it takes. The static tests are a precondition for understanding more interesting, dynamical, questions like "how does settling speed depend on channel age".
+
+The higher levels build on that (I'm working this hierarchy out as I write, so don't take it as a finished theory.) If we establish no hidden dependencies to things like channel-age at lower levels then we can start asking whether the firmware's own controller plays nice with the pool's or whether Grid/power and network events could be shown as safe within certain thresholds (connection drops on timeouts at various layers), provided the lower level disturbances are well understood first.
+
+-------------------------
+

@@ -70,3 +70,58 @@ Why does this matter? People doing swaps probably generally *don't* want to make
 
 -------------------------
 
+olkurbatov | 2026-07-16 17:25:57 UTC | #3
+
+This is cool, thanks for sharing!
+
+In the current flow, the adaptor round happens after funding confirmation. This creates a window when both parties have locked coins, but the settlement is unsigned. If someone stays silent, we are waiting until $T_R$.
+
+I think the window can be removed by extending the RefundTx precedent (pre-sign before money moves) to the settlement:
+
+* 1-2. As now (funding info, thimbles + PoKs, $K$ + $\pi_B$, nonces for all three sessions)
+* 3-4. As now (RefundTx partials)
+* 5. Dealer sends $\sigma'_{A,P}, T, \pi_A, ctxt$ (current step 8)
+* 6. Player verifies against the PayoutTx template and sends $\sigma_{B,P}$ (step 9)
+* 7. Dealer validates, signs FundingTx, and sends the PSBT (step 5)
+* 8. Player co-signs and broadcasts (step 6)
+* 9. Waiting for the transaction confirmation
+* 10. Dealer sends $t$ and $\sigma_{A,O}$ (step 10)
+* 11-13. Unchanged
+
+This reordering should survive: neither $t$ nor the completed signature becomes public before the funding transaction is confirmed. In this case, only the dealer can abort, and it only gives the player a free option against them, so it's incentive-compatible. The player can't exploit receiving the adaptor earlier either: the hiding of $c$ doesn't depend on whether his coins are committed yet.
+
+Another effect: by the time any money moves, every proof is verified, and every signature exchanged, so a failed $\pi_A$, $\pi_B$ or adaptor check aborts with zero footprint.
+
+Another shower thought is "flip channels": we lock $U_1$ and can make a lot of flips inside the channel; balances live in pre-signed state transactions, and we are doing flips off-chain:
+* a state is just a pre-signed spend of $U_1$ into the two balances; stale states are revoked (LN-penalty style)
+* during a flip, the stake moves into an in-flight output inside the state. $O_K$ with fresh thimbles, $K_k$, $t_k$ per flip (freshness per flip is critical: the loser learns $a_c$, and against a reused thimble pair, he could construct a $K$ he can always spend)
+* the dealer's enforcement stays the same
+* but we need to care about ordering: the pre-flip state (the one without the stake in flight) must be revoked before $t_k$ is revealed, otherwise the loser just rolls back to it
+
+Beyond fees, it strengthens privacy: any number of flips leaves only a two-transaction footprint (open + cooperative close), and the close pays out only the net result, so no per-bet amounts ever appear on-chain. Roles can also alternate per flip.
+
+Additionally, we should be able to route flips between parties who don't share a channel (assuming PTLC-capable channels):
+
+1. The handshake with messages that the paper describes.
+2. Dealer routes $(a+b)$ to the player as a PTLC locked to $K$, timeout $t_A$. This is safe to commit first: the player can't claim it without knowing $t$.
+3. Player routes his stake $b$ to the dealer as a PTLC locked to $T$, timeout $t_B < t_A$ (the gap leaves the player time to claim after the reveal). The order matters: the dealer knows $t$ from the start, so if the stake were committed before the pot existed, they could just claim it and never send the pot at all.
+4. The dealer claims the stake, and the PTLC claim reveals the scalar $t$. The player computes $a_c = ctxt - t^2$, and if they won, they know $\mathsf{dlog}(K)$, which allows them to claim $(a+b)$. If the dealer never claims, both PTLCs time out - the refund path.
+
+-------------------------
+
+AdamISZ | 2026-07-16 19:57:10 UTC | #4
+
+Hi @olkurbatov . Thanks for the very substantive read and analysis! You had two distinct points, I'll address the first one now and read the second one later.
+
+You're right - and funnily enough, it's already in the code :grinning_face_with_smiling_eyes: I just forgot that the protocol sequence in the paper is stale.
+
+You're also right that it's really quite a big deal. The best thing about it is it (mostly) skips something I always disliked, and which I like to call "cross-block interactivity" (it's the main reason swaps are harder for both devs and users, than coinjoins). In a nutshell we should (and do in the [code repo](https://github.com/AdamISZ/babilonia), see `setup.rs`) prepare the whole tx graph, and also then have Alice prove a useful $\sigma'_{A,P}$ so that Bob's position is: OK, if I send a co-signature on the Payout and the Funding now, my *only* risk is that Alice broadcasts funding, putting the coins in $U_1$, and then walks away - and for that I need the RefundTx signature which she provided upfront. 
+
+So you still get the *possibility* of backout, but it's a much less likely case than if you have both sides waiting half an hour and having to be online and talking, to avoid an unwanted fallback.
+
+The remaining detail is CooperativeOverlayTx; for that, we need Alice to send Bob $t$ out of band in case he lost (something she is only safe to do after PayoutTx *confirms*), so for *that* part we still need to be able to send a message post-confirmation (that's if Bob loses; if Bob wins, it's completely unnecessary, which is cool). (But to be clear you already said this! I'm just trying to make sure it's clear both to me and other readers).
+
+I'll update the paper (but not the code :grinning_face_with_smiling_eyes:) with this correction, thank you for spotting it. Will answer the second idea later.
+
+-------------------------
+

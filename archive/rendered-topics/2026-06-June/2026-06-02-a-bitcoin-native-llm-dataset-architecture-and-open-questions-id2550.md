@@ -349,3 +349,9 @@ Happy to draft the benchmark structure if there is interest.
 
 -------------------------
 
+MrHash | 2026-07-16 16:11:10 UTC | #17
+
+I have developed something like this for myself and was planning on open sourcing it. There's no harm in having different knowledge bases, in fact it can help in finding answers.
+
+-------------------------
+

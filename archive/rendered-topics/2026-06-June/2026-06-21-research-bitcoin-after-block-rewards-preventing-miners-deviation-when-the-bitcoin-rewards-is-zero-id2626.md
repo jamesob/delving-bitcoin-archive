@@ -289,3 +289,48 @@ Cameron.
 
 -------------------------
 
+xodn348 | 2026-07-16 18:41:33 UTC | #10
+
+Howdy Cameron,
+
+Thank you for taking the time to write such a detailed reply. Here are my
+thoughts on the main points.(AI summarized my thoughts)
+
+1. Stakeholders. I agree that exchanges, ETF issuers, custodians, and
+   academia hold large stakes in Bitcoin. However, this paper is grounded in
+   miners, which I regard as the primitive of the Bitcoin network. I cannot
+   reliably model the behavior of the surrounding entities, and I do not know
+   their exact incentive structures, so premature speculation could blur the
+   direction of the paper and lower its quality. Entities other than miners
+   and users are applications built on top of Bitcoin's base layer, so I
+   believe the primitive should be analyzed first.
+
+2. Dark capacity. Reserve capacity could indeed be switched on to raise
+   the hashrate when needed. But an attacker can do exactly the same, so this
+   becomes a different game from the one analyzed here. I think it belongs to
+   a separate game-theoretic setting rather than to this paper's analysis.
+
+3. Eclipse attacks. I find this discussion productive. If someone writes a
+   paper on network-level attacks on Bitcoin, I believe this line of thought
+   could provide great insight.
+
+4. Common knowledge. I do not have a firm view on this part yet.
+
+5. Framing. Rather than a limit case, I see this work as an analysis of
+   the primitive element of the Bitcoin network. Only after the problem posed
+   in this paper is resolved can the higher-layer games, such as stakeholder
+   defense or eclipse scenarios, be meaningfully tested on top of it
+
+6. Future work. If you could organize a few concrete items, I wou
+   happy to investigate them on my own. As you noted, this paper deliberately
+   takes a conservative approach, so I think the risks discussed abo
+   be better analyzed in a separate, connected paper.
+
+Thanks again for the discussion.
+
+Regards,
+
+Junhyuk.
+
+-------------------------
+

@@ -178,3 +178,20 @@ I think your description there is just a different way of saying what I intended
 
 -------------------------
 
+sipa | 2026-07-16 18:25:18 UTC | #7
+
+[quote="ajtowns, post:6, topic:2702"]
+[quote="sipa, post:5, topic:2702"]
+I don’t think that’s the case. The consensus rule that no style=0 commitments to a style=3 witness are allowed itself would activate along with the consensus change that gives meaning to style=3 data. Before that point, they’d just be style=0 witness data that happens to look like a commitment, but be relayed as style=0, and everyone would accept it without giving it special meaning.
+
+[/quote]
+
+I think your description there is just a different way of saying what I intended.
+[/quote]
+
+Right, I see what you mean now.
+
+I think the way to look at it is just that witness styles just don't "exist" unless there are consensus rules (or any rules) that need to observe them. Before a softfork that introduces style=3, there is just no way to hand style=3 witness data to a node, because it either doesn't know about it (pre-softfork software), or because it knows it doesn't need it (pre-activation).
+
+-------------------------
+
