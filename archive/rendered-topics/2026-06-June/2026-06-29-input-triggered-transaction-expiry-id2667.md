@@ -324,3 +324,9 @@ Language is perhaps one the hardest things for new users and developers to pick 
 
 -------------------------
 
+cmp_ancp | 2026-07-16 20:47:18 UTC | #16
+
+I think I didn't get well the first time, but if I get it now, does this only applies to a double transaction scenario? I mean, the second transaction becomes invalid if the first transaction were confirmed too late.
+
+-------------------------
+
