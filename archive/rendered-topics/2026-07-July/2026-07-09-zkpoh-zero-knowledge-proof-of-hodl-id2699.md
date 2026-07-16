@@ -180,3 +180,17 @@ Thanks again—the comparison really helps clarify screen.
 
 -------------------------
 
+AdamISZ | 2026-07-16 11:36:48 UTC | #8
+
+[quote="fabohax, post:7, topic:2699"]
+My current understanding is that **AUT-CT** uses a highly optimized Taproot and **Curve Trees construction**, while **zkPoH** explores a heavier general-purpose circuit that could compose more application-specific conditions—for example, proving that a user holds at least a certain amount of sats to access a club or service, or something along those lines.
+[/quote]
+
+Well no, as I specifically said and also linked the blog post that described it, I did exactly what you describe here - proof of ownership of N utxos adding to an amount in a range, from a chosen utxo snapshot - using a bulletproofs circuit in aut-ct.
+
+Halseth was also surprised about this, but I don't think you should be! The original bulletproofs paper describes specifically how you can do this. Bulletproofs *is* a general purpose proving system, it's just that it buys proof compactness in exchange for poor verification scaling/performance (so not technically SNARK) - which is going to matter in a very large range of scenarios, but not all - here, if you have a utxo snapshot **of taproot utxos** [1] then you have a set of keys, so all the circuit has to do is prove that "I own N of these curve-tree-leaves, the sum of the attached amounts is $k < X < k + 2^n$ or whatever); that being sufficiently simple, bulletproofs' drawback is not exposed. Try to do the same thing with hashed outputs, and, well, you can, but I presume it'll have extremely poor verification performance.
+
+[1] of course the requirement is not *literally* taproot, it's 'outputs for which you know the key', so other scenarios might exist, taproot is just the most natural one
+
+-------------------------
+
