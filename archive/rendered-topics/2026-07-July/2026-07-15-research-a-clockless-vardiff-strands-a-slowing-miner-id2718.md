@@ -249,3 +249,9 @@ Thanks to the reviewers who read early drafts and pushed on the framing, the ter
 
 -------------------------
 
+paratoxicdev | 2026-07-15 23:09:29 UTC | #2
+
+Instead of dropping hashrate to 0 why not drop it 99%? I think that's a more realisitic scenario for stranded hashrate. Because if a miner really drops to 0 there's no point in adjusting the difficulty down, it won't come back either way. Thinking that thought further the real test would be how fast a 99% reduced hashrate miner comes back to the target share rate for those different algos
+
+-------------------------
+

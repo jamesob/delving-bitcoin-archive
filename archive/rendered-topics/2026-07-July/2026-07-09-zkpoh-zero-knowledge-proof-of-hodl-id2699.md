@@ -164,3 +164,19 @@ I'd earlier done work on ring-signature based proofs of ownership but that's muc
 
 -------------------------
 
+fabohax | 2026-07-15 22:41:29 UTC | #7
+
+Thanks for reaching out. These ideas are certainly closely related.
+
+I’m still exploring the primitive and the prior research around it. I initially started experimenting simply to understand whether this type of proof was feasible, but I hadn’t come across the concepts and projects you mentioned. They give me a much broader understanding of the current state of the work.
+
+I also hadn’t considered the Lightning application, but I’ll look more closely at Halseth’s proposal and see whether there is any useful contribution I could make.
+
+My current understanding is that **AUT-CT** uses a highly optimized Taproot and **Curve Trees construction**, while **zkPoH** explores a heavier general-purpose circuit that could compose more application-specific conditions—for example, proving that a user holds at least a certain amount of sats to access a club or service, or something along those lines.
+
+I’m glad there is substantial prior work in this area. My focus now is to identify useful proof-of-UTXO-ownership processes and application cases that could justify the generalized approach. Halseth’s work looks especially relevant here. 
+
+Thanks again—the comparison really helps clarify screen.
+
+-------------------------
+

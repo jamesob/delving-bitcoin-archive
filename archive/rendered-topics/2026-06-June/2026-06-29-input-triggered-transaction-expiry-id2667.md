@@ -256,3 +256,71 @@ Short-duration HTLCs is definitely an interesting primitive, and it is good moti
 
 -------------------------
 
+josh | 2026-07-15 22:03:57 UTC | #15
+
+# Follow-up
+
+This follow-up is motivated by a few comments. First, @ajtowns suggested that the 100-block delay could be removed from consensus (and perhaps policy too). Second, @instagibbs suggested that the original BIP68-oriented language made the change hard to intuitively understand. To that end, I thought I'd share two frameworks and a short note that help me better understand the proposal, and time in general in the protocol.
+
+## Alternative framing #1
+
+The first begins with an ultra-short (not-backward-compatible) plain-english explanation, which we then restrict:
+
+> (1a) Fail if a relative timelock remains active after `nLockTime`,
+
+This sentence describes a much more powerful proposal, which is somehow simpler to state. It simply means that the absolute timelock must be the last timelock to expire. This in turn guarantees the transaction will be invalid if any relative timelock kicks off too late.
+
+> (2a) Fail if a height-based relative timelock remains active after a height-based `nLockTime`,
+
+This sentence restricts (1a) to height-based timelocks, leaving MTP-based timelocks untouched. The reason to do this is because most applications need only height-based expiry. Moreover, MTP-based expiry could incentivize miners to play games with timestamps, which is best to avoid.
+
+> (3a) Fail if a height-based relative timelock remains active after a height-based `nLockTime` and bit 21 of `nSequence` is set on that input. 
+
+This final sentence closely resembles the original proposal, minus the 100-block minimum delay. Unlike (2a), (3a) applies only to a single input that opts in using bit 21. This reduces the risk of accidental confiscation, at the cost of losing enforcement of the invariant across all inputs.
+
+Is cross-input enforcement a desirable property? It may be a direction worth exploring, but for now, it is probably best to limit the surface area of the consensus change as much as possible.
+
+## Alternative framing #2
+
+Another approach, which I find helpful, places the confirmation at the center of the description: 
+
+> (1b) Fail if an input has fewer than `nSequence` confirmations at `nLockTime`.
+
+This description is completely ignorant of BIP68 and not-backward-compatible. It is purely illustrative and designed to gain insight into the proper (potential) meaning of `nSequence`.
+
+(1b) is nearly equivalent in functionality to (1a), except it prohibits a time-based relative timelock. The description also suggests an inverse measure of time, which starts with `nLockTime` and counts the confirmations of each input backward. This has tradeoffs, but it may be more intuitive for users whose sight begins with "the transaction" and who care about the confirmations the transaction has seen at the postdate, rather than relative timelocks or the "chain."
+
+> (2b) Fail if `nLockTime` is height-based and an input has fewer than `nSequence` confirmations at `nLockTime`.
+
+(2b) is effectively identical to (1b), except we prohibit a time-based `nLockTime` and ignore BIP68.
+
+> Let `nSequence` signal expiry if bit 21 is set and bits 22 and 31 are unset.
+>
+> (2c) Fail if `nLockTime` is height-based,`nSequence` signals expiry, and the input has fewer than `nSequence` confirmations at `nLockTime`.
+
+This description is more involved technically, but it is fundamentally equivalent to (3a), leaves time-based relative timelocks untouched, and respects existing BIP68 usage of `nSequence`
+
+## On free relay
+
+(1a) and (1b) are stated in a manner that boils down the consensus change to the fundamental invariant that is enforced. The one caveat is that (1a) and (1b) no longer naturally prevent free relay, because a 0-confirmation input is potentially allowed.
+
+There are two ways to address this, were (1a) or (1b) enforced. The first is to enforce a minimum 1-block delay in consensus (or a greater delay). The second is to enforce a minimum delay only in policy or to create a package relay policy that ensures the child's relay is covered by the parent's fee if the parent has zero confirmations and the child could expire.
+
+Again, this is only relevant to (1a) and (1b) and not the actual proposal, which uses BIP68-oriented language and automatically enforces a 1-confirmation input. That being said, it is useful to think about as an academic exercise.
+
+## Offline usage
+
+Input-triggered transaction expiry is perhaps also useful as a way to clarify the meaning of transactions when signed offline. For instance, Alice may find it easier to approve the following statement:
+
+> This transaction is good on [this date] if and only if [these inputs] have [these confirmations].
+
+This statement perhaps also clarifies the invariant the proposal could enforce. Without expiry, the "only if" clause is lost. With it, we gain bidirectionally.
+
+## Final thoughts
+
+Language is perhaps one the hardest things for new users and developers to pick up, especially the language of time in the protocol. Using non-BIP68 language to describe the consensus change is probably a good idea, especially if it can convey the reason and purpose as well.
+
+@ajtowns suggested language akin to input "coin-heights" or "coin-height ceilings." This is a viable third approach and worth considering.
+
+-------------------------
+
