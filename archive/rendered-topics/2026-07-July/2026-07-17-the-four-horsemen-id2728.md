@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-17 20:19:39 UTC | #1
+Kruw | 2026-07-17 20:28:04 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -19,7 +19,7 @@ Kruw | 2026-07-17 20:19:39 UTC | #1
 
 **Strengths, weaknesses, and costs:**
 
-WabiSabi uses keyed verified anonymous credentials and lets users make every spend a coinjoin. The drawback is that it has poor on chain scalability. The flagship WabiSabi implementation (Wasabi Wallet v2.0+) uses \~600-700 vBytes per user, per transaction. There is an additional cost (\~100 sats per user, per tx at 1 sat/vByte) that users must discard to create matching value outputs. Maximum round size is limited by performance (Tor is the bottleneck). Sybil dilution is disincentivized since users pay for their own mining fees. Failure-to-sign DoS protection is enhanced by increasing the minimum value for eligible inputs.
+WabiSabi uses keyed verified anonymous credentials and lets users make every spend a coinjoin. The drawback is that it has poor on chain scalability. The flagship WabiSabi implementation (Wasabi Wallet v2.0+) uses \~600-700 vBytes per user, per transaction. There is an additional cost (\~100 sats per user, per tx at 1 sat/vByte) that users must discard to create matching value outputs. Maximum round size is limited by performance (Tor network stability is the bottleneck). Sybil dilution is disincentivized since users pay for their own mining fees. Failure-to-sign DoS protection is enhanced by increasing the minimum value for eligible inputs.
 
 ZeroLink uses Chaumian Blind Signatures and lets users create fixed sized denomination outputs from equal sized or larger sized inputs. The drawback is limited amount flexibility that leaves users with untouchable toxic change that shouldn’t be consolidated. The flagship ZeroLink implementation (Wasabi Wallet v1.1+, now discontinued) used a base denomination of 0.1 BTC. As a piece of the wider spec, ZeroLink costs \~100 vBytes per user, per transaction. Maximum round size is limited by available liquidity. Sybil dilution is disincentivized since users pay for their own mining fees. Failure-to-sign DoS protection is enhanced by only whitelisting WabiSabi outputs for ZeroLink inputs to guarantee a sunk mining fee cost for the attacker.
 
