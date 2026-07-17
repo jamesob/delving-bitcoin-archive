@@ -7,15 +7,15 @@
   "cooked": "<p>I think I didn\u2019t get well the first time, but if I get it now, does this only applies to a double transaction scenario? I mean, the second transaction becomes invalid if the first transaction were confirmed too late.</p>\n<p>If it\u2019s that, then I think that\u2019s an easier way to explain it.</p>",
   "post_number": 16,
   "post_type": 1,
-  "posts_count": 11,
+  "posts_count": 13,
   "updated_at": "2026-07-16T20:48:16.147Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 15,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 0.2,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 21.2,
   "yours": false,
   "topic_id": 2667,
   "topic_slug": "input-triggered-transaction-expiry",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I think I didn't get well the first time, but if I get it now, does this only applies to a double transaction scenario? I mean, the second transaction becomes invalid if the first transaction were confirmed too late.\n\nIf it's that, then I think that's an easier way to explain it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "I think I didn\u2019t get well the first time, but if I get it now, does this only applies to a double transaction scenario? I mean, the second transaction becomes invalid if the first transaction were confirmed too late. \nIf it\u2019s that, then I think that\u2019s an easier way to explain it.",
   "truncated": true,
   "post_url": "/t/input-triggered-transaction-expiry/2667/16",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

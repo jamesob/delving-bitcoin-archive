@@ -332,3 +332,150 @@ If it's that, then I think that's an easier way to explain it.
 
 -------------------------
 
+josh | 2026-07-16 21:51:36 UTC | #17
+
+[quote="cmp_ancp, post:16, topic:2667"]
+I think I didn’t get well the first time, but if I get it now, does this only applies to a double transaction scenario? I mean, the second transaction becomes invalid if the first transaction were confirmed too late.
+[/quote]
+
+Yes, you got it. Though I might push back on your suggestion that this is only applicable to double transaction scenarios (meaning applications that plan two transactions in advance).
+
+That was certainly the scenario that motivated the idea, but on further reflection, I believe a case could be made to encourage input expiry on regular payments too. The idea being that we can impose costs on miners who play games and reorg by taking away revenue if a dependency is confirmed later than it was originally.
+
+This in turn could improve chain tip stability in a post-subsidy world.
+
+-------------------------
+
+josh | 2026-07-16 22:06:22 UTC | #18
+
+# Expressing Now
+
+## Background
+
+"Input-triggered transaction expiry" was a name I developed after a good amount of thought, upon posting [Expiring HTLCs without free relay](https://delvingbitcoin.org/t/expiring-htlcs-without-free-relay/2663) and developing the idea for (pseudo) CLRTs, described here.
+
+The language, at the time, was the best I could do to describe the fundamental primitive, which I considered to be an expiry proposal that resolved the "free relay" problem. @ajtowns then rightly pointed out that the delay could be substantially reduced and the language of the exact mechanism could be described as a cap on the maximum "height" of an input "coin." In this light, the proposal looks somewhat comparable to the coin-height introspection capability @ajtowns previously discussed, albeit at the context-level rather than in script, which has some benefits.
+
+
+
+His comments pushed me hard to think about the exact language of the proposal, because it felt more fundamental than just coin-height introspection outside of script.
+
+
+
+This post is a summary of that reflection.
+
+
+
+## Where is now?
+
+
+
+There are multiple frames of reference when thinking about "now" in the protocol:
+
+* The node sees "now" in terms of the local time, the chain tip, the confirmations, and the set of unspent coins.
+
+* The wallet sees "now" in terms of the local time, the transactions that have been signed, and (potentially) the confirmations of the unspent coins the wallet can spend.
+
+* The economic agent sees "now" in terms of the local time and the knowledge of the transaction before them.
+
+*(There are other perspectives, but I will stop at these three)*
+
+
+
+## State-contingent claims, pre-dates, and post-dates
+
+Let us imagine two economic agents, Alice and Bob. Alice and Bob are engaged in an economic transaction. They both consent. It is voluntary.
+
+In this economic transaction, Alice and Bob consent to a claim that some virtual coins are held across one or more conditions. **This claim is a state-contingent claim**, because it is contingent on the state-of-the-world to which Alice and Bob agree.
+
+(I am intentionally adopting the language of Kenneth Arrow, who developed the theory of state-contingent claims and Arrow-Debreu general equilibrium.)
+
+There are three types of states:
+
+* Pre-dated states (ex: yesterday's newspaper headline)
+* Present states (ex: Alice gives Bob a baseball right now)
+* Post-dated states (ex: Input transaction $T$ has 6 confirmations)
+
+When seen by an observer, there are only three outcomes:
+
+* The state that conflicts with what has been seen.
+* The state that has been seen.
+* The state that may be seen.
+
+We must therefore establish the state-contingent claims the Protocol presently supports and then argue for the state-contingent claims that should be supported in the End.
+
+## Right now
+
+We have two perspectives of "right now" we have to consider. We have the "right now" of the claim, and those who author it, and we have the "right now" of the witness, who sees the claim and confirms the proper ordering.
+
+For the claim, "right now" is the local contingent state of authorship:
+
+* The chain has received [this many] confirmations.
+* [These coins] are unspent.
+* [These transactions] have received [these confirmations].
+* The local time is [this].
+
+For the witness, "right now" is the absolute state determined by the confirmations they have seen:
+
+* The number of confirmations the chain has.
+* The coins that remain unspent.
+* The confirmations that each coin has.
+* The current estimate of global "local" time (median-time-past)
+* The status of each coinbase-created coin.
+
+Presently, "right now" is limited to one type of state that could conflict with what the witness has seen:
+
+> **Present:** A state-contingent claim can conflict with the absolute state if and only if it spends a coin that has already been spent. 
+
+## Claiming Now
+
+The present proposal describes a significant departure from the status quo because it introduces a second type of state that could conflict with what the witness has seen.
+
+> **Definition:** A conflicting claim is one whose state can never be seen, given the state that has been seen.
+
+`OP_EXPIRE` is the only other proposal I am aware of that has this property, but for the reasons discussed, it is incompatible with absolute free-relay immunity.
+
+What I would like to do is reframe input-triggered transaction expiry in terms of the fundamental capability, which I believe to be increased local expression of the state "Now."
+
+> **Proposal:** A state-contingent claim can conflict with the absolute state if and only if it spends a coin that has already been spent OR [these spent coins] lack [these confirmations] by [now].
+
+## Evaluation
+
+In this light, the proposal is far easier to evaluate. It looks less like an "expiry" proposal and more like a proposal that tunes the protocol's expression of "Now."
+
+Presently, "Now" is limited to a lower bound expressed by users who pre-date each transaction with `nLockTime` using the most recent measure of time. Relative "Now" is likewise limited (see BIP68).
+
+Is this consensus change secure? It seems so right now.
+
+Arguably, it could even improve security by increasing the expressiveness of "Now," which could have downstream effects on the ability of miners to profit from large chain reorganizations. If every payment asserted the chain depth and the confirmations of each input by that depth, it would prove far harder to perform deep chain reorganizations profitably.
+
+> **Open question:** Should the proposal be generalized so that `nLockTime` can be time-based?
+
+This is doable with some additional complexity. The ability to state the elapsed MTP / confirmations relative to a local "Now" seems like a basic primitive, regardless of how "Now" is measured. This could strengthen the security guarantees of MTP, even with timewarp protection, which may address the concerns Peter Todd raised in his `OP_EXPIRE` proposal.
+
+## Reorg Defense
+
+To express this claim visually, let's imagine the following three transactions:
+
+![](upload://tkbSFj9l2dLSemVpDeEwQXshDjZ.jpeg)
+
+Each transaction has committed to the state of the previous one as closely as possible to "Now." For instance, Tx2 commits to Tx1 having 30 confirmations by `nLockTime`, which is set as closely as possible to the actual confirmation.
+
+Now imagine there is a deep chain reorganization, which intentionally or unintentionally delays Tx1, for metaprotocol or other reasons:
+
+![](upload://jYmMwFNfmdefb3EhcEe9iPMbLRI.jpeg)
+
+Consequently, the fees of Tx2 are permanently lost, as are the fees of any transaction that is dependent on Tx2. In a real deep chain reorganization, there could be many lost dependencies, imposing a severe cost on the miner who intentionally tries to perform the attack. This cost is most severely felt in a world without subsidy.
+
+> **Result:** Reorg attacks can be made more costly by users enforcing input expiry. This applies to shallow reorgs as well, but only if the 100-block delay is reduced (or removed).
+
+*(In the above charts, assume bit 21 is set or input expiry is enforced by default.)*
+
+## Conclusion
+
+I believe that the fundamental primitive is more than coin-height introspection and could be of relevance to chain tip stability post-subsidy. Expressed succinctly, the primitive gives users the ability to make a statement of "Now" that invalidates the transaction if "Now" changes. This in turn imposes costs on the malicious miner who attempts to reorganize the chain.
+
+I'll leave this open for discussion. I imagine I may have some follow-up thoughts myself.
+
+-------------------------
+
