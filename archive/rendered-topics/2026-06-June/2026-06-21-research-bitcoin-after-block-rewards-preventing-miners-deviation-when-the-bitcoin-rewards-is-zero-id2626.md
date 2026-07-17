@@ -334,3 +334,28 @@ Junhyuk.
 
 -------------------------
 
+da2ce7 | 2026-07-17 09:10:55 UTC | #11
+
+Hello Junhyuk,
+
+I trust you are well, and thank you for your reply,
+
+The natural first future-work item you may consider extends exactly from your "attackers can hold dark capacity too" argument:
+
+Symmetry there is granted, a conclusion, not an assumption. However, if hidden capacity favours attack or defence can only be settled by modelling the contest: a block-level double-spend race — the next order up from the transaction-level race — which escalates into a bidding war for the capacity itself, the order above that. It is a game, and someone should model it.
+
+The foils already exist, and they bind even if nobody does:
+
+- [Budish (QJE 2024)](https://socialsciences.uchicago.edu/sites/default/files/2024-09/Economic%20Limits%20Crypto%20Blockchains%20-%20QJE%20Sept%202024.pdf) models the double-spend contest with a fixed acceptance rule and no reactive defender. The doomsday bounds follow from that assumption.
+- [Bonneau (FC'16)](https://jbonneau.com/doc/B16a-BITCOIN-why_buy_when_you_can_rent.pdf) and [Bonneau et al. (FC'18)](https://dl.acm.org/doi/10.1007/978-3-662-58820-8_7) model attack-capacity rental and acquisition — again with no strategic defender on the other side of the market.
+- [Moroz, Aronoff, Narula & Parkes (2020)](https://arxiv.org/abs/2002.10736) is the exception that proves the pattern: the moment the victim can counter-fork, deterrence emerges and the attack is not attempted.
+
+Remove the defender's move and you get collapse; restore it and you get deterrence. Your paper inherits the first family's assumption. That is a legitimate scope choice — but it should be cited as one, because these foils bound your claims whether or not the game is in scope.
+
+So, stated as a referee would: either model the contest, or cite these foils and state explicitly that the deviation results hold only under the no-reactive-defender assumption they share.
+
+Kind Regards,
+Cameron
+
+-------------------------
+

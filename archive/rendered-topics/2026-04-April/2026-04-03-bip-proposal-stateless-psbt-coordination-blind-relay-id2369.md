@@ -48,3 +48,35 @@ Sean Carlin
 
 -------------------------
 
+scarlin90 | 2026-07-17 09:07:50 UTC | #3
+
+Hi,
+
+I just released `@signing-room/sdk` v1.0.0 alongside a developer walkthrough demonstrating the implementation.
+
+Repository: https://github.com/scarlin90/signingroom/tree/main/libs/sdk
+
+NPM: https://www.npmjs.com/package/@signing-room/sdk?activeTab=readme
+
+Video Walkthrough: https://youtu.be/yzcFlK6c6t0
+
+This release decouples the core cryptographic and coordination logic from our main Angular client. It is a framework-agnostic TypeScript SDK designed to programmatically orchestrate ephemeral, end-to-end encrypted PSBT coordination ceremonies.
+
+Because the SDK is unified with our standard web UI, all programmatic room creations, joins, and signature uploads sync dynamically in real-time. This opens up the possibility for headless multisig automation, such as AI agent signing ceremonies combined with a human-in-the-loop coordinator who retains finalization privileges.
+
+**Key areas covered in the walkthrough:**
+
+* The architectural components and how the fit together for signing room
+
+* Initializing rooms, programmatically simulated participant joins, locking rooms, and merging PSBTs on-the-fly.
+
+* Generating a client-side SHA-256 cryptographic integrity seal anchoring the room's event-log to the finalized transaction hex.
+
+I am interested in any feedback on the API ergonomics, the event-driven coordination design, or useful features.
+
+All the best,
+
+Sean Carlin
+
+-------------------------
+
