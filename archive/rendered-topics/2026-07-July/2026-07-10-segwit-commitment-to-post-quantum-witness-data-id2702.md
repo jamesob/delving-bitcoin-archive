@@ -203,3 +203,20 @@ So in theory just as complicated as segwit's deployment, but in practice much si
 
 -------------------------
 
+sipa | 2026-07-17 02:27:33 UTC | #9
+
+[quote="ajtowns, post:8, topic:2702"]
+I think that means each new “style” introduction is a combination soft-fork, block storage and p2p upgrade much like segwit was, with the benefit that all the logic is pre-written with the first new style, so enabling new styles is just “define a new weighting rule, and the activation trigger”. For nodes that upgrade to the new logic late, you’d still need to re-download blocks after activation to get the additional data. That could theoretically involve “invalidating” post-activation blocks that were previously valid if you’re not able to obtain new style data that matched the commitment you already had.
+[/quote]
+
+Indeed.
+
+
+[quote="ajtowns, post:8, topic:2702"]
+So in theory just as complicated as segwit’s deployment, but in practice much simpler because it’s just repeating the same logic multiple times, I think.
+[/quote]
+
+That, but also no new transaction identifier (like wtxid, with associated P2P logic), and presumably no new weight units (I think 1 WU has enough granularity, so whatever formula is used, I think it can be rounded up to the next WU at the txin, or the tx level).
+
+-------------------------
+
