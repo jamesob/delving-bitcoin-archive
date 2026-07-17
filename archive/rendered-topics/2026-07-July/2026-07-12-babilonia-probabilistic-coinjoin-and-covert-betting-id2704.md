@@ -109,7 +109,7 @@ Additionally, we should be able to route flips between parties who don't share a
 
 -------------------------
 
-AdamISZ | 2026-07-16 19:57:10 UTC | #4
+AdamISZ | 2026-07-17 15:36:02 UTC | #4
 
 Hi @olkurbatov . Thanks for the very substantive read and analysis! You had two distinct points, I'll address the first one now and read the second one later.
 
@@ -119,7 +119,7 @@ You're also right that it's really quite a big deal. The best thing about it is 
 
 So you still get the *possibility* of backout, but it's a much less likely case than if you have both sides waiting half an hour and having to be online and talking, to avoid an unwanted fallback.
 
-The remaining detail is CooperativeOverlayTx; for that, we need Alice to send Bob $t$ out of band in case he lost (something she is only safe to do after PayoutTx *confirms*), so for *that* part we still need to be able to send a message post-confirmation (that's if Bob loses; if Bob wins, it's completely unnecessary, which is cool). (But to be clear you already said this! I'm just trying to make sure it's clear both to me and other readers).
+The remaining detail is CooperativeOverlayTx; for that, we need Alice to send Bob $t$ out of band in case he lost (something she is only safe to do after ~~PayoutTx~~ edit: FundingTx *confirms*), so for *that* part we still need to be able to send a message post-confirmation (that's if Bob loses; if Bob wins, it's completely unnecessary, which is cool). (But to be clear you already said this! I'm just trying to make sure it's clear both to me and other readers).
 
 I'll update the paper (but not the code :grinning_face_with_smiling_eyes:) with this correction, thank you for spotting it. Will answer the second idea later.
 
