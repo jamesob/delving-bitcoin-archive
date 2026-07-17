@@ -125,3 +125,19 @@ I'll update the paper (but not the code :grinning_face_with_smiling_eyes:) with 
 
 -------------------------
 
+AdamISZ | 2026-07-17 14:30:52 UTC | #5
+
+OK, paper updated to v1.1, protocol message ordering fixed as per above etc.
+
+On to your second comment:
+
+Yes I think your outline makes sense, i.e. of how we could do either: a) a series of game/bet executions offchain before settlement, in a straightforward 2-party setup or b) allow the game over a a set of channels (obviously this is way more ambitious, and not only because we need PTLC to exist).
+
+I'm not as clear whether there's a practical value. Adding Poon-Dryja style penalties and corresponding persistent state is a pretty big addition. The obvious practical value I can think of is: Player actually wants to gamble, and wants the odds to be guaranteed fair (not trusting dealer) and wants to play repeatedly but keep fees super-low by amortization. I can definitely see that. (As you note, there is trickiness around timeouts, but the basic function seems clear.)
+
+The other interesting general angle springs, as far as I can tell from @harding and @ajtowns earlier [comments](https://delvingbitcoin.org/t/emulating-op-rand/1409/2) on the general OP_RAND idea as it applies to probabilistic payments for LN: if we use the $t^2$ type ZKP, then since it's pure $\Sigma-$ protocol based, it's very performant. The question is whether this can make sense if you want win-probabilities $p$ extremely small. AFAICT, no. Well; but also the entirety of what's presented here is taproot-specific.
+
+I still think the pure "it's a coinjoin but it's also a bet, a .. joinbet perhaps" is pretty interesting, but I do tend to lean towards: some variant of a private coinswap with amount correlation broken, and/or payments between channel counterparties in LN, off-onchain swaps: this area is likely to be the most fruitful in having it be useful. Whether the original probabilistic payments for 1 sat style things, or other. GTT 26 might be needed there, because really small probabilities tend to be the desired thing.
+
+-------------------------
+
