@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-17 20:01:06 UTC | #1
+Kruw | 2026-07-17 20:18:41 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -39,7 +39,7 @@ Users have an incentive to use WabiSabi to enhance privacy before and after Zero
 
 Users have an incentive to use ZeroLink in between WabiSabi coinjoins to avoid fees. This protocol provides incomplete privacy by itself, but is made whole with an additional WabiSabi integration:
 
-* WabiSabi gives ZeroLink even sized inputs and handles change outputs from ZeroLink payments, which gives users access to a larger liquidity pool
+* WabiSabi gives ZeroLink participants their even sized inputs and handles change outputs created by ZeroLink payments, which gives users access to a larger liquidity pool
 * JoinMarket gives ZeroLink participants the chance to gain free remixes
 * Payjoins between ZeroLink users further increase privacy
 
