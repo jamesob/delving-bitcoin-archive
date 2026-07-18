@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-17 21:46:13 UTC | #1
+Kruw | 2026-07-18 00:13:20 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -23,7 +23,7 @@ WabiSabi uses keyed verified anonymous credentials and lets users make every spe
 
 ZeroLink uses Chaumian Blind Signatures and lets users create fixed sized denomination outputs from equal sized or larger sized inputs. The drawback is limited amount flexibility that leaves users with untouchable toxic change that shouldn’t be consolidated. The flagship ZeroLink implementation (Wasabi Wallet v1.1+, now discontinued) used a base denomination of 0.1 BTC. As a piece of the wider spec, ZeroLink costs \~100 vBytes per user, per transaction. Maximum round size is limited by available liquidity. Sybil dilution is disincentivized since users pay for their own mining fees. UTXO probing is prevented by limiting registrations to a single input. Failure-to-sign DoS protection is enhanced by only whitelisting WabiSabi outputs for ZeroLink inputs to guarantee a sunk mining fee cost for the attacker.
 
-JoinMarket makers provide passive liquidity, and takers pay their mining fees when consuming liquidity for coinjoin transactions. The drawback is that the taker is a trusted coordinator that learns the input-output mappings of makers. A JoinMarket coinjoin with 10 makers uses \~4,000 vBytes (makers will create two outputs each, which will eventually lead to consuming two inputs later). Maximum round size is limited by diminishing marginal returns for takers. Sybil dilution is avoided by makers’ commitments to fidelity bonds. UTXO probing is prevented by takers’ commitments to Proof of Discrete Log Equivalence (PoDLE). Failure-to-sign DoS protection is not a concern since makers are altruistic acceptors of taker fees.
+JoinMarket makers provide passive liquidity, and takers pay their mining fees when consuming liquidity for coinjoin transactions. The drawback is that the taker is a trusted coordinator that learns the input-output mappings of makers. A JoinMarket coinjoin with 10 makers uses \~4,000 vBytes (makers will create two outputs each, which will eventually lead to consuming two inputs later). Maximum round size is limited by diminishing marginal returns for takers. Sybil dilution is avoided by makers’ commitments to fidelity bonds. UTXO probing is prevented by takers’ commitments to Proof of Discrete Log Equivalence (PoDLE). Failure-to-sign DoS protection is not a concern since makers are acceptors of altruistic taker fees.
 
 PayJoin is an opportunistic coinjoin between senders and receivers that can confuse third party analysis. The drawback is that both counterparties are single points of failure, and wallet/behavioral fingerprints may leak additional information. The payjoin sender subsidizes the mining fee for the receiver’s first input, paying for \~210 vBytes. Failure-to-sign DoS and UTXO probing attacks are prevented by the sender presigning a fallback payment to the recipient. Payjoins are assumed to be “Sybiled” by each counterparty automatically.
 
