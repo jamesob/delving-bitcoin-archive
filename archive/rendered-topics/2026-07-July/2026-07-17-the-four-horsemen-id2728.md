@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-18 01:25:13 UTC | #1
+Kruw | 2026-07-18 09:37:09 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -8,7 +8,7 @@ Kruw | 2026-07-18 01:25:13 UTC | #1
 
 *Please expect future edits to this document, this is a first draft for gathering feedback from the Delving community.*
 
-**Abstract:** Different approaches have been taken to improve on chain privacy for Bitcoin using the coinjoin primitive. Each technology has unique trade offs and fragmented liquidity. However, a single client that assembles every technology can passively adapt to the user’s needs, access an overlapping liquidity pool, and provide privacy by default with minimal additional fees.
+**Abstract:** Different approaches have been taken to improve on chain privacy for Bitcoin using the coinjoin primitive. Each protocol has unique trade offs and fragmented liquidity. However, a single client that assembles every technology can passively adapt to the user’s needs, access an overlapping liquidity pool, and provide privacy by default with minimal additional fees.
 
 **Subprotocols:**
 
@@ -26,6 +26,8 @@ ZeroLink uses Chaumian Blind Signatures and lets users create fixed sized denomi
 JoinMarket makers provide passive liquidity, and takers pay their mining fees when consuming liquidity for coinjoin transactions. The drawback is that the taker is a trusted coordinator that learns the input-output mappings of makers. A JoinMarket coinjoin with 10 makers uses \~4,000 vBytes (makers will create two outputs each, which will eventually lead to consuming two inputs later). Maximum round size is limited by diminishing marginal returns for takers. Sybil dilution is avoided by makers’ commitments to fidelity bonds. UTXO probing is prevented by takers’ commitments to Proof of Discrete Log Equivalence (PoDLE). Failure-to-sign DoS protection is not a concern since makers are acceptors of altruistic taker fees.
 
 PayJoin is an opportunistic coinjoin between senders and receivers that can confuse third party analysis. The drawback is that both counterparties are single points of failure, and wallet/behavioral fingerprints may leak additional information. The payjoin sender subsidizes the mining fee for the receiver’s first input, paying for \~210 vBytes. Failure-to-sign DoS and UTXO probing attacks are prevented by the sender presigning a fallback payment to the recipient. Payjoins are assumed to be “Sybiled” by each counterparty automatically.
+
+![Four Horsemen|657x500](upload://jxk0sDS5pJy9WMSlJFw4B9E0XZD.png)
 
 **Incentives and UX integration:**
 
@@ -62,6 +64,8 @@ A client that fully deploys these tools will be able to abstract away user decis
 * JoinMarket: ?
 * Payjoin v1: https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki
 * Payjoin v2: https://github.com/bitcoin/bips/blob/master/bip-0077.md
+
+**Addendum:** Further scalability can be achieved by adding credential transfers or Ark trees inside of WabiSabi coinjoins, or by opening Lightning channels with ZeroLink/JoinMarket coinjoins. See [Kompaktor](https://github.com/Kukks/Kompaktor) and [Vortex.](https://github.com/ln-vortex/ln-vortex)
 
 -------------------------
 
