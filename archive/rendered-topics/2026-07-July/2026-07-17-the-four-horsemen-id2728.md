@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-17 20:30:44 UTC | #1
+Kruw | 2026-07-17 21:46:13 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -19,7 +19,7 @@ Kruw | 2026-07-17 20:30:44 UTC | #1
 
 **Strengths, weaknesses, and costs:**
 
-WabiSabi uses keyed verified anonymous credentials and lets users make every spend a coinjoin. The drawback is that it has poor on chain scalability. The flagship WabiSabi implementation (Wasabi Wallet v2.0+) uses \~600-700 vBytes per user, per transaction. There is an additional cost (\~100 sats per user, per tx at 1 sat/vByte) that users must discard to create matching value outputs. Maximum round size is limited by performance (Tor network stability is the bottleneck). Sybil dilution is disincentivized since users pay for their own mining fees. UTXO probing is prevented by random round consistency verification. Failure-to-sign DoS protection is enhanced by increasing the minimum value for eligible inputs.
+WabiSabi uses keyed verified anonymous credentials and lets users make every spend a coinjoin. The drawback is that it has poor on chain scalability, and slow intervals between transactions. The flagship WabiSabi implementation (Wasabi Wallet v2.0+) uses \~600-700 vBytes per user, per transaction. There is an additional cost (\~100 sats per user, per tx at 1 sat/vByte) that users must discard to create matching value outputs. Maximum round size is limited by performance (Tor network stability is the bottleneck). Sybil dilution is disincentivized since users pay for their own mining fees. UTXO probing is prevented by random round consistency verification. Failure-to-sign DoS protection is enhanced by increasing the minimum value for eligible inputs.
 
 ZeroLink uses Chaumian Blind Signatures and lets users create fixed sized denomination outputs from equal sized or larger sized inputs. The drawback is limited amount flexibility that leaves users with untouchable toxic change that shouldn’t be consolidated. The flagship ZeroLink implementation (Wasabi Wallet v1.1+, now discontinued) used a base denomination of 0.1 BTC. As a piece of the wider spec, ZeroLink costs \~100 vBytes per user, per transaction. Maximum round size is limited by available liquidity. Sybil dilution is disincentivized since users pay for their own mining fees. UTXO probing is prevented by limiting registrations to a single input. Failure-to-sign DoS protection is enhanced by only whitelisting WabiSabi outputs for ZeroLink inputs to guarantee a sunk mining fee cost for the attacker.
 
@@ -39,7 +39,7 @@ Users have an incentive to use WabiSabi to enhance privacy before and after Zero
 
 Users have an incentive to use ZeroLink in between WabiSabi coinjoins to avoid fees. This protocol provides incomplete privacy by itself, but is made whole with an additional WabiSabi integration:
 
-* WabiSabi gives ZeroLink participants their even sized inputs and handles change outputs created by ZeroLink payments, which gives users access to a larger liquidity pool
+* WabiSabi gives ZeroLink participants their even sized inputs and handles change outputs created by ZeroLink payments, which creating access to a larger liquidity pool
 * JoinMarket gives ZeroLink participants the chance to gain free remixes
 * Payjoins between ZeroLink users further increase privacy
 
@@ -57,11 +57,11 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 A client that fully deploys these tools will be able to abstract away user decisions for how to handle their UTXOs, and perform the necessary privacy operations in the background for each scenario. In order to comply with this spec, wallet synchronization must be performed using compact block filters or the user’s full node **by default.**
 
-WabiSabi: https://eprint.iacr.org/2021/206.pdf
-ZeroLink: https://github.com/nopara73/ZeroLink/
-JoinMarket: ?
-Payjoin v1: https://github.com/bitcoin/bips/blob/8c369ac8e60629ac6c032ffe21bb5ec5b35213d7/bip-0077.md
-Payjoin v2: https://github.com/bitcoin/bips/blob/8c369ac8e60629ac6c032ffe21bb5ec5b35213d7/bip-0078.mediawiki
+* WabiSabi: https://eprint.iacr.org/2021/206.pdf
+* ZeroLink: https://github.com/nopara73/ZeroLink/
+* JoinMarket: ?
+* Payjoin v1: https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki
+* Payjoin v2: https://github.com/bitcoin/bips/blob/master/bip-0077.md
 
 -------------------------
 
