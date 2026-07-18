@@ -1,12 +1,10 @@
 # The Four Horsemen
 
-Kruw | 2026-07-18 09:37:09 UTC | #1
+Kruw | 2026-07-18 14:18:31 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
 **Author:** Kruw - npub1pww7030g95nv9ptfpgfu69jpfxj6pm33xxueztsupwekce45wx4sm6en60
-
-*Please expect future edits to this document, this is a first draft for gathering feedback from the Delving community.*
 
 **Abstract:** Different approaches have been taken to improve on chain privacy for Bitcoin using the coinjoin primitive. Each protocol has unique trade offs and fragmented liquidity. However, a single client that assembles every technology can passively adapt to the user’s needs, access an overlapping liquidity pool, and provide privacy by default with minimal additional fees.
 
@@ -57,15 +55,17 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 * ZeroLink can be performed before a payjoin to protect the receiver’s source of funds
 * JoinMarket gives Payjoin participants the chance to gain free remixes
 
-A client that fully deploys these tools will be able to abstract away user decisions for how to handle their UTXOs, and perform the necessary privacy operations in the background for each scenario. In order to comply with this spec, wallet synchronization must be performed using compact block filters or the user’s full node **by default.**
+A client that fully deploys these tools will be able to abstract away user decisions for how to handle their UTXOs, and perform the necessary privacy operations in the background for each scenario. In order to comply with this spec, wallet synchronization must be performed using compact block filters or the user’s full node **by default.** 
+
+**Addendum:** Further scalability can be achieved by adding credential transfers or Ark trees inside of WabiSabi coinjoins, or by opening Lightning channels with ZeroLink/JoinMarket coinjoins. See [Kompaktor](https://github.com/Kukks/Kompaktor) and [Vortex.](https://github.com/ln-vortex/ln-vortex)
+
+**Resources:**
 
 * WabiSabi: https://eprint.iacr.org/2021/206.pdf
 * ZeroLink: https://github.com/nopara73/ZeroLink/
-* JoinMarket: ?
+* JoinMarket: https://github.com/joinmarket-ng/jmp/blob/main/jmp-0001.md
 * Payjoin v1: https://github.com/bitcoin/bips/blob/master/bip-0078.mediawiki
 * Payjoin v2: https://github.com/bitcoin/bips/blob/master/bip-0077.md
-
-**Addendum:** Further scalability can be achieved by adding credential transfers or Ark trees inside of WabiSabi coinjoins, or by opening Lightning channels with ZeroLink/JoinMarket coinjoins. See [Kompaktor](https://github.com/Kukks/Kompaktor) and [Vortex.](https://github.com/ln-vortex/ln-vortex)
 
 -------------------------
 
