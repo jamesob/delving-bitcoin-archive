@@ -898,3 +898,23 @@ I have not yet fully been able to grasp how they intend to have the above claim 
 
 -------------------------
 
+AdamISZ | 2026-07-18 19:48:10 UTC | #26
+
+[quote="ZmnSCPxj, post:4, topic:2093"]
+In my opinion, the central error of proof-of-stake is the assumption that you cannot grind the random selection of the winning staker, and this scheme evokes the same error; the above hash you show ***can*** be ground, especially as `n` will start out small, to always go to some target participant; this of course converts proof-of-stake to proof-of-work-with-extra-steps, which is undesirable.
+[/quote]
+
+Sorry for necro-posting but I just discovered this thread and intersects several of my current interests :slight_smile: 
+
+As to the quoted analysis specifically (basically the argument that @VzxPLnHqr 's selector can be grinded, but extended to PoS generally), I don't really agree that this is universal @ZmnSCPxj. Consider that Ethereum's block-proposer-choosing algorithm ("RANDAO") uses *deterministic* signatures (BLS) for the specific reason that the outcomes, while both pseudorandom and unpredictable to the non-key holder, are not grindable at all. So they end up with this model: each validator in the set throws in their signature, and they incrementally xor the result till the end of the epoch (32 blocks iirc). This gives outputs that can only be predicted at the very last step, and still grinding isn't possible (because the attacker-validator only has one valid signature, too!). The only attacks that remain are block withholding (you have a 1 bit choice, release a block or don't), or the more dramatic attack of forking (see [Forking the RANDAO](https://eprint.iacr.org/2025/037), research from last year; this is a specific weakness, but it's less fundamental than my next sentence). I do think the forking attack is *fundamental* - from the earliest days the main attacks proposed were more of the "history grinding" type (see: "nothing at stake") than the "future grinding". If you can realistically fork deeply, proof of stake is pretty obviously unsound - slashing is great and all, but it cannot work in the absence of a single canonical chain --- the exact thing that it purports to create! (hence Vitalik fell back, imo correctly, on "weak subjectivity" as the actual defence, not slashing).  So the question of the soundness of such schemes always ends up being practical: is it just too impractical to effect real world attacks. Shrug, not sure.
+
+One broad area of agreement - as I was reading the description I was also thinking "this is very much inline with proof of stake" [1] - by which I don't mean that's *all* it is; there's clearly an important idea, albeit not new, to imagine a secondary chain embedding bitcoin consensus within its own consensus. And there's clearly an overlap with p2poolv2 ideas. The problem is always how to make Bitcoin consensus *economically* recognize 2nd chain consensus, not the other way round (see BitVM, Glock etc., or otherwise say "it can't"). In the purest p2poolv2 concept, you just try to find the fairest way to reward contributions without having the entirety of the sharechain state get blasted into a coinbase transaction, and the main ideas in this p2share are along the same lines.
+
+That's the thing I'm noodling on at the moment: how far can you go down the road of "only have a snapshot of the action of the sharechain appear in the coinbase" and still have it be fair to participants, not gameable etc, and as @ZmnSCPxj put it in another post "the whole point of a pool is to manage luck" so superficially it looks like you're giving up what a pool offers. I do think that's nuanced though. Navigating these questions seems to be a big part of the work that @jungly et al are doing on p2poolv2.
+
+What I do like about @VzxPLnHqr 's thread here is, it's trying to broaden the concept as wide as possible, i.e. what exact kind of "chain" could this sharechain be?
+
+[1] And notice ... these profound tradeoffs around security with PoS could make a *lot* more sense on a secondary/share-chain than on a mainchain.
+
+-------------------------
+
