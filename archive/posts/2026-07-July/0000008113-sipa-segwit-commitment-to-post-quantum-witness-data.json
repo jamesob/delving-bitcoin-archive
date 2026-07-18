@@ -13,8 +13,8 @@
   "reply_to_post_number": 8,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 8,
-  "readers_count": 7,
+  "reads": 9,
+  "readers_count": 8,
   "score": 1.6,
   "yours": false,
   "topic_id": 2702,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:8, topic:2702\"]\nI think that means each new \u201cstyle\u201d introduction is a combination soft-fork, block storage and p2p upgrade much like segwit was, with the benefit that all the logic is pre-written with the first new style, so enabling new styles is just \u201cdefine a new weighting rule, and the activation trigger\u201d. For nodes that upgrade to the new logic late, you\u2019d still need to re-download blocks after activation to get the additional data. That could theoretically involve \u201cinvalidating\u201d post-activation blocks that were previously valid if you\u2019re not able to obtain new style data that matched the commitment you already had.\n[/quote]\n\nIndeed.\n\n\n[quote=\"ajtowns, post:8, topic:2702\"]\nSo in theory just as complicated as segwit\u2019s deployment, but in practice much simpler because it\u2019s just repeating the same logic multiple times, I think.\n[/quote]\n\nThat, but also no new transaction identifier (like wtxid, with associated P2P logic), and presumably no new weight units (I think 1 WU has enough granularity, so whatever formula is used, I think it can be rounded up to the next WU at the txin, or the tx level).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Indeed. \n\nThat, but also no new transaction identifier (like wtxid, with associated P2P logic), and presumably no new weight units (I think 1 WU has enough granularity, so whatever formula is used, I think it can be rounded up to the next WU at the txin, or the tx level).",
   "truncated": true,
   "post_url": "/t/segwit-commitment-to-post-quantum-witness-data/2702/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

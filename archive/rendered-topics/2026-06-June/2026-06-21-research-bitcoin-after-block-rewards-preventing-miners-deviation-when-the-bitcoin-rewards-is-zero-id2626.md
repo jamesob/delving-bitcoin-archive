@@ -359,3 +359,21 @@ Cameron
 
 -------------------------
 
+xodn348 | 2026-07-18 02:53:18 UTC | #12
+
+Hello Cameron,
+
+Thank you for the thoughtful reply and for laying out the two families so clearly.
+
+I agree with your framing, and I am happy to revise the paper accordingly. I will add an explicit limitation stating that the deviation results hold under the no-reactive-defender assumption shared by Budish (QJE 2024) and the Bonneau papers, citing Moroz et al. (2020) as the counterpoint where a counter-forking victim produces deterrence. Framed that way, the paper should be read as a conservative, worst-case analysis rather than a prediction of the full contest.
+
+On Budish specifically: I read that paper closely and found it interesting enough that I actually drafted a rebuttal at one point, though I never submitted it. That said, for personal reasons I do not expect to write another paper on this model, so modeling the full capacity-bidding game will have to remain future work for someone else to pick up. I hope the explicit scoping above is a fair middle ground.
+
+Thanks again for engaging with the work so carefully.
+
+Best regards,
+
+Junhyuk
+
+-------------------------
+
