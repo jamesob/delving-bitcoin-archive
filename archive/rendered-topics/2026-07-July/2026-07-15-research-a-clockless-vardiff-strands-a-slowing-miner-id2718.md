@@ -288,3 +288,13 @@ The higher levels build on that (I'm working this hierarchy out as I write, so d
 
 -------------------------
 
+ajtowns | 2026-07-19 00:04:58 UTC | #4
+
+I'm not sure I understand the scenario here. In a stratum-v2 world I would expect you'd have miners talking to a local proxy which then talks to the pool; and likewise in a datum world, I'd expect a local datum-gateway sitting between your miners and the pool. If some of your miners disappear and/or some of them start hashing more slowly, I'd expect the proxy/gateway to either be directly in control of that change (ie, it would be part of the controller that issue the shutdown/slowdown commands) or easily able to observe the change (ie, connections close or shares start coming in slower than expected), and able to send a vardiff change to the miners or request a vardiff change from the pool fairly easily.
+
+I think a proxy should be able to calculate the mining hardware's collective active hashrate by something like summing the vardiff's of each connection that's still open and has seen a share submitted in the last 30 seconds. For each connection push the vardiff towards a value that gets a share every 3s on average. And on the pool side, request a vardiff based on the proxy's estimate of the pool's total hashrate, so you're submitting shares to the pool every 3s or so.
+
+So this seems more like an engineering problem to solve via improving the datacentre-level proxy/gateway, rather than a vardiff mechanism problem to me?
+
+-------------------------
+
