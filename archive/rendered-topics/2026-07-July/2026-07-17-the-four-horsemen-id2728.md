@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-18 18:56:05 UTC | #1
+Kruw | 2026-07-18 21:36:25 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -8,7 +8,7 @@ Kruw | 2026-07-18 18:56:05 UTC | #1
 
 **Abstract:** Different approaches have been taken to improve on chain privacy for Bitcoin using the coinjoin primitive. Each protocol has unique trade offs and fragmented liquidity. However, a single client that assembles every technology can passively adapt to the user’s needs, access an overlapping liquidity pool, and enable default privacy with lower fees than solo payments.
 
-**Subprotocols:** The name of each "Horse", and what functionality it adds to the spec. Implementing any single Horse improves privacy independently, but combinations of two, three, or four horses each fill UX gaps.
+**Subprotocols:** The name of each "Horse", and what functionality it adds to the spec. Implementing any single Horse improves privacy independently, but combinations of two, three, or four Horses each fill UX gaps.
 
 1. **WabiSabi** - For consolidating UTXOs without revealing common ownership, creating the ZeroLink standard denomination inputs, and privacy maximized spending
 2. **ZeroLink** - For block space efficient remixing and DoS protected rounds
