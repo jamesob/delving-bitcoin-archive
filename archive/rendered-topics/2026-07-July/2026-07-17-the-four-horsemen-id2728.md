@@ -70,9 +70,37 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 -------------------------
 
-Kruw | 2026-07-18 19:14:14 UTC | #2
+Kruw | 2026-07-19 18:42:57 UTC | #2
 
-Reserved post for The Four Horsemen (Page 2), with intermediary integrations, and a fully defined UX path.
+**[u]The Four Horsemen (Page 2):[/u]** Every user's on chain activity tells a story. Observers should not be able to recognize which characters played or which paths their coins took. Here is adaptive metaphor that shows the journey of your UTXO's path for users of The Four Horsemen. Users can assemble a party containing different roles: Farmers, Knights, Squires, and Rangers all go to the Pub. Kings and Princes hail carriages. Pubgoers and Carriage riders can attend the Ritual. Anyone who engages in a can be a Priest or Merchant. Anyone roaming the streets can be a Scavenger or Beggar, and users must opt out of privacy to immediately transact as a Peasant.
+
+**WabiSabi Consolidation -** Farmer who brings their own beer to the pub and tips the bartender
+
+**WabiSabi Isolation -** Knight who buys a round for their “friends” at the pub, drinks all of it, and tips generously
+
+**WabiSabi Payment -** Squire who buys a beer and tips the pub bartender
+
+**WabiSabi Cut-Through -** Ranger who brings their own beer and tips the bartender
+
+**ZeroLink -** The “Optional” Sacrifice Ritual you can attend after the Pub closes, summons a new UTXO (the coordinator's anchor output, can be adjusted to match the value of the others)
+
+**JoinMarket Taker Consolidation -** A wealthy King burying a vault of gold
+
+**JoinMarket Taker Isolation -** A rich prince in a carriage going to the brothel
+
+**JoinMarket Maker Consolidation -** A naked beggar on the street
+
+**JoinMarket Maker Isolation -** A masked scavenger on the street
+
+**Payjoin Sender -** Priest, an altruistic spender with a limited budget
+
+**Payjoin Receiver -** Merchant, a cost motivated economist
+
+**Solo Payment -** Peasant, a greed motivated fool, no privacy if they do not pay with coins they obtained as a scavenger
+
+With randomized default values that overlap, it is even possible for the Peasant's coins flow into the King's vault after only a couple coinjoin transactions, even if they never interact directly.
+
+Every cost maximizing user has the possibility of being a Scavenger or a Merchant. Every Farmer, Knight, Squire, Ranger, King, or Prince has the chance to attend the Ritual. Even cheap users like Priests, Scavengers, and Beggars improve the privacy of everyone in the community.
 
 -------------------------
 
