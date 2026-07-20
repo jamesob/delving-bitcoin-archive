@@ -70,37 +70,89 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 -------------------------
 
-Kruw | 2026-07-19 18:42:57 UTC | #2
+Kruw | 2026-07-19 23:58:16 UTC | #2
 
-**[u]The Four Horsemen (Page 2):[/u]** Every user's on chain activity tells a story. Observers should not be able to recognize which characters played or which paths their coins took. Here is adaptive metaphor that shows the journey of your UTXO's path for users of The Four Horsemen. Users can assemble a party containing different roles: Farmers, Knights, Squires, and Rangers all go to the Pub. Kings and Princes hail carriages. Pubgoers and Carriage riders can attend the Ritual. Anyone who engages in a can be a Priest or Merchant. Anyone roaming the streets can be a Scavenger or Beggar, and users must opt out of privacy to immediately transact as a Peasant.
+**[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that shows the journey of every UTXO's path when you use The Four Horsemen. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer to go to the Pub. Whales can hail a Chariot as a King or Prince. The Upper Class (Drunks and Royalty) can attend the Ritual. Anyone can trade as a Priest or Merchant, roam the streets as a Scavenger or Beggar, or opt out of privacy to transact as a Peasant. Here are the supported transaction operations, which loop thousands of user supported behaviors together.
 
-**WabiSabi Consolidation -** Farmer who brings their own beer to the pub and tips the bartender
+**Regions:** Wallet recovery paths
 
-**WabiSabi Isolation -** Knight who buys a round for their “friends” at the pub, drinks all of it, and tips generously
+*Wilderness:* New Wallet | Learn Fire, or catch The Plague
 
-**WabiSabi Payment -** Squire who buys a beer and tips the pub bartender
+*City:* Recover Wallet
 
-**WabiSabi Cut-Through -** Ranger who brings their own beer and tips the bartender
+*Sky City:* Ascend to Second Layer | Kompaktor, Ark, or Lightning
 
-**ZeroLink -** The “Optional” Sacrifice Ritual you can attend after the Pub closes, summons a new UTXO (the coordinator's anchor output, can be adjusted to match the value of the others)
+**Upgrade tree:**
 
-**JoinMarket Taker Consolidation -** A wealthy King burying a vault of gold
+*4H:* WabiSabi, ZeroLink, JoinMarket, **AND** Payjoin
 
-**JoinMarket Taker Isolation -** A rich prince in a carriage going to the brothel
+*3H:* WS/ZL/JM **>** WS/JM/PJ **>** WS/ZL/PJ **>** ZL/JM/PJ
 
-**JoinMarket Maker Consolidation -** A naked beggar on the street
+*2H:* WS/JM **>** WS/PJ **>** WS/ZL **>** ZL/JM **>** JM/PJ **>** ZL/PJ
 
-**JoinMarket Maker Isolation -** A masked scavenger on the street
+*1H:* WabiSabi, ZeroLink, JoinMarket, **OR** Payjoin
 
-**Payjoin Sender -** Priest, an altruistic spender with a limited budget
+**Locations and Classes:** Conceptualizing where each user behavior overlaps.
 
-**Payjoin Receiver -** Merchant, a cost motivated economist
+*Street:* For Anyone
 
-**Solo Payment -** Peasant, a greed motivated fool, no privacy if they do not pay with coins they obtained as a scavenger
+*Chariot:* For Royalty
 
-With randomized default values that overlap, it is even possible for the Peasant's coins flow into the King's vault after only a couple coinjoin transactions, even if they never interact directly.
+*Pub:* For Spenders
 
-Every cost maximizing user has the possibility of being a Scavenger or a Merchant. Every Farmer, Knight, Squire, Ranger, King, or Prince has the chance to attend the Ritual. Even cheap users like Priests, Scavengers, and Beggars improve the privacy of everyone in the community.
+*Temple:* For the Upper Class
+
+**Operations:** Any individual behavior a user in the community may be incentivized to use.
+
+*WabiSabi Consolidation -* Ranger who brings their own beer to the pub and tips the bartender
+
+*WabiSabi Isolation -* Knight who buys a round for their “friends” at the pub, drinks all of it, and tips generously
+
+*WabiSabi Payment -* Squire who buys a beer and tips the pub bartender
+
+*WabiSabi Cut-Through -* Farmer who brews their own beer and tips the bartender
+
+*ZeroLink -* The “Optional” Sacrifice Ritual you can attend after the Pub closes, magically evolves participants, summons an anonymous UTXO (the coordinator's anchor output)
+
+*JoinMarket Taker Consolidation -* A wealthy King burying a vault of gold
+
+*JoinMarket Taker Isolation -* A rich prince in a Chariot going to the brothel
+
+*JoinMarket Maker Consolidation -* A beggar wearing rags on the street
+
+*JoinMarket Maker Isolation -* A masked scavenger on the street
+
+*Payjoin Sender -* Priest, an altruistic spender with a limited budget
+
+*Payjoin Receiver -* Merchant, a cost motivated economist
+
+*Solo Payment -* Peasant, a greed motivated fool, no privacy if they do not pay with coins they obtained as a scavenger
+
+Using randomized default values, it is even possible for the Peasant's coins flow into the King's vault after only a couple coinjoin transactions, even if they never interact directly.
+
+Every rational user has the possibility of being a Scavenger or a Merchant. Every Drunk, King, or Prince has the chance to attend the Ritual. Even cheap users like Priests, Scavengers, and Beggars improve the privacy of everyone in the community.
+
+**Races:**
+
+*Titan -* Powerful, Generational Wealth. A deity.
+
+*Elf -* Rich, Magic, Lives for 1,000 years. A higher life form.
+
+*Human -* Rich, Magic, Lives for 60 years A mere mortal.
+
+*Druid -* Poor, Inert, lives for 80 years. A kindly soul.
+
+*Orc -* Poor, Inert, Lives for 40 years. A victim of his own poor planning.
+
+*Dwarf -* Poor, Inert, Lives for 30 years. A victim of greed.
+
+**Layer 2 unlocks for Ark/Lightning:**
+
+*Anonymous Credentials -* Vapor
+
+*Ark -* Prophet
+
+*Lightning -* Olympian
 
 -------------------------
 
