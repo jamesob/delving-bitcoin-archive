@@ -298,3 +298,15 @@ So this seems more like an engineering problem to solve via improving the datace
 
 -------------------------
 
+gimballock | 2026-07-20 03:19:24 UTC | #5
+
+You're totally right that real deployments put a proxy between miners and pool, and that the proxy can observe and respond to its directly connected miners.
+
+But the 30s liveness check filters a stalled miner out of the aggregate entirely, it goes quiet, so it drops out of the sum right when it really needs an adjustment. 
+
+The pool's estimate can't reliably see a miner that's failing anyway. In the aggregate, one miner's decline is buried. On the other hand the pool has the best view of the total, for the same reason: it sees every share summed.
+
+I'm gathering my thoughts on all of this into a new post that should be ready soon...
+
+-------------------------
+
