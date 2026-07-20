@@ -70,9 +70,9 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 -------------------------
 
-Kruw | 2026-07-20 10:54:06 UTC | #2
+Kruw | 2026-07-20 10:57:21 UTC | #2
 
-**[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that follows the journey of any UTXO. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer and go to the Pub. Whales hail Chariots as a King or Prince. The Upper Class (Drunks and Royalty) attend the Ritual. Any Class can trade Merchant, or roam the streets as a Priest, Scavenger, or Beggar. Users will not be forced into a dead end, and can opt out of privacy to transact as a Peasant. There are the 12 possible transaction operations, which loop thousands of demanded user behaviors together.
+**[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that follows the journey of any UTXO. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer and go to the Pub. Royal Kings and Princes hail Chariots on the Street. The Upper Class (Drunks and Royalty) attend the Ritual. Any Class can trade as a Merchant, or roam the Street as a Priest, Scavenger, or Beggar. Users will not be forced into a dead end, and can opt out of privacy to transact as a Peasant. There are the 12 possible transaction operations, which loop thousands of demanded user behaviors together.
 
 **Planets:** Possible node configurations in order of leeching/seeding network health effects.
 
