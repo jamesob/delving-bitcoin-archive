@@ -1,6 +1,6 @@
 # The Four Horsemen
 
-Kruw | 2026-07-19 12:38:19 UTC | #1
+Kruw | 2026-07-20 09:35:16 UTC | #1
 
 **[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
@@ -56,7 +56,7 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 * ZeroLink can be performed before a payjoin to protect the receiver’s source of funds
 * JoinMarket gives Payjoin participants the chance to gain free remixes
 
-**Conclusion:** A client that fully deploys these tools will be able to abstract away user decisions for how to handle their UTXOs, perform the necessary privacy operations in the background for each scenario, and reduce on chain costs for users compared to regular on chain wallets. In order to comply with this spec, wallet synchronization must be performed using compact block filters or the user’s full node **by default.** A client that passively intercepts coinjoin data from users should be considered malicious.
+**Conclusion:** A client that fully deploys these tools will be able to abstract away user decisions for how to handle their UTXOs, perform the necessary privacy operations in the background for each scenario, and reduce on chain costs for users compared to regular on chain wallets. In order to comply with this spec, wallet synchronization must be performed using compact block filters or the user’s full node **by default.** A client that passively intercepts coinjoin data from users should be considered malicious. In order to reduce transaction fingerprints, wallets complying with this spec must support and prefer Taproot, which has superior privacy and scalability properties.
 
 **Addendum:** Further scalability can be achieved by adding credential transfers or Ark trees inside of WabiSabi coinjoins, or by opening Lightning channels with ZeroLink/JoinMarket coinjoins. See [Kompaktor](https://github.com/Kukks/Kompaktor) and [Vortex.](https://github.com/ln-vortex/ln-vortex)
 
@@ -70,19 +70,43 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 -------------------------
 
-Kruw | 2026-07-19 23:58:16 UTC | #2
+Kruw | 2026-07-20 10:54:06 UTC | #2
 
-**[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that shows the journey of every UTXO's path when you use The Four Horsemen. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer to go to the Pub. Whales can hail a Chariot as a King or Prince. The Upper Class (Drunks and Royalty) can attend the Ritual. Anyone can trade as a Priest or Merchant, roam the streets as a Scavenger or Beggar, or opt out of privacy to transact as a Peasant. Here are the supported transaction operations, which loop thousands of user supported behaviors together.
+**[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that follows the journey of any UTXO. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer and go to the Pub. Whales hail Chariots as a King or Prince. The Upper Class (Drunks and Royalty) attend the Ritual. Any Class can trade Merchant, or roam the streets as a Priest, Scavenger, or Beggar. Users will not be forced into a dead end, and can opt out of privacy to transact as a Peasant. There are the 12 possible transaction operations, which loop thousands of demanded user behaviors together.
 
-**Regions:** Wallet recovery paths
+**Planets:** Possible node configurations in order of leeching/seeding network health effects.
 
-*Wilderness:* New Wallet | Learn Fire, or catch The Plague
+*Sun:* ZeroSync
 
-*City:* Recover Wallet
+*Mercury:* Compact filters sync
+
+*Venus:* Swiftsync
+
+*Earth:* Bootstrap AssumeUTXO, verify chain, and prune
+
+*Mars:* Verify chain
+
+*Jupiter:* Bootstrap AssumeUTXO, verify chain
+
+*Saturn:* Verify chain and relay Tor traffic
+
+*Uranus:* Verify chain and serve peers
+
+*Neptune:* Verify chain, relay Tor traffic, and serve peers
+
+*Pluto:* Verify chain and coordinate coinjoins
+
+**Regions:** Possible user onboarding paths.
+
+*Wilderness:* New Wallet | Learn Fire, or catch the Plague
+
+*City:* Recover Wallet | Coinjoin history does not carry the Plague
 
 *Sky City:* Ascend to Second Layer | Kompaktor, Ark, or Lightning
 
-**Upgrade tree:**
+**Upgrade tree:** Client software power rankings.
+
+*L2*: Kompaktor, Lightning, **OR** Ark
 
 *4H:* WabiSabi, ZeroLink, JoinMarket, **AND** Payjoin
 
@@ -104,33 +128,41 @@ Kruw | 2026-07-19 23:58:16 UTC | #2
 
 **Operations:** Any individual behavior a user in the community may be incentivized to use.
 
-*WabiSabi Consolidation -* Ranger who brings their own beer to the pub and tips the bartender
+*WabiSabi Consolidation:* Ranger who brings their own beer to the pub and tips the bartender
 
-*WabiSabi Isolation -* Knight who buys a round for their “friends” at the pub, drinks all of it, and tips generously
+*WabiSabi Isolation:* Knight who buys a round for their “friends” at the pub, drinks all of it, and tips generously
 
-*WabiSabi Payment -* Squire who buys a beer and tips the pub bartender
+*WabiSabi Payment:* Squire who buys a beer and tips the pub bartender
 
-*WabiSabi Cut-Through -* Farmer who brews their own beer and tips the bartender
+*WabiSabi Cut-Through:* Farmer who brews their own beer and tips the bartender
 
-*ZeroLink -* The “Optional” Sacrifice Ritual you can attend after the Pub closes, magically evolves participants, summons an anonymous UTXO (the coordinator's anchor output)
+*ZeroLink Remix:* The Ritual coordinator collects an anchor output from the Upper Class, and applies the “magic” evolution to coins
 
-*JoinMarket Taker Consolidation -* A wealthy King burying a vault of gold
+*JoinMarket Taker Consolidation:* A wealthy King with an army of Chariots, burying a vault of gold in the mountain
 
-*JoinMarket Taker Isolation -* A rich prince in a Chariot going to the brothel
+*JoinMarket Taker Isolation:* A rich Prince in a Chariot who picks up Harlots and Scavengers off the Street
 
-*JoinMarket Maker Consolidation -* A beggar wearing rags on the street
+*JoinMarket Maker Consolidation:* A Harlot wearing rags on the Street
 
-*JoinMarket Maker Isolation -* A masked scavenger on the street
+*JoinMarket Maker Isolation:* A masked Scavenger on the Street
 
-*Payjoin Sender -* Priest, an altruistic spender with a limited budget
+*Payjoin Sender:* Priest, an altruistic spender with a limited budget
 
-*Payjoin Receiver -* Merchant, a cost motivated economist
+*Payjoin Receiver:* Merchant, a cost motivated economist
 
-*Solo Payment -* Peasant, a greed motivated fool, no privacy if they do not pay with coins they obtained as a scavenger
+*Solo Payment:* Peasants only, a greed motivated Fool on the Street who spreads the Plague if they do not pay with coins they obtained as a Scavenger
 
-Using randomized default values, it is even possible for the Peasant's coins flow into the King's vault after only a couple coinjoin transactions, even if they never interact directly.
+**Currency Units:** Using randomized default values, it is even possible for the Peasant's coins flow into the King's vault or back, even if they never interact directly. WabiSabi privately consumes arbitrary value Dust, Coins, Bars, and Vaults. WabiSabi creates private Dust, Coins, and Bars, and arbitrary value payments. ZeroLink consumes and creates private Dust, Coins, and Bars. JoinMarket consumes arbitrary value Dust, Coins, Bars, and Vaults. JoinMarket creates private (for takers) and confidential (for makers) Dust, Coins, Bars, and Vaults. Payjoin consumes arbitrary value Dust for the receiver, and arbitrary Dust, Coins, Bars, and Vaults for the sender. Payjoin creates confidential Dust, Coins, Bars, and Vaults.
 
-Every rational user has the possibility of being a Scavenger or a Merchant. Every Drunk, King, or Prince has the chance to attend the Ritual. Even cheap users like Priests, Scavengers, and Beggars improve the privacy of everyone in the community.
+*Dust:* 25k sats - 10m sats | Consumed by WS, ZL, JM, PJS, PJR | Anonymized by WS, ZL, JMT | Confidentialized by JMM, PJS, PJR
+
+*Coins:* 250k sats - 1 BTC | Consumed by WS, ZL, JM, PJS | Anonymized by WS, ZL, JMT | Confidentialized by JMM, PJS
+
+*Bars:* 2.5m sats - 10 BTC | Consumed by WS, ZL, JM, PJS | Anonymized by WS, ZL, JMT | Confidentialized by JMM, PJS
+
+*Vaults:* 25m sats - 100 BTC | Consumed by WS, JM, PJS | Anonymized by WS, JMT | Confidentialized by JMM, PJS
+
+Every rational user has the possibility of being a Scavenger or a Merchant. Every Drunk or Royal has the chance to attend the Ritual. Even cheap users like Priests, Scavengers, and Beggars improve the privacy of everyone in the Community.
 
 **Races:**
 
@@ -153,6 +185,12 @@ Every rational user has the possibility of being a Scavenger or a Merchant. Ever
 *Ark -* Prophet
 
 *Lightning -* Olympian
+
+-------------------------
+
+Kruw | 2026-07-20 10:54:47 UTC | #3
+
+Reserved post for The Four Horsemen (Page 3): Server specs
 
 -------------------------
 
