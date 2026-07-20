@@ -70,7 +70,7 @@ Users have an incentive to use Payjoin when receiving payments in between their 
 
 -------------------------
 
-Kruw | 2026-07-20 10:57:21 UTC | #2
+Kruw | 2026-07-20 11:11:29 UTC | #2
 
 **[u]The Four Horsemen (Page 2):[/u]** An adaptive metaphor that follows the journey of any UTXO. Commoners may choose an archetype as a Ranger, Knight, Squire, or Farmer and go to the Pub. Royal Kings and Princes hail Chariots on the Street. The Upper Class (Drunks and Royalty) attend the Ritual. Any Class can trade as a Merchant, or roam the Street as a Priest, Scavenger, or Beggar. Users will not be forced into a dead end, and can opt out of privacy to transact as a Peasant. There are the 12 possible transaction operations, which loop thousands of demanded user behaviors together.
 
@@ -102,7 +102,7 @@ Kruw | 2026-07-20 10:57:21 UTC | #2
 
 *City:* Recover Wallet | Coinjoin history does not carry the Plague
 
-*Sky City:* Ascend to Second Layer | Kompaktor, Ark, or Lightning
+*Sky City:* Ascend to Second Layer | Purgatory, Flood, or Olympia
 
 **Upgrade tree:** Client software power rankings.
 
@@ -164,7 +164,9 @@ Kruw | 2026-07-20 10:57:21 UTC | #2
 
 Every rational user has the possibility of being a Scavenger or a Merchant. Every Drunk or Royal has the chance to attend the Ritual. Even cheap users like Priests, Scavengers, and Beggars improve the privacy of everyone in the Community.
 
-**Races:**
+**TXO Labels:** Understand the cumulative privacy of a coin.
+
+**Races:** Randomize default user behavior based on their wallet's available balance. Inert users default to Payjoin for spending, Magic users only spend coins that have been created through the Ritual, and Titan users only spend coins that have been consumed by WabiSabi, ZeroLink, and JoinMarket Taker.
 
 *Titan -* Powerful, Generational Wealth. A deity.
 
@@ -177,14 +179,6 @@ Every rational user has the possibility of being a Scavenger or a Merchant. Ever
 *Orc -* Poor, Inert, Lives for 40 years. A victim of his own poor planning.
 
 *Dwarf -* Poor, Inert, Lives for 30 years. A victim of greed.
-
-**Layer 2 unlocks for Ark/Lightning:**
-
-*Anonymous Credentials -* Vapor
-
-*Ark -* Prophet
-
-*Lightning -* Olympian
 
 -------------------------
 
