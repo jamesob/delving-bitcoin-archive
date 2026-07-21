@@ -1,10 +1,10 @@
 # The Four Horsemen
 
-Kruw | 2026-07-20 09:35:16 UTC | #1
+Kruw | 2026-07-21 02:23:46 UTC | #1
 
-**[u]The Four Horsemen (of the Blockchain):[/u]** A unified spec for Bitcoin coinjoin protocols, combining every existing on chain technology into one incentive compatible, block space efficient, flexible, decentralized implementation.
+**[u]The Four Horsemen (of the Blockchain):[/u]** An operating system for Bitcoin coinjoin protocols, combining every existing on chain privacy mechanism into one incentive compatible, block space efficient, flexible, decentralized implementation.
 
-**Author:** Kruw - npub1pww7030g95nv9ptfpgfu69jpfxj6pm33xxueztsupwekce45wx4sm6en60
+**Author:** Kruw, Wasabi Wallet contributor - npub1pww7030g95nv9ptfpgfu69jpfxj6pm33xxueztsupwekce45wx4sm6en60
 
 **Abstract:** Different approaches have been taken to improve on chain privacy for Bitcoin using the coinjoin primitive. Each protocol has unique trade offs and fragmented liquidity. However, a single client that assembles every technology can passively adapt to the user’s needs, access an overlapping liquidity pool, and enable default privacy with lower fees than solo payments.
 
@@ -26,7 +26,7 @@ JoinMarket makers provide passive liquidity, and takers pay their mining fees wh
 PayJoin is an opportunistic coinjoin between senders and receivers that can confuse third party analysis. The drawback is that both counterparties are single points of failure, and wallet/behavioral fingerprints may leak additional information. The payjoin sender subsidizes the mining fee for the receiver’s first input, paying for \~210 vBytes. Failure-to-sign DoS and UTXO probing attacks are prevented by the sender presigning a fallback payment to the recipient. Payjoins are assumed to be “Sybiled” by each counterparty automatically.
 
 ![Four Horsemen Stars|656x500](upload://1IpTdXGlL5QRf4SEUq9mrh1of8c.png)
-*ZeroLink's score above reflects its performance as a piece of The Four Horsemen. A wallet that implements ZeroLink by itself would have 3 Stars for privacy, 3 Stars for cost, and 1 Star for speed.*
+*ZeroLink's score above reflects its performance as a piece of The Four Horsemen. A wallet that implements ZeroLink by itself would have 3 Stars for privacy, 3 Stars for cost, and 1 Star for speed. "Whirlpool" manipulations of ZeroLink would have 1 Star for privacy, 1 Star for speed, and 1 Star for Cost.*
 
 **Incentives and UX integration:**
 
