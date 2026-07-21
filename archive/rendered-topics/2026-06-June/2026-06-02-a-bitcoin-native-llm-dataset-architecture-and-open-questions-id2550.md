@@ -355,3 +355,20 @@ I have developed something like this for myself and was planning on open sourcin
 
 -------------------------
 
+brenorb | 2026-07-21 14:06:29 UTC | #18
+
+Hi! Spirit of Satoshi ML Engineer here.
+
+Unfortunately, SoS was too early. At that time, every bitcoiner was too skeptical and we couldn't raise more funds to continue the several ideas we had. Besides Satoshi-7B, I personally developed [Minimaxis](https://www.youtube.com/watch?v=LJaF5iMc7D8) (later became Code Satoshi in SoS), a miniscript bitcoin code assistant and assisted the development of [Liquid support assistant](https://www.youtube.com/watch?v=8s-GyRcZ6s0). 
+
+After SoS, I didn't stop there, I continued to work and keep up with the LLMs. Nowadays I'm building [Freedom Skills](https://github.com/brenorb/freedom-skills) to continue my vision of making freedom tech accessible.
+
+Here are my 2 cents:
+- The main reason we were building Satoshi 7B and other fine tuned models was because the models were really bad at instruction following. That's not the case anymore. Most of what you said above should be done via skills (with scripts doing the deterministic parts inside a skill folder), not as LoRA adapters. That's exactly what I'm doing in [Freedom Skills](https://github.com/brenorb/freedom-skills). Please, I invite you to come and contribute.
+- There are still the niche case to fine tune small models so we can run them locally and own the infrastructure. The cons are that new and more powerful and efficient models will be available every couple of months whilst bitcoin will continue to change, so this is an ongoing and costly effort that is a bit harder to see the general benefit. Can you think on more use cases for small fine tuned general models?
+- One thing I was already thinking about doing (I might try to champion this soon) was creating proper datasets for fine tuning and etc. This makes sense because it makes it easy to some data scientist to work with it without the need of data cleaning, data engineering, data curation, etc... Having these datasets well formatted and readily available online also raises the chances of next frontier models being able to be trained on Bitcoin data and thus being better on it.
+
+Happy to continue discussing it.
+
+-------------------------
+
