@@ -326,3 +326,19 @@ So in fact adding the proxy didn't remove a problem, it forced a more complicate
 
 -------------------------
 
+ajtowns | 2026-07-22 02:40:52 UTC | #7
+
+In scenarios like that, I'd expect each proxy to follow logic something like:
+
+ * I instructed this connection to curtail its hashrate from X to Y; multiply its vardiff by Y/X
+ * this connection is sending shares too frequently,increase the vardiff 
+ * this connection hasn't found a share in 30 seconds, reduce it's vardiff by half
+ * the sum of my inbound connections vardiff is S, but my upstream vardiff is k*S with k>2; send a request to update my vardiff from kS to S
+ * this connection requested a change in vardiff, comply with the request.
+
+Provided the pool respects the request for a different vardiff when the proxy submits it, that seems roughly fine -- the 30 second delay should only hit between individual curtailed miners and the proxy it connects to, not between proxies or proxies and the pool, provided the vardiff change requests are honoured at each step, and even that delay should be avoidable if you give the proxy direct knowledge about curtailment instructions, rather than having it just be reactive to their observed effects?
+
+In sv2 the "request a change in vardiff" message is [`UpdateChannel`](https://stratumprotocol.org/specification/05-mining-protocol/#537-updatechannel-client---server) ("If a client performs device/connection aggregation (i.e. it is a proxy), it MUST send this message when downstream channels change"), for sv1 it's ["mining.suggest_difficulty"](https://en.bitcoin.it/wiki/Stratum_mining_protocol#mining.suggest_difficulty) (or suggest_target, I guess?). Datum doesn't need to communicate vardiff, and the datum-gateway just chooses a vardiff, and commits it in the coinbase, so the server can credit shares as their full value upon receipt, without any advance negotiation, beyond agreement on how the difficulty gets encoded in the coinbase.
+
+-------------------------
+
