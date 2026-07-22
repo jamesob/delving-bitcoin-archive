@@ -405,3 +405,15 @@ This somewhat follows a governance knowledge structure but is also identifiable 
 
 -------------------------
 
+Tsua00021 | 2026-07-22 15:20:17 UTC | #21
+
+Repo is up: https://github.com/tsua0002/bitcoin-wizard-bench
+
+12 seed items, the item schema, a validator, and CI. @alexwaltz, your six questions are in as seeds for the contested tier, and the name credits your framing: the point is to measure whether a system is a bona fide Bitcoin Wizard. Two are already curated: the explorer-divergence one (checked against both explorers: block 78 coinbase, P2PK output, so raw-pubkey rendering vs a derived address that never appears on-chain, plus a heuristic miner label) and the SIGHASH_SINGLE quirk as an objective-tier item, with the verification reference pinned to the exact branch in Core's legacy `SignatureHash()` and the BIP143 Specification footnote. The remaining `draft` items have incomplete position checklists on purpose; completing one (with sources) is the ideal first PR.
+
+@MrHash, thanks, that clarifies things: what you're building is a corpus taxonomy, which overlaps with @brenorb's dataset track rather than the benchmark, so no duplication anywhere. Your constitutional/precedent hierarchy is interesting to me for a specific reason: it encodes *normative authority* of sources, which is exactly the metadata the contested tier needs for scoring disagreement fidelity (a BIP and a 2010 forum post don't carry the same weight when attributing positions). Whenever you open-source, even just the tier definitions and the checksum scheme would be enough to align corpus metadata on it. No rush, the door stays open.
+
+Next step on my side: an eval runner for tier 1, then a first published run of frontier models with and without tools.
+
+-------------------------
+
