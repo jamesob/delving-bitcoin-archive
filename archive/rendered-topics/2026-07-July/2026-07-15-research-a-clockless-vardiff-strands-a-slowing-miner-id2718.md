@@ -310,3 +310,19 @@ I'm gathering my thoughts on all of this into a new post that should be ready so
 
 -------------------------
 
+gimballock | 2026-07-21 23:26:04 UTC | #6
+
+@ajtowns  The post is up now: [Vardiff belongs at the frontier](https://delvingbitcoin.org/t/vardiff-belongs-at-the-frontier/2734).
+
+It's the full explanation of why the vardiff problem moves to the proxy but doesn't go away. 
+
+Basically in the simplest case the pool server gets the total hashrate for free because it can sum the states of each per-connection control loop. 
+
+When you insert a proxy into the situation the pool operates on a different entity, the aggregate of it's subtrees, it cannot see per-entity health any more, aside from directly connected miners.
+
+So the proxy needs to pick up the slack if we are going to manage share rate to the miner with any fine-grained resolution. The pool needs to manage share rates in its new situation also because miners come and go from the underlying proxies, which affects the aggregate channel share rate. So now we have two controllers linked by a clamp 
+
+So in fact adding the proxy didn't remove a problem, it forced a more complicated state where two linked controllers are now driving share rates at different scales and estimating different things.
+
+-------------------------
+
