@@ -417,3 +417,9 @@ Next step on my side: an eval runner for tier 1, then a first published run of f
 
 -------------------------
 
+brenorb | 2026-07-22 20:51:19 UTC | #22
+
+Post updates here as you go. I'll probably be focusing Freedom Skills and some other things on the next few months, so I'll try to think again about this a bit later.
+
+-------------------------
+
