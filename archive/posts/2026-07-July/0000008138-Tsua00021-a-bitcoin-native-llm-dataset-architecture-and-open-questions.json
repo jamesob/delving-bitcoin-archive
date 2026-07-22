@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 1,
-  "readers_count": 0,
-  "score": 5.2,
+  "reads": 9,
+  "readers_count": 8,
+  "score": 21.8,
   "yours": false,
   "topic_id": 2550,
   "topic_slug": "a-bitcoin-native-llm-dataset-architecture-and-open-questions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Repo is up: https://github.com/tsua0002/bitcoin-wizard-bench\n\n12 seed items, the item schema, a validator, and CI. @alexwaltz, your six questions are in as seeds for the contested tier, and the name credits your framing: the point is to measure whether a system is a bona fide Bitcoin Wizard. Two are already curated: the explorer-divergence one (checked against both explorers: block 78 coinbase, P2PK output, so raw-pubkey rendering vs a derived address that never appears on-chain, plus a heuristic miner label) and the SIGHASH_SINGLE quirk as an objective-tier item, with the verification reference pinned to the exact branch in Core's legacy `SignatureHash()` and the BIP143 Specification footnote. The remaining `draft` items have incomplete position checklists on purpose; completing one (with sources) is the ideal first PR.\n\n@MrHash, thanks, that clarifies things: what you're building is a corpus taxonomy, which overlaps with @brenorb's dataset track rather than the benchmark, so no duplication anywhere. Your constitutional/precedent hierarchy is interesting to me for a specific reason: it encodes *normative authority* of sources, which is exactly the metadata the contested tier needs for scoring disagreement fidelity (a BIP and a 2010 forum post don't carry the same weight when attributing positions). Whenever you open-source, even just the tier definitions and the checksum scheme would be enough to align corpus metadata on it. No rush, the door stays open.\n\nNext step on my side: an eval runner for tier 1, then a first published run of frontier models with and without tools.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Repo is up: <a href=\"https://github.com/tsua0002/bitcoin-wizard-bench\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - tsua0002/bitcoin-wizard-bench: A benchmark for evaluating how well LLM-based systems reason about Bitcoin: the protocol, its scripts, its history, and its chain. \u00b7 GitHub</a> \n12 seed items, the item schema, a validator, and CI. <a class=\"mention\" href=\"/u/alexwaltz\">@alexwaltz</a>, your six questions are in as seeds for the&hellip;",
   "truncated": true,
   "post_url": "/t/a-bitcoin-native-llm-dataset-architecture-and-open-questions/2550/21",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
