@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 10.8,
+  "incoming_link_count": 4,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 37.8,
   "yours": false,
   "topic_id": 2735,
   "topic_slug": "rfc-block-range-filters-a-k-a-hierarchical-filters",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'd like to gather some feedback on the block-range filter idea: is it worth persuing, is/were there similar attempts, is the approach promising, what are possible caveats.\n\n## Summary\n\nIn order to optimize for the total download size when using compact block filters (BIP-158), introduce filters for a *range* of blocks, and download these initially. Download the individual block filters only if the block-range filter matches. With the savings due to block-range filters the total download size is reduced. Preliminary results indicate that download size can be reduced to under 25%.\n\n## Description\n\nThe basic idea is that if it's possible to create a set of filters for ranges of blocks (e.g. every 256 blocks) such that the total filter size is less than the total size of block filters, then the download size can be decreased. Only for those ranges where the block-range filter indicates a match for a given scripts, are the individual block filters downloaded. From here the process is the same as with regular block filters. The total size can be lower, despite the fact that for matching ranges both the block-range and block filters are downloaded.\n\nThe block-range filters are constructed similarly to block filters (with the input being the union of the script sets from the blocks from the range).\n\nPreliminary simulation results (with several caveats) indicate that total download size can be decreased to as low as less than 20%, for 256 block ranges, and for typical scripts with low number of transactions.\n\nHierarchical filters were mentioned in a discussion on Binary fuse filters (link: https://delvingbitcoin.org/t/binary-fuse-filters-as-an-alternative-to-bip-158-gcs/2428 ), but without details.\n\n## Preliminary simulation results\n\nResults from a simulation, with simulated data (30k blocks), with different range sizes.\nThe simulation scenario is downloading all the filters and blocks strictly needed to find all the transactions of a given script.\nSimulation was performed with two set of scripts, one with very low transaction count (4--6, avg 5.7) and one with low transaction count (20--30, avg 26.7). Total download sizes are given in bytes (\"DL\").\n\nResults:\n\n* Total block-range filter size is decreasing with increasing range size, being at 14.8% for 256-blocks, and 3.4% for 2016-blocks (relative to the total size of block filters).\n* There are download sizes with significant decrease, the lowest ones **under 20%**. For the lower transaction count scripts (5.7) the results are 18.2% (256-blocks), for the higher one it is 28.1% (256-block)\n* The range size analysis shows that there is an optimal range, over which savings are cancelled. The optimal seems to be around 256 blocks range, with the size 2016 being clearly sub-optimal.\n\n| range size | DL (txc=5.7) | DL (txc=26.7) | Total filter size |\n|----|----|----|----|\n| 1 | 784019591 | 798145316 | 779618251 |\n| 4 | 576031753 | 592016694 | 571100158 |\n| 16 | 378268000 | 398304397 | 372302356 |\n| 64 | 240684804 | 275303978 | 230555023 |\n| 256 | 142775403 | 224413749 | 115442497 |\n| 1024 | 141354737 | 361915243 | 45448912 |\n| 2016 | 208937478 | 507760131 | 26481126 |\n\n## Optimal range size\n\nThe optimal range size is not clear, it's a tradeoff.\nBenefits of larger range sizes:\n\n* The net total block-range filter size is lower with larger range sets\n\nBenefits of smaller range sizes:\n\n* Lower range sizes mean less block filter to be downloaded\n* More manageable block-filter sizes, very large sizes introduce practical concerns.\n  The optimal range size can only be determined with measurements, with controlled assumptions.\n\n## Further work\n\n* Explore different filter parameters for the block-range filters (different parameters may be optimal)\n* Explore the idea of optimized block filters where instead of the original script hashes the script indexes within the block-range filters are used. May be smaller (e.g. using 13 bits instead of 19).\n* Perform numerical analysis on the real bitcoin blockchain",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I\u2019d like to gather some feedback on the block-range filter idea: is it worth persuing, is/were there similar attempts, is the approach promising, what are possible caveats. \n<a name=\"p-8135-summary-1\" class=\"anchor\" href=\"#p-8135-summary-1\" aria-label=\"Heading link\"></a>Summary\nIn order to optimize for the total download size when using compact block filters (BIP-158), introduce filters for a r&hellip;",
   "truncated": true,
   "post_url": "/t/rfc-block-range-filters-a-k-a-hierarchical-filters/2735/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

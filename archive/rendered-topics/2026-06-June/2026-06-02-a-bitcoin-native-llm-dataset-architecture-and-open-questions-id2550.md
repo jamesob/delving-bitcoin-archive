@@ -372,3 +372,36 @@ Happy to continue discussing it.
 
 -------------------------
 
+Tsua00021 | 2026-07-22 11:51:22 UTC | #19
+
+@alexwaltz, @brenorb, thanks, these two replies moved the discussion further than anything since the opening post, and they converge from different directions (first principles for one, the Satoshi-7B post-mortem for the other) on the same conclusion. I'll concede the architectural point openly: the LoRA-7B sketch in my original post was a proposal, not a commitment, and the case you both make (instruction following is solved, LLMs are not sound interpreters, fine-tuning is a treadmill against frontier release cycles) is stronger than the case for it. The niche that survives is the sovereignty one, running locally on owned infrastructure, air-gapped PSBT review being my best concrete answer to your question @brenorb, but that's a deployment constraint, not the core of the project.
+
+Here's the reframing I'd propose for the thread: "Bitcoin-native" is a capability spec, not an architecture. The target is a system that can read a transaction and decode what it *means*, reason about a non-standard script, and reconstruct a historical design debate with positions attributed, per @l0rinc's point. Whether that's best achieved by RAG over a structured corpus, skills with deterministic tools, a fine-tune, or a frontier model with the right context is an empirical question. Which means the two artifacts that actually matter are the ones every architecture consumes: the corpus and the benchmark.
+
+So, concretely:
+
+**Benchmark.** @alexwaltz is right that this is the first step, and I'll champion it. I'm opening a repo in the next day or two with the structure discussed upthread, extended to three tiers: an **objective tier** (script validity, spending conditions, descriptor parsing, mechanically verifiable against Core), a **contested tier** (disagreement fidelity with attribution, scored against a checklist of positions), and, on the roadmap, an **investigation tier**: agentic tasks over a frozen chain segment with an index provided, where the system must trace and interpret (identify the change output and justify it, reconstruct a UTXO's history, classify a cluster), with ground truth verifiable in the frozen data. That third tier is what "reading the chain" actually means in practice: the memory lives in the index, the understanding lives in the model. Your six questions are going in as seed items for the contested tier, and the (code, critique, resolution) triples from the bitcoin/bitcoin PR review dump (verified upthread: diff_hunk anchoring is intact across twelve years) will seed the objective tier. First deliverable is deliberately small: item schema plus a few dozen items across the first two tiers, enough to run frontier models against and publish where they actually stand. If they're already "bona fide Bitcoin Wizards", the benchmark will show it, and that result would be just as valuable as the opposite one.
+
+**Corpus.** @brenorb, your dataset plan and this benchmark are two halves of the same object: the benchmark defines what "correct" looks like, the datasets are what you train or retrieve against to get there. I'd rather coordinate than duplicate, and I'll come contribute to Freedom Skills as a starting point. The corpus design should also take @l0rinc's argument-attribution constraint as a first-class requirement (structured metadata: author, date, thread, position), not an afterthought, which matches your RAG-indexing intuition @alexwaltz.
+
+@MrHash, before any of us rebuilds something you already have: what does your implementation cover, and what's your timeline for open-sourcing? No point duplicating a knowledge base that already exists.
+
+I'll post the repo link here once it's up.
+
+-------------------------
+
+MrHash | 2026-07-22 13:22:28 UTC | #20
+
+My approach is similar but incomplete and WIP so no harm in overlapping. The basic hierachy I designed is:
+
+KB
+
+* Constitutional Tier: minimal, whitepaper, genesis block
+* Drafting Record: Satoshi emails, forum posts etc.
+* Interpretative Scholarship: Theoretical or practical documents, plans, concepts of the highest quality
+* Precedent: BIPs etc.
+
+This somewhat follows a governance knowledge structure but is also identifiable by checksum. I'm realy busy so won't be open sourced just yet but happy to collaborate on what you do and maybe converge at some point.
+
+-------------------------
+

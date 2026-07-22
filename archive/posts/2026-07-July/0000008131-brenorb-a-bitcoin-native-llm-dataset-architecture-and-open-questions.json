@@ -7,15 +7,15 @@
   "cooked": "<p>Hi! Spirit of Satoshi ML Engineer here.</p>\n<p>Unfortunately, SoS was too early. At that time, every bitcoiner was too skeptical and we couldn\u2019t raise more funds to continue the several ideas we had. Besides Satoshi-7B, I personally developed <a href=\"https://www.youtube.com/watch?v=LJaF5iMc7D8\" rel=\"noopener nofollow ugc\">Minimaxis</a> (later became Code Satoshi in SoS), a miniscript bitcoin code assistant and assisted the development of <a href=\"https://www.youtube.com/watch?v=8s-GyRcZ6s0\" rel=\"noopener nofollow ugc\">Liquid support assistant</a>.</p>\n<p>After SoS, I didn\u2019t stop there, I continued to work and keep up with the LLMs. Nowadays I\u2019m building <a href=\"https://github.com/brenorb/freedom-skills\" rel=\"noopener nofollow ugc\">Freedom Skills</a> to continue my vision of making freedom tech accessible.</p>\n<p>Here are my 2 cents:</p>\n<ul>\n<li>The main reason we were building Satoshi 7B and other fine tuned models was because the models were really bad at instruction following. That\u2019s not the case anymore. Most of what you said above should be done via skills (with scripts doing the deterministic parts inside a skill folder), not as LoRA adapters. That\u2019s exactly what I\u2019m doing in <a href=\"https://github.com/brenorb/freedom-skills\" rel=\"noopener nofollow ugc\">Freedom Skills</a>. Please, I invite you to come and contribute.</li>\n<li>There are still the niche case to fine tune small models so we can run them locally and own the infrastructure. The cons are that new and more powerful and efficient models will be available every couple of months whilst bitcoin will continue to change, so this is an ongoing and costly effort that is a bit harder to see the general benefit. Can you think on more use cases for small fine tuned general models?</li>\n<li>One thing I was already thinking about doing (I might try to champion this soon) was creating proper datasets for fine tuning and etc. This makes sense because it makes it easy to some data scientist to work with it without the need of data cleaning, data engineering, data curation, etc\u2026 Having these datasets well formatted and readily available online also raises the chances of next frontier models being able to be trained on Bitcoin data and thus being better on it.</li>\n</ul>\n<p>Happy to continue discussing it.</p>",
   "post_number": 18,
   "post_type": 1,
-  "posts_count": 18,
+  "posts_count": 20,
   "updated_at": "2026-07-21T14:06:29.374Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 7,
-  "reads": 16,
-  "readers_count": 15,
-  "score": 38.2,
+  "reads": 20,
+  "readers_count": 19,
+  "score": 54.0,
   "yours": false,
   "topic_id": 2550,
   "topic_slug": "a-bitcoin-native-llm-dataset-architecture-and-open-questions",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Hi! Spirit of Satoshi ML Engineer here.\n\nUnfortunately, SoS was too early. At that time, every bitcoiner was too skeptical and we couldn't raise more funds to continue the several ideas we had. Besides Satoshi-7B, I personally developed [Minimaxis](https://www.youtube.com/watch?v=LJaF5iMc7D8) (later became Code Satoshi in SoS), a miniscript bitcoin code assistant and assisted the development of [Liquid support assistant](https://www.youtube.com/watch?v=8s-GyRcZ6s0). \n\nAfter SoS, I didn't stop there, I continued to work and keep up with the LLMs. Nowadays I'm building [Freedom Skills](https://github.com/brenorb/freedom-skills) to continue my vision of making freedom tech accessible.\n\nHere are my 2 cents:\n- The main reason we were building Satoshi 7B and other fine tuned models was because the models were really bad at instruction following. That's not the case anymore. Most of what you said above should be done via skills (with scripts doing the deterministic parts inside a skill folder), not as LoRA adapters. That's exactly what I'm doing in [Freedom Skills](https://github.com/brenorb/freedom-skills). Please, I invite you to come and contribute.\n- There are still the niche case to fine tune small models so we can run them locally and own the infrastructure. The cons are that new and more powerful and efficient models will be available every couple of months whilst bitcoin will continue to change, so this is an ongoing and costly effort that is a bit harder to see the general benefit. Can you think on more use cases for small fine tuned general models?\n- One thing I was already thinking about doing (I might try to champion this soon) was creating proper datasets for fine tuning and etc. This makes sense because it makes it easy to some data scientist to work with it without the need of data cleaning, data engineering, data curation, etc... Having these datasets well formatted and readily available online also raises the chances of next frontier models being able to be trained on Bitcoin data and thus being better on it.\n\nHappy to continue discussing it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Hi! Spirit of Satoshi ML Engineer here. \nUnfortunately, SoS was too early. At that time, every bitcoiner was too skeptical and we couldn\u2019t raise more funds to continue the several ideas we had. Besides Satoshi-7B, I personally developed <a href=\"https://www.youtube.com/watch?v=LJaF5iMc7D8\" rel=\"noopener nofollow ugc\">Minimaxis</a> (later became Code Satoshi in SoS), a miniscript bitc&hellip;",
   "truncated": true,
   "post_url": "/t/a-bitcoin-native-llm-dataset-architecture-and-open-questions/2550/18",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
