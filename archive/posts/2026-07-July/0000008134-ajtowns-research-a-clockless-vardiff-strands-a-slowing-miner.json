@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "In scenarios like that, I'd expect each proxy to follow logic something like:\n\n * I instructed this connection to curtail its hashrate from X to Y; multiply its vardiff by Y/X\n * this connection is sending shares too frequently,increase the vardiff \n * this connection hasn't found a share in 30 seconds, reduce it's vardiff by half\n * the sum of my inbound connections vardiff is S, but my upstream vardiff is k*S with k>2; send a request to update my vardiff from kS to S\n * this connection requested a change in vardiff, comply with the request.\n\nProvided the pool respects the request for a different vardiff when the proxy submits it, that seems roughly fine -- the 30 second delay should only hit between individual curtailed miners and the proxy it connects to, not between proxies or proxies and the pool, provided the vardiff change requests are honoured at each step, and even that delay should be avoidable if you give the proxy direct knowledge about curtailment instructions, rather than having it just be reactive to their observed effects?\n\nIn sv2 the \"request a change in vardiff\" message is [`UpdateChannel`](https://stratumprotocol.org/specification/05-mining-protocol/#537-updatechannel-client---server) (\"If a client performs device/connection aggregation (i.e. it is a proxy), it MUST send this message when downstream channels change\"), for sv1 it's [\"mining.suggest_difficulty\"](https://en.bitcoin.it/wiki/Stratum_mining_protocol#mining.suggest_difficulty) (or suggest_target, I guess?). Datum doesn't need to communicate vardiff, and the datum-gateway just chooses a vardiff, and commits it in the coinbase, so the server can credit shares as their full value upon receipt, without any advance negotiation, beyond agreement on how the difficulty gets encoded in the coinbase.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -60,9 +65,15 @@
   "excerpt": "In scenarios like that, I\u2019d expect each proxy to follow logic something like: \n\nI instructed this connection to curtail its hashrate from X to Y; multiply its vardiff by Y/X\nthis connection is sending shares too frequently,increase the vardiff\nthis connection hasn\u2019t found a share in 30 seconds, redu&hellip;",
   "truncated": true,
   "post_url": "/t/research-a-clockless-vardiff-strands-a-slowing-miner/2718/7",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
