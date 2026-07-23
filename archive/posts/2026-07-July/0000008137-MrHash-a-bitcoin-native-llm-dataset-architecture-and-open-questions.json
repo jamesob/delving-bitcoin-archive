@@ -15,7 +15,7 @@
   "incoming_link_count": 0,
   "reads": 14,
   "readers_count": 13,
-  "score": 2.8,
+  "score": 17.8,
   "yours": false,
   "topic_id": 2550,
   "topic_slug": "a-bitcoin-native-llm-dataset-architecture-and-open-questions",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "My approach is similar but incomplete and WIP so no harm in overlapping. The basic hierachy I designed is:\n\nKB\n\n* Constitutional Tier: minimal, whitepaper, genesis block\n* Drafting Record: Satoshi emails, forum posts etc.\n* Interpretative Scholarship: Theoretical or practical documents, plans, concepts of the highest quality\n* Precedent: BIPs etc.\n\nThis somewhat follows a governance knowledge structure but is also identifiable by checksum. I'm realy busy so won't be open sourced just yet but happy to collaborate on what you do and maybe converge at some point.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "My approach is similar but incomplete and WIP so no harm in overlapping. The basic hierachy I designed is: \nKB \n\nConstitutional Tier: minimal, whitepaper, genesis block\nDrafting Record: Satoshi emails, forum posts etc.\nInterpretative Scholarship: Theoretical or practical documents, plans, concepts o&hellip;",
   "truncated": true,
   "post_url": "/t/a-bitcoin-native-llm-dataset-architecture-and-open-questions/2550/20",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
