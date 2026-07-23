@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 1,
-  "reads": 12,
-  "readers_count": 11,
-  "score": 52.2,
+  "incoming_link_count": 8,
+  "reads": 15,
+  "readers_count": 14,
+  "score": 103.0,
   "yours": false,
   "topic_id": 2739,
   "topic_slug": "bitcoin-inquisition-29-4",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 3
+      "count": 4
     }
   ],
   "moderator": true,
@@ -61,18 +61,18 @@
   "post_url": "/t/bitcoin-inquisition-29-4/2739/1",
   "reactions": [
     {
-      "id": "rocket",
+      "id": "+1",
       "type": "emoji",
       "count": 2
     },
     {
-      "id": "+1",
+      "id": "rocket",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 3,
+  "reaction_users_count": 4,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

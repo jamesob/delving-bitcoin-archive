@@ -429,3 +429,17 @@ https://arxiv.org/abs/2606.05503
 
 -------------------------
 
+fightfear | 2026-07-23 18:42:19 UTC | #25
+
+Excellent write up!
+
+I won't pretend to understand everything, but what I do get from it is that miner revenue determines miner incentives.
+
+Since miner economics matter, long term transition from subsidy to fees deserves careful analysis rather than being dismissed as already 'solved' by Bitcoin's perfect design.
+
+So far I've only seen one viable solution to Bitcoin's security budget issue and that's a second subsidy (unless you want to increase supply, tax holders, steal Satoshi's coins or fork it making it something it's not). I wrote an article on this subject here
+
+https://medium.com/@marqs90/bitcoins-security-budget-dilemma-an-innovative-fix-emerging-from-the-shadows-e51309201f8d?sharedUserId=marqs90
+
+-------------------------
+
