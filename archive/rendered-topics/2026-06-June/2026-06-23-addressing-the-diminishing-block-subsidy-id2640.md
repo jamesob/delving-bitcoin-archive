@@ -443,3 +443,31 @@ https://medium.com/@marqs90/bitcoins-security-budget-dilemma-an-innovative-fix-e
 
 -------------------------
 
+show1225 | 2026-07-23 22:14:57 UTC | #26
+
+Dear Greg,
+
+I agree that Bitcoin has been over-secured until today and will be so for a few more halvings. However, I am not confident after 2040 halving (less than tenth of today's budget if fee market stays the same).
+
+There might not be a single correct value of security budget, but there should be a point where we start to see the network does not work as it has been (e.g. a major double-spend attack, more confirmation time than now etc.). 
+
+Today's block subsidy mechanism which we are relying on is also neither optimal nor presenting correct value of security (yes the network is over secured now). We are in the journey where we discover minimum security budget the network needs.
+
+> when you inflate the supply of money you enrich the recipients (and those economically proximal to them) at the expense of everyone else.
+
+I feel it is natural that holders (everyone) pay some small price for security while spenders contribute to less (hopefully net-zero or negative) inflation through the fee burning mechanism.
+
+I also agree with an opinion that such a drastic change in the protocol should not precede with softer proposals such as the adaptive block size proposal by Jameson while I still think my proposal is the surest way to settle the issue. In that sense, we should start working on it earlier so that we can possibly try a few non-inflationary proposals to build a healthier fee market.
+
+-------------------------
+
+show1225 | 2026-07-23 22:49:24 UTC | #27
+
+Dear fightfer,
+
+Thank you for excellent summary of past incidents and your proposal to address the issue.
+I do recognize a bunch of projects trying to supplement miners revenue and really hope any them become a serious source of miners' revenue. 
+In parallel with those out-of-consensus-rule efforts, we should also make efforts to sustain a healthy amount of miner revenue at consensus level.
+
+-------------------------
+
