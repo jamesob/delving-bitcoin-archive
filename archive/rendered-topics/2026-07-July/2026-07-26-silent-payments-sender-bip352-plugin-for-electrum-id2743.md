@@ -1,6 +1,6 @@
 # Silent Payments Sender - BIP352 plugin for Electrum
 
-Zenul_Abidin | 2026-07-26 15:30:35 UTC | #1
+Zenul_Abidin | 2026-07-26 15:35:42 UTC | #1
 
 Source code: https://github.com/ZenulAbidin/electrum-silent-payments-sender/
 
@@ -10,7 +10,7 @@ I have tested the plugin and made sure that it works with all supported types of
 
 It integrates with Electrum's normal Send tab:
 
-![](https://talkimg.com/images/2026/07/26/Uh9m7Z.png)
+![](upload://bRbfGh6XITxg8oZtahh4zUXOC3s.png)
 
 And it can be done all through software. Once you select inputs, this plugin devices Taproot output, then signs normally.
 
