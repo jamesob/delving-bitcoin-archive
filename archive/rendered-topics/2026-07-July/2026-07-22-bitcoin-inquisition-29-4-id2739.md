@@ -25,3 +25,30 @@ Note that transactions making use of these new features will not be relayed by n
 
 -------------------------
 
+ajtowns | 2026-07-27 03:14:21 UTC | #2
+
+Templatehash is now active.
+
+```json
+{
+  "templatehash": {
+    "type": "heretical",
+    "height": 314928,
+    "active": true,
+    "heretical": {
+      "binana-id": "BIN-2026-0001-000",
+      "start_time": 1767225600,
+      "timeout": 2082758400,
+      "period": 432,
+      "status": "active",
+      "since": 314928,
+      "status_next": "active",
+      "signal_abandon": "42800100",
+      "signals": []
+    }
+  }
+}
+```
+
+-------------------------
+
