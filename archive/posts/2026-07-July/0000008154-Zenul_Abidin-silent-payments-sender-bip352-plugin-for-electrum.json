@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 8,
-  "readers_count": 7,
-  "score": 6.6,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 22.0,
   "yours": false,
   "topic_id": 2743,
   "topic_slug": "silent-payments-sender-bip352-plugin-for-electrum",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Source code: https://github.com/ZenulAbidin/electrum-silent-payments-sender/\n\nThis is a plugin I made that adds support for BIP352 Silent Payments into Electrum desktop. Currently, it lets Electrum users send to Silent Payment addresses.\n\nI have tested the plugin and made sure that it works with all supported types of addresses and transaction configurations in Electrum.\n\nIt integrates with Electrum's normal Send tab:\n\n![](upload://bRbfGh6XITxg8oZtahh4zUXOC3s.png)\n\nAnd it can be done all through software. Once you select inputs, this plugin devices Taproot output, then signs normally.\n\nFeatures:\n\n* Electrum 4.6.0+\n* sender only; no scanning/receiving\n* mainnet, testnet, signet, and regtest\n* standard single-signature deterministic software wallets\n* P2PKH, P2WPKH-P2SH, and P2WPKH inputs\n* raw addresses and BIP21 `sp` payment instructions\n* BIP352 1.1.1, including forward-compatible v1-v30 address parsing\n\nNot supported yet / Todo:\n\n* hardware, watch-only, imported-key, multisig, and 2FA wallets\n* Taproot inputs, batching, payjoin, or swaps\n* unsigned preview/export or later signing\n\nIt hasn't been audited obviously, so use carefully.\n\nInstallation instructions:\n\n1. Go to [Releases](https://github.com/ZenulAbidin/electrum-silent-payments-sender/releases/), download silent_payments_sender-1.0.0.zip and verify the SHA256 hash.\n2. Electrum -> Tools -> Plugins -> Add plugin.\n3. Select silent_payments_sender-1.0.0.zip and enable it.\n4. Use Electrum's normal Send tab.\n\nI hope you guys find it useful. And don't forget to verify the file hash after you download.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Source code: <a href=\"https://github.com/ZenulAbidin/electrum-silent-payments-sender/\" class=\"inline-onebox\" rel=\"noopener nofollow ugc\">GitHub - ZenulAbidin/electrum-silent-payments-sender: BIP352 Silent Payments sender plugin for Electrum \u00b7 GitHub</a> \nThis is a plugin I made that adds support for BIP352 Silent Payments into Electrum desktop. Currently, it lets Electrum users send to Silent Payment addresses. \nI have teste&hellip;",
   "truncated": true,
   "post_url": "/t/silent-payments-sender-bip352-plugin-for-electrum/2743/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "rocket",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

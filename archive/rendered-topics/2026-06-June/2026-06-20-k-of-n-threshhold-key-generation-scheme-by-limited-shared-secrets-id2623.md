@@ -93,3 +93,15 @@ Is there any reason to do something like this over using Pseudo-random secret sh
 
 -------------------------
 
+ZmnSCPxj | 2026-07-27 09:08:08 UTC | #3
+
+As noted, Lightning Network k-of-n nodex.
+
+We already have a scheme for Taproot channels (implemented in Eclair and LND) that uses MuSig2 at the channel 2-of-2. We also have a paper proving MuSig2-in-MuSig2.  The scheme I described in my original post effectively devolves down to MuSig2-in-MuSig2.  With the scheme described in my post, we can get a k-of-n for one channel participant, which is implemented as a (n choose (n - k + 1)) of (n choose (n - k + 1)) inside a 2-of-2.
+
+Looking at the Arctic paper, it seems it has a scheme for generating nonces cooperatively amongst k-of-n signers? Are you suggesting to use the nonce generation method as the key generation method?
+
+Otherwise, any k-of-n would need to be nested in a MuSig2 in order to "seamlessly" integrate with BOLT Taproot channels, and the mathematicians I talked to strongly suggest I should first wait for a "arbitrary thing"-in-MuSig2 proof first before I use "arbitrary thing" as one node in a BOLT Taproot channel.  We already have a MuSig2-in-MuSig2 proof, so it is what I know I can rely on.  Since my scheme in the OP devolves down to MuSig2 in the inner layer, I can then use MuSig2-in-MuSig2 to seamlessly integrate with a Taproot Channel LN remote node.
+
+-------------------------
+

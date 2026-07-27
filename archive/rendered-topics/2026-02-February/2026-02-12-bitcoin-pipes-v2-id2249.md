@@ -413,3 +413,25 @@ Speaking of "trustless non-simultaneously-online setup". I think PIPEs v2 achiev
 
 -------------------------
 
+ZmnSCPxj | 2026-07-27 09:37:45 UTC | #14
+
+[quote="nemothenoone, post:13, topic:2249"]
+It only requires for everybody’s respective shares to be generated honestly (with leftovers removed by at least one party) and available for grabs when needed by others.
+[/quote]
+
+Is the "generated honestly" not part of the setup phase? Does validating that everyone else did generate honest;y require simultaneous onlineness or a mailbox containing messages specifically for a specific recipient?
+
+For instance, in the example of MuSig2, there is no need for simultaneous onlineness (which I believe can be emulated with a set of per-participant mailboxes).  Any party, including a non-participant in the signing, can generate the MuSig2 sum of multiple parties and then fund a UTXO with that sum.  Then, an actual signing participant can:
+
+1. Validate the UTXO exists onchain.
+2. Validate the list of public keys in the MuSig2 sums up to that UTXO public key.
+3. Validate its own public key is included in the above list.
+
+While we need a mailbox for the list of public keys in the MuSig2 (and probably a reference to the UTXO as well), that mailbox is not per-participant; the same message can be sent to any signing participant.
+
+This is important to allow anonymous-recipient broadcast.  In the sample LSP case, an LSP can create an n-of-n of itself plus n-1 clients, and can prove to any client that the client is part of that MuSig2 sum by providing the entire list. This message is the same for all clients.  This allows clients to connect anonymously in this phase, because the LSP does not require an identifier.
+
+To an extent, this can be emulated even if the setup requires "simultaneously onlineness".  The LSP can always provide mailboxes for each client, and clients can come online and go offline whenever and get the mailbox contents for each phase of the setup, thus getting "simultanouesly online" by caching messages at the LSP.  Some amount of anonymity can be acquired by wasting bandwidth: the messages can be encrypted to specific clients, and all mailboxes are sent over (and clients simply need to scan all the mailboxed messages for messages they can decrypt).  As the LSP is an LN participant who also sidelines by forwarding (and getting forwarding fees requires near-100% uptime anyway) this can be "good enough in practice", I guess.
+
+-------------------------
+

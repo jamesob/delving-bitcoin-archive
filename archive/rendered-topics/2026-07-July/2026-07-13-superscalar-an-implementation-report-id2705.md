@@ -89,3 +89,11 @@ The ladder's cadence and sub-factory timing (how many factories run in parallel,
 
 -------------------------
 
+ZmnSCPxj | 2026-07-27 09:10:14 UTC | #2
+
+Wow, thanks!  I am happy that at least somebody was interested enough in the concept to begin implementing it.
+
+The next step is getting people who actually run LSPs to start providing LSP and client software that uses this scheme..
+
+-------------------------
+
