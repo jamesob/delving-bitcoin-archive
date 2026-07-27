@@ -1,6 +1,6 @@
-# \[Research\] Vardiff belongs at the frontier
+# [Research] Vardiff belongs at the frontier
 
-gimballock | 2026-07-26 15:59:01 UTC | #1
+gimballock | 2026-07-27 16:40:24 UTC | #1
 
 > *A note on where this came from.* This is the companion to ["A clockless vardiff strands a slowing miner."](https://delvingbitcoin.org/t/research-a-clockless-vardiff-strands-a-slowing-miner/2718/5) That post asked whether a single controller is decline-safe; this one asks a prior question — *where in a mining topology does difficulty control belong at all*, once the miners sit behind proxies, translators, and job-declaration clients rather than dialing the pool directly. It was worked out through an extended back-and-forth with an AI (Claude), with ideas going both ways; the direction, the judgment calls, and the verification are mine. The claims here rest on two things, and I mark which throughout: **direct review of the deployed Stratum V2 source** (the reference pool, translator, and JD-client), and the **counting/observability argument** from the earlier post. Where a claim is neither — where it is a structural conjecture I have not measured — I say so. One deployed third-party pool (Blitzpool) is cited from its public source as an independent witness.
 

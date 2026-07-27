@@ -12,10 +12,10 @@
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 3,
-  "reads": 13,
-  "readers_count": 12,
-  "score": 37.6,
+  "incoming_link_count": 5,
+  "reads": 18,
+  "readers_count": 17,
+  "score": 63.6,
   "yours": false,
   "topic_id": 2746,
   "topic_slug": "bip110-monitor-simulator",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 1
+      "count": 2
     }
   ],
   "moderator": false,
@@ -63,11 +63,11 @@
     {
       "id": "+1",
       "type": "emoji",
-      "count": 1
+      "count": 2
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 1,
+  "reaction_users_count": 2,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

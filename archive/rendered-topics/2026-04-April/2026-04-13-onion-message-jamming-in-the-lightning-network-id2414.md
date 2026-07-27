@@ -511,3 +511,13 @@ Yes I agree on your points about ecash. The above was a concern about forwarding
 
 -------------------------
 
+brh28 | 2026-07-27 16:11:12 UTC | #19
+
+Assuming @erickcestari description of each implementation's rate limiting practice is accurate, I think the most practical first step is to improve these algorithms by considering *peer reputation*. The "proof-of-stake" forwarding rules described in (2) is a simple - though incomplete - example of this. Reputation is built by channel balance over time, along with a history of successful payments & fee revenue. Reputation is diminished by being a noisy, unproductive peer.
+
+Peers with good reputation can forward more messages and ultimately service more payments. Peers with a poor reputation risk not only rate limits, but also channel closures. Channel opens and closings incur fees. And leaving channels open over time introduces risk and opportunity cost proportional to the locked value.
+
+This approach avoids adding unnecessary complexity to the protocol. Over time, developers can evaluate the short-comings of reputation-based rate limiting and fill the gaps later.
+
+-------------------------
+
