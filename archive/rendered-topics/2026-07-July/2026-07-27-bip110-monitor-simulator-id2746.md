@@ -39,3 +39,21 @@ PS. I hope this is the correct category, and that it's ok to bundle these things
 
 -------------------------
 
+0xB10C | 2026-07-27 14:34:54 UTC | #3
+
+Cool stuff!
+
+We've been discussing BIP-110 monitoring and what data to collect here too: https://bnoc.xyz/t/brainstorming-what-data-to-collect-and-monitor-during-the-bip-110-bip-300-forks-in-august-2026/139 - feel free to chime in if you have anything to add. I'm running a Core and a BIP-110 node attached to a fork-observer instance too and plan to live-stream the (expected) split when mandatory signaling starts.
+
+-------------------------
+
+AntoineP | 2026-07-27 14:59:58 UTC | #4
+
+[quote="orangesurf, post:1, topic:2746"]
+After an extended period of time a BIP110 miner will extend a stale tip, creating a fork with a less work chain. BIP110 nodes and miners will follow this less work chain creating a persistent fork, before ultimately capitulating or implementing a proof of work change.
+[/quote]
+
+I'm curious why you expect a miner would waste a couple hundreds of thousands of dollars worth of work extending a dying chain? Ocean temporarily subsidizing them for it?
+
+-------------------------
+

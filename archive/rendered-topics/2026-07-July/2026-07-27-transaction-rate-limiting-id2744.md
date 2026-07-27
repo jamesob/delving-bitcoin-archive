@@ -61,3 +61,11 @@ So, touch wood, that should provide significant robustness improvements for node
 
 -------------------------
 
+0xB10C | 2026-07-27 14:55:58 UTC | #2
+
+Thanks for writing this up!
+
+I have a peer-observer dashboard for this and will continue monitor this! I guess it makes sense to run a 31.x node along a few master / v32.0 nodes to compare in-case this happens again.
+
+-------------------------
+
