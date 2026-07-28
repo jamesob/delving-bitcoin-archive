@@ -431,3 +431,9 @@ Some parts of the Cluster mempool definitions & theory thread (such as feerate d
 
 -------------------------
 
+sipa | 2026-07-28 03:22:56 UTC | #14
+
+Preprint of a paper on the topic: https://arxiv.org/abs/2607.23787
+
+-------------------------
+
