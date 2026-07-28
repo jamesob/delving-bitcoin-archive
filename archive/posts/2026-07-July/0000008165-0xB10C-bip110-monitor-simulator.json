@@ -7,15 +7,15 @@
   "cooked": "<p>Cool stuff!</p>\n<p>We\u2019ve been discussing BIP-110 monitoring and what data to collect here too: <a href=\"https://bnoc.xyz/t/brainstorming-what-data-to-collect-and-monitor-during-the-bip-110-bip-300-forks-in-august-2026/139\" class=\"inline-onebox\">Brainstorming: What data to collect and monitor during the BIP-110 &amp; BIP-300 forks in August 2026? - Data - Bitcoin Network Operations Collective</a> - feel free to chime in if you have anything to add. I\u2019m running a Core and a BIP-110 node attached to a fork-observer instance too and plan to live-stream the (expected) split when mandatory signaling starts.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 6,
   "updated_at": "2026-07-27T14:34:54.127Z",
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 11,
-  "readers_count": 10,
-  "score": 2.2,
+  "reads": 14,
+  "readers_count": 13,
+  "score": 17.8,
   "yours": false,
   "topic_id": 2746,
   "topic_slug": "bip110-monitor-simulator",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Cool stuff!\n\nWe've been discussing BIP-110 monitoring and what data to collect here too: https://bnoc.xyz/t/brainstorming-what-data-to-collect-and-monitor-during-the-bip-110-bip-300-forks-in-august-2026/139 - feel free to chime in if you have anything to add. I'm running a Core and a BIP-110 node attached to a fork-observer instance too and plan to live-stream the (expected) split when mandatory signaling starts.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Cool stuff! \nWe\u2019ve been discussing BIP-110 monitoring and what data to collect here too: <a href=\"https://bnoc.xyz/t/brainstorming-what-data-to-collect-and-monitor-during-the-bip-110-bip-300-forks-in-august-2026/139\" class=\"inline-onebox\">Brainstorming: What data to collect and monitor during the BIP-110 &amp; BIP-300 forks in August 2026? - Data - Bitcoin Network Operations Collective</a> - feel free to chime in if you have anything to add. I\u2019m running &hellip;",
   "truncated": true,
   "post_url": "/t/bip110-monitor-simulator/2746/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

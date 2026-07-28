@@ -534,3 +534,27 @@ OP_RETURN is suitable under a small size threshold but above that it is not econ
 
 -------------------------
 
+garlonicon | 2026-07-28 12:50:32 UTC | #45
+
+If we would live in a perfect world, where every user respect gentlemen's agreement, then proposals like that could work. But the whole point of pushing data on-chain is about forcing nodes to store it. Which is why your BIP wouldn't change anything in practice.
+
+If you really want to solve the spam problem, then you can focus more on making something better than an SPV node, and worse than a full node, where users could decide, what kind of data they want to store, and what level of trust they accept. But even then, it would be hard to convince many users to stop using SPV, and switch to something better.
+
+The idea of pushing spammers to a separate area is good, but unfortunately, it wouldn't work in practice. Users will stop storing data on-chain, only when they will have to store their own transactions on their own devices, and when losing transaction data would lead to a lose of coins. But that kind of security model is different from the current one, where you can create millions of UTXOs, and rely on P2P peers to store it forever. And reaching consensus for changing it would be hard, as long as we don't have terabytes of data, produced for many decades or centuries.
+
+So, to sum up: technically, your BIP could work, but practically, there will be no incentive to use it. And today's users won't respect gentlemen's agreement, because if they would, then for example testnet coins wouldn't be traded. Here, it is similar: lack of incentive makes it impractical, even if technically you can implement it, deploy it without asking Bitcoin Core about anything, and try to convince users to switch to it. I guess most users just wouldn't use it, even if you would make a working client, and try to promote it.
+
+-------------------------
+
+MrHash | 2026-07-28 13:29:23 UTC | #46
+
+Thank you for joining the conversation and feedback. I do understand the point being made by yourself and Murch, which is that data carriers are exploiting permanance. However, i don't believe this is necessarily the case and have tried to make this clear in the BIP.
+
+Firstly, the incentive to use it is now established economically, as i posted the rationale above. The economic incentive is what has drawn data into witness, undercutting op_return. This is a side effect of the discount. On this basis it can be asserted that carriers are economically rational and respond to economic incentives.
+
+Secondly, Bitcoin gives no guarantees of redundancy, whereas it does in theory (re: pruning) promise availability. SegData gives a degree less redundancy, that is conceded, but availability is also in theory promised. This nuance presents an opportunity to data carriers to declare their data prunable for a discoutn, which they are not able to do at the moment. The upside of this is that data continues to compete within the weight budget, and reduces burden on smaller resources constrained nodes, relocating data and contributing to decentralization e.g. a full SegData block would be \~1KB for an opt-out node.
+
+I'm not pushing the proposal as a must-have, i'm just simply trying to establish it as a technical option which follows clearly in the design lineage of witness. No consensus requirement on data + script isolation enables pruning at the node by entry or type.
+
+-------------------------
+

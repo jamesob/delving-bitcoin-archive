@@ -521,3 +521,18 @@ This approach avoids adding unnecessary complexity to the protocol. Over time, d
 
 -------------------------
 
+erickcestari | 2026-07-28 12:19:54 UTC | #20
+
+[quote="brh28, post:19, topic:2414"]
+Peers with good reputation can forward more messages and ultimately service more payments. Peers with a poor reputation risk not only rate limits, but also channel closures. Channel opens and closings incur fees. And leaving channels open over time introduces risk and opportunity cost proportional to the locked value.
+
+[/quote]
+
+For reputation to work with onion messages we would need a way to evaluate what counts as good and bad behavior. I don't think we have one.
+
+If reputation is shared with payment forwarding, a node can build a high score by forwarding HTLCs correctly and then spend it on onion message spam without losing anything. Scoring onion messages separately avoids that. But then there is nothing to score them on. A forwarder never learns whether the message it relayed produced a real invoice_request or a real payment, so it has nothing to reward and nothing to penalize. And even if some signal existed, onion messages are free to send, so building a good score would cost nothing. An attacker could behave well for as long as needed and then spam.
+
+That leaves onion messages per second as the only locally observable quantity, and reputation based on that is just the rate limiter we already have.
+
+-------------------------
+

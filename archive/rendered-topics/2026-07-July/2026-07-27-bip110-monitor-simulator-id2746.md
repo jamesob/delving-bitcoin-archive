@@ -57,3 +57,15 @@ I'm curious why you expect a miner would waste a couple hundreds of thousands of
 
 -------------------------
 
+orangesurf | 2026-07-28 13:16:52 UTC | #5
+
+(post deleted by author)
+
+-------------------------
+
+orangesurf | 2026-07-28 13:16:57 UTC | #6
+
+It is possible that the vocal supporters involved with mining will simply capitulate, though I wouldn’t be surprised if they continue for a while and eventually find a block. A number of individuals have truly tied themself to the mast this time
+
+-------------------------
+
