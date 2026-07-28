@@ -918,3 +918,27 @@ What I do like about @VzxPLnHqr 's thread here is, it's trying to broaden the co
 
 -------------------------
 
+VzxPLnHqr | 2026-07-28 00:12:48 UTC | #27
+
+[quote="AdamISZ, post:26, topic:2093"]
+Sorry for necro-posting but I just discovered this thread and intersects several of my current interests :slight_smile:
+[/quote]
+
+Thanks for chiming in! 
+
+[quote="AdamISZ, post:26, topic:2093"]
+That’s the thing I’m noodling on at the moment: how far can you go down the road of “only have a snapshot of the action of the sharechain appear in the coinbase” and still have it be fair to participants, not gameable etc
+[/quote]
+
+Indeed, and that is exactly what I continue to noodle on as well.
+
+Somewhat tangentially, and at risk of stating something which may be obvious but also contentious, another thing interesting about distributed mining mechanisms like this is that they might be useful for coordinating a mainchain non-backward-compatible upgrade (when and/or if such a thing is ever necessary). In essence, the sharechain network could have additional consensus logic that triggers only when the sharechain network obtains a sustained mainchain hashrate majority. 
+
+For example, it could then require (and re-org to always obtain) mainchain blocks to be effectively empty except for a commitment to the tip of the "now-upgraded" network (which presumably grandfathered in as much of the old network as possible), and perhaps a friendly message telling all old nodes that the network has hard-forked, etc. In this way old nodes/wallets would at least "figure out what to do," pretty easily because they would observe that the existing network still exists, it is simply that no transactions are being confirmed on that chain anymore.
+
+It is interesting because the sharechain network itself, in this hypothetical, is effectively, after obtaining and sustaining enough hashrate, permanently 51% attacking mainchain (hopefully "benevolently?"), but yet itself may, depending on the composition of its own miners and mining pools, remain secure .... that is until another "even better" sharechain network comes along and does the same to it, and so on, and so forth. But that last risk might be what keeps it honest/benevolent. Not sure. Alas, we digress.
+
+So, it seems that mechanisms like this could be used for both good and bad, and the difference will be in the eye of the behodler.  However, with that in mind, and without naming specific projects/forks whether past or upcoming, one could at least argue that using a mechanism like this is a better way to "fork off." At least for such projects which are claiming to preserve, reinvigorate, liberate, ..., the "real" bitcoin, those projects seem to believe that their feature/filter-set is the correct one and that we will all eventually see the light. If only they had enough hashpower to enforce it (and force us to see the light). Well, a mechanism like this would allow them to hardcode their favorite soft-fork (or hard-fork) to kick-in once they obtain and sustain such a majority hashrate! And, in the interim, at least their hash power would still be valid for mainchain while they play around on their own network (which they claim will become our future network).
+
+-------------------------
+
