@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 2739,
   "topic_slug": "bitcoin-inquisition-29-4",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Templatehash is now active.\n\n```json\n{\n  \"templatehash\": {\n    \"type\": \"heretical\",\n    \"height\": 314928,\n    \"active\": true,\n    \"heretical\": {\n      \"binana-id\": \"BIN-2026-0001-000\",\n      \"start_time\": 1767225600,\n      \"timeout\": 2082758400,\n      \"period\": 432,\n      \"status\": \"active\",\n      \"since\": 314928,\n      \"status_next\": \"active\",\n      \"signal_abandon\": \"42800100\",\n      \"signals\": []\n    }\n  }\n}\n```",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Templatehash is now active. \n{\n  &quot;templatehash&quot;: {\n    &quot;type&quot;: &quot;heretical&quot;,\n    &quot;height&quot;: 314928,\n    &quot;active&quot;: true,\n    &quot;heretical&quot;: {\n      &quot;binana-id&quot;: &quot;BIN-2026-0001-000&quot;,\n      &quot;start_time&quot;: 1767225600,\n      &quot;timeout&quot;: 2082758400,\n      &quot;period&quot;: 432,\n      &quot;status&quot;: &quot;active&quot;,\n      &quot;since&quot;: &hellip;",
   "truncated": true,
   "post_url": "/t/bitcoin-inquisition-29-4/2739/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

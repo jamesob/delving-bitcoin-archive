@@ -490,3 +490,17 @@ I feel like I haven’t been able to fully get my point across, but I’ll try a
 
 -------------------------
 
+MrHash | 2026-07-27 21:41:16 UTC | #42
+
+I've updated the BIPs to take into consideration as much of the feedback from here as I can. They are significantly updated. With that I've made the GitHub PR.
+
+-------------------------
+
+MrHash | 2026-07-27 22:30:38 UTC | #43
+
+I have been rejected from [opening a PR](https://github.com/bitcoin/bips/pull/2222) to the BIPs repository. The links in the OP are updated with the latest versions of the BIPs which resolve the earlier raised consensus rule issue as well as address various other improvements and hopefully more clarity on the design.
+
+To reiterate, there is no free data carriage, each node decides what data it want to receive and store while validation existing block rules are unchanged.
+
+-------------------------
+
