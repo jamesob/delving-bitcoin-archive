@@ -536,3 +536,23 @@ That leaves onion messages per second as the only locally observable quantity, a
 
 -------------------------
 
+brh28 | 2026-07-28 20:14:23 UTC | #21
+
+Thanks @erickcestari. Let me take a step back to add some color.
+
+Fundamentally, onions are designed to obscure the source. Without a source, direct attribution is impossible, and without direct attribution, an incremental cost must be inferred to hold peers accountable. So, the question becomes, what is that cost? Payment is ideal, but complex in practice. That's not to say it shouldn't be done, but I maintain reputation is an underutilized lever that can be deployed today without a protocol change.
+
+By "reputation," I'm referring to a long-term, holistic judgment about a peer. A rate limit, by comparison, is like a circuit-breaker: a short-term reflex to a burst of traffic. Rate limiting schemes alone, such as (4), leave routing nodes vulnerable to repeated attacks over time. 
+
+My argument is, if a circuit is broken, the offending node's reputation should be charged. To protect its reputation, that node lowers its ingress limits. Lowering ingress limits reduces amplification and increases long-term reputation risk in the direction of the malicious source. Similar to (4), back-propagation limits the short-term damage. Unlike (4), reputation charges diminish the durability of an attack; an adversary can only attack the network as long as they have goodwill with their peers. The underlying assumption is that good actors will have a higher reputation than bad actors and can therefore resist attacks.
+
+> a node can build a high score by forwarding HTLCs correctly and then spend it on onion message spam without losing anything.
+
+I contend this attack is not free. The adversary has to do useful work to earn a reputation that is subsequently spent. Also, note that these behaviors can be represented as a cost function that are weighted against each other (i.e "tuning" parameters). A node can charge a high price to relay OMs, but that makes them unreliable as an OM forwarder. If priced too cheaply, a routing node expends system resources as an OM relay without adequate compensation and risks reputation damage with its peers.
+
+This reputation function can be defined by each node independently and can be incrementally improved over time. Individual weights are likely to be more dynamic and unique to a node, while the shape of the function is likely to be widespread. For example, repeatedly breaking a circuit should be charged more than an isolated instance. 
+
+With that said, I acknowledge that reputation alone does not fully resolve current attack vectors. Most notably, long-paths take a long time to back-propagate and loops can be used to easily trigger rate limits. The hop-limit described in (2) limits the reach of an adversary, but doesn't fully resolve the amplification of a loop. A hypothetical `onion_message_id` could be used to detect loops, but comes at a small privacy cost.
+
+-------------------------
+

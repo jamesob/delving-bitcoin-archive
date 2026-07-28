@@ -7,7 +7,7 @@
   "cooked": "<p>Assuming <a class=\"mention\" href=\"/u/erickcestari\">@erickcestari</a> description of each implementation\u2019s rate limiting practice is accurate, I think the most practical first step is to improve these algorithms by considering <em>peer reputation</em>. The \u201cproof-of-stake\u201d forwarding rules described in (2) is a simple - though incomplete - example of this. Reputation is built by channel balance over time, along with a history of successful payments &amp; fee revenue. Reputation is diminished by being a noisy, unproductive peer.</p>\n<p>Peers with good reputation can forward more messages and ultimately service more payments. Peers with a poor reputation risk not only rate limits, but also channel closures. Channel opens and closings incur fees. And leaving channels open over time introduces risk and opportunity cost proportional to the locked value.</p>\n<p>This approach avoids adding unnecessary complexity to the protocol. Over time, developers can evaluate the short-comings of reputation-based rate limiting and fill the gaps later.</p>",
   "post_number": 19,
   "post_type": 1,
-  "posts_count": 20,
+  "posts_count": 21,
   "updated_at": "2026-07-27T16:11:12.908Z",
   "reply_count": 1,
   "reply_to_post_number": null,
