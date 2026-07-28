@@ -1,6 +1,6 @@
 # Does Bitcoin's fee market price permanence, or just congestion?
 
-prateekposwal | 2026-07-28 05:17:49 UTC | #1
+prateekposwal | 2026-07-28 05:21:27 UTC | #1
 
 I've been working through a question that I think is genuinely open, and I'd like feedback from this community on whether the framing is useful.
 
@@ -9,8 +9,6 @@ I've been working through a question that I think is genuinely open, and I'd lik
 Look, BIP-141 (SegWit) created a 4× weight discount for witness data. This was designed to fix transaction malleability,  not to price state growth. The discount made inscriptions (Ordinals, Runes, BRC-20) economically viable at scale. This was an unintended side effect of a different design goal, and nobody has seriously asked whether the weight formula appropriately prices the cost of adding permanent state to the network.
 
 I built a UTXO cost model using publicly available data. Source code and full verification appendix at \[ github.com/prateekposwal/bitcoin-priority-oracle \]( https://github.com/prateekposwal/bitcoin-priority-oracle ).
-
-
 
 | Metric | Value |
 
@@ -26,7 +24,9 @@ I built a UTXO cost model using publicly available data. Source code and full ve
 
 | Current fee range | \~$0.06–$0.13 (low activity, 1-2 sat/vB) to $5–50 (peak, 200+ sat/vB) |
 
-\[The 10-year UTXO lifetime assumption is the weakest parameter, some inscription UTXOs may never be spent, others may be spent quickly. Feedback on this would be very helpful.\]
+$$
+The 10-year UTXO  lifetime  assumption  is  the  weakest  parameter, some  inscription  UTXOs  may  never be spent, others may be spent quickly. Feedback on this would be very helpful. 
+$$
 
 The fee market prices **congestion**,  the cost of getting into the next block. This works well: during high demand, fees rise, and the most valuable transactions get confirmed first.
 
@@ -61,7 +61,7 @@ Arguments for "no":
 
 \- \~$9K/yr across \~50K reachable nodes is \~$0.18/node/yr, that is negligible
 
- **What this is NOT**
+**What this is NOT**
 
 \- Not a proposal. Not a BIP draft. Not claiming the problem is urgent.
 
@@ -74,8 +74,6 @@ Would love feedback from people who have thought more deeply about this — part
 2\. The pruned vs archival node ratio most estimates I've seen suggest \~30% of nodes are archival. If that's wrong the externality changes significantly.
 
 3\. Whether the SegWit weight formula was ever intended to be revisited, or if it's considered settled architecture.
-
-
 
 Research repo with full model, verification appendix, and sensitivity analysis:
 
