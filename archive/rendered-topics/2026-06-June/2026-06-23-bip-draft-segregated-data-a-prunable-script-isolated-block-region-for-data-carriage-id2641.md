@@ -496,11 +496,41 @@ I've updated the BIPs to take into consideration as much of the feedback from he
 
 -------------------------
 
-MrHash | 2026-07-27 22:30:38 UTC | #43
+MrHash | 2026-07-28 08:40:46 UTC | #43
 
-I have been rejected from [opening a PR](https://github.com/bitcoin/bips/pull/2222) to the BIPs repository. The links in the OP are updated with the latest versions of the BIPs which resolve the earlier raised consensus rule issue as well as address various other improvements and hopefully more clarity on the design.
+I have been rejected from [opening a PR](https://github.com/bitcoin/bips/pull/2222) to the BIPs repository. The links below are updated with the latest versions of the BIPs which resolve the earlier raised consensus rule issue as well as address various other improvements and hopefully more clarity on the design.
 
 To reiterate, there is no free data carriage, each node decides what data it want to receive and store while validation existing block rules are unchanged.
+
+Consensus BIP: https://github.com/MrHash/bips/blob/bip-segdata/bip-segdata.md
+
+Peer Services BIP: <https://github.com/MrHash/bips/blob/bip-segdata/bip-segdata-peer-services.md>
+
+-------------------------
+
+MrHash | 2026-07-28 08:53:07 UTC | #44
+
+Responding to the following on GitHub where the conversation is locked:
+
+> The newer proposal would make data optional at every depth and keep consensus validation identical, fixing the reorg risk AJ Towns described. Nodes would only check a commitment plus the declared size against the weight limit; everything else would be policy.
+
+This is exactly how the updated BIP is written. There is also a section as follows:
+
+**Uniform Validation**
+Consensus validation is identical at every depth. Every node applies the rules above from the base serialisation, the transactions and the coinbase commitment, for a block at the tip and for one buried under the deepest reorg alike, whether or not it holds the segdata region. There are no depth-scoped validation modes and no burial trust. A block's validity is fixed by its base serialisation when it is first seen and never changes, so two nodes cannot reach different verdicts on the same block by having encountered it at different depths.
+
+Consensus never depends on data, all validation is relay policy aside from commitment check. SegData is designed to relocate data out of witness. An economic incentive is now encoded in the proposal suggesting the following:
+
+| Payload | SegData | Witness Commit+Reveal | Saving | Saving % |
+|----|----|----|----|----|
+| 256 B | \~737 WU (184 vB) | \~1,210 WU (303 vB) | \~473 WU (118 vB) | \~39% |
+| 1 KB | \~1,121 WU (280 vB) | \~1,996 WU (499 vB) | \~875 WU (219 vB) | \~44% |
+| 10 KB | \~5,729 WU (1,432 vB) | \~11,266 WU (2,817 vB) | \~5,537 WU (1,384 vB) | \~49% |
+| 100 KB | \~51,809 WU (12,952 vB) | \~103,960 WU (25,990 vB) | \~52,151 WU (13,038 vB) | \~50% |
+
+> Use cases that care about permanence would stick to normal witness or OP_RETURN data.
+
+OP_RETURN is suitable under a small size threshold but above that it is not economically rational and hence why data is being carried in vectors otherwise not intended for it.
 
 -------------------------
 
