@@ -1,6 +1,6 @@
 # Does Bitcoin's fee market price permanence, or just congestion?
 
-prateekposwal | 2026-07-28 05:21:27 UTC | #1
+prateekposwal | 2026-07-28 05:45:21 UTC | #1
 
 I've been working through a question that I think is genuinely open, and I'd like feedback from this community on whether the framing is useful.
 
