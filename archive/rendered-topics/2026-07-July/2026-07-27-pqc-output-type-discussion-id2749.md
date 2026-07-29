@@ -124,3 +124,23 @@ On the other hand, preparing for outcomes where ECC disabling can be timed corre
 
 -------------------------
 
+jeanpablojp | 2026-07-29 13:39:19 UTC | #3
+
+A small data contribution to the table: I [implemented BIP-360 P2MR in Bitcoin Core on regtest](https://delvingbitcoin.org/t/bip-360-p2mr-implemented-in-bitcoin-core-on-regtest-vector-results-measurements-spec-feedback/2751) and measured spends end to end, so some of the Efficiency estimates can be grounded in actual transaction numbers.
+
+Measured with identical transactions where only the input side differs (one input, one P2TR output, `SIGHASH_DEFAULT`, a `<key> OP_CHECKSIG` leaf):
+
+|spend | control block | weight | vsize|
+|--- | --- | --- | ---|
+|P2MR, 2-leaf tree | 33 B | 513 | 129|
+|P2MR, 4-leaf tree | 65 B | 545 | 137|
+|P2TR script path, 2-leaf tree | 65 B | 545 | 137|
+
+The P2MR witness comes out 32 bytes lighter than the equivalent P2TR script path spend at every depth (except m = 7, where the control blocks fall on opposite sides of a compact size boundary and it is 34), so P2MR effectively gets one extra tree level for the price of a P2TR script path. These are script paths on both sides: a P2TR key path spend at 64 witness bytes stays far cheaper, consistent with the 64 vs 128 comparison in the table.
+
+One omission that may be worth a line in the comparison, since adoption complexity comes up repeatedly: implementation cost. The consensus delta for P2MR as specified is ~96 lines on top of Core's existing taproot machinery, because witness v2 reuses tapscript execution, the BIP-342 sighash and the Merkle walk unchanged; only the commitment check differs. Of the types listed, P2MR (and P2QR, which shares its structure) is the only one that is nearly free to implement given taproot; P2TRH and PKR need a BIP-340 variant, and the new witness styles need serialization and P2P changes.
+
+Happy to measure other configurations on regtest if concrete numbers would be useful here.
+
+-------------------------
+
