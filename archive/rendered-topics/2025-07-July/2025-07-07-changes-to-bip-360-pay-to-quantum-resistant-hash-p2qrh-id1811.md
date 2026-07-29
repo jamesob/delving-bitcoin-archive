@@ -497,3 +497,13 @@ edit: Want to add that I like this new approach a hell of a lot more than the or
 
 -------------------------
 
+jeanpablojp | 2026-07-28 21:43:21 UTC | #32
+
+I implemented BIP 360 in Bitcoin Core on regtest as an independent exercise and ran it against the official test vectors: all construction vectors pass, and the pqc vector file turned out to carry two bugs (fixes submitted as [bitcoin/bips#2220](https://github.com/bitcoin/bips/pull/2220), with doc fixes in [#2221](https://github.com/bitcoin/bips/pull/2221) and a correction to the claimed witness size saving in [#2223](https://github.com/bitcoin/bips/pull/2223)).
+
+Full write-up with measured witness sizes and some spec feedback: https://delvingbitcoin.org/t/bip-360-p2mr-implemented-in-bitcoin-core-on-regtest-vector-results-measurements-spec-feedback/2751
+
+One gap worth flagging here: the official vectors are construction-only, so consensus spend-path testing has no shared oracle yet. I'm happy to generate and contribute spend-path vectors upstream if that would be useful.
+
+-------------------------
+
