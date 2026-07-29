@@ -75,3 +75,17 @@ Thank you for pushing on this and catching me up on the topic a few months ago, 
 
 -------------------------
 
+AntoineP | 2026-07-29 18:30:34 UTC | #4
+
+[quote="ajtowns, post:1, topic:2744"]
+* across a link, only about 24.5 txs/s can get propagated (17.5 from the node that created the connection to its outbound peer because the actual multiplier was 2.5 not 2 due to rounding, and 7 back; fewer if the peers’ announcements overlap and duplicate each other), and because the transactions are sorted, that doesn’t get an effective multiplier by the number of connections
+[/quote]
+
+Took me a minute to parse, so if that can be useful to anyone else here is an explanation of how those numbers are derived. Even before that PR, Bitcoin Core trickled tx inventory broadcasts. It would wait at least 5 seconds before pulling the trigger. With that PR, it would also limit the number of inventory items sent each time to 35 (7 per each of the 5 seconds elapsed).
+
+However that PR also changed the frequency of inventory broadcasts for outbound peers, "[as there is less privacy concern for them](https://github.com/bitcoin/bitcoin/pull/7840/changes#diff-34d21af3c614ea3cee120df276c9c4ae95053830d7f1d3deaf009a4625409ad2R5802-R5803)". The time interval between broadcasts for outbound peers is divided by 2, but since the interval is an integer and is odd, it is really divided by 2.5: from 5 seconds to 2 seconds. 
+
+Therefore 35 inventory items every 2 seconds gives the 17.5 items per second figure, which added to the 7 items per second in the inbound direction gives the 24.5 items per second figure.
+
+-------------------------
+
