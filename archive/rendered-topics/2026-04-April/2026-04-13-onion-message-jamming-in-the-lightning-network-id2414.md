@@ -577,3 +577,19 @@ I contend this attack is not free. The adversary has to do useful work to earn a
 
 -------------------------
 
+brh28 | 2026-07-30 20:38:26 UTC | #23
+
+> This implies forwarding OM only to peers you have a channel.
+
+Out of self-interest, I would expect most OM relaying to occur over channels. But that's not a necessary constraint here because nodes can evaluate the reputation of any other node on the network, including non-channel peers. For a given node, non-channel peers would presumably have a lower reputation than channel peers, which aligns with the example in (4) where channel peers are afforded 10/sec while non-channel peers only 1/sec.
+
+> Is this reputation a separate metric from the channel-jamming one, or the same score?
+
+Independent metrics can be jointly assessed. For example, fee revenue may influence OM budget. But because OM can be misattributed, OM score probably should not influence payments much.
+
+> And when does an OM cost reputation: only once the upstream peer trips a configured limit, or does every message debit something?
+
+For the implementations to decide. Generally speaking, coarser accounting (i.e charge on broken circuit) is easier to account for, but also easier for an adversary to game. A routing node that employs a coarser strategy is more likely to take reputational damage from an adversary that maximizes flow through them without tripping the circuit. Meanwhile, granular accounting is more work, but quicker to respond to the adversary. Calling a reputation function is light work with bounded state, so I'd speculate granular accounting is do-able. I suppose a node could even employ a hybrid. In good times, a node can keep a meter; in adversarial times, (after a circuit is broken) the node may switch to a more granular approach.
+
+-------------------------
+
