@@ -144,3 +144,19 @@ Happy to measure other configurations on regtest if concrete numbers would be us
 
 -------------------------
 
+AdamISZ | 2026-07-30 13:11:35 UTC | #4
+
+[quote="sipa, post:2, topic:2749"]
+A common theme I see being brought up in predicting Q-day is that we shouldn’t expect a nice progressing of milestones being broken along the way, [quipped](https://scottaaronson.blog/?p=9665#comment-2029013) by Scott Aaronson as:
+
+> asking “so when are you going to factor 35 with Shor’s algorithm?” becomes sort of like asking the Manhattan Project physicists in 1943, “so when are you going to produce at least a *small* nuclear explosion?”
+
+I accept that view, and the conclusion that one shouldn’t wait to deploy PQC until there are measurable milestones. That is, we should be working now towards providing PQC output types in Bitcoin. But that is what we’re doing, I think, and this discussion is part of that.
+[/quote]
+
+Largely off topic, but, I don't accept that view.
+
+It's completely the wrong analogy for me. Bombs are the activation of something, not the stabilisation of that thing. QCs require control, not release; they are not bombs. So if you're going to compare with nuclear you have to argue it's more like fission reactors (that were created within a span of years) than fusion reactors (which were promised every decade since the 80s but still don't exist (economically), nearly 100 years after we knew they were possible in theory...).
+
+-------------------------
+
