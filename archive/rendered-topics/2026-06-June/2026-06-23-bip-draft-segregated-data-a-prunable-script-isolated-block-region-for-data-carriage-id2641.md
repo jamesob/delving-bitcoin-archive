@@ -558,3 +558,25 @@ I'm not pushing the proposal as a must-have, i'm just simply trying to establish
 
 -------------------------
 
+jonatack | 2026-07-30 19:53:19 UTC | #47
+
+Posting the relevant parts of my mini-review in the BIPs repo:
+
+---
+
+The newer proposal would make data optional at every depth and keep consensus validation identical, fixing the reorg risk AJ Towns described. Nodes would only check a commitment plus the declared size against the weight limit; everything else would be policy.
+
+It would be a soft fork for something that doesn’t need consensus rules. One can already commit to arbitrary data hashes today. The data still consumes block weight even though no one is required to keep or serve it. Most nodes would ignore it, making availability unreliable. Use cases that care about permanence would stick to normal witness or OP_RETURN data.
+
+It would be adding protocol complexity for a feature most nodes will turn off and that has weak incentives to be used at all.
+
+---
+
+I agree with @garlonicon above. It would be nice if it could work, but incentives.
+
+> OP_RETURN is suitable under a small size threshold but above that it is not economically rational and hence why data is being carried in vectors otherwise not intended for it.
+
+Yes, IIUC large arbitrary blobs would be that data that makes the most sense to use SegData for, with the caveats of (a soft fork, increased protocol complexity, and) whether enough nodes are willing to host and serve the data.
+
+-------------------------
+

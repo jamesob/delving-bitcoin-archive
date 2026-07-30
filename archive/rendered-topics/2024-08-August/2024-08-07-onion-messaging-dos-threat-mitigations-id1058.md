@@ -60,3 +60,13 @@ Yea, that paper is cool, sadly it doesn't actually make an argument for there be
 
 -------------------------
 
+brh28 | 2026-07-30 17:39:49 UTC | #3
+
+Good read. Some form of hop-limit seems sensible to me.
+
+While favoring routes through higher-cap nodes seems like a good idea, their analysis seems to assume all honest nodes (*n*) support OM relay to all peers. I'm concerned with the incentive to serve as a relay to non-channel peers. 
+
+Given this is related to the recently merged [option_onion_messages_only_channels](https://github.com/lightning/bolts/pull/1343/changes), I'm curious if anyone has data regarding how many nodes support \`option_onion_messages\` and how this has been trending over time? And I'm interested in how that number compares to `option_onion_messages_only_channels` moving forward.
+
+-------------------------
+

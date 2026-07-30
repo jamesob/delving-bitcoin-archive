@@ -556,3 +556,24 @@ With that said, I acknowledge that reputation alone does not fully resolve curre
 
 -------------------------
 
+erickcestari | 2026-07-30 18:41:38 UTC | #22
+
+Thanks for explaining further. Two things I want to check before responding:
+
+* This implies forwarding OM only to peers you have a channel.
+* Is this reputation a separate metric from the channel-jamming one, or the same score?
+
+And when does an OM cost reputation: only once the upstream peer trips a configured limit, or does every message debit something?
+
+[quote="brh28, post:21, topic:2414"]
+My argument is, if a circuit is broken, the offending node’s reputation should be charged.
+
+[/quote]
+
+[quote="brh28, post:21, topic:2414"]
+I contend this attack is not free. The adversary has to do useful work to earn a reputation that is subsequently spent.
+
+[/quote]
+
+-------------------------
+
