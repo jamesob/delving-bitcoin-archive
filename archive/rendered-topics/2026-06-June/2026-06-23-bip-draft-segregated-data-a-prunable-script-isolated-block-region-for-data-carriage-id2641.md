@@ -580,3 +580,31 @@ Yes, IIUC large arbitrary blobs would be that data that makes the most sense to 
 
 -------------------------
 
+MrHash | 2026-07-30 21:52:23 UTC | #48
+
+hey, i did respond earlier in brief to your review but i'll repeat here ICYMI.
+
+> The newer proposal would make data optional at every depth and keep consensus validation identical, fixing the reorg risk AJ Towns described. Nodes would only check a commitment plus the declared size against the weight limit; everything else would be policy.
+
+This is done, it's in the PR bip pages and in the later links here. Maybe you saw the peer services BIP which has a 288 block best effort policy. I also added the following section:
+
+**Uniform Validation** Consensus validation is identical at every depth. Every node applies the rules above from the base serialisation, the transactions and the coinbase commitment, for a block at the tip and for one buried under the deepest reorg alike, whether or not it holds the segdata region. There are no depth-scoped validation modes and no burial trust. A block’s validity is fixed by its base serialisation when it is first seen and never changes, so two nodes cannot reach different verdicts on the same block by having encountered it at different depths.
+
+> I agree with @garlonicon above. It would be nice if it could work, but incentives.
+
+I think this is the common criticism aside from any initial weirdness or technical peculiarities with the whole concept (although it is basically a simplified SegWit design + script-isolation -> prunability). I've tried to address the incentives questions but i'll try again. There are two sides and we are maybe conflating the two.
+
+1. Carriers.
+   1. Economic incentive: done, cheaper than witness (side effects a separate question)
+   2. Permanancy incentive: addressed via the redundancy vs availability argument. Bitcoin guarantees both although existing `prune` degrades both. SegData is in the same pattern but no doubt deeper, less redundancy -> higher availability risk offset by economic incentive. A single copy of data provides availability, full archival nodes are highly likely to exist because they are explicitly the full node position, that's the definition. In any case, if data "expires" then it served its purpose and is forgotten.
+   3. Exploit incentive: unaddressable by any mechanism, out of scope.
+2. Operators.
+   1. Economic incentive: none, exactly the same as existing carriage. Everybody carries the full history unless they prune. However, coverage tiers and prunability allow an operator to reduce their data burden without compromising their money burden. This is better than the existing.
+   2. Decentralization incentive: offering something unique here. Resource contrained nodes do not receive or carry data payloads. This is a net win for decentralization and an inversion of the data burden into a benefit.
+
+Am i missing any specific incentive question? It's easy to wave it away as idealistic or not probable, but we should be able to rationalise about outcomes given the design, and if there is a flaw it should be revealed specifically.
+
+thanks
+
+-------------------------
+
