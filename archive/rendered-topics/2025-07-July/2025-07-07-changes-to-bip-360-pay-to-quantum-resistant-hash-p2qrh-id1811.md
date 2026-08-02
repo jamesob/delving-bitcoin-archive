@@ -507,3 +507,13 @@ One gap worth flagging here: the official vectors are construction-only, so cons
 
 -------------------------
 
+jeanpablojp | 2026-08-01 22:05:01 UTC | #33
+
+Following up on my comment above: the spend-path vectors are now a PR, [bitcoin/bips#2232](https://github.com/bitcoin/bips/pull/2232).
+
+The schema follows BIP 341's wallet-test-vectors.json: one six-input transaction for the valid cases (including a depth-128 control block at the 4097-byte maximum) and nine invalid transactions for the failure paths, covering the control block size rule and the depth limit from both sides. Keys and prevouts come from fixed sha256 tags, and two of the trees are reused from p2mr_construction.json, so the two files cross-check each other.
+
+Writing them turned up one spec question, spelled out in the PR: the control byte's low bit is described as "unused and must be 1", but the validation steps have no explicit fail clause for it, unlike every other rule in that section. The vectors take the enforcing reading; if non-enforcement is the intent, that case should be dropped and the footnote reworded.
+
+-------------------------
+

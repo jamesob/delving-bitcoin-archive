@@ -71,3 +71,13 @@ Review is welcome, and I'm curious whether anyone else is implementing this. If 
 
 -------------------------
 
+jeanpablojp | 2026-08-01 22:09:06 UTC | #2
+
+Quick update on two things since posting.
+
+The pqc vector fixes ([bitcoin/bips#2220](https://github.com/bitcoin/bips/pull/2220)) were merged, and the branch is re-pinned on the corrected vectors: the KnownVectorBug exceptions are gone from the vector test and all 16 construction vectors now pass clean.
+
+The spend-path vectors offered above are now a PR as well: [bitcoin/bips#2232](https://github.com/bitcoin/bips/pull/2232). The schema follows BIP 341's wallet-test-vectors.json, with one six-input transaction for the valid cases and nine invalid transactions for the failure paths. Everything is generated from this branch and cross-checks against the published construction vectors.
+
+-------------------------
+
