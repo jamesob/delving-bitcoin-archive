@@ -608,3 +608,11 @@ thanks
 
 -------------------------
 
+murch | 2026-08-03 19:38:49 UTC | #49
+
+Full nodes carry the entire *consensus-relevant* history: they can fully validate that the entire history is consensus valid and arrive at the current UTXO set by themselves. As proposed, a full node does not require the proposed segregated data, and therefore I cannot imagine full node implementations defaulting to retaining SegData, simply because it uses additional resources to facilitate an optional feature.
+
+I don’t see the case for this manifesting as an opt-out feature, it seems obvious that it would be an opt-in feature like txindex or client-side block filters. I assume this is why almost everyone here thinks that a vanishing portion of nodes would retain the data.
+
+-------------------------
+
