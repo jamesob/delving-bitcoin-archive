@@ -1,9 +1,9 @@
 # Towards New Self-Custody Best Practices
 
-seed-cat | 2026-08-04 20:16:51 UTC | #1
+seed-cat | 2026-08-04 20:23:14 UTC | #1
 
 # Self-Custody Best Practices
-By now, many Bitcoiners are aware of the risk of trusting a single wallet vendor with their life savings.  The low-entropy vulnerability in the Coldcard has resulted in over $100M in losses, with many users only narrowly escaping losses because they added sufficient dice roll or passphrase entropy.
+By now, many Bitcoiners are aware of the risk of trusting a single wallet vendor with their life savings.  The low-entropy vulnerability in the Coldcard has resulted in over [$100M in losses](https://coldcard-hack-tracker.vercel.app/), with many users only narrowly escaping losses because they added sufficient dice roll or passphrase entropy.
 
 This is not the fault of users, but a failure of the Bitcoin technical community to create self-custody best practices that balance complexity and security.  I have been working on seed recovery tools for a while and have learned many of the ways that users fail when attempting to self-custody. Here is my attempt to draft some best practices:
 
@@ -77,7 +77,7 @@ Whether the transport is USB, QR code, or MicroSD is mostly irrelevant so long a
 
 
 
-**TLDR**
+# TLDR
 
 1. Setup a 2-of-2 multsig between one of (Trezor, BitBox, Foundation) and (Sparrow, Ledger).
 
