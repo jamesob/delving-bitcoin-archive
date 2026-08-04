@@ -13,9 +13,9 @@
   "reply_to_post_number": 48,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 46.6,
   "yours": false,
   "topic_id": 2641,
   "topic_slug": "bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Full nodes carry the entire *consensus-relevant* history: they can fully validate that the entire history is consensus valid and arrive at the current UTXO set by themselves. As proposed, a full node does not require the proposed segregated data, and therefore I cannot imagine full node implementations defaulting to retaining SegData, simply because it uses additional resources to facilitate an optional feature.\n\nI don\u2019t see the case for this manifesting as an opt-out feature, it seems obvious that it would be an opt-in feature like txindex or client-side block filters. I assume this is why almost everyone here thinks that a vanishing portion of nodes would retain the data.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Full nodes carry the entire consensus-relevant history: they can fully validate that the entire history is consensus valid and arrive at the current UTXO set by themselves. As proposed, a full node does not require the proposed segregated data, and therefore I cannot imagine full node implementation&hellip;",
   "truncated": true,
   "post_url": "/t/bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage/2641/49",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

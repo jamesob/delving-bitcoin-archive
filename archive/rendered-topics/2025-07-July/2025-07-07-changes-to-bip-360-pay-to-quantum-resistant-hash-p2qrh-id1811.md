@@ -517,3 +517,43 @@ Writing them turned up one spec question, spelled out in the PR: the control byt
 
 -------------------------
 
+coldtest-berlin | 2026-08-04 07:55:25 UTC | #34
+
+@EthanHeilman 
+
+
+
+Proposal: Encrypted Seedless Inheritance for P2QRH
+
+
+
+Problem: P2QRH assumes owner has seed. For inheritance, heir has only paper. Raw ML-DSA key is 2560 bytes (\~3413 chars) - too big for one QR and insecure if stolen.
+
+
+
+Construction:
+
+1\. PQ-Seed = 90 bytes entropy (120 chars base64), expandable via SHAKE256 to any PQ private key.
+
+2\. backup = salt(16) + XChaCha20( Argon2id(password,salt), PQ-Seed ) \~180 chars, fits one QR.
+
+3\. Print one QR.
+
+
+
+Heir flow: password + QR -> PQ-Seed -> private key -> spend bc1r.
+
+
+
+Benefits: 1 QR for all PQ algos, no pubkey exposure until spend, factor separation, no consensus change.
+
+
+
+This is essentially BIP-38 for P2QRH, but using a 90-byte seed expandable via SHAKE256 to fit ML-DSA into one QR for inheritance.
+
+
+
+Should we add this as Wallet Considerations to BIP-360?
+
+-------------------------
+
