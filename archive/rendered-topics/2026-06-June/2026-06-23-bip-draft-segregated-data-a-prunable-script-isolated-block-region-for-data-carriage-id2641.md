@@ -616,3 +616,14 @@ I don’t see the case for this manifesting as an opt-out feature, it seems obvi
 
 -------------------------
 
+MrHash | 2026-08-05 08:55:07 UTC | #50
+
+I'll respond with bullets so specific points can be addressed and referenced, as with the incentives points earlier.
+
+1. Although SegData entries are not, block weight is consensus relevant so there is an argument for validation by policy.
+2. The status quo is that data would be carried forever for free in existing vectors with no choice at all. This new idea exists to offer that choice and dissolve the argument.
+3. Opt-in mode would of course be less compelling to carriers than the default, but now we are discussing the default relay mode, the effective setting for the whole concept, so arguing its weak form is like arguing `prune`'s weak form.
+4. Coverage tiers give operators a choice in retention size, it's not just all or nothing.
+
+-------------------------
+
