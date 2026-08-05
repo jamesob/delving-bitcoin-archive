@@ -628,3 +628,21 @@ I'll respond with bullets so specific points can be addressed and referenced, as
 
 -------------------------
 
+murch | 2026-08-05 18:19:39 UTC | #51
+
+[quote="MrHash, post:50, topic:2641"]
+1. Although SegData entries are not, block weight is consensus relevant so there is an argument for validation by policy.
+
+[/quote]
+
+Building a smaller than permitted block is always valid.
+
+[quote="MrHash, post:50, topic:2641"]
+5. This proposal is default SegData enabled. Arguing against the default off is a different proposal which i have not proposed.
+
+[/quote]
+
+Even if it were on by default, almost every node setup guide would recommend to turn it off for a smaller data footprint. Sorry for repeating myself, but this seems completely uninteresting because I just don’t see the incentives work out.
+
+-------------------------
+
