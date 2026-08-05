@@ -30,3 +30,11 @@ https://archive.is/o6QgT
 
 -------------------------
 
+nerd2ninja | 2026-08-05 01:45:00 UTC | #2
+
+Sorry, just say this in a search engine query. I think a next year activation is not in line with the current vibe that I get from the larger Bitcoin community who seems skeptical of CTV still. We need to demonstrate in software the use cases. Particularly, things like demonstrating how CTV helps in high fee environments will be the most high value demonstrations that average users can test on their own machines. 
+
+I am admittedly, way far behind where I need to be to create such software, however
+
+-------------------------
+
