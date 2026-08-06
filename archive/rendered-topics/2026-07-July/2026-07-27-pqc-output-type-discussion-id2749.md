@@ -160,3 +160,45 @@ It's completely the wrong analogy for me. Bombs are the activation of something,
 
 -------------------------
 
+conduition | 2026-08-05 23:21:09 UTC | #5
+
+Hey @sipa and thank you for aggregating all this important information. I think your OP summary and analysis is correct, modulo small discrepancies in byte sizes (e.g. for pushdata length prefixing). 
+
+Seeing @fjahr's impressive CISA proposal has forced me to reevaluate my opinions on PQ output type candidates. CISA provides a natural vessel for P2TRv2 which is asymptotically (as the number of outputs grows) so efficient as to only require 1 byte witnesses for full-agg EC spends. This is exactly the kind of incentive we want in a PQ output type: Better efficiency than even P2TR, so much better that even users who don't care about PQ-security will migrate to it. The problem of course is that, like P2TRv2, CISA's output type requires we post bare EC pubkeys on-chain in the SPK and so it has the same PQ-security profile as P2TRv2.
+
+P2MR can also be deployed with CISA, but we cannot use public-key recovery (except for with one input, according to @starius), and we must instead publish the EC public key for each aggregated signature. This would lower P2MR's asymptotic per-input EC spend cost from 96 bytes (with PKR), but only to 64 bytes (with CISA), almost at par with P2TR today. 
+
+This trick works for P2TRH as well, with asymptotic EC witness weight reduced to 32 bytes per input (just one pubkey per full-agg output).
+
+Of course, in all cases, these EC efficiency gains evaporate on Q-Day.
+
+[quote="sipa, post:2, topic:2749"]
+I believe the best solution is a combination of P2TRv2 and P2MR, covering distinct use cases.
+[/quote]
+
+If CISA didn't exist, i think deploying both P2TRv2 and P2MR in tandem as you suggest would be reasonable. 
+
+However, if CISA is deployed concurrently, then P2TRv2+CISA will be so overwhelmingly efficient compared to P2MR (with or without CISA), that I expect most users will gravitate towards P2TRv2, and the economic security of P2MR coins will still ultimately hinge on P2TRv2's key-spend path being safely disabled in time.
+
+That's not necessarily a bad thing - more users on addresses with PQ keys is a win. But this makes the stakes higher: **With CISA, disabling ECC and switching to PQC is now even more expensive than it would've been without CISA.** More users will be affected by such a change. We can expect even more fierce debate over when and how to activate the EC disable fork, and harsher consequences for timing it wrong. 
+
+Possibly the risk is worth it, in return for the migration incentive. I'm not sure, haven't made up my mind yet. But regardless, we'll still want P2MR (possibly deployed without any ECC?) for maximum efficiency after Q-day. So it's just a question of whether we want P2TRv2+CISA as an (extremely enticing) intermediate stage in that migration path.
+
+----
+
+The far more interesting research avenue IMO is to try to bring P2MR's PQ efficiency up to speed with that of CISA, to the point that P2MR outcompetes legacy EC output types.
+
+To that end, I have recently started exploring the idea of [PQ-SNARK signature aggregation](https://delvingbitcoin.org/t/post-quantum-signatures-and-scaling-bitcoin-with-starks/1584) of hash-based signatures, which is [the design that the Ethereum Foundation is pursuing](https://pq.ethereum.org/#roadmap). Recent advancements such as [Flock](https://blog.succinct.xyz/introducing-flock/) ([paper](https://eprint.iacr.org/2026/1329)) have brought this within practical reach, without introducing slow arithmetic hash functions like Poseidon as a dependency. 
+
+For the uninitiated, this would allow us to aggregate thousands of hash-based signatures across a whole block into one succinct (few hundred KB) proof which would suffice to convince any validator that they verified a signature for every message/pubkey pair in a given block. The actual signatures never need to be saved, even by archival nodes.
+
+My biggest concern with this approach is the complexity of circuit design. We don't want a repeat of [the Zcash inflation bug](https://x.com/zodl_co/status/2062022829990658305). But if this risk can be mitigated through formal verification or other modern cryptographic tooling, then maybe SNARK aggregation could be the silver bullet to incentivize migration to PQ. 
+
+With a mostly constant-size block-wide proof of sig-validity, individual signatures would need to be weighed not by size, but by proving cost, which can be reduced to a few hundred hash compressions (or less with stateful signatures). Flock can prove validation of hundreds of such signatures per second, especially when parallelized. 
+
+It would require some very careful re-engineering of Bitcoin's traditional size-based fee accounting systems, but if done correctly we could massively increase the network's throughput while also incentivizing migration to natively PQ-secure wallets, with no EC cruft carried over. 
+
+I'm not sure how viable this strategy will be yet, but i want to mention it for consideration. The game board is very large, and we have many more and better options than I used to believe.
+
+-------------------------
+
