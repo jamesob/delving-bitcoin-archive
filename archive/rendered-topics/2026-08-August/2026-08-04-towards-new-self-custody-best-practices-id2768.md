@@ -99,3 +99,18 @@ If you need hand-holding, use Casa or Unchained.
 
 -------------------------
 
+optout | 2026-08-07 15:16:15 UTC | #2
+
+I generally welcome such suggestions, though I find picking 2-of-2 multisig a bit too restrictive.
+I would add a comment/suggestion regarding manual seed generation.
+
+Fully offline and manual seed generation is plausible, and several documented methods exist -- using 12 physical coins, one or more dice, a deck of cards, or pieces of papers with seedwords (note: I would not single out one method here). Manual generation does not rely on any device, does not need to trust a supplier for software & hardware stack.
+
+One tricky part is the checksum computation/corrections. Devices like a Seedsigner can be used to compute the correct last work (checksum). A potential beneficial effect on the industry would be if any (most) hardware devices would offer the checksum correction functionality. Receiving (address generation) and sending (signing) needs a device in any case, so it would be practical if the same device could perform the checksum correction as well.
+
+The way I envision it:
+
+Whenever the user is able to enter a BIP39 seedphrase into the device, the device SHALL verify the checksum of the seedphrase. In case the checksum is invalid, the device SHALL inform the user, and offer the option to discard the seedphrase, or to "Correct" it. If the user chooses "Correct", the device SHALL display a warning about the dangers of incorrect manual generation, which the user has to acknoledge. Afterwards, the device SHALL compute the correct checksum, and display the corrected last word (or full seedphrase). Next, the device SHOULD offer the options to accept or discard the corrected seedphrase.
+
+-------------------------
+
