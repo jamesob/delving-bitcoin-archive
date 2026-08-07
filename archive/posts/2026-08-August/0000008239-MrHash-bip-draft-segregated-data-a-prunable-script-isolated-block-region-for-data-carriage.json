@@ -13,9 +13,9 @@
   "reply_to_post_number": 51,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 5,
-  "readers_count": 4,
-  "score": 1.0,
+  "reads": 7,
+  "readers_count": 6,
+  "score": 1.4,
   "yours": false,
   "topic_id": 2641,
   "topic_slug": "bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage",
@@ -60,9 +60,15 @@
   "excerpt": "The apparent position from a few later comments here is \u201cmaybe nice idea, not realistic because incentives\u201d. Outstanding concerns seem to be no longer about whether SegData is technically functional, but about whether it will be adopted. \nSegData mirrors the BIP-159 precedent as closely as possible &hellip;",
   "truncated": true,
   "post_url": "/t/bip-draft-segregated-data-a-prunable-script-isolated-block-region-for-data-carriage/2641/52",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "-1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

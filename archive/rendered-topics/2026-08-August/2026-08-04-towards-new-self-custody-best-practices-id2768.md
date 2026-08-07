@@ -114,3 +114,13 @@ Whenever the user is able to enter a BIP39 seedphrase into the device, the devic
 
 -------------------------
 
+seed-cat | 2026-08-07 17:21:35 UTC | #3
+
+Agreed, user provided verifiable entropy eliminates the need to trust the device.  Although using 2 devices greatly reduces the odds both are simultaneously broken.
+
+I think it is fine for advanced users to choose 2-of-3 or 3-of-5, etc.  These best practices are not meant to be a universal standard, but more the best way to prevent non-technical / new users from losing funds.
+
+For instance, passphrase loss is the most common foot-gun for new users, but passphrases may make sense if an advanced user wants to separate accounts with the same seed words without changing derivation paths.
+
+-------------------------
+
