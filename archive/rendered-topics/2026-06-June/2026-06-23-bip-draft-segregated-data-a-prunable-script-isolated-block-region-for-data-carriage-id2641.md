@@ -646,3 +646,15 @@ Even if it were on by default, almost every node setup guide would recommend to 
 
 -------------------------
 
+MrHash | 2026-08-07 13:09:59 UTC | #52
+
+The apparent position from a few later comments here is "maybe nice idea, not realistic because incentives". Outstanding concerns seem to be no longer about whether SegData is technically functional, but about whether it will be adopted.
+
+SegData mirrors the BIP-159 precedent as closely as possible so an availability argument against pruning by type also weighs against pruning by depth, which the network already accepted and built BIP-159 to manage. SegData retention defaults to archival, coverage tiers provide depth control, and the recent-block floor **policy** keeps recent entries universally served, so redundancy stays broad unless operators actively opt out.
+
+SegData is being judged against a uniform-redundancy ideal that does not exist. Pruning is already here, uniform redundancy is not real.
+
+If SegData is not implemented, operators are forced into carrying arbitrary data which is inseparable from block storage. SegData separates it, makes it *consensus-irrelevant* and independently prunable, and gives the operators a choice they wouldn't otherwise have. That choice improves the decentralization of the network because it allows resource-constrained nodes to carry less burden. That decentralization effect is a central claim, and it is the one that has not been engaged with, and has important incentive implications.
+
+-------------------------
+
