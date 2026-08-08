@@ -101,3 +101,14 @@ The conditions of validity of this solution deserves to be further analyzed on i
 
 -------------------------
 
+AdamISZ | 2026-08-08 15:37:40 UTC | #2
+
+Very interesting line of thinking!
+
+I'm trying to grok the specifics, a couple of initial questions:
+
+* We need a shared clock to be able to create a protocol that punishes non-response (the classic ack - ack .. infinite regression problem). So we use onchain/offchain contracts as a proxy, where we can fallback to clauses that say "such and such happens after a timelock" using the bitcoin blockchain's clock. Would you agree with that? Does this imply that this can only work on relatively slower timescales?
+* Most of the description here doesn't seem to address the problem of onion routing, but then I thought: ah, maybe what he's saying is, message routing failure punishments can be chained the way that ordinary payments can: if Bob loses withhold fee to Alice, maybe he also gains the same from Carol? I think that makes sense, but I didn't see it described, maybe I missed it. And then it would make sense that you don't need crypto shenanigans in order to deal with routing privacy.
+
+-------------------------
+
