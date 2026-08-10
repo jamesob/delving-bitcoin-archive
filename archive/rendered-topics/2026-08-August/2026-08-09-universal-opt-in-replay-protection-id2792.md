@@ -68,13 +68,13 @@ By default, Bitcoin Core uses the latest block height to timelock new transactio
 
 -------------------------
 
-moonsettler | 2026-08-10 07:52:34 UTC | #5
+moonsettler | 2026-08-10 13:16:00 UTC | #5
 
 [quote="garlonicon, post:4, topic:2792"]
 Also, splitting coins through newly minted coinbase transactions is even better, and it will happen anyway.
 [/quote]
 
-I disagree here, takes a 100 blocks for those to be spendable. It's also magnitudes harder to coordinate the splits, if it requires downloading specific software and people trusting it with their keys, than if each individual can just act on their own with their usual setup. In an attack serious enough for holders to act, the hashrate is split in favor of the attacking chain, time locks would be useless (the also do not guarantee replay protection technically, highly unsafe).
+I disagree here, takes a 100 blocks for those to be spendable. It's also magnitudes harder to coordinate the splits, if it requires downloading specific software and people trusting it with their keys, than if each individual can just act on their own with their usual setup. In an attack serious enough for holders to act, the hashrate is split in favor of the attacking chain, time locks would be useless (they also do not guarantee replay protection technically, highly unsafe).
 
 -------------------------
 
@@ -93,6 +93,12 @@ You don't need to download Bitcoin Knots, to split coins into BIP-110 and non-BI
 Splits are unlikely to be 50/50. And if it is 10/90 or 1/99, then you can always use a timelock, relative to the faster chain, wherever it would be. If you split your coin on one chain, and it will be confirmed, then you can safely broadcast it on another chain. When both chains will have conflicting transactions, then they will never unite again, unless someone will try to do a chain reorg.
 
 Edit: One more thing: people tend to think about bright sides of their inventions, for example: if you make a transaction, valid only on a given chain, then you can split your coins properly, and sell altcoins for BTCs. However, exactly the same code can be used in a harmful way: to prepare an incentive, to confirm some double-spend, or to mine a malicious chain instead. And for that reason alone, I think it shouldn't be introduced, if it could be abused too easily.
+
+-------------------------
+
+moonsettler | 2026-08-10 13:17:38 UTC | #7
+
+Alright, you made your "points", let's hear from people who understood the assignment!
 
 -------------------------
 
