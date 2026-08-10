@@ -13,8 +13,8 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 1,
-  "readers_count": 0,
+  "reads": 2,
+  "readers_count": 1,
   "score": 0.2,
   "yours": false,
   "topic_id": 2792,
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I think a block height and a hash suffix would probably be superior; if there's already been a split, you can specify which side of the fork with perhaps 5 or 6 bytes that way instead of 32 just by picking a height where the two block hashes end in different digits.\n\nSome prior references:\n\nhttps://gnusha.org/pi/bitcoindev/20190508044928.z52oaxevwcppkvna@erisian.com.au/\n\nhttps://github.com/ariard/bips/blob/9dc3f74b384f143b7f1bdad30dc0fe2529c8e63f/bip-annex.mediawiki",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "I think a block height and a hash suffix would probably be superior; if there\u2019s already been a split, you can specify which side of the fork with perhaps 5 or 6 bytes that way instead of 32 just by picking a height where the two block hashes end in different digits. \nSome prior references:",
   "truncated": true,
   "post_url": "/t/universal-opt-in-replay-protection/2792/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "heart",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
