@@ -7,7 +7,7 @@
   "cooked": "<p>I would like to propose for consideration adding opt-in replay protection in case a future fork war<sup>1</sup> requires it for resolution!</p>\n<p>A hostile soft or hard fork could make stakeholders fighting against it difficult by not providing replay protection. This was an interesting lesson learned from recent events where people tried to ancestrally split their coins, but it has proven to be fairly difficult.</p>\n<p>One way to do it for example is standardizing a 34 byte Annex payload as follows:</p>\n<p><code>&lt;0xFAF0&gt;&lt;32-byte-prior-block-hash&gt;</code></p>\n<p>Transaction validation would work as before, except when it comes to block validation or block template construction, in which case the current (valid header chain with most work) must contain the hash.</p>\n<p>Since the Taproot signatures commit to the annex, the signatures could therefore commit to a specific chain in case of a chain split condition. Obviously empty Annex remains valid and such signatures are expected to be valid on all chains.</p>\n<p>This allows for bribing miners to work on a specific block or splitting coins to dump on a specific chain. Even if only one of the chains honors this rule, the coins can still be safely split.</p>\n<p>Thoughts?</p>\n<p><em><sup>1</sup> One example that was brought up is a situation where the miners might try to hard fork more inflation to bitcoin. Majority hash leaving the legacy chain and no replay protection would hinder the UTXO holders ability to express their economic preference safely and effectively.</em></p>",
   "post_number": 1,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-08-09T22:43:19.065Z",
   "reply_count": 0,
   "reply_to_post_number": null,

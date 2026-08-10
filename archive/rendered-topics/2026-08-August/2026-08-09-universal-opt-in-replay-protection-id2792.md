@@ -34,3 +34,13 @@ https://github.com/ariard/bips/blob/9dc3f74b384f143b7f1bdad30dc0fe2529c8e63f/bip
 
 -------------------------
 
+moonsettler | 2026-08-10 00:32:24 UTC | #3
+
+Block height makes things easier, and I assume people would like to know if coins they receive have such condition, so it's probably a good idea for nodes to annotate the UTXOs with the closest immediate or ancestral block commitment.
+
+While such commitment does not change the security meaning of "confirmations", people would probably still like to know how deep a reorg invalidates a transaction they received.
+
+There could be a limit determined for both new commitment depth (roughly assumevalid height?) and how long nodes track such dependencies (discard after committed block is 100 deep buried?). To discourage misuse by performative commitments to past forks and significant events...
+
+-------------------------
+
