@@ -198,3 +198,19 @@ I now have a variation of this that's compatible with stratumv1 ASIC mining. If 
 
 -------------------------
 
+ajtowns | 2026-08-09 22:54:53 UTC | #8
+
+Okay, the stratumv1 ASIC mining stuff seems to work pretty well, so I've pushed an update to an update the repo with the code and some documentation:
+
+https://github.com/ajtowns/powcoins/
+
+There's AI chat logs on some of the design decisions, but I'll probably do proper write ups of them here later.
+
+At the moment, both the old CPU-minable faucet addresses and the new ASIC-friendly addresses are getting 3.125 sBTC per block, and will continue to do so for a while yet. Probably the CPU-minable addresses will be retired eventually, but no current plans to do so.
+
+ASIC mining signet coins makes BitAxe hardware more fun, at least for now:
+
+![image|580x261](upload://lX5oskMFSX1QKiRVPdG1u8Fv4LM.png)
+
+-------------------------
+
