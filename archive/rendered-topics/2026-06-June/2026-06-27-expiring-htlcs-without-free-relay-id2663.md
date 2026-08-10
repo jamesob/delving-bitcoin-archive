@@ -149,3 +149,17 @@ I still think it still would be a Good Idea for robustness and defense-in-depth 
 
 -------------------------
 
+Ajian | 2026-08-10 10:44:11 UTC | #5
+
+Hi Josh, it seems to be a good idea. But I guess I need a bit more classification.
+
+First, where is the `R` coming from? We use the normal bit space (from bit 1 to bit 15 of `nSequence`, just like BIP68 relative timelock) to pass it ? Or, it is just calculated by the actual inclusion blockheight of the transaction with the height the coin was created, and we force the difference is bigger than 100 ?
+
+Second, if I understand correctly, the approach wants to constrain the `nLockTime` value, forces the value is bigger than a supposed value, but don't limit its actual value, right ? In this way, we can use a Tx2 with bit 21 and a `nLockTime` value, to force the Tx1 must be included before the `nLockTime` height minus 100 (or a passed value bigger than 100, or the difference but capped by 100), otherwise(if later than that), the Tx2 will be invalid, right ?
+
+Final, how can we say, in this approcah, the "expiry" is binded to the parent transaction(Tx1) ? If I understand correctly, the expiry time is set by the nLockTime of Tx1, which is presigned, and not affected by the inclusion time of Tx1 , and we use this nLockTime to force Tx1 to be included before a blockheight ?
+
+Thanks for publishing your idea.
+
+-------------------------
+
