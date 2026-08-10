@@ -44,3 +44,55 @@ There could be a limit determined for both new commitment depth (roughly assumev
 
 -------------------------
 
+garlonicon | 2026-08-10 07:15:12 UTC | #4
+
+> This was an interesting lesson learned from recent events where people tried to ancestrally split their coins, but it has proven to be fairly difficult.
+
+Some attempts were successful, for example: https://bitcointalk.org/index.php?topic=5590674.msg67025339#msg67025339
+
+I guess if anyone will split any coins successfully, then other people can just reuse it, to split theirs. Using P2PK is not that difficult, you just needed to be fast, because BIP-110 mined only two blocks. Also, if you use CoinJoin, then one splitted coin can split all of them, for the rest of users.
+
+> Thoughts?
+
+I think Satoshi intentionally designed transactions in a way, where they could end up on both chains, so many users would be unaffected by any forks. Nowadays, people want to fork their coins instead, which is kinda sad, and shows, that the community is now more splitted, than it was in the past. Ideally, we would have just 21 million coins, and people could peg them in and out to any subnetworks they want, but instead, we have just a lot of altcoins in practice.
+
+> the miners might try to hard fork more inflation to bitcoin
+
+They always can. I can launch an altcoin tomorrow, which will give you any coins, for any successful attempt of double-spending BTCs. Developers probably shouldn't try to protect users from all possible risks, because there are just too many ways of designing a harmful altcoin, and it would be just like fighting with the spam: yet another cat-and-mouse game.
+
+> I think a block height and a hash suffix would probably be superior
+
+I agree. Also, splitting coins through newly minted coinbase transactions is even better, and it will happen anyway. Most users should just transact normally, and pick their side, when they will be ready; in this way they will have their coins on both sides, and trade accordingly later.
+
+By default, Bitcoin Core uses the latest block height to timelock new transactions. This alone is sufficient to split coins into BIP-110 and non-BIP-110 ones.
+
+-------------------------
+
+moonsettler | 2026-08-10 07:52:34 UTC | #5
+
+[quote="garlonicon, post:4, topic:2792"]
+Also, splitting coins through newly minted coinbase transactions is even better, and it will happen anyway.
+[/quote]
+
+I disagree here, takes a 100 blocks for those to be spendable. It's also magnitudes harder to coordinate the splits, if it requires downloading specific software and people trusting it with their keys, than if each individual can just act on their own with their usual setup. In an attack serious enough for holders to act, the hashrate is split in favor of the attacking chain, time locks would be useless (the also do not guarantee replay protection technically, highly unsafe).
+
+-------------------------
+
+garlonicon | 2026-08-10 08:11:12 UTC | #6
+
+> takes a 100 blocks for those to be spendable
+
+Which is good. Most users shouldn't rush to split their coins, if they don't know, what they are doing, and which side is going to win. Bitcoin was intentionally designed, to include transactions in each fork, because that's what protects most users from picking the wrong side.
+
+> It’s also magnitudes harder to coordinate to splits if it requires downloading specific software and trusting it with their keys
+
+You don't need to download Bitcoin Knots, to split coins into BIP-110 and non-BIP-110 ones. You can just sign everything from Bitcoin Core, and broadcast two different versions of your transaction to two different networks. They have different relay rules anyway. And if you send your coins to yourself, then you can lose only fees, and only if some miner would actively try to unsplit your coins, by mining BIP-110 invalid transaction on a BIP-110 chain.
+
+> In an attack serious enough for holders to act, the hashrate is split in favor of the attacking chain, time locks would be useless
+
+Splits are unlikely to be 50/50. And if it is 10/90 or 1/99, then you can always use a timelock, relative to the faster chain, wherever it would be. If you split your coin on one chain, and it will be confirmed, then you can safely broadcast it on another chain. When both chains will have conflicting transactions, then they will never unite again, unless someone will try to do a chain reorg.
+
+Edit: One more thing: people tend to think about bright sides of their inventions, for example: if you make a transaction, valid only on a given chain, then you can split your coins properly, and sell altcoins for BTCs. However, exactly the same code can be used in a harmful way: to prepare an incentive, to confirm some double-spend, or to mine a malicious chain instead. And for that reason alone, I think it shouldn't be introduced, if it could be abused too easily.
+
+-------------------------
+
