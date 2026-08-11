@@ -214,3 +214,13 @@ ASIC mining signet coins makes BitAxe hardware more fun, at least for now:
 
 -------------------------
 
+0xB10C | 2026-08-11 10:15:27 UTC | #9
+
+[quote="ajtowns, post:7, topic:937"]
+If anyone would like to point bitaxe-level hardware at [inquisition.bitcoin-signet.net](http://inquisition.bitcoin-signet.net) port 3333 with user set to a signet address
+[/quote]
+
+I've been testing this with about 0.5 TH/s for a few hours. Works great. Haven't solved a block (I think), but have been getting frequent payouts to the address.
+
+-------------------------
+
