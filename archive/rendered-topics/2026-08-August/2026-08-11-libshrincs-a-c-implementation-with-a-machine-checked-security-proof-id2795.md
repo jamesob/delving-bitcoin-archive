@@ -1,6 +1,6 @@
 # Libshrincs: A C implementation with a machine-checked security proof
 
-jonasnick | 2026-08-11 20:31:42 UTC | #1
+jonasnick | 2026-08-11 20:32:38 UTC | #1
 
 **Abstract**: @remix7531 and I are publishing [libshrincs](https://github.com/remix7531/libshrincs), a proof-of-concept C implementation of WOTS+C with machine-checked proofs of functional correctness and security.
 WOTS+C is the one-time signature scheme used by [SHRINCS](https://delvingbitcoin.org/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158), a post-quantum signature scheme proposed for Bitcoin.
@@ -10,8 +10,8 @@ Because the proofs are machine-checked, human review can focus on whether the de
 I wrote a tutorial for conducting that review without prior knowledge of Rocq or SSProve.
 libshrincs demonstrates that end-to-end formal verification can complement code review and testing of cryptographic C code intended for the Bitcoin protocol.
 
-Library: https://github.com/remix7531/libshrincs
-Tutorial for reviewing the security proof (no Rocq or SSProve background assumed): [PDF](https://github.com/remix7531/libshrincs/blob/tutorial/docs/SSPROVE_SECURITY_REVIEW.pdf)[^tutorial-authorship]
+* **Library**: https://github.com/remix7531/libshrincs
+* **Tutorial** for reviewing the security proof (no Rocq or SSProve background assumed): [PDF](https://github.com/remix7531/libshrincs/blob/tutorial/docs/SSPROVE_SECURITY_REVIEW.pdf)[^tutorial-authorship]
 
 [^tutorial-authorship]: LLMs wrote the tutorial; I read it once from beginning to end, correcting and improving it as I went.
 
