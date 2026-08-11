@@ -1,6 +1,6 @@
 # Libshrincs: A C implementation with a machine-checked security proof
 
-jonasnick | 2026-08-11 20:32:38 UTC | #1
+jonasnick | 2026-08-11 20:37:41 UTC | #1
 
 **Abstract**: @remix7531 and I are publishing [libshrincs](https://github.com/remix7531/libshrincs), a proof-of-concept C implementation of WOTS+C with machine-checked proofs of functional correctness and security.
 WOTS+C is the one-time signature scheme used by [SHRINCS](https://delvingbitcoin.org/t/shrincs-324-byte-stateful-post-quantum-signatures-with-static-backups/2158), a post-quantum signature scheme proposed for Bitcoin.
@@ -11,7 +11,7 @@ I wrote a tutorial for conducting that review without prior knowledge of Rocq or
 libshrincs demonstrates that end-to-end formal verification can complement code review and testing of cryptographic C code intended for the Bitcoin protocol.
 
 * **Library**: https://github.com/remix7531/libshrincs
-* **Tutorial** for reviewing the security proof (no Rocq or SSProve background assumed): [PDF](https://github.com/remix7531/libshrincs/blob/tutorial/docs/SSPROVE_SECURITY_REVIEW.pdf)[^tutorial-authorship]
+* **Tutorial** for reviewing the security proof (no Rocq or SSProve background assumed): [PDF](https://github.com/remix7531/libshrincs/blob/0c572e747430af5a4fa7ddd7d3089fdffeb59d7d/docs/SSPROVE_SECURITY_REVIEW.pdf)[^tutorial-authorship]
 
 [^tutorial-authorship]: LLMs wrote the tutorial; I read it once from beginning to end, correcting and improving it as I went.
 
@@ -65,7 +65,7 @@ After these checks, manual review of the SSProve part can focus on a few hundred
 - the security notion, i.e. the unforgeability experiment;
 - the theorem statement itself.
 
-The [tutorial](https://github.com/remix7531/libshrincs/blob/tutorial/docs/SSPROVE_SECURITY_REVIEW.pdf) assumes no prior experience with Rocq or SSProve: it reproduces these definitions, teaches the notation needed to read them, and gives a step-by-step review procedure.
+The [tutorial](https://github.com/remix7531/libshrincs/blob/0c572e747430af5a4fa7ddd7d3089fdffeb59d7d/docs/SSPROVE_SECURITY_REVIEW.pdf) assumes no prior experience with Rocq or SSProve: it reproduces these definitions, teaches the notation needed to read them, and gives a step-by-step review procedure.
 For a more basic introduction to security proofs for hash-based signatures, Section 5 of the [*Provable Cryptography for Bitcoin* workbook](https://github.com/cryptography-camp/workbook/releases) works through the security proof of Lamport one-time signatures.
 
 We discovered firsthand how important it is to review the definitions carefully.
@@ -87,7 +87,7 @@ The attack experiment requires the adversary to choose the message digest before
 This matches how WOTS+C is used inside SHRINCS, but it is a weaker security notion.
 
 I know of no fundamental obstacle to addressing these limits, but doing so may require substantial additional work.
-The [review tutorial](https://github.com/remix7531/libshrincs/blob/tutorial/docs/SSPROVE_SECURITY_REVIEW.pdf) explains these limitations in more detail.
+The [review tutorial](https://github.com/remix7531/libshrincs/blob/0c572e747430af5a4fa7ddd7d3089fdffeb59d7d/docs/SSPROVE_SECURITY_REVIEW.pdf) explains these limitations in more detail.
 
 ## Producing the security proof with LLMs
 
