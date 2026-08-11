@@ -134,3 +134,13 @@ My own work on the proof relied primarily on LLMs, whereas @remix7531 brought ac
 
 -------------------------
 
+jonasnick | 2026-08-11 20:39:29 UTC | #2
+
+I strongly recommend @remix7531’s posts on libshrincs and its development:
+
+- Towards libshrincs (https://remix7531.com/post/towards-libshrincs/)
+- The grind was the only detector (https://remix7531.com/post/the_grind_was_the_only_detector/)
+- Choosing a verification toolchain (https://remix7531.com/post/choosing_a_verification_toolchain/)
+
+-------------------------
+
