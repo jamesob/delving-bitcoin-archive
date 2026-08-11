@@ -163,3 +163,25 @@ Thanks for publishing your idea.
 
 -------------------------
 
+josh | 2026-08-11 18:11:25 UTC | #6
+
+[quote="Ajian, post:5, topic:2663"]
+First, where is the `R` coming from? We use the normal bit space (from bit 1 to bit 15 of `nSequence`, just like BIP68 relative timelock) to pass it ?
+[/quote]
+
+`R` is the lowest 16 bits of `nSequence`, per BIP68.
+
+[quote="Ajian, post:5, topic:2663"]
+Second, if I understand correctly, the approach wants to constrain the `nLockTime` value, forces the value is bigger than a supposed value, but don’t limit its actual value, right ? In this way, we can use a Tx2 with bit 21 and a `nLockTime` value, to force the Tx1 must be included before the `nLockTime` height minus 100 (or a passed value bigger than 100, or the difference but capped by 100), otherwise(if later than that), the Tx2 will be invalid, right ?
+[/quote]
+
+You got the idea. This approach imposes a maximum coin height given a fixed `nLockTime` or, equivalently, a minimum `nLockTime` given a known coin height.
+
+[quote="Ajian, post:5, topic:2663"]
+Final, how can we say, in this approcah, the “expiry” is binded to the parent transaction(Tx1) ? If I understand correctly, the expiry time is set by the nLockTime of Tx1, which is presigned, and not affected by the inclusion time of Tx1 , and we use this nLockTime to force Tx1 to be included before a blockheight ?
+[/quote]
+
+To clarify, Tx1 never expires. It merely publishes the preimage and creates the staging output for Tx2. Tx2 becomes invalid unless Tx1 has at least `R` confirmations by Tx2's `nLockTime`.
+
+-------------------------
+

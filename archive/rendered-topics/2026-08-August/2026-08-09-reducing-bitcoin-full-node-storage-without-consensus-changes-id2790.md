@@ -34,3 +34,11 @@ The relevant implementation notes and storage results are under `doc/` in the re
 
 -------------------------
 
+reardencode | 2026-08-11 17:14:24 UTC | #2
+
+Cool. How big is your total store size after sync?
+
+This has been a focus of my work on rbitcoin as well. Storage may be cheap, but RAM is expensive an many operations require loading parts of the storage into RAM.
+
+-------------------------
+
