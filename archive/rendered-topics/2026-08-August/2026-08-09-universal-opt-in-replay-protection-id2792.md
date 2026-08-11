@@ -102,3 +102,19 @@ Alright, you made your "points", let's hear from people who understood the assig
 
 -------------------------
 
+ajtowns | 2026-08-11 04:23:44 UTC | #8
+
+[quote="moonsettler, post:3, topic:2792"]
+I assume people would like to know if coins they receive have such condition, so it’s probably a good idea for nodes to annotate the UTXOs with the closest immediate or ancestral block commitment.
+[/quote]
+
+I was figuring it'd require something similar to the coinbase maturity constraint; so if you have a tx that requires "block 961632 must end in 0xba", then that tx must also have an explicit nLockTime preventing it from being mined until ten blocks later, ie block 961642, say. See also the related discussion regarding [input triggered transaction expiry](https://delvingbitcoin.org/t/input-triggered-transaction-expiry/2667).
+
+[quote="moonsettler, post:3, topic:2792"]
+There could be a limit determined for both new commitment depth (roughly assumevalid height?) and how long nodes track such dependencies (discard after committed block is 100 deep buried?). To discourage misuse by performative commitments to past forks and significant events…
+[/quote]
+
+I think performative commitments should be fine; it's just a matter of looking up a header's hash by height and doing a substr comparison. I believe the "nlocktime must be commitment height + X" rule would already force the tx out of the mempool if a reorg got within X blocks of invalidating the tx.
+
+-------------------------
+
