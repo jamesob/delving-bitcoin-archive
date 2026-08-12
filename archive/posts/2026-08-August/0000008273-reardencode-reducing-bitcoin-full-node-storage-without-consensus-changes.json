@@ -7,15 +7,15 @@
   "cooked": "<p>Cool. How big is your total store size after sync?</p>\n<p>This has been a focus of my work on rbitcoin as well. Storage may be cheap, but RAM is expensive an many operations require loading parts of the storage into RAM.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 2,
+  "posts_count": 3,
   "updated_at": "2026-08-11T17:14:24.609Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.2,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 22.0,
   "yours": false,
   "topic_id": 2790,
   "topic_slug": "reducing-bitcoin-full-node-storage-without-consensus-changes",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Cool. How big is your total store size after sync?\n\nThis has been a focus of my work on rbitcoin as well. Storage may be cheap, but RAM is expensive an many operations require loading parts of the storage into RAM.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Cool. How big is your total store size after sync? \nThis has been a focus of my work on rbitcoin as well. Storage may be cheap, but RAM is expensive an many operations require loading parts of the storage into RAM.",
   "truncated": true,
   "post_url": "/t/reducing-bitcoin-full-node-storage-without-consensus-changes/2790/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
