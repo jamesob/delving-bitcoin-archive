@@ -224,3 +224,13 @@ I've been testing this with about 0.5 TH/s for a few hours. Works great. Haven't
 
 -------------------------
 
+ajtowns | 2026-08-12 11:38:16 UTC | #10
+
+I guess you can watch [this address](https://mempool.space/signet/address/tb1qxc9rhgpdjcp42nmhg6lepe7pp5g86tx25vlv8h) to see coins claimed by the pool and payouts to miners (and the pool's 2% reserve). The payout scheme is a geometric scoring method, so it takes a little time to ramp up, and also your scores don't count until the coins you've contributed to start getting claimed, which also takes a while.
+
+If [this](https://mempool.space/signet/address/tb1qzwus45h0fmfsx6uwnpv6uu5tght3808xyhdm4gz7w78vevmhvq2qxun8xl) is you, then per my db, you've had ~360 solves total, 62 of which resulted in coin claims (we make multiple solves of each coin, banking easy solves for future publication before we try harder solves that can be published/claimed sooner). Your solves totalled 58.6 SBTC apparently. This coin was one of your solves, I believe:
+
+https://mempool.space/signet/tx/c5984a1ff70be408501c026efdfde7a8c2dae9d00ec0efccaec80898d0422101
+
+-------------------------
+
