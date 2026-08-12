@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 21,
-  "reads": 18,
-  "readers_count": 17,
-  "score": 153.6,
+  "incoming_link_count": 79,
+  "reads": 25,
+  "readers_count": 24,
+  "score": 480.0,
   "yours": false,
   "topic_id": 2795,
   "topic_slug": "libshrincs-a-c-implementation-with-a-machine-checked-security-proof",
@@ -42,7 +42,7 @@
   "actions_summary": [
     {
       "id": 2,
-      "count": 5
+      "count": 6
     }
   ],
   "moderator": false,
@@ -61,6 +61,11 @@
   "post_url": "/t/libshrincs-a-c-implementation-with-a-machine-checked-security-proof/2795/1",
   "reactions": [
     {
+      "id": "+1",
+      "type": "emoji",
+      "count": 2
+    },
+    {
       "id": "clap",
       "type": "emoji",
       "count": 2
@@ -69,15 +74,10 @@
       "id": "rocket",
       "type": "emoji",
       "count": 2
-    },
-    {
-      "id": "+1",
-      "type": "emoji",
-      "count": 1
     }
   ],
   "current_user_reaction": null,
-  "reaction_users_count": 5,
+  "reaction_users_count": 6,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
