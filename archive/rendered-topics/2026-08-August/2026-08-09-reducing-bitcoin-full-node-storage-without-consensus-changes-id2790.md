@@ -127,3 +127,19 @@ Everything except blk files:       193,299,620,015 B    193.300 GB    180.024 Gi
 
 -------------------------
 
+fabohax | 2026-08-12 03:01:53 UTC | #4
+
+Interesting stuff! 
+
+I'm wondering if this approach make it harder or slower to access old block data when needed.
+
+-------------------------
+
+BrokenMachine | 2026-08-12 03:14:00 UTC | #5
+
+I've not done the gauntlet of benchmarks yet, but they're on my list of things to do soon. I suspect there may be similar results compared to LevelDB, but that's just a hunch at this point. Aside from compression, historical look ups of heavily compressed data buried deep in the database is supposed to be a "selling point" of RocksDB. So, I suppose we'll see soon! 
+
+I'll have to give some thought and consideration to how best to perform the benchmark without running into saturation issues of drive controllers and such. Attempting to run the tests against both nodes housed on one machine, regardless of drive arrangements, simultaneously may or may not be the best idea.
+
+-------------------------
+
