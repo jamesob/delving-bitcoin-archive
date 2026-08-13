@@ -218,3 +218,15 @@ This means **B-SSL preserves absolute sovereignty during life** and **controlled
 
 -------------------------
 
+moonsettler | 2026-08-13 16:19:07 UTC | #13
+
+For the hundredth time! You can't use `CSV` as a "consensus enforced relative timelock for unvaulting" without presigned transactions!
+
+Stop shilling this abomination as "consensus enforced"! It is enforced by the co-signer at best except for a negligible time window.
+
+I'm fed up with this nonsense!
+
+PS: This may feel like unwarranted hostility, but I tried to explain this to him privately and publicly many, many times. And now this thing is shilled to people as a way to secure their money with what basically constitutes false advertisement.
+
+-------------------------
+

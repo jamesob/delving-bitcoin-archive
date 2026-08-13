@@ -36,3 +36,15 @@ Thanks for confirming my understanding. There's some nice intuition here that is
 
 -------------------------
 
+cmp_ancp | 2026-08-13 16:13:04 UTC | #6
+
+Well, I don't know... In parts, it already points worries about risk surface
+
+![Screenshot_20260813_130446_Chrome|230x500](upload://4aJDshCTfMuGMAEWsQNULyLuM0e.jpeg)
+
+And risk surface worries is a given for every softfork BIP, not special to covenants BIP. When you read a softfork BIP, risk surface must be something you are thinking of. CAT is a rather different opcode, even though it implements similar use cases, it may seem kinda awkward to point it in this BIP.
+
+But I think APO is significant to be cited.
+
+-------------------------
+
