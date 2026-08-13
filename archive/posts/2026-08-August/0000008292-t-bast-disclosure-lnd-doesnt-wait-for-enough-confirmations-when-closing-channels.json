@@ -15,7 +15,7 @@
   "incoming_link_count": 9,
   "reads": 14,
   "readers_count": 13,
-  "score": 122.6,
+  "score": 122.8,
   "yours": false,
   "topic_id": 2800,
   "topic_slug": "disclosure-lnd-doesnt-wait-for-enough-confirmations-when-closing-channels",
