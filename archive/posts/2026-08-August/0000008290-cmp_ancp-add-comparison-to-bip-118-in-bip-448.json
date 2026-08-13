@@ -7,7 +7,7 @@
   "cooked": "<p>The problem isn\u2019t necessarily that \u201cenable too much\u201d, but rather \u201ccreates many attack vectors and/or could cause practices we don\u2019t want to enforce\u201d.</p>\n<p>E.g., CAT + CSFS + CTV could technically create a quasi-universal covenant construct, but in a rather ugly way, puttting the entire tx on the witness. This not only consume an unecessary big amount of block space, but also we are not so sure, as current technical consensus, if too powerfull covenants could create unforeseen attack vectors. In recent times we found new vectors and use cases that has been possible in BTC for YEARS (replacement cycle attack, bithash, etc., also, Linus found an unusual way to use CTV to commit for a pair input that has been unforeseen in the BIP for years), and have been unknown for the majority of its life. Now, imagine an update with uncountable ways to use and combine, we may easily find an attack vector years after activation.</p>\n<p>CTV + CSFS (or TEMPLATEHASH + CSFS), however, are rather simple and predictable opcodes, and the community judges them to be safe.</p>",
   "post_number": 4,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-08-13T13:47:28.674Z",
   "reply_count": 0,
   "reply_to_post_number": 3,

@@ -7,7 +7,7 @@
   "cooked": "<p>APO does implement the most exciting application of CSFS + TEMPLATEHASH, that is, rebindable signatures, and in a cheaper way.</p>\n<p>However, there are other applications of these opcodes that it doesn\u2019t implement, like the cut of interactivety in certain protocols that depend on musig (e.g. ark), delegation, DLCs, etc. Even more, these opcodes could turn into flexible building blocks for other applications, specially after future softforks.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-08-13T01:42:09.057Z",
   "reply_count": 0,
   "reply_to_post_number": null,

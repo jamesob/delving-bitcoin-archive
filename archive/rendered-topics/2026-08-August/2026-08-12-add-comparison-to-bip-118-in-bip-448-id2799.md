@@ -30,3 +30,9 @@ CTV + CSFS (or TEMPLATEHASH + CSFS), however, are rather simple and predictable 
 
 -------------------------
 
+orfeas | 2026-08-13 15:05:35 UTC | #5
+
+Thanks for confirming my understanding. There's some nice intuition here that isn't present in the BIP-448 text. I'd like to open a PR to add it under Rationale, wdyt?
+
+-------------------------
+
