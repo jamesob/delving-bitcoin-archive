@@ -20,3 +20,13 @@ Some proposals have been rejected because they enable too much. Is there a simil
 
 -------------------------
 
+cmp_ancp | 2026-08-13 13:47:28 UTC | #4
+
+The problem isn't necessarily that "enable too much", but rather "creates many attack vectors and/or could cause practices we don’t want to enforce".
+
+E.g., CAT + CSFS + CTV could technically create a quasi-universal covenant construct, but in a rather ugly way, puttting the entire tx on the witness. This not only consume an unecessary big amount of block space, but also we are not so sure, as current technical consensus, if too powerfull covenants could create unforeseen attack vectors. In recent times we found new vectors and use cases that has been possible in BTC for YEARS (replacement cycle attack, bithash, etc., also, Linus found an unusual way to use CTV to commit for a pair input that has been unforeseen in the BIP for years), and have been unknown for the majority of its life. Now, imagine an update with uncountable ways to use and combine, we may easily find an attack vector years after activation.
+
+CTV + CSFS (or TEMPLATEHASH + CSFS), however, are rather simple and predictable opcodes, and the community judges them to be safe.
+
+-------------------------
+
