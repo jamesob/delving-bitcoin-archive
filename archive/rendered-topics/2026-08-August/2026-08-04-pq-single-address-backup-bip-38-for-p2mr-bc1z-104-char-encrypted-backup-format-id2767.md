@@ -68,3 +68,29 @@ Is the fixed 104-character requirement providing a concrete scanning or transcri
 
 -------------------------
 
+coldtest-berlin | 2026-08-14 17:12:11 UTC | #4
+
+Thanks @Anzus_GemWallet — excellent points, exactly the feedback I was hoping for.
+
+You are right about the wrapper. In v1 the ALG/KDF/ENC lines were human-only hints. That's fixed in today's UPDATE:
+
+1\. Self-describing payload: Format is now described as BIP-360 (P2MR/P2QRH) compatible, no bc1z\`/bc1r\` hardcoded. Seed remains pure 32-byte SLH-DSA. For v2 I will move versioning inside the authenticated payload:
+
+plaintext = \[1-byte version | 1-byte alg-id | 32-byte seed\] -> AEAD(scrypt(pwd))
+
+Then decoder can reliably:
+
+• reject mismatched wrapper (AEAD tag fail = wrong password) • reject future profile (version > supported) • ALG/KDF/ENC human lines stay as hint only, not trusted
+
+2\. Recovery UX: Agree, for long-lived paper backup failure behavior matters as much as compactness. Plan:
+
+• keep outer 104-char fixed length — concrete advantage for scanning / visual completeness check (one line = one key = sweep), like BIP-38 6P invariant • add checksum inside the 104-char encoding (pre-KDF typo detection) • flow: length check -> checksum check -> only then KDF -> AEAD -> explicit TYPO vs WRONG_PASSWORD vs UNSUPPORTED_VERSION • will add test vectors for corrupted / truncated / wrong-password backups
+
+3\. On fixed 104 vs versioning inside: 104 stays for human factors, versioning moves inside authenticated payload, so they don't compete. The outer fixed size is the UX guarantee, the inner version is the interoperability guarantee.
+
+Updated repo reflects the prefix-agnostic change. Will push v2 spec with the above.
+
+If the community prefers to put version/KDF-params inside the outer wrapper instead of inside AEAD, I'm fine to bump the fixed size from 104 to e.g. 108-110 to keep a fixed-length invariant. The key property for me is fixed length + checksum + one-line = one-key sweep, not the exact number 104.
+
+-------------------------
+

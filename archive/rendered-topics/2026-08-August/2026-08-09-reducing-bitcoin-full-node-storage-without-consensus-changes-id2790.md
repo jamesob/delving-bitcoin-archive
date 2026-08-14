@@ -143,3 +143,15 @@ I'll have to give some thought and consideration to how best to perform the benc
 
 -------------------------
 
+andrewtoth | 2026-08-14 18:47:00 UTC | #6
+
+I'm wondering if you've seen https://github.com/bitcoin/bitcoin/pull/35531 ? It reduces the txindex db size from 66 GB -> 26 GB.
+
+The same approach can be applied afterwards to txospenderindex.
+
+These changes will also allow us to use txindex and txospenderindex with pruning. As you can see the largest part of disk usage is storing the blocks and undo data. Pruning allows you to remove all this unnecessary data. Most users don't need all the historical blocks.
+
+A tx lookup on a pruned block can return the missing block hash, which can then be fetched with getblockfrompeer which puts it at the front of the block storage. So if you are only looking up historical blocks occasionally, you can run with \~50 GB of block storage and only have to redownload interesting blocks once every \~6 months.
+
+-------------------------
+
