@@ -58,3 +58,13 @@ UPDATE (Aug 14, 2026): bc1z reference removed. Format is now prefix-agnostic to 
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-14 12:20:14 UTC | #3
+
+A self-describing format seems important here. If the binary payload has no version or algorithm identifier, but the human-readable ALG/KDF/ENC lines are ignored by decoders, how would a wallet reliably distinguish future profiles or reject a mismatched wrapper?
+
+It may also be worth defining the recovery UX as part of the interoperability requirements: checksum or typo detection before running the KDF, an explicit wrong-password result, and test vectors covering corrupted backups. For long-lived paper backups, reliable failure behavior may matter as much as keeping the encoding compact.
+
+Is the fixed 104-character requirement providing a concrete scanning or transcription advantage that would outweigh putting versioning inside the authenticated payload?
+
+-------------------------
+
