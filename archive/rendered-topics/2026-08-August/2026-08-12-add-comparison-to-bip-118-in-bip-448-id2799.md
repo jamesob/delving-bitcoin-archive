@@ -48,3 +48,9 @@ But I think APO is significant to be cited.
 
 -------------------------
 
+orfeas | 2026-08-14 02:57:49 UTC | #7
+
+Yes, comparison with APO is missing. Here is a [PR](https://github.com/bitcoin/bips/pull/2255) that adds it, along with delegation, optimised DLCs, and the fact that these are good building blocks for future soft forks.
+
+-------------------------
+

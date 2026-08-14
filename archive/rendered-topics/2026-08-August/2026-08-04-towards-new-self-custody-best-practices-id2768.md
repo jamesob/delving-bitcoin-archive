@@ -124,3 +124,13 @@ For instance, passphrase loss is the most common foot-gun for new users, but pas
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-14 03:14:47 UTC | #4
+
+One addition that may help nontechnical users is a tiered model rather than one setup being presented as the default for everyone.
+
+A small everyday balance, meaningful personal savings, and life savings may justify different levels of complexity. A 2-of-2 multi-vendor setup can reduce some risks, but it also introduces more backup material and more ways for an inexperienced user to make a recovery mistake.
+
+Would it make sense for the guidance to define security levels and include a recovery rehearsal before substantial funds are deposited? Many users create a backup but never confirm that they can restore it or that they retained all the information required by the setup.
+
+-------------------------
+
