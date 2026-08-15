@@ -118,9 +118,11 @@ I think performative commitments should be fine; it's just a matter of looking u
 
 -------------------------
 
-gmaxwell | 2026-08-15 05:10:11 UTC | #9
+gmaxwell | 2026-08-15 05:11:55 UTC | #9
 
-Protecting reorg safety has been a historical goal, and a pretty good one:  generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud by the participants.  One potential option would be to require the transaction be hight-locked and the referenced block be some offset back from there, so that that the degree of reorg unsafeness is bounded. The natural number would be 100 blocks, which is the current horizon for unsafety for generated coins.
+Protecting reorg safety has been a historical goal, and a pretty good one:  generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud by someone in the recent ancestor graph unless the reorg is truly catastrophic.
+
+One potential option would be to require the transaction be height-locked and the referenced block be some offset back from there, so that that the degree of reorg unsafeness is bounded. The natural number would be 100 blocks, which is the current horizon for unsafety for generated coins.
 
 Perhaps the current popular example might be used to argue against 100 blocks since one side can't seem to manage that many.  But I think this isn't a good argument: the hostile side can do anything they want including relaxing this rule.  And in the current examples the bipcoiners first intentionally launched without replay protection and now are implementing it but intentionally opt-in and one-sided, so I think it is clear that they would just relax this rule (e.g. make it pass for any value) because they expressly intend to disrupt the commerce of anyone not using their alternative.
 
