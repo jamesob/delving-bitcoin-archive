@@ -134,3 +134,21 @@ Of course one can use the children of generated coins to achieve this effect but
 
 -------------------------
 
+moonsettler | 2026-08-15 12:28:39 UTC | #10
+
+[quote="gmaxwell, post:9, topic:2792"]
+Protecting reorg safety has been a historical goal, and a pretty good one: generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud (or malleability) by someone in the recent ancestor graph unless the reorg is truly catastrophic.
+[/quote]
+
+Agreed. Problem is, the current state of affairs does not sufficiently hinder a well capitalized attacker from executing an attack, but it does prevent people from safely and securely express their economic preferences (without undue risks, friction, coordination and delay) in certain cases with rule change forks.
+
+Confirmation was never an absolute guarantee of finality. And when a reorg happens, there never was a guarantee that a transaction that was included earlier will be included in the new chain tip. Which is why i said:
+
+[quote="moonsettler, post:3, topic:2792"]
+such commitment does not change the security meaning of “confirmations”
+[/quote]
+
+I believe the only truly important thing would be that recipients should be aware, if they receive coins that are guaranteed to be invalidated by a reorg. And then they can decide to wait for more confirmations or if it feels sketchy (p2p trades, swaps, fork bet contracts), simply walk away.
+
+-------------------------
+

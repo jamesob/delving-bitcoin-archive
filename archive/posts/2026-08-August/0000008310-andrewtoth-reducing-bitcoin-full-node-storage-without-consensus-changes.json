@@ -7,15 +7,15 @@
   "cooked": "<p>I\u2019m wondering if you\u2019ve seen <a href=\"https://github.com/bitcoin/bitcoin/pull/35531\" rel=\"noopener nofollow ugc\">https://github.com/bitcoin/bitcoin/pull/35531</a> ? It reduces the txindex db size from 66 GB \u2192 26 GB.</p>\n<p>The same approach can be applied afterwards to txospenderindex.</p>\n<p>These changes will also allow us to use txindex and txospenderindex with pruning. As you can see the largest part of disk usage is storing the blocks and undo data. Pruning allows you to remove all this unnecessary data. Most users don\u2019t need all the historical blocks.</p>\n<p>A tx lookup on a pruned block can return the missing block hash, which can then be fetched with getblockfrompeer which puts it at the front of the block storage. So if you are only looking up historical blocks occasionally, you can run with ~50 GB of block storage and only have to redownload interesting blocks once every ~6 months.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 7,
+  "posts_count": 8,
   "updated_at": "2026-08-14T18:47:00.069Z",
   "reply_count": 1,
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 10,
-  "readers_count": 9,
-  "score": 12.0,
+  "reads": 11,
+  "readers_count": 10,
+  "score": 27.2,
   "yours": false,
   "topic_id": 2790,
   "topic_slug": "reducing-bitcoin-full-node-storage-without-consensus-changes",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "I'm wondering if you've seen https://github.com/bitcoin/bitcoin/pull/35531 ? It reduces the txindex db size from 66 GB -> 26 GB.\n\nThe same approach can be applied afterwards to txospenderindex.\n\nThese changes will also allow us to use txindex and txospenderindex with pruning. As you can see the largest part of disk usage is storing the blocks and undo data. Pruning allows you to remove all this unnecessary data. Most users don't need all the historical blocks.\n\nA tx lookup on a pruned block can return the missing block hash, which can then be fetched with getblockfrompeer which puts it at the front of the block storage. So if you are only looking up historical blocks occasionally, you can run with \\~50 GB of block storage and only have to redownload interesting blocks once every \\~6 months.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I\u2019m wondering if you\u2019ve seen <a href=\"https://github.com/bitcoin/bitcoin/pull/35531\" rel=\"noopener nofollow ugc\">https://github.com/bitcoin/bitcoin/pull/35531</a> ? It reduces the txindex db size from 66 GB \u2192 26 GB. \nThe same approach can be applied afterwards to txospenderindex. \nThese changes will also allow us to use txindex and txospenderindex with pruning. As you can see the large&hellip;",
   "truncated": true,
   "post_url": "/t/reducing-bitcoin-full-node-storage-without-consensus-changes/2790/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

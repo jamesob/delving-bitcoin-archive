@@ -161,3 +161,73 @@ I have not, but I'll take a look at it soon.
 
 -------------------------
 
+BrokenMachine | 2026-08-15 11:29:03 UTC | #8
+
+I wanted to follow up with a more concise map of where BitcoinRocks intentionally differs from Bitcoin Core v31.1.
+
+The comparison is:
+
+Bitcoin Core v31.1
+9be056a8a72b624dae9623b2f7bded92c2a21c91
+
+BitcoinRocks v31.1.1
+3f26669cd5374ad2a72b3638e92c543b5b9c2c5b
+
+Fresh GitHub clones were exported with git archive and compared directly.
+
+The complete tree delta is:
+
+287 files changed, 5,720 insertions, 32,010 deletions
+
+Most of the deletion count is simply removal of Core's vendored src/leveldb/ tree. Excluding only that subtree leaves:
+
+134 files changed, 5,720 insertions, 1,076 deletions
+
+The meaningful changes fall into a few main buckets:
+
+Block storage: BitcoinRocks stores individual blk\*.dat records either raw or Zstd-compressed. Reindexing, pruning, block-file accounting,
+and index readers were adapted to distinguish physical stored size from logical serialized block size.
+
+Database backend: LevelDB is replaced with RocksDB, with LZ4/Zstd compression, workload-specific database profiles, and an explicit WAL
+recovery policy. One upstream corruption test exposed a real recovery-policy weakness here, which was fixed rather than weakening the test.
+
+Performance: BitcoinRocks includes hardware-aware RocksDB/cache allocation and a backport of parallel prevout fetching from Bitcoin Core PR #35295.
+The per-peer in-flight block window is also intentionally increased from 16 to 32 to keep more work available during IBD. This is local P2P block-download
+policy, not a change to serialization, network message formats, or consensus.
+
+The upstream p2p_sendheaders.py test assumes Core's 16-block per-peer in-flight limit. BitcoinRocks intentionally increases that limit to 32, so the test
+was adapted to fill the 32-block window and verify that the next block cannot be requested, preserving the original test semantics.
+
+Relay policy: BitcoinRocks adds selectable core, conservative, and strict local transaction-policy profiles. These affect mempool/relay behavior only;
+they do not change block-consensus validity.
+
+Build, branding, and tests: The remaining changes are primarily BitcoinRocks executable/config/datadir naming, Qt/installer branding, RocksDB/LZ4/Zstd
+build integration, cross-platform CI fixes, and test-fixture adaptations where Core assumptions no longer match compressed storage or RocksDB.
+
+The direct comparison contains no changed files under:
+
+src/consensus/
+src/script/
+src/crypto/
+src/primitives/
+src/secp256k1/
+src/wallet/
+
+There are changes in src/validation.cpp, src/validation.h, src/node/, and src/kernel/, so I want to address those separately rather than treating the
+unchanged directories above as proof of anything. The changes I made there are related to storage/reindex handling, RocksDB/cache integration,
+parallel prevout fetching, and non-consensus mempool policy. I did not make changes to the underlying block, transaction, proof-of-work, or
+script-consensus validity rules.
+
+I also spent the last several days working through the Bitcoin Core CI/test matrix rather than disabling failures introduced by the fork. Where a test exposed
+a real BitcoinRocks bug or portability problem, I fixed the underlying issue rather than weakening the test.
+
+One historical compatibility test, feature_coinstatsindex_compatibility.py, is explicitly marked not applicable because BitcoinRocks does not claim on-disk
+compatibility with historical Core LevelDB coinstatsindex databases.
+
+The goal here is not to claim that green CI proves correctness. It doesn't. I'm trying to make the review surface as obvious as possible so anyone interested
+can go directly to the relevant files and attack the implementation.
+
+I'm sure it's not perfect; nothing ever is.
+
+-------------------------
+
