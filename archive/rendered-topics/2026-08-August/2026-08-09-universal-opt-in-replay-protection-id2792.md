@@ -118,9 +118,9 @@ I think performative commitments should be fine; it's just a matter of looking u
 
 -------------------------
 
-gmaxwell | 2026-08-15 05:14:01 UTC | #9
+gmaxwell | 2026-08-15 05:15:03 UTC | #9
 
-Protecting reorg safety has been a historical goal, and a pretty good one:  generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud by someone in the recent ancestor graph unless the reorg is truly catastrophic.
+Protecting reorg safety has been a historical goal, and a pretty good one:  generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud (or malleability) by someone in the recent ancestor graph unless the reorg is truly catastrophic.
 
 One potential option would be to require the transaction be height-locked and the referenced block be some offset back from there, so that that the degree of reorg unsafeness is bounded. The natural number would be 100 blocks, which is the current horizon for unsafety for generated coins.
 
