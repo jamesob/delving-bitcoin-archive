@@ -42,3 +42,9 @@ DATUM is the real mainnet precedent for miner-side template construction, and th
 
 -------------------------
 
+SweetHash | 2026-08-14 23:58:38 UTC | #2
+
+Here is the repo: [sweethashio/Tessera: Tessera SV2 Suite](https://github.com/sweethashio/Tessera)
+
+-------------------------
+

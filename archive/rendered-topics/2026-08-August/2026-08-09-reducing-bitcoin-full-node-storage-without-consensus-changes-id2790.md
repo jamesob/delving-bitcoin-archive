@@ -155,3 +155,9 @@ A tx lookup on a pruned block can return the missing block hash, which can then 
 
 -------------------------
 
+BrokenMachine | 2026-08-14 22:32:32 UTC | #7
+
+I have not, but I'll take a look at it soon.
+
+-------------------------
+
