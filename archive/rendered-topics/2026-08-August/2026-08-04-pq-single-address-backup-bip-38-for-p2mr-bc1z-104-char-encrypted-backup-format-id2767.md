@@ -94,3 +94,31 @@ If the community prefers to put version/KDF-params inside the outer wrapper inst
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-15 06:44:34 UTC | #5
+
+Thanks, this direction looks much safer.
+
+One remaining consideration is that the decoder needs to know the KDF and its parameters before it can decrypt the authenticated payload. If those values exist only inside the AEAD plaintext, there is a bootstrapping problem; if they remain only in the human-readable wrapper, changing them could cause incorrect or unexpectedly expensive key derivation before authentication.
+
+Perhaps a minimal outer header could contain the format version, KDF identifier, and bounded KDF parameters, with that exact header also supplied as AEAD associated data. The decoder could then select the derivation procedure while still detecting any header modification.
+
+Also, an AEAD failure cannot by itself distinguish a wrong password from corrupted ciphertext. The pre-KDF checksum helps classify ordinary transcription errors, but it may be safest for the specification to describe the remaining result as “authentication failed” rather than guaranteeing “wrong password.”
+
+-------------------------
+
+coldtest-berlin | 2026-08-15 09:50:03 UTC | #6
+
+@Anzus_GemWallet You are absolutely right on both points.
+
+The bootstrapping problem is real. A minimal outer header (version | KDF id | bounded params) supplied as AEAD associated data is the correct way to do it — select KDF before decrypt, but still detect header tampering.
+
+And yes, AEAD failure should be specified as authentication failed — the pre-KDF checksum is for catching transcription typos, it cannot prove wrong password vs corrupted ciphertext.
+
+I think at this point the core problem is clear: we need an encrypted short backup for cold-storage, BIP-38 style, but for PQ SLH-DSA seeds, with a fixed-length, scannable, one-line = one-key sweep invariant.
+
+I intentionally don't want to go deeper into the byte layout alone. This should become a shared BIP, not my personal format. My proposal (pure 32-byte seed, prefix-agnostic BIP-360 compat, 104-char visual invariant) can be the starting point, but KDF bounds, header as AAD, failure semantics — that should be decided together by wallets.
+
+If there is interest, I am happy to co-author or hand it over.
+
+-------------------------
+
