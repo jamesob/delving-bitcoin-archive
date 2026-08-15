@@ -1,6 +1,6 @@
 # Running Core's real consensus code inside a zkVM
 
-defenwycke | 2026-08-15 15:05:36 UTC | #1
+defenwycke | 2026-08-15 15:10:44 UTC | #1
 
 # Proving Bitcoin
 ## Running Core's real consensus code inside a zkVM.
@@ -451,10 +451,10 @@ Defenwycke
 
 ### Worth reading before you attack it
 
-5. `docs/SOUNDNESS.md` [github](https://github.com/bitcoin-ghost/hazync/blob/main/docs/SOUNDNESS.md) - The recursion and anchoring argument.
-6. `SECURITY.md` [github](https://github.com/bitcoin-ghost/hazync/blob/main/SECURITY.md) - Every review round, what each found, and the soft spots.
-7. `docs/EXTERNAL_REVIEW.md` [github](https://github.com/bitcoin-ghost/hazync/blob/main/docs/EXTERNAL_REVIEW.md) - What still needs outside eyes, ranked by value per hour.
-8. `docs/SPEC.md` [github](https://github.com/bitcoin-ghost/hazync/blob/main/docs/SPEC.md) - Composition, the spine, and what a verifier checks.
+5. `docs/SOUNDNESS.md` [github](https://github.com/bitcoin-ghost/hazync/blob/da9dc23e1e8e2d5f6c52a37e5241702f6dbca875/docs/SOUNDNESS.md) - The recursion and anchoring argument.
+6. `SECURITY.md` [github](https://github.com/bitcoin-ghost/hazync/blob/da9dc23e1e8e2d5f6c52a37e5241702f6dbca875/SECURITY.md) - Every review round, what each found, and the soft spots.
+7. `docs/EXTERNAL_REVIEW.md` [github](https://github.com/bitcoin-ghost/hazync/blob/da9dc23e1e8e2d5f6c52a37e5241702f6dbca875/docs/EXTERNAL_REVIEW.md) - What still needs outside eyes, ranked by value per hour.
+8. `docs/SPEC.md` [github](https://github.com/bitcoin-ghost/hazync/blob/da9dc23e1e8e2d5f6c52a37e5241702f6dbca875/docs/SPEC.md) - Composition, the spine, and what a verifier checks.
 9. `reproduce/` [github](https://github.com/bitcoin-ghost/hazync/tree/main/reproduce) - The container that mints the canonical `METHOD_ID`.
 
 ### What is being proven, and what it runs in
