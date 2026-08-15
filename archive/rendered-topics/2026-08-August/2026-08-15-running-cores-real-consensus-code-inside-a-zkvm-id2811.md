@@ -474,3 +474,13 @@ Defenwycke
 
 -------------------------
 
+Nuh | 2026-08-15 17:11:49 UTC | #2
+
+I need to read this carefully, but I want to encourage this effort and congratulate you for getting so far.
+
+I have been looking for ways to build the best light clients for Rootstock lately, and this should help me immensely in two ways; 1) give me a feel about the cost of generating these proofs, but 2) having a proof of Bitcoin chain state gets me very far to prove sidechains, by checking the merge mining information in the coinbase, and use that as an adhoc hashrate based checkpointing, which reduces the amount of blocks that needs proving from 10s of millions, to just the few thousands in the pas two weeks or so.
+
+Proving sidechains in ZKVMs economically, is going to be more important as BitVM bridges start to mature.
+
+-------------------------
+

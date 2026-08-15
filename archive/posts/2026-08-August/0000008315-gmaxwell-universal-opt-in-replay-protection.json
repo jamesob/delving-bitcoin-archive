@@ -13,9 +13,9 @@
   "reply_to_post_number": null,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 6.2,
+  "reads": 10,
+  "readers_count": 9,
+  "score": 22.0,
   "yours": false,
   "topic_id": 2792,
   "topic_slug": "universal-opt-in-replay-protection",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "Protecting reorg safety has been a historical goal, and a pretty good one:  generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud (or malleability) by someone in the recent ancestor graph unless the reorg is truly catastrophic.\n\nOne potential option would be to require the transaction be height-locked and the referenced block be some offset back from there, so that that the degree of reorg unsafeness is bounded. The natural number would be 100 blocks, which is the current horizon for unsafety for generated coins.\n\nPerhaps the current popular example might be used to argue against 100 blocks since one side can't seem to manage that many.  But I think this isn't a good argument: the hostile side can do anything they want including relaxing this rule.  And in the current examples the bipcoiners first intentionally launched without replay protection and now are implementing it but intentionally opt-in and one-sided, so I think it is clear that they would just relax this rule (e.g. make it pass for any value) because they expressly intend to disrupt the commerce of anyone not using their alternative.\n\nI don't think the fact that forkers are hostile in this current instance and could generally be assumed to be is necessarily a reason to not do something like this-- as it can still be useful if it only applies on Bitcoin.  But I think perhaps it is a reason why preserving the current amount of reorg safeness is probably not an actual loss.\n\nOf course one can use the children of generated coins to achieve this effect but that means getting access to them.  ... which has a lot of social/commercial overhead vs setting a field in a transaction.\n\n(and yes, obviously height or height offset from nlock time, plus a hash suffix is good).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "Protecting reorg safety has been a historical goal, and a pretty good one:  generally we should avoid transactions just being invalidated due to internal network churn-- casual random reorgs cannot cause permanent funds loss in Bitcoin absent doublespend fraud (or malleability) by someone in the rec&hellip;",
   "truncated": true,
   "post_url": "/t/universal-opt-in-replay-protection/2792/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
