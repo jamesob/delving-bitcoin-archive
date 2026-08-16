@@ -13,8 +13,8 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
+  "reads": 5,
+  "readers_count": 4,
   "score": 0.8,
   "yours": false,
   "topic_id": 2767,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "@Anzus_GemWallet You are absolutely right on both points.\n\nThe bootstrapping problem is real. A minimal outer header (version | KDF id | bounded params) supplied as AEAD associated data is the correct way to do it \u2014 select KDF before decrypt, but still detect header tampering.\n\nAnd yes, AEAD failure should be specified as authentication failed \u2014 the pre-KDF checksum is for catching transcription typos, it cannot prove wrong password vs corrupted ciphertext.\n\nI think at this point the core problem is clear: we need an encrypted short backup for cold-storage, BIP-38 style, but for PQ SLH-DSA seeds, with a fixed-length, scannable, one-line = one-key sweep invariant.\n\nI intentionally don't want to go deeper into the byte layout alone. This should become a shared BIP, not my personal format. My proposal (pure 32-byte seed, prefix-agnostic BIP-360 compat, 104-char visual invariant) can be the starting point, but KDF bounds, header as AAD, failure semantics \u2014 that should be decided together by wallets.\n\nIf there is interest, I am happy to co-author or hand it over.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "<a class=\"mention\" href=\"/u/anzus_gemwallet\">@Anzus_GemWallet</a> You are absolutely right on both points. \nThe bootstrapping problem is real. A minimal outer header (version | KDF id | bounded params) supplied as AEAD associated data is the correct way to do it \u2014 select KDF before decrypt, but still detect header tampering. \nAnd yes, AEAD failure&hellip;",
   "truncated": true,
   "post_url": "/t/pq-single-address-backup-bip-38-for-p2mr-bc1z-104-char-encrypted-backup-format/2767/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

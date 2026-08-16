@@ -484,3 +484,77 @@ Proving sidechains in ZKVMs economically, is going to be more important as BitVM
 
 -------------------------
 
+defenwycke | 2026-08-16 11:26:30 UTC | #3
+
+Thank you @Nuh 
+
+Costings: `verifyScript` runs at ~2.1M cycles per input and is roughly linear. On a L40S that's ~2.7s per input on an EC-dominated path. For example block 741,000 (670 inputs, segwit and taproot) proves in 55 minutes wall-clock across two L40S - 110 GPU-minutes. It is worth stating that 27 of those 55 mins are the 16 way aggregation - not the proving! That ratio could potentially be improved on.
+
+
+Block 741,000 carries 670 inputs, whereas near tip blocks often carry 6k-10k inputs. With your application in mind, using 2 weeks as an example (~2016 blocks) on a single L40S: 
+
+Low case - 2016 blocks * 6000 inputs * 2.7s per input = 32,659,200s / 544,320m / 9,072h / 378 days
+
+High case - 2016 blocks * 10000 inputs * 2.7s per input = 54,432,000s / 907,200m / 15,120h / 630 days
+
+(I'm using 2.7s here; the running mean is already above it - see below)
+
+N.B - Proving is parallelisable across multiple GPUs.
+
+I was curious about a block closer to the tip, so I have started to measure block 962,000 (6,303 txs / 8,006 inputs / 16 chunks). This is running on an L40S (Proving only / No aggregation or accumulator).
+
+- 44 input sample - 2.57s per input
+- Chunk 0 (500 inputs) - 2.63s per input
+- Chunk 1 (500 inputs) - 3.86s per input
+
+The variance between the two chunk samples shows that Chunk 1 cost ~47% more than Chunk 0 for the same amount of inputs. This difference is the input types. A key path spend is one sig check, whereas a P2SH multisig or script path spend contains more. Transaction types cluster within a block, so each Chunk will have different quantities of types. Obviously we only have 2 chunks proven so far, which is not enough data to give a median per input value. When the data is in, we will have the median per input time, which will enable us to calculate an estimate for your 2 week (2016 blocks) period. I will reply again when the final benchmark for block 962,000 is in.
+
+Currently the spine grows from genesis and reaches block 7,819 (as of writing). You need the most recent end, which won't be reached for a long time. This is an anchoring issue, where I lean for correctness and believe anchoring from genesis is the better way. There is the argument that an anchor can be used at a mid-chain checkpoint, but this is a stated trust input that I wouldn't like to pursue. Your proposal of hashrate-based checkpointing is interesting, you are trusting accumulated work either way. As such, a checkpoint anchored range near the tip isn't a compromise for you.
+
+With regards to the merge-mining check specifically, you don't need the guest changed. The block proof already hashes every `txid` into `header.merkle_root` and verifies it, so a standard merkle branch to the coinbase verifies against a header the proof attests. The public journal gives you `block_hash`, `prev_hash`, `height` and `cumulative_work`, which establishes the chain and its work. The merge-mining tag then rides in as an ordinary inclusion proof against a root that's already proven. No fork, no extra commitment.
+
+-------------------------
+
+Nuh | 2026-08-16 13:03:45 UTC | #4
+
+[quote="defenwycke, post:3, topic:2811"]
+As such, a checkpoint anchored range near the tip isn’t a compromise for you.
+
+[/quote]
+
+I agree with you that full validation in Bitcoin is the correct approach, but Rootstock has something that Bitcoin doesn't have; commitment to the state at each block, not just transactions. If bitcoin headers (or even coinbase transaction) did commit to the Utreexo, with a Soft Fork (nodes reject invalid utreexo root) or even a Velvet Fork (nodes don't validate, but miners just vote on the utreexo root at a given block in the past, say every start of difficulty epoch) then I could trust the hash rate to be a vote on the state at a given checkpoint in the past, then validate full blocks from there on. But Bitcoin does neither, so checkpointing is impossible, you can only do SPV + fraud proofs like Floresta. Rootstock fortunately forces miners to vote on the state at each block, so the only way miners can fake a state is with a 51% attack. Rootstock is also more liberal with hardforks, which is good in that case where the purpose is a mix between conservatism and innovation, so you can't really make an immutable ZK program, when the consensus itself is subject to hashrate voting. In fact the PowPeg itself doesn't validate the RVM, and only validates the hash rate in the HSM. All in all I think that is a very acceptable tradeoff, as long as users have Bitcoin to exit to if they don't like what miners are voting on.
+
+-------------------------
+
+Nuh | 2026-08-16 13:12:06 UTC | #5
+
+@defenwycke  Not to derail this conversation too far, but I also took a look at the **Ghost Pay** design, and it seems like the trust model boils down to a federated bridge, maybe a dynamic federation, but the same federation that does the bridging also produce the state transition. Rootstock seems to have separated that so that the bridge is maintained with a static federation, and possibly in the future with BitVM bridge, but blocks are produced by Bitcoin miners who opt-in into merge mining rootstock blocks.
+
+I wonder then if this setup can be reused to create the Ghost Pay BFT, with a mix of Proof of Stake (on Rootstock with RVM expressivity) while also privileging Rootstock miners, like you privilege the Elders, so the staked RBTC has more weight if it is by someone who produced Rootstock blocks lately.
+
+This way you would: 1) Used Rootstock as a mining pool 2) have more control over what is effectively a DAO 3) Optionally allow extending the DAOs services, for example instead of only a payment pool, and coinjoin, you can offer a Data Availability service etc..
+
+Anyways, good luck and I support you and anyone willing to venture into providing such useful services, while making sure it can stay sustainable beyond the lifecycle of VC funded startups.
+
+-------------------------
+
+defenwycke | 2026-08-16 14:02:32 UTC | #6
+
+Ghost pay is on a back burner. I'm still working through a quorum mesh change. But thank you for the ideas!
+
+-------------------------
+
+defenwycke | 2026-08-16 14:05:01 UTC | #7
+
+I see what you mean now. Miners voting on Rootstock state each block means hashrate attested to that state. This makes a good argument for the slow path (anchored from genesis). You said:
+
+"If bitcoin headers (or even coinbase transaction) did commit to the Utreexo, with a Soft Fork (nodes reject invalid Utreexo root) or even a Velvet Fork (nodes don’t validate, but miners just vote on the Utreexo root at a given block in the past, say every start of difficulty epoch) then I could trust the hash rate to be a vote on the state at a given checkpoint in the past, then validate full blocks from there on."
+
+A genesis anchored proof gives you this without the fork. If done via soft fork you would produce a state root that hashrate voted on. If done with Hazync, it produces a state root that is proven, from genesis and uses Core's own consensus code. Additionally it doesn't require miner cooperation, no velvet fork, no consensus changes and it's stronger than a vote. The reason the spine is slow to build is exactly the reason it is worth having. It is the state commitment Bitcoin does not have, arrived at by proving rather than asking. The problem we have is to get the proofs to the tip (where you need them), Hazync must be reviewed and verified to be correct and then ramping up the compute to catch up to the tip. 
+
+One warning from experience, you are right that you cannot make an immutable ZK program when consensus is subject to hashrate voting. Every change to the guest mints a new METHOD_ID, and every proof made under the old one stops verifying. If Rootstock's rules move by vote, your guest moves with them, and each move voids the proof history behind it. That is survivable if you are proving a short recent window and re-proving is cheap. It is not survivable for a genesis-anchored artefact, which is part of why I am conservative about the guest.
+
+Thank you for the discussion. I hope your project succeeds.
+
+-------------------------
+
