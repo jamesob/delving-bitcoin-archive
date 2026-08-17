@@ -7,7 +7,7 @@
   "cooked": "<p><a class=\"mention\" href=\"/u/defenwycke\">@defenwycke</a>  Not to derail this conversation too far, but I also took a look at the <strong>Ghost Pay</strong> design, and it seems like the trust model boils down to a federated bridge, maybe a dynamic federation, but the same federation that does the bridging also produce the state transition. Rootstock seems to have separated that so that the bridge is maintained with a static federation, and possibly in the future with BitVM bridge, but blocks are produced by Bitcoin miners who opt-in into merge mining rootstock blocks.</p>\n<p>I wonder then if this setup can be reused to create the Ghost Pay BFT, with a mix of Proof of Stake (on Rootstock with RVM expressivity) while also privileging Rootstock miners, like you privilege the Elders, so the staked RBTC has more weight if it is by someone who produced Rootstock blocks lately.</p>\n<p>This way you would: 1) Used Rootstock as a mining pool 2) have more control over what is effectively a DAO 3) Optionally allow extending the DAOs services, for example instead of only a payment pool, and coinjoin, you can offer a Data Availability service etc..</p>\n<p>Anyways, good luck and I support you and anyone willing to venture into providing such useful services, while making sure it can stay sustainable beyond the lifecycle of VC funded startups.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 8,
+  "posts_count": 10,
   "updated_at": "2026-08-16T13:12:06.212Z",
   "reply_count": 1,
   "reply_to_post_number": 4,

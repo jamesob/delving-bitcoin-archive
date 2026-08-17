@@ -596,3 +596,15 @@ Compute:
 
 -------------------------
 
+Nuh | 2026-08-17 06:40:35 UTC | #9
+
+Thank you very much. That looks extremely more expensive than fruad proofs like in Floresta unfortunately.
+
+-------------------------
+
+defenwycke | 2026-08-17 07:10:43 UTC | #10
+
+Agreed. There may be improvements I haven't thought of yet.
+
+-------------------------
+
