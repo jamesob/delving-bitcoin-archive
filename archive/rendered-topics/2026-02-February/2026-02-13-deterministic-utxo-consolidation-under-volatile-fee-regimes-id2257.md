@@ -37,3 +37,27 @@ Appreciate any thoughts or prior discussions I may have missed.
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-17 01:59:52 UTC | #2
+
+I would separate transaction validity from policy reproducibility here. Different mempool snapshots producing different valid selections is not necessarily a correctness failure, but some properties should remain invariant: never create uneconomical change, cap the fee paid, preserve explicitly frozen or excluded UTXOs, and require deliberate approval before linking privacy clusters.
+
+Reproducing the exact PSBT later may require recording the fee estimate, eligible UTXO set, selection-policy version, and change thresholds used at construction time. Otherwise, “same wallet state” is underspecified.
+
+The privacy consequence is also irreversible in a way fee regret is not. That suggests consolidation should probably be opt-in or separately confirmed whenever it merges previously unrelated clusters.
+
+-------------------------
+
+babyblueviper1 | 2026-08-17 03:34:50 UTC | #3
+
+@Anzus_GemWallet real follow-up rather than more discussion -- this is a live endpoint (api.babyblueviper.com/omega-pruner/plan), not a hypothetical design, so your opt-in point was checkable against actual running code.
+
+Checked: build_consolidation_plan() was silently merging UTXOs from every address given into one PSBT -- no confirmation, no warning field, nothing. Fixed and deployed same day: more than one address now requires an explicit confirm_privacy_cluster_merge=true, otherwise it fails closed with the reason spelled out (common-input-ownership heuristic, irreversible unlike fee regret). A single address is unaffected.
+
+Verified live pre/post-restart: 2 addresses with no confirmation returns 400 with that exact reason; 2 addresses confirmed proceeds normally; 1 address is unchanged from before.
+
+On reproducibility: TxEconomics (fee/vsize/change_amt) is already fixed at construction time from the actual selected inputs, so that half already held. What's honestly still missing, not claiming otherwise: no separately-versioned selection-policy artifact, no eligible-UTXO-set snapshot recorded as its own field -- "same wallet state" is still underspecified the way you named it, just not on the fee/change side.
+
+One honest scope note: this fixes the live JSON API (what an actual caller hits). The reference Gradio UI in the linked repo hasn't been updated to match yet -- flagging that rather than letting it look more finished than it is.
+
+-------------------------
+
