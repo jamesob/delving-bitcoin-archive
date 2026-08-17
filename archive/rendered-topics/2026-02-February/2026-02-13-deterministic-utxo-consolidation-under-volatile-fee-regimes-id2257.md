@@ -61,3 +61,11 @@ One honest scope note: this fixes the live JSON API (what an actual caller hits)
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-17 13:32:35 UTC | #4
+
+That sounds like a good improvement. It’s especially helpful that the system now stops and explains why combining funds from different addresses can affect privacy.
+
+It may also help if users can clearly see which addresses or groups of funds are about to be combined before they confirm. That makes the choice easier to understand and reduces surprises.
+
+-------------------------
+
