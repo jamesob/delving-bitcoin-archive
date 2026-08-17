@@ -69,3 +69,21 @@ It may also help if users can clearly see which addresses or groups of funds are
 
 -------------------------
 
+babyblueviper1 | 2026-08-17 15:48:29 UTC | #5
+
+@Anzus_GemWallet Good addition, and it prompted checking whether the other two gaps I named as still-open were fixable in the same pass -- they were.
+
+Both shipped:
+
+1. **Cluster preview before confirming.** The 400 response when `confirm_privacy_cluster_merge` is omitted now includes a real per-address breakdown (UTXO count + total sats), computed from the actual fetched UTXOs, not a synthetic estimate. You already know which addresses you passed in -- what you couldn't see before was how much value from each would actually merge. Live example (real chain data, right now):slight_smile: 
+2. \`2 addresses given -- ... Cluster preview -- bc1q...xyv5y: 2 UTXO(s), 163,854 sats; bc1q...eatkp: 1 UTXO(s), 83,400 sats.\`
+
+
+2. **Selection-policy version + eligible-UTXO-set hash.** The response now carries `selection_policy_version` (a hand-bumped tag on the deterministic classification/selection logic itself) and `eligible_utxo_set_hash` (sha256 over the canonical, order-independent set of UTXOs the selection actually ran against). A later reproduction attempt re-fetches the same addresses, computes the same hash, and compares -- a mismatch now means the wallet state genuinely moved, not that anything about "same wallet state" is ambiguous. Verified live: identical call twice in a row against the same address returns the identical hash.
+
+Both are additive to the JSON API, 6 new tests, deployed, live-verified against real chain data before posting this, not just unit-tested.
+
+Honest scope note, unchanged from last time: the reference Gradio UI (v11.1, separate repo) still hasn't been updated to match any of this -- that's real, non-trivial UI/event-wiring work in a large standalone app, not a same-pass fix. Flagging it as open rather than letting the JSON API fix read as if the whole project moved.
+
+-------------------------
+

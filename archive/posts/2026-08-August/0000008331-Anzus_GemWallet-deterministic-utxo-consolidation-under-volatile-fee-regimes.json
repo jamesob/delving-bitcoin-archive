@@ -7,7 +7,7 @@
   "cooked": "<p>I would separate transaction validity from policy reproducibility here. Different mempool snapshots producing different valid selections is not necessarily a correctness failure, but some properties should remain invariant: never create uneconomical change, cap the fee paid, preserve explicitly frozen or excluded UTXOs, and require deliberate approval before linking privacy clusters.</p>\n<p>Reproducing the exact PSBT later may require recording the fee estimate, eligible UTXO set, selection-policy version, and change thresholds used at construction time. Otherwise, \u201csame wallet state\u201d is underspecified.</p>\n<p>The privacy consequence is also irreversible in a way fee regret is not. That suggests consolidation should probably be opt-in or separately confirmed whenever it merges previously unrelated clusters.</p>",
   "post_number": 2,
   "post_type": 1,
-  "posts_count": 4,
+  "posts_count": 5,
   "updated_at": "2026-08-17T01:59:52.326Z",
   "reply_count": 0,
   "reply_to_post_number": null,
