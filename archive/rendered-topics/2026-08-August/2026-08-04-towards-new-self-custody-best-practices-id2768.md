@@ -134,3 +134,9 @@ Would it make sense for the guidance to define security levels and include a rec
 
 -------------------------
 
+seed-cat | 2026-08-17 17:38:54 UTC | #5
+
+Yes, I think software wallets should do a lot more hand-holding.  Regarding the multisig, wallets could encode the master xpubs on-chain (in a private manner) so you don't have to worry about backing them up in a 2-of-3 or 3-of-5.
+
+-------------------------
+
