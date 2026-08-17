@@ -558,3 +558,41 @@ Thank you for the discussion. I hope your project succeeds.
 
 -------------------------
 
+defenwycke | 2026-08-16 22:59:44 UTC | #8
+
+# Update
+
+As promised @Nuh - See below updated benchmark.
+
+Block 962,000: 6,303 transactions, 8,006 inputs, split into 16 chunks of 501, proved on a single idle L40S. Guest mode 4 (`chunk_prove`) reads only the block and its prevouts (No accumulator, no bridge). This is why a block this close to the tip can be measured without having processed the chain up to it.
+
+Per chunk:
+
+- chunk  0 |  1314s |  2.62s per input
+- chunk  1 |  1931s |  3.85s per input
+- chunk  2 |  7660s | 15.29s per input
+- chunk  3 |  6814s | 13.60s per input
+- chunk  4 |  1963s |  3.92s per input
+- chunk  5 |   293s |  0.58s per input
+- chunk  6 |   292s |  0.58s per input
+- chunk  7 |   591s |  1.18s per input
+- chunk  8 |  1194s |  2.38s per input
+- chunk  9 |  1195s |  2.39s per input
+- chunk 10 |  1193s |  2.38s per input
+- chunk 11 |  1195s |  2.39s per input
+- chunk 12 |  1197s |  2.39s per input
+- chunk 13 |  1190s |  2.38s per input
+- chunk 14 |  1196s |  2.39s per input
+- chunk 15 |  1167s |  2.38s per input
+- total | 30385s |  3.80s per input
+
+Aggregating those 16 chunk receipts into one block proof took a further 4,606s.
+
+Compute:
+
+- Proving - 30,385s / 8.44 hours / 86.8%
+- Aggregation - 4,606s / 1.28 hours / 13.2%
+- TOTAL - 34,991s / 9.72 hours / 4.37s per input
+
+-------------------------
+
