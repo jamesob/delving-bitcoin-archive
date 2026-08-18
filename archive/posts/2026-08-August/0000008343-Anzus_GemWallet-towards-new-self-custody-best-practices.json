@@ -13,8 +13,8 @@
   "reply_to_post_number": 5,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 1.2,
   "yours": false,
   "topic_id": 2768,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "I agree that wallets should make the safer choice easier.\n\nI still think a recovery rehearsal is important, even when backups are made simpler. It gives people a chance to find missing information or misunderstandings before the wallet holds a meaningful amount of money.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "I agree that wallets should make the safer choice easier. \nI still think a recovery rehearsal is important, even when backups are made simpler. It gives people a chance to find missing information or misunderstandings before the wallet holds a meaningful amount of money.",
   "truncated": true,
   "post_url": "/t/towards-new-self-custody-best-practices/2768/6",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,

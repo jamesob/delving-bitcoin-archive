@@ -21,3 +21,11 @@ A short worked example and a reminder to practise restoring an empty wallet befo
 
 -------------------------
 
+seed-cat | 2026-08-18 15:11:33 UTC | #3
+
+Thanks for the feedback.  I meant 3 rolls with up to two dice (2 rolls of two dice and 1 roll of one dice).
+
+Right now it's more of a spec than a guide, if it gets traction then I'll consider expanding it.
+
+-------------------------
+
