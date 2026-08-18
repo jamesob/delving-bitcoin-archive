@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "This looks useful for people who want to create their own seed words without relying on a device.\n\nOne small point for clarity: the post mentions three dice rolls per word, but the guide appears to use five individual rolls. It may help to say that clearly up front, especially for people trying this for the first time.\n\nA short worked example and a reminder to practise restoring an empty wallet before using real funds would also make the guide easier for nontechnical users to follow.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "This looks useful for people who want to create their own seed words without relying on a device. \nOne small point for clarity: the post mentions three dice rolls per word, but the guide appears to use five individual rolls. It may help to say that clearly up front, especially for people trying this&hellip;",
   "truncated": true,
   "post_url": "/t/generate-truly-random-seed-words-using-only-dice-or-playing-cards/2814/2",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
