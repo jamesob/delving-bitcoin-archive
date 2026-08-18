@@ -160,11 +160,11 @@ It's completely the wrong analogy for me. Bombs are the activation of something,
 
 -------------------------
 
-conduition | 2026-08-05 23:21:09 UTC | #5
+conduition | 2026-08-09 19:34:40 UTC | #5
 
 Hey @sipa and thank you for aggregating all this important information. I think your OP summary and analysis is correct, modulo small discrepancies in byte sizes (e.g. for pushdata length prefixing). 
 
-Seeing @fjahr's impressive CISA proposal has forced me to reevaluate my opinions on PQ output type candidates. CISA provides a natural vessel for P2TRv2 which is asymptotically (as the number of outputs grows) so efficient as to only require 1 byte witnesses for full-agg EC spends. This is exactly the kind of incentive we want in a PQ output type: Better efficiency than even P2TR, so much better that even users who don't care about PQ-security will migrate to it. The problem of course is that, like P2TRv2, CISA's output type requires we post bare EC pubkeys on-chain in the SPK and so it has the same PQ-security profile as P2TRv2.
+Seeing @fjahr's impressive CISA proposal has forced me to reevaluate my opinions on PQ output type candidates. CISA provides a natural vessel for P2TRv2 which is asymptotically (as the number of <s>outputs</s> inputs grows) so efficient as to only require 1 byte witnesses for full-agg EC spends. This is exactly the kind of incentive we want in a PQ output type: Better efficiency than even P2TR, so much better that even users who don't care about PQ-security will migrate to it. The problem of course is that, like P2TRv2, CISA's output type requires we post bare EC pubkeys on-chain in the SPK and so it has the same PQ-security profile as P2TRv2.
 
 P2MR can also be deployed with CISA, but we cannot use public-key recovery (except for with one input, according to @starius), and we must instead publish the EC public key for each aggregated signature. This would lower P2MR's asymptotic per-input EC spend cost from 96 bytes (with PKR), but only to 64 bytes (with CISA), almost at par with P2TR today. 
 
@@ -199,6 +199,83 @@ With a mostly constant-size block-wide proof of sig-validity, individual signatu
 It would require some very careful re-engineering of Bitcoin's traditional size-based fee accounting systems, but if done correctly we could massively increase the network's throughput while also incentivizing migration to natively PQ-secure wallets, with no EC cruft carried over. 
 
 I'm not sure how viable this strategy will be yet, but i want to mention it for consideration. The game board is very large, and we have many more and better options than I used to believe.
+
+-------------------------
+
+sipa | 2026-08-17 22:28:41 UTC | #6
+
+[quote="conduition, post:5, topic:2749"]
+Seeing @fjahr’s impressive CISA proposal has forced me to reevaluate my opinions on PQ output type candidates. CISA provides a natural vessel for P2TRv2 which is asymptotically (as the number of ~~outputs~~ inputs grows) so efficient as to only require 1 byte witnesses for full-agg EC spends. This is exactly the kind of incentive we want in a PQ output type: Better efficiency than even P2TR, so much better that even users who don’t care about PQ-security will migrate to it. The problem of course is that, like P2TRv2, CISA’s output type requires we post bare EC pubkeys on-chain in the SPK and so it has the same PQ-security profile as P2TRv2.
+[/quote]
+
+Interesting change of stance!
+
+I love signature aggregation, primarily because of its privacy-incentive mechanism (it was the original motivation for [MuSig(1)](https://eprint.iacr.org/2018/068), and the broken [scheme](https://bitcointalk.org/index.php?topic=1377298.0) that preceded it), but I'm not convinced that it matters that much in this context. 
+
+There are two hurdles to overcome when getting users to adopt new output types:
+1. Software/infrastructure needs to be available. This is the hard one: you need to convince developers of open source wallets, hardware wallets, proprietary wallet software, and centralized custodians to implement it. Especially the last one seems to take a long time even for small changes like [*sending*](https://whentaproot.org/) to new address formats, and even longer for changing receiving/managing. As I see it, the latter is mostly through:
+   * Companies out of business / projects being abandoned, and their users migrating to others, especially newer ones built in more feature-rich software stacks.
+   * Companies seeing a business advantage directly, e.g. because there is a high-fee environment and they pay transaction fees as a business cost. It's possible that for some, PQC itself is sufficient here (maybe if thou-shall-use-PQC regulations would appear in some legislatures), but not the long tail.
+   * Users demanding it at scale.
+2. Users must want to adopt it. Software/infrastructure *forcing* users to migrate is somewhat possible but rare and frowned upon, and more commonly it's presented as an option ("legacy wallet" / "segwit wallet") retaining compatibility.
+
+In my view, (1) is unlikely to be influenced significantly by feerate gains (IIRC CISA has a max WU reduction of ~28%, and only for extreme many-inputs few-outputs transactions), unless we re-enter a high-feerate environment that persists for a long time (months at least, business/project decisions tend to move slowly), unlike today where feerates are pretty much their historic lowest ever (in BTC terms, at least). On the other hand, (2) may be influenced more by feerate, but I don't think that's really the bottleneck. Rather, I think the converse effect is more relevant: users may *not* want to adopt things that *increase* cost. This is why I argued against (pure) P2MR before.
+
+On the other hand, (1) is likely influenced significantly by implementation complexity, and CISA does add to that. Of course, I expect the actual aggregation to be optional, allowing adoption of P2TRv2 without it, but then the benefits and incentives of feerate reduction through aggregation also disappear. I even have a mild concern about entities taking a stance of "we'll do a big rewrite one day and switch from P2TR to P2TRv2+PQC+CISA, but stick with P2TR for now", causing them (and the ecosystem with it) to miss out on PQC adoption until that time.
+
+I'm happy to hear more thoughts here, but (and I hate to say that) my initial reaction is actually that adding CISA to the mix may be a net negative for the goal of getting the long tail to adopt PQC, due to more complexity in getting the output type spec'ed and softforked in, and (probably) little change in incentives for adoption.
+
+[quote="conduition, post:5, topic:2749"]
+However, if CISA is deployed concurrently, then P2TRv2+CISA will be so overwhelmingly efficient compared to P2MR (with or without CISA), that I expect most users will gravitate towards P2TRv2
+[/quote]
+
+Unless we enter a high-feerate environment again (which I think we need in the long term, but I'm not very hopeful), I don't think CISA will change much here. If P2TRv2 and P2MR are both available, I expect some of the more sophisticated (users+software stacks) to choose P2MR, but P2TRv2 can act as default catering to the long tail ("just stick a PQC script path in there, and bump the witness version").
+
+[quote="conduition, post:5, topic:2749"]
+the economic security of P2MR coins will still ultimately hinge on P2TRv2’s key-spend path being safely disabled in time.
+[/quote]
+
+I agree.
+
+[quote="conduition, post:5, topic:2749"]
+That’s not necessarily a bad thing - more users on addresses with PQ keys is a win. But this makes the stakes higher: **With CISA, disabling ECC and switching to PQC is now even more expensive than it would’ve been without CISA.** More users will be affected by such a change. We can expect even more fierce debate over when and how to activate the EC disable fork, and harsher consequences for timing it wrong.
+[/quote]
+
+It depends on what the PQC, or even ECC, usage in P2MR is like. Have you seen the [discussion](https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702/3) on new witness styles? In a post-CRQC world, we likely need to move away further from witness-serialized-size as resource limiting metric, and give more relative weight to computation, because in particular hash-based schemes have a much larger size per CPU than ECC, so size stops being a good proxy.
+
+We may want to use a scheme like the one discussed in that thread in P2MR, even for the ECC part. This would complicate matters for deployment and adoption (needs P2P changes to relay additional witnesses), but if/when it is clear CRQC are coming, we'll want that complexity adopted as much as possible *before* Q-day anyway. I wouldn't do this for the intermediary-step P2TRv2 output type, but if the differentiation becomes that P2MR is more for the longer term, it does make sense to have it there from the beginning even if that delays P2MR somewhat.
+
+With that, it becomes possible to assign arbitrary cost functions (as long as they're 32 WU per transaction or per input, depending on design) to new output types / spending mechanisms. For example, P2MR with a key-like script at depth 1 could be given the same cost as P2TR today. Or, it may even be reasonable to assign it a cost that's similar to CISA, without actually needing aggregation of the signatures. This can be justified too, due to batch validation at the transaction level actually having similar performance for validation as half-aggregation (full aggregation is still better).
+
+---
+
+> The actual signatures never need to be saved, even by archival nodes.
+
+They still need to be relayed, however, to reach miners who can then aggregate them into blocks. I am [very skeptical](https://groups.google.com/g/bitcoindev/c/wKizvPUfO7w/m/CvmuBnDRCwAJ) about the idea of having aggregation be done incrementally by third-party relay nodes, as the bundling of transactions removes the ability to reason about them individually. I worry this will quickly incentivize direct submission to miners instead, entrenching existing mining pools.
+
+It's a really cool development, but I do worry about it effectively hiding the real cost of bandwidth within the consensus layer that still exists. One possible future outcome, if we lose sight of that cost, is that the real consensus network is just mining pools + a few fast relays between them, and the rest of the network with weaker network connectivity lagging behind after just receiving the aggregate proofs. That's sufficient for auditing after the fact, but removes them real participation in the form of feerate estimation / mempool / replacement reasoning, ...
+
+Now, all of this at the level of individual transactions is fine. If it were the case that an aggregate proof can be constructed that has a size comparable to say a dozen individual signatures, it would allow for effectively PQ CISA, where network users are (possibly very strongly) incentivized to self-aggregate prior to submission to the network already. I would be much more comfortable with such an evolution, but I suspect the numbers won't really work out for that.
+
+[quote="conduition, post:5, topic:2749"]
+But if this risk can be mitigated through formal verification or other modern cryptographic tooling, then maybe SNARK aggregation could be the silver bullet to incentivize migration to PQ.
+[/quote]
+
+I would caution about thinking of anything as a silver bullet; most if not all things come with significant trade-offs. I may also just have seen a few too many such claims :)
+
+[quote="conduition, post:5, topic:2749"]
+With a mostly constant-size block-wide proof of sig-validity, individual signatures would need to be weighed not by size, but by proving cost, which can be reduced to a few hundred hash compressions (or less with stateful signatures). Flock can prove validation of hundreds of such signatures per second, especially when parallelized.
+
+It would require some very careful re-engineering of Bitcoin’s traditional size-based fee accounting systems, but if done correctly we could massively increase the network’s throughput while also incentivizing migration to natively PQ-secure wallets, with no EC cruft carried over.
+[/quote]
+
+I think this is the case regardless of block-wide aggregation or not: a PQC world will need resource metric limits that take weigh CPU more and bandwidth less (but still some). The constants/metrics involved will of course depend greatly on the technology used (what type of PQC, aggregation or not, ...), but we have options even without aggregation.
+
+[quote="conduition, post:5, topic:2749"]
+I’m not sure how viable this strategy will be yet, but i want to mention it for consideration. The game board is very large, and we have many more and better options than I used to believe.
+[/quote]
+
+Indeed!
 
 -------------------------
 
