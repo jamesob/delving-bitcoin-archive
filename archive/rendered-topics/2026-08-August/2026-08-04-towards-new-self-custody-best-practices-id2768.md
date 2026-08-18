@@ -140,3 +140,11 @@ Yes, I think software wallets should do a lot more hand-holding.  Regarding the 
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-18 07:46:31 UTC | #6
+
+I agree that wallets should make the safer choice easier.
+
+I still think a recovery rehearsal is important, even when backups are made simpler. It gives people a chance to find missing information or misunderstandings before the wallet holds a meaningful amount of money.
+
+-------------------------
+

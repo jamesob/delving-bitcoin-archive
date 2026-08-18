@@ -7,15 +7,15 @@
   "cooked": "<p>Yes, I think software wallets should do a lot more hand-holding.  Regarding the multisig, wallets could encode the master xpubs on-chain (in a private manner) so you don\u2019t have to worry about backing them up in a 2-of-3 or 3-of-5.</p>",
   "post_number": 5,
   "post_type": 1,
-  "posts_count": 5,
+  "posts_count": 6,
   "updated_at": "2026-08-17T17:38:54.629Z",
-  "reply_count": 0,
+  "reply_count": 1,
   "reply_to_post_number": 4,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 6,
-  "readers_count": 5,
-  "score": 1.2,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 21.6,
   "yours": false,
   "topic_id": 2768,
   "topic_slug": "towards-new-self-custody-best-practices",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Yes, I think software wallets should do a lot more hand-holding.  Regarding the multisig, wallets could encode the master xpubs on-chain (in a private manner) so you don't have to worry about backing them up in a 2-of-3 or 3-of-5.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Yes, I think software wallets should do a lot more hand-holding.  Regarding the multisig, wallets could encode the master xpubs on-chain (in a private manner) so you don\u2019t have to worry about backing them up in a 2-of-3 or 3-of-5.",
   "truncated": true,
   "post_url": "/t/towards-new-self-custody-best-practices/2768/5",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
