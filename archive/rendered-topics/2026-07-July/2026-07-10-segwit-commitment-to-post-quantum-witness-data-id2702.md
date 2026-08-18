@@ -220,3 +220,18 @@ That, but also no new transaction identifier (like wtxid, with associated P2P lo
 
 -------------------------
 
+sipa | 2026-08-18 18:13:15 UTC | #10
+
+**Annexes vs whole-witness commitment.** There is another advantage to annex-style commitment over "the commitment is the entirely style=0 witness", in that it means new witness styles can be introduced specific to new leaf version or opcodes even, without needing a new output type.
+
+**Chaining witness style commitments?** I think we may be able to get away with just a single 32 WU commitment cost though, by chaining them. The style=0 witness would contain a single annex that commits to the witness of the lowest non-zero style if any. *That* witness would have 1 reserved/free spot for placing a commitment to an even higher witness style, and so forth. I think this is justified from a recourse cost perspective too: actually serialized data will only have at most 1 such non-expanded piece of witness commitment anyway, so there is no reason to account for more (except the single SHA256 verification cost for the witness...). This does require a sequential allocation of witness styles, where consensus changes that introduce a new witness style are aware of all previous ones, and nodes would never care about non-contiguous subsets of styles. I don't think these are unreasonable constraints.
+
+**Mixed-discount witnesses.** I've also thought a bit about how you'd construct mixed-cost witness data, where you e.g. want to prevent applying the highest-discount factor to anything but SHRINCS signatures. One possibility is reusing an assertion-style mechanism like OP_CLTV with annexes:
+* For every signature check a spend wants to perform, it adds a "check with (sig, pubkey)" annex to the input. If the scheme supports pubkey recovery, just the signature suffices.
+* The script itself then just issues checks of the form "require a check with pubkey(hash) X", which searches the list of annexes of that form.
+* The weight computation code just needs to look at the annexes, and apply the right discount factors to each, which can be done entirely independent from script execution.
+
+Thoughts?
+
+-------------------------
+
