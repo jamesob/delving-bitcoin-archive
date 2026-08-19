@@ -120,3 +120,11 @@ In short, Boomerang is like a bitcoin safe with a randomized time-delay lock and
 
 -------------------------
 
+bitryonix | 2026-08-19 02:57:43 UTC | #4
+
+We have improved the readme files for better clarity and understandability.
+
+[https://github.com/bitryonix/boomerang_design](https://github.com/bitryonix/boomerang_design)
+
+-------------------------
+

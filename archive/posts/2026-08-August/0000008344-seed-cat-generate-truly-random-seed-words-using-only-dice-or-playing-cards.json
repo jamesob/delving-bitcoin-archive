@@ -13,9 +13,9 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 7,
-  "readers_count": 6,
-  "score": 1.4,
+  "reads": 8,
+  "readers_count": 7,
+  "score": 16.6,
   "yours": false,
   "topic_id": 2814,
   "topic_slug": "generate-truly-random-seed-words-using-only-dice-or-playing-cards",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks for the feedback.  I meant 3 rolls with up to two dice (2 rolls of two dice and 1 roll of one dice).\n\nRight now it's more of a spec than a guide, if it gets traction then I'll consider expanding it.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks for the feedback.  I meant 3 rolls with up to two dice (2 rolls of two dice and 1 roll of one dice). \nRight now it\u2019s more of a spec than a guide, if it gets traction then I\u2019ll consider expanding it.",
   "truncated": true,
   "post_url": "/t/generate-truly-random-seed-words-using-only-dice-or-playing-cards/2814/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
