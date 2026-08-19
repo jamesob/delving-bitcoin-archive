@@ -128,3 +128,25 @@ We have improved the readme files for better clarity and understandability.
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-19 13:29:52 UTC | #5
+
+For a system designed for long-term savings, I think the recovery plan is just as important as the protection plan.
+
+What would happen if one of the trusted people loses their device, or if one of the supporting services is no longer available years later? It may help to include a simple recovery checklist and recommend practising it with a small amount first.
+
+-------------------------
+
+bitryonix | 2026-08-19 14:57:34 UTC | #6
+
+Hey Anzus,
+
+You're right. The only critical device here is the java card (named Boomlet in the protocol), which has a back up in the setup protocol. We have not yet designed the activation mechanism of that back up though. 
+
+As for the watchtower and SAR, we are planning to add redundancy there in form of multiple WTs and SARs. 
+
+Good point on the recovery checklist. Yes we should do that. Actually we should put that in our ancillaries list.
+
+Thank you for your comment. Appreciated.
+
+-------------------------
+
