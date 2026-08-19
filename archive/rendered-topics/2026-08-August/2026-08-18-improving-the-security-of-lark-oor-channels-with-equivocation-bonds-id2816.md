@@ -268,3 +268,11 @@ The limitations of this approach to JIT onboarding are discussed above.
 
 -------------------------
 
+GeorgeTsagk | 2026-08-19 08:41:45 UTC | #2
+
+Hi @ademan 
+
+Doesn't this secure all OOR vtxos? they don't have to fund an OOR channel necessarily
+
+-------------------------
+
