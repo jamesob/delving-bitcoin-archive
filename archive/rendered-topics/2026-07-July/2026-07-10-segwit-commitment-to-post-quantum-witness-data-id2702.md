@@ -235,3 +235,26 @@ Thoughts?
 
 -------------------------
 
+ajtowns | 2026-08-20 04:36:01 UTC | #11
+
+Hmm, should these be per-input commitments or per-transaction commitments? If you had a consolidation transaction (single signer, single output, multiple inputs, signature includes **both** a taproot bip340 signature and a post-quantum signature, in case either turns out to already be broken), would it be better to have that be constructed as:
+
+```
+ * in 1:
+    * annex: 32B commit to PQ sig
+    * witness: script + 32B pubkey + 64B bip340 sig + 32B pq pubkey
+    * pq-style=1 witness: 3000B pq sig
+ * in 2..in 20:
+    * same
+```
+
+or to have a single 32B annex in the first input that has a pq-style-1 witness commit to all the style-1 witnesses?
+
+Alternatively, maybe this isn't worth worrying about (saving 32 bytes versus a 3000 byte signature?)? Or maybe it's better solved as part of supporting CISA, so that the single-signer is also only generating a single bip340 signature that covers all their inputs, and perhaps combines the pq-signatures into that same input, so only one annex commitment is needed. Or, if you're discounting the style=1+ data by the fact that you have to spend 32B of style=0 witness data to commit to it anyway, perhaps it just doesn't matter at all.
+
+Chaining and requiring sequential support ("if you support style n, you must support style 0..n-1") seem pretty reasonable.
+
+I think you might mean "adds a 'check with (msg, pubkey) annex to the input"? The sig is the thing you want to discount, and the annex isn't discounted. I don't really think that's ideal -- if you just added it to the annex, then an attacker could modify the msg or pubkey (possibly via breaking the bip340 sig that commits to the annex), so that wouldn't achieve the security we want. If you have the script validating the annex, that would work, but I'm not sure there's a meaningful benefit vs just having "pk msg CHECK_PQ_SIG_VERIFY" opcode that grabs the sig from the pq-style witness and does/schedules the actual signature check. I guess I'm implying that this introduces a new "pq-altstack" to the interpreter, and the only opcode that uses it is the pq-version of checksig, and there's no other way to access the stack, and no way to add to the stack?
+
+-------------------------
+
