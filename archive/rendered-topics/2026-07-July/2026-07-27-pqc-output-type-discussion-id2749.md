@@ -324,3 +324,107 @@ Re: TX-level aggregation, i agree. I am hopeful a more "fancy" PQ signature algo
 
 -------------------------
 
+sipa | 2026-08-20 18:18:02 UTC | #8
+
+[quote="conduition, post:7, topic:2749"]
+Interesting, so your take is essentially that the fee efficiency of an output type only matters beyond the point where it becomes *less* efficient than what currently exists?
+[/quote]
+
+In the long term, I believe/hope that fee effects matter. There will likely be times of mempool congestion with feerate spikes, and future businesses and projects will make decisions that are conscious of fee impact.
+
+But for P2TRv2, which IMO ought to prioritize adoption by the long tail, and ideally soon to give a long window for that adoption. For that long tail, I expect the bottleneck to be software/wallet/custodian support by existing providers, and with high probability in the relatively short term, I don't think fee arguments will affect them much.
+
+---
+
+[quote="conduition, post:7, topic:2749"]
+[quote="sipa, post:6, topic:2749"]
+I’m happy to hear more thoughts here, but (and I hate to say that) my initial reaction is actually that adding CISA to the mix may be a net negative for the goal of getting the long tail to adopt PQC, due to more complexity in getting the output type spec’ed and softforked in, and (probably) little change in incentives for adoption.
+[/quote]
+That’s fair, but CISA isn’t so complex to implement locally, e.g. for single-signer wallets. I think @AdamISZ has even pointed out there are ways to simplify the execution of the aggregation protocol for the common special case where all cosigners are the same entity. And even if devs don’t want to invest the time up-front in doing even the most rudimentary (half) aggregation, they could still very easily deploy the CISA output type using non-aggregated BIP340 signatures for spending.
+[/quote]
+
+Your point here is about easy of implementation by developers. I agree in principle, except for a minor concern about "we'll look into this later" if the change seems complex, which I commented on earlier:
+
+[quote="sipa, post:6, topic:2749"]
+On the other hand, (1) is likely influenced significantly by implementation complexity, and CISA does add to that. Of course, I expect the actual aggregation to be optional, allowing adoption of P2TRv2 without it, but then the benefits and incentives of feerate reduction through aggregation also disappear. I even have a mild concern about entities taking a stance of “we’ll do a big rewrite one day and switch from P2TR to P2TRv2+PQC+CISA, but stick with P2TR for now”, causing them (and the ecosystem with it) to miss out on PQC adoption until that time.
+[/quote]
+
+The part you're responding to above is about *timing consensus changes*, not wallet implementation however. In short, I think adding CISA to the P2TRv2 bundle will increase the time it takes for P2TRv2 to become available, and that will likely reduce adoption before Q-day by the long tail more than fee incentives will increase it. I'm sympathetic to the fact that CISA inherently needs a new output type, which makes it a natural fit for combining, but I still think it distracts from P2TRv2's goal. If it's not bundled with P2TRv2, it will need yet another output type, be bundled with P2MR, or not done at all.
+
+---
+
+[quote="conduition, post:7, topic:2749"]
+I’ve seen the thread but I’m still forming an opinion. Currently i gravitate away from the idea, even for P2MR. On one hand, verification cost is critical for performance and hash-based sigs do offer the advantage of blazing fast hardware-accelerated verification and lost cost-per-byte compared to Schnorr… but witness sizes do still matter.
+[/quote]
+
+Post-Q-day, if hash-based PQC is adopted, I think the need for a different witness costing rule (and thus larger (pre-aggregated) serialized block sizes) is almost an inevitability, regardless of whether block-wide aggregation is involved. The actual formula will of course be greatly influenced by the details, ideally accounting for all facets of resource impact (bandwidth, storage, validation, relay). Historically, serialized size and CPU validation costs were roughly proportional, justifying a largely size-based formula. But with cryptography that has a different CPU/size ratio, it seems inappropriate to only account for size. That doesn't need to mean that PQC sigs need to be competitive with ECC ones, but some capacity (in bytes) increase seems warranted if it doesn't come with a proportional CPU increase:
+
+[quote="ajtowns, post:6, topic:2702"]
+It might be that the decision matrix is for the next decade should be something like:
+
+* ideal block size if Q-day doesn’t happen is 3.23MB – that maximises decentralisation
+* ideal block size if Q-day does happen is 12.76MB – that trades off some losses in decentralisation, versus avoiding a significant decrease in transaction capacity
+
+If that’s the case, then it might make sense to provide \~10MB of capacity in a “pqdata” area, but require as consensus that the pqdata area is only used for post-quantum signatures. That way if Q-day doesn’t happen, people don’t use the pqdata area and blocks stay closers to 3.23MB target (because a post-quantum signature uses a higher percentage of 10MB than an ECC signature does of 4MB), but if Q-day does happen, the additional capacity is already available.
+[/quote]
+
+IMO, we *will* need a new witness extension if Q-day happens, and it seems reasonable to aim to have the technology ready for that before Q-day. A way of doing that in a structured way that improves some of segwit's pain points is described in the [witness styles](https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702/3) thread (but that's just one option), and it seems reasonable (but not necessary) to combine that with the later-stage P2MR construction, as it can give a fee structure even for ECC that matches the incentive structure of P2TR, or even exceeding it by matching (half-agg) CISA.
+
+[quote="conduition, post:7, topic:2749"]
+Verification costs are a one-time cost per-node, but storage costs for archival nodes are eternal. A block size increase of the magnitude needed to make even the smallest (XMSS) hash-based sigs fee-competitive with ECC would be an 8 fold increase (4mb → 32mb per block) *at least,* larger (more like 64x) if we consider stateless signatures. *Someone* has to store all that witness data.
+
+This amplifies the absolute cost for archival node storage massively. We’d move from a world where bitcoin’s chain grows by a few hundred gigabytes per year, to a world where chain growth is measured in *terabytes* per year, quickly pricing out amateur archival node runners like myself.
+[/quote]
+
+Sure, *someone* has to store the full block data, but not *everyone*. Nodes and their operators themselves don't need full data (pruning doesn't reduce security or functionality), and if pressure on non-pruned nodes by IBD'ing new nodes grows too big, block storage could be sharded. Using [FEC](https://en.wikipedia.org/wiki/Error_correction_code) techniques it is possible to for example let every node store 20% of every block, in such a way that any combination of 5 nodes together can let you reconstruct everything.
+
+Of all the potential ways additional block data impacts network properties, I consider archive node storage size the least concerning. It's simply never even been close to a problem, and disks have been growing faster than the chain has for a long time already, and furthermore technological solutions exist that can push it further away even. 
+
+[quote="conduition, post:7, topic:2749"]
+We could even mitigate by exploiting [multithreaded verification](https://conduition.io/code/fast-slh-dsa-verification/#Results) which I believe core currently doesn’t do.
+[/quote]
+
+Yes, [it does](https://github.com/bitcoin/bitcoin/pull/2060), since 2013 (inside blocks, not for individually relayed transactions).
+
+[quote="conduition, post:7, topic:2749"]
+IBD and block propagation would also slow down, esp for users with low network bandwidth, and many node runners would need to start pruning witnesses once they run out of HDD space.
+[/quote]
+
+IBD is for most users not bandwidth constrained (but we're getting closer in the upcoming 32.0 release thanks to a number of performance improvements), and I don't think pruning is an issue.
+
+Bandwidth and CPU cost for validation at the tip however is much more concerning to me, as it's what allows the network to stay in sync, both between miners, and between nodes. But I also don't think we need to stick to limits set 9 years ago with the adoption of segwit.
+
+[quote="conduition, post:7, topic:2749"]
+Therefore, my stance is currently that to increase the block size, we must also allow retroactive aggregation of signatures (or blocks) via SNARKs to curtail chain growth, and while I think that road is worth researching, it is not in the cards in the near future IMO.
+[/quote]
+
+Aggregation, even at the block level, won't remove the need for bandwidth for transaction relay prior to block building. It removes one facet of the impact of increased sizes (the ability for weak nodes to keep up with auditing the chain). The ability for nodes to participate in providing the market for block space (i.e., the mempool), which is also an important facet of decentralization (allows for permissionless entry into the mining market, without centralized block-building services), isn't really affected by aggregation. Improving one may justify an increase in the resource limit on pre-aggregated block data, but I don't think it's reasonable to disregard that limit entirely and only look at aggregated size.
+
+My stance is that resource limits in blocks should, for the time being, be set in terms of the CPU usage and pre-aggregated bandwidth imposed on validation nodes. Some increases in bandwidth are warranted, both because network and processing capacities have increased the past decade, and because with hash-based signatures, the CPU cost of validation doesn't have the same per-byte cost anymore. Aggregation is something that can be explored independently, and when it's ready, maybe that's a justification for future resource costing.
+
+[quote="conduition, post:7, topic:2749"]
+With SHRINCS we have not coupled our proposal to a blocksize increase - at least, not initially.
+[/quote]
+
+I agree, it shouldn't. I think in general the "near-term P2TRv2" idea shouldn't include any such thing in general.
+
+[quote="conduition, post:7, topic:2749"]
+If that’s what the community wants, SHRINCS can be reparameterized accordingly to reduce cost-per-byte
+[/quote]
+
+I don't really see what that has to do with the signature scheme. To give a different weight to block data (below 1 WU/byte) you need a new witness extension, which is a combination of P2P-level and consensus-level changes, reaching beyond script or signature logic.
+
+[quote="conduition, post:7, topic:2749"]
+Adding a new sig algo, especially a semi-stateful one, is controversial enough as it is! :sweat_smile:
+[/quote]
+
+Yes...
+
+[quote="conduition, post:7, topic:2749"]
+Maybe there would be a fixed “min fee per byte” policy requirement for nodes to relay transactions, even though the size of the signature doesn’t really count towards blockspace in that scenario, so that minimum might be very small depending on the size of signatures.
+[/quote]
+
+Policy won't suffice here. The reason for having resource limits is to prevent miners from creating blocks that have a too large impact, on the network and on each other.
+
+-------------------------
+

@@ -258,3 +258,29 @@ I think you might mean "adds a 'check with (msg, pubkey) annex to the input"? Th
 
 -------------------------
 
+sipa | 2026-08-20 19:19:35 UTC | #12
+
+[quote="ajtowns, post:11, topic:2702"]
+or to have a single 32B annex in the first input that has a pq-style-1 witness commit to all the style-1 witnesses?
+[/quote]
+
+I think a per-input commitment is cleaner, but other than that I have little arguments against per-tx. There shouldn't be a bandwidth difference (the commitment is elided in serialization), and the impact of verifying the hashing structure should be pretty minimal (if the commitment to the per-tx set of all higher-style witnesses uses per-txin hash that gets aggregated into a per-tx hash, the impact may even be zero).
+
+One downside to per-txin is that it places a per-txin lower bound of 32 WU on the (combination of) all future-style witnesses. That's immaterial if the future-style witnesses are hash-based pqdata, but is perhaps a concern if it's just an P2MR ECC construction that aims for a CISA-like fee profile (which is justified for half-aggregation possibly, as its CPU cost equals that of batch validation).
+
+Per-tx sounds like something natural for combining with CISA, as that naturally adds more per-tx context to both signing and verification.
+
+[quote="ajtowns, post:11, topic:2702"]
+I think you might mean “adds a 'check with (msg, pubkey) annex to the input”? The sig is the thing you want to discount, and the annex isn’t discounted.
+[/quote]
+
+I meant in an annex-like thing inside the new-style witness, which could be arbitrarily discounted by whatever rules that new style has.
+
+[quote="ajtowns, post:11, topic:2702"]
+I guess I’m implying that this introduces a new “pq-altstack” to the interpreter, and the only opcode that uses it is the pq-version of checksig, and there’s no other way to access the stack, and no way to add to the stack?
+[/quote]
+
+Yeah, I guess that makes more sense. That also avoids the need for duplicating the public key (in the witness/annex) and public key commitment (in the script).
+
+-------------------------
+
