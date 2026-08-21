@@ -122,3 +122,15 @@ If there is interest, I am happy to co-author or hand it over.
 
 -------------------------
 
+coldtest-berlin | 2026-08-21 09:39:58 UTC | #7
+
+Thanks for the feedback. Thinking about it further — we can also guarantee a fixed length 108 without padding tricks.
+
+Since encrypt is done once, we can just do rejection sampling: if base58 length != target, generate new salt/iv and try again. On average ∼1.3 tries if we target the ceiling length. Cost is negligible compared to Argon2id.
+
+That way for heirs the rule is trivial: grandpa's backup is always exactly 108 chars. If not — transcription error.
+
+This keeps the format clean for a future shared BIP and gives instant pre-KDF check via length alone. Full checksum as AAD can be added later as part of the shared header.
+
+-------------------------
+
