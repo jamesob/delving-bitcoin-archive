@@ -13,9 +13,9 @@
   "reply_to_post_number": 11,
   "quote_count": 1,
   "incoming_link_count": 0,
-  "reads": 3,
-  "readers_count": 2,
-  "score": 0.6,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 46.0,
   "yours": false,
   "topic_id": 2702,
   "topic_slug": "segwit-commitment-to-post-quantum-witness-data",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"ajtowns, post:11, topic:2702\"]\nor to have a single 32B annex in the first input that has a pq-style-1 witness commit to all the style-1 witnesses?\n[/quote]\n\nI think a per-input commitment is cleaner, but other than that I have little arguments against per-tx. There shouldn't be a bandwidth difference (the commitment is elided in serialization), and the impact of verifying the hashing structure should be pretty minimal (if the commitment to the per-tx set of all higher-style witnesses uses per-txin hash that gets aggregated into a per-tx hash, the impact may even be zero).\n\nOne downside to per-txin is that it places a per-txin lower bound of 32 WU on the (combination of) all future-style witnesses. That's immaterial if the future-style witnesses are hash-based pqdata, but is perhaps a concern if it's just an P2MR ECC construction that aims for a CISA-like fee profile (which is justified for half-aggregation possibly, as its CPU cost equals that of batch validation).\n\nPer-tx sounds like something natural for combining with CISA, as that naturally adds more per-tx context to both signing and verification.\n\n[quote=\"ajtowns, post:11, topic:2702\"]\nI think you might mean \u201cadds a 'check with (msg, pubkey) annex to the input\u201d? The sig is the thing you want to discount, and the annex isn\u2019t discounted.\n[/quote]\n\nI meant in an annex-like thing inside the new-style witness, which could be arbitrarily discounted by whatever rules that new style has.\n\n[quote=\"ajtowns, post:11, topic:2702\"]\nI guess I\u2019m implying that this introduces a new \u201cpq-altstack\u201d to the interpreter, and the only opcode that uses it is the pq-version of checksig, and there\u2019s no other way to access the stack, and no way to add to the stack?\n[/quote]\n\nYeah, I guess that makes more sense. That also avoids the need for duplicating the public key (in the witness/annex) and public key commitment (in the script).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "I think a per-input commitment is cleaner, but other than that I have little arguments against per-tx. There shouldn\u2019t be a bandwidth difference (the commitment is elided in serialization), and the impact of verifying the hashing structure should be pretty minimal (if the commitment to the per-tx s&hellip;",
   "truncated": true,
   "post_url": "/t/segwit-commitment-to-post-quantum-witness-data/2702/12",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
