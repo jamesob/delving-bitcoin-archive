@@ -428,3 +428,70 @@ Policy won't suffice here. The reason for having resource limits is to prevent m
 
 -------------------------
 
+conduition | 2026-08-22 05:51:35 UTC | #9
+
+[quote="sipa, post:8, topic:2749"]
+In short, I think adding CISA to the P2TRv2 bundle will increase the time it takes for P2TRv2 to become available, and that will likely reduce adoption before Q-day by the long tail more than fee incentives will increase it.
+[/quote]
+
+I see what you mean... If we bundle CISA+P2TRv2 then P2TRv2 can't deploy until CISA consensus validation rules are ready. Perhaps you're right. I don't know enough about CISA's development progress to gauge how big a lift it would be to bundle. @fjahr would be a better source.
+
+However I do think you underestimate the mass appeal of an output type with PQC support which is *also the cheapest output type available.* Heck, people seem to like P2MR quite a bit even though until very recently it was twice as expensive as P2TR.
+
+[quote="sipa, post:8, topic:2749"]
+Post-Q-day, if hash-based PQC is adopted, I think the need for a different witness costing rule (and thus larger (pre-aggregated) serialized block sizes) is almost an inevitability, regardless of whether block-wide aggregation is involved.
+[/quote]
+
+[quote="sipa, post:8, topic:2749"]
+IMO, we *will* need a new witness extension if Q-day happens, and it seems reasonable to aim to have the technology ready for that before Q-day.
+[/quote]
+
+If hash-based sigs become the default, then I agree we'll need to do *something* drastic, and maybe that'll be SNARK aggregation, or maybe it'll be an extension block. Recently i've also started thinking maybe we could do both: SNARK aggregation happening _after_ blocks are mined, to assuage the long-term storage impact and make IBD faster.
+
+My hope is that it won't come to that, and someone will discover a highly efficient PQ signature scheme based on isogenies or lattices or something in 5-10 years' time, and this can be backstopped by hash-based signatures for safety. But i do appreciate that we should prepare first for the worst-case, and work with what we have without assuming something better will magically appear.
+
+[quote="sipa, post:8, topic:2749"]
+if pressure on non-pruned nodes by IBD’ing new nodes grows too big, block storage could be sharded. Using [FEC](https://en.wikipedia.org/wiki/Error_correction_code) techniques it is possible to for example let every node store 20% of every block, in such a way that any combination of 5 nodes together can let you reconstruct everything.
+[/quote]
+
+Neat idea. how would one do this in a robust way without some central directory?
+
+[quote="sipa, post:8, topic:2749"]
+Yes, it does, since 2013 (inside blocks, not for individually relayed transactions).
+[/quote]
+
+aha, i stand corrected!
+
+[quote="sipa, post:8, topic:2749"]
+Bandwidth and CPU cost for validation at the tip however is much more concerning to me, as it’s what allows the network to stay in sync, both between miners, and between nodes.
+[/quote]
+
+I'm somewhat undereducated here. Could you tell me, what are the key metrics you care most about in this vein? Block propagation speed? Transaction relay speed?
+
+Do you know of any research on the effects of larger signatures on these metrics? 
+
+[quote="sipa, post:8, topic:2749"]
+The ability for nodes to participate in providing the market for block space (i.e., the mempool), which is also an important facet of decentralization (allows for permissionless entry into the mining market, without centralized block-building services), isn’t really affected by aggregation. Improving one may justify an increase in the resource limit on pre-aggregated block data, but I don’t think it’s reasonable to disregard that limit entirely and only look at aggregated size.
+[/quote]
+
+Agreed. Block-wide aggregation wouldn't affect the efficiency of mempool transaction relay, so any costing adjustments that consider aggregation also have to keep TX relay in mind too. We can't just fork in super huge signatures even if they have near zero verification cost. But we can try to strike a balance between performance and size. Thankfully hash-based sigs are *extremely* configurable. 
+
+[quote="sipa, post:8, topic:2749"]
+[quote="conduition, post:7, topic:2749"]
+If that’s what the community wants, SHRINCS can be reparameterized accordingly to reduce cost-per-byte
+
+[/quote]
+
+I don’t really see what that has to do with the signature scheme. To give a different weight to block data (below 1 WU/byte) you need a new witness extension, which is a combination of P2P-level and consensus-level changes, reaching beyond script or signature logic.
+[/quote]
+
+I'm saying that if compute cost is a more important metric, and a witness extension with a new steeper discount is acceptable, then SHRINCS can be parameterized to target a low computational cost per byte to match the discount offered in the the witness extension.
+
+For example, currently SHRINCS parameters are designed such that verification cost per byte is about $\frac{1}{16}$ of BIP340 schnorr ($\frac{1}{4} \times$ schnorr in the rare case where SHA256 hardware acceleration is not available). Therefore we could justify putting 16x more bytes into a block and still incur roughly same CPU cost during signature validation.
+
+However, we could go steeper, to as low as $\frac{1}{64}$ th of the cost per byte of Schnorr, without gaining too much in size. For example, SLH-DSA with parameter set `h=40 d=4 a=13 k=12 w=4` would give us 7696 byte sigs (about the same size as standard SLH-DSA-SHA2-128s) but which only cost about 1000 SHA256 compressions to verify. If you use hardware acceleration, that's about 64x cheaper per byte to verify than Schnorr, so a 64x block size increase would be feasible (modulo bandwidth and storage considerations). Stateful signatures can be made even cheaper.
+
+We've been basing our decisions mostly around Schnorr as a yardstick for verifier performance, but if one is comfortable throwing the Schnorr yardstick out the window, we could do even wackier things, like budget for a specific number of SHA256 compressions per block and parameterize for that instead.
+
+-------------------------
+
