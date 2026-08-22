@@ -428,7 +428,7 @@ Policy won't suffice here. The reason for having resource limits is to prevent m
 
 -------------------------
 
-conduition | 2026-08-22 05:51:35 UTC | #9
+conduition | 2026-08-22 05:53:21 UTC | #9
 
 [quote="sipa, post:8, topic:2749"]
 In short, I think adding CISA to the P2TRv2 bundle will increase the time it takes for P2TRv2 to become available, and that will likely reduce adoption before Q-day by the long tail more than fee incentives will increase it.
@@ -487,7 +487,7 @@ I don’t really see what that has to do with the signature scheme. To give a di
 
 I'm saying that if compute cost is a more important metric, and a witness extension with a new steeper discount is acceptable, then SHRINCS can be parameterized to target a low computational cost per byte to match the discount offered in the the witness extension.
 
-For example, currently SHRINCS parameters are designed such that verification cost per byte is about $\frac{1}{16}$ of BIP340 schnorr ($\frac{1}{4} \times$ schnorr in the rare case where SHA256 hardware acceleration is not available). Therefore we could justify putting 16x more bytes into a block and still incur roughly same CPU cost during signature validation.
+For example, currently SHRINCS parameters are designed such that verification cost per byte is about $\frac{1}{16}$ of BIP340 schnorr ($\frac{1}{4} \times$ schnorr in the rare case where SHA256 hardware acceleration is not available). Therefore we could justify putting 16x more signature bytes into a block and still incur roughly same CPU cost during signature validation.
 
 However, we could go steeper, to as low as $\frac{1}{64}$ th of the cost per byte of Schnorr, without gaining too much in size. For example, SLH-DSA with parameter set `h=40 d=4 a=13 k=12 w=4` would give us 7696 byte sigs (about the same size as standard SLH-DSA-SHA2-128s) but which only cost about 1000 SHA256 compressions to verify. If you use hardware acceleration, that's about 64x cheaper per byte to verify than Schnorr, so a 64x block size increase would be feasible (modulo bandwidth and storage considerations). Stateful signatures can be made even cheaper.
 
