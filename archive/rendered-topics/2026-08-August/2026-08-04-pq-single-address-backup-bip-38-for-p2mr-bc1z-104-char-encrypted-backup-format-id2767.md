@@ -134,3 +134,25 @@ This keeps the format clean for a future shared BIP and gives instant pre-KDF ch
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-23 08:21:23 UTC | #8
+
+A fixed length sounds helpful, especially for paper backups that may be stored for many years.
+
+I would still include the typo check in the first version, though. A copied or mistyped character can leave the backup the same length, so length alone may not give people enough confidence before they try to recover it.
+
+-------------------------
+
+coldtest-berlin | 2026-08-23 08:59:41 UTC | #9
+
+Thanks for the feedback — you're right, length alone isn't enough for a paper backup that lives for years. A single mistyped char keeps the length the same.
+
+We will follow your advice and add a typo check in v2:
+
+Fixed length will be 108 chars Base58 (79 bytes instead of 76), and we will add 2 bytes CRC16 in the header checked before any KDF.
+
+Structure: \[1 ver | 2 CRC16(salt+iv+ct) | 16 salt | 12 iv | 48 ct\] = 79 bytes → 108 chars
+
+Keeps audit simple, but gives confidence before recovery.
+
+-------------------------
+
