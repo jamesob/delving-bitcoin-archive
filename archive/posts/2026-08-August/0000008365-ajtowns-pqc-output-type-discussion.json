@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[quote=\"conduition, post:9, topic:2749\"]\n[quote=\"sipa, post:8, topic:2749\"]\nif pressure on non-pruned nodes by IBD\u2019ing new nodes grows too big, block storage could be sharded. Using [FEC](https://en.wikipedia.org/wiki/Error_correction_code) techniques it is possible to for example let every node store 20% of every block, in such a way that any combination of 5 nodes together can let you reconstruct everything.\n[/quote]\n\nNeat idea. how would one do this in a robust way without some central directory?\n[/quote]\n\nSee this thread:\n\nhttps://delvingbitcoin.org/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624\n\nThe 246/10 approach [described there](https://delvingbitcoin.org/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624/10) has you divide nodes into 246 groups, each storing 10% of total blockchain data, and you need to connect to (at least) 10 peers from distinct groups, not absolutely any combination of 10 peers.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": true,
   "admin": true,
   "staff": true,
@@ -54,9 +59,15 @@
   "excerpt": "Neat idea. how would one do this in a robust way without some central directory? \n\n\nSee this thread: \n\n\nThe 246/10 approach <a href=\"https://delvingbitcoin.org/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624/10\">described there</a> has you divide nodes into 246 groups, each storing 10% of total blockchain data, and you need to connect to (at least) 10 peers from distinct groups, not absol&hellip;",
   "truncated": true,
   "post_url": "/t/pqc-output-type-discussion/2749/10",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
