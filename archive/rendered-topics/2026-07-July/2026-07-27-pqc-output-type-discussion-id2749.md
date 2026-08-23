@@ -495,3 +495,21 @@ We've been basing our decisions mostly around Schnorr as a yardstick for verifie
 
 -------------------------
 
+ajtowns | 2026-08-23 04:11:30 UTC | #10
+
+[quote="conduition, post:9, topic:2749"]
+[quote="sipa, post:8, topic:2749"]
+if pressure on non-pruned nodes by IBD’ing new nodes grows too big, block storage could be sharded. Using [FEC](https://en.wikipedia.org/wiki/Error_correction_code) techniques it is possible to for example let every node store 20% of every block, in such a way that any combination of 5 nodes together can let you reconstruct everything.
+[/quote]
+
+Neat idea. how would one do this in a robust way without some central directory?
+[/quote]
+
+See this thread:
+
+https://delvingbitcoin.org/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624
+
+The 246/10 approach [described there](https://delvingbitcoin.org/t/fountain-codes-a-way-to-reduce-blockchain-storage-costs/2624/10) has you divide nodes into 246 groups, each storing 10% of total blockchain data, and you need to connect to (at least) 10 peers from distinct groups, not absolutely any combination of 10 peers.
+
+-------------------------
+
