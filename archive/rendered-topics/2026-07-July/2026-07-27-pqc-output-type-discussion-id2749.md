@@ -552,3 +552,108 @@ Last, community consensus. It's impossible to predict what will happen but I can
 
 -------------------------
 
+sipa | 2026-08-24 17:56:36 UTC | #12
+
+@conduition 
+
+[quote="conduition, post:9, topic:2749"]
+However I do think you underestimate the mass appeal of an output type with PQC support which is *also the cheapest output type available.*
+[/quote]
+
+I wish you were right, that was the whole idea behind Taproot! But we're five years in, have seen multiple periods of mempool congestion in that time (some taking months), and not even all providers support *sending* to it, let alone use it as default for new addresses. Adoption is mostly within systems built around newer features or technology stacks, and stupid hype stuff. Not the large-scale migration we'd want to see for PQC security, neither in terms of BTC nor in terms of users.
+
+Realistically, I don't think we should expect CISA to have a bigger impact than that, I think. That's not to say it won't influence behavior at all, but as I said, I think it's more a long term thing that will affect future software projects/companies when people inevitably migrate anyway, not existing wallets.
+
+To back this up with actual numbers, here are graphs with logscale vsize savings for P2WPH inputs -> P2TR key path spends, and then from P2TR key path spends to CISA. Full-agg CISA can improve over P2TR more than P2TR did over P2WPH, but only *for sufficiently complex transactions*. That's the point of course: incentivizing those, but adopting workflows that allow such transactions is an even bigger task than adding PQC as it will typically involve adding interactivity (for CoinJoin/PayJoin like constructions):
+
+![consolidation|631x500, 50%](upload://nG42fFoq5HxffLg6HyiF6z0mnc8.png)
+![coinjoin|631x500, 50%](upload://wEg5FYsEZJjqNXIAi9VQj4vTake.png)
+
+[quote="conduition, post:9, topic:2749"]
+Heck, people seem to like P2MR quite a bit even though until very recently it was twice as expensive as P2TR.
+[/quote]
+
+That sounds more like an argument that people like P2MR for other reasons than its economics. I don't see how you'd conclude from this that feerates are relevant to them?
+
+
+[quote="conduition, post:9, topic:2749"]
+If hash-based sigs become the default, then I agree we’ll need to do *something* drastic, and maybe that’ll be SNARK aggregation, or maybe it’ll be an extension block.
+[/quote]
+
+Just to make sure we're talking about the same thing. An extension block, as discussed years ago as a scalability proposal, is something very different and much more invasive than what we're talking about here. It's a completely new block area, with its own transactions and separate UTXO set, and mechanisms to move coins in both directions between the two areas. It's completely incompatible with existing wallet designs; you need transfers between the two blocks to pay to an old address. It can be done as a soft-fork, but it's probably the most invasive thing you can imagine that still qualifies.
+
+I am just talking about a new witness in transaction serialization, like Segwit did, and the design discussed [here](https://delvingbitcoin.org/t/segwit-commitment-to-post-quantum-witness-data/2702) is somewhat less invasive than that even (no need for new wtxids or P2P changes beyond the transaction serialization). I don't want to minimize the impact either, it's still a big change, much bigger than just adopting a new output type or introducing a new signature opcode, but it is something the ecosystem has done before.
+
+And I think we'll want this even if the long-term migration plan ends up using something else than hash-based. Because it's very unlikely it'll have the same size/verification characteristics as ECC, even if it's not as extreme as hash-based. And if we're going to need it anyway, I'd rather have the infrastructure in place beforehand.
+
+[quote="conduition, post:9, topic:2749"]
+Neat idea. how would one do this in a robust way without some central directory?
+[/quote]
+
+See the thread AJ linked to for a concrete idea, but I'd like to give an intuitive description.
+
+Split your block up into 10-byte chunks. Then extend each of those chunks (implicitly, we won't actually compute/store these) to 256 bytes, by adding 246 error-correction bytes, in such a way that you can recover the whole chunk if you have any 10 bytes of it (and know which positions those bytes are from).
+
+Every node now picks one (or a few) random numbers in range [0,255], and just stores those position bytes of every chunk. So for every number they pick, they store 1/10th of each block. For reconstruction, it suffices to pick peers which together have 10 distinct numbers. So it is indeed not quite the case you can have *any* 10 peers (or 5 or whatever, depending on the constants chosen), they need to be peers that chose distinct numbers. It's possible to switch to more complex codes which offer a larger range of numbers (making the probability of collisions in them lower), in exchange for more reconstruction complexity.
+
+[quote="conduition, post:9, topic:2749"]
+Could you tell me, what are the key metrics you care most about in this vein? Block propagation speed? Transaction relay speed?
+[/quote]
+
+The big one is block propagation speed: practically, minimizing the time between a miner finding a block, getting it across the network, up to the point where *other miners* can start hashing on top of a successor block. So this includes:
+* time to relay transactions (if those weren't already relayed before)
+* time to relay the block (which can use [compact blocks](https://github.com/bitcoin/bips/blob/7fe0b034ec967b52a5a28276419117326df93263/bip-0152.mediawiki) or [FIBRE](https://bitcoinfibre.org/))
+* time to validate it along each hop (compact blocks typically allow relay before full validation, but it still needs reconstruction/PoW checking)
+* time to validate it by the miner (which cannot be skipped; only for transactions not yet validated beforehand)
+* time to build a new block template on top from mempool (in miner's nodes)
+* time for that block template to make it to hashers (internal to miner setup, protocol changes have little impact here).
+
+It's really only the first one that is directly impacted by block/transaction size, and it is hard to measure its real-life worst-case impact, because in practice most blocks are primarily filled with transactions that were relayed and validated ahead of time. That said, KIT has a [page](https://www.dsn.kastel.kit.edu/bitcoin/) with block and transaction relay statistics going back many years, which shows the impact of adoption of certain technologies and transaction composition changes.
+
+[quote="conduition, post:9, topic:2749"]
+I’m saying that if compute cost is a more important metric, and a witness extension with a new steeper discount is acceptable, then SHRINCS can be parameterized to target a low computational cost per byte to match the discount offered in the the witness extension.
+[/quote]
+
+Ah, of course!
+
+I think aiming for roughly the same signature verificiation as BIP-340 seems like a reasonable rule of thumb. It does sound like a potential for bikeshedding, though.
+
+---
+
+@fjahr 
+[quote="fjahr, post:11, topic:2749"]
+This discussion now even prompted me to make a revision of the BIP. This new version of BIP 460 that makes opted-out inputs plain BIP 341 key path spends, details in this BIP pull comments
+[/quote]
+
+Cool. I think that's helpful.
+
+[quote="fjahr, post:11, topic:2749"]
+The existence of CISA should not prevent any wallet from adopting P2TRv2 unless I am overlooking something here.
+[/quote]
+
+I have one concern here, but it is admittedly a weak one that's probably addressable with education/communication. If a custodial company CEO hears "a simple change that just adds quantum protection", they may agree to put resources on implementing it quickly. If they hear "a new output type with several features like key aggregation and PQC", they may decide "We'll implement that whenever we need to rewrite that part of our stack anyway".
+
+[quote="fjahr, post:11, topic:2749"]
+but at the very least Payjoin and Coinjoin users and by extension anyone that cares about their on-chain privacy are a developer and user group in the long tail that would be very excited and quick to adopt anyway based on the conversations I have had.
+[/quote]
+
+Yeah, they would be the obvious parties who would want CISA. But I also expect them to be relatively quick adopters of a PQC output type without CISA? Just by virtue of being users/developers willing to be at the forefront of development. Under "long tail", I mostly think of many custodial and multi-currency software solutions; they tend to put more effort into supporting more altcoins/tokens than keeping up with (from their perspective, relatively) stable Bitcoin that won't gain them more customers.
+
+[quote="fjahr, post:11, topic:2749"]
+In terms of technical implementation and review I think CISA is currently far ahead of whatever the PQ part of P2TRv2 would look like. Sure, using hash-based signatures mostly takes care of security assumptions but the proposed schemes are all developed very recently and it feels like the whole field is still evolving. The first serious attempt at a library for such a scheme was published less than 2 weeks ago: https://delvingbitcoin.org/t/libshrincs-a-c-implementation-with-a-machine-checked-security-proof/2795 . This also goes for the design details of the necessary companion pieces: tripwire, miner lockdown etc.
+[/quote]
+
+I think that's fair. CISA adds a fair bit of complexity, but it may well be further ahead than some other aspects we'd also need.
+
+[quote="fjahr, post:11, topic:2749"]
+Last, community consensus.
+[/quote]
+
+This is where my concern lies mostly.
+
+I feel like P2TRv2 and CISA kind of pull in opposite directions in terms of messaging. The output's goal is preparing for CRQCs, but then it also adds an optimization that stops working when that actually happens.
+
+Maybe I'm wrong, and there is a good synergy between those parts of the community who would favor it, and I'm happy to support the idea if there is momentum. Still, my belief is that the large class of users we'd want to adopt PQC with a P2TRv2 output type will at scale not really adopt CISA anyway, so that doesn't help them. And in the other direction, if CRQC-skeptical CISA-fans exist, they may be annoyed at being required to add PQC support to get CISA?
+
+-------------------------
+
