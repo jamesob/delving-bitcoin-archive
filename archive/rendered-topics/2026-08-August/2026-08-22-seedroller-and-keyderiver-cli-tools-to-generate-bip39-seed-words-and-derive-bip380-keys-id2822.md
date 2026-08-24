@@ -10,3 +10,11 @@ Feedback is much appreciated, this is still early work and I'm happy to implemen
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-24 10:42:47 UTC | #2
+
+This looks interesting. For people using dice because they want to avoid relying on a computer for randomness, would it make sense to offer a clearly labelled dice-only option as well?
+
+That could make it easier for users to understand exactly what they are trusting and choose the approach they are comfortable with.
+
+-------------------------
+
