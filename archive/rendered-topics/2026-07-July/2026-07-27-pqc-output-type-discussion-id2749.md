@@ -513,3 +513,42 @@ The 246/10 approach [described there](https://delvingbitcoin.org/t/fountain-code
 
 -------------------------
 
+fjahr | 2026-08-23 22:55:02 UTC | #11
+
+[quote="conduition, post:9, topic:2749"]
+I don't know enough about CISA's development progress to gauge how big a lift it would be to bundle. @fjahr would be a better source.
+
+[/quote]
+
+Happy to chime in, but maybe I am also the worst source since I am biased pro CISA :wink:
+
+The two aggregation scheme BIPs (458, 459) as well as the CISA BIP 460 have had a few eyes on them. More would be better, of course, but as far as I am concerned they are complete with reference implementations and pretty extensive test vectors. There are pull requests to secp256k1 for BIP458 and BIP459. Review of the secp256k1 implementations is probably the biggest lift looking at how long Silent Payments took. I consider this the primary blocker in terms of implementation. The Bitcoin Core code is IMO comparatively simple and there should be enough review power if consensus is formed around the change.
+
+[quote="conduition, post:7, topic:2749"]
+And even if devs don't want to invest the time up-front in doing even the most rudimentary (half) aggregation, they could still very easily deploy the CISA output type using non-aggregated BIP340 signatures for spending.
+
+[/quote]
+
+I have been thinking about PQ P2TRv2 + CISA since @conduition started raising this as an idea on the ML. This discussion now even prompted me to make a revision of the BIP. This new version of BIP 460 that makes opted-out inputs plain BIP 341 key path spends, details in this BIP pull comments: https://github.com/bitcoin/bips/pull/2212#issuecomment-5387112895 (will update the PR after some initial feedback). What this should do is take wallet adoption out of the equation since there is no need for them to adopt any new signing logic. From their perspective P2TRv2 should initially be equivalent with or without CISA since a CISA-enabled witness v2 is a strict superset of P2TRv2's ECC key path. Wallet support for aggregation can be added at any time without pressure.
+
+[quote="sipa, post:8, topic:2749"]
+In short, I think adding CISA to the P2TRv2 bundle will increase the time it
+takes for P2TRv2 to become available, and that will likely reduce adoption
+before Q-day by the long tail more than fee incentives will increase it.
+
+[/quote]
+
+I don't think it has to. I think this is not an unreasonable take given how long Silent Payments has taken to make it into secp256k1 but I am much more optimistic.
+
+I think there are primarily three dimensions that could introduce delays in user adoption: forming community consensus, technical implementation and review, and wallet adoption.
+
+As mentioned above with the latest change using plain BIP341 key path spends as the opt-out in CISA, I think the wallet part can be taken out of the equation. The existence of CISA should not prevent any wallet from adopting P2TRv2 unless I am overlooking something here. I agree that the low fee market may mean that the savings are not compelling enough for everyone but at the very least Payjoin and Coinjoin users and by extension anyone that cares about their on-chain privacy are a developer and user group in the long tail that would be very excited and quick to adopt anyway based on the conversations I have had.
+
+In terms of technical implementation and review I think CISA is currently far ahead of whatever the PQ part of P2TRv2 would look like. Sure, using hash-based signatures mostly takes care of security assumptions but the proposed schemes are all developed very recently and it feels like the whole field is still evolving. The first serious attempt at a library for such a scheme was published less than 2 weeks ago: https://delvingbitcoin.org/t/libshrincs-a-c-implementation-with-a-machine-checked-security-proof/2795 . This also goes for the design details of the necessary companion pieces:  tripwire, miner lockdown etc. And while certainly some of the most capable people in this space are focusing on this, compared to CISA I think there are still a lot more unknowns and discussions to be had (take this with a huge grain of salt obviously since I know a lot about one but not the other). The most interesting question here IMO is if the review work needed to get CISA across the line draws resources away from the PQ part which then delays that side. I think this is the case to a certain degree since we want the most experienced researchers and developers to review both ideally. But in the range of realistic timelines I don't think this should make a meaningful difference. On secp256k1 for example, where resources have been very scarce for a while, a group of new people are contributing and reviewing and afaik none of them are working on hash-based PQ stuff in parallel (I did not try to verify this). Part of the work on these hash-based and PQ in general seems to be new contributors that have joined the space recently and have experience in this particular area. The low-ish overlap between these two parts appears to be a strength here. But this is still new territory since we never had a soft fork that implemented two consensus changes that are so different. And I certainly didn't think I would argue there is enough review power for any big project in Bitcoin but in this case I am optimistic that if we have community consensus we can get both done without delay.
+
+Last, community consensus. It's impossible to predict what will happen but I can see this going both ways: Either adding CISA gets more people on board quicker, particularly CRQC skeptics, or CRQC believers will argue against it as a waste of time since it wastes resources on ECC stuff. I think that offering benefits for the case that CRQCs are delayed or never happen should help to form community consensus much faster but I have been speaking with people interested in CISA much more frequently than people working on PQ stuff. And thinking a bit more in scenarios: It is highly likely that (in public perception at least) CRQC development with either slow down or speed up in the coming 1-2 years compared to current expectations. If there is a speed-up happening it is relatively easy to drop the CISA part from the soft fork that is in development. But if CISA is not part of the proposal but CRQC development slows down, there may be no appetite for it at all in the community and development/deployment/adoption could stall (wherever we are at that point). CISA can be an insurance to keep driving adoption in this scenario when CRQCs may be closer than they appear. The fact that CISA "distracts from P2TRv2’s goal" may not be a negative for reaching the goal regardless.
+
+@sipa Curious where you see the bottlenecks that would lead to a delay of P2TRv2 if CISA is bundled with it.
+
+-------------------------
+
