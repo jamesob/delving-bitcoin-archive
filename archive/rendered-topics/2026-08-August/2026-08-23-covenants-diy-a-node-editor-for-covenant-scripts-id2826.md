@@ -1,8 +1,8 @@
 # Covenants.diy: a node editor for covenant scripts
 
-askii21m | 2026-08-23 15:37:08 UTC | #1
+askii21m | 2026-08-24 03:51:48 UTC | #1
 
-I built an open-source node editor for experimenting with covenant scripts.
+I'm working on an open-source node editor for experimenting with covenant scripts.
 
 [covenants.diy](https://covenants.diy/)
 
@@ -19,8 +19,8 @@ Every graph has a permalink, so the nine worked examples below open already buil
 | [Rebindable state](https://covenants.diy/g/i2hiLVS5xF) | BIP 448. The update leaf is three bytes |
 | [Rebindable state, the older way](https://covenants.diy/g/-OtKkAyIWP) | BIP 118. The same channel with an ANYPREVOUT key type |
 | [Merkle proof](https://covenants.diy/g/S2e0EJ8jJG) | BIP 347. A script folds a leaf back into a root it commits to |
-| [CAT-only covenant](https://covenants.diy/g/akWqN8LtVP) | BIP 347. No CSFS: the script builds its own signature |
-| [Recursive covenant](https://covenants.diy/g/0azk3Zc88f) | BIP 347 + 348. A coin that can only be spent back into itself |
+| [CAT-only covenant](https://covenants.diy/g/D-uv04aDnu) | BIP 347. No CSFS: the script builds its own signature |
+| [Recursive covenant](https://covenants.diy/g/z0CxkxMX9e) | BIP 347 + 348. A coin that can only be spent back into itself |
 
 If there is a construction you would like wired up as an example, say so and I will add it :slight_smile:.
 

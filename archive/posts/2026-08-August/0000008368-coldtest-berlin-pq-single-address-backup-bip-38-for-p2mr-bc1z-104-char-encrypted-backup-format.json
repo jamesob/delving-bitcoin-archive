@@ -13,9 +13,9 @@
   "reply_to_post_number": 8,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 0.8,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 16.0,
   "yours": false,
   "topic_id": 2767,
   "topic_slug": "pq-single-address-backup-bip-38-for-p2mr-bc1z-104-char-encrypted-backup-format",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks for the feedback \u2014 you're right, length alone isn't enough for a paper backup that lives for years. A single mistyped char keeps the length the same.\n\nWe have followed your advice and added a typo check.\n\nFixed length is now 108 chars Base58 (79 bytes instead of 76), we have added 2 bytes CRC16 in the header checked before any KDF.\n\nStructure: \\[1 ver | 2 CRC16(salt+iv+ct) | 16 salt | 12 iv | 48 ct\\] = 79 bytes \u2192 108 chars\n\nKeeps audit simple, but gives confidence before recovery.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks for the feedback \u2014 you\u2019re right, length alone isn\u2019t enough for a paper backup that lives for years. A single mistyped char keeps the length the same. \nWe have followed your advice and added a typo check. \nFixed length is now 108 chars Base58 (79 bytes instead of 76), we have added 2 bytes CRC&hellip;",
   "truncated": true,
   "post_url": "/t/pq-single-address-backup-bip-38-for-p2mr-bc1z-104-char-encrypted-backup-format/2767/9",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
