@@ -18,3 +18,9 @@ That could make it easier for users to understand exactly what they are trusting
 
 -------------------------
 
+bubb1es | 2026-08-24 14:54:11 UTC | #3
+
+Thanks for taking a look. There is already at `-r` option that only takes dice roles, so it can give "reproducable" results, ie. same dice rolls after sha256 hash always give same seed words. I compare with the results from iancolman.io/bip39 in the [known_answer_100_rolls_no_os_entropy](https://github.com/bubb1es71/bitcoin-key-tools/blob/202a848866a666c9d855ff3157be32c1ecebd46c/seedroller/src/main.rs#L474-L509) unit test.
+
+-------------------------
+
