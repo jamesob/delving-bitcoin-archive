@@ -698,3 +698,27 @@ I think aiming for roughly the same signature verificiation as BIP-340 seems lik
 
 -------------------------
 
+sipa | 2026-08-25 20:16:36 UTC | #14
+
+[quote="ajtowns, post:13, topic:2749"]
+So I’d say the timeframe for fee-driven adoption of taproot has only been at most 6 months (for n-of-n; still waiting for k-of-n), and that’s been in a time of record low fee levels.
+[/quote]
+
+I was mostly talking about single-sig; the situation is indeed more complicated for (efficient) multisig.
+
+I think it's unlikely that the prisoner's dilemma played much of a role here. Senders were/are (almost completely) willing to send to P2WSH already, with a similar per-output cost as P2TR. With that, the choice to give our a P2TR address just reduces spending costs. A more plausible explanation is that receivers didn't want a different output type for change and for receiving, and that P2TR for both combined didn't seem sufficiently beneficial (or just that the potential fee gains were not interesting enough to them in general).
+
+[quote="ajtowns, post:13, topic:2749"]
+I think you want a relatively high chance of collisions because the set of nodes you collide with is also your anonymity set as a node (because changing your number after you’ve picked it is only possible if you store 100% of the blockchain, which defeats the purposes).
+[/quote]
+
+Ah, fair point.
+
+[quote="ajtowns, post:13, topic:2749"]
+would probably require new p2p messages for chunking blocks or something though. Perhaps also a limit on an individual tx to not having more than… 100kB of pq sig data?
+[/quote]
+
+I'd like to argue for a general tx limit (in terms of "serialized size up to witness style=1") maybe, perhaps captured a bit more abstractly as a weight limit? It'd be necessary for verifiable chunking of blocks (send some range of transactions within a block, plus Merkle path for the transaction before and Merkle path for the transaction after) to be guaranteed to be possible. But a tx weight limit might not be a bad thing in general (from a block template optimization perspective).
+
+-------------------------
+
