@@ -276,3 +276,9 @@ Doesn't this secure all OOR vtxos? they don't have to fund an OOR channel necess
 
 -------------------------
 
+ademan | 2026-08-25 20:43:01 UTC | #3
+
+It should be pretty easy to adapt. It wasn't really my focus because I specifically wanted to facilitate small value lightning onboarding, but if you apply this to normal OOR transfers it looks a lot like the "Fast Finality" scheme proposed in v1 of Keer et al. just using `OP_CHECKSIGFROMSTACK` instead of private key recovery. My scheme also gives you key scoping for free which is nice, and actually more useful for normal OOR transactions.
+
+-------------------------
+
