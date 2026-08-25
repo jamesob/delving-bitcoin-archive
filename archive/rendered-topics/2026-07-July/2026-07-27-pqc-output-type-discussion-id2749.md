@@ -657,3 +657,44 @@ Maybe I'm wrong, and there is a good synergy between those parts of the communit
 
 -------------------------
 
+ajtowns | 2026-08-25 15:06:32 UTC | #13
+
+[quote="sipa, post:12, topic:2749"]
+Taproot! But we’re five years in, have seen multiple periods of mempool congestion in that time (some taking months), and not even all providers support *sending* to it, let alone use it as default for new addresses. Adoption is mostly within systems built around newer features or technology stacks, and stupid hype stuff. Not the large-scale migration we’d want to see for PQC security, neither in terms of BTC nor in terms of users.
+[/quote]
+
+I don't think five years is the right figure there: rather I think there's largely four types of common payment paths:
+ * single sig: taproot is very slightly more expensive than p2wpkh due to the larger output (ignoring the prisoner's dilemma aspect that mildly encourages taproot adoption)
+ * n-of-n multisig: wasn't more efficient until musig became available which was either late 2024 for libsecp, earlier this year with 31.0 for core, and added to the spec for lightning in May 2026 but still only usable for private channels
+ * k-of-n multisig: we've got FROSTsnap signing devices, but as I understand it we  don't have a spec/standard for FROST yet
+ * complicated alternative scripts (hash-path or timelock path for HTLCs, eg): afaik in practice we don't have any complicated enough scripts in common use (ie, not "new features/tech stacks/stupid hype stuff") that they would be significantly cheaper with taproot
+
+So I'd say the timeframe for fee-driven adoption of taproot has only been at most 6 months (for n-of-n; still waiting for k-of-n), and that's been in a time of record low fee levels. So I don't think you can draw any meaningful conclusions: prior to this year, getting cheaper fees was an open research problem; during this year, getting discounted fees probably doesn't justify the engineering time.
+
+[quote="sipa, post:12, topic:2749"]
+Realistically, I don’t think we should expect CISA to have a bigger impact than that, I think.
+[/quote]
+
+I think for exchanges it could be significant -- maybe reducing tx fees by 30% for larger consolidation txs; perhaps 60% if you got to switch from CHECKMULTISIG to FROST key path sigs at the same time. Still only meaningful if fee rates rise, though.
+
+[quote="sipa, post:12, topic:2749"]
+It’s possible to switch to more complex codes which offer a larger range of numbers (making the probability of collisions in them lower), in exchange for more reconstruction complexity.
+[/quote]
+
+I think you want a relatively high chance of collisions because the set of nodes you collide with is also your anonymity set as a node (because changing your number after you've picked it is only possible if you store 100% of the blockchain, which defeats the purposes).
+
+[quote="sipa, post:12, topic:2749"]
+[quote="conduition, post:9, topic:2749"]
+I’m saying that if compute cost is a more important metric, and a witness extension with a new steeper discount is acceptable, then SHRINCS can be parameterized to target a low computational cost per byte to match the discount offered in the the witness extension.
+
+[/quote]
+
+Ah, of course!
+
+I think aiming for roughly the same signature verificiation as BIP-340 seems like a reasonable rule of thumb. It does sound like a potential for bikeshedding, though.
+[/quote]
+
+8MB blocks with w=64 seems almost appealing (pq sigs ending up 2.77x as expensive as a schnorr sig, while being 5.5x the size of a schnorr sig, if I'm not totally off base with the maths); would probably require new p2p messages for chunking blocks or something though. Perhaps also a limit on an individual tx to not having more than... 100kB of pq sig data?
+
+-------------------------
+
