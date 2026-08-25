@@ -1,6 +1,6 @@
 # Faster txid hash tables with SipHash-1-3-UJ
 
-sipa | 2026-08-25 03:14:47 UTC | #1
+sipa | 2026-08-25 19:40:21 UTC | #1
 
 I'd like to briefly highlight a small improvement that is coming in Bitcoin Core 32.0 (to be [released](https://github.com/bitcoin/bitcoin/issues/35122) in october): a custom variant of [SipHash](https://en.wikipedia.org/wiki/SipHash).
 
@@ -20,7 +20,7 @@ To explain where improvements are possible, consider what the current (Bitcoin C
 In total this involves 14 SipRound calls (10 in 5 Compress steps, 4 in Finalize).
 
 To improve upon this, we make three changes:
-* **Switch to SipHash-1-3.** This is a fairly common variant for hash tables (and the default in Python and Rust), as SipHash-2-4 is designed for a stronger notion of security (indistinguishability from random) than what is actually needed for hash tables (ease of creating multi-collisions). This just drops the number of SipRounds per compression from 2 to 1, and per finalized from 4 to 3.
+* **Switch to SipHash-1-3.** This is a fairly common variant for hash tables (and the default in Python and Rust), as SipHash-2-4 is designed for a stronger notion of security (indistinguishability from random) than what is actually needed for hash tables (ease of creating multi-collisions). This just drops the number of SipRounds per Compress from 2 to 1, and per Finalize from 4 to 3.
 * **Make it unpadded and block-based.** SipHash is traditionally defined over inputs that are sequences of *bytes*, which require some padding to convert to a sequence of 64-bit inputs fed to the Compress calls. This padding guarantees that inputs of different length cannot easily be made to collide, but we do not actually care about that here, as all inputs are the same size. The result is that we treat our hash function now in terms of an input that consists of 64-bit blocks directly, rather than bytes. To prevent confusion with the old scheme, the final constant XOR'ed into v<sub>2</sub> is changed from 0xff to 0x6465646461706e75 ("unpadded").
 * **Add support for "jumbo" blocks.** With the above in place, we now allow each input block to be *either* a normal 64-bit block, or a large 256-bit jumbo block, allowing the latter *only* when they are themselves the output of a cryptographic hash. This means that 256-bit hashes in the input (like our txid) can now be processed as a single SipRound, rather than 4 of them. This is justified by the fact that while attackers have control over the input indirectly, the cryptographic hash in between means they cannot simultaneously control many bits (control $n$ bits at a cost of $2^n$ grinding work).
 

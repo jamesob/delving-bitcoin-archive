@@ -141,3 +141,31 @@ I still think the pure "it's a coinjoin but it's also a bet, a .. joinbet perhap
 
 -------------------------
 
+AdamISZ | 2026-08-25 16:38:09 UTC | #6
+
+A little update that came from thinking a bit more, from coding:
+
+the simple structure presented in the paper doesn't achieve what it claims: it claims that because there is a payment from one party to the other, that this is not a distinguishable fingerprint compared with payments more generally; but this is false! (at least assuming the 'pot sweetener' is small or negligible).
+
+The reason it's false is kinda interesting: the two parties cofund shared control in the normal way, and then the payout transaction transfers the winnings of the 'pot' to the .. winner :) The problem is that that amount is correlated across the two transactions, even when the players cooperate, when Bob wins.
+
+(for the next part see Fig 3 from the paper)
+
+Concrete example: Alice funds with 10, Bob with 5. The agreed bet size is 2. Then the funding transaction has two outputs: Bob's change (3), and the (pot + Alice) output of 12. Once the bet is decided, if Bob won, then the utxo of 12 is sent to 2 outputs: 4 (Bob's winnings) and 8 change to Alice. No prizes seeing the problem now since I just mentioned it --- the winnings 4 are exactly double the value of: (Bob funding input minus Bob funding change).
+
+And now think about how that generalizes: in a 2-thimble game you're at 50-50 odds so you have equal pot-contribution, therefore a factor of 2. Very easy to spot assuming that network fees and pot-sweeteners are relatively small, which they will be.  What about 10 thimbles? It's not fundamentally different: you will get a 10-1 ratio on the payout but then you can just look for that ratio in the amounts fingerprint, as above.
+
+In the general case a blockchain analyst looking for a fingerprint can simply iterate over feasible integer multiples until it matches to within tolerance. Not perfect from their perspective, but not good enough from ours.
+
+I realized then that certain forms of bet-aggregation solve this. What that means is, if Bob's payout when he wins is an aggregate of, say, 10 distinct thimble-games, it can have any arbitrary probability distribution (because each individual game can *also* be multi-thimble and therefore wildly unequal odds; that decision is all offchain), and therefore arbitrary payout imbalance (the payout can be 77.43 to 1 or 2.09 to 1 or whatever). One way to get bet aggregation is to do this in a channel. PTLCs are not available. Customizing this might be too limiting and I'm more interested in opportunistic contract negotiation here, anyway.
+
+But a *single, on-chain bet* can actually aggregate k (=10 for example) bets: you, as before, pay into shared control utxo U1 and then build a tx graph[1]: U1 pays into 10 outputs U2_k and you execute the existing babilonia v1 protocol out from each of those U_2k utxos, creating 10 payouts with whatever payoffs you like. When the dealer reveals the t_k for the adaptors in each of these, by providing the cosignature on the payout, the player (in this case it's kinda necessary) signs over the outputs where they won, and have the private key, to tell the dealer that they won this bet. Then both sides have a consistent view of the payouts and can "cooperatively contract novate": (like what I called CooperativeOverlayTx in the paper): just create a new payout from U1 in the same form as the existing PayoutTx, giving Bob his net winnings, which as mentioned above, are drawn from a completely arbitrary distribution and therefore create ~ no fingerprint.
+
+'cooperatively novate' - as distinct from adversarially novate as in Poon-Dryja, because there reneging on a state update can steal funds, here if you don't complete the protocol honestly, the worst you do is spray the contract negotiation onchain, which kills the privacy effect but does not alter the bet outcome. Fees are an issue... which is also why you couldn't consider k=200 in *this* protocol.
+
+I'll make a new version of the paper with this significantly more complex transaction structure, as, while complicated, I think its very practical.
+
+[1] Like this: https://gist.github.com/AdamISZ/67ce2af8cb354e39cabd42219a53aab2
+
+-------------------------
+
