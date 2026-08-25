@@ -722,3 +722,15 @@ I'd like to argue for a general tx limit (in terms of "serialized size up to wit
 
 -------------------------
 
+AdamISZ | 2026-08-25 20:18:38 UTC | #15
+
+I tend to agree with Pieter that it's somehow slightly 'off' to merge CISA into this. CISA, I agree, does not have nearly as big of a selling point in practice as some people want to believe.
+
+It would be better to have it available as a "here's an output type that will be cheaper for your ordinary wallet when it matters, which is to say, when you have to consolidate a bunch of utxos" and, without overselling it, talk about 25% cheaper as a typical figure.
+
+When taproot was about to release I was telling people "it'll take years for this to get adoption and it'll only really get *any* adoption when we get MuSig/PTLC in Lightning". My reasoning was: people are slow to switch and reluctant to switch unless they see a reason, which is either, cheaper fees or "there's a big chunk of the ecosystem using it". That was the case with segwit - it was very non-trivially cheaper so the ecosystem moved and then you got a snowball effect. If we'd actually got PTLC and so on in LN in a reasonable timeframe, it could have pulled a lot of the ecosystem with it. But as of now, it's only the tinkerer or functionally heavier wallets like Sparrow or the heavier ones like Liana that have it. The LN/PTLC angle didn't turn out to be straightforward.
+
+The best CISA can hope for is that a 20-25% discount for consolidation matters, I think. The whole coinjoin/batching etc. etc. angle is going to remain niche unless something big changes. Big operators with a lot of backend stuff going on will perhaps care, though. And it would be nice if they didn't have to overlay another technical decision on top of it (quantum stuff).
+
+-------------------------
+
