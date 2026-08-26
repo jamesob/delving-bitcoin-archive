@@ -698,7 +698,7 @@ I think aiming for roughly the same signature verificiation as BIP-340 seems lik
 
 -------------------------
 
-sipa | 2026-08-25 20:16:36 UTC | #14
+sipa | 2026-08-26 02:22:33 UTC | #14
 
 [quote="ajtowns, post:13, topic:2749"]
 So I’d say the timeframe for fee-driven adoption of taproot has only been at most 6 months (for n-of-n; still waiting for k-of-n), and that’s been in a time of record low fee levels.
@@ -718,7 +718,7 @@ Ah, fair point.
 would probably require new p2p messages for chunking blocks or something though. Perhaps also a limit on an individual tx to not having more than… 100kB of pq sig data?
 [/quote]
 
-I'd like to argue for a general tx limit (in terms of "serialized size up to witness style=1") maybe, perhaps captured a bit more abstractly as a weight limit? It'd be necessary for verifiable chunking of blocks (send some range of transactions within a block, plus Merkle path for the transaction before and Merkle path for the transaction after) to be guaranteed to be possible. But a tx weight limit might not be a bad thing in general (from a block template optimization perspective).
+I'd argue for a general tx weight limit (which would implicitly limit serialized size up to style=1). Some limit is necessary for verifiable chunking of blocks (send some range of transactions within a block, plus Merkle path for the transaction before and Merkle path for the transaction after) to be guaranteed to be possible. But a tx weight limit might not be a bad thing in general (from a block template optimization perspective).
 
 -------------------------
 

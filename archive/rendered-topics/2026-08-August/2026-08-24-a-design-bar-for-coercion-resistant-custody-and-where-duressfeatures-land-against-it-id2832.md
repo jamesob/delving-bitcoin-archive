@@ -78,3 +78,11 @@ nobody and leaves holders unable to evaluate what they are relying on.
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-26 02:24:22 UTC | #2
+
+This is a useful reminder that different physical-risk situations need different plans.
+
+It may help to include a simple “who is this for?” section: what ordinary self-custody users should do, and when someone has enough risk or value to consider a remote co-signer. Without that, some readers may come away thinking that self-custody is unsafe for everyone.
+
+-------------------------
+
