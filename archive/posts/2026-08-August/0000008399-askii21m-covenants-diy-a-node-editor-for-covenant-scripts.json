@@ -13,8 +13,8 @@
   "reply_to_post_number": 2,
   "quote_count": 0,
   "incoming_link_count": 1,
-  "reads": 6,
-  "readers_count": 5,
+  "reads": 7,
+  "readers_count": 6,
   "score": 6.2,
   "yours": false,
   "topic_id": 2826,
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Thanks, glad it's useful!\n\nThe ruleset is a checklist now, so you can turn on any combination of opcodes instead of picking a bundle.\n\nCurrently implemented:\n\n* `OP_CHECKTEMPLATEVERIFY`\n* `OP_CHECKSIGFROMSTACK`\n* `OP_CAT`\n* `ANYPREVOUT`\n* `OP_TEMPLATEHASH`\n* `OP_INTERNALKEY`\n* `OP_PAIRCOMMIT`\n* `OP_TXHASH`\n\nWorking on adding `OP_CHECKCONTRACTVERIFY` and `OP_VAULT` at the moment.\n\nAnything you make can be easily shared, hopefully this helps with the research around sharing new covenant protocols/constructions.\n\n![Screenshot 2026-08-26 at 11.13.51 am|690x286, 75%](upload://wIE88bPukrMRsaRnOWx5tICK8AA.png)",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Thanks, glad it\u2019s useful! \nThe ruleset is a checklist now, so you can turn on any combination of opcodes instead of picking a bundle. \nCurrently implemented: \n\nOP_CHECKTEMPLATEVERIFY\nOP_CHECKSIGFROMSTACK\nOP_CAT\nANYPREVOUT\nOP_TEMPLATEHASH\nOP_INTERNALKEY\nOP_PAIRCOMMIT\nOP_TXHASH\n\nWorking on adding OP_C&hellip;",
   "truncated": true,
   "post_url": "/t/covenants-diy-a-node-editor-for-covenant-scripts/2826/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
