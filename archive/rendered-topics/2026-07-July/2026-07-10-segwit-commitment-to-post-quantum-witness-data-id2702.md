@@ -308,3 +308,43 @@ To me at least, it seems that any valid signature on $m$ by $X$ is fungible with
 
 -------------------------
 
+sipa | 2026-08-26 17:22:07 UTC | #14
+
+[quote="conduition, post:13, topic:2702"]
+What if we do not commit to the PQ signatures in the block extension?
+[/quote]
+
+As you might imagine, the exact same question came up around the 2015-2017 segregated witness proposal. You can probably find records of discussions then.
+
+The main reason is that block hashes, and PoW, are no longer committing to all data that is relevant for validation. Blocks, in the worst case, are pretty expensive to validate, and the latency in doing so is critical for block validation purposes. Thankfully, it is also very expensive to create a block (~10 minutes worth of global PoW), which is an extremely effective rate limiter on the creation of invalid blocks, and simultaneously a strong economic incentive not to create them. **However, this only works because PoW commits to the witness data.** Without it, any relay node can create infinitely many invalid versions of a valid (or inherently invalid) block, at basically zero cost, and verification logic cannot cache the result; it needs to check each and every one. Unlike for individual transactions, nodes do not have the option of dropping too-expensive blocks; they must accept them if they are valid.
+
+Practically speaking, it means block validation failures wouldn't be cacheable anymore, because a block's identity (its hash) would just commit to its effects, not whether it is valid.
+
+Another reason which may not apply as strongly in this specific case is auditability: if someone steals coins from a 2-of-3 multisig e.g. you may want the ability to see which signers did that. That's especially relevant for `OP_CHECKMULTISIG` where the signature themselves choose the subset. That opcode doesn't exist anymore in BIP-342 Tapscript, and could easily be avoided for future script proposals.
+
+In the context of block-wide SNARK proofs, I think this means you want solutions that either:
+* Have the proof be part of the consensus rules, i.e., have the block commit to the SNARK proof, and have block validity defined in terms of that.
+* Have an "after the fact" proof that some nodes may accept, sort of like utreexo, which falls outside of the consensus rules. It would just need to make sure that it proves "a specific pqdata exists, which matches the commitments in the revealed data, that combined with the revealed non-pqdata, pass validity rules.".
+
+-------------------------
+
+conduition | 2026-08-26 19:32:11 UTC | #15
+
+I see, that makes sense. Thanks for elucidating. 
+
+[quote="sipa, post:14, topic:2702"]
+Without it, any relay node can create infinitely many invalid versions of a valid (or inherently invalid) block, at basically zero cost, and verification logic cannot cache the result; it needs to check each and every one.
+[/quote]
+
+what about other layers of validation caching? e.g. most valid blocks contain signatures that active nodes have already seen and validated in the mempool, so worst-case when seeing a new block the node only needs to verify signatures on TXs which are covered by the block hash but that the node hasn't positively validated previously. 
+
+Say a malicious node Bob takes a valid block and scrambles its signatures, then relays the invalid block to peer Alice. 
+- Alice may have already seen the valid version of the same block (both valid and invalid blocks have the same block hash) and can ignore the invalid block. 
+- If Alice hasn't seen the block before, she only needs to check the signatures in transactions she hasn't seen before, i.e. TXs not in her mempool, and those will probably be very few, yes?
+
+Of course it's possible for someone to mine a block containing a bunch of garbage transactions which weren't previously validated by most nodes and thus triggering a lot of cache misses, but that's already possible today if you have the hashpower. Thankfully it's not economical to do so.
+
+Still, even with TX-level validation caching, adversaries would have access to slightly more DoS attack surface. Perhaps there could also be some other way to rate-limit peers from proposing blocks with invalid witnesses. I will think on this some more and read the thread before throwing further ideas around.
+
+-------------------------
+
