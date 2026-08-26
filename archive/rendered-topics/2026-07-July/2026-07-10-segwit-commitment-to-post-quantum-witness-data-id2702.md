@@ -284,3 +284,27 @@ Yeah, I guess that makes more sense. That also avoids the need for duplicating t
 
 -------------------------
 
+conduition | 2026-08-26 14:56:05 UTC | #13
+
+disclaimer, i haven't read the whole thread yet. Before i do, I would like to suss out a radical alternative. **What if we do not commit to the PQ signatures in the block extension?** 
+
+There are some ideas i've been playing around with vis-a-vis SNARK aggregation where having malleable signature data could be extremely useful on an architectural/mining level to make SNARKification of blocks more efficient and and less burdensome for miners, making PQ block relay much faster too.
+
+But before spending more cycles on this idea I would like to see if the premise is even feasible from a security perspective.
+
+Let's first assume a few things:
+
+- No PQ adaptor signatures (i.e. we never need proof of signature publication).
+- PQ signatures are constant-size (e.g. SLH-DSA).
+- The PQ extension block contains only PQ signatures, no other witness data.
+
+Now with those assumptions, would it really be so bad if signatures were malleable? 
+
+If all we care about is authenticating messages (i.e. checking that pubkey $X$ authorized message $m$), then what does it matter if the signature changes while the TX is in the mempool, or after the block is mined?  
+
+If you have a TX with valid signatures and someone else has the same TX with different valid signatures, do you really need to send any messages to update one-another? 
+
+To me at least, it seems that any valid signature on $m$ by $X$ is fungible with any other for the purposes of authentication. Are there other purposes for signatures besides adaptor schemes that i'm not seeing?
+
+-------------------------
+

@@ -38,3 +38,28 @@ Oh wow, hey thanks for making this!
 
 -------------------------
 
+askii21m | 2026-08-26 12:02:49 UTC | #3
+
+Thanks, glad it's useful!
+
+The ruleset is a checklist now, so you can turn on any combination of opcodes instead of picking a bundle.
+
+Currently implemented:
+
+* `OP_CHECKTEMPLATEVERIFY`
+* `OP_CHECKSIGFROMSTACK`
+* `OP_CAT`
+* `ANYPREVOUT`
+* `OP_TEMPLATEHASH`
+* `OP_INTERNALKEY`
+* `OP_PAIRCOMMIT`
+* `OP_TXHASH`
+
+Working on adding `OP_CHECKCONTRACTVERIFY` and `OP_VAULT` at the moment.
+
+Anything you make can be easily shared, hopefully this helps with the research around sharing new covenant protocols/constructions.
+
+![Screenshot 2026-08-26 at 11.13.51 am|690x286, 75%](upload://wIE88bPukrMRsaRnOWx5tICK8AA.png)
+
+-------------------------
+

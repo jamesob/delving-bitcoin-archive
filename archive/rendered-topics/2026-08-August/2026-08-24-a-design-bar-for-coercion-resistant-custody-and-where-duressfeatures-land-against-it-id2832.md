@@ -86,3 +86,15 @@ It may help to include a simple “who is this for?” section: what ordinary se
 
 -------------------------
 
+yurisvb | 2026-08-26 13:39:46 UTC | #3
+
+Thank you for interaction, @Anzus_GemWallet!
+If you want a palpable quantitative perspective on the gravity of the problem, one of the sources provides one:
+
+https://github.com/Yuri-SVB/Great-Wall-docs/blob/95c75e518d7655da5dad2607da16d2d5079c0268/justification-and-economics/JUSTIFICATION.pdf
+
+In that companion analysis, I compare statistics of jewelry theft with wrench attack. The preliminary conclusion is that the actuarial cost of Bitcoin self-custody already is higher than self-custody of jewelry.
+The practical takeaway from both works is not to rely on obscure methods, particularly those yielding deadly-race-vulnerability.
+
+-------------------------
+
