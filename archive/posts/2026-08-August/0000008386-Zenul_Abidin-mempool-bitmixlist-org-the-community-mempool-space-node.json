@@ -12,10 +12,10 @@
   "reply_count": 0,
   "reply_to_post_number": null,
   "quote_count": 0,
-  "incoming_link_count": 2,
-  "reads": 4,
-  "readers_count": 3,
-  "score": 10.8,
+  "incoming_link_count": 3,
+  "reads": 5,
+  "readers_count": 4,
+  "score": 31.0,
   "yours": false,
   "topic_id": 2836,
   "topic_slug": "mempool-bitmixlist-org-the-community-mempool-space-node",
@@ -39,7 +39,12 @@
   "user_title": null,
   "bookmarked": false,
   "raw": "[![](upload://oV8Z6a9BODS9dphEFqDccYc72Ss.png)](https://mempool.bitmixlist.org)\n\nI'm now running a production mirror of mempool.space.\n\nThis particular mirror is based on v3.3.1 \\[9332d9db\\], and only branding changes have been made. Otherwise, it's identical to the main site.\n\nIt is based on [mempool/electrs](https://github.com/mempool/electrs). This node has:\n\n* 8x32 GB of DDR4 ECC RAM\n* 2x Intel(R) Xeon(R) Gold 6262V  <-- This particular processor slightly lowers my memory bandwidth but it is what it is\n* 2x 7.68TB NVMe SSD running xfs on an LVM configuration (got these for a huge discount!)\n* 10 Gbps public Ethernet\n* Layer 3/4 DDoS protection\n* Separate Bitcoin node + LND (no channels)\n\nUse it now: [mempool.bitmixlist.org](https://mempool.bitmixlist.org)\n\nOr use the API: <https://mempool.bitmixlist.org/docs/api/rest>\n\nTor version: http://mempool6xjj67yzf55s2mdhhhuabxqfejfm5eh7ikxuxtmef2o5hkdyd.onion/\n\nI2P: http://mempoolhsdlztlgq5h3phk7ifovypsxsw2puly2mkqg6ulowlypa.b32.i2p/\n\nYou can also use the Electrum server powered by this mempool at [electrum.bitmixlist.org:50002:s](http://electrum.bitmixlist.org).",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "<a href=\"https://mempool.bitmixlist.org\" rel=\"noopener nofollow ugc\">[image]</a> \nI\u2019m now running a production mirror of mempool.space. \nThis particular mirror is based on v3.3.1 [9332d9db], and only branding changes have been made. Otherwise, it\u2019s identical to the main site. \nIt is based on <a href=\"https://github.com/mempool/electrs\" rel=\"noopener nofollow ugc\">mempool/electrs</a>. This node has: \n\n8x32 GB of DDR4 ECC RAM\n2x Intel(R) Xeon(R) Go&hellip;",
   "truncated": true,
   "post_url": "/t/mempool-bitmixlist-org-the-community-mempool-space-node/2836/1",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
