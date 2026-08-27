@@ -231,13 +231,13 @@ I understand that this thread is more philosophical than anything so at a higher
 
 -------------------------
 
-ajtowns | 2026-08-27 15:33:15 UTC | #11
+ajtowns | 2026-08-27 15:35:13 UTC | #11
 
 [quote="AdamISZ, post:10, topic:2842"]
 the Bitcoin Cash fork, because afair that’s the only time there was a genuine full-on hashpower split. Not sure if it reached 50-50 at any point but even if it didn’t it was very close.
 [/quote]
 
-BCH as a percentage of the combined BCH+BTC hashrate peaked at about 12% cumulative and declined from there, though due to BCH's difficulty adustment algorithm fluctuating it had days where it hit 60%+ of hashrate and weeks where it hit 20%+.
+BCH as a percentage of the combined BCH+BTC hashrate peaked at about 12% cumulative and declined from there, though due to BCH's difficulty adustment algorithm fluctuating it had days where it hit ~60% of hashrate and weeks where it hit 20%+.
 
 ```plotly
 data:
