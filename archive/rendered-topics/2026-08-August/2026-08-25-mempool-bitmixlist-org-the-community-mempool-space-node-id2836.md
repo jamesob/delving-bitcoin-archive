@@ -29,3 +29,9 @@ You can also use the Electrum server powered by this mempool at [electrum.bitmix
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-27 14:32:52 UTC | #2
+
+Nice to see another independent public option available. A simple status page or uptime history could also be helpful, especially for people who may want to use this as an alternative when other services are unavailable. Do you plan to maintain it as a long-term community service?
+
+-------------------------
+

@@ -216,3 +216,18 @@ That + signaling of intentions to enable new rules or disable old ones, would al
 
 -------------------------
 
+AdamISZ | 2026-08-27 14:25:12 UTC | #10
+
+The best example here was probably around the Bitcoin Cash fork, because afair that's the only time there was a genuine full-on hashpower split. Not sure if it reached 50-50 at any point but even if it didn't it was very close.
+
+In that case this question became very concrete indeed. Those of us using electrum as part of our workflow had to ask: hang on, what blocks am I being fed as valid?
+
+Would it have been *completely incoherent* to take the position at the time "I'll treat the heaviest chain as the real one"? It would have been quite a mess. If you're really ever in that boat of "I'm willing to entertain both versions of bitcoin right now", you'd be far better off running *both* than this kind of "either" version that could switch your tx history completely from one moment to the next. That basically means you run your own fully validating nodes (both) or you enter into a relationship with a provider (e.g. electrum server(s)) that explicitly tell you what rules they are choosing to fully validate.
+
+In practice, during that very dangerous time when Bitcoin's future appeared to be in the balance (having a 50-50 hashpower split is .. uh.. not great), even those of us who clearly sat on one side had to make very careful engineering/usage choices about handling this "dual reality".
+
+
+I understand that this thread is more philosophical than anything so at a higher level: when there isn't meaningful consensus divergence (as per my earlier "binding, Schelling" comment) there's not really much to discuss; you can be lazy, perhaps in pockets, about the idea that you don't need to care about validation rules. Maybe not smart to be like that, but you can afford to be. But the problem with the "smooth brain" approach ( :laughing: ) of work-only is it's spectacularly brittle when put to the test. Consensus can't form around a system without rules. Proof of work has been in the past characterized as "signature over work" (instead of signatures over identities) and that's a pretty good way to describe it: it *attests* to state, but it doesn't define it. Without a definition of the state you're attesting to you just have a kind of amorphous goop.
+
+-------------------------
+
