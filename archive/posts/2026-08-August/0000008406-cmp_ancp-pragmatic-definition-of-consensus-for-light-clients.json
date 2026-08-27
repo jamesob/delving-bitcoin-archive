@@ -7,7 +7,7 @@
   "cooked": "<p>Quick (and maybe uninformed) note: one of the bottlenecks on doing fullchain ZKP is the necessity on entire rule set being prooven in each block. If we assume the POW only, maybe just untill few blocks behind the tip, couldn\u2019t we make a light client ZKP based?</p>\n<p>In that way, light clients could startup new light clients in seconds, just distributing ZKPs. Those would prove the chain to be valid, to have X size, to be related to Y tip header and to be related to Z utreexo commit.</p>",
   "post_number": 3,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-08-26T17:28:53.478Z",
   "reply_count": 1,
   "reply_to_post_number": null,

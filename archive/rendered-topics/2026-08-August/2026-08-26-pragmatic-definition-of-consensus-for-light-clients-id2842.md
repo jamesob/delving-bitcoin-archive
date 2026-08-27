@@ -291,3 +291,14 @@ Not sure how to express this point of selective enforcement any better to be hon
 
 -------------------------
 
+Nuh | 2026-08-27 15:56:58 UTC | #13
+
+A big part of my point here is actually that this ratio is under utilized in light clients. Light clients should:
+1) Observe any slowing down of block issuance and consider that a sign of possible fork, maybe even a hidden (selfish mining fork) and adjust their confirmations critiria accordingly.
+
+2) Don't drop peers just because they are sharing invalid blocks (like Floresta might do) but instead be patient and observe how far that fork goes and use that relative hash rate in its automated decision making including a fallback to circuit breaker that requires user's interference.
+
+For example Bitcoin Cash could have succeeded as a hard fork in becoming the majority chain... it wouldn't have been the first hard fork in bitcoin's history, and prematurely ignoring these blocks as a hardcoded policy, without escalating for the user to decide, would have been a mistake.
+
+-------------------------
+

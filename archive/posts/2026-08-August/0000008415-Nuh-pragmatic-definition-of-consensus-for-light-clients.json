@@ -7,7 +7,7 @@
   "cooked": "<p>I also want to express another motivation to this discussion about subjective rules enforcement, I want to make it clear that not only is it safe to do on a personal level, but that if it is safe to do, we can expect people to be doing so, which means we don\u2019t know what rules do nodes enforce at all, and the only thing we know is what miners enforce, and of course they enforce these rules because their direct exit offramps are enforcing these rules. But we can\u2019t observe anything other than miners behavior.</p>\n<p>So we should actually invest in mechanisms that allow miners to very explicitly advertise, at all time, what rules they enforce.</p>\n<p>This could be by advertising their client ids, or a bitmap field of rules/forks/bips that they enforce etc..</p>\n<p>That + signaling of intentions to enable new rules or disable old ones, would allow the entire ecosystem to do this negotiation entirely on chain, and avoid the constant drama that we keep getting into, because we insist that node runners need to enfroce all rules or nothing.</p>",
   "post_number": 9,
   "post_type": 1,
-  "posts_count": 12,
+  "posts_count": 13,
   "updated_at": "2026-08-27T09:04:57.734Z",
   "reply_count": 0,
   "reply_to_post_number": 8,
