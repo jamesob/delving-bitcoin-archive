@@ -277,3 +277,17 @@ data:
 
 -------------------------
 
+Nuh | 2026-08-27 15:51:24 UTC | #12
+
+I am not sure to be honest if you think the suggested approach is stupid or not. But in your example, watching a 50/50 fork split would be treated in one of two ways based on user's preference:
+1) Either slow down accepting transaction so much that it effectively halts until the ratio approaches something like 90/10.
+2) Explicitly halt and ask the user to decide whether to stick with the existing version of libbitcoinkernel for fraud proofs, OR optionally switch to another version of libbitcoinkernel.
+
+So basically I am suggesting to do exactly what you should be doing in these situations; Either wait till the rest of the economic actors make their mind and the hashrate follows. OR make a deliberate decision, not something that the client can automate, for example switching to Bitcoin Cash if that is what the user wants.
+
+But the point I made multiple times here is that, you don't need to run a full validating node to do either of these strategies, you can simply validate the safety of your utxos (and dismiss any chain that steals from you) and optionally validate any rules that the user feels strongly about (for example taproot if your utxos in taproot etc.) but for the rest of the rules, just ignore them and let the market make up its mind, and you will observe that in PoW. If the user feels passionate about a soft/hard fork, then they have to manually instruct their client to enforce the subset of these rules.
+
+Not sure how to express this point of selective enforcement any better to be honest.
+
+-------------------------
+
