@@ -173,3 +173,46 @@ Utreexo isn't a light client, it's a different model for running a full node tha
 
 -------------------------
 
+Nuh | 2026-08-27 08:52:56 UTC | #8
+
+@ajtowns Thanks for your pushback, the purpose of this post wasn't to convince anyone of anything, but to get feedback like yours in case I am missing something.
+
+I believe you are incorrect though, and that is fine, running full nodes is safe and no need to convince people to not do it.
+
+I don't agree with most of your reply, including the semantics of light client vs lightweight, but I am open to changing semantics for the sake of conversations. 
+
+However, I think I offered something that is different from 'running a full node that’s “lightweight”' .. namely that you don't actually have to enforce all the rules the way Floresta would do in the case of suspecting fraud, you could just enforce that your utxos are safe, totally ignoring any invalid witness, choosing to go with any hard forks as long as it seems to have significantly more demand (as witnessed by PoW) than any other fork, OR your client should halt confirming incoming transactions and alert you to take action.
+
+My argument that this was the most pragmatic but also most honest definition of consensus that is close to users expectations. I don't think users would want to double down on following a worthless fork even after most economic value switched to something else by a hard fork or by just abandoning a soft fork (I don't care much that these are equivilant in theory, there are two very distinct ways to reach them, one with coordination and one without it).
+
+Finally, this is not the same as an SPV or following the economic majority blindly, this is different because it adds the following:
+1) enforcement of your utxos safety.
+2) possibly enforcement of rules that a significant amount of your wealth is bound to, basically being strongly opinionated about one or more rules because it matters to you financially.
+3) for any other rules you don't care about, or a general observable forks, slow down confirmations and ultimately halt and ask users to intervene and make a decision.
+
+I find this more valuable for me personally than enforcing rules that I don't actually use or care about. if other people care about them enough, they will fork off just like I would for rules I care about, and if they are a majority they will drag the hashrate behind them and then I will follow them, and until that happens I would be slowing down my confirmations or halting entirely.
+
+> *Someone* is still enforcing those rules though, and you’re just letting someone else do it on your behalf. Who is that?
+
+Rules I care about, I enforced by me and people like me. Rules I don't care about, are enforced by people who do care about these rules. A full node is just a node that cares about all rules, I simply don't, and I will not lose all my money following a minority chain just because someone made an invalid transaction according to a soft fork I never cared about. 
+
+The fact that this node is "lightweight" is incidental, you can do this selective enforcement on "full nodes" by running older Bitcoin Core versions, or a patched client, and in fact you can't even know who enforces what, especially because how taproot and pay to script hash hide these information for long term holders. 
+
+The point here is that for some users, like myself, it might be the smartest course of action to only draw the line in the sand where it actually matters: 1) your own money, 2) enforcement of rules that secures your money 3) your subjective prediction for which fork will be sustainable and valuable long term. Drawing the line for all rules that the latest bitcoin core version enfroces regardless of whether they matter to you, is both excessive and risky and assumes that you would rather lose all your money than follow ANY hard fork, and I suspect not many people actually sign up for that conciously.
+
+I hope this makes more sense to you. If not and you think it is stupid, then of course you should continue to run full nodes.
+
+-------------------------
+
+Nuh | 2026-08-27 09:04:57 UTC | #9
+
+I also want to express another motivation to this discussion about subjective rules enforcement, I want to make it clear that not only is it safe to do on a personal level, but that if it is safe to do, we can expect people to be doing so, which means we don't know what rules do nodes enforce at all, and the only thing we know is what miners enforce, and of course they enforce these rules because their direct exit offramps are enforcing these rules. But we can't observe anything other than miners behavior. 
+
+So we should actually invest in mechanisms that allow miners to very explicitly advertise, at all time, what rules they enforce.
+
+This could be by advertising their client ids, or a bitmap field of rules/forks/bips that they enforce etc..
+
+That + signaling of intentions to enable new rules or disable old ones, would allow the entire ecosystem to do this negotiation entirely on chain, and avoid the constant drama that we keep getting into, because we insist that node runners need to enfroce all rules or nothing.
+
+-------------------------
+
