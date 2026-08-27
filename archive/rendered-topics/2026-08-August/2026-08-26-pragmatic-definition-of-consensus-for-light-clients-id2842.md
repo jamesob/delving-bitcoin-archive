@@ -131,3 +131,45 @@ I think [Raito](https://github.com/starkware-bitcoin/raito) is what you are look
 
 -------------------------
 
+ajtowns | 2026-08-27 05:12:10 UTC | #7
+
+[quote="Nuh, post:1, topic:2842"]
+I’ve been trying to articulate, primarily to myself, a practical, pragmatic, and realistic definition of *consensus*, viewed strictly from the perspective of economic actors rather than theoretical correctness.
+[/quote]
+
+For me, that question isn't sufficiently defined: consensus on what? In the "full node" world, there's two major questions to answer:
+
+ * what are the rules I expect to enforce?
+ * what is the most work chain that obeys those rules?
+
+The first determines what software you should run, the second is just the software doing it's job relaying and validating blocks. If you're "in consensus" on the rules you enforce, you'll continue operating on the same chain that exchanges call BTC; if you're not, you'll be spending your time arguing why you're on the "real Bitcoin" and everyone else is conspiring against you. If you're not on the most work chain for those rules, you (hopefully) just have buggy software and should switch to something better.
+
+For a light client, you're only enforcing PoW rules, not all the others. *Someone* is still enforcing those rules though, and you're just letting someone else do it on your behalf. Who is that?
+ * Perhaps it's "the economy" by just choosing whichever chain has most proof-of-work, because proof-of-work is expensive and it's unlikely that people will waste resources building an invalid chain
+ * Perhaps it's a trusted electrum server or similar, run by a reputable company that you trust to run a full node and enforce the rules you care about for you
+ * Or, perhaps you're connecting to your own full node, that validates all the rules you support, and you're just separating responsibilities to different pieces of software
+
+If you're not trying to follow "the sha256d chain that has at least 80% of market value amongst sha256d chains", I think you should either not be using a light client, or be pointing your light client at a peer you trust.
+
+[quote="Nuh, post:1, topic:2842"]
+Counterintuitive as it sounds, a light client following the heaviest chain can be safer than a full node enforcing rigid local rules.
+[/quote]
+
+That's not merely counterintuitive, it's false. For your other points in that section: there is no difference between "the majority of [the market] started using [full node versions] ignoring Segwit" and "a deliberate hard fork". A hard fork is simply a jargon-y way of saying the majority of the market switched to a version that is not backwards-compatible with what the market had been using previously.
+
+The heaviest chain is only a proxy for economic reality within the set of chains that share the same proof-of-work; it does not have any ability to capture alternatives that alter the PoW rules, and because Bitcoin's PoW rules are very much winner-takes-all, every alternative is, in practice, forced to alter the PoW rules in one way or another to be sustainable.
+
+[quote="Nuh, post:1, topic:2842"]
+What Stops Miners From Stealing?
+[/quote]
+
+The answer is people running full nodes that enforce the rules that make stealing coins (or printing new ones) invalid. Running a light client and freeloading off other people doing that is fine, but it's still freeloading.
+
+[quote="Nuh, post:1, topic:2842"]
+Building such a client is now practically feasible thanks to **Utreexo**
+[/quote]
+
+Utreexo isn't a light client, it's a different model for running a full node that's "lightweight". See [utreexod](https://github.com/utreexo/utreexod) or [floresta](https://www.getfloresta.org/) or [optech](https://bitcoinops.org/en/topics/utreexo/) rather than [River's glossary](https://river.com/learn/terms/u/utreexo/).
+
+-------------------------
+

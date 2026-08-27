@@ -7,7 +7,7 @@
   "cooked": "<p>I think <a href=\"https://github.com/starkware-bitcoin/raito\" rel=\"noopener nofollow ugc\">Raito</a> is what you are looking for. But also Floresta does the same thing without the complexity of ZK systems, but yes it takes much more time and bandwith, so things like Raito are very effective at compressing that. But you still need p2p gossip like in Floresta, to find out about competing forks etc.. So again, the ZK compression is a marginal enhancement.</p>",
   "post_number": 6,
   "post_type": 1,
-  "posts_count": 6,
+  "posts_count": 7,
   "updated_at": "2026-08-27T00:57:02.840Z",
   "reply_count": 0,
   "reply_to_post_number": 5,
