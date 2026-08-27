@@ -734,3 +734,81 @@ The best CISA can hope for is that a 20-25% discount for consolidation matters, 
 
 -------------------------
 
+fjahr | 2026-08-27 10:10:53 UTC | #16
+
+[quote="sipa, post:12, topic:2749"]
+I wish you were right, that was the whole idea behind Taproot! But we're five years in, have seen multiple periods of mempool congestion in that time (some taking months), and not even all providers support sending to it, let alone use it as default for new addresses.
+
+[/quote]
+
+One reason to be much more optimistic this time around is that in the end these are simply software changes and I think one major reason for slow adoption of Taproot in provider support is that there are many understaffed projects that had the will but not the manpower to make these changes safely. AI has made making such changes a lot faster, cheaper and (arguably) safer, especially when there is a spec that you can point the bots to. Generally I am not that concerned with the technical hurdles hindering adoption of wallets etc. because of this. Apathy of users to move coins and general disbelief in CRCQs happening are where I see the bigger issues.
+
+[quote="sipa, post:12, topic:2749"]
+Full-agg CISA can improve over P2TR more than P2TR did over P2WPH, but only for sufficiently complex transactions. That's the point of course: incentivizing those, but adopting workflows that allow such transactions is an even bigger task than adding PQC as it will typically involve adding interactivity (for CoinJoin/PayJoin like constructions)
+
+[/quote]
+
+We currently don't think that implementing fullagg in Payjoin requires additional communication rounds but we will confirm it with a PoC soon (work/research in progress between me, Payjoin Foundation, and others).
+
+[quote="sipa, post:12, topic:2749"]
+I have one concern here, but it is admittedly a weak one that's probably addressable with education/communication. If a custodial company CEO hears "a simple change that just adds quantum protection", they may agree to put resources on implementing it quickly. If they hear "a new output type with several features like key aggregation and PQC", they may decide "We'll implement that whenever we need to rewrite that part of our stack anyway".
+
+[/quote]
+
+As the concepts stand today (if I understand the PQC side correctly), P2TRv2 + PQC + CISA could be implemented and used without CISA (only use plain BIP341 opted-out) or without PQC (not implementing the required paths). So if there are just multiple options, I don't see how the decision would block anyone. If this was a concern to do everything at once I would expect that they first add it without CISA and then add CISA when they have additional resources for it.
+
+[quote="sipa, post:12, topic:2749"]
+Yeah, they would be the obvious parties who would want CISA. But I also expect them to be relatively quick adopters of a PQC output type without CISA? Just by virtue of being users/developers willing to be at the forefront of development. Under "long tail", I mostly think of many custodial and multi-currency software solutions; they tend to put more effort into supporting more altcoins/tokens than keeping up with (from their perspective, relatively) stable Bitcoin that won't gain them more customers.
+
+[/quote]
+
+I think that's mostly fair, though some have not adopted P2TR yet and many only did so recently so not all are on the bleeding edge. My AI comment above also means that I am not that concerned about custodial solutions. They can just move the funds for the users and they are a single point of contact that should be relatively easy to reach. I think reaching all self-custodial users and motivating them to move their funds is the harder part, even when their favorite wallet already has released an upgrade that supports the new output type.
+
+[quote="sipa, post:12, topic:2749"]
+I feel like P2TRv2 and CISA kind of pull in opposite directions in terms of messaging. The output's goal is preparing for CRQCs, but then it also adds an optimization that stops working when that actually happens.
+
+[/quote]
+
+[quote="AdamISZ, post:15, topic:2749"]
+I tend to agree with Pieter that it's somehow slightly 'off' to merge CISA into this.
+
+[/quote]
+
+Generally I would never advocate for bundling unrelated, even contradicting changes that could never even be used on-chain at the same time. But in this unprecedented situation that the potential danger from CRQCs put us in, it is the only situation I can imagine where it makes sense IMO. Based on the conversations I have had so far I think only few people believe that CRQCs in the short/mid term are a 100% certainty and that basically everyone wishes (for Bitcoin's sake at least) that they never materialize because no matter what happens the transition will be extremely painful and we will lose many nice properties in the process. It is a pill we have to swallow, a preventative medication. I also think that there will be doubters of the existence of CRQCs until the last minute and, as written before, I see a high chance that we will see some leveling off of the Quantum progress before it happens. This is why I think bundling would help PQC adoption in many possible scenarios. It makes the pill not as bitter and gives the doubters a reason to still be interested in the change.
+
+The messaging for the people that believe that CRQCs are a serious threat IMO doesn't matter that much because they will take what they need to be secure. They don't need to be convinced. But for those that don't see it as a danger (yet) the messaging matters much more and it may be better for them to hear "efficiency upgrade with PQC included just in case CRQCs do happen".
+
+Another, weaker, angle how this is a natural match: As CRQCs appear to get closer and migration takes action demand for block space will rise necessarily. People will be interested in consolidating coins and going through coinjoins with coins they may be forced to move before transactions generally become a lot more expensive on-chain when PQC is the only option.
+
+[quote="AdamISZ, post:15, topic:2749"]
+It would be better to have it available as a "here's an output type that will be cheaper for your ordinary wallet when it matters, which is to say, when you have to consolidate a bunch of utxos"
+
+[/quote]
+
+Having a P2TRv2 with PQC and another P2TRv3 with CISA seems to be worse for adoption in my mind. Wallet implementers, custodial operators and non-custodial users would constantly need to make a decision between having quantum safety and cheaper fees/higher privacy (assuming payjoin/coinjoin has adopted CISA at this point). I think it would likely hurt adoption of both concepts more than a combined output type would. UI challenges and marketing/messaging still remain tough even with AI.
+
+[quote="AdamISZ, post:15, topic:2749"]
+without overselling it, talk about 25% cheaper as a typical figure.
+
+[/quote]
+
+I hope I am not overselling it? I am always trying to be careful to give correct numbers while simply being optimistic about the outlook of CISA adoption if it were to be deployed. Without being optimistic on that front it wouldn't really make sense for me to argue for it and work on it.
+
+[quote="AdamISZ, post:15, topic:2749"]
+When taproot was about to release I was telling people "it'll take years for this to get adoption and it'll only really get any adoption when we get MuSig/PTLC in Lightning".
+
+[/quote]
+
+I don't think that this situation is still comparable because those are mostly off-chain concepts and network-effects are at play whereas CISA is validated on-chain (we can't do a CISA softfork without the finalized and implemented DahLIAS spec) and current Payjoin/Coinjoin implementations only need to implement it for themselves and don't need to coordinate on it (only some more advanced concepts will do that). We will have demo implementations soon, for Payjoin certainly this year. In the case of MuSig in particular there was the indirection of the switch to MuSig2 which caused things to be delayed even further so BIP327 was merged into the BIPs repo \~1.5 years after Taproot activated and the MuSig2 module was merged into libsecp256k1 almost 3 years after Taproot activated. So it seems to me we are currently years ahead of that schedule for CISA in a hypothetical P2TRv2.
+
+[quote="AdamISZ, post:15, topic:2749"]
+The best CISA can hope for is that a 20-25% discount for consolidation matters, I think. The whole coinjoin/batching etc. etc. angle is going to remain niche unless something big changes. Big operators with a lot of backend stuff going on will perhaps care, though. And it would be nice if they didn't have to overlay another technical decision on top of it (quantum stuff).
+
+[/quote]
+
+Some people, myself included, do believe that CISA can help move Coinjoin/Payjoin out of the niche but I don't think this is the right place for this discussion. CISA inclusion would need to achieve community consensus and I think as long as the underlying information is correct (like savings numbers) it's fine that people have hope for the changes to have as big of an impact as possible. Without optimism I don't think we can get any softfork done.
+
+But I don't understand what you mean by "overlay another technical decision", (taken mostly from my response to one of sipa's points above) as the concepts stand today (if I understand the PQC side correctly), P2TRv2 + PQC + CISA could be implemented and used without CISA (only use plain BIP341 opted-out) or without PQC (not implementing the required paths). If this was a concern I would expect that they first add it without CISA and then add CISA when they have additional resources for it. The other way around would also be possible, just adding CISA and ignoring PQC, with the separate output types for each concept you are actually forcing them to make a decision for either one, the change becomes more complicated and stretches into UI/UX, marketing etc. where decisions are less straight forward than simply making the code work.
+
+-------------------------
+
