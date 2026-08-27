@@ -125,3 +125,9 @@ If this ZKP is recursive (takes a past ZKP and proves upon it the addition on ne
 
 -------------------------
 
+Nuh | 2026-08-27 00:57:02 UTC | #6
+
+I think [Raito](https://github.com/starkware-bitcoin/raito) is what you are looking for. But also Floresta does the same thing without the complexity of ZK systems, but yes it takes much more time and bandwith, so things like Raito are very effective at compressing that. But you still need p2p gossip like in Floresta, to find out about competing forks etc.. So again, the ZK compression is a marginal enhancement.
+
+-------------------------
+
