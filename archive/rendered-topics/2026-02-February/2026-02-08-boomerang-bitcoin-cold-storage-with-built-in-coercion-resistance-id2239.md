@@ -150,3 +150,11 @@ Thank you for your comment. Appreciated.
 
 -------------------------
 
+bitryonix | 2026-08-28 05:26:16 UTC | #7
+
+We created this to have a better understanding of what an attack means and how effective can defense mechanisms be in a dynamic and adaptive narrative of physical attacks:
+
+https://bitryonix.org/security/notes/001-2026-08-26-physical-attacks-on-bitcoin-and-crypto-asset-holders-an-adaptive-process-model
+
+-------------------------
+
