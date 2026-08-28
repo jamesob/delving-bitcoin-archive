@@ -43,3 +43,9 @@ Blessings and Peace be upon you.
 
 -------------------------
 
+Anzus_GemWallet | 2026-08-28 14:11:36 UTC | #2
+
+From a wallet user’s point of view, would a wallet that already supports Silent Payments find these payouts automatically, or would it need a separate update? A short compatibility section could help miners understand whether they need a special wallet before using this.
+
+-------------------------
+
