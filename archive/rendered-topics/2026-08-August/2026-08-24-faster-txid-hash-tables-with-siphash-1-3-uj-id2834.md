@@ -1,8 +1,8 @@
 # Faster txid hash tables with SipHash-1-3-UJ
 
-sipa | 2026-08-25 19:40:21 UTC | #1
+sipa | 2026-08-27 15:07:33 UTC | #1
 
-I'd like to briefly highlight a small improvement that is coming in Bitcoin Core 32.0 (to be [released](https://github.com/bitcoin/bitcoin/issues/35122) in october): a custom variant of [SipHash](https://en.wikipedia.org/wiki/SipHash).
+I'd like to briefly highlight a small improvement that is coming in Bitcoin Core 32.0 (to be [released](https://github.com/bitcoin/bitcoin/issues/35122) in october): a custom variant of [SipHash](https://en.wikipedia.org/wiki/SipHash): [SipHash-1-3-UJ](https://github.com/bitcoin/bitcoin/blob/a0ccd4ad171567c2b911160a76bde65ba379b4f6/src/crypto/siphash.h#L118L159).
 
 For context, Bitcoin Core's validation and P2P logic extensively makes use of hash tables, for remembering what peers already gave us, for deduplicating things, for indexes, and for caching UTXOs and other things.
 
@@ -14,8 +14,8 @@ In one particular instance, the UTXO set cache (a very performance-critical comp
 
 To explain where improvements are possible, consider what the current (Bitcoin Core up to 31.x) hash function used for UTXOs is. *h* is the txid here, and *i* is the output position.
 
-![siphash24_diagram|690x409](upload://72y9mZOAoXCHVkZl5OnHK2bnj5Z.png)
-![sipround_diagram|690x192](upload://mqGJn9DOvMVYTxVT0xeEvoNUDLQ.png)
+![siphash24_diagram|690x387](upload://b5zdfAezxllMb4j30ZOJi4nm83E.png)
+![sipround_diagram|690x192](upload://clKvgvhKjqkMcEsw6touPA83PKF.png)
 
 In total this involves 14 SipRound calls (10 in 5 Compress steps, 4 in Finalize).
 
@@ -28,7 +28,7 @@ This is SipHash-1-3-UJ.
 
 So Bitcoin Core 32.0 will use:
 
-![siphash13uj_diagram|690x497](upload://ppUWR1mzpfoYekuCBtuNvAXhBqB.png)
+![siphash13uj_diagram|690x472](upload://6BVyiTJlhG7ZMFAH3BCnETw4SeX.png)
 
 All together, this means we reduce the number of SipRounds from 14 to 5, or with all constant-time overheads, from 17.0 ns to 10.6 ns per lookup on my Ryzen 5950X CPU.
 
@@ -47,6 +47,12 @@ Excellent writeup!
 I would also like to point out that SipHash-1-3-UJ was also used to speed up [fetch block input prevouts in parallel during ConnectBlock](https://github.com/bitcoin/bitcoin/pull/35295). Since the parallel fetching change was merged first, the PR introducing SipHash-1-3-UJ also modified the [`earlier_txids` set](https://github.com/bitcoin/bitcoin/pull/35215/changes#diff-f0ed73d62dae6ca28ebd3045e5fc0d5d02eaaacadb4c2a292985a3fbd7e1c77cR386) in `CoinsViewOverlay::StartFetching` to use the new hash function. We need to store all txids for each block we connect in a set, which is used to filter out prevouts that are created by an earlier transaction in the same block. These prevouts will be created in the `CoinsViewOverlay` cache directly, so they must not be fetched from the main cache or disk.
 
 This set must hash the txid for every transaction in each block for insertion, and then hash the prevout hash of every input of each transaction to check existence. This is all serial overhead on the main thread before any of the parallel fetching speedup can be made, so this lighter hash function is a clear win here as well. This set is only inserting txids that are the result of SHA256ing the transaction data by our node directly, so they fit the use case for this new hash function exactly.
+
+-------------------------
+
+ajtowns | 2026-08-28 05:46:54 UTC | #3
+
+Would you consider writing up the spec in a BIP in case it's useful for over-the-wire protocols? :slight_smile: (I believe this is a reasonable fit for template sharing, erlay and potentially a bumped version of compact block relay)
 
 -------------------------
 
