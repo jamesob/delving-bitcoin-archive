@@ -812,3 +812,9 @@ But I don't understand what you mean by "overlay another technical decision", (t
 
 -------------------------
 
+fjahr | 2026-08-27 21:45:21 UTC | #17
+
+Sorry by the way, I didn't want to hijack this thread on PQC output types (the overview is very helpful btw, thank you @sipa ) and turn it into a CISA discussion. I should have probably put my last responses in a new topic already. Happy to fork off into a new topic if the CISA thread continues.
+
+-------------------------
+
