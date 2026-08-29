@@ -39,7 +39,12 @@
   "user_title": "",
   "bookmarked": false,
   "raw": "One more exploitation vector worth adding to this thread, observed today (2026-08-29) while testing a hobby miner against live testnet4:\n\nBeyond the \"who broadcasts fastest\" race already described, the *previous* block's own timestamp appears to be used to gatekeep when the *next* min-difficulty window opens for everyone else.\n\n**What I saw:**\n\nAt three separate height transitions, the gap between a \"real difficulty\" block and the following min-difficulty block was exactly 1201 seconds (20:01), right at the minimum required by the `nTime > prevTime + 2*spacing` check:\n\n| Transition | Gap |\n|----|----|\n| 150237 \u2192 150238 | 1201s |\n| 150263 \u2192 150264 | 1201s |\n| 150276 \u2192 150277 | 1201s |\n\nThat precision alone suggests something is watching for eligibility and submitting the instant it's technically valid, consistent with what's already described here.\n\nWhat's separate: I fetched the current tip's header directly and compared its timestamp to wall-clock time. The previous block (height 150293 at the time) had a timestamp **\\~1h55m ahead of real time** so close to the 2-hour max-future-block tolerance.\n\nSince the min-difficulty check is `next.nTime > this.nTime + 1200`, inflating `this.nTime` toward the future ceiling pushes the *real-world* wait for the next window from \\~20 minutes out to \\~2h15m, without needing to win any broadcast race. Whoever set that timestamp effectively pre-books a long, low-competition head start on the next free block, since anyone naively computing \"20 minutes from now\" would be waiting for a window that isn't actually open yet.\n\nMentioning this mainly because it's a second, cheaper lever on top of the fast-broadcast strategy already discussed, and because it reinforces the proposal here rather than argues against it. Disabling the exception removes both incentives at once.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -54,9 +59,15 @@
   "excerpt": "One more exploitation vector worth adding to this thread, observed today (2026-08-29) while testing a hobby miner against live testnet4: \nBeyond the \u201cwho broadcasts fastest\u201d race already described, the previous block\u2019s own timestamp appears to be used to gatekeep when the next min-difficulty window &hellip;",
   "truncated": true,
   "post_url": "/t/disabling-min-difficulty-blocks-on-testnet4/2350/3",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
