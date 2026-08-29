@@ -49,3 +49,17 @@ From a wallet user’s point of view, would a wallet that already supports Silen
 
 -------------------------
 
+Seldenthuis | 2026-08-29 18:24:49 UTC | #3
+
+One number worth double-checking: the BIP34 height push isn't a small fixed cost.
+
+I've been implementing coinbase scriptSig construction recently (BIP34 height encoding, the 2-100 byte consensus limit) and at current real-world heights (both mainnet and testnet4 are well past 2^16, under 2^24).
+It already needs 4 bytes: a 1-byte push length plus 3 data bytes.
+
+The minimal encoding can also need a 5th padding byte in some cases, whenever the top byte of the height's little-endian encoding happens to have its high bit set (avoids it being misread as a sign bit).
+
+So the actual budget right now is closer to 100 - 4 (BIP34) - 34 (A_send) = 62 bytes for the extranonce, not "100 minus 34 with plenty of headroom left over.".
+Still plenty of room today, but the BIP34 cost only grows from here (5 bytes once height passes 16,777,215), and it's not obvious to me whether that's a real constraint on extranonce sizing or just noise.
+
+-------------------------
+

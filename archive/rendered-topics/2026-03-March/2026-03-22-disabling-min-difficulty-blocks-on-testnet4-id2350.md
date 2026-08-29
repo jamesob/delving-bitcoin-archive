@@ -71,3 +71,29 @@ Currently, ASIC blocks are the ones confirming any transactions, made by users. 
 
 -------------------------
 
+Seldenthuis | 2026-08-29 18:02:13 UTC | #3
+
+One more exploitation vector worth adding to this thread, observed today (2026-08-29) while testing a hobby miner against live testnet4:
+
+Beyond the "who broadcasts fastest" race already described, the *previous* block's own timestamp appears to be used to gatekeep when the *next* min-difficulty window opens for everyone else.
+
+**What I saw:**
+
+At three separate height transitions, the gap between a "real difficulty" block and the following min-difficulty block was exactly 1201 seconds (20:01), right at the minimum required by the `nTime > prevTime + 2*spacing` check:
+
+| Transition | Gap |
+|----|----|
+| 150237 → 150238 | 1201s |
+| 150263 → 150264 | 1201s |
+| 150276 → 150277 | 1201s |
+
+That precision alone suggests something is watching for eligibility and submitting the instant it's technically valid, consistent with what's already described here.
+
+What's separate: I fetched the current tip's header directly and compared its timestamp to wall-clock time. The previous block (height 150293 at the time) had a timestamp **\~1h55m ahead of real time** so close to the 2-hour max-future-block tolerance.
+
+Since the min-difficulty check is `next.nTime > this.nTime + 1200`, inflating `this.nTime` toward the future ceiling pushes the *real-world* wait for the next window from \~20 minutes out to \~2h15m, without needing to win any broadcast race. Whoever set that timestamp effectively pre-books a long, low-competition head start on the next free block, since anyone naively computing "20 minutes from now" would be waiting for a window that isn't actually open yet.
+
+Mentioning this mainly because it's a second, cheaper lever on top of the fast-broadcast strategy already discussed, and because it reinforces the proposal here rather than argues against it. Disabling the exception removes both incentives at once.
+
+-------------------------
+
