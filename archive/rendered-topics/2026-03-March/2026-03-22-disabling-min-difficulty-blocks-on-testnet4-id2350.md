@@ -97,3 +97,21 @@ Mentioning this mainly because it's a second, cheaper lever on top of the fast-b
 
 -------------------------
 
+garlonicon | 2026-08-29 20:21:29 UTC | #4
+
+People are working on testnet5 anyway, to disable this min-difficulty rule completely: https://github.com/bitcoin/bitcoin/pull/35861
+
+> the previous block’s own timestamp appears to be used to gatekeep when the next min-difficulty window opens for everyone else
+
+Sure. When CPU miners attack the network with blocks 20 minutes in the future, then some ASIC miners counter-attack, by mining blocks around two hours in the future, to actually let the difficulty decrease, stop the attack, and mine ASIC blocks faster than every 20 minutes again.
+
+However, there are more incentives to replace someone else's blocks with your own ones, and collect more coinbase rewards instead, so every miner has an incentive to keep the attack running, under testnet4 rules, than altruistically bring back the equilibrium, and let any CPU miner to repeat the same attack again in the future anyway.
+
+> something is watching for eligibility and submitting the instant it’s technically valid, consistent with what’s already described here
+
+Things are much simpler than that. First, CPU miners started attacking by mining blocks 20 minutes into the future. Then, the difficulty started increasing. And then, ASIC miners could no longer mine a new block, with increased difficulty, faster than in 20 minutes. And then, all ASICs started participating in the attack, because after 20 minutes, they are forced to mine a new block with a minimal difficulty.
+
+Actually, if miners could keep their timestamps unchanged, then there would be no problem. Then, CPU testers could mine some test blocks, see them relayed, and then see them reorged, when some ASIC would start mining again. However, the minimal difficulty is not optional, as it should be, but required by consensus rules, which is why it is easier to launch testnet5, than try to fix testnet4.
+
+-------------------------
+
