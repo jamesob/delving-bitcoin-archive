@@ -63,3 +63,15 @@ Still plenty of room today, but the BIP34 cost only grows from here (5 bytes onc
 
 -------------------------
 
+marathon-gary | 2026-08-31 13:49:06 UTC | #4
+
+This would require a new scanning profile for wallets. The data that indicates ownership of your wallet is in a different location than standard silent payments.
+
+-------------------------
+
+marathon-gary | 2026-08-31 13:55:47 UTC | #5
+
+I'm not sure the extranonce constraint is too problematic even with more bytes needed for height in the future, especially with [BIP323](https://github.com/bitcoin/bips/blob/2a783793f45d81558c2cecc7749f94226660ed54/bip-0323.mediawiki)
+
+-------------------------
+
