@@ -230,3 +230,15 @@ PS: This may feel like unwarranted hostility, but I tried to explain this to him
 
 -------------------------
 
+rafaelturon | 2026-09-01 10:11:54 UTC | #14
+
+Spent a good part of the summer with this construction. Two choices deserve more credit than vault discussions usually give them: the operational delay is enforced twice by independent actors (client-side nLockTime plus the CS refusing short delays), and expiry is a scheduled rotation rather than a risk that silently ages. Disclosure: Custody Agents co-published an article with the BitVault team yesterday using B-SSL as the vault-layer case study, with Francesco and Riccardo reviewing those sections.
+
+What the whitepaper deliberately leaves unspecified is the transport, and with a MuSig2 aggregate on the operational keypath that question is sharper than it looks: every spend moves nonce and partial-signature rounds over something that must never induce nonce reuse. Those are transport questions, so they have their own thread:
+
+https://delvingbitcoin.org/t/psbt-musig2-coordination-over-nostr-relays-transport-invariants-for-nonce-safety-under-at-least-once-delivery/2852
+
+One construction question for here: the 350-day refresh is CS-driven; if the CS is gone, does the client keep its own schedule, or does the fallback path simply mature?
+
+-------------------------
+
