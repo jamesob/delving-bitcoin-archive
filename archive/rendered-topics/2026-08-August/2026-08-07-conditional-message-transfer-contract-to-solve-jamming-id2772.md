@@ -112,3 +112,29 @@ I'm trying to grok the specifics, a couple of initial questions:
 
 -------------------------
 
+ariard | 2026-09-02 03:13:59 UTC | #3
+
+Sorry for the late answer, I was in vacation. You know you take one week off and when you're back you're two weeks late on everything..
+
+Yes, the main idea is perfectly that. We're setting a shared clock to be able to create a protocol that punishes non-response, be it "the forward conditional works, i have the preimage" or "the forward conditional failed, i don't have the preimage".
+
+You really have two problems here that are associated in a wider construction, the (1) can we prove that the "tree has fallen in the forest when no one is hearing" i.e how the conditional payment ends up. And the (2) how to incentivize channel counterparties to exchange sufficient information that \*something\* can be heard, and if nothing heard assign a penalty to one of the party.
+
+But yes, the idea is really to use onchain / offchain contracts as a proxy, where the idea is we reconciliate a out-of-chain protocol window of messages, with the latest on-chain time when parties did agree on the conditional payment state between them. The main emphasis is really on reconciliating two temporal perspective.
+
+Now, on the question if it can only work on relatively slower timescales, correct me if I'm wrong but I'm understanding your question, as we're only able to reconciliate a temporal perspective P2 on a temporal perspective P1, where the rate of time on P1 is slower than P2.
+
+I don't think it is, it's not the frequency that matters, it's more the "authoritative" character of the chain that matters. We could have a chain block time faster than the message rate between two channel counterparties, what matter is that Event B under P1 time is "authoritative" about Event A under P2 time.
+
+Note, I think it's possible to articulate a HTLC and a CMTC on a commitment transaction, to avoid the two off-chain notion of time conflating, though yes it's something worth of more thinking.
+
+On your second point, that it doesn't address the problem of onion routing and that you can chain the conditional message transfer between them, e.g in a setup between Alice, Bob and Caroll. In fact, my original email post from the 22 january '26 mentions the idea of making the contract recursive, for simplicity of exposition of the core of the idea and coming with conditions of validity, I did brush it aside, focusing on the single link analysis.
+
+Now, yes if you're Bob, you should be able to present to Alice either the preimage from Caroll (but Alice doesn't have to know if it's coming from Bob or yourself) or the proof-of-channel-closure between Bob and Caroll. Said proof that would be of the form of a commitment transaction itself (or just a signature of Caroll for the hash digest).
+
+By presenting such a proof to Alice, Bob would unequivocally prove he has done his best "service-level-agreement" to recover a preimage from Alice. How they're pricing this between Alice and Bob in terms of nominal satoshis, it's up to a policy link matter.
+
+To give more insight, I'm still brooding on the conditions of validity of (2) "how to incentivize channel counterparties to exchange sufficient information", what would be the correct economics equilibrium and if some kind of blind signature could make it converge towards some kind of near-perfect equilibrium, or if the "liveliness challenge" penalties have to be meaningful.
+
+-------------------------
+
