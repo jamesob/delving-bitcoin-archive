@@ -25,3 +25,9 @@ Criticism of the architecture as a whole is equally welcome; the note is a sketc
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-02 15:02:45 UTC | #2
+
+From a wallet user’s point of view, it would help to see a simple failure example: what happens if one relay goes offline or sends the same message twice? Does the wallet recover automatically, or does the signing session need to restart? Clear status and recovery steps would matter before users trust this with larger amounts.
+
+-------------------------
+
