@@ -31,3 +31,21 @@ From a wallet user’s point of view, it would help to see a simple failure exam
 
 -------------------------
 
+rafaelturon | 2026-09-03 12:55:40 UTC | #3
+
+Good question, and it splits by what is observable rather than by which component failed.
+
+**Relay offline.** A dropped connection is observable: the client fails over to the remaining relays in the set fixed at setup and the session continues, since every message is published to all relays and delivery needs only one common live path. A live relay that silently withholds is not observable; from the receiver's side it is indistinguishable from a slow relay or an offline peer. So recovery cannot depend on diagnosing the cause, only on local session state plus a timeout.
+
+**Duplicate delivery.** The rule that keeps this safe is local to the signer, not a property of the relays: the secnonce is consumed once, inside `Sign` (libsecp256k1's musig module zeroes it on use), and every round output is cached. A retry means resending the same bytes, which is harmless, never recomputing. The hazard is the recompute path: relay delivers aggnonce A, signer signs, completion is withheld, client times out, A′ arrives "for the same session." A client that re-runs `Sign` with a retained secnonce leaks its key. The transport obligations in the note (idempotent message identity bound to session, round and signer; per-session sequencing) exist so the client can recognize repeats and reject stale sessions, not so it can trust delivery.
+
+By state:
+
+* Waiting for nonces: resend own pubnonce until acknowledged; on timeout, abort and open a fresh session with a new id and fresh nonces. Costs time, nothing else.
+* Partial signature sent: resend the cached partial signature until acknowledged; on timeout, abort. Never re-sign within the session. An abandoned session cannot be revived because the secnonce no longer exists.
+* Conflicting values for the same (session, round, signer): abort.
+
+So: automatic recovery for connection loss and for lost or duplicated messages; explicit restart with fresh nonces on timeout; no path where the wallet silently retries a signature. For a user that reduces to three states: reconnecting, waiting on peer, session expired. Agreed this needs to be specified precisely before anyone trusts it at size; that is the substance of Problem 4.
+
+-------------------------
+
