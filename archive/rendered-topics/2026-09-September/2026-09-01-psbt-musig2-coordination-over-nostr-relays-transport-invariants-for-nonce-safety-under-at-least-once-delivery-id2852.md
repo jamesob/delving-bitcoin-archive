@@ -49,3 +49,9 @@ So: automatic recovery for connection loss and for lost or duplicated messages; 
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-04 14:02:32 UTC | #4
+
+That three-state explanation makes this much easier to understand. One practical detail may also be worth documenting: can users safely close and reopen the wallet while it is reconnecting or waiting on a peer, or should they keep the session open? That seems like a situation ordinary users could easily encounter.
+
+-------------------------
+
