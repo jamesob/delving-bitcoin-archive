@@ -15,7 +15,7 @@
   "incoming_link_count": 1,
   "reads": 4,
   "readers_count": 3,
-  "score": 5.4,
+  "score": 5.8,
   "yours": false,
   "topic_id": 2852,
   "topic_slug": "psbt-musig2-coordination-over-nostr-relays-transport-invariants-for-nonce-safety-under-at-least-once-delivery",
