@@ -210,3 +210,9 @@ conduition
 
 -------------------------
 
+evd0kim | 2026-09-05 20:01:58 UTC | #2
+
+Why BitVM is not considered here? Technically it should be possible to wrap anything into groth16, hence leverage existing tech. LeanVM is the brand new tech which apparently ascends to abandoned project binius.
+
+-------------------------
+
