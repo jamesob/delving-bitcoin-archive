@@ -308,7 +308,7 @@ To me at least, it seems that any valid signature on $m$ by $X$ is fungible with
 
 -------------------------
 
-sipa | 2026-08-26 17:22:07 UTC | #14
+sipa | 2026-09-01 13:43:49 UTC | #14
 
 [quote="conduition, post:13, topic:2702"]
 What if we do not commit to the PQ signatures in the block extension?
@@ -316,7 +316,7 @@ What if we do not commit to the PQ signatures in the block extension?
 
 As you might imagine, the exact same question came up around the 2015-2017 segregated witness proposal. You can probably find records of discussions then.
 
-The main reason is that block hashes, and PoW, are no longer committing to all data that is relevant for validation. Blocks, in the worst case, are pretty expensive to validate, and the latency in doing so is critical for block validation purposes. Thankfully, it is also very expensive to create a block (~10 minutes worth of global PoW), which is an extremely effective rate limiter on the creation of invalid blocks, and simultaneously a strong economic incentive not to create them. **However, this only works because PoW commits to the witness data.** Without it, any relay node can create infinitely many invalid versions of a valid (or inherently invalid) block, at basically zero cost, and verification logic cannot cache the result; it needs to check each and every one. Unlike for individual transactions, nodes do not have the option of dropping too-expensive blocks; they must accept them if they are valid.
+The main reason is that block hashes, and PoW, are no longer committing to all data that is relevant for validation. Blocks, in the worst case, are pretty expensive to validate, and the latency in doing so is critical for block propagation purposes. Thankfully, it is also very expensive to create a block (~10 minutes worth of global PoW), which is an extremely effective rate limiter on the creation of invalid blocks, and simultaneously a strong economic incentive not to create them. **However, this only works because PoW commits to the witness data.** Without it, any relay node can create infinitely many invalid versions of a valid (or inherently invalid) block, at basically zero cost, and verification logic cannot cache the result; it needs to check each and every one. Unlike for individual transactions, nodes do not have the option of dropping too-expensive blocks; they must accept them if they are valid.
 
 Practically speaking, it means block validation failures wouldn't be cacheable anymore, because a block's identity (its hash) would just commit to its effects, not whether it is valid.
 
@@ -345,6 +345,29 @@ Say a malicious node Bob takes a valid block and scrambles its signatures, then 
 Of course it's possible for someone to mine a block containing a bunch of garbage transactions which weren't previously validated by most nodes and thus triggering a lot of cache misses, but that's already possible today if you have the hashpower. Thankfully it's not economical to do so.
 
 Still, even with TX-level validation caching, adversaries would have access to slightly more DoS attack surface. Perhaps there could also be some other way to rate-limit peers from proposing blocks with invalid witnesses. I will think on this some more and read the thread before throwing further ideas around.
+
+-------------------------
+
+conduition | 2026-09-05 14:48:15 UTC | #16
+
+OK, finally got around to reviewing the whole thread. A few things:
+
+1. **PQ signature data should be covered by the block hash.** Even with SNARKs, having a commitment to PQ signatures which is covered by the block hash will be an easy win for validation caching and avoiding transaction malleability. If we ever deploy SNARK aggregation (see [this thread](https://delvingbitcoin.org/t/block-wide-signature-aggregation-via-snarks/2875) for further discussion on that topic), the SNARK can simply prove the signatures were properly committed into the block, and at least with hash-based signature SNARKs this would cost at most a marginal increase in proving time. So yeah, disregard my last messages basically :sweat_smile:
+2. **Don't discount non-signature data.** While CRQCs change a lot of things, I don't think they change the costs of script validation outside of signature schemes, so i don't see any good reason to change the block weight cost of scripts or preimages or other non-signature witness data (yet). Narrowly discounting only signatures also makes it easier to commingle different cost functions for different signature schemes (see below), and improves "JPEG-resistance" because only valid signatures receive the new discount.
+3. **Users must be able to mix/match signature algorithms.** There are a number of use-cases which benefit from hybrid multisignature wallets, that leverage two or more distinct signature schemes in the same spending path. The costing system must be able to account for such edgecases. I'm pretty certain this means the accounting system must drill down into the script level, where CHECKSIG operations are invoked. 
+4. **Transaction weight calculations should be easy.** Software should not need to dynamically analyze scripts to figure out how many weight units a transaction consumes.
+
+I have some rough ideas for designs which fulfill the above properties, but first, what do you guys think of these requirements?
+
+
+------
+
+
+[quote="sipa, post:5, topic:2702"]
+I could imagine a design where the witness stack consists of just (a) a declared computation budget number (used by the opcodes in the script) and (b) script input data. Each witness style is then a formula for mapping the (computation budget, script input size) to WU. Newly introduced opcodes can have new/different computation cost from existing one without needing a new witness style. It is only when the formula changes, so practically when the cost per script input byte changes, that a new style is needed. Perhaps with such a design, a single style per txin suffices?
+[/quote]
+
+This sounds a lot like [the varops budget proposal](https://github.com/bitcoin/bips/blob/09e21036a4001fe6c9ba65c1d3a39b737768132f/bip-0440.mediawiki) for GSR, except IIRC in GSR the budget is fixed based on the size of the serialized transaction, whereas you're suggesting the budget is declared up-front, e.g. in a new witness field. Personally I like the up-front declaration more, as it gives senders better flexibility and discourages padding transactions to boost the budget. Kinda reminds me of Ethereum's per-TX "gas limit" field.
 
 -------------------------
 

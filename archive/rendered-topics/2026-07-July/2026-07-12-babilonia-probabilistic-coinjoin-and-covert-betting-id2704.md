@@ -169,3 +169,15 @@ I'll make a new version of the paper with this significantly more complex transa
 
 -------------------------
 
+AdamISZ | 2026-09-05 12:13:42 UTC | #7
+
+[quote="AdamISZ, post:6, topic:2704"]
+I’ll make a new version of the paper with this significantly more complex transaction structure, as, while complicated, I think its very practical.
+[/quote]
+
+New v2 of the paper [here](https://github.com/AdamISZ/babilonia-paper). Also a web page implementation of the protocol [here](https://thimbly.org); it uses signet and requires a taproot supporting, psbt supporting wallet: afaik this is only Sparrow and Core (instructions on how to use them to make bets are on the page).
+
+Needless to say the node-runner version of using it would be a lot more "cool" than betting with a counterparty on a website, but it's nice to create something with a visual explanation and it's a lot easier to test it that way without installing a bunch of software.
+
+-------------------------
+
