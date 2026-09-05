@@ -1,16 +1,16 @@
 # Institutional Grade Spending Policies for Statechains
 
-evd0kim | 2026-09-04 16:44:09 UTC | #1
+evd0kim | 2026-09-05 19:41:43 UTC | #1
 
 ## Summary
 
 This post addresses a shortcoming of the MercuryLayer project: advanced spending policies. The existing open-source implementation uses a "single signer" approach with a dedicated private key per coin. That model offers no authorization structure, which corporate entities with established approval processes need.
 
-The approach below combines **B**oolean circuit **L**ogic **I**ntegrated into the **S**ingle **K**ey (BLISK) with the blind-signed, MuSig2-based statechain transfer protocol. It turns out that this requires almost no change to the MercuryLayer specification, and keeps BLISK entirely on the client side. Mercury's protocol rests on exactly the principle that makes this possible: the client builds the aggregate key, the aggregate nonce and the challenge, and the server returns a blind share.
+The approach below combines **B**oolean circuit **L**ogic **I**ntegrated into the **S**ingle **K**ey ([BLISK](https://delvingbitcoin.org/t/blisk-boolean-circuit-logic-integrated-into-the-single-key/2217)) with the blind-signed, MuSig2-based statechain transfer protocol. It turns out that this requires almost no change to the MercuryLayer specification, and keeps BLISK entirely on the client side. Mercury's protocol rests on exactly the principle that makes this possible: the client builds the aggregate key, the aggregate nonce and the challenge, and the server returns a blind share.
 
 ## Intro
 
-A naive way to split the key in MercuryLayer is Shamir Secret Sharing (SSS), especially if a Trusted Execution Environment (TEE) coordinates the shares. That simplification holds for blind statechain transfers, because the TEE acts for the user and sits inside the user's trust perimeter. But more advanced approaches without a TEE should also exist.
+A naive way to split the key in MercuryLayer is Shamir Secret Sharing (SSS), especially if a Trusted Execution Environment (TEE) coordinates the process. That simplification holds for blind statechain transfers, because the TEE acts for the user and sits inside the user's trust perimeter. But more advanced approaches without a TEE should also exist.
 
 One of them is Iceberg ([paper](https://eprint.iacr.org/2026/1757), [implementation](https://github.com/furszy/benchmark-iceberg)), which formalises *nested threshold multi-signatures*. It thresholdizes one participant inside an existing multi-signature execution while leaving the outer protocol, including its nonce exchange and message flow, unchanged. The paper targets Lightning channels, and it also analyses why FROST does not fit inside a two-party MuSig2 protocol. MercuryLayer's blind MuSig2 signing should be compatible with the same idea, although that is out of scope here.
 
@@ -24,7 +24,7 @@ cannot be expressed by any $t$-of-$n$ threshold signature, because a threshold c
 
 ## Similarities
 
-In the proposed scheme, BLISK becomes a virtual MuSig2 participant. The abstraction is thin enough that institutional policies and ordinary single signers can send and receive coins in the same anonymity set. If the blinding holds, the Statechain Entity (SE) cannot tell an institution from a wealthy individual.
+In the proposed scheme, BLISK becomes a virtual MuSig2 participant. The abstraction is thin enough that institutional policies and ordinary single signers can send and receive coins in the same anonymity set. If the blinding holds, the Statechain Entity (SE) cannot tell if an institution made a transaction or a wealthy individual.
 
 For one top-level gate of the circuit (say gate 1, from Bob's viewpoint), BLISK calculates:
 
@@ -57,7 +57,7 @@ MercuryLayer uses a blinded challenge
 
 $$ c_{\text{Mercury}} = e + \alpha $$
 
-where $e = H(P, R, m)$ is the ordinary challenge and $\alpha$ is the client's blinding nonce. BIP327 derives [one session-wide challenge](https://github.com/bitcoin/bips/blob/09e21036a4001fe6c9ba65c1d3a39b737768132f/bip-0327.mediawiki) $e$ from the aggregate nonce, the aggregate key and the message; every partial signature contains that same $e$, multiplied by the signer's own key-aggregation coefficient and secret key.
+where $e = H(P, R, m)$ is the ordinary challenge and $\alpha$ is the client's blinding nonce. BIP327 uses only [one session-wide challenge](https://github.com/bitcoin/bips/blob/09e21036a4001fe6c9ba65c1d3a39b737768132f/bip-0327.mediawiki) $e$ from the aggregate nonce, the aggregate key and the message; every partial signature contains that same $e$, multiplied by the signer's own key-aggregation coefficient and secret key.
 
 So each gate-level share must use the blinded challenge instead:
 
