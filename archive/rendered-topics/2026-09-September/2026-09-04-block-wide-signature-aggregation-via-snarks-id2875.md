@@ -216,3 +216,13 @@ Why BitVM is not considered here? Technically it should be possible to wrap anyt
 
 -------------------------
 
+conduition | 2026-09-06 15:25:35 UTC | #3
+
+I'm not sure how BitVM is relevant here. 
+
+Groth16 is quantum-insecure and requires trusted setup, so it doesn't seem like a good option.
+
+LeanVM is more interesting, and if it ends up working well perhaps we could integrate that. But as i said, you have a 10x performance overhead and the main benefit from doing so is portability and DX, which is not the major concern here.
+
+-------------------------
+
