@@ -59,3 +59,9 @@ If the answer is the latter, I'd rather hear it now.
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-06 13:06:11 UTC | #2
+
+From a wallet user’s point of view, each level may be more useful if it also has a clear recommended action—for example, no action needed, avoid reusing the address, or move the funds when a safer option is available. Is that guidance intended to be standardized, or left to each wallet? Otherwise, different wallets could show very different warnings for the same situation.
+
+-------------------------
+
