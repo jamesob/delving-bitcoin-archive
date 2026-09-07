@@ -471,3 +471,20 @@ In parallel with those out-of-consensus-rule efforts, we should also make effort
 
 -------------------------
 
+Choirzooh | 2026-09-07 03:22:25 UTC | #28
+
+[quote="gmaxwell, post:22, topic:2640"]
+anyone can create their own cryptocurrency with whatever rules they think are superior, and if its good people are free to adopt it. In such a world trying to impose such a radical change to the premise of Bitcoin would be inexcusable, and ultimately self defeating since if bitcoin doesn’t even have durability of its monetary policy why does it exist at all?
+
+[/quote]
+
+I agree with this, and I think it is also the case for the third branch upthread: paying miners from outside the consensus rules. Nothing about Bitcoin's consensus rules changes and the 21M is untouched. If the outside asset funds itself by issuance, the dilution lands on the people who chose to hold it. That does not remove the Cantillon problem, it moves it onto volunteers. Some of those volunteers will also hold BTC, but they carry it as holders of the other thing, by choice.
+
+Beyond that I think @gmaxwell and @ajtowns objections mostly carry over
+
+On right-sizing: the subsidy was a schedule, not a target, and an outside reward is no better at finding the right level. But I would push back on the idea that fees are the mechanism for this. Fees price blockspace. The buyer is a spender who wants inclusion, and once the payment is buried deep enough to be final, neither party has any further interest in how secure the chain stays. The people who actually want security are holders, and inside the protocol the only mechanism they have is the subsidy, which is ending. What is left is voluntary fee on self-transfers, which is a donation and free-rides accordingly. That is the gap in the current design, and it is why fees have sat at a small fraction of miner revenue for most of Bitcoin's history, typically under a tenth outside a few congestion spikes. An outside asset gives holders a channel. It is not a clean price signal, since the price of the asset is mostly speculative demand and only loosely a revealed preference for security, and it moves the "who decides how much" question to whoever controls the asset's issuance rather than answering it. But it is at least a channel for the right buyer, which fees are not.
+
+On @ajtowns point: free entry applies to miner revenue whatever its source, so an outside reward gets competed into hardware and electricity much as inflation would, and the surplus goes to the same place. Per dollar it buys what inflation buys. The case for it is about who pays, not about efficiency. What that dollar buys, per Budish, is a higher flow cost for a sustained majority attack, in proportion to the added revenue, and any plausible proportion here is small
+
+-------------------------
+

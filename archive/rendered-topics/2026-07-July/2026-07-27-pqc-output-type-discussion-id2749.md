@@ -818,3 +818,33 @@ Sorry by the way, I didn't want to hijack this thread on PQC output types (the o
 
 -------------------------
 
+ariard | 2026-09-07 02:58:37 UTC | #18
+
+Reading this thread, here my 2 sats.
+
+In my view, the high-level problem underscored by Pieter is on the pains minimization path forward for the Bitcoin ecosystem in the ocurrence of a CRQC happening in the wild.
+
+The occurrence of a CRQC is a probability that each one in the community might evaluate differently in function of one's her or his level of scientifically knowledge and level of information about the advances in the field of quantum computer, though if you have sufficient knowledge and information, and you understand there is no null chance practical quantum computer might happen over the next decades and the severity impact might be disastrous, one might believe, at least speaking for myself, that is worthy to take preemptive defensive  actions, while conserving  bitcoin properties.
+
+This disclaimer said first, I do see the P2TRv2 with an ulterior disablement of ECC spends within the output type itself as a reasonable path forward. The fact it's happening with the clear design goal of a potential future disablement means that users have voluntary opted-in by sending their funds to the new P2TRv2 (or delegated in a \*knowledgeable fashion\* to a centralized custodian to do this choice, if they use one it's a matter between their custodians and themselves).
+
+This avoids any kind of generic freezing debate. Whatever the view one can have on the more political aspect of damaging the censorship resistance property of bitcoin, by some kind of large freezing, designing a new dedicated output type with self-containing freezing effect avoid any uncertain future liability due to the retroactive effect the technical change would have for users that would never had consent to this change, CQRC or not.
+
+That an adversarial CQRC user goes to steal users funds by leveraging its capabilities, it's might be very adversarial for the chain finality, as it has been observed on the mailing list. However, from the viewpoint of a protocol designer or bitcoin full node maintainer, it's more a "force majeure" event, with all its exoneration of legal responsibility.
+
+Apart of those social considerations, I think we can make a P2TRv2 proposal far better on few many technical dimensions:
+
+(A) We can introduce many leaves types where for the first one the ECC spend path would be disable when the disable flag event is reached and for the second one the ECC spend path is not disabled by the the flag event. Indeed, we might have some "activation residual malleability" for the inclusion of the flag event, especially if we go for a miner lockdown. 
+
+Some advanced users, that are concerned about classical break of any PQ scheme, as noted by Pieter, might wish to hybrid secure their coins under classical and post-quantum assumptions, and decide when they wish to move their coins to PQ safe only.
+
+(B) We can introduce different class of flag events for the spend by using some space bit flags in the leaves versioning itself to say if the user commits to the effect of Tripwire or the effect of Miner lockdown or whatever another "flag event". This adds more spending flexibility policy for the users who do not wish to rely on a Miner Lockdown a locking effect.
+
+About the idea bundling P2TRv2 with CISA, I would rather suggest a no. In my view, with P2TRv2, we are aiming to address a critical security risk to bitcoin, in the occurence of a CRQC happening in the wild. Nothing of the same significance with CISA, which is a performance and privacy improvement, as far as I'm aware off.
+
+From a cold viewpoint, we should all keep in mind that some top industry hardware wallets are not  able to generate correctly  entropy, and all the post-quantum changes for an eventual P2TRv2 are going to be a novel stack of complexity for them already...
+
+**tl;dr**: i'm +1 with a flexible no-special witness no CISA version of P2TR2 and a latter P2MR based output with a new witness structure and consensus accounting optimization of the whole. let's try to avoid to rock the consensus boat the less we can.
+
+-------------------------
+
