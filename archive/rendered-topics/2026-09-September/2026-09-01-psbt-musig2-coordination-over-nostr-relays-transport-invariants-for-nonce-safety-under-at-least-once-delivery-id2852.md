@@ -61,3 +61,44 @@ ftw2100 | 2026-09-07 08:18:36 UTC | #5
 
 -------------------------
 
+rafaelturon | 2026-09-07 10:16:44 UTC | #6
+
+Short answer: closing is always safe, provided the wallet defines closing as an
+abort. What varies is whether it is free or costly, and the line falls at the
+moment `Sign` runs.
+
+**Before `Sign` (reconnecting, waiting on peer nonces).** No irreversible state
+exists. Closing discards a secnonce that was never consumed. Reopening starts a
+fresh session with a new id and fresh nonces. The cost is a round trip.
+
+**After `Sign` (partial signature emitted).** The secnonce is already gone by
+construction. If the cached partial signature survived the close, the client
+resends it and the session completes. If it did not, the session is dead and
+has to be restarted with fresh nonces. Either way there is no path back to
+signing again inside that session, which is the property that matters.
+
+So the user-facing rule is: you can close the app at any point, you may lose the
+session and have to start over, you cannot lose the key by closing.
+
+The hazard is not closing, it is restoring. On a client that persists session
+state, nonce safety turns entirely on the consumed marker never being rolled
+back. Three ways ordinary users reach exactly that:
+
+- restoring wallet state from a backup or a device snapshot taken mid-session
+- cloud sync of the session store across devices
+- the same signer open on two devices at the same time
+
+Each can resurrect a secnonce the signer has already consumed, which is the one
+failure that costs the key rather than the session. Note this is a UX surface,
+not only an implementation detail: "restore from backup" is a button ordinary
+users press.
+
+The conservative default, and what I would specify: session state is
+device-local, never synced, never restored from a snapshot. A resumable session
+is opt-in behaviour a wallet earns by writing the consumed marker durably before
+`Sign` returns, not after. A wallet that holds the secnonce in memory only, so
+that closing the app is defined to end the session, is safe by construction and
+is the right default for most implementations.
+
+-------------------------
+
