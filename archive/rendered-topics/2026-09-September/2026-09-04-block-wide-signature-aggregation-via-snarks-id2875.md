@@ -1,6 +1,6 @@
 # Block-wide Signature Aggregation via SNARKs
 
-conduition | 2026-09-04 18:17:56 UTC | #1
+conduition | 2026-09-06 21:18:21 UTC | #1
 
 The core idea is simple: PQ sigs are big but cheap to verify. The huge size slows down block propagation and puts bigger storage/bandwidth costs on archival nodes forever. What if we could compress these signatures with a PQ-SNARK? (we do not need zero-knowledge properties here). I've heard this technique called "BitZip".
 
@@ -92,7 +92,8 @@ We can also improve prover performance by changing the hash function used for th
 ## Choice 4: Proof Size?
 
 The smallest hash-based SNARKs are typically 300-500kb in size.
-No one seems to expect them to get any smaller, so I will assume this is the floor.
+~No one seems to expect them to get any smaller, so I will assume this is the floor.~
+I've recently been told by an experienced SNARK researcher at the EF that recursive SNARKs would help reduce this to as low as 140kb, and may someday be reduced below 100kb.
 
 On the other hand, Giacomo Fenzi recently pointed out to me the fact that larger proofs admit faster provers.
 If we are OK with accepting a large SNARK proof size, we may be able to increase prover performance (possibly verifier performance too?).
