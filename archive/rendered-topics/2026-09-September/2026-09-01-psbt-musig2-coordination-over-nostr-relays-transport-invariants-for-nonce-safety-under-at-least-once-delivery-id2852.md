@@ -55,3 +55,9 @@ That three-state explanation makes this much easier to understand. One practical
 
 -------------------------
 
+ftw2100 | 2026-09-07 08:18:36 UTC | #5
+
+(post deleted by author)
+
+-------------------------
+
