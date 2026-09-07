@@ -488,3 +488,19 @@ On @ajtowns point: free entry applies to miner revenue whatever its source, so a
 
 -------------------------
 
+ArmchairCryptologist | 2026-09-07 17:30:26 UTC | #29
+
+Hypothetically, I believe there is a way we could extend the subsidy by several centuries without a hard fork if we have a (semi-)friendly CRQC available to help. Back-of-the-napkin level plan here, but basically, since all funds with exposed public keys would be up for grabs in a future where CRQCs are available, we could preemptively deploy a relatively simple soft fork that adds some specific restrictions along these lines:
+
+* After a certain block height, say 5+ years in the future, P2PK UTXOs can no longer be spent, *except:*
+* If (say) at least 90% of the funds are sent to a *specific* anyone-can-spend address, the remaining funds can be sent to a different (arbitrary) address, as a bribe/reward for the CRQC owner.
+* The specific anyone-can-spend address in question is limited by the following rule by the same soft fork: at most (say) 0.1 BTC can be sent from this address in a single block.
+
+That way, as P2PK UTXOs are drained, most of it is sent to an address whose 0.1 BTC per block allowance should generally be claimed by the miner who mines the block in question. This way, we would effectively have an additional 0.1 BTC/block subsidy without any hard forks and without compromising the total coin supply in any way.
+
+Assuming that most of the \~1.6 million BTC in P2PK UTXOs are reclaimed over time, this would be sufficient to add +0.1 BTC to the subsidy for over ten million blocks - which, at a rate of 144 blocks per day, would last for over 200 years.
+
+The reason I'm limiting this to P2PK funds only is because most of these funds are likely to be irretrievably lost, and because in a post-quantum world there is no information asymmetry we could use to secure these funds for their true owner. I have seen a lot of people argue that these funds should be permanently frozen, but this seems like a better two-birds-with-one-stone alternative for me.
+
+-------------------------
+
