@@ -848,3 +848,85 @@ From a cold viewpoint, we should all keep in mind that some top industry hardwar
 
 -------------------------
 
+conduition | 2026-09-08 19:56:51 UTC | #19
+
+[quote="sipa, post:12, topic:2749"]
+Realistically, I don’t think we should expect CISA to have a bigger impact than that, I think.
+[/quote]
+
+I'm not saying it will. Quantum-resistance is the greater selling point, which is why i think P2MR is still the best option on the table. 
+
+Rather, I'm pointing out that if your goal is to maximize migration for the "long-tail" of retail wallets who don't care about PQ, then it seems like P2TRv2+CISA is the best choice for you: it gives devs a reason to migrate without committing them to any up-front work supporting CISA. Supporting PQC will be far more challenging by comparison.
+
+Without CISA, we might as well do P2MR. Then at least we can correctly claim we have deployed a quantum secure output type, and shame wallets who don't migrate.
+
+With P2TRv2 (minus CISA), we kinda have to forgive wallets that don't migrate, because they may have a legitimate concern that users' funds could be stolen if the EC path isn't disabled in time. _With_ CISA, users can at least plead _"this new address format is cheaper AND has a quantum migration path, you should support it or i'm going elsewhere."_
+
+[quote="sipa, post:12, topic:2749"]
+Just to make sure we’re talking about the same thing. An extension block, as discussed years ago as a scalability proposal, is something very different and much more invasive than what we’re talking about here. It’s a completely new block area, with its own transactions and separate UTXO set, and mechanisms to move coins in both directions between the two areas. It’s completely incompatible with existing wallet designs; you need transfers between the two blocks to pay to an old address. It can be done as a soft-fork, but it’s probably the most invasive thing you can imagine that still qualifies.
+[/quote]
+
+Ah sorry, I think we were talking about the same thing, but I was using the wrong lingo. 
+
+[quote="sipa, post:12, topic:2749"]
+This is where my concern lies mostly.
+
+I feel like P2TRv2 and CISA kind of pull in opposite directions in terms of messaging. The output’s goal is preparing for CRQCs, but then it also adds an optimization that stops working when that actually happens.
+[/quote]
+
+I see it exactly the other way around: this is the biggest advantage of bundling CISA. 
+
+By bundling PQC with an ECC optimization, we can simultaneously please the quantum bears and the quantum bulls in one self-consistent package.
+
+Here's how I'd frame it: _"We present a new output type that's even more efficient than before. Also if CRQCs appear, we have PQC now, but if QC turns out to be a larp, then we can keep using this very efficient address format and nothing much will change."_ 
+
+
+[quote="sipa, post:14, topic:2749"]
+[quote="ajtowns, post:13, topic:2749"]
+would probably require new p2p messages for chunking blocks or something though. Perhaps also a limit on an individual tx to not having more than… 100kB of pq sig data?
+
+[/quote]
+
+I’d argue for a general tx weight limit (which would implicitly limit serialized size up to style=1). Some limit is necessary for verifiable chunking of blocks (send some range of transactions within a block, plus Merkle path for the transaction before and Merkle path for the transaction after) to be guaranteed to be possible. But a tx weight limit might not be a bad thing in general (from a block template optimization perspective).
+[/quote]
+
+FWIW this would implicitly cap the number of inputs in a transaction, depending on signature size, and would mean some large multisignature scripts would be completely unspendable. 
+
+E.g. with 5kb signatures (as proposed in SHRINCS' current stateless parameter set), a 100kb TX size cap would mean less than 20 inputs per transaction.
+
+Measuring in weight units seems more reasonable if you assume the PQ signatures have a discount. But still something to watch out for. 
+
+
+
+[quote="AdamISZ, post:15, topic:2749"]
+I tend to agree with Pieter that it’s somehow slightly ‘off’ to merge CISA into this. CISA, I agree, does not have nearly as big of a selling point in practice as some people want to believe.
+[/quote]
+
+Can you elaborate? Why is it "off"?
+
+
+
+
+[quote="ariard, post:18, topic:2749"]
+About the idea bundling P2TRv2 with CISA, I would rather suggest a no. In my view, with P2TRv2, we are aiming to address a critical security risk to bitcoin, in the occurence of a CRQC happening in the wild. Nothing of the same significance with CISA, which is a performance and privacy improvement, as far as I’m aware off.
+[/quote]
+
+Are you saying that improving security _and_ privacy _and_ performance simultaneously isn't a worthy goal? Killing two birds with one stone seems like a win to me. P2TR did exactly the same thing back in the day: it improved efficiency, privacy, and performance, all in one elegant upgrade package. Should we note strive for the same here?
+
+Also note that P2TRv2 by itself does not address the critical security risk (ECDLP being broken). The critical security risks are only addressed _after_ EC is disabled. Until then, everyone is still vulnerable. At best P2TRv2 (with or without CISA) gives users an option to migrate to a wallet that _might someday_ be quantum-secure, without any hard guarantees.
+
+
+[quote="ariard, post:18, topic:2749"]
+From a cold viewpoint, we should all keep in mind that some top industry hardware wallets are not able to generate correctly entropy, and all the post-quantum changes for an eventual P2TRv2 are going to be a novel stack of complexity for them already…
+[/quote]
+
+As mentioned earlier, @fjahr has updated CISA to be drop-in compatible with legacy wallets. All a wallet has to do to support CISA key-spending (opt-out path) now is to bump their witness version. This is exactly the same level of integration difficulty as stock P2TRv2 (without CISA), so i don't think wallet-side complexity is a valid argument anymore. 
+
+The complexity added by CISA is then mainly on the consensus validation side, which compared to PQ signature validation is minor IMO. @fjahr can correct me here, but the implementation work seems on par with batch verification.
+
+If you'll indulge me in a moment of historical reflection... 
+
+In the taproot upgrade, a significant amount of additional cryptographic design and implementation complexity was devoted to removing just _a single byte_ from every key and signature (x-only arithmetic), so i am rather confused that an up to 25% EC signature space-saving opportunity is now somehow seen as too complicated to be worth it, especially when it helps incentivize migration that - according to @sipa - _needs to happen_ for Bitcoin's future to remain interesting (i disagree but i just want to point out the contradiction here).
+
+-------------------------
+

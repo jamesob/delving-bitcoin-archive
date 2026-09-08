@@ -12,3 +12,9 @@ The report was written with a broader technical audience in mind rather than spe
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-08 16:10:01 UTC | #2
+
+One addition that could help nontechnical readers is a short comparison of what each approach means for the user: can they make partial withdrawals, change the recovery destination, recover after losing a device, and handle unexpectedly high fees? That would make the differences easier to understand without needing to know how each proposal works internally.
+
+-------------------------
+
