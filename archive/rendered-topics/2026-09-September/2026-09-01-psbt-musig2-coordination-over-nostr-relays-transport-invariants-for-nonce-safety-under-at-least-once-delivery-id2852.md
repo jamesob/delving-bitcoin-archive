@@ -55,12 +55,6 @@ That three-state explanation makes this much easier to understand. One practical
 
 -------------------------
 
-ftw2100 | 2026-09-07 08:18:36 UTC | #5
-
-(post deleted by author)
-
--------------------------
-
 rafaelturon | 2026-09-07 10:16:44 UTC | #6
 
 Short answer: closing is always safe, provided the wallet defines closing as an
