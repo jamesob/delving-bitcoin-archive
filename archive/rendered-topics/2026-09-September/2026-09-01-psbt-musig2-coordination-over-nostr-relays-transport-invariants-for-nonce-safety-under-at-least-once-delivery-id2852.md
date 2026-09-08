@@ -96,3 +96,9 @@ is the right default for most implementations.
 
 -------------------------
 
+Anzus_GemWallet | 2026-09-08 15:41:23 UTC | #7
+
+Thanks, that makes the distinction clear. The backup restore and multi-device cases seem especially important because users may assume those actions are always safe. A clear warning when a signing session is active would help prevent that mistake.
+
+-------------------------
+
