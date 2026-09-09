@@ -848,7 +848,7 @@ From a cold viewpoint, we should all keep in mind that some top industry hardwar
 
 -------------------------
 
-conduition | 2026-09-08 19:56:51 UTC | #19
+conduition | 2026-09-08 23:31:43 UTC | #19
 
 [quote="sipa, post:12, topic:2749"]
 Realistically, I don’t think we should expect CISA to have a bigger impact than that, I think.
@@ -911,7 +911,7 @@ Can you elaborate? Why is it "off"?
 About the idea bundling P2TRv2 with CISA, I would rather suggest a no. In my view, with P2TRv2, we are aiming to address a critical security risk to bitcoin, in the occurence of a CRQC happening in the wild. Nothing of the same significance with CISA, which is a performance and privacy improvement, as far as I’m aware off.
 [/quote]
 
-Are you saying that improving security _and_ privacy _and_ performance simultaneously isn't a worthy goal? Killing two birds with one stone seems like a win to me. P2TR did exactly the same thing back in the day: it improved efficiency, privacy, and performance, all in one elegant upgrade package. Should we note strive for the same here?
+Are you saying that improving security _and_ privacy _and_ performance simultaneously isn't a worthy goal? Killing three birds with one stone seems like a win to me. P2TR did exactly the same thing back in the day: it improved efficiency, privacy, and performance, all in one elegant upgrade package. Should we note strive for the same here?
 
 Also note that P2TRv2 by itself does not address the critical security risk (ECDLP being broken). The critical security risks are only addressed _after_ EC is disabled. Until then, everyone is still vulnerable. At best P2TRv2 (with or without CISA) gives users an option to migrate to a wallet that _might someday_ be quantum-secure, without any hard guarantees.
 
@@ -926,7 +926,17 @@ The complexity added by CISA is then mainly on the consensus validation side, wh
 
 If you'll indulge me in a moment of historical reflection... 
 
-In the taproot upgrade, a significant amount of additional cryptographic design and implementation complexity was devoted to removing just _a single byte_ from every key and signature (x-only arithmetic), so i am rather confused that an up to 25% EC signature space-saving opportunity is now somehow seen as too complicated to be worth it, especially when it helps incentivize migration that - according to @sipa - _needs to happen_ for Bitcoin's future to remain interesting (i disagree but i just want to point out the contradiction here).
+In the taproot upgrade, a significant amount of additional cryptographic design and implementation complexity was devoted to removing just _a single byte_ from every key and signature (x-only arithmetic), so i am rather confused that a vastly more significant space saving opportunity is now somehow seen as too complicated to be worth it, especially when it helps incentivize migration that - according to @sipa - _needs to happen_ for Bitcoin's future to remain interesting (i disagree but i just want to point out the contradiction here).
+
+-------------------------
+
+conduition | 2026-09-08 23:31:05 UTC | #20
+
+Realized something else today. We've been talking about P2TRv2 as if it will be an easy upgrade that even lazy wallet devs can manage, or at least that it's easier than supporting P2MR. I'm not so sure that's the case.
+
+Whatever output type we deploy will need to come with new wallet standards for how to derive PQ keys securely - [relevant discussion here](https://groups.google.com/g/bitcoindev/c/5tLKm8RsrZ0/m/WE-R3z85AAAJ). Even if the wallet developer can handle the tiny amount of work to support P2TRv2, they'd also need to completely change how key derivation for P2TRv2 works for Bitcoin, shifting away from BIP32 and towards some entirely new multi-algorithm HD wallet standard that nobody has even defined yet. Wallets will also need to implement the PQ key generation algorithms, and probably test that against static test vectors.
+
+So I should correct what I said earlier: Simply "bumping the witness version" is insufficient even for P2TRv2, with or without CISA. A lot more work is needed for any wallet that actually cares about PQ security.
 
 -------------------------
 
