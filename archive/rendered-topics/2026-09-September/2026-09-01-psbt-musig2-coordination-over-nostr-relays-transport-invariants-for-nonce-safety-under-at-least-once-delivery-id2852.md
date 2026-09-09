@@ -102,3 +102,31 @@ Thanks, that makes the distinction clear. The backup restore and multi-device ca
 
 -------------------------
 
+rafaelturon | 2026-09-09 06:23:23 UTC | #8
+
+Agreed that a warning helps, with one caveat: it is the weakest of the three
+layers and it fails in the case that matters most. A restore is often performed
+on a new or wiped device after a loss, where there is no live session and no UI
+state to warn about. The wallet cannot see that the state it is restoring
+contains a secnonce some earlier instance already consumed.
+
+So the warning is worth having, but as the human-facing layer on top of two
+structural ones:
+
+1. Keep the session store out of backup and sync scope entirely. On iOS that
+   means excluding it from iCloud backup, on Android setting the store outside
+   `allowBackup`. A state file that is never captured cannot be restored.
+2. Bind session identity to a device-local key, so a copy that does reach
+   another device produces messages no peer will accept under that session id.
+   The resurrected copy then fails closed: unrecognized session, abort, start
+   fresh with new nonces.
+3. Warn on the live cases a user can actually act on: closing, exporting or
+   syncing while a session is open.
+
+With 1 and 2 in place, a missed warning costs a session. Without them, a missed
+warning can cost a key, and no wording is reliable enough to carry that weight
+alone. I will write these as normative requirements rather than guidance, since
+the class of failure does not tolerate implementer discretion.
+
+-------------------------
+
