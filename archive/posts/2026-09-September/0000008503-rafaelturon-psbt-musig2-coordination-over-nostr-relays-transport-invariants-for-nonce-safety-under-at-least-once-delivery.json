@@ -13,9 +13,9 @@
   "reply_to_post_number": 7,
   "quote_count": 0,
   "incoming_link_count": 0,
-  "reads": 2,
-  "readers_count": 1,
-  "score": 0.4,
+  "reads": 6,
+  "readers_count": 5,
+  "score": 16.2,
   "yours": false,
   "topic_id": 2852,
   "topic_slug": "psbt-musig2-coordination-over-nostr-relays-transport-invariants-for-nonce-safety-under-at-least-once-delivery",
@@ -45,7 +45,12 @@
   },
   "bookmarked": false,
   "raw": "Agreed that a warning helps, with one caveat: it is the weakest of the three\nlayers and it fails in the case that matters most. A restore is often performed\non a new or wiped device after a loss, where there is no live session and no UI\nstate to warn about. The wallet cannot see that the state it is restoring\ncontains a secnonce some earlier instance already consumed.\n\nSo the warning is worth having, but as the human-facing layer on top of two\nstructural ones:\n\n1. Keep the session store out of backup and sync scope entirely. On iOS that\n   means excluding it from iCloud backup, on Android setting the store outside\n   `allowBackup`. A state file that is never captured cannot be restored.\n2. Bind session identity to a device-local key, so a copy that does reach\n   another device produces messages no peer will accept under that session id.\n   The resurrected copy then fails closed: unrecognized session, abort, start\n   fresh with new nonces.\n3. Warn on the live cases a user can actually act on: closing, exporting or\n   syncing while a session is open.\n\nWith 1 and 2 in place, a missed warning costs a session. Without them, a missed\nwarning can cost a key, and no wording is reliable enough to carry that weight\nalone. I will write these as normative requirements rather than guidance, since\nthe class of failure does not tolerate implementer discretion.",
-  "actions_summary": [],
+  "actions_summary": [
+    {
+      "id": 2,
+      "count": 1
+    }
+  ],
   "moderator": false,
   "admin": false,
   "staff": false,
@@ -60,9 +65,15 @@
   "excerpt": "Agreed that a warning helps, with one caveat: it is the weakest of the three\nlayers and it fails in the case that matters most. A restore is often performed\non a new or wiped device after a loss, where there is no live session and no UI\nstate to warn about. The wallet cannot see that the state it is&hellip;",
   "truncated": true,
   "post_url": "/t/psbt-musig2-coordination-over-nostr-relays-transport-invariants-for-nonce-safety-under-at-least-once-delivery/2852/8",
-  "reactions": [],
+  "reactions": [
+    {
+      "id": "+1",
+      "type": "emoji",
+      "count": 1
+    }
+  ],
   "current_user_reaction": null,
-  "reaction_users_count": 0,
+  "reaction_users_count": 1,
   "current_user_used_main_reaction": false,
   "can_accept_answer": false,
   "can_unaccept_answer": false,
