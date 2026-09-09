@@ -152,3 +152,35 @@ I believe the only truly important thing would be that recipients should be awar
 
 -------------------------
 
+sjors | 2026-09-09 16:01:25 UTC | #11
+
+I prototyped a slightly different approach: https://github.com/Sjors/bitcoin/pull/128
+
+It requires a new segwit version, which interprets an annex starting with a block height as a commitment. The signature then commits to the block hash (implicit). Such transactions need only 1.75 vbyte extra.
+
+The committed height must be at least 100 blocks ago, so reorg-safety is equivalent to that for coinbase maturity, there's no free relay issue and no short-reorg bribe risk.
+
+Since the mechanism only needs to work on one side, the worst case waiting period before people can split coins is two days, when hash power is evenly split.
+
+The implicit commitment not only saves space, it makes it difficult for the hostile side to relax this rule. They'd need the headers from the other side.
+
+A new SegWit version means it should ride along with another proposal that needs one, like BIP 460 CISA. Alternatively, BIP360 or a variant with key-path which disables it later, like P2TRv2. This is actually a nice fit; since controversy around disabling quantum-unsafe spending path disabling is expected. Although avoiding a split is orders of magnitude more preferable, we can at least design a safer fork mechanism.
+
+Meanwhile, frivolous hard-forks (i.e. ignored by majority hash power and economic nodes) will continue to happen. Being able to "play" with those creates a small incentive to move to quantum-safe output types early, especially for those who are *not* worried about CRQC.
+
+-------------------------
+
+ajtowns | 2026-09-09 16:41:25 UTC | #12
+
+You don't need a new segwit version to do that, just a new public key encoding for taproot CHECKSIG, similar to the BIP 118 APO approach.
+
+-------------------------
+
+sjors | 2026-09-09 18:32:25 UTC | #13
+
+I considered that, but it feels like a hack (and it's just a prototype, so I can afford some complexity). There's no new key type or even key encoding introduced, and *any* future new key type should include the same replay-protection.
+
+Also, IIUC, that approach won't work with key-path spends.
+
+-------------------------
+

@@ -404,3 +404,23 @@ https://mempool.space/signet/tx/080af3e3b86e10f1455719281f2727c4410f2480a8541d50
 
 -------------------------
 
+bitryonix | 2026-09-09 18:34:38 UTC | #33
+
+Hi all,
+
+Pursuant to the discussions about standardizing an unspendable NUMS key for an script path only taproot policy https://delvingbitcoin.org/t/unspendable-keys-in-descriptors/304 and https://github.com/bitcoin/bips/pull/1746 ; we undertook the issue with these guiding principles:
+
+1. We don't police adherence to other bips except when they directly affect the issue at hand.
+2. We use the already in place mechanisms in other bips.
+3. We don't claim semantic canonicalization of the script and only normalize the policy to some opinionated extent.
+
+The gist is, we define `_`​ as a placeholder for the unspendable NUMS key. We sort keys inside musig(...) and sortedmulti_a. We sort sibling pairs of the tree. If there is multipath extension, we add the same length tuple to the `_`​ so that we don't fall to reuse. Then we pull the keys out and us `@i`​ placeholders and hash the whole thing consisting of the normalized descriptor and the keys. That would be the chain code for the `H`​ defined in BIP 341.
+
+The details can be found here:
+
+https://github.com/bitryonix/bips/blob/b636b8ec097ce2deab9eeab110ecc24a0428f236/bip-xxxx-unspendable-internal-keys.mediawiki
+
+Best,
+
+-------------------------
+
