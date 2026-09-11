@@ -65,3 +65,42 @@ From a wallet user’s point of view, each level may be more useful if it also h
 
 -------------------------
 
+duncan0k | 2026-09-11 14:23:53 UTC | #3
+
+Apologies for the slow reply — this got lost behind the mailing-list thread.
+
+This is a distinction I should have drawn in the draft and didn't. I excluded
+*risk scoring* on purpose — weighing balance, dormancy and CRQC timelines is
+subjective and not chain-observable. But a *recommended action* is different:
+each level implies one almost deterministically, and you're right that leaving
+it unstated just moves the divergence from "which coins are exposed" to "what
+should I do about it".
+
+What I think each level implies, as a floor:
+
+- **EXPOSED_AT_REST** — move to a non-exposed output type as soon as one you
+  trust exists; until then, stop adding to it.
+- **EXPOSED_ON_SPEND** — nothing needed at rest; when you do spend, sweep the
+  whole balance and never send change or new funds back, since the first spend
+  makes it AT_REST.
+- **NOT_EXPOSED** — nothing.
+- **UNDETERMINED** — treat as AT_REST until your software can classify it.
+
+The awkward part is "when a safer option is available": before something like
+BIP 360 activates, the only safer option is fresh-key hygiene; after, there's
+an actual destination. So the action text can't hardcode a target type.
+
+Proposal for v0.4.0: an informative appendix mapping each level to a
+SHOULD-level minimum action, with wallets free to say more but not to
+contradict it. That standardizes the floor without dragging the spec into
+scoring. In the scanner I run, the four levels already map to exactly four
+advice strings, and that's held up in production — so a deterministic mapping
+seems workable.
+
+From a wallet's side: is that granularity useful, and would you want the
+action as a machine-readable key alongside the level, or is prose enough?
+
+(v0.3.0 is up, addressing the P2TR points raised on the mailing list.)
+
+-------------------------
+

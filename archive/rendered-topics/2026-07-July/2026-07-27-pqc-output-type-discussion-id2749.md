@@ -964,3 +964,91 @@ All my humble viewpoint only.
 
 -------------------------
 
+sipa | 2026-09-11 14:59:20 UTC | #22
+
+[quote="conduition, post:19, topic:2749"]
+Rather, I’m pointing out that if your goal is to maximize migration for the “long-tail” of retail wallets who don’t care about PQ, then it seems like P2TRv2+CISA is the best choice for you: it gives devs a reason to migrate without committing them to any up-front work supporting CISA. Supporting PQC will be far more challenging by comparison.
+[/quote]
+
+I don't believe there is a significant synergy here. I think wallet providers/services who are keeping up with technological advances will adopt PQC output types without or without CISA. Those who don't, which will tend to be those with users who don't care either, are the ones we have to convince. Unless we see very significant fee rate increases, I think they're mostly immune to fee arguments, and won't be swayed by CISA. (Perceived) complexity of adoption may hurt, however, though that is admittedly a weak point.
+
+My main view is simply that CISA won't help adoption, and is thus not worth the additional complexity of consensus changes. I don't think it significantly worsens things, and I'm not against it, but I think it's unnecessary and a distraction.
+
+[quote="conduition, post:19, topic:2749"]
+Without CISA, we might as well do P2MR. ... a quantum secure output type ...
+[/quote]
+
+Neither P2TRv2 nor P2MR are a "quantum secure output type" in an absolute sense. As I [pointed out before](https://delvingbitcoin.org/t/pqc-output-type-discussion/2749/2), *all* continued use of ECC has risks, and relies on an assumption that some entity will make a correct call about when to disable it. The only distinction between the two is that with P2TRv2, that does not include the owner(s) themselves. Given the arduous restrictions (no hardware wallets as we know them, no xpub/description sharing, ...), I believe this isn't a practical possibility for many if not most users to exercise that ability even with P2MR. Furthermore, I believe that the more interesting CRQC survival scenarios inevitably rely on large-scale migration and coordinated disabling in time anyway.
+
+I understand the psychological appeal of wanting an output type that's categorically not subject to ECC, or at least gives users that option, and lack thereof may cause some to panic. Having a separate, and possibly later-dated, separate P2QR or P2MR output type (with new witness styles etc) can fill that need. But for the long tail, my belief is that we ought to make something that is as smooth as possible to adopt, both in terms of technology (for developers/companies to provide) and not costing more (so users don't refuse).
+
+[quote="conduition, post:19, topic:2749"]
+Then at least we can correctly claim we have deployed a quantum secure output type, and shame wallets who don’t migrate.
+[/quote]
+
+I really very strongly disagree with this line of thinking. **Our goal as protocol designers is not to be able to claim we did enough by providing people a good option. Our goal is designing something people will actually use correctly.**
+
+I believe that it is a practical impossibility for many software and users to adopt workflows in which P2MR provides quantum-resistance, due to ingrained use of public key sharing. Claiming that it does provide that is at best ignoring reality to make your job easier, and at worst actively misleading people by providing a false sense of security. Shaming them won't change that reality.
+
+[quote="conduition, post:19, topic:2749"]
+With P2TRv2 (minus CISA), we kinda have to forgive wallets that don’t migrate, because they may have a legitimate concern that users’ funds could be stolen if the EC path isn’t disabled in time. *With* CISA, users can at least plead *“this new address format is cheaper AND has a quantum migration path, you should support it or i’m going elsewhere.”*
+[/quote]
+
+If they have that concern (whether justified or not), they shouldn't use P2TRv2 at all, with or without CISA. In fact, if one has that concern they could be even more strongly against combining with CISA, as they shouldn't want the extra incentive it may provide to others to adopt an output type that they perceive as risky.
+
+I won't deny that such users/developers likely exist, but I think for that the better option is providing a separate P2MR or P2QR type at a later stage. Not giving up on the P2TRv2 advantages that may sway much less sophisticated wallets/users to adopt.
+
+[quote="conduition, post:19, topic:2749"]
+Ah sorry, I think we were talking about the same thing, but I was using the wrong lingo.
+[/quote]
+
+:+1: 
+
+[quote="conduition, post:19, topic:2749"]
+I see it exactly the other way around: this is the biggest advantage of bundling CISA.
+
+By bundling PQC with an ECC optimization, we can simultaneously please the quantum bears and the quantum bulls in one self-consistent package.
+[/quote]
+
+Yeah, that's fair. Though it has a disadvantage too: people may choose to adopt it in an "unprepared" way (without PQC path) because the output type has advantages beyond quantum protection. I don't think that's very likely unless we see a significant and persistent feerate spike, but it would be a pretty bad outcome, as it could lead to arguing against an ECC-disabling softfork, against deploying Miner Lockdown, or for disabling Tripwire.
+
+[quote="conduition, post:19, topic:2749"]
+FWIW this would implicitly cap the number of inputs in a transaction, depending on signature size, and would mean some large multisignature scripts would be completely unspendable.
+[/quote]
+
+The discussion you're responding to here was in context of a new witness type which introduces a new discount. So the weight limit would be on the newly discounted cost.
+
+[quote="conduition, post:19, topic:2749"]
+The complexity added by CISA is then mainly on the consensus validation side, which compared to PQ signature validation is minor IMO. @fjahr can correct me here, but the implementation work seems on par with batch verification.
+[/quote]
+
+The implementation is probably the easiest aspect of a consensus change. It is an aspect though, and I agree that CISA probably compares relatively favorably to any PQC addition.
+
+[quote="conduition, post:19, topic:2749"]
+In the taproot upgrade, a significant amount of additional cryptographic design and implementation complexity was devoted to removing just *a single byte* from every key and signature (x-only arithmetic), so i am rather confused that a vastly more significant space saving opportunity is now somehow seen as too complicated to be worth it, especially when it helps incentivize migration that - according to @sipa - *needs to happen* for Bitcoin’s future to remain interesting (i disagree but i just want to point out the contradiction here).
+[/quote]
+
+I understand the apparent contradiction, but I don't think the situation is comparable. That byte was in the *transaction output*, paid by the sender, not by the wallet adopting the change. We needed to avoid a situation where **non-Taproot** wallets would refuse to send to P2TR because it's more expensive than all other existing address-enabled output types at the time. P2TR needed a new address type ([BIP350](https://github.com/bitcoin/bips/blob/620871a7a442e276a058b487cd8743775fb499a4/bip-0350.mediawiki)) to be accepted by *senders* before real P2TR adoption could even begin. Getting rid of the extra byte made it as expensive to send to as P2WSH, which was already widely supported.
+
+This is also in line with my argument against (just) P2MR: we shouldn't give a reason for people to refuse upgrading because it makes things more expensive than they already are. I truly believe there is an asymmetry here: making things more expensive can have a stronger discouraging effect than making things cheaper has an encouraging effect. This is because there are multiple ecosystem entities involved in upgrades that all need to be convinced. It suffices for one to care about fees to refuse, while adoption requires convincing all of them.
+
+Taproot was also not time sensitive in its adoption. I won't deny that I would certainly have wished for faster adoption than we see today, but for getting Bitcoin quantum-ready I think we hope for a faster rollout.
+
+That said, in retrospect I agree the complexity of saving that one byte was probably not worth it.
+
+[quote="conduition, post:20, topic:2749"]
+Even if the wallet developer can handle the tiny amount of work to support P2TRv2, they’d also need to completely change how key derivation for P2TRv2 works for Bitcoin, shifting away from BIP32 and towards some entirely new multi-algorithm HD wallet standard that nobody has even defined yet.
+[/quote]
+
+I imagine completely static per-wallet PQC keys, with no key derivation. Wallet descriptors move to store xpubs + static stateless PQC pubkeys (one per wallet/user/device), which is compatible with all of today's use cases I can imagine. For very simple non-sharing non-HWW single-party wallets, an equivalent for hardened derivation is possible, which would be compatible (but still icky) with stateful signing. Longer term it may be possible to move to sharing complete sets of future PQC pubkeys, but I don't think that's for everything, and probably not realistic in the short term.
+
+The privacy implications here are pretty bad after ECC disabling, but I think it's the best we can reasonably see adopted at scale. And the goal is just avoiding disaster. Long-term, we'll need PQC that's compatible with homomorphic derivation, or *so* much time that the ecosystem moves on to entirely different approaches.
+
+[quote="conduition, post:20, topic:2749"]
+So I should correct what I said earlier: Simply “bumping the witness version” is insufficient even for P2TRv2, with or without CISA. A lot more work is needed for any wallet that actually cares about PQ security.
+[/quote]
+
+Absolutely. Any change requires extensive design and testing, even if it's minor. But CISA does add more to it, a little bit without actual aggregation, and possibly quite a lot with aggregation (because signing is no longer per-txin thing, which may need significant redesigns).
+
+-------------------------
+
