@@ -1052,7 +1052,7 @@ Absolutely. Any change requires extensive design and testing, even if it's minor
 
 -------------------------
 
-sjors | 2026-09-11 15:22:20 UTC | #23
+sjors | 2026-09-11 15:23:50 UTC | #23
 
 [quote="sipa, post:2, topic:2749"]
 * No P2MR or P2TRH. \[...\] Those who are willing to adopt those clearly do not need “ease of adoption”, can thus use P2MR (see below) instead.
@@ -1074,7 +1074,7 @@ A tripwire is probably the best choice. Although it can be bikeshed, it can't be
 
 Finally I'd like to suggest we consider replay protection, from the start.
 
-Any activation earlier than the tripwire, or some other deterministic mechanism, is going to be controversial. And it seems inevitable that some group people will emphatically want to free existing coins, while another emphatically not. If such a fork is unavoidable, adding a (simple) replay-protection mechanism seems reasonable.
+Any activation earlier than the tripwire, or some other deterministic mechanism, is going to be controversial. And it seems inevitable that some group people will emphatically want to freeze existing coins (<v2), while another group emphatically not, and others ambivalent. If such a fork is unavoidable, adding a (simple) replay-protection mechanism seems reasonable.
 
 The reason to do it from the start, is because hitch-hiking with a new SegWit version offers the largest possible design space. Second shameless plug, see e.g.  https://delvingbitcoin.org/t/universal-opt-in-replay-protection/2792/11?u=sjors .
 
