@@ -964,7 +964,7 @@ All my humble viewpoint only.
 
 -------------------------
 
-sipa | 2026-09-11 14:59:20 UTC | #22
+sipa | 2026-09-11 18:38:13 UTC | #22
 
 [quote="conduition, post:19, topic:2749"]
 Rather, I’m pointing out that if your goal is to maximize migration for the “long-tail” of retail wallets who don’t care about PQ, then it seems like P2TRv2+CISA is the best choice for you: it gives devs a reason to migrate without committing them to any up-front work supporting CISA. Supporting PQC will be far more challenging by comparison.
@@ -986,7 +986,7 @@ I understand the psychological appeal of wanting an output type that's categoric
 Then at least we can correctly claim we have deployed a quantum secure output type, and shame wallets who don’t migrate.
 [/quote]
 
-I really very strongly disagree with this line of thinking. **Our goal as protocol designers is not to be able to claim we did enough by providing people a good option. Our goal is designing something people will actually use correctly.**
+I really very strongly disagree with this line of thinking. **Our goal as protocol designers is not to be able to claim we did enough by providing people a good option. Our goal is trying to design something people will actually use correctly.**
 
 I believe that it is a practical impossibility for many software and users to adopt workflows in which P2MR provides quantum-resistance, due to ingrained use of public key sharing. Claiming that it does provide that is at best ignoring reality to make your job easier, and at worst actively misleading people by providing a false sense of security. Shaming them won't change that reality.
 
@@ -1040,7 +1040,7 @@ That said, in retrospect I agree the complexity of saving that one byte was prob
 Even if the wallet developer can handle the tiny amount of work to support P2TRv2, they’d also need to completely change how key derivation for P2TRv2 works for Bitcoin, shifting away from BIP32 and towards some entirely new multi-algorithm HD wallet standard that nobody has even defined yet.
 [/quote]
 
-I imagine completely static per-wallet PQC keys, with no key derivation. Wallet descriptors move to store xpubs + static stateless PQC pubkeys (one per wallet/user/device), which is compatible with all of today's use cases I can imagine. For very simple non-sharing non-HWW single-party wallets, an equivalent for hardened derivation is possible, which would be compatible (but still icky) with stateful signing. Longer term it may be possible to move to sharing complete sets of future PQC pubkeys, but I don't think that's for everything, and probably not realistic in the short term.
+I imagine completely static per-wallet PQC keys, with no key derivation. Wallet descriptors move to store xpubs + static stateless PQC pubkeys or pubkey hashes (one per wallet/user/device), which is compatible with all of today's use cases I can imagine. For very simple non-sharing non-HWW single-party wallets, an equivalent for hardened derivation is possible, which would be compatible (but still icky) with stateful signing. Longer term it may be possible to move to sharing complete sets of future PQC pubkeys, but I don't think that's for everything, and probably not realistic in the short term.
 
 The privacy implications here are pretty bad after ECC disabling, but I think it's the best we can reasonably see adopted at scale. And the goal is just avoiding disaster. Long-term, we'll need PQC that's compatible with homomorphic derivation, or *so* much time that the ecosystem moves on to entirely different approaches.
 
@@ -1082,16 +1082,58 @@ Sorry for the wish list :slight_smile:
 
 -------------------------
 
-sjors | 2026-09-11 15:54:26 UTC | #24
+sjors | 2026-09-11 16:49:14 UTC | #24
 
 [quote="sipa, post:8, topic:2749"]
 In short, I think adding CISA to the P2TRv2 bundle will increase the time it takes for P2TRv2 to become available, and that will likely reduce adoption before Q-day by the long tail more than fee incentives will increase it.
 
 [/quote]
 
-I though I had a big wish list :slight_smile: 
+I thought I had a big wish list :slight_smile:
 
 Is it possible to design a v2 SegWit such that CISA can soft-forked into it later, rather than needing yet another version bump? From a user-experience point of view, once their wallet adopts CISA, it can gradually migrate coins over to it, in a way that's not noticeable / distracting. And of course the anonymity set doesn't need to splinter again.
+
+*Update*: we could allocate 1 bit of the public key to mark it anyone-can-spend, with the later CISA fork ~~using that as the opt-in~~ all wallets set it by default (regardless of support). This "just" means extending the existing x-only grinding mess by one more bit. *Or,* we could *add* a byte, get rid of x-only keys, and use the remaining 7 bits as flags. Neither helps with the anonymity set ~~, and moving forward such a flag would likely reveal wallet capability.~~
+
+-------------------------
+
+sipa | 2026-09-11 16:58:55 UTC | #25
+
+[quote="sjors, post:23, topic:2749"]
+Is the first “P2MR” a typo? Or did you mean not in the same deployment, i.e. “not yet”? (I assume so, based on the rest of your post)
+[/quote]
+
+It's about why the first output type (the P2TRv2 one) does not use P2MR or P2TRH. The later output type can use P2MR or P2QR.
+
+[quote="sjors, post:23, topic:2749"]
+I think there should be at least one in the initial deployment, to set a clear expectation.
+
+A tripwire is probably the best choice.
+[/quote]
+
+I agree.
+
+[quote="sjors, post:24, topic:2749"]
+Is it possible to design a v2 SegWit such that CISA can soft-forked into it later, rather than needing yet another version bump?
+[/quote]
+
+No. If it needs to cover key path spends (which is the most interesting application), it needs a separate output type.
+
+[quote="sjors, post:24, topic:2749"]
+*Update*: we could allocate 1 bit of the public key to mark it anyone-can-spend,
+[/quote]
+
+That makes it, for all intents and purposes, a separate output type. Just one that shares the same witness version.
+
+-------------------------
+
+sjors | 2026-09-11 17:46:32 UTC | #26
+
+[quote="sipa, post:25, topic:2749"]
+That makes it, for all intents and purposes, a separate output type. Just one that shares the same witness version.
+[/quote]
+
+Indeed. It boils down to a way to add segwit subversions. Either at the expense of making every output 1 byte larger, or extra complexity due to having to grind an extra bit. Neither is hugely appealing.
 
 -------------------------
 
