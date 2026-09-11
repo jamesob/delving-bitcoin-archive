@@ -1082,3 +1082,16 @@ Sorry for the wish list :slight_smile:
 
 -------------------------
 
+sjors | 2026-09-11 15:54:26 UTC | #24
+
+[quote="sipa, post:8, topic:2749"]
+In short, I think adding CISA to the P2TRv2 bundle will increase the time it takes for P2TRv2 to become available, and that will likely reduce adoption before Q-day by the long tail more than fee incentives will increase it.
+
+[/quote]
+
+I though I had a big wish list :slight_smile: 
+
+Is it possible to design a v2 SegWit such that CISA can soft-forked into it later, rather than needing yet another version bump? From a user-experience point of view, once their wallet adopts CISA, it can gradually migrate coins over to it, in a way that's not noticeable / distracting. And of course the anonymity set doesn't need to splinter again.
+
+-------------------------
+
