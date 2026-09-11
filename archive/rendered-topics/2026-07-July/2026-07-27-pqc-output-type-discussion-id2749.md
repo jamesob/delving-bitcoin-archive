@@ -940,3 +940,27 @@ So I should correct what I said earlier: Simply "bumping the witness version" is
 
 -------------------------
 
+ariard | 2026-09-11 01:01:28 UTC | #21
+
+Hello Conduition,
+
+I fully agree with you that improving security and privacy and performance are worthy goals, though we're living in the mere world of engineering where there is never a free lunch. Where I can be skeptical, it's on the wallet and node complexity changes required to support CISA in itself.
+
+More after that, there is a confusion to clarify first. Thanks to point that P2TRv2 does not address the critical security risk. A cursory read of the conversation made me first thinking that P2TRv2 \*would\* include support for a post-quantum scheme, be it sphincs, falcon or whatever, and that we we mere discussing the overall approach. So yes with this information in mind, a \*naked\* P2TRv2 sounds less interesting.
+
+Now, even if we go to assume a \*naked\* P2TRv2, it does sounds to me technically possible to introduce discount for a future post-quantum scheme by introducing a novel witness scheme at the same time. E.g a BIP141 extension structure where the novel witness weight unit would be discounted from the 4 MB limit (I would have to verify the code paths in \`CheckBlock()\` thought at first we might be able to do so).
+
+That's a concurrent approach of CISA if the end goal is to incentive migration as much as we can, as in my view you're making the point to justify that we bundle P2TRv2 + CISA. Now, about CISA while I'm supportive of the idea, the part where it's unclear and where I'm a bit skeptical is on the half-aggregastion and full aggregation flow.
+
+The BIPs say nothing about how it would be done in practice, if it would be done by the wallets only, with not special support from network full-node, or that for half-aggregation we would have magic mempool logic to enable this. This approach has been done naively in the past on some cryptocurrencies e.g Mimblewimble and it was the [source of subtle privacy deanonymization attacks](https://medium.com/dragonfly-research/breaking-mimblewimble-privacy-model-84bcd67bfe52) (remember discussing this one with Gleb Naumenko, and if we could have the same risk for bitcoin tx-relay network). If it's wallet only for how the concrete aggregation protocol would play off, yes that's another conversation.
+
+More generally, in my position there is a bit off of soft-fork pessismism. If we go to take changes that are argued for fixing security issues, post quantum ones are far to be the only ones (e.g BIP 54) and realistically for post quantum changes we might need multiple soft fork changes spread on multiple years, to make the Bitcoin network as robust as we can.
+
+Even if I see your point in the fact that CISA might incentivize the migration, the change in itself is for pure privacy and performance reason, and in my subjective scale of value, I'm not ranking it as importantly than soft-fork changes justified for network security. Beyond, we should still strive for a high review standard for any consensus change and have a lot of people partaking to the design and review / testing process of any change. Can we say we have more skilled eyes that have partaked in BIP 54 design and implementation process than we had for Taproot / Schnorr.
+
+In my impression of someone who have seen the two I'm not sure, and in pure terms of social dynamics one we should keep the technical surface as much reduced as we can for post-quantum change. Somehow, it's one the first consensus change in modern Bitcoin history, where the constraints are coming from a timeline which is "exogeneous" to us, than purely "endogenous" to the Bitcoin community.
+
+All my humble viewpoint only.
+
+-------------------------
+
